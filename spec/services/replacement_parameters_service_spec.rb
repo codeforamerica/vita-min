@@ -46,11 +46,18 @@ describe ReplacementParametersService do
     end
   end
 
-  context "<<Documents.UploadLink>>" do
-    let(:body) { "Upload here: <<Documents.UploadLink>>" }
+  context "<<Client.LoginLink>>" do
+    let(:body) { "Log in here: <<Client.LoginLink>>" }
 
-    it "replaces with the clients intake upload link" do
-      expect(subject.process).to eq "Upload here: http://test.host/en/portal/login"
+    it "replaces with the login link" do
+      expect(subject.process).to eq "Log in here: http://test.host/en/portal/login"
+    end
+
+    context "locale spanish" do
+      let(:locale) { "es" }
+      it "replaces with the login link" do
+        expect(subject.process).to eq "Log in here: http://test.host/es/portal/login"
+      end
     end
   end
 

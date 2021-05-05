@@ -287,7 +287,7 @@ es:
 
         Para continuar presentando sus impuestos, necesitamos que nos envíe:
         <<Documents.List>>
-        Sube tus documentos de forma segura por <<Documents.UploadLink>>
+        Inicie sesión para cargar los documentos de forma segura: <<Client.LoginLink>>
 
         Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
 
