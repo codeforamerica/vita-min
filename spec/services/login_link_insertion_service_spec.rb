@@ -19,7 +19,7 @@ RSpec.describe LoginLinkInsertionService do
           result = LoginLinkInsertionService.insert_links(contact_record)
 
           expect(ClientLoginsService).to have_received(:issue_text_message_token).with(contact_record.to_phone_number)
-          expect(result).to eq "something http://test.host/es/portal/login/raw_token"
+          expect(result).to eq "something http://test.host/es/portal/login"
         end
       end
 
@@ -30,7 +30,7 @@ RSpec.describe LoginLinkInsertionService do
           result = LoginLinkInsertionService.insert_links(contact_record)
 
           expect(ClientLoginsService).to have_received(:issue_email_token).with(contact_record.to)
-          expect(result).to eq "something http://test.host/es/portal/login/raw_token"
+          expect(result).to eq "something http://test.host/es/portal/login"
         end
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe LoginLinkInsertionService do
           LoginLinkInsertionService.insert_links(build(:outgoing_email, client: client, body: s))
         end
 
-        expect(outputs.uniq).to eq ["http://test.host/es/portal/login/raw_token"]
+        expect(outputs.uniq).to eq ["http://test.host/es/portal/login"]
       end
     end
 
