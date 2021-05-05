@@ -31,3 +31,6 @@ set the `MAINTENANCE_MODE` variable to a non-blank value. This could result in
 our Twilio/Mailgun/etc. web hooks being marked as succeeded even though we did
 not write them to our database, so use with care.
 
+### idceas
+
+- set web scale to 0
