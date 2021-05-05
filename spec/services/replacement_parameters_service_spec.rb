@@ -4,12 +4,10 @@ describe ReplacementParametersService do
   let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name"), tax_returns: [create(:tax_return)] }
   let(:user) { create :user, name: "Preparer Name" }
   let(:locale) { "en" }
-  let(:fake_login_link) { "http://fakeloginlink.fake" }
   subject { ReplacementParametersService.new(body: body, client: client, preparer: user, tax_return: client.tax_returns.first, locale: locale) }
 
   before do
     allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :voice_phone_number).and_return "+13444444444"
-    allow(client).to receive(:generate_login_link).and_return fake_login_link
   end
 
   context "<<Client.PreferredName>>" do
@@ -50,12 +48,9 @@ describe ReplacementParametersService do
 
   context "<<Documents.UploadLink>>" do
     let(:body) { "Upload here: <<Documents.UploadLink>>" }
-    before do
-      allow(client.intake).to receive(:requested_docs_token_link).and_return "https://example.com/my-token-link"
-    end
 
     it "replaces with the clients intake upload link" do
-      expect(subject.process).to eq "Upload here: #{client.intake.requested_docs_token_link}"
+      expect(subject.process).to eq "Upload here: http://test.host/en/portal/login"
     end
   end
 
@@ -119,7 +114,6 @@ describe ReplacementParametersService do
   context "translation strings with replacement params" do
     before do
       allow(client.intake).to receive(:relevant_document_types).and_return [DocumentTypes::Identity, DocumentTypes::Selfie, DocumentTypes::SsnItin, DocumentTypes::Other]
-      allow(client.intake).to receive(:requested_docs_token_link).and_return "https://example.com/my-token-link"
     end
 
     context "needs_more_information" do
@@ -131,7 +125,7 @@ describe ReplacementParametersService do
           expect(subject.process).to include "- Photo of your ID"
           expect(subject.process).to include "- Photo of yourself, holding your ID near your chin (for identity verification)"
           expect(subject.process).to include "- Photo of your SSN or ITIN cards for yourself, spouse, and dependents, if applicable"
-          expect(subject.process).to include "https://example.com/my-token-link"
+          expect(subject.process).to include "http://test.host/en/portal/login"
           expect(subject.process).to include user.first_name
         end
       end
@@ -142,7 +136,7 @@ describe ReplacementParametersService do
 
         it "replaces the replacement strings in the template" do
           expect(subject.process).to include client.preferred_name
-          expect(subject.process).to include "https://example.com/my-token-link"
+          expect(subject.process).to include "http://test.host/es/portal/login"
           expect(subject.process).to include "- Identificación con foto"
           expect(subject.process).to include "- Foto de usted sosteniendo su identificación con la foto cerca de su barbilla"
           expect(subject.process).to include "- Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes"

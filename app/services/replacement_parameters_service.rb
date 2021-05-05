@@ -1,6 +1,5 @@
 class ReplacementParametersService
   attr_accessor :body, :client, :preparer_user, :locale, :tax_return
-
   def initialize(body:, client:, preparer: nil, tax_return: nil, locale: "en")
     @body = body
     @client = client
@@ -30,7 +29,7 @@ class ReplacementParametersService
         "Client.PreferredName": client&.preferred_name&.titleize,
         "Preparer.FirstName": preparer_first_name,
         "Documents.List": documents_list,
-        "Documents.UploadLink": client.intake.requested_docs_token_link,
+        "Documents.UploadLink": Rails.application.routes.url_helpers.new_portal_client_login_url(locale: @locale),
         "Client.YouOrMaybeYourSpouse": you_or_your,
         "GetYourRefund.PhoneNumber": OutboundCall.twilio_number,
         "TaxReturn.TaxYear": tax_return&.year
