@@ -55,7 +55,7 @@
             <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
           </th>
           <th scope="col" class="index-table__header">
-            <%= render "shared/column_sort_link", title: t("clients.response_needed_since"), column_name: "last_outgoing_interaction_at" %>
+            <%= render "shared/column_sort_link", title: t("clients.last_outgoing_message_at"), column_name: "last_outgoing_interaction_at" %>
           </th>
           <% if @show_first_unanswered_incoming_interaction_at %>
             <th scope="col" class="index-table__header">
