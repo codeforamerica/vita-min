@@ -22,6 +22,18 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
         expect(assigns(:user_notifications)).to eq [notification_third, notification_second, notification_first]
       end
 
+      describe "with a DocumentHelp notification" do
+        let!(:system_note) { SystemNote::DocumentHelp.generate!(client: create(:client, intake: (create :intake)), help_type: :doesnt_apply, doc_type: DocumentTypes::Identity)}
+        let!(:notification) { create :user_notification, user: user, notifiable_type: SystemNote::DocumentHelp, notifiable_id: system_note.id }
+        render_views
+
+        it "loads the document_type user notification" do
+          get :index
+          expect(response).to be_ok
+          expect(assigns(:user_notifications)).to include notification
+        end
+      end
+
       describe "bulk client message notification" do
         render_views
 
