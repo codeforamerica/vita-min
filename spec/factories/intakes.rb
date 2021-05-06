@@ -52,6 +52,7 @@
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
 #  ever_married                                         :integer          default("unfilled"), not null
+#  ever_owned_home                                      :integer          default("unfilled"), not null
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default("unfilled"), not null
 #  filing_for_stimulus                                  :integer          default("unfilled"), not null

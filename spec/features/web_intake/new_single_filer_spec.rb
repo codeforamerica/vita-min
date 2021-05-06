@@ -204,6 +204,8 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     click_on "Yes"
 
     # Related to home ownership
+    expect(page).to have_selector("h1", text: "Have you ever owned a home?")
+    click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2020, did you sell a home?")
     click_on "No"
     expect(page).to have_selector("h1", text: "In 2020, did you pay any mortgage interest?")

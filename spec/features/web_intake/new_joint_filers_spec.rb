@@ -317,12 +317,8 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Yes"
 
     # Related to home ownership
-    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse sell a home?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any mortgage interest?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "Did you or your spouse receive the First Time Homebuyer Credit in 2008?")
-    click_on "Yes"
+    expect(page).to have_selector("h1", text: "Have you or your spouse ever owned a home?")
+    click_on "No"
 
     # Miscellaneous
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have a loss related to a declared Federal Disaster Area?")

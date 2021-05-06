@@ -1974,6 +1974,10 @@ en:
       ever_married:
         help_text: This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation.
         title: Have you ever been legally married?
+      ever_owned_home:
+        title:
+          one: Have you ever owned a home?
+          other: Have you or your spouse ever owned a home?
       feedback:
         body: We appreciate any additional feedback you have to better serve clients in the future!
         title: Thank you for sharing your experience.

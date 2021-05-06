@@ -226,8 +226,8 @@ describe QuestionNavigation do
                  received_homebuyer_credit: "no",
                  had_disaster_loss: "unfilled"
         }
-        it "has next step as health-insurance" do
-          expect(described_class.determine_current_step(intake)).to eq "/en/questions/disaster-loss"
+        it "has next step as ever-owned-home" do
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/ever-owned-home"
         end
       end
 
@@ -274,8 +274,8 @@ describe QuestionNavigation do
                  bought_energy_efficient_items: "yes",
                  additional_info: nil
         }
-        it "has next step as additional-info" do
-          expect(described_class.determine_current_step(intake)).to eq "/en/questions/additional-info"
+        it "has next step as ever-owned-home" do
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/ever-owned-home"
         end
       end
 

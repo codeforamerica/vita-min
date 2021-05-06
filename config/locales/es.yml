@@ -1926,6 +1926,10 @@ es:
       ever_married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
         title: "¿Alguna vez ha estado casado legalmente?"
+      ever_owned_home:
+        title:
+          one: "¿Alguna vez ha sido dueño de una casa?"
+          other: "¿Alguna vez ha sido usted o su cónyuge dueño de una casa?"
       feedback:
         body: Apreciamos cualquier comentario adicional que tenga para servir mejor a nuestros clientes en el futuro.
         title: Gracias por compartir su experiencia.

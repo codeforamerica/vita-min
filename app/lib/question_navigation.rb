@@ -125,6 +125,7 @@ class QuestionNavigation
       Questions::LocalTaxRefundController,
 
       # Related to home ownership
+      Questions::EverOwnedHomeController,
       Questions::SoldHomeController,
       Questions::MortgageInterestController,
       Questions::HomebuyerCreditController,
