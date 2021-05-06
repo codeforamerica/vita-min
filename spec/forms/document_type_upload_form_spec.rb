@@ -17,6 +17,46 @@ RSpec.describe DocumentTypeUploadForm do
         expect(form).to be_valid
       end
     end
+
+    context "when uploading a file whose file extension is disallowed" do
+      let(:params) { { document: fixture_file_upload("attachments/test-pattern.html") } }
+
+      it "is not valid" do
+        form = described_class.new("Other", intake, params)
+
+        expect(form).not_to be_valid
+        expect(form.errors[:document]).to be_present
+      end
+    end
+
+    context "when the document model has errors" do
+      let(:params) { { document: fixture_file_upload("attachments/test-pattern.png") } }
+      let!(:fake_document) { build(:document) }
+
+      before do
+        allow(fake_document).to receive(:valid?).and_return(false)
+        allow(fake_document).to receive(:errors).and_return({upload: ["Example error"]})
+        allow(Document).to receive(:new).and_return(fake_document)
+      end
+
+      it "is not valid" do
+        form = described_class.new("Other", intake, params)
+
+        expect(form).not_to be_valid
+        expect(form.errors[:document]).to eq(["Example error"])
+      end
+    end
+
+    context "when the document is missing" do
+      let(:params) { { } }
+
+      it "is not valid" do
+        form = described_class.new("Other", intake, params)
+
+        expect(form).not_to be_valid
+        expect(form.errors[:document]).to be_present
+      end
+    end
   end
 
   describe "#save" do

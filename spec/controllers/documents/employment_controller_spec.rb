@@ -144,21 +144,6 @@ RSpec.describe Documents::EmploymentController, type: :controller do
           })
       end
     end
-
-    context "with a nil document" do
-      let(:params) do
-        {
-            document_type_upload_form: {}
-        }
-      end
-
-      it "redirects back to the same page" do
-        expect do
-          post :update, params: params
-        end.not_to raise_error
-        expect(response).to redirect_to employment_documents_path
-      end
-    end
   end
 end
 
