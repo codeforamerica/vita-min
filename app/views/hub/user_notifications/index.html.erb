@@ -33,7 +33,7 @@
       <% all_notifications_by_day.map do |date, notifications| %>
         <div class="day-heading"><%= default_date_format(date) %></div>
         <% notifications.map do |n| %>
-          <%= render "#{n.notifiable_type.underscore}", notification: n %>
+          <%= render "#{n.notifiable_type.underscore.gsub("/", "_")}", notification: n %>
         <% end %>
       <% end %>
     </div>

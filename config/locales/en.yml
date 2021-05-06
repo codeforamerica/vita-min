@@ -451,6 +451,9 @@ en:
         succeeded_body_html: "You successfully contacted %{client_selection_link}."
         failed_body_html: "We could not contact %{client_selection_link}."
         in_progress_body_html: "We are still contacting %{client_selection_link}."
+      system_note_document_help:
+        title: "Client requested document help"
+        body_html: "%{client_link} has requested help with a document."
     state_routings:
       edit:
         add_routing: Add routing
