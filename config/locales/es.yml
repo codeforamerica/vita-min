@@ -509,9 +509,6 @@ es:
       redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
     dependents_controller:
       removed_dependent: Eliminado %{full_name}.
-    send_requested_documents_later_controller:
-      not_found: Lo sentimos, no pudimos cargar su documento. Para cargar otro documento, por favor regrese al enlace enviado por su especialista en impuestos.
-      success: "¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales, por favor siga el enlace enviado por su especialista en impuestos para agregar más."
     users:
       sessions_controller:
         new:
@@ -1210,15 +1207,6 @@ es:
       property_tax_statements:
         help_text_html: "<strong>Es posible que tenga este documento</strong> porque dijo que pagó intereses hipotecarios o impuestos estatales, locales, inmobiliarios o de ventas."
         title: Adjunte sus declaraciones de impuestos a la propiedad
-      requested_documents:
-        help_text: Cargue todos los documentos solicitados a continuación. Puede cargar todos los documentos que tenga. Si no está seguro de qué documentos debe compartir, consulte el mensaje de su preparador de impuestos.
-        title: Su especialista de impuestos está solicitando documentos adicionales.
-      requested_documents_later:
-        not_found:
-          contact_tax_preparer: También puede comunicarse con su preparador de impuestos si tiene su información de contacto.
-          contact_us_html: Podemos intentar ayudarlo(a) a ubicar el enlace correcto si se pone en contacto enviando un correo electrónico a %{email_link} o haciendo clic en el botón de chat en vivo en la esquina inferior derecha.
-          info: Parece que está intentando subir documentos pero no tienen un enlace que funcione.
-          title: La página de documentos solicitados no ha sido encontrada
       rrb1099s:
         help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si usted recibió ingresos específicamente de los Beneficios de jubilación ferroviaria, <strong>debe tener este formulario</strong> . Esta es una declaración de impuestos emitida por la Junta de Retiro Ferroviario de los EE. UU. (RRB) y representa los pagos realizados a usted en %{year}.
         title: Adjunte sus RRB-1099
@@ -1237,11 +1225,6 @@ es:
         help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
         need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
         title: Comparta una foto suya sosteniendo su tarjeta de identificación
-      send_requested_documents_later:
-        success:
-          next_steps: Su preparador de impuestos se pondrá en contacto con actualizaciones y preguntas adicionales dentro de 3 días hábiles.
-          thank_you: "¡Gracias! Sus documentos han sido enviados."
-          title: Los documentos solicitados han sido cargados correctamente
       spouse_ids:
         help_text: 'El IRS también nos exige que tengamos uno de los siguientes documentos actuales: licencia de conducir, pasaporte o identificación estatal de su cónyuge.'
         title: Adjunte una foto de la tarjeta de identificación de su cónyuge

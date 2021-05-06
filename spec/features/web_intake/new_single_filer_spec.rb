@@ -375,8 +375,5 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     visit "/questions/work-situations"
     expect(intake.reload.current_step).to eq("/en/questions/feedback")
     expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-
-    visit intake.requested_docs_token_link
-    expect(intake.reload.current_step).to eq("/en/questions/feedback")
   end
 end

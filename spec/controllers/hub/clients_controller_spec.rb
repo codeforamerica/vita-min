@@ -872,10 +872,6 @@ RSpec.describe Hub::ClientsController do
 
         render_views
 
-        before do
-          allow_any_instance_of(Intake).to receive(:get_or_create_requested_docs_token).and_return "t0k3n"
-        end
-
         it "prepopulates the form using the locale, status, and relevant template" do
           get :edit_take_action, params: params
 

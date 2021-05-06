@@ -520,9 +520,6 @@ en:
       redirect: You're missing a ticket or intake. In production, we would have redirected you to the beginning.
     dependents_controller:
       removed_dependent: Removed %{full_name}.
-    send_requested_documents_later_controller:
-      not_found: We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.
-      success: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more.
     users:
       sessions_controller:
         new:
@@ -1280,15 +1277,6 @@ en:
       property_tax_statements:
         help_text_html: "<strong>You might have this document</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes."
         title: Attach your Property Tax Statements
-      requested_documents:
-        help_text: Please upload all requested documents below. You can upload as many documents as you have. If you're unsure about which documents you need to share, please refer to the message from your tax preparer.
-        title: Your tax specialist is requesting additional documents
-      requested_documents_later:
-        not_found:
-          contact_tax_preparer: You can also reach out to your tax preparer if you have their contact information.
-          contact_us_html: We can try to help you locate the correct link if you get in touch by emailing %{email_link} or clicking the live chat button in the bottom right corner.
-          info: It looks like you're trying to upload documents but don't have a working link.
-          title: Requested Documents Page Not Found
       rrb1099s:
         help_text_html: You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Railroad Retirement Benefits, <strong>you should have this form</strong>. This is a tax statement issued by the U.S. Railroad Retirement Board (RRB) and represents payments made to you in %{year}.
         title: Attach your RRB-1099's
@@ -1307,11 +1295,6 @@ en:
         help_text: The IRS requires us to verify who you are for tax preparation services.
         need_for_html: 'We will need to see a <u>photo with ID</u> for:'
         title: Share a photo of yourself holding your ID card
-      send_requested_documents_later:
-        success:
-          next_steps: Your tax preparer will reach out with updates and any additional questions within 3 business days.
-          thank_you: Thank you! Your documents have been submitted.
-          title: Requested Documents Successfully Uploaded
       spouse_ids:
         help_text: The IRS also requires us to have a current drivers license, passport, or state ID for your spouse.
         title: Attach a photo of your spouse's ID card
