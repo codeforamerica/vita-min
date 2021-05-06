@@ -34,9 +34,7 @@ class DocumentNavigation
     Documents::W2gsController,
     Documents::PriorTaxReturnsController,
     Documents::AdditionalDocumentsController, # Advances statuses to Ready
-    Documents::RequestedDocumentsLaterController,
     Documents::OverviewController,
-    Documents::SendRequestedDocumentsLaterController,
   ].freeze
 
 

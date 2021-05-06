@@ -164,7 +164,7 @@ RSpec.describe Questions::ConsentController do
 
             Thanks for starting your taxes with GetYourRefund - you’re almost there! Your client id is #{intake.client_id}. We will prepare your taxes once we have all of your required information and tax documents.
 
-            You can securely upload your ID and additional tax documents here: #{intake.requested_docs_token_link}
+            You can securely upload additional tax documents by logging in here: http://test.host/en/portal/login
 
             If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
@@ -185,7 +185,7 @@ RSpec.describe Questions::ConsentController do
           subject.after_update_success
 
           body = <<~BODY
-            Hello Ruthie Rutabaga, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is #{intake.client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Upload documents securely here: #{intake.requested_docs_token_link}
+            Hello Ruthie Rutabaga, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is #{intake.client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Log in to upload documents securely here: http://test.host/en/portal/login
 
             Respond to this message if you have any questions. We’re here to help!
 
@@ -211,7 +211,7 @@ RSpec.describe Questions::ConsentController do
 
             Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su cliente id es #{intake.client_id}. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
 
-            Puede subir su identificación o documentos de impuestos adicionales a su enlace de envío seguro aquí: #{intake.requested_docs_token_link}
+            Puede subir su identificación o documentos de impuestos adicionales, inicia sesión aquí: http://test.host/es/portal/login
 
             Si tiene alguna pregunta puede contactar a su equipo de preparación de impuestos por correo electrónico a <a href="mailto:hello@getyourrefund.org"></a>, o enviar un mensaje de texto al 58750.
 
@@ -233,7 +233,7 @@ RSpec.describe Questions::ConsentController do
           subject.after_update_success
 
           body = <<~BODY
-            Hola Ruthie Rutabaga, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es #{intake.client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Suba sus documentos a su enlace de envío seguro aquí: #{intake.requested_docs_token_link}
+            Hola Ruthie Rutabaga, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es #{intake.client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Inicia sesión para suba sus documentos a su enlace de envío seguro aquí: http://test.host/es/portal/login
             Responda a este mensaje con cualquier pregunta. ¡Estamos aquí para servirle!
 
           BODY

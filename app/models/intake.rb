@@ -317,14 +317,6 @@ class Intake < ApplicationRecord
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
   enum signature_method: { online: 0, in_person: 1 }, _prefix: :signature_method
 
-  def self.find_for_requested_docs_token(token)
-    Intake
-      .where.not(requested_docs_token: nil)
-      .where(requested_docs_token: token)
-      .order(id: :asc)
-      .first
-  end
-
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
@@ -424,18 +416,6 @@ class Intake < ApplicationRecord
     new_token = SecureRandom.urlsafe_base64(8)
     update(spouse_auth_token: new_token)
     new_token
-  end
-
-  def get_or_create_requested_docs_token
-    return requested_docs_token if requested_docs_token.present?
-
-    new_token = SecureRandom.urlsafe_base64(10)
-    update(requested_docs_token: new_token, requested_docs_token_created_at: Time.now)
-    new_token
-  end
-
-  def requested_docs_token_link
-    Rails.application.routes.url_helpers.documents_add_requested_documents_url(token: get_or_create_requested_docs_token, locale: locale)
   end
 
   def filing_years

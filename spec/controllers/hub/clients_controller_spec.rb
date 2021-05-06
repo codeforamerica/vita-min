@@ -291,7 +291,7 @@ RSpec.describe Hub::ClientsController do
     context "as an authenticated user" do
       before { sign_in user }
 
-      context "with some existing clients" do
+      context "default behaviors" do
         render_views
 
         let!(:george_sr) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", preferred_interview_language: "en", locale: "en") }
@@ -414,7 +414,7 @@ RSpec.describe Hub::ClientsController do
           let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Alex") }
           let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Ben") }
 
-          it "orders clients by name asc" do
+          it "orders clients by id asc" do
             params[:order] = "asc"
             get :index, params: params
 
@@ -424,7 +424,7 @@ RSpec.describe Hub::ClientsController do
             expect(assigns(:clients)).to eq [first_id, second_id]
           end
 
-          it "orders clients by name desc" do
+          it "orders clients by id desc" do
             params[:order] = "desc"
             get :index, params: params
 
@@ -440,7 +440,7 @@ RSpec.describe Hub::ClientsController do
           let!(:one) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Alex") }
           let!(:two) { create :client, :with_return, vita_partner: organization, intake: create(:intake, preferred_name: "Ben") }
 
-          it "orders clients by name asc" do
+          it "orders clients by updated_at asc" do
             params[:order] = "asc"
             get :index, params: params
 
@@ -450,7 +450,7 @@ RSpec.describe Hub::ClientsController do
             expect(assigns(:clients)).to eq [one, two]
           end
 
-          it "orders clients by name desc" do
+          it "orders clients by updated_at desc" do
             params[:order] = "desc"
             get :index, params: params
 
@@ -476,7 +476,7 @@ RSpec.describe Hub::ClientsController do
             expect(assigns(:clients)).to eq [english, spanish]
           end
 
-          it "orders clients by name desc" do
+          it "orders clients by locale desc" do
             params[:order] = "desc"
             get :index, params: params
 
@@ -487,31 +487,57 @@ RSpec.describe Hub::ClientsController do
           end
         end
 
-        context "with no or bad params" do
-          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 2.days.ago }
-          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 1.day.ago }
+        context "with last_outgoing_interaction_at as sort param" do
+          let(:params) { { column: "last_outgoing_interaction_at" } }
+          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), last_outgoing_interaction_at: 1.day.ago }
+          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), last_outgoing_interaction_at: 2.days.ago }
 
-          it "defaults to sorting by response_needed_since, asc by default" do
-            get :index
+          it "orders clients by last_outgoing_interaction_at asc" do
+            params[:order] = "asc"
+            get :index, params: params
 
-            expect(assigns[:sort_column]).to eq "response_needed_since"
+            expect(assigns[:sort_column]).to eq "last_outgoing_interaction_at"
             expect(assigns[:sort_order]).to eq "asc"
 
-            expect(assigns(:clients)).to eq [first_id, second_id]
+            expect(assigns(:clients)).to eq [second_id, first_id]
           end
 
-          it "defaults to sorting by id, desc with bad params" do
-            get :index, params: { column: "bad_sort", order: "no_order" }
+          it "orders clients by last_outgoing_interaction_at desc" do
+            params[:order] = "desc"
+            get :index, params: params
 
-            expect(assigns[:sort_column]).to eq "response_needed_since"
-            expect(assigns[:sort_order]).to eq "asc"
+            expect(assigns[:sort_column]).to eq "last_outgoing_interaction_at"
+            expect(assigns[:sort_order]).to eq "desc"
 
             expect(assigns(:clients)).to eq [first_id, second_id]
           end
         end
+
+        context "with no or bad params" do
+          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), last_outgoing_interaction_at: 1.day.ago }
+          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), last_outgoing_interaction_at: 2.days.ago }
+
+          it "defaults to sorting by response_needed_since, asc by default" do
+            get :index
+
+            expect(assigns[:sort_column]).to eq "last_outgoing_interaction_at"
+            expect(assigns[:sort_order]).to eq "asc"
+
+            expect(assigns(:clients)).to eq [second_id, first_id]
+          end
+
+          it "defaults to sorting by id, desc with bad params" do
+            get :index, params: { column: "bad_order", order: "no_order" }
+
+            expect(assigns[:sort_column]).to eq "last_outgoing_interaction_at"
+            expect(assigns[:sort_order]).to eq "asc"
+
+            expect(assigns(:clients)).to eq [second_id, first_id]
+          end
+        end
       end
 
-      context "with 26 clients and a page 2 param" do
+      context "pagination - with 26 clients and a page 2 param" do
         let!(:extra_clients) { create_list :client_with_intake_and_return, 25, vita_partner: organization }
         let!(:last_client) { create :client_with_intake_and_return, preferred_name: "Zed", vita_partner: organization }
         let(:params) do
@@ -845,10 +871,6 @@ RSpec.describe Hub::ClientsController do
         end
 
         render_views
-
-        before do
-          allow_any_instance_of(Intake).to receive(:get_or_create_requested_docs_token).and_return "t0k3n"
-        end
 
         it "prepopulates the form using the locale, status, and relevant template" do
           get :edit_take_action, params: params

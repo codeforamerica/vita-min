@@ -115,7 +115,6 @@ en:
         organization: Organization/site
         assigned_user: Assigned to
         no_name_given: "Name left blank"
-        first_unanswered_incoming_interaction_at: "Oldest unanswered action"
         created_at: Created at
       unlinked_clients:
         title: Unlinked clients
@@ -270,7 +269,7 @@ en:
       intake_greeter_info_requested: |
         Hello <<Client.PreferredName>>,
 
-        In order to continue filing your taxes, sign in here: https://www.getyourrefund.org/en/portal/login
+        In order to continue filing your taxes, sign in here: <<Client.LoginLink>>
 
         You can submit your tax documents once you finish your intake form. Have your photo ID, Social Security card, and any income documents ready.
 
@@ -286,8 +285,8 @@ en:
 
         In order to continue filing your taxes, we still need:
         <<Documents.List>>
-        Securely upload your documents at:
-        <<Documents.UploadLink>>
+        Log in to securely upload your documents at:
+        <<Client.LoginLink>>
 
         Please let us know if you have any questions. We can't begin preparing your taxes without this information.
 
@@ -452,6 +451,9 @@ en:
         succeeded_body_html: "You successfully contacted %{tax_return_selection_link}."
         failed_body_html: "We could not contact %{tax_return_selection_link}."
         in_progress_body_html: "We are still contacting %{tax_return_selection_link}."
+      system_note_document_help:
+        title: "Client requested document help"
+        body_html: "%{client_link} has requested help with a document."
     state_routings:
       edit:
         add_routing: Add routing
@@ -521,9 +523,6 @@ en:
       redirect: You're missing a ticket or intake. In production, we would have redirected you to the beginning.
     dependents_controller:
       removed_dependent: Removed %{full_name}.
-    send_requested_documents_later_controller:
-      not_found: We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.
-      success: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more.
     users:
       sessions_controller:
         new:
@@ -912,6 +911,9 @@ en:
     unemployment_income: "Unemployment Income"
     unread: Notification unread
     documents: "Documents"
+    business_days:
+      one: "%{count} business day"
+      other: "%{count} business days"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -940,7 +942,7 @@ en:
 
         Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
 
-        Use this link to securely submit additional information or documents you’d like to share with your tax preparer: %{document_upload_url}
+        Log in to securely submit additional information or documents you’d like to share with your tax preparer: %{portal_login_url}
 
         If you have any questions, please reply to this message.
 
@@ -951,7 +953,7 @@ en:
         Hello %{preferred_name},
         Your tax information has been successfully submitted to your tax preparer! Your confirmation number is %{client_id}.
         Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
-        Use this link to securely submit additional information or documents you’d like to share with your tax preparer: %{document_upload_url}
+        Log in to securely submit additional information or documents you’d like to share with your tax preparer: %{portal_login_url}
         If you have any questions, please reply to this message.
         We’re here to help!
         Your tax team at GetYourRefund.org
@@ -961,7 +963,7 @@ en:
 
         Thanks for starting your taxes with GetYourRefund - you’re almost there! Your client id is %{client_id}. We will prepare your taxes once we have all of your required information and tax documents.
 
-        You can securely upload your ID and additional tax documents here: %{requested_docs_link}
+        You can securely upload additional tax documents by logging in here: %{portal_login_url}
 
         If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
@@ -971,7 +973,7 @@ en:
         Your Tax Team at GetYourRefund.org
       email_subject: Getting your taxes started with GetYourRefund
       sms_body: |
-        Hello %{preferred_name}, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is %{client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Upload documents securely here: %{requested_docs_link}
+        Hello %{preferred_name}, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is %{client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Log in to upload documents securely here: %{portal_login_url}
 
         Respond to this message if you have any questions. We’re here to help!
     surveys:
@@ -991,7 +993,7 @@ en:
           body: |
             Hello %{preferred_name},
 
-            We noticed you haven't completed providing the information we need to prepare your taxes. You can use this personalized secure link to upload your tax documents: %{doc_upload_link}
+            We noticed you haven't completed providing the information we need to prepare your taxes. Log in to continue the process and upload tax documents: %{portal_login_url}
 
             We'll review everything with you on the phone!
 
@@ -1278,15 +1280,6 @@ en:
       property_tax_statements:
         help_text_html: "<strong>You might have this document</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes."
         title: Attach your Property Tax Statements
-      requested_documents:
-        help_text: Please upload all requested documents below. You can upload as many documents as you have. If you're unsure about which documents you need to share, please refer to the message from your tax preparer.
-        title: Your tax specialist is requesting additional documents
-      requested_documents_later:
-        not_found:
-          contact_tax_preparer: You can also reach out to your tax preparer if you have their contact information.
-          contact_us_html: We can try to help you locate the correct link if you get in touch by emailing %{email_link} or clicking the live chat button in the bottom right corner.
-          info: It looks like you're trying to upload documents but don't have a working link.
-          title: Requested Documents Page Not Found
       rrb1099s:
         help_text_html: You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Railroad Retirement Benefits, <strong>you should have this form</strong>. This is a tax statement issued by the U.S. Railroad Retirement Board (RRB) and represents payments made to you in %{year}.
         title: Attach your RRB-1099's
@@ -1305,11 +1298,6 @@ en:
         help_text: The IRS requires us to verify who you are for tax preparation services.
         need_for_html: 'We will need to see a <u>photo with ID</u> for:'
         title: Share a photo of yourself holding your ID card
-      send_requested_documents_later:
-        success:
-          next_steps: Your tax preparer will reach out with updates and any additional questions within 3 business days.
-          thank_you: Thank you! Your documents have been submitted.
-          title: Requested Documents Successfully Uploaded
       spouse_ids:
         help_text: The IRS also requires us to have a current drivers license, passport, or state ID for your spouse.
         title: Attach a photo of your spouse's ID card
@@ -1352,7 +1340,7 @@ en:
         back: Back to sign in
         forgot_your_password: Forgot your password?
         send_me_reset_password_instructions: Send me reset password instructions
-      password_help_text_html: We recommend using a <a href="https://www.consumerreports.org/digital-security/everything-you-need-to-know-about-password-managers/" target="_blank" rel="nofollow">password manager</a> or inventing a long unusual phrase with random characters that you can remember. Please do not reuse a password from another website.
+      password_help_text_html: We recommend using a <a href="https://www.consumerreports.org/digital-security/everything-you-need-to-know-about-password-managers/" target="_blank" rel="nofollow noopener">password manager</a> or inventing a long unusual phrase with random characters that you can remember. Please do not reuse a password from another website.
     public_pages:
       about_us:
         how_it_helps: You can save up to $300 when you file for free. We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC), which can be over $3,000 per family.
@@ -1464,7 +1452,7 @@ en:
         subheader: Maximize your refund by filing with our certified tax specialists virtually.
         subheader_offseason: GetYourRefund services will be opening in February for the 2021 tax season. Sign up and we'll notify you when our service is open!
         title: Free tax help from IRS-certified volunteers.
-        extension_banner_html: "<strong>Reminder: The federal income tax filing deadline has been extended to May 17. You can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank'>IRS form</a> requesting an extension."
+        extension_banner_html: "<strong>Reminder: The federal income tax filing deadline has been extended to May 17. You can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener'>IRS form</a> requesting an extension."
       maintenance:
         contact_html: You can also %{email_link}.
         email: submit a question via email to GetYourRefund
@@ -1654,14 +1642,14 @@ en:
                 at the IRS
                 <a
                   href="https://www.irs.gov/coronavirus/get-my-payment"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-get-my-payment"
                   data-track-attribute-position="stimulus-how-faq2">
                 Get My Payment</a> website. To see if you received the earlier stimulus payments, and for what amount, you must
                 <a
                   href="https://www.irs.gov/payments/view-your-tax-account"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-view-your-tax-account"
                   data-track-attribute-position="stimulus-how-faq2">
@@ -1672,7 +1660,7 @@ en:
                 to the address it has on file. If mail is returned, the
                 <a
                   href="https://www.irs.gov/coronavirus/get-my-payment"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-get-my-payment"
                   data-track-attribute-position="stimulus-how-faq3">
@@ -1689,7 +1677,7 @@ en:
                 mail. To get your payment quickly via direct deposit,
                 <a
                   href="https://joinbankon.org/home/remotebanking/"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-online-banking"
                   data-track-attribute-position="stimulus-how-faq5">
@@ -1698,7 +1686,7 @@ en:
                 bank account, you can link your prepaid debit card or
                 <a
                   href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-cash-app"
                   data-track-attribute-position="stimulus-how-faq5">
@@ -1711,7 +1699,7 @@ en:
                 If you have already filed with your old address, you can use the
                 <a
                   href="https://www.irs.gov/faqs/irs-procedures/address-changes"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-address-changes"
                   data-track-attribute-position="stimulus-how-faq6">
@@ -1788,7 +1776,7 @@ en:
                 the
                 <a
                   href="https://www.irs.gov/instructions/iw7"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-i-7"
                   data-track-attribute-position="stimulus-mixed-eligible1">
@@ -1796,7 +1784,7 @@ en:
                 to a
                 <a
                   href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-certified-acceptance-agent"
                   data-track-attribute-position="stimulus-mixed-eligible2">
@@ -1890,10 +1878,10 @@ en:
         title: A few more things...
         help_text_html: "We respect your privacy. <strong>You have the option</strong> to consent to the following:"
         cta: Continue
-        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consent to Use:</a> You allow us to count your return in reports.
-        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
-        relational_efin_html: <a href="%{relational_efin_url}" target="_blank">Relational EFIN:</a> You allow the tax office that prepares your return to report data to their parent organization.
-        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank">Global Carryforward:</a> You allow us to make your tax return information available to other VITA programs you may visit.
+        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consent to Use:</a> You allow us to count your return in reports.
+        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
+        relational_efin_html: <a href="%{relational_efin_url}" target="_blank" rel="noopener">Relational EFIN:</a> You allow the tax office that prepares your return to report data to their parent organization.
+        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank" rel="noopener">Global Carryforward:</a> You allow us to make your tax return information available to other VITA programs you may visit.
         legal_details_title: The legal details
         legal_details_html: |
           <p>Federal law requires these consent forms be provided to you. Unless authorized by law, we cannot disclose your tax return information to third parties for purposes other than the preparation and filing of your tax return without your consent. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.</p>
@@ -1993,7 +1981,7 @@ en:
         info: With our full-service option, our VITA partners will provide hands-on support and work with you to get the biggest return!
         title: Our full service option is right for you!
         note: "Note: this process takes 2-3 weeks."
-        extension_notice_html: "<strong>The federal income tax filing deadline has been extended to May 17. You can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank'>IRS form</a> requesting an extension."
+        extension_notice_html: "<strong>The federal income tax filing deadline has been extended to May 17. You can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener'>IRS form</a> requesting an extension."
         diy: "No thank you, I’m looking for a quicker option."
       filing_joint:
         help_text: Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return.
@@ -2268,7 +2256,7 @@ en:
         title: Your tax return may be delayed so that we can ensure you receive the highest refund!
         help_text_html: >-
           The
-          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="nofollow">American Rescue Plan</a>
+          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="noopener nofollow">American Rescue Plan</a>
           may increase the amount of premium tax credits for which you and others in your
           household are eligible, which may result in a higher refund. Your tax preparer will update you on the process.
       triage_backtaxes:
@@ -2533,7 +2521,7 @@ en:
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
-    response_needed_since: "Waiting on response"
+    last_outgoing_message_at: "Last outgoing message at"
   client_logins:
     no_account_found_sms: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?

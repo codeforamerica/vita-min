@@ -99,7 +99,6 @@ es:
         organization: Organización/Sitio
         assigned_user: Asignado a
         no_name_given: "Nombre dejado en blanco"
-        first_unanswered_incoming_interaction_at: Acción más antiguo sin respuesta
         created_at: Creado en
       navigation:
         client_documents: Documentos
@@ -287,7 +286,7 @@ es:
 
         Para continuar presentando sus impuestos, necesitamos que nos envíe:
         <<Documents.List>>
-        Sube tus documentos de forma segura por <<Documents.UploadLink>>
+        Inicie sesión para cargar los documentos de forma segura: <<Client.LoginLink>>
 
         Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
 
@@ -441,6 +440,9 @@ es:
         succeeded_body_html: "Te contactaste con éxito %{tax_return_selection_link}."
         failed_body_html: "Nosotras no pudimos contactar %{tax_return_selection_link}."
         in_progress_body_html: "Todavía estamos contactando %{tax_return_selection_link}."
+      system_note_document_help:
+        title: "El cliente solicitó ayuda con el documento"
+        body_html: "%{client_link} ha solicitado ayuda con sus documentos."
     state_routings:
       edit:
         add_routing: Agregar enrutamiento
@@ -510,9 +512,6 @@ es:
       redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
     dependents_controller:
       removed_dependent: Eliminado %{full_name}.
-    send_requested_documents_later_controller:
-      not_found: Lo sentimos, no pudimos cargar su documento. Para cargar otro documento, por favor regrese al enlace enviado por su especialista en impuestos.
-      success: "¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales, por favor siga el enlace enviado por su especialista en impuestos para agregar más."
     users:
       sessions_controller:
         new:
@@ -903,6 +902,9 @@ es:
     unemployment_income: "Compensación de desempleo"
     unread: Notificación no leída
     documents: "Documentos"
+    business_days:
+      one: "%{count} día hábil"
+      other: "%{count} días hábiles"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -931,7 +933,7 @@ es:
 
         Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
 
-        Use este enlace para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{document_upload_url}
+        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{portal_login_url}
 
         Si tiene alguna pregunta, por favor responda a este mensaje.
 
@@ -942,7 +944,7 @@ es:
         Hola %{preferred_name},
         ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su número de confirmación es %{client_id}.
         Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
-        Use este enlace para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{document_upload_url}
+        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{portal_login_url}
         Si tiene alguna pregunta, por favor responda a este mensaje.
         ¡Estamos aquí para ayudar!
         Su equipo de impuestos en GetYourRefund.org
@@ -952,7 +954,7 @@ es:
 
         Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su cliente id es %{client_id}. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
 
-        Puede subir su identificación o documentos de impuestos adicionales a su enlace de envío seguro aquí: %{requested_docs_link}
+        Puede subir su identificación o documentos de impuestos adicionales, inicia sesión aquí: %{portal_login_url}
 
         Si tiene alguna pregunta puede contactar a su equipo de preparación de impuestos por correo electrónico a <a href="mailto:hello@getyourrefund.org"></a>, o enviar un mensaje de texto al 58750.
 
@@ -963,7 +965,7 @@ es:
         Su Equipo de Impuestos de GetYourRefund.org
       email_subject: Comience a tramitar sus impuestos con GetYourRefund
       sms_body: |
-        Hola %{preferred_name}, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es %{client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Suba sus documentos a su enlace de envío seguro aquí: %{requested_docs_link}
+        Hola %{preferred_name}, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es %{client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Inicia sesión para suba sus documentos a su enlace de envío seguro aquí: %{portal_login_url}
         Responda a este mensaje con cualquier pregunta. ¡Estamos aquí para servirle!
     surveys:
       completion:
@@ -982,7 +984,7 @@ es:
           body: |
             Hola %{preferred_name},
 
-            Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Puede usar este enlace personalizado para subir sus documentos de impuestos de manera segura. %{doc_upload_link}
+            Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Inicie sesión aquí para continuar el proceso y cargar documentos fiscales: %{portal_login_url}
 
             ¡Revisaremos todo contigo por teléfono!
 
@@ -1208,15 +1210,6 @@ es:
       property_tax_statements:
         help_text_html: "<strong>Es posible que tenga este documento</strong> porque dijo que pagó intereses hipotecarios o impuestos estatales, locales, inmobiliarios o de ventas."
         title: Adjunte sus declaraciones de impuestos a la propiedad
-      requested_documents:
-        help_text: Cargue todos los documentos solicitados a continuación. Puede cargar todos los documentos que tenga. Si no está seguro de qué documentos debe compartir, consulte el mensaje de su preparador de impuestos.
-        title: Su especialista de impuestos está solicitando documentos adicionales.
-      requested_documents_later:
-        not_found:
-          contact_tax_preparer: También puede comunicarse con su preparador de impuestos si tiene su información de contacto.
-          contact_us_html: Podemos intentar ayudarlo(a) a ubicar el enlace correcto si se pone en contacto enviando un correo electrónico a %{email_link} o haciendo clic en el botón de chat en vivo en la esquina inferior derecha.
-          info: Parece que está intentando subir documentos pero no tienen un enlace que funcione.
-          title: La página de documentos solicitados no ha sido encontrada
       rrb1099s:
         help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si usted recibió ingresos específicamente de los Beneficios de jubilación ferroviaria, <strong>debe tener este formulario</strong> . Esta es una declaración de impuestos emitida por la Junta de Retiro Ferroviario de los EE. UU. (RRB) y representa los pagos realizados a usted en %{year}.
         title: Adjunte sus RRB-1099
@@ -1235,11 +1228,6 @@ es:
         help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
         need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
         title: Comparta una foto suya sosteniendo su tarjeta de identificación
-      send_requested_documents_later:
-        success:
-          next_steps: Su preparador de impuestos se pondrá en contacto con actualizaciones y preguntas adicionales dentro de 3 días hábiles.
-          thank_you: "¡Gracias! Sus documentos han sido enviados."
-          title: Los documentos solicitados han sido cargados correctamente
       spouse_ids:
         help_text: 'El IRS también nos exige que tengamos uno de los siguientes documentos actuales: licencia de conducir, pasaporte o identificación estatal de su cónyuge.'
         title: Adjunte una foto de la tarjeta de identificación de su cónyuge
@@ -1282,7 +1270,7 @@ es:
         back: Regresar para iniciar sesión
         forgot_your_password: "¿Ha olvidado su contraseña?"
         send_me_reset_password_instructions: Envíeme las instrucciones para resetear mi contraseña
-      password_help_text_html: Recomendamos utilizar un <a href="https://www.cnet.com/es/noticias/mejores-gestores-de-contrasenas-lastpass-1password/" target="_blank" rel="nofollow">gestor de contraseñas</a> o inventar una frase larga e inusual con caracteres aleatorios que pueda recordar. Por favor, no vuelva a usar una contraseña de otro sitio web.
+      password_help_text_html: Recomendamos utilizar un <a href="https://www.cnet.com/es/noticias/mejores-gestores-de-contrasenas-lastpass-1password/" target="_blank" rel="noopener nofollow">gestor de contraseñas</a> o inventar una frase larga e inusual con caracteres aleatorios que pueda recordar. Por favor, no vuelva a usar una contraseña de otro sitio web.
     public_pages:
       about_us:
         how_it_helps: Puede ahorrar hasta $300 dólares cuando prepares sus impuestos gratis. También garantizamos que los contribuyentes elegibles reclamen el Crédito por Ingreso del Trabajo (EITC, por sus siglas en inglés), que puede superar hasta $3,000 por familia.
@@ -1565,7 +1553,7 @@ es:
                   que les debe,
                   <a
                     href="https://www.consumerfinance.gov/about-us/blog/consumer-advisory-protect-your-economic-payment-if-your-account-is-overdrawn/"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="consumer-advisory-protection-recommendations"
                     data-track-attribute-position="eip-faq4">
@@ -1592,7 +1580,7 @@ es:
                   estado, puede buscar en el sitio web del IRS
                   <a
                     href="https://www.irs.gov/es/coronavirus/get-my-payment"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-get-my-payment"
                     data-track-attribute-position="stimulus-how-faq2">
@@ -1600,7 +1588,7 @@ es:
                   ver si ha recibido los anteriores pagos de estímulo, y qué cantidad, debe
                   <a
                     href="https://www.irs.gov/es/payments/view-your-tax-account"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-view-your-tax-account"
                     data-track-attribute-position="stimulus-how-faq2">
@@ -1611,7 +1599,7 @@ es:
                   a la dirección que tiene registrada.   Si el correo es devuelto, la herramienta
                   <a
                     href="https://www.irs.gov/es/coronavirus/get-my-payment"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-get-my-payment"
                     data-track-attribute-position="stimulus-how-faq3">
@@ -1628,7 +1616,7 @@ es:
                   del EIP por correo. Para recibir su pago rápidamente a través de un depósito directo,
                   <a
                     href="https://covidbanking.joinbankon.org/espanol.html"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-online-banking"
                     data-track-attribute-position="stimulus-how-faq5">
@@ -1637,7 +1625,7 @@ es:
                   vincular su tarjeta de débito prepagada o
                   <a
                     href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-cash-app"
                     data-track-attribute-position="stimulus-how-faq5">
@@ -1651,7 +1639,7 @@ es:
                   utilizar el sitio web de cambio de dirección del
                   <a
                     href="https://www.irs.gov/es/faqs/irs-procedures/address-changes"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-address-changes"
                     data-track-attribute-position="stimulus-how-faq6">
@@ -1740,7 +1728,7 @@ es:
                 ITIN presentando el
                 <a
                   href="https://www.irs.gov/es/node/41556"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-i-7"
                   data-track-attribute-position="stimulus-mixed-eligible1">
@@ -1748,7 +1736,7 @@ es:
                 impuestos, o llevando el formulario y la documentación a un
                 <a
                   href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-certified-acceptance-agent"
                   data-track-attribute-position="stimulus-mixed-eligible2">
@@ -1842,10 +1830,10 @@ es:
         title: Algunas cosas más ...
         cta: Continuar
         help_text_html: "Respetamos su privacidad. <strong>Tiene la opción</strong> de dar su consentimiento para lo siguiente:"
-        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.
-        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
-        relational_efin_html: <a href="%{relational_efin_url}" target="_blank">EFIN Relacional:</a> usted permite que la oficina de impuestos que prepara su declaración reporte sus datos a su organización matriz.
-        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank">Traspaso global:</a> usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar.
+        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.
+        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
+        relational_efin_html: <a href="%{relational_efin_url}" target="_blank" rel="noopener">EFIN Relacional:</a> usted permite que la oficina de impuestos que prepara su declaración reporte sus datos a su organización matriz.
+        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank" rel="noopener">Traspaso global:</a> usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar.
         legal_details_title: Los detalles legales
         legal_details_html: |
           <p>La ley Federal requiere que le proporcionemos este formulario de consentimiento. A menos que la ley lo autorice, no podemos divulgar sin su consentimiento la información de su declaración de impuestos a terceros para propósitos diferentes a la preparación y presentación de su declaración de impuestos. Si usted da su consentimiento para la divulgación de la información de su declaración de impuestos, la ley Federal tal vez no pueda proteger la información de su declaración de impuestos de uso adicional o distribución.</p>
@@ -2220,7 +2208,7 @@ es:
         title: ¡Su declaración de impuestos  podría retrasarse para que podamos asegurar que usted consiga el mejor reembolso!
         help_text_html: >-
           El
-          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="nofollow">Plan de Rescate Americano</a>
+          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="noopener nofollow">Plan de Rescate Americano</a>
           puede aumentar los créditos fiscales para los cuales usted y los miembros de su hogar pueden ser elegibles.
           Esto podría resultar en un reembolso más alto. Su preparador de impuestos le mantendrá actualizado sobre el proceso.
       triage_backtaxes:
@@ -2560,7 +2548,7 @@ es:
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
-    response_needed_since: "Esperando respuesta"
+    last_outgoing_message_at: "Último mensaje en"
   client_logins:
     no_account_found_sms: |
       Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?

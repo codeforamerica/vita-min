@@ -26,7 +26,6 @@ Capybara/FeatureMethods:
     - 'spec/features/web_intake/ineligible_filer_spec.rb'
     - 'spec/features/web_intake/new_joint_filers_spec.rb'
     - 'spec/features/web_intake/new_single_filer_spec.rb'
-    - 'spec/features/web_intake/requested_documents_spec.rb'
     - 'spec/features/web_intake/requested_documents_token_spec.rb'
     - 'spec/features/web_intake/sign_out_spec.rb'
 
@@ -41,12 +40,6 @@ Layout/ArgumentAlignment:
     - 'spec/lib/question_navigation_spec.rb'
     - 'spec/models/intake_spec.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/BlockEndNewline:
-  Exclude:
-    - 'spec/helpers/zendesk_service_helper_spec.rb'
-
 # Offense count: 13
 # Cop supports --auto-correct.
 Layout/ClosingParenthesisIndentation:
@@ -58,7 +51,6 @@ Layout/ClosingParenthesisIndentation:
     - 'spec/controllers/documents/selfies_controller_spec.rb'
     - 'spec/controllers/email_controller_spec.rb'
     - 'spec/helpers/vita_min_form_builder_spec.rb'
-    - 'spec/services/zendesk_sms_service_spec.rb'
     - 'spec/support/match_html.rb'
 
 # Offense count: 1
@@ -78,8 +70,6 @@ Layout/EmptyLineAfterGuardClause:
     - 'app/models/intake.rb'
     - 'app/models/vita_provider.rb'
     - 'app/services/scrape_vita_providers_service.rb'
-    - 'app/services/zendesk_follow_up_docs_service.rb'
-    - 'app/services/zendesk_intake_service.rb'
     - 'spec/support/active_job.rb'
 
 # Offense count: 7
@@ -87,7 +77,6 @@ Layout/EmptyLineAfterGuardClause:
 Layout/EmptyLines:
   Exclude:
     - 'app/forms/mailing_address_form.rb'
-    - 'app/helpers/eitc_zendesk_instance.rb'
     - 'spec/controllers/dependents_controller_spec.rb'
     - 'spec/controllers/public_pages_controller_spec.rb'
     - 'spec/features/web_intake/new_joint_filers_spec.rb'
@@ -99,8 +88,6 @@ Layout/EmptyLines:
 # SupportedStyles: empty_lines, no_empty_lines
 Layout/EmptyLinesAroundBlockBody:
   Exclude:
-    - 'app/services/zendesk_follow_up_docs_service.rb'
-    - 'app/services/zendesk_intake_service.rb'
     - 'db/schema.rb'
     - 'spec/models/dependent_spec.rb'
     - 'spec/models/intake_spec.rb'
@@ -175,14 +162,11 @@ Layout/HeredocIndentation:
     - 'app/helpers/vita_min_form_builder.rb'
     - 'app/jobs/scrape_vita_providers_job.rb'
     - 'spec/models/vita_provider_spec.rb'
-    - 'spec/services/zendesk_drop_off_service_spec.rb'
-    - 'spec/services/zendesk_intake_service_spec.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
 Layout/MultilineBlockLayout:
   Exclude:
-    - 'spec/helpers/zendesk_service_helper_spec.rb'
     - 'spec/models/intake_spec.rb'
 
 # Offense count: 2
@@ -205,7 +189,6 @@ Layout/MultilineMethodCallIndentation:
     - 'app/forms/spouse_consent_form.rb'
     - 'app/lib/document_navigation.rb'
     - 'app/models/vita_provider.rb'
-    - 'app/services/zendesk_follow_up_docs_service.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -214,13 +197,11 @@ Layout/MultilineMethodCallIndentation:
 Layout/MultilineOperationIndentation:
   Exclude:
     - 'app/forms/backtaxes_form.rb'
-    - 'app/jobs/send_completed_intake_to_zendesk_job.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
 Layout/SpaceAfterComma:
   Exclude:
-    - 'spec/controllers/zendesk_webhook_controller_spec.rb'
     - 'spec/models/vita_provider_spec.rb'
 
 # Offense count: 6
@@ -229,7 +210,6 @@ Layout/SpaceAfterComma:
 # SupportedStylesForExponentOperator: space, no_space
 Layout/SpaceAroundOperators:
   Exclude:
-    - 'app/helpers/zendesk_service_helper.rb'
     - 'db/schema.rb'
     - 'spec/lib/intake_pdf_spec.rb'
 
@@ -242,12 +222,10 @@ Layout/SpaceBeforeBlockBraces:
   Exclude:
     - 'app/forms/form.rb'
     - 'app/services/scrape_vita_providers_service.rb'
-    - 'spec/controllers/documents/additional_documents_controller_spec.rb'
     - 'spec/controllers/documents/w2s_controller_spec.rb'
     - 'spec/jobs/scrape_vita_providers_job_spec.rb'
     - 'spec/models/intake_spec.rb'
     - 'spec/models/user_spec.rb'
-    - 'spec/services/zendesk_intake_service_spec.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -282,11 +260,8 @@ Layout/SpaceInsideBlockBraces:
     - 'app/forms/form.rb'
     - 'app/models/intake.rb'
     - 'app/services/scrape_vita_providers_service.rb'
-    - 'app/services/zendesk_follow_up_docs_service.rb'
-    - 'app/services/zendesk_intake_service.rb'
     - 'spec/controllers/application_controller_spec.rb'
     - 'spec/controllers/dependents_controller_spec.rb'
-    - 'spec/controllers/documents/requested_documents_later_controller_spec.rb'
     - 'spec/models/intake_spec.rb'
 
 # Offense count: 80
@@ -296,16 +271,9 @@ Layout/SpaceInsideBlockBraces:
 # SupportedStylesForEmptyBraces: space, no_space
 Layout/SpaceInsideHashLiteralBraces:
   Exclude:
-    - 'app/helpers/zendesk_service_helper.rb'
     - 'app/models/intake.rb'
-    - 'app/services/zendesk_drop_off_service.rb'
-    - 'app/services/zendesk_intake_service.rb'
     - 'db/schema.rb'
     - 'spec/controllers/application_controller_spec.rb'
-    - 'spec/controllers/documents/requested_documents_later_controller_spec.rb'
-    - 'spec/helpers/zendesk_service_helper_spec.rb'
-    - 'spec/services/zendesk_drop_off_service_spec.rb'
-    - 'spec/services/zendesk_intake_service_spec.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -337,8 +305,6 @@ Layout/TrailingEmptyLines:
 Layout/TrailingWhitespace:
   Exclude:
     - 'app/lib/intake_instance_domain_and_group_id_backfill.rb'
-    - 'spec/services/zendesk_drop_off_service_spec.rb'
-    - 'spec/services/zendesk_intake_service_spec.rb'
 
 # Offense count: 3
 Lint/AmbiguousOperator:
@@ -353,7 +319,6 @@ Lint/IneffectiveAccessModifier:
     - 'app/controllers/questions/chat_with_us_controller.rb'
     - 'app/controllers/questions/start_with_current_year_controller.rb'
     - 'app/lib/intake_instance_domain_and_group_id_backfill.rb'
-    - 'app/lib/zendesk_remove_duplicate_phones_backfill.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -389,8 +354,6 @@ Lint/UnusedBlockArgument:
 # Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
 Lint/UnusedMethodArgument:
   Exclude:
-    - 'app/controllers/documents/requested_documents_controller.rb'
-    - 'app/controllers/documents/requested_documents_later_controller.rb'
     - 'app/controllers/questions/questions_controller.rb'
 
 # Offense count: 3
@@ -398,8 +361,6 @@ Lint/UnusedMethodArgument:
 Lint/UselessAccessModifier:
   Exclude:
     - 'app/controllers/questions/chat_with_us_controller.rb'
-    - 'app/lib/intake_instance_domain_and_group_id_backfill.rb'
-    - 'app/lib/zendesk_remove_duplicate_phones_backfill.rb'
 
 # Offense count: 5
 Lint/UselessAssignment:
@@ -407,8 +368,6 @@ Lint/UselessAssignment:
     - 'app/controllers/documents/document_upload_question_controller.rb'
     - 'spec/controllers/documents/additional_documents_controller_spec.rb'
     - 'spec/controllers/documents/w2s_controller_spec.rb'
-    - 'spec/services/zendesk_follow_up_docs_service_spec.rb'
-    - 'spec/services/zendesk_intake_service_spec.rb'
 
 # Offense count: 33
 # Configuration parameters: IgnoredMethods.
@@ -502,7 +461,6 @@ Naming/VariableNumber:
 Performance/StringReplacement:
   Exclude:
     - 'app/models/vita_provider.rb'
-    - 'app/services/zendesk_drop_off_service.rb'
     - 'lib/generators/document_upload_generator.rb'
 
 # Offense count: 13
@@ -539,12 +497,6 @@ RSpec/DescribedClass:
 RSpec/EmptyLineAfterFinalLet:
   Enabled: false
 
-# Offense count: 3
-# Cop supports --auto-correct.
-RSpec/EmptyLineAfterHook:
-  Exclude:
-    - 'spec/controllers/zendesk_webhook_controller_spec.rb'
-
 # Offense count: 145
 # Configuration parameters: Max.
 RSpec/ExampleLength:
@@ -579,7 +531,6 @@ RSpec/HookArgument:
 RSpec/LeakyConstantDeclaration:
   Exclude:
     - 'spec/helpers/vita_min_form_builder_spec.rb'
-    - 'spec/helpers/zendesk_service_helper_spec.rb'
     - 'spec/lib/document_navigation_spec.rb'
     - 'spec/lib/question_navigation_spec.rb'
 
@@ -587,21 +538,11 @@ RSpec/LeakyConstantDeclaration:
 RSpec/LetSetup:
   Exclude:
     - 'spec/controllers/dependents_controller_spec.rb'
-    - 'spec/controllers/documents/send_requested_documents_later_controller_spec.rb'
     - 'spec/controllers/questions/notification_preference_controller_spec.rb'
     - 'spec/controllers/vita_providers_controller_spec.rb'
     - 'spec/features/web_intake/requested_documents_token_spec.rb'
-    - 'spec/lib/user_data_to_intake_backfill_spec.rb'
-    - 'spec/lib/zendesk_requested_docs_link_backfill_spec.rb'
     - 'spec/models/intake_spec.rb'
     - 'spec/models/user_spec.rb'
-    - 'spec/services/zendesk_follow_up_docs_service_spec.rb'
-    - 'spec/services/zendesk_sms_service_spec.rb'
-
-# Offense count: 3
-RSpec/MessageChain:
-  Exclude:
-    - 'spec/services/zendesk_drop_off_service_spec.rb'
 
 # Offense count: 2
 # Configuration parameters: EnforcedStyle.
@@ -675,7 +616,6 @@ Style/BlockDelimiters:
   Exclude:
     - 'spec/controllers/documents/additional_documents_controller_spec.rb'
     - 'spec/controllers/documents/requested_documents_later_controller_spec.rb'
-    - 'spec/controllers/documents/send_requested_documents_later_controller_spec.rb'
     - 'spec/controllers/documents/w2s_controller_spec.rb'
     - 'spec/controllers/questions/feelings_controller_spec.rb'
     - 'spec/controllers/users/omniauth_callbacks_controller_spec.rb'
@@ -792,7 +732,6 @@ Style/NumericPredicate:
     - 'spec/**/*'
     - 'app/controllers/users/omniauth_callbacks_controller.rb'
     - 'app/controllers/vita_providers_controller.rb'
-    - 'app/helpers/zendesk_service_helper.rb'
     - 'app/models/intake.rb'
     - 'app/models/vita_provider.rb'
 
@@ -808,7 +747,6 @@ Style/ParallelAssignment:
 Style/PercentLiteralDelimiters:
   Exclude:
     - 'Guardfile'
-    - 'app/helpers/eitc_zendesk_instance.rb'
     - 'config/initializers/lograge.rb'
     - 'config/initializers/sentry.rb'
     - 'spec/controllers/users/omniauth_callbacks_controller_spec.rb'
@@ -821,16 +759,6 @@ Style/PercentLiteralDelimiters:
 Style/PreferredHashMethods:
   Exclude:
     - 'app/validators/zip_code_validator.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, exploded
-Style/RaiseArgs:
-  Exclude:
-    - 'app/controllers/email_controller.rb'
-    - 'app/helpers/zendesk_service_helper.rb'
-    - 'app/services/zendesk_drop_off_service.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -851,7 +779,6 @@ Style/RedundantReturn:
   Exclude:
     - 'app/controllers/application_controller.rb'
     - 'app/helpers/vita_min_form_builder.rb'
-    - 'app/services/zendesk_drop_off_service.rb'
 
 # Offense count: 10
 # Cop supports --auto-correct.
@@ -865,26 +792,6 @@ Style/RedundantSelf:
     - 'config/environments/development.rb'
     - 'config/environments/shared_deployment_config.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantSort:
-  Exclude:
-    - 'app/services/zendesk_sms_service.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, AllowedMethods.
-# AllowedMethods: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'app/controllers/documents/send_requested_documents_later_controller.rb'
-
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'app/services/zendesk_intake_service.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -907,8 +814,6 @@ Style/StringLiteralsInInterpolation:
   Exclude:
     - 'app/helpers/vita_min_form_builder.rb'
     - 'app/models/dependent.rb'
-    - 'app/services/zendesk_drop_off_service.rb'
-    - 'app/services/zendesk_intake_service.rb'
     - 'lib/generators/document_upload_generator.rb'
 
 # Offense count: 11
@@ -925,7 +830,6 @@ Style/SymbolArray:
 Style/SymbolProc:
   Exclude:
     - 'app/services/scrape_vita_providers_service.rb'
-    - 'app/services/zendesk_sms_service.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -934,7 +838,6 @@ Style/SymbolProc:
 Style/TernaryParentheses:
   Exclude:
     - 'app/models/intake.rb'
-    - 'app/services/zendesk_intake_service.rb'
 
 # Offense count: 45
 # Cop supports --auto-correct.

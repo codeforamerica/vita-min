@@ -61,10 +61,7 @@ Rails.application.routes.draw do
     end
 
     namespace :documents do
-      delete "/requested-documents-later/remove", to: "requested_documents_later#destroy", as: :remove_requested_document
-      get "/requested-documents-later/not-found", to: "requested_documents_later#not_found", as: :requested_docs_not_found
-      get "/add/success", to: "send_requested_documents_later#success", as: :requested_documents_success
-      get "/add/:token", to: "requested_documents_later#edit", as: :add_requested_documents
+      get "/add/:token", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login" }, as: :add_requested_documents
       get "/doc-help/:doc_type", to: "documents_help#show", as: :help
       post '/doc-help/send-reminder', to: 'documents_help#send_reminder', as: :send_reminder
       post '/doc-help/request-doc-help', to: 'documents_help#request_doc_help', as: :request_doc_help

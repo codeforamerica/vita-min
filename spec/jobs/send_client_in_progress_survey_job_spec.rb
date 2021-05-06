@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SendClientInProgressSurveyJob, type: :job do
   describe "#perform" do
     before do
-      allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com"})
+      allow(ClientMessagingService).to receive(:contact_methods).and_return({ email: "example@example.com" })
       allow(ClientMessagingService).to receive(:send_system_email)
       allow(ClientMessagingService).to receive(:send_system_text_message)
     end
@@ -13,7 +13,7 @@ RSpec.describe SendClientInProgressSurveyJob, type: :job do
     context "sending the survey" do
       context "with a client who is opted-in to email notifications" do
         before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com"})
+          allow(ClientMessagingService).to receive(:contact_methods).and_return({ email: "example@example.com" })
         end
 
         context "when the client has not received this survey" do
@@ -33,7 +33,7 @@ RSpec.describe SendClientInProgressSurveyJob, type: :job do
       context "with a client who is opted-in to sms notifications" do
         let(:client) { create(:intake, locale: "es").client }
         before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({sms_phone_number: "+14155551212"})
+          allow(ClientMessagingService).to receive(:contact_methods).and_return({ sms_phone_number: "+14155551212" })
         end
 
         context "when the client has not received this survey" do
@@ -52,7 +52,7 @@ RSpec.describe SendClientInProgressSurveyJob, type: :job do
 
       context "with a client who is opted-in to email and sms notifications" do
         before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com", sms_phone_number: "+14155551212"})
+          allow(ClientMessagingService).to receive(:contact_methods).and_return({ email: "example@example.com", sms_phone_number: "+14155551212" })
         end
 
         context "when the client has not received this survey" do
@@ -74,7 +74,7 @@ RSpec.describe SendClientInProgressSurveyJob, type: :job do
     context "not sending the survey" do
       context "with a client who has already received this survey with contact methods available" do
         before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com"})
+          allow(ClientMessagingService).to receive(:contact_methods).and_return({ email: "example@example.com" })
           client.update(in_progress_survey_sent_at: DateTime.new(2021, 1, 1))
         end
 

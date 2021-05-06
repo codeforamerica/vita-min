@@ -110,7 +110,7 @@ CREATE VIEW analytics.intakes AS
            paid_mortgage_interest, paid_retirement_contributions, paid_school_supplies, paid_student_loan_interest,
            phone_number_can_receive_texts, preferred_interview_language, primary_consented_to_service, primary_consented_to_service_at,
            received_alimony, received_irs_letter, refund_payment_method, reported_asset_sale_loss,
-           reported_self_employment_loss, requested_docs_token_created_at, satisfaction_face,
+           reported_self_employment_loss, satisfaction_face,
            savings_purchase_bond, savings_split_refund, separated, separated_year, signature_method,
            sms_notification_opt_in, sold_a_home, sold_assets, source, spouse_consented_to_service,
            spouse_consented_to_service_at, spouse_had_disability, spouse_issued_identity_pin, spouse_was_blind,

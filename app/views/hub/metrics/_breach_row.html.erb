@@ -9,14 +9,8 @@
   <% else %>
     <td class="index-table__cell capacity capacity-percentage" data-js-capacity="0" data-js-count="0"></td>
   <% end %>
-  <td class="index-table__cell response-needed-breach"  data-js-count=<%= @report.response_needed_breaches[id] %>>
-    <%= @report.response_needed_breaches[id] %>
-  </td>
-  <td class="index-table__cell response-needed-breach-percentage">
-    <%= @report.active_sla_clients_count[id] %>
-  </td>
   <td class="index-table__cell communication-breach" data-js-count=<%= @report.communication_breaches[id] %>>
-    <%= @report.communication_breaches[id]%>
+    <%= @report.last_outgoing_communication_breaches[id]%>
   </td>
 
   <td class="index-table__cell communication-breach-percentage">

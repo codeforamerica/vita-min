@@ -1,6 +1,6 @@
 module ClientSortable
   def filtered_and_sorted_clients(default_order: nil)
-    @default_order = default_order || { "response_needed_since" => "asc" }
+    @default_order = default_order || { "last_outgoing_interaction_at" => "asc" }
     setup_sortable_client unless @filters.present?
     clients = if current_user&.greeter?
                 # Greeters should only have "search" access to clients in intake stage AND clients assigned to them.
