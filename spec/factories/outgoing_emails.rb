@@ -31,6 +31,5 @@ FactoryBot.define do
     body { "nothin" }
     subject { "Update from GetYourRefund" }
     to { "outgoing@example.com" }
-    sequence(:sent_at) { |n| DateTime.new(2020, 9, 2, 15, 1, 30) + n.minutes }
   end
 end

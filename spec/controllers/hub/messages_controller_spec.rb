@@ -91,7 +91,7 @@ RSpec.describe Hub::MessagesController do
         let!(:expected_contact_history) do
           [
             create(:incoming_email, body_plain: "Me too! Happy to get every notification", received_at: DateTime.new(2020, 1, 1, 18, 0, 4), client: client, from: "Georgie <money@banana.stand>"),
-            create(:outgoing_email, body: "We are really excited to work with you", sent_at: DateTime.new(2020, 1, 1, 14, 0, 3), client: client, user: create(:user, name: "Gob"), to: "always@banana.stand"),
+            create(:outgoing_email, body: "We are really excited to work with you", client: client, user: create(:user, name: "Gob"), to: "always@banana.stand"),
             create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), from_phone_number: "+14155537865", client: client),
             create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2019, 12, 31, 0, 0, 1), to_phone_number: '+14155532222', client: client, twilio_status: twilio_status, user: create(:user, name: "Lucille")),
           ].reverse
@@ -198,7 +198,7 @@ RSpec.describe Hub::MessagesController do
           let(:timezone) { "America/Los_Angeles" }
 
           before do
-            create(:outgoing_email, sent_at: DateTime.new(2019, 10, 4, 14), client: client)
+            create(:outgoing_email, created_at: DateTime.new(2019, 10, 4, 14), client: client)
             create(:incoming_email, received_at: DateTime.new(2020, 10, 4, 18), client: client)
           end
 
