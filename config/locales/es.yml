@@ -440,6 +440,9 @@ es:
         succeeded_body_html: "Te contactaste con éxito %{client_selection_link}."
         failed_body_html: "Nosotras no pudimos contactar %{client_selection_link}."
         in_progress_body_html: "Todavía estamos contactando %{client_selection_link}."
+      system_note_document_help:
+        title: "El cliente solicitó ayuda con el documento"
+        body_html: "%{client_link} ha solicitado ayuda con sus documentos."
     state_routings:
       edit:
         add_routing: Agregar enrutamiento
