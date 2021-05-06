@@ -126,7 +126,7 @@
   <div class="sticky-action-footer">
     <section class="take-action-box bulk-action-footer" id="take-action-footer" style="display: none;">
       <span class="bulk-action-count"><%= t('hub.clients.bulk_action.count_html', count: 0) %></span>
-      <%= form_with(url: new_hub_client_selection_path, local: true, method: :get, builder: VitaMinFormBuilder, html: { id: 'take-action-form' }) do |f| %>
+      <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder, html: { id: 'take-action-form' }) do |f| %>
         <%= f.submit t("general.take_action"), class: "button button--primary" %>
       <% end %>
     </section>

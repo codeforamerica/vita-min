@@ -2,7 +2,7 @@ module Hub
   module BulkActions
     class SendAMessageController < BaseBulkActionsController
       def update
-        @form = BulkActionForm.new(@client_selection, update_params)
+        @form = BulkActionForm.new(@selection, update_params)
 
         return render :edit unless @form.valid?
 

@@ -6,15 +6,15 @@ module Hub
     layout "admin"
 
     before_action :require_sign_in, :load_vita_partners, :load_users
-    before_action :load_bulk_message, :load_client_selection, :load_clients, only: [:show]
+    before_action :load_bulk_message, :load_selection, :load_clients, only: [:show]
 
     def show
       @client_filter_form_path = hub_clients_path
-      @client_index_help_text = I18n.t("hub.client_selections.client_selection_help_text", count: @clients.size)
-      @missing_results_message = I18n.t("hub.client_selections.client_selection_help_text_missing_results", count: @inaccessible_clients_count) unless @inaccessible_clients_count == 0
+      @client_index_help_text = I18n.t("hub.tax_return_selections.help_text", count: @clients.size)
+      @missing_results_message = I18n.t("hub.tax_return_selections.help_text_missing_results", count: @inaccessible_clients_count) unless @inaccessible_clients_count == 0
 
       @clients = filtered_and_sorted_clients.page(params[:page])
-      @page_title = I18n.t("hub.client_selections.page_title", count: @client_selection.clients.size, id: @client_selection.id)
+      @page_title = I18n.t("hub.tax_return_selections.page_title", count: @selection.clients.size, id: @selection.id)
       render "hub/clients/index"
     end
 
@@ -26,12 +26,12 @@ module Hub
       @bulk_message = BulkClientMessage.find(params[:id])
     end
 
-    def load_client_selection
-      @client_selection = @bulk_message.client_selection
+    def load_selection
+      @selection = @bulk_message.tax_return_selection
     end
 
     def load_clients
-      @clients = @client_selection.clients
+      @clients = @selection.clients
       case params[:status]
       when BulkClientMessage::SUCCEEDED
         @clients = @bulk_message.clients_with_successfully_sent_messages

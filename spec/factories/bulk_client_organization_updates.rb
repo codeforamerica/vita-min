@@ -23,7 +23,7 @@
 #
 FactoryBot.define do
   factory :bulk_client_organization_update do
-    client_selection
+    tax_return_selection
     vita_partner
   end
 end

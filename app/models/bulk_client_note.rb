@@ -20,5 +20,5 @@
 #
 class BulkClientNote < ApplicationRecord
   has_one :user_notification, as: :notifiable
-  belongs_to :client_selection
+  belongs_to :tax_return_selection
 end

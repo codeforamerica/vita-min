@@ -23,6 +23,6 @@
 #
 class BulkClientOrganizationUpdate < ApplicationRecord
   has_one :user_notification, as: :notifiable
-  belongs_to :client_selection
+  belongs_to :tax_return_selection
   belongs_to :vita_partner
 end

@@ -5,7 +5,7 @@ module Hub
       before_action :load_current_vita_partner_names
 
       def update
-        @form = BulkActionForm.new(@client_selection, update_params)
+        @form = BulkActionForm.new(@selection, update_params)
 
         return render :edit unless @form.valid?
 
@@ -30,18 +30,18 @@ module Hub
       end
 
       def load_current_vita_partner_names
-        @current_vita_partner_names = VitaPartner.where(clients: @client_selection.clients).pluck(:name).uniq.sort
+        @current_vita_partner_names = VitaPartner.where(clients: @selection.clients).pluck(:name).uniq.sort
       end
 
       def create_change_org_notifications!
         if @new_vita_partner.present?
-          bulk_update = BulkClientOrganizationUpdate.create!(client_selection: @client_selection, vita_partner: @new_vita_partner)
+          bulk_update = BulkClientOrganizationUpdate.create!(tax_return_selection: @selection, vita_partner: @new_vita_partner)
           UserNotification.create!(notifiable: bulk_update, user: current_user)
         end
       end
 
       def unassign_users_who_will_lose_access!
-        TaxReturn.where(client: @clients).where.not(assigned_user: nil).find_each do |tax_return|
+        @selection.tax_returns.accessible_by(current_ability).where.not(assigned_user: nil).find_each do |tax_return|
           assigned_user_retains_access = tax_return.assigned_user.accessible_vita_partners.include?(@new_vita_partner)
           tax_return.update!(assigned_user: nil) unless assigned_user_retains_access
         end

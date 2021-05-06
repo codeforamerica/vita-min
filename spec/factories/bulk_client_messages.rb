@@ -20,6 +20,6 @@
 #
 FactoryBot.define do
   factory :bulk_client_message do
-    client_selection
+    tax_return_selection
   end
 end

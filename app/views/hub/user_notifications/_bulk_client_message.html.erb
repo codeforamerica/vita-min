@@ -6,10 +6,10 @@
 
     <p class="total">
       <%= t(".total_body_html",
-            client_selection_link:
+            tax_return_selection_link:
               link_to(
-                t("hub.clients.count", count: notification.notifiable.client_selection.clients.size),
-                hub_bulk_client_message_path(id: notification.notifiable.client_selection.id)
+                t("hub.clients.count", count: notification.notifiable.tax_return_selection.clients.size),
+                hub_bulk_client_message_path(id: notification.notifiable.id)
               )
           ) %>
     </p>
@@ -17,7 +17,7 @@
     <% if notification.notifiable.status == BulkClientMessage::IN_PROGRESS %>
       <p class="in-progress">
         <%= t(".in_progress_body_html",
-              client_selection_link:
+              tax_return_selection_link:
                 link_to(
                   t("hub.clients.count", count: notification.notifiable.clients_with_in_progress_messages.size),
                   hub_bulk_client_message_path(id: notification.notifiable.id, status: BulkClientMessage::IN_PROGRESS)
@@ -29,7 +29,7 @@
     <% if notification.notifiable.clients_with_successfully_sent_messages.size > 0 %>
       <p class="succeeded">
         <%= t(".succeeded_body_html",
-          client_selection_link:
+              tax_return_selection_link:
             link_to(
               t("hub.clients.count", count: notification.notifiable.clients_with_successfully_sent_messages.size),
               hub_bulk_client_message_path(id: notification.notifiable.id, status: BulkClientMessage::SUCCEEDED)
@@ -41,7 +41,7 @@
     <% if notification.notifiable.clients_with_no_successfully_sent_messages.size > 0 %>
       <p class="failed">
         <%= t(".failed_body_html",
-              client_selection_link:
+              tax_return_selection_link:
                 link_to(
                   t("hub.clients.count", count: notification.notifiable.clients_with_no_successfully_sent_messages.size),
                   hub_bulk_client_message_path(id: notification.notifiable.id, status: BulkClientMessage::FAILED)

@@ -5,7 +5,7 @@ module Hub
 
       layout "admin"
 
-      before_action :require_sign_in, :load_client_selection, :load_clients, :load_template_variables
+      before_action :require_sign_in, :load_selection, :load_clients, :load_template_variables
       before_action :load_edit_form, only: :edit
 
       def edit; end
@@ -13,19 +13,19 @@ module Hub
       private
 
       def load_edit_form
-        @form = BulkActionForm.new(@client_selection)
+        @form = BulkActionForm.new(@selection)
       end
 
       def load_clients
-        @clients = @client_selection.clients.accessible_by(current_ability)
+        @clients = @selection.clients.accessible_by(current_ability)
       end
 
-      def load_client_selection
-        @client_selection = ClientSelection.find(params[:client_selection_id])
+      def load_selection
+        @selection = TaxReturnSelection.find(params[:tax_return_selection_id])
       end
 
       def load_template_variables
-        @inaccessible_client_count = @client_selection.clients.where.not(id: @clients).size
+        @inaccessible_client_count = @selection.clients.where.not(id: @clients).size
         @locale_counts = @clients.where.not(id: @clients.with_insufficient_contact_info).locale_counts
         @no_contact_info_count = @clients.with_insufficient_contact_info.size
       end
@@ -33,7 +33,7 @@ module Hub
       def create_outgoing_messages!
         if @form.message_body_en.present? || @form.message_body_es.present?
           @bulk_client_message = ClientMessagingService.send_bulk_message(
-            @client_selection,
+            @selection,
             current_user,
             en: @form.message_body_en,
             es: @form.message_body_es,
@@ -51,7 +51,7 @@ module Hub
 
       def create_user_notifications!
         if @form.note_body.present?
-          bulk_note = BulkClientNote.create!(client_selection: @client_selection)
+          bulk_note = BulkClientNote.create!(tax_return_selection: @selection)
           UserNotification.create!(notifiable: bulk_note, user: current_user)
         end
 

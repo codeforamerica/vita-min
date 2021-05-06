@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe Hub::BulkActionForm do
   let(:vita_partner) { create :organization }
-  let(:client_selection) { create :client_selection }
-  let(:form) { Hub::BulkActionForm.new(client_selection, form_params) }
+  let(:tax_return_selection) { create :tax_return_selection }
+  let(:form) { Hub::BulkActionForm.new(tax_return_selection, form_params) }
 
   describe "#valid?" do
     describe "#no_missing_message_locales" do
       context "when clients with both locales exist but one is missing" do
-        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), client_selections: [client_selection] }
-        let!(:client_es) { create :client, intake: create(:intake, locale: "es"), client_selections: [client_selection] }
+        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:client_es) { create :client, intake: create(:intake, locale: "es"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
         let(:form_params) do
           {
             vita_partner_id: vita_partner.id,
@@ -25,8 +25,8 @@ RSpec.describe Hub::BulkActionForm do
       end
 
       context "with clients using both locales and no message bodies submitted for any locale" do
-        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), client_selections: [client_selection] }
-        let!(:client_es) { create :client, intake: create(:intake, locale: "es"), client_selections: [client_selection] }
+        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:client_es) { create :client, intake: create(:intake, locale: "es"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
         let(:form_params) do
           {
             vita_partner_id: vita_partner.id,
@@ -41,7 +41,7 @@ RSpec.describe Hub::BulkActionForm do
       end
 
       context "with clients who prefer only one locale and a message for that locale" do
-        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), client_selections: [client_selection] }
+        let!(:client_en) { create :client, intake: create(:intake, locale: "en"), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
         let(:form_params) do
           {
             vita_partner_id: vita_partner.id,
