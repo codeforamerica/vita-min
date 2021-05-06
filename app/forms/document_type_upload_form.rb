@@ -1,7 +1,7 @@
 class DocumentTypeUploadForm < QuestionsForm
   set_attributes_for :intake, :document
   validates :document, file_type_allowed: true
-  validate :load_and_validate_document
+  validate :instantiate_document
 
   def initialize(document_type, *args, **kwargs)
     @document_type = document_type
@@ -16,7 +16,7 @@ class DocumentTypeUploadForm < QuestionsForm
 
   private
 
-  def load_and_validate_document
+  def instantiate_document
     document_file_upload = attributes_for(:intake)[:document]
     if document_file_upload.blank?
       errors[:document] << I18n.t("validators.file_type")
