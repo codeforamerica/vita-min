@@ -8,178 +8,182 @@
   <%= render "navigation" %>
 
   <section class="client-profile slab slab--padded">
-    <div class="client-profile__column">
+    <div class="client-container">
+      <div class="client-profile__column-container">
+        <div class="client-profile__column">
 
-      <!-- Basic info-->
-      <div class="client-profile__field-group">
-        <h2 class="text--bold"><%= t(".basic_info") %></h2>
-        <div class="field-display">
-          <span class="form-question"><%= t(".legal_name") %>:</span>
-          <span class="label-value"><%= @client.legal_name || t("general.NA") %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".preferred_name") %>:</span>
-          <span class="label-value"><%= @client.preferred_name %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".intake_language") %>:</span>
-          <span class="label-value"><%= @client.intake&.locale ? t("general.language_options.#{@client.intake&.locale}") : "N/A" %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".phone_interview_language") %>:</span>
-          <span class="label-value"><%= @client.intake&.preferred_interview_language ? t("general.language_options.#{@client.intake&.preferred_interview_language}") : "N/A" %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".interview_timing_preference") %>:</span>
-          <span class="label-value"><%= @client.intake&.interview_timing_preference %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t("general.timezone") %>:</span>
-          <span class="label-value"><%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
-          <span class="label-value"><%= @client.intake.state_of_residence %></span>
-        </div>
-        <!-- SSN/ITIN hidden -->
-        <div class="field-display last-four-ssn">
-          <span class="form-question"><%= t("general.last_four_ssn") %>:</span>
-          <% if @client.intake.primary_last_four_ssn.present? %>
-            <span id="js-ssn-itin">
-              <%= render "hub/clients/hidden_ssn_itin" %>
-            </span>
-            <span id="js-toggle-ssn-itin">
-              <%= link_to("View", show_ssn_itin_hub_client_path, remote: true)  %>
-            </span>
-          <% else %>
-            <span class="label-value"><%= t("general.NA") %></span>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- Tax info-->
-      <div class="client-profile__field-group">
-        <h2 class="text--bold"><%= t(".tax_info") %></h2>
-        <div class="field-display">
-          <span class="form-question"><%= t("general.filing_years") %>:</span>
-          <span class="label-value"><%= @client.intake&.filing_years&.join(", ") %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t("hub.clients.fields.signature_method") %>:</span>
-          <span class="label-value"><%= I18n.t("hub.clients.fields.signature_methods.#{@client.intake&.signature_method}") %> </span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".marital_status") %>:</span>
-          <span class="label-value"><%= @client.intake&.marital_statuses&.join(", ") %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".filing_status") %>:</span>
-          <span class="label-value"><%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly"  %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".dependents") %>:</span>
-          <span class="label-value"><%= @client.intake&.dependents.count %></span>
-        </div>
-        <ul id="dependents-list">
-          <% @client.intake&.dependents.each do |d| %>
-            <li><%= "#{d.first_name} #{d.last_name}, #{default_date_format(d.birth_date)}" %></li>
-          <% end %>
-        </ul>
-      </div>
-
-      <!-- Bank info-->
-      <div class="client-profile__field-group client-bank-account-info">
-        <h2 class="text--bold"><%= "Bank Account Info" %>
-          <% if @client.bank_account_info? %>
-          <span id="js-toggle-bank-account-info">
-            <%= link_to("View", show_bank_account_hub_client_path, remote: true)  %>
-          </span>
-          <% end %>
-        </h2>
-        <% if @client.bank_account_info? %>
-          <div id="js-bank-account-info">
-            <%= render "hub/clients/hidden_bank_account_info" %>
+          <!-- Basic info-->
+          <div class="client-profile__field-group">
+            <h2 class="text--bold"><%= t(".basic_info") %></h2>
+            <div class="field-display">
+              <span class="form-question"><%= t(".legal_name") %>:</span>
+              <span class="label-value"><%= @client.legal_name || t("general.NA") %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".preferred_name") %>:</span>
+              <span class="label-value"><%= @client.preferred_name %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".intake_language") %>:</span>
+              <span class="label-value"><%= @client.intake&.locale ? t("general.language_options.#{@client.intake&.locale}") : "N/A" %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".phone_interview_language") %>:</span>
+              <span class="label-value"><%= @client.intake&.preferred_interview_language ? t("general.language_options.#{@client.intake&.preferred_interview_language}") : "N/A" %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".interview_timing_preference") %>:</span>
+              <span class="label-value"><%= @client.intake&.interview_timing_preference %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t("general.timezone") %>:</span>
+              <span class="label-value"><%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
+              <span class="label-value"><%= @client.intake.state_of_residence %></span>
+            </div>
+            <!-- SSN/ITIN hidden -->
+            <div class="field-display last-four-ssn">
+              <span class="form-question"><%= t("general.last_four_ssn") %>:</span>
+              <% if @client.intake.primary_last_four_ssn.present? %>
+              <span id="js-ssn-itin">
+                <%= render "hub/clients/hidden_ssn_itin" %>
+              </span>
+                <span id="js-toggle-ssn-itin">
+                <%= link_to("View", show_ssn_itin_hub_client_path, remote: true) %>
+              </span>
+              <% else %>
+                <span class="label-value"><%= t("general.NA") %></span>
+              <% end %>
+            </div>
           </div>
-        <% else %>
-          <span class="label-value">No bank account info provided.</span>
-        <% end %>
-      </div>
-    </div>
 
-    <div class="client-profile__column">
-      <!-- Primary contact info-->
-      <div class="client-profile__field-group">
-        <h2 class="text--bold"><%= t(".primary_contact_info") %></h2>
-        <div class="field-display">
-          <span class="form-question"><%= t(".email") %>:</span>
-          <span class="label-value"><%= @client.email_address %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".phone") %>:</span>
-          <span class="label-value"><%= @client.phone_number %></span>
-          <span><%= link_to t("general.call"), new_hub_client_outbound_call_path(client_id: @client.id) %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".texting_phone") %>:</span>
-          <span class="label-value"><%= @client.sms_phone_number || 'N/A' %></span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".mailing_address") %>:</span>
-          <span class="label-value">
-              <%= @client.intake&.formatted_mailing_address %>
-          </span>
-        </div>
-      </div>
+          <!-- Tax info-->
+          <div class="client-profile__field-group">
+            <h2 class="text--bold"><%= t(".tax_info") %></h2>
+            <div class="field-display">
+              <span class="form-question"><%= t("general.filing_years") %>:</span>
+              <span class="label-value"><%= @client.intake&.filing_years&.join(", ") %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t("hub.clients.fields.signature_method") %>:</span>
+              <span class="label-value"><%= I18n.t("hub.clients.fields.signature_methods.#{@client.intake&.signature_method}") %> </span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".marital_status") %>:</span>
+              <span class="label-value"><%= @client.intake&.marital_statuses&.join(", ") %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".filing_status") %>:</span>
+              <span class="label-value"><%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly" %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".dependents") %>:</span>
+              <span class="label-value"><%= @client.intake&.dependents.count %></span>
+            </div>
+            <ul id="dependents-list">
+              <% @client.intake&.dependents.each do |d| %>
+                <li><%= "#{d.first_name} #{d.last_name}, #{default_date_format(d.birth_date)}" %></li>
+              <% end %>
+            </ul>
+          </div>
 
-      <!-- Spouse contact info-->
-      <% if @client.intake&.filing_joint_yes? %>
-        <div class="client-profile__field-group">
-          <h2 class="text--bold"><%= t(".spouse_contact_info") %></h2>
-          <div class="field-display">
-            <span class="form-question"><%= t(".legal_name") %>:</span>
-            <span class="label-value">
-              <%= "#{@client.intake&.spouse_first_name} #{@client.intake&.spouse_last_name}" %>
+          <!-- Bank info-->
+          <div class="client-profile__field-group client-bank-account-info">
+            <h2 class="text--bold"><%= "Bank Account Info" %>
+              <% if @client.bank_account_info? %>
+            <span id="js-toggle-bank-account-info">
+              <%= link_to("View", show_bank_account_hub_client_path, remote: true) %>
             </span>
-          </div>
-          <div class="field-display">
-            <span class="form-question"><%= t(".email") %>:</span>
-            <span class="label-value"><%= @client.intake&.spouse_email_address %> </span>
-          </div>
-          <div class="field-display spouse-last-four-ssn">
-            <span class="form-question"><%= t("general.last_four_ssn") %>:</span>
-            <% if @client.intake.spouse_last_four_ssn.present? %>
-            <span id="js-spouse-ssn-itin">
-              <%= render "hub/clients/hidden_ssn_itin" %>
-            </span>
-              <span id="js-toggle-spouse-ssn-itin">
-              <%= link_to("View", show_spouse_ssn_itin_hub_client_path, remote: true)  %>
-            </span>
+              <% end %>
+            </h2>
+            <% if @client.bank_account_info? %>
+              <div id="js-bank-account-info">
+                <%= render "hub/clients/hidden_bank_account_info" %>
+              </div>
             <% else %>
-              <span class="label-value"><%= t("general.NA") %></span>
+              <span class="label-value">No bank account info provided.</span>
             <% end %>
           </div>
-
         </div>
-      <% end %>
 
-      <div class="client-profile__field-group">
-        <h2 class="text--bold"><%= t(".other_info") %></h2>
-        <div class="field-display">
-          <span class="form-question"><%= t(".routing_method") %>:</span>
-          <span class="label-value">
-            <%= readable_routing_method(@client) || t("general.NA") %>
-          </span>
-        </div>
-        <div class="field-display">
-          <span class="form-question"><%= t(".source_param") %>:</span>
-          <span class="label-value">
-            <%= @client.intake&.source || t("general.NA") %>
-          </span>
+        <div class="client-profile__column">
+          <!-- Primary contact info-->
+          <div class="client-profile__field-group">
+            <h2 class="text--bold"><%= t(".primary_contact_info") %></h2>
+            <div class="field-display">
+              <span class="form-question"><%= t(".email") %>:</span>
+              <span class="label-value"><%= @client.email_address %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".phone") %>:</span>
+              <span class="label-value"><%= @client.phone_number %></span>
+              <span><%= link_to t("general.call"), new_hub_client_outbound_call_path(client_id: @client.id) %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".texting_phone") %>:</span>
+              <span class="label-value"><%= @client.sms_phone_number || 'N/A' %></span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".mailing_address") %>:</span>
+              <span class="label-value">
+                <%= @client.intake&.formatted_mailing_address %>
+            </span>
+            </div>
+          </div>
+
+          <!-- Spouse contact info-->
+          <% if @client.intake&.filing_joint_yes? %>
+            <div class="client-profile__field-group">
+              <h2 class="text--bold"><%= t(".spouse_contact_info") %></h2>
+              <div class="field-display">
+                <span class="form-question"><%= t(".legal_name") %>:</span>
+                <span class="label-value">
+                <%= "#{@client.intake&.spouse_first_name} #{@client.intake&.spouse_last_name}" %>
+              </span>
+              </div>
+              <div class="field-display">
+                <span class="form-question"><%= t(".email") %>:</span>
+                <span class="label-value"><%= @client.intake&.spouse_email_address %> </span>
+              </div>
+              <div class="field-display spouse-last-four-ssn">
+                <span class="form-question"><%= t("general.last_four_ssn") %>:</span>
+                <% if @client.intake.spouse_last_four_ssn.present? %>
+              <span id="js-spouse-ssn-itin">
+                <%= render "hub/clients/hidden_ssn_itin" %>
+              </span>
+                  <span id="js-toggle-spouse-ssn-itin">
+                <%= link_to("View", show_spouse_ssn_itin_hub_client_path, remote: true) %>
+              </span>
+                <% else %>
+                  <span class="label-value"><%= t("general.NA") %></span>
+                <% end %>
+              </div>
+
+            </div>
+          <% end %>
+
+          <div class="client-profile__field-group">
+            <h2 class="text--bold"><%= t(".other_info") %></h2>
+            <div class="field-display">
+              <span class="form-question"><%= t(".routing_method") %>:</span>
+              <span class="label-value">
+              <%= readable_routing_method(@client) || t("general.NA") %>
+            </span>
+            </div>
+            <div class="field-display">
+              <span class="form-question"><%= t(".source_param") %>:</span>
+              <span class="label-value">
+              <%= @client.intake&.source || t("general.NA") %>
+            </span>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="client-profile__actions"><%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %></div>
     </div>
 
-    <div class="client-profile__actions"><%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %></div>
   </section>
 
   <%= render "client_take_action_footer" %>

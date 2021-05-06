@@ -4,7 +4,8 @@
   <div class="slab slab--not-padded">
     <div class="grid">
       <div class="grid--item width-three-fourths">
-        <%= form_with model: @form, url: [:hub, @client], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+        <div class="client-container">
+          <%= form_with model: @form, url: [:hub, @client], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
           <h1>
             <%= @title %>
           </h1>
@@ -30,6 +31,7 @@
           <%= link_to t("general.cancel"), hub_client_path(id: @client.id), class: "button" %>
 
         <% end %>
+        </div>
       </div>
     </div>
   </div>

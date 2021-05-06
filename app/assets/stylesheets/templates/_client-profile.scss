@@ -1,8 +1,14 @@
 .client-profile {
+  &__column-container {
+    display: flex;
+    justify-content: space-between;
+  }
   &__column {
     display: inline-block;
-    vertical-align:top;
-    margin-right: $s60;
+    vertical-align: top;
+    flex: 0 0 calc(50% - 3rem);
+    word-break: break-word;
+    white-space: normal;
   }
   &__field-group {
     margin-bottom: $s35;
