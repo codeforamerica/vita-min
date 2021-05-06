@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_30_160828) do
+ActiveRecord::Schema.define(version: 2021_05_06_004347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -89,32 +89,32 @@ ActiveRecord::Schema.define(version: 2021_04_30_160828) do
   end
 
   create_table "bulk_client_messages", force: :cascade do |t|
-    t.bigint "client_selection_id", null: false
+    t.bigint "client_selection_id"
     t.datetime "created_at", precision: 6, null: false
+    t.bigint "tax_return_selection_id"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_selection_id"], name: "index_bulk_client_messages_on_client_selection_id"
+    t.index ["tax_return_selection_id"], name: "index_bcm_on_tax_return_selection_id"
   end
 
   create_table "bulk_client_notes", force: :cascade do |t|
-    t.bigint "client_selection_id", null: false
+    t.bigint "client_selection_id"
     t.datetime "created_at", precision: 6, null: false
+    t.bigint "tax_return_selection_id"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_selection_id"], name: "index_bulk_client_notes_on_client_selection_id"
+    t.index ["tax_return_selection_id"], name: "index_bcn_on_tax_return_selection_id"
   end
 
   create_table "bulk_client_organization_updates", force: :cascade do |t|
-    t.bigint "client_selection_id", null: false
+    t.bigint "client_selection_id"
     t.datetime "created_at", precision: 6, null: false
+    t.bigint "tax_return_selection_id"
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id", null: false
     t.index ["client_selection_id"], name: "index_bulk_client_organization_updates_on_client_selection_id"
+    t.index ["tax_return_selection_id"], name: "index_bcou_on_tax_return_selection_id"
     t.index ["vita_partner_id"], name: "index_bulk_client_organization_updates_on_vita_partner_id"
-  end
-
-  create_table "bulk_edits", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.jsonb "data"
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "client_selection_clients", force: :cascade do |t|
@@ -661,6 +661,20 @@ ActiveRecord::Schema.define(version: 2021_04_30_160828) do
     t.index ["tax_return_id"], name: "index_tax_return_assignments_on_tax_return_id"
   end
 
+  create_table "tax_return_selection_tax_returns", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "tax_return_id", null: false
+    t.bigint "tax_return_selection_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tax_return_id"], name: "index_trstr_on_tax_return_id"
+    t.index ["tax_return_selection_id"], name: "index_trstr_on_tax_return_selection_id"
+  end
+
+  create_table "tax_return_selections", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tax_returns", force: :cascade do |t|
     t.bigint "assigned_user_id"
     t.integer "certification_level"
@@ -817,8 +831,11 @@ ActiveRecord::Schema.define(version: 2021_04_30_160828) do
   add_foreign_key "bulk_client_message_outgoing_text_messages", "bulk_client_messages"
   add_foreign_key "bulk_client_message_outgoing_text_messages", "outgoing_text_messages"
   add_foreign_key "bulk_client_messages", "client_selections"
+  add_foreign_key "bulk_client_messages", "tax_return_selections"
   add_foreign_key "bulk_client_notes", "client_selections"
+  add_foreign_key "bulk_client_notes", "tax_return_selections"
   add_foreign_key "bulk_client_organization_updates", "client_selections"
+  add_foreign_key "bulk_client_organization_updates", "tax_return_selections"
   add_foreign_key "bulk_client_organization_updates", "vita_partners"
   add_foreign_key "client_selection_clients", "client_selections"
   add_foreign_key "client_selection_clients", "clients"
@@ -848,6 +865,8 @@ ActiveRecord::Schema.define(version: 2021_04_30_160828) do
   add_foreign_key "system_notes", "users"
   add_foreign_key "tax_return_assignments", "tax_returns"
   add_foreign_key "tax_return_assignments", "users", column: "assigner_id"
+  add_foreign_key "tax_return_selection_tax_returns", "tax_return_selections"
+  add_foreign_key "tax_return_selection_tax_returns", "tax_returns"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "team_member_roles", "vita_partners"
