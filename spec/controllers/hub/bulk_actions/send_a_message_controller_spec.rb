@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::SendAMessageController do
   let(:organization) { create :organization }
-  let(:client_selection) { create :client_selection }
+  let(:tax_return_selection) { create :tax_return_selection }
   let(:user) { create :organization_lead_user, organization: organization }
 
   describe "#update" do
     let(:new_vita_partner) { create :site, parent_organization: organization }
     let(:params) do
       {
-        client_selection_id: client_selection.id,
+        tax_return_selection_id: tax_return_selection.id,
         hub_bulk_action_form: {
           vita_partner_id: new_vita_partner.id
         }
@@ -30,7 +30,7 @@ RSpec.describe Hub::BulkActions::SendAMessageController do
           let(:spanish_message_body) { "¡Mové su caso a una organización nueva!" }
           let(:params) do
             {
-              client_selection_id: client_selection.id,
+              tax_return_selection_id: tax_return_selection.id,
               hub_bulk_action_form: {
                 vita_partner_id: new_vita_partner.id,
                 message_body_en: english_message_body,
@@ -47,7 +47,7 @@ RSpec.describe Hub::BulkActions::SendAMessageController do
             put :update, params: params
 
             expect(ClientMessagingService).to have_received(:send_bulk_message).with(
-              client_selection,
+              tax_return_selection,
               user,
               en: english_message_body,
               es: spanish_message_body,
@@ -79,12 +79,12 @@ RSpec.describe Hub::BulkActions::SendAMessageController do
       end
 
       context "creating a note" do
-        let!(:selected_client_1) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: organization }
-        let!(:selected_client_2) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: organization }
+        let!(:selected_client_1) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+        let!(:selected_client_2) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
         let(:note_body) { "An internal note with some text in it" }
         let(:params) do
           {
-            client_selection_id: client_selection.id,
+            tax_return_selection_id: tax_return_selection.id,
             hub_bulk_action_form: {
               note_body: note_body
             }
@@ -108,7 +108,7 @@ RSpec.describe Hub::BulkActions::SendAMessageController do
           expect(selected_client_2.notes.first.user).to eq user
 
           bulk_note = BulkClientNote.last
-          expect(bulk_note.client_selection).to eq client_selection
+          expect(bulk_note.tax_return_selection).to eq tax_return_selection
           expect(bulk_note.user_notification.user).to eq user
         end
       end

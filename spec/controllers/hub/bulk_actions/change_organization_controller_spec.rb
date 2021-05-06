@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::ChangeOrganizationController do
   let(:organization) { create :organization }
-  let(:client_selection) { create :client_selection }
+  let(:tax_return_selection) { create :tax_return_selection }
   let(:user) { create :organization_lead_user, organization: organization }
 
   describe "#edit" do
-    let(:params) { { client_selection_id: client_selection.id } }
+    let(:params) { { tax_return_selection_id: tax_return_selection.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
@@ -32,7 +32,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
     let(:new_vita_partner) { create :site, parent_organization: organization }
     let(:params) do
       {
-        client_selection_id: client_selection.id,
+        tax_return_selection_id: tax_return_selection.id,
         hub_bulk_action_form: {
           vita_partner_id: new_vita_partner.id
         }
@@ -45,7 +45,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
       before { sign_in user }
 
       context "updating organization" do
-        let!(:selected_client) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: organization }
+        let!(:selected_client) { create :client, intake: (create :intake), vita_partner: organization, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
 
         it "updates the organization on all selected clients, creates the right record, and redirects to the notification page" do
           expect {
@@ -57,7 +57,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
           )
 
           bulk_update = BulkClientOrganizationUpdate.last
-          expect(bulk_update.client_selection).to eq client_selection
+          expect(bulk_update.tax_return_selection).to eq tax_return_selection
           expect(bulk_update.user_notification.user).to eq user
           expect(bulk_update.user_notification.notifiable.vita_partner).to eq new_vita_partner
 
@@ -65,7 +65,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
         end
 
         context "when user only has access to update some clients" do
-          let!(:inaccessible_selected_client) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: create(:organization) }
+          let!(:inaccessible_selected_client) { create :client, intake: (create :intake), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: create(:organization) }
 
           it "only updates the clients that the user can access" do
             expect {
@@ -78,19 +78,15 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
           let(:old_site) { create :site, parent_organization: organization }
           let(:assigned_user_at_old_site) { create :site_coordinator_user, site: old_site }
           let(:assigned_user_who_retains_access) { create :organization_lead_user, organization: organization }
-          let(:selected_client) { create :client_with_intake_and_return, vita_partner: old_site, client_selections: [client_selection] }
-          let!(:other_assigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_who_retains_access, year: 2018 }
-          let!(:unassigned_return) { create :tax_return, client: selected_client, year: 2017 }
-
-          before do
-            selected_client.tax_returns.first.update(assigned_user: assigned_user_at_old_site)
-          end
+          let(:selected_client) { create :client, intake: (create :intake), vita_partner: old_site}
+          let!(:still_assigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_who_retains_access, year: 2018, tax_return_selections: [tax_return_selection] }
+          let!(:unassigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_at_old_site, year: 2017, tax_return_selections: [tax_return_selection] }
 
           it "unassigns all users who are losing access" do
             put :update, params: params
 
             expect(assigned_user_at_old_site.reload.assigned_tax_returns).to be_empty
-            expect(assigned_user_who_retains_access.reload.assigned_tax_returns).to eq [other_assigned_return]
+            expect(assigned_user_who_retains_access.reload.assigned_tax_returns).to eq [still_assigned_return]
           end
         end
       end
@@ -104,7 +100,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
           let(:spanish_message_body) { "¡Mové su caso a una organización nueva!" }
           let(:params) do
             {
-              client_selection_id: client_selection.id,
+                tax_return_selection_id: tax_return_selection.id,
               hub_bulk_action_form: {
                 vita_partner_id: new_vita_partner.id,
                 message_body_en: english_message_body,
@@ -121,7 +117,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
             put :update, params: params
 
             expect(ClientMessagingService).to have_received(:send_bulk_message).with(
-              client_selection,
+              tax_return_selection,
               user,
               en: english_message_body,
               es: spanish_message_body,
@@ -153,12 +149,12 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
       end
 
       context "creating a note" do
-        let!(:selected_client_1) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: organization }
-        let!(:selected_client_2) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: organization }
+        let!(:selected_client_1) { create :client, intake: (create :intake), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
+        let!(:selected_client_2) { create :client, intake: (create :intake), tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])], vita_partner: organization }
         let(:note_body) { "An internal note with some text in it" }
         let(:params) do
           {
-            client_selection_id: client_selection.id,
+            tax_return_selection_id: tax_return_selection.id,
             hub_bulk_action_form: {
               vita_partner_id: new_vita_partner.id,
               note_body: note_body
@@ -183,7 +179,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
           expect(selected_client_2.notes.first.user).to eq user
 
           bulk_note = BulkClientNote.last
-          expect(bulk_note.client_selection).to eq client_selection
+          expect(bulk_note.tax_return_selection).to eq tax_return_selection
           expect(bulk_note.user_notification.user).to eq user
         end
       end

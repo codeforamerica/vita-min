@@ -6,14 +6,14 @@
       <div class="grid__item width-three-fourths">
         <h1 class="h1"><%= t(".title") %></h1>
         <p><%= t(".choose_operation") %></p>
-        <%= form_with(model: @client_selection, url: hub_client_selections_path, method: :post, local: true, builder: VitaMinFormBuilder) do |f| %>
+        <%= form_with(model: @selection, url: hub_tax_return_selections_path, method: :post, local: true, builder: VitaMinFormBuilder) do |f| %>
           <% (@tr_ids || []).each do |tr_id| %>
-            <input value="<%= tr_id %>" type="hidden" name="create_client_selection[tr_ids][]"/>
+            <input value="<%= tr_id %>" type="hidden" name="create_tax_return_selection[tr_ids][]"/>
           <% end %>
           <div class="link-table">
             <div class="link-table__row">
               <div class="link-table__link">
-                <button type="submit" name="create_client_selection[action_type]" value="change-organization" class="button--link">
+                <button type="submit" name="create_tax_return_selection[action_type]" value="change-organization" class="button--link">
                   <%= t(".change_organization") %>
                 </button>
               </div>
@@ -21,7 +21,7 @@
             </div>
             <div class="link-table__row">
               <div class="link-table__link">
-                <button type="submit" name="create_client_selection[action_type]" value="send-a-message" class="button--link">
+                <button type="submit" name="create_tax_return_selection[action_type]" value="send-a-message" class="button--link">
                   <%= t(".send_a_message") %>
                 </button>
               </div>

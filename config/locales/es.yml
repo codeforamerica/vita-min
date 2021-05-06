@@ -429,32 +429,32 @@ es:
         body_link: "%{client_name}"
       bulk_client_organization_update:
         title: "Actualización Exitosa de la Organización Masiva de Clientes"
-        body_html: "Has movido correctamente %{client_selection_link} a %{organization_name}."
+        body_html: "Has movido correctamente %{tax_return_selection_link} a %{organization_name}."
       bulk_client_note:
         title: "Nota de Cliente Másiva Éxitosa"
-        body_html: "Ha agregado correctamente notas internas a %{client_selection_link}."
+        body_html: "Ha agregado correctamente notas internas a %{tax_return_selection_link}."
       bulk_client_message:
         succeeded-title_html: "Envío masivo exitoso de un mensaje"
         failed-title_html: "<i class=\"icon-warning\"></i> Enviar un mensaje masivo sin éxito"
         in-progress-title_html: "Envío masivo de un mensaje en curso"
-        total_body_html: "Intentaste contactar %{client_selection_link}."
-        succeeded_body_html: "Te contactaste con éxito %{client_selection_link}."
-        failed_body_html: "Nosotras no pudimos contactar %{client_selection_link}."
-        in_progress_body_html: "Todavía estamos contactando %{client_selection_link}."
+        total_body_html: "Intentaste contactar %{tax_return_selection_link}."
+        succeeded_body_html: "Te contactaste con éxito %{tax_return_selection_link}."
+        failed_body_html: "Nosotras no pudimos contactar %{tax_return_selection_link}."
+        in_progress_body_html: "Todavía estamos contactando %{tax_return_selection_link}."
     state_routings:
       edit:
         add_routing: Agregar enrutamiento
       routing_entry:
         delete_confirmation: "¿Estás segura de que quieres eliminar %{name}?"
         routing_percentage: Porcentaje de enrutamiento
-    client_selections:
+    tax_return_selections:
       page_title:
         one: "Selección de clientes #%{id} (%{count} resultado)"
         other: "Selección de clientes #%{id} (%{count} resultados)"
-      client_selection_help_text:
+      help_text:
         one: "Está viendo %{count} resultado de su búsqueda guardada"
         other: "Está viendo %{count} resultados de su búsqueda guardada"
-      client_selection_help_text_missing_results:
+      help_text_missing_results:
         one: "Ya no tiene accesso a %{count} resultado."
         other: "Ya no tiene accesso a %{count} resultados."
       new:

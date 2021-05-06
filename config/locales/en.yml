@@ -440,32 +440,32 @@ en:
         body_link: "%{client_name}'s"
       bulk_client_organization_update:
         title: "Successful Bulk Client Organization Update"
-        body_html: "You successfully moved %{client_selection_link} to %{organization_name}."
+        body_html: "You successfully moved %{tax_return_selection_link} to %{organization_name}."
       bulk_client_note:
         title: "Successful Bulk Client Note"
-        body_html: "You successfully added internal notes to %{client_selection_link}."
+        body_html: "You successfully added internal notes to %{tax_return_selection_link}."
       bulk_client_message:
         succeeded-title_html: "Successful Bulk Send a Message"
         failed-title_html: "<i class=\"icon-warning\"></i> Unsuccessful Bulk Send a Message"
         in-progress-title_html: "Bulk Send a Message In Progress"
-        total_body_html: "You attempted to contact %{client_selection_link}."
-        succeeded_body_html: "You successfully contacted %{client_selection_link}."
-        failed_body_html: "We could not contact %{client_selection_link}."
-        in_progress_body_html: "We are still contacting %{client_selection_link}."
+        total_body_html: "You attempted to contact %{tax_return_selection_link}."
+        succeeded_body_html: "You successfully contacted %{tax_return_selection_link}."
+        failed_body_html: "We could not contact %{tax_return_selection_link}."
+        in_progress_body_html: "We are still contacting %{tax_return_selection_link}."
     state_routings:
       edit:
         add_routing: Add routing
       routing_entry:
         delete_confirmation: Are you sure you want to remove routing for %{name}?
         routing_percentage: Routing percentage
-    client_selections:
+    tax_return_selections:
       page_title:
         one: "Client selection #%{id} (%{count} result)"
         other: "Client selection #%{id} (%{count} results)"
-      client_selection_help_text:
+      help_text:
         one: You are viewing %{count} result from your saved search
         other: You are viewing %{count} results from your saved search
-      client_selection_help_text_missing_results:
+      help_text_missing_results:
         one: "%{count} result is no longer accessible to you."
         other: "%{count} results are no longer accessible to you."
       new:

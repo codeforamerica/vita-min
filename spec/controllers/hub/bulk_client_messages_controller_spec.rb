@@ -8,8 +8,8 @@ RSpec.describe Hub::BulkClientMessagesController do
     let!(:successful_client) { create :client_with_intake_and_return, vita_partner: organization, status: "file_efiled" }
     let!(:failed_client) { create :client_with_intake_and_return, vita_partner: organization, status: "file_efiled" }
     let!(:in_progress_client) { create :client_with_intake_and_return, vita_partner: organization, status: "file_efiled" }
-    let!(:client_selection) { create :client_selection, clients: [successful_client, failed_client] }
-    let!(:bulk_client_message) { create :bulk_client_message, client_selection: client_selection }
+    let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [successful_client.tax_returns.first, failed_client.tax_returns.first] }
+    let!(:bulk_client_message) { create :bulk_client_message, tax_return_selection: tax_return_selection }
     let(:message_status_param) { BulkClientMessage::SUCCEEDED }
     let(:params) do
       { id: bulk_client_message.id, status: message_status_param }
@@ -38,7 +38,7 @@ RSpec.describe Hub::BulkClientMessagesController do
         context "when the user cannot access all of the clients" do
           render_views
           let!(:inaccessible_client) { create :client_with_intake_and_return, status: "file_efiled" }
-          let!(:client_selection) { create :client_selection, clients: [successful_client, failed_client, inaccessible_client] }
+          let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [successful_client.tax_returns.first, failed_client.tax_returns.first, inaccessible_client.tax_returns.first] }
 
           before do
             allow_any_instance_of(BulkClientMessage).to receive(:clients_with_no_successfully_sent_messages).and_return Client.where(id: [failed_client, inaccessible_client])

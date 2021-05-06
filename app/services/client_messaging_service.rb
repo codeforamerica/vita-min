@@ -78,18 +78,18 @@ class ClientMessagingService
       methods
     end
 
-    def send_bulk_message(client_selection, sender, **message_bodies_by_locale)
-      locales = Intake.where(client: client_selection.clients).pluck(:locale).uniq
+    def send_bulk_message(tax_return_selection, sender, **message_bodies_by_locale)
+      locales = Intake.where(client: tax_return_selection.clients).pluck(:locale).uniq
 
       sorted_locales_without_nil = locales.compact.blank? ? ["en"] : locales.compact.sort
       raise ArgumentError, "Missing message bodies for some client locales" unless sorted_locales_without_nil == message_bodies_by_locale.keys.filter { |key| message_bodies_by_locale[key].present? }.map(&:to_s).sort
 
-      bulk_client_message = BulkClientMessage.create!(client_selection: client_selection)
+      bulk_client_message = BulkClientMessage.create!(tax_return_selection: tax_return_selection)
 
       locales.each do |locale|
         message_body = locale.nil? ? message_bodies_by_locale[:en] : message_bodies_by_locale[locale.to_sym]
 
-        client_selection.clients.accessible_to_user(sender).where(intake: Intake.where(locale: locale)).find_each do |client|
+        tax_return_selection.clients.accessible_to_user(sender).where(intake: Intake.where(locale: locale)).find_each do |client|
           message_records = ClientMessagingService.send_message_to_all_opted_in_contact_methods(
             client, sender, message_body
           )

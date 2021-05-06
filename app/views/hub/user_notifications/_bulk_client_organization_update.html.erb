@@ -4,7 +4,7 @@
   <div class="notification__body <%= notification.read ? 'notification__read' : 'notification__unread' %>">
     <%= render 'shared/unread_icon', flag: true unless notification.read? %>
     <%= t(".body_html",
-          client_selection_link: link_to(t("hub.clients.count", count: notification.notifiable.client_selection.clients.count), hub_client_selection_path(id: notification.notifiable.client_selection.id)),
+          tax_return_selection_link: link_to(t("hub.clients.count", count: notification.notifiable.tax_return_selection.clients.count), hub_tax_return_selection_path(id: notification.notifiable.tax_return_selection.id)),
           organization_name: notification.notifiable.vita_partner.name)
     %>
   </div>

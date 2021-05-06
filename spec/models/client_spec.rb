@@ -442,11 +442,11 @@ describe Client do
       let(:intake) { create :intake, client: client, vita_partner: vita_partner }
       let!(:unrelated_intake) { create :intake }
       let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
-      let!(:client_selection) { create(:client_selection, clients: [client]) }
+      let(:tax_return_selection) { create(:tax_return_selection) }
       before do
         create_list :document, 2, client: client, intake: intake
         create_list :dependent, 2, intake: intake
-        tax_return = create :tax_return, client: client, assigned_user: user
+        tax_return = create :tax_return, client: client, assigned_user: user, tax_return_selections: [tax_return_selection]
         tax_return_assignment = create :tax_return_assignment, tax_return: tax_return
         create :user_notification, user: user, notifiable: tax_return_assignment
         note = create :note, client: client, user: user
@@ -475,7 +475,6 @@ describe Client do
         expect(OutgoingEmail.count).to eq 0
         expect(OutgoingTextMessage.count).to eq 0
         expect(DocumentsRequest.count).to eq 0
-        expect(client_selection.clients.count).to eq 0
         expect(TaxReturnAssignment.count).to eq 0
         expect(UserNotification.count).to eq 0
       end

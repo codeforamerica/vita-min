@@ -1,13 +1,13 @@
 require "rails_helper"
 
-RSpec.describe Hub::ClientSelectionsController do
+RSpec.describe Hub::TaxReturnSelectionsController do
   let(:organization) { create :organization }
   let(:user) { create :organization_lead_user, organization: organization }
   let(:clients) { create_list :client_with_intake_and_return, 3, vita_partner: organization, status: "file_efiled" }
-  let(:client_selection) { create :client_selection, clients: clients }
 
   describe "#show" do
-    let(:params) { { id: client_selection.id } }
+    let(:tax_return_selection) { create :tax_return_selection, tax_returns: TaxReturn.joins(:client).where(clients: { id: clients}) }
+    let(:params) { { id: tax_return_selection.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
@@ -60,7 +60,7 @@ RSpec.describe Hub::ClientSelectionsController do
     let(:tax_return1) { create(:tax_return, client: clients[0], year: 2020) }
     let(:tax_return2) { create(:tax_return, client: clients[0], year: 2018) }
     let(:tax_return3) { create(:tax_return, client: clients[1], year: 2018) }
-    let(:params) { { create_client_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: action_type } } }
+    let(:params) { { create_tax_return_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: action_type } } }
     let(:action_type) { "change-organization" }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
@@ -69,16 +69,16 @@ RSpec.describe Hub::ClientSelectionsController do
       before { sign_in user }
 
       context "when the action type is changing organization" do
-        it "should create client_selection and redirect to the appropriate bulk action page for change-organization" do
+        it "should create tax_return_selection and redirect to the appropriate bulk action page for change-organization" do
           expect {
             post :create, params: params
-          }.to change(ClientSelection, :count).by(1)
+          }.to change(TaxReturnSelection, :count).by(1)
 
-          client_selection = ClientSelection.last
-          expect(client_selection.clients.count).to eq(2)
-          expect(client_selection.clients).to match_array [clients[0], clients[1]]
+          selection = TaxReturnSelection.last
+          expect(selection.tax_returns.count).to eq(3)
+          expect(selection.clients).to match_array [clients[0], clients[1]]
 
-          expect(response).to redirect_to(hub_bulk_actions_edit_change_organization_path(client_selection_id: client_selection.id))
+          expect(response).to redirect_to(hub_bulk_actions_edit_change_organization_path(tax_return_selection_id: selection.id))
         end
       end
 
@@ -88,23 +88,23 @@ RSpec.describe Hub::ClientSelectionsController do
         it "should create client_selection and redirect to the appropriate bulk action page for send-a-message" do
           expect {
             post :create, params: params
-          }.to change(ClientSelection, :count).by(1)
+          }.to change(TaxReturnSelection, :count).by(1)
 
-          client_selection = ClientSelection.last
-          expect(client_selection.clients.count).to eq(2)
-          expect(client_selection.clients).to match_array [clients[0], clients[1]]
+          selection = TaxReturnSelection.last
+          expect(selection.tax_returns.count).to eq(3)
+          expect(selection.clients).to match_array [clients[0], clients[1]]
 
-          expect(response).to redirect_to(hub_bulk_actions_edit_send_a_message_path(client_selection_id: client_selection.id))
+          expect(response).to redirect_to(hub_bulk_actions_edit_send_a_message_path(tax_return_selection_id: selection.id))
         end
       end
 
       context "if action_type is not properly set" do
-        let(:params) { { create_client_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: "not-a-valid-type" } } }
+        let(:params) { { create_tax_return_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: "not-a-valid-type" } } }
 
         it "should not be found" do
           expect {
             post :create, params: params
-          }.to change(ClientSelection, :count).by(0)
+          }.to change(TaxReturnSelection, :count).by(0)
           expect(response).to be_not_found
         end
       end
@@ -113,16 +113,16 @@ RSpec.describe Hub::ClientSelectionsController do
         let(:tax_return1) { create(:tax_return, client: clients[0], year: 2020) }
         let(:tax_return2) { create(:tax_return, client: clients[0], year: 2018) }
         let(:tax_return3) { create(:tax_return, client: create(:client), year: 2018) }
-        let(:params) { { create_client_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: "change-organization" } } }
+        let(:params) { { create_tax_return_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: "change-organization" } } }
 
-        it "only selects clients that the user does have access to" do
+        it "only selects tax returns that the user has access to" do
           expect {
             post :create, params: params
-          }.to change(ClientSelection, :count).by(1)
+          }.to change(TaxReturnSelection, :count).by(1)
 
-          client_selection = ClientSelection.last
-          expect(client_selection.clients.count).to eq(1)
-          expect(client_selection.clients).to match_array [clients[0]]
+          tax_return_selection = TaxReturnSelection.last
+          expect(tax_return_selection.tax_returns).to match_array [tax_return1, tax_return2]
+          expect(tax_return_selection.clients).to match_array [clients[0]]
         end
       end
     end
