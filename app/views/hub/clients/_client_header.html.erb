@@ -18,7 +18,7 @@
         <div class="item">
           <label class="toggle-switch">
             <span class="sr-only" >Flag</span>
-            <input type="checkbox" <%= @client.needs_response? && "checked" %> onchange="toggleFlag()">
+            <input id="toggle-flag" type="checkbox" <%= @client.needs_response? && "checked" %> onchange="toggleFlag()">
             <span class="slider round"></span>
           </label>
         </div>
