@@ -13,6 +13,18 @@
         <% end %>
       </div>
 
+      <div class="grid-flex align-center">
+        <div class="item-15r">Flag</div>
+        <div class="item">
+          <label class="toggle-switch">
+            <span class="sr-only" >Flag</span>
+            <input type="checkbox" <%= @client.needs_response? && "checked" %> onchange="toggleFlag()">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+
+
       <% dupe_clients = @client.clients_with_dupe_contact_info %>
       <% unless dupe_clients.empty? %>
         <div class="text--help">
@@ -37,9 +49,8 @@
         <div class="text--help spacing-below-0"><%= t("hub.waiting_on_response") + ":" %> <%= timestamp(@client.first_unanswered_incoming_interaction_at) %></div>
       <% end %>
 
-      <%= form_for [:hub, @client], method: :patch, url: response_needed_hub_client_path(id: @client.id) do |f| %>
+      <%= form_for [:hub, @client], method: :patch, url: response_needed_hub_client_path(id: @client.id), html: { class: 'toggle-flag' } do |f| %>
         <%= f.hidden_field :action, value: @client.needs_response? ? "clear" : "set" %>
-        <%= f.submit @client.needs_response? ? t("general.responded_to_client") : t("general.mark_for_response"), class: "button button--small" %>
       <% end %>
     </div>
 
@@ -49,3 +60,11 @@
   </div>
 </section>
 
+<% content_for :script do %>
+  <script>
+      function toggleFlag() {
+          console.log("triggered")
+          document.querySelector("form.toggle-flag").submit();
+      }
+  </script>
+<% end %>
