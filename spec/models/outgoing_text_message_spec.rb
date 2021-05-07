@@ -4,7 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  body            :string           not null
-#  sent_at         :datetime         not null
+#  sent_at         :datetime
 #  to_phone_number :string           not null
 #  twilio_sid      :string
 #  twilio_status   :string

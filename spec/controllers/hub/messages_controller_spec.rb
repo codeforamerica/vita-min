@@ -196,14 +196,15 @@ RSpec.describe Hub::MessagesController do
 
         context "with messages from different days" do
           let(:timezone) { "America/Los_Angeles" }
+          let!(:outgoing_email) { create(:outgoing_email, client: client) }
 
           before do
-            create(:outgoing_email, created_at: DateTime.new(2019, 10, 4, 14), client: client)
             create(:incoming_email, received_at: DateTime.new(2020, 10, 4, 18), client: client)
           end
 
           it "correctly groups notes by day created" do
             get :index, params: params
+            outgoing_email.update_column(:created_at, DateTime.new(2019, 10, 4, 14))
             day1 = DateTime.new(2019, 10, 4, 14).in_time_zone('America/Los_Angeles').beginning_of_day
             day2 = DateTime.new(2020, 10, 4, 18).in_time_zone('America/Los_Angeles').beginning_of_day
 

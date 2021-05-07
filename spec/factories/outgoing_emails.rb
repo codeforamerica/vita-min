@@ -5,7 +5,7 @@
 #  id             :bigint           not null, primary key
 #  body           :string           not null
 #  mailgun_status :string           default("sending")
-#  sent_at        :datetime         not null
+#  sent_at        :datetime
 #  subject        :string           not null
 #  to             :citext           not null
 #  created_at     :datetime         not null
@@ -31,5 +31,6 @@ FactoryBot.define do
     body { "nothin" }
     subject { "Update from GetYourRefund" }
     to { "outgoing@example.com" }
+    sequence(:created_at) { |n| DateTime.new(2020, 9, 2, 15, 1, 30) + n.minutes }
   end
 end
