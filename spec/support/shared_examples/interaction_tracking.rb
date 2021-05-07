@@ -60,7 +60,7 @@ shared_examples_for "an outgoing interaction" do
   it "updates the associated client" do
     Timecop.freeze do
       expect { subject.save }
-      .to change(subject.client, :last_outgoing_interaction_at).to(Time.now)
+      .to change(subject.client, :last_outgoing_communication_at).to(Time.now)
     end
   end
 end

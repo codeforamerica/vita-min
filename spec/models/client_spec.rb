@@ -12,7 +12,7 @@
 #  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
-#  last_outgoing_interaction_at             :datetime
+#  last_outgoing_communication_at           :datetime
 #  last_sign_in_at                          :datetime
 #  last_sign_in_ip                          :inet
 #  locked_at                                :datetime

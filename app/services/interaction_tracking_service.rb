@@ -1,7 +1,7 @@
 class InteractionTrackingService
   # As of April 2021, we keep a record of *any* outgoing message to the client (even those that are automated)
-  def self.update_last_outgoing_interaction_at(client)
-    client.update!(last_outgoing_interaction_at: Time.now)
+  def self.update_last_outgoing_communication_at(client)
+    client.update!(last_outgoing_communication_at: Time.now)
   end
 
   # When a client contacts us, update last incoming interaction and last interaction

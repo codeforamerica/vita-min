@@ -13,13 +13,13 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
     context "as an authenticated team member" do
       let(:user) { create(:team_member_user) }
       let(:site) { user.role.site }
-      let!(:client_within_sla) { create :client_with_intake_and_return, last_outgoing_interaction_at: 2.business_days.ago, vita_partner: site }
-      let!(:four_day_completed_status) { create :client, intake: (create :intake), last_outgoing_interaction_at: 4.days.ago, vita_partner: site, tax_returns: [create(:tax_return, status: "file_accepted")]}
-      let!(:four_day_breach_client) { create :client_with_intake_and_return, last_outgoing_interaction_at: 4.business_days.ago, vita_partner: site }
-      let!(:six_day_breach_client) { create :client_with_intake_and_return, last_outgoing_interaction_at: 6.business_days.ago, vita_partner: site }
+      let!(:client_within_sla) { create :client_with_intake_and_return, last_outgoing_communication_at: 2.business_days.ago, vita_partner: site }
+      let!(:four_day_completed_status) { create :client, intake: (create :intake), last_outgoing_communication_at: 4.days.ago, vita_partner: site, tax_returns: [create(:tax_return, status: "file_accepted")]}
+      let!(:four_day_breach_client) { create :client_with_intake_and_return, last_outgoing_communication_at: 4.business_days.ago, vita_partner: site }
+      let!(:six_day_breach_client) { create :client_with_intake_and_return, last_outgoing_communication_at: 6.business_days.ago, vita_partner: site }
       let!(:ten_day_breach_client_done_filing) do
         create :client,
-               last_outgoing_interaction_at: 10.business_days.ago,
+               last_outgoing_communication_at: 10.business_days.ago,
                vita_partner: site,
                intake: build(:intake),
                tax_returns: [
@@ -30,7 +30,7 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
       end
       let!(:ten_day_breach_client_half_done_filing) do
         create :client,
-               last_outgoing_interaction_at: 10.business_days.ago,
+               last_outgoing_communication_at: 10.business_days.ago,
                vita_partner: site,
                intake: build(:intake),
                tax_returns: [
