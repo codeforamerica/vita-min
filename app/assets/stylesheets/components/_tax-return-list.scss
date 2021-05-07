@@ -174,28 +174,23 @@
 
   // More info about styling with data attributes can be found at
   // https://css-tricks.com/a-complete-guide-to-data-attributes/
-  &[data-status="Intake/Not ready"],
-  &[data-status="Admisión/No listo"],
-  &[data-status="Intake/Greeter - info requested"],
-  &[data-status="Admisión/Saludador - Información solicitada"] {
+  &[data-status="intake_in_progress"],
+  &[data-status="intake_greeter_info_requested"] {
     background-color: $color-orange-medium;
     border-color: $color-orange-medium;
   }
 
-  &[data-status^="Tax prep"],
-  &[data-status^="Preparación de impuestos"] {
+  &[data-status^="prep"] {
     background-color: $color-lavender;
     border-color: $color-lavender;
   }
 
-  &[data-status^="Quality review"],
-  &[data-status^="Revisión de calidad"] {
+  &[data-status^="review"] {
     background-color: $color-stimulus-blue;
     border-color: $color-stimulus-blue;
   }
 
-  &[data-status^="Final steps"],
-  &[data-status^="Pasos finales"] {
+  &[data-status^="files"] {
     background-color: $color-grey-medium-light;
     border-color: $color-grey-medium-light;
   }
