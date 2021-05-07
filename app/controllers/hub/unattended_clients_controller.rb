@@ -14,7 +14,7 @@ module Hub
     def index
       @page_title = "Clients who haven't received a response in #{day_param} business days"
       @breach_date = day_param.business_days.ago
-      @clients = filtered_and_sorted_clients.last_outgoing_interaction_breaches(@breach_date)
+      @clients = filtered_and_sorted_clients.last_outgoing_communication_breaches(@breach_date)
       @clients = @clients.with_eager_loaded_associations.page(params[:page])
       render "hub/clients/index"
     end

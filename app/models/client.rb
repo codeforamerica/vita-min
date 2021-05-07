@@ -79,13 +79,15 @@ class Client < ApplicationRecord
   end
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
-  scope :sla_tracked, -> { distinct.joins(:tax_returns).where(tax_returns: { status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_SLA })}
+  scope :sla_tracked, -> { distinct.joins(:tax_returns).where.not(tax_returns: { status: TaxReturnStatus::EXCLUDED_FROM_SLA }) }
   scope :response_needed_breaches, ->(breach_threshold_datetime) do
     sla_tracked.where(arel_table[:response_needed_since].lteq(breach_threshold_datetime))
   end
-  scope :last_outgoing_interaction_breaches, ->(breach_threshold_datetime) do
-    sla_tracked.where(arel_table[:last_outgoing_interaction_at].lteq(breach_threshold_datetime)).merge(TaxReturn.where.not(status: TaxReturnStatus::EXCLUDED_FROM_URGENT))
+
+  scope :last_outgoing_communication_breaches, ->(breach_threshold_datetime) do
+    sla_tracked.where(arel_table[:last_outgoing_interaction_at].lteq(breach_threshold_datetime))
   end
+
   scope :outgoing_interaction_breaches, ->(breach_threshold_datetime) do
     sla_tracked.where(
       arel_table[:first_unanswered_incoming_interaction_at].lteq(breach_threshold_datetime)
@@ -94,10 +96,6 @@ class Client < ApplicationRecord
         arel_table[:first_unanswered_incoming_interaction_at]
       ).or(arel_table[:last_internal_or_outgoing_interaction_at].eq(nil))
     )
-  end
-
-  scope :last_outgoing_communication_breaches, ->(breach_threshold_datetime) do
-    sla_tracked.where(arel_table[:last_outgoing_interaction_at].lteq(breach_threshold_datetime))
   end
 
   scope :first_unanswered_incoming_interaction_communication_breaches, ->(breach_threshold_datetime) do

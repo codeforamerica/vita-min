@@ -48,9 +48,7 @@ class TaxReturnStatus
 
 
   ONBOARDING_STATUSES = [:intake_before_consent, :intake_in_progress, :intake_greeter_info_requested, :intake_needs_doc_help]
-  EXCLUDED_FROM_SLA = [:intake_before_consent, :file_accepted, :file_not_filing, :file_hold].freeze
-  EXCLUDED_FROM_URGENT = [:file_not_filing, :file_accepted, :file_mailed].freeze
-  STATUS_KEYS_INCLUDED_IN_SLA = (STATUSES.keys - EXCLUDED_FROM_SLA).freeze
+  EXCLUDED_FROM_SLA = [:intake_before_consent, :file_accepted, :file_not_filing, :file_hold, :file_mailed].freeze
   STATUSES_BY_STAGE = determine_statuses_by_stage.freeze
   STAGES = STATUSES_BY_STAGE.keys.freeze
   TERMINAL_STATUSES = [:file_accepted, :file_rejected, :file_mailed].freeze
