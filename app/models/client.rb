@@ -86,7 +86,7 @@ class Client < ApplicationRecord
     sla_tracked.where(arel_table[:response_needed_since].lteq(breach_threshold_datetime))
   end
   scope :last_outgoing_interaction_breaches, ->(breach_threshold_datetime) do
-    sla_tracked.where(arel_table[:last_outgoing_interaction_at].lteq(breach_threshold_datetime))
+    sla_tracked.where(arel_table[:last_outgoing_interaction_at].lteq(breach_threshold_datetime)).merge(TaxReturn.where.not(status: TaxReturnStatus::EXCLUDED_FROM_URGENT))
   end
   scope :outgoing_interaction_breaches, ->(breach_threshold_datetime) do
     sla_tracked.where(
