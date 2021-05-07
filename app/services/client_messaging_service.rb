@@ -79,17 +79,20 @@ class ClientMessagingService
     end
 
     def send_bulk_message(tax_return_selection, sender, **message_bodies_by_locale)
-      locales = Intake.where(client: tax_return_selection.clients).pluck(:locale).uniq
+      locale_counts = tax_return_selection.clients.locale_counts
+      client_locales = locale_counts.keys.filter { |key| locale_counts[key].nonzero? }.sort
 
-      sorted_locales_without_nil = locales.compact.blank? ? ["en"] : locales.compact.sort
-      raise ArgumentError, "Missing message bodies for some client locales" unless sorted_locales_without_nil == message_bodies_by_locale.keys.filter { |key| message_bodies_by_locale[key].present? }.map(&:to_s).sort
+      present_message_bodies_by_locale = message_bodies_by_locale.keys.filter { |key| message_bodies_by_locale[key].present? }.map(&:to_s).sort
+      raise ArgumentError, "Missing message bodies for some client locales" unless client_locales == present_message_bodies_by_locale
 
       bulk_client_message = BulkClientMessage.create!(tax_return_selection: tax_return_selection)
 
-      locales.each do |locale|
-        message_body = locale.nil? ? message_bodies_by_locale[:en] : message_bodies_by_locale[locale.to_sym]
+      client_locales.each do |locale|
+        message_body = message_bodies_by_locale[locale.to_sym]
 
-        tax_return_selection.clients.accessible_to_user(sender).where(intake: Intake.where(locale: locale)).find_each do |client|
+        # we normalize nil to "en" in locale counts and so we have to check if intake has nil locale for "en"
+        locale_on_intake = locale == "en" ? [locale, nil] : locale
+        tax_return_selection.clients.accessible_to_user(sender).where(intake: Intake.where(locale: locale_on_intake)).find_each do |client|
           message_records = ClientMessagingService.send_message_to_all_opted_in_contact_methods(
             client, sender, message_body
           )
