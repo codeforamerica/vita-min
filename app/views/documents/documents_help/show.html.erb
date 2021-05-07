@@ -8,7 +8,7 @@
     <div class="doc-help__item">
       <%= image_tag("doc-help/check-chat-bubble--green.svg", alt: "", class: "doc-help__icon") %>
       <div>
-        <%= link_to documents_send_reminder_path(doc_type: params[:doc_type], next_path: next_path), class: "doc-help__link", method: :post do %>
+        <%= link_to documents_send_reminder_path(doc_type: params[:doc_type], next_path: next_path), class: "doc-help__link", "data-track-click": "doc-help-reminder", method: :post do %>
           <%= t(".reminder_link") %>
         <% end %>
       </div>
@@ -17,7 +17,7 @@
     <div class="doc-help__item">
       <%= image_tag("doc-help/doc-magnify--orange.svg", alt: "", class: "doc-help__icon") %>
       <div>
-        <%= link_to documents_request_doc_help_path(doc_type: params[:doc_type], help_type: "cant_locate", next_path: next_path), class: "doc-help__link", method: :post do %>
+        <%= link_to documents_request_doc_help_path(doc_type: params[:doc_type], help_type: "cant_locate", next_path: next_path), class: "doc-help__link", "data-track-click": "doc-help-help-finding", method: :post do %>
           <%= t(".need_help_find") %>
         <% end %>
       </div>
@@ -26,7 +26,7 @@
     <div class="doc-help__item">
       <%= image_tag("doc-help/doc-question--purple.svg", alt: "", class: "doc-help__icon") %>
       <div>
-        <%= link_to documents_request_doc_help_path(doc_type: params[:doc_type], help_type: "cant_obtain", next_path: next_path), class: "doc-help__link", method: :post do %>
+        <%= link_to documents_request_doc_help_path(doc_type: params[:doc_type], help_type: "cant_obtain", next_path: next_path), class: "doc-help__link", "data-track-click": "doc-help-cant-get", method: :post do %>
           <%= t(".cant_get") %>
         <% end %>
       </div>
@@ -35,7 +35,7 @@
     <div class="doc-help__item">
       <%= image_tag("doc-help/doc-x--red.svg", alt: "", class: "doc-help__icon") %>
       <div>
-        <%= link_to documents_request_doc_help_path(doc_type: params[:doc_type], help_type: "doesnt_apply", next_path: next_path), class: "doc-help__link", method: :post do %>
+        <%= link_to documents_request_doc_help_path(doc_type: params[:doc_type], help_type: "doesnt_apply", next_path: next_path), class: "doc-help__link", "data-track-click": "doc-help-doesnt-apply", method: :post do %>
           <%= t(".doesnt_apply") %>
         <% end %>
       </div>
