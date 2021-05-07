@@ -171,5 +171,27 @@
   line-height: $font-size-18;
   padding: $s5 $s10;
   border: 1px solid $color-green-money;
-}
 
+  // More info about styling with data attributes can be found at
+  // https://css-tricks.com/a-complete-guide-to-data-attributes/
+  &[data-status="Intake/Not ready"],
+  &[data-status="Intake/Greeter - info requested"] {
+    background-color: $color-orange-medium;
+    border-color: $color-orange-medium;
+  }
+
+  &[data-status^="Tax prep"] {
+    background-color: $color-lavender;
+    border-color: $color-lavender;
+  }
+
+  &[data-status^="Quality review"] {
+    background-color: $color-stimulus-blue;
+    border-color: $color-stimulus-blue;
+  }
+
+  &[data-status^="Final steps"] {
+    background-color: $color-grey-medium-light;
+    border-color: $color-grey-medium-light;
+  }
+}

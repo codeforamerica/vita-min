@@ -45,7 +45,8 @@
           <% end %>
         <% else %>
           <div>
-            <div class="tax-return-list__status label label--status"><%= stage_translation_from_status(tax_return.status) %>/<%= status_translation(tax_return.status) %></div>
+            <% status_text = "#{stage_translation_from_status(tax_return.status)}/#{status_translation(tax_return.status)}" %>
+            <div class="tax-return-list__status label label--status" data-status="<%= status_text %>"><%= status_text %></div>
           </div>
         <% end %>
       </div>
