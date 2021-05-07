@@ -81,11 +81,14 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
           let(:selected_client) { create :client, intake: (create :intake), vita_partner: old_site}
           let!(:still_assigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_who_retains_access, year: 2018, tax_return_selections: [tax_return_selection] }
           let!(:unassigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_at_old_site, year: 2017, tax_return_selections: [tax_return_selection] }
+          let!(:not_selected_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_at_old_site, year: 2019 }
 
           it "unassigns all users who are losing access" do
             put :update, params: params
 
+            expect(selected_client.reload.vita_partner).to eq new_vita_partner
             expect(assigned_user_at_old_site.reload.assigned_tax_returns).to be_empty
+            expect(unassigned_return.reload.assigned_user).to eq nil
             expect(assigned_user_who_retains_access.reload.assigned_tax_returns).to eq [still_assigned_return]
           end
         end
