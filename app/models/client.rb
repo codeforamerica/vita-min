@@ -12,7 +12,7 @@
 #  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
-#  last_outgoing_interaction_at             :datetime
+#  last_outgoing_communication_at           :datetime
 #  last_sign_in_at                          :datetime
 #  last_sign_in_ip                          :inet
 #  locked_at                                :datetime
@@ -85,7 +85,7 @@ class Client < ApplicationRecord
   end
 
   scope :last_outgoing_communication_breaches, ->(breach_threshold_datetime) do
-    sla_tracked.where(arel_table[:last_outgoing_interaction_at].lteq(breach_threshold_datetime))
+    sla_tracked.where(arel_table[:last_outgoing_communication_at].lteq(breach_threshold_datetime))
   end
 
   scope :outgoing_interaction_breaches, ->(breach_threshold_datetime) do
