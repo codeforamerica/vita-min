@@ -16,7 +16,6 @@ class ClientMessagingService
         to: client.email_address,
         body: body,
         subject: subject,
-        sent_at: DateTime.now,
         client: client,
         attachment: nil
       )
@@ -118,7 +117,6 @@ class ClientMessagingService
         to: to,
         body: body,
         subject: I18n.t("messages.default_subject", locale: subject_locale || client.intake.locale),
-        sent_at: DateTime.now,
         client: client,
         user: user,
         attachment: attachment

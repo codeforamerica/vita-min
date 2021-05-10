@@ -5,7 +5,7 @@
 #  id             :bigint           not null, primary key
 #  body           :string           not null
 #  mailgun_status :string           default("sending")
-#  sent_at        :datetime         not null
+#  sent_at        :datetime
 #  subject        :string           not null
 #  to             :citext           not null
 #  created_at     :datetime         not null
@@ -63,7 +63,6 @@ RSpec.describe OutgoingEmail, type: :model do
           expect(email.errors).to include :to
           expect(email.errors).to include :subject
           expect(email.errors).to include :body
-          expect(email.errors).to include :sent_at
         end
       end
 
@@ -74,7 +73,6 @@ RSpec.describe OutgoingEmail, type: :model do
               to: "someone@example.com",
               subject: "this is a subject",
               body: "hi",
-              sent_at: DateTime.now,
               user: create(:user)
               )
         end
@@ -169,6 +167,25 @@ RSpec.describe OutgoingEmail, type: :model do
     describe ".in_progress" do
       it "returns records with the right mailgun statuses" do
         expect(described_class.in_progress).to match_array [nil_status, sending]
+      end
+    end
+  end
+
+  describe "display methods for templates" do
+    let!(:delivered) { create :outgoing_email, mailgun_status: "delivered" }
+    describe "datetime" do
+      it "returns created_at timestamp" do
+        expect(delivered.datetime).to eq delivered.created_at
+      end
+    end
+
+    describe "author" do
+      before do
+        delivered.user.update!(name: "User Name")
+      end
+
+      it "returns the user name" do
+        expect(delivered.author).to eq "User Name"
       end
     end
   end

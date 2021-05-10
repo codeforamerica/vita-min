@@ -17,6 +17,7 @@ class SendOutgoingTextMessageJob < ApplicationJob
     outgoing_text_message.update(
       twilio_status: message.status,
       twilio_sid: message.sid,
+      sent_at: DateTime.now
     )
   end
 end

@@ -562,7 +562,7 @@ ActiveRecord::Schema.define(version: 2021_05_10_165139) do
     t.datetime "created_at", precision: 6, null: false
     t.string "mailgun_status", default: "sending"
     t.string "message_id"
-    t.datetime "sent_at", null: false
+    t.datetime "sent_at"
     t.string "subject", null: false
     t.citext "to", null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -575,7 +575,7 @@ ActiveRecord::Schema.define(version: 2021_05_10_165139) do
     t.string "body", null: false
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
-    t.datetime "sent_at", null: false
+    t.datetime "sent_at"
     t.string "to_phone_number", null: false
     t.string "twilio_sid"
     t.string "twilio_status"
