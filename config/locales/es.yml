@@ -6,7 +6,7 @@ es:
     has_duplicates: "Posibles duplicados detectados: "
     last_client_update: "Última actualización de cliente: "
     waiting_on_response: "Esperando respuesta desde: "
-    last_outgoing_message: "Último mensaje en"
+    last_outgoing_message: Último mensaje en
     not_assigned_html: <i>No asignado</i>
     back_to:
       return_to_dashboard: Regresar al Tablero

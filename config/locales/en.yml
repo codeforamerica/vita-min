@@ -5,8 +5,8 @@ en:
     unlock_confirmation: "Unlock %{name}'s account? Have they confirmed their identity?"
     has_duplicates: "Potential duplicates detected: "
     last_client_update: "Last client update: "
-    waiting_on_response: "Waiting on response"
-    last_outgoing_message: "Last outgoing message"
+    waiting_on_response: Waiting on response
+    last_outgoing_message: Last outgoing message
     not_assigned_html: <i>Not assigned</i>
     back_to:
       return_to_dashboard: Return to Dashboard
