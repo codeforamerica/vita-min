@@ -81,7 +81,7 @@ class Client < ApplicationRecord
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
   scope :sla_tracked, -> { distinct.joins(:tax_returns).where.not(tax_returns: { status: TaxReturnStatus::EXCLUDED_FROM_SLA }) }
   scope :response_needed_breaches, ->(breach_threshold_datetime) do
-    sla_tracked.where(arel_table[:response_needed_since].lteq(breach_threshold_datetime))
+    sla_tracked.where(arel_table[:flagged_at].lteq(breach_threshold_datetime))
   end
 
   scope :last_outgoing_communication_breaches, ->(breach_threshold_datetime) do
@@ -167,17 +167,17 @@ class Client < ApplicationRecord
     "#{intake.spouse_first_name} #{intake.spouse_last_name}"
   end
 
-  def set_response_needed!
+  def set_flag!
     # we don't want to change older dates if response is already needed
-    touch(:response_needed_since) unless needs_response?
+    touch(:flagged_at) unless flagged_at.present?
   end
 
-  def clear_response_needed
-    update(response_needed_since: nil)
+  def clear_flag!
+    update!(flagged_at: nil)
   end
 
-  def needs_response?
-    response_needed_since.present?
+  def flagged?
+    flagged_at.present?
   end
 
   def bank_account_info?

@@ -160,7 +160,7 @@ Rails.application.routes.draw do
         resources :outbound_calls, only: [:new, :create, :show, :update]
         resources :tax_returns, only: [:new, :create]
         member do
-          patch "response_needed"
+          patch "flag"
           get "edit_take_action"
           post "update_take_action"
         end
