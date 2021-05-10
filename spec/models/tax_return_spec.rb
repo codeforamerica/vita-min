@@ -567,10 +567,10 @@ describe TaxReturn do
           expect { tax_return.sign_primary!(fake_ip) }.to change(tax_return, :primary_signed_at).and change(tax_return, :primary_signed_ip).to(fake_ip).and change(tax_return, :primary_signature).to("Primary Taxpayer")
         end
 
-        it "updates the tax return's client to needs_response" do
+        it "updates the tax return's client to flagged" do
           expect {
             tax_return.sign_primary!(fake_ip)
-          }.to change(tax_return.client, :needs_response?).to(true)
+          }.to change(tax_return.client, :flagged?).to(true)
         end
 
         it "updates the tax return's status to ready to file" do
@@ -646,7 +646,7 @@ describe TaxReturn do
 
         expect { tax_return.sign_primary!(fake_ip) }
           .to not_change(tax_return, :status)
-          .and not_change(tax_return.client, :response_needed_since)
+          .and not_change(tax_return.client, :flagged_at)
       end
 
       it "creates a system note" do
@@ -714,10 +714,10 @@ describe TaxReturn do
           }.to change(tax_return, :spouse_signed_at).and change(tax_return, :spouse_signed_ip).to(fake_ip).and change(tax_return, :spouse_signature).to("Spouse Taxpayer")
         end
 
-        it "updates the tax return's client to needs_response" do
+        it "updates the tax return's client to flagged" do
           expect {
             tax_return.sign_spouse!(fake_ip)
-          }.to change(tax_return.client, :needs_response?).to(true)
+          }.to change(tax_return.client, :flagged?).to(true)
         end
 
         it "updates the tax return's status to ready to file" do
@@ -779,10 +779,10 @@ describe TaxReturn do
                        .and change(tax_return, :spouse_signed_ip)
       end
 
-      it "does not create a document, change tax return status, or set needs response" do
+      it "does not create a document, change tax return status, or set flagged" do
         expect(Sign8879Service).to_not receive(:create)
 
-        expect { tax_return.sign_spouse!(fake_ip) }.to not_change(tax_return, :status).and not_change(tax_return.client, :response_needed_since)
+        expect { tax_return.sign_spouse!(fake_ip) }.to not_change(tax_return, :status).and not_change(tax_return.client, :flagged?)
       end
 
       it "creates a system note" do

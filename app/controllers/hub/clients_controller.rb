@@ -61,7 +61,7 @@ module Hub
         @client.clear_flag!
         SystemNote::ResponseNeededToggledOff.generate!(client: @client, initiated_by: current_user)
       when "set"
-        @client.set_flag!
+        @client.flag!
         SystemNote::ResponseNeededToggledOn.generate!(client: @client, initiated_by: current_user)
       end
 

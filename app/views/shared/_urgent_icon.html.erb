@@ -1,6 +1,6 @@
-<% if client.needs_response? %>
+<% if client.flagged_at? %>
   <span class="urgent-wrapper">
     <i class="urgent" aria-hidden="true"></i>
-    <span class="sr-only"><%= t("general.needs_response") %></span>
+    <span class="sr-only"><%= t("general.flagged") %></span>
   </span>
 <% end %>

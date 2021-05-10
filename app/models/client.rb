@@ -9,6 +9,7 @@
 #  current_sign_in_ip                       :inet
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
+#  flagged_at                               :datetime
 #  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
@@ -18,7 +19,6 @@
 #  locked_at                                :datetime
 #  login_requested_at                       :datetime
 #  login_token                              :string
-#  response_needed_since                    :datetime
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
 #  created_at                               :datetime         not null
@@ -167,7 +167,7 @@ class Client < ApplicationRecord
     "#{intake.spouse_first_name} #{intake.spouse_last_name}"
   end
 
-  def set_flag!
+  def flag!
     # we don't want to change older dates if response is already needed
     touch(:flagged_at) unless flagged_at.present?
   end
@@ -225,7 +225,7 @@ class Client < ApplicationRecord
       UserNotification.create(notifiable_type: "SystemNote::DocumentHelp", notifiable_id: note.id, user: user)
     end
     tax_returns.each { |tax_return| tax_return.update(status: :intake_needs_doc_help) }
-    set_response_needed!
+    flag!
   end
 
   private

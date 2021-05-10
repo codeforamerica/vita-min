@@ -9,6 +9,7 @@
 #  current_sign_in_ip                       :inet
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
+#  flagged_at                               :datetime
 #  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
@@ -18,7 +19,6 @@
 #  locked_at                                :datetime
 #  login_requested_at                       :datetime
 #  login_token                              :string
-#  response_needed_since                    :datetime
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
 #  created_at                               :datetime         not null
