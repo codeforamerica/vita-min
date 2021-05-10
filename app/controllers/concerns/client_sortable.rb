@@ -17,7 +17,7 @@ module ClientSortable
     clients = clients.where("intakes.locale = :language OR intakes.preferred_interview_language = :language", language: @filters[:language]) if @filters[:language].present?
     clients = clients.where(tax_returns: { service_type: @filters[:service_type] }) if @filters[:service_type].present?
     clients = clients.where(intake: Intake.where(had_unemployment_income: "yes")) if @filters[:unemployment_income].present?
-    clients = clients.where(vita_partner: VitaPartner.where(allows_greeters: true)) if @filters[:greetable].present?
+    clients = clients.where(vita_partner: VitaPartner.allows_greeters) if @filters[:greetable].present?
 
     if @filters[:vita_partner_id].present?
       id = @filters[:vita_partner_id].to_i
