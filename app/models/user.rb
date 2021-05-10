@@ -115,9 +115,7 @@ class User < ApplicationRecord
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
     when GreeterRole::TYPE
-      organizations = VitaPartner.organizations.where(allows_greeters: true)
-      sites = VitaPartner.sites.where(parent_organization: organizations)
-      organizations.or(sites)
+      VitaPartner.allows_greeters
     else
       VitaPartner.none
     end

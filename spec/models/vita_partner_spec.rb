@@ -28,6 +28,26 @@
 require "rails_helper"
 
 describe VitaPartner do
+
+  describe ".allows_greeters" do
+    let!(:coalition) { create :coalition }
+    let!(:organization) { create :organization, coalition: coalition, allows_greeters: true }
+    let!(:site) { create :site, parent_organization: organization }
+    let!(:other_organization) { create :organization, allows_greeters: true }
+    let!(:other_site) { create :site, parent_organization: other_organization }
+    let!(:not_accessible_org) { create :organization, name: "Not accessible", allows_greeters: false }
+    let!(:not_accessible_site) { create :site, parent_organization: not_accessible_org }
+    let(:user) { create :user, role: create(:greeter_role) }
+
+    it "returns all the organizations (and their sites) where allows greeters is true" do
+      vita_partners = VitaPartner.allows_greeters
+      national_org = VitaPartner.where(name: "GYR National Organization").first
+      expect(vita_partners).to match_array([national_org, organization, other_organization, site, other_site])
+      expect(vita_partners).not_to include(not_accessible_org)
+      expect(vita_partners).not_to include(not_accessible_site)
+    end
+  end
+  
   describe "#at_capacity?" do
     let(:out_of_range_statuses) { TaxReturnStatus::STATUSES.keys - TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
     let(:in_range_statuses) { TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }

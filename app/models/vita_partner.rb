@@ -45,6 +45,11 @@ class VitaPartner < ApplicationRecord
   scope :organizations, -> { where(parent_organization: nil) }
   scope :sites, -> { where.not(parent_organization: nil) }
   has_many :child_sites, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
+  scope :allows_greeters, -> {
+    greetable_organizations = organizations.where(allows_greeters: true)
+    greetable_sites = sites.where(parent_organization: greetable_organizations)
+    greetable_organizations.or(greetable_sites)
+  }
 
   default_scope { includes(:child_sites).order(name: :asc) }
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
