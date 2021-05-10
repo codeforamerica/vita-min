@@ -9,6 +9,7 @@
 #  current_sign_in_ip                       :inet
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
+#  flagged_at                               :datetime
 #  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
@@ -18,7 +19,6 @@
 #  locked_at                                :datetime
 #  login_requested_at                       :datetime
 #  login_token                              :string
-#  response_needed_since                    :datetime
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
 #  created_at                               :datetime         not null
@@ -81,7 +81,7 @@ class Client < ApplicationRecord
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
   scope :sla_tracked, -> { distinct.joins(:tax_returns).where.not(tax_returns: { status: TaxReturnStatus::EXCLUDED_FROM_SLA }) }
   scope :response_needed_breaches, ->(breach_threshold_datetime) do
-    sla_tracked.where(arel_table[:response_needed_since].lteq(breach_threshold_datetime))
+    sla_tracked.where(arel_table[:flagged_at].lteq(breach_threshold_datetime))
   end
 
   scope :last_outgoing_communication_breaches, ->(breach_threshold_datetime) do
@@ -167,17 +167,17 @@ class Client < ApplicationRecord
     "#{intake.spouse_first_name} #{intake.spouse_last_name}"
   end
 
-  def set_response_needed!
+  def flag!
     # we don't want to change older dates if response is already needed
-    touch(:response_needed_since) unless needs_response?
+    touch(:flagged_at) unless flagged_at.present?
   end
 
-  def clear_response_needed
-    update(response_needed_since: nil)
+  def clear_flag!
+    update!(flagged_at: nil)
   end
 
-  def needs_response?
-    response_needed_since.present?
+  def flagged?
+    flagged_at.present?
   end
 
   def bank_account_info?
@@ -225,7 +225,7 @@ class Client < ApplicationRecord
       UserNotification.create(notifiable_type: "SystemNote::DocumentHelp", notifiable_id: note.id, user: user)
     end
     tax_returns.each { |tax_return| tax_return.update(status: :intake_needs_doc_help) }
-    set_response_needed!
+    flag!
   end
 
   private

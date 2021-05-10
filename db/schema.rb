@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 2021_05_10_165139) do
     t.inet "current_sign_in_ip"
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "first_unanswered_incoming_interaction_at"
+    t.datetime "flagged_at"
     t.datetime "in_progress_survey_sent_at"
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_internal_or_outgoing_interaction_at"
@@ -133,7 +134,6 @@ ActiveRecord::Schema.define(version: 2021_05_10_165139) do
     t.datetime "locked_at"
     t.datetime "login_requested_at"
     t.string "login_token"
-    t.datetime "response_needed_since"
     t.integer "routing_method"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "updated_at", precision: 6, null: false

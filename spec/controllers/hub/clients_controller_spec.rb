@@ -248,7 +248,7 @@ RSpec.describe Hub::ClientsController do
       end
 
       context "when a client needs a response" do
-        before { client.touch(:response_needed_since) }
+        before { client.touch(:flagged_at) }
 
         it "adds the needs response icon into the DOM" do
           get :show, params: params
@@ -347,7 +347,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "when a client needs a response" do
-          before { tobias.touch(:response_needed_since) }
+          before { tobias.touch(:flagged_at) }
 
           it "adds the needs response icon into the DOM" do
             get :index
@@ -614,10 +614,10 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by needs response" do
-          let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return)] }
+          let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return)] }
           it "filters in" do
-            get :index, params: { needs_response: true }
-            expect(assigns(:clients)).to include needs_response
+            get :index, params: { flagged: true }
+            expect(assigns(:clients)).to include flagged
           end
         end
 
@@ -681,7 +681,7 @@ RSpec.describe Hub::ClientsController do
     end
   end
 
-  describe "#response_needed" do
+  describe "#flag" do
     let(:params) do
       { id: client.id, client: { action: "set" } }
     end
@@ -689,22 +689,22 @@ RSpec.describe Hub::ClientsController do
     before { sign_in(user) }
 
     it "redirects to hub client path" do
-      patch :response_needed, params: params
+      patch :flag, params: params
       expect(response).to redirect_to(hub_client_path(id: client.id))
     end
 
-    context "with dismiss param" do
+    context "with clear param" do
 
       before do
         params[:client][:action] = "clear"
-        client.touch(:response_needed_since)
+        client.touch(:flagged_at)
         allow(SystemNote::ResponseNeededToggledOff).to receive(:generate!)
       end
 
-      it "removes response_needed_since value from client and makes a system note" do
-        patch :response_needed, params: params
+      it "removes flagged_at value from client and makes a system note" do
+        patch :flag, params: params
 
-        expect(client.reload.response_needed_since).to be_nil
+        expect(client.reload.flagged_at).to be_nil
         expect(SystemNote::ResponseNeededToggledOff).to have_received(:generate!).with(
           client: client,
           initiated_by: user
@@ -715,14 +715,14 @@ RSpec.describe Hub::ClientsController do
     context "with add flag param" do
       before do
         params[:client][:action] = "set"
-        client.clear_response_needed
+        client.clear_flag!
         allow(SystemNote::ResponseNeededToggledOn).to receive(:generate!)
       end
 
-      it "adds response_needed_since to client and leaves a system note" do
+      it "adds flagged_at to client and leaves a system note" do
         expect {
-          patch :response_needed, params: params
-        }.to change{ client.reload.response_needed_since }
+          patch :flag, params: params
+        }.to change { client.reload.flagged_at }
 
         expect(SystemNote::ResponseNeededToggledOn).to have_received(:generate!).with(
           client: client,

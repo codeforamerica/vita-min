@@ -55,13 +55,13 @@ module Hub
       end
     end
 
-    def response_needed
-      case response_needed_params[:action]
+    def flag
+      case flag_params[:action]
       when "clear"
-        @client.clear_response_needed
+        @client.clear_flag!
         SystemNote::ResponseNeededToggledOff.generate!(client: @client, initiated_by: current_user)
       when "set"
-        @client.set_response_needed!
+        @client.flag!
         SystemNote::ResponseNeededToggledOn.generate!(client: @client, initiated_by: current_user)
       end
 
@@ -92,6 +92,7 @@ module Hub
 
     def unlock
       raise CanCan::AccessDenied unless current_user.admin?
+
       @client.unlock_access! if @client.access_locked?
       flash[:notice] = I18n.t("hub.clients.unlock.account_unlocked", name: @client.preferred_name)
       redirect_to(hub_client_path(id: @client))
@@ -99,7 +100,7 @@ module Hub
 
     private
 
-    def response_needed_params
+    def flag_params
       params.require(:client).permit(:action)
     end
 

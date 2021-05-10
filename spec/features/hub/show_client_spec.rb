@@ -22,6 +22,10 @@ RSpec.describe "a user viewing a client" do
       click_on "Save"
       within ".client-header" do
         expect(page).to have_text other_vita_partner.name
+        check "Flag"
+        expect(page).to have_field("toggle-flag", checked: true)
+        uncheck "Flag"
+        expect(page).to have_field("toggle-flag", checked: false)
       end
     end
 

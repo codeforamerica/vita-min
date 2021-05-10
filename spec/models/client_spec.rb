@@ -9,6 +9,7 @@
 #  current_sign_in_ip                       :inet
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
+#  flagged_at                               :datetime
 #  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
@@ -18,7 +19,6 @@
 #  locked_at                                :datetime
 #  login_requested_at                       :datetime
 #  login_token                              :string
-#  response_needed_since                    :datetime
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
 #  created_at                               :datetime         not null
@@ -207,12 +207,12 @@ describe Client do
     end
   end
 
-  describe "#needs_response?" do
-    context "when last_response_at is nil" do
+  describe "#flagged?" do
+    context "when flagged_at is nil" do
       let!(:client) { create :client }
 
-      it "doesn't need response" do
-        expect(client.needs_response?).to eq false
+      it "is not flagged" do
+        expect(client.flagged?).to eq false
       end
     end
 
@@ -220,17 +220,17 @@ describe Client do
       let!(:client) { create :client }
       before { create :document, client: client, uploaded_by: client }
 
-      it "needs response" do
-        expect(client.needs_response?).to eq true
+      it "is flagged" do
+        expect(client.flagged?).to eq true
       end
     end
 
     context "when clients intake was completed" do
       let!(:client) { create :client, intake: create(:intake) }
 
-      it "needs response" do
+      it "is flagged" do
         client.intake.update(completed_at: Time.now)
-        expect(client.needs_response?).to eq true
+        expect(client.flagged?).to eq true
       end
     end
 
@@ -238,8 +238,8 @@ describe Client do
       let!(:client) { create :client }
       before { create :incoming_text_message, client: client }
 
-      it "needs response" do
-        expect(client.needs_response?).to eq true
+      it "is flagged" do
+        expect(client.flagged?).to eq true
       end
     end
 
@@ -247,8 +247,8 @@ describe Client do
       let!(:client) { create :client }
       before { create :incoming_email, client: client }
 
-      it "needs response" do
-        expect(client.needs_response?).to eq true
+      it "is flagged" do
+        expect(client.flagged?).to eq true
       end
     end
 
@@ -256,8 +256,8 @@ describe Client do
       let!(:client) { create :client }
       before { create :outgoing_email, client: client }
 
-      it "doesn't need response" do
-        expect(client.needs_response?).to eq false
+      it "is not flagged" do
+        expect(client.flagged?).to eq false
       end
     end
 
@@ -265,36 +265,36 @@ describe Client do
       let!(:client) { create :client }
       before { create :outgoing_email, client: client }
 
-      it "doesn't need response" do
-        expect(client.needs_response?).to eq false
+      it "is not flagged" do
+        expect(client.flagged?).to eq false
       end
     end
   end
 
-  describe "#set_response_needed!" do
+  describe "#flag!" do
     let(:current_time) { DateTime.new(2021, 2, 23) }
     before { allow(Time).to receive(:now).and_return current_time }
 
-    context "when response_needed_since is already present" do
+    context "when flagged_at is already present" do
       let(:response_needed_date) { DateTime.new(2021, 2, 21) }
-      let(:client) { create :client, response_needed_since: response_needed_date }
+      let(:client) { create :client, flagged_at: response_needed_date }
 
-      it "does not change response needed and returns nil" do
-        result = client.set_response_needed!
+      it "does not change flagged_at and returns nil" do
+        result = client.flag!
 
         expect(result).to be_nil
-        expect(client.reload.response_needed_since).to eq response_needed_date
+        expect(client.reload.flagged_at).to eq response_needed_date
       end
     end
 
-    context "when response_needed_since is nil" do
-      let(:client) { create :client, response_needed_since: nil }
+    context "when flagged_at is nil" do
+      let(:client) { create :client, flagged_at: nil }
 
       it "sets response needed to the current time and returns true" do
-        result = client.set_response_needed!
+        result = client.flag!
 
         expect(result).to eq true
-        expect(client.reload.response_needed_since).to eq current_time
+        expect(client.reload.flagged_at).to eq current_time
       end
     end
   end
@@ -311,8 +311,8 @@ describe Client do
         expect { create :incoming_text_message, client: client }.to change(client, :last_incoming_interaction_at)
       end
 
-      it "updates client#response_needed_since" do
-        expect { create :incoming_email, client: client }.to change(client, :response_needed_since)
+      it "updates client#flagged_at" do
+        expect { create :incoming_email, client: client }.to change(client, :flagged_at)
       end
     end
 
@@ -325,14 +325,14 @@ describe Client do
         expect { create :incoming_email, client: client }.to change(client, :last_incoming_interaction_at)
       end
 
-      it "updates client#response_needed_since" do
-        expect { create :incoming_email, client: client }.to change(client, :response_needed_since)
+      it "updates client#flagged_at" do
+        expect { create :incoming_email, client: client }.to change(client, :flagged_at)
       end
     end
 
     describe "outgoing email" do
 
-      before { client.touch(:response_needed_since) }
+      before { client.touch(:flagged_at) }
       it "updates client updated_at" do
         expect { create :outgoing_email, client: client }.to change(client, :updated_at)
       end
@@ -341,14 +341,14 @@ describe Client do
         expect { create :outgoing_email, client: client }.to change(client, :last_internal_or_outgoing_interaction_at)
       end
 
-      it "clears #response_needed_since" do
+      it "clears #flagged_at" do
         create :outgoing_email, client: client
-        expect(client.response_needed_since).to be nil
+        expect(client.flagged_at).to be nil
       end
     end
 
     describe "outgoing text" do
-      before { client.touch(:response_needed_since) }
+      before { client.touch(:flagged_at) }
 
       it "updates client updated_at" do
         expect { create :note, client: client }.to change(client, :updated_at)
@@ -358,9 +358,9 @@ describe Client do
         expect { create :outgoing_text_message, client: client }.to change(client, :last_internal_or_outgoing_interaction_at)
       end
 
-      it "clears response_needed_since" do
+      it "clears flagged_at" do
         create :outgoing_text_message, client: client
-        expect(client.response_needed_since).to be nil
+        expect(client.flagged_at).to be nil
       end
     end
 
@@ -369,8 +369,8 @@ describe Client do
         expect { create :note, client: client }.to change(client, :updated_at)
       end
 
-      it "does not update the response_needed_since" do
-        expect { create :note, client: client }.not_to change(client, :response_needed_since)
+      it "does not update the flagged_at" do
+        expect { create :note, client: client }.not_to change(client, :flagged_at)
       end
     end
 
@@ -384,15 +384,15 @@ describe Client do
           expect { create :document, client: client, uploaded_by: client }.to change(client, :last_incoming_interaction_at)
         end
 
-        it "updates client response_needed_since" do
-          expect { create :document, client: client, uploaded_by: client }.to change(client, :response_needed_since)
+        it "updates client flagged_at" do
+          expect { create :document, client: client, uploaded_by: client }.to change(client, :flagged_at)
 
         end
 
         context "without an explicit relationship to client but an intake that has a client id" do
           let(:client) { create :client, intake: create(:intake) }
           it "still should update the associated client" do
-            expect { create :document, intake: client.intake, uploaded_by: client }.to change(client, :response_needed_since)
+            expect { create :document, intake: client.intake, uploaded_by: client }.to change(client, :flagged_at)
           end
         end
       end
@@ -687,7 +687,7 @@ describe Client do
           assigned_user_a.reload
           assigned_user_b.reload
         }.to change(SystemNote::DocumentHelp, :count).by(1)
-         .and change(client, :response_needed_since).from(nil)
+         .and change(client, :flagged_at).from(nil)
          .and change(assigned_user_a.notifications, :count).by(1)
          .and change(assigned_user_b.notifications, :count).by(1)
         expect(assigned_user_a.notifications.last.notifiable).to eq SystemNote::DocumentHelp.last

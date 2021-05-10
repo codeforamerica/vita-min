@@ -80,21 +80,21 @@ describe SLABreachService do
         Timecop.freeze(t)
         # breaches at vita_partner_1
         client1 = create(:client, vita_partner_id: vita_partner_1.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(t.prev_occurring(:monday)) { client1.set_response_needed! }
+        Timecop.freeze(t.prev_occurring(:monday)) { client1.flag! }
 
         # breaches at vita_partner_2
         client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(6.days.ago) { client2.set_response_needed! }
+        Timecop.freeze(6.days.ago) { client2.flag! }
 
         client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(t.prev_occurring(:monday)) { client3.set_response_needed! }
+        Timecop.freeze(t.prev_occurring(:monday)) { client3.flag! }
 
         # not in breach
         client4 = create(:client, vita_partner_id: vita_partner_2.id,  tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
-        Timecop.freeze(t.prev_occurring(:wednesday)) { client4.set_response_needed! }
+        Timecop.freeze(t.prev_occurring(:wednesday)) { client4.flag! }
 
         client5 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
-        client5.clear_response_needed
+        client5.clear_flag!
       end
 
       after do
@@ -117,22 +117,22 @@ describe SLABreachService do
         Timecop.freeze(t.next_occurring(:monday) + 10.hours + 5.minutes) # 2/8/21, Monday 10:05am
         # breaches at vita_partner_1
         client1 = create(:client, vita_partner_id: vita_partner_1.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(t.prev_occurring(:monday)) { client1.set_response_needed! }
+        Timecop.freeze(t.prev_occurring(:monday)) { client1.flag! }
 
         # breaches at vita_partner_2
         client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(6.days.ago) { client2.set_response_needed! }
+        Timecop.freeze(6.days.ago) { client2.flag! }
 
         wednesday_1am = t.prev_occurring(:wednesday) + 1.hour # Wednesday 2/3/21 @ 1:00am UTC
         client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(wednesday_1am) { client3.set_response_needed! }
+        Timecop.freeze(wednesday_1am) { client3.flag! }
 
         wednesday_1055am = t.prev_occurring(:wednesday) + 10.hour + 55.minutes # Wednesday 2/3/21 @ 10:55am UTC
         client4 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # not in breach t1, in breach t2
-        Timecop.freeze(wednesday_1055am) { client4.set_response_needed! }
+        Timecop.freeze(wednesday_1055am) { client4.flag! }
 
         # not in breach
-        create(:client, response_needed_since: nil, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
+        create(:client, flagged_at: nil, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
       end
 
       after do
@@ -508,22 +508,22 @@ describe SLABreachService do
       before do
         # breaches at vita_partner_1
         client1 = create(:client, vita_partner_id: vita_partner_1.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(t.prev_occurring(:monday)) { client1.set_response_needed! }
+        Timecop.freeze(t.prev_occurring(:monday)) { client1.flag! }
         Timecop.freeze(t.prev_occurring(:monday)) { InteractionTrackingService.update_last_outgoing_communication_at(client1) }
 
         # breaches at vita_partner_2
         client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(6.days.ago) { client2.set_response_needed! }
+        Timecop.freeze(6.days.ago) { client2.flag! }
 
         tuesday_1am = t.prev_occurring(:tuesday) + 1.hour # Wednesday 2/3/21 @ 1:00am UTC
         client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(tuesday_1am) { client3.set_response_needed! }
+        Timecop.freeze(tuesday_1am) { client3.flag! }
 
         monday_1055am = t.prev_occurring(:monday) + 10.hour + 55.minutes # Wednesday 2/3/21 @ 10:55am UTC
         client4 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # not in breach t1, in breach t2
         Timecop.freeze(monday_1055am) {
           InteractionTrackingService.record_incoming_interaction(client4)
-          client4.set_response_needed!
+          client4.flag!
         }
         Timecop.freeze(t.prev_occurring(:sunday)) { InteractionTrackingService.record_internal_interaction(client4) }
       end

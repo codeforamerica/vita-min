@@ -5,13 +5,25 @@
         <h1 class="h1">
           <%= @client.preferred_name %>
         </h1>
-        <%= render "shared/urgent_icon", client: @client %>
         <span class="text--help">#<%= @client.id %></span>
+        <%= render "shared/urgent_icon", client: @client %>
 
         <% if @client.access_locked? %>
           <%= link_to t("hub.unlock_account"), unlock_hub_client_path(id: @client), method: :patch, class: "button button--danger button--small", data: {  confirm: t("hub.unlock_confirmation", name: @client.preferred_name ) } %>
         <% end %>
       </div>
+
+      <div class="grid-flex align-center">
+        <div class="item-15r"><%= t("general.flagged") %></div>
+        <div class="item">
+          <label class="toggle-switch">
+            <span class="sr-only" ><%= t("general.flagged") %></span>
+            <input id="toggle-flag" type="checkbox" <%= @client.flagged? && "checked" %> onchange="toggleFlag()">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+
 
       <% dupe_clients = @client.clients_with_dupe_contact_info %>
       <% unless dupe_clients.empty? %>
@@ -33,13 +45,9 @@
       </div>
 
       <div class="text--help"><%= t("hub.last_client_update") + timestamp(@client.updated_at) %></div>
-      <% if @client.first_unanswered_incoming_interaction_at.present? %>
-        <div class="text--help spacing-below-0"><%= t("hub.waiting_on_response") + ":" %> <%= timestamp(@client.first_unanswered_incoming_interaction_at) %></div>
-      <% end %>
 
-      <%= form_for [:hub, @client], method: :patch, url: response_needed_hub_client_path(id: @client.id) do |f| %>
-        <%= f.hidden_field :action, value: @client.needs_response? ? "clear" : "set" %>
-        <%= f.submit @client.needs_response? ? t("general.responded_to_client") : t("general.mark_for_response"), class: "button button--small" %>
+      <%= form_for [:hub, @client], method: :patch, url: flag_hub_client_path(id: @client.id), html: { class: 'toggle-flag' } do |f| %>
+        <%= f.hidden_field :action, value: @client.flagged? ? "clear" : "set" %>
       <% end %>
     </div>
 
@@ -49,3 +57,10 @@
   </div>
 </section>
 
+<% content_for :script do %>
+  <script>
+      function toggleFlag() {
+        document.querySelector("form.toggle-flag").submit();
+      }
+  </script>
+<% end %>

@@ -13,7 +13,7 @@ class SLABreachService
     count_by_vita_partner(Client.sla_tracked)
   end
 
-  # response_needed_since is present and is before breach threshold
+  # flagged_at is present and is before breach threshold
   # returns data in the format { vita_partner_id: breach_count }
   def response_needed_breaches
     count_by_vita_partner(Client.response_needed_breaches(breach_threshold_date))
