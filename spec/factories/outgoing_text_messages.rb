@@ -29,6 +29,5 @@ FactoryBot.define do
     user
     body { "wyd" }
     to_phone_number { "+14155552345" }
-    sequence(:sent_at) { |n| DateTime.new(2020, 9, 2, 15, 1, 30) + n.minutes }
   end
 end

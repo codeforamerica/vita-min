@@ -90,6 +90,7 @@ RSpec.describe Hub::MessagesController do
         let(:intake) { create(:intake, client: client, preferred_name: "George Sr.", phone_number: "+14155551233", email_address: "money@banana.stand") }
         let!(:expected_contact_history) do
           [
+            create(:outgoing_text_message, body: "You're very welcome", created_at: DateTime.new(2020, 1, 2, 3, 0, 5), to_phone_number: '+14155532222', client: client, twilio_status: twilio_status, user: create(:user, name: "Lucille")),
             create(:outgoing_email, body: "Can you send me a photo of your ID", created_at: DateTime.new(2020, 1, 2, 1, 0, 3), client: client, user: create(:user, name: "Gob"), to: "always@banana.stand"),
             create(:incoming_email, body_plain: "Me too! Happy to get every notification", received_at: DateTime.new(2020, 1, 1, 18, 0, 4), client: client, from: "Georgie <money@banana.stand>"),
             create(:outgoing_email, body: "We are really excited to work with you", sent_at: DateTime.new(2020, 1, 1, 14, 0, 3), client: client, user: create(:user, name: "Gob"), to: "always@banana.stand"),
