@@ -1793,8 +1793,8 @@ es:
         body: Estamos experimentando un gran volumen de clientes en este momento. Nuestro objetivo es brindar un servicio de alta calidad a todos nuestros clientes. Los tiempos de espera actuales para la opción Declara con Ayuda son de 2-3 semanas. Pedimos disculpas por la espera.
         file_with_help: Declarar con ayuda
         title: Vaya, parece que estamos saturados en este momento.
-        diy_html: Para declarar de inmediato, puede probar a servicio online con <a data-track-click="mft-diy-referral" href="https://www.myfreetaxes.com/?utm_source=GYR&utm_medum=web&utm_campaign=Partner-referral" target="_blank" rel="noopener nofollow">MyFreeTaxes</a> para preparar sus propios impuestos de manera gratuita (DIY por sus siglas en inglés).
-        file_through_my_free_taxes: Presente su declaración a través de MyFreeTaxes
+        diy: Para declarar de inmediato, puede probar nuestro servicio online para preparar sus propios impuestos de manera gratuita (DIY por sus siglas en inglés)
+        file_through_diy: Declarar mis propios impuestos (DIY)
       backtaxes:
         select_all_that_apply: Seleccione todas las que correspondan.
         title: "¿Qué años necesita presentar?"

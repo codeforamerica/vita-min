@@ -16,5 +16,17 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity" do
     expect(intake.viewed_at_capacity).to be_truthy
     expect(intake.continued_at_capacity).to be_truthy
   end
+
+  scenario "client chooses the DIY option" do
+    visit at_capacity_questions_path
+
+    expect(page).to have_text "To file immediately, you can try our free DIY option, an online service that lets you prepare your own taxes for free."
+    expect(page).to have_selector("h1", text: "Wow, it looks like we are at capacity right now.")
+    click_on "File with DIY option"
+
+    expect(page).to have_selector("h1", text: "File your taxes yourself!")
+    expect(intake.viewed_at_capacity).to be_truthy
+    expect(intake.continued_at_capacity).to be_falsey
+  end
 end
 

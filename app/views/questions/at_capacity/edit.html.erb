@@ -21,15 +21,13 @@
           <div class="offboarding--help-text">
             <p>
               <strong>
-                <%=t("views.questions.at_capacity.diy_html") %>
+                <%=t("views.questions.at_capacity.diy") %>
               </strong>
             </p>
           </div>
 
           <div class="buttons--vertical-stack">
-            <a data-track-click="mft-diy-referral" href="https://www.myfreetaxes.com/?utm_source=GYR&utm_medum=web&utm_campaign=Partner-referral" target="_blank" rel="noopener nofollow" class="button button--primary text--centered button--wide spacing-above-60">
-              <%= t("views.questions.at_capacity.file_through_my_free_taxes") %>
-            </a>
+            <%= link_to t("views.questions.at_capacity.file_through_diy"), diy_file_yourself_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
 
             <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
               <button class="button button--wide" type="submit">
