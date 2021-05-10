@@ -853,7 +853,7 @@ RSpec.describe Hub::ClientsController do
         end.to change(Client, :count).by(-1)
 
         expect(response).to redirect_to hub_clients_path
-        expect(flash[:notice]).to eq "Client has been successfully deleted"
+        expect(flash[:notice]).to eq "The client has been successfully deleted"
 
         expect do
           client.reload
