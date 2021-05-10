@@ -38,4 +38,6 @@ class PublicPagesController < ApplicationController
   def stimulus_recommendation; end
 
   def sms_terms; end
+
+  def diy; end
 end

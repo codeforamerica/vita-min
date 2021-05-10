@@ -99,7 +99,7 @@
         }
       }
 
-      &.stimulus {
+      &.diy {
         &:before {
           content: "";
           display: block;
@@ -108,7 +108,7 @@
           right: 0;
           bottom: 0;
           left: 0;
-          background-image: image-url("stimulus-hero.svg");
+          background-image: image-url("homepage-hero.svg");
           background-repeat: no-repeat;
           background-size: 400px 355px;
           background-position: top right;

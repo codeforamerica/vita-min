@@ -1287,6 +1287,9 @@ es:
             denise: '"Formar parte de una organización que hace todo lo posible por disminuir la distancia entre el lugar donde están las personas y el lugar en el que quieren (o necesitan) estar, es muy gratificante y siempre emocionante".'
           subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $66,000 dólares al año. '
         title: Quiénes somos
+      diy_home:
+        title: ¡Declare sus impuestos por su cuenta de forma gratuita!
+        body: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para crear su propio acceso a TaxSlayer, para que pueda presentarlo por su cuenta.
       eip_home:
         header: Reciba su cheque de estímulo
         questions_cta: la página de preguntas frecuentes de estímulo

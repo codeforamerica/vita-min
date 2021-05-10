@@ -81,6 +81,7 @@ Rails.application.routes.draw do
     # Stimulus routes
     scoped_navigation_routes(:stimulus, StimulusNavigation, as_redirects: Rails.configuration.offseason)
 
+    get "/diy", to: "public_pages#diy"
     get "/other-options", to: "public_pages#other_options"
     get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
     get "/maintenance", to: "public_pages#maintenance"

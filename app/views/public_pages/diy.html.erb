@@ -1,0 +1,24 @@
+<% content_for :page_title do%>
+  <%= t('views.public_pages.diy_home.title') %>
+<% end %>
+
+<% content_for :body_class, "body--home" %>
+
+<main role="main">
+  <div class="slab slab--hero">
+    <div class="grid diy">
+      <div class="grid__item width-one-half">
+        <h1 class="landing-page-header">
+          <%= content_for :page_title %>
+        </h1>
+        <p class="landing-page-subheader">
+          <strong><%= t('views.public_pages.diy_home.body') %></strong>
+        </p>
+        <%= link_to diy_file_yourself_path,
+                    class: "button button--primary button--wide text--centered" do %>
+          <%= t("general.continue") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>
