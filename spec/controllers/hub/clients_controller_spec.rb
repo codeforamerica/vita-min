@@ -764,7 +764,7 @@ RSpec.describe Hub::ClientsController do
       }
     }
 
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :update
 
     context "with a signed in user" do
       let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
@@ -826,6 +826,38 @@ RSpec.describe Hub::ClientsController do
           post :update, params: params
           expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
         end
+      end
+    end
+  end
+
+  describe "#destroy" do
+    let!(:client) { create :client, intake: intake }
+    let(:intake) { create :intake, :with_contact_info }
+    let(:params) do
+      {
+        id: client.id,
+      }
+    end
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :destroy
+
+    it_behaves_like :a_post_action_for_admins_only, action: :destroy
+
+    context "with an authenticated admin user" do
+      let!(:user) { create :admin_user }
+      before { sign_in user }
+
+      it "deletes the client and destroys all associated information" do
+        expect do
+          delete :destroy, params: params
+        end.to change(Client, :count).by(-1)
+
+        expect(response).to redirect_to hub_clients_path
+        expect(flash[:notice]).to eq "Client has been successfully deleted"
+
+        expect do
+          client.reload
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

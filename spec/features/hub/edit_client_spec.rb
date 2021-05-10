@@ -192,6 +192,20 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(find_field("hub_update_client_form[primary_last_four_ssn]").value).to eq "4444"
     end
 
+    scenario "I can delete a client", js: true do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit info"
+      end
+
+      page.accept_alert "Are you sure you want to delete all information associated with Colleen Cauliflower?" do
+        click_on "Delete client"
+      end
+
+      expect(page).to have_text "All clients"
+      expect(page).to have_text "Client has been successfully deleted"
+    end
+
     it "creates a system note for client profile change" do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
