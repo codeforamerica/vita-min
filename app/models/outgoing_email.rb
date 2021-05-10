@@ -5,7 +5,7 @@
 #  id             :bigint           not null, primary key
 #  body           :string           not null
 #  mailgun_status :string           default("sending")
-#  sent_at        :datetime         not null
+#  sent_at        :datetime
 #  subject        :string           not null
 #  to             :citext           not null
 #  created_at     :datetime         not null
@@ -37,7 +37,6 @@ class OutgoingEmail < ApplicationRecord
   validates_presence_of :to
   validates_presence_of :body
   validates_presence_of :subject
-  validates_presence_of :sent_at
   validates :mailgun_status, inclusion: { in: ALL_KNOWN_MAILGUN_STATUSES }
 
   # Use `after_create_commit` so that the attachment is fully saved to S3 before delivering it
@@ -53,7 +52,7 @@ class OutgoingEmail < ApplicationRecord
   scope :in_progress, ->{ where(mailgun_status: IN_PROGRESS_MAILGUN_STATUSES) }
 
   def datetime
-    sent_at
+    sent_at || created_at
   end
 
   def author

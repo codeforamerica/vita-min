@@ -251,6 +251,19 @@ RSpec.describe "searching, sorting, and filtering clients" do
         end
         expect(page).not_to have_css ".client-table"
         expect(page).to have_css ".empty-clients"
+
+        # filter for greetable clients
+        within ".filter-form" do
+          click_link "Clear"
+          check "greetable"
+          click_button "Filter results"
+        end
+        within ".client-table" do
+          expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
+          expect(page).to have_text(betty_intake_in_progress.preferred_name)
+          expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
+          expect(page).to have_text(zach_prep_ready_for_call.preferred_name)
+        end
       end
     end
   end

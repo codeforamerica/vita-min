@@ -17,6 +17,7 @@ module ClientSortable
     clients = clients.where("intakes.locale = :language OR intakes.preferred_interview_language = :language", language: @filters[:language]) if @filters[:language].present?
     clients = clients.where(tax_returns: { service_type: @filters[:service_type] }) if @filters[:service_type].present?
     clients = clients.where(intake: Intake.where(had_unemployment_income: "yes")) if @filters[:unemployment_income].present?
+    clients = clients.where(vita_partner: VitaPartner.where(allows_greeters: true)) if @filters[:greetable].present?
 
     if @filters[:vita_partner_id].present?
       id = @filters[:vita_partner_id].to_i
@@ -65,12 +66,13 @@ module ClientSortable
       vita_partner_id: source[:vita_partner_id]&.to_s,
       assigned_user_id: source[:assigned_user_id]&.to_s,
       language: source[:language],
-      service_type: source[:service_type]
+      service_type: source[:service_type],
+      greetable: source[:greetable],
     }
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :needs_response, :unemployment_income, :year, :vita_partner_id, :assigned_user_id, :language, :service_type]
+    [:search, :status, :unassigned, :assigned_to_me, :needs_response, :unemployment_income, :year, :vita_partner_id, :assigned_user_id, :language, :service_type, :greetable]
   end
 
   def cookie_filters

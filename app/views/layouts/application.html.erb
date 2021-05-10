@@ -77,6 +77,6 @@
       </div>
     <% end %>
     <%= yield(:script) if content_for?(:script) %>
-    <%= render "shared/intercom" %>
+    <%= render "shared/intercom" unless hub? %>
   </body>
 </html>

@@ -4,7 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  body            :string           not null
-#  sent_at         :datetime         not null
+#  sent_at         :datetime
 #  to_phone_number :string           not null
 #  twilio_sid      :string
 #  twilio_status   :string
@@ -34,7 +34,6 @@ class OutgoingTextMessage < ApplicationRecord
   belongs_to :client
   belongs_to :user, optional: true
   validates_presence_of :body
-  validates_presence_of :sent_at
   validates :to_phone_number, e164_phone: true
   validates :twilio_status, inclusion: { in: ALL_KNOWN_TWILIO_STATUSES }
 
@@ -47,7 +46,7 @@ class OutgoingTextMessage < ApplicationRecord
   scope :in_progress, -> { where(twilio_status: IN_PROGRESS_TWILIO_STATUSES) }
 
   def datetime
-    sent_at
+    sent_at || created_at
   end
 
   def author

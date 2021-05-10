@@ -620,6 +620,42 @@ RSpec.describe Hub::ClientsController do
             expect(assigns(:clients)).to include needs_response
           end
         end
+
+        context "greetable client filter" do
+          render_views
+
+          context "when current_user is not an admin" do
+            it "doesn't show the greetable checkbox" do
+              get :index, params: {}
+
+              expect(response.body).not_to include "Greetable"
+            end
+          end
+
+          context "when current_user is an admin" do
+            let(:vita_partner_not_greetable) { create :vita_partner, allows_greeters: false }
+            let(:vita_partner_greetable) { create :vita_partner, allows_greeters: true }
+            let!(:greetable_client) { create :client_with_intake_and_return, vita_partner_id: vita_partner_greetable.id }
+            let!(:not_greetable_client) { create :client_with_intake_and_return, vita_partner_id: vita_partner_not_greetable.id }
+            before do
+              sign_out user
+              sign_in create(:admin_user)
+            end
+
+            it "shows the greetable checkbox" do
+              get :index, params: {}
+
+              expect(response.body).to include "Greetable"
+            end
+
+            it "filters by greetable vita partners when greetable param is present" do
+              get :index, params: { greetable: true }
+
+              expect(assigns(:clients)).to include greetable_client
+              expect(assigns(:clients)).not_to include not_greetable_client
+            end
+          end
+        end
       end
 
       context "navigation link to unlinked clients" do

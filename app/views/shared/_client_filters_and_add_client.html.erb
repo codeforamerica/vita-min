@@ -99,6 +99,13 @@
       <%= check_box_tag :unemployment_income, true, @filters[:unemployment_income] %>
       <%= t("general.received_unemployment_income") %>
     </label>
+
+    <% if current_user.admin? %>
+      <label class="checkbox--gyr">
+        <%= check_box_tag :greetable, true, @filters[:greetable] %>
+        <%= t("general.greetable") %>
+      </label>
+    <% end %>
   </div>
 
   <div class="actions-wrapper">

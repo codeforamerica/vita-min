@@ -915,6 +915,7 @@ en:
     business_days:
       one: "%{count} business day"
       other: "%{count} business days"
+    greetable: Greetable
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

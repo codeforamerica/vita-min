@@ -31,7 +31,6 @@ RSpec.describe ClientMessagingService do
         expect(outgoing_email.body).to eq("hello")
         expect(outgoing_email.client).to eq client
         expect(outgoing_email.user).to eq user
-        expect(outgoing_email.sent_at).to eq expected_time
         expect(outgoing_email.to).to eq client.email_address
         expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
       end
@@ -92,7 +91,6 @@ RSpec.describe ClientMessagingService do
         expect(outgoing_email.body).to eq("hello")
         expect(outgoing_email.client).to eq client
         expect(outgoing_email.user).to eq user
-        expect(outgoing_email.sent_at).to eq expected_time
         expect(outgoing_email.to).to eq client.email_address
         expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
       end
@@ -147,7 +145,6 @@ RSpec.describe ClientMessagingService do
       expect(system_email.subject).to eq("subject")
       expect(system_email.body).to eq("hello")
       expect(system_email.client).to eq client
-      expect(system_email.sent_at).to eq expected_time
       expect(system_email.to).to eq client.email_address
       expect(ClientChannel).to have_received(:broadcast_contact_record).with(system_email)
     end

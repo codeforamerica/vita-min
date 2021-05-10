@@ -4,7 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  body            :string           not null
-#  sent_at         :datetime         not null
+#  sent_at         :datetime
 #  to_phone_number :string           not null
 #  twilio_sid      :string
 #  twilio_status   :string
@@ -29,6 +29,5 @@ FactoryBot.define do
     user
     body { "wyd" }
     to_phone_number { "+14155552345" }
-    sequence(:sent_at) { |n| DateTime.new(2020, 9, 2, 15, 1, 30) + n.minutes }
   end
 end

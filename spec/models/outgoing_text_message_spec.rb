@@ -4,7 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  body            :string           not null
-#  sent_at         :datetime         not null
+#  sent_at         :datetime
 #  to_phone_number :string           not null
 #  twilio_sid      :string
 #  twilio_status   :string
@@ -60,7 +60,6 @@ RSpec.describe OutgoingTextMessage, type: :model do
         it "is not valid and adds an error to each field" do
           expect(message).not_to be_valid
           expect(message.errors).to include :client
-          expect(message.errors).to include :sent_at
           expect(message.errors).to include :body
           expect(message.errors).to include :to_phone_number
         end
