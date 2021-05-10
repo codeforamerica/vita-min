@@ -38,7 +38,7 @@
               <%= link_to(
                       hub_client_path(id: @client.id),
                       method: :delete,
-                      class: "button button--danger",
+                      class: "button button--danger spacing-above-25",
                       data: { confirm: t(".delete_confirmation", name: @client.legal_name) }
                   ) do %>
                 <%= t(".delete_client") %>
