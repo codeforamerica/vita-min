@@ -40,8 +40,10 @@ module Hub
         end
       end
 
+      # Must unassign _all_ tax returns from a client who would lose access (even if not explicitly selected in the tax_return_selection)
+      # because you can't change organization if any return is assigned to a user who would lose access.
       def unassign_users_who_will_lose_access!
-        @selection.tax_returns.accessible_by(current_ability).where.not(assigned_user: nil).find_each do |tax_return|
+        TaxReturn.where(client: @clients).where.not(assigned_user: nil).find_each do |tax_return|
           assigned_user_retains_access = tax_return.assigned_user.accessible_vita_partners.include?(@new_vita_partner)
           tax_return.update!(assigned_user: nil) unless assigned_user_retains_access
         end
