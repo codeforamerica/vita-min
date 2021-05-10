@@ -7,7 +7,8 @@ function setupOrgLevelCounts() {
     $(".org-metrics").each(function() {
         let denominator = 0;
         let responseCount = 0;
-        let communicationCount = 0;
+        let outgoingCommunicationCount = 0;
+        let unansweredCommunicationCount = 0;
         let interactionCount = 0;
         const capacityCount = parseInt($(this).find('tr.org').first().attr('data-js-capacity'));
         const activeClientCount = parseInt($(this).find('tr.org td.capacity-percentage').first().attr('data-js-count'));
@@ -16,7 +17,9 @@ function setupOrgLevelCounts() {
         if ($(this).find('tr.site').length == 0) {
             denominator = parseInt($(this).find('tr.org').first().attr('data-js-count'));
             responseCount = parseInt($(this).find('tr.org td.response-needed-breach').first().attr('data-js-count'));
-            communicationCount = parseInt($(this).find('tr.org td.communication-breach').first().attr('data-js-count'));
+            outgoingCommunicationCount = parseInt($(this).find('tr.org td.outgoing-communication-breach').first().attr('data-js-count'));
+            unansweredCommunicationCount = parseInt($(this).find('tr.org td.unanswered-communication-breach').first().attr('data-js-count'));
+
             interactionCount = parseInt($(this).find('tr.org td.interaction-breach').first().attr('data-js-count'));
         }
 
@@ -28,8 +31,12 @@ function setupOrgLevelCounts() {
             responseCount += parseInt($(this).attr('data-js-count'));
         });
 
-        $(this).find('tr.site td.communication-breach').each(function() {
-            communicationCount += parseInt($(this).attr('data-js-count'));
+        $(this).find('tr.site td.outgoing-communication-breach').each(function() {
+            outgoingCommunicationCount += parseInt($(this).attr('data-js-count'));
+        });
+
+        $(this).find('tr.site td.unanswered-communication-breach').each(function() {
+            unansweredCommunicationCount += parseInt($(this).attr('data-js-count'));
         });
 
         $(this).find('tr.site td.interaction-breach').each(function() {
@@ -38,10 +45,13 @@ function setupOrgLevelCounts() {
 
         // Set viewable value and sortable data-js-count value for org based on accumulated value.
         $(this).find('.response-needed-breach').first().text(responseCount).attr('data-js-count', responseCount);
-        $(this).find('.communication-breach').first().text(communicationCount).attr('data-js-count', communicationCount);
+        $(this).find('.outgoing-communication-breach').first().text(outgoingCommunicationCount).attr('data-js-count', outgoingCommunicationCount);
+        $(this).find('.unanswered-communication-breach').first().text(unansweredCommunicationCount).attr('data-js-count', unansweredCommunicationCount);
+
         $(this).find('.interaction-breach').first().text(interactionCount).attr('data-js-count', interactionCount);
         updatePercentages(this, '.response-needed-breach', denominator);
-        updatePercentages(this, '.communication-breach', denominator);
+        updatePercentages(this, '.outgoing-communication-breach', denominator);
+        updatePercentages(this, '.unanswered-communication-breach', denominator);
         updatePercentages(this, '.interaction-breach', denominator);
         updatePercentages(this, '.capacity', capacityCount);
 
@@ -49,13 +59,15 @@ function setupOrgLevelCounts() {
         $(this).find('tr.site').each(function() {
             const siteDenominator = parseInt($(this).attr('data-js-count'))
             updatePercentages(this, '.response-needed-breach', siteDenominator);
-            updatePercentages(this, '.communication-breach', siteDenominator);
+            updatePercentages(this, '.outgoing-communication-breach', siteDenominator);
+            updatePercentages(this, '.unanswered-communication-breach', siteDenominator);
             updatePercentages(this, '.interaction-breach', siteDenominator);
         });
     });
     let totalSLATracked = $('.metrics-totals').attr('data-js-count');
     updatePercentages('.metrics-totals', '.response-needed-breach', totalSLATracked);
-    updatePercentages('.metrics-totals', '.communication-breach', totalSLATracked);
+    updatePercentages('.metrics-totals', '.outgoing-communication-breach', totalSLATracked);
+    updatePercentages('.metrics-totals', '.unanswered-communication-breach', totalSLATracked);
     updatePercentages('.metrics-totals', '.interaction-breach', totalSLATracked);
     $(".metrics-totals").find(".capacity").attr('data-js-count', totalActiveCount);
     updatePercentages('.metrics-totals', '.capacity', totalCapacityCount)
@@ -157,8 +169,13 @@ export function initMetricsTableSortAndFilter() {
     initToggleableSites();
     initToggleableZeroValues();
 
+    initSortableColumn("tbody.org-metrics", "th#unanswered-communication-breaches", function(row) {
+        const calc = parseInt($(row).find('.unanswered-communication-breach').attr('data-js-count'));
+        return isNaN(calc) ? 0 : calc;
+    });
+
     initSortableColumn("tbody.org-metrics", "th#outgoing-communication-breaches", function(row) {
-        const calc = parseInt($(row).find('.communication-breach').attr('data-js-count'));
+        const calc = parseInt($(row).find('.outgoing-communication-breach').attr('data-js-count'));
         return isNaN(calc) ? 0 : calc;
     });
 
@@ -171,8 +188,13 @@ export function initMetricsTableSortAndFilter() {
         return $(row).attr('data-js-vita-partner-name');
     });
 
+    initSortableColumn("tbody.org-metrics", "th#unanswered-communication-percentage", function (row) {
+        const calc = parseInt($(row).find('.unanswered-communication-breach-percentage').attr('data-js-percentage'));
+        return isNaN(calc) ? 0 : calc;
+    });
+
     initSortableColumn("tbody.org-metrics", "th#outgoing-communication-percentage", function (row) {
-        const calc = parseInt($(row).find('.communication-breach-percentage').attr('data-js-percentage'));
+        const calc = parseInt($(row).find('.outgoing-communication-breach-percentage').attr('data-js-percentage'));
         return isNaN(calc) ? 0 : calc;
     });
 

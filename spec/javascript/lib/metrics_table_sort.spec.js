@@ -10,100 +10,135 @@ beforeEach(() => {
             <th id="capacity-percentage"></th>
             <th id="profile-interaction-breaches"></th>
             <th id="outgoing-communication-breaches"></th>
+            <th id="unanswered-communication-breaches"></th>
+
         </thead>
         <tbody class="org-metrics" data-js-vita-partner-name="Apple Org">
             <tr class="org" data-js-capacity="10">
                 <td class="capacity capacity-percentage" data-js-count="5">5/10</td>
                 <td class="communication-breach"></td>
                 <td class="interaction-breach"></td>
+                <th class="unanswered-communication-breach"></th>
+
             </tr>
             <tr class="site">
-                <td class="communication-breach" data-js-count="14"></td>
+                <td class="outgoing-communication-breach" data-js-count="14"></td>
                 <td class="interaction-breach" data-js-count="14"></td>
+                <td class="unanswered-communication-breach" data-js-count="14"></td>
+
             </tr>
             <tr class="site">
-                <td class="communication-breach" data-js-count="1"></td>
+                <td class="outgoing-communication-breach" data-js-count="1"></td>
                 <td class="interaction-breach" data-js-count="1"></td>
+                <td class="unanswered-communication-breach" data-js-count="1"></td>
+
             </tr>
         </tbody>
 
         <tbody class="org-metrics" data-js-vita-partner-name="Perfect Org">
             <tr class="org">
-                <td class="communication-breach"></td>
+                <td class="outgoing-communication-breach"></td>
                 <td class="interaction-breach"></td>
+                <td class="unanswered-communication-breach"></td>
+
             </tr>
             <tr class="site">
-                <td class="communication-breach" data-js-count="0"></td>
+                <td class="outgoing-communication-breach" data-js-count="0"></td>
                 <td class="interaction-breach" data-js-count="0"></td>
+                <td class="unanswered-communication-breach" data-js-count="0"></td>
+
             </tr>
             <tr class="site">
-                <td class="communication-breach" data-js-count="0"></td>
+                <td class="outgoing-communication-breach" data-js-count="0"></td>
                 <td class="interaction-breach" data-js-count="0"></td>
+                <td class="unanswered-communication-breach" data-js-count="0"></td>
+
             </tr>
         </tbody>
         <tbody class="index-table__body org-metrics" data-js-vita-partner-name="United Way of Greater Richmond and Petersburg">
           <tr class="index-table__row org">
             <td class="index-table__cell">United Way of Greater Richmond and Petersburg</td>
-            <td class="index-table__cell communication-breach" data-js-count=3>
+            <td class="index-table__cell outgoing-communication-breach" data-js-count=3>
               3
             </td>
             <td class="index-table__cell interaction-breach" data-js-count=1>
               1
+            </td>
+            <td class="index-table__cell unanswered-communication-breach" data-js-count=3>
+              3
             </td>
           </tr>
           <!-- Add a row for the organization to track org-level breaches. -->
           <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px; font-style: italic;">United Way of Greater Richmond and Petersburg</td>
-            <td class="index-table__cell communication-breach" data-js-count=3>
+            <td class="index-table__cell outgoing-communication-breach" data-js-count=3>
               3
             </td>
             <td class="index-table__cell interaction-breach" data-js-count=1>
               1
             </td>
+            <td class="index-table__cell unanswered-communication-breach" data-js-count=3>
+              3
+            </td>
           </tr>
 
           <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px">Chesterfield Meadowdale Library </td>
-            <td class="index-table__cell communication-breach" data-js-count=0>
+            <td class="index-table__cell outgoing-communication-breach" data-js-count=0>
               0
             </td>
             <td class="index-table__cell interaction-breach" data-js-count=0>
+              0
+            </td>
+            <td class="index-table__cell unanswered-communication-breach" data-js-count=0>
               0
             </td>
           </tr>
           <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px">Libbie Mill Library </td>
-            <td class="index-table__cell communication-breach" data-js-count=0>
+            <td class="index-table__cell outgoing-communication-breach" data-js-count=0>
               0
             </td>
             <td class="index-table__cell interaction-breach" data-js-count=0>
               0
             </td>
+            <td class="index-table__cell unanswered-communication-breach" data-js-count=0>
+              0
+            </td>
           </tr>
             <tr class="index-table__row site">
               <td class="index-table__cell" style="padding-left: 60px">Fairfield Library - UWGRP </td>
-              <td class="index-table__cell communication-breach" data-js-count=1>
+              <td class="index-table__cell outgoing-communication-breach" data-js-count=1>
                 1
               </td>
               <td class="index-table__cell interaction-breach" data-js-count=1>
                 1
               </td>
+              <td class="index-table__cell unanswered-communication-breach" data-js-count=1>
+                1
+              </td>
             </tr>
             <tr class="index-table__row site">
               <td class="index-table__cell" style="padding-left: 60px">Neighborhood Resource Center </td>
-              <td class="index-table__cell communication-breach" data-js-count=0>
+              <td class="index-table__cell outgoing-communication-breach" data-js-count=0>
                 0
               </td>
               <td class="index-table__cell interaction-breach" data-js-count=0>
                 0
               </td>
+              <td class="index-table__cell unanswered-communication-breach" data-js-count=0>
+                0
+              </td>
             </tr>
             <tr class="index-table__row site">
               <td class="index-table__cell" style="padding-left: 60px">UWGRP-site </td>
-              <td class="index-table__cell communication-breach" data-js-count=3>
+              <td class="index-table__cell outgoing-communication-breach" data-js-count=3>
                 3
               </td>
               <td class="index-table__cell interaction-breach" data-js-count=3>
+                3
+              </td>
+              <td class="index-table__cell unanswered-communication-breach" data-js-count=3>
                 3
               </td>
             </tr>
@@ -113,14 +148,20 @@ beforeEach(() => {
 });
 
 test('determines org-level counts', () => {
-    const communicationBreach = $('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.communication-breach').first();
+    const outgoingCommunicationBreach = $('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.outgoing-communication-breach').first();
+    const unansweredCommunicationBreach = $('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.unanswered-communication-breach').first();
     const interactionBreach =$('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.interaction-breach').first();
-    expect(communicationBreach.attr('data-js-count')).toEqual('3');
+
+    expect(outgoingCommunicationBreach.attr('data-js-count')).toEqual('3');
+    expect(unansweredCommunicationBreach.attr('data-js-count')).toEqual('3');
+
     expect(interactionBreach.attr('data-js-count')).toEqual('1');
 
     initMetricsTableSortAndFilter();
 
-    expect(communicationBreach.attr('data-js-count')).toEqual("7");
+    expect(outgoingCommunicationBreach.attr('data-js-count')).toEqual("7");
+    expect(unansweredCommunicationBreach.attr('data-js-count')).toEqual("7");
+
     expect(interactionBreach.attr('data-js-count')).toEqual("5");
 });
 
@@ -228,7 +269,7 @@ test('sorting by name', () => {
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
 });
 
-test('sorting by breach count', () => {
+test('sorting by organization name', () => {
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
     initMetricsTableSortAndFilter();
     $('th#organization-name').click();
@@ -253,17 +294,33 @@ test('sorting by profile-interaction-breaches count', () => {
     $('th#organization-name').click();
 });
 
-test('sorting by communication-interaction-breaches count', () => {
+test('sorting by outgoing-communication-breaches count', () => {
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
     initMetricsTableSortAndFilter();
-    $('th#profile-interaction-breaches').click();
+    $('th#outgoing-communication-breaches').click();
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
     expect($('.org-metrics').first().find('.org .interaction-breach').attr('data-js-count')).toEqual('15')
     expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
 
-    $('th#profile-interaction-breaches').click();
+    $('th#outgoing-communication-breaches').click();
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
-    expect($('.org-metrics').first().find('.org .interaction-breach').attr('data-js-count')).toEqual('0')
+    expect($('.org-metrics').first().find('.org .outgoing-communication-breach').attr('data-js-count')).toEqual('0')
+
+    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    $('th#organization-name').click();
+});
+
+test('sorting by unanswered-communication-breaches count', () => {
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    initMetricsTableSortAndFilter();
+    $('th#unanswered-communication-breaches').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    expect($('.org-metrics').first().find('.org .unanswered-communication-breach').attr('data-js-count')).toEqual('15')
+    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+
+    $('th#unanswered-communication-breaches').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+    expect($('.org-metrics').first().find('.org .unanswered-communication-breach').attr('data-js-count')).toEqual('0')
 
     expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Apple Org");
     $('th#organization-name').click();

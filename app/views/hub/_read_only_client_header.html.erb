@@ -11,8 +11,8 @@
       <h2><%= client.vita_partner&.name || t("hub.not_assigned_html") %></h2>
     </div>
     <div class="text--help spacing-below-0"><%= t("hub.last_client_update") + timestamp(client.updated_at) %></div>
-    <% if client.needs_response? %>
-      <div class="text--help spacing-below-0"><%= t("hub.waiting_on_response") + timestamp(client.response_needed_since) %></div>
+    <% if client.first_unanswered_incoming_interaction_at.present? %>
+      <div class="text--help spacing-below-0"><%= t("hub.waiting_on_response") + ":" %> <%= timestamp(client.first_unanswered_incoming_interaction_at) %></div>
     <% end %>
   </div>
 </div>

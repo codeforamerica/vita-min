@@ -75,11 +75,11 @@ RSpec.describe Report::SLABreachReport, type: :model do
 
     it "converts json keys into integers" do
       expect(report.data["communication_breaches_by_vita_partner_id"]).to eq({ "2" => 1, "3" => 2 })
-      expect(report.communication_breaches).to eq({ 2 => 1, 3 => 2 })
+      expect(report.unanswered_communication_breaches).to eq({ 2 => 1, 3 => 2 })
     end
 
     it "uses 0 as a default value for hash keys that cant be found" do
-      expect(report.communication_breaches[1000]).to eq 0
+      expect(report.unanswered_communication_breaches[1000]).to eq 0
     end
   end
 
@@ -142,20 +142,20 @@ RSpec.describe Report::SLABreachReport, type: :model do
 
     context "without vita_partners param" do
       it "returns the raw count" do
-        expect(report.communication_breach_count).to eq 5
+        expect(report.unanswered_communication_breach_count).to eq 5
       end
     end
 
     context "with vita_partners param" do
       context "when breaches are found for the vita partners" do
         it "returns the limited count based on passed vita_partners" do
-          expect(report.communication_breach_count(VitaPartner.where(id: vita_partner.id ))).to eq 2
+          expect(report.unanswered_communication_breach_count(VitaPartner.where(id: vita_partner.id ))).to eq 2
         end
       end
 
       context "when breaches aren't found for the vita partners" do
         it "returns 0" do
-          expect(report.communication_breach_count(VitaPartner.where.not(id: vita_partner.id))).to eq 0
+          expect(report.unanswered_communication_breach_count(VitaPartner.where.not(id: vita_partner.id))).to eq 0
         end
       end
     end
