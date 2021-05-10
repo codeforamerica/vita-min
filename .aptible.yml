@@ -1,2 +1,2 @@
 before_release:
-    - bundle exec rake db:migrate
+    - bundle exec rake analytics:drop_views db:migrate analytics:create_views
