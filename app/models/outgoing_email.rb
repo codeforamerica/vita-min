@@ -52,7 +52,7 @@ class OutgoingEmail < ApplicationRecord
   scope :in_progress, ->{ where(mailgun_status: IN_PROGRESS_MAILGUN_STATUSES) }
 
   def datetime
-    created_at
+    sent_at || created_at
   end
 
   def author
