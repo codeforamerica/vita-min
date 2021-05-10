@@ -50,7 +50,8 @@ describe Hub::MetricsController do
 
         it 'uses the accumulated totals for all vita partners' do
           get :index
-          expect(assigns(:total_breaches)[:communication]).to eq 3
+          expect(assigns(:total_breaches)[:unanswered_communication]).to eq 3
+          expect(assigns(:total_breaches)[:outgoing_communication]).to eq 3
           expect(assigns(:total_breaches)[:interaction]).to eq 3
         end
       end
@@ -87,8 +88,8 @@ describe Hub::MetricsController do
 
         it 'limits the totals to those that are relevant to the vita partner the user has access to' do
           get :index
-
-          expect(assigns(:total_breaches)[:communication]).to eq 2
+          expect(assigns(:total_breaches)[:unanswered_communication]).to eq 2
+          expect(assigns(:total_breaches)[:outgoing_communication]).to eq 2
           expect(assigns(:total_breaches)[:interaction]).to eq 2
         end
       end

@@ -30,14 +30,20 @@
           <th scope="col" class="index-table__header sortable" id="capacity-percentage">
             Capacity %<sup>1</sup>
           </th>
+          <th scope="col" class="index-table__header sortable" id="unanswered-communication-breaches" >
+            Unanswered comm. breaches<sup>2</sup>
+          </th>
+          <th scope="col" class="index-table__header sortable" id="unanswered-communication-percentage" >
+            Unanswered comm. %
+          </th>
           <th scope="col" class="index-table__header sortable" id="outgoing-communication-breaches" >
-            Outgoing comm. breaches<sup>2</sup>
+            Outgoing comm. breaches<sup>3</sup>
           </th>
           <th scope="col" class="index-table__header sortable" id="outgoing-communication-percentage" >
             Outgoing comm. %
           </th>
           <th scope="col" class="index-table__header sortable" id="profile-interaction-breaches" >
-            Interaction breaches<sup>3</sup>
+            Interaction breaches<sup>4</sup>
           </th>
           <th scope="col" class="index-table__header sortable" id="profile-interaction-percentage" >
             Interaction %
@@ -67,10 +73,15 @@
           <tr class="metrics-totals" data-js-count=<%= @total_breaches[:total_count] %>>
             <th></th>
             <th class="index_table__cell capacity capacity-percentage"></th>
-            <th class="index-table__cell communication-breach" data-js-count="<%= @total_breaches[:communication] %>">
-              <strong><%= @total_breaches[:communication] %></strong>
+            <th class="index-table__cell unanswered-communication-breach" data-js-count="<%= @total_breaches[:unanswered_communication] %>">
+              <strong><%= @total_breaches[:unanswered_communication] %></strong>
             </th>
-            <th class="index-table__cell communication-breach-percentage">
+            <th class="index-table__cell unanswered-communication-breach-percentage">
+            </th>
+            <th class="index-table__cell outgoing-communication-breach" data-js-count="<%= @total_breaches[:outgoing_communication] %>">
+              <strong><%= @total_breaches[:outgoing_communication] %></strong>
+            </th>
+            <th class="index-table__cell outgoing-communication-breach-percentage">
             </th>
             <th class="index-table__cell interaction-breach" data-js-count=<%= @total_breaches[:interaction] %>>
               <strong><%= @total_breaches[:interaction] %></strong>
@@ -88,7 +99,10 @@
         <small><sup>1 </sup><%= t("hub.organizations.form.excludes") %></small>
       </div>
       <div>
-        <small><sup>2 </sup>We have not contacted this client by email/text/phone call in more than three business days.</small>
+        <small><sup>2 </sup>This client interacted with us (send message, uploaded document) more than three (3) business days ago, and we have not answered.</small>
+      </div>
+      <div>
+        <small><sup>2 </sup>We have not contacted this client by email/text/phone call in more than three (3) business days.</small>
       </div>
       <div>
         <small><sup>3 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not interacted with their profile (written internal note, changed status, assigned user, etc).</small>

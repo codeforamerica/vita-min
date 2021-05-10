@@ -9,11 +9,17 @@
   <% else %>
     <td class="index-table__cell capacity capacity-percentage" data-js-capacity="0" data-js-count="0"></td>
   <% end %>
-  <td class="index-table__cell communication-breach" data-js-count=<%= @report.last_outgoing_communication_breaches[id] %>>
-    <%= @report.last_outgoing_communication_breaches[id]%>
+  <td class="index-table__cell unanswered-communication-breach" data-js-count=<%= @report.unanswered_communication_breaches[id] %>>
+    <%= @report.unanswered_communication_breaches[id]%>
+  </td>
+  <td class="index-table__cell unanswered-communication-breach-percentage">
+    <%= @report.active_sla_clients_count[id] %>
   </td>
 
-  <td class="index-table__cell communication-breach-percentage">
+  <td class="index-table__cell outgoing-communication-breach" data-js-count=<%= @report.last_outgoing_communication_breaches[id] %>>
+    <%= @report.last_outgoing_communication_breaches[id]%>
+  </td>
+  <td class="index-table__cell outgoing-communication-breach-percentage">
     <%= @report.active_sla_clients_count[id] %>
   </td>
 

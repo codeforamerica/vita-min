@@ -25,7 +25,7 @@ class Report::SLABreachReport < Report
     @response_needed_breaches ||= format_hash(data["response_needed_breaches_by_vita_partner_id"])
   end
 
-  def communication_breaches
+  def unanswered_communication_breaches
     @communication_breaches ||= format_hash(data["communication_breaches_by_vita_partner_id"])
   end
 
@@ -47,16 +47,16 @@ class Report::SLABreachReport < Report
     response_needed_breaches.slice(*vita_partners.map(&:id)).values.sum
   end
 
-  def communication_breach_count(vita_partners = nil)
+  def unanswered_communication_breach_count(vita_partners = nil)
     return data["communication_breach_count"] unless vita_partners.present?
 
-    communication_breaches.slice(*vita_partners.map(&:id)).values.sum
+    unanswered_communication_breaches.slice(*vita_partners.map(&:id)).values.sum
   end
 
   def last_outgoing_communication_breach_count(vita_partners = nil)
     return data["last_outgoing_communication_breach_count"] unless vita_partners.present?
 
-    communication_breaches.slice(*vita_partners.map(&:id)).values.sum
+    last_outgoing_communication_breaches.slice(*vita_partners.map(&:id)).values.sum
   end
 
   def interaction_breach_count(vita_partners = nil)
@@ -70,8 +70,7 @@ class Report::SLABreachReport < Report
 
     active_sla_clients.slice(*vita_partners.map(&:id)).values.sum
   end
-
-
+  
   def breached_at
     @breached_at ||= data["breached_at"].in_time_zone
   end

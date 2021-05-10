@@ -33,8 +33,8 @@
       </div>
 
       <div class="text--help"><%= t("hub.last_client_update") + timestamp(@client.updated_at) %></div>
-      <% if @client.needs_response? %>
-        <div class="text--help"><%= t("hub.waiting_on_response") + timestamp(@client.response_needed_since) %></div>
+      <% if @client.first_unanswered_incoming_interaction_at.present? %>
+        <div class="text--help spacing-below-0"><%= t("hub.waiting_on_response") + ":" %> <%= timestamp(@client.first_unanswered_incoming_interaction_at) %></div>
       <% end %>
 
       <%= form_for [:hub, @client], method: :patch, url: response_needed_hub_client_path(id: @client.id) do |f| %>
