@@ -23,6 +23,7 @@ describe Ability do
 
       it "can manage all" do
         expect(subject.can?(:manage, client)).to eq true
+        expect(subject.can?(:destroy, client)).to eq true
         expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
         expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
         expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq true
@@ -68,7 +69,7 @@ describe Ability do
         end
       end
 
-      shared_examples :can_manage_accessible_client do
+      shared_examples :can_manage_but_not_delete_accessible_client do
         context "when the user can access a particular site" do
           let(:accessible_site) { create(:site) }
           let(:accessible_client) { create(:client, vita_partner: accessible_site) }
@@ -86,6 +87,10 @@ describe Ability do
             expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
+          end
+
+          it "cannot delete a client" do
+            expect(subject.can?(:destroy, accessible_client)).to eq false
           end
         end
       end
@@ -117,7 +122,7 @@ describe Ability do
         context "a coalition lead" do
           let(:user) { create :coalition_lead_user }
 
-          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :can_manage_but_not_delete_accessible_client
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
@@ -126,7 +131,7 @@ describe Ability do
         context "an organization lead" do
           let(:user) { create :organization_lead_user }
 
-          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :can_manage_but_not_delete_accessible_client
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
@@ -135,7 +140,7 @@ describe Ability do
         context "a site coordinator" do
           let(:user) { create :site_coordinator_user }
 
-          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :can_manage_but_not_delete_accessible_client
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
@@ -144,7 +149,7 @@ describe Ability do
         context "a team member" do
           let(:user) { create :team_member_user }
 
-          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :can_manage_but_not_delete_accessible_client
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
@@ -153,7 +158,7 @@ describe Ability do
         context "a greeter" do
           let(:user) { create :greeter_user }
 
-          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :can_manage_but_not_delete_accessible_client
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs

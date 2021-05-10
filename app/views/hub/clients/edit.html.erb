@@ -24,20 +24,27 @@
 
           <%= render "spouse_info_fields", f: f %>
 
-          <button class="button button--cta" type="submit">
-            <%=t("general.save") %>
-          </button>
+          <div class="hub-form__row">
+            <button class="button button--cta" type="submit">
+              <%=t("general.save") %>
+            </button>
 
-          <%= link_to t("general.cancel"), hub_client_path(id: @client.id), class: "button" %>
+            <%= link_to t("general.cancel"), hub_client_path(id: @client.id), class: "button" %>
+          </div>
 
-            <%= link_to(
-                    hub_client_path(id: @client.id),
-                    method: :delete,
-                    class: "button button--danger",
-                    data: { confirm: t(".delete_confirmation", name: @client.legal_name) }
-                ) do %>
-              <%= t(".delete_client") %>
+
+          <div class="hub-form__row">
+            <% if current_ability.can?(:destroy, @client) %>
+              <%= link_to(
+                      hub_client_path(id: @client.id),
+                      method: :delete,
+                      class: "button button--danger",
+                      data: { confirm: t(".delete_confirmation", name: @client.legal_name) }
+                  ) do %>
+                <%= t(".delete_client") %>
+              <% end %>
             <% end %>
+          </div>
 
         <% end %>
         </div>

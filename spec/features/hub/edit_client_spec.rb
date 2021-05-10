@@ -203,7 +203,7 @@ RSpec.describe "a user editing a clients intake fields" do
       end
 
       expect(page).to have_text "All clients"
-      expect(page).to have_text "Client has been successfully deleted"
+      expect(page).to have_text "The client has been successfully deleted"
     end
 
     it "creates a system note for client profile change" do

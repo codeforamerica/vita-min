@@ -26,6 +26,8 @@ class Ability
 
     # Anyone can manage clients and client data in the groups they can access
     can :manage, Client, vita_partner: accessible_groups
+    # Only admins can destroy clients
+    cannot :destroy, Client unless user.role_type == AdminRole::TYPE
     can :manage, [
       Document,
       IncomingEmail,

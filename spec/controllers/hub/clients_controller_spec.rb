@@ -831,7 +831,8 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#destroy" do
-    let!(:client) { create :client, intake: intake }
+    let(:organization) { create(:organization) }
+    let!(:client) { create :client, intake: intake, vita_partner: organization }
     let(:intake) { create :intake, :with_contact_info }
     let(:params) do
       {
@@ -839,12 +840,8 @@ RSpec.describe Hub::ClientsController do
       }
     end
 
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :destroy
-
-    it_behaves_like :a_post_action_for_admins_only, action: :destroy
-
     context "with an authenticated admin user" do
-      let!(:user) { create :admin_user }
+      let(:user) { create :admin_user }
       before { sign_in user }
 
       it "deletes the client and destroys all associated information" do
