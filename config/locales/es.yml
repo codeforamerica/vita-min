@@ -85,6 +85,8 @@ es:
         title: Editar Perfil del cliente
         add_dependent: Agregar dependiente
         remove: Eliminado
+        delete_client: Eliminar cliente
+        delete_confirmation: ¿Estás seguro de que deseas eliminar toda la información asociada con %{name}?
       index:
         clear_filters: Claros
         filter: Filtrar resultados
@@ -153,6 +155,8 @@ es:
         other: "%{count} clientes"
       bulk_action:
         count_html: 'Has seleccionado <strong><span id="take-action-count">%{count}</span> declaración</strong>'
+      destroy:
+        success_message: El cliente ha sido eliminado con éxito
     documents:
       edit:
         title: Editar Documento

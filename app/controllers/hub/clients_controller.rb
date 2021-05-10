@@ -32,6 +32,12 @@ module Hub
       end
     end
 
+    def destroy
+      Client.find(params[:id]).destroy!
+      flash[:notice] = I18n.t("hub.clients.destroy.success_message")
+      redirect_to hub_clients_path
+    end
+
     def show; end
 
     def request_bank_account_info

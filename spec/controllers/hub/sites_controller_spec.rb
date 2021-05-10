@@ -61,7 +61,7 @@ RSpec.describe Hub::SitesController, type: :controller do
       { parent_organization_id: organization.id, id: site.id }
     end
 
-    it_behaves_like :a_get_action_for_admins_only, action: :new
+    it_behaves_like :a_get_action_for_admins_only, action: :edit
 
     context "as an authenticated admin user" do
       before do

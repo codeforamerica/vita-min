@@ -85,6 +85,8 @@ en:
         title: Edit Client Profile
         add_dependent: Add dependent
         remove: Remove
+        delete_client: Delete client
+        delete_confirmation: Are you sure you want to delete all information associated with %{name}?
       edit_take_action:
         blank_no_internal_note: If blank, no internal note is added.
         blank_no_message_sent: If blank, no message is sent to the client.
@@ -153,6 +155,8 @@ en:
         other: "%{count} clients"
       bulk_action:
         count_html: 'You have selected <strong><span id="take-action-count">%{count}</span> return(s)</strong>'
+      destroy:
+        success_message: The client has been successfully deleted
     documents:
       confirm:
         title: Confirm %{document_type}
