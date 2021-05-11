@@ -357,7 +357,7 @@ RSpec.describe ClientMessagingService do
       let(:intake) { create :intake, sms_notification_opt_in: "no", email_notification_opt_in: "no" }
 
       it "returns a hash with nil for both message record types" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject, locale: 'en'))
           .to eq({
                    outgoing_email: nil,
                    outgoing_text_message: nil
@@ -373,12 +373,12 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash with the output of send_email as the value for outgoing_email" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, subject: subject, locale: 'en'))
           .to eq({
                    outgoing_email: outgoing_email,
                    outgoing_text_message: nil
                  })
-        expect(described_class).to have_received(:send_system_email).with(client: client, body: email_body, subject: subject)
+        expect(described_class).to have_received(:send_system_email).with(client: client, body: email_body, subject: subject, locale: 'en')
       end
     end
 
@@ -390,12 +390,12 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash with the output of send_text_message as the value for outgoing_text_message" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, sms_body: sms_body))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, sms_body: sms_body, locale: "en"))
           .to eq({
                    outgoing_text_message: outgoing_text_message,
                    outgoing_email: nil
                  })
-        expect(described_class).to have_received(:send_system_text_message).with(client: client, body: sms_body)
+        expect(described_class).to have_received(:send_system_text_message).with(client: client, body: sms_body, locale: "en")
       end
     end
 
@@ -403,7 +403,7 @@ RSpec.describe ClientMessagingService do
       let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "no", sms_phone_number: nil }
 
       it "returns a hash with nil as the value for contact record" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject, locale: "es"))
           .to eq({
                    outgoing_text_message: nil,
                    outgoing_email: nil
@@ -421,13 +421,13 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash containing all contact records" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject, locale: "es"))
           .to eq({
                    outgoing_text_message: outgoing_text_message,
                    outgoing_email: outgoing_email
                  })
-        expect(described_class).to have_received(:send_system_email).with(client: client, body: email_body, subject: subject)
-        expect(described_class).to have_received(:send_system_text_message).with(client: client, body: sms_body)
+        expect(described_class).to have_received(:send_system_email).with(client: client, body: email_body, subject: subject, locale: "es")
+        expect(described_class).to have_received(:send_system_text_message).with(client: client, body: sms_body, locale: "es")
       end
     end
 
@@ -439,12 +439,12 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash containing with only one contact record for the fully usable method" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject, locale: "en"))
           .to eq({
                    outgoing_text_message: nil,
                    outgoing_email: outgoing_email
                  })
-        expect(described_class).to have_received(:send_system_email).with(client: client, body: email_body, subject: subject)
+        expect(described_class).to have_received(:send_system_email).with(client: client, body: email_body, subject: subject, locale: "en")
       end
     end
   end

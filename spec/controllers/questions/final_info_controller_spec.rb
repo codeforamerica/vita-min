@@ -19,13 +19,48 @@ RSpec.describe Questions::FinalInfoController do
         allow(IntakePdfJob).to receive(:perform_later)
       end
 
-      let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com", locale: "en" }
+      let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com", locale: "en", preferred_name: "Mona Lisa" }
       let(:client) { intake.client }
 
       it "the model after_update when completed at changes should enqueue the creation of the 13614c document" do
         post :update, params: params
 
         expect(IntakePdfJob).to have_received(:perform_later).with(intake.id, "Original 13614-C.pdf")
+      end
+
+      context "messaging" do
+        context "sending a message" do
+          before do
+            allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
+          end
+
+          context "with english locale" do
+            it "sends a success email in the correct language" do
+              post :update, params: params
+              expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+                client: client,
+                email_body: I18n.t("messages.successful_submission.email_body", locale: "en"),
+                sms_body: I18n.t("messages.successful_submission.sms_body", locale: "en"),
+                subject: I18n.t("messages.successful_submission.subject", locale: "en"),
+                locale: :en
+              )
+            end
+          end
+
+          context "with spanish locale" do
+            it "sends a success email in the correct language" do
+              post :update, params: params.merge(locale: "es")
+              
+              expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+                client: client,
+                email_body: I18n.t("messages.successful_submission.email_body", locale: "es"),
+                sms_body: I18n.t("messages.successful_submission.sms_body", locale: "es"),
+                subject: I18n.t("messages.successful_submission.subject", locale: "es"),
+                locale: :es
+              )
+            end
+          end
+        end
       end
 
       context "client is opted into emails" do
@@ -37,27 +72,6 @@ RSpec.describe Questions::FinalInfoController do
           expect do
             post :update, params: params
           end.to change(OutgoingEmail, :count).by(1).and change(OutgoingTextMessage, :count).by(0)
-          email = I18n.t(
-              "messages.successful_submission.email_body",
-              locale: "en",
-              preferred_name: intake.preferred_name,
-              client_id: intake.client_id,
-              portal_login_url: "http://test.host/en/portal/login"
-          )
-          expect(OutgoingEmail.last.body.squish).to eq email.squish
-        end
-
-        it "sends a success email in the correct language" do
-          intake.update(locale: "es")
-          post :update, params: params
-
-          expect(OutgoingEmail.last.body.squish).to eq I18n.t(
-              "messages.successful_submission.email_body",
-              locale: "es",
-              preferred_name: intake.preferred_name,
-              client_id: intake.client_id,
-              portal_login_url: "http://test.host/es/portal/login"
-          ).squish
         end
       end
 
@@ -70,19 +84,6 @@ RSpec.describe Questions::FinalInfoController do
           expect do
             post :update, params: params
           end.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(0)
-        end
-
-        it "sends a success sms in the correct language" do
-          intake.update(locale: "es")
-          post :update, params: params
-
-          expect(OutgoingTextMessage.last.body.squish).to eq I18n.t(
-              "messages.successful_submission.sms_body",
-              locale: "es",
-              preferred_name: intake.preferred_name,
-              client_id: intake.client_id,
-              portal_login_url: "http://test.host/es/portal/login"
-          ).squish
         end
       end
 

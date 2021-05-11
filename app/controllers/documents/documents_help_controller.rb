@@ -7,19 +7,13 @@ module Documents
     def show; end
 
     def send_reminder
+      doc_type = params[:doc_type].constantize.key
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
-        email_body: I18n.t("documents.reminder_link.email_body_html",
-                           first_name: current_intake.preferred_name,
-                           doc_type: params[:doc_type].constantize.key,
-                           reminder_link: new_portal_client_login_url
-        ),
-        sms_body: I18n.t("documents.reminder_link.sms_body",
-                         first_name: current_intake.preferred_name,
-                         doc_type: params[:doc_type].constantize.key,
-                         reminder_link: new_portal_client_login_url
-        ),
-        subject: I18n.t("documents.reminder_link.subject")
+        email_body: I18n.t("documents.reminder_link.email_body", doc_type: doc_type),
+        sms_body: I18n.t("documents.reminder_link.sms_body", doc_type: doc_type),
+        subject: I18n.t("documents.reminder_link.subject"),
+        locale: I18n.locale
       )
       flash[:notice] = I18n.t("documents.reminder_link.notice")
       redirect_to(next_path)

@@ -941,13 +941,13 @@ en:
     successful_submission:
       subject: Your tax information has been successfully submitted!
       email_body: |
-        Hello %{preferred_name},
+        Hello <<Client.PreferredName>>,
 
-        Your tax information has been successfully submitted to your tax preparer! Your confirmation number is %{client_id}.
+        Your tax information has been successfully submitted to your tax preparer! Your client id is <<Client.ClientId>>.
 
         Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
 
-        Log in to securely submit additional information or documents you’d like to share with your tax preparer: %{portal_login_url}
+        Log in to securely submit additional information or documents you’d like to share with your tax preparer: <<Client.LoginLink>>
 
         If you have any questions, please reply to this message.
 
@@ -955,20 +955,20 @@ en:
 
         Your tax team at GetYourRefund.org
       sms_body: |
-        Hello %{preferred_name},
-        Your tax information has been successfully submitted to your tax preparer! Your confirmation number is %{client_id}.
+        Hello <<Client.PreferredName>>,
+        Your tax information has been successfully submitted to your tax preparer! Your client id is <<Client.ClientId>>.
         Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
-        Log in to securely submit additional information or documents you’d like to share with your tax preparer: %{portal_login_url}
+        Log in to securely submit additional information or documents you’d like to share with your tax preparer: <<Client.LoginLink>>
         If you have any questions, please reply to this message.
         We’re here to help!
         Your tax team at GetYourRefund.org
     getting_started:
       email_body: |
-        Hello %{preferred_name},
+        Hello <<Client.PreferredName>>,
 
-        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your client id is %{client_id}. We will prepare your taxes once we have all of your required information and tax documents.
+        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your client id is <<Client.ClientId>>. We will prepare your taxes once we have all of your required information and tax documents.
 
-        You can securely upload additional tax documents by logging in here: %{portal_login_url}
+        You can securely upload additional tax documents by logging in here: <<Client.LoginLink>>
 
         If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
@@ -978,7 +978,7 @@ en:
         Your Tax Team at GetYourRefund.org
       email_subject: Getting your taxes started with GetYourRefund
       sms_body: |
-        Hello %{preferred_name}, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is %{client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Log in to upload documents securely here: %{portal_login_url}
+        Hello <<Client.PreferredName>>, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is <<Client.ClientId>>. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Log in to upload documents securely here: <<Client.LoginLink>>
 
         Respond to this message if you have any questions. We’re here to help!
     surveys:
@@ -991,14 +991,14 @@ en:
 
             Take our 5 minute survey here: %{survey_link}
           subject: Thank you for filing your taxes with GetYourRefund!
-        text: |
+        sms: |
           Thank you for filing your taxes with GetYourRefund. We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
       in_progress:
         email:
           body: |
-            Hello %{preferred_name},
+            Hello <<Client.PreferredName>>,
 
-            We noticed you haven't completed providing the information we need to prepare your taxes. Log in to continue the process and upload tax documents: %{portal_login_url}
+            We noticed you haven't completed providing the information we need to prepare your taxes. Log in to continue the process and upload tax documents: <<Client.LoginLink>>
 
             We'll review everything with you on the phone!
 
@@ -1009,8 +1009,8 @@ en:
             We're here to help!
             Your Tax Team at GetYourRefund
           subject: Welcome to GetYourRefund.org. You're almost there!
-        text: |
-          Hello %{preferred_name}. We noticed you haven't completed providing the information we need to prepare your taxes. If you have any questions, you can reply to this message. If you would like to provide us feedback to help us improve our service, you can take our 5 minute survey here: %{survey_link}
+        sms: |
+          Hello <<Client.PreferredName>>, We noticed you haven't completed providing the information we need to prepare your taxes. If you have any questions, you can reply to this message. If you would like to provide us feedback to help us improve our service, you can take our 5 minute survey here: %{survey_link}
   models:
     intake:
       your_spouse: Your spouse
@@ -2588,20 +2588,20 @@ en:
     email:
       subject: Thank you for submitting your tax information
       body: |
-        Hello %{preferred_name},
+        Hello <<Client.PreferredName>>,
 
-        Your tax information has been successfully submitted to your tax preparer at %{org_name}! Your Client ID is %{confirmation_number}.
+        Your tax information has been successfully submitted to your tax preparer at <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>.
 
         Your tax specialist will review your information and will reach out to you in 3-5 business days to review your situation before preparing your taxes.
 
-        You can securely upload any additional tax documents here: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
+        You can securely upload any additional tax documents by <a href="<<Client.LoginLink>>">logging in here.</a>
 
         If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
         We’re here to help!
         Your tax team at GetYourRefund.org
     sms:
-      body: Hello %{preferred_name}, thank you for submitting your tax information to %{org_name}! Your Client ID is %{confirmation_number}. Respond to this message if you have any questions. We’re here to help!
+      body: Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
   documents:
     documents_help:
       show:
@@ -2614,13 +2614,13 @@ en:
     reminder_link:
       notice: "Great! We just sent you a reminder link."
       subject: Your tax document reminder
-      email_body_html: |
-        Hello %{first_name},
-        We received your request for a reminder. Please <a href="%{reminder_link}">login here</a> to upload %{doc_type} documents.
+      email_body: |
+        Hello <<Client.PreferredName>>,
+        We received your request for a reminder. Please <a href="<<Client.LoginLink>>">login here</a> to upload %{doc_type} documents.
         Your tax team at GetYourRefund
       sms_body: |
-        Hello %{first_name},
-        We received your request for a reminder. Please login here to upload %{doc_type} documents: %{reminder_link}
+        Hello <<Client.PreferredName>>,
+        We received your request for a reminder. Please login here to upload %{doc_type} documents: <<Client.LoginLink>>
         Your tax team at GetYourRefund
     updated_specialist:
       notice: "Thank you! We updated your tax specialist."
