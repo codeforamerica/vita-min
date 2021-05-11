@@ -982,14 +982,14 @@ es:
 
             Te agradeceríamos si pudieras rellenar nuestra encuesta, solo te tomará unos 5 minutos: %{survey_link}
           subject: ¡Gracias por declarar tus impuestos con GetYourRefund!
-        text: |
+        sms: |
           Gracias por declarar tus impuestos con GetYourRefund. Queremos mejorar nuestro servicio y nos hace falta tu comentario. ¿Puedes contarnos cómo ha sido? Por favor tome unos 5 minutos para rellenar nuestra encuesta: %{survey_link}
       in_progress:
         email:
           body: |
-            Hola %{preferred_name},
+            Hola <<Client.PreferredName>>,
 
-            Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Inicie sesión aquí para continuar el proceso y cargar documentos fiscales: %{portal_login_url}
+            Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Inicie sesión aquí para continuar el proceso y cargar documentos fiscales: <<Client.LoginLink>>
 
             ¡Revisaremos todo contigo por teléfono!
 
@@ -1000,8 +1000,8 @@ es:
             ¡Estamos aquí para ayudar!
             Su equipo de impuestos en GetYourRefund
           subject: Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!
-        text: |
-          Hola, %{preferred_name}. Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Si tienes alguna pregunta, puedes responder a este mensaje. Si desea enviarnos sus comentarios para ayudarnos a mejorar nuestro servicio, puede completar nuestra encuesta de 5 minutos aquí: %{survey_link}
+        sms: |
+          Hola, <<Client.PreferredName>>. Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Si tienes alguna pregunta, puedes responder a este mensaje. Si desea enviarnos sus comentarios para ayudarnos a mejorar nuestro servicio, puede completar nuestra encuesta de 5 minutos aquí: %{survey_link}
   models:
     intake:
       your_spouse: Su cónyuge

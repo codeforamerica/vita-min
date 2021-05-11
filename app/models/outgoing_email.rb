@@ -38,7 +38,6 @@ class OutgoingEmail < ApplicationRecord
   validates_presence_of :body
   validates_presence_of :subject
   validates :mailgun_status, inclusion: { in: ALL_KNOWN_MAILGUN_STATUSES }
-  attr_accessor :locale, :tax_return
 
   # Use `after_create_commit` so that the attachment is fully saved to S3 before delivering it
   after_create_commit :deliver, :broadcast

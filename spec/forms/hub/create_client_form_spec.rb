@@ -106,7 +106,8 @@ RSpec.describe Hub::CreateClientForm do
             client: Client.last,
             sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "en"),
             email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "en"),
-            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "en")
+            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "en"),
+            locale: "en"
           )
         end
       end
@@ -122,10 +123,9 @@ RSpec.describe Hub::CreateClientForm do
             client: Client.last,
             sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "es"),
             email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "es"),
-            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "es")
+            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "es"),
+            locale: "es"
           )
-
-
         end
       end
 

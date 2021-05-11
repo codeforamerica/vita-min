@@ -12,17 +12,20 @@ class SendClientInProgressSurveyJob < ApplicationJob
     end
 
     survey_link = "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_6PDoi6ecHeQYiuq?ExternalDataReference=#{client.id}"
+    locale = client.intake.locale
     case best_contact_method
     when :email
       ClientMessagingService.send_system_email(
         client: client,
-        body: I18n.t("messages.surveys.in_progress.email.body", locale: client.intake.locale, survey_link: survey_link, preferred_name: client.preferred_name, portal_login_url: new_portal_client_login_url(locale: client.intake.locale)),
-        subject: I18n.t("messages.surveys.in_progress.email.subject", locale: client.intake.locale)
+        body: I18n.t("messages.surveys.in_progress.email.body", locale: locale, survey_link: survey_link),
+        subject: I18n.t("messages.surveys.in_progress.email.subject", locale: client.intake.locale),
+        locale: locale
       )
     when :sms_phone_number
       ClientMessagingService.send_system_text_message(
         client: client,
-        body: I18n.t("messages.surveys.in_progress.text", locale: client.intake.locale, survey_link: survey_link, preferred_name: client.preferred_name),
+        body: I18n.t("messages.surveys.in_progress.sms", locale: locale, survey_link: survey_link),
+        locale: locale
       )
     end
   end

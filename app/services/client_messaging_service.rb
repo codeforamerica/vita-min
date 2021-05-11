@@ -1,12 +1,13 @@
 class ClientMessagingService
   class << self
     def send_email(client:, user:, body:, attachment: nil, subject: nil, locale: nil, tax_return: nil, to: nil)
-      replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: locale }
+      applied_locale = locale || client.intake.locale
+      replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: applied_locale }
       replaced_body = ReplacementParametersService.new(**replacement_args).process
       OutgoingEmail.create!(
         to: to || client.email_address,
         body: replaced_body,
-        subject: subject || I18n.t("messages.default_subject", locale: locale || client.intake.locale),
+        subject: subject || I18n.t("messages.default_subject", locale: applied_locale),
         client: client,
         user: user,
         attachment: attachment,
@@ -65,14 +66,13 @@ class ClientMessagingService
       message_records
     end
 
-    def send_system_message_to_all_opted_in_contact_methods(client:, email_body: nil, sms_body: nil, subject: nil, tax_return: nil, locale: nil)
+    def send_system_message_to_all_opted_in_contact_methods(client:, email_body: nil, sms_body: nil, subject: nil, tax_return: nil, locale: )
       message_records = {
         outgoing_email: nil,
         outgoing_text_message: nil,
       }
-      args = { client: client, body: email_body, subject: subject }
+      args = { client: client, body: email_body, subject: subject, locale: locale }
       args[:tax_return] = tax_return if tax_return.present?
-      args[:locale] = locale if locale.present?
 
       if client.intake.email_notification_opt_in_yes? && client.email_address.present? && email_body.present?
         message_records[:outgoing_email] = send_system_email(**args)

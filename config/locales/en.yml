@@ -991,14 +991,14 @@ en:
 
             Take our 5 minute survey here: %{survey_link}
           subject: Thank you for filing your taxes with GetYourRefund!
-        text: |
+        sms: |
           Thank you for filing your taxes with GetYourRefund. We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
       in_progress:
         email:
           body: |
-            Hello %{preferred_name},
+            Hello <<Client.PreferredName>>,
 
-            We noticed you haven't completed providing the information we need to prepare your taxes. Log in to continue the process and upload tax documents: %{portal_login_url}
+            We noticed you haven't completed providing the information we need to prepare your taxes. Log in to continue the process and upload tax documents: <<Client.LoginLink>>
 
             We'll review everything with you on the phone!
 
@@ -1009,8 +1009,8 @@ en:
             We're here to help!
             Your Tax Team at GetYourRefund
           subject: Welcome to GetYourRefund.org. You're almost there!
-        text: |
-          Hello %{preferred_name}. We noticed you haven't completed providing the information we need to prepare your taxes. If you have any questions, you can reply to this message. If you would like to provide us feedback to help us improve our service, you can take our 5 minute survey here: %{survey_link}
+        sms: |
+          Hello <<Client.PreferredName>>, We noticed you haven't completed providing the information we need to prepare your taxes. If you have any questions, you can reply to this message. If you would like to provide us feedback to help us improve our service, you can take our 5 minute survey here: %{survey_link}
   models:
     intake:
       your_spouse: Your spouse

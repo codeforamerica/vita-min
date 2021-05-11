@@ -59,7 +59,7 @@ RSpec.describe Questions::ConsentController do
       it "authenticates the client and clears the intake_id from the session" do
         expect do
           post :update, params: params
-        end.to change{ subject.current_client }.from(nil).to(client)
+        end.to change { subject.current_client }.from(nil).to(client)
 
         expect(session[:intake_id]).to be_nil
       end
@@ -92,86 +92,34 @@ RSpec.describe Questions::ConsentController do
 
   describe "#after_update_success" do
     before do
-      allow(ClientMessagingService).to receive(:send_system_email)
-      allow(ClientMessagingService).to receive(:send_system_text_message)
+      allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
+      allow(Intake14446PdfJob).to receive(:perform_later)
+      allow(IntakePdfJob).to receive(:perform_later)
     end
 
     it "enqueues a job to generate the consent form and the intake form" do
-      expect(Intake14446PdfJob).to receive(:perform_later).with(intake, "Consent Form 14446.pdf")
-      expect(IntakePdfJob).to receive(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
-
       subject.after_update_success
+
+      expect(Intake14446PdfJob).to have_received(:perform_later).with(intake, "Consent Form 14446.pdf")
+      expect(IntakePdfJob).to have_received(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
     end
 
-    context "notification preferences" do
-      context "when the client has opted in to just email" do
-        before do
-          intake.update(email_notification_opt_in: "yes")
-        end
-
-        it "sends them a confirmation email but not a text" do
-          subject.after_update_success
-
-          expect(ClientMessagingService).to have_received(:send_system_email)
-          expect(ClientMessagingService).not_to have_received(:send_system_text_message)
-        end
-      end
-
-      context "when the client has opted in to just sms" do
-        before do
-          intake.update(sms_notification_opt_in: "yes")
-        end
-
-        it "sends them a text but not an email" do
-          subject.after_update_success
-
-          expect(ClientMessagingService).to have_received(:send_system_text_message)
-          expect(ClientMessagingService).not_to have_received(:send_system_email)
-        end
-      end
-
-      context "when the client has opted in to both email and sms" do
-        before do
-          intake.update(sms_notification_opt_in: "yes")
-          intake.update(email_notification_opt_in: "yes")
-        end
-
-        it "sends them a text and an email" do
-          subject.after_update_success
-
-          expect(ClientMessagingService).to have_received(:send_system_text_message)
-          expect(ClientMessagingService).to have_received(:send_system_email)
-        end
-      end
-    end
-
-    context "content translation" do
+    context "messaging" do
       before do
         intake.update(email_notification_opt_in: "yes")
         intake.update(sms_notification_opt_in: "yes")
       end
 
       context "when the intake locale is en" do
-        before do
-          intake.update(locale: "en")
-        end
-
-        it "sends the email in english" do
+        it "sends with english translations" do
           subject.after_update_success
 
-          expect(ClientMessagingService).to have_received(:send_system_email).with(
+          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: intake.client,
-            body: I18n.t("messages.getting_started.email_body", locale: "en"),
+            email_body: I18n.t("messages.getting_started.email_body", locale: "en"),
+            sms_body: I18n.t("messages.getting_started.sms_body", locale: "en"),
             subject: "Getting your taxes started with GetYourRefund",
-          )
-        end
-
-        it "sends the text in english" do
-          subject.after_update_success
-
-          expect(ClientMessagingService).to have_received(:send_system_text_message).with(
-            client: intake.client,
-            body: I18n.t("messages.getting_started.sms_body", locale: "en")
+            locale: :en
           )
         end
       end
@@ -184,20 +132,13 @@ RSpec.describe Questions::ConsentController do
         it "sends the email in spanish" do
           subject.after_update_success
 
-          expect(ClientMessagingService).to have_received(:send_system_email).with(
-              client: intake.client,
-              body: I18n.t("messages.getting_started.email_body", locale: "es"),
-              subject: "Comience a tramitar sus impuestos con GetYourRefund",
-              )
-        end
-
-        it "sends the text in spanish" do
-          subject.after_update_success
-
-          expect(ClientMessagingService).to have_received(:send_system_text_message).with(
-              client: intake.client,
-              body: I18n.t("messages.getting_started.sms_body", locale: "es"),
-              )
+          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+            client: intake.client,
+            email_body: I18n.t("messages.getting_started.email_body", locale: "es"),
+            sms_body: I18n.t("messages.getting_started.sms_body", locale: "es"),
+            subject: "Comience a tramitar sus impuestos con GetYourRefund",
+            locale: :es
+          )
         end
       end
     end

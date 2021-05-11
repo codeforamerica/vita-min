@@ -12,7 +12,8 @@ module Documents
         client: current_intake.client,
         email_body: I18n.t("documents.reminder_link.email_body", doc_type: doc_type),
         sms_body: I18n.t("documents.reminder_link.sms_body", doc_type: doc_type),
-        subject: I18n.t("documents.reminder_link.subject")
+        subject: I18n.t("documents.reminder_link.subject"),
+        locale: I18n.locale
       )
       flash[:notice] = I18n.t("documents.reminder_link.notice")
       redirect_to(next_path)

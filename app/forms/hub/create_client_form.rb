@@ -66,7 +66,8 @@ module Hub
         client: @client,
         sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: locale),
         email_body: I18n.t("drop_off_confirmation_message.email.body", locale: locale),
-        subject: I18n.t("drop_off_confirmation_message.email.subject", locale: locale)
+        subject: I18n.t("drop_off_confirmation_message.email.subject", locale: locale),
+        locale: locale
       )
 
       @client.tax_returns.each do |tax_return|

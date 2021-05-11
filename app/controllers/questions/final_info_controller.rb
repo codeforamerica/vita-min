@@ -26,7 +26,8 @@ module Questions
         client: current_intake.client,
         email_body: I18n.t("messages.successful_submission.email_body"),
         sms_body: I18n.t("messages.successful_submission.sms_body"),
-        subject: I18n.t("messages.successful_submission.subject")
+        subject: I18n.t("messages.successful_submission.subject"),
+        locale: I18n.locale
       )
     end
   end

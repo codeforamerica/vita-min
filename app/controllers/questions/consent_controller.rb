@@ -17,7 +17,8 @@ module Questions
         client: current_intake.client,
         email_body: I18n.t("messages.getting_started.email_body"),
         subject: I18n.t("messages.getting_started.email_subject"),
-        sms_body: I18n.t("messages.getting_started.sms_body")
+        sms_body: I18n.t("messages.getting_started.sms_body"),
+        locale: I18n.locale
       )
       Intake14446PdfJob.perform_later(current_intake, "Consent Form 14446.pdf")
       IntakePdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")

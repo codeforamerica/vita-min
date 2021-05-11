@@ -40,11 +40,6 @@ class ReplacementParametersService
     }
   end
 
-  def you_or_your
-    value = client.intake.filing_joint_yes? ? I18n.t("general.you_or_spouse") : I18n.t("general.you")
-    value.capitalize
-  end
-
   def preparer_first_name
     preparer_user&.first_name || I18n.t("general.tax_team", locale: locale)
   end
