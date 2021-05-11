@@ -444,6 +444,8 @@ describe Client do
       let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
       let(:tax_return_selection) { create(:tax_return_selection) }
       before do
+        doc_request = create :documents_request, intake: intake
+        create_list :document, 2, client: client, intake: intake, documents_request_id: doc_request.id
         create_list :document, 2, client: client, intake: intake
         create_list :dependent, 2, intake: intake
         tax_return = create :tax_return, client: client, assigned_user: user, tax_return_selections: [tax_return_selection]
@@ -456,7 +458,6 @@ describe Client do
         create :incoming_text_message, client: client
         create :outgoing_email, client: client, attachment: attachment
         create :outgoing_text_message, client: client
-        create :documents_request, intake: intake
       end
 
       it "destroys everything associated with the client" do
