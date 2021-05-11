@@ -7,7 +7,7 @@ module Documents
     def show; end
 
     def send_reminder
-      doc_type = params[:doc_type].constantize.key
+      doc_type = params[:doc_type].to_s.constantize.key
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
         email_body: I18n.t("documents.reminder_link.email_body", doc_type: doc_type),
@@ -22,7 +22,7 @@ module Documents
     def request_doc_help
       raise ArgumentError unless DocumentTypes::HELP_TYPES.include? params[:help_type].to_sym
 
-      current_client.request_document_help(doc_type: params[:doc_type].constantize, help_type: params[:help_type])
+      current_client.request_document_help(doc_type: params[:doc_type].to_s.constantize, help_type: params[:help_type])
       flash[:notice] = I18n.t("documents.updated_specialist.notice")
       redirect_to(next_path)
     end
