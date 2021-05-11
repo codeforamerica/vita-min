@@ -19,6 +19,7 @@ module Questions
           current_intake.update(vita_partner: vita_partner)
           super
         else
+          current_intake.client.update(routing_method: routing_service.routing_method)
           return redirect_to at_capacity_questions_path
         end
       end

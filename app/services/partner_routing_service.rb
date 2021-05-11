@@ -18,7 +18,9 @@ class PartnerRoutingService
     from_state_routing = vita_partner_from_state if @zip_code.present?
     return from_state_routing if from_state_routing.present?
 
-    nil
+    # route_to_national_overflow_partner
+    @routing_method = :at_capacity
+    return
   end
 
   private
@@ -69,7 +71,6 @@ class PartnerRoutingService
     end
   end
 
-  # TODO: keep this method until we bring it back or discard and search git history?
   def route_to_national_overflow_partner
     vita_partner = VitaPartner.where(national_overflow_location: true).order(Arel.sql('RANDOM()')).first
     if vita_partner.present?

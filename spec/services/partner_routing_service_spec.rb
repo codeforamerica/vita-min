@@ -44,8 +44,8 @@ describe PartnerRoutingService do
         subject { PartnerRoutingService.new(source_param: "s0m3th1ng") }
 
         it "returns nil" do
-          # TODO: decide what routing_method should be
           expect(subject.determine_partner).to be_nil
+          expect(subject.routing_method).to eq :at_capacity
         end
       end
     end
@@ -66,8 +66,7 @@ describe PartnerRoutingService do
 
           it "returns nil" do
             expect(subject.determine_partner).to be_nil
-            # TODO: decide what routing_method should be
-            expect(subject.routing_method).not_to eq :zip_code
+            expect(subject.routing_method).to eq :at_capacity
           end
         end
       end
@@ -93,8 +92,8 @@ describe PartnerRoutingService do
             }
 
             it "returns nil" do
-              # TODO: decide what routing_method should be
               expect(subject.determine_partner).to be_nil
+              expect(subject.routing_method).to eq :at_capacity
             end
           end
 
@@ -116,8 +115,8 @@ describe PartnerRoutingService do
           subject { PartnerRoutingService.new(zip_code: "32703") }
 
           it "returns nil" do
-            # TODO: decide what routing_method should be
             expect(subject.determine_partner).to be_nil
+            expect(subject.routing_method).to eq :at_capacity
           end
         end
       end

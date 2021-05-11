@@ -61,10 +61,13 @@ RSpec.describe Questions::PersonalInfoController do
       context "when routing service returns nil" do
         before do
           allow(organization_router).to receive(:determine_partner).and_return nil
+          allow(organization_router).to receive(:routing_method).and_return :at_capacity
         end
 
         it "redirects to capacity page" do
-          post :update, params: params
+          expect {
+            post :update, params: params
+          }.to change(intake.client, :routing_method).to eq("at_capacity")
 
           expect(PartnerRoutingService).to have_received(:new).with(
             {
