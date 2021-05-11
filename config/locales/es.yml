@@ -1797,11 +1797,9 @@ es:
           one: "¿Reportó una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
           other: "¿Usted o su cónyuge informaron una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
       at_capacity:
-        body: Estamos experimentando un gran volumen de clientes en este momento. Nuestro objetivo es brindar un servicio de alta calidad a todos nuestros clientes. Los tiempos de espera actuales para la opción Declara con Ayuda son de 2-3 semanas. Pedimos disculpas por la espera.
-        file_with_help: Declarar con ayuda
+        body: Estamos experimentando un gran volumen de clientes en este momento. Nuestro objetivo es brindar un servicio de alta calidad a todos nuestros clientes.
         title: Vaya, parece que estamos saturados en este momento.
-        diy: Para declarar de inmediato, puede probar nuestro servicio online para preparar sus propios impuestos de manera gratuita (DIY por sus siglas en inglés)
-        file_through_diy: Declarar mis propios impuestos (DIY)
+        continue_to_tax_slayer: Continuar con TaxSlayer
       backtaxes:
         select_all_that_apply: Seleccione todas las que correspondan.
         title: "¿Qué años necesita presentar?"

@@ -24,16 +24,16 @@
                 <%=t("views.questions.at_capacity.diy") %>
               </strong>
             </p>
+
+            <p>
+              <strong>
+                <%=t("views.questions.at_capacity.diy_taxslayer") %>
+              </strong>
+            </p>
           </div>
 
           <div class="buttons--vertical-stack">
-            <%= link_to t("views.questions.at_capacity.file_through_diy"), diy_file_yourself_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
-
-            <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
-              <button class="button button--wide" type="submit">
-                <%=t("views.questions.at_capacity.file_with_help") %>
-              </button>
-            <% end %>
+            <%= link_to t("views.questions.at_capacity.continue_to_tax_slayer"), diy_file_yourself_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
           </div>
         </main>
       </div>
