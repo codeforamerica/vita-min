@@ -46,7 +46,6 @@ class OutgoingEmail < ApplicationRecord
 
   # has_one_attached needs to be called after defining any callbacks that access attachments, like :deliver; see https://github.com/rails/rails/issues/37304
   has_one_attached :attachment
-
   scope :succeeded, ->{ where(mailgun_status: SUCCESSFUL_MAILGUN_STATUSES) }
   scope :failed, ->{ where(mailgun_status: FAILED_MAILGUN_STATUSES) }
   scope :in_progress, ->{ where(mailgun_status: IN_PROGRESS_MAILGUN_STATUSES) }

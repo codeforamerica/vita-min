@@ -155,14 +155,14 @@ RSpec.describe Hub::CreateClientForm do
           BODY
 
           expect(ClientMessagingService).to have_received(:send_system_email).with(
-            client,
-            email_body,
-            email_subject,
+            client: client,
+            body: email_body,
+            subject: email_subject,
           )
 
           sms_body = "Hello Newly, thank you for submitting your tax information to Caravan Palace! Your Client ID is #{client.id}. Respond to this message if you have any questions. We’re here to help!"
 
-          expect(ClientMessagingService).to have_received(:send_system_text_message).with(client, sms_body)
+          expect(ClientMessagingService).to have_received(:send_system_text_message).with(client: client, body: sms_body)
         end
       end
 
@@ -193,14 +193,14 @@ RSpec.describe Hub::CreateClientForm do
           BODY
 
           expect(ClientMessagingService).to have_received(:send_system_email).with(
-            client,
-            email_body,
-            email_subject,
-            )
+            client: client,
+            body: email_body,
+            subject: email_subject,
+          )
 
           sms_body = "Hola Newly, ¡Gracias por enviar su información de impuestos a Caravan Palace! Su ID de cliente es #{client.id}. Responda a este mensaje si tiene alguna pregunta. Estamos aquí para ayudarle."
 
-          expect(ClientMessagingService).to have_received(:send_system_text_message).with(client, sms_body)
+          expect(ClientMessagingService).to have_received(:send_system_text_message).with(client: client, body: sms_body)
         end
       end
 

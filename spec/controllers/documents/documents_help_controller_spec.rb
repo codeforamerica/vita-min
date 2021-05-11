@@ -62,7 +62,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
       EMAIL
 
       expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-        client,
+        client: client,
         email_body: email_body,
         sms_body: sms_body,
         subject: "Your tax document reminder"

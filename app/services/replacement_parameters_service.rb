@@ -3,12 +3,12 @@ class ReplacementParametersService
 
   delegate :new_portal_client_login_url, to: "Rails.application.routes.url_helpers"
 
-  def initialize(body:, client:, preparer: nil, tax_return: nil, locale: "en")
+  def initialize(body:, client:, preparer: nil, tax_return: nil, locale: nil)
     @body = body
     @client = client
     @tax_return = tax_return
     @preparer_user = preparer
-    @locale = locale
+    @locale = locale || "en"
   end
 
   def process

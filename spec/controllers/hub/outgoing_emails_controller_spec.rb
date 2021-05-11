@@ -32,7 +32,7 @@ RSpec.describe Hub::OutgoingEmailsController do
         it "calls the send_email method with the right arguments and redirects to messages page" do
           post :create, params: params
 
-          expect(ClientMessagingService).to have_received(:send_email).with(client, user, "hi client", attachment: instance_of(ActionDispatch::Http::UploadedFile))
+          expect(ClientMessagingService).to have_received(:send_email).with(client: client, user: user, body: "hi client", attachment: instance_of(ActionDispatch::Http::UploadedFile))
           expect(response).to redirect_to hub_client_messages_path(client_id: client.id, anchor: "last-item")
         end
       end

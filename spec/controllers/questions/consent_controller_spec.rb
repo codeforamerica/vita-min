@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Questions::ConsentController do
-  let(:intake) { create :intake, preferred_name: "Ruthie Rutabaga" }
+  let(:intake) { create :intake, preferred_name: "Ruthie Rutabaga", email_address: "hi@example.com", sms_phone_number: "+18324651180" }
   let(:client) { intake.client }
   let!(:tax_return) { create :tax_return, client: client }
 
@@ -175,9 +175,9 @@ RSpec.describe Questions::ConsentController do
           BODY
 
           expect(ClientMessagingService).to have_received(:send_system_email).with(
-            intake.client,
-            email_body,
-            "Getting your taxes started with GetYourRefund",
+            client: intake.client,
+            body: email_body,
+            subject: "Getting your taxes started with GetYourRefund",
           )
         end
 
@@ -192,8 +192,8 @@ RSpec.describe Questions::ConsentController do
           BODY
 
           expect(ClientMessagingService).to have_received(:send_system_text_message).with(
-            intake.client,
-            body.chomp,
+              client: intake.client,
+              body: body.chomp
           )
         end
       end
@@ -223,9 +223,9 @@ RSpec.describe Questions::ConsentController do
           BODY
 
           expect(ClientMessagingService).to have_received(:send_system_email).with(
-            intake.client,
-            email_body,
-            "Comience a tramitar sus impuestos con GetYourRefund",
+              client: intake.client,
+              body: email_body,
+              subject: "Comience a tramitar sus impuestos con GetYourRefund",
           )
         end
 
@@ -239,8 +239,8 @@ RSpec.describe Questions::ConsentController do
           BODY
 
           expect(ClientMessagingService).to have_received(:send_system_text_message).with(
-            intake.client,
-            body.chomp,
+              client: intake.client,
+              body: body.chomp
           )
         end
       end

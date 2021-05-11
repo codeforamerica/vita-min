@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ClientMessagingService do
-  let(:intake) { create :intake, email_address: "client@example.com", sms_phone_number: "+14155551212" }
+  let(:intake) { create :intake, preferred_name: "Mona Lisa", email_address: "client@example.com", sms_phone_number: "+14155551212" }
   let!(:client) { intake.client }
   let!(:user) { create :user }
   let(:expected_time) { DateTime.new(2020, 9, 9) }
@@ -15,20 +15,20 @@ RSpec.describe ClientMessagingService do
     context "with a nil user" do
       it "raises an error" do
         expect do
-          described_class.send_email(client, nil, "hello")
-        end.to raise_error(ArgumentError, "User required")
+          described_class.send_email(client: client, body: "hello")
+        end.to raise_error(ArgumentError, "missing keyword: user")
       end
     end
 
     context "with an authenticated user" do
       it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
         expect do
-          described_class.send_email(client, user, "hello")
+          described_class.send_email(client: client, user: user, body: "hello, <<Client.PreferredName>>")
         end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
 
         outgoing_email = OutgoingEmail.last
         expect(outgoing_email.subject).to eq("Update from GetYourRefund")
-        expect(outgoing_email.body).to eq("hello")
+        expect(outgoing_email.body).to eq("hello, Mona Lisa")
         expect(outgoing_email.client).to eq client
         expect(outgoing_email.user).to eq user
         expect(outgoing_email.to).to eq client.email_address
@@ -38,7 +38,7 @@ RSpec.describe ClientMessagingService do
       context "with blank body" do
         it "raises an error" do
           expect do
-            described_class.send_email(client, user, " \n")
+            described_class.send_email(client: client, user: user, body: " \n")
           end.to raise_error(ActiveRecord::RecordInvalid)
         end
       end
@@ -47,7 +47,7 @@ RSpec.describe ClientMessagingService do
         let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
 
         it "saves the attachment" do
-          described_class.send_email(client, user, "hello", attachment: attachment)
+          described_class.send_email(client: client, user: user, body: "hello", attachment: attachment)
 
           expect(OutgoingEmail.last.attachment).to be_present
         end
@@ -55,7 +55,7 @@ RSpec.describe ClientMessagingService do
 
       context "with a custom subject locale" do
         it "uses that locale" do
-          described_class.send_email(client, user, "hola", subject_locale: "es")
+          described_class.send_email(client: client, user: user, body: "hola", locale: "es")
           expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
         end
       end
@@ -64,10 +64,26 @@ RSpec.describe ClientMessagingService do
         before { intake.update(locale: "es") }
 
         it "uses the client locale" do
-          described_class.send_email(client, user, "hola")
+          described_class.send_email(client: client, user: user, body: "hola")
           expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
         end
       end
+
+      context "replacing parameters" do
+        let(:param_double) { double(ReplacementParametersService) }
+        let(:body) { "raw body" }
+        before do
+          allow(ReplacementParametersService).to receive(:new).and_return param_double
+          allow(param_double).to receive(:process).and_return "replaced body"
+        end
+
+        it "processed with ReplacementParametersService and persists the replaced body" do
+          described_class.send_email(client: client, user: user, body: body)
+          expect(ReplacementParametersService).to have_received(:new).with(client: client, preparer: user, body: body, tax_return: nil, locale: nil)
+          expect(OutgoingEmail.last.body).to eq "replaced body"
+        end
+      end
+
     end
   end
 
@@ -75,15 +91,15 @@ RSpec.describe ClientMessagingService do
     context "with a nil user" do
       it "raises an error" do
         expect do
-          described_class.send_email_to_all_signers(client, nil, "hello")
-        end.to raise_error(ArgumentError, "User required")
+          described_class.send_email_to_all_signers(client: client, body: "hello")
+        end.to raise_error(ArgumentError, "missing keyword: user")
       end
     end
 
     context "with an authenticated user" do
       it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
         expect do
-          described_class.send_email_to_all_signers(client, user, "hello")
+          described_class.send_email_to_all_signers(client: client, user: user, body: "hello")
         end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
 
         outgoing_email = OutgoingEmail.last
@@ -101,7 +117,7 @@ RSpec.describe ClientMessagingService do
         end
 
         it "includes the spouse email in the 'to' field" do
-          described_class.send_email_to_all_signers(client, user, "hello")
+          described_class.send_email_to_all_signers(client: client, user: user, body: "hello")
 
           expect(OutgoingEmail.last.to).to eq "client@example.com,spouse@example.com"
         end
@@ -111,7 +127,7 @@ RSpec.describe ClientMessagingService do
         let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
 
         it "saves the attachment" do
-          described_class.send_email_to_all_signers(client, user, "hello", attachment: attachment)
+          described_class.send_email_to_all_signers(client: client, user: user, body: "hello", attachment: attachment)
 
           expect(OutgoingEmail.last.attachment).to be_present
         end
@@ -119,7 +135,7 @@ RSpec.describe ClientMessagingService do
 
       context "with a custom subject locale" do
         it "uses that locale" do
-          described_class.send_email_to_all_signers(client, user, "hola", subject_locale: "es")
+          described_class.send_email_to_all_signers(client: client, user: user, body: "hola", locale: "es")
           expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
         end
       end
@@ -128,7 +144,7 @@ RSpec.describe ClientMessagingService do
         before { intake.update(locale: "es") }
 
         it "uses the client locale" do
-          described_class.send_email_to_all_signers(client, user, "hola")
+          described_class.send_email_to_all_signers(client: client, user: user, body: "hola")
           expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
         end
       end
@@ -138,7 +154,7 @@ RSpec.describe ClientMessagingService do
   describe ".send_system_email", active_job: true do
     it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
       expect do
-        described_class.send_system_email(client, "hello", "subject")
+        described_class.send_system_email(client: client, body: "hello", subject: "subject")
       end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
 
       system_email = OutgoingEmail.last
@@ -152,7 +168,7 @@ RSpec.describe ClientMessagingService do
     context "with blank body" do
       it "raises an error" do
         expect do
-          described_class.send_system_email(client, " \n", "subject")
+          described_class.send_system_email(client: client, body: " \n", subject: "subject")
         end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
@@ -160,7 +176,7 @@ RSpec.describe ClientMessagingService do
     context "with blank subject" do
       it "raises an error" do
         expect do
-          described_class.send_system_email(client, "body", " \n")
+          described_class.send_system_email(client: client, body: "body", subject: " \n")
         end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
@@ -170,19 +186,19 @@ RSpec.describe ClientMessagingService do
     context "with a nil user" do
       it "raises an error" do
         expect do
-          described_class.send_text_message(client, nil, "hello")
-        end.to raise_error(ActiveRecord::RecordInvalid)
+          described_class.send_text_message(client: client, body: "hello")
+        end.to raise_error(ArgumentError, "missing keyword: user")
       end
     end
 
     context "with an authenticated user" do
       it "saves a new outgoing text message with the right info, enqueues job, and broadcasts to ClientChannel" do
         expect do
-          described_class.send_text_message(client, user, "hello")
+          described_class.send_text_message(client: client, user: user, body: "hello, <<Client.PreferredName>>")
         end.to change(OutgoingTextMessage, :count).by(1)
 
         outgoing_text_message = OutgoingTextMessage.last
-        expect(outgoing_text_message.body).to eq("hello")
+        expect(outgoing_text_message.body).to eq("hello, Mona Lisa")
         expect(outgoing_text_message.client).to eq client
         expect(outgoing_text_message.user).to eq user
         expect(outgoing_text_message.sent_at).to eq expected_time
@@ -194,8 +210,23 @@ RSpec.describe ClientMessagingService do
       context "with blank body" do
         it "raises an error" do
           expect do
-            described_class.send_text_message(client, user, " \n")
+            described_class.send_text_message(client: client, user: user, body: " \n")
           end.to raise_error(ActiveRecord::RecordInvalid)
+        end
+      end
+
+      context "replacing parameters" do
+        let(:param_double) { double(ReplacementParametersService) }
+        let(:body) { "raw body"}
+        before do
+          allow(ReplacementParametersService).to receive(:new).and_return param_double
+          allow(param_double).to receive(:process).and_return "replaced body"
+        end
+
+        it "processed with ReplacementParametersService and persists the replaced body" do
+          described_class.send_text_message(client: client, user: user, body: body)
+          expect(ReplacementParametersService).to have_received(:new).with(client: client, preparer: user, body: body, tax_return: nil, locale: nil)
+          expect(OutgoingTextMessage.last.body).to eq "replaced body"
         end
       end
     end
@@ -204,7 +235,7 @@ RSpec.describe ClientMessagingService do
   describe ".send_system_text_message", active_job: true do
     it "saves a new system text message with the right info, enqueues job, and broadcasts to ClientChannel" do
       expect do
-        described_class.send_system_text_message(client, "hello")
+        described_class.send_system_text_message(client: client, body: "hello")
       end.to change(OutgoingTextMessage, :count).by(1)
 
       system_text_message = OutgoingTextMessage.last
@@ -225,7 +256,7 @@ RSpec.describe ClientMessagingService do
       let(:intake) { create :intake, sms_notification_opt_in: "no", email_notification_opt_in: "no" }
 
       it "returns a hash with nil for both message record types" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
                    outgoing_email: nil,
                    outgoing_text_message: nil
@@ -241,12 +272,12 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash with the output of send_email as the value for outgoing_email" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
                    outgoing_email: outgoing_email,
                    outgoing_text_message: nil
                  })
-        expect(described_class).to have_received(:send_email).with(client, user, body)
+        expect(described_class).to have_received(:send_email).with(client: client, user: user, body: body)
       end
     end
 
@@ -258,12 +289,12 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash with the output of send_text_message as the value for outgoing_text_message" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
                    outgoing_text_message: outgoing_text_message,
                    outgoing_email: nil
                  })
-        expect(described_class).to have_received(:send_text_message).with(client, user, body)
+        expect(described_class).to have_received(:send_text_message).with(client: client, user: user, body: body)
       end
     end
 
@@ -271,7 +302,7 @@ RSpec.describe ClientMessagingService do
       let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "no", sms_phone_number: nil }
 
       it "returns a hash with nil as the value for contact record" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
                    outgoing_text_message: nil,
                    outgoing_email: nil
@@ -289,13 +320,13 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash containing all contact records" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
                    outgoing_text_message: outgoing_text_message,
                    outgoing_email: outgoing_email
                  })
-        expect(described_class).to have_received(:send_email).with(client, user, body)
-        expect(described_class).to have_received(:send_text_message).with(client, user, body)
+        expect(described_class).to have_received(:send_email).with(client: client, user: user, body: body)
+        expect(described_class).to have_received(:send_text_message).with(client: client, user: user, body: body)
       end
     end
 
@@ -307,12 +338,12 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash containing with only one contact record for the fully usable method" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
                    outgoing_text_message: nil,
                    outgoing_email: outgoing_email
                  })
-        expect(described_class).to have_received(:send_email).with(client, user, body)
+        expect(described_class).to have_received(:send_email).with(client: client, user: user, body: body)
       end
     end
   end
@@ -326,7 +357,7 @@ RSpec.describe ClientMessagingService do
       let(:intake) { create :intake, sms_notification_opt_in: "no", email_notification_opt_in: "no" }
 
       it "returns a hash with nil for both message record types" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, sms_body: sms_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject))
           .to eq({
                    outgoing_email: nil,
                    outgoing_text_message: nil
@@ -342,12 +373,12 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash with the output of send_email as the value for outgoing_email" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, subject: subject))
           .to eq({
                    outgoing_email: outgoing_email,
                    outgoing_text_message: nil
                  })
-        expect(described_class).to have_received(:send_system_email).with(client, email_body, subject)
+        expect(described_class).to have_received(:send_system_email).with(client: client, body: email_body, subject: subject)
       end
     end
 
@@ -359,12 +390,12 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash with the output of send_text_message as the value for outgoing_text_message" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, sms_body: sms_body))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, sms_body: sms_body))
           .to eq({
                    outgoing_text_message: outgoing_text_message,
                    outgoing_email: nil
                  })
-        expect(described_class).to have_received(:send_system_text_message).with(client, sms_body)
+        expect(described_class).to have_received(:send_system_text_message).with(client: client, body: sms_body)
       end
     end
 
@@ -372,7 +403,7 @@ RSpec.describe ClientMessagingService do
       let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "no", sms_phone_number: nil }
 
       it "returns a hash with nil as the value for contact record" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, sms_body: sms_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject))
           .to eq({
                    outgoing_text_message: nil,
                    outgoing_email: nil
@@ -390,13 +421,13 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash containing all contact records" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, sms_body: sms_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject))
           .to eq({
                    outgoing_text_message: outgoing_text_message,
                    outgoing_email: outgoing_email
                  })
-        expect(described_class).to have_received(:send_system_email).with(client, email_body, subject)
-        expect(described_class).to have_received(:send_system_text_message).with(client, sms_body)
+        expect(described_class).to have_received(:send_system_email).with(client: client, body: email_body, subject: subject)
+        expect(described_class).to have_received(:send_system_text_message).with(client: client, body: sms_body)
       end
     end
 
@@ -408,12 +439,12 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash containing with only one contact record for the fully usable method" do
-        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, sms_body: sms_body, subject: subject))
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client: client, email_body: email_body, sms_body: sms_body, subject: subject))
           .to eq({
                    outgoing_text_message: nil,
                    outgoing_email: outgoing_email
                  })
-        expect(described_class).to have_received(:send_system_email).with(client, email_body, subject)
+        expect(described_class).to have_received(:send_system_email).with(client: client, body: email_body, subject: subject)
       end
     end
   end
@@ -500,13 +531,13 @@ RSpec.describe ClientMessagingService do
       it "sends messages to clients with the appropriate locales" do
         described_class.send_bulk_message(tax_return_selection, user, en: message_body_en, es: message_body_es)
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          client_es, user, message_body_es
+            client: client_es, user: user, body: message_body_es
         )
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          client_en, user, message_body_en
+            client: client_en, user: user, body: message_body_en
         )
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          client_nil, user, message_body_en
+            client: client_nil, user: user, body: message_body_en
         )
       end
 
@@ -556,7 +587,7 @@ RSpec.describe ClientMessagingService do
           described_class.send_bulk_message(tax_return_selection, user, es: message_body_es)
 
           expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-            client_es, user, message_body_es
+              client: client_es, user: user, body: message_body_es
           )
         end
       end
@@ -583,10 +614,10 @@ RSpec.describe ClientMessagingService do
       it "scopes down to only the accessible clients" do
         described_class.send_bulk_message(tax_return_selection, user, en: message_body_en)
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          accessible_client, user, message_body_en
+            client: accessible_client, user: user, body: message_body_en
         )
         expect(ClientMessagingService).not_to have_received(:send_message_to_all_opted_in_contact_methods).with(
-          inaccessible_client, user, message_body_en
+            client: inaccessible_client, user: user, body: message_body_en
         )
       end
     end

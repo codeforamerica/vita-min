@@ -23,7 +23,7 @@ module Questions
     def send_confirmation_message
       @client = current_intake.client
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        current_intake.client,
+        client: current_intake.client,
         email_body: I18n.t(
           "messages.successful_submission.sms_body",
           locale: current_intake.locale,

@@ -14,14 +14,14 @@ class SendClientCompletionSurveyJob < ApplicationJob
     case best_contact_method
     when :email
       ClientMessagingService.send_system_email(
-        client,
-        I18n.t("messages.surveys.completion.email.body", locale: client.intake.locale, survey_link: survey_link),
-        I18n.t("messages.surveys.completion.email.subject", locale: client.intake.locale)
+        client: client,
+        body: I18n.t("messages.surveys.completion.email.body", locale: client.intake.locale, survey_link: survey_link),
+        subject: I18n.t("messages.surveys.completion.email.subject", locale: client.intake.locale)
       )
     when :sms_phone_number
       ClientMessagingService.send_system_text_message(
-        client,
-        I18n.t("messages.surveys.completion.text", locale: client.intake.locale, survey_link: survey_link),
+        client: client,
+        body: I18n.t("messages.surveys.completion.text", locale: client.intake.locale, survey_link: survey_link),
       )
     end
   end

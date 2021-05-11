@@ -36,7 +36,6 @@ class OutgoingTextMessage < ApplicationRecord
   validates_presence_of :body
   validates :to_phone_number, e164_phone: true
   validates :twilio_status, inclusion: { in: ALL_KNOWN_TWILIO_STATUSES }
-
   after_create :deliver, :broadcast
   after_create { |msg| InteractionTrackingService.record_user_initiated_outgoing_interaction(client) if msg.user.present? }
   after_create { InteractionTrackingService.update_last_outgoing_communication_at(client) }

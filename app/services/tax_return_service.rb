@@ -6,18 +6,18 @@ class TaxReturnService
     form.tax_return.update(status: form.status)
     action_list << I18n.t("hub.clients.update_take_action.flash_message.status")
     SystemNote::StatusChange.generate!(initiated_by: form.current_user, tax_return: form.tax_return)
-
     if form.message_body.present?
+      args = { client: form.client, user: form.current_user, body: form.message_body, tax_return: form.tax_return, locale: form.locale }
       case form.contact_method
       when "email"
         if form.status == "review_signature_requested"
-          ClientMessagingService.send_email_to_all_signers(form.client, form.current_user, form.message_body, subject_locale: form.locale)
+          ClientMessagingService.send_email_to_all_signers(**args)
         else
-          ClientMessagingService.send_email(form.client, form.current_user, form.message_body, subject_locale: form.locale)
+          ClientMessagingService.send_email(**args)
         end
         action_list << I18n.t("hub.clients.update_take_action.flash_message.email")
       when "text_message"
-        ClientMessagingService.send_text_message(form.client, form.current_user, form.message_body)
+        ClientMessagingService.send_text_message(**args)
         action_list << I18n.t("hub.clients.update_take_action.flash_message.text_message")
       end
     end

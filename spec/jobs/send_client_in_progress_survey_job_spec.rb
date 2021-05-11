@@ -21,10 +21,10 @@ RSpec.describe SendClientInProgressSurveyJob, type: :job do
             described_class.perform_now(client)
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
-              client,
-              a_string_including("qualtrics.com"),
-              "Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!",
-              )
+              client: client,
+              body: a_string_including("qualtrics.com"),
+              subject: "Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!",
+            )
             expect(client.reload.in_progress_survey_sent_at).to be_present
           end
         end
@@ -41,9 +41,9 @@ RSpec.describe SendClientInProgressSurveyJob, type: :job do
             described_class.perform_now(client)
 
             expect(ClientMessagingService).to have_received(:send_system_text_message).with(
-              client,
-              a_string_including("qualtrics.com"),
-              )
+              client: client,
+              body: a_string_including("qualtrics.com"),
+            )
             expect(ClientMessagingService).not_to have_received(:send_system_email)
             expect(client.reload.in_progress_survey_sent_at).to be_present
           end
@@ -60,9 +60,9 @@ RSpec.describe SendClientInProgressSurveyJob, type: :job do
             described_class.perform_now(client)
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
-              client,
-              a_string_including("qualtrics.com"),
-              "Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!"
+              client: client,
+              body: a_string_including("qualtrics.com"),
+              subject: "Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!"
             )
             expect(ClientMessagingService).not_to have_received(:send_system_text_message)
             expect(client.reload.in_progress_survey_sent_at).to be_present
