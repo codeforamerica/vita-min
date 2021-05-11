@@ -55,20 +55,18 @@ new_tag=${new_tag:-$guessed_next_version}
 tmpfile=$(mktemp)
 trap "rm $tmpfile" EXIT
 cat <<TEMPLATE > $tmpfile
-$(date +%Y-%m-%d) Write the release title here, one line
+$(date +%Y-%m-%d) RELEASE TITLE
+
+$(git log --pretty="format: * %s" ${latest_version}...${origin_git_remote}/main)
+
+<!--
+Note: everything within the HTML comment block won't be displayed.
 
 Describe the release--include high-level changes, _markdown accepted_
 
 * #123123123 - story/feature description
 * short description of change
 * another change
-
-<!--
-Note: everything within the HTML comment block won't be displayed.
-
-Full list of changes:
-
-$(git log --pretty="format: * %s" ${latest_version}...${origin_git_remote}/main)
 -->
 TEMPLATE
 
