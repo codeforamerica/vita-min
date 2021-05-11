@@ -74,7 +74,7 @@ describe TaxReturnService do
         it "sends an email" do
           TaxReturnService.handle_status_change(form)
 
-          expect(ClientMessagingService).to have_received(:send_email).with(client, user, "message body", subject_locale: "es")
+          expect(ClientMessagingService).to have_received(:send_email).with(client: client, user: user, body: "message body", locale: "es", tax_return: tax_return)
         end
 
         it "records email sending in the action list" do
@@ -97,7 +97,7 @@ describe TaxReturnService do
           it "sends an email addressed to all filers" do
             TaxReturnService.handle_status_change(form)
 
-            expect(ClientMessagingService).to have_received(:send_email_to_all_signers).with(client, user, "message body", subject_locale: "es")
+            expect(ClientMessagingService).to have_received(:send_email_to_all_signers).with(client: client, user: user, body: "message body", locale: "es", tax_return: tax_return)
           end
         end
       end
@@ -108,7 +108,7 @@ describe TaxReturnService do
         it "sends a text message" do
           TaxReturnService.handle_status_change(form)
 
-          expect(ClientMessagingService).to have_received(:send_text_message).with(client, user, "message body")
+          expect(ClientMessagingService).to have_received(:send_text_message).with(client: client, user: user, body: "message body", locale: "es", tax_return: tax_return)
         end
 
         it "records text message sending in the action list" do

@@ -20,9 +20,9 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
             described_class.perform_now(client)
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
-              client,
-              a_string_including("qualtrics.com"),
-              "¡Gracias por declarar tus impuestos con GetYourRefund!"
+              client: client,
+              body: a_string_including("qualtrics.com"),
+              subject: "¡Gracias por declarar tus impuestos con GetYourRefund!"
             )
             expect(client.reload.completion_survey_sent_at).to be_present
           end
@@ -40,8 +40,8 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
             described_class.perform_now(client)
 
             expect(ClientMessagingService).to have_received(:send_system_text_message).with(
-              client,
-              a_string_including("qualtrics.com"),
+              client: client,
+              body: a_string_including("qualtrics.com"),
             )
             expect(ClientMessagingService).not_to have_received(:send_system_email)
             expect(client.reload.completion_survey_sent_at).to be_present
@@ -59,9 +59,9 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
             described_class.perform_now(client)
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
-              client,
-              a_string_including("qualtrics.com"),
-              "¡Gracias por declarar tus impuestos con GetYourRefund!"
+              client: client,
+              body: a_string_including("qualtrics.com"),
+              subject: "¡Gracias por declarar tus impuestos con GetYourRefund!"
             )
             expect(ClientMessagingService).not_to have_received(:send_system_text_message)
             expect(client.reload.completion_survey_sent_at).to be_present

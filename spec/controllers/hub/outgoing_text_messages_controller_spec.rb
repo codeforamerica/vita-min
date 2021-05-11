@@ -24,7 +24,7 @@ RSpec.describe Hub::OutgoingTextMessagesController do
       it "calls send_text_message with the right arguments and redirects to messages" do
         post :create, params: params
 
-        expect(ClientMessagingService).to have_received(:send_text_message).with(client, user, "This is an outgoing text")
+        expect(ClientMessagingService).to have_received(:send_text_message).with(client: client, user: user, body: "This is an outgoing text")
         expect(response).to redirect_to(hub_client_messages_path(client_id: client.id, anchor: "last-item"))
       end
 

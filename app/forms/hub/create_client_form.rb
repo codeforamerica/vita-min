@@ -74,7 +74,7 @@ module Hub
                           org_name: @client.vita_partner.name,
                           confirmation_number: @client.id)
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        @client,
+        client: @client,
         sms_body: sms_body,
         email_body: email_body,
         subject: subject

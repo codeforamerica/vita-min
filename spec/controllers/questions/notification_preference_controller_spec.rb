@@ -71,13 +71,7 @@ RSpec.describe Questions::NotificationPreferenceController do
         expect(intake.sms_notification_opt_in).to eq("no")
         expect(intake.email_notification_opt_in).to eq("yes")
         expect(intake.sms_phone_number).to eq("+15005550006")
-        expect(ClientMessagingService).to_not have_received(:send_system_text_message).with(
-          intake,
-          I18n.t(
-            "messages.sms_opt_in",
-            locale: intake.locale
-          )
-        )
+        expect(ClientMessagingService).to_not have_received(:send_system_text_message)
       end
 
       it "sends an event to mixpanel with relevant data" do
@@ -107,8 +101,8 @@ RSpec.describe Questions::NotificationPreferenceController do
           post :update, params: params
 
           expect(ClientMessagingService).to have_received(:send_system_text_message).with(
-            intake.client,
-            I18n.t(
+              client: intake.client,
+              body: I18n.t(
               "messages.sms_opt_in",
               locale: intake.locale,
             )

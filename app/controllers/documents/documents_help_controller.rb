@@ -8,7 +8,7 @@ module Documents
 
     def send_reminder
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        current_intake.client,
+        client: current_intake.client,
         email_body: I18n.t("documents.reminder_link.email_body_html",
                            first_name: current_intake.preferred_name,
                            doc_type: params[:doc_type].constantize.key,

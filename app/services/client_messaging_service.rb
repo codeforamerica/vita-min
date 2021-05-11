@@ -1,71 +1,86 @@
 class ClientMessagingService
   class << self
-    def send_email(client, user, body, attachment: nil, subject_locale: nil)
-      create_outgoing_email(attachment, body, client, client.email_address, subject_locale, user)
-    end
-
-    def send_email_to_all_signers(client, user, body, attachment: nil, subject_locale: nil)
-      to = client.email_address
-      to += ",#{client.intake.spouse_email_address}" if client.intake.filing_joint_yes?
-
-      create_outgoing_email(attachment, body, client, to, subject_locale, user)
-    end
-
-    def send_system_email(client, body, subject)
+    def send_email(client:, user:, body:, attachment: nil, subject: nil, locale: nil, tax_return: nil, to: nil)
+      replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: locale }
+      replaced_body = ReplacementParametersService.new(**replacement_args).process
       OutgoingEmail.create!(
-        to: client.email_address,
-        body: body,
-        subject: subject,
+        to: to || client.email_address,
+        body: replaced_body,
+        subject: subject || I18n.t("messages.default_subject", locale: locale || client.intake.locale),
         client: client,
-        attachment: nil
+        user: user,
+        attachment: attachment,
       )
     end
 
-    def send_text_message(client, user, body)
-      raise ActiveRecord::RecordInvalid unless user
+    def send_email_to_all_signers(client:, user:, body:, attachment: nil, locale: nil, tax_return: nil)
+      to = client.email_address
+      to += ",#{client.intake.spouse_email_address}" if client.intake.filing_joint_yes?
+      args = { to: to, client: client, body: body, user: user, attachment: attachment }
+      args[:locale] = locale if locale.present?
+      args[:tax_return] = tax_return if tax_return.present?
+      send_email(**args)
+    end
 
+    def send_system_email(client:, body:, subject:, tax_return: nil, locale: nil)
+      args = { client: client, body: body, subject: subject, user: nil }
+      args[:tax_return] if tax_return.present?
+      args[:locale] if locale.present?
+      send_email(**args)
+    end
+
+    def send_text_message(client:, user:, body:, tax_return: nil, locale: nil)
+      replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: locale }
+      replaced_body = ReplacementParametersService.new(**replacement_args).process
       OutgoingTextMessage.create!(
         client: client,
         to_phone_number: client.sms_phone_number,
         sent_at: DateTime.now,
         user: user,
-        body: body
+        body: replaced_body,
       )
     end
 
-    def send_system_text_message(client, body)
-      OutgoingTextMessage.create!(
-        client: client,
-        body: body,
-        to_phone_number: client.sms_phone_number,
-        sent_at: DateTime.now
-      )
+    def send_system_text_message(client:, body:, tax_return: nil, locale: nil)
+      args = { client: client, body: body, user: nil }
+      args[:tax_return] = tax_return if tax_return.present?
+      args[:locale] = locale if locale.present?
+      send_text_message(**args)
     end
 
-    def send_message_to_all_opted_in_contact_methods(client, user, body)
+    def send_message_to_all_opted_in_contact_methods(client:, user:, body:, locale: nil, tax_return: nil)
       message_records = {
         outgoing_email: nil,
         outgoing_text_message: nil,
       }
+      args = { client: client, user: user, body: body }
+      args[:tax_return] = tax_return if tax_return.present?
+      args[:locale] = locale if locale.present?
       if client.intake.email_notification_opt_in_yes? && client.email_address.present?
-        message_records[:outgoing_email] = send_email(client, user, body)
+        message_records[:outgoing_email] = send_email(**args)
       end
       if client.intake.sms_notification_opt_in_yes? && client.sms_phone_number.present?
-        message_records[:outgoing_text_message] = send_text_message(client, user, body)
+        message_records[:outgoing_text_message] = send_text_message(**args)
       end
       message_records
     end
 
-    def send_system_message_to_all_opted_in_contact_methods(client, email_body: nil, sms_body: nil, subject: nil)
+    def send_system_message_to_all_opted_in_contact_methods(client:, email_body: nil, sms_body: nil, subject: nil, tax_return: nil, locale: nil)
       message_records = {
         outgoing_email: nil,
         outgoing_text_message: nil,
       }
+      args = { client: client, body: email_body, subject: subject }
+      args[:tax_return] = tax_return if tax_return.present?
+      args[:locale] = locale if locale.present?
+
       if client.intake.email_notification_opt_in_yes? && client.email_address.present? && email_body.present?
-        message_records[:outgoing_email] = send_system_email(client, email_body, subject)
+        message_records[:outgoing_email] = send_system_email(**args)
       end
       if client.intake.sms_notification_opt_in_yes? && client.sms_phone_number.present? && sms_body.present?
-        message_records[:outgoing_text_message] = send_system_text_message(client, sms_body)
+        args.delete(:subject)
+        args[:body] = sms_body
+        message_records[:outgoing_text_message] = send_system_text_message(**args)
       end
       message_records
     end
@@ -93,7 +108,7 @@ class ClientMessagingService
         locale_on_intake = locale == "en" ? [locale, nil] : locale
         tax_return_selection.clients.accessible_to_user(sender).where(intake: Intake.where(locale: locale_on_intake)).find_each do |client|
           message_records = ClientMessagingService.send_message_to_all_opted_in_contact_methods(
-            client, sender, message_body
+              client: client, user: sender, body: message_body
           )
 
           if message_records[:outgoing_text_message].present?
@@ -108,19 +123,5 @@ class ClientMessagingService
       bulk_client_message
     end
 
-    private
-
-    def create_outgoing_email(attachment, body, client, to, subject_locale, user)
-      raise ArgumentError.new("User required") unless user
-
-      OutgoingEmail.create!(
-        to: to,
-        body: body,
-        subject: I18n.t("messages.default_subject", locale: subject_locale || client.intake.locale),
-        client: client,
-        user: user,
-        attachment: attachment
-      )
-    end
   end
 end
