@@ -106,4 +106,11 @@ RSpec.describe PublicPagesController do
       expect(response).to be_ok
     end
   end
+
+  describe "#diy" do
+    it "renders successfully" do
+      get :diy
+      expect(response).to be_ok
+    end
+  end
 end

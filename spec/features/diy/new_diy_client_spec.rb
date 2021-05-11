@@ -9,8 +9,10 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
 
   scenario "a new client files through TaxSlayer" do
     allow(MixpanelService).to receive(:send_event)
-
-    visit "/diy/file-yourself"
+    visit "/diy"
+    expect(page).to have_selector("h1", text: "File taxes on your own for free!")
+    expect(page).to have_selector("p", text: "We provide free access to an online tax prep site called TaxSlayer. We'll send you a link to create your own TaxSlayer login, so you can file on your own.")
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "File your taxes yourself!")
     click_on "Continue"
