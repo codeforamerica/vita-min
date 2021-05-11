@@ -2475,6 +2475,7 @@ en:
       footer:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
         volunteer_sign_in: Volunteer sign in
+        service_status: "Service status"
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
     stimulus:
