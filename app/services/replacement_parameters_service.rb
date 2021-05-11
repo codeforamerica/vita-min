@@ -35,7 +35,8 @@ class ReplacementParametersService
         "Client.LoginLink": new_portal_client_login_url(locale: @locale),
         "Client.YouOrMaybeYourSpouse": you_or_your,
         "GetYourRefund.PhoneNumber": OutboundCall.twilio_number,
-        "TaxReturn.TaxYear": tax_return&.year
+        "TaxReturn.TaxYear": tax_return&.year,
+        "Client.ClientId": client&.id
     }
   end
 

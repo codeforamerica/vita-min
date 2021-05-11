@@ -49,24 +49,25 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
     it "sends a message with the reminder link in the preferred contact method" do
       post :send_reminder, params: params
 
-      sms_body = <<~SMS
-        Hello Gilly,
-        We received your request for a reminder. Please login here to upload ID documents: http://test.host/en/portal/login
-        Your tax team at GetYourRefund
-      SMS
-
-      email_body = <<~EMAIL
-        Hello Gilly,
-        We received your request for a reminder. Please <a href=\"http://test.host/en/portal/login\">login here</a> to upload ID documents.
-        Your tax team at GetYourRefund
-      EMAIL
-
       expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
         client: client,
-        email_body: email_body,
-        sms_body: sms_body,
+        email_body: I18n.t("documents.reminder_link.email_body", doc_type: "ID"),
+        sms_body: I18n.t("documents.reminder_link.sms_body", doc_type: "ID"),
         subject: "Your tax document reminder"
       )
+    end
+
+    context "when locale is spanish" do
+      it "uses the spanish translation" do
+        post :send_reminder, params: params.merge(locale: "es")
+
+        expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+            client: client,
+            email_body: I18n.t("documents.reminder_link.email_body", doc_type: "ID", locale: "es"),
+            sms_body: I18n.t("documents.reminder_link.sms_body", doc_type: "ID", locale: "es"),
+            subject: I18n.t("documents.reminder_link.subject", locale: "es")
+        )
+      end
     end
 
     it "redirects to next path and flashes an notice" do

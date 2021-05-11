@@ -932,13 +932,13 @@ es:
     successful_submission:
       subject: ¡Su información de impuestos ha sido enviada con éxito!
       email_body: |
-        Hola %{preferred_name},
+        Hola <<Client.PreferredName>>,
 
-        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su número de confirmación es %{client_id}.
+        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su cliente id es <<Client.ClientId>>.
 
         Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
 
-        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{portal_login_url}
+        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: <<Client.LoginLink>>
 
         Si tiene alguna pregunta, por favor responda a este mensaje.
 
@@ -946,20 +946,20 @@ es:
 
         Su equipo de impuestos en GetYourRefund.org
       sms_body: |
-        Hola %{preferred_name},
-        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su número de confirmación es %{client_id}.
+        Hola <<Client.PreferredName>>,
+        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su cliente id es <<Client.ClientId>>.
         Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
-        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{portal_login_url}
+        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: <<Client.LoginLink>>
         Si tiene alguna pregunta, por favor responda a este mensaje.
         ¡Estamos aquí para ayudar!
         Su equipo de impuestos en GetYourRefund.org
     getting_started:
       email_body: |
-        Hola %{preferred_name},
+        Hola <<Client.PreferredName>>,
 
-        Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su cliente id es %{client_id}. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
+        Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su cliente id es <<Client.ClientId>>. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
 
-        Puede subir su identificación o documentos de impuestos adicionales, inicia sesión aquí: %{portal_login_url}
+        Puede subir su identificación o documentos de impuestos adicionales, inicia sesión aquí: <<Client.LoginLink>>
 
         Si tiene alguna pregunta puede contactar a su equipo de preparación de impuestos por correo electrónico a <a href="mailto:hello@getyourrefund.org"></a>, o enviar un mensaje de texto al 58750.
 
@@ -970,7 +970,7 @@ es:
         Su Equipo de Impuestos de GetYourRefund.org
       email_subject: Comience a tramitar sus impuestos con GetYourRefund
       sms_body: |
-        Hola %{preferred_name}, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es %{client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Inicia sesión para suba sus documentos a su enlace de envío seguro aquí: %{portal_login_url}
+        Hola <<Client.PreferredName>>, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es <<Client.ClientId>>. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Inicia sesión para suba sus documentos a su enlace de envío seguro aquí: <<Client.LoginLink>>
         Responda a este mensaje con cualquier pregunta. ¡Estamos aquí para servirle!
     surveys:
       completion:
@@ -2641,13 +2641,13 @@ es:
     reminder_link:
       notice: ¡Genial! Acabamos de enviarle un enlace de recordatorio.
       subject: Su recordatorio de documento fiscal
-      email_body_html: |
-        Hola %{first_name},
-        Hemos recibido su solicitud de recordatorio. Por favor, envíenos un %{doc_type} con <a href="%{reminder_link}">este enlace</a>.
+      email_body: |
+        Hola <<Client.PreferredName>>,
+        Hemos recibido su solicitud de recordatorio. Por favor, envíenos un %{doc_type} con <a href="<<Client.LoginLink>>">este enlace</a>.
         Su equipo de impuestos en GetYourRefund
       sms_body: |
-        Hola %{first_name},
-        Hemos recibido su solicitud de recordatorio. Por favor, envíenos un %{doc_type} con este enlace: %{reminder_link}
+        Hola <<Client.PreferredName>>,
+        Hemos recibido su solicitud de recordatorio. Por favor, envíenos un %{doc_type} con este enlace: <<Client.LoginLink>>
         Su equipo de impuestos en GetYourRefund
     updated_specialist:
       notice: ¡Gracias! Actualizamos a su especialista en impuestos.

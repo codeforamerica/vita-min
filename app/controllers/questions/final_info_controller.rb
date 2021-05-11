@@ -24,21 +24,9 @@ module Questions
       @client = current_intake.client
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
-        email_body: I18n.t(
-          "messages.successful_submission.sms_body",
-          locale: current_intake.locale,
-          preferred_name: current_intake.preferred_name,
-          client_id: current_intake.client_id,
-          portal_login_url: new_portal_client_login_url(locale: current_intake.locale)
-        ),
-        sms_body: I18n.t(
-          "messages.successful_submission.email_body",
-          locale: current_intake.locale,
-          preferred_name: current_intake.preferred_name,
-          client_id: current_intake.client_id,
-          portal_login_url: new_portal_client_login_url(locale: current_intake.locale)
-        ),
-        subject: I18n.t("messages.successful_submission.subject", locale: current_intake.locale)
+        email_body: I18n.t("messages.successful_submission.email_body"),
+        sms_body: I18n.t("messages.successful_submission.sms_body"),
+        subject: I18n.t("messages.successful_submission.subject")
       )
     end
   end
