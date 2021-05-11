@@ -62,22 +62,11 @@ module Hub
       )
 
       locale = @client.intake.preferred_interview_language == "es" ? "es" : "en"
-      sms_body = I18n.t("drop_off_confirmation_message.sms.body",
-                        locale: locale,
-                        preferred_name: @client.intake.preferred_name,
-                        org_name: @client.vita_partner.name,
-                        confirmation_number: @client.id)
-      subject = I18n.t("drop_off_confirmation_message.email.subject", locale: locale)
-      email_body = I18n.t("drop_off_confirmation_message.email.body",
-                          locale: locale,
-                          preferred_name: @client.intake.preferred_name,
-                          org_name: @client.vita_partner.name,
-                          confirmation_number: @client.id)
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: @client,
-        sms_body: sms_body,
-        email_body: email_body,
-        subject: subject
+        sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: locale),
+        email_body: I18n.t("drop_off_confirmation_message.email.body", locale: locale),
+        subject: I18n.t("drop_off_confirmation_message.email.subject", locale: locale)
       )
 
       @client.tax_returns.each do |tax_return|

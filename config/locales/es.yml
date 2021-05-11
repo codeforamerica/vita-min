@@ -2613,13 +2613,13 @@ es:
     email:
       subject: Gracias por enviar su información de impuestos
       body: |
-        Hola %{preferred_name},
+        Hola <<Client.PreferredName>>,
 
-        Su información ha sido enviada con éxito a su preparador de impuestos en %{org_name}. Su ID de cliente es %{confirmation_number}.
+        Su información ha sido enviada con éxito a su preparador de impuestos en <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>.
 
         Su especialista de impuestos revisará su información y se pondrá en contacto con usted de 3-5 días laborables para revisar su situación antes de preparar sus impuestos.
 
-        Puede someter cualquier documento adicional de forma segura aquí: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
+        Puede someter cualquier documento adicional de <a href="<<Client.LoginLink>>">forma segura aquí</a>.
 
         Si tiene alguna pregunta, puede ponerse en contacto con su especialista de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> o del mensaje de texto 58750.
 
@@ -2627,7 +2627,7 @@ es:
 
         Su equipo de impuestos en GetYourRefund.org
     sms:
-      body: Hola %{preferred_name}, ¡Gracias por enviar su información de impuestos a %{org_name}! Su ID de cliente es %{confirmation_number}. Responda a este mensaje si tiene alguna pregunta. Estamos aquí para ayudarle.
+      body: Hola <<Client.PreferredName>>, ¡Gracias por enviar su información de impuestos a <<Client.AssignedOrganization>>! Su ID de cliente es <<Client.ClientId>>. Responda a este mensaje si tiene alguna pregunta. Estamos aquí para ayudarle.
   documents:
     documents_help:
       show:

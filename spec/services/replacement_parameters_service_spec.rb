@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe ReplacementParametersService do
-  let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name"), tax_returns: [create(:tax_return)] }
+  let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name"), tax_returns: [create(:tax_return)], vita_partner: (create :vita_partner, name: "Koala County VITA") }
   let(:user) { create :user, name: "Preparer Name" }
   let(:locale) { "en" }
   subject { ReplacementParametersService.new(body: body, client: client, preparer: user, tax_return: client.tax_returns.first, locale: locale) }
@@ -79,27 +79,10 @@ describe ReplacementParametersService do
     end
   end
 
-  context "<<Client.YouOrMaybeYourSpouse>>" do
-    let(:body) { "<<Client.YouOrMaybeYourSpouse>> can sign your return at this link" }
-
-    context "when the client is filing joint" do
-      before do
-        allow(client.intake).to receive(:filing_joint_yes?).and_return true
-      end
-
-      it "says 'You or your' with capitalization" do
-        expect(subject.process).to eq "You or your spouse can sign your return at this link"
-      end
-    end
-
-    context "when the client is not filing joint" do
-      before do
-        allow(client.intake).to receive(:filing_joint_yes?).and_return false
-      end
-
-      it "just says 'You' (capitalized)" do
-        expect(subject.process).to eq "You can sign your return at this link"
-      end
+  context "<<Client.AssignedOrganization>>" do
+    let(:body) { "You are assigned to <<Client.AssignedOrganization>>" }
+    it "replaces with the clients assigned organization name" do
+      expect(subject.process).to eq "You are assigned to Koala County VITA"
     end
   end
 
@@ -489,6 +472,56 @@ describe ReplacementParametersService do
           result = subject.process
           expect(result).to include "Hola #{client.preferred_name}"
           expect(result).to include "http://test.host/es/portal/login"
+        end
+      end
+    end
+
+    context "drop-off email" do
+      context "in english" do
+        let(:body) { I18n.t("drop_off_confirmation_message.email.body", locale: "en", doc_type: "Some doc") }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "Hello #{client.preferred_name}"
+          expect(result).to include "Koala County VITA"
+          expect(result).to include("#{client.id}")
+          expect(result).to include "http://test.host/en/portal/login"
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { I18n.t("drop_off_confirmation_message.email.body", locale: "es", doc_type: "Some doc") }
+        let(:locale) { "es" }
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "Hola #{client.preferred_name}"
+          expect(result).to include "http://test.host/es/portal/login"
+          expect(result).to include "Koala County VITA"
+          expect(result).to include("#{client.id}")
+        end
+      end
+    end
+
+    context "drop-off text message" do
+      context "in english" do
+        let(:body) { I18n.t("drop_off_confirmation_message.sms.body", locale: "en") }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "Hello #{client.preferred_name}"
+          expect(result).to include "#{client.id}"
+          expect(result).to include "Koala County VITA"
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { I18n.t("drop_off_confirmation_message.sms.body", locale: "es") }
+        let(:locale) { "es" }
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "Hola #{client.preferred_name}"
+          expect(result).to include "#{client.id}"
+          expect(result).to include "Koala County VITA"
         end
       end
     end

@@ -2588,20 +2588,20 @@ en:
     email:
       subject: Thank you for submitting your tax information
       body: |
-        Hello %{preferred_name},
+        Hello <<Client.PreferredName>>,
 
-        Your tax information has been successfully submitted to your tax preparer at %{org_name}! Your Client ID is %{confirmation_number}.
+        Your tax information has been successfully submitted to your tax preparer at <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>.
 
         Your tax specialist will review your information and will reach out to you in 3-5 business days to review your situation before preparing your taxes.
 
-        You can securely upload any additional tax documents here: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
+        You can securely upload any additional tax documents by <a href="<<Client.LoginLink>>">logging in here.</a>
 
         If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
         We’re here to help!
         Your tax team at GetYourRefund.org
     sms:
-      body: Hello %{preferred_name}, thank you for submitting your tax information to %{org_name}! Your Client ID is %{confirmation_number}. Respond to this message if you have any questions. We’re here to help!
+      body: Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
   documents:
     documents_help:
       show:
