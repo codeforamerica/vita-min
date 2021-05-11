@@ -365,7 +365,7 @@ es:
         Una vez que usted termine estos pasos, podremos entregar su declaración de impuestos electrónicamente.
 
         Use este enlace para accesar su declaración y su 8879 (el formulario para que usted de su aprobación):
-        <<Link.E-signature>>
+        <<Client.LoginLink>>
 
         Muchas gracias,
         <<Preparer.FirstName>> de GetYourRefund
@@ -383,7 +383,7 @@ es:
 
         Su declaración de impuestos de <<TaxReturn.TaxYear>> están listos para ser enviados mediante correo.
 
-        Usted puede descargar una copia de sus impuestos aquí <<Link.E-signature>>: Recuerde que usted debe firmar su declaración y enviar adjunto documentos de ingreso antes de enviar la declaración al IRS y a su correspondiente oficina estatal de ingresos.
+        Usted puede descargar una copia de sus impuestos aquí <<Client.LoginLink>>: Recuerde que usted debe firmar su declaración y enviar adjunto documentos de ingreso antes de enviar la declaración al IRS y a su correspondiente oficina estatal de ingresos.
 
         Muchas gracias,
         <<Preparer.FirstName>> en GetYourRefund

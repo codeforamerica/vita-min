@@ -3,7 +3,7 @@ class OutgoingEmailMailer < ApplicationMailer
     @outgoing_email = outgoing_email
     attachment = outgoing_email.attachment
 
-    @body = LoginLinkInsertionService.insert_links(outgoing_email)
+    @body = outgoing_email.body
     @subject = outgoing_email.subject
     if attachment.present?
       attachments[attachment.filename.to_s] = attachment.blob.download

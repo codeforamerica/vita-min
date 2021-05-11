@@ -17,36 +17,25 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
     let(:body) do
       <<~BODY
         Line 1
-        Secret Placeholder
+        Body
       BODY
     end
-    let(:sensitive_body) do
-      <<~BODY
-        Line 1
-        Secret Link
-      BODY
-    end
-    let(:fake_replacement_parameters_service) { double }
 
     before do
-      allow(LoginLinkInsertionService).to receive(:insert_links).and_return(sensitive_body)
       allow(DatadogApi).to receive(:increment)
     end
 
-    it "delivers the email with the right subject, and processes sensitive parameters in the body" do
+    it "delivers the email with the right subject" do
       email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
       expect do
         email.deliver_now
       end.to change(ActionMailer::Base.deliveries, :count).by 1
 
-      expect(LoginLinkInsertionService).to have_received(:insert_links).with(outgoing_email)
-
       expect(email.subject).to eq outgoing_email.subject
       expect(email.from).to eq ["no-reply@test.localhost"]
       expect(email.to).to eq [outgoing_email.to]
-      expect(email.text_part.decoded.strip).to eq sensitive_body.strip
       expect(email.html_part.decoded).to have_selector('div', text: "Line 1")
-      expect(email.html_part.decoded).to have_selector('div', text: "Secret Link")
+      expect(email.html_part.decoded).to have_selector('div', text: "Body")
     end
 
     it "sends a metric to Datadog" do
@@ -76,7 +65,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
     end
 
     context "with a plain text link in the body" do
-      let(:sensitive_body) { "Hi user, you need to visit https://example.com/ and then come back to https://getyourrefund.org/" }
+      let(:body) { "Hi user, you need to visit https://example.com/ and then come back to https://getyourrefund.org/" }
 
       it "makes it into a link in the HTML part" do
         email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
