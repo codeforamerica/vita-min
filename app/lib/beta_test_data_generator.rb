@@ -79,8 +79,8 @@ class BetaTestDataGenerator
 
   end
 
-  def self.make_clients_for_user(user, all_possible_assignees)
-    clients = FactoryBot.create_list :beta_test_client, rand(3..12), vita_partner: user.vita_partner
+  def self.make_clients_for_user(user, all_possible_assignees, count)
+    clients = FactoryBot.create_list :beta_test_client, count, vita_partner: user.accessible_vita_partners.first
     clients.each do |client|
       client.tax_returns.each do |tax_return|
         tax_return.status = STATUSES_AFTER_OPEN.sample
