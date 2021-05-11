@@ -31,7 +31,7 @@
     </div>
   </section>
   <section class="scrollable-table-wrapper">
-    <% if @clients.present? %>
+    <% if @clients.load.size > 0 %>
       <table class="index-table client-table">
         <thead class="index-table__head">
         <tr class="index-table__row">
