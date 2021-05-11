@@ -78,8 +78,7 @@ RSpec.describe Hub::CreateClientForm do
     let(:current_user) { create :user }
 
     before do
-      allow(ClientMessagingService).to receive(:send_system_email)
-      allow(ClientMessagingService).to receive(:send_system_text_message)
+      allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
     end
 
     context "with valid params and context" do
@@ -97,72 +96,18 @@ RSpec.describe Hub::CreateClientForm do
         expect(form.client).to eq Client.last
       end
 
-      context "when the client has opted into just sms" do
-        it "sends a sms confirmation message" do
-          described_class.new(params).save(current_user)
-
-          expect(ClientMessagingService).not_to have_received(:send_system_email)
-          expect(ClientMessagingService).to have_received(:send_system_text_message)
-        end
-      end
-
-      context "when the client has opted into just email" do
-        let(:sms_opt_in) { "no" }
-        let(:email_opt_in) { "yes" }
-
-        it "sends an email confirmation message" do
-          described_class.new(params).save(current_user)
-
-          expect(ClientMessagingService).to have_received(:send_system_email)
-          expect(ClientMessagingService).not_to have_received(:send_system_text_message)
-        end
-      end
-
-      context "when the client has opted into email and sms" do
-        let(:email_opt_in) { "yes" }
-
-        it "sends an email and text confirmation message" do
-          described_class.new(params).save(current_user)
-
-          expect(ClientMessagingService).to have_received(:send_system_email)
-          expect(ClientMessagingService).to have_received(:send_system_text_message)
-        end
-      end
-
       context "when the client's preferred language is not Spanish" do
         let(:preferred_interview_language) { "en" }
         let(:email_opt_in) { "yes" }
 
         it "sends the message in english" do
           described_class.new(params).save(current_user)
-          client = Client.last
-
-          email_subject = "Thank you for submitting your tax information"
-
-          email_body = <<~BODY
-            Hello Newly,
-
-            Your tax information has been successfully submitted to your tax preparer at Caravan Palace! Your Client ID is #{client.id}.
-
-            Your tax specialist will review your information and will reach out to you in 3-5 business days to review your situation before preparing your taxes.
-
-            You can securely upload any additional tax documents here: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
-
-            If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
-
-            We’re here to help!
-            Your tax team at GetYourRefund.org
-          BODY
-
-          expect(ClientMessagingService).to have_received(:send_system_email).with(
-            client: client,
-            body: email_body,
-            subject: email_subject,
+          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+            client: Client.last,
+            sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "en"),
+            email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "en"),
+            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "en")
           )
-
-          sms_body = "Hello Newly, thank you for submitting your tax information to Caravan Palace! Your Client ID is #{client.id}. Respond to this message if you have any questions. We’re here to help!"
-
-          expect(ClientMessagingService).to have_received(:send_system_text_message).with(client: client, body: sms_body)
         end
       end
 
@@ -172,35 +117,15 @@ RSpec.describe Hub::CreateClientForm do
 
         it "sends the message in spanish" do
           described_class.new(params).save(current_user)
-          client = Client.last
 
-          email_subject = "Gracias por enviar su información de impuestos"
-
-          email_body = <<~BODY
-            Hola Newly,
-
-            Su información ha sido enviada con éxito a su preparador de impuestos en Caravan Palace. Su ID de cliente es #{client.id}.
-
-            Su especialista de impuestos revisará su información y se pondrá en contacto con usted de 3-5 días laborables para revisar su situación antes de preparar sus impuestos.
-
-            Puede someter cualquier documento adicional de forma segura aquí: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
-
-            Si tiene alguna pregunta, puede ponerse en contacto con su especialista de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> o del mensaje de texto 58750.
-
-            ¡Estamos aquí para ayudarle!
-
-            Su equipo de impuestos en GetYourRefund.org
-          BODY
-
-          expect(ClientMessagingService).to have_received(:send_system_email).with(
-            client: client,
-            body: email_body,
-            subject: email_subject,
+          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+            client: Client.last,
+            sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "es"),
+            email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "es"),
+            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "es")
           )
 
-          sms_body = "Hola Newly, ¡Gracias por enviar su información de impuestos a Caravan Palace! Su ID de cliente es #{client.id}. Responda a este mensaje si tiene alguna pregunta. Estamos aquí para ayudarle."
 
-          expect(ClientMessagingService).to have_received(:send_system_text_message).with(client: client, body: sms_body)
         end
       end
 

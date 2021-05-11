@@ -96,17 +96,26 @@ RSpec.describe Questions::NotificationPreferenceController do
             }
           }
         end
+        context "locale is english" do
+          it "sends the client the opt-in sms message" do
+            post :update, params: params
 
-        it "sends the client the opt-in sms message" do
-          post :update, params: params
-
-          expect(ClientMessagingService).to have_received(:send_system_text_message).with(
+            expect(ClientMessagingService).to have_received(:send_system_text_message).with(
               client: intake.client,
-              body: I18n.t(
-              "messages.sms_opt_in",
-              locale: intake.locale,
+              body: I18n.t("messages.sms_opt_in", locale: "en")
             )
-          )
+          end
+        end
+
+        context "locale is spanish" do
+          it "sends the client the opt-in sms message in spanish" do
+            post :update, params: params.merge(locale: "es")
+
+            expect(ClientMessagingService).to have_received(:send_system_text_message).with(
+              client: intake.client,
+              body: I18n.t("messages.sms_opt_in", locale: "es")
+            )
+          end
         end
       end
     end
