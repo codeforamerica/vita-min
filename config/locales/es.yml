@@ -1798,6 +1798,8 @@ es:
           other: "¿Usted o su cónyuge informaron una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
       at_capacity:
         body: Estamos experimentando un gran volumen de clientes en este momento. Nuestro objetivo es brindar un servicio de alta calidad a todos nuestros clientes.
+        diy: Para presentar la declaración de impuestos antes de la fecha límite, puede probar nuestra opción gratuita 'Declare sus impuestos usted mismo'
+        diy_taxslayer: "¡Prepare sus impuestos con TaxSlayer, una herramienta de declaración de impuestos en línea!"
         title: Vaya, parece que estamos saturados en este momento.
         continue_to_tax_slayer: Continuar con TaxSlayer
       backtaxes:

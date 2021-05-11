@@ -26,7 +26,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity" do
     expect(page).to have_selector("h1", text: "Wow, it looks like we are at capacity right now.")
     click_on "Continue to TaxSlayer"
 
-    expect(page).to have_selector("h1", text: "File your taxes yourself!")
+    expect(page).to have_selector("h1", text: "To access this site, please provide your e-mail address.")
     expect(intake.viewed_at_capacity).to be_truthy
     expect(intake.continued_at_capacity).to be_falsey
   end
