@@ -5,31 +5,31 @@ describe TwilioService do
     let(:request) { double }
     let(:post_data) do
       {
-        "ToCountry"=>"US",
-        "ToState"=>"OH",
-        "SmsMessageSid"=>"SM7067f0beef82c65f976dc2386a7sgd7w",
-        "NumMedia"=>"0",
-        "ToCity"=>"",
-        "FromZip"=>"95050",
-        "SmsSid"=>"SM7067f0beef82c65f976dc2386a7sgd7w",
-        "FromState"=>"CA",
-        "SmsStatus"=>"received",
-        "FromCity"=>"LOS GATOS",
-        "Body"=>"Hello, it me",
-        "FromCountry"=>"US",
-        "To"=>"+4158161286",
-        "ToZip"=>"",
-        "NumSegments"=>"1",
-        "MessageSid"=>"SM7067f0beef82c65fb6785v46754v6754",
-        "AccountSid"=>"AC70b4e3aa44fe961398q89we7yr98aw7y",
-        "From"=>"+15552341122",
-        "ApiVersion"=>"2010-04-01"
+        "ToCountry" => "US",
+        "ToState" => "OH",
+        "SmsMessageSid" => "SM7067f0beef82c65f976dc2386a7sgd7w",
+        "NumMedia" => "0",
+        "ToCity" => "",
+        "FromZip" => "95050",
+        "SmsSid" => "SM7067f0beef82c65f976dc2386a7sgd7w",
+        "FromState" => "CA",
+        "SmsStatus" => "received",
+        "FromCity" => "LOS GATOS",
+        "Body" => "Hello, it me",
+        "FromCountry" => "US",
+        "To" => "+4158161286",
+        "ToZip" => "",
+        "NumSegments" => "1",
+        "MessageSid" => "SM7067f0beef82c65fb6785v46754v6754",
+        "AccountSid" => "AC70b4e3aa44fe961398q89we7yr98aw7y",
+        "From" => "+15552341122",
+        "ApiVersion" => "2010-04-01"
       }
     end
     let(:request_validator) { instance_double(Twilio::Security::RequestValidator) }
     before do
       allow(request).to receive(:url).and_return("https://getyourrefund.org/twilio/incoming-message")
-      allow(request).to receive(:headers).and_return({"X-Twilio-Signature" => "3n9j719k64iDJt6DfjT6cHWZJHG="})
+      allow(request).to receive(:headers).and_return({ "X-Twilio-Signature" => "3n9j719k64iDJt6DfjT6cHWZJHG=" })
       allow(request).to receive(:POST).and_return(post_data)
       allow(Twilio::Security::RequestValidator).to receive(:new).and_return(request_validator)
       allow(request_validator).to receive(:validate).and_return(true)
@@ -63,13 +63,13 @@ describe TwilioService do
 
       before do
         allow(TwilioService).to receive(:fetch_attachment).with(image_url).and_return({
-          filename: "a_real_image.jpg",
-          body: "image body"
-        })
+                                                                                        filename: "a_real_image.jpg",
+                                                                                        body: "image body"
+                                                                                      })
         allow(TwilioService).to receive(:fetch_attachment).with(pdf_url).and_return({
-          filename: "a_real_document.pdf",
-          body: "pdf body"
-        })
+                                                                                      filename: "a_real_document.pdf",
+                                                                                      body: "pdf body"
+                                                                                    })
       end
 
       it "creates attachment objects from params" do
@@ -108,33 +108,63 @@ describe TwilioService do
       let(:params) {
         {
           "NumMedia" => "1",
-          "MediaContentType0" => "something/bad",
+          "MediaContentType0" => content_type,
           "MediaUrl0" => invalid_file_url,
         }
       }
       before do
         allow(TwilioService).to receive(:fetch_attachment).with(invalid_file_url).and_return({
-          filename: "a-bad.file",
-          body: "some bad content"
-        })
+                                                                                               filename: "a-bad.file",
+                                                                                               body: file_contents
+                                                                                             })
       end
 
-      it "returns modified filename, modified content, and text/plain content type" do
-        result = TwilioService.parse_attachments(params)
-        contents = <<~TEXT
-          Unusable file with unknown or unsupported file type.
-          File name:'a-bad.file'
-          File type:'something/bad'
-        TEXT
+      context "with content type we do not accept" do
+        let(:content_type) { "something/bad" }
+        let(:file_contents) { "some bad content" }
 
-        expected_result = [
-          {
-            content_type: "text/plain;charset=UTF-8",
-            filename: "invalid-a-bad.file.txt",
-            body: contents
-          }
-        ]
-        expect(result).to eq expected_result
+        it "returns modified filename, modified content, and text/plain content type" do
+          result = TwilioService.parse_attachments(params)
+          contents = <<~TEXT
+            Unusable file with unknown or unsupported file type.
+            File name: a-bad.file
+            File type: something/bad
+            File size: 16 bytes
+          TEXT
+
+          expected_result = [
+            {
+              content_type: "text/plain;charset=UTF-8",
+              filename: "invalid-a-bad.file.txt",
+              body: contents
+            }
+          ]
+          expect(result).to eq expected_result
+        end
+      end
+
+      context "with zero byte file" do
+        let(:content_type) { "image/jpeg" }
+        let(:file_contents) { "" }
+
+        it "returns modified filename, modified content, and text/plain content type" do
+          result = TwilioService.parse_attachments(params)
+          contents = <<~TEXT
+            Unusable file with unknown or unsupported file type.
+            File name: a-bad.file
+            File type: image/jpeg
+            File size: 0 bytes
+          TEXT
+
+          expected_result = [
+            {
+              content_type: "text/plain;charset=UTF-8",
+              filename: "invalid-a-bad.file.txt",
+              body: contents
+            }
+          ]
+          expect(result).to eq expected_result
+        end
       end
     end
   end

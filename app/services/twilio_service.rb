@@ -28,7 +28,7 @@ class TwilioService
         content_type = params["MediaContentType#{i}"]
         attachment = fetch_attachment(params["MediaUrl#{i}"])
 
-        if FileTypeAllowedValidator::VALID_MIME_TYPES.include? content_type
+        if FileTypeAllowedValidator::VALID_MIME_TYPES.include?(content_type) && !attachment[:body].empty?
           {
             content_type: params["MediaContentType#{i}"],
             filename: attachment[:filename],
@@ -40,8 +40,9 @@ class TwilioService
             filename: "invalid-#{attachment[:filename]}.txt",
             body: <<~TEXT
               Unusable file with unknown or unsupported file type.
-              File name:'#{attachment[:filename]}'
-              File type:'#{content_type}'
+              File name: #{attachment[:filename]}
+              File type: #{content_type}
+              File size: #{attachment[:body].size} bytes
             TEXT
           }
         end

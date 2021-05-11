@@ -60,7 +60,7 @@ RSpec.describe IncomingTextMessage, type: :model do
 
     describe "requires either an attachment or a body" do
       context "with no attachment or body" do
-        let(:message) { build(:incoming_text_message, body: " \n") }
+        let(:message) { build(:incoming_text_message, body: "") }
 
         it "is not valid and adds an error to body" do
           expect(message).not_to be_valid
@@ -79,6 +79,14 @@ RSpec.describe IncomingTextMessage, type: :model do
       context "with an attachment and no body" do
         let(:document) { build :document, document_type: DocumentTypes::TextMessageAttachment.key }
         let(:message) { build :incoming_text_message, body: nil, documents: [document]  }
+
+        it "is valid" do
+          expect(message).to be_valid
+        end
+      end
+
+      context "with no attachment and a purely-whitespace body" do
+        let(:message) { build :incoming_text_message, body: " ", documents: [] }
 
         it "is valid" do
           expect(message).to be_valid

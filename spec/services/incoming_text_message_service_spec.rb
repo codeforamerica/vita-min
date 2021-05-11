@@ -115,7 +115,7 @@ describe IncomingTextMessageService do
       let!(:intake) { create :intake, client: client, sms_phone_number: "+15005550006" }
       let(:body) { "" }
       let(:parsed_attachments) do
-        [{content_type: "image/jpeg", filename: "some-type-of-image.jpg", body: "image file contents"}]
+        [{content_type: "image/jpeg", filename: "some-type-of-image.jpg", body: "image file contents" }]
       end
 
       before do

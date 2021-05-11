@@ -24,9 +24,8 @@ class IncomingTextMessage < ApplicationRecord
   belongs_to :client
   has_many :documents, as: :contact_record
   validates_presence_of :received_at
-  validates_presence_of :body, if: -> { documents.blank? }
-  validates_presence_of :documents, if: -> { body.blank? }
   validates :from_phone_number, presence: true, e164_phone: true
+  validate :body_or_documents_present
 
   after_create { InteractionTrackingService.record_incoming_interaction(client) }
 
@@ -40,5 +39,13 @@ class IncomingTextMessage < ApplicationRecord
 
   def from
     Phonelib.parse(from_phone_number, "US").local_number
+  end
+
+  private
+
+  def body_or_documents_present
+    if documents.blank? && (body.nil? || body.size.zero?)
+      errors.add(:body, "Can't be empty and have no documents")
+    end
   end
 end
