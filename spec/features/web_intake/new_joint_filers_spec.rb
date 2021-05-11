@@ -1,9 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Joint Filers" do
-  before do
-    create :vita_partner, name: "Virginia Partner", national_overflow_location: true
-  end
+  let!(:vita_partner) { create :vita_partner, name: "Virginia Partner" }
+  let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
   scenario "new client filing joint taxes with spouse and dependents" do
     visit "/en/questions/welcome"
