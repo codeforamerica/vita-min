@@ -128,5 +128,53 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
         end.to raise_error(ArgumentError)
       end
     end
+
+    context "doc_type param" do
+      context "with valid doc_type param" do
+        let(:params) do
+          {
+            next_path: "/en/documents/selfies",
+            doc_type: "id",
+            help_type: "doesnt_apply"
+          }
+        end
+
+        it "is successful" do
+          post :request_doc_help, params: params
+          expect(response).to redirect_to params[:next_path]
+        end
+      end
+
+      context "with temporary, legacy class doc type" do
+        let(:params) do
+          {
+              next_path: "/en/documents/selfies",
+              doc_type: "DocumentTypes::Identity",
+              help_type: "doesnt_apply"
+          }
+        end
+
+        it "is successful" do
+          post :request_doc_help, params: params
+          expect(response).to redirect_to params[:next_path]
+        end
+      end
+
+      context "with invalid doc type" do
+        let(:params) do
+          {
+            next_path: "/en/documents/selfies",
+            doc_type: "something",
+            help_type: "doesnt_apply"
+          }
+        end
+
+        it "raises an error" do
+          expect {
+            post :request_doc_help, params: params
+          }.to raise_error ArgumentError
+        end
+      end
+    end
   end
 end

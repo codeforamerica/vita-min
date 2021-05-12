@@ -29,6 +29,13 @@ module Documents
 
     def document_type_from_param
       document_type = DocumentType.from_param(params[:doc_type])
+      # support existing class name doc types
+      begin
+        document_type = params[:doc_type].constantize&.key unless document_type.present?
+      rescue
+        raise ArgumentError, "Invalid document type" unless document_type.present?
+      end
+
       raise ArgumentError, "Invalid document type" unless document_type.present?
 
       document_type
