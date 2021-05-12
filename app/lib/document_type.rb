@@ -27,16 +27,24 @@ class DocumentType
       false
     end
 
+    def from_param(param)
+      DocumentTypes::ALL_TYPES.find { |doc_type_class| doc_type_class.to_param == param }
+    end
+
+    def to_param
+      key.parameterize(separator: "_")
+    end
+
     def label
-      I18n.t("general.document_types.#{key.parameterize(separator: "_")}", default: key)
+      I18n.t("general.document_types.#{to_param}", default: key)
     end
 
     def translated_label(locale)
-      I18n.t("general.document_types.#{key.parameterize(separator: "_")}", default: key, locale: locale)
+      I18n.t("general.document_types.#{to_param}", default: key, locale: locale)
     end
 
     def translated_label_with_description(locale)
-      I18n.t("general.document_types.with_descriptions.#{key.parameterize(separator: "_")}", default: key, locale: locale)
+      I18n.t("general.document_types.with_descriptions.#{to_param}", default: key, locale: locale)
     end
 
     def to_s
