@@ -6,7 +6,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
     let(:next_path) { "/en/next" }
     let(:params) do
       {
-          doc_type: "DocumentTypes::Identity",
+          doc_type: "id",
           next_path: next_path
       }
     end
@@ -38,7 +38,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
     let!(:client) { create(:intake, email_address: "gork@example.com", sms_phone_number: "+14155537865", email_notification_opt_in: "yes", sms_notification_opt_in: "yes", preferred_name: "Gilly").client }
     let(:params) do
       { next_path: "/en/documents/selfies",
-        doc_type: "DocumentTypes::Identity" }
+        doc_type: "id" }
     end
 
     before do
@@ -91,7 +91,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
       let(:help_type){ }
       let(:params) do
         { next_path: "/en/documents/selfies",
-          doc_type: "DocumentTypes::Identity",
+          doc_type: "employment",
           help_type: help_type
         }
       end
@@ -107,7 +107,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
 
             it "calls client request_doc_help" do
               post :request_doc_help, params: params
-              expect(assigns(:current_client)).to have_received(:request_document_help).with(doc_type: DocumentTypes::Identity, help_type: help_type)
+              expect(assigns(:current_client)).to have_received(:request_document_help).with(doc_type: DocumentTypes::Employment, help_type: help_type)
             end
           end
         end
@@ -117,7 +117,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
     context "not valid help type" do
       let(:invalid_params) do
         { next_path: "/en/documents/selfies",
-          doc_type: "DocumentTypes::Identity",
+          doc_type: "1099-g",
           help_type: "garbage"
         }
       end
