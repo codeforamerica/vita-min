@@ -1845,11 +1845,11 @@ en:
           one: Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
       at_capacity:
-        body: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. Current wait times for the File with Help option are 2-3 weeks. We apologize for the wait.
-        diy: To file immediately, you can try our free DIY option, an online service that lets you prepare your own taxes for free.
-        file_with_help: File with help
+        body: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service.
+        diy: To file by the tax deadline, you can try our free 'Do it Yourself' option.
+        diy_taxslayer: Prepare your own taxes through an online tax filing tool called TaxSlayer!
         title: Wow, it looks like we are at capacity right now.
-        file_through_diy: File with DIY option
+        continue_to_tax_slayer: Continue to TaxSlayer
       backtaxes:
         select_all_that_apply: Select all that apply.
         title: What years would you like to file for?
