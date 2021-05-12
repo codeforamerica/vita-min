@@ -18,7 +18,9 @@ class PartnerRoutingService
     from_state_routing = vita_partner_from_state if @zip_code.present?
     return from_state_routing if from_state_routing.present?
 
-    route_to_national_overflow_partner
+    # route_to_national_overflow_partner
+    @routing_method = :at_capacity
+    return
   end
 
   private
@@ -69,7 +71,6 @@ class PartnerRoutingService
     end
   end
 
-  # TODO: What happens in the case that there are no national overflow partners? Is there a GYR organization we can route them to?
   def route_to_national_overflow_partner
     vita_partner = VitaPartner.where(national_overflow_location: true).order(Arel.sql('RANDOM()')).first
     if vita_partner.present?

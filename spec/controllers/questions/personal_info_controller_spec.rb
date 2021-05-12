@@ -57,6 +57,28 @@ RSpec.describe Questions::PersonalInfoController do
          .and change(intake.client, :vita_partner_id).to(vita_partner.id)
          .and change(intake.client, :routing_method).to eq("source_param")
       end
+
+      context "when routing service returns nil" do
+        before do
+          allow(organization_router).to receive(:determine_partner).and_return nil
+          allow(organization_router).to receive(:routing_method).and_return :at_capacity
+        end
+
+        it "redirects to capacity page" do
+          expect {
+            post :update, params: params
+          }.to change(intake.client, :routing_method).to eq("at_capacity")
+
+          expect(PartnerRoutingService).to have_received(:new).with(
+            {
+              source_param: "SourceParam",
+              zip_code: "80309"
+            }
+          )
+          expect(organization_router).to have_received(:determine_partner)
+          expect(response).to redirect_to at_capacity_questions_path
+        end
+      end
     end
 
     context "when a client has consented" do

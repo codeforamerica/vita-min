@@ -9,8 +9,6 @@ feature "Intake Routing Spec" do
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: zip_code, vita_partner: expected_zip_code_vita_partner }
   let!(:vita_partner_state) { create :vita_partner_state, state: "NC", vita_partner: expected_state_vita_partner, routing_fraction: 0.2 }
 
-  let(:default_vita_partner) { create :vita_partner, name: "Default Organization", national_overflow_location: true }
-
   scenario "routing by source param" do
     visit "/cobra"
     # expect redirect to locale path
@@ -102,5 +100,41 @@ feature "Intake Routing Spec" do
     click_on "Continue"
 
     expect(page.html).to have_text "Our team at Hogwarts is here to help!"
+  end
+
+  context "vita partner is at capacity" do
+    let!(:default_vita_partner) { create :vita_partner, name: "Default Organization", national_overflow_location: true }
+
+    before do
+      expected_state_vita_partner.update(capacity_limit: 0)
+    end
+
+    scenario "would have been routed by state, redirects to at capacity page" do
+      visit "/questions/file-with-help"
+
+      expect(page).to have_text "Our full service option is right for you!"
+      click_on "Continue"
+
+      expect(page).to have_text "What years would you like to file for?"
+      check "2020"
+      click_on "Continue"
+
+      expect(Intake.last.source).to eq nil
+      expect(page).to have_text "Thanks for visiting the GetYourRefund demo application!"
+      click_on "Continue to example"
+
+      expect(page).to have_text "Let's get started"
+      click_on "Continue"
+
+      expect(page).to have_text "Just a few simple steps to file!"
+      click_on "Continue"
+
+      expect(page).to have_text "let's get some basic information"
+      fill_in "Preferred name", with: "Luna Lovegood"
+      fill_in "ZIP code", with: "28806"
+      click_on "Continue"
+
+      expect(page.html).to have_text "Wow, it looks like we are at capacity right now."
+    end
   end
 end

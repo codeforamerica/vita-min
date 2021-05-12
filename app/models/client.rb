@@ -58,7 +58,7 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
   attr_accessor :change_initiated_by
-  enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3, state: 4 }
+  enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3, state: 4, at_capacity: 5 }
 
   validate :tax_return_assigned_user_access_maintained, if: :vita_partner_id_changed?
   after_update_commit :create_org_change_note, if: :saved_change_to_vita_partner_id?

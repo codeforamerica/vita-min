@@ -16,8 +16,8 @@ describe PartnerRoutingService do
 
   describe "#determine_partner" do
     context "fallback logic" do
-      it "routes to an overflow partner" do
-        expect(subject.determine_partner.national_overflow_location).to eq true
+      it "returns nil" do
+        expect(subject.determine_partner).to be_nil
       end
     end
 
@@ -43,8 +43,9 @@ describe PartnerRoutingService do
       context "when source param is not valid" do
         subject { PartnerRoutingService.new(source_param: "s0m3th1ng") }
 
-        it "routes to an overflow partner location" do
-          expect(subject.determine_partner.national_overflow_location).to eq true
+        it "returns nil" do
+          expect(subject.determine_partner).to be_nil
+          expect(subject.routing_method).to eq :at_capacity
         end
       end
     end
@@ -62,9 +63,10 @@ describe PartnerRoutingService do
           before do
             vita_partner.update(capacity_limit: 0)
           end
-          it "does not route to that vita partner by zip code" do
-            expect(subject.determine_partner).not_to eq vita_partner
-            expect(subject.routing_method).not_to eq :zip_code
+
+          it "returns nil" do
+            expect(subject.determine_partner).to be_nil
+            expect(subject.routing_method).to eq :at_capacity
           end
         end
       end
@@ -89,8 +91,9 @@ describe PartnerRoutingService do
               end
             }
 
-            it "assigns to a national vita partner" do
-              expect(subject.determine_partner.national_overflow_location).to eq true
+            it "returns nil" do
+              expect(subject.determine_partner).to be_nil
+              expect(subject.routing_method).to eq :at_capacity
             end
           end
 
@@ -111,8 +114,9 @@ describe PartnerRoutingService do
         context "when there are no Vita Partners for the state the zip code is in" do
           subject { PartnerRoutingService.new(zip_code: "32703") }
 
-          it "routes to a national overflow partner location" do
-            expect(subject.determine_partner.national_overflow_location).to eq true
+          it "returns nil" do
+            expect(subject.determine_partner).to be_nil
+            expect(subject.routing_method).to eq :at_capacity
           end
         end
       end
