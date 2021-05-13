@@ -174,6 +174,11 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     expect(page).to have_selector("h1", text: "In 2020, did you have Social Security income, retirement income, or retirement contributions?")
     click_on "No"
 
+    # check for gating logic
+    expect(intake.reload.had_social_security_income).to eq "no"
+    expect(intake.reload.had_retirement_income).to eq "no"
+    expect(intake.reload.paid_retirement_contributions).to eq "no"
+
     # Other income
     expect(page).to have_selector("h1", text: "In 2020, did you receive any other money?")
     click_on "Yes"
