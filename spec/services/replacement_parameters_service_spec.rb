@@ -68,6 +68,21 @@ describe ReplacementParametersService do
     end
   end
 
+  context "<<Link.E-signature>>" do
+    let(:body) { "Log in here: <<Link.E-signature>>" }
+
+    it "replaces with the login link" do
+      expect(subject.process).to eq "Log in here: http://test.host/en/portal/login"
+    end
+
+    context "locale spanish" do
+      let(:locale) { "es" }
+      it "replaces with the login link" do
+        expect(subject.process).to eq "Log in here: http://test.host/es/portal/login"
+      end
+    end
+  end
+
   context "<<Documents.List>>" do
     let(:body) { "We need these: <<Documents.List>>" }
     before do
