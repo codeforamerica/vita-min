@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_10_165139) do
+ActiveRecord::Schema.define(version: 2021_05_13_174927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -489,6 +489,7 @@ ActiveRecord::Schema.define(version: 2021_05_10_165139) do
     t.string "visitor_id"
     t.bigint "vita_partner_id"
     t.string "vita_partner_name"
+    t.integer "wants_to_itemize", default: 0, null: false
     t.integer "was_blind", default: 0, null: false
     t.integer "was_full_time_student", default: 0, null: false
     t.integer "was_on_visa", default: 0, null: false

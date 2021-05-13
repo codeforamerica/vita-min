@@ -2335,6 +2335,11 @@ en:
         title:
           one: Tell us about your work in %{year}
           other: Tell us about you and your spouse's work in %{year}
+      itemizing:
+        title: Would you like to itemize your deductions for %{year}?
+        help_text:
+          one: Answer yes if you spent over $12,000 on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
+          other: Answer yes if you or your spouse spent over $24,000 on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
     shared:
       tax_return_list:
         add_tax_year: Add tax year

@@ -117,6 +117,7 @@ class QuestionNavigation
       Questions::HsaController,
 
       # Itemizing
+      Questions::ItemizingController,
       Questions::MedicalExpensesController,
       Questions::CharitableContributionsController,
       Questions::GamblingIncomeController,

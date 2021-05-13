@@ -302,6 +302,8 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Yes"
 
     # Itemizing
+    expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for 2019?")
+    click_on "I don't know"
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any medical, dental, or prescription expenses?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any charitable contributions?")
