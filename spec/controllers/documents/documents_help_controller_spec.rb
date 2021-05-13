@@ -145,21 +145,6 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
         end
       end
 
-      context "with temporary, legacy class doc type" do
-        let(:params) do
-          {
-              next_path: "/en/documents/selfies",
-              doc_type: "DocumentTypes::Identity",
-              help_type: "doesnt_apply"
-          }
-        end
-
-        it "is successful" do
-          post :request_doc_help, params: params
-          expect(response).to redirect_to params[:next_path]
-        end
-      end
-
       context "with invalid doc type" do
         let(:params) do
           {
