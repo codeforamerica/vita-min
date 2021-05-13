@@ -33,6 +33,7 @@ class ReplacementParametersService
         "Preparer.FirstName": preparer_first_name,
         "Documents.List": documents_list,
         "Client.LoginLink": new_portal_client_login_url(locale: @locale),
+        "Link.E-signature": new_portal_client_login_url(locale: @locale),
         "GetYourRefund.PhoneNumber": OutboundCall.twilio_number,
         "TaxReturn.TaxYear": tax_return&.year,
         "Client.ClientId": client&.id,
