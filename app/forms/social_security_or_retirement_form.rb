@@ -2,10 +2,10 @@ class SocialSecurityOrRetirementForm < QuestionsForm
   set_attributes_for :intake, :had_social_security_or_retirement
 
   def save
-    if had_social_security_or_retirement == "yes"
-      @intake.update(attributes_for(:intake))
-    else
+    if had_social_security_or_retirement == "no"
       @intake.update(attributes_for(:intake).merge(gated_answers))
+    else
+      @intake.update(attributes_for(:intake))
     end
   end
 
