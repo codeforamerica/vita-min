@@ -141,6 +141,8 @@ RSpec.describe "Creating and reviewing bulk actions", active_job: true do
     click_on "Submit"
 
     expect(current_path).to eq hub_user_notifications_path
-    expect(page).to have_text "You successfully assigned 2 tax returns to Admin the Second and updated the status to Ready to file."
+
+    expect(page).to have_text "You successfully assigned 2 tax returns to Admin the Second."
+    expect(page).to have_text "You successfully updated 2 tax returns to Ready to file."
   end
 end

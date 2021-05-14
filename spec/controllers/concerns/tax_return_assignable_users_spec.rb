@@ -20,7 +20,7 @@ RSpec.describe TaxReturnAssignableUsers, type: :controller do
 
     context "when the tax return is assigned to a site" do
       it "includes team members and site coordinators" do
-        expect(subject.assignable_users(client, assigned_user)).to match_array [assigned_user, team_member, site_coordinator]
+        expect(subject.assignable_users(client, [assigned_user])).to match_array [assigned_user, team_member, site_coordinator]
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe TaxReturnAssignableUsers, type: :controller do
       let!(:client) { create :client, vita_partner: organization }
 
       it "includes assigned user and org leads" do
-        expect(subject.assignable_users(client, assigned_user)).to match_array [assigned_user, org_lead]
+        expect(subject.assignable_users(client, [assigned_user])).to match_array [assigned_user, org_lead]
       end
     end
   end

@@ -10,6 +10,7 @@ module Hub
     )
 
     validate :no_missing_message_locales
+    validate :bulk_tax_return_update_present
     validates :message_body_en, :message_body_es,
               length: { maximum: 900, message: I18n.t("hub.bulk_actions.bulk_action_form.errors.message_length") },
               allow_blank: true
@@ -19,7 +20,19 @@ module Hub
       super(*args, **attributes)
     end
 
+    def assigned_user
+      return if assigned_user_id.nil? || assigned_user_id.to_i.zero?
+
+      @assigned_user ||= User.find_by_id(assigned_user_id)
+    end
+
     private
+
+    def bulk_tax_return_update_present
+      if assigned_user_id == BulkTaxReturnUpdate::KEEP && status == BulkTaxReturnUpdate::KEEP
+        errors.add(:status, I18n.t("hub.bulk_actions.bulk_action_form.errors.missing_bulk_tax_return_update"))
+      end
+    end
 
     def no_missing_message_locales
       return if message_body_es.blank? && message_body_en.blank?

@@ -111,14 +111,15 @@ ActiveRecord::Schema.define(version: 2021_05_13_220148) do
     t.index ["vita_partner_id"], name: "index_bulk_client_organization_updates_on_vita_partner_id"
   end
 
-  create_table "bulk_tax_return_assignee_and_status_updates", force: :cascade do |t|
+  create_table "bulk_tax_return_updates", force: :cascade do |t|
     t.bigint "assigned_user_id"
     t.datetime "created_at", precision: 6, null: false
+    t.json "data"
     t.integer "status"
     t.bigint "tax_return_selection_id", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["assigned_user_id"], name: "index_btraasu_on_assigned_user_id"
-    t.index ["tax_return_selection_id"], name: "index_btraasu_on_tax_return_selection_id"
+    t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
+    t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
   end
 
   create_table "client_success_roles", force: :cascade do |t|
@@ -825,8 +826,8 @@ ActiveRecord::Schema.define(version: 2021_05_13_220148) do
   add_foreign_key "bulk_client_notes", "tax_return_selections"
   add_foreign_key "bulk_client_organization_updates", "tax_return_selections"
   add_foreign_key "bulk_client_organization_updates", "vita_partners"
-  add_foreign_key "bulk_tax_return_assignee_and_status_updates", "tax_return_selections"
-  add_foreign_key "bulk_tax_return_assignee_and_status_updates", "users", column: "assigned_user_id"
+  add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
+  add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "documents", "clients"

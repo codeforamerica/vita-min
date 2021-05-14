@@ -459,11 +459,11 @@ en:
         succeeded_body_html: "You successfully contacted %{tax_return_selection_link}."
         failed_body_html: "We could not contact %{tax_return_selection_link}."
         in_progress_body_html: "We are still contacting %{tax_return_selection_link}."
-      bulk_tax_return_assignee_and_status_update:
+      bulk_tax_return_update:
         title: "Successful Bulk Tax Return Assignee and/or Status Update"
-        body_with_assignee_html: "You successfully assigned %{tax_return_selection_link} to <strong>%{assigned_user}</strong>."
-        body_with_status_html: "You successfully updated %{tax_return_selection_link} to <strong>#{status}</strong>."
-        body_with_both_html: "You successfully assigned %{tax_return_selection_link} to <strong>%{assigned_user}</strong> and updated the status to <strong>%{status}</strong>."
+        status_html: "You successfully updated %{tax_return_selection_link} to <strong>%{data}</strong>."
+        assigned_html: "You successfully assigned %{tax_return_selection_link} to <strong>%{data}</strong>."
+        unassigned_html: "You successfully unassigned %{tax_return_selection_link}."
       system_note_document_help:
         title: "Client requested document help"
         body_html: "%{client_link} has requested help with a document."
@@ -495,6 +495,7 @@ en:
     bulk_actions:
       bulk_action_form:
         errors:
+          missing_bulk_tax_return_update: "Please make a change to status or assignee."
           missing_message_locale: "Please include a message for clients who prefer %{missing_language}."
           message_length: "Please limit your message to 900 characters"
         message_help_text_en_html:
@@ -535,6 +536,9 @@ en:
           title: "Bulk Action"
           new_status: "New Status"
           new_assignee: "New Assignee"
+          keep_status: "Keep current status"
+          keep_assignee: "Keep current assignee"
+          remove_assignee: "Remove assignee"
           selected_action_and_tax_return_count_html:
             one: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} return</strong> with the following status:"
             other: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} returns</strong> with the following statuses:"

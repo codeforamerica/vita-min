@@ -59,7 +59,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
 
       context "when a new status and assignee are selected" do
         it "changes the status" do
-          post :update, params: params
+          put :update, params: params
 
           expect(tax_return_1.reload.status).to eq new_status
           expect(tax_return_2.reload.status).to eq new_status
@@ -67,7 +67,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
         end
 
         it "changes the assignee" do
-          post :update, params: params
+          put :update, params: params
 
           expect(tax_return_1.reload.assigned_user).to eq site_coordinator
           expect(tax_return_2.reload.assigned_user).to eq site_coordinator
@@ -77,15 +77,103 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
         it "creates the notification and redirects to the notification page" do
           expect {
             put :update, params: params
-          }.to change(BulkTaxReturnAssigneeAndStatusUpdate, :count).by(1).and(
+          }.to change(BulkTaxReturnUpdate, :count).by(1).and(
             change(UserNotification, :count).by(1)
           )
 
-          bulk_update = BulkTaxReturnAssigneeAndStatusUpdate.last
+          bulk_update = BulkTaxReturnUpdate.last
           expect(bulk_update.tax_return_selection).to eq tax_return_selection
           expect(bulk_update.user_notification.user).to eq team_member
           expect(bulk_update.user_notification.notifiable.status).to eq new_status
           expect(bulk_update.user_notification.notifiable.assigned_user).to eq site_coordinator
+
+          expect(response).to redirect_to hub_user_notifications_path
+        end
+      end
+
+      context "when 'Keep current status' is selected" do
+        let(:params) do
+          {
+            tax_return_selection_id: tax_return_selection.id,
+            hub_bulk_action_form: {
+              assigned_user_id: new_assigned_user_id,
+              status: BulkTaxReturnUpdate::KEEP
+            }
+          }
+        end
+
+        it "does not change any tax return status" do
+          put :update, params: params
+
+          expect(tax_return_1.status).to eq "file_ready_to_file"
+          expect(tax_return_2.status).to eq "review_signature_requested"
+          expect(tax_return_3.status).to eq "review_signature_requested"
+        end
+
+        it "does not create a notification and redirects to the notification page" do
+          expect {
+            put :update, params: params
+          }.to change(BulkTaxReturnUpdate, :count).by(1).and(
+            change(UserNotification, :count).by(1)
+          )
+          expect(response).to redirect_to hub_user_notifications_path
+        end
+      end
+
+      context "when 'Keep current assignee' is selected" do
+        let(:params) do
+          {
+            tax_return_selection_id: tax_return_selection.id,
+            hub_bulk_action_form: {
+              assigned_user_id: BulkTaxReturnUpdate::KEEP,
+              status: new_status
+            }
+          }
+        end
+
+        it "does not change any tax return assignees" do
+          put :update, params: params
+
+          expect(tax_return_1.assigned_user).to eq team_member
+          expect(tax_return_2.assigned_user).to eq team_member
+          expect(tax_return_3.assigned_user).to eq site_coordinator
+        end
+
+        it "does create a notification and redirects to the notification page" do
+          expect {
+            put :update, params: params
+          }.to change(BulkTaxReturnUpdate, :count).by(1).and(
+            change(UserNotification, :count).by(1)
+          )
+          expect(response).to redirect_to hub_user_notifications_path
+        end
+      end
+
+      context "when 'Remove current assignee' is selected" do
+        let(:params) do
+          {
+            tax_return_selection_id: tax_return_selection.id,
+            hub_bulk_action_form: {
+              assigned_user_id: BulkTaxReturnUpdate::REMOVE,
+              status: new_status
+            }
+          }
+        end
+
+        it "does remove tax return assignees" do
+          put :update, params: params
+
+          expect(tax_return_1.reload.assigned_user).to eq nil
+          expect(tax_return_2.reload.assigned_user).to eq nil
+          expect(tax_return_3.reload.assigned_user).to eq nil
+        end
+
+        it "does create a notification and redirects to the notification page" do
+          expect {
+            put :update, params: params
+          }.to change(BulkTaxReturnUpdate, :count).by(1).and(
+            change(UserNotification, :count).by(1)
+          )
 
           expect(response).to redirect_to hub_user_notifications_path
         end
@@ -96,31 +184,16 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           {
             tax_return_selection_id: tax_return_selection.id,
             hub_bulk_action_form: {
-              assigned_user_id: "no_change",
-              status: "no_change"
+              assigned_user_id: BulkTaxReturnUpdate::KEEP,
+              status: BulkTaxReturnUpdate::KEEP
             }
           }
         end
 
-        it "does not change any tax return assignees" do
-          expect(tax_return_1.assigned_user).to eq team_member
-          expect(tax_return_2.assigned_user).to eq team_member
-          expect(tax_return_3.assigned_user).to eq site_coordinator
-        end
+        it "creates an invalid form" do
+          put :update, params: params
 
-        it "does not change any tax return status" do
-          expect(tax_return_1.status).to eq "file_ready_to_file"
-          expect(tax_return_2.status).to eq "review_signature_requested"
-          expect(tax_return_3.status).to eq "review_signature_requested"
-        end
-
-        it "does not create a notification and redirects to the notification page" do
-          expect {
-            put :update, params: params
-          }.to change(BulkTaxReturnAssigneeAndStatusUpdate, :count).by(0).and(
-            change(UserNotification, :count).by(0)
-          )
-          expect(response).to redirect_to hub_user_notifications_path
+          expect(assigns(:form).valid?).to eq false
         end
       end
     end
