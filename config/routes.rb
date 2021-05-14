@@ -176,8 +176,12 @@ Rails.application.routes.draw do
       namespace :bulk_actions, path: "bulk-actions" do
         get "/:tax_return_selection_id/change-organization", to: "change_organization#edit", as: :edit_change_organization
         put "/:tax_return_selection_id/change-organization", to: "change_organization#update", as: :update_change_organization
+
         get "/:tax_return_selection_id/send-a-message", to: "send_a_message#edit", as: :edit_send_a_message
         put "/:tax_return_selection_id/send-a-message", to: "send_a_message#update", as: :update_send_a_message
+
+        get "/:tax_return_selection_id/change-assignee-and-status", to: "change_assignee_and_status#edit", as: :edit_change_assignee_and_status
+        put "/:tax_return_selection_id/change-assignee-and-status", to: "change_assignee_and_status#update", as: :update_change_assignee_and_status
       end
 
       resources :zip_codes, only: [:create, :destroy]

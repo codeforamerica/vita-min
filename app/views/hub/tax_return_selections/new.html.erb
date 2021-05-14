@@ -13,6 +13,14 @@
           <div class="link-table">
             <div class="link-table__row">
               <div class="link-table__link">
+                <button type="submit" name="create_tax_return_selection[action_type]" value="change-assignee-and-status" class="button--link">
+                  <%= t(".change_assignee_and_status") %>
+                </button>
+              </div>
+              <p class="link-table__description"><%= t(".change_assignee_and_status_html", count: @tax_return_count) %></p>
+            </div>
+            <div class="link-table__row">
+              <div class="link-table__link">
                 <button type="submit" name="create_tax_return_selection[action_type]" value="change-organization" class="button--link">
                   <%= t(".change_organization") %>
                 </button>

@@ -270,6 +270,9 @@ es:
         no_remaining_years: No hay años fiscales restantes para los que crear una declaración.
       create:
         success: Declaración de impuestos de %{year} creada para %{name}.
+      count:
+        one: "%{count} declaración de impuestos"
+        other: "%{count} declaraciones de impuestos"
     status_macros:
       intake_greeter_info_requested: |
         ¡Hola <<Client.PreferredName>>!
@@ -445,6 +448,11 @@ es:
         succeeded_body_html: "Te contactaste con éxito %{tax_return_selection_link}."
         failed_body_html: "Nosotras no pudimos contactar %{tax_return_selection_link}."
         in_progress_body_html: "Todavía estamos contactando %{tax_return_selection_link}."
+      bulk_tax_return_update:
+        title: "Asignatario exitoso de declaración de impuestos a granel y/o actualización de estadoe"
+        status_html: "Ha actualizado correctamente %{tax_return_selection_link} a <strong>%{data}</strong>."
+        assigned_html: "Lo asignaste exitosamente %{tax_return_selection_link} a <strong>%{data}</strong>."
+        unassigned_html: "Has logrado no asignado %{tax_return_selection_link}."
       system_note_document_help:
         title: "El cliente solicitó ayuda con el documento"
         body_html: "%{client_link} ha solicitado ayuda con sus documentos."
@@ -465,6 +473,8 @@ es:
         one: "Ya no tiene accesso a %{count} resultado."
         other: "Ya no tiene accesso a %{count} resultados."
       new:
+        change_assignee_and_status: "Cambiar cesionario y/o estado"
+        change_assignee_and_status_html: "Cambiar el cesionario y/o el estado de estas <strong>%{count} devoluciones</strong>."
         change_organization: "Cambiar de organización"
         change_organization_description_html: "Actualizar la organización responsable de estos <strong>%{count} clientes</strong>."
         title: "Elija su acción masiva"
@@ -474,6 +484,7 @@ es:
     bulk_actions:
       bulk_action_form:
         errors:
+          missing_bulk_tax_return_update: "Realice un cambio de estado o cesionario."
           missing_message_locale: "Por favor incluye un mensaje para los clientes que prefieren %{missing_language}."
           message_length: "Limite su mensaje a 900 caracteres"
         message_help_text_en_html:
@@ -509,6 +520,18 @@ es:
             one: "Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} cliente</strong>"
             other: "Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} clientes</strong>"
           by_clicking_submit: Al hacer clic en enviar, está enviando un mensaje, enviando una nota de equipo y actualizando seguidores.
+      change_assignee_and_status:
+        edit:
+          title: "Acción masiva"
+          new_status: "Nuevo estado"
+          new_assignee: "Nuevo cesionario"
+          keep_status: "Mantener el estado actual"
+          keep_assignee: "Mantener asignado actual"
+          remove_assignee: "Eliminar cesionario"
+          selected_action_and_tax_return_count_html:
+            one: "Ha seleccionado <strong>Cambiar cesionario y/o estado</strong> para <strong>%{count} devolución</strong> con el siguiente estado:"
+            other: "Ha seleccionado <strong>Cambiar cesionario y/o estado</strong> para <strong>%{count} devoluciones</strong> con los siguientes estados:"
+          by_clicking_submit: Al hacer clic en enviar, está actualizando al cesionario y / o el estado y actualizando a los seguidores.
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!

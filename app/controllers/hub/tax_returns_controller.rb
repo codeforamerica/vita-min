@@ -1,6 +1,8 @@
 module Hub
   class TaxReturnsController < ApplicationController
     include AccessControllable
+    include TaxReturnAssignableUsers
+
     before_action :require_sign_in
     load_and_authorize_resource except: [:new, :create]
     # on new/create, authorize through client but initialize tax return object
@@ -51,18 +53,7 @@ module Hub
 
     def load_assignable_users
       @client ||= @tax_return.client
-      @assignable_users = [current_user, @tax_return.assigned_user].compact
-      if @client.vita_partner.present?
-        if @client.vita_partner.site?
-          team_members = User.where(role: TeamMemberRole.where(site: @client.vita_partner))
-          site_coordinators = User.where(role: SiteCoordinatorRole.where(site: @client.vita_partner))
-          @assignable_users += team_members.or(site_coordinators).active.order(name: :asc)
-        else # client.vita_partner is an organization
-          org_leads = User.where(role: OrganizationLeadRole.where(organization: @client.vita_partner))
-          @assignable_users += org_leads.active.order(name: :asc)
-        end
-      end
-      @assignable_users.uniq!
+      @assignable_users = assignable_users(@client, [current_user, @tax_return.assigned_user])
     end
 
     def assign_params

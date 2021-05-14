@@ -139,10 +139,11 @@ RSpec.describe Hub::TaxReturnSelectionsController do
     context "as an authenticated user" do
       before { sign_in user }
 
-      it "sets client count and is OK" do
+      it "sets client count and tax return count and is OK" do
         get :new, params: params
 
         expect(assigns(:client_count)).to eq 2
+        expect(assigns(:tax_return_count)).to eq 3
         expect(assigns(:tr_ids)).to eq params[:tr_ids]
         expect(response).to be_ok
       end
