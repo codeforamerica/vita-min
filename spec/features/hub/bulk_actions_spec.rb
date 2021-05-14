@@ -1,11 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "Creating and reviewing bulk actions", active_job: true do
-  let(:user) { create :admin_user }
+  let(:user) { create :admin_user, name: "Admin the First" }
+  let!(:new_user) { create :admin_user, name: "Admin the Second", role: create(:organization_lead_role, organization: old_org)}
   let!(:old_org) { create :organization, name: "Onion Organization" }
   let!(:new_org) { create :organization, name: "Orange Organization" }
   let!(:client_es) { create :client_with_intake_and_return, status: "prep_info_requested", vita_partner: old_org }
-  let!(:client_en) { create :client_with_intake_and_return, status: "prep_info_requested", vita_partner: old_org }
+  let!(:client_en) { create :client_with_intake_and_return, status: "intake_reviewing", vita_partner: old_org }
   before do
     login_as user
     client_es.intake.update(preferred_name: "Nombre", locale: "es", email_notification_opt_in: "yes", email_address: "someone@example.com")
@@ -113,5 +114,33 @@ RSpec.describe "Creating and reviewing bulk actions", active_job: true do
     end
     click_on "Messages"
     expect(page).to have_text "Orange is your best bet"
+  end
+
+  scenario "bulk changing assignee and/or status", js: true do
+    visit hub_clients_path
+
+    expect(page).not_to have_text "Take action"
+    within "#client-#{client_en.id}" do
+      check "tr_ids_#{client_en.tax_returns.first.id}"
+    end
+    within "#client-#{client_es.id}" do
+      check "tr_ids_#{client_es.tax_returns.first.id}"
+    end
+    click_on "Take action"
+
+    click_on "Change assignee and/or status"
+    expect(page).to have_text "You’ve selected Change Assignee and/or Status for 2 returns with the following statuses:"
+    expect(page).to have_text "Info requested, Reviewing."
+
+    expect(page).to have_text "Keep current assignee"
+    expect(page).to have_text "Keep current status"
+
+    select new_user.name, from: "New Assignee"
+    select "Ready to file", from: "New Status"
+
+    click_on "Submit"
+
+    expect(current_path).to eq hub_user_notifications_path
+    expect(page).to have_text "You successfully assigned 2 tax returns to Admin the Second and updated the status to Ready to file."
   end
 end

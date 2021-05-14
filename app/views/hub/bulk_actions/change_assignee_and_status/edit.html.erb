@@ -1,0 +1,31 @@
+<% content_for :page_title, t(".title") %>
+<% content_for :body_class, "bulk-action-form " %>
+<% content_for :card do %>
+  <section class="slab slab--padded">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <%= form_with model: @form, method: :put, url: hub_bulk_actions_update_change_assignee_and_status_path, local: true, builder: VitaMinFormBuilder do |f| %>
+
+          <h1 class="h1"><%= t(".title") %></h1>
+          <p>
+            <%= t(".selected_action_and_tax_return_count_html", count: @selection.tax_returns.size) %><br/>
+            <br/>
+            <%= @current_tr_statuses.map { |status| t("hub.tax_returns.status.#{status}")}.join(", ") + "." %>
+          </p>
+
+          <%= f.cfa_select :assigned_user_id, t(".new_assignee"), @assignable_users&.map{ |u| [u.name, u.id]}&.unshift(["Keep current assignee", "no_change"]) , { include_blank: true, selected: "no_change" } %>
+          <%= f.cfa_select :status, t(".new_status"), grouped_status_options_for_select.unshift(["No change", [["Keep current status", "no_change"]]]), { selected: "no_change" } %>
+
+          <hr class="hr">
+
+          <p class="text--help text--bold spacing-below-25"><%= t(".by_clicking_submit") %></p>
+
+          <button type="submit" class="button button--cta">
+            <%= t("general.submit") %>
+          </button><%= link_to t("general.cancel"), :back, class: "button" %>
+
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

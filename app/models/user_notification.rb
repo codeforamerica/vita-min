@@ -26,6 +26,7 @@ class UserNotification < ApplicationRecord
     "BulkClientOrganizationUpdate",
     "BulkClientNote",
     "BulkClientMessage",
+    "BulkTaxReturnAssigneeAndStatusUpdate",
     "SystemNote::DocumentHelp"
   ].freeze
 

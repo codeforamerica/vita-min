@@ -2,6 +2,8 @@ module Hub
   class BulkActionForm < Form
     attr_accessor(
       :vita_partner_id,
+      :assigned_user_id,
+      :status,
       :message_body_en,
       :message_body_es,
       :note_body,

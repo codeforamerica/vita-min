@@ -270,6 +270,9 @@ en:
         no_remaining_years: There are no remaining tax years for which to create a return.
       create:
         success: "%{year} return created for %{name}."
+      count:
+        one: "%{count} tax return"
+        other: "%{count} tax returns"
     status_macros:
       intake_greeter_info_requested: |
         Hello <<Client.PreferredName>>,
@@ -456,6 +459,11 @@ en:
         succeeded_body_html: "You successfully contacted %{tax_return_selection_link}."
         failed_body_html: "We could not contact %{tax_return_selection_link}."
         in_progress_body_html: "We are still contacting %{tax_return_selection_link}."
+      bulk_tax_return_assignee_and_status_update:
+        title: "Successful Bulk Tax Return Assignee and/or Status Update"
+        body_with_assignee_html: "You successfully assigned %{tax_return_selection_link} to <strong>%{assigned_user}</strong>."
+        body_with_status_html: "You successfully updated %{tax_return_selection_link} to <strong>#{status}</strong>."
+        body_with_both_html: "You successfully assigned %{tax_return_selection_link} to <strong>%{assigned_user}</strong> and updated the status to <strong>%{status}</strong>."
       system_note_document_help:
         title: "Client requested document help"
         body_html: "%{client_link} has requested help with a document."
@@ -476,6 +484,8 @@ en:
         one: "%{count} result is no longer accessible to you."
         other: "%{count} results are no longer accessible to you."
       new:
+        change_assignee_and_status: "Change assignee and/or status"
+        change_assignee_and_status_html: "Change assignee and/or status for these <strong>%{count} returns</strong>."
         change_organization: "Change organization"
         change_organization_description_html: "Update the organization responsible for these <strong>%{count} clients</strong>."
         send_a_message: "Send a message"
@@ -520,6 +530,15 @@ en:
             one: "You’ve selected <strong>Send a Message</strong> for <strong>%{count} client</strong>"
             other: "You’ve selected <strong>Send a Message</strong> for <strong>%{count} clients</strong>"
           by_clicking_submit: By clicking submit, you are sending a message, sending a team note, and updating followers.
+      change_assignee_and_status:
+        edit:
+          title: "Bulk Action"
+          new_status: "New Status"
+          new_assignee: "New Assignee"
+          selected_action_and_tax_return_count_html:
+            one: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} return</strong> with the following status:"
+            other: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} returns</strong> with the following statuses:"
+          by_clicking_submit: By clicking submit, you are updating assignee and/or status and updating followers.
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!

@@ -153,7 +153,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           get :edit, params: params, format: :js, xhr: true
 
           expect(response).to be_ok
-          expect(assigns(:assignable_users)).to eq [user, currently_assigned_coalition_lead, organization_lead]
+          expect(assigns(:assignable_users)).to match_array [user, currently_assigned_coalition_lead, organization_lead]
         end
       end
 
