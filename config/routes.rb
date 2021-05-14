@@ -63,8 +63,10 @@ Rails.application.routes.draw do
     namespace :documents do
       get "/add/:token", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login" }, as: :add_requested_documents
       get "/doc-help/:doc_type", to: "documents_help#show", as: :help
-      post '/doc-help/send-reminder', to: 'documents_help#send_reminder', as: :send_reminder
-      post '/doc-help/request-doc-help', to: 'documents_help#request_doc_help', as: :request_doc_help
+      post '/doc-help/send-reminder', to: 'documents_help#send_reminder' # remove after next release
+      post '/doc-help/request-doc-help', to: 'documents_help#request_doc_help' # remove after next release
+      post '/send-reminder', to: 'documents_help#send_reminder', as: :send_reminder
+      post '/request-doc-help', to: 'documents_help#request_doc_help', as: :request_doc_help
     end
 
     resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
