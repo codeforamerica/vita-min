@@ -192,6 +192,8 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     click_on "No"
 
     # Itemizing
+    expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for 2020?")
+    click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2020, did you pay any medical, dental, or prescription expenses?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2020, did you make any charitable contributions?")

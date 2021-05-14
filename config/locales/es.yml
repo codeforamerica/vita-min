@@ -2310,6 +2310,11 @@ es:
         title:
           one: Cuéntanos sobre tu trabajo en %{year}
           other: Cuéntenos sobre usted y el trabajo de su cónyuge en %{year}
+      itemizing:
+        title: "¿Le gustaría detallar su deducción para %{year}?"
+        help_text:
+          one: "Responda Sí, si gastó más de $12,000 en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos."
+          other: "Responda Sí, si usted y su cónyuge gastaron más de $24,000 en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos."
     shared:
       tax_return_list:
         add_tax_year: Agregar año fiscal

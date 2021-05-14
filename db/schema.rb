@@ -500,6 +500,7 @@ ActiveRecord::Schema.define(version: 2021_05_13_220148) do
     t.string "visitor_id"
     t.bigint "vita_partner_id"
     t.string "vita_partner_name"
+    t.integer "wants_to_itemize", default: 0, null: false
     t.integer "was_blind", default: 0, null: false
     t.integer "was_full_time_student", default: 0, null: false
     t.integer "was_on_visa", default: 0, null: false

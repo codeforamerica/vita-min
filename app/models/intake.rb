@@ -160,6 +160,7 @@
 #  triage_source_type                                   :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
+#  wants_to_itemize                                     :integer          default("unfilled"), not null
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
 #  was_on_visa                                          :integer          default("unfilled"), not null
@@ -318,6 +319,7 @@ class Intake < ApplicationRecord
   enum was_on_visa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_on_visa
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
   enum signature_method: { online: 0, in_person: 1 }, _prefix: :signature_method
+  enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
 
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
