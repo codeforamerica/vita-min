@@ -35,7 +35,7 @@ module Hub
       end
 
       def load_assignable_users
-        @assignable_users = [@selection.tax_returns.map { |tr| assignable_users(tr.client, tr.assigned_user)}, current_user].flatten.compact.uniq
+        @assignable_users = @selection.tax_returns.map { |tr| assignable_users(tr.client, [current_user, tr.assigned_user])}.flatten.compact.uniq
       end
 
       def update_assignee_and_status!

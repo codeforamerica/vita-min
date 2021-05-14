@@ -53,7 +53,7 @@ module Hub
 
     def load_assignable_users
       @client ||= @tax_return.client
-      @assignable_users = [current_user, assignable_users(@client, @tax_return.assigned_user)].flatten.compact.uniq
+      @assignable_users = assignable_users(@client, [current_user, @tax_return.assigned_user])
     end
 
     def assign_params
