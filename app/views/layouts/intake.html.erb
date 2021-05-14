@@ -2,6 +2,7 @@
   <% if @form&.errors.present? %>
     <%= @form.error_summary %>
   <% end %>
+  <%= yield :form_question %>
 <% end %>
 
 <% content_for :main do %>
