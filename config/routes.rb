@@ -63,8 +63,10 @@ Rails.application.routes.draw do
     namespace :documents do
       get "/add/:token", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login" }, as: :add_requested_documents
       get "/doc-help/:doc_type", to: "documents_help#show", as: :help
-      post '/doc-help/send-reminder', to: 'documents_help#send_reminder', as: :send_reminder
-      post '/doc-help/request-doc-help', to: 'documents_help#request_doc_help', as: :request_doc_help
+      post '/doc-help/send-reminder', to: 'documents_help#send_reminder' # remove after next release
+      post '/doc-help/request-doc-help', to: 'documents_help#request_doc_help' # remove after next release
+      post '/send-reminder', to: 'documents_help#send_reminder', as: :send_reminder
+      post '/request-doc-help', to: 'documents_help#request_doc_help', as: :request_doc_help
     end
 
     resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
@@ -174,8 +176,12 @@ Rails.application.routes.draw do
       namespace :bulk_actions, path: "bulk-actions" do
         get "/:tax_return_selection_id/change-organization", to: "change_organization#edit", as: :edit_change_organization
         put "/:tax_return_selection_id/change-organization", to: "change_organization#update", as: :update_change_organization
+
         get "/:tax_return_selection_id/send-a-message", to: "send_a_message#edit", as: :edit_send_a_message
         put "/:tax_return_selection_id/send-a-message", to: "send_a_message#update", as: :update_send_a_message
+
+        get "/:tax_return_selection_id/change-assignee-and-status", to: "change_assignee_and_status#edit", as: :edit_change_assignee_and_status
+        put "/:tax_return_selection_id/change-assignee-and-status", to: "change_assignee_and_status#update", as: :update_change_assignee_and_status
       end
 
       resources :zip_codes, only: [:create, :destroy]

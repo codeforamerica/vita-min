@@ -108,6 +108,7 @@ ignore_unused:
   - 'hub.tax_returns.status.*'
   - 'hub.status_macros.*'
   - 'hub.user_notifications.bulk_client_message.*'
+  - 'hub.user_notifications.bulk_tax_return_update.*'
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
