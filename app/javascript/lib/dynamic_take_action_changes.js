@@ -2,7 +2,7 @@ export function initTakeActionOnChangeHandlers(formName) {
 
     $(`#hub_${formName}_form_status, #hub_${formName}_form_locale`).change(function() {
         $(".hub-form :input").prop("disabled", true);
-        const pathname = window.location.pathname.replace(`update`, `edit`);
+        const pathname = window.location.pathname.replace("update", "edit");
         window.location.replace(pathname + "?" + searchParamsString(formName) + "#status");
     });
 }

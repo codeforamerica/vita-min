@@ -137,6 +137,7 @@ RSpec.describe "Creating and reviewing bulk actions", active_job: true do
 
     select new_user.name, from: "New Assignee"
     select "Greeter - info requested", from: "New Status"
+    expect(page).to have_text new_user.name
 
     # Messages should be autofilled by templates due to status update
     expect(page).to have_text "Hello"
