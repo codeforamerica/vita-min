@@ -1,19 +1,22 @@
-export function initTakeActionOnChangeHandlers() {
-    $("#hub_take_action_form_status, #hub_take_action_form_locale").change(function() {
+export function initTakeActionOnChangeHandlers(formName) {
+
+    $(`#hub_${formName}_form_status, #hub_${formName}_form_locale`).change(function() {
         $(".hub-form :input").prop("disabled", true);
-        const pathname = window.location.pathname.replace("update_take_action", "edit_take_action");
-        window.location.replace(pathname + "?" + searchParamsString() + "#status");
+        const pathname = window.location.pathname.replace("update", "edit");
+        window.location.replace(pathname + "?" + searchParamsString(formName) + "#status");
     });
 }
-
-function searchParamsString() {
+function searchParamsString(formName) {
     const searchParams = new URLSearchParams();
-    const taxReturnId = $("#hub_take_action_form_tax_return_id").val();
-    const selectedStatus = $("#hub_take_action_form_status").val();
-    const locale = $("#hub_take_action_form_locale").val();
+    const taxReturnId = $(`#hub_${formName}_form_tax_return_id`).val();
+    const selectedStatus = $(`#hub_${formName}_form_status`).val();
+    const selectedAssignee = $(`#hub_${formName}_form_assigned_user_id`).val();
+    const locale = $(`#hub_${formName}_form_locale`).val();
 
     if (taxReturnId) { searchParams.set('tax_return[id]', taxReturnId) }
     if (selectedStatus) { searchParams.set('tax_return[status]', selectedStatus) }
+    if (selectedAssignee) { searchParams.set('tax_return[assigned_user_id]', selectedAssignee) }
+
     if (locale) { searchParams.set("tax_return[locale]", locale) }
     return searchParams.toString();
 }

@@ -482,11 +482,7 @@ es:
         send_a_message: "Enviar un mensaje"
         send_a_message_description_html: "Envía un mensaje a estos <strong>%{count} clientes</strong>."
     bulk_actions:
-      bulk_action_form:
-        errors:
-          missing_bulk_tax_return_update: "Realice un cambio de estado o cesionario."
-          missing_message_locale: "Por favor incluye un mensaje para los clientes que prefieren %{missing_language}."
-          message_length: "Limite su mensaje a 900 caracteres"
+      bulk_messaging_form:
         message_help_text_en_html:
           one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
           other: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
@@ -504,6 +500,11 @@ es:
         message_label_text_es: "Enviar mensaje (español)"
         note_body_label: "Agregar una nota interna"
         note_body_help_text: "Si está en blanco, no se agrega ninguna nota interna."
+      bulk_action_form:
+        errors:
+          missing_bulk_tax_return_update: "Realice un cambio de estado o cesionario."
+          missing_message_locale: "Por favor incluye un mensaje para los clientes que prefieren %{missing_language}."
+          message_length: "Limite su mensaje a 900 caracteres"
       change_organization:
         edit:
           title: "Acción masiva"
@@ -531,7 +532,7 @@ es:
           selected_action_and_tax_return_count_html:
             one: "Ha seleccionado <strong>Cambiar cesionario y/o estado</strong> para <strong>%{count} devolución</strong> con el siguiente estado:"
             other: "Ha seleccionado <strong>Cambiar cesionario y/o estado</strong> para <strong>%{count} devoluciones</strong> con los siguientes estados:"
-          by_clicking_submit: Al hacer clic en enviar, está actualizando al cesionario y / o el estado y actualizando a los seguidores.
+          by_clicking_submit: Al hacer clic en enviar, está actualizando el asignado y/o el estado, enviando un mensaje, enviando una nota de equipo y actualizando seguidores.
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!

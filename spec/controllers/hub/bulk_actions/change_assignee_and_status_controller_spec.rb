@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
-  let(:client) { create :client, vita_partner: site }
+  let(:client) { create :client, vita_partner: site, intake: create(:intake) }
   let(:site) { create :site }
-  let(:organization) { create :organization}
+  let(:organization) { create :organization }
 
   let!(:team_member) { create :user, role: create(:team_member_role, site: site) }
   let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, site: site) }
   let!(:inaccessible_user) { create :user }
 
-  let(:tax_return_1) { create :tax_return, status: "file_ready_to_file", assigned_user: team_member }
-  let(:tax_return_2) { create :tax_return, status: "review_signature_requested", assigned_user: team_member }
-  let(:tax_return_3) { create :tax_return, status: "review_signature_requested", assigned_user: site_coordinator }
+  let(:tax_return_1) { create :tax_return, status: "file_ready_to_file", assigned_user: team_member, client: client, year: 2020 }
+  let(:tax_return_2) { create :tax_return, status: "review_signature_requested", assigned_user: team_member, client: client, year: 2019 }
+  let(:tax_return_3) { create :tax_return, status: "review_signature_requested", assigned_user: site_coordinator, client: client, year: 2018 }
   let(:unselected_tax_return) { create :tax_return, status: "file_efiled", assigned_user: team_member }
   let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2, tax_return_3] }
 
@@ -78,7 +78,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           expect {
             put :update, params: params
           }.to change(BulkTaxReturnUpdate, :count).by(1).and(
-            change(UserNotification, :count).by(1)
+            change(UserNotification, :count).by(2)
           )
 
           bulk_update = BulkTaxReturnUpdate.last
@@ -143,7 +143,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           expect {
             put :update, params: params
           }.to change(BulkTaxReturnUpdate, :count).by(1).and(
-            change(UserNotification, :count).by(1)
+            change(UserNotification, :count).by(2)
           )
           expect(response).to redirect_to hub_user_notifications_path
         end
@@ -172,7 +172,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           expect {
             put :update, params: params
           }.to change(BulkTaxReturnUpdate, :count).by(1).and(
-            change(UserNotification, :count).by(1)
+            change(UserNotification, :count).by(2)
           )
 
           expect(response).to redirect_to hub_user_notifications_path
@@ -194,6 +194,97 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           put :update, params: params
 
           expect(assigns(:form).valid?).to eq false
+        end
+      end
+
+      context "sending messages" do
+        let(:bulk_client_message) { create :bulk_client_message }
+        before { allow(ClientMessagingService).to receive(:send_bulk_message).and_return(bulk_client_message) }
+
+        context "with valid message params" do
+          let(:english_message_body) { "I moved your case to a new org!" }
+          let(:spanish_message_body) { "¡Mové su caso a una organización nueva!" }
+          let(:params) do
+            {
+                tax_return_selection_id: tax_return_selection.id,
+                hub_bulk_action_form: {
+                    assigned_user_id: new_assigned_user_id,
+                    status: BulkTaxReturnUpdate::KEEP,
+                    message_body_en: english_message_body,
+                    message_body_es: spanish_message_body
+                }
+            }
+          end
+
+          before do
+            allow_any_instance_of(Hub::BulkActionForm).to receive(:valid?).and_return true
+          end
+
+          it "calls the ClientMessagingService with the right arguments" do
+            put :update, params: params
+
+            expect(ClientMessagingService).to have_received(:send_bulk_message).with(
+                tax_return_selection,
+                team_member,
+                en: english_message_body,
+                es: spanish_message_body,
+                )
+          end
+
+          it "creates a Notification for BulkClientMessage" do
+            expect do
+              put :update, params: params
+            end.to change { UserNotification.where(notifiable_type: "BulkClientMessage").count }.by(1)
+
+            bulk_message_notification = UserNotification.where(notifiable_type: "BulkClientMessage").last
+            expect(bulk_message_notification.user).to eq(team_member)
+            expect(bulk_message_notification.notifiable).to eq(bulk_client_message)
+          end
+        end
+
+        context "with invalid message params" do
+          before do
+            allow_any_instance_of(Hub::BulkActionForm).to receive(:valid?).and_return false
+          end
+
+          it "does not enqueue a job" do
+            put :update, params: params
+
+            expect(ClientMessagingService).not_to have_received(:send_bulk_message)
+          end
+        end
+      end
+
+      context "creating a note" do
+        let(:note_body) { "An internal note with some text in it" }
+        let(:params) do
+          {
+              tax_return_selection_id: tax_return_selection.id,
+              hub_bulk_action_form: {
+                  assigned_user_id: new_assigned_user_id,
+                  status: BulkTaxReturnUpdate::KEEP,
+                  note_body: note_body
+              }
+          }
+        end
+
+        it "saves a note and fires related after creation hooks" do
+          expect {
+            put :update, params: params
+          }.to change(Note, :count).by(1).and(
+              change { client.reload.last_internal_or_outgoing_interaction_at }
+          ).and(
+              change(BulkClientNote, :count).by(1)
+          ).and(
+              change { UserNotification.where(notifiable_type: "BulkClientNote").count }.by(1)
+          )
+
+          expect(client.notes.first.body).to eq note_body
+          expect(client.notes.first.user).to eq team_member
+
+          bulk_note = BulkClientNote.last
+          expect(bulk_note.tax_return_selection).to eq tax_return_selection
+          expect(bulk_note.user_notification.user).to eq team_member
         end
       end
     end

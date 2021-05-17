@@ -18,6 +18,8 @@ module Hub
     def initialize(tax_return_selection, *args, **attributes)
       @tax_return_selection = tax_return_selection
       super(*args, **attributes)
+      set_default_message_body("es") if @message_body_es.blank?
+      set_default_message_body("en") if @message_body_en.blank?
     end
 
     def assigned_user
@@ -27,6 +29,16 @@ module Hub
     end
 
     private
+
+    def set_default_message_body(locale)
+      if (locale == "es")
+        @message_body_es = "" and return unless status.present?
+        @message_body_es = TaxReturnStatus.message_template_for(status, locale)
+      else
+        @message_body_en = "" and return unless status.present?
+        @message_body_en = TaxReturnStatus.message_template_for(status, locale)
+      end
+    end
 
     def bulk_tax_return_update_present
       if assigned_user_id == BulkTaxReturnUpdate::KEEP && status == BulkTaxReturnUpdate::KEEP
