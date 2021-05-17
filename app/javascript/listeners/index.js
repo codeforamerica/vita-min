@@ -24,7 +24,11 @@ const Listeners =  (function(){
                 }
 
                 if (["Hub::ClientsController#edit_take_action", "Hub::ClientsController#update_take_action"].includes(window.appData.controller_action)) {
-                    initTakeActionOnChangeHandlers();
+                    initTakeActionOnChangeHandlers("take_action");
+                }
+
+                if (["Hub::BulkActions::ChangeAssigneeAndStatusController#edit", "Hub::BulkActions::ChangeAssigneeAndStatusController#update"].includes(window.appData.controller_action)) {
+                    initTakeActionOnChangeHandlers("bulk_action");
                 }
 
                 if(["Hub::StateRoutingsController#edit", "Hub::StateRoutingsController#update"].includes(window.appData.controller_action)) {

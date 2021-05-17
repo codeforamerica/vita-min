@@ -23,6 +23,13 @@ module Hub
 
       private
 
+      def load_edit_form
+        @form = BulkActionForm.new(@selection, {
+          status: params.dig(:tax_return, :status),
+          assigned_user_id: params.dig(:tax_return, :assigned_user_id)
+        })
+      end
+
       def update_params
         params.require(:hub_bulk_action_form).permit(:note_body, :message_body_en, :message_body_es, :status, :assigned_user_id)
       end

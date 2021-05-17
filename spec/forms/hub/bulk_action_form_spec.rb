@@ -72,4 +72,72 @@ RSpec.describe Hub::BulkActionForm do
       end
     end
   end
+
+  describe "setting default values" do
+    context "default message body" do
+      let(:intake_en) { create(:intake, locale: "en", preferred_name: "Luna Lemon") }
+      let(:intake_es) { create(:intake, locale: "es", preferred_name: "Robby Radish") }
+      let!(:client_en) { create :client, intake: intake_en, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+      let!(:client_es) { create :client, intake: intake_es, tax_returns: [(create :tax_return, tax_return_selections: [tax_return_selection])] }
+
+      context "when a message body is provided" do
+        let(:form_params) do
+          {
+            message_body_en: "a message in english, obvs",
+            message_body_es: "a message in spanish, obvs",
+          }
+        end
+
+        it "does not overwrite the message body" do
+          expect(form.message_body_en).to eq "a message in english, obvs"
+          expect(form.message_body_es).to eq "a message in spanish, obvs"
+        end
+      end
+
+      context "when a status and message body are not provided" do
+        let(:form_params) do
+          {
+            status: nil,
+            message_body_en: "",
+            message_body_es: "",
+          }
+        end
+
+        it "sets message body as an empty string" do
+          expect(form.message_body_en).to eq ""
+          expect(form.message_body_es).to eq ""
+        end
+      end
+
+      context "when a status that has a message template is provided" do
+        let(:form_params) do
+          {
+            status: "intake_info_requested",
+            message_body_en: "",
+            message_body_es: "",
+          }
+        end
+
+        it "sets message body to the template" do
+          expect(form.message_body_en).to start_with("Hello")
+          expect(form.message_body_es).to start_with("¡Hola")
+        end
+      end
+
+      context "when a status without a message template is provided" do
+        let(:form_params) do
+          {
+            status: "non_matching_status",
+            message_body_en: "",
+            message_body_es: "",
+          }
+        end
+
+        it "sets message body as an empty string" do
+          expect(form.message_body_en).to eq ""
+          expect(form.message_body_es).to eq ""
+        end
+      end
+    end
+  end
 end

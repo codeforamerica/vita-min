@@ -26,7 +26,6 @@
         help_text: t(".message_help_text_en_html", count: locale_counts["en"]),
         ) %>
 <% end %>
-
 <% if locale_counts["es"].nonzero? %>
   <%= f.cfa_textarea(
         :message_body_es,

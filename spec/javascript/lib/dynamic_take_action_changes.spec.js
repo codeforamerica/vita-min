@@ -46,14 +46,14 @@ afterAll(() => {
     window.location = oldWindowLocation
 })
 
-test("changing status initiates a location change with  status and locale params", function (){
-    initTakeActionOnChangeHandlers();
+test("changing status initiates a location change with status and locale params", function (){
+    initTakeActionOnChangeHandlers("take_action");
     $('select#hub_take_action_form_status').val('status-b').trigger('change');
     expect(window.location.replace).toHaveBeenCalledWith("http://example.com/edit_take_action?tax_return%5Bid%5D=1&tax_return%5Bstatus%5D=status-b&tax_return%5Blocale%5D=en#status")
 });
 
-test("changing status initiates a location change with  status and locale params", function (){
-    initTakeActionOnChangeHandlers();
+test("changing status initiates a location change with status and locale params", function (){
+    initTakeActionOnChangeHandlers("take_action");
     $('select#hub_take_action_form_locale').val('es').trigger('change');
     expect(window.location.replace).toHaveBeenCalledWith("http://example.com/edit_take_action?tax_return%5Bid%5D=1&tax_return%5Bstatus%5D=status-b&tax_return%5Blocale%5D=es#status")
 });

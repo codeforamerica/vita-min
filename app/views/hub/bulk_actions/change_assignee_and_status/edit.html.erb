@@ -13,10 +13,12 @@
             <%= @current_tr_statuses.map { |status| t("hub.tax_returns.status.#{status}")}.join(", ") + "." %>
           </p>
 
-          <%= f.cfa_select :assigned_user_id, t(".new_assignee"), assignable_user_options(@assignable_users), { selected: BulkTaxReturnUpdate::KEEP } %>
-          <%= f.cfa_select :status, t(".new_status"), grouped_status_options_for_select.unshift(["No change", [[t(".keep_status"), BulkTaxReturnUpdate::KEEP]]]), { selected: BulkTaxReturnUpdate::KEEP } %>
+          <%= f.cfa_select :assigned_user_id, t(".new_assignee"), assignable_user_options(@assignable_users) %>
+          <%= f.cfa_select :status, t(".new_status"), grouped_status_options_for_select.unshift(["No change", [[t(".keep_status"), BulkTaxReturnUpdate::KEEP]]]) %>
 
           <hr class="hr">
+
+          <%= render "hub/bulk_actions/bulk_messaging_form", f: f, inaccessible_client_count: @inaccessible_client_count, no_contact_info_count: @no_contact_info_count, locale_counts: @locale_counts %>
 
           <p class="text--help text--bold spacing-below-25"><%= t(".by_clicking_submit") %></p>
 

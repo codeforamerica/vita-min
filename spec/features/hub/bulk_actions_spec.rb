@@ -136,13 +136,19 @@ RSpec.describe "Creating and reviewing bulk actions", active_job: true do
     expect(page).to have_text "Keep current status"
 
     select new_user.name, from: "New Assignee"
-    select "Ready to file", from: "New Status"
+    select "Greeter - info requested", from: "New Status"
+
+    # Messages should be autofilled by templates due to status update
+    expect(page).to have_text "Hello"
+    expect(page).to have_text "Hola"
 
     click_on "Submit"
 
     expect(current_path).to eq hub_user_notifications_path
 
     expect(page).to have_text "You successfully assigned 2 tax returns to Admin the Second."
-    expect(page).to have_text "You successfully updated 2 tax returns to Ready to file."
+    expect(page).to have_text "You successfully updated 2 tax returns to Greeter - info requested."
+    expect(page).to have_text "Bulk Send a Message In Progress"
+    expect(page).to have_text "We are still contacting 2 clients."
   end
 end
