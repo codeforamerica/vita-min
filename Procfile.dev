@@ -1,0 +1,3 @@
+server: rails s
+worker: rails jobs:work
+webpack: bin/webpack-dev-server
