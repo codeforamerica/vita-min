@@ -5,6 +5,7 @@ es:
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
     suspend_account: "Suspender usuario"
     suspend_confirmation: "¿Suspender la cuenta de %{name}? Esto los eliminará de todas las declaraciones de impuestos asignadas actualmente y evitará que inicien sesión."
+    suspended_user_name: "%{name} (Suspendido)"
     unsuspend_account: "Anular la suspensión del usuario"
     has_duplicates: "Posibles duplicados detectados: "
     last_client_update: "Última actualización de cliente: "

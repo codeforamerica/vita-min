@@ -5,6 +5,7 @@ en:
     unlock_confirmation: "Unlock %{name}'s account? Have they confirmed their identity?"
     suspend_account: "Suspend account"
     suspend_confirmation: "Suspend %{name}'s account? This will remove them from all currently assigned tax returns and prevent them from logging in."
+    suspended_user_name: "%{name} (Suspended)"
     unsuspend_account: "Unsuspend account"
     has_duplicates: "Potential duplicates detected: "
     last_client_update: "Last client update: "
