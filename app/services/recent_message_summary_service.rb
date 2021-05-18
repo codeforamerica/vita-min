@@ -5,8 +5,9 @@ class RecentMessageSummaryService
     incoming_text_messages = summarize_incoming_text_messages(client_ids)
     outgoing_emails = summarize_outgoing_emails(client_ids)
     outgoing_text_messages = summarize_outgoing_text_messages(client_ids)
+    incoming_portal_messages = summarize_incoming_portal_messages(client_ids)
     client_ids.each do |client_id|
-      message = ([outgoing_emails[client_id]] + [outgoing_text_messages[client_id]] + [incoming_emails[client_id]] + [incoming_text_messages[client_id]]).compact.sort_by(&:created_at).last
+      message = ([outgoing_emails[client_id]] + [outgoing_text_messages[client_id]] + [incoming_emails[client_id]] + [incoming_text_messages[client_id]] + [incoming_portal_messages[client_id]]).compact.sort_by(&:created_at).last
 
       summaries[client_id] = { author: message.author, body: message.body, date: message.created_at } unless message.nil?
     end
@@ -82,4 +83,19 @@ class RecentMessageSummaryService
     summaries
   end
 
+  def self.summarize_incoming_portal_messages(client_ids)
+    summaries = {}
+    IncomingTextMessage.find_by_sql(
+      [
+        "select incoming_portal_messages.id, incoming_portal_messages.client_id, incoming_portal_messages.body, incoming_portal_messages.created_at, intakes.preferred_name as prefetched_author from incoming_portal_messages inner join intakes on intakes.client_id = incoming_portal_messages.client_id where incoming_portal_messages.created_at IN (select max(incoming_portal_messages.created_at) from incoming_portal_messages group by incoming_portal_messages.client_id having incoming_portal_messages.client_id in ( ? ))",
+        client_ids,
+      ]
+    ).each do |msg|
+      if summaries[msg.client_id].nil? || summaries[msg.client_id].created_at < msg.created_at
+        summaries[msg.client_id] = SummarizedMessage.new(msg.created_at, msg.body, msg.prefetched_author)
+      end
+    end
+
+    summaries
+  end
 end
