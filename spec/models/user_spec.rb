@@ -380,7 +380,7 @@ RSpec.describe User, type: :model do
 
   describe "first_name" do
     context "Luke" do
-      let(:user) { build :user, name: "Luke"}
+      let(:user) { build :user, name: "Luke" }
       it "returns nil" do
         expect(user.first_name).to eq "Luke"
       end
@@ -394,7 +394,7 @@ RSpec.describe User, type: :model do
     end
 
     context "without name" do
-      let(:user) { build :user, name: nil}
+      let(:user) { build :user, name: nil }
       it "returns nil" do
         expect(user.first_name).to eq nil
       end
@@ -403,16 +403,64 @@ RSpec.describe User, type: :model do
 
   describe "#admin?" do
     context "when the user has AdminRole type" do
-      let(:user) { create :user, role: AdminRole.new }
+      let(:user) { create :admin_user }
       it "returns true" do
         expect(user.admin?).to be true
       end
     end
 
     context "when the user does not have AdminRole type" do
-      let(:user) { create :user, role: GreeterRole.new }
+      let(:user) { create :greeter_user }
       it "returns false" do
         expect(user.admin?).to be false
+      end
+    end
+  end
+
+  describe "#greeter?" do
+    context "when the user has GreeterRole type" do
+      let(:user) { create :greeter_user }
+      it "returns true" do
+        expect(user.greeter?).to be true
+      end
+    end
+
+    context "when the user does not have GreeterRole type" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.greeter?).to be false
+      end
+    end
+  end
+
+  describe "#org_lead?" do
+    context "when the user has OrganizationLeadRole type" do
+      let(:user) { create :organization_lead_user }
+      it "returns true" do
+        expect(user.org_lead?).to be true
+      end
+    end
+
+    context "when the user does not have GreeterRole type" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.org_lead?).to be false
+      end
+    end
+  end
+
+  describe "#site_coordinator?" do
+    context "when the user has SiteCoordinatorRole type" do
+      let(:user) { create :site_coordinator_user }
+      it "returns true" do
+        expect(user.site_coordinator?).to be true
+      end
+    end
+
+    context "when the user does not have SiteCoordinatorRole type" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.site_coordinator?).to be false
       end
     end
   end
@@ -449,7 +497,7 @@ RSpec.describe User, type: :model do
     end
 
     context "a team member user" do
-      let(:site) { create :site}
+      let(:site) { create :site }
       let(:user) { create :team_member_user, site: site }
       it "returns their site" do
         expect(user.served_entity).to eq site

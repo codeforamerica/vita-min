@@ -41,7 +41,7 @@ RSpec.describe Hub::ClientsController do
     let(:vita_partner_id) { user.role.vita_partner_id }
     let(:params) do
       {
-          hub_create_client_form: {
+        hub_create_client_form: {
           primary_first_name: "New",
           primary_last_name: "Name",
           preferred_name: "Newly",
@@ -76,26 +76,26 @@ RSpec.describe Hub::ClientsController do
           service_type: "drop_off",
           vita_partner_id: vita_partner_id,
           tax_returns_attributes: {
-              "0": {
-                  year: "2020",
-                  is_hsa: true,
-                  certification_level: "advanced"
-              },
-              "1": {
-                  year: "2019",
-                  is_hsa: false,
-                  certification_level: "basic"
-              },
-              "2": {
-                  year: "2018",
-                  is_hsa: false,
-                  certification_level: "basic"
-              },
-              "3": {
-                  year: "2017",
-                  is_hsa: false,
-                  certification_level: "advanced"
-              },
+            "0": {
+              year: "2020",
+              is_hsa: true,
+              certification_level: "advanced"
+            },
+            "1": {
+              year: "2019",
+              is_hsa: false,
+              certification_level: "basic"
+            },
+            "2": {
+              year: "2018",
+              is_hsa: false,
+              certification_level: "basic"
+            },
+            "3": {
+              year: "2017",
+              is_hsa: false,
+              certification_level: "advanced"
+            },
           }
         },
       }
@@ -120,7 +120,7 @@ RSpec.describe Hub::ClientsController do
       context "with invalid params" do
         let(:params) do
           {
-              hub_create_client_form: {
+            hub_create_client_form: {
               primary_first_name: "",
             }
           }
@@ -792,9 +792,9 @@ RSpec.describe Hub::ClientsController do
           timezone: "America/Chicago",
           interview_timing_preference: "Tomorrow!",
           dependents_attributes: {
-              "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
-              "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
-              "2" => { id: intake.dependents.last.id, _destroy: "1" }
+            "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
+            "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
+            "2" => { id: intake.dependents.last.id, _destroy: "1" }
           }
         }
       }
@@ -845,10 +845,10 @@ RSpec.describe Hub::ClientsController do
       context "with invalid dependent params" do
         let(:params) {
           {
-              id: client.id,
-              hub_update_client_form: {
-                  dependents_attributes: { 0 => {"first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: ""}},
-              }
+            id: client.id,
+            hub_update_client_form: {
+              dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
+            }
           }
         }
 
@@ -1046,9 +1046,69 @@ RSpec.describe Hub::ClientsController do
     end
     before { client.lock_access! }
 
-    it_behaves_like :a_post_action_for_admins_only, action: :unlock
+    context "as a non-admin user" do
+      before { sign_in(create :user) }
 
-    context "as an admin" do
+      it "returns 403 Forbidden" do
+        post :unlock, params: params
+
+        expect(response.status).to eq 403
+      end
+    end
+
+    context "as a greeter user" do
+      before { sign_in create(:greeter_user) }
+
+      it "returns 403 Forbidden" do
+        post :unlock, params: params
+
+        expect(response.status).to eq 403
+      end
+    end
+
+    context "as a team member user" do
+      before { sign_in create(:team_member_user) }
+
+      it "returns 403 Forbidden" do
+        post :unlock, params: params
+
+        expect(response.status).to eq 403
+      end
+    end
+
+    context "as a site coordinator user" do
+      let!(:site) { create :site }
+      before {
+        sign_in create(:site_coordinator_user, site: site)
+        client.update(vita_partner: site)
+      }
+
+      it "unlocks the client and redirects to the client profile page" do
+        patch :unlock, params: params
+
+        expect(client.reload.access_locked?).to eq false
+        expect(response).to redirect_to(hub_client_path(id: client))
+        expect(flash[:notice]).to eq "Unlocked #{client.preferred_name}'s account."
+      end
+    end
+
+    context "as a organization lead user" do
+      let!(:organization) { create :organization, name: "Org" }
+      before {
+        sign_in create(:organization_lead_user, organization: organization)
+        client.update(vita_partner: organization)
+      }
+
+      it "unlocks the client and redirects to the client profile page" do
+        patch :unlock, params: params
+
+        expect(client.reload.access_locked?).to eq false
+        expect(response).to redirect_to(hub_client_path(id: client))
+        expect(flash[:notice]).to eq "Unlocked #{client.preferred_name}'s account."
+      end
+    end
+
+    context "as an admin user" do
       before { sign_in create(:admin_user) }
 
       it "unlocks the client and redirects to the client profile page" do
