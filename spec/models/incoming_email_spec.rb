@@ -24,7 +24,8 @@
 #
 # Indexes
 #
-#  index_incoming_emails_on_client_id  (client_id)
+#  index_incoming_emails_on_client_id   (client_id)
+#  index_incoming_emails_on_created_at  (created_at)
 #
 require 'rails_helper'
 

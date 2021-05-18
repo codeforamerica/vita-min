@@ -17,8 +17,9 @@
 #
 # Indexes
 #
-#  index_outbound_calls_on_client_id  (client_id)
-#  index_outbound_calls_on_user_id    (user_id)
+#  index_outbound_calls_on_client_id   (client_id)
+#  index_outbound_calls_on_created_at  (created_at)
+#  index_outbound_calls_on_user_id     (user_id)
 #
 require 'rails_helper'
 

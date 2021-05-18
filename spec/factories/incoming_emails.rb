@@ -24,7 +24,8 @@
 #
 # Indexes
 #
-#  index_incoming_emails_on_client_id  (client_id)
+#  index_incoming_emails_on_client_id   (client_id)
+#  index_incoming_emails_on_created_at  (created_at)
 #
 FactoryBot.define do
   factory :incoming_email do

@@ -12,7 +12,8 @@
 #
 # Indexes
 #
-#  index_incoming_text_messages_on_client_id  (client_id)
+#  index_incoming_text_messages_on_client_id   (client_id)
+#  index_incoming_text_messages_on_created_at  (created_at)
 #
 # Foreign Keys
 #

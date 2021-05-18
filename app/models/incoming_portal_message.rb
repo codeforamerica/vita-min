@@ -10,7 +10,8 @@
 #
 # Indexes
 #
-#  index_incoming_portal_messages_on_client_id  (client_id)
+#  index_incoming_portal_messages_on_client_id   (client_id)
+#  index_incoming_portal_messages_on_created_at  (created_at)
 #
 class IncomingPortalMessage < ApplicationRecord
   include ContactRecord
