@@ -15,8 +15,9 @@
 #
 # Indexes
 #
-#  index_outgoing_text_messages_on_client_id  (client_id)
-#  index_outgoing_text_messages_on_user_id    (user_id)
+#  index_outgoing_text_messages_on_client_id   (client_id)
+#  index_outgoing_text_messages_on_created_at  (created_at)
+#  index_outgoing_text_messages_on_user_id     (user_id)
 #
 # Foreign Keys
 #
