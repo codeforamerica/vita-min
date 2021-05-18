@@ -37,8 +37,7 @@ module Hub
         end
         flash_message = I18n.t("hub.users.destroy.success", name: @user.name)
       rescue ActiveRecord::InvalidForeignKey
-        @user.assigned_tax_returns.update(assigned_user: nil)
-        @user.update!(suspended_at: DateTime.now)
+        @user.suspend!
         flash_message = I18n.t("hub.users.suspend.success", name: @user.name)
       end
       redirect_to hub_users_path, notice: flash_message
@@ -49,6 +48,18 @@ module Hub
       @user.unlock_access! if @user.access_locked?
       flash[:notice] = I18n.t("hub.users.unlock.account_unlocked", name: @user.name)
       redirect_to(hub_users_path)
+    end
+
+    def suspend
+      authorize!(:update, @user)
+      @user.suspend!
+      redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.suspend.success", name: @user.name)
+    end
+
+    def unsuspend
+      authorize!(:update, @user)
+      @user.update!(suspended_at: nil)
+      redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.unsuspend.success", name: @user.name)
     end
 
     def update

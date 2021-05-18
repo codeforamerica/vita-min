@@ -100,6 +100,10 @@ class User < ApplicationRecord
     content
   end
 
+  def name_with_suspended
+    suspended? ? I18n.t("hub.suspended_user_name", name: name) : name
+  end
+
   def accessible_vita_partners
     case role_type
     when AdminRole::TYPE
@@ -204,5 +208,10 @@ class User < ApplicationRecord
   def active_for_authentication?
     # overrides
     super && !suspended?
+  end
+
+  def suspend!
+    assigned_tax_returns.update(assigned_user: nil)
+    update!(suspended_at: DateTime.now)
   end
 end

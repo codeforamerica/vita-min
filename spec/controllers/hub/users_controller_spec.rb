@@ -502,4 +502,58 @@ RSpec.describe Hub::UsersController do
       end
     end
   end
+
+  describe "#suspend" do
+    let!(:user) { create :team_member_user, suspended_at: nil }
+    let(:params) do
+      { id: user.id }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :suspend
+
+    context "as an authenticated admin user" do
+      before { sign_in create(:admin_user) }
+
+      it "suspends the user and shows a confirmation message" do
+        patch :suspend, params: params
+
+        expect(user.reload.suspended?).to eq true
+        expect(flash[:notice]).to eq "Suspended #{user.name}'s account"
+        expect(response).to redirect_to edit_hub_user_path(id: user.id)
+      end
+
+      context "when the user has assigned tax returns" do
+        let!(:tax_return) { create :tax_return, assigned_user: user }
+
+        it "suspends the user and unassigns them from all tax returns" do
+          patch :suspend, params: params
+
+          expect(user.reload.suspended?).to eq true
+          expect(tax_return.reload.assigned_user).to be_nil
+          expect(tax_return.reload.assigned_user_id).to be_nil
+        end
+      end
+    end
+  end
+
+  describe "#unsuspend" do
+    let!(:user) { create :team_member_user, suspended_at: DateTime.now }
+    let(:params) do
+      { id: user.id }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :unsuspend
+
+    context "as an authenticated admin user" do
+      before { sign_in create(:admin_user) }
+
+      it "unsuspends the user and shows a confirmation message" do
+        patch :unsuspend, params: params
+
+        expect(user.reload.suspended?).to eq false
+        expect(flash[:notice]).to eq "Unsuspended #{user.name}'s account"
+        expect(response).to redirect_to edit_hub_user_path(id: user.id)
+      end
+    end
+  end
 end
