@@ -95,7 +95,7 @@ class User < ApplicationRecord
   end
 
   def name_with_role_and_entity
-    content = "#{name} - #{role_name}"
+    content = "#{name_with_suspended} - #{role_name}"
     content += " - #{served_entity.name}" if served_entity.present?
     content
   end
