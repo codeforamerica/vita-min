@@ -13,9 +13,9 @@ describe RecentMessageSummaryService do
     context "with some messages" do
       let(:client) { create(:client, intake: create(:intake, preferred_name: "Client Name")) }
       let(:user) { create(:user, name: "User Name") }
-      let!(:old_outgoing_text) { create :outgoing_text_message, created_at: DateTime.new(2021, 3, 17, 0, 0, 0), user: user, client: client, body: "Hello this is an old text" }
-      let!(:old_outgoing_email) { create :outgoing_email, created_at: DateTime.new(2021, 3, 18, 0, 0, 0), user: user, client: client, body: "Hello this is an old email" }
       let!(:old_incoming_text) { create :incoming_text_message, created_at: DateTime.new(2021, 3, 19, 0, 0, 0), client: client, body: "Thank you for the old messages here is a text" }
+      let!(:old_outgoing_email) { create :outgoing_email, created_at: DateTime.new(2021, 3, 18, 0, 0, 0), user: user, client: client, body: "Hello this is an old email" }
+      let!(:old_outgoing_text) { create :outgoing_text_message, created_at: DateTime.new(2021, 3, 17, 0, 0, 0), user: user, client: client, body: "Hello this is an old text" }
 
       context "given a client ID with most recent message type: outgoing email" do
         let(:time) { DateTime.new(2021, 3, 21, 0, 0, 0) }
