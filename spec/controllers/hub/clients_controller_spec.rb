@@ -294,13 +294,13 @@ RSpec.describe Hub::ClientsController do
       context "default behaviors" do
         render_views
 
+        let(:assigned_user) { create :user, name: "Lindsay" }
         let!(:george_sr) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", preferred_interview_language: "en", locale: "en") }
         let!(:george_sr_2019_return) { create :tax_return, client: george_sr, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:george_sr_2018_return) { create :tax_return, client: george_sr, year: 2018, assigned_user: assigned_user, status: "intake_ready" }
         let!(:michael) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes", state_of_residence: nil) }
         let!(:michael_2019_return) { create :tax_return, client: michael, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", preferred_interview_language: "es", state_of_residence: "TX") }
-        let(:assigned_user) { create :user, name: "Lindsay" }
         let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
         let!(:lucille) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Lucille") }
@@ -377,6 +377,24 @@ RSpec.describe Hub::ClientsController do
 
             html = Nokogiri::HTML.parse(response.body)
             expect(html.at_css("#client-#{george_sr.id}")).to have_text("Name left blank")
+          end
+        end
+
+        context "when a client has a most recent communication" do
+          let!(:incoming_text_message) { create :incoming_text_message, client: george_sr, body: "Hi I have a \"question\" about my taxes", created_at: DateTime.new(2021, 5, 18, 11, 32) }
+
+          it "shows a preview of the most recent message in a tooltip on the client" do
+            get :index
+
+            message_summary = <<~BODY
+            From: George Sr.
+            Sent: May 18 11:32 AM
+            Hi I have a question about my taxes
+            BODY
+
+            html = Nokogiri::HTML.parse(response.body)
+            attrib = html.at_css("#client-#{george_sr.id}").at_css(".tooltip").attr("title")
+            expect(attrib.strip).to eq("Hi I have a \"question\" about my taxes")
           end
         end
       end

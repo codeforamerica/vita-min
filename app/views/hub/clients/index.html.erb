@@ -85,15 +85,19 @@
               <%= render "shared/urgent_icon", client: client %>
             </td>
             <th scope="row" class="index-table__row-header index-table__row-header--sticky client-attribute__name">
-              <%= link_to hub_client_path(id: client) do %>
-                <%= client.preferred_name || t(".no_name_given") %>
-              <% end %>
-              <% if client.access_locked? %>
-                <span class="locked label label--red"><%= t("general.locked") %></span>
-              <% end %>
+              <span class="tooltip" title="<%= render "shared/message_summary", message_summary: @message_summaries[client.id] %>">
+                <%= link_to hub_client_path(id: client) do %>
+                  <%= client.preferred_name || t(".no_name_given") %>
+                <% end %>
+                <% if client.access_locked? %>
+                  <span class="locked label label--red"><%= t("general.locked") %></span>
+                <% end %>
+              </span>
             </th>
             <td class="index-table__cell"><%= client.id %></td>
-            <td class="index-table__cell"><%= client.vita_partner&.name || t("general.none") %></td>
+            <td class="index-table__cell" data-position="right">
+              <%= client.vita_partner&.name || t("general.none") %>
+            </td>
             <td class="index-table__cell"><%= client.preferred_language ? t("general.language_options.#{client.preferred_language}") : t('general.NA') %></td>
             <td class="index-table__cell"><%= "✓" if client.intake.had_unemployment_income_yes? %></td>
             <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
