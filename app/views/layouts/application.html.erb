@@ -44,7 +44,7 @@
     </script>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
 
-    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'application', defer: true %>
   </head>
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
