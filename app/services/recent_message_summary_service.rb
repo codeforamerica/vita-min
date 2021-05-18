@@ -1,10 +1,10 @@
 class RecentMessageSummaryService
   def self.messages(client_ids)
     summaries = {}
-    outgoing_emails = summarize_outgoing_emails(client_ids)
-    outgoing_text_messages = summarize_outgoing_text_messages(client_ids)
     incoming_emails = summarize_incoming_emails(client_ids)
     incoming_text_messages = summarize_incoming_text_messages(client_ids)
+    outgoing_emails = summarize_outgoing_emails(client_ids)
+    outgoing_text_messages = summarize_outgoing_text_messages(client_ids)
     client_ids.each do |client_id|
       message = ([outgoing_emails[client_id]] + [outgoing_text_messages[client_id]] + [incoming_emails[client_id]] + [incoming_text_messages[client_id]]).compact.sort_by(&:created_at).last
 
