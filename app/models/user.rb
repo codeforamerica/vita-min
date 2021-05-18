@@ -197,6 +197,10 @@ class User < ApplicationRecord
     role_type == OrganizationLeadRole::TYPE
   end
 
+  def site_coordinator?
+    role_type == SiteCoordinatorRole::TYPE
+  end
+
   def suspended?
     suspended_at.present?
   end
