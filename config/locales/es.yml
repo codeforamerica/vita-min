@@ -3,6 +3,9 @@ es:
   hub:
     unlock_account: "Desbloquear cuenta"
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
+    suspend_account: "Suspender usuario"
+    suspend_confirmation: "¿Suspender la cuenta de %{name}?"
+    unsuspend_account: "Anular la suspensión del usuario"
     has_duplicates: "Posibles duplicados detectados: "
     last_client_update: "Última actualización de cliente: "
     waiting_on_response: "Esperando respuesta desde: "
@@ -40,7 +43,9 @@ es:
       destroy:
         success: "La cuenta de %{name} se ha eliminado"
       suspend:
-        success: La cuenta de %{name} se ha suspendida
+        success: "La cuenta de %{name} se ha suspendida"
+      unsuspend:
+        success: "Anular la suspensión de la cuenta de %{name}"
       update_role:
         success: "Se actualizó el rol de %{name}"
     anonymized_intake_csv_extracts:

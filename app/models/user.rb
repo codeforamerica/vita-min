@@ -205,4 +205,9 @@ class User < ApplicationRecord
     # overrides
     super && !suspended?
   end
+
+  def suspend!
+    assigned_tax_returns.update(assigned_user: nil)
+    self.update!(suspended_at: DateTime.now)
+  end
 end
