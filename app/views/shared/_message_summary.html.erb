@@ -1,3 +1,10 @@
-<% if message_summary %>
-  <%= message_summary[:body] %>
-<% end %>
+<% # This template is rendered as HTML in the tooltip. Rails auto-escaping works properly in this context.
+   # Since the template is rendered into a HTML attribute, the HTML attribute must be created by Rails through
+   # e.g. `content_tag("span", title: ...)` so that Rails knows the content is being rendered in an attribute.
+   #
+   # The tooltip renders the template with CSS rules that show all whitespace, so a newline character is enough;
+   # no <br> etc. is needed.
+%>"<%= message_summary[:body] %>"
+
+<%= message_summary[:author] %>
+<%= long_formatted_datetime(message_summary[:date]) %>

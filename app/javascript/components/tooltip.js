@@ -3,6 +3,8 @@
 /**
  * Taken from USWDS
  * https://github.com/uswds/uswds/blob/develop/src/js/components/tooltip.js
+ *
+ * Docs at https://designsystem.digital.gov/components/tooltip/
  */
 
 // There's a lot of "magic numbers" here that relate to style.
