@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Hub::ClientsController do
   let!(:organization) { create :organization, allows_greeters: false }
-  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
 
   describe "#new" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
@@ -381,20 +381,22 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "when a client has a most recent communication" do
+          let(:time) { DateTime.new(2021, 5, 18, 11, 32) }
           let!(:incoming_text_message) { create :incoming_text_message, client: george_sr, body: "Hi I have a \"question\" about my taxes", created_at: DateTime.new(2021, 5, 18, 11, 32) }
 
           it "shows a preview of the most recent message in a tooltip on the client" do
             get :index
 
             message_summary = <<~BODY
-            From: George Sr.
-            Sent: May 18 11:32 AM
-            Hi I have a question about my taxes
+            "Hi I have a "question" about my taxes"
+
+            George Sr.
+            Tue 5/18/2021 at 4:32 AM PDT
             BODY
 
             html = Nokogiri::HTML.parse(response.body)
             attrib = html.at_css("#client-#{george_sr.id}").at_css(".tooltip").attr("title")
-            expect(attrib.strip).to eq("Hi I have a \"question\" about my taxes")
+            expect(attrib.strip).to eq(message_summary.strip)
           end
         end
       end
