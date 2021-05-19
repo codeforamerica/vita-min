@@ -87,6 +87,11 @@ It expects to be the primary content of the given page (full width).
   &__row-header {
     white-space: nowrap;
     padding: 0.8rem $s25 / 2;
+
+    .tooltip__body {
+      font-weight: $font-weight-normal;
+      font-size: $font-size-15;
+    }
   }
 
   &__row-header--sticky {
