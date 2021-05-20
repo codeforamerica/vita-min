@@ -85,7 +85,11 @@
               <%= render "shared/urgent_icon", client: client %>
             </td>
             <th scope="row" class="index-table__row-header index-table__row-header--sticky client-attribute__name">
-              <%= tag.span(class: "tooltip", data: {position: "right"}, title: @message_summaries[client.id] ? render("shared/message_summary", message_summary: @message_summaries[client.id]) : "No messsage available") do %>
+              <%= tag.span(class: "tooltip", data: {position: "right"}, title: if (@message_summaries.present? && @message_summaries[client.id])
+                                                                                 render("shared/message_summary", message_summary: @message_summaries[client.id])
+                                                                               else
+                                                                                 @message_summaries.present? ? t(".no_message") : ""
+                                                                               end) do %>
                 <%= link_to hub_client_path(id: client) do %>
                   <%= client.preferred_name || t(".no_name_given") %>
                 <% end %>

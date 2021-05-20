@@ -109,6 +109,7 @@ es:
         assigned_user: Asignado a
         no_name_given: "Nombre dejado en blanco"
         created_at: Creado en
+        no_message: "No hay mensajes disponibles"
       navigation:
         client_documents: Documentos
         client_messages: Mensajes

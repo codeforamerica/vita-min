@@ -67,6 +67,35 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
           expect(assigns(:clients)).to eq [ten_day_breach_client_half_done_filing, six_day_breach_client, four_day_breach_client]
         end
       end
+
+      context "message summaries" do
+        context "with message_summaries param" do
+          let(:fake_message_summaries) { {} }
+
+          before do
+            allow(RecentMessageSummaryService).to receive(:messages).and_return(fake_message_summaries)
+          end
+
+          it "assigns message_summaries" do
+            get :index, params: {message_summaries: "on"}
+            expect(assigns(:message_summaries)).to eq(fake_message_summaries)
+            expect(RecentMessageSummaryService).to have_received(:messages).with(assigns(:clients).map(&:id))
+          end
+        end
+
+        context "without message_summaries param" do
+          let(:fake_message_summaries) { {} }
+
+          before do
+            allow(RecentMessageSummaryService).to receive(:messages).and_return(fake_message_summaries)
+          end
+
+          it "doesn't assigns message_summaries" do
+            get :index
+            expect(assigns(:message_summaries)).to eq(nil)
+          end
+        end
+      end
     end
   end
 end
