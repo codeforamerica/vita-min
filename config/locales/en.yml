@@ -125,6 +125,7 @@ en:
         assigned_user: Assigned to
         no_name_given: "Name left blank"
         created_at: Created at
+        no_message: "No message available"
       unlinked_clients:
         title: Unlinked clients
       navigation:

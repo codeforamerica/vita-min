@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Hub::ClientsController do
   let!(:organization) { create :organization, allows_greeters: false }
-  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
 
   describe "#new" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
@@ -294,13 +294,13 @@ RSpec.describe Hub::ClientsController do
       context "default behaviors" do
         render_views
 
+        let(:assigned_user) { create :user, name: "Lindsay" }
         let!(:george_sr) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", preferred_interview_language: "en", locale: "en") }
         let!(:george_sr_2019_return) { create :tax_return, client: george_sr, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:george_sr_2018_return) { create :tax_return, client: george_sr, year: 2018, assigned_user: assigned_user, status: "intake_ready" }
         let!(:michael) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes", state_of_residence: nil) }
         let!(:michael_2019_return) { create :tax_return, client: michael, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", preferred_interview_language: "es", state_of_residence: "TX") }
-        let(:assigned_user) { create :user, name: "Lindsay" }
         let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
         let!(:lucille) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Lucille") }
@@ -377,6 +377,37 @@ RSpec.describe Hub::ClientsController do
 
             html = Nokogiri::HTML.parse(response.body)
             expect(html.at_css("#client-#{george_sr.id}")).to have_text("Name left blank")
+          end
+        end
+
+        context "when a client has a most recent communication" do
+          let(:time) { DateTime.new(2021, 5, 18, 11, 32) }
+          let!(:incoming_text_message) { create :incoming_text_message, client: george_sr, body: "Hi I have a \"question\" about my taxes, but my question is very long, so you might not see all of it", created_at: DateTime.new(2021, 5, 18, 11, 32) }
+
+          context "when message_summaries param is missing" do
+            it "does not pass message summaries to the template" do
+              get :index
+              html = Nokogiri::HTML.parse(response.body)
+              attrib = html.at_css("#client-#{george_sr.id}").at_css(".tooltip").attr("title")
+              expect(attrib.strip).to eq("")
+            end
+          end
+
+          context "when message_summaries param is present" do
+            it "shows a preview of the most recent message in a tooltip on the client" do
+              get :index, params: { message_summaries: "on" }
+
+              message_summary = <<~BODY
+                "Hi I have a "question" about my taxes, but my question is very long, so you..."
+
+                George Sr.
+                Tue 5/18/2021 at 4:32 AM PDT
+              BODY
+
+              html = Nokogiri::HTML.parse(response.body)
+              attrib = html.at_css("#client-#{george_sr.id}").at_css(".tooltip").attr("title")
+              expect(attrib.strip).to eq(message_summary.strip)
+            end
           end
         end
       end
@@ -736,8 +767,8 @@ RSpec.describe Hub::ClientsController do
     let(:vita_partner) { create :organization }
     let(:client) { create :client, vita_partner: organization, intake: (create :intake) }
     let(:params) {
-      { id: client.id }
-    }
+                   { id: client.id }
+                 }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
@@ -759,46 +790,46 @@ RSpec.describe Hub::ClientsController do
     let(:intake) { create :intake, :with_contact_info, preferred_interview_language: "en", dependents: [build(:dependent), build(:dependent)] }
     let(:first_dependent) { intake.dependents.first }
     let(:params) {
-      {
-        id: client.id,
-        hub_update_client_form: {
-          primary_first_name: "Updated",
-          primary_last_name: "Name",
-          preferred_name: intake.preferred_name,
-          preferred_interview_language: intake.preferred_interview_language,
-          married: intake.married,
-          separated: intake.separated,
-          widowed: intake.widowed,
-          lived_with_spouse: intake.lived_with_spouse,
-          divorced: intake.divorced,
-          divorced_year: intake.divorced_year,
-          separated_year: intake.separated_year,
-          widowed_year: intake.widowed_year,
-          email_address: intake.email_address,
-          phone_number: intake.phone_number,
-          sms_phone_number: intake.sms_phone_number,
-          primary_last_four_ssn: "1234",
-          street_address: intake.street_address,
-          city: intake.city,
-          state: intake.state,
-          zip_code: intake.zip_code,
-          sms_notification_opt_in: intake.sms_notification_opt_in,
-          email_notification_opt_in: intake.email_notification_opt_in,
-          spouse_first_name: intake.spouse_first_name,
-          spouse_last_name: intake.spouse_last_name,
-          spouse_email_address: intake.spouse_email_address,
-          state_of_residence: "CA",
-          filing_joint: intake.filing_joint,
-          timezone: "America/Chicago",
-          interview_timing_preference: "Tomorrow!",
-          dependents_attributes: {
-            "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
-            "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
-            "2" => { id: intake.dependents.last.id, _destroy: "1" }
-          }
-        }
-      }
-    }
+                   {
+                     id: client.id,
+                     hub_update_client_form: {
+                       primary_first_name: "Updated",
+                       primary_last_name: "Name",
+                       preferred_name: intake.preferred_name,
+                       preferred_interview_language: intake.preferred_interview_language,
+                       married: intake.married,
+                       separated: intake.separated,
+                       widowed: intake.widowed,
+                       lived_with_spouse: intake.lived_with_spouse,
+                       divorced: intake.divorced,
+                       divorced_year: intake.divorced_year,
+                       separated_year: intake.separated_year,
+                       widowed_year: intake.widowed_year,
+                       email_address: intake.email_address,
+                       phone_number: intake.phone_number,
+                       sms_phone_number: intake.sms_phone_number,
+                       primary_last_four_ssn: "1234",
+                       street_address: intake.street_address,
+                       city: intake.city,
+                       state: intake.state,
+                       zip_code: intake.zip_code,
+                       sms_notification_opt_in: intake.sms_notification_opt_in,
+                       email_notification_opt_in: intake.email_notification_opt_in,
+                       spouse_first_name: intake.spouse_first_name,
+                       spouse_last_name: intake.spouse_last_name,
+                       spouse_email_address: intake.spouse_email_address,
+                       state_of_residence: "CA",
+                       filing_joint: intake.filing_joint,
+                       timezone: "America/Chicago",
+                       interview_timing_preference: "Tomorrow!",
+                       dependents_attributes: {
+                         "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
+                         "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
+                         "2" => { id: intake.dependents.last.id, _destroy: "1" }
+                       }
+                     }
+                   }
+                 }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :update
 
@@ -827,13 +858,13 @@ RSpec.describe Hub::ClientsController do
 
       context "with invalid params" do
         let(:params) {
-          {
-            id: client.id,
-            hub_update_client_form: {
-              primary_first_name: "",
-            }
-          }
-        }
+                       {
+                         id: client.id,
+                         hub_update_client_form: {
+                           primary_first_name: "",
+                         }
+                       }
+                     }
 
         it "renders edit" do
           post :update, params: params
@@ -844,13 +875,13 @@ RSpec.describe Hub::ClientsController do
 
       context "with invalid dependent params" do
         let(:params) {
-          {
-            id: client.id,
-            hub_update_client_form: {
-              dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
-            }
-          }
-        }
+                       {
+                         id: client.id,
+                         hub_update_client_form: {
+                           dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
+                         }
+                       }
+                     }
 
         it "renders edit" do
           post :update, params: params

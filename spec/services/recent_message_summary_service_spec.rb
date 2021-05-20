@@ -75,6 +75,19 @@ describe RecentMessageSummaryService do
         end
       end
 
+      context "given a client ID with most recent message type: incoming portal message" do
+        let(:time) { DateTime.new(2021, 3, 21, 0, 0, 0) }
+        before do
+          Timecop.freeze(time) do
+            create(:incoming_portal_message, client: client, body: "Have a nice day")
+          end
+        end
+
+        it "returns the message body, author, and date" do
+          expect(RecentMessageSummaryService.messages([client.id])).to(
+            eq({client.id => {body: "Have a nice day", date: time, author: "Client Name"}}))
+        end
+      end
     end
   end
 end

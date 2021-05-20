@@ -43,7 +43,10 @@ module Hub
       inaccessible_client_count = @selection.clients.where.not(id: @clients).size
       @missing_results_message = I18n.t("hub.tax_return_selections.help_text_missing_results", count: inaccessible_client_count) unless inaccessible_client_count.zero?
 
-      @clients = filtered_and_sorted_clients.page(params[:page])
+      @clients = filtered_and_sorted_clients.page(params[:page]).load
+      if params[:message_summaries].present?
+        @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
+      end
       @page_title = I18n.t("hub.tax_return_selections.page_title", count: @selection.clients.size, id: @selection.id)
 
       render "hub/clients/index"

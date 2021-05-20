@@ -28,8 +28,8 @@ describe("tooltip", () => {
     expect(tooltipTrigger.getAttribute("title")).toEqual("");
   });
 
-  it('tooltip body is created', () => {
-    expect(tooltipBody.innerHTML).toEqual("This is a tooltip");
+  it('tooltip body is created as plain text', () => {
+    expect(tooltipBody.textContent).toEqual("Tooltip <b>content</b> is treated as plain text, never HTML");
   });
 
   it('tooltip is visible on focus', () => {

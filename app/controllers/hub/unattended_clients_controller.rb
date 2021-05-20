@@ -15,7 +15,10 @@ module Hub
       @page_title = "Clients who haven't received a response in #{day_param} business days"
       @breach_date = day_param.business_days.ago
       @clients = filtered_and_sorted_clients.first_unanswered_incoming_interaction_communication_breaches(@breach_date)
-      @clients = @clients.with_eager_loaded_associations.page(params[:page])
+      @clients = @clients.with_eager_loaded_associations.page(params[:page]).load
+      if params[:message_summaries].present?
+        @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
+      end
       render "hub/clients/index"
     end
 

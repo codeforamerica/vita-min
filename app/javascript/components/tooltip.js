@@ -3,6 +3,8 @@
 /**
  * Taken from USWDS
  * https://github.com/uswds/uswds/blob/develop/src/js/components/tooltip.js
+ *
+ * Docs at https://designsystem.digital.gov/components/tooltip/
  */
 
 // There's a lot of "magic numbers" here that relate to style.
@@ -273,7 +275,8 @@ const setUpAttributes = (tooltipTrigger) => {
   tooltipBody.setAttribute("aria-hidden", "true");
 
   // place the text in the tooltip
-  tooltipBody.innerHTML = tooltipContent;
+  tooltipBody.innerHTML = "";
+  tooltipBody.appendChild(document.createTextNode(tooltipContent));
 
   return { tooltipBody, position, tooltipContent, wrapper };
 };
