@@ -3,6 +3,10 @@ en:
   hub:
     unlock_account: "Unlock account"
     unlock_confirmation: "Unlock %{name}'s account? Have they confirmed their identity?"
+    suspend_account: "Suspend account"
+    suspend_confirmation: "Suspend %{name}'s account? This will remove them from all currently assigned tax returns and prevent them from logging in."
+    suspended_user_name: "%{name} (Suspended)"
+    unsuspend_account: "Unsuspend account"
     has_duplicates: "Potential duplicates detected: "
     last_client_update: "Last client update: "
     waiting_on_response: Waiting on response
@@ -41,6 +45,8 @@ en:
         success: "Deleted %{name}'s account"
       suspend:
         success: Suspended %{name}'s account
+      unsuspend:
+        success: Unsuspended %{name}'s account
       update_role:
         success: "Updated %{name}'s role"
     anonymized_intake_csv_extracts:

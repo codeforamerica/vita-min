@@ -1,46 +1,53 @@
 <% content_for :page_title, @user.name %>
 <% content_for :card do %>
-  <div class="hub-form">
-    <h1><%= @user.name %></h1>
+  <div class ="slab slab--padded">
+    <div class="client-container">
+      <h1><%= @user.name %></h1>
 
-    <% if current_user.admin? %>
-      <% if @user.access_locked? %>
-        <%= link_to t("hub.unlock_account"), unlock_hub_user_path(id: @user), method: :patch, class: "button button--danger", data: {confirm: t("hub.unlock_confirmation", name: @user.name )} %>
+      <% if current_user.admin? %>
+        <% if @user.access_locked? %>
+          <%= link_to t("hub.unlock_account"), unlock_hub_user_path(id: @user), method: :patch, class: "button button--danger", data: {confirm: t("hub.unlock_confirmation", name: @user.name )} %>
+        <% end %>
+          <%= link_to t("general.delete"), hub_user_path(id: @user), method: :delete, class: "button button--danger", data: {confirm: t(".delete_confirmation", name: @user.name)} %>
+        <% if @user.suspended? %>
+          <%= link_to t("hub.unsuspend_account"), unsuspend_hub_user_path(id: @user), method: :patch, class: "button button--danger"%>
+        <% else %>
+          <%= link_to t("hub.suspend_account"), suspend_hub_user_path(id: @user), method: :patch, class: "button button--danger", data: {confirm: t("hub.suspend_confirmation", name: @user.name )} %>
+        <% end %>
       <% end %>
-        <%= link_to t("general.delete"), hub_user_path(id: @user), method: :delete, class: "button button--danger", data: {confirm: t(".delete_confirmation", name: @user.name)} %>
-    <% end %>
 
-    <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
-      <p>
-        <strong><%= t("general.email") %>:</strong> <%= @user.email %>
-        <%= link_to t("general.resend_invitation"), user_profile_resend_invitation_path(user_id: @user.id), class: "button button-small", method: :put %>
-      </p>
+      <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+        <p>
+          <strong><%= t("general.email") %>:</strong> <%= @user.email %>
+          <%= link_to t("general.resend_invitation"), user_profile_resend_invitation_path(user_id: @user.id), class: "button button-small", method: :put %>
+        </p>
 
-      <%= f.cfa_input_field(:name, t("general.name")) %>
-      <%= f.cfa_input_field(:phone_number, t("general.phone_number"), type: "phone") %>
-      <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+        <%= f.cfa_input_field(:name, t("general.name")) %>
+        <%= f.cfa_input_field(:phone_number, t("general.phone_number"), type: "phone") %>
+        <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
 
-      <button class="button button--cta" type="submit">
-        <%=t("general.save") %>
-      </button>
+        <button class="button button--cta" type="submit">
+          <%=t("general.save") %>
+        </button>
 
-      <%= link_to t("general.cancel"), hub_users_path, class: "button" %>
+        <%= link_to t("general.cancel"), hub_users_path, class: "button" %>
 
-      <h2><%= t("general.role") %></h2>
+        <h2><%= t("general.role") %></h2>
 
-      <p id="current-role"><%= [user_role(@user), user_group(@user)].compact.join(", ") %></p>
+        <p id="current-role"><%= [user_role(@user), user_group(@user)].compact.join(", ") %></p>
 
-      <%= render('components/molecules/reveal', title: t(".reassign")) do %>
-        <ul class="list--bulleted">
-          <li><%= link_to t("general.admin"), edit_role_hub_user_path({user: {role: AdminRole::TYPE}}) %></li>
-          <li><%= link_to t("general.client_success"), edit_role_hub_user_path({user: {role: ClientSuccessRole::TYPE}}) %></li>
-          <li><%= link_to t("general.greeter"), edit_role_hub_user_path({user: {role: GreeterRole::TYPE}}) %></li>
-          <li><%= link_to t("general.coalition_lead"), edit_role_hub_user_path({user: {role: CoalitionLeadRole::TYPE}}) %></li>
-          <li><%= link_to t("general.organization_lead"), edit_role_hub_user_path({user: {role: OrganizationLeadRole::TYPE}}) %></li>
-          <li><%= link_to t("general.site_coordinator"), edit_role_hub_user_path({user: {role: SiteCoordinatorRole::TYPE}}) %></li>
-          <li><%= link_to t("general.team_member"), edit_role_hub_user_path({user: {role: TeamMemberRole::TYPE}}) %></li>
-        </ul>
+        <%= render('components/molecules/reveal', title: t(".reassign")) do %>
+          <ul class="list--bulleted">
+            <li><%= link_to t("general.admin"), edit_role_hub_user_path({user: {role: AdminRole::TYPE}}) %></li>
+            <li><%= link_to t("general.client_success"), edit_role_hub_user_path({user: {role: ClientSuccessRole::TYPE}}) %></li>
+            <li><%= link_to t("general.greeter"), edit_role_hub_user_path({user: {role: GreeterRole::TYPE}}) %></li>
+            <li><%= link_to t("general.coalition_lead"), edit_role_hub_user_path({user: {role: CoalitionLeadRole::TYPE}}) %></li>
+            <li><%= link_to t("general.organization_lead"), edit_role_hub_user_path({user: {role: OrganizationLeadRole::TYPE}}) %></li>
+            <li><%= link_to t("general.site_coordinator"), edit_role_hub_user_path({user: {role: SiteCoordinatorRole::TYPE}}) %></li>
+            <li><%= link_to t("general.team_member"), edit_role_hub_user_path({user: {role: TeamMemberRole::TYPE}}) %></li>
+          </ul>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 <% end %>
