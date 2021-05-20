@@ -4,7 +4,7 @@
    #
    # The tooltip renders the template with CSS rules that show all whitespace, so a newline character is enough;
    # no <br> etc. is needed.
-%>"<%= message_summary[:body] %>"
+%>"<%= message_summary[:body].truncate(80, separator: /\s/) %>"
 
 <%= message_summary[:author] %>
 <%= long_formatted_datetime(message_summary[:date]) %>

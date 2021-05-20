@@ -382,13 +382,13 @@ RSpec.describe Hub::ClientsController do
 
         context "when a client has a most recent communication" do
           let(:time) { DateTime.new(2021, 5, 18, 11, 32) }
-          let!(:incoming_text_message) { create :incoming_text_message, client: george_sr, body: "Hi I have a \"question\" about my taxes", created_at: DateTime.new(2021, 5, 18, 11, 32) }
+          let!(:incoming_text_message) { create :incoming_text_message, client: george_sr, body: "Hi I have a \"question\" about my taxes, but my question is very long, so you might not see all of it", created_at: DateTime.new(2021, 5, 18, 11, 32) }
 
           it "shows a preview of the most recent message in a tooltip on the client" do
             get :index
 
             message_summary = <<~BODY
-            "Hi I have a "question" about my taxes"
+            "Hi I have a "question" about my taxes, but my question is very long, so you..."
 
             George Sr.
             Tue 5/18/2021 at 4:32 AM PDT
