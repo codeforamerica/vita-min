@@ -1078,10 +1078,17 @@ RSpec.describe Hub::ClientsController do
 
     context "as a site coordinator user" do
       let!(:site) { create :site }
+      let!(:client_outside_of_site) { create(:client) }
       before {
         sign_in create(:site_coordinator_user, site: site)
         client.update(vita_partner: site)
       }
+
+      it "can't unlock a client that is not under their site" do
+        patch :unlock, params: { id: client_outside_of_site.id }
+
+        expect(response.status).to eq 403
+      end
 
       it "unlocks the client and redirects to the client profile page" do
         patch :unlock, params: params
@@ -1094,10 +1101,17 @@ RSpec.describe Hub::ClientsController do
 
     context "as a organization lead user" do
       let!(:organization) { create :organization, name: "Org" }
+      let!(:client_outside_of_org) { create(:client) }
       before {
         sign_in create(:organization_lead_user, organization: organization)
         client.update(vita_partner: organization)
       }
+
+      it "can't unlock a client that is not under their organization" do
+        patch :unlock, params: { id: client_outside_of_org.id }
+
+        expect(response.status).to eq 403
+      end
 
       it "unlocks the client and redirects to the client profile page" do
         patch :unlock, params: params
