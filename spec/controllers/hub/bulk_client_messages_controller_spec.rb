@@ -75,7 +75,7 @@ RSpec.describe Hub::BulkClientMessagesController do
       end
 
       context "message summaries" do
-        context "with message_summaries param" do
+        context "with temp_tool_tip param" do
           let(:fake_message_summaries) { {} }
 
           before do
@@ -83,13 +83,13 @@ RSpec.describe Hub::BulkClientMessagesController do
           end
 
           it "assigns message_summaries" do
-            get :show, params: params.merge({message_summaries: "on"})
+            get :show, params: params.merge({temp_tool_tip: "on"})
             expect(assigns(:message_summaries)).to eq(fake_message_summaries)
             expect(RecentMessageSummaryService).to have_received(:messages).with(assigns(:clients).map(&:id))
           end
         end
 
-        context "without message_summaries param" do
+        context "without temp_tool_tip param" do
           let(:fake_message_summaries) { {} }
 
           before do

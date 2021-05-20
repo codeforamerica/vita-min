@@ -108,7 +108,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       context "message summaries" do
-        context "with message_summaries param" do
+        context "with temp_tool_tip param" do
           let(:fake_message_summaries) { {} }
 
           before do
@@ -116,13 +116,13 @@ RSpec.describe Hub::AssignedClientsController do
           end
 
           it "assigns message_summaries" do
-            get :index, params: {message_summaries: "on"}
+            get :index, params: {temp_tool_tip: "on"}
             expect(assigns(:message_summaries)).to eq(fake_message_summaries)
             expect(RecentMessageSummaryService).to have_received(:messages).with([assigned_to_me.id])
           end
         end
 
-        context "without message_summaries param" do
+        context "without temp_tool_tip param" do
           let(:fake_message_summaries) { {} }
 
           before do

@@ -14,7 +14,7 @@ module Hub
       @missing_results_message = I18n.t("hub.tax_return_selections.help_text_missing_results", count: @inaccessible_clients_count) unless @inaccessible_clients_count == 0
 
       @clients = filtered_and_sorted_clients.page(params[:page]).load
-      if params[:message_summaries].present?
+      if params[:temp_tool_tip].present?
         @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       end
       @page_title = I18n.t("hub.tax_return_selections.page_title", count: @selection.clients.size, id: @selection.id)

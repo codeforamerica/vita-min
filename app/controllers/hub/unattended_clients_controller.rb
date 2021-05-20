@@ -16,7 +16,7 @@ module Hub
       @breach_date = day_param.business_days.ago
       @clients = filtered_and_sorted_clients.first_unanswered_incoming_interaction_communication_breaches(@breach_date)
       @clients = @clients.with_eager_loaded_associations.page(params[:page]).load
-      if params[:message_summaries].present?
+      if params[:temp_tool_tip].present?
         @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       end
       render "hub/clients/index"

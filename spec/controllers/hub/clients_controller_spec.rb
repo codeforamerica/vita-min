@@ -384,7 +384,7 @@ RSpec.describe Hub::ClientsController do
           let(:time) { DateTime.new(2021, 5, 18, 11, 32) }
           let!(:incoming_text_message) { create :incoming_text_message, client: george_sr, body: "Hi I have a \"question\" about my taxes, but my question is very long, so you might not see all of it", created_at: DateTime.new(2021, 5, 18, 11, 32) }
 
-          context "when message_summaries param is missing" do
+          context "when temp_tool_tip param is missing" do
             it "does not pass message summaries to the template" do
               get :index
               html = Nokogiri::HTML.parse(response.body)
@@ -393,9 +393,9 @@ RSpec.describe Hub::ClientsController do
             end
           end
 
-          context "when message_summaries param is present" do
+          context "when temp_tool_tip param is present" do
             it "shows a preview of the most recent message in a tooltip on the client" do
-              get :index, params: { message_summaries: "on" }
+              get :index, params: { temp_tool_tip: "on" }
 
               message_summary = <<~BODY
                 "Hi I have a "question" about my taxes, but my question is very long, so you..."
