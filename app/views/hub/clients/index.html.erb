@@ -99,7 +99,7 @@
               <% end %>
             </th>
             <td class="index-table__cell"><%= client.id %></td>
-            <td class="index-table__cell" data-position="right">
+            <td class="index-table__cell">
               <%= client.vita_partner&.name || t("general.none") %>
             </td>
             <td class="index-table__cell"><%= client.preferred_language ? t("general.language_options.#{client.preferred_language}") : t('general.NA') %></td>

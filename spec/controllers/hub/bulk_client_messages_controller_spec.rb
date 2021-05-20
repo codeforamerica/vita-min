@@ -96,7 +96,7 @@ RSpec.describe Hub::BulkClientMessagesController do
             allow(RecentMessageSummaryService).to receive(:messages).and_return(fake_message_summaries)
           end
 
-          it "doesn't assigns message_summaries" do
+          it "doesn't assign message_summaries" do
             get :show, params: params
             expect(assigns(:message_summaries)).to eq(nil)
           end

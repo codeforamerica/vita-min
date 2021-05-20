@@ -129,7 +129,7 @@ RSpec.describe Hub::AssignedClientsController do
             allow(RecentMessageSummaryService).to receive(:messages).and_return(fake_message_summaries)
           end
 
-          it "doesn't assigns message_summaries" do
+          it "doesn't assign message_summaries" do
             get :index
             expect(assigns(:message_summaries)).to eq(nil)
           end
