@@ -26,12 +26,14 @@ module Stimulus
     end
 
     def current_path(params = {})
-      polymorphic_path([:stimulus, controller_name], params)
+      path_for(params)
     end
 
     def next_path(params = {})
       next_step = form_navigation.next
-      polymorphic_path([:stimulus, next_step.controller_name], params) if next_step
+      return unless next_step
+
+      next_step.path_for(params)
     end
 
     def prev_path
@@ -79,6 +81,15 @@ module Stimulus
 
       def form_name
         form_key.gsub("/", "_")
+      end
+
+      def path_for(params)
+        path_helper_string = [
+                               "stimulus",
+                               controller_name,
+                               "path"
+                             ].join("_") # "stimulus_controller_name_path"
+        Rails.application.routes.url_helpers.send(path_helper_string, params)
       end
     end
   end
