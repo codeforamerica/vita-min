@@ -69,31 +69,16 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
       end
 
       context "message summaries" do
-        context "with temp_tool_tip param" do
-          let(:fake_message_summaries) { {} }
+        let(:fake_message_summaries) { {} }
 
-          before do
-            allow(RecentMessageSummaryService).to receive(:messages).and_return(fake_message_summaries)
-          end
-
-          it "assigns message_summaries" do
-            get :index, params: {temp_tool_tip: "on"}
-            expect(assigns(:message_summaries)).to eq(fake_message_summaries)
-            expect(RecentMessageSummaryService).to have_received(:messages).with(assigns(:clients).map(&:id))
-          end
+        before do
+          allow(RecentMessageSummaryService).to receive(:messages).and_return(fake_message_summaries)
         end
 
-        context "without temp_tool_tip param" do
-          let(:fake_message_summaries) { {} }
-
-          before do
-            allow(RecentMessageSummaryService).to receive(:messages).and_return(fake_message_summaries)
-          end
-
-          it "doesn't assign message_summaries" do
-            get :index
-            expect(assigns(:message_summaries)).to eq(nil)
-          end
+        it "assigns message_summaries" do
+          get :index
+          expect(assigns(:message_summaries)).to eq(fake_message_summaries)
+          expect(RecentMessageSummaryService).to have_received(:messages).with(assigns(:clients).map(&:id))
         end
       end
     end
