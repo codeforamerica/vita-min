@@ -13,10 +13,11 @@ executors:
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
-      - image: circleci/postgres:9.6.8-alpine-postgis
+      - image: circleci/postgres:11.11-postgis-ram
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle-test_test
+          POSTGRES_HOST_AUTH_METHOD: trust
 commands:
   install_system_dependencies:
     description: "Install system dependencies"
