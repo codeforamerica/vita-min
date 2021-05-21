@@ -384,30 +384,19 @@ RSpec.describe Hub::ClientsController do
           let(:time) { DateTime.new(2021, 5, 18, 11, 32) }
           let!(:incoming_text_message) { create :incoming_text_message, client: george_sr, body: "Hi I have a \"question\" about my taxes, but my question is very long, so you might not see all of it", created_at: DateTime.new(2021, 5, 18, 11, 32) }
 
-          context "when temp_tool_tip param is missing" do
-            it "does not pass message summaries to the template" do
-              get :index
-              html = Nokogiri::HTML.parse(response.body)
-              attrib = html.at_css("#client-#{george_sr.id}").at_css(".tooltip").attr("title")
-              expect(attrib.strip).to eq("")
-            end
-          end
+          it "shows a preview of the most recent message in a tooltip on the client" do
+            get :index
 
-          context "when temp_tool_tip param is present" do
-            it "shows a preview of the most recent message in a tooltip on the client" do
-              get :index, params: { temp_tool_tip: "on" }
+            message_summary = <<~BODY
+              "Hi I have a "question" about my taxes, but my question is very long, so you..."
 
-              message_summary = <<~BODY
-                "Hi I have a "question" about my taxes, but my question is very long, so you..."
+              George Sr.
+              Tue 5/18/2021 at 4:32 AM PDT
+            BODY
 
-                George Sr.
-                Tue 5/18/2021 at 4:32 AM PDT
-              BODY
-
-              html = Nokogiri::HTML.parse(response.body)
-              attrib = html.at_css("#client-#{george_sr.id}").at_css(".tooltip").attr("title")
-              expect(attrib.strip).to eq(message_summary.strip)
-            end
+            html = Nokogiri::HTML.parse(response.body)
+            attrib = html.at_css("#client-#{george_sr.id}").at_css(".tooltip").attr("title")
+            expect(attrib.strip).to eq(message_summary.strip)
           end
         end
       end
