@@ -1,5 +1,11 @@
 require "rails_helper"
 
+def fill_in_tagify(element, value)
+  find(element).click
+  find("#{element} .tagify__input").send_keys value
+  find("#{element} .tagify__input").send_keys :enter
+end
+
 RSpec.describe "searching, sorting, and filtering clients" do
   context "as an admin user" do
     let(:user) { create :admin_user }
@@ -47,12 +53,12 @@ RSpec.describe "searching, sorting, and filtering clients" do
         click_link "Clear"
 
         within ".filter-form" do
-          print page.html
-          find('#org-site-filter').set("Alan's Org")
-          #fill_in "Organization/site", with: "Alan's Org\n"
+          fill_in_tagify '.multi-select-vita-partner', "Alan's Org"
+
+          # binding.pry
 
           click_button "Filter results"
-          expect(page).to have_select("vita_partners", selected: "Alan's Org")
+          expect(page).to have_text("Alan's Org")
         end
 
         expect(page.all('.client-row').length).to eq 1
@@ -60,49 +66,49 @@ RSpec.describe "searching, sorting, and filtering clients" do
         click_link "Clear"
 
         within ".filter-form" do
-          select "Alan's Org", from: "vita_partners"
+          fill_in_tagify '.multi-select-vita-partner', "Alan's Org"
           select "2020", from: "year"
           select "Mona Mandarin", from: "assigned_user_id"
           select "Ready for prep", from: "status"
           fill_in "Search", with: "Zach"
 
           click_button "Filter results"
-          expect(page).to have_select("vita_partners", selected: "Alan's Org")
+          expect(page).to have_text("Alan's Org")
           expect(page).to have_select("year", selected: "2020")
           expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
           expect(page).to have_select("status", selected: "Ready for prep")
 
           # reload page and filters persist
           visit hub_clients_path
-          expect(page).to have_select("vita_partners", selected: "Alan's Org")
+          expect(page).to have_text("Alan's Org")
           expect(page).to have_select("year", selected: "2020")
           expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
           expect(page).to have_select("status", selected: "Ready for prep")
 
           visit hub_root_path
-          expect(page).to have_select("vita_partners", selected: nil)
-          expect(page).to have_select("year", selected: nil)
-          expect(page).to have_select("status", selected: nil)
+          expect(page).not_to have_text("Alan's Org")
+          expect(page).to have_select("year", selected: "")
+          expect(page).to have_select("status", selected: "")
 
-          select "Some Other Org", from: "vita_partners"
+          fill_in_tagify '.multi-select-vita-partner', "Some Other Org"
           select "2019", from: "year"
           select "Not filing", from: "status"
           fill_in "Search", with: "Bob"
           click_button "Filter results"
           # Filters persist after submitting with filters
-          expect(page).to have_select("vita_partners", selected: "Some Other Org")
+          expect(page).to have_text("Some Other Org")
           expect(page).to have_select("year", selected: "2019")
           expect(page).to have_select("status", selected: "Not filing")
 
           # Filters persist when visiting the page directly
           visit hub_root_path
-          expect(page).to have_select("vita_partners", selected: "Some Other Org")
+          expect(page).to have_text("Some Other Org")
           expect(page).to have_select("year", selected: "2019")
           expect(page).to have_select("status", selected: "Not filing")
 
           # Can navigate to another dashboard and see that pages persisted filters again.
           visit hub_clients_path
-          expect(page).to have_select("vita_partners", selected: "Alan's Org")
+          expect(page).to have_text("Alan's Org")
           expect(page).to have_select("year", selected: "2020")
           expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
           expect(page).to have_select("status", selected: "Ready for prep")
