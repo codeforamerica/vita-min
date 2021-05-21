@@ -195,6 +195,21 @@ describe Client do
     end
   end
 
+  describe ".delegated_order scope" do
+    context "when sorting first_unanswered_incoming_interaction_at most recent first" do
+      let!(:client_with_recent_message) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: 2.days.ago) }
+      let!(:client_with_old_message) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: 3.days.ago) }
+      let!(:client_with_null_value) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: nil) }
+
+      it "sorts nulls last" do
+        expect(Client.delegated_order("first_unanswered_incoming_interaction_at", "desc")).to(
+          eq([client_with_recent_message, client_with_old_message, client_with_null_value])
+        )
+      end
+    end
+  end
+
+
   describe ".greetable scope" do
     let!(:greetable_client) { create(:client, tax_returns: [create(:tax_return, status: :intake_in_progress)]) }
     let!(:ungreetable_client) { create(:client, tax_returns: [create(:tax_return, status: :prep_preparing)]) }
@@ -715,4 +730,5 @@ describe Client do
       end
     end
   end
+
 end
