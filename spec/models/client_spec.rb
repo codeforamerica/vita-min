@@ -196,7 +196,7 @@ describe Client do
   end
 
   describe ".delegated_order scope" do
-    context "when sorting first_unanswered_incoming_interaction_at most recent first" do
+    context "when sorting first_unanswered_incoming_interaction_at" do
       let!(:client_with_recent_message) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: 2.days.ago) }
       let!(:client_with_old_message) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: 3.days.ago) }
       let!(:client_with_null_value) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: nil) }
@@ -213,6 +213,28 @@ describe Client do
         it "sorts nulls last and oldest messages first" do
           expect(Client.delegated_order("first_unanswered_incoming_interaction_at", "asc")).to(
             eq([client_with_old_message, client_with_recent_message, client_with_null_value])
+          )
+        end
+      end
+    end
+
+    context "when sorting last_outgoing_communication_at" do
+      let!(:client_with_recent_communication) { create(:client_with_intake_and_return, last_outgoing_communication_at: 2.days.ago) }
+      let!(:client_with_old_communication) { create(:client_with_intake_and_return, last_outgoing_communication_at: 3.days.ago) }
+      let!(:client_with_null_value) { create(:client_with_intake_and_return, last_outgoing_communication_at: nil) }
+
+      context "when desc" do
+        it "sorts nulls last and most recent messages first" do
+          expect(Client.delegated_order("last_outgoing_communication_at", "desc")).to(
+            eq([client_with_recent_communication, client_with_old_communication, client_with_null_value])
+          )
+        end
+      end
+
+      context "when asc" do
+        it "sorts nulls last and oldest messages first" do
+          expect(Client.delegated_order("last_outgoing_communication_at", "asc")).to(
+            eq([client_with_old_communication, client_with_recent_communication, client_with_null_value])
           )
         end
       end

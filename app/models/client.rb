@@ -115,7 +115,10 @@ class Client < ApplicationRecord
       order = {column => direction}
       if column == "first_unanswered_incoming_interaction_at" && direction == "desc"
         order = "first_unanswered_incoming_interaction_at DESC NULLS LAST"
+      elsif column == "last_outgoing_communication_at" && direction == "desc"
+        order = "last_outgoing_communication_at DESC NULLS LAST"
       end
+
       includes(:intake).order(order).distinct
     end
   end
