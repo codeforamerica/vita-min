@@ -201,10 +201,20 @@ describe Client do
       let!(:client_with_old_message) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: 3.days.ago) }
       let!(:client_with_null_value) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: nil) }
 
-      it "sorts nulls last" do
-        expect(Client.delegated_order("first_unanswered_incoming_interaction_at", "desc")).to(
-          eq([client_with_recent_message, client_with_old_message, client_with_null_value])
-        )
+      context "when desc" do
+        it "sorts nulls last and most recent messages first" do
+          expect(Client.delegated_order("first_unanswered_incoming_interaction_at", "desc")).to(
+            eq([client_with_recent_message, client_with_old_message, client_with_null_value])
+          )
+        end
+      end
+
+      context "when asc" do
+        it "sorts nulls last and oldest messages first" do
+          expect(Client.delegated_order("first_unanswered_incoming_interaction_at", "asc")).to(
+            eq([client_with_old_message, client_with_recent_message, client_with_null_value])
+          )
+        end
       end
     end
   end
