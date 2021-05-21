@@ -19,9 +19,9 @@ module ClientSortable
     clients = clients.where(intake: Intake.where(had_unemployment_income: "yes")) if @filters[:unemployment_income].present?
     clients = clients.where(vita_partner: VitaPartner.allows_greeters) if @filters[:greetable].present?
 
-    if @filters[:vita_partner_id].present?
-      id = @filters[:vita_partner_id].to_i
-      clients = clients.where('vita_partners.id = :id OR vita_partners.parent_organization_id = :id', id: id)
+    if @filters[:vita_partners].present?
+      ids = JSON.parse(@filters[:vita_partners]).map { |vita_partner| vita_partner["id"] }
+      clients = clients.where('vita_partners.id IN (:id) OR vita_partners.parent_organization_id IN (:id)', id: ids)
     end
     clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?
     clients
@@ -63,7 +63,7 @@ module ClientSortable
       flagged: source[:flagged],
       unemployment_income: source[:unemployment_income],
       year: source[:year],
-      vita_partner_id: source[:vita_partner_id]&.to_s,
+      vita_partners: source[:vita_partners]&.to_s,
       assigned_user_id: source[:assigned_user_id]&.to_s,
       language: source[:language],
       service_type: source[:service_type],
@@ -72,7 +72,7 @@ module ClientSortable
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partner_id, :assigned_user_id, :language, :service_type, :greetable]
+    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable]
   end
 
   def cookie_filters

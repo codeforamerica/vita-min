@@ -29,16 +29,8 @@
     <% if @vita_partners.size > 1 %>
       <div class="form-group">
         <label for="org-site-filter" class="form-question"><%= t("hub.clients.index.organization") %></label>
-        <div class="select">
-          <select name="vita_partner_id" class="select__element" id="org-site-filter">
-            <option value></option>
-            <% @vita_partners.organizations.each do |vita_partner| %>
-              <option value="<%= vita_partner.id %>" <%= @filters[:vita_partner_id] == vita_partner.id.to_s && "selected" %>><%= vita_partner.name %></option>
-              <% vita_partner.child_sites.each do |site| %>
-                <option value="<%= site.id %>" <%= @filters[:vita_partner_id] == site.id.to_s && "selected" %>>&emsp;<%= site.name %></option>
-              <% end %>
-            <% end %>
-          </select>
+        <div>
+          <%= text_field_tag("vita_partners", @filters[:vita_partners], id: "org-site-filter", class: "multi-select-vita-partner") %>
         </div>
       </div>
     <% end %>
@@ -119,4 +111,10 @@
       <%= link_to t("general.add_client"), new_hub_client_path, class: "button" %>
     </div>
   </div>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+    window.taggableItems = <%= @vita_partners.to_json(only: [:name, :id]).to_s.html_safe %>;
+  </script>
 <% end %>

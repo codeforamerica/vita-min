@@ -41,7 +41,7 @@ RSpec.describe Hub::ClientsController do
     let(:vita_partner_id) { user.role.vita_partner_id }
     let(:params) do
       {
-          hub_create_client_form: {
+        hub_create_client_form: {
           primary_first_name: "New",
           primary_last_name: "Name",
           preferred_name: "Newly",
@@ -76,26 +76,26 @@ RSpec.describe Hub::ClientsController do
           service_type: "drop_off",
           vita_partner_id: vita_partner_id,
           tax_returns_attributes: {
-              "0": {
-                  year: "2020",
-                  is_hsa: true,
-                  certification_level: "advanced"
-              },
-              "1": {
-                  year: "2019",
-                  is_hsa: false,
-                  certification_level: "basic"
-              },
-              "2": {
-                  year: "2018",
-                  is_hsa: false,
-                  certification_level: "basic"
-              },
-              "3": {
-                  year: "2017",
-                  is_hsa: false,
-                  certification_level: "advanced"
-              },
+            "0": {
+              year: "2020",
+              is_hsa: true,
+              certification_level: "advanced"
+            },
+            "1": {
+              year: "2019",
+              is_hsa: false,
+              certification_level: "basic"
+            },
+            "2": {
+              year: "2018",
+              is_hsa: false,
+              certification_level: "basic"
+            },
+            "3": {
+              year: "2017",
+              is_hsa: false,
+              certification_level: "advanced"
+            },
           }
         },
       }
@@ -120,7 +120,7 @@ RSpec.describe Hub::ClientsController do
       context "with invalid params" do
         let(:params) do
           {
-              hub_create_client_form: {
+            hub_create_client_form: {
               primary_first_name: "",
             }
           }
@@ -613,6 +613,21 @@ RSpec.describe Hub::ClientsController do
           end
         end
 
+        context "filtering by organization/site" do
+          let(:site) { create :site, parent_organization: organization }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return)], intake: (create :intake) }
+          let!(:included_site_client) { create :client, vita_partner: site, tax_returns: [(create :tax_return)], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: create(:organization), tax_returns: [(create :tax_return)], intake: (create :intake) }
+
+          it "includes clients who are assigned to those vita partners" do
+            get :index, params: { vita_partners: [{ id: organization.id, name: organization.name, value: organization.id }, { id: site.id, name: site.name, value: site.id }].to_json }
+
+            expect(assigns(:clients)).to include included_client
+            expect(assigns(:clients)).to include included_site_client
+            expect(assigns(:clients)).not_to include excluded_client
+          end
+        end
+
         context "filtering by needs response" do
           let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return)] }
           it "filters in" do
@@ -792,9 +807,9 @@ RSpec.describe Hub::ClientsController do
           timezone: "America/Chicago",
           interview_timing_preference: "Tomorrow!",
           dependents_attributes: {
-              "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
-              "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
-              "2" => { id: intake.dependents.last.id, _destroy: "1" }
+            "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
+            "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
+            "2" => { id: intake.dependents.last.id, _destroy: "1" }
           }
         }
       }
@@ -845,10 +860,10 @@ RSpec.describe Hub::ClientsController do
       context "with invalid dependent params" do
         let(:params) {
           {
-              id: client.id,
-              hub_update_client_form: {
-                  dependents_attributes: { 0 => {"first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: ""}},
-              }
+            id: client.id,
+            hub_update_client_form: {
+              dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
+            }
           }
         }
 

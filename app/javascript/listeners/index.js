@@ -7,7 +7,7 @@ import { initMetricsTableSortAndFilter } from "../lib/metrics_table_sort";
 import { documentSubmittingIndicator } from "../lib/document_submitting_indicator";
 import { initStateRoutingsListeners } from "../lib/state_routings";
 import tooltip from "../components/tooltip";
-import { initTaggableNote } from '../lib/note_tagging';
+import { initTaggableNote, initMultiSelectVitaPartner } from '../lib/tagging';
 import { initBulkAction } from "../lib/bulk_action";
 
 const Listeners =  (function(){
@@ -35,7 +35,10 @@ const Listeners =  (function(){
                     initStateRoutingsListeners();
                 }
                 if (document.querySelector('.taggable-note')) {
-                  initTaggableNote();
+                    initTaggableNote();
+                }
+                if (document.querySelector('.multi-select-vita-partner')) {
+                    initMultiSelectVitaPartner();
                 }
                 initMetricsTableSortAndFilter();
                 // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally
