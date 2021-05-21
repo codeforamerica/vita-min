@@ -97,6 +97,13 @@ It expects to be the primary content of the given page (full width).
       font-weight: $font-weight-normal;
       font-size: $font-size-15;
     }
+
+    &--tooltip-has-text {
+      .tooltip__body {
+        width: 20rem;
+        white-space: pre-wrap;
+      }
+    }
   }
 
   &__row-header--sticky {
