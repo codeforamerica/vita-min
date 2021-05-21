@@ -48,8 +48,8 @@
           <th scope="col" class="index-table__header">
             <%= render "shared/column_sort_link", title: t("general.language"), column_name: "locale" %>
           </th>
-          <th scope="col" class="index-table__header tooltip" data-position="bottom" title="<%= t("general.unemployment_income") %>">
-            <%= t("general.ui") %>
+          <th scope="col" class="index-table__header">
+            <span class="tooltip" data-position="bottom" title="<%= t("general.unemployment_income") %>"><%= t("general.ui") %></span>
           </th>
           <th scope="col" class="index-table__header">
             <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
@@ -84,7 +84,7 @@
             <td class="index-table__cell client-attribute__needs-response">
               <%= render "shared/urgent_icon", client: client %>
             </td>
-            <th scope="row" class="index-table__row-header index-table__row-header--sticky client-attribute__name">
+            <th scope="row" class="index-table__row-header index-table__row-header--sticky index-table__header--tooltip-z-positioning client-attribute__name">
               <%= tag.span(
                       class: "tooltip",
                       data: {position: "right"},

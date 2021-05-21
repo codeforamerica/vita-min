@@ -28,13 +28,12 @@ It expects to be the primary content of the given page (full width).
   &__head {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
-
-    .tooltip {
-      display: table-cell;
-    }
   }
 
   &__header {
+    $header-row-z: 1;
+    $header-row-higher-z: 2;
+
     padding: 0.8rem $s25/2;
     font-weight: $font-weight-normal;
     white-space: nowrap;
@@ -43,7 +42,7 @@ It expects to be the primary content of the given page (full width).
       position: sticky;
       left: 0;
       background-color: inherit;
-      z-index: 1;
+      z-index: $header-row-z;
     }
 
     &--sticky:after,
@@ -62,6 +61,12 @@ It expects to be the primary content of the given page (full width).
     &--sticky:after {
       bottom: -1px;
       border-bottom: 1px solid black;
+    }
+
+    &--tooltip-z-positioning:hover,
+    &--tooltip-z-positioning:focus-within  {
+      // When hovering in this row, ensure a tooltip within this row rises above other rows.
+      z-index: $header-row-higher-z;
     }
 
     .sortable-column-link {
