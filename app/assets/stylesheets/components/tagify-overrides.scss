@@ -31,6 +31,18 @@
   }
 }
 
+.multi-select-dropdown{
+  width: max-content !important;
+
+  .tagify__dropdown__wrapper{
+    padding: .3em .5em;
+  }
+
+  .tagify__dropdown__item{
+    padding: 0em;
+  }
+}
+
 // Dynamically inserted into DOM and not within <tags>  element
 .tagify__dropdown__wrapper {
   border-color: $color-grey-light !important;

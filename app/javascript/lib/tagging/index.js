@@ -33,7 +33,7 @@ export function initMultiSelectVitaPartner() {
     const input = document.querySelector('.multi-select-vita-partner');
 
     const whitelist = window.taggableItems.map((i) => {
-        if (!i.value) { i.value = i.id }; // whitelist items MUST have a value property
+        if (!i.value) { i.value = i.id } // whitelist items MUST have a value property
         return i;
     });
 
@@ -43,11 +43,13 @@ export function initMultiSelectVitaPartner() {
         whitelist: whitelist,
         enforceWhitelist: true,
         dropdown : {
+            classname: "multi-select-dropdown",
             enabled: 0,
             mapValueTo: 'name', // <-- defines which attr is used to display dropdown items
             searchKeys: ['name'], // <-- defines the attr used to search for in dropdown
             highlightFirst: true,  // <-- automatically highlights first suggestion item in the dropdown
             closeOnSelect: false, // <-- keep dropdown open after selection
+            maxItems: whitelist.length, // <-- render all available items for the dropdown
         }
     });
 }
