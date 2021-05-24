@@ -1437,6 +1437,25 @@ en:
         header: Frequently asked questions
         subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
         title: FAQ
+      ctc_faq:
+        eligibility:
+          header: Eligibility for the the Child Tax Credit
+          claim:
+            q: Who is eligible to claim the Child Tax Credit?
+            a: Joint filers making up to $150,000, single head of households making up to $112,500, and other single filers making up to $75,000 qualify for the full advanced periodic payment of the Child Tax Credit.
+          dependents:
+            q: Does my child or dependent qualify for the Child Tax Credit?
+            a_html: >-
+              <p>Your child qualifies your family for the Child Tax Credit if they:</p>
+              <ul class="list--bulleted">
+                <li>Are your son, daughter, grandchild, stepchild or adopted child; younger sibling, step-sibling, half-sibling, or their descendent; or a foster child placed with you by a government agency.</li>
+                <li>Were under 17 at the end of 2020.</li>
+                <li>Lived with you, in the U.S., for more than 6 months of the year in 2020.</li>
+                <li>Have a valid Social Security Number.</li>
+              </ul>
+        title: CTC FAQ
+        header: Child Tax Credit - Frequently Asked Questions
+        subheader: The American Rescue Plan, signed into law on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $250 per month per child under age 6, and up to $300 per month per child ages 6 to 17. You can receive payments of up to $300 per child every month starting in July 2021.
       full_service_home:
         header: Your money is waiting!
         subheader1: Does your family make less than $57,000? You might qualify for a refund of up to $6,728.

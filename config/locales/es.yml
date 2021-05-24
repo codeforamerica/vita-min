@@ -1367,6 +1367,25 @@ es:
         header: Preguntas frecuentes
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
         title: Preguntas Frecuentes
+      ctc_faq:
+        eligibility:
+          header: Elegibilidad para el Crédito Tributario por Hijos
+          claim:
+            q: ¿Quién es elegible para reclamar el Crédito Tributario por Hijos?
+            a: Contribuyentes que declaran sus impuestos juntos y que ganan $150,000 o menos, cabeza de familia solteros que ganan hasta $112,500, y otros contribuyentes únicos que ganan hasta $75,000, califican para el pago periódico anticipado completo del Crédito Tributario por Hijos.
+          dependents:
+            q: ¿Califica mi hijo o dependiente  para el Crédito Tributario por Hijos?
+            a_html: >-
+              <p>Su hijo califica para el Crédito Tributario por Hijos si:</p>
+              <ul class="list--bulleted">
+                <li>Es su hijo, hija, nieto, hijastro o hijo adoptivo; hermano menor, hermanastro, medio hermano o uno de sus descendientes; o un niño de crianza que una agencia gubernamental le asignó.</li>
+                <li>Tenían menos de 17 años a finales de 2020.</li>
+                <li>Vivió con usted, en los EE. UU., durante más de 6 meses en el año 2020.</li>
+                <li>Tiene un número de seguro social válido.</li>
+              </ul>
+        title: 💥 CTC FAQ
+        header: 💥Child Tax Credit - Frequently Asked Questions
+        subheader: 💥 The American Rescue Plan, signed into law on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $250 per month per child under age 6, and up to $300 per month per child ages 6 to 17. You can receive payments of up to $300 per child every month starting in July 2021.
       full_service_home:
         header: "¡Su dinero está esperandote!"
         subheader1: "¿Ganan su familia menos que $57,000? Puedan calificar por un reembolso hasta $6,728"

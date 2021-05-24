@@ -1,0 +1,35 @@
+<% content_for :page_title, t("views.public_pages.ctc_faq.title") %>
+<% content_for :body_class, "ctc-faq" %>
+
+<%= render("shared/breadcrumb")%>
+
+<main role="main">
+  <section class="slab slab--white slab--half-padded">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <h1 class="h2"><%=t("views.public_pages.ctc_faq.header") %></h1>
+        <p><%=t("views.public_pages.ctc_faq.subheader") %></p>
+        <h2 class="h3 spacing-above-35">
+          <%=t("views.public_pages.ctc_faq.eligibility.header") %>
+        </h2>
+        <div class="accordion">
+          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1">
+            <h3><%=t("views.public_pages.ctc_faq.eligibility.claim.q") %></h3>
+          </a>
+          <div class="accordion__content" id="a1">
+            <p><%=t("views.public_pages.ctc_faq.eligibility.claim.a") %></p>
+          </div>
+        </div>
+        <div class="accordion">
+          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1">
+            <h3><%=t("views.public_pages.ctc_faq.eligibility.dependents.q") %></h3>
+          </a>
+          <div class="accordion__content" id="a1">
+            <p><%=t("views.public_pages.ctc_faq.eligibility.dependents.a_html") %></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
