@@ -1368,6 +1368,9 @@ es:
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
         title: Preguntas Frecuentes
       ctc_faq:
+        title: 💥 CTC FAQ
+        header: 💥Child Tax Credit - Frequently Asked Questions
+        subheader: 💥 The American Rescue Plan, signed into law on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $250 per month per child under age 6, and up to $300 per month per child ages 6 to 17. You can receive payments of up to $300 per child every month starting in July 2021.
         eligibility:
           header: Elegibilidad para el Crédito Tributario por Hijos
           claim:
@@ -1383,9 +1386,44 @@ es:
                 <li>Vivió con usted, en los EE. UU., durante más de 6 meses en el año 2020.</li>
                 <li>Tiene un número de seguro social válido.</li>
               </ul>
-        title: 💥 CTC FAQ
-        header: 💥Child Tax Credit - Frequently Asked Questions
-        subheader: 💥 The American Rescue Plan, signed into law on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $250 per month per child under age 6, and up to $300 per month per child ages 6 to 17. You can receive payments of up to $300 per child every month starting in July 2021.
+        questions_about_filing:
+          header: 💥 Questions about your tax return
+        questions_before_filing:
+          header: "Tengo una pregunta antes de declarar."
+          havent_filed:
+            q: "¿Qué pasa si aun no he declarado mis impuestos?"
+            a: "Si no ha declarado sus impuestos este año o el año pasado, no recibirá automáticamente el Crédito Tributario por Hijos. Cualquiera que sea elegible para el Crédito Tributario por Hijos puede declarar sus impuestos. No es necesario tener un ingreso mínimo para declarar sus impuestos y recibir el Crédito Tributario por Hijos."
+          why_file:
+            q: "¿Por qué debería declarar mis impuestos por completo?"
+            a_html: >-
+              <p>Si declara sus impuestos por completo, puede obtener acceso a beneficios en efectivo además del Crédito Tributario por Hijos explicado anteriormente. Para ver un estimado de su Crédito Tributario por Ingreso del Trabajo federal, puede usar la Calculadora del EITC.</p>
+              <p>Pero eso no es todo: 30 estados, como California, Carolina del Sur, Vermont, Maryland entre otros, proveen dinero adicional. Si no ha recibido los tres pagos de estímulo, puede reclamar el dinero que le falta en su declaración de impuestos. Si no declara sus impuestos por completo, le resultará más difícil reclamar estos beneficios en el futuro.</p>
+              <p>Por ejemplo, el Crédito Tributario por Hijos, el Crédito Tributario por Ingresos del Trabajo, los créditos estatales y los pagos de estímulo combinados, proporcionarán más de $8,000 a un padre soltero que vive en California.</p>
+          no_docs:
+            q: "¿Qué pasa si no tengo mis documentos fiscales?"
+            a_html: >-
+              <p>Para declarar sus impuestos por completo, necesitará documentos que demuestren prueba de ingreso, como un W-2 o 1099, que puede recibir de su empleador. Si no recibió sus documentos fiscales, puede solicitarlos a través de la herramienta Obtener transcripción del IRS.</p>
+              <p>Si no puede obtener  sus documentos fiscales y necesita dinero del Crédito Tributario por Hijos para su familia, puede usar el <a href="%{non_filers_link}">enlace de no contribuyentes</a>. Si lo hace, podría perder el apoyo en efectivo adicional.</p>
+          benefits:
+            q: "¿Qué pasa si recibí dinero de beneficios (como SSI, SNAP, TANF o WIC)?"
+            a_html: >-
+              <p>Si su único ingreso fue de programas de beneficios, le recomendamos que complete el formulario de Crédito Tributario por Hijos para recibir beneficios en efectivo para su familia.</p>
+              <p>Si obtuvo ingresos de un programa de beneficios y también algunos ingresos del trabajo, le recomendamos que declare sus impuestos por completo para recibir los beneficios adicionales para los que puede calificar.</p>
+        questions_after_filing:
+          header: "Tengo preguntas sobre my declaración de impuestos"
+          got_ctc:
+            q: "Ya declaré mis impuestos, ¿Cómo sé si obtuve el Crédito Tributario por Hijos?"
+            a: "Puede usar el Portal de actualización de Crédito Tributario por Hijos para ver su información más reciente. El portal mostrará su elegibilidad y los pagos que se le hayan realizado."
+          change_info:
+            q: "Ya declaré mis impuestos. ¿Cómo cambio parte de mi información?"
+            a_html: >-
+              <p>Puede agregar o eliminar hijos calificados de su declaración, informar cualquier cambio importante en los ingresos u optar por no recibir pagos mensuales del Crédito Tributario por Hijos mediante el portal CTC Update.</p>
+              <p>Si ya envió su información, no puede cambiar su cuenta bancaria ni los detalles de pago. Si ya no tiene acceso a la cuenta bancaria que el IRS usó para depositar su reembolso de 2020 o cheque de estímulo, le recomendamos que opte por no recibir pagos mensuales utilizando el <a href="%{ctc_update_portal_link}">Portal de actualización de CTC</a>. Podrá reclamar cualquier pago del Crédito Tributario por Hijos que falte cuando declare sus impuestos de 2021.</p>
+          payment_status:
+            q: "Ya declaré mis impuestos. ¿Cómo verifico el estado de mi pago?"
+            a_html: >-
+              <p>Si ya ha declarado sus impuestos por completo, puede verificar el estado de su reembolso con la herramienta ¿Dónde está mi reembolso del IRS?</p>
+              <p>Si ya envió una declaración simplificada de Crédito Tributario por Hijos, puede verificar el estado de su pago.</p>
       full_service_home:
         header: "¡Su dinero está esperandote!"
         subheader1: "¿Ganan su familia menos que $57,000? Puedan calificar por un reembolso hasta $6,728"
