@@ -1,5 +1,5 @@
 .filter-form {
-  .form-group{
+  .form-group {
     margin-bottom: $s5;
   }
 
@@ -7,15 +7,23 @@
     margin: 0;
     margin-bottom: $s5;
   }
+
+  .select {
+    display: block;
+  }
+
   select#status-filter {
     width: 215px;
   }
+
   select#year {
     width: 8rem;
   }
+
   select#assignee-filter {
     width: 15rem;
   }
+
   input {
     max-width: 275px;
   }
@@ -29,6 +37,7 @@
   .filters-wrapper {
     display: inline-flex;
     align-items: flex-end;
+
     .form-group {
       margin-right: 1rem;
     }
@@ -44,6 +53,7 @@
     display: flex;
     margin-top: .5rem;
     margin-bottom: 2rem;
+
     > * {
       margin-right: 2rem;
     }

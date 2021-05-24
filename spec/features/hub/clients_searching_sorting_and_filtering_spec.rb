@@ -55,8 +55,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           fill_in_tagify '.multi-select-vita-partner', "Alan's Org"
 
-          # binding.pry
-
           click_button "Filter results"
           expect(page).to have_text("Alan's Org")
         end
