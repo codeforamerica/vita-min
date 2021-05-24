@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Creating and reviewing bulk actions", active_job: true do
+RSpec.describe "Selecting clients for bulk actions", active_job: true do
   let(:user) { create :admin_user, name: "Admin the First" }
   let!(:new_user) { create :admin_user, name: "Admin the Second", role: create(:organization_lead_role, organization: old_org)}
   let!(:old_org) { create :organization, name: "Onion Organization" }

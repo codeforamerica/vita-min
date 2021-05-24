@@ -79,6 +79,19 @@
         </thead>
 
         <tbody class="index-table__body clients-table">
+        <tr>
+          <td colspan="13" class="" style="text-align: center;">
+            <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder) do |form| %>
+              <% @filtering_parms&.each do |key, val| %>
+                <%= form.hidden_field(key, value: val) %>
+              <% end %>
+              <%= t(".take_action_on_all", count: @clients.total_entries) %>
+              <button type="submit" name="create_tax_return_selection[action_type]" value="filtered-clients" class="button--link">
+                <%= t(".take_action_on_all", count: @clients.total_entries) %>
+              </button>
+            <% end %>
+          </td>
+        </tr>
         <% @clients.each do |client| %>
           <tr id="client-<%= client.id %>" class="index-table__row client-row">
             <td class="index-table__cell client-attribute__needs-response">

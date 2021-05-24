@@ -1,0 +1,38 @@
+require "rails_helper"
+
+RSpec.describe "Filtering clients for bulk actions", active_job: true do
+  let!(:user) { create :admin_user }
+  let(:selected_org) { create :organization, name: "Orange Organization" }
+  let(:unselected_org) { create :organization, name: "Rooster Brew" }
+  let!(:all_selected_clients) { create_list :client_with_intake_and_return, 30, vita_partner: selected_org }
+  let!(:unselected_client) { create :client_with_intake_and_return, status: "intake_reviewing", vita_partner: unselected_org }
+
+  before do
+    create :tax_return, client: Client.where(vita_partner: selected_org).first, year: 2020
+  end
+
+  scenario "take action on all filtered clients" do
+    login_as user
+
+    visit hub_clients_path
+
+    select "Orange Organization", from: "Organization/site"
+    click_on "Filter results"
+
+    expect(page).to have_text "Displaying clients 1 - 25 of 30"
+    expect(page).to have_text "Take action on all 31 returns in this view" # tmp
+    click_on "Take action on all 31 returns in this view"
+
+    expect(page).to have_text "Choose your bulk action"
+
+    click_on "Change organization"
+
+    expect(page).to have_text "You’ve selected Change Organization for 30 clients"
+    select "Rooster Brew", from: "Organization/site"
+
+    click_on "Submit"
+
+    expect(page).to have_text "Successful Bulk Client Organization Update"
+    expect(page).to have_text "You successfully moved 30 clients to Rooster Brew."
+  end
+end
