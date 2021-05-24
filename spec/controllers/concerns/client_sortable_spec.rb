@@ -101,7 +101,7 @@ RSpec.describe ClientSortable, type: :controller do
 
       it "creates a query for the search and scopes to vita partner" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with('vita_partners.id IN (:id) OR vita_partners.parent_organization_id IN (:id)', id: [vita_partner.id])
+        expect(clients_query_double).to have_received(:where).with('vita_partners.id IN (:id)', id: [vita_partner.id])
       end
 
       context "more than one vita partner is selected" do
@@ -112,7 +112,7 @@ RSpec.describe ClientSortable, type: :controller do
 
         it "creates a query for the search and scopes to all selected vita partners" do
           expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-          expect(clients_query_double).to have_received(:where).with('vita_partners.id IN (:id) OR vita_partners.parent_organization_id IN (:id)', id: [vita_partner.id, site.id])
+          expect(clients_query_double).to have_received(:where).with('vita_partners.id IN (:id)', id: [vita_partner.id, site.id])
         end
       end
     end
