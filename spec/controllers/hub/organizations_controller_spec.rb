@@ -101,10 +101,8 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         render_views
         it "shows my coalition and child organizations but no link to add or edit orgs" do
           get :index
-
           expect(response).to be_ok
-          expect(assigns(:coalitions)).to match_array [coalition]
-          expect(assigns(:organizations)).to match_array [organization, second_organization]
+          expect(assigns(:organizations_by_coalition)).to match_array [[coalition, [organization, second_organization]]]
           expect(response.body).to include hub_organization_path(id: organization)
           expect(response.body).not_to include new_hub_organization_path
           expect(response.body).not_to include edit_hub_organization_path(id: organization)
@@ -117,10 +115,13 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         render_views
         it "shows all coalitions and organizations, with a link to add a new org" do
           get :index
-
+          result = [
+            [coalition, [organization, second_organization]],
+            [external_coalition, [external_organization]],
+            [nil, [VitaPartner.client_support_org]]
+          ]
           expect(response).to be_ok
-          expect(assigns(:coalitions)).to match_array [coalition, external_coalition]
-          expect(assigns(:organizations)).to match_array VitaPartner.organizations.all
+          expect(assigns(:organizations_by_coalition)).to match_array result
           expect(response.body).to include new_hub_organization_path
         end
       end

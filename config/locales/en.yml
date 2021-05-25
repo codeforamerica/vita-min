@@ -426,10 +426,9 @@ en:
           other: "%{count} sites"
       index:
         independent_organizations:
-          one: ""
-          other: "Independent Organizations"
+          one: " "
+          other: Independent Organizations
         no_organizations: "No organizations"
-        organizations_by_coalition: "Organizations grouped by coalition:"
       form:
         allows_greeters: Allows Greeters
         active_clients: active clients
@@ -746,6 +745,7 @@ en:
     back: Go back
     cancel: Cancel
     call: Call
+    capacity: Capacity
     capacity_limit: Capacity limit
     changes_saved: Changes saved
     chat_with_us: Chat with us

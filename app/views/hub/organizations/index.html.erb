@@ -11,18 +11,13 @@
 
     <div class="grid">
       <div class="grid__item width-one-half">
-        <p><%= t(".organizations_by_coalition") %></p>
-
         <% @organizations_by_coalition.each do |coalition, organizations| %>
-            <div class="grid-flex space-between center-aligned spacing-above-10">
+          <div class="grid-flex space-between center-aligned spacing-above-10">
+            <h2 class="spacing-below-0"><%= coalition&.name || (t(".independent_organizations", count: @organizations_by_coalition.length)) %></h2>
+            <div class="help-text"><%= t("general.capacity") %>></div>
+          </div>
 
-              <h2 class="spacing-below-0"><%= coalition&.name || t('.independent_organizations') %></h2>
-              <% unless organizations.length.zero? %>
-                <div class="help-text">Capacity</div>
-              <% end %>
-            </div>
-
-            <div class="organization-list spacing-below-25">
+          <div class="organization-list spacing-below-25">
               <ul>
                 <% if organizations.present? %>
                   <% organizations.each do |organization| %>
@@ -33,7 +28,7 @@
                 <% end %>
               </ul>
             </div>
-          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
