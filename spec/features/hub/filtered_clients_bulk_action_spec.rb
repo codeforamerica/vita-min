@@ -20,7 +20,6 @@ RSpec.describe "Filtering clients for bulk actions", active_job: true do
     click_on "Filter results"
 
     expect(page).to have_text "Displaying clients 1 - 25 of 30"
-    expect(page).to have_text "Take action on all 31 returns in this view" # tmp
     click_on "Take action on all 31 returns in this view"
 
     expect(page).to have_text "Choose your bulk action"

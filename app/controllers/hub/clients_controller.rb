@@ -7,6 +7,7 @@ module Hub
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:new, :create, :index]
     before_action :load_users, only: [:index]
+    helper_method :search_and_sort_params
     load_and_authorize_resource except: [:new, :create]
     layout "admin"
 
@@ -14,7 +15,7 @@ module Hub
       @page_title = I18n.t("hub.clients.index.title")
       @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
-      @tax_return_count = TaxReturn.where(client: filtered_and_sorted_clients).count
+      @tax_return_count = TaxReturn.where(client: filtered_and_sorted_clients.per_page(100_000_000)).count
     end
 
     def new

@@ -82,12 +82,12 @@
         <tr>
           <td colspan="13" class="" style="text-align: center;">
             <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder) do |form| %>
-              <% @filtering_parms&.each do |key, val| %>
+              <% search_and_sort_params.each do |key, val| %>
                 <%= form.hidden_field(key, value: val) %>
               <% end %>
-              <%= t(".take_action_on_all", count: @clients.total_entries) %>
+              <%= t(".take_action_on_all", count: @tax_return_count) %>
               <button type="submit" name="create_tax_return_selection[action_type]" value="filtered-clients" class="button--link">
-                <%= t(".take_action_on_all", count: @clients.total_entries) %>
+                <%= t(".take_action_on_all", count: @tax_return_count) %>
               </button>
             <% end %>
           </td>

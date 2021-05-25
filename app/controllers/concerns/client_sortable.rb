@@ -34,6 +34,10 @@ module ClientSortable
     overlapping_keys.any? && hash_params.slice(*overlapping_keys).any? { |_, v| v.present? }
   end
 
+  def search_and_sort_params
+    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable]
+  end
+
   private
 
   def setup_sortable_client
@@ -69,10 +73,6 @@ module ClientSortable
       service_type: source[:service_type],
       greetable: source[:greetable],
     }
-  end
-
-  def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable]
   end
 
   def cookie_filters
