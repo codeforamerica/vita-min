@@ -425,7 +425,9 @@ en:
           one: "%{count} site"
           other: "%{count} sites"
       index:
-        independent_organizations: "Independent Organizations"
+        independent_organizations:
+          one: ""
+          other: "Independent Organizations"
         no_organizations: "No organizations"
         organizations_by_coalition: "Organizations grouped by coalition:"
       form:
