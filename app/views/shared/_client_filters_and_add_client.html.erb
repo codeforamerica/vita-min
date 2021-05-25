@@ -115,6 +115,6 @@
 
 <% content_for :script do %>
   <script>
-    window.taggableItems = <%= @vita_partners.to_json(only: [:name, :id]).to_s.html_safe %>;
+    window.taggableItems = <%= taggable_vita_partners(@vita_partners) %>;
   </script>
 <% end %>
