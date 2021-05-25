@@ -6,7 +6,7 @@ describe('bulk action', () => {
         document.body.innerHTML = `
             <label class="checkbox--gyr">
                 <input id="bulk-edit-select-all" type="checkbox" name="add-all">
-                <span>Add all</span>
+                <span>Select</span>
             </label>
             <input type="checkbox" value="1" name="tr_ids[]" id="tr_ids_1" form="take-action-form">
             <input type="checkbox" value="2" name="tr_ids[]" id="tr_ids_2" form="take-action-form">

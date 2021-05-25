@@ -72,26 +72,13 @@
               , <%= t("general.status") %></span>
             <label class="checkbox--gyr">
               <input id="bulk-edit-select-all" type="checkbox" name="add-all">
-              <span><%= t('views.shared.tax_return_list.add_all') %></span>
+              <span><%= t('.select') %></span>
             </label>
           </th>
         </tr>
         </thead>
 
         <tbody class="index-table__body clients-table">
-        <tr>
-          <td colspan="13" class="" style="text-align: center;">
-            <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder) do |form| %>
-              <% search_and_sort_params.each do |key, val| %>
-                <%= form.hidden_field(key, value: val) %>
-              <% end %>
-              <%= t(".take_action_on_all", count: @tax_return_count) %>
-              <button type="submit" name="create_tax_return_selection[action_type]" value="filtered-clients" class="button--link">
-                <%= t(".take_action_on_all", count: @tax_return_count) %>
-              </button>
-            <% end %>
-          </td>
-        </tr>
         <% @clients.each do |client| %>
           <tr id="client-<%= client.id %>" class="index-table__row client-row">
             <td class="index-table__cell client-attribute__needs-response">
@@ -161,6 +148,16 @@
   </section>
   <div class="sticky-action-footer">
     <section class="take-action-box bulk-action-footer" id="take-action-footer" style="display: none;">
+      <span class="bulk-action-all-returns">
+         <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder) do |form| %>
+              <% search_and_sort_params.each do |key| %>
+                <%= form.hidden_field(key, value: params.dig(key).to_s) %>
+              <% end %>
+          <button type="submit" name="create_tax_return_selection[action_type]" value="filtered-clients" class="button--link">
+                <%= t(".take_action_on_all", count: @tax_return_count) %>
+              </button>
+            <% end %>
+      </span>
       <span class="bulk-action-count"><%= t('hub.clients.bulk_action.count_html', count: 0) %></span>
       <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder, html: { id: 'take-action-form' }) do |f| %>
         <%= f.submit t("general.take_action"), class: "button button--primary" %>

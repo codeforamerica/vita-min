@@ -17,13 +17,13 @@
 
 html[lang="en"] {
   .bulk-action-checkbox {
-    margin-right: 4.9rem; // Magic number to be the same as "Add all"
+    margin-right: 4.475rem; // Magic number to be the same as "Select"
   }
 }
 
 html[lang="es"] {
   .bulk-action-checkbox {
-    margin-right: 8.4rem; // Magic number to be the same as "Añadir todo"
+    margin-right: 7.85rem; // Magic number to be the same as "Seleccione"
   }
 }
 
@@ -36,4 +36,9 @@ html[lang="es"] {
 .bulk-action-count {
   margin-right: $s25;
   font-size: 1.6rem;
+}
+
+.bulk-action-all-returns {
+  margin-right: $s15;
+  font-weight: $font-weight-bold;
 }

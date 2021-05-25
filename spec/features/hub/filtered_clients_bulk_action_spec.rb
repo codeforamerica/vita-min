@@ -27,7 +27,7 @@ RSpec.describe "Filtering clients for bulk actions", active_job: true do
     click_on "Change organization"
 
     expect(page).to have_text "You’ve selected Change Organization for 30 clients"
-    select "Rooster Brew", from: "Organization/site"
+    select "Rooster Brew", from: "New organization"
 
     click_on "Submit"
 

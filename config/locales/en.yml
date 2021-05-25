@@ -114,7 +114,8 @@ en:
         clear_filters: Clear
         filter: Filter results
         filing_year: Filing Year
-        take_action_on_all: Take action on all %{count} returns in this view
+        select: Select
+        take_action_on_all: Take action on all %{count} returns
         title: All clients
         no_clients: No clients assigned.
         no_filtered_clients: No clients match selected filters.

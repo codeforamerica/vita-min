@@ -143,6 +143,8 @@ RSpec.describe Hub::TaxReturnSelectionsController do
   end
 
   describe "#new" do
+    let!(:clients) { create_list :client_with_intake_and_return, 30, vita_partner: organization, status: "file_efiled" }
+    let!(:client_other_org) { create :client, vita_partner: create(:organization) }
     let!(:tax_return1) { create(:tax_return, client: clients[0], year: 2020) }
     let!(:tax_return2) { create(:tax_return, client: clients[0], year: 2018) }
     let!(:tax_return3) { create(:tax_return, client: clients[1], year: 2018) }
@@ -163,19 +165,21 @@ RSpec.describe Hub::TaxReturnSelectionsController do
       end
 
       context "given filtering params" do
-        let(:params) { {
-          vita_partner_id: organization.id,
-          create_tax_return_selection: {
-            action_type: "filtered-clients"
+        let(:params) do
+          {
+            vita_partner_id: organization.id,
+            create_tax_return_selection: {
+              action_type: "filtered-clients"
+            }
           }
-        } }
+        end
 
         it "sets client count and tax return count and is OK" do
           get :new, params: params
 
           expect(assigns(:tr_ids)).to match_array(TaxReturn.where(client: Client.where(vita_partner: organization)).pluck(:id))
-          expect(assigns(:client_count)).to eq 3
-          expect(assigns(:tax_return_count)).to eq 6
+          expect(assigns(:client_count)).to eq 30
+          expect(assigns(:tax_return_count)).to eq 33
         end
       end
     end
