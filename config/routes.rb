@@ -123,6 +123,7 @@ Rails.application.routes.draw do
         put '/spouse-sign', to: 'tax_returns#spouse_sign', as: :spouse_sign
         get '/success', to: 'tax_returns#success', as: :success
       end
+      resources :still_needs_helps, only: [:index]
       resources :messages, only: [:new, :create]
       resources :documents, only: [:show]
       resources :upload_documents, only: [:destroy]
