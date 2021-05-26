@@ -441,7 +441,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context "when the user does not have GreeterRole type" do
+    context "when the user does not have OrganizationLeadRole type" do
       let(:user) { create :team_member_user }
       it "returns false" do
         expect(user.org_lead?).to be false
@@ -461,6 +461,22 @@ RSpec.describe User, type: :model do
       let(:user) { create :team_member_user }
       it "returns false" do
         expect(user.site_coordinator?).to be false
+      end
+    end
+  end
+
+  describe "#coalition_lead?" do
+    context "when the user has CoalitionLeadRole type" do
+      let(:user) { create :coalition_lead_user }
+      it "returns true" do
+        expect(user.coalition_lead?).to be true
+      end
+    end
+
+    context "when the user does not have CoalitionLeadRole type" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.coalition_lead?).to be false
       end
     end
   end

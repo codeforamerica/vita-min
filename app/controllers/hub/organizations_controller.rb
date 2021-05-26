@@ -28,9 +28,14 @@ module Hub
     end
 
     def index
-      @coalitions = Coalition.accessible_by(current_ability).includes(:organizations)
-      @organizations = @vita_partners.organizations.includes(:organization_capacity)
-      @independent_organizations = @organizations.where(coalition: nil)
+      # Load organizations slowly first, to avoid lots of queries later
+      organizations = @vita_partners.organizations.includes(:coalition, :child_sites, :organization_capacity).load
+
+      @organizations_by_coalition = if can? :read, Coalition
+                                      organizations.group_by(&:coalition).sort_by { |el| [el[0]&.name ? 0 : 1, el[0]&.name || 0] } # sort independent org (nil coalition) to end of list
+                                    else
+                                      { nil => organizations }
+                                    end
     end
 
     def edit

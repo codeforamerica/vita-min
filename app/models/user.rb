@@ -205,6 +205,10 @@ class User < ApplicationRecord
     role_type == SiteCoordinatorRole::TYPE
   end
 
+  def coalition_lead?
+    role_type == CoalitionLeadRole::TYPE
+  end
+
   def suspended?
     suspended_at.present?
   end
