@@ -32,14 +32,10 @@ module Hub
       organizations = @vita_partners.organizations.includes(:coalition, :child_sites, :organization_capacity).load
 
       @organizations_by_coalition = if can? :read, Coalition
-         organizations.group_by(&:coalition).sort do |coalition_a, coalition_b|
-          a_name = coalition_a[0]&.name
-          b_name = coalition_b[0]&.name
-          a_name && b_name ? (a_name <=> b_name) : 1 # put independent orgs at the end
-        end
-      else
-        { nil => organizations }
-      end
+                                      organizations.group_by(&:coalition).sort_by { |el| [el[0]&.name ? 0 : 1, el[0]&.name || 0] } # sort independent org (nil coalition) to end of list
+                                    else
+                                      { nil => organizations }
+                                    end
     end
 
     def edit

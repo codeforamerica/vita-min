@@ -13,8 +13,8 @@
       <div class="grid__item width-one-half">
         <% @organizations_by_coalition.each do |coalition, organizations| %>
           <div class="grid-flex space-between center-aligned spacing-above-10">
-            <h2 class="spacing-below-0"><%= coalition&.name || (t(".independent_organizations", count: @organizations_by_coalition.length)) %></h2>
-            <div class="help-text"><%= t("general.capacity") %>></div>
+            <h2 class="spacing-below-0"><%= coalition.nil? ? t(".independent_organizations", count: @organizations_by_coalition.length) : coalition.name %> </h2>
+            <div class="help-text"><%= t("general.capacity") %></div>
           </div>
 
           <div class="organization-list spacing-below-25">
