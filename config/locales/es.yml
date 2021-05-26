@@ -414,7 +414,7 @@ es:
           one: " "
           other: "Organizaciones Independientes"
         no_organizations: "Sin organizaciones"
-      listing:
+      organization:
         site_count:
           one: "%{count} sitio"
           other: "%{count} sitios"

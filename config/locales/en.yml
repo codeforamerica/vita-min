@@ -420,7 +420,7 @@ en:
       new:
         title: "New Organization"
       no_sites: "No sites"
-      listing:
+      organization:
         site_count:
           one: "%{count} site"
           other: "%{count} sites"

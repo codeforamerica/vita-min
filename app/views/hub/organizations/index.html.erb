@@ -18,16 +18,10 @@
           </div>
 
           <div class="organization-list spacing-below-25">
-              <ul>
-                <% if organizations.present? %>
-                  <% organizations.each do |organization| %>
-                    <%= render "hub/organizations/listing", organization: organization %>
-                  <% end %>
-                <% else %>
-                  <%= t('.no_organizations') %>
-                <% end %>
-              </ul>
-            </div>
+            <ul>
+              <%= render partial: "organization", collection: organizations || t('.no_organizations') %>
+            </ul>
+          </div>
         <% end %>
       </div>
     </div>
