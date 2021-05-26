@@ -34,7 +34,6 @@ RSpec.describe ClientAccessControlConcern, type: :controller do
       end
     end
 
-
     context "when a client is authenticated" do
       before { sign_in create(:client) }
 
@@ -42,6 +41,17 @@ RSpec.describe ClientAccessControlConcern, type: :controller do
         get :index
 
         expect(response).to be_ok
+        expect(session).not_to include :after_client_login_path
+      end
+    end
+
+    context "with a client who has triggered the Still Need Help page" do
+      before { sign_in create(:client, triggered_still_needs_help_at: Time.now) }
+
+      it "redirects to Still Need Help page" do
+        get :index
+
+        expect(response).to redirect_to(portal_still_needs_helps_path)
         expect(session).not_to include :after_client_login_path
       end
     end
