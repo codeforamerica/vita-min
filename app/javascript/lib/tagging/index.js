@@ -45,6 +45,18 @@ export function initMultiSelectVitaPartner() {
             highlightFirst: true,  // <-- automatically highlights first suggestion item in the dropdown
             closeOnSelect: false, // <-- keep dropdown open after selection
             maxItems: window.taggableItems.length, // <-- render all available items for the dropdown
+            position: 'text', // <-- render the suggestions list next to the text carat
+        },
+        templates: {
+            dropdownItem: function(item){
+                return `<div ${this.getAttributes(item)}
+                    class='${this.settings.classNames.dropdownItem}'
+                    tabindex="0"
+                    role="option">
+                        <div class='${item.parentName ? "parent" : ""}'>${item.parentName || ''}</div>
+                        <div class='${item.parentName ? "site" : "org"}'>${item.value}</div>
+                    </div>`
+            },
         }
     });
 }

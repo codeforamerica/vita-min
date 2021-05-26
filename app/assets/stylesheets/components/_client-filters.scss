@@ -1,6 +1,7 @@
 .filter-form {
   .form-group {
     margin-bottom: $s5;
+    margin-right: 1rem;
   }
 
   h3 {
@@ -13,19 +14,27 @@
   }
 
   select#status-filter {
-    width: 215px;
+    width: 21.5rem;
   }
 
   select#year {
     width: 8rem;
   }
 
+  select#language {
+    width: 11rem;
+  }
+
+  select#service_type {
+    width: 11rem;
+  }
+
   select#assignee-filter {
     width: 15rem;
   }
 
-  input {
-    max-width: 275px;
+  input#search {
+    width: 27.5rem;
   }
 
   .select__element {
@@ -35,18 +44,14 @@
   }
 
   .filters-wrapper {
-    display: inline-flex;
-    align-items: flex-end;
-
-    .form-group {
-      margin-right: 1rem;
-    }
+    display: flex;
+    flex-direction: column;
+    max-width: min-content;
   }
 
-  .search-wrapper {
+  .inline-filters-wrapper {
     display: inline-flex;
-    flex-direction: column;
-    width: 37.5rem;
+    align-items: flex-end;
   }
 
   .checkboxes-wrapper {

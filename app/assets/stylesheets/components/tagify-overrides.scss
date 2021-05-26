@@ -20,8 +20,7 @@
 .filter-form {
   .tagify {
     border: 1px solid $color-grey-darkest !important;
-    height: 4rem;
-    width: 275px;
+    min-height: 4rem;
     overflow: auto;
 
     &--focus {
@@ -31,19 +30,34 @@
   }
 }
 
-.multi-select-dropdown{
+.multi-select-dropdown {
   width: max-content !important;
 
-  .tagify__dropdown__wrapper{
+  .tagify__dropdown__wrapper {
     padding: .3em .5em;
   }
 
-  .tagify__dropdown__item{
+  .tagify__dropdown__item {
     padding: .2em;
+    display: flex;
+  }
+
+  .parent {
+    font-size: 1.2rem;
+    color: $color-grey-medium;
+    display: inline-block;
+    max-width: 10rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .site {
+    padding-left: 1rem;
   }
 }
 
-// Dynamically inserted into DOM and not within <tags>  element
+// Dynamically inserted into DOM and not within <tags> element
 .tagify__dropdown__wrapper {
   border-color: $color-grey-light !important;
 
