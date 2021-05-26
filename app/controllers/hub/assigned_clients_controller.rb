@@ -10,7 +10,8 @@ module Hub
 
     def index
       @page_title = I18n.t("hub.assigned_clients.index.title")
-      @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page])
+      @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
+      @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       render "hub/clients/index"
     end
 

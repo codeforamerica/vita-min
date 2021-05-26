@@ -11,21 +11,16 @@
 
     <div class="grid">
       <div class="grid__item width-one-half">
-        <% if @coalitions.count > 0 %>
-          <p><%= t(".organizations_by_coalition") %></p>
+        <% @organizations_by_coalition.each do |coalition, organizations| %>
+          <div class="grid-flex space-between center-aligned spacing-above-10">
+            <h2 class="spacing-below-0"><%= coalition.nil? ? t(".independent_organizations", count: @organizations_by_coalition.length) : coalition.name %> </h2>
+            <div class="help-text"><%= t("general.capacity") %></div>
+          </div>
 
-          <% @coalitions.each do |coalition| %>
-            <div class="grid-flex space-between center-aligned spacing-above-10">
-              <h2 class="spacing-below-0"><%= coalition.name %></h2>
-              <% unless coalition.organizations.count.zero? %>
-                <div class="help-text">Capacity</div>
-              <% end %>
-            </div>
-
-            <div class="organization-list spacing-below-25">
+          <div class="organization-list spacing-below-25">
               <ul>
-                <% if coalition.organizations.present? %>
-                  <% coalition.organizations.each do |organization| %>
+                <% if organizations.present? %>
+                  <% organizations.each do |organization| %>
                     <%= render "hub/organizations/listing", organization: organization %>
                   <% end %>
                 <% else %>
@@ -33,37 +28,8 @@
                 <% end %>
               </ul>
             </div>
-          <% end %>
-        <% else %>
-          <% if @organizations.present? %>
-            <ul>
-              <% @organizations.each do |organization| %>
-                <%= render "hub/organizations/listing", organization: organization %>
-              <% end %>
-            </ul>
-          <% else %>
-            <%= t('.no_organizations') %>
-          <% end %>
-        <% end %>
-
-        <% if @independent_organizations.present? %>
-          <div class="grid-flex space-between center-aligned spacing-above-10">
-            <h2 class="spacing-below-0"><%= t(".independent_organizations") %></h2>
-            <% unless @independent_organizations.count.zero? %>
-              <div class="help-text">Capacity</div>
-            <% end %>
-          </div>
-
-          <div class="organization-list">
-            <ul>
-              <% @independent_organizations.each do |organization| %>
-                <%= render "hub/organizations/listing", organization: organization %>
-              <% end %>
-            </ul>
-          </div>
         <% end %>
       </div>
     </div>
-
   </div>
 <% end %>

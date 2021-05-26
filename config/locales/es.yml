@@ -109,6 +109,7 @@ es:
         assigned_user: Asignado a
         no_name_given: "Nombre dejado en blanco"
         created_at: Creado en
+        no_message: "No hay mensajes disponibles"
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
@@ -409,9 +410,10 @@ es:
         title: "Nueva Organización"
       no_sites: "Ningunos sitios"
       index:
-        independent_organizations: "Organizaciones Independientes"
+        independent_organizations:
+          one: " "
+          other: "Organizaciones Independientes"
         no_organizations: "Sin organizaciones"
-        organizations_by_coalition: "Organizaciones por coalición:"
       listing:
         site_count:
           one: "%{count} sitio"
@@ -732,6 +734,7 @@ es:
     back: Regresa
     cancel: Cancelar
     call: Llamada
+    capacity: Capacidad
     capacity_limit: Límite de capacidad
     changes_saved: Cambios guardados
     chat_with_us: Hable con nosotros por el chat

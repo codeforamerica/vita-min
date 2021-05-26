@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_stimulus_triage
-    StimulusTriage.find_by_id(session[:stimulus_triage_id])
+    StimulusTriage.find_by_id(session[:stimulus_triage_id]) unless hub?
   end
 
   def clear_intake_session

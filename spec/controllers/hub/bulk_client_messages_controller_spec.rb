@@ -73,6 +73,20 @@ RSpec.describe Hub::BulkClientMessagesController do
           expect(response).to be_ok
         end
       end
+
+      context "message summaries" do
+        let(:fake_message_summaries) { {} }
+
+        before do
+          allow(RecentMessageSummaryService).to receive(:messages).and_return(fake_message_summaries)
+        end
+
+        it "assigns message_summaries" do
+          get :show, params: params
+          expect(assigns(:message_summaries)).to eq(fake_message_summaries)
+          expect(RecentMessageSummaryService).to have_received(:messages).with(assigns(:clients).map(&:id))
+        end
+      end
     end
   end
 end

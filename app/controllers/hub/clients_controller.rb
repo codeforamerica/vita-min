@@ -12,7 +12,8 @@ module Hub
 
     def index
       @page_title = I18n.t("hub.clients.index.title")
-      @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page])
+      @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
+      @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
     end
 
     def new
@@ -97,7 +98,7 @@ module Hub
     end
 
     def unlock
-      raise CanCan::AccessDenied unless current_user.admin?
+      raise CanCan::AccessDenied unless current_user.admin? || current_user.org_lead? || current_user.site_coordinator?
 
       @client.unlock_access! if @client.access_locked?
       flash[:notice] = I18n.t("hub.clients.unlock.account_unlocked", name: @client.preferred_name)

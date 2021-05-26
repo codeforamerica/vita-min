@@ -112,7 +112,14 @@ class Client < ApplicationRecord
       column_names = ["clients.*"] + sortable_intake_attributes.map { |intake_column_name| "intakes.#{intake_column_name}" }
       select(column_names).joins(:intake).merge(Intake.order(Hash[column, direction])).distinct
     else
-      includes(:intake).order(Hash[column, direction]).distinct
+      order = {column => direction}
+      if column == "first_unanswered_incoming_interaction_at" && direction == "desc"
+        order = "clients.first_unanswered_incoming_interaction_at DESC NULLS LAST"
+      elsif column == "last_outgoing_communication_at" && direction == "desc"
+        order = "clients.last_outgoing_communication_at DESC NULLS LAST"
+      end
+
+      includes(:intake).order(order).distinct
     end
   end
 
