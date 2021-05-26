@@ -5,8 +5,8 @@ RSpec.describe ClientSortable, type: :controller do
   # - it needs current_user for one particular method
   # - it needs params
   # - it assumes that @clients is already set.
-  let(:clients_query_double){ double }
-  let(:intakes_query_double){ double }
+  let(:clients_query_double) { double }
+  let(:intakes_query_double) { double }
   let(:cookies) { double }
   controller(ApplicationController) do
     include ClientSortable
@@ -56,7 +56,7 @@ RSpec.describe ClientSortable, type: :controller do
     end
 
     context "default sort order" do
-      let(:params) {{}}
+      let(:params) { {} }
 
       it "sorts clients by first_unanswered_incoming_interaction_at" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
@@ -91,25 +91,36 @@ RSpec.describe ClientSortable, type: :controller do
       end
     end
 
-    context "with a vita partner id" do
-      let(:vita_partner) { create :vita_partner }
-      let(:params) {
+    context "with a vita partner" do
+      let(:vita_partner) { create :organization }
+      let(:params) do
         {
-          vita_partner_id: vita_partner.id
+          vita_partners: [{ id: vita_partner.id, name: vita_partner.name, value: vita_partner.id }].to_json
         }
-      }
-
+      end
 
       it "creates a query for the search and scopes to vita partner" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with('vita_partners.id = :id OR vita_partners.parent_organization_id = :id', id: vita_partner.id)
+        expect(clients_query_double).to have_received(:where).with('vita_partners.id IN (:id)', id: [vita_partner.id])
+      end
+
+      context "more than one vita partner is selected" do
+        let!(:site) { create :site, parent_organization: vita_partner }
+        let(:params) do
+          { vita_partners: [{ id: vita_partner.id, name: vita_partner.name, value: vita_partner.id }, { id: site.id, name: site.name, value: site.id }].to_json }
+        end
+
+        it "creates a query for the search and scopes to all selected vita partners" do
+          expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+          expect(clients_query_double).to have_received(:where).with('vita_partners.id IN (:id)', id: [vita_partner.id, site.id])
+        end
       end
     end
 
     context "with a provided language" do
       let(:params) {
         {
-            language: "de"
+          language: "de"
         }
       }
 
@@ -123,7 +134,7 @@ RSpec.describe ClientSortable, type: :controller do
       context "online_intake" do
         let(:params) {
           {
-              service_type: "online_intake"
+            service_type: "online_intake"
           }
         }
 
@@ -150,7 +161,7 @@ RSpec.describe ClientSortable, type: :controller do
       let(:user) { create :user }
       let(:params) {
         {
-            assigned_user_id: user.id
+          assigned_user_id: user.id
         }
       }
 
@@ -165,8 +176,8 @@ RSpec.describe ClientSortable, type: :controller do
       let(:current_user) { create :user }
       let(:params) {
         {
-            assigned_user_id: user.id,
-            assigned_to_me: true
+          assigned_user_id: user.id,
+          assigned_to_me: true
         }
       }
       before do
@@ -178,12 +189,12 @@ RSpec.describe ClientSortable, type: :controller do
         expect(clients_query_double).to have_received(:where).with({ tax_returns: { assigned_user: [current_user.id, user.id] } })
       end
     end
-    
+
     context "with a clear param" do
       let(:params) do
         {
-            clear: true,
-            assigned_user_id: 1
+          clear: true,
+          assigned_user_id: 1
         }
       end
 
@@ -289,8 +300,8 @@ RSpec.describe ClientSortable, type: :controller do
         end
       end
 
-      context "vita_partner_id" do
-        let(:params) { { vita_partner_id: 1 } }
+      context "vita_partners" do
+        let(:params) { { vita_partners: [{ id: 1, name: "Partner name", value: 1 }].to_json } }
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end

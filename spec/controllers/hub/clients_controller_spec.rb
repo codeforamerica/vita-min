@@ -633,6 +633,21 @@ RSpec.describe Hub::ClientsController do
           end
         end
 
+        context "filtering by organization/site" do
+          let(:site) { create :site, parent_organization: organization }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return)], intake: (create :intake) }
+          let!(:included_site_client) { create :client, vita_partner: site, tax_returns: [(create :tax_return)], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: create(:organization), tax_returns: [(create :tax_return)], intake: (create :intake) }
+
+          it "includes clients who are assigned to those vita partners" do
+            get :index, params: { vita_partners: [{ id: organization.id, name: organization.name, value: organization.id }, { id: site.id, name: site.name, value: site.id }].to_json }
+
+            expect(assigns(:clients)).to include included_client
+            expect(assigns(:clients)).to include included_site_client
+            expect(assigns(:clients)).not_to include excluded_client
+          end
+        end
+
         context "filtering by needs response" do
           let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return)] }
           it "filters in" do

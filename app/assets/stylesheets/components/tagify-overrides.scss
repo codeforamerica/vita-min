@@ -1,21 +1,66 @@
 // The suggested way from tagify to do these overrides is to override the scss variables directly.
 // However, because we're loading most CSS with sprockets but loading tagify scss through the npm package in webpacker,
 // they're compiling from scss to css without access to one anothers' variables. Thus, the !importants.
-.tagify {
-  border: 0 !important;
-  &__focus {
+.note-form {
+  .tagify {
     border: 0 !important;
+
+    &--focus {
+      border: 0 !important;
+    }
+  }
+
+  .tagify__input {
+    @extend textarea;
+    @extend .textarea;
+    min-height: 10rem;
   }
 }
 
-.tagify__input {
-  @extend textarea;
-  @extend .textarea;
-  min-height: 10rem;
+.filter-form {
+  .tagify {
+    border: 1px solid $color-grey-darkest !important;
+    min-height: 4rem;
+    overflow: auto;
+
+    &--focus {
+      outline: none;
+      box-shadow: 0 0 0 5px $color-yellow;
+    }
+  }
 }
 
+.multi-select-dropdown {
+  width: max-content !important;
+
+  .tagify__dropdown__wrapper {
+    padding: .3em .5em;
+  }
+
+  .tagify__dropdown__item {
+    padding: .2em;
+    display: flex;
+  }
+
+  .parent {
+    font-size: 1.2rem;
+    color: $color-grey-medium;
+    display: inline-block;
+    max-width: 10rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .site {
+    padding-left: 1rem;
+  }
+}
+
+// Dynamically inserted into DOM and not within <tags> element
 .tagify__dropdown__wrapper {
   border-color: $color-grey-light !important;
+
   > div {
     color: $color-grey-darkest !important;
   }
