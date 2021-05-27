@@ -1472,8 +1472,8 @@ en:
           no_docs:
             q: "What if I don’t have my tax documents?"
             a_html: >-
-              <p>Answer: In order to file a full return you will need documents that prove your income, like a W-2 or 1099 that you receive from your employer. If you did not receive your tax documents you can request them from the IRS Get Transcript tool.</p>
-              <p>If you are struggling to gather your tax documents and need Child Tax Credit money for your family now, you can use the <a href="%{non_filers_link}">non-filers link</a>, but if you do that you might miss out on additional cash support.</p>
+              <p>In order to file a full return you will need documents that prove your income, like a W-2 or 1099 that you receive from your employer. If you did not receive your tax documents you can request them from the IRS Get Transcript tool.</p>
+              <p>If you are struggling to gather your tax documents and need Child Tax Credit money for your family now, you can use the non-filers link when it's available, but if you do that you might miss out on additional cash support.</p>
           benefits:
             q: "What if I earned money from benefits (like SSI, SNAP, TANF, or WIC)?"
             a_html: >-
@@ -1488,7 +1488,7 @@ en:
             q: "I already filed my tax return. How do I change some of my information?"
             a_html: >-
               <p>You can add or remove qualifying children from your return, report any major changes in income, or opt out of monthly Child Tax Credit payments using the CTC Update portal.</p>
-              <p>If you already submitted your information, you can not change your bank account or payment details. If you no longer have access to the bank account that the IRS used to deposit your 2020 refund or stimulus check, we recommend that you opt out of monthly payments using the <a href="%{ctc_update_portal_link}">CTC Update Portal</a>. You will be able to claim any missing Child Tax Credit payments when you file your 2021 tax return.</p>
+              <p>If you already submitted your information, you can not change your bank account or payment details. If you no longer have access to the bank account that the IRS used to deposit your 2020 refund or stimulus check, we recommend that you opt out of monthly payments using the CTC Update Portal, when it becomes available mid-June. You will be able to claim any missing Child Tax Credit payments when you file your 2021 tax return.</p>
           payment_status:
             q: "I already filed my tax return. How do I check the status of my payment?"
             a_html: >-

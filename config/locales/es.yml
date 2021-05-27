@@ -1368,9 +1368,9 @@ es:
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
         title: Preguntas Frecuentes
       ctc_faq:
-        title: 💥 CTC FAQ
-        header: 💥Child Tax Credit - Frequently Asked Questions
-        subheader: 💥 The American Rescue Plan, signed into law on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $250 per month per child under age 6, and up to $300 per month per child ages 6 to 17. You can receive payments of up to $300 per child every month starting in July 2021.
+        title: Preguntas frecuentes de CTC
+        header: Página de preguntas frecuentes de CTC para GYR
+        subheader: El Plan de Rescate Estadounidense, promulgado como ley el 11 de Marzo del 2021, aumenta el Crédito Tributario por Hijos (CTC) que proporciona hasta $250 por mes por niño menor de 6 años y hasta $300 por mes por niño de 6 a 17 años. Puede recibir pagos de hasta $300 por niño todos los meses a partir de Julio de 2021.
         eligibility:
           header: Elegibilidad para el Crédito Tributario por Hijos
           claim:
@@ -1387,7 +1387,7 @@ es:
                 <li>Tiene un número de seguro social válido.</li>
               </ul>
         questions_about_filing:
-          header: 💥 Questions about your tax return
+          header: Preguntas sobre su declaración de impuestos
         questions_before_filing:
           header: "Tengo una pregunta antes de declarar."
           havent_filed:
@@ -1403,7 +1403,7 @@ es:
             q: "¿Qué pasa si no tengo mis documentos fiscales?"
             a_html: >-
               <p>Para declarar sus impuestos por completo, necesitará documentos que demuestren prueba de ingreso, como un W-2 o 1099, que puede recibir de su empleador. Si no recibió sus documentos fiscales, puede solicitarlos a través de la herramienta Obtener transcripción del IRS.</p>
-              <p>Si no puede obtener  sus documentos fiscales y necesita dinero del Crédito Tributario por Hijos para su familia, puede usar el <a href="%{non_filers_link}">enlace de no contribuyentes</a>. Si lo hace, podría perder el apoyo en efectivo adicional.</p>
+              <p>Si no puede obtener  sus documentos fiscales y necesita dinero del Crédito Tributario por Hijos para su familia ya, puede usar el enlace de no contribuyentes cuando esté disponible. Si lo hace, podría perder el apoyo en efectivo adicional.</p>
           benefits:
             q: "¿Qué pasa si recibí dinero de beneficios (como SSI, SNAP, TANF o WIC)?"
             a_html: >-
@@ -1418,7 +1418,7 @@ es:
             q: "Ya declaré mis impuestos. ¿Cómo cambio parte de mi información?"
             a_html: >-
               <p>Puede agregar o eliminar hijos calificados de su declaración, informar cualquier cambio importante en los ingresos u optar por no recibir pagos mensuales del Crédito Tributario por Hijos mediante el portal CTC Update.</p>
-              <p>Si ya envió su información, no puede cambiar su cuenta bancaria ni los detalles de pago. Si ya no tiene acceso a la cuenta bancaria que el IRS usó para depositar su reembolso de 2020 o cheque de estímulo, le recomendamos que opte por no recibir pagos mensuales utilizando el <a href="%{ctc_update_portal_link}">Portal de actualización de CTC</a>. Podrá reclamar cualquier pago del Crédito Tributario por Hijos que falte cuando declare sus impuestos de 2021.</p>
+              <p>Si ya envió su información, no puede cambiar su cuenta bancaria ni los detalles de pago. Si ya no tiene acceso a la cuenta bancaria que el IRS usó para depositar su reembolso de 2020 o cheque de estímulo, le recomendamos que opte por no recibir pagos mensuales utilizando el portal de actualización de CTC cuando se abra a mediados de junio. Podrá reclamar cualquier pago del Crédito Tributario por Hijos que falte cuando declare sus impuestos de 2021.</p>
           payment_status:
             q: "Ya declaré mis impuestos. ¿Cómo verifico el estado de mi pago?"
             a_html: >-
