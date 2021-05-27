@@ -18,6 +18,7 @@ module ClientSortable
     clients = clients.where(tax_returns: { service_type: @filters[:service_type] }) if @filters[:service_type].present?
     clients = clients.where(intake: Intake.where(had_unemployment_income: "yes")) if @filters[:unemployment_income].present?
     clients = clients.where(vita_partner: VitaPartner.allows_greeters) if @filters[:greetable].present?
+    clients = clients.first_unanswered_incoming_interaction_communication_breaches(@filters[:sla_breach_date]) if @filters[:sla_breach_date].present?
 
     if @filters[:vita_partners].present?
       ids = JSON.parse(@filters[:vita_partners]).map { |vita_partner| vita_partner["id"] }
@@ -35,7 +36,7 @@ module ClientSortable
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable]
+    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partner_id, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date]
   end
 
   private
@@ -72,6 +73,7 @@ module ClientSortable
       language: source[:language],
       service_type: source[:service_type],
       greetable: source[:greetable],
+      sla_breach_date: source[:sla_breach_date],
     }
   end
 

@@ -29,9 +29,11 @@ RSpec.describe ClientSortable, type: :controller do
     allow(clients_query_double).to receive(:after_consent).and_return clients_query_double
     allow(clients_query_double).to receive(:or).and_return clients_query_double
     allow(clients_query_double).to receive(:greetable).and_return clients_query_double
+    allow(clients_query_double).to receive(:sla_breach_date).and_return clients_query_double
     allow(clients_query_double).to receive(:delegated_order).and_return clients_query_double
     allow(clients_query_double).to receive(:where).and_return clients_query_double
     allow(clients_query_double).to receive(:not).and_return clients_query_double
+    allow(clients_query_double).to receive(:first_unanswered_incoming_interaction_communication_breaches).and_return clients_query_double
     allow(Intake).to receive(:search).and_return intakes_query_double
   end
 
@@ -219,6 +221,19 @@ RSpec.describe ClientSortable, type: :controller do
       it "removes the filter cookie" do
         subject.filtered_and_sorted_clients
         expect(cookies).to have_received(:delete).with("some_filter_cookie_name")
+      end
+    end
+
+    context "with a sla breach date param" do
+      let(:params) do
+        {
+          sla_breach_date: DateTime.new(2021, 5, 18, 11, 32)
+        }
+      end
+
+      it "creates a query that includes clients that are in breach of the sla date" do
+        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        expect(clients_query_double).to have_received(:first_unanswered_incoming_interaction_communication_breaches).with(params[:sla_breach_date])
       end
     end
 

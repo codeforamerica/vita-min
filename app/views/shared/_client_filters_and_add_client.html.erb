@@ -79,7 +79,6 @@
     <h4>Marked as:</h4>
     <label class="checkbox--gyr">
       <%= check_box_tag :assigned_to_me, true, @filters[:assigned_to_me] || @always_current_user_assigned, disabled: @always_current_user_assigned %>
-      <%= f.hidden_field :assigned_to_me, value: true if @always_current_user_assigned %>
       <%= t("hub.clients.index.assigned_to_me") %>
     </label>
 

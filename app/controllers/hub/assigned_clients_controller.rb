@@ -12,6 +12,7 @@ module Hub
     def index
       @page_title = I18n.t("hub.assigned_clients.index.title")
       @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
+      @filters[:assigned_to_me] = true
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       @tax_return_count = TaxReturn.where(client: filtered_and_sorted_clients.per_page(100_000_000)).count
       render "hub/clients/index"
