@@ -1,16 +1,16 @@
 require "rails_helper"
 
 RSpec.describe ClientAccessControlConcern, type: :controller do
-  controller(ApplicationController) do
-    include ClientAccessControlConcern
-    before_action :require_client_login
-
-    def index
-      head :ok
-    end
-  end
-
   describe "#require_client_login" do
+    controller(ApplicationController) do
+      include ClientAccessControlConcern
+      before_action :require_client_login
+
+      def index
+        head :ok
+      end
+    end
+
     context "when a client is not authenticated" do
       it "redirects to a login page" do
         get :index
@@ -44,15 +44,45 @@ RSpec.describe ClientAccessControlConcern, type: :controller do
         expect(session).not_to include :after_client_login_path
       end
     end
+  end
 
-    context "with a client who has triggered the Still Need Help page" do
-      before { sign_in create(:client, triggered_still_needs_help_at: Time.now) }
+  describe "#redirect_to_still_needs_help_if_necessary" do
+    controller(ApplicationController) do
+      include ClientAccessControlConcern
+      before_action :redirect_to_still_needs_help_if_necessary
+
+      def index
+        head :ok
+      end
+    end
+
+    context "with a client who does not need to see the Still Need Help page" do
+      let(:client) { create(:client) }
+
+      before do
+        allow(StillNeedsHelpService).to receive(:must_show_still_needs_help_flow?).with(client).and_return(false)
+        sign_in client
+      end
+
+      it "does not redirect" do
+        get :index
+
+        expect(response).to be_ok
+      end
+    end
+
+    context "with a client who needs to see the Still Need Help page" do
+      let(:client) { create(:client) }
+
+      before do
+        allow(StillNeedsHelpService).to receive(:must_show_still_needs_help_flow?).with(client).and_return(true)
+        sign_in client
+      end
 
       it "redirects to Still Need Help page" do
         get :index
 
         expect(response).to redirect_to(portal_still_needs_helps_path)
-        expect(session).not_to include :after_client_login_path
       end
     end
   end
