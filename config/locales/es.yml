@@ -2127,7 +2127,7 @@ es:
           other: En %{year}, ¿Hizo usted o su pareja algún pago de pensión alimenticia?
       personal_info:
         info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
-        preferred_name: Nombre Preferido
+        preferred_name: "¿Cuál primer nombre prefieres usar?"
         title: Primero, obtengamos información básica.
         zip_code: Código postal
       phone_number:
