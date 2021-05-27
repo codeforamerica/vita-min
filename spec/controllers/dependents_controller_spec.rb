@@ -14,6 +14,7 @@ RSpec.describe DependentsController do
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :index
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :index
 
     context "with an authenticated client" do
       before { sign_in intake.client }

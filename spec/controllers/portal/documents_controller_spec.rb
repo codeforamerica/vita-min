@@ -7,8 +7,8 @@ describe Portal::DocumentsController do
   let(:transient_url) { "https://gyr-demo.s3.amazonaws.com/data.csv?sig=whatever&expires=whatever" }
 
   describe "#show" do
-
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :show
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :show
 
     context "when logged in" do
       context "when the document does not belong to the client" do
