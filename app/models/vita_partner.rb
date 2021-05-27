@@ -30,7 +30,6 @@ class VitaPartner < ApplicationRecord
   has_many :clients
   has_many :intakes
   has_many :source_parameters
-  has_many :users
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode"
   has_many :serviced_states, class_name: "VitaPartnerState"
   belongs_to :parent_organization, class_name: "VitaPartner", optional: true
@@ -77,6 +76,18 @@ class VitaPartner < ApplicationRecord
   def self.client_support_org
     # When a person messages us, but their contact info does not match any Client, link them to this org.
     VitaPartner.find_by!(name: "GYR National Organization")
+  end
+
+  def organization_leads
+    User.where(role: OrganizationLeadRole.where(organization: self))
+  end
+
+  def site_coordinators
+    User.where(role: SiteCoordinatorRole.where(site: organization? ? child_sites : self))
+  end
+
+  def team_members
+    User.where(role: TeamMemberRole.where(site: organization? ? child_sites : self))
   end
 
   private

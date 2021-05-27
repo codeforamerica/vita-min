@@ -292,7 +292,6 @@ RSpec.describe Hub::UsersController do
     end
   end
 
-
   describe "#update" do
     let!(:user) { create :organization_lead_user, name: "Anne" }
 

@@ -422,6 +422,10 @@ es:
         allows_greeters: Permite saludadores
         active_clients: clientes activos
         excludes: "Excluye estados: Aceptado, No Archivar, en En Pausa"
+      suspended_all:
+        success: "Se suspendió con éxito a %{count} usuarios"
+      activated_all:
+        success: "Activado con éxito %{count} usuarios"
     sites:
       new:
         title: "Agregar sitio"
@@ -725,7 +729,10 @@ es:
     at_time: a las %{time}
     NA: N/A
     address: Dirección
+    active: activos
+    activate_all: Activar todo
     admin: Admin
+    admin_controls: Controles de administrador
     affirmative: Sí
     all_organizations: "Todas organizaciones"
     assign: Asignar
@@ -881,6 +888,8 @@ es:
     street_address: Dirección
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
+    suspend_all: Suspender todo
+    suspend_roles: Suspender usuarias
     text_message: Mensaje de texto
     timezone: Zona horaria
     today: Hoy

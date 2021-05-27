@@ -58,7 +58,7 @@ module Hub
 
     def unsuspend
       authorize!(:update, @user)
-      @user.update!(suspended_at: nil)
+      @user.activate!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.unsuspend.success", name: @user.name)
     end
 

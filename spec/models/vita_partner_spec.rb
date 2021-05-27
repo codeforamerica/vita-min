@@ -29,6 +29,74 @@ require "rails_helper"
 
 describe VitaPartner do
 
+  describe ".organization_leads" do
+    let(:organization) { create :organization }
+    let(:site) { create :site, parent_organization: organization }
+    let!(:lead) { create :organization_lead_user, organization: organization }
+    let!(:outside_lead) { create :organization_lead_user }
+    let!(:team_member) { create :team_member_user, site: site }
+
+    context "as a vita_partner that is an organization" do
+      it "returns users who are organization leads for the provided vita_partner" do
+        expect(organization.organization_leads).to eq [lead]
+        expect(organization.organization_leads).not_to include outside_lead
+        expect(organization.organization_leads).not_to include team_member
+      end
+    end
+
+    context "as a vita_partner that is a site" do
+      it "returns an empty collection" do
+        expect(site.organization_leads).to eq []
+      end
+    end
+  end
+
+  describe ".site_coordinators" do
+    let(:organization) { create :organization }
+    let(:site1) { create :site, parent_organization: organization }
+    let(:site2) { create :site, parent_organization: organization }
+
+    let!(:lead) { create :organization_lead_user, organization: organization }
+    let!(:outside_lead) { create :organization_lead_user }
+    let!(:site1_coordinator) { create :site_coordinator_user, site: site1 }
+    let!(:site2_coordinator) { create :site_coordinator_user, site: site2 }
+    let!(:team_member) { create :team_member_user, site: site1 }
+
+    context "when the vita partner is a site" do
+      it "only includes site coordinators from that site" do
+        expect(site1.site_coordinators).to eq [site1_coordinator]
+      end
+    end
+
+    context "when the vita partner is an organization with child sites" do
+      it "includes site coordinators from all child sites" do
+        expect(organization.site_coordinators).to eq [site1_coordinator, site2_coordinator]
+      end
+    end
+  end
+
+  describe ".team_members" do
+    let(:organization) { create :organization }
+    let(:site1) { create :site, parent_organization: organization }
+    let(:site2) { create :site, parent_organization: organization }
+    let!(:lead) { create :organization_lead_user, organization: organization }
+    let!(:outside_lead) { create :organization_lead_user }
+    let!(:site1_team_member) { create :team_member_user, site: site1 }
+    let!(:site2_team_member) { create :team_member_user, site: site2 }
+
+    context "when the vita partner is a site" do
+      it "only includes site coordinators from that site" do
+        expect(site1.team_members).to eq [site1_team_member]
+      end
+    end
+
+    context "when the vita partner is an organization with child sites" do
+      it "includes site coordinators from all child sites" do
+        expect(organization.team_members).to eq [site1_team_member, site2_team_member]
+      end
+    end
+  end
+
   describe ".allows_greeters" do
     let!(:coalition) { create :coalition }
     let!(:organization) { create :organization, coalition: coalition, allows_greeters: true }

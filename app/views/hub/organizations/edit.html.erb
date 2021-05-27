@@ -14,11 +14,49 @@
         <% end %>
         <hr/>
 
+        <h2><%= t("general.admin_controls") %></h2>
+
+        <h3><%= t("general.suspend_roles") %></h3>
+        <div>
+          <div class="role-toggles--organization-lead grid-flex space-between">
+            <div>
+              <%= t("general.organization_lead") %> (<%= @organization.organization_leads.active.count %>/<%= @organization.organization_leads.count %> <%= t("general.active") %>)
+            </div>
+            <div class="grid-flex">
+              <%= button_to t("general.suspend_all"), suspend_all_hub_organization_path, method: :patch, params: { role_type: OrganizationLeadRole::TYPE }, class: "button button--small", disabled: @organization.organization_leads.active.count.zero? %>
+              <%= button_to t("general.activate_all"), activate_all_hub_organization_path, method: :patch, params: { role_type: OrganizationLeadRole::TYPE }, class: "button button--small", disabled: @organization.organization_leads.active.count == @organization.organization_leads.count %>
+            </div>
+          </div>
+
+          <div class="role-toggles role-toggles--site-coordinator grid-flex space-between">
+            <div>
+              <%= t("general.site_coordinator") %> (<%= @organization.site_coordinators.active.count %>/<%= @organization.site_coordinators.count %> <%= t("general.active") %>)
+            </div>
+            <div class="grid-flex">
+              <%= button_to t("general.suspend_all"), suspend_all_hub_organization_path, method: :patch, params: { role_type: SiteCoordinatorRole::TYPE }, class: "button button--small", disabled: @organization.site_coordinators.active.count.zero? %>
+              <%= button_to t("general.activate_all"), activate_all_hub_organization_path, method: :patch, params: { role_type: SiteCoordinatorRole::TYPE }, class: "button button--small", disabled: @organization.site_coordinators.active.count == @organization.site_coordinators.count %>
+            </div>
+          </div>
+
+          <div class="role-toggles role-toggles--team-member grid-flex space-between">
+            <div>
+              <%= t("general.team_member") %> (<%= @organization.team_members.active.count %>/<%= @organization.team_members.count %> <%= t("general.active") %>)
+            </div>
+            <div class="grid-flex">
+              <%= button_to t("general.suspend_all"), suspend_all_hub_organization_path, method: :patch, params: {role_type: TeamMemberRole::TYPE}, class: "button button--small", disabled: @organization.team_members.active.count.zero? %>
+              <%= button_to t("general.activate_all"), activate_all_hub_organization_path, method: :patch, params: {role_type: TeamMemberRole::TYPE}, class: "button button--small", disabled: @organization.team_members.active.count == @organization.team_members.count %>
+            </div>
+          </div>
+
+        </div>
+        <hr/>
+
         <div id="source-params-form">
           <%= render "hub/source_params/form", form: @source_params_form %>
         </div>
 
         <hr/>
+
         <% if can? :create, VitaPartnerZipCode %>
           <div id="zip-code-routing-form">
             <%= render "hub/zip_codes/form", form: @routing_form %>

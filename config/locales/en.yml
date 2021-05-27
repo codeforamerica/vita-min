@@ -433,6 +433,10 @@ en:
         allows_greeters: Allows Greeters
         active_clients: active clients
         excludes: "excludes statuses: Accepted, Not filing, On hold"
+      suspended_all:
+        success: "Successfully suspended %{count} users"
+      activated_all:
+        success: "Successfully activated %{count} users"
     sites:
       new:
         title: "Add site"
@@ -736,8 +740,11 @@ en:
     all_organizations: "All organizations"
     at_time: at %{time}
     NA: N/A
+    active: active
+    activate_all: Activate All
     address: Address
     admin: Admin
+    admin_controls: Admin Controls
     affirmative: 'Yes'
     assign: Assign
     assignee: Assignee
@@ -891,6 +898,8 @@ en:
     street_address: Street address
     submit: Submit
     submit_question: Submit a question to GetYourRefund
+    suspend_all: Suspend All
+    suspend_roles: Suspend Roles
     text_message: Text Message
     timezone: Timezone
     today: Today

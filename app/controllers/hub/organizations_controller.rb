@@ -57,7 +57,49 @@ module Hub
       end
     end
 
+    def suspend_all
+      users_to_suspend = []
+      case suspend_all_role_param
+      when OrganizationLeadRole::TYPE
+        users_to_suspend = @vita_partner.organization_leads
+      when SiteCoordinatorRole::TYPE
+        users_to_suspend = @vita_partner.site_coordinators
+      when TeamMemberRole::TYPE
+        users_to_suspend = @vita_partner.team_members
+      end
+      users_to_suspend_count = users_to_suspend.active.count
+      users_to_suspend.active.each(&:suspend!)
+
+      flash[:alert] = I18n.t("hub.organizations.suspended_all.success", count: users_to_suspend_count)
+      redirect_to edit_hub_organization_path(id: @vita_partner.id)
+    end
+
+    def activate_all
+      users_to_activate = []
+      case activate_all_role_param
+      when OrganizationLeadRole::TYPE
+        users_to_activate = @vita_partner.organization_leads
+      when SiteCoordinatorRole::TYPE
+        users_to_activate = @vita_partner.site_coordinators
+      when TeamMemberRole::TYPE
+        users_to_activate = @vita_partner.team_members
+      end
+      users_to_activate_count = users_to_activate.suspended.count
+      users_to_activate.suspended.each(&:activate!)
+
+      flash[:alert] = I18n.t("hub.organizations.activated_all.success", count: users_to_activate_count)
+      redirect_to edit_hub_organization_path(id: @vita_partner.id)
+    end
+
     private
+
+    def suspend_all_role_param
+      params.require(:role_type)
+    end
+
+    def activate_all_role_param
+      params.require(:role_type)
+    end
 
     def vita_partner_params
       params.require(:vita_partner).permit(:name, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code])
