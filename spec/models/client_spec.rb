@@ -242,7 +242,6 @@ describe Client do
     end
   end
 
-
   describe ".greetable scope" do
     let!(:greetable_client) { create(:client, tax_returns: [create(:tax_return, status: :intake_in_progress)]) }
     let!(:ungreetable_client) { create(:client, tax_returns: [create(:tax_return, status: :prep_preparing)]) }
@@ -763,5 +762,4 @@ describe Client do
       end
     end
   end
-
 end
