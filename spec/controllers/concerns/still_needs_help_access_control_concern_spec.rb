@@ -12,10 +12,16 @@ RSpec.describe StillNeedsHelpAccessControlConcern, type: :controller do
 
   describe "#require_still_needs_help_client_login" do
     context "when a client is not authenticated" do
-      it "redirects to a login page" do
+      it "redirects to client login" do
         get :index
 
         expect(response).to redirect_to new_portal_client_login_path
+      end
+
+      it "adds current path to the session" do
+        get :index
+
+        expect(session[:after_client_login_path]).to eq("/anonymous")
       end
     end
 

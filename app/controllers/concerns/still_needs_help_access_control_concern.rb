@@ -4,7 +4,8 @@ module StillNeedsHelpAccessControlConcern
   private
 
   def require_still_needs_help_client_login
-    if current_client.blank?
+    if current_client.nil?
+      session[:after_client_login_path] = request.original_fullpath if request.get?
       redirect_to new_portal_client_login_path and return
     end
 
