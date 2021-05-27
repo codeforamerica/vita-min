@@ -1,0 +1,59 @@
+<!--
+  Extending the helpers + defining defaults for locals that we use in this file directly is necessary because we're using ApplicationController.render
+  to add new messages to the page as a result of a websocket broadcast
+!-->
+<% self.extend(ContactRecordHelper) %>
+<% last_day ||= false %>
+<% contact_record_iteration ||= nil %>
+<li class="message message--<%= contact_record.contact_record_type %>" id="<%= "last-item" if last_day && contact_record_iteration&.last? %>">
+  <div class="message__content">
+    <div class="message__heading">
+      <div class="message__authority">
+        <div class="message__author">
+          <%= display_author(contact_record) %>
+        </div>
+
+        <div class="message__contact-info">
+          <%= message_heading(contact_record) %>
+        </div>
+
+        <%= twilio_deliverability_status(contact_record.twilio_status) if contact_record.respond_to? :twilio_status %>
+        <%= mailgun_deliverability_status(contact_record.mailgun_status) if contact_record.respond_to? :mailgun_status %>
+      </div>
+    </div>
+
+    <div class="message__body">
+      <div class="message__time">
+        <%= timestamp(contact_record.datetime) %>
+      </div>
+      <% if contact_record.try(:subject) %>
+        <div class="message__subject">
+          Subj: <%= contact_record.subject %>
+        </div>
+      <% end %>
+      <%= simple_format(contact_record.body)  %>
+
+      <% if contact_record.contact_record_type == :outgoing_email %>
+        <% if contact_record.attachments.present? %>
+          <h4 class="message--attachments__heading">Attachments:</h4>
+          <ul class="attachments-list">
+            <% contact_record.attachments.each do |attachment| %>
+              <li><%= attachment.filename %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+
+      <% if contact_record.contact_record_type == :incoming_email || contact_record.contact_record_type == :incoming_text_message %>
+        <% if contact_record.documents.present? %>
+          <h4 class="message--attachments__heading">Attachments:</h4>
+          <ul class="attachments-list">
+            <% contact_record.documents.each do |document| %>
+              <li><%= document.display_name %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</li>
