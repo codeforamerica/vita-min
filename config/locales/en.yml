@@ -2130,9 +2130,9 @@ en:
         note_html: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply. Text HELP to 58750 for help. Text STOP to 58750 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a href="%{terms_url}">Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.
         options:
           email_notification_opt_in: Email Me
-          header: We will reach out with questions and updates. Select the option(s) that you prefer!
+          header: We’ll need to reach out with questions and updates. Please let us know the option(s) that work best for you!
           sms_notification_opt_in: Text Me
-        title: How can we update you on your tax return?
+        title: What is the best way to reach you?
       other_income:
         help_text: Such as cash payments, jury duty, awards, virtual currency, royalties, or union strike benefits (not including a stimulus payment).
         title:

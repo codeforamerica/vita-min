@@ -2084,7 +2084,7 @@ es:
           email_notification_opt_in: Envíeme un correo electrónico
           header: Nos pondremos en contacto con preguntas y actualizaciones. ¡Seleccione la opcion(es) que prefiera!
           sms_notification_opt_in: Mensaje de Texto
-        title: "¿Cómo podemos actualizarlo en su declaración de impuestos?"
+        title: "¿Cuál es la mejor forma de contactarte?"
       other_income:
         help_text: Tales como pagos en efectivo, deberes de jurado, premios, moneda virtual, regalías o beneficios de huelga sindical (sin incluir un pago de estímulo).
         title:
