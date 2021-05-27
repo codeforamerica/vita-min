@@ -32,7 +32,10 @@ describe StillNeedsHelpService do
     end
 
     context "with tax returns with status ready for review (aka intake ready)" do
-      let(:tax_returns) { [build(:tax_return, status: :intake_ready), build(:tax_return, status: :intake_ready, year: 2018)] }
+      let(:tax_returns) { [
+        build(:tax_return, status: :intake_ready, year: 2019),
+        build(:tax_return, status: :intake_ready, year: 2018)
+      ] }
 
       it "marks them as not filing" do
         described_class.trigger_still_needs_help_flow(client)
@@ -41,7 +44,10 @@ describe StillNeedsHelpService do
     end
 
     context "with tax returns with status not ready (aka in progress)" do
-      let(:tax_returns) { [build(:tax_return, status: :intake_in_progress), build(:tax_return, status: :intake_in_progress, year: 2018)] }
+      let(:tax_returns) { [
+        build(:tax_return, status: :intake_in_progress, year: 2019),
+        build(:tax_return, status: :intake_in_progress, year: 2018)
+      ] }
 
       it "marks them as not filing" do
         described_class.trigger_still_needs_help_flow(client)
@@ -50,7 +56,10 @@ describe StillNeedsHelpService do
     end
 
     context "with returns in other statuses" do
-      let(:tax_returns) { [build(:tax_return, status: :file_accepted, year: 2018), build(:tax_return, status: :prep_preparing)] }
+      let(:tax_returns) { [
+        build(:tax_return, status: :file_accepted, year: 2018),
+        build(:tax_return, status: :prep_preparing, year: 2019)
+      ] }
 
       it "does not change their status" do
         described_class.trigger_still_needs_help_flow(client)
