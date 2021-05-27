@@ -1,0 +1,18 @@
+<% content_for :page_title, t(".title") %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="question__illustration">
+            <%= image_tag("portal/still-need-help.svg", alt: "") %>
+          </div>
+          <h1 class="h2 spacing-above-0"><%= t(".title") %></h1>
+
+          <p class="help-text"><%= t(".help_text") %></p>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

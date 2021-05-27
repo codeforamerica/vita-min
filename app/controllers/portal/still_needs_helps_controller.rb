@@ -1,9 +1,9 @@
 module Portal
   class StillNeedsHelpsController < ApplicationController
-    layout "application"
+    layout "portal"
 
-    def index
-      render html: "No content yet"
-    end
+    def edit; end
+
+    def update; end
   end
 end

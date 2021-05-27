@@ -1150,6 +1150,10 @@ en:
         body_label: What's on your mind?
       create:
         message_sent: Message sent!
+    still_needs_helps:
+      edit:
+        title: "Are you still interested in filing your taxes with us?"
+        help_text: "We really want to help you with your taxes, but we’re currently at capacity. We’ll contact you in June if you still need our help to file your taxes."
   signups:
     flash_notice: Thank you! You will receive a notification when we open in January 2021.
     new:

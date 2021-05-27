@@ -82,7 +82,7 @@ RSpec.describe ClientAccessControlConcern, type: :controller do
       it "redirects to Still Need Help page" do
         get :index
 
-        expect(response).to redirect_to(portal_still_needs_helps_path)
+        expect(response).to redirect_to portal_still_needs_help_path
       end
     end
   end

@@ -1141,6 +1141,10 @@ es:
         return: "Volver a la página de bienvenida"
         title: "¡Gracias por enviar su firma final del %{year}!"
         description: "¿Desea descargar sus formularios de impuestos finales?"
+    still_needs_helps:
+      edit:
+        title: "🦐 Are you still interested in filing your taxes with us?"
+        help_text: "🦐 We really want to help you with your taxes, but we’re currently at capacity. We’ll contact you in June if you still need our help to file your taxes."
   signups:
     flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2021."
     new:
