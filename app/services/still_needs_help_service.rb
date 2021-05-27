@@ -1,6 +1,6 @@
 class StillNeedsHelpService
   def self.must_show_still_needs_help_flow?(client)
-    client.triggered_still_needs_help_at.present? && client.tax_returns.where(status: :file_not_filing).exists?
+    client.triggered_still_needs_help_at.present?
   end
 
   def self.trigger_still_needs_help_flow(client)

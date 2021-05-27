@@ -2,21 +2,11 @@ require 'rails_helper'
 
 describe StillNeedsHelpService do
   describe "#must_show_still_needs_help_flow?" do
-    context "with a client who has triggered still needs help & has returns in not-filing status" do
-      let(:tax_return) { build(:tax_return, status: :file_not_filing) }
-      let(:client) { create(:client, triggered_still_needs_help_at: Time.now, tax_returns: [tax_return]) }
+    context "with a client who has triggered still needs help" do
+      let(:client) { create(:client, triggered_still_needs_help_at: Time.now) }
 
       it "returns true" do
         expect(described_class.must_show_still_needs_help_flow?(client)).to eq(true)
-      end
-    end
-
-    context "with a client who has triggered still needs help & has no returns in not-filing status" do
-      let(:tax_return) { build(:tax_return, status: :file_hold) }
-      let(:client) { create(:client, triggered_still_needs_help_at: Time.now, tax_returns: [tax_return]) }
-
-      it "returns false" do
-        expect(described_class.must_show_still_needs_help_flow?(client)).to eq(false)
       end
     end
 
