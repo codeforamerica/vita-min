@@ -30,10 +30,10 @@ end
 
 shared_examples :a_get_action_redirects_for_show_still_needs_help_clients do |action:|
   let(:params) { {} } unless method_defined?(:params)
+  let(:client) { create(:intake).client } unless method_defined?(:client)
 
   context "with an show needs help client" do
     before do
-      client = create(:intake).client
       sign_in client
       allow(StillNeedsHelpService).to receive(:must_show_still_needs_help_flow?).with(client).and_return(true)
     end
@@ -46,8 +46,9 @@ shared_examples :a_get_action_redirects_for_show_still_needs_help_clients do |ac
   end
 
   context "with a client that does not need to see the needs help flow" do
+    let(:client) { create(:intake).client } unless method_defined?(:client)
+
     before do
-      client = create(:intake).client
       sign_in client
       allow(StillNeedsHelpService).to receive(:must_show_still_needs_help_flow?).with(client).and_return(false)
     end

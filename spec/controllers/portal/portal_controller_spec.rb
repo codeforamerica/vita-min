@@ -28,6 +28,7 @@ RSpec.describe Portal::PortalController, type: :controller do
 
   describe "#home" do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :home
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :home
 
     context "as an authenticated client" do
       before do
