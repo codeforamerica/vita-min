@@ -9,3 +9,4 @@
 - [Mailgun web hook security](2020-10-30-mailgun-web-hook-security.md)
 - [Metabase](2021-02-08-metabase.md)
 - [Refactor zendesk routing logic](2020-05-07-refactor-zendesk-routing-logic.md)
+- [Debug feature tests](2021-05-27-debug-feature-tests.md)
