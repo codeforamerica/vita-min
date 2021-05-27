@@ -29,24 +29,6 @@ describe StillNeedsHelpService do
     end
   end
 
-  describe "#may_show_still_needs_help_flow?" do
-    context "with a client who has triggered still needs help" do
-      let(:client) { create(:client, triggered_still_needs_help_at: Time.now) }
-
-      it "returns true" do
-        expect(described_class.may_show_still_needs_help_flow?(client)).to eq(true)
-      end
-    end
-
-    context "with a client who has not triggered still needs help" do
-      let(:client) { create(:client, triggered_still_needs_help_at: nil) }
-
-      it "returns false" do
-        expect(described_class.may_show_still_needs_help_flow?(client)).to eq(false)
-      end
-    end
-  end
-
   describe "#trigger_still_needs_help_flow" do
     let(:tax_returns) { [] }
     let(:client) { create(:client, tax_returns: tax_returns) }
