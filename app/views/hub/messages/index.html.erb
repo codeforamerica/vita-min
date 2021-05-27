@@ -10,17 +10,9 @@
     <div class="client-container">
       <% if @messages_by_day.present? %>
         <ul class="day-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
-
           <% @messages_by_day.each_with_index do |(datetime, contact_records), day_index| %>
             <li class="day-heading"><%= date_heading(datetime) %></li>
-
-            <% contact_records.each_with_index do |contact_record, contact_record_index| %>
-              <% if contact_record_index == (contact_records.size - 1) && day_index == (@messages_by_day.size - 1) %>
-                <%= render "shared/message_list_contact_record", contact_record: contact_record, is_last_item: true %>
-              <% else %>
-                <%= render "shared/message_list_contact_record", contact_record: contact_record %>
-              <% end %>
-            <% end %>
+            <%= render partial: "contact_record", collection: contact_records, locals: { last_day: day_index + 1 == @messages_by_day.length } %>
           <% end %>
         </ul>
       <% else %>
@@ -30,7 +22,7 @@
           element that has no body whatsoever (even whitespace).
           https://css-tricks.com/almanac/selectors/e/empty/#will-not-match
         %>
-        <ul class="message-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
+        <ul class="day-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
       <% end %>
 
       <hr/>

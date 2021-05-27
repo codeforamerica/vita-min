@@ -10,13 +10,9 @@
   <div class="slab slab--padded">
     <div class="client-container">
       <ul class="day-list">
-        <% if @all_notes_by_day.present? %>
-          <% @all_notes_by_day.each_with_index do |(datetime, records), day_index| %>
-            <li class="day-heading"><%= date_heading(datetime) %></li>
-            <% records.each_with_index do |note, note_index| %>
-              <%= render "note", note: note, is_last_item: note_index == (records.size - 1) && day_index == (@all_notes_by_day.size - 1) %>
-            <% end %>
-          <% end %>
+        <% @all_notes_by_day.each_with_index do |(datetime, notes), day_index| %>
+          <li class="day-heading"><%= date_heading(datetime) %></li>
+          <%= render partial: "note", collection: notes, locals: { last_day: day_index == @all_notes_by_day.size - 1 }  %>
         <% end %>
       </ul>
       <hr/>
