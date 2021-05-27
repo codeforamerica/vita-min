@@ -43,7 +43,7 @@ module Documents
     def illustration_path; end
 
     def next_path
-      params[:next_path]
+      params[:next_path].to_s
     end
 
     def prev_path
