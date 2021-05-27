@@ -6,6 +6,7 @@ describe Portal::TaxReturnsController do
     let(:params) { { tax_return_id: tax_return.id } }
 
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :authorize_signature
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :authorize_signature
 
     context "when trying to access another clients tax return" do
       let(:tax_return) { create :tax_return, :ready_to_sign }
@@ -61,6 +62,7 @@ describe Portal::TaxReturnsController do
     end
 
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :spouse_authorize_signature
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :spouse_authorize_signature
 
     context "when the client does not own the tax return" do
       let(:tax_return) { create :tax_return, :ready_to_sign }
@@ -374,6 +376,7 @@ describe Portal::TaxReturnsController do
     let(:params) { { tax_return_id: tax_return.id } }
 
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :show
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :show
 
     context "with more than one final tax doc" do
       let!(:documents) do

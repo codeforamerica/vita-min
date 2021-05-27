@@ -14,6 +14,7 @@ RSpec.describe DependentsController do
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :index
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :index
 
     context "with an authenticated client" do
       before { sign_in intake.client }
@@ -145,6 +146,7 @@ RSpec.describe DependentsController do
   end
 
   describe "#edit" do
+    let(:client) { intake.client }
     let!(:dependent) do
       create :dependent,
              first_name: "Mary",
@@ -156,11 +158,12 @@ RSpec.describe DependentsController do
     let(:params) { { id: dependent.id } }
 
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :edit
 
     context "with an authenticated client" do
       render_views
 
-      before { sign_in intake.client }
+      before { sign_in client }
 
       it "renders information about the existing dependent and renders a delete button" do
         get :edit, params: params

@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Questions::FinalInfoController do
   describe "#edit" do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :edit
   end
 
   describe "#update" do
@@ -50,7 +51,7 @@ RSpec.describe Questions::FinalInfoController do
           context "with spanish locale" do
             it "sends a success email in the correct language" do
               post :update, params: params.merge(locale: "es")
-              
+
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
                 email_body: I18n.t("messages.successful_submission.email_body", locale: "es"),
