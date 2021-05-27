@@ -45,8 +45,13 @@ RSpec.describe ClientAccessControlConcern, type: :controller do
       end
     end
 
-    context "with a client who has triggered the Still Need Help page" do
-      before { sign_in create(:client, triggered_still_needs_help_at: Time.now) }
+    context "with a client who needs to see the Still Need Help page" do
+      let(:client) { create(:client) }
+
+      before do
+        allow(StillNeedsHelpService).to receive(:must_show_still_needs_help_flow?).with(client).and_return(true)
+        sign_in client
+      end
 
       it "redirects to Still Need Help page" do
         get :index
