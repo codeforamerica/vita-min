@@ -30,13 +30,8 @@ module Hub
     end
 
     def new
-      if new_params.dig(:create_tax_return_selection, :action_type) == "filtered-clients"
-        @clients = Client.accessible_by(current_ability).with_eager_loaded_associations
-        @tr_ids = TaxReturn.where(client: filtered_and_sorted_clients).pluck(:id)
-      else
-        @tr_ids = new_params[:tr_ids]
-      end
-
+      @clients = Client.accessible_by(current_ability).with_eager_loaded_associations
+      @tr_ids = (new_params.dig(:create_tax_return_selection, :action_type) == "filtered-clients") ? TaxReturn.where(client: filtered_and_sorted_clients).pluck(:id) : new_params[:tr_ids]
       @client_count = @clients.distinct.joins(:tax_returns).where(tax_returns: { id: @tr_ids }).count
       @tax_return_count = TaxReturn.accessible_by(current_ability).where(id: @tr_ids).count
       @selection = TaxReturnSelection.new
