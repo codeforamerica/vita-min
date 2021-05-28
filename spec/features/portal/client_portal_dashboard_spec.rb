@@ -163,6 +163,58 @@ RSpec.feature "a client on their portal" do
     end
   end
 
+  context "when the tax return is marked not filing" do
+    let(:client) do
+      create :client,
+             intake: (create :intake),
+             tax_returns: [(create :tax_return, year: 2020, status: :file_not_filing)]
+    end
+
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "shows that the client requested not to file" do
+      visit portal_root_path
+
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+
+      expect(page).to have_text "2020 Tax Return"
+      within "#tax-year-2020" do
+        expect(page).not_to have_text "Completed review"
+        expect(page).not_to have_text "Return prepared"
+        expect(page).to have_text "You requested not to file this return"
+      end
+    end
+  end
+
+  context "when the tax return is on hold" do
+    let(:client) do
+      create :client,
+             intake: (create :intake),
+             tax_returns: [(create :tax_return, year: 2020, status: :file_hold)]
+    end
+
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "shows that the return is on hold due to the American Rescue Plan" do
+      visit portal_root_path
+
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+
+      expect(page).to have_text "2020 Tax Return"
+      within "#tax-year-2020" do
+        expect(page).not_to have_text "Completed review"
+        expect(page).not_to have_text "Return prepared"
+        expect(page).to have_text "Your return is on hold due to the American Rescue Plan. Your tax preparer will reach out with an update."
+      end
+    end
+  end
+
   context "when the client needs to review & sign" do
     let(:client) do
       create :client,
