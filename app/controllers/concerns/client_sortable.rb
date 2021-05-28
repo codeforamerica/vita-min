@@ -24,6 +24,7 @@ module ClientSortable
       clients = clients.where('vita_partners.id IN (:id)', id: ids)
     end
     clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?
+    clients = clients.first_unanswered_incoming_interaction_communication_breaches(@filters[:sla_breach_date]) if @filters[:sla_breach_date].present?
     clients
   end
 
@@ -32,6 +33,10 @@ module ClientSortable
     overlapping_keys = (params.keys.map(&:to_sym) & search_and_sort_params)
     hash_params = params.try(:to_unsafe_h) || params
     overlapping_keys.any? && hash_params.slice(*overlapping_keys).any? { |_, v| v.present? }
+  end
+
+  def search_and_sort_params
+    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date]
   end
 
   private
@@ -68,11 +73,8 @@ module ClientSortable
       language: source[:language],
       service_type: source[:service_type],
       greetable: source[:greetable],
+      sla_breach_date: source[:sla_breach_date],
     }
-  end
-
-  def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable]
   end
 
   def cookie_filters
