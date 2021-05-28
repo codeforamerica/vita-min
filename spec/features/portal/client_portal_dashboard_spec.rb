@@ -184,7 +184,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2020" do
         expect(page).not_to have_text "Completed review"
         expect(page).not_to have_text "Return prepared"
-        expect(page).to have_text "You requested not to file this return"
+        expect(page).to have_text "This return is not being filed. Contact your tax preparer with any questions."
       end
     end
   end
@@ -200,7 +200,7 @@ RSpec.feature "a client on their portal" do
       login_as client, scope: :client
     end
 
-    scenario "shows that the return is on hold due to the American Rescue Plan" do
+    scenario "shows that the return is on hold" do
       visit portal_root_path
 
       expect(page).to have_text "Answered initial tax questions"
@@ -210,7 +210,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2020" do
         expect(page).not_to have_text "Completed review"
         expect(page).not_to have_text "Return prepared"
-        expect(page).to have_text "Your return is on hold due to the American Rescue Plan. Your tax preparer will reach out with an update."
+        expect(page).to have_text "Your return is on hold. Your tax preparer will reach out with an update."
       end
     end
   end

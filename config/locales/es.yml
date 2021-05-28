@@ -1096,9 +1096,8 @@ es:
             submit_spouse: Añade la firma del cónyuge para %{year}
         waiting_state:
           tax_return:
-            file_not_filing: "Usted solicitó que no se presente esta declaración"
-            file_hold_html:
-              'Su declaración está supendida debido al <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank noreferrer noopener">Plan de Rescate Estadounidense</a>. Su preparador de impuestos le contactará con una actualización.'
+            file_not_filing: Esta declaración no se está presentando. Comuníquese con su preparador de impuestos si tiene alguna pregunta.
+            file_hold: Su declaración está en espera. Su preparador de impustos se comunicará con más detalles.
             waiting_for_review: Su equipo de impuestos espera una primera revisión con usted
             preparing_return: Su equipo de impuestos está preparando la declaración
             waiting_for_qr: Nuestro equipo de impuestos está esperando para hablar sobre su declaración final de %{year} con usted
