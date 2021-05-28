@@ -2247,13 +2247,6 @@ es:
         title:
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
-      triage_arp:
-        title: ¡Su declaración de impuestos  podría retrasarse para que podamos asegurar que usted consiga el mejor reembolso!
-        help_text_html: >-
-          El
-          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="noopener nofollow">Plan de Rescate Americano</a>
-          puede aumentar los créditos fiscales para los cuales usted y los miembros de su hogar pueden ser elegibles.
-          Esto podría resultar en un reembolso más alto. Su preparador de impuestos le mantendrá actualizado sobre el proceso.
       triage_backtaxes:
         title: "¿Ha declarado impuestos para los años 2017, 2018, y 2019?"
         help_text: Si ganó ingreso y ha presentado para todos los años anteriores, conteste sí. Incluso si usó un servicio diferente para declarar en los años anteriores.
