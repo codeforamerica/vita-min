@@ -110,7 +110,7 @@ RSpec.feature "Web Intake Joint Filers" do
 
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-    fill_in "Preferred name", with: "Gary"
+    fill_in "What is your preferred first name?", with: "Gary"
     fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
@@ -131,7 +131,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
     # Notification Preference
-    expect(page).to have_text("How can we update you on your tax return?")
+    expect(page).to have_text("What is the best way to reach you?")
     check "Email Me"
     click_on "Continue"
 
