@@ -81,7 +81,6 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     end
   end
 
-
   describe "#index" do
     let(:coalition) { create :coalition }
     let!(:external_coalition) { create :coalition }
@@ -238,6 +237,66 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
           expect(flash.now[:alert]).to eq "Please fix indicated errors and try again."
           expect(response).to render_template :edit
+        end
+      end
+    end
+  end
+
+  describe "#suspend_all" do
+    let(:organization) { create :organization }
+    let(:site) { create :site, parent_organization: organization }
+    let!(:team_member_1) { create :user, role: (create :team_member_role, site: site) }
+    let!(:team_member_2) { create :user, role: (create :team_member_role, site: site) }
+    let!(:team_member_3) { create :user, role: (create :team_member_role, site: site) }
+    let(:params) do
+      {
+        role_type: TeamMemberRole::TYPE,
+        id: organization.id
+      }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :suspend_all
+
+    context "as a logged in admin" do
+      before { sign_in user }
+
+      context "with active team member users" do
+        it "updates all users to be suspended" do
+          expect(organization.team_members.all?(&:active?)).to eq(true)
+
+          patch :suspend_all, params: params
+
+          expect(organization.team_members.all?(&:suspended?)).to eq(true)
+        end
+      end
+    end
+  end
+
+  describe "#activate_all" do
+    let(:organization) { create :organization }
+    let(:site) { create :site, parent_organization: organization }
+    let!(:team_member_1) { create :user, role: (create :team_member_role, site: site), suspended_at: DateTime.now }
+    let!(:team_member_2) { create :user, role: (create :team_member_role, site: site), suspended_at: DateTime.now }
+    let!(:team_member_3) { create :user, role: (create :team_member_role, site: site), suspended_at: DateTime.now }
+    let(:params) do
+      {
+        role_type: TeamMemberRole::TYPE,
+        id: organization.id
+      }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :suspend_all
+
+    context "as a logged in admin" do
+      before { sign_in user }
+
+      context "with suspended team member users" do
+        it "updates all users to be active" do
+          expect(organization.team_members.all?(&:suspended?)).to eq(true)
+
+          patch :activate_all, params: params
+
+          expect(organization.team_members.all?(&:active?)).to eq(true)
         end
       end
     end

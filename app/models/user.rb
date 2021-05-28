@@ -64,14 +64,13 @@ class User < ApplicationRecord
   has_many :notifications, class_name: "UserNotification"
   belongs_to :role, polymorphic: true
 
-  belongs_to :organization_lead_role, -> { where(users: { role_type: 'OrganizationLeadRole' }) }, foreign_key: 'role_id', optional: true
-
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   validates_presence_of :name
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
 
   scope :active, -> { where(suspended_at: nil) }
+  scope :suspended, -> { where.not(suspended_at: nil) }
 
   def accessible_coalitions
     case role_type
@@ -213,6 +212,10 @@ class User < ApplicationRecord
     suspended_at.present?
   end
 
+  def active?
+    !suspended?
+  end
+
   def active_for_authentication?
     # overrides
     super && !suspended?
@@ -221,5 +224,9 @@ class User < ApplicationRecord
   def suspend!
     assigned_tax_returns.update(assigned_user: nil)
     update!(suspended_at: DateTime.now)
+  end
+
+  def activate!
+    update!(suspended_at: nil)
   end
 end

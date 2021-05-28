@@ -24,6 +24,7 @@ class TeamMemberRole < ApplicationRecord
   def served_entity
     site
   end
+
   private
 
   def no_organizations
