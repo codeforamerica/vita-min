@@ -1364,6 +1364,10 @@ es:
           non_filer:
             a: Podemos presentar sus declaraciones de impuestos de los años 2017, 2018 y 2019. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
             q: "¿Qué debo hacer si no he declarado impuestos desde hace varios años?"
+          ctc:
+            a_html: 'Creamos una página distinta para contestar todas las preguntas sobre el Crédito Tributario por Hijos. Por favor, visite nuestra página de <a href="%{path}
+            ">preguntas frecuentes sobre el Crédito Tributario por Hijos</a> para más detalles.'
+            q: "¿Cómo puedo obtener mi Crédito Tributario por Hijos (CTC)?"
         header: Preguntas frecuentes
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
         title: Preguntas Frecuentes
@@ -1389,7 +1393,7 @@ es:
         questions_about_filing:
           header: Preguntas sobre su declaración de impuestos
         questions_before_filing:
-          header: "Tengo una pregunta antes de declarar."
+          header: "Tengo una pregunta antes de declarar"
           havent_filed:
             q: "¿Qué pasa si aun no he declarado mis impuestos?"
             a: "Si no ha declarado sus impuestos este año o el año pasado, no recibirá automáticamente el Crédito Tributario por Hijos. Cualquiera que sea elegible para el Crédito Tributario por Hijos puede declarar sus impuestos. No es necesario tener un ingreso mínimo para declarar sus impuestos y recibir el Crédito Tributario por Hijos."

@@ -1,7 +1,7 @@
 <% content_for :page_title, t("views.public_pages.ctc_faq.title") %>
 <% content_for :body_class, "ctc-faq" %>
 
-<%= render("shared/breadcrumb")%>
+<%= render("shared/breadcrumb") %>
 
 <main role="main">
   <section class="slab slab--white slab--half-padded">
@@ -102,9 +102,9 @@
   </section>
 
   <div class="slab slab--stimulus-blue">
-    <div class="grid">
+    <div class="grid grid--center-horizontally">
       <div class="grid__item width-three-fourths">
-        <h3 class="h3"><%= t("views.public_pages.home.file.header") %></h3>
+        <h3 class="h3 spacing-below-0"><%= t("views.public_pages.home.file.header") %></h3>
       </div>
       <div class="grid__item width-one-fourth">
         <%= link_to question_path(id: QuestionNavigation.first), class: "button button--med-wide spacing-below-0" do %>

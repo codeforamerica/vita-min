@@ -91,7 +91,7 @@ Rails.application.routes.draw do
     get "/about-us", to: "public_pages#about_us"
     get "/tax-questions", to: "public_pages#tax_questions"
     get "/faq", to: "public_pages#faq"
-    get "/ctc_faq", to: "public_pages#ctc_faq"
+    get "/ctc-faq", to: "public_pages#ctc_faq"
     get "/sms-terms", to: "public_pages#sms_terms"
     get "/stimulus", to: "public_pages#stimulus"
     get "/full-service", to: "public_pages#full_service_home"

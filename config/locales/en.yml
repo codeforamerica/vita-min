@@ -1434,6 +1434,9 @@ en:
           non_filer:
             a: We can file your taxes for 2017, 2018, and 2019. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on.
             q: What should I do if I haven’t filed in several years?
+          ctc:
+            a_html: We created a separate page to address all questions related to the Child Tax Credit. Please visit our <a href="%{path}">Child Tax Credit FAQ</a> for more details.
+            q: How do I get my Child Tax Credit?
         header: Frequently asked questions
         subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
         title: FAQ
@@ -1459,7 +1462,7 @@ en:
         questions_about_filing:
           header: Questions about your tax return
         questions_before_filing:
-          header: "I have a question before filing."
+          header: "I have a question before filing"
           havent_filed:
             q: "What if I haven’t filed a tax return?"
             a: "If you have not filed a tax return this year or last year, you will not automatically receive the Child Tax Credit. Anyone who is eligible for the Child Tax Credit can file a return. You do not need to have a minimum level of income to file a tax return to receive the Child Tax Credit."
