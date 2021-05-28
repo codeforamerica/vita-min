@@ -10,7 +10,10 @@ class SendClientCompletionSurveyJob < ApplicationJob
       client.update!(completion_survey_sent_at: Time.current)
     end
 
-    survey_link = "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_exiL2bLJx8GvjGC?ExternalDataReference=#{client.id}"
+    is_drop_off_client = client.tax_returns.pluck(:service_type).any? "drop_off"
+    survey_code = is_drop_off_client ? "SV_ebtml6MMfhf8Vsa" : "SV_exiL2bLJx8GvjGC"
+    survey_link = "https://codeforamerica.co1.qualtrics.com/jfe/form/#{survey_code}?ExternalDataReference=#{client.id}"
+
     locale = client.intake.locale
     case best_contact_method
     when :email
