@@ -39,7 +39,7 @@ feature "Intake Routing Spec" do
     click_on "Continue"
 
     expect(page).to have_text "let's get some basic information"
-    fill_in "Preferred name", with: "Betty Banana"
+    fill_in "What is your preferred first name?", with: "Betty Banana"
     fill_in "ZIP code", with: zip_code
     click_on "Continue"
 
@@ -67,7 +67,7 @@ feature "Intake Routing Spec" do
     click_on "Continue"
 
     expect(page).to have_text "let's get some basic information"
-    fill_in "Preferred name", with: "Minerva Mcgonagall"
+    fill_in "What is your preferred first name?", with: "Minerva Mcgonagall"
     fill_in "ZIP code", with: zip_code
     click_on "Continue"
 
@@ -95,7 +95,7 @@ feature "Intake Routing Spec" do
     click_on "Continue"
 
     expect(page).to have_text "let's get some basic information"
-    fill_in "Preferred name", with: "Luna Lovegood"
+    fill_in "What is your preferred first name?", with: "Luna Lovegood"
     fill_in "ZIP code", with: "28806"
     click_on "Continue"
 
@@ -130,7 +130,7 @@ feature "Intake Routing Spec" do
       click_on "Continue"
 
       expect(page).to have_text "let's get some basic information"
-      fill_in "Preferred name", with: "Luna Lovegood"
+      fill_in "What is your preferred first name?", with: "Luna Lovegood"
       fill_in "ZIP code", with: "28806"
       click_on "Continue"
 

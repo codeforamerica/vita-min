@@ -59,7 +59,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     # Personal Info
     expect(intake.reload.current_step).to eq("/en/questions/personal-info")
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-    fill_in "Preferred name", with: "Gary"
+    fill_in "What is your preferred first name?", with: "Gary"
     fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
@@ -83,7 +83,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
 
     # Notification Preference
     expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
-    expect(page).to have_text("How can we update you on your tax return?")
+    expect(page).to have_text("What is the best way to reach you?")
     check "Email Me"
     check "Text Me"
     fill_in "Cell phone number", with: "(415) 553-7865"
