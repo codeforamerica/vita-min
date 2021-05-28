@@ -85,13 +85,8 @@ CREATE VIEW analytics.incoming_emails AS
     SELECT id, attachment_count, client_id, created_at, received_at, updated_at
     FROM public.incoming_emails;
 
-CREATE VIEW analytics.intake_navigators AS
-    SELECT id, (navigator % 2 = 1) AS navigator_type_general
-    FROM public.intakes;
-
 CREATE VIEW analytics.intakes AS
     SELECT id, adopted_child, already_applied_for_stimulus, already_filed, balance_pay_from_bank,
-
            bank_account_type, bought_energy_efficient_items, bought_health_insurance, city,
            claimed_by_another, client_id, completed_at, completed_yes_no_questions_at, continued_at_capacity,
            created_at, demographic_disability, demographic_english_conversation, demographic_english_reading,
