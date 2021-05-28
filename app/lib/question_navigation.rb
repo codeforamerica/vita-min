@@ -10,7 +10,6 @@ class QuestionNavigation
       Questions::TriageLookbackController,
       Questions::TriageSimpleTaxController,
       Questions::TriagePrepareSoloController,
-      Questions::TriageArpController,
 
       ## Main flow
       Questions::FileWithHelpController,

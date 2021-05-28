@@ -8,10 +8,6 @@ module Questions
       "calendar-check.svg"
     end
 
-    def next_path
-      @form.filed_previous_years? ? super : triage_arp_questions_path
-    end
-
     def method_name
       "filed_previous_years"
     end

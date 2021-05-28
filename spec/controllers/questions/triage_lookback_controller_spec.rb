@@ -31,9 +31,9 @@ RSpec.describe Questions::TriageLookbackController do
 
     context "when at least one situation is yes" do
       let(:had_income_decrease) { "yes" }
-      it "redirects to the ARP page" do
+      it "redirects to the next question" do
         put :update, params: params
-        expect(response).to redirect_to triage_arp_questions_path
+        expect(response).to redirect_to triage_simple_tax_questions_path
         expect(MixpanelService).to have_received(:send_event).with(
           hash_including({
                              data:

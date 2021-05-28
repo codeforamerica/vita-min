@@ -29,8 +29,29 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
     click_on "No"
 
-    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
+    expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
+    check "My income decreased from 2019"
+    check "I received unemployment income"
+    check "I purchased health insurance through the marketplace"
     click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Do you have simple taxes?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
+    click_on "Go back"
+
+    expect(page).to have_selector("h1", text: "Do you have simple taxes?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "File your taxes yourself!")
+    click_on "Go back"
+
+    expect(page).to have_selector("h1", text: "Do you have simple taxes?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "Our full service option is right for you!")
     click_on "Continue"

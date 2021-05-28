@@ -19,9 +19,9 @@ RSpec.describe Questions::TriageBacktaxesController do
     end
 
     context "when they have not filed previous years" do
-      it "redirects to the ARP page" do
+      it "redirects to the next triage question" do
         put :update, params: params
-        expect(response).to redirect_to triage_arp_questions_path
+        expect(response).to redirect_to triage_lookback_questions_path
         expect(MixpanelService).to have_received(:send_event).with(
           hash_including({
                              data:

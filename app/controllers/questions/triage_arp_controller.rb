@@ -11,6 +11,5 @@ module Questions
     def form_class
       NullForm
     end
-    
   end
 end
