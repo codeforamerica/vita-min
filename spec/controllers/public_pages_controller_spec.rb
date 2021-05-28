@@ -29,6 +29,7 @@ RSpec.describe PublicPagesController do
       end
     end
 
+
     context "in demo env" do
       before do
         allow(Rails).to receive(:env).and_return("demo".inquiry)
@@ -109,20 +110,6 @@ RSpec.describe PublicPagesController do
   describe "#diy" do
     it "renders successfully" do
       get :diy
-      expect(response).to be_ok
-    end
-  end
-
-  describe "#faq" do
-    it "renders successfully" do
-      get :faq
-      expect(response).to be_ok
-    end
-  end
-
-  describe "#ctc_faq" do
-    it "renders successfully" do
-      get :ctc_faq
       expect(response).to be_ok
     end
   end
