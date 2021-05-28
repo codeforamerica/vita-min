@@ -1092,6 +1092,9 @@ en:
             submit_spouse: "Add final spouse signature for %{year}"
         waiting_state:
           tax_return:
+            file_not_filing: "You requested not to file this return"
+            file_hold_html:
+              'Your return is on hold due to the <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank noreferrer noopener">American Rescue Plan</a>. Your tax preparer will reach out with an update.'
             waiting_for_review: "Your tax team is waiting for an initial review with you"
             preparing_return: "Your tax team is preparing the return"
             waiting_for_qr: "Your tax team is waiting to discuss your final %{year} return with you"

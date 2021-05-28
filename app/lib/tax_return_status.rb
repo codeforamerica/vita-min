@@ -52,6 +52,7 @@ class TaxReturnStatus
   STATUSES_BY_STAGE = determine_statuses_by_stage.freeze
   STAGES = STATUSES_BY_STAGE.keys.freeze
   TERMINAL_STATUSES = [:file_accepted, :file_rejected, :file_mailed].freeze
+  PAUSED_STATUSES = [:file_not_filing, :file_hold]
   # If you change the statuses included in capacity, please also update the organization capacities sql view
   # tax_returns.status >= 102 AND tax_returns.status <= 404 AND tax_returns.status != 403 AND tax_returns.status != 106
   EXCLUDED_FROM_CAPACITY = (ONBOARDING_STATUSES + [:file_mailed, :file_accepted, :file_not_filing, :file_hold]).freeze
