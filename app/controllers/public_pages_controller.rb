@@ -40,4 +40,8 @@ class PublicPagesController < ApplicationController
   def sms_terms; end
 
   def diy; end
+
+  def faq; end
+
+  def ctc_faq; end
 end

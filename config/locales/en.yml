@@ -1445,9 +1445,69 @@ en:
           non_filer:
             a: We can file your taxes for 2017, 2018, and 2019. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on.
             q: What should I do if I haven’t filed in several years?
+          ctc:
+            a_html: We created a separate page to address all questions related to the Child Tax Credit. Please visit our <a href="%{path}">Child Tax Credit FAQ</a> for more details.
+            q: How do I get my Child Tax Credit?
         header: Frequently asked questions
         subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
         title: FAQ
+      ctc_faq:
+        title: CTC FAQ
+        header: Child Tax Credit - Frequently Asked Questions
+        subheader: The American Rescue Plan, signed into law on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $250 per month per child under age 6, and up to $300 per month per child ages 6 to 17. You can receive payments of up to $300 per child every month starting in July 2021.
+        eligibility:
+          header: Eligibility for the the Child Tax Credit
+          claim:
+            q: Who is eligible to claim the Child Tax Credit?
+            a: Joint filers making up to $150,000, single head of households making up to $112,500, and other single filers making up to $75,000 qualify for the full advanced periodic payment of the Child Tax Credit.
+          dependents:
+            q: Does my child or dependent qualify for the Child Tax Credit?
+            a_html: >-
+              <p>Your child qualifies your family for the Child Tax Credit if they:</p>
+              <ul class="list--bulleted">
+                <li>Are your son, daughter, grandchild, stepchild or adopted child; younger sibling, step-sibling, half-sibling, or their descendent; or a foster child placed with you by a government agency.</li>
+                <li>Were under 17 at the end of 2020.</li>
+                <li>Lived with you, in the U.S., for more than 6 months of the year in 2020.</li>
+                <li>Have a valid Social Security Number.</li>
+              </ul>
+        questions_about_filing:
+          header: Questions about your tax return
+        questions_before_filing:
+          header: "I have a question before filing"
+          havent_filed:
+            q: "What if I haven’t filed a tax return?"
+            a: "If you have not filed a tax return this year or last year, you will not automatically receive the Child Tax Credit. Anyone who is eligible for the Child Tax Credit can file a return. You do not need to have a minimum level of income to file a tax return to receive the Child Tax Credit."
+          why_file:
+            q: "Why would I file a full tax return?"
+            a_html: >-
+              <p>If you file a full tax return you can get access to cash benefits in addition to the Child Tax Credit explained above. To see an estimate of your federal Earned Income Tax Credit you can use the EITC Calculator.</p>
+              <p>But that’s not all: 30 states, like California, South Carolina, Vermont, Maryland and more provide additional money. If you have not received all three stimulus payments, you can claim your missing money on your tax return. If you do not file a full tax return, it will be harder for you to claim these benefits in the future.</p>
+              <p>For example, the Child Tax Credit, Earned Income Tax Credit, state credits, and stimulus payments combined, would provide a single parent living in California more than $8,000.</p>
+          no_docs:
+            q: "What if I don’t have my tax documents?"
+            a_html: >-
+              <p>In order to file a full return you will need documents that prove your income, like a W-2 or 1099 that you receive from your employer. If you did not receive your tax documents you can request them from the IRS Get Transcript tool.</p>
+              <p>If you are struggling to gather your tax documents and need Child Tax Credit money for your family now, you can use the non-filers link when it's available, but if you do that you might miss out on additional cash support.</p>
+          benefits:
+            q: "What if I earned money from benefits (like SSI, SNAP, TANF, or WIC)?"
+            a_html: >-
+              <p>If your only income was from benefits programs we recommend that you complete the Child Tax Credit simplified form to receive cash benefits for your family.</p>
+              <p>If you earned income from a benefits program and also some income from working, we recommend that you file a full tax return in order to receive the additional benefits that you may qualify for.</p>
+        questions_after_filing:
+          header: "I have questions about my filed tax return"
+          got_ctc:
+            q: "I already filed my tax return, how do I know if I got the Child Tax Credit?"
+            a: "You can use the Child Tax Credit Update Portal to see your most recent information. The portal will show your eligibility and payments made to you."
+          change_info:
+            q: "I already filed my tax return. How do I change some of my information?"
+            a_html: >-
+              <p>You can add or remove qualifying children from your return, report any major changes in income, or opt out of monthly Child Tax Credit payments using the CTC Update portal.</p>
+              <p>If you already submitted your information, you can not change your bank account or payment details. If you no longer have access to the bank account that the IRS used to deposit your 2020 refund or stimulus check, we recommend that you opt out of monthly payments using the CTC Update Portal, when it becomes available mid-June. You will be able to claim any missing Child Tax Credit payments when you file your 2021 tax return.</p>
+          payment_status:
+            q: "I already filed my tax return. How do I check the status of my payment?"
+            a_html: >-
+              <p>If you filed a full tax return you can check the status of your refund with the IRS Where’s My Refund tool.</p>
+              <p>If you submitted a Child Tax Credit simplified return you can check the status of your payment.</p>
       full_service_home:
         header: Your money is waiting!
         subheader1: Does your family make less than $57,000? You might qualify for a refund of up to $6,728.
