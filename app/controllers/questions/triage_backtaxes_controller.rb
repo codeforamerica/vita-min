@@ -8,6 +8,10 @@ module Questions
       "calendar-check.svg"
     end
 
+    def next_path
+      @form.filed_previous_years? ? super : file_with_help_questions_path
+    end
+
     def method_name
       "filed_previous_years"
     end
