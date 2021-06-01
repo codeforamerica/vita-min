@@ -80,7 +80,7 @@
           <% end %>
         <% end %>
 
-        <% if status_number >= TaxReturnStatus::STATUSES[:review_signature_requested] %>
+        <% if status_number >= TaxReturnStatus::STATUSES[:review_signature_requested] && !TaxReturnStatus::PAUSED_STATUSES.include?(status) %>
           <%= render "progress_state" do %>
             <%= t("portal.portal.home.progress_state.tax_return.completed_qr", year: tax_return.year) %>
           <% end %>
