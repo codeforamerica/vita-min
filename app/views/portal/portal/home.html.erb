@@ -38,76 +38,78 @@
         <% status = tax_return.status.to_sym %>
         <% status_number = TaxReturnStatus::STATUSES[status] %>
 
-        <% if status_number.between?(TaxReturnStatus::STATUSES[:intake_ready], TaxReturnStatus::STATUSES[:intake_ready_for_call]) %>
-          <%= render "action_state", link: false do %>
-            <%= t("portal.portal.home.waiting_state.tax_return.waiting_for_review") %>
+        <% if TaxReturnStatus::PAUSED_STATUSES.include?(status) %>
+          <% if status == :file_not_filing %>
+            <%= render "action_state", link: false do %>
+              <%= t("portal.portal.home.waiting_state.tax_return.file_not_filing") %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if status_number >= TaxReturnStatus::STATUSES[:prep_ready_for_prep] && !TaxReturnStatus::PAUSED_STATUSES.include?(status) %>
-          <%= render "progress_state" do %>
-            <% t("portal.portal.home.progress_state.tax_return.completed_review") %>
+          <% if status == :file_hold %>
+            <%= render "action_state", link: false do %>
+              <%= t("portal.portal.home.waiting_state.tax_return.file_hold") %>
+            <% end %>
           <% end %>
-        <% end %>
-
-        <% if [:prep_ready_for_prep, :prep_preparing].include?(status) %>
-          <%= render "waiting_state" do %>
-            <%= t("portal.portal.home.waiting_state.tax_return.preparing_return") %>
+        <% else %>
+          <% if status_number.between?(TaxReturnStatus::STATUSES[:intake_ready], TaxReturnStatus::STATUSES[:intake_ready_for_call]) %>
+            <%= render "action_state", link: false do %>
+              <%= t("portal.portal.home.waiting_state.tax_return.waiting_for_review") %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if status == :file_not_filing %>
-          <%= render "action_state", link: false do %>
-            <%= t("portal.portal.home.waiting_state.tax_return.file_not_filing") %>
+          <% if status_number >= TaxReturnStatus::STATUSES[:prep_ready_for_prep] %>
+            <%= render "progress_state" do %>
+              <% t("portal.portal.home.progress_state.tax_return.completed_review") %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if status == :file_hold %>
-          <%= render "action_state", link: false do %>
-            <%= t("portal.portal.home.waiting_state.tax_return.file_hold") %>
+          <% if [:prep_ready_for_prep, :prep_preparing].include?(status) %>
+            <%= render "waiting_state" do %>
+              <%= t("portal.portal.home.waiting_state.tax_return.preparing_return") %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if status_number >= TaxReturnStatus::STATUSES[:review_ready_for_qr] && !TaxReturnStatus::PAUSED_STATUSES.include?(status) %>
-          <%= render "progress_state" do %>
-            <%= t("portal.portal.home.progress_state.tax_return.return_prepared") %>
+          <% if status_number >= TaxReturnStatus::STATUSES[:review_ready_for_qr] %>
+            <%= render "progress_state" do %>
+              <%= t("portal.portal.home.progress_state.tax_return.return_prepared") %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if [:review_ready_for_qr, :review_reviewing, :review_ready_for_call].include?(status) %>
-          <%= render "action_state", link: false do %>
-            <%= t("portal.portal.home.waiting_state.tax_return.waiting_for_qr", year: tax_return.year) %>
+          <% if [:review_ready_for_qr, :review_reviewing, :review_ready_for_call].include?(status) %>
+            <%= render "action_state", link: false do %>
+              <%= t("portal.portal.home.waiting_state.tax_return.waiting_for_qr", year: tax_return.year) %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if status_number >= TaxReturnStatus::STATUSES[:review_signature_requested] %>
-          <%= render "progress_state" do %>
-            <%= t("portal.portal.home.progress_state.tax_return.completed_qr", year: tax_return.year) %>
+          <% if status_number >= TaxReturnStatus::STATUSES[:review_signature_requested] %>
+            <%= render "progress_state" do %>
+              <%= t("portal.portal.home.progress_state.tax_return.completed_qr", year: tax_return.year) %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
-          <%= render "action_state", link: true do %>
-            <%= link_to t("portal.portal.home.action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
+          <% if tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
+            <%= render "action_state", link: true do %>
+              <%= link_to t("portal.portal.home.action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
-          <%= render "action_state", link: true do %>
-            <%= link_to t("portal.portal.home.action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
+          <% if tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
+            <%= render "action_state", link: true do %>
+              <%= link_to t("portal.portal.home.action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% ready_for_8879 = tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) || tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
-        <% if tax_return.completely_signed_8879? && !ready_for_8879 %>
-          <%= render "progress_state" do %>
-            <%= t("portal.portal.home.progress_state.tax_return.final_signature_added", year: tax_return.year) %>
+          <% ready_for_8879 = tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) || tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
+          <% if tax_return.completely_signed_8879? && !ready_for_8879 %>
+            <%= render "progress_state" do %>
+              <%= t("portal.portal.home.progress_state.tax_return.final_signature_added", year: tax_return.year) %>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <% if [:intake_info_requested, :prep_info_requested, :review_info_requested].include?(status) %>
-          <%= render "action_state", link: true do %>
-            <%= link_to t("portal.portal.home.waiting_state.tax_return.info_requested"), portal_upload_documents_path, class: "link" %>
+          <% if [:intake_info_requested, :prep_info_requested, :review_info_requested].include?(status) %>
+            <%= render "action_state", link: true do %>
+              <%= link_to t("portal.portal.home.waiting_state.tax_return.info_requested"), portal_upload_documents_path, class: "link" %>
+            <% end %>
           <% end %>
         <% end %>
 

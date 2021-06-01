@@ -184,6 +184,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2020" do
         expect(page).not_to have_text "Completed review"
         expect(page).not_to have_text "Return prepared"
+        expect(page).not_to have_text "Completed quality review"
         expect(page).to have_text "This return is not being filed. Contact your tax preparer with any questions."
       end
     end
@@ -210,6 +211,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2020" do
         expect(page).not_to have_text "Completed review"
         expect(page).not_to have_text "Return prepared"
+        expect(page).not_to have_text "Completed quality review"
         expect(page).to have_text "Your return is on hold. Your tax preparer will reach out with an update."
       end
     end
