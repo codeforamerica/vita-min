@@ -99,6 +99,7 @@ es:
         client_id_heading: Cliente ID
         filing_year: Año para declarar
         select: Seleccione
+        take_action_on_all_html: 'Actúe en las <span id="take-action-all-count">%{count}</span> devoluciones'
         title: Todos clientes
         no_clients: No hay clientes asignadas.
         no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.

@@ -36,7 +36,7 @@ module ClientSortable
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partner_id, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date]
+    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date]
   end
 
   private

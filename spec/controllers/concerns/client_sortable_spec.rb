@@ -27,7 +27,7 @@ RSpec.describe ClientSortable, type: :controller do
     allow(subject).to receive(:params).and_return params
     subject.instance_variable_set(:@clients, clients_query_double)
     allow(clients_query_double).to receive(:after_consent).and_return clients_query_double
-    allow(clients_query_double).to receive(:or).and_return clients_query_double
+    allow(Client).to receive(:joins).and_return Client
     allow(clients_query_double).to receive(:greetable).and_return clients_query_double
     allow(clients_query_double).to receive(:sla_breach_date).and_return clients_query_double
     allow(clients_query_double).to receive(:delegated_order).and_return clients_query_double
@@ -49,12 +49,26 @@ RSpec.describe ClientSortable, type: :controller do
         allow(user_double).to receive(:greeter?).and_return(true)
       end
 
-      it "limits to intake statuses only" do
-        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+      context "there are greetable clients" do
+        it "limits to greetable clients only" do
+          expect(subject.filtered_and_sorted_clients).to eq clients_query_double
 
-        expect(clients_query_double).to have_received(:greetable)
-        expect(clients_query_double).to have_received(:or).with(Client.joins(:tax_returns).where({ tax_returns: { assigned_user: user_double } }).distinct)
+          expect(clients_query_double).to have_received(:greetable)
+        end
       end
+
+      context "there are not greetable clients" do
+        before do
+          allow(clients_query_double).to receive(:greetable).and_return nil
+        end
+
+        it "limits to intake statuses only" do
+          subject.filtered_and_sorted_clients
+
+          expect(Client).to have_received(:joins).with(:tax_returns)
+        end
+      end
+
     end
 
     context "default sort order" do
