@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_223906) do
     t.string "login_token"
     t.integer "routing_method"
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "still_needs_help", default: 0, null: false
     t.datetime "triggered_still_needs_help_at"
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id"

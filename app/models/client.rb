@@ -21,6 +21,7 @@
 #  login_token                              :string
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
+#  still_needs_help                         :integer          default("unfilled"), not null
 #  triggered_still_needs_help_at            :datetime
 #  created_at                               :datetime         not null
 #  updated_at                               :datetime         not null
@@ -60,6 +61,7 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :intake
   attr_accessor :change_initiated_by
   enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3, state: 4, at_capacity: 5 }
+  enum still_needs_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :still_needs_help
 
   validate :tax_return_assigned_user_access_maintained, if: :vita_partner_id_changed?
   after_update_commit :create_org_change_note, if: :saved_change_to_vita_partner_id?

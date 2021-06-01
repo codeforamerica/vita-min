@@ -124,7 +124,9 @@ Rails.application.routes.draw do
         get '/success', to: 'tax_returns#success', as: :success
       end
       get '/still-need-help', to: "still_needs_helps#edit", as: :still_needs_help
-      resources :still_needs_helps, only: [:update]
+      put '/still-need-help', to: "still_needs_helps#update", as: :update_still_needs_help
+      get '/still-need-help/yes', to: "still_needs_helps#yes", as: :still_needs_help_yes
+      get '/still-need-help/no', to: "still_needs_helps#no", as: :still_needs_help_no
       resources :messages, only: [:new, :create]
       resources :documents, only: [:show]
       resources :upload_documents, only: [:destroy]
