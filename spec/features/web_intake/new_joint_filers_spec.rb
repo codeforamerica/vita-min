@@ -31,7 +31,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
-    click_on "No"
+    click_on "Yes"
 
     expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
     check "My income decreased from 2019"
