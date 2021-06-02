@@ -1,40 +1,41 @@
 <% @main_heading = t(".title") %>
 <% content_for :page_title, @main_heading %>
 <% content_for :card do %>
+  <div class="slab">
+    <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), local: true, builder: VitaMinFormBuilder, html: { method: :post }) do |f| %>
+      <h1><%= @main_heading %></h1>
 
-  <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), local: true, builder: VitaMinFormBuilder, html: { method: :post }) do |f| %>
-    <h1><%= @main_heading %></h1>
+      <ul>
+        <% resource.errors.full_messages.each do |error_message| %>
+          <li><%= error_message %></li>
+        <% end %>
+      </ul>
 
-    <ul>
-      <% resource.errors.full_messages.each do |error_message| %>
-        <li><%= error_message %></li>
+      <%= f.cfa_input_field(:name, t(".name_label"), classes: ['form-width--long']) %>
+      <%= f.cfa_input_field(:email, t(".email_label"), type: 'email', classes: ['form-width--long']) %>
+      <%= f.hidden_field :role, value: params.dig(:user, :role) %>
+
+      <% if params.dig(:user, :role) == OrganizationLeadRole::TYPE %>
+        <%= label_tag(:organization_id, t(".organization_label")) %>
+        <%= select_tag :organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] }) %>
       <% end %>
-    </ul>
 
-    <%= f.cfa_input_field(:name, t(".name_label")) %>
-    <%= f.cfa_input_field(:email, t(".email_label"), type: 'email', classes: ['form-width--email']) %>
-    <%= f.hidden_field :role, value: params.dig(:user, :role) %>
+      <% if params.dig(:user, :role) == CoalitionLeadRole::TYPE %>
+        <%= label_tag(:coalition_id, t(".coalition_label")) %>
+        <%= select_tag(:coalition_id, options_for_select(@coalitions.all.map { |coalition| [coalition.name, coalition.id] })) %>
+      <% end %>
 
-    <% if params.dig(:user, :role) == OrganizationLeadRole::TYPE %>
-      <%= label_tag(:organization_id, t(".organization_label")) %>
-      <%= select_tag(:organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] })) %>
+      <% if params.dig(:user, :role) == SiteCoordinatorRole::TYPE %>
+        <%= label_tag(:site_id, t(".site_label")) %>
+        <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
+      <% end %>
+
+      <% if params.dig(:user, :role) == TeamMemberRole::TYPE %>
+        <%= label_tag(:site_id, t(".site_label")) %>
+        <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
+      <% end %>
+
+      <%= f.submit t(".submit"), class: "button button--primary" %>
     <% end %>
-
-    <% if params.dig(:user, :role) == CoalitionLeadRole::TYPE %>
-      <%= label_tag(:coalition_id, t(".coalition_label")) %>
-      <%= select_tag(:coalition_id, options_for_select(@coalitions.all.map { |coalition| [coalition.name, coalition.id] })) %>
-    <% end %>
-
-    <% if params.dig(:user, :role) == SiteCoordinatorRole::TYPE %>
-      <%= label_tag(:site_id, t(".site_label")) %>
-      <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
-    <% end %>
-
-    <% if params.dig(:user, :role) == TeamMemberRole::TYPE %>
-      <%= label_tag(:site_id, t(".site_label")) %>
-      <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
-    <% end %>
-
-    <%= f.submit t(".submit"), class: "button button--primary" %>
-  <% end %>
+  </div>
 <% end %>
