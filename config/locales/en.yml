@@ -1027,14 +1027,14 @@ en:
       completion:
         email:
           body: |
-            Thank you for filing your taxes with GetYourRefund! You can check the status of your refund at the IRS website https://www.irs.gov/refunds.
+            Thank you for filing your taxes with GetYourRefund and <<Client.AssignedOrganization>>! You can check the status of your refund at the IRS website https://www.irs.gov/refunds.
 
             We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went?
 
             Take our 5 minute survey here: %{survey_link}
           subject: Thank you for filing your taxes with GetYourRefund!
         sms: |
-          Thank you for filing your taxes with GetYourRefund. We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
+          Thank you for filing your taxes with GetYourRefund and <<Client.AssignedOrganization>>. We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
       in_progress:
         email:
           body: |
