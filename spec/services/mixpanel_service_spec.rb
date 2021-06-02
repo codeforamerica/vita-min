@@ -429,6 +429,10 @@ describe MixpanelService do
           claimed_by_another: "yes",
           already_applied_for_stimulus: "no",
           no_ssn: "yes",
+          with_general_navigator: true,
+          with_incarcerated_navigator: false,
+          with_limited_english_navigator: true,
+          with_unhoused_navigator: false,
         )
       end
 
@@ -498,6 +502,10 @@ describe MixpanelService do
                                            claimed_by_another: "yes",
                                            already_applied_for_stimulus: "no",
                                            no_ssn: "yes",
+                                           with_general_navigator: true,
+                                           with_incarcerated_navigator: false,
+                                           with_limited_english_navigator: true,
+                                           with_unhoused_navigator: false,
                                          })
         end
 

@@ -124,6 +124,8 @@
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
+#  requested_docs_token                                 :string
+#  requested_docs_token_created_at                      :datetime
 #  routed_at                                            :datetime
 #  routing_criteria                                     :string
 #  routing_value                                        :string
@@ -164,6 +166,10 @@
 #  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
+#  with_general_navigator                               :boolean          default(FALSE)
+#  with_incarcerated_navigator                          :boolean          default(FALSE)
+#  with_limited_english_navigator                       :boolean          default(FALSE)
+#  with_unhoused_navigator                              :boolean          default(FALSE)
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
@@ -1038,6 +1044,59 @@ describe Intake do
         }.to change{document.reload.updated_at}
         expect(document.display_name).to eq "new-filename.pdf"
       end
+    end
+  end
+
+  describe "#set_navigator" do
+    let(:intake) { create :intake }
+
+    it 'sets the correct navigator boolean based on a numerical string' do
+      intake.set_navigator("1")
+
+      expect(intake.with_general_navigator?).to be_truthy
+      expect(intake.with_incarcerated_navigator?).to be_falsey
+      expect(intake.with_limited_english_navigator?).to be_falsey
+      expect(intake.with_unhoused_navigator?).to be_falsey
+
+      intake.set_navigator("4")
+
+      expect(intake.with_general_navigator?).to be_truthy
+      expect(intake.with_incarcerated_navigator?).to be_falsey
+      expect(intake.with_limited_english_navigator?).to be_falsey
+      expect(intake.with_unhoused_navigator?).to be_truthy
+
+    end
+
+    describe 'if the numerical value does not map to a navigator' do
+      it 'does not set any navigator boolean on the intake' do
+        intake.set_navigator("100")
+
+        expect(intake.with_general_navigator?).to be_falsey
+        expect(intake.with_incarcerated_navigator?).to be_falsey
+        expect(intake.with_limited_english_navigator?).to be_falsey
+        expect(intake.with_unhoused_navigator?).to be_falsey
+      end
+    end
+
+    describe 'given a non-numerical string' do
+      it 'does not set any navigator boolean on the intake' do
+        intake.set_navigator("some_value")
+
+        expect(intake.with_general_navigator?).to be_falsey
+        expect(intake.with_incarcerated_navigator?).to be_falsey
+        expect(intake.with_limited_english_navigator?).to be_falsey
+        expect(intake.with_unhoused_navigator?).to be_falsey
+      end
+    end
+  end
+
+  describe "#navigator_display_names" do
+    it 'returns a string a navigator types used by the intake' do
+      intake_1 = create :intake, with_general_navigator: true, with_limited_english_navigator: true
+      intake_2 = create :intake, with_unhoused_navigator: true, with_incarcerated_navigator: true
+
+      expect(intake_1.navigator_display_names).to eq('General, Limited English')
+      expect(intake_2.navigator_display_names).to eq('Incarcerated/reentry, Unhoused')
     end
   end
 end

@@ -68,6 +68,11 @@
   </div>
   <%= f.cfa_select(:state_of_residence, t("hub.clients.fields.state_of_residence"), States.name_value_pairs, include_blank: true) %>
 
+  <h3><%= t("hub.clients.fields.navigator.title")%></h3>
+  <%= f.hub_checkbox(:with_general_navigator, t("hub.clients.fields.navigator.general"), options: { classes: ["checkbox--wide"] }) %>
+  <%= f.hub_checkbox(:with_incarcerated_navigator, t("hub.clients.fields.navigator.incarcerated"), options: { classes: ["checkbox--wide"] }) %>
+  <%= f.hub_checkbox(:with_limited_english_navigator, t("hub.clients.fields.navigator.limited_english"), options: { classes: ["checkbox--wide"] }) %>
+  <%= f.hub_checkbox(:with_unhoused_navigator, t("hub.clients.fields.navigator.unhoused"), options: { classes: ["checkbox--wide"] }) %>
 
   <h3><%= t("hub.clients.fields.mailing_address") %>:</h3>
   <%= f.cfa_input_field(:street_address, t("general.street_address")) %>

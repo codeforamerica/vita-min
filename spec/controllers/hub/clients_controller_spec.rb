@@ -813,6 +813,7 @@ RSpec.describe Hub::ClientsController do
                        phone_number: intake.phone_number,
                        sms_phone_number: intake.sms_phone_number,
                        primary_last_four_ssn: "1234",
+                       with_general_navigator: "1",
                        street_address: intake.street_address,
                        city: intake.city,
                        state: intake.state,
@@ -853,6 +854,7 @@ RSpec.describe Hub::ClientsController do
         expect(client.intake.interview_timing_preference).to eq "Tomorrow!"
         expect(client.intake.timezone).to eq "America/Chicago"
         expect(client.intake.primary_last_four_ssn).to eq "1234"
+        expect(client.intake.with_general_navigator).to be_truthy
         first_dependent.reload
         expect(first_dependent.first_name).to eq "Updated Dependent"
         expect(client.intake.dependents.count).to eq 2

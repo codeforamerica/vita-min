@@ -124,6 +124,8 @@
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
+#  requested_docs_token                                 :string
+#  requested_docs_token_created_at                      :datetime
 #  routed_at                                            :datetime
 #  routing_criteria                                     :string
 #  routing_value                                        :string
@@ -164,6 +166,10 @@
 #  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
+#  with_general_navigator                               :boolean          default(FALSE)
+#  with_incarcerated_navigator                          :boolean          default(FALSE)
+#  with_limited_english_navigator                       :boolean          default(FALSE)
+#  with_unhoused_navigator                              :boolean          default(FALSE)
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime

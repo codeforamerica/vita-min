@@ -13,7 +13,7 @@ class QuestionNavigation
 
       ## Main flow
       Questions::FileWithHelpController,
-      Questions::BacktaxesController, # creates Intake record
+      Questions::BacktaxesController, # creates Intake record, creates Client record
       Questions::EnvironmentWarningController,
       Questions::StartWithCurrentYearController,
 

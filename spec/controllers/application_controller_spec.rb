@@ -434,6 +434,46 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#navigator" do
+    context "with an existing navigator in the session" do
+      before do
+        session[:navigator] = "1"
+      end
+
+      it "does not override the saved value" do
+        get :index, params: { navigator: "2" }
+
+        expect(subject.navigator).to eq "1"
+      end
+    end
+
+    context "with no navigator in the session" do
+      context "with a navigator param" do
+        it "sets the navigator from the url param" do
+          get :index, params: { navigator: "1" }
+
+          expect(session[:navigator]).to eq "1"
+        end
+      end
+
+      context "with a very long navigator param" do
+        it "truncates to one character" do
+          get :index, params: { navigator: ("1" * 9001) }
+
+          expect(session[:navigator]).to eq "1"
+        end
+      end
+
+      context "without a navigator query param" do
+        it "the navigator remains nil" do
+          get :index
+
+          expect(session).not_to include(:navigator)
+        end
+      end
+    end
+  end
+
   describe "#user_agent" do
     it "parses the user agent" do
       request.headers["HTTP_USER_AGENT"] = user_agent_string

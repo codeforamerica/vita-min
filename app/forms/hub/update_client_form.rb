@@ -31,7 +31,11 @@ module Hub
                        :filing_joint,
                        :interview_timing_preference,
                        :timezone,
-                       :state_of_residence
+                       :state_of_residence,
+                       :with_general_navigator,
+                       :with_incarcerated_navigator,
+                       :with_limited_english_navigator,
+                       :with_unhoused_navigator
     attr_accessor :dependents_attributes
 
     validate :dependents_attributes_required_fields

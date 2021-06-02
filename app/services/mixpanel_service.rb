@@ -246,6 +246,10 @@ class MixpanelService
         claimed_by_another: intake.claimed_by_another,
         already_applied_for_stimulus: intake.already_applied_for_stimulus,
         no_ssn: intake.no_ssn,
+        with_general_navigator: intake.with_general_navigator,
+        with_incarcerated_navigator: intake.with_incarcerated_navigator,
+        with_limited_english_navigator: intake.with_limited_english_navigator,
+        with_unhoused_navigator: intake.with_unhoused_navigator
       }
     end
 

@@ -69,6 +69,12 @@ en:
         filing_information: Filing Information
         preferred_interview_language: Preferred language
         primary_contact_info: Primary Contact Info
+        navigator:
+          title: Type of navigator used
+          general: General
+          incarcerated: Incarcerated/reentry
+          limited_english: Limited English proficiency
+          unhoused: Unhoused
         spouse_contact_info: Spouse Contact Info
         state_of_residence: State of residence
         signature_method: Signature method
@@ -150,6 +156,8 @@ en:
         spouse_contact_info: Spouse Contact Info
         texting_phone: Phone For Texting
         tax_info: Tax Info
+        navigator_types: Type of navigator used
+        navigator_types_empty: No navigator used
         basic_info: Basic Info
         other_info: Other Info
         routing_method: Initial Routing Method

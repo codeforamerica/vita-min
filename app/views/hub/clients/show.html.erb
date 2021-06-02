@@ -89,6 +89,13 @@
             </ul>
           </div>
 
+          <div class="client-profile__field-group">
+            <h2 class="text--bold"><%= t(".navigator_types") %></h2>
+            <div class="field-display">
+              <span class="label-value"><%= @client.intake.navigator_display_names.present? ? @client.intake.navigator_display_names : t(".navigator_types_empty") %></span>
+            </div>
+          </div>
+
           <!-- Bank info-->
           <div class="client-profile__field-group client-bank-account-info">
             <h2 class="text--bold"><%= "Bank Account Info" %>

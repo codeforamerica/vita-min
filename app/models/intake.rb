@@ -124,6 +124,8 @@
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
+#  requested_docs_token                                 :string
+#  requested_docs_token_created_at                      :datetime
 #  routed_at                                            :datetime
 #  routing_criteria                                     :string
 #  routing_value                                        :string
@@ -164,6 +166,10 @@
 #  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
+#  with_general_navigator                               :boolean          default(FALSE)
+#  with_incarcerated_navigator                          :boolean          default(FALSE)
+#  with_limited_english_navigator                       :boolean          default(FALSE)
+#  with_unhoused_navigator                              :boolean          default(FALSE)
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
@@ -319,6 +325,28 @@ class Intake < ApplicationRecord
   enum signature_method: { online: 0, in_person: 1 }, _prefix: :signature_method
   enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
 
+  NAVIGATOR_TYPES = {
+    general: {
+      param: "1",
+      display_name: "General",
+      field_name: :with_general_navigator
+    },
+    incarcerated: {
+      param: "2",
+      display_name: "Incarcerated/reentry",
+      field_name: :with_incarcerated_navigator
+    },
+    limited_english: {
+      param: "3",
+      display_name: "Limited English",
+      field_name: :with_limited_english_navigator
+    },
+    unhoused: {
+      param: "4",
+      display_name: "Unhoused",
+      field_name: :with_unhoused_navigator
+    }
+  }
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
@@ -565,5 +593,22 @@ class Intake < ApplicationRecord
 
   def might_encounter_delayed_service?
     vita_partner.at_capacity?
+  end
+
+  def set_navigator(param)
+    _, navigator_type = NAVIGATOR_TYPES.find { | _, type| type[:param] == param }
+    return unless navigator_type
+
+    self.update(navigator_type[:field_name] => true)
+  end
+
+  def navigator_display_names
+    names = []
+    NAVIGATOR_TYPES.each do |_, type|
+      if self.send(type[:field_name])
+        names << type[:display_name]
+      end
+    end
+    names.join(', ')
   end
 end

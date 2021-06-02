@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
@@ -104,6 +104,19 @@ class ApplicationController < ActionController::Base
       # Avoid using too much cookie space
       session[:utm_state] = params[:utm_state].slice(0, 50)
     end
+  end
+
+  def set_navigator
+    return unless params[:navigator].present?
+
+    unless navigator.present?
+      # Avoid using too much cookie space
+      session[:navigator] = params[:navigator].slice(0, 1)
+    end
+  end
+
+  def navigator
+    session[:navigator]
   end
 
   def user_agent

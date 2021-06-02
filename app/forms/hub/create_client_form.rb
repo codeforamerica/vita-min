@@ -37,7 +37,11 @@ module Hub
                        :needs_help_2019,
                        :needs_help_2018,
                        :needs_help_2017,
-                       :signature_method
+                       :signature_method,
+                       :with_general_navigator,
+                       :with_incarcerated_navigator,
+                       :with_limited_english_navigator,
+                       :with_unhoused_navigator
     set_attributes_for :tax_return, :service_type
     attr_accessor :tax_returns, :tax_returns_attributes, :client, :intake
 

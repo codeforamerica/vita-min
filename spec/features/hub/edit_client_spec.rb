@@ -66,27 +66,34 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(find_field("hub_update_client_form_timezone").value).to eq "America/Chicago"
         fill_in "Preferred full name", with: "Colly Cauliflower"
         select "Mandarin", from: "Preferred language"
+
+        fill_in "Email", with: "hello@cauliflower.com"
+        check "Opt into email notifications"
+        fill_in "Phone number", with: "(500) 555-0006"
+        check "Opt into sms notifications"
+        fill_in "Cell phone number", with: "500-555-0006"
+        fill_in "Last 4 of SSN/ITIN", with: "4444"
+
+        check "Filing jointly"
         check "Married"
+        check "Lived with spouse"
         check "Separated"
         fill_in "Separated year", with: "2017"
         check "Widowed"
         fill_in "Widowed year", with: "2015"
-        check "Lived with spouse"
         check "Divorced"
         fill_in "Divorced year", with: "2018"
 
-        check "Filing jointly"
-        fill_in "Email", with: "hello@cauliflower.com"
-        fill_in "Phone number", with: "(500) 555-0006"
-        fill_in "Cell phone number", with: "500-555-0006"
-        fill_in "Last 4 of SSN/ITIN", with: "4444"
+        check "General"
+        check "Incarcerated/reentry"
+        check "Unhoused"
+
         fill_in "Street address", with: "123 Garden Ln"
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
         fill_in "ZIP code", with: "95032"
         select "Pacific Time (US & Canada)", from: "Timezone"
-        check "Opt into email notifications"
-        check "Opt into sms notifications"
+
       end
 
       within "#dependent-info" do
@@ -161,6 +168,8 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(page).to have_text "Cranberry Chung"
         expect(page).to have_text "11/25/2019"
       end
+      expect(page).to have_text "Type of navigator used"
+      expect(page).to have_text "General, Incarcerated/reentry, Unhoused"
       expect(page).to have_text "hello@cauliflower.com"
       expect(page).to have_text "+15005550006"
       expect(page).to have_text "+15005550006"
