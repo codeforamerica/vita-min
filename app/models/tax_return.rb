@@ -48,8 +48,8 @@ class TaxReturn < ApplicationRecord
   validates :year, presence: true
 
   attr_accessor :status_last_changed_by
-  after_update :send_mixpanel_status_change_event, :send_client_completion_survey
-  after_update { InteractionTrackingService.record_internal_interaction(client) }
+  after_update_commit :send_mixpanel_status_change_event, :send_client_completion_survey
+  after_update_commit { InteractionTrackingService.record_internal_interaction(client) }
 
   before_save do
     if status == "prep_ready_for_prep" && status_changed?
