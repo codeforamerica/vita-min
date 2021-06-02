@@ -7,7 +7,7 @@ module Portal
     def edit; end
 
     def update
-      if update_params[:still_needs_help] == "yes" && client.triggered_still_needs_help.present?
+      if update_params[:still_needs_help] == "yes" && current_client.triggered_still_needs_help_at.present?
         current_client.update!(triggered_still_needs_help_at: nil, first_unanswered_incoming_interaction_at: Time.now)
         redirect_to portal_still_needs_help_yes_path
       else

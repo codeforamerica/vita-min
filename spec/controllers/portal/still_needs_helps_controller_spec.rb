@@ -42,6 +42,7 @@ describe Portal::StillNeedsHelpsController do
           end
         end
       end
+
       context "when the client has not triggered still needs help" do
         let(:tax_return_in_progress) { build(:tax_return, status: :intake_in_progress, year: 2018) }
         let(:tax_return_not_filing) { build(:tax_return, status: :file_not_filing, year: 2019) }
