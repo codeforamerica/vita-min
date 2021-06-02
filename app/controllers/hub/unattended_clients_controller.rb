@@ -8,7 +8,6 @@ module Hub
 
     load_and_authorize_resource :client, parent: false
     load_and_authorize_resource :vita_partner, parent: false
-    helper_method :search_and_sort_params
     layout "admin"
 
     def index

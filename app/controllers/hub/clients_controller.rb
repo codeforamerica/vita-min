@@ -7,7 +7,6 @@ module Hub
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:new, :create, :index]
     before_action :load_users, only: [:index]
-    helper_method :search_and_sort_params
     load_and_authorize_resource except: [:new, :create]
     layout "admin"
 
