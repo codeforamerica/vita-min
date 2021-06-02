@@ -23,7 +23,6 @@ module Portal
     end
 
     def yes
-      render html: "No content"
     end
 
     def no
