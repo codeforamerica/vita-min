@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_26_144804) do
+ActiveRecord::Schema.define(version: 2021_06_02_223906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -464,6 +464,8 @@ ActiveRecord::Schema.define(version: 2021_05_26_144804) do
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false
     t.integer "reported_self_employment_loss", default: 0, null: false
+    t.string "requested_docs_token"
+    t.datetime "requested_docs_token_created_at"
     t.datetime "routed_at"
     t.string "routing_criteria"
     t.string "routing_value"
@@ -508,6 +510,10 @@ ActiveRecord::Schema.define(version: 2021_05_26_144804) do
     t.integer "was_on_visa", default: 0, null: false
     t.integer "widowed", default: 0, null: false
     t.string "widowed_year"
+    t.boolean "with_general_navigator", default: false
+    t.boolean "with_incarcerated_navigator", default: false
+    t.boolean "with_limited_english_navigator", default: false
+    t.boolean "with_unhoused_navigator", default: false
     t.string "zip_code"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["email_address"], name: "index_intakes_on_email_address"

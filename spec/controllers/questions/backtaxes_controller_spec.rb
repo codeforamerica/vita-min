@@ -55,6 +55,20 @@ RSpec.describe Questions::BacktaxesController do
           expect(session[:intake_id]).to eq created_intake.id
         end
       end
+
+      context "with a navigator in the session" do
+        before do
+          session[:navigator] = "4"
+        end
+
+        it 'sets the navigator on the client' do
+          post :update, params: params
+
+          intake = Intake.last
+
+          expect(intake.with_unhoused_navigator?).to be_truthy
+        end
+      end
     end
 
     context "with invalid params" do

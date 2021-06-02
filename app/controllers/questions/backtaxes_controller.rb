@@ -25,6 +25,7 @@ module Questions
       new_intake = @form.intake
       session[:intake_id] = new_intake.id
       assign_triage_source(new_intake)
+      new_intake.set_navigator(session[:navigator])
     end
 
     ##

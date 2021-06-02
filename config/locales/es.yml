@@ -69,6 +69,12 @@ es:
         preferred_interview_language: Idioma preferido
         preferred_name: Nombre completo preferido
         primary_contact_info: Información de contacto
+        navigator:
+          title: Type of navigator used
+          general: General
+          incarcerated: Incarcerated/reentry
+          limited_english: Limited English proficiency
+          unhoused: Unhoused
         spouse_contact_info: Información de contacto del cónyuge
         state_of_residence: Estado de residencia
         signature_method: Método para recoger
@@ -132,6 +138,8 @@ es:
         spouse_contact_info: Información de contacto del cónyuge
         texting_phone: Número celular
         tax_info: Información de impuestos
+        navigator_types: Tipo de navegador utilizada
+        navigator_types_empty: No se utiliza navegador
         basic_info: Información básica
         other_info: Other info
         routing_method: Método de enrutamiento inicial
