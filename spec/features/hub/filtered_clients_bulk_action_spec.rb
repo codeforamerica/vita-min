@@ -1,5 +1,11 @@
 require "rails_helper"
 
+def fill_in_tagify(element, value)
+  find(element).click
+  find("#{element} .tagify__input").send_keys value
+  find("#{element} .tagify__input").send_keys :enter
+end
+
 RSpec.describe "Filtering clients for bulk actions", active_job: true do
   let!(:user) { create :admin_user }
   let(:selected_org) { create :organization, name: "Orange Organization" }
@@ -11,16 +17,17 @@ RSpec.describe "Filtering clients for bulk actions", active_job: true do
     create :tax_return, client: Client.where(vita_partner: selected_org).first, year: 2020
   end
 
-  scenario "take action on all filtered clients" do
+  scenario "take action on all filtered clients", js: true do
     login_as user
 
     visit hub_clients_path
 
-    select "Orange Organization", from: "Organization/site"
+    fill_in_tagify '.multi-select-vita-partner', "Orange Organization"
     click_on "Filter results"
 
+    find("#bulk-edit-select-all").click
     expect(page).to have_text "Displaying clients 1 - 25 of 30"
-    click_on "Take action on all 31 returns in this view"
+    click_on "Take action on all 30 returns"
 
     expect(page).to have_text "Choose your bulk action"
 
