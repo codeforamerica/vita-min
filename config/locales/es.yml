@@ -2340,7 +2340,6 @@ es:
       tax_return_list:
         add_tax_year: Agregar año fiscal
         select_tax_return: Seleccione %{tax_year}
-        add_all: Añadir todo
       consent_agreement:
         details:
           header: Detalles

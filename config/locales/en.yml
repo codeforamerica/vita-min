@@ -2388,7 +2388,6 @@ en:
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}
-        add_all: Add all
       consent_agreement:
         details:
           intro: >-

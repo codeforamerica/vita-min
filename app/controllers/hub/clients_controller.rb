@@ -15,7 +15,7 @@ module Hub
       @page_title = I18n.t("hub.clients.index.title")
       @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
-      @tax_return_count = TaxReturn.where(client: filtered_and_sorted_clients.per_page(100_000_000)).count
+      @tax_return_count = filtered_and_sorted_clients.includes(:tax_returns).per_page(100_000_000).joins(:tax_returns).size
     end
 
     def new

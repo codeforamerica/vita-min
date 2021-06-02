@@ -16,7 +16,7 @@ module Hub
       @breach_date = day_param.business_days.ago
       @clients = filtered_and_sorted_clients.first_unanswered_incoming_interaction_communication_breaches(@breach_date)
       @filters[:sla_breach_date] = @breach_date
-      @tax_return_count = TaxReturn.where(client: @clients).count
+      @tax_return_count = @clients.includes(:tax_returns).page(100_000_000).joins(:tax_returns).size
       @clients = @clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       render "hub/clients/index"
