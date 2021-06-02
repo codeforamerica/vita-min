@@ -2306,13 +2306,6 @@ en:
         title:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
-      triage_arp:
-        title: Your tax return may be delayed so that we can ensure you receive the highest refund!
-        help_text_html: >-
-          The
-          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="noopener nofollow">American Rescue Plan</a>
-          may increase the amount of premium tax credits for which you and others in your
-          household are eligible, which may result in a higher refund. Your tax preparer will update you on the process.
       triage_backtaxes:
         title: Have you filed taxes for 2017, 2018, and 2019?
         help_text: If you earned income and you have filed for all the above years, answer yes. Even if you used a different service to file for previous years.

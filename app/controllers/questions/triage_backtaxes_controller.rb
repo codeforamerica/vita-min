@@ -9,7 +9,7 @@ module Questions
     end
 
     def next_path
-      @form.filed_previous_years? ? super : triage_arp_questions_path
+      @form.filed_previous_years? ? super : file_with_help_questions_path
     end
 
     def method_name

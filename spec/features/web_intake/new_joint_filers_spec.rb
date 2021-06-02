@@ -31,37 +31,12 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
-    click_on "No"
-
-    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
-    click_on "Go back"
-
-    expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
     click_on "Yes"
 
     expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
     check "My income decreased from 2019"
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
-    click_on "Go back"
-
-    expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
     check "I received unemployment income"
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
-    click_on "Go back"
-
-    expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
     check "I purchased health insurance through the marketplace"
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
-    click_on "Go back"
-
-    expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
-    check "None of the above"
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Do you have simple taxes?")
@@ -81,9 +56,6 @@ RSpec.feature "Web Intake Joint Filers" do
 
     expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
     click_on "No"
-
-    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
-    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Our full service option is right for you!")
     click_on "Continue"

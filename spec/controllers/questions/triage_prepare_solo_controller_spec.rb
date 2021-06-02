@@ -37,9 +37,9 @@ RSpec.describe Questions::TriagePrepareSoloController do
 
     context "when no" do
       let(:will_prepare) { "no" }
-      it "redirects to the next triage question" do
+      it "redirects to the file with help page" do
         put :update, params: params
-        expect(response).to redirect_to triage_arp_questions_path
+        expect(response).to redirect_to file_with_help_questions_path
         expect(MixpanelService).to have_received(:send_event).with(
           hash_including({
                              data:

@@ -29,11 +29,11 @@ RSpec.describe Questions::TriageLookbackController do
       end
     end
 
-    context "when at least one situation is yes" do
+    context "when an option is selected" do
       let(:had_income_decrease) { "yes" }
-      it "redirects to the ARP page" do
+      it "redirects to the next question" do
         put :update, params: params
-        expect(response).to redirect_to triage_arp_questions_path
+        expect(response).to redirect_to triage_simple_tax_questions_path
         expect(MixpanelService).to have_received(:send_event).with(
           hash_including({
                              data:
@@ -42,27 +42,6 @@ RSpec.describe Questions::TriageLookbackController do
                                      had_unemployment: "no",
                                      had_marketplace_insurance: "no",
                                      none: "no"
-                                 },
-                             subject: "triage",
-                             event_name: "answered_question"
-                         })
-        )
-      end
-    end
-
-    context "when none is yes" do
-      let(:none) { "yes" }
-      it "redirects to the next triage question" do
-        put :update, params: params
-        expect(response).to redirect_to triage_simple_tax_questions_path
-        expect(MixpanelService).to have_received(:send_event).with(
-          hash_including({
-                             data:
-                                 {
-                                     had_income_decrease: "no",
-                                     had_unemployment: "no",
-                                     had_marketplace_insurance: "no",
-                                     none: "yes"
                                  },
                              subject: "triage",
                              event_name: "answered_question"
