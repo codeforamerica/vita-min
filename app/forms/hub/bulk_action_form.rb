@@ -18,8 +18,9 @@ module Hub
     def initialize(tax_return_selection, *args, **attributes)
       @tax_return_selection = tax_return_selection
       super(*args, **attributes)
-      set_default_message_body("es") if @message_body_es.blank?
-      set_default_message_body("en") if @message_body_en.blank?
+      locale_counts = @tax_return_selection.clients.locale_counts
+      set_default_message_body("es") if @message_body_es.nil? && locale_counts["es"].nonzero?
+      set_default_message_body("en") if @message_body_en.nil? && locale_counts["en"].nonzero?
     end
 
     def assigned_user

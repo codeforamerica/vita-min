@@ -98,8 +98,8 @@ RSpec.describe Hub::BulkActionForm do
         let(:form_params) do
           {
             status: nil,
-            message_body_en: "",
-            message_body_es: "",
+            message_body_en: nil,
+            message_body_es: nil,
           }
         end
 
@@ -113,8 +113,8 @@ RSpec.describe Hub::BulkActionForm do
         let(:form_params) do
           {
             status: "intake_info_requested",
-            message_body_en: "",
-            message_body_es: "",
+            message_body_en: nil,
+            message_body_es: nil,
           }
         end
 
@@ -122,14 +122,29 @@ RSpec.describe Hub::BulkActionForm do
           expect(form.message_body_en).to start_with("Hello")
           expect(form.message_body_es).to start_with("¡Hola")
         end
+
+        context "when the message body is overwritten with a blank string" do
+          let(:form_params) do
+            {
+              status: "intake_info_requested",
+              message_body_en: "",
+              message_body_es: "",
+            }
+          end
+
+          it "does not set the message body to the template" do
+            expect(form.message_body_en).to eq ""
+            expect(form.message_body_es).to eq ""
+          end
+        end
       end
 
       context "when a status without a message template is provided" do
         let(:form_params) do
           {
             status: "non_matching_status",
-            message_body_en: "",
-            message_body_es: "",
+            message_body_en: nil,
+            message_body_es: nil,
           }
         end
 
