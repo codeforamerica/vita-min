@@ -957,6 +957,7 @@ es:
     ui: "UI"
     unemployment_income: "Compensación de desempleo"
     unread: Notificación no leída
+    used_navigator: Navegador usado
     documents: "Documentos"
     business_days:
       one: "%{count} día hábil"

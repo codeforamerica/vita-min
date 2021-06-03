@@ -966,6 +966,7 @@ en:
     ui: "UI"
     unemployment_income: "Unemployment Income"
     unread: Notification unread
+    used_navigator: Used navigator
     documents: "Documents"
     business_days:
       one: "%{count} business day"
