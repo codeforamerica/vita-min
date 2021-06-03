@@ -80,19 +80,6 @@ RSpec.describe ClientSortable, type: :controller do
       end
     end
 
-    # always-on filters should be merged with filters in client_sortable
-    # and always-on should be set to { assigned_to_me: true } when @always_current_user_assigned == true
-    # context "always-on filters" do
-    #   before do
-    #     subject.instance_variable_set(@always_on_filters, { assigned_to_me: true })
-    #   end
-    #
-    #   it "merges the always-on filters with the filters" do
-    #     subject.filtered_and_sorted_clients
-    #     expect(assigns(:filters)[:assigned_to_me]).to be_present
-    #   end
-    # end
-
     context "with a 'search' param" do
       let(:params) do
         { search: "que" }
