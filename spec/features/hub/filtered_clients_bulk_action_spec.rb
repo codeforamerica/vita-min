@@ -27,7 +27,7 @@ RSpec.describe "Filtering clients for bulk actions", active_job: true do
 
     find("#bulk-edit-select-all").click
     expect(page).to have_text "Displaying clients 1 - 25 of 30"
-    click_on "Take action on all 30 returns"
+    click_on "Take action on all 31 returns"
 
     expect(page).to have_text "Choose your bulk action"
 

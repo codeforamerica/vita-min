@@ -123,6 +123,22 @@ RSpec.describe Hub::AssignedClientsController do
           expect(RecentMessageSummaryService).to have_received(:messages).with([assigned_to_me.id, assigned_to_me_two_trs.id])
         end
       end
+
+      context "tax return count" do
+        # Create 47 more intakes that are assigned to the user
+        let!(:pagination_assigned_to_me) { 47.times { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_ready")] } }
+        let(:params) do
+          {
+            page: "1"
+          }
+        end
+
+        it "shows the full amount of tax returns" do
+          get :index, params: params
+
+          expect(assigns(:tax_return_count)).to eq 50
+        end
+      end
     end
   end
 end

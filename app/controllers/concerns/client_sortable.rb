@@ -1,14 +1,17 @@
 module ClientSortable
   def filtered_and_sorted_clients(default_order: nil)
-    @default_order = default_order || { "first_unanswered_incoming_interaction_at" => "asc" }
+    @default_order = default_order
     setup_sortable_client unless @filters.present?
+    filtered_clients.delegated_order(@sort_column, @sort_order)
+  end
+
+  def filtered_clients
     clients = if current_user&.greeter?
                 # Greeters should only have "search" access to clients in intake stage AND clients assigned to them.
                 @clients.greetable || Client.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct
               else
                 @clients.after_consent
               end
-    clients = clients.delegated_order(@sort_column, @sort_order)
     clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
@@ -42,6 +45,7 @@ module ClientSortable
   end
 
   def setup_sortable_client
+    @default_order = { "first_unanswered_incoming_interaction_at" => "asc" }
     delete_cookie if params[:clear]
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order

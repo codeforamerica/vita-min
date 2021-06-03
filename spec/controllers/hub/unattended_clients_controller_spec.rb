@@ -81,6 +81,21 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
           expect(RecentMessageSummaryService).to have_received(:messages).with(assigns(:clients).map(&:id))
         end
       end
+
+      context "tax return count" do
+        let!(:over_pagination_clients) { create_list :client_with_intake_and_return, 41, status: "intake_ready", first_unanswered_incoming_interaction_at: 6.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site }
+        let(:params) do
+          {
+            page: "1"
+          }
+        end
+
+        it "shows the full amount of tax returns" do
+          get :index, params: params
+
+          expect(assigns(:tax_return_count)).to eq 50
+        end
+      end
     end
   end
 end

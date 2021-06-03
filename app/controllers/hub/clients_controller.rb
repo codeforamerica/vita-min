@@ -6,15 +6,16 @@ module Hub
 
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:new, :create, :index]
-    before_action :load_users, only: [:index]
+    before_action :load_users, :setup_sortable_client, only: [:index]
     load_and_authorize_resource except: [:new, :create]
     layout "admin"
 
     def index
       @page_title = I18n.t("hub.clients.index.title")
+      # @tax_return_count HAS to be defined before @clients, otherwise it will cause SQL errors
+      @tax_return_count = TaxReturn.where(client: filtered_clients.with_eager_loaded_associations.without_pagination).size
       @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
-      @tax_return_count = filtered_and_sorted_clients.includes(:tax_returns).per_page(100_000_000).joins(:tax_returns).size
     end
 
     def new

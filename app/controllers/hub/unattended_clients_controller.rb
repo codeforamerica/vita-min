@@ -4,7 +4,8 @@ module Hub
     include AccessControllable
     include ClientSortable
 
-    before_action :require_sign_in, :load_users
+    before_action :require_sign_in
+    before_action :load_users, :setup_sortable_client, only: [:index]
 
     load_and_authorize_resource :client, parent: false
     load_and_authorize_resource :vita_partner, parent: false
@@ -13,9 +14,10 @@ module Hub
     def index
       @page_title = "Clients who haven't received a response in #{day_param} business days"
       @breach_date = day_param.business_days.ago
+      # @tax_return_count HAS to be defined before @clients, otherwise it will cause SQL errors
+      @tax_return_count = TaxReturn.where(client: filtered_clients.with_eager_loaded_associations.without_pagination).size
       @clients = filtered_and_sorted_clients.first_unanswered_incoming_interaction_communication_breaches(@breach_date)
       @filters[:sla_breach_date] = @breach_date
-      @tax_return_count = @clients.includes(:tax_returns).page(100_000_000).joins(:tax_returns).size
       @clients = @clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       render "hub/clients/index"
