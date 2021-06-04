@@ -148,12 +148,12 @@
   </section>
   <div class="sticky-action-footer">
     <section class="take-action-box bulk-action-footer" id="take-action-footer" style="display: none;">
-      <span id="take-action-all-returns">
+      <span id="take-action-all-returns" style="display: none;">
          <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder) do |form| %>
               <% @filters.each do |key, value| %>
                 <%= form.hidden_field(key, value: value, id: "#{key}_bulk") %>
               <% end %>
-              <button type="submit" name="create_tax_return_selection[action_type]" value="filtered-clients" class="button--link">
+              <button type="submit" name="create_tax_return_selection[action_type]" value="all-filtered-clients" class="button--link">
                 <%= t(".take_action_on_all_html", count: @tax_return_count) %>
               </button>
          <% end %>

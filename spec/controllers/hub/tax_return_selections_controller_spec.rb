@@ -169,7 +169,7 @@ RSpec.describe Hub::TaxReturnSelectionsController do
           {
             vita_partner_id: organization.id,
             create_tax_return_selection: {
-              action_type: "filtered-clients"
+              action_type: "all-filtered-clients"
             }
           }
         end

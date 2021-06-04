@@ -152,6 +152,8 @@ class Client < ApplicationRecord
   end
 
   scope :without_pagination, -> do
+    # This removes pagination limits
+    # https://github.com/kaminari/kaminari#unscoping
     except(:limit, :offset)
   end
 
