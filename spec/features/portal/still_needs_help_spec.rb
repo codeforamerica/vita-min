@@ -20,8 +20,8 @@ RSpec.feature "Still Needs Help" do
 
         expect(page).to have_text "Thank you for using GetYourRefund."
         expect(page).to have_text "How was your experience with GetYourRefund?"
-        click_on "Ok" # FYI JH: This survey should save immediately when they click the face.
-        click_on "Return to home" # FYI JH: This should go to portal home.
+        click_on "Ok"
+        click_on "Return to home"
 
         expect(page).to have_text "Welcome back Carrie!"
       end

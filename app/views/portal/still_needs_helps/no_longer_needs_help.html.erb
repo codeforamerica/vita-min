@@ -1,0 +1,39 @@
+<% content_for :page_title, t(".title") %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="question__illustration">
+            <%= image_tag("portal/experience-survey.svg", alt: "") %>
+          </div>
+          <h1 class="h2 spacing-above-0"><%= t(".title") %></h1>
+
+          <%= form_with url: portal_still_needs_help_experience_survey_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "satisfaction_face_form spacing-below-35" } do |f| %>
+            <h2 class="h3"><%= t(".survey_question") %></h2>
+
+            <div class="face-container">
+              <%= f.button :submit, name: "#{f.object_name}[experience_survey]", value: "positive", class: "button positive #{"selected" if current_client.experience_survey_positive?}", "aria-describedby": "survey-question" do %>
+                <%= image_tag("questions/csat/positive.svg", alt: "") %>
+                <span><%= t(".experience_survey.positive") %></span>
+              <% end %>
+              <%= f.button :submit, name: "#{f.object_name}[experience_survey]", value: "neutral", class: "button neutral #{"selected" if current_client.experience_survey_neutral?}", "aria-describedby": "survey-question" do %>
+                <%= image_tag("questions/csat/neutral.svg", alt: "") %>
+                <span><%= t(".experience_survey.neutral") %></span>
+              <% end %>
+              <%= f.button :submit, name: "#{f.object_name}[experience_survey]", value: "negative", class: "button negative #{"selected" if current_client.experience_survey_negative?}", "aria-describedby": "survey-question" do %>
+                <%= image_tag("questions/csat/negative.svg", alt: "") %>
+                <span><%= t(".experience_survey.negative") %></span>
+              <% end %>
+            </div>
+          <% end %>
+
+          <%= link_to portal_root_path, class: "button button--wide button--primary text--centered" do %>
+            <%= t("general.return_home") %>
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

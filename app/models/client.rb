@@ -7,6 +7,7 @@
 #  completion_survey_sent_at                :datetime
 #  current_sign_in_at                       :datetime
 #  current_sign_in_ip                       :inet
+#  experience_survey                        :integer          default("unfilled"), not null
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
 #  flagged_at                               :datetime
@@ -62,6 +63,7 @@ class Client < ApplicationRecord
   attr_accessor :change_initiated_by
   enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3, state: 4, at_capacity: 5 }
   enum still_needs_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :still_needs_help
+  enum experience_survey: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :experience_survey
 
   validate :tax_return_assigned_user_access_maintained, if: :vita_partner_id_changed?
   after_update_commit :create_org_change_note, if: :saved_change_to_vita_partner_id?

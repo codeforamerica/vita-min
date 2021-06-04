@@ -1145,10 +1145,17 @@ es:
       edit:
         title: "🦐 Are you still interested in filing your taxes with us?"
         help_text: "🦐 We really want to help you with your taxes, but we’re currently at capacity. We’ll contact you in June if you still need our help to file your taxes."
-      "yes":
+      chat_later:
         title: "🦐 Great! We'll chat with you in June."
         help_text: "🦐 If you have any additional documents that you need to upload, please use the button below."
         upload_additional_documents: "🦐 Upload additional documents"
+      no_longer_needs_help:
+        title: "🦐 Thank you for using GetYourRefund."
+        survey_question: "¿Cómo fue su experiencia con GetYourRefund?"
+        experience_survey:
+          negative: Mala
+          neutral: Buena
+          positive: "¡Súper!"
   signups:
     flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2021."
     new:
