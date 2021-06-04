@@ -45,7 +45,7 @@ module Portal
     end
 
     def experience_survey_params
-      params.permit(:experience_survey)
+      params.require(:client).permit(:experience_survey)
     end
   end
 end

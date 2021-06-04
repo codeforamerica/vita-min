@@ -13,13 +13,15 @@
           <p class="help-text"><%= t(".help_text") %></p>
 
           <%= form_with(url: portal_update_still_needs_help_path, local: true, method: :put, builder: VitaMinFormBuilder) do |f| %>
-            <%= f.hidden_field :still_needs_help, value: "yes" %>
-            <%= f.submit "Yes, I still need help", class: "button button--primary button--wide" %>
+            <%= f.button :submit, name: "still_needs_help", value: "yes", class: "button button--primary button--wide" do %>
+              <span><%=t(".still_needs_help")%></span>
+            <% end %>
           <% end %>
 
           <%= form_with(url: portal_update_still_needs_help_path, local: true, method: :put, builder: VitaMinFormBuilder) do |f| %>
-            <%= f.hidden_field :still_needs_help, value: "no" %>
-            <%= f.submit "No, I'm not interested", class: "button button--wide" %>
+            <%= f.button :submit, name: "still_needs_help", value: "no", class: "button button--wide" do %>
+              <span><%=t(".not_interested")%></span>
+            <% end %>
           <% end %>
         </main>
       </div>

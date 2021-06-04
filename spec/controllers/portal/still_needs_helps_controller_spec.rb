@@ -30,6 +30,7 @@ describe Portal::StillNeedsHelpsController do
   end
 
   describe "#update" do
+    let(:params) { { still_needs_help: "yes" } }
     it_behaves_like :a_post_action_for_authenticated_clients_only, action: :update
 
     context "with an authenticated client" do
@@ -112,6 +113,7 @@ describe Portal::StillNeedsHelpsController do
   end
 
   describe "#experience_survey" do
+    let(:params) { { client: { experience_survey: "neutral" } } }
     it_behaves_like :a_post_action_for_authenticated_clients_only, action: :experience_survey
 
     context "with an authenticated client" do
@@ -119,7 +121,7 @@ describe Portal::StillNeedsHelpsController do
       before { sign_in client }
 
       it "updates client's experience_survey value and reloads the page" do
-        put :experience_survey, params: { experience_survey: "neutral" }
+        put :experience_survey, params: params
 
         expect(client.reload.experience_survey_neutral?).to eq true
         expect(response).to redirect_to(portal_still_needs_help_no_longer_needs_help_path)

@@ -1145,6 +1145,8 @@ es:
       edit:
         title: "🦐 Are you still interested in filing your taxes with us?"
         help_text: "🦐 We really want to help you with your taxes, but we’re currently at capacity. We’ll contact you in June if you still need our help to file your taxes."
+        still_needs_help: "🦐 Yes, I still need help"
+        not_interested: "🦐 No, I'm not interested"
       chat_later:
         title: "🦐 Great! We'll chat with you in June."
         help_text: "🦐 If you have any additional documents that you need to upload, please use the button below."
