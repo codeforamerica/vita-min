@@ -1143,16 +1143,16 @@ es:
         description: "¿Desea descargar sus formularios de impuestos finales?"
     still_needs_helps:
       edit:
-        title: "🦐 Are you still interested in filing your taxes with us?"
-        help_text: "🦐 We really want to help you with your taxes, but we’re currently at capacity. We’ll contact you in June if you still need our help to file your taxes."
-        still_needs_help: "🦐 Yes, I still need help"
-        not_interested: "🦐 No, I'm not interested"
+        title: "¿Todavía le interesa declarar sus impuestos con nosotros?"
+        help_text: "Nos gustaría ayudarle con sus impuestos, pero en este momento estamos a capacidad. Le contactaremos en junio si todavía necesita nuestra ayuda para declarar sus impuestos."
+        still_needs_help: "Sí, todavía necesito ayuda"
+        not_interested: "No, no estoy interesado"
       chat_later:
-        title: "🦐 Great! We'll chat with you in June."
-        help_text: "🦐 If you have any additional documents that you need to upload, please use the button below."
-        upload_additional_documents: "🦐 Upload additional documents"
+        title: "¡Genial! Le hablaremos en junio."
+        help_text: "Si tiene algún documento adicional que necesita subir, por favor use el botón abajo."
+        upload_additional_documents: "Subir documentos adicionales"
       no_longer_needs_help:
-        title: "🦐 Thank you for using GetYourRefund."
+        title: "Gracias por usar GetYourRefund."
         survey_question: "¿Cómo fue su experiencia con GetYourRefund?"
         experience_survey:
           negative: Mala
