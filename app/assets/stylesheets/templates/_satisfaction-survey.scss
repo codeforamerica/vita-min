@@ -31,15 +31,30 @@
     }
   }
 
-  .positive:hover {
-    background-color: $color-green-money;
+  .positive {
+    &:hover {
+      background-color: $color-green-money;
+    }
+    &.selected {
+      background-color: $color-green-money;
+    }
   }
 
-  .neutral:hover {
-    background-color: $color-orange-medium;
+  .neutral {
+    &:hover {
+      background-color: $color-orange-medium;
+    }
+    &.selected {
+      background-color: $color-orange-medium;
+    }
   }
 
-  .negative:hover {
-    background-color: $color-red-medium;
+  .negative {
+    :hover {
+      background-color: $color-red-medium;
+    }
+    &.selected {
+      background-color: $color-red-medium;
+    }
   }
 }

@@ -41,7 +41,7 @@ shared_examples :a_get_action_redirects_for_show_still_needs_help_clients do |ac
     it "redirects to the still needs help flow" do
       get action, params: params
 
-      expect(response).to redirect_to portal_still_needs_helps_path
+      expect(response).to redirect_to portal_still_needs_help_path
     end
   end
 
@@ -56,7 +56,7 @@ shared_examples :a_get_action_redirects_for_show_still_needs_help_clients do |ac
     it "does not redirect to the still needs help flow" do
       get action, params: params
 
-      expect(response).not_to redirect_to portal_still_needs_helps_path
+      expect(response).not_to redirect_to portal_still_needs_help_path
     end
   end
 end

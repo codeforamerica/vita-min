@@ -12,7 +12,7 @@ module ClientAccessControlConcern
 
   def redirect_to_still_needs_help_if_necessary
     if StillNeedsHelpService.must_show_still_needs_help_flow?(current_client)
-      redirect_to portal_still_needs_helps_path
+      redirect_to portal_still_needs_help_path
     end
   end
 end

@@ -1141,6 +1141,23 @@ es:
         return: "Volver a la página de bienvenida"
         title: "¡Gracias por enviar su firma final del %{year}!"
         description: "¿Desea descargar sus formularios de impuestos finales?"
+    still_needs_helps:
+      edit:
+        title: "¿Todavía le interesa declarar sus impuestos con nosotros?"
+        help_text: "Nos gustaría ayudarle con sus impuestos, pero en este momento estamos a capacidad. Le contactaremos en junio si todavía necesita nuestra ayuda para declarar sus impuestos."
+        still_needs_help: "Sí, todavía necesito ayuda"
+        not_interested: "No, no estoy interesado"
+      chat_later:
+        title: "¡Genial! Le hablaremos en junio."
+        help_text: "Si tiene algún documento adicional que necesita subir, por favor use el botón abajo."
+        upload_additional_documents: "Subir documentos adicionales"
+      no_longer_needs_help:
+        title: "Gracias por usar GetYourRefund."
+        survey_question: "¿Cómo fue su experiencia con GetYourRefund?"
+        experience_survey:
+          negative: Mala
+          neutral: Buena
+          positive: "¡Súper!"
   signups:
     flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2021."
     new:

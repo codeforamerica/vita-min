@@ -13,14 +13,28 @@ RSpec.feature "Still Needs Help" do
 
       scenario "telling us they do not need help" do
         visit portal_root_path
-        expect(page).not_to have_text "Welcome back Carrie!"
-
-        next # skip rest of test with `next` keyword
 
         expect(page).to have_text "Are you still interested in filing your taxes with us?"
 
         click_on "No, I'm not interested"
+
         expect(page).to have_text "Thank you for using GetYourRefund."
+        expect(page).to have_text "How was your experience with GetYourRefund?"
+        click_on "Ok"
+        click_on "Return to home"
+
+        expect(page).to have_text "Welcome back Carrie!"
+      end
+
+      scenario "telling us they still need help" do
+        visit portal_root_path
+
+        expect(page).not_to have_text "Welcome back Carrie!"
+        expect(page).to have_text "Are you still interested in filing your taxes with us?"
+
+        click_on "Yes, I still need help"
+
+        expect(page).to have_text "Great! We'll chat with you in June."
 
         click_on "Return to home"
         expect(page).to have_text "Welcome back Carrie!"

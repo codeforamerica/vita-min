@@ -1,0 +1,30 @@
+<% content_for :page_title, t(".title") %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="question__illustration">
+            <%= image_tag("portal/still-need-help.svg", alt: "") %>
+          </div>
+          <h1 class="h2 spacing-above-0"><%= t(".title") %></h1>
+
+          <p class="help-text"><%= t(".help_text") %></p>
+
+          <%= form_with(url: portal_update_still_needs_help_path, local: true, method: :put, builder: VitaMinFormBuilder) do |f| %>
+            <%= f.button :submit, name: "still_needs_help", value: "yes", class: "button button--primary button--wide" do %>
+              <span><%=t(".still_needs_help")%></span>
+            <% end %>
+          <% end %>
+
+          <%= form_with(url: portal_update_still_needs_help_path, local: true, method: :put, builder: VitaMinFormBuilder) do |f| %>
+            <%= f.button :submit, name: "still_needs_help", value: "no", class: "button button--wide" do %>
+              <span><%=t(".not_interested")%></span>
+            <% end %>
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>
