@@ -113,7 +113,11 @@ RSpec.describe MailgunWebhooksController do
           allow(ClientChannel).to receive(:broadcast_contact_record)
         end
 
-        let!(:client) { create :client, intake: create(:intake, email_address: sender_email) }
+        let!(:client) do
+          create :client,
+                 intake: create(:intake, email_address: sender_email),
+                 tax_returns: [(create :tax_return, status: "prep_preparing", year: 2020), (create :tax_return, status: "file_accepted")]
+        end
 
         it "sends a real-time update to anyone on this client's page", active_job: true do
           post :create_incoming_email, params: params
@@ -189,6 +193,23 @@ RSpec.describe MailgunWebhooksController do
             TEXT
             expect(documents.fifth.upload.blob.download).to eq(empty_file_message)
             expect(documents.fifth.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
+          end
+        end
+
+        context "client has a tax return with the status file_accepted, file_mailed, file_not_filing" do
+          it "forwards the message to intercom" do
+            post :create_incoming_email, params: params
+            #expect to recieve forward support@getyourrefund.org & include client IDs
+            # p1hu33n8@getyourrefundorg.intercom-mail.com # rird6gz6@getyourrefundorg-test.intercom-mail.com <== store these somewhere
+            # should we create new method in ClientMessagingService for
+            # forwarding_email that creates a new ForwardedEmail obj?
+            expect(ClientMessagingService).to have_received(:send_email)
+                                                .with(
+                                                  client: nil,
+                                                  to: "rird6gz6@getyourrefundorg-test.intercom-mail.com",
+                                                  user: nil,
+                                                  body: "forwarded message",
+                                                  subject: "forwarded" )
           end
         end
       end
