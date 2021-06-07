@@ -1033,6 +1033,34 @@ en:
         Hello <<Client.PreferredName>>, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is <<Client.ClientId>>. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Log in to upload documents securely here: <<Client.LoginLink>>
 
         Respond to this message if you have any questions. We’re here to help!
+    still_needs_help:
+      email:
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Thank you for your patience! We are working hard to be able to help every person file their taxes. Right now, our team is at capacity, but we will be able to help you with your tax return over the summer.
+
+          If you still need help with your taxes and would like to be contacted in June, log into the GetYourRefund portal and let us know using this link: %{link}
+
+          If you are interested in filing sooner, you can use our free Do It Yourself (DIY) service here: https://www.getyourrefund.org/en/diy/file-yourself.
+
+          Thank you,
+
+          Your tax team at GetYourRefund
+        subject: Do you still need help with your taxes?
+      sms:
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Thank you for your patience! We are working hard to be able to help every person file their taxes. Right now, our team is at capacity, but we will be able to help you with your tax return over the summer.
+
+          If you still need help with your taxes and would like to be contacted in June, log into the GetYourRefund portal and let us know using this link: %{link}
+
+          If you are interested in filing sooner, you can use our free Do It Yourself (DIY) service here: https://www.getyourrefund.org/en/diy/file-yourself.
+
+          Thank you,
+
+          Your tax team at GetYourRefund
     surveys:
       completion:
         email:
