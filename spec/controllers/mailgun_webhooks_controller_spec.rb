@@ -113,7 +113,12 @@ RSpec.describe MailgunWebhooksController do
           allow(ClientChannel).to receive(:broadcast_contact_record)
         end
 
-        let!(:client) { create :client, intake: create(:intake, email_address: sender_email) }
+        let(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2020)] }
+        let!(:client) do
+          create :client,
+                 intake: create(:intake, email_address: sender_email),
+                 tax_returns: tax_returns
+        end
 
         it "sends a real-time update to anyone on this client's page", active_job: true do
           post :create_incoming_email, params: params
@@ -189,6 +194,37 @@ RSpec.describe MailgunWebhooksController do
             TEXT
             expect(documents.fifth.upload.blob.download).to eq(empty_file_message)
             expect(documents.fifth.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
+          end
+        end
+
+        context "has tax return status in file_accepted, file_mailed or file_not_filing" do
+          let!(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2020), (create :tax_return, status: "file_accepted")] }
+          let(:intercom_service) { class_double(IntercomService) }
+
+          before do
+            stub_const("IntercomService", intercom_service)
+            allow(intercom_service).to receive(:create_intercom_message_from_email).and_return nil
+            stub_request(:post, /.*api\.intercom\.io.*/).to_return(status: 200, body: "", headers: {})
+          end
+
+          it "creates intercom message for the client" do
+            post :create_incoming_email, params: params
+            expect(intercom_service).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, fw_from_hub: true)
+          end
+        end
+
+        context "doesn't have tax return status in file_accepted, file_mailed or file_not_filing" do
+          let(:intercom_service) { class_double(IntercomService) }
+
+          before do
+            stub_const("IntercomService", intercom_service)
+            allow(intercom_service).to receive(:create_intercom_message_from_email).and_return nil
+            stub_request(:post, /.*api\.intercom\.io.*/).to_return(status: 200, body: "", headers: {})
+          end
+
+          it "does not create an intercom message for the client" do
+            post :create_incoming_email, params: params
+            expect(intercom_service).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, fw_from_hub: true)
           end
         end
       end
