@@ -535,6 +535,13 @@ class Intake < ApplicationRecord
     end
   end
 
+  def relevant_intake_document_types
+    DocumentNavigation::FLOW.map do |doc_type_controller|
+      doc_type = doc_type_controller.document_type
+      doc_type if doc_type && doc_type.relevant_to?(self)
+    end.compact
+  end
+
   def document_types_definitely_needed
     relevant_document_types.select(&:needed_if_relevant?).reject do |document_type|
       documents.where(document_type: document_type.key).present?

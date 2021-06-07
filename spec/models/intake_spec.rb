@@ -1099,4 +1099,36 @@ describe Intake do
       expect(intake_2.navigator_display_names).to eq('Incarcerated/reentry, Unhoused')
     end
   end
+
+  describe "#relevant_document_types" do
+    let(:intake) { create :intake, had_wages: "yes", had_interest_income: "yes", bought_health_insurance: "no" }
+
+    it "returns only the document type classes relevant to the client for types in the navigation flow" do
+      doc_types = [
+        DocumentTypes::Identity,
+        DocumentTypes::Selfie,
+        DocumentTypes::SsnItin,
+        DocumentTypes::Employment,
+        DocumentTypes::Form1099Div,
+        DocumentTypes::Form1099Int,
+        DocumentTypes::Other,
+      ]
+      expect(intake.relevant_document_types).to eq doc_types
+    end
+  end
+
+  describe "#relevant_intake_document_types" do
+    let(:intake) { create :intake, had_wages: "yes", had_interest_income: "yes", bought_health_insurance: "no" }
+
+    it "returns only the document type classes relevant to the client for types in the navigation flow" do
+      doc_types = [
+        DocumentTypes::Identity,
+        DocumentTypes::Selfie,
+        DocumentTypes::SsnItin,
+        DocumentTypes::Employment,
+        DocumentTypes::Other,
+      ]
+      expect(intake.relevant_intake_document_types).to eq doc_types
+    end
+  end
 end

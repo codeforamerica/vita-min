@@ -381,13 +381,6 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
     expect { track_progress }.to change { @current_progress }
 
-    # Visit one of the optional but relevant document upload pages. Should be viewable but not show progress
-    visit "/documents/form1099divs"
-    expect { track_progress }.not_to change { @current_progress }
-    click_on "I don't have this right now"
-
-    # Back to documents overview
-    visit "/documents/overview"
     click_on "I've shared all my documents"
 
     # Interview time preferences
