@@ -22,6 +22,7 @@ module ClientSortable
     clients = clients.where(intake: Intake.where(had_unemployment_income: "yes")) if @filters[:unemployment_income].present?
     clients = clients.where(vita_partner: VitaPartner.allows_greeters) if @filters[:greetable].present?
     clients = clients.first_unanswered_incoming_interaction_communication_breaches(@filters[:sla_breach_date]) if @filters[:sla_breach_date].present?
+    clients = clients.where(intake: Intake.where(with_general_navigator: true).or(Intake.where(with_incarcerated_navigator: true)).or(Intake.where(with_limited_english_navigator: true)).or(Intake.where(with_unhoused_navigator: true))) if @filters[:used_navigator].present?
 
     if @filters[:vita_partners].present?
       ids = JSON.parse(@filters[:vita_partners]).map { |vita_partner| vita_partner["id"] }
@@ -39,10 +40,6 @@ module ClientSortable
   end
 
   private
-
-  def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date]
-  end
 
   def setup_sortable_client
     @default_order = { "first_unanswered_incoming_interaction_at" => "asc" }
@@ -78,7 +75,12 @@ module ClientSortable
       service_type: source[:service_type],
       greetable: source[:greetable],
       sla_breach_date: source[:sla_breach_date],
+      used_navigator: source[:used_navigator],
     }
+  end
+
+  def search_and_sort_params
+    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date, :used_navigator]
   end
 
   def cookie_filters
