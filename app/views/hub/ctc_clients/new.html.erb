@@ -4,7 +4,7 @@
   <div class="slab slab--not-padded">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <%= form_with model: @form, url: hub_clients_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
+        <%= form_with model: @form, url: hub_ctc_clients_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
           <h1 class="form-card__title">
             <%= @title %>
           </h1>
@@ -14,19 +14,6 @@
 
           <%= render "shared/client_primary_info_fields", f: f, is_dropoff: true %>
           <%= render "shared/client_spouse_info_fields", f: f %>
-
-          <h2><%= t(".tax_years") %></h2>
-          <%= error_message(f.object, :tax_returns_attributes) %>
-          <div class="form-card__stacked-checkboxes spacing-above-0">
-            <%= f.fields_for :tax_returns do |ff| %>
-              <div class="hub-form__row">
-                <span><%= f.hub_checkbox("needs_help_#{ff.object.year}", ff.object.year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
-                <%= ff.hidden_field :year %>
-                <%= ff.cfa_select(:certification_level, "Certification Level", certification_options_for_select, include_blank: true) %>
-                <%= ff.hub_checkbox(:is_hsa, t("general.hsa"))%>
-              </div>
-            <% end %>
-          </div>
 
           <button class="button button--cta" type="submit">
             <%= t(".send_for_prep") %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_03_170134) do
+ActiveRecord::Schema.define(version: 2021_06_08_160440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 2021_06_03_170134) do
     t.datetime "first_unanswered_incoming_interaction_at"
     t.datetime "flagged_at"
     t.datetime "in_progress_survey_sent_at"
+    t.boolean "is_ctc", default: false
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_internal_or_outgoing_interaction_at"
     t.datetime "last_outgoing_communication_at"

@@ -138,42 +138,43 @@ Rails.application.routes.draw do
       end
 
 
-      # Hub Admin routes (Case Management)
-      namespace :hub do
-        root "assigned_clients#index"
-        resources :metrics, only: [:index]
-        resources :tax_returns, only: [:edit, :update, :show]
-        resources :unlinked_clients, only: [:index]
-        resources :state_routings, only: [:index, :edit, :update], param: :state do
-          delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy
+    # Hub Admin routes (Case Management)
+    namespace :hub do
+      root "assigned_clients#index"
+      resources :metrics, only: [:index]
+      resources :tax_returns, only: [:edit, :update, :show]
+      resources :unlinked_clients, only: [:index]
+      resources :state_routings, only: [:index, :edit, :update], param: :state do
+        delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy
+      end
+      resources :clients do
+        get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
+        get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
+        patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
+        patch "/unlock", to: "clients#unlock", on: :member, as: :unlock
+        get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account
+        get "/hide-bai", to: "clients/bank_accounts#hide", on: :member, as: :hide_bank_account
+        get "/ssn", to: "clients/ssn_itins#show", on: :member, as: :show_ssn_itin
+        get "/hide-ssn", to: "clients/ssn_itins#hide", on: :member, as: :hide_ssn_itin
+        get "/spouse-ssn", to: "clients/ssn_itins#show_spouse", on: :member, as: :show_spouse_ssn_itin
+        get "/hide-spouse-ssn", to: "clients/ssn_itins#hide_spouse", on: :member, as: :hide_spouse_ssn_itin
+        resources :documents do
+          get "/archived", to: "documents#archived", on: :collection, as: :archived
+          get "/confirm", to: "documents#confirm", on: :member, as: :confirm
         end
-        resources :clients do
-          get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
-          get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
-          patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
-          patch "/unlock", to: "clients#unlock", on: :member, as: :unlock
-          get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account
-          get "/hide-bai", to: "clients/bank_accounts#hide", on: :member, as: :hide_bank_account
-          get "/ssn", to: "clients/ssn_itins#show", on: :member, as: :show_ssn_itin
-          get "/hide-ssn", to: "clients/ssn_itins#hide", on: :member, as: :hide_ssn_itin
-          get "/spouse-ssn", to: "clients/ssn_itins#show_spouse", on: :member, as: :show_spouse_ssn_itin
-          get "/hide-spouse-ssn", to: "clients/ssn_itins#hide_spouse", on: :member, as: :hide_spouse_ssn_itin
-          resources :documents do
-            get "/archived", to: "documents#archived", on: :collection, as: :archived
-            get "/confirm", to: "documents#confirm", on: :member, as: :confirm
-          end
-          resources :notes, only: [:create, :index]
-          resources :messages, only: [:index]
-          resources :outgoing_text_messages, only: [:create]
-          resources :outgoing_emails, only: [:create]
-          resources :outbound_calls, only: [:new, :create, :show, :update]
-          resources :tax_returns, only: [:new, :create]
-          member do
-            patch "flag"
-            get "edit_take_action"
-            post "update_take_action"
-          end
+        resources :notes, only: [:create, :index]
+        resources :messages, only: [:index]
+        resources :outgoing_text_messages, only: [:create]
+        resources :outgoing_emails, only: [:create]
+        resources :outbound_calls, only: [:new, :create, :show, :update]
+        resources :tax_returns, only: [:new, :create]
+        member do
+          patch "flag"
+          get "edit_take_action"
+          post "update_take_action"
         end
+      end
+      resources :ctc_clients, only: [:new, :create]
 
         resources :tax_return_selections, path: "tax-return-selections", only: [:create, :show, :new]
 
