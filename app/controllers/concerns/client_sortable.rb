@@ -25,7 +25,7 @@ module ClientSortable
 
     if @filters[:vita_partners].present?
       ids = JSON.parse(@filters[:vita_partners]).map { |vita_partner| vita_partner["id"] }
-      clients = clients.where('vita_partners.id IN (:id)', id: ids)
+      clients = clients.where(vita_partner_id: ids)
     end
     clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?
     clients
