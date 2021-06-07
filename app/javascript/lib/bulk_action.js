@@ -19,12 +19,22 @@ function handleCheckboxChange(formEl, takeActionCountEl, takeActionFooterEl) {
     }
 }
 
+function showTakeActionAll(formEl, totalTaxReturnsCount, takeActionAllEl) {
+    if (getCheckedNum(formEl) == totalTaxReturnsCount) {
+        changeElDisplay(takeActionAllEl, "none");
+    } else {
+        changeElDisplay(takeActionAllEl, "");
+    }
+}
+
 export function initBulkAction() {
     const selectAllEl = document.querySelector('#bulk-edit-select-all');
     const allCheckboxEls = [...document.querySelectorAll("[id^='tr_ids_']")];
     const formEl = document.querySelector('#take-action-form');
     const takeActionFooterEl = document.querySelector('#take-action-footer');
     const takeActionCountEl = document.querySelector('#take-action-count');
+    const takeActionAllEl = document.querySelector('#take-action-all-returns');
+    const totalTaxReturnsCount = document.querySelector('#take-action-all-count').textContent;
 
     handleCheckboxChange(formEl, takeActionCountEl, takeActionFooterEl);
 
@@ -32,8 +42,11 @@ export function initBulkAction() {
         selectAllEl.addEventListener('change', () => {
             if (selectAllEl.checked) {
                 allCheckboxEls.forEach(checkboxEl => checkboxEl.checked = true);
+                showTakeActionAll(formEl, totalTaxReturnsCount, takeActionAllEl)
             } else {
                 allCheckboxEls.forEach(checkboxEl => checkboxEl.checked = false);
+                // Hide take action all no matter what
+                changeElDisplay(takeActionAllEl, "none");
             }
 
             handleCheckboxChange(formEl, takeActionCountEl, takeActionFooterEl);

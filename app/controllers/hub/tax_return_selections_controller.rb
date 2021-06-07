@@ -30,9 +30,10 @@ module Hub
     end
 
     def new
-      @tr_ids = new_params[:tr_ids]
-      @client_count = Client.accessible_by(current_ability).distinct.joins(:tax_returns).where(tax_returns: { id: @tr_ids }).count
-      @tax_return_count = TaxReturn.accessible_by(current_ability).where(id: @tr_ids).count
+      @clients = Client.accessible_by(current_ability).with_eager_loaded_associations
+      @tr_ids = (new_params.dig(:create_tax_return_selection, :action_type) == "all-filtered-clients") ? TaxReturn.where(client: filtered_and_sorted_clients).pluck(:id) : new_params[:tr_ids]
+      @client_count = @clients.distinct.joins(:tax_returns).where(tax_returns: { id: @tr_ids }).size
+      @tax_return_count = TaxReturn.accessible_by(current_ability).where(id: @tr_ids).size
       @selection = TaxReturnSelection.new
     end
 
@@ -63,7 +64,7 @@ module Hub
     end
 
     def new_params
-      params.permit(tr_ids: [])
+      params.permit(create_tax_return_selection: [:action_type], tr_ids: [])
     end
   end
 end

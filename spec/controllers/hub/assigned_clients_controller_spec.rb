@@ -13,6 +13,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       let!(:assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_ready")] }
+      let!(:assigned_to_me_two_trs) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "review_reviewing"), (create :tax_return, year: 2020, assigned_user: user, status: "intake_ready_for_call")] }
       let!(:not_assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return)] }
 
       it "should allow me to see only clients with tax returns assigned to me" do
@@ -26,6 +27,8 @@ RSpec.describe Hub::AssignedClientsController do
         it "renders the clients table view" do
           get :index
           expect(response).to render_template "clients/index"
+          expect(assigns(:filters)[:assigned_to_me]).to be_present
+          expect(assigns(:tax_return_count)).to eq 3
         end
       end
 
@@ -52,14 +55,14 @@ RSpec.describe Hub::AssignedClientsController do
 
           it "filters out" do
             get :index, params: { status: "review_reviewing" }
-            expect(assigns(:clients)).to eq []
+            expect(assigns(:clients)).to eq [assigned_to_me_two_trs]
           end
         end
 
         context "filtering by stage" do
           it "filters in" do
             get :index, params: { status: "intake" }
-            expect(assigns(:clients)).to eq [assigned_to_me]
+            expect(assigns(:clients)).to eq [assigned_to_me, assigned_to_me_two_trs]
           end
 
           it "filters out" do
@@ -117,7 +120,23 @@ RSpec.describe Hub::AssignedClientsController do
         it "assigns message_summaries" do
           get :index
           expect(assigns(:message_summaries)).to eq(fake_message_summaries)
-          expect(RecentMessageSummaryService).to have_received(:messages).with([assigned_to_me.id])
+          expect(RecentMessageSummaryService).to have_received(:messages).with([assigned_to_me.id, assigned_to_me_two_trs.id])
+        end
+      end
+
+      context "tax return count" do
+        # Create 47 more intakes that are assigned to the user
+        let!(:pagination_assigned_to_me) { 47.times { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_ready")] } }
+        let(:params) do
+          {
+            page: "1"
+          }
+        end
+
+        it "shows the full amount of tax returns" do
+          get :index, params: params
+
+          expect(assigns(:tax_return_count)).to eq 50
         end
       end
     end

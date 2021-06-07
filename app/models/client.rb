@@ -155,6 +155,12 @@ class Client < ApplicationRecord
     accessible_by(Ability.new(user))
   end
 
+  scope :without_pagination, -> do
+    # This removes pagination limits
+    # https://github.com/kaminari/kaminari#unscoping
+    except(:limit, :offset)
+  end
+
   def self.locale_counts
     counts = joins(:intake).group(:locale).count
     counts["en"] = 0 unless counts.key?("en")

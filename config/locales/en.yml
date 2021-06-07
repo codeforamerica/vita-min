@@ -120,6 +120,8 @@ en:
         clear_filters: Clear
         filter: Filter results
         filing_year: Filing Year
+        select: Select
+        take_action_on_all_html: 'Take action on all <span id="take-action-all-count">%{count}</span> returns'
         title: All clients
         no_clients: No clients assigned.
         no_filtered_clients: No clients match selected filters.
@@ -2404,7 +2406,6 @@ en:
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}
-        add_all: Add all
       consent_agreement:
         details:
           intro: >-

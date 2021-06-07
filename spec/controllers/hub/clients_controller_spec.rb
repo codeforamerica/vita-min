@@ -580,6 +580,21 @@ RSpec.describe Hub::ClientsController do
         end
       end
 
+      context "tax return count" do
+        let!(:over_pagination_clients) { create_list :client_with_intake_and_return, 50, vita_partner: organization }
+        let(:params) do
+          {
+            page: "1"
+          }
+        end
+
+        it "shows the full amount of tax returns" do
+          get :index, params: params
+
+          expect(assigns(:tax_return_count)).to eq 50
+        end
+      end
+
       context "ordering tax returns" do
         let(:client) { (create :intake).client }
         let!(:tax_return_2020) { create :tax_return, client: client, year: 2020 }
