@@ -55,7 +55,7 @@ module Hub
 
       @client = Client.create!(
         vita_partner_id: attributes_for(:intake)[:vita_partner_id],
-        intake_attributes: attributes_for(:intake).merge(needs_help_attributes).merge(visitor_id: SecureRandom.hex(26)),
+        intake_attributes: attributes_for(:intake).merge(default_attributes).merge(visitor_id: SecureRandom.hex(26)),
         tax_returns_attributes: [tax_return_attributes]
       )
 
@@ -83,12 +83,13 @@ module Hub
 
     private
 
-    def needs_help_attributes
+    def default_attributes
       {
         needs_help_2020: :yes,
         needs_help_2019: :no,
         needs_help_2018: :no,
         needs_help_2017: :no,
+        timezone: "America/New_York",
       }
     end
 

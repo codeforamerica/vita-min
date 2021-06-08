@@ -111,6 +111,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(intake.vita_partner).to eq vita_partner
         expect(intake.primary_last_four_ssn).to eq "1234"
         expect(intake.spouse_last_four_ssn).to eq "5678"
+        expect(intake.timezone).to eq "America/New_York"
       end
 
       it "creates a single CTC 2020 tax return for the client" do
