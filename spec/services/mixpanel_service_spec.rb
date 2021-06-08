@@ -570,7 +570,8 @@ describe MixpanelService do
               year: "2019",
               certification_level: "basic",
               service_type: "online_intake",
-              status: "intake_info_requested"
+              status: "intake_info_requested",
+              is_ctc: false
             }
           )
         end

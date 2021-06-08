@@ -273,6 +273,7 @@ class MixpanelService
         certification_level: tax_return.certification_level,
         service_type: tax_return.service_type,
         status: tax_return.status,
+        is_ctc: tax_return.is_ctc
       }
     end
 
