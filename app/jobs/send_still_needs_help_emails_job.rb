@@ -28,8 +28,7 @@ class SendStillNeedsHelpEmailsJob < ApplicationJob
         )
       end
 
-      preferred_contact_method = ClientMessagingService.contact_methods(client).keys.first
-      if preferred_contact_method == :sms_phone_number
+      if ClientMessagingService.contact_methods(client).keys.include? :sms_phone_number
         ClientMessagingService.send_system_text_message(
           client: client,
           body: I18n.t("messages.still_needs_help.sms.body", locale: locale, link: link),
