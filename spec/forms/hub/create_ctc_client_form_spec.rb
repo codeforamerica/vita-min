@@ -56,13 +56,12 @@ RSpec.describe Hub::CreateCtcClientForm do
     end
 
     context "with valid params and context" do
-      it "creates a CTC client" do
+      it "creates a client" do
         expect do
           described_class.new(params).save(current_user)
         end.to change(Client, :count).by 1
         client = Client.last
         expect(client.vita_partner).to eq vita_partner
-        expect(client.is_ctc).to be_truthy
       end
 
       it "assigns client to an instance on the form object" do
@@ -114,7 +113,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(intake.spouse_last_four_ssn).to eq "5678"
       end
 
-      it "creates a single 2020 tax return for the client" do
+      it "creates a single CTC 2020 tax return for the client" do
         expect do
           described_class.new(params).save(current_user)
         end.to change(TaxReturn, :count).by 1
@@ -129,6 +128,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(tax_return.status).to eq "prep_ready_for_prep"
         expect(tax_return.client).to eq intake.client
         expect(tax_return.service_type).to eq "drop_off"
+        expect(tax_return.is_ctc).to be_truthy
       end
 
       context "mixpanel" do

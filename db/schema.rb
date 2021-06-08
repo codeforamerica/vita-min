@@ -138,7 +138,6 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
     t.datetime "first_unanswered_incoming_interaction_at"
     t.datetime "flagged_at"
     t.datetime "in_progress_survey_sent_at"
-    t.boolean "is_ctc", default: false
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_internal_or_outgoing_interaction_at"
     t.datetime "last_outgoing_communication_at"
@@ -687,6 +686,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
     t.integer "certification_level"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.boolean "is_ctc", default: false
     t.boolean "is_hsa"
     t.string "primary_signature"
     t.datetime "primary_signed_at"

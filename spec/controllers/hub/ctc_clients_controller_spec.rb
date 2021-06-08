@@ -89,12 +89,6 @@ RSpec.describe Hub::CtcClientsController do
           expect(flash[:notice]).to eq "Client successfully created."
           expect(response).to redirect_to(hub_client_path(id: Client.last.id))
         end
-
-        it "marks the client is CTC" do
-          post :create, params: params
-
-          expect(Client.last.is_ctc).to be_truthy
-        end
       end
 
       context "with invalid params" do

@@ -12,7 +12,6 @@
 #  first_unanswered_incoming_interaction_at :datetime
 #  flagged_at                               :datetime
 #  in_progress_survey_sent_at               :datetime
-#  is_ctc                                   :boolean          default(FALSE)
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
 #  last_outgoing_communication_at           :datetime

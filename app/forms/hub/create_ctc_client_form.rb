@@ -54,7 +54,6 @@ module Hub
       return false unless valid?
 
       @client = Client.create!(
-        is_ctc: true,
         vita_partner_id: attributes_for(:intake)[:vita_partner_id],
         intake_attributes: attributes_for(:intake).merge(needs_help_attributes).merge(visitor_id: SecureRandom.hex(26)),
         tax_returns_attributes: [tax_return_attributes]
@@ -96,6 +95,7 @@ module Hub
     def tax_return_attributes
       {
         year: 2020,
+        is_ctc: true,
         is_hsa: 0,
         certification_level: :basic,
         status: :prep_ready_for_prep,
