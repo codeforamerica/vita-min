@@ -46,6 +46,9 @@ FileUtils.chdir APP_ROOT do
   puts "\n== Set up database records for development =="
   system! "bin/rails db:seed"
 
+  puts "\n== Downloading and unpacking optional IRS e-file XML schemas; if this fails, read efile.rake =="
+  system! "bin/rails efile:unzip"
+
   puts "\n== Removing old logs and tempfiles =="
   system! "bin/rails log:clear tmp:clear"
 
