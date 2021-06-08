@@ -3,9 +3,10 @@ class SendStillNeedsHelpEmailsJob < ApplicationJob
     urban_upbound = VitaPartner.find_by_name("Urban Upbound")
     clients = Client.where(vita_partner: urban_upbound).or(Client.where(vita_partner: urban_upbound.child_sites))
 
-    clients = clients.joins(:tax_returns).where(tax_returns: { status: ["intake_ready", "intake_in_progress"] }).select do |client|
-      client.tax_returns.all? { |tax_return| ["intake_ready", "intake_in_progress", "file_not_filing"].include? tax_return.status }
-    end.uniq
+    query = 'SELECT distinct client_id from tax_returns WHERE
+        status IN (101, 102) AND
+        client_id NOT in (SELECT client_id from tax_returns WHERE status NOT IN (101, 102, 406));'
+    clients = clients.where(id: ActiveRecord::Base.connection.execute(query).values.flatten)
 
     client_successes = []
     client_fails = []
