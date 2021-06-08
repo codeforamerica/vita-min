@@ -42,7 +42,7 @@ RSpec.describe SendStillNeedsHelpEmailsJob, type: :job do
 
         context 'and they are opted-in to text messaging' do
           before do
-            allow(ClientMessagingService).to receive(:contact_methods).and_return({ sms_phone_number: "+14155551212" })
+            allow(ClientMessagingService).to receive(:contact_methods).and_return({ sms_phone_number: "+14155551212", email: "example@example.com" })
           end
 
           it 'sends them a text message' do
