@@ -10,7 +10,7 @@
               <%= @title %>
             </h1>
 
-            <%= render "primary_info_fields", f: f %>
+            <%= render "shared/client_primary_info_fields", f: f %>
 
             <%= error_message(@form, :dependents_attributes) %>
             <div id="dependent-info">
@@ -22,7 +22,7 @@
               <%= link_to_add_fields t(".add_dependent"), f, :dependents, { class: "button button--small" }, partial: "hub/clients/dependent" %>
             </div>
 
-            <%= render "spouse_info_fields", f: f %>
+            <%= render "shared/client_spouse_info_fields", f: f %>
 
             <div class="hub-form__row">
               <button class="button button--cta" type="submit">

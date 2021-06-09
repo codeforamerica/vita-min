@@ -168,6 +168,7 @@ describe MixpanelService do
             {
               year: tax_return.year.to_s,
               certification_level: tax_return.certification_level,
+              is_ctc: false,
               service_type: tax_return.service_type,
               status: "intake_before_consent",
               client_organization_name: "Parent Org",
@@ -235,6 +236,7 @@ describe MixpanelService do
             {
               year: tax_return.year.to_s,
               certification_level: tax_return.certification_level,
+              is_ctc: false,
               service_type: tax_return.service_type,
               status: "review_reviewing",
               client_organization_name: "Parent Org",
@@ -279,6 +281,7 @@ describe MixpanelService do
             {
               year: tax_return.year.to_s,
               certification_level: tax_return.certification_level,
+              is_ctc: false,
               service_type: tax_return.service_type,
               status: tax_return.status,
               client_organization_name: "Parent Org",
@@ -378,6 +381,7 @@ describe MixpanelService do
             {
               year: tax_return.year.to_s,
               certification_level: tax_return.certification_level,
+              is_ctc: false,
               service_type: tax_return.service_type,
               status: tax_return.status,
               client_organization_name: "Parent Org",
@@ -570,7 +574,8 @@ describe MixpanelService do
               year: "2019",
               certification_level: "basic",
               service_type: "online_intake",
-              status: "intake_info_requested"
+              status: "intake_info_requested",
+              is_ctc: false
             }
           )
         end
