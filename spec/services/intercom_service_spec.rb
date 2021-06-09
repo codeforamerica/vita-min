@@ -41,18 +41,4 @@ RSpec.describe IntercomService do
       end
     end
   end
-
-  # describe ".create_lead_by_email" do
-  #   let(:contact_attr) do
-  #     {
-  #       email: "sqaush@example.com",
-  #       name: "Sally Squash"
-  #     }
-  #   end
-  #
-  #   it "creates a new lead with email and name" do
-  #     subject.create_lead_by_email("")
-  #     expect(fake_intercom.contacts).to have_received(:create).with(contact_attr)
-  #   end
-  # end
 end
