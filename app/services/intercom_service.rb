@@ -29,7 +29,7 @@ class IntercomService
 
   private
 
-  def contact_id_from_email(email)
+  def self.contact_id_from_email(email)
     contacts = intercom.contacts.search(
       "query": {
         "field": 'email',
@@ -40,7 +40,7 @@ class IntercomService
     contacts&.first&.id
   end
 
-  def contact_id_from_sms(phone_number)
+  def self.contact_id_from_sms(phone_number)
     contacts = intercom.contacts.search(
       "query": {
         "field": 'phone',
@@ -51,11 +51,11 @@ class IntercomService
     contacts&.first&.id
   end
 
-  def create_intercom_contact(incoming_message)
+  def self.create_intercom_contact(incoming_message)
     intercom.contacts.create(intercom_contact_attr(incoming_message))
   end
 
-  def intercom_contact_attr(incoming_message)
+  def self.intercom_contact_attr(incoming_message)
     attributes = {
       role: "contact"
     }
@@ -79,11 +79,11 @@ class IntercomService
     attributes
   end
 
-  def create_new_intercom_thread(contact_id, body)
+  def self.create_new_intercom_thread(contact_id, body)
     intercom.messages.create({ from: { type: "contact", id: contact_id }, body: body })
   end
 
-  def reply_to_existing_intercom_thread(contact_id, body)
+  def self.reply_to_existing_intercom_thread(contact_id, body)
     intercom.conversations.reply_to_last(
       intercom_user_id: contact_id,
       type: 'user',
@@ -92,12 +92,11 @@ class IntercomService
     )
   end
 
-  def most_recent_conversation(contact_id)
+  def self.most_recent_conversation(contact_id)
     intercom.conversations.find_all(intercom_user_id: contact_id, type: 'user').first
   end
 
-  def intercom
-    # @intercom ||= Intercom::Client.new(token: EnvironmentCredentials.dig(:intercom, :intercom_access_token)) #need to add access token
-    @intercom = Intercom::Client.new(token: "dG9rOjNmYmU5NzhiXzBmMGRfNDc2Zl85NTU1XzRmMDdjODI5Yjg5MzoxOjA=")
+  def self.intercom
+    @intercom ||= Intercom::Client.new(token: EnvironmentCredentials.dig(:intercom, :intercom_access_token))
   end
 end
