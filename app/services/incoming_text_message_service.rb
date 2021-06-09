@@ -5,7 +5,7 @@ class IncomingTextMessageService
     phone_number = PhoneParser.normalize(params["From"])
     DatadogApi.increment("twilio.incoming_text_messages.received")
 
-    clients = Client.joins(:intake).where(intakes: { phone_number: phone_number} ).or(Client.joins(:intake).where(intakes: { sms_phone_number: phone_number}))
+    clients = Client.joins(:intake).where(intakes: { phone_number: phone_number}).or(Client.joins(:intake).where(intakes: { sms_phone_number: phone_number}))
 
     client_count = clients.count
     if client_count == 0
@@ -50,6 +50,8 @@ class IncomingTextMessageService
         client: client,
         documents: documents
       )
+
+      IntercomService.create_intercom_message_from_sms(contact_record) if (client.tax_returns.pluck(:status).map(&:to_sym) & TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES).any?
 
       ClientChannel.broadcast_contact_record(contact_record)
     end

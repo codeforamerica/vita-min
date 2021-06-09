@@ -14,7 +14,7 @@ class IntercomService
     end
   end
 
-  def create_intercom_message_from_sms(incoming_sms)
+  def self.create_intercom_message_from_sms(incoming_sms)
     phone_number = incoming_sms.from_phone_number
     body = incoming_sms.body
     contact_id_from_sms = contact_id_from_sms(phone_number)

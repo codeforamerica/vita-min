@@ -197,7 +197,8 @@ RSpec.describe MailgunWebhooksController do
           end
         end
 
-        context "with tax return" do
+        context "has tax return status in file_accepted, file_mailed or file_not_filing" do
+          let!(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2020), (create :tax_return, status: "file_accepted")] }
           let(:intercom_service) { class_double(IntercomService) }
 
           before do
@@ -206,20 +207,24 @@ RSpec.describe MailgunWebhooksController do
             stub_request(:post, /.*api\.intercom\.io.*/).to_return(status: 200, body: "", headers: {})
           end
 
-          context "have statuses in file_accepted, file_mailed or file_not_filing" do
-            let!(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2020), (create :tax_return, status: "file_accepted")] }
+          it "creates intercom message for the client" do
+            post :create_incoming_email, params: params
+            expect(intercom_service).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last)
+          end
+        end
 
-            it "creates intercom message for the client" do
-              post :create_incoming_email, params: params
-              expect(intercom_service).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last)
-            end
+        context "doesn't have tax return status in file_accepted, file_mailed or file_not_filing" do
+          let(:intercom_service) { class_double(IntercomService) }
+
+          before do
+            stub_const("IntercomService", intercom_service)
+            allow(intercom_service).to receive(:create_intercom_message_from_email).and_return nil
+            stub_request(:post, /.*api\.intercom\.io.*/).to_return(status: 200, body: "", headers: {})
           end
 
-          context "doesn't have statuses in file_accepted, file_mailed or file_not_filing" do
-            it "does not create an intercom message for the client" do
-              post :create_incoming_email, params: params
-              expect(intercom_service).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last)
-            end
+          it "does not create an intercom message for the client" do
+            post :create_incoming_email, params: params
+            expect(intercom_service).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last)
           end
         end
       end
