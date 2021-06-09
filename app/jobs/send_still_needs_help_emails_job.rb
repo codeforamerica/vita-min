@@ -10,7 +10,7 @@ class SendStillNeedsHelpEmailsJob < ApplicationJob
 
     client_successes = []
     client_fails = []
-    link = "https://getyourrefund.org/portal/still-needs-help"
+    link = "https://getyourrefund.org/portal/still-need-help"
     clients.each do |client|
       if StillNeedsHelpService.trigger_still_needs_help_flow(client)
         client_successes << client.id
