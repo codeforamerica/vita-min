@@ -1,7 +1,7 @@
 require 'intercom'
 
 class IntercomService
-  def create_intercom_message_from_email(incoming_email)
+  def self.create_intercom_message_from_email(incoming_email)
     email = incoming_email.client&.intake&.email_address || incoming_email.sender
     body = incoming_email.body
     contact_id_from_email = contact_id_from_email(email)
@@ -97,6 +97,7 @@ class IntercomService
   end
 
   def intercom
-    @intercom ||= Intercom::Client.new(token: EnvironmentCredentials.dig(:intercom, :intercom_access_token)) #need to add access token
+    # @intercom ||= Intercom::Client.new(token: EnvironmentCredentials.dig(:intercom, :intercom_access_token)) #need to add access token
+    @intercom = Intercom::Client.new(token: "dG9rOjNmYmU5NzhiXzBmMGRfNDc2Zl85NTU1XzRmMDdjODI5Yjg5MzoxOjA=")
   end
 end

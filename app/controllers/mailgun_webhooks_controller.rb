@@ -83,7 +83,7 @@ class MailgunWebhooksController < ActionController::Base
 
       end
 
-      IntercomService.create_intercom_message_from_email(contact_record) if (client.tax_returns.pluck(:status).each(&:to_sym) && TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES).any?
+      IntercomService.create_intercom_message_from_email(contact_record) if (client.tax_returns.pluck(:status).map(&:to_sym) & TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES).any?
 
       ClientChannel.broadcast_contact_record(contact_record)
     end
