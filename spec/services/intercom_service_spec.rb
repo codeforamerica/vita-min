@@ -9,35 +9,75 @@ RSpec.describe IntercomService do
   end
 
   describe "#create_intercom_message_from_email" do
-    context "no existing contact with email" do
-      let(:intake) { create :intake, email_address: "beep@example.com" }
-      let(:incoming_email) { create :incoming_email, client: intake.client, stripped_text: "hi i would like some help" }
+    let(:intake) { create :intake, email_address: "beep@example.com" }
+    let(:incoming_email) { create :incoming_email, client: intake.client, stripped_text: "hi i would like some help" }
 
+    context "with no existing contact with email" do
       before do
         allow(subject).to receive(:contact_id_from_email).with(intake.email_address).and_return(nil)
         allow(fake_intercom).to receive_message_chain(:contacts, :create, :id).and_return("fake_new_contact_id")
         allow(subject).to receive(:create_new_intercom_thread).with("fake_new_contact_id", incoming_email.body)
       end
 
-      it "creates a new contact and creates a new message with the new contact" do
+      it "creates a new contact, message and conversation for email" do
         subject.create_intercom_message_from_email(incoming_email)
         expect(subject).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "hi i would like some help")
       end
     end
 
-    context "with existing contact with email and conversation in intercom" do
-      let(:intake) { create :intake, email_address: "beep@example.com" }
-      let(:incoming_email) { create :incoming_email, client: intake.client, stripped_text: "is anyone still there?" }
-
+    context "with existing contact and conversation associated with email in intercom" do
       before do
         allow(subject).to receive(:contact_id_from_email).with(intake.email_address).and_return("fak3_1d")
         allow(subject).to receive(:most_recent_conversation).with("fak3_1d").and_return("fake_convo_id")
-        allow(subject).to receive(:reply_to_existing_intercom_thread).with(intake.email_address, "fak3_1d", incoming_email.body)
+        allow(subject).to receive(:reply_to_existing_intercom_thread).with("fak3_1d", incoming_email.body)
       end
 
-      it "creates a new message with the existing contact and conversation thread" do
+      it "replies to the contacts' conversation thread" do
         subject.create_intercom_message_from_email(incoming_email)
-        expect(subject).to have_received(:reply_to_existing_intercom_thread).with("beep@example.com", "fak3_1d", "is anyone still there?")
+        expect(subject).to have_received(:reply_to_existing_intercom_thread).with("fak3_1d", "hi i would like some help")
+      end
+    end
+
+    context "with existing contact but no conversation associated with email in intercom" do
+      before do
+        allow(subject).to receive(:contact_id_from_email).with(intake.email_address).and_return("fak3_1d")
+        allow(subject).to receive(:most_recent_conversation).with("fak3_1d").and_return(nil)
+        allow(subject).to receive(:create_new_intercom_thread).with("fak3_1d", incoming_email.body)
+      end
+
+      it "creates a new message for exisiting contact" do
+        subject.create_intercom_message_from_email(incoming_email)
+        expect(subject).to have_received(:create_new_intercom_thread).with("fak3_1d", "hi i would like some help")
+      end
+    end
+  end
+
+  describe "#create_intercom_message_from_sms" do
+    let(:incoming_text_message) { create :incoming_text_message, from_phone_number: "+14152515239", client: create(:client), body: "halp" }
+
+    context "with no existing contact with phone number" do
+      before do
+        allow(subject).to receive(:contact_id_from_sms).with("+14152515239").and_return(nil)
+        allow(subject).to receive_message_chain(:create_intercom_contact, :id).and_return("fake_new_contact_id")
+        allow(subject).to receive(:create_new_intercom_thread).with("fake_new_contact_id", incoming_text_message.body)
+      end
+
+      it "creates a new contact, message and conversation for phone number" do
+        subject.create_intercom_message_from_sms(incoming_text_message)
+        expect(subject).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "halp")
+      end
+    end
+
+    context "with an existing contact and conversation for phone number" do
+      before do
+        allow(subject).to receive(:contact_id_from_sms).with(incoming_text_message.from_phone_number).and_return("fake_existing_contact_id")
+        allow(subject).to receive(:most_recent_conversation).with("fake_existing_contact_id").and_return("fake_convo")
+        allow(subject).to receive(:reply_to_existing_intercom_thread).with("fake_existing_contact_id", incoming_text_message.body)
+      end
+
+      it "replies to the existing thread for phone number" do
+        subject.create_intercom_message_from_sms(incoming_text_message)
+        expect(subject).to have_received(:reply_to_existing_intercom_thread).with("fake_existing_contact_id", "halp")
       end
     end
   end
