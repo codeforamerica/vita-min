@@ -57,5 +57,6 @@ yarn-debug.log*
 
 Brewfile.lock.json
 
-# Ignore downloaded e-File schemas
-vendor/irs
+# Ignore downloaded & unpacked e-File schemas
+vendor/irs/*.zip
+vendor/irs/unpacked

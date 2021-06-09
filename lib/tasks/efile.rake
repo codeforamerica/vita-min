@@ -9,7 +9,7 @@ namespace :efile do
   FILENAME = "efile1040x_2020v5.1.zip"
 
   task download: :environment do |_task|
-    download_path = Rails.root.join('tmp', FILENAME)
+    download_path = Rails.root.join('vendor', 'irs', FILENAME)
     # If the file already exists, do not re-download.
     next if File.exists?(download_path)
 
@@ -33,14 +33,14 @@ namespace :efile do
   end
 
   task unzip: :environment do |_task|
-    download_path = Rails.root.join('tmp', FILENAME)
-    raise StandardError.new("Download #{FILENAME} from s3://vita-min-irs-e-file-schema-prod and place it in tmp/") unless File.exists?(download_path)
+    download_path = Rails.root.join('vendor', 'irs', FILENAME)
+    raise StandardError.new("Download #{FILENAME} from s3://vita-min-irs-e-file-schema-prod and place it in vendor/irs/") unless File.exists?(download_path)
 
-    vendor_irs = Rails.root.join('vendor', 'irs')
-    Zip::File.open_buffer(File.open(Rails.root.join('tmp', FILENAME), "rb")) do |zip_file|
-      FileUtils.rm_rf(vendor_irs)
-      FileUtils.mkdir_p(vendor_irs)
-      Dir.chdir(vendor_irs) do
+    unpack_path = Rails.root.join('vendor', 'irs', 'unpacked')
+    Zip::File.open_buffer(File.open(download_path, "rb")) do |zip_file|
+      FileUtils.rm_rf(unpack_path)
+      FileUtils.mkdir_p(unpack_path)
+      Dir.chdir(unpack_path) do
         zip_file.each do |entry|
           raise StandardError.new("Unsafe filename; exiting") unless entry.name_safe?
 
