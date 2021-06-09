@@ -64,7 +64,7 @@ gem 'rails_autolink'
 gem 'ice_nine'
 gem 'business_time'
 gem 'scenic'
-gem 'intercom'
+gem 'intercom', '~> 4.1'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data

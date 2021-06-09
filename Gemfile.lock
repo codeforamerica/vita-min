@@ -558,7 +558,7 @@ DEPENDENCIES
   i18n-tasks
   ice_nine
   image_processing
-  intercom
+  intercom (~> 4.1)
   jbuilder (~> 2.5)
   listen (>= 3.4.0)
   lograge
