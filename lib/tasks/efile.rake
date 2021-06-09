@@ -9,12 +9,14 @@ namespace :efile do
   FILENAME = "efile1040x_2020v5.1.zip"
 
   task download: :environment do |_task|
-    output_path = Rails.root.join('tmp', FILENAME)
-    # return if output_path.exists?
+    download_path = Rails.root.join('tmp', FILENAME)
+    # If the file already exists, do not re-download.
+    next if File.exists?(download_path)
+
     # On Circle CI, get AWS credentials from environment.
     # In staging, demo, and prod environment, get credentials from Rails credentials.
     #
-    # To test this locally, try: RAILS_ENV=staging rake efile:download
+    # In development, download the file manually from S3. This allows us to avoid storing any AWS credentials in the development secrets.
     credentials = if ENV["AWS_ACCESS_KEY_ID"].present?
                     Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
                   else
@@ -24,13 +26,16 @@ namespace :efile do
                     )
                   end
     Aws::S3::Client.new(region: 'us-east-1', credentials: credentials).get_object(
-      response_target: output_path,
+      response_target: download_path,
       bucket: "vita-min-irs-e-file-schema-prod",
       key: FILENAME,
     )
   end
 
   task unzip: :environment do |_task|
+    download_path = Rails.root.join('tmp', FILENAME)
+    raise StandardError.new("Download #{FILENAME} from s3://vita-min-irs-e-file-schema-prod and place it in tmp/") unless File.exists?(download_path)
+
     vendor_irs = Rails.root.join('vendor', 'irs')
     Zip::File.open_buffer(File.open(Rails.root.join('tmp', FILENAME), "rb")) do |zip_file|
       FileUtils.rm_rf(vendor_irs)
