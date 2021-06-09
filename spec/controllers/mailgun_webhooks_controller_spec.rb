@@ -113,10 +113,11 @@ RSpec.describe MailgunWebhooksController do
           allow(ClientChannel).to receive(:broadcast_contact_record)
         end
 
+        let(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2020)] }
         let!(:client) do
           create :client,
                  intake: create(:intake, email_address: sender_email),
-                 tax_returns: [(create :tax_return, status: "prep_preparing", year: 2020), (create :tax_return, status: "file_accepted")]
+                 tax_returns: tax_returns
         end
 
         it "sends a real-time update to anyone on this client's page", active_job: true do
@@ -196,20 +197,29 @@ RSpec.describe MailgunWebhooksController do
           end
         end
 
-        context "client has a tax return with the status file_accepted, file_mailed, file_not_filing" do
-          it "forwards the message to intercom" do
-            post :create_incoming_email, params: params
-            #expect to recieve forward support@getyourrefund.org & include client IDs
-            # p1hu33n8@getyourrefundorg.intercom-mail.com # rird6gz6@getyourrefundorg-test.intercom-mail.com <== store these somewhere
-            # should we create new method in ClientMessagingService for
-            # forwarding_email that creates a new ForwardedEmail obj?
-            expect(ClientMessagingService).to have_received(:send_email)
-                                                .with(
-                                                  client: nil,
-                                                  to: "rird6gz6@getyourrefundorg-test.intercom-mail.com",
-                                                  user: nil,
-                                                  body: "forwarded message",
-                                                  subject: "forwarded" )
+        context "with tax return" do
+          let(:intercom_service) { class_double(IntercomService) }
+
+          before do
+            stub_const("IntercomService", intercom_service)
+            allow(intercom_service).to receive(:create_intercom_message_from_email).and_return nil
+            stub_request(:post, /.*api\.intercom\.io.*/).to_return(status: 200, body: "", headers: {})
+          end
+
+          context "have statuses in file_accepted, file_mailed or file_not_filing" do
+            let!(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2020), (create :tax_return, status: "file_accepted")] }
+
+            it "creates intercom message for the client" do
+              post :create_incoming_email, params: params
+              expect(intercom_service).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last)
+            end
+          end
+
+          context "doesn't have statuses in file_accepted, file_mailed or file_not_filing" do
+            it "does not create an intercom message for the client" do
+              post :create_incoming_email, params: params
+              expect(intercom_service).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last)
+            end
           end
         end
       end
