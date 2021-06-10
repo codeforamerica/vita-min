@@ -5,7 +5,7 @@ class IntercomService
     email_address = incoming_email.sender
     body = incoming_email.body
     contact_id_from_email = contact_id_from_email(email_address)
-    contact_id = contact_id_from_email.present? ? contact_id_from_email : create_intercom_contact(incoming_email).id
+    contact_id = contact_id_from_email.present? ? contact_id_from_email : create_or_update_intercom_contact(incoming_email).id
 
     if contact_id_from_email.present? && most_recent_conversation(contact_id).present?
       reply_to_existing_intercom_thread(contact_id, body)
@@ -19,7 +19,7 @@ class IntercomService
     phone_number = incoming_sms.from_phone_number
     body = incoming_sms.body
     contact_id_from_sms = contact_id_from_sms(phone_number)
-    contact_id = contact_id_from_sms.present? ? contact_id_from_sms : create_intercom_contact(incoming_sms).id
+    contact_id = contact_id_from_sms.present? ? contact_id_from_sms : create_or_update_intercom_contact(incoming_sms).id
 
     if contact_id_from_sms.present? && most_recent_conversation(contact_id).present?
       reply_to_existing_intercom_thread(contact_id, body)
@@ -62,8 +62,29 @@ class IntercomService
     contacts&.first&.id
   end
 
-  def self.create_intercom_contact(incoming_message)
-    intercom.contacts.create(intercom_contact_attr(incoming_message))
+  def self.contact_id_from_client_id(client_id)
+    contacts = intercom.contacts.search(
+      "query": {
+        "field": 'external_id',
+        "operator": '=',
+        "value": client_id&.to_s
+      }
+    )
+    contacts&.first&.id
+  end
+
+  def self.create_or_update_intercom_contact(incoming_message)
+    intercom_contact_from_client_id = contact_id_from_client_id(incoming_message.client_id)
+
+    if intercom_contact_from_client_id.present?
+      contact = intercom.contacts.find(id: intercom_contact_from_client_id)
+      contact.from_hash(intercom_contact_attr(incoming_message))
+      intercom.contacts.save(contact)
+    else
+      contact = intercom.contacts.create(intercom_contact_attr(incoming_message))
+    end
+
+    contact
   end
 
   def self.intercom_contact_attr(incoming_message)
@@ -73,13 +94,13 @@ class IntercomService
 
     if incoming_message.is_a?(IncomingTextMessage)
       attributes[:phone] = incoming_message.from_phone_number
-    elsif incoming_message.is_a?(IncomingTextMessage)
+    elsif incoming_message.is_a?(IncomingEmail)
       attributes[:email] = incoming_message.sender
     end
 
     if incoming_message.client&.present?
-      attributes[:external_id] = incoming_message.client.id
-      attributes[:client] = incoming_message.client.id
+      attributes[:external_id] = incoming_message.client.id.to_s
+      attributes[:client] = incoming_message.client.id.to_s
     else
       attributes[:role] = "lead"
     end

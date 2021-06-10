@@ -15,6 +15,7 @@ RSpec.describe IntercomService do
     context "with no existing contact with email" do
       before do
         allow(described_class).to receive(:contact_id_from_email).with(incoming_email.sender).and_return(nil)
+        allow(described_class).to receive(:contact_id_from_client_id).with(client.id).and_return(nil)
         allow(fake_intercom).to receive_message_chain(:contacts, :create, :id).and_return("fake_new_contact_id")
         allow(described_class).to receive(:create_new_intercom_thread).with("fake_new_contact_id", incoming_email.body)
         allow(ClientMessagingService).to receive(:send_system_email)
@@ -60,7 +61,7 @@ RSpec.describe IntercomService do
     context "with no existing contact with phone number" do
       before do
         allow(described_class).to receive(:contact_id_from_sms).with("+14152515239").and_return(nil)
-        allow(described_class).to receive_message_chain(:create_intercom_contact, :id).and_return("fake_new_contact_id")
+        allow(described_class).to receive_message_chain(:create_or_update_intercom_contact, :id).and_return("fake_new_contact_id")
         allow(described_class).to receive(:create_new_intercom_thread).with("fake_new_contact_id", incoming_text_message.body)
         allow(ClientMessagingService).to receive(:send_system_text_message)
       end
