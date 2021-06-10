@@ -2665,6 +2665,82 @@ es:
           Limitación de la duración del consentimiento: Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha más temprana a la indicada anteriormente (13 de noviembre de 2022). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, yo/ nosotros denegaremos el consentimiento.
 
           Limitación del alcance de la divulgación: Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo indicado anteriormente. Si yo/nosotros deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo indicado anteriormente, yo/nosotros denegaremos el consentimiento
+    ctc_pages:
+      home:
+        title: "Crédito Tributario por Hijos"
+        header: "Crédito Tributario por Hijos"
+        subheader: "Ponga dinero en efectivo en el bolsillo de su familia cada mes para las cosas que usted necesita, aún si usted tiene muy pocos ingresos o no tiene ingresos."
+        claim_credit: "Reclamar su crédito"
+        what_is:
+          heading: "¿Qué es el Crédito Tributario por Hijos (CTC)?"
+          body1: "El Plan de Rescate Estadounidense, firmado como ley por el presidente Biden el 11 de marzo de 2021, aumenta el Crédito Tributario por Hijos (CTC en inglés) que le podría proporcionar hasta $300 al mes por cada hijo menor de seis años y hasta $250 por hijo con edades entre 6 y 17 años."
+          body2: "Puede recibir pagos a partir de julio a  diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante."
+        qualify:
+          heading: "¿Califico para el Crédito Tributario por Hijos?"
+          body1: "Puede recibir el Crédito Tributario por Hijos si tiene hijos, aún si tiene muy pocos ingresos o no tiene ingresos."
+          body2: "En general, los niños de su familia califican para el Crédito Tributario por Hijos si son menores de 18 años y viven con usted la mayoría del tiempo."
+          eligible:
+            subheading: "¿Quién es elegible para reclamar el Crédito Tributario por Hijos?"
+            body_html: |
+              Personas que califican para el pago mensual adelantado del Crédito Tributario por Hijos incluyen:
+                <ul>
+                  <li>Contribuyentes que declaren impuestos juntos y ganan hasta $150,000</li>
+                  <li>Cabeza de familia que es soltero/a y que gana hasta $112,500</li>
+                  <li>Otros contribuyentes individuales que ganen hasta $75,000</li>
+                </ul>
+          dependents:
+            subheading: "¿Califica mi hijo/a o dependiente para el Crédito Tributario por Hijos?"
+            body: "Su hijo/a califica a su familia  para el Crédito Tributario por Hijos si:"
+            qualifiers:
+              item1: "El niño/a es su hijo/a, nieto/a, hijastro/a o hijo/a adoptivo/a; hermano/a menor, hermanastro/a, medio hermano/a o su descendiente. O si es un niño/a de crianza colocado con su familia por medio de una agencia de gobierno."
+              item2: "El niño / la niña tenía menos de 17 años a finales de 2020."
+              item3: "El niño / la niña tiene un número de seguro social válido."
+              item4: "El niño/ la niña vivió con usted durante más de la mitad de 2021."
+              item5: "El niño/ la niña no proporcionó más de la mitad de su propia manutención en el 2021."
+        obtain:
+          heading: "¿Cómo recibo el Crédito Tributario por Hijos?"
+          body1: "Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia."
+          body2_html: "Si no ha enviado ninguna información al IRS en el último año, pronto podrá enviar su información a través de la <strong>Herramienta Non-Filer del IRS</strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han presentado su declaración de impuestos,  y poder recibir sus pagos."
+          already_filed:
+            subheading: "Si ya declaró los impuestos del 2019 o 2020, no tiene que hacer nada."
+            body1: "Si ya declaró los impuestos del 2019 o 2020 y no ha tenido cambios significativos en su hogar, no  necesita hacer nada más. Sabemos que las situaciones familiares pueden cambiar rápidamente. Para recibir la cantidad correcta de dinero del Crédito Tributario por Hijos, puede asegurarse  que el IRS tenga la información correcta sobre las personas que forman parte de su hogar actual."
+            body2_html: "Si su situación familiar ha cambiado, pronto va a poder usar el <strong>portal de actualización del Crédito Tributario por Hijos</strong> (CTC Update Portal o CTC UP en inglés) para:"
+            body3: "Usted podría optar por no recibir los pagos mensuales del Crédito Tributario por Hijos si:"
+            body4_html: "¡Actualice su información en el <strong>Portal de Actualización de CTC</strong> pronto!"
+            update_items:
+              item1: "Actualizar el número de dependientes elegibles en su hogar (por ejemplo, si un niño ya no vive con usted)"
+              item2: "Reportar cambios significativos en sus ingresos familiares"
+              item3: "Optar por no recibir pagos mensuales, y optar por recibir el pago  el próximo año cuando presente su declaración de impuestos de 2021"
+            opt_out_items:
+              item1: "Prefiere recibir su crédito en un solo pago en el 2022"
+              item2: "Su información bancaria o su dirección ha cambiado en el último año"
+              item3: "No planea reclamar dependientes en su declaración de impuestos de 2021 (que declarará en el 2022), por ejemplo, si comparte custodia con alguien y se alternan quien reclama el niño como dependiente"
+          not_filed:
+            subheading: "Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos."
+            body1_html: |
+              <p>Si tiene al menos un hijo que califica y usted ganó menos de $12,400 (o menos de $22,500 si está casado), pronto podrá usar la <strong>Herramienta Non-Filer del IRS</strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han declarado, para:</p>
+              <ul>
+                <li>obtener el Crédito Tributario por Hijos</li>
+                <li>recibir un pago de estímulo que le falte</li>
+                <li>y recibir dinero en efectivo.</li>
+              </ul>
+            body2: "Para obtener el Crédito Tributario por Hijos, necesitará verificar su identidad y proporcionar los números de seguro social de sus hijos. Puede registrarse para el Crédito Tributario por Hijos aún si usted tiene muy pocos ingresos o no tiene ingresos, o si recibe otros beneficios federales como Seguridad de Ingreso Suplementario (SSI en inglés) o beneficios por incapacidad (SSDI en inglés)."
+            body3_html: "Puedes apúntesarte cuando la <strong>Herramienta Non-Filer del IRS</strong> esté disponible"
+          full_return:
+            subheading: "Si usted aún no ha proporcionado su información al IRS (por medio de sus impuestos o por el portal para registrar a las personas que no han declarado), usted puede presentar una declaración de impuestos completa para recibir otros créditos tributarios que se le deben."
+            gyr_link: "GetYourRefund"
+            gyr_diy_link: "GetYourRefund - Auto-Servicio (DIY)"
+            body1_html: |
+              Si usted tiene al menos un hijo que califica y tiene cualquier cantidad de ingresos de trabajo, pero aún no ha declarado impuestos, le recomendamos que declare sus impuestos de 2020. Presentar una declaración de impuestos completa del 2020 le permitirá a usted y a su familia:
+              <ul>
+                <li>reclamar el Crédito Tributario por Hijos</li>
+                <li>recibir los tres pagos de estímulo</li>
+                <li>y obtener el Crédito Tributario por Ingresos de Trabajo para recibir más dinero en efectivo.</li>
+              </ul>
+            body2_html: "Aquí hay algunas opciones <strong>gratuitas</strong> para declarar impuestos:"
+            body3: ": Si sus ingresos fueron menos de $66,000 usted puede recibir ayuda personalizada de preparadores de impuestos certificados por el IRS. Ellos harán la preparación de impuestos para usted."
+            body4: ": Si sus ingresos fueron más de $66,000 y se siente seguro usando las herramientas en línea, le daremos acceso gratuito a programas digitales para que usted prepare su declaración de impuestos. Habrán expertos listos para ayudarle por chat si lo necesita."
+            cta: "Declare sus impuestos con GetYourRefund"
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
