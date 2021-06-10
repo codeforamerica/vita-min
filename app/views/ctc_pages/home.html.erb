@@ -53,7 +53,7 @@
             <h3><%=t("views.ctc_pages.home.qualify.eligible.subheading") %></h3>
           </a>
           <div class="accordion__content" id="a1">
-            <p><%=t("views.ctc_pages.home.qualify.eligible.body") %></p>
+            <p><%=t("views.ctc_pages.home.qualify.eligible.body_html") %></p>
           </div>
         </div>
 
@@ -82,7 +82,7 @@
       <div class="grid__item width-one-whole">
         <p><%= t('views.ctc_pages.home.obtain.body1') %></p>
         <p>
-          <%= t('views.ctc_pages.home.obtain.body2') %><strong><%= t('views.ctc_pages.home.non_filer_tool') %></strong><%= t('views.ctc_pages.home.obtain.body3') %>
+          <%= t('views.ctc_pages.home.obtain.body2_html') %>
         </p>
 
         <div class="accordion">
@@ -92,21 +92,21 @@
           <div class="accordion__content" id="a3">
             <p><%=t("views.ctc_pages.home.obtain.already_filed.body1") %></p>
             <p>
-              <%=t("views.ctc_pages.home.obtain.already_filed.body2") %><strong><%= t("views.ctc_pages.home.obtain.update_portal_1")%></strong><%= t("views.ctc_pages.home.obtain.already_filed.body3") %>
+              <%=t("views.ctc_pages.home.obtain.already_filed.body2_html") %>
             </p>
             <ul>
               <% t("views.ctc_pages.home.obtain.already_filed.update_items").each do |_, item| %>
                 <li><%= item %></li>
               <% end %>
             </ul>
-            <p><%=t("views.ctc_pages.home.obtain.already_filed.body4") %></p>
+            <p><%=t("views.ctc_pages.home.obtain.already_filed.body3") %></p>
             <ul>
               <% t("views.ctc_pages.home.obtain.already_filed.opt_out_items").each do |_, item| %>
                 <li><%= item %></li>
               <% end %>
             </ul>
             <p>
-              <%=t("views.ctc_pages.home.obtain.already_filed.body5") %><strong><%= t("views.ctc_pages.home.obtain.update_portal_2")%></strong><%= t("views.ctc_pages.home.obtain.already_filed.body6") %>
+              <%=t("views.ctc_pages.home.obtain.already_filed.body4_html") %>
             </p>
           </div>
         </div>
@@ -117,11 +117,11 @@
           </a>
           <div class="accordion__content" id="a4">
             <p>
-              <%=t("views.ctc_pages.home.obtain.not_filed.body1") %><strong><%= t("views.ctc_pages.home.non_filer_tool")%></strong><%= t("views.ctc_pages.home.obtain.not_filed.body2") %>
+              <%=t("views.ctc_pages.home.obtain.not_filed.body1_html") %>
             </p>
-            <p><%=t("views.ctc_pages.home.obtain.not_filed.body3") %></p>
+            <p><%=t("views.ctc_pages.home.obtain.not_filed.body2") %></p>
             <p>
-              <%=t("views.ctc_pages.home.obtain.not_filed.body4") %><strong><%= t("views.ctc_pages.home.non_filer_tool")%></strong><%= t("views.ctc_pages.home.obtain.not_filed.body5") %>
+              <%=t("views.ctc_pages.home.obtain.not_filed.body3_html") %>
             </p>
           </div>
         </div>
@@ -131,10 +131,20 @@
             <h3><%=t("views.ctc_pages.home.obtain.full_return.subheading") %></h3>
           </a>
           <div class="accordion__content" id="a5">
-            <p><%=t("views.ctc_pages.home.obtain.full_return.body1") %></p>
-            <p><%=t("views.ctc_pages.home.obtain.full_return.body2") %><strong><%=t("views.ctc_pages.home.obtain.full_return.body3") %></strong><%=t("views.ctc_pages.home.obtain.full_return.body4") %></p>
-            <p><a href=<%= url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "public_pages", action: 'home')%> ><%=t("views.ctc_pages.home.obtain.full_return.gyr_link") %></a><%=t("views.ctc_pages.home.obtain.full_return.body5") %></p>
-            <p><a href="<%= url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "public_pages", action: 'diy')%> "><%=t("views.ctc_pages.home.obtain.full_return.gyr_diy_link") %></a><%=t("views.ctc_pages.home.obtain.full_return.body6") %></p>
+            <p><%=t("views.ctc_pages.home.obtain.full_return.body1_html") %></p>
+            <p><%=t("views.ctc_pages.home.obtain.full_return.body2_html") %></p>
+            <p>
+              <a href=<%= url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "public_pages", action: 'home')%> >
+                <%=t("views.ctc_pages.home.obtain.full_return.gyr_link") %>
+              </a>
+              <%=t("views.ctc_pages.home.obtain.full_return.body3") %>
+            </p>
+            <p>
+              <a href="<%= url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "public_pages", action: 'diy')%> ">
+                <%=t("views.ctc_pages.home.obtain.full_return.gyr_diy_link") %>
+              </a>
+              <%=t("views.ctc_pages.home.obtain.full_return.body4") %>
+            </p>
             <%= link_to t("views.ctc_pages.home.obtain.full_return.cta"), url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "public_pages", action: 'home') , class: "button button--primary" %>
           </div>
         </div>
