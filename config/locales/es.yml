@@ -2631,6 +2631,9 @@ es:
           Limitación de la duración del consentimiento: Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha más temprana a la indicada anteriormente (13 de noviembre de 2022). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, yo/ nosotros denegaremos el consentimiento.
 
           Limitación del alcance de la divulgación: Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo indicado anteriormente. Si yo/nosotros deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo indicado anteriormente, yo/nosotros denegaremos el consentimiento
+    ctc_pages:
+      home:
+        title: "🦐 Child Tax Credit"
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
