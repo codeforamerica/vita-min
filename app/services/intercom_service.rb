@@ -72,14 +72,14 @@ class IntercomService
     }
 
     if incoming_message.is_a?(IncomingTextMessage)
-      attributes[:phone_number] = incoming_message.from_phone_number
+      attributes[:phone] = incoming_message.from_phone_number
     elsif incoming_message.is_a?(IncomingTextMessage)
-      attributes[:email] = incoming_message.client&.intake&.email_address || incoming_message.sender
+      attributes[:email] = incoming_message.sender
     end
 
     if incoming_message.client&.present?
-      attributes[:client] = incoming_message.client.id
       attributes[:external_id] = incoming_message.client.id
+      attributes[:client] = incoming_message.client.id
     else
       attributes[:role] = "lead"
     end
