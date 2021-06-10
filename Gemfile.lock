@@ -480,6 +480,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stackprof (0.2.17)
+    statesman (8.0.3)
     strip_attributes (1.11.0)
       activemodel (>= 3.0, < 7.0)
     terminal-table (3.0.1)
@@ -617,6 +618,7 @@ DEPENDENCIES
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   stackprof
+  statesman (~> 8.0.3)
   strip_attributes
   terser (~> 1.0)
   thor
