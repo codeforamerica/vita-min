@@ -2659,10 +2659,19 @@ en:
             body1: "If you have at least one qualifying child and earned less than $12,400 (or less than $22,500 if you are married), you will soon be able to use the "
             body2: "  to get the Child Tax Credit, receive a missing stimulus payment, and get cash now."
             body3: "To get the Child Tax Credit you will need to verify your identity, and provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI."
-            body4: "Sign up for a reminder once the "
+            body4: "You can sign up once the "
             body5: " is available"
           full_return:
             subheading: "If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed."
+            gyr_link: "GetYourRefund"
+            gyr_diy_link: "GetYourRefund - Do It Yourself"
+            body1: "If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. Filing a full 2020 tax return will allow your family to claim the Child Tax Credit, receive all three stimulus payments, and the Earned Income Credit to get even more cash now."
+            body2: "Here are some "
+            body3: "free"
+            body4: " tax filing options for you:"
+            body5: ": If you earned less than $66,000 you can get personalized support from IRS-certified tax preparers who will complete your taxes for you."
+            body6: ": If you earned more than $66,000 and are comfortable using online tools, we provide free access to tax prep software with experts ready to provide chat support if you need help."
+            cta: "File a Tax Return with GetYourRefund"
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
