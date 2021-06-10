@@ -4,18 +4,22 @@ class EfileSubmissionStateMachine
   state :new, initial: true
   state :preparing
   state :queued
+
+  # submission-related response statuses
   state :transmitted
   state :failed
+
+  # terminal response statuses from IRS
   state :rejected
   state :accepted
-  state :flagged
-  state :cancelled
+
+  # I know we'll need some "internal" statuses to track filings that need internal attention, but I don't
+  # know what they are yet so let's not think too far ahead.
 
   transition from: :new,          to: [:preparing]
-  transition from: :preparing,    to: [:cancelled, :flagged]
+  transition from: :preparing,    to: [:queued]
   transition from: :queued,       to: [:transmitted, :failed, :rejected]
-  transition from: :transmitted,  to: [:accepted, :rejected, :cancelled]
-  transition from: :rejected,     to: [:cancelled, :flagged, :preparing]
+  transition from: :transmitted,  to: [:accepted, :rejected]
 
   guard_transition(to: :queued) do |submission|
     # submission.submission_file.present?
@@ -26,8 +30,9 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :queued) do |submission|
-    # SubmitReturnJob.perform_later(submission)
+    # submission.queue
   end
+
 
   after_transition(to: :rejected) do |submission, transition|
     # Transition associated tax return to rejected

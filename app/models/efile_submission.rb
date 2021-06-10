@@ -11,12 +11,12 @@
 #
 class EfileSubmission < ApplicationRecord
   belongs_to :tax_return
-  has_many :transitions, class_name: "EfileSubmissionTransition", autosave: false
+  has_many :efile_submission_transitions, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
 
   include Statesman::Adapters::ActiveRecordQueries[
-            transition_class: EfileSubmissionTransition,
-            initial_state: :new
-          ]
+    transition_class: EfileSubmissionTransition,
+    initial_state: EfileSubmissionStateMachine.initial_state
+  ]
 
   def state_machine
     @state_machine ||= EfileSubmissionStateMachine.new(self, transition_class: EfileSubmissionTransition)
