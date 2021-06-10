@@ -209,7 +209,7 @@ RSpec.describe MailgunWebhooksController do
 
           it "creates intercom message for the client" do
             post :create_incoming_email, params: params
-            expect(intercom_service).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, fw_from_hub: true)
+            expect(intercom_service).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
           end
         end
 
@@ -224,7 +224,7 @@ RSpec.describe MailgunWebhooksController do
 
           it "does not create an intercom message for the client" do
             post :create_incoming_email, params: params
-            expect(intercom_service).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, fw_from_hub: true)
+            expect(intercom_service).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
           end
         end
       end

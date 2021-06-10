@@ -1,21 +1,21 @@
 require 'intercom'
 
 class IntercomService
-  def self.create_intercom_message_from_email(incoming_email, fw_from_hub: false)
-    email = incoming_email.client&.intake&.email_address || incoming_email.sender
+  def self.create_intercom_message_from_email(incoming_email, inform_of_handoff: false)
+    email_address = incoming_email.sender
     body = incoming_email.body
-    contact_id_from_email = contact_id_from_email(email)
+    contact_id_from_email = contact_id_from_email(email_address)
     contact_id = contact_id_from_email.present? ? contact_id_from_email : create_intercom_contact(incoming_email).id
 
     if contact_id_from_email.present? && most_recent_conversation(contact_id).present?
       reply_to_existing_intercom_thread(contact_id, body)
     else
       create_new_intercom_thread(contact_id, body)
-      send_handoff_email(incoming_email.client) if fw_from_hub
+      send_handoff_email(incoming_email.client) if inform_of_handoff
     end
   end
 
-  def self.create_intercom_message_from_sms(incoming_sms, fw_from_hub: false)
+  def self.create_intercom_message_from_sms(incoming_sms, inform_of_handoff: false)
     phone_number = incoming_sms.from_phone_number
     body = incoming_sms.body
     contact_id_from_sms = contact_id_from_sms(phone_number)
@@ -25,7 +25,7 @@ class IntercomService
       reply_to_existing_intercom_thread(contact_id, body)
     else
       create_new_intercom_thread(contact_id, body)
-      send_handoff_sms(incoming_sms.client) if fw_from_hub
+      send_handoff_sms(incoming_sms.client) if inform_of_handoff
     end
   end
 

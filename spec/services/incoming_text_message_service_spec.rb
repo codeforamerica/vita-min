@@ -77,7 +77,7 @@ describe IncomingTextMessageService do
         it "creates an intercom message for client" do
           IncomingTextMessageService.process(incoming_message_params)
 
-          expect(intercom_service).to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, fw_from_hub: true)
+          expect(intercom_service).to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, inform_of_handoff: true)
         end
       end
 
@@ -93,7 +93,7 @@ describe IncomingTextMessageService do
         it "doesn't creates an intercom message for client" do
           IncomingTextMessageService.process(incoming_message_params)
 
-          expect(intercom_service).not_to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, fw_from_hub: true)
+          expect(intercom_service).not_to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, inform_of_handoff: true)
         end
       end
     end
