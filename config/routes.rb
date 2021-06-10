@@ -246,10 +246,12 @@ Rails.application.routes.draw do
   end
 
   constraints(Routes::CtcDomain.new) do
-    get "/" => "ctc_pages#home"
+    namespace :ctc, path: "/" do
+      root to: "ctc_pages#redirect_locale_home", as: :ctc_redirected_root
 
-    scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
-      get "/" => "ctc_pages#home"
+      scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+        root to: "ctc_pages#home"
+      end
     end
   end
 end
