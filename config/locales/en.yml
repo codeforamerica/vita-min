@@ -1098,6 +1098,12 @@ en:
           subject: Welcome to GetYourRefund.org. You're almost there!
         sms: |
           Hello <<Client.PreferredName>>, We noticed you haven't completed providing the information we need to prepare your taxes. If you have any questions, you can reply to this message. If you would like to provide us feedback to help us improve our service, you can take our 5 minute survey here: %{survey_link}
+    intercom_forwarding:
+      email:
+        body: "This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly."
+        subject: "Your message has been forwarded to GetYourRefund customer support"
+      sms:
+        body: "This conversation is being forwarded to our customer service specialists. You should expect to see a message from them at a different email shortly."
   models:
     intake:
       your_spouse: Your spouse

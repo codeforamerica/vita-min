@@ -246,6 +246,10 @@ class Client < ApplicationRecord
     flag!
   end
 
+  def forward_message_to_intercom?
+    (tax_returns.pluck(:status).map(&:to_sym) & TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES).any?
+  end
+
   private
 
   def tax_return_assigned_user_access_maintained

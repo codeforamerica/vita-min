@@ -1089,6 +1089,12 @@ es:
           subject: Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!
         sms: |
           Hola, <<Client.PreferredName>>. Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Si tienes alguna pregunta, puedes responder a este mensaje. Si desea enviarnos sus comentarios para ayudarnos a mejorar nuestro servicio, puede completar nuestra encuesta de 5 minutos aquí: %{survey_link}
+    intercom_forwarding:
+      email:
+        body: "Esta conversación se ha reenviado a los especialistas de servicio al cliente de GetYourRefund.org. Debería esperar ver un mensaje de ellos en un correo electrónico diferente en breve."
+        subject: "Su mensaje ha sido reenviado al servicio de atención al cliente de GetYourRefund"
+      sms:
+        body: "Esta conversación se reenvía a nuestros especialistas en servicio al cliente. Debería esperar ver un mensaje de ellos en un correo electrónico diferente en breve."
   models:
     intake:
       your_spouse: Su cónyuge
