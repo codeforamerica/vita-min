@@ -2553,7 +2553,7 @@ es:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
         off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}
       footer:
-        ctc_service_description_html: GetYourCTC.org es un servicio sin ánimo de lucro creado por %{cfa_link}.
+        ctc_service_description_html: GetYourCTC.org es un servicio sin ánimo de lucro creado por %{link}.
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
         volunteer_sign_in: Sesión de voluntarios
         service_status: "Estado del servicio"
@@ -2693,11 +2693,11 @@ es:
             subheading: "¿Califica mi hijo/a o dependiente para el Crédito Tributario por Hijos?"
             body: "Su hijo/a califica a su familia  para el Crédito Tributario por Hijos si:"
             qualifiers:
-              item1: "El niño/a es su hijo/a, nieto/a, hijastro/a o hijo/a adoptivo/a; hermano/a menor, hermanastro/a, medio hermano/a o su descendiente. O si es un niño/a de crianza colocado con su familia por medio de una agencia de gobierno."
-              item2: "El niño / la niña tenía menos de 17 años a finales de 2020."
-              item3: "El niño / la niña tiene un número de seguro social válido."
-              item4: "El niño/ la niña vivió con usted durante más de la mitad de 2021."
-              item5: "El niño/ la niña no proporcionó más de la mitad de su propia manutención en el 2021."
+              - "El niño/a es su hijo/a, nieto/a, hijastro/a o hijo/a adoptivo/a; hermano/a menor, hermanastro/a, medio hermano/a o su descendiente. O si es un niño/a de crianza colocado con su familia por medio de una agencia de gobierno."
+              - "El niño / la niña tenía menos de 17 años a finales de 2020."
+              - "El niño / la niña tiene un número de seguro social válido."
+              - "El niño/ la niña vivió con usted durante más de la mitad de 2021."
+              - "El niño/ la niña no proporcionó más de la mitad de su propia manutención en el 2021."
         obtain:
           heading: "¿Cómo recibo el Crédito Tributario por Hijos?"
           body1: "Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia."
@@ -2709,13 +2709,13 @@ es:
             body3: "Usted podría optar por no recibir los pagos mensuales del Crédito Tributario por Hijos si:"
             body4_html: "¡Actualice su información en el <strong>Portal de Actualización de CTC</strong> pronto!"
             update_items:
-              item1: "Actualizar el número de dependientes elegibles en su hogar (por ejemplo, si un niño ya no vive con usted)"
-              item2: "Reportar cambios significativos en sus ingresos familiares"
-              item3: "Optar por no recibir pagos mensuales, y optar por recibir el pago  el próximo año cuando presente su declaración de impuestos de 2021"
+              - "Actualizar el número de dependientes elegibles en su hogar (por ejemplo, si un niño ya no vive con usted)"
+              - "Reportar cambios significativos en sus ingresos familiares"
+              - "Optar por no recibir pagos mensuales, y optar por recibir el pago  el próximo año cuando presente su declaración de impuestos de 2021"
             opt_out_items:
-              item1: "Prefiere recibir su crédito en un solo pago en el 2022"
-              item2: "Su información bancaria o su dirección ha cambiado en el último año"
-              item3: "No planea reclamar dependientes en su declaración de impuestos de 2021 (que declarará en el 2022), por ejemplo, si comparte custodia con alguien y se alternan quien reclama el niño como dependiente"
+              - "Prefiere recibir su crédito en un solo pago en el 2022"
+              - "Su información bancaria o su dirección ha cambiado en el último año"
+              - "No planea reclamar dependientes en su declaración de impuestos de 2021 (que declarará en el 2022), por ejemplo, si comparte custodia con alguien y se alternan quien reclama el niño como dependiente"
           not_filed:
             subheading: "Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos."
             body1_html: |

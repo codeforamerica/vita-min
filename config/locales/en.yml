@@ -2583,7 +2583,7 @@ en:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February. For stimulus questions, visit our %{faq_link}.
       footer:
-        ctc_service_description_html: GetCTC.org is a non-profit service built by %{cfa_link}.
+        ctc_service_description_html: GetCTC.org is a non-profit service built by %{link}.
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
         volunteer_sign_in: Volunteer sign in
         service_status: "Service status"
@@ -2660,11 +2660,11 @@ en:
             subheading: "Does my child or dependent qualify for the Child Tax Credit?"
             body: "Your child qualifies your family for the Child Tax Credit if:"
             qualifiers:
-              item1: "The child is your son, daughter, grandchild, stepchild or adopted child; younger sibling, step-sibling, half-sibling, or their descendent; or a foster child placed with you by a government agency."
-              item2: "The child was under 17 at the end of 2020."
-              item3: "The child has a valid Social Security Number."
-              item4: "The child lived with you for more than half of 2021."
-              item5: "The child did not provide over half of their own support for 2021."
+              - "The child is your son, daughter, grandchild, stepchild or adopted child; younger sibling, step-sibling, half-sibling, or their descendent; or a foster child placed with you by a government agency."
+              - "The child was under 17 at the end of 2020."
+              - "The child has a valid Social Security Number."
+              - "The child lived with you for more than half of 2021."
+              - "The child did not provide over half of their own support for 2021."
         obtain:
           heading: "How do I get the Child Tax Credit?"
           body1: "To provide the Advance Child Tax Credit payments, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your Advance Child Tax Credit payments automatically."
@@ -2676,13 +2676,13 @@ en:
             body3: "You might choose to opt out of receiving monthly Child Tax Credit payments if:"
             body4_html: "Update Your Information in the <strong>IRS Child Tax Credit Update Portal</strong> soon!"
             update_items:
-              item1: "Update the number of eligible dependents in your household (for example if a child has moved out)"
-              item2: "Report significant changes in household income"
-              item3: "Opt out of receiving monthly payments, and choose to receive the payment next year when you submit your 2021 tax return"
+              - "Update the number of eligible dependents in your household (for example if a child has moved out)"
+              - "Report significant changes in household income"
+              - "Opt out of receiving monthly payments, and choose to receive the payment next year when you submit your 2021 tax return"
             opt_out_items:
-              item1: "You would prefer to receive your credit in one payment in 2022"
-              item2: "Your bank information or address has changed in the last year"
-              item3: "You do not plan on claiming dependents on your 2021 tax return (2022 tax season), for example if you share share custody with someone else and alternate who claims the child as a dependent"
+              - "You would prefer to receive your credit in one payment in 2022"
+              - "Your bank information or address has changed in the last year"
+              - "You do not plan on claiming dependents on your 2021 tax return (2022 tax season), for example if you share share custody with someone else and alternate who claims the child as a dependent"
           not_filed:
             subheading: "If you have not filed a tax return, you can sign up to get the Child Tax Credit."
             body1_html: "If you have at least one qualifying child and earned less than $12,400 (or less than $22,500 if you are married), you will soon be able to use the <strong>IRS Non-Filer Sign-Up Tool</strong> to get the Child Tax Credit, receive a missing stimulus payment, and get cash now."

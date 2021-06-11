@@ -7,9 +7,14 @@
           <%= image_tag("checkbox-logo--white.png", alt: "") %>
         </p>
         <p>
-            <%=t(variation == "ctc" ? "views.shared.footer.ctc_service_description_html" : "views.shared.footer.service_description_html",
-                 :cfa_link => link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link"),
-                 :vita_link => link_to("VITA", "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", rel: "noopener", class: "footer__link"))%>
+          <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
+          <% if variation == "ctc" %>
+            <%= t("views.shared.footer.ctc_service_description_html", link: cfa_link) %>
+          <% else %>
+            <%= t("views.shared.footer.service_description_html",
+                  cfa_link: cfa_link,
+                  vita_link: link_to("VITA", "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", rel: "noopener", class: "footer__link")) %>
+          <% end %>
         </p>
       </div>
 
@@ -27,34 +32,34 @@
 
         <li>
           <%= link_to about_us_path do %>
-            <%=t("views.public_pages.about_us.title") %>
+            <%= t("views.public_pages.about_us.title") %>
           <% end %>
         </li>
 
         <li>
           <%= link_to faq_path do %>
-            <%=t("views.public_pages.faq.title") %>
+            <%= t("views.public_pages.faq.title") %>
           <% end %>
         </li>
 
         <% unless variation == "ctc" %>
           <li>
             <%= link_to stimulus_path do %>
-              <%=t("views.public_pages.stimulus_payment.title") %>
+              <%= t("views.public_pages.stimulus_payment.title") %>
             <% end %>
           </li>
         <% end %>
 
         <% unless variation == "ctc" %>
           <li>
-            <%=mail_to "support@getyourrefund.org" %>
+            <%= mail_to "support@getyourrefund.org" %>
           </li>
         <% end %>
 
         <% unless variation == "ctc" %>
           <li>
             <%= link_to vita_providers_path do %>
-              <%=t("general.find_location") %>
+              <%= t("general.find_location") %>
             <% end %>
           </li>
         <% end %>
@@ -62,7 +67,7 @@
         <% unless variation == "ctc" %>
           <li>
             <%= link_to privacy_path do %>
-              <%=t("views.public_pages.privacy_policy.title") %>
+              <%= t("views.public_pages.privacy_policy.title") %>
             <% end %>
           </li>
         <% end %>
@@ -81,7 +86,7 @@
           </li>
         <% end %>
 
-        <% unless Rails.env.production?  %>
+        <% unless Rails.env.production? %>
           <li><a href="https://walkthroughs-getyourrefund.github.io">Walkthroughs</a></li>
         <% end %>
       </ul>

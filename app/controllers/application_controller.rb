@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :ctc?, :open_for_intake?
+  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -21,10 +21,6 @@ class ApplicationController < ActionController::Base
   # but the devise controllers are not under the hub namespace so I'm leaving the request.path.include? string as well.
   def hub?
     self.class.name.include?("Hub::") || request.path.include?("hub")
-  end
-
-  def ctc?
-    false
   end
 
   def current_intake
