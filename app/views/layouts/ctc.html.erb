@@ -1,0 +1,8 @@
+<% content_for :header do %>
+  <%= render 'shared/header', title: "GetCTC", home_link: ctc_root_path %>
+<% end %>
+<% content_for :footer do %>
+  <%= render "shared/footer", variation: "ctc" %>
+<% end %>
+
+<%= render template: "layouts/application" %>

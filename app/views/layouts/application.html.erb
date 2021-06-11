@@ -49,10 +49,12 @@
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
     <div class="page-wrapper">
-      <% if hub? %>
+      <% if content_for :header %>
+        <%= yield :header %>
+      <% elsif hub? %>
         <%= render 'shared/hub_header' %>
       <% else %>
-        <%= render 'shared/header' %>
+        <%= render 'shared/header', title: "GetYourRefund", home_link: root_path %>
       <% end %>
 
       <%= render "shared/environment_warning" %>

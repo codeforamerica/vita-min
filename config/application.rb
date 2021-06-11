@@ -33,5 +33,18 @@ module VitaMin
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    #
+    config.gyr_domains = {
+      development: "localhost",
+      demo: "demo.getyourrefund.org",
+      staging: "staging.getyourrefund.org",
+      production: "www.getyourrefund.org"
+    }
+    config.ctc_domains = {
+      development: "ctc.localhost",
+      demo: "ctc.demo.getyourrefund.org",
+      staging: "ctc.staging.getyourrefund.org",
+      production: "www.getctc.org"
+    }
   end
 end
