@@ -1,40 +1,23 @@
+# == Schema Information
+#
+# Table name: efile_submissions
+#
+#  id            :bigint           not null, primary key
+#  tax_return_id :bigint
+#
+# Indexes
+#
+#  index_efile_submissions_on_tax_return_id  (tax_return_id)
+#
 FactoryBot.define do
   factory :efile_submission do
     tax_return
 
-    trait :preparing do
-      after(:create) do |submission|
-        FactoryGirl.create(:efile_submission_transition, :preparing, efile_submission: submission)
-      end
-    end
-
-    trait :queued do
-      after(:create) do |submission|
-        FactoryGirl.create(:efile_submission_transition, :queued, efile_submission: submission)
-      end
-    end
-
-    trait :transmitted do
-      after(:create) do |submission|
-        FactoryGirl.create(:efile_submission_transition, :transmitted, efile_submission: submission)
-      end
-    end
-
-    trait :failed do
-      after(:create) do |submission|
-        FactoryGirl.create(:efile_submission_transition, :failed, efile_submission: submission)
-      end
-    end
-
-    trait :rejected do
-      after(:create) do |submission|
-        FactoryGirl.create(:efile_submission_transition, :rejected, efile_submission: submission)
-      end
-    end
-
-    trait :accepted do
-      after(:create) do |submission|
-        FactoryGirl.create(:efile_submission_transition, :accepted, efile_submission: submission)
+    EfileSubmissionStateMachine.states.each do |state|
+      trait state.to_sym do
+        after(:create) do |submission|
+          FactoryGirl.create(:efile_submission_transition, state, efile_submission: submission)
+        end
       end
     end
   end
