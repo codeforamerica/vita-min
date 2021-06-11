@@ -66,14 +66,20 @@ RSpec.describe Hub::NotesController, type: :controller do
               }
           }
         end
+        
+        # rendering views to expose known bug with re-rendering the entire index after a failed note save.
+        # When a note cannot be saved, the index is re-rendered without index template variables, and the page still
+        # needs to render without totally breaking.
+        context "with views rendered" do
+          render_views
+          it "returns 200 OK and does not save" do
+            expect do
+              post :create, params: params
+            end.not_to change(Note, :count)
 
-        it "returns 200 OK and does not save" do
-          expect do
-            post :create, params: params
-          end.not_to change(Note, :count)
-
-          expect(response).to be_ok
-          expect(response).to render_template :index
+            expect(response).to be_ok
+            expect(response).to render_template :index
+          end
         end
       end
     end
