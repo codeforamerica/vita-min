@@ -4,6 +4,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  internal_efile      :boolean          default(FALSE), not null
 #  is_ctc              :boolean          default(FALSE)
 #  is_hsa              :boolean
 #  primary_signature   :string
@@ -42,7 +43,7 @@ class TaxReturn < ApplicationRecord
   has_many :assignments, class_name: "TaxReturnAssignment", dependent: :destroy
   has_many :tax_return_selection_tax_returns, dependent: :destroy
   has_many :tax_return_selections, through: :tax_return_selection_tax_returns
-
+  has_many :efile_submissions
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
   enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type

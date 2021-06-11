@@ -246,6 +246,15 @@ FactoryBot.define do
       email_notification_opt_in { "yes" }
     end
 
+    trait :with_faker_contact_info do
+      primary_first_name { Faker::Name.first_name }
+      primary_last_name { Faker::Name.last_name }
+      preferred_name { primary_first_name }
+      phone_number { "+14155551212" }
+      sms_phone_number { "+14155551212" }
+      email_address { Faker::Internet.email }
+    end
+
     trait :with_deterministic_yes_no_answers do
       married { "yes" }
       divorced { "yes" }

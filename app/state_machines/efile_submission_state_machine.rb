@@ -22,17 +22,10 @@ class EfileSubmissionStateMachine
   transition from: :transmitted,  to: [:accepted, :rejected]
 
   guard_transition(to: :queued) do |submission|
+    # Example of guard transition. Eventually guard by submission file presence.
     # submission.submission_file.present?
+    submission.present?
   end
-
-  after_transition(to: :preparing, after_commit: true) do |submission|
-    # submission.build_submission_file
-  end
-
-  after_transition(to: :queued) do |submission|
-    # submission.queue
-  end
-
 
   after_transition(to: :rejected) do |submission, transition|
     # Transition associated tax return to rejected

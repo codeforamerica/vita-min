@@ -21,7 +21,7 @@
 #  fk_rails_...  (efile_submission_id => efile_submissions.id)
 #
 class EfileSubmissionTransition < ApplicationRecord
-  belongs_to :efile_submission, inverse_of: :efile_submission_transitions
+  belongs_to :efile_submission, inverse_of: :efile_submission_transitions, touch: true
 
   after_destroy :update_most_recent, if: :most_recent?
 

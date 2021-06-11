@@ -1,0 +1,19 @@
+.submissions-index {
+  .metric-box {
+    border: 1px solid black;
+    margin-left: 20px;
+    width: 15rem;
+    height: 7.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; align-items: center;
+    > div:first-of-type {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    > div:last-of-type {
+      font-weight: bold;
+    }
+  }
+
+}

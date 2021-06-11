@@ -69,6 +69,7 @@ gem 'statesman', '~> 8.0.3'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data
+  gem 'faker'
 end
 
 group :development, :test do

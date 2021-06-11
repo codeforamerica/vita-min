@@ -270,7 +270,9 @@ ActiveRecord::Schema.define(version: 2021_06_14_215956) do
   end
 
   create_table "efile_submissions", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
     t.bigint "tax_return_id"
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
   end
 
@@ -704,6 +706,7 @@ ActiveRecord::Schema.define(version: 2021_06_14_215956) do
     t.integer "certification_level"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.boolean "internal_efile", default: false, null: false
     t.boolean "is_ctc", default: false
     t.boolean "is_hsa"
     t.string "primary_signature"

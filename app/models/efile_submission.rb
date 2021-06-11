@@ -3,6 +3,8 @@
 # Table name: efile_submissions
 #
 #  id            :bigint           not null, primary key
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #  tax_return_id :bigint
 #
 # Indexes
@@ -15,7 +17,7 @@ class EfileSubmission < ApplicationRecord
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: EfileSubmissionTransition,
-    initial_state: EfileSubmissionStateMachine.initial_state
+    initial_state: EfileSubmissionStateMachine.initial_state,
   ]
 
   def state_machine
