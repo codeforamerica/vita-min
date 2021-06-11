@@ -33,11 +33,18 @@ class IntercomService
 
   def self.send_handoff_email(client)
     locale = client.intake.locale
-    ClientMessagingService.send_system_email(client: client, body: I18n.t("messages.intercom_forwarding.email.body", locale: locale), subject:  I18n.t("messages.intercom_forwarding.email.subject", locale: locale))
+    ClientMessagingService.send_system_email(
+      client: client,
+      body: I18n.t("messages.intercom_forwarding.email.body", locale: locale),
+      subject: I18n.t("messages.intercom_forwarding.email.subject", locale: locale)
+    )
   end
 
   def self.send_handoff_sms(client)
-    ClientMessagingService.send_system_text_message(client: client, body: I18n.t("messages.intercom_forwarding.sms.body", locale: client.intake.locale))
+    ClientMessagingService.send_system_text_message(
+      client: client,
+      body: I18n.t("messages.intercom_forwarding.sms.body", locale: client.intake.locale)
+    )
   end
 
   def self.contact_id_from_email(email)
