@@ -38,13 +38,13 @@ module VitaMin
       development: "localhost",
       demo: "demo.getyourrefund.org",
       staging: "staging.getyourrefund.org",
-      production: "getyourrefund.org"
+      production: "www.getyourrefund.org"
     }
     config.ctc_domains = {
       development: "ctc.localhost",
       demo: "ctc.demo.getyourrefund.org",
       staging: "ctc.staging.getyourrefund.org",
-      production: "ctc.getyourrefund.org"
+      production: "www.getctc.org"
     }
   end
 end
