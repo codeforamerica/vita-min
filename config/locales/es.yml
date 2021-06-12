@@ -95,8 +95,6 @@ es:
         tax_years: Años de impuestos
       edit:
         title: Editar Perfil del cliente
-        add_dependent: Agregar dependiente
-        remove: Eliminado
         delete_client: Eliminar cliente
         delete_confirmation: ¿Estás seguro de que deseas eliminar toda la información asociada con %{name}?
       index:
@@ -126,7 +124,6 @@ es:
         notifications: Mis Actualizaciones
       show:
         email: Email
-        dependents: Dependents
         filing_status: Estado civil para declarar
         intake_language: Idioma del formulario de admisión
         interview_timing_preference: Preferencia de tiempo de entrevista
@@ -770,6 +767,7 @@ es:
       sms_phone_number: mensaje de texto
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
+    dependents: Dependientes
     divorced: Divorciado
     document_type: Clase de documento
     document_types:
@@ -2396,6 +2394,9 @@ es:
           one: "Responda Sí, si gastó más de $12,000 en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos."
           other: "Responda Sí, si usted y su cónyuge gastaron más de $24,000 en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos."
     shared:
+      dependents_fields:
+        add_dependent: Agregar dependiente
+        remove: Eliminado
       tax_return_list:
         add_tax_year: Agregar año fiscal
         select_tax_return: Seleccione %{tax_year}

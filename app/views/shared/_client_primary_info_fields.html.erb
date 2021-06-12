@@ -1,84 +1,51 @@
 <% is_dropoff = is_dropoff || false %>
+<% is_ctc = is_ctc || false %>
 <div id="primary-info">
-  <h3><%= t("hub.clients.fields.primary_contact_info") %>:</h3>
-  <div class="hub-form__row fill">
+  <div class="hub-form__card card-small">
+    <h3><%= t("hub.clients.fields.primary_contact_info") %></h3>
     <%= f.cfa_input_field(:primary_first_name, t("hub.clients.fields.legal_first_name")) %>
     <%= f.cfa_input_field(:primary_last_name, t("hub.clients.fields.legal_last_name")) %>
-  </div>
-  <%= f.cfa_input_field(:preferred_name, t("hub.clients.fields.preferred_name")) %>
+    <%= f.cfa_input_field(:preferred_name, t("hub.clients.fields.preferred_name")) %>
 
-  <% if is_dropoff %>
-    <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options, selected: current_user.timezone) %>
-  <% else %>
-    <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
-  <% end %>
+    <% if is_ctc %>
+      <%= f.hidden_field :timezone, value: current_user.timezone %>
+    <% elsif is_dropoff %>
+      <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options, selected: current_user.timezone) %>
+    <% else %>
+      <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+    <% end %>
 
-  <% unless is_dropoff %>
-    <%= f.cfa_input_field(:interview_timing_preference, t("hub.clients.show.interview_timing_preference")) %>
-  <% end %>
-  <%= f.cfa_select(
-          :preferred_interview_language,
-          t("hub.clients.fields.preferred_interview_language"),
-          language_options(only_locales: false),
-          include_blank: true,
-          selected: @form.preferred_interview_language
-      ) %>
-  <%= error_message(@form, :communication_preference) %>
-  <div class="hub-form__row fill">
-    <%= f.cfa_input_field(:email_address, t("general.email")) %>
-    <%= f.hub_checkbox(:email_notification_opt_in, t("general.opt_in_email"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-  </div>
-  <div class="hub-form__row fill">
-    <%= f.cfa_input_field(:sms_phone_number, t("general.sms_phone_number")) %>
-    <%= f.hub_checkbox(:sms_notification_opt_in, t("general.opt_in_sms"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-  </div>
-  <%= f.cfa_input_field(:phone_number, t("general.phone_number"),  classes: ["form-width--phone"]) %>
-  <%= f.cfa_input_field(
-          :primary_last_four_ssn,
-          t("general.last_four_ssn"),
-          prefix: "XXX-XX-",
-          type: :tel,
-          classes: ["form-width--name field--last-four-ssn"],
-          options: { maxlength: 4 }
-      ) %>
+    <% unless is_dropoff %>
+      <%= f.cfa_input_field(:interview_timing_preference, t("hub.clients.show.interview_timing_preference")) %>
+    <% end %>
 
-  <h3><%= t("hub.clients.fields.filing_information") %>:</h3>
-  <div class="marital-status">
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:filing_joint, t("general.filing_joint"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:married, t("general.married"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:lived_with_spouse, t("general.lived_with_spouse"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:separated, t("general.separated"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_input_field(:separated_year, "#{t("general.separated")} #{t("general.year")}", classes: ["form-width--short"]) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:widowed, t("general.widowed"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_input_field(:widowed_year, "#{t("general.widowed")} #{t("general.year")}", classes: ["form-width--short"]) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:divorced, t("general.divorced"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_input_field(:divorced_year, "#{t("general.divorced")} #{t("general.year")}", classes: ["form-width--short"]) %>
-    </div>
-  </div>
-  <%= f.cfa_select(:state_of_residence, t("hub.clients.fields.state_of_residence"), States.name_value_pairs, include_blank: true) %>
+    <%= f.cfa_select(
+            :preferred_interview_language,
+            t("hub.clients.fields.preferred_interview_language"),
+            language_options(only_locales: false),
+            include_blank: true,
+            selected: @form.preferred_interview_language
+    ) %>
 
-  <h3><%= t("hub.clients.fields.navigator.title")%></h3>
-  <%= f.hub_checkbox(:with_general_navigator, t("hub.clients.fields.navigator.general"), options: { classes: ["checkbox--wide"] }) %>
-  <%= f.hub_checkbox(:with_incarcerated_navigator, t("hub.clients.fields.navigator.incarcerated"), options: { classes: ["checkbox--wide"] }) %>
-  <%= f.hub_checkbox(:with_limited_english_navigator, t("hub.clients.fields.navigator.limited_english"), options: { classes: ["checkbox--wide"] }) %>
-  <%= f.hub_checkbox(:with_unhoused_navigator, t("hub.clients.fields.navigator.unhoused"), options: { classes: ["checkbox--wide"] }) %>
-
-  <h3><%= t("hub.clients.fields.mailing_address") %>:</h3>
-  <%= f.cfa_input_field(:street_address, t("general.street_address")) %>
-  <div class="hub-form__row">
-    <%= f.cfa_input_field(:city, t("general.city")) %>
-    <%= f.cfa_select(:state, t("general.state"), States.name_value_pairs, include_blank: true) %>
-    <%= f.cfa_input_field(:zip_code, t("general.zip_code"), classes: ["form-width--zip"]) %>
+    <%= error_message(@form, :communication_preference) %>
+    <div class="hub-form__input-with-checkbox">
+      <%= f.cfa_input_field(:email_address, t("general.email")) %>
+      <%= f.hub_checkbox(:email_notification_opt_in, t("general.opt_in_email"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+    </div>
+    <div class="hub-form__input-with-checkbox">
+      <%= f.cfa_input_field(:sms_phone_number, t("general.sms_phone_number")) %>
+      <%= f.hub_checkbox(:sms_notification_opt_in, t("general.opt_in_sms"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+    </div>
+    <% unless is_ctc %>
+      <%= f.cfa_input_field(:phone_number, t("general.phone_number"),  classes: ["form-width--phone"]) %>
+    <% end %>
+    <%= f.cfa_input_field(
+            :primary_last_four_ssn,
+            t("general.last_four_ssn"),
+            prefix: "XXX-XX-",
+            type: :tel,
+            classes: ["form-width--name field--last-four-ssn"],
+            options: { maxlength: 4 }
+        ) %>
   </div>
 </div>

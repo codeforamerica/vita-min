@@ -8,12 +8,15 @@
           <h1 class="form-card__title">
             <%= @title %>
           </h1>
-          <%= f.cfa_select(:service_type, t("hub.clients.fields.service_type"), [["Drop off", "drop_off"]], options: { selected: "drop_off" } ) %>
+          <%= f.hidden_field :service_type, value: "drop_off" %>
           <%= f.cfa_select(:signature_method, t("hub.clients.fields.signature_method"), signature_methods_for_select, options: { selected: "online" }) %>
           <%= f.cfa_select(:vita_partner_id, t(".assign_to_label"), grouped_vita_partner_options) %>
 
-          <%= render "shared/client_primary_info_fields", f: f, is_dropoff: true %>
+          <%= render "shared/client_primary_info_fields", f: f, is_ctc: true, is_dropoff: true %>
+          <%= render "shared/filing_status_fields", f: f %>
           <%= render "shared/client_spouse_info_fields", f: f %>
+          <%= render "shared/address_fields", f: f %>
+          <%= render "shared/navigator_fields", f: f %>
 
           <button class="button button--cta" type="submit">
             <%= t(".send_for_prep") %>
@@ -21,7 +24,6 @@
 
           <%= link_to t("general.cancel"), :back, class: "button" %>
         <% end %>
-
       </div>
     </div>
   </div>

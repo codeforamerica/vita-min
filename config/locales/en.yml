@@ -68,14 +68,14 @@ en:
         preferred_name: Preferred full name
         filing_information: Filing Information
         preferred_interview_language: Preferred language
-        primary_contact_info: Primary Contact Info
+        primary_contact_info: Primary Contact Information
         navigator:
           title: Type of navigator used
           general: General
           incarcerated: Incarcerated/reentry
           limited_english: Limited English proficiency
           unhoused: Unhoused
-        spouse_contact_info: Spouse Contact Info
+        spouse_contact_info: Spouse Contact Information
         state_of_residence: State of residence
         signature_method: Signature method
         service_type: Service type
@@ -95,8 +95,6 @@ en:
         tax_years: Tax years
       edit:
         title: Edit Client Profile
-        add_dependent: Add dependent
-        remove: Remove
         delete_client: Delete client
         delete_confirmation: Are you sure you want to delete all information associated with %{name}?
       edit_take_action:
@@ -144,7 +142,6 @@ en:
         notifications: My Updates
       show:
         email: Email
-        dependents: Dependents
         filing_status: Filing Status
         intake_language: Intake Language
         interview_timing_preference: Preferred Interview Time
@@ -781,6 +778,7 @@ en:
       sms_phone_number: text
     continue: Continue
     continue_example: Continue to example
+    dependents: Dependents
     divorced: Divorced
     document_type: Document type
     document_types:
@@ -2444,6 +2442,9 @@ en:
           one: Answer yes if you spent over $12,000 on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
           other: Answer yes if you or your spouse spent over $24,000 on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
     shared:
+      dependents_fields:
+        add_dependent: Add dependent
+        remove: Remove
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}

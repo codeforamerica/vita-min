@@ -1,16 +1,18 @@
 <div id="spouse-info">
-  <h3><%= t("hub.clients.fields.spouse_contact_info") %>:</h3>
-  <div class="hub-form__row fill">
-    <%= f.cfa_input_field(:spouse_first_name, t("hub.clients.fields.legal_first_name")) %>
-    <%= f.cfa_input_field(:spouse_last_name, t("hub.clients.fields.legal_last_name")) %>
+  <div class="hub-form__card card-small">
+    <h3><%= t("hub.clients.fields.spouse_contact_info") %></h3>
+    <div>
+      <%= f.cfa_input_field(:spouse_first_name, t("hub.clients.fields.legal_first_name")) %>
+      <%= f.cfa_input_field(:spouse_last_name, t("hub.clients.fields.legal_last_name")) %>
+    </div>
+    <%= f.cfa_input_field(:spouse_email_address, t("general.email")) %>
+    <%= f.cfa_input_field(
+            :spouse_last_four_ssn,
+            t("general.last_four_ssn"),
+            prefix: "XXX-XX-",
+            type: :tel,
+            classes: ["form-width--name field--last-four-ssn"],
+            options: { maxlength: 4 }
+        ) %>
   </div>
-  <%= f.cfa_input_field(:spouse_email_address, t("general.email")) %>
-  <%= f.cfa_input_field(
-          :spouse_last_four_ssn,
-          t("general.last_four_ssn"),
-          prefix: "XXX-XX-",
-          type: :tel,
-          classes: ["form-width--name field--last-four-ssn"],
-          options: { maxlength: 4 }
-      ) %>
 </div>
