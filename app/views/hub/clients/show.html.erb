@@ -83,9 +83,7 @@
               <span class="label-value"><%= @client.intake&.dependents.count %></span>
             </div>
             <ul id="dependents-list">
-              <% @client.intake&.dependents.each do |d| %>
-                <li><%= "#{d.first_name} #{d.last_name}, #{default_date_format(d.birth_date)}" %></li>
-              <% end %>
+              <%= render @client.intake.dependents %>
             </ul>
           </div>
 

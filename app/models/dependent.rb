@@ -23,7 +23,7 @@
 #
 
 class Dependent < ApplicationRecord
-  belongs_to :intake
+  belongs_to :intake, inverse_of: :dependents
 
   enum was_student: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_student
   enum on_visa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :on_visa

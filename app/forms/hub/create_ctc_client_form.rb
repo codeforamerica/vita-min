@@ -1,6 +1,5 @@
 module Hub
   class CreateCtcClientForm < ClientForm
-    include FormAttributes
     set_attributes_for :intake,
                        :primary_first_name,
                        :primary_last_name,
@@ -38,50 +37,52 @@ module Hub
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
                        :with_unhoused_navigator
-    set_attributes_for :tax_return, :service_type
-    attr_accessor :tax_returns, :tax_returns_attributes, :client, :intake
-
+    attr_accessor :client
     # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
+    after_save :send_confirmation_message, :send_mixpanel_data
 
-    def initialize(attributes = {})
-      @tax_returns = TaxReturn.filing_years.map { |year| TaxReturn.new(year: year) }
-      super(attributes)
+    def required_dependents_attributes
+      [:birth_date, :first_name, :last_name, :relationship].freeze
     end
 
     def save(current_user)
-      return false unless valid?
+      @current_user = current_user
+      run_callbacks :save do
+        return false unless valid?
 
-      @client = Client.create!(
-        vita_partner_id: attributes_for(:intake)[:vita_partner_id],
-        intake_attributes: attributes_for(:intake).merge(default_attributes).merge(visitor_id: SecureRandom.hex(26)),
-        tax_returns_attributes: [tax_return_attributes]
-      )
+        @client = Client.create!(
+          vita_partner_id: attributes_for(:intake)[:vita_partner_id],
+          intake_attributes: attributes_for(:intake).merge(default_attributes).merge(dependents_attributes: formatted_dependents_attributes).merge(visitor_id: SecureRandom.hex(26)),
+          tax_returns_attributes: [tax_return_attributes]
+        )
+      end
+    end
 
-      locale = @client.intake.preferred_interview_language == "es" ? "es" : "en"
+    private
+
+    def send_confirmation_message
+      locale = client.intake.preferred_interview_language == "es" ? "es" : "en"
+
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: @client,
+        client: client,
         sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: locale),
         email_body: I18n.t("drop_off_confirmation_message.email.body", locale: locale),
         subject: I18n.t("drop_off_confirmation_message.email.subject", locale: locale),
         locale: locale
       )
+    end
 
-      @client.tax_returns.each do |tax_return|
+    def send_mixpanel_data
+      client.tax_returns.each do |tax_return|
         MixpanelService.send_event(
           event_id: @client.intake.visitor_id,
           event_name: "drop_off_submitted",
-          data: MixpanelService.data_from([@client, tax_return, current_user])
+          data: MixpanelService.data_from([client, tax_return, @current_user])
         )
       end
     end
-
-    def self.permitted_params
-      CreateClientForm.attribute_names
-    end
-
-    private
 
     def default_attributes
       {
@@ -89,7 +90,6 @@ module Hub
         needs_help_2019: :no,
         needs_help_2018: :no,
         needs_help_2017: :no,
-        timezone: "America/New_York",
       }
     end
 

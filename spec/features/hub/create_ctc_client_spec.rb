@@ -50,14 +50,22 @@ RSpec.feature "Creating new drop off clients" do
         check "Filing jointly"
       end
 
+      within "#dependents-fields" do
+        click_on "Add dependent"
+        fill_in "Legal first name", with: "Miranda"
+        fill_in "Legal last name", with: "Mango"
+        select "December", from: "Month"
+        select "1", from: "Day"
+        select "2008", from: "Year"
+        select "Child", from: "Relationship"
+      end
+
       within "#spouse-info" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
         fill_in "Email", with: "spicypeter@pepper.com"
       end
 
-      check "Opt into email notifications"
-      check "Opt into sms notifications"
 
       click_on "Send for prep"
 
@@ -74,6 +82,10 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "18324651680"
       expect(page).to have_text "123 Garden Ln"
       expect(page).to have_text "Brassicaville, CA 95032"
+      within "#dependents-list" do
+        expect(page).to have_text "Miranda Mango, Child"
+        expect(page).to have_text "12/1/2008"
+      end
       expect(page).to have_text "TX"
       expect(page).to have_text "Peter Pepper"
       expect(page).to have_text "spicypeter@pepper.com"

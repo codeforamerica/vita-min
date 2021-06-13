@@ -2,6 +2,9 @@ class Form
   include ActiveModel::Model
   include ActiveModel::AttributeAssignment
   include ActiveModel::Validations::Callbacks
+  extend ActiveModel::Callbacks
+
+  define_model_callbacks :save
 
   def error_summary(exclude_keys: [])
     if errors.present?
