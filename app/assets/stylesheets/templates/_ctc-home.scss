@@ -1,9 +1,20 @@
 .ctc-home {
   .accordion {
-
     ul {
       list-style: disc;
       padding-left: $s35;
     }
+  }
+
+  .hero-image {
+    @media screen and (max-width: $site-max-up) {
+      margin-top: -15rem !important;
+      margin-right: -6rem;
+    }
+  }
+
+  .slab--hero {
+    margin-bottom: -1rem;
+    padding-bottom: 0;
   }
 }
