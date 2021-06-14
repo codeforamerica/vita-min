@@ -3,6 +3,15 @@
     padding: $s35/2 4rem;
   }
 
+  .hero-image {
+      margin-top: 3.5rem;
+      max-width: 30rem;
+      @media screen and (min-width: $site-max-up) {
+        margin-top: unset;
+        max-width: unset;
+      }
+  }
+
   .slab--hero {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
@@ -28,7 +37,7 @@
         margin-bottom: 1.5rem;
 
         &.landing-page-header {
-          margin-top: 0;
+          margin-top: 2.5rem;
         }
       }
     }
@@ -97,31 +106,6 @@
             max-width: none;
           }
           padding: 0 0 0 5rem;
-        }
-      }
-
-      &.diy {
-        &:before {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          background-image: image-url("homepage-hero.svg");
-          background-repeat: no-repeat;
-          background-size: 400px 355px;
-          background-position: top right;
-
-          @media screen and (max-width: $site-max-up) {
-            background-position: bottom left;
-            background-size: 420px 266px;
-          }
-
-          @media screen and (max-width: $tablet-up) {
-            background-position: bottom;
-          }
         }
       }
     }
