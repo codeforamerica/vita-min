@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_160440) do
+ActiveRecord::Schema.define(version: 2021_06_14_215956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -572,6 +572,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
     t.bigint "user_id"
     t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
     t.index ["created_at"], name: "index_outgoing_emails_on_created_at"
+    t.index ["message_id"], name: "index_outgoing_emails_on_message_id"
     t.index ["user_id"], name: "index_outgoing_emails_on_user_id"
   end
 
