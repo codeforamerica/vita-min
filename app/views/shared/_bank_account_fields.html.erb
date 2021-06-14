@@ -1,0 +1,12 @@
+<div id="bank-account-fields" class="hub-form__card card-small">
+  <h3><%= t("hub.clients.fields.payment_information") %></h3>
+  <%= f.cfa_input_field(:bank_name, t("hub.bank_accounts.bank_name")) %>
+  <%= f.cfa_select :bank_account_type, t("hub.bank_accounts.account_type"),[
+      [t("views.questions.bank_details.account_type.checking"), :checking ],
+      [t("views.questions.bank_details.account_type.savings"), :savings ],
+  ] %>
+  <%= f.cfa_input_field :bank_routing_number, t("hub.bank_accounts.routing_number") %>
+  <%= f.cfa_input_field :bank_routing_number_confirmation, t("hub.bank_accounts.routing_number_confirmation") %>
+  <%= f.cfa_input_field :bank_account_number, t("hub.bank_accounts.account_number") %>
+  <%= f.cfa_input_field :bank_account_number_confirmation, t("hub.bank_accounts.account_number_confirmation") %>
+</div>

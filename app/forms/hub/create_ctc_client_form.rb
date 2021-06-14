@@ -36,13 +36,22 @@ module Hub
                        :with_general_navigator,
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
-                       :with_unhoused_navigator
-    attr_accessor :client
+                       :with_unhoused_navigator,
+                       :bank_account_number,
+                       :bank_routing_number,
+                       :bank_account_type,
+                       :bank_name
+    attr_accessor :bank_routing_number_confirmation, :bank_account_number_confirmation, :client
     # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
     after_save :send_confirmation_message, :send_mixpanel_data
-
+    validates_confirmation_of :bank_routing_number
+    validates_confirmation_of :bank_account_number
+    validates_presence_of :bank_account_number_confirmation, if: :bank_account_number
+    validates_presence_of :bank_routing_number_confirmation, if: :bank_routing_number
+    validates_presence_of :bank_account_number
+    validates_presence_of :bank_routing_number
     def required_dependents_attributes
       [:birth_date, :first_name, :last_name, :relationship].freeze
     end
@@ -82,6 +91,10 @@ module Hub
           data: MixpanelService.data_from([client, tax_return, @current_user])
         )
       end
+    end
+
+    def self.permitted_params
+      super.push(:bank_account_number_confirmation, :bank_routing_number_confirmation)
     end
 
     def default_attributes
