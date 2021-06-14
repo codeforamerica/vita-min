@@ -13,6 +13,7 @@ pairs:
   cb: Colt Borg
   ct: Catie Talbot
   mtm: Molly T-M
+  tg: Travis Grathwell
 email_addresses:
   jh: jheath@codeforamerica.org
   bg: bgolder@codeforamerica.org
@@ -25,4 +26,5 @@ email_addresses:
   em: ebarnard@codeforamerica.org
   ct: ctalbot@codeforamerica.org
   mtm: mollyt@codeforamerica.org
+  tg: tgrathwell@codeforamerica.org
 global: false  # Set to true for git-pair to change git configuration for all your projects
