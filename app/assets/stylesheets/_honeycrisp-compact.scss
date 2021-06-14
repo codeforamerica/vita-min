@@ -159,7 +159,7 @@
     &--error {
       margin-left: 0;
       margin-right: inherit;
-      padding-left: inherit;
+      padding-left: 0;
       padding-right: 0;
       &:before {
         display: none;
@@ -225,7 +225,7 @@
     }
 
     &.checkbox--wide {
-      width: 200px;
+      min-width: 200px;
     }
   }
 

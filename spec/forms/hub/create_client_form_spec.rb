@@ -259,7 +259,7 @@ RSpec.describe Hub::CreateClientForm do
           it "adds an error to the attribute" do
             obj = described_class.new(params)
             obj.valid?
-            expect(obj.errors[:tax_returns_attributes]).to eq ["Please provide all required fields for tax returns: certification level, is HSA."]
+            expect(obj.errors[:tax_returns_attributes]).to eq ["Please provide all required fields for tax returns: certification level."]
           end
         end
       end

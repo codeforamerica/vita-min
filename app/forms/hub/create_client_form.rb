@@ -100,7 +100,7 @@ module Hub
     end
 
     def tax_return_required_fields_valid
-      required_attrs = [:certification_level, :is_hsa]
+      required_attrs = [:certification_level]
       missing_attrs = []
       @tax_returns_attributes&.each do |_, v|
         next unless create_tax_return_for_year?(v[:year])

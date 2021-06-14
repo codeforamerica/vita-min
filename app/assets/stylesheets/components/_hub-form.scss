@@ -5,6 +5,31 @@
       margin: 0;
     }
   }
+
+  &__card {
+    border: 1px solid $color-grey-medium-light;
+    padding: 2rem;
+    margin-bottom: 3.5rem;
+
+    &.card-small {
+      max-width: 575px;
+    }
+  }
+
+  &__input-with-checkbox {
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group.form-group--error {
+      margin-bottom: 3.5rem;
+    }
+
+    .checkbox-group {
+      margin-top: 0;
+      margin-bottom: 3.5rem;
+    }
+  }
   &__row {
     display: flex;
     align-items: center;

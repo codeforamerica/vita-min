@@ -23,17 +23,22 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Legal first name", with: "Colleen"
         fill_in "Legal last name", with: "Cauliflower"
         fill_in "Email", with: "hello@cauliflower.com"
-        fill_in "Phone number", with: "8324658840"
         fill_in "Cell phone number", with: "8324651680"
+        fill_in "Last 4 of SSN/ITIN", with: "4444"
+        check "Opt into email notifications"
+        check "Opt into sms notifications"
+        select "Mandarin", from: "Preferred language"
+      end
+
+      within "#address-fields" do
         fill_in "Street address", with: "123 Garden Ln"
         select "Texas", from: "State of residence"
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
         fill_in "ZIP code", with: "95032"
-        fill_in "Last 4 of SSN/ITIN", with: "4444"
-        check "Opt into email notifications"
-        check "Opt into sms notifications"
-        select "Mandarin", from: "Preferred language"
+      end
+
+      within "#filing-status-fields" do
         check "Married"
         check "Separated"
         fill_in "Separated year", with: "2017"
@@ -66,7 +71,6 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "Divorced 2018"
       expect(page).to have_text "Filing jointly"
       expect(page).to have_text "hello@cauliflower.com"
-      expect(page).to have_text "18324658840"
       expect(page).to have_text "18324651680"
       expect(page).to have_text "123 Garden Ln"
       expect(page).to have_text "Brassicaville, CA 95032"

@@ -97,7 +97,6 @@ module Hub
       {
         year: 2020,
         is_ctc: true,
-        is_hsa: 0,
         certification_level: :basic,
         status: :prep_ready_for_prep,
         service_type: :drop_off

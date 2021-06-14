@@ -79,7 +79,7 @@
               <span class="label-value"><%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly" %></span>
             </div>
             <div class="field-display">
-              <span class="form-question"><%= t(".dependents") %>:</span>
+              <span class="form-question"><%= t("general.dependents") %>:</span>
               <span class="label-value"><%= @client.intake&.dependents.count %></span>
             </div>
             <ul id="dependents-list">
