@@ -2656,6 +2656,59 @@ en:
         header: "Child Tax Credit"
         subheader: "Putting cash in your family’s pocket every month for the things you need, even if you make little or no money."
         claim_credit: "Claim your credit"
+        common_questions:
+          title: "Common Questions"
+          what_will_i_need_to_submit:
+            question: "I don’t usually file taxes, what will I need to submit to sign up for the Child Tax Credit?"
+            answer_html: |
+              An email address, ID, proof of income and/or benefits, and your child's Social Security Number.<br/><br/>
+              Children claimed for the Child Tax Credit must have a valid Social security number (SSN), however the tax filer (a parent, grandparent, or guardian) can have either a SSN or an Individual Taxpayer Identification Number (ITIN).
+          what_will_happen_and_when:
+            question: "What will happen and when?"
+            answer_html: |
+              If the IRS thinks your family is eligible for the Child Tax Credit and already has the information it needs to pay you automatically, you will receive a postcard and a letter from the IRS in June 2021.
+              <br/><br/>
+              If you have already filed taxes for tax years 2019 or 2020, you will begin receiving your payments automatically on July 15, 2021, and then on or about the 15th of each month for the next 6 months.
+              <br/><br/>
+              If you have not filed taxes in the past two years and need to submit information to claim the Child Tax Credit, you can use the <b>IRS Non-Filer Sign-Up Tool</b>.
+              <br/><br/>
+              If you need to update your address or other information with the IRS you can use the <b>CTC Update Portal (CTC UP)</b> starting in late June.
+          how_do_i_know_what_i_received_for_the_stimulus:
+            question: "How do I know what I received for the stimulus (Economic Impact Payments)?"
+            answer_html: |
+              In order to claim the Child Tax Credit, you will need to report the amount you may be missing in stimulus payments (Economic Impact Payments).
+              <br/><br/>
+              The <b>first stimulus payment</b> was sent in April 2020 and was $1,200 per adult tax filer plus $500 per dependent under 17 years old (for example, a parent caring for two children would have received $2,200).
+              <br/><br/>
+              The <b>second stimulus payment</b> was sent in December 2020 and was $600 per adult tax filer plus $600 per dependent (for example, a parent caring for two children would have received $1,800).
+              <br/><br/>
+              The <b>third stimulus payment</b> was sent in April 2021 and was $1,400 per adult tax filer plus $1,400 per dependent of any age (for example, a parent caring for two children would have received $4,200).
+          will_i_ever_have_to_pay_this_money_back:
+            question: "Will I ever have to pay this money back?"
+            answer_html: |
+              If you receive payments for a child who is no longer your dependent or if your income has drastically changed, you may have to pay that money back, though there are some protections in place for those with incomes below $80,000 (for individuals or non custodial parents), $100,000 (for single, head-of-household), or $120,000 (for filing jointly).
+          parents_with_shared_custody:
+            question: "Can parents who share custody of a child both get the Child Tax Credit?"
+            answer_html: |
+              If you are married and signing up for the Child Tax Credit jointly with your spouse, you will receive one monthly payment per child, as a family.
+              <br/><br/>
+              If you file separately from any other caretakers for your child, then only one person can sign up to receive the Child Tax Credit.
+          no_income_or_income_from_benefits_programs:
+            question: "What if I don’t have any income, or only income from benefits programs (like SSI, SNAP, TANF, or WIC)?"
+            answer_html: |
+              There is no minimum income required to get the Child Tax Credit for tax year 2021. Even if your family has $0 in reported income and didn’t work during the previous year, you can still be eligible for the full Child Tax Credit as long as you have a child who has a Social Security Number and was younger than 17 at the end of 2020.
+              <br/><br/>
+              If your only income was from benefits programs, we recommend that you complete the <b>IRS Non-Filer Sign-Up Tool</b> to receive cash benefits for your family.
+              <br/><br/>
+              If you earned income from a benefits program and also some income from working, you have the option to file a full tax return in order to receive the additional benefits that you may qualify for.
+          are_daca_recipients_eligible:
+            question: "Are DACA recipients eligible for the Child Tax Credit?"
+            answer_html: |
+              Yes, DACA recipients are eligible for the Child Tax Credit so long as the children being claimed in the household have a valid SSN. DACA recipients who are dependents of ITIN filers can also be claimed for the Child Tax Credit because they have valid Social Security Numbers.
+          will_it_affect_my_immigration_status:
+            question: "Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?"
+            answer_html: |
+              No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
         what_is:
           heading: "What is the Child Tax Credit?"
           body1: "The American Rescue Plan, signed into law by President Biden on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $300 per month per child under age 6, and up to $250 per month per child ages 6 to 17."

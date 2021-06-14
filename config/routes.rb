@@ -251,6 +251,16 @@ Rails.application.routes.draw do
 
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "ctc_pages#home"
+        scope "common-questions" do
+          get "/what-will-i-need-to-submit", to: "ctc_pages#what_will_i_need_to_submit"
+          get "/what-will-happen-and-when", to: "ctc_pages#what_will_happen_and_when"
+          get "/how-do-i-know-what-i-received-for-the-stimulus", to: "ctc_pages#how_do_i_know_what_i_received_for_the_stimulus"
+          get "/will-i-ever-have-to-pay-this-money-back", to: "ctc_pages#will_i_ever_have_to_pay_this_money_back"
+          get "/parents-with-shared-custody", to: "ctc_pages#parents_with_shared_custody"
+          get "/no-income-or-income-from-benefits-programs", to: "ctc_pages#no_income_or_income_from_benefits_programs"
+          get "/are-daca-recipients-eligible", to: "ctc_pages#are_daca_recipients_eligible"
+          get "/will-it-affect-my-immigration-status", to: "ctc_pages#will_it_affect_my_immigration_status"
+        end
       end
     end
   end

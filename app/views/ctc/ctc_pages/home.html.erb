@@ -151,4 +151,24 @@
       </div>
     </div>
   </div>
+
+  <div class="slab">
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <h2><%= t('views.ctc_pages.home.common_questions.title') %></h2>
+      </div>
+      <div class="grid__item width-one-whole">
+        <ul class="list--padded">
+          <li><%= link_to t('views.ctc_pages.home.common_questions.what_will_i_need_to_submit.question'), url_for(action: 'what_will_i_need_to_submit'), class: "link--subtle" %></li>
+          <li><%= link_to t('views.ctc_pages.home.common_questions.what_will_happen_and_when.question'), url_for(action: 'what_will_happen_and_when'), class: "link--subtle" %></li>
+          <li><%= link_to t('views.ctc_pages.home.common_questions.how_do_i_know_what_i_received_for_the_stimulus.question'), url_for(action: 'how_do_i_know_what_i_received_for_the_stimulus'), class: "link--subtle" %></li>
+          <li><%= link_to t('views.ctc_pages.home.common_questions.will_i_ever_have_to_pay_this_money_back.question'), url_for(action: 'will_i_ever_have_to_pay_this_money_back'), class: "link--subtle" %></li>
+          <li><%= link_to t('views.ctc_pages.home.common_questions.parents_with_shared_custody.question'), url_for(action: 'parents_with_shared_custody'), class: "link--subtle" %></li>
+          <li><%= link_to t('views.ctc_pages.home.common_questions.no_income_or_income_from_benefits_programs.question'), url_for(action: 'no_income_or_income_from_benefits_programs'), class: "link--subtle" %></li>
+          <li><%= link_to t('views.ctc_pages.home.common_questions.are_daca_recipients_eligible.question'), url_for(action: 'are_daca_recipients_eligible'), class: "link--subtle" %></li>
+          <li><%= link_to t('views.ctc_pages.home.common_questions.will_it_affect_my_immigration_status.question'), url_for(action: 'will_it_affect_my_immigration_status'), class: "link--subtle" %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </main>

@@ -1,0 +1,17 @@
+<% content_for :page_title, t("views.ctc_pages.home.common_questions.#{question_title}.question") %>
+<%= render("shared/breadcrumb")%>
+
+<main role="main">
+  <div class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-two-thirds">
+        <h2>
+          <%= t("views.ctc_pages.home.common_questions.#{question_title}.question") %>
+        </h2>
+        <p class="spacing-below-60">
+          <%= t("views.ctc_pages.home.common_questions.#{question_title}.answer_html") %>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
