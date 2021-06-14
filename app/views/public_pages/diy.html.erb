@@ -6,18 +6,23 @@
 
 <main role="main">
   <div class="slab slab--hero">
-    <div class="grid diy">
-      <div class="grid__item width-one-half">
+    <div class="grid-flex contained column-row space-between">
+      <div class="grid-flex column-column">
         <h1 class="landing-page-header">
           <%= content_for :page_title %>
         </h1>
         <p class="landing-page-subheader">
           <strong><%= t('views.public_pages.diy_home.body') %></strong>
         </p>
-        <%= link_to diy_file_yourself_path,
-                    class: "button button--primary button--wide text--centered" do %>
-          <%= t("general.continue") %>
-        <% end %>
+        <div>
+          <%= link_to diy_file_yourself_path, class: "button button--primary text--centered" do %>
+            <%= t("general.continue") %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="grid-flex center-justified hero-image-wrapper">
+        <%= image_tag "homepage-hero.svg", alt: "", class: "hero-image" %>
       </div>
     </div>
   </div>
