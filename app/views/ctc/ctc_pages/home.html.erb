@@ -6,14 +6,13 @@
 
 <%= render 'shared/facebook_pixel' %>
 <main role="main" class="ctc-home">
-
   <div class="slab slab--hero">
     <div class="grid-flex contained column-row space-between">
       <div class="grid-flex column-column center-justified">
-        <h1>
+        <h1 class="landing-page-header">
           <%= t("views.ctc_pages.home.header") %>
         </h1>
-        <p class="spacing-below-60">
+        <p>
           <%= t("views.ctc_pages.home.subheader") %>
         </p>
         <div>
@@ -22,7 +21,7 @@
       </div>
 
       <div class="grid-flex flex-end">
-        <%= image_tag "family.svg", alt: "", class: "hero-image" %>
+        <%= image_tag "family.svg", alt: "", class: "hero-image hero-image--family" %>
       </div>
     </div>
   </div>

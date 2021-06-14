@@ -6,10 +6,10 @@
     }
   }
 
-  .hero-image {
-    @media screen and (max-width: $site-max-up) {
-      margin-top: -15rem !important;
-      margin-right: -6rem;
+  h1 {
+    font-size: 3.5rem;
+    @media screen and (min-width: $site-max-up) {
+      font-size: unset;
     }
   }
 
