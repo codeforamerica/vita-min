@@ -10,15 +10,18 @@ system (CI/CD).
 
 Details about the environments:
 
-- Staging - an experimental environment. Generally up to date
-  with the `main` branch, as it is deployed whenever `main` is
-  updated on GitHub, provided the test suite passes.
-- Demo - a quality check and demonstration environment. Like Staging,
-  it remains up to date with `main` thanks to continuous deployment.
-  Unlike Stating, it is rarely used for experimentation.
+- Staging - an experimental environment. It is deployed manually as engineers choose.
+- Demo - an acceptance testing and demonstration environment. It remains up to date with `main` thanks to continuous deployment.
+  Unlike Staging, it is rarely used for experimentation.
 - Production - the public, visible environment. The Production environment
   is the deploy target of the `release` branch. Like other environments,
   the deployment is performed automatically.
+  
+Links to the environments:
+
+* Demo: [GYR](https://demo.getyourrefund.org), [CTC](https://ctc.demo.getyourrefund.org), [Spanish-by-default](https://demo.mireembolso.org)
+* Staging: [GYR](https://staging.getyourrefund.org), [CTC](https://ctc.staging.getyourrefund.org), [Spanish-by-default](https://staging.mireembolso.org)
+* Production: [GYR](https://www.getyourrefund.org), [CTC](https://www.getctc.org), [Spanish-by-default](https://www.mireembolso.org)
 
 ## Branches
 
