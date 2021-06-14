@@ -203,8 +203,8 @@ class Intake < ApplicationRecord
 
   has_many :documents, dependent: :destroy
   has_many :documents_requests, dependent: :destroy
-  has_many :dependents, -> { order(created_at: :asc) }, dependent: :destroy
-  belongs_to :client, optional: true
+  has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy
+  belongs_to :client, inverse_of: :intake, optional: true
   has_many :tax_returns, through: :client
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true

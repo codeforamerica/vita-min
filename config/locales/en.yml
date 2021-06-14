@@ -737,6 +737,7 @@ en:
         first_name: first name
         last_name: last name
         birth_date: birth date
+        relationship: relationship
       tax_returns: "Please provide all required fields for tax returns: %{attrs}."
       tax_returns_attributes:
         is_hsa: is HSA
@@ -748,6 +749,15 @@ en:
         not_found: Matching routing entry for %{state} could not be found. Try again.
       general: Please fix indicated errors before continuing.
   general:
+    dependent_relationships:
+      child: "Child"
+      parent: "Parent"
+      sibling: "Sibling"
+      aunt_uncle: "Aunt/Uncle"
+      niece_nephew: "Niece/Nephew"
+      grandchild: "Grandchild"
+      grandparent: "Grandparent"
+      other: "Other"
     add_ctc_client: Add CTC client
     add_client: Add client
     all_organizations: "All organizations"

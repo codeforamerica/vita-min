@@ -1,12 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Hub::CreateCtcClientForm do
-  describe "#new" do
-    it "initializes with empty tax_return objects for each valid filing year" do
-      expect(described_class.new.tax_returns.map(&:year)).to eq(TaxReturn.filing_years)
-    end
-  end
-
   describe "#save" do
     let(:vita_partner) { create :vita_partner, name: "Caravan Palace" }
     let(:params) do
@@ -40,7 +34,6 @@ RSpec.describe Hub::CreateCtcClientForm do
         filing_joint: "yes",
         timezone: "America/Chicago",
         state_of_residence: "CA",
-        service_type: "drop_off",
         signature_method: "online",
         primary_last_four_ssn: "1234",
       }
@@ -111,7 +104,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(intake.vita_partner).to eq vita_partner
         expect(intake.primary_last_four_ssn).to eq "1234"
         expect(intake.spouse_last_four_ssn).to eq "5678"
-        expect(intake.timezone).to eq "America/New_York"
+        expect(intake.timezone).to eq "America/Chicago"
       end
 
       it "creates a single CTC 2020 tax return for the client" do
@@ -175,6 +168,32 @@ RSpec.describe Hub::CreateCtcClientForm do
         it "does not save the associations" do
           expect { form.save(current_user) }.to raise_error ActiveRecord::RecordInvalid
         end
+      end
+    end
+
+    context "with dependents" do
+      let(:dependents_attributes) do {
+          dependents_attributes: {
+              "0" => {
+                  id: nil,
+                  first_name: "Maria",
+                  last_name: "Mango",
+                  birth_date_month: "May",
+                  birth_date_day: "9",
+                  birth_date_year: "2013",
+                  relationship: "child"
+              }
+          }
+      }
+      end
+
+      it "successfully saves the client with associated dependents" do
+        expect do
+          described_class.new(params.merge(dependents_attributes)).save(current_user)
+        end.to change(Client, :count).by 1
+        client = Client.last
+        expect(client.intake.dependents.count).to eq 1
+        expect(client.vita_partner).to eq vita_partner
       end
     end
 

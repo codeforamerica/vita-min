@@ -248,7 +248,6 @@ RSpec.describe Hub::CreateClientForm do
       context "tax returns attributes" do
         context "when there are some blank required fields" do
           before do
-            params[:tax_returns_attributes]["0"][:is_hsa] = nil
             params[:tax_returns_attributes]["0"][:certification_level] = ""
           end
 

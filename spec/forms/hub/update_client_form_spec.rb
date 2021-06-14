@@ -184,40 +184,6 @@ RSpec.describe Hub::UpdateClientForm do
         expect(form.errors[:dependents_attributes]).to eq(["Please enter the last name of each dependent."])
       end
     end
-
-    describe "#dependents_attributes" do
-      context "without dependents_attributes or current dependents" do
-        let(:form) { described_class.new(client, form_attributes) }
-        before { form_attributes.delete(:dependents_attributes) }
-
-        it "returns an empty array" do
-          expect(form.dependents_attributes).to eq []
-        end
-      end
-
-      context "with current dependents and no dependents attributes" do
-        let(:intake) { create :intake, :filled_out, :with_contact_info, dependents: [create(:dependent)] }
-        let(:client) { create :client, intake: intake }
-        let(:form) { described_class.new(client, form_attributes) }
-        before { form_attributes.delete(:dependents_attributes) }
-
-        it "returns an empty array" do
-          expect(form.dependents_attributes).to eq []
-        end
-      end
-
-      context "with dependents attributes" do
-        let(:intake) { create :intake, dependents: [(create :dependent)] }
-        let(:form) { described_class.new(client, dependents_attributes: [{ id: intake.dependents.first.id, first_name: "Paul", last_name: "Persimmon", birth_date: "2009-12-12" }]) }
-        it "returns an array with dependent attributes" do
-          expect(form.dependents_attributes.length).to eq 1
-          expect(form.dependents_attributes.first).to have_key(:birth_date)
-          expect(form.dependents_attributes.first).to have_key(:first_name)
-          expect(form.dependents_attributes.first).to have_key(:id)
-          expect(form.dependents_attributes.first).to have_key(:last_name)
-        end
-      end
-    end
   end
 
   describe ".from_client" do

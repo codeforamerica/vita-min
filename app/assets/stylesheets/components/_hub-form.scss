@@ -19,10 +19,10 @@
   &__input-with-checkbox {
     .form-group {
       margin-bottom: 1.5rem;
-    }
 
-    .form-group.form-group--error {
-      margin-bottom: 3.5rem;
+      &.form-group--error {
+        margin-bottom: 3.5rem;
+      }
     }
 
     .checkbox-group {
@@ -30,6 +30,7 @@
       margin-bottom: 3.5rem;
     }
   }
+
   &__row {
     display: flex;
     align-items: center;

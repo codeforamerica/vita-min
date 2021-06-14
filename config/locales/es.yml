@@ -726,6 +726,7 @@ es:
         first_name: el primer nombre
         last_name: el apellido
         birth_date: la fecha de nacimiento completa
+        relationship: relación con usted
       tax_returns: "Por favor, proporcione todos los campos obligatorios para las declaraciones de impuestos:: %{attrs}."
       tax_returns_attributes:
         is_hsa: es HSA
@@ -737,6 +738,15 @@ es:
         not_found: No se pudo encontrar la entrada de enrutamiento coincidente para %{state}. Intentar otra vez.
       general: Por favor, corrija los errores indicados antes de continuar.
   general:
+    dependent_relationships:
+      child: "Hijo/Hija"
+      parent: "Madre/Padre"
+      sibling: "Hermana/Hermano"
+      aunt_uncle: "Tía/Tío"
+      niece_nephew: "Sobrina/Sobrino"
+      grandchild: "Nieta/Nieto"
+      grandparent: "Abuela/Abuelo"
+      other: "Otro"
     add_ctc_client: Agregar CTC cliente
     add_client: Agregar cliente
     at_time: a las %{time}
