@@ -2683,6 +2683,61 @@ es:
         header: "Crédito Tributario por Hijos"
         subheader: "Ponga dinero en efectivo en el bolsillo de su familia cada mes para las cosas que usted necesita, aún si usted tiene muy pocos ingresos o no tiene ingresos."
         claim_credit: "Reclamar su crédito"
+        common_questions:
+          title: "Preguntas Frecuentes"
+          what_will_i_need_to_submit:
+            question: "No suelo declarar impuestos, ¿qué tengo que presentar para inscribirme para el Crédito Tributario por Hijos?"
+            answer_html: |
+              Necesitará una dirección de correo electrónico, un documento de identidad, una prueba de ingresos y/o beneficios y el número de seguro social de su hijo/a.<br/><br/>
+              Los niños que califican para el Crédito Tributario por Hijos deben tener un número de seguro social (SSN en inglés) válido, pero el declarante de impuestos (un padre, abuelo o tutor) puede tener un SSN o un Número de Identificación Personal del Contribuyente (ITIN en inglés).
+          what_will_happen_and_when:
+            question: "¿Cómo es el proceso? ¿Qué ocurrirá y cuándo?"
+            answer_html: |
+              Si el IRS considera que su familia es elegible para el Crédito Tributario por Hijos y ya tiene la información que necesita para pagarle automáticamente, recibirá una tarjeta postal y una carta del IRS en junio del 2021.
+              <br/><br/>
+              Si ya ha declarado los impuestos del 2019 o 2020, empezará a recibir sus pagos automáticamente el 15 de julio de 2021 y, a continuación, los días 15 de cada mes, aproximadamente, durante los siguientes 6 meses.
+              <br/><br/>
+              Si no ha declarado impuestos en los últimos dos años y necesita presentar información para reclamar el Crédito Tributario por Hijos, puede utilizar la <b>Herramienta Non-Filer del IRS (IRS Non-Filer Sign-Up Tool en inglés)</b>, una herramienta para registrar los que no han declarado.
+              <br/><br/>
+              Si necesita actualizar su dirección u otra información con el IRS, puede utilizar el portal de actualización del <b>Crédito Tributario por Hijos (CTC Update Portal o CTC UP en inglés)</b> a partir de finales de junio.
+          how_do_i_know_what_i_received_for_the_stimulus:
+            question: "¿Cómo puedo saber cuanto he recibido por el estímulo (Pagos de Impacto Económico)?"
+            answer_html: |
+              Para poder reclamar el Crédito Tributario por Hijos, tendrá que reportar la cantidad que le pueda estar faltando de los pagos de estímulo (Pagos de Impacto Económico).
+              <br/><br/>
+              El <b>primer pago de estímulo</b> se envió en abril de 2020 y fue de $1,200 por declarante de impuestos adulto, al que se le sumaron $500 por dependiente menor de 17 años (por ejemplo, un padre que cuide a dos niños habría recibido $2,200).
+              <br/><br/>
+              El <b>segundo pago de estímulo</b> se envió en diciembre de 2020 y fue de $600 por declarante adulto, al que se le sumaron $600 por dependiente (por ejemplo, un padre que cuide a dos niños habría recibido $1,800).
+              <br/><br/>
+              El <b>tercer pago de estímulo</b> se envió en abril de 2021 y fue de $1,400 por declarante adulto, al que se le sumó $1,400 por dependiente de cualquier edad (por ejemplo, un padre que cuide a dos niños habría recibido $4,200).
+          will_i_ever_have_to_pay_this_money_back:
+            question: "¿Tendré que devolver este dinero alguna vez?"
+            answer_html: |
+              Si recibe pagos por un hijo que ya no es su dependiente o si sus ingresos han cambiado significativamente, es posible que tenga que devolver ese dinero. En estas situaciones existen algunas protecciones para aquellos con ingresos menos de $80,000 (para individuos o padres sin custodia), $100,000 (para solteros, cabeza de familia) o $120,000 (para declaración conjunta).
+          parents_with_shared_custody:
+            question: "¿Pueden ambos padres que comparten la custodia de un hijo recibir el Crédito Tributario por Hijos?"
+            answer_html: |
+              Si está casado y se inscribe para el Crédito Tributario por Hijos en conjunto con su cónyuge, recibirá una mensualidad por hijo, como familia.
+              <br/><br/>
+              Si los padres del niño que califica declaran impuestos por separado, sólo puede inscribirse una persona para recibir el Crédito Tributario por Hijos.
+          no_income_or_income_from_benefits_programs:
+            question: "¿Qué pasa si no tengo ingreso, o solo ingresos de programas beneficiarios como Seguridad de Ingreso Suplementario (SSI en inglés), Programa de Asistencia Nutricional Suplementaria (SNAP en inglés), Asistencia Temporal para Familias Necesitadas (TANF en inglés) o El Programa Especial de Nutrición Suplementaria para Mujeres, Infantes y Niños (WIC en inglés)?"
+            answer_html: |
+              No se requiere un ingreso mínimo para obtener el Crédito Tributario por Hijos para el año fiscal 2021. Aún si su familia tiene $0 en ingresos reportados y no trabajó en el año fiscal anterior, puede ser elegible para el Crédito Tributario por Hijos siempre y cuando tenga un hijo que tenga un número de seguro social(SSN en inglés) y sea menor de 17 años al final del 2020.
+              <br/><br/>
+              Si su único ingreso es de programas beneficiarios, le recomendamos que complete la <b>Herramienta Non-Filer del IRS</b> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que aún no han declarado sus impuestos, y así puedan recibir los beneficios en efectivo para su familia.
+              <br/><br/>
+              Si obtuvo ingresos de un programa beneficiario y también tiene ingresos de trabajo, tiene la opción de declarar sus impuestos y recibir los beneficios adicionales para los que podría calificar.
+          are_daca_recipients_eligible:
+            question: "¿Los beneficiarios de DACA son elegibles para el Crédito Tributario por Hijos?"
+            answer_html: |
+              Sí, los beneficiarios de DACA, son elegibles para el Crédito Tributario por Hijos siempre y cuando los hijos que usted reclame en su declaración de impuestos tengan un número de seguro social (SSN en inglés) válido.
+              <br/><br/>
+              Los beneficiarios de DACA que son dependientes de declarantes con un  Número de Identificación Personal del Contribuyente (ITIN en inglés)  pueden ser reclamados para el Crédito Tributario por Hijos porque tienen números válidos de seguro social .
+          will_it_affect_my_immigration_status:
+            question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
+            answer_html: |
+              No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
         what_is:
           heading: "¿Qué es el Crédito Tributario por Hijos (CTC)?"
           body1: "El Plan de Rescate Estadounidense, firmado como ley por el presidente Biden el 11 de marzo de 2021, aumenta el Crédito Tributario por Hijos (CTC en inglés) que le podría proporcionar hasta $300 al mes por cada hijo menor de seis años y hasta $250 por hijo con edades entre 6 y 17 años."
