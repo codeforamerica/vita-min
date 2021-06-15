@@ -20,8 +20,8 @@ RSpec.describe Questions::FinalInfoController do
         allow(IntakePdfJob).to receive(:perform_later)
       end
 
-      let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com", locale: "en", preferred_name: "Mona Lisa" }
-      let(:client) { intake.client }
+      let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com", locale: "en", preferred_name: "Mona Lisa", client: client }
+      let(:client) { create :client, tax_returns: [create(:tax_return, service_type: "online_intake")] }
 
       it "the model after_update when completed at changes should enqueue the creation of the 13614c document" do
         post :update, params: params
@@ -40,9 +40,9 @@ RSpec.describe Questions::FinalInfoController do
               post :update, params: params
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                email_body: I18n.t("messages.successful_submission.email_body", locale: "en"),
-                sms_body: I18n.t("messages.successful_submission.sms_body", locale: "en"),
-                subject: I18n.t("messages.successful_submission.subject", locale: "en"),
+                email_body: I18n.t("messages.successful_submission_online_intake.email_body", locale: "en"),
+                sms_body: I18n.t("messages.successful_submission_online_intake.sms_body", locale: "en"),
+                subject: I18n.t("messages.successful_submission_online_intake.subject", locale: "en"),
                 locale: :en
               )
             end
@@ -54,9 +54,38 @@ RSpec.describe Questions::FinalInfoController do
 
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                email_body: I18n.t("messages.successful_submission.email_body", locale: "es"),
-                sms_body: I18n.t("messages.successful_submission.sms_body", locale: "es"),
-                subject: I18n.t("messages.successful_submission.subject", locale: "es"),
+                email_body: I18n.t("messages.successful_submission_online_intake.email_body", locale: "es"),
+                sms_body: I18n.t("messages.successful_submission_online_intake.sms_body", locale: "es"),
+                subject: I18n.t("messages.successful_submission_online_intake.subject", locale: "es"),
+                locale: :es
+              )
+            end
+          end
+
+          context "with service type online_intake" do
+            it "sends a success email with online intake copy" do
+              post :update, params: params
+
+              expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+                client: client,
+                email_body: I18n.t("messages.successful_submission_online_intake.email_body", locale: "en"),
+                sms_body: I18n.t("messages.successful_submission_online_intake.sms_body", locale: "en"),
+                subject: I18n.t("messages.successful_submission_online_intake.subject", locale: "en"),
+                locale: :en
+              )
+            end
+          end
+
+          context "with at least on tax return with the service type drop_off" do
+            let!(:client) { create :client, tax_returns: [create(:tax_return, service_type: "online_intake", year: 2020), create(:tax_return, service_type: "drop_off")] }
+            it "sends a success email with drop off copy" do
+              post :update, params: params.merge(locale: "es")
+
+              expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+                client: client,
+                email_body: I18n.t("messages.successful_submission_drop_off.email_body", locale: "es"),
+                sms_body: I18n.t("messages.successful_submission_drop_off.sms_body", locale: "es"),
+                subject: I18n.t("messages.successful_submission_drop_off.subject", locale: "es"),
                 locale: :es
               )
             end

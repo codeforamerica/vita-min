@@ -1007,49 +1007,56 @@ es:
   messages:
     default_subject: Actualización de GetYourRefund
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
-    successful_submission:
+    successful_submission_online_intake:
       subject: ¡Su información de impuestos ha sido enviada con éxito!
       email_body: |
         Hola <<Client.PreferredName>>,
 
-        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su cliente id es <<Client.ClientId>>.
-
-        Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
-
-        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: <<Client.LoginLink>>
-
-        Si tiene alguna pregunta, por favor responda a este mensaje.
+        ¡Su información fiscal se ha enviado correctamente! Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> Si tiene alguna pregunta, responda a este mensaje.
 
         ¡Estamos aquí para ayudar!
-
         Su equipo de impuestos en GetYourRefund.org
       sms_body: |
         Hola <<Client.PreferredName>>,
-        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su cliente id es <<Client.ClientId>>.
-        Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
-        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: <<Client.LoginLink>>
-        Si tiene alguna pregunta, por favor responda a este mensaje.
+        ¡Su información fiscal se ha enviado correctamente! Su especialista en impuestos revisará su información y se comunicará con usted en 3-5 días laborales para una revisión telefónica de su situación antes de preparar sus impuestos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> Si tiene alguna pregunta, responda a este mensaje.
         ¡Estamos aquí para ayudar!
         Su equipo de impuestos en GetYourRefund.org
+    successful_submission_drop_off:
+      subject: ¡Su información de impuestos ha sido enviada con éxito!
+      email_body: |
+        Hola <<Client.PreferredName>>,
+
+        Su información fiscal se ha enviado correctamente a su preparador de impuestos en <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>.
+
+        Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos.
+
+        Si tiene alguna pregunta, puede comunicarse con su equipo de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org> hello@getyourrefund.org </a> o por mensaje de texto al 58750.
+
+        ¡Estamos aquí para ayudar!
+        Su equipo de impuestos en GetYourRefund.org
+      sms_body: |
+        Hola <<Client.PreferredName>>, Gracias por enviar su información fiscal a <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>. Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!
     getting_started:
       email_body: |
         Hola <<Client.PreferredName>>,
 
-        Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su cliente id es <<Client.ClientId>>. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
+        Gracias por comenzar sus impuestos con GetYourRefund. ¡Ya casi ha terminado! Su ID de cliente es <<Client.ClientId>>. Comenzaremos a preparar sus impuestos una vez que tengamos toda la información requerida y todo los documentos fiscales.
 
-        Puede subir su identificación o documentos de impuestos adicionales, inicia sesión aquí: <<Client.LoginLink>>
+        Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
 
-        Si tiene alguna pregunta puede contactar a su equipo de preparación de impuestos por correo electrónico a <a href="mailto:hello@getyourrefund.org"></a>, o enviar un mensaje de texto al 58750.
+         El proceso completo de GetYourRefund tardará entre 2 y 3 semanas.
 
-        Recuerde, nosotros revisaremos todo con usted antes de presentar sus documentos, así que procure hacer lo mejor posible. ¡Así le ayudaremos a conseguir los créditos fiscales que le pertenecen!
+        Si tiene alguna pregunta, puede comunicarse con su equipo de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> o enviando un mensaje de texto a 58750.
 
-        ¡Estamos aquí para servirle!
+        Recuerde, revisaremos todo con usted por teléfono antes de presentar la solicitud. Complete nuestro formulario lo mejor que pueda y lo ayudaremos a obtener los créditos fiscales que le pertenecen.
 
-        Su Equipo de Impuestos de GetYourRefund.org
+        ¡Estamos aquí para ayudar!
+        Su equipo de impuestos en GetYourRefund.org
       email_subject: Comience a tramitar sus impuestos con GetYourRefund
       sms_body: |
-        Hola <<Client.PreferredName>>, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es <<Client.ClientId>>. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Inicia sesión para suba sus documentos a su enlace de envío seguro aquí: <<Client.LoginLink>>
-        Responda a este mensaje con cualquier pregunta. ¡Estamos aquí para servirle!
+        Hola <<Client.PreferredName>>,
+        Gracias por comenzar sus impuestos con GetYourRefund. ¡Ya casi ha terminado! Su ID de cliente es <<Client.ClientId>>. Comenzaremos a preparar sus impuestos una vez que tengamos toda la información y todo los documentos fiscales requeridos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> El proceso completo de GetYourRefund tomará de 2 a 3 semanas.
+        Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!
     still_needs_help:
       email:
         body: |
@@ -1082,32 +1089,34 @@ es:
       completion:
         email:
           body: |
-            Gracias por declarar tus impuestos con GetYourRefund! Puede comprobar el estado de su reembolso en la página web del IRS https://www.irs.gov/refunds
+            ¡Gracias por presentar sus impuestos con GetYourRefund!
 
-            Queremos mejorar nuestro servicio y nos hace falta tu comentario. ¿Puedes contarnos cómo ha sido?
+            Puede verificar el estado de su reembolso en el sitio web del IRS <a href="https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
 
-            Te agradeceríamos si pudieras rellenar nuestra encuesta, solo te tomará unos 5 minutos: %{survey_link}
+            ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue?
+
+            Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
           subject: ¡Gracias por declarar tus impuestos con GetYourRefund!
         sms: |
-          Gracias por declarar tus impuestos con GetYourRefund. Queremos mejorar nuestro servicio y nos hace falta tu comentario. ¿Puedes contarnos cómo ha sido? Por favor tome unos 5 minutos para rellenar nuestra encuesta: %{survey_link}
+          Gracias por presentar sus impuestos con GetYourRefund. ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
       in_progress:
         email:
           body: |
             Hola <<Client.PreferredName>>,
 
-            Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Inicie sesión aquí para continuar el proceso y cargar documentos fiscales: <<Client.LoginLink>>
+            Notamos que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe aquí <<Client.LoginLink>>
 
-            ¡Revisaremos todo contigo por teléfono!
+            ¡Revisaremos todo con usted por teléfono!
 
             Si tiene alguna pregunta, puede responder a este mensaje.
 
-            Si desea enviarnos sus comentarios para ayudarnos a mejorar nuestro servicio, puede completar nuestra encuesta de 5 minutos aquí: %{survey_link}
+            Envíenos sus comentarios y ayúdenos a mejorar nuestro servicio. Puede realizar nuestra encuesta de 5 minutos aquí: %{survey_link}
 
             ¡Estamos aquí para ayudar!
             Su equipo de impuestos en GetYourRefund
           subject: Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!
         sms: |
-          Hola, <<Client.PreferredName>>. Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Si tienes alguna pregunta, puedes responder a este mensaje. Si desea enviarnos sus comentarios para ayudarnos a mejorar nuestro servicio, puede completar nuestra encuesta de 5 minutos aquí: %{survey_link}
+          Hola <<Client.PreferredName>>, Notamos que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe aquí <<Client.LoginLink>> Si tiene alguna pregunta, puede responder a este mensaje. Envíenos sus comentarios y ayúdenos a mejorar nuestro servicio. Puede realizar nuestra encuesta de 5 minutos aquí: %{survey_link}
     intercom_forwarding:
       email:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.

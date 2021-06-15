@@ -1016,16 +1016,14 @@ en:
   messages:
     default_subject: Update from GetYourRefund
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
-    successful_submission:
+    successful_submission_online_intake:
       subject: Your tax information has been successfully submitted!
       email_body: |
         Hello <<Client.PreferredName>>,
 
-        Your tax information has been successfully submitted to your tax preparer! Your client id is <<Client.ClientId>>.
+        Your tax information has been successfully submitted! Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
 
-        Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
-
-        Log in to securely submit additional information or documents you’d like to share with your tax preparer: <<Client.LoginLink>>
+        Check your progress and add additional documents here: <<Client.LoginLink>>
 
         If you have any questions, please reply to this message.
 
@@ -1034,30 +1032,47 @@ en:
         Your tax team at GetYourRefund.org
       sms_body: |
         Hello <<Client.PreferredName>>,
-        Your tax information has been successfully submitted to your tax preparer! Your client id is <<Client.ClientId>>.
-        Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
-        Log in to securely submit additional information or documents you’d like to share with your tax preparer: <<Client.LoginLink>>
+        Your tax information has been successfully submitted! Your tax specialist will review your information and reach out in 3-5 business days for a phone review of your situation before preparing your taxes.
+        Check your progress and add additional documents here: <<Client.LoginLink>>
         If you have any questions, please reply to this message.
         We’re here to help!
         Your tax team at GetYourRefund.org
+    successful_submission_drop_off:
+      subject: Your tax information has been successfully submitted!
+      email_body: |
+        Hello <<Client.PreferredName>>,
+
+        Your tax information has been successfully submitted to your tax preparer at <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>.
+
+        Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
+
+        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
+
+        We’re here to help!
+        Your tax team at GetYourRefund.org
+      sms_body: |
+        Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
     getting_started:
       email_body: |
         Hello <<Client.PreferredName>>,
 
-        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your client id is <<Client.ClientId>>. We will prepare your taxes once we have all of your required information and tax documents.
+        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your Client ID is <<Client.ClientId>>.
+        We will begin to prepare your taxes once we have all of your required information and tax documents.
 
-        You can securely upload additional tax documents by logging in here: <<Client.LoginLink>>
+        Check your progress and add additional documents here: <<Client.LoginLink>>
+
+        The entire GetYourRefund process will take 2-3weeks.
 
         If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
-        Remember, we’ll review everything with you before filing so just do the best you can. Then we’ll help you get the tax credits that belong to you!
+        Remember, we’ll review everything with you over the phone before filing. Complete our form to the best of your ability and we’ll help you get the tax credits that belong to you!
 
         We’re here to help!
         Your Tax Team at GetYourRefund.org
       email_subject: Getting your taxes started with GetYourRefund
       sms_body: |
-        Hello <<Client.PreferredName>>, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is <<Client.ClientId>>. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Log in to upload documents securely here: <<Client.LoginLink>>
-
+        Hello <<Client.PreferredName>>,
+        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your Client ID is <<Client.ClientId>> We will begin to prepare your taxes once we have all of your required information and tax documents. Check your progress and add additional documents here: <<Client.LoginLink>> The entire GetYourRefund process will take 2-3 weeks.
         Respond to this message if you have any questions. We’re here to help!
     still_needs_help:
       email:
@@ -1091,32 +1106,32 @@ en:
       completion:
         email:
           body: |
-            Thank you for filing your taxes with GetYourRefund and <<Client.AssignedOrganization>>! You can check the status of your refund at the IRS website https://www.irs.gov/refunds.
+            Thank you for filing your taxes with GetYourRefund! You can check the status of your refund at the IRS website <a href="https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
 
-            We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went?
+            We would love feedback on your experience so we can improve this service! Could you tell us about how it went?
 
             Take our 5 minute survey here: %{survey_link}
           subject: Thank you for filing your taxes with GetYourRefund!
         sms: |
-          Thank you for filing your taxes with GetYourRefund and <<Client.AssignedOrganization>>. We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
+          Thank you for filing your taxes with GetYourRefund. We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
       in_progress:
         email:
           body: |
             Hello <<Client.PreferredName>>,
 
-            We noticed you haven't completed providing the information we need to prepare your taxes. Log in to continue the process and upload tax documents: <<Client.LoginLink>>
+            We noticed you haven't completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>>
 
             We'll review everything with you on the phone!
 
             If you have any questions, you can reply to this message.
 
-            If you would like to provide us feedback to help us improve our service, you can take our 5 minute survey here: %{survey_link}
+            Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}
 
             We're here to help!
             Your Tax Team at GetYourRefund
           subject: Welcome to GetYourRefund.org. You're almost there!
         sms: |
-          Hello <<Client.PreferredName>>, We noticed you haven't completed providing the information we need to prepare your taxes. If you have any questions, you can reply to this message. If you would like to provide us feedback to help us improve our service, you can take our 5 minute survey here: %{survey_link}
+          Hello <<Client.PreferredName>>. We noticed you haven't completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>> If you have any questions, you can reply to this message. Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}
     intercom_forwarding:
       email:
         body: "This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly."

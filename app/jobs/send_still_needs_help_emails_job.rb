@@ -18,7 +18,6 @@ class SendStillNeedsHelpEmailsJob < ApplicationJob
         client_fails << client.id
       end
 
-      puts "Sending messages to Client with id #{client.id}"
       locale = client.intake.locale
       if ClientMessagingService.contact_methods(client).keys.include? :email
         ClientMessagingService.send_system_email(
@@ -37,8 +36,5 @@ class SendStillNeedsHelpEmailsJob < ApplicationJob
         )
       end
     end
-
-    puts "Successfully updated clients: #{client_successes}"
-    puts "Failed to update clients: #{client_fails}"
   end
 end
