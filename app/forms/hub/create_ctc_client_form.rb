@@ -41,6 +41,9 @@ module Hub
                        :bank_routing_number,
                        :bank_account_type,
                        :bank_name
+    set_attributes_for :confirmation,
+                       :bank_account_number_confirmation,
+                       :bank_routing_number_confirmation
     attr_accessor :bank_routing_number_confirmation, :bank_account_number_confirmation, :client
     # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
@@ -91,10 +94,6 @@ module Hub
           data: MixpanelService.data_from([client, tax_return, @current_user])
         )
       end
-    end
-
-    def self.permitted_params
-      super.push(:bank_account_number_confirmation, :bank_routing_number_confirmation)
     end
 
     def default_attributes
