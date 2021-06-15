@@ -1,0 +1,35 @@
+<% @main_heading = t(".title") %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <h1><%= @main_heading %></h1>
+
+        <% @messages.each do |message_obj| %>
+          <h2>
+            <%= message_obj[:type] %>
+          </h2>
+          <div class="client-messages-container" style="display: flex;">
+            <div class="with-padding-med" style="display: inline-block; width: 45%; margin-right: 16px;">
+              <div class="client-messages__email">
+                <div class="email__subject">
+                  <%= message_obj[:subject] %>
+                </div>
+                <div style="white-space: pre-line;">
+                  <%= message_obj[:email_body] %>
+                </div>
+              </div>
+            </div>
+            <div class="with-padding-med" style="display: inline-block; width: 45%; margin-right: 8px;">
+              <div class="client-messages__sms">
+                <div style="white-space: pre-line;"><%= message_obj[:sms_body] %></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

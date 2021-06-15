@@ -68,6 +68,14 @@
           <% end %>
         </li>
       <% end %>
+
+      <% if current_user.admin? %>
+        <li class="user-action-link">
+          <%= link_to hub_automated_messages_path, class: "button button--small" do %>
+            <%= t("hub.automated_messages.index.title") %>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
   </section>
 <% end %>

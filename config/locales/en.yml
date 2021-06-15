@@ -573,6 +573,9 @@ en:
             one: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} return</strong> with the following status:"
             other: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} returns</strong> with the following statuses:"
           by_clicking_submit: By clicking submit, you are updating assignee and/or status, sending a message, sending a team note, and updating followers.
+    automated_messages:
+      index:
+        title: "Automated Messages"
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!

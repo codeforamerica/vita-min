@@ -1,0 +1,53 @@
+.client-messages-container {
+  z-index: 0;
+}
+
+.client-messages__email {
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid #aaa;
+  width: 100%;
+  padding: 8px;
+  background-color: white;
+
+  .email__subject {
+    font-size: $font-size-25;
+    font-weight: 600;
+    margin-bottom: 2em;
+  }
+}
+
+.client-messages__sms {
+  display: inline-block;
+  width: 100%;
+  padding: 12px 18px;
+  background: #e5e5ea;
+  border-radius: 20px 20px 20px 10px;
+  font-weight: 400;
+
+  // https://codepen.io/samuelkraft/pen/Farhl
+  position: relative;
+  &:before, &:after {
+    content:"";
+    position:absolute;
+    bottom:-2px;
+    height:20px;
+  }
+
+  &:before {
+    left:-7px;
+    border-left:20px solid #E5E5EA;
+    border-bottom-right-radius: 16px 14px;
+    transform:translate(0, -2px);
+    z-index: -2;
+  }
+
+  &:after {
+    left:4px;
+    width:26px;
+    background: white;
+    border-bottom-right-radius: 10px;
+    transform:translate(-30px, -2px);
+    z-index: -1;
+  }
+}

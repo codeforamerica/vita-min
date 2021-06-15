@@ -149,6 +149,7 @@ Rails.application.routes.draw do
         resources :state_routings, only: [:index, :edit, :update], param: :state do
           delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy
         end
+        resources :automated_messages, only: [:index]
         resources :clients do
           get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
           get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
