@@ -76,7 +76,7 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Last 4 of SSN/ITIN", with: "4444"
       end
 
-      within "#filing-status-fields" do
+      within "#marital-status-fields" do
         check "Filing jointly"
         check "Married"
         check "Lived with spouse"

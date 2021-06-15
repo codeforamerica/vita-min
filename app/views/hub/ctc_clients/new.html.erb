@@ -2,8 +2,8 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--not-padded">
-    <div class="grid">
-      <div class="grid__item width-three-fourths">
+    <div>
+      <div>
         <%= form_with model: @form, url: hub_ctc_clients_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
           <h1 class="form-card__title">
             <%= @title %>

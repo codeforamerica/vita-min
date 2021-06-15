@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_215956) do
+ActiveRecord::Schema.define(version: 2021_06_15_133209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -706,6 +706,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_215956) do
     t.integer "certification_level"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.integer "filing_status"
+    t.text "filing_status_note"
     t.boolean "internal_efile", default: false, null: false
     t.boolean "is_ctc", default: false
     t.boolean "is_hsa"

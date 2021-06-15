@@ -41,7 +41,7 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "ZIP code", with: "95032"
       end
 
-      within "#filing-status-fields" do
+      within "#marital-status-fields" do
         check "Married"
         check "Separated"
         fill_in "Separated year", with: "2017"

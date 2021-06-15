@@ -348,6 +348,36 @@ describe Client do
     end
   end
 
+  describe "#requires_spouse_info?" do
+    context "from intake filing_joint_yes?" do
+      let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
+      it "returns true" do
+        expect(client.requires_spouse_info?).to eq true
+      end
+    end
+
+    context "from tax return status" do
+      context "when all tax returns are filing single" do
+        let(:client) { create :client, intake: (create :intake, filing_joint: "unfilled"), tax_returns: [tr_2020, tr_2019] }
+        let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
+        let(:tr_2020) { create :tax_return, filing_status: "single", year: 2020 }
+
+        it "returns false" do
+          expect(client.requires_spouse_info?).to eq false
+        end
+      end
+
+      context "when tax returns have any other status or a mix of statuses" do
+        let(:client) { create :client, intake: (create :intake, filing_joint: "unfilled"), tax_returns: [tr_2020, tr_2019] }
+        let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
+        let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2020 }
+
+        it "returns false" do
+          expect(client.requires_spouse_info?).to eq true
+        end
+      end
+    end
+  end
   describe "touch behavior" do
     let!(:client) { create :client }
 

@@ -66,7 +66,9 @@ en:
         legal_last_name: Legal last name
         mailing_address: Mailing Address
         preferred_name: Preferred full name
-        filing_information: Filing Information
+        filing_status: Filing Status
+        filing_status_notes: Filing status notes (optional)
+        marital_status: Marital Status
         preferred_interview_language: Preferred language
         primary_contact_info: Primary Contact Information
         navigator:
@@ -749,6 +751,12 @@ en:
         not_found: Matching routing entry for %{state} could not be found. Try again.
       general: Please fix indicated errors before continuing.
   general:
+    filing_status:
+      single: Single
+      married_filing_jointly: Married filing jointly
+      married_filing_separately: Married filing separately
+      head_of_household: Head of household
+      qualifying_widow: Qualifying widow(er)
     dependent_relationships:
       child: "Child"
       parent: "Parent"
