@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_215956) do
+ActiveRecord::Schema.define(version: 2021_06_15_211055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -706,6 +706,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_215956) do
     t.integer "certification_level"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.integer "filing_status"
+    t.text "filing_status_note"
     t.boolean "internal_efile", default: false, null: false
     t.boolean "is_ctc", default: false
     t.boolean "is_hsa"
@@ -828,6 +830,7 @@ ActiveRecord::Schema.define(version: 2021_06_14_215956) do
     t.string "name", null: false
     t.boolean "national_overflow_location", default: false
     t.bigint "parent_organization_id"
+    t.boolean "processes_ctc", default: false
     t.string "timezone", default: "America/New_York"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"

@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.feature "Creating new drop off clients" do
   context "As an authenticated admin user" do
     let(:user) { create :admin_user }
-    let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
-    let!(:child_partner) { create :vita_partner, parent_organization: vita_partner, name: "Floret Financial Readiness" }
+    let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders", processes_ctc: false }
+    let!(:child_partner) { create :vita_partner, parent_organization: vita_partner, name: "Floret Financial Readiness", processes_ctc: true }
     before do
       login_as user
     end
@@ -15,6 +15,9 @@ RSpec.feature "Creating new drop off clients" do
       within("h1") do
         expect(page).to have_text "Add a new CTC client"
       end
+
+      expect(page.find("#hub_create_ctc_client_form_vita_partner_id").all('option').collect(&:text)).to include "Floret Financial Readiness"
+      expect(page.find("#hub_create_ctc_client_form_vita_partner_id").all('option').collect(&:text)).not_to include "Brassica Asset Builders"
 
       select "Floret Financial Readiness", from: "Assign to"
 

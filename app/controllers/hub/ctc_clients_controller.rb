@@ -25,6 +25,10 @@ module Hub
 
     private
 
+    def load_vita_partners
+      @vita_partners = super.where(processes_ctc: true)
+    end
+
     def create_client_form_params
       params.require(CreateCtcClientForm.form_param).permit(CreateCtcClientForm.permitted_params)
     end
