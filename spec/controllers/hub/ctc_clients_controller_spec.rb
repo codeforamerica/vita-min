@@ -62,7 +62,7 @@ RSpec.describe Hub::CtcClientsController do
           signature_method: "online",
           service_type: "drop_off",
           vita_partner_id: vita_partner_id,
-          filing_status: "married_filing_jointly"
+          filing_status: "married_filing_jointly",
           bank_account_type: "checking",
           bank_routing_number: "1234567",
           bank_routing_number_confirmation: "1234567",
