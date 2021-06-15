@@ -2804,7 +2804,7 @@ es:
                 <li>y obtener el Crédito Tributario por Ingresos de Trabajo para recibir más dinero en efectivo.</li>
               </ul>
             body2_html: "Aquí hay algunas opciones <strong>gratuitas</strong> para declarar impuestos:"
-            body4: ": Si sus ingresos fueron más de $66,000 y se siente seguro usando las herramientas en línea, le daremos acceso gratuito a programas digitales para que usted prepare su declaración de impuestos. Habrán expertos listos para ayudarle por chat si lo necesita."
+            gyr_diy_explanation: ": Si sus ingresos fueron más de $66,000 y se siente seguro usando las herramientas en línea, le daremos acceso gratuito a programas digitales para que usted prepare su declaración de impuestos. Habrán expertos listos para ayudarle por chat si lo necesita."
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."

@@ -2757,7 +2757,7 @@ en:
             gyr_diy_link: "GetYourRefund - Do It Yourself"
             body1_html: "If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. Filing a full 2020 tax return will allow your family to claim the Child Tax Credit, receive all three stimulus payments, and the Earned Income Credit to get even more cash now."
             body2_html: "Here are some <strong>free</strong> tax filing options for you:"
-            body4: ": If you earned more than $66,000 and are comfortable using online tools, we provide free access to tax prep software with experts ready to provide chat support if you need help."
+            gyr_diy_explanation: ": If you earned more than $66,000 and are comfortable using online tools, we provide free access to tax prep software with experts ready to provide chat support if you need help."
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
