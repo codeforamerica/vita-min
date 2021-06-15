@@ -9,10 +9,10 @@ describe FilingStatusHelper do
       end
     end
 
-    context "when tax return does not have a filing status, fall back to marital statuses on intake" do
+    context "when ever married is no" do
       let(:client) { create :client, intake: (create :intake, ever_married: "no") }
       let!(:tax_return) { create :tax_return, filing_status: nil, client: client }
-      it "returns nil" do
+      it "returns a span including Single" do
         expect(helper.marital_status(client)).to eq "<span>Single</span>"
       end
     end
@@ -57,7 +57,7 @@ describe FilingStatusHelper do
       let(:tax_return_2019) { create :tax_return, year: 2019, filing_status: "head_of_household", filing_status_note: "Married early 2020, qualifying dependent born late 2019." }
       let(:tax_return_2020) { create :tax_return, year: 2020, filing_status: "married_filing_jointly" }
 
-      it "falls back to filing status on intake" do
+      it "returns formatted filing statuses with notes, if applicable" do
         result = <<-RESULT
         <ul><li><strong>Head of household</strong><span> (2019)</span><div><i>Married early 2020, qualifying dependent born late 2019.</i></div></li><li><strong>Married filing jointly</strong><span> (2020)</span></li></ul>
         RESULT

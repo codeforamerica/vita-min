@@ -349,10 +349,19 @@ describe Client do
   end
 
   describe "#requires_spouse_info?" do
-    context "from intake filing_joint_yes?" do
-      let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
-      it "returns true" do
-        expect(client.requires_spouse_info?).to eq true
+    context "from intake filing_joint" do
+      context "when filing_joint is yes" do
+        let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
+        it "returns true" do
+          expect(client.requires_spouse_info?).to eq true
+        end
+      end
+
+      context "when filing_joint is no" do
+        let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
+        it "returns false" do
+          expect(client.requires_spouse_info?).to eq false
+        end
       end
     end
 
@@ -372,7 +381,7 @@ describe Client do
         let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
         let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2020 }
 
-        it "returns false" do
+        it "returns true" do
           expect(client.requires_spouse_info?).to eq true
         end
       end

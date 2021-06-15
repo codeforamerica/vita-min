@@ -28,7 +28,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         signature_method: "online",
         primary_last_four_ssn: "1234",
         filing_status: "single",
-        filing_status_note: "Didn't get married until 2021"
+        filing_status_note: "Didn't get married until 2021",
         bank_account_type: "checking",
         bank_routing_number: "1234567",
         bank_routing_number_confirmation: "1234567",
