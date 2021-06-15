@@ -39,15 +39,8 @@ RSpec.feature "Creating new drop off clients" do
       end
 
       within "#filing-status-fields" do
-        check "Married"
-        check "Separated"
-        fill_in "Separated year", with: "2017"
-        check "Widowed"
-        fill_in "Widowed year", with: "2015"
-        check "Lived with spouse"
-        check "Divorced"
-        fill_in "Divorced year", with: "2018"
-        check "Filing jointly"
+        choose "Married filing jointly"
+        fill_in "Filing status notes (optional)", with: "Got married in 2020!"
       end
 
       within "#dependents-fields" do
@@ -81,12 +74,7 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "Colleen Cauliflower"
       expect(page).to have_text "Colly Cauliflower"
       expect(page).to have_text "Mandarin"
-      expect(page).to have_text "Married"
-      expect(page).to have_text "Separated 2017"
-      expect(page).to have_text "Widowed 2015"
-      expect(page).to have_text "Lived with spouse"
-      expect(page).to have_text "Divorced 2018"
-      expect(page).to have_text "Filing jointly"
+      expect(page).to have_text "Married filing jointly"
       expect(page).to have_text "hello@cauliflower.com"
       expect(page).to have_text "18324651680"
       expect(page).to have_text "123 Garden Ln"

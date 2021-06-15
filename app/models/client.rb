@@ -209,6 +209,10 @@ class Client < ApplicationRecord
     end
   end
 
+  def requires_spouse_info?
+    intake.filing_joint_yes? || !tax_returns.map(&:filing_status).all?("single")
+  end
+
   def generate_login_link
     # Compute a new login URL. This invalidates any existing login URLs.
     raw_token, encrypted_token = Devise.token_generator.generate(Client, :login_token)

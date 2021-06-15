@@ -10,14 +10,6 @@ RSpec.describe Hub::CreateCtcClientForm do
         primary_last_name: "Name",
         preferred_name: "Newly",
         preferred_interview_language: preferred_interview_language,
-        married: "yes",
-        separated: "no",
-        widowed: "no",
-        lived_with_spouse: "yes",
-        divorced: "no",
-        divorced_year: "",
-        separated_year: "",
-        widowed_year: "",
         email_address: "someone@example.com",
         phone_number: "5005550006",
         sms_phone_number: "500-555-(0006)",
@@ -31,11 +23,12 @@ RSpec.describe Hub::CreateCtcClientForm do
         spouse_last_name: "Wed",
         spouse_email_address: "spouse@example.com",
         spouse_last_four_ssn: "5678",
-        filing_joint: "yes",
         timezone: "America/Chicago",
         state_of_residence: "CA",
         signature_method: "online",
         primary_last_four_ssn: "1234",
+        filing_status: "single",
+        filing_status_note: "Didn't get married until 2021",
         bank_account_type: "checking",
         bank_routing_number: "1234567",
         bank_routing_number_confirmation: "1234567",
@@ -137,6 +130,8 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(tax_return.status).to eq "prep_ready_for_prep"
         expect(tax_return.client).to eq intake.client
         expect(tax_return.service_type).to eq "drop_off"
+        expect(tax_return.filing_status).to eq "single"
+        expect(tax_return.filing_status_note).to eq "Didn't get married until 2021"
         expect(tax_return.is_ctc).to be_truthy
       end
 
@@ -256,6 +251,22 @@ RSpec.describe Hub::CreateCtcClientForm do
         end
       end
 
+      context "filing status" do
+        before do
+          params[:filing_status] = nil
+        end
+
+        it "is required" do
+          expect(described_class.new(params).valid?).to eq false
+        end
+
+        it "pushes errors for signature method into the errors" do
+          obj = described_class.new(params)
+          obj.valid?
+          expect(obj.errors[:filing_status]).to include "Can't be blank."
+        end
+      end
+      
       context "bank_account_number" do
         before do
           params[:bank_account_number] = nil

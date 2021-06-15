@@ -4,6 +4,8 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  filing_status       :integer
+#  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
 #  is_ctc              :boolean          default(FALSE)
 #  is_hsa              :boolean
@@ -47,6 +49,7 @@ class TaxReturn < ApplicationRecord
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
   enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
+  enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
   validates :year, presence: true
 
   attr_accessor :status_last_changed_by
