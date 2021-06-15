@@ -65,6 +65,7 @@ en:
         legal_first_name: Legal first name
         legal_last_name: Legal last name
         mailing_address: Mailing Address
+        payment_information: Payment Information
         preferred_name: Preferred full name
         filing_status: Filing Status
         filing_status_notes: Filing status notes (optional)
@@ -427,7 +428,9 @@ en:
       bank_name: Bank name
       account_type: Account type
       account_number: Account number
+      account_number_confirmation: Confirm account number
       routing_number: Routing number
+      routing_number_confirmation: Confirm routing number
       checking: Checking
       savings: Savings
     organizations:

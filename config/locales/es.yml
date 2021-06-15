@@ -65,6 +65,7 @@ es:
         legal_first_name: Primer nombre legal
         legal_last_name: Apellido legal
         mailing_address: Dirección postal
+        payment_information: Información de pago
         preferred_interview_language: Idioma preferido
         marital_status: Estado civil
         filing_status: Estado civil para impuestos
@@ -415,7 +416,9 @@ es:
       info_displayed: Visualización de la información de la cuenta bancaria
       bank_name: Nombre del banco
       account_number: Número de cuenta
+      account_number_confirmation: Confirmar número de cuenta
       routing_number: Número de ruta
+      routing_number_confirmation: Confirmar número de ruta
       account_type: Tipo de cuenta
       checking: Cuenta de Cheques
       savings: Ahorros

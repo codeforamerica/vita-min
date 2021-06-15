@@ -6,7 +6,7 @@
     <%= f.fields_for :dependents do |ff| %>
       <%= render "shared/dependent", f: ff, is_ctc: is_ctc %>
     <% end %>
-
     <%= link_to_add_fields t("views.shared.dependents_fields.add_dependent"), f, :dependents, { class: "button button--small", locals: { is_ctc: is_ctc } }, partial: "shared/dependent" %>
+
   </div>
 </div>
