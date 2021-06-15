@@ -4,6 +4,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  internal_efile      :boolean          default(FALSE), not null
 #  is_ctc              :boolean          default(FALSE)
 #  is_hsa              :boolean
 #  primary_signature   :string

@@ -257,6 +257,25 @@ ActiveRecord::Schema.define(version: 2021_06_14_215956) do
     t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
   end
 
+  create_table "efile_submission_transitions", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.integer "efile_submission_id", null: false
+    t.jsonb "metadata", default: {}
+    t.boolean "most_recent", null: false
+    t.integer "sort_key", null: false
+    t.string "to_state", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["efile_submission_id", "most_recent"], name: "index_efile_submission_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["efile_submission_id", "sort_key"], name: "index_efile_submission_transitions_parent_sort", unique: true
+  end
+
+  create_table "efile_submissions", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "tax_return_id"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
+  end
+
   create_table "email_access_tokens", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.citext "email_address", null: false
@@ -687,6 +706,7 @@ ActiveRecord::Schema.define(version: 2021_06_14_215956) do
     t.integer "certification_level"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.boolean "internal_efile", default: false, null: false
     t.boolean "is_ctc", default: false
     t.boolean "is_hsa"
     t.string "primary_signature"
@@ -850,6 +870,7 @@ ActiveRecord::Schema.define(version: 2021_06_14_215956) do
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
   add_foreign_key "documents_requests", "intakes"
+  add_foreign_key "efile_submission_transitions", "efile_submissions"
   add_foreign_key "greeter_coalition_join_records", "coalitions"
   add_foreign_key "greeter_coalition_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "greeter_roles"

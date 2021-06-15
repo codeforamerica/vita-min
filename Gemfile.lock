@@ -191,6 +191,8 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
+    faker (2.18.0)
+      i18n (>= 1.6, < 2)
     faraday (1.4.2)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -480,6 +482,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stackprof (0.2.17)
+    statesman (8.0.3)
     strip_attributes (1.11.0)
       activemodel (>= 3.0, < 7.0)
     terminal-table (3.0.1)
@@ -571,6 +574,7 @@ DEPENDENCIES
   dogapi
   easy_translate
   factory_bot_rails
+  faker
   fix-db-schema-conflicts
   flamegraph
   git-pair
@@ -617,6 +621,7 @@ DEPENDENCIES
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   stackprof
+  statesman (~> 8.0.3)
   strip_attributes
   terser (~> 1.0)
   thor
