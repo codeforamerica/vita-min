@@ -2795,7 +2795,6 @@ es:
             body3_html: "Puedes apúntesarte cuando la <strong>Herramienta Non-Filer del IRS</strong> esté disponible"
           full_return:
             subheading: "Si usted aún no ha proporcionado su información al IRS (por medio de sus impuestos o por el portal para registrar a las personas que no han declarado), usted puede presentar una declaración de impuestos completa para recibir otros créditos tributarios que se le deben."
-            gyr_link: "GetYourRefund"
             gyr_diy_link: "GetYourRefund - Auto-Servicio (DIY)"
             body1_html: |
               Si usted tiene al menos un hijo que califica y tiene cualquier cantidad de ingresos de trabajo, pero aún no ha declarado impuestos, le recomendamos que declare sus impuestos de 2020. Presentar una declaración de impuestos completa del 2020 le permitirá a usted y a su familia:
@@ -2805,9 +2804,7 @@ es:
                 <li>y obtener el Crédito Tributario por Ingresos de Trabajo para recibir más dinero en efectivo.</li>
               </ul>
             body2_html: "Aquí hay algunas opciones <strong>gratuitas</strong> para declarar impuestos:"
-            body3: ": Si sus ingresos fueron menos de $66,000 usted puede recibir ayuda personalizada de preparadores de impuestos certificados por el IRS. Ellos harán la preparación de impuestos para usted."
             body4: ": Si sus ingresos fueron más de $66,000 y se siente seguro usando las herramientas en línea, le daremos acceso gratuito a programas digitales para que usted prepare su declaración de impuestos. Habrán expertos listos para ayudarle por chat si lo necesita."
-            cta: "Declare sus impuestos con GetYourRefund"
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
