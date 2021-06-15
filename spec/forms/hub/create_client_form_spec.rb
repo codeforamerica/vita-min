@@ -149,7 +149,7 @@ RSpec.describe Hub::CreateClientForm do
         expect(intake.needs_help_2019).to eq "yes"
         expect(intake.needs_help_2018).to eq "yes"
         expect(intake.needs_help_2017).to eq "no"
-        expect(tax_returns.map(&:year)).to eq [2020, 2019, 2018]
+        expect(tax_returns.map(&:year)).to match_array [2020, 2019, 2018]
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
       end

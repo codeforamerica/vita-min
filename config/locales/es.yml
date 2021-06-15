@@ -62,12 +62,14 @@ es:
       create:
         success_message: Cliente creado correctamente.
       fields:
-        filing_information: Presentación de información
         legal_first_name: Primer nombre legal
         legal_last_name: Apellido legal
         mailing_address: Dirección postal
         payment_information: Información de pago
         preferred_interview_language: Idioma preferido
+        marital_status: Estado civil
+        filing_status: Estado civil para impuestos
+        filing_status_notes: Notas de estado (opcional)
         preferred_name: Nombre completo preferido
         primary_contact_info: Información de contacto
         navigator:
@@ -741,6 +743,12 @@ es:
         not_found: No se pudo encontrar la entrada de enrutamiento coincidente para %{state}. Intentar otra vez.
       general: Por favor, corrija los errores indicados antes de continuar.
   general:
+    filing_status:
+      single: Soltero (S)
+      married_filing_jointly: Casado que presenta una declaración conjunta (MFJ)
+      married_filing_separately: Casado que presenta una declaración por separado (MFS)
+      head_of_household: Cabeza de familia (HOH)
+      qualifying_widow: Viudo que reúne los requisitos (QW)
     dependent_relationships:
       child: "Hijo/Hija"
       parent: "Madre/Padre"
@@ -2700,7 +2708,7 @@ es:
               <br/><br/>
               Si ya ha declarado los impuestos del 2019 o 2020, empezará a recibir sus pagos automáticamente el 15 de julio de 2021 y, a continuación, los días 15 de cada mes, aproximadamente, durante los siguientes 6 meses.
               <br/><br/>
-              Si no ha declarado impuestos en los últimos dos años y necesita presentar información para reclamar el Crédito Tributario por Hijos, puede utilizar la <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar los que no han declarado.
+              Si no ha declarado impuestos en los últimos dos años y necesita presentar información para reclamar el Crédito Tributario por Hijos, puede utilizar la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar los que no han declarado.
               <br/><br/>
               Si necesita actualizar su dirección u otra información con el IRS, puede utilizar el portal de actualización del <b>Crédito Tributario por Hijos (CTC Update Portal o CTC UP en inglés)</b> a partir de finales de junio.
           how_do_i_know_what_i_received_for_the_stimulus:
@@ -2728,7 +2736,7 @@ es:
             answer_html: |
               No se requiere un ingreso mínimo para obtener el Crédito Tributario por Hijos para el año fiscal 2021. Aún si su familia tiene $0 en ingresos reportados y no trabajó en el año fiscal anterior, puede ser elegible para el Crédito Tributario por Hijos siempre y cuando tenga un hijo que tenga un número de seguro social(SSN en inglés) y sea menor de 17 años al final del 2020.
               <br/><br/>
-              Si su único ingreso es de programas beneficiarios, le recomendamos que complete la <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que aún no han declarado sus impuestos, y así puedan recibir los beneficios en efectivo para su familia.
+              Si su único ingreso es de programas beneficiarios, le recomendamos que complete la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que aún no han declarado sus impuestos, y así puedan recibir los beneficios en efectivo para su familia.
               <br/><br/>
               Si obtuvo ingresos de un programa beneficiario y también tiene ingresos de trabajo, tiene la opción de declarar sus impuestos y recibir los beneficios adicionales para los que podría calificar.
           are_daca_recipients_eligible:
@@ -2771,7 +2779,7 @@ es:
           heading: "¿Cómo recibo el Crédito Tributario por Hijos?"
           body1: "Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia."
           body2_html: |
-            Si no ha enviado ninguna información al IRS en el último año, pronto podrá enviar su información a través de la <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han presentado su declaración de impuestos, y poder recibir sus pagos.
+            Si no ha enviado ninguna información al IRS en el último año, pronto podrá enviar su información a través de la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han presentado su declaración de impuestos, y poder recibir sus pagos.
           already_filed:
             subheading: "Si ya declaró los impuestos del 2019 o 2020, no tiene que hacer nada."
             body1: "Si ya declaró los impuestos del 2019 o 2020 y no ha tenido cambios significativos en su hogar, no  necesita hacer nada más. Sabemos que las situaciones familiares pueden cambiar rápidamente. Para recibir la cantidad correcta de dinero del Crédito Tributario por Hijos, puede asegurarse  que el IRS tenga la información correcta sobre las personas que forman parte de su hogar actual."
@@ -2788,7 +2796,7 @@ es:
           not_filed:
             subheading: "Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos."
             body1_html: |
-              <p>Si tiene al menos un hijo que califica y usted ganó menos de $12,400 (o menos de $22,500 si está casado), pronto podrá usar la <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han declarado, para:</p>
+              <p>Si tiene al menos un hijo que califica y usted ganó menos de $12,400 (o menos de $22,500 si está casado), pronto podrá usar la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han declarado, para:</p>
               <ul>
                 <li>obtener el Crédito Tributario por Hijos</li>
                 <li>recibir un pago de estímulo que le falte</li>

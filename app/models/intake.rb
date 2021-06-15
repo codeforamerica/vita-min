@@ -468,16 +468,6 @@ class Intake < ApplicationRecord
     (most_recent_filing_year.to_i - 1).to_s if most_recent_filing_year.present?
   end
 
-  def marital_statuses
-    [
-        (I18n.t("general.married") if married_yes?),
-        (I18n.t("general.lived_with_spouse") if lived_with_spouse_yes?),
-        ("#{I18n.t("general.separated")} #{separated_year}" if separated_yes?),
-        ("#{I18n.t("general.divorced")} #{divorced_year}" if divorced_yes?),
-        ("#{I18n.t("general.widowed")} #{widowed_year}" if widowed_yes?)
-    ].compact.presence || [I18n.t("general.single")]
-  end
-
   def contact_info_filtered_by_preferences
     contact_info = {}
     contact_info[:sms_phone_number] = sms_phone_number if sms_notification_opt_in_yes?

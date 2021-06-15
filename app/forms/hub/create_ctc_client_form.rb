@@ -5,14 +5,6 @@ module Hub
                        :primary_last_name,
                        :preferred_name,
                        :preferred_interview_language,
-                       :married,
-                       :separated,
-                       :widowed,
-                       :lived_with_spouse,
-                       :divorced,
-                       :divorced_year,
-                       :separated_year,
-                       :widowed_year,
                        :email_address,
                        :phone_number,
                        :sms_phone_number,
@@ -28,7 +20,6 @@ module Hub
                        :spouse_first_name,
                        :spouse_last_name,
                        :spouse_email_address,
-                       :filing_joint,
                        :interview_timing_preference,
                        :timezone,
                        :vita_partner_id,
@@ -41,13 +32,17 @@ module Hub
                        :bank_routing_number,
                        :bank_account_type,
                        :bank_name
+    set_attributes_for :tax_return,
+                       :filing_status,
+                       :filing_status_note
     set_attributes_for :confirmation,
                        :bank_account_number_confirmation,
                        :bank_routing_number_confirmation
-    attr_accessor :bank_routing_number_confirmation, :bank_account_number_confirmation, :client
+    attr_accessor :client
     # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
+    validates :filing_status, presence: true
     after_save :send_confirmation_message, :send_mixpanel_data
     validates_confirmation_of :bank_routing_number
     validates_confirmation_of :bank_account_number
@@ -71,6 +66,7 @@ module Hub
         )
       end
     end
+
 
     private
 
@@ -112,7 +108,7 @@ module Hub
         certification_level: :basic,
         status: :prep_ready_for_prep,
         service_type: :drop_off
-      }
+      }.merge(attributes_for(:tax_return))
     end
   end
 end

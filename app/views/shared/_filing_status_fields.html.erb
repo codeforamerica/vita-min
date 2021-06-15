@@ -1,26 +1,12 @@
 <div id="filing-status-fields" class="hub-form__card card-small">
-  <h3><%= t("hub.clients.fields.filing_information") %></h3>
-  <div class="marital-status">
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:filing_joint, t("general.filing_joint"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:married, t("general.married"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:lived_with_spouse, t("general.lived_with_spouse"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:separated, t("general.separated"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_input_field(:separated_year, "#{t("general.separated")} #{t("general.year")}", classes: ["form-width--short"]) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:widowed, t("general.widowed"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_input_field(:widowed_year, "#{t("general.widowed")} #{t("general.year")}", classes: ["form-width--short"]) %>
-    </div>
-    <div class="hub-form__row">
-      <%= f.hub_checkbox(:divorced, t("general.divorced"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_input_field(:divorced_year, "#{t("general.divorced")} #{t("general.year")}", classes: ["form-width--short"]) %>
-    </div>
+  <h3><%= t("hub.clients.fields.filing_status") %></h3>
+  <div class="hub-form__radio-set">
+    <%= f.cfa_radio_set(
+        :filing_status,
+        collection: TaxReturn.filing_statuses.map { |key, _| { value: key, label: t("general.filing_status.#{key}")}}
+    ) %>
+    <%= f.cfa_textarea(
+        :filing_status_note, t("hub.clients.fields.filing_status_notes")
+    ) %>
   </div>
 </div>

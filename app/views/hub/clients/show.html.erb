@@ -72,19 +72,20 @@
             </div>
             <div class="field-display">
               <span class="form-question"><%= t(".marital_status") %>:</span>
-              <span class="label-value"><%= @client.intake&.marital_statuses&.join(", ") %></span>
+              <span class="label-value"><%= marital_status(@client) || "N/A" %></span>
             </div>
             <div class="field-display">
               <span class="form-question"><%= t(".filing_status") %>:</span>
-              <span class="label-value"><%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly" %></span>
+              <div class="label-indented"><%= filing_status(@client) %></div>
             </div>
             <div class="field-display">
               <span class="form-question"><%= t("general.dependents") %>:</span>
               <span class="label-value"><%= @client.intake&.dependents.count %></span>
+              <ul id="dependents-list">
+                <%= render @client.intake.dependents %>
+              </ul>
             </div>
-            <ul id="dependents-list">
-              <%= render @client.intake.dependents %>
-            </ul>
+
           </div>
 
           <div class="client-profile__field-group">
@@ -139,7 +140,7 @@
           </div>
 
           <!-- Spouse contact info-->
-          <% if @client.intake&.filing_joint_yes? %>
+          <% if @client.requires_spouse_info? %>
             <div class="client-profile__field-group">
               <h2 class="text--bold"><%= t(".spouse_contact_info") %></h2>
               <div class="field-display">
