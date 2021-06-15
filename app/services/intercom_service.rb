@@ -21,6 +21,10 @@ class IntercomService
     contact_id_from_sms = contact_id_from_sms(phone_number)
     contact_id = contact_id_from_sms.present? ? contact_id_from_sms : create_or_update_intercom_contact(incoming_sms).id
 
+    if incoming_sms.documents.present?
+      body = [body, "[client sent an attachment, see #{Rails.application.routes.url_helpers.hub_client_documents_url(client_id: incoming_sms.client.id)}]"].compact.join(' ')
+    end
+
     if contact_id_from_sms.present? && most_recent_conversation(contact_id).present?
       reply_to_existing_intercom_thread(contact_id, body)
     else
