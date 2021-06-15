@@ -2697,7 +2697,7 @@ es:
               <br/><br/>
               Si ya ha declarado los impuestos del 2019 o 2020, empezará a recibir sus pagos automáticamente el 15 de julio de 2021 y, a continuación, los días 15 de cada mes, aproximadamente, durante los siguientes 6 meses.
               <br/><br/>
-              Si no ha declarado impuestos en los últimos dos años y necesita presentar información para reclamar el Crédito Tributario por Hijos, puede utilizar la <b>Herramienta Non-Filer del IRS (IRS Non-Filer Sign-Up Tool en inglés)</b>, una herramienta para registrar los que no han declarado.
+              Si no ha declarado impuestos en los últimos dos años y necesita presentar información para reclamar el Crédito Tributario por Hijos, puede utilizar la <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar los que no han declarado.
               <br/><br/>
               Si necesita actualizar su dirección u otra información con el IRS, puede utilizar el portal de actualización del <b>Crédito Tributario por Hijos (CTC Update Portal o CTC UP en inglés)</b> a partir de finales de junio.
           how_do_i_know_what_i_received_for_the_stimulus:
@@ -2725,7 +2725,7 @@ es:
             answer_html: |
               No se requiere un ingreso mínimo para obtener el Crédito Tributario por Hijos para el año fiscal 2021. Aún si su familia tiene $0 en ingresos reportados y no trabajó en el año fiscal anterior, puede ser elegible para el Crédito Tributario por Hijos siempre y cuando tenga un hijo que tenga un número de seguro social(SSN en inglés) y sea menor de 17 años al final del 2020.
               <br/><br/>
-              Si su único ingreso es de programas beneficiarios, le recomendamos que complete la <b>Herramienta Non-Filer del IRS</b> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que aún no han declarado sus impuestos, y así puedan recibir los beneficios en efectivo para su familia.
+              Si su único ingreso es de programas beneficiarios, le recomendamos que complete la <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que aún no han declarado sus impuestos, y así puedan recibir los beneficios en efectivo para su familia.
               <br/><br/>
               Si obtuvo ingresos de un programa beneficiario y también tiene ingresos de trabajo, tiene la opción de declarar sus impuestos y recibir los beneficios adicionales para los que podría calificar.
           are_daca_recipients_eligible:
@@ -2767,13 +2767,13 @@ es:
         obtain:
           heading: "¿Cómo recibo el Crédito Tributario por Hijos?"
           body1: "Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia."
-          body2_html: "Si no ha enviado ninguna información al IRS en el último año, pronto podrá enviar su información a través de la <strong>Herramienta Non-Filer del IRS</strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han presentado su declaración de impuestos,  y poder recibir sus pagos."
+          body2_html: |
+            Si no ha enviado ninguna información al IRS en el último año, pronto podrá enviar su información a través de la <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han presentado su declaración de impuestos, y poder recibir sus pagos.
           already_filed:
             subheading: "Si ya declaró los impuestos del 2019 o 2020, no tiene que hacer nada."
             body1: "Si ya declaró los impuestos del 2019 o 2020 y no ha tenido cambios significativos en su hogar, no  necesita hacer nada más. Sabemos que las situaciones familiares pueden cambiar rápidamente. Para recibir la cantidad correcta de dinero del Crédito Tributario por Hijos, puede asegurarse  que el IRS tenga la información correcta sobre las personas que forman parte de su hogar actual."
             body2_html: "Si su situación familiar ha cambiado, pronto va a poder usar el <strong>portal de actualización del Crédito Tributario por Hijos</strong> (CTC Update Portal o CTC UP en inglés) para:"
             body3: "Usted podría optar por no recibir los pagos mensuales del Crédito Tributario por Hijos si:"
-            body4_html: "¡Actualice su información en el <strong>Portal de Actualización de CTC</strong> pronto!"
             update_items:
               - "Actualizar el número de dependientes elegibles en su hogar (por ejemplo, si un niño ya no vive con usted)"
               - "Reportar cambios significativos en sus ingresos familiares"
@@ -2785,17 +2785,15 @@ es:
           not_filed:
             subheading: "Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos."
             body1_html: |
-              <p>Si tiene al menos un hijo que califica y usted ganó menos de $12,400 (o menos de $22,500 si está casado), pronto podrá usar la <strong>Herramienta Non-Filer del IRS</strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han declarado, para:</p>
+              <p>Si tiene al menos un hijo que califica y usted ganó menos de $12,400 (o menos de $22,500 si está casado), pronto podrá usar la <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han declarado, para:</p>
               <ul>
                 <li>obtener el Crédito Tributario por Hijos</li>
                 <li>recibir un pago de estímulo que le falte</li>
                 <li>y recibir dinero en efectivo.</li>
               </ul>
             body2: "Para obtener el Crédito Tributario por Hijos, necesitará verificar su identidad y proporcionar los números de seguro social de sus hijos. Puede registrarse para el Crédito Tributario por Hijos aún si usted tiene muy pocos ingresos o no tiene ingresos, o si recibe otros beneficios federales como Seguridad de Ingreso Suplementario (SSI en inglés) o beneficios por incapacidad (SSDI en inglés)."
-            body3_html: "Puedes apúntesarte cuando la <strong>Herramienta Non-Filer del IRS</strong> esté disponible"
           full_return:
             subheading: "Si usted aún no ha proporcionado su información al IRS (por medio de sus impuestos o por el portal para registrar a las personas que no han declarado), usted puede presentar una declaración de impuestos completa para recibir otros créditos tributarios que se le deben."
-            gyr_link: "GetYourRefund"
             gyr_diy_link: "GetYourRefund - Auto-Servicio (DIY)"
             body1_html: |
               Si usted tiene al menos un hijo que califica y tiene cualquier cantidad de ingresos de trabajo, pero aún no ha declarado impuestos, le recomendamos que declare sus impuestos de 2020. Presentar una declaración de impuestos completa del 2020 le permitirá a usted y a su familia:
@@ -2805,9 +2803,8 @@ es:
                 <li>y obtener el Crédito Tributario por Ingresos de Trabajo para recibir más dinero en efectivo.</li>
               </ul>
             body2_html: "Aquí hay algunas opciones <strong>gratuitas</strong> para declarar impuestos:"
-            body3: ": Si sus ingresos fueron menos de $66,000 usted puede recibir ayuda personalizada de preparadores de impuestos certificados por el IRS. Ellos harán la preparación de impuestos para usted."
-            body4: ": Si sus ingresos fueron más de $66,000 y se siente seguro usando las herramientas en línea, le daremos acceso gratuito a programas digitales para que usted prepare su declaración de impuestos. Habrán expertos listos para ayudarle por chat si lo necesita."
-            cta: "Declare sus impuestos con GetYourRefund"
+            gyr_diy_explanation: ": Si sus ingresos fueron más de $66,000 y se siente seguro usando las herramientas en línea, le daremos acceso gratuito a programas digitales para que usted prepare su declaración de impuestos. Habrán expertos listos para ayudarle por chat si lo necesita."
+        non_filer_sign_up_tool_warning_html: 🦐
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."

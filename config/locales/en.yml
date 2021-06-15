@@ -2670,7 +2670,7 @@ en:
               <br/><br/>
               If you have already filed taxes for tax years 2019 or 2020, you will begin receiving your payments automatically on July 15, 2021, and then on or about the 15th of each month for the next 6 months.
               <br/><br/>
-              If you have not filed taxes in the past two years and need to submit information to claim the Child Tax Credit, you can use the <b>IRS Non-Filer Sign-Up Tool</b>.
+              If you have not filed taxes in the past two years and need to submit information to claim the Child Tax Credit, you can use <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">the IRS Non-Filer Sign-Up Tool</a></strong>.
               <br/><br/>
               If you need to update your address or other information with the IRS you can use the <b>CTC Update Portal (CTC UP)</b> starting in late June.
           how_do_i_know_what_i_received_for_the_stimulus:
@@ -2698,7 +2698,7 @@ en:
             answer_html: |
               There is no minimum income required to get the Child Tax Credit for tax year 2021. Even if your family has $0 in reported income and didn’t work during the previous year, you can still be eligible for the full Child Tax Credit as long as you have a child who has a Social Security Number and was younger than 17 at the end of 2020.
               <br/><br/>
-              If your only income was from benefits programs, we recommend that you complete the <b>IRS Non-Filer Sign-Up Tool</b> to receive cash benefits for your family.
+              If your only income was from benefits programs, we recommend that you complete <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">the IRS Non-Filer Sign-Up Tool</a></strong> to receive cash benefits for your family.
               <br/><br/>
               If you earned income from a benefits program and also some income from working, you have the option to file a full tax return in order to receive the additional benefits that you may qualify for.
           are_daca_recipients_eligible:
@@ -2732,13 +2732,13 @@ en:
         obtain:
           heading: "How do I get the Child Tax Credit?"
           body1: "To provide the Advance Child Tax Credit payments, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your Advance Child Tax Credit payments automatically."
-          body2_html: "If you have not submitted any information to the IRS in the last year, you will soon be able to submit your information through the <strong>IRS Non-Filer Sign-Up Tool</strong> and get your payments."
+          body2_html: |
+            If you have not submitted any information to the IRS in the last year, you can submit your information through <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">the IRS Non-Filer Sign-Up Tool</a></strong> and get your payments.
           already_filed:
             subheading: "If you already filed a 2019, or a 2020 tax return, you don’t have to do anything."
             body1: "If you have already filed a 2019 or 2020 tax return and you have not had major changes to your household, no additional action is needed. We do know that family situations can change quickly. To receive the correct amount of money from the Child Tax Credit, you can make sure that the IRS has the correct information on your current household."
             body2_html: "If your family situation has changed you will soon be able to use the <strong>IRS CTC Update Portal (CTC UP)</strong> to:"
             body3: "You might choose to opt out of receiving monthly Child Tax Credit payments if:"
-            body4_html: "Update Your Information in the <strong>IRS Child Tax Credit Update Portal</strong> soon!"
             update_items:
               - "Update the number of eligible dependents in your household (for example if a child has moved out)"
               - "Report significant changes in household income"
@@ -2749,18 +2749,17 @@ en:
               - "You do not plan on claiming dependents on your 2021 tax return (2022 tax season), for example if you share share custody with someone else and alternate who claims the child as a dependent"
           not_filed:
             subheading: "If you have not filed a tax return, you can sign up to get the Child Tax Credit."
-            body1_html: "If you have at least one qualifying child and earned less than $12,400 (or less than $22,500 if you are married), you will soon be able to use the <strong>IRS Non-Filer Sign-Up Tool</strong> to get the Child Tax Credit, receive a missing stimulus payment, and get cash now."
+            body1_html: |
+              If you have at least one qualifying child and earned less than $12,400 (or less than $22,500 if you are married), you are able to use <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">the IRS Non-Filer Sign-Up Tool</a></strong> to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
             body2: "To get the Child Tax Credit you will need to verify your identity, and provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI."
-            body3_html: "You can sign up once the <strong>IRS Non-Filer Sign-Up Tool</strong> is available"
           full_return:
             subheading: "If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed."
-            gyr_link: "GetYourRefund"
             gyr_diy_link: "GetYourRefund - Do It Yourself"
             body1_html: "If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. Filing a full 2020 tax return will allow your family to claim the Child Tax Credit, receive all three stimulus payments, and the Earned Income Credit to get even more cash now."
             body2_html: "Here are some <strong>free</strong> tax filing options for you:"
-            body3: ": If you earned less than $66,000 you can get personalized support from IRS-certified tax preparers who will complete your taxes for you."
-            body4: ": If you earned more than $66,000 and are comfortable using online tools, we provide free access to tax prep software with experts ready to provide chat support if you need help."
-            cta: "File a Tax Return with GetYourRefund"
+            gyr_diy_explanation: ": If you earned more than $66,000 and are comfortable using online tools, we provide free access to tax prep software with experts ready to provide chat support if you need help."
+        non_filer_sign_up_tool_warning_html: |
+          <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">The IRS Non-Filer Sign-Up Tool</a></strong> can be especially confusing for mixed status families and for people who are legally married but prefer to sign up separately. <strong><a rel="noopener" target="_blank" href="https://www.freefilefillableforms.com/#/fd/childtaxcredit">The IRS Non-Filer Sign-Up Tool</a></strong> is only available in English. If you complete the Sign-Up Tool incorrectly your payments could be significantly delayed. Chat with our tax experts if you need help.
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
