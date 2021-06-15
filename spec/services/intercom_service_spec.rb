@@ -56,20 +56,42 @@ RSpec.describe IntercomService do
   end
 
   describe "#create_intercom_message_from_sms" do
-    let(:incoming_text_message) { create :incoming_text_message, from_phone_number: "+14152515239", client: client, body: "halp" }
+    let(:sms_body) { 'halp' }
+    let(:documents) { [] }
+    let(:incoming_text_message) { create :incoming_text_message, from_phone_number: "+14152515239", client: client, body: sms_body, documents: documents }
 
     context "with no existing contact with phone number" do
       before do
         allow(described_class).to receive(:contact_id_from_sms).with("+14152515239").and_return(nil)
         allow(described_class).to receive_message_chain(:create_or_update_intercom_contact, :id).and_return("fake_new_contact_id")
-        allow(described_class).to receive(:create_new_intercom_thread).with("fake_new_contact_id", incoming_text_message.body)
+        allow(described_class).to receive(:create_new_intercom_thread)
         allow(ClientMessagingService).to receive(:send_system_text_message)
       end
 
       it "creates a new contact, message and conversation for phone number, and sends forwarding message" do
         described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
-        expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "halp")
+        expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", sms_body)
         expect(ClientMessagingService).to have_received(:send_system_text_message).once
+      end
+
+      context "when there is an associated document" do
+        let(:documents) { [build(:document, client: client)] }
+
+        context 'when the sms body was blank' do
+          let(:sms_body) { nil }
+
+          it "mentions that there's a document and links to the client document tab" do
+            described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
+            expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "[client sent an attachment, see #{hub_client_documents_url(client_id: client.id)}]")
+          end
+        end
+
+        context 'when the sms body was not blank' do
+          it "mentions that there's a document and links to the client document tab" do
+            described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
+            expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", "halp [client sent an attachment, see #{hub_client_documents_url(client_id: client.id)}]")
+          end
+        end
       end
     end
 
