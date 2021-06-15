@@ -562,6 +562,9 @@ es:
             one: "Ha seleccionado <strong>Cambiar cesionario y/o estado</strong> para <strong>%{count} devolución</strong> con el siguiente estado:"
             other: "Ha seleccionado <strong>Cambiar cesionario y/o estado</strong> para <strong>%{count} devoluciones</strong> con los siguientes estados:"
           by_clicking_submit: Al hacer clic en enviar, está actualizando el asignado y/o el estado, enviando un mensaje, enviando una nota de equipo y actualizando seguidores.
+    automated_messages:
+      index:
+        title: "Mensajes Automatizados"
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
