@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Hub::CtcClientsController do
-  let!(:organization) { create :organization, allows_greeters: false }
+  let!(:organization) { create :organization, allows_greeters: false, processes_ctc: true }
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
 
   describe "#new" do
@@ -25,13 +25,16 @@ RSpec.describe Hub::CtcClientsController do
     context "as an admin" do
       before { sign_in create(:admin_user) }
 
-      let!(:other_organization) { create :organization }
+      let!(:other_organization) { create :organization, processes_ctc: true }
+      let!(:unavailable_org) { create :organization, processes_ctc: false }
 
       it "loads all the vita partners and shows a select input" do
         get :new
 
         expect(assigns(:vita_partners)).to include organization
         expect(assigns(:vita_partners)).to include other_organization
+        expect(assigns(:vita_partners)).not_to include unavailable_org
+
         expect(response.body).to have_text("Assign to")
       end
     end
