@@ -106,7 +106,7 @@
               <% end %>
             </ul>
             <p>
-              <%=t("views.ctc_pages.home.obtain.already_filed.body4_html") %>
+              <%= t("views.ctc_pages.home.non_filer_sign_up_tool_warning_html") %>
             </p>
           </div>
         </div>
@@ -121,7 +121,7 @@
             </p>
             <p><%=t("views.ctc_pages.home.obtain.not_filed.body2") %></p>
             <p>
-              <%=t("views.ctc_pages.home.obtain.not_filed.body3_html") %>
+              <%= t("views.ctc_pages.home.non_filer_sign_up_tool_warning_html") %>
             </p>
           </div>
         </div>
@@ -134,18 +134,11 @@
             <p><%=t("views.ctc_pages.home.obtain.full_return.body1_html") %></p>
             <p><%=t("views.ctc_pages.home.obtain.full_return.body2_html") %></p>
             <p>
-              <a href="<%= url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'home')%>">
-                <%=t("views.ctc_pages.home.obtain.full_return.gyr_link") %>
-              </a>
-              <%=t("views.ctc_pages.home.obtain.full_return.body3") %>
-            </p>
-            <p>
               <a href="<%= url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'diy')%> ">
-                <%=t("views.ctc_pages.home.obtain.full_return.gyr_diy_link") %>
-              </a>
-              <%=t("views.ctc_pages.home.obtain.full_return.body4") %>
+                <%= t("views.ctc_pages.home.obtain.full_return.gyr_diy_link") %></a><%=
+                  t("views.ctc_pages.home.obtain.full_return.gyr_diy_explanation")
+                %>
             </p>
-            <%= link_to t("views.ctc_pages.home.obtain.full_return.cta"), url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'home') , class: "button button--primary" %>
           </div>
         </div>
       </div>
