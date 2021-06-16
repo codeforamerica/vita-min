@@ -9,5 +9,6 @@ Rails.application.configure do
   config.action_mailer.asset_host = "https://staging.getyourrefund.org"
 
   config.offseason = false
+  config.hide_ctc = false
   Rails.application.default_url_options = config.action_mailer.default_url_options
 end

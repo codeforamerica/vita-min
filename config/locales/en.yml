@@ -1233,6 +1233,20 @@ en:
     pdf_file_type: "%{document_type} must be a PDF file"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} must be associated with a tax year."
   views:
+    ctc:
+      questions:
+        overview:
+          help_text: Just a few simple steps to file and receive your Child Tax Credit
+          title: Let's get started!
+          step1:
+            title: Answer questions
+            help_text: We'll ask a series of questions about yourself and dependents
+          step2:
+            title: Verify your identity
+            help_text: We'll confirm that you are you
+          step3:
+            title: Get the tax benefits you're due
+            help_text: If you choose to file your taxes, we'll help you e-file and get any tax benefits you're due.
     consent_pages:
       consent_to_use:
         title: Consent to Use
