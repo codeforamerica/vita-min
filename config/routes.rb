@@ -267,4 +267,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  get '*unmatched_route', to: 'public_pages#page_not_found'
 end
