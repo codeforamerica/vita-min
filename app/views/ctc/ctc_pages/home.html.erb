@@ -132,13 +132,15 @@
           </a>
           <div class="accordion__content" id="a5">
             <p><%=t("views.ctc_pages.home.obtain.full_return.body1_html") %></p>
-            <p><%=t("views.ctc_pages.home.obtain.full_return.body2_html") %></p>
-            <p>
-              <a href="<%= url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'diy')%> ">
-                <%= t("views.ctc_pages.home.obtain.full_return.gyr_diy_link") %></a><%=
-                  t("views.ctc_pages.home.obtain.full_return.gyr_diy_explanation")
-                %>
-            </p>
+            <% unless ENV['CTC_HIDE_DIY_LINK'] == 'true' %>
+              <p><%=t("views.ctc_pages.home.obtain.full_return.body2_html") %></p>
+              <p>
+                <a href="<%= url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'diy')%> ">
+                  <%= t("views.ctc_pages.home.obtain.full_return.gyr_diy_link") %></a><%=
+                    t("views.ctc_pages.home.obtain.full_return.gyr_diy_explanation")
+                  %>
+              </p>
+            <% end %>
           </div>
         </div>
       </div>
