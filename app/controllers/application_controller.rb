@@ -24,15 +24,15 @@ class ApplicationController < ActionController::Base
   end
 
   def current_intake
-    current_client&.intake || Intake.find_by_id(session[:intake_id])
+    current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
   end
 
   def intake_from_completed_session
-    Intake.find_by_id(session[:completed_intake_id])
+    Intake.find_by_id(session[:completed_intake_id]) unless session[:completed_intake_id].nil?
   end
 
   def current_stimulus_triage
-    StimulusTriage.find_by_id(session[:stimulus_triage_id]) unless hub?
+    StimulusTriage.find_by_id(session[:stimulus_triage_id]) unless (hub? || session[:stimulus_triage_id].nil?)
   end
 
   def clear_intake_session
