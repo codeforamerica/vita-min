@@ -487,35 +487,33 @@ describe ReplacementParametersService do
       end
     end
 
-    context "drop-off email" do
+    context "successfully submitted drop-off email" do
       context "in english" do
-        let(:body) { I18n.t("drop_off_confirmation_message.email.body", locale: "en", doc_type: "Some doc") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.email.body", locale: "en", doc_type: "Some doc") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hello #{client.preferred_name}"
           expect(result).to include "Koala County VITA"
           expect(result).to include("#{client.id}")
-          expect(result).to include "http://test.host/en/portal/login"
         end
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("drop_off_confirmation_message.email.body", locale: "es", doc_type: "Some doc") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.email.body", locale: "es", doc_type: "Some doc") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hola #{client.preferred_name}"
-          expect(result).to include "http://test.host/es/portal/login"
           expect(result).to include "Koala County VITA"
           expect(result).to include("#{client.id}")
         end
       end
     end
 
-    context "drop-off text message" do
+    context "successfully submitted drop-off text message" do
       context "in english" do
-        let(:body) { I18n.t("drop_off_confirmation_message.sms", locale: "en") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.sms", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -526,7 +524,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("drop_off_confirmation_message.sms", locale: "es") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.sms", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process

@@ -2882,24 +2882,6 @@ es:
       body_html: ¡Huy! Parece que estás intentando acceder a una página o un cliente al que no tienes acceso. Póngase en contacto con Soporte para socios en <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> si necesita fusionar un cliente duplicado al que no tiene acceso.
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
-  drop_off_confirmation_message:
-    email:
-      subject: Gracias por enviar su información de impuestos
-      body: |
-        Hola <<Client.PreferredName>>,
-
-        Su información ha sido enviada con éxito a su preparador de impuestos en <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>.
-
-        Su especialista de impuestos revisará su información y se pondrá en contacto con usted de 3-5 días laborables para revisar su situación antes de preparar sus impuestos.
-
-        Puede someter cualquier documento adicional de <a href="<<Client.LoginLink>>">forma segura aquí</a>.
-
-        Si tiene alguna pregunta, puede ponerse en contacto con su especialista de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> o del mensaje de texto 58750.
-
-        ¡Estamos aquí para ayudarle!
-
-        Su equipo de impuestos en GetYourRefund.org
-    sms: Hola <<Client.PreferredName>>, ¡Gracias por enviar su información de impuestos a <<Client.AssignedOrganization>>! Su ID de cliente es <<Client.ClientId>>. Responda a este mensaje si tiene alguna pregunta. Estamos aquí para ayudarle.
   documents:
     documents_help:
       show:

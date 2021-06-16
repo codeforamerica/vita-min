@@ -57,31 +57,6 @@ RSpec.describe Questions::FinalInfoController do
               )
             end
           end
-
-          context "with service type online_intake" do
-            it "sends a success email with online intake copy" do
-              post :update, params: params
-
-              expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-                client: client,
-                message: instance_of(AutomatedMessage::SuccessfulSubmissionOnlineIntake),
-                locale: :en
-              )
-            end
-          end
-
-          context "with at least on tax return with the service type drop_off" do
-            let!(:client) { create :client, tax_returns: [create(:tax_return, service_type: "online_intake", year: 2020), create(:tax_return, service_type: "drop_off")] }
-            it "sends a success email with drop off copy" do
-              post :update, params: params.merge(locale: "es")
-
-              expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-                client: client,
-                message: instance_of(AutomatedMessage::SuccessfulSubmissionDropOff),
-                locale: :es
-              )
-            end
-          end
         end
       end
 
