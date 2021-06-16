@@ -2788,7 +2788,11 @@ en:
             body2_html: "Here are some <strong>free</strong> tax filing options for you:"
             gyr_diy_explanation: ": If you earned more than $66,000 and are comfortable using online tools, we provide free access to tax prep software with experts ready to provide chat support if you need help."
         non_filer_sign_up_tool_warning_html: |
-          <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">The IRS Non-Filer Sign-Up Tool</a></strong> can be especially confusing for mixed status families and for people who are legally married but prefer to sign up separately. <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">The IRS Non-Filer Sign-Up Tool</a></strong> is only available in English. If you complete the Sign-Up Tool incorrectly your payments could be significantly delayed. Chat with our tax experts if you need help.
+          <p><strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">The IRS Non-Filer Sign-Up Tool</a></strong> is difficult to use and if you complete the Sign-Up Tool incorrectly your payments could be significantly delayed.</p>
+
+          <p>The tool is only available in English and it can be especially confusing for people with complex tax situations (for example, mixed status families, people who are legally married but prefer to sign up separately).</p>
+
+          <p>Chat with our tax experts if you need help.</p>
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
