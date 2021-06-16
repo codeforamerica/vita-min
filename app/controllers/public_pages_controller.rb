@@ -31,7 +31,12 @@ class PublicPagesController < ApplicationController
 
   def internal_server_error; end
 
-  def page_not_found; end
+  def page_not_found
+    respond_to do |format|
+      format.html { render 'public_pages/page_not_found', status: 404  }
+      format.any { head 404 }
+    end
+  end
 
   def tax_questions; end
 
