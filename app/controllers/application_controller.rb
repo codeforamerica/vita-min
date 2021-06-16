@@ -171,8 +171,17 @@ class ApplicationController < ActionController::Base
   end
 
   def set_sentry_context
-    Raven.user_context intake_id: current_intake&.id
-    Raven.extra_context visitor_id: visitor_id, is_bot: user_agent.bot?, request_id: request.request_id, user_id: current_user&.id, client_id: current_client&.id
+    Sentry.configure_scope do |scope|
+      scope.set_user(id: current_intake&.id)
+      scope.set_extras(
+        intake_id: current_intake&.id,
+        visitor_id: visitor_id,
+        is_bot: user_agent.bot?,
+        request_id: request.request_id,
+        user_id: current_user&.id,
+        client_id: current_client&.id
+      )
+    end
   end
 
   def switch_locale(&action)
