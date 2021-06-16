@@ -22,13 +22,10 @@ module Questions
 
     def send_confirmation_message
       @client = current_intake.client
-      is_drop_off_client = @client.tax_returns.pluck(:service_type).any? "drop_off"
-
-      message_class = is_drop_off_client ? AutomatedMessage::SuccessfulSubmissionDropOff : AutomatedMessage::SuccessfulSubmissionOnlineIntake
 
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
-        message: message_class.new,
+        message: AutomatedMessage::SuccessfulSubmissionOnlineIntake.new,
         locale: I18n.locale
       )
     end

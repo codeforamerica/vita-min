@@ -15,7 +15,6 @@ module Hub
         AutomatedMessage::InProgressSurvey,
         AutomatedMessage::CompletionSurvey,
         AutomatedMessage::DocumentsReminderLink,
-        AutomatedMessage::DropOffConfirmationMessage,
       ]
 
       @messages = message_classes.map do |message_class|
