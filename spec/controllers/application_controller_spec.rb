@@ -805,41 +805,46 @@ RSpec.describe ApplicationController do
   describe "#set_sentry_context" do
     context "user context" do
       let(:intake) { create :intake }
+      let(:fake_sentry_scope) { double(set_user: nil, set_extras: nil) }
+
       before do
         allow(subject).to receive(:current_intake).and_return(intake)
-        allow(Raven).to receive(:user_context)
+        allow(Sentry).to receive(:configure_scope).and_yield(fake_sentry_scope)
       end
 
       it "informs Sentry that the intake ID is part of the user identity" do
         subject.set_sentry_context
-        expect(Raven).to have_received(:user_context).with hash_including(intake_id: intake.id)
+        expect(fake_sentry_scope).to have_received(:set_user).with hash_including(id: intake.id)
       end
     end
 
     context "extra context" do
+      let(:intake) { create :intake }
       let(:visitor_id) { "visitor_id" }
       let(:user_agent) { instance_double(DeviceDetector, bot?: true) }
       let(:current_user) { instance_double(User, id: 3) }
       let(:current_client) { instance_double(Client, id: 4) }
       let(:request) { instance_double(ActionDispatch::Request, request_id: 5) }
+      let(:fake_sentry_scope) { double(set_user: nil, set_extras: nil) }
 
       before do
+        allow(subject).to receive(:current_intake).and_return(intake)
         allow(subject).to receive(:user_agent).and_return(user_agent)
         allow(subject).to receive(:visitor_id).and_return(visitor_id)
         allow(subject).to receive(:current_user).and_return(current_user)
         allow(subject).to receive(:current_client).and_return(current_client)
-        allow(current_client).to receive(:intake)
         allow(subject).to receive(:request).and_return(request)
-        allow(Raven).to receive(:extra_context)
+        allow(Sentry).to receive(:configure_scope).and_yield(fake_sentry_scope)
       end
 
       it "passes visitor ID, bot status, request ID, current user ID, and current client ID to Sentry" do
         subject.set_sentry_context
-        expect(Raven).to have_received(:extra_context).with(hash_including(visitor_id: visitor_id))
-        expect(Raven).to have_received(:extra_context).with(hash_including(is_bot: true))
-        expect(Raven).to have_received(:extra_context).with(hash_including(user_id: 3))
-        expect(Raven).to have_received(:extra_context).with(hash_including(client_id: 4))
-        expect(Raven).to have_received(:extra_context).with(hash_including(request_id: 5))
+        expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(intake_id: intake.id))
+        expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(visitor_id: visitor_id))
+        expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(is_bot: true))
+        expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(user_id: 3))
+        expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(client_id: 4))
+        expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(request_id: 5))
       end
     end
   end

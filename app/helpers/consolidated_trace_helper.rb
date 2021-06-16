@@ -1,6 +1,6 @@
 ##
 # provides functions for recording error information for traceability. submits
-# to both the rails logger and to Raven (Sentry).
+# to both the rails logger and to Sentry.
 module ConsolidatedTraceHelper
 
   ##
@@ -18,15 +18,13 @@ module ConsolidatedTraceHelper
 
   ##
   # when wrapped around a block of code, this will add the included
-  # `extra_context` and `severity` (as `:level`) to the Raven context, then restore
+  # `extra_context` and `severity` (as `:level`) to the Sentry context, then restore
   # the original context after the block executes.
   def unwind_extra_context(extra_context = {}, severity = Severity::UNKNOWN)
-    last_context = Raven.context.extra
-    Raven.extra_context(extra_context.merge(level: severity))
-
-    yield
-
-    Raven.context.extra = last_context
+    Sentry.with_scope do |scope|
+      scope.set_extras(extra_context.merge(level: severity))
+      yield
+    end
   end
 
   ##
