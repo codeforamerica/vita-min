@@ -194,6 +194,7 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::CtcIntake < Intake
+
   def document_types_definitely_needed
     []
   end
