@@ -4,5 +4,14 @@
 <% content_for :footer do %>
   <%= render "shared/footer", variation: "ctc" %>
 <% end %>
+<% content_for :ctc_meta_tags do %>
+  <meta name="description" content="<%= t("views.layouts.ctc.meta.description") %>">
+  <meta property="og:title" content="<%= content_for(:page_title) %>">
+  <meta property="og:description" content="<%= t("views.layouts.ctc.meta.description") %>">
+  <meta property="og:image" content="<%= image_url("social_share_banner-ctc.png") %>">
+  <meta property="twitter:title" content="<%= content_for(:page_title) %>">
+  <meta property="twitter:description" content="<%= t("views.layouts.ctc.meta.description") %>">
+  <meta property="twitter:image" content="<%= image_url("social_share_banner-ctc.png") %>">
+<% end %>
 
 <%= render template: "layouts/application" %>

@@ -1453,6 +1453,9 @@ en:
       application:
         meta:
           description: Maximize your refund by filing with our trusted volunteers. Available to you online or in person!
+      ctc:
+        meta:
+          description: Cash in your family’s pocket every month for the things you need.
       document_upload:
         dont_have: I don't have this right now.
         remove_confirmation: Are you sure you want to remove "%{filename}"?
@@ -2656,7 +2659,7 @@ en:
         search_radius: Within %{distance} miles of %{zip} (%{zip_name})
     ctc_pages:
       home:
-        title: "Child Tax Credit"
+        title: "Get Your Child Tax Credit"
         header: "Child Tax Credit"
         subheader: "Putting cash in your family’s pocket every month for the things you need, even if you make little or no money."
         claim_credit: "Claim your credit"
