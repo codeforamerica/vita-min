@@ -200,7 +200,6 @@ class Intake::GyrIntake < Intake
   enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_energy_efficient_items
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_health_insurance
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
-  enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
   enum claimed_by_another: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :claimed_by_another
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
   enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_conversation
@@ -260,7 +259,6 @@ class Intake::GyrIntake < Intake
   enum paid_school_supplies: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_school_supplies
   enum paid_student_loan_interest: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_student_loan_interest
   enum phone_number_can_receive_texts: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :phone_number_can_receive_texts
-  enum primary_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_consented_to_service
   enum received_alimony: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_alimony
   enum received_homebuyer_credit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_homebuyer_credit
   enum received_irs_letter: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_irs_letter
