@@ -1377,6 +1377,9 @@ es:
       application:
         meta:
           description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
+      ctc:
+        meta:
+          description: Dinero en efectivo en el bolsillo de su familia cada mes para las cosas que necesita
       document_upload:
         dont_have: No lo tengo ahora
         remove_confirmation: ¿Está seguro de que desea quitar "%{filename}"?
