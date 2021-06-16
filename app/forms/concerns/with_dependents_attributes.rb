@@ -11,7 +11,7 @@ module WithDependentsAttributes
       return @client.present? ? @client.intake.dependents : Dependent.none
     end
 
-    intake = Intake.new
+    intake = Intake::GyrIntake.new
     @dependents_attributes&.each do |_, v|
       next if v["_destroy"] == "1"
 

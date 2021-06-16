@@ -92,10 +92,7 @@ module Hub
 
     def default_attributes
       {
-        needs_help_2020: :yes,
-        needs_help_2019: :no,
-        needs_help_2018: :no,
-        needs_help_2017: :no,
+          type: "Intake::CtcIntake"
       }
     end
 

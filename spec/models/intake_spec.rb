@@ -158,6 +158,7 @@
 #  street_address                                       :string
 #  timezone                                             :string
 #  triage_source_type                                   :string
+#  type                                                 :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  wants_to_itemize                                     :integer          default("unfilled"), not null

@@ -117,10 +117,6 @@ RSpec.describe Hub::CreateCtcClientForm do
         end.to change(TaxReturn, :count).by 1
         tax_return = Client.last.tax_returns.first
         intake = Intake.last
-        expect(intake.needs_help_2020).to eq "yes"
-        expect(intake.needs_help_2019).to eq "no"
-        expect(intake.needs_help_2018).to eq "no"
-        expect(intake.needs_help_2017).to eq "no"
         expect(tax_return.year).to eq 2020
         expect(tax_return.certification_level).to eq "basic"
         expect(tax_return.status).to eq "prep_ready_for_prep"

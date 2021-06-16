@@ -5,7 +5,7 @@ module Questions
     layout "intake"
 
     def current_intake
-      Intake.new
+      Intake::GyrIntake.new
     end
 
     private
