@@ -1,5 +1,7 @@
 module Questions
-  class DemographicVeteranController < AuthenticatedIntakeController
+  class DemographicVeteranController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "intake"
 
     def self.show?(intake)

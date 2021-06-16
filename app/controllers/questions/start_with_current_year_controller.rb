@@ -1,5 +1,6 @@
 module Questions
-  class StartWithCurrentYearController < AnonymousIntakeController
+  class StartWithCurrentYearController < QuestionsController
+    include AnonymousIntakeConcern
     layout "intake"
 
     private

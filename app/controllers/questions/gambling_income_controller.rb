@@ -1,5 +1,7 @@
 module Questions
-  class GamblingIncomeController < AuthenticatedIntakeController
+  class GamblingIncomeController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)

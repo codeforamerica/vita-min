@@ -1,5 +1,7 @@
 module Questions
-  class AdditionalInfoController < AuthenticatedIntakeController
+  class AdditionalInfoController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "intake"
 
     def tracking_data

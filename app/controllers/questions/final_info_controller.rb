@@ -1,5 +1,7 @@
 module Questions
-  class FinalInfoController < AuthenticatedIntakeController
+  class FinalInfoController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "intake"
 
     private

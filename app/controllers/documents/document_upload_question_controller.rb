@@ -1,5 +1,6 @@
 module Documents
-  class DocumentUploadQuestionController < Questions::AuthenticatedIntakeController
+  class DocumentUploadQuestionController < Questions::QuestionsController
+    include AuthenticatedClientConcern
     layout "document_upload"
 
     delegate :document_type_key, to: :class

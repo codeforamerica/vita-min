@@ -1,7 +1,6 @@
 class DependentsController < ApplicationController
-  include ClientAccessControlConcern
+  include AuthenticatedClientConcern
 
-  before_action :require_client_login, :redirect_to_still_needs_help_if_necessary
   helper_method :next_path
 
   def index

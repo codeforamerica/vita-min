@@ -1,5 +1,7 @@
 module Questions
-  class MedicalExpensesController < AuthenticatedIntakeController
+  class MedicalExpensesController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)

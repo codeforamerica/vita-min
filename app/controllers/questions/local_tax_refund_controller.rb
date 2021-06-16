@@ -1,5 +1,7 @@
 module Questions
-  class LocalTaxRefundController < AuthenticatedIntakeController
+  class LocalTaxRefundController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)

@@ -1,5 +1,7 @@
 module Questions
-  class JobCountController < AuthenticatedIntakeController
+  class JobCountController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "intake"
   end
 end

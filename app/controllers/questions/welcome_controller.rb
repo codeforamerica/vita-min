@@ -1,5 +1,7 @@
 module Questions
-  class WelcomeController < AnonymousIntakeController
+  class WelcomeController < QuestionsController
+    include AnonymousIntakeConcern
+
     skip_before_action :require_intake
     layout "application"
 

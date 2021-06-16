@@ -1,5 +1,7 @@
 module Questions
-  class StudentController < AuthenticatedIntakeController
+  class StudentController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     private

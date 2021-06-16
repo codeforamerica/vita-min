@@ -1,5 +1,7 @@
 module Questions
-  class DemographicSpouseEthnicityController < AuthenticatedIntakeController
+  class DemographicSpouseEthnicityController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "intake"
 
     def self.show?(intake)

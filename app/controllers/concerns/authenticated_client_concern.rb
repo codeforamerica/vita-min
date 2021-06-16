@@ -1,7 +1,15 @@
-module ClientAccessControlConcern
+module AuthenticatedClientConcern
   extend ActiveSupport::Concern
 
+  included do
+    before_action :require_client_login, :redirect_to_still_needs_help_if_necessary
+  end
+
   private
+
+  def current_intake
+    current_client&.intake
+  end
 
   def require_client_login
     if current_client.blank?

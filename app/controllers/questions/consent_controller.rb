@@ -1,5 +1,6 @@
 module Questions
-  class ConsentController < AnonymousIntakeController
+  class ConsentController < QuestionsController
+    include AnonymousIntakeConcern
     layout "intake"
 
     def illustration_path; end

@@ -1,5 +1,6 @@
 module Questions
-  class ChatWithUsController < AnonymousIntakeController
+  class ChatWithUsController < QuestionsController
+    include AnonymousIntakeConcern
     layout "intake"
 
     def edit
