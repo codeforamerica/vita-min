@@ -2768,7 +2768,7 @@ es:
           heading: "¿Cómo recibo el Crédito Tributario por Hijos?"
           body1: "Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia."
           body2_html: |
-            Si no ha enviado ninguna información al IRS en el último año, pronto podrá enviar su información a través de la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han presentado su declaración de impuestos, y poder recibir sus pagos.
+            Si no ha enviado información alguna al IRS en el último año, puede enviar su información a través de la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han presentado su declaración de impuestos, y poder recibir sus pagos.
           already_filed:
             subheading: "Si ya declaró los impuestos del 2019 o 2020, no tiene que hacer nada."
             body1: "Si ya declaró los impuestos del 2019 o 2020 y no ha tenido cambios significativos en su hogar, no  necesita hacer nada más. Sabemos que las situaciones familiares pueden cambiar rápidamente. Para recibir la cantidad correcta de dinero del Crédito Tributario por Hijos, puede asegurarse  que el IRS tenga la información correcta sobre las personas que forman parte de su hogar actual."
@@ -2785,7 +2785,7 @@ es:
           not_filed:
             subheading: "Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos."
             body1_html: |
-              <p>Si tiene al menos un hijo que califica y usted ganó menos de $12,400 (o menos de $22,500 si está casado), pronto podrá usar la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han declarado, para:</p>
+              <p>Si tiene al menos un hijo que califica y usted ganó menos de $12,400 (o menos de $22,500 si está casado), usted puede usar la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han declarado, para:</p>
               <ul>
                 <li>obtener el Crédito Tributario por Hijos</li>
                 <li>recibir un pago de estímulo que le falte</li>
@@ -2804,7 +2804,12 @@ es:
               </ul>
             body2_html: "Aquí hay algunas opciones <strong>gratuitas</strong> para declarar impuestos:"
             gyr_diy_explanation: ": Si sus ingresos fueron más de $66,000 y se siente seguro usando las herramientas en línea, le daremos acceso gratuito a programas digitales para que usted prepare su declaración de impuestos. Habrán expertos listos para ayudarle por chat si lo necesita."
-        non_filer_sign_up_tool_warning_html: 🦐
+        non_filer_sign_up_tool_warning_html: |
+          <p>La <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés) es difícil de usar y si la usa de forma incorrecta le podría causar una gran demora en recibir sus pagos.</p>
+
+          <p>La herramienta solo está disponible en inglés y puede ser muy confusa para personas con situaciones tributarias más complicadas. (Por ejemplo, para familias de estatus mixto, o personas legalmente casadas que prefieren registrarse por separado.)</p>
+
+          <p>Hable con nuestros expertos en impuestos si necesita ayuda.</p>
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
