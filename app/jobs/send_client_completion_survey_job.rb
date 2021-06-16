@@ -15,18 +15,20 @@ class SendClientCompletionSurveyJob < ApplicationJob
     survey_link = "https://codeforamerica.co1.qualtrics.com/jfe/form/#{survey_code}?ExternalDataReference=#{client.id}"
 
     locale = client.intake.locale
+    message = AutomatedMessage::CompletionSurvey.new
+
     case best_contact_method
     when :email
       ClientMessagingService.send_system_email(
         client: client,
-        body: I18n.t("messages.surveys.completion.email.body", locale: locale, survey_link: survey_link),
-        subject: I18n.t("messages.surveys.completion.email.subject", locale: locale),
+        body: message.email_body(locale: locale, survey_link: survey_link),
+        subject: message.email_subject(locale: locale),
         locale: locale
       )
     when :sms_phone_number
       ClientMessagingService.send_system_text_message(
         client: client,
-        body: I18n.t("messages.surveys.completion.sms", locale: locale, survey_link: survey_link),
+        body: message.sms_body(locale: locale, survey_link: survey_link),
         locale: locale
       )
     end

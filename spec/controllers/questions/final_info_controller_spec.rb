@@ -40,9 +40,7 @@ RSpec.describe Questions::FinalInfoController do
               post :update, params: params
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                email_body: I18n.t("messages.successful_submission_online_intake.email_body", locale: "en"),
-                sms_body: I18n.t("messages.successful_submission_online_intake.sms_body", locale: "en"),
-                subject: I18n.t("messages.successful_submission_online_intake.subject", locale: "en"),
+                message: instance_of(AutomatedMessage::SuccessfulSubmissionOnlineIntake),
                 locale: :en
               )
             end
@@ -54,9 +52,7 @@ RSpec.describe Questions::FinalInfoController do
 
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                email_body: I18n.t("messages.successful_submission_online_intake.email_body", locale: "es"),
-                sms_body: I18n.t("messages.successful_submission_online_intake.sms_body", locale: "es"),
-                subject: I18n.t("messages.successful_submission_online_intake.subject", locale: "es"),
+                message: instance_of(AutomatedMessage::SuccessfulSubmissionOnlineIntake),
                 locale: :es
               )
             end
@@ -68,9 +64,7 @@ RSpec.describe Questions::FinalInfoController do
 
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                email_body: I18n.t("messages.successful_submission_online_intake.email_body", locale: "en"),
-                sms_body: I18n.t("messages.successful_submission_online_intake.sms_body", locale: "en"),
-                subject: I18n.t("messages.successful_submission_online_intake.subject", locale: "en"),
+                message: instance_of(AutomatedMessage::SuccessfulSubmissionOnlineIntake),
                 locale: :en
               )
             end
@@ -83,9 +77,7 @@ RSpec.describe Questions::FinalInfoController do
 
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                email_body: I18n.t("messages.successful_submission_drop_off.email_body", locale: "es"),
-                sms_body: I18n.t("messages.successful_submission_drop_off.sms_body", locale: "es"),
-                subject: I18n.t("messages.successful_submission_drop_off.subject", locale: "es"),
+                message: instance_of(AutomatedMessage::SuccessfulSubmissionDropOff),
                 locale: :es
               )
             end

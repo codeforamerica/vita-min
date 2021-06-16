@@ -24,11 +24,11 @@ module Questions
       @client = current_intake.client
       is_drop_off_client = @client.tax_returns.pluck(:service_type).any? "drop_off"
 
+      message_class = is_drop_off_client ? AutomatedMessage::SuccessfulSubmissionDropOff : AutomatedMessage::SuccessfulSubmissionOnlineIntake
+
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
-        email_body: is_drop_off_client ? I18n.t("messages.successful_submission_drop_off.email_body") : I18n.t("messages.successful_submission_online_intake.email_body"),
-        sms_body: is_drop_off_client ? I18n.t("messages.successful_submission_drop_off.sms_body") : I18n.t("messages.successful_submission_online_intake.sms_body"),
-        subject: is_drop_off_client ? I18n.t("messages.successful_submission_drop_off.subject") : I18n.t("messages.successful_submission_online_intake.subject"),
+        message: message_class.new,
         locale: I18n.locale
       )
     end

@@ -104,9 +104,7 @@ RSpec.describe Hub::CreateClientForm do
           described_class.new(params).save(current_user)
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: Client.last,
-            sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "en"),
-            email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "en"),
-            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "en"),
+            message: instance_of(AutomatedMessage::DropOffConfirmationMessage),
             locale: "en"
           )
         end
@@ -121,9 +119,7 @@ RSpec.describe Hub::CreateClientForm do
 
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: Client.last,
-            sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "es"),
-            email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "es"),
-            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "es"),
+            message: instance_of(AutomatedMessage::DropOffConfirmationMessage),
             locale: "es"
           )
         end
