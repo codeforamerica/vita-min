@@ -7,12 +7,9 @@ module Documents
     def show; end
 
     def send_reminder
-      doc_type = document_type_from_param.key
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
-        email_body: I18n.t("documents.reminder_link.email_body", doc_type: doc_type),
-        sms_body: I18n.t("documents.reminder_link.sms_body", doc_type: doc_type),
-        subject: I18n.t("documents.reminder_link.subject"),
+        message: AutomatedMessage::DocumentsReminderLink.new(doc_type: document_type_from_param),
         locale: I18n.locale
       )
       flash[:notice] = I18n.t("documents.reminder_link.notice")

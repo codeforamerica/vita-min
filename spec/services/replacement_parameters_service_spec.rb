@@ -352,7 +352,7 @@ describe ReplacementParametersService do
 
     context "getting started email" do
       context "in english" do
-        let(:body) { I18n.t("messages.getting_started.email_body", locale: "en") }
+        let(:body) { I18n.t("messages.getting_started.email.body", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -364,7 +364,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.getting_started.email_body", locale: "es") }
+        let(:body) { I18n.t("messages.getting_started.email.body", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -377,7 +377,7 @@ describe ReplacementParametersService do
 
     context "getting started text message" do
       context "in english" do
-        let(:body) { I18n.t("messages.getting_started.sms_body", locale: "en") }
+        let(:body) { I18n.t("messages.getting_started.sms", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -388,7 +388,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.getting_started.sms_body", locale: "es") }
+        let(:body) { I18n.t("messages.getting_started.sms", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -401,7 +401,7 @@ describe ReplacementParametersService do
 
     context "successfully submitted email" do
       context "in english" do
-        let(:body) { I18n.t("messages.successful_submission_online_intake.email_body", locale: "en") }
+        let(:body) { I18n.t("messages.successful_submission_online_intake.email.body", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -411,7 +411,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.successful_submission_online_intake.email_body", locale: "es") }
+        let(:body) { I18n.t("messages.successful_submission_online_intake.email.body", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -423,7 +423,7 @@ describe ReplacementParametersService do
 
     context "successfully submitted text message" do
       context "in english" do
-        let(:body) { I18n.t("messages.successful_submission_online_intake.sms_body", locale: "en") }
+        let(:body) { I18n.t("messages.successful_submission_online_intake.sms", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -433,7 +433,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.successful_submission_drop_off.sms_body", locale: "es") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.sms", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -445,7 +445,7 @@ describe ReplacementParametersService do
 
     context "document help email" do
       context "in english" do
-        let(:body) { I18n.t("documents.reminder_link.email_body", locale: "en", doc_type: "Some doc") }
+        let(:body) { I18n.t("documents.reminder_link.email.body", locale: "en", doc_type: "Some doc") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -455,7 +455,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("documents.reminder_link.email_body", locale: "es", doc_type: "Some doc") }
+        let(:body) { I18n.t("documents.reminder_link.email.body", locale: "es", doc_type: "Some doc") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -467,7 +467,7 @@ describe ReplacementParametersService do
 
     context "document help text message" do
       context "in english" do
-        let(:body) { I18n.t("documents.reminder_link.sms_body", locale: "en", doc_type: "Some doc") }
+        let(:body) { I18n.t("documents.reminder_link.sms", locale: "en", doc_type: "Some doc") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -477,7 +477,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("documents.reminder_link.sms_body", locale: "es", doc_type: "Some doc") }
+        let(:body) { I18n.t("documents.reminder_link.sms", locale: "es", doc_type: "Some doc") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -515,7 +515,7 @@ describe ReplacementParametersService do
 
     context "drop-off text message" do
       context "in english" do
-        let(:body) { I18n.t("drop_off_confirmation_message.sms.body", locale: "en") }
+        let(:body) { I18n.t("drop_off_confirmation_message.sms", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -526,7 +526,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("drop_off_confirmation_message.sms.body", locale: "es") }
+        let(:body) { I18n.t("drop_off_confirmation_message.sms", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process

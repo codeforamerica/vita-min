@@ -15,9 +15,7 @@ module Questions
       current_intake.advance_tax_return_statuses_to("intake_in_progress")
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
-        email_body: I18n.t("messages.getting_started.email_body"),
-        subject: I18n.t("messages.getting_started.email_subject"),
-        sms_body: I18n.t("messages.getting_started.sms_body"),
+        message: AutomatedMessage::GettingStarted.new,
         locale: I18n.locale
       )
       Intake14446PdfJob.perform_later(current_intake, "Consent Form 14446.pdf")

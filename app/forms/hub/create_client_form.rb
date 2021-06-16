@@ -68,9 +68,7 @@ module Hub
       locale = @client.intake.preferred_interview_language == "es" ? "es" : "en"
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: @client,
-        sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: locale),
-        email_body: I18n.t("drop_off_confirmation_message.email.body", locale: locale),
-        subject: I18n.t("drop_off_confirmation_message.email.subject", locale: locale),
+        message: AutomatedMessage::DropOffConfirmationMessage.new,
         locale: locale
       )
 

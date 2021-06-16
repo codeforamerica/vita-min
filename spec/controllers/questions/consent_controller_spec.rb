@@ -116,9 +116,7 @@ RSpec.describe Questions::ConsentController do
 
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: intake.client,
-            email_body: I18n.t("messages.getting_started.email_body", locale: "en"),
-            sms_body: I18n.t("messages.getting_started.sms_body", locale: "en"),
-            subject: "Getting your taxes started with GetYourRefund",
+            message: instance_of(AutomatedMessage::GettingStarted),
             locale: :en
           )
         end
@@ -134,9 +132,7 @@ RSpec.describe Questions::ConsentController do
 
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: intake.client,
-            email_body: I18n.t("messages.getting_started.email_body", locale: "es"),
-            sms_body: I18n.t("messages.getting_started.sms_body", locale: "es"),
-            subject: "Comience a tramitar sus impuestos con GetYourRefund",
+            message: instance_of(AutomatedMessage::GettingStarted),
             locale: :es
           )
         end

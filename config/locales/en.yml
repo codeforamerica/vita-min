@@ -1020,20 +1020,21 @@ en:
     default_subject: Update from GetYourRefund
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_online_intake:
-      subject: Your tax information has been successfully submitted!
-      email_body: |
-        Hello <<Client.PreferredName>>,
+      email:
+        subject: Your tax information has been successfully submitted!
+        body: |
+          Hello <<Client.PreferredName>>,
 
-        Your tax information has been successfully submitted! Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
+          Your tax information has been successfully submitted! Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
 
-        Check your progress and add additional documents here: <<Client.LoginLink>>
+          Check your progress and add additional documents here: <<Client.LoginLink>>
 
-        If you have any questions, please reply to this message.
+          If you have any questions, please reply to this message.
 
-        We’re here to help!
+          We’re here to help!
 
-        Your tax team at GetYourRefund.org
-      sms_body: |
+          Your tax team at GetYourRefund.org
+      sms: |
         Hello <<Client.PreferredName>>,
         Your tax information has been successfully submitted! Your tax specialist will review your information and reach out in 3-5 business days for a phone review of your situation before preparing your taxes.
         Check your progress and add additional documents here: <<Client.LoginLink>>
@@ -1041,39 +1042,41 @@ en:
         We’re here to help!
         Your tax team at GetYourRefund.org
     successful_submission_drop_off:
-      subject: Your tax information has been successfully submitted!
-      email_body: |
-        Hello <<Client.PreferredName>>,
+      email:
+        subject: Your tax information has been successfully submitted!
+        body: |
+          Hello <<Client.PreferredName>>,
 
-        Your tax information has been successfully submitted to your tax preparer at <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>.
+          Your tax information has been successfully submitted to your tax preparer at <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>.
 
-        Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
+          Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
 
-        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
+          If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
 
-        We’re here to help!
-        Your tax team at GetYourRefund.org
-      sms_body: |
+          We’re here to help!
+          Your tax team at GetYourRefund.org
+      sms: |
         Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
     getting_started:
-      email_body: |
-        Hello <<Client.PreferredName>>,
+      email:
+        subject: Getting your taxes started with GetYourRefund
+        body: |
+          Hello <<Client.PreferredName>>,
 
-        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your Client ID is <<Client.ClientId>>.
-        We will begin to prepare your taxes once we have all of your required information and tax documents.
+          Thanks for starting your taxes with GetYourRefund - you’re almost there! Your Client ID is <<Client.ClientId>>.
+          We will begin to prepare your taxes once we have all of your required information and tax documents.
 
-        Check your progress and add additional documents here: <<Client.LoginLink>>
+          Check your progress and add additional documents here: <<Client.LoginLink>>
 
-        The entire GetYourRefund process will take 2-3weeks.
+          The entire GetYourRefund process will take 2-3weeks.
 
-        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
+          If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
-        Remember, we’ll review everything with you over the phone before filing. Complete our form to the best of your ability and we’ll help you get the tax credits that belong to you!
+          Remember, we’ll review everything with you over the phone before filing. Complete our form to the best of your ability and we’ll help you get the tax credits that belong to you!
 
-        We’re here to help!
-        Your Tax Team at GetYourRefund.org
-      email_subject: Getting your taxes started with GetYourRefund
-      sms_body: |
+          We’re here to help!
+          Your Tax Team at GetYourRefund.org
+      sms: |
         Hello <<Client.PreferredName>>,
         Thanks for starting your taxes with GetYourRefund - you’re almost there! Your Client ID is <<Client.ClientId>> We will begin to prepare your taxes once we have all of your required information and tax documents. Check your progress and add additional documents here: <<Client.LoginLink>> The entire GetYourRefund process will take 2-3 weeks.
         Respond to this message if you have any questions. We’re here to help!
@@ -2858,8 +2861,7 @@ en:
 
         We’re here to help!
         Your tax team at GetYourRefund.org
-    sms:
-      body: Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
+    sms: Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
   documents:
     documents_help:
       show:
@@ -2871,12 +2873,13 @@ en:
         title: "Document help"
     reminder_link:
       notice: "Great! We just sent you a reminder link."
-      subject: Your tax document reminder
-      email_body: |
-        Hello <<Client.PreferredName>>,
-        We received your request for a reminder. Please <a href="<<Client.LoginLink>>">login here</a> to upload %{doc_type} documents.
-        Your tax team at GetYourRefund
-      sms_body: |
+      email:
+        subject: Your tax document reminder
+        body: |
+          Hello <<Client.PreferredName>>,
+          We received your request for a reminder. Please <a href="<<Client.LoginLink>>">login here</a> to upload %{doc_type} documents.
+          Your tax team at GetYourRefund
+      sms: |
         Hello <<Client.PreferredName>>,
         We received your request for a reminder. Please login here to upload %{doc_type} documents: <<Client.LoginLink>>
         Your tax team at GetYourRefund

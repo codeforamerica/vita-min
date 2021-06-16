@@ -13,18 +13,20 @@ class SendClientInProgressSurveyJob < ApplicationJob
 
     survey_link = "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_6PDoi6ecHeQYiuq?ExternalDataReference=#{client.id}"
     locale = client.intake.locale
+    message = AutomatedMessage::InProgressSurvey.new
+
     case best_contact_method
     when :email
       ClientMessagingService.send_system_email(
         client: client,
-        body: I18n.t("messages.surveys.in_progress.email.body", locale: locale, survey_link: survey_link),
-        subject: I18n.t("messages.surveys.in_progress.email.subject", locale: client.intake.locale),
+        body: message.email_body(locale: locale, survey_link: survey_link),
+        subject: message.email_subject(locale: client.intake.locale),
         locale: locale
       )
     when :sms_phone_number
       ClientMessagingService.send_system_text_message(
         client: client,
-        body: I18n.t("messages.surveys.in_progress.sms", locale: locale, survey_link: survey_link),
+        body: message.sms_body(locale: locale, survey_link: survey_link),
         locale: locale
       )
     end

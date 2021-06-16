@@ -39,7 +39,7 @@
     border-left:20px solid #E5E5EA;
     border-bottom-right-radius: 16px 14px;
     transform:translate(0, -2px);
-    z-index: -2;
+    z-index: 1;
   }
 
   &:after {
@@ -48,6 +48,6 @@
     background: white;
     border-bottom-right-radius: 10px;
     transform:translate(-30px, -2px);
-    z-index: -1;
+    z-index: 2;
   }
 }
