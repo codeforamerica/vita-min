@@ -30,41 +30,35 @@
           </li>
         <% end %>
 
-        <li>
-          <%= link_to about_us_path do %>
-            <%= t("views.public_pages.about_us.title") %>
-          <% end %>
-        </li>
-
-        <li>
-          <%= link_to faq_path do %>
-            <%= t("views.public_pages.faq.title") %>
-          <% end %>
-        </li>
-
         <% unless variation == "ctc" %>
+          <li>
+            <%= link_to about_us_path do %>
+              <%= t("views.public_pages.about_us.title") %>
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to faq_path do %>
+              <%= t("views.public_pages.faq.title") %>
+            <% end %>
+          </li>
+
           <li>
             <%= link_to stimulus_path do %>
               <%= t("views.public_pages.stimulus_payment.title") %>
             <% end %>
           </li>
-        <% end %>
 
-        <% unless variation == "ctc" %>
           <li>
             <%= mail_to "support@getyourrefund.org" %>
           </li>
-        <% end %>
 
-        <% unless variation == "ctc" %>
           <li>
             <%= link_to vita_providers_path do %>
               <%= t("general.find_location") %>
             <% end %>
           </li>
-        <% end %>
 
-        <% unless variation == "ctc" %>
           <li>
             <%= link_to privacy_path do %>
               <%= t("views.public_pages.privacy_policy.title") %>
