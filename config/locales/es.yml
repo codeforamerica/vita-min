@@ -1060,34 +1060,6 @@ es:
         Hola <<Client.PreferredName>>,
         Gracias por comenzar sus impuestos con GetYourRefund. ¡Ya casi ha terminado! Su ID de cliente es <<Client.ClientId>>. Comenzaremos a preparar sus impuestos una vez que tengamos toda la información y todo los documentos fiscales requeridos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> El proceso completo de GetYourRefund tomará de 2 a 3 semanas.
         Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!
-    still_needs_help:
-      email:
-        body: |
-          Hola <<Client.PreferredName>>,
-
-          ¡Gracias por su paciencia! Estamos trabajando duro para poder ayudar a cada persona declarar sus impuestos. En este momento, nuestro equipo está a capacidad, pero podremos ayudarle con su declaración de impuestos durante el verano.
-
-          Si todavía necesita ayuda con sus impuestos y desea ser contactado en Junio, por favor inicie una sesión en el portal de GetYourRefund y háganos saber usando este enlace: %{link}
-
-          Si está interesado en declarar antes, puede usar nuestro servicio gratuito Do It Yourself (DIY) aquí: https://www.getyourrefund.org/es/diy/file-yourself.
-
-          Gracias,
-
-          Su equipo de impuestos de GetYourRefund
-        subject: ¿Aún necesita ayuda con sus impuestos?
-      sms:
-        body: |
-          Hola <<Client.PreferredName>>,
-
-          ¡Gracias por su paciencia! Estamos trabajando duro para poder ayudar a cada persona declarar sus impuestos. En este momento, nuestro equipo está a capacidad, pero podremos ayudarle con su declaración de impuestos durante el verano.
-
-          Si todavía necesita ayuda con sus impuestos y desea ser contactado en Junio, por favor inicie una sesión en el portal de GetYourRefund y háganos saber usando este enlace: %{link}
-
-          Si está interesado en declarar antes, puede usar nuestro servicio gratuito Do It Yourself (DIY) aquí: https://www.getyourrefund.org/es/diy/file-yourself.
-
-          Gracias,
-
-          Su equipo de impuestos de GetYourRefund
     surveys:
       completion:
         email:
