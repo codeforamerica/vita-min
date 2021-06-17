@@ -2754,7 +2754,7 @@ en:
           not_filed:
             subheading: "If you have not filed a tax return, you can sign up to get the Child Tax Credit."
             body1_html: |
-              If you have at least one qualifying child and earned less than $12,400 (or less than $22,500 if you are married), you can use <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">the IRS Non-Filer Sign-Up Tool</a></strong> to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
+              If you have at least one qualifying child and earned less than $12,400 (or less than $24,800 if you are married), you can use <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">the IRS Non-Filer Sign-Up Tool</a></strong> to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
             body2: "To get the Child Tax Credit you will need to verify your identity, and provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI."
           full_return:
             subheading: "If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed."
