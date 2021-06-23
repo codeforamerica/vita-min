@@ -1,6 +1,6 @@
 class MigrateStatusesForTaxReturns < ActiveRecord::Migration[6.0]
   def up
-    MigrateStatuses.migrate_all
+    # MigrateStatuses.migrate_all
   end
 
   def down

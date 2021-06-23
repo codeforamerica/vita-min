@@ -383,7 +383,7 @@ describe Portal::TaxReturnsController do
         create_list(:document, 2,
                     client: tax_return.client,
                     tax_return: tax_return,
-                    upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"),
+                    upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"),
                     document_type: DocumentTypes::FinalTaxDocument.key)
       end
 

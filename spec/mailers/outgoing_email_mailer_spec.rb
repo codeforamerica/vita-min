@@ -45,7 +45,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
     end
 
     context "with attachment" do
-      let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
+      let(:attachment) { fixture_file_upload("test-pattern.png") }
 
       it "includes the attachment in the email" do
         email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)

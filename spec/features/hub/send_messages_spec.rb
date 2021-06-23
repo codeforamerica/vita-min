@@ -54,10 +54,10 @@ RSpec.feature "Read and send messages to a client", js: true do
 
       within(".email-form") do
         fill_in "Send an email", with: "Example email"
-        attach_file("outgoing_email[attachment]", "spec/fixtures/attachments/test-pattern.png")
+        attach_file("outgoing_email[attachment]", "spec/fixtures/files/test-pattern.png")
         expect(page.find('#attachment-image-preview')['src']).to have_content 'data:image/png'
 
-        attach_file("outgoing_email[attachment]", "spec/fixtures/attachments/document_bundle.pdf")
+        attach_file("outgoing_email[attachment]", "spec/fixtures/files/document_bundle.pdf")
         # Replaces custom file-streamed preview with default preview for non-image upload types.
         expect(page.find('#attachment-image-preview')['src']).to have_content '/assets/file-icon'
         click_on "Send"

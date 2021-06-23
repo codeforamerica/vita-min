@@ -7,7 +7,7 @@ RSpec.describe DocumentTypeUploadForm do
     context "when valid params" do
       let(:valid_params) do
         {
-          document: fixture_file_upload("attachments/test-pattern.png")
+          document: fixture_file_upload("test-pattern.png")
         }
       end
 
@@ -19,7 +19,7 @@ RSpec.describe DocumentTypeUploadForm do
     end
 
     context "when uploading a file whose file extension is disallowed" do
-      let(:params) { { document: fixture_file_upload("attachments/test-pattern.html") } }
+      let(:params) { { document: fixture_file_upload("test-pattern.html") } }
 
       it "is not valid" do
         form = described_class.new("Other", intake, params)
@@ -30,7 +30,7 @@ RSpec.describe DocumentTypeUploadForm do
     end
 
     context "when the document model has errors" do
-      let(:params) { { document: fixture_file_upload("attachments/test-pattern.png") } }
+      let(:params) { { document: fixture_file_upload("test-pattern.png") } }
       let!(:fake_document) { build(:document) }
 
       before do
@@ -63,7 +63,7 @@ RSpec.describe DocumentTypeUploadForm do
     context "with valid params" do
       let(:valid_params) do
         {
-          document: fixture_file_upload("attachments/test-pattern.png")
+          document: fixture_file_upload("test-pattern.png")
         }
       end
 
@@ -74,14 +74,14 @@ RSpec.describe DocumentTypeUploadForm do
         }.to change { intake.reload.documents.count }.by(1)
         doc = Document.last
         expect(doc.upload.blob.filename.to_s).to eq("test-pattern.png")
-        expect(doc.upload.download).to eq(File.binread("spec/fixtures/attachments/test-pattern.png"))
+        expect(doc.upload.download).to eq(File.binread("spec/fixtures/files/test-pattern.png"))
         expect(doc.upload.content_type).to eq "image/png"
       end
     end
 
     context "with non-utf-8 filename" do
       # Clients have uploaded files with non-utf8 characters in filenames
-      let(:file_upload) { fixture_file_upload("attachments/test-pattern.png") }
+      let(:file_upload) { fixture_file_upload("test-pattern.png") }
 
       let(:valid_params) do
         {
