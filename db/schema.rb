@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_15_211055) do
+ActiveRecord::Schema.define(version: 2021_06_24_173147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -182,6 +182,14 @@ ActiveRecord::Schema.define(version: 2021_06_15_211055) do
     t.datetime "use_consented_at"
     t.string "user_agent"
     t.index ["client_id"], name: "index_consents_on_client_id"
+  end
+
+  create_table "ctc_signups", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "email_address"
+    t.string "name"
+    t.string "phone_number"
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

@@ -2713,6 +2713,9 @@ en:
             question: "Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?"
             answer_html: |
               No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
+        sign_up_for_reminders:
+          body: Stay in touch. We can email you when more information is available.
+          button: Yes, keep me updated
         what_is:
           heading: "What is the Child Tax Credit?"
           body1: "The American Rescue Plan, signed into law by President Biden on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $300 per month per child under age 6, and up to $250 per month per child ages 6 to 17."
@@ -2768,6 +2771,17 @@ en:
           <p>The tool is only available in English and it can be especially confusing for people with complex tax situations (for example, mixed status families, people who are legally married but prefer to sign up separately).</p>
 
           <p>Chat with our tax experts if you need help.</p>
+      signups:
+        new:
+          title: Sign Up
+          header: Stay in touch. We can email you when more information is available.
+          sub_header: All you need to do is provide us with your name and either an e-mail address or phone number and we'll e-mail or text you when there is more information.
+          submit: Keep me updated
+        confirmation:
+          title: Sign Up
+          header: Thanks for signing up!
+          body: We'll contact you as soon as we have more information.
+          button: Return to homepage
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."

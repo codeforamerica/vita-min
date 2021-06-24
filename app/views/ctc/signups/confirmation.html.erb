@@ -1,0 +1,18 @@
+<% content_for :page_title, t("views.ctc_pages.signups.confirmation.title") %>
+<%= render("shared/breadcrumb") %>
+
+<main role="main">
+  <div class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <h2>
+          <%= t("views.ctc_pages.signups.confirmation.header") %>
+        </h2>
+        <p class="spacing-below-60">
+          <%= t("views.ctc_pages.signups.confirmation.body") %>
+        </p>
+        <%=link_to t("views.ctc_pages.signups.confirmation.button"), ctc_root_path, class: "button button--primary" %>
+      </div>
+    </div>
+  </div>
+</main>
