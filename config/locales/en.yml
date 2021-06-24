@@ -178,7 +178,7 @@ en:
       new:
         title: Add a new CTC client
         assign_to_label: Assign to
-        send_for_prep: Send for prep
+        save_and_add: Save and add another
     documents:
       confirm:
         title: Confirm %{document_type}

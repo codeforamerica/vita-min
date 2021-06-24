@@ -16,7 +16,12 @@ module Hub
 
       if can?(:read, assigned_vita_partner) && @form.save(current_user)
         flash[:notice] = I18n.t("hub.clients.create.success_message")
-        redirect_to hub_client_path(id: @form.client)
+
+        if params[:save_and_add]
+          redirect_to new_hub_ctc_client_path
+        else
+          redirect_to hub_client_path(id: @form.client)
+        end
       else
         flash[:alert] = I18n.t("forms.errors.general")
         render :new
