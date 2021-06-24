@@ -254,6 +254,8 @@ Rails.application.routes.draw do
 
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "ctc_pages#home"
+
+        resources :signups, only: [:new, :create], path: "sign-up", path_names: { new: '' }
         scope "common-questions" do
           get "/what-will-i-need-to-submit", to: "ctc_pages#what_will_i_need_to_submit"
           get "/what-will-happen-and-when", to: "ctc_pages#what_will_happen_and_when"

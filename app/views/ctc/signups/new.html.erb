@@ -1,0 +1,28 @@
+<% content_for :page_title, t("views.ctc_pages.signups.new.title") %>
+<%= render("shared/breadcrumb") %>
+
+<main role="main">
+  <div class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <h2>
+          <%= t("views.ctc_pages.signups.new.header") %>
+        </h2>
+        <p class="spacing-below-60">
+          <%= t("views.ctc_pages.signups.new.sub_header") %>
+        </p>
+
+
+        <%= form_with model: @signup, url: { action: :create }, local: true, builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+          <%= f.cfa_input_field(:name, t("general.name"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:email_address, t("general.email_address"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:phone_number, t("general.phone_number"), classes: ["form-width--long"]) %>
+
+          <button class="button button--primary" type="submit">
+            <%= t("views.ctc_pages.signups.new.submit") %>
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>
