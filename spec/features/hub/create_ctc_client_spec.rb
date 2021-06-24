@@ -71,8 +71,7 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Confirm account number", with: "2345678901"
       end
 
-
-      click_on "Send for prep"
+      click_on I18n.t('general.save')
 
       expect(page).to have_text "Colleen Cauliflower"
       expect(page).to have_text "Colly Cauliflower"
@@ -101,6 +100,45 @@ RSpec.feature "Creating new drop off clients" do
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
+    end
+
+    scenario "I can create multiple CTC clients, one after another" do
+      visit new_hub_ctc_client_path
+
+      select "Floret Financial Readiness", from: "Assign to"
+
+      fill_in "Preferred full name", with: "Colly Cauliflower"
+      within "#primary-info" do
+        fill_in "Legal first name", with: "Colleen"
+        fill_in "Legal last name", with: "Cauliflower"
+        fill_in "Email", with: "hello@cauliflower.com"
+        check "Opt into email notifications"
+        select "Mandarin", from: "Preferred language"
+      end
+
+      within "#filing-status-fields" do
+        choose "Single"
+      end
+
+      within "#address-fields" do
+        select "Texas", from: "State of residence"
+      end
+
+      within "#bank-account-fields" do
+        fill_in "Bank name", with: "Bank of America"
+        select "Checking", from: "Account type"
+        fill_in "Routing number", with: "123456789"
+        fill_in "Confirm routing number", with: "123456789"
+        fill_in "Account number", with: "2345678901"
+        fill_in "Confirm account number", with: "2345678901"
+      end
+
+      expect do
+        click_on I18n.t('hub.ctc_clients.new.save_and_add')
+      end.to change(Client, :count).by(1)
+
+      expect(page).to have_text(I18n.t('hub.clients.create.success_message'))
+      expect(page.current_path).to eq(new_hub_ctc_client_path)
     end
   end
 end

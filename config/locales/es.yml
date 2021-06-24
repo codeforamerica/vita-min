@@ -178,7 +178,7 @@ es:
       new:
         title: Agregar un nuevo cliente
         assign_to_label: Asignado a
-        send_for_prep: Enviar para preparar
+        save_and_add: Guardar y agregar otro
     documents:
       edit:
         title: Editar Documento
