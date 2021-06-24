@@ -2777,7 +2777,7 @@ en:
           header: Stay in touch. We can email you when more information is available.
           sub_header: All you need to do is provide us with your name and either an e-mail address or phone number and we'll e-mail or text you when there is more information.
           submit: Keep me updated
-          success: Success!
+          success: Thank you! You will receive a notification when more information is available.
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
