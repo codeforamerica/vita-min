@@ -43,6 +43,11 @@ RSpec.feature "Visit CTC home page" do
       expect(sign_up_attributes).to include('name' => "Interested Person")
       expect(sign_up_attributes).to include('email_address' => 'remindme@example.com')
       expect(sign_up_attributes).to include('phone_number' => '+14153334444')
+
+      expect(page).to have_text I18n.t("views.ctc_pages.signups.confirmation.header")
+      expect(page).to have_text I18n.t("views.ctc_pages.signups.confirmation.body")
+      click_on I18n.t('views.ctc_pages.signups.confirmation.button')
+      expect(page).to have_text "Child Tax Credit"
     end
   end
 end

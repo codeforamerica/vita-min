@@ -5,8 +5,7 @@ module Ctc
 
       if @signup.save
         send_mixpanel_event(event_name: "2021-ctc-sign-up")
-        flash[:notice] = I18n.t("views.ctc_pages.signups.new.success")
-        redirect_to root_path
+        redirect_to confirmation_ctc_signups_path
       else
         send_mixpanel_validation_error(@signup.errors)
         render :new
@@ -16,6 +15,8 @@ module Ctc
     def new
       @signup = CtcSignup.new
     end
+
+    def confirmation; end
 
     private
 

@@ -2817,7 +2817,11 @@ es:
           header: Mantente en contacto. Podemos enviarle un correo electrónico cuando haya más información disponible.
           sub_header: Todo lo que necesita hacer es proporcionarnos su nombre y una dirección de correo electrónico o un número de teléfono y le enviaremos un correo electrónico o un mensaje de texto cuando haya más información.
           submit: Mantenme informado
-          success: ¡Gracias! Recibirás una notificación cuando haya más información disponible.
+        confirmation:
+          title: Regístrate
+          header: Gracias por registrarte!
+          body: Nos comunicaremos contigo en cuanto tengamos más información.
+          button: Regresar a la página principal
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
