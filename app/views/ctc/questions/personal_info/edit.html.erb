@@ -1,0 +1,29 @@
+<% content_for :page_title, t("views.questions.personal_info.title") %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= content_for(:page_title) %></h1>
+    <p>
+      <%=t("views.questions.personal_info.info") %>
+    </p>
+
+    <div class="form-card__content">
+      <%= f.hidden_field(:timezone) %>
+      <%= f.cfa_input_field(:preferred_name, t("views.questions.personal_info.preferred_name"), classes: ["form-width--long"]) %>
+      <%#= f.cfa_input_field(:zip_code, t("views.questions.personal_info.zip_code"), classes: ["form-width--zip"]) %>
+    </div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          document.getElementById('personal_info_form_timezone').value = timezone;
+      });
+  </script>
+<% end %>

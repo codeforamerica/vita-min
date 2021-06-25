@@ -111,7 +111,7 @@
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
 #  primary_birth_date                                   :date
-#  primary_consented_to_service                         :integer          default(0), not null
+#  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_at                      :datetime
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
@@ -198,7 +198,6 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::CtcIntake < Intake
-
   def document_types_definitely_needed
     []
   end
