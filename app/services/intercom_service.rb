@@ -88,13 +88,21 @@ class IntercomService
     intercom_contact_from_client_id = contact_id_from_client_id(incoming_message.client_id)
 
     if intercom_contact_from_client_id.present?
-      contact = intercom.contacts.find(id: intercom_contact_from_client_id)
-      contact.from_hash(intercom_contact_attr(incoming_message))
-      intercom.contacts.save(contact)
+      update_intercom_contact(intercom_contact_from_client_id, incoming_message)
     else
-      contact = intercom.contacts.create(intercom_contact_attr(incoming_message))
+      begin
+        intercom.contacts.create(intercom_contact_attr(incoming_message))
+      rescue Intercom::MultipleMatchingUsersError => e
+        intercom_contact_id = e.message.match(/id=(\S+)/)[1]
+        update_intercom_contact(intercom_contact_id, incoming_message)
+      end
     end
+  end
 
+  def self.update_intercom_contact(contact_id, incoming_message)
+    contact = intercom.contacts.find(id: contact_id)
+    contact.from_hash(intercom_contact_attr(incoming_message))
+    intercom.contacts.save(contact)
     contact
   end
 
