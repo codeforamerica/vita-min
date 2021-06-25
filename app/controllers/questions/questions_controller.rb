@@ -72,8 +72,7 @@ module Questions
     end
 
     def form_navigation
-      navigation_class = current_intake&.eip_only ? EipOnlyNavigation : QuestionNavigation
-      navigation_class.new(self)
+      QuestionNavigation.new(self)
     end
 
     private

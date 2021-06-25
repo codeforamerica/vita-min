@@ -1,18 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "offseason routes", type: :request do
-  context "landing pages during the off-season" do
-    it "redirects /EIP to the homepage" do
-      get "/EIP"
-      expect(response).to redirect_to("/")
-    end
-
-    it "redirects /eip to the homepage" do
-      get "/eip"
-      expect(response).to redirect_to("/")
-    end
-  end
-
   context "when config offseason is true" do
     before do
       allow(Rails.configuration).to receive(:offseason).and_return true

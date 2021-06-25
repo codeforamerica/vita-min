@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
       resources :questions, controller: :questions do
         collection do
-          (QuestionNavigation.controllers + EipOnlyNavigation.controllers).uniq.each do |controller_class|
+          QuestionNavigation.controllers.uniq.each do |controller_class|
             { get: :edit, put: :update }.each do |method, action|
               match "/#{controller_class.to_param}",
                     action: action,
@@ -95,8 +95,6 @@ Rails.application.routes.draw do
       get "/sms-terms", to: "public_pages#sms_terms"
       get "/stimulus", to: "public_pages#stimulus"
       get "/full-service", to: "public_pages#full_service_home"
-      get "/eip", to: redirect('/')
-      get "/EIP", to: redirect('/')
       get "/500", to: "public_pages#internal_server_error"
       get "/422", to: "public_pages#internal_server_error"
       get "/404", to: "public_pages#page_not_found"

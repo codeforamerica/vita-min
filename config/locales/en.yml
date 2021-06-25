@@ -1505,13 +1505,6 @@ en:
       diy_home:
         title: File taxes on your own for free!
         body: We provide free access to an online tax prep site called TaxSlayer. We'll send you a link to create your own TaxSlayer login, so you can file on your own.
-      eip_home:
-        header: Get your stimulus check
-        questions_cta: Stimulus FAQ
-        questions_html: Questions? Visit our %{faq_link}
-        subheader1: You might be missing out on a payment of over $1,200. Trained IRS certified volunteers are ready to help you apply for free.
-        subheader2: It takes less than 30 minutes to fill out the form. Get your stimulus check today!
-        title: Get help claiming your stimulus check for free!
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
@@ -2011,7 +2004,6 @@ en:
           other: In %{year}, did you or your spouse make any charitable contributions?
       chat_with_us:
         chat: If you have questions, you can chat with us by clicking the button in the bottom right of your screen.
-        eip_only: We’re here to support you every step of the way!
         info: We know taxes can be hard and we’re here to support you every step of the way!
         partner_info_html: "%{partner_name} handles tax returns from <strong>%{zip} (%{zip_name}).</strong>"
         title: Our team at %{partner_name} is here to help!
@@ -2079,28 +2071,6 @@ en:
       divorced_year:
         before_2014: before 2014
         title: What year was your divorce finalized?
-      eip_eligibility:
-        already_applied: I already applied for my stimulus on the IRS site
-        claimed: Someone else is claiming me on their taxes
-        collect_my_stimulus: Collect my stimulus
-        legend: 'Select any situations that apply to you:'
-        no_ssn: I don't have a Social Security Number
-        title: Before we start, let's make sure you qualify for our help!
-      eip_maybe_ineligible:
-        info: Based on your previous answers, we cannot help you collect your stimulus. If you have additional questions, chat with us or visit our stimulus FAQ page.
-        title: Unfortunately, you don't qualify for our assistance.
-      eip_overview:
-        hotline_notice:
-          number: Call +1 844 322 3639
-          title: Need additional assistance?
-          what: The United Way's helpline is available to answer your questions and can help you complete this form over the phone.
-          why: It's a great option for anyone who isn’t great with computers or could use the support of a live human.
-        info_html: 'Heads up: In order to claim your stimulus by the deadline, we need all required documents by October 8th. You should get the payment automatically and <strong>do not need to fill out this form</strong> if you received:'
-        received_rrb: Railroad Retirement benefits
-        received_ssdi: Social Security retirement, survivor, or disability benefits (SSDI)
-        received_ssi: Supplemental Security Income (SSI)
-        received_va: VA Compensation and Pension (C&P)
-        title: Great! Let's help you collect your stimulus.
       email_address:
         email_address: E-mail address
         email_address_confirmation: Confirm e-mail address

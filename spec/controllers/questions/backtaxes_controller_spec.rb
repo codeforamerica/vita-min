@@ -42,7 +42,7 @@ RSpec.describe Questions::BacktaxesController do
       end
 
       context "with an existing intake in the session" do
-        let(:intake) { create :intake, :eip_only }
+        let(:intake) { create :intake }
 
         before { session[:intake_id] = intake.id }
 

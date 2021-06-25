@@ -286,7 +286,7 @@ class Intake < ApplicationRecord
   enum needs_help_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2019
   enum needs_help_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2020
   enum no_eligibility_checks_apply: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_eligibility_checks_apply
-  enum no_ssn: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn
+  # enum no_ssn: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn
   enum paid_alimony: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_alimony
   enum paid_charitable_contributions: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_charitable_contributions
   enum paid_dependent_care: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_dependent_care
@@ -408,10 +408,6 @@ class Intake < ApplicationRecord
   def eligible_for_vita?
     # if any are unfilled this will return false
     had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
-  end
-
-  def eligible_for_eip_only?
-    claimed_by_another_no? && already_applied_for_stimulus_no? && no_ssn_no?
   end
 
   def any_students?

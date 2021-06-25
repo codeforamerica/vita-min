@@ -45,8 +45,7 @@ module Documents
     end
 
     def form_navigation
-      navigation_class = current_intake&.eip_only ? EipOnlyNavigation : DocumentNavigation
-      navigation_class.new(self)
+      DocumentNavigation.new(self)
     end
 
     private
