@@ -1,5 +1,6 @@
 module Questions
-  class NotificationPreferenceController < AnonymousIntakeController
+  class NotificationPreferenceController < QuestionsController
+    include AnonymousIntakeConcern
     private
 
     def tracking_data

@@ -1,5 +1,7 @@
 module Questions
-  class EverMarriedController < AuthenticatedIntakeController
+  class EverMarriedController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
   end
 end

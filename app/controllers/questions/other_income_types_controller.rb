@@ -1,5 +1,7 @@
 module Questions
-  class OtherIncomeTypesController < AuthenticatedIntakeController
+  class OtherIncomeTypesController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "intake"
 
     def self.show?(intake)

@@ -1,5 +1,7 @@
 module Questions
-  class SavingsOptionsController < AuthenticatedIntakeController
+  class SavingsOptionsController < QuestionsController
+    include AuthenticatedClientConcern
+
     private
 
     def illustration_path

@@ -1,5 +1,6 @@
 module Questions
-  class RefundPaymentController < AuthenticatedIntakeController
+  class RefundPaymentController < QuestionsController
+    include AuthenticatedClientConcern
 
     private
 

@@ -1219,6 +1219,20 @@ es:
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"
   views:
+    ctc:
+      questions:
+        overview:
+          help_text: TODO
+          title: TODO
+          step1:
+            title: TODO
+            help_text: TODO
+          step2:
+            title: TODO
+            help_text: TODO
+          step3:
+            title: TODO
+            help_text: TODO
     dependents:
       form:
         birth_date: Fecha de nacimiento

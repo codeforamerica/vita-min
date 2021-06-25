@@ -1,5 +1,7 @@
 module Questions
-  class SpouseIssuedIdentityPinController < AuthenticatedIntakeController
+  class SpouseIssuedIdentityPinController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)

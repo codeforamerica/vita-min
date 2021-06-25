@@ -1,5 +1,7 @@
 module Questions
-  class BankDetailsController < AuthenticatedIntakeController
+  class BankDetailsController < QuestionsController
+    include AuthenticatedClientConcern
+
     def tracking_data
       {}
     end

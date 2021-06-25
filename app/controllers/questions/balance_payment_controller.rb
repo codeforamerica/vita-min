@@ -1,5 +1,7 @@
 module Questions
-  class BalancePaymentController < AuthenticatedIntakeController
+  class BalancePaymentController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     private

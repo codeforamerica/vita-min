@@ -1,5 +1,7 @@
 module Questions
-  class OtherStatesController < AuthenticatedIntakeController
+  class OtherStatesController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def edit

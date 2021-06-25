@@ -1,5 +1,6 @@
 module Stimulus
-  class StimulusController < Questions::AnonymousIntakeController
+  class StimulusController < Questions::QuestionsController
+    include AnonymousIntakeConcern
     skip_before_action :require_intake
     before_action :require_stimulus_triage
 

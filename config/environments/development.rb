@@ -80,4 +80,5 @@ Rails.application.configure do
   # Allow incoming connections over ngrok
   config.hosts << /[a-z0-9]+\.ngrok\.io/
   config.offseason = false
+  config.hide_ctc = false
 end

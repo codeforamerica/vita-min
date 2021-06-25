@@ -1,5 +1,6 @@
 module Questions
-  class ReturningClientController < AnonymousIntakeController
+  class ReturningClientController < QuestionsController
+    include AnonymousIntakeConcern
     before_action :redirect_to_next_if_already_authenticated
     skip_before_action :set_current_step
     layout "application"

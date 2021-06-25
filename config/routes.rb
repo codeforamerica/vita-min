@@ -1,25 +1,25 @@
 Rails.application.routes.draw do
-  constraints(Routes::GyrDomain.new) do
-    def scoped_navigation_routes(context, navigation, as_redirects: false)
-      scope context, as: context do
-        navigation.controllers.uniq.each do |controller_class|
-          { get: :edit, put: :update }.each do |method, action|
-            if as_redirects
-              match "/#{controller_class.to_param}",
-                    via: method,
-                    to: redirect { |_, request| "/#{request.params[:locale]}" }
-            else
-              match "/#{controller_class.to_param}",
-                    action: action,
-                    controller: controller_class.controller_path,
-                    via: method
-            end
+  def scoped_navigation_routes(context, navigation, as_redirects: false)
+    scope context, as: context do
+      navigation.controllers.uniq.each do |controller_class|
+        { get: :edit, put: :update }.each do |method, action|
+          if as_redirects
+            match "/#{controller_class.to_param}",
+                  via: method,
+                  to: redirect { |_, request| "/#{request.params[:locale]}" }
+          else
+            match "/#{controller_class.to_param}",
+                  action: action,
+                  controller: controller_class.controller_path,
+                  via: method
           end
         end
-        yield if block_given?
       end
+      yield if block_given?
     end
+  end
 
+  constraints(Routes::GyrDomain.new) do
     mount Cfa::Styleguide::Engine => "/cfa"
 
     # In order to disambiguate versions of english pages with and without locales, we redirect to URLs including the locale
@@ -249,6 +249,10 @@ Rails.application.routes.draw do
   end
 
   constraints(Routes::CtcDomain.new) do
+    scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+      scoped_navigation_routes(:questions, CtcQuestionNavigation, as_redirects: Rails.configuration.hide_ctc)
+    end
+
     namespace :ctc, path: "/" do
       root to: "ctc_pages#redirect_locale_home", as: :ctc_redirected_root
 

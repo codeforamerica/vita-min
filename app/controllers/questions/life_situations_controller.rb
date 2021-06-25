@@ -1,5 +1,7 @@
 module Questions
-  class LifeSituationsController < AuthenticatedIntakeController
+  class LifeSituationsController < QuestionsController
+    include AuthenticatedClientConcern
+
     def illustration_path; end
   end
 end

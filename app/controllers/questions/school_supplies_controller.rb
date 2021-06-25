@@ -1,5 +1,7 @@
 module Questions
-  class SchoolSuppliesController < AuthenticatedIntakeController
+  class SchoolSuppliesController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)

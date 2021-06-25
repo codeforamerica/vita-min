@@ -1,5 +1,6 @@
 module Questions
-  class TriageController < AnonymousIntakeController
+  class TriageController < QuestionsController
+    include AnonymousIntakeConcern
     before_action :redirect_if_matching_source_param
     skip_before_action :require_intake
 

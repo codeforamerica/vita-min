@@ -1,5 +1,7 @@
 module Questions
-  class HadDependentsController < AuthenticatedIntakeController
+  class HadDependentsController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def next_path

@@ -1,5 +1,7 @@
 module Questions
-  class SeparatedController < AuthenticatedIntakeController
+  class SeparatedController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)

@@ -1,5 +1,6 @@
 module Questions
-  class BacktaxesController < AnonymousIntakeController
+  class BacktaxesController < QuestionsController
+    include AnonymousIntakeConcern
     skip_before_action :require_intake
     before_action :check_for_triage, only: [:edit]
     layout "intake"

@@ -1,5 +1,7 @@
 module Questions
-  class MortgageInterestController < AuthenticatedIntakeController
+  class MortgageInterestController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)

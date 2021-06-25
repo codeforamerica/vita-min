@@ -1,5 +1,7 @@
 module Questions
-  class CharitableContributionsController < AuthenticatedIntakeController
+  class CharitableContributionsController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     # For the 2021 tax year, even those taking the standard deduction can deduct up to $300 in charitable expenses
