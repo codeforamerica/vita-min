@@ -2792,7 +2792,7 @@ en:
         new:
           title: Sign Up
           header: Stay in touch. We can email you when more information is available.
-          sub_header: All you need to do is provide us with your name and either an e-mail address or phone number and we'll e-mail or text you when there is more information.
+          sub_header: All you need to do is provide us with your name and either an email address or phone number and we'll email or text you when there is more information.
           submit: Keep me updated
         confirmation:
           title: Sign Up

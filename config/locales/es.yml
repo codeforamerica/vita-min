@@ -2754,8 +2754,8 @@ es:
             answer_html: |
               No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
         sign_up_for_reminders:
-          body: Mantente en contacto. Podemos enviarle un correo electrónico cuando haya más información disponible.
-          button: Si mantenme actualizada
+          body: Manténgase en contacto. Podemos enviarle un email cuando haya más información disponible.
+          button: Si, manténganme informado
         what_is:
           heading: "¿Qué es el Crédito Tributario por Hijos (CTC)?"
           body1: "El Plan de Rescate Estadounidense, firmado como ley por el presidente Biden el 11 de marzo de 2021, aumenta el Crédito Tributario por Hijos (CTC en inglés) que le podría proporcionar hasta $300 al mes por cada hijo menor de seis años y hasta $250 por hijo con edades entre 6 y 17 años."
@@ -2831,9 +2831,9 @@ es:
       signups:
         new:
           title: Regístrate
-          header: Mantente en contacto. Podemos enviarle un correo electrónico cuando haya más información disponible.
-          sub_header: Todo lo que necesita hacer es proporcionarnos su nombre y una dirección de correo electrónico o un número de teléfono y le enviaremos un correo electrónico o un mensaje de texto cuando haya más información.
-          submit: Mantenme informado
+          header: Manténgase en contacto. Podemos enviarle un email cuando haya más información disponible.
+          sub_header: Lo único que tiene que hacer es proporcionar su nombre y su correo electrónico o número de teléfono y le enviaremos un email o mensaje de texto cuando haya más información disponible.
+          submit: Manténganme actualizado
         confirmation:
           title: Regístrate
           header: Gracias por registrarte!
