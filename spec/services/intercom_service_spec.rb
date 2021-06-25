@@ -5,6 +5,7 @@ RSpec.describe IntercomService do
   let(:client) { create(:client, intake: create(:intake, email_address: "beep@example.com")) }
 
   before do
+    described_class.instance_variable_set(:@intercom, nil)
     allow(EnvironmentCredentials).to receive(:dig).with(:intercom, :intercom_access_token).and_return("fake_access_token")
     allow(Intercom::Client).to receive(:new).with(token: "fake_access_token").and_return(fake_intercom)
   end
@@ -61,9 +62,14 @@ RSpec.describe IntercomService do
     let(:incoming_text_message) { create :incoming_text_message, from_phone_number: "+14152515239", client: client, body: sms_body, documents: documents }
 
     context "with no existing contact with phone number" do
+      let(:fake_contacts) { instance_double(Intercom::Service::Contact) }
+
       before do
         allow(described_class).to receive(:contact_id_from_sms).with("+14152515239").and_return(nil)
-        allow(described_class).to receive_message_chain(:create_or_update_intercom_contact, :id).and_return("fake_new_contact_id")
+        fake_contact = OpenStruct.new(id: 'fake_new_contact_id')
+        allow(fake_intercom).to receive(:contacts).and_return(fake_contacts)
+        allow(fake_contacts).to receive(:create).and_return(fake_contact)
+        allow(fake_contacts).to receive(:search).and_return([])
         allow(described_class).to receive(:create_new_intercom_thread)
         allow(ClientMessagingService).to receive(:send_system_text_message)
       end
@@ -72,6 +78,19 @@ RSpec.describe IntercomService do
         described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
         expect(described_class).to have_received(:create_new_intercom_thread).with("fake_new_contact_id", sms_body)
         expect(ClientMessagingService).to have_received(:send_system_text_message).once
+      end
+
+      context "if the contact already existed (maybe we just created it but it's not showing up in search)" do
+        before do
+          allow(fake_contacts).to receive(:create).and_raise(Intercom::MultipleMatchingUsersError.new(message: "A contact matching those details already exists with id=abcdefg"))
+          allow(described_class).to receive(:update_intercom_contact).and_return(OpenStruct.new(id: 'abcdefg'))
+        end
+
+        it "uses the existing contact from the intercom side" do
+          described_class.create_intercom_message_from_sms(incoming_text_message, inform_of_handoff: true)
+          expect(described_class).to have_received(:create_new_intercom_thread).with("abcdefg", sms_body)
+          expect(ClientMessagingService).to have_received(:send_system_text_message).once
+        end
       end
 
       context "when there is an associated document" do
