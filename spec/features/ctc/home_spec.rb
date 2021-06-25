@@ -47,7 +47,7 @@ RSpec.feature "Visit CTC home page" do
       expect(page).to have_text I18n.t("views.ctc_pages.signups.confirmation.header")
       expect(page).to have_text I18n.t("views.ctc_pages.signups.confirmation.body")
       click_on I18n.t('views.ctc_pages.signups.confirmation.button')
-      expect(page).to have_text "Child Tax Credit"
+      expect(page).to have_text I18n.t('views.ctc_pages.home.header')
     end
   end
 end
