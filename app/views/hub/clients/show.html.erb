@@ -112,6 +112,24 @@
               <span class="label-value">No bank account info provided.</span>
             <% end %>
           </div>
+
+          <% if @client.intake.is_ctc? %>
+            <div class="client-profile__field_group client-recovery-rebate-creidt-amount">
+              <h2 class="text--bold"><%= t("hub.clients.fields.recovery_rebate_credit") %></h2>
+              <div class="field-display">
+                <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_1") %>:</span>
+                <span class="label-value">$<%= @client.intake.recovery_rebate_credit_amount_1 %> </span>
+              </div>
+              <div class="field-display">
+                <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_2") %>:</span>
+                <span class="label-value">$<%= @client.intake.recovery_rebate_credit_amount_2 %> </span>
+              </div>
+              <div class="field-display">
+                <span class="form-question">Confidence:</span>
+                <span class="label-value"><%= @client.intake.recovery_rebate_credit_amount_confidence.capitalize %> </span>
+              </div>
+            </div>
+            <% end %>
         </div>
 
         <div class="client-profile__column">

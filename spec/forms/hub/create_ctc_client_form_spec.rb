@@ -34,7 +34,10 @@ RSpec.describe Hub::CreateCtcClientForm do
         bank_routing_number_confirmation: "1234567",
         bank_account_number: "1234567",
         bank_account_number_confirmation: "1234567",
-        bank_name: "Bank of America"
+        bank_name: "Bank of America",
+        recovery_rebate_credit_amount_1: "$280",
+        recovery_rebate_credit_amount_2: "$250",
+        recovery_rebate_credit_amount_confidence: "sure"
       }
     end
 
@@ -63,6 +66,14 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(client.intake.bank_routing_number).to eq params[:bank_routing_number]
         expect(client.intake.bank_account_type).to eq "checking"
         expect(client.intake.bank_name).to eq "Bank of America"
+      end
+
+      it "stores recovery rebate credit amount on the intake" do
+        described_class.new(params).save(current_user)
+        client = Client.last
+        expect(client.intake.recovery_rebate_credit_amount_1).to eq 280
+        expect(client.intake.recovery_rebate_credit_amount_2).to eq 250
+        expect(client.intake.recovery_rebate_credit_amount_confidence).to eq "sure"
       end
 
       it "assigns client to an instance on the form object" do

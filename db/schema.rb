@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_24_173147) do
+ActiveRecord::Schema.define(version: 2021_06_28_181638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -385,6 +385,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_173147) do
     t.datetime "completed_yes_no_questions_at"
     t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
+    t.integer "ctc_refund_delivery_method"
     t.string "current_step"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
@@ -489,6 +490,9 @@ ActiveRecord::Schema.define(version: 2021_06_24_173147) do
     t.integer "received_homebuyer_credit", default: 0, null: false
     t.integer "received_irs_letter", default: 0, null: false
     t.integer "received_stimulus_payment", default: 0, null: false
+    t.integer "recovery_rebate_credit_amount_1"
+    t.integer "recovery_rebate_credit_amount_2"
+    t.integer "recovery_rebate_credit_amount_confidence"
     t.string "referrer"
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false

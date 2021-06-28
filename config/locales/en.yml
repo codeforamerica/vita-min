@@ -66,6 +66,7 @@ en:
         legal_last_name: Legal last name
         mailing_address: Mailing Address
         payment_information: Payment Information
+        recovery_rebate_credit: Recovery rebate credit (optional)
         preferred_name: Preferred full name
         filing_status: Filing Status
         filing_status_notes: Filing status notes (optional)
@@ -433,6 +434,13 @@ en:
       routing_number_confirmation: Confirm routing number
       checking: Checking
       savings: Savings
+    recovery_rebate_credit_amount:
+      amount_1: "Economic Impact Payment 1"
+      amount_2: "Economic Impact Payment 2"
+      confidence: "How confident in this amount?"
+      confidence_values:
+        sure: "Sure"
+        unsure: "Unsure"
     organizations:
       new:
         title: "New Organization"

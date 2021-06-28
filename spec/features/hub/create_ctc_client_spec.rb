@@ -62,7 +62,16 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Email", with: "spicypeter@pepper.com"
       end
 
+      within "#recovery-rebate-credit-fields" do
+        fill_in "Economic Impact Payment 1", with: "$500"
+        fill_in "Economic Impact Payment 2", with: "$500"
+        select "Sure", from: "How confident in this amount?"
+      end
+
       within "#bank-account-fields" do
+        choose "Check"
+        expect(find_field("Bank name", visible: :hidden)).to be_present
+        choose "Direct Deposit"
         fill_in "Bank name", with: "Bank of America"
         select "Checking", from: "Account type"
         fill_in "Routing number", with: "123456789"
@@ -88,6 +97,15 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "TX"
       expect(page).to have_text "Peter Pepper"
       expect(page).to have_text "spicypeter@pepper.com"
+
+      within ".client-bank-account-info" do
+        click_on "View"
+        expect(page).to have_content "Refund delivery method: Direct deposit"
+      end
+
+      expect(page).to have_text "Economic Impact Payment 1: $500"
+      expect(page).to have_text "Economic Impact Payment 2: $500"
+      expect(page).to have_text "Confidence: Sure"
 
       within ".tax-return-list" do
         expect(page).to have_text "2020"

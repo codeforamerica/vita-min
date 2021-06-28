@@ -31,7 +31,11 @@ module Hub
                        :bank_account_number,
                        :bank_routing_number,
                        :bank_account_type,
-                       :bank_name
+                       :bank_name,
+                       :recovery_rebate_credit_amount_1,
+                       :recovery_rebate_credit_amount_2,
+                       :recovery_rebate_credit_amount_confidence,
+                       :ctc_refund_delivery_method
     set_attributes_for :tax_return,
                        :filing_status,
                        :filing_status_note
