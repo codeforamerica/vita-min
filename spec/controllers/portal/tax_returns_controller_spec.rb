@@ -186,7 +186,7 @@ describe Portal::TaxReturnsController do
             before do
               allow(Portal::PrimarySignForm8879).to receive(:new).and_return(form_double)
               allow(form_double).to receive(:sign).and_return false
-              allow(form_double).to receive_message_chain(:errors, :keys).and_return [:transaction_failed]
+              allow(form_double).to receive_message_chain(:errors, :attribute_names).and_return [:transaction_failed]
             end
 
             it "re-renders the page with a flash message" do
@@ -332,7 +332,7 @@ describe Portal::TaxReturnsController do
             before do
               allow(Portal::SpouseSignForm8879).to receive(:new).and_return(form_double)
               allow(form_double).to receive(:sign).and_return false
-              allow(form_double).to receive_message_chain(:errors, :keys).and_return [:transaction_failed]
+              allow(form_double).to receive_message_chain(:errors, :attribute_names).and_return [:transaction_failed]
             end
 
             it "re-renders the page with a flash message" do

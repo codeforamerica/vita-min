@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe FileTypeAllowedValidator do
   subject { described_class.new(attributes: [:document]) }
 
-  let!(:record) { OpenStruct.new(errors: { document: [] }) }
+  let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
 
   context "png" do
     let(:valid_document) { fixture_file_upload("test-pattern.png") }

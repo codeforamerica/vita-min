@@ -35,7 +35,9 @@ RSpec.describe DocumentTypeUploadForm do
 
       before do
         allow(fake_document).to receive(:valid?).and_return(false)
-        allow(fake_document).to receive(:errors).and_return({upload: ["Example error"]})
+        fake_errors = ActiveModel::Errors.new(nil)
+        fake_errors.add(:upload, "Example error")
+        allow(fake_document).to receive(:errors).and_return(fake_errors)
         allow(Document).to receive(:new).and_return(fake_document)
       end
 
