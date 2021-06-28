@@ -15,11 +15,7 @@ module Stimulus
     end
 
     def redirect_based_on_response
-      if current_stimulus_triage.chose_to_file_yes?
-        redirect_to backtaxes_questions_path
-      else
-        redirect_to eip_overview_questions_path
-      end
+      redirect_to backtaxes_questions_path
     end
 
     class << self

@@ -316,24 +316,6 @@ describe Intake do
     end
   end
 
-  describe "#eligible_for_eip_only?" do
-    context "when any of the disqualifiers are 'yes'" do
-      let(:intake) { build :intake, claimed_by_another: "yes", already_applied_for_stimulus: "no", no_ssn: "no" }
-
-      it "returns false" do
-        expect(intake.eligible_for_eip_only?).to eq false
-      end
-    end
-
-    context "when all of the disqualifiers are 'no'" do
-      let(:intake) { build :intake, claimed_by_another: "no", already_applied_for_stimulus: "no", no_ssn: "no" }
-
-      it "returns true" do
-        expect(intake.eligible_for_eip_only?).to eq true
-      end
-    end
-  end
-
   describe "#pdf" do
     let(:intake) { create :intake }
     let(:intake_pdf_spy) { instance_double(IntakePdf) }

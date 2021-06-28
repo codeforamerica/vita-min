@@ -1429,13 +1429,6 @@ es:
       diy_home:
         title: ¡Declare sus impuestos por su cuenta de forma gratuita!
         body: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para crear su propio acceso a TaxSlayer, para que pueda presentarlo por su cuenta.
-      eip_home:
-        header: Reciba su cheque de estímulo
-        questions_cta: la página de preguntas frecuentes de estímulo
-        questions_html: Preguntas? Visite %{faq_link}
-        subheader1: Es posible que se esté perdiendo un pago de más de $1,200 dólares. Los voluntarios entrenados y certificados por el IRS están listos para ayudarle a presentar su declaración de forma gratuita.
-        subheader2: Se tarda menos de 30 minutos en llenar el formulario. ¡Obtenga su cheque de estímulo hoy!
-        title: Obtenga ayuda para reclamar su cheque de estímulo gratis
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
         contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic al botón de "Ayuda"/"Chat" en la parte inferior a la derecha, o enviándonos un correo electrónico a %{email_link}.
@@ -1957,7 +1950,6 @@ es:
           other: En %{year}, ¿usted o su cónyuge hicieron alguna contribución caritativa?
       chat_with_us:
         chat: Si tiene preguntas, puede chatear con nosotros haciendo clic en el botón en la parte inferior derecha de su pantalla.
-        eip_only: "¡Estamos aquí para ayudarlo en cada paso del camino!"
         info: "¡Sabemos que los impuestos pueden ser difíciles y estamos aquí para ayudarlo en cada paso del camino!"
         partner_info_html: "%{partner_name} prepara declaraciones de impuestos de <strong>%{zip} (%{zip_name}).</strong>"
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
@@ -2025,28 +2017,6 @@ es:
       divorced_year:
         before_2014: antes de 2014
         title: "¿En qué año se finalizó su divorcio?"
-      eip_eligibility:
-        already_applied: Ya solicité mi estímulo en el sitio del IRS
-        claimed: Alguien me reclamó en sus impuestos
-        collect_my_stimulus: "¡Recibir mi cheque de estímulo!"
-        legend: 'Seleccione las situaciones que se apliquen a usted:'
-        no_ssn: No tengo un número de Seguridad Social
-        title: "¿Calificas para nuestra ayuda? Averigüemos antes de comenzar."
-      eip_maybe_ineligible:
-        info: Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, "Chat" con nosotros o visita nuestra página de preguntas frecuentes de estímulo.
-        title: Desafortunadamente, no califica para nuestra ayuda.
-      eip_overview:
-        hotline_notice:
-          number: Llame +1 844 322 3639
-          title: "¿Necesitas ayuda adicional?"
-          what: La línea de ayuda de United Way está disponible para responder sus preguntas y puede ayudarlo a completar este formulario por teléfono.
-          why: Es una buena opción para cualquier persona que no sea buena con las computadoras o que prefiera el soporte en persona.
-        info_html: 'Tenga en cuenta: Necesitará tener toda la documentación necesaria para el 8 de octubre, ya que de otra manera no podremos ayudarle a recibir tu pago de estimulo. Si recibió lo siguiente, el pago debería llegarle automáticamente y <strong>no es necesario que complete el formulario</strong>:'
-        received_rrb: Beneficios de Jubilación Ferroviaria
-        received_ssdi: Sobreviviente o discapacidad del Seguro Social (SSDI)
-        received_ssi: Seguridad de Ingreso suplementario (SSI)
-        received_va: Beneficios de Asuntos de Veteranos (C&P)
-        title: "¡Excelente! Nos vamos a trabajar juntos para asugara que usted puede recibir tu pago de estimulo."
       email_address:
         email_address: Dirección de correo electrónico
         email_address_confirmation: Confirmar el correo

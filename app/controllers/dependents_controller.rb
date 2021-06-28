@@ -52,7 +52,7 @@ class DependentsController < ApplicationController
   end
 
   def next_path
-    current_intake.eip_only ? additional_info_questions_path : dependent_care_questions_path
+    dependent_care_questions_path
   end
 
   private

@@ -205,10 +205,6 @@ FactoryBot.define do
       primary_consented_to_service_ip { "127.0.0.1" }
     end
 
-    trait :eip_only do
-      eip_only { true }
-    end
-
     trait :with_banking_details do
       bank_name { "Self-help United" }
       bank_routing_number { "12345678" }

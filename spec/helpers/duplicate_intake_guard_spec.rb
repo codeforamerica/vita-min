@@ -58,27 +58,5 @@ RSpec.describe DuplicateIntakeGuard do
         expect(subject).not_to have_duplicate
       end
     end
-
-    context "existing intake has same eip flag as current intake" do
-      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "eip@client.com", primary_consented_to_service: "yes") }
-      let(:current_eip_intake) { create(:intake, :eip_only, email_address: existing_eip_intake.email_address) }
-      let(:current_full_intake) { create(:intake, email_address: existing_intake.email_address) }
-
-      it "returns true" do
-        expect(DuplicateIntakeGuard.new(current_eip_intake)).to have_duplicate
-        expect(DuplicateIntakeGuard.new(current_full_intake)).to have_duplicate
-      end
-    end
-
-    context "existing intake has different eip flag from current intake" do
-      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "was_eip@client.com", primary_consented_to_service: "yes") }
-      let(:current_full_intake) { create(:intake, email_address: existing_eip_intake.email_address) }
-      let(:current_eip_intake) { create(:intake, :eip_only, email_address: existing_intake.email_address) }
-
-      it "returns false" do
-        expect(DuplicateIntakeGuard.new(current_full_intake)).not_to have_duplicate
-        expect(DuplicateIntakeGuard.new(current_eip_intake)).not_to have_duplicate
-      end
-    end
   end
 end
