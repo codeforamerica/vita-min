@@ -196,7 +196,6 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
-#  triage_source_type                                   :string
 #  type                                                 :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
@@ -215,7 +214,6 @@
 #  updated_at                                           :datetime
 #  bank_account_id                                      :bigint
 #  client_id                                            :bigint
-#  triage_source_id                                     :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
 #  with_drivers_license_photo_id                        :boolean          default(FALSE)
@@ -228,16 +226,15 @@
 #
 # Indexes
 #
-#  index_intakes_on_bank_account_id                          (bank_account_id)
-#  index_intakes_on_client_id                                (client_id)
-#  index_intakes_on_email_address                            (email_address)
-#  index_intakes_on_needs_to_flush_searchable_data_set_at    (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
-#  index_intakes_on_phone_number                             (phone_number)
-#  index_intakes_on_searchable_data                          (searchable_data) USING gin
-#  index_intakes_on_sms_phone_number                         (sms_phone_number)
-#  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
-#  index_intakes_on_type                                     (type)
-#  index_intakes_on_vita_partner_id                          (vita_partner_id)
+#  index_intakes_on_bank_account_id                        (bank_account_id)
+#  index_intakes_on_client_id                              (client_id)
+#  index_intakes_on_email_address                          (email_address)
+#  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
+#  index_intakes_on_phone_number                           (phone_number)
+#  index_intakes_on_searchable_data                        (searchable_data) USING gin
+#  index_intakes_on_sms_phone_number                       (sms_phone_number)
+#  index_intakes_on_type                                   (type)
+#  index_intakes_on_vita_partner_id                        (vita_partner_id)
 #
 # Foreign Keys
 #
