@@ -195,6 +195,11 @@
 #
 
 FactoryBot.define do
+  factory :ctc_intake, class: Intake::CtcIntake do
+    sequence(:visitor_id) { |n| "visitor_id_#{n}" }
+    client
+  end
+
   factory :intake, class: Intake::GyrIntake do
     had_wages { :unfilled }
     client

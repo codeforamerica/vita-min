@@ -20,7 +20,7 @@ module Questions
       form_class.new(intake_from_completed_session, form_params)
     end
 
-    def self.form_name
+    def self.form_key
       "satisfaction_face_form"
     end
 

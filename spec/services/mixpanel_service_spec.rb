@@ -481,6 +481,10 @@ describe MixpanelService do
                                            intake_referrer_domain: "boop.horse",
                                            primary_filer_age_at_end_of_tax_year: "26",
                                            spouse_age_at_end_of_tax_year: "27",
+                                           with_general_navigator: true,
+                                           with_incarcerated_navigator: false,
+                                           with_limited_english_navigator: true,
+                                           with_unhoused_navigator: false,
                                            primary_filer_disabled: "no",
                                            spouse_disabled: "yes",
                                            had_dependents: "yes",
@@ -501,10 +505,6 @@ describe MixpanelService do
                                            csat: "neutral",
                                            claimed_by_another: "yes",
                                            already_applied_for_stimulus: "no",
-                                           with_general_navigator: true,
-                                           with_incarcerated_navigator: false,
-                                           with_limited_english_navigator: true,
-                                           with_unhoused_navigator: false,
                                          })
         end
 
@@ -523,6 +523,43 @@ describe MixpanelService do
           it "sends needs_help_backtaxes = no" do
             expect(data_from_intake).to include(needs_help_backtaxes: "no")
           end
+        end
+      end
+
+      context 'when obj is a CTC Intake' do
+        let(:ctc_intake) do
+          create(
+            :ctc_intake,
+            source: "beep",
+            referrer: "http://boop.horse/mane",
+            primary_birth_date: Date.new(1993, 3, 12),
+            spouse_birth_date: Date.new(1992, 5, 3),
+            with_general_navigator: true,
+            with_incarcerated_navigator: true,
+            with_limited_english_navigator: false,
+            with_unhoused_navigator: false
+          )
+        end
+
+        let(:data_from_intake) { MixpanelService.data_from(ctc_intake) }
+
+        it 'returns intake data for mixpanel' do
+          data = MixpanelService.instance.data_from(ctc_intake)
+          expect(data[:intake_source]).to eq(ctc_intake.source)
+        end
+
+        it "returns the expected hash" do
+          expect(data_from_intake).to eq({
+             intake_source: "beep",
+             intake_referrer: "http://boop.horse/mane",
+             intake_referrer_domain: "boop.horse",
+             primary_filer_age_at_end_of_tax_year: "26",
+             spouse_age_at_end_of_tax_year: "27",
+             with_general_navigator: true,
+             with_incarcerated_navigator: true,
+             with_limited_english_navigator: false,
+             with_unhoused_navigator: false
+          })
         end
       end
 

@@ -1233,6 +1233,10 @@ es:
           step3:
             title: TODO
             help_text: TODO
+        personal_info:
+          title: TODO
+          info: TODO
+          preferred_name: TODO
     dependents:
       form:
         birth_date: Fecha de nacimiento
