@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_24_173147) do
+ActiveRecord::Schema.define(version: 2021_06_28_152053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -526,8 +526,6 @@ ActiveRecord::Schema.define(version: 2021_06_24_173147) do
     t.string "state_of_residence"
     t.string "street_address"
     t.string "timezone"
-    t.bigint "triage_source_id"
-    t.string "triage_source_type"
     t.datetime "updated_at"
     t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
@@ -548,7 +546,6 @@ ActiveRecord::Schema.define(version: 2021_06_24_173147) do
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
-    t.index ["triage_source_type", "triage_source_id"], name: "index_intakes_on_triage_source_type_and_triage_source_id"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
 
@@ -659,19 +656,6 @@ ActiveRecord::Schema.define(version: 2021_06_24_173147) do
     t.bigint "vita_partner_id", null: false
     t.index ["code"], name: "index_source_parameters_on_code", unique: true
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
-  end
-
-  create_table "stimulus_triages", force: :cascade do |t|
-    t.integer "chose_to_file", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.integer "filed_prior_years", default: 0, null: false
-    t.integer "filed_recently", default: 0, null: false
-    t.integer "need_to_correct", default: 0, null: false
-    t.integer "need_to_file", default: 0, null: false
-    t.string "referrer"
-    t.string "source"
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "visitor_id"
   end
 
   create_table "system_notes", force: :cascade do |t|

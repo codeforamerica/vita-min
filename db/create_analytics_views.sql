@@ -155,11 +155,6 @@ CREATE VIEW analytics.source_parameters AS
     SELECT id, code, created_at, updated_at, vita_partner_id
     FROM public.source_parameters;
 
-CREATE VIEW analytics.stimulus_triages AS
-    SELECT id, chose_to_file, created_at, filed_prior_years, filed_recently, need_to_correct,
-           need_to_file, source, updated_at
-    FROM public.stimulus_triages;
-
 CREATE VIEW analytics.system_notes AS
     SELECT id, client_id, created_at, type, updated_at, user_id
     FROM public.system_notes;

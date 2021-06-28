@@ -95,7 +95,7 @@
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  needs_help_2020                                      :integer          default("unfilled"), not null
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
-#  no_ssn                                               :integer          default("unfilled"), not null
+#  no_ssn                                               :integer          default(0), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default("unfilled"), not null
 #  paid_charitable_contributions                        :integer          default("unfilled"), not null
@@ -157,7 +157,6 @@
 #  state_of_residence                                   :string
 #  street_address                                       :string
 #  timezone                                             :string
-#  triage_source_type                                   :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  wants_to_itemize                                     :integer          default("unfilled"), not null
@@ -174,18 +173,16 @@
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
 #  client_id                                            :bigint
-#  triage_source_id                                     :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
 #
 # Indexes
 #
-#  index_intakes_on_client_id                                (client_id)
-#  index_intakes_on_email_address                            (email_address)
-#  index_intakes_on_phone_number                             (phone_number)
-#  index_intakes_on_sms_phone_number                         (sms_phone_number)
-#  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
-#  index_intakes_on_vita_partner_id                          (vita_partner_id)
+#  index_intakes_on_client_id         (client_id)
+#  index_intakes_on_email_address     (email_address)
+#  index_intakes_on_phone_number      (phone_number)
+#  index_intakes_on_sms_phone_number  (sms_phone_number)
+#  index_intakes_on_vita_partner_id   (vita_partner_id)
 #
 # Foreign Keys
 #
