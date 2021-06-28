@@ -1248,6 +1248,10 @@ en:
           step3:
             title: Get the tax benefits you're due
             help_text: If you choose to file your taxes, we'll help you e-file and get any tax benefits you're due.
+        personal_info:
+          title: First, what's your name?
+          info: Welcome, we're excited to help you. We need some basic information to get started. We’ll start by asking what you like being called.
+          preferred_name: Preferred first name
     consent_pages:
       consent_to_use:
         title: Consent to Use
