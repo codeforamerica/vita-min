@@ -21,10 +21,5 @@ RSpec.describe "offseason routes", type: :request do
       get QuestionNavigation.controllers.second.to_path_helper
       expect(response).to be_ok
     end
-
-    it "redirects Stimulus routes to root" do
-      get stimulus_filed_recently_path
-      expect(response).to redirect_to root_path
-    end
   end
 end

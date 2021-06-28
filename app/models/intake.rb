@@ -207,7 +207,6 @@ class Intake < ApplicationRecord
   belongs_to :client, inverse_of: :intake, optional: true
   has_many :tax_returns, through: :client
   belongs_to :vita_partner, optional: true
-  belongs_to :triage_source, optional: true, polymorphic: true
   accepts_nested_attributes_for :dependents, allow_destroy: true
 
   scope :completed_yes_no_questions, -> { where.not(completed_yes_no_questions_at: nil) }
@@ -509,10 +508,6 @@ class Intake < ApplicationRecord
 
   def needs_help_with_backtaxes?
     needs_help_2019_yes? || needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?
-  end
-
-  def triaged_from_stimulus?
-    triage_source.present? && triage_source.class == StimulusTriage
   end
 
   def relevant_document_types

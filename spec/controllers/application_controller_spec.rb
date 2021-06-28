@@ -702,17 +702,6 @@ RSpec.describe ApplicationController do
         expect(fake_payload).to include(request_details: include(intake_id: intake.id))
       end
     end
-
-    context "for a user with a stimulus_triage" do
-      let(:stimulus_triage) { create(:stimulus_triage) }
-
-      it "includes a stimulus_triage_id" do
-        allow(controller).to receive(:current_stimulus_triage).and_return(stimulus_triage)
-        controller.append_info_to_payload(fake_payload)
-        expect(fake_payload)
-          .to include(request_details: include(stimulus_triage_id: stimulus_triage.id))
-      end
-    end
   end
 
   describe "#set_time_zone" do

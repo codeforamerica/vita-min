@@ -155,14 +155,11 @@ class MixpanelService
       obj_list.reduce({}) do |data, entry|
         case entry
         when Intake
-          data.merge!(data_from_stimulus_triage_for_intake(entry))
-            .merge!(data_from_intake(entry))
+          data.merge!(data_from_intake(entry))
         when ActionController::Base
           data.merge!(data_from_controller(entry))
         when ActionDispatch::Request
           data.merge!(data_from_request(entry, path_exclusions: path_exclusions))
-        when StimulusTriage
-          data.merge!(data_from_stimulus_triage(entry))
         when TaxReturn
           data.merge!(data_from_tax_return(entry))
         when User
@@ -239,7 +236,6 @@ class MixpanelService
         needs_help_2016: intake.needs_help_2016,
         needs_help_backtaxes: intake.needs_help_with_backtaxes? ? "yes" : "no",
         vita_partner_name: intake.vita_partner&.name,
-        triaged_from_stimulus: intake.triaged_from_stimulus? ? "yes" : "no",
         timezone: intake.timezone,
         csat: intake.satisfaction_face,
         claimed_by_another: intake.claimed_by_another,
@@ -248,20 +244,6 @@ class MixpanelService
         with_incarcerated_navigator: intake.with_incarcerated_navigator,
         with_limited_english_navigator: intake.with_limited_english_navigator,
         with_unhoused_navigator: intake.with_unhoused_navigator
-      }
-    end
-
-    ##
-    # creates Mixpanel data from a stimulus triage object
-    def data_from_stimulus_triage(stimulus_triage)
-      {
-        stimulus_triage_source: stimulus_triage.source,
-        stimulus_triage_referrer: stimulus_triage.referrer,
-        chose_to_file: stimulus_triage.chose_to_file,
-        filed_prior_years: stimulus_triage.filed_prior_years,
-        filed_recently: stimulus_triage.filed_recently,
-        need_to_correct: stimulus_triage.need_to_correct,
-        need_to_file: stimulus_triage.need_to_file
       }
     end
 
@@ -311,23 +293,6 @@ class MixpanelService
         client_organization_id: organization&.id,
         client_site_name: site&.name,
         client_site_id: site&.id,
-      }
-    end
-
-    ##
-    # creates Mixpanel data from a stimulus triage object
-    def data_from_stimulus_triage_for_intake(intake)
-      return {} unless intake.triaged_from_stimulus?
-
-      stimulus_triage = intake.triage_source
-      {
-          stimulus_triage_source: stimulus_triage.source,
-          stimulus_triage_referrer: stimulus_triage.referrer,
-          stimulus_triage_chose_to_file: stimulus_triage.chose_to_file,
-          stimulus_triage_filed_prior_years: stimulus_triage.filed_prior_years,
-          stimulus_triage_filed_recently: stimulus_triage.filed_recently,
-          stimulus_triage_need_to_correct: stimulus_triage.need_to_correct,
-          stimulus_triage_need_to_file: stimulus_triage.need_to_file
       }
     end
 
