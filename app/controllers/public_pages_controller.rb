@@ -29,7 +29,12 @@ class PublicPagesController < ApplicationController
 
   def maintenance; end
 
-  def internal_server_error; end
+  def internal_server_error
+    respond_to do |format|
+      format.html { render 'public_pages/internal_server_error', status: 500  }
+      format.any { head 500 }
+    end
+  end
 
   def page_not_found
     respond_to do |format|
