@@ -90,6 +90,8 @@
 #  made_estimated_tax_payments                          :integer          default(0), not null
 #  married                                              :integer          default(0), not null
 #  multiple_states                                      :integer          default(0), not null
+#  navigator_has_verified_client_identity               :boolean
+#  navigator_name                                       :string
 #  needs_help_2016                                      :integer          default(0), not null
 #  needs_help_2017                                      :integer          default(0), not null
 #  needs_help_2018                                      :integer          default(0), not null

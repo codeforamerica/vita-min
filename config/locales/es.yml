@@ -79,6 +79,8 @@ es:
           incarcerated: Incarcerated/reentry
           limited_english: Limited English proficiency
           unhoused: Unhoused
+        identity_verification:
+          title: Identity verification
         spouse_contact_info: Información de contacto del cónyuge
         state_of_residence: Estado de residencia
         signature_method: Método para recoger

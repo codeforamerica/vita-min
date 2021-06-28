@@ -90,6 +90,8 @@
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  married                                              :integer          default("unfilled"), not null
 #  multiple_states                                      :integer          default("unfilled"), not null
+#  navigator_has_verified_client_identity               :boolean
+#  navigator_name                                       :string
 #  needs_help_2016                                      :integer          default("unfilled"), not null
 #  needs_help_2017                                      :integer          default("unfilled"), not null
 #  needs_help_2018                                      :integer          default("unfilled"), not null

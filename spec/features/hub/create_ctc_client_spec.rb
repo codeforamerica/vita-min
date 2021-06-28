@@ -80,6 +80,11 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Confirm account number", with: "2345678901"
       end
 
+      within "#identity-verification-fields" do
+        fill_in "Name of navigator", with: "Terry Taxseason"
+        check "I have checked and verified this client's identity."
+      end
+
       click_on I18n.t('general.save')
 
       expect(page).to have_text "Colleen Cauliflower"
@@ -106,6 +111,8 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "Economic Impact Payment 1 received: $500"
       expect(page).to have_text "Economic Impact Payment 2 received: $500"
       expect(page).to have_text "Confidence: Sure"
+
+      expect(page).to have_text "Terry Taxseason"
 
       within ".tax-return-list" do
         expect(page).to have_text "2020"

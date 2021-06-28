@@ -113,6 +113,7 @@
             <% end %>
           </div>
 
+          <!-- Recovery rebate credit -->
           <% if @client.intake.is_ctc? %>
             <div class="client-profile__field_group client-recovery-rebate-creidt-amount">
               <h2 class="text--bold"><%= t("hub.clients.fields.recovery_rebate_credit") %></h2>
@@ -129,7 +130,7 @@
                 <span class="label-value"><%= @client.intake.recovery_rebate_credit_amount_confidence.capitalize %> </span>
               </div>
             </div>
-            <% end %>
+          <% end %>
         </div>
 
         <div class="client-profile__column">
@@ -203,6 +204,17 @@
             </span>
             </div>
           </div>
+
+          <!-- Identity verification -->
+          <% if @client.intake.is_ctc? %>
+            <div class="client-profile__field_group client-recovery-rebate-credit-amount">
+              <h2 class="text--bold">Navigator Name</h2>
+              <div class="field-display">
+                <span class="form-question">Legal Name:</span>
+                <span class="label-value">$<%= @client.intake.navigator_name %> </span>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
       <div class="client-profile__actions"><%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %></div>

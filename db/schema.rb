@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_181638) do
+ActiveRecord::Schema.define(version: 2021_06_28_222700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -459,6 +459,8 @@ ActiveRecord::Schema.define(version: 2021_06_28_181638) do
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.integer "married", default: 0, null: false
     t.integer "multiple_states", default: 0, null: false
+    t.boolean "navigator_has_verified_client_identity"
+    t.string "navigator_name"
     t.integer "needs_help_2016", default: 0, null: false
     t.integer "needs_help_2017", default: 0, null: false
     t.integer "needs_help_2018", default: 0, null: false
