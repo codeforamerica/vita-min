@@ -1512,6 +1512,7 @@ es:
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Estamos comprometidos a proteger su información.
+        ctc_full_capacity_html: "Nuestros preparadores de impuestos están a capacidad en este momento y no pueden completar declaraciones completas, pero todavía están disponibles nuestro servicio del Crédito Tributario por Hijos (CTC) y las opciones DIY. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getctc.org/es#claim-credit'>aquí</a></strong> si necesita ayuda para reclamar el Crédito Tributario por Hijos. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getyourrefund.org/es/diy/file-yourself'>aquí</a></strong> si quiere presentar su propia declaración usando nuestro programa gratis."
         stimulus_banner:
           facts_html: &1
           - Recoja su cheque de estímulo de 2020 declarando sus impuestos a través de <a href="%{file_with_help_link}">GetYourRefund</a>!
