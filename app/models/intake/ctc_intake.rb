@@ -143,10 +143,6 @@
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
 #  spouse_consented_to_service                          :integer          default(0), not null
-#  sold_a_home                                          :integer          default("unfilled"), not null
-#  sold_assets                                          :integer          default("unfilled"), not null
-#  source                                               :string
-#  spouse_auth_token                                    :string
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_email_address                                 :citext
