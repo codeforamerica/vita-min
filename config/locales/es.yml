@@ -1223,6 +1223,7 @@ es:
       questions:
         overview:
           help_text: TODO
+          help_text2: TODO
           title: TODO
           step1:
             title: TODO
