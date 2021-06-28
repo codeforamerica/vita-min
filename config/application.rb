@@ -1,4 +1,5 @@
 require_relative 'boot'
+require_relative "../lib/middleware/cleanup_mime_type_headers"
 
 require "rails"
 # Pick the frameworks you want:
@@ -46,5 +47,6 @@ module VitaMin
       staging: "ctc.staging.getyourrefund.org",
       production: "www.getctc.org"
     }
+    config.middleware.use Middleware::CleanupMimeTypeHeaders
   end
 end
