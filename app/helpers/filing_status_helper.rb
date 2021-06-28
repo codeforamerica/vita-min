@@ -7,7 +7,7 @@ module FilingStatusHelper
         end.compact.join.html_safe
       end
     else
-      client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly"
+      client.intake&.filing_joint == "yes" ? "Filing jointly" : "Not filing jointly"
     end
   end
 
@@ -24,12 +24,12 @@ module FilingStatusHelper
     intake = client.intake
 
     statuses = [
-        (I18n.t("general.married") if intake.married_yes?),
-        (I18n.t("general.lived_with_spouse") if intake.lived_with_spouse_yes?),
-        ("#{I18n.t("general.separated")} #{intake.separated_year}" if intake.separated_yes?),
-        ("#{I18n.t("general.divorced")} #{intake.divorced_year}" if intake.divorced_yes?),
-        ("#{I18n.t("general.widowed")} #{intake.widowed_year}" if intake.widowed_yes?),
-        ("#{I18n.t("general.single")}" if intake.ever_married_no?)
+      (I18n.t("general.married") if intake.married == "yes"),
+      (I18n.t("general.lived_with_spouse") if intake.lived_with_spouse == "yes"),
+      ("#{I18n.t("general.separated")} #{intake.separated_year}" if intake.separated == "yes"),
+      ("#{I18n.t("general.divorced")} #{intake.divorced_year}" if intake.divorced == "yes"),
+      ("#{I18n.t("general.widowed")} #{intake.widowed_year}" if intake.widowed == "yes"),
+      ("#{I18n.t("general.single")}" if intake.ever_married == "no")
     ].compact
 
     content_tag(:span, statuses.present? ? statuses.join(", ") : I18n.t("general.NA"))

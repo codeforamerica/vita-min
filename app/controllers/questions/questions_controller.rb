@@ -43,12 +43,13 @@ module Questions
     def has_unsure_option?
       layout = self.send :_layout, self.lookup_context, [""]
       return false unless layout == "yes_no_question"
+
       enum_options = parent_class.try(method_name.pluralize)
       enum_options&.has_key?("unsure")
     end
 
     def parent_class
-      Intake
+      Intake::GyrIntake
     end
 
     def method_name

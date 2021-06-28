@@ -210,7 +210,7 @@ class Client < ApplicationRecord
   end
 
   def requires_spouse_info?
-    intake.filing_joint_yes? || !tax_returns.map(&:filing_status).all?("single")
+    intake.filing_joint == "yes" || !tax_returns.map(&:filing_status).all?("single")
   end
 
   def generate_login_link

@@ -21,9 +21,9 @@ describe IntakeProgressCalculator do
     end
 
     it "adjusts possible future steps based on answers" do
-      ever_married_yes = Intake.new(ever_married: :yes)
-      ever_married_no = Intake.new(ever_married: :no)
-      ever_married_unfilled = Intake.new
+      ever_married_yes = Intake::GyrIntake.new(ever_married: :yes)
+      ever_married_no = Intake::GyrIntake.new(ever_married: :no)
+      ever_married_unfilled = Intake::GyrIntake.new
       controller_before_question = Questions::IssuedIdentityPinController
 
       expect(IntakeProgressCalculator.get_progress(controller_before_question, ever_married_yes)).to be < IntakeProgressCalculator.get_progress(controller_before_question, ever_married_no)

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe BacktaxesForm do
   describe "#save" do
     it "makes a new client with tax returns for each year they need" do
-      intake = Intake.new
+      intake = Intake::GyrIntake.new
       form = BacktaxesForm.new(intake, {
         visitor_id: "some_visitor_id",
         needs_help_2017: "yes",
@@ -30,7 +30,7 @@ RSpec.describe BacktaxesForm do
       end
 
       it "sends intake_started to Mixpanel" do
-        intake = Intake.new
+        intake = Intake::GyrIntake.new
 
         form = BacktaxesForm.new(intake, {
           needs_help_2017: "yes",
