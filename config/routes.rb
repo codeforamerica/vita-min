@@ -81,9 +81,6 @@ Rails.application.routes.draw do
         get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
       end
 
-      # Stimulus routes
-      scoped_navigation_routes(:stimulus, StimulusNavigation, as_redirects: Rails.configuration.offseason)
-
       get "/diy", to: "public_pages#diy"
       get "/other-options", to: "public_pages#other_options"
       get "/maybe-ineligible", to: "public_pages#maybe_ineligible"

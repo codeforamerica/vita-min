@@ -497,7 +497,6 @@ describe MixpanelService do
                                            needs_help_2016: "unfilled",
                                            needs_help_backtaxes: "yes",
                                            vita_partner_name: vita_partner.name,
-                                           triaged_from_stimulus: "no",
                                            timezone: "America/Los_Angeles",
                                            csat: "neutral",
                                            claimed_by_another: "yes",
@@ -523,39 +522,6 @@ describe MixpanelService do
 
           it "sends needs_help_backtaxes = no" do
             expect(data_from_intake).to include(needs_help_backtaxes: "no")
-          end
-        end
-
-        context "when the intake has a triage source from stimulus triage" do
-          let(:stimulus_triage) { create(:stimulus_triage) }
-          before do
-            intake.update_attribute(:triage_source, stimulus_triage)
-          end
-
-          it "includes stimulus triage data" do
-            expect(data_from_intake).to include(
-              stimulus_triage_source: nil,
-              stimulus_triage_referrer: nil,
-              stimulus_triage_chose_to_file: "unfilled",
-              stimulus_triage_filed_prior_years: "unfilled",
-              stimulus_triage_filed_recently: "unfilled",
-              stimulus_triage_need_to_correct: "unfilled",
-              stimulus_triage_need_to_file: "unfilled"
-                                        )
-          end
-        end
-
-        context "when the intake does not have a triage source from stimulus triage" do
-          it "does not includes stimulus triage data" do
-            expect(data_from_intake).not_to include(
-              :stimulus_triage_source,
-                                              :stimulus_triage_referrer,
-                                              :stimulus_triage_chose_to_file,
-                                              :stimulus_triage_filed_prior_years,
-                                              :stimulus_triage_filed_recently,
-                                              :stimulus_triage_need_to_correct,
-                                              :stimulus_triage_need_to_file
-                                            )
           end
         end
       end

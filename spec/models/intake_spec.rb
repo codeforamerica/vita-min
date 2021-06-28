@@ -854,23 +854,6 @@ describe Intake do
     end
   end
 
-  describe "#triaged_from_stimulus?" do
-    let(:stimulus_triage) { create(:stimulus_triage) }
-    let(:intake) { create(:intake) }
-
-    context "when a stimulus triage is present" do
-      before do
-        intake.update_attribute(:triage_source, stimulus_triage)
-      end
-
-      it { expect(intake.triaged_from_stimulus?).to be_truthy }
-    end
-
-    context "when no stimulus triage is present" do
-      it { expect(intake.triaged_from_stimulus?).to be_falsey }
-    end
-  end
-
   describe "#document_types_definitely_needed" do
     let(:intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
 

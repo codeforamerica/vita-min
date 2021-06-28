@@ -31,10 +31,6 @@ class ApplicationController < ActionController::Base
     Intake.find_by_id(session[:completed_intake_id]) unless session[:completed_intake_id].nil?
   end
 
-  def current_stimulus_triage
-    StimulusTriage.find_by_id(session[:stimulus_triage_id]) unless (hub? || session[:stimulus_triage_id].nil?)
-  end
-
   def clear_intake_session
     sign_out current_client
     session.delete("intake_id")
@@ -159,7 +155,6 @@ class ApplicationController < ActionController::Base
     payload[:request_details] = {
       current_user_id: current_user&.id,
       intake_id: current_intake&.id,
-      stimulus_triage_id: current_stimulus_triage&.id,
       device_type: user_agent.device_type,
       browser_name: user_agent.name,
       os_name: user_agent.os_name,
