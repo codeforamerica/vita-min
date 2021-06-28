@@ -99,14 +99,20 @@
                 <li><%= item %></li>
               <% end %>
             </ul>
-            <p><%=t("views.ctc_pages.home.obtain.already_filed.body3") %></p>
+            <p>
+              <%=t("views.ctc_pages.home.obtain.already_filed.body3_html") %>
+            </p>
+            <ul>
+              <li><%=t("views.ctc_pages.home.obtain.already_filed.current_use_item") %></li>
+            </ul>
+            <p><%=t("views.ctc_pages.home.obtain.already_filed.body4") %></p>
             <ul>
               <% t("views.ctc_pages.home.obtain.already_filed.opt_out_items").each do |item| %>
                 <li><%= item %></li>
               <% end %>
             </ul>
             <p>
-              <%= t("views.ctc_pages.home.non_filer_sign_up_tool_warning_html") %>
+              <%= t("views.ctc_pages.home.obtain.already_filed.irs_link_html") %>
             </p>
           </div>
         </div>

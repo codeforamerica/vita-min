@@ -2731,16 +2731,18 @@ en:
           already_filed:
             subheading: "If you already filed a 2019, or a 2020 tax return, you don’t have to do anything."
             body1: "If you have already filed a 2019 or 2020 tax return and you have not had major changes to your household, no additional action is needed. We do know that family situations can change quickly. To receive the correct amount of money from the Child Tax Credit, you can make sure that the IRS has the correct information on your current household."
-            body2_html: "If your family situation has changed you will soon be able to use the <strong>IRS CTC Update Portal (CTC UP)</strong> to:"
-            body3: "You might choose to opt out of receiving monthly Child Tax Credit payments if:"
+            body2_html: "If your family situation has changed you will soon be able to use the <strong><a rel='noopener' target='_blank' href='https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool'>IRS CTC Update Portal</a></strong> to:"
+            body3_html: "You can <i>currently</i> use the Update Portal to:"
+            body4: "You might choose to opt out of receiving monthly Child Tax Credit payments if:"
             update_items:
-              - "Update the number of eligible dependents in your household (for example if a child has moved out)"
+              - "Update the number of eligible dependents in your household (for example if a child has moved out, or a new baby was born)"
               - "Report significant changes in household income"
-              - "Opt out of receiving monthly payments, and choose to receive the payment next year when you submit your 2021 tax return"
+            current_use_item: "Opt out of receiving monthly payments, and choose to receive the payment next year when you submit your 2021 tax return"
             opt_out_items:
               - "You would prefer to receive your credit in one payment in 2022"
               - "Your bank information or address has changed in the last year"
               - "You do not plan on claiming dependents on your 2021 tax return (2022 tax season), for example if you share share custody with someone else and alternate who claims the child as a dependent"
+            irs_link_html: "Update Your Information or Opt Out in the <strong><a rel='noopener' target='_blank' href='https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool'>IRS Child Credit Update Portal</a></strong>!"
           not_filed:
             subheading: "If you have not filed a tax return, you can sign up to get the Child Tax Credit."
             body1_html: |
