@@ -2766,7 +2766,7 @@ es:
             update_items:
               - "Actualizar el número de dependientes elegibles en su hogar (por ejemplo, si un niño ya no vive con usted, o nació un nuevo bebé)"
               - "Reportar cambios significativos en sus ingresos familiares"
-            current_use_item: "Optar por no recibir pagos mensuales, y optar por recibir el pago  el próximo año cuando presente su declaración de impuestos de 2021"
+            payment_next_year: "Optar por no recibir pagos mensuales, y optar por recibir el pago  el próximo año cuando presente su declaración de impuestos de 2021"
             opt_out_items:
               - "Prefiere recibir su crédito en un solo pago en el 2022"
               - "Su información bancaria o su dirección ha cambiado en el último año"

@@ -2737,7 +2737,7 @@ en:
             update_items:
               - "Update the number of eligible dependents in your household (for example if a child has moved out, or a new baby was born)"
               - "Report significant changes in household income"
-            current_use_item: "Opt out of receiving monthly payments, and choose to receive the payment next year when you submit your 2021 tax return"
+            payment_next_year: "Opt out of receiving monthly payments, and choose to receive the payment next year when you submit your 2021 tax return"
             opt_out_items:
               - "You would prefer to receive your credit in one payment in 2022"
               - "Your bank information or address has changed in the last year"
