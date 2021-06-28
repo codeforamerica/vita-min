@@ -103,8 +103,8 @@ RSpec.feature "Creating new drop off clients" do
         expect(page).to have_content "Refund delivery method: Direct deposit"
       end
 
-      expect(page).to have_text "Economic Impact Payment 1: $500"
-      expect(page).to have_text "Economic Impact Payment 2: $500"
+      expect(page).to have_text "Economic Impact Payment 1 received: $500"
+      expect(page).to have_text "Economic Impact Payment 2 received: $500"
       expect(page).to have_text "Confidence: Sure"
 
       within ".tax-return-list" do

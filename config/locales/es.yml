@@ -424,8 +424,8 @@ es:
       checking: Cuenta de Cheques
       savings: Ahorros
     recovery_rebate_credit_amount:
-      amount_1: "Pago de impacto económico 1"
-      amount_2: "Pago de impacto económico 2"
+      amount_1: "Pago de impacto económico 1 recibió"
+      amount_2: "Pago de impacto económico 2 recibió"
       confidence: "¿Qué tan confiado en esta cantidad?"
       confidence_values:
         sure: "Seguro"
