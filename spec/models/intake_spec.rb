@@ -353,24 +353,6 @@ describe Intake do
     end
   end
 
-  describe "#bank_details_png" do
-    let(:intake) { create :intake }
-    let(:bank_details_pdf_spy) { instance_double(BankDetailsPdf) }
-
-    before do
-      allow(BankDetailsPdf).to receive(:new).with(intake).and_return(bank_details_pdf_spy)
-      allow(bank_details_pdf_spy).to receive(:as_png).and_return("i am a png")
-    end
-
-    it "generates a bank details png for this intake" do
-      result = intake.bank_details_png
-
-      expect(BankDetailsPdf).to have_received(:new).with(intake)
-      expect(bank_details_pdf_spy).to have_received(:as_png)
-      expect(result).to eq "i am a png"
-    end
-  end
-
   describe "#referrer_domain" do
     let(:intake) { build :intake, referrer: referrer }
 
