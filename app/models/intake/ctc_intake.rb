@@ -16,6 +16,7 @@
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
+#  ctc_refund_delivery_method                           :integer
 #  current_step                                         :string
 #  demographic_disability                               :integer          default(0), not null
 #  demographic_english_conversation                     :integer          default(0), not null
@@ -89,6 +90,8 @@
 #  made_estimated_tax_payments                          :integer          default(0), not null
 #  married                                              :integer          default(0), not null
 #  multiple_states                                      :integer          default(0), not null
+#  navigator_has_verified_client_identity               :boolean
+#  navigator_name                                       :string
 #  needs_help_2016                                      :integer          default(0), not null
 #  needs_help_2017                                      :integer          default(0), not null
 #  needs_help_2018                                      :integer          default(0), not null
@@ -120,6 +123,9 @@
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
 #  received_stimulus_payment                            :integer          default(0), not null
+#  recovery_rebate_credit_amount_1                      :integer
+#  recovery_rebate_credit_amount_2                      :integer
+#  recovery_rebate_credit_amount_confidence             :integer
 #  referrer                                             :string
 #  refund_payment_method                                :integer          default(0), not null
 #  reported_asset_sale_loss                             :integer          default(0), not null
@@ -194,7 +200,18 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::CtcIntake < Intake
+
+  attribute :recovery_rebate_credit_amount_1, :money
+  attribute :recovery_rebate_credit_amount_2, :money
+
+  enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
+  enum ctc_refund_delivery_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :ctc_refund_delivery_method
+
   def document_types_definitely_needed
     []
+  end
+
+  def is_ctc?
+    true
   end
 end

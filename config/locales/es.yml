@@ -66,6 +66,7 @@ es:
         legal_last_name: Apellido legal
         mailing_address: Dirección postal
         payment_information: Información de pago
+        recovery_rebate_credit: Crédito de recuperación de reembolso (opcional)
         preferred_interview_language: Idioma preferido
         marital_status: Estado civil
         filing_status: Estado civil para impuestos
@@ -78,6 +79,8 @@ es:
           incarcerated: Incarcerated/reentry
           limited_english: Limited English proficiency
           unhoused: Unhoused
+        identity_verification:
+          title: Identity verification
         spouse_contact_info: Información de contacto del cónyuge
         state_of_residence: Estado de residencia
         signature_method: Método para recoger
@@ -422,6 +425,13 @@ es:
       account_type: Tipo de cuenta
       checking: Cuenta de Cheques
       savings: Ahorros
+    recovery_rebate_credit_amount:
+      amount_1: "Pago de impacto económico 1 recibió"
+      amount_2: "Pago de impacto económico 2 recibió"
+      confidence: "¿Qué tan confiado en esta cantidad?"
+      confidence_values:
+        sure: "Seguro"
+        unsure: "Inseguro"
     organizations:
       new:
         title: "Nueva Organización"

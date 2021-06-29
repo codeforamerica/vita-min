@@ -1,0 +1,5 @@
+<div id="identity-verification-fields" class="hub-form__card card-small">
+  <h3><%= t("hub.clients.fields.identity_verification.title")%></h3>
+  <%= f.cfa_input_field(:navigator_name, "Name of navigator") %>
+  <%= f.hub_checkbox(:navigator_has_verified_client_identity, "I have checked and verified this client's identity.", options: { classes: ["checkbox--wide"] }) %>
+</div>

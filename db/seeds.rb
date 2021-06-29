@@ -1,5 +1,6 @@
 # Create client_support_org if needed
-VitaPartner.find_or_create_by!(name: "GYR National Organization", allows_greeters: true)
+national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization")
+national_org.update(allows_greeters: true)
 
 koalas = Coalition.find_or_create_by(name: "Koala Koalition")
 Coalition.find_or_create_by(name: "Cola Coalition")

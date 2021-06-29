@@ -31,7 +31,13 @@ module Hub
                        :bank_account_number,
                        :bank_routing_number,
                        :bank_account_type,
-                       :bank_name
+                       :bank_name,
+                       :recovery_rebate_credit_amount_1,
+                       :recovery_rebate_credit_amount_2,
+                       :recovery_rebate_credit_amount_confidence,
+                       :ctc_refund_delivery_method,
+                       :navigator_name,
+                       :navigator_has_verified_client_identity
     set_attributes_for :tax_return,
                        :filing_status,
                        :filing_status_note
@@ -43,13 +49,24 @@ module Hub
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
     validates :filing_status, presence: true
-    after_save :send_confirmation_message, :send_mixpanel_data
-    validates_confirmation_of :bank_routing_number
-    validates_confirmation_of :bank_account_number
+    after_save :send_confirmation_message, :send_mixpanel_data, :add_system_note
+
+    validates :ctc_refund_delivery_method, presence: true
+    validates :navigator_name, presence: true
+    validates :navigator_has_verified_client_identity, inclusion: { in: [true, '1'], message: I18n.t('errors.messages.blank') }
+
+    with_options if: -> { ctc_refund_delivery_method == "direct_deposit" } do
+      validates_confirmation_of :bank_routing_number
+      validates_confirmation_of :bank_account_number
+      validates_presence_of :bank_name
+      validates_presence_of :bank_account_type
+      validates_presence_of :bank_account_number
+      validates_presence_of :bank_routing_number
+    end
+
     validates_presence_of :bank_account_number_confirmation, if: :bank_account_number
     validates_presence_of :bank_routing_number_confirmation, if: :bank_routing_number
-    validates_presence_of :bank_account_number
-    validates_presence_of :bank_routing_number
+
     def required_dependents_attributes
       [:birth_date, :first_name, :last_name, :relationship].freeze
     end
@@ -88,6 +105,10 @@ module Hub
           data: MixpanelService.data_from([client, tax_return, @current_user])
         )
       end
+    end
+
+    def add_system_note
+      SystemNote::VerifiedClientIdentity.generate!(client: @client)
     end
 
     def default_attributes

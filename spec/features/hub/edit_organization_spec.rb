@@ -26,6 +26,7 @@ RSpec.describe "a user editing an organization", :js do
         expect(find_field('Capacity limit').value).to eq "100"
 
         select "Central Time (US & Canada)", from: "Timezone"
+        fill_in "Capacity limit", with: "" # force clear field
         fill_in "Capacity limit", with: "200"
         check "Allows Greeters"
         within "#organization-form" do

@@ -16,6 +16,7 @@
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
+#  ctc_refund_delivery_method                           :integer
 #  current_step                                         :string
 #  demographic_disability                               :integer          default(0), not null
 #  demographic_english_conversation                     :integer          default(0), not null
@@ -89,6 +90,8 @@
 #  made_estimated_tax_payments                          :integer          default(0), not null
 #  married                                              :integer          default(0), not null
 #  multiple_states                                      :integer          default(0), not null
+#  navigator_has_verified_client_identity               :boolean
+#  navigator_name                                       :string
 #  needs_help_2016                                      :integer          default(0), not null
 #  needs_help_2017                                      :integer          default(0), not null
 #  needs_help_2018                                      :integer          default(0), not null
@@ -120,6 +123,9 @@
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
 #  received_stimulus_payment                            :integer          default(0), not null
+#  recovery_rebate_credit_amount_1                      :integer
+#  recovery_rebate_credit_amount_2                      :integer
+#  recovery_rebate_credit_amount_confidence             :integer
 #  referrer                                             :string
 #  refund_payment_method                                :integer          default(0), not null
 #  reported_asset_sale_loss                             :integer          default(0), not null
@@ -258,6 +264,11 @@ class Intake < ApplicationRecord
       field_name: :with_unhoused_navigator
     }
   }
+
+  def is_ctc?
+    false
+  end
+
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
