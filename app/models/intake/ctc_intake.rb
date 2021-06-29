@@ -208,6 +208,9 @@ class Intake::CtcIntake < Intake
   attribute :recovery_rebate_credit_amount_1, :money
   attribute :recovery_rebate_credit_amount_2, :money
 
+  attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+
   enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
   enum ctc_refund_delivery_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :ctc_refund_delivery_method
 
