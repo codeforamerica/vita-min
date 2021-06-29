@@ -37,7 +37,8 @@ RSpec.describe Hub::CreateCtcClientForm do
         bank_name: "Bank of America",
         recovery_rebate_credit_amount_1: "$280",
         recovery_rebate_credit_amount_2: "$250",
-        recovery_rebate_credit_amount_confidence: "sure"
+        recovery_rebate_credit_amount_confidence: "sure",
+        ctc_refund_delivery_method: "check"
       }
     end
 
@@ -267,6 +268,22 @@ RSpec.describe Hub::CreateCtcClientForm do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:filing_status]).to include "Can't be blank."
+        end
+      end
+
+      context "CTC refund method" do
+        before do
+          params[:ctc_refund_delivery_method] = nil
+        end
+
+        it "is required" do
+          expect(described_class.new(params).valid?).to eq false
+        end
+
+        it "pushes errors for ctc refund method into the errors" do
+          obj = described_class.new(params)
+          obj.valid?
+          expect(obj.errors[:ctc_refund_delivery_method]).to include "Can't be blank."
         end
       end
 

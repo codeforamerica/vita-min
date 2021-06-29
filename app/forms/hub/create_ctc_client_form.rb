@@ -51,6 +51,8 @@ module Hub
     validates :filing_status, presence: true
     after_save :send_confirmation_message, :send_mixpanel_data
 
+    validates :ctc_refund_delivery_method, presence: true
+
     with_options if: -> { ctc_refund_delivery_method == "direct_deposit" } do
       validates_confirmation_of :bank_routing_number
       validates_confirmation_of :bank_account_number

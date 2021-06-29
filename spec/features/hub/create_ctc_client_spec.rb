@@ -150,12 +150,7 @@ RSpec.feature "Creating new drop off clients" do
       end
 
       within "#bank-account-fields" do
-        fill_in "Bank name", with: "Bank of America"
-        select "Checking", from: "Account type"
-        fill_in "Routing number", with: "123456789"
-        fill_in "Confirm routing number", with: "123456789"
-        fill_in "Account number", with: "2345678901"
-        fill_in "Confirm account number", with: "2345678901"
+        choose "Check"
       end
 
       expect do
