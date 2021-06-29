@@ -99,7 +99,7 @@ RSpec.feature "Creating new drop off clients" do
         expect(page).to have_text "2017"
       end
 
-      within ".last-four-ssn" do
+      within ".primary-ssn" do
         expect do
           click_on "View"
           expect(page).to have_text "4444"

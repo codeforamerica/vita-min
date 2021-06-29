@@ -22,11 +22,13 @@ RSpec.describe Hub::CreateCtcClientForm do
         spouse_first_name: "Newly",
         spouse_last_name: "Wed",
         spouse_email_address: "spouse@example.com",
-        spouse_last_four_ssn: "5678",
+        spouse_ssn: '111224444',
+        spouse_ssn_confirmation: '111224444',
         timezone: "America/Chicago",
         state_of_residence: "CA",
         signature_method: "online",
-        primary_last_four_ssn: "1234",
+        primary_ssn: '111223333',
+        primary_ssn_confirmation: '111223333',
         filing_status: "single",
         filing_status_note: "Didn't get married until 2021",
         bank_account_type: "checking",
@@ -40,7 +42,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         recovery_rebate_credit_amount_confidence: "sure",
         ctc_refund_delivery_method: "check",
         navigator_name: "Tax Seasonson",
-        navigator_has_verified_client_identity: true
+        navigator_has_verified_client_identity: true,
       }
     end
 
@@ -77,6 +79,20 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(client.intake.recovery_rebate_credit_amount_1).to eq 280
         expect(client.intake.recovery_rebate_credit_amount_2).to eq 250
         expect(client.intake.recovery_rebate_credit_amount_confidence).to eq "sure"
+      end
+
+      it "stores primary SSN and also the last 4 in a separate column" do
+        described_class.new(params).save(current_user)
+        client = Client.last
+        expect(client.intake.primary_ssn).to eq('111223333')
+        expect(client.intake.primary_last_four_ssn).to eq('3333')
+      end
+
+      it "stores spouse SSN and also the last 4 in a separate column" do
+        described_class.new(params).save(current_user)
+        client = Client.last
+        expect(client.intake.spouse_ssn).to eq('111224444')
+        expect(client.intake.spouse_last_four_ssn).to eq('4444')
       end
 
       it "assigns client to an instance on the form object" do
@@ -120,8 +136,6 @@ RSpec.describe Hub::CreateCtcClientForm do
         end.to change(Intake, :count).by 1
         intake = Intake.last
         expect(intake.vita_partner).to eq vita_partner
-        expect(intake.primary_last_four_ssn).to eq "1234"
-        expect(intake.spouse_last_four_ssn).to eq "5678"
         expect(intake.timezone).to eq "America/Chicago"
       end
 

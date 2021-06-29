@@ -1,2 +1,8 @@
-<span class="label-value"><%= @client.intake.primary_last_four_ssn %></span>
+<span class="label-value">
+  <% if @client.intake.is_ctc? %>
+    <%= @client.intake.primary_ssn %>
+  <% else %>
+    <%= @client.intake.primary_last_four_ssn %>
+  <% end %>
+</span>
 <span class="sr-only"><%= t("hub.ssn_itins.displayed") %></span>

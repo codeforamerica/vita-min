@@ -347,4 +347,22 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_link "Message my tax specialist"
     end
   end
+
+  context "a CTC client" do
+    let(:client) do
+      create :client,
+        intake: (create :ctc_intake),
+        tax_returns: [(create :tax_return, :primary_has_signed, year: 2020, is_ctc: true, status: :file_efiled)]
+    end
+
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "sees something that does not crash" do
+      visit portal_root_path
+
+      expect(page).to have_text "Welcome back #{client.intake.preferred_name}"
+    end
+  end
 end

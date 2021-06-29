@@ -44,8 +44,14 @@
               <span class="label-value"><%= @client.intake.state_of_residence %></span>
             </div>
             <!-- SSN/ITIN hidden -->
-            <div class="field-display last-four-ssn">
-              <span class="form-question"><%= t("general.last_four_ssn") %>:</span>
+            <div class="field-display primary-ssn">
+              <span class="form-question">
+                <% if @client.intake.is_ctc? %>
+                  <%= t("general.ssn") %>:
+                <% else %>
+                  <%= t("general.last_four_ssn") %>:
+                <% end %>
+              </span>
               <% if @client.intake.primary_last_four_ssn.present? %>
               <span id="js-ssn-itin">
                 <%= render "hub/clients/hidden_ssn_itin" %>
@@ -172,8 +178,14 @@
                 <span class="form-question"><%= t(".email") %>:</span>
                 <span class="label-value"><%= @client.intake&.spouse_email_address %> </span>
               </div>
-              <div class="field-display spouse-last-four-ssn">
-                <span class="form-question"><%= t("general.last_four_ssn") %>:</span>
+              <div class="field-display spouse-ssn">
+                <span class="form-question">
+                  <% if @client.intake.is_ctc? %>
+                    <%= t("general.ssn") %>:
+                  <% else %>
+                    <%= t("general.last_four_ssn") %>:
+                  <% end %>
+                </span>
                 <% if @client.intake.spouse_last_four_ssn.present? %>
               <span id="js-spouse-ssn-itin">
                 <%= render "hub/clients/hidden_ssn_itin" %>
