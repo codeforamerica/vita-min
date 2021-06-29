@@ -125,6 +125,9 @@ RSpec.feature "Creating new drop off clients" do
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
+
+      visit hub_clients_path
+      expect(page).to have_content("Colly Cauliflower")
     end
 
     scenario "I can create multiple CTC clients, one after another" do
