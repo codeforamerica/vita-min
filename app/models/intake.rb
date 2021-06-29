@@ -196,6 +196,8 @@
 class Intake < ApplicationRecord
   include PgSearch::Model
 
+  self.inheritance_column = 'something_other_than_type'
+
   pg_search_scope :search, against: [
     :client_id, :primary_first_name, :primary_last_name, :preferred_name, :spouse_first_name, :spouse_last_name,
     :email_address, :phone_number, :sms_phone_number
