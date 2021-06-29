@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_222700) do
+ActiveRecord::Schema.define(version: 2021_06_29_224847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -419,8 +419,12 @@ ActiveRecord::Schema.define(version: 2021_06_28_222700) do
     t.string "encrypted_bank_routing_number_iv"
     t.string "encrypted_primary_last_four_ssn"
     t.string "encrypted_primary_last_four_ssn_iv"
+    t.string "encrypted_primary_ssn"
+    t.string "encrypted_primary_ssn_iv"
     t.string "encrypted_spouse_last_four_ssn"
     t.string "encrypted_spouse_last_four_ssn_iv"
+    t.string "encrypted_spouse_ssn"
+    t.string "encrypted_spouse_ssn_iv"
     t.integer "ever_married", default: 0, null: false
     t.integer "ever_owned_home", default: 0, null: false
     t.string "feedback"
