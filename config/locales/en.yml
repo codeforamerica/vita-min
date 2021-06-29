@@ -1588,7 +1588,7 @@ en:
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
           header: We're committed to keeping your information secure.
-        ctc_full_capacity_html: "Our tax preparers are at capacity and unable to complete full returns right now, but our Child Tax Credit service and DIY options are still available. Click <strong><a rel='noopener' target='_blank' href='https://www.getctc.org/en#claim-credit'>here</a></strong> if you need help claiming the Child Tax Credit. Click <strong><a rel='noopener' target='_blank' href='https://www.getyourrefund.org/en/diy/file-yourself'>here</a></strong> if you want to file your own return using free software."
+        ctc_full_capacity_html: "Most of our tax preparers are at capacity and unable to complete full returns right now, but our Child Tax Credit service and DIY options are still available. Click <strong><a rel='noopener' target='_blank' href='https://www.getctc.org/en#claim-credit'>here</a></strong> if you need help claiming the Child Tax Credit. Click <strong><a rel='noopener' target='_blank' href='https://www.getyourrefund.org/en/diy/file-yourself'>here</a></strong> if you want to file your own return using free software."
         stimulus_banner:
           facts_html: &1
           - Collect your 2020 stimulus check by filing your taxes through <a href="%{file_with_help_link}">GetYourRefund</a>!
