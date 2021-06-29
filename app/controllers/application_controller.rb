@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?
+  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -281,6 +281,10 @@ class ApplicationController < ActionController::Base
     return unless request.get? # skip uploads
 
     current_intake.update(current_step: current_path) unless current_intake.current_step == current_path
+  end
+
+  def wrapping_layout
+    "application"
   end
 
   rescue_from CanCan::AccessDenied do |exception|
