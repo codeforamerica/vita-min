@@ -50,8 +50,12 @@
 #  encrypted_bank_routing_number_iv                     :string
 #  encrypted_primary_last_four_ssn                      :string
 #  encrypted_primary_last_four_ssn_iv                   :string
+#  encrypted_primary_ssn                                :string
+#  encrypted_primary_ssn_iv                             :string
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
+#  encrypted_spouse_ssn                                 :string
+#  encrypted_spouse_ssn_iv                              :string
 #  ever_married                                         :integer          default("unfilled"), not null
 #  ever_owned_home                                      :integer          default("unfilled"), not null
 #  feedback                                             :string
