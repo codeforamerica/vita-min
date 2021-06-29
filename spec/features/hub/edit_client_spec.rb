@@ -182,7 +182,7 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "Brassicaville, CA 95032"
       expect(page).to have_text "Peter Pepper"
       expect(page).to have_text "spicypeter@pepper.com"
-      within ".last-four-ssn" do
+      within ".primary-ssn" do
         expect do
           click_on "View"
           expect(page).to have_text "4444"
@@ -190,7 +190,7 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
 
-      within ".spouse-last-four-ssn" do
+      within ".spouse-ssn" do
         expect do
           click_on "View"
           expect(page).to have_text "3456"

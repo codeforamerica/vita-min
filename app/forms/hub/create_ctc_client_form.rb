@@ -13,8 +13,8 @@ module Hub
                        :state,
                        :state_of_residence,
                        :zip_code,
-                       :primary_last_four_ssn,
-                       :spouse_last_four_ssn,
+                       :primary_ssn,
+                       :spouse_ssn,
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
                        :spouse_first_name,
@@ -43,7 +43,9 @@ module Hub
                        :filing_status_note
     set_attributes_for :confirmation,
                        :bank_account_number_confirmation,
-                       :bank_routing_number_confirmation
+                       :bank_routing_number_confirmation,
+                       :primary_ssn_confirmation,
+                       :spouse_ssn_confirmation
     attr_accessor :client
     # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
@@ -67,6 +69,18 @@ module Hub
     validates_presence_of :bank_account_number_confirmation, if: :bank_account_number
     validates_presence_of :bank_routing_number_confirmation, if: :bank_routing_number
 
+    validates_confirmation_of :primary_ssn
+    validates_presence_of :primary_ssn_confirmation, if: :primary_ssn
+    validates_presence_of :spouse_ssn_confirmation, if: :spouse_ssn
+    validates :primary_ssn, social_security_number: true
+
+    with_options if: -> { filing_status == "married_filing_jointly" } do
+      validates_confirmation_of :spouse_ssn
+      validates :spouse_ssn, social_security_number: true
+    end
+
+    before_validation :clean_ssns
+
     def required_dependents_attributes
       [:birth_date, :first_name, :last_name, :relationship].freeze
     end
@@ -86,6 +100,12 @@ module Hub
 
 
     private
+
+    def clean_ssns
+      [primary_ssn, primary_ssn_confirmation, spouse_ssn, spouse_ssn_confirmation].each do |field|
+        field.remove!(/\D/) if field
+      end
+    end
 
     def send_confirmation_message
       locale = client.intake.preferred_interview_language == "es" ? "es" : "en"
@@ -113,7 +133,9 @@ module Hub
 
     def default_attributes
       {
-          type: "Intake::CtcIntake"
+          type: "Intake::CtcIntake",
+          primary_last_four_ssn: primary_ssn&.last(4),
+          spouse_last_four_ssn: spouse_ssn&.last(4),
       }
     end
 

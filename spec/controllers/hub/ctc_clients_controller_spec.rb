@@ -47,6 +47,8 @@ RSpec.describe Hub::CtcClientsController do
         hub_create_ctc_client_form: {
           primary_first_name: "New",
           primary_last_name: "Name",
+          primary_ssn: '111-22-3333',
+          primary_ssn_confirmation: '111-22-3333',
           preferred_name: "Newly",
           preferred_interview_language: "es",
           email_address: "someone@example.com",
@@ -61,6 +63,8 @@ RSpec.describe Hub::CtcClientsController do
           spouse_first_name: "Newly",
           spouse_last_name: "Wed",
           spouse_email_address: "spouse@example.com",
+          spouse_ssn: '111-22-3333',
+          spouse_ssn_confirmation: '111-22-3333',
           timezone: "America/Chicago",
           signature_method: "online",
           service_type: "drop_off",

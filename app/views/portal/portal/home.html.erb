@@ -87,22 +87,24 @@
             <% end %>
           <% end %>
 
-          <% if tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
-            <%= render "action_state", link: true do %>
-              <%= link_to t("portal.portal.home.action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
+          <% unless tax_return.is_ctc %>
+            <% if tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
+              <%= render "action_state", link: true do %>
+                <%= link_to t("portal.portal.home.action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
+              <% end %>
             <% end %>
-          <% end %>
 
-          <% if tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
-            <%= render "action_state", link: true do %>
-              <%= link_to t("portal.portal.home.action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
+            <% if tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
+              <%= render "action_state", link: true do %>
+                <%= link_to t("portal.portal.home.action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
+              <% end %>
             <% end %>
-          <% end %>
 
-          <% ready_for_8879 = tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) || tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
-          <% if tax_return.completely_signed_8879? && !ready_for_8879 %>
-            <%= render "progress_state" do %>
-              <%= t("portal.portal.home.progress_state.tax_return.final_signature_added", year: tax_return.year) %>
+            <% ready_for_8879 = tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) || tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
+            <% if tax_return.completely_signed_8879? && !ready_for_8879 %>
+              <%= render "progress_state" do %>
+                <%= t("portal.portal.home.progress_state.tax_return.final_signature_added", year: tax_return.year) %>
+              <% end %>
             <% end %>
           <% end %>
 

@@ -9,14 +9,14 @@ RSpec.feature "Toggle ssn display" do
 
     scenario "client without ssn/itin" do
       visit hub_client_path(id: client_no_ssn)
-      within(".last-four-ssn") do
+      within(".primary-ssn") do
         expect(page).to have_text "Last 4 of SSN/ITIN"
         expect(page).not_to have_text "View"
 
         expect(page).to have_text "N/A"
       end
 
-      within(".spouse-last-four-ssn") do
+      within(".spouse-ssn") do
         expect(page).to have_text "Last 4 of SSN/ITIN"
         expect(page).not_to have_text "View"
 
@@ -27,7 +27,7 @@ RSpec.feature "Toggle ssn display" do
     scenario "client with ssn/itin", js: true do
       visit hub_client_path(id: client)
 
-      within(".last-four-ssn") do
+      within(".primary-ssn") do
         expect(page).to have_text "Last 4 of SSN/ITIN"
         expect(page).to have_text "View"
 
@@ -48,7 +48,7 @@ RSpec.feature "Toggle ssn display" do
         expect(page).not_to have_text client.intake.primary_last_four_ssn
       end
 
-      within(".spouse-last-four-ssn") do
+      within(".spouse-ssn") do
         expect(page).to have_text "Last 4 of SSN/ITIN"
         expect(page).to have_text "View"
 

@@ -986,6 +986,7 @@ es:
     new_unique_link: "Nuevo Enlace único"
     delete: "Eliminar"
     last_four_ssn: Últimos 4 de SSN / ITIN
+    ssn: SSN/ITIN
     spouse_last_four_ssn: Últimos 4 de SSN / ITIN (cónyuge)
     hidden: Encubierto
     locked: "Bloqueada"
@@ -1226,6 +1227,7 @@ es:
   validators:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
+    ssn: Por favor, ingrese un número de seguro social válido.
     file_zero_length: "Sube un archivo válido. El archivo que cargó parece estar vacío."
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"

@@ -27,7 +27,8 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Legal last name", with: "Cauliflower"
         fill_in "Email", with: "hello@cauliflower.com"
         fill_in "Cell phone number", with: "8324651680"
-        fill_in "Last 4 of SSN/ITIN", with: "4444"
+        fill_in "SSN/ITIN", with: "222-33-4444"
+        fill_in "Re-enter SSN/ITIN", with: "222-33-4444"
         check "Opt into email notifications"
         check "Opt into sms notifications"
         select "Mandarin", from: "Preferred language"
@@ -60,6 +61,8 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
         fill_in "Email", with: "spicypeter@pepper.com"
+        fill_in "SSN/ITIN", with: "222-33-5555"
+        fill_in "Re-enter SSN/ITIN", with: "222-33-5555"
       end
 
       within "#recovery-rebate-credit-fields" do
@@ -118,13 +121,17 @@ RSpec.feature "Creating new drop off clients" do
         expect(page).to have_text "2020"
       end
 
-      within ".last-four-ssn" do
+      within ".primary-ssn" do
         expect do
           click_on "View"
-          expect(page).to have_text "4444"
+          expect(page).to have_text "222334444"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
+
+      created_intake = Intake::CtcIntake.last
+      expect(created_intake.primary_ssn).to eq('222334444')
+      expect(created_intake.spouse_ssn).to eq('222335555')
 
       visit hub_clients_path
       expect(page).to have_content("Colly Cauliflower")
@@ -142,6 +149,8 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Email", with: "hello@cauliflower.com"
         check "Opt into email notifications"
         select "Mandarin", from: "Preferred language"
+        fill_in "SSN/ITIN", with: "222-33-4444"
+        fill_in "Re-enter SSN/ITIN", with: "222-33-4444"
       end
 
       within "#filing-status-fields" do

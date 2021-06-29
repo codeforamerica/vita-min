@@ -995,6 +995,8 @@ en:
     new_unique_link: "Additional unique link"
     delete: "Delete"
     last_four_ssn: Last 4 of SSN/ITIN
+    ssn: SSN/ITIN
+
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
     hidden: Hidden
     locked: "Locked"
@@ -1242,6 +1244,7 @@ en:
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
+    ssn: Please enter a valid social security number.
     pdf_file_type: "%{document_type} must be a PDF file"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} must be associated with a tax year."
   views:
