@@ -296,10 +296,6 @@ class Intake < ApplicationRecord
     ConsentPdf.new(self).output_file
   end
 
-  def bank_details_png
-    BankDetailsPdf.new(self).as_png
-  end
-
   def referrer_domain
     URI.parse(referrer).host if referrer.present?
   end
