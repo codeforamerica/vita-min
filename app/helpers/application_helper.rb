@@ -39,4 +39,17 @@ module ApplicationHelper
   def flash_alerts
     "$('.flash-alerts').html('#{escape_javascript(render("shared/flash_alerts", flash: flash))}');".html_safe
   end
+
+  def extends(layout, &block)
+    # Make sure it's a string
+    layout = layout.to_s
+
+    # If there's no directory component, presume a plain layout name
+    layout = "layouts/#{layout}" unless layout.include?('/')
+
+    # Capture the content to be placed inside the extended layout
+    @view_flow.get(:layout).replace capture(&block)
+
+    render template: layout
+  end
 end

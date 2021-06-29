@@ -6,18 +6,18 @@
       <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
     <% end %>
 
-    <% if content_for :ctc_meta_tags %>
-      <title><%= content_for(:page_title) %></title>
-    <% else %>
-      <title><%= content_for(:page_title) %> | GetYourRefund</title>
+    <% unless content_for? :app_name %>
+      <%= content_for :app_name do %>GetYourRefund<% end %>
     <% end %>
+
+    <title><%= content_for(:page_title) %> | <%= content_for(:app_name) %></title>
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <% if content_for :ctc_meta_tags %>
-      <%= yield :ctc_meta_tags %>
+    <% if content_for :meta_tags %>
+      <%= yield :meta_tags %>
     <% else %>
       <meta name="description" content="<%=t("views.layouts.application.meta.description") %>">
       <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
