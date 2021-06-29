@@ -50,12 +50,19 @@ module Hub
     validates :signature_method, presence: true
     validates :filing_status, presence: true
     after_save :send_confirmation_message, :send_mixpanel_data
-    validates_confirmation_of :bank_routing_number
-    validates_confirmation_of :bank_account_number
+
+    with_options if: -> { ctc_refund_delivery_method == "direct_deposit" } do
+      validates_confirmation_of :bank_routing_number
+      validates_confirmation_of :bank_account_number
+      validates_presence_of :bank_name
+      validates_presence_of :bank_account_type
+      validates_presence_of :bank_account_number
+      validates_presence_of :bank_routing_number
+    end
+
     validates_presence_of :bank_account_number_confirmation, if: :bank_account_number
     validates_presence_of :bank_routing_number_confirmation, if: :bank_routing_number
-    validates_presence_of :bank_account_number
-    validates_presence_of :bank_routing_number
+
     def required_dependents_attributes
       [:birth_date, :first_name, :last_name, :relationship].freeze
     end

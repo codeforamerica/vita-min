@@ -269,77 +269,101 @@ RSpec.describe Hub::CreateCtcClientForm do
           expect(obj.errors[:filing_status]).to include "Can't be blank."
         end
       end
-      
-      context "bank_account_number" do
-        before do
-          params[:bank_account_number] = nil
-        end
-        it "is required" do
-          obj = described_class.new(params)
-          obj.valid?
-          expect(obj.errors[:bank_account_number]).to include "Can't be blank."
-        end
-      end
 
-      context "bank_routing_number" do
+      context "when the CTC refund method is check" do
         before do
-          params[:bank_routing_number] = nil
+          params[:ctc_refund_delivery_method] = "check"
         end
-        it "is required" do
-          obj = described_class.new(params)
-          obj.valid?
-          expect(obj.errors[:bank_routing_number]).to include "Can't be blank."
-        end
-      end
 
-      context "bank_routing_number_confirmation" do
-        context "when bank_routing_number is provided" do
+        context "bank_account_number" do
           before do
-            params[:bank_routing_number] = "1234565"
-            params[:bank_routing_number_confirmation] = nil
+            params[:bank_account_number] = nil
+          end
+
+          it "is not required" do
+            obj = described_class.new(params)
+            obj.valid?
+            expect(obj.errors[:bank_account_number]).to be_blank
+          end
+        end
+      end
+
+      context "when the CTC refund method is direct deposit" do
+        before do
+          params[:ctc_refund_delivery_method] = "direct_deposit"
+        end
+
+        context "bank_account_number" do
+          before do
+            params[:bank_account_number] = nil
           end
           it "is required" do
             obj = described_class.new(params)
             obj.valid?
-            expect(obj.errors[:bank_routing_number_confirmation]).to include "Can't be blank."
+            expect(obj.errors[:bank_account_number]).to include "Can't be blank."
           end
         end
 
-        context "when routing confirmation is provided but does not match" do
+        context "bank_routing_number" do
           before do
-            params[:bank_routing_number] = "1234565"
-            params[:bank_routing_number_confirmation] = "2234565"
-          end
-          it "provides an error" do
-            obj = described_class.new(params)
-            obj.valid?
-            expect(obj.errors[:bank_routing_number_confirmation]).to include "doesn't match Bank routing number"
-          end
-        end
-      end
-
-      context "bank_account_number_confirmation" do
-        context "when bank_account_number is provided" do
-          before do
-            params[:bank_account_number] = "1234565"
-            params[:bank_account_number_confirmation] = nil
+            params[:bank_routing_number] = nil
           end
           it "is required" do
             obj = described_class.new(params)
             obj.valid?
-            expect(obj.errors[:bank_account_number_confirmation]).to include "Can't be blank."
+            expect(obj.errors[:bank_routing_number]).to include "Can't be blank."
           end
         end
 
-        context "when bank account confirmation is provided but does not match" do
-          before do
-            params[:bank_account_number] = "1234565"
-            params[:bank_account_number_confirmation] = "2234565"
+        context "bank_routing_number_confirmation" do
+          context "when bank_routing_number is provided" do
+            before do
+              params[:bank_routing_number] = "1234565"
+              params[:bank_routing_number_confirmation] = nil
+            end
+            it "is required" do
+              obj = described_class.new(params)
+              obj.valid?
+              expect(obj.errors[:bank_routing_number_confirmation]).to include "Can't be blank."
+            end
           end
-          it "provides an error" do
-            obj = described_class.new(params)
-            obj.valid?
-            expect(obj.errors[:bank_account_number_confirmation]).to include "doesn't match Bank account number"
+
+          context "when routing confirmation is provided but does not match" do
+            before do
+              params[:bank_routing_number] = "1234565"
+              params[:bank_routing_number_confirmation] = "2234565"
+            end
+            it "provides an error" do
+              obj = described_class.new(params)
+              obj.valid?
+              expect(obj.errors[:bank_routing_number_confirmation]).to include "doesn't match Bank routing number"
+            end
+          end
+        end
+
+        context "bank_account_number_confirmation" do
+          context "when bank_account_number is provided" do
+            before do
+              params[:bank_account_number] = "1234565"
+              params[:bank_account_number_confirmation] = nil
+            end
+            it "is required" do
+              obj = described_class.new(params)
+              obj.valid?
+              expect(obj.errors[:bank_account_number_confirmation]).to include "Can't be blank."
+            end
+          end
+
+          context "when bank account confirmation is provided but does not match" do
+            before do
+              params[:bank_account_number] = "1234565"
+              params[:bank_account_number_confirmation] = "2234565"
+            end
+            it "provides an error" do
+              obj = described_class.new(params)
+              obj.valid?
+              expect(obj.errors[:bank_account_number_confirmation]).to include "doesn't match Bank account number"
+            end
           end
         end
       end
