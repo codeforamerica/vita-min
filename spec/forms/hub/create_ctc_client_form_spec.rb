@@ -38,7 +38,9 @@ RSpec.describe Hub::CreateCtcClientForm do
         recovery_rebate_credit_amount_1: "$280",
         recovery_rebate_credit_amount_2: "$250",
         recovery_rebate_credit_amount_confidence: "sure",
-        ctc_refund_delivery_method: "check"
+        ctc_refund_delivery_method: "check",
+        navigator_name: "Tax Seasonson",
+        navigator_has_verified_client_identity: true
       }
     end
 
@@ -162,6 +164,14 @@ RSpec.describe Hub::CreateCtcClientForm do
         end
       end
 
+      context "with system note" do
+        it "creates a system note for identity verification" do
+          expect {
+            described_class.new(params).save(current_user)
+          }.to change(SystemNote, :count).by(1)
+        end
+      end
+
       context "phone numbers" do
         it "normalizes phone_number and sms_phone_number" do
           described_class.new(params.update(sms_phone_number: "650-555-1212", phone_number: "(650) 555-1212")).save(current_user)
@@ -268,6 +278,39 @@ RSpec.describe Hub::CreateCtcClientForm do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:filing_status]).to include "Can't be blank."
+        end
+      end
+
+
+      context "navigator name" do
+        before do
+          params[:navigator_name] = nil
+        end
+
+        it "is required" do
+          expect(described_class.new(params).valid?).to eq false
+        end
+
+        it "pushes errors for ctc refund method into the errors" do
+          obj = described_class.new(params)
+          obj.valid?
+          expect(obj.errors[:navigator_name]).to include "Can't be blank."
+        end
+      end
+
+      context "navigator has checked identity checkbox" do
+        before do
+          params[:navigator_has_verified_client_identity] = nil
+        end
+
+        it "is required" do
+          expect(described_class.new(params).valid?).to eq false
+        end
+
+        it "pushes errors for ctc refund method into the errors" do
+          obj = described_class.new(params)
+          obj.valid?
+          expect(obj.errors[:navigator_has_verified_client_identity]).to include "Can't be blank."
         end
       end
 

@@ -49,9 +49,11 @@ module Hub
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
     validates :filing_status, presence: true
-    after_save :send_confirmation_message, :send_mixpanel_data
+    after_save :send_confirmation_message, :send_mixpanel_data, :add_system_note
 
     validates :ctc_refund_delivery_method, presence: true
+    validates :navigator_name, presence: true
+    validates :navigator_has_verified_client_identity, inclusion: { in: [true, '1'], message: I18n.t('errors.messages.blank') }
 
     with_options if: -> { ctc_refund_delivery_method == "direct_deposit" } do
       validates_confirmation_of :bank_routing_number
@@ -103,6 +105,10 @@ module Hub
           data: MixpanelService.data_from([client, tax_return, @current_user])
         )
       end
+    end
+
+    def add_system_note
+      SystemNote::VerifiedClientIdentity.generate!(client: @client)
     end
 
     def default_attributes

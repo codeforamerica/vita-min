@@ -68,6 +68,8 @@ RSpec.describe Hub::CtcClientsController do
           filing_status: "married_filing_jointly",
           ctc_refund_delivery_method: "check",
           bank_account_type: "checking",
+          navigator_name: "Terry Taxseason",
+          navigator_has_verified_client_identity: "1",
         },
       }
     end

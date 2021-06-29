@@ -156,6 +156,11 @@ RSpec.feature "Creating new drop off clients" do
         choose "Check"
       end
 
+      within "#identity-verification-fields" do
+        fill_in "Name of navigator", with: "Terry Taxseason"
+        check "I have checked and verified this client's identity."
+      end
+
       expect do
         click_on I18n.t('hub.ctc_clients.new.save_and_add')
       end.to change(Client, :count).by(1)
