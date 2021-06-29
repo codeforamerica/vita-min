@@ -53,6 +53,10 @@ commands:
       - save_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
           paths: [/mnt/ramdisk/vendor/bundle]
+  install_efile_schemas:
+    description: "Install IRS e-File schemas"
+    steps:
+      - run: bundle exec rails efile:download efile:unzip && find vendor/irs
   setup_test_db:
     description: "Setup test database"
     steps:
@@ -84,6 +88,7 @@ jobs:
       - install_js_dependencies
       - install_system_dependencies
       - install_ruby_dependencies
+      - install_efile_schemas
       - setup_test_db
       - run: |
           EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec rspec \

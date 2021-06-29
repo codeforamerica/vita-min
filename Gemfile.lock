@@ -621,6 +621,7 @@ DEPENDENCIES
   rubocop (~> 0.82.0)
   rubocop-performance (~> 1.5.2)
   rubocop-rspec (~> 1.38.1)
+  rubyzip
   sass-rails (~> 5.0)
   scenic
   sendgrid-ruby

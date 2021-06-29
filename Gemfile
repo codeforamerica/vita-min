@@ -66,6 +66,7 @@ gem 'rails_autolink'
 gem 'ice_nine'
 gem 'business_time'
 gem 'scenic'
+gem 'rubyzip'
 gem 'intercom', '~> 4.1'
 gem 'statesman', '~> 8.0.3'
 
