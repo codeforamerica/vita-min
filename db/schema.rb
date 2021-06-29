@@ -528,6 +528,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_173147) do
     t.string "timezone"
     t.bigint "triage_source_id"
     t.string "triage_source_type"
+    t.string "type"
     t.datetime "updated_at"
     t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
