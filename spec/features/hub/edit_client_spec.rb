@@ -66,6 +66,7 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(find_field("hub_update_client_form_timezone").value).to eq "America/Chicago"
         fill_in "Preferred full name", with: "Colly Cauliflower"
         select "Mandarin", from: "Preferred language"
+        select "Pacific Time (US & Canada)", from: "Timezone"
 
         fill_in "Email", with: "hello@cauliflower.com"
         check "Opt into email notifications"
@@ -73,7 +74,9 @@ RSpec.describe "a user editing a clients intake fields" do
         check "Opt into sms notifications"
         fill_in "Cell phone number", with: "500-555-0006"
         fill_in "Last 4 of SSN/ITIN", with: "4444"
+      end
 
+      within "#marital-status-fields" do
         check "Filing jointly"
         check "Married"
         check "Lived with spouse"
@@ -83,20 +86,22 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Widowed year", with: "2015"
         check "Divorced"
         fill_in "Divorced year", with: "2018"
+      end
 
+      within "#navigator-fields" do
         check "General"
         check "Incarcerated/reentry"
         check "Unhoused"
+      end
 
+      within "#address-fields" do
         fill_in "Street address", with: "123 Garden Ln"
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
         fill_in "ZIP code", with: "95032"
-        select "Pacific Time (US & Canada)", from: "Timezone"
-
       end
 
-      within "#dependent-info" do
+      within "#dependents-fields" do
         fill_in "Legal first name", with: "Laura"
         expect(find_field("hub_update_client_form[dependents_attributes][0][first_name]").value).to eq "Laura"
         fill_in "Legal last name", with: "Peaches"
@@ -141,7 +146,7 @@ RSpec.describe "a user editing a clients intake fields" do
       click_on "Save"
       expect(page).to have_text("Please enter the last name of each dependent.")
 
-      within "#dependent-info" do
+      within "#dependents-fields" do
         new_field_id = all(".dependent-form").last.first("input")["id"].tr('^0-9', '')
         fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_last_name", with: "Chung"
         select "2019", from: "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_year"

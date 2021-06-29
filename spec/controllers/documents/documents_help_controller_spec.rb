@@ -51,9 +51,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
 
       expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
         client: client,
-        email_body: I18n.t("documents.reminder_link.email_body", doc_type: "ID"),
-        sms_body: I18n.t("documents.reminder_link.sms_body", doc_type: "ID"),
-        subject: "Your tax document reminder",
+        message: instance_of(AutomatedMessage::DocumentsReminderLink),
         locale: :en
       )
     end
@@ -64,9 +62,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
 
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: client,
-          email_body: I18n.t("documents.reminder_link.email_body", doc_type: "ID", locale: "es"),
-          sms_body: I18n.t("documents.reminder_link.sms_body", doc_type: "ID", locale: "es"),
-          subject: I18n.t("documents.reminder_link.subject", locale: "es"),
+          message: instance_of(AutomatedMessage::DocumentsReminderLink),
           locale: :es
         )
       end

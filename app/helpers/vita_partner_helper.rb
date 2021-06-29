@@ -1,19 +1,12 @@
 module VitaPartnerHelper
   def grouped_vita_partner_options
-    if current_user.role_type == TeamMemberRole::TYPE || current_user.role_type == SiteCoordinatorRole::TYPE
-      vita_partner = @vita_partners.first
-      [
-        [
-          vita_partner.parent_organization.name,
-          [
-            [vita_partner.name, vita_partner.id]
-          ]
-        ]
-      ]
-    elsif current_user.greeter? || current_user.admin? || current_user.role_type == CoalitionLeadRole::TYPE || current_user.role_type == OrganizationLeadRole::TYPE
-      @vita_partners.organizations.collect do |partner|
-        [partner.name, [[partner.name, partner.id], *partner.child_sites.collect { |v| [v.name, v.id] }]]
-      end
+    result = {}
+    @vita_partners.each do |partner|
+      organization_name = partner.parent_organization&.name || partner.name
+      result[organization_name] ||= []
+      result[organization_name].push([partner.name, partner.id]) if partner.site?
+      result[organization_name].unshift([partner.name, partner.id]) if partner.organization?
     end
+    result.to_a
   end
 end

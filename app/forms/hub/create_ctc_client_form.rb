@@ -1,19 +1,10 @@
 module Hub
   class CreateCtcClientForm < ClientForm
-    include FormAttributes
     set_attributes_for :intake,
                        :primary_first_name,
                        :primary_last_name,
                        :preferred_name,
                        :preferred_interview_language,
-                       :married,
-                       :separated,
-                       :widowed,
-                       :lived_with_spouse,
-                       :divorced,
-                       :divorced_year,
-                       :separated_year,
-                       :widowed_year,
                        :email_address,
                        :phone_number,
                        :sms_phone_number,
@@ -29,7 +20,6 @@ module Hub
                        :spouse_first_name,
                        :spouse_last_name,
                        :spouse_email_address,
-                       :filing_joint,
                        :interview_timing_preference,
                        :timezone,
                        :vita_partner_id,
@@ -37,59 +27,72 @@ module Hub
                        :with_general_navigator,
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
-                       :with_unhoused_navigator
-    set_attributes_for :tax_return, :service_type
-    attr_accessor :tax_returns, :tax_returns_attributes, :client, :intake
-
+                       :with_unhoused_navigator,
+                       :bank_account_number,
+                       :bank_routing_number,
+                       :bank_account_type,
+                       :bank_name
+    set_attributes_for :tax_return,
+                       :filing_status,
+                       :filing_status_note
+    set_attributes_for :confirmation,
+                       :bank_account_number_confirmation,
+                       :bank_routing_number_confirmation
+    attr_accessor :client
     # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
-
-    def initialize(attributes = {})
-      @tax_returns = TaxReturn.filing_years.map { |year| TaxReturn.new(year: year) }
-      super(attributes)
+    validates :filing_status, presence: true
+    after_save :send_confirmation_message, :send_mixpanel_data
+    validates_confirmation_of :bank_routing_number
+    validates_confirmation_of :bank_account_number
+    validates_presence_of :bank_account_number_confirmation, if: :bank_account_number
+    validates_presence_of :bank_routing_number_confirmation, if: :bank_routing_number
+    validates_presence_of :bank_account_number
+    validates_presence_of :bank_routing_number
+    def required_dependents_attributes
+      [:birth_date, :first_name, :last_name, :relationship].freeze
     end
 
     def save(current_user)
-      return false unless valid?
+      @current_user = current_user
+      run_callbacks :save do
+        return false unless valid?
 
-      @client = Client.create!(
-        vita_partner_id: attributes_for(:intake)[:vita_partner_id],
-        intake_attributes: attributes_for(:intake).merge(default_attributes).merge(visitor_id: SecureRandom.hex(26)),
-        tax_returns_attributes: [tax_return_attributes]
-      )
-
-      locale = @client.intake.preferred_interview_language == "es" ? "es" : "en"
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: @client,
-        sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: locale),
-        email_body: I18n.t("drop_off_confirmation_message.email.body", locale: locale),
-        subject: I18n.t("drop_off_confirmation_message.email.subject", locale: locale),
-        locale: locale
-      )
-
-      @client.tax_returns.each do |tax_return|
-        MixpanelService.send_event(
-          event_id: @client.intake.visitor_id,
-          event_name: "drop_off_submitted",
-          data: MixpanelService.data_from([@client, tax_return, current_user])
+        @client = Client.create!(
+          vita_partner_id: attributes_for(:intake)[:vita_partner_id],
+          intake_attributes: attributes_for(:intake).merge(default_attributes).merge(dependents_attributes: formatted_dependents_attributes).merge(visitor_id: SecureRandom.hex(26)),
+          tax_returns_attributes: [tax_return_attributes]
         )
       end
     end
 
-    def self.permitted_params
-      CreateClientForm.attribute_names
-    end
 
     private
 
+    def send_confirmation_message
+      locale = client.intake.preferred_interview_language == "es" ? "es" : "en"
+
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: client,
+        message: AutomatedMessage::SuccessfulSubmissionDropOff.new,
+        locale: locale
+      )
+    end
+
+    def send_mixpanel_data
+      client.tax_returns.each do |tax_return|
+        MixpanelService.send_event(
+          event_id: @client.intake.visitor_id,
+          event_name: "drop_off_submitted",
+          data: MixpanelService.data_from([client, tax_return, @current_user])
+        )
+      end
+    end
+
     def default_attributes
       {
-        needs_help_2020: :yes,
-        needs_help_2019: :no,
-        needs_help_2018: :no,
-        needs_help_2017: :no,
-        timezone: "America/New_York",
+          type: "Intake::CtcIntake"
       }
     end
 
@@ -97,11 +100,10 @@ module Hub
       {
         year: 2020,
         is_ctc: true,
-        is_hsa: 0,
         certification_level: :basic,
         status: :prep_ready_for_prep,
         service_type: :drop_off
-      }
+      }.merge(attributes_for(:tax_return))
     end
   end
 end

@@ -27,15 +27,21 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Email", with: "hello@cauliflower.com"
         fill_in "Phone number", with: "8324658840"
         fill_in "Cell phone number", with: "8324651680"
+        fill_in "Last 4 of SSN/ITIN", with: "4444"
+        check "Opt into email notifications"
+        check "Opt into sms notifications"
+        select "Mandarin", from: "Preferred language"
+      end
+
+      within "#address-fields" do
         fill_in "Street address", with: "123 Garden Ln"
         select "Texas", from: "State of residence"
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
         fill_in "ZIP code", with: "95032"
-        fill_in "Last 4 of SSN/ITIN", with: "4444"
-        check "Opt into email notifications"
-        check "Opt into sms notifications"
-        select "Mandarin", from: "Preferred language"
+      end
+
+      within "#marital-status-fields" do
         check "Married"
         check "Separated"
         fill_in "Separated year", with: "2017"

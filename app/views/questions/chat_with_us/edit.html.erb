@@ -8,23 +8,13 @@
       <%= content_for(:page_title) %>
     </h1>
 
-    <% if current_intake.eip_only %>
-
-      <p>
-        <%=t("views.questions.chat_with_us.eip_only") %>
-      </p>
-
-    <% else %>
-
-      <% if current_intake.zip_code %>
-        <p><%= t("views.questions.chat_with_us.partner_info_html", :partner_name => current_intake.vita_partner&.name, :zip => current_intake.zip_code, :zip_name => @zip_name) %></p>
-      <% end %>
-
-      <p>
-        <%=t("views.questions.chat_with_us.info") %>
-      </p>
-
+    <% if current_intake.zip_code %>
+      <p><%= t("views.questions.chat_with_us.partner_info_html", :partner_name => current_intake.vita_partner&.name, :zip => current_intake.zip_code, :zip_name => @zip_name) %></p>
     <% end %>
+
+    <p>
+      <%=t("views.questions.chat_with_us.info") %>
+    </p>
 
     <p>
       <%=t("views.questions.chat_with_us.chat") %>

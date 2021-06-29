@@ -1,5 +1,6 @@
 module Questions
-  class AtCapacityController < AnonymousIntakeController
+  class AtCapacityController < QuestionsController
+    include AnonymousIntakeConcern
     layout "application"
 
     def edit

@@ -1,5 +1,6 @@
 module Questions
-  class SuccessfullySubmittedController < AnonymousIntakeController
+  class SuccessfullySubmittedController < QuestionsController
+    include AnonymousIntakeConcern
     skip_before_action :require_intake
     append_after_action :set_completed_intake_session, :clear_intake_session, :track_page_view
 
@@ -19,7 +20,7 @@ module Questions
       form_class.new(intake_from_completed_session, form_params)
     end
 
-    def self.form_name
+    def self.form_key
       "satisfaction_face_form"
     end
 

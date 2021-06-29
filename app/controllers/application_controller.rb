@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?
+  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -24,15 +24,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_intake
-    current_client&.intake || Intake.find_by_id(session[:intake_id])
+    current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
   end
 
   def intake_from_completed_session
-    Intake.find_by_id(session[:completed_intake_id])
-  end
-
-  def current_stimulus_triage
-    StimulusTriage.find_by_id(session[:stimulus_triage_id]) unless hub?
+    Intake.find_by_id(session[:completed_intake_id]) unless session[:completed_intake_id].nil?
   end
 
   def clear_intake_session
@@ -159,7 +155,6 @@ class ApplicationController < ActionController::Base
     payload[:request_details] = {
       current_user_id: current_user&.id,
       intake_id: current_intake&.id,
-      stimulus_triage_id: current_stimulus_triage&.id,
       device_type: user_agent.device_type,
       browser_name: user_agent.name,
       os_name: user_agent.os_name,
@@ -171,8 +166,17 @@ class ApplicationController < ActionController::Base
   end
 
   def set_sentry_context
-    Raven.user_context intake_id: current_intake&.id
-    Raven.extra_context visitor_id: visitor_id, is_bot: user_agent.bot?, request_id: request.request_id, user_id: current_user&.id, client_id: current_client&.id
+    Sentry.configure_scope do |scope|
+      scope.set_user(id: current_intake&.id)
+      scope.set_extras(
+        intake_id: current_intake&.id,
+        visitor_id: visitor_id,
+        is_bot: user_agent.bot?,
+        request_id: request.request_id,
+        user_id: current_user&.id,
+        client_id: current_client&.id
+      )
+    end
   end
 
   def switch_locale(&action)
@@ -212,11 +216,14 @@ class ApplicationController < ActionController::Base
     redirect_to_beginning_of_intake unless current_intake.present?
   end
 
-  ##
+  def question_navigator
+    QuestionNavigation
+  end
+
   # convenience method for redirection to beginning of
   # intake process
   def redirect_to_beginning_of_intake
-    redirect_to(question_path(id: QuestionNavigation.first))
+    redirect_to(question_path(id: question_navigator.first))
   end
 
   def redirect_or_add_flash
@@ -274,6 +281,10 @@ class ApplicationController < ActionController::Base
     return unless request.get? # skip uploads
 
     current_intake.update(current_step: current_path) unless current_intake.current_step == current_path
+  end
+
+  def wrapping_layout
+    "application"
   end
 
   rescue_from CanCan::AccessDenied do |exception|

@@ -1,5 +1,7 @@
 module Questions
-  class InterestIncomeController < AuthenticatedIntakeController
+  class InterestIncomeController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     private

@@ -66,20 +66,25 @@ class ClientMessagingService
       message_records
     end
 
-    def send_system_message_to_all_opted_in_contact_methods(client:, email_body: nil, sms_body: nil, subject: nil, tax_return: nil, locale: )
+    def send_system_message_to_all_opted_in_contact_methods(client:, message:, tax_return: nil, locale: )
       message_records = {
         outgoing_email: nil,
         outgoing_text_message: nil,
       }
-      args = { client: client, body: email_body, subject: subject, locale: locale }
+      args = {
+        client: client,
+        body: message.email_body(locale: locale),
+        subject: message.email_subject(locale: locale),
+        locale: locale
+      }
       args[:tax_return] = tax_return if tax_return.present?
 
-      if client.intake.email_notification_opt_in_yes? && client.email_address.present? && email_body.present?
+      if client.intake.email_notification_opt_in_yes? && client.email_address.present? && message.email_body.present?
         message_records[:outgoing_email] = send_system_email(**args)
       end
-      if client.intake.sms_notification_opt_in_yes? && client.sms_phone_number.present? && sms_body.present?
+      if client.intake.sms_notification_opt_in_yes? && client.sms_phone_number.present? && message.sms_body.present?
         args.delete(:subject)
-        args[:body] = sms_body
+        args[:body] = message.sms_body(locale: locale)
         message_records[:outgoing_text_message] = send_system_text_message(**args)
       end
       message_records

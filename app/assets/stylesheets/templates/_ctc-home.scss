@@ -1,0 +1,20 @@
+.ctc-home {
+  .accordion {
+    ul {
+      list-style: disc;
+      padding-left: $s35;
+    }
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    @media screen and (min-width: $site-max-up) {
+      font-size: unset;
+    }
+  }
+
+  .slab--hero {
+    margin-bottom: -1rem;
+    padding-bottom: 0;
+  }
+}

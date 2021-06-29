@@ -45,7 +45,7 @@ class Client < ApplicationRecord
 
   belongs_to :vita_partner, optional: true
   has_many :documents, dependent: :destroy
-  has_one :intake, dependent: :destroy
+  has_one :intake, inverse_of: :client, dependent: :destroy
   has_one :consent, dependent: :destroy
   has_many :outgoing_text_messages, dependent: :destroy
   has_many :outgoing_emails, dependent: :destroy
@@ -209,6 +209,10 @@ class Client < ApplicationRecord
     end
   end
 
+  def requires_spouse_info?
+    intake.filing_joint == "yes" || !tax_returns.map(&:filing_status).all?("single")
+  end
+
   def generate_login_link
     # Compute a new login URL. This invalidates any existing login URLs.
     raw_token, encrypted_token = Devise.token_generator.generate(Client, :login_token)
@@ -244,6 +248,10 @@ class Client < ApplicationRecord
     end
     tax_returns.each { |tax_return| tax_return.update(status: :intake_needs_doc_help) }
     flag!
+  end
+
+  def forward_message_to_intercom?
+    (tax_returns.pluck(:status).map(&:to_sym) & TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES).any?
   end
 
   private

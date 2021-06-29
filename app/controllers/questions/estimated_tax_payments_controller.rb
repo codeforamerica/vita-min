@@ -1,5 +1,7 @@
 module Questions
-  class EstimatedTaxPaymentsController < AuthenticatedIntakeController
+  class EstimatedTaxPaymentsController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     private

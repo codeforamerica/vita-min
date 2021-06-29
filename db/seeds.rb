@@ -21,6 +21,7 @@ SourceParameter.find_or_create_by(code: "orangutan", vita_partner_id: vp2.id)
 first_site = VitaPartner.find_or_create_by!(
   name: "Liberry Site",
   parent_organization: first_org,
+  processes_ctc: true
 )
 
 SourceParameter.find_or_create_by(code: "libeery", vita_partner_id: first_site.id)

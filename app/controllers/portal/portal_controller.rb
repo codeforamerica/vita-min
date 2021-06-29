@@ -1,8 +1,6 @@
 module Portal
   class PortalController < ApplicationController
-    include ClientAccessControlConcern
-
-    before_action :require_client_login, :redirect_to_still_needs_help_if_necessary
+    include AuthenticatedClientConcern
 
     layout "portal"
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_160440) do
+ActiveRecord::Schema.define(version: 2021_06_24_173147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -184,6 +184,14 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
     t.index ["client_id"], name: "index_consents_on_client_id"
   end
 
+  create_table "ctc_signups", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "email_address"
+    t.string "name"
+    t.string "phone_number"
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "attempts", default: 0, null: false
     t.datetime "created_at"
@@ -255,6 +263,25 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
     t.bigint "intake_id"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
+  end
+
+  create_table "efile_submission_transitions", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.integer "efile_submission_id", null: false
+    t.jsonb "metadata", default: {}
+    t.boolean "most_recent", null: false
+    t.integer "sort_key", null: false
+    t.string "to_state", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["efile_submission_id", "most_recent"], name: "index_efile_submission_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["efile_submission_id", "sort_key"], name: "index_efile_submission_transitions_parent_sort", unique: true
+  end
+
+  create_table "efile_submissions", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "tax_return_id"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
   end
 
   create_table "email_access_tokens", force: :cascade do |t|
@@ -501,6 +528,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
     t.string "timezone"
     t.bigint "triage_source_id"
     t.string "triage_source_type"
+    t.string "type"
     t.datetime "updated_at"
     t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
@@ -572,6 +600,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
     t.bigint "user_id"
     t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
     t.index ["created_at"], name: "index_outgoing_emails_on_created_at"
+    t.index ["message_id"], name: "index_outgoing_emails_on_message_id"
     t.index ["user_id"], name: "index_outgoing_emails_on_user_id"
   end
 
@@ -686,6 +715,9 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
     t.integer "certification_level"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.integer "filing_status"
+    t.text "filing_status_note"
+    t.boolean "internal_efile", default: false, null: false
     t.boolean "is_ctc", default: false
     t.boolean "is_hsa"
     t.string "primary_signature"
@@ -807,6 +839,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
     t.string "name", null: false
     t.boolean "national_overflow_location", default: false
     t.bigint "parent_organization_id"
+    t.boolean "processes_ctc", default: false
     t.string "timezone", default: "America/New_York"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
@@ -849,6 +882,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_160440) do
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
   add_foreign_key "documents_requests", "intakes"
+  add_foreign_key "efile_submission_transitions", "efile_submissions"
   add_foreign_key "greeter_coalition_join_records", "coalitions"
   add_foreign_key "greeter_coalition_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "greeter_roles"

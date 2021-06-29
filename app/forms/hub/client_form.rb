@@ -1,5 +1,6 @@
 module Hub
   class ClientForm < Form
+    include WithDependentsAttributes
     include FormAttributes
     set_attributes_for :intake,
         :sms_phone_number,
@@ -30,6 +31,10 @@ module Hub
     validate :at_least_one_contact_method
 
     private
+
+    def self.permitted_params
+      attribute_names.push( { dependents_attributes: {}, tax_returns_attributes: {} })
+    end
 
     def opted_in_sms?
       sms_notification_opt_in == "yes"

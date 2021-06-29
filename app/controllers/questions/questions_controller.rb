@@ -43,12 +43,13 @@ module Questions
     def has_unsure_option?
       layout = self.send :_layout, self.lookup_context, [""]
       return false unless layout == "yes_no_question"
+
       enum_options = parent_class.try(method_name.pluralize)
       enum_options&.has_key?("unsure")
     end
 
     def parent_class
-      Intake
+      Intake::GyrIntake
     end
 
     def method_name
@@ -71,9 +72,12 @@ module Questions
       IntakeProgressCalculator.show_progress?(self.class)
     end
 
+    def question_navigator
+      QuestionNavigation
+    end
+
     def form_navigation
-      navigation_class = current_intake&.eip_only ? EipOnlyNavigation : QuestionNavigation
-      navigation_class.new(self)
+      question_navigator.new(self)
     end
 
     private
@@ -108,23 +112,29 @@ module Questions
         controller_name.dasherize
       end
 
-      def to_path_helper
-        path_helper_string = [
+      def path_helper_string
+        [
           controller_name,
           module_parent.name.underscore,
           "path"
         ].join("_") # "controller_name_module_path"
+      end
 
+      def to_path_helper
         # Pass default_url_options (namely, locale) from ApplicationController when computing URL for this controller
         Rails.application.routes.url_helpers.send(path_helper_string.to_sym, default_url_options)
       end
 
-      def form_name
+      def form_key
         controller_name + "_form"
       end
 
+      def form_name
+        form_key.gsub("/", "_")
+      end
+
       def form_class
-        form_name.classify.constantize
+        form_key.classify.constantize
       end
     end
   end

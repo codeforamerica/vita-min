@@ -58,6 +58,7 @@ class TaxReturnStatus
   EXCLUDED_FROM_CAPACITY = (ONBOARDING_STATUSES + [:file_mailed, :file_accepted, :file_not_filing, :file_hold]).freeze
   STATUS_KEYS_INCLUDED_IN_CAPACITY = (STATUSES.keys - EXCLUDED_FROM_CAPACITY).freeze
   GREETER_STATUSES_BEYOND_INTAKE = { "file" => [:file_not_filing, :file_hold] }.freeze
+  FORWARD_TO_INTERCOM_STATUSES = [:file_accepted, :file_mailed, :file_not_filing]
 
   def self.message_template_for(status, locale = "en")
     message_templates[status.to_sym] ? I18n.t(message_templates[status.to_sym], locale: locale) : ""

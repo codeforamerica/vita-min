@@ -10,7 +10,7 @@
   <div class="slab slab--padded">
     <div class="client-container">
       <ul class="day-list">
-        <% @all_notes_by_day.each_with_index do |(datetime, notes), day_index| %>
+        <% @all_notes_by_day&.each_with_index do |(datetime, notes), day_index| %>
           <li class="day-heading"><%= date_heading(datetime) %></li>
           <%= render partial: "note", collection: notes, locals: { last_day: day_index == @all_notes_by_day.size - 1 }  %>
         <% end %>

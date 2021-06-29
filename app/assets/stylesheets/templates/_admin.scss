@@ -1,8 +1,5 @@
 .admin {
   background: white;
-  .hub-content-wrapper {
-    margin-top: 3rem;
-  }
   .hub-section {
     margin: 3.5rem;
   }
@@ -15,15 +12,6 @@
     * {
       margin: 0;
       margin-bottom: 1.0rem;
-    }
-
-    .ticket-link {
-      color: $color-purple;
-      font-size: 1.9rem;
-      font-weight: bold;
-      &:hover {
-        color: #8E8EEF;
-      }
     }
 
     .text--smaller {
@@ -52,11 +40,6 @@
     .breadcrumb-item:hover, .breadcrumb-item:active {
       text-decoration: underline;
     }
-  }
-
-  .zendesk-logo {
-    margin-left: 75px;
-    width: 164px;
   }
 }
 

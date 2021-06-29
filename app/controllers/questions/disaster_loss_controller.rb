@@ -1,5 +1,7 @@
 module Questions
-  class DisasterLossController < AuthenticatedIntakeController
+  class DisasterLossController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     private

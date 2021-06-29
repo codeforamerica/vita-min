@@ -1,0 +1,25 @@
+<%= extends :application do %>
+  <% content_for :app_name do %>GetCTC<% end %>
+
+  <% content_for :header do %>
+    <%= render 'shared/ctc_header_analytics' if Rails.env.production? %>
+
+    <%= render 'shared/header', title: "GetCTC", home_link: ctc_root_path %>
+  <% end %>
+  <% content_for :footer do %>
+    <%= render 'shared/ctc_footer_analytics' if Rails.env.production? %>
+
+    <%= render "shared/footer", variation: "ctc" %>
+  <% end %>
+
+  <% content_for :meta_tags do %>
+    <meta name="description" content="<%= t("views.layouts.ctc.meta.description") %>">
+    <meta property="og:title" content="<%= content_for(:page_title) %>">
+    <meta property="og:description" content="<%= t("views.layouts.ctc.meta.description") %>">
+    <meta property="og:image" content="<%= image_url("social_share_banner-ctc.png") %>">
+    <meta property="twitter:title" content="<%= content_for(:page_title) %>">
+    <meta property="twitter:description" content="<%= t("views.layouts.ctc.meta.description") %>">
+    <meta property="twitter:image" content="<%= image_url("social_share_banner-ctc.png") %>">
+  <% end %>
+  <%= yield %>
+<% end %>

@@ -1,0 +1,48 @@
+<% content_for :card do %>
+  <div class="spacing-above-25 submissions-index">
+
+    <div style="display: flex; justify-content: center;">
+      <% EfileSubmissionStateMachine.states.each do |state| %>
+        <div class="metric-box">
+          <div><%= EfileSubmission.in_state(state).count %></div>
+          <div><%= state %></div>
+         </div>
+      <% end %>
+    </div>
+    <table class="index-table org-metrics-table spacing-above-25">
+      <thead class="index-table__head">
+      <tr class="index-table__row">
+        <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
+          Status
+        </th>
+        <th scope="col" style="width: 10rem" class="index-table__header sortable">Submission ID</th>
+        <th scope="col" class="index-table__header sortable">
+          Primary Filer
+        </th>
+        <th scope="col" style="width: 10rem"class="index-table__header sortable">
+          Tax Year
+        </th>
+        <th scope="col" class="index-table__header sortable">
+          Last updated
+        </th>
+      </tr>
+      </thead>
+      <% @efile_submissions.each do |submission| %>
+        <tbody class="index-table__body">
+          <td class="index-table__cell"><%= link_to submission.current_state, hub_efile_submission_path(id: submission.id) %></td>
+          <td class="index-table__cell"><%= link_to submission.id, hub_efile_submission_path(id: submission.id) %></td>
+          <td class="index-table__cell">
+            <%= link_to submission.tax_return.client.legal_name, hub_client_path(id: submission.tax_return.client.id) %>
+          </td>
+          <td class="index-table__cell">
+            <%= submission.tax_return.year %>
+          </td>
+          <td class="index-table__cell">
+            <%= timestamp submission.updated_at %>
+          </td>
+        </tbody>
+      <% end %>
+    </table>
+
+  </div>
+<% end %>

@@ -18,7 +18,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *local_default
-  database: vita-min_test<%= ENV['TEST_ENV_NUMBER'] %>
+  database: vita-min_test<%= ENV['TEST_ENV_NUMBER'] == '1' ? '' : ENV['TEST_ENV_NUMBER'] %>
   schema_cache_path: tmp/test_db_schema.rb
 
 production:

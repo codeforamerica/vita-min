@@ -1,5 +1,7 @@
 module Questions
-  class AssetSaleLossController < AuthenticatedIntakeController
+  class AssetSaleLossController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)

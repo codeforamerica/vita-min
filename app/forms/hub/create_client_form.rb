@@ -61,16 +61,14 @@ module Hub
 
       @client = Client.create!(
         vita_partner_id: attributes_for(:intake)[:vita_partner_id],
-        intake_attributes: attributes_for(:intake).merge(visitor_id: SecureRandom.hex(26)),
+        intake_attributes: attributes_for(:intake).merge(default_intake_attributes),
         tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
       )
 
       locale = @client.intake.preferred_interview_language == "es" ? "es" : "en"
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: @client,
-        sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: locale),
-        email_body: I18n.t("drop_off_confirmation_message.email.body", locale: locale),
-        subject: I18n.t("drop_off_confirmation_message.email.subject", locale: locale),
+        message: AutomatedMessage::SuccessfulSubmissionDropOff.new,
         locale: locale
       )
 
@@ -91,6 +89,13 @@ module Hub
 
     private
 
+    def default_intake_attributes
+      {
+        type: "Intake::GyrIntake",
+        visitor_id: SecureRandom.hex(26)
+      }
+    end
+
     def tax_return_defaults
       { status: :prep_ready_for_prep }.merge(attributes_for(:tax_return))
     end
@@ -100,7 +105,7 @@ module Hub
     end
 
     def tax_return_required_fields_valid
-      required_attrs = [:certification_level, :is_hsa]
+      required_attrs = [:certification_level]
       missing_attrs = []
       @tax_returns_attributes&.each do |_, v|
         next unless create_tax_return_for_year?(v[:year])

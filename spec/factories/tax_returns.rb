@@ -4,6 +4,9 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  filing_status       :integer
+#  filing_status_note  :text
+#  internal_efile      :boolean          default(FALSE), not null
 #  is_ctc              :boolean          default(FALSE)
 #  is_hsa              :boolean
 #  primary_signature   :string
@@ -49,6 +52,13 @@ FactoryBot.define do
                document_type: DocumentTypes::UnsignedForm8879.key
         )
       end
+    end
+
+    trait :ctc do
+      year { 2020 }
+      client { create(:intake, :with_faker_contact_info, :with_dependents, dependent_count: 3).client }
+      is_ctc { true }
+      internal_efile { true }
     end
 
     trait :with_final_tax_doc do

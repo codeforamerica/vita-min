@@ -154,15 +154,14 @@ class MixpanelService
 
       obj_list.reduce({}) do |data, entry|
         case entry
-        when Intake
-          data.merge!(data_from_stimulus_triage_for_intake(entry))
-            .merge!(data_from_intake(entry))
+        when Intake::CtcIntake
+          data.merge!(data_from_intake(entry))
+        when Intake::GyrIntake
+          data.merge!(data_from_intake(entry)).merge!(data_from_gyr_intake(entry))
         when ActionController::Base
           data.merge!(data_from_controller(entry))
         when ActionDispatch::Request
           data.merge!(data_from_request(entry, path_exclusions: path_exclusions))
-        when StimulusTriage
-          data.merge!(data_from_stimulus_triage(entry))
         when TaxReturn
           data.merge!(data_from_tax_return(entry))
         when User
@@ -214,6 +213,30 @@ class MixpanelService
       }
     end
 
+    def data_from_gyr_intake(intake)
+      {
+          primary_filer_disabled: intake.had_disability_yes? ? "yes" : "no",
+          spouse_disabled: intake.spouse_had_disability_yes? ? "yes" : "no",
+          had_dependents: intake.dependents.empty? ? "no" : "yes",
+          number_of_dependents: intake.dependents.size.to_s,
+          had_dependents_under_6: intake.had_dependents_under?(6) ? "yes" : "no",
+          filing_joint: intake.filing_joint,
+          had_earned_income: intake.had_earned_income? ? "yes" : "no",
+          state: intake.state_of_residence,
+          zip_code: intake.zip_code,
+          needs_help_2020: intake.needs_help_2020,
+          needs_help_2019: intake.needs_help_2019,
+          needs_help_2018: intake.needs_help_2018,
+          needs_help_2017: intake.needs_help_2017,
+          needs_help_2016: intake.needs_help_2016,
+          needs_help_backtaxes: intake.needs_help_with_backtaxes? ? "yes" : "no",
+          vita_partner_name: intake.vita_partner&.name,
+          timezone: intake.timezone,
+          csat: intake.satisfaction_face,
+          claimed_by_another: intake.claimed_by_another,
+          already_applied_for_stimulus: intake.already_applied_for_stimulus,
+      }
+    end
     ##
     # creates Mixpanel data from an intake object
     def data_from_intake(intake)
@@ -223,47 +246,10 @@ class MixpanelService
         intake_referrer_domain: intake.referrer_domain,
         primary_filer_age_at_end_of_tax_year: intake.age_end_of_tax_year.to_s,
         spouse_age_at_end_of_tax_year: intake.spouse_age_end_of_tax_year.to_s,
-        primary_filer_disabled: intake.had_disability_yes? ? "yes" : "no",
-        spouse_disabled: intake.spouse_had_disability_yes? ? "yes" : "no",
-        had_dependents: intake.dependents.empty? ? "no" : "yes",
-        number_of_dependents: intake.dependents.size.to_s,
-        had_dependents_under_6: intake.had_dependents_under?(6) ? "yes" : "no",
-        filing_joint: intake.filing_joint,
-        had_earned_income: intake.had_earned_income? ? "yes" : "no",
-        state: intake.state_of_residence,
-        zip_code: intake.zip_code,
-        needs_help_2020: intake.needs_help_2020,
-        needs_help_2019: intake.needs_help_2019,
-        needs_help_2018: intake.needs_help_2018,
-        needs_help_2017: intake.needs_help_2017,
-        needs_help_2016: intake.needs_help_2016,
-        needs_help_backtaxes: intake.needs_help_with_backtaxes? ? "yes" : "no",
-        vita_partner_name: intake.vita_partner&.name,
-        triaged_from_stimulus: intake.triaged_from_stimulus? ? "yes" : "no",
-        timezone: intake.timezone,
-        csat: intake.satisfaction_face,
-        eip_only: intake.eip_only,
-        claimed_by_another: intake.claimed_by_another,
-        already_applied_for_stimulus: intake.already_applied_for_stimulus,
-        no_ssn: intake.no_ssn,
         with_general_navigator: intake.with_general_navigator,
         with_incarcerated_navigator: intake.with_incarcerated_navigator,
         with_limited_english_navigator: intake.with_limited_english_navigator,
         with_unhoused_navigator: intake.with_unhoused_navigator
-      }
-    end
-
-    ##
-    # creates Mixpanel data from a stimulus triage object
-    def data_from_stimulus_triage(stimulus_triage)
-      {
-        stimulus_triage_source: stimulus_triage.source,
-        stimulus_triage_referrer: stimulus_triage.referrer,
-        chose_to_file: stimulus_triage.chose_to_file,
-        filed_prior_years: stimulus_triage.filed_prior_years,
-        filed_recently: stimulus_triage.filed_recently,
-        need_to_correct: stimulus_triage.need_to_correct,
-        need_to_file: stimulus_triage.need_to_file
       }
     end
 
@@ -313,23 +299,6 @@ class MixpanelService
         client_organization_id: organization&.id,
         client_site_name: site&.name,
         client_site_id: site&.id,
-      }
-    end
-
-    ##
-    # creates Mixpanel data from a stimulus triage object
-    def data_from_stimulus_triage_for_intake(intake)
-      return {} unless intake.triaged_from_stimulus?
-
-      stimulus_triage = intake.triage_source
-      {
-          stimulus_triage_source: stimulus_triage.source,
-          stimulus_triage_referrer: stimulus_triage.referrer,
-          stimulus_triage_chose_to_file: stimulus_triage.chose_to_file,
-          stimulus_triage_filed_prior_years: stimulus_triage.filed_prior_years,
-          stimulus_triage_filed_recently: stimulus_triage.filed_recently,
-          stimulus_triage_need_to_correct: stimulus_triage.need_to_correct,
-          stimulus_triage_need_to_file: stimulus_triage.need_to_file
       }
     end
 

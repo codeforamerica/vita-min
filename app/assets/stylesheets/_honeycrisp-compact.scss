@@ -159,7 +159,7 @@
     &--error {
       margin-left: 0;
       margin-right: inherit;
-      padding-left: inherit;
+      padding-left: 0;
       padding-right: 0;
       &:before {
         display: none;
@@ -225,7 +225,7 @@
     }
 
     &.checkbox--wide {
-      width: 200px;
+      min-width: 200px;
     }
   }
 
@@ -234,6 +234,9 @@
     .form-question {
       display: inline;
       margin-right: $s15 ;
+    }
+    .label-indented {
+      padding-left: 2.5rem;
     }
   }
 
@@ -294,6 +297,9 @@
   }
 }
 
+.padding-20 {
+  padding: 2rem;
+}
 // Plain help text without extra line height or margin.
 .help-text {
   color: $color-grey-medium;
@@ -302,20 +308,35 @@
 .grid-flex {
   display: flex;
 
+  &.contained {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
   &.space-between {
     justify-content: space-between;
+  }
+
+  &.flex-end {
+    justify-content: flex-end;
   }
 
   &.center-aligned {
     align-items: center;
   }
 
+  &.center-justified {
+    justify-content: center;
+  }
+
   .no-shrink {
     flex-shrink: 0;
   }
+
   .item {
     margin-right: 6rem;
   }
+
   .item:last-of-type {
     margin-right: 0;
   }
@@ -330,6 +351,13 @@
 
   &.column-column {
     flex-direction: column;
+  }
+
+  &.column-row {
+    flex-direction: column;
+    @media screen and (min-width: $site-max-up) {
+      flex-direction: row;
+    }
   }
 }
 

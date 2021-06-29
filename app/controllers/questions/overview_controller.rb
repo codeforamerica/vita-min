@@ -1,5 +1,6 @@
 module Questions
-  class OverviewController < AnonymousIntakeController
+  class OverviewController < QuestionsController
+    include AnonymousIntakeConcern
     layout "intake"
 
     def illustration_path; end
@@ -9,3 +10,5 @@ module Questions
     end
   end
 end
+
+

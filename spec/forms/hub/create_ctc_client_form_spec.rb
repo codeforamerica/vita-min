@@ -1,12 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Hub::CreateCtcClientForm do
-  describe "#new" do
-    it "initializes with empty tax_return objects for each valid filing year" do
-      expect(described_class.new.tax_returns.map(&:year)).to eq(TaxReturn.filing_years)
-    end
-  end
-
   describe "#save" do
     let(:vita_partner) { create :vita_partner, name: "Caravan Palace" }
     let(:params) do
@@ -16,14 +10,6 @@ RSpec.describe Hub::CreateCtcClientForm do
         primary_last_name: "Name",
         preferred_name: "Newly",
         preferred_interview_language: preferred_interview_language,
-        married: "yes",
-        separated: "no",
-        widowed: "no",
-        lived_with_spouse: "yes",
-        divorced: "no",
-        divorced_year: "",
-        separated_year: "",
-        widowed_year: "",
         email_address: "someone@example.com",
         phone_number: "5005550006",
         sms_phone_number: "500-555-(0006)",
@@ -37,12 +23,18 @@ RSpec.describe Hub::CreateCtcClientForm do
         spouse_last_name: "Wed",
         spouse_email_address: "spouse@example.com",
         spouse_last_four_ssn: "5678",
-        filing_joint: "yes",
         timezone: "America/Chicago",
         state_of_residence: "CA",
-        service_type: "drop_off",
         signature_method: "online",
         primary_last_four_ssn: "1234",
+        filing_status: "single",
+        filing_status_note: "Didn't get married until 2021",
+        bank_account_type: "checking",
+        bank_routing_number: "1234567",
+        bank_routing_number_confirmation: "1234567",
+        bank_account_number: "1234567",
+        bank_account_number_confirmation: "1234567",
+        bank_name: "Bank of America"
       }
     end
 
@@ -64,6 +56,15 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(client.vita_partner).to eq vita_partner
       end
 
+      it "stores client bank info on the intake" do
+        described_class.new(params).save(current_user)
+        client = Client.last
+        expect(client.intake.bank_account_number).to eq params[:bank_account_number]
+        expect(client.intake.bank_routing_number).to eq params[:bank_routing_number]
+        expect(client.intake.bank_account_type).to eq "checking"
+        expect(client.intake.bank_name).to eq "Bank of America"
+      end
+
       it "assigns client to an instance on the form object" do
         form = described_class.new(params)
         form.save(current_user)
@@ -78,9 +79,7 @@ RSpec.describe Hub::CreateCtcClientForm do
           described_class.new(params).save(current_user)
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: Client.last,
-            sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "en"),
-            email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "en"),
-            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "en"),
+            message: instance_of(AutomatedMessage::SuccessfulSubmissionDropOff),
             locale: "en"
           )
         end
@@ -95,9 +94,7 @@ RSpec.describe Hub::CreateCtcClientForm do
 
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: Client.last,
-            sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "es"),
-            email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "es"),
-            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "es"),
+            message: instance_of(AutomatedMessage::SuccessfulSubmissionDropOff),
             locale: "es"
           )
         end
@@ -111,7 +108,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(intake.vita_partner).to eq vita_partner
         expect(intake.primary_last_four_ssn).to eq "1234"
         expect(intake.spouse_last_four_ssn).to eq "5678"
-        expect(intake.timezone).to eq "America/New_York"
+        expect(intake.timezone).to eq "America/Chicago"
       end
 
       it "creates a single CTC 2020 tax return for the client" do
@@ -120,15 +117,13 @@ RSpec.describe Hub::CreateCtcClientForm do
         end.to change(TaxReturn, :count).by 1
         tax_return = Client.last.tax_returns.first
         intake = Intake.last
-        expect(intake.needs_help_2020).to eq "yes"
-        expect(intake.needs_help_2019).to eq "no"
-        expect(intake.needs_help_2018).to eq "no"
-        expect(intake.needs_help_2017).to eq "no"
         expect(tax_return.year).to eq 2020
         expect(tax_return.certification_level).to eq "basic"
         expect(tax_return.status).to eq "prep_ready_for_prep"
         expect(tax_return.client).to eq intake.client
         expect(tax_return.service_type).to eq "drop_off"
+        expect(tax_return.filing_status).to eq "single"
+        expect(tax_return.filing_status_note).to eq "Didn't get married until 2021"
         expect(tax_return.is_ctc).to be_truthy
       end
 
@@ -178,6 +173,33 @@ RSpec.describe Hub::CreateCtcClientForm do
       end
     end
 
+    context "with dependents" do
+      let(:dependents_attributes) do {
+          dependents_attributes: {
+              "0" => {
+                  id: nil,
+                  first_name: "Maria",
+                  last_name: "Mango",
+                  birth_date_month: "May",
+                  birth_date_day: "9",
+                  birth_date_year: "2013",
+                  relationship: "child"
+              }
+          }
+      }
+      end
+
+      it "successfully saves the client with associated dependents" do
+        expect do
+          described_class.new(params.merge(dependents_attributes)).save(current_user)
+        end.to change(Client, :count).by 1
+        client = Client.last
+        expect(client.intake.dependents.count).to eq 1
+        expect(client.vita_partner).to eq vita_partner
+      end
+    end
+
+
     context "validations" do
       context "with an invalid email" do
         before { params[:email_address] = "someone@example" }
@@ -218,6 +240,96 @@ RSpec.describe Hub::CreateCtcClientForm do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:signature_method]).to include "Can't be blank."
+        end
+      end
+
+      context "filing status" do
+        before do
+          params[:filing_status] = nil
+        end
+
+        it "is required" do
+          expect(described_class.new(params).valid?).to eq false
+        end
+
+        it "pushes errors for signature method into the errors" do
+          obj = described_class.new(params)
+          obj.valid?
+          expect(obj.errors[:filing_status]).to include "Can't be blank."
+        end
+      end
+      
+      context "bank_account_number" do
+        before do
+          params[:bank_account_number] = nil
+        end
+        it "is required" do
+          obj = described_class.new(params)
+          obj.valid?
+          expect(obj.errors[:bank_account_number]).to include "Can't be blank."
+        end
+      end
+
+      context "bank_routing_number" do
+        before do
+          params[:bank_routing_number] = nil
+        end
+        it "is required" do
+          obj = described_class.new(params)
+          obj.valid?
+          expect(obj.errors[:bank_routing_number]).to include "Can't be blank."
+        end
+      end
+
+      context "bank_routing_number_confirmation" do
+        context "when bank_routing_number is provided" do
+          before do
+            params[:bank_routing_number] = "1234565"
+            params[:bank_routing_number_confirmation] = nil
+          end
+          it "is required" do
+            obj = described_class.new(params)
+            obj.valid?
+            expect(obj.errors[:bank_routing_number_confirmation]).to include "Can't be blank."
+          end
+        end
+
+        context "when routing confirmation is provided but does not match" do
+          before do
+            params[:bank_routing_number] = "1234565"
+            params[:bank_routing_number_confirmation] = "2234565"
+          end
+          it "provides an error" do
+            obj = described_class.new(params)
+            obj.valid?
+            expect(obj.errors[:bank_routing_number_confirmation]).to include "doesn't match Bank routing number"
+          end
+        end
+      end
+
+      context "bank_account_number_confirmation" do
+        context "when bank_account_number is provided" do
+          before do
+            params[:bank_account_number] = "1234565"
+            params[:bank_account_number_confirmation] = nil
+          end
+          it "is required" do
+            obj = described_class.new(params)
+            obj.valid?
+            expect(obj.errors[:bank_account_number_confirmation]).to include "Can't be blank."
+          end
+        end
+
+        context "when bank account confirmation is provided but does not match" do
+          before do
+            params[:bank_account_number] = "1234565"
+            params[:bank_account_number_confirmation] = "2234565"
+          end
+          it "provides an error" do
+            obj = described_class.new(params)
+            obj.valid?
+            expect(obj.errors[:bank_account_number_confirmation]).to include "doesn't match Bank account number"
+          end
         end
       end
     end

@@ -352,72 +352,70 @@ describe ReplacementParametersService do
 
     context "getting started email" do
       context "in english" do
-        let(:body) { I18n.t("messages.getting_started.email_body", locale: "en") }
+        let(:body) { I18n.t("messages.getting_started.email.body", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hello #{client.preferred_name}"
-          expect(result).to include "Your client id is #{client.id}"
+          expect(result).to include "Your Client ID is #{client.id}"
           expect(result).to include "http://test.host/en/portal/login"
           expect(result).to include "<a href=\"mailto:hello@getyourrefund.org\">hello@getyourrefund.org</a>"
         end
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.getting_started.email_body", locale: "es") }
+        let(:body) { I18n.t("messages.getting_started.email.body", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hola #{client.preferred_name}"
-          expect(result).to include "Su cliente id es #{client.id}."
-          expect(result).to include "inicia sesión aquí: http://test.host/es/portal/login"
+          expect(result).to include "Su ID de cliente es #{client.id}."
+          expect(result).to include "agregue documentos adicionales aquí: http://test.host/es/portal/login"
         end
       end
     end
 
     context "getting started text message" do
       context "in english" do
-        let(:body) { I18n.t("messages.getting_started.sms_body", locale: "en") }
+        let(:body) { I18n.t("messages.getting_started.sms", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hello #{client.preferred_name}"
-          expect(result).to include "Your client id is #{client.id}"
+          expect(result).to include "Your Client ID is #{client.id}"
           expect(result).to include "http://test.host/en/portal/login"
         end
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.getting_started.sms_body", locale: "es") }
+        let(:body) { I18n.t("messages.getting_started.sms", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hola #{client.preferred_name}"
-          expect(result).to include "Su cliente id es #{client.id}."
-          expect(result).to include "envío seguro aquí: http://test.host/es/portal/login"
+          expect(result).to include "Su ID de cliente es #{client.id}."
+          expect(result).to include "agregue documentos adicionales aquí: http://test.host/es/portal/login"
         end
       end
     end
 
     context "successfully submitted email" do
       context "in english" do
-        let(:body) { I18n.t("messages.successful_submission.email_body", locale: "en") }
+        let(:body) { I18n.t("messages.successful_submission_online_intake.email.body", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hello #{client.preferred_name}"
-          expect(result).to include "Your client id is #{client.id}"
           expect(result).to include "http://test.host/en/portal/login"
         end
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.successful_submission.email_body", locale: "es") }
+        let(:body) { I18n.t("messages.successful_submission_online_intake.email.body", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hola #{client.preferred_name}"
-          expect(result).to include "Su cliente id es #{client.id}."
           expect(result).to include "http://test.host/es/portal/login"
         end
       end
@@ -425,31 +423,29 @@ describe ReplacementParametersService do
 
     context "successfully submitted text message" do
       context "in english" do
-        let(:body) { I18n.t("messages.successful_submission.sms_body", locale: "en") }
+        let(:body) { I18n.t("messages.successful_submission_online_intake.sms", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hello #{client.preferred_name}"
-          expect(result).to include "Your client id is #{client.id}"
           expect(result).to include "http://test.host/en/portal/login"
         end
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.successful_submission.sms_body", locale: "es") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.sms", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hola #{client.preferred_name}"
-          expect(result).to include "Su cliente id es #{client.id}."
-          expect(result).to include "http://test.host/es/portal/login"
+          expect(result).to include "Su ID de cliente es #{client.id}."
         end
       end
     end
 
     context "document help email" do
       context "in english" do
-        let(:body) { I18n.t("documents.reminder_link.email_body", locale: "en", doc_type: "Some doc") }
+        let(:body) { I18n.t("documents.reminder_link.email.body", locale: "en", doc_type: "Some doc") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -459,7 +455,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("documents.reminder_link.email_body", locale: "es", doc_type: "Some doc") }
+        let(:body) { I18n.t("documents.reminder_link.email.body", locale: "es", doc_type: "Some doc") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -471,7 +467,7 @@ describe ReplacementParametersService do
 
     context "document help text message" do
       context "in english" do
-        let(:body) { I18n.t("documents.reminder_link.sms_body", locale: "en", doc_type: "Some doc") }
+        let(:body) { I18n.t("documents.reminder_link.sms", locale: "en", doc_type: "Some doc") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -481,7 +477,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("documents.reminder_link.sms_body", locale: "es", doc_type: "Some doc") }
+        let(:body) { I18n.t("documents.reminder_link.sms", locale: "es", doc_type: "Some doc") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -491,35 +487,33 @@ describe ReplacementParametersService do
       end
     end
 
-    context "drop-off email" do
+    context "successfully submitted drop-off email" do
       context "in english" do
-        let(:body) { I18n.t("drop_off_confirmation_message.email.body", locale: "en", doc_type: "Some doc") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.email.body", locale: "en", doc_type: "Some doc") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hello #{client.preferred_name}"
           expect(result).to include "Koala County VITA"
           expect(result).to include("#{client.id}")
-          expect(result).to include "http://test.host/en/portal/login"
         end
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("drop_off_confirmation_message.email.body", locale: "es", doc_type: "Some doc") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.email.body", locale: "es", doc_type: "Some doc") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hola #{client.preferred_name}"
-          expect(result).to include "http://test.host/es/portal/login"
           expect(result).to include "Koala County VITA"
           expect(result).to include("#{client.id}")
         end
       end
     end
 
-    context "drop-off text message" do
+    context "successfully submitted drop-off text message" do
       context "in english" do
-        let(:body) { I18n.t("drop_off_confirmation_message.sms.body", locale: "en") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.sms", locale: "en") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -530,7 +524,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("drop_off_confirmation_message.sms.body", locale: "es") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.sms", locale: "es") }
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process

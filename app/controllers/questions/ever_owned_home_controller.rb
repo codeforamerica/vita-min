@@ -1,5 +1,7 @@
 module Questions
-  class EverOwnedHomeController < AuthenticatedIntakeController
+  class EverOwnedHomeController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     private

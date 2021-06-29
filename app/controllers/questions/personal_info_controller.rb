@@ -1,5 +1,6 @@
 module Questions
-  class PersonalInfoController < AnonymousIntakeController
+  class PersonalInfoController < QuestionsController
+    include AnonymousIntakeConcern
     def illustration_path; end
 
     def tracking_data

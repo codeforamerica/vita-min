@@ -1,25 +1,25 @@
 Rails.application.routes.draw do
-  constraints(Routes::GyrDomain.new) do
-    def scoped_navigation_routes(context, navigation, as_redirects: false)
-      scope context, as: context do
-        navigation.controllers.uniq.each do |controller_class|
-          { get: :edit, put: :update }.each do |method, action|
-            if as_redirects
-              match "/#{controller_class.to_param}",
-                    via: method,
-                    to: redirect { |_, request| "/#{request.params[:locale]}" }
-            else
-              match "/#{controller_class.to_param}",
-                    action: action,
-                    controller: controller_class.controller_path,
-                    via: method
-            end
+  def scoped_navigation_routes(context, navigation, as_redirects: false)
+    scope context, as: context do
+      navigation.controllers.uniq.each do |controller_class|
+        { get: :edit, put: :update }.each do |method, action|
+          if as_redirects
+            match "/#{controller_class.to_param}",
+                  via: method,
+                  to: redirect { |_, request| "/#{request.params[:locale]}" }
+          else
+            match "/#{controller_class.to_param}",
+                  action: action,
+                  controller: controller_class.controller_path,
+                  via: method
           end
         end
-        yield if block_given?
       end
+      yield if block_given?
     end
+  end
 
+  constraints(Routes::GyrDomain.new) do
     mount Cfa::Styleguide::Engine => "/cfa"
 
     # In order to disambiguate versions of english pages with and without locales, we redirect to URLs including the locale
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
       resources :questions, controller: :questions do
         collection do
-          (QuestionNavigation.controllers + EipOnlyNavigation.controllers).uniq.each do |controller_class|
+          QuestionNavigation.controllers.uniq.each do |controller_class|
             { get: :edit, put: :update }.each do |method, action|
               match "/#{controller_class.to_param}",
                     action: action,
@@ -81,9 +81,6 @@ Rails.application.routes.draw do
         get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
       end
 
-      # Stimulus routes
-      scoped_navigation_routes(:stimulus, StimulusNavigation, as_redirects: Rails.configuration.offseason)
-
       get "/diy", to: "public_pages#diy"
       get "/other-options", to: "public_pages#other_options"
       get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
@@ -95,8 +92,6 @@ Rails.application.routes.draw do
       get "/sms-terms", to: "public_pages#sms_terms"
       get "/stimulus", to: "public_pages#stimulus"
       get "/full-service", to: "public_pages#full_service_home"
-      get "/eip", to: redirect('/')
-      get "/EIP", to: redirect('/')
       get "/500", to: "public_pages#internal_server_error"
       get "/422", to: "public_pages#internal_server_error"
       get "/404", to: "public_pages#page_not_found"
@@ -138,43 +133,46 @@ Rails.application.routes.draw do
       end
 
 
-    # Hub Admin routes (Case Management)
-    namespace :hub do
-      root "assigned_clients#index"
-      resources :metrics, only: [:index]
-      resources :tax_returns, only: [:edit, :update, :show]
-      resources :unlinked_clients, only: [:index]
-      resources :state_routings, only: [:index, :edit, :update], param: :state do
-        delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy
-      end
-      resources :clients do
-        get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
-        get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
-        patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
-        patch "/unlock", to: "clients#unlock", on: :member, as: :unlock
-        get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account
-        get "/hide-bai", to: "clients/bank_accounts#hide", on: :member, as: :hide_bank_account
-        get "/ssn", to: "clients/ssn_itins#show", on: :member, as: :show_ssn_itin
-        get "/hide-ssn", to: "clients/ssn_itins#hide", on: :member, as: :hide_ssn_itin
-        get "/spouse-ssn", to: "clients/ssn_itins#show_spouse", on: :member, as: :show_spouse_ssn_itin
-        get "/hide-spouse-ssn", to: "clients/ssn_itins#hide_spouse", on: :member, as: :hide_spouse_ssn_itin
-        resources :documents do
-          get "/archived", to: "documents#archived", on: :collection, as: :archived
-          get "/confirm", to: "documents#confirm", on: :member, as: :confirm
+      # Hub Admin routes (Case Management)
+      namespace :hub do
+        root "assigned_clients#index"
+        resources :metrics, only: [:index]
+        resources :tax_returns, only: [:edit, :update, :show]
+        resources :efile_submissions, path: "submissions", only: [:index, :show]
+
+        resources :unlinked_clients, only: [:index]
+        resources :state_routings, only: [:index, :edit, :update], param: :state do
+          delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy
         end
-        resources :notes, only: [:create, :index]
-        resources :messages, only: [:index]
-        resources :outgoing_text_messages, only: [:create]
-        resources :outgoing_emails, only: [:create]
-        resources :outbound_calls, only: [:new, :create, :show, :update]
-        resources :tax_returns, only: [:new, :create]
-        member do
-          patch "flag"
-          get "edit_take_action"
-          post "update_take_action"
+        resources :automated_messages, only: [:index]
+        resources :clients do
+          get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
+          get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
+          patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
+          patch "/unlock", to: "clients#unlock", on: :member, as: :unlock
+          get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account
+          get "/hide-bai", to: "clients/bank_accounts#hide", on: :member, as: :hide_bank_account
+          get "/ssn", to: "clients/ssn_itins#show", on: :member, as: :show_ssn_itin
+          get "/hide-ssn", to: "clients/ssn_itins#hide", on: :member, as: :hide_ssn_itin
+          get "/spouse-ssn", to: "clients/ssn_itins#show_spouse", on: :member, as: :show_spouse_ssn_itin
+          get "/hide-spouse-ssn", to: "clients/ssn_itins#hide_spouse", on: :member, as: :hide_spouse_ssn_itin
+          resources :documents do
+            get "/archived", to: "documents#archived", on: :collection, as: :archived
+            get "/confirm", to: "documents#confirm", on: :member, as: :confirm
+          end
+          resources :notes, only: [:create, :index]
+          resources :messages, only: [:index]
+          resources :outgoing_text_messages, only: [:create]
+          resources :outgoing_emails, only: [:create]
+          resources :outbound_calls, only: [:new, :create, :show, :update]
+          resources :tax_returns, only: [:new, :create]
+          member do
+            patch "flag"
+            get "edit_take_action"
+            post "update_take_action"
+          end
         end
-      end
-      resources :ctc_clients, only: [:new, :create]
+        resources :ctc_clients, only: [:new, :create]
 
         resources :tax_return_selections, path: "tax-return-selections", only: [:create, :show, :new]
 
@@ -214,7 +212,7 @@ Rails.application.routes.draw do
           post "/mark-all-read", to: 'user_notifications#mark_all_notifications_read', as: :mark_all_read, on: :collection
         end
         get "/profile" => "users#profile", as: :user_profile
-      end
+        end
 
       put "hub/users/:user_id/resend", to: "hub/users#resend_invitation", as: :user_profile_resend_invitation
 
@@ -246,10 +244,32 @@ Rails.application.routes.draw do
   end
 
   constraints(Routes::CtcDomain.new) do
-    get "/" => "ctc_pages#root"
-
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
-      get "/" => "ctc_pages#root"
+      scoped_navigation_routes(:questions, CtcQuestionNavigation, as_redirects: Rails.configuration.hide_ctc)
+    end
+
+    namespace :ctc, path: "/" do
+      root to: "ctc_pages#redirect_locale_home", as: :ctc_redirected_root
+
+      scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+        root to: "ctc_pages#home"
+
+        resources :signups, only: [:new, :create], path: "sign-up", path_names: { new: '' } do
+          get "/confirmation", to: "signups#confirmation", on: :collection
+        end
+        scope "common-questions" do
+          get "/what-will-i-need-to-submit", to: "ctc_pages#what_will_i_need_to_submit"
+          get "/what-will-happen-and-when", to: "ctc_pages#what_will_happen_and_when"
+          get "/how-do-i-know-what-i-received-for-the-stimulus", to: "ctc_pages#how_do_i_know_what_i_received_for_the_stimulus"
+          get "/will-i-ever-have-to-pay-this-money-back", to: "ctc_pages#will_i_ever_have_to_pay_this_money_back"
+          get "/parents-with-shared-custody", to: "ctc_pages#parents_with_shared_custody"
+          get "/no-income-or-income-from-benefits-programs", to: "ctc_pages#no_income_or_income_from_benefits_programs"
+          get "/are-daca-recipients-eligible", to: "ctc_pages#are_daca_recipients_eligible"
+          get "/will-it-affect-my-immigration-status", to: "ctc_pages#will_it_affect_my_immigration_status"
+        end
+      end
     end
   end
+
+  get '*unmatched_route', to: 'public_pages#page_not_found'
 end

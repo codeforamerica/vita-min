@@ -1,5 +1,7 @@
 module Questions
-  class EnergyEfficientPurchasesController < AuthenticatedIntakeController
+  class EnergyEfficientPurchasesController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     private

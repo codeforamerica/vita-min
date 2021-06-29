@@ -6,23 +6,31 @@
       <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
     <% end %>
 
-    <title><%= content_for(:page_title) %> | GetYourRefund</title>
+    <% unless content_for? :app_name %>
+      <%= content_for :app_name do %>GetYourRefund<% end %>
+    <% end %>
+
+    <title><%= content_for(:page_title) %> | <%= content_for(:app_name) %></title>
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="<%=t("views.layouts.application.meta.description") %>">
+    <% if content_for :meta_tags %>
+      <%= yield :meta_tags %>
+    <% else %>
+      <meta name="description" content="<%=t("views.layouts.application.meta.description") %>">
+      <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+      <meta property="og:description" content="<%=t("views.layouts.application.meta.description") %>">
+      <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
+      <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+      <meta property="twitter:description" content="<%=t("views.layouts.application.meta.description") %>">
+      <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
+    <% end %>
     <meta property="og:type" content="website">
     <meta property="og:url" content="<%= canonical_url %>">
-    <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
-    <meta property="og:description" content="<%=t("views.layouts.application.meta.description") %>">
-    <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="<%= canonical_url %>">
-    <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
-    <meta property="twitter:description" content="<%=t("views.layouts.application.meta.description") %>">
-    <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
 
     <link rel="canonical" href="<%= canonical_url %>" />
     <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="x-default" />
@@ -49,10 +57,12 @@
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
     <div class="page-wrapper">
-      <% if hub? %>
+      <% if content_for :header %>
+        <%= yield :header %>
+      <% elsif hub? %>
         <%= render 'shared/hub_header' %>
       <% else %>
-        <%= render 'shared/header' %>
+        <%= render 'shared/header', title: "GetYourRefund", home_link: root_path %>
       <% end %>
 
       <%= render "shared/environment_warning" %>

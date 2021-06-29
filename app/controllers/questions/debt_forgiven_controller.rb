@@ -1,5 +1,7 @@
 module Questions
-  class DebtForgivenController < AuthenticatedIntakeController
+  class DebtForgivenController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     private

@@ -429,10 +429,8 @@ describe MixpanelService do
           vita_partner: vita_partner,
           timezone: "America/Los_Angeles",
           satisfaction_face: "neutral",
-          eip_only: true,
           claimed_by_another: "yes",
           already_applied_for_stimulus: "no",
-          no_ssn: "yes",
           with_general_navigator: true,
           with_incarcerated_navigator: false,
           with_limited_english_navigator: true,
@@ -483,6 +481,10 @@ describe MixpanelService do
                                            intake_referrer_domain: "boop.horse",
                                            primary_filer_age_at_end_of_tax_year: "26",
                                            spouse_age_at_end_of_tax_year: "27",
+                                           with_general_navigator: true,
+                                           with_incarcerated_navigator: false,
+                                           with_limited_english_navigator: true,
+                                           with_unhoused_navigator: false,
                                            primary_filer_disabled: "no",
                                            spouse_disabled: "yes",
                                            had_dependents: "yes",
@@ -499,17 +501,10 @@ describe MixpanelService do
                                            needs_help_2016: "unfilled",
                                            needs_help_backtaxes: "yes",
                                            vita_partner_name: vita_partner.name,
-                                           triaged_from_stimulus: "no",
                                            timezone: "America/Los_Angeles",
                                            csat: "neutral",
-                                           eip_only: true,
                                            claimed_by_another: "yes",
                                            already_applied_for_stimulus: "no",
-                                           no_ssn: "yes",
-                                           with_general_navigator: true,
-                                           with_incarcerated_navigator: false,
-                                           with_limited_english_navigator: true,
-                                           with_unhoused_navigator: false,
                                          })
         end
 
@@ -529,38 +524,42 @@ describe MixpanelService do
             expect(data_from_intake).to include(needs_help_backtaxes: "no")
           end
         end
+      end
 
-        context "when the intake has a triage source from stimulus triage" do
-          let(:stimulus_triage) { create(:stimulus_triage) }
-          before do
-            intake.update_attribute(:triage_source, stimulus_triage)
-          end
-
-          it "includes stimulus triage data" do
-            expect(data_from_intake).to include(
-              stimulus_triage_source: nil,
-              stimulus_triage_referrer: nil,
-              stimulus_triage_chose_to_file: "unfilled",
-              stimulus_triage_filed_prior_years: "unfilled",
-              stimulus_triage_filed_recently: "unfilled",
-              stimulus_triage_need_to_correct: "unfilled",
-              stimulus_triage_need_to_file: "unfilled"
-                                        )
-          end
+      context 'when obj is a CTC Intake' do
+        let(:ctc_intake) do
+          create(
+            :ctc_intake,
+            source: "beep",
+            referrer: "http://boop.horse/mane",
+            primary_birth_date: Date.new(1993, 3, 12),
+            spouse_birth_date: Date.new(1992, 5, 3),
+            with_general_navigator: true,
+            with_incarcerated_navigator: true,
+            with_limited_english_navigator: false,
+            with_unhoused_navigator: false
+          )
         end
 
-        context "when the intake does not have a triage source from stimulus triage" do
-          it "does not includes stimulus triage data" do
-            expect(data_from_intake).not_to include(
-              :stimulus_triage_source,
-                                              :stimulus_triage_referrer,
-                                              :stimulus_triage_chose_to_file,
-                                              :stimulus_triage_filed_prior_years,
-                                              :stimulus_triage_filed_recently,
-                                              :stimulus_triage_need_to_correct,
-                                              :stimulus_triage_need_to_file
-                                            )
-          end
+        let(:data_from_intake) { MixpanelService.data_from(ctc_intake) }
+
+        it 'returns intake data for mixpanel' do
+          data = MixpanelService.instance.data_from(ctc_intake)
+          expect(data[:intake_source]).to eq(ctc_intake.source)
+        end
+
+        it "returns the expected hash" do
+          expect(data_from_intake).to eq({
+             intake_source: "beep",
+             intake_referrer: "http://boop.horse/mane",
+             intake_referrer_domain: "boop.horse",
+             primary_filer_age_at_end_of_tax_year: "26",
+             spouse_age_at_end_of_tax_year: "27",
+             with_general_navigator: true,
+             with_incarcerated_navigator: true,
+             with_limited_english_navigator: false,
+             with_unhoused_navigator: false
+          })
         end
       end
 

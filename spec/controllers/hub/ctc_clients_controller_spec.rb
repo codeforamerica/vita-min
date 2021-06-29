@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Hub::CtcClientsController do
-  let!(:organization) { create :organization, allows_greeters: false }
+  let!(:organization) { create :organization, allows_greeters: false, processes_ctc: true }
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
 
   describe "#new" do
@@ -25,13 +25,16 @@ RSpec.describe Hub::CtcClientsController do
     context "as an admin" do
       before { sign_in create(:admin_user) }
 
-      let!(:other_organization) { create :organization }
+      let!(:other_organization) { create :organization, processes_ctc: true }
+      let!(:unavailable_org) { create :organization, processes_ctc: false }
 
       it "loads all the vita partners and shows a select input" do
         get :new
 
         expect(assigns(:vita_partners)).to include organization
         expect(assigns(:vita_partners)).to include other_organization
+        expect(assigns(:vita_partners)).not_to include unavailable_org
+
         expect(response.body).to have_text("Assign to")
       end
     end
@@ -46,14 +49,6 @@ RSpec.describe Hub::CtcClientsController do
           primary_last_name: "Name",
           preferred_name: "Newly",
           preferred_interview_language: "es",
-          married: "yes",
-          separated: "no",
-          widowed: "no",
-          lived_with_spouse: "yes",
-          divorced: "no",
-          divorced_year: "",
-          separated_year: "",
-          widowed_year: "",
           email_address: "someone@example.com",
           phone_number: "+15005550006",
           sms_phone_number: "+15005550006",
@@ -66,11 +61,17 @@ RSpec.describe Hub::CtcClientsController do
           spouse_first_name: "Newly",
           spouse_last_name: "Wed",
           spouse_email_address: "spouse@example.com",
-          filing_joint: "yes",
           timezone: "America/Chicago",
           signature_method: "online",
           service_type: "drop_off",
           vita_partner_id: vita_partner_id,
+          filing_status: "married_filing_jointly",
+          bank_account_type: "checking",
+          bank_routing_number: "1234567",
+          bank_routing_number_confirmation: "1234567",
+          bank_account_number: "1234567",
+          bank_account_number_confirmation: "1234567",
+          bank_name: "Bank of America"
         },
       }
     end

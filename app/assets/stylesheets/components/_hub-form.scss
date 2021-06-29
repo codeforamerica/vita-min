@@ -5,6 +5,32 @@
       margin: 0;
     }
   }
+
+  &__card {
+    border: 1px solid $color-grey-medium-light;
+    padding: 2rem;
+    margin-bottom: 3.5rem;
+
+    &.card-small {
+      max-width: 575px;
+    }
+  }
+
+  &__input-with-checkbox {
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      &.form-group--error {
+        margin-bottom: 3.5rem;
+      }
+    }
+
+    .checkbox-group {
+      margin-top: 0;
+      margin-bottom: 3.5rem;
+    }
+  }
+
   &__row {
     display: flex;
     align-items: center;
@@ -24,13 +50,36 @@
       align-items: center;
     }
   }
+
+  &__radio-set {
+    .radio-button {
+      font-weight: normal;
+      font-size: $font-size-18;
+      display: flex;
+      padding-left: 4.5rem;
+      border: 1px solid $color-grey-medium-light;
+      height: 5rem;
+      input {
+        position: absolute;
+        left: 1.5rem;
+        top: 2rem;
+      }
+    }
+
+    .form-group--error {
+      input {
+        border-color: $color-grey-dark;
+      }
+      .radio-button {
+        border-color: $color-red;
+      }
+    }
+  }
 }
 
-.marital-status {
+#marital-status-fields {
   margin-bottom: $s25;
   .form-group {
     margin-bottom: 1rem;
   }
 }
-
-

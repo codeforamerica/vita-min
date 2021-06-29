@@ -62,11 +62,14 @@ es:
       create:
         success_message: Cliente creado correctamente.
       fields:
-        filing_information: Presentación de información
         legal_first_name: Primer nombre legal
         legal_last_name: Apellido legal
         mailing_address: Dirección postal
+        payment_information: Información de pago
         preferred_interview_language: Idioma preferido
+        marital_status: Estado civil
+        filing_status: Estado civil para impuestos
+        filing_status_notes: Notas de estado (opcional)
         preferred_name: Nombre completo preferido
         primary_contact_info: Información de contacto
         navigator:
@@ -95,8 +98,6 @@ es:
         tax_years: Años de impuestos
       edit:
         title: Editar Perfil del cliente
-        add_dependent: Agregar dependiente
-        remove: Eliminado
         delete_client: Eliminar cliente
         delete_confirmation: ¿Estás seguro de que deseas eliminar toda la información asociada con %{name}?
       index:
@@ -126,7 +127,6 @@ es:
         notifications: Mis Actualizaciones
       show:
         email: Email
-        dependents: Dependents
         filing_status: Estado civil para declarar
         intake_language: Idioma del formulario de admisión
         interview_timing_preference: Preferencia de tiempo de entrevista
@@ -178,7 +178,7 @@ es:
       new:
         title: Agregar un nuevo cliente
         assign_to_label: Asignado a
-        send_for_prep: Enviar para preparar
+        save_and_add: Guardar y agregar otro
     documents:
       edit:
         title: Editar Documento
@@ -416,7 +416,9 @@ es:
       info_displayed: Visualización de la información de la cuenta bancaria
       bank_name: Nombre del banco
       account_number: Número de cuenta
+      account_number_confirmation: Confirmar número de cuenta
       routing_number: Número de ruta
+      routing_number_confirmation: Confirmar número de ruta
       account_type: Tipo de cuenta
       checking: Cuenta de Cheques
       savings: Ahorros
@@ -560,6 +562,9 @@ es:
             one: "Ha seleccionado <strong>Cambiar cesionario y/o estado</strong> para <strong>%{count} devolución</strong> con el siguiente estado:"
             other: "Ha seleccionado <strong>Cambiar cesionario y/o estado</strong> para <strong>%{count} devoluciones</strong> con los siguientes estados:"
           by_clicking_submit: Al hacer clic en enviar, está actualizando el asignado y/o el estado, enviando un mensaje, enviando una nota de equipo y actualizando seguidores.
+    automated_messages:
+      index:
+        title: "Mensajes Automatizados"
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
@@ -729,6 +734,7 @@ es:
         first_name: el primer nombre
         last_name: el apellido
         birth_date: la fecha de nacimiento completa
+        relationship: relación con usted
       tax_returns: "Por favor, proporcione todos los campos obligatorios para las declaraciones de impuestos:: %{attrs}."
       tax_returns_attributes:
         is_hsa: es HSA
@@ -740,6 +746,21 @@ es:
         not_found: No se pudo encontrar la entrada de enrutamiento coincidente para %{state}. Intentar otra vez.
       general: Por favor, corrija los errores indicados antes de continuar.
   general:
+    filing_status:
+      single: Soltero (S)
+      married_filing_jointly: Casado que presenta una declaración conjunta (MFJ)
+      married_filing_separately: Casado que presenta una declaración por separado (MFS)
+      head_of_household: Cabeza de familia (HOH)
+      qualifying_widow: Viudo que reúne los requisitos (QW)
+    dependent_relationships:
+      child: "Hijo/Hija"
+      parent: "Madre/Padre"
+      sibling: "Hermana/Hermano"
+      aunt_uncle: "Tía/Tío"
+      niece_nephew: "Sobrina/Sobrino"
+      grandchild: "Nieta/Nieto"
+      grandparent: "Abuela/Abuelo"
+      other: "Otro"
     add_ctc_client: Agregar CTC cliente
     add_client: Agregar cliente
     at_time: a las %{time}
@@ -770,6 +791,7 @@ es:
       sms_phone_number: mensaje de texto
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
+    dependents: Dependientes
     divorced: Divorciado
     document_type: Clase de documento
     document_types:
@@ -988,79 +1010,97 @@ es:
   messages:
     default_subject: Actualización de GetYourRefund
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
-    successful_submission:
-      subject: ¡Su información de impuestos ha sido enviada con éxito!
-      email_body: |
+    successful_submission_online_intake:
+      email:
+        subject: ¡Su información de impuestos ha sido enviada con éxito!
+        body: |
+          Hola <<Client.PreferredName>>,
+
+          ¡Su información fiscal se ha enviado correctamente! Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> Si tiene alguna pregunta, responda a este mensaje.
+
+          ¡Estamos aquí para ayudar!
+          Su equipo de impuestos en GetYourRefund.org
+      sms: |
         Hola <<Client.PreferredName>>,
-
-        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su cliente id es <<Client.ClientId>>.
-
-        Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
-
-        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: <<Client.LoginLink>>
-
-        Si tiene alguna pregunta, por favor responda a este mensaje.
-
-        ¡Estamos aquí para ayudar!
-
-        Su equipo de impuestos en GetYourRefund.org
-      sms_body: |
-        Hola <<Client.PreferredName>>,
-        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su cliente id es <<Client.ClientId>>.
-        Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
-        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: <<Client.LoginLink>>
-        Si tiene alguna pregunta, por favor responda a este mensaje.
+        ¡Su información fiscal se ha enviado correctamente! Su especialista en impuestos revisará su información y se comunicará con usted en 3-5 días laborales para una revisión telefónica de su situación antes de preparar sus impuestos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> Si tiene alguna pregunta, responda a este mensaje.
         ¡Estamos aquí para ayudar!
         Su equipo de impuestos en GetYourRefund.org
+    successful_submission_drop_off:
+      email:
+        subject: ¡Su información de impuestos ha sido enviada con éxito!
+        body: |
+          Hola <<Client.PreferredName>>,
+
+          Su información fiscal se ha enviado correctamente a su preparador de impuestos en <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>.
+
+          Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos.
+
+          Si tiene alguna pregunta, puede comunicarse con su equipo de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org> hello@getyourrefund.org </a> o por mensaje de texto al 58750.
+
+          ¡Estamos aquí para ayudar!
+          Su equipo de impuestos en GetYourRefund.org
+      sms: |
+        Hola <<Client.PreferredName>>, Gracias por enviar su información fiscal a <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>. Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!
     getting_started:
-      email_body: |
+      email:
+        subject: Comience a tramitar sus impuestos con GetYourRefund
+        body: |
+          Hola <<Client.PreferredName>>,
+
+          Gracias por comenzar sus impuestos con GetYourRefund. ¡Ya casi ha terminado! Su ID de cliente es <<Client.ClientId>>. Comenzaremos a preparar sus impuestos una vez que tengamos toda la información requerida y todo los documentos fiscales.
+
+          Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>
+
+           El proceso completo de GetYourRefund tardará entre 2 y 3 semanas.
+
+          Si tiene alguna pregunta, puede comunicarse con su equipo de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> o enviando un mensaje de texto a 58750.
+
+          Recuerde, revisaremos todo con usted por teléfono antes de presentar la solicitud. Complete nuestro formulario lo mejor que pueda y lo ayudaremos a obtener los créditos fiscales que le pertenecen.
+
+          ¡Estamos aquí para ayudar!
+          Su equipo de impuestos en GetYourRefund.org
+      sms: |
         Hola <<Client.PreferredName>>,
-
-        Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su cliente id es <<Client.ClientId>>. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
-
-        Puede subir su identificación o documentos de impuestos adicionales, inicia sesión aquí: <<Client.LoginLink>>
-
-        Si tiene alguna pregunta puede contactar a su equipo de preparación de impuestos por correo electrónico a <a href="mailto:hello@getyourrefund.org"></a>, o enviar un mensaje de texto al 58750.
-
-        Recuerde, nosotros revisaremos todo con usted antes de presentar sus documentos, así que procure hacer lo mejor posible. ¡Así le ayudaremos a conseguir los créditos fiscales que le pertenecen!
-
-        ¡Estamos aquí para servirle!
-
-        Su Equipo de Impuestos de GetYourRefund.org
-      email_subject: Comience a tramitar sus impuestos con GetYourRefund
-      sms_body: |
-        Hola <<Client.PreferredName>>, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es <<Client.ClientId>>. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Inicia sesión para suba sus documentos a su enlace de envío seguro aquí: <<Client.LoginLink>>
-        Responda a este mensaje con cualquier pregunta. ¡Estamos aquí para servirle!
+        Gracias por comenzar sus impuestos con GetYourRefund. ¡Ya casi ha terminado! Su ID de cliente es <<Client.ClientId>>. Comenzaremos a preparar sus impuestos una vez que tengamos toda la información y todo los documentos fiscales requeridos. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>> El proceso completo de GetYourRefund tomará de 2 a 3 semanas.
+        Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!
     surveys:
       completion:
         email:
           body: |
-            Gracias por declarar tus impuestos con GetYourRefund! Puede comprobar el estado de su reembolso en la página web del IRS https://www.irs.gov/refunds
+            ¡Gracias por presentar sus impuestos con GetYourRefund!
 
-            Queremos mejorar nuestro servicio y nos hace falta tu comentario. ¿Puedes contarnos cómo ha sido?
+            Puede verificar el estado de su reembolso en el sitio web del IRS <a href="https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
 
-            Te agradeceríamos si pudieras rellenar nuestra encuesta, solo te tomará unos 5 minutos: %{survey_link}
+            ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue?
+
+            Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
           subject: ¡Gracias por declarar tus impuestos con GetYourRefund!
         sms: |
-          Gracias por declarar tus impuestos con GetYourRefund. Queremos mejorar nuestro servicio y nos hace falta tu comentario. ¿Puedes contarnos cómo ha sido? Por favor tome unos 5 minutos para rellenar nuestra encuesta: %{survey_link}
+          Gracias por presentar sus impuestos con GetYourRefund. ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
       in_progress:
         email:
           body: |
             Hola <<Client.PreferredName>>,
 
-            Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Inicie sesión aquí para continuar el proceso y cargar documentos fiscales: <<Client.LoginLink>>
+            Notamos que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe aquí <<Client.LoginLink>>
 
-            ¡Revisaremos todo contigo por teléfono!
+            ¡Revisaremos todo con usted por teléfono!
 
             Si tiene alguna pregunta, puede responder a este mensaje.
 
-            Si desea enviarnos sus comentarios para ayudarnos a mejorar nuestro servicio, puede completar nuestra encuesta de 5 minutos aquí: %{survey_link}
+            Envíenos sus comentarios y ayúdenos a mejorar nuestro servicio. Puede realizar nuestra encuesta de 5 minutos aquí: %{survey_link}
 
             ¡Estamos aquí para ayudar!
             Su equipo de impuestos en GetYourRefund
           subject: Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!
         sms: |
-          Hola, <<Client.PreferredName>>. Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Si tienes alguna pregunta, puedes responder a este mensaje. Si desea enviarnos sus comentarios para ayudarnos a mejorar nuestro servicio, puede completar nuestra encuesta de 5 minutos aquí: %{survey_link}
+          Hola <<Client.PreferredName>>, Notamos que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe aquí <<Client.LoginLink>> Si tiene alguna pregunta, puede responder a este mensaje. Envíenos sus comentarios y ayúdenos a mejorar nuestro servicio. Puede realizar nuestra encuesta de 5 minutos aquí: %{survey_link}
+    intercom_forwarding:
+      email:
+        body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
+        subject: Esta conversación ha sido enviada a los especialistas del servicio al cliente de GetYourRefund
+      sms:
+        body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
   models:
     intake:
       your_spouse: Su cónyuge
@@ -1179,6 +1219,25 @@ es:
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"
   views:
+    ctc:
+      questions:
+        overview:
+          help_text: TODO
+          help_text2: TODO
+          title: TODO
+          step1:
+            title: TODO
+            help_text: TODO
+          step2:
+            title: TODO
+            help_text: TODO
+          step3:
+            title: TODO
+            help_text: TODO
+        personal_info:
+          title: TODO
+          info: TODO
+          preferred_name: TODO
     dependents:
       form:
         birth_date: Fecha de nacimiento
@@ -1337,6 +1396,9 @@ es:
       application:
         meta:
           description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
+      ctc:
+        meta:
+          description: Dinero en efectivo en el bolsillo de su familia cada mes para las cosas que necesita
       document_upload:
         dont_have: No lo tengo ahora
         remove_confirmation: ¿Está seguro de que desea quitar "%{filename}"?
@@ -1372,13 +1434,6 @@ es:
       diy_home:
         title: ¡Declare sus impuestos por su cuenta de forma gratuita!
         body: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para crear su propio acceso a TaxSlayer, para que pueda presentarlo por su cuenta.
-      eip_home:
-        header: Reciba su cheque de estímulo
-        questions_cta: la página de preguntas frecuentes de estímulo
-        questions_html: Preguntas? Visite %{faq_link}
-        subheader1: Es posible que se esté perdiendo un pago de más de $1,200 dólares. Los voluntarios entrenados y certificados por el IRS están listos para ayudarle a presentar su declaración de forma gratuita.
-        subheader2: Se tarda menos de 30 minutos en llenar el formulario. ¡Obtenga su cheque de estímulo hoy!
-        title: Obtenga ayuda para reclamar su cheque de estímulo gratis
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
         contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic al botón de "Ayuda"/"Chat" en la parte inferior a la derecha, o enviándonos un correo electrónico a %{email_link}.
@@ -1900,7 +1955,6 @@ es:
           other: En %{year}, ¿usted o su cónyuge hicieron alguna contribución caritativa?
       chat_with_us:
         chat: Si tiene preguntas, puede chatear con nosotros haciendo clic en el botón en la parte inferior derecha de su pantalla.
-        eip_only: "¡Estamos aquí para ayudarlo en cada paso del camino!"
         info: "¡Sabemos que los impuestos pueden ser difíciles y estamos aquí para ayudarlo en cada paso del camino!"
         partner_info_html: "%{partner_name} prepara declaraciones de impuestos de <strong>%{zip} (%{zip_name}).</strong>"
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
@@ -1968,28 +2022,6 @@ es:
       divorced_year:
         before_2014: antes de 2014
         title: "¿En qué año se finalizó su divorcio?"
-      eip_eligibility:
-        already_applied: Ya solicité mi estímulo en el sitio del IRS
-        claimed: Alguien me reclamó en sus impuestos
-        collect_my_stimulus: "¡Recibir mi cheque de estímulo!"
-        legend: 'Seleccione las situaciones que se apliquen a usted:'
-        no_ssn: No tengo un número de Seguridad Social
-        title: "¿Calificas para nuestra ayuda? Averigüemos antes de comenzar."
-      eip_maybe_ineligible:
-        info: Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, "Chat" con nosotros o visita nuestra página de preguntas frecuentes de estímulo.
-        title: Desafortunadamente, no califica para nuestra ayuda.
-      eip_overview:
-        hotline_notice:
-          number: Llame +1 844 322 3639
-          title: "¿Necesitas ayuda adicional?"
-          what: La línea de ayuda de United Way está disponible para responder sus preguntas y puede ayudarlo a completar este formulario por teléfono.
-          why: Es una buena opción para cualquier persona que no sea buena con las computadoras o que prefiera el soporte en persona.
-        info_html: 'Tenga en cuenta: Necesitará tener toda la documentación necesaria para el 8 de octubre, ya que de otra manera no podremos ayudarle a recibir tu pago de estimulo. Si recibió lo siguiente, el pago debería llegarle automáticamente y <strong>no es necesario que complete el formulario</strong>:'
-        received_rrb: Beneficios de Jubilación Ferroviaria
-        received_ssdi: Sobreviviente o discapacidad del Seguro Social (SSDI)
-        received_ssi: Seguridad de Ingreso suplementario (SSI)
-        received_va: Beneficios de Asuntos de Veteranos (C&P)
-        title: "¡Excelente! Nos vamos a trabajar juntos para asugara que usted puede recibir tu pago de estimulo."
       email_address:
         email_address: Dirección de correo electrónico
         email_address_confirmation: Confirmar el correo
@@ -2362,6 +2394,9 @@ es:
           one: "Responda Sí, si gastó más de $12,000 en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos."
           other: "Responda Sí, si usted y su cónyuge gastaron más de $24,000 en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos."
     shared:
+      dependents_fields:
+        add_dependent: Agregar dependiente
+        remove: Eliminado
       tax_return_list:
         add_tax_year: Agregar año fiscal
         select_tax_return: Seleccione %{tax_year}
@@ -2519,6 +2554,7 @@ es:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
         off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}
       footer:
+        ctc_service_description_html: GetYourCTC.org es un servicio sin ánimo de lucro creado por %{link}.
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
         volunteer_sign_in: Sesión de voluntarios
         service_status: "Estado del servicio"
@@ -2631,6 +2667,155 @@ es:
           Limitación de la duración del consentimiento: Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha más temprana a la indicada anteriormente (13 de noviembre de 2022). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, yo/ nosotros denegaremos el consentimiento.
 
           Limitación del alcance de la divulgación: Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo indicado anteriormente. Si yo/nosotros deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo indicado anteriormente, yo/nosotros denegaremos el consentimiento
+    ctc_pages:
+      home:
+        title: "Crédito Tributario por Hijos"
+        header: "Crédito Tributario por Hijos"
+        subheader: "Ponga dinero en efectivo en el bolsillo de su familia cada mes para las cosas que usted necesita, aún si usted tiene muy pocos ingresos o no tiene ingresos."
+        claim_credit: "Reclamar su crédito"
+        common_questions:
+          title: "Preguntas Frecuentes"
+          what_will_i_need_to_submit:
+            question: "No suelo declarar impuestos, ¿qué tengo que presentar para inscribirme para el Crédito Tributario por Hijos?"
+            answer_html: |
+              Necesitará una dirección de correo electrónico, un documento de identidad, una prueba de ingresos y/o beneficios y el número de seguro social de su hijo/a.<br/><br/>
+              Los niños que califican para el Crédito Tributario por Hijos deben tener un número de seguro social (SSN en inglés) válido, pero el declarante de impuestos (un padre, abuelo o tutor) puede tener un SSN o un Número de Identificación Personal del Contribuyente (ITIN en inglés).
+          what_will_happen_and_when:
+            question: "¿Cómo es el proceso? ¿Qué ocurrirá y cuándo?"
+            answer_html: |
+              Si el IRS considera que su familia es elegible para el Crédito Tributario por Hijos y ya tiene la información que necesita para pagarle automáticamente, recibirá una tarjeta postal y una carta del IRS en junio del 2021.
+              <br/><br/>
+              Si ya ha declarado los impuestos del 2019 o 2020, empezará a recibir sus pagos automáticamente el 15 de julio de 2021 y, a continuación, los días 15 de cada mes, aproximadamente, durante los siguientes 6 meses.
+              <br/><br/>
+              Si no ha declarado impuestos en los últimos dos años y necesita presentar información para reclamar el Crédito Tributario por Hijos, puede utilizar la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar los que no han declarado.
+              <br/><br/>
+              Si necesita actualizar su dirección u otra información con el IRS, puede utilizar el portal de actualización del <b>Crédito Tributario por Hijos (CTC Update Portal o CTC UP en inglés)</b> a partir de finales de junio.
+          how_do_i_know_what_i_received_for_the_stimulus:
+            question: "¿Cómo puedo saber cuanto he recibido por el estímulo (Pagos de Impacto Económico)?"
+            answer_html: |
+              Para poder reclamar el Crédito Tributario por Hijos, tendrá que reportar la cantidad que le pueda estar faltando de los pagos de estímulo (Pagos de Impacto Económico).
+              <br/><br/>
+              El <b>primer pago de estímulo</b> se envió en abril de 2020 y fue de $1,200 por declarante de impuestos adulto, al que se le sumaron $500 por dependiente menor de 17 años (por ejemplo, un padre que cuide a dos niños habría recibido $2,200).
+              <br/><br/>
+              El <b>segundo pago de estímulo</b> se envió en diciembre de 2020 y fue de $600 por declarante adulto, al que se le sumaron $600 por dependiente (por ejemplo, un padre que cuide a dos niños habría recibido $1,800).
+              <br/><br/>
+              El <b>tercer pago de estímulo</b> se envió en abril de 2021 y fue de $1,400 por declarante adulto, al que se le sumó $1,400 por dependiente de cualquier edad (por ejemplo, un padre que cuide a dos niños habría recibido $4,200).
+          will_i_ever_have_to_pay_this_money_back:
+            question: "¿Tendré que devolver este dinero alguna vez?"
+            answer_html: |
+              Si recibe pagos por un hijo que ya no es su dependiente o si sus ingresos han cambiado significativamente, es posible que tenga que devolver ese dinero. En estas situaciones existen algunas protecciones para aquellos con ingresos menos de $80,000 (para individuos o padres sin custodia), $100,000 (para solteros, cabeza de familia) o $120,000 (para declaración conjunta).
+          parents_with_shared_custody:
+            question: "¿Pueden ambos padres que comparten la custodia de un hijo recibir el Crédito Tributario por Hijos?"
+            answer_html: |
+              Si está casado y se inscribe para el Crédito Tributario por Hijos en conjunto con su cónyuge, recibirá una mensualidad por hijo, como familia.
+              <br/><br/>
+              Si los padres del niño que califica declaran impuestos por separado, sólo puede inscribirse una persona para recibir el Crédito Tributario por Hijos.
+          no_income_or_income_from_benefits_programs:
+            question: "¿Qué pasa si no tengo ingreso, o solo ingresos de programas beneficiarios como Seguridad de Ingreso Suplementario (SSI en inglés), Programa de Asistencia Nutricional Suplementaria (SNAP en inglés), Asistencia Temporal para Familias Necesitadas (TANF en inglés) o El Programa Especial de Nutrición Suplementaria para Mujeres, Infantes y Niños (WIC en inglés)?"
+            answer_html: |
+              No se requiere un ingreso mínimo para obtener el Crédito Tributario por Hijos para el año fiscal 2021. Aún si su familia tiene $0 en ingresos reportados y no trabajó en el año fiscal anterior, puede ser elegible para el Crédito Tributario por Hijos siempre y cuando tenga un hijo que tenga un número de seguro social(SSN en inglés) y sea menor de 17 años al final del 2020.
+              <br/><br/>
+              Si su único ingreso es de programas beneficiarios, le recomendamos que complete la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que aún no han declarado sus impuestos, y así puedan recibir los beneficios en efectivo para su familia.
+              <br/><br/>
+              Si obtuvo ingresos de un programa beneficiario y también tiene ingresos de trabajo, tiene la opción de declarar sus impuestos y recibir los beneficios adicionales para los que podría calificar.
+          are_daca_recipients_eligible:
+            question: "¿Los beneficiarios de DACA son elegibles para el Crédito Tributario por Hijos?"
+            answer_html: |
+              Sí, los beneficiarios de DACA, son elegibles para el Crédito Tributario por Hijos siempre y cuando los hijos que usted reclame en su declaración de impuestos tengan un número de seguro social (SSN en inglés) válido.
+              <br/><br/>
+              Los beneficiarios de DACA que son dependientes de declarantes con un  Número de Identificación Personal del Contribuyente (ITIN en inglés)  pueden ser reclamados para el Crédito Tributario por Hijos porque tienen números válidos de seguro social .
+          will_it_affect_my_immigration_status:
+            question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
+            answer_html: |
+              No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
+        sign_up_for_reminders:
+          body: Manténgase en contacto. Podemos enviarle un email cuando haya más información disponible.
+          button: Si, manténganme informado
+        what_is:
+          heading: "¿Qué es el Crédito Tributario por Hijos (CTC)?"
+          body1: "El Plan de Rescate Estadounidense, firmado como ley por el presidente Biden el 11 de marzo de 2021, aumenta el Crédito Tributario por Hijos (CTC en inglés) que le podría proporcionar hasta $300 al mes por cada hijo menor de seis años y hasta $250 por hijo con edades entre 6 y 17 años."
+          body2: "Puede recibir pagos a partir de julio a  diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante."
+        qualify:
+          heading: "¿Califico para el Crédito Tributario por Hijos?"
+          body1: "Puede recibir el Crédito Tributario por Hijos si tiene hijos, aún si tiene muy pocos ingresos o no tiene ingresos."
+          body2: "En general, los niños de su familia califican para el Crédito Tributario por Hijos si son menores de 18 años y viven con usted la mayoría del tiempo."
+          eligible:
+            subheading: "¿Quién es elegible para reclamar el Crédito Tributario por Hijos?"
+            body_html: |
+              Personas que califican para el pago mensual adelantado del Crédito Tributario por Hijos incluyen:
+                <ul>
+                  <li>Contribuyentes que declaren impuestos juntos y ganan hasta $150,000</li>
+                  <li>Cabeza de familia que es soltero/a y que gana hasta $112,500</li>
+                  <li>Otros contribuyentes individuales que ganen hasta $75,000</li>
+                </ul>
+          dependents:
+            subheading: "¿Califica mi hijo/a o dependiente para el Crédito Tributario por Hijos?"
+            body: "Su hijo/a califica a su familia  para el Crédito Tributario por Hijos si:"
+            qualifiers:
+              - "El niño/a es su hijo/a, nieto/a, hijastro/a o hijo/a adoptivo/a; hermano/a menor, hermanastro/a, medio hermano/a o su descendiente. O si es un niño/a de crianza colocado con su familia por medio de una agencia de gobierno."
+              - "El niño / la niña tenía menos de 17 años a finales de 2020."
+              - "El niño / la niña tiene un número de seguro social válido."
+              - "El niño/ la niña vivió con usted durante más de la mitad de 2021."
+              - "El niño/ la niña no proporcionó más de la mitad de su propia manutención en el 2021."
+        obtain:
+          heading: "¿Cómo recibo el Crédito Tributario por Hijos?"
+          body1: "Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia."
+          body2_html: |
+            Si no ha enviado información alguna al IRS en el último año, puede enviar su información a través de la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han presentado su declaración de impuestos, y poder recibir sus pagos.
+          already_filed:
+            subheading: "Si ya declaró los impuestos del 2019 o 2020, no tiene que hacer nada."
+            body1: "Si ya declaró los impuestos del 2019 o 2020 y no ha tenido cambios significativos en su hogar, no  necesita hacer nada más. Sabemos que las situaciones familiares pueden cambiar rápidamente. Para recibir la cantidad correcta de dinero del Crédito Tributario por Hijos, puede asegurarse  que el IRS tenga la información correcta sobre las personas que forman parte de su hogar actual."
+            body2_html: "Si su situación familiar ha cambiado, pronto va a poder usar el <strong><a rel='noopener' target='_blank' href='https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool'>portal de actualización del Crédito Tributario por Hijos</a></strong> para:"
+            body3_html: "<i>Actualmente</i>, puede utilizar el portal de actualización para:"
+            body4: "Usted podría optar por no recibir los pagos mensuales del Crédito Tributario por Hijos si:"
+            update_items:
+              - "Actualizar el número de dependientes elegibles en su hogar (por ejemplo, si un niño ya no vive con usted, o nació un nuevo bebé)"
+              - "Reportar cambios significativos en sus ingresos familiares"
+            payment_next_year: "Optar por no recibir pagos mensuales, y optar por recibir el pago  el próximo año cuando presente su declaración de impuestos de 2021"
+            opt_out_items:
+              - "Prefiere recibir su crédito en un solo pago en el 2022"
+              - "Su información bancaria o su dirección ha cambiado en el último año"
+              - "No planea reclamar dependientes en su declaración de impuestos de 2021 (que declarará en el 2022), por ejemplo, si comparte custodia con alguien y se alternan quien reclama el niño como dependiente"
+            irs_link_html: "¡Actualice su información u opte por no participar en el <strong><a rel='noopener' target='_blank' href='https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool'>portal de actualización de crédito infantil del IRS</a></strong>!"
+          not_filed:
+            subheading: "Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos."
+            body1_html: |
+              <p>Si tiene al menos un hijo que califica y usted ganó menos de $12,400 (o menos de $24,800 si está casado), usted puede usar la <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés), una herramienta para registrar a los que no han declarado, para:</p>
+              <ul>
+                <li>obtener el Crédito Tributario por Hijos</li>
+                <li>recibir un pago de estímulo que le falte</li>
+                <li>y recibir dinero en efectivo.</li>
+              </ul>
+            body2: "Para obtener el Crédito Tributario por Hijos, necesitará verificar su identidad y proporcionar los números de seguro social de sus hijos. Puede registrarse para el Crédito Tributario por Hijos aún si usted tiene muy pocos ingresos o no tiene ingresos, o si recibe otros beneficios federales como Seguridad de Ingreso Suplementario (SSI en inglés) o beneficios por incapacidad (SSDI en inglés)."
+          full_return:
+            subheading: "Si usted aún no ha proporcionado su información al IRS (por medio de sus impuestos o por el portal para registrar a las personas que no han declarado), usted puede presentar una declaración de impuestos completa para recibir otros créditos tributarios que se le deben."
+            gyr_diy_link: "GetYourRefund - Auto-Servicio (DIY)"
+            body1_html: |
+              Si usted tiene al menos un hijo que califica y tiene cualquier cantidad de ingresos de trabajo, pero aún no ha declarado impuestos, le recomendamos que declare sus impuestos de 2020. Presentar una declaración de impuestos completa del 2020 le permitirá a usted y a su familia:
+              <ul>
+                <li>reclamar el Crédito Tributario por Hijos</li>
+                <li>recibir los tres pagos de estímulo</li>
+                <li>y obtener el Crédito Tributario por Ingresos de Trabajo para recibir más dinero en efectivo.</li>
+              </ul>
+            body2_html: "Aquí hay algunas opciones <strong>gratuitas</strong> para declarar impuestos:"
+            gyr_diy_explanation: ": Si sus ingresos fueron más de $66,000 y se siente seguro usando las herramientas en línea, le daremos acceso gratuito a programas digitales para que usted prepare su declaración de impuestos. Habrán expertos listos para ayudarle por chat si lo necesita."
+        non_filer_sign_up_tool_warning_html: |
+          <p>La <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés) es difícil de usar y si la usa de forma incorrecta le podría causar una gran demora en recibir sus pagos.</p>
+
+          <p>La herramienta solo está disponible en inglés y puede ser muy confusa para personas con situaciones tributarias más complicadas. (Por ejemplo, para familias de estatus mixto, o personas legalmente casadas que prefieren registrarse por separado.)</p>
+
+          <p>Hable con nuestros expertos en impuestos si necesita ayuda.</p>
+      signups:
+        new:
+          title: Regístrate
+          header: Manténgase en contacto. Podemos enviarle un email cuando haya más información disponible.
+          sub_header: Lo único que tiene que hacer es proporcionar su nombre y su correo electrónico o número de teléfono y le enviaremos un email o mensaje de texto cuando haya más información disponible.
+          submit: Manténganme actualizado
+        confirmation:
+          title: Regístrate
+          header: Gracias por registrarte!
+          body: Nos comunicaremos contigo en cuanto tengamos más información.
+          button: Regresar a la página principal
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
@@ -2682,25 +2867,6 @@ es:
       body_html: ¡Huy! Parece que estás intentando acceder a una página o un cliente al que no tienes acceso. Póngase en contacto con Soporte para socios en <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> si necesita fusionar un cliente duplicado al que no tiene acceso.
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
-  drop_off_confirmation_message:
-    email:
-      subject: Gracias por enviar su información de impuestos
-      body: |
-        Hola <<Client.PreferredName>>,
-
-        Su información ha sido enviada con éxito a su preparador de impuestos en <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>.
-
-        Su especialista de impuestos revisará su información y se pondrá en contacto con usted de 3-5 días laborables para revisar su situación antes de preparar sus impuestos.
-
-        Puede someter cualquier documento adicional de <a href="<<Client.LoginLink>>">forma segura aquí</a>.
-
-        Si tiene alguna pregunta, puede ponerse en contacto con su especialista de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> o del mensaje de texto 58750.
-
-        ¡Estamos aquí para ayudarle!
-
-        Su equipo de impuestos en GetYourRefund.org
-    sms:
-      body: Hola <<Client.PreferredName>>, ¡Gracias por enviar su información de impuestos a <<Client.AssignedOrganization>>! Su ID de cliente es <<Client.ClientId>>. Responda a este mensaje si tiene alguna pregunta. Estamos aquí para ayudarle.
   documents:
     documents_help:
       show:
@@ -2713,12 +2879,13 @@ es:
         title: Ayuda de documentos
     reminder_link:
       notice: ¡Genial! Acabamos de enviarle un enlace de recordatorio.
-      subject: Su recordatorio de documento fiscal
-      email_body: |
-        Hola <<Client.PreferredName>>,
-        Hemos recibido su solicitud de recordatorio. Por favor, envíenos un %{doc_type} con <a href="<<Client.LoginLink>>">este enlace</a>.
-        Su equipo de impuestos en GetYourRefund
-      sms_body: |
+      email:
+        subject: Su recordatorio de documento fiscal
+        body: |
+          Hola <<Client.PreferredName>>,
+          Hemos recibido su solicitud de recordatorio. Por favor, envíenos un %{doc_type} con <a href="<<Client.LoginLink>>">este enlace</a>.
+          Su equipo de impuestos en GetYourRefund
+      sms: |
         Hola <<Client.PreferredName>>,
         Hemos recibido su solicitud de recordatorio. Por favor, envíenos un %{doc_type} con este enlace: <<Client.LoginLink>>
         Su equipo de impuestos en GetYourRefund

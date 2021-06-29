@@ -60,6 +60,7 @@
 @import "components/link-table";
 @import "components/tagify-overrides";
 @import "components/toggle";
+@import "components/efile_submissions";
 @import "organisms/form-cards";
 @import "organisms/offboarding";
 @import "organisms/provider-list";
@@ -78,6 +79,7 @@
 @import "templates/diy-start-filing-start";
 @import "templates/hub-metrics";
 @import "templates/hub-documents-index";
+@import "templates/automated-messages";
 @import "templates/overview";
 @import "templates/portal";
 @import "templates/stimulus";
@@ -85,6 +87,7 @@
 @import "templates/question";
 @import "templates/bulk-action-form";
 @import "templates/home";
+@import "templates/ctc-home";
 
 html {
   background-color: black;

@@ -1,5 +1,7 @@
 module Questions
-  class IrsLetterController < AuthenticatedIntakeController
+  class IrsLetterController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     private

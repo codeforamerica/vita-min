@@ -65,17 +65,20 @@ en:
         legal_first_name: Legal first name
         legal_last_name: Legal last name
         mailing_address: Mailing Address
+        payment_information: Payment Information
         preferred_name: Preferred full name
-        filing_information: Filing Information
+        filing_status: Filing Status
+        filing_status_notes: Filing status notes (optional)
+        marital_status: Marital Status
         preferred_interview_language: Preferred language
-        primary_contact_info: Primary Contact Info
+        primary_contact_info: Primary Contact Information
         navigator:
           title: Type of navigator used
           general: General
           incarcerated: Incarcerated/reentry
           limited_english: Limited English proficiency
           unhoused: Unhoused
-        spouse_contact_info: Spouse Contact Info
+        spouse_contact_info: Spouse Contact Information
         state_of_residence: State of residence
         signature_method: Signature method
         service_type: Service type
@@ -95,8 +98,6 @@ en:
         tax_years: Tax years
       edit:
         title: Edit Client Profile
-        add_dependent: Add dependent
-        remove: Remove
         delete_client: Delete client
         delete_confirmation: Are you sure you want to delete all information associated with %{name}?
       edit_take_action:
@@ -144,7 +145,6 @@ en:
         notifications: My Updates
       show:
         email: Email
-        dependents: Dependents
         filing_status: Filing Status
         intake_language: Intake Language
         interview_timing_preference: Preferred Interview Time
@@ -178,7 +178,7 @@ en:
       new:
         title: Add a new CTC client
         assign_to_label: Assign to
-        send_for_prep: Send for prep
+        save_and_add: Save and add another
     documents:
       confirm:
         title: Confirm %{document_type}
@@ -428,7 +428,9 @@ en:
       bank_name: Bank name
       account_type: Account type
       account_number: Account number
+      account_number_confirmation: Confirm account number
       routing_number: Routing number
+      routing_number_confirmation: Confirm routing number
       checking: Checking
       savings: Savings
     organizations:
@@ -571,6 +573,9 @@ en:
             one: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} return</strong> with the following status:"
             other: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} returns</strong> with the following statuses:"
           by_clicking_submit: By clicking submit, you are updating assignee and/or status, sending a message, sending a team note, and updating followers.
+    automated_messages:
+      index:
+        title: "Automated Messages"
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
@@ -740,6 +745,7 @@ en:
         first_name: first name
         last_name: last name
         birth_date: birth date
+        relationship: relationship
       tax_returns: "Please provide all required fields for tax returns: %{attrs}."
       tax_returns_attributes:
         is_hsa: is HSA
@@ -751,6 +757,21 @@ en:
         not_found: Matching routing entry for %{state} could not be found. Try again.
       general: Please fix indicated errors before continuing.
   general:
+    filing_status:
+      single: Single
+      married_filing_jointly: Married filing jointly
+      married_filing_separately: Married filing separately
+      head_of_household: Head of household
+      qualifying_widow: Qualifying widow(er)
+    dependent_relationships:
+      child: "Child"
+      parent: "Parent"
+      sibling: "Sibling"
+      aunt_uncle: "Aunt/Uncle"
+      niece_nephew: "Niece/Nephew"
+      grandchild: "Grandchild"
+      grandparent: "Grandparent"
+      other: "Other"
     add_ctc_client: Add CTC client
     add_client: Add client
     all_organizations: "All organizations"
@@ -781,6 +802,7 @@ en:
       sms_phone_number: text
     continue: Continue
     continue_example: Continue to example
+    dependents: Dependents
     divorced: Divorced
     document_type: Document type
     document_types:
@@ -997,79 +1019,103 @@ en:
   messages:
     default_subject: Update from GetYourRefund
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
-    successful_submission:
-      subject: Your tax information has been successfully submitted!
-      email_body: |
+    successful_submission_online_intake:
+      email:
+        subject: Your tax information has been successfully submitted!
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Your tax information has been successfully submitted! Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
+
+          Check your progress and add additional documents here: <<Client.LoginLink>>
+
+          If you have any questions, please reply to this message.
+
+          We’re here to help!
+
+          Your tax team at GetYourRefund.org
+      sms: |
         Hello <<Client.PreferredName>>,
-
-        Your tax information has been successfully submitted to your tax preparer! Your client id is <<Client.ClientId>>.
-
-        Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
-
-        Log in to securely submit additional information or documents you’d like to share with your tax preparer: <<Client.LoginLink>>
-
-        If you have any questions, please reply to this message.
-
-        We’re here to help!
-
-        Your tax team at GetYourRefund.org
-      sms_body: |
-        Hello <<Client.PreferredName>>,
-        Your tax information has been successfully submitted to your tax preparer! Your client id is <<Client.ClientId>>.
-        Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
-        Log in to securely submit additional information or documents you’d like to share with your tax preparer: <<Client.LoginLink>>
+        Your tax information has been successfully submitted! Your tax specialist will review your information and reach out in 3-5 business days for a phone review of your situation before preparing your taxes.
+        Check your progress and add additional documents here: <<Client.LoginLink>>
         If you have any questions, please reply to this message.
         We’re here to help!
         Your tax team at GetYourRefund.org
+    successful_submission_drop_off:
+      email:
+        subject: Your tax information has been successfully submitted!
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Your tax information has been successfully submitted to your tax preparer at <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>.
+
+          Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes.
+
+          If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
+
+          We’re here to help!
+          Your tax team at GetYourRefund.org
+      sms: |
+        Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
     getting_started:
-      email_body: |
+      email:
+        subject: Getting your taxes started with GetYourRefund
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Thanks for starting your taxes with GetYourRefund - you’re almost there! Your Client ID is <<Client.ClientId>>.
+          We will begin to prepare your taxes once we have all of your required information and tax documents.
+
+          Check your progress and add additional documents here: <<Client.LoginLink>>
+
+          The entire GetYourRefund process will take 2-3weeks.
+
+          If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
+
+          Remember, we’ll review everything with you over the phone before filing. Complete our form to the best of your ability and we’ll help you get the tax credits that belong to you!
+
+          We’re here to help!
+          Your Tax Team at GetYourRefund.org
+      sms: |
         Hello <<Client.PreferredName>>,
-
-        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your client id is <<Client.ClientId>>. We will prepare your taxes once we have all of your required information and tax documents.
-
-        You can securely upload additional tax documents by logging in here: <<Client.LoginLink>>
-
-        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
-
-        Remember, we’ll review everything with you before filing so just do the best you can. Then we’ll help you get the tax credits that belong to you!
-
-        We’re here to help!
-        Your Tax Team at GetYourRefund.org
-      email_subject: Getting your taxes started with GetYourRefund
-      sms_body: |
-        Hello <<Client.PreferredName>>, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is <<Client.ClientId>>. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Log in to upload documents securely here: <<Client.LoginLink>>
-
+        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your Client ID is <<Client.ClientId>> We will begin to prepare your taxes once we have all of your required information and tax documents. Check your progress and add additional documents here: <<Client.LoginLink>> The entire GetYourRefund process will take 2-3 weeks.
         Respond to this message if you have any questions. We’re here to help!
     surveys:
       completion:
         email:
           body: |
-            Thank you for filing your taxes with GetYourRefund and <<Client.AssignedOrganization>>! You can check the status of your refund at the IRS website https://www.irs.gov/refunds.
+            Thank you for filing your taxes with GetYourRefund! You can check the status of your refund at the IRS website <a href="https://www.irs.gov/refunds">https://www.irs.gov/refunds</a>.
 
-            We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went?
+            We would love feedback on your experience so we can improve this service! Could you tell us about how it went?
 
             Take our 5 minute survey here: %{survey_link}
           subject: Thank you for filing your taxes with GetYourRefund!
         sms: |
-          Thank you for filing your taxes with GetYourRefund and <<Client.AssignedOrganization>>. We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
+          Thank you for filing your taxes with GetYourRefund. We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
       in_progress:
         email:
           body: |
             Hello <<Client.PreferredName>>,
 
-            We noticed you haven't completed providing the information we need to prepare your taxes. Log in to continue the process and upload tax documents: <<Client.LoginLink>>
+            We noticed you haven't completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>>
 
             We'll review everything with you on the phone!
 
             If you have any questions, you can reply to this message.
 
-            If you would like to provide us feedback to help us improve our service, you can take our 5 minute survey here: %{survey_link}
+            Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}
 
             We're here to help!
             Your Tax Team at GetYourRefund
           subject: Welcome to GetYourRefund.org. You're almost there!
         sms: |
-          Hello <<Client.PreferredName>>, We noticed you haven't completed providing the information we need to prepare your taxes. If you have any questions, you can reply to this message. If you would like to provide us feedback to help us improve our service, you can take our 5 minute survey here: %{survey_link}
+          Hello <<Client.PreferredName>>. We noticed you haven't completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>> If you have any questions, you can reply to this message. Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}
+    intercom_forwarding:
+      email:
+        body: "This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly."
+        subject: "Your message has been forwarded to GetYourRefund customer support"
+      sms:
+        body: "This conversation is being forwarded to our customer service specialists. You should expect to see a message from them at a different email shortly."
   models:
     intake:
       your_spouse: Your spouse
@@ -1188,6 +1234,25 @@ en:
     pdf_file_type: "%{document_type} must be a PDF file"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} must be associated with a tax year."
   views:
+    ctc:
+      questions:
+        overview:
+          help_text: To receive your Child Tax Credit, and also any stimulus payments you are due, you’ll need to file a 2020 tax return.
+          help_text2: We can help! Just a few simple steps.
+          title: Let's get started!
+          step1:
+            title: Answer questions
+            help_text: We'll ask a series of questions about yourself and dependents.
+          step2:
+            title: Verify your identity
+            help_text: We'll confirm that you are you.
+          step3:
+            title: Get the tax benefits you're due
+            help_text: If you choose to file your taxes, we'll help you e-file and get any tax benefits you're due.
+        personal_info:
+          title: First, what's your name?
+          info: Welcome, we're excited to help you. We need some basic information to get started. We’ll start by asking what you like being called.
+          preferred_name: Preferred first name
     consent_pages:
       consent_to_use:
         title: Consent to Use
@@ -1407,6 +1472,9 @@ en:
       application:
         meta:
           description: Maximize your refund by filing with our trusted volunteers. Available to you online or in person!
+      ctc:
+        meta:
+          description: Cash in your family’s pocket every month for the things you need.
       document_upload:
         dont_have: I don't have this right now.
         remove_confirmation: Are you sure you want to remove "%{filename}"?
@@ -1442,13 +1510,6 @@ en:
       diy_home:
         title: File taxes on your own for free!
         body: We provide free access to an online tax prep site called TaxSlayer. We'll send you a link to create your own TaxSlayer login, so you can file on your own.
-      eip_home:
-        header: Get your stimulus check
-        questions_cta: Stimulus FAQ
-        questions_html: Questions? Visit our %{faq_link}
-        subheader1: You might be missing out on a payment of over $1,200. Trained IRS certified volunteers are ready to help you apply for free.
-        subheader2: It takes less than 30 minutes to fill out the form. Get your stimulus check today!
-        title: Get help claiming your stimulus check for free!
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
@@ -1948,7 +2009,6 @@ en:
           other: In %{year}, did you or your spouse make any charitable contributions?
       chat_with_us:
         chat: If you have questions, you can chat with us by clicking the button in the bottom right of your screen.
-        eip_only: We’re here to support you every step of the way!
         info: We know taxes can be hard and we’re here to support you every step of the way!
         partner_info_html: "%{partner_name} handles tax returns from <strong>%{zip} (%{zip_name}).</strong>"
         title: Our team at %{partner_name} is here to help!
@@ -2016,28 +2076,6 @@ en:
       divorced_year:
         before_2014: before 2014
         title: What year was your divorce finalized?
-      eip_eligibility:
-        already_applied: I already applied for my stimulus on the IRS site
-        claimed: Someone else is claiming me on their taxes
-        collect_my_stimulus: Collect my stimulus
-        legend: 'Select any situations that apply to you:'
-        no_ssn: I don't have a Social Security Number
-        title: Before we start, let's make sure you qualify for our help!
-      eip_maybe_ineligible:
-        info: Based on your previous answers, we cannot help you collect your stimulus. If you have additional questions, chat with us or visit our stimulus FAQ page.
-        title: Unfortunately, you don't qualify for our assistance.
-      eip_overview:
-        hotline_notice:
-          number: Call +1 844 322 3639
-          title: Need additional assistance?
-          what: The United Way's helpline is available to answer your questions and can help you complete this form over the phone.
-          why: It's a great option for anyone who isn’t great with computers or could use the support of a live human.
-        info_html: 'Heads up: In order to claim your stimulus by the deadline, we need all required documents by October 8th. You should get the payment automatically and <strong>do not need to fill out this form</strong> if you received:'
-        received_rrb: Railroad Retirement benefits
-        received_ssdi: Social Security retirement, survivor, or disability benefits (SSDI)
-        received_ssi: Supplemental Security Income (SSI)
-        received_va: VA Compensation and Pension (C&P)
-        title: Great! Let's help you collect your stimulus.
       email_address:
         email_address: E-mail address
         email_address_confirmation: Confirm e-mail address
@@ -2410,6 +2448,9 @@ en:
           one: Answer yes if you spent over $12,000 on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
           other: Answer yes if you or your spouse spent over $24,000 on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
     shared:
+      dependents_fields:
+        add_dependent: Add dependent
+        remove: Remove
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}
@@ -2549,6 +2590,7 @@ en:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February. For stimulus questions, visit our %{faq_link}.
       footer:
+        ctc_service_description_html: GetCTC.org is a non-profit service built by %{link}.
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
         volunteer_sign_in: Volunteer sign in
         service_status: "Service status"
@@ -2604,6 +2646,136 @@ en:
         no_phone_number_listed: Sorry, no phone number listed.
         phone_number_title: Call %{provider_name}
         search_radius: Within %{distance} miles of %{zip} (%{zip_name})
+    ctc_pages:
+      home:
+        title: "Get Your Child Tax Credit"
+        header: "Child Tax Credit"
+        subheader: "Putting cash in your family’s pocket every month for the things you need, even if you make little or no money."
+        claim_credit: "Claim your credit"
+        common_questions:
+          title: "Common Questions"
+          what_will_i_need_to_submit:
+            question: "I don’t usually file taxes, what will I need to submit to sign up for the Child Tax Credit?"
+            answer_html: |
+              An email address, ID, proof of income and/or benefits, and your child's Social Security Number.<br/><br/>
+              Children claimed for the Child Tax Credit must have a valid Social security number (SSN), however the tax filer (a parent, grandparent, or guardian) can have either a SSN or an Individual Taxpayer Identification Number (ITIN).
+          what_will_happen_and_when:
+            question: "What will happen and when?"
+            answer_html: |
+              If the IRS thinks your family is eligible for the Child Tax Credit and already has the information it needs to pay you automatically, you will receive a postcard and a letter from the IRS in June 2021.
+              <br/><br/>
+              If you have already filed taxes for tax years 2019 or 2020, you will begin receiving your payments automatically on July 15, 2021, and then on or about the 15th of each month for the next 6 months.
+              <br/><br/>
+              If you have not filed taxes in the past two years and need to submit information to claim the Child Tax Credit, you can use <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">the IRS Non-Filer Sign-Up Tool</a></strong>.
+              <br/><br/>
+              If you need to update your address or other information with the IRS you can use the <b>CTC Update Portal (CTC UP)</b> starting in late June.
+          how_do_i_know_what_i_received_for_the_stimulus:
+            question: "How do I know what I received for the stimulus (Economic Impact Payments)?"
+            answer_html: |
+              In order to claim the Child Tax Credit, you will need to report the amount you may be missing in stimulus payments (Economic Impact Payments).
+              <br/><br/>
+              The <b>first stimulus payment</b> was sent in April 2020 and was $1,200 per adult tax filer plus $500 per dependent under 17 years old (for example, a parent caring for two children would have received $2,200).
+              <br/><br/>
+              The <b>second stimulus payment</b> was sent in December 2020 and was $600 per adult tax filer plus $600 per dependent (for example, a parent caring for two children would have received $1,800).
+              <br/><br/>
+              The <b>third stimulus payment</b> was sent in April 2021 and was $1,400 per adult tax filer plus $1,400 per dependent of any age (for example, a parent caring for two children would have received $4,200).
+          will_i_ever_have_to_pay_this_money_back:
+            question: "Will I ever have to pay this money back?"
+            answer_html: |
+              If you receive payments for a child who is no longer your dependent or if your income has drastically changed, you may have to pay that money back, though there are some protections in place for those with incomes below $80,000 (for individuals or non custodial parents), $100,000 (for single, head-of-household), or $120,000 (for filing jointly).
+          parents_with_shared_custody:
+            question: "Can parents who share custody of a child both get the Child Tax Credit?"
+            answer_html: |
+              If you are married and signing up for the Child Tax Credit jointly with your spouse, you will receive one monthly payment per child, as a family.
+              <br/><br/>
+              If you file separately from any other caretakers for your child, then only one person can sign up to receive the Child Tax Credit.
+          no_income_or_income_from_benefits_programs:
+            question: "What if I don’t have any income, or only income from benefits programs (like SSI, SNAP, TANF, or WIC)?"
+            answer_html: |
+              There is no minimum income required to get the Child Tax Credit for tax year 2021. Even if your family has $0 in reported income and didn’t work during the previous year, you can still be eligible for the full Child Tax Credit as long as you have a child who has a Social Security Number and was younger than 17 at the end of 2020.
+              <br/><br/>
+              If your only income was from benefits programs, we recommend that you complete <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">the IRS Non-Filer Sign-Up Tool</a></strong> to receive cash benefits for your family.
+              <br/><br/>
+              If you earned income from a benefits program and also some income from working, you have the option to file a full tax return in order to receive the additional benefits that you may qualify for.
+          are_daca_recipients_eligible:
+            question: "Are DACA recipients eligible for the Child Tax Credit?"
+            answer_html: |
+              Yes, DACA recipients are eligible for the Child Tax Credit so long as the children being claimed in the household have a valid SSN. DACA recipients who are dependents of ITIN filers can also be claimed for the Child Tax Credit because they have valid Social Security Numbers.
+          will_it_affect_my_immigration_status:
+            question: "Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?"
+            answer_html: |
+              No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
+        sign_up_for_reminders:
+          body: Stay in touch. We can email you when more information is available.
+          button: Yes, keep me updated
+        what_is:
+          heading: "What is the Child Tax Credit?"
+          body1: "The American Rescue Plan, signed into law by President Biden on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $300 per month per child under age 6, and up to $250 per month per child ages 6 to 17."
+          body2: "You can receive  payments starting in July 2021 through December 2021. You will need to file a tax return in 2022 to receive the rest of the payment."
+        qualify:
+          heading: "Do I qualify for the Child Tax Credit?"
+          body1: "You can receive the Child Tax Credit if you have children, even if you make little or no money."
+          body2: "Generally, the children in your family qualify for the Child Tax Credit if they are under 18 and live with you most of the time."
+          eligible:
+            subheading: "Who is eligible to claim the Child Tax Credit?"
+            body_html: "Joint filers making up to $150,000, single head of households making up to $112,500, and other single filers making up to $75,000 qualify for the full advanced monthly payment of the Child Tax Credit."
+          dependents:
+            subheading: "Does my child or dependent qualify for the Child Tax Credit?"
+            body: "Your child qualifies your family for the Child Tax Credit if:"
+            qualifiers:
+              - "The child is your son, daughter, grandchild, stepchild or adopted child; younger sibling, step-sibling, half-sibling, or their descendent; or a foster child placed with you by a government agency."
+              - "The child was under 17 at the end of 2020."
+              - "The child has a valid Social Security Number."
+              - "The child lived with you for more than half of 2021."
+              - "The child did not provide over half of their own support for 2021."
+        obtain:
+          heading: "How do I get the Child Tax Credit?"
+          body1: "To provide the Advance Child Tax Credit payments, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your Advance Child Tax Credit payments automatically."
+          body2_html: |
+            If you have not submitted any information to the IRS in the last year, you can submit your information through <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">the IRS Non-Filer Sign-Up Tool</a></strong> and get your payments.
+          already_filed:
+            subheading: "If you already filed a 2019, or a 2020 tax return, you don’t have to do anything."
+            body1: "If you have already filed a 2019 or 2020 tax return and you have not had major changes to your household, no additional action is needed. We do know that family situations can change quickly. To receive the correct amount of money from the Child Tax Credit, you can make sure that the IRS has the correct information on your current household."
+            body2_html: "If your family situation has changed you will soon be able to use the <strong><a rel='noopener' target='_blank' href='https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool'>IRS CTC Update Portal</a></strong> to:"
+            body3_html: "You can <i>currently</i> use the Update Portal to:"
+            body4: "You might choose to opt out of receiving monthly Child Tax Credit payments if:"
+            update_items:
+              - "Update the number of eligible dependents in your household (for example if a child has moved out, or a new baby was born)"
+              - "Report significant changes in household income"
+            payment_next_year: "Opt out of receiving monthly payments, and choose to receive the payment next year when you submit your 2021 tax return"
+            opt_out_items:
+              - "You would prefer to receive your credit in one payment in 2022"
+              - "Your bank information or address has changed in the last year"
+              - "You do not plan on claiming dependents on your 2021 tax return (2022 tax season), for example if you share share custody with someone else and alternate who claims the child as a dependent"
+            irs_link_html: "Update Your Information or Opt Out in the <strong><a rel='noopener' target='_blank' href='https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool'>IRS Child Credit Update Portal</a></strong>!"
+          not_filed:
+            subheading: "If you have not filed a tax return, you can sign up to get the Child Tax Credit."
+            body1_html: |
+              If you have at least one qualifying child and earned less than $12,400 (or less than $24,800 if you are married), you can use <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">the IRS Non-Filer Sign-Up Tool</a></strong> to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
+            body2: "To get the Child Tax Credit you will need to verify your identity, and provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI."
+          full_return:
+            subheading: "If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed."
+            gyr_diy_link: "GetYourRefund - Do It Yourself"
+            body1_html: "If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. Filing a full 2020 tax return will allow your family to claim the Child Tax Credit, receive all three stimulus payments, and the Earned Income Credit to get even more cash now."
+            body2_html: "Here are some <strong>free</strong> tax filing options for you:"
+            gyr_diy_explanation: ": If you earned more than $66,000 and are comfortable using online tools, we provide free access to tax prep software with experts ready to provide chat support if you need help."
+        non_filer_sign_up_tool_warning_html: |
+          <p><strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">The IRS Non-Filer Sign-Up Tool</a></strong> is difficult to use and if you complete the Sign-Up Tool incorrectly your payments could be significantly delayed.</p>
+
+          <p>The tool is only available in English and it can be especially confusing for people with complex tax situations (for example, mixed status families, people who are legally married but prefer to sign up separately).</p>
+
+          <p>Chat with our tax experts if you need help.</p>
+      signups:
+        new:
+          title: Sign Up
+          header: Stay in touch. We can email you when more information is available.
+          sub_header: All you need to do is provide us with your name and either an email address or phone number and we'll email or text you when there is more information.
+          submit: Keep me updated
+        confirmation:
+          title: Sign Up
+          header: Thanks for signing up!
+          body: We'll contact you as soon as we have more information.
+          button: Return to homepage
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
@@ -2657,24 +2829,6 @@ en:
       body_html: Oops! Looks like you're trying to access a page or client you do not have access to. Please contact Partner Support at <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> if you need to merge a duplicate client you do not have access to.
     home:
       already_started: "Already started? Sign in"
-  drop_off_confirmation_message:
-    email:
-      subject: Thank you for submitting your tax information
-      body: |
-        Hello <<Client.PreferredName>>,
-
-        Your tax information has been successfully submitted to your tax preparer at <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>.
-
-        Your tax specialist will review your information and will reach out to you in 3-5 business days to review your situation before preparing your taxes.
-
-        You can securely upload any additional tax documents by <a href="<<Client.LoginLink>>">logging in here.</a>
-
-        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
-
-        We’re here to help!
-        Your tax team at GetYourRefund.org
-    sms:
-      body: Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
   documents:
     documents_help:
       show:
@@ -2686,12 +2840,13 @@ en:
         title: "Document help"
     reminder_link:
       notice: "Great! We just sent you a reminder link."
-      subject: Your tax document reminder
-      email_body: |
-        Hello <<Client.PreferredName>>,
-        We received your request for a reminder. Please <a href="<<Client.LoginLink>>">login here</a> to upload %{doc_type} documents.
-        Your tax team at GetYourRefund
-      sms_body: |
+      email:
+        subject: Your tax document reminder
+        body: |
+          Hello <<Client.PreferredName>>,
+          We received your request for a reminder. Please <a href="<<Client.LoginLink>>">login here</a> to upload %{doc_type} documents.
+          Your tax team at GetYourRefund
+      sms: |
         Hello <<Client.PreferredName>>,
         We received your request for a reminder. Please login here to upload %{doc_type} documents: <<Client.LoginLink>>
         Your tax team at GetYourRefund

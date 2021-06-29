@@ -1,5 +1,7 @@
 module Questions
-  class HealthInsuranceController < AuthenticatedIntakeController
+  class HealthInsuranceController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def method_name

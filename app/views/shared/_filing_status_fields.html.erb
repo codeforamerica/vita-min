@@ -1,0 +1,12 @@
+<div id="filing-status-fields" class="hub-form__card card-small">
+  <h3><%= t("hub.clients.fields.filing_status") %></h3>
+  <div class="hub-form__radio-set">
+    <%= f.cfa_radio_set(
+        :filing_status,
+        collection: TaxReturn.filing_statuses.map { |key, _| { value: key, label: t("general.filing_status.#{key}")}}
+    ) %>
+    <%= f.cfa_textarea(
+        :filing_status_note, t("hub.clients.fields.filing_status_notes")
+    ) %>
+  </div>
+</div>

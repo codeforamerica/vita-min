@@ -42,7 +42,7 @@ RSpec.describe Questions::BacktaxesController do
       end
 
       context "with an existing intake in the session" do
-        let(:intake) { create :intake, :eip_only }
+        let(:intake) { create :intake }
 
         before { session[:intake_id] = intake.id }
 
@@ -89,48 +89,6 @@ RSpec.describe Questions::BacktaxesController do
         expect(response).to render_template(:edit)
 
         expect(response.body).to include "Please pick at least one year."
-      end
-    end
-
-    context "with a triage source" do
-      let(:stimulus_triage) { create :stimulus_triage }
-      let(:params) do
-        {
-          backtaxes_form: {
-            needs_help_2017: "yes",
-            needs_help_2018: "no",
-            needs_help_2019: "no",
-            needs_help_2020: "no",
-          }
-        }
-      end
-
-      it "assigns the triage source to the intake" do
-        session[:triage_source_id] = stimulus_triage.id
-        session[:triage_source_type] = stimulus_triage.class.to_s
-
-        post :update, params: params
-
-        intake = Intake.find(session[:intake_id])
-
-        expect(intake.triage_source_id).to eq(stimulus_triage.id)
-        expect(intake.triage_source_type).to eq(stimulus_triage.class.to_s)
-      end
-    end
-  end
-
-  describe "#edit" do
-    context "with a triage source" do
-      let(:stimulus_triage) { create :stimulus_triage }
-
-      it "captures the triage source's type and id" do
-        session[:stimulus_triage_id] = stimulus_triage.id
-
-        get :edit
-
-        expect(session[:triage_source_id]).to eq(stimulus_triage.id)
-        expect(session[:triage_source_type]).to eq(stimulus_triage.class.to_s)
-        expect(session.has_key?(:stimulus_triage_id)).to be_falsey
       end
     end
   end

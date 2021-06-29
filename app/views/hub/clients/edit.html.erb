@@ -11,16 +11,11 @@
             </h1>
 
             <%= render "shared/client_primary_info_fields", f: f %>
+            <%= render "shared/marital_status_fields", f: f %>
+            <%= render "shared/navigator_fields", f: f %>
+            <%= render "shared/address_fields", f: f %>
 
-            <%= error_message(@form, :dependents_attributes) %>
-            <div id="dependent-info">
-              <h3>Dependents:</h3>
-              <%= f.fields_for :dependents do |ff| %>
-                <%= render "dependent", f: ff %>
-              <% end %>
-
-              <%= link_to_add_fields t(".add_dependent"), f, :dependents, { class: "button button--small" }, partial: "hub/clients/dependent" %>
-            </div>
+            <%= render "shared/dependents_fields", f: f %>
 
             <%= render "shared/client_spouse_info_fields", f: f %>
 

@@ -20,8 +20,8 @@ RSpec.describe Questions::FinalInfoController do
         allow(IntakePdfJob).to receive(:perform_later)
       end
 
-      let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com", locale: "en", preferred_name: "Mona Lisa" }
-      let(:client) { intake.client }
+      let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com", locale: "en", preferred_name: "Mona Lisa", client: client }
+      let(:client) { create :client, tax_returns: [create(:tax_return, service_type: "online_intake")] }
 
       it "the model after_update when completed at changes should enqueue the creation of the 13614c document" do
         post :update, params: params
@@ -40,9 +40,7 @@ RSpec.describe Questions::FinalInfoController do
               post :update, params: params
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                email_body: I18n.t("messages.successful_submission.email_body", locale: "en"),
-                sms_body: I18n.t("messages.successful_submission.sms_body", locale: "en"),
-                subject: I18n.t("messages.successful_submission.subject", locale: "en"),
+                message: instance_of(AutomatedMessage::SuccessfulSubmissionOnlineIntake),
                 locale: :en
               )
             end
@@ -54,9 +52,7 @@ RSpec.describe Questions::FinalInfoController do
 
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                email_body: I18n.t("messages.successful_submission.email_body", locale: "es"),
-                sms_body: I18n.t("messages.successful_submission.sms_body", locale: "es"),
-                subject: I18n.t("messages.successful_submission.subject", locale: "es"),
+                message: instance_of(AutomatedMessage::SuccessfulSubmissionOnlineIntake),
                 locale: :es
               )
             end

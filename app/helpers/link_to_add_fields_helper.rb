@@ -6,8 +6,9 @@ module LinkToAddFieldsHelper
                    form.object.send(association).klass.new
                  end
     id = new_object.object_id
+    locals = options[:locals] || {}
     fields = form.fields_for(association, new_object, child_index: id) do |builder|
-      render(partial, f: builder)
+      render partial: partial, locals: { f: builder }.merge(locals)
     end
     data = options[:data] || {}
     options[:data] = data.merge(

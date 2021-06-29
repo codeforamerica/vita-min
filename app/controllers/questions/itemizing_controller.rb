@@ -1,5 +1,7 @@
 module Questions
-  class ItemizingController < AuthenticatedIntakeController
+  class ItemizingController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def method_name

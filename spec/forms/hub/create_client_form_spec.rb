@@ -104,9 +104,7 @@ RSpec.describe Hub::CreateClientForm do
           described_class.new(params).save(current_user)
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: Client.last,
-            sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "en"),
-            email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "en"),
-            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "en"),
+            message: instance_of(AutomatedMessage::SuccessfulSubmissionDropOff),
             locale: "en"
           )
         end
@@ -121,9 +119,7 @@ RSpec.describe Hub::CreateClientForm do
 
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: Client.last,
-            sms_body: I18n.t("drop_off_confirmation_message.sms.body", locale: "es"),
-            email_body: I18n.t("drop_off_confirmation_message.email.body", locale: "es"),
-            subject: I18n.t("drop_off_confirmation_message.email.subject", locale: "es"),
+            message: instance_of(AutomatedMessage::SuccessfulSubmissionDropOff),
             locale: "es"
           )
         end
@@ -149,7 +145,7 @@ RSpec.describe Hub::CreateClientForm do
         expect(intake.needs_help_2019).to eq "yes"
         expect(intake.needs_help_2018).to eq "yes"
         expect(intake.needs_help_2017).to eq "no"
-        expect(tax_returns.map(&:year)).to eq [2020, 2019, 2018]
+        expect(tax_returns.map(&:year)).to match_array [2020, 2019, 2018]
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
       end
@@ -248,7 +244,6 @@ RSpec.describe Hub::CreateClientForm do
       context "tax returns attributes" do
         context "when there are some blank required fields" do
           before do
-            params[:tax_returns_attributes]["0"][:is_hsa] = nil
             params[:tax_returns_attributes]["0"][:certification_level] = ""
           end
 
@@ -259,7 +254,7 @@ RSpec.describe Hub::CreateClientForm do
           it "adds an error to the attribute" do
             obj = described_class.new(params)
             obj.valid?
-            expect(obj.errors[:tax_returns_attributes]).to eq ["Please provide all required fields for tax returns: certification level, is HSA."]
+            expect(obj.errors[:tax_returns_attributes]).to eq ["Please provide all required fields for tax returns: certification level."]
           end
         end
       end

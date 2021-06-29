@@ -13,19 +13,23 @@
           <%= f.cfa_select(:vita_partner_id, t(".assign_to_label"), grouped_vita_partner_options) %>
 
           <%= render "shared/client_primary_info_fields", f: f, is_dropoff: true %>
+          <%= render "shared/marital_status_fields", f: f %>
+          <%= render "shared/navigator_fields", f: f %>
+          <%= render "shared/address_fields", f: f %>
           <%= render "shared/client_spouse_info_fields", f: f %>
 
-          <h2><%= t(".tax_years") %></h2>
-          <%= error_message(f.object, :tax_returns_attributes) %>
-          <div class="form-card__stacked-checkboxes spacing-above-0">
-            <%= f.fields_for :tax_returns do |ff| %>
-              <div class="hub-form__row">
-                <span><%= f.hub_checkbox("needs_help_#{ff.object.year}", ff.object.year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
-                <%= ff.hidden_field :year %>
-                <%= ff.cfa_select(:certification_level, "Certification Level", certification_options_for_select, include_blank: true) %>
-                <%= ff.hub_checkbox(:is_hsa, t("general.hsa"))%>
-              </div>
-            <% end %>
+          <div class="hub-form__card card-small">
+            <h3><%= t(".tax_years") %></h3>
+            <%= error_message(f.object, :tax_returns_attributes) %>
+            <div class="form-card__stacked-checkboxes spacing-above-0">
+              <%= f.fields_for :tax_returns do |ff| %>
+                <div class="hub-form__row">
+                  <span><%= f.hub_checkbox("needs_help_#{ff.object.year}", ff.object.year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
+                  <%= ff.hidden_field :year %>
+                  <%= ff.cfa_select(:certification_level, "Certification Level", certification_options_for_select, include_blank: true) %>
+                </div>
+              <% end %>
+            </div>
           </div>
 
           <button class="button button--cta" type="submit">

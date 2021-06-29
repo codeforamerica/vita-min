@@ -1,5 +1,7 @@
 module Questions
-  class FinalInfoController < AuthenticatedIntakeController
+  class FinalInfoController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "intake"
 
     private
@@ -22,11 +24,10 @@ module Questions
 
     def send_confirmation_message
       @client = current_intake.client
+
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
-        email_body: I18n.t("messages.successful_submission.email_body"),
-        sms_body: I18n.t("messages.successful_submission.sms_body"),
-        subject: I18n.t("messages.successful_submission.subject"),
+        message: AutomatedMessage::SuccessfulSubmissionOnlineIntake.new,
         locale: I18n.locale
       )
     end

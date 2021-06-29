@@ -1,5 +1,7 @@
 module Questions
-  class SoldHomeController < AuthenticatedIntakeController
+  class SoldHomeController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)

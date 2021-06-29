@@ -1,0 +1,25 @@
+<% is_ctc ||= false %>
+<div class="dependent-form">
+  <h3 class="h3"><%= f.object.first_name && f.object.last_name ? "#{f.object.first_name} #{f.object.last_name}" : "New dependent" %></h3>
+  <%= f.hidden_field :id %>
+  <%= f.cfa_input_field :first_name, t("hub.clients.fields.legal_first_name"), classes: ["form-width--long"] %>
+  <%= f.cfa_input_field :last_name, t("hub.clients.fields.legal_last_name"), classes: ["form-width--long"] %>
+  <%= f.cfa_date_select(
+          :birth_date,
+          t("views.questions.consent.birth_date"),
+          options: {
+              start_year: Time.now.year,
+              end_year: Time.now.year - 120,
+          }
+      ) %>
+    <%= f.cfa_select(
+            :relationship,
+            "Relationship",
+            dependent_relationship_options(f.object.relationship),
+            include_blank: true
+    ) %>
+
+  <%= f.hidden_field :_destroy %>
+  <%= link_to_remove_fields t("views.shared.dependents_fields.remove"), '.dependent-form', { class: "button button--small"} %>
+  <hr/>
+</div>

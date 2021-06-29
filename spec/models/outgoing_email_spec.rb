@@ -18,6 +18,7 @@
 #
 #  index_outgoing_emails_on_client_id   (client_id)
 #  index_outgoing_emails_on_created_at  (created_at)
+#  index_outgoing_emails_on_message_id  (message_id)
 #  index_outgoing_emails_on_user_id     (user_id)
 #
 # Foreign Keys

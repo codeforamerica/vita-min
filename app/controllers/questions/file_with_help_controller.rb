@@ -1,5 +1,6 @@
 module Questions
-  class FileWithHelpController < AnonymousIntakeController
+  class FileWithHelpController < QuestionsController
+    include AnonymousIntakeConcern
     skip_before_action :require_intake
     layout "intake"
 

@@ -2,10 +2,6 @@ require "rails_helper"
 
 describe "partner source routing" do
   let(:code) { "example" }
-  let(:vita_partner) { create :vita_partner }
-  before do
-    create(:source_parameter, code: "example", vita_partner: vita_partner)
-  end
 
   it "converts the source in the url to a parameter" do
     expect(get: "/#{code}").to route_to(
@@ -42,6 +38,10 @@ describe "partner source routing" do
   end
 
   it "rejects arbitrary paths that contain non-slug-like characters" do
-    expect(get: "/4Rb!_trar-y").not_to be_routable
+    expect(get: "/4Rb!_trar-y").to route_to(
+     controller: "public_pages",
+     action: "page_not_found",
+     unmatched_route: "4Rb!_trar-y"
+    )
   end
 end

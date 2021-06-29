@@ -1,11 +1,10 @@
-<% content_for :page_title do %>
-  <% if @form&.errors.present? %>
-    <%= @form.error_summary %>
+<%= extends wrapping_layout do  %>
+  <% content_for :page_title do %>
+    <% if @form&.errors.present? %>
+    <% end %>
+    <%= yield :form_question %>
   <% end %>
-  <%= yield :form_question %>
-<% end %>
 
-<% content_for :main do %>
   <section class="slab slab--white slab--not-padded question-layout">
     <div class="grid">
       <div class="grid__item question-wrapper">
@@ -31,4 +30,4 @@
   </section>
 <% end %>
 
-<%= render template: "layouts/application" %>
+

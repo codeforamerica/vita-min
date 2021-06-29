@@ -89,8 +89,6 @@ RSpec.describe "a user editing an organization", :js do
           expect(page).to have_select("Timezone", selected: "Central Time (US & Canada)")
 
         end
-
-
       end
     end
   end

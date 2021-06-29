@@ -1,7 +1,6 @@
 class DependentsController < ApplicationController
-  include ClientAccessControlConcern
+  include AuthenticatedClientConcern
 
-  before_action :require_client_login, :redirect_to_still_needs_help_if_necessary
   helper_method :next_path
 
   def index
@@ -53,7 +52,7 @@ class DependentsController < ApplicationController
   end
 
   def next_path
-    current_intake.eip_only ? additional_info_questions_path : dependent_care_questions_path
+    dependent_care_questions_path
   end
 
   private

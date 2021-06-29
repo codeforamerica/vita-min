@@ -1,5 +1,7 @@
 module Questions
-  class PaidAlimonyController < AuthenticatedIntakeController
+  class PaidAlimonyController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "yes_no_question"
 
     def self.show?(intake)
