@@ -61,7 +61,7 @@ RSpec.describe Documents::IdsController do
       let(:params) do
         {
           document_type_upload_form: {
-            document: fixture_file_upload("attachments/test-pattern.html")
+            document: fixture_file_upload("test-pattern.html")
           }
         }
       end

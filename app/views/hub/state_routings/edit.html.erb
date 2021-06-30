@@ -17,7 +17,7 @@
               </ul>
 
               <% if @form.errors.present? %>
-                <% @form.errors.keys.each do |key| %>
+                <% @form.errors.attribute_names.each do |key| %>
                     <div class="form-group">
                       <%= error_message(@form, key) %>
                     </div>

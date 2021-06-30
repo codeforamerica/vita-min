@@ -10,7 +10,7 @@ class FileTypeAllowedValidator < ActiveModel::EachValidator
 
     extension = File.extname(value.path)
     unless VALID_FILE_EXTENSIONS.include?(extension.downcase)
-      record.errors[attr_name] << I18n.t("validators.file_type")
+      record.errors.add(attr_name, I18n.t("validators.file_type"))
     end
   end
 end

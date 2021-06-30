@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
       # and move the error message onto the user object in order to treat it like a validation error
       if flash[:alert] == "Invalid email or password" # The default devise english failure message
         flash.delete :alert
-        user.errors[:password] << I18n.t("controllers.users.sessions_controller.new.invalid_email_or_password")
+        user.errors.add(:password, I18n.t("controllers.users.sessions_controller.new.invalid_email_or_password"))
       end
     end
   end

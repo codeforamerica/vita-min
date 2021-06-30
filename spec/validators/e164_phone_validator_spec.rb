@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe E164PhoneValidator do
   subject { described_class.new(attributes: [:phone_number]) }
 
-  let!(:record) { OpenStruct.new(errors: { phone_number: [] }) }
+  let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
   before { subject.validate_each(record, :phone_number, value) }
 
   context "with a valid e164 Twilio US format phone number" do
