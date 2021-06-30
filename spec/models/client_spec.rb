@@ -529,7 +529,7 @@ describe Client do
       let(:client) { create :client, vita_partner: vita_partner }
       let(:intake) { create :intake, client: client, vita_partner: vita_partner }
       let!(:unrelated_intake) { create :intake }
-      let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
+      let(:attachment) { fixture_file_upload("test-pattern.png") }
       let(:tax_return_selection) { create(:tax_return_selection) }
       before do
         doc_request = create :documents_request, intake: intake

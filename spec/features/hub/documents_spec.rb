@@ -51,7 +51,7 @@ RSpec.feature "View and edit documents for a client" do
 
       click_on "Add document"
 
-      attach_file "document_upload", Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf")
+      attach_file "document_upload", Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf")
 
       fill_in "Display name", with: "A new final document"
 
@@ -70,7 +70,7 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_select("Document type", selected: "Final Tax Document")
       expect(page).to have_select("Tax return", selected: "2017")
       expect(page).to have_field("Display name", with: "A new final document")
-      attach_file "document_upload", Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf")
+      attach_file "document_upload", Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf")
 
       click_on "Save"
 
