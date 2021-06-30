@@ -2719,6 +2719,8 @@ en:
         sign_up_for_reminders:
           body: Stay in touch. We can email you when more information is available.
           button: Yes, keep me updated
+        navigator_resources_html: |
+          <strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="https://www.notion.so/cfa/GetCTC-org-Navigator-Resources-455b271a410b4c4ca4dc3560f9b6355c" rel="noopener" target="_blank">here.</a>
         what_is:
           heading: "What is the Child Tax Credit?"
           body1: "The American Rescue Plan, signed into law by President Biden on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $300 per month per child under age 6, and up to $250 per month per child ages 6 to 17."
