@@ -782,6 +782,25 @@ en:
       grandchild: "Grandchild"
       grandparent: "Grandparent"
       other: "Other"
+    ctc_dependent_relationships:
+      00_daughter: Daughter
+      01_son: Son
+      02_parent: Parent
+      03_grandchild: Grandchild
+      04_niece: Niece
+      05_nephew: Nephew
+      06_foster_child: Foster Child
+      07_aunt: Aunt
+      08_uncle: Uncle
+      09_sister: Sister
+      10_brother: Brother
+      11_other: Other
+      12_stepchild: Stepchild
+      13_stepbrother: Stepbrother
+      14_stepsister: Stepsister
+      15_half_brother: Half brother
+      16_half_sister: Half sister
+      17_grandparent: Grandparent
     add_ctc_client: Add CTC client
     add_client: Add client
     all_organizations: "All organizations"

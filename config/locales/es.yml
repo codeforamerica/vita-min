@@ -771,6 +771,25 @@ es:
       grandchild: "Nieta/Nieto"
       grandparent: "Abuela/Abuelo"
       other: "Otro"
+    ctc_dependent_relationships:
+      00_daughter: Hija
+      01_son: Hijo
+      02_parent: "Madre/Padre"
+      03_grandchild: "Nieta/Nieto"
+      04_niece: Niece
+      05_nephew: Nephew
+      06_foster_child: Foster Child
+      07_aunt: Tía
+      08_uncle: Tío
+      09_sister: Hermana
+      10_brother: Hermano
+      11_other: Other
+      12_stepchild: Stepchild
+      13_stepbrother: Stepbrother
+      14_stepsister: Stepsister
+      15_half_brother: Half brother
+      16_half_sister: Half sister
+      17_grandparent: "Abuela/Abuelo"
     add_ctc_client: Agregar CTC cliente
     add_client: Agregar cliente
     at_time: a las %{time}
