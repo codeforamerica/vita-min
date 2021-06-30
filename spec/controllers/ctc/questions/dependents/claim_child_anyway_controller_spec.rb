@@ -53,7 +53,7 @@ describe Ctc::Questions::Dependents::ClaimChildAnywayController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:claim_anyway)
+        expect(assigns(:form).errors.attribute_names).to include(:claim_anyway)
       end
     end
   end

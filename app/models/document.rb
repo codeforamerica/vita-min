@@ -117,7 +117,7 @@ class Document < ApplicationRecord
 
   def upload_must_have_data
     if upload.attached? && upload.blob.byte_size.zero?
-      errors[:upload] << I18n.t("validators.file_zero_length")
+      errors.add(:upload, I18n.t("validators.file_zero_length"))
     end
   end
 

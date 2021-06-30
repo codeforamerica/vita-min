@@ -63,7 +63,7 @@ describe Ctc::Questions::Dependents::QualifyingRelativeController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:meets_misc_qualifying_relative_requirements)
+        expect(assigns(:form).errors.attribute_names).to include(:meets_misc_qualifying_relative_requirements)
       end
     end
   end

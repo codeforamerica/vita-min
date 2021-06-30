@@ -42,12 +42,12 @@ FactoryBot.define do
     document_type { DocumentTypes::Employment.key }
 
     transient do
-      upload_path { Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg") }
+      upload_path { Rails.root.join("spec", "fixtures", "files", "picture_id.jpg") }
     end
 
     trait :pdf do
       transient do
-        upload_path { Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf") }
+        upload_path { Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf") }
       end
     end
     after(:build) do |document, evaluator|

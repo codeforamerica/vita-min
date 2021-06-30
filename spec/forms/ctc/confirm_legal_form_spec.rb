@@ -36,7 +36,7 @@ describe Ctc::ConfirmLegalForm do
       it "is not valid" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
-        expect(form.errors.keys).to include(:consented_to_legal)
+        expect(form.errors.attribute_names).to include(:consented_to_legal)
       end
     end
 
@@ -48,7 +48,7 @@ describe Ctc::ConfirmLegalForm do
       it "is not valid" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
-        expect(form.errors.keys).to match array_including(:device_id, :user_agent, :browser_language, :platform, :timezone_offset, :ip_address)
+        expect(form.errors.attribute_names).to match array_including(:device_id, :user_agent, :browser_language, :platform, :timezone_offset, :ip_address)
       end
     end
   end

@@ -19,7 +19,7 @@ module Ctc
       end
 
       def after_update_failure
-        if Set.new(@form.errors.keys).intersect?(Set.new(@form.class.scoped_attributes[:efile_security_information]))
+        if Set.new(@form.errors.attribute_names).intersect?(Set.new(@form.class.scoped_attributes[:efile_security_information]))
           flash[:alert] = I18n.t("general.enable_javascript")
         end
       end

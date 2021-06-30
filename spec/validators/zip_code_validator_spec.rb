@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ZipCodeValidator do
   subject { described_class.new(attributes: [:zip_code]) }
 
-  let!(:record) { OpenStruct.new(errors: { zip_code: [] }) }
+  let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
 
   specify do
     assert_invalid(nil)

@@ -281,7 +281,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
     expect(page).to have_text("We accept: .jpg, .jpeg, .png, .pdf, .heic, .bmp, .txt, .tiff, .gif")
-    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
     expect(intake.reload.current_step).to eq("/en/documents/selfie-instructions")
@@ -290,12 +290,12 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     expect(intake.reload.current_step).to eq("/en/documents/selfies")
     expect(page).to have_selector("h1", text: "Share a photo of yourself holding your ID card")
-    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
     expect(intake.reload.current_step).to eq("/en/documents/ssn-itins")
     expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
-    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
     # Documents: Intro
@@ -303,19 +303,19 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Share your employment documents")
-    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
 
-    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_content("picture_id.jpg")
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Please share any additional documents.")
-    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
     expect(page).to have_content("test-pattern.png")
     click_on "Continue"
 

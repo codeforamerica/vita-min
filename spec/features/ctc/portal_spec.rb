@@ -139,7 +139,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
         click_link I18n.t("views.ctc.portal.home.submit_documents")
         expect(page).to have_text I18n.t("views.documents.additional_documents.title")
 
-        upload_file("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+        upload_file("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
         expect(page).to have_content("test-pattern.png")
 
         expect(intake.client.documents.where(document_type: "Other").length).to eq 1

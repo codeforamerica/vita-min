@@ -220,16 +220,16 @@ RSpec.describe Hub::MessagesController do
 
         before do
           create(:outgoing_email, client: client,
-            attachment: Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/png")
+            attachment: Rack::Test::UploadedFile.new("spec/fixtures/files/test-pattern.png", "image/png")
           )
 
           create(:incoming_email, client: client, documents: [
-            create(:document, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))),
-            create(:document, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")))
+            create(:document, upload_path: (Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))),
+            create(:document, upload_path: (Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")))
           ])
 
           create(:incoming_text_message, body: nil, client: client, documents: [
-            create(:document, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png")))
+            create(:document, upload_path: (Rails.root.join("spec", "fixtures", "files", "test-pattern.png")))
           ])
         end
 

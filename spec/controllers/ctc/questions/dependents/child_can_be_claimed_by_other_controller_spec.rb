@@ -53,7 +53,7 @@ describe Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:cant_be_claimed_by_other)
+        expect(assigns(:form).errors.attribute_names).to include(:cant_be_claimed_by_other)
       end
     end
   end
