@@ -203,8 +203,14 @@ describe TwilioService do
 
   describe ".client" do
     let(:fake_client) { double }
-    before do
+
+    around(:each) do |example|
       TwilioService.class_variable_set(:@@_client, nil)
+      example.run
+      TwilioService.class_variable_set(:@@_client, nil)
+    end
+
+    before do
       allow(Twilio::REST::Client).to receive(:new).and_return fake_client
       allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :account_sid).and_return "account_sid"
       allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :auth_token).and_return "auth_token"
