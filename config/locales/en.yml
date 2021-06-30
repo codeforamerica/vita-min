@@ -69,7 +69,6 @@ en:
         recovery_rebate_credit: Recovery rebate credit (optional)
         preferred_name: Preferred full name
         filing_status: Filing Status
-        filing_status_notes: Filing status notes (optional)
         marital_status: Marital Status
         preferred_interview_language: Preferred language
         primary_contact_info: Primary Contact Information

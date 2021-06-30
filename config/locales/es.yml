@@ -70,7 +70,6 @@ es:
         preferred_interview_language: Idioma preferido
         marital_status: Estado civil
         filing_status: Estado civil para impuestos
-        filing_status_notes: Notas de estado (opcional)
         preferred_name: Nombre completo preferido
         primary_contact_info: Información de contacto
         navigator:

@@ -3,10 +3,7 @@
   <div class="hub-form__radio-set">
     <%= f.cfa_radio_set(
         :filing_status,
-        collection: TaxReturn.filing_statuses.map { |key, _| { value: key, label: t("general.filing_status.#{key}")}}
-    ) %>
-    <%= f.cfa_textarea(
-        :filing_status_note, t("hub.clients.fields.filing_status_notes")
+        collection: [{value: "single", label: t("general.filing_status.single")}, {value: "married_filing_jointly", label: t("general.filing_status.married_filing_jointly")}]
     ) %>
   </div>
 </div>
