@@ -53,7 +53,7 @@ RSpec.feature "Creating new drop off clients" do
         select "December", from: "Month"
         select "1", from: "Day"
         select "2008", from: "Year"
-        select "Child", from: "Relationship"
+        select "Daughter", from: "Relationship"
       end
 
       within "#spouse-info" do
@@ -98,7 +98,7 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "123 Garden Ln"
       expect(page).to have_text "Brassicaville, CA 95032"
       within "#dependents-list" do
-        expect(page).to have_text "Miranda Mango, Child"
+        expect(page).to have_text "Miranda Mango, Daughter"
         expect(page).to have_text "12/1/2008"
       end
       expect(page).to have_text "TX"

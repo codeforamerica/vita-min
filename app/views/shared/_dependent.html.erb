@@ -15,7 +15,7 @@
     <%= f.cfa_select(
             :relationship,
             "Relationship",
-            dependent_relationship_options(f.object.relationship),
+            dependent_relationship_options(current_relationship: f.object.relationship, is_ctc: is_ctc),
             include_blank: true
     ) %>
 
