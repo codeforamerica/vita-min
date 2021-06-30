@@ -56,7 +56,7 @@ FactoryBot.define do
 
     trait :ctc do
       year { 2020 }
-      client { create(:intake, :with_faker_contact_info, :with_dependents, dependent_count: 3).client }
+      client { create(:intake, :with_faker_contact_info, :with_dependents, :with_ssns, dependent_count: 3).client }
       is_ctc { true }
       internal_efile { true }
     end
