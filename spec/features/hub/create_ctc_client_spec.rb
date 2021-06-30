@@ -43,7 +43,6 @@ RSpec.feature "Creating new drop off clients" do
 
       within "#filing-status-fields" do
         choose "Married filing jointly"
-        fill_in "Filing status notes (optional)", with: "Got married in 2020!"
       end
 
       within "#dependents-fields" do
