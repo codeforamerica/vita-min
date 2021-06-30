@@ -81,6 +81,7 @@ es:
           unhoused: Unhoused
         identity_verification:
           title: Identity verification
+        ctc_spouse_contact_info: Spouse information, if married filing jointly
         spouse_contact_info: Información de contacto del cónyuge
         state_of_residence: Estado de residencia
         signature_method: Método para recoger

@@ -81,6 +81,7 @@ en:
           unhoused: Unhoused
         identity_verification:
           title: Identity verification
+        ctc_spouse_contact_info: Spouse information, if married filing jointly
         spouse_contact_info: Spouse Contact Information
         state_of_residence: State of residence
         signature_method: Signature method
@@ -943,7 +944,7 @@ en:
     sorry: We're sorry!
     start_filing: Start filing
     state: State
-    street_address: Street address
+    street_address: Street address or P.O. Box
     submit: Submit
     submit_question: Submit a question to GetYourRefund
     suspend_all: Suspend All
