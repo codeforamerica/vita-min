@@ -59,7 +59,7 @@ describe Ctc::LegalConsentForm do
       it "is not valid" do
         form = described_class.new(intake, params)
         expect(form).to_not be_valid
-        expect(form.errors.keys).to include(:primary_first_name, :primary_middle_initial, :primary_last_name)
+        expect(form.errors.attribute_names).to include(:primary_first_name, :primary_middle_initial, :primary_last_name)
       end
     end
 

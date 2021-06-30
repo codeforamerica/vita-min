@@ -27,30 +27,30 @@ describe Ctc::Dependents::InfoForm do
     it "requires first and last name" do
       form = described_class.new(dependent, {})
       expect(form).not_to be_valid
-      expect(form.errors.keys).to include(:first_name)
-      expect(form.errors.keys).to include(:last_name)
+      expect(form.errors.attribute_names).to include(:first_name)
+      expect(form.errors.attribute_names).to include(:last_name)
     end
 
     it "requires relationship" do
       form = described_class.new(dependent, {})
       expect(form).not_to be_valid
-      expect(form.errors.keys).to include(:relationship)
+      expect(form.errors.attribute_names).to include(:relationship)
     end
 
     it "requires birth date" do
       form = described_class.new(dependent, {})
       expect(form).not_to be_valid
-      expect(form.errors.keys).to include(:birth_date)
+      expect(form.errors.attribute_names).to include(:birth_date)
 
       form.assign_attributes(birth_date_month: '1', birth_date_day: '1', birth_date_year: 1.year.ago.year.to_s)
       form.valid?
-      expect(form.errors.keys).not_to include(:birth_date)
+      expect(form.errors.attribute_names).not_to include(:birth_date)
     end
 
     it "requires tin_type" do
       form = described_class.new(dependent, {})
       expect(form).not_to be_valid
-      expect(form.errors.keys).to include(:tin_type)
+      expect(form.errors.attribute_names).to include(:tin_type)
     end
 
     context "tin_type is atin" do
@@ -60,7 +60,7 @@ describe Ctc::Dependents::InfoForm do
       it "requires valid atin number" do
         form = described_class.new(dependent, params)
         expect(form).not_to be_valid
-        expect(form.errors.keys).to include(:ssn)
+        expect(form.errors.attribute_names).to include(:ssn)
       end
     end
 
@@ -69,7 +69,7 @@ describe Ctc::Dependents::InfoForm do
       it "is not valid" do
         form = described_class.from_dependent(dependent)
         expect(form).not_to be_valid
-        expect(form.errors.keys).to include(:ssn)
+        expect(form.errors.attribute_names).to include(:ssn)
       end
     end
 
@@ -81,7 +81,7 @@ describe Ctc::Dependents::InfoForm do
           form = described_class.from_dependent(dependent)
           form.assign_attributes(ssn: '555112222')
           expect(form).not_to be_valid
-          expect(form.errors.keys).to include(:ssn_confirmation)
+          expect(form.errors.attribute_names).to include(:ssn_confirmation)
         end
       end
 
@@ -92,7 +92,7 @@ describe Ctc::Dependents::InfoForm do
           form = described_class.from_dependent(dependent)
           form.assign_attributes(ssn: '555112222')
           expect(form).not_to be_valid
-          expect(form.errors.keys).to include(:ssn_confirmation)
+          expect(form.errors.attribute_names).to include(:ssn_confirmation)
         end
       end
 
@@ -103,7 +103,7 @@ describe Ctc::Dependents::InfoForm do
           form = described_class.from_dependent(dependent)
           form.assign_attributes(ssn: '555112222')
           form.valid?
-          expect(form.errors.keys).not_to include(:ssn_confirmation)
+          expect(form.errors.attribute_names).not_to include(:ssn_confirmation)
         end
       end
     end

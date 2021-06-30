@@ -3,10 +3,10 @@ require "rails_helper"
 RSpec.describe FileTypeAllowedValidator do
   subject { described_class.new(attributes: [:document]) }
 
-  let!(:record) { OpenStruct.new(errors: { document: [] }) }
+  let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
 
   context "png" do
-    let(:valid_document) { fixture_file_upload("attachments/test-pattern.png") }
+    let(:valid_document) { fixture_file_upload("test-pattern.png") }
 
     it "is a valid file type" do
       assert_valid(valid_document)
@@ -14,7 +14,7 @@ RSpec.describe FileTypeAllowedValidator do
   end
 
   context "all caps extension JPG" do
-    let(:valid_document) { fixture_file_upload("attachments/test-pattern.JPG") }
+    let(:valid_document) { fixture_file_upload("test-pattern.JPG") }
 
     it "is a valid file type after downcase" do
       assert_valid(valid_document)
@@ -22,7 +22,7 @@ RSpec.describe FileTypeAllowedValidator do
   end
 
   context "html" do
-    let(:invalid_document) { fixture_file_upload("attachments/test-pattern.html") }
+    let(:invalid_document) { fixture_file_upload("test-pattern.html") }
 
     it "is not a valid file type" do
       assert_invalid(invalid_document)

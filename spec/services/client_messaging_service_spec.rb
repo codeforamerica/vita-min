@@ -57,7 +57,7 @@ RSpec.describe ClientMessagingService do
       end
 
       context "with an attachment" do
-        let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
+        let(:attachment) { fixture_file_upload("test-pattern.png") }
 
         it "saves the attachment" do
           described_class.send_email(client: client, user: user, body: "hello", attachment: attachment)
@@ -137,7 +137,7 @@ RSpec.describe ClientMessagingService do
       end
 
       context "with an attachment" do
-        let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
+        let(:attachment) { fixture_file_upload("test-pattern.png") }
 
         it "saves the attachment" do
           described_class.send_email_to_all_signers(client: client, user: user, body: "hello", attachment: attachment)

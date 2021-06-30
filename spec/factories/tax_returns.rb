@@ -59,7 +59,7 @@ FactoryBot.define do
         create(:document,
                client: tax_return.client,
                tax_return: tax_return,
-               upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"),
+               upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"),
                document_type: DocumentTypes::UnsignedForm8879.key
         )
       end
@@ -77,7 +77,7 @@ FactoryBot.define do
         create(:document,
                client: tax_return.client,
                tax_return: tax_return,
-               upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"),
+               upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"),
                document_type: DocumentTypes::FinalTaxDocument.key
         )
       end
@@ -92,7 +92,7 @@ FactoryBot.define do
         create :document,
                tax_return: tax_return,
                client: tax_return.client,
-               upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"),
+               upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"),
                document_type: DocumentTypes::CompletedForm8879.key
       end
     end
@@ -109,7 +109,7 @@ FactoryBot.define do
         create :document,
                tax_return: tax_return,
                client: tax_return.client,
-               upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"),
+               upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"),
                document_type: DocumentTypes::CompletedForm8879.key
       end
     end

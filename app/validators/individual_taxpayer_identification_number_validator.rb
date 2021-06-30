@@ -3,7 +3,7 @@ class IndividualTaxpayerIdentificationNumberValidator < ActiveModel::EachValidat
 
   def validate_each(record, attr_name, value)
     unless ITIN_REGEX.match?(value)
-      record.errors[attr_name] << I18n.t("validators.itin")
+      record.errors.add(attr_name, I18n.t("validators.itin"))
     end
   end
 end
