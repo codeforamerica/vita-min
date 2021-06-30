@@ -36,7 +36,7 @@
 require "rails_helper"
 
 describe Document do
-  let(:attachment) { Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png") }
+  let(:attachment) { Rails.root.join("spec", "fixtures", "files", "test-pattern.png") }
 
   describe "validations" do
     let(:document) { build :document }
@@ -108,7 +108,7 @@ describe Document do
     end
 
     context "with a 0-byte upload" do
-      let(:document) { build :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "zero-bytes.jpg") }
+      let(:document) { build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "zero-bytes.jpg") }
       it "rejects the file as invalid" do
         expect(document).not_to be_valid
         expect(document.errors).to include :upload
@@ -130,7 +130,7 @@ describe Document do
         end
 
         context "a PDF" do
-          let(:document) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, client: client, tax_return: tax_return, upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") }
+          let(:document) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, client: client, tax_return: tax_return, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
 
           it "is valid" do
             expect(document).to be_valid
@@ -142,7 +142,7 @@ describe Document do
     describe "#final_tax_doc_and_unsigned_8879_have_tax_return" do
       let(:client) { create :client }
       let(:final_tax_doc) { build :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return, client: client }
-      let(:unsigned_8879) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") }
+      let(:unsigned_8879) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
 
       context "with a tax return" do
         let(:tax_return) { create :tax_return, client: client }
@@ -192,7 +192,7 @@ describe Document do
   describe "after_create" do
     context "when the file extension is .heic" do
       it "creates a job to convert the file to jpg" do
-        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "IMG_4851.HEIC")
+        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
         allow(HeicToJpgJob).to receive(:perform_later)
 
         document.save!
@@ -203,7 +203,7 @@ describe Document do
 
     context "when the file extension is not .heic" do
       it "does not create a job to covert the file to jpg" do
-        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg")
+        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")
         allow(HeicToJpgJob).to receive(:perform_later)
 
         document.save!
@@ -239,7 +239,7 @@ describe Document do
 
   describe "#convert_heic_upload_to_jpg!" do
     it "converts a heic attachment to jpg" do
-      document = create :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "IMG_4851.HEIC")
+      document = create :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
 
       expect {
         document.convert_heic_upload_to_jpg!

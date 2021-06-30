@@ -124,7 +124,7 @@ class ApplicationController < ActionController::Base
   end
 
   def send_mixpanel_validation_error(errors, additional_data = {})
-    invalid_field_flags = errors.keys.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
+    invalid_field_flags = errors.attribute_names.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
 
     MixpanelService.send_event(
       event_id: visitor_id,

@@ -328,19 +328,19 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach photos of ID cards")
-    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
     click_on "Submit a photo"
 
     expect(page).to have_selector("h1", text: "Share a photo of yourself holding your ID card")
-    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
-    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
     # Documents: Intro
@@ -349,29 +349,29 @@ RSpec.feature "Web Intake Joint Filers" do
 
 
     expect(page).to have_selector("h1", text: "Attach your 1095-A's")
-    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Share your employment documents")
-    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
 
-    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_content("picture_id.jpg")
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-R's")
-    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     expect do
       click_on "Continue"
     end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress"]).to(["intake_ready"])
 
     expect(page).to have_selector("h1", text: "Please share any additional documents.")
-    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
     expect(page).to have_content("test-pattern.png")
     click_on "Continue"
 

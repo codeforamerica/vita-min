@@ -1,4 +1,4 @@
-require_relative 'boot'
+require_relative "boot"
 require_relative "../lib/middleware/cleanup_mime_type_headers"
 
 require "rails"

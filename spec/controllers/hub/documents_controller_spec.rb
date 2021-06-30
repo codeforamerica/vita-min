@@ -49,7 +49,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
                       document_type: "Email Attachment",
                       created_at: 1.hour.ago,
                       client: client,
-                      upload_path: Rails.root.join("spec", "fixtures", "attachments", "zero-bytes.jpg")
+                      upload_path: Rails.root.join("spec", "fixtures", "files", "zero-bytes.jpg")
           doc.save(validate: false)
           doc
         end
@@ -309,7 +309,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     let!(:intake) { client.intake }
     let!(:tax_return) { create :tax_return, client: client, year: 2017 }
     let(:document_type) { DocumentTypes::Form1098E.key }
-    let(:upload) { fixture_file_upload("attachments/test-pattern.png", "image/png") }
+    let(:upload) { fixture_file_upload("test-pattern.png", "image/png") }
 
     let(:params) do
       { client_id: client.id,
@@ -344,7 +344,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
       context "when the document type requires confirmation" do
         let(:document_type) { DocumentTypes::FinalTaxDocument.key }
-        let(:upload) { fixture_file_upload("attachments/document_bundle.pdf", "application/pdf") }
+        let(:upload) { fixture_file_upload("document_bundle.pdf", "application/pdf") }
         it "redirects to the confirmation page after creation" do
           expect {
             post :create, params: params
@@ -359,7 +359,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         let(:params) do
           { client_id: client.id,
             document: {
-              upload: fixture_file_upload("attachments/test-pattern.png", "image/png"),
+              upload: fixture_file_upload("test-pattern.png", "image/png"),
               display_name: "",
               document_type: DocumentTypes::Other.key
             }
@@ -396,7 +396,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           let(:params) do
             { client_id: client.id,
               document: {
-                upload: fixture_file_upload("attachments/test-pattern.png", "image/png"),
+                upload: fixture_file_upload("test-pattern.png", "image/png"),
                 tax_return_id: tax_return.id,
                 display_name: "This is a document for the client",
                 document_type: DocumentTypes::UnsignedForm8879.key

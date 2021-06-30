@@ -146,7 +146,7 @@ describe EfileSubmission do
       end
 
       context "after transition to" do
-        let!(:submission) { create(:efile_submission, :preparing, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"), 'rb') }) }
+        let!(:submission) { create(:efile_submission, :preparing, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
 
         it "queues a GyrEfilerSendSubmissionJob" do
           expect do
