@@ -1,6 +1,11 @@
+<% is_ctc = is_ctc || false %>
 <div id="spouse-info">
   <div class="hub-form__card card-small">
-    <h3><%= t("hub.clients.fields.spouse_contact_info") %></h3>
+    <%if is_ctc %>
+      <h3><%= t("hub.clients.fields.ctc_spouse_contact_info") %></h3>
+    <% else %>
+      <h3><%= t("hub.clients.fields.spouse_contact_info") %></h3>
+    <% end %>
     <div>
       <%= f.cfa_input_field(:spouse_first_name, t("hub.clients.fields.legal_first_name")) %>
       <%= f.cfa_input_field(:spouse_last_name, t("hub.clients.fields.legal_last_name")) %>
