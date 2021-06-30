@@ -238,6 +238,13 @@ FactoryBot.define do
       end
     end
 
+    trait :with_ssns do
+      primary_ssn { Faker::Number.number(digits: 9) }
+      spouse_ssn { Faker::Number.number(digits: 9) }
+      primary_last_four_ssn { primary_ssn.to_s.last(4).to_i }
+      spouse_last_four_ssn { primary_ssn.to_s.last(4).to_i }
+    end
+
     trait :with_documents do
       transient do
         document_count { 1 }
