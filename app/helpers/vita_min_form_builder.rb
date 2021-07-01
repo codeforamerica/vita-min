@@ -201,4 +201,38 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       </div>
     HTML
   end
+
+  def vita_min_date_text_fields(method, label_text, options: {}, classes: [])
+    date_text_fields = [["day", 2], ["month", 2], ["year", 4]].map do |date_component, max_length|
+      date_component_slug = "#{method}_#{date_component}"
+      classes += ["text-input date-text-input form-width--short"]
+      classes += ["date-text-input-year"] if date_component == "year"
+
+      text_field_options = standard_options
+       .merge(class: classes.join(" "))
+       .merge(options).merge(error_attributes(method: date_component_slug))
+       .merge(
+         type: 'tel',
+         inputmode: 'numeric',
+         maxlength: max_length,
+         oninput: "this.value = this.value.replace(/[^0-9]/gi, '');",
+       )
+
+      text_field_options[:id] ||= sanitized_id(date_component_slug)
+
+      text_field(date_component_slug, text_field_options)
+    end
+
+    <<~HTML.html_safe
+          <fieldset class="form-group#{error_state(object, method)}">
+            #{fieldset_label_contents(label_text: label_text, help_text: nil)}
+            <div>
+              #{date_text_fields[0]}
+              #{date_text_fields[1]}
+              #{date_text_fields[2]}
+            </div>
+            #{errors_for(object, method)}
+          </fieldset>
+    HTML
+  end
 end

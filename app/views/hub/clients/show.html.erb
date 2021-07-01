@@ -43,6 +43,12 @@
               <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
               <span class="label-value"><%= @client.intake.state_of_residence %></span>
             </div>
+            <% if @client.intake.is_ctc? %>
+              <div class="field-display">
+                <span class="form-question">Date of Birth:</span>
+                <span class="label-value"><%= default_date_format(@client.intake.primary_birth_date) %></span>
+              </div>
+            <% end %>
             <!-- SSN/ITIN hidden -->
             <div class="field-display primary-ssn">
               <span class="form-question">
@@ -194,6 +200,12 @@
                 <span class="form-question"><%= t(".email") %>:</span>
                 <span class="label-value"><%= @client.intake&.spouse_email_address %> </span>
               </div>
+              <% if @client.intake.is_ctc? %>
+                <div class="field-display">
+                  <span class="form-question">Date of Birth:</span>
+                  <span class="label-value"><%= default_date_format(@client.intake.spouse_birth_date) %></span>
+                </div>
+              <% end %>
               <div class="field-display spouse-ssn">
                 <span class="form-question">
                   <% if @client.intake.is_ctc? %>

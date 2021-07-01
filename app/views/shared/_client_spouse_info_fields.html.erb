@@ -12,6 +12,10 @@
     </div>
     <%= f.cfa_input_field(:spouse_email_address, t("general.email")) %>
     <% if is_ctc %>
+      <%= f.vita_min_date_text_fields(
+            :spouse_birth_date,
+            t("hub.clients.show.date_of_birth"),
+            ) %>
       <%= f.cfa_input_field(
           :spouse_ssn,
           t("general.ssn"),

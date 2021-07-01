@@ -40,6 +40,10 @@
       <%= f.cfa_input_field(:phone_number, t("general.phone_number"),  classes: ["form-width--phone"]) %>
     <% end %>
     <% if is_ctc %>
+      <%= f.vita_min_date_text_fields(
+          :primary_birth_date,
+          t("hub.clients.show.date_of_birth"),
+          ) %>
       <%= f.cfa_input_field(
           :primary_ssn,
           t("general.ssn"),

@@ -182,6 +182,7 @@ en:
         other_info: Other Info
         routing_method: Initial Routing Method
         source_param: Source Param
+        date_of_birth: Date of birth (mm/dd/yyyy)
       unlock:
         account_unlocked: "Unlocked %{name}'s account."
       urgent: "Urgent"

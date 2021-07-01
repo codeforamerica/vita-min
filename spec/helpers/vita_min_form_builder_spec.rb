@@ -128,4 +128,25 @@ RSpec.describe VitaMinFormBuilder do
       HTML
     end
   end
+
+  describe "#vita_min_date_text_fields" do
+    it "renders three text fields for month, date and year" do
+      class SampleForm < Cfa::Styleguide::FormExample
+        attr_accessor :birth_date_day, :birth_date_month, :birth_date_year
+        validates_presence_of :birth_date_day, :birth_date_month, :birth_date_year
+      end
+
+      form = SampleForm.new
+      form.validate
+      form_builder = described_class.new("form", form, template, {})
+      output = form_builder.vita_min_date_text_fields(
+        :birth_date,
+        "Date of Birth (mm/dd/yyyy)",
+        )
+      expect(output).to be_html_safe
+      doc = Nokogiri::HTML(output)
+      expect(doc.css('input').map { |i| i.attribute('name').value }).to eq(["form[birth_date_day]", "form[birth_date_month]", "form[birth_date_year]"])
+      expect(doc.css('input').map { |i| i.attribute('maxlength').value }).to eq(["2", "2", "4"])
+    end
+  end
 end
