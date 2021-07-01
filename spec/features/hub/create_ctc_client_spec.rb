@@ -31,6 +31,9 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Re-enter SSN/ITIN", with: "222-33-4444"
         check "Opt into email notifications"
         check "Opt into sms notifications"
+        fill_in "hub_create_ctc_client_form_primary_birth_date_month", with: "08"
+        fill_in "hub_create_ctc_client_form_primary_birth_date_day", with: "24"
+        fill_in "hub_create_ctc_client_form_primary_birth_date_year", with: "1996"
         select "Mandarin", from: "Preferred language"
       end
 
@@ -62,6 +65,9 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Email", with: "spicypeter@pepper.com"
         fill_in "SSN/ITIN", with: "222-33-5555"
         fill_in "Re-enter SSN/ITIN", with: "222-33-5555"
+        fill_in "hub_create_ctc_client_form_spouse_birth_date_month", with: "01"
+        fill_in "hub_create_ctc_client_form_spouse_birth_date_day", with: "11"
+        fill_in "hub_create_ctc_client_form_spouse_birth_date_year", with: "1995"
       end
 
       within "#recovery-rebate-credit-fields" do
@@ -100,6 +106,7 @@ RSpec.feature "Creating new drop off clients" do
 
       expect(page).to have_text "Colleen Cauliflower"
       expect(page).to have_text "Colly Cauliflower"
+      expect(page).to have_text "8/24/1996"
       expect(page).to have_text "Mandarin"
       expect(page).to have_text "Married filing jointly"
       expect(page).to have_text "hello@cauliflower.com"
@@ -163,6 +170,9 @@ RSpec.feature "Creating new drop off clients" do
         select "Mandarin", from: "Preferred language"
         fill_in "SSN/ITIN", with: "222-33-4444"
         fill_in "Re-enter SSN/ITIN", with: "222-33-4444"
+        fill_in "hub_create_ctc_client_form_primary_birth_date_month", with: "08"
+        fill_in "hub_create_ctc_client_form_primary_birth_date_day", with: "24"
+        fill_in "hub_create_ctc_client_form_primary_birth_date_year", with: "1996"
       end
 
       within "#filing-status-fields" do

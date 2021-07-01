@@ -1,8 +1,15 @@
 module Hub
   class CreateCtcClientForm < ClientForm
+    include BirthDateHelper
     set_attributes_for :intake,
                        :primary_first_name,
                        :primary_last_name,
+                       :primary_birth_date_month,
+                       :primary_birth_date_day,
+                       :primary_birth_date_year,
+                       :spouse_birth_date_month,
+                       :spouse_birth_date_day,
+                       :spouse_birth_date_year,
                        :preferred_name,
                        :preferred_interview_language,
                        :email_address,
@@ -88,6 +95,7 @@ module Hub
 
     validate :at_least_one_photo_id_type_selected
     validate :at_least_one_taxpayer_id_type_selected
+    validate :complete_birth_dates
 
     before_validation :clean_ssns
 
@@ -100,9 +108,18 @@ module Hub
       run_callbacks :save do
         return false unless valid?
 
+        intake_attr = attributes_for(:intake).
+          except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day,
+                 :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
+                                             .merge(
+                                               default_attributes,
+                                               dependents_attributes: formatted_dependents_attributes,
+                                               primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
+                                               spouse_birth_date: parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day),
+                                               visitor_id: SecureRandom.hex(26))
         @client = Client.create!(
           vita_partner_id: attributes_for(:intake)[:vita_partner_id],
-          intake_attributes: attributes_for(:intake).merge(default_attributes).merge(dependents_attributes: formatted_dependents_attributes).merge(visitor_id: SecureRandom.hex(26)),
+          intake_attributes: intake_attr,
           tax_returns_attributes: [tax_return_attributes]
         )
       end
@@ -110,6 +127,19 @@ module Hub
 
 
     private
+
+    def complete_birth_dates
+      ["primary_birth_date", "spouse_birth_date"].each do |field|
+        next if field == "spouse_birth_date" && filing_status != "married_filing_jointly"
+
+        error_message = I18n.t('errors.attributes.birth_date.blank')
+        begin
+          Date.new(eval("#{field}_year").to_i, eval("#{field}_month").to_i, eval("#{field}_day").to_i)
+        rescue ArgumentError
+          errors.add(field.to_sym, error_message)
+        end
+      end
+    end
 
     def clean_ssns
       [primary_ssn, primary_ssn_confirmation, spouse_ssn, spouse_ssn_confirmation].each do |field|

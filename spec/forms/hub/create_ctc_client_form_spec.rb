@@ -13,6 +13,9 @@ RSpec.describe Hub::CreateCtcClientForm do
         email_address: "someone@example.com",
         phone_number: "5005550006",
         sms_phone_number: "500-555-(0006)",
+        primary_birth_date_year: "1963",
+        primary_birth_date_month: "9",
+        primary_birth_date_day: "10",
         street_address: "972 Mission St.",
         city: "San Francisco",
         state: "CA",
@@ -24,6 +27,9 @@ RSpec.describe Hub::CreateCtcClientForm do
         spouse_email_address: "spouse@example.com",
         spouse_ssn: '111224444',
         spouse_ssn_confirmation: '111224444',
+        spouse_birth_date_year: "1962",
+        spouse_birth_date_month: "9",
+        spouse_birth_date_day: "7",
         timezone: "America/Chicago",
         state_of_residence: "CA",
         signature_method: "online",
@@ -73,6 +79,16 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(client.intake.bank_routing_number).to eq params[:bank_routing_number]
         expect(client.intake.bank_account_type).to eq "checking"
         expect(client.intake.bank_name).to eq "Bank of America"
+      end
+
+      it "stores the primary clients date of birth" do
+        described_class.new(params).save(current_user)
+        expect(Client.last.intake.primary_birth_date).to eq Date.new(1963, 9, 10)
+      end
+
+      it "stores the spouses clients date of birth" do
+        described_class.new(params).save(current_user)
+        expect(Client.last.intake.spouse_birth_date).to eq Date.new(1962, 9, 7)
       end
 
       it "stores recovery rebate credit amount on the intake" do
@@ -274,6 +290,44 @@ RSpec.describe Hub::CreateCtcClientForm do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:vita_partner_id]).to eq ["Can't be blank."]
+        end
+      end
+
+      context "complete_birth_dates" do
+        context "no birth date is provided" do
+          before do
+            params[:spouse_birth_date_year] = nil
+            params[:spouse_birth_date_month] = nil
+            params[:spouse_birth_date_day] = nil
+            params[:filing_status] = "married_filing_jointly"
+          end
+
+          it "is not valid" do
+            expect(described_class.new(params).valid?).to eq false
+          end
+
+          it "pushes errors for attribute into the errors" do
+            obj = described_class.new(params)
+            obj.valid?
+            expect(obj.errors[:spouse_birth_date]).to eq ["Please enter a valid date."]
+          end
+        end
+
+        context "the birth date is missing some part" do
+          before do
+            params[:primary_birth_date_year] = "1972"
+            params[:primary_birth_date_month] = ""
+            params[:primary_birth_date_day] = "11"
+          end
+          it "is not valid" do
+            expect(described_class.new(params).valid?).to eq false
+          end
+
+          it "pushes errors for attribute into the errors" do
+            obj = described_class.new(params)
+            obj.valid?
+            expect(obj.errors[:primary_birth_date]).to eq ["Please enter a valid date."]
+          end
         end
       end
 
