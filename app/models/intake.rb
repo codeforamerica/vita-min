@@ -190,6 +190,13 @@
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
+#  with_drivers_license_photo_id                        :boolean          default(FALSE)
+#  with_itin_taxpayer_id                                :boolean          default(FALSE)
+#  with_other_state_photo_id                            :boolean          default(FALSE)
+#  with_passport_photo_id                               :boolean          default(FALSE)
+#  with_social_security_taxpayer_id                     :boolean          default(FALSE)
+#  with_vita_approved_photo_id                          :boolean          default(FALSE)
+#  with_vita_approved_taxpayer_id                       :boolean          default(FALSE)
 #
 # Indexes
 #

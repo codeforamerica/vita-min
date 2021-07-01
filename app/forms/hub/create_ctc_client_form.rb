@@ -28,6 +28,13 @@ module Hub
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
                        :with_unhoused_navigator,
+                       :with_drivers_license_photo_id,
+                       :with_passport_photo_id,
+                       :with_other_state_photo_id,
+                       :with_vita_approved_photo_id,
+                       :with_social_security_taxpayer_id,
+                       :with_itin_taxpayer_id,
+                       :with_vita_approved_taxpayer_id,
                        :bank_account_number,
                        :bank_routing_number,
                        :bank_account_type,
@@ -78,6 +85,9 @@ module Hub
       validates_confirmation_of :spouse_ssn
       validates :spouse_ssn, social_security_number: true
     end
+
+    validate :at_least_one_photo_id_type_selected
+    validate :at_least_one_taxpayer_id_type_selected
 
     before_validation :clean_ssns
 
@@ -147,6 +157,22 @@ module Hub
         status: :prep_ready_for_prep,
         service_type: :drop_off
       }.merge(attributes_for(:tax_return))
+    end
+
+    def at_least_one_photo_id_type_selected
+      photo_id_selected = Intake::CtcIntake::PHOTO_ID_TYPES.any? do |_, type|
+        self.send(type[:field_name]) == "1"
+      end
+
+      errors.add(:photo_id_type, I18n.t("hub.clients.fields.photo_id.error")) unless photo_id_selected
+    end
+
+    def at_least_one_taxpayer_id_type_selected
+      taxpayer_id_selected = Intake::CtcIntake::TAXPAYER_ID_TYPES.any? do |_, type|
+        self.send(type[:field_name]) == "1"
+      end
+
+      errors.add(:taxpayer_id_type, I18n.t("hub.clients.fields.taxpayer_id.error")) unless taxpayer_id_selected
     end
   end
 end
