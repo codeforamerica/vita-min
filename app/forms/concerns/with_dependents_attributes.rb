@@ -3,6 +3,8 @@ module WithDependentsAttributes
 
   included do
     validate :dependents_attributes_required_fields
+    validate :ip_pins_format
+
     attr_accessor :dependents_attributes
   end
 
@@ -52,5 +54,9 @@ module WithDependentsAttributes
       attrs[:birth_date] = "#{attrs[:birth_date_year]}-#{attrs[:birth_date_month]}-#{attrs[:birth_date_day]}"
     end
     attrs.except!(:birth_date_month, :birth_date_day, :birth_date_year)
+  end
+
+  def ip_pins_format
+
   end
 end

@@ -51,7 +51,9 @@ module Hub
                        :recovery_rebate_credit_amount_confidence,
                        :ctc_refund_delivery_method,
                        :navigator_name,
-                       :navigator_has_verified_client_identity
+                       :navigator_has_verified_client_identity,
+                       :primary_ip_pin,
+                       :spouse_ip_pin
     set_attributes_for :tax_return,
                        :filing_status,
                        :filing_status_note
@@ -92,6 +94,9 @@ module Hub
       validates_confirmation_of :spouse_ssn
       validates :spouse_ssn, social_security_number: true
     end
+
+    validates :primary_ip_pin, format: { with: /\d{6}/, message: "Must be a 6 digit number."}, if: :primary_ip_pin
+    validates :spouse_ip_pin, format: { with: /\d{6}/, message: "Must be a 6 digit number."}, if: :spouse_ip_pin
 
     validate :at_least_one_photo_id_type_selected
     validate :at_least_one_taxpayer_id_type_selected
