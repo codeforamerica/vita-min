@@ -28,6 +28,7 @@ class SystemNote::ClientChange < SystemNote
     changes_list = ""
     intake.saved_changes.each do |k, v|
       next if k == "updated_at"
+      next if k == "needs_to_flush_searchable_data_set_at"
       next if k.include?("encrypted")
 
       changes_list += "\n\u2022 #{k.tr('_', ' ')} from #{v[0]} to #{v[1]}"

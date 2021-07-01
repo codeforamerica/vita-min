@@ -101,6 +101,7 @@
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
+#  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
 #  other_income_types                                   :string
@@ -142,6 +143,7 @@
 #  satisfaction_face                                    :integer          default(0), not null
 #  savings_purchase_bond                                :integer          default(0), not null
 #  savings_split_refund                                 :integer          default(0), not null
+#  searchable_data                                      :tsvector
 #  separated                                            :integer          default(0), not null
 #  separated_year                                       :string
 #  signature_method                                     :integer          default("online"), not null
@@ -193,7 +195,9 @@
 #
 #  index_intakes_on_client_id                                (client_id)
 #  index_intakes_on_email_address                            (email_address)
+#  index_intakes_on_needs_to_flush_searchable_data_set_at    (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                             (phone_number)
+#  index_intakes_on_searchable_data                          (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                         (sms_phone_number)
 #  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
 #  index_intakes_on_vita_partner_id                          (vita_partner_id)
@@ -284,6 +288,10 @@ describe Intake do
       let(:other_client) { create :client, id: 333 }
       let!(:intake) { create :intake, id: 444, client: client, primary_first_name: "Jeremy", primary_last_name: "Fisher", preferred_name: "Jerry", spouse_first_name: "Jenny", spouse_last_name: "Fishy", email_address: "jerry@example.com", sms_phone_number: "+15005550006", phone_number: "+15005550007" }
       let!(:other_intake) { create :intake, id: 555, client: other_client, primary_first_name: "Geoffrey", primary_last_name: "Foster", preferred_name: "Jeff", spouse_first_name: "Jennifer", spouse_last_name: "Frosty", email_address: "jeff@example.com", sms_phone_number: "+15005550008", phone_number: "+15005550009" }
+
+      before do
+        described_class.refresh_search_index
+      end
 
       it "can match on each required field" do
         expect(described_class.search("222")).to eq [intake] # client_id

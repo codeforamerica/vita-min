@@ -31,6 +31,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
       before do
         allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 4)
+        Intake.refresh_search_index
       end
 
       scenario "I can view all clients and search, sort, and filter", js: true do
