@@ -190,6 +190,10 @@
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
+#  with_drivers_license_photo_id                        :boolean          default(FALSE)
+#  with_other_state_photo_id                            :boolean          default(FALSE)
+#  with_passport_photo_id                               :boolean          default(FALSE)
+#  with_vita_approved_photo_id                          :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -218,11 +222,40 @@ class Intake::CtcIntake < Intake
   enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
   enum ctc_refund_delivery_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :ctc_refund_delivery_method
 
+  PHOTO_ID_TYPES = {
+    drivers_license: {
+      display_name: "Drivers License",
+      field_name: :with_drivers_license_photo_id
+    },
+    passport: {
+      display_name: "US Passport",
+      field_name: :with_passport_photo_id
+    },
+    other_state: {
+      display_name: "Other State ID",
+      field_name: :with_other_state_photo_id
+    },
+    vita_approved: {
+      display_name: "Identification approved by my VITA site",
+      field_name: :with_vita_approved_photo_id
+    }
+  }
+
   def document_types_definitely_needed
     []
   end
 
   def is_ctc?
     true
+  end
+
+  def photo_id_display_names
+    names = []
+    PHOTO_ID_TYPES.each do |_, type|
+      if self.send(type[:field_name])
+        names << type[:display_name]
+      end
+    end
+    names.join(', ')
   end
 end

@@ -190,6 +190,10 @@
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
+#  with_drivers_license_photo_id                        :boolean          default(FALSE)
+#  with_other_state_photo_id                            :boolean          default(FALSE)
+#  with_passport_photo_id                               :boolean          default(FALSE)
+#  with_vita_approved_photo_id                          :boolean          default(FALSE)
 #
 # Indexes
 #

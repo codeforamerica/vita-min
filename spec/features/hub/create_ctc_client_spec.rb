@@ -87,6 +87,11 @@ RSpec.feature "Creating new drop off clients" do
         check "I have checked and verified this client's identity."
       end
 
+      within "#photo-id-type-fields" do
+        check "US Passport"
+        check "Other State ID"
+      end
+
       click_on I18n.t('general.save')
 
       expect(page).to have_text "Colleen Cauliflower"
@@ -113,6 +118,8 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "Economic Impact Payment 1 received: $500"
       expect(page).to have_text "Economic Impact Payment 2 received: $500"
       expect(page).to have_text "Confidence: Sure"
+
+      expect(page).to have_text "US Passport, Other State ID"
 
       expect(page).to have_text "Terry Taxseason"
 

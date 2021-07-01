@@ -28,6 +28,10 @@ module Hub
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
                        :with_unhoused_navigator,
+                       :with_drivers_license_photo_id,
+                       :with_passport_photo_id,
+                       :with_other_state_photo_id,
+                       :with_vita_approved_photo_id,
                        :bank_account_number,
                        :bank_routing_number,
                        :bank_account_type,
@@ -78,6 +82,8 @@ module Hub
       validates_confirmation_of :spouse_ssn
       validates :spouse_ssn, social_security_number: true
     end
+
+    validate :at_least_one_photo_id_type_selected
 
     before_validation :clean_ssns
 
@@ -147,6 +153,28 @@ module Hub
         status: :prep_ready_for_prep,
         service_type: :drop_off
       }.merge(attributes_for(:tax_return))
+    end
+
+    def selected_drivers_license?
+      with_drivers_license_photo_id == "1"
+    end
+
+    def selected_passport?
+      with_passport_photo_id == "1"
+    end
+
+    def selected_other_state_id?
+      with_other_state_photo_id == "1"
+    end
+
+    def selected_vita_approved_photo_id?
+      with_vita_approved_photo_id == "1"
+    end
+
+    def at_least_one_photo_id_type_selected
+      unless selected_drivers_license? || selected_passport? || selected_other_state_id? || selected_vita_approved_photo_id?
+        errors.add(:photo_id_type, "Please select at least one photo ID type")
+      end
     end
   end
 end

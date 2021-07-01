@@ -1,0 +1,8 @@
+<div id="photo-id-type-fields" class="hub-form__card card-small">
+  <h3><%= t("hub.clients.fields.photo_id.title")%></h3>
+  <%= error_message(@form, :photo_id_type) %>
+  <%= f.hub_checkbox(:with_drivers_license_photo_id, t("hub.clients.fields.photo_id.drivers_license"), options: { classes: ["checkbox--wide"] }) %>
+  <%= f.hub_checkbox(:with_passport_photo_id, t("hub.clients.fields.photo_id.passport"), options: { classes: ["checkbox--wide"] }) %>
+  <%= f.hub_checkbox(:with_other_state_photo_id, t("hub.clients.fields.photo_id.other_state"), options: { classes: ["checkbox--wide"] }) %>
+  <%= f.hub_checkbox(:with_vita_approved_photo_id, t("hub.clients.fields.photo_id.vita_approved"), options: { classes: ["checkbox--wide"] }) %>
+</div>
