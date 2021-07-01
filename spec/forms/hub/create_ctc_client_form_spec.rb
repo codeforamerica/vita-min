@@ -43,7 +43,8 @@ RSpec.describe Hub::CreateCtcClientForm do
         ctc_refund_delivery_method: "check",
         navigator_name: "Tax Seasonson",
         navigator_has_verified_client_identity: true,
-        with_passport_photo_id: true,
+        with_passport_photo_id: "1",
+        with_itin_taxpayer_id: "1",
       }
     end
 
@@ -100,6 +101,12 @@ RSpec.describe Hub::CreateCtcClientForm do
         described_class.new(params).save(current_user)
         client = Client.last
         expect(client.intake.with_passport_photo_id).to be_truthy
+      end
+
+      it "stores the taxpayer ID types used" do
+        described_class.new(params).save(current_user)
+        client = Client.last
+        expect(client.intake.with_itin_taxpayer_id).to be_truthy
       end
 
       it "assigns client to an instance on the form object" do
@@ -318,6 +325,24 @@ RSpec.describe Hub::CreateCtcClientForm do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:photo_id_type]).to include "Please select at least one photo ID type"
+        end
+      end
+
+      context "taxpayer ID type" do
+        before do
+          params[:with_social_security_taxpayer_id] = "0"
+          params[:with_itin_taxpayer_id] = "0"
+          params[:with_vita_approved_photo_id] = "0"
+        end
+
+        it "must have at least one taxpayer ID type selected" do
+          expect(described_class.new(params).valid?).to eq false
+        end
+
+        it "pushes errors for taxpayer ID type into the errors" do
+          obj = described_class.new(params)
+          obj.valid?
+          expect(obj.errors[:taxpayer_id_type]).to include "Please select at least one taxpayer ID type"
         end
       end
 

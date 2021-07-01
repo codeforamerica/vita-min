@@ -84,6 +84,13 @@ es:
           passport: US Passport
           other_state: Other State ID
           vita_approved: Identification approved by my VITA site
+          error: Please select at least one photo ID type
+        taxpayer_id:
+          title: Type of taxpayer ID used
+          social_security: Social Security card
+          itin: Individual Taxpayer ID Number (ITIN) letter
+          vita_approved: Identification approved by my VITA site
+          error: Please select at least one taxpayer ID type
         identity_verification:
           title: Identity verification
         ctc_spouse_contact_info: Spouse information, if married filing jointly
@@ -152,6 +159,7 @@ es:
         navigator_types: Tipo de navegador utilizada
         navigator_types_empty: No se utiliza navegador
         photo_id_types: Type of photo ID used
+        taxpayer_id_types: Type of taxpayer ID used
         basic_info: Información básica
         other_info: Other info
         routing_method: Método de enrutamiento inicial

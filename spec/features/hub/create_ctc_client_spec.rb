@@ -92,6 +92,10 @@ RSpec.feature "Creating new drop off clients" do
         check "Other State ID"
       end
 
+      within "#taxpayer-id-type-fields" do
+        check "Social Security card"
+      end
+
       click_on I18n.t('general.save')
 
       expect(page).to have_text "Colleen Cauliflower"
@@ -120,6 +124,8 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "Confidence: Sure"
 
       expect(page).to have_text "US Passport, Other State ID"
+
+      expect(page).to have_text "Social Security card"
 
       expect(page).to have_text "Terry Taxseason"
 
@@ -169,6 +175,14 @@ RSpec.feature "Creating new drop off clients" do
 
       within "#bank-account-fields" do
         choose "Check"
+      end
+
+      within "#photo-id-type-fields" do
+        check "US Passport"
+      end
+
+      within "#taxpayer-id-type-fields" do
+        check "Social Security card"
       end
 
       within "#identity-verification-fields" do

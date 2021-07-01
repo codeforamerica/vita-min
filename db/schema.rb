@@ -555,11 +555,14 @@ ActiveRecord::Schema.define(version: 2021_07_01_174549) do
     t.boolean "with_drivers_license_photo_id", default: false
     t.boolean "with_general_navigator", default: false
     t.boolean "with_incarcerated_navigator", default: false
+    t.boolean "with_itin_taxpayer_id", default: false
     t.boolean "with_limited_english_navigator", default: false
     t.boolean "with_other_state_photo_id", default: false
     t.boolean "with_passport_photo_id", default: false
+    t.boolean "with_social_security_taxpayer_id", default: false
     t.boolean "with_unhoused_navigator", default: false
     t.boolean "with_vita_approved_photo_id", default: false
+    t.boolean "with_vita_approved_taxpayer_id", default: false
     t.string "zip_code"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["email_address"], name: "index_intakes_on_email_address"

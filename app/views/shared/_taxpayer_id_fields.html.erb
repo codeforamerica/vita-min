@@ -1,0 +1,7 @@
+<div id="taxpayer-id-type-fields" class="hub-form__card card-small">
+  <h3><%= t("hub.clients.fields.taxpayer_id.title")%></h3>
+  <%= error_message(@form, :taxpayer_id_type) %>
+  <%= f.hub_checkbox(:with_social_security_taxpayer_id, t("hub.clients.fields.taxpayer_id.social_security"), options: { classes: ["checkbox--wide"] }) %>
+  <%= f.hub_checkbox(:with_itin_taxpayer_id, t("hub.clients.fields.taxpayer_id.itin"), options: { classes: ["checkbox--wide"] }) %>
+  <%= f.hub_checkbox(:with_vita_approved_taxpayer_id, t("hub.clients.fields.taxpayer_id.vita_approved"), options: { classes: ["checkbox--wide"] }) %>
+</div>

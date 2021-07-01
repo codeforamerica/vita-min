@@ -191,9 +191,12 @@
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
 #  with_drivers_license_photo_id                        :boolean          default(FALSE)
+#  with_itin_taxpayer_id                                :boolean          default(FALSE)
 #  with_other_state_photo_id                            :boolean          default(FALSE)
 #  with_passport_photo_id                               :boolean          default(FALSE)
+#  with_social_security_taxpayer_id                     :boolean          default(FALSE)
 #  with_vita_approved_photo_id                          :boolean          default(FALSE)
+#  with_vita_approved_taxpayer_id                       :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -241,6 +244,21 @@ class Intake::CtcIntake < Intake
     }
   }
 
+  TAXPAYER_ID_TYPES = {
+    social_security: {
+      display_name: "Social Security card",
+      field_name: :with_social_security_taxpayer_id
+    },
+    itin: {
+      display_name: "Individual Taxpayer ID Number (ITIN) letter",
+      field_name: :with_itin_taxpayer_id
+    },
+    vita_approved: {
+      display_name: "Identification approved by my VITA site",
+      field_name: :with_vita_approved_taxpayer_id
+    }
+  }
+
   def document_types_definitely_needed
     []
   end
@@ -252,6 +270,16 @@ class Intake::CtcIntake < Intake
   def photo_id_display_names
     names = []
     PHOTO_ID_TYPES.each do |_, type|
+      if self.send(type[:field_name])
+        names << type[:display_name]
+      end
+    end
+    names.join(', ')
+  end
+
+  def taxpayer_id_display_names
+    names = []
+    TAXPAYER_ID_TYPES.each do |_, type|
       if self.send(type[:field_name])
         names << type[:display_name]
       end

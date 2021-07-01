@@ -108,6 +108,13 @@
                 <span class="label-value"><%= @client.intake.photo_id_display_names %></span>
               </div>
             </div>
+
+            <div class="client-profile__field-group">
+              <h2 class="text--bold"><%= t(".taxpayer_id_types") %></h2>
+              <div class="field-display">
+                <span class="label-value"><%= @client.intake.taxpayer_id_display_names %></span>
+              </div>
+            </div>
           <% end %>
 
           <!-- Bank info-->

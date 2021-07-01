@@ -32,6 +32,9 @@ module Hub
                        :with_passport_photo_id,
                        :with_other_state_photo_id,
                        :with_vita_approved_photo_id,
+                       :with_social_security_taxpayer_id,
+                       :with_itin_taxpayer_id,
+                       :with_vita_approved_taxpayer_id,
                        :bank_account_number,
                        :bank_routing_number,
                        :bank_account_type,
@@ -84,6 +87,7 @@ module Hub
     end
 
     validate :at_least_one_photo_id_type_selected
+    validate :at_least_one_taxpayer_id_type_selected
 
     before_validation :clean_ssns
 
@@ -155,26 +159,20 @@ module Hub
       }.merge(attributes_for(:tax_return))
     end
 
-    def selected_drivers_license?
-      with_drivers_license_photo_id == "1"
-    end
-
-    def selected_passport?
-      with_passport_photo_id == "1"
-    end
-
-    def selected_other_state_id?
-      with_other_state_photo_id == "1"
-    end
-
-    def selected_vita_approved_photo_id?
-      with_vita_approved_photo_id == "1"
-    end
-
     def at_least_one_photo_id_type_selected
-      unless selected_drivers_license? || selected_passport? || selected_other_state_id? || selected_vita_approved_photo_id?
-        errors.add(:photo_id_type, "Please select at least one photo ID type")
+      photo_id_selected = Intake::CtcIntake::PHOTO_ID_TYPES.any? do |_, type|
+        self.send(type[:field_name]) == "1"
       end
+
+      errors.add(:photo_id_type, I18n.t("hub.clients.fields.photo_id.error")) unless photo_id_selected
+    end
+
+    def at_least_one_taxpayer_id_type_selected
+      taxpayer_id_selected = Intake::CtcIntake::TAXPAYER_ID_TYPES.any? do |_, type|
+        self.send(type[:field_name]) == "1"
+      end
+
+      errors.add(:taxpayer_id_type, I18n.t("hub.clients.fields.taxpayer_id.error")) unless taxpayer_id_selected
     end
   end
 end
