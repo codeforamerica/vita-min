@@ -151,11 +151,11 @@ RSpec.describe MailgunWebhooksController do
             expect do
               post :create_incoming_email, params: params.update({
                 "attachment-count": 5,
-                "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/files/document_bundle.pdf", "application/pdf"),
-                "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/files/test-pattern.png", "image/jpeg"),
-                "attachment-3" => Rack::Test::UploadedFile.new("spec/fixtures/files/test-spreadsheet.xls", "application/vnd.ms-excel"),
-                "attachment-4" => Rack::Test::UploadedFile.new("spec/fixtures/files/test-pdf.pdf", ""),
-                "attachment-5" => Rack::Test::UploadedFile.new("spec/fixtures/files/zero-bytes.jpg", "image/jpeg"),
+                "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
+                "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/jpeg"),
+                "attachment-3" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-spreadsheet.xls", "application/vnd.ms-excel"),
+                "attachment-4" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pdf.pdf", ""),
+                "attachment-5" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/zero-bytes.jpg", "image/jpeg"),
               })
             end.to change(Document, :count).by(5)
 
@@ -165,9 +165,9 @@ RSpec.describe MailgunWebhooksController do
             documents = client.documents.order(:id)
             expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::EmailAttachment.key])
             expect(documents.first.contact_record).to eq email
-            expect(documents.first.upload.blob.download).to eq(open("spec/fixtures/files/document_bundle.pdf", "rb").read)
+            expect(documents.first.upload.blob.download).to eq(open("spec/fixtures/attachments/document_bundle.pdf", "rb").read)
             expect(documents.first.upload.blob.content_type).to eq("application/pdf")
-            expect(documents.second.upload.blob.download).to eq(open("spec/fixtures/files/test-pattern.png", "rb").read)
+            expect(documents.second.upload.blob.download).to eq(open("spec/fixtures/attachments/test-pattern.png", "rb").read)
             expect(documents.second.upload.blob.content_type).to eq("image/jpeg")
             spreadsheet_message = <<~TEXT
               Unusable file with unknown or unsupported file type.
@@ -253,13 +253,13 @@ RSpec.describe MailgunWebhooksController do
             expect do
               post :create_incoming_email, params: params.update({
                                                                    "attachment-count": 1,
-                                                                   "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/files/document_bundle.pdf", "application/pdf"),
+                                                                   "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
                                                                  })
             end.to change(Document, :count).by(2)
 
             documents = Document.where(client: [client1, client2])
-            expect(documents.first.upload.blob.download).to eq(open("spec/fixtures/files/document_bundle.pdf", "rb").read)
-            expect(documents.second.upload.blob.download).to eq(open("spec/fixtures/files/document_bundle.pdf", "rb").read)
+            expect(documents.first.upload.blob.download).to eq(open("spec/fixtures/attachments/document_bundle.pdf", "rb").read)
+            expect(documents.second.upload.blob.download).to eq(open("spec/fixtures/attachments/document_bundle.pdf", "rb").read)
           end
         end
       end

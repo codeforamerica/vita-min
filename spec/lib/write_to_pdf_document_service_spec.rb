@@ -3,7 +3,7 @@ require 'rails_helper'
 describe WriteToPdfDocumentService do
   subject { described_class.new(document, FakeDocumentClass) }
 
-  let(:document) { create :document, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
+  let(:document) { create :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") }
 
   before do
     fake_doc_class = Class.new do

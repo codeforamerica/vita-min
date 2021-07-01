@@ -781,64 +781,64 @@ describe ApplicationController, type: :controller do
     end
 
     it 'strips :intake_id from paths' do
-      routes.draw { get "req_test/:intake_id/rest" => "anonymous#req_test" }
-      params = { intake_id: 9999998, secretly_also_intake_id: 9999998 }
+      routes.draw { get "req_test/:intake_id/rest?the-id=9999998" => "anonymous#req_test" }
+      params = { intake_id: 9999998 }
       get :req_test, params: params
 
       expect(fake_tracker).to have_received(:track).with(
         '72347235',
         'req_test_event',
         hash_including(
-          path: '/req_test/***/rest',
-          full_path: '/req_test/***/rest?secretly_also_intake_id=***',
+          path: '/req_test/***/rest?the-id=***',
+          full_path: '/req_test/***/rest?the-id=***',
           referrer: 'http://test.dev/***/rest'
         )
       )
     end
 
     it 'strips :id from paths' do
-      routes.draw { get "req_test/:id/rest" => "anonymous#req_test" }
-      params = { id: 9999998, secretly_also_id: 9999998 }
+      routes.draw { get "req_test/:id/rest?the-id=9999998" => "anonymous#req_test" }
+      params = { id: 9999998 }
       get :req_test, params: params
 
       expect(fake_tracker).to have_received(:track).with(
         '72347235',
         'req_test_event',
         hash_including(
-          path: '/req_test/***/rest',
-          full_path: '/req_test/***/rest?secretly_also_id=***',
+          path: '/req_test/***/rest?the-id=***',
+          full_path: '/req_test/***/rest?the-id=***',
           referrer: 'http://test.dev/***/rest'
         )
       )
     end
 
     it 'strips :token from paths' do
-      routes.draw { get "req_test/:token/rest" => "anonymous#req_test" }
-      params = { token: 9999998, secretly_also_token: 9999998 }
+      routes.draw { get "req_test/:token/rest?the-id=9999998" => "anonymous#req_test" }
+      params = { token: 9999998 }
       get :req_test, params: params
 
       expect(fake_tracker).to have_received(:track).with(
         '72347235',
         'req_test_event',
         hash_including(
-          path: '/req_test/***/rest',
-          full_path: '/req_test/***/rest?secretly_also_token=***',
+          path: '/req_test/***/rest?the-id=***',
+          full_path: '/req_test/***/rest?the-id=***',
           referrer: 'http://test.dev/***/rest'
         )
       )
     end
 
     it 'strips :ticket_id from paths' do
-      routes.draw { get "req_test/:ticket_id/rest" => "anonymous#req_test" }
-      params = { ticket_id: 9999998, secretly_also_ticket_id: 9999998 }
+      routes.draw { get "req_test/:ticket_id/rest?the-id=9999998" => "anonymous#req_test" }
+      params = { ticket_id: 9999998 }
       get :req_test, params: params
 
       expect(fake_tracker).to have_received(:track).with(
         '72347235',
         'req_test_event',
         hash_including(
-          path: '/req_test/***/rest',
-          full_path: '/req_test/***/rest?secretly_also_ticket_id=***',
+          path: '/req_test/***/rest?the-id=***',
+          full_path: '/req_test/***/rest?the-id=***',
           referrer: 'http://test.dev/***/rest'
         )
       )

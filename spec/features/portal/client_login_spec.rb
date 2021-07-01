@@ -26,10 +26,10 @@ RSpec.feature "Logging in" do
 
           expect(page).to have_text "To view your progress, we’ll send you a secure code"
           fill_in "Email address", with: client.intake.email_address
-          perform_enqueued_jobs do
-            click_on "Send code"
-            expect(page).to have_text "Let’s verify that code!"
-          end
+          click_on "Send code"
+          expect(page).to have_text "Let’s verify that code!"
+
+          perform_enqueued_jobs
 
           mail = ActionMailer::Base.deliveries.last
           expect(mail.html_part.body.to_s).to include("Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days.")
@@ -58,12 +58,11 @@ RSpec.feature "Logging in" do
 
           expect(page).to have_text "To view your progress, we’ll send you a secure code"
           fill_in "Cell phone number", with: "(500) 555-0006"
+          click_on "Send code"
+          expect(page).to have_text "Let’s verify that code!"
+          expect(page).to have_text("A message with your code has been sent to: (500) 555-0006")
 
-          perform_enqueued_jobs do
-            click_on "Send code"
-            expect(page).to have_text "Let’s verify that code!"
-            expect(page).to have_text("A message with your code has been sent to: (500) 555-0006")
-          end
+          perform_enqueued_jobs
 
           expect(TwilioService).to have_received(:send_text_message).with(
             to: "+15005550006",
@@ -84,11 +83,10 @@ RSpec.feature "Logging in" do
 
           expect(page).to have_text "To view your progress, we’ll send you a secure code"
           fill_in "Cell phone number", with: "(500) 555-0006"
+          click_on "Send code"
+          expect(page).to have_text "Let’s verify that code!"
 
-          perform_enqueued_jobs do
-            click_on "Send code"
-            expect(page).to have_text "Let’s verify that code!"
-          end
+          perform_enqueued_jobs
 
           fill_in "Enter 6 digit code", with: "999999"
           click_on "Verify"
@@ -157,11 +155,10 @@ RSpec.feature "Logging in" do
 
         expect(page).to have_text "Le mandaremos un código seguro para que pueda ver su progreso."
         fill_in "Dirección de correo electrónico", with: client.intake.email_address
+        click_on "Enviar código"
+        expect(page).to have_text "¡Verifiquemos ese código!"
 
-        perform_enqueued_jobs do
-          click_on "Enviar código"
-          expect(page).to have_text "¡Verifiquemos ese código!"
-        end
+        perform_enqueued_jobs
 
         mail = ActionMailer::Base.deliveries.last
         expect(mail.html_part.body.to_s).to have_text("de 6 dígitos para GetYourRefund es: 000004. Este código expirará en dos días.")

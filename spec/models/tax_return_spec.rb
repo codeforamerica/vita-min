@@ -189,7 +189,7 @@ describe TaxReturn do
                document_type: DocumentTypes::CompletedForm8879.key,
                tax_return: tax_return,
                client: tax_return.client,
-               upload_path:  Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+               upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
       end
 
       it "returns false" do
@@ -209,7 +209,7 @@ describe TaxReturn do
                document_type: DocumentTypes::UnsignedForm8879.key,
                tax_return: tax_return,
                client: tax_return.client,
-               upload_path:  Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"),
+               upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"),
                created_at: DateTime.yesterday
       end
 
@@ -291,7 +291,7 @@ describe TaxReturn do
                    document_type: DocumentTypes::UnsignedForm8879.key,
                    tax_return: spouse_not_required_tax_return,
                    client: spouse_not_required_tax_return.client,
-                   upload_path:  Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+                   upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
           end
 
           it "returns false" do
@@ -323,7 +323,7 @@ describe TaxReturn do
                    document_type: DocumentTypes::UnsignedForm8879.key,
                    tax_return: spouse_signed_tax_return,
                    client: spouse_signed_tax_return.client,
-                   upload_path:  Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+                   upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
           end
 
           it "returns false" do

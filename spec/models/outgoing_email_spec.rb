@@ -107,7 +107,7 @@ RSpec.describe OutgoingEmail, type: :model do
         body: "hi",
         sent_at: DateTime.now,
         user: create(:user),
-        attachment: fixture_file_upload("test-pattern.png"),
+        attachment: fixture_file_upload("attachments/test-pattern.png"),
       )
     end
 
@@ -135,7 +135,7 @@ RSpec.describe OutgoingEmail, type: :model do
           body: "hi",
           sent_at: DateTime.now,
           user: create(:user),
-          attachment: fixture_file_upload("test-pattern.png"),
+          attachment: fixture_file_upload("attachments/test-pattern.png"),
           )
       end
 

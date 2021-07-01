@@ -233,7 +233,7 @@ RSpec.describe "a user editing a clients intake fields" do
       click_on "Save"
       click_on "Notes"
 
-      expect(page).to have_text /#{user.name} changed:.*• preferred name from Colleen Cauliflower to Colly Cauliflower/
+      expect(page).to have_text "#{user.name} changed: \u2022 preferred name from Colleen Cauliflower to Colly Cauliflower"
     end
   end
 end

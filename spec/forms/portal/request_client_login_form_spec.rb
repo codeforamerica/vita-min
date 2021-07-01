@@ -34,7 +34,7 @@ RSpec.describe Portal::RequestClientLoginForm do
 
       it "is not valid" do
         expect(form).not_to be_valid
-        expect(form.errors.attribute_names).to match_array([:email_address])
+        expect(form.errors.keys).to match_array([:email_address])
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe Portal::RequestClientLoginForm do
 
       it "is not valid" do
         expect(form).not_to be_valid
-        expect(form.errors.attribute_names).to match_array([:email_address])
+        expect(form.errors.keys).to match_array([:email_address])
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe Portal::RequestClientLoginForm do
 
       it "is not valid" do
         expect(form).not_to be_valid
-        expect(form.errors.attribute_names).to match_array([:sms_phone_number])
+        expect(form.errors.keys).to match_array([:sms_phone_number])
       end
     end
 
@@ -65,7 +65,7 @@ RSpec.describe Portal::RequestClientLoginForm do
 
       it "is not valid" do
         expect(form).not_to be_valid
-        expect(form.errors.attribute_names).to match_array([:email_address])
+        expect(form.errors.keys).to match_array([:email_address])
         expect(form.errors[:email_address]).to eq ["Please enter only one form of contact."]
       end
     end
