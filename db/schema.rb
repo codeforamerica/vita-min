@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_01_150705) do
+ActiveRecord::Schema.define(version: 2021_07_01_174549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -470,6 +470,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_150705) do
     t.integer "needs_help_2018", default: 0, null: false
     t.integer "needs_help_2019", default: 0, null: false
     t.integer "needs_help_2020", default: 0, null: false
+    t.datetime "needs_to_flush_searchable_data_set_at"
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
     t.string "other_income_types"
@@ -511,6 +512,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_150705) do
     t.integer "satisfaction_face", default: 0, null: false
     t.integer "savings_purchase_bond", default: 0, null: false
     t.integer "savings_split_refund", default: 0, null: false
+    t.tsvector "searchable_data"
     t.integer "separated", default: 0, null: false
     t.string "separated_year"
     t.integer "signature_method", default: 0, null: false
@@ -557,7 +559,9 @@ ActiveRecord::Schema.define(version: 2021_07_01_150705) do
     t.string "zip_code"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["email_address"], name: "index_intakes_on_email_address"
+    t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
+    t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
     t.index ["triage_source_type", "triage_source_id"], name: "index_intakes_on_triage_source_type_and_triage_source_id"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"

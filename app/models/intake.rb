@@ -101,6 +101,7 @@
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
+#  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
 #  other_income_types                                   :string
@@ -142,6 +143,7 @@
 #  satisfaction_face                                    :integer          default(0), not null
 #  savings_purchase_bond                                :integer          default(0), not null
 #  savings_split_refund                                 :integer          default(0), not null
+#  searchable_data                                      :tsvector
 #  separated                                            :integer          default(0), not null
 #  separated_year                                       :string
 #  signature_method                                     :integer          default("online"), not null
@@ -193,7 +195,9 @@
 #
 #  index_intakes_on_client_id                                (client_id)
 #  index_intakes_on_email_address                            (email_address)
+#  index_intakes_on_needs_to_flush_searchable_data_set_at    (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                             (phone_number)
+#  index_intakes_on_searchable_data                          (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                         (sms_phone_number)
 #  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
 #  index_intakes_on_vita_partner_id                          (vita_partner_id)
@@ -207,10 +211,11 @@
 class Intake < ApplicationRecord
   include PgSearch::Model
 
-  pg_search_scope :search, against: [
-    :client_id, :primary_first_name, :primary_last_name, :preferred_name, :spouse_first_name, :spouse_last_name,
-    :email_address, :phone_number, :sms_phone_number
-  ], using: { tsearch: { prefix: true } }
+  def self.searchable_fields
+    [:client_id, :primary_first_name, :primary_last_name, :preferred_name, :spouse_first_name, :spouse_last_name, :email_address, :phone_number, :sms_phone_number]
+  end
+
+  pg_search_scope :search, against: searchable_fields, using: { tsearch: { prefix: true, tsvector_column: 'searchable_data' } }
 
   has_many :documents, dependent: :destroy
   has_many :documents_requests, dependent: :destroy
@@ -225,6 +230,10 @@ class Intake < ApplicationRecord
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, :sms_phone_number, allow_blank: true, e164_phone: true
   validates_presence_of :visitor_id
+
+  before_save do
+    self.needs_to_flush_searchable_data_set_at = Time.current
+  end
 
   after_save do
     if saved_change_to_completed_at?(from: nil)
@@ -496,5 +505,19 @@ class Intake < ApplicationRecord
       end
     end
     names.join(', ')
+  end
+
+  def self.refresh_search_index(limit: 10_000)
+    now = Time.current
+    ids = where('needs_to_flush_searchable_data_set_at < ?', now)
+      .limit(limit)
+      .pluck(:id)
+
+    where(id: ids)
+      .where('needs_to_flush_searchable_data_set_at < ?', now)
+      .update_all(<<-SQL)
+        searchable_data = to_tsvector('simple', array_to_string(ARRAY[#{searchable_fields.map { |f| "#{f}::text"}.join(",\n") }], ' ', '')),
+        needs_to_flush_searchable_data_set_at = NULL
+      SQL
   end
 end
