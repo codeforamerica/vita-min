@@ -1,4 +1,4 @@
-class AddGinIndexForTsvectorSearchOfIntake < ActiveRecord::Migration[6.1]
+class AddGinIndexForTsvectorSearchOfIntake < ActiveRecord::Migration[6.0]
   disable_ddl_transaction!
 
   def change

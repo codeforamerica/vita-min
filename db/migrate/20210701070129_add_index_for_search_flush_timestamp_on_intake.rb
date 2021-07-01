@@ -1,4 +1,4 @@
-class AddIndexForSearchFlushTimestampOnIntake < ActiveRecord::Migration[6.1]
+class AddIndexForSearchFlushTimestampOnIntake < ActiveRecord::Migration[6.0]
   disable_ddl_transaction!
 
   def change
