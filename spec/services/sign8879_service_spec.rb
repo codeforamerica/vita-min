@@ -17,12 +17,12 @@ describe Sign8879Service do
                               primary_signed_ip: IPAddr.new,
                               primary_signed_at: DateTime.current
     }
-    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user), upload_path:  Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
+    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user), upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") }
 
     before do
       allow(tax_return).to receive(:filing_joint?).and_return false
       allow(WriteToPdfDocumentService).to receive(:new).and_return document_service_double
-      allow(document_service_double).to receive(:tempfile_output).and_return File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "r")
+      allow(document_service_double).to receive(:tempfile_output).and_return File.open(Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), "r")
       allow(document_service_double).to receive(:write)
     end
 
@@ -64,7 +64,7 @@ describe Sign8879Service do
     context "with multiple Unsigned 8879s for the tax year" do
       before do
         # create a second document
-        create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user), upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+        create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user), upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
       end
 
       it "should create a completed 8879 for each unsigned 8879" do

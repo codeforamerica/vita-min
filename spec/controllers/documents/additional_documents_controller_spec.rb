@@ -55,7 +55,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
     end
 
     context "with a non-image document" do
-      let(:document_path) { Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf") }
+      let(:document_path) { Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf") }
 
       it "renders the thumbnails" do
         create :document, document_type: "Other", intake: intake,
@@ -72,7 +72,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
       let(:valid_params) do
         {
           document_type_upload_form: {
-            document: fixture_file_upload("test-pattern.png")
+            document: fixture_file_upload("attachments/test-pattern.png")
           }
         }
       end
@@ -95,7 +95,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
       let(:invalid_params) do
         {
           document_type_upload_form: {
-            document: fixture_file_upload("test-pattern.html")
+            document: fixture_file_upload("attachments/test-pattern.html")
           }
         }
       end

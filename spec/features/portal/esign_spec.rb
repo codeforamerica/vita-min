@@ -138,7 +138,7 @@ RSpec.feature "Submitting final tax filing signature" do
 
       click_on "Add document"
 
-      attach_file "document_upload", Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf")
+      attach_file "document_upload", Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf")
 
       fill_in "Display name", with: "A new unsigned 8879 document"
 

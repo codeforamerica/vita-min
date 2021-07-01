@@ -230,7 +230,7 @@ RSpec.feature "a client on their portal" do
              document_type: DocumentTypes::UnsignedForm8879.key,
              tax_return: client.tax_returns.first,
              client: client,
-             upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+             upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
     end
 
     scenario "waiting on review and signature" do
@@ -285,7 +285,7 @@ RSpec.feature "a client on their portal" do
     let(:tax_return2019) { create :tax_return, :ready_to_sign, year: 2019, client: client }
     let(:tax_return2018) { create :tax_return, :ready_to_file_solo, year: 2018, client: client }
     before do
-      create :document, display_name: "Another 8879", document_type: DocumentTypes::UnsignedForm8879.key, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), tax_return: tax_return2019, client: tax_return2019.client
+      create :document, display_name: "Another 8879", document_type: DocumentTypes::UnsignedForm8879.key, upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), tax_return: tax_return2019, client: tax_return2019.client
       create :tax_return, year: 2017, client: client
       create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return2019, client: tax_return2019.client
       create :document, document_type: DocumentTypes::FinalTaxDocument.key, display_name: "Some final tax document", tax_return: tax_return2018, client: tax_return2018.client
@@ -322,7 +322,7 @@ RSpec.feature "a client on their portal" do
       click_link "Submit additional documents"
       expect(page).to have_text "Please share any additional documents."
 
-      attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+      attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
       expect(page).to have_content("test-pattern.png")
 
       expect(client.documents.where(document_type: "Other").length).to eq 1

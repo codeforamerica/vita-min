@@ -19,7 +19,7 @@ module Portal
       if @form.sign
         redirect_to portal_tax_return_show_path(tax_return_id: @tax_return.id)
       else
-        flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.attribute_names.first}")
+        flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.keys.first}")
         render :authorize_signature
       end
     end
@@ -30,7 +30,7 @@ module Portal
       if @form.sign
         redirect_to portal_tax_return_show_path(tax_return_id: @tax_return.id)
       else
-        flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.attribute_names.first}")
+        flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.keys.first}")
         render :spouse_authorize_signature
       end
     end

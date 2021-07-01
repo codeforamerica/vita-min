@@ -247,7 +247,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
 
     expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
     expect(page).to have_text("We accept: .jpg, .jpeg, .png, .pdf, .heic, .bmp, .txt, .tiff, .gif")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
 
@@ -257,13 +257,13 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
 
     expect(intake.reload.current_step).to eq("/en/documents/selfies")
     expect(page).to have_selector("h1", text: "Share a photo of yourself holding your ID card")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
 
     expect(intake.reload.current_step).to eq("/en/documents/ssn-itins")
     expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
 
@@ -272,13 +272,13 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Share your employment documents")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
 
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
 
     expect(page).to have_content("test-pattern.png")
@@ -286,7 +286,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Please share any additional documents.")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
     expect(page).to have_content("test-pattern.png")
     click_on "Continue"

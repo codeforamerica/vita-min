@@ -14,7 +14,7 @@
           <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select) %>
 
           <% if @tax_return.errors.present? %>
-            <% @tax_return.errors.attribute_names.each do |key| %>
+            <% @tax_return.errors.keys.each do |key| %>
               <div class="form-group">
                 <%= error_message(@tax_return, key) %>
               </div>

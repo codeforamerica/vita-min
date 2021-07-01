@@ -24,7 +24,7 @@ RSpec.describe Hub::OutgoingEmailsController do
             client_id: client.id,
             outgoing_email: {
               body: "hi client",
-              attachment: fixture_file_upload("test-pattern.png")
+              attachment: fixture_file_upload("attachments/test-pattern.png")
             }
           }
         end
