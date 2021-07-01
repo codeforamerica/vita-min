@@ -77,6 +77,8 @@ GEM
     annotate (3.1.1)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
+    arel_extensions (2.0.12)
+      activerecord (>= 6.0)
     ast (2.4.1)
     attr_encrypted (3.1.0)
       encryptor (~> 3.0.0)
@@ -491,6 +493,8 @@ GEM
       sprockets (>= 3.0.0)
     stackprof (0.2.17)
     statesman (8.0.3)
+    strip_attributes (1.11.0)
+      activemodel (>= 3.0, < 7.0)
     terminal-table (3.0.1)
       unicode-display_width (>= 1.1.1, < 3)
     terser (1.1.3)
@@ -557,6 +561,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter
   annotate
+  arel_extensions
   attr_encrypted
   auto_strip_attributes
   aws-sdk-s3
@@ -630,6 +635,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   stackprof
   statesman (~> 8.0.3)
+  strip_attributes
   terser (~> 1.0)
   thor
   timecop
