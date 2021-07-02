@@ -756,6 +756,7 @@ es:
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
       dependents: Por favor, ingrese %{attrs} de su dependiente.
+      dependents_ip_pins: IP PINs must be a 6 digit number.
       dependents_attributes:
         first_name: el primer nombre
         last_name: el apellido

@@ -588,10 +588,24 @@ RSpec.describe Hub::CreateCtcClientForm do
           }
           end
 
-          it "can be blank but must be a 6 digit number" do
-            obj = described_class.new(params)
-            expect(obj.valid?).to eq false
-            expect(obj.errors[:dependents_attributes]).to include "IP PINs must be a 6 digit number."
+          context "when there are no other validation errors" do
+            it "states that all IP PINs must be a 6 digit number" do
+              obj = described_class.new(params.merge(dependents_attributes))
+              expect(obj.valid?).to eq false
+              expect(obj.errors[:dependents_attributes]).to include "IP PINs must be a 6 digit number."
+            end
+          end
+
+          context "when there are other validation errors" do
+            before do
+              dependents_attributes[:dependents_attributes]["0"][:relationship] = nil
+            end
+
+            it "states all validation errors in a nicely formatted way" do
+              obj = described_class.new(params.merge(dependents_attributes))
+              expect(obj.valid?).to eq false
+              expect(obj.errors[:dependents_attributes]).to include "Please enter the relationship of each dependent. IP PINs must be a 6 digit number."
+            end
           end
         end
       end

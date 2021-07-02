@@ -57,6 +57,14 @@ module WithDependentsAttributes
   end
 
   def ip_pins_format
+    at_least_one_invalid_ip_pin = @dependents_attributes&.any? do |_, attrs|
+      !/\d{6}/.match?(attrs[:ip_pin])
+    end
 
+    if at_least_one_invalid_ip_pin
+      error_message = I18n.t("forms.errors.dependents_ip_pins")
+      errors[:dependents_attributes].present? ?
+        errors[:dependents_attributes][0] += " #{error_message}" : errors.add(:dependents_attributes, error_message)
+    end
   end
 end
