@@ -286,4 +286,21 @@ class Intake::CtcIntake < Intake
     end
     names.join(', ')
   end
+  
+  # placeholders for signature pin columns
+  def primary_signature_pin
+    "12111"
+  end
+
+  def spouse_signature_pin
+    "12345"
+  end
+
+  def primary_signature_pin_at
+    updated_at
+  end
+
+  def spouse_signature_pin_at
+    updated_at
+  end
 end

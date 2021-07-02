@@ -348,6 +348,20 @@ describe Client do
     end
   end
 
+  describe "#legal_name" do
+    let(:client) { create :client, intake: (create :intake, primary_first_name: "  Randall  ", primary_last_name: "Ruttabega  ") }
+    it "combines the name and trims whitespace" do
+      expect(client.legal_name).to eq "Randall Ruttabega"
+    end
+  end
+
+  describe "#spouse_legal_name" do
+    let(:client) { create :client, intake: (create :intake, spouse_first_name: "Marlie  ", spouse_last_name: "  Mango  ") }
+    it "combines the name and trims whitespace" do
+      expect(client.spouse_legal_name).to eq "Marlie Mango"
+    end
+  end
+
   describe "#requires_spouse_info?" do
     context "from intake filing_joint" do
       context "when filing_joint is yes" do

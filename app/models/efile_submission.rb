@@ -14,6 +14,7 @@
 class EfileSubmission < ApplicationRecord
   belongs_to :tax_return
   has_one :intake, through: :tax_return
+  has_one :client, through: :tax_return
   has_many :efile_submission_transitions, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
 
   include Statesman::Adapters::ActiveRecordQueries[
@@ -32,4 +33,12 @@ class EfileSubmission < ApplicationRecord
 
   delegate :can_transition_to?, :current_state, :history, :last_transition, :last_transition_to,
            :transition_to!, :transition_to, :in_state?, to: :state_machine
+
+  # If a federal tax return is rejected for a dependent SSN/Name Control mismatch,
+  # the return can be re-transmitted and accepted by the IRS if the Imperfect Return Election is made.
+  # This election can only be made if the original return rejected with reject code SEIC-F1040-501-02 or R0000-504-02.
+  # (Placeholder for implementation logic)
+  def imperfect_return_resubmission?
+    false
+  end
 end

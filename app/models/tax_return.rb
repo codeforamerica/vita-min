@@ -81,6 +81,10 @@ class TaxReturn < ApplicationRecord
     [[I18n.t("general.drop_off"), "drop_off"], [I18n.t("general.online"), "online_intake"]]
   end
 
+  def filing_jointly?
+    filing_status == "married_filing_jointly"
+  end
+
   def primary_has_signed_8879?
     primary_signature.present? && primary_signed_after_unsigned_8879_upload? && primary_signed_ip?
   end
