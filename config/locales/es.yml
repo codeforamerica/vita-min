@@ -146,6 +146,7 @@ es:
         filing_status: Estado civil para declarar
         intake_language: Idioma del formulario de admisión
         interview_timing_preference: Preferencia de tiempo de entrevista
+        ip_pins: IP PINs
         legal_name: Nombre legal
         mailing_address: Dirección postal
         marital_status: Estado civil

@@ -216,97 +216,25 @@
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
-class Intake::CtcIntake < Intake
 
-  attribute :recovery_rebate_credit_amount_1, :money
-  attribute :recovery_rebate_credit_amount_2, :money
+require "rails_helper"
 
-  attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+describe Intake::CtcIntake do
+  describe "#any_ip_pins?" do
+    context "when any member of household has an IP PIN" do
+      let(:intake) { create :ctc_intake, dependents: [ create(:dependent, ip_pin: 123456) ] }
 
-  enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
-  enum ctc_refund_delivery_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :ctc_refund_delivery_method
-
-  PHOTO_ID_TYPES = {
-    drivers_license: {
-      display_name: "Drivers License",
-      field_name: :with_drivers_license_photo_id
-    },
-    passport: {
-      display_name: "US Passport",
-      field_name: :with_passport_photo_id
-    },
-    other_state: {
-      display_name: "Other State ID",
-      field_name: :with_other_state_photo_id
-    },
-    vita_approved: {
-      display_name: "Identification approved by my VITA site",
-      field_name: :with_vita_approved_photo_id
-    }
-  }
-
-  TAXPAYER_ID_TYPES = {
-    social_security: {
-      display_name: "Social Security card",
-      field_name: :with_social_security_taxpayer_id
-    },
-    itin: {
-      display_name: "Individual Taxpayer ID Number (ITIN) letter",
-      field_name: :with_itin_taxpayer_id
-    },
-    vita_approved: {
-      display_name: "Identification approved by my VITA site",
-      field_name: :with_vita_approved_taxpayer_id
-    }
-  }
-
-  def document_types_definitely_needed
-    []
-  end
-
-  def is_ctc?
-    true
-  end
-
-  def photo_id_display_names
-    names = []
-    PHOTO_ID_TYPES.each do |_, type|
-      if self.send(type[:field_name])
-        names << type[:display_name]
+      it "returns true" do
+        expect(intake.any_ip_pins?).to eq true
       end
     end
-    names.join(', ')
-  end
 
-  def taxpayer_id_display_names
-    names = []
-    TAXPAYER_ID_TYPES.each do |_, type|
-      if self.send(type[:field_name])
-        names << type[:display_name]
+    context "when no member of household has an IP PIN" do
+      let(:intake) { create :ctc_intake }
+
+      it "returns false" do
+        expect(intake.any_ip_pins?).to eq false
       end
     end
-    names.join(', ')
-  end
-
-  def any_ip_pins?
-    primary_ip_pin.present? || spouse_ip_pin.present? || dependents.any? { |d| d.ip_pin.present? }
-  end
-
-  # placeholders for signature pin columns
-  def primary_signature_pin
-    "12111"
-  end
-
-  def spouse_signature_pin
-    "12345"
-  end
-
-  def primary_signature_pin_at
-    updated_at
-  end
-
-  def spouse_signature_pin_at
-    updated_at
   end
 end

@@ -156,6 +156,9 @@ Rails.application.routes.draw do
           get "/hide-ssn", to: "clients/ssn_itins#hide", on: :member, as: :hide_ssn_itin
           get "/spouse-ssn", to: "clients/ssn_itins#show_spouse", on: :member, as: :show_spouse_ssn_itin
           get "/hide-spouse-ssn", to: "clients/ssn_itins#hide_spouse", on: :member, as: :hide_spouse_ssn_itin
+          get "/ip-pins", to: "clients/ip_pins#show", on: :member, as: :show_ip_pins
+          get "/hide-ip-pins", to: "clients/ip_pins#hide", on: :member, as: :hide_ip_pins
+
           resources :documents do
             get "/archived", to: "documents#archived", on: :collection, as: :archived
             get "/confirm", to: "documents#confirm", on: :member, as: :confirm

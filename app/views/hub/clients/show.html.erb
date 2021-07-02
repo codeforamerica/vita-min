@@ -108,6 +108,7 @@
           </div>
 
           <% if @client.intake.is_ctc? %>
+            <!-- Photo ID info-->
             <div class="client-profile__field-group">
               <h2 class="text--bold"><%= t(".photo_id_types") %></h2>
               <div class="field-display">
@@ -115,6 +116,7 @@
               </div>
             </div>
 
+            <!-- Taxpayer ID info-->
             <div class="client-profile__field-group">
               <h2 class="text--bold"><%= t(".taxpayer_id_types") %></h2>
               <div class="field-display">
@@ -226,6 +228,19 @@
                 <% end %>
               </div>
 
+            </div>
+          <% end %>
+
+          <% if @client.intake.is_ctc? && @client.intake.any_ip_pins? %>
+            <div class="client-profile__field-group ip-pins">
+              <h2 class="text--bold"><%= t(".ip_pins") %>:
+                <span id="js-toggle-ip-pins" style="font-weight: normal;">
+                  <%= link_to("View", show_ip_pins_hub_client_path, remote: true) %>
+                </span>
+              </h2>
+              <span id="js-ip-pins">
+                <%= render "hub/clients/hidden_ip_pins" %>
+              </span>
             </div>
           <% end %>
 
