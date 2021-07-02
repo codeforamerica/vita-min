@@ -15,10 +15,12 @@ class ClientChannel < ApplicationCable::Channel
 
   def self.broadcast_contact_record(contact_record)
     message = ApplicationController.render(partial: 'hub/messages/contact_record', locals: { contact_record: contact_record })
-    if message.size > 7000
+    begin
+      broadcast_to(contact_record.client, [message])
+    rescue PG::InvalidParameterValue
       # In the case the message is too big for ActionCable + Postgres, ask the user to reload
       message = I18n.t("hub.client_channel.please_reload_html")
+      broadcast_to(contact_record.client, [message])
     end
-    broadcast_to(contact_record.client, [message])
   end
 end
