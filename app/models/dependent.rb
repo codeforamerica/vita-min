@@ -5,6 +5,8 @@
 #  id                      :bigint           not null, primary key
 #  birth_date              :date
 #  disabled                :integer          default("unfilled"), not null
+#  encrypted_ssn           :string
+#  encrypted_ssn_iv        :string
 #  first_name              :string
 #  ip_pin                  :integer
 #  last_name               :string
@@ -26,6 +28,8 @@
 class Dependent < ApplicationRecord
   belongs_to :intake, inverse_of: :dependents
 
+  attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+
   enum was_student: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_student
   enum on_visa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :on_visa
   enum north_american_resident: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :north_american_resident
@@ -35,6 +39,18 @@ class Dependent < ApplicationRecord
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :birth_date
+  validates_presence_of :relationship, if: -> { intake&.is_ctc? }
+
+  validates_presence_of :ssn, if: -> { intake&.is_ctc? }
+  validates_confirmation_of :ssn, if: -> { ssn.present? && ssn_changed? }
+  validates :ssn, social_security_number: true, if: -> { ssn.present? }
+
+  validate :ip_pins_format
+  def ip_pins_format
+    if ip_pin.present? && !/\d{6}/.match?(ip_pin.to_s)
+      errors.add(:ip_pin, I18n.t("validators.ip_pin"))
+    end
+  end
 
   def full_name
     "#{first_name} #{last_name}"

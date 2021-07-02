@@ -262,6 +262,8 @@ RSpec.describe Hub::CreateCtcClientForm do
                   birth_date_year: "2013",
                   relationship: "child",
                   ip_pin: "345678",
+                  ssn: '111-22-3333',
+                  ssn_confirmation: '111-22-3333',
               }
           }
       }
@@ -592,7 +594,7 @@ RSpec.describe Hub::CreateCtcClientForm do
             it "states that all IP PINs must be a 6 digit number" do
               obj = described_class.new(params.merge(dependents_attributes))
               expect(obj.valid?).to eq false
-              expect(obj.errors[:dependents_attributes]).to include "IP PINs must be a 6 digit number."
+              expect(obj.dependents.last.errors[:ip_pin]).to include "IP PINs must be a 6 digit number."
             end
           end
 
@@ -601,10 +603,12 @@ RSpec.describe Hub::CreateCtcClientForm do
               dependents_attributes[:dependents_attributes]["0"][:relationship] = nil
             end
 
-            it "states all validation errors in a nicely formatted way" do
+            it "can present validation errors for multiple fields" do
               obj = described_class.new(params.merge(dependents_attributes))
               expect(obj.valid?).to eq false
-              expect(obj.errors[:dependents_attributes]).to include "Please enter the relationship of each dependent. IP PINs must be a 6 digit number."
+              new_dependent = obj.dependents.last
+              expect(new_dependent.errors[:relationship]).to include "Can't be blank."
+              expect(new_dependent.errors[:ip_pin]).to include "IP PINs must be a 6 digit number."
             end
           end
         end

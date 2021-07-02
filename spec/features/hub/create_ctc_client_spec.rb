@@ -59,6 +59,8 @@ RSpec.feature "Creating new drop off clients" do
         select "2008", from: "Year"
         select "Daughter", from: "Relationship"
         fill_in "IP PIN", with: "345678"
+        fill_in "SSN/ITIN", with: "222-33-6666"
+        fill_in "Re-enter SSN/ITIN", with: "222-33-6666"
       end
 
       within "#spouse-info" do
@@ -117,8 +119,9 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "123 Garden Ln"
       expect(page).to have_text "Brassicaville, CA 95032"
       within "#dependents-list" do
-        expect(page).to have_text "Miranda Mango, Daughter"
-        expect(page).to have_text "12/1/2008"
+        expect(page).to have_text "Name: Miranda Mango"
+        expect(page).to have_text "Relationship: Daughter"
+        expect(page).to have_text "Date of Birth: 12/1/2008"
       end
       expect(page).to have_text "TX"
       expect(page).to have_text "Peter Pepper"
@@ -158,9 +161,21 @@ RSpec.feature "Creating new drop off clients" do
         expect(page).to have_text "Miranda Mango: 345678"
       end
 
-      created_intake = Intake::CtcIntake.last
-      expect(created_intake.primary_ssn).to eq('222334444')
-      expect(created_intake.spouse_ssn).to eq('222335555')
+      within ".spouse-ssn" do
+        expect do
+          click_on "View"
+          expect(page).to have_text "222335555"
+        end.to change(AccessLog, :count).by(1)
+        expect(AccessLog.last.event_type).to eq "read_ssn_itin"
+      end
+
+      within ".dependent_#{Dependent.last.id}-ssn" do
+        expect do
+          click_on "View"
+          expect(page).to have_text "222336666"
+        end.to change(AccessLog, :count).by(1)
+        expect(AccessLog.last.event_type).to eq "read_ssn_itin"
+      end
 
       visit hub_clients_path
       expect(page).to have_content("Colly Cauliflower")

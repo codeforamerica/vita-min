@@ -144,7 +144,7 @@ RSpec.describe "a user editing a clients intake fields" do
       end
 
       click_on "Save"
-      expect(page).to have_text("Please enter the last name of each dependent.")
+      expect(page).to have_text("Please enter a last name.")
 
       within "#dependents-fields" do
         new_field_id = all(".dependent-form").last.first("input")["id"].tr('^0-9', '')

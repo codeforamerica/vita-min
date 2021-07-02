@@ -152,13 +152,10 @@ Rails.application.routes.draw do
           patch "/unlock", to: "clients#unlock", on: :member, as: :unlock
           get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account
           get "/hide-bai", to: "clients/bank_accounts#hide", on: :member, as: :hide_bank_account
-          get "/ssn", to: "clients/ssn_itins#show", on: :member, as: :show_ssn_itin
-          get "/hide-ssn", to: "clients/ssn_itins#hide", on: :member, as: :hide_ssn_itin
-          get "/spouse-ssn", to: "clients/ssn_itins#show_spouse", on: :member, as: :show_spouse_ssn_itin
-          get "/hide-spouse-ssn", to: "clients/ssn_itins#hide_spouse", on: :member, as: :hide_spouse_ssn_itin
           get "/ip-pins", to: "clients/ip_pins#show", on: :member, as: :show_ip_pins
           get "/hide-ip-pins", to: "clients/ip_pins#hide", on: :member, as: :hide_ip_pins
-
+          get "/show_secret", to: "clients/secrets#show", on: :member
+          get "/hide_secret", to: "clients/secrets#hide", on: :member
           resources :documents do
             get "/archived", to: "documents#archived", on: :collection, as: :archived
             get "/confirm", to: "documents#confirm", on: :member, as: :confirm

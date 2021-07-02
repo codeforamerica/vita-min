@@ -756,13 +756,6 @@ es:
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
-      dependents: Por favor, ingrese %{attrs} de su dependiente.
-      dependents_ip_pins: IP PINs must be a 6 digit number.
-      dependents_attributes:
-        first_name: el primer nombre
-        last_name: el apellido
-        birth_date: la fecha de nacimiento completa
-        relationship: relación con usted
       tax_returns: "Por favor, proporcione todos los campos obligatorios para las declaraciones de impuestos:: %{attrs}."
       tax_returns_attributes:
         is_hsa: es HSA
@@ -1264,6 +1257,7 @@ es:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
     ssn: Por favor, ingrese un número de seguro social válido.
+    ip_pin: IP PINs must be a 6 digit number.
     file_zero_length: "Sube un archivo válido. El archivo que cargó parece estar vacío."
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"

@@ -1,4 +1,27 @@
-<div class="label-indented">
-  <div><strong><%= dependent.full_name %></strong><%= ", #{translated_relationship(dependent.relationship)}" if dependent.relationship.present? %></div>
-  <div><%= default_date_format(dependent.birth_date) %></div>
-</div>
+<li class="label-indented spacing-below-15">
+  <div>
+    <span class="form-question">Name:</span>
+    <span class="label-value"><%= dependent.full_name %></span>
+  </div>
+  <div>
+    <span class="form-question">Relationship:</span>
+    <span class="label-value"><%= translated_relationship(dependent.relationship) %></span>
+  </div>
+  <div>
+    <span class="form-question">Date of Birth:</span>
+    <span class="label-value"><%= default_date_format(dependent.birth_date) %></span>
+  </div>
+  <% if dependent.ssn.present? %>
+    <div class="<%= dom_id(dependent) %>-ssn">
+      <span class="form-question">SSN/ITIN:</span>
+      <span class="label-value">
+        <span id="js-secret-dependent_ssn-<%= dependent.id %>">
+          <%= render "hub/clients/hidden_ssn_itin" %>
+        </span>
+        <span id="js-toggle-secret-dependent_ssn-<%= dependent.id %>">
+          <%= link_to("View", show_secret_hub_client_path(secret_name: :dependent_ssn, secret_record_id: dependent.id), remote: true) %>
+        </span>
+      </span>
+    </div>
+  <% end %>
+</li>

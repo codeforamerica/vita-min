@@ -1,6 +1,5 @@
 module Hub
   class ClientForm < Form
-    include WithDependentsAttributes
     include FormAttributes
     set_attributes_for :intake,
         :sms_phone_number,
@@ -18,6 +17,13 @@ module Hub
       self.sms_phone_number = PhoneParser.normalize(sms_phone_number)
       self.phone_number = PhoneParser.normalize(phone_number)
       self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
+
+      if dependents_attributes
+        dependents_attributes.each do |_k, attrs|
+          attrs[:ssn]&.remove!(/\D/)
+          attrs[:ssn_confirmation]&.remove!(/\D/)
+        end
+      end
     end
 
     validates :email_address, 'valid_email_2/email': true
@@ -29,6 +35,32 @@ module Hub
     validates :state_of_residence, inclusion: { in: States.keys }
     validates :preferred_interview_language, presence: true, allow_blank: false
     validate :at_least_one_contact_method
+
+    attr_accessor :dependents_attributes
+
+    def valid?
+      form_valid = super
+      dependents_valid = dependents.map(&:valid?)
+      form_valid && !dependents_valid.include?(false)
+    end
+
+    def dependents
+      @_dependents ||= begin
+        unless @dependents_attributes.present?
+          return @client.present? ? @client.intake.dependents : Dependent.none
+        end
+
+        intake = @client&.intake.dup || default_attributes[:type].constantize.new
+        @dependents_attributes&.map do |_, v|
+          next if v["_destroy"] == "1"
+
+          v.delete :_destroy # delete falsey _destroy value on reload to initialize dependent again
+          dependent = intake.dependents.find { |i| i.id == v[:id].to_i } || intake.dependents.new
+          dependent.assign_attributes(formatted_dependent_attrs(v))
+        end.compact
+        intake.dependents
+      end
+    end
 
     private
 
@@ -48,6 +80,17 @@ module Hub
       unless opted_in_email? || opted_in_sms?
         errors.add(:communication_preference, I18n.t("forms.errors.need_one_communication_method"))
       end
+    end
+
+    def formatted_dependents_attributes
+      @dependents_attributes&.map { |k, v| [k, formatted_dependent_attrs(v)] }.to_h
+    end
+
+    def formatted_dependent_attrs(attrs)
+      if attrs[:birth_date_month] && attrs[:birth_date_month] && attrs[:birth_date_year]
+        attrs[:birth_date] = "#{attrs[:birth_date_year]}-#{attrs[:birth_date_month]}-#{attrs[:birth_date_day]}"
+      end
+      attrs.except!(:birth_date_month, :birth_date_day, :birth_date_year)
     end
   end
 end

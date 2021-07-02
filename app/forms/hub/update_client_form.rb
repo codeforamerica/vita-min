@@ -43,10 +43,6 @@ module Hub
       self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
     end
 
-    def required_dependents_attributes
-      [:birth_date, :first_name, :last_name].freeze
-    end
-
     def self.existing_attributes(intake)
       non_model_attrs = { primary_last_four_ssn: intake.primary_last_four_ssn, spouse_last_four_ssn: intake.spouse_last_four_ssn }
       super.merge(non_model_attrs)
