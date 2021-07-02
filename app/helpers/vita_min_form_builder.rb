@@ -203,7 +203,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   end
 
   def vita_min_date_text_fields(method, label_text, options: {}, classes: [])
-    date_text_fields = [["day", 2], ["month", 2], ["year", 4]].map do |date_component, max_length|
+    date_text_fields = [["month", 2], ["day", 2], ["year", 4]].map do |date_component, max_length|
       date_component_slug = "#{method}_#{date_component}"
       classes += ["text-input date-text-input form-width--short"]
       classes += ["date-text-input-year"] if date_component == "year"

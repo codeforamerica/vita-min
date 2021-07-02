@@ -145,7 +145,7 @@ RSpec.describe VitaMinFormBuilder do
         )
       expect(output).to be_html_safe
       doc = Nokogiri::HTML(output)
-      expect(doc.css('input').map { |i| i.attribute('name').value }).to eq(["form[birth_date_day]", "form[birth_date_month]", "form[birth_date_year]"])
+      expect(doc.css('input').map { |i| i.attribute('name').value }).to eq(["form[birth_date_month]", "form[birth_date_day]", "form[birth_date_year]"])
       expect(doc.css('input').map { |i| i.attribute('maxlength').value }).to eq(["2", "2", "4"])
     end
   end
