@@ -5,6 +5,8 @@
 #  id                      :bigint           not null, primary key
 #  birth_date              :date
 #  disabled                :integer          default("unfilled"), not null
+#  encrypted_ssn           :string
+#  encrypted_ssn_iv        :string
 #  first_name              :string
 #  ip_pin                  :integer
 #  last_name               :string

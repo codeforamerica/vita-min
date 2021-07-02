@@ -15,7 +15,7 @@
             <%= render "shared/navigator_fields", f: f %>
             <%= render "shared/address_fields", f: f %>
 
-            <%= render "shared/dependents_fields", f: f %>
+            <%= render "shared/dependents_fields", f: f, is_ctc: @client.intake.is_ctc? %>
 
             <%= render "shared/client_spouse_info_fields", f: f %>
 

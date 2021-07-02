@@ -63,6 +63,13 @@ module Hub
                        :primary_ssn_confirmation,
                        :spouse_ssn_confirmation
     attr_accessor :client
+
+    before_validation do
+      [primary_ssn, primary_ssn_confirmation, spouse_ssn, spouse_ssn_confirmation].each do |field|
+        field.remove!(/\D/) if field
+      end
+    end
+
     # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
@@ -102,12 +109,6 @@ module Hub
     validate :at_least_one_taxpayer_id_type_selected
     validate :complete_birth_dates
 
-    before_validation :clean_ssns
-
-    def required_dependents_attributes
-      [:birth_date, :first_name, :last_name, :relationship].freeze
-    end
-
     def save(current_user)
       @current_user = current_user
       run_callbacks :save do
@@ -143,12 +144,6 @@ module Hub
         rescue ArgumentError
           errors.add(field.to_sym, error_message)
         end
-      end
-    end
-
-    def clean_ssns
-      [primary_ssn, primary_ssn_confirmation, spouse_ssn, spouse_ssn_confirmation].each do |field|
-        field.remove!(/\D/) if field
       end
     end
 

@@ -142,11 +142,11 @@ RSpec.describe Hub::UpdateClientForm do
         }
       end
 
-      it "adds an error onto the form object for dependents_attributes" do
+      it "adds an error to any dependants that fail validations" do
         form = described_class.new(client, form_attributes)
         form.save
         expect(form.valid?).to be false
-        expect(form.errors[:dependents_attributes]).to be_present
+        expect(form.dependents.map { |d| d.errors.keys }).to match_array([[], [:last_name, :birth_date]])
       end
     end
 
@@ -167,12 +167,12 @@ RSpec.describe Hub::UpdateClientForm do
     context "adding a dependent with blank fields" do
       before do
         form_attributes[:dependents_attributes]["1"] = {
-            "id" => "",
-            "first_name" => "New",
-            "last_name" => "",
-            "birth_date_month" => "September",
-            "birth_date_day" => "4",
-            "birth_date_year" => "2001"
+            id: "",
+            first_name: "New",
+            last_name: "",
+            birth_date_month: "September",
+            birth_date_day: "4",
+            birth_date_year: "2001"
         }
       end
 
@@ -180,8 +180,7 @@ RSpec.describe Hub::UpdateClientForm do
         form = described_class.new(client, form_attributes)
         form.save
         expect(form).not_to be_valid
-        expect(form.errors).to include :dependents_attributes
-        expect(form.errors[:dependents_attributes]).to eq(["Please enter the last name of each dependent."])
+        expect(form.dependents.map { |d| d.errors.keys }).to match_array([[], [:last_name]])
       end
     end
   end

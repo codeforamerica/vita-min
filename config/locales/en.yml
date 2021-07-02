@@ -767,13 +767,6 @@ en:
       need_one_communication_method: Please choose some way for us to contact you.
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_phone_number: Please enter a cell phone number.
-      dependents: Please enter the %{attrs} of each dependent.
-      dependents_ip_pins: IP PINs must be a 6 digit number.
-      dependents_attributes:
-        first_name: first name
-        last_name: last name
-        birth_date: birth date
-        relationship: relationship
       tax_returns: "Please provide all required fields for tax returns: %{attrs}."
       tax_returns_attributes:
         is_hsa: is HSA
@@ -1282,6 +1275,7 @@ en:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
     ssn: Please enter a valid social security number.
+    ip_pin: IP PINs must be a 6 digit number.
     pdf_file_type: "%{document_type} must be a PDF file"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} must be associated with a tax year."
   views:

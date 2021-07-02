@@ -18,9 +18,26 @@
             dependent_relationship_options(current_relationship: f.object.relationship, is_ctc: is_ctc),
             include_blank: true
     ) %>
+
   <% if is_ctc %>
+    <%= f.cfa_input_field(
+        :ssn,
+        t("general.ssn"),
+        type: :tel,
+        classes: ["form-width--name"],
+        options: { maxlength: 11 }
+        ) %>
+    <%= f.cfa_input_field(
+        :ssn_confirmation,
+        "Re-enter SSN/ITIN",
+        type: :tel,
+        classes: ["form-width--name"],
+        options: { maxlength: 11 }
+        ) %>
+
     <%= f.cfa_input_field(:ip_pin, t("general.ip_pin")) %>
   <% end %>
+
   <%= f.hidden_field :_destroy %>
   <%= link_to_remove_fields t("views.shared.dependents_fields.remove"), '.dependent-form', { class: "button button--small"} %>
   <hr/>
