@@ -16,7 +16,11 @@ FactoryBot.define do
     tax_return
 
     trait :ctc do
-      tax_return { create(:tax_return, :ctc) }
+      transient do
+        tax_year { 2020 }
+        filing_status { "married_filing_jointly" }
+      end
+      tax_return { create(:tax_return, :ctc, year: tax_year, filing_status: filing_status) }
     end
 
     EfileSubmissionStateMachine.states.each do |state|

@@ -465,7 +465,7 @@ class Intake < ApplicationRecord
       #{city}, #{state} #{zip_code}
     ADDRESS
   end
-
+  
   def update_or_create_13614c_document(filename)
     ClientPdfDocument.create_or_update(
       output_file: pdf,

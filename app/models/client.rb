@@ -176,13 +176,13 @@ class Client < ApplicationRecord
   def legal_name
     return unless intake&.primary_first_name? && intake&.primary_last_name?
 
-    "#{intake.primary_first_name} #{intake.primary_last_name}"
+    "#{intake.primary_first_name.strip} #{intake.primary_last_name.strip}"
   end
 
   def spouse_legal_name
     return unless intake&.spouse_first_name? && intake&.spouse_last_name?
 
-    "#{intake.spouse_first_name} #{intake.spouse_last_name}"
+    "#{intake.spouse_first_name.strip} #{intake.spouse_last_name.strip}"
   end
 
   def flag!
