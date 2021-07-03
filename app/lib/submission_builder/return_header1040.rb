@@ -52,7 +52,7 @@ module SubmissionBuilder
             xml.PhoneNum phone_type(@intake.phone_number)
           }
           xml.OnlineFilerInformation {
-            if @intake.ctc_refund_delivery_method_direct_deposit?
+            if @intake.refund_payment_method_direct_deposit?
               xml.RoutingTransitNum @intake.bank_routing_number
               xml.DepositorAccountNum @intake.bank_account_number
             else
@@ -61,7 +61,7 @@ module SubmissionBuilder
           }
           xml.AdditionalFilerInformation {
             xml.AtSubmissionCreationGrp {
-              if @intake.ctc_refund_delivery_method_direct_deposit?
+              if @intake.refund_payment_method_direct_deposit?
                 xml.RoutingTransitNum @intake.bank_routing_number
                 xml.DepositorAccountNum @intake.bank_account_number
                 xml.BankAccountDataCapturedTs @intake.completed_at # TODO: Replace with more accurate timestamp.

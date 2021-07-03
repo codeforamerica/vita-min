@@ -16,7 +16,6 @@
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
-#  ctc_refund_delivery_method                           :integer
 #  current_step                                         :string
 #  demographic_disability                               :integer          default(0), not null
 #  demographic_english_conversation                     :integer          default(0), not null
@@ -132,7 +131,7 @@
 #  recovery_rebate_credit_amount_2                      :integer
 #  recovery_rebate_credit_amount_confidence             :integer
 #  referrer                                             :string
-#  refund_payment_method                                :integer          default(0), not null
+#  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default(0), not null
 #  reported_self_employment_loss                        :integer          default(0), not null
 #  requested_docs_token                                 :string

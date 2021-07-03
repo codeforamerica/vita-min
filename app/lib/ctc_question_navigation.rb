@@ -9,5 +9,10 @@ class CtcQuestionNavigation
     Ctc::Questions::EmailAddressController,
 
     Ctc::Questions::PlaceholderQuestionController,
+
+    # payments information
+    Ctc::Questions::RefundPaymentController,
+    Ctc::Questions::DirectDepositController,
+    Ctc::Questions::MailingAddressController,
   ].freeze
 end

@@ -2,7 +2,7 @@
   <h3><%= t("hub.clients.fields.payment_information") %></h3>
   <div class="question-with-follow-up">
     <div class="hub-form__radio-set question-with-follow-up__question">
-      <%= f.cfa_radio_set :ctc_refund_delivery_method, label_text: "Refund delivery method", collection: [
+      <%= f.cfa_radio_set :refund_payment_method, label_text: "Refund delivery method", collection: [
           { label: "Check", value: :check },
           { label: "Direct Deposit", value: :direct_deposit, input_html: { "data-follow-up": "#bank-account-questions" } },
       ] %>

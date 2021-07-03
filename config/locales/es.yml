@@ -772,6 +772,7 @@ es:
         not_found: No se pudo encontrar la entrada de enrutamiento coincidente para %{state}. Intentar otra vez.
       general: Por favor, corrija los errores indicados antes de continuar.
   general:
+    intercom_help: Necesito ayuda
     filing_status:
       single: Soltero (S)
       married_filing_jointly: Casado que presenta una declaración conjunta (MFJ)

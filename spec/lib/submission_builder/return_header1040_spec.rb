@@ -122,7 +122,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
 
       context "filing with direct deposit" do
         before do
-          submission.intake.update(ctc_refund_delivery_method: "direct_deposit")
+          submission.intake.update(refund_payment_method: "direct_deposit")
         end
 
         it "includes direct deposit nodes and excludes CheckCd" do
@@ -135,7 +135,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
 
       context "filing requesting a check payment" do
         before do
-          submission.intake.update(ctc_refund_delivery_method: "check")
+          submission.intake.update(refund_payment_method: "check")
         end
 
         it "includes CheckCd and exclude direct deposit nodes" do

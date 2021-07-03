@@ -10,7 +10,7 @@ module Ctc
     validates :sms_phone_number, e164_phone: true
 
     def save
-      @intake.update({sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes"})
+      @intake.update({ sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes" })
     end
 
     private

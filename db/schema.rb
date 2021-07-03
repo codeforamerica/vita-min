@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_01_174549) do
+ActiveRecord::Schema.define(version: 2021_07_03_182326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -385,7 +385,6 @@ ActiveRecord::Schema.define(version: 2021_07_01_174549) do
     t.datetime "completed_yes_no_questions_at"
     t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
-    t.integer "ctc_refund_delivery_method"
     t.string "current_step"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false

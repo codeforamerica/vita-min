@@ -49,7 +49,7 @@ module Hub
                        :recovery_rebate_credit_amount_1,
                        :recovery_rebate_credit_amount_2,
                        :recovery_rebate_credit_amount_confidence,
-                       :ctc_refund_delivery_method,
+                       :refund_payment_method,
                        :navigator_name,
                        :navigator_has_verified_client_identity
     set_attributes_for :tax_return,
@@ -67,11 +67,11 @@ module Hub
     validates :filing_status, presence: true
     after_save :send_confirmation_message, :send_mixpanel_data, :add_system_note
 
-    validates :ctc_refund_delivery_method, presence: true
+    validates :refund_payment_method, presence: true
     validates :navigator_name, presence: true
     validates :navigator_has_verified_client_identity, inclusion: { in: [true, '1'], message: I18n.t('errors.messages.blank') }
 
-    with_options if: -> { ctc_refund_delivery_method == "direct_deposit" } do
+    with_options if: -> { refund_payment_method == "direct_deposit" } do
       validates_confirmation_of :bank_routing_number
       validates_confirmation_of :bank_account_number
       validates_presence_of :bank_name

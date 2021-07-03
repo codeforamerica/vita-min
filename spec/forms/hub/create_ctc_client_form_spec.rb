@@ -46,7 +46,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         recovery_rebate_credit_amount_1: "$280",
         recovery_rebate_credit_amount_2: "$250",
         recovery_rebate_credit_amount_confidence: "sure",
-        ctc_refund_delivery_method: "check",
+        refund_payment_method: "check",
         navigator_name: "Tax Seasonson",
         navigator_has_verified_client_identity: true,
         with_passport_photo_id: "1",
@@ -432,9 +432,9 @@ RSpec.describe Hub::CreateCtcClientForm do
         end
       end
 
-      context "CTC refund method" do
+      context "refund payment method" do
         before do
-          params[:ctc_refund_delivery_method] = nil
+          params[:refund_payment_method] = nil
         end
 
         it "is required" do
@@ -444,13 +444,13 @@ RSpec.describe Hub::CreateCtcClientForm do
         it "pushes errors for ctc refund method into the errors" do
           obj = described_class.new(params)
           obj.valid?
-          expect(obj.errors[:ctc_refund_delivery_method]).to include "Can't be blank."
+          expect(obj.errors[:refund_payment_method]).to include "Can't be blank."
         end
       end
 
       context "when the CTC refund method is check" do
         before do
-          params[:ctc_refund_delivery_method] = "check"
+          params[:refund_payment_method] = "check"
         end
 
         context "bank_account_number" do
@@ -466,9 +466,9 @@ RSpec.describe Hub::CreateCtcClientForm do
         end
       end
 
-      context "when the CTC refund method is direct deposit" do
+      context "when refund payment method is direct deposit" do
         before do
-          params[:ctc_refund_delivery_method] = "direct_deposit"
+          params[:refund_payment_method] = "direct_deposit"
         end
 
         context "bank_account_number" do

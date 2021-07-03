@@ -1,12 +1,10 @@
 <div role="alert">
   <h2 class="sr-only"><%= t("hub.bank_accounts.info_displayed") %></h2>
 
-  <% if @client.intake.is_ctc? %>
-    <p>
-      <span class="hc-label">Refund delivery method:</span>
-      <span class="label-value"><%= @client.intake.ctc_refund_delivery_method.humanize %> </span>
-    </p>
-  <% end %>
+  <p>
+    <span class="hc-label">Refund delivery method:</span>
+    <span class="label-value"><%= @client.intake.refund_payment_method.humanize %> </span>
+  </p>
 
   <p>
     <span class="hc-label"><%= t("hub.bank_accounts.bank_name") %>:</span>

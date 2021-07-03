@@ -16,7 +16,6 @@
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
-#  ctc_refund_delivery_method                           :integer
 #  current_step                                         :string
 #  demographic_disability                               :integer          default(0), not null
 #  demographic_english_conversation                     :integer          default(0), not null
@@ -132,7 +131,7 @@
 #  recovery_rebate_credit_amount_2                      :integer
 #  recovery_rebate_credit_amount_confidence             :integer
 #  referrer                                             :string
-#  refund_payment_method                                :integer          default(0), not null
+#  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default(0), not null
 #  reported_self_employment_loss                        :integer          default(0), not null
 #  requested_docs_token                                 :string
@@ -262,6 +261,8 @@ class Intake < ApplicationRecord
   enum signature_method: { online: 0, in_person: 1 }, _prefix: :signature_method
   enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
   enum primary_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_consented_to_service
+  enum refund_payment_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :refund_payment_method
+
 
   NAVIGATOR_TYPES = {
     general: {

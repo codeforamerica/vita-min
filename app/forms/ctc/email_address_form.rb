@@ -7,7 +7,6 @@ module Ctc
     validates :email_address, confirmation: true
     validates :email_address_confirmation, presence: true
 
-
     def save
       @intake.update(attributes_for(:intake).merge(email_notification_opt_in: "yes"))
     end
