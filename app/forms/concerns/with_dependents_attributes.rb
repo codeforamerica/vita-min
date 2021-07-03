@@ -58,7 +58,7 @@ module WithDependentsAttributes
 
   def ip_pins_format
     at_least_one_invalid_ip_pin = @dependents_attributes&.any? do |_, attrs|
-      !/\d{6}/.match?(attrs[:ip_pin])
+      attrs[:ip_pin].present? && !/\d{6}/.match?(attrs[:ip_pin])
     end
 
     if at_least_one_invalid_ip_pin
