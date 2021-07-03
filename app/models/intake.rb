@@ -231,7 +231,6 @@ class Intake < ApplicationRecord
   has_many :tax_returns, through: :client
   belongs_to :vita_partner, optional: true
   accepts_nested_attributes_for :dependents, allow_destroy: true
-
   scope :completed_yes_no_questions, -> { where.not(completed_yes_no_questions_at: nil) }
 
   validates :email_address, 'valid_email_2/email': true

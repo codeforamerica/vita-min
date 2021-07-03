@@ -27,7 +27,7 @@ describe Ctc::Questions::PersonalInfoController do
       expect(intake.preferred_name).to eq "Gil"
       expect(intake.timezone).to eq "America/Chicago"
       expect(intake.visitor_id).to be_present
-      expect(response).to redirect_to "/en/questions/placeholder-question"
+      expect(response).to redirect_to questions_contact_preference_path
     end
 
     it "stores the intake to the session" do
@@ -36,5 +36,4 @@ describe Ctc::Questions::PersonalInfoController do
       expect(session[:intake_id]).to eq intake.id
     end
   end
-
 end
