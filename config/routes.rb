@@ -222,6 +222,10 @@ Rails.application.routes.draw do
       put "hub/users/invitations/:user_id/resend", to: "invitations#resend_invitation", as: :user_resend_invitation
       ### END Hub Admin routes (Case Management)
 
+      unless Rails.env.production?
+        resources :flows, only: [:index, :show]
+      end
+
       # Any other top level slash just goes to home as a source parameter
       get "/:source" => "public_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
     end

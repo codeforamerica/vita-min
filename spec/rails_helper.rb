@@ -106,11 +106,25 @@ RSpec.configure do |config|
   if ENV['CAPYBARA_WALKTHROUGH_SCREENSHOTS']
     CapybaraWalkthroughScreenshots.hook!(config)
   end
+
+  if ENV['FLOW_EXPLORER_SCREENSHOTS'] == 'true'
+    FlowExplorerScreenshots.hook!(config)
+  end
 end
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
+  end
+end
+
+RSpec.configure do |config|
+  config.before(type: :feature) do |example|
+    if ENV['FLOW_EXPLORER_SCREENSHOTS'] == 'true'
+      example.metadata[:js] = true
+      Capybara.current_driver = Capybara.javascript_driver
+      Capybara.page.current_window.resize_to(2000, 4000)
+    end
   end
 end

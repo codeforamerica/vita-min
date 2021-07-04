@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application', defer: true %>
+
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="flow-explorer-container">
+    <div class="page-wrapper">
+      <%= yield %>
+    </div>
+    <div class="frame-wrapper">
+      <iframe class="flow-explorer-frame" src="about:blank"></iframe>
+    </div>
+  </body>
+</html>

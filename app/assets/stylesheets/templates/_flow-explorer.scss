@@ -1,0 +1,102 @@
+.flow-explorer-screenshot {
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.flow-explorer-line {
+  display: flex;
+
+  .reveal {
+    margin-top: 1.5rem;
+    background-color: #F7F5F4;
+    border: 2px solid #CFC5BF;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    font-size: 1.6rem;
+  }
+
+  .reveal-content {
+    background-color: transparent;
+    border: none;
+    margin-top: 0;
+  }
+}
+
+.flow-explorer-cards {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+
+  a:link {
+    text-decoration: none;
+    &:hover .name {
+      text-decoration: underline;
+    }
+  }
+
+  .name {
+    padding-left: $s10;
+  }
+
+  h2 {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.flow-explorer-card {
+  background-color: white;
+  padding: $s25;
+  border-radius: 10px;
+}
+
+.flow-explorer-card-spacer {
+  margin-bottom: $s25;
+}
+
+.flow-explorer-container {
+  min-height: 100vh;
+  display: flex;
+
+  .page-wrapper {
+    width: 50%;
+    @media screen and (max-width: 800px) {
+      width: auto;
+    }
+  }
+
+  .form-group {
+    margin: 0 10px 20px 1.25rem;
+    label {
+      display: block;
+    }
+    select {
+      height: 23px;
+    }
+  }
+
+  .frame-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
+  }
+
+  .flow-explorer-frame {
+    width: 100%;
+    height: 100%;
+  }
+
+  .flow-explorer-page-selected {
+    font-weight: 700;
+    &:before {
+      display: inline-block;
+      content: '🎯';
+      margin-right: 5px;
+    }
+  }
+}

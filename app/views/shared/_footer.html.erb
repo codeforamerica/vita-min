@@ -81,6 +81,7 @@
         <% end %>
 
         <% unless Rails.env.production? %>
+          <li><%= link_to "Flow explorer", flows_path %></li>
           <li><a href="https://walkthroughs-getyourrefund.github.io">Walkthroughs</a></li>
         <% end %>
       </ul>

@@ -1,0 +1,57 @@
+<script>
+  function ready(fn) {
+    if (document.readyState != 'loading'){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  }
+
+  ready(function () {
+    function highlightSelectedPage(newLocation, scrollIntoView) {
+      if (document.querySelectorAll('.flow-explorer-page-selected').length == 1 && document.querySelector('.flow-explorer-page-selected').getAttribute('href') == newLocation) {
+        return;
+      }
+
+      Array.prototype.forEach.call(document.querySelectorAll('.flow-explorer-link'), function (link) {
+        link.classList.remove('flow-explorer-page-selected');
+      });
+      if (newLocation != 'blank') {
+        let selectedPageLink = document.querySelector(".flow-explorer-link[href='" + newLocation + "']");
+        selectedPageLink.classList.add('flow-explorer-page-selected');
+        if (scrollIntoView && selectedPageLink) {
+          if (selectedPageLink.scrollIntoViewIfNeeded) {
+            selectedPageLink.scrollIntoViewIfNeeded();
+          } else {
+            selectedPageLink.scrollIntoView();
+          }
+        }
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      for (let target = e.target; target && target != this; target = target.parentNode) {
+        if (target.matches('.flow-explorer-link')) {
+          if (document.querySelectorAll('.flow-explorer-frame').length == 0) {
+            return;
+          }
+
+          let newSrc = $(e.target).attr('href');
+          document.querySelector('.flow-explorer-frame').setAttribute('src', newSrc);
+          highlightSelectedPage(newSrc);
+
+          e.preventDefault();
+        }
+      }
+    });
+
+    document.querySelector('.flow-explorer-frame').addEventListener('load', function () {
+      let iframeLocation = document.querySelector('.flow-explorer-frame').contentWindow.location;
+      if (iframeLocation.pathname != document.querySelector('.flow-explorer-frame').getAttribute('src')) {
+        $.ajax({url: window.location.pathname, dataType: 'script'}).done(function () {
+          highlightSelectedPage(iframeLocation.pathname, true);
+        });
+      }
+    });
+  });
+</script>

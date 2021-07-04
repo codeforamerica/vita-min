@@ -1,0 +1,12 @@
+<h1>GetYourRefund Flow Explorer</h1>
+
+<div class="flow-explorer-cards">
+  <% @flow_config.each do |flow_id, flow_config| %>
+    <%= link_to flow_path(id: flow_id) do %>
+      <div class="flow-explorer-card">
+        <h2><%= flow_config[:emoji] %><span class="name"><%= flow_config[:name] %></span></h2>
+      </div>
+    <% end %>
+    <div class="flow-explorer-card-spacer"></div>
+  <% end %>
+</div>
