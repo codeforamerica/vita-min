@@ -1,5 +1,9 @@
-def attach(selector, path)
-  script = "$(\"[name='#{selector}']\").css({opacity: 100, display: 'block', position: 'relative', left: ''});"
-  page.execute_script(script)
-  attach_file selector, path
+def upload_file(field, file)
+  if Capybara.current_driver == Capybara.javascript_driver
+    # File automatically uploads on attach when there's JavaScript around
+    attach_file(field, file, make_visible: true)
+  else
+    attach_file(field, file)
+    click_on "Upload"
+  end
 end

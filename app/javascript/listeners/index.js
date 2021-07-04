@@ -14,6 +14,10 @@ const Listeners =  (function(){
     return {
         init: function () {
             window.addEventListener("load", function() {
+                if (!window.appData) {
+                    return;
+                }
+
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
 
                 if (window.appData.controller_action == "Hub::Users::InvitationsController#edit") {

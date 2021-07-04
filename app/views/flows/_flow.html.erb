@@ -1,0 +1,54 @@
+<p>
+  <% if flow_params.reference_object %>
+    Reference Object: <strong><%= flow_params.pretty_reference_object %></strong>
+  <% else %>
+    <strong>No Reference Object -- Showing All Pages</strong>
+  <% end %>
+</p>
+
+<ul>
+  <% flow_params.controllers.decorated.each do |decorated_controller| %>
+    <li>
+      <div class="flow-explorer-line spacing-below-10">
+        <div class="flow-explorer-screenshot">
+          <%=
+            image_tag(
+            [screenshot_base, I18n.locale, "#{decorated_controller.name}.png"].join('/'),
+            onerror: 'this.onerror = null; $(this).hide()'
+            )
+          %>
+        </div>
+        <div style="padding-left: 20px;">
+          <%=
+            link_to(
+              decorated_controller.controller_url,
+              class: 'flow-explorer-link',
+              style: flow_params.reference_object && decorated_controller.unreachable?(flow_params.reference_object) ? 'font-style: italic; color: #aaa;' : ''
+            ) do %>
+            <% navigation_entry_action_title = decorated_controller.navigation_entry_action_title(flow_params.title_i18n_params) %>
+            <% if navigation_entry_action_title.is_a?(Hash) %>
+              <ul>
+                <% navigation_entry_action_title.each do |k, v| %>
+                  <li><strong>(<%= k.upcase %>)</strong>: <%= v %></li>
+                <% end %>
+              </ul>
+            <% else %>
+              <%= navigation_entry_action_title %>
+            <% end %>
+          <% end %>
+          <div>
+            <%= decorated_controller %>
+            <% if decorated_controller.methods(false).include?(:show?) %>
+              <div class="reveal">
+                <span class="text--small"><a href="#" class="reveal__link"><%= 'Show Conditions' %></a></span>
+                <div class="reveal__content">
+                  <pre><%= decorated_controller.__getobj__.method(:show?).source %></pre>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
