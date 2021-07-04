@@ -185,6 +185,7 @@
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
+#  bank_account_id                                      :bigint
 #  client_id                                            :bigint
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
@@ -199,6 +200,7 @@
 #
 # Indexes
 #
+#  index_intakes_on_bank_account_id                          (bank_account_id)
 #  index_intakes_on_client_id                                (client_id)
 #  index_intakes_on_email_address                            (email_address)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at    (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
@@ -235,7 +237,6 @@ class Intake < ApplicationRecord
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, :sms_phone_number, allow_blank: true, e164_phone: true
   validates_presence_of :visitor_id
-
   before_save do
     self.needs_to_flush_searchable_data_set_at = Time.current
   end

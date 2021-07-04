@@ -185,6 +185,7 @@
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
+#  bank_account_id                                      :bigint
 #  client_id                                            :bigint
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
@@ -199,6 +200,7 @@
 #
 # Indexes
 #
+#  index_intakes_on_bank_account_id                          (bank_account_id)
 #  index_intakes_on_client_id                                (client_id)
 #  index_intakes_on_email_address                            (email_address)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at    (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
@@ -320,6 +322,14 @@ class Intake::GyrIntake < Intake
     relevant_document_types.select(&:needed_if_relevant?).reject do |document_type|
       documents.where(document_type: document_type.key).present?
     end
+  end
+
+  # create a faux bank account to turn bank account data into a BankAccount object
+  def bank_account
+    return nil unless encrypted_bank_account_number || encrypted_bank_name || encrypted_bank_routing_number
+
+    type = BankAccount.account_types.keys.include?(bank_account_type) ? bank_account_type : nil
+    @bank_account ||= BankAccount.new(account_type: type, bank_name: bank_name, account_number: bank_account_number, routing_number: bank_routing_number)
   end
 
   def document_types_possibly_needed

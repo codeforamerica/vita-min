@@ -6,6 +6,8 @@ module Hub
       load_and_authorize_resource :client, parent: false
 
       def show
+        # must load bank account through intake because of unpersisted BankAccount object for GYRIntake
+        @bank_account = @client.intake.bank_account
         AccessLog.create!(
           user: current_user,
           record: @client,

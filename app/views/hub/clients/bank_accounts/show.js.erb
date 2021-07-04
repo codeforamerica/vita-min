@@ -1,2 +1,2 @@
-$('#js-bank-account-info').html("<%= escape_javascript render(partial: 'hub/clients/displayed_bank_account_info', client: @client) %>");
+$('#js-bank-account-info').html("<%= escape_javascript render(partial: 'hub/clients/displayed_bank_account_info') %>");
 $('#js-toggle-bank-account-info').html("<%= escape_javascript link_to('Hide', hide_bank_account_hub_client_path, remote: true) %>");

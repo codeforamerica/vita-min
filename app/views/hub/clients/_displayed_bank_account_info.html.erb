@@ -8,18 +8,18 @@
 
   <p>
     <span class="hc-label"><%= t("hub.bank_accounts.bank_name") %>:</span>
-    <span class="label-value"><%= @client.intake.bank_name %> </span>
+    <span class="label-value"><%= @bank_account.bank_name %> </span>
   </p>
   <p>
     <span class="hc-label"><%= t("hub.bank_accounts.account_type") %>:</span>
-    <span class="label-value"><%= @client.intake.bank_account_type == "unfilled" ? t("general.NA") : t("hub.bank_accounts.#{@client.intake.bank_account_type}") %> </span>
+    <span class="label-value"><%=  t("hub.bank_accounts.#{@bank_account.account_type}", default: "N/A") %> </span>
   </p>
   <p>
     <span class="hc-label"><%= t("hub.bank_accounts.account_number") %>:</span>
-    <span class="label-value"><%= @client.intake.bank_account_number %> </span>
+    <span class="label-value"><%= @bank_account.account_number %> </span>
   </p>
   <p>
     <span class="hc-label"><%= t("hub.bank_accounts.routing_number") %>:</span>
-    <span class="label-value"><%= @client.intake.bank_routing_number %> </span>
+    <span class="label-value"><%= @bank_account.routing_number %> </span>
   </p>
 </div>

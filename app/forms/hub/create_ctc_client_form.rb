@@ -42,10 +42,6 @@ module Hub
                        :with_social_security_taxpayer_id,
                        :with_itin_taxpayer_id,
                        :with_vita_approved_taxpayer_id,
-                       :bank_account_number,
-                       :bank_routing_number,
-                       :bank_account_type,
-                       :bank_name,
                        :recovery_rebate_credit_amount_1,
                        :recovery_rebate_credit_amount_2,
                        :recovery_rebate_credit_amount_confidence,
@@ -56,10 +52,15 @@ module Hub
                        :filing_status,
                        :filing_status_note
     set_attributes_for :confirmation,
-                       :bank_account_number_confirmation,
-                       :bank_routing_number_confirmation,
+                       :account_number_confirmation,
+                       :routing_number_confirmation,
                        :primary_ssn_confirmation,
                        :spouse_ssn_confirmation
+    set_attributes_for :bank_account,
+                       :routing_number,
+                       :account_number,
+                       :bank_name,
+                       :account_type
     attr_accessor :client
     # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
@@ -72,16 +73,16 @@ module Hub
     validates :navigator_has_verified_client_identity, inclusion: { in: [true, '1'], message: I18n.t('errors.messages.blank') }
 
     with_options if: -> { refund_payment_method == "direct_deposit" } do
-      validates_confirmation_of :bank_routing_number
-      validates_confirmation_of :bank_account_number
+      validates_confirmation_of :routing_number
+      validates_confirmation_of :account_number
       validates_presence_of :bank_name
-      validates_presence_of :bank_account_type
-      validates_presence_of :bank_account_number
-      validates_presence_of :bank_routing_number
+      validates_presence_of :account_type
+      validates_presence_of :account_number
+      validates_presence_of :routing_number
     end
 
-    validates_presence_of :bank_account_number_confirmation, if: :bank_account_number
-    validates_presence_of :bank_routing_number_confirmation, if: :bank_routing_number
+    validates_presence_of :account_number_confirmation, if: :account_number
+    validates_presence_of :routing_number_confirmation, if: :routing_number
 
     validates_confirmation_of :primary_ssn
     validates_presence_of :primary_ssn_confirmation, if: :primary_ssn
@@ -113,6 +114,7 @@ module Hub
                  :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
                                              .merge(
                                                default_attributes,
+                                               bank_account_attributes: attributes_for(:bank_account),
                                                dependents_attributes: formatted_dependents_attributes,
                                                primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
                                                spouse_birth_date: parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day),
