@@ -123,6 +123,7 @@
 #  primary_consented_to_service_at                      :datetime
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
+#  primary_ip_pin                                       :integer
 #  primary_last_name                                    :string
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
@@ -160,6 +161,7 @@
 #  spouse_email_address                                 :citext
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default(0), not null
+#  spouse_ip_pin                                        :integer
 #  spouse_issued_identity_pin                           :integer          default(0), not null
 #  spouse_last_name                                     :string
 #  spouse_was_blind                                     :integer          default(0), not null
@@ -286,7 +288,11 @@ class Intake::CtcIntake < Intake
     end
     names.join(', ')
   end
-  
+
+  def any_ip_pins?
+    primary_ip_pin.present? || spouse_ip_pin.present? || dependents.any? { |d| d.ip_pin.present? }
+  end
+
   # placeholders for signature pin columns
   def primary_signature_pin
     "12111"

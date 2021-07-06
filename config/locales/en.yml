@@ -164,6 +164,7 @@ en:
         filing_status: Filing Status
         intake_language: Intake Language
         interview_timing_preference: Preferred Interview Time
+        ip_pins: IP PINs
         legal_name: Legal Name
         mailing_address: Mailing Address
         marital_status: Marital Status
@@ -767,6 +768,7 @@ en:
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_phone_number: Please enter a cell phone number.
       dependents: Please enter the %{attrs} of each dependent.
+      dependents_ip_pins: IP PINs must be a 6 digit number.
       dependents_attributes:
         first_name: first name
         last_name: last name
@@ -909,6 +911,7 @@ en:
     hours: Hours
     interview_timing_preference: Preferred Interview Time
     invitations: Invitations
+    ip_pin: IP PIN
     irs_certified_volunteers: IRS Certified Volunteers
     irs_free_file: IRS Free File
     language: Language

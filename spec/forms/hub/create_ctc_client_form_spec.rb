@@ -51,6 +51,8 @@ RSpec.describe Hub::CreateCtcClientForm do
         navigator_has_verified_client_identity: true,
         with_passport_photo_id: "1",
         with_itin_taxpayer_id: "1",
+        primary_ip_pin: "123456",
+        spouse_ip_pin: "234567",
       }
     end
 
@@ -237,6 +239,15 @@ RSpec.describe Hub::CreateCtcClientForm do
           expect { form.save(current_user) }.to raise_error ActiveRecord::RecordInvalid
         end
       end
+
+      context "IP PINs" do
+        it "saves the primary and spouse IP PINs" do
+          described_class.new(params).save(current_user)
+          intake = Intake.last
+          expect(intake.primary_ip_pin).to eq 123456
+          expect(intake.spouse_ip_pin).to eq 234567
+        end
+      end
     end
 
     context "with dependents" do
@@ -249,7 +260,8 @@ RSpec.describe Hub::CreateCtcClientForm do
                   birth_date_month: "May",
                   birth_date_day: "9",
                   birth_date_year: "2013",
-                  relationship: "child"
+                  relationship: "child",
+                  ip_pin: "345678",
               }
           }
       }
@@ -262,9 +274,9 @@ RSpec.describe Hub::CreateCtcClientForm do
         client = Client.last
         expect(client.intake.dependents.count).to eq 1
         expect(client.vita_partner).to eq vita_partner
+        expect(client.intake.dependents.last.ip_pin).to eq 345678
       end
     end
-
 
     context "validations" do
       context "with an invalid email" do
@@ -541,6 +553,58 @@ RSpec.describe Hub::CreateCtcClientForm do
               obj = described_class.new(params)
               obj.valid?
               expect(obj.errors[:bank_account_number_confirmation]).to include "doesn't match Bank account number"
+            end
+          end
+        end
+      end
+
+      context "IP PINs" do
+        before do
+          params[:primary_ip_pin] = "123"
+          params[:spouse_ip_pin] = nil
+        end
+
+        it "can be blank but must be a 6 digit number" do
+          obj = described_class.new(params)
+          expect(obj.valid?).to eq false
+          expect(obj.errors[:primary_ip_pin]).to include "Must be a 6 digit number."
+          expect(obj.errors[:spouse_ip_pin]).to eq []
+        end
+
+        context "for dependents" do
+          let(:dependents_attributes) do {
+            dependents_attributes: {
+              "0" => {
+                id: nil,
+                first_name: "Maria",
+                last_name: "Mango",
+                birth_date_month: "May",
+                birth_date_day: "9",
+                birth_date_year: "2013",
+                relationship: "child",
+                ip_pin: "3456",
+              }
+            }
+          }
+          end
+
+          context "when there are no other validation errors" do
+            it "states that all IP PINs must be a 6 digit number" do
+              obj = described_class.new(params.merge(dependents_attributes))
+              expect(obj.valid?).to eq false
+              expect(obj.errors[:dependents_attributes]).to include "IP PINs must be a 6 digit number."
+            end
+          end
+
+          context "when there are other validation errors" do
+            before do
+              dependents_attributes[:dependents_attributes]["0"][:relationship] = nil
+            end
+
+            it "states all validation errors in a nicely formatted way" do
+              obj = described_class.new(params.merge(dependents_attributes))
+              expect(obj.valid?).to eq false
+              expect(obj.errors[:dependents_attributes]).to include "Please enter the relationship of each dependent. IP PINs must be a 6 digit number."
             end
           end
         end

@@ -1,0 +1,25 @@
+<div>
+  <% if @client.intake.primary_ip_pin.present? %>
+    <div class="field-display">
+      <span class="form-question"><%= @client.legal_name %>:</span>
+      <span class="label-value" aria-hidden="true">●●●●●●</span>
+      <span class="sr-only">Hidden</span>
+    </div>
+  <% end %>
+  <% if @client.intake.spouse_ip_pin.present? %>
+    <div class="field-display">
+      <span class="form-question"><%= "#{@client.intake&.spouse_first_name} #{@client.intake&.spouse_last_name}" %>:</span>
+      <span class="label-value" aria-hidden="true">●●●●●●</span>
+      <span class="sr-only">Hidden</span>
+    </div>
+  <% end %>
+  <% @client.intake.dependents.each do |dependent| %>
+    <% if dependent.ip_pin.present? %>
+      <div class="field-display">
+        <span class="form-question"><%= "#{dependent.first_name} #{dependent.last_name}" %>:</span>
+        <span class="label-value" aria-hidden="true">●●●●●●</span>
+        <span class="sr-only">Hidden</span>
+      </div>
+    <% end %>
+  <% end %>
+</div>

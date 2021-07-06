@@ -40,6 +40,8 @@
           options: { maxlength: 4 }
           ) %>
     <% end %>
-
+    <% if is_ctc %>
+      <%= f.cfa_input_field(:spouse_ip_pin, t("general.ip_pin")) %>
+    <% end %>
   </div>
 </div>

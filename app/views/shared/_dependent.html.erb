@@ -18,7 +18,9 @@
             dependent_relationship_options(current_relationship: f.object.relationship, is_ctc: is_ctc),
             include_blank: true
     ) %>
-
+  <% if is_ctc %>
+    <%= f.cfa_input_field(:ip_pin, t("general.ip_pin")) %>
+  <% end %>
   <%= f.hidden_field :_destroy %>
   <%= link_to_remove_fields t("views.shared.dependents_fields.remove"), '.dependent-form', { class: "button button--small"} %>
   <hr/>

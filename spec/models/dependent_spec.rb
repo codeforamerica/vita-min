@@ -6,6 +6,7 @@
 #  birth_date              :date
 #  disabled                :integer          default("unfilled"), not null
 #  first_name              :string
+#  ip_pin                  :integer
 #  last_name               :string
 #  months_in_home          :integer
 #  north_american_resident :integer          default("unfilled"), not null

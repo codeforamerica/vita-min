@@ -29,6 +29,7 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Cell phone number", with: "8324651680"
         fill_in "SSN/ITIN", with: "222-33-4444"
         fill_in "Re-enter SSN/ITIN", with: "222-33-4444"
+        fill_in "IP PIN", with: "123456"
         check "Opt into email notifications"
         check "Opt into sms notifications"
         fill_in "hub_create_ctc_client_form_primary_birth_date_month", with: "08"
@@ -57,6 +58,7 @@ RSpec.feature "Creating new drop off clients" do
         select "1", from: "Day"
         select "2008", from: "Year"
         select "Daughter", from: "Relationship"
+        fill_in "IP PIN", with: "345678"
       end
 
       within "#spouse-info" do
@@ -65,6 +67,7 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Email", with: "spicypeter@pepper.com"
         fill_in "SSN/ITIN", with: "222-33-5555"
         fill_in "Re-enter SSN/ITIN", with: "222-33-5555"
+        fill_in "IP PIN", with: "234567"
         fill_in "hub_create_ctc_client_form_spouse_birth_date_month", with: "01"
         fill_in "hub_create_ctc_client_form_spouse_birth_date_day", with: "11"
         fill_in "hub_create_ctc_client_form_spouse_birth_date_year", with: "1995"
@@ -146,6 +149,13 @@ RSpec.feature "Creating new drop off clients" do
           expect(page).to have_text "222334444"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
+      end
+
+      within ".ip-pins" do
+        click_on "View"
+        expect(page).to have_text "Colleen Cauliflower: 123456"
+        expect(page).to have_text "Peter Pepper: 234567"
+        expect(page).to have_text "Miranda Mango: 345678"
       end
 
       created_intake = Intake::CtcIntake.last

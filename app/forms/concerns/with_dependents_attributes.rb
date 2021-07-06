@@ -3,6 +3,8 @@ module WithDependentsAttributes
 
   included do
     validate :dependents_attributes_required_fields
+    validate :ip_pins_format
+
     attr_accessor :dependents_attributes
   end
 
@@ -52,5 +54,17 @@ module WithDependentsAttributes
       attrs[:birth_date] = "#{attrs[:birth_date_year]}-#{attrs[:birth_date_month]}-#{attrs[:birth_date_day]}"
     end
     attrs.except!(:birth_date_month, :birth_date_day, :birth_date_year)
+  end
+
+  def ip_pins_format
+    at_least_one_invalid_ip_pin = @dependents_attributes&.any? do |_, attrs|
+      attrs[:ip_pin].present? && !/\d{6}/.match?(attrs[:ip_pin])
+    end
+
+    if at_least_one_invalid_ip_pin
+      error_message = I18n.t("forms.errors.dependents_ip_pins")
+      errors[:dependents_attributes].present? ?
+        errors[:dependents_attributes][0] += " #{error_message}" : errors.add(:dependents_attributes, error_message)
+    end
   end
 end
