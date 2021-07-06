@@ -5,10 +5,11 @@
 #  id                      :bigint           not null, primary key
 #  birth_date              :date
 #  disabled                :integer          default("unfilled"), not null
+#  encrypted_ip_pin        :string
+#  encrypted_ip_pin_iv     :string
 #  encrypted_ssn           :string
 #  encrypted_ssn_iv        :string
 #  first_name              :string
-#  ip_pin                  :integer
 #  last_name               :string
 #  months_in_home          :integer
 #  north_american_resident :integer          default("unfilled"), not null
@@ -29,6 +30,7 @@ class Dependent < ApplicationRecord
   belongs_to :intake, inverse_of: :dependents
 
   attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum was_student: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_student
   enum on_visa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :on_visa

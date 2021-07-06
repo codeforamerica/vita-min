@@ -244,8 +244,8 @@ RSpec.describe Hub::CreateCtcClientForm do
         it "saves the primary and spouse IP PINs" do
           described_class.new(params).save(current_user)
           intake = Intake.last
-          expect(intake.primary_ip_pin).to eq 123456
-          expect(intake.spouse_ip_pin).to eq 234567
+          expect(intake.primary_ip_pin).to eq '123456'
+          expect(intake.spouse_ip_pin).to eq '234567'
         end
       end
     end
@@ -276,7 +276,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         client = Client.last
         expect(client.intake.dependents.count).to eq 1
         expect(client.vita_partner).to eq vita_partner
-        expect(client.intake.dependents.last.ip_pin).to eq 345678
+        expect(client.intake.dependents.last.ip_pin).to eq "345678"
       end
     end
 
