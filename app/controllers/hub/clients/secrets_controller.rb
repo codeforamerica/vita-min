@@ -42,16 +42,14 @@ module Hub
       helper_method :id_suffix
 
       def create_access_log
-        if params[:secret_name].end_with?('ssn')
-          AccessLog.create!(
-            user: current_user,
-            record: @client,
-            event_type: "read_ssn_itin",
-            created_at: DateTime.now,
-            ip_address: request.remote_ip,
-            user_agent: request.user_agent,
-          )
-        end
+        AccessLog.create!(
+          user: current_user,
+          record: @client,
+          event_type: params[:secret_name].end_with?('ssn') ? "read_ssn_itin" : "read_ip_pin",
+          created_at: DateTime.now,
+          ip_address: request.remote_ip,
+          user_agent: request.user_agent,
+        )
       end
     end
   end
