@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe Ctc::Questions::EmailAddressController do
-
   let(:intake) { create :ctc_intake }
 
   before do

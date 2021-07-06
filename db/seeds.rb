@@ -99,7 +99,22 @@ greeter_user.update(role: GreeterRole.create ) if greeter_user.role_type != Gree
 
 client = Client.find_or_create_by(vita_partner: first_org)
 
-intake = Intake.create(client: client, preferred_name: "Captain", primary_first_name: "Captain", primary_last_name: "Hook", sms_phone_number: "+14155551212", email_address: "crunch@example.com", primary_consented_to_service_at: DateTime.current, sms_notification_opt_in: :yes, email_notification_opt_in: :yes, visitor_id: "test_visitor_id")
+intake = Intake::GyrIntake.create(
+  client: client,
+  preferred_name: "Captain",
+  primary_first_name: "Captain",
+  primary_last_name: "Hook",
+  sms_phone_number: "+14155551212",
+  email_address: "crunch@example.com",
+  primary_consented_to_service_at: DateTime.current,
+  sms_notification_opt_in: :yes,
+  email_notification_opt_in: :yes,
+  visitor_id: "test_visitor_id",
+  bank_name: "Self-help United",
+  bank_routing_number: "12345678",
+  bank_account_number: "87654321",
+  bank_account_type: "checking"
+)
 
 Document.find_or_create_by(display_name: "My Employment", document_type: "Employment", client: client, created_at: 1.day.ago, intake: intake)
 Document.find_or_create_by(display_name: "Identity Document", document_type: "ID", client: client, created_at: 2.months.ago, intake: intake)
@@ -118,12 +133,12 @@ Note.create!(client: client, user: user, body: "This is an outgoing note :)", cr
 IncomingTextMessage.create!(client: client, body: "What's up with my taxes?", received_at: DateTime.now, from_phone_number: "+14155551212")
 
 other_client = Client.create!(vita_partner: first_org)
-Intake.create(client: other_client, preferred_name: "Tony", email_address: "tiger@example.com", email_notification_opt_in: :yes, visitor_id: "another_test_visitor_id")
+Intake::GyrIntake.create(client: other_client, preferred_name: "Tony", email_address: "tiger@example.com", email_notification_opt_in: :yes, visitor_id: "another_test_visitor_id")
 
 married_client = Client.create!(vita_partner: first_org)
 
 # Use this client for portal login; log in by email address & run rails jobs:work for the verification code; see SSN last 4 below
-married_intake = Intake.create!(
+married_intake = Intake::GyrIntake.create!(
   client: married_client,
   preferred_name: "Lucky",
   primary_first_name: "Lucky",

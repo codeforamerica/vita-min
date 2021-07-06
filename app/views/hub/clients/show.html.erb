@@ -128,13 +128,13 @@
           <!-- Bank info-->
           <div class="client-profile__field-group client-bank-account-info">
             <h2 class="text--bold"><%= "Bank Account Info" %>
-              <% if @client.bank_account_info? %>
+              <% if @client.intake.bank_account.present? %>
             <span id="js-toggle-bank-account-info">
               <%= link_to("View", show_bank_account_hub_client_path, remote: true) %>
             </span>
               <% end %>
             </h2>
-            <% if @client.bank_account_info? %>
+            <% if @client.intake.bank_account.present? %>
               <div id="js-bank-account-info">
                 <%= render "hub/clients/hidden_bank_account_info" %>
               </div>

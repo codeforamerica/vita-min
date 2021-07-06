@@ -16,7 +16,6 @@
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
-#  ctc_refund_delivery_method                           :integer
 #  current_step                                         :string
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
@@ -188,6 +187,7 @@
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
+#  bank_account_id                                      :bigint
 #  client_id                                            :bigint
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
@@ -202,6 +202,7 @@
 #
 # Indexes
 #
+#  index_intakes_on_bank_account_id                          (bank_account_id)
 #  index_intakes_on_client_id                                (client_id)
 #  index_intakes_on_email_address                            (email_address)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at    (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
@@ -286,7 +287,6 @@ class Intake::GyrIntake < Intake
   enum received_homebuyer_credit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_homebuyer_credit
   enum received_irs_letter: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_irs_letter
   enum received_stimulus_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_stimulus_payment
-  enum refund_payment_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :refund_payment_method
   enum reported_asset_sale_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_asset_sale_loss
   enum reported_self_employment_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_self_employment_loss
   enum satisfaction_face: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :satisfaction_face
@@ -324,6 +324,14 @@ class Intake::GyrIntake < Intake
     relevant_document_types.select(&:needed_if_relevant?).reject do |document_type|
       documents.where(document_type: document_type.key).present?
     end
+  end
+
+  # create a faux bank account to turn bank account data into a BankAccount object
+  def bank_account
+    return nil unless encrypted_bank_account_number || encrypted_bank_name || encrypted_bank_routing_number
+
+    type = BankAccount.account_types.keys.include?(bank_account_type) ? bank_account_type : nil
+    @bank_account ||= BankAccount.new(account_type: type, bank_name: bank_name, account_number: bank_account_number, routing_number: bank_routing_number)
   end
 
   def document_types_possibly_needed

@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_02_203610) do
-
+ActiveRecord::Schema.define(version: 2021_07_04_030757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -68,6 +67,20 @@ ActiveRecord::Schema.define(version: 2021_07_02_203610) do
     t.integer "record_count"
     t.datetime "run_at"
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.integer "account_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.string "encrypted_account_number"
+    t.string "encrypted_account_number_iv"
+    t.string "encrypted_bank_name"
+    t.string "encrypted_bank_name_iv"
+    t.string "encrypted_routing_number"
+    t.string "encrypted_routing_number_iv"
+    t.bigint "intake_id"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["intake_id"], name: "index_bank_accounts_on_intake_id"
   end
 
   create_table "bulk_client_message_outgoing_emails", force: :cascade do |t|
@@ -378,6 +391,7 @@ ActiveRecord::Schema.define(version: 2021_07_02_203610) do
     t.integer "already_applied_for_stimulus", default: 0, null: false
     t.integer "already_filed", default: 0, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
+    t.bigint "bank_account_id"
     t.integer "bank_account_type", default: 0, null: false
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
@@ -388,7 +402,6 @@ ActiveRecord::Schema.define(version: 2021_07_02_203610) do
     t.datetime "completed_yes_no_questions_at"
     t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
-    t.integer "ctc_refund_delivery_method"
     t.string "current_step"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
@@ -569,6 +582,7 @@ ActiveRecord::Schema.define(version: 2021_07_02_203610) do
     t.boolean "with_vita_approved_photo_id", default: false
     t.boolean "with_vita_approved_taxpayer_id", default: false
     t.string "zip_code"
+    t.index ["bank_account_id"], name: "index_intakes_on_bank_account_id"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"

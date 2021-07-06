@@ -778,6 +778,7 @@ en:
         not_found: Matching routing entry for %{state} could not be found. Try again.
       general: Please fix indicated errors before continuing.
   general:
+    intercom_help: "I need help"
     filing_status:
       single: Single
       married_filing_jointly: Married filing jointly
@@ -1281,6 +1282,13 @@ en:
   views:
     ctc:
       questions:
+        direct_deposit:
+          my_bank_account:
+            label: My name is on this bank account
+            question: Your name must be on the bank account to receive a direct deposit.
+            error_message_html: Enter info for a bank account with your name on it, or <a href=%{link}> select a different method for your payment</a>.
+        refund_payment:
+          title: If you are supposed to get money, how would you like to receive it?
         contact_preference:
           title: What is the best way to reach you?
           body: We'll need to reach out with questions and updates. Please select the option that works best for you!

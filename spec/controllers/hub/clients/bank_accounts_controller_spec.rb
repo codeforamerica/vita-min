@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Hub::Clients::BankAccountsController, type: :controller do
   describe "#show" do
-    let(:client) { create :client }
+    let(:client) { create :client, intake: (create :intake) }
 
     let(:params) { { id: client.id } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
@@ -47,7 +47,7 @@ describe Hub::Clients::BankAccountsController, type: :controller do
   end
 
   describe "#hide" do
-    let(:client) { create :client }
+    let(:client) { create :client, intake: create(:intake) }
 
     let(:params) { { id: client.id } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show

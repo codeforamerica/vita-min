@@ -33,7 +33,6 @@ class SystemNote::ClientChange < SystemNote
 
       changes_list += "\n\u2022 #{k.tr('_', ' ')} from #{v[0]} to #{v[1]}"
     end
-
     if changes_list.present?
       create!(
         body: "#{initiated_by.name} changed: #{changes_list}",

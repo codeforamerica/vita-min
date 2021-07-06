@@ -76,7 +76,7 @@ RSpec.describe Hub::CtcClientsController do
           service_type: "drop_off",
           vita_partner_id: vita_partner_id,
           filing_status: "married_filing_jointly",
-          ctc_refund_delivery_method: "check",
+          refund_payment_method: "check",
           bank_account_type: "checking",
           with_passport_photo_id: "1",
           with_itin_taxpayer_id: "1",
