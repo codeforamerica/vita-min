@@ -37,5 +37,20 @@ describe Ctc::Questions::CellPhoneNumberController do
       expect(intake.sms_notification_opt_in_yes?).to be true
       expect(response).to redirect_to "/en/questions/placeholder-question"
     end
+
+    it "sends an event to mixpanel without the phone number data" do
+      post :update, params: params
+
+      expect(MixpanelService).to have_received(:send_event).with(hash_including(
+                                                                   event_name: "question_answered",
+                                                                   data: {}
+                                                                 ))
+    end
+
+    it "enqueues a job to send a verification code" do
+      expect {
+        post :update, params: params
+      }.to have_enqueued_job(ClientTextMessageVerificationRequestJob)
+    end
   end
 end

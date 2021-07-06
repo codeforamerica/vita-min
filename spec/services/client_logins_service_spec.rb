@@ -123,7 +123,7 @@ describe ClientLoginsService do
     end
   end
 
-  describe ".request_email_login" do
+  describe ".request_email_verification" do
     let(:service_type) { "online_intake" }
     let(:intake) { create(:intake, :primary_consented, **contact_info) }
     let(:contact_info) { { email_address: "client@example.com" } }
@@ -139,7 +139,7 @@ describe ClientLoginsService do
       end
 
       it "creates an email login" do
-        ClientLoginsService.request_email_login(arguments)
+        ClientLoginsService.request_email_verification(arguments)
 
         expect(ClientLoginsService).to have_received(:create_email_login).with(arguments)
       end
@@ -150,7 +150,7 @@ describe ClientLoginsService do
         context "with an online intake" do
           it "sends an email to let that person know that no match was found" do
             expect do
-              ClientLoginsService.request_email_login(arguments)
+              ClientLoginsService.request_email_verification(arguments)
             end.to have_enqueued_mail(ClientLoginRequestMailer, :no_match_found).with(
               a_hash_including(params: { locale: "es", to: "client@example.com" })
             )
@@ -161,7 +161,7 @@ describe ClientLoginsService do
           let(:service_type) { "drop_off" }
 
           it "creates a email login" do
-            ClientLoginsService.request_email_login(arguments)
+            ClientLoginsService.request_email_verification(arguments)
 
             expect(ClientLoginsService).to have_received(:create_email_login).with(arguments)
           end
@@ -176,7 +176,7 @@ describe ClientLoginsService do
 
       it "sends an email to let the person know we couldn't find their email" do
         expect do
-          ClientLoginsService.request_email_login(arguments)
+          ClientLoginsService.request_email_verification(arguments)
         end.to have_enqueued_mail(ClientLoginRequestMailer, :no_match_found).with(
           a_hash_including(params: { locale: "es", to: "not_a_client@example.com" })
         )
@@ -184,7 +184,7 @@ describe ClientLoginsService do
     end
   end
 
-  describe ".request_text_message_login" do
+  describe ".request_text_message_verification" do
     let(:contact_info) { { sms_phone_number: "+15105551234" } }
     let(:arguments) do
       { **contact_info, visitor_id: "a_visitor_id", locale: "es" }
@@ -201,7 +201,7 @@ describe ClientLoginsService do
       let!(:client) { create :client, intake: intake, tax_returns: [create(:tax_return, service_type: service_type)] }
 
       it "creates a text message login" do
-        ClientLoginsService.request_text_message_login(arguments)
+        ClientLoginsService.request_text_message_verification(arguments)
 
         expect(ClientLoginsService).to have_received(:create_text_message_login).with(arguments)
       end
@@ -211,7 +211,7 @@ describe ClientLoginsService do
 
         context "with an online intake" do
           it "lets that person know that no match was found" do
-            ClientLoginsService.request_text_message_login(arguments)
+            ClientLoginsService.request_text_message_verification(arguments)
 
             expected_message_body = <<~BODY
               Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
@@ -228,7 +228,7 @@ describe ClientLoginsService do
           let(:service_type) { "drop_off" }
 
           it "creates a text message login" do
-            ClientLoginsService.request_text_message_login(arguments)
+            ClientLoginsService.request_text_message_verification(arguments)
 
             expect(ClientLoginsService).to have_received(:create_text_message_login).with(arguments)
           end
@@ -241,7 +241,7 @@ describe ClientLoginsService do
 
       xit "adds a note to the client's profile and marks them as needing attention" do
         expect do
-          ClientLoginsService.request_text_message_login(arguments)
+          ClientLoginsService.request_text_message_verification(arguments)
         end.to change { client.system_notes.count }.by(1)
         expected_note_body = <<~NOTE
           This client requested a text message login link, but their phone number is not designated for text messages.
@@ -254,7 +254,7 @@ describe ClientLoginsService do
 
     context "without a matching client" do
       it "sends an text message to let the person know we couldn't find their phone number" do
-        ClientLoginsService.request_text_message_login(arguments)
+        ClientLoginsService.request_text_message_verification(arguments)
 
         expected_message_body = <<~BODY
           Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?

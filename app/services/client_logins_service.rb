@@ -34,7 +34,7 @@ class ClientLoginsService
       raw_token
     end
 
-    def request_email_login(email_address:, visitor_id:, locale:)
+    def request_email_verification(email_address:, visitor_id:, locale:)
       email_match_exists = login_accessible_intakes.where(email_address: email_address).or(
         login_accessible_intakes.where(spouse_email_address: email_address)
       ).exists?
@@ -49,7 +49,7 @@ class ClientLoginsService
       end
     end
 
-    def request_text_message_login(sms_phone_number:, visitor_id:, locale:)
+    def request_text_message_verification(sms_phone_number:, visitor_id:, locale:)
       if login_accessible_intakes.where(sms_phone_number: sms_phone_number).exists?
         create_text_message_login(sms_phone_number: sms_phone_number, visitor_id: visitor_id, locale: locale)
       else

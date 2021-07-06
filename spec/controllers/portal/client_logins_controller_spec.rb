@@ -56,7 +56,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         it "enqueues an email login request job with the right data and asks for verification code" do
           post :create, params: params
 
-          expect(ClientEmailLoginRequestJob).to have_been_enqueued.with(
+          expect(ClientEmailVerificationRequestJob).to have_been_enqueued.with(
             email_address: "client@example.com",
             locale: :es,
             visitor_id: "visitor id"
@@ -77,7 +77,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         it "enqueues a text message login request job with the right data and renders the 'enter verification code' page" do
           post :create, params: params
 
-          expect(ClientTextMessageLoginRequestJob).to have_been_enqueued.with(
+          expect(ClientTextMessageVerificationRequestJob).to have_been_enqueued.with(
             sms_phone_number: "+15105551234",
             locale: :es,
             visitor_id: "visitor id"
@@ -102,7 +102,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         post :create, params: params
 
         expect(response).to render_template :new
-        expect(ClientEmailLoginRequestJob).not_to have_been_enqueued
+        expect(ClientEmailVerificationRequestJob).not_to have_been_enqueued
       end
     end
 
