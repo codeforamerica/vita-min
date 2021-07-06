@@ -56,7 +56,7 @@ describe Ctc::CellPhoneNumberForm do
   end
 
   describe "#save" do
-    it "saves the email address and email_notification_opt_in as yes" do
+    it "saves the sms_phone_number and sms_notification_opt_in as yes" do
       expect {
         form = described_class.new(intake, {
             sms_phone_number: "8324658840",

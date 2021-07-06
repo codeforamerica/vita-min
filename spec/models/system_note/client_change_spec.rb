@@ -26,7 +26,7 @@ require 'rails_helper'
 describe SystemNote::ClientChange do
   describe ".generate!" do
     let(:user) { create :user }
-    let!(:intake) { create :intake, :with_contact_info, primary_first_name: "Original first name", primary_last_name: "Original last name" }
+    let(:intake) { create :intake, :with_contact_info, primary_first_name: "Original first name", primary_last_name: "Original last name" }
 
     context "with changes to the client profile" do
       before do
