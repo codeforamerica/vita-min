@@ -35,15 +35,36 @@ describe Hub::Clients::SecretsController, type: :controller do
         expect { get :show, params: params }.to raise_error ActionController::UnknownFormat
       end
 
-      it "creates an AccessLog" do
-        expect { get :show, params: params, format: :js, xhr: true }.to change(AccessLog, :count).by(1)
-        access_log = AccessLog.last
-        expect(access_log.user).to eq(user)
-        expect(access_log.record).to eq(client)
-        expect(access_log.event_type).to eq("read_ssn_itin")
-        expect(access_log.created_at).to eq(back_to_the_future_day)
-        expect(access_log.ip_address).to eq("1.1.1.1")
-        expect(access_log.user_agent).to eq(user_agent_header)
+      context "AccessLogs" do
+        context "when the secret type is an ssn" do
+          let(:secret_name) { "primary_ssn" }
+
+          it "creates an AccessLog for ssns" do
+            expect { get :show, params: params, format: :js, xhr: true }.to change(AccessLog, :count).by(1)
+            access_log = AccessLog.last
+            expect(access_log.user).to eq(user)
+            expect(access_log.record).to eq(client)
+            expect(access_log.event_type).to eq("read_ssn_itin")
+            expect(access_log.created_at).to eq(back_to_the_future_day)
+            expect(access_log.ip_address).to eq("1.1.1.1")
+            expect(access_log.user_agent).to eq(user_agent_header)
+          end
+        end
+
+        context "when the secret type is IP PIN" do
+          let(:secret_name) { "spouse_ip_pin" }
+
+          it "creates an AccessLog for ip_pins" do
+            expect { get :show, params: params, format: :js, xhr: true }.to change(AccessLog, :count).by(1)
+            access_log = AccessLog.last
+            expect(access_log.user).to eq(user)
+            expect(access_log.record).to eq(client)
+            expect(access_log.event_type).to eq("read_ip_pin")
+            expect(access_log.created_at).to eq(back_to_the_future_day)
+            expect(access_log.ip_address).to eq("1.1.1.1")
+            expect(access_log.user_agent).to eq(user_agent_header)
+          end
+        end
       end
     end
   end
