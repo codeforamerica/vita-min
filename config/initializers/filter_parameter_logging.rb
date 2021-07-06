@@ -30,5 +30,8 @@ Rails.application.config.filter_parameters += [
   :last_four_or_client_id,
   :primary_ssn,
   :spouse_ssn,
-  :ssn
+  :ssn,
+  :primary_ip_pin,
+  :spouse_ip_pin,
+  :ip_pin,
 ]
