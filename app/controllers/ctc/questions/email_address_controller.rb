@@ -5,14 +5,14 @@ module Ctc
 
       layout "intake"
 
-      def self.show?(intake)
-        ClientMessagingService.contact_methods(intake.client).empty?
-      end
-
       private
 
       def prev_path
         questions_contact_preference_path
+      end
+
+      def next_path
+        questions_placeholder_question_path # replace with verify identity path
       end
     end
   end
