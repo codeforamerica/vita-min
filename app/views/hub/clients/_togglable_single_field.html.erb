@@ -1,0 +1,6 @@
+<span id="js-secret-<%= secret_name %>">
+  <%= render "hub/clients/hidden_single_field" %>
+</span>
+<span id="js-toggle-secret-<%= secret_name %>">
+  <%= link_to("View", show_secret_hub_client_path(secret_name: secret_name), remote: true) %>
+</span>

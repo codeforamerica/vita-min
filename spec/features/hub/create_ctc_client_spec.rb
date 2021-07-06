@@ -58,9 +58,9 @@ RSpec.feature "Creating new drop off clients" do
         select "1", from: "Day"
         select "2008", from: "Year"
         select "Daughter", from: "Relationship"
-        fill_in "IP PIN", with: "345678"
         fill_in "SSN/ITIN", with: "222-33-6666"
         fill_in "Re-enter SSN/ITIN", with: "222-33-6666"
+        fill_in "IP PIN", with: "345678"
       end
 
       within "#spouse-info" do
@@ -154,11 +154,9 @@ RSpec.feature "Creating new drop off clients" do
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
 
-      within ".ip-pins" do
+      within ".primary-ip-pin" do
         click_on "View"
-        expect(page).to have_text "Colleen Cauliflower: 123456"
-        expect(page).to have_text "Peter Pepper: 234567"
-        expect(page).to have_text "Miranda Mango: 345678"
+        expect(page).to have_text "123456"
       end
 
       within ".spouse-ssn" do
@@ -169,12 +167,22 @@ RSpec.feature "Creating new drop off clients" do
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
 
+      within ".spouse-ip-pin" do
+        click_on "View"
+        expect(page).to have_text "234567"
+      end
+
       within ".dependent_#{Dependent.last.id}-ssn" do
         expect do
           click_on "View"
           expect(page).to have_text "222336666"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
+      end
+
+      within ".dependent_#{Dependent.last.id}-ip-pin" do
+        click_on "View"
+        expect(page).to have_text "345678"
       end
 
       visit hub_clients_path

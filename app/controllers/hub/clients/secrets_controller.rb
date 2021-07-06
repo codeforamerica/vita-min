@@ -15,6 +15,13 @@ module Hub
         elsif params[:secret_name] == 'dependent_ssn'
           @partial_path = 'hub/clients/displayed_dependent_ssn_itin'
           @partial_params = { locals: { dependent: @client.intake.dependents.find(params[:secret_record_id]) } }
+        elsif params[:secret_name] == 'primary_ip_pin'
+          @partial_path = 'hub/clients/displayed_ip_pin'
+        elsif params[:secret_name] == 'spouse_ip_pin'
+          @partial_path = 'hub/clients/displayed_spouse_ip_pin'
+        elsif params[:secret_name] == 'dependent_ip_pin'
+          @partial_path = 'hub/clients/displayed_dependent_ip_pin'
+          @partial_params = { locals: { dependent: @client.intake.dependents.find(params[:secret_record_id]) } }
         else
           raise ActionController::RoutingError.new('Not Found')
         end
@@ -23,7 +30,7 @@ module Hub
       end
 
       def hide
-        @partial_path = 'hub/clients/hidden_ssn_itin'
+        @partial_path = 'hub/clients/hidden_single_field'
       end
 
       private
@@ -35,14 +42,16 @@ module Hub
       helper_method :id_suffix
 
       def create_access_log
-        AccessLog.create!(
-          user: current_user,
-          record: @client,
-          event_type: "read_ssn_itin",
-          created_at: DateTime.now,
-          ip_address: request.remote_ip,
-          user_agent: request.user_agent,
-        )
+        if params[:secret_name].end_with?('ssn')
+          AccessLog.create!(
+            user: current_user,
+            record: @client,
+            event_type: "read_ssn_itin",
+            created_at: DateTime.now,
+            ip_address: request.remote_ip,
+            user_agent: request.user_agent,
+          )
+        end
       end
     end
   end

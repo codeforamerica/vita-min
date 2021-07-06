@@ -59,12 +59,17 @@
                 <% end %>
               </span>
               <% if @client.intake.primary_last_four_ssn.present? %>
-                <span id="js-secret-primary_ssn">
-                  <%= render "hub/clients/hidden_ssn_itin" %>
-                </span>
-                <span id="js-toggle-secret-primary_ssn">
-                  <%= link_to("View", show_secret_hub_client_path(secret_name: :primary_ssn), remote: true) %>
-                </span>
+                <%= render 'togglable_single_field', secret_name: :primary_ssn %>
+              <% else %>
+                <span class="label-value"><%= t("general.NA") %></span>
+              <% end %>
+            </div>
+            <div class="field-display primary-ip-pin">
+              <span class="form-question">
+                <%= t("general.ip_pin") %>:
+              </span>
+              <% if @client.intake.primary_ip_pin.present? %>
+                <%= render 'togglable_single_field', secret_name: :primary_ip_pin %>
               <% else %>
                 <span class="label-value"><%= t("general.NA") %></span>
               <% end %>
@@ -217,30 +222,22 @@
                   <% end %>
                 </span>
                 <% if @client.intake.spouse_last_four_ssn.present? %>
-                  <span id="js-secret-spouse_ssn">
-                    <%= render "hub/clients/hidden_ssn_itin" %>
-                  </span>
-                    <span id="js-toggle-secret-spouse_ssn">
-                    <%= link_to("View", show_secret_hub_client_path(secret_name: :spouse_ssn), remote: true) %>
-                  </span>
+                  <%= render 'togglable_single_field', secret_name: :spouse_ssn %>
+                <% else %>
+                  <span class="label-value"><%= t("general.NA") %></span>
+                <% end %>
+              </div>
+              <div class="field-display spouse-ip-pin">
+                <span class="form-question">
+                  <%= t("general.ip_pin") %>:
+                </span>
+                <% if @client.intake.spouse_ip_pin.present? %>
+                  <%= render 'togglable_single_field', secret_name: :spouse_ip_pin %>
                 <% else %>
                   <span class="label-value"><%= t("general.NA") %></span>
                 <% end %>
               </div>
 
-            </div>
-          <% end %>
-
-          <% if @client.intake.is_ctc? && @client.intake.any_ip_pins? %>
-            <div class="client-profile__field-group ip-pins">
-              <h2 class="text--bold"><%= t(".ip_pins") %>:
-                <span id="js-toggle-ip-pins" style="font-weight: normal;">
-                  <%= link_to("View", show_ip_pins_hub_client_path, remote: true) %>
-                </span>
-              </h2>
-              <span id="js-ip-pins">
-                <%= render "hub/clients/hidden_ip_pins" %>
-              </span>
             </div>
           <% end %>
 
