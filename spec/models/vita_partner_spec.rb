@@ -93,7 +93,7 @@ describe VitaPartner do
 
     context "when the vita partner is an organization with child sites" do
       it "includes site coordinators from all child sites" do
-        expect(organization.team_members).to eq [site1_team_member, site2_team_member]
+        expect(organization.team_members).to match_array([site1_team_member, site2_team_member])
       end
     end
   end
