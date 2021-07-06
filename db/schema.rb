@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_04_030757) do
+ActiveRecord::Schema.define(version: 2021_07_06_211259) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -224,11 +225,12 @@ ActiveRecord::Schema.define(version: 2021_07_04_030757) do
     t.date "birth_date"
     t.datetime "created_at", null: false
     t.integer "disabled", default: 0, null: false
+    t.string "encrypted_ip_pin"
+    t.string "encrypted_ip_pin_iv"
     t.string "encrypted_ssn"
     t.string "encrypted_ssn_iv"
     t.string "first_name"
     t.bigint "intake_id", null: false
-    t.integer "ip_pin"
     t.string "last_name"
     t.integer "months_in_home"
     t.integer "north_american_resident", default: 0, null: false
@@ -433,10 +435,14 @@ ActiveRecord::Schema.define(version: 2021_07_04_030757) do
     t.string "encrypted_bank_name_iv"
     t.string "encrypted_bank_routing_number"
     t.string "encrypted_bank_routing_number_iv"
+    t.string "encrypted_primary_ip_pin"
+    t.string "encrypted_primary_ip_pin_iv"
     t.string "encrypted_primary_last_four_ssn"
     t.string "encrypted_primary_last_four_ssn_iv"
     t.string "encrypted_primary_ssn"
     t.string "encrypted_primary_ssn_iv"
+    t.string "encrypted_spouse_ip_pin"
+    t.string "encrypted_spouse_ip_pin_iv"
     t.string "encrypted_spouse_last_four_ssn"
     t.string "encrypted_spouse_last_four_ssn_iv"
     t.string "encrypted_spouse_ssn"
@@ -508,7 +514,6 @@ ActiveRecord::Schema.define(version: 2021_07_04_030757) do
     t.datetime "primary_consented_to_service_at"
     t.inet "primary_consented_to_service_ip"
     t.string "primary_first_name"
-    t.integer "primary_ip_pin"
     t.string "primary_last_name"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
@@ -546,7 +551,6 @@ ActiveRecord::Schema.define(version: 2021_07_04_030757) do
     t.citext "spouse_email_address"
     t.string "spouse_first_name"
     t.integer "spouse_had_disability", default: 0, null: false
-    t.integer "spouse_ip_pin"
     t.integer "spouse_issued_identity_pin", default: 0, null: false
     t.string "spouse_last_name"
     t.integer "spouse_was_blind", default: 0, null: false

@@ -64,16 +64,18 @@
                 <span class="label-value"><%= t("general.NA") %></span>
               <% end %>
             </div>
-            <div class="field-display primary-ip-pin">
-              <span class="form-question">
-                <%= t("general.ip_pin") %>:
-              </span>
-              <% if @client.intake.primary_ip_pin.present? %>
-                <%= render 'togglable_single_field', secret_name: :primary_ip_pin %>
-              <% else %>
-                <span class="label-value"><%= t("general.NA") %></span>
-              <% end %>
-            </div>
+            <% if @client.intake.is_ctc? %>
+              <div class="field-display primary-ip-pin">
+                <span class="form-question">
+                  <%= t("general.ip_pin") %>:
+                </span>
+                <% if @client.intake.primary_ip_pin.present? %>
+                  <%= render 'togglable_single_field', secret_name: :primary_ip_pin %>
+                <% else %>
+                  <span class="label-value"><%= t("general.NA") %></span>
+                <% end %>
+              </div>
+            <% end %>
           </div>
 
           <!-- Tax info-->
@@ -227,17 +229,18 @@
                   <span class="label-value"><%= t("general.NA") %></span>
                 <% end %>
               </div>
-              <div class="field-display spouse-ip-pin">
-                <span class="form-question">
-                  <%= t("general.ip_pin") %>:
-                </span>
-                <% if @client.intake.spouse_ip_pin.present? %>
-                  <%= render 'togglable_single_field', secret_name: :spouse_ip_pin %>
-                <% else %>
-                  <span class="label-value"><%= t("general.NA") %></span>
-                <% end %>
-              </div>
-
+              <% if @client.intake.is_ctc? %>
+                <div class="field-display spouse-ip-pin">
+                  <span class="form-question">
+                    <%= t("general.ip_pin") %>:
+                  </span>
+                  <% if @client.intake.spouse_ip_pin.present? %>
+                    <%= render 'togglable_single_field', secret_name: :spouse_ip_pin %>
+                  <% else %>
+                    <span class="label-value"><%= t("general.NA") %></span>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
           <% end %>
 
