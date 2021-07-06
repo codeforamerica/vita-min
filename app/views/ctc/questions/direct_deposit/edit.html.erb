@@ -9,7 +9,7 @@
         <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
       </div>
       <%= f.cfa_radio_set(
-              :bank_account_type,
+              :account_type,
               label_text: t("views.questions.bank_details.account_type.label"),
               collection: [
                   { value: :checking, label: t("views.questions.bank_details.account_type.checking") },

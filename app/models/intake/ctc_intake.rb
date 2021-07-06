@@ -185,6 +185,7 @@
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
+#  bank_account_id                                      :bigint
 #  client_id                                            :bigint
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
@@ -199,6 +200,7 @@
 #
 # Indexes
 #
+#  index_intakes_on_bank_account_id                          (bank_account_id)
 #  index_intakes_on_client_id                                (client_id)
 #  index_intakes_on_email_address                            (email_address)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at    (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
@@ -214,14 +216,14 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::CtcIntake < Intake
-
   attribute :recovery_rebate_credit_amount_1, :money
   attribute :recovery_rebate_credit_amount_2, :money
-
   attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
+  has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
+  accepts_nested_attributes_for :bank_account
 
   PHOTO_ID_TYPES = {
     drivers_license: {
