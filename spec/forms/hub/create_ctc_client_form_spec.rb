@@ -307,7 +307,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         end
       end
 
-      context "complete_birth_dates" do
+      context "birth_dates" do
         context "no birth date is provided" do
           before do
             params[:spouse_birth_date_year] = nil

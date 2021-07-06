@@ -8,6 +8,15 @@ module BirthDateHelper
     true
   end
 
+  def valid_text_birth_date(birth_date_year, birth_date_month, birth_date_day, key = :birth_date)
+    parsed_birth_date = parse_birth_date_params(birth_date_year, birth_date_month, birth_date_day)
+    unless parsed_birth_date.present?
+      self.errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
+      return false
+    end
+    true
+  end
+
   def parse_birth_date_params(year, month, day)
     birth_date_values = [year, month, day]
     return nil if birth_date_values.any?(&:blank?)

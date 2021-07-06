@@ -38,5 +38,18 @@ RSpec.feature "CTC Intake", :js do
     fill_in "Confirm e-mail address", with: "mango@example.com"
     click_on "Continue"
 
+    expect(page).to have_selector("h1", text: "In order to file, we'll need some additional information.")
+    fill_in "Legal first name", with: "Gary"
+    fill_in "Middle initial", with: "H"
+    fill_in "Legal last name", with: "Mango"
+    fill_in "hub_ctc_legal_consent_form_primary_birth_date_month", with: "08"
+    fill_in "hub_ctc_legal_consent_form_primary_birth_date_day", with: "24"
+    fill_in "hub_ctc_legal_consent_form_primary_birth_date_year", with: "1996"
+    fill_in "Social Security Number (SSN) or Individual Taxpayer ID Number (ITIN)", with: "111-22-8888"
+    fill_in "Confirm SSN or ITIN", with: "111-22-8888"
+    fill_in "Phone number", with: "831-234-5678"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Did you file a 2020 tax return this year?")
   end
 end
