@@ -1,0 +1,18 @@
+<% @main_question = t("views.ctc.questions.email_address.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= @main_question %></h1>
+
+    <div class="form-card__content">
+      <%= f.cfa_input_field(:email_address, t("views.questions.email_address.email_address"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:email_address_confirmation, t("views.questions.email_address.email_address_confirmation"), classes: ["form-width--long"]) %>
+    </div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>

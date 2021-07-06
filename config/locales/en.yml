@@ -1287,6 +1287,21 @@ en:
   views:
     ctc:
       questions:
+        contact_preference:
+          title: What is the best way to reach you?
+          body: We'll need to reach out with questions and updates. Please select the option that works best for you!
+          sms_policy: >-
+            Note: Standard SMS message rates apply. We will not share your information with any outside parties.
+          email: Send me emails
+          text: Send me texts
+        cell_phone_number:
+          title: Please share your phone number.
+          label: Cell phone number
+          confirm_label: Confirm cell phone number
+          must_receive_texts_html: >-
+            Please provide a phone number that can receive texts, or <a href=%{email_link}>provide an email address instead</a>.
+        email_address:
+          title: Please share your e-mail address.
         overview:
           help_text: To receive your Child Tax Credit, and also any stimulus payments you are due, you’ll need to file a 2020 tax return.
           help_text2: We can help! Just a few simple steps.

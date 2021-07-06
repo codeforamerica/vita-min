@@ -5,7 +5,19 @@ module Ctc
     validates :preferred_name, presence: true
 
     def save
-      @intake.update(attributes_for(:intake))
+      raise "Intake must be a type of Ctc Intake" unless @intake.is_ctc?
+
+      @intake.assign_attributes(attributes_for(:intake))
+      Client.create!(intake: @intake, tax_returns_attributes: [attributes_for_ctc_tax_return])
+    end
+
+    private
+
+    def attributes_for_ctc_tax_return
+      {
+        is_ctc: true,
+        year: 2020
+      }
     end
   end
 end

@@ -13,6 +13,7 @@ Rails.application.config.filter_parameters += [
   :email_address_confirmation,
   :spouse_email_address,
   :phone_number,
+  :sms_phone_number,
   :additional_info,
   :filename,
   :bank_name,
@@ -23,4 +24,7 @@ Rails.application.config.filter_parameters += [
   :primary_last_four_ssn,
   :spouse_last_four_ssn,
   :last_four_or_client_id,
+  :primary_ssn,
+  :spouse_ssn,
+  :ssn
 ]

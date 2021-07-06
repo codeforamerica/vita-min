@@ -20,5 +20,23 @@ RSpec.feature "CTC Intake", :js do
     intake = Intake.last
     expect(intake.preferred_name).to eq "Gary"
     expect(intake.timezone).not_to be_blank
+    expect(intake.client).not_to be_blank
+
+    expect(page).to have_selector("h1", text: "What is the best way to reach you?")
+    click_on "Send me texts"
+    expect(page).to have_selector("h1", text: "Please share your phone number.")
+    fill_in "Cell phone number", with: "8324658840"
+    fill_in "Confirm cell phone number", with: "8324658840"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Please share your phone number.")
+    expect(page).to have_selector(".text--error", text: "Please provide a phone number that can receive texts")
+    click_on "provide an email address instead"
+
+    expect(page).to have_selector("h1", text: "Please share your e-mail address.")
+    fill_in "E-mail address", with: "mango@example.com"
+    fill_in "Confirm e-mail address", with: "mango@example.com"
+    click_on "Continue"
+
   end
 end
