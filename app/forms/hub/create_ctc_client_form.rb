@@ -108,8 +108,8 @@ module Hub
 
     validate :at_least_one_photo_id_type_selected
     validate :at_least_one_taxpayer_id_type_selected
-    validate :primary_birth_date
-    validate :spouse_birth_date
+    validate :valid_primary_birth_date
+    validate :valid_spouse_birth_date, if: -> { filing_status == "married_filing_jointly" }
 
     def save(current_user)
       @current_user = current_user
@@ -137,11 +137,11 @@ module Hub
 
     private
 
-    def primary_birth_date
+    def valid_primary_birth_date
       valid_text_birth_date(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day, :primary_birth_date)
     end
 
-    def spouse_birth_date
+    def valid_spouse_birth_date
       valid_text_birth_date(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day, :spouse_birth_date)
     end
 
