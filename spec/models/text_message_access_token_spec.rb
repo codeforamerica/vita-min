@@ -8,10 +8,12 @@
 #  token_type       :string           default("link")
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  client_id        :bigint
 #
 # Indexes
 #
-#  index_text_message_access_tokens_on_token  (token)
+#  index_text_message_access_tokens_on_client_id  (client_id)
+#  index_text_message_access_tokens_on_token      (token)
 #
 require "rails_helper"
 

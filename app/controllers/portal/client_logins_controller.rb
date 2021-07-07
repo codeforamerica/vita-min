@@ -13,7 +13,7 @@ module Portal
       @form = RequestClientLoginForm.new(request_client_login_params)
       if @form.valid?
         if @form.email_address.present?
-          ClientEmailVerificationRequestJob.perform_later(
+          RequestVerificationCodeEmailJob.perform_later(
             email_address: @form.email_address,
             locale: I18n.locale,
             visitor_id: visitor_id
@@ -21,7 +21,7 @@ module Portal
         end
 
         if @form.sms_phone_number.present?
-          ClientTextMessageVerificationRequestJob.perform_later(
+          RequestVerificationCodeTextMessageJob.perform_later(
             sms_phone_number: @form.sms_phone_number,
             locale: I18n.locale,
             visitor_id: visitor_id

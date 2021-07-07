@@ -115,7 +115,7 @@ RSpec.feature "Logging in" do
           allow(Devise.token_generator).to receive(:generate).and_return [raw_token, hashed_token]
           allow(Devise.token_generator).to receive(:digest).and_return(hashed_token)
           # Set up login link
-          ClientLoginsService.issue_email_token("example@example.com")
+          EmailVerificationCodeService.request_code(email_address: "example@example.com", visitor_id: "anything")
         end
 
         scenario "visiting sign-in link at its current url" do

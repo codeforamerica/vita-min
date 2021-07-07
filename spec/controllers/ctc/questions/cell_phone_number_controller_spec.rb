@@ -50,7 +50,7 @@ describe Ctc::Questions::CellPhoneNumberController do
     it "enqueues a job to send a verification code" do
       expect {
         post :update, params: params
-      }.to have_enqueued_job(ClientTextMessageVerificationRequestJob)
+      }.to have_enqueued_job(RequestVerificationCodeTextMessageJob)
     end
   end
 end

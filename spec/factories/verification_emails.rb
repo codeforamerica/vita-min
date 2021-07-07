@@ -15,7 +15,7 @@
 #  index_email_login_requests_on_visitor_id             (visitor_id)
 #
 FactoryBot.define do
-  factory :email_login_request do
+  factory :verification_email do
     email_access_token
     sequence(:visitor_id) { |n| "visitor id #{n}"}
   end

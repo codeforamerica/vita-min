@@ -8,10 +8,12 @@
 #  token_type    :string           default("link")
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  client_id     :bigint
 #
 # Indexes
 #
-#  index_email_access_tokens_on_token  (token)
+#  index_email_access_tokens_on_client_id  (client_id)
+#  index_email_access_tokens_on_token      (token)
 #
 FactoryBot.define do
   factory :email_access_token do

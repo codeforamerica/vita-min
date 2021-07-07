@@ -8,10 +8,12 @@ module Ctc
       private
 
       def after_update_success
-        ClientEmailVerificationRequestJob.perform_later(
-          email_address: @form.email_address,
+        RequestVerificationCodeEmailJob.perform_later(
+          client_id: current_intake.client_id,
+          email_address: current_intake.email_address,
           locale: I18n.locale,
-          visitor_id: current_intake.visitor_id
+          visitor_id: current_intake.visitor_id,
+          verification_type: :ctc_intake
         )
       end
 

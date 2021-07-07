@@ -1,7 +1,9 @@
 require "rails_helper"
 
 describe Ctc::Questions::EmailAddressController do
-  let(:intake) { create :ctc_intake }
+  let(:visitor_id) { "asdfasdfa" }
+  let(:client) { create :client, intake: (create :ctc_intake, visitor_id: visitor_id) }
+  let(:intake) { client.intake }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
@@ -50,7 +52,13 @@ describe Ctc::Questions::EmailAddressController do
     it "enqueues a job to send a verification code" do
       expect {
         post :update, params: params
-      }.to have_enqueued_job(ClientEmailVerificationRequestJob)
+      }.to have_enqueued_job(RequestVerificationCodeEmailJob).with(hash_including(
+                                                                     email_address: "email@example.com",
+                                                                     locale: :en,
+                                                                     visitor_id: visitor_id,
+                                                                     verification_type: :ctc_intake,
+                                                                     client_id: client.id
+                                                                   ))
     end
   end
 end

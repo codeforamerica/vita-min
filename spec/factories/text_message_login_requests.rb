@@ -15,7 +15,7 @@
 #  text_message_login_request_access_token_id       (text_message_access_token_id)
 #
 FactoryBot.define do
-  factory :text_message_login_request do
+  factory :verification_text_message do
   end
 end
 

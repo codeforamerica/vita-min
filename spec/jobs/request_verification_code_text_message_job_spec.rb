@@ -2,17 +2,19 @@ require "rails_helper"
 
 RSpec.describe RequestVerificationCodeTextMessageJob, type: :job do
   before do
-    allow(ClientLoginsService).to receive(:request_text_message_verification)
+    allow(TextMessageVerificationCodeService).to receive(:request_code)
   end
 
   describe "#perform" do
-    it "requests an email login from the client logins service" do
+    it "requests a generated code from the TextMessageVerificationCodeService" do
       RequestVerificationCodeTextMessageJob.perform_now(sms_phone_number: "+15105551234", visitor_id: "87h2897gh2", locale: "es")
 
-      expect(ClientLoginsService).to have_received(:request_text_message_verification).with(
-        sms_phone_number: "+15105551234",
+      expect(TextMessageVerificationCodeService).to have_received(:request_code).with(
+        phone_number: "+15105551234",
         visitor_id: "87h2897gh2",
-        locale: "es"
+        locale: "es",
+        verification_type: :gyr_login,
+        client_id: nil
       )
     end
   end
