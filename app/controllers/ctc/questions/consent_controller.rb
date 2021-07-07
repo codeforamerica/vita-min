@@ -1,6 +1,6 @@
 module Ctc
   module Questions
-    class LegalConsentController < QuestionsController
+    class ConsentController < QuestionsController
       include AnonymousIntakeConcern
 
       layout "intake"
@@ -17,6 +17,10 @@ module Ctc
 
       def next_path
         questions_placeholder_question_path # replace with 2020 tax return question
+      end
+
+      def illustration_path
+        nil
       end
     end
   end

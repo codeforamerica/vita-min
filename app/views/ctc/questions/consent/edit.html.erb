@@ -15,7 +15,7 @@
 
     <div class="form-card__content">
       <%= f.cfa_input_field(:primary_first_name, t("views.ctc.questions.legal_consent.first_name"), classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:primary_middle_initial, t("views.ctc.questions.legal_consent.middle_initial"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_middle_initial, t("views.ctc.questions.legal_consent.middle_initial"), classes: ["form-width--short"]) %>
       <%= f.cfa_input_field(:primary_last_name, t("views.ctc.questions.legal_consent.last_name"), classes: ["form-width--long"]) %>
       <%= f.vita_min_date_text_fields(
             :primary_birth_date,

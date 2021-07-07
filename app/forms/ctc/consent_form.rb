@@ -1,22 +1,23 @@
 module Ctc
-  class LegalConsentForm < QuestionsForm
+  class ConsentForm < QuestionsForm
+    include BirthDateHelper
     set_attributes_for :intake,
                        :primary_first_name,
                               :primary_middle_initial,
                               :primary_last_name,
-                              :primary_birth_date,
+                              :primary_birth_date_month,
+                              :primary_birth_date_day,
+                              :primary_birth_date_year,
                               :primary_ssn,
-                              :sms_phone_number
+                              :phone_number
     set_attributes_for :confirmation, :primary_ssn_confirmation
 
     before_validation :normalize_phone_numbers
 
-    validates :sms_phone_number, e164_phone: true
+    validates :phone_number, e164_phone: true
     validates :primary_first_name, presence: true
-    validates :primary_middle_initial, presence: true
     validates :primary_last_name, presence: true
-    validates :primary_birth_date, presence: true
-    validates :primary_birth_date
+    validate  :primary_birth_date_is_valid_date
     validates :primary_ssn, confirmation: true
     validates :primary_ssn_confirmation, presence: true
     validates :primary_ssn, social_security_number: true
@@ -32,12 +33,12 @@ module Ctc
 
     private
 
-    def primary_birth_date
-      valid_text_birth_date(:primary_birth_date, primary_birth_date_year, primary_birth_date_month, primary_birth_date_day)
+    def primary_birth_date_is_valid_date
+      valid_text_birth_date(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day, :primary_birth_date)
     end
 
     def normalize_phone_numbers
-      self.sms_phone_number = PhoneParser.normalize(sms_phone_number) if sms_phone_number.present?
+      self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?
     end
   end
 end
