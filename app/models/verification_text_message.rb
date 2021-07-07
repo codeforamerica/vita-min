@@ -14,7 +14,8 @@
 #  index_text_message_login_requests_on_visitor_id  (visitor_id)
 #  text_message_login_request_access_token_id       (text_message_access_token_id)
 #
-class TextMessageLoginRequest < ApplicationRecord
+class VerificationTextMessage < ApplicationRecord
+  self.table_name = "text_message_login_requests"
   belongs_to :text_message_access_token
   validates_presence_of :visitor_id
 end

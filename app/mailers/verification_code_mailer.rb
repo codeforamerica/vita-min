@@ -1,5 +1,5 @@
-class ClientLoginRequestMailer < ApplicationMailer
-  def login_email
+class ClientVerificationRequestMailer < ApplicationMailer
+  def with_code
     @locale = params[:locale]
     @subject = I18n.t("messages.default_subject", locale: @locale)
     @verification_code = params[:verification_code]
