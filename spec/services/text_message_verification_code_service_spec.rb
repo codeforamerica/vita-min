@@ -31,6 +31,7 @@ describe TextMessageVerificationCodeService do
       allow(TextMessageAccessToken).to receive(:create!).and_return access_token_double
       allow(TwilioService).to receive(:send_text_message).and_return twilio_double
       allow(VerificationTextMessage).to receive(:create!)
+      allow(twilio_double).to receive(:sid).and_return "twilio_sid"
       allow(VerificationCodeService).to receive(:generate).and_return ["123456", "hashed_verification_code"]
       allow_any_instance_of(Mail::Message).to receive(:message_id).and_return("mocked_mailer_id")
       allow(DatadogApi).to receive(:increment)
@@ -57,6 +58,7 @@ describe TextMessageVerificationCodeService do
         expect(VerificationTextMessage).to have_received(:create!).with(a_hash_including(
                                                                       visitor_id: visitor_id,
                                                                       text_message_access_token: access_token_double,
+                                                                      twilio_sid: "twilio_sid"
                                                                   ))
         expect(DatadogApi).to have_received(:increment).with "client_logins.verification_codes.text_message.created"
       end
@@ -67,7 +69,7 @@ describe TextMessageVerificationCodeService do
       let(:verification_type) { :gyr_login }
       context "when there are accessible clients by phone number" do
         before do
-          allow(ClientLoginsService).to receive(:accessible_intakes).and_return(matching_intakes)
+          allow(ClientLoginService).to receive(:accessible_intakes).and_return(matching_intakes)
           allow(matching_intakes).to receive(:where).and_return(matching_intakes)
           allow(matching_intakes).to receive(:or).and_return(matching_intakes)
           allow(matching_intakes).to receive(:exists?).and_return(true)
@@ -98,7 +100,7 @@ describe TextMessageVerificationCodeService do
       context "when the client phone number is not found" do
         let(:locale) { "es" }
         before do
-          allow(ClientLoginsService).to receive(:accessible_intakes).and_return(matching_intakes)
+          allow(ClientLoginService).to receive(:accessible_intakes).and_return(matching_intakes)
           allow(matching_intakes).to receive(:where).and_return(matching_intakes)
           allow(matching_intakes).to receive(:or).and_return(matching_intakes)
           allow(matching_intakes).to receive(:exists?).and_return(false)

@@ -12,21 +12,9 @@ module Portal
     def create
       @form = RequestClientLoginForm.new(request_client_login_params)
       if @form.valid?
-        if @form.email_address.present?
-          RequestVerificationCodeEmailJob.perform_later(
-            email_address: @form.email_address,
-            locale: I18n.locale,
-            visitor_id: visitor_id
-          )
-        end
+        ClientLoginService.handle_email_request(email_address: @form.email_address, visitor_id: ) if @form.email_address.present?
 
-        if @form.sms_phone_number.present?
-          RequestVerificationCodeTextMessageJob.perform_later(
-            sms_phone_number: @form.sms_phone_number,
-            locale: I18n.locale,
-            visitor_id: visitor_id
-          )
-        end
+        ClientLoginService.handle_sms_request(phone_number: @form.sms_phone_number, visitor_id: ) if @form.sms_phone_number.present?
 
         @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @form.email_address.present? ? @form.email_address : @form.sms_phone_number)
         render :enter_verification_code
@@ -46,7 +34,7 @@ module Portal
       if @verification_code_form.valid?
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], params[:verification_code])
 
-        if ClientLoginsService.clients_for_token(hashed_verification_code).exists?
+        if ClientLoginService.clients_for_token(hashed_verification_code).exists?
           DatadogApi.increment("client_logins.verification_codes.right_code")
           redirect_to edit_portal_client_login_path(id: hashed_verification_code)
           return
@@ -99,7 +87,7 @@ module Portal
     end
 
     def validate_token
-      @clients = ClientLoginsService.clients_for_token(params[:id])
+      @clients = ClientLoginService.clients_for_token(params[:id])
       redirect_to portal_client_logins_path unless @clients.present?
     end
 

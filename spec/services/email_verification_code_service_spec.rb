@@ -68,7 +68,7 @@ describe EmailVerificationCodeService do
       let(:verification_type) { :gyr_login }
       context "when the client email is found" do
         before do
-          allow(ClientLoginsService).to receive(:accessible_intakes).and_return(matching_intakes)
+          allow(ClientLoginService).to receive(:accessible_intakes).and_return(matching_intakes)
           allow(matching_intakes).to receive(:where).and_return(matching_intakes)
           allow(matching_intakes).to receive(:or).and_return(matching_intakes)
           allow(matching_intakes).to receive(:exists?).and_return(true)

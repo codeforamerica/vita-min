@@ -110,6 +110,7 @@ class Client < ApplicationRecord
   scope :by_raw_login_token, ->(raw_token) do
     where(login_token: Devise.token_generator.digest(Client, :login_token, raw_token))
   end
+
   scope :delegated_order, ->(column, direction) do
     raise ArgumentError, "column and direction are required" if !column || !direction
 

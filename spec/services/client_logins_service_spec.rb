@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ClientLoginsService do
+describe ClientLoginService do
   describe ".clients_for_token" do
     let(:service_type) { "online_intake" }
     let!(:tax_return) { create :tax_return, service_type: service_type }
