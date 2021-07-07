@@ -297,6 +297,7 @@ ActiveRecord::Schema.define(version: 2021_07_06_211259) do
 
   create_table "efile_submissions", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
+    t.string "irs_submission_id"
     t.bigint "tax_return_id"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
