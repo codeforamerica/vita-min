@@ -1061,6 +1061,7 @@ en:
       title: Invitations
   messages:
     default_subject: Update from GetYourRefund
+    default_subject_with_service_name: Update from %{service_name}
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_online_intake:
       email:
@@ -2863,27 +2864,27 @@ en:
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
-  client_logins:
-    no_account_found_sms: |
+  verification_code_sms:
+    no_match: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
       You can also visit %{home_url} and click “Get Started” to start the filing process.
-    login_sms: |
-      Your 6-digit GetYourRefund verification code is: %{verification_code}. This code will expire after two days.
-  client_login_request_mailer:
-    login_email:
+    with_code: |
+      Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after two days.
+  verification_code_mailer:
+    with_code:
       body_html: |
         <p>Hello!</p>
-        <p>Your 6-digit GetYourRefund verification code is: %{verification_code}. This code will expire after two days.</p>
+        <p>Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after two days.</p>
         <p>If you did not initiate this request, please let us know.</p>
-        <p>Your tax team at GetYourRefund.org</p>
+        <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
-        Your 6-digit GetYourRefund verification code is: %{verification_code}. This code will expire after two days.
+        Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after two days.
 
         If you did not initiate this request, please let us know.
 
-        Your tax team at GetYourRefund.org
+        Your tax team at %{service_name}.org
     no_match:
       subject: GetYourRefund Login Attempt
       body_html: |

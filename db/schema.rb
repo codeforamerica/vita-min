@@ -297,17 +297,20 @@ ActiveRecord::Schema.define(version: 2021_07_07_164745) do
 
   create_table "efile_submissions", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
+    t.string "irs_submission_id"
     t.bigint "tax_return_id"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
   end
 
   create_table "email_access_tokens", force: :cascade do |t|
+    t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.citext "email_address", null: false
     t.string "token", null: false
     t.string "token_type", default: "link"
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_email_access_tokens_on_client_id"
     t.index ["token"], name: "index_email_access_tokens_on_token"
   end
 
@@ -789,11 +792,13 @@ ActiveRecord::Schema.define(version: 2021_07_07_164745) do
   end
 
   create_table "text_message_access_tokens", force: :cascade do |t|
+    t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.string "sms_phone_number", null: false
     t.string "token", null: false
     t.string "token_type", default: "link"
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_text_message_access_tokens_on_client_id"
     t.index ["token"], name: "index_text_message_access_tokens_on_token"
   end
 

@@ -2,10 +2,11 @@
 #
 # Table name: efile_submissions
 #
-#  id            :bigint           not null, primary key
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  tax_return_id :bigint
+#  id                :bigint           not null, primary key
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  irs_submission_id :string
+#  tax_return_id     :bigint
 #
 # Indexes
 #

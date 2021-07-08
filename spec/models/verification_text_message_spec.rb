@@ -16,7 +16,7 @@
 #
 require "rails_helper"
 
-describe TextMessageLoginRequest do
+describe VerificationTextMessage do
   describe "#valid?" do
     describe "required fields" do
       it "adds an error for any missing required fields" do

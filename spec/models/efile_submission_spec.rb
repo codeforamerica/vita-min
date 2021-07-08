@@ -2,10 +2,11 @@
 #
 # Table name: efile_submissions
 #
-#  id            :bigint           not null, primary key
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  tax_return_id :bigint
+#  id                :bigint           not null, primary key
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  irs_submission_id :string
+#  tax_return_id     :bigint
 #
 # Indexes
 #
@@ -14,70 +15,44 @@
 require "rails_helper"
 
 describe EfileSubmission do
-  describe "#irs_submission_id" do
-    let(:submission) { create :efile_submission, :ctc }
-    it "conforms to the IRS format [0-9]{13}[a-z0-9]{7}" do
-      expect(/[0-9]{13}[a-z0-9]{7}\z/.match?(submission.irs_submission_id)).to eq true
-    end
-
-    context "including the efile submission id" do
-      context "control character" do
-        it "uses the first digit as a control character (0) that can be incremented later if needed" do
-          expect(submission.irs_submission_id.chars.first).to eq "0"
-        end
+  before do
+    allow(EnvironmentCredentials).to receive(:dig).with(:irs, :efin).and_return "111111"
+  end
+  context "generating an irs_submission_id before create" do
+    context "adhering to IRS format" do
+      around do |example|
+        Timecop.freeze(Date.new(2021, 1, 1))
+        example.run
+        Timecop.return
       end
 
-      context "when the id is less than 12 characters" do
-        before do
-          submission.update(id: 101)
-        end
+      let(:submission) { create(:efile_submission, :ctc) }
 
-        it "prepends 0s to make the string 13 characters" do
-          expect(submission.irs_submission_id.chars.first(13).join("")).to eq "0000000000101"
-        end
+      it "conforms to the IRS format [0-9]{13}[a-z0-9]{7}" do
+        expect(submission.irs_submission_id).to match(/\A[0-9]{13}[a-z0-9]{7}\z/)
       end
 
-      context "when the id is 11+ characters" do
-        before do
-          submission.update(id: 1234567891234)
-          allow(Rails.logger).to receive(:warn)
-        end
-
-        it "truncates the id and logs a warning" do
-          expect(submission.irs_submission_id.chars.first(13).join("")).to eq "0123456789123"
-          expect(Rails.logger).to have_received(:warn)
-        end
-      end
-    end
-
-    context "including primary last name (last 7 chars)" do
-      context "with a 7 character name" do
-        before do
-          submission.intake.update(primary_last_name: "BANANAS")
-        end
-
-        it "downcases the last name" do
-          expect(submission.irs_submission_id.chars.last(7).join("")).to eq "bananas"
-        end
+      it "the first 6 digits are our 6 digit EFIN" do
+        expect(submission.irs_submission_id[0..5]).to eq EnvironmentCredentials.dig(:irs, :efin)
       end
 
-      context "when the last name is more than 7 chars" do
-        before do
-          submission.intake.update(primary_last_name: "Persimmon")
-        end
-
-        it "truncates the name to the first 7 chars" do
-          expect(submission.irs_submission_id.chars.last(7).join("")).to eq "persimm"
-        end
+      it "the next 7 digits are a date in format ccyyddd" do
+        expect(submission.irs_submission_id[6..12]).to eq "2021001"
       end
 
-      context "when the last name is less than 7 chars" do
+      context "dealing with duplicates" do
         before do
-          submission.intake.update(primary_last_name: "Apple")
+          allow(SecureRandom).to receive(:base36).with(7).and_return "111111"
         end
+        context "after trying 5 times" do
 
-        it "pads the name in the submission with x" do
-          expect(submission.irs_submission_id.chars.last(7).join("")).to eq "xxapple"
+          it "an error is raised" do
+            expect {
+              5.times do
+                create :efile_submission
+              end
+            }.to raise_error StandardError, "Max irs_submission_id attempts exceeded. Too many submissions today?"
+          end
         end
       end
     end

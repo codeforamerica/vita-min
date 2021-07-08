@@ -2,6 +2,7 @@ class TwilioWebhooksController < ActionController::Base
   skip_before_action :verify_authenticity_token
   before_action :validate_twilio_request
 
+  # TODO: Update implementation to handle webhook status updates for VerificationTextMessages.
   def update_outgoing_text_message
     status = params["MessageStatus"]
     DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")

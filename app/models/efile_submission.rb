@@ -2,10 +2,11 @@
 #
 # Table name: efile_submissions
 #
-#  id            :bigint           not null, primary key
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  tax_return_id :bigint
+#  id                :bigint           not null, primary key
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  irs_submission_id :string
+#  tax_return_id     :bigint
 #
 # Indexes
 #
@@ -16,16 +17,14 @@ class EfileSubmission < ApplicationRecord
   has_one :intake, through: :tax_return
   has_one :client, through: :tax_return
   has_many :efile_submission_transitions, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
+  validates_uniqueness_of :irs_submission_id
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: EfileSubmissionTransition,
     initial_state: EfileSubmissionStateMachine.initial_state,
   ]
 
-  def irs_submission_id
-    Rails.logger.warn "Submission id overflow warning: modify irs_submission_id logic to prevent possible non-unique values" if id.digits.length > 11
-    ("0%012d%7s" % [id, intake.primary_last_name.downcase.first(7)]).gsub(" ", "x")
-  end
+  before_create :generate_irs_submission_id
 
   def state_machine
     @state_machine ||= EfileSubmissionStateMachine.new(self, transition_class: EfileSubmissionTransition)
@@ -40,5 +39,19 @@ class EfileSubmission < ApplicationRecord
   # (Placeholder for implementation logic)
   def imperfect_return_resubmission?
     false
+  end
+
+  private
+
+  def generate_irs_submission_id(i = 0)
+    raise "Max irs_submission_id attempts exceeded. Too many submissions today?" if i > 5
+
+    irs_submission_id = EnvironmentCredentials.dig(:irs, :efin) + Date.current.strftime("%C%y%j") + SecureRandom.base36(7)
+    if self.class.find_by(irs_submission_id: irs_submission_id)
+      i += 1
+      generate_irs_submission_id(i)
+    else
+      self.irs_submission_id = irs_submission_id
+    end
   end
 end
