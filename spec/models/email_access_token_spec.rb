@@ -85,4 +85,38 @@ describe EmailAccessToken do
       end
     end
   end
+
+  describe "before_create" do
+    let(:email_address) { "tom@thumb.com" }
+    before do
+      5.times do
+        create :email_access_token, email_address: email_address
+      end
+    end
+
+    it "ensures there are no more than 5 active tokens" do
+      last = create :email_access_token, email_address: email_address
+      expect(described_class.where(email_address: email_address).count).to eq(5)
+      expect(described_class.where(email_address: email_address)).to include last
+    end
+  end
+
+  describe "generate!" do
+    let(:email_address) { "marla@mango.com" }
+    let(:verification_code) { "123456" }
+    let(:hashed_verification_code) { "a_hashed_verification_code"}
+    before do
+      allow(VerificationCodeService).to receive(:generate).and_return [verification_code, hashed_verification_code]
+    end
+
+    it "creates an instance of the class, persisting the hashed code and returns the hashed and raw token" do
+      response = described_class.generate!(email_address: email_address)
+      expect(response[0]).to eq "123456"
+      object = described_class.last
+      expect(response[1]).to eq object
+      expect(object.token).to eq Devise.token_generator.digest(described_class, :token, hashed_verification_code)
+      expect(object.email_address).to eq email_address
+      expect(object.token_type).to eq "verification_code"
+    end
+  end
 end
