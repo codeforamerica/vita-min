@@ -9,7 +9,7 @@ module Ctc
       private
 
       def illustration_path
-        "hand-holding-check.svg"
+        "contact-preference.svg"
       end
     end
   end

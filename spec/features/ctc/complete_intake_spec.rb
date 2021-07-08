@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :js do
+RSpec.feature "CTC Intake", :js, active_job: true  do
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
@@ -38,6 +38,19 @@ RSpec.feature "CTC Intake", :js do
     fill_in "Confirm e-mail address", with: "mango@example.com"
     click_on "Continue"
 
+    perform_enqueued_jobs
+    mail = ActionMailer::Base.deliveries.last
+    expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
+    code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
+
+    expect(page).to have_selector("p", text: "A message with your code has been sent to: mango@example.com")
+    fill_in "Enter 6 digit code", with: "000001"
+    click_on "Continue"
+    expect(page).to have_content("Incorrect verification code.")
+
+    fill_in "Enter 6 digit code", with: code
+    click_on "Continue"
+
     expect(page).to have_selector("h1", text: "In order to file, we’ll need some additional information.")
     fill_in "Legal first name", with: "Gary"
     fill_in "Middle initial", with: "H"
@@ -51,5 +64,6 @@ RSpec.feature "CTC Intake", :js do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
+
   end
 end

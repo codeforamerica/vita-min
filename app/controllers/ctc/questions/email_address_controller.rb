@@ -17,12 +17,12 @@ module Ctc
         )
       end
 
-      def next_path
-        questions_consent_path #TODO: should redirect to verify-identity
-      end
-
       def prev_path
         questions_contact_preference_path
+      end
+
+      def next_path
+        questions_verification_path
       end
     end
   end

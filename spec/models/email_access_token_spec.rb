@@ -111,6 +111,7 @@ describe EmailAccessToken do
 
     it "creates an instance of the class, persisting the hashed code and returns the hashed and raw token" do
       response = described_class.generate!(email_address: email_address)
+      expect(VerificationCodeService).to have_received(:generate).with(email_address)
       expect(response[0]).to eq "123456"
       object = described_class.last
       expect(response[1]).to eq object

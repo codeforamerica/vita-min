@@ -1,0 +1,24 @@
+<% @main_question = t("views.ctc.questions.verification.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= @main_question %></h1>
+    <p>
+      <%= t("views.ctc.questions.verification.body") %> <strong><%= preferred_intake_contact(current_intake) %></strong>
+    </p>
+
+    <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+      <h1 class="h2"><%= @main_question %></h1>
+
+      <div class="form-card__content">
+        <%= f.cfa_input_field(:verification_code, t("views.ctc.questions.verification.verification_code_label"), classes: ["form-width--long"]) %>
+      </div>
+
+      <button class="button button--primary button--wide" type="submit">
+        <%=t("general.continue") %>
+      </button>
+    <% end %>
+  <% end %>
+<% end %>

@@ -40,6 +40,7 @@
 #  divorced_year                                        :string
 #  eip_only                                             :boolean
 #  email_address                                        :citext
+#  email_address_verified_at                            :datetime
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  encrypted_bank_account_number                        :string
 #  encrypted_bank_account_number_iv                     :string
@@ -153,6 +154,7 @@
 #  signature_method                                     :integer          default("online"), not null
 #  sms_notification_opt_in                              :integer          default("unfilled"), not null
 #  sms_phone_number                                     :string
+#  sms_phone_number_verified_at                         :datetime
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  sold_assets                                          :integer          default("unfilled"), not null
 #  source                                               :string
