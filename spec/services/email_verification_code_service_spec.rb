@@ -5,23 +5,23 @@ describe EmailVerificationCodeService do
   let(:locale) { "en" }
   let(:visitor_id) { "visitor_id_1" }
   let(:client_id) { nil }
-  let(:verification_type) { nil }
+  let(:service_type) { nil }
   let(:params) do
     {
         email_address: email_address,
         locale: locale,
         visitor_id: visitor_id,
         client_id: client_id,
-        verification_type: verification_type
+        service_type: service_type
     }
   end
   describe "initialization" do
-    context "verification_type" do
-      let(:verification_type) { :unsupported }
-      it "raises an error if verification_type is not in the list" do
+    context "service_type" do
+      let(:service_type) { :unsupported }
+      it "raises an error if service_type is not in the list" do
         expect {
           described_class.new(**params)
-        }.to raise_error ArgumentError, "Unsupported verification type: unsupported"
+        }.to raise_error ArgumentError, "Unsupported service_type: unsupported"
       end
     end
   end
@@ -39,8 +39,8 @@ describe EmailVerificationCodeService do
       allow(DatadogApi).to receive(:increment)
     end
 
-    context "when verification_type is ctc_intake" do
-      let(:verification_type) { :ctc_intake }
+    context "when service_type is ctc" do
+      let(:service_type) { :ctc }
       it "creates a VerificationEmail, sends an email, and creates an EmailAccessToken object" do
         expect {
           described_class.request_code(**params)
@@ -65,7 +65,7 @@ describe EmailVerificationCodeService do
 
     context "when verification type is :gyr_login" do
       let(:matching_intakes) { double }
-      let(:verification_type) { :gyr_login }
+      let(:service_type) { :gyr }
       context "when the client email is found" do
         before do
           allow(ClientLoginService).to receive(:accessible_intakes).and_return(matching_intakes)
@@ -78,9 +78,6 @@ describe EmailVerificationCodeService do
           expect {
             described_class.request_code(**params)
           }.to change(ActionMailer::Base.deliveries, :count).by(1)
-          email = ActionMailer::Base.deliveries.last
-          expect(email.to).to eq [email_address]
-          expect(email.body.encoded).to include "Your 6-digit GetYourRefund verification code is: 123456"
           expect(EmailAccessToken).to have_received(:create!).with(a_hash_including(
                                                                      email_address: email_address,
                                                                      client_id: nil,
@@ -97,18 +94,23 @@ describe EmailVerificationCodeService do
         end
       end
 
-      context "when the client email is not found" do
-        let(:verification_type) { :gyr_login }
-        let(:locale) { "es" }
-        it "sends the no match email and does not create accompanying objects" do
-          expect {
-            described_class.request_code(**params)
-          }.to change(ActionMailer::Base.deliveries, :count).by(1)
+      context "when service type is GYR" do
+        let(:service_type) { :gyr }
+        it "the resulting email includes GetYourRefund" do
+          described_class.request_code(**params)
           email = ActionMailer::Base.deliveries.last
-          expect(email.body.encoded).to include("acceder a GetYourRefund")
-          expect(VerificationEmail).not_to have_received(:create!)
-          expect(EmailAccessToken).not_to have_received(:create!)
-          expect(DatadogApi).not_to have_received(:increment)
+          expect(email.to).to eq [email_address]
+          expect(email.body.encoded).to include "Your 6-digit GetYourRefund verification code is: 123456"
+        end
+      end
+
+      context "when service type is CTC" do
+        let(:service_type) { :ctc }
+        it "the resulting email includes GetCTC" do
+          described_class.request_code(**params)
+          email = ActionMailer::Base.deliveries.last
+          expect(email.to).to eq [email_address]
+          expect(email.body.encoded).to include "Your 6-digit GetCTC verification code is: 123456"
         end
       end
     end

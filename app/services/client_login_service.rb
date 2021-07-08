@@ -14,45 +14,45 @@ class ClientLoginService
       Client.where(intake: intake_matches).or(Client.by_raw_login_token(raw_token))
     end
 
-    def handle_email_request(email_address:, visitor_id:)
+    def handle_email_request(email_address:, visitor_id:, locale: :en)
       if can_login_by_email_verification?(email_address)
         RequestVerificationCodeEmailJob.perform_later(
           email_address: email_address,
-          locale: I18n.locale,
+          locale: locale,
           visitor_id: visitor_id,
           service_type: :gyr
         )
       else
-        VerificationCodeMailer.with(
-          to: @form.email_address,
-          locale: I18n.locale,
-        ).no_match_found.deliver_later
+        VerificationCodeMailer.no_match_found(
+          to: email_address,
+          locale: locale,
+        ).deliver_later
       end
     end
 
-    def handle_sms_request(phone_number:, visitor_id:)
+    def handle_sms_request(phone_number:, visitor_id:, locale: :en)
       if can_login_by_sms_verification?(phone_number)
         RequestVerificationCodeTextMessageJob.perform_later(
-          sms_phone_number: phone_number,
-          locale: I18n.locale,
+          phone_number: phone_number,
+          locale: locale,
           visitor_id: visitor_id,
           service_type: :gyr
         )
       else
-        home_url = Rails.application.routes.url_helpers.root_url(locale: @locale)
+        home_url = Rails.application.routes.url_helpers.root_url(locale: locale)
         TwilioService.send_text_message(
-          to: sms_phone_number,
-          body: I18n.t("verification_code_sms.no_match", locale: @locale, home_url: home_url)
+          to: phone_number,
+          body: I18n.t("verification_code_sms.no_match", locale: locale, home_url: home_url)
         )
       end
     end
 
     def can_login_by_email_verification?(email_address)
-      accessible_intakes.where(email_address: email_address).or(accessible_intakes.where(spouse_email_address: email_address))
+      accessible_intakes.where(email_address: email_address).or(accessible_intakes.where(spouse_email_address: email_address)).exists?
     end
 
     def can_login_by_sms_verification?(sms_phone_number)
-      accessible_intakes.where(phone_number: sms_phone_number).or(accessible_intakes.where(sms_phone_number: sms_phone_number))
+      accessible_intakes.where(phone_number: sms_phone_number).or(accessible_intakes.where(sms_phone_number: sms_phone_number)).exists?
     end
 
     def accessible_intakes

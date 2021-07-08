@@ -13,11 +13,11 @@ module Ctc
 
       def after_update_success
         RequestVerificationCodeTextMessageJob.perform_later(
-            sms_phone_number: @form.sms_phone_number,
+          phone_number: @form.sms_phone_number,
           locale: I18n.locale,
           visitor_id: current_intake.visitor_id,
           client_id: current_intake.client_id,
-          verification_type: :ctc_intake
+          service_type: :ctc
         )
       end
 

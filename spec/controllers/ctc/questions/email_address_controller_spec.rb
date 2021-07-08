@@ -56,7 +56,7 @@ describe Ctc::Questions::EmailAddressController do
                                                                      email_address: "email@example.com",
                                                                      locale: :en,
                                                                      visitor_id: visitor_id,
-                                                                     verification_type: :ctc_intake,
+                                                                     service_type: :ctc,
                                                                      client_id: client.id
                                                                    ))
     end

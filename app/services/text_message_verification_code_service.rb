@@ -1,8 +1,8 @@
 class TextMessageVerificationCodeService
   SERVICE_TYPES = [:ctc, :gyr].freeze
-  def initialize(phone_number: , locale: :en, visitor_id: , client_id: nil, service_type: :gyr)
+  def initialize(phone_number:, locale: :en, visitor_id:, client_id: nil, service_type: :gyr)
     @service_type = service_type.to_sym
-    raise(ArgumentError, "Unsupported verification type: #{service_type}") unless SERVICE_TYPES.include? @service_type
+    raise(ArgumentError, "Unsupported service_type: #{service_type}") unless SERVICE_TYPES.include? @service_type
 
     @service_type = service_type.to_sym
     @phone_number = phone_number

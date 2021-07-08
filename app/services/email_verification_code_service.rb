@@ -1,7 +1,7 @@
 class EmailVerificationCodeService
   SERVICE_TYPES = [:ctc, :gyr]
   def initialize(email_address: , locale: :en, visitor_id: , client_id: nil, service_type: :gyr)
-    raise(ArgumentError, "Unsupported service_type type: #{service_type}") unless SERVICE_TYPES.include? service_type.to_sym
+    raise(ArgumentError, "Unsupported service_type: #{service_type}") unless SERVICE_TYPES.include? service_type.to_sym
 
     @service_type = service_type.to_sym
     @email_address = email_address

@@ -12,9 +12,10 @@ module Portal
     def create
       @form = RequestClientLoginForm.new(request_client_login_params)
       if @form.valid?
-        ClientLoginService.handle_email_request(email_address: @form.email_address, visitor_id: ) if @form.email_address.present?
+        shared_params = { visitor_id: visitor_id, locale: I18n.locale }
+        ClientLoginService.handle_email_request(email_address: @form.email_address, **shared_params) if @form.email_address.present?
 
-        ClientLoginService.handle_sms_request(phone_number: @form.sms_phone_number, visitor_id: ) if @form.sms_phone_number.present?
+        ClientLoginService.handle_sms_request(phone_number: @form.sms_phone_number, **shared_params) if @form.sms_phone_number.present?
 
         @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @form.email_address.present? ? @form.email_address : @form.sms_phone_number)
         render :enter_verification_code

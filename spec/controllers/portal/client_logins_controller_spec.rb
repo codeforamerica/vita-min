@@ -43,7 +43,12 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           portal_request_client_login_form: contact_info_params
         }
       end
-      before { allow(subject).to receive(:visitor_id).and_return "visitor id" }
+
+      before do
+        allow(ClientLoginService).to receive(:handle_email_request)
+        allow(ClientLoginService).to receive(:handle_sms_request)
+        allow(subject).to receive(:visitor_id).and_return "visitor id"
+      end
 
       context "with an email address" do
         let(:contact_info_params) do
@@ -53,14 +58,14 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           }
         end
 
-        it "enqueues an email login request job with the right data and asks for verification code" do
+        it "calls ClientLoginService to request a login code" do
           post :create, params: params
-
-          expect(RequestVerificationCodeEmailJob).to have_been_enqueued.with(
+          expect(ClientLoginService).to have_received(:handle_email_request).with(
             email_address: "client@example.com",
             locale: :es,
             visitor_id: "visitor id"
           )
+
           expect(response).to be_ok
           expect(response).to render_template(:enter_verification_code)
         end
@@ -76,11 +81,10 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
         it "enqueues a text message login request job with the right data and renders the 'enter verification code' page" do
           post :create, params: params
-
-          expect(RequestVerificationCodeTextMessageJob).to have_been_enqueued.with(
-            sms_phone_number: "+15105551234",
-            locale: :es,
-            visitor_id: "visitor id"
+          expect(ClientLoginService).to have_received(:handle_sms_request).with(
+              phone_number: "+15105551234",
+              locale: :es,
+              visitor_id: "visitor id"
           )
           expect(response).to be_ok
           expect(response).to render_template(:enter_verification_code)

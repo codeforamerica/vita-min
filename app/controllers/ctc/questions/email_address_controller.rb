@@ -13,7 +13,7 @@ module Ctc
           email_address: current_intake.email_address,
           locale: I18n.locale,
           visitor_id: current_intake.visitor_id,
-          verification_type: :ctc_intake
+          service_type: :ctc
         )
       end
 
