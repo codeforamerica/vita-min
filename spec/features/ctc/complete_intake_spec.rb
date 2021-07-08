@@ -65,5 +65,15 @@ RSpec.feature "CTC Intake", :js, active_job: true  do
 
     expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
 
+    # Skip to bank account questions until we can arrive here naturally.
+    visit "en/questions/refund-payment"
+    expect(page).to have_selector("h1", text: "If you are supposed to get money, how would you like to receive it?")
+    choose "Direct deposit (fastest)"
+    click_on "Continue"
+    expect(page).to have_selector("h1", text: "Great, please provide your bank details below!")
+    fill_in "Bank name", with: "Bank of Two Melons"
+    choose "Checking"
+    check "My name is on this bank account"
+    click_on "Continue"
   end
 end
