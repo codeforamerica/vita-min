@@ -36,7 +36,7 @@ describe Ctc::Questions::CellPhoneNumberController do
       expect(assigns(:form).intake).to be_valid
       expect(intake.sms_phone_number).to eq "+18324658840"
       expect(intake.sms_notification_opt_in_yes?).to be true
-      expect(response).to redirect_to "/en/questions/consent" #TODO: should redirect to verify-identity
+      expect(response).to redirect_to questions_verification_path
     end
 
     it "sends an event to mixpanel without the phone number data" do

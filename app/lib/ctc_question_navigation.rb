@@ -7,9 +7,8 @@ class CtcQuestionNavigation
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,
     Ctc::Questions::EmailAddressController,
-    # VerifyIdentityController goes here
+    Ctc::Questions::VerificationController,
     Ctc::Questions::ConsentController,
-
     Ctc::Questions::PlaceholderQuestionController,
 
     # payments information
