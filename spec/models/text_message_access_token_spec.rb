@@ -8,10 +8,12 @@
 #  token_type       :string           default("link")
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  client_id        :bigint
 #
 # Indexes
 #
-#  index_text_message_access_tokens_on_token  (token)
+#  index_text_message_access_tokens_on_client_id  (client_id)
+#  index_text_message_access_tokens_on_token      (token)
 #
 require "rails_helper"
 
@@ -73,6 +75,51 @@ describe TextMessageAccessToken do
           expect(access_token).not_to be_valid
         end
       end
+    end
+  end
+
+  describe "after_create" do
+    before do
+      allow(DatadogApi).to receive(:increment)
+    end
+
+    it "should increment datadog metric" do
+      create :text_message_access_token
+      expect(DatadogApi).to have_received(:increment).with("client_logins.verification_codes.text_message.created")
+    end
+  end
+
+  describe "before_create" do
+    let(:phone_number) { "+18324658840" }
+    before do
+      5.times do
+        create :text_message_access_token, sms_phone_number: phone_number
+      end
+    end
+
+    it "ensures there are no more than 5 active tokens" do
+      last = create :text_message_access_token, sms_phone_number: phone_number
+      expect(described_class.where(sms_phone_number: phone_number).count).to eq(5)
+      expect(described_class.where(sms_phone_number: phone_number)).to include last
+    end
+  end
+
+  describe "generate!" do
+    let(:phone_number) { "+15125551234" }
+    let(:verification_code) { "123456" }
+    let(:hashed_verification_code) { "a_hashed_verification_code"}
+    before do
+      allow(VerificationCodeService).to receive(:generate).and_return [verification_code, hashed_verification_code]
+    end
+
+    it "creates an instance of the class, persisting the hashed code and returns the hashed and raw token" do
+      response = described_class.generate!(sms_phone_number: phone_number)
+      expect(response[0]).to eq "123456"
+      object = TextMessageAccessToken.last
+      expect(response[1]).to eq object
+      expect(object.token).to eq Devise.token_generator.digest(described_class, :token, hashed_verification_code)
+      expect(object.sms_phone_number).to eq phone_number
+      expect(object.token_type).to eq "verification_code"
     end
   end
 end

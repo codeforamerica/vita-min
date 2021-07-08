@@ -303,7 +303,16 @@ RSpec.describe MailgunWebhooksController do
         expect(outgoing_email.reload.mailgun_status).to eq "opened"
       end
 
-      context "when there is no outgoing message with a matching mailgun id" do
+      context "with no matching OutgoingEmail but a matching VerificationEmail" do
+        let(:message_id) { "verification_email_id" }
+        let!(:verification_email) { create(:verification_email, mailgun_id: message_id) }
+        it "updates the VerificationEmail object with the status" do
+          post :update_outgoing_email_status, params: params
+          expect(verification_email.reload.mailgun_status).to eq "opened"
+        end
+      end
+
+      context "when there is no message with a matching mailgun id" do
         let(:message_id) { "something_not_matching" }
         it "fails gracefully + reports failure to datadog" do
           post :update_outgoing_email_status, params: params

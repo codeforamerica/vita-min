@@ -14,10 +14,8 @@
 #  index_email_login_requests_on_mailgun_id             (mailgun_id)
 #  index_email_login_requests_on_visitor_id             (visitor_id)
 #
-FactoryBot.define do
-  factory :email_login_request do
-    email_access_token
-    sequence(:visitor_id) { |n| "visitor id #{n}"}
-  end
+class VerificationEmail < ApplicationRecord
+  self.table_name = "email_login_requests"
+  belongs_to :email_access_token
+  validates_presence_of :visitor_id
 end
-

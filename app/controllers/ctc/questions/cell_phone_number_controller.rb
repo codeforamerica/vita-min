@@ -11,6 +11,16 @@ module Ctc
 
       private
 
+      def after_update_success
+        RequestVerificationCodeTextMessageJob.perform_later(
+          phone_number: @form.sms_phone_number,
+          locale: I18n.locale,
+          visitor_id: current_intake.visitor_id,
+          client_id: current_intake.client_id,
+          service_type: :ctc
+        )
+      end
+
       def prev_path
         questions_contact_preference_path
       end

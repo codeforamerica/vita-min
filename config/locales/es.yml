@@ -1050,6 +1050,7 @@ es:
       title: Invitaciones
   messages:
     default_subject: Actualización de GetYourRefund
+    default_subject_with_service_name: Actualización de %{service_name}
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_online_intake:
       email:
@@ -2868,27 +2869,27 @@ es:
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
-  client_logins:
-    no_account_found_sms: |
+  verification_code_sms:
+    no_match: |
       Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
       También puede ir a %{home_url} y seleccione “Empiece ahora” para empezar su declaración.
-    login_sms: |
-      Su código de verificación de 6 dígitos para GetYourRefund es: %{verification_code}. Este código expirará en dos días.
-  client_login_request_mailer:
-    login_email:
+    with_code: |
+      Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.
+  verification_code_mailer:
+    with_code:
       body_html: |
         <p>¡Hola!</p>
-        <p>Su código de verificación de 6 dígitos para GetYourRefund es: %{verification_code}. Este código expirará en dos días.</p>
+        <p>Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.</p>
         <p>Si usted no hizo esta solicitud, por favor avisenos.</p>
-        <p>Su equipo de impuestos de GetYourRefund.org</p>
+        <p>Su equipo de impuestos de %{service_name}.org</p>
       body_text: |
         ¡Hola!
 
-        Su código de verificación de 6 dígitos para GetYourRefund es: %{verification_code}. Este código expirará en dos días.
+        Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.
 
         Si usted no hizo esta solicitud, por favor avisenos.
 
-        Su equipo de impuestos de GetYourRefund.org
+        Su equipo de impuestos de %{service_name}.org
     no_match:
       subject: Intento de inicio de sesión de GetYourRefund
       body_html: |
