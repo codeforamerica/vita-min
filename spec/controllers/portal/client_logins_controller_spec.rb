@@ -45,8 +45,6 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
 
       before do
-        allow(ClientLoginService).to receive(:handle_email_request)
-        allow(ClientLoginService).to receive(:handle_sms_request)
         allow(subject).to receive(:visitor_id).and_return "visitor id"
       end
 
@@ -58,10 +56,12 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           }
         end
 
-        it "calls ClientLoginService to request a login code" do
-          post :create, params: params
-          expect(ClientLoginService).to have_received(:handle_email_request).with(
+        it "enqueues a RequestVerificationCodeForGyrLoginJob" do
+          expect {
+            post :create, params: params
+          }.to have_enqueued_job(RequestVerificationCodeForGyrLoginJob).with(
             email_address: "client@example.com",
+            phone_number: "",
             locale: :es,
             visitor_id: "visitor id"
           )
@@ -80,11 +80,13 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         end
 
         it "enqueues a text message login request job with the right data and renders the 'enter verification code' page" do
-          post :create, params: params
-          expect(ClientLoginService).to have_received(:handle_sms_request).with(
-              phone_number: "+15105551234",
-              locale: :es,
-              visitor_id: "visitor id"
+          expect {
+            post :create, params: params
+          }.to have_enqueued_job(RequestVerificationCodeForGyrLoginJob).with(
+            email_address: "",
+            phone_number: "+15105551234",
+            locale: :es,
+            visitor_id: "visitor id"
           )
           expect(response).to be_ok
           expect(response).to render_template(:enter_verification_code)
