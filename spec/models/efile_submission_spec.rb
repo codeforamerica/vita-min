@@ -29,9 +29,9 @@ describe EfileSubmission do
       let(:submission) { create(:efile_submission, :ctc) }
 
       it "conforms to the IRS format [0-9]{13}[a-z0-9]{7}" do
-        expect(/[0-9]{13}[a-z0-9]{7}\z/.match?(submission.irs_submission_id)).to eq true
+        expect(submission.irs_submission_id).to match(/\A[0-9]{13}[a-z0-9]{7}\z/)
       end
-      
+
       it "the first 6 digits are our 6 digit EFIN" do
         expect(submission.irs_submission_id[0..5]).to eq EnvironmentCredentials.dig(:irs, :efin)
       end
