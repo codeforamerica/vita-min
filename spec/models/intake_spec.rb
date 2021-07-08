@@ -127,6 +127,7 @@
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_last_name                                    :string
+#  primary_middle_initial                               :string
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null

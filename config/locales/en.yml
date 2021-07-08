@@ -1317,6 +1317,17 @@ en:
           step3:
             title: Get the tax benefits you're due
             help_text: If you choose to file your taxes, we'll help you e-file and get any tax benefits you're due.
+        legal_consent:
+          title: In order to file, we’ll need some additional information.
+          body:
+            p1: To submit your tax return and receive either your child tax credit or your stimulus payments, we’ll need some of your personal information.
+            p2: Please make sure you enter your name as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
+          first_name: Legal first name
+          middle_initial: Middle initial
+          last_name: Legal last name
+          ssn: Social Security Number (SSN) or Individual Taxpayer ID Number (ITIN)
+          ssn_confirmation: Confirm SSN or ITIN
+          sms_phone_number: Phone number
         personal_info:
           title: First, what's your name?
           info: Welcome, we're excited to help you. We need some basic information to get started. We’ll start by asking what you like being called.

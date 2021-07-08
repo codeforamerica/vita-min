@@ -108,23 +108,24 @@ module Hub
 
     validate :at_least_one_photo_id_type_selected
     validate :at_least_one_taxpayer_id_type_selected
-    validate :complete_birth_dates
+    validate :valid_primary_birth_date
+    validate :valid_spouse_birth_date, if: -> { filing_status == "married_filing_jointly" }
 
     def save(current_user)
       @current_user = current_user
       run_callbacks :save do
         return false unless valid?
 
-        intake_attr = attributes_for(:intake).
-          except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day,
-                 :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
-                                             .merge(
-                                               default_attributes,
-                                               bank_account_attributes: attributes_for(:bank_account),
-                                               dependents_attributes: formatted_dependents_attributes,
-                                               primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
-                                               spouse_birth_date: parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day),
-                                               visitor_id: SecureRandom.hex(26))
+        intake_attr = attributes_for(:intake)
+                      .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day,
+                              :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
+                      .merge(
+                        default_attributes,
+                        bank_account_attributes: attributes_for(:bank_account),
+                        dependents_attributes: formatted_dependents_attributes,
+                        primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
+                        spouse_birth_date: parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day),
+                        visitor_id: SecureRandom.hex(26))
         @client = Client.create!(
           vita_partner_id: attributes_for(:intake)[:vita_partner_id],
           intake_attributes: intake_attr,
@@ -136,17 +137,12 @@ module Hub
 
     private
 
-    def complete_birth_dates
-      ["primary_birth_date", "spouse_birth_date"].each do |field|
-        next if field == "spouse_birth_date" && filing_status != "married_filing_jointly"
+    def valid_primary_birth_date
+      valid_text_birth_date(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day, :primary_birth_date)
+    end
 
-        error_message = I18n.t('errors.attributes.birth_date.blank')
-        begin
-          Date.new(eval("#{field}_year").to_i, eval("#{field}_month").to_i, eval("#{field}_day").to_i)
-        rescue ArgumentError
-          errors.add(field.to_sym, error_message)
-        end
-      end
+    def valid_spouse_birth_date
+      valid_text_birth_date(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day, :spouse_birth_date)
     end
 
     def send_confirmation_message

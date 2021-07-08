@@ -37,7 +37,7 @@ describe Ctc::Questions::EmailAddressController do
       expect(assigns(:form).intake).to be_valid
       expect(intake.email_address).to eq "email@example.com"
       expect(intake.email_notification_opt_in_yes?).to be true
-      expect(response).to redirect_to "/en/questions/placeholder-question"
+      expect(response).to redirect_to "/en/questions/consent" #TODO: should redirect to verify-identity
     end
 
     it "sends an event to mixpanel without the email address data" do
