@@ -66,7 +66,7 @@ en:
         legal_last_name: Legal last name
         mailing_address: Mailing Address
         payment_information: Payment Information
-        recovery_rebate_credit: Recovery rebate credit (optional)
+        recovery_rebate_credit: Recovery Rebate Credit (optional)
         preferred_name: Preferred full name
         filing_status: Filing Status
         marital_status: Marital Status
@@ -199,6 +199,8 @@ en:
         title: Add a new CTC client
         assign_to_label: Assign to
         save_and_add: Save and add another
+      edit:
+        title: Edit CTC Client Profile
     documents:
       confirm:
         title: Confirm %{document_type}

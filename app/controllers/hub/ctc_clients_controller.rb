@@ -28,6 +28,26 @@ module Hub
       end
     end
 
+    def edit
+      @client = Client.find(params[:id])
+      return render "public_pages/page_not_found", status: 404 unless @client.intake.is_ctc?
+
+      @form = UpdateCtcClientForm.from_client(@client)
+    end
+
+    def update
+      @client = Client.find(params[:id])
+      @form = UpdateCtcClientForm.new(@client, update_client_form_params)
+
+      if @form.valid? && @form.save
+        SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
+        redirect_to hub_client_path(id: @client.id)
+      else
+        flash[:alert] = I18n.t("forms.errors.general")
+        render :edit
+      end
+    end
+
     private
 
     def load_vita_partners
@@ -36,6 +56,10 @@ module Hub
 
     def create_client_form_params
       params.require(CreateCtcClientForm.form_param).permit(CreateCtcClientForm.permitted_params)
+    end
+
+    def update_client_form_params
+      params.require(UpdateCtcClientForm.form_param).permit(UpdateCtcClientForm.permitted_params)
     end
   end
 end

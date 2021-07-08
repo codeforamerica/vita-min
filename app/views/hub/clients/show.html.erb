@@ -272,7 +272,7 @@
           <% end %>
         </div>
       </div>
-      <div class="client-profile__actions"><%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %></div>
+      <div class="client-profile__actions"><%= link_to(t("general.edit_info"), @client.intake.is_ctc? ? edit_hub_ctc_client_path : edit_hub_client_path, class: "button hc-button--wide") %></div>
     </div>
 
   </section>

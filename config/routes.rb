@@ -170,7 +170,7 @@ Rails.application.routes.draw do
             post "update_take_action"
           end
         end
-        resources :ctc_clients, only: [:new, :create]
+        resources :ctc_clients, only: [:new, :create, :edit, :update]
 
         resources :tax_return_selections, path: "tax-return-selections", only: [:create, :show, :new]
 
