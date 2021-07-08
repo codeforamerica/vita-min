@@ -9,6 +9,7 @@ RSpec.describe "a user editing a clients intake fields" do
     let!(:client) {
       create :client,
              vita_partner: organization,
+             tax_returns: [ create(:tax_return, filing_status: "married_filing_jointly") ],
              intake: create(:ctc_intake,
                             email_address: "colleen@example.com",
                             filing_joint: "yes",
@@ -62,6 +63,15 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Re-enter SSN/ITIN", with: "111-22-4444"
       end
 
+      within "#dependents-fields" do
+        fill_in "Legal first name", with: "Laura"
+        expect(find_field("hub_update_ctc_client_form[dependents_attributes][0][first_name]").value).to eq "Laura"
+        fill_in "Legal last name", with: "Peaches"
+        select "December", from: "Month"
+        select "1", from: "Day"
+        select "2008", from: "Year"
+      end
+
       within "#navigator-fields" do
         check "General"
         check "Incarcerated/reentry"
@@ -81,39 +91,8 @@ RSpec.describe "a user editing a clients intake fields" do
         select "Sure", from: "hub_update_ctc_client_form_recovery_rebate_credit_amount_confidence"
       end
 
-      within "#dependents-fields" do
-        fill_in "Legal first name", with: "Laura"
-        expect(find_field("hub_update_ctc_client_form[dependents_attributes][0][first_name]").value).to eq "Laura"
-        fill_in "Legal last name", with: "Peaches"
-        select "December", from: "Month"
-        select "1", from: "Day"
-        select "2008", from: "Year"
-
-        click_on "Add dependent"
-
-        new_field_id = all(".dependent-form")[1].first("input")["id"].tr('^0-9', '')
-        expect(find_field("hub_update_ctc_client_form[dependents_attributes][#{new_field_id}][first_name]").value).to eq ""
-        fill_in "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_first_name", with: "Paul"
-        fill_in "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_last_name", with: "Pumpkin"
-        select "October", from: "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_month"
-        select "31", from: "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_day"
-        select "2020", from: "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_year"
-
-        click_on "Add dependent"
-        new_field_id = all(".dependent-form")[2].first("input")["id"].tr('^0-9', '')
-        expect(find_field("hub_update_ctc_client_form[dependents_attributes][#{new_field_id}][first_name]").value).to eq ""
-        fill_in "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_first_name", with: "Cranberry"
-        select "November", from: "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_month"
-        select "25", from: "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_day"
-        select "2019", from: "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_year"
-
-        click_on "Add dependent"
-        new_section = all(".dependent-form")[3]
-        expect(all(".dependent-form").length).to eq 4
-        within new_section do
-          click_on "Remove"
-        end
-        expect(all(".dependent-form").length).to eq 3
+      within "#bank-account-fields" do
+        choose "Check"
       end
 
       within "#spouse-info" do
@@ -125,34 +104,15 @@ RSpec.describe "a user editing a clients intake fields" do
       end
 
       click_on "Save"
-      expect(page).to have_text("Please enter a last name.")
-
-      within "#dependents-fields" do
-        new_field_id = all(".dependent-form").last.first("input")["id"].tr('^0-9', '')
-        fill_in "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_last_name", with: "Chung"
-        select "2019", from: "hub_update_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_year"
-      end
-
-      click_on "Save"
 
       expect(page).to have_text "Colleen Cauliflower"
       expect(page).to have_text "Colly Cauliflower"
       expect(page).to have_text "Mandarin"
-      expect(page).to have_text "Married"
-      expect(page).to have_text "Separated 2017"
-      expect(page).to have_text "Widowed 2015"
-      expect(page).to have_text "Lived with spouse"
-      expect(page).to have_text "Divorced 2018"
-      expect(page).to have_text "Filing jointly"
-      expect(page).to have_text "Pacific Time (US & Canada)"
-      expect(page).to have_text "Dependents: 3", normalize_ws: true
+      expect(page).to have_text "Married filing jointly"
+      expect(page).to have_text "Dependents: 1", normalize_ws: true
       within "#dependents-list" do
         expect(page).to have_text "Laura Peaches"
         expect(page).to have_text "12/1/2008"
-        expect(page).to have_text "Paul Pumpkin"
-        expect(page).to have_text "10/31/2020"
-        expect(page).to have_text "Cranberry Chung"
-        expect(page).to have_text "11/25/2019"
       end
       expect(page).to have_text "Type of navigator used"
       expect(page).to have_text "General, Incarcerated/reentry, Unhoused"
@@ -166,7 +126,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within ".primary-ssn" do
         expect do
           click_on "View"
-          expect(page).to have_text "4444"
+          expect(page).to have_text "111-22-4444"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
@@ -174,7 +134,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within ".spouse-ssn" do
         expect do
           click_on "View"
-          expect(page).to have_text "3456"
+          expect(page).to have_text "111-22-3333"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
@@ -184,13 +144,6 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(page).to have_text "Economic Impact Payment 2 received: $1300"
         expect(page).to have_text "Confidence: Sure"
       end
-
-      within ".client-profile" do
-        click_on "Edit"
-      end
-
-      expect(find_field("hub_update_ctc_client_form[spouse_last_four_ssn]").value).to eq "3456"
-      expect(find_field("hub_update_ctc_client_form[primary_last_four_ssn]").value).to eq "4444"
     end
   end
 end

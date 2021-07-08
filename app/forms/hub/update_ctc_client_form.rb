@@ -1,5 +1,6 @@
 module Hub
   class UpdateCtcClientForm < ClientForm
+    include BirthDateHelper
     set_attributes_for :intake,
                        :primary_first_name,
                        :primary_last_name,
@@ -29,9 +30,6 @@ module Hub
                        :spouse_last_name,
                        :spouse_email_address,
                        :interview_timing_preference,
-                       :timezone,
-                       :vita_partner_id,
-                       :signature_method,
                        :with_general_navigator,
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
@@ -110,7 +108,7 @@ module Hub
       return false unless valid?
       intake_attr = attributes_for(:intake)
                        .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day,
-                        :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
+                        :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day, :primary_ssn_confirmation, :spouse_ssn_confirmation)
                        .merge(
                          default_attributes,
                          dependents_attributes: formatted_dependents_attributes,
