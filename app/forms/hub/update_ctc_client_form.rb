@@ -78,7 +78,11 @@ module Hub
         primary_ssn: intake.primary_ssn,
         primary_ssn_confirmation: intake.primary_ssn,
       }
-      super.merge(non_model_attrs).merge(date_of_birth_attributes(intake))
+      tax_return_attrs = {
+        filing_status: intake.client.tax_returns.last.filing_status,
+        filing_status_note: intake.client.tax_returns.last.filing_status_note,
+      }
+      super.merge(non_model_attrs).merge(date_of_birth_attributes(intake)).merge(tax_return_attrs)
     end
 
     def default_attributes
@@ -90,12 +94,14 @@ module Hub
     end
 
     def self.date_of_birth_attributes(intake)
-      { primary_birth_date_day: intake.primary_birth_date&.day,
+      {
+        primary_birth_date_day: intake.primary_birth_date&.day,
         primary_birth_date_month: intake.primary_birth_date&.month,
         primary_birth_date_year: intake.primary_birth_date&.year,
         spouse_birth_date_day: intake.spouse_birth_date&.day,
         spouse_birth_date_month: intake.spouse_birth_date&.month,
-        spouse_birth_date_year: intake.spouse_birth_date&.year }
+        spouse_birth_date_year: intake.spouse_birth_date&.year
+      }
     end
 
     def self.from_client(client)
@@ -115,6 +121,8 @@ module Hub
                          primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
                          spouse_birth_date: parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day))
       @client.intake.update(intake_attr)
+      # only updates the last tax return because we assume that a CTC client only has a single tax return
+      @client.tax_returns.last.update(attributes_for(:tax_return))
     end
   end
 end
