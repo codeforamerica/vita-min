@@ -2857,6 +2857,137 @@ en:
           <p>The tool is only available in English and it can be especially confusing for people with complex tax situations (for example, mixed status families, people who are legally married but prefer to sign up separately).</p>
 
           <p>Chat with our tax experts if you need help.</p>
+      privacy_policy_html: |
+        <p class="text--help">GetCTC.org is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help low to moderate-income households access tax benefits, like the Advance Child Tax Credit (AdvCTC) and Economic Impact Payments through accessible tax filing services.</p>
+        <p class="text--help">This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.</p>
+        <p>If you have any questions or concerns about this Privacy Notice, please contact us at %{email_link}</p>
+
+        <h2 class="text--caption">Overview</h2>
+        <h3>Information we collect</h3>
+        <p>We may collect the following information about you, your dependents, or members of your household:</p>
+        <ul class="list--bulleted">
+          <li>Personal identifiers such as name, addresses, phone numbers, and email addresses</li>
+          <li>Date of birth</li>
+          <li>Demographic information, such as age and marital status</li>
+          <li>Characteristics of protected classifications, such as gender, race, and ethnicity</li>
+          <li>Tax information, such as social security number or individual taxpayer identification number (ITIN)</li>
+          <li>State-issued identification, such as driver’s license number</li>
+          <li>Financial information, such as employment, income and income sources</li>
+          <li>Banking details for direct deposit of refunds</li>
+          <li>Details of dependents</li>
+          <li>Household information and information about your spouse, if applicable</li>
+          <li>Information from your computer or device, such as IP address, operating system, browser, date and time of visit, and click-stream data (the website or domain you came from, the pages you visit, and the items you click on during your session)</li>
+        </ul>
+        <p>We collect information as required by the IRS in Revenue Procedure “Rev RP-21-24.”</p>
+
+        <h3>How we collect your information</h3>
+        <p>We collect your information from various sources, such as when you or your household members</p>
+        <ul class="list--bulleted">
+          <li>Visit our Site, fill out forms on our Site, or use our Services</li>
+          <li>Provide us with documents to use our Services</li>
+          <li>Communicate with us (for instance through email, chat, social media, or otherwise)</li>
+        </ul>
+        <p>We may also collect your information from third-parties such as</p>
+        <ul class="list--bulleted">
+          <li>Our partners who are assisting you with tax preparation services or any other benefit programs that you apply for</li>
+          <li>The Internal Revenue Service (“IRS”) or other government agencies relating to our Services</li>
+        </ul>
+
+        <h3>Using information we have collected</h3>
+        <p>We use your information for our business purposes and legitimate interests such as</p>
+        <ul class="list--bulleted">
+          <li>To help connect you with the free tax preparation services or any other benefit programs that you apply for</li>
+          <li>To complete forms required for use of the Services or filing of your taxes</li>
+          <li>To provide support to you through the process and communicate with you</li>
+          <li>To monitor and understand how the Site and our Services are used</li>
+          <li>To improve the quality or scope of the Site or our Services</li>
+          <li>To suggest other services or assistance programs that may be useful to you</li>
+          <li>For fraud detection, prevention, and security purposes</li>
+          <li>To comply with legal requirements and obligations</li>
+          <li>For research</li>
+        </ul>
+
+        <h3>Information shared with others</h3>
+        <p>We do not sell your personal information.</p>
+        <p>We do not share personal information to any third party, except as provided in this Privacy Policy. We may disclose information to contractors, affiliated organizations, and/or unaffiliated third parties to provide the Services to you, to conduct our business, or to help with our business activities. For example, we may share your information with</p>
+        <ul class="list--bulleted">
+          <li>VITA providers to help prepare and submit your tax returns</li>
+          <li>The Internal Revenue Service (IRS) in order to help you e-file your taxes and/or other forms to qualify for the Child Tax Credit payments</li>
+          <li>Third parties to distribute surveys, focus groups, or for other administrative, analytical, and marketing purposes. These third party communications are for the purpose the betterment of the product, to learn about the experience and to update you if you asked for updates</li>
+          <li>Third parties with whom we have a business relationship to send you information about other programs and services, but not for marketing purposes.</li>
+          <li>Service providers, who provide services and support on our behalf</li>
+        </ul>
+
+        <p>We require our third parties acting on our behalf to keep your personal information secure, and do not allow these third parties to use or share your personal information for any purpose other than providing services on our behalf.</p>
+
+        <p>We may share your information with third parties in special situations, such as when required by law, or we believe sharing will help to protect the safety, property, or rights of Code for America, the people we serve, our associates, or other persons.</p>
+
+        <p>We may share limited, aggregated, or anonymized personal information with government agencies, such as the IRS, to analyze the use of our Services, free tax preparation service providers, and the Child Tax Credit in order to improve and expand our Services. We will not share any information with the IRS that has not already been disclosed on your tax return or through the GetCTC website.</p>
+
+        <h3>Your choices regarding your information</h3>
+        <p>We value and respect your privacy and offer you choices over how we collect, use, and share your information.</p>
+
+        <p class="text--underline">Postal mail, email, and promotions</p>
+        <p>To update your preferences or contact information, you may</p>
+
+        <ul class="list--bulleted">
+          <li>contact us at %{email_link} and request removal from the GetCTC update emails</li>
+          <li>follow the opt-out instructions provided in emails or postal mail</li>
+          <li>click on the “unsubscribe” hyperlink contained in our promotional emails from Code for America</li>
+        </ul>
+        <p>Please note that even if you unsubscribe from promotional email offers and updates, we may still contact you for transactional purposes. For example, we may send communications regarding your tax return status, reminders, or to alert you of additional information needed.</p>
+
+        <p class="text--underline">Cookies</p>
+        <p>Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. Pixel tags (also called web beacons) are small blocks of code placed on websites and emails.</p>
+
+        <ul class="list--bulleted">
+          <li>We use cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Sites to improve the way we promote our content, programs, and events.</li>
+          <li>Your use of our Sites indicates your consent to such use of Cookies.</li>
+        </ul>
+
+        <p>Most browsers are initially set up to accept HTTP cookies. If you want to restrict or block the cookies that are set by our Site, or any other site, you can do so through your browser setting. The ‘Help’ function in your browser should explain how. Alternatively, you can visit www.aboutcookies.org, which contains comprehensive information on how to do this on a wide variety of browsers. You will find general information about cookies and details on how to delete cookies from your machine.</p>
+
+        <p class="text--underline">Transactional SMS (Text) Messages</p>
+        <p>You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see CFA’s SMS Terms, for additional details and opt-out instructions for these services.</p>
+
+        <p class="text--underline">Analytics<p>
+
+        <p>We use MixPanel and Google Analytics to understand how visitors use our site and to gather aggregate performance metrics. To learn more about MixPanel’s privacy practices and any opt-out choices it offers, click HERE. To learn more about Google Analytics privacy practices and any opt-out choices it offers, click HERE. You can also email %{email_link} for additional information.</p>
+
+        <p class="text--underline">Additional Services and Resources</p>
+
+        <p>We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information</p>
+
+        <h3>How we protect your information</h3>
+
+        <p>Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.</p>
+
+        <h3>Data Retention</h3>
+
+        <p>We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations.</p>
+
+        <p>If you no longer wish to proceed with the GetCTC application and request to remove your information from our Services prior to application submission, we will delete or de-identify your information within 90 days of when the Services are terminated unless we are required by law to retain your information. In that case, we will only retain your information as long as required by such law.</p>
+
+        <h3>Children’s privacy</h3>
+        <p>We do not knowingly collect personal information from unemancipated minors under 16 years of age.</p>
+
+        <h2 class="text--caption">Changes</h2>
+        <p>We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.</p>
+
+        <h2 class="text--caption">Effective Date</h2>
+        <p>This version of the policy is effective July 7, 2021.</p>
+
+        <h2 class="text--caption">Questions</h2>
+        <p>If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:</p>
+
+        <p>
+          GetCTC<br/>
+          c/o Code for America<br/>
+          972 Mission Street<br/>
+          San Francisco, CA 94103
+        </p>
+
+        <p>We will do our best to resolve the issue.</p>
       signups:
         new:
           title: Sign Up

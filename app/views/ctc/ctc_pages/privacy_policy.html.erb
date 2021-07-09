@@ -1,0 +1,17 @@
+<% content_for :page_title, t("views.public_pages.privacy_policy.title") %>
+
+<%= render("shared/breadcrumb")%>
+
+<main role="main">
+  <section class="slab slab--white slab--half-padded">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <h1 class="h2"><%= content_for(:page_title) %></h1>
+
+          <%= t("views.ctc_pages.privacy_policy_html", email_link: mail_to("support@getctc.org")) %>
+        </main>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,6 +1,9 @@
 module Ctc
   class CtcPagesController < CtcController
-    def home;
+    def home
+    end
+
+    def privacy_policy
     end
 
     def what_will_i_need_to_submit
