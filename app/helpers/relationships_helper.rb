@@ -13,7 +13,7 @@ module RelationshipsHelper
   end
 
   def translated_relationship(relationship)
-    Hash[sorted_relationships(types: [:ctc, :default])][relationship.to_sym] || relationship
+    Hash[sorted_relationships(types: [:ctc, :default])][relationship&.to_sym] || relationship
   end
 
   private
