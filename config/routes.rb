@@ -259,6 +259,7 @@ Rails.application.routes.draw do
         resources :signups, only: [:new, :create], path: "sign-up", path_names: { new: '' } do
           get "/confirmation", to: "signups#confirmation", on: :collection
         end
+        get "/privacy", to: "ctc_pages#privacy_policy"
         scope "common-questions" do
           get "/what-will-i-need-to-submit", to: "ctc_pages#what_will_i_need_to_submit"
           get "/what-will-happen-and-when", to: "ctc_pages#what_will_happen_and_when"
