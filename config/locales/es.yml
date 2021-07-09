@@ -164,7 +164,8 @@ es:
         other_info: Other info
         routing_method: Método de enrutamiento inicial
         source_param: Fuente param
-        date_of_birth: Date of birth (mm/dd/yyyy)
+        date_of_birth: Date of birth
+        date_of_birth_help: mm/dd/yyyy
       edit_take_action:
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
         blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
