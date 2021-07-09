@@ -21,6 +21,7 @@
             :primary_birth_date,
             t("hub.clients.show.date_of_birth"),
             help_text: t("hub.clients.show.date_of_birth_help"),
+            classes: ["ctc-intake-date-text-input"]
             ) %>
       <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>
