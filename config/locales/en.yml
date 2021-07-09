@@ -1044,6 +1044,7 @@ en:
       one: "%{count} business day"
       other: "%{count} business days"
     greetable: Greetable
+    ctc_client: CTC client
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

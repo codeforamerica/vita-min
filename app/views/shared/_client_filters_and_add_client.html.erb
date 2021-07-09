@@ -108,6 +108,11 @@
       <%= check_box_tag :used_navigator, true, @filters[:used_navigator] %>
       <%= t("general.used_navigator") %>
     </label>
+
+    <label class="checkbox--gyr">
+      <%= check_box_tag :ctc_client, true, @filters[:ctc_client] %>
+      <%= t("general.ctc_client") %>
+    </label>
   </div>
 
   <div class="actions-wrapper">
