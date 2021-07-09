@@ -73,5 +73,11 @@ describe RelationshipsHelper do
         expect(helper.translated_relationship("my sister's son")).to eq "my sister's son"
       end
     end
+
+    context "with nil (incomplete dependent)" do
+      it "responds with nil" do
+        expect(helper.translated_relationship(nil)).to eq nil
+      end
+    end
   end
 end
