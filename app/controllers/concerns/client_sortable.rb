@@ -12,6 +12,7 @@ module ClientSortable
               else
                 @clients.after_consent
               end
+    clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
     clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
@@ -76,11 +77,12 @@ module ClientSortable
       greetable: source[:greetable],
       sla_breach_date: source[:sla_breach_date],
       used_navigator: source[:used_navigator],
+      ctc_client: source[:ctc_client],
     }
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date, :used_navigator]
+    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date, :used_navigator, :ctc_client]
   end
 
   def cookie_filters

@@ -24,10 +24,12 @@ RSpec.describe "searching, sorting, and filtering clients" do
       let(:vita_partner) { create :vita_partner, name: "Alan's Org" }
       let(:site) { create :site, name: "Some child site", parent_organization_id: vita_partner_other.id }
       let!(:vita_partner_other) { create :vita_partner, name: "Some Other Org", allows_greeters: true }
+      let!(:vita_partner_ctc) { create :vita_partner, name: "CTC Org", processes_ctc: true }
       let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (create :intake, preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"), last_outgoing_communication_at: Time.new(2021, 4, 23), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 23), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
       let!(:betty_intake_in_progress) { create :client, vita_partner: site, intake: (create :intake, preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX", with_general_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 3), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 28), tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress", assigned_user: mona_user)] }
       let!(:patty_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (create :intake, preferred_name: "Patty Banana", created_at: 1.day.ago, state_of_residence: "AL", with_incarcerated_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 1), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 1), tax_returns: [(create :tax_return, year: 2019, status: "prep_ready_for_prep", assigned_user: user)] }
       let!(:zach_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (create :intake, preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"), last_outgoing_communication_at: Time.new(2021, 4, 28), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 3), tax_returns: [(create :tax_return, year: 2018, status: "prep_ready_for_prep")] }
+      let!(:marty_ctc) { create :client, vita_partner: vita_partner_ctc, intake: (create :ctc_intake, preferred_name: "Marty Mango", created_at: 5.days.ago, state_of_residence: "ME"), last_outgoing_communication_at: Time.new(2021, 5, 2), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 5), tax_returns: [(create :tax_return, year: 2020, status: "prep_ready_for_prep")] }
 
       before do
         allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 4)
@@ -44,6 +46,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row')[1]).to have_text(betty_intake_in_progress.preferred_name)
           expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
           expect(page.all('.client-row')[3]).to have_text(zach_prep_ready_for_call.preferred_name)
+          expect(page.all('.client-row')[4]).to have_text(marty_ctc.preferred_name)
         end
 
         # search for client
@@ -132,49 +135,54 @@ RSpec.describe "searching, sorting, and filtering clients" do
         end
 
         within ".client-table" do
-          expect(page.all('.client-row').length).to eq 2
+          expect(page.all('.client-row').length).to eq 3
 
           # Sort one direction
           click_link "sort-preferred_name"
-          expect(page.all('.client-row').length).to eq 2 # make sure filter is retained
-          expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
-          expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
+          expect(page.all('.client-row').length).to eq 3 # make sure filter is retained
+          expect(page.all('.client-row')[0]).to have_text(marty_ctc.preferred_name)
+          expect(page.all('.client-row')[1]).to have_text(patty_prep_ready_for_call.preferred_name)
+          expect(page.all('.client-row')[2]).to have_text(zach_prep_ready_for_call.preferred_name)
 
           # Sort opposite direction
           click_link "sort-preferred_name"
-          expect(page.all('.client-row').length).to eq 2 # make sure filter is retained
+          expect(page.all('.client-row').length).to eq 3 # make sure filter is retained
+          expect(page.all('.client-row')[2]).to have_text(marty_ctc.preferred_name)
           expect(page.all('.client-row')[1]).to have_text(patty_prep_ready_for_call.preferred_name)
           expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
 
           #zach, betty, patty (oldest to youngest created at)
           click_link "sort-created_at"
-          expect(page.all('.client-row').length).to eq 2 # make sure filter is retained
-          expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
-          expect(page.all('.client-row')[1]).to have_text(patty_prep_ready_for_call.preferred_name)
+          expect(page.all('.client-row').length).to eq 3 # make sure filter is retained
+          expect(page.all('.client-row')[0]).to have_text(marty_ctc.preferred_name)
+          expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
+          expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
 
           click_link "sort-created_at"
-          expect(page.all('.client-row').length).to eq 2 # make sure filter is retained
+          expect(page.all('.client-row').length).to eq 3 # make sure filter is retained
           expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
           expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
+          expect(page.all('.client-row')[2]).to have_text(marty_ctc.preferred_name)
         end
         within ".filter-form" do
           click_link "Clear"
         end
         within ".client-table" do
-          expect(page.all('.client-row').length).to eq 4
+          expect(page.all('.client-row').length).to eq 5
         end
 
         # sort by state of residence ASC
         click_link "sort-state_of_residence"
-        expect(page.all('.client-row').length).to eq 4 # make sure filter is retained
+        expect(page.all('.client-row').length).to eq 5 # make sure filter is retained
         expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name) # AL
         expect(page.all('.client-row')[1]).to have_text(alan_intake_in_progress.preferred_name) # CA
-        expect(page.all('.client-row')[2]).to have_text(betty_intake_in_progress.preferred_name) # TX
-        expect(page.all('.client-row')[3]).to have_text(zach_prep_ready_for_call.preferred_name) # WI
+        expect(page.all('.client-row')[2]).to have_text(marty_ctc.preferred_name) # ME
+        expect(page.all('.client-row')[3]).to have_text(betty_intake_in_progress.preferred_name) # TX
+        expect(page.all('.client-row')[4]).to have_text(zach_prep_ready_for_call.preferred_name) # WI
 
         # sort by state of residence DESC
         click_link "sort-state_of_residence"
-        expect(page.all('.client-row').length).to eq 4 # make sure filter is retained
+        expect(page.all('.client-row').length).to eq 5 # make sure filter is retained
         expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
 
         # return to default sort order
@@ -199,8 +207,10 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row')[1]).not_to have_css(".text--red-bold")
         expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
         expect(page.all('.client-row')[2]).to have_text("1 business day")
-        expect(page.all('.client-row')[3]).to have_text(betty_intake_in_progress.preferred_name)
+        expect(page.all('.client-row')[3]).to have_text(marty_ctc.preferred_name)
         expect(page.all('.client-row')[3]).to have_text("1 business day")
+        expect(page.all('.client-row')[4]).to have_text(betty_intake_in_progress.preferred_name)
+        expect(page.all('.client-row')[4]).to have_text("1 business day")
 
         within ".filter-form" do
           select "2019", from: "year"
@@ -221,7 +231,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_link "Clear"
         end
         within ".client-table" do
-          expect(page.all('.client-row').length).to eq 4
+          expect(page.all('.client-row').length).to eq 5
         end
         within ".filter-form" do
           select "2019", from: "year"
@@ -237,7 +247,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_link "Clear"
         end
         within ".client-table" do
-          expect(page.all('.client-row').length).to eq 4
+          expect(page.all('.client-row').length).to eq 5
         end
         within ".filter-form" do
           check "assigned_to_me"
@@ -269,6 +279,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         end
         within ".client-table" do
           expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
+          expect(page).not_to have_text(marty_ctc.preferred_name)
           expect(page).to have_text(betty_intake_in_progress.preferred_name)
           expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
           expect(page).to have_text(zach_prep_ready_for_call.preferred_name)
@@ -286,6 +297,21 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
           expect(page).to have_text(betty_intake_in_progress.preferred_name)
           expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
+        end
+
+        # filter for CTC clients
+        within ".filter-form" do
+          click_link "Clear"
+          check "ctc_client"
+          click_button "Filter results"
+        end
+        within ".client-table" do
+          expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
+          expect(page).not_to have_text(zach_prep_ready_for_call.preferred_name)
+          expect(page).not_to have_text(betty_intake_in_progress.preferred_name)
+          expect(page).not_to have_text(patty_prep_ready_for_call.preferred_name)
+
+          expect(page).to have_text(marty_ctc.preferred_name)
         end
       end
     end

@@ -215,6 +215,7 @@
 #  index_intakes_on_searchable_data                          (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                         (sms_phone_number)
 #  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
+#  index_intakes_on_type                                     (type)
 #  index_intakes_on_vita_partner_id                          (vita_partner_id)
 #
 # Foreign Keys
