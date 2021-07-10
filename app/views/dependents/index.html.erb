@@ -11,7 +11,7 @@
         <%= render "shared/progress_bar" %>
         <main role="main">
           <% if @dependents.present? %>
-          <ul class="dependents-list">
+          <ul class="review-box">
             <% @dependents.each do |dependent| %>
             <li class="dependent">
               <%= image_tag "dependent.svg", alt: "", class: "dependent__icon" %>

@@ -9,5 +9,14 @@ module Ctc
     def save
       @intake.update(bank_account_attributes: attributes_for(:bank_account))
     end
+
+    def self.from_intake(intake)
+      attribute_keys = Attributes.new(attribute_names).to_sym
+      obj = new(intake, existing_attributes(intake.bank_account).slice(*attribute_keys))
+      if intake.bank_account.present?
+        obj.bank_name = intake.bank_account.bank_name # bank_name is encrypted (so not a sliceable attr), but we want it to be editable.
+      end
+      obj
+    end
   end
 end

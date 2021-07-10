@@ -56,6 +56,7 @@
 @import "components/portal-tax-returns";
 @import "components/user-header";
 @import "components/tooltip";
+@import "components/review-box";
 @import "components/pagination";
 @import "components/link-table";
 @import "components/tagify-overrides";
@@ -175,10 +176,6 @@ body {
   @media screen and (min-width: $tablet-up) {
     max-width: 1200px;
   }
-}
-
-.inherit-color {
-  color: inherit;
 }
 
 /* Create disabled checkbox style because Honeycrisp lacks it */

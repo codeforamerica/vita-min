@@ -75,5 +75,25 @@ RSpec.feature "CTC Intake", :js, active_job: true  do
     choose "Checking"
     check "My name is on this bank account"
     click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Please provide your bank's routing number")
+    fill_in "Routing number", with: "12345678"
+    fill_in "Confirm routing number", with: "12345678"
+    click_on "Continue"
+    expect(page).to have_selector(".text--error", text: "is the wrong length (should be 9 characters)")
+    fill_in "Routing number", with: "123456789"
+    fill_in "Confirm routing number", with: "123456789"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Please provide your account number")
+    fill_in "Account number", with: "123456789"
+    fill_in "Confirm account number", with: "123456789"
+    click_on "Continue"
+    expect(page).to have_selector("h1", text: "Great! Check to make sure your bank information is correct.")
+    expect(page).to have_selector("h2", text: "Your bank information")
+    expect(page).to have_selector("li", text: "Bank of Two Melons")
+    expect(page).to have_selector("li", text: "Type: Checking")
+    expect(page).to have_selector("li", text: "Routing number: 123456789")
+    expect(page).to have_selector("li", text: "Account number: ●●●●●6789")
   end
 end
