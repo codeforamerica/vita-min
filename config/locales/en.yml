@@ -778,6 +778,11 @@ en:
         not_found: Matching routing entry for %{state} could not be found. Try again.
       general: Please fix indicated errors before continuing.
   general:
+    bank_account:
+      checking: Checking
+      savings: Savings
+      account_number: Account number
+      routing_number: Routing number
     intercom_help: "I need help"
     filing_status:
       single: Single
@@ -983,6 +988,7 @@ en:
     text_message: Text Message
     timezone: Timezone
     today: Today
+    type: Type
     update: Update
     updated_at: Updated At
     unassigned: Unassigned
@@ -1284,6 +1290,17 @@ en:
   views:
     ctc:
       questions:
+        routing_number:
+          title: Please provide your bank's routing number
+          routing_number: Routing number
+          routing_number_confirmation: Confirm routing number
+        account_number:
+          title: Please provide your account number
+          account_number: Account number
+          account_number_confirmation: Confirm account number
+        confirm_bank_account:
+          title: Great! Check to make sure your bank information is correct.
+          bank_information: Your bank information
         direct_deposit:
           my_bank_account:
             label: My name is on this bank account

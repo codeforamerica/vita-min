@@ -1,0 +1,28 @@
+.review-box {
+  padding: 2.5rem 2rem;
+  border: 2px solid black;
+  border-radius: 1rem;
+  max-width: 570px;
+  &__title {
+    h2 {
+      font-size: 1.9rem;
+      margin-bottom: 0;
+    }
+    font-size: 1.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  &__edit {
+    color: $color-grey-medium;
+    font-size: 1.6rem;
+    font-weight: normal;
+  }
+  &__body {
+    margin: 0;
+    li {
+      line-height: 3rem;
+    }
+  }
+}

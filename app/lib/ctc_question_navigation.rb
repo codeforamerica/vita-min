@@ -14,6 +14,9 @@ class CtcQuestionNavigation
     # payments information
     Ctc::Questions::RefundPaymentController,
     Ctc::Questions::DirectDepositController,
+    Ctc::Questions::RoutingNumberController,
+    Ctc::Questions::AccountNumberController,
+    Ctc::Questions::ConfirmBankAccountController,
     Ctc::Questions::MailingAddressController,
   ].freeze
 end
