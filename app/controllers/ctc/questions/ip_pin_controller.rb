@@ -9,6 +9,8 @@ module Ctc
       def edit
         render "ctc/questions/placeholder_question/edit"
       end
+      
+      def illustration_path; end
     end
   end
 end
