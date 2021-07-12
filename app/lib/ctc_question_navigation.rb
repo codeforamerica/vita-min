@@ -18,5 +18,7 @@ class CtcQuestionNavigation
     Ctc::Questions::AccountNumberController,
     Ctc::Questions::ConfirmBankAccountController,
     Ctc::Questions::MailingAddressController,
+    Ctc::Questions::ConfirmMailingAddressController,
+    Ctc::Questions::IpPinController,
   ].freeze
 end

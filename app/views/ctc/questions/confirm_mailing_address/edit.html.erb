@@ -1,0 +1,30 @@
+<% @main_question = t("views.ctc.questions.confirm_mailing_address.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+
+    <h1 class="h2"><%= @main_question %></h1>
+
+    <div class="review-box spacing-below-35">
+      <div class="review-box__title">
+        <h2><%= t("views.ctc.questions.confirm_mailing_address.mailing_address") %></h2>
+        <%= link_to t("general.edit").downcase, prev_path, class: "review-box__edit" %>
+      </div>
+      <div class="review-box__body">
+        <div><%= current_intake.street_address %></div>
+        <% if current_intake.street_address2.present? %>
+          <%= current_intake.street_address2 %>
+        <% end %>
+        <div><%= current_intake.city %>, <%= current_intake.state %> <%= current_intake.zip_code %></div>
+      </div>
+    </div>
+
+    <div class="spacing-below-35"><%= t("views.ctc.questions.confirm_mailing_address.help_text") %></div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%= t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>

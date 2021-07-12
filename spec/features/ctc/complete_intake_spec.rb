@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :js, active_job: true  do
+RSpec.feature "CTC Intake", :js, active_job: true do
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
@@ -95,5 +95,20 @@ RSpec.feature "CTC Intake", :js, active_job: true  do
     expect(page).to have_selector("li", text: "Type: Checking")
     expect(page).to have_selector("li", text: "Routing number: 123456789")
     expect(page).to have_selector("li", text: "Account number: ●●●●●6789")
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Great, please provide your mailing address below.")
+    fill_in "Street address or P.O. box", with: "26 William Street"
+    fill_in "Apartment number (optional)", with: "Apt 1234"
+    fill_in "City", with: "Bel Air"
+    select "California", from: "State"
+    fill_in "ZIP code", with: 90001
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Great! Please confirm your mailing address.")
+    expect(page).to have_selector("h2", text: "Your mailing address")
+    expect(page).to have_selector("div", text: "26 William Street")
+    expect(page).to have_selector("div", text: "Apt 1234")
+    expect(page).to have_selector("div", text: "Bel Air, CA 90001")
   end
 end
