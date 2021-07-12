@@ -24,4 +24,8 @@ class BankAccount < ApplicationRecord
   attr_encrypted :routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   enum account_type: { checking: 1, savings: 2 }
+
+  def account_type_code
+    self.class.account_types[account_type]
+  end
 end

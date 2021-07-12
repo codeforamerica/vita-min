@@ -63,6 +63,20 @@ class TaxReturn < ApplicationRecord
     end
   end
 
+  def filing_status_code
+    self.class.filing_statuses[filing_status]
+  end
+
+  def standard_deduction
+    StandardDeduction.for(tax_year: year, filing_status: filing_status)
+  end
+
+  # TODO: Must be replaced with real calculation before AdvCTC calc
+  # placeholder for calculation of the outstanding EIP 1 and 2 amounts to file for on 2020 tax return.
+  def outstanding_recovery_rebate_amount
+    0
+  end
+
   ##
   # advance the return to a new status, only if that status more advanced.
   # An earlier or equal status will be ignored.

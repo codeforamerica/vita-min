@@ -31,7 +31,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(response).to be_an_instance_of SubmissionBuilder::Response
         expect(response).to be_valid
         expect(response.errors).to eq []
-        expect(response.document).to be_an_instance_of Nokogiri::XML::Builder
+        expect(response.document).to be_an_instance_of Nokogiri::XML::Document
       end
     end
 
@@ -49,7 +49,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(response).to be_an_instance_of SubmissionBuilder::Response
         expect(response).not_to be_valid
         expect(response.errors).to eq ['error', 'error']
-        expect(response.document).to be_an_instance_of Nokogiri::XML::Builder
+        expect(response.document).to be_an_instance_of Nokogiri::XML::Document
       end
     end
 
@@ -127,7 +127,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
 
         it "includes direct deposit nodes and excludes CheckCd" do
           xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
-          expect(xml.at("RoutingTransitNum").text).to eq "12345678"
+          expect(xml.at("RoutingTransitNum").text).to eq "123456789"
           expect(xml.at("DepositorAccountNum").text).to eq "87654321"
           expect(xml.at("CheckCd")).to be_nil
         end

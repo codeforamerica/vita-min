@@ -46,7 +46,8 @@ class EfileSubmission < ApplicationRecord
   def generate_irs_submission_id(i = 0)
     raise "Max irs_submission_id attempts exceeded. Too many submissions today?" if i > 5
 
-    irs_submission_id = EnvironmentCredentials.dig(:irs, :efin) + Date.current.strftime("%C%y%j") + SecureRandom.base36(7)
+    efin = EnvironmentCredentials.dig(:irs, :efin)
+    irs_submission_id = "#{efin}#{Date.current.strftime('%C%y%j')}#{SecureRandom.base36(7)}"
     if self.class.find_by(irs_submission_id: irs_submission_id)
       i += 1
       generate_irs_submission_id(i)
