@@ -19,6 +19,5 @@ describe ApplicationHelper do
     it "does not break when the param is nil" do
       expect(mask(nil)).to eq nil
     end
-
   end
 end
