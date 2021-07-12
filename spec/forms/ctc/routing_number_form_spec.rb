@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::RoutingNumberForm do
-  let(:intake) { create :ctc_intake, bank_account: (create :bank_account) }
+  let(:intake) { create :ctc_intake, bank_account: (create :empty_bank_account) }
 
   context "validations" do
     it "ensures the routing number is 9 digits" do

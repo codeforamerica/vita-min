@@ -26,4 +26,8 @@ FactoryBot.define do
     account_number { "87654321" }
     account_type { "checking" }
   end
+
+  factory :empty_bank_account, class: "BankAccount" do
+    intake
+  end
 end
