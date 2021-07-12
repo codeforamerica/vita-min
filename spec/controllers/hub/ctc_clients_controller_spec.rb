@@ -192,9 +192,8 @@ RSpec.describe Hub::CtcClientsController do
   describe "#update" do
     let!(:client) { create :client, :with_return, intake: intake }
 
-    let!(:intake) { create :ctc_intake, :filled_out, :with_contact_info, :with_ssns, preferred_interview_language: "en" }
+    let!(:intake) { create :ctc_intake, :filled_out, :with_contact_info, :with_ssns, :with_dependents, preferred_interview_language: "en" }
     let(:first_dependent) { intake.dependents.first }
-    let(:second_dependent) { intake.dependents.second }
     let!(:params) do
       {
         id: client.id,
@@ -224,8 +223,8 @@ RSpec.describe Hub::CtcClientsController do
           spouse_birth_date_month: 1,
           spouse_birth_date_day: 11,
           state_of_residence: intake.state_of_residence,
-          primary_ssn: intake.primary_ssn,
-          primary_ssn_confirmation: intake.primary_ssn,
+          primary_ssn: "111227778",
+          primary_ssn_confirmation: "111227778",
           filing_status: client.tax_returns.last.filing_status,
           recovery_rebate_credit_amount_1: '9000',
           recovery_rebate_credit_amount_2: intake.recovery_rebate_credit_amount_2,
@@ -237,7 +236,6 @@ RSpec.describe Hub::CtcClientsController do
           spouse_ip_pin: intake.spouse_ip_pin,
           dependents_attributes: {
             "0" => { id: first_dependent.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9", relationship: first_dependent.relationship, ssn: "111227777" },
-            "1" => { id: second_dependent.id, first_name: "Updated Dependentt", last_name: "Name", birth_date_year: "2002", birth_date_month: "10", birth_date_day: "9", relationship: second_dependent.relationship, ssn: "111227776" },
           }
         }
       }
@@ -266,7 +264,7 @@ RSpec.describe Hub::CtcClientsController do
         expect(client.intake.spouse_ssn).to eq "123456789"
         expect(client.intake.spouse_birth_date).to eq Date.new(1980, 1, 11)
         expect(first_dependent.reload.first_name).to eq "Updated Dependent"
-        expect(client.intake.dependents.count).to eq 2
+        expect(client.intake.dependents.count).to eq 1
         expect(response).to redirect_to hub_client_path(id: client.id)
         expect(SystemNote::ClientChange).to have_received(:generate!).with(initiated_by: user, intake: intake)
       end
