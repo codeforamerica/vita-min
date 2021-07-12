@@ -61,6 +61,9 @@ RSpec.describe "a user editing a clients intake fields" do
         check "Opt into sms notifications"
         fill_in "SSN/ITIN", with: "111-22-4444"
         fill_in "Re-enter SSN/ITIN", with: "111-22-4444"
+        fill_in "hub_update_ctc_client_form_primary_birth_date_month", with: "08"
+        fill_in "hub_update_ctc_client_form_primary_birth_date_day", with: "24"
+        fill_in "hub_update_ctc_client_form_primary_birth_date_year", with: "1996"
       end
 
       within "#dependents-fields" do
@@ -101,6 +104,17 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Email", with: "spicypeter@pepper.com"
         fill_in "SSN/ITIN", with: "111-22-3333"
         fill_in "Re-enter SSN/ITIN", with: "111-22-3333"
+        fill_in "hub_update_ctc_client_form_spouse_birth_date_month", with: "10"
+        fill_in "hub_update_ctc_client_form_spouse_birth_date_day", with: "24"
+        fill_in "hub_update_ctc_client_form_spouse_birth_date_year", with: "1996"
+      end
+
+      within "#photo-id-type-fields" do
+        check "Drivers License"
+      end
+
+      within "#taxpayer-id-type-fields" do
+        check "Social Security card"
       end
 
       click_on "Save"

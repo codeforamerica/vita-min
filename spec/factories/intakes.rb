@@ -353,6 +353,37 @@ FactoryBot.define do
     demographic_questions_opt_in { "yes" }
   end
 
+  trait :filled_out_ctc do
+    primary_first_name { "Yayoi" }
+    primary_last_name { "Kusama" }
+    primary_ssn { '111-22-3333' }
+    primary_birth_date { Date.new(1929, 3, 22)}
+    preferred_name { "Y Kusama" }
+    preferred_interview_language { "en" }
+    email_address { "yayoi@kusama.com" }
+    phone_number { "+15005550006" }
+    sms_phone_number { "+15005550006" }
+    street_address { "2900 Southern Blvd" }
+    city { "Bronx" }
+    state_of_residence { "NY" }
+    zip_code { "10458" }
+    sms_notification_opt_in { "yes" }
+    email_notification_opt_in { "no" }
+    spouse_first_name { "Eva" }
+    spouse_last_name { "Hesse" }
+    spouse_email_address { "eva@hesse.com" }
+    spouse_ssn { '111-22-3333' }
+    spouse_birth_date { Date.new(1929, 9, 2)}
+    timezone { "America/Chicago" }
+    signature_method { "online" }
+    refund_payment_method { "check" }
+    bank_account_type { "checking" }
+    with_passport_photo_id { "1" }
+    with_itin_taxpayer_id { "1" }
+    navigator_name { "Terry Taxseason" }
+    navigator_has_verified_client_identity { "1" }
+  end
+
   trait :filled_out do
     document_count  { [1, 2, 3].sample }
     dependent_count { [1, 2, 3].sample }
