@@ -14,7 +14,8 @@ module Ctc
       return super unless intake.bank_account.present?
 
       # bank_name is encrypted, but we want it to be editable for clients
-      HashWithIndifferentAccess.new(intake.attributes.merge(bank_name: intake.bank_account.bank_name))
+      bank_account_attributes = intake.bank_account.attributes.merge(bank_name: bank_account.name)
+      HashWithIndifferentAccess.new(intake.attributes.merge(bank_account_attributes))
     end
   end
 end
