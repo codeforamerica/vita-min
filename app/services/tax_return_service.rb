@@ -1,5 +1,5 @@
 class TaxReturnService
-  def self.handle_status_change(form) # find what message_body is
+  def self.handle_status_change(form)
     action_list = []
 
     form.tax_return.status_last_changed_by = form.current_user

@@ -72,7 +72,6 @@ RSpec.describe Hub::CreateCtcClientForm do
         end.to change(Client, :count).by 1
         client = Client.last
         expect(client.vita_partner).to eq vita_partner
-        expect(client.intake.is_ctc?).to eq true
       end
 
       it "stores client bank info on the intake" do
