@@ -23,3 +23,4 @@ FactoryBot.define do
     intake
   end
 end
+
