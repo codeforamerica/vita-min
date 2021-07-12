@@ -90,7 +90,8 @@ module Hub
 
     validate :at_least_one_photo_id_type_selected
     validate :at_least_one_taxpayer_id_type_selected
-    validate :complete_birth_dates
+    validate :valid_primary_birth_date
+    validate :valid_spouse_birth_date, if: -> { filing_status == "married_filing_jointly" }
 
     def initialize(client, params = {})
       @client = client

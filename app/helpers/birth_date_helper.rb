@@ -1,15 +1,10 @@
 module BirthDateHelper
-  def complete_birth_dates
-    ["primary_birth_date", "spouse_birth_date"].each do |field|
-      next if field == "spouse_birth_date" && filing_status != "married_filing_jointly"
+  def valid_primary_birth_date
+    valid_text_birth_date(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day, :primary_birth_date)
+  end
 
-      error_message = I18n.t('errors.attributes.birth_date.blank')
-      begin
-        Date.new(eval("#{field}_year").to_i, eval("#{field}_month").to_i, eval("#{field}_day").to_i)
-      rescue ArgumentError
-        errors.add(field.to_sym, error_message)
-      end
-    end
+  def valid_spouse_birth_date
+    valid_text_birth_date(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day, :spouse_birth_date)
   end
 
   def valid_birth_date

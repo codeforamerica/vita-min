@@ -134,16 +134,7 @@ module Hub
       end
     end
 
-
     private
-
-    def valid_primary_birth_date
-      valid_text_birth_date(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day, :primary_birth_date)
-    end
-
-    def valid_spouse_birth_date
-      valid_text_birth_date(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day, :spouse_birth_date)
-    end
 
     def send_confirmation_message
       locale = client.intake.preferred_interview_language == "es" ? "es" : "en"
