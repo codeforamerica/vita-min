@@ -1,5 +1,5 @@
 module Hub
-  class CreateCtcClientForm < ClientForm
+  class UpdateCtcClientForm < ClientForm
     include BirthDateHelper
     set_attributes_for :intake,
                        :primary_first_name,
@@ -21,16 +21,15 @@ module Hub
                        :state_of_residence,
                        :zip_code,
                        :primary_ssn,
+                       :primary_ssn_confirmation,
                        :spouse_ssn,
+                       :spouse_ssn_confirmation,
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
                        :spouse_first_name,
                        :spouse_last_name,
                        :spouse_email_address,
                        :interview_timing_preference,
-                       :timezone,
-                       :vita_partner_id,
-                       :signature_method,
                        :with_general_navigator,
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
@@ -46,8 +45,6 @@ module Hub
                        :recovery_rebate_credit_amount_2,
                        :recovery_rebate_credit_amount_confidence,
                        :refund_payment_method,
-                       :navigator_name,
-                       :navigator_has_verified_client_identity,
                        :primary_ip_pin,
                        :spouse_ip_pin
     set_attributes_for :tax_return,
@@ -65,22 +62,7 @@ module Hub
                        :account_type
     attr_accessor :client
 
-    before_validation do
-      [primary_ssn, primary_ssn_confirmation, spouse_ssn, spouse_ssn_confirmation].each do |field|
-        field.remove!(/\D/) if field
-      end
-    end
-
-    # See parent ClientForm for additional validations.
-    validates :vita_partner_id, presence: true, allow_blank: false
-    validates :signature_method, presence: true
-    validates :filing_status, presence: true
-    after_save :send_confirmation_message, :send_mixpanel_data, :add_system_note
-
     validates :refund_payment_method, presence: true
-    validates :navigator_name, presence: true
-    validates :navigator_has_verified_client_identity, inclusion: { in: [true, '1'], message: I18n.t('errors.messages.blank') }
-
     with_options if: -> { refund_payment_method == "direct_deposit" } do
       validates_confirmation_of :routing_number
       validates_confirmation_of :account_number
@@ -111,72 +93,68 @@ module Hub
     validate :valid_primary_birth_date
     validate :valid_spouse_birth_date, if: -> { filing_status == "married_filing_jointly" }
 
-    def save(current_user)
-      @current_user = current_user
-      run_callbacks :save do
-        return false unless valid?
-
-        intake_attr = attributes_for(:intake)
-                      .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day,
-                              :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
-                      .merge(
-                        default_attributes,
-                        bank_account_attributes: attributes_for(:bank_account),
-                        dependents_attributes: formatted_dependents_attributes,
-                        primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
-                        spouse_birth_date: parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day),
-                        visitor_id: SecureRandom.hex(26))
-        @client = Client.create!(
-          vita_partner_id: attributes_for(:intake)[:vita_partner_id],
-          intake_attributes: intake_attr,
-          tax_returns_attributes: [tax_return_attributes]
-        )
-      end
+    def initialize(client, params = {})
+      @client = client
+      super(params)
+      # parent Form class creates setters for each attribute -- won't work til super is called!
+      self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
     end
 
-    private
-
-    def send_confirmation_message
-      locale = client.intake.preferred_interview_language == "es" ? "es" : "en"
-
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: client,
-        message: AutomatedMessage::SuccessfulSubmissionDropOff.new,
-        locale: locale
-      )
-    end
-
-    def send_mixpanel_data
-      client.tax_returns.each do |tax_return|
-        MixpanelService.send_event(
-          event_id: @client.intake.visitor_id,
-          event_name: "drop_off_submitted",
-          data: MixpanelService.data_from([client, tax_return, @current_user])
-        )
-      end
-    end
-
-    def add_system_note
-      SystemNote::VerifiedClientIdentity.generate!(client: @client)
+    def self.existing_attributes(intake)
+      non_model_attrs = {
+        spouse_ssn: intake.spouse_ssn,
+        spouse_ssn_confirmation: intake.spouse_ssn,
+        primary_ssn: intake.primary_ssn,
+        primary_ssn_confirmation: intake.primary_ssn,
+      }
+      tax_return_attrs = {
+        filing_status: intake.client.tax_returns.last.filing_status,
+        filing_status_note: intake.client.tax_returns.last.filing_status_note,
+      }
+      super.merge(non_model_attrs).merge(date_of_birth_attributes(intake)).merge(tax_return_attrs)
     end
 
     def default_attributes
       {
-          type: "Intake::CtcIntake",
-          primary_last_four_ssn: primary_ssn&.last(4),
-          spouse_last_four_ssn: spouse_ssn&.last(4),
+        type: "Intake::CtcIntake",
+        primary_last_four_ssn: primary_ssn&.last(4),
+        spouse_last_four_ssn: spouse_ssn&.last(4),
       }
     end
 
-    def tax_return_attributes
+    def self.date_of_birth_attributes(intake)
       {
-        year: 2020,
-        is_ctc: true,
-        certification_level: :basic,
-        status: :prep_ready_for_prep,
-        service_type: :drop_off
-      }.merge(attributes_for(:tax_return))
+        primary_birth_date_day: intake.primary_birth_date&.day,
+        primary_birth_date_month: intake.primary_birth_date&.month,
+        primary_birth_date_year: intake.primary_birth_date&.year,
+        spouse_birth_date_day: intake.spouse_birth_date&.day,
+        spouse_birth_date_month: intake.spouse_birth_date&.month,
+        spouse_birth_date_year: intake.spouse_birth_date&.year
+      }
     end
+
+    def self.from_client(client)
+      intake = client.intake
+      attribute_keys = Attributes.new(attribute_names).to_sym
+      new(client, existing_attributes(intake).slice(*attribute_keys))
+    end
+
+    def save
+      return false unless valid?
+      intake_attr = attributes_for(:intake)
+                       .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day,
+                        :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day, :primary_ssn_confirmation, :spouse_ssn_confirmation)
+                       .merge(
+                         default_attributes,
+                         dependents_attributes: formatted_dependents_attributes,
+                         primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
+                         spouse_birth_date: parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day))
+      @client.intake.update(intake_attr)
+      # only updates the last tax return because we assume that a CTC client only has a single tax return
+      @client.tax_returns.last.update(attributes_for(:tax_return))
+    end
+
+    private
 
     def at_least_one_photo_id_type_selected
       photo_id_selected = Intake::CtcIntake::PHOTO_ID_TYPES.any? do |_, type|

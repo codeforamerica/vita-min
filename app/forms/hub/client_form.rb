@@ -90,6 +90,7 @@ module Hub
       if attrs[:birth_date_month] && attrs[:birth_date_month] && attrs[:birth_date_year]
         attrs[:birth_date] = "#{attrs[:birth_date_year]}-#{attrs[:birth_date_month]}-#{attrs[:birth_date_day]}"
       end
+      attrs[:ssn_confirmation] = attrs[:ssn]
       attrs.except!(:birth_date_month, :birth_date_day, :birth_date_year)
     end
   end

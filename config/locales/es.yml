@@ -199,6 +199,8 @@ es:
         title: Agregar un nuevo cliente
         assign_to_label: Asignado a
         save_and_add: Guardar y agregar otro
+      edit:
+        title: Edit CTC Client Profile
     documents:
       edit:
         title: Editar Documento

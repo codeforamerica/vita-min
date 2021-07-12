@@ -168,4 +168,145 @@ RSpec.describe Hub::CtcClientsController do
       end
     end
   end
+
+  describe "#edit" do
+    let(:client) { create :client, :with_return, intake: (create :ctc_intake) }
+    let(:params) {
+      { id: client.id }
+    }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      it "renders edit for the client" do
+        get :edit, params: params
+
+        expect(response).to be_ok
+        expect(assigns(:form)).to be_an_instance_of Hub::UpdateCtcClientForm
+      end
+    end
+  end
+
+  describe "#update" do
+    let!(:client) { create :client, :with_return, intake: intake }
+
+    let!(:intake) { create :ctc_intake, :filled_out_ctc, :with_contact_info, :with_ssns, :with_dependents, preferred_interview_language: "en" }
+    let(:first_dependent) { intake.dependents.first }
+    let!(:params) do
+      {
+        id: client.id,
+        hub_update_ctc_client_form: {
+          primary_first_name: 'San',
+          primary_last_name: 'Mateo',
+          preferred_name: intake.preferred_name,
+          email_address: 'san@mateo.com',
+          phone_number: intake.phone_number,
+          sms_phone_number: intake.sms_phone_number,
+          preferred_interview_language: intake.preferred_interview_language,
+          primary_birth_date_year: intake.primary_birth_date.year,
+          primary_birth_date_month: intake.primary_birth_date.month,
+          primary_birth_date_day: intake.primary_birth_date.day,
+          street_address: intake.street_address,
+          city: intake.city,
+          state: intake.state,
+          zip_code: intake.zip_code,
+          sms_notification_opt_in: 'yes',
+          email_notification_opt_in: 'yes',
+          spouse_first_name: 'San',
+          spouse_last_name: 'Diego',
+          spouse_email_address: 'san@diego.com',
+          spouse_ssn: '123456789',
+          spouse_ssn_confirmation: '123456789',
+          spouse_birth_date_year: 1980,
+          spouse_birth_date_month: 1,
+          spouse_birth_date_day: 11,
+          state_of_residence: intake.state_of_residence,
+          primary_ssn: "111227778",
+          primary_ssn_confirmation: "111227778",
+          filing_status: client.tax_returns.last.filing_status,
+          recovery_rebate_credit_amount_1: '9000',
+          recovery_rebate_credit_amount_2: intake.recovery_rebate_credit_amount_2,
+          recovery_rebate_credit_amount_confidence: intake.recovery_rebate_credit_amount_confidence,
+          refund_payment_method: "check",
+          with_passport_photo_id: "1",
+          with_itin_taxpayer_id: "1",
+          primary_ip_pin: intake.primary_ip_pin,
+          spouse_ip_pin: intake.spouse_ip_pin,
+          dependents_attributes: {
+            "0" => { id: first_dependent.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9", relationship: first_dependent.relationship, ssn: "111227777" },
+          }
+        }
+      }
+    end
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :update
+
+    context "with a signed in user" do
+      let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+      before do
+        sign_in user
+        allow(SystemNote::ClientChange).to receive(:generate!)
+      end
+
+      it "updates the clients intake and creates a system note" do
+        post :update, params: params
+        client.reload
+        intake.reload
+        expect(intake.primary_first_name).to eq "San"
+        expect(client.legal_name).to eq "San Mateo"
+        expect(client.intake.email_address).to eq "san@mateo.com"
+        expect(client.intake.recovery_rebate_credit_amount_1).to eq 9000
+        expect(client.intake.spouse_last_name).to eq "Diego"
+        expect(client.intake.spouse_email_address).to eq "san@diego.com"
+        expect(client.intake.spouse_ssn).to eq "123456789"
+        expect(client.intake.spouse_birth_date).to eq Date.new(1980, 1, 11)
+        expect(first_dependent.reload.first_name).to eq "Updated Dependent"
+        expect(client.intake.dependents.count).to eq 1
+        expect(response).to redirect_to hub_client_path(id: client.id)
+        expect(SystemNote::ClientChange).to have_received(:generate!).with(initiated_by: user, intake: intake)
+      end
+
+      context "with invalid params" do
+        let(:params) {
+          {
+            id: client.id,
+            hub_update_ctc_client_form: {
+              primary_first_name: "",
+            }
+          }
+        }
+
+        it "renders edit" do
+          post :update, params: params
+
+          expect(response).to render_template :edit
+        end
+      end
+
+      context "with invalid dependent params" do
+        let(:params) {
+          {
+            id: client.id,
+            hub_update_ctc_client_form: {
+              dependents_attributes: { 0 => { "first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: "" } },
+            }
+          }
+        }
+
+        it "renders edit" do
+          post :update, params: params
+
+          expect(response).to render_template :edit
+        end
+
+        it "displays a flash message" do
+          post :update, params: params
+          expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
+        end
+      end
+    end
+  end
 end
