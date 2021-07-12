@@ -47,8 +47,6 @@ RSpec.describe Hub::UpdateCtcClientForm do
         recovery_rebate_credit_amount_2: intake.recovery_rebate_credit_amount_2,
         recovery_rebate_credit_amount_confidence: intake.recovery_rebate_credit_amount_confidence,
         refund_payment_method: intake.refund_payment_method,
-        navigator_name: intake.navigator_name,
-        navigator_has_verified_client_identity: intake.navigator_has_verified_client_identity,
         with_passport_photo_id: intake.with_passport_photo_id,
         with_itin_taxpayer_id: intake.with_itin_taxpayer_id,
         primary_ip_pin: intake.primary_ip_pin,

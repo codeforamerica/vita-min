@@ -45,8 +45,6 @@ module Hub
                        :recovery_rebate_credit_amount_2,
                        :recovery_rebate_credit_amount_confidence,
                        :refund_payment_method,
-                       :navigator_name,
-                       :navigator_has_verified_client_identity,
                        :primary_ip_pin,
                        :spouse_ip_pin
     set_attributes_for :tax_return,
