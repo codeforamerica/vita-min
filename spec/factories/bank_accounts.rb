@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # == Schema Information
 #
 # Table name: bank_accounts
@@ -19,7 +18,6 @@
 #
 #  index_bank_accounts_on_intake_id  (intake_id)
 #
-
 FactoryBot.define do
   factory :bank_account do
     intake
@@ -27,9 +25,5 @@ FactoryBot.define do
     routing_number { "123456789" }
     account_number { "87654321" }
     account_type { "checking" }
-  end
-
-  factory :empty_bank_account do
-    intake
   end
 end
