@@ -50,6 +50,7 @@ module Hub
 
     def edit
       @form = UpdateClientForm.from_client(@client)
+      render "public_pages/page_not_found", status: 404 if @client.intake.is_ctc?
     end
 
     def update
