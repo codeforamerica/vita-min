@@ -963,7 +963,7 @@ describe TaxReturn do
     end
   end
 
-  context "#assign!" do
+  describe "#assign!" do
     let(:assigned_user) { create :user }
     let(:assigned_by) { create :user }
     let(:tax_return) { create :tax_return, assigned_user: (create :user) }
@@ -996,6 +996,33 @@ describe TaxReturn do
             assigned_at: tax_return.updated_at
         ).once
       end
+    end
+  end
+
+  describe "filing_status_code" do
+    let(:tax_return) { create :tax_return, filing_status: "single" }
+    it "returns the integer corresponding to the enum string value" do
+      expect(tax_return.filing_status_code).to eq 1
+    end
+
+    context "when filing status is nil" do
+      let(:tax_return) { create :tax_return, filing_status: nil }
+
+      it "returns nil" do
+        expect(tax_return.filing_status_code).to be_nil
+      end
+    end
+  end
+
+  describe "#standard_deduction" do
+    let(:tax_return) { create :tax_return, year: 2020, filing_status: :married_filing_jointly }
+    before do
+      allow(StandardDeduction).to receive(:for)
+    end
+
+    it "calls StandardDeduction with appropriate params" do
+      tax_return.standard_deduction
+      expect(StandardDeduction).to have_received(:for).with(tax_year: 2020, filing_status: "married_filing_jointly")
     end
   end
 end
