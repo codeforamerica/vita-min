@@ -192,7 +192,7 @@ RSpec.describe Hub::CtcClientsController do
   describe "#update" do
     let!(:client) { create :client, :with_return, intake: intake }
 
-    let!(:intake) { create :ctc_intake, :filled_out, :with_contact_info, preferred_interview_language: "en" }
+    let!(:intake) { create :ctc_intake, :filled_out, :with_contact_info, :with_ssns, preferred_interview_language: "en" }
     let(:first_dependent) { intake.dependents.first }
     let(:second_dependent) { intake.dependents.second }
     let!(:params) do
@@ -230,9 +230,9 @@ RSpec.describe Hub::CtcClientsController do
           recovery_rebate_credit_amount_1: '9000',
           recovery_rebate_credit_amount_2: intake.recovery_rebate_credit_amount_2,
           recovery_rebate_credit_amount_confidence: intake.recovery_rebate_credit_amount_confidence,
-          refund_payment_method: intake.refund_payment_method,
-          with_passport_photo_id: intake.with_passport_photo_id,
-          with_itin_taxpayer_id: intake.with_itin_taxpayer_id,
+          refund_payment_method: "check",
+          with_passport_photo_id: "1",
+          with_itin_taxpayer_id: "1",
           primary_ip_pin: intake.primary_ip_pin,
           spouse_ip_pin: intake.spouse_ip_pin,
           dependents_attributes: {

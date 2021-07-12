@@ -62,6 +62,36 @@ module Hub
                        :account_type
     attr_accessor :client
 
+    validates :refund_payment_method, presence: true
+    with_options if: -> { refund_payment_method == "direct_deposit" } do
+      validates_confirmation_of :routing_number
+      validates_confirmation_of :account_number
+      validates_presence_of :bank_name
+      validates_presence_of :account_type
+      validates_presence_of :account_number
+      validates_presence_of :routing_number
+    end
+
+    validates_presence_of :account_number_confirmation, if: :account_number
+    validates_presence_of :routing_number_confirmation, if: :routing_number
+
+    validates_confirmation_of :primary_ssn
+    validates_presence_of :primary_ssn_confirmation, if: :primary_ssn
+    validates_presence_of :spouse_ssn_confirmation, if: :spouse_ssn
+    validates :primary_ssn, social_security_number: true
+
+    with_options if: -> { filing_status == "married_filing_jointly" } do
+      validates_confirmation_of :spouse_ssn
+      validates :spouse_ssn, social_security_number: true
+    end
+
+    validates :primary_ip_pin, format: { with: /\d{6}/, message: "Must be a 6 digit number."}, if: :primary_ip_pin
+    validates :spouse_ip_pin, format: { with: /\d{6}/, message: "Must be a 6 digit number."}, if: :spouse_ip_pin
+
+    validate :at_least_one_photo_id_type_selected
+    validate :at_least_one_taxpayer_id_type_selected
+    validate :complete_birth_dates
+
     def initialize(client, params = {})
       @client = client
       super(params)
@@ -121,6 +151,24 @@ module Hub
       @client.intake.update(intake_attr)
       # only updates the last tax return because we assume that a CTC client only has a single tax return
       @client.tax_returns.last.update(attributes_for(:tax_return))
+    end
+
+    private
+
+    def at_least_one_photo_id_type_selected
+      photo_id_selected = Intake::CtcIntake::PHOTO_ID_TYPES.any? do |_, type|
+        self.send(type[:field_name]) == "1"
+      end
+
+      errors.add(:photo_id_type, I18n.t("hub.clients.fields.photo_id.error")) unless photo_id_selected
+    end
+
+    def at_least_one_taxpayer_id_type_selected
+      taxpayer_id_selected = Intake::CtcIntake::TAXPAYER_ID_TYPES.any? do |_, type|
+        self.send(type[:field_name]) == "1"
+      end
+
+      errors.add(:taxpayer_id_type, I18n.t("hub.clients.fields.taxpayer_id.error")) unless taxpayer_id_selected
     end
   end
 end
