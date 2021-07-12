@@ -1,0 +1,21 @@
+<% @main_question = t("views.ctc.questions.mailing_address.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= @main_question %></h1>
+
+    <div class="form-card__content">
+      <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address"), ) %>
+      <%= f.cfa_input_field(:street_address2, t("views.questions.mailing_address.street_address2"), classes: ["form-width--zip"]) %>
+      <%= f.cfa_input_field(:city, t("views.questions.mailing_address.city")) %>
+      <%= f.cfa_select(:state, t("views.questions.mailing_address.state"), States.name_value_pairs) %>
+      <%= f.cfa_input_field(:zip_code, t("views.questions.mailing_address.zip_code"), classes: ["form-width--zip"]) %>
+    </div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>

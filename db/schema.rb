@@ -9,8 +9,7 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-
-ActiveRecord::Schema.define(version: 2021_07_09_171924) do
+ActiveRecord::Schema.define(version: 2021_07_10_013447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -565,6 +564,7 @@ ActiveRecord::Schema.define(version: 2021_07_09_171924) do
     t.string "state"
     t.string "state_of_residence"
     t.string "street_address"
+    t.string "street_address2"
     t.string "timezone"
     t.bigint "triage_source_id"
     t.string "triage_source_type"

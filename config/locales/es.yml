@@ -2192,7 +2192,8 @@ es:
       mailing_address:
         city: Ciudad
         state: Estado
-        street_address: Dirección
+        street_address: Dirección ou apartado postal
+        street_address2: Número de apartamento (opcional)
         title: "¿Cuál es su dirección postal?"
         zip_code: Código postal
       married:

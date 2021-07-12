@@ -9,10 +9,10 @@ module Ctc
     def save
       @intake.update(bank_account_attributes: attributes_for(:bank_account))
     end
-    
+
     def self.existing_attributes(intake)
       return super unless intake.bank_account.present?
-
+      
       # bank_name is encrypted, but we want it to be editable for clients
       HashWithIndifferentAccess.new(intake.attributes.merge(bank_name: intake.bank_account.bank_name))
     end

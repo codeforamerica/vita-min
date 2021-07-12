@@ -1290,6 +1290,13 @@ en:
   views:
     ctc:
       questions:
+        mailing_address:
+          title: Great, please provide your mailing address below.
+        confirm_mailing_address:
+          title: Great! Please confirm your mailing address.
+          mailing_address: Your mailing address
+          help_text: |
+            Note: Address formatting may appear different to match US Postal Service standards.
         routing_number:
           title: Please provide your bank's routing number
           routing_number: Routing number
@@ -2298,7 +2305,8 @@ en:
       mailing_address:
         city: City
         state: State
-        street_address: Street address
+        street_address: Street address or P.O. box
+        street_address2: Apartment number (optional)
         title: What is your mailing address?
         zip_code: ZIP code
       married:
