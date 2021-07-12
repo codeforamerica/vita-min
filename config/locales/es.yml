@@ -767,6 +767,11 @@ es:
         not_found: No se pudo encontrar la entrada de enrutamiento coincidente para %{state}. Intentar otra vez.
       general: Por favor, corrija los errores indicados antes de continuar.
   general:
+    bank_account:
+      checking: Cuenta de Cheques
+      savings: Ahorros
+      routing_number: Número de ruta
+      account_number: Número de cuenta
     intercom_help: Necesito ayuda
     filing_status:
       single: Soltero (S)
@@ -972,6 +977,7 @@ es:
     text_message: Mensaje de texto
     timezone: Zona horaria
     today: Hoy
+    type: Tipo
     update: Actualizar
     updated_at: Actualizado en
     upload: Subir

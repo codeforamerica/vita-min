@@ -52,4 +52,10 @@ module ApplicationHelper
 
     render template: layout
   end
+
+  def mask(string, unmasked_char_count = 0)
+    return string unless string.present?
+
+    string.gsub(/.(?=.{#{unmasked_char_count}})/, '●')
+  end
 end
