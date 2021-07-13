@@ -16,6 +16,7 @@ class EfileSubmission < ApplicationRecord
   belongs_to :tax_return
   has_one :intake, through: :tax_return
   has_one :client, through: :tax_return
+  has_many :dependents, through: :intake
   has_many :efile_submission_transitions, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
 
   has_one_attached :submission_bundle

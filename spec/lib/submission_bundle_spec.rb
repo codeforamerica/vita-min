@@ -9,7 +9,7 @@ describe SubmissionBundle do
 
   describe "#build" do
     it "stores the submission bundle on the submission" do
-      described_class.new(submission, documents: ["adv_ctc_irs1040"]).build
+      response = described_class.new(submission, documents: ["adv_ctc_irs1040"]).build
 
       expect(submission.reload.submission_bundle).to be_present
       expect(submission.submission_bundle.content_type).to eq "application/zip"
@@ -18,6 +18,7 @@ describe SubmissionBundle do
         expect(zip_file.entries.first.name).to eq "manifest/manifest.xml"
         expect(zip_file.entries.last.name).to eq "xml/submission.xml"
       end
+      expect(response).to be_valid
     end
 
     context "when a SubmissionBuilder instance is not valid" do
@@ -28,7 +29,7 @@ describe SubmissionBundle do
       end
 
       it "returns errors from the SubmissionBuilder::Response" do
-        expect(described_class.new(submission, documents: ["adv_ctc_irs1040"]).build).to eq ['error', 'error']
+        expect(described_class.new(submission, documents: ["adv_ctc_irs1040"]).build.errors).to eq ['error', 'error']
       end
     end
   end

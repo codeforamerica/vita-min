@@ -6,6 +6,7 @@ class EfileSubmissionStateMachine
   state :queued
 
   # submission-related response statuses
+  state :bundle_failure
   state :transmitted
   state :failed
 
@@ -22,11 +23,12 @@ class EfileSubmissionStateMachine
   transition from: :transmitted,  to: [:accepted, :rejected]
 
   guard_transition(to: :queued) do |submission|
-    # Example of guard transition. Eventually guard by submission file presence.
-    # submission.submission_file.present?
-    submission.present?
+    submission.submission_bundle.present?
   end
-
+  
+  after_transition(to: :preparing) do |submission|
+    BuildSubmissionBundleJob.perform_later(submission_id)
+  end
   after_transition(to: :rejected) do |submission, transition|
     # Transition associated tax return to rejected
     # Add note with rejection reason to client notes
