@@ -9,6 +9,7 @@ class StandardizeAddressService
     @city = intake.city
     @state = intake.state
     @zip_code = intake.zip_code
+
     @result = build_standardized_address
   end
 

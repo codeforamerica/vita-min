@@ -4,12 +4,12 @@ describe StandardizeAddressService do
   describe '#standardize_address_on_intake' do
     before do
       stub_request(:get, /.*secure\.shippingapis\.com.*/)
-        .to_return(status: 200, body: usps_api_response_body, headers: {})
+       .to_return(status: 200, body: usps_api_response_body, headers: {})
     end
 
     let(:usps_api_response_body) { file_fixture("usps_address_validation_body.xml").read }
 
-    let(:intake) { create(:ctc_intake, street_address: "43 Vicksburg Street", street_address2: "B", city: city, state: state, zip_code: zip_code) }
+    let(:intake) { create(:ctc_intake, street_address: "43 Vicksburg Street", street_address2: "Unit B", city: city, state: state, zip_code: zip_code) }
     let(:city) { "San Francisco" }
     let(:state) { "CA" }
     let(:zip_code) { "94114" }
