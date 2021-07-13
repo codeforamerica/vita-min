@@ -2,6 +2,7 @@ class CtcQuestionNavigation
   include ControllerNavigation
 
   FLOW = [
+    # Basic info
     Ctc::Questions::OverviewController,
     Ctc::Questions::PersonalInfoController,
     Ctc::Questions::ContactPreferenceController,
@@ -18,6 +19,7 @@ class CtcQuestionNavigation
     Ctc::Questions::PlaceholderQuestionController,
 
     # Filing Status
+    Ctc::Questions::FilingStatusController,
     Ctc::Questions::UseGyrController,
 
     # RRC
@@ -29,7 +31,7 @@ class CtcQuestionNavigation
     Ctc::Questions::StimulusReceivedController, # StimulusReceivedController has a link in the view to RefundPaymentController (does not rely on next_path)
     Ctc::Questions::StimulusOwedController,
 
-    # payments information
+    # Bank and mailing info
     Ctc::Questions::RefundPaymentController,
     Ctc::Questions::DirectDepositController,
     Ctc::Questions::RoutingNumberController,

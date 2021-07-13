@@ -1454,6 +1454,8 @@ en:
             <p><strong>Collect all the money you are owed by filing with GetYourRefund.</strong></p>
           visit_ctc_faq: "Visit CTC FAQ"
           file_gyr: "File with GetYourRefund"
+        filing_status:
+          title: How will you be filing your tax return?
     consent_pages:
       consent_to_use:
         title: Consent to Use
