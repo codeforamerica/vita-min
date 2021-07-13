@@ -5,10 +5,10 @@ require 'uri'
 # as that violates the terms of agreement with USPS and will result in access being revoked.
 class StandardizeAddressService
   def initialize(intake)
-    @street_address = [intake.street_address, intake.street_address2].join(" ")
-    @city = intake.city
-    @state = intake.state
-    @zip_code = intake.zip_code
+    @_street_address = [intake.street_address, intake.street_address2].join(" ")
+    @_city = intake.city
+    @_state = intake.state
+    @_zip_code = intake.zip_code
 
     @result = build_standardized_address
   end
@@ -51,16 +51,16 @@ class StandardizeAddressService
   end
 
   def get_usps_address_xml
-    usps_userid = EnvironmentCredentials.dig(:usps, :userid)
+    usps_user_id = EnvironmentCredentials.dig(:usps, :user_id)
     builder = Nokogiri::XML::Builder.new do |xml|
-      xml.AddressValidateRequest(:USERID => usps_userid) {
+      xml.AddressValidateRequest(:USERID => usps_user_id) {
         xml.Revision 1
         xml.Address(:ID => 0) {
           xml.Address1
-          xml.Address2 @street_address
-          xml.City @city
-          xml.State @state
-          xml.Zip5 @zip_code
+          xml.Address2 @_street_address
+          xml.City @_city
+          xml.State @_state
+          xml.Zip5 @_zip_code
           xml.Zip4
         }
       }
