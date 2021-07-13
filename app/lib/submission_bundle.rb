@@ -11,10 +11,10 @@ class SubmissionBundle
       Dir.mkdir("#{dir}/manifest")
       Dir.mkdir("#{dir}/xml")
       File.open("#{dir}/manifest/manifest.xml", "w+") do |f|
-        f.write(SubmissionBuilder::Manifest.build(@submission).document)
+        f.write(manifest)
       end
       File.open("#{dir}/xml/submission.xml", "w+") do |f|
-        f.write(SubmissionBuilder::Return1040.build(@submission, documents: @documents).document)
+        f.write(return_1040)
       end
       input_filenames = ['manifest/manifest.xml', 'xml/submission.xml']
 
@@ -24,11 +24,38 @@ class SubmissionBundle
         end
       end
       @submission.submission_bundle.attach(
-          io: File.open(archive_directory_path),
-          filename: "#{@submission.irs_submission_id}.zip",
-          content_type: 'application/zip')
+        io: File.open(archive_directory_path),
+        filename: "#{@submission.irs_submission_id}.zip",
+        content_type: 'application/zip'
+      )
+    rescue SubmissionBundleErrorResponse
+      @errors
     ensure
       FileUtils.remove_entry_secure dir
     end
   end
+
+  private
+
+  def manifest
+    response = SubmissionBuilder::Manifest.build(@submission)
+    if response.valid?
+      response.document
+    else
+      @errors = response.errors
+      raise SubmissionBundleErrorResponse
+    end
+  end
+
+  def return_1040
+    response = SubmissionBuilder::Return1040.build(@submission, documents: @documents)
+    if response.valid?
+      response.document
+    else
+      @errors = response.errors
+      raise SubmissionBundleErrorResponse
+    end
+  end
 end
+
+class SubmissionBundleErrorResponse < StandardError; end
