@@ -239,6 +239,10 @@ FactoryBot.define do
     bank_account_type { "checking" }
   end
 
+  trait :with_bank_account do
+    bank_account
+  end
+
   trait :with_dependents do
     transient do
       dependent_count { 1 }

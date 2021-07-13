@@ -50,6 +50,7 @@ class TaxReturn < ApplicationRecord
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
   enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
+  # The enum values map to the filing status codes dictated by the IRS
   enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
   validates :year, presence: true
 
@@ -61,6 +62,20 @@ class TaxReturn < ApplicationRecord
     if status == "prep_ready_for_prep" && status_changed?
       self.ready_for_prep_at = DateTime.current
     end
+  end
+
+  def filing_status_code
+    self.class.filing_statuses[filing_status]
+  end
+
+  def standard_deduction
+    StandardDeduction.for(tax_year: year, filing_status: filing_status)
+  end
+
+  # TODO: Must be replaced with real calculation before AdvCTC calc
+  # placeholder for calculation of the outstanding EIP 1 and 2 amounts to file for on 2020 tax return.
+  def outstanding_recovery_rebate_amount
+    0
   end
 
   ##

@@ -19,7 +19,7 @@ describe SubmissionBuilder::Manifest do
       end
 
       it "returns an Efile::Response object that responds to #valid? and contains no errors and provides the created Nokogiri object" do
-        response = SubmissionBuilder::Manifest.build(submission)
+        response = described_class.build(submission)
         expect(response).to be_an_instance_of SubmissionBuilder::Response
         expect(response).to be_valid
         expect(response.errors).to eq []
@@ -37,7 +37,7 @@ describe SubmissionBuilder::Manifest do
       end
 
       it "returns an Efile::Response object that responds to #valid? and includes the Schema errors" do
-        response = SubmissionBuilder::Manifest.build(submission)
+        response = described_class.build(submission)
         expect(response).to be_an_instance_of SubmissionBuilder::Response
         expect(response).not_to be_valid
         expect(response.errors).to eq ['error', 'error']
@@ -47,7 +47,7 @@ describe SubmissionBuilder::Manifest do
 
     context "the XML document contents" do
       it "includes standard information that must be sent with each submission AND information from the submission" do
-        xml = Nokogiri::XML::Document.parse(SubmissionBuilder::Manifest.build(submission).document.to_xml)
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("GovernmentCd").text).to eq("IRS")
         expect(xml.at("EFIN").text).to eq "123456"
         expect(xml.at("FederalSubmissionTypeCd").text).to eq "1040"
@@ -56,7 +56,7 @@ describe SubmissionBuilder::Manifest do
       end
 
       it "conforms to the eFileAttachments schema" do
-        expect(SubmissionBuilder::Manifest.build(submission)).to be_valid
+        expect(described_class.build(submission)).to be_valid
       end
     end
   end

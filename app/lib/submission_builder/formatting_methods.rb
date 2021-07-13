@@ -16,6 +16,8 @@ module SubmissionBuilder
 
     # Limit to max 4 chars uppercased
     def person_name_control_type(string)
+      return "" unless string.present?
+
       string.upcase.first(4)
     end
 

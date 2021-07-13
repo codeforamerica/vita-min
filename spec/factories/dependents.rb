@@ -32,7 +32,7 @@ FactoryBot.define do
     first_name { "Kara" }
     last_name { "Kiwi" }
     birth_date { Date.new(2011, 3, 5) }
-    relationship { "child" }
+    relationship { "daughter" }
     north_american_resident { "yes" }
     on_visa { "no" }
     months_in_home { 11 }

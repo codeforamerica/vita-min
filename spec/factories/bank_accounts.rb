@@ -21,6 +21,13 @@
 FactoryBot.define do
   factory :bank_account do
     intake
+    bank_name { "Self-help United" }
+    routing_number { "123456789" }
+    account_number { "87654321" }
+    account_type { "checking" }
+  end
+
+  factory :empty_bank_account, class: "BankAccount" do
+    intake
   end
 end
-

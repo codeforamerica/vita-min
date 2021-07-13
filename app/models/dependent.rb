@@ -82,7 +82,16 @@ class Dependent < ApplicationRecord
   end
 
   def age_at_end_of_tax_year
-    intake.tax_year - birth_date.year
+    age_at_end_of_year(intake.tax_year)
+  end
+
+  def age_at_end_of_year(tax_year)
+    tax_year - birth_date.year
+  end
+
+  def eligible_for_child_tax_credit?(tax_year)
+    # add additional eligibility logic
+    age_at_end_of_year(tax_year) < 17
   end
 
   def mixpanel_data

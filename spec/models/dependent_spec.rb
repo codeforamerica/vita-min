@@ -52,7 +52,7 @@ describe Dependent do
     end
   end
 
-  describe "#age_at_end_of_tax_year" do
+  describe "#age_at_end_of_year" do
     let(:dependent) { build :dependent, birth_date: dob }
     let(:intake_double) { instance_double("Intake", tax_year: tax_year) }
     before { allow(dependent).to receive(:intake).and_return intake_double }
@@ -61,7 +61,7 @@ describe Dependent do
       let(:dob) { Date.new(2019, 12, 31) }
       let(:tax_year) { 2019 }
       it "returns 0" do
-        expect(dependent.age_at_end_of_tax_year).to eq 0
+        expect(dependent.age_at_end_of_year(tax_year)).to eq 0
       end
     end
 
@@ -69,7 +69,7 @@ describe Dependent do
       let(:dob) { Date.new(2015, 12, 25) }
       let(:tax_year) { 2019 }
       it "returns 4" do
-        expect(dependent.age_at_end_of_tax_year).to eq 4
+        expect(dependent.age_at_end_of_year(tax_year)).to eq 4
       end
     end
   end

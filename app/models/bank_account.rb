@@ -23,5 +23,11 @@ class BankAccount < ApplicationRecord
   attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
   enum account_type: { checking: 1, savings: 2 }
+
+  # map string enum value back to the corresponding integer
+  def account_type_code
+    self.class.account_types[account_type]
+  end
 end
