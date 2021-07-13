@@ -1,0 +1,80 @@
+require 'net/http'
+require 'uri'
+
+# PLEASE do NOT use this service to standardize addresses in bulk (do NOT use in backfills)
+# as that violates the terms of agreement with USPS and will result in access being revoked.
+class StandardizeAddressService
+  def initialize(intake)
+    @street_address = [intake.street_address, intake.street_address2].join(" ")
+    @city = intake.city
+    @state = intake.state
+    @zip_code = intake.zip_code
+    @result = build_standardized_address
+  end
+
+  def street_address
+    @result[:street_address]
+  end
+
+  def city
+    @result[:city]
+  end
+
+  def state
+    @result[:state]
+  end
+
+  def zip_code
+    @result[:zip_code]
+  end
+
+  def errors
+    @result[:errors]
+  end
+
+  def valid?
+    @result[:errors].blank?
+  end
+
+  private
+
+  def build_standardized_address
+    usps_address_xml = get_usps_address_xml
+    {
+      street_address: usps_address_xml.xpath("//Address/Address2").text,
+      city: usps_address_xml.xpath("//Address/City").text,
+      state: usps_address_xml.xpath("//Address/State").text,
+      zip_code: usps_address_xml.xpath("//Address/Zip5").text,
+      errors: usps_address_xml.xpath("//Error/Description").text
+    }
+  end
+
+  def get_usps_address_xml
+    usps_userid = EnvironmentCredentials.dig(:usps, :userid)
+    builder = Nokogiri::XML::Builder.new do |xml|
+      xml.AddressValidateRequest(:USERID => usps_userid) {
+        xml.Revision 1
+        xml.Address(:ID => 0) {
+          xml.Address1
+          xml.Address2 @street_address
+          xml.City @city
+          xml.State @state
+          xml.Zip5 @zip_code
+          xml.Zip4
+        }
+      }
+    end
+
+    request_address_xml = Nokogiri::XML(builder.to_xml)
+    usps_request_address = "https://secure.shippingapis.com/ShippingAPI.dll?API=Verify&XML=#{request_address_xml}"
+
+    response = Net::HTTP.get_response(URI(usps_request_address))
+    response_xml = Nokogiri::XML(response.body)
+
+    if response_xml.xpath("//Error").present?
+      Rails.logger.error "Error returned from USPS Address API: #{response_xml.xpath("//Error/Description").text}"
+    end
+
+    response_xml
+  end
+end
