@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe Ctc::Questions::FilingStatusController do
-  let!(:intake) { create :ctc_intake }
+  let(:client) { create :client, tax_returns: [(create :tax_return, filing_status: nil)] }
+  let!(:intake) { create :ctc_intake, client: client }
 
   before do
     sign_in intake.client
@@ -14,10 +15,40 @@ describe Ctc::Questions::FilingStatusController do
       end
 
       it "re-renders the form with errors" do
-        post :update, params: params
+        put :update, params: params
         expect(response).to render_template :edit
         expect(assigns(:form).errors).not_to be_blank
-        expect(intake.filing_joint).to eq nil
+        expect(client.tax_returns.first.filing_status).to eq nil
+      end
+    end
+
+    context "selected single" do
+      let!(:params) do
+        {
+          ctc_filing_status_form:
+            { filing_status: "single" }
+        }
+      end
+      it "updates the tax return's filing status" do
+        put :update, params: params
+        tax_return_status = Intake.last.client.tax_returns.first.filing_status
+        expect(tax_return_status).to eq "single"
+        # expect(response).to redirect_to questions_dependents_path
+      end
+    end
+
+    context "selected married filing jointly" do
+      let(:params) do
+        {
+          ctc_filing_status_form:
+            { filing_status: "married_filing_jointly" }
+        }
+      end
+      it "updates the tax return's filing status" do
+        put :update, params: params
+        tax_return_status = Intake.last.client.tax_returns.first.filing_status
+        expect(tax_return_status).to eq "married_filing_jointly"
+        # expect(response).to redirect_to questions_spouse_ssn_path
       end
     end
   end

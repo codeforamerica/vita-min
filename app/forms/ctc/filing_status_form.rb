@@ -5,15 +5,7 @@ module Ctc
     validates :filing_status, presence: true
 
     def save
-      @intake.update(tax_return_attributes: attributes_for(:tax_return))
-    end
-
-    def self.existing_attributes(intake)
-      return super unless intake.client.tax_returns.present?
-
-      # bank_name is encrypted, but we want it to be editable for clients
-      tax_return_attributes = { filing_status: intake.client.tax_returns.last.filing_status }
-      HashWithIndifferentAccess.new(intake.attributes.merge(intake.attributes.merge(tax_return_attributes)))
+      @intake.client.tax_returns.last.update(attributes_for(:tax_return))
     end
   end
 end

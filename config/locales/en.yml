@@ -1456,6 +1456,8 @@ en:
           file_gyr: "File with GetYourRefund"
         filing_status:
           title: How will you be filing your tax return?
+          reveal_title: I'm unsure how to file
+          reveal_body: If you normally file as head of household or married filing separately, select ‘single’ for the purpose of this return.
     consent_pages:
       consent_to_use:
         title: Consent to Use
