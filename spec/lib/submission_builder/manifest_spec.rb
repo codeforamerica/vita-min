@@ -23,7 +23,7 @@ describe SubmissionBuilder::Manifest do
         expect(response).to be_an_instance_of SubmissionBuilder::Response
         expect(response).to be_valid
         expect(response.errors).to eq []
-        expect(response.document).to be_an_instance_of Nokogiri::XML::Builder
+        expect(response.document).to be_an_instance_of Nokogiri::XML::Document
       end
     end
 
@@ -41,7 +41,7 @@ describe SubmissionBuilder::Manifest do
         expect(response).to be_an_instance_of SubmissionBuilder::Response
         expect(response).not_to be_valid
         expect(response.errors).to eq ['error', 'error']
-        expect(response.document).to be_an_instance_of Nokogiri::XML::Builder
+        expect(response.document).to be_an_instance_of Nokogiri::XML::Document
       end
     end
 

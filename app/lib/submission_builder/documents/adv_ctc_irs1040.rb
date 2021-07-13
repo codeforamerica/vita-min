@@ -28,7 +28,7 @@ module SubmissionBuilder
         dependents = intake.dependents
 
         Nokogiri::XML::Builder.new do |xml|
-          xml['efil'].IRS1040(root_node_attrs) {
+          xml.IRS1040(root_node_attrs) {
             xml.IndividualReturnFilingStatusCd tax_return.filing_status_code
             xml.VirtualCurAcquiredDurTYInd false
             dependents.each do |dependent|

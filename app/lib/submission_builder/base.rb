@@ -8,9 +8,10 @@ module SubmissionBuilder
 
     @schema_file = nil # class instance variable
 
-    def initialize(submission, validate: true)
+    def initialize(submission, validate: true, documents: [])
       @submission = submission
       @validate = validate
+      @documents = documents
     end
 
     def root_node_attrs

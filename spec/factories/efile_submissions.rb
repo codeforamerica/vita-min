@@ -19,7 +19,7 @@ FactoryBot.define do
     trait :ctc do
       transient do
         tax_year { 2020 }
-        filing_status { "married_filing_jointly" }
+        filing_status { "single" }
       end
       tax_return { create(:tax_return, :ctc, year: tax_year, filing_status: filing_status) }
     end
