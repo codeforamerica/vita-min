@@ -14,7 +14,7 @@ module SubmissionBuilder
           xml.FederalSubmissionTypeCd "1040"
           xml.TIN intake.primary_ssn
         }
-      end
+      end.doc
     end
   end
 end

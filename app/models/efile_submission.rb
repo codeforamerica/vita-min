@@ -17,6 +17,9 @@ class EfileSubmission < ApplicationRecord
   has_one :intake, through: :tax_return
   has_one :client, through: :tax_return
   has_many :efile_submission_transitions, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
+
+  has_one_attached :submission_bundle
+
   validates_uniqueness_of :irs_submission_id
 
   include Statesman::Adapters::ActiveRecordQueries[
