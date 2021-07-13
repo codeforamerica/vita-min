@@ -6,6 +6,7 @@ RSpec.feature "CTC Intake", :js, active_job: true do
   end
 
   scenario "new client entering ctc intake flow" do
+    # =========== BASIC INFO ===========
     visit "/en/questions/overview"
     expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
     expect(page).to have_selector("h1", text: "Let's get started!")
@@ -65,6 +66,12 @@ RSpec.feature "CTC Intake", :js, active_job: true do
 
     expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
 
+    # =========== RECOVERY REBATE CREDIT ===========
+    expect(page).to have_selector("h1", text: "Based on your info, we believe you should have received this much in stimulus payments. ")
+    click_on "No, I didn't receive this amount"
+    expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
+
+    # =========== BANK AND MAILING INFO ===========
     # Skip to bank account questions until we can arrive here naturally.
     visit "en/questions/refund-payment"
     expect(page).to have_selector("h1", text: "If you are supposed to get money, how would you like to receive it?")
