@@ -71,6 +71,11 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     visit "en/questions/stimulus-payments"
     expect(page).to have_selector("h1", text: "Based on your info, we believe you should have received this much in stimulus payments.")
     click_on "No, I didn’t receive this amount."
+    expect(page).to have_selector("h1", text: "Did you receive any of the first stimulus payment?")
+    click_on "Yes"
+    expect(page).to have_selector("h1", text: "Enter the total amount you received for your first stimulus payment.")
+    fill_in "Economic Impact Payment 1", with: "100"
+    click_on "Continue"
     expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
 
     # =========== BANK AND MAILING INFO ===========

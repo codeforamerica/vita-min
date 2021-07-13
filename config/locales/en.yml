@@ -1373,6 +1373,20 @@ en:
           second_stimulus: "Second stimulus payment"
           first_stimulus_details: "This payment should have arrived between April 2020 and October 2020."
           second_stimulus_details: "This payment should have arrived between December 2020 and January 2021."
+          question: "Did you receive this amount?"
+        stimulus_one:
+          title: "Did you receive any of the first stimulus payment?"
+          help_html: |
+            <p>The first of three stimulus payments, were sent between April 2020 and October 2020.</p>
+            <p>This payment was $1,200 per adult filer plus $500 per dependent (for example, a parent caring for two children would have received $2,200).</p>
+        stimulus_one_received:
+          title: "Enter the total amount you received for your first stimulus payment."
+          eip_one_label: "Economic Impact Payment 1"
+          help_html: |
+            <p>The first stimulus payment, formally known as Econmic Impact Payment 1, was sent between April 2020 and October 2020.</p>
+            <p>Enter the amount you received, if any, for that payment.</p>
+          reveal_label: "Where can I find this amount?"
+          reveal_content: "If you are unsure, check the official notice you received OR your bank records."
     consent_pages:
       consent_to_use:
         title: Consent to Use
