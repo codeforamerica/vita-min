@@ -67,8 +67,10 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
 
     # =========== RECOVERY REBATE CREDIT ===========
-    expect(page).to have_selector("h1", text: "Based on your info, we believe you should have received this much in stimulus payments. ")
-    click_on "No, I didn't receive this amount"
+    # Remove visit once `/confirm-dependents` exists
+    visit "en/questions/stimulus-payments"
+    expect(page).to have_selector("h1", text: "Based on your info, we believe you should have received this much in stimulus payments.")
+    click_on "No, I didn’t receive this amount."
     expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
 
     # =========== BANK AND MAILING INFO ===========

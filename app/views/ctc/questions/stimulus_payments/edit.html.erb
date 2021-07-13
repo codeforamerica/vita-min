@@ -19,11 +19,15 @@
     <p><%= t("views.ctc.questions.stimulus_payments.second_stimulus_details") %></p>
   </div>
 
-  <p></p>
-  <%= link_to questions_placeholder_question_path, class: "button button--wide button--primary text-centered" do %>
-    <%= t("views.ctc.questions.stimulus_payments.yes_received") %>
-  <% end %>
-  <%= link_to questions_placeholder_question_path, class: "button button--wide text-centered" do %>
-    <%=t("views.ctc.questions.stimulus_payments.no_did_not_receive") %>
-  <% end %>
+  <div class="button-group button-group--center button--wide">
+    <%= link_to questions_placeholder_question_path, class: "button button--wide text--centered" do %>
+      <%= t("views.ctc.questions.stimulus_payments.yes_received") %>
+    <% end %>
+    <%= link_to questions_placeholder_question_path, class: "button button--wide text--centered" do %>
+      <%= t("views.ctc.questions.stimulus_payments.no_did_not_receive") %>
+    <% end %>
+    <%= link_to questions_placeholder_question_path do %>
+      <%= t("views.ctc.questions.stimulus_payments.not_sure") %>
+    <% end %>
+  </div>
 <% end %>
