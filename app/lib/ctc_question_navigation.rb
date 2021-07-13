@@ -11,6 +11,9 @@ class CtcQuestionNavigation
     Ctc::Questions::ConsentController,
     Ctc::Questions::PlaceholderQuestionController,
 
+    # RRC
+    Ctc::Questions::StimulusPaymentsController,
+
     # payments information
     Ctc::Questions::RefundPaymentController,
     Ctc::Questions::DirectDepositController,

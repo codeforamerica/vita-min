@@ -1366,6 +1366,15 @@ en:
             A message with your code has been sent to:
           verification_code_label: Enter 6 digit code
           error_message: "Incorrect verification code."
+        stimulus_payments:
+          title: "Based on your info, we believe you should have received this much in stimulus payments."
+          yes_received: "Yes, I received this amount."
+          no_did_not_receive: "No, I didn’t receive this amount."
+          not_sure: "I’m not sure"
+          first_stimulus: "First stimulus payment"
+          second_stimulus: "Second stimulus payment"
+          first_stimulus_details: "This payment should have arrived between April 2020 and October 2020."
+          second_stimulus_details: "This payment should have arrived between December 2020 and January 2021."
     consent_pages:
       consent_to_use:
         title: Consent to Use

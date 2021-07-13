@@ -1,0 +1,33 @@
+<% @main_question = t("views.ctc.questions.stimulus_payments.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <div class="review-box spacing-below-35">
+    <div class="review-box__title spacing-below-15">
+      <h2><%= t("views.ctc.questions.stimulus_payments.first_stimulus") %></h2>
+    </div>
+    <div class="h2 spacing-below-15 spacing-above-0">$ TBD</div>
+    <p><%= t("views.ctc.questions.stimulus_payments.first_stimulus_details") %></p>
+
+    <div class="review-box__title">
+      <h2><%= t("views.ctc.questions.stimulus_payments.second_stimulus") %></h2>
+    </div>
+    <div class="h2 spacing-below-15 spacing-above-0">$ TBD</div>
+    <p><%= t("views.ctc.questions.stimulus_payments.second_stimulus_details") %></p>
+  </div>
+
+  <div class="button-group button-group--center button--wide">
+    <%= link_to questions_placeholder_question_path, class: "button button--wide text--centered" do %>
+      <%= t("views.ctc.questions.stimulus_payments.yes_received") %>
+    <% end %>
+    <%= link_to questions_placeholder_question_path, class: "button button--wide text--centered" do %>
+      <%= t("views.ctc.questions.stimulus_payments.no_did_not_receive") %>
+    <% end %>
+    <%= link_to questions_placeholder_question_path do %>
+      <%= t("views.ctc.questions.stimulus_payments.not_sure") %>
+    <% end %>
+  </div>
+<% end %>
