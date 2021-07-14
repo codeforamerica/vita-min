@@ -36,7 +36,7 @@ describe Ctc::Questions::CellPhoneNumberController do
       expect(assigns(:form).intake).to be_valid
       expect(intake.sms_phone_number).to eq "+18324658840"
       expect(intake.sms_notification_opt_in_yes?).to be true
-      expect(response).to redirect_to questions_verification_path
+      expect(response).to redirect_to questions_phone_verification_path
     end
 
     it "sends an event to mixpanel without the phone number data" do
@@ -46,18 +46,6 @@ describe Ctc::Questions::CellPhoneNumberController do
                                                                    event_name: "question_answered",
                                                                    data: {}
                                                                  ))
-    end
-
-    it "enqueues a job to send a verification code" do
-      expect {
-        post :update, params: params
-      }.to have_enqueued_job(RequestVerificationCodeTextMessageJob).with(a_hash_including(
-                                                                           phone_number: phone_number,
-                                                                           locale: :en,
-                                                                           visitor_id: intake.visitor_id,
-                                                                           client_id: intake.client_id,
-                                                                           service_type: :ctc
-                                                                         ))
     end
   end
 end

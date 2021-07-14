@@ -22,8 +22,15 @@ module Ctc
     validates :primary_ssn_confirmation, presence: true
     validates :primary_ssn, social_security_number: true
 
+    before_validation do
+      [primary_ssn, primary_ssn_confirmation].each do |field|
+        field.remove!(/\D/) if field
+      end
+    end
+
     def save
-      @intake.update(attributes_for(:intake)
+      primary_last_four_ssn = primary_ssn.last(4) # merge last_four_ssn so that client can use data for logging in.
+      @intake.update(attributes_for(:intake).merge(primary_last_four_ssn: primary_last_four_ssn)
                        .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day)
                                            .merge(
                                              primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day)

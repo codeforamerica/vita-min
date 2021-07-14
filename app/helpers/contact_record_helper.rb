@@ -48,9 +48,4 @@ module ContactRecordHelper
     message = I18n.t("portal.messages.new.contact_preference", contact_info: contacts, contact_method: methods)
     no_tags ? message : content_tag(:span, message)
   end
-
-  def preferred_intake_contact(intake)
-    return Phonelib.parse(intake.sms_phone_number).local_number if intake.sms_notification_opt_in_yes?
-    intake.email_address if intake.email_notification_opt_in_yes?
-  end
 end

@@ -1,6 +1,6 @@
 class DuplicateIntakeGuard < SimpleDelegator
   def has_duplicate?
-    Intake
+    Intake::GyrIntake
       .where(primary_consented_to_service: "yes")
       .where(
          (arel_table[:email_address].eq(email_address)

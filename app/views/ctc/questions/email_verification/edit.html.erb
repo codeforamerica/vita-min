@@ -6,7 +6,7 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= @main_question %></h1>
     <p>
-      <%= t("views.ctc.questions.verification.body") %> <strong><%= preferred_intake_contact(current_intake) %></strong>
+      <%= t("views.ctc.questions.verification.body") %> <strong><%= current_intake.email_address %></strong>
     </p>
 
     <div class="form-card__content">

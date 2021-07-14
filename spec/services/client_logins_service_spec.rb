@@ -107,18 +107,17 @@ describe ClientLoginService do
           end
         end
 
-        context "with a ctc service type and ctc intake" do
+        context "with a ctc service type and ctc intake with verified contact info" do
           subject { described_class.new(:ctc) }
 
           before do
             create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
             create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212")
-            create(:ctc_intake, client: client, spouse_email_address: "someone@example.com", sms_phone_number: "+16505551212")
+            create(:ctc_intake, client: client, sms_phone_number_verified_at: Time.current, spouse_email_address: "someone@example.com", sms_phone_number: "+16505551212")
           end
 
           it "finds a match, because consenting is not a prerequisite to logging in for CTC" do
             expect(subject.clients_for_token("raw_token")).to match_array [client]
-
           end
         end
       end
@@ -175,14 +174,45 @@ describe ClientLoginService do
     end
 
     context "service_type is :ctc" do
-      context "when there are no matching returns with that data" do
-        subject { described_class.new(:gyr) }
+      let(:client) { create :client }
+      subject { described_class.new(:ctc) }
 
+      context "when there are no matching returns with that data" do
         let(:locale) { "es" }
         let(:phone_number) { "+1111111111" }
 
         it "is false" do
           expect(subject.can_login_by_sms_verification?(phone_number)).to be false
+        end
+      end
+
+      context "when there is an existing client a ctc intake and verified email" do
+        before do
+          create :ctc_intake, sms_phone_number: "+15125551234", email_address: "something@example.com", email_address_verified_at: Time.current, client: client
+        end
+
+        it "returns true" do
+          expect(subject.can_login_by_sms_verification?(client.sms_phone_number)).to be true
+        end
+      end
+
+      context "when there is an existing client a ctc intake and verified sms w matching email" do
+        before do
+          create :ctc_intake, sms_phone_number: "+15125551234", sms_phone_number_verified_at: Time.current, client: client
+        end
+
+        it "returns true" do
+          expect(subject.can_login_by_sms_verification?(client.sms_phone_number)).to be true
+        end
+      end
+
+      context "when there is an existing client a ctc intake and navigator verified identity" do
+        before do
+          create :ctc_intake, sms_phone_number: "+15125551234", navigator_has_verified_client_identity: true, client: client
+        end
+
+        it "returns true" do
+          expect(subject.can_login_by_sms_verification?(client.sms_phone_number)).to be true
         end
       end
     end
@@ -254,13 +284,35 @@ describe ClientLoginService do
         end
       end
     end
+
     context "when service_type is :ctc" do
       subject { described_class.new(:ctc) }
 
       let(:client) { create :client }
-      context "when there is an existing client a ctc intake" do
+
+      context "when there is an existing client a ctc intake and verified email" do
         before do
-          create :ctc_intake, email_address: "something@example.com", client: client
+          create :ctc_intake, email_address: "something@example.com", email_address_verified_at: Time.current, client: client
+        end
+
+        it "returns true" do
+          expect(subject.can_login_by_email_verification?(client.email_address)).to be true
+        end
+      end
+
+      context "when there is an existing client a ctc intake and verified sms w matching email" do
+        before do
+          create :ctc_intake, sms_phone_number: "+15125551234", sms_phone_number_verified_at: Time.current, client: client
+        end
+
+        it "returns true" do
+          expect(subject.can_login_by_email_verification?(client.email_address)).to be true
+        end
+      end
+
+      context "when there is an existing client a ctc intake and verified sms w matching email" do
+        before do
+          create :ctc_intake, sms_phone_number: "+15125551234", navigator_has_verified_client_identity: true, client: client
         end
 
         it "returns true" do

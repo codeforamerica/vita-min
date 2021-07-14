@@ -37,7 +37,7 @@ describe Ctc::Questions::EmailAddressController do
       expect(assigns(:form).intake).to be_valid
       expect(intake.email_address).to eq "email@example.com"
       expect(intake.email_notification_opt_in_yes?).to be true
-      expect(response).to redirect_to questions_verification_path
+      expect(response).to redirect_to questions_email_verification_path
     end
 
     it "sends an event to mixpanel without the email address data" do
@@ -47,18 +47,6 @@ describe Ctc::Questions::EmailAddressController do
                                                                    event_name: "question_answered",
                                                                    data: {}
                                                                  ))
-    end
-
-    it "enqueues a job to send a verification code" do
-      expect {
-        post :update, params: params
-      }.to have_enqueued_job(RequestVerificationCodeEmailJob).with(hash_including(
-                                                                     email_address: "email@example.com",
-                                                                     locale: :en,
-                                                                     visitor_id: visitor_id,
-                                                                     service_type: :ctc,
-                                                                     client_id: client.id
-                                                                   ))
     end
   end
 end

@@ -5,24 +5,19 @@ module Ctc
 
       layout "intake"
 
-      private
+      # # for simplifications sake, since we only require one contact method, skip if they've provided phone number
+      # def self.show?(intake)
+      #   intake.sms_phone_number.blank?
+      # end
 
-      def after_update_success
-        RequestVerificationCodeEmailJob.perform_later(
-          client_id: current_intake.client_id,
-          email_address: current_intake.email_address,
-          locale: I18n.locale,
-          visitor_id: current_intake.visitor_id,
-          service_type: :ctc
-        )
-      end
+      private
 
       def prev_path
         questions_contact_preference_path
       end
 
       def next_path
-        questions_verification_path
+        questions_email_verification_path
       end
     end
   end
