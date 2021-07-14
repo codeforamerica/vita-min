@@ -4,12 +4,10 @@ require 'zip'
 namespace :gyr_efiler do
   desc "Download and unpack GYR Efiler release"
 
-  LATEST = "1105349922f7be08cb3a2d8f1d1438eb72b9f5d2"
-
   task download: :environment do |_task|
     paths = [
-      Rails.root.join('vendor', 'gyr_efiler', "gyr-efiler-classes-#{LATEST}.zip"),
-      Rails.root.join('vendor', 'gyr_efiler', "gyr-efiler-config-#{LATEST}.zip")
+      Rails.root.join('vendor', 'gyr_efiler', "gyr-efiler-classes-#{GyrEfilerService::CURRENT_VERSION}.zip"),
+      Rails.root.join('vendor', 'gyr_efiler', "gyr-efiler-config-#{GyrEfilerService::CURRENT_VERSION}.zip")
     ]
     # If the file already exists, do not re-download.
     next if paths.all? { |p| File.exists?(p) }
