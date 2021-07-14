@@ -64,6 +64,8 @@
 #  ever_owned_home                                      :integer          default(0), not null
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
+#  filed_2019                                           :integer          default(0), not null
+#  filed_2020                                           :integer          default(0), not null
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string

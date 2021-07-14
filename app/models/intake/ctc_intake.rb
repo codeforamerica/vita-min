@@ -64,6 +64,8 @@
 #  ever_owned_home                                      :integer          default(0), not null
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
+#  filed_2019                                           :integer          default(0), not null
+#  filed_2020                                           :integer          default(0), not null
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
@@ -233,6 +235,8 @@ class Intake::CtcIntake < Intake
   attr_encrypted :spouse_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
+  enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
+  enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account
 

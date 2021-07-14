@@ -9,6 +9,8 @@ class CtcQuestionNavigation
     Ctc::Questions::EmailAddressController,
     Ctc::Questions::VerificationController,
     Ctc::Questions::ConsentController,
+    Ctc::Questions::Filed2020Controller,
+    Ctc::Questions::Filed2020YesController,
     Ctc::Questions::PlaceholderQuestionController,
 
     # RRC

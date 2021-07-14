@@ -1358,6 +1358,17 @@ en:
           title: First, what's your name?
           info: Welcome, we're excited to help you. We need some basic information to get started. We’ll start by asking what you like being called.
           preferred_name: Preferred first name
+        filed_2020:
+          title: Did you file a 2020 tax return this year?
+          help_text_html: |
+            <p>Did you file a tax return this year, after January 1, 2021, for the 2020 tax year?</p>
+            <p>You can answer yes if you filed a return and are still waiting for your stimulus payments or if you used the Non-filers Sign-up tool.</p>
+        filed_2020_yes:
+          title: Great! The IRS can process your return and determine your Child Tax Credit.
+          p1: If you've filed a 2020 tax return, the IRS will have the information it needs to process your Child Tax Credit (CTC).
+          p2: You can visit the IRS Child Tax Credit Update Portal to update your information.
+          visit_ctc_portal: Visit the CTC Update Portal
+          visit_ctc_faq: Visit CTC FAQ
         verification:
           title: Let's verify that contact info with a code!
           body: |
