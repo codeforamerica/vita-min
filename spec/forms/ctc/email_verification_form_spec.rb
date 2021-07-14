@@ -12,7 +12,7 @@ describe Ctc::EmailVerificationForm do
       allow(EmailAccessToken).to receive(:lookup).and_return([EmailAccessToken.new])
     end
 
-    context 'when email was the verification medium' do
+    context 'when the access token is valid' do
       let(:intake) { create :ctc_intake, email_address: 'foo@example.com', email_notification_opt_in: 'yes' }
 
       it 'updates the verified_at timestamp for the verification medium used' do

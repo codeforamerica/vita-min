@@ -5,11 +5,6 @@ module Ctc
 
       layout "intake"
 
-      # # for simplifications sake, since we only require one contact method, skip if they've provided phone number
-      # def self.show?(intake)
-      #   intake.sms_phone_number.blank?
-      # end
-
       private
 
       def prev_path

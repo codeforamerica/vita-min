@@ -68,5 +68,33 @@ describe Ctc::CellPhoneNumberForm do
       }.to change(intake, :sms_phone_number).to("+18324658840")
        .and change(intake, :sms_notification_opt_in).to "yes"
     end
+
+    context "when the phone number gets updated to the existing phone number" do
+      let(:intake) { create :intake, sms_phone_number: "+18324658840", sms_phone_number_verified_at: Time.current }
+      it "does not clear out the verification and will not force them to re-verify" do
+        form = described_class.new(intake, {
+            sms_phone_number: "8324658840",
+            sms_phone_number_confirmation: "8324658840",
+            can_receive_texts: "yes"
+        })
+        form.valid? # the form only transforms the phone number if it is validated before calling save
+        form.save
+        expect(intake.reload.sms_phone_number_verified_at).not_to be_nil
+      end
+    end
+
+    context "when the phone number gets updated to a different phone number" do
+      let(:intake) { create :intake, sms_phone_number: "+18324658841", sms_phone_number_verified_at: Time.current }
+      it "does not clear out the verification and will not force them to re-verify" do
+        form = described_class.new(intake, {
+            sms_phone_number: "8324658840",
+            sms_phone_number_confirmation: "8324658840",
+            can_receive_texts: "yes"
+        })
+        form.valid? # the form only transforms the phone number if it is validated before calling save
+        form.save
+        expect(intake.reload.sms_phone_number_verified_at).to be_nil
+      end
+    end
   end
 end
