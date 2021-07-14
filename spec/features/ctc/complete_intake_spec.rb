@@ -64,6 +64,14 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     fill_in "Phone number", with: "831-234-5678"
     click_on "Continue"
 
+    # =========== LIFE SITUATIONS ===========
+    expect(page).to have_selector("h1", text: "Did you file a 2020 tax return this year?")
+    click_on "No"
+    expect(page).to have_selector("h1", text: "Did you either file a 2019 tax return or receive any stimulus payments?")
+    click_on "Yes"
+    expect(page).to have_selector("h1", text: "Let's check one more thing.")
+    click_on "Continue"
+
     expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
 
     # =========== RECOVERY REBATE CREDIT ===========
