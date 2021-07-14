@@ -1,7 +1,7 @@
 <% @main_question = t("views.ctc.questions.stimulus_one_received.title") %>
 
 <% content_for :page_title, @main_question %>
-<% content_for :body_class, "stimulus-one-received" %>
+<% content_for :body_class, "stimulus-received" %>
 
 <% content_for :form_card do %>
   <h1 class="h2"><%= @main_question %></h1>
@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <%= form_with model: @form, url: questions_stimulus_one_received_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "stimulus-one-received-form" do |f| %>
+  <%= form_with model: @form, url: questions_stimulus_one_received_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "stimulus-received-form" do |f| %>
     <%= f.cfa_input_field(:eip_one, t("views.ctc.questions.stimulus_one_received.eip_one_label"), prefix: "$") %>
 
     <%= f.button :submit, class: "button button--wide button--primary" do %>

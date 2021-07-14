@@ -40,6 +40,7 @@
 #  divorced_year                                        :string
 #  eip_one                                              :integer
 #  eip_only                                             :boolean
+#  eip_two                                              :integer
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
@@ -141,6 +142,8 @@
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
+#  requested_docs_token                                 :string
+#  requested_docs_token_created_at                      :datetime
 #  routed_at                                            :datetime
 #  routing_criteria                                     :string
 #  routing_value                                        :string

@@ -1,14 +1,15 @@
 module Ctc
   module Questions
-    class StimulusOneController < QuestionsController
+    class StimulusTwoController < QuestionsController
       # TODO: Transition to Authenticated once we log in client
       include AnonymousIntakeConcern
 
       layout "intake"
 
       def update
-        current_intake.update!(eip_one: 0)
-        redirect_to questions_stimulus_two_path
+        current_intake.update!(eip_two: 0)
+        # TODO: redirect to stimulus received or owed
+        redirect_to questions_placeholder_question_path
       end
 
       private
@@ -18,7 +19,7 @@ module Ctc
       end
 
       def illustration_path
-        "hand-holding-check.svg"
+        "hand-holding-cash-and-check.svg"
       end
     end
   end
