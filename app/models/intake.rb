@@ -12,6 +12,7 @@
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
 #  city                                                 :string
+#  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
@@ -274,6 +275,7 @@ class Intake < ApplicationRecord
   enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
   enum primary_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_consented_to_service
   enum refund_payment_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :refund_payment_method
+  enum claim_owed_stimulus_money: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_owed_stimulus_money
 
 
   NAVIGATOR_TYPES = {

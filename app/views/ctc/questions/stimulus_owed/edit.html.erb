@@ -1,0 +1,27 @@
+<% @main_question = t("views.ctc.questions.stimulus_owed.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <div class="review-box spacing-below-35">
+    <div class="review-box__title spacing-below-15">
+      <h2><%= t("views.ctc.questions.stimulus_owed.amount_received") %></h2>
+      <%= link_to t("general.edit").downcase, questions_stimulus_one_path, class: "review-box__edit" %>
+    </div>
+    <p class="spacing-below-15"><%= t("views.ctc.questions.stimulus_owed.eip_one") %>: <%= calculated_or_provided_dollar_amount(current_intake.recovery_rebate_credit_amount_1) %></p>
+    <p class="spacing-below-0"><%= t("views.ctc.questions.stimulus_owed.eip_two") %>: <%= calculated_or_provided_dollar_amount(current_intake.recovery_rebate_credit_amount_2) %></p>
+  </div>
+
+  <p class="text--bold">
+    <%= t("views.ctc.questions.stimulus_owed.eligible_for") %>
+  </p>
+  <div class="h2">$ TBD</div>
+  <p class="spacing-below-35"><%= t("views.ctc.questions.stimulus_owed.correction") %></p>
+
+  <%= form_with model: @form, url: questions_stimulus_owed_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "form-card--yes-no" do |f| %>
+    <%= f.button t("views.ctc.questions.stimulus_owed.claim"), type: "submit", name: "ctc_stimulus_owed_form[claim_owed_stimulus_money]", value: "yes", class: "button button--primary button--wide text--centered" %>
+    <%= f.button t("views.ctc.questions.stimulus_owed.dont_claim"), type: "submit", name: "ctc_stimulus_owed_form[claim_owed_stimulus_money]", value: "no", class: "button button--wide text--centered" %>
+  <% end %>
+<% end %>

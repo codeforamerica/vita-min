@@ -1425,6 +1425,20 @@ en:
             <p>Enter the amount you received, if any, for that payment.</p>
           reveal_label: "Where can I find this amount?"
           reveal_content: "If you are unsure, check the official notice you received OR your bank records."
+        stimulus_received:
+          title: "Based on your info, it looks like you’ve received your full stimulus payments."
+          amount_received: "Amount you’ve received"
+          eip_one: "EIP 1"
+          eip_two: "EIP 2"
+        stimulus_owed:
+          title: "Based on your info, it looks like you are still owed some stimulus payments."
+          amount_received: "Amount you’ve received"
+          eip_one: "EIP 1"
+          eip_two: "EIP 2"
+          eligible_for: "If the information you entered above is correct you could be eligible for an additional:"
+          correction: "If any amount for your EIP 1 or 2 is incorrect the IRS will correct the amount claimed, but the correction will cause a delay processing your return and a delay sending your monthly Child Tax Credit checks (if eligible)."
+          dont_claim: "Don’t claim the additional money"
+          claim: "Claim the additional money"
     consent_pages:
       consent_to_use:
         title: Consent to Use

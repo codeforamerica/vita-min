@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_14_170423) do
+ActiveRecord::Schema.define(version: 2021_07_14_202354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -413,6 +413,7 @@ ActiveRecord::Schema.define(version: 2021_07_14_170423) do
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
     t.string "city"
+    t.integer "claim_owed_stimulus_money", default: 0, null: false
     t.integer "claimed_by_another", default: 0, null: false
     t.bigint "client_id"
     t.datetime "completed_at"

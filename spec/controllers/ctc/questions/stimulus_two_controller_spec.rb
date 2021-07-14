@@ -8,11 +8,11 @@ describe Ctc::Questions::StimulusTwoController do
   end
 
   describe "#update" do
-    it "saves 0 as the amount for stimulus 2 and redirects to the next question" do
+    it "saves 0 as the amount for stimulus 2 and redirects to the stimulus-received" do
       post :update
 
       expect(intake.reload.recovery_rebate_credit_amount_2).to eq 0
-      expect(response).to redirect_to questions_placeholder_question_path
+      expect(response).to redirect_to questions_stimulus_received_path
     end
   end
 end

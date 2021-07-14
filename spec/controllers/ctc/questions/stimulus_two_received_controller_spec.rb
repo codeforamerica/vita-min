@@ -51,11 +51,11 @@ describe Ctc::Questions::StimulusTwoReceivedController do
         }
       end
 
-      it "saves recovery_rebate_credit_amount_2 value and moves to the next question" do
+      it "saves recovery_rebate_credit_amount_2 value and moves to the stimulus-received" do
         post :update, params: params
 
         expect(intake.reload.recovery_rebate_credit_amount_2).to eq 100
-        expect(response).to redirect_to questions_placeholder_question_path
+        expect(response).to redirect_to questions_stimulus_received_path
       end
     end
   end

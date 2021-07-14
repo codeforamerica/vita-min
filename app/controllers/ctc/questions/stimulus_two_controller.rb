@@ -8,8 +8,8 @@ module Ctc
 
       def update
         current_intake.update!(recovery_rebate_credit_amount_2: 0)
-        # TODO: redirect to stimulus received or owed
-        redirect_to questions_placeholder_question_path
+        # TODO: redirect to either stimulus received or owed based on whether provided sum is greater than calculated
+        redirect_to questions_stimulus_received_path
       end
 
       private
