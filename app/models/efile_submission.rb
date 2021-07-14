@@ -60,6 +60,10 @@ class EfileSubmission < ApplicationRecord
     address_service
   end
 
+  def generate_submission_bundle
+    BuildSubmissionBundleJob.perform_later(id)
+  end
+
   private
 
   def generate_irs_submission_id(i = 0)
