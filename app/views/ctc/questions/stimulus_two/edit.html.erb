@@ -1,0 +1,23 @@
+<% @main_question = t("views.ctc.questions.stimulus_two.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <%= t("views.ctc.questions.stimulus_two.help_html") %>
+
+  <%= form_with model: @client, url: questions_stimulus_two_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "form-card--yes-no" do |f| %>
+    <div class="options-wrapper">
+      <div class="yes-no-buttons">
+        <%= link_to questions_stimulus_two_received_path, class: "button button--icon button--icon--centered" do %>
+          <%= image_tag("checkmark.svg", alt: "") %><%= t("general.affirmative") %>
+        <% end %>
+
+        <%= f.button :submit, class: "button button--icon button--icon--centered" do %>
+          <%= image_tag("crossmark.svg", alt: "") %><%= t("general.negative") %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
