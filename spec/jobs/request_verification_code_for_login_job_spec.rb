@@ -84,14 +84,14 @@ describe RequestVerificationCodeForLoginJob do
         let(:text_message_body_es) {
           <<~ESTEXT
           Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
-          También puede ir a GetYourRefund.org para empezar su declaración.
+          También puede ir a https://test.example.com/es para empezar su declaración.
           ESTEXT
         }
 
         let(:text_message_body_en) {
           <<~ENTEXT
           Someone tried to sign in to GetCTC with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
-          You can also visit GetCTC.org to get started.
+          You can also visit https://ctc.test.example.com/en to get started.
           ENTEXT
         }
 

@@ -3040,7 +3040,7 @@ en:
   verification_code_sms:
     no_match: |
       Someone tried to sign in to %{service_name} with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
-      You can also visit %{service_name}.org to get started.
+      You can also visit %{url} to get started.
     with_code: |
       Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after two days.
   verification_code_mailer:
@@ -3064,7 +3064,7 @@ en:
         Hello,<br><br>
         It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.<br>
         You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.<br>
-        If you have not submitted your information to %{service_name}, <a href="https://%{service_name}.org">visit www.%{service_name}.org</a> to get started.
+        If you have not submitted your information to %{service_name}, <a href="%{url}">visit %{service_name}.org</a> to get started.
         <br><br>
         We're here to help,<br><br>
 
@@ -3074,7 +3074,9 @@ en:
 
         It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.
         You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.
-        If you have not submitted your tax information to %{service_name}, visit www.%{service_name}.org and click “Get Started” to start the filing process.
+        If you have not submitted your tax information to %{service_name}, visit %{service_name}.org and click “Get Started” to start the filing process.
+
+        %{url}
 
         We're here to help,
 

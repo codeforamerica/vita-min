@@ -81,4 +81,7 @@ Rails.application.configure do
   config.hosts << /[a-z0-9]+\.ngrok\.io/
   config.offseason = false
   config.hide_ctc = false
+  config.ctc_url = "ctc.localhost:3000"
+  config.gyr_url = "localhost:3000"
+
 end
