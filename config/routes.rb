@@ -274,5 +274,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get '*unmatched_route', to: 'public_pages#page_not_found'
+  get '*unmatched_route', to: 'public_pages#page_not_found', constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
 end
