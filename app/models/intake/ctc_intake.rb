@@ -12,6 +12,7 @@
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
 #  city                                                 :string
+#  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime

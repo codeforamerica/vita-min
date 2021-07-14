@@ -82,18 +82,21 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     expect(page).to have_selector("h1", text: "Did you receive any of the first stimulus payment?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "Enter the total amount you received for your first stimulus payment.")
-    fill_in "Economic Impact Payment 1", with: "100"
+    fill_in "Economic Impact Payment 1", with: "1200"
     click_on "Continue"
     expect(page).to have_selector("h1", text: "Did you receive any of the second stimulus payment?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "Enter the total amount you received for your second stimulus payment.")
-    fill_in "Economic Impact Payment 2", with: "200"
+    fill_in "Economic Impact Payment 2", with: "2100"
     click_on "Continue"
-    expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
+    # This part is temporary, and will need adjustment when we get RCC calculations working
+    expect(page).to have_selector("h1", text: "Based on your info, it looks like you’ve received your full stimulus payments.")
+    expect(page).to have_text("EIP 1: $1,200")
+    expect(page).to have_text("EIP 2: $2,100")
+    click_on "Continue"
 
     # =========== BANK AND MAILING INFO ===========
     # Skip to bank account questions until we can arrive here naturally.
-    visit "en/questions/refund-payment"
     expect(page).to have_selector("h1", text: "If you are supposed to get money, how would you like to receive it?")
     choose "Direct deposit (fastest)"
     click_on "Continue"

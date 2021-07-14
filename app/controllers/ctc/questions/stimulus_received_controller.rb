@@ -1,20 +1,18 @@
 module Ctc
   module Questions
-    class StimulusPaymentsController < QuestionsController
+    class StimulusReceivedController < QuestionsController
       # TODO: Transition to Authenticated once we log in client
       include AnonymousIntakeConcern
 
       layout "intake"
 
-      def next_path
-        questions_stimulus_received_path
-      end
-
       private
 
-      def illustration_path
-        "hand-holding-check.svg"
+      def form_class
+        NullForm
       end
+
+      def illustration_path; end
     end
   end
 end
