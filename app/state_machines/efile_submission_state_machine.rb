@@ -18,17 +18,22 @@ class EfileSubmissionStateMachine
   # know what they are yet so let's not think too far ahead.
 
   transition from: :new,          to: [:preparing]
-  transition from: :preparing,    to: [:queued]
+  transition from: :preparing,    to: [:queued, :bundle_failure]
   transition from: :queued,       to: [:transmitted, :failed, :rejected]
   transition from: :transmitted,  to: [:accepted, :rejected]
 
   guard_transition(to: :queued) do |submission|
     submission.submission_bundle.present?
   end
-  
+
   after_transition(to: :preparing) do |submission|
-    BuildSubmissionBundleJob.perform_later(submission_id)
+    address_creation = submission.generate_irs_address
+    return submission.transition_to!(:bundle_failure, error_message: address_creation.errors) unless address_creation.valid?
+
+    BuildSubmissionBundleJob.perform_later(submission.id)
   end
+
+
   after_transition(to: :rejected) do |submission, transition|
     # Transition associated tax return to rejected
     # Add note with rejection reason to client notes

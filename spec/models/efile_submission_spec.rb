@@ -16,8 +16,12 @@ require "rails_helper"
 
 describe EfileSubmission do
   before do
+    address_service_double = double
     allow(EnvironmentCredentials).to receive(:dig).with(:irs, :efin).and_return "111111"
+    allow_any_instance_of(EfileSubmission).to receive(:generate_irs_address).and_return(address_service_double)
+    allow(address_service_double).to receive(:valid?).and_return true
   end
+
   context "generating an irs_submission_id before create" do
     context "adhering to IRS format" do
       around do |example|
@@ -85,6 +89,13 @@ describe EfileSubmission do
 
     context "preparing" do
       let(:submission) { create :efile_submission, :preparing }
+      before do
+        address_service_double = double
+        allow_any_instance_of(EfileSubmission).to receive(:generate_irs_address).and_return(address_service_double)
+        allow(address_service_double).to receive(:valid?).and_return true
+        allow_any_instance_of(EfileSubmission).to receive(:submission_bundle).and_return "fake_zip"
+      end
+
       context "can transition to" do
         it "queued" do
           expect { submission.transition_to!(:queued) }.not_to raise_error
@@ -92,7 +103,7 @@ describe EfileSubmission do
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("queued", "preparing").each do |state|
+        EfileSubmissionStateMachine.states.excluding("queued", "preparing", "bundle_failure").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end

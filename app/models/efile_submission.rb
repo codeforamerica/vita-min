@@ -47,7 +47,17 @@ class EfileSubmission < ApplicationRecord
   end
 
   def generate_irs_address
-    Standardiz
+    address_service = StandardizeAddressService.new(intake)
+    if address_service.valid?
+      attrs = {
+          zip_code: address_service.zip_code,
+               street_address: address_service.street_address,
+               state: address_service.state,
+               city: address_service.city
+      }
+      address.present? ? address.update(attrs) : create_address(attrs)
+    end
+    address_service
   end
 
   private

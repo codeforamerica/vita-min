@@ -10,14 +10,19 @@ describe BuildSubmissionBundleJob do
       end
 
       it "transitions the submission into :queued" do
-        expect {
-          described_class.perform_now(submission.id)
-        }.to change(submission.reload, :current_state).from("preparing").to("queued")
+        described_class.perform_now(submission.id)
+        expect(submission.reload.current_state).to eq "queued"
       end
     end
 
     context "when the build is not successful" do
-      it "transitions the submission into :build_failed"
+      before do
+        allow(SubmissionBundle).to receive(:build).and_return SubmissionBundleResponse.new(errors: ["error"])
+      end
+      it "transitions the submission into :build_failed" do
+        described_class.perform_now(submission.id)
+        expect(submission.reload.current_state).to eq "bundle_failure"
+      end
     end
   end
 end
