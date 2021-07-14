@@ -11,6 +11,8 @@ class CtcQuestionNavigation
     Ctc::Questions::ConsentController,
     Ctc::Questions::Filed2020Controller,
     Ctc::Questions::Filed2020YesController,
+    Ctc::Questions::Filed2019Controller,
+    Ctc::Questions::LifeSituations2019Controller,
     Ctc::Questions::PlaceholderQuestionController,
 
     # RRC

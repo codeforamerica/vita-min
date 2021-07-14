@@ -1369,6 +1369,20 @@ en:
           p2: You can visit the IRS Child Tax Credit Update Portal to update your information.
           visit_ctc_portal: Visit the CTC Update Portal
           visit_ctc_faq: Visit CTC FAQ
+        filed_2019:
+          title: Did you either file a 2019 tax return or receive any stimulus payments?
+          help_text_html: |
+            <p>If you filed a 2019 return or received stimulus payments, if eligible you will receive your Child Tax Credit based on the information in that return. You don't need to file a 2020 tax return to receive the benefits you are due.</p>
+            <p>If you do have changes to your personal situation you can visit the <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">IRS Child Tax Credit Update Portal</a> to update your tax information.<p>
+        life_situations_2019:
+          title: Let's check one more thing.
+          p1: |
+            If any of the following are true, you should continue with our simplified CTC tool:
+          p2: If none of those statements are true, you should receive your Child Tax Credit. You can visit the CTC FAQ for more information.
+          item1: You had a change in the number of dependents from your 2019 tax return
+          item2: You have a different bank account from the one you listed in your 2019 return
+          item3: You didn't receive the full amount of stimulus you were owed
+          visit_ctc_faq: Visit the CTC FAQ
         verification:
           title: Let's verify that contact info with a code!
           body: |
