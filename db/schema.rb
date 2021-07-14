@@ -9,7 +9,8 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-ActiveRecord::Schema.define(version: 2021_07_10_013447) do
+
+ActiveRecord::Schema.define(version: 2021_07_13_230005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -48,6 +49,18 @@ ActiveRecord::Schema.define(version: 2021_07_10_013447) do
     t.string "key", null: false
     t.text "metadata"
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "city"
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "record_id"
+    t.string "record_type"
+    t.string "state"
+    t.string "street_address"
+    t.string "street_address2"
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "zip_code"
   end
 
   create_table "admin_roles", force: :cascade do |t|

@@ -28,8 +28,9 @@ class SubmissionBundle
         filename: "#{@submission.irs_submission_id}.zip",
         content_type: 'application/zip'
       )
-    rescue SubmissionBundleErrorResponse
-      @errors
+      SubmissionBundleResponse.new
+    rescue SubmissionBundleError
+      SubmissionBundleResponse.new(errors: @errors)
     ensure
       FileUtils.remove_entry_secure dir
     end
@@ -43,7 +44,7 @@ class SubmissionBundle
       response.document
     else
       @errors = response.errors
-      raise SubmissionBundleErrorResponse
+      raise SubmissionBundleError
     end
   end
 
@@ -53,9 +54,24 @@ class SubmissionBundle
       response.document
     else
       @errors = response.errors
-      raise SubmissionBundleErrorResponse
+      raise SubmissionBundleError
     end
+  end
+
+  def self.build(*args)
+    new(*args).build
   end
 end
 
-class SubmissionBundleErrorResponse < StandardError; end
+class SubmissionBundleError < StandardError; end
+
+class SubmissionBundleResponse
+  attr_accessor :errors
+  def initialize(errors: [])
+    @errors = errors
+  end
+
+  def valid?
+    @errors.empty?
+  end
+end

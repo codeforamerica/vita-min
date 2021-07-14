@@ -22,6 +22,9 @@ FactoryBot.define do
         filing_status { "single" }
       end
       tax_return { create(:tax_return, :ctc, year: tax_year, filing_status: filing_status) }
+      after :create do |submission|
+        create :address, record: submission
+      end
     end
 
     EfileSubmissionStateMachine.states.each do |state|

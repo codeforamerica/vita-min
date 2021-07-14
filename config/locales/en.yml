@@ -1297,8 +1297,6 @@ en:
         confirm_mailing_address:
           title: Great! Please confirm your mailing address.
           mailing_address: Your mailing address
-          help_text: |
-            Note: Address formatting may appear different to match US Postal Service standards.
         routing_number:
           title: Please provide your bank's routing number
           routing_number: Routing number

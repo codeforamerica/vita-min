@@ -13,6 +13,7 @@ module SubmissionBuilder
       tax_return = submission.tax_return
       intake = submission.intake
       client = submission.client
+      address = submission.address
 
       Nokogiri::XML::Builder.new do |xml|
         xml['efil'].ReturnHeader(root_node_attrs) {
@@ -45,10 +46,10 @@ module SubmissionBuilder
             xml.SpouseNameControlTxt person_name_control_type(client.spouse_legal_name) if tax_return.filing_jointly?
             # TODO: Replace with IRS formatted address for client when ready
             xml.USAddress {
-              xml.AddressLine1Txt "23627 HAWKINS CREEK CT"
-              xml.CityNm "KATY"
-              xml.StateAbbreviationCd "TX"
-              xml.ZIPCd "77494"
+              xml.AddressLine1Txt address.street_address
+              xml.CityNm address.city
+              xml.StateAbbreviationCd address.state
+              xml.ZIPCd address.zip_code
             }
             xml.PhoneNum phone_type(intake.phone_number)
           }
