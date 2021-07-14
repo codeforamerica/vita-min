@@ -12,11 +12,12 @@ module Portal
     def create
       @form = RequestClientLoginForm.new(request_client_login_params)
       if @form.valid?
-        RequestVerificationCodeForGyrLoginJob.perform_later(
+        RequestVerificationCodeForLoginJob.perform_later(
           email_address: @form.email_address,
           phone_number: @form.sms_phone_number,
           visitor_id: visitor_id,
-          locale: I18n.locale
+          locale: I18n.locale,
+          service_type: service_type
         )
 
         @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @form.email_address.present? ? @form.email_address : @form.sms_phone_number)
@@ -37,7 +38,7 @@ module Portal
       if @verification_code_form.valid?
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], params[:verification_code])
 
-        if ClientLoginService.clients_for_token(hashed_verification_code).exists?
+        if client_login_service.clients_for_token(hashed_verification_code).exists?
           DatadogApi.increment("client_logins.verification_codes.right_code")
           redirect_to edit_portal_client_login_path(id: hashed_verification_code)
           return
@@ -90,8 +91,16 @@ module Portal
     end
 
     def validate_token
-      @clients = ClientLoginService.clients_for_token(params[:id])
+      @clients = client_login_service.clients_for_token(params[:id])
       redirect_to portal_client_logins_path unless @clients.present?
+    end
+
+    def client_login_service
+      ClientLoginService.new(service_type)
+    end
+
+    def service_type
+      :gyr
     end
 
     def redirect_locked_clients

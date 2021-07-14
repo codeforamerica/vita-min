@@ -56,14 +56,15 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           }
         end
 
-        it "enqueues a RequestVerificationCodeForGyrLoginJob" do
+        it "enqueues a RequestVerificationCodeForLoginJob" do
           expect {
             post :create, params: params
-          }.to have_enqueued_job(RequestVerificationCodeForGyrLoginJob).with(
+          }.to have_enqueued_job(RequestVerificationCodeForLoginJob).with(
             email_address: "client@example.com",
             phone_number: "",
             locale: :es,
-            visitor_id: "visitor id"
+            visitor_id: "visitor id",
+            service_type: :gyr
           )
 
           expect(response).to be_ok
@@ -82,11 +83,12 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         it "enqueues a text message login request job with the right data and renders the 'enter verification code' page" do
           expect {
             post :create, params: params
-          }.to have_enqueued_job(RequestVerificationCodeForGyrLoginJob).with(
+          }.to have_enqueued_job(RequestVerificationCodeForLoginJob).with(
             email_address: "",
             phone_number: "+15105551234",
             locale: :es,
-            visitor_id: "visitor id"
+            visitor_id: "visitor id",
+            service_type: :gyr
           )
           expect(response).to be_ok
           expect(response).to render_template(:enter_verification_code)
@@ -128,7 +130,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
     context "as an unauthenticated client" do
       context "with valid token" do
-        before { allow(ClientLoginService).to receive(:clients_for_token).and_return(client_query) }
+        before { allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).and_return(client_query) }
 
         it "it is ok" do
           get :edit, params: params
@@ -150,7 +152,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
 
       context "with invalid token" do
-        before { allow(ClientLoginService).to receive(:clients_for_token).and_return(Client.none) }
+        before { allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).and_return(Client.none) }
 
         it "redirects to the portal login page" do
           get :edit, params: { id: "invalid_token" }
@@ -188,7 +190,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
     context "as an unauthenticated client" do
       context "with a valid token" do
-        before { allow(ClientLoginService).to receive(:clients_for_token).and_return(client_query) }
+        before { allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).and_return(client_query) }
 
         context "with a matching ssn/client ID" do
           let(:params) do
@@ -282,7 +284,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
 
       context "with an invalid token" do
-        before { allow(ClientLoginService).to receive(:clients_for_token).and_return(Client.none) }
+        before { allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).and_return(Client.none) }
 
         it "redirects to the portal login page" do
           post :update, params: { id: "invalid_token" }
@@ -306,7 +308,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
       before do
         allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-        allow(ClientLoginService).to receive(:clients_for_token).with(hashed_verification_code).and_return(Client.where(id: client))
+        allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).with(hashed_verification_code).and_return(Client.where(id: client))
       end
 
       it "redirects to the next page for login" do
@@ -335,7 +337,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
         before do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, wrong_verification_code).and_return(hashed_wrong_verification_code)
-          allow(ClientLoginService).to receive(:clients_for_token).with(hashed_wrong_verification_code).and_return(Client.none)
+          allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).with(hashed_wrong_verification_code).and_return(Client.none)
         end
 
         it "increments their lockout counter & shows an error in the form" do
@@ -406,7 +408,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
         before do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-          allow(ClientLoginService).to receive(:clients_for_token).with(hashed_verification_code).and_return(Client.none)
+          allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).with(hashed_verification_code).and_return(Client.none)
         end
 
         let(:params) { { portal_verification_code_form: {

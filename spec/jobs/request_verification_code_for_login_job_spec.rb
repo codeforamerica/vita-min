@@ -1,13 +1,14 @@
 require "rails_helper"
 
-describe RequestVerificationCodeForGyrLoginJob do
+describe RequestVerificationCodeForLoginJob do
   describe "perform" do
     context "with an email address" do
       let(:params) do
         {
             email_address: "client@example.com",
             visitor_id: "87h2897gh2",
-            locale: "es"
+            locale: "es",
+            service_type: :gyr
         }
       end
       let(:mailer_double) { double }
@@ -19,7 +20,7 @@ describe RequestVerificationCodeForGyrLoginJob do
 
       context "when the email address is a match for an intake" do
         before do
-          allow(ClientLoginService).to receive(:can_login_by_email_verification?).and_return true
+          allow_any_instance_of(ClientLoginService).to receive(:can_login_by_email_verification?).and_return true
 
         end
 
@@ -33,7 +34,7 @@ describe RequestVerificationCodeForGyrLoginJob do
 
       context "when the email address is not a match for an intake" do
         before do
-          allow(ClientLoginService).to receive(:can_login_by_email_verification?).and_return false
+          allow_any_instance_of(ClientLoginService).to receive(:can_login_by_email_verification?).and_return false
         end
 
         it "sends a no match email" do
@@ -50,7 +51,8 @@ describe RequestVerificationCodeForGyrLoginJob do
         {
             phone_number: "+15125551234",
             visitor_id: "87h2897gh2",
-            locale: locale
+            locale: locale,
+            service_type: :ctc
         }
       end
 
@@ -61,7 +63,7 @@ describe RequestVerificationCodeForGyrLoginJob do
 
       context "when the email address is a match for an intake" do
         before do
-          allow(ClientLoginService).to receive(:can_login_by_sms_verification?).and_return true
+          allow_any_instance_of(ClientLoginService).to receive(:can_login_by_sms_verification?).and_return true
         end
 
         it "requests a code from EmailVerificationCodeService" do
@@ -74,7 +76,7 @@ describe RequestVerificationCodeForGyrLoginJob do
 
       context "when the email address is not a match for an intake" do
         before do
-          allow(ClientLoginService).to receive(:can_login_by_email_verification?).and_return false
+          allow_any_instance_of(ClientLoginService).to receive(:can_login_by_email_verification?).and_return false
         end
 
         let(:text_message_body_es) {
@@ -115,9 +117,7 @@ describe RequestVerificationCodeForGyrLoginJob do
                                                                             ))
           end
         end
-
       end
     end
-
   end
 end

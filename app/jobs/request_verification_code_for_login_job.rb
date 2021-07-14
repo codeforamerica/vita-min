@@ -1,7 +1,8 @@
-class RequestVerificationCodeForGyrLoginJob < ApplicationJob
-  def perform(email_address: nil, phone_number: nil, locale:, visitor_id:)
+class RequestVerificationCodeForLoginJob < ApplicationJob
+  def perform(email_address: nil, phone_number: nil, locale:, visitor_id:, service_type:)
+    client_login_service = ClientLoginService.new(service_type)
     if email_address.present?
-      if ClientLoginService.can_login_by_email_verification?(email_address)
+      if client_login_service.can_login_by_email_verification?(email_address)
         EmailVerificationCodeService.request_code(
           email_address: email_address,
           locale: locale,
@@ -17,7 +18,7 @@ class RequestVerificationCodeForGyrLoginJob < ApplicationJob
     end
 
     if phone_number.present?
-      if ClientLoginService.can_login_by_sms_verification?(phone_number)
+      if client_login_service.can_login_by_sms_verification?(phone_number)
         TextMessageVerificationCodeService.request_code(
           phone_number: phone_number,
           locale: locale,
