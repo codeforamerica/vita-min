@@ -1,3 +1,5 @@
+require 'zip'
+
 class GyrEfilerService
   CURRENT_VERSION = '1105349922f7be08cb3a2d8f1d1438eb72b9f5d2'
 
@@ -15,7 +17,7 @@ class GyrEfilerService
 
       config_dir = Rails.root.join("tmp", "gyr_efiler", "gyr_efiler_config").to_s
 
-      java = ENV["VITA_MIN_JAVA_HOME"] ? File.join(ENV["VITA_MIN_JAVA_HOME"], "java") : "java"
+      java = ENV["VITA_MIN_JAVA_HOME"] ? File.join(ENV["VITA_MIN_JAVA_HOME"], "bin", "java") : "java"
 
       pid = Process.spawn(
         java, "-cp", classes_zip_path, "org.codeforamerica.gyr.efiler.App", config_dir, *args,
@@ -73,7 +75,7 @@ class GyrEfilerService
         app_sys_id=#{ENV['GYR_EFILER_APP_SYS_ID']}
       PROPERTIES
       File.write(File.join(config_dir, 'gyr_secrets.properties'), properties_content)
-      File.write(File.join(config_dir, 'secret_key_and_cert.p12.key'), Base64.decode64(ENV['GYR_EFILER_CERT']))
+      File.write(File.join(config_dir, 'secret_key_and_cert.p12.key'), Base64.decode64(ENV['GYR_EFILER_CERT']), mode: "wb")
     end
 
     FileUtils.touch(File.join(config_dir, '.ready'))
