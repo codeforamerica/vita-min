@@ -38,9 +38,7 @@
 #  demographic_veteran                                  :integer          default("unfilled"), not null
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
-#  eip_one                                              :integer
 #  eip_only                                             :boolean
-#  eip_two                                              :integer
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
 #  email_notification_opt_in                            :integer          default("unfilled"), not null

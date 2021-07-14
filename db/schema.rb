@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_14_012338) do
+ActiveRecord::Schema.define(version: 2021_07_10_013447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -441,9 +441,7 @@ ActiveRecord::Schema.define(version: 2021_07_14_012338) do
     t.integer "demographic_veteran", default: 0, null: false
     t.integer "divorced", default: 0, null: false
     t.string "divorced_year"
-    t.integer "eip_one"
     t.boolean "eip_only"
-    t.integer "eip_two"
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false

@@ -11,7 +11,7 @@ describe Ctc::Questions::StimulusOneController do
     it "saves 0 as the amount for stimulus 1 and redirects to stimulus two" do
       post :update
 
-      expect(intake.reload.eip_one).to eq 0
+      expect(intake.reload.recovery_rebate_credit_amount_1).to eq 0
       expect(response).to redirect_to questions_stimulus_two_path
     end
   end

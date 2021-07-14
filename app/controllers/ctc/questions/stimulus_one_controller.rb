@@ -7,7 +7,7 @@ module Ctc
       layout "intake"
 
       def update
-        current_intake.update!(eip_one: 0)
+        current_intake.update!(recovery_rebate_credit_amount_1: 0)
         redirect_to questions_stimulus_two_path
       end
 
