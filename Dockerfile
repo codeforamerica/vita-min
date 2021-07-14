@@ -24,6 +24,15 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
+# pdftk requires Debian's Java 11, but gyr-efiler requires Java 8. Download Java 8 and provide a variable for the Ruby app.
+ENV OPENJDK8_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jre_x64_linux_hotspot_8u292b10.tar.gz \
+    OPENJDK_SHA1SUM=55848001c21214d30ca1362bace8613ce9733516
+RUN wget -O /tmp/openjdk.tar.gz "$OPENJDK8_URL" \
+ && echo "${OPENJDK_SHA1SUM}  /tmp/openjdk.tar.gz" | sha1sum -c - \
+ && cd /opt && tar xf /tmp/openjdk.tar.gz \
+ && rm -f /tmp/openjdk.tar.gz
+ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
+
 WORKDIR /app
 ADD package.json yarn.lock /app/
 RUN NODE_ENV=production yarn install --frozen-lockfile

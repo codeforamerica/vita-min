@@ -15,8 +15,10 @@ class GyrEfilerService
 
       config_dir = Rails.root.join("tmp", "gyr_efiler", "gyr_efiler_config").to_s
 
+      java = ENV["VITA_MIN_JAVA_HOME"] ? File.join(ENV["VITA_MIN_JAVA_HOME"], "java") : "java"
+
       pid = Process.spawn(
-        "java", "-cp", classes_zip_path, "org.codeforamerica.gyr.efiler.App", config_dir, *args,
+        java, "-cp", classes_zip_path, "org.codeforamerica.gyr.efiler.App", config_dir, *args,
         unsetenv_others: true,
         chdir: working_directory,
         in: "/dev/null"
