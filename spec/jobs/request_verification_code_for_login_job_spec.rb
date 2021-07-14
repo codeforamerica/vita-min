@@ -45,14 +45,16 @@ describe RequestVerificationCodeForLoginJob do
         end
       end
     end
+
     context "with a phone number" do
-      let(:locale) {  "en" }
+      let(:locale) { "en" }
+      let(:service_type) { :ctc }
       let(:params) do
         {
-            phone_number: "+15125551234",
-            visitor_id: "87h2897gh2",
-            locale: locale,
-            service_type: :ctc
+          phone_number: "+15125551234",
+          visitor_id: "87h2897gh2",
+          locale: locale,
+          service_type: service_type
         }
       end
 
@@ -69,7 +71,7 @@ describe RequestVerificationCodeForLoginJob do
         it "requests a code from EmailVerificationCodeService" do
           described_class.perform_now(**params)
           expect(TextMessageVerificationCodeService).to have_received(:request_code).with(a_hash_including(
-                                                                                        **params, service_type: :gyr
+                                                                                        **params, service_type: service_type
                                                                                     ))
         end
       end
@@ -82,19 +84,20 @@ describe RequestVerificationCodeForLoginJob do
         let(:text_message_body_es) {
           <<~ESTEXT
           Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
-          También puede ir a http://test.host/es y seleccione “Empiece ahora” para empezar su declaración.
+          También puede ir a GetYourRefund.org para empezar su declaración.
           ESTEXT
         }
 
         let(:text_message_body_en) {
           <<~ENTEXT
-          Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
-          You can also visit http://test.host/en and click “Get Started” to start the filing process.
+          Someone tried to sign in to GetCTC with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
+          You can also visit GetCTC.org to get started.
           ENTEXT
         }
 
         context "locale es" do
           let(:locale) { "es" }
+          let(:service_type) { :gyr }
           it "sends a no match text with spanish body" do
             described_class.perform_now(**params)
             expect(TextMessageVerificationCodeService).not_to have_received(:request_code)

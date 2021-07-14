@@ -33,8 +33,8 @@ class ClientLoginService
   private
 
   def gyr_accessible_intakes
-    online_consented = Intake.joins(:tax_returns).where({ tax_returns: { service_type: "online_intake" } }).where(primary_consented_to_service: "yes")
-    drop_off = Intake.joins(:tax_returns).where({ tax_returns: { service_type: "drop_off" } })
+    online_consented = Intake::GyrIntake.joins(:tax_returns).where({ tax_returns: { service_type: "online_intake" } }).where(primary_consented_to_service: "yes")
+    drop_off = Intake::GyrIntake.joins(:tax_returns).where({ tax_returns: { service_type: "drop_off" } })
     online_consented.or(drop_off)
   end
 

@@ -7,12 +7,13 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           email_address: email_address,
           locale: locale,
           visitor_id: visitor_id,
-          service_type: :gyr
+          service_type: service_type
         )
       else
         VerificationCodeMailer.no_match_found(
           to: email_address,
           locale: locale,
+          service_type: service_type
         ).deliver_now
       end
     end
@@ -23,13 +24,13 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           phone_number: phone_number,
           locale: locale,
           visitor_id: visitor_id,
-          service_type: :gyr
+          service_type: service_type
         )
       else
-        home_url = Rails.application.routes.url_helpers.root_url(locale: locale)
+        service_name = service_type.to_s.match?(/ctc/) ? "GetCTC" : "GetYourRefund"
         TwilioService.send_text_message(
           to: phone_number,
-          body: I18n.t("verification_code_sms.no_match", locale: locale, home_url: home_url)
+          body: I18n.t("verification_code_sms.no_match", service_name: service_name, locale: locale)
         )
       end
     end

@@ -8,9 +8,10 @@ class VerificationCodeMailer < ApplicationMailer
     mail(to: params[:to], subject: @subject)
   end
 
-  def no_match_found(to:, locale:)
+  def no_match_found(to:, locale:, service_type:)
     @locale = locale
-    @subject = I18n.t("verification_code_mailer.no_match.subject", locale: @locale)
+    @service_name = @service_type.present? && @service_type.match?(/ctc/) ? "GetCTC" : "GetYourRefund"
+    @subject = I18n.t("verification_code_mailer.no_match.subject", service_name: @service_name, locale: @locale)
     mail(to: to, subject: @subject)
   end
 end
