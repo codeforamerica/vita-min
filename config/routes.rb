@@ -276,6 +276,7 @@ Rails.application.routes.draw do
         end
 
         namespace :portal do
+          root "portal#home"
           login_routes
         end
       end
