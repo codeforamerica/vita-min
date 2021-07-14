@@ -8,6 +8,10 @@ module Ctc
 
       private
 
+      def method_name
+        "filed_2020"
+      end
+
       def illustration_path
         "hand-holding-check.svg"
       end
