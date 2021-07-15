@@ -29,7 +29,8 @@ class EfileSubmissionStateMachine
   after_transition(to: :preparing) do |submission|
     address_creation = submission.generate_irs_address
     return submission.transition_to!(:bundle_failure, error_message: address_creation.errors) unless address_creation.valid?
-    submission.generate_submission_bundle
+
+    BuildSubmissionBundleJob.perform_later(submission.id)
   end
 
 
