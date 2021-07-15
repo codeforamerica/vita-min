@@ -33,6 +33,9 @@ class EfileSubmissionStateMachine
     BuildSubmissionBundleJob.perform_later(submission.id)
   end
 
+  after_transition(to: :queued) do |submission|
+    GyrEfiler::SendSubmissionJob.perform_later(submission)
+  end
 
   after_transition(to: :rejected) do |submission, transition|
     # Transition associated tax return to rejected

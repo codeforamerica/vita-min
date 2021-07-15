@@ -144,6 +144,16 @@ describe EfileSubmission do
           end
         end
       end
+
+      context "after transition to" do
+        let!(:submission) { create(:efile_submission, :preparing, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"), 'rb') }) }
+
+        it "queues a GyrEfilerSendSubmissionJob" do
+          expect do
+            submission.transition_to!(:queued)
+          end.to have_enqueued_job(GyrEfiler::SendSubmissionJob).with(submission)
+        end
+      end
     end
 
     context "transmitted" do
