@@ -1,14 +1,12 @@
 module Ctc
   module Questions
-    class LifeSituations2019Controller < QuestionsController
-      include AuthenticatedCtcClientConcern
+    class LifeSituations2020Controller < QuestionsController
+      # TODO: Transition to Authenticated once we log in client
       include AnonymousIntakeConcern
 
       layout "intake"
 
-      def self.show?(intake)
-        intake.filed_2019_yes?
-      end
+      # TBD
 
       private
 
