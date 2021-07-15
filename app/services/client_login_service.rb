@@ -1,31 +1,64 @@
 class ClientLoginService
-  class << self
-    def clients_for_token(raw_token)
-      # these might have multiple email addresses
-      to_addresses = EmailAccessToken.lookup(raw_token).pluck(:email_address)
-      emails = to_addresses.map { |to| to.split(",") }.flatten(1)
-      email_intake_matches = accessible_intakes.where(email_address: emails)
-      spouse_email_intake_matches = accessible_intakes.where(spouse_email_address: emails)
-      phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
-      phone_intake_matches = accessible_intakes.where(sms_phone_number: phone_numbers)
-      intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
+  attr_accessor :service_type
+  SERVICE_TYPES = [:gyr, :ctc]
 
-      # Client.by_raw_login_token supports login links generated from mid-Jan through early March 2021.
-      Client.where(intake: intake_matches).or(Client.by_raw_login_token(raw_token))
-    end
+  def initialize(service_type)
+    raise ArgumentError, "Service type must be one of: #{SERVICE_TYPES.join(', ')}" unless SERVICE_TYPES.include? service_type.to_sym
 
-    def can_login_by_email_verification?(email_address)
-      accessible_intakes.where(email_address: email_address).or(accessible_intakes.where(spouse_email_address: email_address)).exists?
-    end
+    @service_type = service_type
+  end
 
-    def can_login_by_sms_verification?(sms_phone_number)
-      accessible_intakes.where(phone_number: sms_phone_number).or(accessible_intakes.where(sms_phone_number: sms_phone_number)).exists?
-    end
+  def clients_for_token(raw_token)
+    # these might have multiple email addresses
+    to_addresses = EmailAccessToken.lookup(raw_token).pluck(:email_address)
+    emails = to_addresses.map { |to| to.split(",") }.flatten(1)
+    email_intake_matches = accessible_intakes.where(email_address: emails)
+    spouse_email_intake_matches = accessible_intakes.where(spouse_email_address: emails)
+    phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
+    phone_intake_matches = accessible_intakes.where(sms_phone_number: phone_numbers)
+    intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
 
-    def accessible_intakes
-      online_consented = Intake.joins(:tax_returns).where({ tax_returns: { service_type: "online_intake" } }).where(primary_consented_to_service: "yes")
-      drop_off = Intake.joins(:tax_returns).where({ tax_returns: { service_type: "drop_off" } })
-      online_consented.or(drop_off)
+    # Client.by_raw_login_token supports login links generated from mid-Jan through early March 2021.
+    Client.where(intake: intake_matches).or(Client.by_raw_login_token(raw_token))
+  end
+
+  def can_login_by_email_verification?(email_address, service_type: :gyr)
+    accessible_intakes.where(email_address: email_address).or(accessible_intakes.where(spouse_email_address: email_address)).exists?
+  end
+
+  def can_login_by_sms_verification?(sms_phone_number, service_type: :gyr)
+    accessible_intakes.where(phone_number: sms_phone_number).or(accessible_intakes.where(sms_phone_number: sms_phone_number)).exists?
+  end
+
+  private
+
+  def accessible_intakes
+    service_type.to_sym == :gyr ? self.class.gyr_accessible_intakes : self.class.ctc_accessible_intakes
+  end
+
+  def self.gyr_accessible_intakes
+    online_consented = Intake::GyrIntake.joins(:tax_returns).where({ tax_returns: { service_type: "online_intake" } }).where(primary_consented_to_service: "yes")
+    drop_off = Intake::GyrIntake.joins(:tax_returns).where({ tax_returns: { service_type: "drop_off" } })
+    online_consented.or(drop_off)
+  end
+
+  def self.ctc_accessible_intakes
+    sms_verified = Intake::CtcIntake.where.not(sms_phone_number_verified_at: nil)
+    email_verified = Intake::CtcIntake.where.not(email_address_verified_at: nil)
+    navigator_verified = Intake::CtcIntake.where.not(navigator_has_verified_client_identity: nil)
+
+    sms_verified.or(email_verified).or(navigator_verified)
+  end
+
+  def self.has_ctc_duplicate?(intake)
+    has_dupe = false
+    accessible_intakes = ctc_accessible_intakes.where.not(id: intake.id)
+    if intake.email_address.present?
+      has_dupe = accessible_intakes.where(email_address: intake.email_address).exists?
     end
+    if intake.sms_phone_number.present? && !has_dupe
+      has_dupe = accessible_intakes.where(sms_phone_number: intake.sms_phone_number).exists?
+    end
+    has_dupe
   end
 end

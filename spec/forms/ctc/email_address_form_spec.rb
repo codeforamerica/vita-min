@@ -19,5 +19,27 @@ describe Ctc::EmailAddressForm do
       }.to change(intake, :email_address).to("mango@fruitnames.com")
        .and change(intake, :email_notification_opt_in).to "yes"
     end
+
+    context "when the email address gets updated to the existing address" do
+      let(:intake) { create :intake, email_address: "mango@fruitnames.com", email_address_verified_at: Time.current }
+      it "does not clear out the verification and will not force them to re-verify" do
+          described_class.new(intake, {
+            email_address: "mango@fruitnames.com",
+            email_address_confirmation: "mango@fruitnames.com"
+          }).save
+          expect(intake.reload.email_address_verified_at).not_to be_nil
+      end
+    end
+
+    context "when the email address gets updated to a new address" do
+      let(:intake) { create :intake, email_address: "martin@fruitnames.com", email_address_verified_at: Time.current }
+      it "does not clear out the verification and will not force them to re-verify" do
+        described_class.new(intake, {
+          email_address: "mango@fruitnames.com",
+          email_address_confirmation: "mango@fruitnames.com"
+        }).save
+        expect(intake.reload.email_address_verified_at).to be_nil
+      end
+    end
   end
 end

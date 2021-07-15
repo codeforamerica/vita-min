@@ -5,20 +5,10 @@ module Ctc
 
       layout "intake"
 
-      def update
-        super
-      end
-
       private
 
-      def after_update_success
-        RequestVerificationCodeTextMessageJob.perform_later(
-          phone_number: @form.sms_phone_number,
-          locale: I18n.locale,
-          visitor_id: current_intake.visitor_id,
-          client_id: current_intake.client_id,
-          service_type: :ctc
-        )
+      def illustration_path
+        "phone-number.svg"
       end
 
       def prev_path
@@ -26,11 +16,7 @@ module Ctc
       end
 
       def next_path
-        questions_verification_path
-      end
-
-      def illustration_path
-        "phone-number.svg"
+        questions_phone_verification_path
       end
     end
   end

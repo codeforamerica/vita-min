@@ -2882,8 +2882,8 @@ es:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
   verification_code_sms:
     no_match: |
-      Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
-      También puede ir a %{home_url} y seleccione “Empiece ahora” para empezar su declaración.
+      Alguien intentó ingresar a %{service_name} con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
+      También puede ir a %{url} para empezar su declaración.
     with_code: |
       Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.
   verification_code_mailer:
@@ -2902,26 +2902,26 @@ es:
 
         Su equipo de impuestos de %{service_name}.org
     no_match:
-      subject: Intento de inicio de sesión de GetYourRefund
+      subject: Intento de inicio de sesión de %{service_name}
       body_html: |
         <p>Hola,</p>
-        <p>Parece que usted intentó acceder a GetYourRefund, pero no encontramos una cuenta que corresponde a su información de contacto.</p>
-        <p>Es posible que usted usó un correo electrónico diferente para crear su cuenta de GetYourRefund.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.</p>
-        <p>Si aún no ha enviado su información de impuestos a GetYourRefund, visite <a href="%{home_page_url}">www.getyourrefund.org</a> y seleccione “Empiece ahora” para empezar el proceso de declarar sus impuestos.</p>
+        <p>Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.</p>
+        <p>Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.</p>
+        <p>Si aún no ha enviado su información de impuestos a GetYourRefund, visite <a href="%{url}">%{service_name}.org</a> para empezar el proceso de declarar sus impuestos.</p>
         <p>Estamos aquí para servirle,</p>
-        <p>Su equipo de impuestos de GetYourRefund</p>
+        <p>Su equipo de impuestos de %{service_name}</p>
       body_text: |
         Hola,
 
-        Parece que usted intentó acceder a GetYourRefund, pero no encontramos una cuenta que corresponde a su información de contacto.
-        Es posible que usted usó un correo electrónico diferente para crear su cuenta de GetYourRefund.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.
-        Si aún no ha enviado su información de impuestos a GetYourRefund, visite www.getyourrefund.org y seleccione “Empiece ahora” para empezar el proceso de declarar sus impuestos.
+        Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.
+        Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.
+        Si aún no ha enviado su información de impuestos a GetYourRefund, visite %{service_name}.org para empezar el proceso de declarar sus impuestos.
 
-        %{home_page_url}
+        %{url}
 
         Estamos aquí para servirle,
 
-        Su equipo de impuestos de GetYourRefund
+        Su equipo de impuestos de %{service_name}
   public_pages:
     forbidden:
       title: Acceso no permitido

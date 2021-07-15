@@ -1,21 +1,21 @@
-<% content_for :page_title do %>
-  <% if @form&.errors.present? %>
-    <%= @form.error_summary %>
+<%= extends wrapping_layout do %>
+  <% content_for :page_title do %>
+    <% if @form&.errors.present? %>
+      <%= @form.error_summary %>
+    <% end %>
+    <%= yield :title %>
   <% end %>
-  <%= yield :title %>
-<% end %>
 
-<% content_for :main do %>
-  <section class="slab slab--white slab--not-padded portal-layout">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <%= yield :notices %>
-        <main role="main">
-          <%= yield :card %>
-        </main>
+  <% content_for :main do %>
+    <section class="slab slab--white slab--not-padded portal-layout">
+      <div class="grid">
+        <div class="grid__item width-three-fourths shift-one-eighth">
+          <%= yield :notices %>
+          <main role="main">
+            <%= yield :card %>
+          </main>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  <% end %>
 <% end %>
-
-<%= render template: "layouts/application" %>

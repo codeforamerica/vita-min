@@ -124,8 +124,9 @@ describe Ctc::ConsentForm do
       expect(intake.primary_middle_initial).to eq "J"
       expect(intake.primary_last_name).to eq "Mango"
       expect(intake.primary_birth_date).to eq Date.new(1963, 9, 10)
-      expect(intake.primary_ssn).to eq "111-22-8888"
+      expect(intake.primary_ssn).to eq "111228888"
       expect(intake.phone_number).to eq "+18312345678"
+      expect(intake.primary_last_four_ssn).to eq "8888"
     end
   end
 end

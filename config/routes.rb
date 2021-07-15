@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  def login_routes
+    resources :client_logins, path: "login", only: [:new, :create, :edit, :update], path_names: { new: '', edit: '' } do
+      get "locked", to: "client_logins#account_locked", as: :account_locked, on: :collection
+      put "check-verification-code", to: "client_logins#check_verification_code", as: :check_verification_code, on: :collection
+    end
+  end
   def scoped_navigation_routes(context, navigation, as_redirects: false)
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
@@ -107,10 +113,8 @@ Rails.application.routes.draw do
         # Add redirect for pre-March-2021-style login token links; safe to delete in April 2021
         get "/account/:id", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login/#{request.params[:id]}"}
 
-        resources :client_logins, path: "login", only: [:new, :create, :edit, :update], path_names: { new: '', edit: ''} do
-          get "locked", to: "client_logins#account_locked", as: :account_locked, on: :collection
-          put "check-verification-code", to: "client_logins#check_verification_code", as: :check_verification_code, on: :collection
-        end
+        login_routes
+
         resources :tax_returns, only: [], path: '/tax-returns' do
           get '/show', to: 'tax_returns#show', as: :show
           get '/sign', to: 'tax_returns#authorize_signature', as: :authorize_signature
@@ -269,6 +273,11 @@ Rails.application.routes.draw do
           get "/no-income-or-income-from-benefits-programs", to: "ctc_pages#no_income_or_income_from_benefits_programs"
           get "/are-daca-recipients-eligible", to: "ctc_pages#are_daca_recipients_eligible"
           get "/will-it-affect-my-immigration-status", to: "ctc_pages#will_it_affect_my_immigration_status"
+        end
+
+        namespace :portal do
+          root "portal#home"
+          login_routes
         end
       end
     end
