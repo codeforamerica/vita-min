@@ -1,5 +1,5 @@
 namespace :efile do
-  desc "Creates a CSV report of critical tracking fields for specific intakes"
+  desc "Create sample e-file submission data"
   task :seed_submissions, [:count] => :environment do |_task, args|
     FactoryBot.create_list :efile_submission, 100, :ctc
 

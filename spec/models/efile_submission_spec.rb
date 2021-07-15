@@ -109,6 +109,16 @@ describe EfileSubmission do
           end
         end
       end
+
+      context "after transition to" do
+        let(:submission) { create(:efile_submission, :new) }
+
+        it "queues a BuildSubmissionBundleJob" do
+          expect do
+            submission.transition_to!(:preparing)
+          end.to have_enqueued_job(BuildSubmissionBundleJob).with(submission.id)
+        end
+      end
     end
 
     context "queued" do
