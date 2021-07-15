@@ -1439,6 +1439,21 @@ en:
           correction: "If any amount for your EIP 1 or 2 is incorrect the IRS will correct the amount claimed, but the correction will cause a delay processing your return and a delay sending your monthly Child Tax Credit checks (if eligible)."
           dont_claim: "Don’t claim the additional money"
           claim: "Claim the additional money"
+        use_gyr:
+          title: "Unfortunately, you are not eligible to use GetCTC. But we can still help!"
+          ctc_conditions_list_html: |
+            <p class="text--small">In order to file a simplified return through GetCTC you would need to meet the following conditions:</p>
+            <ul class="list--bulleted text--small">
+              <li>You did not earned any income in 2020</li>
+              <li>You are a U.S. citizen, U.S. national, or U.S.resident alien.</li>
+              <li>You are not a resident of Puerto Rico or another American Territory</li>
+              <li>You cannot be claimed as a dependent</li>
+              <li>You and your spouse have a valid SSN or ITIN</li>
+            </ul>
+            <p><strong>You could still benefit by filing a full tax return for free using GetYourRefund.</strong></p>
+            <p><strong>Collect all the money you are owed by filing with GetYourRefund.</strong></p>
+          visit_ctc_faq: "Visit CTC FAQ"
+          file_gyr: "File with GetYourRefund"
     consent_pages:
       consent_to_use:
         title: Consent to Use

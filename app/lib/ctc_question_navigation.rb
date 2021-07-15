@@ -17,6 +17,9 @@ class CtcQuestionNavigation
     Ctc::Questions::LifeSituations2019Controller,
     Ctc::Questions::PlaceholderQuestionController,
 
+    # Filing Status
+    Ctc::Questions::UseGyrController,
+
     # RRC
     Ctc::Questions::StimulusPaymentsController,
     Ctc::Questions::StimulusOneController,
