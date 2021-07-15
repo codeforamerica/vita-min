@@ -34,6 +34,9 @@ RSpec.describe ClientSortable, type: :controller do
     allow(clients_query_double).to receive(:where).and_return clients_query_double
     allow(clients_query_double).to receive(:not).and_return clients_query_double
     allow(clients_query_double).to receive(:first_unanswered_incoming_interaction_communication_breaches).and_return clients_query_double
+    allow(clients_query_double).to receive(:distinct).and_return clients_query_double
+    allow(clients_query_double).to receive(:joins).and_return clients_query_double
+    allow(clients_query_double).to receive(:or).and_return clients_query_double
     allow(Intake).to receive(:search).and_return intakes_query_double
   end
 
