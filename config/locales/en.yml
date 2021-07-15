@@ -1495,7 +1495,6 @@ en:
         life_situations_2020:
           title: "Select any situations that were true for you in 2020"
           p1: "These answers help us determine what tax credits you qualify for."
-          error: "Please pick at least one option."
           cannot_claim_me_as_a_dependent: "No one can claim me as a dependent"
           member_of_the_armed_forces: "I was a member of the United States Armed Forces for any time in 2020"
           reveal_label: "Why are you asking this?"

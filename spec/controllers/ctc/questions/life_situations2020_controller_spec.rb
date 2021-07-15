@@ -51,7 +51,7 @@ describe Ctc::Questions::LifeSituations2020Controller do
           }.to change { intake.reload.cannot_claim_me_as_a_dependent }
                  .and change { intake.reload.member_of_the_armed_forces }
 
-          expect(response).to redirect_to questions_placeholder_question_path
+          expect(response).to redirect_to questions_filing_status_path
         end
       end
     end
