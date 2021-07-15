@@ -406,10 +406,6 @@ class Intake < ApplicationRecord
     tax_returns.pluck(:year).sort.reverse
   end
 
-  def filing_status
-    tax_returns&.first&.filing_status
-  end
-
   def filer_count
     filing_joint_yes? ? 2 : 1
   end
