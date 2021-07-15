@@ -10,7 +10,12 @@ module ClientSortable
                 # Greeters should only have "search" access to clients in intake stage AND clients assigned to them.
                 @clients.greetable || Client.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct
               else
-                @clients.after_consent
+                # temporarily showing all online CTC intakes regardless of consent
+                @clients.after_consent.or(
+                  @clients.distinct.joins(:tax_returns)
+                    .where(intake: Intake.where(type: "Intake::CtcIntake"))
+                    .where(tax_returns: { service_type: :online_intake })
+                )
               end
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
     clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?

@@ -401,6 +401,23 @@ RSpec.describe Hub::ClientsController do
         end
       end
 
+      context "temporary default behaviors" do
+        let!(:george_sr) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", preferred_interview_language: "en", locale: "en") }
+        let!(:george_sr_return) { create :tax_return, client: george_sr, status: "intake_ready" }
+        let!(:bob_loblaw) { create :client, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Bob Loblaw") }
+        let!(:bob_loblaw_online_intake_return) { create :tax_return, service_type: :online_intake, client: bob_loblaw, status: :intake_before_consent }
+        let!(:lucille_2) { create :client, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Lucille 2") }
+        let!(:lucille_2_drop_off_return) { create :tax_return, service_type: :drop_off, client: lucille_2, status: :intake_before_consent }
+
+        it "shows the usual list of clients plus ctc clients who did online intake" do
+          get :index
+
+          expect(assigns(:clients).count).to eq 2
+          expect(assigns(:clients)).to include george_sr
+          expect(assigns(:clients)).to include bob_loblaw
+        end
+      end
+
       context "sorting and ordering" do
         context "with client as sort param" do
           let(:params) { { column: "preferred_name" } }
