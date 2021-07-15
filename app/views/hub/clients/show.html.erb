@@ -164,7 +164,7 @@
               </div>
               <div class="field-display">
                 <span class="form-question">Confidence:</span>
-                <span class="label-value"><%= @client.intake.recovery_rebate_credit_amount_confidence.capitalize %> </span>
+                <span class="label-value"><%= @client.intake.recovery_rebate_credit_amount_confidence.try(:capitalize) %> </span>
               </div>
             </div>
           <% end %>

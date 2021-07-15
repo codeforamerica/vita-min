@@ -11,7 +11,7 @@ class VerificationCodeMailer < ApplicationMailer
   def no_match_found(to:, locale:, service_type:)
     @locale = locale
     service = MultiTenantService.new(service_type)
-    @subject = I18n.t("verification_code_mailer.no_match.subject", service_name: service.name, url: service.url(locale:locale), locale: @locale)
+    @subject = I18n.t("verification_code_mailer.no_match.subject", service_name: service.service_name, url: service.url(locale: locale), locale: @locale)
     mail(to: to, subject: @subject)
   end
 end
