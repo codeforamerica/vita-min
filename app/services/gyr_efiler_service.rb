@@ -14,9 +14,15 @@ class GyrEfilerService
       # TODO: Send process stdout to logs.
       # TODO: Send output/logs/ to logs after process terminates.
       classes_zip_path = Dir.glob(Rails.root.join("vendor", "gyr_efiler", "gyr-efiler-classes-#{CURRENT_VERSION}.zip"))[0]
+      raise StandardError.new("You must run rails setup:download_gyr_efiler") if classes_zip_path.nil?
 
       config_dir = Rails.root.join("tmp", "gyr_efiler", "gyr_efiler_config").to_s
 
+      # On macOS, "java" will show a confusing pop-up if you run it without a JVM installed. Check for that and exit early.
+      if File("/Library/Java/JavaVirtualMachines").exists? && Dir["/Library/Java/JavaVirtualMachines"].empty?
+        raise StandardError.new("Seems you are on a mac & lack Java. Run: brew tap AdoptOpenJDK/openjdk && brew install adoptopenjdk8")
+      end
+      # /Library/Java/JavaVirtualMachines
       java = ENV["VITA_MIN_JAVA_HOME"] ? File.join(ENV["VITA_MIN_JAVA_HOME"], "bin", "java") : "java"
 
       pid = Process.spawn(
@@ -53,7 +59,7 @@ class GyrEfilerService
     return if File.exists?(File.join(config_dir, '.ready'))
 
     config_zip_path = Dir.glob(Rails.root.join("vendor", "gyr_efiler", "gyr-efiler-config-#{CURRENT_VERSION}.zip"))[0]
-    system("unzip -o #{config_zip_path} -d #{Rails.root.join("tmp", "gyr_efiler")}")
+    system!("unzip -o #{config_zip_path} -d #{Rails.root.join("tmp", "gyr_efiler")}")
 
     local_efiler_repo_config_path = File.expand_path('../gyr-efiler/gyr_efiler_config', Rails.root)
     if Rails.env.development?

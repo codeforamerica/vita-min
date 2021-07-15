@@ -56,7 +56,7 @@ commands:
   install_efile_schemas:
     description: "Install IRS e-File schemas"
     steps:
-      - run: bundle exec rails efile:download efile:unzip && find vendor/irs
+      - run: bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas && find vendor/irs
   setup_test_db:
     description: "Setup test database"
     steps:

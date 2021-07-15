@@ -45,7 +45,7 @@ ADD . /app
 # Add IRS e-file schemas, which are not in the git repo
 RUN set -a \
  && . ./.aptible.env \
- && bundle exec rails efile:download efile:unzip gyr_efiler:download
+ && bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas setup:download_gyr_efiler
 
 # Collect assets. This approach is not fully production-ready, but
 # will help you experiment with Aptible Deploy before bothering with assets.
