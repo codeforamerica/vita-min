@@ -11,6 +11,7 @@
 #  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
+#  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  city                                                 :string
 #  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
@@ -100,6 +101,7 @@
 #  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default(0), not null
 #  married                                              :integer          default(0), not null
+#  member_of_the_armed_forces                           :integer          default(0), not null
 #  multiple_states                                      :integer          default(0), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -143,8 +145,6 @@
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default(0), not null
 #  reported_self_employment_loss                        :integer          default(0), not null
-#  requested_docs_token                                 :string
-#  requested_docs_token_created_at                      :datetime
 #  routed_at                                            :datetime
 #  routing_criteria                                     :string
 #  routing_value                                        :string

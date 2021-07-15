@@ -6,15 +6,14 @@ module Ctc
 
       layout "intake"
 
-      # TBD
-
       private
 
-      def form_class
-        NullForm
-      end
-
       def illustration_path; end
+
+      def next_path
+        # TODO: Change placeholder to /filing-status when available
+        @form.cannot_claim_me_as_a_dependent != "yes" ? questions_use_gyr_path : questions_placeholder_question_path
+      end
     end
   end
 end

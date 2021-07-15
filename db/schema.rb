@@ -412,6 +412,7 @@ ActiveRecord::Schema.define(version: 2021_07_15_212929) do
     t.integer "bank_account_type", default: 0, null: false
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
+    t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
     t.string "city"
     t.integer "claim_owed_stimulus_money", default: 0, null: false
     t.integer "claimed_by_another", default: 0, null: false
@@ -503,6 +504,7 @@ ActiveRecord::Schema.define(version: 2021_07_15_212929) do
     t.string "locale"
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.integer "married", default: 0, null: false
+    t.integer "member_of_the_armed_forces", default: 0, null: false
     t.integer "multiple_states", default: 0, null: false
     t.boolean "navigator_has_verified_client_identity"
     t.string "navigator_name"
@@ -546,8 +548,6 @@ ActiveRecord::Schema.define(version: 2021_07_15_212929) do
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false
     t.integer "reported_self_employment_loss", default: 0, null: false
-    t.string "requested_docs_token"
-    t.datetime "requested_docs_token_created_at"
     t.datetime "routed_at"
     t.string "routing_criteria"
     t.string "routing_value"
