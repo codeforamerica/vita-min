@@ -305,10 +305,13 @@ RSpec.describe Hub::ClientsController do
         let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
         let!(:lucille) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Lucille") }
         let!(:lucille_2018_return) { create(:tax_return, client: lucille, year: 2018, status: "intake_before_consent", assigned_user: assigned_user) }
+        let!(:bob_loblaw) { create :client, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Bob Loblaw") }
+        let!(:bob_loblaw_online_intake_return) { create :tax_return, service_type: :online_intake, client: bob_loblaw, status: :intake_before_consent }
 
         it "does not show a client whose tax returns are all before_consent" do
           get :index
           expect(assigns(:clients).pluck(:id)).not_to include(lucille.id)
+          expect(assigns(:clients).pluck(:id)).not_to include(bob_loblaw.id)
         end
 
         it "shows a list of clients and client information" do
@@ -398,6 +401,23 @@ RSpec.describe Hub::ClientsController do
             attrib = html.at_css("#client-#{george_sr.id}").at_css(".tooltip").attr("title")
             expect(attrib.strip).to eq(message_summary.strip)
           end
+        end
+      end
+
+      context "temporary_ctc_assume_consent" do
+        let!(:george_sr) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", preferred_interview_language: "en", locale: "en") }
+        let!(:george_sr_return) { create :tax_return, client: george_sr, status: "intake_ready" }
+        let!(:bob_loblaw) { create :client, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Bob Loblaw") }
+        let!(:bob_loblaw_online_intake_return) { create :tax_return, service_type: :online_intake, client: bob_loblaw, status: :intake_before_consent }
+        let!(:lucille_2) { create :client, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Lucille 2") }
+        let!(:lucille_2_drop_off_return) { create :tax_return, service_type: :drop_off, client: lucille_2, status: :intake_before_consent }
+
+        it "shows the usual list of clients plus ctc clients who did online intake" do
+          get :index, params: { temporary_ctc_assume_consent: "true" }
+
+          expect(assigns(:clients).count).to eq 2
+          expect(assigns(:clients)).to include george_sr
+          expect(assigns(:clients)).to include bob_loblaw
         end
       end
 
