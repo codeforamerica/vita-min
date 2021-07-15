@@ -171,6 +171,9 @@
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_issued_identity_pin                           :integer          default(0), not null
 #  spouse_last_name                                     :string
+#  spouse_middle_initial                                :string
+#  spouse_tin_type                                      :integer
+#  spouse_veteran                                       :integer          default(0)
 #  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  spouse_was_on_visa                                   :integer          default(0), not null
@@ -399,6 +402,7 @@ FactoryBot.define do
     with_documents
     vita_partner
     tin_type { :ssn }
+    spouse_tin_type { :ssn }
     locale { ["en", "es"].sample }
     source { vita_partner.source_parameters.first&.code || "none" }
     referrer { "/" }

@@ -17,10 +17,10 @@ class CtcQuestionNavigation
     Ctc::Questions::Filed2019Controller,
     Ctc::Questions::LifeSituations2019Controller,
     Ctc::Questions::HomeController,
-    Ctc::Questions::PlaceholderQuestionController,
 
     # Filing Status
     Ctc::Questions::FilingStatusController,
+    Ctc::Questions::SpouseInfoController,
 
     # RRC
     Ctc::Questions::StimulusPaymentsController,

@@ -171,6 +171,9 @@
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
 #  spouse_last_name                                     :string
+#  spouse_middle_initial                                :string
+#  spouse_tin_type                                      :integer
+#  spouse_veteran                                       :integer          default(0)
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
 #  spouse_was_full_time_student                         :integer          default("unfilled"), not null
 #  spouse_was_on_visa                                   :integer          default("unfilled"), not null

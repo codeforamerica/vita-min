@@ -784,6 +784,7 @@ en:
       ssn: Social Security Number (SSN)
       itin: Individual Taxpayer ID Number (ITIN)
       atin: Adoption Taxpayer ID Number (ATIN)
+      none: None of the above
     bank_account:
       checking: Checking
       savings: Savings
@@ -1368,6 +1369,21 @@ en:
               <li>tips <li>commissions </li>
               <li>self-employment or contract payments</li>
             </ul>
+        spouse_info:
+          title: Tell is about your spouse
+          help_text: Please make sure you enter spouse's name as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
+          spouse_first_name: Spouse's legal first name
+          spouse_middle_initial: Middle initial
+          spouse_last_name: Spouse's legal last name
+          spouse_dob: Spouse's date of birth
+          spouse_identity: Spouse's form of identity
+          spouse_identity_help_text: If using a social security card, it must be valid for employment.
+          spouse_ssn_itin: Spouse's SSN or ITIN
+          spouse_ssn_itin_confirmation: Confirm spouse's SSN or ITIN
+          spouse_veteran: My spouse was a member of the United States Armed Forces for any time in 2020
+          spouse_veteran_reveal: Why are you asking this?
+          spouse_veteran_reveal_content: Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
+          ssn_required_message_html: "We need a SSN/ITIN to continue. If your spouse does not have one, click here to file for free with GetYourRefund ) here: https://www.getyourrefund.org/"
         filed_2020:
           title: Did you file a 2020 tax return this year?
           help_text_html: |

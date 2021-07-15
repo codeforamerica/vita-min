@@ -171,6 +171,9 @@
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_issued_identity_pin                           :integer          default(0), not null
 #  spouse_last_name                                     :string
+#  spouse_middle_initial                                :string
+#  spouse_tin_type                                      :integer
+#  spouse_veteran                                       :integer          default(0)
 #  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  spouse_was_on_visa                                   :integer          default(0), not null
@@ -277,7 +280,8 @@ class Intake < ApplicationRecord
   enum primary_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_consented_to_service
   enum refund_payment_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :refund_payment_method
   enum claim_owed_stimulus_money: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_owed_stimulus_money
-  enum tin_type: { ssn: 0, itin: 1 }
+  enum tin_type: { ssn: 0, itin: 1, none: 2 }, _prefix: :tin_type
+  enum spouse_tin_type: { ssn: 0, itin: 1, none: 2 }, _prefix: :spouse_tin_type
 
   NAVIGATOR_TYPES = {
     general: {
