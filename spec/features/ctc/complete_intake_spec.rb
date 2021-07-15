@@ -82,7 +82,22 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     check "Any of the 50 states or the District of Columbia"
     check "U.S. military facility"
     click_on "Continue"
-    expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
+
+    expect(page).to have_selector("h1", text: "How will you be filing your tax return?")
+    choose "Married filing jointly"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Tell is about your spouse")
+    fill_in "Spouse's legal first name", with: "Peter"
+    fill_in "Middle initial", with: "P"
+    fill_in "Spouse's legal last name", with: "Pepper"
+    fill_in "ctc_spouse_info_form[spouse_birth_date_month]", with: "01"
+    fill_in "ctc_spouse_info_form[spouse_birth_date_day]", with: "11"
+    fill_in "ctc_spouse_info_form[spouse_birth_date_year]", with: "1995"
+    select "Social Security Number (SSN)"
+    fill_in "Spouse's SSN or ITIN", with: "222-33-4444"
+    fill_in "Confirm spouse's SSN or ITIN", with: "222-33-4444"
+    click_on "Continue"
 
     # =========== RECOVERY REBATE CREDIT ===========
     # Remove visit once `/confirm-dependents` exists

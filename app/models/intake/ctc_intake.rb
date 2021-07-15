@@ -171,6 +171,9 @@
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_issued_identity_pin                           :integer          default(0), not null
 #  spouse_last_name                                     :string
+#  spouse_middle_initial                                :string
+#  spouse_tin_type                                      :integer
+#  spouse_veteran                                       :integer          default("unfilled")
 #  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  spouse_was_on_visa                                   :integer          default(0), not null
@@ -240,6 +243,7 @@ class Intake::CtcIntake < Intake
   enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
   enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019
   enum had_reportable_income: { yes: 1, no: 2 }, _prefix: :had_reportable_income
+  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account
 
