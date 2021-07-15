@@ -1354,10 +1354,16 @@ en:
           ssn: Social Security Number (SSN) or Individual Taxpayer ID Number (ITIN)
           ssn_confirmation: Confirm SSN or ITIN
           sms_phone_number: Phone number
-        personal_info:
-          title: First, what's your name?
-          info: Welcome, we're excited to help you. We need some basic information to get started. We’ll start by asking what you like being called.
-          preferred_name: Preferred first name
+        income:
+          title: Did you earn any income in %{tax_year}?
+          help_text_html: |
+            <p>Income can be from any of the following sources:</p>
+            <ul>
+              <li>salary</li>
+              <li>hourly wages </li>
+              <li>tips <li>commissions </li>
+              <li>self-employment or contract payments</li>
+            </ul>
         filed_2020:
           title: Did you file a 2020 tax return this year?
           help_text_html: |

@@ -83,6 +83,7 @@
 #  had_local_tax_refund                                 :integer          default(0), not null
 #  had_other_income                                     :integer          default(0), not null
 #  had_rental_income                                    :integer          default(0), not null
+#  had_reportable_income                                :integer
 #  had_retirement_income                                :integer          default(0), not null
 #  had_self_employment_income                           :integer          default(0), not null
 #  had_social_security_income                           :integer          default(0), not null
