@@ -2,6 +2,7 @@ module Ctc
   module Questions
     class UseGyrController < QuestionsController
       include AnonymousIntakeConcern
+      include PreviousPathIsBackConcern
 
       layout "intake"
 
