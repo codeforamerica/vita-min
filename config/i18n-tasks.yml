@@ -96,6 +96,7 @@ translation:
 ignore_missing:
   - 'views.ctc.*'
   - 'views.ctc_pages.*'
+  - 'general.tin.*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 

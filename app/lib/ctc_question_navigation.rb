@@ -3,23 +3,20 @@ class CtcQuestionNavigation
 
   FLOW = [
     Ctc::Questions::OverviewController,
-    Ctc::Questions::PersonalInfoController,
+    Ctc::Questions::IncomeController,
+    Ctc::Questions::ConsentController,
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,
     Ctc::Questions::EmailAddressController,
     Ctc::Questions::ReturningClientController,
     Ctc::Questions::EmailVerificationController,
     Ctc::Questions::PhoneVerificationController,
-    Ctc::Questions::ConsentController,
     Ctc::Questions::Filed2020Controller,
     Ctc::Questions::Filed2020YesController,
     Ctc::Questions::Filed2019Controller,
     Ctc::Questions::LifeSituations2019Controller,
     Ctc::Questions::HomeController,
     Ctc::Questions::PlaceholderQuestionController,
-
-    # Filing Status
-    Ctc::Questions::UseGyrController,
 
     # RRC
     Ctc::Questions::StimulusPaymentsController,

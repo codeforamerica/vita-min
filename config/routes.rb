@@ -252,6 +252,7 @@ Rails.application.routes.draw do
   constraints(Routes::CtcDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       scoped_navigation_routes(:questions, CtcQuestionNavigation, as_redirects: Rails.configuration.hide_ctc)
+      get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr # offboarding page
     end
 
     namespace :ctc, path: "/" do

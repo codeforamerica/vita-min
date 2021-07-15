@@ -179,6 +179,7 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
+#  tin_type                                             :integer
 #  triage_source_type                                   :string
 #  type                                                 :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)

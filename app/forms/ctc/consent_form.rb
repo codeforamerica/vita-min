@@ -5,11 +5,11 @@ module Ctc
                        :primary_first_name,
                               :primary_middle_initial,
                               :primary_last_name,
-                              :primary_birth_date_month,
-                              :primary_birth_date_day,
-                              :primary_birth_date_year,
                               :primary_ssn,
-                              :phone_number
+                              :phone_number,
+                              :tin_type,
+                              :timezone
+    set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation
 
     before_validation :normalize_phone_numbers
@@ -30,15 +30,27 @@ module Ctc
 
     def save
       primary_last_four_ssn = primary_ssn.last(4) # merge last_four_ssn so that client can use data for logging in.
-      @intake.update(attributes_for(:intake).merge(primary_last_four_ssn: primary_last_four_ssn)
-                       .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day)
-                                           .merge(
-                                             primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day)
-                                           )
+      intake_attributes = attributes_for(:intake).merge(
+          primary_last_four_ssn: primary_last_four_ssn,
+          primary_birth_date: primary_birth_date,
+          visitor_id: @intake.visitor_id,
+          type: @intake.type
       )
+      client = Client.create!(intake_attributes: intake_attributes, tax_returns_attributes: [tax_return_attributes])
+      @intake = client.intake
     end
 
     private
+
+    def tax_return_attributes
+      {
+          year: 2020,
+          is_ctc: true
+      }
+    end
+    def primary_birth_date
+      parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day)
+    end
 
     def primary_birth_date_is_valid_date
       valid_text_birth_date(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day, :primary_birth_date)

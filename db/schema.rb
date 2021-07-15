@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_14_202354) do
+ActiveRecord::Schema.define(version: 2021_07_15_191219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -582,6 +582,7 @@ ActiveRecord::Schema.define(version: 2021_07_14_202354) do
     t.string "street_address"
     t.string "street_address2"
     t.string "timezone"
+    t.integer "tin_type"
     t.bigint "triage_source_id"
     t.string "triage_source_type"
     t.string "type"

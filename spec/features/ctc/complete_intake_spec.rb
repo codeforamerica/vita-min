@@ -13,9 +13,20 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     click_on "Continue"
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
-    expect(page).to have_selector("h1", text: "First, what's your name?")
-    expect(page).to have_selector("p", text: "Welcome, we're excited to help you. We need some basic information to get started. We’ll start by asking what you like being called.")
-    fill_in "Preferred first name", with: "Gary"
+    expect(page).to have_selector("h1", text: "Did you earn any income in 2020?")
+    click_on "No"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "In order to file, we’ll need some additional information.")
+    fill_in "Legal first name", with: "Gary"
+    fill_in "Middle initial", with: "H"
+    fill_in "Legal last name", with: "Mango"
+    fill_in "ctc_consent_form_primary_birth_date_month", with: "08"
+    fill_in "ctc_consent_form_primary_birth_date_day", with: "24"
+    fill_in "ctc_consent_form_primary_birth_date_year", with: "1996"
+    fill_in "SSN or ITIN", with: "111-22-8888"
+    fill_in "Confirm SSN or ITIN", with: "111-22-8888"
+    fill_in "Phone number", with: "831-234-5678"
     click_on "Continue"
 
     intake = Intake.last
@@ -51,19 +62,6 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     expect(page).to have_content("Incorrect verification code.")
 
     fill_in "Enter 6 digit code", with: code
-    click_on "Continue"
-
-
-    expect(page).to have_selector("h1", text: "In order to file, we’ll need some additional information.")
-    fill_in "Legal first name", with: "Gary"
-    fill_in "Middle initial", with: "H"
-    fill_in "Legal last name", with: "Mango"
-    fill_in "ctc_consent_form_primary_birth_date_month", with: "08"
-    fill_in "ctc_consent_form_primary_birth_date_day", with: "24"
-    fill_in "ctc_consent_form_primary_birth_date_year", with: "1996"
-    fill_in "Social Security Number (SSN) or Individual Taxpayer ID Number (ITIN)", with: "111-22-8888"
-    fill_in "Confirm SSN or ITIN", with: "111-22-8888"
-    fill_in "Phone number", with: "831-234-5678"
     click_on "Continue"
 
     # =========== LIFE SITUATIONS ===========

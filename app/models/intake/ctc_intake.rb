@@ -179,6 +179,7 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
+#  tin_type                                             :integer
 #  triage_source_type                                   :string
 #  type                                                 :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
@@ -238,6 +239,7 @@ class Intake::CtcIntake < Intake
   enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
   enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
   enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019
+  enum had_reportable_income: { yes: 1, no: 2 }, _prefix: :had_reportable_income
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account
 
@@ -281,6 +283,11 @@ class Intake::CtcIntake < Intake
 
   def is_ctc?
     true
+  end
+
+  # we dont currently ask for preferred name in the onboarding flow, so let's use primary first name to keep the app working for MVP
+  def preferred_name
+    read_attribute(:preferred_name) || primary_first_name
   end
 
   def photo_id_display_names
