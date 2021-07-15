@@ -18,9 +18,6 @@ class CtcQuestionNavigation
     Ctc::Questions::HomeController,
     Ctc::Questions::PlaceholderQuestionController,
 
-    # Filing Status
-    Ctc::Questions::UseGyrController,
-
     # RRC
     Ctc::Questions::StimulusPaymentsController,
     Ctc::Questions::StimulusOneController,

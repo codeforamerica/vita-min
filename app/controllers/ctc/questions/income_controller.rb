@@ -17,7 +17,7 @@ module Ctc
       end
 
       def next_path
-        @form.had_reportable_income == "yes" ? questions_placeholder_question_path : super
+        @form.had_reportable_income == "yes" ? questions_use_gyr_path : super
       end
     end
   end

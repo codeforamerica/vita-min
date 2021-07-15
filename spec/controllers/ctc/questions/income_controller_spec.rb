@@ -29,7 +29,7 @@ describe Ctc::Questions::IncomeController do
       let(:had_reportable_income) { "yes" }
       it "redirects out of the flow" do
         post :update, params: params
-        expect(response).to redirect_to questions_placeholder_question_path
+        expect(response).to redirect_to questions_use_gyr_path
       end
     end
 
