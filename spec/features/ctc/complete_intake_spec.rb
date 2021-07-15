@@ -24,7 +24,7 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     fill_in "ctc_consent_form_primary_birth_date_month", with: "08"
     fill_in "ctc_consent_form_primary_birth_date_day", with: "24"
     fill_in "ctc_consent_form_primary_birth_date_year", with: "1996"
-    fill_in "Social Security Number (SSN) or Individual Taxpayer ID Number (ITIN)", with: "111-22-8888"
+    fill_in "SSN or ITIN", with: "111-22-8888"
     fill_in "Confirm SSN or ITIN", with: "111-22-8888"
     fill_in "Phone number", with: "831-234-5678"
     click_on "Continue"

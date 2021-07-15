@@ -83,7 +83,6 @@
 #  had_local_tax_refund                                 :integer          default(0), not null
 #  had_other_income                                     :integer          default(0), not null
 #  had_rental_income                                    :integer          default(0), not null
-#  had_reportable_income                                :integer
 #  had_retirement_income                                :integer          default(0), not null
 #  had_self_employment_income                           :integer          default(0), not null
 #  had_social_security_income                           :integer          default(0), not null
@@ -180,6 +179,7 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
+#  tin_type                                             :integer
 #  triage_source_type                                   :string
 #  type                                                 :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
@@ -398,6 +398,7 @@ FactoryBot.define do
     with_dependents
     with_documents
     vita_partner
+    tin_type { :ssn }
     locale { ["en", "es"].sample }
     source { vita_partner.source_parameters.first&.code || "none" }
     referrer { "/" }

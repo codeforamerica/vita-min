@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::ConsentForm do
-  let(:intake) { create :ctc_intake, client: nil }
+  let(:intake) { Intake::CtcIntake.new(visitor_id: "something") }
 
   context "validations" do
     let(:params) {
@@ -15,7 +15,8 @@ describe Ctc::ConsentForm do
         primary_ssn: "111-22-8888",
         primary_ssn_confirmation: "111-22-8888",
         phone_number: "831-234-5678",
-        timezone: "America/Chicago"
+        timezone: "America/Chicago",
+        tin_type: :ssn
       }
     }
     context "when all required information is provided" do
@@ -107,8 +108,7 @@ describe Ctc::ConsentForm do
 
   describe "#save" do
     it "saves the attributes on the intake and creates a client and 2020 tax return" do
-      expect {
-          form = described_class.new(intake, {
+      form = described_class.new(intake, {
           primary_first_name: "Marty",
           primary_middle_initial: "J",
           primary_last_name: "Mango",
@@ -118,12 +118,14 @@ describe Ctc::ConsentForm do
           primary_ssn: "111-22-8888",
           primary_ssn_confirmation: "111-22-8888",
           phone_number: "831-234-5678",
-          timezone: "America/Chicago"
-        })
+          timezone: "America/Chicago",
+          tin_type: :itin
+      })
+      expect {
         form.valid? # the form only transforms the phone number if it is validated before calling save
         form.save
       }.to change(Client, :count).by(1).and change(TaxReturn, :count).by(1)
-
+      intake = Intake.last
       expect(intake.primary_first_name).to eq "Marty"
       expect(intake.primary_middle_initial).to eq "J"
       expect(intake.primary_last_name).to eq "Mango"
@@ -136,9 +138,9 @@ describe Ctc::ConsentForm do
       expect(intake.tax_returns.length).to eq 1
       expect(intake.tax_returns.first.year).to eq 2020
       expect(intake.tax_returns.first.is_ctc).to eq true
-
-
-
+      expect(intake.tin_type).to eq "itin"
+      expect(intake.type).to eq "Intake::CtcIntake"
+      expect(form.intake).to eq intake # resets intake to be the created and persisted intake
     end
   end
 end

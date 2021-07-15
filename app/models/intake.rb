@@ -83,7 +83,6 @@
 #  had_local_tax_refund                                 :integer          default(0), not null
 #  had_other_income                                     :integer          default(0), not null
 #  had_rental_income                                    :integer          default(0), not null
-#  had_reportable_income                                :integer
 #  had_retirement_income                                :integer          default(0), not null
 #  had_self_employment_income                           :integer          default(0), not null
 #  had_social_security_income                           :integer          default(0), not null
@@ -180,6 +179,7 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
+#  tin_type                                             :integer
 #  triage_source_type                                   :string
 #  type                                                 :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
@@ -277,7 +277,7 @@ class Intake < ApplicationRecord
   enum primary_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_consented_to_service
   enum refund_payment_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :refund_payment_method
   enum claim_owed_stimulus_money: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_owed_stimulus_money
-
+  enum tin_type: { ssn: 0, itin: 1 }
 
   NAVIGATOR_TYPES = {
     general: {

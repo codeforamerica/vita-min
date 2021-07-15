@@ -2,11 +2,10 @@ module Ctc
   class IncomeForm < QuestionsForm
     set_attributes_for :intake, :had_reportable_income
 
-    def save
-      return true if !@intake.persisted? && had_reportable_income == "yes"
+    def save; end
 
-      @intake.assign_attributes(attributes_for(:intake))
-      @intake.save
+    def had_reportable_income?
+      had_reportable_income == "yes"
     end
   end
 end

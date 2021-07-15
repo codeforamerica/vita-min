@@ -2,9 +2,11 @@ module Ctc
   module Questions
     class IncomeController < QuestionsController
       include AnonymousIntakeConcern
-      include FirstQuestionConcern
-
       layout "yes_no_question"
+
+      def current_intake
+        Intake::CtcIntake.new
+      end
 
       private
 
@@ -17,7 +19,7 @@ module Ctc
       end
 
       def next_path
-        @form.had_reportable_income == "yes" ? questions_use_gyr_path : super
+        @form.had_reportable_income? ? questions_use_gyr_path : super
       end
     end
   end

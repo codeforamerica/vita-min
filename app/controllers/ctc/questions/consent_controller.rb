@@ -1,13 +1,9 @@
 module Ctc
   module Questions
     class ConsentController < QuestionsController
+      include FirstQuestionConcern
       include AnonymousIntakeConcern
-
       layout "intake"
-
-      def update
-        super
-      end
 
       private
 

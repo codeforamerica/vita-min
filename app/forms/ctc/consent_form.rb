@@ -7,6 +7,7 @@ module Ctc
                               :primary_last_name,
                               :primary_ssn,
                               :phone_number,
+                              :tin_type,
                               :timezone
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation
@@ -29,8 +30,14 @@ module Ctc
 
     def save
       primary_last_four_ssn = primary_ssn.last(4) # merge last_four_ssn so that client can use data for logging in.
-      @intake.update!(attributes_for(:intake).merge(primary_last_four_ssn: primary_last_four_ssn, primary_birth_date: primary_birth_date))
-      Client.create(intake: @intake, tax_returns_attributes: [tax_return_attributes])
+      intake_attributes = attributes_for(:intake).merge(
+          primary_last_four_ssn: primary_last_four_ssn,
+          primary_birth_date: primary_birth_date,
+          visitor_id: @intake.visitor_id,
+          type: @intake.type
+      )
+      client = Client.create!(intake_attributes: intake_attributes, tax_returns_attributes: [tax_return_attributes])
+      @intake = client.intake
     end
 
     private

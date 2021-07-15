@@ -58,4 +58,8 @@ module ApplicationHelper
 
     string.gsub(/.(?=.{#{unmasked_char_count}})/, '●')
   end
+
+  def tin_options_for_select
+    [[I18n.t("general.tin.ssn"), :ssn], [I18n.t("general.tin.itin"), :itin]]
+  end
 end

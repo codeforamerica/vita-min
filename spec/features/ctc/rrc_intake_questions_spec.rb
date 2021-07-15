@@ -11,9 +11,22 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
     expect(page).to have_selector("h1", text: "Let's get started!")
     click_on "Continue"
+
     expect(page).to have_selector("h1", text: "Did you earn any income in 2020?")
 
     click_on "No"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "In order to file, we’ll need some additional information.")
+    fill_in "Legal first name", with: "Gary"
+    fill_in "Middle initial", with: "H"
+    fill_in "Legal last name", with: "Mango"
+    fill_in "ctc_consent_form_primary_birth_date_month", with: "08"
+    fill_in "ctc_consent_form_primary_birth_date_day", with: "24"
+    fill_in "ctc_consent_form_primary_birth_date_year", with: "1996"
+    fill_in "SSN or ITIN", with: "111-22-8888"
+    fill_in "Confirm SSN or ITIN", with: "111-22-8888"
+    fill_in "Phone number", with: "831-234-5678"
     click_on "Continue"
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_152404) do
+ActiveRecord::Schema.define(version: 2021_07_15_191219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -486,7 +486,6 @@ ActiveRecord::Schema.define(version: 2021_07_15_152404) do
     t.integer "had_local_tax_refund", default: 0, null: false
     t.integer "had_other_income", default: 0, null: false
     t.integer "had_rental_income", default: 0, null: false
-    t.integer "had_reportable_income"
     t.integer "had_retirement_income", default: 0, null: false
     t.integer "had_self_employment_income", default: 0, null: false
     t.integer "had_social_security_income", default: 0, null: false
@@ -583,6 +582,7 @@ ActiveRecord::Schema.define(version: 2021_07_15_152404) do
     t.string "street_address"
     t.string "street_address2"
     t.string "timezone"
+    t.integer "tin_type"
     t.bigint "triage_source_id"
     t.string "triage_source_type"
     t.string "type"
