@@ -5,7 +5,7 @@
   <h1 class="form-question"><%= @main_heading %></h1>
   <%= t("views.ctc.questions.use_gyr.ctc_conditions_list_html") %>
 
-  <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'diy'), class: "button button--wide button--primary text--centered spacing-above-60" do %>
+  <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'home'), class: "button button--wide button--primary text--centered spacing-above-60" do %>
     <%=t("views.ctc.questions.use_gyr.file_gyr") %>
   <% end %>
   <%= link_to root_path, class: "button button--wide text--centered" do %>
