@@ -6,8 +6,6 @@ module Ctc
 
       layout "intake"
 
-      def edit; end
-
       def next_path
         nil
       end
