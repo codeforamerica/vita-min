@@ -33,7 +33,7 @@ describe Ctc::Questions::FilingStatusController do
         put :update, params: params
         tax_return_status = Intake.last.client.tax_returns.first.filing_status
         expect(tax_return_status).to eq "single"
-        # expect(response).to redirect_to questions_dependents_path
+        expect(response).to redirect_to refund_payment_questions_path #change this to dependents_questions_path when added
       end
     end
 
@@ -48,7 +48,7 @@ describe Ctc::Questions::FilingStatusController do
         put :update, params: params
         tax_return_status = Intake.last.client.tax_returns.first.filing_status
         expect(tax_return_status).to eq "married_filing_jointly"
-        # expect(response).to redirect_to questions_spouse_ssn_path
+        # expect(response).to redirect_to questions_spouse_info
       end
     end
   end

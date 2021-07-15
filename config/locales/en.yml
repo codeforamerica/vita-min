@@ -1458,9 +1458,6 @@ en:
           title: How will you be filing your tax return?
           reveal_title: I'm unsure how to file
           reveal_body: If you normally file as head of household or married filing separately, select ‘single’ for the purpose of this return.
-        spouse_ssn:
-          title: Does your spouse have a Social Security Number that is valid for employment?
-          help_text_html: 'If your social security card has "Not valid for employment" written on it then answer No. For more information on types of social security numbers - <a href="https://www.ssa.gov/ssnumber/cards.htm" target="_blank" rel="nofollow noopener" style="color: black">https://www.ssa.gov/ssnumber/cards.htm</a>'
     consent_pages:
       consent_to_use:
         title: Consent to Use

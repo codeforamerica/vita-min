@@ -3,10 +3,6 @@ module Ctc
     class FilingStatusController < QuestionsController
       include AnonymousIntakeConcern
 
-      def edit
-        super
-      end
-
       private
 
       def illustration_path; end
