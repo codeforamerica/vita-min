@@ -1,6 +1,7 @@
 module Questions
   class TriageController < QuestionsController
     include AnonymousIntakeConcern
+    include PreviousPathIsBackConcern
     before_action :redirect_if_matching_source_param
     skip_before_action :require_intake
 
@@ -22,10 +23,6 @@ module Questions
       return {} unless @form.class.scoped_attributes.key?(:triage)
 
       @form.attributes_for(:triage).except(*Rails.application.config.filter_parameters)
-    end
-
-    def prev_path
-      :back
     end
 
     def redirect_if_matching_source_param

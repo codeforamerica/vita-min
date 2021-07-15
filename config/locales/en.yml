@@ -1383,6 +1383,14 @@ en:
           item2: You have a different bank account from the one you listed in your 2019 return
           item3: You didn't receive the full amount of stimulus you were owed
           visit_ctc_faq: Visit the CTC FAQ
+        home:
+          title: Where was your main home for 2020?
+          help_text: Your home must have been in the United States for more than half the tax year.
+          options:
+            fifty_states: Any of the 50 states or the District of Columbia
+            military_facility: U.S. military facility
+            us_territory: U.S. territory, such as Puerto Rico or Guam
+            foreign_address: Foreign address
         verification:
           title: Let's verify that contact info with a code!
           body: |

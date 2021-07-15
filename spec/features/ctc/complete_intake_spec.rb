@@ -74,6 +74,16 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     expect(page).to have_selector("h1", text: "Let's check one more thing.")
     click_on "Continue"
 
+    expect(page).to have_selector("h1", text: "Where was your main home for 2020?")
+    check "Any of the 50 states or the District of Columbia"
+    check "Foreign address"
+    click_on "Continue"
+    expect(page).to have_selector("h1", text:  "Unfortunately, you are not eligible to use GetCTC. But we can still help!")
+    click_on "Go back"
+    expect(page).to have_selector("h1", text: "Where was your main home for 2020?")
+    check "Any of the 50 states or the District of Columbia"
+    check "U.S. military facility"
+    click_on "Continue"
     expect(page).to have_selector("h1", text: "Placeholder -- Coming soon")
 
     # =========== RECOVERY REBATE CREDIT ===========
