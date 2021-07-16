@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AcknowledgementList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
+   <Cnt>1</Cnt>
+   <Acknowledgement submissionVersionNum="2020v5.1" validatingSchemaVersionNum="2020v5.1">
+      <SubmissionId>9999992021197yrv4rvl</SubmissionId>
+      <EFIN>999999</EFIN>
+      <TaxYr>2020</TaxYr>
+      <ExtndGovernmentCd>IRS</ExtndGovernmentCd>
+      <SubmissionTyp>1040</SubmissionTyp>
+      <ExtndSubmissionCategoryCd>IND</ExtndSubmissionCategoryCd>
+      <ElectronicPostmarkTs>2021-07-16T09:42:25.953-07:00</ElectronicPostmarkTs>
+      <AcceptanceStatusTxt>Rejected</AcceptanceStatusTxt>
+      <ContainedAlertsInd>false</ContainedAlertsInd>
+      <StatusDt>2021-07-16</StatusDt>
+      <TIN>404005348</TIN>
+      <TaxPeriodEndDt>2020-12-31</TaxPeriodEndDt>
+      <SubmissionValidationCompInd>false</SubmissionValidationCompInd>
+      <EmbeddedCRC32Num>0x7adce7bb</EmbeddedCRC32Num>
+      <ComputedCRC32Num>0x7adce7bb</ComputedCRC32Num>
+      <ReservedIPAddressCd>R</ReservedIPAddressCd>
+      <ExpectedRefundAmt>0</ExpectedRefundAmt>
+      <ValidationErrorList errorCnt="10">
+         <ValidationErrorGrp errorId="1">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value.</ErrorMessageTxt>
+            <RuleNum>IND-189</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="2">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value.</ErrorMessageTxt>
+            <RuleNum>IND-190</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="3">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'DeviceTypeCd' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value.</ErrorMessageTxt>
+            <RuleNum>IND-191</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="4">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'RefundDisbursementCd' in each 'RefundDisbursementGrp' in 'AtSubmissionFilingGrp' in 'AdditionalFilerInformation' in the Return Header must have a value.</ErrorMessageTxt>
+            <RuleNum>IND-192-01</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="5">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'DeviceTypeCd' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value.</ErrorMessageTxt>
+            <RuleNum>IND-203</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="6">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader/efile:FilingSecurityInformation/efile:AtSubmissionFilingGrp/efile:IPAddress/efile:IPv4AddressTxt</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'IPAddress' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a valid value.</ErrorMessageTxt>
+            <RuleNum>IND-196-01</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt>192.168.2.1</FieldValueTxt>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="7">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'TotActiveTimePrepSubmissionTs' in 'FilingSecurityInformation' in the Return Header must have a value.</ErrorMessageTxt>
+            <RuleNum>IND-197</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="8">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'RefundProductElectionInd' in 'AtSubmissionFilingGrp' in 'AdditionalFilerInformation' must have a choice of "Yes" or "No" indicated.</ErrorMessageTxt>
+            <RuleNum>IND-198</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="9">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'VendorControlNum' in 'FilingSecurityInformation' in the Return Header must have a value.</ErrorMessageTxt>
+            <RuleNum>IND-202</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="10">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'IPAddress' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a valid value.</ErrorMessageTxt>
+            <RuleNum>IND-195-01</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+      </ValidationErrorList>
+   </Acknowledgement>
+</AcknowledgementList>
