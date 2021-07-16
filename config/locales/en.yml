@@ -1370,8 +1370,8 @@ en:
               <li>self-employment or contract payments</li>
             </ul>
         spouse_info:
-          title: Tell is about your spouse
-          help_text: Please make sure you enter spouse's name as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
+          title: Tell us about your spouse
+          help_text: Please make sure you enter spouse's name as it appears on their Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
           spouse_first_name: Spouse's legal first name
           spouse_middle_initial: Middle initial
           spouse_last_name: Spouse's legal last name

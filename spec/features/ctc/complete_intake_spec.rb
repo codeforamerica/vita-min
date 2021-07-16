@@ -87,7 +87,7 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     choose "Married filing jointly"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Tell is about your spouse")
+    expect(page).to have_selector("h1", text: "Tell us about your spouse")
     fill_in "Spouse's legal first name", with: "Peter"
     fill_in "Middle initial", with: "P"
     fill_in "Spouse's legal last name", with: "Pepper"
