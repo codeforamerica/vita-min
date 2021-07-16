@@ -101,7 +101,6 @@
 #  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default(0), not null
 #  married                                              :integer          default(0), not null
-#  member_of_the_armed_forces                           :integer          default("unfilled"), not null
 #  multiple_states                                      :integer          default(0), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -133,6 +132,7 @@
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_last_name                                    :string
+#  primary_member_of_the_armed_forces                   :integer          default("unfilled"), not null
 #  primary_middle_initial                               :string
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
@@ -247,7 +247,7 @@ class Intake::CtcIntake < Intake
   enum had_reportable_income: { yes: 1, no: 2 }, _prefix: :had_reportable_income
   enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
   enum cannot_claim_me_as_a_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cannot_claim_me_as_a_dependent
-  enum member_of_the_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :member_of_the_armed_forces
+  enum primary_member_of_the_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_member_of_the_armed_forces
 
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account

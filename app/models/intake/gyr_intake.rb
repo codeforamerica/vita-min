@@ -101,7 +101,6 @@
 #  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  married                                              :integer          default("unfilled"), not null
-#  member_of_the_armed_forces                           :integer          default(0), not null
 #  multiple_states                                      :integer          default("unfilled"), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -133,6 +132,7 @@
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_last_name                                    :string
+#  primary_member_of_the_armed_forces                   :integer          default(0), not null
 #  primary_middle_initial                               :string
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null

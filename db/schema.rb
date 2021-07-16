@@ -504,7 +504,6 @@ ActiveRecord::Schema.define(version: 2021_07_15_212929) do
     t.string "locale"
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.integer "married", default: 0, null: false
-    t.integer "member_of_the_armed_forces", default: 0, null: false
     t.integer "multiple_states", default: 0, null: false
     t.boolean "navigator_has_verified_client_identity"
     t.string "navigator_name"
@@ -536,6 +535,7 @@ ActiveRecord::Schema.define(version: 2021_07_15_212929) do
     t.inet "primary_consented_to_service_ip"
     t.string "primary_first_name"
     t.string "primary_last_name"
+    t.integer "primary_member_of_the_armed_forces", default: 0, null: false
     t.string "primary_middle_initial"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
