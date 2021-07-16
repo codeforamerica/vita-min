@@ -247,6 +247,7 @@ Rails.application.routes.draw do
     resources :ajax_mixpanel_events, only: [:create]
 
     mount ActionCable.server => '/cable'
+    get '/.well-known/pki-validation/:id', to: 'public_pages#pki_validation'
   end
 
   constraints(Routes::CtcDomain.new) do
@@ -282,6 +283,7 @@ Rails.application.routes.draw do
         end
       end
     end
+    get '/.well-known/pki-validation/:id', to: 'public_pages#pki_validation'
   end
 
   get '*unmatched_route', to: 'public_pages#page_not_found', constraints: lambda { |req|
