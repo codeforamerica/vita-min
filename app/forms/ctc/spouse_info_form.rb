@@ -17,7 +17,7 @@ module Ctc
     validates :spouse_ssn, confirmation: true, if: -> { spouse_ssn.present? }
     validates :spouse_ssn, social_security_number: true, if: -> { spouse_tin_type == "ssn" && spouse_ssn.present? }
 
-    validates_presence_of :spouse_ssn, message: I18n.t('views.ctc.questions.spouse_info.ssn_required_message_html'), if: -> { spouse_tin_type != "none" }
+    validates_presence_of :spouse_ssn, message: I18n.t('views.ctc.questions.spouse_info.ssn_required_message'), if: -> { spouse_tin_type != "none" }
     validates_presence_of :spouse_ssn_confirmation, if: -> { spouse_ssn.present? }
 
     before_validation do
