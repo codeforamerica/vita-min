@@ -1,4 +1,16 @@
-<h1><%= @page_title %></h1>
+
+<div class="flow-explorer-header">
+  <h1><%= @page_title %></h1>
+
+  <div class="flow-explorer-header-links">
+    <% if I18n.locale != :en %>
+      <%= link_to_english(class: "toolbar__item text--small") %>
+    <% end %>
+    <% if I18n.locale != :es %>
+      <%= link_to_spanish(class: "toolbar__item text--small") %>
+    <% end %>
+  </div>
+</div>
 
 <%= render 'flow_events' %>
 <div id="flow-wrapper">
