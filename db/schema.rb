@@ -244,6 +244,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_174730) do
     t.string "first_name"
     t.bigint "intake_id", null: false
     t.string "last_name"
+    t.string "middle_initial"
     t.integer "months_in_home"
     t.integer "north_american_resident", default: 0, null: false
     t.integer "on_visa", default: 0, null: false

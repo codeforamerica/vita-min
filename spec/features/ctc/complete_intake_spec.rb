@@ -103,9 +103,44 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     fill_in "Confirm spouse's SSN or ITIN", with: "222-33-4444"
     click_on "Continue"
 
+    # =========== DEPENDENTS ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.had_dependents.title'))
+    # For some reason the presence of the tall "What relationships?" reveal blocks clicks to the yes/no,
+    # even though the contents of the reveal should be hidden. What a mystery!
+    page.execute_script("document.querySelector('.reveal').remove()")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.no_dependents.title'))
+    click_on "Go back"
+    page.execute_script("document.querySelector('.reveal').remove()")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
+    fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Jessie"
+    fill_in I18n.t('views.ctc.questions.dependents.info.middle_initial'), with: "M"
+    fill_in I18n.t('views.ctc.questions.dependents.info.last_name'), with: "Pepper"
+    fill_in "ctc_dependents_info_form[birth_date_month]", with: "01"
+    fill_in "ctc_dependents_info_form[birth_date_day]", with: "11"
+    fill_in "ctc_dependents_info_form[birth_date_year]", with: "1995"
+    select I18n.t('general.ctc_dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
+    select "Social Security Number (SSN)"
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
+    expect(page).to have_content("Jessie")
+
+    # Back up to prove that the 'go back' button brings us back to the dependent we were editing
+    click_on "Go back"
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
+    click_on "Continue"
+    click_on I18n.t('views.ctc.questions.dependents.confirm_dependents.done_adding')
+
     # =========== RECOVERY REBATE CREDIT ===========
-    # Remove visit once `/confirm-dependents` exists
-    visit "en/questions/stimulus-payments"
     expect(page).to have_selector("h1", text: "Based on your info, we believe you should have received this much in stimulus payments.")
     click_on "No, I didn’t receive this amount."
     expect(page).to have_selector("h1", text: "Did you receive any of the first stimulus payment?")

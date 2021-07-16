@@ -110,6 +110,9 @@ class FlowsController < ApplicationController
           else
             url_params[:only_path] = true
           end
+          if respond_to?(:resource_name)
+            url_params[:id] = "fake-#{resource_name}-id"
+          end
           @current_controller.url_for(url_params)
         end
       end

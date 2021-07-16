@@ -439,10 +439,10 @@ FactoryBot.define do
     demographic_english_conversation { "not_well" }
     bought_energy_efficient_items { "unfilled" } # no default value in db for this enum.
     after(:build) do |intake|
-      Intake::GyrIntake.defined_enums.each_key do |key|
+      intake.class.defined_enums.each_key do |key|
         # only randomize values for keys that have not been supplied
         if intake[key] == "unfilled"
-          intake[key] = Intake::GyrIntake.send(key.pluralize).keys.sample
+          intake[key] = intake.class.send(key.pluralize).keys.sample
         end
       end
     end
