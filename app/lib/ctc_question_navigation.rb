@@ -10,9 +10,11 @@ class CtcQuestionNavigation
     Ctc::Questions::CellPhoneNumberController,
     Ctc::Questions::EmailAddressController,
     Ctc::Questions::ReturningClientController,
-    Ctc::Questions::EmailVerificationController,
-    Ctc::Questions::PhoneVerificationController,
-    Ctc::Questions::Filed2020Controller,
+    Ctc::Questions::EmailVerificationController,  # At this verification point we sign in the client
+    Ctc::Questions::PhoneVerificationController,  # Same sign in behavior as previous controller, but verified through SMS instead of email
+
+    # Life Situations
+    Ctc::Questions::Filed2020Controller,          # This and all later controllers require the client to be signed in
     Ctc::Questions::Filed2020YesController,
     Ctc::Questions::Filed2019Controller,
     Ctc::Questions::LifeSituations2019Controller,

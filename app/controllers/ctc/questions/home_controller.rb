@@ -1,7 +1,7 @@
 module Ctc
   module Questions
     class HomeController < QuestionsController
-      # TODO: Transition to Authenticated once we log in client
+      include AuthenticatedCtcClientConcern
       include AnonymousIntakeConcern
 
       private

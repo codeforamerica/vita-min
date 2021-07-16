@@ -1,7 +1,7 @@
 module Ctc
   module Questions
     class RefundPaymentController < QuestionsController
-      # TODO: Transition to Authenticated once we log in client
+      include AuthenticatedCtcClientConcern
       include AnonymousIntakeConcern
 
       layout "intake"

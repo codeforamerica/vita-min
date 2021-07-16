@@ -4,7 +4,7 @@ describe Ctc::Questions::SpouseInfoController do
   let(:intake) { create :ctc_intake }
 
   before do
-    allow(subject).to receive(:current_intake).and_return(intake)
+    sign_in intake.client
   end
 
   it_behaves_like :a_question_where_an_intake_is_required, CtcQuestionNavigation
