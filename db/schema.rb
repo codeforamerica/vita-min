@@ -548,6 +548,8 @@ ActiveRecord::Schema.define(version: 2021_07_15_212929) do
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false
     t.integer "reported_self_employment_loss", default: 0, null: false
+    t.string "requested_docs_token"
+    t.datetime "requested_docs_token_created_at"
     t.datetime "routed_at"
     t.string "routing_criteria"
     t.string "routing_value"
