@@ -44,7 +44,6 @@ describe Ctc::Questions::LifeSituations2020Controller do
           params[:ctc_life_situations2020_form][:cannot_claim_me_as_a_dependent] = "yes"
         end
 
-        # TODO: update placeholder with /filing-status when it's available
         it "updates the intake and redirects to placeholder" do
           expect {
             post :update, params: params
