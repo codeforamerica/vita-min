@@ -4,7 +4,8 @@ describe Ctc::Questions::HomeController do
   let(:intake) { create :ctc_intake }
 
   before do
-    allow(subject).to receive(:current_intake).and_return(intake)
+    sign_in intake.client
+
     allow(MixpanelService).to receive(:send_event)
   end
 

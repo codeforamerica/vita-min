@@ -1,7 +1,7 @@
 module Ctc
   module Questions
     class StimulusPaymentsController < QuestionsController
-      # TODO: Transition to Authenticated once we log in client
+      include AuthenticatedCtcClientConcern
       include AnonymousIntakeConcern
 
       layout "intake"

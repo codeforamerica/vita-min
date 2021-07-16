@@ -1,7 +1,7 @@
 module Ctc
   module Questions
     class Filed2019Controller < QuestionsController
-      # TODO: Transition to Authenticated once we log in client
+      include AuthenticatedCtcClientConcern
       include AnonymousIntakeConcern
 
       layout "yes_no_question"
