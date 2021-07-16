@@ -1,3 +1,14 @@
+.flow-explorer-header {
+  margin-top: 30px;
+  display: flex;
+  width: 100%;
+
+  .flow-explorer-header-links {
+    flex-grow: 1;
+    text-align: right;
+  }
+}
+
 .flow-explorer-screenshot {
   width: 300px;
   flex-shrink: 0;
