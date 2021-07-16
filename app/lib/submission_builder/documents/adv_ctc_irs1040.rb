@@ -27,7 +27,7 @@ module SubmissionBuilder
         bank_account = intake.bank_account
         dependents = intake.dependents
 
-        Nokogiri::XML::Builder.new do |xml|
+        Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.IRS1040(root_node_attrs) {
             xml.IndividualReturnFilingStatusCd tax_return.filing_status_code
             xml.VirtualCurAcquiredDurTYInd false

@@ -6,8 +6,8 @@ module SubmissionBuilder
     def document
       intake = @submission.intake
 
-      Nokogiri::XML::Builder.new do |xml|
-        xml['efil'].IRSSubmissionManifest(root_node_attrs) {
+      Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
+        xml['efile'].IRSSubmissionManifest(root_node_attrs) {
           xml.SubmissionId @submission.irs_submission_id
           xml.EFIN EnvironmentCredentials.dig(:irs, :efin)
           xml.GovernmentCd "IRS"

@@ -15,7 +15,7 @@ module SubmissionBuilder
     end
 
     def root_node_attrs
-      { "xmlns:efil" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" }
+      { "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" }
     end
 
     def document

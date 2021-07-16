@@ -15,8 +15,8 @@ module SubmissionBuilder
       client = submission.client
       address = submission.address
 
-      Nokogiri::XML::Builder.new do |xml|
-        xml['efil'].ReturnHeader(root_node_attrs) {
+      Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
+        xml['efile'].ReturnHeader(root_node_attrs) {
           xml.ReturnTs datetime_type(submission.created_at)
           xml.TaxYr tax_return.year
           xml.TaxPeriodBeginDt date_type(Date.new(tax_return.year, 1, 1))

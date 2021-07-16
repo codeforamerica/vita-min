@@ -16,8 +16,8 @@ module SubmissionBuilder
     end
 
     def document
-      document = Nokogiri::XML::Builder.new do |xml|
-        xml['efil'].Return(root_node_attrs)
+      document = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
+        xml['efile'].Return(root_node_attrs)
       end.doc
       document.at("Return").add_child(return_header)
       document.at("Return").add_child("<ReturnData documentCnt='#{@documents.length}'></ReturnData>")
