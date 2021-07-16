@@ -50,4 +50,12 @@ class PublicPagesController < ApplicationController
   def sms_terms; end
 
   def diy; end
+
+  def pki_validation
+    # Used for Identrust annual EV certificate validation
+    respond_to do |format|
+      format.text { render 'public_pages/pki_validation'  }
+      format.any { head 404 }
+    end
+  end
 end
