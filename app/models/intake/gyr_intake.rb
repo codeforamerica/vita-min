@@ -11,6 +11,7 @@
 #  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
+#  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  city                                                 :string
 #  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default("unfilled"), not null
@@ -131,6 +132,7 @@
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_last_name                                    :string
+#  primary_member_of_the_armed_forces                   :integer          default(0), not null
 #  primary_middle_initial                               :string
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null

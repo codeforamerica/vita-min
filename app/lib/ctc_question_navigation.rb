@@ -19,6 +19,7 @@ class CtcQuestionNavigation
     Ctc::Questions::Filed2019Controller,
     Ctc::Questions::LifeSituations2019Controller,
     Ctc::Questions::HomeController,
+    Ctc::Questions::LifeSituations2020Controller,
 
     # Filing Status
     Ctc::Questions::FilingStatusController,

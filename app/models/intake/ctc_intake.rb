@@ -11,6 +11,7 @@
 #  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
+#  cannot_claim_me_as_a_dependent                       :integer          default("unfilled"), not null
 #  city                                                 :string
 #  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
@@ -131,6 +132,7 @@
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_last_name                                    :string
+#  primary_member_of_the_armed_forces                   :integer          default("unfilled"), not null
 #  primary_middle_initial                               :string
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
@@ -244,6 +246,9 @@ class Intake::CtcIntake < Intake
   enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019
   enum had_reportable_income: { yes: 1, no: 2 }, _prefix: :had_reportable_income
   enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
+  enum cannot_claim_me_as_a_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cannot_claim_me_as_a_dependent
+  enum primary_member_of_the_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_member_of_the_armed_forces
+
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account
 

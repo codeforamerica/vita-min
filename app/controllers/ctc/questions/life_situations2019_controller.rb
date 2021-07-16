@@ -16,7 +16,7 @@ module Ctc
         NullForm
       end
 
-      def illustration_path;end
+      def illustration_path; end
     end
   end
 end

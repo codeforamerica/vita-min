@@ -82,7 +82,11 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     check "Any of the 50 states or the District of Columbia"
     check "U.S. military facility"
     click_on "Continue"
+    expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2020")
+    check "No one can claim me as a dependent"
+    click_on "Continue"
 
+    # =========== FILING STATUS ===========
     expect(page).to have_selector("h1", text: "How will you be filing your tax return?")
     choose "Married filing jointly"
     click_on "Continue"
