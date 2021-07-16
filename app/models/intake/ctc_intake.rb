@@ -73,7 +73,7 @@
 #  final_info                                           :string
 #  had_asset_sale_income                                :integer          default(0), not null
 #  had_debt_forgiven                                    :integer          default(0), not null
-#  had_dependents                                       :integer          default(0), not null
+#  had_dependents                                       :integer          default("unfilled"), not null
 #  had_disability                                       :integer          default(0), not null
 #  had_disability_income                                :integer          default(0), not null
 #  had_disaster_loss                                    :integer          default(0), not null
@@ -241,6 +241,7 @@ class Intake::CtcIntake < Intake
   attr_encrypted :primary_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
+  enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
   enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
   enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
   enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019

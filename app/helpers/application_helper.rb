@@ -59,11 +59,14 @@ module ApplicationHelper
     string.gsub(/.(?=.{#{unmasked_char_count}})/, '●')
   end
 
-  def tin_options_for_select_include_none
-    [[I18n.t("general.tin.ssn"), :ssn], [I18n.t("general.tin.itin"), :itin], [I18n.t("general.tin.none"), :none]]
-  end
+  def tin_options_for_select(include_atin: false, include_itin: false, include_none: false)
+    options = [
+      [I18n.t("general.tin.ssn"), :ssn],
+    ]
 
-  def tin_options_for_select
-    [[I18n.t("general.tin.ssn"), :ssn], [I18n.t("general.tin.itin"), :itin]]
+    options << [I18n.t("general.tin.atin"), :atin] if include_atin
+    options << [I18n.t("general.tin.itin"), :itin] if include_itin
+    options << [I18n.t("general.tin.none"), :none] if include_none
+    options
   end
 end

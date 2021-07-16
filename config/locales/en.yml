@@ -1299,6 +1299,32 @@ en:
   views:
     ctc:
       questions:
+        dependents:
+          tin:
+            title: "We need some additional information about %{name}."
+            help_text: "To avoid delays, please provide the your dependent’s legal information as it is written on their identification card. "
+            form_of_identity: "%{name}'s form of identity"
+            ssn_or_atin: "%{name}'s SSN or ATIN"
+            ssn_or_atin_confirmation: "Confirm %{name}'s SSN or ATIN"
+          info:
+            title: "Let’s get some basic information about your dependent!"
+            first_name: "Dependent’s legal first name"
+            middle_initial: "Dependent’s middle initial"
+            last_name: "Dependent’s legal last name"
+            relationship_to_you: "What is their relationship to you?"
+          had_dependents:
+            title: "Would you like to claim a dependent for 2020?"
+            help_text: "Someone who lives with you for a majority of the year or who you support financially could qualify as a dependent."
+            what_relationships_reveal: "What relationships qualify?"
+          no_dependents:
+            title: "You may still be eligible for other tax credits."
+            help_text: "You can still file a simplified tax return and receive any stimulus payments that you are owed and have not received."
+            file_a_simplified_return: "File a simplified return"
+          confirm_dependents:
+            title: "Let’s confirm your dependents!"
+            your_dependents: "Your dependents"
+            add_a_dependent: "Add a dependent"
+            done_adding: "Done adding dependents"
         mailing_address:
           title: Great, please provide your mailing address below.
         confirm_mailing_address:

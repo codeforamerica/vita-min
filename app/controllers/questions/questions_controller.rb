@@ -112,7 +112,7 @@ module Questions
         controller_name.dasherize
       end
 
-      def to_path_helper
+      def to_path_helper(options = {})
         Rails.application.routes.url_helpers.url_for({
           controller: controller_path,
           action: :edit,
@@ -120,7 +120,7 @@ module Questions
           # url_for sometimes uses the current path to determine the right URL in some situations,
           # expliclitly sending an empty _recall disables that behavior
           _recall: {}
-        }.merge(default_url_options))
+        }.merge(default_url_options).merge(options))
       end
 
       def form_key

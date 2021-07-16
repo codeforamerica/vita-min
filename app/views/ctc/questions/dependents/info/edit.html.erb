@@ -1,0 +1,29 @@
+<% content_for :page_title, t("views.ctc.questions.dependents.info.title") %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= content_for(:page_title) %></h1>
+
+    <div class="form-card__content">
+      <%= f.cfa_input_field(:first_name, t("views.ctc.questions.dependents.info.first_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:middle_initial, t("views.ctc.questions.dependents.info.middle_initial"), classes: ["form-width--short"]) %>
+      <%= f.cfa_input_field(:last_name, t("views.ctc.questions.dependents.info.last_name"), classes: ["form-width--long"]) %>
+      <%= f.vita_min_date_text_fields(
+          :birth_date,
+          t("hub.clients.show.date_of_birth"),
+          help_text: t("hub.clients.show.date_of_birth_help"),
+          classes: ["ctc-intake-date-text-input"]
+          ) %>
+      <%= f.cfa_select(
+          :relationship,
+          t("views.ctc.questions.dependents.info.relationship_to_you"),
+          dependent_relationship_options(is_ctc: true),
+          include_blank: true
+          ) %>
+    </div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>

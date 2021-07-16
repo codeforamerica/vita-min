@@ -20,7 +20,7 @@
     ) %>
 
   <% if is_ctc %>
-    <%= f.cfa_select(:tin_type, "Identification Type", tin_options_for_select) %>
+    <%= f.cfa_select(:tin_type, "Identification Type", tin_options_for_select(include_atin: true, include_itin: true)) %>
     <%= f.cfa_input_field(
         :ssn,
         t("general.ssn"),

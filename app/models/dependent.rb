@@ -11,6 +11,7 @@
 #  encrypted_ssn_iv        :string
 #  first_name              :string
 #  last_name               :string
+#  middle_initial          :string
 #  months_in_home          :integer
 #  north_american_resident :integer          default("unfilled"), not null
 #  on_visa                 :integer          default("unfilled"), not null
@@ -38,14 +39,18 @@ class Dependent < ApplicationRecord
   enum north_american_resident: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :north_american_resident
   enum disabled: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :disabled
   enum was_married: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_married
-  enum tin_type: { ssn: 0, itin: 1, none: 2 }, _prefix: :tin_type
+  enum tin_type: { ssn: 0, atin: 1, itin: 2, none: 3 }, _prefix: :tin_type
 
   validates_presence_of :first_name
   validates_presence_of :last_name
-  validates_presence_of :birth_date
-  validates_presence_of :relationship, if: -> { intake&.is_ctc? }
 
-  validates_presence_of :ssn, if: -> { intake&.is_ctc? }
+  # Allow birth date to be blank when we first create dependents in the CTC intake flow, but nowhere else
+  validates_presence_of :birth_date, unless: -> { intake&.is_ctc? }
+  validates_presence_of :birth_date, on: :ctc_valet_form
+
+  validates_presence_of :relationship, on: :ctc_valet_form
+
+  validates_presence_of :ssn, on: :ctc_valet_form
   validates_confirmation_of :ssn, if: -> { ssn.present? && ssn_changed? }
   validates :ssn, social_security_number: true, if: -> { ssn.present? && tin_type == "ssn" }
   validates :ssn, individual_taxpayer_identification_number: true, if: -> { ssn.present? && tin_type == "itin" }

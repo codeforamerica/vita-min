@@ -11,6 +11,7 @@
 #  encrypted_ssn_iv        :string
 #  first_name              :string
 #  last_name               :string
+#  middle_initial          :string
 #  months_in_home          :integer
 #  north_american_resident :integer          default("unfilled"), not null
 #  on_visa                 :integer          default("unfilled"), not null

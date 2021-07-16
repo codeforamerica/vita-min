@@ -1,0 +1,31 @@
+<% @main_question = t("views.ctc.questions.dependents.confirm_dependents.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+
+    <h1 class="h2"><%= @main_question %></h1>
+
+    <div class="review-box spacing-below-35">
+      <div class="review-box__title">
+        <h2><%= t("views.ctc.questions.dependents.confirm_dependents.your_dependents") %></h2>
+      </div>
+      <div class="review-box__body">
+        <ul>
+          <% current_intake.dependents.each do |dependent| %>
+            <li>
+              <%= dependent.full_name %>
+              <%= default_date_format(dependent.birth_date) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <%= link_to t('views.ctc.questions.dependents.confirm_dependents.add_a_dependent'), Ctc::Questions::Dependents::InfoController.to_path_helper(id: :new), class: "button text--centered " %>
+    </div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("views.ctc.questions.dependents.confirm_dependents.done_adding") %>
+    </button>
+  <% end %>
+<% end %>

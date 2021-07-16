@@ -25,6 +25,13 @@ class CtcQuestionNavigation
     Ctc::Questions::FilingStatusController,
     Ctc::Questions::SpouseInfoController,
 
+    # Dependents
+    Ctc::Questions::Dependents::HadDependentsController,
+    Ctc::Questions::Dependents::NoDependentsController,
+    Ctc::Questions::Dependents::InfoController,
+    Ctc::Questions::Dependents::TinController,
+    Ctc::Questions::Dependents::ConfirmDependentsController,
+
     # RRC
     Ctc::Questions::StimulusPaymentsController,
     Ctc::Questions::StimulusOneController,

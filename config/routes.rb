@@ -10,14 +10,33 @@ Rails.application.routes.draw do
       navigation.controllers.uniq.each do |controller_class|
         { get: :edit, put: :update }.each do |method, action|
           if as_redirects
-            match "/#{controller_class.to_param}",
-                  via: method,
-                  to: redirect { |_, request| "/#{request.params[:locale]}" }
+            next if controller_class.respond_to?(:resource_name)
+            match(
+              "/#{controller_class.to_param}",
+              via: method,
+              to: redirect { |_, request| "/#{request.params[:locale]}" }
+            )
           else
-            match "/#{controller_class.to_param}",
-                  action: action,
-                  controller: controller_class.controller_path,
-                  via: method
+            resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
+            if resource_name
+              resources resource_name, only: [] do
+                member do
+                  match(
+                    "/#{controller_class.to_param}",
+                    action: action,
+                    controller: controller_class.controller_path,
+                    via: method
+                  )
+                end
+              end
+            else
+              match(
+                "/#{controller_class.to_param}",
+                action: action,
+                controller: controller_class.controller_path,
+                via: method,
+              )
+            end
           end
         end
       end

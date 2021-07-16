@@ -138,6 +138,10 @@ module Hub
 
     private
 
+    def dependent_validation_context
+      :ctc_valet_form
+    end
+
     def send_confirmation_message
       locale = client.intake.preferred_interview_language == "es" ? "es" : "en"
 

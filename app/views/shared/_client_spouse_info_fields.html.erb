@@ -16,7 +16,7 @@
             :spouse_birth_date,
             t("hub.clients.show.date_of_birth"),
             ) %>
-      <%= f.cfa_select(:spouse_tin_type, "Identification Type", tin_options_for_select) %>
+      <%= f.cfa_select(:spouse_tin_type, "Identification Type", tin_options_for_select(include_itin: true, include_none: true)) %>
       <%= f.cfa_input_field(
           :spouse_ssn,
           t("general.ssn"),
