@@ -34,7 +34,7 @@ namespace :setup do
 
   task unzip_efile_schemas: :environment do |_task|
     download_path = Rails.root.join('vendor', 'irs', EFILE_SCHEMAS_FILENAME)
-    raise StandardError.new("Download #{EFILE_SCHEMAS_FILENAME} from s3://vita-min-irs-e-file-schema-prod and place it in vendor/irs/") unless File.exists?(download_path)
+    raise StandardError.new("Download #{EFILE_SCHEMAS_FILENAME} and place it in vendor/irs/ from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa") unless File.exists?(download_path)
 
     unpack_path = Rails.root.join('vendor', 'irs', 'unpacked')
     Zip::File.open_buffer(File.open(download_path, "rb")) do |zip_file|
