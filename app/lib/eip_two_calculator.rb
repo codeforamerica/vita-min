@@ -1,10 +1,10 @@
 class EipTwoCalculator
-  PER_FILER_PAYMENT = 600
-  PER_DEPENDENT_PAYMENT = 600
+  PER_FILER = 600
+  PER_DEPENDENT = 600
 
-  def self.payment_due(filer_count:, dependent_count:)
-    filer_payment = PER_FILER_PAYMENT * filer_count
-    dependent_payment = PER_DEPENDENT_PAYMENT * dependent_count
+  def self.amount(filer_count:, dependent_count:)
+    filer_payment = PER_FILER * filer_count
+    dependent_payment = PER_DEPENDENT * dependent_count
 
     filer_payment + dependent_payment
   end

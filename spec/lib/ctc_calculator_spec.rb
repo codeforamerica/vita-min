@@ -1,21 +1,21 @@
 require "rails_helper"
 
 describe CtcCalculator do
-  describe ".monthly_payment_due" do
-    it "should return the correct payment amount based on dependent counts" do
-      expected_payment = 850
-      monthly_payment_amount = described_class.monthly_payment_due(dependents_under_six_count: 1, dependents_over_six_count: 1)
+  describe ".monthly" do
+    it "should return the correct monthly payment based on dependent counts" do
+      expected_monthly = 850
+      monthly = described_class.monthly(dependents_under_six_count: 1, dependents_over_six_count: 1)
 
-      expect(monthly_payment_amount).to eq(expected_payment)
+      expect(monthly).to eq(expected_monthly)
     end
   end
 
-  describe ".total_payment_due" do
-    it "should return the correct payment amount based on dependent counts" do
-      expected_payment = 10200
-      total_payment_amount = described_class.total_payment_due(dependents_under_six_count: 1, dependents_over_six_count: 1)
+  describe ".total" do
+    it "should return the correct total payment based on dependent counts" do
+      expected_total = 10200
+      total = described_class.total(dependents_under_six_count: 1, dependents_over_six_count: 1)
 
-      expect(total_payment_amount).to eq(expected_payment)
+      expect(total).to eq(expected_total)
     end
   end
 end
