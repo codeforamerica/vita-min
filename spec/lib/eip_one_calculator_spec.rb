@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe EconomicImpactPaymentOneCalculator do
+describe EipOneCalculator do
   describe ".payment_due" do
     it "should return the correct payment amount based on filer and dependent counts" do
       expected_payment = 2200

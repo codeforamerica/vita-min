@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ChildTaxCreditCalculator do
+describe CtcCalculator do
   describe ".monthly_payment_due" do
     it "should return the correct payment amount based on dependent counts" do
       expected_payment = 850

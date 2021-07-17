@@ -1,6 +1,6 @@
-class EconomicImpactPaymentTwoCalculator
-  PER_FILER_PAYMENT = 600
-  PER_DEPENDENT_PAYMENT = 600
+class EipOneCalculator
+  PER_FILER_PAYMENT = 1200
+  PER_DEPENDENT_PAYMENT = 500
 
   def self.payment_due(filer_count:, dependent_count:)
     filer_payment = PER_FILER_PAYMENT * filer_count

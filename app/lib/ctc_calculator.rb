@@ -1,4 +1,4 @@
-class ChildTaxCreditCalculator
+class CtcCalculator
   PER_DEPENDENT_UNDER_SIX_PAYMENT = 600
   PER_DEPENDENT_OVER_SIX_PAYMENT = 250
 
