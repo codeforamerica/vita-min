@@ -15,9 +15,9 @@ describe BuildSubmissionBundleJob do
       let(:address_valid?) { false }
       let(:address_errors) { "usps error your zip code is a duck" }
 
-      it "transitions the submission into :bundle_failure" do
+      it "transitions the submission into :failed" do
         described_class.perform_now(submission)
-        expect(submission.reload.current_state).to eq "bundle_failure"
+        expect(submission.reload.current_state).to eq "failed"
         expect(submission.efile_submission_transitions.last.metadata['error_message']).to eq address_errors
       end
     end
@@ -38,9 +38,10 @@ describe BuildSubmissionBundleJob do
       before do
         allow(SubmissionBundle).to receive(:build).and_return SubmissionBundleResponse.new(errors: ["error"])
       end
-      it "transitions the submission into :bundle_failure" do
+
+      it "transitions the submission into :failed" do
         described_class.perform_now(submission)
-        expect(submission.reload.current_state).to eq "bundle_failure"
+        expect(submission.reload.current_state).to eq "failed"
       end
     end
   end

@@ -298,6 +298,13 @@ FactoryBot.define do
     email_address { Faker::Internet.email }
   end
 
+  trait :with_address do
+    city { "San Francisco" }
+    state { "CA" }
+    zip_code { "94103" }
+    street_address { "972 Mission St" }
+  end
+
   trait :with_deterministic_yes_no_answers do
     married { "yes" }
     divorced { "yes" }

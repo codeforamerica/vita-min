@@ -47,14 +47,24 @@ class EfileSubmission < ApplicationRecord
   end
 
   def generate_irs_address
-    address_service = StandardizeAddressService.new(intake)
-    if address_service.valid?
+    if Rails.env.development?
       attrs = {
-        zip_code: address_service.zip_code,
-        street_address: address_service.street_address,
-        state: address_service.state,
-        city: address_service.city
+        zip_code: intake.zip_code,
+        street_address: intake.street_address.upcase,
+        state: intake.state.upcase,
+        city: intake.city.upcase
       }
+      address_service = Dumb.new
+    else
+      address_service = StandardizeAddressService.new(intake)
+      if address_service.valid?
+        attrs = {
+          zip_code: address_service.zip_code,
+          street_address: address_service.street_address,
+          state: address_service.state,
+          city: address_service.city
+        }
+      end
       address.present? ? address.update(attrs) : create_address(attrs)
     end
     address_service
@@ -73,5 +83,10 @@ class EfileSubmission < ApplicationRecord
     else
       self.irs_submission_id = irs_submission_id
     end
+  end
+end
+class Dumb
+  def valid?
+    true
   end
 end

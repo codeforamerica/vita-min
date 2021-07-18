@@ -32,10 +32,14 @@ module SubmissionBuilder
           }
           xml.SelfSelectPINGrp {
             xml.PrimaryBirthDt date_type(intake.primary_birth_date)
-            if intake.spouse_birth_date.present?
-              xml.SpouseBirthDt date_type(intake.spouse_birth_date)
+            if tax_return.filing_jointly?
+              xml.SpouseBirthDt date_type(intake.spouse_birth_date) if tax_return.filing_jointly?
             end
+            xml.PrimaryPriorYearAGIAmt 0
+            xml.SpousePriorYearAGIAmt 0 if tax_return.filing_jointly?
           }
+          xml.IdentityProtectionPIN intake.primary_ip_pin if intake.primary_ip_pin.present?
+          xml.SpouseIdentityProtectionPIN intake.spouse_ip_pin if tax_return.filing_jointly? && intake.spouse_ip_pin.present?
           xml.PINTypeCd "Self-Select On-Line"
           xml.JuratDisclosureCd "Online Self Select PIN"
           xml.PrimaryPINEnteredByCd "Taxpayer"

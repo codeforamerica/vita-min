@@ -21,6 +21,14 @@ module SubmissionBuilder
         end
       end
 
+      def filer_exemption_count
+        submission.tax_return.filing_jointly? ? 2 : 1
+      end
+
+      def total_exemption_count
+        filer_exemption_count + submission.dependents.count # TODO: Narrow this down to "qualifying" dependents
+      end
+
       def document
         intake = submission.intake
         tax_return = submission.tax_return
@@ -31,11 +39,13 @@ module SubmissionBuilder
           xml.IRS1040(root_node_attrs) {
             xml.IndividualReturnFilingStatusCd tax_return.filing_status_code
             xml.VirtualCurAcquiredDurTYInd false
+            xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
             dependents.each do |dependent|
               dependent_xml(xml, dependent)
             end
-            xml.ChldWhoLivedWithYouCnt dependents.length
-            xml.OtherDependentsListedCnt 0 # TBD: change
+            xml.ChldWhoLivedWithYouCnt dependents.count # TODO: Update with "Qualifying Child" count
+            xml.OtherDependentsListedCnt 0 # TODO: Update with "Qualifying Relative" count
+            xml.TotalExemptionsCnt total_exemption_count
             xml.TaxableInterestAmt 1
             xml.AdjustedGrossIncomeAmt 1
             xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction

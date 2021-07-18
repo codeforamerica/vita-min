@@ -103,7 +103,7 @@ describe EfileSubmission do
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("queued", "preparing", "bundle_failure").each do |state|
+        EfileSubmissionStateMachine.states.excluding("queued", "preparing", "failed").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
