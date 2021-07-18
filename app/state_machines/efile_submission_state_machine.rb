@@ -27,7 +27,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :preparing) do |submission|
-    BuildSubmissionBundleJob.perform_later(submission)
+    BuildSubmissionBundleJob.perform_later(submission.id)
   end
 
   after_transition(to: :queued) do |submission|

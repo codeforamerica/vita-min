@@ -238,7 +238,7 @@ FactoryBot.define do
   trait :primary_consented do
     primary_consented_to_service_at { 2.weeks.ago }
     primary_consented_to_service { "yes" }
-    primary_consented_to_service_ip { "192.168.2.1" } # IRS approved IP address
+    primary_consented_to_service_ip { "136.62.11.145" } # IRS approved IP address
   end
 
   trait :with_banking_details do
@@ -443,6 +443,7 @@ FactoryBot.define do
 
   factory :ctc_intake, class: Intake::CtcIntake do
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
+    primary_birth_date { Date.new(1988, 12, 20) }
     client
     needs_to_flush_searchable_data_set_at { 1.minute.ago }
   end

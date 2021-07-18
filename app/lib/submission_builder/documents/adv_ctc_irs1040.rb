@@ -34,6 +34,8 @@ module SubmissionBuilder
             dependents.each do |dependent|
               dependent_xml(xml, dependent)
             end
+            xml.ChldWhoLivedWithYouCnt dependents.length
+            xml.OtherDependentsListedCnt 0 # TBD: change
             xml.TaxableInterestAmt 1
             xml.AdjustedGrossIncomeAmt 1
             xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction

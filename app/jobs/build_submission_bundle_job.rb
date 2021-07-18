@@ -1,8 +1,9 @@
 class BuildSubmissionBundleJob < ApplicationJob
-  def perform(submission)
+  def perform(submission_id)
+    submission = EfileSubmission.includes(:intake, :dependents, :client, :address, :tax_return).find(submission_id)
     address_creation = submission.generate_irs_address
     unless address_creation.valid?
-      submission.transition_to!(:bundle_failure, error_message: address_creation.errors)
+      submission.transition_to!(:failed, error_message: address_creation.errors)
       return
     end
 
@@ -10,7 +11,7 @@ class BuildSubmissionBundleJob < ApplicationJob
     if response.valid?
       submission.transition_to!(:queued)
     else
-      submission.transition_to!(:bundle_failure, error_message: response.errors)
+      submission.transition_to!(:failed, error_message: response.errors)
     end
   end
 end

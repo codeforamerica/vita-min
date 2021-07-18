@@ -28,7 +28,13 @@ module SubmissionBuilder
           xml.SoftwareId "11111111"
           xml.OriginatorGrp {
             xml.EFIN EnvironmentCredentials.dig(:irs, :efin)
-            xml.OriginatorTypeCd "OnlineFiler"
+            xml.OriginatorTypeCd "ERO"
+          }
+          xml.SelfSelectPINGrp {
+            xml.PrimaryBirthDt date_type(intake.primary_birth_date)
+            if intake.spouse_birth_date.present?
+              xml.SpouseBirthDt date_type(intake.spouse_birth_date)
+            end
           }
           xml.PINTypeCd "Self-Select On-Line"
           xml.JuratDisclosureCd "Online Self Select PIN"
@@ -41,7 +47,7 @@ module SubmissionBuilder
           xml.Filer {
             xml.PrimarySSN intake.primary_ssn
             xml.SpouseSSN intake.spouse_ssn if tax_return.filing_jointly?
-            xml.NameLine1Txt trim(client.legal_name, 35)
+            xml.NameLine1Txt person_name_type(client.legal_name)
             xml.PrimaryNameControlTxt person_name_control_type(client.legal_name)
             xml.SpouseNameControlTxt person_name_control_type(client.spouse_legal_name) if tax_return.filing_jointly?
             # TODO: Replace with IRS formatted address for client when ready
@@ -71,13 +77,36 @@ module SubmissionBuilder
               xml.CellPhoneNum phone_type(intake.sms_phone_number) if intake.sms_phone_number.present?
               xml.EmailAddressTxt intake.email_address if intake.email_address.present?
             }
+            xml.AtSubmissionFilingGrp {
+              xml.RefundProductElectionInd true
+
+              xml.RefundDisbursementGrp {
+                xml.RefundDisbursementCd 0
+                if intake.refund_payment_method_direct_deposit?
+                  xml.RoutingTransitNum intake.bank_account.routing_number
+                  xml.DepositorAccountNum intake.bank_account.account_number
+                end
+              }
+            }
           }
           xml.FilingSecurityInformation {
+            xml.AtSubmissionCreationGrp {
+              xml.IPAddress {
+                xml.IPv4AddressTxt intake.primary_consented_to_service_ip
+              }
+              xml.DeviceId 9162213099514827927117083645386143446039
+              xml.DeviceTypeCd 0
+            }
             xml.AtSubmissionFilingGrp {
               xml.IPAddress {
                 xml.IPv4AddressTxt intake.primary_consented_to_service_ip
               }
+              xml.DeviceId 9162213099514827927117083645386143446039
+              xml.DeviceTypeCd 0
             }
+            xml.TotActiveTimePrepSubmissionTs 15
+            xml.VendorControlNum "xsdefedlsoenajsk"
+
           }
         }
       end.doc
