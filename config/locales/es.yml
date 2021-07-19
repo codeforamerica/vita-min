@@ -305,6 +305,7 @@ es:
         file_accepted: Aceptado
         file_not_filing: No archivar
         file_hold: En pausa
+        file_needs_review: Necesita revisión
       new:
         title: Nuevo año fiscal para %{name}
         current_years: "Años fiscales actuales:"
