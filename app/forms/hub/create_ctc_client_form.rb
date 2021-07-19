@@ -22,6 +22,8 @@ module Hub
                        :zip_code,
                        :primary_ssn,
                        :spouse_ssn,
+                       :tin_type,
+                       :spouse_tin_type,
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
                        :spouse_first_name,
@@ -96,11 +98,13 @@ module Hub
     validates_confirmation_of :primary_ssn
     validates_presence_of :primary_ssn_confirmation, if: :primary_ssn
     validates_presence_of :spouse_ssn_confirmation, if: :spouse_ssn
-    validates :primary_ssn, social_security_number: true
+    validates :primary_ssn, social_security_number: true, if: -> { tin_type == "ssn"}
+    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { tin_type == "itin"}
 
     with_options if: -> { filing_status == "married_filing_jointly" } do
       validates_confirmation_of :spouse_ssn
-      validates :spouse_ssn, social_security_number: true
+      validates :spouse_ssn, social_security_number: true, if: -> { spouse_tin_type == "ssn"}
+      validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin"}
     end
 
     validates :primary_ip_pin, format: { with: /\d{6}/, message: "Must be a 6 digit number."}, if: :primary_ip_pin

@@ -15,6 +15,7 @@
 #  north_american_resident :integer          default("unfilled"), not null
 #  on_visa                 :integer          default("unfilled"), not null
 #  relationship            :string
+#  tin_type                :integer
 #  was_married             :integer          default("unfilled"), not null
 #  was_student             :integer          default("unfilled"), not null
 #  created_at              :datetime         not null

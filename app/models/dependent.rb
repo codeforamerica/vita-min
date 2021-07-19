@@ -15,6 +15,7 @@
 #  north_american_resident :integer          default("unfilled"), not null
 #  on_visa                 :integer          default("unfilled"), not null
 #  relationship            :string
+#  tin_type                :integer
 #  was_married             :integer          default("unfilled"), not null
 #  was_student             :integer          default("unfilled"), not null
 #  created_at              :datetime         not null
@@ -37,6 +38,7 @@ class Dependent < ApplicationRecord
   enum north_american_resident: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :north_american_resident
   enum disabled: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :disabled
   enum was_married: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_married
+  enum tin_type: { ssn: 0, itin: 1, none: 2 }, _prefix: :tin_type
 
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -45,7 +47,8 @@ class Dependent < ApplicationRecord
 
   validates_presence_of :ssn, if: -> { intake&.is_ctc? }
   validates_confirmation_of :ssn, if: -> { ssn.present? && ssn_changed? }
-  validates :ssn, social_security_number: true, if: -> { ssn.present? }
+  validates :ssn, social_security_number: true, if: -> { ssn.present? && tin_type == "ssn" }
+  validates :ssn, individual_taxpayer_identification_number: true, if: -> { ssn.present? && tin_type == "itin" }
 
   validate :ip_pins_format
   def ip_pins_format

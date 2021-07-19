@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_212929) do
+ActiveRecord::Schema.define(version: 2021_07_19_174730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -248,6 +248,7 @@ ActiveRecord::Schema.define(version: 2021_07_15_212929) do
     t.integer "north_american_resident", default: 0, null: false
     t.integer "on_visa", default: 0, null: false
     t.string "relationship"
+    t.integer "tin_type"
     t.datetime "updated_at", null: false
     t.integer "was_married", default: 0, null: false
     t.integer "was_student", default: 0, null: false

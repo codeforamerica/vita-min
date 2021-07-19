@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Hub::CreateCtcClientForm do
   describe "#save" do
-    let(:vita_partner) { create :vita_partner, name: "Caravan Palace" }
+    let(:vita_partner) {create :vita_partner, name: "Caravan Palace"}
     let(:params) do
       {
         vita_partner_id: vita_partner.id,
@@ -25,6 +25,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         spouse_first_name: "Newly",
         spouse_last_name: "Wed",
         spouse_email_address: "spouse@example.com",
+        spouse_tin_type: "ssn",
         spouse_ssn: '111224444',
         spouse_ssn_confirmation: '111224444',
         spouse_birth_date_year: "1962",
@@ -33,6 +34,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         timezone: "America/Chicago",
         state_of_residence: "CA",
         signature_method: "online",
+        tin_type: "ssn",
         primary_ssn: '111223333',
         primary_ssn_confirmation: '111223333',
         filing_status: "single",
@@ -56,10 +58,10 @@ RSpec.describe Hub::CreateCtcClientForm do
       }
     end
 
-    let(:preferred_interview_language) { "es" }
-    let(:sms_opt_in) { "yes" }
-    let(:email_opt_in) { "no" }
-    let(:current_user) { create :user }
+    let(:preferred_interview_language) {"es"}
+    let(:sms_opt_in) {"yes"}
+    let(:email_opt_in) {"no"}
+    let(:current_user) {create :user}
 
     before do
       allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
@@ -134,8 +136,8 @@ RSpec.describe Hub::CreateCtcClientForm do
       end
 
       context "when the client's preferred language is not Spanish" do
-        let(:preferred_interview_language) { "en" }
-        let(:email_opt_in) { "yes" }
+        let(:preferred_interview_language) {"en"}
+        let(:email_opt_in) {"yes"}
 
         it "sends the message in english" do
           described_class.new(params).save(current_user)
@@ -148,8 +150,8 @@ RSpec.describe Hub::CreateCtcClientForm do
       end
 
       context "when the client's preferred language is Spanish" do
-        let(:preferred_interview_language) { "es" }
-        let(:email_opt_in) { "yes" }
+        let(:preferred_interview_language) {"es"}
+        let(:email_opt_in) {"yes"}
 
         it "sends the message in spanish" do
           described_class.new(params).save(current_user)
@@ -188,8 +190,8 @@ RSpec.describe Hub::CreateCtcClientForm do
       end
 
       context "mixpanel" do
-        let(:fake_tracker) { double('mixpanel tracker') }
-        let(:fake_mixpanel_data) { {} }
+        let(:fake_tracker) {double('mixpanel tracker')}
+        let(:fake_mixpanel_data) {{}}
 
         before do
           allow(MixpanelService).to receive(:data_from).and_return(fake_mixpanel_data)
@@ -228,7 +230,7 @@ RSpec.describe Hub::CreateCtcClientForm do
       end
 
       context "when associated models are not valid" do
-        let(:form) { described_class.new(params) }
+        let(:form) {described_class.new(params)}
 
         before do
           params[:sms_phone_number] = nil
@@ -236,7 +238,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         end
 
         it "does not save the associations" do
-          expect { form.save(current_user) }.to raise_error ActiveRecord::RecordInvalid
+          expect {form.save(current_user)}.to raise_error ActiveRecord::RecordInvalid
         end
       end
 
@@ -251,22 +253,23 @@ RSpec.describe Hub::CreateCtcClientForm do
     end
 
     context "with dependents" do
-      let(:dependents_attributes) do {
+      let(:dependents_attributes) do
+        {
           dependents_attributes: {
-              "0" => {
-                  id: nil,
-                  first_name: "Maria",
-                  last_name: "Mango",
-                  birth_date_month: "May",
-                  birth_date_day: "9",
-                  birth_date_year: "2013",
-                  relationship: "child",
-                  ip_pin: "345678",
-                  ssn: '111-22-3333',
-                  ssn_confirmation: '111-22-3333',
-              }
+            "0" => {
+              id: nil,
+              first_name: "Maria",
+              last_name: "Mango",
+              birth_date_month: "May",
+              birth_date_day: "9",
+              birth_date_year: "2013",
+              relationship: "child",
+              ip_pin: "345678",
+              ssn: '111-22-3333',
+              ssn_confirmation: '111-22-3333',
+            }
           }
-      }
+        }
       end
 
       it "successfully saves the client with associated dependents" do
@@ -282,8 +285,8 @@ RSpec.describe Hub::CreateCtcClientForm do
 
     context "validations" do
       context "with an invalid email" do
-        before { params[:email_address] = "someone@example" }
-        let(:form) { described_class.new(params) }
+        before {params[:email_address] = "someone@example"}
+        let(:form) {described_class.new(params)}
 
         it "is not valid and adds an error to the email field" do
           expect(form).not_to be_valid
@@ -574,20 +577,23 @@ RSpec.describe Hub::CreateCtcClientForm do
         end
 
         context "for dependents" do
-          let(:dependents_attributes) do {
-            dependents_attributes: {
-              "0" => {
-                id: nil,
-                first_name: "Maria",
-                last_name: "Mango",
-                birth_date_month: "May",
-                birth_date_day: "9",
-                birth_date_year: "2013",
-                relationship: "child",
-                ip_pin: "3456",
+          let(:dependents_attributes) do
+            {
+              dependents_attributes: {
+                "0" => {
+                  id: nil,
+                  first_name: "Maria",
+                  last_name: "Mango",
+                  birth_date_month: "May",
+                  birth_date_day: "9",
+                  birth_date_year: "2013",
+                  relationship: "child",
+                  tin_type: "ssn",
+                  ssn: "111-22-4444",
+                  ip_pin: "3456",
+                }
               }
             }
-          }
           end
 
           context "when there are no other validation errors" do
@@ -609,6 +615,91 @@ RSpec.describe Hub::CreateCtcClientForm do
               new_dependent = obj.dependents.last
               expect(new_dependent.errors[:relationship]).to include "Can't be blank."
               expect(new_dependent.errors[:ip_pin]).to include "IP PINs must be a 6 digit number."
+            end
+          end
+
+          context "identification numbers" do
+            context "when tin type is ssn" do
+              context "when ssn format is wrong" do
+                before do
+                  dependents_attributes[:dependents_attributes]["0"][:ssn] = "666-99-9999"
+                  dependents_attributes[:dependents_attributes]["0"][:ssn_confirmation] = "666-99-9999"
+                end
+
+                it "it is not valid" do
+                  expect(described_class.new(params.merge(dependents_attributes))).to_not be_valid
+                end
+              end
+            end
+
+            context "when tin type is itin" do
+              context "when the itin format is wrong" do
+                before do
+                  dependents_attributes[:dependents_attributes]["0"][:tin_type] = "itin"
+                  dependents_attributes[:dependents_attributes]["0"][:ssn] = "900-93-9999"
+                  dependents_attributes[:dependents_attributes]["0"][:ssn_confirmation] = "900-93-9999"
+                end
+
+                it "it is not valid" do
+                  expect(described_class.new(params.merge(dependents_attributes))).to_not be_valid
+                end
+              end
+
+              context "when the itin format is correct" do
+                before do
+                  dependents_attributes[:dependents_attributes]["0"][:tin_type] = "itin"
+                  dependents_attributes[:dependents_attributes]["0"][:ssn] = "900-78-9999"
+                  dependents_attributes[:dependents_attributes]["0"][:ssn_confirmation] = "900-78-9999"
+                  dependents_attributes[:dependents_attributes]["0"][:ip_pin] = "111111"
+                end
+
+                it "is valid" do
+                  # TODO: IP Pin failure
+                  # TODO: Add IP Pin correct in above tests
+                  expect(described_class.new(params.merge(dependents_attributes))).to be_valid
+                end
+              end
+            end
+          end
+        end
+      end
+
+      context "identification numbers" do
+        context "when tin type is ssn" do
+          context "when ssn format is wrong" do
+            before do
+              params[:primary_ssn] = "666-99-9999"
+              params[:primary_ssn_confirmation] = "666-99-9999"
+            end
+
+            it "it is not valid" do
+              expect(described_class.new(params)).to_not be_valid
+            end
+          end
+        end
+
+        context "when tin type is itin" do
+          context "when the itin format is wrong" do
+            before do
+              params[:tin_type] = "itin"
+              params[:primary_ssn] = "900-93-9999"
+              params[:primary_ssn_confirmation] = "900-93-9999"
+            end
+
+            it "it is not valid" do
+              expect(described_class.new(params)).to_not be_valid
+            end
+          end
+
+          context "when the itin format is correct" do
+            before do
+              params[:tin_type] = "itin"
+              params[:primary_ssn] = "900-78-9999"
+              params[:primary_ssn_confirmation] = "900-78-9999"
+            end
+
+            it "is valid" do
+              expect(described_class.new(params)).to be_valid
             end
           end
         end
