@@ -27,22 +27,32 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :preparing) do |submission|
     BuildSubmissionBundleJob.perform_later(submission.id)
+    submission.tax_return.update(status: "file_ready_to_file")
   end
 
   after_transition(to: :queued) do |submission|
     GyrEfiler::SendSubmissionJob.perform_later(submission)
   end
 
-  after_transition(to: :rejected) do |submission, transition|
-    # Transition associated tax return to rejected
+  after_transition(to: :transmitted) do |submission|
+    submission.tax_return.update(status: "file_efiled")
+  end
+
+  after_transition(to: :failed) do |submission|
+    submission.client.flag!
+    submission.tax_return.update(status: "efile_needs_review")
+  end
+
+  after_transition(to: :rejected) do |submission|
     # Add note with rejection reason to client notes
-    # Transition to flagged if needs manual changes by a person
     # Use transition metadata error code and reason to determine whether it is an eng or VITA problem.
+    submission.client.flag!
+    submission.tax_return.update(status: "file_rejected")
   end
 
   after_transition(to: :accepted) do |submission|
     # Send a message to client
     # Add a note to client page
-    # Transition associated tax return to Accepted
+    submission.tax_return.update(status: "file_accepted")
   end
 end
