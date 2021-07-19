@@ -6,9 +6,11 @@ class UpdateCtcValetPartnersJob
         org.update!(processes_ctc: true)
         puts "Updated #{org_name} to accept CTC Valet clients"
         counter = 0
-        org.child_sites.each_slice(10) do |site|
-          site.update!(processes_ctc: true)
-          counter += 1
+        org.child_sites.each_slice(10) do |sites|
+          sites.each do |site|
+            site.update!(processes_ctc: true)
+            counter += 1
+          end
         end
         puts "Updated #{counter} child sites for #{org_name}"
       else
