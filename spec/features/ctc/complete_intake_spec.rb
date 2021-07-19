@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :js, active_job: true do
+RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end

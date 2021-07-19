@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :js, active_job: true do
+RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
   # TODO: after we have the RRC calculation based on dependents, set up some cases for routing to owed vs received
   let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return)] }
 

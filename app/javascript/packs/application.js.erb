@@ -24,5 +24,7 @@ ActiveStorage.start();
 import "../lib/honeycrisp";
 
 // *
-AjaxMixpanelEvents.init();
+<% unless Rails.env.test? %>
+  AjaxMixpanelEvents.init();
+<% end %>
 Listeners.init();

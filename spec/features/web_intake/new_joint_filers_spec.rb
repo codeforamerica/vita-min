@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Web Intake Joint Filers" do
+RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   let!(:vita_partner) { create :vita_partner, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 

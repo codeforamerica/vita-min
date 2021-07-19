@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Document Help Flow", active_job: true do
+RSpec.feature "Document Help Flow", :flow_explorer_screenshot, active_job: true do
   let(:client) do
     create :client,
            intake: (create :intake, bought_health_insurance: "yes", had_retirement_income: "yes", sms_notification_opt_in: "yes", sms_phone_number: "+15105551234")

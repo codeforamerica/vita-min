@@ -107,7 +107,7 @@ RSpec.configure do |config|
     CapybaraWalkthroughScreenshots.hook!(config)
   end
 
-  if ENV['FLOW_EXPLORER_SCREENSHOTS'] == 'true'
+  if config.filter.rules[:flow_explorer_screenshot]
     FlowExplorerScreenshots.hook!(config)
   end
 end
@@ -121,7 +121,7 @@ end
 
 RSpec.configure do |config|
   config.before(type: :feature) do |example|
-    if ENV['FLOW_EXPLORER_SCREENSHOTS'] == 'true'
+    if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
       Capybara.page.current_window.resize_to(2000, 4000)

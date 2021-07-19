@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Web Intake Single Filer" do
+RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot do
   before do
     create(
       :intake,

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Web Intake Client matches with partner who is at capacity" do
+RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow_explorer_screenshot do
   let(:intake) { create :intake }
   before do
     allow_any_instance_of(ApplicationController).to receive(:current_intake).and_return(intake)
