@@ -6,7 +6,6 @@ class EfileSubmissionStateMachine
   state :queued
 
   # submission-related response statuses
-  state :bundle_failure
   state :transmitted
   state :failed
 
@@ -18,7 +17,7 @@ class EfileSubmissionStateMachine
   # know what they are yet so let's not think too far ahead.
 
   transition from: :new,          to: [:preparing]
-  transition from: :preparing,    to: [:queued, :bundle_failure]
+  transition from: :preparing,    to: [:queued, :failed]
   transition from: :queued,       to: [:transmitted, :failed, :rejected]
   transition from: :transmitted,  to: [:accepted, :rejected]
 
@@ -27,7 +26,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :preparing) do |submission|
-    BuildSubmissionBundleJob.perform_later(submission)
+    BuildSubmissionBundleJob.perform_later(submission.id)
   end
 
   after_transition(to: :queued) do |submission|

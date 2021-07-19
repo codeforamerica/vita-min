@@ -19,7 +19,7 @@ module Efile
         config_dir = Rails.root.join("tmp", "gyr_efiler", "gyr_efiler_config").to_s
 
         # On macOS, "java" will show a confusing pop-up if you run it without a JVM installed. Check for that and exit early.
-        if File.exists?("/Library/Java/JavaVirtualMachines") && Dir["/Library/Java/JavaVirtualMachines"].empty?
+        if File.exists?("/Library/Java/JavaVirtualMachines") && Dir.glob("/Library/Java/JavaVirtualMachines/*").empty?
           raise StandardError.new("Seems you are on a mac & lack Java. Run: brew tap AdoptOpenJDK/openjdk && brew install adoptopenjdk8")
         end
         # /Library/Java/JavaVirtualMachines
@@ -60,6 +60,8 @@ module Efile
       return if File.exists?(File.join(config_dir, '.ready'))
 
       config_zip_path = Dir.glob(Rails.root.join("vendor", "gyr_efiler", "gyr-efiler-config-#{CURRENT_VERSION}.zip"))[0]
+      raise StandardError.new("Please run rake setup:download_gyr_efiler then try again") if config_zip_path.nil?
+
       system!("unzip -o #{config_zip_path} -d #{Rails.root.join("tmp", "gyr_efiler")}")
 
       local_efiler_repo_config_path = File.expand_path('../gyr-efiler/gyr_efiler_config', Rails.root)
@@ -86,6 +88,12 @@ module Efile
       end
 
       FileUtils.touch(File.join(config_dir, '.ready'))
+    end
+
+    private
+
+    def self.system!(*args)
+      system(*args) || abort("\n== Command #{args} failed ==")
     end
   end
 end

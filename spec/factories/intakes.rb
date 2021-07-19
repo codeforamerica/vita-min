@@ -238,7 +238,7 @@ FactoryBot.define do
   trait :primary_consented do
     primary_consented_to_service_at { 2.weeks.ago }
     primary_consented_to_service { "yes" }
-    primary_consented_to_service_ip { "192.168.2.1" } # IRS approved IP address
+    primary_consented_to_service_ip { "1.1.1.1" } # IRS approved IP address
   end
 
   trait :with_banking_details do
@@ -296,6 +296,13 @@ FactoryBot.define do
     phone_number { "+14155551212" }
     sms_phone_number { "+14155551212" }
     email_address { Faker::Internet.email }
+  end
+
+  trait :with_address do
+    city { "San Francisco" }
+    state { "CA" }
+    zip_code { "94103" }
+    street_address { "972 Mission St" }
   end
 
   trait :with_deterministic_yes_no_answers do
@@ -370,7 +377,7 @@ FactoryBot.define do
     primary_first_name { "Yayoi" }
     primary_last_name { "Kusama" }
     primary_ssn { '111-22-3333' }
-    primary_birth_date { Date.new(1929, 3, 22)}
+    primary_birth_date { Date.new(1929, 3, 22) }
     preferred_name { "Y Kusama" }
     preferred_interview_language { "en" }
     email_address { "yayoi@kusama.com" }
@@ -443,6 +450,8 @@ FactoryBot.define do
 
   factory :ctc_intake, class: Intake::CtcIntake do
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
+    primary_birth_date { Date.new(1988, 12, 20) }
+    spouse_birth_date { Date.new(1976, 12, 20) }
     client
     needs_to_flush_searchable_data_set_at { 1.minute.ago }
   end

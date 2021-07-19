@@ -14,6 +14,11 @@ module SubmissionBuilder
       date.strftime("%F")
     end
 
+    def person_name_type(string)
+      name = string.gsub(" ", "<")
+      trim(name, 35)
+    end
+
     # Limit to max 4 chars uppercased
     def person_name_control_type(string)
       return "" unless string.present?
