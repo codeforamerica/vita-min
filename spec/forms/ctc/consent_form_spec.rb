@@ -16,7 +16,7 @@ describe Ctc::ConsentForm do
         primary_ssn_confirmation: "111-22-8888",
         phone_number: "831-234-5678",
         timezone: "America/Chicago",
-        tin_type: :ssn
+        tin_type: "ssn"
       }
     }
     context "when all required information is provided" do
@@ -42,6 +42,42 @@ describe Ctc::ConsentForm do
 
       it "is not valid" do
         expect(described_class.new(intake, params)).not_to be_valid
+      end
+    end
+
+    context "when itin format is correct" do
+      before do
+        params[:tin_type] = "itin"
+        params[:primary_ssn] = "999-87-9999"
+        params[:primary_ssn_confirmation] = "999-87-9999"
+      end
+
+      it "it is valid" do
+        expect(described_class.new(intake, params)).to be_valid
+      end
+    end
+
+    context "when ssn format is not correct" do
+      before do
+        params[:tin_type] = "ssn"
+        params[:primary_ssn] = "666-99-9999"
+        params[:primary_ssn_confirmation] = "666-99-9999"
+      end
+
+      it "is not valid" do
+        expect(described_class.new(intake, params)).to_not be_valid
+      end
+    end
+
+    context "when itin format is not correct" do
+      before do
+        params[:tin_type] = "itin"
+        params[:primary_ssn] = "900-69-0000"
+        params[:primary_ssn_confirmation] = "900-69-0000"
+      end
+
+      it "it not valid" do
+        expect(described_class.new(intake, params)).to_not be_valid
       end
     end
 

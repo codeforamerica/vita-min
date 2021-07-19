@@ -1268,6 +1268,7 @@ es:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
     ssn: Por favor, ingrese un número de seguro social válido.
+    itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido
     ip_pin: IP PINs must be a 6 digit number.
     file_zero_length: "Sube un archivo válido. El archivo que cargó parece estar vacío."
     pdf_file_type: "%{document_type} debe ser un archivo PDF"

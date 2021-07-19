@@ -1291,6 +1291,7 @@ en:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
     ssn: Please enter a valid social security number.
+    itin: Please enter a valid individual taxpayer identification number.
     ip_pin: IP PINs must be a 6 digit number.
     pdf_file_type: "%{document_type} must be a PDF file"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} must be associated with a tax year."

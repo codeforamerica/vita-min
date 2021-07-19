@@ -20,7 +20,8 @@ module Ctc
     validate  :primary_birth_date_is_valid_date
     validates :primary_ssn, confirmation: true
     validates :primary_ssn_confirmation, presence: true
-    validates :primary_ssn, social_security_number: true
+    validates :primary_ssn, social_security_number: true, if: -> { tin_type == "ssn" }
+    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { tin_type == "itin" }
 
     before_validation do
       [primary_ssn, primary_ssn_confirmation].each do |field|
