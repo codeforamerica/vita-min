@@ -1,6 +1,6 @@
 module Ctc
   module Questions
-    class SpouseInfoController < QuestionsController
+    class RemoveSpouseController < QuestionsController
       # include AuthenticatedCtcClientConcern
       include AnonymousIntakeConcern
 
@@ -11,15 +11,13 @@ module Ctc
       end
 
       def self.show?(intake)
-        intake.client.tax_returns.last.filing_status_married_filing_jointly?
+        intake.client.tax_returns.last.filing_status_married_filing_jointly? #move out into own function
       end
 
       private
 
-      def next_path
-        return questions_use_gyr_path if @form.intake.spouse_tin_type_none?
-
-        super
+      def form_class
+        NullForm
       end
 
       def illustration_path; end
