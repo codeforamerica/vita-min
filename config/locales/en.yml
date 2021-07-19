@@ -305,7 +305,7 @@ en:
         file_accepted: Accepted
         file_not_filing: Not filing
         file_hold: Hold
-        efile_needs_review: Needs review
+        file_needs_review: Needs review
       new:
         title: Add tax year for %{name}
         current_years: "Current Tax Years:"

@@ -5,7 +5,7 @@ class TaxReturnStatus
     def determine_statuses_by_stage
       ## Returns a hash of statuses grouped by stage
       stages = {}
-      statuses = STATUSES.except(:intake_before_consent, :efile_needs_review)
+      statuses = STATUSES.except(:intake_before_consent)
       statuses.map do |status, _|
         stage = status.to_s.split("_")[0]
         stages[stage] = [] unless stages.key?(stage)
@@ -43,7 +43,7 @@ class TaxReturnStatus
 
     review_ready_for_qr: 301, review_reviewing: 302, review_ready_for_call: 303, review_signature_requested: 304, review_info_requested: 305,
 
-    efile_needs_review: 400, file_ready_to_file: 401, file_efiled: 402, file_mailed: 403, file_rejected: 404, file_accepted: 405, file_not_filing: 406, file_hold: 450
+    file_needs_review: 400, file_ready_to_file: 401, file_efiled: 402, file_mailed: 403, file_rejected: 404, file_accepted: 405, file_not_filing: 406, file_hold: 450
   }.freeze
 
   ONBOARDING_STATUSES = [:intake_before_consent, :intake_in_progress, :intake_greeter_info_requested, :intake_needs_doc_help]

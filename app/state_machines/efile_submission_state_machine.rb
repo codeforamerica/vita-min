@@ -40,7 +40,7 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :failed) do |submission|
     submission.client.flag!
-    submission.tax_return.update(status: "efile_needs_review")
+    submission.tax_return.update(status: "file_needs_review")
   end
 
   after_transition(to: :rejected) do |submission|

@@ -32,7 +32,7 @@ describe EfileSubmissionStateMachine do
 
       it "updates the tax return status" do
         submission.transition_to!(:failed)
-        expect(submission.tax_return.status).to eq("efile_needs_review")
+        expect(submission.tax_return.status).to eq("file_needs_review")
       end
     end
 
