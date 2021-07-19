@@ -273,7 +273,7 @@ Rails.application.routes.draw do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       scoped_navigation_routes(:questions, CtcQuestionNavigation, as_redirects: Rails.configuration.hide_ctc)
       get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr # offboarding page
-      get "/questions/remove-spouse", to: "ctc/questions/remove_spouse#edit", as: questions_remove_spouse
+      get "/questions/remove-spouse", to: "ctc/questions/remove_spouse#edit", as: :questions_remove_spouse
     end
 
     namespace :ctc, path: "/" do

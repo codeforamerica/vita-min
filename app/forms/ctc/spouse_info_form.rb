@@ -34,6 +34,25 @@ module Ctc
       ))
     end
 
+    def self.existing_attributes(intake)
+      super.merge(ssn_attributes(intake)).merge(date_of_birth_attributes(intake))
+    end
+
+    def self.ssn_attributes(intake)
+      {
+        spouse_ssn: intake.spouse_ssn,
+        spouse_ssn_confirmation: intake.spouse_ssn
+      }
+    end
+
+    def self.date_of_birth_attributes(intake)
+      {
+        spouse_birth_date_day: intake.spouse_birth_date&.day,
+        spouse_birth_date_month: intake.spouse_birth_date&.month,
+        spouse_birth_date_year: intake.spouse_birth_date&.year
+      }
+    end
+
     private
 
     def spouse_birth_date
