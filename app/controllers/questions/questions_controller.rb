@@ -112,17 +112,15 @@ module Questions
         controller_name.dasherize
       end
 
-      def path_helper_string
-        [
-          controller_name,
-          module_parent.name.underscore,
-          "path"
-        ].join("_") # "controller_name_module_path"
-      end
-
       def to_path_helper
-        # Pass default_url_options (namely, locale) from ApplicationController when computing URL for this controller
-        Rails.application.routes.url_helpers.send(path_helper_string.to_sym, default_url_options)
+        Rails.application.routes.url_helpers.url_for({
+          controller: controller_path,
+          action: :edit,
+          only_path: true,
+          # url_for sometimes uses the current path to determine the right URL in some situations,
+          # expliclitly sending an empty _recall disables that behavior
+          _recall: {}
+        }.merge(default_url_options))
       end
 
       def form_key
