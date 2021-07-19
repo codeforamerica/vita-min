@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AcknowledgementList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
+   <Cnt>1</Cnt>
+   <Acknowledgement submissionVersionNum="2020v5.1" validatingSchemaVersionNum="2020v5.1">
+      <SubmissionId>9999992021197yrv4rvl</SubmissionId>
+      <EFIN>999999</EFIN>
+      <TaxYr>2020</TaxYr>
+      <ExtndGovernmentCd>IRS</ExtndGovernmentCd>
+      <SubmissionTyp>1040</SubmissionTyp>
+      <ExtndSubmissionCategoryCd>IND</ExtndSubmissionCategoryCd>
+      <ElectronicPostmarkTs>2021-07-16T09:42:25.953-07:00</ElectronicPostmarkTs>
+      <AcceptanceStatusTxt>Rejected</AcceptanceStatusTxt>
+      <ContainedAlertsInd>false</ContainedAlertsInd>
+      <StatusDt>2021-07-16</StatusDt>
+      <TIN>404005348</TIN>
+      <TaxPeriodEndDt>2020-12-31</TaxPeriodEndDt>
+      <SubmissionValidationCompInd>false</SubmissionValidationCompInd>
+      <EmbeddedCRC32Num>0x7adce7bb</EmbeddedCRC32Num>
+      <ComputedCRC32Num>0x7adce7bb</ComputedCRC32Num>
+      <ReservedIPAddressCd>R</ReservedIPAddressCd>
+      <ExpectedRefundAmt>0</ExpectedRefundAmt>
+      <ValidationErrorList errorCnt="2">
+         <ValidationErrorGrp errorId="1">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value.</ErrorMessageTxt>
+            <RuleNum>IND-189</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+         <ValidationErrorGrp errorId="2">
+            <DocumentId>NA</DocumentId>
+            <XpathContentTxt>/efile:Return/efile:ReturnHeader</XpathContentTxt>
+            <ErrorCategoryCd>Missing Data</ErrorCategoryCd>
+            <ErrorMessageTxt>'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value.</ErrorMessageTxt>
+            <RuleNum>IND-190</RuleNum>
+            <SeverityCd>Reject and Stop</SeverityCd>
+            <FieldValueTxt/>
+         </ValidationErrorGrp>
+      </ValidationErrorList>
+   </Acknowledgement>
+</AcknowledgementList>

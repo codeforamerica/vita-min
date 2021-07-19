@@ -6,10 +6,16 @@ module Efile
       doc = Nokogiri::XML(response)
       doc.css('AcknowledgementList Acknowledgement').each do |ack|
         irs_submission_id = ack.css("SubmissionId").text.strip
-        errors_found = ack.css("ValidationErrorList").attr('errorCnt') != "0"
-        raise StandardError.new("for now we always expect errors in acknowledgements, so this is weird") unless errors_found
+        status = ack.css("AcceptanceStatusTxt").text.strip
+        raw_response = ack.to_xml
 
-        EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:rejected)
+        if status == "Rejected"
+          EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:rejected, raw_response: raw_response)
+        elsif status == "Accepted"
+          EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:accepted, raw_response: raw_response)
+        else
+          raise StandardError.new("Submission acknowledgement has an unknown status: #{status} for submission ID #{irs_submission_id}")
+        end
       end
     end
   end

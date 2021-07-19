@@ -25,12 +25,27 @@ describe Efile::PollForAcknowledgmentsService do
             .and_return expected_irs_return_value
         end
 
-        let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_error.xml").read }
+        let(:first_ack) do
+          Nokogiri::XML(expected_irs_return_value).css("Acknowledgement").first.to_xml
+        end
 
-        context "and it has errors on the return" do
+        context "and it is a rejection" do
+          let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_rejection.xml").read }
+
           it "changes the state from transmitted to rejected" do
             Efile::PollForAcknowledgmentsService.run
-            expect(efile_submission.reload.current_state).to eq("rejected")
+            expect(efile_submission.current_state).to eq("rejected")
+            expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
+          end
+        end
+
+        context "and it is an acceptance" do
+          let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_acceptance.xml").read }
+
+          it "changes the state from transmitted to accepted" do
+            Efile::PollForAcknowledgmentsService.run
+            expect(efile_submission.current_state).to eq("accepted")
+            expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
           end
         end
       end

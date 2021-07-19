@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AcknowledgementList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
+   <Cnt>1</Cnt>
+   <Acknowledgement submissionVersionNum="2020v5.1" validatingSchemaVersionNum="2020v5.1">
+   <SubmissionId>9999992021197yrv4rvl</SubmissionId>
+   <EFIN>999999</EFIN>
+   <TaxYr>2020</TaxYr>
+   <ExtndGovernmentCd>IRS</ExtndGovernmentCd>
+   <SubmissionTyp>1040</SubmissionTyp>
+   <ExtndSubmissionCategoryCd>IND</ExtndSubmissionCategoryCd>
+   <ElectronicPostmarkTs>2021-07-18T11:12:52.371-05:00</ElectronicPostmarkTs>
+   <AcceptanceStatusTxt>Accepted</AcceptanceStatusTxt>
+   <ContainedAlertsInd>false</ContainedAlertsInd>
+   <StatusDt>2021-07-18</StatusDt>
+   <TIN>404005348</TIN>
+   <IRSReceivedDt>2021-07-18</IRSReceivedDt>
+   <TaxPeriodEndDt>2020-12-31</TaxPeriodEndDt>
+   <SubmissionValidationCompInd>true</SubmissionValidationCompInd>
+   <EmbeddedCRC32Num>0x938ea000</EmbeddedCRC32Num>
+   <ComputedCRC32Num>Ox938ea000</ComputedCRC3S2Num>
+   <ExpectedRefundAmt>0</ExpectedRefundAmt>
+   <BirthDtValidityCd>0</BirthDtValidityCd>
+   <PINPresenceCd>Self-Select On-Line</PINPresenceCd>
+   </Acknowledgement>
+</AcknowledgementList>
