@@ -46,7 +46,6 @@ class TaxReturnStatus
     file_ready_to_file: 401, file_efiled: 402, file_mailed: 403, file_rejected: 404, file_accepted: 405, file_not_filing: 406, file_hold: 450
   }.freeze
 
-
   ONBOARDING_STATUSES = [:intake_before_consent, :intake_in_progress, :intake_greeter_info_requested, :intake_needs_doc_help]
   EXCLUDED_FROM_SLA = [:intake_before_consent, :file_accepted, :file_not_filing, :file_hold, :file_mailed].freeze
   STATUSES_BY_STAGE = determine_statuses_by_stage.freeze
