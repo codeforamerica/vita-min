@@ -154,6 +154,18 @@ The rubocop settings files is in the root directory as `.rubocop.yml`
 RubyMine integrates Rubocop by default. Settings can be found in the Preferences
 menu, under Editor > Inspections > Ruby > Gems and Gem Management > Rubocop.
 
+### Flow Explorer
+
+There's a publicly accessible page (on demo and dev environments) at /flows that lets you skip around quickly between pages in the intake flows.
+
+The flows page tries to show a preview screenshot from each page, captured during specialized capybara runs. To capture updated screenshots:
+
+`rspec --tag flow_explorer_screenshot spec`
+
+They'll be dumped into `public/assets/flow_explorer_screenshots` locally.
+
+You can upload them to the correct S3 bucket with the task `rake flow_explorer:upload_screenshots`
+
 ## Deploying the Application 🚀☁️
 
 Notes on deployment can be found in [docs/deployment](docs/deployment.md).

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Intake Routing Spec" do
+feature "Intake Routing Spec", :flow_explorer_screenshot do
   let!(:expected_source_param_vita_partner) { create :vita_partner, name: "Cobra Academy" }
   let!(:expected_zip_code_vita_partner) { create :vita_partner, name: "Diagon Alley" }
   let!(:expected_state_vita_partner) { create :vita_partner, name: "Hogwarts", capacity_limit: 10 }

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "client is not eligible for VITA services" do
+RSpec.feature "client is not eligible for VITA services", :flow_explorer_screenshot do
   scenario "client checks one of the boxes on the triage_eligibility page" do
     visit "/en/questions/welcome"
 
