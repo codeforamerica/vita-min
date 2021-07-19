@@ -32,6 +32,7 @@ describe TaxReturnStatusHelper do
       ],
       [I18n.t("hub.tax_returns.stage.file"),
        [
+         ["Needs review", "file_needs_review"],
          ["Ready to file", "file_ready_to_file"],
          ['E-filed', "file_efiled"],
          ["Filed by mail", "file_mailed"],
