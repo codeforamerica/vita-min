@@ -116,7 +116,7 @@ describe EfileSubmission do
         it "queues a BuildSubmissionBundleJob" do
           expect do
             submission.transition_to!(:preparing)
-          end.to have_enqueued_job(BuildSubmissionBundleJob).with(submission)
+          end.to have_enqueued_job(BuildSubmissionBundleJob).with(submission.id)
         end
       end
     end

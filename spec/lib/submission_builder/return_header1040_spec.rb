@@ -62,7 +62,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("TaxPeriodEndDt").text).to eq "2020-12-31"
         expect(xml.at("SoftwareId").text).to eq "11111111" # placeholder
         expect(xml.at("EFIN").text).to eq "123456"
-        expect(xml.at("OriginatorTypeCd").text).to eq "OnlineFiler"
+        expect(xml.at("OriginatorTypeCd").text).to eq "ERO" # TBD -- change to online filer once we have ONlineFiler EFIN
         expect(xml.at("PINTypeCd").text).to eq "Self-Select On-Line"
         expect(xml.at("JuratDisclosureCd").text).to eq "Online Self Select PIN"
         expect(xml.at("PrimaryPINEnteredByCd").text).to eq "Taxpayer"
@@ -73,7 +73,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at('ReturnTypeCd').text).to eq "1040"
         expect(xml.at("PrimarySSN").text).to eq submission.intake.primary_ssn
         expect(xml.at("SpouseSSN").text).to eq submission.intake.spouse_ssn
-        expect(xml.at("NameLine1Txt").text).to eq "Hubert Blaine Wolfeschlegelsteinhau" # trimmed to 35 characters
+        expect(xml.at("NameLine1Txt").text).to eq "Hubert<Blaine<Wolfeschlegelsteinhau" # trimmed to 35 characters
         expect(xml.at("PrimaryNameControlTxt").text).to eq "HUBE"
         expect(xml.at("SpouseNameControlTxt").text).to eq "LISA"
         expect(xml.at("AddressLine1Txt").text).to eq "23627 HAWKINS CREEK CT"
@@ -81,7 +81,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("StateAbbreviationCd").text).to eq "TX"
         expect(xml.at("ZIPCd").text).to eq "77494"
         expect(xml.at("PhoneNum").text).to eq "4155551212"
-        expect(xml.at("IPv4AddressTxt").text).to eq "192.168.2.1"
+        expect(xml.at("IPv4AddressTxt").text).to eq "1.1.1.1"
       end
 
       context "filing as a single filer" do
