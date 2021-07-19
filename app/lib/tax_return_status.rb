@@ -5,7 +5,7 @@ class TaxReturnStatus
     def determine_statuses_by_stage
       ## Returns a hash of statuses grouped by stage
       stages = {}
-      statuses = STATUSES.except(:intake_before_consent)
+      statuses = STATUSES.except(:intake_before_consent, :efile_needs_review)
       statuses.map do |status, _|
         stage = status.to_s.split("_")[0]
         stages[stage] = [] unless stages.key?(stage)
