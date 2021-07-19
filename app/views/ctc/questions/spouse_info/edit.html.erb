@@ -27,7 +27,12 @@
     </div>
 
     <button class="button button--primary button--wide" type="submit">
-      <%=t("general.continue") %>
+      <%= image_tag("file-person.svg", alt: "") %>
+      <%=t("views.ctc.questions.spouse_info.save_button") %>
     </button>
+    <%= link_to questions_remove_spouse_path, class: "button button--wide button--danger" do %>
+      <%= image_tag("remove-minus.svg", alt: "") %>
+      <%=t("views.ctc.questions.spouse_info.remove_button") %>
+    <% end %>
   <% end %>
 <% end %>

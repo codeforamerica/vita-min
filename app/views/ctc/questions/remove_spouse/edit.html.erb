@@ -1,0 +1,13 @@
+<% @main_heading = t("views.ctc.questions.spouse_review.title_html") %>
+<% content_for :form_question, @main_heading %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question"><%= @main_heading %></h1>
+
+  <%= link_to questions_spouse_info_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
+    <%=t("views.ctc.questions.spouse_review.remove_button") %>
+  <% end %>
+  <%= link_to next_path, class: "button button--wide text--centered spacing-above-60" do %>
+    <%=t("views.ctc.questions.remove_spouse.nevermind_button") %>
+  <% end %>
+<% end %>

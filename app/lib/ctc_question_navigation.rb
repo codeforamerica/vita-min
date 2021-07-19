@@ -24,6 +24,7 @@ class CtcQuestionNavigation
     # Filing Status
     Ctc::Questions::FilingStatusController,
     Ctc::Questions::SpouseInfoController,
+    Ctc::Questions::SpouseReviewController,
 
     # Dependents
     Ctc::Questions::Dependents::HadDependentsController,
