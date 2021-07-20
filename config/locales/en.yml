@@ -1453,6 +1453,19 @@ en:
           spouse_veteran_reveal: Why are you asking this?
           spouse_veteran_reveal_content: Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
           ssn_required_message: "We need a SSN/ITIN to continue. If your spouse does not have one, file for free with <a href=\"https://www.getyourrefund.org/\">GetYourRefund</a>."
+          save_button: Save this person
+          remove_button: Remove this person
+        spouse_review:
+          title: Let's confirm your spouse's information.
+          help_text: We have added the following person as your spouse on your return.
+          your_spouse: Your spouse
+          spouse_name_html: <i class="icon-person"></i> %{name}</br>
+          spouse_birthday: "Date of birth: %{dob}"
+          spouse_ssn: "SSN: XXX-XX-%{ssn}"
+        remove_spouse:
+          title_html: You're about to remove %{spouse_name}.</br></br>Is that okay?
+          remove_button: Yes, remove them
+          nevermind_button: Nevermind, let's keep them
         filed_2020:
           title: Did you file a 2020 tax return this year?
           help_text_html: |

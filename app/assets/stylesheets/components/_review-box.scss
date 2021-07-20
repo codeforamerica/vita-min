@@ -37,5 +37,11 @@
   &__button {
     display: flex;
     justify-content: center;
+    border: 2px solid black;
+    line-height: 2px;
   }
+}
+
+.person-info {
+  margin-left: 2.5rem;
 }
