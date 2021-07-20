@@ -93,6 +93,8 @@
 #  had_tips                                             :integer          default(0), not null
 #  had_unemployment_income                              :integer          default(0), not null
 #  had_wages                                            :integer          default(0), not null
+#  has_primary_ip_pin                                   :integer          default(0), not null
+#  has_spouse_ip_pin                                    :integer          default(0), not null
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default(0), not null

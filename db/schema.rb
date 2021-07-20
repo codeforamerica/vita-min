@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_19_174730) do
+ActiveRecord::Schema.define(version: 2021_07_20_203918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_174730) do
     t.string "encrypted_ssn"
     t.string "encrypted_ssn_iv"
     t.string "first_name"
+    t.integer "has_ip_pin", default: 0, null: false
     t.bigint "intake_id", null: false
     t.string "last_name"
     t.string "middle_initial"
@@ -498,6 +499,8 @@ ActiveRecord::Schema.define(version: 2021_07_19_174730) do
     t.integer "had_tips", default: 0, null: false
     t.integer "had_unemployment_income", default: 0, null: false
     t.integer "had_wages", default: 0, null: false
+    t.integer "has_primary_ip_pin", default: 0, null: false
+    t.integer "has_spouse_ip_pin", default: 0, null: false
     t.integer "income_over_limit", default: 0, null: false
     t.string "interview_timing_preference"
     t.integer "issued_identity_pin", default: 0, null: false

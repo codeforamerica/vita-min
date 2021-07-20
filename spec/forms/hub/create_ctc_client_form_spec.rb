@@ -573,7 +573,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         it "can be blank but must be a 6 digit number" do
           obj = described_class.new(params)
           expect(obj.valid?).to eq false
-          expect(obj.errors[:primary_ip_pin]).to include "Must be a 6 digit number."
+          expect(obj.errors[:primary_ip_pin]).to include I18n.t('validators.ip_pin')
           expect(obj.errors[:spouse_ip_pin]).to eq []
         end
 

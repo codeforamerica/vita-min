@@ -10,6 +10,7 @@
 #  encrypted_ssn           :string
 #  encrypted_ssn_iv        :string
 #  first_name              :string
+#  has_ip_pin              :integer          default("unfilled"), not null
 #  last_name               :string
 #  middle_initial          :string
 #  months_in_home          :integer
