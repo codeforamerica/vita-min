@@ -1158,18 +1158,22 @@ es:
       acceptance:
         email:
           body: |
-            Hello <<Client.PreferredName>>,
+            Hola <<Client.PreferredName>>,
 
-            Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS which means that they can begin processing your payments.
+            ¡Gracias por presentar sus impuestos con GetCTC!
 
-            You can check the status of your payments with the IRS at https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
-          subject: Thank you for filing your taxes with GetCTC!
+            El IRS ha aceptado sus impuestos, lo que significa que pueden comenzar a procesar sus pagos.
+
+            Puede verificar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+          subject: ¡Gracias por presentar sus impuestos con GetCTC!
         sms: |
-          Hello <<Client.PreferredName>>,
+          Hola <<Client.PreferredName>>,
 
-          Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS which means that they can begin processing your payments.
+          ¡Gracias por presentar sus impuestos con GetCTC!
 
-          You can check the status of your payments with the IRS at https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+          El IRS ha aceptado sus impuestos, lo que significa que pueden comenzar a procesar sus pagos.
+
+          Puede verificar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
   models:
     intake:
       your_spouse: Su cónyuge
