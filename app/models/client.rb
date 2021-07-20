@@ -58,6 +58,7 @@ class Client < ApplicationRecord
   has_many :access_logs
   has_many :outbound_calls, dependent: :destroy
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
+  has_many :efile_submissions, through: :tax_returns
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
   attr_accessor :change_initiated_by

@@ -7,9 +7,7 @@ module Ctc
 
       private
 
-      def illustration_path
-        nil
-      end
+      def illustration_path; end
     end
   end
 end

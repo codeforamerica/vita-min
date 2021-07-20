@@ -1,4 +1,30 @@
 <% content_for :title, "GetCTC Client Portal" %>
 <% content_for :card do %>
-  <h1>Coming soon!!</h1>
+  <div class="question-layout">
+    <div class="question-wrapper">
+      <h1 class="h2"><%= t("views.ctc.portal.home.title") %></h1>
+      <div class="review-box">
+        <div class="review-box__title">
+          <h2>Current tax return status:</h2>
+        </div>
+        <div class="review-box__body">
+          <div class="review-box__status-wrapper spacing-below-25">
+            <%= image_tag submission_status_icon(@status) %>
+            <%= t("views.ctc.portal.home.status.#{@status}.label") %>
+          </div>
+          <div class="text--small">
+            <%= t("views.ctc.portal.home.status.#{@status}.message") %>
+          </div>
+          <div class="review-box__button">
+            <% if @current_step %>
+              <%= link_to "Complete CTC form", @current_step, class: "button" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="spacing-above-35">
+        <%= link_to "Return to homepage", root_path, class: "button button--primary button--full-width" %>
+      </div>
+    </div>
+  </div>
 <% end %>

@@ -25,4 +25,17 @@
       line-height: 3rem;
     }
   }
+
+  &__status-wrapper {
+    display: flex;
+    align-items: center;
+    img {
+      margin: 0 10px 0 25px;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
 }

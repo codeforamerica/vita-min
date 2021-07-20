@@ -69,4 +69,19 @@ module ApplicationHelper
     options << [I18n.t("general.tin.none"), :none] if include_none
     options
   end
+
+  def submission_status_icon(status)
+    case status
+    when "new", "preparing", "intake_in_progress"
+      "icons/in-progress.svg"
+    when "failed", "bundle_failure"
+      "icons/exclamation.svg"
+    when "rejected"
+      "icons/rejected.svg"
+    when "accepted"
+      "icons/accepted.svg"
+    when "transmitted"
+      "icons/sending.svg"
+    end
+  end
 end

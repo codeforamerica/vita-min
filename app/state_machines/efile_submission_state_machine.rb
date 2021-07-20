@@ -21,8 +21,8 @@ class EfileSubmissionStateMachine
   transition from: :queued,       to: [:transmitted, :failed, :rejected]
   transition from: :transmitted,  to: [:accepted, :rejected]
 
-  guard_transition(to: :queued) do |submission|
-    submission.submission_bundle.present?
+  guard_transition(to: :queued) do |submission, transition|
+    transition.metadata[:seeding].present? || submission.submission_bundle.present?
   end
 
   after_transition(to: :preparing) do |submission|

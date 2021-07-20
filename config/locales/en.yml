@@ -1298,6 +1298,31 @@ en:
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} must be associated with a tax year."
   views:
     ctc:
+      portal:
+        home:
+          title: Thank you for filing with GetCTC!
+          status:
+            intake_in_progress:
+              label: More information needed
+              message: We need more information from you before we can file your return.
+            new:
+              label: Submission in progress
+              message: We are preparing your return. We'll continue to update you on the status of your submission.
+            preparing:
+              label: Submission in progress
+              message: We are preparing your return. We'll continue to update you on the status of your submission.
+            failed:
+              label: Submission error
+              message: We encountered some errors transmitting your return to the IRS. Information about next steps were sent to your contact info.
+            transmitted:
+              label: Electronically filed
+              message: Your return has been submitted to the IRS. You will know in 48 hours if your return has been accepted.
+            accepted:
+              label: Accepted
+              message: Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks.
+            rejected:
+              label: Rejected
+              message: Your return has not been accepted by the IRS. We will need to correct your info and resubmit. Information about next steps were sent to your contact info.
       questions:
         dependents:
           tin:
