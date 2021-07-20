@@ -1,16 +1,16 @@
 namespace :efile do
   desc "Create sample e-file submission data"
   task :seed_submissions, [:count] => :environment do |_task, args|
-    FactoryBot.create_list :efile_submission, 100, :ctc
+    submissions = FactoryBot.create_list :efile_submission, 100, :ctc
 
-    preparing_group = EfileSubmission.take(95)
+    preparing_group = submissions.take(95)
     preparing_group.each do |submission|
       submission.transition_to!(:preparing)
     end
 
     queued_group = preparing_group.take(75)
     queued_group.each do |submission|
-      submission.transition_to!(:queued)
+      submission.transition_to!(:queued, seeding: true)
     end
 
     failed = queued_group.last(10)

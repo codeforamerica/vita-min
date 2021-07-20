@@ -1,0 +1,24 @@
+<% content_for :title, "GetCTC Client Portal" %>
+<% content_for :card do %>
+  <div class="question-layout">
+    <div class="question-wrapper">
+      <h1 class="h2">Continue where you left off...</h1>
+      <div class="review-box">
+        <div class="review-box__title">
+          <h2>Current tax return status:</h2>
+        </div>
+        <div class="review-box__body">
+          <div class="review-box__status-wrapper spacing-below-25">
+            <%= image_tag "icons/exclamation.svg" %>
+            <%= "More information needed" %>
+          </div>
+          <div class="text--small">
+            <%= "We'll submit your tax return once you complete the form." %>
+          </div>
+        </div>
+      <p>
+        <%= link_to(t("portal.portal.home.action_state.answer_questions"), @current_step, class: "link") %>
+      </p>
+    </div>
+  </div>
+<% end %>

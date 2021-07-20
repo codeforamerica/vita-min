@@ -3,7 +3,13 @@ class Ctc::Portal::PortalController < ApplicationController
   layout "portal"
 
   def home
-
+    if current_client.efile_submissions.any?
+      @status = current_client.efile_submissions.last.current_state
+      @current_step = nil
+    else
+      @status = "intake_in_progress"
+      @current_step = current_client.intake.current_step
+    end
   end
 
   private
