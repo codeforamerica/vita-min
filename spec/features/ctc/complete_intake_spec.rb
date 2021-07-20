@@ -101,7 +101,8 @@ RSpec.feature "CTC Intake", :js, active_job: true do
     select "Social Security Number (SSN)"
     fill_in "Spouse's SSN or ITIN", with: "222-33-4444"
     fill_in "Confirm spouse's SSN or ITIN", with: "222-33-4444"
-    click_on "Continue"
+    click_on "Save this person"
+    expect(page).not_to have_text("Remove this person")
 
     expect(page).to have_text("Let's confirm your spouse's information.")
     expect(page).to have_text("Peter Pepper")
