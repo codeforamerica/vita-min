@@ -265,6 +265,7 @@ RSpec.describe Hub::CreateCtcClientForm do
               birth_date_year: "2013",
               relationship: "child",
               ip_pin: "345678",
+              tin_type: "ssn",
               ssn: '111-22-3333',
               ssn_confirmation: '111-22-3333',
             }
@@ -617,50 +618,6 @@ RSpec.describe Hub::CreateCtcClientForm do
               expect(new_dependent.errors[:ip_pin]).to include "IP PINs must be a 6 digit number."
             end
           end
-
-          context "identification numbers" do
-            context "when tin type is ssn" do
-              context "when ssn format is wrong" do
-                before do
-                  dependents_attributes[:dependents_attributes]["0"][:ssn] = "666-99-9999"
-                  dependents_attributes[:dependents_attributes]["0"][:ssn_confirmation] = "666-99-9999"
-                end
-
-                it "it is not valid" do
-                  expect(described_class.new(params.merge(dependents_attributes))).to_not be_valid
-                end
-              end
-            end
-
-            context "when tin type is itin" do
-              context "when the itin format is wrong" do
-                before do
-                  dependents_attributes[:dependents_attributes]["0"][:tin_type] = "itin"
-                  dependents_attributes[:dependents_attributes]["0"][:ssn] = "900-93-9999"
-                  dependents_attributes[:dependents_attributes]["0"][:ssn_confirmation] = "900-93-9999"
-                end
-
-                it "it is not valid" do
-                  expect(described_class.new(params.merge(dependents_attributes))).to_not be_valid
-                end
-              end
-
-              context "when the itin format is correct" do
-                before do
-                  dependents_attributes[:dependents_attributes]["0"][:tin_type] = "itin"
-                  dependents_attributes[:dependents_attributes]["0"][:ssn] = "900-78-9999"
-                  dependents_attributes[:dependents_attributes]["0"][:ssn_confirmation] = "900-78-9999"
-                  dependents_attributes[:dependents_attributes]["0"][:ip_pin] = "111111"
-                end
-
-                it "is valid" do
-                  # TODO: IP Pin failure
-                  # TODO: Add IP Pin correct in above tests
-                  expect(described_class.new(params.merge(dependents_attributes))).to be_valid
-                end
-              end
-            end
-          end
         end
       end
 
@@ -700,6 +657,67 @@ RSpec.describe Hub::CreateCtcClientForm do
 
             it "is valid" do
               expect(described_class.new(params)).to be_valid
+            end
+          end
+        end
+
+        context "for dependents" do
+          let(:dependents_attributes) do
+            {
+              dependents_attributes: {
+                "0" => {
+                  id: nil,
+                  first_name: "Maria",
+                  last_name: "Mango",
+                  birth_date_month: "May",
+                  birth_date_day: "9",
+                  birth_date_year: "2013",
+                  relationship: "child",
+                  ip_pin: "345678",
+                  tin_type: "ssn",
+                  ssn: '111-22-3333',
+                  ssn_confirmation: '111-22-3333',
+                }
+              }
+            }
+          end
+
+          context "when tin type is ssn" do
+            context "when ssn format is wrong" do
+              before do
+                dependents_attributes[:dependents_attributes]["0"][:ssn] = "666-99-9999"
+                dependents_attributes[:dependents_attributes]["0"][:ssn_confirmation] = "666-99-9999"
+              end
+
+              it "it is not valid" do
+                expect(described_class.new(params.merge(dependents_attributes))).to_not be_valid
+              end
+            end
+          end
+
+          context "when tin type is itin" do
+            context "when the itin format is wrong" do
+              before do
+                dependents_attributes[:dependents_attributes]["0"][:tin_type] = "itin"
+                dependents_attributes[:dependents_attributes]["0"][:ssn] = "900-93-9999"
+                dependents_attributes[:dependents_attributes]["0"][:ssn_confirmation] = "900-93-9999"
+              end
+
+              it "it is not valid" do
+                expect(described_class.new(params.merge(dependents_attributes))).to_not be_valid
+              end
+            end
+
+            context "when the itin format is correct" do
+              before do
+                dependents_attributes[:dependents_attributes]["0"][:tin_type] = "itin"
+                dependents_attributes[:dependents_attributes]["0"][:ssn] = "900-78-9999"
+                dependents_attributes[:dependents_attributes]["0"][:ssn_confirmation] = "900-78-9999"
+              end
+
+              it "is valid" do
+                expect(described_class.new(params.merge(dependents_attributes))).to be_valid
+              end
             end
           end
         end

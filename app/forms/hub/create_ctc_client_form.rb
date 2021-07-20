@@ -101,11 +101,9 @@ module Hub
     validates :primary_ssn, social_security_number: true, if: -> { tin_type == "ssn"}
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { tin_type == "itin"}
 
-    with_options if: -> { filing_status == "married_filing_jointly" } do
-      validates_confirmation_of :spouse_ssn
-      validates :spouse_ssn, social_security_number: true, if: -> { spouse_tin_type == "ssn"}
-      validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin"}
-    end
+    validates_confirmation_of :spouse_ssn, if: -> { filing_status == "married_filing_jointly" }
+    validates :spouse_ssn, social_security_number: true, if: -> { spouse_tin_type == "ssn" && filing_status == "married_filing_jointly"}
+    validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_status == "married_filing_jointly"}
 
     validates :primary_ip_pin, format: { with: /\d{6}/, message: "Must be a 6 digit number."}, if: :primary_ip_pin
     validates :spouse_ip_pin, format: { with: /\d{6}/, message: "Must be a 6 digit number."}, if: :spouse_ip_pin
