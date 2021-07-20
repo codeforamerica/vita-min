@@ -1312,7 +1312,7 @@ en:
               message: We are preparing your return. We'll continue to update you on the status of your submission.
             failed:
               label: Submission error
-              message: We encountered some errors trasmitting your return to the IRS. Information about next steps were sent to your contact info.
+              message: We encountered some errors transmitting your return to the IRS. Information about next steps were sent to your contact info.
             transmitted:
               label: Electronically filed
               message: Your return has been submitted to the IRS. You will know in 48 hours if your return has been accepted.

@@ -11,7 +11,7 @@ describe Ctc::Portal::PortalController do
       before do
         sign_in client, scope: :client
       end
-      
+
       it "renders home layout" do
         get :home
 

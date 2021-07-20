@@ -137,7 +137,7 @@ RSpec.feature "CTC Intake", active_job: true do
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Submission error"
-      expect(page).to have_text "We encountered some errors trasmitting your return to the IRS. Information about next steps were sent to your contact info."
+      expect(page).to have_text "We encountered some errors transmitting your return to the IRS. Information about next steps were sent to your contact info."
     end
   end
 
