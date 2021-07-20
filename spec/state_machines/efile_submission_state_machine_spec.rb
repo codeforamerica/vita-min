@@ -48,6 +48,19 @@ describe EfileSubmissionStateMachine do
     context "to accepted" do
       let(:submission) { create(:efile_submission, :transmitted) }
 
+      before do
+        allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
+      end
+
+      it "sends a message to the client" do
+        submission.transition_to!(:accepted)
+        expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+          client: submission.client.reload,
+          message: instance_of(AutomatedMessage::EfileAcceptance),
+          locale: submission.client.intake.locale
+        )
+      end
+
       it "updates the tax return status" do
         submission.transition_to!(:accepted)
         expect(submission.tax_return.status).to eq("file_accepted")

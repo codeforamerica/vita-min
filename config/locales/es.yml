@@ -1154,6 +1154,26 @@ es:
         subject: Esta conversación ha sido enviada a los especialistas del servicio al cliente de GetYourRefund
       sms:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
+    efile:
+      acceptance:
+        email:
+          body: |
+            Hola <<Client.PreferredName>>,
+
+            ¡Gracias por presentar sus impuestos con GetCTC!
+
+            El IRS ha aceptado sus impuestos, lo que significa que pueden comenzar a procesar sus pagos.
+
+            Puede verificar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+          subject: ¡Gracias por presentar sus impuestos con GetCTC!
+        sms: |
+          Hola <<Client.PreferredName>>,
+
+          ¡Gracias por presentar sus impuestos con GetCTC!
+
+          El IRS ha aceptado sus impuestos, lo que significa que pueden comenzar a procesar sus pagos.
+
+          Puede verificar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
   models:
     intake:
       your_spouse: Su cónyuge

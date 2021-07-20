@@ -51,8 +51,13 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :accepted) do |submission|
-    # Send a message to client
     # Add a note to client page
+    client = submission.client
+    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+      client: client,
+      message: AutomatedMessage::EfileAcceptance.new,
+      locale: client.intake.locale
+    )
     submission.tax_return.update(status: "file_accepted")
   end
 end
