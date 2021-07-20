@@ -17,7 +17,7 @@
             help_text: t("hub.clients.show.date_of_birth_help"),
             classes: ["ctc-intake-date-text-input"]
           ) %>
-      <%= f.cfa_select(:spouse_tin_type, t("views.ctc.questions.spouse_info.spouse_identity"), tin_options_for_select, help_text: t("views.ctc.questions.spouse_info.spouse_identity_help_text")) %>
+      <%= f.cfa_select(:spouse_tin_type, t("views.ctc.questions.spouse_info.spouse_identity"), tin_options_for_select_include_none, help_text: t("views.ctc.questions.spouse_info.spouse_identity_help_text")) %>
       <%= f.cfa_input_field(:spouse_ssn, t("views.ctc.questions.spouse_info.spouse_ssn_itin"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:spouse_ssn_confirmation, t("views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation"), classes: ["form-width--long"]) %>
       <%= f.cfa_checkbox(:spouse_veteran, t("views.ctc.questions.spouse_info.spouse_veteran"), options: { checked_value: "yes", unchecked_value: "no" }) %>
