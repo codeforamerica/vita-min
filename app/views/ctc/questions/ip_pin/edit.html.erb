@@ -1,0 +1,27 @@
+<% @main_question = t("views.ctc.questions.ip_pin.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.ip_pin.reveal_label")) do %>
+    <%= t("views.ctc.questions.ip_pin_explanation_html") %>
+  <% end %>
+
+  <p class="spacing-below-15"><%= t("views.ctc.questions.ip_pin.help_text") %></p>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="form-card__stacked-checkboxes spacing-above-0 spacing-below-15">
+      <%= f.cfa_checkbox(:has_primary_ip_pin, current_intake.primary_full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <% if current_intake.client.tax_returns.last.filing_status_married_filing_jointly? %>
+        <%= f.cfa_checkbox(:has_spouse_ip_pin, current_intake.spouse_full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <% end %>
+      <%= f.fields_for :dependents do |ff| %>
+        <%= ff.cfa_checkbox(:has_ip_pin, ff.object.full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <% end %>
+      <%= f.cfa_checkbox(:no_ip_pins, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
+    </div>
+    <%= f.submit t("general.continue"), class: "button button--primary button--wide text--centered spacing-above-60" %>
+  <% end %>
+<% end %>

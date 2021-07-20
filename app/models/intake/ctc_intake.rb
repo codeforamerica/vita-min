@@ -93,6 +93,8 @@
 #  had_tips                                             :integer          default(0), not null
 #  had_unemployment_income                              :integer          default(0), not null
 #  had_wages                                            :integer          default(0), not null
+#  has_primary_ip_pin                                   :integer          default("unfilled"), not null
+#  has_spouse_ip_pin                                    :integer          default("unfilled"), not null
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default(0), not null
@@ -249,6 +251,8 @@ class Intake::CtcIntake < Intake
   enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
   enum cannot_claim_me_as_a_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cannot_claim_me_as_a_dependent
   enum primary_member_of_the_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_member_of_the_armed_forces
+  enum has_primary_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_primary_ip_pin
+  enum has_spouse_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_spouse_ip_pin
 
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account

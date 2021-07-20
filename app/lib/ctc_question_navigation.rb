@@ -50,6 +50,10 @@ class CtcQuestionNavigation
     Ctc::Questions::ConfirmBankAccountController,
     Ctc::Questions::MailingAddressController,
     Ctc::Questions::ConfirmMailingAddressController,
+
+    # Review
     Ctc::Questions::IpPinController,
+    Ctc::Questions::IpPinEntryController,
+    Ctc::Questions::PlaceholderQuestionController
   ].freeze
 end

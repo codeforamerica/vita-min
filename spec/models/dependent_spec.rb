@@ -10,6 +10,7 @@
 #  encrypted_ssn           :string
 #  encrypted_ssn_iv        :string
 #  first_name              :string
+#  has_ip_pin              :integer          default("unfilled"), not null
 #  last_name               :string
 #  middle_initial          :string
 #  months_in_home          :integer
@@ -31,8 +32,25 @@
 require "rails_helper"
 
 describe Dependent do
-  describe "validations" do
+  it "strips leading or trailing spaces from any free-text attributes" do
+    dependent = Dependent.new(
+      first_name: "  doug",
+      last_name: "  douglasson",
+      middle_initial: "   XYZ ",
+      ssn: "000000000 ",
+      ip_pin: "000111 "
+    )
+    dependent.valid?
+    expect(dependent.attributes).to match(a_hash_including({
+      "first_name" => "doug",
+      "last_name" => "douglasson",
+      "middle_initial" => "XYZ",
+    }))
+    expect(dependent.ip_pin).to eq("000111")
+    expect(dependent.ssn).to eq("000000000")
+  end
 
+  describe "validations" do
     it "requires essential fields" do
       dependent = Dependent.new
 

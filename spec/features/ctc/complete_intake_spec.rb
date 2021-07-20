@@ -221,5 +221,23 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     expect(page).to have_selector("div", text: "26 William Street")
     expect(page).to have_selector("div", text: "Apt 1234")
     expect(page).to have_selector("div", text: "Bel Air, CA 90001")
+    click_on "Continue"
+
+    # =========== REVIEW ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
+    check "Gary Mango"
+    check "Jessie Pepper"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin_entry.title'))
+    fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Gary Mango"), with: "123456"
+    fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie Pepper"), with: "123458"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: 'Placeholder -- Coming soon')
+
+    intake.reload
+    expect(intake.primary_ip_pin).to eq "123456"
+    expect(intake.dependents.last.ip_pin).to eq "123458"
   end
 end

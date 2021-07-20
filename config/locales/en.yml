@@ -1581,6 +1581,15 @@ en:
           primary_member_of_the_armed_forces: "I was a member of the United States Armed Forces for any time in 2020"
           reveal_label: "Why are you asking this?"
           reveal_content: "Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit"
+        ip_pin_explanation_html: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers. <a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">You can retrieve your IP PIN through this IRS page.</a>
+        ip_pin:
+          title: Has anyone on your return been issued an IP PIN because of identity theft?
+          reveal_label: What is an IP PIN?
+          help_text: Having an IP PIN is rare. If you are unfamiliar with what this is, it’s likely that you have not been issued an IP PIN. Select ‘None of the above’ to continue.
+          error: Please pick a person or ‘None of the above’.
+        ip_pin_entry:
+          title: Please enter the IP PIN below.
+          label: "%{name}'s IP PIN"
     consent_pages:
       consent_to_use:
         title: Consent to Use

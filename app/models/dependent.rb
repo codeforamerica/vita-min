@@ -10,6 +10,7 @@
 #  encrypted_ssn           :string
 #  encrypted_ssn_iv        :string
 #  first_name              :string
+#  has_ip_pin              :integer          default("unfilled"), not null
 #  last_name               :string
 #  middle_initial          :string
 #  months_in_home          :integer
@@ -34,12 +35,15 @@ class Dependent < ApplicationRecord
   attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
+  auto_strip_attributes :ssn, :ip_pin, :first_name, :middle_initial, :last_name, virtual: true
+
   enum was_student: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_student
   enum on_visa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :on_visa
   enum north_american_resident: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :north_american_resident
   enum disabled: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :disabled
   enum was_married: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_married
   enum tin_type: { ssn: 0, atin: 1, itin: 2, none: 3 }, _prefix: :tin_type
+  enum has_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_ip_pin
 
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -55,12 +59,11 @@ class Dependent < ApplicationRecord
   validates :ssn, social_security_number: true, if: -> { ssn.present? && tin_type == "ssn" }
   validates :ssn, individual_taxpayer_identification_number: true, if: -> { ssn.present? && tin_type == "itin" }
 
-  validate :ip_pins_format
-  def ip_pins_format
-    if ip_pin.present? && !/\d{6}/.match?(ip_pin.to_s)
-      errors.add(:ip_pin, I18n.t("validators.ip_pin"))
-    end
+  with_options on: :ip_pin_entry_form do
+    validates :ip_pin, presence: true, if: -> { has_ip_pin_yes? }
   end
+
+  validates :ip_pin, ip_pin: true
 
   def full_name
     "#{first_name} #{last_name}"
