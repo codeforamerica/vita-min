@@ -25,6 +25,20 @@ describe Ctc::SpouseInfoForm do
     end
   end
 
+  describe "#existing_attributes" do
+    let(:populated_intake) { build :ctc_intake, spouse_birth_date: Date.new(1983, 5, 10), spouse_ssn: "123456789" }
+
+    it "returns a hash with the date fields populated" do
+      attributes = Ctc::SpouseInfoForm.existing_attributes(populated_intake)
+
+      expect(attributes[:spouse_birth_date_year]).to eq 1983
+      expect(attributes[:spouse_birth_date_month]).to eq 5
+      expect(attributes[:spouse_birth_date_day]).to eq 10
+      expect(attributes[:spouse_ssn]).to eq "123456789"
+      expect(attributes[:spouse_ssn_confirmation]).to eq "123456789"
+    end
+  end
+
   describe "#save" do
     it "saves the attributes on the intake and creates a client and 2020 tax return" do
       form = described_class.new(intake, params)
