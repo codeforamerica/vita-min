@@ -146,7 +146,7 @@ RSpec.describe Hub::UpdateClientForm do
         form = described_class.new(client, form_attributes)
         form.save
         expect(form.valid?).to be false
-        expect(form.dependents.map { |d| d.errors.keys }).to match_array([[], [:last_name, :birth_date]])
+        expect(form.dependents.map { |d| d.errors.attribute_names }).to match_array([[], [:last_name, :birth_date]])
       end
     end
 
@@ -180,7 +180,7 @@ RSpec.describe Hub::UpdateClientForm do
         form = described_class.new(client, form_attributes)
         form.save
         expect(form).not_to be_valid
-        expect(form.dependents.map { |d| d.errors.keys }).to match_array([[], [:last_name]])
+        expect(form.dependents.map { |d| d.errors.attribute_names }).to match_array([[], [:last_name]])
       end
     end
   end
