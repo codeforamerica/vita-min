@@ -252,6 +252,11 @@ class Client < ApplicationRecord
     (tax_returns.pluck(:status).map(&:to_sym) & TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES).any?
   end
 
+  # TODO: Replace with accurate implementation
+  def first_sign_in_ip
+    current_sign_in_ip
+  end
+
   private
 
   def tax_return_assigned_user_access_maintained

@@ -46,17 +46,27 @@ class EfileSubmission < ApplicationRecord
     false
   end
 
+  def resubmission?
+    previously_transmitted_submission.present?
+  end
+
+  # there is an associated "previous submission" that needs to be reported to the IRS,
+  # but only if that submission has been successfully transmitted to the IRS.
+  def previously_transmitted_submission
+    tax_return.efile_submissions.joins(:efile_submission_transitions).where({ efile_submission_transitions: { to_state: "transmitted" } }).last
+  end
+
   def generate_irs_address
-      address_service = StandardizeAddressService.new(intake)
-      if address_service.valid?
-        attrs = {
-          zip_code: address_service.zip_code,
-          street_address: address_service.street_address,
-          state: address_service.state,
-          city: address_service.city
-        }
-      end
-      address.present? ? address.update(attrs) : create_address(attrs)
+    address_service = StandardizeAddressService.new(intake)
+    if address_service.valid?
+      attrs = {
+        zip_code: address_service.zip_code,
+        street_address: address_service.street_address,
+        state: address_service.state,
+        city: address_service.city
+      }
+    end
+    address.present? ? address.update(attrs) : create_address(attrs)
     address_service
   end
 

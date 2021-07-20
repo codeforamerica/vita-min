@@ -177,4 +177,24 @@ describe EfileSubmission do
       end
     end
   end
+
+  describe "#previously_transmitted_submission" do
+    context "when there is a previous submission for the tax return that was transmitted to the IRS" do
+      let(:submission) { create :efile_submission, :preparing }
+      let(:previous_submission) { create(:efile_submission, :transmitted) }
+      let!(:tax_return) { create :tax_return, efile_submissions: [previous_submission, create(:efile_submission, :failed), submission]}
+
+      it "returns the transmitted submission object" do
+        expect(submission.previously_transmitted_submission).to eq previous_submission
+      end
+    end
+
+    context "when there is a previous submission for the tax return, but it was never transmitted" do
+      let(:submission) { create :efile_submission, :preparing }
+      let!(:tax_return) { create :tax_return, efile_submissions: [create(:efile_submission, :failed), submission]}
+      it "returns nil" do
+        expect(submission.previously_transmitted_submission).to eq nil
+      end
+    end
+  end
 end

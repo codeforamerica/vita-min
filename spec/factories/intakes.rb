@@ -452,6 +452,8 @@ FactoryBot.define do
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
     primary_birth_date { Date.new(1988, 12, 20) }
     spouse_birth_date { Date.new(1976, 12, 20) }
+    sms_phone_number { "+15125551234" }
+    email_address { "mango@example.com" }
     client
     needs_to_flush_searchable_data_set_at { 1.minute.ago }
   end
