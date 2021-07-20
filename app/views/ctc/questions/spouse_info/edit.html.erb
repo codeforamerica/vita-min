@@ -30,9 +30,11 @@
       <%= image_tag("file-person.svg", alt: "") %>
       <%=t("views.ctc.questions.spouse_info.save_button") %>
     </button>
-    <%= link_to questions_remove_spouse_path, class: "button button--wide button--danger text--centered" do %>
-      <%= image_tag("remove-minus.svg", alt: "") %>
-      <%=t("views.ctc.questions.spouse_info.remove_button") %>
+    <% if current_intake.spouse_first_name.present? %>
+      <%= link_to questions_remove_spouse_path, class: "button button--wide button--danger text--centered" do %>
+        <%= image_tag("remove-minus.svg", alt: "") %>
+        <%= t("views.ctc.questions.spouse_info.remove_button") %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

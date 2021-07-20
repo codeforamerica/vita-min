@@ -4,10 +4,12 @@
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
-  <%= link_to questions_spouse_info_path, class: "button button--primary button--wide text--centered spacing-above-60 spacing-below-15" do %>
-    <%=t("views.ctc.questions.remove_spouse.remove_button") %>
-  <% end %>
-  <%= link_to next_path, class: "button button--wide text--centered" do %>
-    <%=t("views.ctc.questions.remove_spouse.nevermind_button") %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <button class="button button--primary button--wide text--centered spacing-above-60 spacing-below-15" type="submit">
+      <%= t("views.ctc.questions.remove_spouse.remove_button") %>
+    </button>
+    <%= link_to questions_spouse_review_path, class: "button button--wide text--centered" do %>
+      <%= t("views.ctc.questions.remove_spouse.nevermind_button") %>
+    <% end %>
   <% end %>
 <% end %>
