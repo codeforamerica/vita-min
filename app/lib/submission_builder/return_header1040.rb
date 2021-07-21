@@ -63,7 +63,9 @@ module SubmissionBuilder
               xml.StateAbbreviationCd address.state
               xml.ZIPCd address.zip_code
             }
-            xml.PhoneNum phone_type(intake.sms_phone_number || intake.phone_number)
+            if intake.sms_phone_number || intake.phone_number
+              xml.PhoneNum phone_type(intake.sms_phone_number || intake.phone_number)
+            end
           }
           xml.OnlineFilerInformation {
             if intake.refund_payment_method_direct_deposit?
