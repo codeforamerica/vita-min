@@ -5,6 +5,7 @@ describe SubmissionBundle do
 
   before do
     allow(EnvironmentCredentials).to receive(:dig).with(:irs, :efin).and_return "123456"
+    allow(EnvironmentCredentials).to receive(:dig).with(:irs, :sin).and_return "11111111"
   end
 
   describe "#build" do

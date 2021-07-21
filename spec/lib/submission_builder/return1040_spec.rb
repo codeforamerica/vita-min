@@ -5,6 +5,8 @@ describe SubmissionBuilder::Return1040 do
 
   before do
     allow(EnvironmentCredentials).to receive(:dig).with(:irs, :efin).and_return "123456"
+    allow(EnvironmentCredentials).to receive(:dig).with(:irs, :sin).and_return "11111111"
+
     submission.intake.update(
       primary_first_name: "Hubert Blaine ",
       primary_last_name: "Wolfeschlegelsteinhausenbergerdorff ",
