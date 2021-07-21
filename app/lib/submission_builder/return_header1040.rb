@@ -1,3 +1,6 @@
+# References:
+# Attachment to MeF IMF Schemas for Tax Year 2020
+# https://drive.google.com/file/d/1WlDJ8jtVxTlTPbxNuaFfUhAaG8nDcJE-/view?usp=sharing
 module SubmissionBuilder
   class ReturnHeader1040 < SubmissionBuilder::Base
     include SubmissionBuilder::FormattingMethods
@@ -28,7 +31,7 @@ module SubmissionBuilder
           xml.SoftwareId "11111111"
           xml.OriginatorGrp {
             xml.EFIN EnvironmentCredentials.dig(:irs, :efin)
-            xml.OriginatorTypeCd "ERO"
+            xml.OriginatorTypeCd "OnlineFiler"
           }
           xml.SelfSelectPINGrp {
             xml.PrimaryBirthDt date_type(intake.primary_birth_date)
@@ -54,14 +57,13 @@ module SubmissionBuilder
             xml.NameLine1Txt person_name_type(client.legal_name)
             xml.PrimaryNameControlTxt person_name_control_type(client.legal_name)
             xml.SpouseNameControlTxt person_name_control_type(client.spouse_legal_name) if tax_return.filing_jointly?
-            # TODO: Replace with IRS formatted address for client when ready
             xml.USAddress {
               xml.AddressLine1Txt address.street_address
               xml.CityNm address.city
               xml.StateAbbreviationCd address.state
               xml.ZIPCd address.zip_code
             }
-            xml.PhoneNum phone_type(intake.phone_number)
+            xml.PhoneNum phone_type(intake.sms_phone_number || intake.phone_number)
           }
           xml.OnlineFilerInformation {
             if intake.refund_payment_method_direct_deposit?
@@ -76,21 +78,33 @@ module SubmissionBuilder
               if intake.refund_payment_method_direct_deposit?
                 xml.RoutingTransitNum intake.bank_account.routing_number
                 xml.DepositorAccountNum intake.bank_account.account_number
-                xml.BankAccountDataCapturedTs intake.completed_at # TODO: Replace with more accurate timestamp.
+                xml.BankAccountDataCapturedTs datetime_type(intake.bank_account.created_at)
               end
               xml.CellPhoneNum phone_type(intake.sms_phone_number) if intake.sms_phone_number.present?
               xml.EmailAddressTxt intake.email_address if intake.email_address.present?
             }
             xml.AtSubmissionFilingGrp {
-              xml.RefundProductElectionInd true
+              xml.RefundProductElectionInd false
 
               xml.RefundDisbursementGrp {
-                xml.RefundDisbursementCd 0
+                xml.RefundDisbursementCd refund_disbursement_code
                 if intake.refund_payment_method_direct_deposit?
                   xml.RoutingTransitNum intake.bank_account.routing_number
                   xml.DepositorAccountNum intake.bank_account.account_number
                 end
+                xml.RefundProductCIPCd 0
               }
+            }
+            xml.TrustedCustomerGrp {
+              xml.TrustedCustomerCd 0 # New customer
+              xml.OOBSecurityVerificationCd oob_security_verification_code if oob_security_verification_code.present?
+              xml.LastSubmissionRqrOOBCd last_submission_rqr_oob_code
+              xml.AuthenticationAssuranceLevelCd "AAL1"
+              # TODO: Add logic to toggle these when any of this information has changed.
+              # xml.ProfileUserNameChangeInd "X"
+              # xml.ProfilePasswordChangeInd "X"
+              # xml.ProfileEmailAddressChangeInd "X"
+              # xml.ProfileCellPhoneNumChangeInd "X"
             }
           }
           xml.FilingSecurityInformation {
@@ -98,22 +112,75 @@ module SubmissionBuilder
               xml.IPAddress {
                 xml.IPv4AddressTxt intake.primary_consented_to_service_ip
               }
+              # TODO: Include if we can get value from Aptible. Otherwise, do not include.
+              # xml.IPPortNum
+              # TODO: Swap out device ID with 40 digit code provided by IRS device ID JS
               xml.DeviceId 9162213099514827927117083645386143446039
-              xml.DeviceTypeCd 0
+              xml.DeviceTypeCd 1 # Indicates "Browser-based" device
+              # TODO: Replace with information gathered from browser at client/intake creation
+              # xml.UserAgentTxt
+              # xml.BrowserLanguageTxt
+              # xml.PlatformTxt
+              # xml.TimeZoneOffsetNum
+              # xml.SystemTs
             }
             xml.AtSubmissionFilingGrp {
               xml.IPAddress {
                 xml.IPv4AddressTxt intake.primary_consented_to_service_ip
               }
+              # TODO: Include if we can get value from Aptible. Otherwise, do not include.
+              # xml.FinalIPPortNum
+              # TODO: Swap out device ID with 40 digit code provided by IRS device ID JS
               xml.DeviceId 9162213099514827927117083645386143446039
-              xml.DeviceTypeCd 0
+              xml.DeviceTypeCd 1
+              # TODO: Replace with information gathered from browser at client/intake creation
+              # xml.UserAgentTxt
+              # xml.BrowserLanguageTxt
+              # xml.PlatformTxt
+              # xml.TimeZoneOffsetNum
+              # xml.SystemTs
             }
-            xml.TotActiveTimePrepSubmissionTs 15
+            if submission.resubmission?
+              xml.FederalOriginalSubmissionId submission.previously_transmitted_submission.irs_submission_id
+              xml.FederalOriginalSubmissionDt date_type(submission.previously_transmitted_submission.created_at)
+            end
+            xml.TotalPreparationSubmissionTs total_preparation_submission_minutes
+            xml.TotActiveTimePrepSubmissionTs total_active_preparation_minutes
+            # TODO: Swap out with VendorControlNum that conforms to IRS standards -- first two digits will be provided by IRS
             xml.VendorControlNum "xsdefedlsoenajsk"
-
           }
         }
       end.doc
+    end
+
+    # 0 - zero balance
+    # 2 - bank account
+    # 3 - check
+    def refund_disbursement_code
+      submission.intake.refund_payment_method_direct_deposit? ? 2 : 3
+    end
+
+    def oob_security_verification_code
+      return "03" if submission.intake.email_address_verified_at.present?
+      return "07" if submission.intake.sms_phone_number_verified_at.present?
+    end
+
+    # 0 - initiating IP == submission IP
+    # 1 - initiating IP != submission IP
+    def last_submission_rqr_oob_code
+      submission.client.first_sign_in_ip == submission.client.last_sign_in_ip ? 0 : 1
+    end
+
+    # Subtracting two DateTime from ActiveSupport::TimeWithZone provide distance of time in seconds
+    # Divide by 60 to get distance of time in minutes
+    def total_preparation_submission_minutes
+      ((DateTime.now - submission.client.created_at.to_datetime) / 60).to_i
+    end
+
+    # TODO: replaced with a "counter" of active time spent prepping
+    # captures the amount of active time within the application until submission
+    def total_active_preparation_minutes
+      15
     end
   end
 end

@@ -54,7 +54,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
     end
 
     context "the XML document contents" do
-      it "includes required nodes on the ReturnHeader" do
+      it "includes required nodes on the ReturnHeader (filing with Check)" do
         xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
         expect(xml.at("ReturnTs").text).to eq submission.created_at.strftime("%FT%T%:z")
         expect(xml.at("TaxYr").text).to eq "2020"
@@ -62,7 +62,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("TaxPeriodEndDt").text).to eq "2020-12-31"
         expect(xml.at("SoftwareId").text).to eq "11111111" # placeholder
         expect(xml.at("EFIN").text).to eq "123456"
-        expect(xml.at("OriginatorTypeCd").text).to eq "ERO" # TBD -- change to online filer once we have ONlineFiler EFIN
+        expect(xml.at("OriginatorTypeCd").text).to eq "OnlineFiler" # TBD -- change to online filer once we have ONlineFiler EFIN
         expect(xml.at("PINTypeCd").text).to eq "Self-Select On-Line"
         expect(xml.at("JuratDisclosureCd").text).to eq "Online Self Select PIN"
         expect(xml.at("PrimaryPINEnteredByCd").text).to eq "Taxpayer"
@@ -82,6 +82,21 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("ZIPCd").text).to eq "77494"
         expect(xml.at("PhoneNum").text).to eq "4155551212"
         expect(xml.at("IPv4AddressTxt").text).to eq "1.1.1.1"
+        expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "3"
+        expect(xml.at("TrustedCustomerGrp AuthenticationAssuranceLevelCd").text).to eq "AAL1"
+        expect(xml.at("TrustedCustomerGrp LastSubmissionRqrOOBCd").text).to eq "0"
+        expect(xml.at("AtSubmissionFilingGrp RefundProductElectionInd").text).to eq "false"
+        expect(xml.at("AtSubmissionFilingGrp RefundDisbursementGrp RefundProductCIPCd").text).to eq "0"
+
+        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp IPAddress IPv4AddressTxt").text).to eq "1.1.1.1"
+        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp DeviceId").text).to eq "9162213099514827927117083645386143446039"
+        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp DeviceTypeCd").text).to eq "1"
+
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp IPAddress IPv4AddressTxt").text).to eq "1.1.1.1"
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp DeviceId").text).to eq "9162213099514827927117083645386143446039"
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp DeviceTypeCd").text).to eq "1"
+        expect(xml.at("FilingSecurityInformation TotalPreparationSubmissionTs")).not_to be_nil
+        expect(xml.at("FilingSecurityInformation TotActiveTimePrepSubmissionTs")).not_to be_nil
       end
 
       context "filing as a single filer" do
@@ -93,6 +108,30 @@ describe SubmissionBuilder::ReturnHeader1040 do
           expect(xml.at("SpouseSSN")).to be_nil
           expect(xml.at("SpouseSignatureDt")).to be_nil
           expect(xml.at("SpouseSignaturePIN")).to be_nil
+        end
+      end
+
+      context "PhoneNum" do
+        context "when sms phone number is present" do
+          before do
+            submission.intake.update(sms_phone_number: "+15125551234", phone_number: "+15125551236")
+          end
+
+          it "uses intake sms_phone_number" do
+            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            expect(xml.at("PhoneNum").text).to eq "5125551234"
+          end
+        end
+
+        context "when sms phone number is not present but phone number is" do
+          before do
+            submission.intake.update(sms_phone_number: nil, phone_number: "+16125551236")
+          end
+
+          it "uses intake phone_number" do
+            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            expect(xml.at("PhoneNum").text).to eq "6125551236"
+          end
         end
       end
 
@@ -110,12 +149,38 @@ describe SubmissionBuilder::ReturnHeader1040 do
 
         context "with an sms_phone_number" do
           before do
-            submission.intake.update(sms_phone_number: "+18324651680")
+            submission.intake.update(sms_phone_number: "+18324651680", sms_phone_number_verified_at: DateTime.current)
           end
 
           it "excludes the cell phone number from the return" do
             xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
             expect(xml.at("CellPhoneNum").text).to eq "8324651680"
+            expect(xml.at("TrustedCustomerGrp OOBSecurityVerificationCd").text).to eq "07"
+          end
+        end
+      end
+
+      context "EmailAddressTxt" do
+        context "without an sms_phone_number" do
+          before do
+            submission.intake.update(email_address: nil)
+          end
+
+          it "excludes the email address from the return" do
+            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            expect(xml.at("EmailAddress")).to be_nil
+          end
+        end
+
+        context "with an email" do
+          before do
+            submission.intake.update(email_address: "marla@mango.com", email_address_verified_at: DateTime.current)
+          end
+
+          it "excludes the cell phone number from the return" do
+            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            expect(xml.at("EmailAddressTxt").text).to eq "marla@mango.com"
+            expect(xml.at("TrustedCustomerGrp OOBSecurityVerificationCd").text).to eq "03"
           end
         end
       end
@@ -129,7 +194,11 @@ describe SubmissionBuilder::ReturnHeader1040 do
           xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
           expect(xml.at("RoutingTransitNum").text).to eq "123456789"
           expect(xml.at("DepositorAccountNum").text).to eq "87654321"
-          expect(xml.at("CheckCd")).to be_nil
+          expect(xml.at("CheckCd")).to eq nil
+          expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "2"
+          expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp RoutingTransitNum").text).to eq "123456789"
+          expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp DepositorAccountNum").text).to eq "87654321"
+          expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp BankAccountDataCapturedTs").text).not_to be_nil
         end
       end
 
@@ -144,6 +213,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           expect(xml.at("RoutingTransitNum")).to be_nil
           expect(xml.at("DepositorAccountNum")).to be_nil
           expect(xml.at("CheckCd").text).to eq "Check"
+          expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "3"
         end
       end
 
