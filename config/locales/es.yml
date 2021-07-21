@@ -1160,20 +1160,29 @@ es:
           body: |
             Hola <<Client.PreferredName>>,
 
-            ¡Gracias por presentar sus impuestos con GetCTC!
+            ¡Gracias por declarar sus impuestos con GetCTC!
 
-            El IRS ha aceptado sus impuestos, lo que significa que pueden comenzar a procesar sus pagos.
+            Sus impuestos han sido aceptado por el IRS, y quiere decir que ellos pueden empezar a procesar sus pagos.
 
-            Puede verificar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
-          subject: ¡Gracias por presentar sus impuestos con GetCTC!
+            Usted puede revisar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+
+            ¡Estamos aquí para ayudarle!
+
+            Su equipo de impuestos en GetCTC.org
+
+          subject: ¡Gracias por declarar sus impuestos con GetCTC!
         sms: |
           Hola <<Client.PreferredName>>,
 
-          ¡Gracias por presentar sus impuestos con GetCTC!
+          ¡Gracias por declarar sus impuestos con GetCTC!
 
-          El IRS ha aceptado sus impuestos, lo que significa que pueden comenzar a procesar sus pagos.
+          Sus impuestos han sido aceptado por el IRS, y quiere decir que ellos pueden empezar a procesar sus pagos.
 
-          Puede verificar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+          Usted puede revisar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+
+          ¡Estamos aquí para ayudarle!
+
+          Su equipo de impuestos en GetCTC.org
   models:
     intake:
       your_spouse: Su cónyuge
@@ -1295,6 +1304,238 @@ es:
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"
   views:
+    ctc:
+      questions:
+        dependents:
+          tin:
+            title: "Necesitamos información adicional sobre %{name}."
+            help_text: "Para evitar retrasos, favor de facilitarnos los datos legales de su dependiente tal y como aparecen en su documento de identificación."
+            form_of_identity: "Tipo de identificación de %{name}"
+            ssn_or_atin: "El SSN o ATIN: Número de Identificación Fiscal de Adopción de %{name}"
+            ssn_or_atin_confirmation: "Confirme el SSN o ATIN de %{name}"
+          info:
+            title: "Veamos algunos datos básicos sobre su dependiente."
+            first_name: "El primer nombre legal de su dependiente"
+            middle_initial: "La inicial del segundo nombre de su dependiente"
+            last_name: "El apellido legal de su dependiente"
+            relationship_to_you: "¿Qué relación tiene con usted?"
+          had_dependents:
+            title: "¿Desea declarar impuestos para un dependiente para 2020?"
+            help_text: "Una persona que vive con usted la mayor parte del año o a la que mantiene económicamente puede ser considerada como dependiente."
+            what_relationships_reveal: "¿Qué relaciones califican?"
+          no_dependents:
+            title: "Es posible que aún pueda obtener otros créditos fiscales."
+            help_text: "Todavía puede presentar una declaración de impuestos simplificada y recibir cualquier pago de estímulo que se le deba y que no haya recibido."
+            file_a_simplified_return: "Presentar una declaración simplificada"
+          confirm_dependents:
+            title: "Confirmemos sus dependientes"
+            your_dependents: "Sus dependientes"
+            add_a_dependent: "Agregar una persona dependiente"
+            done_adding: "Ya no hay más dependientes por agregar"
+        mailing_address:
+          title: "Magnífico, denos por favor su dirección postal a continuación."
+        confirm_mailing_address:
+          title: "¡Muy bien! Por favor, confirme su dirección postal."
+          mailing_address: Su dirección postal
+        routing_number:
+          title: Favor de indicar su número de ruta bancaria
+          routing_number: Número de ruta
+          routing_number_confirmation: Confirme su número de ruta bancaria
+        account_number:
+          title: Favor de proporcionarnos el número de su cuenta bancaria
+          account_number: Número de cuenta
+          account_number_confirmation: "Confirme su número de cuenta "
+        confirm_bank_account:
+          title: ¡Excelente! Revise que sus datos bancarios sean correctos.
+          bank_information: La información de su banco
+        direct_deposit:
+          my_bank_account:
+            label: Mi nombre aparece en esta cuenta bancaria
+            question: Su nombre debe aparecer en la cuenta bancaria para recibir un depósito directo.
+            error_message_html: "Introduzca la información de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro método de pago</a>."
+        refund_payment:
+          title: "Si ha de recibir dinero, ¿cómo le gustaría recibirlo?"
+        contact_preference:
+          title: "¿Cuál es la mejor manera de comunicarnos con usted?"
+          body: Necesitaremos ponernos en contacto con preguntas y actualizaciones. Seleccione la opción que más le convenga.
+          sms_policy: >-
+            Aviso: Se aplican las tarifas estándar de los mensajes SMS. No compartiremos su información con terceros.
+          email: Envíenme correos electrónicos
+          text: Envíenme mensajes de texto
+        cell_phone_number:
+          title: "Por favor, comparta su número de teléfono."
+          label: Número Celular
+          confirm_label: Confirmar el número de teléfono móvil/celular
+          must_receive_texts_html: >-
+            Por favor, proporcione un número de teléfono en el que pueda recibir mensajes de texto, o bien<a href=%{email_link}>, proporcione una dirección de correo electrónico</a>
+        email_address:
+          title: Por favor comparte tu dirección de correo electrónico.
+        overview:
+          help_text: "Para recibir su Crédito Fiscal por Hijos, y también cualquier pago de estímulo que le corresponda, tendrá que presentar una declaración de impuestos de 2020."
+          help_text2: ¡Podemos ayudar! Sólo hay que seguir unos pasos sencillos.
+          title: ¡Vamos a empezar!
+          step1:
+            title: Contestar preguntas
+            help_text: Le haremos una serie de preguntas sobre usted y sus dependientes.
+          step2:
+            title: Verifique su identidad
+            help_text: Confirmaremos que es usted.
+          step3:
+            title: Obtenga los beneficios fiscales que le corresponden
+            help_text: "Si decide presentar sus impuestos, le ayudaremos a presentarlos electrónicamente y a obtener los beneficios fiscales que le corresponden."
+        legal_consent:
+          title: "Para realizar la solicitud, necesitaremos un poco de más de información."
+          body:
+            p1: "Para presentar su declaración de impuestos y recibir su crédito fiscal por hijos o sus pagos de estímulo, necesitaremos algunos de sus datos personales."
+            p2: Asegúrese de introducir su nombre tal y como aparece en su tarjeta de la Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
+          first_name: Primer nombre legal
+          middle_initial: Inicial del segundo nombre
+          last_name: Apellido legal
+          ssn: SSN o ITIN
+          ssn_confirmation: Confirmar el SSN o ITIN
+          sms_phone_number: Número de teléfono
+        income:
+          title: "¿Recibió algún ingreso en %{tax_year}?"
+          help_text_html: |
+            <p>Los ingresos pueden provenir de cualquiera de las siguientes fuentes:</p>
+            <ul class="list--bulleted">
+            <li>salario</li>
+            <li>salario por hora</li>
+            <li>propinas  <li>comisiones </li>
+            <li>pagos por cuenta propia o por contrato</li>
+            </ul>
+        spouse_info:
+          title: Denos un poco de información sobre su cónyuge
+          help_text: Asegúrese de introducir el nombre del cónyuge tal y como aparece en su tarjeta de la Seguridad Social o en la carta del número de identificación del contribuyente (ITIN).
+          spouse_first_name: Nombre legal de su pareja
+          spouse_middle_initial: Inicial del segundo nombre
+          spouse_last_name: Apellido legal de su pareja
+          spouse_dob: Fecha de nacimiento del cónyuge
+          spouse_identity: Tipo de identificación del cónyuge
+          spouse_identity_help_text: "Si utiliza una tarjeta de la seguro, debe ser válida para el empleo"
+          spouse_ssn_itin: SSN o ITIN del cónyuge
+          spouse_ssn_itin_confirmation: Confirme el SSN o ITIN del cónyuge
+          spouse_veteran: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en el 2020
+          spouse_veteran_reveal: "¿Por qué me preguntan esto?"
+          spouse_veteran_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de Reembolso por Recuperación o Recovery Rebate Credit
+          ssn_required_message: "Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href=\"https://www.getyourrefund.org/\">GetYourRefund</a>."
+        filed_2020:
+          title: "¿Presentó su declaración de impuestos de 2020 este año?"
+          help_text_html: |
+            <p>¿Presentó una declaración de impuestos este año, después del 1 de enero de 2021, para el año fiscal 2020?</p>
+            <p>Puede responder afirmativamente si presentó una declaración y aún está esperando los pagos del estímulo o si utilizó la herramienta de inscripción para las personas que no declararon o Non-filers Sign-up.</p>
+        filed_2020_yes:
+          title: ¡Fabuloso! El IRS puede procesar su declaración y determinar su Crédito Fiscal por Hijos.
+          p1: "Si presentó su declaración de impuestos de 2020, el IRS tendrá la información que necesita para tramitar su Crédito Fiscal por Hijos (CTC)."
+          p2: "Puede visitar el sitio web del IRS de Crédito Fiscal por Hijos o en inglés: \"Child Tax Credit Update Portal\" para actualizar su información."
+          visit_ctc_portal: Visite el sitio de web de actualizaciones del CTC
+          visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglés de CTC "
+        filed_2019:
+          title: "¿Ha presentado la declaración de impuestos de 2019 o ha recibido algún pago de estímulo?"
+          help_text_html: |+
+            <p>Si presentó una declaración de 2019 o recibió pagos de estímulo, de ser elegible, recibirá su Crédito Fiscal por Hijos basado en la información de esa declaración. No necesita presentar una declaración de impuestos de 2020 para recibir los beneficios que le corresponden.</p>
+            <p>Si hay cambios en su situación personal puede visitar el <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">Portal de Actualización del Crédito Fiscal por Hijos IRS</a> para actualizar su información fiscal.
+
+        life_situations_2019:
+          title: Revisemos una cosa más.
+          p1: |
+            Si cualesquiera de los siguientes puntos son válidos para usted, debe continuar con nuestra herramienta simplificada de CTC:
+          p2: "Si ninguna de estas afirmaciones es cierta, debería recibir su Crédito Fiscal por Hijos. Puede visitar las preguntas frecuentes sobre el CTC para obtener más información."
+          item1: Ha habido un cambio en el número de personas dependientes respecto a su declaración de impuestos de 2019
+          item2: Tiene una cuenta bancaria diferente a la que ha indicado en su declaración de 2019
+          item3: No recibió la totalidad del estímulo que le correspondía
+          visit_ctc_faq: Visite FAQ--Preguntas Frecuentes--del CTC
+        home:
+          title: "¿Cuál fue su domicilio principal en 2020?"
+          help_text: Su domicilio debe haber estado en Estados Unidos durante más de la mitad del año fiscal.
+          options:
+            fifty_states: Cualquiera de los 50 estados o el Distrito de Columbia
+            military_facility: Instalación militar estadounidense
+            us_territory: "Territorio de Estados Unidos, como Puerto Rico o Guam"
+            foreign_address: Dirección en el extranjero
+        verification:
+          title: ¡Verifiquemos esa información de contacto con un código!
+          body: |
+            Se le ha enviado un mensaje con su código a:
+          verification_code_label: "Introduzca el código de 6 números "
+          error_message: "El código de verificación está equivocado"
+        stimulus_payments:
+          title: "En base a su información, creemos que debería haber recibido esta cantidad en pagos de estímulo."
+          yes_received: "Sí, recibí esta cantidad."
+          no_did_not_receive: "No, no recibí esta cantidad."
+          not_sure: "No estoy seguro"
+          first_stimulus: "Primer pago de estímulo"
+          second_stimulus: "Segundo pago de estímulo"
+          first_stimulus_details: "Este pago debería haber llegado entre abril de 2020 y octubre de 2020."
+          second_stimulus_details: "Este pago debería haber llegado entre diciembre de 2020 y enero de 2021."
+          question: "¿Recibió esta cantidad?"
+        stimulus_one:
+          title: "¿Recibió algo del primer pago de estímulo?"
+          help_html: |
+            <p>Los primero de los tres pagos por estímulo fueron enviados entre abril 2020 y octubre 2020.</p>
+            <p>Este pago fue de $1,200 por cada adulto declarante más $500 por cada dependiente (por ejemplo, un padre de familia al cuidado de dos niños habría recibido $2,200).</p>
+        stimulus_one_received:
+          title: "Introduzca la cantidad total que recibió por su primer pago de estímulo."
+          recovery_rebate_credit_amount_1_label: "Pago Impacto Económico 1"
+          help_html: |
+            <p>El primer pago de estímulo, conocido formalmente como Pago de Impacto Económico 1, se envió entre abril de 2020 y octubre de 2020.</p>
+            <p>Ingrese la cantidad que recibió, si recibió alguno, por ese pago.</p>
+          reveal_label: "¿Dónde puedo encontrar esta cantidad?"
+          reveal_content: "Si no está seguro, revise la notificación oficial que ha recibido O sus registros bancarios."
+        stimulus_two:
+          title: "¿Recibió algo del segundo pago de estímulo?"
+          help_html: |
+            <p>El segundo de los tres pagos de estímulo, se envió entre diciembre de 2020 y enero de 2021.</p>
+            <p>Este pago fue de $600 por adulto declarante más $600 por dependiente (por ejemplo, un padre de familia al cuidado de dos niños habría recibido $1,800)</p>
+        stimulus_two_received:
+          title: "Introduzca la cantidad total que recibió por su segundo pago de estímulo."
+          recovery_rebate_credit_amount_2_label: "Pago Impacto Económico 2"
+          help_html: |
+            <p>El primer pago de estímulo, conocido formalmente como Pago de Impacto Económico 2, se envió entre diciembre de 2020 y enero de 2021.</p>
+            <p>Ingrese la cantidad que recibió, si recibió uno, por ese pago.</p>
+          reveal_label: "¿Dónde puedo encontrar esta cantidad?"
+          reveal_content: "Si no está seguro, revise la notificación oficial que ha recibido O sus registros bancarios."
+        stimulus_received:
+          title: "En base a su información, parece que ha recibido la cantidad entera de pagos de estímulo."
+          amount_received: "Cantidad que recibió"
+          eip_one: "EIP 1"
+          eip_two: "EIP 2"
+        stimulus_owed:
+          title: "Basado en su información, parece que todavía se le deben algunos pagos de estímulo."
+          amount_received: "Cantidad que recibió"
+          eip_one: "EIP 1"
+          eip_two: "EIP 2"
+          eligible_for: "Si los datos que ha proporcionado son correctos, podría ser elegible adicionalmente para:"
+          correction: "Si algún importe de su EIP 1 o 2 es incorrecto, el IRS corregirá la cantidad presentada, pero la corrección causará un retraso en la tramitación de su declaración y un retraso en el envío de sus cheques mensuales de crédito fiscal por hijos (si tiene derecho a ello)."
+          dont_claim: "No solicite el dinero adicional"
+          claim: "Solicite el dinero adicional"
+        use_gyr:
+          title: "Desgraciadamente, no es elegible para utilizar GetCTC. Pero aún podemos ayudarle."
+          ctc_conditions_list_html: |+
+            <p class="text--small">Para poder presentar una declaración simplificada a través de GetCTC necesitaría cumplir las siguientes condiciones:</p>
+            <ul class="list--bulleted text--small">
+            <li>No obtuvo ningún ingreso en el año 2020</li>
+            <li>Es ciudadano estadounidense, estadounidense nacional o residente de Estados Unidos.</li>
+            <li>No es residente de Puerto Rico o de otro Territorio Americano</li>
+             <li>No puede ser declarado como dependiente</li>
+            <li>Usted y su cónyuge tienen un SSN o ITIN válido</li>
+            </ul>
+            <p><strong>Aún podría beneficiarse presentando la declaración de impuestos completa de forma gratuita a través de GetYourRefund.</strong></p>
+            <p><strong>Cobre todo el dinero que le deben presentando su declaración de impuestos con GetYourRefund.</strong></p>
+
+          visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglés de CTC "
+          file_gyr: "Solicite por medio de GetYourRefund"
+        filing_status:
+          title: "¿Cómo desea presentar su declaración de impuestos?"
+          reveal_title: No estoy seguro de cómo solicitar
+          reveal_body: "Si normalmente declara como jefe de familia o casado que presenta la declaración por separado, seleccione \"soltero\" a efectos de esta declaración."
+        life_situations_2020:
+          title: "Seleccione cualquier situación válida para usted en 2020"
+          p1: "Estas respuestas nos ayudan a determinar para qué créditos fiscales califica."
+          cannot_claim_me_as_a_dependent: "Nadie puede declararme como dependiente"
+          primary_member_of_the_armed_forces: "Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020"
+          reveal_label: "¿Por qué me preguntan esto?"
+          reveal_content: "El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de reembolso por recuperación o Recovery Rebate Credit"
     dependents:
       form:
         birth_date: Fecha de nacimiento
