@@ -50,6 +50,11 @@ class CtcQuestionNavigation
     Ctc::Questions::ConfirmBankAccountController,
     Ctc::Questions::MailingAddressController,
     Ctc::Questions::ConfirmMailingAddressController,
+
+    # Review
+    Ctc::Questions::ConfirmInformationController,
+    # IpPin should go before ConfirmInfo but doing this
+    # for the feature spec since IpPin is in progress
     Ctc::Questions::IpPinController,
   ].freeze
 end

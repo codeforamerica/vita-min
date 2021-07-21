@@ -177,7 +177,6 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     click_on "Continue"
 
     # =========== BANK AND MAILING INFO ===========
-    # Skip to bank account questions until we can arrive here naturally.
     expect(page).to have_selector("h1", text: "If you are supposed to get money, how would you like to receive it?")
     choose "Direct deposit (fastest)"
     click_on "Continue"
@@ -221,5 +220,12 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     expect(page).to have_selector("div", text: "26 William Street")
     expect(page).to have_selector("div", text: "Apt 1234")
     expect(page).to have_selector("div", text: "Bel Air, CA 90001")
+    click_on "Continue"
+
+    # =========== REVIEW ===========
+
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
+    fill_in I18n.t("views.ctc.questions.confirm_information.labels.primary_ip_pin"), with: "12345"
+    click_on "I'm ready to file"
   end
 end
