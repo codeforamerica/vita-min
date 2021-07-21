@@ -27,8 +27,7 @@ module SubmissionBuilder
           if submission.imperfect_return_resubmission?
             xml.ImperfectReturnIndicator "X"
           end
-          # TODO: REPLACE AS ENVIRONMENT VARIABLE WHEN WE GET SOFTWARE ID
-          xml.SoftwareId "11111111"
+          xml.SoftwareId EnvironmentCredentials.dig(:irs, :sin)
           xml.OriginatorGrp {
             xml.EFIN EnvironmentCredentials.dig(:irs, :efin)
             xml.OriginatorTypeCd "OnlineFiler"
