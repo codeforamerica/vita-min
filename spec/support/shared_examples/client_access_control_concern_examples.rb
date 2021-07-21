@@ -28,6 +28,18 @@ shared_examples :a_get_action_for_authenticated_clients_only do |action:|
   end
 end
 
+shared_examples :a_get_action_for_authenticated_ctc_clients_only do |action:|
+  let(:params) { {} } unless method_defined?(:params)
+
+  context "with an anonymous client" do
+    it "redirects to the login path" do
+      get action, params: params
+
+      expect(response).to redirect_to new_ctc_portal_client_login_path
+    end
+  end
+end
+
 shared_examples :a_get_action_redirects_for_show_still_needs_help_clients do |action:|
   let(:params) { {} } unless method_defined?(:params)
   let(:client) { create(:intake).client } unless method_defined?(:client)
@@ -69,6 +81,18 @@ shared_examples :a_post_action_for_authenticated_clients_only do |action:|
       post action, params: params
 
       expect(response).to redirect_to new_portal_client_login_path
+    end
+  end
+end
+
+shared_examples :a_post_action_for_authenticated_ctc_clients_only do |action:|
+  let(:params) { {} } unless method_defined?(:params)
+
+  context "with an anonymous client" do
+    it "redirects to the login path" do
+      post action, params: params
+
+      expect(response).to redirect_to new_ctc_portal_client_login_path
     end
   end
 end

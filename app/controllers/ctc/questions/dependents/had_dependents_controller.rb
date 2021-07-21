@@ -2,8 +2,7 @@ module Ctc
   module Questions
     module Dependents
       class HadDependentsController < QuestionsController
-        # TODO: Transition to Authenticated once we log in client
-        include AnonymousIntakeConcern
+        include AuthenticatedCtcClientConcern
 
         layout "yes_no_question"
 
