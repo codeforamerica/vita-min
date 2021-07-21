@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::ConsentForm do
-  let(:intake) { Intake::CtcIntake.new(visitor_id: "something") }
+  let(:intake) { Intake::CtcIntake.new(visitor_id: "something", source: "some-source") }
 
   context "validations" do
     let(:params) {
@@ -175,6 +175,8 @@ describe Ctc::ConsentForm do
       expect(intake.tax_returns.first.year).to eq 2020
       expect(intake.tax_returns.first.is_ctc).to eq true
       expect(intake.tin_type).to eq "itin"
+      expect(intake.visitor_id).to eq "something"
+      expect(intake.source).to eq "some-source"
       expect(intake.type).to eq "Intake::CtcIntake"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
     end

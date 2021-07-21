@@ -35,6 +35,7 @@ module Ctc
           primary_last_four_ssn: primary_last_four_ssn,
           primary_birth_date: primary_birth_date,
           visitor_id: @intake.visitor_id,
+          source: @intake.source,
           type: @intake.type
       )
       client = Client.create!(intake_attributes: intake_attributes, tax_returns_attributes: [tax_return_attributes])
