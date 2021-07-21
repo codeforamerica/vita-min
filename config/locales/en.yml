@@ -1459,7 +1459,6 @@ en:
           title: Let's confirm your spouse's information.
           help_text: We have added the following person as your spouse on your return.
           your_spouse: Your spouse
-          spouse_name_html: <i class="icon-person"></i> %{name}</br>
           spouse_birthday: "Date of birth: %{dob}"
           spouse_ssn: "SSN: XXX-XX-%{ssn}"
         remove_spouse:

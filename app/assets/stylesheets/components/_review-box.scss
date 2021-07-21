@@ -14,14 +14,36 @@
     align-items: center;
     margin-bottom: 2.5rem;
   }
+
+  &__space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
   &__edit {
     color: $color-black;
     font-size: 1.6rem;
     font-weight: normal;
   }
+  &__edit-button {
+    @extend .button;
+    color: $color-black;
+    font-size: 1.6rem;
+    font-weight: normal;
+    // overrides
+    border: 2px solid black;
+    padding: 5px 10px;
+    line-height: 1;
+    margin: 0;
+    border-radius: 5px;
+  }
   &__body {
     margin: 0;
     li {
+      line-height: 3rem;
+    }
+    div {
       line-height: 3rem;
     }
   }
@@ -34,14 +56,24 @@
     }
   }
 
-  &__button {
+  &__cta-button-container {
     display: flex;
     justify-content: center;
-    border: 2px solid black;
-    line-height: 2px;
   }
-}
 
-.person-info {
-  margin-left: 2.5rem;
+  &__person {
+    display: flex;
+    .icon-person {
+      margin-right: 1rem;
+    }
+  }
+
+  &__person-name {
+    margin-bottom: .75rem;
+  }
+
+  &__person-details {
+    @extend .text--grey-dark;
+    margin-bottom: .5rem;
+  }
 }

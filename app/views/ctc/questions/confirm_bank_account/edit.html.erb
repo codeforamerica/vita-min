@@ -10,7 +10,7 @@
     <div class="review-box spacing-below-35">
       <div class="review-box__title">
         <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
-        <%= link_to t("general.edit").downcase, questions_direct_deposit_path, class: "review-box__edit" %>
+        <%= link_to t("general.edit").downcase, questions_direct_deposit_path, class: "review-box__edit-button" %>
       </div>
       <ul class="review-box__body">
         <li><%= current_intake.bank_account.bank_name %></li>

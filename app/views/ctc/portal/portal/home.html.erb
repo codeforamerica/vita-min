@@ -15,7 +15,7 @@
           <div class="text--small">
             <%= t("views.ctc.portal.home.status.#{@status}.message") %>
           </div>
-          <div class="review-box__button">
+          <div class="review-box__cta-button-container">
             <% if @current_step %>
               <%= link_to "Complete CTC form", @current_step, class: "button" %>
             <% end %>

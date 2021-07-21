@@ -9,12 +9,18 @@
 
   <div class="review-box spacing-below-60">
     <h2 class="review-box__title"><%=t("views.ctc.questions.spouse_review.your_spouse")%></h2>
-    <div class="review-box__title spacing-below-15">
-      <p><%=t("views.ctc.questions.spouse_review.spouse_name_html", name: current_intake&.spouse_full_name) %></p>
-      <%= link_to t("general.edit").downcase, questions_spouse_info_path, class: "review-box__edit button review-box__button" %>
+    <div class="review-box__space-between">
+      <div class="review-box__person">
+        <div><icon class="icon-person"></icon></div>
+        <div>
+          <div class="review-box__person-name"><%= current_intake&.spouse_full_name %></div>
+          <div class="review-box__person-details"><%=t("views.ctc.questions.spouse_review.spouse_birthday", dob: default_date_format(current_intake&.spouse_birth_date)) %></div>
+          <div class="review-box__person-details"><%=t("views.ctc.questions.spouse_review.spouse_ssn", ssn: current_intake&.spouse_last_four_ssn) %></div>
+        </div>
+      </div>
+      <%= link_to t("general.edit").downcase, questions_spouse_info_path, class: "review-box__edit review-box__edit-button" %>
     </div>
-    <p class="spacing-below-5 text--grey-dark person-info"><%=t("views.ctc.questions.spouse_review.spouse_birthday", dob: default_date_format(current_intake&.spouse_birth_date)) %></p>
-    <p class="spacing-below-0 text--grey-dark person-info"><%=t("views.ctc.questions.spouse_review.spouse_ssn", ssn: current_intake&.spouse_last_four_ssn) %></p>
+
   </div>
 
   <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
