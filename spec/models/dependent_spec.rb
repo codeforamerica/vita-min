@@ -2,27 +2,40 @@
 #
 # Table name: dependents
 #
-#  id                      :bigint           not null, primary key
-#  birth_date              :date
-#  disabled                :integer          default("unfilled"), not null
-#  encrypted_ip_pin        :string
-#  encrypted_ip_pin_iv     :string
-#  encrypted_ssn           :string
-#  encrypted_ssn_iv        :string
-#  first_name              :string
-#  has_ip_pin              :integer          default("unfilled"), not null
-#  last_name               :string
-#  middle_initial          :string
-#  months_in_home          :integer
-#  north_american_resident :integer          default("unfilled"), not null
-#  on_visa                 :integer          default("unfilled"), not null
-#  relationship            :string
-#  tin_type                :integer
-#  was_married             :integer          default("unfilled"), not null
-#  was_student             :integer          default("unfilled"), not null
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  intake_id               :bigint           not null
+#  id                                          :bigint           not null, primary key
+#  birth_date                                  :date
+#  born_in_2020                                :integer          default(0), not null
+#  can_be_claimed_by_other                     :integer          default(0), not null
+#  claim_anyhow                                :integer          default(0), not null
+#  disabled                                    :integer          default("unfilled"), not null
+#  encrypted_ip_pin                            :string
+#  encrypted_ip_pin_iv                         :string
+#  encrypted_ssn                               :string
+#  encrypted_ssn_iv                            :string
+#  filed_joint_return                          :integer          default(0), not null
+#  first_name                                  :string
+#  full_time_student                           :integer          default(0), not null
+#  has_ip_pin                                  :integer          default("unfilled"), not null
+#  last_name                                   :string
+#  lived_with_less_than_six_months             :integer          default(0), not null
+#  meets_misc_qualifying_relative_requirements :integer          default(0), not null
+#  middle_initial                              :string
+#  months_in_home                              :integer
+#  no_ssn_atin                                 :integer          default(0), not null
+#  north_american_resident                     :integer          default("unfilled"), not null
+#  on_visa                                     :integer          default("unfilled"), not null
+#  passed_away_2020                            :integer          default(0), not null
+#  permanent_residence_with_client             :integer          default(0), not null
+#  permanently_totally_disabled                :integer          default(0), not null
+#  placed_for_adoption                         :integer          default(0), not null
+#  provided_over_half_own_support              :integer          default(0), not null
+#  relationship                                :string
+#  tin_type                                    :integer
+#  was_married                                 :integer          default("unfilled"), not null
+#  was_student                                 :integer          default("unfilled"), not null
+#  created_at                                  :datetime         not null
+#  updated_at                                  :datetime         not null
+#  intake_id                                   :bigint           not null
 #
 # Indexes
 #
