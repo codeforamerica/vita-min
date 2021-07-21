@@ -1,8 +1,7 @@
 module Ctc
   module Questions
     class LifeSituations2020Controller < QuestionsController
-      # TODO: Transition to Authenticated once we log in client
-      include AnonymousIntakeConcern
+      include AuthenticatedCtcClientConcern
 
       layout "intake"
 

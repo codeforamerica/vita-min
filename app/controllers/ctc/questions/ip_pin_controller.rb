@@ -2,7 +2,6 @@ module Ctc
   module Questions
     class IpPinController < QuestionsController
       include AuthenticatedCtcClientConcern
-      include AnonymousIntakeConcern
 
       layout "intake"
 

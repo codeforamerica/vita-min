@@ -2,7 +2,6 @@ module Ctc
   module Questions
     class ConfirmMailingAddressController < QuestionsController
       include AuthenticatedCtcClientConcern
-      include AnonymousIntakeConcern
 
       layout "intake"
 
