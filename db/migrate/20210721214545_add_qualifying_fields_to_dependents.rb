@@ -11,7 +11,7 @@ class AddQualifyingFieldsToDependents < ActiveRecord::Migration[6.0]
     add_column :dependents, :passed_away_2020, :integer, default: 0, null: false
     add_column :dependents, :placed_for_adoption, :integer, default: 0, null: false
     add_column :dependents, :permanent_residence_with_client, :integer, default: 0, null: false
-    add_column :dependents, :claim_anyhow, :integer, default: 0, null: false
+    add_column :dependents, :claim_regardless, :integer, default: 0, null: false
     add_column :dependents, :meets_misc_qualifying_relative_requirements, :integer, default: 0, null: false
   end
 end

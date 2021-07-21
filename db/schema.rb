@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(version: 2021_07_21_214545) do
     t.date "birth_date"
     t.integer "born_in_2020", default: 0, null: false
     t.integer "can_be_claimed_by_other", default: 0, null: false
-    t.integer "claim_anyhow", default: 0, null: false
+    t.integer "claim_regardless", default: 0, null: false
     t.datetime "created_at", null: false
     t.integer "disabled", default: 0, null: false
     t.string "encrypted_ip_pin"
