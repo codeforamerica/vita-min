@@ -1465,7 +1465,7 @@ en:
         remove_spouse:
           title_html: You're about to remove %{spouse_name}.</br></br>Is that okay?
           remove_button: Yes, remove them
-          nevermind_button: Nevermind, let's keep them
+          nevermind_button: Nevermind, let's save them
         filed_2020:
           title: Did you file a 2020 tax return this year?
           help_text_html: |
