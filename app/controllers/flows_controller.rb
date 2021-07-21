@@ -14,6 +14,10 @@ class FlowsController < ApplicationController
       raise ActionController::RoutingError.new('Not Found')
     end
 
+    if params[:id] == 'ctc' && !Rails.application.config.ctc_domains.values.include?(request.host)
+      return redirect_to flow_url(id: :ctc, host: Rails.application.config.ctc_domains[Rails.env.to_sym])
+    end
+
     type = params[:id].to_sym
     @page_title = "#{FLOW_CONFIG[type][:emoji]} #{FLOW_CONFIG[type][:name]}"
     @flow_params = FlowParams.for(type, self)
@@ -110,7 +114,7 @@ class FlowsController < ApplicationController
           else
             url_params[:only_path] = true
           end
-          if respond_to?(:resource_name)
+          if respond_to?(:resource_name) && resource_name.present?
             url_params[:id] = "fake-#{resource_name}-id"
           end
           @current_controller.url_for(url_params)

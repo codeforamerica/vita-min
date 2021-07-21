@@ -277,6 +277,10 @@ Rails.application.routes.draw do
       # remove-spouse should not be included in default navigation flow
       get "/questions/remove-spouse", to: "ctc/questions/remove_spouse#edit", as: :questions_remove_spouse
       put "/questions/remove-spouse", to: "ctc/questions/remove_spouse#update"
+
+      unless Rails.env.production?
+        resources :flows, only: [:index, :show]
+      end
     end
 
     namespace :ctc, path: "/" do

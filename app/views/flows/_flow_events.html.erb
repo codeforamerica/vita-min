@@ -17,7 +17,11 @@
         link.classList.remove('flow-explorer-page-selected');
       });
       if (newLocation != 'blank') {
-        let selectedPageLink = document.querySelector(".flow-explorer-link[href='" + newLocation + "']");
+        let selectedPageLink = document.querySelector(".flow-explorer-link[href$='" + newLocation + "']");
+        if (!selectedPageLink) {
+          return;
+        }
+
         selectedPageLink.classList.add('flow-explorer-page-selected');
         if (scrollIntoView && selectedPageLink) {
           if (selectedPageLink.scrollIntoViewIfNeeded) {
