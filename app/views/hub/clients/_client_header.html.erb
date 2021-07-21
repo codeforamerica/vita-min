@@ -52,7 +52,7 @@
     </div>
 
     <div class="client-header__right">
-      <%= render "shared/tax_return_list", client: @client, status_updateable: true, tax_return_creatable: true %>
+      <%= render "shared/tax_return_list", client: @client, status_updatable: @client.hub_status_updatable, tax_return_creatable: true %>
     </div>
   </div>
 </section>

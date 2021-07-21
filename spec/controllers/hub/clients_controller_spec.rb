@@ -1095,6 +1095,17 @@ RSpec.describe Hub::ClientsController do
         end
       end
 
+      context "when the client is not hub updatable" do
+        before do
+          allow_any_instance_of(Client).to receive(:hub_status_updatable).and_return(false)
+        end
+
+        it "raises bad request" do
+          post :update_take_action, params: params
+          expect(response).to be_bad_request
+        end
+      end
+
       context "when successful" do
         before do
           allow(fake_form).to receive(:valid?).and_return true

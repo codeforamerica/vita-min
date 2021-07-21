@@ -90,6 +90,10 @@ module Hub
     end
 
     def update_take_action
+      unless @client.hub_status_updatable
+        return head :bad_request
+      end
+
       @take_action_form = Hub::TakeActionForm.new(@client, current_user, take_action_form_params)
       if @take_action_form.valid?
         action_list = TaxReturnService.handle_status_change(@take_action_form)
