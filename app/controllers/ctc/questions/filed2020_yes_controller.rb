@@ -2,7 +2,6 @@ module Ctc
   module Questions
     class Filed2020YesController < QuestionsController
       include AuthenticatedCtcClientConcern
-      include AnonymousIntakeConcern
 
       layout "intake"
 

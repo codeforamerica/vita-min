@@ -2,7 +2,6 @@ module Ctc
   module Questions
     class RefundPaymentController < QuestionsController
       include AuthenticatedCtcClientConcern
-      include AnonymousIntakeConcern
 
       layout "intake"
 

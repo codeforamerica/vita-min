@@ -2,7 +2,6 @@ module Ctc
   module Questions
     class SpouseReviewController < QuestionsController
       include AuthenticatedCtcClientConcern
-      include AnonymousIntakeConcern
 
       layout "intake"
 
