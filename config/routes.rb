@@ -308,6 +308,9 @@ Rails.application.routes.draw do
           root "portal#home"
           login_routes
         end
+
+        # Any other top level slash just goes to home as a source parameter
+        get "/:source" => "ctc_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
       end
     end
     get '/.well-known/pki-validation/:id', to: 'public_pages#pki_validation'

@@ -5,7 +5,7 @@ class CtcQuestionNavigation
     # Basic info
     Ctc::Questions::OverviewController,
     Ctc::Questions::IncomeController,
-    Ctc::Questions::ConsentController,
+    Ctc::Questions::ConsentController,            # At this point we create the intake, client, and tax return
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,
     Ctc::Questions::EmailAddressController,

@@ -5,7 +5,7 @@ module FirstQuestionConcern
   end
 
   def current_intake
-    Intake::CtcIntake.new(visitor_id: cookies[:visitor_id])
+    Intake::CtcIntake.new(visitor_id: cookies[:visitor_id], source: session[:source])
   end
 
   def set_intake_to_session
