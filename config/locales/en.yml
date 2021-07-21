@@ -799,15 +799,6 @@ en:
       head_of_household: Head of household
       qualifying_widow: Qualifying widow(er)
     dependent_relationships:
-      child: "Child"
-      parent: "Parent"
-      sibling: "Sibling"
-      aunt_uncle: "Aunt/Uncle"
-      niece_nephew: "Niece/Nephew"
-      grandchild: "Grandchild"
-      grandparent: "Grandparent"
-      other: "Other"
-    ctc_dependent_relationships:
       00_daughter: Daughter
       01_son: Son
       02_parent: Parent

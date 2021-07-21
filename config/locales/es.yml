@@ -791,7 +791,7 @@ es:
       grandchild: "Nieta/Nieto"
       grandparent: "Abuela/Abuelo"
       other: "Otro"
-    ctc_dependent_relationships:
+    dependent_relationships:
       00_daughter: Hija
       01_son: Hijo
       02_parent: "Madre/Padre"
