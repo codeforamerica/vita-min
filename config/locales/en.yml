@@ -1619,6 +1619,12 @@ en:
           consent: I agree
           action: File my return
           error: Please agree before continuing.
+        confirm_information:
+          title: "You're all set! Now let's review your information and set a PIN."
+          labels:
+            primary_ip_pin: "Client's five digit PIN (do not enter 00000)"
+            spouse_ip_pin: "Spouse's five digit PIN (do not enter 00000)"
+          ready_to_file: "I'm ready to file"
     consent_pages:
       consent_to_use:
         title: Consent to Use

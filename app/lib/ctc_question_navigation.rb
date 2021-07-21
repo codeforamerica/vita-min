@@ -56,7 +56,7 @@ class CtcQuestionNavigation
     # Review
     Ctc::Questions::IpPinController,
     Ctc::Questions::IpPinEntryController,
-    Ctc::Questions::PlaceholderQuestionController,
+    Ctc::Questions::ConfirmInformationController,
     Ctc::Questions::ConfirmLegalController,
   ].freeze
 end

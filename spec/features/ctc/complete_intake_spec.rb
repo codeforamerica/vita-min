@@ -178,7 +178,6 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     click_on "Continue"
 
     # =========== BANK AND MAILING INFO ===========
-    # Skip to bank account questions until we can arrive here naturally.
     expect(page).to have_selector("h1", text: "If you are supposed to get money, how would you like to receive it?")
     choose "Direct deposit (fastest)"
     click_on "Continue"
@@ -225,6 +224,7 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     click_on "Continue"
 
     # =========== REVIEW ===========
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
     check "Gary Mango"
     check "Jessie Pepper"
@@ -235,11 +235,12 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie Pepper"), with: "123458"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: 'Placeholder -- Coming soon')
-
     intake.reload
     expect(intake.primary_ip_pin).to eq "123456"
     expect(intake.dependents.last.ip_pin).to eq "123458"
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
+    fill_in I18n.t("views.ctc.questions.confirm_information.labels.primary_ip_pin"), with: "12345"
+    click_on "I'm ready to file"
 
     visit "en/questions/confirm-legal" # TODO: remove redirect when other review pages are in
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))

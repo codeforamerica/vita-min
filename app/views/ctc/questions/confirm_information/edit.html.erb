@@ -1,0 +1,18 @@
+<% content_for :page_title, t("views.ctc.questions.confirm_information.title") %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= content_for(:page_title) %></h1>
+
+    <div class="form-card__content">
+      <%= f.cfa_input_field(:primary_ip_pin, t("views.ctc.questions.confirm_information.labels.primary_ip_pin"), classes: ["form-width--long"]) %>
+      <% if current_intake.tax_returns.last.filing_status_married_filing_jointly? %>
+        <%= f.cfa_input_field(:spouse_ip_pin, t("views.ctc.questions.confirm_information.labels.spouse_ip_pin"), classes: ["form-width--long"]) %>
+      <% end %>
+    </div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("views.ctc.questions.confirm_information.ready_to_file") %>
+    </button>
+  <% end %>
+<% end %>
