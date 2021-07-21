@@ -26,6 +26,12 @@ module SubmissionBuilder
       string.upcase.first(4)
     end
 
+    def business_name_control_type(string)
+      return "" unless string.present?
+
+      string.upcase.first(4)
+    end
+
     # phone number without country code or formatting
     # results in 10 digit number for transmitting to the IRS
     def phone_type(string)
