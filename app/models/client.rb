@@ -257,6 +257,11 @@ class Client < ApplicationRecord
     current_sign_in_ip
   end
 
+  def hub_status_updatable
+    ctc_online_intake = intake.is_ctc? && intake.tax_returns.any? { |tr| tr.service_type == "online_intake" }
+    !ctc_online_intake
+  end
+
   private
 
   def tax_return_assigned_user_access_maintained

@@ -1,4 +1,4 @@
-<% status_updateable ||= false %>
+<% status_updatable ||= false %>
 <% tax_return_creatable ||= false %>
 <% show_checkboxes ||= false %>
 
@@ -27,7 +27,7 @@
           <% if params[:update_cert] && params[:tax_return_id]&.to_i == tax_return.id %>
             <%= render "shared/tax_return_certification_form", tax_return: tax_return %>
           <% else %>
-            <% if status_updateable %>
+            <% if status_updatable %>
               <%= link_to update_cert: true, tax_return_id: tax_return.id do %>
                 <%= certification_label(tax_return) %>
               <% end %>
@@ -37,7 +37,7 @@
           <% end %>
         </div>
 
-        <% if status_updateable %>
+        <% if status_updatable %>
           <%= form_with model: tax_return, url: edit_take_action_hub_client_path(id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "tax-return-list__status-form form-wrapper"} do |f| %>
             <%= f.hidden_field "id", value: tax_return.id %>
             <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select, hide_label: true) %>

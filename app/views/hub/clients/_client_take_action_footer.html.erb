@@ -1,5 +1,7 @@
 <%= content_for :sticky_action_footer do %>
-  <section class="take-action-box">
-    <%= link_to(t("general.take_action"), edit_take_action_hub_client_path(id: @client.id), class: "button button--primary") %>
-  </section>
+  <% if @client.hub_status_updatable %>
+    <section class="take-action-box">
+      <%= link_to(t("general.take_action"), edit_take_action_hub_client_path(id: @client.id), class: "button button--primary") %>
+    </section>
+  <% end %>
 <% end %>
