@@ -16,14 +16,14 @@ class EfileSubmissionStateMachine
   # I know we'll need some "internal" statuses to track filings that need internal attention, but I don't
   # know what they are yet so let's not think too far ahead.
 
-  transition from: :new,          to: [:preparing]
+  transition from: :new,          to: [:preparing, :queued]
   transition from: :preparing,    to: [:queued, :failed]
   transition from: :queued,       to: [:transmitted, :failed, :rejected]
   transition from: :transmitted,  to: [:accepted, :rejected]
 
-  guard_transition(to: :queued) do |submission, transition|
-    transition.metadata[:seeding].present? || submission.submission_bundle.present?
-  end
+  # guard_transition(to: :queued) do |submission, transition|
+  #   transition.metadata[:seeding].present? || submission.submission_bundle.present?
+  # end
 
   after_transition(to: :preparing) do |submission|
     BuildSubmissionBundleJob.perform_later(submission.id)

@@ -11,6 +11,21 @@ module SubmissionBuilder
       SubmissionBuilder::Documents::AdvCtcIrs1040.build(@submission, validate: false).as_fragment
     end
 
+    def scenario5
+      [
+        SubmissionBuilder::Documents::Scenario5Irs1040.build(@submission, validate: false).as_fragment,
+        SubmissionBuilder::Documents::Scenario5Irs1040Schedule1.build(@submission, validate: false).as_fragment,
+        SubmissionBuilder::Documents::Scenario5Irs1040Schedule3.build(@submission, validate: false).as_fragment,
+        SubmissionBuilder::Documents::Scenario5Irs1040Schedule8812.build(@submission, validate: false).as_fragment,
+        SubmissionBuilder::Documents::Scenario5Irs1040ScheduleA.build(@submission, validate: false).as_fragment,
+        SubmissionBuilder::Documents::Scenario5Irs2441.build(@submission, validate: false).as_fragment,
+        SubmissionBuilder::Documents::Scenario5Irs8862.build(@submission, validate: false).as_fragment,
+        SubmissionBuilder::Documents::Scenario5Irs8863.build(@submission, validate: false).as_fragment,
+        SubmissionBuilder::Documents::Scenario5Irs8867.build(@submission, validate: false).as_fragment,
+        SubmissionBuilder::Documents::Scenario5Irs8880.build(@submission, validate: false).as_fragment
+      ]
+    end
+
     def return_header
       SubmissionBuilder::ReturnHeader1040.build(@submission, validate: false).as_fragment
     end
@@ -20,9 +35,9 @@ module SubmissionBuilder
         xml['efile'].Return(root_node_attrs)
       end.doc
       document.at("Return").add_child(return_header)
-      document.at("Return").add_child("<ReturnData documentCnt='#{@documents.length}'></ReturnData>")
-      @documents.each do |attached|
-        document.at("ReturnData").add_child(send(attached))
+      document.at("Return").add_child("<ReturnData documentCnt='#{10}'></ReturnData>")
+      scenario5.each do |attached|
+        document.at("ReturnData").add_child(attached)
       end
       document
     end

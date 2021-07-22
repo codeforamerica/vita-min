@@ -54,5 +54,9 @@ module TestSubmissions
       submission.create_address(street_address: "1111 MULBERRY ST", city: "ALEXANDRIA", state: "VA", zip_code: "22309")
       submission
     end
+
+    def self.build
+      SubmissionBundle.build(self.create_submission, documents: ["scenario5"])
+    end
   end
 end
