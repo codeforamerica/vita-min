@@ -25,7 +25,7 @@ module SubmissionBuilder
                 xml.StateAbbreviationCd "VA"
                 xml.ZIPCd "24630"
               }
-              xml.EIN "01-0000041"
+              xml.EIN "010000041"
               xml.PaidAmt 1100
             }
             xml.CareProviderGrp {
@@ -39,7 +39,7 @@ module SubmissionBuilder
                 xml.StateAbbreviationCd "VA"
                 xml.ZIPCd "24630"
               }
-              xml.EIN "01-0000042"
+              xml.EIN "010000042"
               xml.PaidAmt 1200
             }
             xml.QualifyingPersonGrp {
