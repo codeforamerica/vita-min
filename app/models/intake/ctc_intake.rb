@@ -346,4 +346,8 @@ class Intake::CtcIntake < Intake
   def spouse_signature_pin_at
     updated_at
   end
+
+  def filing_joint?
+    client.tax_returns.last.filing_status_married_filing_jointly?
+  end
 end

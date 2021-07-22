@@ -4,6 +4,39 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
 
+    <div class="review-box spacing-below-35">
+
+      <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_information") %></h2>
+      <div class="review-box__body">
+        <div><%= current_intake.primary_full_name %></div>
+        <div><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(current_intake.primary_birth_date) %></div>
+        <div><%= t("general.email") %>: <%= current_intake.email_address %></div>
+        <div><%= t("general.phone") %>: <%= current_intake.formatted_phone_number %></div>
+        <div><%= t("views.ctc.questions.spouse_review.spouse_ssn", ssn: current_intake.primary_last_four_ssn) %></div>
+      </div>
+
+      <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_mailing_address.mailing_address") %></h2>
+      <div class="review-box__body">
+        <div><%= current_intake.street_address %></div>
+        <% if current_intake.street_address2.present? %>
+          <div><%= current_intake.street_address2 %></div>
+        <% end %>
+        <div><%= current_intake.city %>, <%= current_intake.state %> <%= current_intake.zip_code %></div>
+      </div>
+
+      <% if current_intake.filing_joint? %>
+        <h2 class="review-box__title"><%=t("views.ctc.questions.spouse_review.your_spouse")%></h2>
+        <div class="review-box__body">
+          <i class="icon-person"></i>
+          <div><%= current_intake.spouse_full_name %></div>
+          <div><%= t("views.ctc.questions.spouse_review.spouse_birthday", dob: default_date_format(current_intake.spouse_birth_date)) %></div>
+          <div><%= t("views.ctc.questions.spouse_review.spouse_ssn", ssn: current_intake.spouse_last_four_ssn) %></div>
+        </div>
+      <% end %>
+
+
+    </div>
+
     <div class="form-card__content">
       <%= f.cfa_input_field(:primary_ip_pin, t("views.ctc.questions.confirm_information.labels.primary_ip_pin"), classes: ["form-width--long"]) %>
       <% if current_intake.tax_returns.last.filing_status_married_filing_jointly? %>

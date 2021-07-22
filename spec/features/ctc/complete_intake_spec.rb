@@ -114,10 +114,9 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     click_on "Remove this person"
 
     expect(page).to have_selector("h1", text: "You're about to remove Peter Pepper.")
-    click_on "Yes, remove them"
+    click_on "Nevermind, let's save them"
 
-    expect(page).to have_selector("h1", text: "How will you be filing your tax return?")
-    choose "Single"
+    expect(page).to have_selector("h1", text: "Let's confirm your spouse's information.")
     click_on "Continue"
 
     # =========== DEPENDENTS ===========
@@ -239,6 +238,25 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     expect(intake.primary_ip_pin).to eq "123456"
     expect(intake.dependents.last.ip_pin).to eq "123458"
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
+
+    expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.confirm_information.your_information"))
+    expect(page).to have_selector("div", text: "Gary Mango")
+    expect(page).to have_selector("div", text: "Date of birth: 8/24/1996")
+    expect(page).to have_selector("div", text: "Email: mango@example.com")
+    expect(page).to have_selector("div", text: "Phone: (831) 234-5678")
+    expect(page).to have_selector("div", text: "SSN: XXX-XX-8888")
+
+    expect(page).to have_selector("h2", text: "Your mailing address")
+    expect(page).to have_selector("div", text: "26 William Street")
+    expect(page).to have_selector("div", text: "Apt 1234")
+    expect(page).to have_selector("div", text: "Bel Air, CA 90001")
+
+    expect(intake.filing_joint?).to eq true
+    expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.spouse_review.your_spouse"))
+    expect(page).to have_selector("div", text: "Peter Pepper")
+    expect(page).to have_selector("div", text: "Date of birth: 1/11/1995")
+    expect(page).to have_selector("div", text: "SSN: XXX-XX-4444")
+
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.primary_ip_pin"), with: "12345"
     click_on "I'm ready to file"
 

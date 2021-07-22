@@ -1050,6 +1050,7 @@ en:
       other: "%{count} business days"
     greetable: Greetable
     ctc_client: CTC client
+    phone: "Phone"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -1625,6 +1626,7 @@ en:
             primary_ip_pin: "Client's five digit PIN (do not enter 00000)"
             spouse_ip_pin: "Spouse's five digit PIN (do not enter 00000)"
           ready_to_file: "I'm ready to file"
+          your_information: "Your information"
     consent_pages:
       consent_to_use:
         title: Consent to Use

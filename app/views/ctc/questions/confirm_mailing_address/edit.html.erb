@@ -15,7 +15,7 @@
       <div class="review-box__body">
         <div><%= current_intake.street_address %></div>
         <% if current_intake.street_address2.present? %>
-          <%= current_intake.street_address2 %>
+          <div><%= current_intake.street_address2 %></div>
         <% end %>
         <div><%= current_intake.city %>, <%= current_intake.state %> <%= current_intake.zip_code %></div>
       </div>
