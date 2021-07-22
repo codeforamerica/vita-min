@@ -20,10 +20,10 @@ module Ctc
     private
 
     def at_least_one_selected
-      chose_one = has_primary_ip_pin == "yes" ||
+      chose_one = no_ip_pins == "yes" ||
+        has_primary_ip_pin == "yes" ||
         has_spouse_ip_pin == "yes" ||
-        dependents_attributes.values.any? { |attributes| attributes["has_ip_pin"] == "yes" } ||
-        no_ip_pins == "yes"
+        (dependents_attributes&.values || []).any? { |attributes| attributes["has_ip_pin"] == "yes" }
       errors.add(:no_ip_pins, I18n.t("views.ctc.questions.ip_pin.error")) unless chose_one
     end
   end
