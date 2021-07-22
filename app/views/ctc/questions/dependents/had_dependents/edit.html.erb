@@ -5,7 +5,7 @@
 
   <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.had_dependents.what_relationships_reveal")) do %>
     <ul>
-      <% dependent_relationship_options(is_ctc: true).each do |_k, relationship| %>
+      <% dependent_relationship_options.each do |_k, relationship| %>
         <li><%= translated_relationship(relationship) %></li>
       <% end %>
     </ul>
