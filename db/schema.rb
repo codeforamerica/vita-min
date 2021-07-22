@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_21_214545) do
+ActiveRecord::Schema.define(version: 2021_07_22_155730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -435,6 +435,7 @@ ActiveRecord::Schema.define(version: 2021_07_21_214545) do
     t.bigint "client_id"
     t.datetime "completed_at"
     t.datetime "completed_yes_no_questions_at"
+    t.integer "consented_to_legal", default: 0, null: false
     t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
     t.string "current_step"

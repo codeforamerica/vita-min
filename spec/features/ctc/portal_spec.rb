@@ -77,9 +77,9 @@ RSpec.feature "CTC Intake", active_job: true do
       fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
       click_on "Continue"
 
-      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text "Submission in progress"
-      expect(page).to have_text "We are preparing your return. We'll continue to update you on the status of your submission."
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
+      expect(page).to have_text I18n.t("views.ctc.portal.home.status.new.label")
+      expect(page).to have_text I18n.t("views.ctc.portal.home.status.new.message")
     end
   end
 
@@ -106,9 +106,9 @@ RSpec.feature "CTC Intake", active_job: true do
       fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
       click_on "Continue"
 
-      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text "Submission in progress"
-      expect(page).to have_text "We are preparing your return. We'll continue to update you on the status of your submission."
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
+      expect(page).to have_text I18n.t("views.ctc.portal.home.status.preparing.label")
+      expect(page).to have_text I18n.t("views.ctc.portal.home.status.preparing.message")
     end
   end
 

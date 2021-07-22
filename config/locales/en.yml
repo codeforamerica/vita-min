@@ -1192,6 +1192,24 @@ en:
           Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS which means that they can begin processing your payments.
 
           You can check the status of your payments with the IRS at https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+      preparing:
+        email:
+          body: |
+            Hello <<Client.PreferredName>>,
+
+            Your tax information has been successfully submitted to GetCTC!
+
+            We are currently processing your information to send it to the IRS. You will receive a confirmation email within 48 hours to let you know if your information has been accepted or rejected.
+
+            If you have any questions, you can go to GetCTC.org and open a chat with a tax expert or email support@getctc.org.
+
+            We’re here to help!
+            Your tax team at GetCTC.org
+          subject: Your tax information has been successfully submitted!
+        sms: |
+          Hello <<Client.PreferredName>>,
+          Your tax information has been successfully submitted to GetCTC! We are currently processing your information to send it to the IRS. You will receive a confirmation email within 48 hours to let you know if your information has been accepted or rejected.
+          Respond to this message if you have any questions. We’re here to help!
   models:
     intake:
       your_spouse: Your spouse
@@ -1322,10 +1340,10 @@ en:
               label: More information needed
               message: We need more information from you before we can file your return.
             new:
-              label: Submission in progress
+              label: Electronically filed
               message: We are preparing your return. We'll continue to update you on the status of your submission.
             preparing:
-              label: Submission in progress
+              label: Electronically filed
               message: We are preparing your return. We'll continue to update you on the status of your submission.
             failed:
               label: Submission error
@@ -1589,6 +1607,15 @@ en:
         ip_pin_entry:
           title: Please enter the IP PIN below.
           label: "%{name}'s IP PIN"
+        confirm_legal:
+          title: Please read through the legal information before submitting your tax return.
+          legal_info_html: |
+            <p>Under penalties of perjury, I declare that I have examined this return (or request for refund) including any accompanying statements and schedules and, to the best of my knowledge and belief, it is true, correct, and complete.</p>
+            <p>I consent to allow my Intermediate Service Provider, transmitter, or Electronic Return Originator (ERO) to send my return (or request for refund) to the IRS and to receive the following information from the IRS: a) an acknowledgment of receipt or reason for rejection of transmission; b) an indication of any refund offset; c) the reason for any delay processing the return or refund; and d) the date of any refund.</p>
+            <p class="spacing-below-35">I am signing this tax return by entering my self-selected signature PIN and associated electronic signature data on the previous page.</p>
+          consent: I agree
+          action: File my return
+          error: Please agree before continuing.
     consent_pages:
       consent_to_use:
         title: Consent to Use

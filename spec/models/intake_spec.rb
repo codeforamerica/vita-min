@@ -17,6 +17,7 @@
 #  claimed_by_another                                   :integer          default(0), not null
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
+#  consented_to_legal                                   :integer          default(0), not null
 #  continued_at_capacity                                :boolean          default(FALSE)
 #  current_step                                         :string
 #  demographic_disability                               :integer          default(0), not null
