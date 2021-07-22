@@ -10,8 +10,10 @@ RSpec.describe MailgunWebhooksController do
   end
 
   before do
-    allow(EnvironmentCredentials).to receive(:dig).with(:mailgun, :basic_auth_name).and_return("validuser")
-    allow(EnvironmentCredentials).to receive(:dig).with(:mailgun, :basic_auth_password).and_return("p@sswrd!")
+    @test_environment_credentials.merge!(mailgun: {
+      basic_auth_name: "validuser",
+      basic_auth_password: 'p@sswrd!',
+    })
   end
 
   describe "#create_incoming_email" do

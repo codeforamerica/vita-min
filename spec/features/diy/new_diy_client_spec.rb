@@ -4,7 +4,7 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
   let(:fake_taxslayer_link) { "http://example.com/fake-taxslayer" }
 
   before do
-    allow(EnvironmentCredentials).to receive(:dig).with(:tax_slayer_link).and_return fake_taxslayer_link
+    @test_environment_credentials.merge!(tax_slayer_link: fake_taxslayer_link)
   end
 
   scenario "a new client files through TaxSlayer" do

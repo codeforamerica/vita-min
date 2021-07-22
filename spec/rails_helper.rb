@@ -92,8 +92,14 @@ RSpec.configure do |config|
     stub_request(:post, /.*api\.twilio\.com.*/).to_return(status: 200, body: "", headers: {})
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
-    allow(EnvironmentCredentials).to receive(:dig).and_call_original
-    allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_return('any-32-character-string-here!!!!')
+    @test_environment_credentials = {
+      db_encryption_key: '12345678901234567890123456789012',
+      irs: {
+        efin: '123456',
+        sin: '11111111'
+      },
+    }
+    allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)
     # Stub valid_email2's network-dependent functionality per https://github.com/micke/valid_email2
     allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?) { true }
     # Stub DNS implementation to avoid network calls from test suite; valid_email2 uses this

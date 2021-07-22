@@ -41,9 +41,11 @@ describe Hub::OutboundCallForm do
       allow(Twilio::REST::Client).to receive(:new).and_return(twilio_double)
       allow(twilio_double).to receive(:calls).and_return(twilio_calls_double)
       allow(twilio_calls_double).to receive(:create).and_return(twilio_response_double)
-      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :voice_phone_number).and_return twilio_phone_number
-      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :account_sid).and_return "abc"
-      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :auth_token).and_return "123"
+      @test_environment_credentials.merge!(twilio: {
+        voice_phone_number: twilio_phone_number,
+        account_sid: "abc",
+        auth_token: "123",
+      })
       allow(DatadogApi).to receive(:increment)
       allow(DatadogApi).to receive(:gauge)
     end

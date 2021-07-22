@@ -212,8 +212,10 @@ describe TwilioService do
 
     before do
       allow(Twilio::REST::Client).to receive(:new).and_return fake_client
-      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :account_sid).and_return "account_sid"
-      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :auth_token).and_return "auth_token"
+      @test_environment_credentials.merge!(twilio: {
+        account_sid: "account_sid",
+        auth_token: "auth_token",
+      })
     end
 
     it "uses environment credentials to instantiate a twilio client" do
@@ -228,7 +230,7 @@ describe TwilioService do
     let(:fake_messages_resource) { double }
     let(:fake_message) { double }
     before do
-      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :messaging_service_sid).and_return "service_sid"
+      @test_environment_credentials.merge!(twilio: { messaging_service_sid: "service_sid" })
       allow(TwilioService).to receive(:client).and_return fake_client
       allow(fake_client).to receive(:messages).and_return fake_messages_resource
       allow(fake_messages_resource).to receive(:create).and_return fake_message

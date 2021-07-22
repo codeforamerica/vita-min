@@ -17,7 +17,6 @@ require "rails_helper"
 describe EfileSubmission do
   before do
     address_service_double = double
-    allow(EnvironmentCredentials).to receive(:dig).with(:irs, :efin).and_return "111111"
     allow_any_instance_of(EfileSubmission).to receive(:generate_irs_address).and_return(address_service_double)
     allow(address_service_double).to receive(:valid?).and_return true
   end
@@ -46,10 +45,10 @@ describe EfileSubmission do
 
       context "dealing with duplicates" do
         before do
-          allow(SecureRandom).to receive(:base36).with(7).and_return "111111"
+          allow(SecureRandom).to receive(:base36).with(7).and_return "1234567"
         end
-        context "after trying 5 times" do
 
+        context "after trying 5 times" do
           it "an error is raised" do
             expect {
               5.times do

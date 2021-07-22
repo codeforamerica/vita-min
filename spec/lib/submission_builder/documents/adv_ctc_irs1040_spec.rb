@@ -3,7 +3,6 @@ require "rails_helper"
 describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
   describe ".build" do
     before do
-      allow(EnvironmentCredentials).to receive(:dig).with(:irs, :efin).and_return "123456"
       dependent = submission.intake.dependents.first
       dependent.update(first_name: "Keeley", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234")
       dependent2 = submission.intake.dependents.second
