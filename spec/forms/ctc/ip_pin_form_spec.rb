@@ -13,7 +13,8 @@ describe Ctc::IpPinForm do
           id: dependent.id,
           has_ip_pin: "yes"
         }
-      }
+      },
+      no_ip_pins: "no"
     }
   end
 
@@ -68,6 +69,69 @@ describe Ctc::IpPinForm do
         described_class.new(intake, params).save
 
         expect(intake.reload).to be_has_primary_ip_pin_yes
+      end
+    end
+
+    context "when returning to unset the checkbox after an ip pin was previously saved" do
+      let(:params) { {
+        has_primary_ip_pin: "yes",
+        has_spouse_ip_pin: "no",
+        dependents_attributes: {
+          "0" => {
+            id: dependent.id,
+            has_ip_pin: "no"
+          }
+        },
+        no_ip_pins: "no"
+      } }
+
+      let(:intake) { create :ctc_intake, has_primary_ip_pin: "yes", primary_ip_pin: "123456", has_spouse_ip_pin: "yes", spouse_ip_pin: "123457" }
+      let(:dependent) { create :dependent, intake: intake, has_ip_pin: "yes", ip_pin: "123458" }
+
+      it "removes their IP PINs" do
+        described_class.new(intake, params).save
+
+        intake.reload
+        dependent.reload
+
+        expect(intake.has_primary_ip_pin).to eq("yes")
+        expect(intake.primary_ip_pin).to eq("123456")
+        expect(intake.has_spouse_ip_pin).to eq("no")
+        expect(intake.spouse_ip_pin).to be_nil
+        expect(dependent.has_ip_pin).to eq("no")
+        expect(dependent.ip_pin).to be_nil
+      end
+    end
+
+    context "when choosing None of the above" do
+      context "when some people on the return had IP PINs" do
+        let(:params) { {
+          has_primary_ip_pin: "no",
+          has_spouse_ip_pin: "no",
+          dependents_attributes: {
+            "0" => {
+              id: dependent.id,
+              has_ip_pin: "no"
+            }
+          },
+          no_ip_pins: "yes"
+        } }
+        let(:intake) { create :ctc_intake, has_primary_ip_pin: "yes", primary_ip_pin: "123456", has_spouse_ip_pin: "yes", spouse_ip_pin: "123457" }
+        let(:dependent) { create :dependent, intake: intake, has_ip_pin: "yes", ip_pin: "123458" }
+
+        it "removes their IP PINs" do
+          described_class.new(intake, params).save
+
+          intake.reload
+          dependent.reload
+
+          expect(intake.has_primary_ip_pin).to eq("no")
+          expect(intake.primary_ip_pin).to be_nil
+          expect(intake.has_spouse_ip_pin).to eq("no")
+          expect(intake.spouse_ip_pin).to be_nil
+          expect(dependent.has_ip_pin).to eq("no")
+          expect(dependent.ip_pin).to be_nil
+        end
       end
     end
   end

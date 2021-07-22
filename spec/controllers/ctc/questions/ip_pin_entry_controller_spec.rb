@@ -45,4 +45,39 @@ describe Ctc::Questions::IpPinEntryController do
       end
     end
   end
+
+  describe ".show?" do
+    context "with an intake with no ip pins" do
+      let!(:intake) { create :ctc_intake }
+
+      it "returns false" do
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+
+    context "with an intake with primary filer w/ IP PIN" do
+      let(:intake) { create :ctc_intake, has_primary_ip_pin: "yes" }
+
+      it "returns true" do
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+
+    context "with an intake with spouse filer w/ IP PIN" do
+      let(:intake) { create :ctc_intake, has_spouse_ip_pin: "yes" }
+
+      it "returns true" do
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+
+    context "with an intake with dependent w/ IP PIN" do
+      let!(:intake) { create :ctc_intake }
+      let!(:dependent) { create :dependent, intake: intake, has_ip_pin: "yes" }
+
+      it "returns true" do
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+  end
 end
