@@ -2,27 +2,40 @@
 #
 # Table name: dependents
 #
-#  id                      :bigint           not null, primary key
-#  birth_date              :date
-#  disabled                :integer          default("unfilled"), not null
-#  encrypted_ip_pin        :string
-#  encrypted_ip_pin_iv     :string
-#  encrypted_ssn           :string
-#  encrypted_ssn_iv        :string
-#  first_name              :string
-#  has_ip_pin              :integer          default("unfilled"), not null
-#  last_name               :string
-#  middle_initial          :string
-#  months_in_home          :integer
-#  north_american_resident :integer          default("unfilled"), not null
-#  on_visa                 :integer          default("unfilled"), not null
-#  relationship            :string
-#  tin_type                :integer
-#  was_married             :integer          default("unfilled"), not null
-#  was_student             :integer          default("unfilled"), not null
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  intake_id               :bigint           not null
+#  id                                          :bigint           not null, primary key
+#  birth_date                                  :date
+#  born_in_2020                                :integer          default("unfilled"), not null
+#  can_be_claimed_by_other                     :integer          default("unfilled"), not null
+#  claim_regardless                            :integer          default("unfilled"), not null
+#  disabled                                    :integer          default("unfilled"), not null
+#  encrypted_ip_pin                            :string
+#  encrypted_ip_pin_iv                         :string
+#  encrypted_ssn                               :string
+#  encrypted_ssn_iv                            :string
+#  filed_joint_return                          :integer          default("unfilled"), not null
+#  first_name                                  :string
+#  full_time_student                           :integer          default("unfilled"), not null
+#  has_ip_pin                                  :integer          default("unfilled"), not null
+#  last_name                                   :string
+#  lived_with_less_than_six_months             :integer          default("unfilled"), not null
+#  meets_misc_qualifying_relative_requirements :integer          default("unfilled"), not null
+#  middle_initial                              :string
+#  months_in_home                              :integer
+#  no_ssn_atin                                 :integer          default("unfilled"), not null
+#  north_american_resident                     :integer          default("unfilled"), not null
+#  on_visa                                     :integer          default("unfilled"), not null
+#  passed_away_2020                            :integer          default("unfilled"), not null
+#  permanent_residence_with_client             :integer          default("unfilled"), not null
+#  permanently_totally_disabled                :integer          default("unfilled"), not null
+#  placed_for_adoption                         :integer          default("unfilled"), not null
+#  provided_over_half_own_support              :integer          default("unfilled"), not null
+#  relationship                                :string
+#  tin_type                                    :integer
+#  was_married                                 :integer          default("unfilled"), not null
+#  was_student                                 :integer          default("unfilled"), not null
+#  created_at                                  :datetime         not null
+#  updated_at                                  :datetime         not null
+#  intake_id                                   :bigint           not null
 #
 # Indexes
 #
@@ -44,6 +57,19 @@ class Dependent < ApplicationRecord
   enum was_married: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_married
   enum tin_type: { ssn: 0, atin: 1, itin: 2, none: 3 }, _prefix: :tin_type
   enum has_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_ip_pin
+  enum full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :full_time_student
+  enum permanently_totally_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanently_totally_disabled
+  enum no_ssn_atin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn_atin
+  enum provided_over_half_own_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :provided_over_half_own_support
+  enum filed_joint_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_joint_return
+  enum lived_with_less_than_six_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_less_than_six_months
+  enum can_be_claimed_by_other: { unfilled: 0, yes: 1, no: 2 }, _prefix: :can_be_claimed_by_other
+  enum born_in_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :born_in_2020
+  enum passed_away_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away_2020
+  enum placed_for_adoption: { unfilled: 0, yes: 1, no: 2 }, _prefix: :placed_for_adoption
+  enum permanent_residence_with_client: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_residence_with_client
+  enum claim_regardless: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_regardless
+  enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
 
   validates_presence_of :first_name
   validates_presence_of :last_name
