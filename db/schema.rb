@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_20_203918) do
+ActiveRecord::Schema.define(version: 2021_07_21_214545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -235,20 +235,33 @@ ActiveRecord::Schema.define(version: 2021_07_20_203918) do
 
   create_table "dependents", force: :cascade do |t|
     t.date "birth_date"
+    t.integer "born_in_2020", default: 0, null: false
+    t.integer "can_be_claimed_by_other", default: 0, null: false
+    t.integer "claim_regardless", default: 0, null: false
     t.datetime "created_at", null: false
     t.integer "disabled", default: 0, null: false
     t.string "encrypted_ip_pin"
     t.string "encrypted_ip_pin_iv"
     t.string "encrypted_ssn"
     t.string "encrypted_ssn_iv"
+    t.integer "filed_joint_return", default: 0, null: false
     t.string "first_name"
+    t.integer "full_time_student", default: 0, null: false
     t.integer "has_ip_pin", default: 0, null: false
     t.bigint "intake_id", null: false
     t.string "last_name"
+    t.integer "lived_with_less_than_six_months", default: 0, null: false
+    t.integer "meets_misc_qualifying_relative_requirements", default: 0, null: false
     t.string "middle_initial"
     t.integer "months_in_home"
+    t.integer "no_ssn_atin", default: 0, null: false
     t.integer "north_american_resident", default: 0, null: false
     t.integer "on_visa", default: 0, null: false
+    t.integer "passed_away_2020", default: 0, null: false
+    t.integer "permanent_residence_with_client", default: 0, null: false
+    t.integer "permanently_totally_disabled", default: 0, null: false
+    t.integer "placed_for_adoption", default: 0, null: false
+    t.integer "provided_over_half_own_support", default: 0, null: false
     t.string "relationship"
     t.integer "tin_type"
     t.datetime "updated_at", null: false
