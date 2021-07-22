@@ -20,32 +20,48 @@ module SubmissionBuilder
             xml.AOTCClaimedInd "X"
             xml.EICEligClmIncmIncorrectRptInd "false"
             xml.EICEligClmQlfyChldOfOtherInd "false"
-
             xml.QualifyingChildInd "true"
             xml.FilerWithQualifyingChildGrp {
-              xml.ChildFirstAndLastName "SAMMY WASHINGTON"
+              xml.ChildFirstAndLastName {
+                xml.PersonFirstNm "SAMMY"
+                xml.PersonLastNm "WASHINGTON"
+              }
               xml.LiveInUSDayCnt "365"
             }
             xml.FilerWithQualifyingChildGrp {
-              xml.ChildFirstAndLastName "SUE WASHINGTON"
+              xml.ChildFirstAndLastName {
+                xml.PersonFirstNm "SUE"
+                xml.PersonLastNm "WASHINGTON"
+              }
               xml.LiveInUSDayCnt "365"
             }
             xml.CTCACTCChildInformationGrp {
-              xml.ChildFirstAndLastName "SUE WASHINGTON"
+              xml.ChildFirstAndLastName {
+                xml.PersonFirstNm "SUE"
+                xml.PersonLastNm "WASHINGTON"
+              }
               xml.LiveWithChildOverHalfYearInd "true"
               xml.QualifyingChildInd "true"
               xml.DependentInd "true"
               xml.USCitizenOrNationalInd "true"
             }
             xml.CTCACTCChildInformationGrp {
-              xml.ChildFirstAndLastName "SAMMY WASHINGTON"
+              xml.ChildFirstAndLastName {
+                xml.PersonFirstNm "SAMMY"
+                xml.PersonLastNm "WASHINGTON"
+              }
               xml.LiveWithChildOverHalfYearInd "true"
               xml.QualifyingChildInd "true"
               xml.DependentInd "true"
               xml.USCitizenOrNationalInd "true"
             }
             xml.AOTCStudentInformationGrp {
-              xml.StudentName "SARAH WASHINGTON"
+              xml.StudentName {
+                xml.PersonFirstNm "SARAH"
+                xml.PersonLastNm "WASHINGTON"
+              }
+              xml.EligibleStudentInd "true"
+              xml.PriorYearCreditClaimedInd "false"
             }
           }
         end.doc
