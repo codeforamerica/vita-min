@@ -80,7 +80,6 @@ module Hub
     after_save :send_confirmation_message, :send_mixpanel_data, :add_system_note
 
     validates :refund_payment_method, presence: true
-    validates :navigator_name, presence: true
 
     with_options if: -> { refund_payment_method == "direct_deposit" } do
       validates_confirmation_of :routing_number
