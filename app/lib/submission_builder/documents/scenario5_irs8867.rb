@@ -15,7 +15,7 @@ module SubmissionBuilder
         Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.IRS8867(root_node_attrs) {
             xml.PreparerPersonNm "IRS"
-            xml.PTIN "P12345678" # doesn't take "S12345678"
+            xml.PTIN "P00000001"
             xml.EICClaimedInd "X"
             xml.CTCACTCODCClaimedInd "X"
             xml.AOTCClaimedInd "X"
