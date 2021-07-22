@@ -91,6 +91,27 @@ class Dependent < ApplicationRecord
 
   validates :ip_pin, ip_pin: true
 
+  QUALIFYING_CHILD_RELATIONSHIPS = [
+    "Daughter",
+    "Son",
+    "Stepchild",
+    "Foster child",
+    "Grandchild",
+    "Niece",
+    "Nephew",
+    "Half brother",
+    "Half sister",
+    "Brother",
+    "Sister"
+  ]
+
+  QUALIFYING_RELATIVE_RELATIONSHIPS = [
+    "Parent",
+    "Grandparent",
+    "Aunt",
+    "Uncle"
+  ]
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -127,8 +148,54 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit?(tax_year)
-    # add additional eligibility logic
-    age_at_end_of_year(tax_year) < 17
+     age_at_end_of_year(tax_year) < 17
+  end
+
+  def qualifying_child_relationship?
+    QUALIFYING_CHILD_RELATIONSHIPS.include? relationship
+  end
+
+  def qualifying_relative_relationship?
+    QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship
+  end
+
+  def qualifying_child?
+    qualifying_child_relationship? &&
+      meets_qc_age_condition? &&
+      meets_qc_misc_conditions? &&
+      meets_qc_residence_condition? &&
+      meets_qc_claimant_condition?
+  end
+
+  def meets_qc_age_condition?
+    (full_time_student_yes? && age_at_end_of_year(2020) < 24) || permanently_totally_disabled_yes? || age_at_end_of_year(2020) < 19
+  end
+
+  def meets_qc_misc_conditions?
+    provided_over_half_own_support_no? && no_ssn_atin_no? && filed_joint_return_no?
+  end
+
+  def meets_qc_residence_condition?
+    lived_with_less_than_six_months_no? ||
+      (lived_with_less_than_six_months_yes? &&
+        (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
+  end
+
+  def meets_qc_claimant_condition?
+    can_be_claimed_by_other_no? ||
+      (can_be_claimed_by_other_yes? && claim_regardless_yes?)
+  end
+
+  def qualifying_relative?
+    ((qualifying_child_relationship? &&
+        # QC relationship and doesn't meet age requirements
+        (!meets_qc_age_condition? ||
+          # QC relationship and meets age requirements but is filing jointly
+          (meets_qc_age_condition? && filed_joint_return_yes?))) ||
+      # QR relationship
+      qualifying_relative_relationship?) &&
+      # everyone needs to meet these "misc" requirements
+      meets_misc_qualifying_relative_requirements_yes?
   end
 
   def mixpanel_data
