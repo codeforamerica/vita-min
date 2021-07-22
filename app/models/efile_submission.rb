@@ -22,14 +22,15 @@ class EfileSubmission < ApplicationRecord
 
   has_one_attached :submission_bundle
 
+  before_validation :generate_irs_submission_id
+  validates_format_of :irs_submission_id, with: /\A[0-9]{6}[0-9]{7}[0-9a-z]{7}\z/
+  validates_presence_of :irs_submission_id
   validates_uniqueness_of :irs_submission_id
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: EfileSubmissionTransition,
     initial_state: EfileSubmissionStateMachine.initial_state,
   ]
-
-  before_create :generate_irs_submission_id
 
   def state_machine
     @state_machine ||= EfileSubmissionStateMachine.new(self, transition_class: EfileSubmissionTransition)
@@ -73,6 +74,8 @@ class EfileSubmission < ApplicationRecord
   private
 
   def generate_irs_submission_id(i = 0)
+    return if self.irs_submission_id.present?
+
     raise "Max irs_submission_id attempts exceeded. Too many submissions today?" if i > 5
 
     efin = EnvironmentCredentials.dig(:irs, :efin)

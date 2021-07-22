@@ -7,7 +7,7 @@ describe ReplacementParametersService do
   subject { ReplacementParametersService.new(body: body, client: client, preparer: user, tax_return: client.tax_returns.first, locale: locale) }
 
   before do
-    allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :voice_phone_number).and_return "+13444444444"
+    @test_environment_credentials.merge!(twilio: { voice_phone_number: "+13444444444" })
   end
 
   context "<<Client.ClientId>>" do

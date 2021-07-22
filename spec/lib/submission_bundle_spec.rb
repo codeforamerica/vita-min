@@ -3,11 +3,6 @@ require "rails_helper"
 describe SubmissionBundle do
   let(:submission) { create :efile_submission, :ctc }
 
-  before do
-    allow(EnvironmentCredentials).to receive(:dig).with(:irs, :efin).and_return "123456"
-    allow(EnvironmentCredentials).to receive(:dig).with(:irs, :sin).and_return "11111111"
-  end
-
   describe "#build" do
     it "stores the submission bundle on the submission" do
       response = described_class.new(submission, documents: ["adv_ctc_irs1040"]).build

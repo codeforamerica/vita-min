@@ -6,7 +6,7 @@ RSpec.describe IntercomService do
 
   before do
     described_class.instance_variable_set(:@intercom, nil)
-    allow(EnvironmentCredentials).to receive(:dig).with(:intercom, :intercom_access_token).and_return("fake_access_token")
+    @test_environment_credentials.merge!(intercom: {intercom_access_token: "fake_access_token"})
     allow(Intercom::Client).to receive(:new).with(token: "fake_access_token").and_return(fake_intercom)
   end
 

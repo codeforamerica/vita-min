@@ -2,10 +2,6 @@ require "rails_helper"
 
 describe SubmissionBuilder::Manifest do
   describe ".build" do
-    before do
-      allow(EnvironmentCredentials).to receive(:dig).with(:irs, :efin).and_return "123456"
-    end
-
     let(:submission) { create :efile_submission, :ctc }
     context "when the XML is valid" do
       let(:file_double) { double }
