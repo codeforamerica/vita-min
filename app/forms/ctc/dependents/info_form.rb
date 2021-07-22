@@ -4,10 +4,12 @@ module Ctc
       include BirthDateHelper
 
       set_attributes_for :dependent,
-        :first_name,
-        :middle_initial,
-        :last_name,
-        :relationship
+                         :first_name,
+                         :middle_initial,
+                         :last_name,
+                         :relationship,
+                         :full_time_student,
+                         :permanently_totally_disabled
       set_attributes_for :birthday, :birth_date_month, :birth_date_day, :birth_date_year
 
       validates_presence_of :first_name

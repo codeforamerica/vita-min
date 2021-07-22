@@ -1362,6 +1362,9 @@ en:
             middle_initial: "Dependent’s middle initial"
             last_name: "Dependent’s legal last name"
             relationship_to_you: "What is their relationship to you?"
+            situations: "Select any situation that was true:"
+            full_time_student: "Dependent is a full-time student"
+            permanently_totally_disabled: "Dependent is permanently and totally disabled"
           had_dependents:
             title: "Would you like to claim a dependent for 2020?"
             help_text: "Someone who lives with you for a majority of the year or who you support financially could qualify as a dependent."
