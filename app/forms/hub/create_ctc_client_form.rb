@@ -81,7 +81,6 @@ module Hub
 
     validates :refund_payment_method, presence: true
     validates :navigator_name, presence: true
-    validates :navigator_has_verified_client_identity, inclusion: { in: [true, '1'], message: I18n.t('errors.messages.blank') }
 
     with_options if: -> { refund_payment_method == "direct_deposit" } do
       validates_confirmation_of :routing_number
