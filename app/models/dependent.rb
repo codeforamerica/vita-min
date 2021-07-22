@@ -148,7 +148,7 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit?(tax_year)
-    is_qualifying_child? && age_at_end_of_year(tax_year) < 17
+     age_at_end_of_year(tax_year) < 17
   end
 
   def qualifying_child_relationship?
