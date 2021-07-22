@@ -107,6 +107,163 @@ describe Dependent do
     end
   end
 
+  describe "#qualifying_child?" do
+    context "with a qualifying child" do
+      let(:dependent) do
+        build :dependent,
+              relationship: "Niece",
+              birth_date: Date.new(2015, 12, 25),
+              full_time_student: "no",
+              permanently_totally_disabled: "no",
+              provided_over_half_own_support: "no",
+              no_ssn_atin: "no",
+              filed_joint_return: "no",
+              lived_with_less_than_six_months: "no",
+              can_be_claimed_by_other: "yes",
+              claim_regardless: "yes"
+      end
+
+      it "returns true" do
+        expect(dependent.qualifying_child?).to eq true
+      end
+    end
+
+    context "with a child that does not qualify" do
+      let(:dependent) do
+        build :dependent,
+              relationship: "Niece",
+              birth_date: Date.new(2015, 12, 25),
+              full_time_student: "no",
+              permanently_totally_disabled: "no",
+              provided_over_half_own_support: "no",
+              no_ssn_atin: "no",
+              filed_joint_return: "no",
+              lived_with_less_than_six_months: "yes",
+              can_be_claimed_by_other: "yes",
+              claim_regardless: "yes"
+      end
+
+      it "returns false" do
+        expect(dependent.qualifying_child?).to eq false
+      end
+    end
+  end
+
+  describe "#possibly_qualifying_child?" do
+    context "with partially filled qualifying fields" do
+      let(:dependent) do
+        build :dependent,
+              relationship: "Foster child",
+              birth_date: Date.new(2000, 12, 25),
+              full_time_student: "yes",
+              permanently_totally_disabled: "no",
+              provided_over_half_own_support: "unfilled",
+              no_ssn_atin: "unfilled",
+              filed_joint_return: "unfilled",
+              lived_with_less_than_six_months: "unfilled",
+              can_be_claimed_by_other: "unfilled",
+              claim_regardless: "unfilled"
+      end
+
+      it "returns true" do
+        expect(dependent.possibly_qualifying_child?).to eq true
+      end
+    end
+
+    context "with partially filled disqualifying fields" do
+      let(:dependent) do
+        build :dependent,
+              relationship: "Niece",
+              birth_date: Date.new(2000, 12, 25),
+              full_time_student: "no",
+              permanently_totally_disabled: "no",
+              provided_over_half_own_support: "unfilled",
+              no_ssn_atin: "unfilled",
+              filed_joint_return: "unfilled",
+              lived_with_less_than_six_months: "unfilled",
+              can_be_claimed_by_other: "unfilled",
+              claim_regardless: "unfilled"
+      end
+
+      it "returns false" do
+        expect(dependent.qualifying_child?).to eq false
+      end
+    end
+  end
+
+  describe "#qualifying_relative?" do
+    context "with a qualifying relative" do
+      let(:dependent) do
+        build :dependent,
+              relationship: "Nephew",
+              birth_date: Date.new(2000, 12, 25),
+              full_time_student: "yes",
+              permanently_totally_disabled: "no",
+              provided_over_half_own_support: "no",
+              no_ssn_atin: "no",
+              filed_joint_return: "yes",
+              meets_misc_qualifying_relative_requirements: "yes"
+      end
+
+      it "returns true" do
+        expect(dependent.qualifying_relative?).to eq true
+      end
+    end
+
+    context "with a relative who does not qualify" do
+      let(:dependent) do
+        build :dependent,
+              relationship: "Parent",
+              birth_date: Date.new(1960, 12, 25),
+              full_time_student: "no",
+              permanently_totally_disabled: "yes",
+              meets_misc_qualifying_relative_requirements: "no"
+      end
+
+      it "returns false" do
+        expect(dependent.qualifying_relative?).to eq false
+      end
+    end
+  end
+
+  describe "#possibly_qualifying_relative?" do
+    context "with partially filled qualifying fields" do
+      let(:dependent) do
+        build :dependent,
+              relationship: "Sister",
+              birth_date: Date.new(2000, 12, 25),
+              full_time_student: "yes",
+              permanently_totally_disabled: "no",
+              provided_over_half_own_support: "no",
+              no_ssn_atin: "no",
+              filed_joint_return: "yes",
+              meets_misc_qualifying_relative_requirements: "unfilled"
+      end
+
+      it "returns true" do
+        expect(dependent.possibly_qualifying_relative?).to eq true
+      end
+    end
+
+    context "with partially filled disqualifying fields" do
+      let(:dependent) do
+        build :dependent,
+              relationship: "Brother",
+              birth_date: Date.new(2000, 12, 25),
+              full_time_student: "no",
+              permanently_totally_disabled: "no",
+              provided_over_half_own_support: "yes",
+              no_ssn_atin: "no",
+              filed_joint_return: "no",
+              meets_misc_qualifying_relative_requirements: "unfilled"
+      end
+
+      it "returns false" do
+        expect(dependent.possibly_qualifying_relative?).to eq false
+      end
+    end
+  end
+
   describe "#mixpanel_data" do
     let(:dependent) do
       build(

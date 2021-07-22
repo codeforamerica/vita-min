@@ -91,6 +91,27 @@ class Dependent < ApplicationRecord
 
   validates :ip_pin, ip_pin: true
 
+  QUALIFYING_CHILD_RELATIONSHIPS = [
+    "Daughter",
+    "Son",
+    "Stepchild",
+    "Foster child",
+    "Grandchild",
+    "Niece",
+    "Nephew",
+    "Half brother",
+    "Half sister",
+    "Brother",
+    "Sister"
+  ]
+
+  QUALIFYING_RELATIVE_RELATIONSHIPS = [
+    "Parent",
+    "Grandparent",
+    "Aunt",
+    "Uncle"
+  ]
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -127,8 +148,49 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit?(tax_year)
-    # add additional eligibility logic
-    age_at_end_of_year(tax_year) < 17
+    is_qualifying_child? && age_at_end_of_year(tax_year) < 17
+  end
+
+  def qualifying_child_relationship?
+    QUALIFYING_CHILD_RELATIONSHIPS.include? relationship
+  end
+
+  def qualifying_relative_relationship?
+    QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship
+  end
+
+  def qualifying_child?
+    qualifying_child_relationship? &&
+      ((full_time_student_yes? && age_at_end_of_year(2020) < 24) or permanently_totally_disabled_yes? or age_at_end_of_year(2020) < 19) &&
+      (provided_over_half_own_support_no? && no_ssn_atin_no? && filed_joint_return_no?) &&
+      lived_with_less_than_six_months_no? && (can_be_claimed_by_other_no? or claim_regardless_yes?)
+  end
+
+  def possibly_qualifying_child?
+    qualifying_child_relationship? &&
+      ((!full_time_student_no? && age_at_end_of_year(2020) < 24) || !permanently_totally_disabled_no? || age_at_end_of_year(2020) < 19) &&
+      (!provided_over_half_own_support_yes? && !no_ssn_atin_yes? && !filed_joint_return_yes?) &&
+      !lived_with_less_than_six_months_yes? && (!can_be_claimed_by_other_yes? || !claim_regardless_no?)
+  end
+
+  def qualifying_relative?
+    !qualifying_child? &&
+      (((qualifying_child_relationship? && age_at_end_of_year(2020) >= 19 && full_time_student_no?) ||
+      (qualifying_child_relationship? && age_at_end_of_year(2020) > 24) ||
+      (qualifying_child_relationship? && ((full_time_student_yes? && age_at_end_of_year(2020) < 24) || permanently_totally_disabled_yes? || (age_at_end_of_year(2020) < 19)) && filed_joint_return_yes?) ||
+      qualifying_relative_relationship?) &&
+      !provided_over_half_own_support_yes? && !no_ssn_atin_yes? &&
+      meets_misc_qualifying_relative_requirements_yes?)
+  end
+
+  def possibly_qualifying_relative?
+    !qualifying_child? &&
+      (((qualifying_child_relationship? && age_at_end_of_year(2020) >= 19 && !full_time_student_yes?) ||
+        (qualifying_child_relationship? && age_at_end_of_year(2020) > 24) ||
+        (qualifying_child_relationship? && ((!full_time_student_no? && age_at_end_of_year(2020) < 24) || !permanently_totally_disabled_no? || (age_at_end_of_year(2020) < 19)) && !filed_joint_return_no?) ||
+        qualifying_relative_relationship?) &&
+        !provided_over_half_own_support_yes? && !no_ssn_atin_yes? &&
+      !meets_misc_qualifying_relative_requirements_no?)
   end
 
   def mixpanel_data
