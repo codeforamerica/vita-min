@@ -11,10 +11,32 @@ module Ctc
     end
 
     def save
-      attributes = { has_primary_ip_pin: has_primary_ip_pin }
-      attributes.merge!(has_spouse_ip_pin: has_spouse_ip_pin) if has_spouse_ip_pin.present?
-      attributes.merge!(dependents_attributes: dependents_attributes) if dependents_attributes.present?
-      @intake.update(attributes)
+      attributes = {}
+
+      attributes[:has_primary_ip_pin] = has_primary_ip_pin || "no"
+      if attributes[:has_primary_ip_pin] == "no" || no_ip_pins == "yes"
+        attributes[:has_primary_ip_pin] = "no"
+        attributes[:primary_ip_pin] = nil
+      end
+
+      attributes[:has_spouse_ip_pin] = has_spouse_ip_pin || "no"
+      if attributes[:has_spouse_ip_pin] == "no" || no_ip_pins == "yes"
+        attributes[:has_spouse_ip_pin] = "no"
+        attributes[:spouse_ip_pin] = nil
+      end
+
+      if dependents_attributes.present?
+        dependents_attributes.values.each do |dependent_attributes|
+          dependent_attributes[:has_ip_pin] = "no" if dependent_attributes[:has_ip_pin].nil?
+          if dependent_attributes[:has_ip_pin] == "no" || no_ip_pins == "yes"
+            dependent_attributes[:ip_pin] = nil
+          end
+        end
+
+        attributes[:dependents_attributes] = dependents_attributes
+      end
+
+      @intake.update!(attributes)
     end
 
     private

@@ -6,6 +6,10 @@ module Ctc
 
       layout "intake"
 
+      def self.show?(intake)
+        intake.has_primary_ip_pin_yes? || intake.has_spouse_ip_pin_yes? || intake.dependents.any? { |dep| dep.has_ip_pin_yes? }
+      end
+
       def form_params
         params.fetch(form_name, {}).permit(*form_class.attribute_names + [{ dependents_attributes: [:id, :ip_pin] }])
       end
