@@ -99,7 +99,6 @@ RSpec.feature "Creating new drop off clients" do
 
       within "#identity-verification-fields" do
         fill_in "Name of navigator", with: "Terry Taxseason"
-        check "I have checked and verified this client's identity."
       end
 
       within "#photo-id-type-fields" do

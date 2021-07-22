@@ -427,26 +427,10 @@ RSpec.describe Hub::CreateCtcClientForm do
           expect(described_class.new(params).valid?).to eq false
         end
 
-        it "pushes errors for ctc refund method into the errors" do
+        it "pushes errors for navigator name into the errors" do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:navigator_name]).to include "Can't be blank."
-        end
-      end
-
-      context "navigator has checked identity checkbox" do
-        before do
-          params[:navigator_has_verified_client_identity] = nil
-        end
-
-        it "is required" do
-          expect(described_class.new(params).valid?).to eq false
-        end
-
-        it "pushes errors for ctc refund method into the errors" do
-          obj = described_class.new(params)
-          obj.valid?
-          expect(obj.errors[:navigator_has_verified_client_identity]).to include "Can't be blank."
         end
       end
 
