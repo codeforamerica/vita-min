@@ -116,7 +116,7 @@ CREATE VIEW analytics.intakes AS
            spouse_consented_to_service_at, spouse_had_disability, spouse_issued_identity_pin, spouse_was_blind,
            spouse_was_full_time_student, spouse_was_on_visa, state, state_of_residence,
            updated_at, viewed_at_capacity, visitor_id, vita_partner_id, was_blind, was_full_time_student,
-           was_on_visa, widowed
+           was_on_visa, widowed, type
     FROM public.intakes;
 
 CREATE VIEW analytics.notes AS
@@ -167,7 +167,7 @@ CREATE VIEW analytics.system_notes AS
 CREATE VIEW analytics.tax_returns AS
     SELECT id, assigned_user_id, certification_level, client_id, created_at, is_hsa,
            primary_signature, primary_signed_at, ready_for_prep_at, service_type, spouse_signature, spouse_signed_at,
-           status, updated_at, year
+           status, updated_at, year, is_ctc
     FROM public.tax_returns;
 
 CREATE VIEW analytics.team_member_roles AS
