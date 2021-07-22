@@ -19,16 +19,32 @@ describe Ctc::IpPinForm do
 
   describe "validates" do
     context "if no options are selected" do
-      before do
-        params[:has_primary_ip_pin] = "unfilled"
-        params[:has_spouse_ip_pin] = "unfilled"
-        params[:dependents_attributes]["0"][:has_ip_pin] = "unfilled"
+      context "with dependents" do
+        before do
+          params[:has_primary_ip_pin] = "unfilled"
+          params[:has_spouse_ip_pin] = "unfilled"
+          params[:dependents_attributes]["0"][:has_ip_pin] = "unfilled"
+        end
+
+        it "shows error on ‘None of the above’ option" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors.keys).to match_array([:no_ip_pins])
+        end
       end
 
-      it "shows error on ‘None of the above’ option" do
-        form = described_class.new(intake, params)
-        expect(form).not_to be_valid
-        expect(form.errors.keys).to match_array([:no_ip_pins])
+      context "without dependents" do
+        before do
+          params[:has_primary_ip_pin] = "unfilled"
+          params[:has_spouse_ip_pin] = "unfilled"
+          params.delete(:dependents_attributes)
+        end
+
+        it "shows error on ‘None of the above’ option" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors.keys).to match_array([:no_ip_pins])
+        end
       end
     end
   end
