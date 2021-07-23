@@ -16,6 +16,22 @@ describe EfileSubmissionStateMachine do
         submission.transition_to!(:preparing)
         expect(submission.tax_return.status).to eq("file_ready_to_file")
       end
+
+      context "from new to preparing" do
+        before do
+          allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
+        end
+
+        it "sends a message to the client" do
+          submission.transition_to!(:preparing)
+
+          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+            client: submission.client.reload,
+            message: instance_of(AutomatedMessage::EfilePreparing),
+            locale: submission.client.intake.locale
+          )
+        end
+      end
     end
 
     context "to transmitted" do

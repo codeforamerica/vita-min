@@ -72,7 +72,7 @@ module ApplicationHelper
 
   def submission_status_icon(status)
     case status
-    when "new", "preparing", "intake_in_progress"
+    when "intake_in_progress"
       "icons/in-progress.svg"
     when "failed", "bundle_failure"
       "icons/exclamation.svg"
@@ -80,7 +80,7 @@ module ApplicationHelper
       "icons/rejected.svg"
     when "accepted"
       "icons/accepted.svg"
-    when "transmitted"
+    when "new", "preparing", "transmitted"
       "icons/sending.svg"
     end
   end

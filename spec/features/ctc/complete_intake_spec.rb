@@ -239,5 +239,14 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     intake.reload
     expect(intake.primary_ip_pin).to eq "123456"
     expect(intake.dependents.last.ip_pin).to eq "123458"
+
+    visit "en/questions/confirm-legal" # TODO: remove redirect when other review pages are in
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))
+    check I18n.t("views.ctc.questions.confirm_legal.consent")
+    click_on I18n.t("views.ctc.questions.confirm_legal.action")
+
+    # =========== PORTAL ===========
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
+    expect(page).to have_text(I18n.t("views.ctc.portal.home.status.preparing.label"))
   end
 end

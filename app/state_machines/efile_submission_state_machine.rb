@@ -16,10 +16,10 @@ class EfileSubmissionStateMachine
   # I know we'll need some "internal" statuses to track filings that need internal attention, but I don't
   # know what they are yet so let's not think too far ahead.
 
-  transition from: :new,          to: [:preparing]
-  transition from: :preparing,    to: [:queued, :failed]
-  transition from: :queued,       to: [:transmitted, :failed, :rejected]
-  transition from: :transmitted,  to: [:accepted, :rejected]
+  transition from: :new, to: [:preparing]
+  transition from: :preparing, to: [:queued, :failed]
+  transition from: :queued, to: [:transmitted, :failed, :rejected]
+  transition from: :transmitted, to: [:accepted, :rejected]
 
   guard_transition(to: :queued) do |submission, transition|
     transition.metadata[:seeding].present? || submission.submission_bundle.present?
@@ -59,5 +59,14 @@ class EfileSubmissionStateMachine
       locale: client.intake.locale
     )
     submission.tax_return.update(status: "file_accepted")
+  end
+
+  after_transition(from: :new, to: :preparing) do |submission|
+    client = submission.client
+    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+      client: client,
+      message: AutomatedMessage::EfilePreparing.new,
+      locale: client.intake.locale
+    )
   end
 end

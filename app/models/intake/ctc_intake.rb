@@ -17,6 +17,7 @@
 #  claimed_by_another                                   :integer          default(0), not null
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
+#  consented_to_legal                                   :integer          default("unfilled"), not null
 #  continued_at_capacity                                :boolean          default(FALSE)
 #  current_step                                         :string
 #  demographic_disability                               :integer          default(0), not null
@@ -253,6 +254,7 @@ class Intake::CtcIntake < Intake
   enum primary_member_of_the_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_member_of_the_armed_forces
   enum has_primary_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_primary_ip_pin
   enum has_spouse_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_spouse_ip_pin
+  enum consented_to_legal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_legal
 
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account
