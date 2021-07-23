@@ -7,7 +7,7 @@ module Ctc
       layout "intake"
 
       # if the client already has a valid intake with same info, don't have them verify again.
-      def self.show?(intake)
+      def self.show?(intake, _dependent)
         return false if ClientLoginService.has_ctc_duplicate?(intake)
         return false if intake.sms_phone_number_verified_at? # only require one verified contact type
 

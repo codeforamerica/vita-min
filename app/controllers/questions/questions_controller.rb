@@ -64,7 +64,7 @@ module Questions
       controller_name.dasherize + ".svg"
     end
 
-    def self.show?(intake)
+    def self.show?(*args)
       true
     end
 

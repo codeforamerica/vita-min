@@ -1357,6 +1357,15 @@ en:
             title: "Would you like to claim a dependent for 2020?"
             help_text: "Someone who lives with you for a majority of the year or who you support financially could qualify as a dependent."
             what_relationships_reveal: "What relationships qualify?"
+          child_lived_with_you:
+            title: "Did %{dependent_name} live with you for more than 6 months in %{tax_year}?"
+          child_residence_exceptions:
+            title: "Were any of the following true for %{dependent_name}?"
+            help_text: "They could still qualify for payments if they lived with you for less than 6 months and any of the following were true."
+            born_in_2020: "%{dependent_name} was born in 2020"
+            passed_away_2020: "%{dependent_name} was lawfully placed with you for adoption in 2020"
+            placed_for_adoption: "%{dependent_name} passed away in 2020"
+            permanent_residence_with_client: "%{dependent_name}’s permanent residence was with you for at least six months, even if they were away for part of that time"
           no_dependents:
             title: "You may still be eligible for other tax credits."
             help_text: "You can still file a simplified tax return and receive any stimulus payments that you are owed and have not received."

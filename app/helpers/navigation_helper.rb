@@ -7,7 +7,6 @@ module NavigationHelper
   end
 
   private
-
   def locale_agnostic_current_path?(path)
     remove_leading_locale_from_path(path) == remove_leading_locale_from_path(request.path)
   end

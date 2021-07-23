@@ -5,7 +5,7 @@ module Ctc
 
       layout "intake"
 
-      def self.show?(intake)
+      def self.show?(intake, _dependent)
         intake.filed_2020_yes?
       end
 

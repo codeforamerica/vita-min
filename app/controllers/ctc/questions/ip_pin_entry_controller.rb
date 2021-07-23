@@ -6,7 +6,7 @@ module Ctc
 
       layout "intake"
 
-      def self.show?(intake)
+      def self.show?(intake, _dependent)
         intake.has_primary_ip_pin_yes? || intake.has_spouse_ip_pin_yes? || intake.dependents.any? { |dep| dep.has_ip_pin_yes? }
       end
 

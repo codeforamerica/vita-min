@@ -6,7 +6,7 @@ module Ctc
 
         layout "intake"
 
-        def self.show?(intake)
+        def self.show?(intake, _dependent)
           intake.had_dependents_no?
         end
 

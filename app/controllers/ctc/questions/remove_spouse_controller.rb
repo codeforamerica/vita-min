@@ -12,7 +12,7 @@ module Ctc
         super
       end
 
-      def self.show?(intake)
+      def self.show?(intake, _dependent)
         intake.client.tax_returns.last.filing_status_married_filing_jointly?
       end
 

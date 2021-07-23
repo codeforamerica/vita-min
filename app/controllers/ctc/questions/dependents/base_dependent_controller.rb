@@ -16,6 +16,10 @@ module Ctc
           "ctc/dependents/" + controller_name + "_form"
         end
 
+        def self.current_dependent_from_params(current_intake, params)
+          current_intake.dependents.find(params[:id])
+        end
+
         def edit
           return if form_class == NullForm
 

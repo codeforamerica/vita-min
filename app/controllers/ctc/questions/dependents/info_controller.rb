@@ -6,7 +6,7 @@ module Ctc
 
         layout "intake"
 
-        def self.show?(intake)
+        def self.show?(intake, _dependent)
           intake.had_dependents_yes?
         end
 
@@ -22,8 +22,7 @@ module Ctc
           end
         end
 
-        def illustration_path
-        end
+        def illustration_path; end
       end
     end
   end
