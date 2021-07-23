@@ -25,8 +25,8 @@ class EfileSubmissionStateMachine
   #   transition.metadata[:seeding].present? || submission.submission_bundle.present?
   # end
 
-  after_transition(to: :preparing) do |submission|
-    BuildSubmissionBundleJob.perform_later(submission.id)
+  after_transition(to: :preparing) do |submission, transition|
+    BuildSubmissionBundleJob.perform_later(submission.id, skip_address: transition.metadata["skip_address_check"])
     submission.tax_return.update(status: "file_ready_to_file")
   end
 

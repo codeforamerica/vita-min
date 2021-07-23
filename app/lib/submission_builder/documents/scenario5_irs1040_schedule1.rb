@@ -15,7 +15,7 @@ module SubmissionBuilder
         Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.IRS1040Schedule1(root_node_attrs) {
             xml.IRADeductionAmt 1300
-            xml.OtherAdjustmentsTotalAmt 1300
+            xml.TotalAdjustmentsAmt 1300
           }
         end.doc
       end

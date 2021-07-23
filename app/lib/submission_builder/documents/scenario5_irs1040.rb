@@ -69,6 +69,7 @@ module SubmissionBuilder
               xml.PriorYearEarnedIncomeCd "PYEI"
               xml.PriorYearEarnedIncomeAmt 2800
             }
+            xml.AdditionalChildTaxCreditAmt 2800
             xml.RefundableAmerOppCreditAmt 280
             xml.RecoveryRebateCreditAmt 400
             xml.RefundableCreditsAmt 7116

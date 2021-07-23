@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Documents::Scenario5Irs2441 do
+describe SubmissionBuilder::Documents::Scenario5Irs1040W2Suntrust do
   let(:submission) { TestSubmissions::Scenario5Submission.create_submission }
   before do
     allow(EnvironmentCredentials).to receive(:dig).with(:irs, :sin).and_return "11111111"

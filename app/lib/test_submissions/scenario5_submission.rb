@@ -15,7 +15,7 @@ module TestSubmissions
           primary_birth_date: Date.new(1990, 12, 17),
           # primary_signature_pin: "12345", # get this from static signature PIN on intake for now
           refund_payment_method: "direct_deposit",
-          primary_consented_to_service_ip: "250.11.255.255",
+          primary_consented_to_service_ip: "73.77.172.49",
           sms_phone_number_verified_at: DateTime.now,
           dependents_attributes: [
               {
@@ -52,11 +52,7 @@ module TestSubmissions
       submission = EfileSubmission.create(tax_return: client.tax_returns.last)
 
       submission.create_address(street_address: "1111 MULBERRY ST", city: "ALEXANDRIA", state: "VA", zip_code: "22309")
-      submission
-    end
-
-    def self.build
-      SubmissionBundle.build(self.create_submission, documents: ["scenario5"])
+      submission.transition_to!(:preparing, { skip_address_check: true })
     end
   end
 end

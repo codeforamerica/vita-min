@@ -58,6 +58,15 @@ module SubmissionBuilder
               xml.QualifyingPersonNameControlTxt "SAMM"
               xml.QualifyingPersonSSN "400001058"
             }
+            xml.TotalQlfdExpensesOrLimitAmt 2300
+            xml.PrimaryEarnedIncomeAmt 30169
+            xml.SpouseEarnedIncomeAmt 30169
+            xml.SmallerOfExpensesOrIncomeAmt 2300
+            xml.AdjustedGrossIncomeAmt 28869
+            xml.CareExpensesDecimalAmt ".28"
+            xml.CalculatedTentativeExpenseAmt 644
+            xml.TaxLiabLmtFromCrLmtWrkshtAmt 408
+            xml.CreditForChildAndDepdCareAmt 408
           }
         end.doc
       end
