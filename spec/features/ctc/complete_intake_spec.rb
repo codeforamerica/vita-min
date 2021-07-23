@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
+RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
@@ -28,11 +28,6 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     fill_in "Confirm SSN or ITIN", with: "111-22-8888"
     fill_in "Phone number", with: "831-234-5678"
     click_on "Continue"
-
-    intake = Intake.last
-    expect(intake.preferred_name).to eq "Gary"
-    expect(intake.timezone).not_to be_blank
-    expect(intake.client).not_to be_blank
 
     expect(page).to have_selector("h1", text: "What is the best way to reach you?")
     click_on "Send me texts"
@@ -121,14 +116,10 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
 
     # =========== DEPENDENTS ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.had_dependents.title'))
-    # For some reason the presence of the tall "What relationships?" reveal blocks clicks to the yes/no,
-    # even though the contents of the reveal should be hidden. What a mystery!
-    page.execute_script("document.querySelector('.reveal').remove()")
     click_on "No"
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.no_dependents.title'))
     click_on "Go back"
-    page.execute_script("document.querySelector('.reveal').remove()")
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
