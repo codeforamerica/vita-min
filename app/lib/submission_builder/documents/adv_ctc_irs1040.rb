@@ -14,10 +14,10 @@ module SubmissionBuilder
         xml.DependentDetail do
           xml.DependentFirstNm dependent.first_name
           xml.DependentLastNm dependent.last_name
-          xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
+          xml.DependentNameControlTxt person_name_control_type(dependent.first_name)
           xml.DependentSSN dependent.ssn
           xml.DependentRelationshipCd dependent.relationship&.upcase
-          xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit?(2021)
+          xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit_2020?
         end
       end
 
@@ -25,27 +25,23 @@ module SubmissionBuilder
         submission.tax_return.filing_jointly? ? 2 : 1
       end
 
-      def total_exemption_count
-        filer_exemption_count + submission.dependents.count # TODO: Narrow this down to "qualifying" dependents
-      end
-
       def document
         intake = submission.intake
         tax_return = submission.tax_return
         bank_account = intake.bank_account
-        dependents = intake.dependents
+        qualifying_dependents = tax_return.qualifying_dependents
 
         Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.IRS1040(root_node_attrs) {
             xml.IndividualReturnFilingStatusCd tax_return.filing_status_code
             xml.VirtualCurAcquiredDurTYInd false
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
-            dependents.each do |dependent|
+            qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
             end
-            xml.ChldWhoLivedWithYouCnt dependents.count # TODO: Update with "Qualifying Child" count
-            xml.OtherDependentsListedCnt 0 # TODO: Update with "Qualifying Relative" count
-            xml.TotalExemptionsCnt total_exemption_count
+            xml.ChldWhoLivedWithYouCnt qualifying_dependents.count(&:qualifying_child_2020?)
+            xml.OtherDependentsListedCnt qualifying_dependents.count(&:qualifying_relative_2020?)
+            xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
             xml.TaxableInterestAmt 1
             xml.AdjustedGrossIncomeAmt 1
             xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction

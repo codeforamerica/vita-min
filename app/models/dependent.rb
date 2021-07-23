@@ -92,24 +92,24 @@ class Dependent < ApplicationRecord
   validates :ip_pin, ip_pin: true
 
   QUALIFYING_CHILD_RELATIONSHIPS = [
-    "Daughter",
-    "Son",
-    "Stepchild",
-    "Foster child",
-    "Grandchild",
-    "Niece",
-    "Nephew",
-    "Half brother",
-    "Half sister",
-    "Brother",
-    "Sister"
+    "DAUGHTER",
+    "SON",
+    "STEPCHILD",
+    "FOSTER CHILD",
+    "GRANDCHILD",
+    "NIECE",
+    "NEPHEW",
+    "HALF BROTHER",
+    "HALF SISTER",
+    "BROTHER",
+    "SISTER"
   ]
 
   QUALIFYING_RELATIVE_RELATIONSHIPS = [
-    "Parent",
-    "Grandparent",
-    "Aunt",
-    "Uncle"
+    "PARENT",
+    "GRANDPARENT",
+    "AUNT",
+    "UNCLE"
   ]
 
   def full_name
@@ -147,19 +147,19 @@ class Dependent < ApplicationRecord
     tax_year - birth_date.year
   end
 
-  def eligible_for_child_tax_credit?(tax_year)
-     age_at_end_of_year(tax_year) < 17
+  def eligible_for_child_tax_credit_2020?
+    age_at_end_of_year(2020) < 17 && qualifying_child_2020?
   end
 
   def qualifying_child_relationship?
-    QUALIFYING_CHILD_RELATIONSHIPS.include? relationship
+    QUALIFYING_CHILD_RELATIONSHIPS.include? relationship&.upcase
   end
 
   def qualifying_relative_relationship?
-    QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship
+    QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship&.upcase
   end
 
-  def qualifying_child?
+  def qualifying_child_2020?
     qualifying_child_relationship? &&
       meets_qc_age_condition? &&
       meets_qc_misc_conditions? &&
@@ -186,7 +186,7 @@ class Dependent < ApplicationRecord
       (can_be_claimed_by_other_yes? && claim_regardless_yes?)
   end
 
-  def qualifying_relative?
+  def qualifying_relative_2020?
     ((qualifying_child_relationship? &&
         # QC relationship and doesn't meet age requirements
         (!meets_qc_age_condition? ||

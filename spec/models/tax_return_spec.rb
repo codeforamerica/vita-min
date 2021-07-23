@@ -80,6 +80,22 @@ describe TaxReturn do
     end
   end
 
+  describe "qualifying_dependents" do
+    let(:tax_return) { create :tax_return, year: 2019 }
+    context "when the tax year is not 2020" do
+      it "raises an error" do
+        expect {
+          tax_return.qualifying_dependents
+        }.to raise_error StandardError
+      end
+    end
+
+    context "when there are some qualifying dependents and some not qualifying dependents" do
+      let(:intake) { create :intake, :with_dependents, dependent_count: 4 }
+      let(:tax_return) { create :tax_return, year: 2020, intake: intake }
+    end
+  end
+
   describe "#advance_to" do
     let(:tax_return) { create :tax_return, status: status }
 

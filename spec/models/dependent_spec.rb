@@ -107,7 +107,7 @@ describe Dependent do
     end
   end
 
-  describe "#qualifying_child?" do
+  describe "#qualifying_child_2020?" do
     context "with a qualifying child" do
       let(:dependent) do
         build :dependent,
@@ -124,7 +124,7 @@ describe Dependent do
       end
 
       it "returns true" do
-        expect(dependent.qualifying_child?).to eq true
+        expect(dependent.qualifying_child_2020?).to eq true
       end
     end
 
@@ -144,7 +144,7 @@ describe Dependent do
       end
 
       it "returns false" do
-        expect(dependent.qualifying_child?).to eq false
+        expect(dependent.qualifying_child_2020?).to eq false
       end
     end
   end
@@ -274,7 +274,7 @@ describe Dependent do
     end
   end
 
-  describe "#qualifying_relative?" do
+  describe "#qualifying_relative_2020?" do
     let(:dependent) do
       build :dependent,
             relationship: relationship,
@@ -287,13 +287,13 @@ describe Dependent do
     let(:filed_jointly) { "no" }
 
     context "with a dependent who meets misc requirements" do
-      let(:meets_misc) {"yes"}
+      let(:meets_misc) { "yes" }
 
       context "with a dependent who has a QC relationship but doesn't meet age conditions" do
         let(:birthday) { Date.new(1960, 12, 25) }
 
         it "returns true" do
-          expect(dependent.qualifying_relative?).to eq true
+          expect(dependent.qualifying_relative_2020?).to eq true
         end
       end
 
@@ -301,7 +301,7 @@ describe Dependent do
         let(:filed_jointly) { "yes" }
 
         it "returns true" do
-          expect(dependent.qualifying_relative?).to eq true
+          expect(dependent.qualifying_relative_2020?).to eq true
         end
       end
 
@@ -309,16 +309,16 @@ describe Dependent do
         let(:relationship) { "Parent" }
 
         it "returns true" do
-          expect(dependent.qualifying_relative?).to eq true
+          expect(dependent.qualifying_relative_2020?).to eq true
         end
       end
     end
 
     context "with a dependent who does not meet misc requirements" do
-      let(:meets_misc) {"no"}
+      let(:meets_misc) { "no" }
 
       it "returns false" do
-        expect(dependent.qualifying_relative?).to eq false
+        expect(dependent.qualifying_relative_2020?).to eq false
       end
     end
   end

@@ -4,13 +4,15 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
   describe ".build" do
     before do
       dependent = submission.intake.dependents.first
-      dependent.update(first_name: "Keeley", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234")
+      dependent_attrs = attributes_for(:dependent, :qualifying_child, first_name: "Keeley", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234")
+      dependent.update(dependent_attrs)
       dependent2 = submission.intake.dependents.second
-      dependent2.update(first_name: "Kyle", birth_date: Date.new(1975, 1, 1), relationship: "son", ssn: "123001235")
+      dependent2_attrs = attributes_for(:dependent, :qualifying_child, birth_date: Date.new(1975, 1, 1), relationship: "son", ssn: "123001235") # too old to be qualifying child
+      dependent2.update(dependent2_attrs)
       dependent3 = submission.intake.dependents.third
-      dependent3.update(first_name: "Kelly", birth_date: Date.new(2019, 1, 1), relationship: "stepchild", ssn: "123001236")
+      dependent3_attrs = attributes_for(:dependent, :qualifying_relative, first_name: "Kelly", birth_date: Date.new(1960, 1, 1), relationship: "parent", ssn: "123001236")
+      dependent3.update(dependent3_attrs)
     end
-
 
     let(:submission) { create :efile_submission, :ctc, filing_status: filing_status, tax_year: 2020 }
 
@@ -60,25 +62,19 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
         expect(xml.at("IndividualReturnFilingStatusCd").text).to eq "2" # code for marrying filing joint
         expect(xml.at("VirtualCurAcquiredDurTYInd").text).to eq "false"
         dependent_nodes = xml.search("DependentDetail")
-        expect(dependent_nodes.length).to eq 3
+        expect(dependent_nodes.length).to eq 2
         expect(dependent_nodes[0].at("DependentFirstNm").text).to eq "Keeley"
         expect(dependent_nodes[0].at("DependentLastNm").text).to eq "Kiwi"
-        expect(dependent_nodes[0].at("DependentNameControlTxt").text).to eq "KIWI"
+        expect(dependent_nodes[0].at("DependentNameControlTxt").text).to eq "KEEL"
         expect(dependent_nodes[0].at("DependentSSN").text).to eq "123001234"
         expect(dependent_nodes[0].at("DependentRelationshipCd").text).to eq "DAUGHTER"
         expect(dependent_nodes[0].at("EligibleForChildTaxCreditInd").text).to eq "X"
-        expect(dependent_nodes[1].at("DependentFirstNm").text).to eq "Kyle"
+        expect(dependent_nodes[1].at("DependentFirstNm").text).to eq "Kelly"
         expect(dependent_nodes[1].at("DependentLastNm").text).to eq "Kiwi"
-        expect(dependent_nodes[1].at("DependentNameControlTxt").text).to eq "KIWI"
-        expect(dependent_nodes[1].at("DependentSSN").text).to eq "123001235"
-        expect(dependent_nodes[1].at("DependentRelationshipCd").text).to eq "SON"
+        expect(dependent_nodes[1].at("DependentNameControlTxt").text).to eq "KELL"
+        expect(dependent_nodes[1].at("DependentSSN").text).to eq "123001236"
+        expect(dependent_nodes[1].at("DependentRelationshipCd").text).to eq "PARENT"
         expect(dependent_nodes[1].at("EligibleForChildTaxCreditInd")).to be_nil
-        expect(dependent_nodes[2].at("DependentFirstNm").text).to eq "Kelly"
-        expect(dependent_nodes[2].at("DependentLastNm").text).to eq "Kiwi"
-        expect(dependent_nodes[2].at("DependentNameControlTxt").text).to eq "KIWI"
-        expect(dependent_nodes[2].at("DependentSSN").text).to eq "123001236"
-        expect(dependent_nodes[2].at("DependentRelationshipCd").text).to eq "STEPCHILD"
-        expect(dependent_nodes[2].at("EligibleForChildTaxCreditInd").text).to eq "X"
       end
 
       it "conforms to the eFileAttachments schema" do
