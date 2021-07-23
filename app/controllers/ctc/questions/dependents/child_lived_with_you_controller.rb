@@ -15,8 +15,7 @@ module Ctc
         end
 
         def method_name
-          # TODO: the column name seems to be the opposite of the question being asked on this page
-          'lived_with_less_than_six_months'
+          'lived_with_more_than_six_months'
         end
 
         private

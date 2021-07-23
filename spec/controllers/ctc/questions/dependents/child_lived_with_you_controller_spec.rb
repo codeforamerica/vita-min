@@ -14,7 +14,7 @@ describe Ctc::Questions::Dependents::ChildLivedWithYouController do
         {
           id: dependent.id,
           ctc_dependents_child_lived_with_you_form: {
-            lived_with_less_than_six_months: "yes"
+            lived_with_more_than_six_months: "yes"
           }
         }
       end
@@ -22,7 +22,7 @@ describe Ctc::Questions::Dependents::ChildLivedWithYouController do
       it "updates the dependent and moves to the next page" do
         post :update, params: params
 
-        expect(dependent.reload.lived_with_less_than_six_months).to eq "yes"
+        expect(dependent.reload.lived_with_more_than_six_months).to eq "yes"
       end
     end
 
@@ -31,7 +31,7 @@ describe Ctc::Questions::Dependents::ChildLivedWithYouController do
         {
           id: 'jeff',
           ctc_dependents_child_lived_with_you_form: {
-            lived_with_less_than_six_months: "yes"
+            lived_with_more_than_six_months: "yes"
           }
         }
       end
@@ -53,7 +53,7 @@ describe Ctc::Questions::Dependents::ChildLivedWithYouController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:lived_with_less_than_six_months)
+        expect(assigns(:form).errors.keys).to include(:lived_with_more_than_six_months)
       end
     end
   end
