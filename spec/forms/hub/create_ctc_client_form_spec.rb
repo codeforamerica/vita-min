@@ -417,23 +417,7 @@ RSpec.describe Hub::CreateCtcClientForm do
           expect(obj.errors[:taxpayer_id_type]).to include "Please select at least one taxpayer ID type"
         end
       end
-
-      context "navigator name" do
-        before do
-          params[:navigator_name] = nil
-        end
-
-        it "is required" do
-          expect(described_class.new(params).valid?).to eq false
-        end
-
-        it "pushes errors for navigator name into the errors" do
-          obj = described_class.new(params)
-          obj.valid?
-          expect(obj.errors[:navigator_name]).to include "Can't be blank."
-        end
-      end
-
+      
       context "refund payment method" do
         before do
           params[:refund_payment_method] = nil
