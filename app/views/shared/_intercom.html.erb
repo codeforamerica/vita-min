@@ -1,12 +1,15 @@
 <% @app_id = EnvironmentCredentials.dig(:intercom, :app_id) %>
 
+<button type="button" class="open-intercom">🚀 Testing</button>
+
 <script>
   const isHub = <%= isHub.to_json %>;
   // https://developers.intercom.com/installing-intercom/docs/javascript-api-attributes-objects#section-data-attributes
   let intercomSettings = {
       app_id: "<%= @app_id %>",
       custom_launcher_selector: ".open-intercom",
-      language_override: "<%= I18n.locale %>"
+      language_override: "<%= I18n.locale %>",
+      hide_default_launcher: true
   };
   const hubStyles = {
       action_color: "#757575",
