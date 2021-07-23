@@ -92,24 +92,24 @@ class Dependent < ApplicationRecord
   validates :ip_pin, ip_pin: true
 
   QUALIFYING_CHILD_RELATIONSHIPS = [
-    "DAUGHTER",
-    "SON",
-    "STEPCHILD",
-    "FOSTER CHILD",
-    "GRANDCHILD",
-    "NIECE",
-    "NEPHEW",
-    "HALF BROTHER",
-    "HALF SISTER",
-    "BROTHER",
-    "SISTER"
+    "daughter",
+    "son",
+    "stepchild",
+    "foster_child",
+    "grandchild",
+    "niece",
+    "nephew",
+    "half_brother",
+    "half_sister",
+    "brother",
+    "sister"
   ]
 
   QUALIFYING_RELATIVE_RELATIONSHIPS = [
-    "PARENT",
-    "GRANDPARENT",
-    "AUNT",
-    "UNCLE"
+    "parent",
+    "grandparent",
+    "aunt",
+    "uncle"
   ]
 
   def full_name
@@ -147,16 +147,22 @@ class Dependent < ApplicationRecord
     tax_year - birth_date.year
   end
 
+  # Transforms relationship to the format expected by the IRS submission
+  # (upcased with spaces instead of underscores)
+  def irs_relationship_enum
+    relationship&.upcase.gsub("_", " ")
+  end
+
   def eligible_for_child_tax_credit_2020?
     age_at_end_of_year(2020) < 17 && qualifying_child_2020?
   end
 
   def qualifying_child_relationship?
-    QUALIFYING_CHILD_RELATIONSHIPS.include? relationship&.upcase
+    QUALIFYING_CHILD_RELATIONSHIPS.include? relationship
   end
 
   def qualifying_relative_relationship?
-    QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship&.upcase
+    QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship
   end
 
   def qualifying_child_2020?

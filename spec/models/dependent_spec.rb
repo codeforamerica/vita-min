@@ -85,6 +85,31 @@ describe Dependent do
     end
   end
 
+  describe "irs_relationship_enum" do
+    context "foster_child" do
+      let(:dependent) { build :dependent, relationship: "foster_child" }
+      it "converts to upcase without underscores" do
+        expect(dependent.irs_relationship_enum).to eq "FOSTER CHILD"
+      end
+    end
+
+    context "half_brother" do
+      let(:dependent) { build :dependent, relationship: "half_brother" }
+
+      it "converts to upcase without underscores" do
+        expect(dependent.irs_relationship_enum).to eq "HALF BROTHER"
+      end
+    end
+
+    context "stepchild" do
+      let(:dependent) { build :dependent, relationship: "stepchild" }
+
+      it "converts to upcase without underscores" do
+        expect(dependent.irs_relationship_enum).to eq "STEPCHILD"
+      end
+    end
+  end
+
   describe "#age_at_end_of_year" do
     let(:dependent) { build :dependent, birth_date: dob }
     let(:intake_double) { instance_double("Intake", tax_year: tax_year) }
