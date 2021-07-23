@@ -1329,7 +1329,6 @@ es:
             file_a_simplified_return: "Presentar una declaración simplificada"
           confirm_dependents:
             title: "Confirmemos sus dependientes"
-            your_dependents: "Sus dependientes"
             add_a_dependent: "Agregar una persona dependiente"
             done_adding: "Ya no hay más dependientes por agregar"
         mailing_address:

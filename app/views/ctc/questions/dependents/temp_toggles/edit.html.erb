@@ -1,0 +1,21 @@
+<% content_for :page_title, "Temporary Toggles for #{@form.dependent.first_name}" %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="form-question spacing-below-35">
+      <%= content_for(:page_title) %>
+    </h1>
+    <p>
+      this page will be removed before the ctc intake form goes live
+    </p>
+    <div class="form-card__stacked-checkboxes spacing-above-0">
+      <% Ctc::Dependents::TempTogglesForm::ATTRIBUTES.each do |attribute| %>
+        <%= f.cfa_checkbox(attribute, attribute, options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <% end %>
+    </div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>
