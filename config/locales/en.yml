@@ -3115,7 +3115,7 @@ en:
 
         <h2 class="text--caption">Overview</h2>
         <h3>Information we collect</h3>
-        <p>We may collect the following information about you, your dependents, or members of your household:</p>
+        <p>We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:</p>
         <ul class="list--bulleted">
           <li>Personal identifiers such as name, addresses, phone numbers, and email addresses</li>
           <li>Date of birth</li>
@@ -3165,7 +3165,6 @@ en:
           <li>VITA providers to help prepare and submit your tax returns</li>
           <li>The Internal Revenue Service (IRS) in order to help you e-file your taxes and/or other forms to qualify for the Child Tax Credit payments</li>
           <li>Third parties to distribute surveys, focus groups, or for other administrative, analytical, and marketing purposes. These third party communications are for the purpose the betterment of the product, to learn about the experience and to update you if you asked for updates</li>
-          <li>Third parties with whom we have a business relationship to send you information about other programs and services, but not for marketing purposes.</li>
           <li>Service providers, who provide services and support on our behalf</li>
         </ul>
 
@@ -3173,7 +3172,7 @@ en:
 
         <p>We may share your information with third parties in special situations, such as when required by law, or we believe sharing will help to protect the safety, property, or rights of Code for America, the people we serve, our associates, or other persons.</p>
 
-        <p>We may share limited, aggregated, or anonymized personal information with government agencies, such as the IRS, to analyze the use of our Services, free tax preparation service providers, and the Child Tax Credit in order to improve and expand our Services. We will not share any information with the IRS that has not already been disclosed on your tax return or through the GetCTC website.</p>
+        <p>We may share limited, aggregated, or personal information with government agencies, such as the IRS, to analyze the use of our Services, free tax preparation service providers, and the Child Tax Credit in order to improve and expand our Services. We will not share any information with the IRS that has not already been disclosed on your tax return or through the GetCTC website.</p>
 
         <h3>Your choices regarding your information</h3>
         <p>We value and respect your privacy and offer you choices over how we collect, use, and share your information.</p>
@@ -3213,6 +3212,8 @@ en:
 
         <p>Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.</p>
 
+        <p>Still, no system can be guaranteed to be 100% secure. If you have questions about the security of your personal information, or if you have reason to believe that the personal information that we hold about you is no longer secure, please contact us immediately as described in this Privacy Notice.</p>
+
         <h3>Data Retention</h3>
 
         <p>We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations.</p>
@@ -3225,10 +3226,17 @@ en:
         <h2 class="text--caption">Changes</h2>
         <p>We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.</p>
 
+        <h3>Access Request</h3>
+        <p>GetCTC.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at %{email_link}.</p>
+
+        <p>Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity--which determined the means and purposes of processing, all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.</p>
+
         <h2 class="text--caption">Effective Date</h2>
-        <p>This version of the policy is effective July 7, 2021.</p>
+        <p>This version of the policy is effective July 21, 2021.</p>
 
         <h2 class="text--caption">Questions</h2>
+        <p>If you have an unresolved privacy or data use concern that we have not addressed satisfactorily, please contact our U.S.-based third party dispute resolution provider (free of charge) at <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.</p>
+
         <p>If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:</p>
 
         <p>
