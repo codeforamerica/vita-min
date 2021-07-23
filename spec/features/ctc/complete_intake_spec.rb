@@ -222,8 +222,7 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     expect(page).to have_selector("div", text: "Bel Air, CA 90001")
     click_on "Continue"
 
-    # =========== REVIEW ===========
-
+    # =========== IP PINs ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
     check "Gary Mango"
     check "Jessie Pepper"
@@ -234,9 +233,7 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie Pepper"), with: "123458"
     click_on "Continue"
 
-    intake.reload
-    expect(intake.primary_ip_pin).to eq "123456"
-    expect(intake.dependents.last.ip_pin).to eq "123458"
+    # =========== REVIEW ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
 
     expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.confirm_information.your_information"))
@@ -244,7 +241,6 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     expect(page).to have_selector("div", text: "Date of birth: 8/24/1996")
     expect(page).to have_selector("div", text: "Email: mango@example.com")
     expect(page).to have_selector("div", text: "Phone: (831) 234-5678")
-    expect(page).to have_selector("div", text: "SSN: XXX-XX-8888")
     expect(page).to have_selector("div", text: "SSN: XXX-XX-8888")
 
     expect(page).to have_selector("h2", text: "Your mailing address")
@@ -269,7 +265,6 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Peter Pepper"), with: "54321"
     click_on "I'm ready to file"
 
-    visit "en/questions/confirm-legal" # TODO: remove redirect when other review pages are in
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))
     check I18n.t("views.ctc.questions.confirm_legal.consent")
     click_on I18n.t("views.ctc.questions.confirm_legal.action")

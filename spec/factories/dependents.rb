@@ -56,10 +56,10 @@ FactoryBot.define do
     was_student { "yes" }
     disabled { "no" }
     sequence(:ssn) { |n| intake && intake.is_ctc? ? "88811#{"%04d" % (n % 1000)}" : nil }
-    tin_type { intake.is_ctc? ? "ssn" : nil }
+    tin_type { intake && intake.is_ctc? ? "ssn" : nil }
 
     factory :qualifying_child do
-      relationship { "Niece" }
+      relationship { "niece" }
       birth_date { Date.new(2015, 2, 25) }
       full_time_student { "no" }
       permanently_totally_disabled { "no" }
@@ -72,12 +72,12 @@ FactoryBot.define do
     end
 
     factory :qualifying_relative do
-      relationship { "Parent" }
+      relationship { "parent" }
       meets_misc_qualifying_relative_requirements { "yes" }
     end
 
     factory :nonqualifying_dependent do
-      relationship { "Niece" }
+      relationship { "niece" }
       birth_date { Date.new(2015, 12, 25) }
       full_time_student { "no" }
       permanently_totally_disabled { "no" }

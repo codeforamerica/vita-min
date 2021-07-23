@@ -371,7 +371,7 @@ describe Dependent do
       let(:dependent) { create :qualifying_child }
 
       it "returns true" do
-        expect(dependent.qualifying?).to eq true
+        expect(dependent.qualifying_2020?).to eq true
       end
     end
 
@@ -379,7 +379,7 @@ describe Dependent do
       let(:dependent) { create :qualifying_relative }
 
       it "returns true" do
-        expect(dependent.qualifying?).to eq true
+        expect(dependent.qualifying_2020?).to eq true
       end
     end
 
@@ -387,7 +387,7 @@ describe Dependent do
       let(:dependent) { create :nonqualifying_dependent }
 
       it "returns false" do
-        expect(dependent.qualifying?).to eq false
+        expect(dependent.qualifying_2020?).to eq false
       end
     end
   end

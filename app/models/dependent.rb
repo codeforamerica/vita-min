@@ -208,8 +208,8 @@ class Dependent < ApplicationRecord
       meets_misc_qualifying_relative_requirements_yes?
   end
 
-  def qualifying?
-    qualifying_child? || qualifying_relative?
+  def qualifying_2020?
+    qualifying_child_2020? || qualifying_relative_2020?
   end
 
   def mixpanel_data

@@ -38,7 +38,7 @@
         <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
         <ul>
           <% current_intake.dependents.each do |dependent| %>
-            <% if dependent.qualifying? %>
+            <% if dependent.qualifying_2020? %>
               <li class="review-box__body">
                 <i class="icon-person"></i>
                 <div><%= dependent.full_name %></div>
