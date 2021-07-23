@@ -17,7 +17,7 @@
 #  full_time_student                           :integer          default("unfilled"), not null
 #  has_ip_pin                                  :integer          default("unfilled"), not null
 #  last_name                                   :string
-#  lived_with_less_than_six_months             :integer          default("unfilled"), not null
+#  lived_with_more_than_six_months             :integer          default(0), not null
 #  meets_misc_qualifying_relative_requirements :integer          default("unfilled"), not null
 #  middle_initial                              :string
 #  months_in_home                              :integer

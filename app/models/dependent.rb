@@ -17,7 +17,7 @@
 #  full_time_student                           :integer          default("unfilled"), not null
 #  has_ip_pin                                  :integer          default("unfilled"), not null
 #  last_name                                   :string
-#  lived_with_less_than_six_months             :integer          default("unfilled"), not null
+#  lived_with_more_than_six_months             :integer          default(0), not null
 #  meets_misc_qualifying_relative_requirements :integer          default("unfilled"), not null
 #  middle_initial                              :string
 #  months_in_home                              :integer
@@ -62,7 +62,7 @@ class Dependent < ApplicationRecord
   enum no_ssn_atin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn_atin
   enum provided_over_half_own_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :provided_over_half_own_support
   enum filed_joint_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_joint_return
-  enum lived_with_less_than_six_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_less_than_six_months
+  enum lived_with_more_than_six_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_more_than_six_months
   enum can_be_claimed_by_other: { unfilled: 0, yes: 1, no: 2 }, _prefix: :can_be_claimed_by_other
   enum born_in_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :born_in_2020
   enum passed_away_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away_2020
@@ -182,8 +182,8 @@ class Dependent < ApplicationRecord
   end
 
   def meets_qc_residence_condition_2020?
-    lived_with_less_than_six_months_no? ||
-      (lived_with_less_than_six_months_yes? &&
+    lived_with_more_than_six_months_yes? ||
+      (lived_with_more_than_six_months_no? &&
         (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
   end
 

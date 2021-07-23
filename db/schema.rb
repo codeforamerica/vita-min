@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_155730) do
+ActiveRecord::Schema.define(version: 2021_07_23_170413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -250,7 +250,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_155730) do
     t.integer "has_ip_pin", default: 0, null: false
     t.bigint "intake_id", null: false
     t.string "last_name"
-    t.integer "lived_with_less_than_six_months", default: 0, null: false
+    t.integer "lived_with_more_than_six_months", default: 0, null: false
     t.integer "meets_misc_qualifying_relative_requirements", default: 0, null: false
     t.string "middle_initial"
     t.integer "months_in_home"

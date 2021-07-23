@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Ctc::Dependents::ChildResidenceExceptionsForm do
   describe "#save" do
     let(:intake) { create :ctc_intake }
-    let(:dependent) { create :dependent, intake: intake, lived_with_less_than_six_months: "yes" }
+    let(:dependent) { create :dependent, intake: intake, lived_with_more_than_six_months: "no" }
 
     it "saves fields on the dependent" do
       expect {

@@ -7,9 +7,9 @@ describe Ctc::Dependents::ChildLivedWithYouForm do
 
     it "saves the field on the dependent" do
       expect {
-        form = described_class.new(dependent, { lived_with_less_than_six_months: "yes" })
+        form = described_class.new(dependent, { lived_with_more_than_six_months: "yes" })
         form.save
-      }.to change(dependent, :lived_with_less_than_six_months).to("yes")
+      }.to change(dependent, :lived_with_more_than_six_months).to("yes")
     end
   end
 end

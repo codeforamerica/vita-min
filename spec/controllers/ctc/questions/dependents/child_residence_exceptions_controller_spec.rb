@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Ctc::Questions::Dependents::ChildResidenceExceptionsController do
   let(:intake) { create :ctc_intake }
-  let(:dependent) { create :dependent, intake: intake, lived_with_less_than_six_months: "yes" }
+  let(:dependent) { create :dependent, intake: intake, lived_with_more_than_six_months: "no" }
 
   before do
     sign_in intake.client

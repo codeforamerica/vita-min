@@ -17,7 +17,7 @@
 #  full_time_student                           :integer          default("unfilled"), not null
 #  has_ip_pin                                  :integer          default("unfilled"), not null
 #  last_name                                   :string
-#  lived_with_less_than_six_months             :integer          default("unfilled"), not null
+#  lived_with_more_than_six_months             :integer          default(0), not null
 #  meets_misc_qualifying_relative_requirements :integer          default("unfilled"), not null
 #  middle_initial                              :string
 #  months_in_home                              :integer
@@ -143,7 +143,7 @@ describe Dependent do
               provided_over_half_own_support: "no",
               no_ssn_atin: "no",
               filed_joint_return: "no",
-              lived_with_less_than_six_months: "no",
+              lived_with_more_than_six_months: "yes",
               can_be_claimed_by_other: "yes",
               claim_regardless: "yes"
       end
@@ -163,7 +163,7 @@ describe Dependent do
               provided_over_half_own_support: "no",
               no_ssn_atin: "no",
               filed_joint_return: "no",
-              lived_with_less_than_six_months: "yes",
+              lived_with_more_than_six_months: "no",
               can_be_claimed_by_other: "yes",
               claim_regardless: "yes"
       end
@@ -244,7 +244,7 @@ describe Dependent do
 
   describe "#meets_qc_residence_condition_2020?" do
     context "with a dependent that lived with the client for 6 months or more" do
-      let(:dependent) { build :dependent, lived_with_less_than_six_months: "no" }
+      let(:dependent) { build :dependent, lived_with_more_than_six_months: "yes" }
 
       it "returns true" do
         expect(dependent.meets_qc_residence_condition_2020?).to eq true
@@ -252,7 +252,7 @@ describe Dependent do
     end
 
     context "with a dependent that lived with the client for less than 6 months" do
-      let(:dependent) { build :dependent, lived_with_less_than_six_months: "yes" }
+      let(:dependent) { build :dependent, lived_with_more_than_six_months: "no" }
 
       context "doesn't meet an exception" do
         it "returns false" do
