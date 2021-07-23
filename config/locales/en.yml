@@ -1382,6 +1382,13 @@ en:
             passed_away_2020: "%{dependent_name} was lawfully placed with you for adoption in 2020"
             placed_for_adoption: "%{dependent_name} passed away in 2020"
             permanent_residence_with_client: "%{dependent_name}’s permanent residence was with you for at least six months, even if they were away for part of that time"
+          qualifying_relative:
+            title: "Were all of the following true in 2020?"
+            help_text:
+              li1: "You paid for more than half of %{dependent_name}'s expenses."
+              li2: "%{dependent_name} earned less than $4,300."
+              li3: "%{dependent_name} has a SSN or ATIN."
+              li4: "%{dependent_name} did not live with someone else who could claim them."
           no_dependents:
             title: "You may still be eligible for other tax credits."
             help_text: "You can still file a simplified tax return and receive any stimulus payments that you are owed and have not received."
