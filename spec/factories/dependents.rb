@@ -71,7 +71,7 @@ FactoryBot.define do
       provided_over_half_own_support { "no" }
       no_ssn_atin { "no" }
       filed_joint_return { "no" }
-      lived_with_less_than_six_months { "no" }
+      lived_with_more_than_six_months { "yes" }
       can_be_claimed_by_other { "no" }
       claim_regardless { "yes" }
     end
