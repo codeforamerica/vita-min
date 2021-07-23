@@ -6,7 +6,7 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
-        intake.filing_joint?
+        intake.filing_jointly?
       end
 
       private

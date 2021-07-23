@@ -120,6 +120,10 @@ class Dependent < ApplicationRecord
     "#{full_name} #{birth_date.strftime("%-m/%-d/%Y")}"
   end
 
+  def last_four_ssn
+    ssn&.last(4)
+  end
+
   def birth_date_year
     birth_date&.year
   end
@@ -202,6 +206,10 @@ class Dependent < ApplicationRecord
       qualifying_relative_relationship?) &&
       # everyone needs to meet these "misc" requirements
       meets_misc_qualifying_relative_requirements_yes?
+  end
+
+  def qualifying?
+    qualifying_child? || qualifying_relative?
   end
 
   def mixpanel_data

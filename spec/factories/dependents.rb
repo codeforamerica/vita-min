@@ -55,32 +55,38 @@ FactoryBot.define do
     was_married { "no" }
     was_student { "yes" }
     disabled { "no" }
-    sequence(:ssn) do |n|
-      if intake && intake.is_ctc?
-        "88811#{"%04d" % (n % 1000)}"
-      else
-        nil
-      end
+    sequence(:ssn) { |n| intake && intake.is_ctc? ? "88811#{"%04d" % (n % 1000)}" : nil }
+    tin_type { intake.is_ctc? ? "ssn" : nil }
+
+    factory :qualifying_child do
+      relationship { "Niece" }
+      birth_date { Date.new(2015, 2, 25) }
+      full_time_student { "no" }
+      permanently_totally_disabled { "no" }
+      provided_over_half_own_support { "no" }
+      no_ssn_atin { "no" }
+      filed_joint_return { "no" }
+      lived_with_less_than_six_months { "no" }
+      can_be_claimed_by_other { "yes" }
+      claim_regardless { "yes" }
     end
 
-    trait :qualifying_child do
-      relationship { "niece" }
+    factory :qualifying_relative do
+      relationship { "Parent" }
+      meets_misc_qualifying_relative_requirements { "yes" }
+    end
+
+    factory :nonqualifying_dependent do
+      relationship { "Niece" }
       birth_date { Date.new(2015, 12, 25) }
       full_time_student { "no" }
       permanently_totally_disabled { "no" }
       provided_over_half_own_support { "no" }
       no_ssn_atin { "no" }
       filed_joint_return { "no" }
-      lived_with_more_than_six_months { "yes" }
-      can_be_claimed_by_other { "no" }
+      lived_with_less_than_six_months { "yes" }
+      can_be_claimed_by_other { "yes" }
       claim_regardless { "yes" }
-    end
-
-    trait :qualifying_relative do
-      relationship { "parent" }
-      birth_date { Date.new(1960, 5, 2) }
-      filed_joint_return { "no" }
-      meets_misc_qualifying_relative_requirements { "yes" }
     end
   end
 end

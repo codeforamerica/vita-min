@@ -1031,8 +1031,9 @@ en:
     new_unique_link: "Additional unique link"
     delete: "Delete"
     last_four_ssn: Last 4 of SSN/ITIN
-    ssn: SSN/ITIN
-
+    ssn_itin: SSN/ITIN
+    ssn: SSN
+    itin: ITIN
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
     hidden: Hidden
     locked: "Locked"
@@ -1051,6 +1052,8 @@ en:
     greetable: Greetable
     ctc_client: CTC client
     phone: "Phone"
+    date_of_birth: "Date of birth"
+    atin: "ATIN"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -1622,11 +1625,13 @@ en:
           error: Please agree before continuing.
         confirm_information:
           title: "You're all set! Now let's review your information and set a PIN."
+          pin_help_text: This is a 5 digit number that you choose as your own password.
           labels:
-            primary_ip_pin: "Client's five digit PIN (do not enter 00000)"
-            spouse_ip_pin: "Spouse's five digit PIN (do not enter 00000)"
+            primary_pin: "%{name}'s five digit PIN (do not enter 00000)"
+            spouse_pin: "%{name}'s five digit PIN (do not enter 00000)"
           ready_to_file: "I'm ready to file"
           your_information: "Your information"
+          your_dependents: "Your dependents"
     consent_pages:
       consent_to_use:
         title: Consent to Use

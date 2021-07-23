@@ -330,15 +330,6 @@ class Intake::CtcIntake < Intake
     primary_ip_pin.present? || spouse_ip_pin.present? || dependents.any? { |d| d.ip_pin.present? }
   end
 
-  # placeholders for signature pin columns
-  def primary_signature_pin
-    "12111"
-  end
-
-  def spouse_signature_pin
-    "12345"
-  end
-
   def primary_signature_pin_at
     updated_at
   end
@@ -347,7 +338,7 @@ class Intake::CtcIntake < Intake
     updated_at
   end
 
-  def filing_joint?
+  def filing_jointly?
     client.tax_returns.last.filing_status_married_filing_jointly?
   end
 end

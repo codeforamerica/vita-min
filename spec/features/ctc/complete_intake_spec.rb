@@ -245,17 +245,26 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     expect(page).to have_selector("div", text: "Email: mango@example.com")
     expect(page).to have_selector("div", text: "Phone: (831) 234-5678")
     expect(page).to have_selector("div", text: "SSN: XXX-XX-8888")
+    expect(page).to have_selector("div", text: "SSN: XXX-XX-8888")
 
     expect(page).to have_selector("h2", text: "Your mailing address")
     expect(page).to have_selector("div", text: "26 William Street")
     expect(page).to have_selector("div", text: "Apt 1234")
     expect(page).to have_selector("div", text: "Bel Air, CA 90001")
 
-    expect(intake.filing_joint?).to eq true
+    expect(intake.filing_jointly?).to eq true
     expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.spouse_review.your_spouse"))
     expect(page).to have_selector("div", text: "Peter Pepper")
     expect(page).to have_selector("div", text: "Date of birth: 1/11/1995")
     expect(page).to have_selector("div", text: "SSN: XXX-XX-4444")
+
+    # TODO: add tests for displaying dependent info after we allow the creation of qualifying dependents
+
+    expect(page).to have_selector("h2", text: "Your bank information")
+    expect(page).to have_selector("li", text: "Bank of Two Melons")
+    expect(page).to have_selector("li", text: "Type: Checking")
+    expect(page).to have_selector("li", text: "Routing number: 123456789")
+    expect(page).to have_selector("li", text: "Account number: ●●●●●6789")
 
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.primary_ip_pin"), with: "12345"
     click_on "I'm ready to file"

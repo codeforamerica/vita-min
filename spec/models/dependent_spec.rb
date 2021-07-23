@@ -110,6 +110,24 @@ describe Dependent do
     end
   end
 
+  describe "#last_four_ssn" do
+    context "with an SSN filled out" do
+      let(:dependent) { build :dependent, ssn: "123456789" }
+
+      it "returns the last four digits" do
+        expect(dependent.last_four_ssn).to eq "6789"
+      end
+    end
+
+    context "without an SSN filled out" do
+      let(:dependent) { build :dependent, ssn: nil }
+
+      it "returns nil" do
+        expect(dependent.last_four_ssn).to be_nil
+      end
+    end
+  end
+
   describe "#age_at_end_of_year" do
     let(:dependent) { build :dependent, birth_date: dob }
     let(:intake_double) { instance_double("Intake", tax_year: tax_year) }
@@ -344,6 +362,32 @@ describe Dependent do
 
       it "returns false" do
         expect(dependent.qualifying_relative_2020?).to eq false
+      end
+    end
+  end
+
+  describe "#qualifying?" do
+    context "with a qualifying child" do
+      let(:dependent) { create :qualifying_child }
+
+      it "returns true" do
+        expect(dependent.qualifying?).to eq true
+      end
+    end
+
+    context "with a qualifying relative" do
+      let(:dependent) { create :qualifying_relative }
+
+      it "returns true" do
+        expect(dependent.qualifying?).to eq true
+      end
+    end
+
+    context "with a dependent that does not qualify" do
+      let(:dependent) { create :nonqualifying_dependent }
+
+      it "returns false" do
+        expect(dependent.qualifying?).to eq false
       end
     end
   end
