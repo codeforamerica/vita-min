@@ -19,7 +19,7 @@
             <%= render "shared/progress_bar" %>
           </div>
           <main role="main">
-            <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+            <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
               <% if illustration_path.present? %>
                 <div class="question__illustration">
                   <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>

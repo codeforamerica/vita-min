@@ -40,7 +40,8 @@ module ControllerNavigation
   def seek(list, &additional_check)
     list.detect do |controller_class|
       next if additional_check && !additional_check.call(controller_class)
-      controller_class.show?(current_controller.visitor_record)
+      model = controller_class.model_for_show_check(current_controller)
+      controller_class.show?(model)
     end
   end
 end

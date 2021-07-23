@@ -16,6 +16,10 @@ module Ctc
           "ctc/dependents/" + controller_name + "_form"
         end
 
+        def self.current_resource_from_params(current_intake, params)
+          current_intake.dependents.find { |d| d.id == params[:id].to_i }
+        end
+
         def edit
           return if form_class == NullForm
 
@@ -29,7 +33,9 @@ module Ctc
         end
 
         def current_dependent
-          @dependent ||= current_intake.dependents.find(params[:id])
+          @dependent ||= self.class.current_resource_from_params(current_intake, params)
+          raise ActiveRecord::RecordNotFound unless @dependent
+          @dependent
         end
 
         def remember_last_edited_dependent_id

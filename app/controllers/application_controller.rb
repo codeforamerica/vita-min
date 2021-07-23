@@ -44,6 +44,10 @@ class ApplicationController < ActionController::Base
     current_intake
   end
 
+  def self.model_for_show_check(current_controller)
+    current_controller.visitor_record
+  end
+
   def set_visitor_id
     if visitor_record&.visitor_id.present?
       cookies.permanent[:visitor_id] = { value: visitor_record.visitor_id, httponly: true }
