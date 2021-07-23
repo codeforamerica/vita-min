@@ -266,7 +266,8 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     expect(page).to have_selector("li", text: "Routing number: 123456789")
     expect(page).to have_selector("li", text: "Account number: ●●●●●6789")
 
-    fill_in I18n.t("views.ctc.questions.confirm_information.labels.primary_ip_pin"), with: "12345"
+    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Gary Mango"), with: "12345"
+    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Peter Pepper"), with: "54321"
     click_on "I'm ready to file"
 
     visit "en/questions/confirm-legal" # TODO: remove redirect when other review pages are in

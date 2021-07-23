@@ -55,12 +55,16 @@
 #  encrypted_primary_ip_pin_iv                          :string
 #  encrypted_primary_last_four_ssn                      :string
 #  encrypted_primary_last_four_ssn_iv                   :string
+#  encrypted_primary_signature_pin                      :string
+#  encrypted_primary_signature_pin_iv                   :string
 #  encrypted_primary_ssn                                :string
 #  encrypted_primary_ssn_iv                             :string
 #  encrypted_spouse_ip_pin                              :string
 #  encrypted_spouse_ip_pin_iv                           :string
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
+#  encrypted_spouse_signature_pin                       :string
+#  encrypted_spouse_signature_pin_iv                    :string
 #  encrypted_spouse_ssn                                 :string
 #  encrypted_spouse_ssn_iv                              :string
 #  ever_married                                         :integer          default(0), not null
@@ -137,6 +141,7 @@
 #  primary_last_name                                    :string
 #  primary_member_of_the_armed_forces                   :integer          default("unfilled"), not null
 #  primary_middle_initial                               :string
+#  primary_signature_pin_at                             :datetime
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -177,6 +182,7 @@
 #  spouse_issued_identity_pin                           :integer          default(0), not null
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
+#  spouse_signature_pin_at                              :datetime
 #  spouse_tin_type                                      :integer
 #  spouse_veteran                                       :integer          default("unfilled")
 #  spouse_was_blind                                     :integer          default(0), not null
@@ -243,6 +249,8 @@ class Intake::CtcIntake < Intake
   attr_encrypted :spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :primary_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :primary_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :spouse_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
   enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
@@ -328,14 +336,6 @@ class Intake::CtcIntake < Intake
 
   def any_ip_pins?
     primary_ip_pin.present? || spouse_ip_pin.present? || dependents.any? { |d| d.ip_pin.present? }
-  end
-
-  def primary_signature_pin_at
-    updated_at
-  end
-
-  def spouse_signature_pin_at
-    updated_at
   end
 
   def filing_jointly?

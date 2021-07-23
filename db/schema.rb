@@ -474,12 +474,16 @@ ActiveRecord::Schema.define(version: 2021_07_23_170413) do
     t.string "encrypted_primary_ip_pin_iv"
     t.string "encrypted_primary_last_four_ssn"
     t.string "encrypted_primary_last_four_ssn_iv"
+    t.string "encrypted_primary_signature_pin"
+    t.string "encrypted_primary_signature_pin_iv"
     t.string "encrypted_primary_ssn"
     t.string "encrypted_primary_ssn_iv"
     t.string "encrypted_spouse_ip_pin"
     t.string "encrypted_spouse_ip_pin_iv"
     t.string "encrypted_spouse_last_four_ssn"
     t.string "encrypted_spouse_last_four_ssn_iv"
+    t.string "encrypted_spouse_signature_pin"
+    t.string "encrypted_spouse_signature_pin_iv"
     t.string "encrypted_spouse_ssn"
     t.string "encrypted_spouse_ssn_iv"
     t.integer "ever_married", default: 0, null: false
@@ -556,6 +560,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_170413) do
     t.string "primary_last_name"
     t.integer "primary_member_of_the_armed_forces", default: 0, null: false
     t.string "primary_middle_initial"
+    t.datetime "primary_signature_pin_at"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
     t.integer "received_irs_letter", default: 0, null: false
@@ -596,6 +601,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_170413) do
     t.integer "spouse_issued_identity_pin", default: 0, null: false
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.datetime "spouse_signature_pin_at"
     t.integer "spouse_tin_type"
     t.integer "spouse_veteran", default: 0
     t.integer "spouse_was_blind", default: 0, null: false

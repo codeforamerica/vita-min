@@ -67,9 +67,9 @@
 
     <div class="form-card__content">
       <p><%= t("views.ctc.questions.confirm_information.pin_help_text") %></p>
-      <%= f.cfa_input_field(:primary_ip_pin, t("views.ctc.questions.confirm_information.labels.primary_pin", name: current_intake.primary_full_name), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.primary_full_name), classes: ["form-width--long"]) %>
       <% if current_intake.filing_jointly? %>
-        <%= f.cfa_input_field(:spouse_ip_pin, t("views.ctc.questions.confirm_information.labels.spouse_pin", name: current_intake.spouse_full_name), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:spouse_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.spouse_full_name), classes: ["form-width--long"]) %>
       <% end %>
     </div>
 

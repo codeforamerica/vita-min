@@ -1627,8 +1627,7 @@ en:
           title: "You're all set! Now let's review your information and set a PIN."
           pin_help_text: This is a 5 digit number that you choose as your own password.
           labels:
-            primary_pin: "%{name}'s five digit PIN (do not enter 00000)"
-            spouse_pin: "%{name}'s five digit PIN (do not enter 00000)"
+            signature_pin: "%{name}'s five digit PIN (do not enter 00000)"
           ready_to_file: "I'm ready to file"
           your_information: "Your information"
           your_dependents: "Your dependents"
