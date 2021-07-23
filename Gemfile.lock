@@ -84,6 +84,7 @@ GEM
       activerecord (>= 4.0)
     autoprefixer-rails (10.2.4.0)
       execjs
+    awesome_print (1.9.2)
     aws-eventstream (1.1.1)
     aws-partitions (1.467.0)
     aws-sdk-core (3.114.2)
@@ -557,6 +558,7 @@ DEPENDENCIES
   annotate
   attr_encrypted
   auto_strip_attributes
+  awesome_print
   aws-sdk-s3
   axe-matchers
   bootsnap (>= 1.5.1)
