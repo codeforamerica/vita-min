@@ -53,7 +53,7 @@
             <div class="field-display primary-ssn">
               <span class="form-question">
                 <% if @client.intake.is_ctc? %>
-                  <%= t("general.ssn") %>:
+                  <%= t("general.ssn_itin") %>:
                 <% else %>
                   <%= t("general.last_four_ssn") %>:
                 <% end %>
@@ -218,7 +218,7 @@
               <div class="field-display spouse-ssn">
                 <span class="form-question">
                   <% if @client.intake.is_ctc? %>
-                    <%= t("general.ssn") %>:
+                    <%= t("general.ssn_itin") %>:
                   <% else %>
                     <%= t("general.last_four_ssn") %>:
                   <% end %>

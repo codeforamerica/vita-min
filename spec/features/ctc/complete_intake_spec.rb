@@ -114,10 +114,9 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     click_on "Remove this person"
 
     expect(page).to have_selector("h1", text: "You're about to remove Peter Pepper.")
-    click_on "Yes, remove them"
+    click_on "Nevermind, let's save them"
 
-    expect(page).to have_selector("h1", text: "How will you be filing your tax return?")
-    choose "Single"
+    expect(page).to have_selector("h1", text: "Let's confirm your spouse's information.")
     click_on "Continue"
 
     # =========== DEPENDENTS ===========
@@ -180,7 +179,6 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     click_on "Continue"
 
     # =========== BANK AND MAILING INFO ===========
-    # Skip to bank account questions until we can arrive here naturally.
     expect(page).to have_selector("h1", text: "If you are supposed to get money, how would you like to receive it?")
     choose "Direct deposit (fastest)"
     click_on "Continue"
@@ -226,7 +224,7 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     expect(page).to have_selector("div", text: "Bel Air, CA 90001")
     click_on "Continue"
 
-    # =========== REVIEW ===========
+    # =========== IP PINs ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
     check "Gary Mango"
     check "Jessie Pepper"
@@ -237,13 +235,38 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie Pepper"), with: "123458"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: 'Placeholder -- Coming soon')
+    # =========== REVIEW ===========
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
 
-    intake.reload
-    expect(intake.primary_ip_pin).to eq "123456"
-    expect(intake.dependents.last.ip_pin).to eq "123458"
+    expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.confirm_information.your_information"))
+    expect(page).to have_selector("div", text: "Gary Mango")
+    expect(page).to have_selector("div", text: "Date of birth: 8/24/1996")
+    expect(page).to have_selector("div", text: "Email: mango@example.com")
+    expect(page).to have_selector("div", text: "Phone: (831) 234-5678")
+    expect(page).to have_selector("div", text: "SSN: XXX-XX-8888")
 
-    visit "en/questions/confirm-legal" # TODO: remove redirect when other review pages are in
+    expect(page).to have_selector("h2", text: "Your mailing address")
+    expect(page).to have_selector("div", text: "26 William Street")
+    expect(page).to have_selector("div", text: "Apt 1234")
+    expect(page).to have_selector("div", text: "Bel Air, CA 90001")
+
+    expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.spouse_review.your_spouse"))
+    expect(page).to have_selector("div", text: "Peter Pepper")
+    expect(page).to have_selector("div", text: "Date of birth: 1/11/1995")
+    expect(page).to have_selector("div", text: "SSN: XXX-XX-4444")
+
+    # TODO: add tests for displaying dependent info after we allow the creation of qualifying dependents
+
+    expect(page).to have_selector("h2", text: "Your bank information")
+    expect(page).to have_selector("li", text: "Bank of Two Melons")
+    expect(page).to have_selector("li", text: "Type: Checking")
+    expect(page).to have_selector("li", text: "Routing number: 123456789")
+    expect(page).to have_selector("li", text: "Account number: ●●●●●6789")
+
+    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Gary Mango"), with: "12345"
+    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Peter Pepper"), with: "54321"
+    click_on "I'm ready to file"
+
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))
     check I18n.t("views.ctc.questions.confirm_legal.consent")
     click_on I18n.t("views.ctc.questions.confirm_legal.action")

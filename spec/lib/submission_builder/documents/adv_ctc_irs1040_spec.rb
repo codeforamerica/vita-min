@@ -4,13 +4,13 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
   describe ".build" do
     before do
       dependent = submission.intake.dependents.first
-      dependent_attrs = attributes_for(:dependent, :qualifying_child, first_name: "Keeley", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234")
+      dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234")
       dependent.update(dependent_attrs)
       dependent2 = submission.intake.dependents.second
-      dependent2_attrs = attributes_for(:dependent, :qualifying_child, birth_date: Date.new(1975, 1, 1), relationship: "son", ssn: "123001235") # too old to be qualifying child
+      dependent2_attrs = attributes_for(:qualifying_child, birth_date: Date.new(1975, 1, 1), relationship: "son", ssn: "123001235") # too old to be qualifying child
       dependent2.update(dependent2_attrs)
       dependent3 = submission.intake.dependents.third
-      dependent3_attrs = attributes_for(:dependent, :qualifying_relative, first_name: "Kelly", birth_date: Date.new(1960, 1, 1), relationship: "parent", ssn: "123001236")
+      dependent3_attrs = attributes_for(:qualifying_relative, first_name: "Kelly", birth_date: Date.new(1960, 1, 1), relationship: "parent", ssn: "123001236")
       dependent3.update(dependent3_attrs)
     end
 

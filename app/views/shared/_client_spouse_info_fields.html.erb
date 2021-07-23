@@ -19,7 +19,7 @@
       <%= f.cfa_select(:spouse_tin_type, "Identification Type", tin_options_for_select(include_itin: true, include_none: true)) %>
       <%= f.cfa_input_field(
           :spouse_ssn,
-          t("general.ssn"),
+          t("general.ssn_itin"),
           type: :tel,
           classes: ["form-width--name"],
           options: { maxlength: 11 }

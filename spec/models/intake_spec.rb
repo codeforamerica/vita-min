@@ -55,12 +55,16 @@
 #  encrypted_primary_ip_pin_iv                          :string
 #  encrypted_primary_last_four_ssn                      :string
 #  encrypted_primary_last_four_ssn_iv                   :string
+#  encrypted_primary_signature_pin                      :string
+#  encrypted_primary_signature_pin_iv                   :string
 #  encrypted_primary_ssn                                :string
 #  encrypted_primary_ssn_iv                             :string
 #  encrypted_spouse_ip_pin                              :string
 #  encrypted_spouse_ip_pin_iv                           :string
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
+#  encrypted_spouse_signature_pin                       :string
+#  encrypted_spouse_signature_pin_iv                    :string
 #  encrypted_spouse_ssn                                 :string
 #  encrypted_spouse_ssn_iv                              :string
 #  ever_married                                         :integer          default(0), not null
@@ -137,6 +141,7 @@
 #  primary_last_name                                    :string
 #  primary_member_of_the_armed_forces                   :integer          default(0), not null
 #  primary_middle_initial                               :string
+#  primary_signature_pin_at                             :datetime
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -177,6 +182,7 @@
 #  spouse_issued_identity_pin                           :integer          default(0), not null
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
+#  spouse_signature_pin_at                              :datetime
 #  spouse_tin_type                                      :integer
 #  spouse_veteran                                       :integer          default(0)
 #  spouse_was_blind                                     :integer          default(0), not null

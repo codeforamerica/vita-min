@@ -1025,7 +1025,9 @@ es:
     new_unique_link: "Nuevo Enlace único"
     delete: "Eliminar"
     last_four_ssn: Últimos 4 de SSN / ITIN
-    ssn: SSN/ITIN
+    ssn_itin: SSN/ITIN
+    ssn: SSN
+    itin: ITIN
     spouse_last_four_ssn: Últimos 4 de SSN / ITIN (cónyuge)
     hidden: Encubierto
     locked: "Bloqueada"
@@ -1043,6 +1045,9 @@ es:
       other: "%{count} días hábiles"
     greetable: Pueden ser saludados
     ctc_client: CTC client
+    phone: Teléfono
+    date_of_birth: Fecha de nacimiento
+    atin: ATIN
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

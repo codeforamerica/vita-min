@@ -79,5 +79,16 @@ FactoryBot.define do
         create :intake, client: client, preferred_name: evaluator.preferred_name
       end
     end
+
+    factory :client_with_ctc_intake_and_return do
+      with_return
+      transient do
+        preferred_name { "Maeby" }
+      end
+
+      after(:create) do |client, evaluator|
+        create :ctc_intake, client: client, preferred_name: evaluator.preferred_name
+      end
+    end
   end
 end

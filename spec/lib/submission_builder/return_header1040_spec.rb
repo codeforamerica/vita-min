@@ -7,7 +7,11 @@ describe SubmissionBuilder::ReturnHeader1040 do
         primary_first_name: "Hubert Blaine ",
         primary_last_name: "Wolfeschlegelsteinhausenbergerdorff ",
         spouse_first_name: "Lisa",
-        spouse_last_name: "Frank"
+        spouse_last_name: "Frank",
+        primary_signature_pin: "12345",
+        spouse_signature_pin: "54321",
+        primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
+        spouse_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20)
       )
     end
 
