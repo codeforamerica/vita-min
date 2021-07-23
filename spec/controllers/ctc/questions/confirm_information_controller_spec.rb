@@ -17,7 +17,8 @@ describe Ctc::Questions::ConfirmInformationController do
         context "when the TIN type is SSN" do
           let(:intake) do
             create(
-              :client_with_intake_and_return,
+              :client,
+              :with_return,
               intake: create(:ctc_intake, tin_type: "ssn", primary_last_four_ssn: "1234")
             ).intake
           end
@@ -32,7 +33,8 @@ describe Ctc::Questions::ConfirmInformationController do
         context "when the TIN type is ITIN" do
           let(:intake) do
             create(
-              :client_with_intake_and_return,
+              :client,
+              :with_return,
               intake: create(:ctc_intake, tin_type: "itin", primary_last_four_ssn: "1234")
             ).intake
           end
@@ -118,7 +120,8 @@ describe Ctc::Questions::ConfirmInformationController do
         context "when not using direct deposit" do
           let(:intake) do
             create(
-              :client_with_intake_and_return,
+              :client,
+              :with_return,
               intake: create(:ctc_intake, refund_payment_method: "check")
             ).intake
           end
@@ -133,7 +136,8 @@ describe Ctc::Questions::ConfirmInformationController do
         context "when using direct deposit" do
           let(:intake) do
             create(
-              :client_with_intake_and_return,
+              :client,
+              :with_return,
               intake: create(:ctc_intake, refund_payment_method: "direct_deposit", bank_account: create(:bank_account))
             ).intake
           end
