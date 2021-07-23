@@ -1,0 +1,13 @@
+<% content_for :form_question, t("views.ctc.questions.dependents.claim_child_anyway.title", dependent_name: @form.dependent.first_name) %>
+<% content_for :form_help_text do %>
+  <%= t("views.ctc.questions.dependents.claim_child_anyway.help_text", dependent_name: @form.dependent.first_name) %>
+
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.claim_child_anyway.not_sure_reveal.title")) do %>
+    <p> <%= t("views.ctc.questions.dependents.claim_child_anyway.not_sure_reveal.p") %> </p>
+    <ul>
+      <li> <%= t("views.ctc.questions.dependents.claim_child_anyway.not_sure_reveal.li1") %> </li>
+      <li> <%= t("views.ctc.questions.dependents.claim_child_anyway.not_sure_reveal.li2") %> </li>
+      <li> <%= t("views.ctc.questions.dependents.claim_child_anyway.not_sure_reveal.li3") %> </li>
+    </ul>
+  <% end %>
+<% end %>
