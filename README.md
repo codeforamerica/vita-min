@@ -59,9 +59,14 @@ In development, we need to download the IRS e-file schemas zip manually from S3.
 
 > ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
 
-- Go to [Google Docs and download this file](https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa) (ask a teammate if you don't have access)
-- Do not unzip the file
-- Locally, move file to `vita-min/vendor/irs/`
+- Go to [Google Docs and download this file](https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa) (ask a teammate if you don't have access) and download the `efile1040x_2020v5.1.zip` file
+- Do not unzip the file using Finder or a local app
+- Move file to `vita-min/vendor/irs/`
+- The next setup script (`bin/setup`) will unzip it for you, or you can do it yourself with:
+
+```
+rake setup:unzip_efile_schemas
+```
 
 #### If you need to unzip files without running the repo setup script
 
