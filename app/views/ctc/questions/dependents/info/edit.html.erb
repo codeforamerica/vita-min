@@ -20,7 +20,12 @@
           dependent_relationship_options,
           include_blank: true
           ) %>
-    </div>
+        <div class="form-card__stacked-checkboxes spacing-above-0">
+          <label class="form-question"> <%= t('views.ctc.questions.dependents.info.situations') %> </label>
+          <%= f.cfa_checkbox(:full_time_student, t('views.ctc.questions.dependents.info.full_time_student'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_checkbox(:permanently_totally_disabled, t('views.ctc.questions.dependents.info.permanently_totally_disabled'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        </div>
+      </div>
 
     <button class="button button--primary button--wide" type="submit">
       <%=t("general.continue") %>

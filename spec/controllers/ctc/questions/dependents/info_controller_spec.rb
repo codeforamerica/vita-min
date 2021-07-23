@@ -18,7 +18,9 @@ describe Ctc::Questions::Dependents::InfoController do
             birth_date_day: 1,
             birth_date_month: 1,
             birth_date_year: 1.year.ago.year,
-            relationship: "daughter"
+            relationship: "daughter",
+            full_time_student: "no",
+            permanently_totally_disabled: "no"
           }
         }
       end
@@ -43,7 +45,9 @@ describe Ctc::Questions::Dependents::InfoController do
               birth_date_day: 1,
               birth_date_month: 1,
               birth_date_year: 2.years.ago.year,
-              relationship: "daughter"
+              relationship: "daughter",
+              full_time_student: "no",
+              permanently_totally_disabled: "no"
             }
           }
         end
