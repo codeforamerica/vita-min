@@ -2,7 +2,7 @@ module Ctc
   module Questions
     module Dependents
       class InfoController < BaseDependentController
-        include AuthenticatedCtcClientConcern
+        # include AuthenticatedCtcClientConcern
 
         layout "intake"
 

@@ -1419,6 +1419,9 @@ en:
               - a child under 24 and in college
               - a child at any age who is permanently and totally disabled
               - a relative who lived with you all year whose income was less than $4,300 and you paid over half of their expenses
+          child_disqualifiers:
+            title: Great, let's make sure %{dependent} qualifies!
+            help_text: "Select the situations that are true"
         mailing_address:
           title: Great, please provide your mailing address below.
         confirm_mailing_address:
