@@ -59,8 +59,7 @@ In development, we need to download the IRS e-file schemas zip manually from S3.
 
 > ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
 
-- If you have AWS credentials (ask a fellow developer on the team) download the file `vita-min-irs-e-file-schema-prod/efile1040x_2020v5.1.zip`
-- Or you can ask a developer on the team for the zip file directly
+- Go to [Google Docs and download this file](https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa) (ask a teammate if you don't have access)
 - Do not unzip the file
 - Locally, move file to `vita-min/vendor/irs/`
 
