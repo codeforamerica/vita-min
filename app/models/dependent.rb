@@ -92,24 +92,24 @@ class Dependent < ApplicationRecord
   validates :ip_pin, ip_pin: true
 
   QUALIFYING_CHILD_RELATIONSHIPS = [
-    "Daughter",
-    "Son",
-    "Stepchild",
-    "Foster child",
-    "Grandchild",
-    "Niece",
-    "Nephew",
-    "Half brother",
-    "Half sister",
-    "Brother",
-    "Sister"
+    "daughter",
+    "son",
+    "stepchild",
+    "foster_child",
+    "grandchild",
+    "niece",
+    "nephew",
+    "half_brother",
+    "half_sister",
+    "brother",
+    "sister"
   ]
 
   QUALIFYING_RELATIVE_RELATIONSHIPS = [
-    "Parent",
-    "Grandparent",
-    "Aunt",
-    "Uncle"
+    "parent",
+    "grandparent",
+    "aunt",
+    "uncle"
   ]
 
   def full_name
@@ -147,8 +147,14 @@ class Dependent < ApplicationRecord
     tax_year - birth_date.year
   end
 
-  def eligible_for_child_tax_credit?(tax_year)
-     age_at_end_of_year(tax_year) < 17
+  # Transforms relationship to the format expected by the IRS submission
+  # (upcased with spaces instead of underscores)
+  def irs_relationship_enum
+    relationship&.upcase.gsub("_", " ")
+  end
+
+  def eligible_for_child_tax_credit_2020?
+    age_at_end_of_year(2020) < 17 && qualifying_child_2020?
   end
 
   def qualifying_child_relationship?
@@ -159,15 +165,15 @@ class Dependent < ApplicationRecord
     QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship
   end
 
-  def qualifying_child?
+  def qualifying_child_2020?
     qualifying_child_relationship? &&
-      meets_qc_age_condition? &&
+      meets_qc_age_condition_2020? &&
       meets_qc_misc_conditions? &&
-      meets_qc_residence_condition? &&
+      meets_qc_residence_condition_2020? &&
       meets_qc_claimant_condition?
   end
 
-  def meets_qc_age_condition?
+  def meets_qc_age_condition_2020?
     (full_time_student_yes? && age_at_end_of_year(2020) < 24) || permanently_totally_disabled_yes? || age_at_end_of_year(2020) < 19
   end
 
@@ -175,7 +181,7 @@ class Dependent < ApplicationRecord
     provided_over_half_own_support_no? && no_ssn_atin_no? && filed_joint_return_no?
   end
 
-  def meets_qc_residence_condition?
+  def meets_qc_residence_condition_2020?
     lived_with_less_than_six_months_no? ||
       (lived_with_less_than_six_months_yes? &&
         (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
@@ -186,12 +192,12 @@ class Dependent < ApplicationRecord
       (can_be_claimed_by_other_yes? && claim_regardless_yes?)
   end
 
-  def qualifying_relative?
+  def qualifying_relative_2020?
     ((qualifying_child_relationship? &&
         # QC relationship and doesn't meet age requirements
-        (!meets_qc_age_condition? ||
+        (!meets_qc_age_condition_2020? ||
           # QC relationship and meets age requirements but is filing jointly
-          (meets_qc_age_condition? && filed_joint_return_yes?))) ||
+          (meets_qc_age_condition_2020? && filed_joint_return_yes?))) ||
       # QR relationship
       qualifying_relative_relationship?) &&
       # everyone needs to meet these "misc" requirements

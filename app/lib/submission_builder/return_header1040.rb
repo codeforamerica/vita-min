@@ -148,7 +148,7 @@ module SubmissionBuilder
             xml.TotalPreparationSubmissionTs total_preparation_submission_minutes
             xml.TotActiveTimePrepSubmissionTs total_active_preparation_minutes
             # TODO: Swap out with VendorControlNum that conforms to IRS standards -- first two digits will be provided by IRS
-            xml.VendorControlNum "xsdefedlsoenajsk"
+            xml.VendorControlNum "2P00000000000001"
           }
         }
       end.doc
