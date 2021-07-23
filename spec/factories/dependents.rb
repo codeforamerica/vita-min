@@ -64,7 +64,7 @@ FactoryBot.define do
     end
 
     trait :qualifying_child do
-      relationship { "Niece" }
+      relationship { "niece" }
       birth_date { Date.new(2015, 12, 25) }
       full_time_student { "no" }
       permanently_totally_disabled { "no" }
@@ -77,7 +77,7 @@ FactoryBot.define do
     end
 
     trait :qualifying_relative do
-      relationship { "Parent" }
+      relationship { "parent" }
       birth_date { Date.new(1960, 5, 2) }
       filed_joint_return { "no" }
       meets_misc_qualifying_relative_requirements { "yes" }

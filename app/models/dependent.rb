@@ -161,13 +161,13 @@ class Dependent < ApplicationRecord
 
   def qualifying_child_2020?
     qualifying_child_relationship? &&
-      meets_qc_age_condition? &&
+      meets_qc_age_condition_2020? &&
       meets_qc_misc_conditions? &&
-      meets_qc_residence_condition? &&
+      meets_qc_residence_condition_2020? &&
       meets_qc_claimant_condition?
   end
 
-  def meets_qc_age_condition?
+  def meets_qc_age_condition_2020?
     (full_time_student_yes? && age_at_end_of_year(2020) < 24) || permanently_totally_disabled_yes? || age_at_end_of_year(2020) < 19
   end
 
@@ -175,7 +175,7 @@ class Dependent < ApplicationRecord
     provided_over_half_own_support_no? && no_ssn_atin_no? && filed_joint_return_no?
   end
 
-  def meets_qc_residence_condition?
+  def meets_qc_residence_condition_2020?
     lived_with_less_than_six_months_no? ||
       (lived_with_less_than_six_months_yes? &&
         (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
@@ -189,9 +189,9 @@ class Dependent < ApplicationRecord
   def qualifying_relative_2020?
     ((qualifying_child_relationship? &&
         # QC relationship and doesn't meet age requirements
-        (!meets_qc_age_condition? ||
+        (!meets_qc_age_condition_2020? ||
           # QC relationship and meets age requirements but is filing jointly
-          (meets_qc_age_condition? && filed_joint_return_yes?))) ||
+          (meets_qc_age_condition_2020? && filed_joint_return_yes?))) ||
       # QR relationship
       qualifying_relative_relationship?) &&
       # everyone needs to meet these "misc" requirements
