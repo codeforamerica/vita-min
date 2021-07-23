@@ -53,6 +53,17 @@ Add it to your configuration:
 echo "[secret key]" > config/credentials/development.key
 ```
 
+### Add efile resources locally
+
+In development, we need to download the IRS e-file schemas zip manually from S3.
+
+> ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
+
+- If you have AWS credentials (ask a fellow developer on the team) download the file `vita-min-irs-e-file-schema-prod/efile1040x_2020v5.1.zip`
+- Or you can ask a developer on the team for the zip file directly
+- Do not unzip the file
+- Locally, move file to `vita-min/vendor/irs/`
+
 ### Setup script
 
 There is a setup script that handles virtually everything with a single command:
