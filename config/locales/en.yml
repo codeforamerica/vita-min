@@ -1396,7 +1396,7 @@ en:
             help_text: "If you and someone else are eligible to claim %{dependent_name}, you should follow any existing agreement with the other person about who claims them."
             not_sure_reveal:
               title: "I’m unsure. Should I claim them?"
-              p: "You should claim the dependent If one of these situations is true:"
+              p: "You should claim the dependent if one of these situations is true:"
               li1: "You are the parent who spent more time living with them."
               li2: "If you and the other parent spent the same amount of time with the dependent, whoever earned more money in 2020 can claim them."
               li3: "If neither of you are the dependent’s parent, whoever earned more money in 2020 can claim them."
