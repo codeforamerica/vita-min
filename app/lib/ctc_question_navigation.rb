@@ -33,6 +33,7 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::ChildLivedWithYouController,
     Ctc::Questions::Dependents::ChildResidenceExceptionsController,
     Ctc::Questions::Dependents::TinController,
+    Ctc::Questions::Dependents::TempTogglesController,
     Ctc::Questions::Dependents::ConfirmDependentsController,
 
     # RRC

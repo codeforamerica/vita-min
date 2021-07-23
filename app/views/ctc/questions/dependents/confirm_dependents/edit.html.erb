@@ -9,23 +9,35 @@
 
     <div class="review-box spacing-below-35">
       <div class="review-box__title">
-        <h2><%= t("views.ctc.questions.dependents.confirm_dependents.your_dependents") %></h2>
+        <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_ctc") %></h2>
       </div>
-      <div class="review-box__body">
-        <ul>
-          <% current_intake.dependents.each do |dependent| %>
-            <li>
-              <%= dependent.full_name %>
-              <%= default_date_format(dependent.birth_date) %>
-            </li>
+      <% current_intake.dependents.select { |dep| dep.eligible_for_child_tax_credit_2020? }.each do |dependent| %>
+        <%= render 'dependent', dependent: dependent %>
+      <% end %>
+      <div class="review-box__title">
+        <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_other_credits") %></h2>
+      </div>
+      <% current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && (dep.qualifying_child_2020? || dep.qualifying_relative_2020?) }.each do |dependent| %>
+        <%= render 'dependent', dependent: dependent %>
+      <% end %>
+
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.confirm_dependents.reveal_title")) do %>
+        <p><%= t("views.ctc.questions.dependents.confirm_dependents.reveal_body_title") %></p>
+        <ul class="list--bulleted">
+          <% t("views.ctc.questions.dependents.confirm_dependents.reveal_body_list").each do |item| %>
+            <li><%= item %></li>
           <% end %>
         </ul>
-      </div>
-      <%= link_to t('views.ctc.questions.dependents.confirm_dependents.add_a_dependent'), Ctc::Questions::Dependents::InfoController.to_path_helper(id: :new), class: "button text--centered " %>
+      <% end %>
+
+      <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: :new), class: "button button--wide text--centered" do %>
+        <%= image_tag("add-person.svg", alt: "") %>
+        <%= t('views.ctc.questions.dependents.confirm_dependents.add_a_dependent') %>
+      <% end %>
     </div>
 
     <button class="button button--primary button--wide" type="submit">
-      <%=t("views.ctc.questions.dependents.confirm_dependents.done_adding") %>
+      <%= t("views.ctc.questions.dependents.confirm_dependents.done_adding") %>
     </button>
   <% end %>
 <% end %>
