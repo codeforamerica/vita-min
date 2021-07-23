@@ -1,77 +1,75 @@
 <% content_for :page_title, t("views.ctc.questions.confirm_information.title") %>
 
 <% content_for :form_card do %>
-  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <h1 class="h2"><%= content_for(:page_title) %></h1>
+  <h1 class="h2"><%= content_for(:page_title) %></h1>
 
-    <div class="review-box spacing-below-35">
+  <div class="review-box spacing-below-35">
 
-      <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_information") %></h2>
-      <div class="review-box__body primary-info">
-        <div><%= current_intake.primary_full_name %></div>
-        <div><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(current_intake.primary_birth_date) %></div>
-        <div><%= t("general.email") %>: <%= current_intake.email_address %></div>
-        <div><%= t("general.phone") %>: <%= current_intake.formatted_phone_number %></div>
-        <div><%= current_intake.tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= current_intake.primary_last_four_ssn %></div>
-      </div>
+    <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_information") %></h2>
+    <div class="review-box__body primary-info">
+      <div><%= current_intake.primary_full_name %></div>
+      <div><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(current_intake.primary_birth_date) %></div>
+      <div><%= t("general.email") %>: <%= current_intake.email_address %></div>
+      <div><%= t("general.phone") %>: <%= current_intake.formatted_phone_number %></div>
+      <div><%= current_intake.tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= current_intake.primary_last_four_ssn %></div>
+    </div>
 
-      <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_mailing_address.mailing_address") %></h2>
-      <div class="review-box__body address-info">
-        <div><%= current_intake.street_address %></div>
-        <% if current_intake.street_address2.present? %>
-          <div><%= current_intake.street_address2 %></div>
-        <% end %>
-        <div><%= current_intake.city %>, <%= current_intake.state %> <%= current_intake.zip_code %></div>
-      </div>
-
-      <% if current_intake.filing_jointly? %>
-        <h2 class="review-box__title"><%= t("views.ctc.questions.spouse_review.your_spouse") %></h2>
-        <div class="review-box__body spouse-info">
-          <i class="icon-person"></i>
-          <div><%= current_intake.spouse_full_name %></div>
-          <div><%= t("views.ctc.questions.spouse_review.spouse_birthday", dob: default_date_format(current_intake.spouse_birth_date)) %></div>
-          <div><%= current_intake.spouse_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= current_intake.spouse_last_four_ssn %></div>
-        </div>
+    <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_mailing_address.mailing_address") %></h2>
+    <div class="review-box__body address-info">
+      <div><%= current_intake.street_address %></div>
+      <% if current_intake.street_address2.present? %>
+        <div><%= current_intake.street_address2 %></div>
       <% end %>
+      <div><%= current_intake.city %>, <%= current_intake.state %> <%= current_intake.zip_code %></div>
+    </div>
 
-      <% if current_intake.dependents.present? %>
-        <div class="dependents-info">
-          <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
-          <ul>
-            <% current_intake.dependents.each do |dependent| %>
-              <% if dependent.qualifying? %>
-                <li class="review-box__body">
-                  <i class="icon-person"></i>
-                  <div><%= dependent.full_name %></div>
-                  <div><%= t("general.date_of_birth") %>: <%= default_date_format(dependent.birth_date) %></div>
-                  <div><%= dependent.tin_type == "ssn" ? t("general.ssn") : t("general.atin") %>: XXX-XX-<%= dependent.last_four_ssn %></div>
-                </li>
-              <% end %>
+    <% if current_intake.filing_jointly? %>
+      <h2 class="review-box__title"><%= t("views.ctc.questions.spouse_review.your_spouse") %></h2>
+      <div class="review-box__body spouse-info">
+        <i class="icon-person"></i>
+        <div><%= current_intake.spouse_full_name %></div>
+        <div><%= t("general.date_of_birth") %>: <%= default_date_format(current_intake.spouse_birth_date) %></div>
+        <div><%= current_intake.spouse_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= current_intake.spouse_last_four_ssn %></div>
+      </div>
+    <% end %>
+
+    <% if current_intake.dependents.present? %>
+      <div class="dependents-info">
+        <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
+        <ul>
+          <% current_intake.dependents.each do |dependent| %>
+            <% if dependent.qualifying? %>
+              <li class="review-box__body">
+                <i class="icon-person"></i>
+                <div><%= dependent.full_name %></div>
+                <div><%= t("general.date_of_birth") %>: <%= default_date_format(dependent.birth_date) %></div>
+                <div><%= dependent.tin_type == "ssn" ? t("general.ssn") : t("general.atin") %>: XXX-XX-<%= dependent.last_four_ssn %></div>
+              </li>
             <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <% if current_intake.refund_payment_method_direct_deposit? %>
-        <div class="review-box__title">
-          <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
-        </div>
-        <ul class="review-box__body">
-          <li><%= current_intake.bank_account.bank_name %></li>
-          <li><%= t("general.type") %>: <%= current_intake.bank_account.account_type&.titleize %></li>
-          <li><%= t("general.bank_account.routing_number") %>: <%= current_intake.bank_account.routing_number %></li>
-          <li><%= t("general.bank_account.account_number") %>: <%= mask(current_intake.bank_account.account_number, 4) %></li>
+          <% end %>
         </ul>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 
-    <div class="form-card__content">
-      <p><%= t("views.ctc.questions.confirm_information.pin_help_text") %></p>
-      <%= f.cfa_input_field(:primary_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.primary_full_name), classes: ["form-width--long"]) %>
-      <% if current_intake.filing_jointly? %>
-        <%= f.cfa_input_field(:spouse_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.spouse_full_name), classes: ["form-width--long"]) %>
-      <% end %>
-    </div>
+    <% if current_intake.refund_payment_method_direct_deposit? %>
+      <div class="review-box__title">
+        <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
+      </div>
+      <ul class="review-box__body">
+        <li><%= current_intake.bank_account.bank_name %></li>
+        <li><%= t("general.type") %>: <%= current_intake.bank_account.account_type&.titleize %></li>
+        <li><%= t("general.bank_account.routing_number") %>: <%= current_intake.bank_account.routing_number %></li>
+        <li><%= t("general.bank_account.account_number") %>: <%= mask(current_intake.bank_account.account_number, 4) %></li>
+      </ul>
+    <% end %>
+  </div>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <p><%= t("views.ctc.questions.confirm_information.pin_help_text") %></p>
+    <%= f.cfa_input_field(:primary_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.primary_full_name), classes: ["form-width--long"]) %>
+    <% if current_intake.filing_jointly? %>
+      <%= f.cfa_input_field(:spouse_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.spouse_full_name), classes: ["form-width--long"]) %>
+    <% end %>
 
     <button class="button button--primary button--wide" type="submit">
       <%=t("views.ctc.questions.confirm_information.ready_to_file") %>

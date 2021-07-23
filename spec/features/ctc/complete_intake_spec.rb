@@ -252,7 +252,6 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     expect(page).to have_selector("div", text: "Apt 1234")
     expect(page).to have_selector("div", text: "Bel Air, CA 90001")
 
-    expect(intake.filing_jointly?).to eq true
     expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.spouse_review.your_spouse"))
     expect(page).to have_selector("div", text: "Peter Pepper")
     expect(page).to have_selector("div", text: "Date of birth: 1/11/1995")

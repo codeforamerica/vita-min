@@ -1045,7 +1045,9 @@ es:
       other: "%{count} días hábiles"
     greetable: Pueden ser saludados
     ctc_client: CTC client
-    atin: "ATIN"
+    phone: Teléfono
+    date_of_birth: Fecha de nacimiento
+    atin: ATIN
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

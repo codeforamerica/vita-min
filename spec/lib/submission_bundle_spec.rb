@@ -2,6 +2,12 @@ require "rails_helper"
 
 describe SubmissionBundle do
   let(:submission) { create :efile_submission, :ctc }
+  before do
+    submission.intake.update(
+      primary_signature_pin: "12345",
+      primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
+    )
+  end
 
   describe "#build" do
     it "stores the submission bundle on the submission" do

@@ -57,12 +57,12 @@ describe Ctc::Questions::ConfirmInformationController do
           it "does not show a field for the spouse's pin" do
             get :edit
 
-            expect(response_html).not_to have_text "Spouse's five digit PIN"
+            expect(response_html.css(".form-group input").length).to eq 1
           end
         end
 
         context "when filing joint" do
-          let(:intake) { create :ctc_intake }
+          let(:intake) { create :ctc_intake, spouse_first_name: "Gorby", spouse_last_name: "Pants" }
           let!(:tax_return) { create :tax_return, filing_status: "married_filing_jointly", client: intake.client }
 
           it "shows the spouse info" do
@@ -74,7 +74,8 @@ describe Ctc::Questions::ConfirmInformationController do
           it "shows a field for the spouse's PIN" do
             get :edit
 
-            expect(response_html).to have_text "Spouse's five digit PIN"
+            expect(response_html).to have_text "Gorby Pants's five digit PIN"
+            expect(response_html.css(".form-group input").length).to eq 2
           end
 
           context "when the spouse has an ITIN" do
