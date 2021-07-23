@@ -152,8 +152,8 @@ class FlowsController < ApplicationController
         end
       end
 
-      def unreachable?(reference_object)
-        !show?(reference_object)
+      def unreachable?(current_controller)
+        !show?(model_for_show_check(current_controller))
       end
     end
   end

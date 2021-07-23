@@ -23,7 +23,7 @@
             link_to(
               decorated_controller.controller_url,
               class: 'flow-explorer-link',
-              style: flow_params.reference_object && decorated_controller.unreachable?(flow_params.reference_object) ? 'font-style: italic; color: #aaa;' : ''
+              style: flow_params.reference_object && decorated_controller.unreachable?(controller) ? 'font-style: italic; color: #aaa;' : ''
             ) do %>
             <% navigation_entry_action_title = decorated_controller.navigation_entry_action_title(flow_params.title_i18n_params) %>
             <% if navigation_entry_action_title.is_a?(Hash) %>

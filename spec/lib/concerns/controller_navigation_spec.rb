@@ -11,6 +11,10 @@ RSpec.describe ControllerNavigation do
         true
       end
 
+      def self.model_for_show_check(controller)
+        controller.visitor_record
+      end
+
       def visitor_record; end
     end
 
