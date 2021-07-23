@@ -139,7 +139,7 @@ RSpec.feature "CTC Intake", :js, :flow_explorer_screenshot, active_job: true do
     fill_in "ctc_dependents_info_form[birth_date_month]", with: "01"
     fill_in "ctc_dependents_info_form[birth_date_day]", with: "11"
     fill_in "ctc_dependents_info_form[birth_date_year]", with: "1995"
-    select I18n.t('general.ctc_dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+    select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
