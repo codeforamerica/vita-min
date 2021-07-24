@@ -13,9 +13,9 @@
       <div class="review-box__person">
         <div><icon class="icon-person"></icon></div>
         <div>
-          <div class="review-box__person-name"><%= current_intake&.spouse_full_name %></div>
-          <div class="review-box__person-details"><%=t("views.ctc.questions.spouse_review.spouse_birthday", dob: default_date_format(current_intake&.spouse_birth_date)) %></div>
-          <div class="review-box__person-details"><%=t("views.ctc.questions.spouse_review.spouse_ssn", ssn: current_intake&.spouse_last_four_ssn) %></div>
+          <div class="review-box__name"><%= current_intake&.spouse_full_name %></div>
+          <div class="review-box__details"><%=t("views.ctc.questions.spouse_review.spouse_birthday", dob: default_date_format(current_intake&.spouse_birth_date)) %></div>
+          <div class="review-box__details"><%=t("views.ctc.questions.spouse_review.spouse_ssn", ssn: current_intake&.spouse_last_four_ssn) %></div>
         </div>
       </div>
       <%= link_to t("general.edit").downcase, questions_spouse_info_path, class: "review-box__edit review-box__edit-button" %>

@@ -4,9 +4,9 @@
       <icon class="icon-person"></icon>
     </div>
     <div>
-      <div class="review-box__person-name"><%= dependent.full_name %></div>
-      <div class="review-box__person-details"><%= t("views.ctc.questions.dependents.confirm_dependents.birthday", dob: default_date_format(dependent.birth_date)) %></div>
-      <div class="review-box__person-details"><%= t("views.ctc.questions.dependents.confirm_dependents.ssn", ssn: dependent.ssn.last(4)) %></div>
+      <div class="review-box__name"><%= dependent.full_name %></div>
+      <div class="review-box__details"><%= t("views.ctc.questions.dependents.confirm_dependents.birthday", dob: default_date_format(dependent.birth_date)) %></div>
+      <div class="review-box__details"><%= t("views.ctc.questions.dependents.confirm_dependents.ssn", ssn: dependent.ssn.last(4)) %></div>
     </div>
   </div>
   <%= link_to t("general.edit").downcase, Ctc::Questions::Dependents::InfoController.to_path_helper(id: dependent.id), class: "review-box__edit review-box__edit-button" %>
