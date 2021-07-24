@@ -222,7 +222,7 @@ require "rails_helper"
 describe Intake::CtcIntake do
   describe "#any_ip_pins?" do
     context "when any member of household has an IP PIN" do
-      let(:intake) { create :ctc_intake, dependents: [ create(:dependent, ssn: '111-22-3333', ip_pin: 123456) ] }
+      let(:intake) { create :ctc_intake, dependents: [create(:dependent, ssn: '111-22-3333', ip_pin: 123456)] }
 
       it "returns true" do
         expect(intake.any_ip_pins?).to eq true
@@ -234,6 +234,20 @@ describe Intake::CtcIntake do
 
       it "returns false" do
         expect(intake.any_ip_pins?).to eq false
+      end
+    end
+  end
+
+  describe "filing joint overrides" do
+    context "given a tax return being filed jointly" do
+      it "is filing_jointly_yes" do
+
+      end
+    end
+
+    context "given a tax return being filed single" do
+      it "is filing_jointly_no" do
+
       end
     end
   end
