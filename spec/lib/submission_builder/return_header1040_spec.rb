@@ -85,7 +85,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("ZIPCd").text).to eq "77494"
         expect(xml.at("PhoneNum").text).to eq "4155551212"
         expect(xml.at("IPv4AddressTxt").text).to eq "1.1.1.1"
-        expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "3"
+        expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "0"
         expect(xml.at("TrustedCustomerGrp AuthenticationAssuranceLevelCd").text).to eq "AAL1"
         expect(xml.at("TrustedCustomerGrp LastSubmissionRqrOOBCd").text).to eq "0"
         expect(xml.at("AtSubmissionFilingGrp RefundProductElectionInd").text).to eq "false"
@@ -191,24 +191,49 @@ describe SubmissionBuilder::ReturnHeader1040 do
       context "filing with direct deposit" do
         before do
           submission.intake.update(refund_payment_method: "direct_deposit")
+          allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_amount).and_return(refund_amount)
         end
 
-        it "includes direct deposit nodes and excludes CheckCd" do
-          xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
-          expect(xml.at("RoutingTransitNum").text).to eq "123456789"
-          expect(xml.at("DepositorAccountNum").text).to eq "87654321"
-          expect(xml.at("CheckCd")).to eq nil
-          expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "2"
-          expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp RoutingTransitNum").text).to eq "123456789"
-          expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp DepositorAccountNum").text).to eq "87654321"
-          expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp BankAccountDataCapturedTs").text).not_to be_nil
+        context "with a refund due" do
+          let(:refund_amount) { 1 }
+
+          it "includes direct deposit nodes and excludes CheckCd" do
+            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            expect(xml.at("RoutingTransitNum").text).to eq "123456789"
+            expect(xml.at("DepositorAccountNum").text).to eq "87654321"
+            expect(xml.at("CheckCd")).to eq nil
+            expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "2"
+            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp RoutingTransitNum").text).to eq "123456789"
+            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp DepositorAccountNum").text).to eq "87654321"
+            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp BankAccountDataCapturedTs").text).not_to be_nil
+          end
+        end
+
+        context "without a refund due" do
+          let(:refund_amount) { 0 }
+
+          it "includes direct deposit info and sets RefundDisbursementCd to 0" do
+            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            expect(xml.at("RoutingTransitNum").text).to eq "123456789"
+            expect(xml.at("DepositorAccountNum").text).to eq "87654321"
+            expect(xml.at("CheckCd")).to eq nil
+            expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "0"
+            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp RoutingTransitNum").text).to eq "123456789"
+            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp DepositorAccountNum").text).to eq "87654321"
+            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp BankAccountDataCapturedTs").text).not_to be_nil
+          end
         end
       end
+    end
 
-      context "filing requesting a check payment" do
-        before do
-          submission.intake.update(refund_payment_method: "check")
-        end
+    context "filing requesting a check payment" do
+      before do
+        submission.intake.update(refund_payment_method: "check")
+        allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_amount).and_return(refund_amount)
+      end
+
+      context "with a refund due" do
+        let(:refund_amount) { 1 }
 
         it "includes CheckCd and exclude direct deposit nodes" do
           xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
@@ -220,9 +245,23 @@ describe SubmissionBuilder::ReturnHeader1040 do
         end
       end
 
-      it "conforms to the eFileAttachments schema" do
-        expect(SubmissionBuilder::ReturnHeader1040.build(submission)).to be_valid
+      context "with no refund due" do
+        let(:refund_amount) { 0 }
+
+        it "includes CheckCd and exclude direct deposit nodes and sets RefundDisbursementCd to 0" do
+          xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+
+          expect(xml.at("RoutingTransitNum")).to be_nil
+          expect(xml.at("DepositorAccountNum")).to be_nil
+          expect(xml.at("CheckCd").text).to eq "Check"
+          expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "0"
+        end
       end
+    end
+
+    it "conforms to the eFileAttachments schema" do
+      expect(SubmissionBuilder::ReturnHeader1040.build(submission)).to be_valid
     end
   end
 end
+
