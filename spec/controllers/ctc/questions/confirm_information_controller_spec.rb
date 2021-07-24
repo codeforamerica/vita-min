@@ -26,7 +26,7 @@ describe Ctc::Questions::ConfirmInformationController do
           it "shows SSN labels" do
             get :edit
 
-            expect(response_html.at_css(".review-box__body div:last-child")).to have_text "SSN: XXX-XX-1234"
+            expect(response_html.at_css(".primary-info .review-box__details:last-child")).to have_text "SSN: XXX-XX-1234"
           end
         end
 
@@ -42,7 +42,7 @@ describe Ctc::Questions::ConfirmInformationController do
           it "shows ITIN labels" do
             get :edit
 
-            expect(response_html.at_css(".review-box__body div:last-child")).to have_text "ITIN: XXX-XX-1234"
+            expect(response_html.at_css(".primary-info .review-box__details:last-child")).to have_text "ITIN: XXX-XX-1234"
           end
         end
 
@@ -86,7 +86,7 @@ describe Ctc::Questions::ConfirmInformationController do
             it "properly displays the ITIN" do
               get :edit
 
-              expect(response_html.at_css(".review-box__body.spouse-info div:last-child")).to have_text "ITIN: XXX-XX-1234"
+              expect(response_html.at_css(".spouse-info .review-box__details:last-child")).to have_text "ITIN: XXX-XX-1234"
             end
           end
         end

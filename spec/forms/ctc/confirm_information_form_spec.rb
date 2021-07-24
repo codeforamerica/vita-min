@@ -19,6 +19,18 @@ describe Ctc::ConfirmInformationForm do
         primary_signature_pin: "123",
       })
       expect(form).not_to be_valid
+      expect(form.errors).to include :primary_signature_pin
+
+      form = described_class.new(intake, { primary_signature_pin: "12345" })
+      puts form.errors.keys
+      expect(form).to be_valid
+    end
+
+    it "requires signature PIN to be numeric" do
+      form = described_class.new(intake, {
+        primary_signature_pin: "1a-5?",
+      })
+      expect(form).not_to be_valid
 
       expect(form.errors).to include :primary_signature_pin
     end
