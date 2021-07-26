@@ -791,7 +791,8 @@ en:
       savings: Savings
       account_number: Account number
       routing_number: Routing number
-    intercom_help: "I need help"
+    intercom_help: I need help
+    intercom_cta: Chat with us
     filing_status:
       single: Single
       married_filing_jointly: Married filing jointly

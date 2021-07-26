@@ -776,6 +776,7 @@ es:
       routing_number: Número de ruta
       account_number: Número de cuenta
     intercom_help: Necesito ayuda
+    intercom_cta: Hable con nosotros
     filing_status:
       single: Soltero (S)
       married_filing_jointly: Casado que presenta una declaración conjunta (MFJ)
