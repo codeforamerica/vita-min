@@ -20,6 +20,10 @@ module Ctc
           none_of_the_above == "yes"
         errors.add(:none_selected, I18n.t("views.ctc.questions.dependents.child_disqualifiers.error")) unless chose_one
       end
+
+      def self.existing_attributes(model, attribute_keys)
+        HashWithIndifferentAccess[attribute_keys.filter { |key| key != :none_of_the_above }.map { |k| [k, model.send(k)] }]
+      end
     end
   end
 end
