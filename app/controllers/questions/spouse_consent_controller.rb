@@ -5,7 +5,7 @@ module Questions
     layout "application"
 
     def self.show?(intake)
-      intake.filing_joint_yes?
+      intake.filing_joint == "yes"
     end
 
     private

@@ -3,7 +3,7 @@ module Questions
     include AuthenticatedClientConcern
 
     def self.show?(intake)
-      intake.filing_joint_yes?
+      intake.filing_joint == "yes"
     end
 
     def tracking_data

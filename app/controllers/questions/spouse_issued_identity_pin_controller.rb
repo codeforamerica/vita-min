@@ -5,7 +5,7 @@ module Questions
     layout "yes_no_question"
 
     def self.show?(intake)
-      intake.filing_joint_yes?
+      intake.filing_joint == "yes"
     end
 
     def illustration_path

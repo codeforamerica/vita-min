@@ -423,7 +423,7 @@ class Intake < ApplicationRecord
   end
 
   def filer_count
-    filing_joint_yes? ? 2 : 1
+    filing_joint == "yes" ? 2 : 1
   end
 
   def include_bank_details?

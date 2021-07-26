@@ -16,7 +16,7 @@ class ClientMessagingService
 
     def send_email_to_all_signers(client:, user:, body:, attachment: nil, locale: nil, tax_return: nil)
       to = client.email_address
-      to += ",#{client.intake.spouse_email_address}" if client.intake.filing_joint_yes?
+      to += ",#{client.intake.spouse_email_address}" if client.intake.filing_joint == "yes"
       args = { to: to, client: client, body: body, user: user, attachment: attachment }
       args[:locale] = locale if locale.present?
       args[:tax_return] = tax_return if tax_return.present?

@@ -129,7 +129,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def filing_joint?
-    client.intake.filing_joint_yes?
+    client.intake.filing_joint == "yes"
   end
 
   def ready_for_8879_signature?(signature_type)

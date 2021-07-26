@@ -8,7 +8,7 @@
         <span><%= t("general.last_four_ssn") %>:</span>
         <span><%= @client.intake.primary_last_four_ssn %></span>
       </div>
-      <% if @client.intake.filing_joint_yes? %>
+      <% if @client.intake.filing_joint == "yes" %>
         <div class="spacing-below-10">
           <span><%= t("general.spouse_last_four_ssn") %>:</span>
           <span><%= @client.intake.spouse_last_four_ssn %></span>
