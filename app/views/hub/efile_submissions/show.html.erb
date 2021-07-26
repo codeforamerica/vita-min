@@ -1,22 +1,28 @@
+<% content_for :back_to, "efile" %>
 <% content_for :card do %>
-  <div class="slab slab--not-padded spacing-above-25">
-    <h1 class="h2 spacing-below-5">
-      Submission <%= @efile_submission.id %> <span class="small">(<%= @efile_submission.current_state %>)</span>
-    </h1>
-    <p class="spacing-above-5 spacing-below-5">Client: <%= link_to @efile_submission.tax_return.client.legal_name, hub_clients_path(id: @efile_submission.tax_return.client.id) %></p>
+  <div class="slab slab--not-padded spacing-above-25 submission">
+    <div style="display: flex;">
+      <h1 class="h2 spacing-below-5">
+        <%= link_to @tax_return.client.legal_name, hub_clients_path(id: @tax_return.client.id) %> (<%= @efile_submission.current_state %>)
+      </h1>
+      <div style="margin-left: 10px;">
+        <%= link_to "Resubmit return", resubmit_hub_efile_submission_path(id: @efile_submission.id), method: :patch, data: { confirm: "Have you updated the necessary information for #{@tax_return.client.legal_name}?" },  class: "button button--small" if @efile_submission.can_transition_to?(:resubmitted) %>
+      </div>
+    </div>
 
-    <div>
-      <h3 class="spacing-above-25 spacing-below-10">Status Logs</h3>
-      <ul>
-        <% @efile_submission.efile_submission_transitions.each do |transition| %>
-          <li>
-            <%= timestamp transition.created_at %>
-            <%= transition.to_state %>
-            <%= transition.metadata["error_code"] %>
-            <%= transition.metadata["error_message"] %>
-          </li>
-        <% end %>
-      </ul>
+    <div class="log-wrapper">
+      <h4 class="spacing-above-25 spacing-below-10">Status Logs</h4>
+      <% @tax_return.efile_submissions.each_with_index do |efile_submission, i| %>
+        <hr/>
+        <div>
+          <%= i.zero? ? "Submission" : "Resubmission" %>
+          <strong><%= efile_submission.irs_submission_id %></strong>
+        </div>
+
+        <ul role="list" class="logs">
+          <%= render(partial: "log", collection: efile_submission.efile_submission_transitions, as: :transition) || "No logs yet" %>
+        </ul>
+      <% end %>
     </div>
   </div>
 <% end %>

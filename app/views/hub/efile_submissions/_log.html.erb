@@ -1,0 +1,21 @@
+<li role="listitem">
+  <div class="timestamp"><%= timestamp transition.created_at %></div>
+  <div class="status <%= transition.to_state %>"><%= transition.to_state %></div>
+  <div class="details">
+    <% if transition.initiated_by.present? %>
+      <div>Initiated by: <%= transition.initiated_by.name %></div>
+    <% end %>
+    <div>
+      <strong><%= "#{transition.error_code}" if transition.error_code.present? %></strong>
+      <% if transition.error_message.present? %>
+        <% if transition.error_message.respond_to?(:each) %>
+          <%= transition.error_message.each do |message| %>
+            <div><%= message %></div>
+          <% end %>
+        <% else %>
+          <%= transition.error_message %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</li>

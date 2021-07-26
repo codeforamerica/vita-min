@@ -25,6 +25,20 @@ class EfileSubmissionTransition < ApplicationRecord
 
   after_destroy :update_most_recent, if: :most_recent?
 
+  def initiated_by
+    return nil unless metadata["initiated_by_id"]
+
+    User.find(metadata["initiated_by_id"])
+  end
+
+  def error_message
+    metadata["error_message"]
+  end
+
+  def error_code
+    metadata["error_code"]
+  end
+
   private
 
   # If a transition is deleted, make the new last transition

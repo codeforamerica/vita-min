@@ -43,27 +43,21 @@ shared_examples :a_post_action_for_authenticated_users_only do |action:|
 end
 
 shared_examples :a_get_action_for_admins_only do |action:|
-  let(:params) { {} } unless method_defined?(:params)
-
-  context "with a non-admin user" do
-    before { sign_in( create :user ) }
-
-    it "returns 403 Forbidden" do
-      get action, params: params
-
-      expect(response.status).to eq 403
-    end
-  end
+  it_behaves_like :an_action_for_admins_only, action: action, method: :get
 end
 
 shared_examples :a_post_action_for_admins_only do |action:|
+  it_behaves_like :an_action_for_admins_only, action: action, method: :post
+end
+
+shared_examples :an_action_for_admins_only do |action:, method:|
   let(:params) { {} } unless method_defined?(:params)
 
   context "with a non-admin user" do
     before { sign_in( create :user ) }
 
     it "returns 403 Forbidden" do
-      post action, params: params
+      send(method, action, params: params)
 
       expect(response.status).to eq 403
     end

@@ -131,13 +131,10 @@ describe EfileSubmission do
           expect { submission.transition_to!(:failed) }.not_to raise_error
         end
 
-        it "rejected" do
-          expect { submission.transition_to!(:rejected) }.not_to raise_error
-        end
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("transmitted", "failed", "rejected", "queued").each do |state|
+        EfileSubmissionStateMachine.states.excluding("transmitted", "failed", "queued").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
@@ -178,21 +175,13 @@ describe EfileSubmission do
   end
 
   describe "#previously_transmitted_submission" do
-    context "when there is a previous submission for the tax return that was transmitted to the IRS" do
+    context "when there is a previous submission for the tax return" do
       let(:submission) { create :efile_submission, :preparing }
       let(:previous_submission) { create(:efile_submission, :transmitted) }
-      let!(:tax_return) { create :tax_return, efile_submissions: [previous_submission, create(:efile_submission, :failed), submission]}
+      let!(:tax_return) { create :tax_return, efile_submissions: [create(:efile_submission, :failed), previous_submission, submission] }
 
-      it "returns the transmitted submission object" do
+      it "returns the submission object" do
         expect(submission.previously_transmitted_submission).to eq previous_submission
-      end
-    end
-
-    context "when there is a previous submission for the tax return, but it was never transmitted" do
-      let(:submission) { create :efile_submission, :preparing }
-      let!(:tax_return) { create :tax_return, efile_submissions: [create(:efile_submission, :failed), submission]}
-      it "returns nil" do
-        expect(submission.previously_transmitted_submission).to eq nil
       end
     end
   end

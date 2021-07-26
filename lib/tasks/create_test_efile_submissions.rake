@@ -10,7 +10,7 @@ namespace :efile do
 
     queued_group = preparing_group.take(75)
     queued_group.each do |submission|
-      submission.transition_to!(:queued, seeding: true)
+      submission.transition_to!(:queued)
     end
 
     failed = queued_group.last(10)
