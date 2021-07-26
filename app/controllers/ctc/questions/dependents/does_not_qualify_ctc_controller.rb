@@ -31,6 +31,3 @@ module Ctc
     end
   end
 end
-
-# does-not-qualify-ctc
-# http://ctc.localhost:3000/en/questions/dependents/34/does-not-qualify-ctc

@@ -1429,9 +1429,9 @@ en:
           does_not_qualify_ctc:
             title: "%{dependent} can’t be claimed as a dependent."
             body_html: |
-              <p>For a dependent to qualify they would need to meet the following conditions:
-              Under the age of 18</p>
+              <p>For a dependent to qualify they would need to meet the following conditions:</p>
               <ul class="list--bulleted">
+                <li>Under the age of 18</li>
                 <li>The child has a valid Social Security Number or Adoption Identification Number</li>
                 <li>The dependent was a U.S. citizen, U.S. national, or U.S.resident alien.</li>
                 <li>The dependent lived with you for more than half of 2020.</li>
