@@ -41,9 +41,9 @@ module Hub
                        :with_social_security_taxpayer_id,
                        :with_itin_taxpayer_id,
                        :with_vita_approved_taxpayer_id,
-                       :recovery_rebate_credit_amount_1,
-                       :recovery_rebate_credit_amount_2,
-                       :recovery_rebate_credit_amount_confidence,
+                       :eip1_amount_received,
+                       :eip2_amount_received,
+                       :eip1_and_2_amount_received_confidence,
                        :refund_payment_method,
                        :primary_ip_pin,
                        :spouse_ip_pin

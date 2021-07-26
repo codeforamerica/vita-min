@@ -41,6 +41,9 @@
 #  demographic_veteran                                  :integer          default("unfilled"), not null
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
+#  eip1_amount_received                                 :integer
+#  eip1_and_2_amount_received_confidence                :integer
+#  eip2_amount_received                                 :integer
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -146,9 +149,6 @@
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null
 #  received_stimulus_payment                            :integer          default("unfilled"), not null
-#  recovery_rebate_credit_amount_1                      :integer
-#  recovery_rebate_credit_amount_2                      :integer
-#  recovery_rebate_credit_amount_confidence             :integer
 #  referrer                                             :string
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
