@@ -1348,7 +1348,7 @@ es:
         account_number:
           title: Favor de proporcionarnos el número de su cuenta bancaria
           account_number: Número de cuenta
-          account_number_confirmation: "Confirme su número de cuenta "
+          account_number_confirmation: "Confirme su número de cuenta"
         confirm_bank_account:
           title: ¡Excelente! Revise que sus datos bancarios sean correctos.
           bank_information: La información de su banco
@@ -1461,7 +1461,7 @@ es:
           title: ¡Verifiquemos esa información de contacto con un código!
           body: |
             Se le ha enviado un mensaje con su código a:
-          verification_code_label: "Introduzca el código de 6 números "
+          verification_code_label: "Introduzca el código de 6 números"
           error_message: "El código de verificación está equivocado"
         stimulus_payments:
           title: "En base a su información, creemos que debería haber recibido esta cantidad en pagos de estímulo."
