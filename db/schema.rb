@@ -236,8 +236,8 @@ ActiveRecord::Schema.define(version: 2021_07_26_193720) do
   create_table "dependents", force: :cascade do |t|
     t.date "birth_date"
     t.integer "born_in_2020", default: 0, null: false
-    t.integer "can_be_claimed_by_other", default: 0, null: false
-    t.integer "claim_regardless", default: 0, null: false
+    t.integer "cant_be_claimed_by_other", default: 0, null: false
+    t.integer "claim_anyway", default: 0, null: false
     t.datetime "created_at", null: false
     t.integer "disabled", default: 0, null: false
     t.string "encrypted_ip_pin"
@@ -460,6 +460,9 @@ ActiveRecord::Schema.define(version: 2021_07_26_193720) do
     t.integer "demographic_veteran", default: 0, null: false
     t.integer "divorced", default: 0, null: false
     t.string "divorced_year"
+    t.integer "eip1_amount_received"
+    t.integer "eip1_and_2_amount_received_confidence"
+    t.integer "eip2_amount_received"
     t.boolean "eip_only"
     t.citext "email_address"
     t.datetime "email_address_verified_at"
@@ -566,9 +569,6 @@ ActiveRecord::Schema.define(version: 2021_07_26_193720) do
     t.integer "received_homebuyer_credit", default: 0, null: false
     t.integer "received_irs_letter", default: 0, null: false
     t.integer "received_stimulus_payment", default: 0, null: false
-    t.integer "recovery_rebate_credit_amount_1"
-    t.integer "recovery_rebate_credit_amount_2"
-    t.integer "recovery_rebate_credit_amount_confidence"
     t.string "referrer"
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false

@@ -5,8 +5,8 @@
 #  id                                          :bigint           not null, primary key
 #  birth_date                                  :date
 #  born_in_2020                                :integer          default("unfilled"), not null
-#  can_be_claimed_by_other                     :integer          default("unfilled"), not null
-#  claim_regardless                            :integer          default("unfilled"), not null
+#  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
+#  claim_anyway                                :integer          default("unfilled"), not null
 #  disabled                                    :integer          default("unfilled"), not null
 #  encrypted_ip_pin                            :string
 #  encrypted_ip_pin_iv                         :string
@@ -67,8 +67,8 @@ FactoryBot.define do
       no_ssn_atin { "no" }
       filed_joint_return { "no" }
       lived_with_more_than_six_months { "yes" }
-      can_be_claimed_by_other { "no" }
-      claim_regardless { "yes" }
+      cant_be_claimed_by_other { "yes" }
+      claim_anyway { "yes" }
     end
 
     factory :qualifying_relative do
@@ -85,8 +85,8 @@ FactoryBot.define do
       no_ssn_atin { "no" }
       filed_joint_return { "no" }
       lived_with_more_than_six_months { "no" }
-      can_be_claimed_by_other { "yes" }
-      claim_regardless { "yes" }
+      cant_be_claimed_by_other { "no" }
+      claim_anyway { "yes" }
     end
   end
 end

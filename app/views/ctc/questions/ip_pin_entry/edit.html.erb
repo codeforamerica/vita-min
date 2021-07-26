@@ -9,8 +9,8 @@
 
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="form-card__stacked-checkboxes spacing-above-0 spacing-below-15">
-      <%= f.cfa_input_field(:primary_ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: current_intake.primary_full_name)) if current_intake.has_primary_ip_pin_yes? %>
-      <%= f.cfa_input_field(:spouse_ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: current_intake.spouse_full_name)) if current_intake.has_spouse_ip_pin_yes? %>
+      <%= f.cfa_input_field(:primary_ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: current_intake.primary_full_name), type: "tel") if current_intake.has_primary_ip_pin_yes? %>
+      <%= f.cfa_input_field(:spouse_ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: current_intake.spouse_full_name), type: "tel") if current_intake.has_spouse_ip_pin_yes? %>
       <%= f.fields_for :dependents do |ff| %>
         <%= ff.cfa_input_field(:ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: ff.object.full_name)) %>
       <% end %>

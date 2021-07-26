@@ -10,8 +10,8 @@
       <h2><%= t("views.ctc.questions.stimulus_received.amount_received") %></h2>
       <%= link_to t("general.edit").downcase, questions_stimulus_one_path, class: "review-box__edit" %>
     </div>
-    <p class="spacing-below-15"><%= t("views.ctc.questions.stimulus_received.eip_one") %>: <%= calculated_or_provided_dollar_amount(current_intake.recovery_rebate_credit_amount_1) %></p>
-    <p class="spacing-below-0"><%= t("views.ctc.questions.stimulus_received.eip_two") %>: <%= calculated_or_provided_dollar_amount(current_intake.recovery_rebate_credit_amount_2) %></p>
+    <p class="spacing-below-15"><%= t("views.ctc.questions.stimulus_received.eip_one") %>: <%= calculated_or_provided_dollar_amount(current_intake.eip1_amount_received) %></p>
+    <p class="spacing-below-0"><%= t("views.ctc.questions.stimulus_received.eip_two") %>: <%= calculated_or_provided_dollar_amount(current_intake.eip2_amount_received) %></p>
   </div>
 
   <%= link_to t("general.continue"), questions_refund_payment_path, class: "button button--wide button--primary text--centered" %>

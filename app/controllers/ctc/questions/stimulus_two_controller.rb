@@ -6,7 +6,7 @@ module Ctc
       layout "intake"
 
       def update
-        current_intake.update!(recovery_rebate_credit_amount_2: 0)
+        current_intake.update!(eip2_amount_received: 0)
         # TODO: redirect to either stimulus received or owed based on whether provided sum is greater than calculated
         redirect_to questions_stimulus_received_path
       end

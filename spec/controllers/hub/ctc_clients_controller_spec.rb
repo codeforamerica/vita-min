@@ -226,9 +226,9 @@ RSpec.describe Hub::CtcClientsController do
           primary_ssn: "111227778",
           primary_ssn_confirmation: "111227778",
           filing_status: client.tax_returns.last.filing_status,
-          recovery_rebate_credit_amount_1: '9000',
-          recovery_rebate_credit_amount_2: intake.recovery_rebate_credit_amount_2,
-          recovery_rebate_credit_amount_confidence: intake.recovery_rebate_credit_amount_confidence,
+          eip1_amount_received: '9000',
+          eip2_amount_received: intake.eip2_amount_received,
+          eip1_and_2_amount_received_confidence: intake.eip1_and_2_amount_received_confidence,
           refund_payment_method: "check",
           with_passport_photo_id: "1",
           with_itin_taxpayer_id: "1",
@@ -258,7 +258,7 @@ RSpec.describe Hub::CtcClientsController do
         expect(intake.primary_first_name).to eq "San"
         expect(client.legal_name).to eq "San Mateo"
         expect(client.intake.email_address).to eq "san@mateo.com"
-        expect(client.intake.recovery_rebate_credit_amount_1).to eq 9000
+        expect(client.intake.eip1_amount_received).to eq 9000
         expect(client.intake.spouse_last_name).to eq "Diego"
         expect(client.intake.spouse_email_address).to eq "san@diego.com"
         expect(client.intake.spouse_ssn).to eq "123456789"

@@ -20,8 +20,8 @@ RSpec.describe "a user editing a clients intake fields" do
                             preferred_name: "Colleen Cauliflower",
                             email_notification_opt_in: "yes",
                             timezone: "America/Chicago",
-                            recovery_rebate_credit_amount_confidence: "sure",
-                            recovery_rebate_credit_amount_1: 900,
+                            eip1_and_2_amount_received_confidence: "sure",
+                            eip1_amount_received: 900,
                             dependents: [
                               create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06", ssn: "123456789"),
                             ])
@@ -91,7 +91,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within "#recovery-rebate-credit-fields" do
         fill_in "Economic Impact Payment 1 received", with: "1200"
         fill_in "Economic Impact Payment 2 received", with: "1300"
-        select "Sure", from: "hub_update_ctc_client_form_recovery_rebate_credit_amount_confidence"
+        select "Sure", from: "hub_update_ctc_client_form_eip1_and_2_amount_received_confidence"
       end
 
       within "#bank-account-fields" do

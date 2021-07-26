@@ -41,6 +41,9 @@
 #  demographic_veteran                                  :integer          default(0), not null
 #  divorced                                             :integer          default(0), not null
 #  divorced_year                                        :string
+#  eip1_amount_received                                 :integer
+#  eip1_and_2_amount_received_confidence                :integer
+#  eip2_amount_received                                 :integer
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -147,9 +150,6 @@
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
 #  received_stimulus_payment                            :integer          default(0), not null
-#  recovery_rebate_credit_amount_1                      :integer
-#  recovery_rebate_credit_amount_2                      :integer
-#  recovery_rebate_credit_amount_confidence             :integer
 #  referrer                                             :string
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default(0), not null
@@ -243,8 +243,8 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::CtcIntake < Intake
-  attribute :recovery_rebate_credit_amount_1, :money
-  attribute :recovery_rebate_credit_amount_2, :money
+  attribute :eip1_amount_received, :money
+  attribute :eip2_amount_received, :money
   attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :primary_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
@@ -253,7 +253,7 @@ class Intake::CtcIntake < Intake
   attr_encrypted :spouse_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
-  enum recovery_rebate_credit_amount_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :recovery_rebate_credit_amount_confidence
+  enum eip1_and_2_amount_received_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :eip1_and_2_amount_received_confidence
   enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
   enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019
   enum had_reportable_income: { yes: 1, no: 2 }, _prefix: :had_reportable_income

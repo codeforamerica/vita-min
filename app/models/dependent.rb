@@ -5,8 +5,8 @@
 #  id                                          :bigint           not null, primary key
 #  birth_date                                  :date
 #  born_in_2020                                :integer          default("unfilled"), not null
-#  can_be_claimed_by_other                     :integer          default("unfilled"), not null
-#  claim_regardless                            :integer          default("unfilled"), not null
+#  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
+#  claim_anyway                                :integer          default("unfilled"), not null
 #  disabled                                    :integer          default("unfilled"), not null
 #  encrypted_ip_pin                            :string
 #  encrypted_ip_pin_iv                         :string
@@ -63,12 +63,12 @@ class Dependent < ApplicationRecord
   enum provided_over_half_own_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :provided_over_half_own_support
   enum filed_joint_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_joint_return
   enum lived_with_more_than_six_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_more_than_six_months
-  enum can_be_claimed_by_other: { unfilled: 0, yes: 1, no: 2 }, _prefix: :can_be_claimed_by_other
+  enum cant_be_claimed_by_other: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cant_be_claimed_by_other
   enum born_in_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :born_in_2020
   enum passed_away_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away_2020
   enum placed_for_adoption: { unfilled: 0, yes: 1, no: 2 }, _prefix: :placed_for_adoption
   enum permanent_residence_with_client: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_residence_with_client
-  enum claim_regardless: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_regardless
+  enum claim_anyway: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_anyway
   enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
 
   validates_presence_of :first_name
@@ -192,8 +192,8 @@ class Dependent < ApplicationRecord
   end
 
   def meets_qc_claimant_condition?
-    can_be_claimed_by_other_no? ||
-      (can_be_claimed_by_other_yes? && claim_regardless_yes?)
+    cant_be_claimed_by_other_yes? ||
+      (cant_be_claimed_by_other_no? && claim_anyway_yes?)
   end
 
   def qualifying_relative_2020?

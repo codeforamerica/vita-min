@@ -68,8 +68,8 @@ describe TaxReturn do
     end
 
     context "spanish" do
-      before do
-        I18n.locale = "es"
+      around do |example|
+        I18n.with_locale(:es) { example.run }
       end
 
       it "has a key for each tax_return status" do

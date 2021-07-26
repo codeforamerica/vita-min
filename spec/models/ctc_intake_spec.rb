@@ -129,9 +129,9 @@
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
 #  received_stimulus_payment                            :integer          default(0), not null
-#  recovery_rebate_credit_amount_1                      :integer
-#  recovery_rebate_credit_amount_2                      :integer
-#  recovery_rebate_credit_amount_confidence             :integer
+#  eip1_amount_received                      :integer
+#  eip2_amount_received                      :integer
+#  eip1_and_2_amount_received_confidence             :integer
 #  referrer                                             :string
 #  refund_payment_method                                :integer          default(0), not null
 #  reported_asset_sale_loss                             :integer          default(0), not null
