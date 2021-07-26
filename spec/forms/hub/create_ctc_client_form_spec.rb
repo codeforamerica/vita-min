@@ -45,9 +45,9 @@ RSpec.describe Hub::CreateCtcClientForm do
         account_number: "1234567",
         account_number_confirmation: "1234567",
         bank_name: "Bank of America",
-        recovery_rebate_credit_amount_1: "$280",
-        recovery_rebate_credit_amount_2: "$250",
-        recovery_rebate_credit_amount_confidence: "sure",
+        eip1_amount_received: "$280",
+        eip2_amount_received: "$250",
+        eip1_and_2_amount_received_confidence: "sure",
         refund_payment_method: "check",
         navigator_name: "Tax Seasonson",
         navigator_has_verified_client_identity: true,
@@ -98,9 +98,9 @@ RSpec.describe Hub::CreateCtcClientForm do
       it "stores recovery rebate credit amount on the intake" do
         described_class.new(params).save(current_user)
         client = Client.last
-        expect(client.intake.recovery_rebate_credit_amount_1).to eq 280
-        expect(client.intake.recovery_rebate_credit_amount_2).to eq 250
-        expect(client.intake.recovery_rebate_credit_amount_confidence).to eq "sure"
+        expect(client.intake.eip1_amount_received).to eq 280
+        expect(client.intake.eip2_amount_received).to eq 250
+        expect(client.intake.eip1_and_2_amount_received_confidence).to eq "sure"
       end
 
       it "stores primary SSN and also the last 4 in a separate column" do
