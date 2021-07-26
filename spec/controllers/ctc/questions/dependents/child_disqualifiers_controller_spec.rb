@@ -24,7 +24,9 @@ describe Ctc::Questions::Dependents::ChildDisqualifiersController do
       it "updates the dependent and moves to the next page" do
         post :update, params: params
 
-        expect(dependent.reload.lived_with_less_than_six_months).to eq "yes"
+        expect(dependent.reload.provided_over_half_own_support).to eq "yes"
+        expect(dependent.reload.no_ssn_atin).to eq "no"
+        expect(dependent.reload.provided_over_half_own_support).to eq "yes"
       end
     end
 
@@ -32,8 +34,10 @@ describe Ctc::Questions::Dependents::ChildDisqualifiersController do
       let(:params) do
         {
           id: 'jeff',
-          ctc_dependents_child_lived_with_you_form: {
-            lived_with_less_than_six_months: "yes"
+          ctc_dependents_child_disqualifiers_form: {
+            provided_over_half_own_support: "yes",
+            no_ssn_atin: "no",
+            filed_joint_return: "yes"
           }
         }
       end
@@ -55,7 +59,7 @@ describe Ctc::Questions::Dependents::ChildDisqualifiersController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:lived_with_less_than_six_months)
+        expect(assigns(:form).errors.keys).to include(:none_selected)
       end
     end
   end

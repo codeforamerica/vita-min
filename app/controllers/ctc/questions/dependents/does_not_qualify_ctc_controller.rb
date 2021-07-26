@@ -8,7 +8,7 @@ module Ctc
         def self.show?(dependent)
           return false unless dependent
 
-          !dependent.qualifying_child? && !dependent.qualifying_relative?
+          !dependent.qualifying_child_2020? && !dependent.qualifying_relative_2020?
         end
 
         def self.model_for_show_check(current_controller)
@@ -17,10 +17,6 @@ module Ctc
 
         def edit
           @dependent = current_dependent
-          super
-        end
-
-        def update
           super
         end
 

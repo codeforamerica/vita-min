@@ -2,7 +2,7 @@ module Ctc
   module Questions
     module Dependents
       class HadDependentsController < QuestionsController
-        # include AuthenticatedCtcClientConcern
+        include AuthenticatedCtcClientConcern
 
         layout "yes_no_question"
 

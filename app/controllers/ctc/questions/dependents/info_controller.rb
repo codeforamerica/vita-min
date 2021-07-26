@@ -2,7 +2,7 @@ module Ctc
   module Questions
     module Dependents
       class InfoController < BaseDependentController
-        # include AuthenticatedCtcClientConcern
+        include AuthenticatedCtcClientConcern
 
         layout "intake"
 
@@ -22,8 +22,7 @@ module Ctc
           end
         end
 
-        def illustration_path
-        end
+        def illustration_path; end
       end
     end
   end

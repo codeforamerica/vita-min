@@ -2,7 +2,7 @@ module Ctc
   module Questions
     module Dependents
       class NoDependentsController < QuestionsController
-        # include AuthenticatedCtcClientConcern
+        include AuthenticatedCtcClientConcern
 
         layout "intake"
 

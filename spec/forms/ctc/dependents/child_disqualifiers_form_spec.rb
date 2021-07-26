@@ -9,7 +9,6 @@ describe Ctc::Dependents::ChildDisqualifiersForm do
         provided_over_half_own_support: "yes",
         no_ssn_atin: "no",
         filed_joint_return: "yes",
-        none_of_the_above: "no"
       }
     end
 
