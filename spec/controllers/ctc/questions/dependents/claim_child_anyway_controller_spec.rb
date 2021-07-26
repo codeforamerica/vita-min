@@ -14,7 +14,7 @@ describe Ctc::Questions::Dependents::ClaimChildAnywayController do
         {
           id: dependent.id,
           ctc_dependents_claim_child_anyway_form: {
-            claim_regardless: "yes"
+            claim_anyway: "yes"
           }
         }
       end
@@ -22,7 +22,7 @@ describe Ctc::Questions::Dependents::ClaimChildAnywayController do
       it "updates the dependent and moves to the next page" do
         post :update, params: params
 
-        expect(dependent.reload.claim_regardless).to eq "yes"
+        expect(dependent.reload.claim_anyway).to eq "yes"
       end
     end
 
@@ -31,7 +31,7 @@ describe Ctc::Questions::Dependents::ClaimChildAnywayController do
         {
           id: 'jeff',
           ctc_dependents_claim_child_anyway_form: {
-            claim_regardless: "yes"
+            claim_anyway: "yes"
           }
         }
       end
@@ -53,7 +53,7 @@ describe Ctc::Questions::Dependents::ClaimChildAnywayController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:claim_regardless)
+        expect(assigns(:form).errors.keys).to include(:claim_anyway)
       end
     end
   end
