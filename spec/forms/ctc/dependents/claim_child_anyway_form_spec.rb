@@ -7,9 +7,9 @@ describe Ctc::Dependents::ClaimChildAnywayForm do
 
     it "saves the field on the dependent" do
       expect {
-        form = described_class.new(dependent, { claim_regardless: "yes" })
+        form = described_class.new(dependent, { claim_anyway: "yes" })
         form.save
-      }.to change(dependent, :claim_regardless).to("yes")
+      }.to change(dependent, :claim_anyway).to("yes")
     end
   end
 end

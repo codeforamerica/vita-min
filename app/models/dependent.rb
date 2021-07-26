@@ -6,7 +6,7 @@
 #  birth_date                                  :date
 #  born_in_2020                                :integer          default("unfilled"), not null
 #  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
-#  claim_regardless                            :integer          default("unfilled"), not null
+#  claim_anyway                                :integer          default("unfilled"), not null
 #  disabled                                    :integer          default("unfilled"), not null
 #  encrypted_ip_pin                            :string
 #  encrypted_ip_pin_iv                         :string
@@ -68,7 +68,7 @@ class Dependent < ApplicationRecord
   enum passed_away_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away_2020
   enum placed_for_adoption: { unfilled: 0, yes: 1, no: 2 }, _prefix: :placed_for_adoption
   enum permanent_residence_with_client: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_residence_with_client
-  enum claim_regardless: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_regardless
+  enum claim_anyway: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_anyway
   enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
 
   validates_presence_of :first_name
@@ -193,7 +193,7 @@ class Dependent < ApplicationRecord
 
   def meets_qc_claimant_condition?
     cant_be_claimed_by_other_yes? ||
-      (cant_be_claimed_by_other_no? && claim_regardless_yes?)
+      (cant_be_claimed_by_other_no? && claim_anyway_yes?)
   end
 
   def qualifying_relative_2020?

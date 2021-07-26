@@ -20,7 +20,7 @@ module Ctc
         end
 
         def method_name
-          'claim_regardless'
+          'claim_anyway'
         end
 
         private

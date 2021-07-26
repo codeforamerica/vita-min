@@ -6,7 +6,7 @@
 #  birth_date                                  :date
 #  born_in_2020                                :integer          default("unfilled"), not null
 #  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
-#  claim_regardless                            :integer          default("unfilled"), not null
+#  claim_anyway                                :integer          default("unfilled"), not null
 #  disabled                                    :integer          default("unfilled"), not null
 #  encrypted_ip_pin                            :string
 #  encrypted_ip_pin_iv                         :string
@@ -163,7 +163,7 @@ describe Dependent do
               filed_joint_return: "no",
               lived_with_more_than_six_months: "yes",
               cant_be_claimed_by_other: "no",
-              claim_regardless: "yes"
+              claim_anyway: "yes"
       end
 
       it "returns true" do
@@ -183,7 +183,7 @@ describe Dependent do
               filed_joint_return: "no",
               lived_with_more_than_six_months: "no",
               cant_be_claimed_by_other: "no",
-              claim_regardless: "yes"
+              claim_anyway: "yes"
       end
 
       it "returns false" do
@@ -300,7 +300,7 @@ describe Dependent do
 
     context "with a dependent that can be claimed by another" do
       context "and is claimed anyways" do
-        let(:dependent) { build :dependent, cant_be_claimed_by_other: "no", claim_regardless: "yes" }
+        let(:dependent) { build :dependent, cant_be_claimed_by_other: "no", claim_anyway: "yes" }
 
         it "returns true" do
           expect(dependent.meets_qc_claimant_condition?).to eq true
@@ -308,7 +308,7 @@ describe Dependent do
       end
 
       context "and is not claimed anyways" do
-        let(:dependent) { build :dependent, cant_be_claimed_by_other: "no", claim_regardless: "no" }
+        let(:dependent) { build :dependent, cant_be_claimed_by_other: "no", claim_anyway: "no" }
 
         it "returns false" do
           expect(dependent.meets_qc_claimant_condition?).to eq false

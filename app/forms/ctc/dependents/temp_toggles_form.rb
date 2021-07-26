@@ -13,7 +13,7 @@ module Ctc
         :placed_for_adoption,
         :permanent_residence_with_client,
         :cant_be_claimed_by_other,
-        :claim_regardless,
+        :claim_anyway,
         :meets_misc_qualifying_relative_requirements,
       ]
       set_attributes_for(:dependent, *ATTRIBUTES)

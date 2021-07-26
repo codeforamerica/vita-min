@@ -1,9 +1,9 @@
 module Ctc
   module Dependents
     class ClaimChildAnywayForm < DependentForm
-      set_attributes_for :dependent, :claim_regardless
+      set_attributes_for :dependent, :claim_anyway
 
-      validates_presence_of :claim_regardless
+      validates_presence_of :claim_anyway
 
       def save
         @dependent.assign_attributes(attributes_for(:dependent))
