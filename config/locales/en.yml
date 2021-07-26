@@ -1389,6 +1389,17 @@ en:
               li2: "%{dependent_name} earned less than $4,300."
               li3: "%{dependent_name} has a SSN or ATIN."
               li4: "%{dependent_name} did not live with someone else who could claim them."
+          child_can_be_claimed_by_other:
+            title: "Are you the only person who can claim %{dependent_name}?"
+          claim_child_anyway:
+            title: "Would you like to claim %{dependent_name} anyway?"
+            help_text: "If you and someone else are eligible to claim %{dependent_name}, you should follow any existing agreement with the other person about who claims them."
+            not_sure_reveal:
+              title: "I’m unsure. Should I claim them?"
+              p: "You should claim the dependent if one of these situations is true:"
+              li1: "You are the parent who spent more time living with them."
+              li2: "If you and the other parent spent the same amount of time with the dependent, whoever earned more money in 2020 can claim them."
+              li3: "If neither of you are the dependent’s parent, whoever earned more money in 2020 can claim them."
           no_dependents:
             title: "You may still be eligible for other tax credits."
             help_text: "You can still file a simplified tax return and receive any stimulus payments that you are owed and have not received."

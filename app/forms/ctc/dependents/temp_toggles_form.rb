@@ -12,7 +12,7 @@ module Ctc
         :passed_away_2020,
         :placed_for_adoption,
         :permanent_residence_with_client,
-        :can_be_claimed_by_other,
+        :cant_be_claimed_by_other,
         :claim_regardless,
         :meets_misc_qualifying_relative_requirements,
       ]
