@@ -191,7 +191,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
       context "filing with direct deposit" do
         before do
           submission.intake.update(refund_payment_method: "direct_deposit")
-          allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_amount).and_return(refund_amount)
+          allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_amount_if_claimed).and_return(refund_amount)
         end
 
         context "with a refund due" do
@@ -229,7 +229,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
     context "filing requesting a check payment" do
       before do
         submission.intake.update(refund_payment_method: "check")
-        allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_amount).and_return(refund_amount)
+        allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_amount_if_claimed).and_return(refund_amount)
       end
 
       context "with a refund due" do

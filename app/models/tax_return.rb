@@ -78,10 +78,12 @@ class TaxReturn < ApplicationRecord
     StandardDeduction.for(tax_year: year, filing_status: filing_status)
   end
 
-  # TODO: Must be replaced with real calculation before AdvCTC calc
-  # placeholder for calculation of the outstanding EIP 1 and 2 amounts to file for on 2020 tax return.
   def outstanding_recovery_rebate_amount
-    0
+    expected_recovery_rebate_credit_one + expected_recovery_rebate_credit_two - intake.eip1_amount_received - intake.eip2_amount_received
+  end
+
+  def outstanding_recovery_rebate_amount_if_claimed
+    intake.claim_owed_stimulus_money_yes? ? outstanding_recovery_rebate_amount : 0
   end
 
   def expected_recovery_rebate_credit_one

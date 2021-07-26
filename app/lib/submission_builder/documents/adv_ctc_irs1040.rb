@@ -46,11 +46,11 @@ module SubmissionBuilder
             xml.AdjustedGrossIncomeAmt 1
             xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction
             xml.TaxableIncomeAmt 0
-            xml.RecoveryRebateCreditAmt tax_return.outstanding_recovery_rebate_amount
-            xml.RefundableCreditsAmt tax_return.outstanding_recovery_rebate_amount
+            xml.RecoveryRebateCreditAmt tax_return.outstanding_recovery_rebate_amount_if_claimed
+            xml.RefundableCreditsAmt tax_return.outstanding_recovery_rebate_amount_if_claimed
             xml.TotalPaymentsAmt 0
             xml.OverpaidAmt 0
-            xml.RefundAmt tax_return.outstanding_recovery_rebate_amount
+            xml.RefundAmt tax_return.outstanding_recovery_rebate_amount_if_claimed
             if bank_account.present? && intake.refund_payment_method_direct_deposit?
               xml.RoutingTransitNum bank_account.routing_number
               xml.BankAccountTypeCd bank_account.account_type_code

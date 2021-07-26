@@ -14,5 +14,5 @@
     <p class="spacing-below-0"><%= t("views.ctc.questions.stimulus_received.eip_two") %>: <%= calculated_or_provided_dollar_amount(current_intake.eip2_amount_received) %></p>
   </div>
 
-  <%= link_to t("general.continue"), questions_refund_payment_path, class: "button button--wide button--primary text--centered" %>
+  <%= link_to t("general.continue"), next_path, class: "button button--wide button--primary text--centered" %>
 <% end %>

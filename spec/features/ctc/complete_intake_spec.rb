@@ -153,21 +153,24 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
 
     # =========== RECOVERY REBATE CREDIT ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
+    expect(page).to have_selector(".first-stimulus", text: "$2,400")
+    expect(page).to have_selector(".second-stimulus", text: "$1,200")
+
     click_on I18n.t('views.ctc.questions.stimulus_payments.no_did_not_receive')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_one.title'))
     click_on I18n.t('general.affirmative')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_one_received.title'))
-    fill_in I18n.t('views.ctc.questions.stimulus_one_received.eip1_amount_received_label'), with: "1200"
+    fill_in I18n.t('views.ctc.questions.stimulus_one_received.eip1_amount_received_label'), with: "2400"
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two.title'))
     click_on I18n.t('general.affirmative')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two_received.title'))
-    fill_in I18n.t('views.ctc.questions.stimulus_two_received.eip2_amount_received_label'), with: "2100"
+    fill_in I18n.t('views.ctc.questions.stimulus_two_received.eip2_amount_received_label'), with: "1200"
     click_on I18n.t('general.continue')
-    # This part is temporary, and will need adjustment when we get RRC calculations working
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_received.title'))
-    expect(page).to have_text("#{I18n.t('views.ctc.questions.stimulus_received.eip_one')}: $1,200")
-    expect(page).to have_text("#{I18n.t('views.ctc.questions.stimulus_received.eip_two')}: $2,100")
+    expect(page).to have_text("#{I18n.t('views.ctc.questions.stimulus_received.eip_one')}: $2,400")
+    expect(page).to have_text("#{I18n.t('views.ctc.questions.stimulus_received.eip_two')}: $1,200")
     click_on I18n.t('general.continue')
 
     # =========== BANK AND MAILING INFO ===========
