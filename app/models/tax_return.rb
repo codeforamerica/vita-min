@@ -84,6 +84,20 @@ class TaxReturn < ApplicationRecord
     0
   end
 
+  def expected_recovery_rebate_credit_one
+    EconomicImpactPaymentOneCalculator.payment_due(
+      filer_count: intake.rrc_eligible_filer_count,
+      dependent_count: intake.dependents.count(&:eligible_for_eip1?)
+    )
+  end
+
+  def expected_recovery_rebate_credit_two
+    EconomicImpactPaymentTwoCalculator.payment_due(
+      filer_count: intake.rrc_eligible_filer_count,
+      dependent_count: intake.dependents.count(&:eligible_for_eip2?)
+    )
+  end
+
   ##
   # advance the return to a new status, only if that status more advanced.
   # An earlier or equal status will be ignored.
