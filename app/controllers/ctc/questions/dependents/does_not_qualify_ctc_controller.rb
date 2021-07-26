@@ -8,7 +8,7 @@ module Ctc
         def self.show?(dependent)
           return false unless dependent
 
-          dependent.provided_over_half_own_support_yes? || dependent.no_ssn_atin_yes? # show if both of these are yes or one or the other??
+          !dependent.qualifying_child? && !dependent.qualifying_relative?
         end
 
         def self.model_for_show_check(current_controller)
