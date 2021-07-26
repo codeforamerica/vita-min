@@ -341,4 +341,14 @@ class Intake::CtcIntake < Intake
   def filing_jointly?
     client.tax_returns.last.filing_status_married_filing_jointly?
   end
+
+  def rrc_eligible_filer_count
+    return tin_type == "ssn" ? 1 : 0 if tax_return(2020).filing_status_single?
+
+    # if one spouse is a member of the armed forces, both qualify for benefits
+    return 2 if [primary_member_of_the_armed_forces, spouse_veteran].any?("yes")
+
+    # only filers with SSNs (valid for employment) are eligible for RRC
+    [tin_type, spouse_tin_type].count { |tin_type| tin_type == "ssn" }
+  end
 end
