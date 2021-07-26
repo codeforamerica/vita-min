@@ -240,7 +240,7 @@ describe Intake::CtcIntake do
 
   describe "#rrc_eligible_filer_count" do
     context "when filing status is single" do
-      let(:intake) { create :ctc_intake, tin_type: :itin, client: client }
+      let(:intake) { create :ctc_intake, primary_tin_type: :itin, client: client }
       let(:client) { create :client, tax_returns: [create(:tax_return, year: 2020, filing_status: :single)] }
       context "when the primary is using an ITIN" do
         it "filer_count is 0" do
@@ -249,7 +249,7 @@ describe Intake::CtcIntake do
       end
 
       context "when the primary is using an SSN" do
-        let(:intake) { create :ctc_intake, tin_type: :ssn, client: client }
+        let(:intake) { create :ctc_intake, primary_tin_type: :ssn, client: client }
         let(:client) { create :client, tax_returns: [create(:tax_return, year: 2020, filing_status: :single)] }
         it "filer count is 1" do
           expect(intake.rrc_eligible_filer_count).to eq 1
@@ -266,10 +266,10 @@ describe Intake::CtcIntake do
       let(:intake) do
         create :ctc_intake,
                client: client,
-               spouse_veteran: spouse_military,
-               primary_member_of_the_armed_forces: primary_military,
+               spouse_active_armed_forces: spouse_military,
+               primary_active_armed_forces: primary_military,
                spouse_tin_type: spouse_tin_type,
-               tin_type: primary_tin_type
+               primary_tin_type: primary_tin_type
       end
 
       context "when a spouse is part of the armed forces" do

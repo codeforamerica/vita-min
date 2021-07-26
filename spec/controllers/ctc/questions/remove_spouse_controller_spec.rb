@@ -9,7 +9,7 @@ describe Ctc::Questions::RemoveSpouseController do
            spouse_birth_date: Date.new(1983, 5, 10),
            spouse_ssn: "111228888",
            spouse_tin_type: 'ssn',
-           spouse_veteran: "no"
+           spouse_active_armed_forces: "no"
   end
 
   before do
@@ -35,7 +35,7 @@ describe Ctc::Questions::RemoveSpouseController do
                spouse_birth_date: nil,
                spouse_ssn: nil,
                spouse_tin_type: nil,
-               spouse_veteran: nil
+               spouse_active_armed_forces: nil
       end
 
       it "redirects to filing status" do
@@ -68,7 +68,7 @@ describe Ctc::Questions::RemoveSpouseController do
         expect(intake.spouse_birth_date).to be nil
         expect(intake.spouse_ssn).to be nil
         expect(intake.spouse_tin_type).to be nil
-        expect(intake.spouse_veteran).to be nil
+        expect(intake.spouse_active_armed_forces).to be nil
         expect(response).to redirect_to questions_filing_status_path
       end
     end

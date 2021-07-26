@@ -16,7 +16,7 @@ describe Ctc::ConsentForm do
         primary_ssn_confirmation: "111-22-8888",
         phone_number: "831-234-5678",
         timezone: "America/Chicago",
-        tin_type: "ssn"
+        primary_tin_type: "ssn"
       }
     }
     context "when all required information is provided" do
@@ -47,7 +47,7 @@ describe Ctc::ConsentForm do
 
     context "when itin format is correct" do
       before do
-        params[:tin_type] = "itin"
+        params[:primary_tin_type] = "itin"
         params[:primary_ssn] = "999-87-9999"
         params[:primary_ssn_confirmation] = "999-87-9999"
       end
@@ -59,7 +59,7 @@ describe Ctc::ConsentForm do
 
     context "when ssn format is not correct" do
       before do
-        params[:tin_type] = "ssn"
+        params[:primary_tin_type] = "ssn"
         params[:primary_ssn] = "666-99-9999"
         params[:primary_ssn_confirmation] = "666-99-9999"
       end
@@ -71,7 +71,7 @@ describe Ctc::ConsentForm do
 
     context "when itin format is not correct" do
       before do
-        params[:tin_type] = "itin"
+        params[:primary_tin_type] = "itin"
         params[:primary_ssn] = "900-69-0000"
         params[:primary_ssn_confirmation] = "900-69-0000"
       end
@@ -155,7 +155,7 @@ describe Ctc::ConsentForm do
           primary_ssn_confirmation: "111-22-8888",
           phone_number: "831-234-5678",
           timezone: "America/Chicago",
-          tin_type: :itin
+          primary_tin_type: :itin
       })
       expect {
         form.valid? # the form only transforms the phone number if it is validated before calling save
@@ -174,7 +174,7 @@ describe Ctc::ConsentForm do
       expect(intake.tax_returns.length).to eq 1
       expect(intake.tax_returns.first.year).to eq 2020
       expect(intake.tax_returns.first.is_ctc).to eq true
-      expect(intake.tin_type).to eq "itin"
+      expect(intake.primary_tin_type).to eq "itin"
       expect(intake.visitor_id).to eq "something"
       expect(intake.source).to eq "some-source"
       expect(intake.type).to eq "Intake::CtcIntake"

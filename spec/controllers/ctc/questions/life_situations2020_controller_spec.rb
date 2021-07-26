@@ -22,7 +22,7 @@ describe Ctc::Questions::LifeSituations2020Controller do
       {
         ctc_life_situations2020_form: {
           cannot_claim_me_as_a_dependent: "no",
-          primary_member_of_the_armed_forces: "no",
+          primary_active_armed_forces: "no",
         }
       }
     end
@@ -33,7 +33,7 @@ describe Ctc::Questions::LifeSituations2020Controller do
           expect {
             post :update, params: params
           }.to change { intake.reload.cannot_claim_me_as_a_dependent }
-                 .and change { intake.reload.primary_member_of_the_armed_forces }
+                 .and change { intake.reload.primary_active_armed_forces }
 
           expect(response).to redirect_to questions_use_gyr_path
         end
@@ -48,7 +48,7 @@ describe Ctc::Questions::LifeSituations2020Controller do
           expect {
             post :update, params: params
           }.to change { intake.reload.cannot_claim_me_as_a_dependent }
-                 .and change { intake.reload.primary_member_of_the_armed_forces }
+                 .and change { intake.reload.primary_active_armed_forces }
 
           expect(response).to redirect_to questions_filing_status_path
         end

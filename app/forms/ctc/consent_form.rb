@@ -7,7 +7,7 @@ module Ctc
                               :primary_last_name,
                               :primary_ssn,
                               :phone_number,
-                              :tin_type,
+                              :primary_tin_type,
                               :timezone
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation
@@ -20,8 +20,8 @@ module Ctc
     validate  :primary_birth_date_is_valid_date
     validates :primary_ssn, confirmation: true
     validates :primary_ssn_confirmation, presence: true
-    validates :primary_ssn, social_security_number: true, if: -> { tin_type == "ssn" }
-    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { tin_type == "itin" }
+    validates :primary_ssn, social_security_number: true, if: -> { primary_tin_type == "ssn" }
+    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
 
     before_validation do
       [primary_ssn, primary_ssn_confirmation].each do |field|

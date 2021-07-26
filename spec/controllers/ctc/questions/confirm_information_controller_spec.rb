@@ -19,7 +19,7 @@ describe Ctc::Questions::ConfirmInformationController do
             create(
               :client,
               :with_return,
-              intake: create(:ctc_intake, tin_type: "ssn", primary_last_four_ssn: "1234")
+              intake: create(:ctc_intake, primary_tin_type: "ssn", primary_last_four_ssn: "1234")
             ).intake
           end
 
@@ -35,7 +35,7 @@ describe Ctc::Questions::ConfirmInformationController do
             create(
               :client,
               :with_return,
-              intake: create(:ctc_intake, tin_type: "itin", primary_last_four_ssn: "1234")
+              intake: create(:ctc_intake, primary_tin_type: "itin", primary_last_four_ssn: "1234")
             ).intake
           end
 
