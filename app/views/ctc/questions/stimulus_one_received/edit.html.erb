@@ -15,7 +15,7 @@
   </div>
 
   <%= form_with model: @form, url: questions_stimulus_one_received_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "stimulus-received-form" do |f| %>
-    <%= f.cfa_input_field(:recovery_rebate_credit_amount_1, t("views.ctc.questions.stimulus_one_received.recovery_rebate_credit_amount_1_label"), prefix: "$") %>
+    <%= f.cfa_input_field(:eip1_amount_received, t("views.ctc.questions.stimulus_one_received.eip1_amount_received_label"), prefix: "$") %>
 
     <%= f.button :submit, class: "button button--wide button--primary" do %>
       <%= t("general.continue") %>

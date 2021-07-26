@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_26_172905) do
+ActiveRecord::Schema.define(version: 2021_07_26_181149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -460,6 +460,9 @@ ActiveRecord::Schema.define(version: 2021_07_26_172905) do
     t.integer "demographic_veteran", default: 0, null: false
     t.integer "divorced", default: 0, null: false
     t.string "divorced_year"
+    t.integer "eip1_amount_received"
+    t.integer "eip1_and_2_amount_received_confidence"
+    t.integer "eip2_amount_received"
     t.boolean "eip_only"
     t.citext "email_address"
     t.datetime "email_address_verified_at"
@@ -565,9 +568,6 @@ ActiveRecord::Schema.define(version: 2021_07_26_172905) do
     t.integer "received_homebuyer_credit", default: 0, null: false
     t.integer "received_irs_letter", default: 0, null: false
     t.integer "received_stimulus_payment", default: 0, null: false
-    t.integer "recovery_rebate_credit_amount_1"
-    t.integer "recovery_rebate_credit_amount_2"
-    t.integer "recovery_rebate_credit_amount_confidence"
     t.string "referrer"
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false

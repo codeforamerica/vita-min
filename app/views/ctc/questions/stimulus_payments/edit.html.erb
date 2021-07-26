@@ -21,8 +21,6 @@
 
   <p class="text--bold"><%= t("views.ctc.questions.stimulus_payments.question") %></p>
   <%= form_with model: @form, url: questions_stimulus_payments_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.hidden_field :recovery_rebate_credit_amount_1, value: nil %>
-    <%= f.hidden_field :recovery_rebate_credit_amount_2, value: nil %>
 
     <div class="button-group button-group--center button--wide">
       <%= f.button :submit, class: "button button--wide text--centered" do %>

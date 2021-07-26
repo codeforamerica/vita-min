@@ -1480,7 +1480,7 @@ es:
             <p>Este pago fue de $1,200 por cada adulto declarante más $500 por cada dependiente (por ejemplo, un padre de familia al cuidado de dos niños habría recibido $2,200).</p>
         stimulus_one_received:
           title: "Introduzca la cantidad total que recibió por su primer pago de estímulo."
-          recovery_rebate_credit_amount_1_label: "Pago Impacto Económico 1"
+          eip1_amount_received_label: "Pago Impacto Económico 1"
           help_html: |
             <p>El primer pago de estímulo, conocido formalmente como Pago de Impacto Económico 1, se envió entre abril de 2020 y octubre de 2020.</p>
             <p>Ingrese la cantidad que recibió, si recibió alguno, por ese pago.</p>
@@ -1493,7 +1493,7 @@ es:
             <p>Este pago fue de $600 por adulto declarante más $600 por dependiente (por ejemplo, un padre de familia al cuidado de dos niños habría recibido $1,800)</p>
         stimulus_two_received:
           title: "Introduzca la cantidad total que recibió por su segundo pago de estímulo."
-          recovery_rebate_credit_amount_2_label: "Pago Impacto Económico 2"
+          eip2_amount_received_label: "Pago Impacto Económico 2"
           help_html: |
             <p>El primer pago de estímulo, conocido formalmente como Pago de Impacto Económico 2, se envió entre diciembre de 2020 y enero de 2021.</p>
             <p>Ingrese la cantidad que recibió, si recibió uno, por ese pago.</p>
