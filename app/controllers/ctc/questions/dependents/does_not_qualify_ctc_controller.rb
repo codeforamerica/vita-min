@@ -1,14 +1,14 @@
 module Ctc
   module Questions
     module Dependents
-      class ChildDisqualifiersController < BaseDependentController
+      class DoesNotQualifyCtcController < BaseDependentController
         include AuthenticatedCtcClientConcern
         layout "intake"
 
         def self.show?(dependent)
           return false unless dependent
 
-          dependent.qualifying_child_relationship? && dependent.meets_qc_age_condition?
+          dependent.provided_over_half_own_support_yes? || dependent.no_ssn_atin_yes? # show if both of these are yes or one or the other??
         end
 
         def self.model_for_show_check(current_controller)
@@ -16,6 +16,7 @@ module Ctc
         end
 
         def edit
+          @dependent = current_dependent
           super
         end
 
@@ -25,11 +26,15 @@ module Ctc
 
         private
 
+        def form_class
+          NullForm
+        end
+
         def illustration_path; end
       end
     end
   end
 end
 
-# determines --> dependent.meets_qc_misc_conditions?
-# provided_over_half_own_support_no? && no_ssn_atin_no? && filed_joint_return_no?
+# does-not-qualify-ctc
+# http://ctc.localhost:3000/en/questions/dependents/34/does-not-qualify-ctc

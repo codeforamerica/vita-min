@@ -31,6 +31,7 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::NoDependentsController,
     Ctc::Questions::Dependents::InfoController,
     Ctc::Questions::Dependents::ChildDisqualifiersController,
+    Ctc::Questions::Dependents::DoesNotQualifyCtcController,
     Ctc::Questions::Dependents::ChildLivedWithYouController,
     Ctc::Questions::Dependents::ChildResidenceExceptionsController,
     Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController,
