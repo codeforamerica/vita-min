@@ -158,6 +158,8 @@ module SubmissionBuilder
     # 2 - bank account
     # 3 - check
     def refund_disbursement_code
+      return 0 if submission.tax_return.outstanding_recovery_rebate_amount == 0
+
       submission.intake.refund_payment_method_direct_deposit? ? 2 : 3
     end
 
