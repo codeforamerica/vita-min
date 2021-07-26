@@ -1,6 +1,6 @@
 module Ctc
   class LifeSituations2020Form < QuestionsForm
-    set_attributes_for :intake, :cannot_claim_me_as_a_dependent, :primary_member_of_the_armed_forces
+    set_attributes_for :intake, :cannot_claim_me_as_a_dependent, :primary_active_armed_forces
 
     def save
       @intake.update(attributes_for(:intake))

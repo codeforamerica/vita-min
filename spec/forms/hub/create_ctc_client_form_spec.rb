@@ -34,7 +34,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         timezone: "America/Chicago",
         state_of_residence: "CA",
         signature_method: "online",
-        tin_type: "ssn",
+        primary_tin_type: "ssn",
         primary_ssn: '111223333',
         primary_ssn_confirmation: '111223333',
         filing_status: "single",
@@ -606,7 +606,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         context "when tin type is itin" do
           context "when the itin format is wrong" do
             before do
-              params[:tin_type] = "itin"
+              params[:primary_tin_type] = "itin"
               params[:primary_ssn] = "900-93-9999"
               params[:primary_ssn_confirmation] = "900-93-9999"
             end
@@ -618,7 +618,7 @@ RSpec.describe Hub::CreateCtcClientForm do
 
           context "when the itin format is correct" do
             before do
-              params[:tin_type] = "itin"
+              params[:primary_tin_type] = "itin"
               params[:primary_ssn] = "900-78-9999"
               params[:primary_ssn_confirmation] = "900-78-9999"
             end

@@ -133,15 +133,16 @@
 #  phone_number_can_receive_texts                       :integer          default(0), not null
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
+#  primary_active_armed_forces                          :integer          default(0), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_at                      :datetime
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_last_name                                    :string
-#  primary_member_of_the_armed_forces                   :integer          default(0), not null
 #  primary_middle_initial                               :string
 #  primary_signature_pin_at                             :datetime
+#  primary_tin_type                                     :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -171,6 +172,7 @@
 #  sold_a_home                                          :integer          default(0), not null
 #  sold_assets                                          :integer          default(0), not null
 #  source                                               :string
+#  spouse_active_armed_forces                           :integer          default(0)
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
 #  spouse_consented_to_service                          :integer          default(0), not null
@@ -184,7 +186,6 @@
 #  spouse_middle_initial                                :string
 #  spouse_signature_pin_at                              :datetime
 #  spouse_tin_type                                      :integer
-#  spouse_veteran                                       :integer          default(0)
 #  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  spouse_was_on_visa                                   :integer          default(0), not null
@@ -193,7 +194,6 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
-#  tin_type                                             :integer
 #  triage_source_type                                   :string
 #  type                                                 :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
@@ -419,7 +419,7 @@ FactoryBot.define do
     with_dependents
     with_documents
     vita_partner
-    tin_type { :ssn }
+    primary_tin_type { :ssn }
     spouse_tin_type { :ssn }
     locale { ["en", "es"].sample }
     source { vita_partner.source_parameters.first&.code || "none" }

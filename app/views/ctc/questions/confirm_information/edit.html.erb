@@ -11,7 +11,7 @@
       <div class="review-box__details"><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(current_intake.primary_birth_date) %></div>
       <div class="review-box__details"><%= t("general.email") %>: <%= current_intake.email_address %></div>
       <div class="review-box__details"><%= t("general.phone") %>: <%= current_intake.formatted_phone_number %></div>
-      <div class="review-box__details"><%= current_intake.tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= current_intake.primary_last_four_ssn %></div>
+      <div class="review-box__details"><%= current_intake.primary_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= current_intake.primary_last_four_ssn %></div>
     </div>
 
     <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_mailing_address.mailing_address") %></h2>

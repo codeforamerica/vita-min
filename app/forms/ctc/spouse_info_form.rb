@@ -7,7 +7,7 @@ module Ctc
                        :spouse_last_name,
                        :spouse_tin_type,
                        :spouse_ssn,
-                       :spouse_veteran
+                       :spouse_active_armed_forces
     set_attributes_for :birthday, :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
     set_attributes_for :confirmation, :spouse_ssn_confirmation
 

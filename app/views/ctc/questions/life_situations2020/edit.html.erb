@@ -10,7 +10,7 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="form-card__stacked-checkboxes spacing-above-0 spacing-below-15">
       <%= f.cfa_checkbox(:cannot_claim_me_as_a_dependent, t("views.ctc.questions.life_situations_2020.cannot_claim_me_as_a_dependent"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:primary_member_of_the_armed_forces, t("views.ctc.questions.life_situations_2020.primary_member_of_the_armed_forces"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:primary_active_armed_forces, t("views.ctc.questions.life_situations_2020.primary_active_armed_forces"), options: { checked_value: "yes", unchecked_value: "no" }) %>
     </div>
     <div class="reveal" style="max-width: 47.5rem;">
       <span class="text--small"><a href="#" class="reveal__link"><%= t("views.ctc.questions.life_situations_2020.reveal_label") %></a></span>
