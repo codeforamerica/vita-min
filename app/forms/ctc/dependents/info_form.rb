@@ -15,7 +15,7 @@ module Ctc
       validates_presence_of :first_name
       validates_presence_of :last_name
       validates_presence_of :relationship
-      validate  :birth_date_is_valid_date
+      validate :birth_date_is_valid_date
 
       def save
         @dependent.assign_attributes(attributes_for(:dependent).merge(

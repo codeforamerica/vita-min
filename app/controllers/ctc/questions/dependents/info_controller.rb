@@ -22,8 +22,7 @@ module Ctc
           end
         end
 
-        def illustration_path
-        end
+        def illustration_path; end
       end
     end
   end
