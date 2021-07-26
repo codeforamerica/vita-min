@@ -14,7 +14,7 @@ describe Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController do
         {
           id: dependent.id,
           ctc_dependents_child_can_be_claimed_by_other_form: {
-            can_be_claimed_by_other: "yes"
+            cant_be_claimed_by_other: "no"
           }
         }
       end
@@ -22,7 +22,7 @@ describe Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController do
       it "updates the dependent and moves to the next page" do
         post :update, params: params
 
-        expect(dependent.reload.can_be_claimed_by_other).to eq "yes"
+        expect(dependent.reload.cant_be_claimed_by_other).to eq "no"
       end
     end
 
@@ -31,7 +31,7 @@ describe Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController do
         {
           id: 'jeff',
           ctc_dependents_child_can_be_claimed_by_other_form: {
-            can_be_claimed_by_other: "yes"
+            cant_be_claimed_by_other: "no"
           }
         }
       end
@@ -53,7 +53,7 @@ describe Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:can_be_claimed_by_other)
+        expect(assigns(:form).errors.keys).to include(:cant_be_claimed_by_other)
       end
     end
   end

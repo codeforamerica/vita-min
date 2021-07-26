@@ -7,6 +7,7 @@ module Ctc
 
         def self.show?(dependent)
           return false unless dependent
+
           dependent.qualifying_child_relationship? &&
             dependent.meets_qc_age_condition_2020? &&
             dependent.meets_qc_misc_conditions? &&
@@ -18,7 +19,7 @@ module Ctc
         end
 
         def method_name
-          'can_be_claimed_by_other'
+          'cant_be_claimed_by_other'
         end
 
         private

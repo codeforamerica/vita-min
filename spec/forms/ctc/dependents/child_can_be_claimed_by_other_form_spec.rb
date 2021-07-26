@@ -7,9 +7,9 @@ describe Ctc::Dependents::ChildCanBeClaimedByOtherForm do
 
     it "saves the field on the dependent" do
       expect {
-        form = described_class.new(dependent, { can_be_claimed_by_other: "yes" })
+        form = described_class.new(dependent, { cant_be_claimed_by_other: "no" })
         form.save
-      }.to change(dependent, :can_be_claimed_by_other).to("yes")
+      }.to change(dependent, :cant_be_claimed_by_other).to("no")
     end
   end
 end

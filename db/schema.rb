@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_23_170413) do
+ActiveRecord::Schema.define(version: 2021_07_26_172905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -236,7 +236,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_170413) do
   create_table "dependents", force: :cascade do |t|
     t.date "birth_date"
     t.integer "born_in_2020", default: 0, null: false
-    t.integer "can_be_claimed_by_other", default: 0, null: false
+    t.integer "cant_be_claimed_by_other", default: 0, null: false
     t.integer "claim_regardless", default: 0, null: false
     t.datetime "created_at", null: false
     t.integer "disabled", default: 0, null: false
