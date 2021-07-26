@@ -1419,9 +1419,9 @@ es:
           spouse_identity_help_text: "Si utiliza una tarjeta de la seguro, debe ser válida para el empleo"
           spouse_ssn_itin: SSN o ITIN del cónyuge
           spouse_ssn_itin_confirmation: Confirme el SSN o ITIN del cónyuge
-          spouse_veteran: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en el 2020
-          spouse_veteran_reveal: "¿Por qué me preguntan esto?"
-          spouse_veteran_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de Reembolso por Recuperación o Recovery Rebate Credit
+          spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en el 2020
+          spouse_active_armed_forces_reveal: "¿Por qué me preguntan esto?"
+          spouse_active_armed_forces_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de Reembolso por Recuperación o Recovery Rebate Credit
           ssn_required_message: "Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href=\"https://www.getyourrefund.org/\">GetYourRefund</a>."
         filed_2020:
           title: "¿Presentó su declaración de impuestos de 2020 este año?"
@@ -1537,7 +1537,7 @@ es:
           title: "Seleccione cualquier situación válida para usted en 2020"
           p1: "Estas respuestas nos ayudan a determinar para qué créditos fiscales califica."
           cannot_claim_me_as_a_dependent: "Nadie puede declararme como dependiente"
-          primary_member_of_the_armed_forces: "Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020"
+          primary_active_armed_forces: "Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020"
           reveal_label: "¿Por qué me preguntan esto?"
           reveal_content: "El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de reembolso por recuperación o Recovery Rebate Credit"
     dependents:

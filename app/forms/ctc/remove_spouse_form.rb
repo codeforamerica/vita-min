@@ -7,7 +7,7 @@ module Ctc
         spouse_last_name: nil,
         spouse_tin_type: nil,
         spouse_ssn: nil,
-        spouse_veteran: nil,
+        spouse_active_armed_forces: nil,
         spouse_birth_date: nil
       })
     end

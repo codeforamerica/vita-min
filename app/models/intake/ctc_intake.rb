@@ -136,15 +136,16 @@
 #  phone_number_can_receive_texts                       :integer          default(0), not null
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
+#  primary_active_armed_forces                          :integer          default("unfilled"), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_at                      :datetime
 #  primary_consented_to_service_ip                      :inet
 #  primary_first_name                                   :string
 #  primary_last_name                                    :string
-#  primary_member_of_the_armed_forces                   :integer          default("unfilled"), not null
 #  primary_middle_initial                               :string
 #  primary_signature_pin_at                             :datetime
+#  primary_tin_type                                     :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -171,6 +172,7 @@
 #  sold_a_home                                          :integer          default(0), not null
 #  sold_assets                                          :integer          default(0), not null
 #  source                                               :string
+#  spouse_active_armed_forces                           :integer          default("unfilled")
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
 #  spouse_consented_to_service                          :integer          default(0), not null
@@ -184,7 +186,6 @@
 #  spouse_middle_initial                                :string
 #  spouse_signature_pin_at                              :datetime
 #  spouse_tin_type                                      :integer
-#  spouse_veteran                                       :integer          default("unfilled")
 #  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  spouse_was_on_visa                                   :integer          default(0), not null
@@ -193,7 +194,6 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
-#  tin_type                                             :integer
 #  triage_source_type                                   :string
 #  type                                                 :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
@@ -257,9 +257,9 @@ class Intake::CtcIntake < Intake
   enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
   enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019
   enum had_reportable_income: { yes: 1, no: 2 }, _prefix: :had_reportable_income
-  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
+  enum spouse_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_active_armed_forces
   enum cannot_claim_me_as_a_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cannot_claim_me_as_a_dependent
-  enum primary_member_of_the_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_member_of_the_armed_forces
+  enum primary_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_active_armed_forces
   enum has_primary_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_primary_ip_pin
   enum has_spouse_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_spouse_ip_pin
   enum consented_to_legal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_legal

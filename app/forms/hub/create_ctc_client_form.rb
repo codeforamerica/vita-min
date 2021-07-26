@@ -22,7 +22,7 @@ module Hub
                        :zip_code,
                        :primary_ssn,
                        :spouse_ssn,
-                       :tin_type,
+                       :primary_tin_type,
                        :spouse_tin_type,
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
@@ -96,8 +96,8 @@ module Hub
     validates_confirmation_of :primary_ssn
     validates_presence_of :primary_ssn_confirmation, if: :primary_ssn
     validates_presence_of :spouse_ssn_confirmation, if: :spouse_ssn
-    validates :primary_ssn, social_security_number: true, if: -> { tin_type == "ssn"}
-    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { tin_type == "itin"}
+    validates :primary_ssn, social_security_number: true, if: -> { primary_tin_type == "ssn"}
+    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin"}
 
     validates_confirmation_of :spouse_ssn, if: -> { filing_status == "married_filing_jointly" }
     validates :spouse_ssn, social_security_number: true, if: -> { spouse_tin_type == "ssn" && filing_status == "married_filing_jointly"}

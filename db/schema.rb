@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_26_181149) do
+ActiveRecord::Schema.define(version: 2021_07_26_193720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -555,15 +555,16 @@ ActiveRecord::Schema.define(version: 2021_07_26_181149) do
     t.integer "phone_number_can_receive_texts", default: 0, null: false
     t.string "preferred_interview_language"
     t.string "preferred_name"
+    t.integer "primary_active_armed_forces", default: 0, null: false
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false
     t.datetime "primary_consented_to_service_at"
     t.inet "primary_consented_to_service_ip"
     t.string "primary_first_name"
     t.string "primary_last_name"
-    t.integer "primary_member_of_the_armed_forces", default: 0, null: false
     t.string "primary_middle_initial"
     t.datetime "primary_signature_pin_at"
+    t.integer "primary_tin_type"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
     t.integer "received_irs_letter", default: 0, null: false
@@ -590,6 +591,7 @@ ActiveRecord::Schema.define(version: 2021_07_26_181149) do
     t.integer "sold_a_home", default: 0, null: false
     t.integer "sold_assets", default: 0, null: false
     t.string "source"
+    t.integer "spouse_active_armed_forces", default: 0
     t.string "spouse_auth_token"
     t.date "spouse_birth_date"
     t.integer "spouse_consented_to_service", default: 0, null: false
@@ -603,7 +605,6 @@ ActiveRecord::Schema.define(version: 2021_07_26_181149) do
     t.string "spouse_middle_initial"
     t.datetime "spouse_signature_pin_at"
     t.integer "spouse_tin_type"
-    t.integer "spouse_veteran", default: 0
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_was_full_time_student", default: 0, null: false
     t.integer "spouse_was_on_visa", default: 0, null: false
@@ -612,7 +613,6 @@ ActiveRecord::Schema.define(version: 2021_07_26_181149) do
     t.string "street_address"
     t.string "street_address2"
     t.string "timezone"
-    t.integer "tin_type"
     t.bigint "triage_source_id"
     t.string "triage_source_type"
     t.string "type"

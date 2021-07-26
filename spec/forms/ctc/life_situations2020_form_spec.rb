@@ -6,7 +6,7 @@ describe Ctc::LifeSituations2020Form do
   let(:params) do
     {
       cannot_claim_me_as_a_dependent: "yes",
-      primary_member_of_the_armed_forces: "no"
+      primary_active_armed_forces: "no"
     }
   end
 
@@ -15,7 +15,7 @@ describe Ctc::LifeSituations2020Form do
       expect {
         described_class.new(intake, params).save
       }.to change(intake, :cannot_claim_me_as_a_dependent).from("unfilled").to("yes")
-                                                          .and change(intake, :primary_member_of_the_armed_forces).from("unfilled").to("no")
+                                                          .and change(intake, :primary_active_armed_forces).from("unfilled").to("no")
     end
   end
 end

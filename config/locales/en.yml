@@ -1502,9 +1502,9 @@ en:
           spouse_identity_help_text: If using a social security card, it must be valid for employment.
           spouse_ssn_itin: Spouse's SSN or ITIN
           spouse_ssn_itin_confirmation: Confirm spouse's SSN or ITIN
-          spouse_veteran: My spouse was a member of the United States Armed Forces for any time in 2020
-          spouse_veteran_reveal: Why are you asking this?
-          spouse_veteran_reveal_content: Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
+          spouse_active_armed_forces: My spouse was a member of the United States Armed Forces for any time in 2020
+          spouse_active_armed_forces_reveal: Why are you asking this?
+          spouse_active_armed_forces_reveal_content: Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
           ssn_required_message: "We need a SSN/ITIN to continue. If your spouse does not have one, file for free with <a href=\"https://www.getyourrefund.org/\">GetYourRefund</a>."
           save_button: Save this person
           remove_button: Remove this person
@@ -1630,7 +1630,7 @@ en:
           title: "Select any situations that were true for you in 2020"
           p1: "These answers help us determine what tax credits you qualify for."
           cannot_claim_me_as_a_dependent: "No one can claim me as a dependent"
-          primary_member_of_the_armed_forces: "I was a member of the United States Armed Forces for any time in 2020"
+          primary_active_armed_forces: "I was a member of the United States Armed Forces for any time in 2020"
           reveal_label: "Why are you asking this?"
           reveal_content: "Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit"
         ip_pin_explanation_html: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers. <a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">You can retrieve your IP PIN through this IRS page.</a>
