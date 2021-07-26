@@ -58,6 +58,38 @@ describe TaxReturn do
     end
   end
 
+  describe "#expected_recovery_rebate_credit_one" do
+    let(:tax_return) { create :tax_return, client: client, year: 2020 }
+    let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
+    let(:intake) { tax_return.intake }
+    before do
+      allow(intake).to receive(:rrc_eligible_filer_count).and_return(1)
+      allow_any_instance_of(Dependent).to receive(:eligible_for_eip1?).and_return true
+      allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due)
+    end
+
+    it "calls the EconomicImpactPaymentOneCalculator with appropriate values for the tax return" do
+      tax_return.expected_recovery_rebate_credit_one
+      expect(EconomicImpactPaymentOneCalculator).to have_received(:payment_due).with(filer_count: 1, dependent_count: 2)
+    end
+  end
+
+  describe "#expected_recovery_rebate_credit_two" do
+    let(:tax_return) { create :tax_return, client: client, year: 2020 }
+    let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
+    let(:intake) { tax_return.intake }
+    before do
+      allow(intake).to receive(:rrc_eligible_filer_count).and_return(1)
+      allow_any_instance_of(Dependent).to receive(:eligible_for_eip2?).and_return true
+      allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due)
+    end
+
+    it "calls the EconomicImpactPaymentOneCalculator with appropriate values for the tax return" do
+      tax_return.expected_recovery_rebate_credit_two
+      expect(EconomicImpactPaymentTwoCalculator).to have_received(:payment_due).with(filer_count: 1, dependent_count: 2)
+    end
+  end
+
   describe "translation keys" do
     context "english keys" do
       it "has a key for each tax_return status" do

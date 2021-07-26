@@ -9,18 +9,20 @@
     <div class="review-box__title spacing-below-15">
       <h2><%= t("views.ctc.questions.stimulus_payments.first_stimulus") %></h2>
     </div>
-    <div class="h2 spacing-below-15 spacing-above-0">$ TBD</div>
+    <div class="h2 spacing-below-15 spacing-above-0 first-stimulus"><%= calculated_or_provided_dollar_amount(@first_stimulus_amount) %></div>
     <p><%= t("views.ctc.questions.stimulus_payments.first_stimulus_details") %></p>
 
     <div class="review-box__title">
       <h2><%= t("views.ctc.questions.stimulus_payments.second_stimulus") %></h2>
     </div>
-    <div class="h2 spacing-below-15 spacing-above-0">$ TBD</div>
+    <div class="h2 spacing-below-15 spacing-above-0 second-stimulus"><%= calculated_or_provided_dollar_amount(@second_stimulus_amount) %></div>
     <p><%= t("views.ctc.questions.stimulus_payments.second_stimulus_details") %></p>
   </div>
 
   <p class="text--bold"><%= t("views.ctc.questions.stimulus_payments.question") %></p>
   <%= form_with model: @form, url: questions_stimulus_payments_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.hidden_field :eip1_amount_received, value: @first_stimulus_amount %>
+    <%= f.hidden_field :eip2_amount_received, value: @second_stimulus_amount %>
 
     <div class="button-group button-group--center button--wide">
       <%= f.button :submit, class: "button button--wide text--centered" do %>

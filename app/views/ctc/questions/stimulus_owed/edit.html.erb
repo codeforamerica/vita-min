@@ -17,7 +17,7 @@
   <p class="text--bold">
     <%= t("views.ctc.questions.stimulus_owed.eligible_for") %>
   </p>
-  <div class="h2">$ TBD</div>
+  <div class="h2 stimulus-owed"><%= calculated_or_provided_dollar_amount(@outstanding_credit) %></div>
   <p class="spacing-below-35"><%= t("views.ctc.questions.stimulus_owed.correction") %></p>
 
   <%= form_with model: @form, url: questions_stimulus_owed_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "form-card--yes-no" do |f| %>

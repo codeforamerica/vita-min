@@ -16,8 +16,8 @@ describe RrcHelper do
       end
     end
 
-    it "returns a $TBD if it is not given a value" do
-      expect(helper.calculated_or_provided_dollar_amount(nil)).to eq "$TBD"
+    it "returns a fallback value if given one" do
+      expect(helper.calculated_or_provided_dollar_amount(nil, "$TBD")).to eq "$TBD"
     end
   end
 end
