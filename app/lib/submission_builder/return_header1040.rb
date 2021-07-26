@@ -101,11 +101,12 @@ module SubmissionBuilder
               xml.OOBSecurityVerificationCd oob_security_verification_code if oob_security_verification_code.present?
               xml.LastSubmissionRqrOOBCd last_submission_rqr_oob_code
               xml.AuthenticationAssuranceLevelCd "AAL1"
-              # TODO: Add logic to toggle these when any of this information has changed.
-              # xml.ProfileUserNameChangeInd "X"
-              # xml.ProfilePasswordChangeInd "X"
-              # xml.ProfileEmailAddressChangeInd "X"
-              # xml.ProfileCellPhoneNumChangeInd "X"
+              # These fields should be "X" (checked) if we served this client last year with different contact info. This is
+              # our first e-filing year, so they're always omitted (unchecked).
+              # xml.ProfileUserNameChangeInd ""
+              # xml.ProfilePasswordChangeInd ""
+              # xml.ProfileEmailAddressChangeInd ""
+              # xml.ProfileCellPhoneNumChangeInd ""
             }
           }
           xml.FilingSecurityInformation {
