@@ -19,7 +19,6 @@ class EfileSubmission < ApplicationRecord
   has_many :dependents, through: :intake
   has_one :address, as: :record
   has_many :efile_submission_transitions, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
-
   has_one_attached :submission_bundle
 
   before_validation :generate_irs_submission_id
@@ -31,6 +30,10 @@ class EfileSubmission < ApplicationRecord
     transition_class: EfileSubmissionTransition,
     initial_state: EfileSubmissionStateMachine.initial_state,
   ]
+
+  scope :most_recent_by_tax_return, lambda {
+    joins(:tax_return).where("efile_submissions.created_at = (SELECT MAX(efile_submissions.created_at) FROM efile_submissions WHERE efile_submissions.tax_return_id = tax_returns.id)")
+  }
 
   def state_machine
     @state_machine ||= EfileSubmissionStateMachine.new(self, transition_class: EfileSubmissionTransition)
@@ -51,10 +54,12 @@ class EfileSubmission < ApplicationRecord
     previously_transmitted_submission.present?
   end
 
-  # there is an associated "previous submission" that needs to be reported to the IRS,
-  # but only if that submission has been successfully transmitted to the IRS.
   def previously_transmitted_submission
-    tax_return.efile_submissions.joins(:efile_submission_transitions).where({ efile_submission_transitions: { to_state: "transmitted" } }).last
+    transition = last_transition_to("preparing")
+    return unless transition.present?
+
+    previous_submission_id = transition.metadata["previous_submission_id"]
+    EfileSubmission.find(previous_submission_id) if previous_submission_id.present?
   end
 
   def generate_irs_address

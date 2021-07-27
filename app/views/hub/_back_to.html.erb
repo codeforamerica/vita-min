@@ -8,6 +8,8 @@
     <%= link_to t("hub.clients.navigation.notifications"), hub_user_notifications_path, class: "breadcrumb-item link--grey" %>
   <% elsif back_to == "profile" %>
     <%= link_to "< #{t('.return_to_profile')}", hub_user_profile_path, class: "breadcrumb-item link--grey" %>
+  <% elsif back_to == "efile" %>
+    <%= link_to "< Return to submissions", hub_efile_submissions_path, class: "breadcrumb-item link--grey" %>
   <% else %>
     <% raise StandardError.new("Invalid value for back_to") %>
   <% end %>

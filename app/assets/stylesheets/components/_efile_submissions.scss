@@ -1,19 +1,73 @@
 .submissions-index {
   .metric-box {
-    border: 1px solid black;
     margin-left: 20px;
-    width: 15rem;
-    height: 7.5rem;
+    width: 12.5rem;
+    height: 12rem;
     display: flex;
     flex-direction: column;
-    justify-content: center; align-items: center;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 3px 5px rgba(18, 17, 17, 0.15);
+    border-radius: 10px;
     > div:first-of-type {
-      font-size: 30px;
-      margin-bottom: 10px;
+      font-size: 36px;
+      margin-bottom: 15px;
+      font-weight: normal !important;
     }
     > div:last-of-type {
       font-weight: bold;
     }
   }
+}
 
+.submission {
+  h1 a {
+    color: $color-grey-darkest;
+  }
+}
+
+.submission-table, .logs, .metric-box {
+  .status {
+    &.rejected, &.failed {
+      color: $color-red;
+      font-weight: bold;
+    }
+  }
+}
+
+.submission-table {
+  a.underline {
+    border-bottom: 1px solid black;
+  }
+  .status {
+    font-weight: bold;
+  }
+}
+.log-wrapper {
+  hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+ul.logs {
+  li {
+    display: flex;
+    margin-bottom: 1.5rem;
+    > div {
+      margin-right: 5px;
+    }
+    .timestamp {
+      width: 20rem;
+    }
+    .status {
+      width: 15rem;
+    }
+    .details {
+      width: 60%;
+      flex-grow: 0;
+    }
+    .metadata-list {
+      font-size: smaller;
+    }
+  }
 }

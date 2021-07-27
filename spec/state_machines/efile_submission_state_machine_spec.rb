@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe EfileSubmissionStateMachine do
-
   describe "after_transition" do
     context "to preparing" do
       let(:submission) { create(:efile_submission, :new) }
@@ -80,6 +79,35 @@ describe EfileSubmissionStateMachine do
       it "updates the tax return status" do
         submission.transition_to!(:accepted)
         expect(submission.tax_return.status).to eq("file_accepted")
+      end
+    end
+
+    context "to resubmitted" do
+      context "when the submission has been transmitted to the IRS" do
+        let!(:efile_submission) { create :efile_submission, :transmitted }
+
+        before do
+          efile_submission.transition_to!(:rejected)
+        end
+
+        it "creates a new efile submission" do
+          expect {
+            efile_submission.transition_to!(:resubmitted)
+          }.to change(EfileSubmission, :count).by 1
+          expect(efile_submission.current_state).to eq "resubmitted"
+          expect(EfileSubmission.last.current_state).to eq "preparing"
+          expect(EfileSubmission.last.last_transition.metadata["previous_submission_id"]).to eq efile_submission.id
+        end
+      end
+
+      context "when the submission has never been transmitted to the IRS" do
+        let!(:efile_submission) { create :efile_submission, :rejected }
+        it "transitions the same submission back to preparing" do
+          expect {
+            efile_submission.transition_to!(:resubmitted)
+          }.to change(EfileSubmission, :count).by 0
+          expect(efile_submission.current_state).to eq "preparing"
+        end
       end
     end
   end

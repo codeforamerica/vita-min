@@ -13,17 +13,15 @@ class EfileSubmissionStateMachine
   state :rejected
   state :accepted
 
-  # I know we'll need some "internal" statuses to track filings that need internal attention, but I don't
-  # know what they are yet so let's not think too far ahead.
+  state :resubmitted
 
-  transition from: :new, to: [:preparing]
-  transition from: :preparing, to: [:queued, :failed]
-  transition from: :queued, to: [:transmitted, :failed, :rejected]
-  transition from: :transmitted, to: [:accepted, :rejected]
-
-  guard_transition(to: :queued) do |submission, transition|
-    transition.metadata[:seeding].present? || submission.submission_bundle.present?
-  end
+  transition from: :new,          to: [:preparing]
+  transition from: :preparing,    to: [:queued, :failed]
+  transition from: :queued,       to: [:transmitted, :failed]
+  transition from: :transmitted,  to: [:accepted, :rejected]
+  transition from: :failed,       to: [:resubmitted]
+  transition from: :rejected,     to: [:resubmitted]
+  transition from: :resubmitted,  to: [:preparing]
 
   after_transition(to: :preparing) do |submission|
     BuildSubmissionBundleJob.perform_later(submission.id)
@@ -68,5 +66,14 @@ class EfileSubmissionStateMachine
       message: AutomatedMessage::EfilePreparing.new,
       locale: client.intake.locale
     )
+  end
+
+  after_transition(to: :resubmitted) do |submission|
+    if submission.efile_submission_transitions.where(to_state: :transmitted).count.zero?
+      submission.transition_to!(:preparing)
+    else
+      @new_submission = submission.tax_return.efile_submissions.create!
+      @new_submission.transition_to!(:preparing, previous_submission_id: submission.id)
+    end
   end
 end

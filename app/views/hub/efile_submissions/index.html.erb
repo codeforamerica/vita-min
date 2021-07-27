@@ -1,17 +1,37 @@
 <% content_for :card do %>
   <div class="spacing-above-25 submissions-index">
 
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex;">
       <% EfileSubmissionStateMachine.states.each do |state| %>
         <div class="metric-box">
-          <div><%= EfileSubmission.in_state(state).count %></div>
-          <div><%= state %></div>
+          <div class="status <%= state %>"><%= EfileSubmission.in_state(state).count %></div>
+          <div class="status <%= state %>"><%= state %></div>
          </div>
       <% end %>
     </div>
-    <table class="index-table org-metrics-table spacing-above-25">
+    <div class="slab slab--not-padded spacing-above-25">
+      <div class="pagination-wrapper">
+        <div class="count-wrapper">
+          <div>
+            <%= page_entries_info @efile_submissions, model: "submission" %>
+          </div>
+        </div>
+        <div>
+          <%= will_paginate(
+                  @clients,
+                  previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
+                  next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+                  inner_window: 1,
+                  outer_window: 1,
+                  param_name: "page",
+                  ) %>
+        </div>
+      </div>
+    </div>
+
+    <table class="index-table spacing-above-25">
       <thead class="index-table__head">
-      <tr class="index-table__row">
+        <tr class="index-table__row">
         <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
           Status
         </th>
@@ -27,22 +47,25 @@
         </th>
       </tr>
       </thead>
-      <% @efile_submissions.each do |submission| %>
-        <tbody class="index-table__body">
-          <td class="index-table__cell"><%= link_to submission.current_state, hub_efile_submission_path(id: submission.id) %></td>
-          <td class="index-table__cell"><%= link_to submission.id, hub_efile_submission_path(id: submission.id) %></td>
-          <td class="index-table__cell">
-            <%= link_to submission.tax_return.client.legal_name, hub_client_path(id: submission.tax_return.client.id) %>
-          </td>
-          <td class="index-table__cell">
-            <%= submission.tax_return.year %>
-          </td>
-          <td class="index-table__cell">
-            <%= timestamp submission.updated_at %>
-          </td>
-        </tbody>
-      <% end %>
-    </table>
+      <tbody class="index-table__body submission-table">
 
+      <% @efile_submissions.each do |submission| %>
+        <% tax_return = submission.tax_return %>
+          <tr class="index-table__row">
+            <td class="index-table__cell status"><%= link_to submission.current_state, hub_efile_submission_path(id: submission.tax_return.id), class: "underline" %></td>
+            <td class="index-table__cell"><%= link_to submission.irs_submission_id, hub_efile_submission_path(id: submission.tax_return.id) %></td>
+            <td class="index-table__cell">
+              <%= link_to submission.client.legal_name, hub_client_path(id: submission.client.id), class: "underline" %>
+            </td>
+            <td class="index-table__cell">
+              <%= tax_return.year %>
+            </td>
+            <td class="index-table__cell">
+              <%= timestamp submission.updated_at %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
 <% end %>

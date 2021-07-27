@@ -159,9 +159,12 @@ Rails.application.routes.draw do
       # Hub Admin routes (Case Management)
       namespace :hub do
         root "assigned_clients#index"
+
         resources :metrics, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
-        resources :efile_submissions, path: "submissions", only: [:index, :show]
+        resources :efile_submissions, path: "efile", only: [:index, :show] do
+          patch '/resubmit', to: 'efile_submissions#resubmit', on: :member, as: :resubmit
+        end
 
         resources :unlinked_clients, only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
