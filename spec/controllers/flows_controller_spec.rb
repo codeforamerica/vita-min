@@ -22,6 +22,20 @@ RSpec.describe FlowsController do
 
         expect(response.body).to have_content('CTC Flow')
       end
+
+      context "with a current_intake" do
+        before do
+          client = create(:ctc_intake).client
+          create(:tax_return, year: 2020, client: client)
+          sign_in client
+        end
+
+        it 'renders successfully' do
+          get :show, params: { id: :ctc }
+
+          expect(response.body).to have_content('CTC Flow')
+        end
+      end
     end
 
     context 'for a nonexistant flow' do
