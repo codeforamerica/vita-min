@@ -6,13 +6,11 @@ module Ctc
 
         layout "intake"
 
-        def self.show?(intake)
-          intake.had_dependents_yes?
+        def self.show?(dependent)
+          dependent.intake.had_dependents_yes?
         end
 
-        private
-
-        def current_dependent
+        def current_resource
           @dependent ||= begin
             if params[:id] == 'new'
               current_intake.dependents.new
@@ -21,6 +19,8 @@ module Ctc
             end
           end
         end
+
+        private
 
         def illustration_path; end
       end

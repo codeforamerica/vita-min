@@ -20,22 +20,26 @@ module Ctc
           current_intake.dependents.find { |d| d.id == params[:id].to_i }
         end
 
+        def self.model_for_show_check(current_controller)
+          current_controller.current_resource
+        end
+
         def edit
           return if form_class == NullForm
 
-          @form = form_class.from_dependent(current_dependent)
+          @form = form_class.from_dependent(current_resource)
+        end
+
+        def current_resource
+          @dependent ||= self.class.current_resource_from_params(current_intake, params)
+          raise ActiveRecord::RecordNotFound unless @dependent
+          @dependent
         end
 
         private
 
         def initialized_update_form
-          form_class.new(current_dependent, form_params)
-        end
-
-        def current_dependent
-          @dependent ||= self.class.current_resource_from_params(current_intake, params)
-          raise ActiveRecord::RecordNotFound unless @dependent
-          @dependent
+          form_class.new(current_resource, form_params)
         end
 
         def remember_last_edited_dependent_id

@@ -11,12 +11,8 @@ module Ctc
           !dependent.qualifying_child_2020? && !dependent.qualifying_relative_2020?
         end
 
-        def self.model_for_show_check(current_controller)
-          current_resource_from_params(current_controller.visitor_record, current_controller.params)
-        end
-
         def edit
-          @dependent = current_dependent
+          @dependent = current_resource
           super
         end
 
