@@ -10,6 +10,10 @@ module Hub
       @efile_submissions = EfileSubmission.most_recent_by_tax_return.page(params[:page])
     end
 
+    # a little bit unexpectedly, the "show" page actually loads the tax return will all associated submissions
+    # instead of a single submission.
+    # However, efile_submission instance variable for most recent submission is used for access control and
+    # to display information about overall status on the show page.
     def show
       @tax_return = TaxReturn.joins(:efile_submissions).find(params[:id])
       @efile_submission = @tax_return.efile_submissions.last
