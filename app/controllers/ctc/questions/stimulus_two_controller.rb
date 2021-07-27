@@ -5,10 +5,14 @@ module Ctc
 
       layout "intake"
 
+      def self.show?(intake)
+        return false if intake.eip2_entry_method_calculated_amount?
+        true
+      end
+
       def update
-        current_intake.update!(eip2_amount_received: 0)
-        # TODO: redirect to either stimulus received or owed based on whether provided sum is greater than calculated
-        redirect_to questions_stimulus_received_path
+        current_intake.update!(eip2_amount_received: 0, eip2_entry_method: :did_not_receive)
+        super
       end
 
       private

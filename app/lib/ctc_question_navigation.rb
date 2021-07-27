@@ -45,9 +45,9 @@ class CtcQuestionNavigation
     Ctc::Questions::StimulusPaymentsController,
     Ctc::Questions::StimulusOneController,
     Ctc::Questions::StimulusOneReceivedController,
-    Ctc::Questions::StimulusTwoController, # StimulusTwoController and StimulusTwoReceivedController will conditionally redirect to StimulusReceivedController or StimulusOwedController
+    Ctc::Questions::StimulusTwoController,
     Ctc::Questions::StimulusTwoReceivedController,
-    Ctc::Questions::StimulusReceivedController, # StimulusReceivedController has a link in the view to RefundPaymentController (does not rely on next_path)
+    Ctc::Questions::StimulusReceivedController,
     Ctc::Questions::StimulusOwedController,
 
     # Bank and mailing info

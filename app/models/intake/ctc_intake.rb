@@ -43,7 +43,9 @@
 #  divorced_year                                        :string
 #  eip1_amount_received                                 :integer
 #  eip1_and_2_amount_received_confidence                :integer
+#  eip1_entry_method                                    :integer          default("unfilled"), not null
 #  eip2_amount_received                                 :integer
+#  eip2_entry_method                                    :integer          default("unfilled"), not null
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -253,6 +255,8 @@ class Intake::CtcIntake < Intake
   attr_encrypted :spouse_signature_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
+  enum eip1_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip1_entry_method
+  enum eip2_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip2_entry_method
   enum eip1_and_2_amount_received_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :eip1_and_2_amount_received_confidence
   enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
   enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019

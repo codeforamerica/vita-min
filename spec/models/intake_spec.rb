@@ -43,7 +43,9 @@
 #  divorced_year                                        :string
 #  eip1_amount_received                                 :integer
 #  eip1_and_2_amount_received_confidence                :integer
+#  eip1_entry_method                                    :integer          default(0), not null
 #  eip2_amount_received                                 :integer
+#  eip2_entry_method                                    :integer          default(0), not null
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime

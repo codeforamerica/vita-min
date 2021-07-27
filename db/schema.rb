@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_26_193720) do
+ActiveRecord::Schema.define(version: 2021_07_27_064058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -462,7 +462,9 @@ ActiveRecord::Schema.define(version: 2021_07_26_193720) do
     t.string "divorced_year"
     t.integer "eip1_amount_received"
     t.integer "eip1_and_2_amount_received_confidence"
+    t.integer "eip1_entry_method", default: 0, null: false
     t.integer "eip2_amount_received"
+    t.integer "eip2_entry_method", default: 0, null: false
     t.boolean "eip_only"
     t.citext "email_address"
     t.datetime "email_address_verified_at"

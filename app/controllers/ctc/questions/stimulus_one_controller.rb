@@ -5,9 +5,14 @@ module Ctc
 
       layout "intake"
 
+      def self.show?(intake)
+        return false if intake.eip1_entry_method_calculated_amount?
+        true
+      end
+
       def update
-        current_intake.update!(eip1_amount_received: 0)
-        redirect_to questions_stimulus_two_path
+        current_intake.update!(eip1_amount_received: 0, eip1_entry_method: :did_not_receive)
+        super
       end
 
       private

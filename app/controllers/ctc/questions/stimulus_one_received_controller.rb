@@ -5,6 +5,12 @@ module Ctc
 
       layout "intake"
 
+      def self.show?(intake)
+        return false if intake.eip1_entry_method_calculated_amount?
+        return false if intake.eip1_entry_method_did_not_receive?
+        true
+      end
+
       private
 
       def illustration_path
