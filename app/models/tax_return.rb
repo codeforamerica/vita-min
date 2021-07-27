@@ -79,11 +79,11 @@ class TaxReturn < ApplicationRecord
   end
 
   def outstanding_recovery_rebate_amount
-    expected_recovery_rebate_credit_one + expected_recovery_rebate_credit_two - intake.eip1_amount_received - intake.eip2_amount_received
+    [expected_recovery_rebate_credit_one - intake.eip1_amount_received, 0].max + [expected_recovery_rebate_credit_two - intake.eip2_amount_received, 0].max
   end
 
-  def outstanding_recovery_rebate_amount_if_claimed
-    intake.claim_owed_stimulus_money_yes? ? outstanding_recovery_rebate_amount : 0
+  def claim_rrc?
+    intake.claim_owed_stimulus_money_yes? && outstanding_recovery_rebate_amount.positive?
   end
 
   def expected_recovery_rebate_credit_one

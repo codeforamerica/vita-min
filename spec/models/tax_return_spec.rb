@@ -58,6 +58,65 @@ describe TaxReturn do
     end
   end
 
+  describe "#outstanding_recovery_rebate_credit" do
+    let(:tax_return) { create :tax_return, client: client, year: 2020 }
+    let(:client) { create :client, intake: create(:ctc_intake, eip1_amount_received: eip1_amount_received, eip2_amount_received: eip2_amount_received) }
+    let(:intake) { tax_return.intake }
+
+    context "when received credit is higher than expected for eip 1, and has some outstanding for eip2" do
+      let(:eip1_amount_received) { 4000 }
+      let(:eip2_amount_received) { 1000 }
+      before do
+        allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due).and_return(2400)
+        allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due).and_return(1200)
+      end
+
+      it "qualifies for outstanding eip2 amount" do
+        expect(tax_return.outstanding_recovery_rebate_amount).to eq 200
+      end
+    end
+
+    context "when received credit is higher than expected for eip2, but has some outstanding for eip1" do
+      let(:eip1_amount_received) { 1200 }
+      let(:eip2_amount_received) { 1300 }
+      before do
+        allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due).and_return(2400)
+        allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due).and_return(1200)
+      end
+
+      it "qualifies for outstanding eip1 amount" do
+        expect(tax_return.outstanding_recovery_rebate_amount).to eq 1200
+      end
+    end
+
+    context "when there is outstanding credit for eip1 and eip2" do
+      let(:eip1_amount_received) { 2300 }
+      let(:eip2_amount_received) { 1100 }
+      before do
+        allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due).and_return(2400)
+        allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due).and_return(1200)
+      end
+
+      it "qualifies for outstanding eip1 amount" do
+        expect(tax_return.outstanding_recovery_rebate_amount).to eq 200
+      end
+    end
+
+    context "when there is no outstanding credit for either" do
+      let(:eip1_amount_received) { 2400 }
+      let(:eip2_amount_received) { 1200 }
+
+      before do
+        allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due).and_return(2400)
+        allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due).and_return(1200)
+      end
+
+      it "qualifies for outstanding eip1 amount" do
+        expect(tax_return.outstanding_recovery_rebate_amount).to eq 0
+      end
+    end
+  end
+
   describe "#expected_recovery_rebate_credit_one" do
     let(:tax_return) { create :tax_return, client: client, year: 2020 }
     let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
