@@ -21,7 +21,7 @@ module Ctc
         end
 
         def self.model_for_show_check(current_controller)
-          current_controller.current_resource
+          current_controller.current_resource || (last_edited_resource_id(current_controller) ? current_controller.visitor_record.dependents.find { |d| d.id == last_edited_resource_id(current_controller) } : nil)
         end
 
         def edit

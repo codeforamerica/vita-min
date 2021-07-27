@@ -128,7 +128,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
   end
 
   context "adding people who don't count as dependents" do
-    xscenario "a middle-aged adult who earns a bunch of money and isn't disabled" do
+    scenario "a middle-aged adult who earns a bunch of money and isn't disabled" do
       dependent_birth_year = 40.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
       select I18n.t('general.dependent_relationships.08_uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
@@ -139,8 +139,6 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.dependents.does_not_qualify_ctc.title", name: "Jessie"))
       click_on I18n.t("views.ctc.questions.dependents.confirm_dependents.done_adding")
-
-      # NOTE: currently it will show the Tin page for this dependent which is wrong!
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       expect(page).not_to have_content("Jessie Pepper")

@@ -31,13 +31,7 @@ module Ctc
       end
 
       def prev_path
-        prev_step = form_navigation.prev do |controller_class|
-          if controller_class.resource_name
-            controller_class.last_edited_resource_id(self).present?
-          else
-            true
-          end
-        end
+        prev_step = form_navigation.prev
         return unless prev_step
 
         options = {}
