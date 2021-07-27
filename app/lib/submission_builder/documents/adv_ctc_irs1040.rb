@@ -42,8 +42,9 @@ module SubmissionBuilder
             xml.ChldWhoLivedWithYouCnt qualifying_dependents.count(&:qualifying_child_2020?)
             xml.OtherDependentsListedCnt qualifying_dependents.count(&:qualifying_relative_2020?)
             xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
-            xml.TaxableInterestAmt 1
-            xml.AdjustedGrossIncomeAmt 1
+            xml.TaxableInterestAmt 1 # 2b
+            xml.TotalIncomeAmt 1 # 9
+            xml.AdjustedGrossIncomeAmt 1 # 11
             xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction
             xml.TaxableIncomeAmt 0
             xml.RecoveryRebateCreditAmt tax_return.outstanding_recovery_rebate_amount_if_claimed
