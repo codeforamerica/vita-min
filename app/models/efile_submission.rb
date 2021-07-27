@@ -32,7 +32,7 @@ class EfileSubmission < ApplicationRecord
   ]
 
   scope :most_recent_by_tax_return, lambda {
-    joins(:tax_return).where("efile_submissions.created_at = (SELECT MAX(efile_submissions.created_at) FROM efile_submissions WHERE efile_submissions.tax_return_id = tax_returns.id)")
+    joins(:tax_return).where("efile_submissions.id = (SELECT MAX(efile_submissions.id) FROM efile_submissions WHERE efile_submissions.tax_return_id = tax_returns.id)")
   }
 
   def state_machine
