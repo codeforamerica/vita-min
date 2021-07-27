@@ -20,9 +20,9 @@
   </div>
 
   <p class="text--bold"><%= t("views.ctc.questions.stimulus_payments.question") %></p>
-  <%= form_with model: @form, url: questions_stimulus_payments_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.hidden_field :eip1_amount_received, value: @first_stimulus_amount %>
-    <%= f.hidden_field :eip2_amount_received, value: @second_stimulus_amount %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.hidden_field :eip1_entry_method, value: :calculated_amount %>
+    <%= f.hidden_field :eip2_entry_method, value: :calculated_amount %>
 
     <div class="button-group button-group--center button--wide">
       <%= f.button :submit, class: "button button--wide text--centered" do %>

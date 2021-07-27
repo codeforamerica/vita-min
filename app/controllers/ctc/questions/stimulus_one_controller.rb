@@ -5,16 +5,12 @@ module Ctc
 
       layout "intake"
 
-      def update
-        current_intake.update!(eip1_amount_received: 0)
-        redirect_to questions_stimulus_two_path
+      def self.show?(intake)
+        return false if intake.eip1_entry_method_calculated_amount?
+        true
       end
 
       private
-
-      def form_class
-        NullForm
-      end
 
       def illustration_path
         "hand-holding-check.svg"

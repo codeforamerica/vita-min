@@ -11,10 +11,6 @@ module Ctc
         super
       end
 
-      def next_path
-        questions_stimulus_received_path
-      end
-
       private
 
       def illustration_path
