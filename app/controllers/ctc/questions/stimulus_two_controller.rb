@@ -7,6 +7,7 @@ module Ctc
 
       def self.show?(intake)
         return false if intake.eip2_entry_method_calculated_amount?
+
         true
       end
 
