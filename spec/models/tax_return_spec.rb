@@ -111,7 +111,7 @@ describe TaxReturn do
         allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due).and_return(1200)
       end
 
-      it "qualifies for outstanding eip1 amount" do
+      it "has a 0 amount" do
         expect(tax_return.outstanding_recovery_rebate_amount).to eq 0
       end
     end
