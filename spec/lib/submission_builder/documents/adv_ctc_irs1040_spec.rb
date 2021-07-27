@@ -81,5 +81,23 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
         expect(described_class.build(submission)).to be_valid
       end
     end
+
+    context "when not claiming additional rrc credit" do
+      before do
+        allow_any_instance_of(TaxReturn).to receive(:claim_rrc?).and_return false
+      end
+
+      it "does not include credit entries on the XML, and sets refund amount to 0" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+
+        expect(xml.at("RecoveryRebateCreditAmt")).to be_nil
+        expect(xml.at("RecoveryRebateCreditAmt")).to be_nil
+        expect(xml.at("RefundAmt").text).to eq "0"
+      end
+
+      it "conforms to the eFileAttachments schema" do
+        expect(described_class.build(submission)).to be_valid
+      end
+    end
   end
 end
