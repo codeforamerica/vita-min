@@ -1,4 +1,16 @@
 namespace :flow_explorer do
+  desc "Capture flow explorer screenshots by running specialized Capybara runs"
+  task capture_screenshots: :environment do |_task|
+    [
+      "rspec --tag flow_explorer_screenshot",
+      "FLOW_EXPLORER_LOCALE=en rspec --tag flow_explorer_screenshot_i18n_friendly spec",
+      "FLOW_EXPLORER_LOCALE=es rspec --tag flow_explorer_screenshot_i18n_friendly spec",
+    ].each do |cmd|
+      puts "RUNNING: #{cmd}"
+      system(cmd)
+    end
+  end
+
   desc "Upload flow explorer screenshots to s3"
   task upload_screenshots: :environment do |_task|
     screenshots_path = Rails.root.join('public', 'assets', 'flow_screenshots')
