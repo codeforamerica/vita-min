@@ -48,6 +48,10 @@ class ApplicationController < ActionController::Base
     current_controller.visitor_record
   end
 
+  def current_resource
+    nil
+  end
+
   def set_visitor_id
     if visitor_record&.visitor_id.present?
       cookies.permanent[:visitor_id] = { value: visitor_record.visitor_id, httponly: true }

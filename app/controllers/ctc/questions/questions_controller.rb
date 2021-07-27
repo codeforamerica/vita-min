@@ -3,10 +3,6 @@ module Ctc
     class QuestionsController < ::Questions::QuestionsController
       helper_method :wrapping_layout
 
-      def current_resource
-        nil
-      end
-
       private
 
       def wrapping_layout

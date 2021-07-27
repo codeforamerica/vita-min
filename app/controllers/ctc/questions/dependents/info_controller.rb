@@ -7,6 +7,8 @@ module Ctc
         layout "intake"
 
         def self.show?(dependent)
+          return false if dependent.nil?
+
           dependent.intake.had_dependents_yes?
         end
 
