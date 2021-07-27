@@ -20,6 +20,7 @@ FactoryBot.define do
       transient do
         tax_year { 2020 }
         filing_status { "single" }
+        metadata {}
       end
       tax_return { create(:tax_return, :ctc, year: tax_year, filing_status: filing_status) }
       after :create do |submission|

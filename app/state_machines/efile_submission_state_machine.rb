@@ -73,7 +73,7 @@ class EfileSubmissionStateMachine
       submission.transition_to!(:preparing)
     else
       @new_submission = submission.tax_return.efile_submissions.create!
-      @new_submission.transition_to!(:preparing)
+      @new_submission.transition_to!(:preparing, previous_submission_id: submission.id)
     end
   end
 end

@@ -96,6 +96,7 @@ describe EfileSubmissionStateMachine do
           }.to change(EfileSubmission, :count).by 1
           expect(efile_submission.current_state).to eq "resubmitted"
           expect(EfileSubmission.last.current_state).to eq "preparing"
+          expect(EfileSubmission.last.last_transition.metadata["previous_submission_id"]).to eq efile_submission.id
         end
       end
 
