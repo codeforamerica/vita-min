@@ -281,6 +281,10 @@ Rails.application.routes.draw do
       get "/questions/remove-spouse", to: "ctc/questions/remove_spouse#edit", as: :questions_remove_spouse
       put "/questions/remove-spouse", to: "ctc/questions/remove_spouse#update"
 
+      # remove-dependent should not be included in default navigation flow
+      get "/questions/dependents/:id/remove-dependent", to: "ctc/questions/dependents/remove_dependent#edit", as: :questions_remove_dependent
+      put "/questions/dependents/:id/remove-dependent", to: "ctc/questions/dependents/remove_dependent#update"
+
       unless Rails.env.production?
         resources :flows, only: [:index, :show]
       end
