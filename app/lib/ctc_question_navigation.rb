@@ -38,7 +38,6 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::QualifyingRelativeController,
     Ctc::Questions::Dependents::DoesNotQualifyCtcController,
     Ctc::Questions::Dependents::TinController,
-    Ctc::Questions::Dependents::TempTogglesController,
     Ctc::Questions::Dependents::ConfirmDependentsController,
 
     # RRC
