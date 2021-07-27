@@ -1,6 +1,6 @@
-<% content_for :form_question, t("views.ctc.questions.dependents.claim_child_anyway.title", dependent_name: @form.dependent.first_name) %>
+<% content_for :form_question, t("views.ctc.questions.dependents.claim_child_anyway.title", name: @form.dependent.first_name) %>
 <% content_for :form_help_text do %>
-  <%= t("views.ctc.questions.dependents.claim_child_anyway.help_text", dependent_name: @form.dependent.first_name) %>
+  <%= t("views.ctc.questions.dependents.claim_child_anyway.help_text", name: @form.dependent.first_name) %>
 
   <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.claim_child_anyway.not_sure_reveal.title")) do %>
     <p> <%= t("views.ctc.questions.dependents.claim_child_anyway.not_sure_reveal.p") %> </p>

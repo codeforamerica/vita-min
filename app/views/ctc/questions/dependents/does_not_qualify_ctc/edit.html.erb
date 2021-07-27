@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.dependents.does_not_qualify_ctc.title", dependent:  @dependent.first_name.capitalize) %>
+<% @main_question = t("views.ctc.questions.dependents.does_not_qualify_ctc.title", name:  @dependent.first_name.capitalize) %>
 
 <% content_for :page_title, @main_question %>
 

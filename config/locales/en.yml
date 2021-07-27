@@ -1375,26 +1375,26 @@ en:
             help_text: "Someone who lives with you for a majority of the year or who you support financially could qualify as a dependent."
             what_relationships_reveal: "What relationships qualify?"
           child_lived_with_you:
-            title: "Did %{dependent_name} live with you for more than 6 months in %{tax_year}?"
+            title: "Did %{name} live with you for more than 6 months in %{tax_year}?"
           child_residence_exceptions:
-            title: "Were any of the following true for %{dependent_name}?"
+            title: "Were any of the following true for %{name}?"
             help_text: "They could still qualify for payments if they lived with you for less than 6 months and any of the following were true."
-            born_in_2020: "%{dependent_name} was born in 2020"
-            passed_away_2020: "%{dependent_name} was lawfully placed with you for adoption in 2020"
-            placed_for_adoption: "%{dependent_name} passed away in 2020"
-            permanent_residence_with_client: "%{dependent_name}’s permanent residence was with you for at least six months, even if they were away for part of that time"
+            born_in_2020: "%{name} was born in 2020"
+            passed_away_2020: "%{name} was lawfully placed with you for adoption in 2020"
+            placed_for_adoption: "%{name} passed away in 2020"
+            permanent_residence_with_client: "%{name}’s permanent residence was with you for at least six months, even if they were away for part of that time"
           qualifying_relative:
             title: "Were all of the following true in 2020?"
             help_text:
-              li1: "You paid for more than half of %{dependent_name}'s expenses."
-              li2: "%{dependent_name} earned less than $4,300."
-              li3: "%{dependent_name} has a SSN or ATIN."
-              li4: "%{dependent_name} did not live with someone else who could claim them."
+              li1: "You paid for more than half of %{name}'s expenses."
+              li2: "%{name} earned less than $4,300."
+              li3: "%{name} has a SSN or ATIN."
+              li4: "%{name} did not live with someone else who could claim them."
           child_can_be_claimed_by_other:
-            title: "Are you the only person who can claim %{dependent_name}?"
+            title: "Are you the only person who can claim %{name}?"
           claim_child_anyway:
-            title: "Would you like to claim %{dependent_name} anyway?"
-            help_text: "If you and someone else are eligible to claim %{dependent_name}, you should follow any existing agreement with the other person about who claims them."
+            title: "Would you like to claim %{name} anyway?"
+            help_text: "If you and someone else are eligible to claim %{name}, you should follow any existing agreement with the other person about who claims them."
             not_sure_reveal:
               title: "I’m unsure. Should I claim them?"
               p: "You should claim the dependent if one of these situations is true:"
@@ -1428,7 +1428,7 @@ en:
             filed_joint_return: "%{name} is married and filed taxes with their spouse"
             error: "Please select at least one option"
           does_not_qualify_ctc:
-            title: "%{dependent} can’t be claimed as a dependent."
+            title: "%{name} can’t be claimed as a dependent."
             body_html: |
               <p>For a dependent to qualify they would need to meet the following conditions:</p>
               <ul class="list--bulleted">

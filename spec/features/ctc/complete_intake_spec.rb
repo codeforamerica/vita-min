@@ -140,10 +140,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
     check I18n.t('general.none')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', dependent_name: 'Jessie', tax_year: '2020'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', tax_year: '2020'))
     click_on I18n.t('general.affirmative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', dependent_name: 'Jessie'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
     click_on I18n.t('general.affirmative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))

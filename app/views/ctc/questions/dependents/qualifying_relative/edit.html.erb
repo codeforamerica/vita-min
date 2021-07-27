@@ -2,9 +2,9 @@
 
 <% content_for :form_help_text do %>
   <ul class="list--bulleted">
-    <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li1", dependent_name: @form.dependent.first_name) %></li>
-    <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li2", dependent_name: @form.dependent.first_name) %></li>
-    <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li3", dependent_name: @form.dependent.first_name) %></li>
-    <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li4", dependent_name: @form.dependent.first_name) %></li>
+    <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li1", name: @form.dependent.first_name) %></li>
+    <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li2", name: @form.dependent.first_name) %></li>
+    <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li3", name: @form.dependent.first_name) %></li>
+    <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li4", name: @form.dependent.first_name) %></li>
   </ul>
 <% end %>

@@ -8,18 +8,22 @@
     <h1 class="h2"><%= @main_question %></h1>
 
     <div class="review-box spacing-below-35">
-      <div class="review-box__title">
-        <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_ctc") %></h2>
+      <div data-automation="ctc-dependents">
+        <div class="review-box__title">
+          <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_ctc") %></h2>
+        </div>
+        <% current_intake.dependents.select { |dep| dep.eligible_for_child_tax_credit_2020? }.each do |dependent| %>
+          <%= render 'dependent', dependent: dependent %>
+        <% end %>
       </div>
-      <% current_intake.dependents.select { |dep| dep.eligible_for_child_tax_credit_2020? }.each do |dependent| %>
-        <%= render 'dependent', dependent: dependent %>
-      <% end %>
-      <div class="review-box__title">
-        <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_other_credits") %></h2>
+      <div data-automation="other-credits-dependents">
+        <div class="review-box__title">
+          <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_other_credits") %></h2>
+        </div>
+        <% current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && (dep.qualifying_child_2020? || dep.qualifying_relative_2020?) }.each do |dependent| %>
+          <%= render 'dependent', dependent: dependent %>
+        <% end %>
       </div>
-      <% current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && (dep.qualifying_child_2020? || dep.qualifying_relative_2020?) }.each do |dependent| %>
-        <%= render 'dependent', dependent: dependent %>
-      <% end %>
 
       <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.confirm_dependents.reveal_title")) do %>
         <p><%= t("views.ctc.questions.dependents.confirm_dependents.reveal_body_title") %></p>
