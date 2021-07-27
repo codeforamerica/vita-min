@@ -14,10 +14,6 @@ module Ctc
             dependent.qualifying_relative_relationship?
         end
 
-        def self.model_for_show_check(current_controller)
-          current_resource_from_params(current_controller.visitor_record, current_controller.params)
-        end
-
         def method_name
           'meets_misc_qualifying_relative_requirements'
         end

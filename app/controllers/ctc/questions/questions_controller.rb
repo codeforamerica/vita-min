@@ -3,6 +3,10 @@ module Ctc
     class QuestionsController < ::Questions::QuestionsController
       helper_method :wrapping_layout
 
+      def current_resource
+        nil
+      end
+
       private
 
       def wrapping_layout
@@ -21,7 +25,7 @@ module Ctc
         next_step = form_navigation.next
         options = {}
         if next_step.resource_name.present? && next_step.resource_name == self.class.resource_name
-          options[:id] = current_dependent.id
+          options[:id] = current_resource.id
         end
         next_step.to_path_helper(options)
       end

@@ -123,16 +123,28 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
     click_on I18n.t('general.back')
     click_on I18n.t('general.affirmative')
 
+    dependent_birth_year = 22.years.ago.year
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
     fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Jessie"
     fill_in I18n.t('views.ctc.questions.dependents.info.middle_initial'), with: "M"
     fill_in I18n.t('views.ctc.questions.dependents.info.last_name'), with: "Pepper"
     fill_in "ctc_dependents_info_form[birth_date_month]", with: "01"
     fill_in "ctc_dependents_info_form[birth_date_day]", with: "11"
-    fill_in "ctc_dependents_info_form[birth_date_year]", with: "1995"
+    fill_in "ctc_dependents_info_form[birth_date_year]", with: dependent_birth_year
     select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
     check I18n.t('views.ctc.questions.dependents.info.full_time_student')
     click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
+    check I18n.t('general.none')
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', dependent_name: 'Jessie', tax_year: '2020'))
+    click_on I18n.t('general.affirmative')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', dependent_name: 'Jessie'))
+    click_on I18n.t('general.affirmative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
     select "Social Security Number (SSN)"
@@ -141,9 +153,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
-    # Next line skipped for now due to dependent confirmation screen limiting dependents
-    # to the ones that match some criteria.
-    # expect(page).to have_content("Jessie")
+    expect(page).to have_content("Jessie Pepper")
+    expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
 
     # Back up to prove that the 'go back' button brings us back to the dependent we were editing
     click_on I18n.t('general.back')
