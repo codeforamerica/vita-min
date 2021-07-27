@@ -7,14 +7,14 @@
 
   <%= t("views.ctc.questions.stimulus_two.help_html") %>
 
-  <%= form_with model: @client, url: questions_stimulus_two_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "form-card--yes-no" do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, class: "form-card--yes-no" do |f| %>
     <div class="options-wrapper">
       <div class="yes-no-buttons">
         <%= link_to questions_stimulus_two_received_path, class: "button button--icon button--icon--centered" do %>
           <%= image_tag("checkmark.svg", alt: "") %><%= t("general.affirmative") %>
         <% end %>
 
-        <%= f.button :submit, class: "button button--icon button--icon--centered" do %>
+        <%= f.button :submit, name: "#{f.object_name}[eip2_entry_method]", value: "did_not_receive", class: "button button--icon button--icon--centered" do %>
           <%= image_tag("crossmark.svg", alt: "") %><%= t("general.negative") %>
         <% end %>
       </div>

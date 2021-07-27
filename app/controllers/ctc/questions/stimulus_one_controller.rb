@@ -10,16 +10,7 @@ module Ctc
         true
       end
 
-      def update
-        current_intake.update!(eip1_amount_received: 0, eip1_entry_method: :did_not_receive)
-        super
-      end
-
       private
-
-      def form_class
-        NullForm
-      end
 
       def illustration_path
         "hand-holding-check.svg"
