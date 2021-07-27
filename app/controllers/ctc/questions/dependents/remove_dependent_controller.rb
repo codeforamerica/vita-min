@@ -1,13 +1,14 @@
 module Ctc
   module Questions
     module Dependents
-      class TinController < BaseDependentController
+      class RemoveDependentController < BaseDependentController
         include AuthenticatedCtcClientConcern
+        include PreviousPathIsBackConcern
 
         layout "intake"
 
-        def self.show?(intake)
-          intake.had_dependents_yes?
+        def self.show?(dependent)
+          dependent.present?
         end
 
         def self.model_for_show_check(current_controller)
@@ -15,6 +16,10 @@ module Ctc
         end
 
         private
+
+        def next_path
+          questions_confirm_dependents_path
+        end
 
         def illustration_path; end
       end

@@ -150,7 +150,16 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
     select "Social Security Number (SSN)"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-    click_on I18n.t('general.continue')
+    click_on I18n.t('views.ctc.questions.dependents.tin.remove_person')
+
+    expect(page).to have_selector("h1", text: ActionView::Base.full_sanitizer.sanitize(I18n.t('views.ctc.questions.dependents.remove_dependent.title_html', dependent_name: 'Jessie')))
+    click_on I18n.t('views.ctc.questions.dependents.remove_dependent.nevermind_button')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
+    select "Social Security Number (SSN)"
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
+    click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
     expect(page).to have_content("Jessie Pepper")
@@ -159,7 +168,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
     # Back up to prove that the 'go back' button brings us back to the dependent we were editing
     click_on I18n.t('general.back')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-    click_on I18n.t('general.continue')
+    click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
     click_on I18n.t('views.ctc.questions.dependents.confirm_dependents.done_adding')
 
     # =========== RECOVERY REBATE CREDIT ===========
