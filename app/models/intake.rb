@@ -321,11 +321,7 @@ class Intake < ApplicationRecord
 
   # Memoize response into instance variable.
   def tax_return(tax_year)
-    variable = "@tax_return_#{tax_year}"
-    tax_return = instance_variable_get(variable)
-    return tax_return if tax_return.present?
-
-    instance_variable_set(variable, tax_returns.find_by(year: tax_year))
+    tax_returns.find_by(year: tax_year)
   end
 
   def is_ctc?
