@@ -19,7 +19,13 @@ RSpec.describe Questions::ConsentController do
             birth_date_day: "10",
             primary_first_name: "Greta",
             primary_last_name: "Gnome",
-            primary_last_four_ssn: "5678"
+            primary_last_four_ssn: "5678",
+            device_id: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            user_agent: "GeckoFox",
+            language: "en-US",
+            platform: "iPad",
+            timezone_offset: "-0400",
+            client_system_time: "2021-07-28T21:21:32.306Z",
           }
         }
       end
@@ -62,6 +68,21 @@ RSpec.describe Questions::ConsentController do
         end.to change { subject.current_client }.from(nil).to(client)
 
         expect(session[:intake_id]).to be_nil
+      end
+
+      it "saves at-creation security information" do
+        expect do
+          post :update, params: params
+        end
+
+        client.reload
+        expect(client.efile_security_information.ip_address).to eq(ip_address)
+        expect(client.efile_security_information.device_id).to eq("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        expect(client.efile_security_information.user_agent).to eq("GeckoFox")
+        expect(client.efile_security_information.language).to eq("en-US")
+        expect(client.efile_security_information.platform).to eq("iPad")
+        expect(client.efile_security_information.timezone_offset).to eq("-0400")
+        expect(client.efile_security_information.client_system_time).to eq("2021-07-28T21:21:32.306Z")
       end
     end
 
