@@ -3197,10 +3197,9 @@ en:
             body2: "To get the Child Tax Credit you will need to verify your identity, and provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI."
           full_return:
             subheading: "If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed."
-            gyr_diy_link: "GetYourRefund - Do It Yourself"
             body1_html: "If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. Filing a full 2020 tax return will allow your family to claim the Child Tax Credit, receive all three stimulus payments, and the Earned Income Credit to get even more cash now."
             body2_html: "Here are some <strong>free</strong> tax filing options for you:"
-            gyr_diy_explanation: ": If you earned more than $66,000 and are comfortable using online tools, we provide free access to tax prep software with experts ready to provide chat support if you need help."
+            gyr_diy_explanation_html: "File your 2020 taxes for free using <a rel='noopener' target='_blank' href='%{url}'>GetYourRefund’s DIY service.</a> We provide free access to tax prep software, and have certified tax experts ready to provide chat support if you need help."
         non_filer_sign_up_tool_warning_html: |
           <p><strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">The IRS Non-Filer Sign-Up Tool</a></strong> is difficult to use and if you complete the Sign-Up Tool incorrectly your payments could be significantly delayed.</p>
 

@@ -8,7 +8,6 @@ RSpec.feature "Visit CTC home page" do
   it "has content" do
     visit "/"
     expect(page).to have_text I18n.t("views.ctc_pages.home.header")
-    expect(page).to have_text I18n.t("views.ctc_pages.home.obtain.full_return.gyr_diy_link")
   end
 
   context "when the DIY link is disabled" do

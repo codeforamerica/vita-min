@@ -3099,7 +3099,6 @@ es:
             body2: "Para obtener el Crédito Tributario por Hijos, necesitará verificar su identidad y proporcionar los números de seguro social de sus hijos. Puede registrarse para el Crédito Tributario por Hijos aún si usted tiene muy pocos ingresos o no tiene ingresos, o si recibe otros beneficios federales como Seguridad de Ingreso Suplementario (SSI en inglés) o beneficios por incapacidad (SSDI en inglés)."
           full_return:
             subheading: "Si usted aún no ha proporcionado su información al IRS (por medio de sus impuestos o por el portal para registrar a las personas que no han declarado), usted puede presentar una declaración de impuestos completa para recibir otros créditos tributarios que se le deben."
-            gyr_diy_link: "GetYourRefund - Auto-Servicio (DIY)"
             body1_html: |
               Si usted tiene al menos un hijo que califica y tiene cualquier cantidad de ingresos de trabajo, pero aún no ha declarado impuestos, le recomendamos que declare sus impuestos de 2020. Presentar una declaración de impuestos completa del 2020 le permitirá a usted y a su familia:
               <ul>
@@ -3108,7 +3107,7 @@ es:
                 <li>y obtener el Crédito Tributario por Ingresos de Trabajo para recibir más dinero en efectivo.</li>
               </ul>
             body2_html: "Aquí hay algunas opciones <strong>gratuitas</strong> para declarar impuestos:"
-            gyr_diy_explanation: ": Si sus ingresos fueron más de $66,000 y se siente seguro usando las herramientas en línea, le daremos acceso gratuito a programas digitales para que usted prepare su declaración de impuestos. Habrán expertos listos para ayudarle por chat si lo necesita."
+            gyr_diy_explanation_html: "Presente sus impuestos de 2020 de forma gratuita utilizando el <a rel='noopener' target='_blank' href='%{url}'>servicio de bricolaje de GetYourRefund</a>. Brindamos acceso gratuito al software de preparación de impuestos y contamos con expertos en impuestos certificados listos para brindar soporte por chat si necesita ayuda."
         non_filer_sign_up_tool_warning_html: |
           <p>La <strong><a rel="noopener" target="_blank" href="https://www.irs.gov/credits-deductions/child-tax-credit-non-filer-sign-up-tool">Herramienta Non-Filer del IRS</a></strong> (IRS Non-Filer Sign-Up Tool en inglés) es difícil de usar y si la usa de forma incorrecta le podría causar una gran demora en recibir sus pagos.</p>
 
