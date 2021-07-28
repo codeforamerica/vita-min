@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: efile_security_informations
+# Table name: client_efile_security_informations
 #
 #  id                 :bigint           not null, primary key
 #  client_system_time :string
@@ -11,10 +11,19 @@
 #  user_agent         :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  client_id          :bigint
 #  device_id          :string
 #
+# Indexes
+#
+#  index_client_efile_security_informations_on_client_id  (client_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (client_id => clients.id)
+#
 FactoryBot.define do
-  factory :efile_security_information do
+  factory :client_efile_security_information do
 
   end
 end

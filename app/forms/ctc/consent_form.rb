@@ -11,6 +11,7 @@ module Ctc
                               :timezone
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation
+    set_attributes_for :efile_security_information, :ip_address, :device_id, :user_agent, :language, :platform, :timezone_offset, :client_system_time
 
     before_validation :normalize_phone_numbers
 
@@ -38,7 +39,11 @@ module Ctc
           source: @intake.source,
           type: @intake.type
       )
-      client = Client.create!(intake_attributes: intake_attributes, tax_returns_attributes: [tax_return_attributes])
+      efile_security_information_attributes = attributes_for(:efile_security_information)
+      puts "*******************"
+      puts efile_security_information_attributes
+      puts "---------------------"
+      client = Client.create!(intake_attributes: intake_attributes, tax_returns_attributes: [tax_return_attributes], efile_security_information: Client::EfileSecurityInformation.create!(efile_security_information_attributes))
       @intake = client.intake
     end
 

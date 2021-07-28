@@ -21,6 +21,7 @@ module Questions
       )
       Intake14446PdfJob.perform_later(current_intake, "Consent Form 14446.pdf")
       IntakePdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
+      Client::EfileSecurityInformation.create!(client: current_intake.client)
     end
   end
 end
