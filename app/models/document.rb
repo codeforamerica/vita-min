@@ -36,7 +36,7 @@ require "mini_magick"
 
 class Document < ApplicationRecord
   belongs_to :intake, optional: true
-  belongs_to :client
+  belongs_to :client, touch: true
   belongs_to :documents_request, optional: true
   belongs_to :contact_record, polymorphic: true, optional: true
   belongs_to :tax_return, optional: true

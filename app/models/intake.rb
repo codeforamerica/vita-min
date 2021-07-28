@@ -319,8 +319,13 @@ class Intake < ApplicationRecord
     }
   }
 
+  # Memoize response into instance variable.
   def tax_return(tax_year)
-    tax_returns.find_by(year: tax_year)
+    variable = "@tax_return_#{tax_year}"
+    tax_return = instance_variable_get(variable)
+    return tax_return if tax_return.present?
+
+    instance_variable_set(variable, tax_returns.find_by(year: tax_year))
   end
 
   def is_ctc?
@@ -330,6 +335,10 @@ class Intake < ApplicationRecord
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
+  end
+
+  def formatted_sms_phone_number
+    Phonelib.parse(sms_phone_number).local_number
   end
 
   # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"

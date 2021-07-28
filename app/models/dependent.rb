@@ -170,11 +170,11 @@ class Dependent < ApplicationRecord
   end
 
   def qualifying_child_relationship?
-    QUALIFYING_CHILD_RELATIONSHIPS.include? relationship
+    QUALIFYING_CHILD_RELATIONSHIPS.include? relationship.downcase
   end
 
   def qualifying_relative_relationship?
-    QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship
+    QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship.downcase
   end
 
   def qualifying_child_2020?
