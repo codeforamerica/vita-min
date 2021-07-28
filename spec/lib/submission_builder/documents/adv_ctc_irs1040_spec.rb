@@ -84,14 +84,14 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
 
     context "when not claiming additional rrc credit" do
       before do
-        allow_any_instance_of(TaxReturn).to receive(:claim_rrc?).and_return false
+        submission.intake.update(claim_owed_stimulus_money: "no")
       end
 
-      it "does not include credit entries on the XML, and sets refund amount to 0" do
+      it "sets the credit amounts to 0, and sets refund amount to 0" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
 
-        expect(xml.at("RecoveryRebateCreditAmt")).to be_nil
-        expect(xml.at("RecoveryRebateCreditAmt")).to be_nil
+        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "0"
+        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "0"
         expect(xml.at("RefundAmt").text).to eq "0"
       end
 

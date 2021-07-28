@@ -72,7 +72,7 @@ describe TaxReturn do
       end
 
       it "qualifies for outstanding eip2 amount" do
-        expect(tax_return.outstanding_recovery_rebate_amount).to eq 200
+        expect(tax_return.outstanding_recovery_rebate_credit).to eq 200
       end
     end
 
@@ -85,7 +85,7 @@ describe TaxReturn do
       end
 
       it "qualifies for outstanding eip1 amount" do
-        expect(tax_return.outstanding_recovery_rebate_amount).to eq 1200
+        expect(tax_return.outstanding_recovery_rebate_credit).to eq 1200
       end
     end
 
@@ -98,7 +98,7 @@ describe TaxReturn do
       end
 
       it "qualifies for outstanding eip1+eip2 amount" do
-        expect(tax_return.outstanding_recovery_rebate_amount).to eq 200
+        expect(tax_return.outstanding_recovery_rebate_credit).to eq 200
       end
     end
 
@@ -112,7 +112,7 @@ describe TaxReturn do
       end
 
       it "has a 0 amount" do
-        expect(tax_return.outstanding_recovery_rebate_amount).to eq 0
+        expect(tax_return.outstanding_recovery_rebate_credit).to eq 0
       end
     end
   end

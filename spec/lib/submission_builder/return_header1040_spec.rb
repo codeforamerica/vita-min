@@ -45,6 +45,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         allow(File).to receive(:open).and_return(file_double)
         allow(Nokogiri::XML).to receive(:Schema).with(file_double).and_return(schema_double)
         allow(schema_double).to receive(:validate).and_return(['error', 'error'])
+        allow_any_instance_of(TaxReturn).to receive(:claimed_recovery_rebate_credit).and_return 100
       end
 
       it "returns an Efile::Response object that responds to #valid? and includes the Schema errors" do
@@ -85,7 +86,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("ZIPCd").text).to eq "77494"
         expect(xml.at("PhoneNum").text).to eq "4155551212"
         expect(xml.at("IPv4AddressTxt").text).to eq "1.1.1.1"
-        expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "0"
+        expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "3"
         expect(xml.at("TrustedCustomerGrp AuthenticationAssuranceLevelCd").text).to eq "AAL1"
         expect(xml.at("TrustedCustomerGrp LastSubmissionRqrOOBCd").text).to eq "0"
         expect(xml.at("AtSubmissionFilingGrp RefundProductElectionInd").text).to eq "false"
@@ -191,8 +192,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
       context "filing with direct deposit" do
         before do
           submission.intake.update(refund_payment_method: "direct_deposit")
-          allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_amount).and_return(refund_amount)
-          allow_any_instance_of(TaxReturn).to receive(:claim_rrc?).and_return(true)
+          allow_any_instance_of(TaxReturn).to receive(:claimed_recovery_rebate_credit).and_return(refund_amount)
         end
 
         context "with a refund due" do
@@ -230,8 +230,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
     context "filing requesting a check payment" do
       before do
         submission.intake.update(refund_payment_method: "check")
-        allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_amount).and_return(refund_amount)
-        allow_any_instance_of(TaxReturn).to receive(:claim_rrc?).and_return true
+        allow_any_instance_of(TaxReturn).to receive(:claimed_recovery_rebate_credit).and_return refund_amount
       end
 
       context "with a refund due" do

@@ -467,6 +467,9 @@ FactoryBot.define do
     email_address { "mango@example.com" }
     client
     needs_to_flush_searchable_data_set_at { 1.minute.ago }
+    eip1_amount_received { 1000 }
+    eip2_amount_received { 1000 }
+    primary_tin_type { "ssn" }
   end
 
   factory :intake, class: Intake::GyrIntake do

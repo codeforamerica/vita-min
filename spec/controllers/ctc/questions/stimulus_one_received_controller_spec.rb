@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::StimulusOneReceivedController do
-  let(:intake) { create :ctc_intake }
+  let(:intake) { create :ctc_intake, eip1_amount_received: nil, eip2_amount_received: nil }
 
   before do
     sign_in intake.client

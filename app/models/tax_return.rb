@@ -78,12 +78,14 @@ class TaxReturn < ApplicationRecord
     StandardDeduction.for(tax_year: year, filing_status: filing_status)
   end
 
-  def outstanding_recovery_rebate_amount
+  def outstanding_recovery_rebate_credit
     [expected_recovery_rebate_credit_one - intake.eip1_amount_received, 0].max + [expected_recovery_rebate_credit_two - intake.eip2_amount_received, 0].max
   end
 
-  def claim_rrc?
-    intake.claim_owed_stimulus_money_yes? && outstanding_recovery_rebate_amount.positive?
+  def claimed_recovery_rebate_credit
+    return 0 if intake.claim_owed_stimulus_money_no?
+
+    outstanding_recovery_rebate_credit
   end
 
   def expected_recovery_rebate_credit_one
