@@ -42,7 +42,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select "Social Security Number (SSN)"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('general.continue')
+      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do
@@ -72,7 +72,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select "Social Security Number (SSN)"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('general.continue')
+      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
@@ -95,7 +95,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select "Social Security Number (SSN)"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('general.continue')
+      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
@@ -117,7 +117,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select "Social Security Number (SSN)"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('general.continue')
+      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
@@ -149,7 +149,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select "Social Security Number (SSN)"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('general.continue')
+      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do
@@ -180,7 +180,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select "Social Security Number (SSN)"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
       fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('general.continue')
+      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do
