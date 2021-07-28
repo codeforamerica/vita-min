@@ -7,6 +7,7 @@ module Ctc
 
       def self.show?(intake)
         return false if intake.eip1_amount_received.nil? || intake.eip2_amount_received.nil?
+        
         intake.tax_return(2020).outstanding_recovery_rebate_credit.zero?
       end
 

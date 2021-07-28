@@ -76,15 +76,6 @@ class EfileSubmission < ApplicationRecord
     address_service
   end
 
-  def generate_pdf_1040
-    ClientPdfDocument.create_or_update(
-      output_file: AdvCtcIrs1040Pdf.new(self).output_file,
-      document_type: DocumentTypes::Other,
-      client: client,
-      filename: 'irs1040-TY2020.pdf'
-    )
-  end
-
   private
 
   def generate_irs_submission_id(i = 0)
