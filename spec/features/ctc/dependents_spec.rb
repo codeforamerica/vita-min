@@ -104,10 +104,32 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       end
     end
 
-    scenario "a middle-aged adult who earns little money, lives with the client, and has a SSN" do
+    scenario "a middle-aged uncle who earns little money, lives with the client, and has a SSN" do
       dependent_birth_year = 40.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
       select I18n.t('general.dependent_relationships.08_uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title'))
+      click_on I18n.t('general.affirmative')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
+      select "Social Security Number (SSN)"
+      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
+      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
+      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
+      within "[data-automation='other-credits-dependents']" do
+        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+      end
+    end
+
+    scenario "a middle-aged son who earns little money, lives with the client, and has a SSN" do
+      dependent_birth_year = 40.years.ago.year
+      fill_in_dependent_info(dependent_birth_year)
+      select I18n.t('general.dependent_relationships.01_son'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title'))
@@ -155,6 +177,32 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       within "[data-automation='ctc-dependents']" do
         expect(page).to have_content("Jessie Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/2020")
+      end
+    end
+
+    scenario "a young married child who already filed jointly with their spouse" do
+      dependent_birth_year = 16.years.ago.year
+      fill_in_dependent_info(dependent_birth_year)
+      select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
+      check I18n.t('views.ctc.questions.dependents.child_disqualifiers.filed_joint_return', name: 'Jessie')
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title'))
+      click_on I18n.t('general.affirmative')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
+      select "Social Security Number (SSN)"
+      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
+      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
+      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
+      within "[data-automation='other-credits-dependents']" do
+        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
       end
     end
 
