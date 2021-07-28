@@ -7,7 +7,6 @@ class AdvCtcIrs1040Pdf
 
   def initialize(submission)
     @submission = submission
-    @client = submission.client
     @tax_return = submission.tax_return
     @intake = submission.intake
     @qualifying_dependents = submission.tax_return.qualifying_dependents
@@ -35,7 +34,7 @@ class AdvCtcIrs1040Pdf
         TotalPaymentsAmt33: @tax_return.claimed_recovery_rebate_credit,
         OverpaidAmt34: 0,
         RefundAmt35: @tax_return.claimed_recovery_rebate_credit,
-        PrimarySignature: @client.legal_name,
+        PrimarySignature: @intake.primary_full_name,
         PrimarySignatureDate: @intake.primary_signature_pin_at&.strftime("%m/%d/%y"),
         PrimaryIPPIN: @intake.primary_ip_pin,
         PhoneNumber:  @intake.formatted_phone_number || @intake.formatted_sms_phone_number,
@@ -62,7 +61,7 @@ class AdvCtcIrs1040Pdf
         SpouseFirstNm: @intake.spouse_first_name,
         SpouseLastNm: @intake.spouse_last_name,
         SpouseSSN: pdf_mask(@intake.spouse_ssn, 4),
-        SpouseSignature: @client.spouse_legal_name,
+        SpouseSignature: @intake.spouse_full_name,
         SpouseSignatureDate: @intake.spouse_signature_pin_at.strftime("%m/%d/%y"),
         SpouseIPPIN: @intake.spouse_ip_pin,
     }

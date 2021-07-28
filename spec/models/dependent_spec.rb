@@ -154,7 +154,7 @@ describe Dependent do
     context "with a qualifying child" do
       let(:dependent) do
         build :dependent,
-              relationship: "niece",
+              relationship: "NIECE",
               birth_date: Date.new(2015, 12, 25),
               full_time_student: "no",
               permanently_totally_disabled: "no",
