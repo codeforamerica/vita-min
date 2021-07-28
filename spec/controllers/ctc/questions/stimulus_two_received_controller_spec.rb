@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::StimulusTwoReceivedController do
-  let(:intake) { create :ctc_intake, client: client, eip1_amount_received: 0 }
+  let(:intake) { create :ctc_intake, client: client, eip1_amount_received: 0, eip2_amount_received: nil }
   let(:client) { create :client, tax_returns: [build(:tax_return, year: 2020)] }
 
   before do
@@ -52,11 +52,32 @@ describe Ctc::Questions::StimulusTwoReceivedController do
         }
       end
 
-      it "saves eip2_amount_received value and moves to the stimulus-received" do
+      it "saves eip2_amount_received value" do
         post :update, params: params
 
         expect(intake.reload.eip2_amount_received).to eq 100
-        expect(response).to redirect_to questions_stimulus_received_path
+      end
+
+      context "when all stimulus money has been paid to the client" do
+        before do
+          allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_credit).and_return 0
+        end
+        
+        it "redirects to the stimulus received path" do
+          post :update, params: params
+          expect(response).to redirect_to questions_stimulus_received_path
+        end
+      end
+
+      context "when the client has unclaimed stimulus money" do
+        before do
+          allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_credit).and_return 1000
+        end
+
+        it "redirects to the stimulus received path" do
+          post :update, params: params
+          expect(response).to redirect_to questions_stimulus_owed_path
+        end
       end
     end
   end

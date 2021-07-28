@@ -9,7 +9,7 @@ describe Ctc::Questions::StimulusTwoController do
   end
 
   describe "#update" do
-    it "saves 0 as the amount for stimulus 2 and redirects to the stimulus-received" do
+    it "saves 0 as the amount for stimulus 2 and redirects to the stimulus-owed" do
       post :update, params: {
         ctc_stimulus_two_form: {
           eip2_entry_method: 'did_not_receive',
@@ -19,7 +19,7 @@ describe Ctc::Questions::StimulusTwoController do
       intake.reload
       expect(intake.eip2_amount_received).to eq 0
       expect(intake).to be_eip2_entry_method_did_not_receive
-      expect(response).to redirect_to questions_stimulus_received_path
+      expect(response).to redirect_to questions_stimulus_owed_path
     end
   end
 end
