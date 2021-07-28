@@ -8,6 +8,8 @@ module Ctc
         def self.show?(dependent)
           return false unless dependent
 
+          # For family members like uncle, we need to show the qualifying relative page.
+          # For children, there are special rules that could make them not a qualifying relative, in which case we wouldn't show this page.
           dependent.qualifying_relative_relationship? || disqualified_child_qualified_relative?(dependent)
         end
 

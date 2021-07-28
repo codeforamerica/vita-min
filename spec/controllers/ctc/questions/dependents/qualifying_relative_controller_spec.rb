@@ -95,5 +95,51 @@ describe Ctc::Questions::Dependents::QualifyingRelativeController do
         expect(subject.class.show?(dependent)).to eq true
       end
     end
+
+    context "dependent is around 22 and was a student" do
+      let(:full_time_student) { "yes" }
+      let!(:relationship) { "daughter" }
+      let!(:birth_date) { 22.year.ago }
+
+      it "doesn't shows qualifying relative page" do
+        expect(subject.class.show?(dependent)).to eq false
+      end
+    end
+
+    context "dependent is definitely older than 24 and a fulltime student" do
+      let!(:birth_date) { 30.year.ago }
+      let!(:relationship) { "daughter" }
+      let(:full_time_student) { "yes" }
+
+      it "shows qualifying relative page" do
+        expect(subject.class.show?(dependent)).to eq true
+      end
+    end
+
+    context "dependent is my child who is young and filed taxes with their spouse, has an ITIN/SSN, and no one else supports them" do
+      let!(:birth_date) { 17.year.ago }
+      let!(:relationship) { "daughter" }
+
+      before do
+        dependent.update(provided_over_half_own_support: "no", no_ssn_atin: "no", filed_joint_return: "yes")
+      end
+
+      it "shows qualifying relative page" do
+        expect(subject.class.show?(dependent)).to eq true
+      end
+    end
+
+    context "dependent is my child who is young and didn't file taxes with a spouse, has an ITIN/SSN, and no one else supports them" do
+      let!(:birth_date) { 17.year.ago }
+      let!(:relationship) { "daughter" }
+
+      before do
+        dependent.update(provided_over_half_own_support: "no", no_ssn_atin: "no", filed_joint_return: "no")
+      end
+
+      it "does not show qualifying relative page" do
+        expect(subject.class.show?(dependent)).to eq false
+      end
+    end
   end
 end
