@@ -247,7 +247,7 @@ RSpec.describe AdvCtcIrs1040Pdf do
           "DependentLegalNm[2]" => "Mother Dob",
           "DependentRelationship[2]" => "parent",
           "DependentSSN[2]" => "XXXXX5788",
-          "DependentCTCInd[2]" => "1", # checked
+          "DependentCTCInd[2]" => "1", # unchecked
         ))
       end
     end
