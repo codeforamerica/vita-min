@@ -186,7 +186,6 @@ class MixpanelService
       }
     end
 
-    ##
     # creates Mixpanel data from a request object
     def data_from_request(source, path_exclusions: [])
       user_agent = DeviceDetector.new(source.user_agent)
@@ -210,6 +209,8 @@ class MixpanelService
         full_path: strip_all_from_url(source.fullpath, path_exclusions),
         referrer: strip_all_from_url(source.referrer, path_exclusions),
         referrer_domain: strip_all_from_url((URI.parse(source.referrer).host || "None" rescue "None"), path_exclusions),
+        is_ctc: Routes::CtcDomain.new.matches?(source),
+        domain: source.host,
       }
     end
 
@@ -237,7 +238,7 @@ class MixpanelService
           already_applied_for_stimulus: intake.already_applied_for_stimulus,
       }
     end
-    ##
+
     # creates Mixpanel data from an intake object
     def data_from_intake(intake)
       {

@@ -522,10 +522,13 @@ RSpec.describe ApplicationController do
         locale: "en",
         path: "/anonymous",
         full_path: "/anonymous",
+        is_ctc: false,
+        domain: "test.host",
         controller_name: "Anonymous",
         controller_action: "AnonymousController#index",
-        controller_action_name: "index"
+        controller_action_name: "index",
       }
+
       expect(mixpanel_spy).to have_received(:run).with(
         unique_id: "123",
         event_name: "beep",

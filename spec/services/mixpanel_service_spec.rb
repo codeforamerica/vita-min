@@ -563,6 +563,32 @@ describe MixpanelService do
         end
       end
 
+      context 'when obj is a Request' do
+        let(:data_from_request) { MixpanelService.data_from(request) }
+
+        context "when it is a GYR request" do
+          let(:request) { ActionDispatch::Request.new("HTTP_HOST" => "www.getyourrefund.org") }
+
+          it "returns the expected hash" do
+            expect(data_from_request).to include({
+                                                  is_ctc: false,
+                                                  domain: "www.getyourrefund.org"
+                                                })
+          end
+        end
+
+        context "when it is a CTC request" do
+          let(:request) { ActionDispatch::Request.new("HTTP_HOST" => "www.getctc.org") }
+
+          it "returns the expected hash" do
+            expect(data_from_request).to include({
+                                            is_ctc: true,
+                                            domain: "www.getctc.org"
+                                           })
+          end
+        end
+      end
+
       context 'when obj is a TaxReturn' do
         let(:tax_return) { create :tax_return, year: "2019", certification_level: "basic", service_type: "online_intake", status: "intake_info_requested" }
         let(:data_from_intake) { MixpanelService.data_from(tax_return) }
