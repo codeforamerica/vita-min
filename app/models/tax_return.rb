@@ -102,6 +102,10 @@ class TaxReturn < ApplicationRecord
     )
   end
 
+  def has_submissions?
+    efile_submissions.count.nonzero?
+  end
+
   ##
   # advance the return to a new status, only if that status more advanced.
   # An earlier or equal status will be ignored.
