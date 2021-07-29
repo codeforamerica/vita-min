@@ -319,7 +319,6 @@ class Intake < ApplicationRecord
     }
   }
 
-  # Memoize response into instance variable.
   def tax_return(tax_year)
     tax_returns.find_by(year: tax_year)
   end
