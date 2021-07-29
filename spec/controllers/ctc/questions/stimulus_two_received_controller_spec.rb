@@ -62,7 +62,7 @@ describe Ctc::Questions::StimulusTwoReceivedController do
         before do
           allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_credit).and_return 0
         end
-        
+
         it "redirects to the stimulus received path" do
           post :update, params: params
           expect(response).to redirect_to questions_stimulus_received_path

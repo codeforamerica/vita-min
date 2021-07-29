@@ -3,7 +3,7 @@ class StandardDeduction
 
   def initialize(tax_year:, filing_status:)
     @tax_year = tax_year
-    @filing_status = filing_status.to_sym
+    @filing_status = filing_status&.to_sym
   end
 
   def standard_deduction_2020

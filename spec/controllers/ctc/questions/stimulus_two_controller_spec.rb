@@ -9,7 +9,7 @@ describe Ctc::Questions::StimulusTwoController do
   end
 
   describe "#update" do
-    it "saves 0 as the amount for stimulus 2 and redirects to the stimulus-owed" do
+    it "saves 0 as the amount for stimulus 2 and redirects to stimulus-owed" do
       post :update, params: {
         ctc_stimulus_two_form: {
           eip2_entry_method: 'did_not_receive',

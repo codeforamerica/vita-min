@@ -34,4 +34,10 @@ module PdfHelper
     PdfForms.new.fill_form(source_pdf_path, pdf_tempfile.path, hash_for_pdf)
     pdf_tempfile
   end
+
+  def pdf_mask(string, unmasked_char_count = 0)
+    return string unless string.present?
+
+    string.gsub(/.(?=.{#{unmasked_char_count}})/, 'X')
+  end
 end

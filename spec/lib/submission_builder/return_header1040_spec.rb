@@ -238,7 +238,6 @@ describe SubmissionBuilder::ReturnHeader1040 do
 
         it "includes CheckCd and exclude direct deposit nodes" do
           xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
-
           expect(xml.at("RoutingTransitNum")).to be_nil
           expect(xml.at("DepositorAccountNum")).to be_nil
           expect(xml.at("CheckCd").text).to eq "Check"

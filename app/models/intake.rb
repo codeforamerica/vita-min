@@ -332,6 +332,10 @@ class Intake < ApplicationRecord
     Phonelib.parse(phone_number).local_number
   end
 
+  def formatted_sms_phone_number
+    Phonelib.parse(sms_phone_number).local_number
+  end
+
   # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"
   def standardized_sms_phone_number
     PhoneParser.normalize(sms_phone_number)
