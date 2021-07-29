@@ -269,6 +269,58 @@ RSpec.describe Hub::CtcClientsController do
         expect(SystemNote::ClientChange).to have_received(:generate!).with(initiated_by: user, intake: intake)
       end
 
+      context "when the client's email address has changed" do
+        before do
+          params[:hub_update_ctc_client_form][:email_address] = 'changed@example.com'
+        end
+
+        it "sends a message to the new and old email addresses" do
+          expect do
+            post :update, params: params
+          end.to change(OutgoingEmail, :count).by(2)
+
+          expect(OutgoingEmail.all.map(&:to)).to match_array(['cher@example.com', 'changed@example.com'])
+        end
+
+        context "if the intake was drop off" do
+          before do
+            client.tax_returns.last.update(service_type: :drop_off)
+          end
+
+          it "sends no notifications" do
+            expect do
+              post :update, params: params
+            end.not_to change(OutgoingEmail, :count)
+          end
+        end
+      end
+
+      context "when the client's phone number has changed" do
+        before do
+          params[:hub_update_ctc_client_form][:sms_phone_number] = '4155551234'
+        end
+
+        it "sends a message to the new and old phone numbers" do
+          expect do
+            post :update, params: params
+          end.to change(OutgoingTextMessage, :count).by(2)
+
+          expect(OutgoingTextMessage.all.map(&:to)).to match_array(['(415) 555-1212', '(415) 555-1234'])
+        end
+
+        context "if the intake was drop off" do
+          before do
+            client.tax_returns.last.update(service_type: :drop_off)
+          end
+
+          it "sends no notifications" do
+            expect do
+              post :update, params: params
+            end.not_to change(OutgoingTextMessage, :count)
+          end
+        end
+      end
+
       context "with invalid params" do
         let(:params) {
           {
