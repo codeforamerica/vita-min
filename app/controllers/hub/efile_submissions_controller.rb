@@ -3,7 +3,7 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     authorize_resource
-    load_resource only: [:resubmit]
+    load_resource except: [:index, :show]
     layout "admin"
 
     def index
@@ -22,6 +22,12 @@ module Hub
     def resubmit
       @efile_submission.transition_to!(:resubmitted, { initiated_by_id: current_user.id })
       flash[:notice] = "Resubmission initiated."
+      redirect_to hub_efile_submission_path(id: @efile_submission.tax_return)
+    end
+
+    def cancel
+      @efile_submission.transition_to!(:cancelled, { initiated_by_id: current_user.id })
+      flash[:notice] = "Submission cancelled, tax return marked 'Not filing'."
       redirect_to hub_efile_submission_path(id: @efile_submission.tax_return)
     end
   end
