@@ -41,8 +41,10 @@ module Hub
 
       if @form.valid? && @form.save
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
-        send_email_change_notification if @client.intake.saved_change_to_email_address?
-        send_sms_change_notification if @client.intake.saved_change_to_sms_phone_number?
+        if @client.tax_returns.last.service_type_online_intake?
+          send_email_change_notification if @client.intake.saved_change_to_email_address?
+          send_sms_change_notification if @client.intake.saved_change_to_sms_phone_number?
+        end
         redirect_to hub_client_path(id: @client.id)
       else
         flash[:alert] = I18n.t("forms.errors.general")

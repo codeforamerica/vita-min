@@ -281,6 +281,18 @@ RSpec.describe Hub::CtcClientsController do
 
           expect(OutgoingEmail.all.map(&:to)).to match_array(['cher@example.com', 'changed@example.com'])
         end
+
+        context "if the intake was drop off" do
+          before do
+            client.tax_returns.last.update(service_type: :drop_off)
+          end
+
+          it "sends no notifications" do
+            expect do
+              post :update, params: params
+            end.not_to change(OutgoingEmail, :count)
+          end
+        end
       end
 
       context "when the client's phone number has changed" do
@@ -294,6 +306,18 @@ RSpec.describe Hub::CtcClientsController do
           end.to change(OutgoingTextMessage, :count).by(2)
 
           expect(OutgoingTextMessage.all.map(&:to)).to match_array(['(415) 555-1212', '(415) 555-1234'])
+        end
+
+        context "if the intake was drop off" do
+          before do
+            client.tax_returns.last.update(service_type: :drop_off)
+          end
+
+          it "sends no notifications" do
+            expect do
+              post :update, params: params
+            end.not_to change(OutgoingTextMessage, :count)
+          end
         end
       end
 
