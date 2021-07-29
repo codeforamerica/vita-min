@@ -6,7 +6,7 @@ module Ctc
         layout "intake"
 
         def self.show?(dependent)
-          return false unless dependent
+          return false unless dependent&.relationship
 
           dependent.qualifying_child_relationship? && dependent.meets_qc_age_condition_2020?
         end

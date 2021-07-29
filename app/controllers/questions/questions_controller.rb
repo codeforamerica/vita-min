@@ -68,8 +68,13 @@ module Questions
       true
     end
 
+    def progress_calculator
+      IntakeProgressCalculator
+    end
+    helper_method :progress_calculator
+
     def show_progress?
-      IntakeProgressCalculator.show_progress?(self.class)
+      progress_calculator.show_progress?(self.class)
     end
 
     def question_navigator

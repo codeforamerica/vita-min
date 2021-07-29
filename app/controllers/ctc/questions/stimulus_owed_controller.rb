@@ -9,7 +9,7 @@ module Ctc
         return false if intake.eip1_amount_received.nil? || intake.eip2_amount_received.nil?
         return false if intake.eip1_entry_method_calculated_amount?
 
-        intake.tax_return(2020).outstanding_recovery_rebate_credit > 0
+        (intake.tax_return(2020)&.outstanding_recovery_rebate_credit || 0) > 0
       end
 
       def edit

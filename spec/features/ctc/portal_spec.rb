@@ -25,6 +25,7 @@ RSpec.feature "CTC Intake", active_job: true do
   end
 
   context "when the client has verified the contact, intake is in progress" do
+    let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:tax_return, year: 2020)]), email_address: "mango@example.com"}
     before do
       intake.update(email_address_verified_at: DateTime.now, current_step: "/en/questions/spouse-info")
     end
