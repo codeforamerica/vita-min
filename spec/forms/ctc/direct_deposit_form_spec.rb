@@ -13,6 +13,7 @@ describe Ctc::DirectDepositForm do
         my_bank_account: my_bank_account
     }
   end
+
   context "validations" do
     context "bank_name" do
       context "when not present" do
@@ -52,6 +53,15 @@ describe Ctc::DirectDepositForm do
       expect(bank_account.bank_name).to eq "Bank of America"
       expect(bank_account.account_type).to eq "checking"
       expect(bank_account.intake).to eq intake
+    end
+  end
+
+  describe ".existing_attributes" do
+    context "with an existing bank account" do
+      let(:intake) { create :ctc_intake, bank_account: create(:bank_account, bank_name: "Bank Name") }
+      it "pushes the bank names into the existing attributes" do
+        expect(described_class.existing_attributes(intake)[:bank_name]).to eq "Bank Name"
+      end
     end
   end
 end
