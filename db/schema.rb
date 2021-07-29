@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_27_064058) do
+ActiveRecord::Schema.define(version: 2021_07_29_180640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -146,6 +146,19 @@ ActiveRecord::Schema.define(version: 2021_07_27_064058) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
     t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
+  end
+
+  create_table "client_efile_security_informations", force: :cascade do |t|
+    t.string "browser_language", null: false
+    t.bigint "client_id", null: false
+    t.string "client_system_time", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.string "device_id", null: false
+    t.string "platform", null: false
+    t.string "timezone_offset", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "user_agent", null: false
+    t.index ["client_id"], name: "index_client_efile_security_informations_on_client_id"
   end
 
   create_table "client_success_roles", force: :cascade do |t|
@@ -978,6 +991,7 @@ ActiveRecord::Schema.define(version: 2021_07_27_064058) do
   add_foreign_key "bulk_client_organization_updates", "vita_partners"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
+  add_foreign_key "client_efile_security_informations", "clients"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "documents", "clients"

@@ -11,6 +11,7 @@ module Ctc
                               :timezone
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation
+    set_attributes_for :efile_security_information,:device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time
 
     before_validation :normalize_phone_numbers
 
@@ -22,6 +23,7 @@ module Ctc
     validates :primary_ssn_confirmation, presence: true
     validates :primary_ssn, social_security_number: true, if: -> { primary_tin_type == "ssn" }
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
+    validates_presence_of :device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time
 
     before_validation do
       [primary_ssn, primary_ssn_confirmation].each do |field|
@@ -38,7 +40,11 @@ module Ctc
           source: @intake.source,
           type: @intake.type
       )
-      client = Client.create!(intake_attributes: intake_attributes, tax_returns_attributes: [tax_return_attributes])
+      client = Client.create!(
+        intake_attributes: intake_attributes,
+        tax_returns_attributes: [tax_return_attributes],
+        efile_security_information: Client::EfileSecurityInformation.new(attributes_for(:efile_security_information))
+      )
       @intake = client.intake
     end
 

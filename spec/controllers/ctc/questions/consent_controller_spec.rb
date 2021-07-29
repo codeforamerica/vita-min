@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::ConsentController do
+  let(:intake) { Intake::CtcIntake.new(visitor_id: "visitor-id", source: "some-source") }
 
   before do
     cookies[:visitor_id] = "visitor-id"
