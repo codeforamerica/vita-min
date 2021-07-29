@@ -1172,6 +1172,23 @@ en:
         subject: "Your message has been forwarded to GetYourRefund customer support"
       sms:
         body: "This conversation is being forwarded to our customer service specialists. You should expect to see a message from them at a different email shortly."
+    contact_info_change:
+      sms: |
+        Your phone number has been changed on your GetCTC account.
+
+        If you think that your contact information may have been changed incorrectly, contact support@getctc.org
+
+        We’re here to help!
+        Your tax team at GetCTC.org
+      email:
+        subject: Your contact information on GetCTC
+        body: |
+          Your email address has been changed on your GetCTC account.
+
+          If you think that your contact information may have been changed incorrectly, contact support@getctc.org
+
+          We’re here to help!
+          Your tax team at GetCTC.org
     efile:
       acceptance:
         email:

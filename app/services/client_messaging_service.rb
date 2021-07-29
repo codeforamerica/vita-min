@@ -23,27 +23,27 @@ class ClientMessagingService
       send_email(**args)
     end
 
-    def send_system_email(client:, body:, subject:, tax_return: nil, locale: nil)
-      args = { client: client, body: body, subject: subject, user: nil }
+    def send_system_email(client:, body:, subject:, tax_return: nil, locale: nil, to: nil)
+      args = { client: client, body: body, subject: subject, user: nil, to: to }
       args[:tax_return] if tax_return.present?
       args[:locale] if locale.present?
       send_email(**args)
     end
 
-    def send_text_message(client:, user:, body:, tax_return: nil, locale: nil)
+    def send_text_message(client:, user:, body:, tax_return: nil, locale: nil, to: nil)
       replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: locale }
       replaced_body = ReplacementParametersService.new(**replacement_args).process
       OutgoingTextMessage.create!(
         client: client,
-        to_phone_number: client.sms_phone_number,
+        to_phone_number: to || client.sms_phone_number,
         sent_at: DateTime.now,
         user: user,
         body: replaced_body,
       )
     end
 
-    def send_system_text_message(client:, body:, tax_return: nil, locale: nil)
-      args = { client: client, body: body, user: nil }
+    def send_system_text_message(client:, body:, tax_return: nil, locale: nil, to: nil)
+      args = { client: client, body: body, user: nil, to: to }
       args[:tax_return] = tax_return if tax_return.present?
       args[:locale] = locale if locale.present?
       send_text_message(**args)

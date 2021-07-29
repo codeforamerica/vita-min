@@ -1160,6 +1160,23 @@ es:
         subject: Esta conversación ha sido enviada a los especialistas del servicio al cliente de GetYourRefund
       sms:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
+    contact_info_change:
+      sms: |
+        Su número de teléfono ha sido cambiado en su cuenta de GetCTC.
+
+        Si cree que su información de contacto puede haber sido cambiada incorrectamente, comuníquese con support@getctc.org
+
+        ¡Estamos aquí para ayudar!
+        Su equipo de impuestos en GetCTC.org
+      email:
+        subject: Su información de contacto en GetCTC
+        body: |
+          Su dirección de correo electrónico ha sido cambiada en su cuenta GetCTC.
+
+          Si cree que su información de contacto puede haber sido cambiada incorrectamente, comuníquese con support@getctc.org
+
+          ¡Estamos aquí para ayudar!
+          Su equipo de impuestos en GetCTC.org
     efile:
       acceptance:
         email:
