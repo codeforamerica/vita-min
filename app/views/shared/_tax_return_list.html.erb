@@ -45,7 +45,13 @@
           <% end %>
         <% else %>
           <div>
-            <div class="tax-return-list__status label label--status" data-status="<%= tax_return.status %>"><%= stage_translation_from_status(tax_return.status) %>/<%= status_translation(tax_return.status) %></div>
+            <% if tax_return.has_submissions? %>
+             <%= link_to hub_efile_submission_path(id: tax_return.id) do %>
+                <%= render 'shared/tax_return_status_label', tax_return: tax_return %>
+             <% end %>
+            <% else %>
+             <%= render 'shared/tax_return_status_label', tax_return: tax_return %>
+            <% end %>
           </div>
         <% end %>
       </div>

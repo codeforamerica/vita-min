@@ -14,13 +14,14 @@ class EfileSubmissionStateMachine
   state :accepted
 
   state :resubmitted
+  state :cancelled
 
   transition from: :new,          to: [:preparing]
   transition from: :preparing,    to: [:queued, :failed]
   transition from: :queued,       to: [:transmitted, :failed]
   transition from: :transmitted,  to: [:accepted, :rejected]
-  transition from: :failed,       to: [:resubmitted]
-  transition from: :rejected,     to: [:resubmitted]
+  transition from: :failed,       to: [:resubmitted, :cancelled]
+  transition from: :rejected,     to: [:resubmitted, :cancelled]
   transition from: :resubmitted,  to: [:preparing]
 
   after_transition(to: :preparing) do |submission|
@@ -75,5 +76,9 @@ class EfileSubmissionStateMachine
       @new_submission = submission.tax_return.efile_submissions.create!
       @new_submission.transition_to!(:preparing, previous_submission_id: submission.id)
     end
+  end
+
+  after_transition(to: :cancelled) do |submission|
+    submission.tax_return.update(status: "file_not_filing")
   end
 end
