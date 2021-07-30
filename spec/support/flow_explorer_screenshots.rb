@@ -31,19 +31,23 @@ class FlowExplorerScreenshots
     recognized_path = Rails.application.routes.recognize_path(Capybara.page.current_path)
     controller_class = (recognized_path[:controller].camelize + 'Controller').constantize rescue nil
     if controller_class && recognized_path[:action].to_sym == :edit
-      create_controller_card_screenshot(controller_class, locale: :en)
-      create_controller_card_screenshot(controller_class, locale: :es)
+      if ENV['FLOW_EXPLORER_LOCALE'].present?
+        create_controller_card_screenshot(controller_class, locale: ENV['FLOW_EXPLORER_LOCALE'].to_sym)
+      else
+        create_controller_card_screenshot(controller_class, locale: :en, switch_locale: true)
+        create_controller_card_screenshot(controller_class, locale: :es, switch_locale: true)
+      end
     end
   end
 
-  def self.create_controller_card_screenshot(controller_class, locale:)
+  def self.create_controller_card_screenshot(controller_class, locale:, switch_locale: false)
     FileUtils.mkdir_p(Rails.root.join("public/assets/flow_screenshots/#{locale}"))
     screenshot_path = Rails.root.join("public/assets/flow_screenshots/#{locale}/#{controller_class}.png")
     if File.exist?(screenshot_path) && File.mtime(screenshot_path) > 3.hours.ago
       return
     end
 
-    if locale == :es
+    if locale == :es && switch_locale
       Capybara.page.find('.main-header').click_link("Español", no_screenshot: true)
     end
 
@@ -58,7 +62,7 @@ class FlowExplorerScreenshots
     image.crop "#{card_rect['width'] + padding * 2}x#{card_rect['height'] + padding * 2}+#{card_rect['x'] - padding}+#{card_rect['y'] - padding}"
     puts "Saved new screenshot to #{screenshot_path}"
 
-    if locale == :es
+    if locale == :es && switch_locale
       Capybara.page.find('.main-header').click_link('English', no_screenshot: true)
     end
   end

@@ -1,6 +1,14 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
+RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true do
+  def strip_inner_newlines(text)
+    text.gsub(/\n/, '')
+  end
+
+  def strip_html_tags(text)
+    ActionController::Base.helpers.strip_tags(text)
+  end
+
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
@@ -37,9 +45,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.cell_phone_number.title'))
-    expected_error = I18n.t('views.ctc.questions.cell_phone_number.must_receive_texts_html')
-    expect(page).to have_selector(".text--error", text: ActionView::Base.full_sanitizer.sanitize(expected_error))
-    click_on Nokogiri::HTML(expected_error).css('a').text
+    within ".text--error" do
+      expect(strip_inner_newlines(page.text)).to eq(strip_inner_newlines(strip_html_tags(I18n.t('views.ctc.questions.cell_phone_number.must_receive_texts_html'))))
+    end
+
+    click_on Nokogiri::HTML(I18n.t('views.ctc.questions.cell_phone_number.must_receive_texts_html')).css('a').text
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.email_address.title'))
     fill_in I18n.t('views.questions.email_address.email_address'), with: "mango@example.com"
@@ -108,8 +118,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_info.title'))
     click_on I18n.t('views.ctc.questions.spouse_info.remove_button')
 
-    remove_confirmation = I18n.t("views.ctc.questions.remove_spouse.title_html", spouse_name: "Peter Pepper")
-    expect(page).to have_selector("h1", text: ActionView::Base.full_sanitizer.sanitize(remove_confirmation))
+    within "h1" do
+      expect(strip_inner_newlines(page.text)).to eq(strip_inner_newlines(strip_html_tags(I18n.t("views.ctc.questions.remove_spouse.title_html", spouse_name: "Peter Pepper"))))
+    end
+
     click_on I18n.t('views.ctc.questions.remove_spouse.nevermind_button')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_review.title'))
@@ -117,10 +129,16 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
 
     # =========== DEPENDENTS ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.had_dependents.title'))
+    if Capybara.current_driver == Capybara.javascript_driver
+      page.execute_script("document.querySelector('.reveal').remove()")
+    end
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.no_dependents.title'))
     click_on I18n.t('general.back')
+    if Capybara.current_driver == Capybara.javascript_driver
+      page.execute_script("document.querySelector('.reveal').remove()")
+    end
     click_on I18n.t('general.affirmative')
 
     dependent_birth_year = 22.years.ago.year
@@ -152,7 +170,9 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true do
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
     click_on I18n.t('views.ctc.questions.dependents.tin.remove_person')
 
-    expect(page).to have_selector("h1", text: ActionView::Base.full_sanitizer.sanitize(I18n.t('views.ctc.questions.dependents.remove_dependent.title_html', dependent_name: 'Jessie')))
+    within "h1" do
+      expect(strip_inner_newlines(page.text)).to eq(strip_inner_newlines(strip_html_tags(I18n.t("views.ctc.questions.dependents.remove_dependent.title_html", dependent_name: "Jessie"))))
+    end
     click_on I18n.t('views.ctc.questions.dependents.remove_dependent.nevermind_button')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))

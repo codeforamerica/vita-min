@@ -183,7 +183,7 @@ There's a publicly accessible page (on demo and dev environments) at /flows that
 
 The flows page tries to show a preview screenshot from each page, captured during specialized capybara runs. To capture updated screenshots:
 
-`rspec --tag flow_explorer_screenshot spec`
+`rake flow_explorer:capture_screenshots`
 
 They'll be dumped into `public/assets/flow_explorer_screenshots` locally.
 
