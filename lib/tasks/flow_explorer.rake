@@ -1,10 +1,13 @@
 namespace :flow_explorer do
   desc "Capture flow explorer screenshots by running specialized Capybara runs"
   task capture_screenshots: :environment do |_task|
+    # We run specs in spec/features/ctc because the GYR specs sometimes fail.
+    # TODO(someday): Remove "spec/features/ctc" from command lines below so we generate screenshots from
+    # any spec marked flow_explorer_screenshot: true or flow_explorer_screenshot_i18n_friendly: true.
     [
-      "rspec --tag flow_explorer_screenshot",
-      "FLOW_EXPLORER_LOCALE=en rspec --tag flow_explorer_screenshot_i18n_friendly spec",
-      "FLOW_EXPLORER_LOCALE=es rspec --tag flow_explorer_screenshot_i18n_friendly spec",
+      "rspec --tag flow_explorer_screenshot spec/features/ctc",
+      "FLOW_EXPLORER_LOCALE=en rspec --tag flow_explorer_screenshot_i18n_friendly spec/features/ctc",
+      "FLOW_EXPLORER_LOCALE=es rspec --tag flow_explorer_screenshot_i18n_friendly spec/features/ctc",
     ].each do |cmd|
       puts "RUNNING: #{cmd}"
       system(cmd)
@@ -31,7 +34,7 @@ namespace :flow_explorer do
           body: File.open(screenshot_path),
           bucket: "vita-min-flow-explorer-screenshots",
           key: File.join(locale.to_s, File.basename(screenshot_path)),
-          acl: "public-read"
+          acl: "public-read",
         )
       end
     end

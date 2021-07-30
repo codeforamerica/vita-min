@@ -118,6 +118,16 @@ jobs:
       - run: git config --global user.name CircleCI && git config --global user.email circleci@example.com
       - run: cd /tmp/walkthroughs && git rm -r * && cp -a $OLDPWD/public/* . && mv walkthroughs/* . && git add . && git commit -m Automatic && git push
     parallelism: 1
+  flow_explorer_screenshots:
+    executor: ruby_executor
+    steps:
+      - checkout
+      - install_js_dependencies
+      - install_system_dependencies
+      - install_ruby_dependencies
+      - setup_test_db
+      - run: bundle exec rake assets:precompile
+      - run: bundle exec rake flow_explorer:capture_screenshots flow_explorer:upload_screenshots
   deploy_to_aptible--demo:
     executor: ruby_executor
     steps:
@@ -150,8 +160,23 @@ workflows:
           filters:
             branches:
               only: [circleci-update-walkthroughs]
+      - flow_explorer_screenshots:
+          requires: [run_js_tests, run_ruby_tests]
+          filters:
+            branches:
+              only: [circleci-update-flow-explorer-screenshots]
       - deploy_to_aptible--production:
           requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: release
+  daily:
+    triggers:
+      - schedule:
+          cron: "19 0 * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - flow_explorer_screenshots
