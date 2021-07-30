@@ -9,6 +9,10 @@ module Ctc
         "ctc"
       end
 
+      def progress_calculator
+        CtcIntakeProgressCalculator
+      end
+
       def question_navigator
         CtcQuestionNavigation
       end

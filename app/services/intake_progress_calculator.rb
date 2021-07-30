@@ -11,7 +11,7 @@ class IntakeProgressCalculator
     POSSIBLE_STEPS.include? controller_class
   end
 
-  def self.get_progress(controller, intake)
+  def self.get_progress(controller, current_controller)
     return 0 if controller == POSSIBLE_STEPS.first
 
     # The DependentsController is not in the QuestionsFlow, so we hold progress at the HadDependentsController until they move on
@@ -21,12 +21,13 @@ class IntakeProgressCalculator
 
     # From the Documents::OverviewController the user has the option to go add any relevant but optional documents
     # Pin the progress bar to the OverviewController for these optional document controllers
+    intake = current_controller.visitor_record
     if !controller.show?(intake) && controller.respond_to?(:document_type) && controller.document_type.relevant_to?(intake)
       controller = Documents::OverviewController
     end
 
     steps_for_intake = POSSIBLE_STEPS.select do |controller_step|
-      controller_step.show?(intake)
+      controller_step.show?(controller_step.model_for_show_check(current_controller))
     end
     current_index = steps_for_intake.index(controller)
 

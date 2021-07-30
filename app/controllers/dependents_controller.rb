@@ -51,6 +51,11 @@ class DependentsController < ApplicationController
     true
   end
 
+  def progress_calculator
+    IntakeProgressCalculator
+  end
+  helper_method :progress_calculator
+
   def next_path
     dependent_care_questions_path
   end

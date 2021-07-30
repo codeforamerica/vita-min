@@ -6,7 +6,7 @@ module Ctc
         layout "yes_no_question"
 
         def self.show?(dependent)
-          return false unless dependent
+          return false unless dependent&.relationship
 
           # For family members like uncle, we need to show the qualifying relative page.
           # For children, there are special rules that could make them not a qualifying relative, in which case we wouldn't show this page.
