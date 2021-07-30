@@ -14,19 +14,19 @@
 #
 FactoryBot.define do
   factory :efile_submission do
-    tax_return
+    transient do
+      tax_year { 2020 }
+      filing_status { "single" }
+      metadata {}
+    end
+    tax_return { create :tax_return, :ctc, year: tax_year, filing_status: filing_status }
 
     trait :ctc do
-      transient do
-        tax_year { 2020 }
-        filing_status { "single" }
-        metadata {}
-      end
-      tax_return { create(:tax_return, :ctc, year: tax_year, filing_status: filing_status) }
       after :create do |submission|
         create :address, record: submission
       end
     end
+
 
     EfileSubmissionStateMachine.states.each do |state|
       trait state.to_sym do
