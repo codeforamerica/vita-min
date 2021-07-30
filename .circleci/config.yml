@@ -119,7 +119,7 @@ jobs:
       - run: cd /tmp/walkthroughs && git rm -r * && cp -a $OLDPWD/public/* . && mv walkthroughs/* . && git add . && git commit -m Automatic && git push
     parallelism: 1
   flow_explorer_screenshots:
-    executor: ruby_executor
+    executor: rails_executor
     steps:
       - checkout
       - install_js_dependencies
@@ -161,7 +161,6 @@ workflows:
             branches:
               only: [circleci-update-walkthroughs]
       - flow_explorer_screenshots:
-          requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: [circleci-update-flow-explorer-screenshots]
