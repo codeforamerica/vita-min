@@ -1364,7 +1364,7 @@ en:
             save_person: Save this person
             remove_person: Remove this person
           remove_dependent:
-            title_html: You're about to remove %{dependent_name}.</br></br>Is that okay?
+            title_html: You're about to remove %{dependent_name}.<br><br>Is that okay?
             remove_button: Yes, remove them
             nevermind_button: Nevermind, let's save them
           info:
@@ -1544,7 +1544,7 @@ en:
           spouse_birthday: "Date of birth: %{dob}"
           spouse_ssn: "SSN: XXX-XX-%{ssn}"
         remove_spouse:
-          title_html: You're about to remove %{spouse_name}.</br></br>Is that okay?
+          title_html: You're about to remove %{spouse_name}.<br><br>Is that okay?
           remove_button: Yes, remove them
           nevermind_button: Nevermind, let's save them
         filed_2020:
