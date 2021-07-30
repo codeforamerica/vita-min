@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true, js: true do
+RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true do
   def strip_inner_newlines(text)
     text.gsub(/\n/, '')
   end
