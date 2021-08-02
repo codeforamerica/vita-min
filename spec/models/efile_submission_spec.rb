@@ -69,9 +69,6 @@ describe EfileSubmission do
   end
 
   context "transitions" do
-    before do
-      allow(ClientPdfDocument).to receive(:create_or_update)
-    end
     context "new" do
       let(:submission) { create :efile_submission }
       context "can transition to" do
@@ -93,7 +90,6 @@ describe EfileSubmission do
       let(:submission) { create :efile_submission, :preparing }
       before do
         address_service_double = double
-        allow(ClientPdfDocument).to receive(:create_or_update)
         allow_any_instance_of(EfileSubmission).to receive(:generate_irs_address).and_return(address_service_double)
         allow(address_service_double).to receive(:valid?).and_return true
         allow_any_instance_of(EfileSubmission).to receive(:submission_bundle).and_return "fake_zip"
@@ -174,38 +170,6 @@ describe EfileSubmission do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
         end
-      end
-    end
-  end
-
-  describe "#generate_form_1040_pdf" do
-    let(:submission) { create :efile_submission, :ctc }
-    let(:output_double) { double }
-    let(:tempfile) { double }
-    before do
-      allow(ClientPdfDocument).to receive(:create_or_update)
-      allow(AdvCtcIrs1040Pdf).to receive(:new).and_return(output_double)
-      allow(output_double).to receive(:output_file).and_return tempfile
-    end
-
-    it "calls the Client PDF creator with the right arguments" do
-      submission.generate_form_1040_pdf
-      expect(ClientPdfDocument).to have_received(:create_or_update).with(
-        filename: "IRS 1040 - TY 2020 - MANUAL",
-        output_file: tempfile,
-        document_type: DocumentTypes::Form1040,
-        client: submission.client,
-        tax_return: submission.tax_return
-      )
-    end
-
-    context "when a status is passed in" do
-      it "uses the passed status to create the file name" do
-        submission.generate_form_1040_pdf("rejected")
-        expect(ClientPdfDocument).to have_received(:create_or_update).with(hash_including(
-           filename: "IRS 1040 - TY 2020 - REJECTED"
-          )
-        )
       end
     end
   end

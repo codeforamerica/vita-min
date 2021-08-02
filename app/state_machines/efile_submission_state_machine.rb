@@ -45,14 +45,12 @@ class EfileSubmissionStateMachine
   after_transition(to: :rejected) do |submission|
     # Add note with rejection reason to client notes
     # Use transition metadata error code and reason to determine whether it is an eng or VITA problem.
-    submission.generate_form_1040_pdf("rejected")
     submission.client.flag!
     submission.tax_return.update(status: "file_rejected")
   end
 
   after_transition(to: :accepted) do |submission|
     # Add a note to client page
-    submission.generate_form_1040_pdf("accepted")
     client = submission.client
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: client,
