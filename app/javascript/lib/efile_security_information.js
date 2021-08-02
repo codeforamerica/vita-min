@@ -8,6 +8,8 @@ export function getEfileSecurityInformation() {
         var stringtohash = components.map(function (pair) { return pair.value }).join('###')
         let encrypted_device_id =  CryptoJS.SHA1(stringtohash);
         alert(encrypted_device_id)
+
+        // do everything you need to do with the component data here.
     });
 }
 
