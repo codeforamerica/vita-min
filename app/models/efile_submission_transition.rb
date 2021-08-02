@@ -31,15 +31,25 @@ class EfileSubmissionTransition < ApplicationRecord
     User.find(metadata["initiated_by_id"])
   end
 
-  def error_message
-    metadata["error_message"]
-  end
+  def stored_errors
+    return [] unless rejection_parser.present? || metadata["error_code"] || metadata["error_message"]
 
-  def error_code
-    metadata["error_code"]
+    # coerce error_message/error_code style metadata into Efile::Error object format.
+    return [Efile::Error.new(
+      code: metadata["error_code"],
+      message: metadata["error_message"]
+    )] if metadata["error_message"].present? || metadata["error_code"].present?
+
+    rejection_parser.errors
   end
 
   private
+
+  def rejection_parser
+    return unless to_state == "rejected" && metadata["raw_response"]
+
+    @rejection_parser ||= Efile::SubmissionRejectionParser.new(metadata["raw_response"])
+  end
 
   # If a transition is deleted, make the new last transition
   # the "most recent" to maintain proper functionality of most_recent? method.

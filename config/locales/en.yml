@@ -1205,6 +1205,29 @@ en:
           Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS which means that they can begin processing your payments.
 
           You can check the status of your payments with the IRS at https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+      rejected:
+        email:
+          body: |
+            Hello <<Client.PreferredName>>,
+
+            Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS for the following reason:
+
+            %{error_code}: %{error_message}
+
+            Sign in to see next steps for correcting your tax information: <<Client.LoginLink>>
+
+            If you have any questions, you can go to GetCTC.org and open a chat with a tax expert or email support@getctc.org.
+
+            We’re here to help!
+            Your tax team at GetCTC.org
+          subject: Thank you for filing your taxes with GetCTC!
+        sms: |
+          Hello <<Client.PreferredName>>,
+          Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS for the following reason:
+          %{error_code}: %{error_message}
+          Sign in to see next steps for correcting your tax information: <<Client.LoginLink>>
+          Respond to this message if you have any questions. We’re here to help!
+
       preparing:
         email:
           body: |

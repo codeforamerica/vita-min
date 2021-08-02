@@ -8,17 +8,22 @@ module Hub
     before_action :require_sign_in
 
     def index
-      message_classes = [
-        AutomatedMessage::GettingStarted,
-        AutomatedMessage::SuccessfulSubmissionDropOff,
-        AutomatedMessage::SuccessfulSubmissionOnlineIntake,
-        AutomatedMessage::InProgressSurvey,
-        AutomatedMessage::CompletionSurvey,
-        AutomatedMessage::DocumentsReminderLink,
+      messages = [
+          [AutomatedMessage::GettingStarted, {}],
+          [AutomatedMessage::SuccessfulSubmissionDropOff, {}],
+          [AutomatedMessage::SuccessfulSubmissionOnlineIntake, {}],
+          [AutomatedMessage::InProgressSurvey, {}],
+          [AutomatedMessage::CompletionSurvey, {}],
+          [AutomatedMessage::DocumentsReminderLink, {}],
+          [AutomatedMessage::EfileAcceptance, {}],
+          [AutomatedMessage::EfilePreparing, {}],
+          [AutomatedMessage::EfileRejected, { error_code: "IRS-10980S", error_message: "The SSN provided does not match the Legal Name the IRS has on file." }],
       ]
 
-      @messages = message_classes.map do |message_class|
-        message_class.new
+      @messages = messages.map do |message|
+        message_class = message[0]
+        args = message[1]
+        args.present? ? message_class.new(args) : message_class.new
       end
     end
   end

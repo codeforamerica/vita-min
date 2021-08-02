@@ -5,17 +5,19 @@
     <% if transition.initiated_by.present? %>
       <div>Initiated by: <%= transition.initiated_by.name %></div>
     <% end %>
-    <div>
-      <strong><%= "#{transition.error_code}" if transition.error_code.present? %></strong>
-      <% if transition.error_message.present? %>
-        <% if transition.error_message.respond_to?(:each) %>
-          <%= transition.error_message.each do |message| %>
-            <div><%= message %></div>
+    <% transition.stored_errors.each do |error| %>
+        <div>
+          <strong><%= "#{error.code}" if error.code.present? %></strong>
+          <% if error.message.present? %>
+            <% if error.message.respond_to?(:each) %>
+              <%= error.message.each do |message| %>
+                <div><%= message %></div>
+              <% end %>
+            <% else %>
+              <%= error.message %>
+            <% end %>
           <% end %>
-        <% else %>
-          <%= transition.error_message %>
-        <% end %>
-      <% end %>
-    </div>
+        </div>
+    <% end %>
   </div>
 </li>
