@@ -18,9 +18,7 @@
 *
 * Script modified by Internal Revenue Service, rev. date August 3, 2020 (TY2020). Excluded certain components due to known issues on various platforms, as noted in the code below.
 */
-/* global define */
 export default function init() {
-
     if (typeof Array.isArray === 'undefined') {
         Array.isArray = function (obj) {
             return Object.prototype.toString.call(obj) === '[object Array]'

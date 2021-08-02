@@ -1,4 +1,4 @@
-import initFingerprint2 from "../vendor/IRS_fingerprint2_2_1_2.js";
+import initFingerprint2 from "../vendor/IRS_fingerprint2_2_1_2";
 import initCryptoJS from "../vendor/sha1";
 
 export function getEfileSecurityInformation() {
