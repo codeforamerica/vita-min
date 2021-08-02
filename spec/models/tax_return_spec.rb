@@ -122,7 +122,7 @@ describe TaxReturn do
     let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
     let(:intake) { tax_return.intake }
     before do
-      allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
+      allow(intake).to receive(:rrc_eligible_filer_count).and_return(1)
       allow_any_instance_of(Dependent).to receive(:eligible_for_eip1?).and_return true
       allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due)
     end
@@ -138,7 +138,7 @@ describe TaxReturn do
     let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
     let(:intake) { tax_return.intake }
     before do
-      allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
+      allow(intake).to receive(:rrc_eligible_filer_count).and_return(1)
       allow_any_instance_of(Dependent).to receive(:eligible_for_eip2?).and_return true
       allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due)
     end
@@ -170,79 +170,6 @@ describe TaxReturn do
       end
     end
   end
-
-  describe "#rrc_eligible_filer_count" do
-    context "when filing status is single" do
-      let(:intake) { create :ctc_intake, primary_tin_type: :itin }
-      let(:tax_return) { create(:tax_return, year: 2020, filing_status: :single, client: intake.client) }
-      context "when the primary is using an ITIN" do
-        it "filer_count is 0" do
-          expect(tax_return.rrc_eligible_filer_count).to eq 0
-        end
-      end
-
-      context "when the primary is using an SSN" do
-        let(:intake) { create :ctc_intake, primary_tin_type: :ssn }
-        let(:tax_return) { create(:tax_return, year: 2020, filing_status: :single, client: intake.client) }
-        it "filer count is 1" do
-          expect(tax_return.rrc_eligible_filer_count).to eq 1
-        end
-      end
-    end
-
-    context "when filing with a spouse" do
-      let(:tax_return) { create(:tax_return, year: 2020, filing_status: :married_filing_jointly, client: intake.client) }
-      let(:spouse_military) { "no" }
-      let(:primary_military) { "no" }
-      let(:primary_tin_type) { "itin" }
-      let(:spouse_tin_type) { "itin"}
-      let(:intake) do
-        create :ctc_intake,
-               spouse_active_armed_forces: spouse_military,
-               primary_active_armed_forces: primary_military,
-               spouse_tin_type: spouse_tin_type,
-               primary_tin_type: primary_tin_type
-      end
-
-      context "when a spouse is part of the armed forces" do
-        let(:spouse_military) { "yes" }
-        it "has a filer count of 2" do
-          expect(tax_return.rrc_eligible_filer_count).to eq 2
-        end
-      end
-
-      context "when primary is part of the armed forces" do
-        let(:primary_military) { "yes" }
-
-        it "has a filer count of 2" do
-          expect(tax_return.rrc_eligible_filer_count).to eq 2
-        end
-      end
-
-      context "when primary is using an ssn and spouse is using ITIN" do
-        let(:primary_tin_type) { "ssn" }
-
-        it "has a filer count of one" do
-          expect(tax_return.rrc_eligible_filer_count).to eq 1
-        end
-      end
-
-      context "when primary is using an ITIN and spouse is using SSN" do
-        let(:spouse_tin_type) { "ssn" }
-
-        it "has a filer count of one" do
-          expect(tax_return.rrc_eligible_filer_count).to eq 1
-        end
-      end
-
-      context "when both are using ITIN" do
-        it "has a filer count of 0" do
-          expect(tax_return.rrc_eligible_filer_count).to eq 0
-        end
-      end
-    end
-  end
-
 
   describe "#qualifying_dependents" do
     let(:tax_return) { create :tax_return, year: 2019 }

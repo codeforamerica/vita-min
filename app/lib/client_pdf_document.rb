@@ -1,5 +1,5 @@
 class ClientPdfDocument
-  def self.create_or_update(output_file:, document_type: , client:, filename: , tax_return: nil)
+  def self.create_or_update(output_file:, document_type: , client:, filename: )
     tempfile = output_file
     tempfile.seek(0)
     document = client.documents.find_or_initialize_by(document_type: document_type.key)
@@ -11,8 +11,7 @@ class ClientPdfDocument
           filename: filename,
           content_type: "application/pdf",
           identify: false
-      },
-      tax_return: tax_return
+      }
     )
     document
   end
