@@ -9,7 +9,7 @@ import { initStateRoutingsListeners } from "../lib/state_routings";
 import tooltip from "../components/tooltip";
 import { initTaggableNote, initMultiSelectVitaPartner } from '../lib/tagging';
 import { initBulkAction } from "../lib/bulk_action";
-
+import { initEfileSecurityInformation } from "../lib/efile_security_information";
 const Listeners =  (function(){
     return {
         init: function () {
@@ -23,6 +23,7 @@ const Listeners =  (function(){
                 if (window.appData.controller_action == "Hub::Users::InvitationsController#edit") {
                     helpers.setDefaultTimezone();
                 }
+
                 if (window.appData.controller_action == "Hub::MessagesController#index") {
                     consumer.subscriptions.create(getChannelName(window.location.href), callback);
                 }
@@ -38,6 +39,11 @@ const Listeners =  (function(){
                 if(["Hub::StateRoutingsController#edit", "Hub::StateRoutingsController#update"].includes(window.appData.controller_action)) {
                     initStateRoutingsListeners();
                 }
+
+                if(window.appData.controller_action == "Ctc::Questions::ConsentController#edit") {
+                    initEfileSecurityInformation();
+                }
+
                 if (document.querySelector('.taggable-note')) {
                     initTaggableNote();
                 }

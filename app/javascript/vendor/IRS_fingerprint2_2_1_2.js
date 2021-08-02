@@ -24,7 +24,6 @@
     if (typeof window !== 'undefined' && typeof define === 'function' && define.amd) { define(definition) } else if (typeof module !== 'undefined' && module.exports) { module.exports = definition() } else if (context.exports) { context.exports = definition() } else { context[name] = definition() }
 })('Fingerprint2', this, function () {
     'use strict'
-
     // detect if object is array
     // only implement if no native implementation is available
     if (typeof Array.isArray === 'undefined') {
@@ -1198,7 +1197,6 @@
 
         chainComponents(false)
     }
-
     Fingerprint2.VERSION = '2.1.2'
     return Fingerprint2
 })

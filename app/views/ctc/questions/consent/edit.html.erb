@@ -28,6 +28,12 @@
       <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.legal_consent.sms_phone_number"), classes: ["form-width--long"]) %>
       <%= f.hidden_field(:timezone) %>
+      <%= f.hidden_field(:device_id) %>
+      <%= f.hidden_field(:user_agent) %>
+      <%= f.hidden_field(:browser_language) %>
+      <%= f.hidden_field(:platform) %>
+      <%= f.hidden_field(:timezone_offset) %>
+      <%= f.hidden_field(:client_system_time) %>
 
     </div>
 
@@ -37,11 +43,25 @@
   <% end %>
 <% end %>
 
-<% content_for :script do %>
-  <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        document.getElementById('ctc_consent_form_timezone').value = timezone;
-      });
-  </script>
-<% end %>
+
+<%# content_for :script do %>
+<!--  <script src="../../../../javascript/lib/IRS_fingerprint2_2_1_2.js"></script>-->
+<!--  <script src="../../../../javascript/lib/sha1.js" type="text/javascript"></script>-->
+<!--  <script>-->
+
+<!--      document.addEventListener("DOMContentLoaded", function() {-->
+<!--          var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;-->
+<!--          document.getElementById('ctc_consent_form_timezone').value = timezone;-->
+
+<!--          //client::efile_security_information-->
+<!--          document.getElementById('ctc_consent_form_device_id').value = fingerprintReport() ||"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"; //-->
+<!--          console.log(fingerprintReport());-->
+<!--          document.getElementById('ctc_consent_form_user_agent').value = navigator.userAgent;-->
+<!--          document.getElementById('ctc_consent_form_browser_language').value = navigator.language;-->
+<!--          document.getElementById('ctc_consent_form_platform').value = navigator.platform;-->
+<!--          var loadDate = loadDate = new Date();-->
+<!--          document.getElementById('ctc_consent_form_client_system_time').value = loadDate.toISOString();-->
+<!--          document.getElementById('ctc_consent_form_timezone_offset').value = loadDate.getTimezoneOffset();-->
+<!--      });-->
+<!--  </script>-->
+<%# end %>
