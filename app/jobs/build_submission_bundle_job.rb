@@ -7,6 +7,13 @@ class BuildSubmissionBundleJob < ApplicationJob
       return
     end
 
+    begin
+      submission.generate_form_1040_pdf
+    rescue
+      submission.transition_to!(:failed, error_message: "Could not generate PDF Form 1040.")
+      raise
+    end
+
     response = SubmissionBundle.build(submission, documents: ["adv_ctc_irs1040"])
     if response.valid?
       submission.transition_to!(:queued)

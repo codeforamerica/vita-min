@@ -5,6 +5,7 @@ module DocumentTypes
     DocumentTypes::SsnItin,
     DocumentTypes::Employment,
     DocumentTypes::FinalTaxDocument,
+    DocumentTypes::Form1040,
     DocumentTypes::Form1095A,
     DocumentTypes::Form1098,
     DocumentTypes::Form1098E,

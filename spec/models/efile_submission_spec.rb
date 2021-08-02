@@ -69,6 +69,9 @@ describe EfileSubmission do
   end
 
   context "transitions" do
+    before do
+      allow(ClientPdfDocument).to receive(:create_or_update)
+    end
     context "new" do
       let(:submission) { create :efile_submission }
       context "can transition to" do
@@ -90,6 +93,7 @@ describe EfileSubmission do
       let(:submission) { create :efile_submission, :preparing }
       before do
         address_service_double = double
+        allow(ClientPdfDocument).to receive(:create_or_update)
         allow_any_instance_of(EfileSubmission).to receive(:generate_irs_address).and_return(address_service_double)
         allow(address_service_double).to receive(:valid?).and_return true
         allow_any_instance_of(EfileSubmission).to receive(:submission_bundle).and_return "fake_zip"
@@ -171,6 +175,24 @@ describe EfileSubmission do
           end
         end
       end
+    end
+  end
+
+  describe "#generate_form_1040_pdf" do
+    let(:submission) { create :efile_submission, :ctc }
+    let(:example_pdf) { File.open(Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), "rb") }
+
+    before do
+      allow(AdvCtcIrs1040Pdf).to receive(:new).and_return(instance_double(AdvCtcIrs1040Pdf, output_file: example_pdf))
+    end
+
+    it "generates and stores the 1040 PDF" do
+      expect { submission.generate_form_1040_pdf }.to change(Document, :count).by(1)
+      doc = submission.client.documents.last
+      expect(doc.display_name).to eq("IRS 1040 - TY 2020 - #{submission.irs_submission_id}.pdf")
+      expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
+      expect(doc.tax_return).to eq(submission.tax_return)
+      expect(doc.upload.blob.download).to eq(File.open(Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), "rb").read)
     end
   end
 

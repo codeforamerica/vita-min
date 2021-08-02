@@ -266,7 +266,6 @@ class Intake < ApplicationRecord
   belongs_to :vita_partner, optional: true
   accepts_nested_attributes_for :dependents, allow_destroy: true
   scope :completed_yes_no_questions, -> { where.not(completed_yes_no_questions_at: nil) }
-
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, :sms_phone_number, allow_blank: true, e164_phone: true
   validates_presence_of :visitor_id
