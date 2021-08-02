@@ -101,7 +101,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         it "shows my coalition and child organizations but no link to add or edit orgs" do
           get :index
           expect(response).to be_ok
-          expect(assigns(:organizations_by_coalition)).to match_array [[coalition, [organization, second_organization]]]
+          expect(assigns(:organizations_by_coalition)).to match([[coalition, match_array([organization, second_organization])]])
           expect(response.body).to include hub_organization_path(id: organization)
           expect(response.body).not_to include new_hub_organization_path
           expect(response.body).not_to include edit_hub_organization_path(id: organization)
