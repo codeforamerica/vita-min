@@ -31,6 +31,9 @@ describe Efile::PollForAcknowledgmentsService do
 
         context "and it is a rejection" do
           let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_rejection.xml").read }
+          before do
+            allow(ClientPdfDocument).to receive(:create_or_update) # stub pdf creation in status change callback
+          end
 
           it "changes the state from transmitted to rejected" do
             Efile::PollForAcknowledgmentsService.run
