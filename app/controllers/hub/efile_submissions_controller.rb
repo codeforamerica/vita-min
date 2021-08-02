@@ -8,6 +8,7 @@ module Hub
 
     def index
       @efile_submissions = EfileSubmission.most_recent_by_tax_return.page(params[:page])
+      @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
     end
 
     # a little bit unexpectedly, the "show" page actually loads the tax return will all associated submissions

@@ -1,11 +1,12 @@
 class ReplacementParametersService
-  attr_accessor :body, :client, :preparer_user, :locale, :tax_return
+  attr_accessor :body, :client, :preparer_user, :locale, :tax_return, :intake
 
-  delegate :new_portal_client_login_url, to: "Rails.application.routes.url_helpers"
+  delegate :new_portal_client_login_url, :new_ctc_portal_client_login_url, to: "Rails.application.routes.url_helpers"
 
   def initialize(body:, client:, preparer: nil, tax_return: nil, locale: nil)
     @body = body
     @client = client
+    @intake = client.intake
     @tax_return = tax_return
     @preparer_user = preparer
     @locale = locale || "en"
@@ -32,7 +33,7 @@ class ReplacementParametersService
         "Client.PreferredName": client&.preferred_name&.titleize,
         "Preparer.FirstName": preparer_first_name,
         "Documents.List": documents_list,
-        "Client.LoginLink": new_portal_client_login_url(locale: @locale),
+        "Client.LoginLink": intake.is_ctc? ? new_ctc_portal_client_login_url(locale: @locale, host: Rails.configuration.ctc_url) : new_portal_client_login_url(locale: @locale),
         "Link.E-signature": new_portal_client_login_url(locale: @locale),
         "GetYourRefund.PhoneNumber": OutboundCall.twilio_number,
         "TaxReturn.TaxYear": tax_return&.year,

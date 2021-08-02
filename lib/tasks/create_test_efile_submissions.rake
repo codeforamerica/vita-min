@@ -41,8 +41,10 @@ namespace :efile do
         "R0000-504-02": "Each 'DependentSSN' and the corresponding 'DependentNameControlTxt' that has a value in 'DependentDetail' in the return must match the SSN and Name Control in the e-File database."
     }
     rejected_group.each do |submission|
-      error_key = errors.keys.sample
-      submission.transition_to!(:rejected, { error_code: error_key, error_message: errors[error_key] })
+      file = Pathname.new(File.join(Rails.root, "/spec/fixtures/files", "irs_acknowledgement_rejection.xml")).read
+      raw_response = Nokogiri::XML(file).to_xml
+
+      submission.transition_to!(:rejected, raw_response: raw_response)
     end
   end
 end
