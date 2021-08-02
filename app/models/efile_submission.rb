@@ -76,14 +76,18 @@ class EfileSubmission < ApplicationRecord
     address_service
   end
 
-  def generate_form_1040_pdf(status = "manual")
-    filename ||= "IRS 1040 - TY #{tax_return.year} - #{status.upcase}"
+  def generate_form_1040_pdf
+    filename = "IRS 1040 - TY #{tax_return.year} - #{irs_submission_id}.pdf"
 
-    ClientPdfDocument.create_or_update(
-      output_file: AdvCtcIrs1040Pdf.new(self).output_file,
-      document_type: DocumentTypes::Form1040,
-      client: client,
-      filename: filename,
+    client.documents.create!(
+      document_type: DocumentTypes::Form1040.key,
+      display_name: filename,
+      upload: {
+        io: AdvCtcIrs1040Pdf.new(self).output_file,
+        filename: filename,
+        content_type: "application/pdf",
+        identify: false
+      },
       tax_return: tax_return
     )
   end

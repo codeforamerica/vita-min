@@ -180,33 +180,19 @@ describe EfileSubmission do
 
   describe "#generate_form_1040_pdf" do
     let(:submission) { create :efile_submission, :ctc }
-    let(:output_double) { double }
-    let(:tempfile) { double }
+    let(:example_pdf) { File.open(Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), "rb") }
+
     before do
-      allow(ClientPdfDocument).to receive(:create_or_update)
-      allow(AdvCtcIrs1040Pdf).to receive(:new).and_return(output_double)
-      allow(output_double).to receive(:output_file).and_return tempfile
+      allow(AdvCtcIrs1040Pdf).to receive(:new).and_return(instance_double(AdvCtcIrs1040Pdf, output_file: example_pdf))
     end
 
-    it "calls the Client PDF creator with the right arguments" do
-      submission.generate_form_1040_pdf
-      expect(ClientPdfDocument).to have_received(:create_or_update).with(
-        filename: "IRS 1040 - TY 2020 - MANUAL",
-        output_file: tempfile,
-        document_type: DocumentTypes::Form1040,
-        client: submission.client,
-        tax_return: submission.tax_return
-      )
-    end
-
-    context "when a status is passed in" do
-      it "uses the passed status to create the file name" do
-        submission.generate_form_1040_pdf("rejected")
-        expect(ClientPdfDocument).to have_received(:create_or_update).with(hash_including(
-           filename: "IRS 1040 - TY 2020 - REJECTED"
-          )
-        )
-      end
+    it "generates and stores the 1040 PDF" do
+      expect { submission.generate_form_1040_pdf }.to change(Document, :count).by(1)
+      doc = submission.client.documents.last
+      expect(doc.display_name).to eq("IRS 1040 - TY 2020 - #{submission.irs_submission_id}.pdf")
+      expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
+      expect(doc.tax_return).to eq(submission.tax_return)
+      expect(doc.upload.blob.download).to eq(File.open(Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), "rb").read)
     end
   end
 

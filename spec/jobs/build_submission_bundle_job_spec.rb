@@ -24,11 +24,13 @@ describe BuildSubmissionBundleJob do
 
     context "when there is an error creating the irs 1040 pdf" do
       before do
-        allow(ClientPdfDocument).to receive(:create_or_update).and_raise StandardError
+        allow_any_instance_of(EfileSubmission).to receive(:generate_form_1040_pdf).and_raise StandardError
       end
 
       it "transitions the submission into :failed" do
-        described_class.perform_now(submission.id)
+        expect do
+          described_class.perform_now(submission.id)
+        end.to raise_error(StandardError)
         expect(submission.reload.current_state).to eq "failed"
         expect(submission.efile_submission_transitions.last.metadata['error_message']).to eq "Could not generate PDF Form 1040."
       end
@@ -37,7 +39,6 @@ describe BuildSubmissionBundleJob do
     context "when the build is successful" do
       before do
         allow(SubmissionBundle).to receive(:build).and_return SubmissionBundleResponse.new
-        allow(ClientPdfDocument).to receive(:create_or_update)
         allow_any_instance_of(EfileSubmission).to receive(:submission_bundle).and_return "yes"
       end
 
