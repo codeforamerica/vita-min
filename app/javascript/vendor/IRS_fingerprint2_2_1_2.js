@@ -19,13 +19,8 @@
 * Script modified by Internal Revenue Service, rev. date August 3, 2020 (TY2020). Excluded certain components due to known issues on various platforms, as noted in the code below.
 */
 /* global define */
-(function (name, context, definition) {
-    'use strict'
-    if (typeof window !== 'undefined' && typeof define === 'function' && define.amd) { define(definition) } else if (typeof module !== 'undefined' && module.exports) { module.exports = definition() } else if (context.exports) { context.exports = definition() } else { context[name] = definition() }
-})('Fingerprint2', this, function () {
-    'use strict'
-    // detect if object is array
-    // only implement if no native implementation is available
+export default function init() {
+
     if (typeof Array.isArray === 'undefined') {
         Array.isArray = function (obj) {
             return Object.prototype.toString.call(obj) === '[object Array]'
@@ -1199,4 +1194,4 @@
     }
     Fingerprint2.VERSION = '2.1.2'
     return Fingerprint2
-})
+};

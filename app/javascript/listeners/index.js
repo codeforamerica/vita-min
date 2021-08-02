@@ -9,7 +9,7 @@ import { initStateRoutingsListeners } from "../lib/state_routings";
 import tooltip from "../components/tooltip";
 import { initTaggableNote, initMultiSelectVitaPartner } from '../lib/tagging';
 import { initBulkAction } from "../lib/bulk_action";
-import { initEfileSecurityInformation } from "../lib/efile_security_information";
+import { getEfileSecurityInformation } from "../lib/efile_security_information";
 const Listeners =  (function(){
     return {
         init: function () {
@@ -41,7 +41,7 @@ const Listeners =  (function(){
                 }
 
                 if(window.appData.controller_action == "Ctc::Questions::ConsentController#edit") {
-                    initEfileSecurityInformation();
+                    getEfileSecurityInformation();
                 }
 
                 if (document.querySelector('.taggable-note')) {
