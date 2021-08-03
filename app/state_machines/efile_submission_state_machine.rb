@@ -38,14 +38,12 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :failed) do |submission|
-    submission.client.flag!
     submission.tax_return.update(status: "file_needs_review")
   end
 
   after_transition(to: :rejected) do |submission, transition|
     # Add note with rejection reason to client notes
     # Use transition metadata error code and reason to determine whether it is an eng or VITA problem.
-    submission.client.flag!
     submission.tax_return.update(status: "file_rejected")
     client = submission.client
 
