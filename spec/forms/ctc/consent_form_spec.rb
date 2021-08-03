@@ -21,7 +21,7 @@ describe Ctc::ConsentForm do
         user_agent: "GeckoFox",
         browser_language: "en-US",
         platform: "iPad",
-        timezone_offset: "+240",
+        timezone_offset: "240",
         client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
       }
     }
@@ -166,7 +166,7 @@ describe Ctc::ConsentForm do
           user_agent: "GeckoFox",
           browser_language: "en-US",
           platform: "iPad",
-          timezone_offset: "+240",
+          timezone_offset: "240",
           client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
       })
       expect {

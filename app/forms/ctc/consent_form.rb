@@ -78,7 +78,7 @@ module Ctc
     def format_timezone_offset(tz_offset)
       return unless tz_offset.present?
 
-      "+" + tz_offset unless tz_offset.include?("-") || tz_offset.include?("+")
+      return (tz_offset.include?("-") || tz_offset.include?("+")) ? tz_offset : "+" + tz_offset
     end
   end
 end
