@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.legal_consent.title") %>
+<% @main_question = t("views.ctc.questions.consent.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -7,16 +7,16 @@
     <h1 class="h2"><%= @main_question %></h1>
 
     <p>
-      <%= t("views.ctc.questions.legal_consent.body.p1") %>
+      <%= t("views.ctc.questions.consent.body.p1") %>
     </p>
     <p>
-      <%= t("views.ctc.questions.legal_consent.body.p2") %>
+      <%= t("views.ctc.questions.consent.body.p2") %>
     </p>
 
     <div class="form-card__content">
-      <%= f.cfa_input_field(:primary_first_name, t("views.ctc.questions.legal_consent.first_name"), classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:primary_middle_initial, t("views.ctc.questions.legal_consent.middle_initial"), classes: ["form-width--short"]) %>
-      <%= f.cfa_input_field(:primary_last_name, t("views.ctc.questions.legal_consent.last_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_first_name, t("views.ctc.questions.consent.first_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_middle_initial, t("views.ctc.questions.consent.middle_initial"), classes: ["form-width--short"]) %>
+      <%= f.cfa_input_field(:primary_last_name, t("views.ctc.questions.consent.last_name"), classes: ["form-width--long"]) %>
       <%= f.vita_min_date_text_fields(
             :primary_birth_date,
             t("hub.clients.show.date_of_birth"),
@@ -24,9 +24,9 @@
             classes: ["ctc-intake-date-text-input"]
             ) %>
       <%= f.cfa_select(:primary_tin_type, "Identification Type", tin_options_for_select(include_itin: true)) %>
-      <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.legal_consent.sms_phone_number"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.consent.ssn"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.consent.ssn_confirmation"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.consent.sms_phone_number"), classes: ["form-width--long"]) %>
       <%= f.hidden_field(:timezone) %>
       <%= f.hidden_field(:device_id) %>
       <%= f.hidden_field(:user_agent) %>

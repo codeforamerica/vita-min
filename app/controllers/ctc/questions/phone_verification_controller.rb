@@ -15,6 +15,10 @@ module Ctc
         intake.sms_phone_number.present? && intake.sms_notification_opt_in_yes? && !intake.sms_phone_number_verified_at.present?
       end
 
+      def self.i18n_base_path
+        "views.ctc.questions.verification"
+      end
+
       def after_update_success
         sign_in current_intake.client
       end

@@ -14,6 +14,10 @@ module Ctc
         intake.email_address.present? && intake.email_notification_opt_in_yes? && intake.email_address_verified_at.present?
       end
 
+      def self.i18n_base_path
+        "views.ctc.questions.verification"
+      end
+
       def after_update_success
         sign_in current_intake.client
       end

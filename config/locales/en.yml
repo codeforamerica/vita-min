@@ -1532,7 +1532,7 @@ en:
             - You have not filed a tax return the last two years
             - You have kids or dependents
             - You didn't receive the full amount of stimulus you were owed
-        legal_consent:
+        consent:
           title: In order to file, we’ll need some additional information.
           body:
             p1: To submit your tax return and receive either your child tax credit or your stimulus payments, we’ll need some of your personal information.
@@ -1592,23 +1592,23 @@ en:
           title_html: You're about to remove %{spouse_name}.<br><br>Is that okay?
           remove_button: Yes, remove them
           nevermind_button: Nevermind, let's save them
-        filed_2020:
+        filed2020:
           title: Did you file a 2020 tax return this year?
           help_text_html: |
             <p>Did you file a tax return this year, after January 1, 2021, for the 2020 tax year?</p>
             <p>You can answer yes if you filed a return and are still waiting for your stimulus payments or if you used the Non-filers Sign-up tool.</p>
-        filed_2020_yes:
+        filed2020_yes:
           title: Great! The IRS can process your return and determine your Child Tax Credit.
           p1: If you've filed a 2020 tax return, the IRS will have the information it needs to process your Child Tax Credit (CTC).
           p2: You can visit the IRS Child Tax Credit Update Portal to update your information.
           visit_ctc_portal: Visit the CTC Update Portal
           visit_ctc_faq: Visit CTC FAQ
-        filed_2019:
+        filed2019:
           title: Did you either file a 2019 tax return or receive any stimulus payments?
           help_text_html: |
             <p>If you filed a 2019 return or received stimulus payments, if eligible you will receive your Child Tax Credit based on the information in that return. You don't need to file a 2020 tax return to receive the benefits you are due.</p>
             <p>If you do have changes to your personal situation you can visit the <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">IRS Child Tax Credit Update Portal</a> to update your tax information.<p>
-        life_situations_2019:
+        life_situations2019:
           title: Let's check one more thing.
           p1: |
             If any of the following are true, you should continue with our simplified CTC tool:
@@ -1700,7 +1700,7 @@ en:
           title: How will you be filing your tax return?
           reveal_title: I'm unsure how to file
           reveal_body: If you normally file as head of household or married filing separately, select ‘single’ for the purpose of this return.
-        life_situations_2020:
+        life_situations2020:
           title: "Select any situations that were true for you in 2020"
           p1: "These answers help us determine what tax credits you qualify for."
           cannot_claim_me_as_a_dependent: "No one can claim me as a dependent"
