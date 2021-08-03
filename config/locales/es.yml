@@ -1342,6 +1342,7 @@ es:
     ssn: Por favor, ingrese un número de seguro social válido.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido
     ip_pin: IP PINs must be a 6 digit number.
+    legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.
     file_zero_length: "Sube un archivo válido. El archivo que cargó parece estar vacío."
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"

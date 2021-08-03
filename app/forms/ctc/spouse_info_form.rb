@@ -11,8 +11,9 @@ module Ctc
     set_attributes_for :birthday, :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
     set_attributes_for :confirmation, :spouse_ssn_confirmation
 
-    validates :spouse_first_name, presence: true
-    validates :spouse_last_name, presence: true
+    validates :spouse_first_name, presence: true, legal_name: true
+    validates :spouse_last_name, presence: true, legal_name: true
+    validates :spouse_middle_initial, length: { maximum: 1 }, legal_name: true
     validate  :spouse_birth_date_is_valid_date
     validates :spouse_ssn, confirmation: true, if: -> { spouse_ssn.present? }
     validates :spouse_ssn, social_security_number: true, if: -> { spouse_tin_type == "ssn" && spouse_ssn.present? }

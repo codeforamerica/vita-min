@@ -23,8 +23,9 @@ module Ctc
     before_validation :normalize_phone_numbers
 
     validates :phone_number, e164_phone: true
-    validates :primary_first_name, presence: true
-    validates :primary_last_name, presence: true
+    validates :primary_first_name, presence: true, legal_name: true
+    validates :primary_last_name, presence: true, legal_name: true
+    validates :primary_middle_initial, length: { maximum: 1 }, legal_name: true
     validate  :primary_birth_date_is_valid_date
     validates :primary_ssn, confirmation: true
     validates :primary_ssn_confirmation, presence: true

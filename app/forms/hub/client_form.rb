@@ -1,12 +1,17 @@
 module Hub
   class ClientForm < Form
     include FormAttributes
+    # These are only really here for tests,
+    # every leaf class of ClientForm has to define
+    # their full set of attributes
     set_attributes_for :intake,
         :sms_phone_number,
         :phone_number,
         :preferred_name,
         :primary_first_name,
         :primary_last_name,
+        :spouse_first_name,
+        :spouse_last_name,
         :email_address,
         :preferred_interview_language,
         :sms_notification_opt_in,
@@ -30,8 +35,10 @@ module Hub
     validates :phone_number, allow_blank: true, e164_phone: true
     validates :sms_phone_number, allow_blank: true, e164_phone: true
     validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
-    validates :primary_first_name, presence: true, allow_blank: false
-    validates :primary_last_name, presence: true, allow_blank: false
+    validates :primary_first_name, presence: true, allow_blank: false, legal_name: true
+    validates :primary_last_name, presence: true, allow_blank: false, legal_name: true
+    validates :spouse_first_name, legal_name: true
+    validates :spouse_last_name, legal_name: true
     validates :state_of_residence, inclusion: { in: States.keys }
     validates :preferred_interview_language, presence: true, allow_blank: false
     validate :at_least_one_contact_method
