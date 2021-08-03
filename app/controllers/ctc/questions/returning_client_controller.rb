@@ -6,10 +6,6 @@ module Ctc
       skip_before_action :set_current_step
       layout "intake"
 
-      def self.show?(intake)
-        ClientLoginService.has_ctc_duplicate?(intake)
-      end
-
       private
 
       def redirect_to_next_if_already_authenticated

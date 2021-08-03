@@ -9,7 +9,6 @@ class CtcQuestionNavigation
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,
     Ctc::Questions::EmailAddressController,
-    Ctc::Questions::ReturningClientController,
     Ctc::Questions::EmailVerificationController,  # At this verification point we sign in the client
     Ctc::Questions::PhoneVerificationController,  # Same sign in behavior as previous controller, but verified through SMS instead of email
 

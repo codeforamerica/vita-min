@@ -276,7 +276,10 @@ Rails.application.routes.draw do
   constraints(Routes::CtcDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       scoped_navigation_routes(:questions, CtcQuestionNavigation, as_redirects: Rails.configuration.hide_ctc)
-      get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr # offboarding page
+
+      # offboarding pages
+      get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr
+      get "/questions/returning-client", to: "ctc/questions/returning_client#edit", as: :questions_returning_client
 
       # remove-spouse should not be included in default navigation flow
       get "/questions/remove-spouse", to: "ctc/questions/remove_spouse#edit", as: :questions_remove_spouse
