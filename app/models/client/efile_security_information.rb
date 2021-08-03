@@ -24,4 +24,10 @@
 #
 class Client::EfileSecurityInformation < ApplicationRecord
   belongs_to :client
+
+  def client_system_datetime
+    return nil unless client_system_time.present?
+
+    DateTime.parse(client_system_time)
+  end
 end

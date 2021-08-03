@@ -7,10 +7,15 @@ export function getEfileSecurityInformation() {
     Fingerprint2.get(function(components) {
         var stringtohash = components.map(function (pair) { return pair.value }).join('###')
         let encrypted_device_id =  CryptoJS.SHA1(stringtohash);
-        alert(encrypted_device_id)
-
-        // do everything you need to do with the component data here.
+        document.getElementById('ctc_consent_form_device_id').value = encrypted_device_id ||"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     });
+
+    document.getElementById('ctc_consent_form_user_agent').value = navigator.userAgent;
+    document.getElementById('ctc_consent_form_browser_language').value = navigator.language;
+    document.getElementById('ctc_consent_form_platform').value = navigator.platform;
+    var loadDate = new Date();
+    document.getElementById('ctc_consent_form_client_system_time').value = loadDate;
+    document.getElementById('ctc_consent_form_timezone_offset').value = loadDate.getTimezoneOffset();
 }
 
 

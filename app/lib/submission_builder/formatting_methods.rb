@@ -7,10 +7,14 @@ module SubmissionBuilder
     end
 
     def datetime_type(datetime)
+      return nil unless datetime.present?
+
       datetime.strftime("%FT%T%:z")
     end
 
     def date_type(date)
+      return nil unless date.present?
+
       date.strftime("%F")
     end
 

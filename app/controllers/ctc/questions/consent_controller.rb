@@ -5,12 +5,13 @@ module Ctc
       include AnonymousIntakeConcern
       layout "intake"
 
-      def form_params
-        super.merge(ip_address: request.remote_ip)
-      end
-
       def edit
         super
+        byebug
+      end
+
+      def form_params
+        super.merge(ip_address: request.remote_ip)
       end
 
       private

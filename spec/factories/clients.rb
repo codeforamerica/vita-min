@@ -40,6 +40,8 @@
 #
 FactoryBot.define do
   factory :client do
+    efile_security_information { build :client_efile_security_information }
+
     trait :with_return do
       transient do
         status { "intake_in_progress" }
