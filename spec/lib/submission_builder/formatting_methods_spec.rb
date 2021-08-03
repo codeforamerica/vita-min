@@ -41,6 +41,23 @@ describe SubmissionBuilder::FormattingMethods do
           expect(formatted_name).to eq("SAMANTHA<SEA-SHELLS")
         end
       end
+
+      context "when the name line is > 35" do
+        context "due to a long first name" do
+          let(:primary_first) { "Sssssaaaaaammmaaaannnthhhhaaaaaaaaaa"}
+          it "truncates it correctly" do
+            expect(formatted_name).to eq("S<S")
+          end
+        end
+
+        context "due to a long last name" do
+          let(:primary_last) { "Seeeeeeeeeeeeaaashhhhhhhhhhhhellllls"}
+          let(:primary_middle) { "C" }
+          it "truncates it correctly" do
+            expect(formatted_name).to eq("SAMANTHA C<S")
+          end
+        end
+      end
     end
 
     context 'when there is a spouse name' do
@@ -48,9 +65,25 @@ describe SubmissionBuilder::FormattingMethods do
       let(:spouse_middle) { "O" }
 
       context "with a different last name" do
-        let(:spouse_last) { "Coconuts" }
+        let(:spouse_last) { "Coconut" }
         it 'formats it correctly' do
-          expect(formatted_name).to eq("SAMANTHA<SEASHELLS<& CORA O COCONUTS")
+          expect(formatted_name).to eq("SAMANTHA<SEASHELLS<& CORA O COCONUT")
+        end
+
+        context "when the name line is > 35" do
+          context "due to a long first name" do
+            let(:spouse_first) { "Coooooooooooooooooooooooooooooooooora"}
+            it "truncates it correctly" do
+              expect(formatted_name).to eq("SAMANTHA<S<& C C")
+            end
+          end
+
+          context "due to a long last name" do
+            let(:spouse_last) { "Coooooooocoooooooooooonut" }
+            it "truncates it correctly" do
+              expect(formatted_name).to eq("SAMANTHA<SEASHELLS<& CORA O C")
+            end
+          end
         end
       end
 
@@ -58,6 +91,13 @@ describe SubmissionBuilder::FormattingMethods do
         let(:spouse_last) { "Seashells" }
         it 'formats it correctly' do
           expect(formatted_name).to eq("SAMANTHA & CORA O<SEASHELLS")
+        end
+
+        context "when the name line is > 35" do
+          let(:spouse_first) { "Coooooooooooooooooooooooooooooooooora"}
+          it "truncates it correctly" do
+            expect(formatted_name).to eq("SAMANTHA & C<S")
+          end
         end
       end
     end
