@@ -28,6 +28,12 @@
       <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.legal_consent.sms_phone_number"), classes: ["form-width--long"]) %>
       <%= f.hidden_field(:timezone) %>
+      <%= f.hidden_field(:device_id) %>
+      <%= f.hidden_field(:user_agent) %>
+      <%= f.hidden_field(:browser_language) %>
+      <%= f.hidden_field(:platform) %>
+      <%= f.hidden_field(:timezone_offset) %>
+      <%= f.hidden_field(:client_system_time) %>
 
     </div>
 
@@ -37,11 +43,12 @@
   <% end %>
 <% end %>
 
+
 <% content_for :script do %>
   <script>
       document.addEventListener("DOMContentLoaded", function() {
-        var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        document.getElementById('ctc_consent_form_timezone').value = timezone;
+          var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          document.getElementById('ctc_consent_form_timezone').value = timezone;
       });
   </script>
 <% end %>

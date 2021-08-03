@@ -16,6 +16,7 @@ module SubmissionBuilder
       tax_return = submission.tax_return
       intake = submission.intake
       client = submission.client
+      security_information = client.efile_security_information
       address = submission.address
 
       Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
@@ -112,19 +113,18 @@ module SubmissionBuilder
           xml.FilingSecurityInformation {
             xml.AtSubmissionCreationGrp {
               xml.IPAddress {
-                xml.IPv4AddressTxt intake.primary_consented_to_service_ip
+                xml.IPv4AddressTxt security_information.ip_address if security_information.ip_address.ipv4?
+                xml.IPv6AddressTxt security_information.ip_address if security_information.ip_address.ipv6?
               }
               # TODO: Include if we can get value from Aptible. Otherwise, do not include.
               # xml.IPPortNum
-              # TODO: Swap out device ID with 40 digit code provided by IRS device ID JS
-              xml.DeviceId 9162213099514827927117083645386143446039
-              xml.DeviceTypeCd 1 # Indicates "Browser-based" device
-              # TODO: Replace with information gathered from browser at client/intake creation
-              # xml.UserAgentTxt
-              # xml.BrowserLanguageTxt
-              # xml.PlatformTxt
-              # xml.TimeZoneOffsetNum
-              # xml.SystemTs
+              xml.DeviceId security_information.device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              xml.DeviceTypeCd 1
+              xml.UserAgentTxt security_information.user_agent
+              xml.BrowserLanguageTxt security_information.browser_language
+              xml.PlatformTxt security_information.platform
+              xml.TimeZoneOffsetNum security_information.timezone_offset
+              xml.SystemTs datetime_type(security_information.client_system_datetime)
             }
             xml.AtSubmissionFilingGrp {
               xml.IPAddress {
@@ -148,7 +148,6 @@ module SubmissionBuilder
             end
             xml.TotalPreparationSubmissionTs total_preparation_submission_minutes
             xml.TotActiveTimePrepSubmissionTs total_active_preparation_minutes
-            # TODO: Swap out with VendorControlNum that conforms to IRS standards -- first two digits will be provided by IRS
             xml.VendorControlNum "2P00000000000001"
           }
         }

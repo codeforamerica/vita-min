@@ -93,7 +93,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("AtSubmissionFilingGrp RefundDisbursementGrp RefundProductCIPCd").text).to eq "0"
 
         expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp IPAddress IPv4AddressTxt").text).to eq "1.1.1.1"
-        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp DeviceId").text).to eq "9162213099514827927117083645386143446039"
+        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp DeviceId").text).to eq "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp DeviceTypeCd").text).to eq "1"
 
         expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp IPAddress IPv4AddressTxt").text).to eq "1.1.1.1"

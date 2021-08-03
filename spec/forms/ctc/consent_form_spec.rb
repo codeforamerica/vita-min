@@ -16,7 +16,13 @@ describe Ctc::ConsentForm do
         primary_ssn_confirmation: "111-22-8888",
         phone_number: "831-234-5678",
         timezone: "America/Chicago",
-        primary_tin_type: "ssn"
+        primary_tin_type: "ssn",
+        device_id: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        user_agent: "GeckoFox",
+        browser_language: "en-US",
+        platform: "iPad",
+        timezone_offset: "240",
+        client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
       }
     }
     context "when all required information is provided" do
@@ -143,7 +149,7 @@ describe Ctc::ConsentForm do
   end
 
   describe "#save" do
-    it "saves the attributes on the intake and creates a client and 2020 tax return" do
+    it "saves the attributes on the intake and creates a client, 2020 tax return and efile security information" do
       form = described_class.new(intake, {
           primary_first_name: "Marty",
           primary_middle_initial: "J",
@@ -155,12 +161,18 @@ describe Ctc::ConsentForm do
           primary_ssn_confirmation: "111-22-8888",
           phone_number: "831-234-5678",
           timezone: "America/Chicago",
-          primary_tin_type: :itin
+          primary_tin_type: :itin,
+          device_id: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          user_agent: "GeckoFox",
+          browser_language: "en-US",
+          platform: "iPad",
+          timezone_offset: "240",
+          client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
       })
       expect {
         form.valid? # the form only transforms the phone number if it is validated before calling save
         form.save
-      }.to change(Client, :count).by(1).and change(TaxReturn, :count).by(1)
+      }.to change(Client, :count).by(1).and change(TaxReturn, :count).by(1).and change(Client::EfileSecurityInformation, :count).by(1)
       intake = Intake.last
       expect(intake.primary_first_name).to eq "Marty"
       expect(intake.primary_middle_initial).to eq "J"
@@ -178,6 +190,13 @@ describe Ctc::ConsentForm do
       expect(intake.visitor_id).to eq "something"
       expect(intake.source).to eq "some-source"
       expect(intake.type).to eq "Intake::CtcIntake"
+      # TODO: Expect IP address also
+      expect(intake.client.efile_security_information.device_id).to eq "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      expect(intake.client.efile_security_information.user_agent).to eq "GeckoFox"
+      expect(intake.client.efile_security_information.browser_language).to eq "en-US"
+      expect(intake.client.efile_security_information.platform).to eq "iPad"
+      expect(intake.client.efile_security_information.timezone_offset).to eq "+240"
+      expect(intake.client.efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
     end
   end

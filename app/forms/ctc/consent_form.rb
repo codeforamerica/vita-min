@@ -11,6 +11,14 @@ module Ctc
                               :timezone
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation
+    set_attributes_for :efile_security_information,
+                       :device_id,
+                       :user_agent,
+                       :browser_language,
+                       :platform,
+                       :timezone_offset,
+                       :client_system_time,
+                       :ip_address
 
     before_validation :normalize_phone_numbers
 
@@ -38,7 +46,12 @@ module Ctc
           source: @intake.source,
           type: @intake.type
       )
-      client = Client.create!(intake_attributes: intake_attributes, tax_returns_attributes: [tax_return_attributes])
+      efile_attrs = attributes_for(:efile_security_information).merge(timezone_offset: format_timezone_offset(timezone_offset))
+      client = Client.create!(
+        intake_attributes: intake_attributes,
+        tax_returns_attributes: [tax_return_attributes],
+        efile_security_information_attributes: efile_attrs
+      )
       @intake = client.intake
     end
 
@@ -60,6 +73,12 @@ module Ctc
 
     def normalize_phone_numbers
       self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?
+    end
+
+    def format_timezone_offset(tz_offset)
+      return unless tz_offset.present?
+
+      return (tz_offset.include?("-") || tz_offset.include?("+")) ? tz_offset : "+" + tz_offset
     end
   end
 end
