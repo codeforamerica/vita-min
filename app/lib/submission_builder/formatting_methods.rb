@@ -15,15 +15,15 @@ module SubmissionBuilder
     end
 
     def name_line_1_type(primary_first, primary_middle, primary_last, spouse_first, spouse_middle, spouse_last)
+      # add in support for formatting JR/2nd/II
+      # add in support for 35+ char names
       name_line = formatted_first_name(primary_first)
       name_line << " #{primary_middle.upcase}" if primary_middle
 
       if spouse_last == primary_last # spouse with same last name
         name_line << " & #{formatted_first_name(spouse_first)}"
         name_line << " #{spouse_middle.upcase}" if spouse_middle
-      end
-
-      if spouse_last && spouse_last != primary_last # spouse with different last name
+      elsif spouse_last && spouse_last != primary_last # spouse with different last name
         name_line << "<#{formatted_last_name(primary_last)}"
         name_line << "<& #{formatted_first_name(spouse_first)}"
         name_line << " #{spouse_middle.upcase}" if spouse_middle
@@ -33,9 +33,6 @@ module SubmissionBuilder
 
       # single or spouse with same last name
       name_line << "<#{formatted_last_name(primary_last)}"
-
-      # add in support for formatting JR/2nd/II
-      # add in support for 35+ char names
     end
 
     # Limit to max 4 chars uppercased
