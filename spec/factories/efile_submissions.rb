@@ -38,9 +38,8 @@ FactoryBot.define do
 
     trait :with_errors do
       after :create do |submission|
-        file = Pathname.new(File.join(Rails.root, "/spec/fixtures/files", "irs_acknowledgement_rejection.xml")).read
-        raw_response = Nokogiri::XML(file).to_xml
-        submission.efile_submission_transitions.last.update(metadata: { raw_response: raw_response })
+        raw_xml = File.read(File.join(Rails.root, "spec/fixtures/files", "irs_acknowledgement_rejection.xml"))
+        submission.efile_submission_transitions.last.update(metadata: { raw_response: raw_xml })
       end
     end
   end
