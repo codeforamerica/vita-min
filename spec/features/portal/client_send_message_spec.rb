@@ -11,7 +11,7 @@ RSpec.feature "a client can send a message when logged into the portal" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Katie!"
       click_on "Message my tax specialist"
-      expect(page).to have_selector "h1", text: "Send a message to Koala Company"
+      expect(page).to have_selector "h1", text: "Message Koala Company"
       fill_in "What's on your mind?", with: "I have some questions about my tax return."
       click_on "Send message"
       expect(page).to have_text "Message sent! Responses will be sent by email/text to exampleemail@example.com or +18324658840."

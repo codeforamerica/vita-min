@@ -1327,9 +1327,8 @@ en:
         description: "Would you like to download your final tax forms?"
     messages:
       new:
-        title: Send a message to %{partner_name}
+        title: Message %{partner_name}
         your_tax_preparers: your tax preparers
-        help_text: We're happy to answer any questions you may have about our service.
         contact_preference: Responses will be sent by %{contact_method} to %{contact_info}.
         wait_time: Please allow up to 3 business days for a response.
         body_label: What's on your mind?
