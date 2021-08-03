@@ -1561,6 +1561,13 @@ en:
               <li>You have a paper copy of a Social Security Card or ITIN paperwork for everyone in your family</li>
             </ul>
             <p><strong>File your full tax return for free using GetYourRefund.</strong></p>
+          help_text:
+            - By filing a full tax return, you could collect all the money you are owed.
+            - "Consider this option if:"
+          list:
+            - You have all of your employment documents (W2’s, 1099’s, etc)
+            - You have a paper copy of a Social Security Card or ITIN paperwork for everyone in your family
+          file_for_free: File your full tax return for free using GetYourRefund.
           simplified_btn: File your full tax return for free using GetYourRefund
           full_btn: File a full tax return
         spouse_info:
