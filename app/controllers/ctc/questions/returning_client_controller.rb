@@ -2,7 +2,6 @@ module Ctc
   module Questions
     class ReturningClientController < QuestionsController
       include AnonymousIntakeConcern
-      before_action :redirect_to_next_if_already_authenticated
       skip_before_action :set_current_step
       layout "intake"
 
@@ -14,6 +13,10 @@ module Ctc
 
       def form_class
         NullForm
+      end
+
+      def next_path
+        nil
       end
     end
   end

@@ -38,9 +38,10 @@ module ControllerNavigation
   end
 
   def seek(list)
-    list.find do |controller_class|
+    list.detect do |controller_class|
       controller_class.show?(
-        controller_class.model_for_show_check(current_controller))
+        controller_class.model_for_show_check(current_controller)
+      )
     end
   end
 end
