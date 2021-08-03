@@ -15,8 +15,35 @@ module SubmissionBuilder
     end
 
     def name_line_1_type(primary_first, primary_middle, primary_last, spouse_first, spouse_middle, spouse_last)
+      name_line = build_name_line_1(primary_first, primary_middle, primary_last, spouse_first, spouse_middle, spouse_last)
+
+      # if the line > 35 characters then truncate according to the guidelines on page 189 of https://www.irs.gov/pub/irs-pdf/p4164.pdf
+      if name_line.size > 35 && spouse_last.present? # shorten spouse last
+        name_line = build_name_line_1(primary_first, primary_middle, primary_last, spouse_first, spouse_middle, spouse_last.first)
+      end
+      if name_line.size > 35 # shorten primary last
+        name_line = build_name_line_1(primary_first, primary_middle, primary_last.first, spouse_first, spouse_middle, spouse_last&.first)
+      end
+      if name_line.size > 35 && spouse_middle.present? # remove spouse middle
+        name_line = build_name_line_1(primary_first, primary_middle, primary_last.first, spouse_first, nil, spouse_last.first)
+      end
+      if name_line.size > 35 && primary_middle.present? # remove primary middle
+        name_line = build_name_line_1(primary_first, nil, primary_last.first, spouse_first, nil, spouse_last&.first)
+      end
+      if name_line.size > 35 && spouse_first.present? # shorten spouse first
+        name_line = build_name_line_1(primary_first, nil, primary_last.first, spouse_first.first, nil, spouse_last.first)
+      end
+      if name_line.size > 35 # shorten primary first
+        name_line = build_name_line_1(primary_first.first, nil, primary_last.first, spouse_first&.first, nil, spouse_last&.first)
+      end
+
+      name_line
+    end
+
+    # The IRS has very particular guidelines for what this line should look like and they are
+    # outlined on page 189 of https://www.irs.gov/pub/irs-pdf/p4164.pdf
+    def build_name_line_1(primary_first, primary_middle, primary_last, spouse_first, spouse_middle, spouse_last)
       # add in support for formatting JR/2nd/II
-      # add in support for 35+ char names
       name_line = formatted_first_name(primary_first)
       name_line << " #{primary_middle.upcase}" if primary_middle
 
@@ -51,10 +78,12 @@ module SubmissionBuilder
     private
 
     def formatted_first_name(name)
+      # removes accented characters and any special characters
       I18n.transliterate(name).upcase.gsub(/[^A-Z]/, '')
     end
 
     def formatted_last_name(name)
+      # removes accented characters and any special characters, except hyphens
       I18n.transliterate(name).upcase.gsub(/[^A-Z\-]/, '')
     end
   end
