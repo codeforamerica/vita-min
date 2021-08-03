@@ -1553,14 +1553,6 @@ en:
             </ul>
         file_full_return:
           title: If you earned income, you could collect additional benefits by filing a full return!
-          body_html: |
-            <p>By filing a full tax return, you could collect all the money you are owed.</p>
-            <p>Consider this option if:</p>
-            <ul class="list--bulleted">
-              <li>You have all of your employment documents (W2’s, 1099’s, etc)</li>
-              <li>You have a paper copy of a Social Security Card or ITIN paperwork for everyone in your family</li>
-            </ul>
-            <p><strong>File your full tax return for free using GetYourRefund.</strong></p>
           help_text:
             - By filing a full tax return, you could collect all the money you are owed.
             - "Consider this option if:"
