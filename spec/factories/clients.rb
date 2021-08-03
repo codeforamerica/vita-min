@@ -15,6 +15,7 @@
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
 #  last_outgoing_communication_at           :datetime
+#  last_seen_at                             :datetime
 #  last_sign_in_at                          :datetime
 #  last_sign_in_ip                          :inet
 #  locked_at                                :datetime
@@ -23,6 +24,7 @@
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
 #  still_needs_help                         :integer          default("unfilled"), not null
+#  total_session_active_seconds             :integer
 #  triggered_still_needs_help_at            :datetime
 #  created_at                               :datetime         not null
 #  updated_at                               :datetime         not null

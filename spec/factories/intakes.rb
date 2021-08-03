@@ -242,13 +242,6 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
-#
-# Foreign Keys
-#
-#  fk_rails_...  (client_id => clients.id)
-#  fk_rails_...  (vita_partner_id => vita_partners.id)
-#
-
 FactoryBot.define do
   trait :primary_consented do
     primary_consented_to_service_at { 2.weeks.ago }

@@ -34,13 +34,23 @@ RSpec.describe AuthenticatedCtcClientConcern, type: :controller do
     end
 
     context "when a client is authenticated" do
-      before { sign_in create(:client) }
+      let(:client) { create(:client) }
+      before { sign_in client }
 
       it "does not redirect and doesn't store the current path in the session" do
         get :index
 
         expect(response).to be_ok
         expect(session).not_to include :after_client_login_path
+      end
+
+      it "updates Client last_seen_at" do
+        fake_time = Time.utc(2021, 2, 6, 0, 0, 0)
+        expect do
+          Timecop.freeze(fake_time) do
+            get :index
+          end
+        end.to change { client.reload.last_seen_at }.from(nil).to(fake_time)
       end
     end
   end

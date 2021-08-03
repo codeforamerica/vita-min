@@ -15,6 +15,7 @@
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
 #  last_outgoing_communication_at           :datetime
+#  last_seen_at                             :datetime
 #  last_sign_in_at                          :datetime
 #  last_sign_in_ip                          :inet
 #  locked_at                                :datetime
@@ -23,6 +24,7 @@
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
 #  still_needs_help                         :integer          default("unfilled"), not null
+#  total_session_active_seconds             :integer
 #  triggered_still_needs_help_at            :datetime
 #  created_at                               :datetime         not null
 #  updated_at                               :datetime         not null
@@ -175,6 +177,15 @@ class Client < ApplicationRecord
       counts["en"] += nil_count
     end
     counts
+  end
+
+  def accumulate_total_session_durations
+    return if last_seen_at.nil?
+    return if last_sign_in_at.nil?
+
+    previous_session_duration = last_seen_at - last_sign_in_at
+
+    update!(total_session_active_seconds: (total_session_active_seconds || 0) + previous_session_duration)
   end
 
   def legal_name
