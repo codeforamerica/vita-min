@@ -2,13 +2,13 @@ module Ctc
   module Questions
     class EmailVerificationController < QuestionsController
       include AnonymousIntakeConcern
+      before_action :redirect_if_duplicate_ctc_client
       before_action :send_verification_code, only: [:edit]
 
       layout "intake"
 
       # if the client already has a valid intake with same info, don't have them verify again.
       def self.show?(intake)
-        return false if ClientLoginService.has_ctc_duplicate?(intake)
         return false if intake.sms_phone_number_verified_at? # only require one verified contact type
 
         intake.email_address.present? && intake.email_notification_opt_in_yes? && intake.email_address_verified_at.present?
