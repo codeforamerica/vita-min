@@ -30,8 +30,8 @@ module Hub
     validates :phone_number, allow_blank: true, e164_phone: true
     validates :sms_phone_number, allow_blank: true, e164_phone: true
     validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
-    validates :primary_first_name, presence: true, allow_blank: false
-    validates :primary_last_name, presence: true, allow_blank: false
+    validates :primary_first_name, presence: true, allow_blank: false, legal_name: true
+    validates :primary_last_name, presence: true, allow_blank: false, legal_name: true
     validates :state_of_residence, inclusion: { in: States.keys }
     validates :preferred_interview_language, presence: true, allow_blank: false
     validate :at_least_one_contact_method

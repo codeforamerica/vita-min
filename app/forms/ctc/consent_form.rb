@@ -23,8 +23,9 @@ module Ctc
     before_validation :normalize_phone_numbers
 
     validates :phone_number, e164_phone: true
-    validates :primary_first_name, presence: true
-    validates :primary_last_name, presence: true
+    validates :primary_first_name, presence: true, legal_name: true
+    validates :primary_last_name, presence: true, legal_name: true
+    validates :primary_middle_initial, length: { maximum: 1 }, legal_name: true
     validate  :primary_birth_date_is_valid_date
     validates :primary_ssn, confirmation: true
     validates :primary_ssn_confirmation, presence: true
@@ -79,6 +80,11 @@ module Ctc
       return unless tz_offset.present?
 
       return (tz_offset.include?("-") || tz_offset.include?("+")) ? tz_offset : "+" + tz_offset
+    end
+
+    def names_are_valid
+      errors.add(:primary_middle_initial, ) if I18n.transliterate(primary_middle_initial).match?(/[^A-Z]/)
+      errors.add(:primary_last_name, I18n.t('errors.attributes.primary_last_name.invalid_characters')) if I18n.transliterate(primary_last_name).match?(/[^A-Z\s.'-]/)
     end
   end
 end

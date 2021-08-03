@@ -41,6 +41,31 @@ describe Ctc::ConsentForm do
       end
     end
 
+    context "when the names contain characters outside the allowed set" do
+      before do
+        params[:primary_first_name] = "sunshine😍"
+        params[:primary_middle_initial] = "🍩"
+        params[:primary_last_name] = "rainbow🌈"
+      end
+
+      it "is not valid" do
+        form = described_class.new(intake, params)
+        expect(form).to_not be_valid
+        expect(form.errors.keys).to include(:primary_first_name, :primary_middle_initial, :primary_last_name)
+      end
+    end
+
+    context "when the names contain characters that can be transliterated to A-Z" do
+      before do
+        params[:primary_first_name] = "Josè"
+      end
+
+      it "is valid" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
+      end
+    end
+
     context "when last name is not provided" do
       before do
         params[:primary_last_name] = nil

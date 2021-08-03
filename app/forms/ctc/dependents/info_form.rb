@@ -12,8 +12,9 @@ module Ctc
                          :permanently_totally_disabled
       set_attributes_for :birthday, :birth_date_month, :birth_date_day, :birth_date_year
 
-      validates_presence_of :first_name
-      validates_presence_of :last_name
+      validates :first_name, presence: true, legal_name: true
+      validates :last_name, presence: true, legal_name: true
+      validates :middle_initial, length: { maximum: 1 }, legal_name: true
       validates_presence_of :relationship
       validate :birth_date_is_valid_date
 
