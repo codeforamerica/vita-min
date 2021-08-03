@@ -81,10 +81,5 @@ module Ctc
 
       return (tz_offset.include?("-") || tz_offset.include?("+")) ? tz_offset : "+" + tz_offset
     end
-
-    def names_are_valid
-      errors.add(:primary_middle_initial, ) if I18n.transliterate(primary_middle_initial).match?(/[^A-Z]/)
-      errors.add(:primary_last_name, I18n.t('errors.attributes.primary_last_name.invalid_characters')) if I18n.transliterate(primary_last_name).match?(/[^A-Z\s.'-]/)
-    end
   end
 end
