@@ -1439,7 +1439,12 @@ es:
           ssn_confirmation: Confirmar el SSN o ITIN
           sms_phone_number: Número de teléfono
         income:
-          title: "¿Recibió algún ingreso en %{tax_year}?"
+          title_html: |
+            En %{tax_year}, ganó más de:
+            <ul class="list--bulleted>
+              <li>$ 12,400 si presenta una solicitud única</li>
+              <li>$ 24,800 si es casado que presenta una declaración conjunta</li>
+            </ul>
           help_text_html: |
             <p>Los ingresos pueden provenir de cualquiera de las siguientes fuentes:</p>
             <ul class="list--bulleted">
