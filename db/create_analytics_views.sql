@@ -69,6 +69,14 @@ CREATE VIEW analytics.documents_requests AS
     SELECT id, created_at, intake_id, updated_at
     FROM public.documents_requests;
 
+CREATE VIEW analytics.efile_submission_transitions AS
+    SELECT id, created_at, efile_submission_id, metadata, most_recent, sort_key, to_state, updated_at
+    FROM public.efile_submission_transitions;
+
+CREATE VIEW analytics.efile_submissions AS
+    SELECT id, created_at, irs_submission_id, tax_return_id, updated_at
+    FROM public.efile_submissions;
+
 CREATE VIEW analytics.greeter_coalition_join_records AS
     SELECT id, coalition_id, created_at, greeter_role_id, updated_at
     FROM public.greeter_coalition_join_records;
