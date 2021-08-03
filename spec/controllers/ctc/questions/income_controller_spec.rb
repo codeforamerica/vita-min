@@ -38,7 +38,7 @@ describe Ctc::Questions::IncomeController do
 
       it "redirects to the next page in the flow" do
         post :update, params: params
-        expect(response).to redirect_to questions_consent_path
+        expect(response).to redirect_to questions_file_full_return_path
       end
     end
   end
