@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }.merge(super)
   end
 
+  def self.i18n_base_path
+    "views.#{controller_path.tr('/', '.')}"
+  end
+
   def canonical_url(locale=I18n.locale)
     # Leave the locale out of canonical URLs in the default locale (works ok either way but needs to be consistent)
     url_for(only_path: false, locale: locale)

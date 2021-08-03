@@ -130,14 +130,10 @@ class FlowsController < ApplicationController
       end
 
       def navigation_entry_action_title(i18n_params = {})
-        base_path = "views.#{controller_path.tr('/', '.')}"
         possible_paths = %W(
-          #{base_path}.#{navigation_entry_action}.title
-          #{base_path}.#{navigation_entry_action}.title_html
-          #{base_path}.#{navigation_entry_action}.page_title
-          #{base_path}.title
-          #{base_path}.title_html
-          #{base_path}.page_title
+          #{i18n_base_path}.title
+          #{i18n_base_path}.title_html
+          #{i18n_base_path}.page_title
         )
 
         existing_path = possible_paths.find { |path| I18n.exists?(path) }
@@ -148,7 +144,11 @@ class FlowsController < ApplicationController
             e.string
           end
         else
-          controller_name.titleize.singularize
+          if controller_path.start_with?('ctc')
+            raise "Could not find title for: #{controller_path}"
+          else
+            controller_name.titleize.singularize
+          end
         end
       end
 
