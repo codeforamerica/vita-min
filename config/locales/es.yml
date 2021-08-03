@@ -1411,19 +1411,6 @@ es:
             Por favor, proporcione un número de teléfono en el que pueda recibir mensajes de texto, o bien<a href=%{email_link}>, proporcione una dirección de correo electrónico</a>
         email_address:
           title: Por favor comparte tu dirección de correo electrónico.
-        overview:
-          help_text: "Para recibir su Crédito Fiscal por Hijos, y también cualquier pago de estímulo que le corresponda, tendrá que presentar una declaración de impuestos de 2020."
-          help_text2: ¡Podemos ayudar! Sólo hay que seguir unos pasos sencillos.
-          title: ¡Vamos a empezar!
-          step1:
-            title: Contestar preguntas
-            help_text: Le haremos una serie de preguntas sobre usted y sus dependientes.
-          step2:
-            title: Verifique su identidad
-            help_text: Confirmaremos que es usted.
-          step3:
-            title: Obtenga los beneficios fiscales que le corresponden
-            help_text: "Si decide presentar sus impuestos, le ayudaremos a presentarlos electrónicamente y a obtener los beneficios fiscales que le corresponden."
         legal_consent:
           title: "Para realizar la solicitud, necesitaremos un poco de más de información."
           body:

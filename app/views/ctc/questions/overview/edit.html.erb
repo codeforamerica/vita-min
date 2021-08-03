@@ -7,48 +7,12 @@
     <%=t("views.ctc.questions.overview.help_text") %>
   </p>
 
-  <p class="spacing-below-35">
-    <%=t("views.ctc.questions.overview.help_text2") %>
-  </p>
-
-  <div class="steps--wrapper">
-    <div class="step">
-      <div class="step-icon-wrapper">
-        <%= image_tag("questions.svg", alt: "") %>
-      </div>
-      <div class="step-text">
-        <h3><%=t("views.ctc.questions.overview.step1.title") %></h3>
-        <p class="text--small with-padding-small">
-          <%=t("views.ctc.questions.overview.step1.help_text") %>
-        </p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-icon-wrapper">
-        <%= image_tag("person.svg", alt: "") %>
-      </div>
-      <div class="step-text">
-        <h3><%=t("views.ctc.questions.overview.step2.title") %></h3>
-        <p class="text--small with-padding-small">
-          <%=t("views.ctc.questions.overview.step2.help_text") %>
-        </p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-icon-wrapper dollar-sign">
-        <%= image_tag("dollar-sign.svg", alt: "") %>
-      </div>
-      <div class="step-text">
-        <h3><%=t("views.ctc.questions.overview.step3.title") %></h3>
-        <p class="text--small with-padding-small">
-          <%=t("views.ctc.questions.overview.step3.help_text") %>
-        </p>
-      </div>
-    </div>
-  </div>
-
+  <h2 class="h3">This is the right tool for you if:</h2>
+  <ul class="checkmark-list teal">
+    <% t("views.ctc.questions.overview.items").each do |item| %>
+      <li class="text--semibold"><%= item %></li>
+    <% end %>
+  </ul>
   <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
     <%=t("general.continue") %>
   <% end %>
