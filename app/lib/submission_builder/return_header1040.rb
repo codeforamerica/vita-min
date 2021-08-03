@@ -118,7 +118,7 @@ module SubmissionBuilder
               }
               # TODO: Include if we can get value from Aptible. Otherwise, do not include.
               # xml.IPPortNum
-              xml.DeviceId security_information.device_id
+              xml.DeviceId security_information.device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               xml.DeviceTypeCd 1
               xml.UserAgentTxt security_information.user_agent
               xml.BrowserLanguageTxt security_information.browser_language

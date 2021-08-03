@@ -46,11 +46,11 @@ module Ctc
           source: @intake.source,
           type: @intake.type
       )
-      efile_attrs = Client::EfileSecurityInformation.new(attributes_for(:efile_security_information))
+      efile_attrs = attributes_for(:efile_security_information).merge(timezone_offset: format_timezone_offset(timezone_offset))
       client = Client.create!(
         intake_attributes: intake_attributes,
         tax_returns_attributes: [tax_return_attributes],
-        efile_security_information: efile_attrs
+        efile_security_information_attributes: efile_attrs
       )
       @intake = client.intake
     end
@@ -73,6 +73,12 @@ module Ctc
 
     def normalize_phone_numbers
       self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?
+    end
+
+    def format_timezone_offset(tz_offset)
+      return unless tz_offset.present?
+
+      "+" + tz_offset unless tz_offset.include?("-") || tz_offset.include?("+")
     end
   end
 end
