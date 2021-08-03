@@ -4,10 +4,13 @@ class Ctc::Portal::PortalController < ApplicationController
 
   def home
     if current_client.efile_submissions.any?
-      @status = current_client.efile_submissions.last.current_state
+      submission = current_client.efile_submissions.last
+      @status = submission.current_state
+      @errors = submission.last_transition&.stored_errors
       @current_step = nil
     else
       @status = "intake_in_progress"
+      @errors = nil
       @current_step = current_client.intake.current_step
     end
   end

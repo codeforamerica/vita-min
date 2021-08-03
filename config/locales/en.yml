@@ -1392,7 +1392,7 @@ en:
               message: Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks.
             rejected:
               label: Rejected
-              message: Your return has not been accepted by the IRS. We will need to correct your info and resubmit. Information about next steps were sent to your contact info.
+              message: Your return has not been accepted by the IRS. We will need to correct your info and resubmit. Please contact your tax preparer to make corrections.
       questions:
         dependents:
           tin:
