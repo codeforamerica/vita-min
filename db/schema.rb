@@ -149,16 +149,16 @@ ActiveRecord::Schema.define(version: 2021_07_29_180640) do
   end
 
   create_table "client_efile_security_informations", force: :cascade do |t|
-    t.string "browser_language", null: false
-    t.bigint "client_id", null: false
-    t.string "client_system_time", null: false
+    t.string "browser_language"
+    t.bigint "client_id"
+    t.string "client_system_time"
     t.datetime "created_at", precision: 6, null: false
-    t.string "device_id", null: false
+    t.string "device_id"
     t.inet "ip_address"
-    t.string "platform", null: false
-    t.string "timezone_offset", null: false
+    t.string "platform"
+    t.string "timezone_offset"
     t.datetime "updated_at", precision: 6, null: false
-    t.string "user_agent", null: false
+    t.string "user_agent"
     t.index ["client_id"], name: "index_client_efile_security_informations_on_client_id"
   end
 

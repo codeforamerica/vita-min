@@ -15,7 +15,8 @@ export function getEfileSecurityInformation() {
     document.getElementById('ctc_consent_form_platform').value = navigator.platform;
     var loadDate = new Date();
     document.getElementById('ctc_consent_form_client_system_time').value = loadDate;
-    document.getElementById('ctc_consent_form_timezone_offset').value = loadDate.getTimezoneOffset();
+    var timezone_offset = loadDate.getTimezoneOffset();
+    document.getElementById('ctc_consent_form_timezone_offset').value = timezone_offset.includes("-") ? timezone_offset : "+" + timezone_offset;
 }
 
 

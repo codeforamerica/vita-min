@@ -7,7 +7,6 @@ module Ctc
 
       def edit
         super
-        byebug
       end
 
       def form_params

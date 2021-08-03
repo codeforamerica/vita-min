@@ -3,16 +3,16 @@
 # Table name: client_efile_security_informations
 #
 #  id                 :bigint           not null, primary key
-#  browser_language   :string           not null
-#  client_system_time :string           not null
+#  browser_language   :string
+#  client_system_time :string
 #  ip_address         :inet
-#  platform           :string           not null
-#  timezone_offset    :string           not null
-#  user_agent         :string           not null
+#  platform           :string
+#  timezone_offset    :string
+#  user_agent         :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  client_id          :bigint           not null
-#  device_id          :string           not null
+#  client_id          :bigint
+#  device_id          :string
 #
 # Indexes
 #

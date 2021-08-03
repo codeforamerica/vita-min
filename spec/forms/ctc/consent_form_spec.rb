@@ -21,7 +21,7 @@ describe Ctc::ConsentForm do
         user_agent: "GeckoFox",
         browser_language: "en-US",
         platform: "iPad",
-        timezone_offset: "240",
+        timezone_offset: "+240",
         client_system_time: "2021-07-28T21:21:32.306Z",
       }
     }
@@ -146,23 +146,6 @@ describe Ctc::ConsentForm do
         expect(described_class.new(intake, params)).not_to be_valid
       end
     end
-
-    context "when e-file security information is missing" do
-      # TODO: Ensure we're happy with how this will display
-
-      before do
-        params.delete(:device_id)
-        params.delete(:user_agent)
-        params.delete(:browser_language)
-        params.delete(:platform)
-        params.delete(:timezone_offset)
-        params.delete(:client_system_time)
-      end
-
-      it "is not valid" do
-        expect(described_class.new(intake, params)).not_to be_valid
-      end
-    end
   end
 
   describe "#save" do
@@ -183,7 +166,7 @@ describe Ctc::ConsentForm do
           user_agent: "GeckoFox",
           browser_language: "en-US",
           platform: "iPad",
-          timezone_offset: "-0400",
+          timezone_offset: "+240",
           client_system_time: "2021-07-28T21:21:32.306Z",
       })
       expect {
@@ -212,7 +195,7 @@ describe Ctc::ConsentForm do
       expect(intake.client.efile_security_information.user_agent).to eq "GeckoFox"
       expect(intake.client.efile_security_information.browser_language).to eq "en-US"
       expect(intake.client.efile_security_information.platform).to eq "iPad"
-      expect(intake.client.efile_security_information.timezone_offset).to eq "-0400"
+      expect(intake.client.efile_security_information.timezone_offset).to eq "+240"
       expect(intake.client.efile_security_information.client_system_time).to eq "2021-07-28T21:21:32.306Z"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
     end
