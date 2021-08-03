@@ -1217,8 +1217,6 @@ es:
 
             Inicie sesión para ver los siguientes pasos para corregir su información fiscal: <<Client.LoginLink>>
 
-            Si tiene alguna pregunta, puede ir a GetCTC.org y abrir un chat con un experto en impuestos o enviar un correo electrónico a hello@getctc.org.
-
             ¡Estamos aquí para ayudar!
             Su equipo de impuestos en GetCTC.org
           subject: Atención necesaria para enviar sus impuestos con GetCTC
@@ -1227,7 +1225,7 @@ es:
           ¡Gracias por presentar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS por el siguiente motivo:
           %{error_code}: %{error_message}
           Inicie sesión para ver los siguientes pasos para corregir su información fiscal: <<Client.LoginLink>>
-          Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!
+          ¡Estamos aquí para ayudar!
   models:
     intake:
       your_spouse: Su cónyuge
