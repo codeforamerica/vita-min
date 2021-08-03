@@ -12,6 +12,13 @@
             <%= image_tag submission_status_icon(@status) %>
             <%= t("views.ctc.portal.home.status.#{@status}.label") %>
           </div>
+          <% if @errors.present? %>
+            <% @errors.each do |error| %>
+              <div class="text--bold text--small">
+                <%= error.code %>: <%= error.message %>
+              </div>
+            <% end %>
+          <% end %>
           <div class="text--small">
             <%= t("views.ctc.portal.home.status.#{@status}.message") %>
           </div>
@@ -23,7 +30,7 @@
         </div>
       </div>
       <div class="spacing-above-35">
-        <%= link_to "Return to homepage", root_path, class: "button button--primary button--full-width" %>
+        <%= link_to "Message my tax preparer", new_ctc_portal_message_path, class: "button button--primary button--full-width" %>
       </div>
     </div>
   </div>

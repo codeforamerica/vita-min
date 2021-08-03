@@ -2,7 +2,6 @@
 
 <%= content_for :card do %>
   <h1 class="h2"><%= content_for :title %></h1>
-  <p><%= t(".help_text") %></p>
   <p><%= client_contact_preference(current_client) %> <%= t(".wait_time") %></p>
   <%= form_with model: @message, url: portal_messages_path, local: true, builder: VitaMinFormBuilder, class: "portal-message-form" do |f| %>
     <%= f.cfa_textarea(:body, t(".body_label")) %>

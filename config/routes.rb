@@ -315,6 +315,8 @@ Rails.application.routes.draw do
         namespace :portal do
           root "portal#home"
           login_routes
+
+          resources :messages, only: [:new, :create]
         end
 
         # Any other top level slash just goes to home as a source parameter

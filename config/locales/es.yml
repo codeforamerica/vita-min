@@ -1258,7 +1258,6 @@ es:
       new:
         title: Mandar un mensaje a %{partner_name}
         your_tax_preparers: mi especialista en impuestos
-        help_text: Nos da gusto contestar cualquier pregunta que usted tenga acerca de nuestros servicios.
         contact_preference: Enviaremos la respuesta por %{contact_method} a %{contact_info}.
         wait_time: Por favor permita hasta tres días hábiles para recibir una respuesta.
         body_label: Mandar un mensaje
