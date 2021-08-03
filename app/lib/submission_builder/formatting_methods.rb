@@ -78,13 +78,13 @@ module SubmissionBuilder
     private
 
     def formatted_first_name(name)
-      # removes accented characters and any special characters
-      I18n.transliterate(name).upcase.gsub(/[^A-Z]/, '')
+      # removes accented characters and any special characters, except space
+      I18n.transliterate(name).strip.upcase.gsub(/[^A-Z\s]/, '')
     end
 
     def formatted_last_name(name)
-      # removes accented characters and any special characters, except hyphens
-      I18n.transliterate(name).upcase.gsub(/[^A-Z\-]/, '')
+      # removes accented characters and any special characters, except space and hyphens
+      I18n.transliterate(name).strip.upcase.gsub(/[^A-Z\-\s]/, '')
     end
   end
 end

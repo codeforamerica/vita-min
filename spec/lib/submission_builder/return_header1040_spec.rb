@@ -77,7 +77,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at('ReturnTypeCd').text).to eq "1040"
         expect(xml.at("PrimarySSN").text).to eq submission.intake.primary_ssn
         expect(xml.at("SpouseSSN").text).to eq submission.intake.spouse_ssn
-        expect(xml.at("NameLine1Txt").text).to eq "HUBERTBLAINE<W<& LISA F" # trimmed to 35 characters
+        expect(xml.at("NameLine1Txt").text).to eq "HUBERT BLAINE<W<& LISA F" # trimmed to 35 characters
         expect(xml.at("PrimaryNameControlTxt").text).to eq "HUBE"
         expect(xml.at("SpouseNameControlTxt").text).to eq "LISA"
         expect(xml.at("AddressLine1Txt").text).to eq "23627 HAWKINS CREEK CT"
