@@ -20,7 +20,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         current_sign_in_at: DateTime.new(2021, 4, 20, 16, 20),
         last_seen_at: DateTime.new(2021, 4, 20, 16, 21),
         # Previous sessions have lasted 20 minutes
-        total_session_active_seconds: 20 * 60,
+        previous_sessions_active_seconds: 20 * 60,
       )
     end
 
