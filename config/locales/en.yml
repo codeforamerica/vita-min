@@ -1545,12 +1545,8 @@ en:
           ssn_confirmation: Confirm SSN or ITIN
           sms_phone_number: Phone number
         income:
-          title_html: |
-            In %{tax_year}, did you earn over:
-            <ul class="list--bulleted">
-              <li>$12,400 if filing single</li>
-              <li>$24,800 if married filing jointly</li>
-            </ul>
+          title: |
+            In %{tax_year}, did you earn over $12,400 if filing single or $24,800 if married filing jointly?
           help_text_html: |
             <p>Income can be from any of the following sources:</p>
             <ul class="list--bulleted">
