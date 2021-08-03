@@ -22,7 +22,7 @@ describe Ctc::ConsentForm do
         browser_language: "en-US",
         platform: "iPad",
         timezone_offset: "+240",
-        client_system_time: "2021-07-28T21:21:32.306Z",
+        client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
       }
     }
     context "when all required information is provided" do
@@ -149,7 +149,7 @@ describe Ctc::ConsentForm do
   end
 
   describe "#save" do
-    it "saves the attributes on the intake and creates a client,2020 tax return and efile security information" do
+    it "saves the attributes on the intake and creates a client, 2020 tax return and efile security information" do
       form = described_class.new(intake, {
           primary_first_name: "Marty",
           primary_middle_initial: "J",
@@ -167,7 +167,7 @@ describe Ctc::ConsentForm do
           browser_language: "en-US",
           platform: "iPad",
           timezone_offset: "+240",
-          client_system_time: "2021-07-28T21:21:32.306Z",
+          client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
       })
       expect {
         form.valid? # the form only transforms the phone number if it is validated before calling save
@@ -196,7 +196,7 @@ describe Ctc::ConsentForm do
       expect(intake.client.efile_security_information.browser_language).to eq "en-US"
       expect(intake.client.efile_security_information.platform).to eq "iPad"
       expect(intake.client.efile_security_information.timezone_offset).to eq "+240"
-      expect(intake.client.efile_security_information.client_system_time).to eq "2021-07-28T21:21:32.306Z"
+      expect(intake.client.efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
     end
   end

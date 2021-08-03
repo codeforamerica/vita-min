@@ -7,7 +7,7 @@ export function getEfileSecurityInformation() {
     Fingerprint2.get(function(components) {
         var stringtohash = components.map(function (pair) { return pair.value }).join('###')
         let encrypted_device_id =  CryptoJS.SHA1(stringtohash);
-        document.getElementById('ctc_consent_form_device_id').value = encrypted_device_id ||"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        document.getElementById('ctc_consent_form_device_id').value = encrypted_device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     });
 
     document.getElementById('ctc_consent_form_user_agent').value = navigator.userAgent;
