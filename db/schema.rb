@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_29_180640) do
+ActiveRecord::Schema.define(version: 2021_08_03_223047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(version: 2021_07_29_180640) do
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_internal_or_outgoing_interaction_at"
     t.datetime "last_outgoing_communication_at"
+    t.datetime "last_seen_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.datetime "locked_at"
@@ -189,6 +190,7 @@ ActiveRecord::Schema.define(version: 2021_07_29_180640) do
     t.integer "routing_method"
     t.integer "sign_in_count", default: 0, null: false
     t.integer "still_needs_help", default: 0, null: false
+    t.integer "total_session_active_seconds"
     t.datetime "triggered_still_needs_help_at"
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id"

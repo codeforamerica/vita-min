@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe SubmissionBuilder::ReturnHeader1040 do
   describe ".build" do
+    let(:fake_time) { DateTime.new(2021, 4, 21) }
     before do
       submission.intake.update(
         primary_first_name: "Hubert Blaine ",
@@ -12,6 +13,14 @@ describe SubmissionBuilder::ReturnHeader1040 do
         spouse_signature_pin: "54321",
         primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
         spouse_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20)
+      )
+      submission.client.update!(
+        created_at: DateTime.new(2021, 4, 20, 12, 0),
+        # Current session has lasted 1 minute
+        current_sign_in_at: DateTime.new(2021, 4, 20, 16, 20),
+        last_seen_at: DateTime.new(2021, 4, 20, 16, 21),
+        # Previous sessions have lasted 20 minutes
+        total_session_active_seconds: 20 * 60,
       )
     end
 
@@ -59,7 +68,9 @@ describe SubmissionBuilder::ReturnHeader1040 do
 
     context "the XML document contents" do
       it "includes required nodes on the ReturnHeader (filing with Check)" do
-        xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+        xml = Nokogiri::XML::Document.parse(
+          Timecop.freeze(fake_time) { SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml }
+        )
         expect(xml.at("ReturnTs").text).to eq submission.created_at.strftime("%FT%T%:z")
         expect(xml.at("TaxYr").text).to eq "2020"
         expect(xml.at("TaxPeriodBeginDt").text).to eq "2020-01-01"
@@ -99,8 +110,8 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp IPAddress IPv4AddressTxt").text).to eq "1.1.1.1"
         expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp DeviceId").text).to eq "9162213099514827927117083645386143446039"
         expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp DeviceTypeCd").text).to eq "1"
-        expect(xml.at("FilingSecurityInformation TotalPreparationSubmissionTs")).not_to be_nil
-        expect(xml.at("FilingSecurityInformation TotActiveTimePrepSubmissionTs")).not_to be_nil
+        expect(xml.at("FilingSecurityInformation TotalPreparationSubmissionTs").text).to eq((12 * 60).to_s)
+        expect(xml.at("FilingSecurityInformation TotActiveTimePrepSubmissionTs").text).to eq("21")
       end
 
       context "filing as a single filer" do

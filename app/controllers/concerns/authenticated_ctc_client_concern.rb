@@ -3,9 +3,14 @@ module AuthenticatedCtcClientConcern
 
   included do
     before_action :require_client_login
+    after_action :update_session_time
   end
 
   private
+
+  def update_session_time
+    current_client.touch :last_seen_at
+  end
 
   def current_intake
     current_client&.intake

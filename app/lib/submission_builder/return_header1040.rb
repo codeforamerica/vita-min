@@ -174,16 +174,15 @@ module SubmissionBuilder
       submission.client.first_sign_in_ip == submission.client.last_sign_in_ip ? 0 : 1
     end
 
-    # Subtracting two DateTime from ActiveSupport::TimeWithZone provide distance of time in seconds
+    # Converting DateTime to epoch time then subtracting provides distance of time in seconds
     # Divide by 60 to get distance of time in minutes
     def total_preparation_submission_minutes
-      ((DateTime.now - submission.client.created_at.to_datetime) / 60).to_i
+      (DateTime.now.to_i - submission.client.created_at.to_datetime.to_i) / 60
     end
 
-    # TODO: replaced with a "counter" of active time spent prepping
-    # captures the amount of active time within the application until submission
     def total_active_preparation_minutes
-      15
+      current_session_duration = submission.client.last_seen_at.to_i - submission.client.current_sign_in_at.to_i
+      ((submission.client.total_session_active_seconds || 0) + current_session_duration) / 60
     end
   end
 end
