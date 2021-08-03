@@ -2,7 +2,7 @@
 
 Date: 2021-08-02
 
-Authors: Asheesh Laroia, Travis Grathwell
+Authors: Asheesh Laroia, Shannon Byrne, Travis Grathwell
 
 ## Purpose
 Engineers might have to handle EfileSubmission records during on-call.
