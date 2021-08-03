@@ -87,14 +87,14 @@ RSpec.feature "Session duration" do
           authenticate_client(client)
           expect(page).to have_text(I18n.t('views.ctc.questions.dependents.had_dependents.title'))
         end
-        expect(client.reload.total_session_active_seconds).to eq(0) # last session occurred in one instant
+        expect(client.reload.previous_sessions_active_seconds).to eq(0) # last session occurred in one instant
         expect(client.reload.last_seen_at).to eq(fake_time)
 
         Timecop.freeze(fake_time + 1.minutes) do
           visit Ctc::Questions::Dependents::HadDependentsController.to_path_helper
         end
         expect(client.reload.last_seen_at).to eq(fake_time + 1.minutes)
-        expect(client.reload.total_session_active_seconds).to eq(0) # still w/r/t the previous login
+        expect(client.reload.previous_sessions_active_seconds).to eq(0) # still w/r/t the previous login
         Capybara.current_session.reset!
 
         Timecop.freeze(fake_time + 2.minutes) do
@@ -103,7 +103,7 @@ RSpec.feature "Session duration" do
           expect(page).to have_text(I18n.t('views.ctc.questions.dependents.had_dependents.title'))
         end
         expect(client.reload.last_seen_at).to eq(fake_time + 2.minutes)
-        expect(client.reload.total_session_active_seconds).to eq(1.minutes)
+        expect(client.reload.previous_sessions_active_seconds).to eq(1.minutes)
       end
     end
   end

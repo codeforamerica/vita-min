@@ -21,10 +21,10 @@
 #  locked_at                                :datetime
 #  login_requested_at                       :datetime
 #  login_token                              :string
+#  previous_sessions_active_seconds         :integer
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
 #  still_needs_help                         :integer          default("unfilled"), not null
-#  total_session_active_seconds             :integer
 #  triggered_still_needs_help_at            :datetime
 #  created_at                               :datetime         not null
 #  updated_at                               :datetime         not null
@@ -821,7 +821,7 @@ describe Client do
     end
   end
 
-  describe '#total_session_active_seconds' do
+  describe '#previous_sessions_active_seconds' do
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
     let(:client) { create :client, last_sign_in_at: fake_time - 5.minutes, last_seen_at: fake_time }
 
@@ -832,7 +832,7 @@ describe Client do
     it 'accumulates the last session length on every login' do
       expect do
         client.accumulate_total_session_durations
-      end.to change { client.reload.total_session_active_seconds }.from(nil).to(5 * 60)
+      end.to change { client.reload.previous_sessions_active_seconds }.from(nil).to(5 * 60)
     end
   end
 end

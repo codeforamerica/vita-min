@@ -182,7 +182,7 @@ module SubmissionBuilder
 
     def total_active_preparation_minutes
       current_session_duration = submission.client.last_seen_at.to_i - submission.client.current_sign_in_at.to_i
-      ((submission.client.total_session_active_seconds || 0) + current_session_duration) / 60
+      ((submission.client.previous_sessions_active_seconds || 0) + current_session_duration) / 60
     end
   end
 end

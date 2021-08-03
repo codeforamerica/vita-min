@@ -21,10 +21,10 @@
 #  locked_at                                :datetime
 #  login_requested_at                       :datetime
 #  login_token                              :string
+#  previous_sessions_active_seconds         :integer
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
 #  still_needs_help                         :integer          default("unfilled"), not null
-#  total_session_active_seconds             :integer
 #  triggered_still_needs_help_at            :datetime
 #  created_at                               :datetime         not null
 #  updated_at                               :datetime         not null
@@ -185,7 +185,7 @@ class Client < ApplicationRecord
 
     previous_session_duration = last_seen_at - last_sign_in_at
 
-    update!(total_session_active_seconds: (total_session_active_seconds || 0) + previous_session_duration)
+    update!(previous_sessions_active_seconds: (previous_sessions_active_seconds || 0) + previous_session_duration)
   end
 
   def legal_name
