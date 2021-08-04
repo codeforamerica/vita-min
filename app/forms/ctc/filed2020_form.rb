@@ -1,9 +1,11 @@
 module Ctc
   class Filed2020Form < QuestionsForm
-    set_attributes_for :intake, :filed_2020
+    set_attributes_for :eligibility, :filed_2020
 
-    def save
-      @intake.update(attributes_for(:intake))
+    def save; end
+
+    def filed_2020?
+      filed_2020 == "yes"
     end
   end
 end

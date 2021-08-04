@@ -29,6 +29,26 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title"))
     click_on I18n.t("views.ctc.questions.file_full_return.full_btn")
 
+    # =========== ELIGIBILITY ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
+    click_on I18n.t('general.negative')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
+    click_on I18n.t('general.affirmative')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2019.title'))
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    check I18n.t('views.ctc.questions.home.options.fifty_states')
+    check I18n.t('views.ctc.questions.home.options.foreign_address')
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
+    click_on I18n.t('general.back')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    check I18n.t('views.ctc.questions.home.options.fifty_states')
+    check I18n.t('views.ctc.questions.home.options.military_facility')
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
+    click_on I18n.t('general.negative')
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.consent.title'))
     fill_in I18n.t('views.ctc.questions.consent.first_name'), with: "Gary"
     fill_in I18n.t('views.ctc.questions.consent.middle_initial'), with: "H"
@@ -74,27 +94,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
     click_on I18n.t('general.continue')
 
-    # =========== LIFE SITUATIONS ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
-    click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
-    click_on I18n.t('general.affirmative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2019.title'))
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
-    check I18n.t('views.ctc.questions.home.options.fifty_states')
-    check I18n.t('views.ctc.questions.home.options.foreign_address')
-    click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
-    click_on I18n.t('general.back')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
-    check I18n.t('views.ctc.questions.home.options.fifty_states')
-    check I18n.t('views.ctc.questions.home.options.military_facility')
-    click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
-    check I18n.t('views.ctc.questions.life_situations2020.cannot_claim_me_as_a_dependent')
-    click_on I18n.t('general.continue')
 
     # =========== FILING STATUS ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
@@ -197,6 +196,9 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('views.ctc.questions.dependents.confirm_dependents.done_adding')
 
     # =========== RECOVERY REBATE CREDIT ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.primary_active_military.title'))
+    click_on I18n.t('general.negative')
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
     expect(page).to have_selector(".first-stimulus", text: "$2,400")
     expect(page).to have_selector(".second-stimulus", text: "$1,200")

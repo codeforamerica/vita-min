@@ -1,0 +1,6 @@
+<% content_for :form_question, t("views.ctc.questions.primary_active_armed_forces.title") %>
+<% content_for :form_help_text do %>
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.primary_active_armed_forces.reveal_label")) do %>
+    <p> <%= t("views.ctc.questions.primary_active_armed_forces.reveal_content") %> </p>
+  <% end %>
+<% end %>

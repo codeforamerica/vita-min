@@ -1642,6 +1642,10 @@ en:
           first_stimulus_details: "This payment should have arrived between April 2020 and October 2020."
           second_stimulus_details: "This payment should have arrived between December 2020 and January 2021."
           question: "Did you receive this amount?"
+        primary_active_armed_forces:
+          title: "Were you a member of the United States Armed Forces for any time in 2020?"
+          reveal_label: "Why are you asking this?"
+          reveal_content: "Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit"
         stimulus_one:
           title: "Did you receive any of the first stimulus payment?"
           help_html: |
@@ -1700,12 +1704,7 @@ en:
           reveal_title: I'm unsure how to file
           reveal_body: If you normally file as head of household or married filing separately, select ‘single’ for the purpose of this return.
         life_situations2020:
-          title: "Select any situations that were true for you in 2020"
-          p1: "These answers help us determine what tax credits you qualify for."
-          cannot_claim_me_as_a_dependent: "No one can claim me as a dependent"
-          primary_active_armed_forces: "I was a member of the United States Armed Forces for any time in 2020"
-          reveal_label: "Why are you asking this?"
-          reveal_content: "Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit"
+          title: "Can anyone claim you as a dependent in 2020?"
         ip_pin_explanation_html: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers. <a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">You can retrieve your IP PIN through this IRS page.</a>
         ip_pin:
           title: Has anyone on your return been issued an IP PIN because of identity theft?

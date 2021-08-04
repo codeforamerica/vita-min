@@ -6,6 +6,14 @@ class CtcQuestionNavigation
     Ctc::Questions::OverviewController,
     Ctc::Questions::IncomeController,
     Ctc::Questions::FileFullReturnController,
+
+    # Eligibility
+    Ctc::Questions::Filed2020Controller,
+    Ctc::Questions::Filed2019Controller,
+    Ctc::Questions::HomeController,
+    Ctc::Questions::LifeSituations2020Controller,
+
+    # Consent/Contact
     Ctc::Questions::ConsentController,            # At this point we create the intake, client, and tax return
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,
@@ -13,16 +21,8 @@ class CtcQuestionNavigation
     Ctc::Questions::EmailVerificationController,  # At this verification point we sign in the client
     Ctc::Questions::PhoneVerificationController,  # Same sign in behavior as previous controller, but verified through SMS instead of email
 
-    # Life Situations
-    Ctc::Questions::Filed2020Controller, # This and all later controllers require the client to be signed in
-    Ctc::Questions::Filed2020YesController,
-    Ctc::Questions::Filed2019Controller,
-    Ctc::Questions::LifeSituations2019Controller,
-    Ctc::Questions::HomeController,
-    Ctc::Questions::LifeSituations2020Controller,
-
     # Filing Status
-    Ctc::Questions::FilingStatusController,
+    Ctc::Questions::FilingStatusController, # This and all later controllers require the client to be signed in
     Ctc::Questions::SpouseInfoController,
     Ctc::Questions::SpouseReviewController,
 
@@ -41,6 +41,7 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::ConfirmDependentsController,
 
     # RRC
+    Ctc::Questions::PrimaryActiveArmedForcesController,
     Ctc::Questions::StimulusPaymentsController,
     Ctc::Questions::StimulusOneController,
     Ctc::Questions::StimulusOneReceivedController,
