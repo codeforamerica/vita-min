@@ -29,6 +29,27 @@ RSpec.feature "Session duration" do
     click_on I18n.t('general.negative')
     click_on I18n.t("views.ctc.questions.file_full_return.full_btn")
 
+    # =========== ELIGIBILITY ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
+    click_on I18n.t('general.negative')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
+    click_on I18n.t('general.affirmative')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2019.title'))
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    check I18n.t('views.ctc.questions.home.options.fifty_states')
+    check I18n.t('views.ctc.questions.home.options.foreign_address')
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
+    click_on I18n.t('general.back')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    check I18n.t('views.ctc.questions.home.options.fifty_states')
+    check I18n.t('views.ctc.questions.home.options.military_facility')
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
+    click_on I18n.t('general.negative')
+
+    # =========== BASIC INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.consent.title'))
     fill_in I18n.t('views.ctc.questions.consent.first_name'), with: "Gary"
     fill_in I18n.t('views.ctc.questions.consent.middle_initial'), with: "H"
