@@ -27,7 +27,7 @@ RSpec.feature "Session duration" do
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     click_on I18n.t('general.negative')
-    click_on I18n.t('general.continue')
+    click_on I18n.t("views.ctc.questions.file_full_return.full_btn")
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.legal_consent.title'))
     fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"
