@@ -224,9 +224,5 @@ describe Ctc::ConsentForm do
       expect(intake.client.efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
     end
-
-    context "with device ID missing (e.g. due to lack of JS)" do
-
-    end
   end
 end
