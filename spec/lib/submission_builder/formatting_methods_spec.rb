@@ -4,11 +4,12 @@ describe SubmissionBuilder::FormattingMethods do
   let(:dummy_class) { Class.new() { extend SubmissionBuilder::FormattingMethods } }
 
   describe '#name_line_1_type' do
-    subject(:formatted_name) { dummy_class.name_line_1_type(primary_first, primary_middle, primary_last, spouse_first, spouse_middle, spouse_last) }
+    subject(:formatted_name) { dummy_class.name_line_1_type(primary_first, primary_middle, primary_last, primary_suffix, spouse_first, spouse_middle, spouse_last) }
 
     let(:primary_first) { "Samantha" }
     let(:primary_middle) { nil }
     let(:primary_last) { "Seashells" }
+    let(:primary_suffix) { nil }
     let(:spouse_first) { nil }
     let(:spouse_middle) { nil }
     let(:spouse_last) { nil }
@@ -42,6 +43,13 @@ describe SubmissionBuilder::FormattingMethods do
         end
       end
 
+      context 'with a suffix' do
+        let(:primary_suffix) { "Jr" }
+        it 'formats it correctly' do
+          expect(formatted_name).to eq("SAMANTHA<SEASHELLS<JR")
+        end
+      end
+
       context "when the name line is > 35" do
         context "due to a long first name" do
           let(:primary_first) { "Sssssaaaaaammmaaaannnthhhhaaaaaaaaaa"}
@@ -70,6 +78,13 @@ describe SubmissionBuilder::FormattingMethods do
           expect(formatted_name).to eq("SAMANTHA<SEASHELLS<& CORA O COCONUT")
         end
 
+        context 'with a primary suffix' do
+          let(:primary_suffix) { "Jr" }
+          it 'formats it correctly' do
+            expect(formatted_name).to eq("SAMANTHA<SEASHELLS<JR & CORA O C")
+          end
+        end
+
         context "when the name line is > 35" do
           context "due to a long first name" do
             let(:spouse_first) { "Coooooooooooooooooooooooooooooooooora"}
@@ -91,6 +106,13 @@ describe SubmissionBuilder::FormattingMethods do
         let(:spouse_last) { "Seashells" }
         it 'formats it correctly' do
           expect(formatted_name).to eq("SAMANTHA & CORA O<SEASHELLS")
+        end
+
+        context 'with a primary suffix' do
+          let(:primary_suffix) { "Jr" }
+          it 'formats it correctly' do
+            expect(formatted_name).to eq("SAMANTHA & CORA O<SEASHELLS<JR")
+          end
         end
 
         context "when the name line is > 35" do
