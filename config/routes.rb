@@ -281,6 +281,8 @@ Rails.application.routes.draw do
       # offboarding pages
       get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr
       get "/questions/returning-client", to: "ctc/questions/returning_client#edit", as: :questions_returning_client
+      get "/questions/filed-2020-yes", to: "ctc/questions/filed2020_yes#edit", as: :questions_filed2020_yes
+      get "/questions/life-situations-2019", to: "ctc/questions/life_situations2019#edit", as: :questions_life_situations2019
 
       # remove-spouse should not be included in default navigation flow
       get "/questions/remove-spouse", to: "ctc/questions/remove_spouse#edit", as: :questions_remove_spouse

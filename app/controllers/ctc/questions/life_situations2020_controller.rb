@@ -1,16 +1,18 @@
 module Ctc
   module Questions
     class LifeSituations2020Controller < QuestionsController
-      include AuthenticatedCtcClientConcern
-
-      layout "intake"
+      layout "yes_no_question"
 
       private
 
       def illustration_path; end
 
+      def method_name
+        "can_be_claimed_as_dependent"
+      end
+
       def next_path
-        @form.cannot_be_claimed_as_dependent? ? questions_use_gyr_path : super
+        @form.can_be_claimed_as_a_dependent? ? questions_use_gyr_path : super
       end
     end
   end

@@ -1,7 +1,6 @@
 module Ctc
   module Questions
     class HomeController < QuestionsController
-      include AuthenticatedCtcClientConcern
 
       private
 

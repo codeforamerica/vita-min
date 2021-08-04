@@ -1,7 +1,6 @@
 module Ctc
   module Questions
     class Filed2020Controller < QuestionsController
-      include AuthenticatedCtcClientConcern
 
       layout "yes_no_question"
 
@@ -9,6 +8,10 @@ module Ctc
 
       def method_name
         "filed_2020"
+      end
+
+      def next_path
+        @form.filed_2020? ? questions_filed2020_yes_path : super
       end
 
       def illustration_path

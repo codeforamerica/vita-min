@@ -1,13 +1,8 @@
 module Ctc
   module Questions
     class Filed2020YesController < QuestionsController
-      include AuthenticatedCtcClientConcern
 
       layout "intake"
-
-      def self.show?(intake)
-        intake.filed_2020_yes?
-      end
 
       private
 
