@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :client_efile_security_information, class: Client::EfileSecurityInformation do
-    device_id { "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" }
+    device_id { "7BA1E530D6503F380F1496A47BEB6F33E40403D1" }
     user_agent { "GeckoFox" }
     browser_language { "en-US" }
     platform { "MacIntel" }

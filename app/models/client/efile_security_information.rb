@@ -25,7 +25,7 @@
 class Client::EfileSecurityInformation < ApplicationRecord
   belongs_to :client
 
-  # storing client_system_time as a string and then transforming it into DateTime for the return_header2040
+  # storing client_system_time as a string and then transforming it into DateTime for the return_header1040
   # b/c the db would record the date in UTC and we would lose the client's timezone
   def client_system_datetime
     return nil unless client_system_time.present?
