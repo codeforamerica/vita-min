@@ -7,8 +7,9 @@ describe BuildSubmissionBundleJob do
     let(:address_errors) { "" }
 
     before do
-      address_service_double = instance_double(StandardizeAddressService, valid?: address_valid?, errors: address_errors)
+      address_service_double = instance_double(StandardizeAddressService, valid?: address_valid?, error_message: address_errors, error_code: address_errors)
       allow_any_instance_of(EfileSubmission).to receive(:generate_irs_address).and_return(address_service_double)
+      DefaultErrorMessages.generate!
     end
 
     context "when the address did not validate" do
@@ -32,7 +33,11 @@ describe BuildSubmissionBundleJob do
           described_class.perform_now(submission.id)
         end.to raise_error(StandardError)
         expect(submission.reload.current_state).to eq "failed"
-        expect(submission.efile_submission_transitions.last.metadata['error_message']).to eq "Could not generate PDF Form 1040."
+        expect(submission.efile_submission_transitions.last.efile_errors.length).to eq 1
+        expect(submission.efile_submission_transitions.last.efile_errors.first.message).to eq "Could not generate IRS Form 1040 PDF."
+        expect(submission.efile_submission_transitions.last.efile_errors.first.code).to eq "PDF-1040-FAIL"
+
+        expect(submission.efile_submission_transitions.last.metadata['error_code']).to eq "PDF-1040-FAIL"
       end
     end
 

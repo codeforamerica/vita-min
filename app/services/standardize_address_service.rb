@@ -29,12 +29,20 @@ class StandardizeAddressService
     @result[:zip_code]
   end
 
-  def errors
-    @result[:errors]
+  def error_message
+    return nil unless @result[:error_message]
+
+    @result[:error_message].strip
+  end
+
+  def error_code
+    return nil unless @result[:error_code]
+
+    "USPS#{@result[:error_code].strip}"
   end
 
   def valid?
-    @result[:errors].blank?
+    @result[:error_message].blank?
   end
 
   private
@@ -46,7 +54,8 @@ class StandardizeAddressService
       city: usps_address_xml.xpath("//Address/City").text,
       state: usps_address_xml.xpath("//Address/State").text,
       zip_code: usps_address_xml.xpath("//Address/Zip5").text,
-      errors: usps_address_xml.xpath("//Error/Description").text
+      error_message: usps_address_xml.xpath("//Error/Description").text,
+      error_code: usps_address_xml.xpath("//Error/Number").text
     }
   end
 

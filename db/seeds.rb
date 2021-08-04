@@ -2,6 +2,8 @@
 national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization")
 national_org.update(allows_greeters: true)
 
+DefaultErrorMessages.generate!
+
 koalas = Coalition.find_or_create_by(name: "Koala Koalition")
 Coalition.find_or_create_by(name: "Cola Coalition")
 

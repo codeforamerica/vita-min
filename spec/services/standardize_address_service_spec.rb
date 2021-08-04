@@ -65,7 +65,8 @@ describe StandardizeAddressService do
         expect(Rails.logger).to receive(:error).with("Error returned from USPS Address API: Address Not Found.  ")
         service = described_class.new(intake)
         expect(service.valid?).to eq false
-        expect(service.errors).to eq "Address Not Found.  "
+        expect(service.error_message).to eq "Address Not Found."
+        expect(service.error_code).to eq "USPS-2147219401"
       end
     end
   end

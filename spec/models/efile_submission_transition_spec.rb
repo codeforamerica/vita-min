@@ -39,43 +39,4 @@ describe EfileSubmissionTransition do
       end
     end
   end
-
-  describe "#errors" do
-    context "when error message metadata is present" do
-      let(:transition) { EfileSubmissionTransition.new(metadata: { error_message: "Something went wrong." })}
-
-      it "returns the error_message" do
-        expect(transition.stored_errors.first.message).to eq "Something went wrong."
-        expect(transition.stored_errors.first.code).to be_nil
-
-      end
-    end
-
-    context "when error_code metadata is present" do
-      let(:transition) { EfileSubmissionTransition.new(metadata: { error_code: "R2D2" }) }
-
-      it "returns an error object" do
-        expect(transition.stored_errors.first.code).to eq "R2D2"
-        expect(transition.stored_errors.first.message).to be_nil
-      end
-    end
-
-    context "when raw_response metadata is present in the correct IRS format" do
-      let(:raw_response) { file_fixture("irs_acknowledgement_rejection.xml").read }
-      let(:transition) { EfileSubmissionTransition.new(to_state: "rejected", metadata: { raw_response: raw_response }) }
-
-      it "returns an error object" do
-        expect(transition.stored_errors.length).to eq 2
-        expect(transition.stored_errors.first.code).to eq "IND-189"
-        expect(transition.stored_errors.first.message).to eq "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
-      end
-    end
-
-    context "when no metadata is present" do
-      let(:transition) { EfileSubmissionTransition.new }
-      it "returns nil" do
-        expect(transition.stored_errors).to eq []
-      end
-    end
-  end
 end

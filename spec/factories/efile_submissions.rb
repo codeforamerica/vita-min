@@ -40,6 +40,7 @@ FactoryBot.define do
       after :create do |submission|
         raw_xml = File.read(File.join(Rails.root, "spec/fixtures/files", "irs_acknowledgement_rejection.xml"))
         submission.efile_submission_transitions.last.update(metadata: { raw_response: raw_xml })
+        Efile::SubmissionRejectionParser.new(submission.efile_submission_transitions.last).persist_errors
       end
     end
   end
