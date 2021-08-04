@@ -10,6 +10,7 @@ module Ctc
 
     def check_ctc_intake_cookie
       return unless Rails.env.production?
+      return if current_client&.intake&.is_ctc?
 
       unless cookies[:ctc_intake_ok]
         raise ActionController::RoutingError.new('Not Found')

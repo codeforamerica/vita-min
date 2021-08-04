@@ -44,6 +44,17 @@ describe Ctc::CanBeginIntakeConcern, type: :controller do
           }.to raise_error(ActionController::RoutingError)
         end
       end
+
+      context "without the required cookie but when logged in" do
+        before do
+          sign_in create(:ctc_intake).client, scope: :client
+        end
+
+        it "lets you through" do
+          get :index
+          expect(response).to be_ok
+        end
+      end
     end
   end
 end
