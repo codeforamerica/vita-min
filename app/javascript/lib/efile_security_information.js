@@ -6,7 +6,7 @@ export function getEfileSecurityInformation() {
     let CryptoJS = initCryptoJS();
     Fingerprint2.get(function(components) {
         let concatenated = components.map(function (pair) { return pair.value }).join('###')
-        let concatenatedAndHashed = CryptoJS.SHA1(concatenated).toUpperCase();
+        let concatenatedAndHashed = CryptoJS.SHA1(concatenated).toString().toUpperCase();
         document.getElementById('ctc_consent_form_device_id').value = concatenatedAndHashed;
     });
 
