@@ -5,6 +5,10 @@ module Ctc
 
       layout "intake"
 
+      def form_params
+        super.merge(ip_address: request.remote_ip)
+      end
+
       private
 
       def next_path

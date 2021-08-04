@@ -19,10 +19,20 @@ describe Ctc::Questions::ConfirmLegalController do
   end
 
   describe "#update" do
+    let(:ip_address) { "1.1.1.1" }
+    before do
+      request.remote_ip = ip_address
+    end
     let(:params) do
       {
         ctc_confirm_legal_form: {
           consented_to_legal: "yes",
+          device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
+          user_agent: "GeckoFox",
+          browser_language: "en-US",
+          platform: "iPad",
+          timezone_offset: "+240",
+          client_system_time: "2021-07-28T21:21:32.306Z",
         }
       }
     end
@@ -33,7 +43,9 @@ describe Ctc::Questions::ConfirmLegalController do
           post :update, params: params
 
           expect(response).to redirect_to ctc_portal_root_path
-          expect(client.reload.tax_returns.last.efile_submissions.last.current_state).to eq "preparing"
+          efile_submission = client.reload.tax_returns.last.efile_submissions.last
+          expect(efile_submission.current_state).to eq "preparing"
+          expect(efile_submission.efile_security_information.ip_address).to eq ip_address
         end
       end
 
