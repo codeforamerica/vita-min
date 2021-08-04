@@ -5,38 +5,30 @@ Rails.application.routes.draw do
       put "check-verification-code", to: "client_logins#check_verification_code", as: :check_verification_code, on: :collection
     end
   end
-  def scoped_navigation_routes(context, navigation, as_redirects: false)
+
+  def scoped_navigation_routes(context, navigation)
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
         { get: :edit, put: :update }.each do |method, action|
-          if as_redirects
-            next if controller_class.respond_to?(:resource_name)
+          resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
+          if resource_name
+            resources resource_name, only: [] do
+              member do
+                match(
+                  "/#{controller_class.to_param}",
+                  action: action,
+                  controller: controller_class.controller_path,
+                  via: method
+                )
+              end
+            end
+          else
             match(
               "/#{controller_class.to_param}",
+              action: action,
+              controller: controller_class.controller_path,
               via: method,
-              to: redirect { |_, request| "/#{request.params[:locale]}" }
             )
-          else
-            resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
-            if resource_name
-              resources resource_name, only: [] do
-                member do
-                  match(
-                    "/#{controller_class.to_param}",
-                    action: action,
-                    controller: controller_class.controller_path,
-                    via: method
-                  )
-                end
-              end
-            else
-              match(
-                "/#{controller_class.to_param}",
-                action: action,
-                controller: controller_class.controller_path,
-                via: method,
-              )
-            end
           end
         end
       end
@@ -130,7 +122,7 @@ Rails.application.routes.draw do
         root "portal#home"
 
         # Add redirect for pre-March-2021-style login token links; safe to delete in April 2021
-        get "/account/:id", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login/#{request.params[:id]}"}
+        get "/account/:id", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login/#{request.params[:id]}" }
 
         login_routes
 
@@ -154,7 +146,6 @@ Rails.application.routes.draw do
         match 'upload-documents', to: 'upload_documents#update', via: :put
         match 'complete-documents-request', to: 'upload_documents#complete_documents_request', via: :get
       end
-
 
       # Hub Admin routes (Case Management)
       namespace :hub do
@@ -238,7 +229,7 @@ Rails.application.routes.draw do
           post "/mark-all-read", to: 'user_notifications#mark_all_notifications_read', as: :mark_all_read, on: :collection
         end
         get "/profile" => "users#profile", as: :user_profile
-        end
+      end
 
       put "hub/users/:user_id/resend", to: "hub/users#resend_invitation", as: :user_profile_resend_invitation
 
@@ -276,7 +267,7 @@ Rails.application.routes.draw do
 
   constraints(Routes::CtcDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
-      scoped_navigation_routes(:questions, CtcQuestionNavigation, as_redirects: Rails.configuration.hide_ctc)
+      scoped_navigation_routes(:questions, CtcQuestionNavigation)
 
       # offboarding pages
       get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr

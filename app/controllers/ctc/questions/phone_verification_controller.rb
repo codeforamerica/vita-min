@@ -2,6 +2,7 @@ module Ctc
   module Questions
     class PhoneVerificationController < QuestionsController
       include AnonymousIntakeConcern
+      include Ctc::CanBeginIntakeConcern
       before_action :redirect_if_duplicate_ctc_client
       before_action :send_verification_code, only: [:edit]
 
