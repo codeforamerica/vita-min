@@ -1389,6 +1389,8 @@ en:
               label: Rejected
               message: Your return has not been accepted by the IRS. We will need to correct your info and resubmit. Please contact your tax preparer to make corrections.
       questions:
+        returning_client:
+          next_steps: Sign in to your account to complete the questions. If you have any questions, start a chat with us.
         dependents:
           tin:
             title: "We need some additional information about %{name}."
