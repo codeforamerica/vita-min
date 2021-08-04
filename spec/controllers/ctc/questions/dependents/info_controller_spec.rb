@@ -15,6 +15,7 @@ describe Ctc::Questions::Dependents::InfoController do
           ctc_dependents_info_form: {
             first_name: 'Fae',
             last_name: 'Taxseason',
+            suffix: 'Jr',
             birth_date_day: 1,
             birth_date_month: 1,
             birth_date_year: 1.year.ago.year,
@@ -28,7 +29,7 @@ describe Ctc::Questions::Dependents::InfoController do
       it "creates a dependent and moves to the next page" do
         post :update, params: params
 
-        expect(intake.dependents.last.full_name).to eq 'Fae Taxseason'
+        expect(intake.dependents.last.full_name).to eq 'Fae Taxseason Jr'
       end
     end
 

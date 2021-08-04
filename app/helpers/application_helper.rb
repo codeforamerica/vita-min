@@ -70,6 +70,10 @@ module ApplicationHelper
     options
   end
 
+  def suffix_options_for_select
+    ["I", "II", "III", "IV", "V", "Jr", "Sr"]
+  end
+
   def submission_status_icon(status)
     case status
     when "intake_in_progress"

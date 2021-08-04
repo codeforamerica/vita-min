@@ -8,6 +8,7 @@
       <%= f.cfa_input_field(:first_name, t("views.ctc.questions.dependents.info.first_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:middle_initial, t("views.ctc.questions.dependents.info.middle_initial"), classes: ["form-width--short"]) %>
       <%= f.cfa_input_field(:last_name, t("views.ctc.questions.dependents.info.last_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_select(:suffix, t("views.ctc.questions.dependents.info.suffix"), suffix_options_for_select, include_blank: true) %>
       <%= f.vita_min_date_text_fields(
           :birth_date,
           t("hub.clients.show.date_of_birth"),

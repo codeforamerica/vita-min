@@ -11,6 +11,7 @@
       <%= f.cfa_input_field(:spouse_first_name, t("views.ctc.questions.spouse_info.spouse_first_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:spouse_middle_initial, t("views.ctc.questions.spouse_info.spouse_middle_initial"), classes: ["form-width--short"]) %>
       <%= f.cfa_input_field(:spouse_last_name, t("views.ctc.questions.spouse_info.spouse_last_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_select(:spouse_suffix, t("views.ctc.questions.spouse_info.spouse_suffix"), suffix_options_for_select, include_blank: true) %>
       <%= f.vita_min_date_text_fields(
             :spouse_birth_date,
             t("views.ctc.questions.spouse_info.spouse_dob"),

@@ -69,6 +69,7 @@ RSpec.feature "Creating new drop off clients" do
       within "#spouse-info" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
+        select "IV", from: "Suffix"
         fill_in "Email", with: "spicypeter@pepper.com"
         select "Social Security Number (SSN)"
         fill_in "SSN/ITIN", with: "222-33-5555"

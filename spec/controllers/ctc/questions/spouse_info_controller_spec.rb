@@ -31,6 +31,7 @@ describe Ctc::Questions::SpouseInfoController do
           spouse_first_name: "Madeline",
           spouse_middle_initial: "J",
           spouse_last_name: "Mango",
+          spouse_suffix: "III",
           spouse_birth_date_year: "1963",
           spouse_birth_date_month: "9",
           spouse_birth_date_day: "10",

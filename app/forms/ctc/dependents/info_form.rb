@@ -7,6 +7,7 @@ module Ctc
                          :first_name,
                          :middle_initial,
                          :last_name,
+                         :suffix,
                          :relationship,
                          :full_time_student,
                          :permanently_totally_disabled

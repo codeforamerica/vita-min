@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_03_225320) do
+ActiveRecord::Schema.define(version: 2021_08_04_170222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -279,6 +279,7 @@ ActiveRecord::Schema.define(version: 2021_08_03_225320) do
     t.integer "placed_for_adoption", default: 0, null: false
     t.integer "provided_over_half_own_support", default: 0, null: false
     t.string "relationship"
+    t.string "suffix"
     t.integer "tin_type"
     t.datetime "updated_at", null: false
     t.integer "was_married", default: 0, null: false
@@ -582,6 +583,7 @@ ActiveRecord::Schema.define(version: 2021_08_03_225320) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.datetime "primary_signature_pin_at"
+    t.string "primary_suffix"
     t.integer "primary_tin_type"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
@@ -622,6 +624,7 @@ ActiveRecord::Schema.define(version: 2021_08_03_225320) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.datetime "spouse_signature_pin_at"
+    t.string "spouse_suffix"
     t.integer "spouse_tin_type"
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_was_full_time_student", default: 0, null: false

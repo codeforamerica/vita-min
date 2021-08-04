@@ -33,6 +33,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.consent.first_name'), with: "Gary"
     fill_in I18n.t('views.ctc.questions.consent.middle_initial'), with: "H"
     fill_in I18n.t('views.ctc.questions.consent.last_name'), with: "Mango"
+    select "III", from: I18n.t('views.ctc.questions.consent.suffix')
     fill_in "ctc_consent_form_primary_birth_date_month", with: "08"
     fill_in "ctc_consent_form_primary_birth_date_day", with: "24"
     fill_in "ctc_consent_form_primary_birth_date_year", with: "1996"
@@ -265,12 +266,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     # =========== IP PINs ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
-    check "Gary Mango"
+    check "Gary Mango III"
     check "Jessie Pepper"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin_entry.title'))
-    fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Gary Mango"), with: "123456"
+    fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Gary Mango III"), with: "123456"
     fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie Pepper"), with: "123458"
     click_on I18n.t('general.continue')
 
@@ -278,7 +279,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
 
     expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.confirm_information.your_information"))
-    expect(page).to have_selector("div", text: "Gary Mango")
+    expect(page).to have_selector("div", text: "Gary Mango III")
     expect(page).to have_selector("div", text: "#{I18n.t('hub.clients.show.date_of_birth')}: 8/24/1996")
     expect(page).to have_selector("div", text: "#{I18n.t('general.email')}: mango@example.com")
     expect(page).to have_selector("div", text: "#{I18n.t('general.phone')}: (831) 234-5678")
@@ -302,7 +303,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.routing_number')}: 123456789")
     expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.account_number')}: ●●●●●6789")
 
-    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Gary Mango"), with: "12345"
+    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Gary Mango III"), with: "12345"
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Peter Pepper"), with: "54321"
     click_on I18n.t('views.ctc.questions.confirm_information.ready_to_file')
 
