@@ -46,6 +46,7 @@ describe Ctc::Questions::ConsentController do
             primary_birth_date_day: "10",
             primary_ssn: "111-22-8888",
             primary_ssn_confirmation: "111-22-8888",
+            primary_active_armed_forces: "no",
             phone_number: "831-234-5678",
             timezone: "America/Chicago",
             primary_tin_type: "ssn",
