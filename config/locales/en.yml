@@ -1705,7 +1705,7 @@ en:
           reveal_body: If you normally file as head of household or married filing separately, select ‘single’ for the purpose of this return.
         life_situations2020:
           title: "Can anyone claim you as a dependent in 2020?"
-          help_text: "Generally, someone can claim you as a dependent if they are your family member, you live with them for most of the year, and they pay for most of your living expenses.
+          help_text: "Generally, someone can claim you as a dependent if they are your family member, you live with them for most of the year, and they pay for most of your living expenses."
         ip_pin_explanation_html: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers. <a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">You can retrieve your IP PIN through this IRS page.</a>
         ip_pin:
           title: Has anyone on your return been issued an IP PIN because of identity theft?
