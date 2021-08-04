@@ -25,4 +25,31 @@ describe Ctc::Dependents::InfoForm do
       expect(form.errors.keys).not_to include(:birth_date)
     end
   end
+  
+  describe '#save' do
+    let(:intake) { build(:ctc_intake) }
+    let(:params) do
+      {
+        first_name: 'Fae',
+        last_name: 'Taxseason',
+        suffix: 'Jr',
+        birth_date_day: 1,
+        birth_date_month: 1,
+        birth_date_year: 1.year.ago.year,
+        relationship: "daughter",
+        full_time_student: "no",
+        permanently_totally_disabled: "no"
+      }
+    end
+
+    it "saves the attributes on the dependent" do
+      form = described_class.new(intake.dependents.new, params)
+      expect(form.save).to be_truthy
+
+      dependent = Dependent.last
+      expect(dependent.first_name).to eq "Fae"
+      expect(dependent.last_name).to eq "Taxseason"
+      expect(dependent.suffix).to eq "Jr"
+    end
+  end
 end

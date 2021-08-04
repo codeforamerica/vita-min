@@ -147,6 +147,7 @@
 #  primary_last_name                                    :string
 #  primary_middle_initial                               :string
 #  primary_signature_pin_at                             :datetime
+#  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
@@ -187,6 +188,7 @@
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
 #  spouse_signature_pin_at                              :datetime
+#  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
 #  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
@@ -338,11 +340,15 @@ class Intake < ApplicationRecord
   end
 
   def primary_full_name
-    "#{primary_first_name} #{primary_last_name}"
+    parts = [primary_first_name, primary_last_name]
+    parts << primary_suffix if primary_suffix.present?
+    parts.join(' ')
   end
 
   def spouse_full_name
-    "#{spouse_first_name} #{spouse_last_name}"
+    parts = [spouse_first_name, spouse_last_name]
+    parts << spouse_suffix if spouse_suffix.present?
+    parts.join(' ')
   end
 
   def primary_user

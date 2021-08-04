@@ -64,6 +64,7 @@ es:
       fields:
         legal_first_name: Primer nombre legal
         legal_last_name: Apellido legal
+        suffix: Suffix
         mailing_address: Dirección postal
         payment_information: Información de pago
         recovery_rebate_credit: Crédito de recuperación de reembolso (opcional)

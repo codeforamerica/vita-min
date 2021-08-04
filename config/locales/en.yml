@@ -64,6 +64,7 @@ en:
       fields:
         legal_first_name: Legal first name
         legal_last_name: Legal last name
+        suffix: Suffix
         mailing_address: Mailing Address
         payment_information: Payment Information
         recovery_rebate_credit: Recovery Rebate Credit (optional)
@@ -1409,6 +1410,7 @@ en:
             first_name: "Dependent’s legal first name"
             middle_initial: "Dependent’s middle initial"
             last_name: "Dependent’s legal last name"
+            suffix: "Dependent's suffix"
             relationship_to_you: "What is their relationship to you?"
             situations: "Select any situation that was true:"
             full_time_student: "Dependent is a full-time student"
@@ -1538,6 +1540,7 @@ en:
           first_name: Legal first name
           middle_initial: Middle initial
           last_name: Legal last name
+          suffix: Suffix
           ssn: SSN or ITIN
           ssn_confirmation: Confirm SSN or ITIN
           sms_phone_number: Phone number
@@ -1568,6 +1571,7 @@ en:
           spouse_first_name: Spouse's legal first name
           spouse_middle_initial: Middle initial
           spouse_last_name: Spouse's legal last name
+          spouse_suffix: Spouse's suffix
           spouse_dob: Spouse's date of birth
           spouse_identity: Spouse's form of identity
           spouse_identity_help_text: If using a social security card, it must be valid for employment.

@@ -3,12 +3,13 @@ module Ctc
     include BirthDateHelper
     set_attributes_for :intake,
                        :primary_first_name,
-                              :primary_middle_initial,
-                              :primary_last_name,
-                              :primary_ssn,
-                              :phone_number,
-                              :primary_tin_type,
-                              :timezone
+                       :primary_middle_initial,
+                       :primary_last_name,
+                       :primary_suffix,
+                       :primary_ssn,
+                       :phone_number,
+                       :primary_tin_type,
+                       :timezone
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation
     set_attributes_for :efile_security_information,
@@ -64,6 +65,7 @@ module Ctc
           is_ctc: true
       }
     end
+
     def primary_birth_date
       parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day)
     end

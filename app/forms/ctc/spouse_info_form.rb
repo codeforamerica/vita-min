@@ -5,6 +5,7 @@ module Ctc
                        :spouse_first_name,
                        :spouse_middle_initial,
                        :spouse_last_name,
+                       :spouse_suffix,
                        :spouse_tin_type,
                        :spouse_ssn,
                        :spouse_active_armed_forces

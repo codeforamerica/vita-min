@@ -8,6 +8,7 @@ describe Ctc::SpouseInfoForm do
       spouse_first_name: "Madeline",
       spouse_middle_initial: "J",
       spouse_last_name: "Mango",
+      spouse_suffix: "III",
       spouse_birth_date_year: "1963",
       spouse_birth_date_month: "9",
       spouse_birth_date_day: "10",
@@ -49,6 +50,7 @@ describe Ctc::SpouseInfoForm do
       expect(intake.spouse_first_name).to eq "Madeline"
       expect(intake.spouse_middle_initial).to eq "J"
       expect(intake.spouse_last_name).to eq "Mango"
+      expect(intake.spouse_suffix).to eq "III"
       expect(intake.spouse_birth_date).to eq Date.new(1963, 9, 10)
       expect(intake.spouse_ssn).to eq "111228888"
       expect(intake.spouse_last_four_ssn).to eq "8888"

@@ -8,6 +8,7 @@
     <%= f.cfa_input_field(:preferred_name, t("hub.clients.fields.preferred_name")) %>
 
     <% if is_ctc %>
+      <%= f.cfa_select(:primary_suffix, t("hub.clients.fields.suffix"), suffix_options_for_select, include_blank: true) %>
       <%= f.hidden_field :timezone, value: current_user.timezone %>
     <% elsif is_dropoff %>
       <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options, selected: current_user.timezone) %>
