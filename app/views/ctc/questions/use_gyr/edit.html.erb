@@ -3,7 +3,16 @@
 
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
-  <%= t("views.ctc.questions.use_gyr.ctc_conditions_list_html") %>
+  <p class="text--small"><%= t("views.ctc.questions.use_gyr.help_text") %></p>
+
+  <ul class="list--bulleted text--small">
+    <% t("views.ctc.questions.use_gyr.ctc_conditions").each do |condition| %>
+      <li><%= condition %></li>
+    <% end %>
+  </ul>
+
+  <p><strong><%= t("views.ctc.questions.use_gyr.still_benefit") %></strong></p>
+  <p><strong><%= t("views.ctc.questions.use_gyr.collect_money") %></strong></p>
 
   <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'home'), class: "button button--wide button--primary text--centered spacing-above-60" do %>
     <%=t("views.ctc.questions.use_gyr.file_gyr") %>
