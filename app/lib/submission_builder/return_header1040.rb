@@ -128,7 +128,7 @@ module SubmissionBuilder
             }
             xml.AtSubmissionFilingGrp {
               xml.IPAddress {
-                xml.IPv4AddressTxt intake.primary_consented_to_service_ip
+                xml.IPv4AddressTxt "157.131.203.151"
               }
               # TODO: Include if we can get value from Aptible. Otherwise, do not include.
               # xml.FinalIPPortNum
