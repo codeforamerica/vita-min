@@ -1349,6 +1349,8 @@ es:
   views:
     ctc:
       questions:
+        returning_client:
+          next_steps: Inicie sesión en su cuenta para completar las preguntas. Si tiene alguna pregunta, puede chatear con nosotros.
         dependents:
           tin:
             title: "Necesitamos información adicional sobre %{name}."
