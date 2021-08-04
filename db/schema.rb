@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 2021_08_04_170222) do
 
   create_table "client_efile_security_informations", force: :cascade do |t|
     t.string "browser_language"
-    t.bigint "client_id", null: false
+    t.bigint "client_id"
     t.string "client_system_time"
     t.datetime "created_at", precision: 6, null: false
     t.string "device_id"

@@ -24,6 +24,11 @@ module Efile
         @transition.efile_submission_transition_errors.create(efile_submission_id: @transition.efile_submission.id, efile_error_id: error.id)
       end
     end
+
+    def self.persist_errors(*args)
+      new(*args).persist_errors
+    end
   end
+
   class UnexpectedFormatError < StandardError; end
 end

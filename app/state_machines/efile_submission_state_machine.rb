@@ -44,7 +44,7 @@ class EfileSubmissionStateMachine
   after_transition(to: :rejected) do |submission, transition|
     submission.tax_return.update(status: "file_rejected")
 
-    first_error = transition.efile_errors.first
+    first_error = transition.client_facing_errors.first
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
       message: AutomatedMessage::EfileRejected.new(error_code: first_error&.code, error_message: first_error&.message),

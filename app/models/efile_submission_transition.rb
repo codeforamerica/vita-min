@@ -26,7 +26,7 @@ class EfileSubmissionTransition < ApplicationRecord
   has_many :efile_errors, through: :efile_submission_transition_errors
 
   after_destroy :update_most_recent, if: :most_recent?
-  after_create :persist_efile_error_from_metadata
+  after_create_commit :persist_efile_error_from_metadata
 
   def initiated_by
     return nil unless metadata["initiated_by_id"]
@@ -51,13 +51,13 @@ class EfileSubmissionTransition < ApplicationRecord
   def persist_efile_error_from_metadata
     if metadata["error_code"].present?
       attrs = { code: metadata["error_code"] }
-      attrs.merge(message: metadata["error_message"]) if metadata["error_message"].present?
+      attrs.merge!(message: metadata["error_message"]) if metadata["error_message"].present?
       efile_error = EfileError.find_or_create_by!(attrs)
       self.efile_submission_transition_errors.create(efile_submission_id: efile_submission.id, efile_error: efile_error)
     end
 
     if to_state == "rejected" && metadata["raw_response"].present?
-      Efile::SubmissionRejectionParser.new(self).persist_errors
+      Efile::SubmissionRejectionParser.persist_errors(self)
     end
   end
 
