@@ -16,7 +16,8 @@ module SubmissionBuilder
       tax_return = submission.tax_return
       intake = submission.intake
       client = submission.client
-      security_information = client.efile_security_information
+      creation_security_information = client.efile_security_information
+      filing_security_information = submission.efile_security_information
       address = submission.address
 
       Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
@@ -113,34 +114,30 @@ module SubmissionBuilder
           xml.FilingSecurityInformation {
             xml.AtSubmissionCreationGrp {
               xml.IPAddress {
-                xml.IPv4AddressTxt security_information.ip_address if security_information.ip_address.ipv4?
-                xml.IPv6AddressTxt security_information.ip_address if security_information.ip_address.ipv6?
+                xml.IPv4AddressTxt creation_security_information.ip_address if creation_security_information.ip_address.ipv4?
+                xml.IPv6AddressTxt creation_security_information.ip_address if creation_security_information.ip_address.ipv6?
               }
-              # TODO: Include if we can get value from Aptible. Otherwise, do not include.
-              # xml.IPPortNum
-              xml.DeviceId security_information.device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              # xml.IPPortNum omitted because we cannot get TCP client port number easily from Aptible.
+              xml.DeviceId creation_security_information.device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               xml.DeviceTypeCd 1
-              xml.UserAgentTxt security_information.user_agent
-              xml.BrowserLanguageTxt security_information.browser_language
-              xml.PlatformTxt security_information.platform
-              xml.TimeZoneOffsetNum security_information.timezone_offset
-              xml.SystemTs datetime_type(security_information.client_system_datetime)
+              xml.UserAgentTxt creation_security_information.user_agent
+              xml.BrowserLanguageTxt creation_security_information.browser_language
+              xml.PlatformTxt creation_security_information.platform
+              xml.TimeZoneOffsetNum creation_security_information.timezone_offset
+              xml.SystemTs datetime_type(creation_security_information.client_system_datetime)
             }
             xml.AtSubmissionFilingGrp {
               xml.IPAddress {
-                xml.IPv4AddressTxt "157.131.203.151"
+                xml.IPv4AddressTxt filing_security_information.ip_address if filing_security_information.ip_address.ipv4?
+                xml.IPv6AddressTxt filing_security_information.ip_address if filing_security_information.ip_address.ipv6?
               }
-              # TODO: Include if we can get value from Aptible. Otherwise, do not include.
-              # xml.FinalIPPortNum
-              # TODO: Swap out device ID with 40 digit code provided by IRS device ID JS
-              xml.DeviceId 9162213099514827927117083645386143446039
+              xml.DeviceId filing_security_information.device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               xml.DeviceTypeCd 1
-              # TODO: Replace with information gathered from browser at client/intake creation
-              # xml.UserAgentTxt
-              # xml.BrowserLanguageTxt
-              # xml.PlatformTxt
-              # xml.TimeZoneOffsetNum
-              # xml.SystemTs
+              xml.UserAgentTxt filing_security_information.user_agent
+              xml.BrowserLanguageTxt filing_security_information.browser_language
+              xml.PlatformTxt filing_security_information.platform
+              xml.TimeZoneOffsetNum filing_security_information.timezone_offset
+              xml.SystemTs datetime_type(filing_security_information.client_system_datetime)
             }
             if submission.resubmission?
               xml.FederalOriginalSubmissionId submission.previously_transmitted_submission.irs_submission_id

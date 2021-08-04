@@ -41,7 +41,11 @@ const Listeners =  (function(){
                 }
 
                 if(window.appData.controller_action == "Ctc::Questions::ConsentController#edit") {
-                    getEfileSecurityInformation();
+                    getEfileSecurityInformation('ctc_consent_form');
+                }
+
+                if(window.appData.controller_action == "Ctc::Questions::ConfirmLegalController#edit") {
+                    getEfileSecurityInformation('ctc_confirm_legal_form');
                 }
 
                 if (document.querySelector('.taggable-note')) {

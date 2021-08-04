@@ -7,6 +7,13 @@
   <h1 class="h2"><%= @main_question %></h1>
   <%= t("views.ctc.questions.confirm_legal.legal_info_html") %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <%= f.hidden_field(:device_id) %>
+    <%= f.hidden_field(:user_agent) %>
+    <%= f.hidden_field(:browser_language) %>
+    <%= f.hidden_field(:platform) %>
+    <%= f.hidden_field(:timezone_offset) %>
+    <%= f.hidden_field(:client_system_time) %>
+
     <%= f.cfa_checkbox(:consented_to_legal, t("views.ctc.questions.confirm_legal.consent"), options: { checked_value: "yes", unchecked_value: "no" }) %>
     <%= f.submit t("views.ctc.questions.confirm_legal.action"), class: "button button--primary button--wide text--centered spacing-above-60" %>
   <% end %>
