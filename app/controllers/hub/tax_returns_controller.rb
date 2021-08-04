@@ -9,7 +9,7 @@ module Hub
     authorize_resource :client, parent: false, only: [:new, :create]
     load_resource only: [:new, :create]
     before_action :prepare_form, only: [:new]
-    before_action :load_assignable_users, except: [:show, :index]
+    before_action :load_assignable_users, except: [:show]
     before_action :load_and_authorize_assignee, only: [:update]
 
     layout "admin"
