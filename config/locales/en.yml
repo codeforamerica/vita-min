@@ -1554,6 +1554,17 @@ en:
               <li>tips <li>commissions </li>
               <li>self-employment or contract payments</li>
             </ul>
+        file_full_return:
+          title: If you earned income, you could collect additional benefits by filing a full return!
+          help_text:
+            - By filing a full tax return, you could collect all the money you are owed.
+            - "Consider this option if:"
+          list:
+            - You have all of your employment documents (W2’s, 1099’s, etc)
+            - You have a paper copy of a Social Security Card or ITIN paperwork for everyone in your family
+          file_for_free: File your full tax return for free using GetYourRefund.
+          simplified_btn: File your full tax return for free using GetYourRefund
+          full_btn: File a full tax return
         spouse_info:
           title: Tell us about your spouse
           help_text: Please make sure you enter spouse's name as it appears on their Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
