@@ -45,13 +45,7 @@
           <% end %>
         <% else %>
           <div>
-            <% if tax_return.has_submissions? %>
-             <%= link_to hub_efile_submission_path(id: tax_return.id) do %>
-                <%= render 'shared/tax_return_status_label', tax_return: tax_return %>
-             <% end %>
-            <% else %>
              <%= render 'shared/tax_return_status_label', tax_return: tax_return %>
-            <% end %>
           </div>
         <% end %>
       </div>

@@ -11,13 +11,12 @@ module Hub
       @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
     end
 
-    # a little bit unexpectedly, the "show" page actually loads the tax return will all associated submissions
-    # instead of a single submission.
-    # However, efile_submission instance variable for most recent submission is used for access control and
-    # to display information about overall status on the show page.
+    # a little bit unexpectedly, the "show" page actually uses the client id to load the client. Then,
+    # loops through the tax_returns that have efile_submissions.
     def show
-      @tax_return = TaxReturn.joins(:efile_submissions).find(params[:id])
-      @efile_submission = @tax_return.efile_submissions.last
+      @client = Client.find(params[:id])
+      @tax_returns = @client.tax_returns.joins(:efile_submissions) # get all tax returns with submissions
+      redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.present?
     end
 
     def resubmit

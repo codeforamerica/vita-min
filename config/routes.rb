@@ -187,6 +187,7 @@ Rails.application.routes.draw do
           end
           resources :notes, only: [:create, :index]
           resources :messages, only: [:index]
+          get "/efile", to: "efile_submissions#show", on: :member, as: :efile
           resources :outgoing_text_messages, only: [:create]
           resources :outgoing_emails, only: [:create]
           resources :outbound_calls, only: [:new, :create, :show, :update]

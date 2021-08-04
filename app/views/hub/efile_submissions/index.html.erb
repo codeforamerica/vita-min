@@ -52,10 +52,10 @@
       <% @efile_submissions.each do |submission| %>
         <% tax_return = submission.tax_return %>
           <tr class="index-table__row">
-            <td class="index-table__cell status"><%= link_to submission.current_state, hub_efile_submission_path(id: submission.tax_return.id), class: "underline" %></td>
-            <td class="index-table__cell"><%= link_to submission.irs_submission_id, hub_efile_submission_path(id: submission.tax_return.id) %></td>
+            <td class="index-table__cell status"><%= link_to submission.current_state, efile_hub_client_path(id: submission.client.id, anchor: "body"), class: "underline" %></td>
+            <td class="index-table__cell"><%= link_to submission.irs_submission_id, efile_hub_client_path(id: submission.client.id, anchor: "body") %></td>
             <td class="index-table__cell">
-              <%= link_to submission.client.legal_name, hub_client_path(id: submission.client.id), class: "underline" %>
+              <%= link_to submission.client.legal_name, efile_hub_client_path(id: submission.client.id, anchor: "body"), class: "underline" %>
             </td>
             <td class="index-table__cell">
               <%= tax_return.year %>
