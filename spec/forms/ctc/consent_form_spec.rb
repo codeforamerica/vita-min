@@ -187,7 +187,7 @@ describe Ctc::ConsentForm do
           phone_number: "831-234-5678",
           timezone: "America/Chicago",
           primary_tin_type: :itin,
-          device_id: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
           user_agent: "GeckoFox",
           browser_language: "en-US",
           platform: "iPad",
@@ -223,6 +223,10 @@ describe Ctc::ConsentForm do
       expect(intake.client.efile_security_information.timezone_offset).to eq "+240"
       expect(intake.client.efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
+    end
+
+    context "with device ID missing (e.g. due to lack of JS)" do
+
     end
   end
 end
