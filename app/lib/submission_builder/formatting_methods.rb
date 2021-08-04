@@ -61,7 +61,6 @@ module SubmissionBuilder
                      else
                        "<& #{formatted_first_name(spouse_first)}"
                      end
-        name_line << ""
         name_line << " #{spouse_middle.upcase}" if spouse_middle
         name_line << " #{formatted_last_name(spouse_last)}"
         return name_line
