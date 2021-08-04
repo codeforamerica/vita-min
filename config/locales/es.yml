@@ -1428,14 +1428,13 @@ es:
         income:
           title: |
             ¿En %{tax_year}, ganó más de $12,400 si presenta una solicitud única o $24,800 si es casado que presenta una declaración conjunta?
-          help_text_html: |
-            <p>Los ingresos pueden provenir de cualquiera de las siguientes fuentes:</p>
-            <ul class="list--bulleted">
-            <li>salario</li>
-            <li>salario por hora</li>
-            <li>propinas  <li>comisiones </li>
-            <li>pagos por cuenta propia o por contrato</li>
-            </ul>
+          help_text: "Los ingresos pueden provenir de cualquiera de las siguientes fuentes:"
+          income_sources:
+            - salario
+            - salario por hora
+            - propinas
+            - comisiones
+            - pagos por cuenta propia o por contrato
         spouse_info:
           title: Denos un poco de información sobre su cónyuge
           help_text: Asegúrese de introducir el nombre del cónyuge tal y como aparece en su tarjeta de la Seguridad Social o en la carta del número de identificación del contribuyente (ITIN).
@@ -1543,18 +1542,15 @@ es:
           claim: "Solicite el dinero adicional"
         use_gyr:
           title: "Desgraciadamente, no es elegible para utilizar GetCTC. Pero aún podemos ayudarle."
-          ctc_conditions_list_html: |+
-            <p class="text--small">Para poder presentar una declaración simplificada a través de GetCTC necesitaría cumplir las siguientes condiciones:</p>
-            <ul class="list--bulleted text--small">
-            <li>No obtuvo ningún ingreso en el año 2020</li>
-            <li>Es ciudadano estadounidense, estadounidense nacional o residente de Estados Unidos.</li>
-            <li>No es residente de Puerto Rico o de otro Territorio Americano</li>
-             <li>No puede ser declarado como dependiente</li>
-            <li>Usted y su cónyuge tienen un SSN o ITIN válido</li>
-            </ul>
-            <p><strong>Aún podría beneficiarse presentando la declaración de impuestos completa de forma gratuita a través de GetYourRefund.</strong></p>
-            <p><strong>Cobre todo el dinero que le deben presentando su declaración de impuestos con GetYourRefund.</strong></p>
-
+          help_text: "Para poder presentar una declaración simplificada a través de GetCTC necesitaría cumplir las siguientes condiciones:"
+          ctc_conditions:
+            - No obtuvo ningún ingreso en el año 2020
+            - Es ciudadano estadounidense, estadounidense nacional o residente de Estados Unidos.
+            - No es residente de Puerto Rico o de otro Territorio Americano
+            - No puede ser declarado como dependiente
+            - Usted y su cónyuge tienen un SSN o ITIN válido
+          still_benefit: "Aún podría beneficiarse presentando la declaración de impuestos completa de forma gratuita a través de GetYourRefund."
+          collect_money: "Cobre todo el dinero que le deben presentando su declaración de impuestos con GetYourRefund."
           visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglés de CTC "
           file_gyr: "Solicite por medio de GetYourRefund"
         filing_status:

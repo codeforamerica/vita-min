@@ -1472,17 +1472,15 @@ en:
             error: "Please select at least one option"
           does_not_qualify_ctc:
             title: "%{name} can’t be claimed as a dependent."
-            body_html: |
-              <p>For a dependent to qualify they would need to meet the following conditions:</p>
-              <ul class="list--bulleted">
-                <li>Under the age of 18</li>
-                <li>The child has a valid Social Security Number or Adoption Identification Number</li>
-                <li>The dependent was a U.S. citizen, U.S. national, or U.S.resident alien.</li>
-                <li>The dependent lived with you for more than half of 2020.</li>
-                <li>The dependent did not provide over half of their own support for 2020.</li>
-                <li>The dependent does not file a joint return for the year with his or her spouse.</li>
-                <li>The dependent was not claimed as a dependent on another return</li>
-              </ul>
+            help_text: "For a dependent to qualify they would need to meet the following conditions:"
+            conditions:
+              - Under the age of 18
+              - The child has a valid Social Security Number or Adoption Identification Number
+              - The dependent was a U.S. citizen, U.S. national, or U.S.resident alien.
+              - The dependent lived with you for more than half of 2020.
+              - The dependent did not provide over half of their own support for 2020.
+              - The dependent does not file a joint return for the year with his or her spouse.
+              - The dependent was not claimed as a dependent on another return
             add_button: Add another dependent
             done_button: Done adding dependents
         mailing_address:
@@ -1546,14 +1544,13 @@ en:
         income:
           title: |
             In %{tax_year}, did you earn over $12,400 if filing single or $24,800 if married filing jointly?
-          help_text_html: |
-            <p>Income can be from any of the following sources:</p>
-            <ul class="list--bulleted">
-              <li>salary</li>
-              <li>hourly wages </li>
-              <li>tips <li>commissions </li>
-              <li>self-employment or contract payments</li>
-            </ul>
+          help_text: "Income can be from any of the following sources:"
+          income_sources:
+            - salary
+            - hourly wages
+            - tips
+            - commissions
+            - self-employment or contract payments
         file_full_return:
           title: If you earned income, you could collect additional benefits by filing a full return!
           help_text:
@@ -1683,17 +1680,15 @@ en:
           claim: "Claim the additional money"
         use_gyr:
           title: "Unfortunately, you are not eligible to use GetCTC. But we can still help!"
-          ctc_conditions_list_html: |
-            <p class="text--small">In order to file a simplified return through GetCTC you would need to meet the following conditions:</p>
-            <ul class="list--bulleted text--small">
-              <li>You did not earned any income in 2020</li>
-              <li>You are a U.S. citizen, U.S. national, or U.S.resident alien.</li>
-              <li>You are not a resident of Puerto Rico or another American Territory</li>
-              <li>You cannot be claimed as a dependent</li>
-              <li>You and your spouse have a valid SSN or ITIN</li>
-            </ul>
-            <p><strong>You could still benefit by filing a full tax return for free using GetYourRefund.</strong></p>
-            <p><strong>Collect all the money you are owed by filing with GetYourRefund.</strong></p>
+          help_text: "In order to file a simplified return through GetCTC you would need to meet the following conditions:"
+          ctc_conditions:
+            - You did not earned any income in 2020
+            - You are a U.S. citizen, U.S. national, or U.S.resident alien.
+            - You are not a resident of Puerto Rico or another American Territory
+            - You cannot be claimed as a dependent
+            - You and your spouse have a valid SSN or ITIN
+          still_benefit: You could still benefit by filing a full tax return for free using GetYourRefund.
+          collect_money: Collect all the money you are owed by filing with GetYourRefund.
           visit_ctc_faq: "Visit CTC FAQ"
           file_gyr: "File with GetYourRefund"
         filing_status:
