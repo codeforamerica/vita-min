@@ -17,7 +17,7 @@ describe Ctc::ConsentForm do
         phone_number: "831-234-5678",
         timezone: "America/Chicago",
         primary_tin_type: "ssn",
-        device_id: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
         user_agent: "GeckoFox",
         browser_language: "en-US",
         platform: "iPad",
@@ -216,7 +216,7 @@ describe Ctc::ConsentForm do
       expect(intake.source).to eq "some-source"
       expect(intake.type).to eq "Intake::CtcIntake"
       # TODO: Expect IP address also
-      expect(intake.client.efile_security_information.device_id).to eq "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      expect(intake.client.efile_security_information.device_id).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
       expect(intake.client.efile_security_information.user_agent).to eq "GeckoFox"
       expect(intake.client.efile_security_information.browser_language).to eq "en-US"
       expect(intake.client.efile_security_information.platform).to eq "iPad"
