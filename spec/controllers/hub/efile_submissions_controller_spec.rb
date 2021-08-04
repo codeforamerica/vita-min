@@ -36,7 +36,7 @@ describe Hub::EfileSubmissionsController do
 
   describe "#show" do
     let(:submission) { create :efile_submission }
-    let(:params) { { id: submission.tax_return  } }
+    let(:params) { { id: submission.client.id } }
     it_behaves_like :an_action_for_admins_only, action: :show, method: :get
 
     context "as an authenticated admin" do
@@ -45,9 +45,8 @@ describe Hub::EfileSubmissionsController do
 
       it "loads the tax return by id and latest submission as instance variables" do
         get :show, params: params
-
-        expect(assigns(:tax_return)).to eq submission.tax_return
-        expect(assigns(:efile_submission)).to eq submission
+        expect(assigns(:client)).to eq submission.client
+        expect(assigns(:tax_returns)).to eq [submission.tax_return]
       end
     end
   end

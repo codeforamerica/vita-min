@@ -16,8 +16,9 @@ module Hub
     # However, efile_submission instance variable for most recent submission is used for access control and
     # to display information about overall status on the show page.
     def show
-      @tax_return = TaxReturn.joins(:efile_submissions).find(params[:id])
-      @efile_submission = @tax_return.efile_submissions.last
+      @client = Client.find(params[:id])
+      @tax_returns = @client.tax_returns.joins(:efile_submissions) # get all tax returns with submissions
+      redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.present?
     end
 
     def resubmit

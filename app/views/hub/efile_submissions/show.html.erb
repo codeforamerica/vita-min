@@ -1,32 +1,34 @@
-<% content_for :back_to, "efile" %>
 <% content_for :card do %>
-  <div class="slab slab--not-padded spacing-above-25 submission">
-    <div style="display: flex;">
-      <h1 class="h2 spacing-below-5">
-        <%= link_to @tax_return.client.legal_name, hub_client_path(id: @tax_return.client.id) %> (<%= @efile_submission.current_state %>)
-      </h1>
+  <%= render "hub/clients/client_header" %>
+  <%= render "hub/clients/navigation" %>
+  <% @tax_returns.each do |tax_return| %>
+    <% latest_efile_submission = tax_return.efile_submissions.last  %>
+    <div class="slab slab--not-padded spacing-above-25 submission" id="body">
 
-      <div style="margin-left: 10px;">
+      <div style="display: flex;">
+        <h1><%= tax_return.year %> Tax Return (<%= latest_efile_submission.current_state %>)</h1>
+
+        <div style="margin-left: 10px;">
         <%= link_to("Resubmit return",
-                    resubmit_hub_efile_submission_path(id: @efile_submission.id),
+                    resubmit_hub_efile_submission_path(id: latest_efile_submission.id),
                     method: :patch,
-                    data: { confirm: "Have you updated the necessary information for #{@tax_return.client.legal_name}?" },
-                    class: "button button--small") if @efile_submission.can_transition_to?(:resubmitted)
+                    data: { confirm: "Have you updated the necessary information for #{@client.legal_name}?" },
+                    class: "button button--small") if latest_efile_submission.can_transition_to?(:resubmitted)
         %>
       </div>
 
       <div style="margin-left: 10px">
         <%= link_to("Do not file",
-                    cancel_hub_efile_submission_path(id: @efile_submission.id),
+                    cancel_hub_efile_submission_path(id: latest_efile_submission.id),
                     method: :patch,
-                    data: { confirm: "Are you sure you want to mark this tax return submission for # #{@tax_return.client.legal_name}? as 'Not filing'?" },
-                    class: "button button--danger button--small") if @efile_submission.can_transition_to?(:cancelled) %>
+                    data: { confirm: "Are you sure you want to mark this tax return submission for # #{@client.legal_name}? as 'Not filing'?" },
+                    class: "button button--danger button--small") if latest_efile_submission.can_transition_to?(:cancelled) %>
       </div>
     </div>
 
     <div class="log-wrapper">
-      <h4 class="spacing-above-25 spacing-below-10">Status Logs</h4>
-      <% @tax_return.efile_submissions.each_with_index do |efile_submission, i| %>
+      <h4 class="spacing-below-10">Status Logs</h4>
+      <% tax_return.efile_submissions.each_with_index do |efile_submission, i| %>
         <hr/>
         <div>
           <%= i.zero? ? "Submission" : "Resubmission" %>
@@ -39,4 +41,5 @@
       <% end %>
     </div>
   </div>
+  <% end %>
 <% end %>
