@@ -49,6 +49,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
     click_on I18n.t('general.negative')
 
+    # =========== BASIC INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.consent.title'))
     fill_in I18n.t('views.ctc.questions.consent.first_name'), with: "Gary"
     fill_in I18n.t('views.ctc.questions.consent.middle_initial'), with: "H"
