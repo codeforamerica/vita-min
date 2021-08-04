@@ -28,6 +28,11 @@
       <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.consent.ssn"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.consent.ssn_confirmation"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.consent.sms_phone_number"), classes: ["form-width--long"]) %>
+      <%= f.cfa_checkbox(:primary_active_armed_forces, t("views.ctc.questions.consent.primary_active_armed_forces.title"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.consent.primary_active_armed_forces.reveal_label")) do %>
+        <p> <%= t("views.ctc.questions.consent.primary_active_armed_forces.reveal_content") %> </p>
+      <% end %>
       <%= f.hidden_field(:timezone) %>
       <%= f.hidden_field(:device_id) %>
       <%= f.hidden_field(:user_agent) %>

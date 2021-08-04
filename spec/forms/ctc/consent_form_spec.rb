@@ -15,6 +15,7 @@ describe Ctc::ConsentForm do
         primary_ssn: "111-22-8888",
         primary_ssn_confirmation: "111-22-8888",
         phone_number: "831-234-5678",
+        primary_active_armed_forces: "yes",
         timezone: "America/Chicago",
         primary_tin_type: "ssn",
         device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
@@ -185,6 +186,7 @@ describe Ctc::ConsentForm do
           primary_ssn: "111-22-8888",
           primary_ssn_confirmation: "111-22-8888",
           phone_number: "831-234-5678",
+          primary_active_armed_forces: "yes",
           timezone: "America/Chicago",
           primary_tin_type: :itin,
           ip_address: "1.1.1.1",
@@ -207,6 +209,7 @@ describe Ctc::ConsentForm do
       expect(intake.primary_ssn).to eq "111228888"
       expect(intake.phone_number).to eq "+18312345678"
       expect(intake.primary_last_four_ssn).to eq "8888"
+      expect(intake.primary_active_armed_forces).to eq "yes"
       expect(intake.timezone).to eq "America/Chicago"
       expect(intake.client).to be_present
       expect(intake.tax_returns.length).to eq 1

@@ -41,7 +41,6 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::ConfirmDependentsController,
 
     # RRC
-    Ctc::Questions::PrimaryActiveArmedForcesController,
     Ctc::Questions::StimulusPaymentsController,
     Ctc::Questions::StimulusOneController,
     Ctc::Questions::StimulusOneReceivedController,

@@ -61,6 +61,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.consent.ssn'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.consent.sms_phone_number'), with: "831-234-5678"
+    check I18n.t('views.ctc.questions.consent.primary_active_armed_forces.title')
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
@@ -197,9 +198,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('views.ctc.questions.dependents.confirm_dependents.done_adding')
 
     # =========== RECOVERY REBATE CREDIT ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.primary_active_armed_forces.title'))
-    click_on I18n.t('general.negative')
-
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
     expect(page).to have_selector(".first-stimulus", text: "$2,400")
     expect(page).to have_selector(".second-stimulus", text: "$1,200")
