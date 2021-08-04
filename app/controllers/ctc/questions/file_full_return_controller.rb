@@ -1,7 +1,6 @@
 module Ctc
   module Questions
     class FileFullReturnController < QuestionsController
-
       layout "intake"
 
       private

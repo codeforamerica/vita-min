@@ -1,6 +1,7 @@
 module Ctc
   module Questions
     class OverviewController < QuestionsController
+      include Ctc::CanBeginIntakeConcern
       layout "intake"
 
       private

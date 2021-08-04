@@ -3,6 +3,7 @@ module Ctc
     class ConsentController < QuestionsController
       include FirstQuestionConcern
       include AnonymousIntakeConcern
+      include Ctc::CanBeginIntakeConcern
       layout "intake"
 
       def form_params

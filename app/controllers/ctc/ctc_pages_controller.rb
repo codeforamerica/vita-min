@@ -1,6 +1,10 @@
 module Ctc
   class CtcPagesController < CtcController
     def home
+      if params[:ctc_beta] == "1"
+        cookies.permanent[:ctc_intake_ok] = "yes"
+        redirect_to Ctc::Questions::OverviewController.to_path_helper
+      end
     end
 
     def privacy_policy
