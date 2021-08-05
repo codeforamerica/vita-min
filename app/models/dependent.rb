@@ -161,15 +161,15 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit_2020?
-    age_at_end_of_year(2020) < 17 && qualifying_child_2020?
+    age_at_end_of_year(2020) < 17 && qualifying_child_2020? && tin_type_ssn?
   end
 
   def eligible_for_eip1?
-    eligible_for_child_tax_credit_2020?
+    age_at_end_of_year(2020) < 17 && qualifying_child_2020?
   end
 
   def eligible_for_eip2?
-    eligible_for_child_tax_credit_2020?
+    age_at_end_of_year(2020) < 17 && qualifying_child_2020?
   end
 
   def qualifying_child_relationship?
