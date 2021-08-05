@@ -1215,22 +1215,22 @@ es:
           ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS.
           Inicie sesión para ver los siguientes pasos para corregir y volver a enviar su información fiscal: <<Client.LoginLink>>
           ¡Estamos aquí para ayudarle!
-      getting_started:
-        email:
-          subject: Inscripción para GetCTC
-          body: |
-            Hola <<Client.PreferredName>>:
-
-            Gracias por iniciar su formulario de declaración simplificada con GetCTC. Solamente podemos enviar su información al IRS en cuanto haya completado el formulario.
-
-            Puede iniciar su sesión para completar el formulario y comprobar su estado aquí: <<Client.LoginLink>> Puede utilizar su ID de cliente <<Client.ClientId>> para iniciar su sesión o, si nos lo ha dado, los últimos cuatro dígitos de su SSN/ITIN.
-
-            ¡Estamos aquí para ayudarle!
-            Su Equipo de Declaración de Impuestos GetCTC.org
-        sms: |
+    ctc_getting_started:
+      email:
+        subject: Inscripción para GetCTC
+        body: |
           Hola <<Client.PreferredName>>:
-          ¡Gracias por comenzar su declaración de impuestos simplificada con GetCTC! Su ID de cliente es <<Client.ClientId>> Revise su progreso por medio de su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN: <<Client.LoginLink>>
+
+          Gracias por iniciar su formulario de declaración simplificada con GetCTC. Solamente podemos enviar su información al IRS en cuanto haya completado el formulario.
+
+          Puede iniciar su sesión para completar el formulario y comprobar su estado aquí: <<Client.LoginLink>> Puede utilizar su ID de cliente <<Client.ClientId>> para iniciar su sesión o, si nos lo ha dado, los últimos cuatro dígitos de su SSN/ITIN.
+
           ¡Estamos aquí para ayudarle!
+          Su Equipo de Declaración de Impuestos GetCTC.org
+      sms: |
+        Hola <<Client.PreferredName>>:
+        ¡Gracias por comenzar su declaración de impuestos simplificada con GetCTC! Su ID de cliente es <<Client.ClientId>> Revise su progreso por medio de su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN: <<Client.LoginLink>>
+        ¡Estamos aquí para ayudarle!
   models:
     intake:
       your_spouse: Su cónyuge
