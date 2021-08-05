@@ -1239,6 +1239,22 @@ en:
           Hello <<Client.PreferredName>>,
           Your tax information has been successfully submitted to GetCTC! We are currently processing your information to send it to the IRS. You will receive a confirmation email within 48 hours to let you know if your information has been accepted or rejected.
           We’re here to help!
+    ctc_getting_started:
+      email:
+        subject: GetCTC Sign Up
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Thanks for starting your Child Tax Credit Sign Up with GetCTC. We can only submit your information to the IRS once you complete the form.
+
+          You can sign in to complete the form and check your status here: <<Client.LoginLink>> You can use your Client ID <<Client.ClientId>> to log in or, if you’ve provided it to us, the last four digits of your SSN/ITIN.
+
+          We’re here to help!
+          Your Tax Team at GetCTC.org
+      sms: |
+        Hello <<Client.PreferredName>>,
+        Thanks for starting your Child Tax Credit Sign Up with GetCTC! Your Client ID is <<Client.ClientId>> Check your progress with your Client ID or last four digits of your SSN/ITIN: <<Client.LoginLink>>
+        We’re here to help!
   models:
     intake:
       your_spouse: Your spouse

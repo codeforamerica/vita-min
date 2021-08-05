@@ -18,6 +18,7 @@ module Hub
           [AutomatedMessage::EfileAcceptance, {}],
           [AutomatedMessage::EfilePreparing, {}],
           [AutomatedMessage::EfileRejected, {}],
+          [AutomatedMessage::CtcGettingStarted, {}],
       ]
 
       @messages = messages.map do |message|

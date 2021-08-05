@@ -22,6 +22,12 @@ module Ctc
 
       def after_update_success
         sign_in current_intake.client
+
+        ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+          client: current_intake.client,
+          message: AutomatedMessage::CtcGettingStarted.new,
+          locale: current_intake.locale
+        )
       end
 
       private
