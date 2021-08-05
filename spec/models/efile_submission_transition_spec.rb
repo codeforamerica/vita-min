@@ -40,41 +40,73 @@ describe EfileSubmissionTransition do
     end
   end
 
-  describe "#errors" do
-    context "when error message metadata is present" do
-      let(:transition) { EfileSubmissionTransition.new(metadata: { error_message: "Something went wrong." })}
+  context "saving efile errors after create" do
+    context "when only an error code is provided" do
+      context "when a matching error does not already exist" do
+        let(:transition) { build :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040" } }
 
-      it "returns the error_message" do
-        expect(transition.stored_errors.first.message).to eq "Something went wrong."
-        expect(transition.stored_errors.first.code).to be_nil
+        it "creates a new EfileError object" do
+          transition.save
+          expect(EfileError.count).to eq 1
+          expect(transition.efile_errors.count).to eq 1
+        end
+      end
 
+      context "when a matching error already exists" do
+        before do
+          EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.")
+        end
+
+        let(:transition) { build :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS" } }
+
+        it "does not create a new EfileError object, but associates the existing one with the transition" do
+          transition.save
+          expect(EfileError.count).to eq 1
+          expect(transition.efile_errors.count).to eq 1
+        end
       end
     end
 
-    context "when error_code metadata is present" do
-      let(:transition) { EfileSubmissionTransition.new(metadata: { error_code: "R2D2" }) }
+    context "when a code and message are provided" do
+      context "when it matches an existing code/message pair" do
+        before do
+          EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.")
+        end
+        let(:transition) { build :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a problem." } }
+        it "does not create a new EfileError object" do
+          transition.save
+          expect(EfileError.count).to eq 1
+          expect(transition.efile_errors.count).to eq 1
+        end
+      end
 
-      it "returns an error object" do
-        expect(transition.stored_errors.first.code).to eq "R2D2"
-        expect(transition.stored_errors.first.message).to be_nil
+      context "when it does not match an existing code/message pair" do
+        before do
+          EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.")
+        end
+
+        let(:transition) { build :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a HUGE problem" } }
+
+        it "creates a new EfileError object" do
+          expect {
+            transition.save
+          }.to change(EfileError, :count).by(1)
+          expect(transition.efile_errors.count).to eq 1
+          expect(transition.efile_errors.first.message).to eq "You have a HUGE problem"
+        end
       end
     end
 
-    context "when raw_response metadata is present in the correct IRS format" do
-      let(:raw_response) { file_fixture("irs_acknowledgement_rejection.xml").read }
-      let(:transition) { EfileSubmissionTransition.new(to_state: "rejected", metadata: { raw_response: raw_response }) }
+    context "when the to_state is rejected and there is raw_response metadata" do
+      let(:reject_transition) { build :efile_submission_transition, :rejected, metadata: { raw_response: "something" } }
 
-      it "returns an error object" do
-        expect(transition.stored_errors.length).to eq 2
-        expect(transition.stored_errors.first.code).to eq "IND-189"
-        expect(transition.stored_errors.first.message).to eq "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
+      before do
+        allow(Efile::SubmissionRejectionParser).to receive(:persist_errors).and_return nil
       end
-    end
 
-    context "when no metadata is present" do
-      let(:transition) { EfileSubmissionTransition.new }
-      it "returns nil" do
-        expect(transition.stored_errors).to eq []
+      it "calls the Efile::SubmissionRejectionParser" do
+        reject_transition.save
+        expect(Efile::SubmissionRejectionParser).to have_received(:persist_errors).with(reject_transition)
       end
     end
   end

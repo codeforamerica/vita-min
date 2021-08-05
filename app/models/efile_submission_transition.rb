@@ -22,8 +22,11 @@
 #
 class EfileSubmissionTransition < ApplicationRecord
   belongs_to :efile_submission, inverse_of: :efile_submission_transitions, touch: true
+  has_many :efile_submission_transition_errors
+  has_many :efile_errors, through: :efile_submission_transition_errors
 
   after_destroy :update_most_recent, if: :most_recent?
+  after_create_commit :persist_efile_error_from_metadata
 
   def initiated_by
     return nil unless metadata["initiated_by_id"]
@@ -31,16 +34,10 @@ class EfileSubmissionTransition < ApplicationRecord
     User.find(metadata["initiated_by_id"])
   end
 
-  def stored_errors
-    return [] unless rejection_parser.present? || metadata["error_code"] || metadata["error_message"]
+  def client_facing_errors
+    return EfileError.none unless efile_errors.present?
 
-    # coerce error_message/error_code style metadata into Efile::Error object format.
-    return [Efile::Error.new(
-      code: metadata["error_code"],
-      message: metadata["error_message"]
-    )] if metadata["error_message"].present? || metadata["error_code"].present?
-
-    rejection_parser.errors
+    efile_errors.where(expose: true)
   end
 
   private
@@ -49,6 +46,19 @@ class EfileSubmissionTransition < ApplicationRecord
     return unless to_state == "rejected" && metadata["raw_response"]
 
     @rejection_parser ||= Efile::SubmissionRejectionParser.new(metadata["raw_response"])
+  end
+
+  def persist_efile_error_from_metadata
+    if metadata["error_code"].present?
+      attrs = { code: metadata["error_code"] }
+      attrs.merge!(message: metadata["error_message"]) if metadata["error_message"].present?
+      efile_error = EfileError.find_or_create_by!(attrs)
+      self.efile_submission_transition_errors.create(efile_submission_id: efile_submission.id, efile_error: efile_error)
+    end
+
+    if to_state == "rejected" && metadata["raw_response"].present?
+      Efile::SubmissionRejectionParser.persist_errors(self)
+    end
   end
 
   # If a transition is deleted, make the new last transition

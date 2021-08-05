@@ -8,14 +8,14 @@ module GyrEfiler
           begin
             result = Efile::GyrEfilerService.run_efiler_command("submit", happy_filename)
           rescue StandardError => e
-            submission.transition_to!(:failed, error_message: e.inspect)
+            submission.transition_to!(:failed, error_code: "TRANSMISSION-SERVICE", raw_response: e.inspect)
             raise
           end
           doc = Nokogiri::XML(result)
           if doc.css('SubmissionReceiptList SubmissionReceiptGrp SubmissionId').text.strip == submission.irs_submission_id
             submission.transition_to!(:transmitted, receipt: result)
           else
-            submission.transition_to!(:failed, error_message: result)
+            submission.transition_to!(:failed, error_code: "TRANSMISSION-RESPONSE", raw_response: result)
           end
         end
       end

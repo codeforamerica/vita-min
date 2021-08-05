@@ -8,6 +8,7 @@ module Hub
     before_action :require_sign_in
 
     def index
+      efile_error = EfileError.where(expose: true).order("RANDOM()").first
       messages = [
           [AutomatedMessage::GettingStarted, {}],
           [AutomatedMessage::SuccessfulSubmissionDropOff, {}],
@@ -17,7 +18,7 @@ module Hub
           [AutomatedMessage::DocumentsReminderLink, {}],
           [AutomatedMessage::EfileAcceptance, {}],
           [AutomatedMessage::EfilePreparing, {}],
-          [AutomatedMessage::EfileRejected, { error_code: "IRS-10980S", error_message: "The SSN provided does not match the Legal Name the IRS has on file." }],
+          [AutomatedMessage::EfileRejected, { error_code: efile_error.code, error_message: efile_error.message }],
       ]
 
       @messages = messages.map do |message|

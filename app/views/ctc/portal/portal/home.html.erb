@@ -12,12 +12,10 @@
             <%= image_tag submission_status_icon(@status) %>
             <%= t("views.ctc.portal.home.status.#{@status}.label") %>
           </div>
-          <% if @errors.present? %>
-            <% @errors.each do |error| %>
-              <div class="text--bold text--small">
-                <%= error.code %>: <%= error.message %>
-              </div>
-            <% end %>
+          <% if @exposed_error.present? %>
+            <div class="text--bold text--small">
+              <%= "#{@exposed_error.code}: " if @exposed_error.source == "irs" %><%= @exposed_error.message %>
+            </div>
           <% end %>
           <div class="text--small">
             <%= t("views.ctc.portal.home.status.#{@status}.message") %>

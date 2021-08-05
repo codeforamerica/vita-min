@@ -5,19 +5,26 @@
     <% if transition.initiated_by.present? %>
       <div>Initiated by: <%= transition.initiated_by.name %></div>
     <% end %>
-    <% transition.stored_errors.each do |error| %>
+    <% transition.efile_errors.each do |error| %>
         <div>
           <strong><%= "#{error.code}" if error.code.present? %></strong>
-          <% if error.message.present? %>
-            <% if error.message.respond_to?(:each) %>
-              <%= error.message.each do |message| %>
-                <div><%= message %></div>
-              <% end %>
-            <% else %>
-              <%= error.message %>
-            <% end %>
-          <% end %>
+          <%= error.message %>
         </div>
+    <% end %>
+    <% if transition.metadata["raw_response"].present? %>
+      <div class="accordion spacing-above-10">
+        <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
+          <h3>Details</h3>
+        </a>
+        <div class="accordion__content" id="a2">
+          <pre>
+            <code>
+              <%= transition.metadata["raw_response"] %>
+            </code>
+          </pre>
+
+        </div>
+      </div>
     <% end %>
   </div>
 </li>

@@ -3,6 +3,9 @@ require "rails_helper"
 describe Hub::AutomatedMessagesController do
   describe "#index" do
     it_behaves_like :a_get_action_for_admins_only, action: :index
+    before do
+      DefaultErrorMessages.generate!
+    end
 
     context "as an authenticated user" do
       before do

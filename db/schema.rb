@@ -330,6 +330,28 @@ ActiveRecord::Schema.define(version: 2021_08_04_205207) do
     t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
   end
 
+  create_table "efile_errors", force: :cascade do |t|
+    t.string "category"
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.boolean "expose", default: true
+    t.text "message"
+    t.string "severity"
+    t.string "source"
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "efile_submission_transition_errors", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "efile_error_id"
+    t.bigint "efile_submission_id"
+    t.bigint "efile_submission_transition_id"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["efile_error_id"], name: "index_efile_submission_transition_errors_on_efile_error_id"
+    t.index ["efile_submission_id"], name: "index_efile_submission_transition_errors_on_efile_submission_id"
+    t.index ["efile_submission_transition_id"], name: "index_este_on_esti"
+  end
+
   create_table "efile_submission_transitions", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.integer "efile_submission_id", null: false

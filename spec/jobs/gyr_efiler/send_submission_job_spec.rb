@@ -37,7 +37,9 @@ RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
         expect do
           described_class.perform_now(submission)
         end.to change { submission.current_state }.to("failed")
-        expect(submission.efile_submission_transitions.last.metadata["error_message"]).to eq(failure_result)
+        expect(submission.efile_submission_transitions.last.efile_errors.length).to eq(1)
+
+        expect(submission.efile_submission_transitions.last.metadata["raw_response"]).to eq(failure_result)
       end
     end
 
@@ -49,8 +51,8 @@ RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
         expect do
           described_class.perform_now(submission)
         end.to change { submission.current_state }.to("failed").and raise_error(exception)
-
-        expect(submission.efile_submission_transitions.last.metadata["error_message"]).to eq("#<StandardError: A problem happened with your computer>")
+        expect(submission.efile_submission_transitions.last.efile_errors.length).to eq 1
+        expect(submission.efile_submission_transitions.last.metadata["raw_response"]).to eq("#<StandardError: A problem happened with your computer>")
       end
     end
   end
