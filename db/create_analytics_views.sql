@@ -69,6 +69,14 @@ CREATE VIEW analytics.documents_requests AS
     SELECT id, created_at, intake_id, updated_at
     FROM public.documents_requests;
 
+CREATE VIEW analytics.efile_errors AS
+    SELECT id, category, code, created_at, expose, message, severity, source, updated_at
+    FROM public.efile_errors;
+
+CREATE VIEW analytics.efile_submission_transition_errors AS
+    SELECT id, created_at, efile_error_id, efile_submission_id, efile_submission_transition_id, updated_at
+    FROM public.efile_submission_transition_errors;
+
 CREATE VIEW analytics.efile_submission_transitions AS
     SELECT id, created_at, efile_submission_id, most_recent, sort_key, to_state, updated_at
     FROM public.efile_submission_transitions;
