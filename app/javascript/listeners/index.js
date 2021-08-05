@@ -10,6 +10,8 @@ import tooltip from "../components/tooltip";
 import { initTaggableNote, initMultiSelectVitaPartner } from '../lib/tagging';
 import { initBulkAction } from "../lib/bulk_action";
 import { getEfileSecurityInformation } from "../lib/efile_security_information";
+import { initTINTypeSelector } from "../lib/tin_type_selector";
+
 const Listeners =  (function(){
     return {
         init: function () {
@@ -53,6 +55,10 @@ const Listeners =  (function(){
                 }
                 if (document.querySelector('.multi-select-vita-partner')) {
                     initMultiSelectVitaPartner();
+                }
+
+                if (window.TINTypeSelector && window.SSNEmploymentCheckboxSelector) {
+                    initTINTypeSelector();
                 }
                 initMetricsTableSortAndFilter();
                 // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally

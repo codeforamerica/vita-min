@@ -3,6 +3,18 @@ require "rails_helper"
 describe Ctc::LegalConsentForm do
   let(:intake) { Intake::CtcIntake.new(visitor_id: "something", source: "some-source") }
 
+  context "initializationn with from_intake" do
+    let(:intake) { Intake::CtcIntake.new(visitor_id: "something", source: "some-source", primary_tin_type: "ssn_no_employment") }
+
+    context "coercing tin_type to the correct value when ssn_no_employment" do
+      it "sets ssn_no_employment to yes, and primary_tin_type to ssn" do
+        form = described_class.from_intake(intake)
+        expect(form.primary_tin_type).to eq "ssn"
+        expect(form.ssn_no_employment).to eq "yes"
+      end
+    end
+  end
+
   context "validations" do
     let(:params) {
       {
@@ -84,7 +96,7 @@ describe Ctc::LegalConsentForm do
         params[:primary_ssn_confirmation] = "999-87-9999"
       end
 
-      it "it is valid" do
+      it "is valid" do
         expect(described_class.new(intake, params)).to be_valid
       end
     end
@@ -96,7 +108,7 @@ describe Ctc::LegalConsentForm do
         params[:primary_ssn_confirmation] = "666-99-9999"
       end
 
-      it "is not valid" do
+      it "not valid" do
         expect(described_class.new(intake, params)).to_not be_valid
       end
     end
@@ -175,8 +187,8 @@ describe Ctc::LegalConsentForm do
   end
 
   describe "#save" do
-    it "saves the attributes on the intake and creates a client, 2020 tax return and efile security information" do
-      form = described_class.new(intake, {
+    let(:params) {
+      {
           primary_first_name: "Marty",
           primary_middle_initial: "J",
           primary_last_name: "Mango",
@@ -188,7 +200,8 @@ describe Ctc::LegalConsentForm do
           phone_number: "831-234-5678",
           primary_active_armed_forces: "yes",
           timezone: "America/Chicago",
-          primary_tin_type: :itin,
+          primary_tin_type: tin_type,
+          ssn_no_employment: ssn_no_employment,
           ip_address: "1.1.1.1",
           device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
           user_agent: "GeckoFox",
@@ -196,7 +209,12 @@ describe Ctc::LegalConsentForm do
           platform: "iPad",
           timezone_offset: "240",
           client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
-      })
+      }
+    }
+    let(:ssn_no_employment) { "no" }
+    let(:tin_type) { "itin" }
+    it "saves the attributes on the intake and creates a client, 2020 tax return and efile security information" do
+      form = described_class.new(intake, params)
       expect {
         form.valid? # the form only transforms the phone number if it is validated before calling save
         form.save
@@ -227,6 +245,45 @@ describe Ctc::LegalConsentForm do
       expect(intake.client.efile_security_information.timezone_offset).to eq "+240"
       expect(intake.client.efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
+    end
+
+    context "tin types" do
+      context "when tin type is ssn" do
+        let(:tin_type) { "ssn" }
+        context "when the ssn_no_employment checkbox is value yes" do
+          let(:ssn_no_employment) { "yes" }
+
+          it "has a resulting tin type of ssn_no_employment" do
+            form = described_class.new(intake, params)
+            form.valid?
+            form.save
+            form.intake.primary_tin_type = "ssn_no_employment"
+          end
+        end
+
+        context "when the ssn_no_employment checkbox value is no" do
+          let(:ssn_no_employment) { "no" }
+
+          it "has a resulting tin type of no_employment" do
+            form = described_class.new(intake, params)
+            form.valid?
+            form.save
+            Intake.last.primary_tin_type = "ssn"
+          end
+        end
+      end
+
+      context "when tin type is not ssn" do
+        let(:ssn_no_employment) { "no" }
+        let(:primary_tin_type) { "itin" }
+
+        it "sets the tin type to ssn" do
+          form = described_class.new(intake, params)
+          form.valid?
+          form.save
+          Intake.last.primary_tin_type = "itin"
+        end
+      end
     end
   end
 end

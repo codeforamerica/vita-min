@@ -56,7 +56,7 @@ class Dependent < ApplicationRecord
   enum north_american_resident: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :north_american_resident
   enum disabled: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :disabled
   enum was_married: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_married
-  enum tin_type: { ssn: 0, atin: 1, itin: 2, none: 3 }, _prefix: :tin_type
+  enum tin_type: { ssn: 0, atin: 1, itin: 2, none: 3, ssn_no_employment: 4 }, _prefix: :tin_type
   enum has_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_ip_pin
   enum full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :full_time_student
   enum permanently_totally_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanently_totally_disabled

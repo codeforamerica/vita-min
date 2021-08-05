@@ -21,6 +21,7 @@ module Ctc
                        :timezone_offset,
                        :client_system_time,
                        :ip_address
+    set_attributes_for :misc, :ssn_no_employment
 
     before_validation :normalize_phone_numbers
 
@@ -37,6 +38,20 @@ module Ctc
     before_validation do
       [primary_ssn, primary_ssn_confirmation].each do |field|
         field.remove!(/\D/) if field
+      end
+    end
+
+    def initialize(intake, params)
+      super
+      if primary_tin_type == "ssn_no_employment"
+        self.primary_tin_type = "ssn"
+        self.ssn_no_employment = "yes"
+      end
+    end
+
+    before_validation do
+      if ssn_no_employment == "yes" && primary_tin_type == "ssn"
+        self.primary_tin_type = "ssn_no_employment"
       end
     end
 
