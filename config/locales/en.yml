@@ -1217,7 +1217,7 @@ en:
 
             We’re here to help!
             Your tax team at GetCTC.org
-          subject: Attention needed to submit your your taxes with GetCTC
+          subject: Attention needed to submit your taxes with GetCTC
         sms: |
           Hello <<Client.PreferredName>>,
           Thank you for filing your taxes with GetCTC! Unfortunately, your tax return has been rejected by the IRS.
