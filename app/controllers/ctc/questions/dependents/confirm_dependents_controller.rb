@@ -6,10 +6,6 @@ module Ctc
 
         layout "intake"
 
-        # def self.show?(intake)
-        #   TODO: return false unless intake.dependents.count > 0
-        # end
-
         private
 
         def form_class
