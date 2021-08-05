@@ -1,5 +1,5 @@
 module Ctc
-  class ConsentForm < QuestionsForm
+  class LegalConsentForm < QuestionsForm
     include BirthDateHelper
     set_attributes_for :intake,
                        :primary_first_name,

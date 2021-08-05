@@ -1407,6 +1407,7 @@ en:
             nevermind_button: Nevermind, let's save them
           info:
             title: "Let’s get some basic information about your dependent!"
+            help_text: "To avoid delays, please provide your dependent’s legal information as it is written on their identification card."
             first_name: "Dependent’s legal first name"
             middle_initial: "Dependent’s middle initial"
             last_name: "Dependent’s legal last name"
@@ -1415,9 +1416,11 @@ en:
             situations: "Select any situation that was true:"
             full_time_student: "Dependent is a full-time student"
             permanently_totally_disabled: "Dependent is permanently and totally disabled"
+            reveal_title: What is a permanent disability?
+            reveal_info: A doctor determines if you have a permanent disability when you are unable to do a majority of your work because of a physical or mental condition.
           had_dependents:
             title: "Would you like to claim a dependent for 2020?"
-            help_text: "Someone who lives with you for a majority of the year or who you support financially could qualify as a dependent."
+            help_text: "Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent."
             what_relationships_reveal: "What relationships qualify?"
           child_lived_with_you:
             title: "Did %{name} live with you for more than 6 months in %{tax_year}?"
@@ -1429,14 +1432,16 @@ en:
             placed_for_adoption: "%{name} passed away in 2020"
             permanent_residence_with_client: "%{name}’s permanent residence was with you for at least six months, even if they were away for part of that time"
           qualifying_relative:
-            title: "Were all of the following true in 2020?"
+            title_html: "Were <u>all</u> of the following true in 2020?"
             help_text:
-              li1: "You paid for more than half of %{name}'s expenses."
-              li2: "%{name} earned less than $4,300."
-              li3: "%{name} has a SSN or ATIN."
-              li4: "%{name} did not live with someone else who could claim them."
+              li1: "You paid for more than half of %{name}'s expenses"
+              li2: "%{name} earned less than $4,300"
+              li3: "%{name} has a SSN or ATIN"
+              li4: "%{name} did not live with someone else who could claim them"
+              li5: "%{name} did not file jointly on a separate tax return"
           child_can_be_claimed_by_other:
             title: "Are you the only person who can claim %{name}?"
+            help_text: "You might say no if you share caregiving responsibilities with someone else."
           claim_child_anyway:
             title: "Would you like to claim %{name} anyway?"
             help_text: "If you and someone else are eligible to claim %{name}, you should follow any existing agreement with the other person about who claims them."
@@ -1467,21 +1472,20 @@ en:
               - a relative who lived with you all year whose income was less than $4,300 and you paid over half of their expenses
           child_disqualifiers:
             title: "Great, let's make sure %{name} qualifies!"
-            help_text: "Select the situations that are true:"
+            help_text: "Select any situations that were true in 2020:"
             provided_over_half_own_support: "%{name} paid for more than half their own living expenses"
             no_ssn_atin: "%{name} does not have a valid SSN or Adoption Identification Number"
-            filed_joint_return: "%{name} is married and filed taxes with their spouse"
+            filed_joint_return: "%{name} was married and filed taxes with their spouse"
             error: "Please select at least one option"
           does_not_qualify_ctc:
             title: "%{name} can’t be claimed as a dependent."
-            help_text: "For a dependent to qualify they would need to meet the following conditions:"
+            help_text: "For a dependent to qualify for CTC or stimulus payments they would need to meet the following conditions:"
             conditions:
-              - Under the age of 18
-              - The child has a valid Social Security Number or Adoption Identification Number
-              - The dependent was a U.S. citizen, U.S. national, or U.S.resident alien.
-              - The dependent lived with you for more than half of 2020.
-              - The dependent did not provide over half of their own support for 2020.
-              - The dependent does not file a joint return for the year with his or her spouse.
+              - The dependent has a valid Social Security Number or Adoption Identification Number
+              - The dependent was a U.S. citizen, U.S. national, or U.S. resident alien
+              - The dependent lived with you for more than half of 2020
+              - The dependent did not provide over half of their own support for 2020
+              - The dependent did not file a joint return with his or her spouse in 2020
               - The dependent was not claimed as a dependent on another return
             add_button: Add another dependent
             done_button: Done adding dependents
@@ -1503,39 +1507,37 @@ en:
           bank_information: Your bank information
         direct_deposit:
           my_bank_account:
-            label: My name is on this bank account
+            label: I confirm that my name is on this bank account.
             question: Your name must be on the bank account to receive a direct deposit.
             error_message_html: Enter info for a bank account with your name on it, or <a href=%{link}> select a different method for your payment</a>.
         refund_payment:
-          title: If you are supposed to get money, how would you like to receive it?
+          title: How would you like to receive any payments?
+          help_text: If you select a mailed check, please provide an address you will be at through December 2021.
         contact_preference:
           title: What is the best way to reach you?
-          body: We'll need to reach out with questions and updates. Please select the option that works best for you!
+          body: We’ll send a code to verify your contact information so that we can send updates on your return. Please select the option that works best!
           sms_policy: >-
             Note: Standard SMS message rates apply. We will not share your information with any outside parties.
-          email: Send me emails
-          text: Send me texts
+          email: Email me
+          text: Text me
         cell_phone_number:
-          title: Please share your phone number.
+          title: Please share your cell phone number.
           label: Cell phone number
           confirm_label: Confirm cell phone number
-          must_receive_texts_html: >-
-            Please provide a phone number that can receive texts, or <a href=%{email_link}>provide an email address instead</a>.
         email_address:
-          title: Please share your e-mail address.
+          title: Please share your email address.
         overview:
           help_text: Use our simple e-filing tool to receive your Child Tax Credit and any stimulus payments or corrections you are owed.
-          title: Welcome to GetCTC!
+          title: Welcome!
           items:
             - You have a valid SSN or ITIN
             - You earned less than $12,400 if single, $24,800 if married filing jointly
-            - You have not filed a tax return the last two years
-            - You have kids or dependents
+            - You have not filed a return this year
             - You didn't receive the full amount of stimulus you were owed
-        consent:
-          title: In order to file, we’ll need some additional information.
+        legal_consent:
+          title: In order to file, we’ll need some basic information.
           body:
-            p1: To submit your tax return and receive either your child tax credit or your stimulus payments, we’ll need some of your personal information.
+            p1: To submit your tax return and receive your child tax credit and/or your stimulus payments, we’ll need some of your personal information.
             p2: Please make sure you enter your name as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
           first_name: Legal first name
           middle_initial: Middle initial
@@ -1548,10 +1550,12 @@ en:
             title: "I was a member of the United States Armed Forces for any time in 2020"
             reveal_label: "Why are you asking this?"
             reveal_content: "Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit"
+          agree_to_share: By continuing, I agree to share my personal information in order to prepare my simplified tax return.
         income:
-          title: |
-            In %{tax_year}, did you earn over $12,400 if filing single or $24,800 if married filing jointly?
-          help_text: "Income can be from any of the following sources:"
+          title: "In  %{tax_year}, did you earn over:"
+          filing_single: $12,400 if filing single
+          filing_married: $24,800 if filing married
+          help_text: "Income could come from any of the following sources:"
           income_sources:
             - salary
             - hourly wages
@@ -1567,11 +1571,11 @@ en:
             - You have all of your employment documents (W2’s, 1099’s, etc)
             - You have a paper copy of a Social Security Card or ITIN paperwork for everyone in your family
           file_for_free: File your full tax return for free using GetYourRefund.
-          simplified_btn: File your full tax return for free using GetYourRefund
+          simplified_btn: Continue filing a simplified return
           full_btn: File a full tax return
         spouse_info:
           title: Tell us about your spouse
-          help_text: Please make sure you enter spouse's name as it appears on their Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
+          help_text: Please make sure you enter your spouse’s name as it appears on their Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
           spouse_first_name: Spouse's legal first name
           spouse_middle_initial: Middle initial
           spouse_last_name: Spouse's legal last name
@@ -1601,27 +1605,27 @@ en:
           title: Did you file a 2020 tax return this year?
           help_text_html: |
             <p>Did you file a tax return this year, after January 1, 2021, for the 2020 tax year?</p>
-            <p>You can answer yes if you filed a return and are still waiting for your stimulus payments or if you used the Non-filers Sign-up tool.</p>
+            <p>Answer yes even if you are still waiting for your stimulus payments, or if you used the Non-filers Sign-Up Tool.</p>
         filed2020_yes:
-          title: Great! The IRS can process your return and determine your Child Tax Credit.
-          p1: If you've filed a 2020 tax return, the IRS will have the information it needs to process your Child Tax Credit (CTC).
-          p2: You can visit the IRS Child Tax Credit Update Portal to update your information.
-          visit_ctc_portal: Visit the CTC Update Portal
-          visit_ctc_faq: Visit CTC FAQ
+          title: Great! The IRS has the information they need to process your return.
+          p1: If you’ve filed a 2020 tax return, the IRS will have the information it needs to process your Child Tax Credit (CTC) and any stimulus payments.
+          p2_html: You can visit the <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">IRS Child Tax Credit Update Portal</a> to check your CTC payment status. Visit <a href="https://www.irs.gov/coronavirus/get-my-payment" target="_blank" rel="noopener noreferrer">Get My Payment</a> to check your stimulus status.
+          visit_ctc_faq: Visit the Child Tax Credit FAQ
+          visit_stimulus_faq: Visit the Stimulus FAQ
         filed2019:
           title: Did you either file a 2019 tax return or receive any stimulus payments?
           help_text_html: |
-            <p>If you filed a 2019 return or received stimulus payments, if eligible you will receive your Child Tax Credit based on the information in that return. You don't need to file a 2020 tax return to receive the benefits you are due.</p>
-            <p>If you do have changes to your personal situation you can visit the <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">IRS Child Tax Credit Update Portal</a> to update your tax information.<p>
+            <p>If you filed a 2019 return, or received stimulus payments, and are eligible you will receive your payments based on the information in that return.</p>
+            <p>If you do have changes to your personal situation you can visit the <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">IRS Child Tax Credit Update Portal</a> to update your tax information. Visit <a href="https://www.irs.gov/coronavirus/get-my-payment" target="_blank" rel="noopener noreferrer">Get My Payment</a> to check your stimulus status.</p>
         life_situations2019:
-          title: Let's check one more thing.
+          title: Let’s make sure this tool is right for you!
           p1: |
-            If any of the following are true, you should continue with our simplified CTC tool:
-          p2: If none of those statements are true, you should receive your Child Tax Credit. You can visit the CTC FAQ for more information.
-          item1: You had a change in the number of dependents from your 2019 tax return
+            If any of the following are true, you should continue with our simplified tool:
+          p2: If none of those statements are true,  you should receive your payments automatically. You can visit the CTC FAQ for more information.
+          item1: The number of people in your household changed from your 2019 tax return
           item2: You have a different bank account from the one you listed in your 2019 return
           item3: You didn't receive the full amount of stimulus you were owed
-          visit_ctc_faq: Visit the CTC FAQ
+          visit_ctc_faq: Visit the Child Tax Credit FAQ
         home:
           title: Where was your main home for 2020?
           help_text: Your home must have been in the United States for more than half the tax year.
@@ -1636,11 +1640,11 @@ en:
             A message with your code has been sent to:
           verification_code_label: Enter 6 digit code
           error_message: "Incorrect verification code."
+          verify: Verify
         stimulus_payments:
-          title: "Based on your info, we believe you should have received this much in stimulus payments."
-          yes_received: "Yes, I received this amount."
-          no_did_not_receive: "No, I didn’t receive this amount."
-          not_sure: "I’m not sure"
+          title: "We believe you are eligible for this much in the first two stimulus payments."
+          yes_received: "I received this amount"
+          no_did_not_receive: "I received less than this amount"
           first_stimulus: "First stimulus payment"
           second_stimulus: "Second stimulus payment"
           first_stimulus_details: "This payment should have arrived between April 2020 and October 2020."
@@ -1673,34 +1677,36 @@ en:
           reveal_label: "Where can I find this amount?"
           reveal_content: "If you are unsure, check the official notice you received OR your bank records."
         stimulus_received:
-          title: "Based on your info, it looks like you’ve received your full stimulus payments."
+          title: "It looks like you’ve received the full amount of your first two stimulus payments."
           amount_received: "Amount you’ve received"
           eip_one: "EIP 1"
           eip_two: "EIP 2"
         stimulus_owed:
-          title: "Based on your info, it looks like you are still owed some stimulus payments."
+          title: "It looks like you are still owed some stimulus payments. Would you like to claim them?"
           amount_received: "Amount you’ve received"
           eip_one: "EIP 1"
           eip_two: "EIP 2"
-          eligible_for: "If the information you entered above is correct you could be eligible for an additional:"
-          correction: "If any amount for your EIP 1 or 2 is incorrect the IRS will correct the amount claimed, but the correction will cause a delay processing your return and a delay sending your monthly Child Tax Credit checks (if eligible)."
-          dont_claim: "Don’t claim the additional money"
-          claim: "Claim the additional money"
+          eligible_for: "You could be eligible for an additional:"
+          correction: "If the amount you entered for your EIP 1 or 2 is incorrect your stimulus payments and any Child Tax Credit could be delayed while the IRS makes corrections to your return."
+          dont_claim: "No, just claim my Child Tax Credit"
+          claim: "Yes, claim my missing stimulus"
         use_gyr:
-          title: "Unfortunately, you are not eligible to use GetCTC. But we can still help!"
+          title: "Unfortunately, you are not eligible to use our simplified filing tool. But we can still help!"
           help_text: "In order to file a simplified return through GetCTC you would need to meet the following conditions:"
           ctc_conditions:
-            - You did not earned any income in 2020
-            - You are a U.S. citizen, U.S. national, or U.S.resident alien.
-            - You are not a resident of Puerto Rico or another American Territory
-            - You cannot be claimed as a dependent
-            - You and your spouse have a valid SSN or ITIN
+              - You earned less than $12,400 if filing single, $24,800 if married filing jointly in 2020
+              - You are a U.S. citizen, U.S. national, or U.S. resident alien
+              - You cannot be claimed as a dependent
+              - You and your spouse have a valid SSN or ITIN
           still_benefit: You could still benefit by filing a full tax return for free using GetYourRefund.
           collect_money: Collect all the money you are owed by filing with GetYourRefund.
-          visit_ctc_faq: "Visit CTC FAQ"
+          visit_ctc_faq: "Visit the Child Tax Credit FAQ"
+          visit_stimulus_faq: "Visit the Stimulus FAQ"
           file_gyr: "File with GetYourRefund"
         filing_status:
           title: How will you be filing your tax return?
+          married_filing_jointly: Married Filing Jointly
+          single: Single
           reveal_title: I'm unsure how to file
           reveal_body: If you normally file as head of household or married filing separately, select ‘single’ for the purpose of this return.
         life_situations2020:
@@ -1726,9 +1732,9 @@ en:
           error: Please agree before continuing.
         confirm_information:
           title: "You're all set! Now let's review your information and set a PIN."
-          pin_help_text: This is a 5 digit number that you choose as your own password.
+          pin_help_text: This is a 5 digit number that you choose as your own password. This PIN can be used to verify your identity when filing next year's tax return.
           labels:
-            signature_pin: "%{name}'s five digit PIN (do not enter 00000)"
+            signature_pin: "%{name}'s Five Digit PIN"
           ready_to_file: "I'm ready to file"
           your_information: "Your information"
           your_dependents: "Your dependents"
@@ -2427,19 +2433,6 @@ en:
         see_faq: Please see our FAQ
         support_html: Our team is here to support you. %{faq_link} or submit a question via chat and we will get back to you!
         title: Tax Questions
-      sms_terms:
-        header: GetYourRefund Short Code Terms and Conditions
-        title: SMS terms
-        terms:
-          carrier_disclaimer: "Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages."
-          carriers_heading_html: "<strong>We are able to deliver messages to the following mobile phone carriers:</strong>"
-          keywords_html: "If at any time you forget what keywords are supported, just text \"<strong>HELP</strong>\" to <strong>58750</strong>. After you send the SMS message \"<strong>HELP</strong>\" to us, we will respond with instructions on how to use our service as well as how to unsubscribe."
-          major_carriers_html: "<strong>Major carriers:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile."
-          minor_carriers_html: "<strong>Minor carriers:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless)."
-          privacy_html: "If you have any questions regarding privacy, please read our privacy policy: <a href=\"https://www.getyourrefund.org/privacy\">www.getyourrefund.org/privacy</a>"
-          rates_html: "As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider. For all questions about the services provided by this short code, you can send an email to <strong>support@getyourrefund.org</strong>."
-          sms_cancellation_html: "You can cancel the SMS service at any time. Just text \"<strong>STOP</strong>\" to <strong>58750</strong>. After you send the SMS message \"<strong>STOP</strong>\" to us, we will send you an SMS message to confirm that you have been unsubscribed. After this, you will no longer receive SMS messages from us. If you want to join again, just reply \"<strong>START</strong>\" and we will start sending SMS messages to you again."
-          sms_confirmation: "When you opt-in to the service, we will send you an SMS message to confirm your signup and text you updates on your tax return."
     questions:
       additional_info:
         help_text: Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review.
@@ -2482,6 +2475,7 @@ en:
         bank_name: Bank name
         routing_number: Routing number
         title: Great, please provide your bank details below!
+        help_text: Your name must be listed on your bank account for you to receive your money.
       charitable_contributions:
         help_text: This includes cash or goods (such as clothing) donated to a church or charitable organization. For example, if you donated household items to Goodwill or Salvation Army.
         title:
@@ -2557,10 +2551,10 @@ en:
         before_2014: before 2014
         title: What year was your divorce finalized?
       email_address:
-        email_address: E-mail address
-        email_address_confirmation: Confirm e-mail address
-        info: An e-mail is required for the final signature on your tax return.
-        title: Please share your e-mail address.
+        email_address: Email address
+        email_address_confirmation: Confirm email address
+        info: An email is required for the final signature on your tax return.
+        title: Please share your email address.
       energy_efficient_purchases:
         help_text: For example, windows, furnaces, insulation, etc.
         title:

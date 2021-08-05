@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Ctc::ConsentForm do
+describe Ctc::LegalConsentForm do
   let(:intake) { Intake::CtcIntake.new(visitor_id: "something", source: "some-source") }
 
   context "validations" do

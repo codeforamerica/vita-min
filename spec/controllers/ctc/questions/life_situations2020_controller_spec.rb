@@ -35,7 +35,7 @@ describe Ctc::Questions::LifeSituations2020Controller do
 
         it "redirects to consent" do
           post :update, params: params
-          redirect_to questions_consent_path
+          redirect_to questions_legal_consent_path
         end
       end
     end

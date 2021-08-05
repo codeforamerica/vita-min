@@ -1,10 +1,9 @@
 module Ctc
   class CellPhoneNumberForm < QuestionsForm
     set_attributes_for :intake, :sms_phone_number
-    set_attributes_for :confirmation, :sms_phone_number_confirmation, :can_receive_texts
+    set_attributes_for :confirmation, :sms_phone_number_confirmation
     before_validation :normalize_phone_numbers
 
-    validates :can_receive_texts, acceptance: { accept: 'yes', message: -> (_object, _data) { I18n.t("views.ctc.questions.cell_phone_number.must_receive_texts_html", email_link: Ctc::Questions::EmailAddressController.to_path_helper) } }
     validates :sms_phone_number, confirmation: true
     validates :sms_phone_number_confirmation, presence: true
     validates :sms_phone_number, e164_phone: true

@@ -123,3 +123,9 @@
     margin-bottom: 6rem;
   }
 }
+
+.form-question--tabbed {
+  @extend .h2;
+  margin-left: 2rem;
+  line-height: .5rem;
+}

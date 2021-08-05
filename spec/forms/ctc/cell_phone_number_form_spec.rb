@@ -4,12 +4,11 @@ describe Ctc::CellPhoneNumberForm do
   let(:intake) { create :intake }
 
   context "validations" do
-    context "when the sms phone number is valid and can_receive_texts is checked" do
+    context "when the sms phone number is valid" do
       it "is valid" do
         expect(described_class.new(intake, {
           sms_phone_number: "8324658840",
-          sms_phone_number_confirmation: "8324658840",
-          can_receive_texts: "yes"
+          sms_phone_number_confirmation: "8324658840"
         })).to be_valid
       end
     end
@@ -18,8 +17,7 @@ describe Ctc::CellPhoneNumberForm do
       it "is not valid" do
         expect(described_class.new(intake, {
           sms_phone_number: "8324658840",
-          sms_phone_number_confirmation: "8324658841",
-          can_receive_texts: "yes"
+          sms_phone_number_confirmation: "8324658841"
         })).not_to be_valid
       end
     end
@@ -28,18 +26,7 @@ describe Ctc::CellPhoneNumberForm do
       it "is not valid" do
         expect(described_class.new(intake, {
           sms_phone_number: "8324658840",
-          sms_phone_number_confirmation: "",
-          can_receive_texts: "yes"
-        })).not_to be_valid
-      end
-    end
-
-    context "when phone number cannot receive texts" do
-      it "is not valid" do
-        expect(described_class.new(intake, {
-          sms_phone_number: "8324658840",
-          sms_phone_number_confirmation: "8324658840",
-          can_receive_texts: "no"
+          sms_phone_number_confirmation: ""
         })).not_to be_valid
       end
     end
@@ -48,8 +35,7 @@ describe Ctc::CellPhoneNumberForm do
       it "is not valid" do
         expect(described_class.new(intake, {
           sms_phone_number: "123",
-          sms_phone_number_confirmation: "123",
-          can_receive_texts: "no"
+          sms_phone_number_confirmation: "123"
         })).not_to be_valid
       end
     end
@@ -60,8 +46,7 @@ describe Ctc::CellPhoneNumberForm do
       expect {
         form = described_class.new(intake, {
             sms_phone_number: "8324658840",
-            sms_phone_number_confirmation: "8324658840",
-            can_receive_texts: "yes"
+            sms_phone_number_confirmation: "8324658840"
         })
         form.valid? # the form only transforms the phone number if it is validated before calling save
         form.save
@@ -74,8 +59,7 @@ describe Ctc::CellPhoneNumberForm do
       it "does not clear out the verification and will not force them to re-verify" do
         form = described_class.new(intake, {
             sms_phone_number: "8324658840",
-            sms_phone_number_confirmation: "8324658840",
-            can_receive_texts: "yes"
+            sms_phone_number_confirmation: "8324658840"
         })
         form.valid? # the form only transforms the phone number if it is validated before calling save
         form.save
@@ -88,8 +72,7 @@ describe Ctc::CellPhoneNumberForm do
       it "does not clear out the verification and will not force them to re-verify" do
         form = described_class.new(intake, {
             sms_phone_number: "8324658840",
-            sms_phone_number_confirmation: "8324658840",
-            can_receive_texts: "yes"
+            sms_phone_number_confirmation: "8324658840"
         })
         form.valid? # the form only transforms the phone number if it is validated before calling save
         form.save

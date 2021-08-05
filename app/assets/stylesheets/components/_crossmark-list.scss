@@ -1,0 +1,21 @@
+ul.crossmark-list {
+  font-size: 1.6rem;
+  li {
+    list-style: none;
+    margin-bottom: 1.3rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  li::before {
+    content: image-url('icons/crossmark-red.svg');
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+
+
+

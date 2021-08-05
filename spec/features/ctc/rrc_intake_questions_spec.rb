@@ -66,14 +66,14 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     scenario "when the client says they do want to claim the remaining stimulus money" do
       visit "/questions/stimulus-owed"
-      click_on "Claim the additional money"
+      click_on I18n.t("views.ctc.questions.stimulus_owed.claim")
       expect(client.intake.reload.claim_owed_stimulus_money).to eq "yes"
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.refund_payment.title'))
     end
 
     scenario "when the client says they don't want to claim the remaining stimulus money" do
       visit "/questions/stimulus-owed"
-      click_on "Don’t claim the additional money"
+      click_on I18n.t("views.ctc.questions.stimulus_owed.dont_claim")
       expect(client.intake.reload.claim_owed_stimulus_money).to eq "no"
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.refund_payment.title'))
     end

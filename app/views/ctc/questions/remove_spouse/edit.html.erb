@@ -3,7 +3,7 @@
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <h1 class="form-question"><%= @main_heading %></h1>
+    <h1 class="h2"><%= @main_heading %></h1>
 
     <button class="button button--primary button--wide text--centered spacing-above-60 spacing-below-15" type="submit">
       <%= t("views.ctc.questions.remove_spouse.remove_button") %>

@@ -27,7 +27,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title"))
-    click_on I18n.t("views.ctc.questions.file_full_return.full_btn")
+    click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
 
     # =========== ELIGIBILITY ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
@@ -50,33 +50,22 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.negative')
 
     # =========== BASIC INFO ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.consent.title'))
-    fill_in I18n.t('views.ctc.questions.consent.first_name'), with: "Gary"
-    fill_in I18n.t('views.ctc.questions.consent.middle_initial'), with: "H"
-    fill_in I18n.t('views.ctc.questions.consent.last_name'), with: "Mango"
-    select "III", from: I18n.t('views.ctc.questions.consent.suffix')
-    fill_in "ctc_consent_form_primary_birth_date_month", with: "08"
-    fill_in "ctc_consent_form_primary_birth_date_day", with: "24"
-    fill_in "ctc_consent_form_primary_birth_date_year", with: "1996"
-    fill_in I18n.t('views.ctc.questions.consent.ssn'), with: "111-22-8888"
-    fill_in I18n.t('views.ctc.questions.consent.ssn_confirmation'), with: "111-22-8888"
-    fill_in I18n.t('views.ctc.questions.consent.sms_phone_number'), with: "831-234-5678"
-    check I18n.t('views.ctc.questions.consent.primary_active_armed_forces.title')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.legal_consent.title'))
+    fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"
+    fill_in I18n.t('views.ctc.questions.legal_consent.middle_initial'), with: "H"
+    fill_in I18n.t('views.ctc.questions.legal_consent.last_name'), with: "Mango"
+    select "III", from: I18n.t('views.ctc.questions.legal_consent.suffix')
+    fill_in "ctc_legal_consent_form_primary_birth_date_month", with: "08"
+    fill_in "ctc_legal_consent_form_primary_birth_date_day", with: "24"
+    fill_in "ctc_legal_consent_form_primary_birth_date_year", with: "1996"
+    fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "111-22-8888"
+    fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
+    fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
+    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title')
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
-    click_on I18n.t('views.ctc.questions.contact_preference.text')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.cell_phone_number.title'))
-    fill_in I18n.t('views.ctc.questions.cell_phone_number.label'), with: "8324658840"
-    fill_in I18n.t('views.ctc.questions.cell_phone_number.confirm_label'), with: "8324658840"
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.cell_phone_number.title'))
-    within ".text--error" do
-      expect(strip_inner_newlines(page.text)).to eq(strip_inner_newlines(strip_html_tags(I18n.t('views.ctc.questions.cell_phone_number.must_receive_texts_html'))))
-    end
-
-    click_on Nokogiri::HTML(I18n.t('views.ctc.questions.cell_phone_number.must_receive_texts_html')).css('a').text
+    click_on I18n.t('views.ctc.questions.contact_preference.email')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.email_address.title'))
     fill_in I18n.t('views.questions.email_address.email_address'), with: "mango@example.com"
@@ -90,16 +79,16 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
 
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: "000001"
-    click_on I18n.t('general.continue')
+    click_on I18n.t("views.ctc.questions.verification.verify")
     expect(page).to have_content(I18n.t('views.ctc.questions.verification.error_message'))
 
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
-    click_on I18n.t('general.continue')
+    click_on I18n.t("views.ctc.questions.verification.verify")
 
 
     # =========== FILING STATUS ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
-    choose I18n.t('general.filing_status.married_filing_jointly')
+    choose I18n.t('views.ctc.questions.filing_status.married_filing_jointly')
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_info.title'))

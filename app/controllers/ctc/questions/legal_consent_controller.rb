@@ -1,6 +1,6 @@
 module Ctc
   module Questions
-    class ConsentController < QuestionsController
+    class LegalConsentController < QuestionsController
       include FirstQuestionConcern
       include AnonymousIntakeConcern
       include Ctc::CanBeginIntakeConcern
