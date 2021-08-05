@@ -47,14 +47,15 @@ class FlowsController < ApplicationController
 
   private
 
-  def screenshot_base
-    if Rails.env.development?
-      "/assets/flow_screenshots"
+  def screenshot_path(controller)
+    screenshot_filename = "#{controller.name}.png"
+    if Rails.env.development? && File.exist?(Rails.root.join('public', 'assets', 'flow_screenshots', I18n.locale.to_s, screenshot_filename))
+      "/assets/flow_screenshots/#{I18n.locale}/#{screenshot_filename}"
     else
-      "https://vita-min-flow-explorer-screenshots.s3.us-west-1.amazonaws.com"
+      "https://vita-min-flow-explorer-screenshots.s3.us-west-1.amazonaws.com/#{I18n.locale}/#{screenshot_filename}"
     end
   end
-  helper_method :screenshot_base
+  helper_method :screenshot_path
 
   class FlowParams
     attr_reader :reference_object

@@ -13,8 +13,8 @@
         <div class="flow-explorer-screenshot">
           <%=
             image_tag(
-            [screenshot_base, I18n.locale, "#{decorated_controller.name}.png"].join('/'),
-            onerror: 'this.onerror = null; $(this).hide()'
+              screenshot_path(decorated_controller),
+              onerror: 'this.onerror = null; $(this).hide()'
             )
           %>
         </div>
