@@ -57,10 +57,16 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
     end
 
     context "the XML document contents" do
+      before do
+        create(:bank_account, intake: submission.intake)
+        submission.intake.update(refund_payment_method: "direct_deposit")
+      end
+
       it "includes required nodes on the IRS1040 for the AdvCTC revenue procedure" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("IndividualReturnFilingStatusCd").text).to eq "2" # code for marrying filing joint
         expect(xml.at("VirtualCurAcquiredDurTYInd").text).to eq "false"
+        expect(xml.at("TotalExemptPrimaryAndSpouseCnt").text).to eq "2" # married filing joint
         dependent_nodes = xml.search("DependentDetail")
         expect(dependent_nodes.length).to eq 2
         expect(dependent_nodes[0].at("DependentFirstNm").text).to eq "Keeley"
@@ -75,6 +81,23 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
         expect(dependent_nodes[1].at("DependentSSN").text).to eq "123001236"
         expect(dependent_nodes[1].at("DependentRelationshipCd").text).to eq "PARENT"
         expect(dependent_nodes[1].at("EligibleForChildTaxCreditInd")).to be_nil
+        expect(xml.at("ChldWhoLivedWithYouCnt").text).to eq "1"
+        expect(xml.at("OtherDependentsListedCnt").text).to eq "1"
+        expect(xml.at("TotalExemptionsCnt").text).to eq "4"
+        expect(xml.at("TaxableInterestAmt").text).to eq "1"
+        expect(xml.at("TotalIncomeAmt").text).to eq "1"
+        expect(xml.at("AdjustedGrossIncomeAmt").text).to eq "1"
+        expect(xml.at("TotalItemizedOrStandardDedAmt").text).to eq "24800"
+        expect(xml.at("TaxableIncomeAmt").text).to eq "0"
+        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "900"
+        expect(xml.at("RefundableCreditsAmt").text).to eq "900"
+        expect(xml.at("TotalPaymentsAmt").text).to eq "900"
+        expect(xml.at("OverpaidAmt").text).to eq "0"
+        expect(xml.at("RefundAmt").text).to eq "900"
+        expect(xml.at("RoutingTransitNum").text).to eq "123456789"
+        expect(xml.at("BankAccountTypeCd").text).to eq "1"
+        expect(xml.at("DepositorAccountNum").text).to eq "87654321"
+        expect(xml.at("RefundProductCd").text).to eq "NO FINANCIAL PRODUCT"
       end
 
       it "conforms to the eFileAttachments schema" do

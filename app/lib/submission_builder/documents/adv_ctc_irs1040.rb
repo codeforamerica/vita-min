@@ -49,7 +49,7 @@ module SubmissionBuilder
             xml.TaxableIncomeAmt 0
             xml.RecoveryRebateCreditAmt tax_return.claimed_recovery_rebate_credit
             xml.RefundableCreditsAmt tax_return.claimed_recovery_rebate_credit
-            xml.TotalPaymentsAmt 0
+            xml.TotalPaymentsAmt tax_return.claimed_recovery_rebate_credit
             xml.OverpaidAmt 0
             xml.RefundAmt tax_return.claimed_recovery_rebate_credit
             if bank_account.present? && intake.refund_payment_method_direct_deposit?
