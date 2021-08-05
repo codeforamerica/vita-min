@@ -284,7 +284,9 @@ Rails.application.routes.draw do
       put "/questions/dependents/:id/remove-dependent", to: "ctc/questions/dependents/remove_dependent#update"
 
       unless Rails.env.production?
-        resources :flows, only: [:index, :show]
+        resources :flows, only: [:index, :show] do
+          post :generate, on: :collection
+        end
       end
     end
 

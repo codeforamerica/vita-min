@@ -3,10 +3,27 @@ class FlowsController < ApplicationController
     gyr: { emoji: "💵", name: "GetYourRefund Flow" },
     ctc: { emoji: "👶", name: "CTC Flow" },
   }
+  SAMPLE_GENERATOR_TYPES = {
+    ctc: [:single, :married_filing_jointly, :married_filing_jointly_with_dependents],
+  }.freeze
 
   def index
     @page_title = 'GetYourRefund Flows'
     @flow_config = FLOW_CONFIG
+  end
+
+  def generate
+    unless FLOW_CONFIG.keys.map(&:to_s).include?(params[:type])
+      raise ActionController::RoutingError.new('Not Found')
+    end
+
+    type = params[:type].to_sym
+    if type == :ctc
+      intake = SampleCtcIntakeGenerator.new.generate_ctc_intake(params)
+      sign_in(intake.client)
+
+      redirect_to flow_path(id: :ctc)
+    end
   end
 
   def show
@@ -20,6 +37,7 @@ class FlowsController < ApplicationController
 
     type = params[:id].to_sym
     @page_title = "#{FLOW_CONFIG[type][:emoji]} #{FLOW_CONFIG[type][:name]}"
+    @sample_types = SAMPLE_GENERATOR_TYPES[type]
     @flow_params = FlowParams.for(type, self)
     respond_to do |format|
       format.html { render layout: 'flow_explorer' }
@@ -54,7 +72,8 @@ class FlowsController < ApplicationController
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(Intake::CtcIntake) ? controller.current_intake : nil,
-          controller_list: CtcQuestionNavigation::FLOW
+          controller_list: CtcQuestionNavigation::FLOW,
+          form: SampleCtcIntakeGenerator.new.form
         )
       end
     end
@@ -155,6 +174,100 @@ class FlowsController < ApplicationController
       def unreachable?(current_controller)
         !show?(model_for_show_check(current_controller))
       end
+    end
+  end
+
+  class SampleCtcIntakeForm
+    include ActiveModel::Model
+
+    attr_accessor :first_name
+    attr_accessor :last_name
+    attr_accessor :sms_phone_number
+    attr_accessor :email_address
+
+    def initialize(first_name:, last_name:, sms_phone_number:, email_address:)
+      @first_name = first_name
+      @last_name = last_name
+      @sms_phone_number = sms_phone_number
+      @email_address = email_address
+    end
+  end
+
+  class SampleCtcIntakeGenerator
+    def form
+      SampleCtcIntakeForm.new(
+        first_name: 'Testuser',
+        last_name: 'Testuser',
+        sms_phone_number: nil,
+        email_address: 'testuser@example.com',
+      )
+    end
+
+    def generate_ctc_intake(params)
+      type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
+      first_name = params[:flows_controller_sample_ctc_intake_form][:first_name]
+      last_name = params[:flows_controller_sample_ctc_intake_form][:last_name]
+      sms_phone_number = params[:flows_controller_sample_ctc_intake_form][:sms_phone_number]
+      email_address = params[:flows_controller_sample_ctc_intake_form][:email_address]
+
+      intake_attributes = {
+        type: Intake::CtcIntake.to_s,
+        visitor_id: SecureRandom.hex(26),
+        primary_birth_date: 30.years.ago,
+        primary_ssn: '555112222',
+        primary_last_four_ssn: '2222',
+        primary_first_name: first_name,
+        primary_last_name: last_name,
+        sms_phone_number: sms_phone_number.presence,
+        email_address: email_address.presence,
+        street_address: '123 Main St',
+        city: 'Los Angeles',
+        state: 'CA',
+        zip_code: '90210',
+      }
+      client = Client.create!(
+        intake_attributes: intake_attributes,
+        tax_returns_attributes: [{ year: 2020, is_ctc: true, filing_status: 'single' }],
+      )
+
+      if type == :married_filing_jointly || type == :married_filing_jointly_with_dependents
+        client.intake.tax_returns.last.update(filing_status: 'married_filing_jointly')
+        client.intake.update(
+          spouse_ssn: '555113333',
+          spouse_last_four_ssn: '3333',
+          spouse_first_name: "#{first_name}Spouse",
+          spouse_last_name: last_name,
+        )
+      end
+
+      if type == :married_filing_jointly_with_dependents
+        client.intake.update(
+          had_dependents: 'yes'
+        )
+        client.intake.dependents.create(
+          first_name: 'Childy',
+          last_name: last_name,
+          relationship: %w[son daughter].sample,
+          provided_over_half_own_support: 'no',
+          no_ssn_atin: 'no',
+          filed_joint_return: 'no',
+          lived_with_more_than_six_months: 'yes',
+          cant_be_claimed_by_other: 'yes',
+          birth_date: 12.years.ago,
+          ssn: '555114444'
+        )
+        client.intake.dependents.create(
+          first_name: 'Relly',
+          last_name: last_name,
+          relationship: %w[aunt uncle].sample,
+          permanently_totally_disabled: 'yes',
+          meets_misc_qualifying_relative_requirements: 'yes',
+          birth_date: 52.years.ago,
+          ssn: '555115555'
+        )
+      end
+
+      client.intake
     end
   end
 end
