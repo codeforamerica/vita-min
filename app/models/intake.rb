@@ -291,8 +291,8 @@ class Intake < ApplicationRecord
   enum primary_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_consented_to_service
   enum refund_payment_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :refund_payment_method
   enum claim_owed_stimulus_money: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_owed_stimulus_money
-  enum primary_tin_type: { ssn: 0, itin: 1, none: 2 }, _prefix: :primary_tin_type
-  enum spouse_tin_type: { ssn: 0, itin: 1, none: 2 }, _prefix: :spouse_tin_type
+  enum primary_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :primary_tin_type
+  enum spouse_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :spouse_tin_type
 
   NAVIGATOR_TYPES = {
     general: {

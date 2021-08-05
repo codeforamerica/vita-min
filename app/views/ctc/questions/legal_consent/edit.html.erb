@@ -24,7 +24,10 @@
             help_text: t("hub.clients.show.date_of_birth_help"),
             classes: ["ctc-intake-date-text-input"]
             ) %>
-      <%= f.cfa_select(:primary_tin_type, "Identification Type", tin_options_for_select(include_itin: true)) %>
+      <div class="form-width--long">
+        <%= f.cfa_select(:primary_tin_type, "Identification Type", tin_options_for_select(include_itin: true)) %>
+      </div>
+      <%= f.cfa_checkbox(:ssn_no_employment, "This SSN is not valid for employment", options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.legal_consent.sms_phone_number"), classes: ["form-width--long"]) %>
@@ -55,8 +58,11 @@
 <% content_for :script do %>
   <script>
       document.addEventListener("DOMContentLoaded", function() {
-          var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          document.getElementById('ctc_legal_consent_form_timezone').value = timezone;
+        var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('ctc_legal_consent_form_timezone').value = timezone;
+
+        window.TINTypeSelector = document.getElementById("ctc_legal_consent_form_primary_tin_type");
+        window.SSNEmploymentCheckboxSelector = document.getElementById("ctc_legal_consent_form_ssn_no_employment").parentElement;
       });
   </script>
 <% end %>

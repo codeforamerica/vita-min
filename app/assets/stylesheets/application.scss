@@ -210,3 +210,9 @@ ul.with-bullets {
 pre {
   white-space: pre-wrap;
 }
+
+.form-width--long {
+  select {
+    width: 25em;
+  }
+}
