@@ -1212,21 +1212,18 @@ es:
           body: |
             Hola <<Client.PreferredName>>,
 
-            ¡Gracias por presentar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS por el siguiente motivo:
+            ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS.
 
-            %{error_code}: %{error_message}
+            Inicie sesión para ver los siguientes pasos para corregir y volver a enviar su información fiscal: <<Client.LoginLink>>
 
-            Inicie sesión para ver los siguientes pasos para corregir su información fiscal: <<Client.LoginLink>>
-
-            ¡Estamos aquí para ayudar!
+            ¡Estamos aquí para ayudarle!
             Su equipo de impuestos en GetCTC.org
-          subject: Atención necesaria para enviar sus impuestos con GetCTC
+          subject: Le pedimos su atención para poder someter sus impuestos con GetCTC
         sms: |
           Hola <<Client.PreferredName>>,
-          ¡Gracias por presentar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS por el siguiente motivo:
-          %{error_code}: %{error_message}
-          Inicie sesión para ver los siguientes pasos para corregir su información fiscal: <<Client.LoginLink>>
-          ¡Estamos aquí para ayudar!
+          ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS.
+          Inicie sesión para ver los siguientes pasos para corregir y volver a enviar su información fiscal: <<Client.LoginLink>>
+          ¡Estamos aquí para ayudarle!
   models:
     intake:
       your_spouse: Su cónyuge

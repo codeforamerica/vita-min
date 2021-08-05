@@ -1211,20 +1211,17 @@ en:
           body: |
             Hello <<Client.PreferredName>>,
 
-            Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS for the following reason:
+            Thank you for filing your taxes with GetCTC! Unfortunately, your tax return has been rejected by the IRS.
 
-            %{error_code}: %{error_message}
-
-            Sign in to see next steps for correcting your tax information: <<Client.LoginLink>>
+            Sign in to see next steps for correcting and resubmitting your tax information: <<Client.LoginLink>>
 
             We’re here to help!
             Your tax team at GetCTC.org
-          subject: Thank you for filing your taxes with GetCTC!
+          subject: Attention needed to submit your taxes with GetCTC
         sms: |
           Hello <<Client.PreferredName>>,
-          Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS for the following reason:
-          %{error_code}: %{error_message}
-          Sign in to see next steps for correcting your tax information: <<Client.LoginLink>>
+          Thank you for filing your taxes with GetCTC! Unfortunately, your tax return has been rejected by the IRS.
+          Sign in to see next steps for correcting and resubmitting your tax information: <<Client.LoginLink>>
           We’re here to help!
       preparing:
         email:
