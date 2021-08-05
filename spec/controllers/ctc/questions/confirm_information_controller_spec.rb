@@ -76,7 +76,7 @@ describe Ctc::Questions::ConfirmInformationController do
           it "shows a field for the spouse's PIN" do
             get :edit
 
-            expect(response_html).to have_text "Gorby Pants's five digit PIN"
+            expect(response_html).to have_text "Gorby Pants's Five Digit PIN"
             expect(response_html.css(".form-group input").length).to eq 2
           end
 

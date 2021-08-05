@@ -1411,8 +1411,6 @@ es:
           title: "Por favor, comparta su número de teléfono."
           label: Número Celular
           confirm_label: Confirmar el número de teléfono móvil/celular
-          must_receive_texts_html: >-
-            Por favor, proporcione un número de teléfono en el que pueda recibir mensajes de texto, o bien<a href=%{email_link}>, proporcione una dirección de correo electrónico</a>
         email_address:
           title: Por favor comparte tu dirección de correo electrónico.
         consent:
@@ -1427,9 +1425,6 @@ es:
           ssn_confirmation: Confirmar el SSN o ITIN
           sms_phone_number: Número de teléfono
         income:
-          title: |
-            ¿En %{tax_year}, ganó más de $12,400 si presenta una solicitud única o $24,800 si es casado que presenta una declaración conjunta?
-          help_text: "Los ingresos pueden provenir de cualquiera de las siguientes fuentes:"
           income_sources:
             - salario
             - salario por hora
@@ -1459,10 +1454,10 @@ es:
         filed2020_yes:
           title: ¡Fabuloso! El IRS puede procesar su declaración y determinar su Crédito Fiscal por Hijos.
           p1: "Si presentó su declaración de impuestos de 2020, el IRS tendrá la información que necesita para tramitar su Crédito Fiscal por Hijos (CTC)."
-          p2: "Puede visitar el sitio web del IRS de Crédito Fiscal por Hijos o en inglés: \"Child Tax Credit Update Portal\" para actualizar su información."
-          visit_ctc_portal: Visite el sitio de web de actualizaciones del CTC
-          visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglés de CTC "
-        filed2019:
+          p2_html: "Puede visitar el sitio web del IRS de Crédito Fiscal por Hijos o en inglés: \"Child Tax Credit Update Portal\" para actualizar su información."
+          visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglés de CTC"
+          visit_stimulus_faq: Visit the Stimulus FAQ
+        filed_2019:
           title: "¿Ha presentado la declaración de impuestos de 2019 o ha recibido algún pago de estímulo?"
           help_text_html: |+
             <p>Si presentó una declaración de 2019 o recibió pagos de estímulo, de ser elegible, recibirá su Crédito Fiscal por Hijos basado en la información de esa declaración. No necesita presentar una declaración de impuestos de 2020 para recibir los beneficios que le corresponden.</p>
@@ -1495,7 +1490,6 @@ es:
           title: "En base a su información, creemos que debería haber recibido esta cantidad en pagos de estímulo."
           yes_received: "Sí, recibí esta cantidad."
           no_did_not_receive: "No, no recibí esta cantidad."
-          not_sure: "No estoy seguro"
           first_stimulus: "Primer pago de estímulo"
           second_stimulus: "Segundo pago de estímulo"
           first_stimulus_details: "Este pago debería haber llegado entre abril de 2020 y octubre de 2020."
@@ -2269,6 +2263,7 @@ es:
         bank_name: Nombre del banco
         routing_number: Número de ruta
         title: "¡Genial, proporcione sus datos bancarios a continuación!"
+        help_text: Your name must be listed on your bank account for you to receive your money.
       charitable_contributions:
         help_text: Esto incluye dinero en efectivo o bienes (como ropa) donados a una iglesia u organización caritativa. Por ejemplo, si donó artículos para el hogar a Goodwill o Salvation Army.
         title:

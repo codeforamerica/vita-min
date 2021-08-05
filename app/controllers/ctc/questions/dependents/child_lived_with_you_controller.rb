@@ -18,7 +18,7 @@ module Ctc
         private
 
         def illustration_path
-          "dependents.svg"
+          "dependents_home.svg"
         end
       end
     end

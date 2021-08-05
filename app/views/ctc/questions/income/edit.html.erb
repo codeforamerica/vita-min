@@ -1,6 +1,7 @@
 <% content_for :form_question, t("views.ctc.questions.income.title", tax_year: 2020) %>
 <% content_for :form_help_text do %>
-  <p><%= t("views.ctc.questions.income.help_text") %></p>
+  <p class="form-question--tabbed"><%=t("views.ctc.questions.income.filing_single") %></p>
+  <p class="form-question--tabbed"><%=t("views.ctc.questions.income.filing_married") %></p>
   <ul class="list--bulleted">
     <% t("views.ctc.questions.income.income_sources").each do |income_source| %>
       <li><%= income_source %></li>

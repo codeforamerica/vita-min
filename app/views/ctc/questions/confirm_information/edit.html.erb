@@ -15,7 +15,7 @@
     </div>
 
     <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_mailing_address.mailing_address") %></h2>
-    <div class="review-box__body address-info">
+    <div class="review-box__body address-info spacing-below-25">
       <div><%= current_intake.street_address %></div>
       <% if current_intake.street_address2.present? %>
         <div><%= current_intake.street_address2 %></div>

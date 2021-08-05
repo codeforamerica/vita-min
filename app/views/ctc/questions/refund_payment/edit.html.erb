@@ -3,6 +3,7 @@
 <% content_for :page_title, @main_question %>
 
 <% content_for :form_card do %>
+  <p><%= t("views.ctc.questions.refund_payment.help_text") %></p>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <%= f.cfa_radio_set(
             :refund_payment_method,
@@ -16,6 +17,5 @@
     <button class="button button--primary button--wide" type="submit">
       <%=t("general.continue") %>
     </button>
-    <%= render "shared/intercom_help_button" %>
   <% end %>
 <% end %>

@@ -15,9 +15,9 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot do
     click_on "Continue"
 
     visit email_address_questions_path
-    expect(page).to have_selector("h1", text: "Please share your e-mail address.")
-    fill_in "E-mail address", with: "returning@client.com"
-    fill_in "Confirm e-mail address", with: "returning@client.com"
+    expect(page).to have_selector("h1", text: "Please share your email address.")
+    fill_in "Email address", with: "returning@client.com"
+    fill_in "Confirm email address", with: "returning@client.com"
     click_on "Continue"
 
     expect(current_path).to eq(returning_client_questions_path)

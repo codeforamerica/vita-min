@@ -18,8 +18,8 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "To access this site, please provide your e-mail address.")
-    fill_in "E-mail address", with: "example@example.com"
-    fill_in "Confirm e-mail address", with: "example@example.com"
+    fill_in "Email address", with: "example@example.com"
+    fill_in "Confirm email address", with: "example@example.com"
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "File taxes on your own!")

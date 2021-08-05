@@ -1,10 +1,13 @@
-<% content_for :form_question, t("views.ctc.questions.dependents.qualifying_relative.title") %>
+<% content_for :form_question, t("views.ctc.questions.dependents.qualifying_relative.title_html") %>
 
 <% content_for :form_help_text do %>
-  <ul class="list--bulleted">
+  <ul class="checkmark-list teal">
     <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li1", name: @form.dependent.first_name) %></li>
     <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li2", name: @form.dependent.first_name) %></li>
     <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li3", name: @form.dependent.first_name) %></li>
+  </ul>
+  <ul class="crossmark-list">
     <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li4", name: @form.dependent.first_name) %></li>
+    <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li5", name: @form.dependent.first_name) %></li>
   </ul>
 <% end %>

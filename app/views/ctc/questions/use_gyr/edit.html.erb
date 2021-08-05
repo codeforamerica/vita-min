@@ -5,7 +5,7 @@
   <h1 class="form-question"><%= @main_heading %></h1>
   <p class="text--small"><%= t("views.ctc.questions.use_gyr.help_text") %></p>
 
-  <ul class="list--bulleted text--small">
+  <ul class="checkmark-list teal">
     <% t("views.ctc.questions.use_gyr.ctc_conditions").each do |condition| %>
       <li><%= condition %></li>
     <% end %>
@@ -19,5 +19,8 @@
   <% end %>
   <%= link_to root_path, class: "button button--wide text--centered" do %>
     <%=t("views.ctc.questions.use_gyr.visit_ctc_faq") %>
+  <% end %>
+  <%= link_to  url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'stimulus'), class: "button button--wide text--centered" do %>
+    <%=t("views.ctc.questions.use_gyr.visit_stimulus_faq") %>
   <% end %>
 <% end %>

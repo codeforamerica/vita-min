@@ -27,7 +27,7 @@ RSpec.feature "Session duration" do
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     click_on I18n.t('general.negative')
-    click_on I18n.t("views.ctc.questions.file_full_return.full_btn")
+    click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
 
     # =========== ELIGIBILITY ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
@@ -76,11 +76,11 @@ RSpec.feature "Session duration" do
     code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
 
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: "000001"
-    click_on I18n.t('general.continue')
+    click_on I18n.t("views.ctc.questions.verification.verify")
     expect(page).to have_content(I18n.t('views.ctc.questions.verification.error_message'))
 
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
-    click_on I18n.t('general.continue')
+    click_on I18n.t("views.ctc.questions.verification.verify")
   end
 
   before do

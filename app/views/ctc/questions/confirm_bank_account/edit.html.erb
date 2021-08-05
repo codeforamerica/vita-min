@@ -14,9 +14,9 @@
       </div>
       <ul class="review-box__body">
         <li><%= current_intake.bank_account.bank_name %></li>
-        <li><%= t("general.type") %>: <%= current_intake.bank_account.account_type&.titleize %></li>
-        <li><%= t("general.bank_account.routing_number") %>: <%= current_intake.bank_account.routing_number %></li>
-        <li><%= t("general.bank_account.account_number") %>: <%= mask(current_intake.bank_account.account_number, 4) %></li>
+        <li class="text--grey-dark"><%= t("general.type") %>: <%= current_intake.bank_account.account_type&.titleize %></li>
+        <li class="text--grey-dark"><%= t("general.bank_account.routing_number") %>: <%= current_intake.bank_account.routing_number %></li>
+        <li class="text--grey-dark"><%= t("general.bank_account.account_number") %>: <%= mask(current_intake.bank_account.account_number, 4) %></li>
       </ul>
     </div>
 

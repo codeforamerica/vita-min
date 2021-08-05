@@ -3,7 +3,7 @@
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
-
+    <p><%= t("views.questions.bank_details.help_text") %></p>
     <div class="form-card__content">
       <div class="with-padding-large">
         <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>

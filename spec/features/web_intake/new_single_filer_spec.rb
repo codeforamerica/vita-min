@@ -73,9 +73,9 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Email
-    expect(page).to have_selector("h1", text: "Please share your e-mail address.")
-    fill_in "E-mail address", with: "gary.gardengnome@example.green"
-    fill_in "Confirm e-mail address", with: "gary.gardengnome@example.green"
+    expect(page).to have_selector("h1", text: "Please share your email address.")
+    fill_in "Email address", with: "gary.gardengnome@example.green"
+    fill_in "Confirm email address", with: "gary.gardengnome@example.green"
     click_on "Continue"
 
     # Notification Preference
