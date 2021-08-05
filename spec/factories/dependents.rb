@@ -70,6 +70,7 @@ FactoryBot.define do
       lived_with_more_than_six_months { "yes" }
       cant_be_claimed_by_other { "yes" }
       claim_anyway { "yes" }
+      tin_type { "ssn" }
     end
 
     factory :qualifying_relative do
