@@ -425,6 +425,14 @@ describe Dependent do
   context "eligibility for special credits" do
     context "when a qualifying child" do
       context "when under 17 " do
+        context "with an itin" do
+          let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :itin }
+          it "is not qualified for any special credits" do
+            expect(dependent.eligible_for_eip2?).to eq false
+            expect(dependent.eligible_for_eip1?).to eq false
+            expect(dependent.eligible_for_child_tax_credit_2020?).to eq false
+          end
+        end
         context "with an atin" do
           let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :atin }
           it "is qualified for eip but not ctc" do

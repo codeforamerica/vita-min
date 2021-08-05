@@ -165,11 +165,11 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_eip1?
-    age_at_end_of_year(2020) < 17 && qualifying_child_2020?
+    age_at_end_of_year(2020) < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def eligible_for_eip2?
-    age_at_end_of_year(2020) < 17 && qualifying_child_2020?
+    age_at_end_of_year(2020) < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def qualifying_child_relationship?
