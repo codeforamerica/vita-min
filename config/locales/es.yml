@@ -1413,7 +1413,7 @@ es:
           confirm_label: Confirmar el número de teléfono móvil/celular
         email_address:
           title: Por favor comparte tu dirección de correo electrónico.
-        consent:
+        legal_consent:
           title: "Para realizar la solicitud, necesitaremos un poco de más de información."
           body:
             p1: "Para presentar su declaración de impuestos y recibir su crédito fiscal por hijos o sus pagos de estímulo, necesitaremos algunos de sus datos personales."

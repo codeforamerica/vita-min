@@ -6,12 +6,12 @@ RSpec.feature "CTC Intake Javascript Integrations", :js, active_job: true do
   end
 
   scenario "we save the timezone for new clients" do
-    visit "/en/questions/consent"
+    visit "/en/questions/legal_consent"
     fill_in "Legal first name", with: "Gary"
     fill_in "Legal last name", with: "Mango"
-    fill_in "ctc_consent_form_primary_birth_date_month", with: "08"
-    fill_in "ctc_consent_form_primary_birth_date_day", with: "24"
-    fill_in "ctc_consent_form_primary_birth_date_year", with: "1996"
+    fill_in "ctc_legal_consent_form_primary_birth_date_month", with: "08"
+    fill_in "ctc_legal_consent_form_primary_birth_date_day", with: "24"
+    fill_in "ctc_legal_consent_form_primary_birth_date_year", with: "1996"
     fill_in "SSN or ITIN", with: "111-22-8888"
     fill_in "Confirm SSN or ITIN", with: "111-22-8888"
     fill_in "Phone number", with: "831-234-5678"

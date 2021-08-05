@@ -185,7 +185,7 @@ Layout/MultilineMethodCallBraceLayout:
 Layout/MultilineMethodCallIndentation:
   Exclude:
     - 'app/controllers/ajax_mixpanel_events_controller.rb'
-    - 'app/forms/consent_form.rb'
+    - 'app/forms/legal_consent_form.rb'
     - 'app/forms/spouse_consent_form.rb'
     - 'app/lib/document_navigation.rb'
     - 'app/models/vita_provider.rb'

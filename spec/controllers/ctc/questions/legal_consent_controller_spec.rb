@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Ctc::Questions::ConsentController do
+describe Ctc::Questions::LegalConsentController do
   let(:intake) { Intake::CtcIntake.new(visitor_id: "visitor-id", source: "some-source") }
 
   before do
@@ -13,7 +13,7 @@ describe Ctc::Questions::ConsentController do
     it "renders edit template and initializes form" do
       get :edit, params: {}
       expect(response).to render_template :edit
-      expect(assigns(:form)).to be_an_instance_of Ctc::ConsentForm
+      expect(assigns(:form)).to be_an_instance_of Ctc::LegalConsentForm
       expect(assigns(:form).intake).to be_an_instance_of Intake::CtcIntake
     end
 
@@ -37,7 +37,7 @@ describe Ctc::Questions::ConsentController do
     context "with valid params" do
       let(:params) do
         {
-          ctc_consent_form: {
+          ctc_legal_consent_form: {
             primary_first_name: "Marty",
             primary_middle_initial: "J",
             primary_last_name: "Mango",

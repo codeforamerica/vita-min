@@ -14,7 +14,7 @@ class CtcQuestionNavigation
     Ctc::Questions::LifeSituations2020Controller,
 
     # Consent/Contact
-    Ctc::Questions::ConsentController,            # At this point we create the intake, client, and tax return
+    Ctc::Questions::LegalConsentController, # At this point we create the intake, client, and tax return
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,
     Ctc::Questions::EmailAddressController,

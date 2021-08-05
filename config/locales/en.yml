@@ -1612,12 +1612,12 @@ en:
           p2_html: You can visit the <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">IRS Child Tax Credit Update Portal</a> to check your CTC payment status. Visit <a href="https://www.irs.gov/coronavirus/get-my-payment" target="_blank" rel="noopener noreferrer">Get My Payment</a> to check your stimulus status.
           visit_ctc_faq: Visit the Child Tax Credit FAQ
           visit_stimulus_faq: Visit the Stimulus FAQ
-        filed_2019:
+        filed2019:
           title: Did you either file a 2019 tax return or receive any stimulus payments?
           help_text_html: |
             <p>If you filed a 2019 return, or received stimulus payments, and are eligible you will receive your payments based on the information in that return.</p>
             <p>If you do have changes to your personal situation you can visit the <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">IRS Child Tax Credit Update Portal</a> to update your tax information. Visit <a href="https://www.irs.gov/coronavirus/get-my-payment" target="_blank" rel="noopener noreferrer">Get My Payment</a> to check your stimulus status.</p>
-        life_situations_2019:
+        life_situations2019:
           title: Let’s make sure this tool is right for you!
           p1: |
             If any of the following are true, you should continue with our simplified tool:

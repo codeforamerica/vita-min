@@ -1,0 +1,62 @@
+<% @main_question = t("views.ctc.questions.legal_consent.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= @main_question %></h1>
+
+    <p>
+      <%= t("views.ctc.questions.legal_consent.body.p1") %>
+    </p>
+    <p>
+      <%= t("views.ctc.questions.legal_consent.body.p2") %>
+    </p>
+
+    <div class="form-card__content">
+      <%= f.cfa_input_field(:primary_first_name, t("views.ctc.questions.legal_consent.first_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_middle_initial, t("views.ctc.questions.legal_consent.middle_initial"), classes: ["form-width--short"]) %>
+      <%= f.cfa_input_field(:primary_last_name, t("views.ctc.questions.legal_consent.last_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_select(:primary_suffix, t("views.ctc.questions.legal_consent.suffix"), suffix_options_for_select, include_blank: true) %>
+      <%= f.vita_min_date_text_fields(
+            :primary_birth_date,
+            t("hub.clients.show.date_of_birth"),
+            help_text: t("hub.clients.show.date_of_birth_help"),
+            classes: ["ctc-intake-date-text-input"]
+            ) %>
+      <%= f.cfa_select(:primary_tin_type, "Identification Type", tin_options_for_select(include_itin: true)) %>
+      <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.legal_consent.sms_phone_number"), classes: ["form-width--long"]) %>
+      <%= f.cfa_checkbox(:primary_active_armed_forces, t("views.ctc.questions.legal_consent.primary_active_armed_forces.title"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_label")) do %>
+        <p> <%= t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_content") %> </p>
+      <% end %>
+      <%= f.hidden_field(:timezone) %>
+      <%= f.hidden_field(:device_id) %>
+      <%= f.hidden_field(:user_agent) %>
+      <%= f.hidden_field(:browser_language) %>
+      <%= f.hidden_field(:platform) %>
+      <%= f.hidden_field(:timezone_offset) %>
+      <%= f.hidden_field(:client_system_time) %>
+
+    </div>
+
+    <p><%= t("views.ctc.questions.legal_consent.agree_to_share") %></p>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>
+
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          document.getElementById('ctc_legal_consent_form_timezone').value = timezone;
+      });
+  </script>
+<% end %>

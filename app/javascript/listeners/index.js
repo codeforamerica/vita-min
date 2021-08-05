@@ -40,8 +40,8 @@ const Listeners =  (function(){
                     initStateRoutingsListeners();
                 }
 
-                if(window.appData.controller_action == "Ctc::Questions::ConsentController#edit") {
-                    getEfileSecurityInformation('ctc_consent_form');
+                if(window.appData.controller_action == "Ctc::Questions::LegalConsentController#edit") {
+                    getEfileSecurityInformation('ctc_legal_consent_form');
                 }
 
                 if(window.appData.controller_action == "Ctc::Questions::ConfirmLegalController#edit") {

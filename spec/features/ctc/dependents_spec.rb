@@ -6,7 +6,7 @@ def fill_in_dependent_info(dependent_birth_year)
   fill_in I18n.t('views.ctc.questions.dependents.info.middle_initial'), with: "M"
   fill_in I18n.t('views.ctc.questions.dependents.info.last_name'), with: "Pepper"
   fill_in "ctc_dependents_info_form[birth_date_month]", with: "11"
-  fill_in "ctc_dependents_info_form[birth_date_day]", with: "01"./spec/forms/ctc/life_situations2020_form_spec.rb
+  fill_in "ctc_dependents_info_form[birth_date_day]", with: "01"
   fill_in "ctc_dependents_info_form[birth_date_year]", with: dependent_birth_year
 end
 
