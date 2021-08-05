@@ -1457,7 +1457,7 @@ es:
           p2_html: "Puede visitar el sitio web del IRS de Crédito Fiscal por Hijos o en inglés: \"Child Tax Credit Update Portal\" para actualizar su información."
           visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglés de CTC"
           visit_stimulus_faq: Visit the Stimulus FAQ
-        filed_2019:
+        filed2019:
           title: "¿Ha presentado la declaración de impuestos de 2019 o ha recibido algún pago de estímulo?"
           help_text_html: |+
             <p>Si presentó una declaración de 2019 o recibió pagos de estímulo, de ser elegible, recibirá su Crédito Fiscal por Hijos basado en la información de esa declaración. No necesita presentar una declaración de impuestos de 2020 para recibir los beneficios que le corresponden.</p>
