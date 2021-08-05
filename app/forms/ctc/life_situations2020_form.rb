@@ -1,13 +1,11 @@
 module Ctc
   class LifeSituations2020Form < QuestionsForm
-    set_attributes_for :intake, :cannot_claim_me_as_a_dependent, :primary_active_armed_forces
+    set_attributes_for :eligibility, :can_be_claimed_as_dependent
 
-    def save
-      @intake.update(attributes_for(:intake))
-    end
+    def save; end
 
-    def cannot_be_claimed_as_dependent?
-      cannot_claim_me_as_a_dependent == "no"
+    def can_be_claimed_as_a_dependent?
+      can_be_claimed_as_dependent == "yes"
     end
   end
 end

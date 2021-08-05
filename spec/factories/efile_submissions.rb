@@ -20,6 +20,7 @@ FactoryBot.define do
       metadata {}
     end
     tax_return { create :tax_return, :ctc, year: tax_year, filing_status: filing_status }
+    efile_security_information { build(:client_efile_security_information) }
 
     trait :ctc do
       after :create do |submission|

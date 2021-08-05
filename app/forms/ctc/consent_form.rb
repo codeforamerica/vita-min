@@ -9,6 +9,7 @@ module Ctc
                        :primary_ssn,
                        :phone_number,
                        :primary_tin_type,
+                       :primary_active_armed_forces,
                        :timezone
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation

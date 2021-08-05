@@ -1558,13 +1558,6 @@ es:
           title: "¿Cómo desea presentar su declaración de impuestos?"
           reveal_title: No estoy seguro de cómo solicitar
           reveal_body: "Si normalmente declara como jefe de familia o casado que presenta la declaración por separado, seleccione \"soltero\" a efectos de esta declaración."
-        life_situations2020:
-          title: "Seleccione cualquier situación válida para usted en 2020"
-          p1: "Estas respuestas nos ayudan a determinar para qué créditos fiscales califica."
-          cannot_claim_me_as_a_dependent: "Nadie puede declararme como dependiente"
-          primary_active_armed_forces: "Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020"
-          reveal_label: "¿Por qué me preguntan esto?"
-          reveal_content: "El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de reembolso por recuperación o Recovery Rebate Credit"
     dependents:
       form:
         birth_date: Fecha de nacimiento

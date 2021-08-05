@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_04_170222) do
+ActiveRecord::Schema.define(version: 2021_08_04_205207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -154,12 +154,14 @@ ActiveRecord::Schema.define(version: 2021_08_04_170222) do
     t.string "client_system_time"
     t.datetime "created_at", precision: 6, null: false
     t.string "device_id"
+    t.bigint "efile_submission_id"
     t.inet "ip_address"
     t.string "platform"
     t.string "timezone_offset"
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_agent"
     t.index ["client_id"], name: "index_client_efile_security_informations_on_client_id"
+    t.index ["efile_submission_id"], name: "index_client_efile_security_informations_efile_submissions_id"
   end
 
   create_table "client_success_roles", force: :cascade do |t|
@@ -1004,6 +1006,7 @@ ActiveRecord::Schema.define(version: 2021_08_04_170222) do
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "client_efile_security_informations", "clients"
+  add_foreign_key "client_efile_security_informations", "efile_submissions"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "documents", "clients"

@@ -1,11 +1,6 @@
 require "rails_helper"
 
 describe Ctc::Questions::LifeSituations2020Controller do
-  let(:intake) { create :ctc_intake }
-
-  before do
-    sign_in intake.client
-  end
 
   describe "#edit" do
     it "renders edit template and initializes form" do
@@ -13,7 +8,6 @@ describe Ctc::Questions::LifeSituations2020Controller do
 
       expect(response).to render_template :edit
       expect(assigns(:form)).to be_an_instance_of Ctc::LifeSituations2020Form
-      expect(assigns(:form).intake).to be_an_instance_of Intake::CtcIntake
     end
   end
 
@@ -21,36 +15,27 @@ describe Ctc::Questions::LifeSituations2020Controller do
     let(:params) do
       {
         ctc_life_situations2020_form: {
-          cannot_claim_me_as_a_dependent: "no",
-          primary_active_armed_forces: "no",
+          can_be_claimed_as_dependent: "yes",
         }
       }
     end
 
     context "when submitting the form" do
-      context "when not checking 'No one can claim me as a dependent'" do
-        it "updates the intake and redirects to use-gyr" do
-          expect {
-            post :update, params: params
-          }.to change { intake.reload.cannot_claim_me_as_a_dependent }
-                 .and change { intake.reload.primary_active_armed_forces }
-
+      context "when someone can claim them" do
+        it "redirects to use-gyr" do
+          post :update, params: params
           expect(response).to redirect_to questions_use_gyr_path
         end
       end
 
-      context "when checking 'No one can claim me as a dependent'" do
+      context "when checking no one can claim them" do
         before do
-          params[:ctc_life_situations2020_form][:cannot_claim_me_as_a_dependent] = "yes"
+          params[:ctc_life_situations2020_form][:can_be_claimed_as_dependent] = "no"
         end
 
-        it "updates the intake and redirects to placeholder" do
-          expect {
-            post :update, params: params
-          }.to change { intake.reload.cannot_claim_me_as_a_dependent }
-                 .and change { intake.reload.primary_active_armed_forces }
-
-          expect(response).to redirect_to questions_filing_status_path
+        it "redirects to consent" do
+          post :update, params: params
+          redirect_to questions_consent_path
         end
       end
     end

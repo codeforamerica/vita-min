@@ -1,7 +1,5 @@
 require "rails_helper"
 
-require "rails_helper"
-
 RSpec.describe AdvCtcIrs1040Pdf do
   include PdfSpecHelper
 

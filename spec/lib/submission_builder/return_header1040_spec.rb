@@ -106,9 +106,20 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp IPAddress IPv4AddressTxt").text).to eq "1.1.1.1"
         expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp DeviceId").text).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
         expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp DeviceTypeCd").text).to eq "1"
+        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp UserAgentTxt").text).to eq "GeckoFox"
+        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp BrowserLanguageTxt").text).to eq "en-US"
+        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp PlatformTxt").text).to eq "MacIntel"
+        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp TimeZoneOffsetNum").text).to eq "+240"
+        expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp SystemTs").text).to eq "2021-08-02T18:55:41-04:00"
 
-        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp DeviceId").text).to eq "9162213099514827927117083645386143446039"
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp IPAddress IPv4AddressTxt").text).to eq "1.1.1.1"
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp DeviceId").text).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
         expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp DeviceTypeCd").text).to eq "1"
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp UserAgentTxt").text).to eq "GeckoFox"
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp BrowserLanguageTxt").text).to eq "en-US"
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp PlatformTxt").text).to eq "MacIntel"
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp TimeZoneOffsetNum").text).to eq "+240"
+        expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp SystemTs").text).to eq "2021-08-02T18:55:41-04:00"
         expect(xml.at("FilingSecurityInformation TotalPreparationSubmissionTs").text).to eq((12 * 60).to_s)
         expect(xml.at("FilingSecurityInformation TotActiveTimePrepSubmissionTs").text).to eq("21")
       end
