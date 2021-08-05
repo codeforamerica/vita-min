@@ -1401,7 +1401,7 @@ es:
           child_lived_with_you:
             title: "¿Vivió %{name} con usted por más de 6 meses en %{tax_year}?"
           child_residence_exceptions:
-            title: "¿Son algunas de las siguientes situaciones válidas para %{dependent_name}?"
+            title: "¿Son algunas de las siguientes situaciones válidas para %{name}?"
             help_text: "Podrían aún calificar para los pagos si vivieron con usted por menos de 6 meses y se diera cualquiera de los siguientes casos."
             born_in_2020: "%{name} nació en 2020"
             passed_away_2020: "%{name} fue entregado legalmente a usted para su adopción en 2020"
