@@ -1475,15 +1475,14 @@ en:
             help_text: "Select any situations that were true in 2020:"
             provided_over_half_own_support: "%{name} paid for more than half their own living expenses"
             no_ssn_atin: "%{name} does not have a valid SSN or Adoption Identification Number"
-            filed_joint_return: "%{name} is married and filed taxes with their spouse"
+            filed_joint_return: "%{name} was married and filed taxes with their spouse"
             error: "Please select at least one option"
           does_not_qualify_ctc:
             title: "%{name} can’t be claimed as a dependent."
             help_text: "For a dependent to qualify for CTC or stimulus payments they would need to meet the following conditions:"
             conditions:
-              - Under the age of 18
               - The dependent has a valid Social Security Number or Adoption Identification Number
-              - The dependent was a U.S. citizen, U.S. national, or U.S.resident alien
+              - The dependent was a U.S. citizen, U.S. national, or U.S. resident alien
               - The dependent lived with you for more than half of 2020
               - The dependent did not provide over half of their own support for 2020
               - The dependent did not file a joint return with his or her spouse in 2020
@@ -1556,6 +1555,7 @@ en:
           title: "In  %{tax_year}, did you earn over:"
           filing_single: $12,400 if filing single
           filing_married: $24,800 if filing married
+          help_text: "Income could come from any of the following sources:"
           income_sources:
             - salary
             - hourly wages
