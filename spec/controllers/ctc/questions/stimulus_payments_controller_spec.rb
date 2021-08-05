@@ -12,8 +12,7 @@ describe Ctc::Questions::StimulusPaymentsController do
     it "persists eip1_entry_method and eip2_entry_method and redirects to the next path" do
       post :update, params: {
         ctc_stimulus_payments_form: {
-          eip1_entry_method: "calculated_amount",
-          eip2_entry_method: "calculated_amount"
+          eip_received_choice: "yes_received",
         }
       }
 
