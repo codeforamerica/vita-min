@@ -58,7 +58,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
 
     email = ActionMailer::Base.deliveries.last
     # Expect from address to equal the configured address for the testing environment
-    expect(email.from).to eq(['devise-no-reply@test.localhost'])
+    expect(email.from).to eq(['no-reply@test.localhost'])
     # Expect subject to
     expect(email.subject).to eq("Reset password instructions")
 

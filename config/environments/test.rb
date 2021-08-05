@@ -35,8 +35,12 @@ Rails.application.configure do
   # ActiveJob
   config.active_job.queue_adapter = :test
 
-  config.action_mailer.default_options = { from: 'no-reply@test.localhost' }
-  config.address_for_transactional_authentication_emails = 'devise-no-reply@test.localhost'
+  ctc_email_from_domain = "ctc.test.localhost"
+  gyr_email_from_domain = "test.localhost"
+  config.email_from = {
+    default: {ctc: "hello@#{ctc_email_from_domain}", gyr: "hello@#{gyr_email_from_domain}"},
+    noreply: {ctc: "no-reply@#{ctc_email_from_domain}", gyr: "no-reply@#{gyr_email_from_domain}"}
+  }
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :test
 

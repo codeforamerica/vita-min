@@ -3,7 +3,7 @@ class ApplicationMailer < ActionMailer::Base
   before_action :attach_logo
 
   def attach_logo
-    data = File.read(Rails.root.join('public/images/logo.png'))
+    data = File.read(Rails.root.join('app/assets/images/checkbox-logo--black.png'))
     attachments.inline['logo.png'] = data
   end
 end

@@ -108,6 +108,7 @@ group :development do
   gem 'flamegraph'
   gem 'stackprof'
   gem 'memory_profiler'
+  gem "letter_opener"
 end
 
 group :test do

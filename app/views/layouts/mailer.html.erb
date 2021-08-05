@@ -28,7 +28,7 @@
   <body>
     <div class="wrapper">
       <div class="logo">
-        <%= image_tag attachments["logo.png"].url, style: "width:180px;height:auto" %>
+        <%= image_tag attachments["logo.png"].url, style: "width:20px;height:auto" %> <%= @service_type == :ctc ? 'GetCTC' : 'GetYourRefund' %>
       </div>
       <% if @subject %>
         <h1 class="subject"><%= @subject %></h1>
