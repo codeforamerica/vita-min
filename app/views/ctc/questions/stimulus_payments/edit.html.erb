@@ -29,7 +29,7 @@
         <%= t("views.ctc.questions.stimulus_payments.yes_received") %>
       <% end %>
 
-      <%= link_to questions_stimulus_one_path, class: "button button--wide text--centered" do %>
+      <%= link_to questions_stimulus_reset_path, method: :put, class: "button button--wide text--centered" do %>
         <%= t("views.ctc.questions.stimulus_payments.no_did_not_receive") %>
       <% end %>
     </div>
