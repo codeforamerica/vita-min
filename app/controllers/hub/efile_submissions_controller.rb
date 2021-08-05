@@ -22,13 +22,19 @@ module Hub
     def resubmit
       @efile_submission.transition_to!(:resubmitted, { initiated_by_id: current_user.id })
       flash[:notice] = "Resubmission initiated."
-      redirect_to hub_efile_submission_path(id: @efile_submission.tax_return)
+      redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
     end
 
     def cancel
       @efile_submission.transition_to!(:cancelled, { initiated_by_id: current_user.id })
       flash[:notice] = "Submission cancelled, tax return marked 'Not filing'."
-      redirect_to hub_efile_submission_path(id: @efile_submission.tax_return)
+      redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
+    end
+
+    def investigate
+      @efile_submission.transition_to!(:investigating, { initiated_by_id: current_user.id })
+      flash[:notice] = "Good luck on your investigation!"
+      redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
     end
   end
 end

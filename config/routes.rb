@@ -156,6 +156,7 @@ Rails.application.routes.draw do
         resources :efile_submissions, path: "efile", only: [:index, :show] do
           patch '/resubmit', to: 'efile_submissions#resubmit', on: :member, as: :resubmit
           patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
+          patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
         end
 
         resources :unlinked_clients, only: [:index]

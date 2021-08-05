@@ -7,24 +7,38 @@
 
       <div style="display: flex;">
         <h1><%= tax_return.year %> Tax Return (<%= latest_efile_submission.current_state %>)</h1>
+        <% if latest_efile_submission.can_transition_to?(:resubmitted) %>
+          <div style="margin-left: 10px;">
+            <%= link_to("Resubmit",
+                        resubmit_hub_efile_submission_path(id: latest_efile_submission.id),
+                        method: :patch,
+                        data: { confirm: "Have you updated the necessary information for #{@client.legal_name}?" },
+                        class: "button button--small button--teal")
+            %>
+          </div>
+        <% end %>
 
-        <div style="margin-left: 10px;">
-        <%= link_to("Resubmit return",
-                    resubmit_hub_efile_submission_path(id: latest_efile_submission.id),
-                    method: :patch,
-                    data: { confirm: "Have you updated the necessary information for #{@client.legal_name}?" },
-                    class: "button button--small") if latest_efile_submission.can_transition_to?(:resubmitted)
-        %>
+        <% if latest_efile_submission.can_transition_to?(:investigating) %>
+          <div style="margin-left: 10px">
+            <%= link_to("Investigate",
+                        investigate_hub_efile_submission_path(id: latest_efile_submission.id),
+                        method: :patch,
+                        data: { confirm: "Remember to leave a note with your findings, and contact the client if you can't immediately resolve." },
+                        class: "button button--small"
+                )
+            %>
+          </div>
+        <% end %>
+        <% if latest_efile_submission.can_transition_to?(:cancelled) %>
+          <div style="margin-left: 10px">
+            <%= link_to("Do not file",
+                        cancel_hub_efile_submission_path(id: latest_efile_submission.id),
+                        method: :patch,
+                        data: { confirm: "Are you sure you want to mark this tax return submission for # #{@client.legal_name}? as 'Not filing'?" },
+                        class: "button button--danger button--small") %>
+          </div>
+        <% end %>
       </div>
-
-      <div style="margin-left: 10px">
-        <%= link_to("Do not file",
-                    cancel_hub_efile_submission_path(id: latest_efile_submission.id),
-                    method: :patch,
-                    data: { confirm: "Are you sure you want to mark this tax return submission for # #{@client.legal_name}? as 'Not filing'?" },
-                    class: "button button--danger button--small") if latest_efile_submission.can_transition_to?(:cancelled) %>
-      </div>
-    </div>
 
     <div class="log-wrapper">
       <h4 class="spacing-below-10">Status Logs</h4>

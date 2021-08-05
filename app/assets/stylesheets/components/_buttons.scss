@@ -80,6 +80,24 @@
   }
 }
 
+.button--teal {
+  border-color: $color-teal;
+  color: $color-teal;
+
+  &:active {
+    background-color: $color-teal-dark;
+    color: $color-teal-dark;
+  }
+
+  &:hover {
+    background-color: transparentize($color-teal-dark, .95);
+    color: $color-teal;
+  }
+
+  &:visited {
+    color: $color-teal-dark;
+  }
+}
 .button--green {
   background: $color-green-money;
   border-color: $color-green-money;
