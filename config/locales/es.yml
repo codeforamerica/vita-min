@@ -785,27 +785,18 @@ es:
       head_of_household: Cabeza de familia (HOH)
       qualifying_widow: Viudo que reúne los requisitos (QW)
     dependent_relationships:
-      child: "Hijo/Hija"
-      parent: "Madre/Padre"
-      sibling: "Hermana/Hermano"
-      aunt_uncle: "Tía/Tío"
-      niece_nephew: "Sobrina/Sobrino"
-      grandchild: "Nieta/Nieto"
-      grandparent: "Abuela/Abuelo"
-      other: "Otro"
-    dependent_relationships:
       00_daughter: Hija
       01_son: Hijo
       02_parent: "Madre/Padre"
       03_grandchild: "Nieta/Nieto"
-      04_niece: Niece
-      05_nephew: Nephew
+      04_niece: Sobrina
+      05_nephew: Sobrino
       06_foster_child: Foster Child
       07_aunt: Tía
       08_uncle: Tío
       09_sister: Hermana
       10_brother: Hermano
-      11_other: Other
+      11_other: Otro
       12_stepchild: Stepchild
       13_stepbrother: Stepbrother
       14_stepsister: Stepsister
@@ -1349,9 +1340,34 @@ es:
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"
   views:
     ctc:
+      portal:
+        home:
+          title: Â¡Gracias por presentar su declaraciÃ³n con GetCTC!
+          status:
+            intake_in_progress:
+              label: Necesitamos mÃ¡s informaciÃ³n
+              message: Necesitamos mÃ¡s informaciÃ³n para poder presentar su declaraciÃ³n.
+            new:
+              label: Tramitados electrÃ³nicamente
+              message: Estamos preparando su declaraciÃ³n. Seguiremos informÃ¡ndole sobre el estado de su presentaciÃ³n.
+            preparing:
+              label: Tramitados electrÃ³nicamente
+              message: Estamos preparando su declaraciÃ³n. Seguiremos informÃ¡ndole sobre el estado de su presentaciÃ³n.
+            failed:
+              label: Error de envÃ­o
+              message: Hemos encontrado algunos errores en la transmisiÃ³n de su declaraciÃ³n al IRS. Le hemos enviado informaciÃ³n a su informaciÃ³n de contacto sobre los prÃ³ximos pasos que se deben seguir.
+            transmitted:
+              label: Tramitados electrÃ³nicamente
+              message: Su declaraciÃ³n ha sido presentada al IRS. En 48 horas sabrÃ¡ si su declaraciÃ³n ha sido aceptada.
+            accepted:
+              label: Aceptada
+              message: Su declaraciÃ³n ha sido aceptada por el IRS. DeberÃ¡ recibir un pago en un plazo de 1-4 semanas.
+            rejected:
+              label: Rechazada
+              message: Su declaraciÃ³n no ha sido aceptada por el IRS. Tendremos que corregir su informaciÃ³n y volver a enviarla. Favor de comunicarse con su preparador de impuestos para hacer las correcciones
       questions:
         returning_client:
-          next_steps: Inicie sesión en su cuenta para completar las preguntas. Si tiene alguna pregunta, puede chatear con nosotros.
+          next_steps: "Acceda a su cuenta para completar las preguntas. Si tiene alguna pregunta, inicie una sesiÃ³n de chat con nosotros."
         dependents:
           tin:
             title: "Necesitamos información adicional sobre %{name}."
@@ -1359,12 +1375,8 @@ es:
             form_of_identity: "Tipo de identificación de %{name}"
             ssn_or_atin: "El SSN o ATIN: Número de Identificación Fiscal de Adopción de %{name}"
             ssn_or_atin_confirmation: "Confirme el SSN o ATIN de %{name}"
-          info:
-            title: "Veamos algunos datos básicos sobre su dependiente."
-            first_name: "El primer nombre legal de su dependiente"
-            middle_initial: "La inicial del segundo nombre de su dependiente"
-            last_name: "El apellido legal de su dependiente"
-            relationship_to_you: "¿Qué relación tiene con usted?"
+            save_person: Guarde a esta persona
+            remove_person: Quite a esta persona
           had_dependents:
             title: "¿Desea declarar impuestos para un dependiente para 2020?"
             help_text: "Una persona que vive con usted la mayor parte del año o a la que mantiene económicamente puede ser considerada como dependiente."
@@ -1373,185 +1385,323 @@ es:
             title: "Es posible que aún pueda obtener otros créditos fiscales."
             help_text: "Todavía puede presentar una declaración de impuestos simplificada y recibir cualquier pago de estímulo que se le deba y que no haya recibido."
             file_a_simplified_return: "Presentar una declaración simplificada"
+          remove_dependent:
+            title_html: "EstÃ¡ a punto de borrar a %{dependent_name}.<br><br>Â¿EstÃ¡ bien?"
+            remove_button: "SÃ­, borrÃ©moslo/la"
+            nevermind_button: Mejor no lo/la borremos
+          info:
+            title: "Veamos algunos datos básicos sobre su dependiente."
+            first_name: "El primer nombre legal de su dependiente"
+            middle_initial: "La inicial del segundo nombre de su dependiente"
+            last_name: "El apellido legal de su dependiente"
+            relationship_to_you: "¿Qué relación tiene con usted?"
+            suffix: "Forma de tratamiento del dependiente, por ejemplo, Sr., Sra., Srta."
+            situations: "Seleccione cualquier situaciÃ³n que sea vÃ¡lida:"
+            full_time_student: "La persona dependiente es estudiante de tiempo completo"
+            permanently_totally_disabled: "La persona dependiente tiene una discapacidad permanente y total"
+          child_lived_with_you:
+            title: "Â¿ViviÃ³ %{name} con usted por mÃ¡s de 6 meses en %{tax_year}?"
+          child_residence_exceptions:
+            title: "Â¿Son algunas de las siguientes situaciones vÃ¡lidas para %{name}?"
+            help_text: "PodrÃ­an aÃºn calificar para los pagos si vivieron con usted por menos de 6 meses y se diera cualquiera de los siguientes casos."
+            born_in_2020: "%{name} naciÃ³ en 2020"
+            passed_away_2020: "%{name} fue entregado legalmente a usted para su adopciÃ³n en 2020"
+            placed_for_adoption: "%{name} falleciÃ³ en 2020"
+            permanent_residence_with_client: "La residencia permanente de %{name} fue con usted durante al menos seis meses, incluso si estuvo fuera durante parte de ese tiempo"
+          qualifying_relative:
+            help_text:
+              li1: "Usted pagÃ³ mÃ¡s de la mitad de los gastos de %{name}."
+              li2: "%{name} ganÃ³ menos de $4,300."
+              li3: "%{name} tiene un nÃºmero de SSN--NÃºmero de Seguro Social o ATIN--NÃºmero de IdentificaciÃ³n Fiscal de AdopciÃ³n."
+              li4: "%{name} no viviÃ³ con ninguna otra persona que pudiera declararlos."
+          child_can_be_claimed_by_other:
+            title: "Â¿Es usted la Ãºnica persona que puede declarar a %{name}?"
+          claim_child_anyway:
+            title: "Â¿Le gustarÃ­a declarar a %{name} de todas maneras?"
+            help_text: "Si usted y otra persona tienen derecho a declarar a %{name}, debe seguir el acuerdo que tiene con la otra persona sobre quiÃ©n lo declara."
+            not_sure_reveal:
+              title: "No estoy seguro/a. Â¿DeberÃ­a declararlo/a?"
+              p: "Debe declarar al dependiente si una de estas situaciones es vÃ¡lida:"
+              li1: "Usted es el padre de familia que haya vivido mÃ¡s tiempo con ellos."
+              li2: "Si usted y el otro padre vivieron la misma cantidad de tiempo con el dependiente, quien haya ganado mÃ¡s dinero en 2020 puede declararlo."
+              li3: "Si ninguno de los dos es el padre del dependiente, el que haya ganado mÃ¡s dinero en 2020 puede declararlo."
           confirm_dependents:
             title: "Confirmemos sus dependientes"
+            qualifying_for_ctc: "Dependientes con derecho a CTC--Child Tax Credit"
+            qualifying_for_other_credits: "Dependientes con derecho a otros crÃ©ditos"
+            birthday: "Fecha de nacimiento: %{dob}"
+            ssn: "NÃºmero de Seguro Social: XXX-XX-%{ssn}"
             add_a_dependent: "Agregar una persona dependiente"
             done_adding: "Ya no hay más dependientes por agregar"
+            reveal_title: "Â¿QuiÃ©n tiene derecho a CTC?"
+            reveal_body_title: "Se puede declarar a las siguientes personas:"
+            reveal_body_list:
+              - un hijo menor de 19 aÃ±os el Ãºltimo dÃ­a del aÃ±o fiscal (2021)
+              - un hijo menor de 24 aÃ±os y estudiante de la universidad
+              - un hijo de cualquier edad con una discapacidad permanente y total
+              - "un familiar que haya vivido con usted todo el aÃ±o cuyos ingresos sean inferiores a 4,300 dÃ³lares y por el cual usted haya pagado mÃ¡s de la mitad de sus gastos"
+          child_disqualifiers:
+            title: "Perfecto, Â¡asegurÃ©monos de que %{name} cumple los requisitos!"
+            help_text: "Selecciona las situaciones que son verdaderas:"
+            provided_over_half_own_support: "%{name} pagÃ³ mÃ¡s de la mitad de sus gastos de manutenciÃ³n"
+            no_ssn_atin: "%{name} no tiene un SSN vÃ¡lido o un NÃºmero de identificaciÃ³n de AdopciÃ³n"
+            filed_joint_return: "%{name} estÃ¡ casado/a y declara impuestos con su cÃ³nyuge"
+            error: "Favor de seleccionar al menos una opciÃ³n"
+          does_not_qualify_ctc:
+            title: "%{name} no puede ser declarado como dependiente."
+            help_text: "Para que una persona dependiente califique, deberÃ¡ cumplir las siguientes condiciones:"
+            conditions:
+              - Menor de 18 aÃ±os
+              - El menor tiene un nÃºmero de Seguro Social vÃ¡lido o un NÃºmero de IdentificaciÃ³n de AdopciÃ³n
+              - "El dependiente era ciudadano estadounidense, estadounidense nacional, o tarjeta de extranjero residente de los Estados Unidos."
+              - El dependiente viviÃ³ con usted por mÃ¡s de medio aÃ±o en el 2020.
+              - El dependiente no aportÃ³ mÃ¡s de la mitad de sus propios gastos en el aÃ±o 2020.
+              - El dependiente no presenta una declaraciÃ³n de impuestos conjunta para el aÃ±o con su cÃ³nyuge.
+              - El dependiente no fue declarado como dependiente en otra declaraciÃ³n
+            add_button: Agregar a otro dependiente
+            done_button: Ya no hay mÃ¡s dependientes por agregar
         mailing_address:
-          title: "Magnífico, denos por favor su dirección postal a continuación."
+          title: "MagnÃ­fico, denos por favor su direcciÃ³n postal a continuaciÃ³n."
         confirm_mailing_address:
-          title: "¡Muy bien! Por favor, confirme su dirección postal."
-          mailing_address: Su dirección postal
+          title: "Â¡Muy bien! Por favor, confirme su direcciÃ³n postal."
+          mailing_address: Su direcciÃ³n postal
         routing_number:
-          title: Favor de indicar su número de ruta bancaria
-          routing_number: Número de ruta
-          routing_number_confirmation: Confirme su número de ruta bancaria
+          title: Favor de indicar su nÃºmero de ruta bancaria
+          routing_number: NÃºmero de ruta
+          routing_number_confirmation: Confirme su nÃºmero de ruta bancaria
         account_number:
-          title: Favor de proporcionarnos el número de su cuenta bancaria
-          account_number: Número de cuenta
-          account_number_confirmation: "Confirme su número de cuenta"
+          title: Favor de proporcionarnos el nÃºmero de su cuenta bancaria
+          account_number: NÃºmero de cuenta
+          account_number_confirmation: "Confirme su nÃºmero de cuenta "
         confirm_bank_account:
-          title: ¡Excelente! Revise que sus datos bancarios sean correctos.
-          bank_information: La información de su banco
+          title: Â¡Excelente! Revise que sus datos bancarios sean correctos.
+          bank_information: La informaciÃ³n de su banco
         direct_deposit:
           my_bank_account:
             label: Mi nombre aparece en esta cuenta bancaria
-            question: Su nombre debe aparecer en la cuenta bancaria para recibir un depósito directo.
-            error_message_html: "Introduzca la información de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro método de pago</a>."
+            question: Su nombre debe aparecer en la cuenta bancaria para recibir un depÃ³sito directo.
+            error_message_html: "Introduzca la informaciÃ³n de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro mÃ©todo de pago</a>."
         refund_payment:
-          title: "Si ha de recibir dinero, ¿cómo le gustaría recibirlo?"
+          title: "Si ha de recibir dinero, Â¿cÃ³mo le gustarÃ­a recibirlo?"
         contact_preference:
-          title: "¿Cuál es la mejor manera de comunicarnos con usted?"
-          body: Necesitaremos ponernos en contacto con preguntas y actualizaciones. Seleccione la opción que más le convenga.
+          title: "Â¿CuÃ¡l es la mejor manera de comunicarnos con usted?"
+          body: Necesitaremos ponernos en contacto con preguntas y actualizaciones. Seleccione la opciÃ³n que mÃ¡s le convenga.
           sms_policy: >-
-            Aviso: Se aplican las tarifas estándar de los mensajes SMS. No compartiremos su información con terceros.
-          email: Envíenme correos electrónicos
-          text: Envíenme mensajes de texto
+            Aviso: Se aplican las tarifas estÃ¡ndar de los mensajes SMS. No compartiremos su informaciÃ³n con terceros.
+          email: EnvÃ­enme correos electrÃ³nicos
+          text: EnvÃ­enme mensajes de texto
         cell_phone_number:
-          title: "Por favor, comparta su número de teléfono."
-          label: Número Celular
-          confirm_label: Confirmar el número de teléfono móvil/celular
+          title: "Por favor, comparta su nÃºmero de telÃ©fono."
+          label: NÃºmero Celular
+          confirm_label: Confirmar el nÃºmero de telÃ©fono mÃ³vil/celular
         email_address:
-          title: Por favor comparte tu dirección de correo electrónico.
+          title: Por favor comparte tu direcciÃ³n de correo electrÃ³nico.
+        overview:
+          help_text: Utilice nuestra sencilla herramienta de presentaciÃ³n de impuestos electrÃ³nica para recibir su CrÃ©dito Fiscal por Hijos y cualquier pago de estÃ­mulo o correcciÃ³n que se le deba.
+          title: Â¡Bienvenido a GetCTC!
+          items:
+            - Tiene un nÃºmero vÃ¡lido de Seguro Social o de ITIN
+            - "GanÃ³ menos de $12,400 si es soltero, $24,800 si estÃ¡ casado y presenta una declaraciÃ³n conjunta"
+            - No ha presentado una declaraciÃ³n de impuestos en los Ãºltimos dos aÃ±os
+            - Tiene hijos o dependientes
+            - No recibiÃ³ la totalidad del estÃ­mulo que le correspondÃ­a
         legal_consent:
-          title: "Para realizar la solicitud, necesitaremos un poco de más de información."
+          title: "Para realizar la solicitud, necesitaremos un poco de mÃ¡s de informaciÃ³n."
           body:
-            p1: "Para presentar su declaración de impuestos y recibir su crédito fiscal por hijos o sus pagos de estímulo, necesitaremos algunos de sus datos personales."
-            p2: Asegúrese de introducir su nombre tal y como aparece en su tarjeta de la Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
+            p1: "Para presentar su declaraciÃ³n de impuestos y recibir su crÃ©dito fiscal por hijos o sus pagos de estÃ­mulo, necesitaremos algunos de sus datos personales."
+            p2: AsegÃºrese de introducir su nombre tal y como aparece en su tarjeta de la Seguro Social o en la carta del NÃºmero de IdentificaciÃ³n Personal del Contribuyente (ITIN).
           first_name: Primer nombre legal
           middle_initial: Inicial del segundo nombre
           last_name: Apellido legal
+          suffix: "Forma de tratamiento, por ejemplo, Sr., Sra., Srta."
           ssn: SSN o ITIN
           ssn_confirmation: Confirmar el SSN o ITIN
-          sms_phone_number: Número de teléfono
+          sms_phone_number: NÃºmero de telÃ©fono
+          primary_active_armed_forces:
+            title: "Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020"
+            reveal_label: "Â¿Por quÃ© me preguntan esto?"
+            reveal_content: "El ser miembro de las Fuerzas Armadas nos ayudarÃ¡ a calcular mejor su crÃ©dito de Reembolso por RecuperaciÃ³n o Recovery Rebate Credit"
         income:
+          title: |
+            En %{tax_year}, Â¿ganÃ³ mÃ¡s de $12,400 en una declaraciÃ³n como soltero o $24,800 en una declaraciÃ³n como casado y conjuntamente?
+          help_text: "Los ingresos pueden provenir de las siguientes fuentes:"
           income_sources:
             - salario
-            - salario por hora
+            - pago por hora
             - propinas
             - comisiones
-            - pagos por cuenta propia o por contrato
+            - pagos de trabajo por cuenta propia o por contrato
+        file_full_return:
+          title: "Â¡Si obtuvo ingresos, puede obtener beneficios adicionales presentando una declaraciÃ³n completa!"
+          help_text:
+            - "Con la presentaciÃ³n de una declaraciÃ³n de impuestos completa, podrÃ­a cobrar todo el dinero que se le debe"
+            - "Considere esta opciÃ³n si:"
+          list:
+            - "Tiene todos sus documentos de trabajo (W2, 1099, etc.)"
+            - Tiene una copia en papel de la tarjeta de Seguro Social o de los documentos ITIN de todos los miembros de su familia
+          file_for_free: Presente su declaraciÃ³n de impuestos completa de forma gratuita con GetYourRefund.
+          simplified_btn: Presente su declaraciÃ³n de impuestos completa de forma gratuita con GetYourRefund.
+          full_btn: Presente su declaraciÃ³n de impuestos completa
         spouse_info:
-          title: Denos un poco de información sobre su cónyuge
-          help_text: Asegúrese de introducir el nombre del cónyuge tal y como aparece en su tarjeta de la Seguridad Social o en la carta del número de identificación del contribuyente (ITIN).
+          title: Denos un poco de informaciÃ³n sobre su cÃ³nyuge
+          help_text: AsegÃºrese de introducir el nombre del cÃ³nyuge tal y como aparece en su tarjeta de la Seguridad Social o en la carta del nÃºmero de identificaciÃ³n del contribuyente (ITIN).
           spouse_first_name: Nombre legal de su pareja
           spouse_middle_initial: Inicial del segundo nombre
           spouse_last_name: Apellido legal de su pareja
-          spouse_dob: Fecha de nacimiento del cónyuge
-          spouse_identity: Tipo de identificación del cónyuge
-          spouse_identity_help_text: "Si utiliza una tarjeta de la seguro, debe ser válida para el empleo"
-          spouse_ssn_itin: SSN o ITIN del cónyuge
-          spouse_ssn_itin_confirmation: Confirme el SSN o ITIN del cónyuge
-          spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en el 2020
-          spouse_active_armed_forces_reveal: "¿Por qué me preguntan esto?"
-          spouse_active_armed_forces_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de Reembolso por Recuperación o Recovery Rebate Credit
-          ssn_required_message: "Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href=\"https://www.getyourrefund.org/\">GetYourRefund</a>."
+          spouse_suffix: Forma de tratamiento del cÃ³nyuge
+          spouse_dob: Fecha de nacimiento del cÃ³nyuge
+          spouse_identity: Tipo de identificaciÃ³n del cÃ³nyuge
+          spouse_identity_help_text: "Si utiliza una tarjeta de la seguro, debe ser vÃ¡lida para el empleo"
+          spouse_ssn_itin: SSN o ITIN del cÃ³nyuge
+          spouse_ssn_itin_confirmation: Confirme el SSN o ITIN del cÃ³nyuge
+          spouse_active_armed_forces: Mi cÃ³nyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en el 2020
+          spouse_active_armed_forces_reveal: "Â¿Por quÃ© me preguntan esto?"
+          spouse_active_armed_forces_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudarÃ¡ a calcular mejor su crÃ©dito de Reembolso por RecuperaciÃ³n o Recovery Rebate Credit
+          ssn_required_message: "Necesitamos un SSN/ITIN para continuar. Si su cÃ³nyuge no tiene uno, declare sus impuestos gratis con <a href=\"https://www.getyourrefund.org/\">GetYourRefund</a>."
+          save_button: Guarde a esta persona
+          remove_button: Quite a esta persona
+        spouse_review:
+          title: Confirmemos la informaciÃ³n de su conyuge
+          help_text: Hemos agregado a la siguiente persona como su cÃ³nyuge en su declaraciÃ³n.
+          your_spouse: Su cÃ³nyuge
+          spouse_birthday: "Fecha de nacimiento: %{dob}"
+          spouse_ssn: "NÃºmero de Seguro Social: XXX-XX-%{ssn}"
+        remove_spouse:
+          title_html: "EstÃ¡ a punto de borrar a %{spouse_name}.<br><br>Â¿EstÃ¡ bien?"
+          remove_button: "SÃ­, borrÃ©moslo/la"
+          nevermind_button: Mejor no lo/la borremos
         filed2020:
-          title: "¿Presentó su declaración de impuestos de 2020 este año?"
+          title: "Â¿PresentÃ³ su declaraciÃ³n de impuestos de 2020 este aÃ±o?"
           help_text_html: |
-            <p>¿Presentó una declaración de impuestos este año, después del 1 de enero de 2021, para el año fiscal 2020?</p>
-            <p>Puede responder afirmativamente si presentó una declaración y aún está esperando los pagos del estímulo o si utilizó la herramienta de inscripción para las personas que no declararon o Non-filers Sign-up.</p>
+            <p>Â¿PresentÃ³ una declaraciÃ³n de impuestos este aÃ±o, despuÃ©s del 1 de enero de 2021, para el aÃ±o fiscal 2020?</p>
+            <p>Puede responder afirmativamente si presentÃ³ una declaraciÃ³n y aÃºn estÃ¡ esperando los pagos del estÃ­mulo o si utilizÃ³ la herramienta de inscripciÃ³n para las personas que no declararon o Non-filers Sign-up.</p>
         filed2020_yes:
-          title: ¡Fabuloso! El IRS puede procesar su declaración y determinar su Crédito Fiscal por Hijos.
-          p1: "Si presentó su declaración de impuestos de 2020, el IRS tendrá la información que necesita para tramitar su Crédito Fiscal por Hijos (CTC)."
-          p2_html: "Puede visitar el sitio web del IRS de Crédito Fiscal por Hijos o en inglés: \"Child Tax Credit Update Portal\" para actualizar su información."
-          visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglés de CTC"
-          visit_stimulus_faq: Visit the Stimulus FAQ
+          title: Â¡Fabuloso! El IRS puede procesar su declaraciÃ³n y determinar su CrÃ©dito Fiscal por Hijos.
+          p1: "Si presentÃ³ su declaraciÃ³n de impuestos de 2020, el IRS tendrÃ¡ la informaciÃ³n que necesita para tramitar su CrÃ©dito Fiscal por Hijos (CTC)."
+          visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglÃ©s de CTC "
         filed2019:
-          title: "¿Ha presentado la declaración de impuestos de 2019 o ha recibido algún pago de estímulo?"
+          title: "Â¿Ha presentado la declaraciÃ³n de impuestos de 2019 o ha recibido algÃºn pago de estÃ­mulo?"
           help_text_html: |+
-            <p>Si presentó una declaración de 2019 o recibió pagos de estímulo, de ser elegible, recibirá su Crédito Fiscal por Hijos basado en la información de esa declaración. No necesita presentar una declaración de impuestos de 2020 para recibir los beneficios que le corresponden.</p>
-            <p>Si hay cambios en su situación personal puede visitar el <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">Portal de Actualización del Crédito Fiscal por Hijos IRS</a> para actualizar su información fiscal.
-
+            <p>Si presentÃ³ una declaraciÃ³n de 2019 o recibiÃ³ pagos de estÃ­mulo, de ser elegible, recibirÃ¡ su CrÃ©dito Fiscal por Hijos basado en la informaciÃ³n de esa declaraciÃ³n. No necesita presentar una declaraciÃ³n de impuestos de 2020 para recibir los beneficios que le corresponden.</p>
+            <p>Si hay cambios en su situaciÃ³n personal puede visitar el <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">Portal de ActualizaciÃ³n del CrÃ©dito Fiscal por Hijos IRS</a> para actualizar su informaciÃ³n fiscal.
         life_situations2019:
-          title: Revisemos una cosa más.
+          title: Revisemos una cosa mÃ¡s.
           p1: |
-            Si cualesquiera de los siguientes puntos son válidos para usted, debe continuar con nuestra herramienta simplificada de CTC:
-          p2: "Si ninguna de estas afirmaciones es cierta, debería recibir su Crédito Fiscal por Hijos. Puede visitar las preguntas frecuentes sobre el CTC para obtener más información."
-          item1: Ha habido un cambio en el número de personas dependientes respecto a su declaración de impuestos de 2019
-          item2: Tiene una cuenta bancaria diferente a la que ha indicado en su declaración de 2019
-          item3: No recibió la totalidad del estímulo que le correspondía
+            Si cualesquiera de los siguientes puntos son vÃ¡lidos para usted, debe continuar con nuestra herramienta simplificada de CTC:
+          p2: "Si ninguna de estas afirmaciones es cierta, deberÃ­a recibir su CrÃ©dito Fiscal por Hijos. Puede visitar las preguntas frecuentes sobre el CTC para obtener mÃ¡s informaciÃ³n."
+          item1: Ha habido un cambio en el nÃºmero de personas dependientes respecto a su declaraciÃ³n de impuestos de 2019
+          item2: Tiene una cuenta bancaria diferente a la que ha indicado en su declaraciÃ³n de 2019
+          item3: No recibiÃ³ la totalidad del estÃ­mulo que le correspondÃ­a
           visit_ctc_faq: Visite FAQ--Preguntas Frecuentes--del CTC
         home:
-          title: "¿Cuál fue su domicilio principal en 2020?"
-          help_text: Su domicilio debe haber estado en Estados Unidos durante más de la mitad del año fiscal.
+          title: "Â¿CuÃ¡l fue su domicilio principal en 2020?"
+          help_text: Su domicilio debe haber estado en Estados Unidos durante mÃ¡s de la mitad del aÃ±o fiscal.
           options:
             fifty_states: Cualquiera de los 50 estados o el Distrito de Columbia
-            military_facility: Instalación militar estadounidense
+            military_facility: InstalaciÃ³n militar estadounidense
             us_territory: "Territorio de Estados Unidos, como Puerto Rico o Guam"
-            foreign_address: Dirección en el extranjero
+            foreign_address: DirecciÃ³n en el extranjero
         verification:
-          title: ¡Verifiquemos esa información de contacto con un código!
+          title: Â¡Verifiquemos esa informaciÃ³n de contacto con un cÃ³digo!
           body: |
-            Se le ha enviado un mensaje con su código a:
-          verification_code_label: "Introduzca el código de 6 números"
-          error_message: "El código de verificación está equivocado"
+            Se le ha enviado un mensaje con su cÃ³digo a:
+          verification_code_label: "Introduzca el cÃ³digo de 6 nÃºmeros "
+          error_message: "El cÃ³digo de verificaciÃ³n estÃ¡ equivocado"
         stimulus_payments:
-          title: "En base a su información, creemos que debería haber recibido esta cantidad en pagos de estímulo."
-          yes_received: "Sí, recibí esta cantidad."
-          no_did_not_receive: "No, no recibí esta cantidad."
-          first_stimulus: "Primer pago de estímulo"
-          second_stimulus: "Segundo pago de estímulo"
-          first_stimulus_details: "Este pago debería haber llegado entre abril de 2020 y octubre de 2020."
-          second_stimulus_details: "Este pago debería haber llegado entre diciembre de 2020 y enero de 2021."
-          question: "¿Recibió esta cantidad?"
+          title: "En base a su informaciÃ³n, creemos que deberÃ­a haber recibido esta cantidad en pagos de estÃ­mulo."
+          yes_received: "SÃ­, recibÃ­ esta cantidad."
+          no_did_not_receive: "No, no recibÃ­ esta cantidad."
+          first_stimulus: "Primer pago de estÃ­mulo"
+          second_stimulus: "Segundo pago de estÃ­mulo"
+          first_stimulus_details: "Este pago deberÃ­a haber llegado entre abril de 2020 y octubre de 2020."
+          second_stimulus_details: "Este pago deberÃ­a haber llegado entre diciembre de 2020 y enero de 2021."
+          question: "Â¿RecibiÃ³ esta cantidad?"
         stimulus_one:
-          title: "¿Recibió algo del primer pago de estímulo?"
+          title: "Â¿RecibiÃ³ algo del primer pago de estÃ­mulo?"
           help_html: |
-            <p>Los primero de los tres pagos por estímulo fueron enviados entre abril 2020 y octubre 2020.</p>
-            <p>Este pago fue de $1,200 por cada adulto declarante más $500 por cada dependiente (por ejemplo, un padre de familia al cuidado de dos niños habría recibido $2,200).</p>
+            <p>Los primero de los tres pagos por estÃ­mulo fueron enviados entre abril 2020 y octubre 2020.</p>
+            <p>Este pago fue de $1,200 por cada adulto declarante mÃ¡s $500 por cada dependiente (por ejemplo, un padre de familia al cuidado de dos niÃ±os habrÃ­a recibido $2,200).</p>
         stimulus_one_received:
-          title: "Introduzca la cantidad total que recibió por su primer pago de estímulo."
-          eip1_amount_received_label: "Pago Impacto Económico 1"
+          title: "Introduzca la cantidad total que recibiÃ³ por su primer pago de estÃ­mulo."
+          eip1_amount_received_label: "Pago Impacto EconÃ³mico 1"
           help_html: |
-            <p>El primer pago de estímulo, conocido formalmente como Pago de Impacto Económico 1, se envió entre abril de 2020 y octubre de 2020.</p>
-            <p>Ingrese la cantidad que recibió, si recibió alguno, por ese pago.</p>
-          reveal_label: "¿Dónde puedo encontrar esta cantidad?"
-          reveal_content: "Si no está seguro, revise la notificación oficial que ha recibido O sus registros bancarios."
+            <p>El primer pago de estÃ­mulo, conocido formalmente como Pago de Impacto EconÃ³mico 1, se enviÃ³ entre abril de 2020 y octubre de 2020.</p>
+            <p>Ingrese la cantidad que recibiÃ³, si recibiÃ³ alguno, por ese pago.</p>
+          reveal_label: "Â¿DÃ³nde puedo encontrar esta cantidad?"
+          reveal_content: "Si no estÃ¡ seguro, revise la notificaciÃ³n oficial que ha recibido O sus registros bancarios."
         stimulus_two:
-          title: "¿Recibió algo del segundo pago de estímulo?"
+          title: "Â¿RecibiÃ³ algo del segundo pago de estÃ­mulo?"
           help_html: |
-            <p>El segundo de los tres pagos de estímulo, se envió entre diciembre de 2020 y enero de 2021.</p>
-            <p>Este pago fue de $600 por adulto declarante más $600 por dependiente (por ejemplo, un padre de familia al cuidado de dos niños habría recibido $1,800)</p>
+            <p>El segundo de los tres pagos de estÃ­mulo, se enviÃ³ entre diciembre de 2020 y enero de 2021.</p>
+            <p>Este pago fue de $600 por adulto declarante mÃ¡s $600 por dependiente (por ejemplo, un padre de familia al cuidado de dos niÃ±os habrÃ­a recibido $1,800)</p>
         stimulus_two_received:
-          title: "Introduzca la cantidad total que recibió por su segundo pago de estímulo."
-          eip2_amount_received_label: "Pago Impacto Económico 2"
+          title: "Introduzca la cantidad total que recibiÃ³ por su segundo pago de estÃ­mulo."
+          eip2_amount_received_label: "Pago Impacto EconÃ³mico 2"
           help_html: |
-            <p>El primer pago de estímulo, conocido formalmente como Pago de Impacto Económico 2, se envió entre diciembre de 2020 y enero de 2021.</p>
-            <p>Ingrese la cantidad que recibió, si recibió uno, por ese pago.</p>
-          reveal_label: "¿Dónde puedo encontrar esta cantidad?"
-          reveal_content: "Si no está seguro, revise la notificación oficial que ha recibido O sus registros bancarios."
+            <p>El primer pago de estÃ­mulo, conocido formalmente como Pago de Impacto EconÃ³mico 2, se enviÃ³ entre diciembre de 2020 y enero de 2021.</p>
+            <p>Ingrese la cantidad que recibiÃ³, si recibiÃ³ uno, por ese pago.</p>
+          reveal_label: "Â¿DÃ³nde puedo encontrar esta cantidad?"
+          reveal_content: "Si no estÃ¡ seguro, revise la notificaciÃ³n oficial que ha recibido O sus registros bancarios."
         stimulus_received:
-          title: "En base a su información, parece que ha recibido la cantidad entera de pagos de estímulo."
-          amount_received: "Cantidad que recibió"
+          title: "En base a su informaciÃ³n, parece que ha recibido la cantidad entera de pagos de estÃ­mulo."
+          amount_received: "Cantidad que recibiÃ³"
           eip_one: "EIP 1"
           eip_two: "EIP 2"
         stimulus_owed:
-          title: "Basado en su información, parece que todavía se le deben algunos pagos de estímulo."
-          amount_received: "Cantidad que recibió"
+          title: "Basado en su informaciÃ³n, parece que todavÃ­a se le deben algunos pagos de estÃ­mulo."
+          amount_received: "Cantidad que recibiÃ³"
           eip_one: "EIP 1"
           eip_two: "EIP 2"
-          eligible_for: "Si los datos que ha proporcionado son correctos, podría ser elegible adicionalmente para:"
-          correction: "Si algún importe de su EIP 1 o 2 es incorrecto, el IRS corregirá la cantidad presentada, pero la corrección causará un retraso en la tramitación de su declaración y un retraso en el envío de sus cheques mensuales de crédito fiscal por hijos (si tiene derecho a ello)."
+          eligible_for: "Si los datos que ha proporcionado son correctos, podrÃ­a ser elegible adicionalmente para:"
+          correction: "Si algÃºn importe de su EIP 1 o 2 es incorrecto, el IRS corregirÃ¡ la cantidad presentada, pero la correcciÃ³n causarÃ¡ un retraso en la tramitaciÃ³n de su declaraciÃ³n y un retraso en el envÃ­o de sus cheques mensuales de crÃ©dito fiscal por hijos (si tiene derecho a ello)."
           dont_claim: "No solicite el dinero adicional"
           claim: "Solicite el dinero adicional"
         use_gyr:
-          title: "Desgraciadamente, no es elegible para utilizar GetCTC. Pero aún podemos ayudarle."
-          help_text: "Para poder presentar una declaración simplificada a través de GetCTC necesitaría cumplir las siguientes condiciones:"
+          title: "Desgraciadamente, no es elegible para utilizar GetCTC. Pero aÃºn podemos ayudarle."
+          help_text: "Para presentar una declaraciÃ³n simplificada a travÃ©s de GetCTC deberÃ¡ cumplir las siguientes condiciones:"
           ctc_conditions:
-            - No obtuvo ningún ingreso en el año 2020
-            - Es ciudadano estadounidense, estadounidense nacional o residente de Estados Unidos.
-            - No es residente de Puerto Rico o de otro Territorio Americano
-            - No puede ser declarado como dependiente
-            - Usted y su cónyuge tienen un SSN o ITIN válido
-          still_benefit: "Aún podría beneficiarse presentando la declaración de impuestos completa de forma gratuita a través de GetYourRefund."
-          collect_money: "Cobre todo el dinero que le deben presentando su declaración de impuestos con GetYourRefund."
-          visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglés de CTC "
+            - No recibiÃ³ ningÃºn ingreso en el aÃ±o 2020
+            - "Usted es ciudadano estadounidense, nacional de Estados Unidos o extranjero residente en Estados Unidos."
+            - Usted no es residente de Puerto Rico ni de ningÃºn Territorio Americano
+            - Usted no puede ser declarado como dependiente
+            - Usted y su cÃ³nyuge tienen un NÃºmero de Seguro Social vÃ¡lido o de ITIN vÃ¡lido
+          still_benefit: TodavÃ­a puede beneficiarse presentando una declaraciÃ³n de impuestos completa de forma gratuita a travÃ©s de GetYourRefund.
+          collect_money: Reciba todo el dinero que se le debe presentando una solicitud con los servicios de GetYourRefund.
+          visit_ctc_faq: "Visite Preguntas y Respuestas o FAQ en inglÃ©s de CTC "
           file_gyr: "Solicite por medio de GetYourRefund"
         filing_status:
-          title: "¿Cómo desea presentar su declaración de impuestos?"
-          reveal_title: No estoy seguro de cómo solicitar
-          reveal_body: "Si normalmente declara como jefe de familia o casado que presenta la declaración por separado, seleccione \"soltero\" a efectos de esta declaración."
+          title: "Â¿CÃ³mo desea presentar su declaraciÃ³n de impuestos?"
+          reveal_title: No estoy seguro de cÃ³mo solicitar
+          reveal_body: "Si normalmente declara como jefe de familia o casado que presenta la declaraciÃ³n por separado, seleccione \"soltero\" a efectos de esta declaraciÃ³n."
+        life_situations2020:
+          title: "Â¿Puede alguien declararlo como dependiente en 2020?"
+          help_text: "Por lo general, alguien puede declararlo/a como dependiente si es un miembro de su familia, vive con Ã©l/ella la mayor parte del aÃ±o y paga la mayor parte de sus gastos de manutenciÃ³n."
+        ip_pin_explanation_html: "Si se confirma que ha sido vÃ­ctima de un robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviarÃ¡ por correo un Aviso CP01A con su PIN de IP, un nÃºmero de 6 dÃ­gitos asignado a ciertos declarantes de impuestos elegibles. <a href=\"https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin\" rel=\"noopener nofollow\" target=\"_blank\">Puede recuperar su IP PIN a travÃ©s de esta pÃ¡gina del IRS.</a>"
+        ip_pin:
+          title: "Â¿Alguien de su declaraciÃ³n ha recibido un PIN de IP a causa de un robo de identidad?"
+          reveal_label: "Â¿QuÃ© es un IP PIN?"
+          help_text: "Tener un PIN de IP es muy poco frecuente. Si no estÃ¡ familiarizado con lo que es, es probable que no se le haya emitido un PIN de IP. Seleccione \"Ninguna de las anteriores\" para continuar."
+          error: Seleccione una persona o "Ninguno de los anteriores".
+        ip_pin_entry:
+          title: "Por favor, indique el PIN de la IP a continuaciÃ³n."
+          label: "El IP PIN de %{name}"
+        confirm_legal:
+          title: Favor de leer la informaciÃ³n legal antes de presentar su declaraciÃ³n de impuestos.
+          legal_info_html: |
+            <p>So pena de perjurio, declaro que he examinado esta declaraciÃ³n (o solicitud de reembolso), incluyendo las declaraciones y anexos que la acompaÃ±an, y que, a mi leal saber y entender, es verdadera, correcta y completa.</p>
+            <p>Autorizo a mi proveedor de servicios intermediario, transmisor u originador de declaraciones electrÃ³nicas (ERO) a enviar mi declaraciÃ³n (o solicitud de reembolso) al IRS y a recibir la siguiente informaciÃ³n del IRS: a) un reconocimiento de recibo o el motivo del rechazo de la transmisiÃ³n; b) una indicaciÃ³n de cualquier compensaciÃ³n de reembolso; c) el motivo de cualquier retraso en la tramitaciÃ³n de la declaraciÃ³n o el reembolso; y d) la fecha de cualquier reembolso.</p>
+            <p class="spacing-below-35">Firmo esta declaraciÃ³n de impuestos introduciendo el PIN de firma que he seleccionado y los datos de firma electrÃ³nica asociados en la pÃ¡gina anterior.</p>
+          consent: estoy de acuerdo
+          action: Presentar mi declaraciÃ³n
+          error: "Por favor, acepte antes de continuar."
+        confirm_information:
+          title: "Â¡Ya estÃ¡ todo listo! Ahora vamos a revisar su informaciÃ³n y a establecer un nÃºmero de PIN."
+          pin_help_text: SerÃ¡ un nÃºmero de 5 cifras que usted seleccionarÃ¡ como su propia contraseÃ±a.
+          labels:
+            signature_pin: "El PIN de cinco cifras de %{name} (no introduzca 00000)"
+          ready_to_file: "Estoy listo/a para declarar"
+          your_information: "Su informaciÃ³n"
+          your_dependents: "Sus dependientes"
     dependents:
       form:
         birth_date: Fecha de nacimiento
@@ -1975,7 +2125,7 @@ es:
           major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."
           minor_carriers_html: "<strong>Compañías reducidas:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
           privacy_html: 'Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href="https://www.getyourrefund.org/privacy">www.getyourrefund.org/privacy</a>'
-          rates_html: Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>.
+          rates_html: "Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>."
           sms_cancellation_html: Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto "<strong>STOP</strong>" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de "<strong>STOP</strong>", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda "<strong>START</strong>" y volveremos a mandarle mensajes SMS.
           sms_confirmation: Cuando se suscriba al servicio, le enviaremos un mensaje SMS para confirmar su suscripción y le enviaremos un mensaje de texto con las actualizaciones de su declaración de impuestos.
         title: Términos de código
@@ -2208,19 +2358,6 @@ es:
         see_faq: Consulte nuestras preguntas frecuentes
         support_html: Nuestro equipo está aquí para ayudarle. %{faq_link} o envíe una pregunta por chat, y nos comunicaremos con usted.
         title: Preguntas sobre los impuestos
-      sms_terms:
-        header: Términos y condiciones de código abreviado para GetYourRefund
-        title: Términos de código
-        terms:
-          carrier_disclaimer: ""
-          carriers_heading_html: "<strong>Nuestros mensajes pueden ser enviados por medio de los teléfonos de las siguientes compañías:</strong>"
-          keywords_html: "Si en cualquier momento se le olvidan las palabras claves que se utilizan, simplemente envíe el texto \"<strong>HELP</strong>\" al <strong>58750</strong>. Después de que mande el mensaje SMS de \"<strong>HELP</strong>\", le reponderemos dándole las instrucciones de cómo utilizar el servicio y cómo darse."
-          major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."
-          minor_carriers_html: "<strong>Compañías reducidas:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
-          privacy_html: "Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href=\"https://www.getyourrefund.org/privacy\">www.getyourrefund.org/privacy</a>"
-          rates_html: "Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>."
-          sms_cancellation_html: "Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto \"<strong>STOP</strong>\" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de \"<strong>STOP</strong>\", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda \"<strong>START</strong>\" y volveremos a mandarle mensajes SMS."
-          sms_confirmation: Cuando se suscriba al servicio, le enviaremos un mensaje SMS para confirmar su suscripción y le enviaremos un mensaje de texto con las actualizaciones de su declaración de impuestos.
     questions:
       additional_info:
         help_text: Comparta cualquier nota o pregunta sobre su situación fiscal. Su preparador de impuestos se asegurará de repasar estas preguntas durante la revisión de su teléfono.
