@@ -18,4 +18,12 @@ class MultiTenantService
     when :gyr then "GetYourRefund"
     end
   end
+
+  def from_email
+    if service_type == :ctc
+      Rails.configuration.email_from[:noreply][:ctc]
+    else
+      Rails.configuration.email_from[:default][:gyr]
+    end
+  end
 end

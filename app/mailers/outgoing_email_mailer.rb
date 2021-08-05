@@ -3,6 +3,10 @@ class OutgoingEmailMailer < ApplicationMailer
     @outgoing_email = outgoing_email
     attachment = outgoing_email.attachment
 
+    service_type = @outgoing_email.client.intake.is_ctc? ? :ctc : :gyr
+    service = MultiTenantService.new(service_type)
+    @service_type = service.service_type
+
     @body = outgoing_email.body
     @subject = outgoing_email.subject
     if attachment.present?
@@ -14,6 +18,7 @@ class OutgoingEmailMailer < ApplicationMailer
     mail(
       to: outgoing_email.to,
       subject: @subject,
+      from: service.from_email
     )
   end
 end

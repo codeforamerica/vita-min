@@ -1,3 +1,3 @@
 class DeviseMailer < Devise::Mailer
-  default from: Rails.configuration.address_for_transactional_authentication_emails
+  default from: Rails.configuration.email_from[:noreply][:gyr]
 end

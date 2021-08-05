@@ -33,14 +33,23 @@ Rails.application.configure do
 
   # Emails are printed to the `rails jobs:work` console and logged to tmp/mail/#{to_address}
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :file
+  if ENV['LETTER_OPENER']
+    config.action_mailer.delivery_method = :letter_opener
+    config.action_mailer.perform_deliveries = true
+  else
+    config.action_mailer.delivery_method = :file
+  end
   config.action_mailer.logger = Logger.new(STDOUT)
   config.action_mailer.logger.level = Logger::DEBUG
   config.action_mailer.perform_caching = false
 
   ngrok_host = ENV["NGROK_HOST"] # for example: 'd90d61a5caf9.ngrok.io'
-  config.action_mailer.default_options = { from: 'no-reply@localhost' }
-  config.address_for_transactional_authentication_emails = 'devise-no-reply@test.localhost'
+  ctc_email_from_domain = "ctc.localhost"
+  gyr_email_from_domain = "localhost"
+  config.email_from = {
+    default: {ctc: "hello@#{ctc_email_from_domain}", gyr: "hello@#{gyr_email_from_domain}"},
+    noreply: {ctc: "no-reply@#{ctc_email_from_domain}", gyr: "no-reply@#{gyr_email_from_domain}"}
+  }
   if ngrok_host.present?
     config.action_mailer.default_url_options = { protocol: 'https', host: ngrok_host, port: 80 }
   else

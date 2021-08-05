@@ -32,7 +32,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
       end.to change(ActionMailer::Base.deliveries, :count).by 1
 
       expect(email.subject).to eq outgoing_email.subject
-      expect(email.from).to eq ["no-reply@test.localhost"]
+      expect(email.from).to eq ["hello@test.localhost"]
       expect(email.to).to eq [outgoing_email.to]
       expect(email.html_part.decoded).to have_selector('div', text: "Line 1")
       expect(email.html_part.decoded).to have_selector('div', text: "Body")
@@ -71,6 +71,35 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
         email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
         expect(email.html_part.decoded).to have_selector("a[href=\"https://example.com/\"]", text: "https://example.com/")
         expect(email.html_part.decoded).to have_selector("a[href=\"https://getyourrefund.org/\"]", text: "https://getyourrefund.org/")
+      end
+    end
+
+    describe 'branding' do
+      context 'for a GYR client' do
+        let!(:intake) { create :intake, client: outgoing_email.client, locale: "en" }
+
+        it 'shows "GetYourRefund"' do
+          email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
+          expect(email.html_part.decoded).to include('GetYourRefund')
+        end
+      end
+
+      context 'for a CTC client' do
+        let!(:intake) { create :ctc_intake, client: outgoing_email.client, locale: "en" }
+
+        it 'shows "GetCTC"' do
+          email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
+          expect(email.html_part.decoded).to include('GetCTC')
+        end
+
+        it "delivers an email with a no-reply@ address instead" do
+          email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
+          expect do
+            email.deliver_now
+          end.to change(ActionMailer::Base.deliveries, :count).by 1
+
+          expect(email.from).to eq ["no-reply@ctc.test.localhost"]
+        end
       end
     end
   end

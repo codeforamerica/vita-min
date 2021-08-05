@@ -1,5 +1,6 @@
 class UserMailer < ApplicationMailer
-  default from: Rails.configuration.address_for_transactional_authentication_emails
+  default from: Rails.configuration.email_from[:noreply][:gyr]
+
   helper :time
   def assignment_email(
     assigned_user:,
