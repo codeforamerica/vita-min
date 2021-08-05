@@ -67,7 +67,7 @@ describe Hub::EfileSubmissionsController do
         patch :resubmit, params: params
 
         expect(assigns(:efile_submission)).to have_received(:transition_to!).with(:resubmitted, { initiated_by_id: user.id })
-        expect(response).to redirect_to(hub_efile_submission_path(id: submission.tax_return_id))
+        expect(response).to redirect_to(hub_efile_submission_path(id: submission.client.id))
         expect(flash[:notice]).to eq "Resubmission initiated."
       end
     end
@@ -89,8 +89,30 @@ describe Hub::EfileSubmissionsController do
         patch :cancel, params: params
 
         expect(assigns(:efile_submission)).to have_received(:transition_to!).with(:cancelled, { initiated_by_id: user.id })
-        expect(response).to redirect_to(hub_efile_submission_path(id: submission.tax_return_id))
+        expect(response).to redirect_to(hub_efile_submission_path(id: submission.client.id))
         expect(flash[:notice]).to eq "Submission cancelled, tax return marked 'Not filing'."
+      end
+    end
+  end
+
+  describe "#investigate" do
+    let(:submission) { create :efile_submission }
+    let(:params) { { id: submission } }
+    it_behaves_like :an_action_for_admins_only, action: :investigate, method: :patch
+
+    context "as an authenticated admin" do
+      let(:user) { create :admin_user }
+      before do
+        sign_in user
+        allow_any_instance_of(EfileSubmission).to receive(:transition_to!)
+      end
+
+      it "transitions the efile submission to investigate and records the initiator" do
+        patch :investigate, params: params
+
+        expect(assigns(:efile_submission)).to have_received(:transition_to!).with(:investigating, { initiated_by_id: user.id })
+        expect(response).to redirect_to(hub_efile_submission_path(id: submission.client.id))
+        expect(flash[:notice]).to eq "Good luck on your investigation!"
       end
     end
   end

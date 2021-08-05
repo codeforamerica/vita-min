@@ -13,6 +13,7 @@ class EfileSubmissionStateMachine
   state :rejected
   state :accepted
 
+  state :investigating
   state :resubmitted
   state :cancelled
 
@@ -20,8 +21,9 @@ class EfileSubmissionStateMachine
   transition from: :preparing,    to: [:queued, :failed]
   transition from: :queued,       to: [:transmitted, :failed]
   transition from: :transmitted,  to: [:accepted, :rejected]
-  transition from: :failed,       to: [:resubmitted, :cancelled]
-  transition from: :rejected,     to: [:resubmitted, :cancelled]
+  transition from: :failed,       to: [:resubmitted, :cancelled, :investigating]
+  transition from: :rejected,     to: [:resubmitted, :cancelled, :investigating]
+  transition from: :investigating, to: [:resubmitted, :cancelled]
   transition from: :resubmitted,  to: [:preparing]
 
   after_transition(to: :preparing) do |submission|
@@ -70,6 +72,10 @@ class EfileSubmissionStateMachine
       message: AutomatedMessage::EfilePreparing.new,
       locale: client.intake.locale
     )
+  end
+
+  after_transition(to: :investigating) do |submission|
+    submission.tax_return.update(status: :file_hold)
   end
 
   after_transition(to: :resubmitted) do |submission|
