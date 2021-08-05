@@ -42,7 +42,6 @@ class CtcQuestionNavigation
 
     # RRC
     Ctc::Questions::StimulusPaymentsController,
-    Ctc::Questions::StimulusResetController,
     Ctc::Questions::StimulusOneController,
     Ctc::Questions::StimulusOneReceivedController,
     Ctc::Questions::StimulusTwoController,
