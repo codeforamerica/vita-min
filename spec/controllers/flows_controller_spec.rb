@@ -28,7 +28,7 @@ RSpec.describe FlowsController do
         expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
       end
 
-      xit 'can generate a married filing jointly with dependents intake' do
+      it 'can generate a married filing jointly with dependents intake' do
         post :generate, params: default_params.merge({ submit_married_filing_jointly_with_dependents: 'Married Filing Jointly With Dependents ✨' })
         expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
         expect(controller.current_intake.dependents.count).to eq(2)

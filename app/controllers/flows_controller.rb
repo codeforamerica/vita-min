@@ -213,7 +213,10 @@ class FlowsController < ApplicationController
       intake_attributes = {
         type: Intake::CtcIntake.to_s,
         visitor_id: SecureRandom.hex(26),
+        filed_2020: 'no',
+        filed_2019: 'no',
         primary_birth_date: 30.years.ago,
+        primary_tin_type: 'ssn',
         primary_ssn: '555112222',
         primary_last_four_ssn: '2222',
         primary_first_name: first_name,
@@ -233,10 +236,12 @@ class FlowsController < ApplicationController
       if type == :married_filing_jointly || type == :married_filing_jointly_with_dependents
         client.intake.tax_returns.last.update(filing_status: 'married_filing_jointly')
         client.intake.update(
+          spouse_tin_type: 'ssn',
           spouse_ssn: '555113333',
           spouse_last_four_ssn: '3333',
           spouse_first_name: "#{first_name}Spouse",
           spouse_last_name: last_name,
+          spouse_active_armed_forces: 'no'
         )
       end
 
@@ -254,6 +259,7 @@ class FlowsController < ApplicationController
           lived_with_more_than_six_months: 'yes',
           cant_be_claimed_by_other: 'yes',
           birth_date: 12.years.ago,
+          tin_type: 'ssn',
           ssn: '555114444'
         )
         client.intake.dependents.create(
@@ -263,6 +269,7 @@ class FlowsController < ApplicationController
           permanently_totally_disabled: 'yes',
           meets_misc_qualifying_relative_requirements: 'yes',
           birth_date: 52.years.ago,
+          tin_type: 'ssn',
           ssn: '555115555'
         )
       end
