@@ -1,0 +1,31 @@
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <h1><%= @efile_error.code %></h1>
+    <div class="grid-flex">
+      <div class="item">
+        <h4 class="spacing-below-5">Source</h4>
+        <p><%= @efile_error.source %></p>
+      </div>
+      <% if @efile_error.source == "irs" %>
+        <div class="item">
+          <h4 class="spacing-below-5">Severity</h4>
+          <p><%= @efile_error.severity %></p>
+        </div>
+        <div class="item">
+          <h4 class="spacing-below-5">Category</h4>
+          <p><%= @efile_error.category %></p>
+        </div>
+      <% end %>
+    </div>
+    <h4 class="spacing-below-5">Raw error message:</h4>
+    <p><%= @efile_error.message %></p>
+    <hr/>
+    <h2>Options</h2>
+    <%= form_with model: @efile_error, method: :put, local: true, url: hub_efile_error_path, builder: VitaMinFormBuilder do |f| %>
+      <%= f.hub_checkbox :expose, "Exposed to client?" %>
+      <div>
+        <%= f.submit t("general.update"), class: 'button button--primary' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
