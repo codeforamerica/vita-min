@@ -143,7 +143,7 @@ module SubmissionBuilder
             }
             if submission.resubmission?
               xml.FederalOriginalSubmissionId submission.previously_transmitted_submission.irs_submission_id
-              xml.FederalOriginalSubmissionDt date_type(submission.previously_transmitted_submission.created_at)
+              xml.FederalOriginalSubmissionIdDt date_type(submission.previously_transmitted_submission.created_at)
             end
             xml.TotalPreparationSubmissionTs total_preparation_submission_minutes
             xml.TotActiveTimePrepSubmissionTs total_active_preparation_minutes

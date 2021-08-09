@@ -24,7 +24,7 @@ class EfileSubmissionStateMachine
   transition from: :failed,       to: [:resubmitted, :cancelled, :investigating]
   transition from: :rejected,     to: [:resubmitted, :cancelled, :investigating]
   transition from: :investigating, to: [:resubmitted, :cancelled]
-  transition from: :resubmitted,  to: [:preparing]
+  transition from: :resubmitted, to: [:preparing]
 
   after_transition(to: :preparing) do |submission|
     BuildSubmissionBundleJob.perform_later(submission.id)

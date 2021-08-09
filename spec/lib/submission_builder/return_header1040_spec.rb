@@ -281,6 +281,22 @@ describe SubmissionBuilder::ReturnHeader1040 do
       end
     end
 
+    context "when re-submitting" do
+      let(:previous_submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }, created_at: DateTime.new(2021, 8, 1, 12, 0)) }
+
+      before do
+        create(:efile_submission_transition, :preparing, efile_submission: submission, metadata: {previous_submission_id: previous_submission.id})
+      end
+
+      it "adds original submission metadata to the header" do
+        expect(submission.previously_transmitted_submission).to eq(previous_submission)
+        response = SubmissionBuilder::ReturnHeader1040.build(submission)
+        xml = Nokogiri::XML::Document.parse(response.document.to_xml)
+        expect(xml.at("FederalOriginalSubmissionId").text).to eq previous_submission.irs_submission_id
+        expect(xml.at("FederalOriginalSubmissionIdDt").text).to eq "2021-08-01"
+      end
+    end
+
     it "conforms to the eFileAttachments schema" do
       expect(SubmissionBuilder::ReturnHeader1040.build(submission)).to be_valid
     end

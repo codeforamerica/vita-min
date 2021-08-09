@@ -52,6 +52,14 @@ class EfileSubmission < ApplicationRecord
     false
   end
 
+  def last_client_accessible_transition
+    return nil unless last_transition.present?
+
+    return last_transition unless last_transition.to_state == "investigating"
+
+    efile_submission_transitions.where('id < ?', last_transition.id).last
+  end
+
   def resubmission?
     previously_transmitted_submission.present?
   end

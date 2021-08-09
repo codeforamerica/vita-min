@@ -12,9 +12,9 @@ module SubmissionBuilder
 
       def dependent_xml(xml, dependent)
         xml.DependentDetail do
-          xml.DependentFirstNm dependent.first_name
-          xml.DependentLastNm dependent.last_name
-          xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
+          xml.DependentFirstNm person_name_type(dependent.first_name)
+          xml.DependentLastNm person_name_type(dependent.last_name)
+          xml.DependentNameControlTxt person_name_control_type(dependent.intake.primary_last_name)
           xml.DependentSSN dependent.ssn
           xml.DependentRelationshipCd dependent.irs_relationship_enum
           xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit_2020?
