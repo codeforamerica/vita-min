@@ -11,6 +11,7 @@ module Ctc
                        :spouse_active_armed_forces
     set_attributes_for :birthday, :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
     set_attributes_for :confirmation, :spouse_ssn_confirmation
+    set_attributes_for :misc, :ssn_no_employment
 
     validates :spouse_first_name, presence: true, legal_name: true
     validates :spouse_last_name, presence: true, legal_name: true
@@ -25,6 +26,17 @@ module Ctc
     before_validation do
       [spouse_ssn, spouse_ssn_confirmation].each do |field|
         field.remove!(/\D/) if field
+      end
+      if ssn_no_employment == "yes" && spouse_tin_type == "ssn"
+        self.spouse_tin_type = "ssn_no_employment"
+      end
+    end
+
+    def initialize(intake, params)
+      super
+      if spouse_tin_type == "ssn_no_employment"
+        self.spouse_tin_type = "ssn"
+        self.ssn_no_employment = "yes"
       end
     end
 

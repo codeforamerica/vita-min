@@ -183,6 +183,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # Back up to prove that the 'go back' button brings us back to the dependent we were editing
     click_on I18n.t('general.back')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
     click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
     click_on I18n.t('views.ctc.questions.dependents.confirm_dependents.done_adding')
 

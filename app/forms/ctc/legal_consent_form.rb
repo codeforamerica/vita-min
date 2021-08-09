@@ -39,6 +39,10 @@ module Ctc
       [primary_ssn, primary_ssn_confirmation].each do |field|
         field.remove!(/\D/) if field
       end
+
+      if ssn_no_employment == "yes" && primary_tin_type == "ssn"
+        self.primary_tin_type = "ssn_no_employment"
+      end
     end
 
     def initialize(intake, params)
@@ -46,12 +50,6 @@ module Ctc
       if primary_tin_type == "ssn_no_employment"
         self.primary_tin_type = "ssn"
         self.ssn_no_employment = "yes"
-      end
-    end
-
-    before_validation do
-      if ssn_no_employment == "yes" && primary_tin_type == "ssn"
-        self.primary_tin_type = "ssn_no_employment"
       end
     end
 
