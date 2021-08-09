@@ -13,7 +13,7 @@
           <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_ctc") %></h2>
         </div>
         <% current_intake.dependents.select { |dep| dep.eligible_for_child_tax_credit_2020? }.each do |dependent| %>
-          <%= render 'dependent', dependent: dependent.reload %>
+          <%= render 'dependent', dependent: dependent %>
         <% end %>
       </div>
       <div data-automation="other-credits-dependents">
@@ -21,7 +21,7 @@
           <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_other_credits") %></h2>
         </div>
         <% current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && (dep.qualifying_child_2020? || dep.qualifying_relative_2020?) }.each do |dependent| %>
-          <%= render 'dependent', dependent: dependent.reload %>
+          <%= render 'dependent', dependent: dependent %>
         <% end %>
       </div>
 

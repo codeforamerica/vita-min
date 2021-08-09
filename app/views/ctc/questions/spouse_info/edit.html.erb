@@ -19,9 +19,9 @@
             classes: ["ctc-intake-date-text-input"]
           ) %>
       <%= f.cfa_select(:spouse_tin_type, t("views.ctc.questions.spouse_info.spouse_identity"), tin_options_for_select(include_itin: true, include_none: true), help_text: t("views.ctc.questions.spouse_info.spouse_identity_help_text")) %>
+      <%= f.cfa_checkbox(:ssn_no_employment, "This SSN is not valid for employment", options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_input_field(:spouse_ssn, t("views.ctc.questions.spouse_info.spouse_ssn_itin"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:spouse_ssn_confirmation, t("views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation"), classes: ["form-width--long"]) %>
-      <%= f.cfa_checkbox(:ssn_no_employment, "This SSN is not valid for employment", options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:spouse_active_armed_forces, t("views.ctc.questions.spouse_info.spouse_active_armed_forces"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= render('components/molecules/reveal', title: t("views.ctc.questions.spouse_info.spouse_active_armed_forces_reveal")) do %>
         <p><%= t("views.ctc.questions.spouse_info.spouse_active_armed_forces_reveal_content") %></p>
