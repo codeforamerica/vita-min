@@ -15,7 +15,7 @@ module Hub
     # loops through the tax_returns that have efile_submissions.
     def show
       @client = Client.find(params[:id])
-      @tax_returns = @client.tax_returns.joins(:efile_submissions) # get all tax returns with submissions
+      @tax_returns = @client.tax_returns.joins(:efile_submissions).uniq # get all tax returns with submissions
       redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.present?
     end
 

@@ -36,6 +36,7 @@ describe Hub::EfileSubmissionsController do
 
   describe "#show" do
     let(:submission) { create :efile_submission }
+    let!(:submission_2) { create :efile_submission, tax_return: submission.tax_return }
     let(:params) { { id: submission.client.id } }
     it_behaves_like :an_action_for_admins_only, action: :show, method: :get
 
