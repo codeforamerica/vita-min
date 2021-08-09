@@ -63,5 +63,18 @@ describe BuildSubmissionBundleJob do
         expect(submission.reload.current_state).to eq "failed"
       end
     end
+
+    context "when the build raises an unhandled exception" do
+      before do
+        allow(SubmissionBundle).to receive(:build).and_raise StandardError
+      end
+
+      it "transitions the submission into :failed" do
+        expect do
+          described_class.perform_now(submission.id)
+        end.to raise_error(StandardError)
+        expect(submission.reload.current_state).to eq "failed"
+      end
+    end
   end
 end
