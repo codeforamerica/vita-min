@@ -9,16 +9,15 @@ class BuildSubmissionBundleJob < ApplicationJob
 
     begin
       submission.generate_form_1040_pdf
-    rescue
-      submission.transition_to!(:failed, error_code: 'PDF-1040-FAIL', raw_response: ['Engineers should look in Sentry for a crash'])
+    rescue StandardError => e
+      submission.transition_to!(:failed, error_code: 'PDF-1040-FAIL', raw_response: ["Engineers should look in Sentry for an exception", "EfileSubmission #{submission_id}", e.class.name])
       raise
     end
 
     begin
       response = SubmissionBundle.build(submission, documents: ["adv_ctc_irs1040"])
-    rescue
-      submission.transition_to!(:failed, error_code: 'BUNDLE-FAIL', raw_response: ['Engineers should look in Sentry for a crash'])
-      raise
+    rescue StandardError => e
+      submission.transition_to!(:failed, error_code: 'BUNDLE-FAIL', raw_response: ["Engineers should look in Sentry for an exception", "EfileSubmission #{submission_id}", e.class.name])
     end
 
     if response.valid?
