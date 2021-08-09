@@ -158,6 +158,8 @@ Rails.application.routes.draw do
           patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
         end
 
+        resources :efile_errors, path: "errors", only: [:index, :edit, :update]
+
         resources :unlinked_clients, only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
           delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy

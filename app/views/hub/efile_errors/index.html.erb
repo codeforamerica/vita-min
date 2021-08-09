@@ -1,0 +1,41 @@
+<% content_for :card do %>
+  <div class="spacing-above-25 submissions-index">
+    <table class="index-table spacing-above-25">
+      <thead class="index-table__head">
+      <tr class="index-table__row">
+        <th scope="col" class="index-table__header sortable">
+          Source
+        </th>
+        <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
+          Error Code
+        </th>
+        <th scope="col" class="index-table__header sortable">
+          Error Message
+        </th>
+        <th scope="col" style="width: 10rem"class="index-table__header sortable">
+          Expose?
+        </th>
+      </tr>
+      </thead>
+      <tbody class="index-table__body submission-table">
+
+      <% @efile_errors.each do |error| %>
+        <tr class="index-table__row">
+          <td class="index-table__cell status">
+            <%= link_to error.source, edit_hub_efile_error_path(id: error.id, ), class: "underline" %>
+          </td>
+          <td class="index-table__cell">
+            <%= link_to error.code, edit_hub_efile_error_path(id: error.id, ), class: "underline" %>
+          </td>
+          <td class="index-table__cell">
+            <%= link_to error.message, edit_hub_efile_error_path(id: error.id, ) %>
+          </td>
+          <td class="index-table__cell">
+            <%= "✓" if error.expose %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
