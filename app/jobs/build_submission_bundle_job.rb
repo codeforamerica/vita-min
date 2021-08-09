@@ -14,7 +14,13 @@ class BuildSubmissionBundleJob < ApplicationJob
       raise
     end
 
-    response = SubmissionBundle.build(submission, documents: ["adv_ctc_irs1040"])
+    begin
+      response = SubmissionBundle.build(submission, documents: ["adv_ctc_irs1040"])
+    rescue
+      submission.transition_to!(:failed, error_code: 'BUNDLE-FAIL')
+      raise
+    end
+
     if response.valid?
       submission.transition_to!(:queued)
     else
