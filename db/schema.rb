@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_04_205207) do
+ActiveRecord::Schema.define(version: 2021_08_09_170036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -146,22 +146,6 @@ ActiveRecord::Schema.define(version: 2021_08_04_205207) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
     t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
-  end
-
-  create_table "client_efile_security_informations", force: :cascade do |t|
-    t.string "browser_language"
-    t.bigint "client_id"
-    t.string "client_system_time"
-    t.datetime "created_at", precision: 6, null: false
-    t.string "device_id"
-    t.bigint "efile_submission_id"
-    t.inet "ip_address"
-    t.string "platform"
-    t.string "timezone_offset"
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "user_agent"
-    t.index ["client_id"], name: "index_client_efile_security_informations_on_client_id"
-    t.index ["efile_submission_id"], name: "index_client_efile_security_informations_efile_submissions_id"
   end
 
   create_table "client_success_roles", force: :cascade do |t|
@@ -339,6 +323,22 @@ ActiveRecord::Schema.define(version: 2021_08_04_205207) do
     t.string "severity"
     t.string "source"
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "efile_security_informations", force: :cascade do |t|
+    t.string "browser_language"
+    t.bigint "client_id"
+    t.string "client_system_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.string "device_id"
+    t.bigint "efile_submission_id"
+    t.inet "ip_address"
+    t.string "platform"
+    t.string "timezone_offset"
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "user_agent"
+    t.index ["client_id"], name: "index_efile_security_informations_on_client_id"
+    t.index ["efile_submission_id"], name: "index_client_efile_security_informations_efile_submissions_id"
   end
 
   create_table "efile_submission_transition_errors", force: :cascade do |t|
@@ -1005,14 +1005,14 @@ ActiveRecord::Schema.define(version: 2021_08_04_205207) do
   add_foreign_key "bulk_client_organization_updates", "vita_partners"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
-  add_foreign_key "client_efile_security_informations", "clients"
-  add_foreign_key "client_efile_security_informations", "efile_submissions"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
   add_foreign_key "documents_requests", "intakes"
+  add_foreign_key "efile_security_informations", "clients"
+  add_foreign_key "efile_security_informations", "efile_submissions"
   add_foreign_key "efile_submission_transitions", "efile_submissions"
   add_foreign_key "greeter_coalition_join_records", "coalitions"
   add_foreign_key "greeter_coalition_join_records", "greeter_roles"

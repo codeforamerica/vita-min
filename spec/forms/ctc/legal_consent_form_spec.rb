@@ -218,7 +218,7 @@ describe Ctc::LegalConsentForm do
       expect {
         form.valid? # the form only transforms the phone number if it is validated before calling save
         form.save
-      }.to change(Client, :count).by(1).and change(TaxReturn, :count).by(1).and change(Client::EfileSecurityInformation, :count).by(1)
+      }.to change(Client, :count).by(1).and change(TaxReturn, :count).by(1).and change(EfileSecurityInformation, :count).by(1)
       intake = Intake.last
       expect(intake.primary_first_name).to eq "Marty"
       expect(intake.primary_middle_initial).to eq "J"

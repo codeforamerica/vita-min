@@ -81,7 +81,11 @@ class EfileSubmissionStateMachine
     if submission.efile_submission_transitions.where(to_state: :transmitted).count.zero?
       submission.transition_to!(:preparing)
     else
-      @new_submission = submission.tax_return.efile_submissions.create!
+      # Re-submission doesn't involve client interaction so we use e-file security information from the last interaction
+      @new_submission = submission.tax_return.efile_submissions.create!(
+        efile_security_information_attributes:
+          submission.efile_security_information.attributes.except("efile_submission_id", "id", "created_at", "updated_at")
+      )
       @new_submission.transition_to!(:preparing, previous_submission_id: submission.id)
     end
   end
