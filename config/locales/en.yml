@@ -1403,6 +1403,9 @@ en:
             rejected:
               label: Rejected
               message: Your return has not been accepted by the IRS. We will need to correct your info and resubmit. Please contact your tax preparer to make corrections.
+            cancelled:
+              label: Cancelled
+              message: We will no longer attempt to submit this return to the IRS. This may be because you requested that we do not submit the return, or because a rejection from the IRS indicated that we can not resubmit on your behalf.
       questions:
         returning_client:
           next_steps: Sign in to your account to complete the questions. If you have any questions, start a chat with us.

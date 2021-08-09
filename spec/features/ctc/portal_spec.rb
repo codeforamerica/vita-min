@@ -236,4 +236,38 @@ RSpec.feature "CTC Intake", active_job: true do
       expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
     end
   end
+
+  context "when the client has verified the contact, efile submission is status cancelled" do
+    before do
+      intake.update(email_address_verified_at: DateTime.now)
+      create(:efile_submission, :cancelled, :with_errors, tax_return: create(:tax_return, client: intake.client, year: 2020))
+    end
+
+    scenario "a client sees information about their cancelled submission" do
+      visit "/en/portal/login"
+
+      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
+      fill_in "Email address", with: "mango@example.com"
+      click_on "Send code"
+
+      perform_enqueued_jobs
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
+      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
+      fill_in "Enter 6 digit code", with: code
+      click_on "Verify"
+      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
+      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+      expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.label")
+      expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.message")
+      click_on "Message my tax preparer"
+      expect(page).to have_selector "h1", text: "Message your tax preparer"
+      fill_in "What's on your mind?", with: "I have some questions about my tax return."
+      click_on "Send message"
+      expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
+    end
+  end
 end
