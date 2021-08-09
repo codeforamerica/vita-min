@@ -26,4 +26,15 @@ class MultiTenantService
       Rails.configuration.email_from[:default][:gyr]
     end
   end
+
+  def delivery_method_options
+    if service_type == :ctc && EnvironmentCredentials.dig(:mailgun, :ctc_api_key)
+      {
+        api_key: EnvironmentCredentials.dig(:mailgun, :ctc_api_key),
+        domain: EnvironmentCredentials.dig(:mailgun, :ctc_domain)
+      }
+    else
+      Rails.configuration.action_mailer.mailgun_settings
+    end
+  end
 end

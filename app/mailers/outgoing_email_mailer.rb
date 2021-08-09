@@ -18,7 +18,8 @@ class OutgoingEmailMailer < ApplicationMailer
     mail(
       to: outgoing_email.to,
       subject: @subject,
-      from: service.from_email
+      from: service.from_email,
+      delivery_method_options: service.delivery_method_options
     )
   end
 end
