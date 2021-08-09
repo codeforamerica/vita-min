@@ -73,18 +73,14 @@ module Efile
           raise StandardError.new("Please clone the gyr-efiler repo to ../gyr-efiler and follow its README")
         end
       else
-        required_env_keys = %w[GYR_EFILER_ETIN GYR_EFILER_APP_SYS_ID GYR_EFILER_CERT]
-        missing_keys = required_env_keys.reject { |key| ENV.has_key?(key) }
-        if missing_keys.length > 0
-          raise StandardError.new("Missing required env keys: #{missing_keys.join(', ')}")
-        end
+        etin, app_sys_id, cert_base64 = config_values
 
         properties_content = <<~PROPERTIES
-          etin=#{ENV['GYR_EFILER_ETIN']}
-          app_sys_id=#{ENV['GYR_EFILER_APP_SYS_ID']}
+          etin=#{etin}
+          app_sys_id=#{app_sys_id}
         PROPERTIES
         File.write(File.join(config_dir, 'gyr_secrets.properties'), properties_content)
-        File.write(File.join(config_dir, 'secret_key_and_cert.p12.key'), Base64.decode64(ENV['GYR_EFILER_CERT']), mode: "wb")
+        File.write(File.join(config_dir, 'secret_key_and_cert.p12.key'), Base64.decode64(cert_base64, mode: "wb"))
       end
 
       FileUtils.touch(File.join(config_dir, '.ready'))
@@ -94,6 +90,20 @@ module Efile
 
     def self.system!(*args)
       system(*args) || abort("\n== Command #{args} failed ==")
+    end
+
+    def self.config_values
+      # On our Aptible environments, these config values should be in Rails secrets aka EnvironmentCredentials.
+      #
+      # They can also be configured by environment variables, which is convenient for local dev or manual testing.
+      etin = ENV['GYR_EFILER_ETIN'].presence || EnvironmentCredentials.dig(:irs, :etin)
+      app_sys_id = ENV['GYR_EFILER_APP_SYS_ID'].presence || EnvironmentCredentials.dig(:irs, :app_sys_id)
+      cert_base64 = ENV['GYR_EFILER_CERT'].presence || EnvironmentCredentials.dig(:irs, :efiler_cert)
+      if etin.nil? || app_sys_id.nil? || cert_base64.nil?
+        raise StandardError.new("Missing etin and/or app sys id and/or cert base64 configuration")
+      end
+
+      [etin, app_sys_id, cert_base64]
     end
   end
 end
