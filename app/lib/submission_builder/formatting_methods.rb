@@ -18,6 +18,12 @@ module SubmissionBuilder
       date.strftime("%F")
     end
 
+    def person_name_type(name)
+      return "" unless name.present?
+
+      I18n.transliterate(name).strip.gsub(/[^A-Za-z\-\s]/, '')
+    end
+
     def name_line_1_type(primary_first, primary_middle, primary_last, primary_suffix, spouse_first, spouse_middle, spouse_last)
       name_line = build_name_line_1(primary_first, primary_middle, primary_last, primary_suffix, spouse_first, spouse_middle, spouse_last)
 
@@ -47,7 +53,6 @@ module SubmissionBuilder
     # The IRS has very particular guidelines for what this line should look like and they are
     # outlined on page 189 of https://www.irs.gov/pub/irs-pdf/p4164.pdf
     def build_name_line_1(primary_first, primary_middle, primary_last, primary_suffix, spouse_first, spouse_middle, spouse_last)
-      # add in support for formatting JR/2nd/II
       name_line = formatted_first_name(primary_first)
       name_line << " #{primary_middle.upcase}" if primary_middle
 
@@ -72,11 +77,11 @@ module SubmissionBuilder
       name_line
     end
 
-    # Limit to max 4 chars uppercased
+    # Limit to max 4 chars uppercased with special characters removed
     def person_name_control_type(string)
       return "" unless string.present?
 
-      string.first(4).upcase
+      formatted_last_name(string).first(4)
     end
 
     # phone number without country code or formatting
