@@ -5,8 +5,9 @@ class Ctc::Portal::PortalController < ApplicationController
   def home
     if current_client.efile_submissions.any?
       submission = current_client.efile_submissions.last
-      @status = submission.current_state
-      @exposed_error = submission.last_transition ? submission.last_transition.client_facing_errors.first : nil
+      latest_transition = submission.last_client_accessible_transition
+      @status = latest_transition.to_state
+      @exposed_error = latest_transition ? latest_transition.client_facing_errors.first : nil
       @current_step = nil
     else
       @status = "intake_in_progress"

@@ -50,7 +50,7 @@ describe Hub::EfileErrorsController do
       before do
         sign_in user
       end
-      
+
       it "updates the object based on passed logic" do
         expect(efile_error.expose).to eq true
         put :update, params: params

@@ -142,6 +142,37 @@ RSpec.feature "CTC Intake", active_job: true do
     end
   end
 
+  context "whhen the client has verified the contact, efile submission is status investigating" do
+    before do
+      intake.update(email_address_verified_at: DateTime.now)
+      es = create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client, year: 2020))
+      es.transition_to!(:investigating)
+
+    end
+    scenario "a client sees information about the previous transition to failed" do
+      visit "/en/portal/login"
+
+      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
+      fill_in "Email address", with: "mango@example.com"
+      click_on "Send code"
+
+      perform_enqueued_jobs
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
+      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
+      fill_in "Enter 6 digit code", with: code
+      click_on "Verify"
+      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
+      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+      expect(page).to have_text "Submission error"
+      expect(page).to have_text "We encountered some errors transmitting your return to the IRS. Information about next steps were sent to your contact info."
+    end
+
+  end
+
   context "when the client has verified the contact, efile submission is status transmitted" do
     before do
       intake.update(email_address_verified_at: DateTime.now)
