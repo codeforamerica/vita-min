@@ -567,7 +567,7 @@ describe Client do
       it "destroys everything associated with the client" do
         client.destroy
         expect(Client.count).to eq 1
-        expect(Client::EfileSecurityInformation.count).to eq 1
+        expect(EfileSecurityInformation.count).to eq 1
         expect(Client.last).to eq unrelated_intake.client
         expect(Intake.count).to eq 1
         expect(Intake.last).to eq unrelated_intake
