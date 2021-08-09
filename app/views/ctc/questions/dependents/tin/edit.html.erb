@@ -9,9 +9,9 @@
 
     <div class="form-card__content">
       <%= f.cfa_select(:tin_type, t("views.ctc.questions.dependents.tin.form_of_identity", name: @form.dependent.first_name), tin_options_for_select(include_atin: true)) %>
+      <%= f.cfa_checkbox(:ssn_no_employment, "This SSN is not valid for employment", options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_input_field(:ssn, t("views.ctc.questions.dependents.tin.ssn_or_atin", name: @form.dependent.first_name), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:ssn_confirmation, t("views.ctc.questions.dependents.tin.ssn_or_atin_confirmation", name: @form.dependent.first_name), classes: ["form-width--long"]) %>
-      <%= f.cfa_checkbox(:ssn_no_employment, "This SSN is not valid for employment", options: { checked_value: "yes", unchecked_value: "no" }) %>
     </div>
 
     <button class="button button--primary spacing-below-15 button--wide" type="submit">
