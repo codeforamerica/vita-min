@@ -56,8 +56,8 @@ module SubmissionBuilder
             xml.PrimarySSN intake.primary_ssn
             xml.SpouseSSN intake.spouse_ssn if tax_return.filing_jointly?
             xml.NameLine1Txt name_line_1_type(intake.primary_first_name, intake.primary_middle_initial, intake.primary_last_name, intake.primary_suffix, intake.spouse_first_name, intake.spouse_middle_initial, intake.spouse_last_name)
-            xml.PrimaryNameControlTxt person_name_control_type(client.legal_name)
-            xml.SpouseNameControlTxt person_name_control_type(client.spouse_legal_name) if tax_return.filing_jointly?
+            xml.PrimaryNameControlTxt person_name_control_type(client.last_name)
+            xml.SpouseNameControlTxt person_name_control_type(client.spouse_last_name) if tax_return.filing_jointly?
             xml.USAddress {
               xml.AddressLine1Txt address.street_address
               xml.CityNm address.city
