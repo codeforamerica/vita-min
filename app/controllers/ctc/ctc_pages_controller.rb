@@ -7,6 +7,11 @@ module Ctc
       end
     end
 
+    def source_routing
+      # allow before_action to stash the source, then go to the homepage
+      redirect_to root_path(ctc_beta: params[:ctc_beta])
+    end
+
     def privacy_policy
     end
 

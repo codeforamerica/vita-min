@@ -5,7 +5,7 @@ class PublicPagesController < ApplicationController
   end
 
   def redirect_locale_home
-    redirect_to root_path, { locale: I18n.locale }
+    redirect_to root_path
   end
 
   def source_routing
@@ -14,7 +14,7 @@ class PublicPagesController < ApplicationController
       flash[:notice] = I18n.t("controllers.public_pages.partner_welcome_notice", partner_name: vita_partner.name)
       cookies[:intake_open] = { value: DateTime.current, expires: 1.year.from_now.utc }
     end
-    redirect_to root_path, { locale: I18n.locale }
+    redirect_to root_path
   end
 
   def home; end
