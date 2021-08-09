@@ -4,6 +4,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
   let(:client) do
     create(
       :client,
+      last_seen_at: DateTime.new(2021, 4, 20, 16, 21),
       intake: create(
         :intake,
         email_address: "client@example.com",
@@ -193,7 +194,6 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         before { allow_any_instance_of(ClientLoginService).to receive(:clients_for_token).and_return(client_query) }
 
         context "with a matching ssn/client ID" do
-          before { Timecop.freeze }
           let(:params) do
             {
               id: "raw_token",
@@ -207,8 +207,14 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
             post :update, params: params
 
             expect(subject.current_client).to eq(client)
-            expect(subject.current_client.last_seen_at).to eq(Time.now)
             expect(response).to redirect_to portal_root_path
+          end
+
+          it "updates the clients last_seen_at" do
+            Timecop.freeze do
+              expect { post :update, params: params }
+                .to change{ client.reload.last_seen_at }.to(Time.now)
+            end
           end
 
           context "when the client was trying to access a protected page" do
