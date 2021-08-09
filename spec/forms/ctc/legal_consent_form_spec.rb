@@ -3,7 +3,7 @@ require "rails_helper"
 describe Ctc::LegalConsentForm do
   let(:intake) { Intake::CtcIntake.new(visitor_id: "something", source: "some-source") }
 
-  context "initializationn with from_intake" do
+  context "initialization with from_intake" do
     let(:intake) { Intake::CtcIntake.new(visitor_id: "something", source: "some-source", primary_tin_type: "ssn_no_employment") }
 
     context "coercing tin_type to the correct value when ssn_no_employment" do
@@ -264,7 +264,7 @@ describe Ctc::LegalConsentForm do
         context "when the ssn_no_employment checkbox value is no" do
           let(:ssn_no_employment) { "no" }
 
-          it "has a resulting tin type of no_employment" do
+          it "has a resulting tin type of ssn" do
             form = described_class.new(intake, params)
             form.valid?
             form.save
@@ -275,9 +275,9 @@ describe Ctc::LegalConsentForm do
 
       context "when tin type is not ssn" do
         let(:ssn_no_employment) { "no" }
-        let(:primary_tin_type) { "itin" }
+        let(:tin_type) { "itin" }
 
-        it "sets the tin type to ssn" do
+        it "sets the tin type to itin" do
           form = described_class.new(intake, params)
           form.valid?
           form.save
