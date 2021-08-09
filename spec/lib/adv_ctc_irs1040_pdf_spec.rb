@@ -160,7 +160,7 @@ RSpec.describe AdvCtcIrs1040Pdf do
           "RecoveryRebateCreditAmt30" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
           "RefundableCreditsAmt32" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
           "TotalPaymentsAmt33" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
-          "OverpaidAmt34" => "0",
+          "OverpaidAmt34" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
           "RefundAmt35" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
           "PrimarySignature" => "#{submission.intake.primary_first_name} #{submission.intake.primary_last_name}",
           "PrimarySignatureDate" => "01/01/20",

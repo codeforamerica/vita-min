@@ -32,7 +32,7 @@ class AdvCtcIrs1040Pdf
         RecoveryRebateCreditAmt30: @tax_return.claimed_recovery_rebate_credit,
         RefundableCreditsAmt32: @tax_return.claimed_recovery_rebate_credit,
         TotalPaymentsAmt33: @tax_return.claimed_recovery_rebate_credit,
-        OverpaidAmt34: 0,
+        OverpaidAmt34: @tax_return.claimed_recovery_rebate_credit,
         RefundAmt35: @tax_return.claimed_recovery_rebate_credit,
         PrimarySignature: @intake.primary_full_name,
         PrimarySignatureDate: @intake.primary_signature_pin_at&.strftime("%m/%d/%y"),

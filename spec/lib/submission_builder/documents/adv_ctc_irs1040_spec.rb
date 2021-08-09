@@ -92,7 +92,7 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
         expect(xml.at("RecoveryRebateCreditAmt").text).to eq "900"
         expect(xml.at("RefundableCreditsAmt").text).to eq "900"
         expect(xml.at("TotalPaymentsAmt").text).to eq "900"
-        expect(xml.at("OverpaidAmt").text).to eq "0"
+        expect(xml.at("OverpaidAmt").text).to eq "900"
         expect(xml.at("RefundAmt").text).to eq "900"
         expect(xml.at("RoutingTransitNum").text).to eq "123456789"
         expect(xml.at("BankAccountTypeCd").text).to eq "1"

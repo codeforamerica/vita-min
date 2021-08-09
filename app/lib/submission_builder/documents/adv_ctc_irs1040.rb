@@ -45,13 +45,13 @@ module SubmissionBuilder
             xml.TaxableInterestAmt 1 # 2b
             xml.TotalIncomeAmt 1 # 9
             xml.AdjustedGrossIncomeAmt 1 # 11
-            xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction
-            xml.TaxableIncomeAmt 0
-            xml.RecoveryRebateCreditAmt tax_return.claimed_recovery_rebate_credit
-            xml.RefundableCreditsAmt tax_return.claimed_recovery_rebate_credit
-            xml.TotalPaymentsAmt tax_return.claimed_recovery_rebate_credit
-            xml.OverpaidAmt 0
-            xml.RefundAmt tax_return.claimed_recovery_rebate_credit
+            xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction # 12
+            xml.TaxableIncomeAmt 0 # 15
+            xml.RecoveryRebateCreditAmt tax_return.claimed_recovery_rebate_credit # 30
+            xml.RefundableCreditsAmt tax_return.claimed_recovery_rebate_credit # 32
+            xml.TotalPaymentsAmt tax_return.claimed_recovery_rebate_credit # 33
+            xml.OverpaidAmt tax_return.claimed_recovery_rebate_credit # 34
+            xml.RefundAmt tax_return.claimed_recovery_rebate_credit # 35a
             if bank_account.present? && intake.refund_payment_method_direct_deposit?
               xml.RoutingTransitNum bank_account.routing_number
               xml.BankAccountTypeCd bank_account.account_type_code
