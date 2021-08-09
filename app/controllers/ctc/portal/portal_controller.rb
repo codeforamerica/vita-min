@@ -6,8 +6,8 @@ class Ctc::Portal::PortalController < ApplicationController
     if current_client.efile_submissions.any?
       submission = current_client.efile_submissions.last
       latest_transition = submission.last_client_accessible_transition
-      @status = latest_transition.to_state
-      @exposed_error = latest_transition ? latest_transition.client_facing_errors.first : nil
+      @status = latest_transition.present? ? latest_transition.to_state : EfileSubmissionStateMachine.initial_state
+      @exposed_error = latest_transition.present? ? latest_transition.client_facing_errors.first : nil
       @current_step = nil
     else
       @status = "intake_in_progress"
