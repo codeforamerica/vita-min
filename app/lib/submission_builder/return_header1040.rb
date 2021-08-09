@@ -47,8 +47,10 @@ module SubmissionBuilder
           xml.PINTypeCd "Self-Select On-Line"
           xml.JuratDisclosureCd "Online Self Select PIN"
           xml.PrimaryPINEnteredByCd "Taxpayer"
+          xml.SpousePINEnteredByCd "Taxpayer" if tax_return.filing_jointly?
           xml.PrimarySignaturePIN intake.primary_signature_pin
           xml.SpouseSignaturePIN intake.spouse_signature_pin if tax_return.filing_jointly?
+
           xml.PrimarySignatureDt date_type(intake.primary_signature_pin_at)
           xml.SpouseSignatureDt date_type(intake.spouse_signature_pin_at) if tax_return.filing_jointly?
           xml.ReturnTypeCd "1040"

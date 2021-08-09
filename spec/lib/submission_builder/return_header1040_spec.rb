@@ -81,6 +81,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("PINTypeCd").text).to eq "Self-Select On-Line"
         expect(xml.at("JuratDisclosureCd").text).to eq "Online Self Select PIN"
         expect(xml.at("PrimaryPINEnteredByCd").text).to eq "Taxpayer"
+        expect(xml.at("SpousePINEnteredByCd").text).to eq "Taxpayer"
         expect(xml.at("PrimarySignaturePIN").text).to eq submission.intake.primary_signature_pin
         expect(xml.at("SpouseSignaturePIN").text).to eq submission.intake.spouse_signature_pin
         expect(xml.at("PrimarySignatureDt").text).to eq submission.intake.primary_signature_pin_at.strftime("%F")
