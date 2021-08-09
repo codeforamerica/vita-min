@@ -25,6 +25,8 @@ module Hub
                        :primary_ssn_confirmation,
                        :spouse_ssn,
                        :spouse_ssn_confirmation,
+                       :primary_tin_type,
+                       :spouse_tin_type,
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
                        :spouse_first_name,

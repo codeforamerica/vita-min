@@ -784,6 +784,7 @@ en:
   general:
     tin:
       ssn: Social Security Number (SSN)
+      ssn_no_employment: SSN (Not valid for employment)
       itin: Individual Taxpayer ID Number (ITIN)
       atin: Adoption Taxpayer ID Number (ATIN)
       none: None of the above
