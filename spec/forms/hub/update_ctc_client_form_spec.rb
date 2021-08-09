@@ -37,12 +37,14 @@ RSpec.describe Hub::UpdateCtcClientForm do
         spouse_email_address: intake.spouse_email_address,
         spouse_ssn: "111227777",
         spouse_ssn_confirmation: "111227777",
+        spouse_tin_type: "itin",
         spouse_birth_date_year: intake.spouse_birth_date.year,
         spouse_birth_date_month: intake.spouse_birth_date.month,
         spouse_birth_date_day: intake.spouse_birth_date.day,
         state_of_residence: intake.state_of_residence,
         primary_ssn: "111227778",
         primary_ssn_confirmation: "111227778",
+        primary_tin_type: "ssn_no_employment",
         filing_status: tax_return.filing_status,
         eip1_amount_received: intake.eip1_amount_received,
         eip2_amount_received: intake.eip2_amount_received,
@@ -70,7 +72,7 @@ RSpec.describe Hub::UpdateCtcClientForm do
             form = described_class.new(client, form_attributes)
             form.save
             intake.reload
-          end.to change(intake, :primary_ssn).to "111-22-7777"
+          end.to change(intake, :primary_ssn).to("111-22-7777").and change(intake, :primary_tin_type).to("ssn_no_employment")
         end
       end
 
