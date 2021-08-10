@@ -1,2 +1,20 @@
-<% content_for :form_question, t("views.ctc.questions.filed2019.title") %>
-<% content_for :form_help_text, t("views.ctc.questions.filed2019.help_text_html") %>
+<% @main_question = t("views.ctc.questions.filed2019.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <%= f.cfa_radio_set(
+          :filed_2019,
+          label_text: t("views.ctc.questions.filed2019.help_text"),
+          collection: [
+              { value: :filed_full, label: t("views.ctc.questions.filed2019.filed_full") },
+              { value: :filed_non_filer, label: t("views.ctc.questions.filed2019.filed_non_filer")  },
+              { value: :did_not_file, label: t("views.ctc.questions.filed2019.did_not_file") }
+          ]
+      )
+  %>
+    <%= f.submit t("general.continue"), class: "button button--primary button--wide" %>
+  <% end %>
+<% end %>

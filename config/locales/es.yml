@@ -1616,10 +1616,11 @@ es:
           visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Fiscal por Hijos
           visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el Estímulo
         filed2019:
-          title: "¿Ha presentado la declaración de impuestos de 2019 o ha recibido algún pago de estímulo?"
-          help_text_html: |
-            <p>Si presentó una declaración de 2019, o recibió pagos por estímulo, y es elegible, recibirá sus pagos en base a la información de esa declaración.</p>
-            <p>Si tiene cambios en su situación personal, puede visitar el <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">Portal de Actualización del Crédito Fiscal por Hijos del IRS</a> para actualizar su información fiscal. Visite <a href="https://www.irs.gov/coronavirus/get-my-payment" target="_blank" rel="noopener noreferrer">Get My Payment</a>para revisar el estado de su estímulo.</p>
+          title: "¿Ha presentado la declaración de impuestos de 2019?"
+          help_text: "¿Presentó una declaración de impuestos después del 1 de enero de 2020 para el año fiscal 2019?"
+          filed_full: Sí, presenté una declaración completa
+          filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
+          did_not_file: No, no presenté una declaración de impuestos de 2019
         life_situations2019:
           title: ¡Asegurémonos de que esta herramienta es la adecuada para usted!
           p1: |
