@@ -84,6 +84,8 @@ module ApplicationHelper
       "icons/rejected.svg"
     when "accepted"
       "icons/accepted.svg"
+    when "cancelled"
+      "icons/cancelled.svg"
     when "new", "preparing", "transmitted"
       "icons/sending.svg"
     end
