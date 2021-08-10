@@ -3208,8 +3208,9 @@ es:
             answer_html: |
               No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
         sign_up_for_reminders:
-          body: Manténgase en contacto. Podemos enviarle un email cuando haya más información disponible.
-          button: Si, manténganme informado
+          p1: Próximamente estará disponible la declaración simplificada para el Crédito por hijos y los cheques de estímulo pendientes!
+          p2: Inscríbase para recibir un email tan pronto como el portal esté listo.
+          button: Inscríbase para recibir actualizaciones
         navigator_resources_html: |
           <strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Consulte nuestra página de recursos para navegadores <a href='https://www.notion.so/cfa/GetCTC-org-Navigator-Resources-47bd79cc43034fa181e4f54d2131a4b2' rel='noopener' target='_blank'>aquí.</a>
         what_is:
