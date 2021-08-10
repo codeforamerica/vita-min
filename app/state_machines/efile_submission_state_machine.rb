@@ -1,5 +1,6 @@
 class EfileSubmissionStateMachine
   include Statesman::Machine
+  HOLD_STATUSES = %w[waiting investigating].freeze
 
   state :new, initial: true
   state :preparing
@@ -14,17 +15,20 @@ class EfileSubmissionStateMachine
   state :accepted
 
   state :investigating
+  state :waiting
+
   state :resubmitted
   state :cancelled
 
-  transition from: :new,          to: [:preparing]
-  transition from: :preparing,    to: [:queued, :failed]
-  transition from: :queued,       to: [:transmitted, :failed]
-  transition from: :transmitted,  to: [:accepted, :rejected]
-  transition from: :failed,       to: [:resubmitted, :cancelled, :investigating]
-  transition from: :rejected,     to: [:resubmitted, :cancelled, :investigating]
-  transition from: :investigating, to: [:resubmitted, :cancelled]
-  transition from: :resubmitted, to: [:preparing]
+  transition from: :new,            to: [:preparing]
+  transition from: :preparing,      to: [:queued, :failed]
+  transition from: :queued,         to: [:transmitted, :failed]
+  transition from: :transmitted,    to: [:accepted, :rejected]
+  transition from: :failed,         to: [:resubmitted, :cancelled, :investigating, :waiting]
+  transition from: :rejected,       to: [:resubmitted, :cancelled, :investigating, :waiting]
+  transition from: :investigating,  to: [:resubmitted, :cancelled, :waiting]
+  transition from: :resubmitted,    to: [:preparing]
+  transition from: :waiting,        to: [:resubmitted, :cancelled, :investigating]
 
   after_transition(to: :preparing) do |submission|
     BuildSubmissionBundleJob.perform_later(submission.id)
@@ -74,6 +78,10 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :investigating) do |submission|
+    submission.tax_return.update(status: :file_hold)
+  end
+
+  after_transition(to: :waiting) do |submission|
     submission.tax_return.update(status: :file_hold)
   end
 

@@ -36,5 +36,11 @@ module Hub
       flash[:notice] = "Good luck on your investigation!"
       redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
     end
+
+    def wait
+      @efile_submission.transition_to!(:waiting, { initiated_by_id: current_user.id })
+      flash[:notice] = "Waiting for client action."
+      redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
+    end
   end
 end

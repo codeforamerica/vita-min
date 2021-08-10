@@ -83,6 +83,15 @@ describe EfileSubmissionStateMachine do
       end
     end
 
+    context "to waiting" do
+      let(:submission) { create(:efile_submission, :rejected) }
+      it "transitions the tax return status to on hold" do
+        expect {
+          submission.transition_to!(:waiting)
+        }.to change(submission.tax_return, :status).to("file_hold")
+      end
+    end
+
     context "to accepted" do
       let(:submission) { create(:efile_submission, :transmitted) }
 

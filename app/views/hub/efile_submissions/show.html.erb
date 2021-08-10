@@ -18,6 +18,18 @@
           </div>
         <% end %>
 
+        <% if latest_efile_submission.can_transition_to?(:waiting) %>
+          <div style="margin-left: 10px">
+            <%= link_to("Wait for client",
+                        wait_hub_efile_submission_path(id: latest_efile_submission.id),
+                        method: :patch,
+                        data: { confirm: "Make sure the client knows we're waiting for a response from them!" },
+                        class: "button button--small"
+                )
+            %>
+          </div>
+        <% end %>
+
         <% if latest_efile_submission.can_transition_to?(:investigating) %>
           <div style="margin-left: 10px">
             <%= link_to("Investigate",
@@ -29,6 +41,7 @@
             %>
           </div>
         <% end %>
+
         <% if latest_efile_submission.can_transition_to?(:cancelled) %>
           <div style="margin-left: 10px">
             <%= link_to("Do not file",
