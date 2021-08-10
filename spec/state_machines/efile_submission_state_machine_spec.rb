@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe EfileSubmissionStateMachine do
-
   before do
     allow(ClientPdfDocument).to receive(:create_or_update)
   end

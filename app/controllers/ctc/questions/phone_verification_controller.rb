@@ -21,6 +21,7 @@ module Ctc
       end
 
       def after_update_success
+        send_mixpanel_event(event_name: "ctc_contact_verified")
         sign_in current_intake.client
 
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(

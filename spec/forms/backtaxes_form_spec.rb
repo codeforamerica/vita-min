@@ -42,7 +42,7 @@ RSpec.describe BacktaxesForm do
         form.save
 
         expect(MixpanelService).to have_received(:send_event).with(
-          event_id: intake.visitor_id,
+          distinct_id: intake.visitor_id,
           event_name: "intake_started",
           data: fake_mixpanel_data
         )

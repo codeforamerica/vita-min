@@ -530,7 +530,7 @@ RSpec.describe ApplicationController do
       }
 
       expect(mixpanel_spy).to have_received(:run).with(
-        unique_id: "123",
+        distinct_id: "123",
         event_name: "beep",
         data: expected_mixpanel_data
       )
@@ -568,7 +568,7 @@ RSpec.describe ApplicationController do
         get :index
 
         expect(mixpanel_spy).to have_received(:run).with(
-          unique_id: "current_intake_visitor_id",
+          distinct_id: "current_intake_visitor_id",
           event_name: "page_view",
           data: hash_including(
             intake_source: "horse-ad-campaign-26",
@@ -588,9 +588,9 @@ RSpec.describe ApplicationController do
         get :index, params: { locale: 'es' }
 
         expect(mixpanel_spy).to have_received(:run).with(
-            unique_id: "123",
-            event_name: "page_view",
-            data: hash_including(locale: "es")
+          distinct_id: "123",
+          event_name: "page_view",
+          data: hash_including(locale: "es")
         )
       end
     end

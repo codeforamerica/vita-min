@@ -24,7 +24,7 @@ class ScrapeVitaProvidersJob < ApplicationJob
     }
 
     MixpanelService.send_event(
-      event_id: MIXPANEL_ROBOT_ID,
+      distinct_id: MIXPANEL_ROBOT_ID,
       event_name: "scrape_vita_providers",
       data: data,
     )

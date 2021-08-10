@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
     invalid_field_flags = errors.keys.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
 
     MixpanelService.send_event(
-      event_id: visitor_id,
+      distinct_id: visitor_id,
       event_name: 'validation_error',
       data: invalid_field_flags.merge(additional_data),
       subject: current_intake,
@@ -152,7 +152,7 @@ class ApplicationController < ActionController::Base
     return if user_agent.bot?
 
     MixpanelService.send_event(
-      event_id: visitor_id,
+      distinct_id: visitor_id,
       event_name: event_name,
       data: data,
       subject: subject || visitor_record,

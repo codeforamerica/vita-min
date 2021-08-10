@@ -37,6 +37,7 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :transmitted) do |submission|
     submission.tax_return.update(status: "file_efiled")
+    send_mixpanel_event(submission, "ctc_efile_return_transmitted")
   end
 
   after_transition(to: :failed) do |submission|
@@ -51,6 +52,7 @@ class EfileSubmissionStateMachine
       message: AutomatedMessage::EfileRejected.new,
       locale: submission.client.intake.locale
     )
+    send_mixpanel_event(submission, "ctc_efile_return_rejected")
   end
 
   after_transition(to: :accepted) do |submission|
@@ -62,6 +64,7 @@ class EfileSubmissionStateMachine
       locale: client.intake.locale
     )
     submission.tax_return.update(status: "file_accepted")
+    send_mixpanel_event(submission, "ctc_efile_return_accepted")
   end
 
   after_transition(from: :new, to: :preparing) do |submission|
@@ -92,5 +95,13 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :cancelled) do |submission|
     submission.tax_return.update(status: "file_not_filing")
+  end
+
+  def self.send_mixpanel_event(efile_submission, event_name)
+    MixpanelService.send_event(
+      distinct_id: efile_submission.client.intake.visitor_id,
+      event_name: event_name,
+      subject: efile_submission.intake
+    )
   end
 end
