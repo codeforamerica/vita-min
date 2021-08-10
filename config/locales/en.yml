@@ -3198,8 +3198,9 @@ en:
             answer_html: |
               No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
         sign_up_for_reminders:
-          body: Stay in touch. We can email you when more information is available.
-          button: Yes, keep me updated
+          p1: Simplified filing for your Child Tax Credit and missing stimulus payments is coming soon!
+          p2: Sign up to receive an email as soon as the filing portal is ready.
+          button: Sign up for updates
         navigator_resources_html: |
           <strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="https://www.notion.so/cfa/GetCTC-org-Navigator-Resources-47bd79cc43034fa181e4f54d2131a4b2" rel="noopener" target="_blank">here.</a>
         what_is:

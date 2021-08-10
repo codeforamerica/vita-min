@@ -26,6 +26,18 @@
     </div>
   </div>
 
+  <div class="slab slab--stimulus-blue slab--secondary-cta">
+    <div class="grid">
+      <div class="grid__item width-two-thirds">
+        <p class="cta-text"><strong><%= t('views.ctc_pages.home.sign_up_for_reminders.p1') %></strong></p>
+        <p class="cta-text spacing-above-15"><%= t('views.ctc_pages.home.sign_up_for_reminders.p2') %></p>
+      </div>
+      <div class="grid__item width-one-third">
+        <%= link_to t('views.ctc_pages.home.sign_up_for_reminders.button'), new_ctc_signup_path, class: 'button' %>
+      </div>
+    </div>
+  </div>
+
   <div class="slab slab--navigators">
     <div class="grid">
       <span><%= t('views.ctc_pages.home.navigator_resources_html') %></span>
@@ -176,17 +188,6 @@
           <li><%= link_to t('views.ctc_pages.home.common_questions.are_daca_recipients_eligible.question'), url_for(action: 'are_daca_recipients_eligible'), class: "link--subtle" %></li>
           <li><%= link_to t('views.ctc_pages.home.common_questions.will_it_affect_my_immigration_status.question'), url_for(action: 'will_it_affect_my_immigration_status'), class: "link--subtle" %></li>
         </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="slab slab--stimulus-blue slab--secondary-cta">
-    <div class="grid">
-      <div class="grid__item width-two-thirds">
-        <p class="cta-text"><strong><%= t('views.ctc_pages.home.sign_up_for_reminders.body') %></strong></p>
-      </div>
-      <div class="grid__item width-one-third">
-        <%= link_to t('views.ctc_pages.home.sign_up_for_reminders.button'), new_ctc_signup_path, class: 'button' %>
       </div>
     </div>
   </div>

@@ -29,7 +29,8 @@ RSpec.feature "Visit CTC home page" do
   context "when someone signs up for updates for IRS portal opening" do
     it "saves their contact information" do
       visit "/"
-      expect(page).to have_text I18n.t("views.ctc_pages.home.sign_up_for_reminders.body")
+      expect(page).to have_text I18n.t("views.ctc_pages.home.sign_up_for_reminders.p1")
+      expect(page).to have_text I18n.t("views.ctc_pages.home.sign_up_for_reminders.p2")
       click_on I18n.t("views.ctc_pages.home.sign_up_for_reminders.button")
 
       expect(page).to have_text I18n.t("views.ctc_pages.signups.new.header")
