@@ -270,6 +270,11 @@ class Intake::CtcIntake < Intake
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account
 
+  before_validation do
+    self.primary_ssn = self.primary_ssn.remove(/\D/) if primary_ssn_changed? && self.primary_ssn
+    self.spouse_ssn = self.spouse_ssn.remove(/\D/) if spouse_ssn_changed? && self.spouse_ssn
+  end
+
   PHOTO_ID_TYPES = {
     drivers_license: {
       display_name: "Drivers License",

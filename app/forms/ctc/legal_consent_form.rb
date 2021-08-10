@@ -36,10 +36,6 @@ module Ctc
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
 
     before_validation do
-      [primary_ssn, primary_ssn_confirmation].each do |field|
-        field.remove!(/\D/) if field
-      end
-
       if ssn_no_employment == "yes" && primary_tin_type == "ssn"
         self.primary_tin_type = "ssn_no_employment"
       end

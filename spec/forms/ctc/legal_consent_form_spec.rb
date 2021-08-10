@@ -213,6 +213,7 @@ describe Ctc::LegalConsentForm do
     }
     let(:ssn_no_employment) { "no" }
     let(:tin_type) { "itin" }
+
     it "saves the attributes on the intake and creates a client, 2020 tax return and efile security information" do
       form = described_class.new(intake, params)
       expect {

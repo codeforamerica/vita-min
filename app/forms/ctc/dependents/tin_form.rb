@@ -16,10 +16,6 @@ module Ctc
       validates_presence_of :ssn_confirmation, if: -> { ssn.present? && ssn != @dependent.ssn }
 
       before_validation do
-        [ssn, ssn_confirmation].each do |field|
-          field.remove!(/\D/) if field
-        end
-
         if ssn_no_employment == "yes" && tin_type == "ssn"
           self.tin_type = "ssn_no_employment"
         end

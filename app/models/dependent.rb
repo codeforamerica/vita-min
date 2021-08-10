@@ -92,6 +92,10 @@ class Dependent < ApplicationRecord
 
   validates :ip_pin, ip_pin: true
 
+  before_validation do
+    self.ssn = self.ssn.remove(/\D/) if ssn_changed? && self.ssn
+  end
+
   QUALIFYING_CHILD_RELATIONSHIPS = [
     "daughter",
     "son",

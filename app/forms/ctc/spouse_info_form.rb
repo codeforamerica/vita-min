@@ -24,9 +24,6 @@ module Ctc
     validates_presence_of :spouse_ssn_confirmation, if: -> { spouse_ssn.present? }
 
     before_validation do
-      [spouse_ssn, spouse_ssn_confirmation].each do |field|
-        field.remove!(/\D/) if field
-      end
       if ssn_no_employment == "yes" && spouse_tin_type == "ssn"
         self.spouse_tin_type = "ssn_no_employment"
       end
