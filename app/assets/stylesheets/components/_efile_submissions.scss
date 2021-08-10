@@ -58,13 +58,14 @@ ul.logs {
     }
     .timestamp {
       width: 20rem;
+      flex-shrink: 0;
     }
     .status {
       width: 15rem;
+      flex-shrink: 0;
     }
     .details {
-      width: 60%;
-      flex-grow: 0;
+      flex-grow: 1;
     }
     .metadata-list {
       font-size: smaller;

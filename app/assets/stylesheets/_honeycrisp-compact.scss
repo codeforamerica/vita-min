@@ -13,6 +13,13 @@
     min-height: 18rem;
   }
 
+  ul {
+    list-style-type: initial;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
   hr {
     background-color: $color-grey;
     margin-top: $s35;

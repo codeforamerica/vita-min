@@ -1,0 +1,27 @@
+<% content_for :back_to, "efile_errors" %>
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <%= render "header" %>
+    <hr/>
+    <h4 class="spacing-below-5">Expose to client?</h4>
+    <div>
+      <%= image_tag @efile_error.expose ? "icons/check" : "icons/cancelled", alt: @efile_error.expose ? "yes" : "no" %>
+    </div>
+
+    <h4 class="spacing-below-5">Description (English)</h4>
+    <%= @efile_error.description_en.present? ? @efile_error.description_en : "N/A" %>
+
+    <h4 class="spacing-below-5">Description (Spanish)</h4>
+    <%= @efile_error.description_es.present? ? @efile_error.description_es : "N/A"%>
+
+    <h4 class="spacing-below-5">Resolution (English)</h4>
+    <%= @efile_error.resolution_en.present? ? @efile_error.resolution_en : "N/A" %>
+
+    <h4 class="spacing-below-5">Resolution (Spanish)</h4>
+    <%= @efile_error.resolution_es.present? ? @efile_error.resolution_es : "N/A" %>
+
+    <div class="spacing-above-35">
+      <%= link_to t("general.edit"), edit_hub_efile_error_path(id: @efile_error.id), class: "button button--primary" %>
+    </div>
+  </div>
+<% end %>

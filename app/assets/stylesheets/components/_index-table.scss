@@ -38,6 +38,10 @@ It expects to be the primary content of the given page (full width).
     font-weight: $font-weight-normal;
     white-space: nowrap;
 
+    &--center {
+      text-align: center !important;
+    }
+
     &--sticky {
       position: sticky;
       left: 0;
@@ -124,6 +128,9 @@ It expects to be the primary content of the given page (full width).
     &:last-child {
       padding-right: 3rem;
     }
+    &--center {
+      text-align: center;
+    }
   }
 
   &__row:nth-child(odd) {
@@ -152,5 +159,13 @@ It expects to be the primary content of the given page (full width).
   &__row:first-of-type &__row-header--sticky::before {
     top: -1px;
     border-top: 1px solid black;
+  }
+}
+
+.fixed-width-table {
+  table-layout: fixed;
+  td {
+    word-wrap: normal;
+    white-space: normal;
   }
 }
