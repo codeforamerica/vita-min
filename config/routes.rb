@@ -159,7 +159,7 @@ Rails.application.routes.draw do
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
         end
 
-        resources :efile_errors, path: "errors", only: [:index, :edit, :update]
+        resources :efile_errors, path: "errors", except: [:create, :new, :destroy]
 
         resources :unlinked_clients, only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do

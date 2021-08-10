@@ -13,7 +13,8 @@
 #  updated_at :datetime         not null
 #
 class EfileError < ApplicationRecord
-  def self.pdf_generation_error
-    create_or_find_by!(source: :internal, code: 'PDF-1040', message: 'Failed to generate PDF Form 1040.')
-  end
+  has_rich_text :description_en
+  has_rich_text :description_es
+  has_rich_text :resolution_en
+  has_rich_text :resolution_es
 end

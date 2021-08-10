@@ -2,10 +2,13 @@ import "core-js/stable"
 import "regenerator-runtime/runtime"
 import RailsUJS from "@rails/ujs";
 import * as ActiveStorage from "@rails/activestorage";
+import "trix"
+import "@rails/actiontext"
 import "@yaireo/tagify/dist/tagify.css";
 import "jquery-ui";
 import Listeners from "../listeners";
 import AjaxMixpanelEvents from "../lib/ajax_mixpanel_events";
+
 // Setting globally isn't very webpack-y,
 // but we have things (views, test runner) in the app that require jquery on the window object.
 window.jQuery = $;

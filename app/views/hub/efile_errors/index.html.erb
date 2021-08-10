@@ -1,19 +1,31 @@
 <% content_for :card do %>
   <div class="spacing-above-25 submissions-index">
-    <table class="index-table spacing-above-25">
+    <table class="fixed-width-table index-table spacing-above-25">
       <thead class="index-table__head">
       <tr class="index-table__row">
-        <th scope="col" class="index-table__header sortable">
+        <th scope="col" width="75" class="index-table__header index-table__header--center">
+          Expose?
+        </th>
+        <th scope="col" width="100" class="index-table__header">
           Source
         </th>
-        <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
+        <th scope="col" width="150" class="index-table__header">
           Error Code
         </th>
-        <th scope="col" class="index-table__header sortable">
+        <th scope="col" width="500" class="index-table__header">
           Error Message
         </th>
-        <th scope="col" style="width: 10rem"class="index-table__header sortable">
-          Expose?
+        <th scope="col" width="50" class="index-table__header index-table__cell--center">
+          Desc (en)
+        </th>
+        <th scope="col" width="50" class="index-table__header index-table__cell--center">
+          Desc (es)
+        </th>
+        <th scope="col" width="50" class="index-table__header index-table__cell--center">
+          Res (en)
+        </th>
+        <th scope="col" width="50" class="index-table__header index-table__cell--center">
+          Res (es)
         </th>
       </tr>
       </thead>
@@ -21,17 +33,29 @@
 
       <% @efile_errors.each do |error| %>
         <tr class="index-table__row">
+          <td class="index-table__cell index-table__cell--center">
+            <%= image_tag error.expose ? "icons/check" : "icons/cancelled", alt: error.expose ? "yes" : "no" %>
+          </td>
           <td class="index-table__cell status">
-            <%= link_to error.source, edit_hub_efile_error_path(id: error.id, ), class: "underline" %>
+            <%= link_to error.source, hub_efile_error_path(id: error.id) %>
           </td>
           <td class="index-table__cell">
-            <%= link_to error.code, edit_hub_efile_error_path(id: error.id, ), class: "underline" %>
+            <%= link_to error.code, hub_efile_error_path(id: error.id), class: "underline" %>
           </td>
           <td class="index-table__cell">
-            <%= link_to error.message, edit_hub_efile_error_path(id: error.id, ) %>
+            <%= error.message %>
           </td>
-          <td class="index-table__cell">
-            <%= "✓" if error.expose %>
+          <td class="index-table__cell index-table__cell--center">
+            <%= "✓" if error.description_en.present? %>
+          </td>
+          <td class="index-table__cell index-table__cell--center">
+            <%= "✓" if error.description_es.present? %>
+          </td>
+          <td class="index-table__cell index-table__cell--center">
+            <%= "✓" if error.resolution_en.present? %>
+          </td>
+          <td class="index-table__cell index-table__cell--center">
+            <%= "✓" if error.resolution_es.present? %>
           </td>
         </tr>
       <% end %>

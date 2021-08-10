@@ -1,0 +1,19 @@
+<h1><%= @efile_error.code %></h1>
+<div class="grid-flex">
+  <div class="item">
+    <h4 class="spacing-below-5">Source</h4>
+    <div><%= @efile_error.source %></div>
+  </div>
+  <% if @efile_error.source == "irs" %>
+    <div class="item">
+      <h4 class="spacing-below-5">Severity</h4>
+      <div><%= @efile_error.severity %></div>
+    </div>
+    <div class="item">
+      <h4 class="spacing-below-5">Category</h4>
+      <div><%= @efile_error.category %></div>
+    </div>
+  <% end %>
+</div>
+<h4 class="spacing-below-5">Raw error message</h4>
+<p><%= @efile_error.message %></p>
