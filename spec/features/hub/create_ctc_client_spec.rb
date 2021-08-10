@@ -42,7 +42,6 @@ RSpec.feature "Creating new drop off clients" do
 
       within "#address-fields" do
         fill_in "Street address", with: "123 Garden Ln"
-        select "Texas", from: "State of residence"
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
         fill_in "ZIP code", with: "95032"
@@ -127,7 +126,6 @@ RSpec.feature "Creating new drop off clients" do
         expect(page).to have_text "Relationship: Daughter"
         expect(page).to have_text "Date of Birth: 12/1/2008"
       end
-      expect(page).to have_text "TX"
       expect(page).to have_text "Peter Pepper"
       expect(page).to have_text "spicypeter@pepper.com"
 
@@ -215,10 +213,6 @@ RSpec.feature "Creating new drop off clients" do
 
       within "#filing-status-fields" do
         choose "Single"
-      end
-
-      within "#address-fields" do
-        select "Texas", from: "State of residence"
       end
 
       within "#bank-account-fields" do
