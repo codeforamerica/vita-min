@@ -20,7 +20,7 @@ class EfileSubmission < ApplicationRecord
   has_one :address, as: :record
   has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
   has_one_attached :submission_bundle
-  has_one :efile_security_information
+  has_one :efile_security_information, required: true
   accepts_nested_attributes_for :efile_security_information
 
   before_validation :generate_irs_submission_id

@@ -21,6 +21,30 @@ describe EfileSubmission do
     allow(address_service_double).to receive(:valid?).and_return true
   end
 
+  context "validation" do
+    describe ".efile_security_information" do
+      let(:tax_return) { build(:tax_return) }
+      let(:efile_submission) { EfileSubmission.new(tax_return: tax_return, efile_security_information: efile_security_information) }
+
+      context "without the field" do
+        let(:efile_security_information) { nil }
+
+        it "is invalid" do
+          expect(efile_submission).not_to be_valid
+          expect(efile_submission.errors).to include(:efile_security_information)
+        end
+      end
+
+      context "with the field" do
+        let(:efile_security_information) { build(:efile_security_information) }
+
+        it "is valid" do
+          expect(efile_submission).to be_valid
+        end
+      end
+    end
+  end
+
   context "generating an irs_submission_id before create" do
     context "adhering to IRS format" do
       around do |example|
