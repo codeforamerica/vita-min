@@ -74,7 +74,7 @@ module Hub
 
       @client.tax_returns.each do |tax_return|
         MixpanelService.send_event(
-          event_id: @client.intake.visitor_id,
+          distinct_id: @client.intake.visitor_id,
           event_name: "drop_off_submitted",
           data: MixpanelService.data_from([@client, tax_return, current_user])
         )

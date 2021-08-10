@@ -68,6 +68,14 @@ describe Ctc::Questions::LegalConsentController do
         expect(client.efile_security_information.user_agent).to eq "GeckoFox"
         expect(client.efile_security_information.ip_address).to eq ip_address
       end
+
+      it "sends a Mixpanel event" do
+        post :update, params: params
+        expect(MixpanelService).to have_received(:send_event).with hash_including(
+          distinct_id: "visitor-id",
+          event_name: "ctc_provided_personal_info"
+        )
+      end
     end
   end
 end

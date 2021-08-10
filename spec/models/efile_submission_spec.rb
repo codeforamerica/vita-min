@@ -182,6 +182,7 @@ describe EfileSubmission do
 
     context "transmitted" do
       let(:submission) { create :efile_submission, :transmitted }
+
       context "can transition to" do
         it "accepted" do
           expect { submission.transition_to!(:accepted) }.not_to raise_error
@@ -197,6 +198,55 @@ describe EfileSubmission do
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
+        end
+      end
+
+      context "after transition to" do
+        before { allow(MixpanelService).to receive(:send_event) }
+        let!(:submission) { create(:efile_submission, :queued, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"), 'rb') }) }
+
+        it "sends a mixpanel event" do
+          submission.transition_to!(:transmitted)
+
+          expect(MixpanelService).to have_received(:send_event).with hash_including(
+            distinct_id: submission.client.intake.visitor_id,
+            event_name: "ctc_efile_return_transmitted",
+            subject: submission.intake,
+          )
+        end
+      end
+    end
+
+    context "accepted" do
+      context "after transition to" do
+        before { allow(MixpanelService).to receive(:send_event) }
+        let!(:submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"), 'rb') }) }
+
+        it "sends a mixpanel event" do
+          submission.transition_to!(:accepted)
+
+          expect(MixpanelService).to have_received(:send_event).with hash_including(
+            distinct_id: submission.client.intake.visitor_id,
+            event_name: "ctc_efile_return_accepted",
+            subject: submission.intake,
+          )
+        end
+      end
+    end
+
+    context "rejected" do
+      context "after transition to" do
+        before { allow(MixpanelService).to receive(:send_event) }
+        let!(:submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"), 'rb') }) }
+
+        it "sends a mixpanel event" do
+          submission.transition_to!(:rejected)
+
+          expect(MixpanelService).to have_received(:send_event).with hash_including(
+            distinct_id: submission.client.intake.visitor_id,
+            event_name: "ctc_efile_return_rejected",
+            subject: submission.intake,
+          )
         end
       end
     end

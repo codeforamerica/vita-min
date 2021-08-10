@@ -32,7 +32,7 @@ RSpec.describe Documents::IntroController do
         get :edit
 
         expect(MixpanelService).to have_received(:send_event).with(
-          event_id: intake.visitor_id,
+          distinct_id: intake.visitor_id,
           event_name: "intake_ids_uploaded",
           data: fake_mixpanel_data
         )

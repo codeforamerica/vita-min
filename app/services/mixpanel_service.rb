@@ -25,12 +25,12 @@ class MixpanelService
   ##
   # track an event, given an id, name, and the data to submit
   #
-  # @param [String] unique_id: the id of the event
+  # @param [String] distinct_id: Same as distinct_id of .send_event
   # @param [String] event_name: name of the event, or event type
   # @param [Hash] data: (optional, defaults to {}) data to be sent to mixpanel
   #
-  def run(unique_id:, event_name:, data: {})
-    @tracker.track(unique_id, event_name, data)
+  def run(distinct_id:, event_name:, data: {})
+    @tracker.track(distinct_id, event_name, data)
   rescue StandardError => err
     Rails.logger.error "Error tracking analytics event #{err}"
   end
@@ -91,7 +91,7 @@ class MixpanelService
     ##
     # sends event to MixPanel
     #
-    # @param [String] event_id: the id of the event
+    # @param [String] distinct_id: a distinct_id that is assigned to every user that is tracked, connecting all of the events performed by an individual user.
     # @param [String] event_name: event name or type
     # @param [Hash] data: (optional, default {}) the data to be sent with the event
     # @param [any] subject: the subject of the event. if the subject has a corresponding data_from dispatch, it will
@@ -99,7 +99,7 @@ class MixpanelService
     # @param [ActionDispatch::Request] request: if included, request information will be merged into data
     # @param [ActionController::Base subclass] source: if included, controller information will be merged into data
     # @param [Enumerable(String)] path_exclusions: list of strings to be stripped from paths in data
-    def send_event(event_id:,
+    def send_event(distinct_id:,
                    event_name:,
                    data: {},
                    subject: nil,
@@ -113,7 +113,7 @@ class MixpanelService
       default_data.merge!(data_from(subject))
 
       MixpanelService.instance.run(
-        unique_id: event_id,
+        distinct_id: distinct_id,
         event_name: event_name,
         data: default_data.merge(data),
       )
@@ -122,7 +122,7 @@ class MixpanelService
     def send_tax_return_event(tax_return, event_name, additional_data = {})
       user_data = tax_return.status_last_changed_by.present? ? data_from_user(tax_return.status_last_changed_by) : {}
       MixpanelService.instance.run(
-        unique_id: tax_return.client.intake.visitor_id,
+        distinct_id: tax_return.client.intake.visitor_id,
         event_name: event_name,
         data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(additional_data)
       )
@@ -155,7 +155,7 @@ class MixpanelService
       obj_list.reduce({}) do |data, entry|
         case entry
         when Intake::CtcIntake
-          data.merge!(data_from_intake(entry))
+          data.merge!(data_from_intake(entry)).merge!(data_from_ctc_intake(entry))
         when Intake::GyrIntake
           data.merge!(data_from_intake(entry)).merge!(data_from_gyr_intake(entry))
         when ActionController::Base
@@ -211,6 +211,13 @@ class MixpanelService
         referrer_domain: strip_all_from_url((URI.parse(source.referrer).host || "None" rescue "None"), path_exclusions),
         is_ctc: Routes::CtcDomain.new.matches?(source),
         domain: source.host,
+      }
+    end
+
+    def data_from_ctc_intake(intake)
+      {
+        state: intake.state,
+        zip_code: intake.zip_code,
       }
     end
 
@@ -320,7 +327,7 @@ class MixpanelService
       days_since_tax_return_created = (hours_since_tax_return_created / 24).floor
 
       MixpanelService.instance.run(
-        unique_id: tax_return.client.intake.visitor_id,
+        distinct_id: tax_return.client.intake.visitor_id,
         event_name: event_name,
         data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(
           {

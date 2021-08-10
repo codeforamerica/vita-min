@@ -27,10 +27,10 @@ describe Ctc::Questions::EmailVerificationController do
 
   describe "#after_update_success" do
     let(:locale) { "en" }
-    let(:current_user) { create :user }
 
     before do
       allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
+      allow(MixpanelService).to receive(:send_event)
     end
 
     context "they successfully verify their email" do
@@ -41,6 +41,15 @@ describe Ctc::Questions::EmailVerificationController do
           client: client,
           message: instance_of(AutomatedMessage::CtcGettingStarted),
           locale: 'en'
+        )
+      end
+
+      it "sends a mixpanel event" do
+        subject.after_update_success
+
+        expect(MixpanelService).to have_received(:send_event).with hash_including(
+          distinct_id: visitor_id,
+          event_name: "ctc_contact_verified",
         )
       end
     end

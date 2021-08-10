@@ -104,7 +104,7 @@ describe ScrapeVitaProvidersJob do
         archived_provider_count: 1,
       }
       expect(MixpanelService).to have_received(:send_event).with(
-        event_id: ScrapeVitaProvidersJob::MIXPANEL_ROBOT_ID,
+        distinct_id: ScrapeVitaProvidersJob::MIXPANEL_ROBOT_ID,
         event_name: "scrape_vita_providers",
         data: data,
       )

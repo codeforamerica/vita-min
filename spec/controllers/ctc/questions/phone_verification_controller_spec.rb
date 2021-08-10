@@ -27,9 +27,9 @@ describe Ctc::Questions::PhoneVerificationController do
 
   describe "#after_update_success" do
     let(:locale) { "es" }
-    let(:current_user) { create :user }
 
     before do
+      allow(MixpanelService).to receive(:send_event)
       allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
     end
 
@@ -41,6 +41,15 @@ describe Ctc::Questions::PhoneVerificationController do
           client: client,
           message: instance_of(AutomatedMessage::CtcGettingStarted),
           locale: 'es'
+        )
+      end
+
+      it "sends a mixpanel event" do
+        subject.after_update_success
+
+        expect(MixpanelService).to have_received(:send_event).with hash_including(
+          distinct_id: visitor_id,
+          event_name: "ctc_contact_verified",
         )
       end
     end

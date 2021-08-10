@@ -11,7 +11,7 @@ module Questions
       IntakePdfJob.perform_later(current_intake.id, "Original 13614-C.pdf")
 
       MixpanelService.send_event(
-        event_id: current_intake.visitor_id,
+        distinct_id: current_intake.visitor_id,
         event_name: "intake_finished",
         data: MixpanelService.data_from([current_intake.client, current_intake])
       )

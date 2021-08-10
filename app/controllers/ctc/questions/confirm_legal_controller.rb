@@ -11,6 +11,10 @@ module Ctc
 
       private
 
+      def after_update_success
+        send_mixpanel_event(event_name: "ctc_submitted_intake")
+      end
+
       def next_path
         ctc_portal_root_path
       end

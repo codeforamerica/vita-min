@@ -203,7 +203,7 @@ RSpec.describe Hub::CreateCtcClientForm do
           tax_return = Client.last.tax_returns.first
 
           expect(MixpanelService).to have_received(:send_event).with(
-            event_id: Client.last.intake.visitor_id,
+            distinct_id: Client.last.intake.visitor_id,
             event_name: "drop_off_submitted",
             data: fake_mixpanel_data
           ).exactly(1).times

@@ -22,6 +22,7 @@ describe Ctc::Questions::ConfirmLegalController do
     let(:ip_address) { "1.1.1.1" }
     before do
       request.remote_ip = ip_address
+      allow(MixpanelService).to receive(:send_event)
     end
     let(:params) do
       {
@@ -46,6 +47,15 @@ describe Ctc::Questions::ConfirmLegalController do
           efile_submission = client.reload.tax_returns.last.efile_submissions.last
           expect(efile_submission.current_state).to eq "preparing"
           expect(efile_submission.efile_security_information.ip_address).to eq ip_address
+        end
+
+        it "sends a Mixpanel event" do
+          post :update, params: params
+
+          expect(MixpanelService).to have_received(:send_event).with hash_including(
+            distinct_id: intake.visitor_id,
+            event_name: "ctc_submitted_intake",
+          )
         end
       end
 

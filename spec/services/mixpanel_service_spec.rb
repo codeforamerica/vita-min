@@ -22,7 +22,7 @@ describe MixpanelService do
     describe '#run' do
       let(:sent_params) do
         {
-          unique_id: 'abcde',
+          distinct_id: 'abcde',
           event_name: 'test_event',
           data: { test: 'OK' }
         }
@@ -54,7 +54,7 @@ describe MixpanelService do
   end
 
   context 'when called as a service module' do
-    let(:event_id) { '99991234' }
+    let(:distinct_id) { '99991234' }
     let(:event_name) { 'test_event' }
 
     let(:bare_request) { ActionDispatch::Request.new({}) }
@@ -95,37 +95,37 @@ describe MixpanelService do
 
     describe "#send_event" do
       it 'tracks an event by name and id' do
-        MixpanelService.send_event(event_id: event_id, event_name: event_name, data: {})
+        MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
 
-        expect(fake_tracker).to have_received(:track).with(event_id, event_name, any_args)
+        expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, any_args)
       end
 
       it 'includes user agent and request information, if present' do
         MixpanelService.send_event(
-          event_id: event_id,
+          distinct_id: distinct_id,
           event_name: event_name,
           data: {},
           request: bare_request
         )
 
-        expect(fake_tracker).to have_received(:track).with(event_id, event_name, hash_including(:device_browser_version))
+        expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, hash_including(:device_browser_version))
       end
 
       it 'includes locale information' do
-        MixpanelService.send_event(event_id: event_id, event_name: event_name, data: {})
+        MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
 
-        expect(fake_tracker).to have_received(:track).with(event_id, event_name, hash_including(:locale))
+        expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, hash_including(:locale))
       end
 
       it 'includes submitted data:' do
-        MixpanelService.send_event(event_id: event_id, event_name: event_name, data: { test: "SUCCESS" })
+        MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: { test: "SUCCESS" })
 
-        expect(fake_tracker).to have_received(:track).with(event_id, event_name, hash_including(test: "SUCCESS"))
+        expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, hash_including(test: "SUCCESS"))
       end
 
       it 'strips intake identifiers from paths' do
         MixpanelService.send_event(
-          event_id: event_id,
+          distinct_id: distinct_id,
           event_name: event_name,
           data: {},
           request: bare_request,
@@ -133,7 +133,7 @@ describe MixpanelService do
         )
 
         expect(fake_tracker).to have_received(:track).with(
-          event_id,
+          distinct_id,
           event_name,
           hash_including(
             path: "/***/resource",
@@ -143,9 +143,9 @@ describe MixpanelService do
       end
 
       it 'overwrites defaults with included data' do
-        MixpanelService.send_event(event_id: event_id, event_name: event_name, data: { locale: "NO!" })
+        MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: { locale: "NO!" })
 
-        expect(fake_tracker).to have_received(:track).with(event_id, event_name, hash_including(locale: "NO!"))
+        expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, hash_including(locale: "NO!"))
       end
     end
 
@@ -534,6 +534,8 @@ describe MixpanelService do
             referrer: "http://boop.horse/mane",
             primary_birth_date: Date.new(1993, 3, 12),
             spouse_birth_date: Date.new(1992, 5, 3),
+            state: 'CA',
+            zip_code: '94110',
             with_general_navigator: true,
             with_incarcerated_navigator: true,
             with_limited_english_navigator: false,
@@ -549,17 +551,19 @@ describe MixpanelService do
         end
 
         it "returns the expected hash" do
-          expect(data_from_intake).to eq({
-             intake_source: "beep",
-             intake_referrer: "http://boop.horse/mane",
-             intake_referrer_domain: "boop.horse",
-             primary_filer_age_at_end_of_tax_year: "26",
-             spouse_age_at_end_of_tax_year: "27",
-             with_general_navigator: true,
-             with_incarcerated_navigator: true,
-             with_limited_english_navigator: false,
-             with_unhoused_navigator: false
-          })
+          expect(data_from_intake).to eq(
+            intake_source: "beep",
+            intake_referrer: "http://boop.horse/mane",
+            intake_referrer_domain: "boop.horse",
+            primary_filer_age_at_end_of_tax_year: "26",
+            spouse_age_at_end_of_tax_year: "27",
+            with_general_navigator: true,
+            with_incarcerated_navigator: true,
+            with_limited_english_navigator: false,
+            with_unhoused_navigator: false,
+            state: 'CA',
+            zip_code: '94110'
+          )
         end
       end
 
@@ -773,19 +777,19 @@ describe ApplicationController, type: :controller do
       skip_after_action :track_page_view
 
       def index
-        MixpanelService.send_event(event_id: '72347234', event_name: 'index_test_event', data: {}, source: self, request: request)
+        MixpanelService.send_event(distinct_id: '72347234', event_name: 'index_test_event', data: {}, source: self, request: request)
         render plain: 'nope'
       end
 
       def req_test
         request.env['HTTP_REFERER'] = "http://test.dev/9999998/rest"
-        MixpanelService.send_event(event_id: '72347235', event_name: 'req_test_event', data: {}, request: request, path_exclusions: all_identifiers)
+        MixpanelService.send_event(distinct_id: '72347235', event_name: 'req_test_event', data: {}, request: request, path_exclusions: all_identifiers)
         render plain: 'nope'
       end
 
       def inst_test
         session[:intake_id] = params[:intake_id]
-        MixpanelService.send_event(event_id: '72347236', event_name: 'inst_test_event', data: {}, request: request, path_exclusions: all_identifiers)
+        MixpanelService.send_event(distinct_id: '72347236', event_name: 'inst_test_event', data: {}, request: request, path_exclusions: all_identifiers)
         render plain: 'nope'
       end
     end

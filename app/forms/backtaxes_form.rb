@@ -11,7 +11,7 @@ class BacktaxesForm < QuestionsForm
     data = MixpanelService.data_from([@intake.client, @intake])
 
     MixpanelService.send_event(
-      event_id: @intake.visitor_id,
+      distinct_id: @intake.visitor_id,
       event_name: "intake_started",
       data: data
     )
