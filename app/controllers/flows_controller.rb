@@ -238,6 +238,7 @@ class FlowsController < ApplicationController
         client.intake.tax_returns.last.update(filing_status: 'married_filing_jointly')
         client.intake.update(
           spouse_tin_type: 'ssn',
+          spouse_birth_date: 31.years.ago + 51.days,
           spouse_ssn: '555113333',
           spouse_last_four_ssn: '3333',
           spouse_first_name: "#{first_name}Spouse",

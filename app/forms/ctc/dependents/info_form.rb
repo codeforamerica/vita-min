@@ -26,6 +26,18 @@ module Ctc
         @dependent.save
       end
 
+      def self.existing_attributes(dependent, _attribute_keys)
+        if dependent.birth_date.present?
+          super.merge(
+            birth_date_day: dependent.birth_date.day,
+            birth_date_month: dependent.birth_date.month,
+            birth_date_year: dependent.birth_date.year,
+          )
+        else
+          super
+        end
+      end
+
       private
 
       def birth_date

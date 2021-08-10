@@ -17,11 +17,14 @@ module Ctc
     validates :spouse_last_name, presence: true, legal_name: true
     validates :spouse_middle_initial, length: { maximum: 1 }, legal_name: true
     validate  :spouse_birth_date_is_valid_date
-    validates :spouse_ssn, confirmation: true, if: -> { spouse_ssn.present? }
     validates :spouse_ssn, social_security_number: true, if: -> { spouse_tin_type == "ssn" && spouse_ssn.present? }
 
+    with_options if: -> { (spouse_ssn.present? && spouse_ssn != intake.spouse_ssn) || spouse_ssn_confirmation.present? } do
+      validates :spouse_ssn, confirmation: true
+      validates :spouse_ssn_confirmation, presence: true
+    end
+
     validates_presence_of :spouse_ssn, message: -> (_object, _data) { I18n.t('views.ctc.questions.spouse_info.ssn_required_message') }, if: -> { spouse_tin_type != "none" }
-    validates_presence_of :spouse_ssn_confirmation, if: -> { spouse_ssn.present? }
 
     before_validation do
       if ssn_no_employment == "yes" && spouse_tin_type == "ssn"
@@ -45,23 +48,16 @@ module Ctc
       ))
     end
 
-    def self.existing_attributes(intake, attributes)
-      super.merge(ssn_attributes(intake)).merge(date_of_birth_attributes(intake))
-    end
-
-    def self.ssn_attributes(intake)
-      {
-        spouse_ssn: intake.spouse_ssn,
-        spouse_ssn_confirmation: intake.spouse_ssn
-      }
-    end
-
-    def self.date_of_birth_attributes(intake)
-      {
-        spouse_birth_date_day: intake.spouse_birth_date&.day,
-        spouse_birth_date_month: intake.spouse_birth_date&.month,
-        spouse_birth_date_year: intake.spouse_birth_date&.year
-      }
+    def self.existing_attributes(intake, attribute_keys)
+      if intake.spouse_birth_date.present?
+        super.merge(
+          spouse_birth_date_day: intake.spouse_birth_date.day,
+          spouse_birth_date_month: intake.spouse_birth_date.month,
+          spouse_birth_date_year: intake.spouse_birth_date.year,
+        )
+      else
+        super
+      end
     end
 
     private
