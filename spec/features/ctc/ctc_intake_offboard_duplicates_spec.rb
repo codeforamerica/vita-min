@@ -33,9 +33,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
     click_on I18n.t('general.negative')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
-    click_on I18n.t('general.affirmative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2019.title'))
-    click_on I18n.t('general.continue')
+    choose I18n.t('views.ctc.questions.filed2019.did_not_file')
+    click_on "Continue"
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.foreign_address')

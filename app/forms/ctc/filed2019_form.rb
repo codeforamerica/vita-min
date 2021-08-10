@@ -5,7 +5,7 @@ module Ctc
     def save; end
 
     def filed_2019?
-      filed_2019 == "yes"
+      filed_2019 != "did_not_file"
     end
   end
 end

@@ -1638,10 +1638,11 @@ en:
           visit_ctc_faq: Visit the Child Tax Credit FAQ
           visit_stimulus_faq: Visit the Stimulus FAQ
         filed2019:
-          title: Did you either file a 2019 tax return or receive any stimulus payments?
-          help_text_html: |
-            <p>If you filed a 2019 return, or received stimulus payments, and are eligible you will receive your payments based on the information in that return.</p>
-            <p>If you do have changes to your personal situation you can visit the <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">IRS Child Tax Credit Update Portal</a> to update your tax information. Visit <a href="https://www.irs.gov/coronavirus/get-my-payment" target="_blank" rel="noopener noreferrer">Get My Payment</a> to check your stimulus status.</p>
+          title: Did you file a 2019 tax return?
+          help_text: Did you file a tax return, after January 1, 2020, for the 2019 tax year?
+          filed_full: Yes, I filed a full return
+          filed_non_filer: Yes, I filed using the IRS non-filer portal
+          did_not_file: No, I didn't file a 2019 tax return
         life_situations2019:
           title: Let’s make sure this tool is right for you!
           p1: |

@@ -2,7 +2,7 @@ module Ctc
   module Questions
     class Filed2019Controller < QuestionsController
 
-      layout "yes_no_question"
+      layout "intake"
 
       private
 
@@ -11,7 +11,7 @@ module Ctc
       end
 
       def next_path
-        @form.filed_2019? ? questions_life_situations2019_path : super
+        @form.filed_2019? ? questions_use_gyr_path : super
       end
 
       def illustration_path
