@@ -19,6 +19,12 @@ class PublicPagesController < ApplicationController
 
   def home; end
 
+  def healthcheck
+    respond_to do |format|
+      format.any { head 200 }
+    end
+  end
+
   def other_options; end
 
   def maybe_ineligible; end

@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/healthcheck' => 'public_pages#healthcheck'
+
   constraints(Routes::GyrDomain.new) do
     mount Cfa::Styleguide::Engine => "/cfa"
 
