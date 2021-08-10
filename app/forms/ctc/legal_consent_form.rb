@@ -30,11 +30,14 @@ module Ctc
     validates :primary_last_name, presence: true, legal_name: true
     validates :primary_middle_initial, length: { maximum: 1 }, legal_name: true
     validate  :primary_birth_date_is_valid_date
-    validates :primary_ssn, confirmation: true
-    validates :primary_ssn_confirmation, presence: true
     validates :primary_ssn, social_security_number: true, if: -> { primary_tin_type == "ssn" }
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
     validates_presence_of :device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address
+
+    with_options if: -> { (primary_ssn.present? && primary_ssn != intake.primary_ssn) || primary_ssn_confirmation.present? } do
+      validates :primary_ssn, confirmation: true
+      validates :primary_ssn_confirmation, presence: true
+    end
 
     before_validation do
       if ssn_no_employment == "yes" && primary_tin_type == "ssn"
@@ -66,6 +69,18 @@ module Ctc
         efile_security_information_attributes: efile_attrs
       )
       @intake = client.intake
+    end
+
+    def self.existing_attributes(intake, _attribute_keys)
+      if intake.primary_birth_date.present?
+        super.merge(
+          primary_birth_date_day: intake.primary_birth_date.day,
+          primary_birth_date_month: intake.primary_birth_date.month,
+          primary_birth_date_year: intake.primary_birth_date.year,
+        )
+      else
+        super
+      end
     end
 
     private

@@ -52,7 +52,6 @@ describe Ctc::SpouseInfoForm do
       expect(attributes[:spouse_birth_date_month]).to eq 5
       expect(attributes[:spouse_birth_date_day]).to eq 10
       expect(attributes[:spouse_ssn]).to eq "123456789"
-      expect(attributes[:spouse_ssn_confirmation]).to eq "123456789"
     end
   end
 
