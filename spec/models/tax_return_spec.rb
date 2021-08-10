@@ -243,7 +243,6 @@ describe TaxReturn do
     end
   end
 
-
   describe "#qualifying_dependents" do
     let(:tax_return) { create :tax_return, year: 2019 }
     context "when the tax year is not 2020" do
@@ -1023,7 +1022,9 @@ describe TaxReturn do
   end
 
   describe "completion survey" do
-    let!(:tax_return) { create(:tax_return) }
+    let!(:client) { create(:client, tax_returns: [create(:tax_return)], intake: intake) }
+    let(:intake) { create(:intake) }
+    let(:tax_return) { client.tax_returns.last }
 
     context "when a TaxReturn status is changed to a non-final status" do
       it "does not send the survey" do
@@ -1034,12 +1035,23 @@ describe TaxReturn do
     end
 
     context "when a TaxReturn status is changed to a final status" do
-      it "does send the survey a day later" do
-        t = Time.utc(2021, 2, 11, 10, 5, 0)
-        Timecop.freeze(t) do
+      context "and its a GYR intake" do
+        it "does send the survey a day later" do
+          t = Time.utc(2021, 2, 11, 10, 5, 0)
+          Timecop.freeze(t) do
+            expect {
+              tax_return.update!(status: "file_accepted")
+            }.to have_enqueued_job(SendClientCompletionSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
+          end
+        end
+      end
+
+      context "and its a CTC intake" do
+        let(:intake) { build(:ctc_intake) }
+        it "does not send the survey" do
           expect {
             tax_return.update!(status: "file_accepted")
-          }.to have_enqueued_job(SendClientCompletionSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
+          }.not_to have_enqueued_job(SendClientCompletionSurveyJob)
         end
       end
     end
