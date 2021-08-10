@@ -140,7 +140,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within ".primary-ssn" do
         expect do
           click_on "View"
-          expect(page).to have_text "111-22-4444"
+          expect(page).to have_text "111224444"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
@@ -148,7 +148,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within ".spouse-ssn" do
         expect do
           click_on "View"
-          expect(page).to have_text "111-22-3333"
+          expect(page).to have_text "111223333"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end

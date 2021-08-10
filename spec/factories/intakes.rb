@@ -273,10 +273,10 @@ FactoryBot.define do
   end
 
   trait :with_ssns do
-    primary_ssn { "#{Faker::Number.number(digits: 3)}00#{Faker::Number.number(digits: 4)}".to_i } # 0s in 4th and 5th position are required for IRS test submissions
-    spouse_ssn { "#{Faker::Number.number(digits: 3)}00#{Faker::Number.number(digits: 4)}".to_i }
-    primary_last_four_ssn { primary_ssn.to_s.last(4).to_i }
-    spouse_last_four_ssn { primary_ssn.to_s.last(4).to_i }
+    primary_ssn { "#{Faker::Number.number(digits: 3)}00#{Faker::Number.number(digits: 4)}" } # 0s in 4th and 5th position are required for IRS test submissions
+    spouse_ssn { "#{Faker::Number.number(digits: 3)}00#{Faker::Number.number(digits: 4)}" }
+    primary_last_four_ssn { primary_ssn.to_s.last(4) }
+    spouse_last_four_ssn { primary_ssn.to_s.last(4) }
   end
 
   trait :with_documents do

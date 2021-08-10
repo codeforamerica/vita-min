@@ -72,7 +72,7 @@ RSpec.describe Hub::UpdateCtcClientForm do
             form = described_class.new(client, form_attributes)
             form.save
             intake.reload
-          end.to change(intake, :primary_ssn).to("111-22-7777").and change(intake, :primary_tin_type).to("ssn_no_employment")
+          end.to change(intake, :primary_ssn).to("111227777").and change(intake, :primary_tin_type).to("ssn_no_employment")
         end
       end
 

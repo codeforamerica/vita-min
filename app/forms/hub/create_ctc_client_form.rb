@@ -69,12 +69,6 @@ module Hub
                        :account_type
     attr_accessor :client
 
-    before_validation do
-      [primary_ssn, primary_ssn_confirmation, spouse_ssn, spouse_ssn_confirmation].each do |field|
-        field.remove!(/\D/) if field
-      end
-    end
-
     # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
