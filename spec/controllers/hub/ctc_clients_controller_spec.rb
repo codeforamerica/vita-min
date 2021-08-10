@@ -59,7 +59,6 @@ RSpec.describe Hub::CtcClientsController do
           sms_phone_number: "+15005550006",
           street_address: "972 Mission St.",
           city: "San Francisco",
-          state_of_residence: "CA",
           zip_code: "94103",
           sms_notification_opt_in: "yes",
           email_notification_opt_in: "no",
@@ -192,7 +191,7 @@ RSpec.describe Hub::CtcClientsController do
   describe "#update" do
     let!(:client) { create :client, :with_return, intake: intake }
 
-    let!(:intake) { create :ctc_intake, :filled_out_ctc, :with_contact_info, :with_ssns, :with_dependents, preferred_interview_language: "en" }
+    let!(:intake) { create :ctc_intake, :filled_out_ctc, :with_contact_info, :with_ssns, :with_dependents }
     let(:first_dependent) { intake.dependents.first }
     let!(:params) do
       {
@@ -204,7 +203,6 @@ RSpec.describe Hub::CtcClientsController do
           email_address: 'san@mateo.com',
           phone_number: intake.phone_number,
           sms_phone_number: intake.sms_phone_number,
-          preferred_interview_language: intake.preferred_interview_language,
           primary_birth_date_year: intake.primary_birth_date.year,
           primary_birth_date_month: intake.primary_birth_date.month,
           primary_birth_date_day: intake.primary_birth_date.day,
@@ -222,7 +220,6 @@ RSpec.describe Hub::CtcClientsController do
           spouse_birth_date_year: 1980,
           spouse_birth_date_month: 1,
           spouse_birth_date_day: 11,
-          state_of_residence: intake.state_of_residence,
           primary_ssn: "111227778",
           primary_ssn_confirmation: "111227778",
           filing_status: client.tax_returns.last.filing_status,

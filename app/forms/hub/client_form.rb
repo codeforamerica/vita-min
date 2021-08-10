@@ -13,10 +13,8 @@ module Hub
         :spouse_first_name,
         :spouse_last_name,
         :email_address,
-        :preferred_interview_language,
         :sms_notification_opt_in,
-        :email_notification_opt_in,
-        :state_of_residence
+        :email_notification_opt_in
 
     before_validation do
       self.sms_phone_number = PhoneParser.normalize(sms_phone_number)
@@ -39,8 +37,6 @@ module Hub
     validates :primary_last_name, presence: true, allow_blank: false, legal_name: true
     validates :spouse_first_name, legal_name: true
     validates :spouse_last_name, legal_name: true
-    validates :state_of_residence, inclusion: { in: States.keys }
-    validates :preferred_interview_language, presence: true, allow_blank: false
     validate :at_least_one_contact_method
 
     attr_accessor :dependents_attributes

@@ -32,7 +32,6 @@ RSpec.describe Hub::CreateCtcClientForm do
         spouse_birth_date_month: "9",
         spouse_birth_date_day: "7",
         timezone: "America/Chicago",
-        state_of_residence: "CA",
         signature_method: "online",
         primary_tin_type: "ssn",
         primary_ssn: '111223333',

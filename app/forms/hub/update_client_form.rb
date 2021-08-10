@@ -36,6 +36,9 @@ module Hub
                        :with_limited_english_navigator,
                        :with_unhoused_navigator
 
+    validates :state_of_residence, inclusion: { in: States.keys }
+    validates :preferred_interview_language, presence: true, allow_blank: false
+
     def initialize(client, params = {})
       @client = client
       super(params)

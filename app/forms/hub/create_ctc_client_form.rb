@@ -19,7 +19,6 @@ module Hub
                        :street_address,
                        :city,
                        :state,
-                       :state_of_residence,
                        :zip_code,
                        :primary_ssn,
                        :spouse_ssn,
@@ -73,9 +72,10 @@ module Hub
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
     validates :filing_status, presence: true
-    after_save :send_confirmation_message, :send_mixpanel_data, :add_system_note
-
     validates :refund_payment_method, presence: true
+    validates :preferred_interview_language, presence: true, allow_blank: false
+
+    after_save :send_confirmation_message, :send_mixpanel_data, :add_system_note
 
     with_options if: -> { refund_payment_method == "direct_deposit" } do
       validates_confirmation_of :routing_number

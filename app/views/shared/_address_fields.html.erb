@@ -1,3 +1,4 @@
+<% is_ctc ||= false %>
 <div id="address-fields" class="hub-form__card card-small">
   <h3><%= t("hub.clients.fields.mailing_address") %></h3>
   <%= f.cfa_input_field(:street_address, t("general.street_address")) %>
@@ -7,5 +8,7 @@
     <%= f.cfa_input_field(:zip_code, t("general.zip_code"), classes: ["form-width--zip"]) %>
   </div>
   <hr/>
-  <%= f.cfa_select(:state_of_residence, t("hub.clients.fields.state_of_residence"), States.name_value_pairs, include_blank: true) %>
+  <% if !is_ctc %>
+    <%= f.cfa_select(:state_of_residence, t("hub.clients.fields.state_of_residence"), States.name_value_pairs, include_blank: true) %>
+  <% end %>
 </div>

@@ -32,6 +32,7 @@ module Hub
       @client = Client.find(params[:id])
       return render "public_pages/page_not_found", status: 404 unless @client.intake.is_ctc?
 
+      @is_dropoff = @client.tax_returns.any? { |tax_return| tax_return.service_type == "drop_off" }
       @form = UpdateCtcClientForm.from_client(@client)
     end
 

@@ -16,17 +16,19 @@
       <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
     <% end %>
 
-    <% unless is_dropoff %>
+    <% if !is_dropoff && !is_ctc %>
       <%= f.cfa_input_field(:interview_timing_preference, t("hub.clients.show.interview_timing_preference")) %>
     <% end %>
 
-    <%= f.cfa_select(
-            :preferred_interview_language,
-            t("hub.clients.fields.preferred_interview_language"),
-            language_options(only_locales: false),
-            include_blank: true,
-            selected: @form.preferred_interview_language
-    ) %>
+    <% if is_dropoff || !is_ctc %>
+      <%= f.cfa_select(
+                :preferred_interview_language,
+                t("hub.clients.fields.preferred_interview_language"),
+                language_options(only_locales: false),
+                include_blank: true,
+                selected: @form.preferred_interview_language
+        ) %>
+    <% end %>
 
     <%= error_message(@form, :communication_preference) %>
     <div class="hub-form__input-with-checkbox">
@@ -37,41 +39,38 @@
       <%= f.cfa_input_field(:sms_phone_number, t("general.sms_phone_number")) %>
       <%= f.hub_checkbox(:sms_notification_opt_in, t("general.opt_in_sms"), options: { checked_value: "yes", unchecked_value: "no" }) %>
     </div>
-    <% unless is_ctc %>
-      <%= f.cfa_input_field(:phone_number, t("general.phone_number"),  classes: ["form-width--phone"]) %>
-    <% end %>
+
     <% if is_ctc %>
       <%= f.vita_min_date_text_fields(
-          :primary_birth_date,
-          t("hub.clients.show.date_of_birth"),
-          ) %>
+            :primary_birth_date,
+            t("hub.clients.show.date_of_birth"),
+            ) %>
       <%= f.cfa_select(:primary_tin_type, "Identification Type", tin_options_for_select(include_ssn_no_employment: true, include_itin: true)) %>
       <%= f.cfa_input_field(
-          :primary_ssn,
-          t("general.ssn_itin"),
-          type: :tel,
-          classes: ["form-width--name"],
-          options: { maxlength: 11 }
+            :primary_ssn,
+            t("general.ssn_itin"),
+            type: :tel,
+            classes: ["form-width--name"],
+            options: { maxlength: 11 }
           ) %>
       <%= f.cfa_input_field(
-          :primary_ssn_confirmation,
-          "Re-enter SSN/ITIN",
-          type: :tel,
-          classes: ["form-width--name"],
-          options: { maxlength: 11 }
+            :primary_ssn_confirmation,
+            "Re-enter SSN/ITIN",
+            type: :tel,
+            classes: ["form-width--name"],
+            options: { maxlength: 11 }
           ) %>
-    <% else %>
-      <%= f.cfa_input_field(
-              :primary_last_four_ssn,
-              t("general.last_four_ssn"),
-              prefix: "XXX-XX-",
-              type: :tel,
-              classes: ["form-width--name field--last-four-ssn"],
-              options: { maxlength: 4 }
-          ) %>
-    <% end %>
-    <% if is_ctc %>
       <%= f.cfa_input_field(:primary_ip_pin, t("general.ip_pin")) %>
+    <% else %>
+      <%= f.cfa_input_field(:phone_number, t("general.phone_number"),  classes: ["form-width--phone"]) %>
+      <%= f.cfa_input_field(
+            :primary_last_four_ssn,
+            t("general.last_four_ssn"),
+            prefix: "XXX-XX-",
+            type: :tel,
+            classes: ["form-width--name field--last-four-ssn"],
+            options: { maxlength: 4 }
+          ) %>
     <% end %>
   </div>
 </div>

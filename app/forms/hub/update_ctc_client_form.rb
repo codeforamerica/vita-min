@@ -12,14 +12,12 @@ module Hub
                        :spouse_birth_date_day,
                        :spouse_birth_date_year,
                        :preferred_name,
-                       :preferred_interview_language,
                        :email_address,
                        :phone_number,
                        :sms_phone_number,
                        :street_address,
                        :city,
                        :state,
-                       :state_of_residence,
                        :zip_code,
                        :primary_ssn,
                        :primary_ssn_confirmation,
@@ -92,8 +90,8 @@ module Hub
     validates :primary_ip_pin, ip_pin: true
     validates :spouse_ip_pin, ip_pin: true
 
-    validate :at_least_one_photo_id_type_selected
-    validate :at_least_one_taxpayer_id_type_selected
+    validate :at_least_one_photo_id_type_selected, if: -> { @client.tax_returns.any? { |tax_return| tax_return.service_type == "drop_off" } }
+    validate :at_least_one_taxpayer_id_type_selected, if: -> { @client.tax_returns.any? { |tax_return| tax_return.service_type == "drop_off" } }
     validate :valid_primary_birth_date
     validate :valid_spouse_birth_date, if: -> { filing_status == "married_filing_jointly" }
 

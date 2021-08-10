@@ -39,14 +39,15 @@
               <span class="form-question"><%= t("general.timezone") %>:</span>
               <span class="label-value"><%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></span>
             </div>
-            <div class="field-display">
-              <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
-              <span class="label-value"><%= @client.intake.state_of_residence %></span>
-            </div>
             <% if @client.intake.is_ctc? %>
               <div class="field-display">
                 <span class="form-question">Date of Birth:</span>
                 <span class="label-value"><%= default_date_format(@client.intake.primary_birth_date) %></span>
+              </div>
+            <% else %>
+              <div class="field-display">
+                <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
+                <span class="label-value"><%= @client.intake.state_of_residence %></span>
               </div>
             <% end %>
             <!-- SSN/ITIN hidden -->

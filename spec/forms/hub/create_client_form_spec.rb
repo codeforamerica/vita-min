@@ -225,6 +225,62 @@ RSpec.describe Hub::CreateClientForm do
         end
       end
 
+      context "preferred_interview_language" do
+        let(:form) { described_class.new(params) }
+
+        context "when nil" do
+          before do
+            params[:preferred_interview_language] = nil
+            form.valid?
+          end
+
+          it "adds an error to the field" do
+            expect(form.errors[:preferred_interview_language]).to eq ["Can't be blank."]
+          end
+        end
+
+        context "when blank" do
+          before do
+            params[:preferred_interview_language] = ""
+            form.valid?
+          end
+
+          it "adds an error to the field" do
+            expect(form.errors[:preferred_interview_language]).to eq ["Can't be blank."]
+          end
+        end
+      end
+
+      context "state_of_residence" do
+        context "when not provided" do
+          before do
+            params[:state_of_residence] = nil
+          end
+
+          it "is not valid" do
+            expect(described_class.new(params).valid?).to eq false
+          end
+
+          it "adds an error to the attribute" do
+            obj = described_class.new(params)
+            obj.valid?
+            expect(obj.errors[:state_of_residence]).to eq ["Please select a state from the list."]
+          end
+        end
+
+        context "when not in list of US States/territories" do
+          before do
+            params[:state_of_residence] = "France"
+          end
+
+          it "adds an error to the attribute" do
+            obj = described_class.new(params)
+            obj.valid?
+            expect(obj.errors[:state_of_residence]).to eq ["Please select a state from the list."]
+          end
+        end
+      end
+
       context "signature method" do
         before do
           params[:signature_method] = nil

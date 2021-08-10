@@ -50,6 +50,8 @@ module Hub
     validates :signature_method, presence: true
     validate :tax_return_required_fields_valid
     validate :at_least_one_tax_return_present
+    validates :state_of_residence, inclusion: { in: States.keys }
+    validates :preferred_interview_language, presence: true, allow_blank: false
 
     def initialize(attributes = {})
       @tax_returns = TaxReturn.filing_years.map { |year| TaxReturn.new(year: year) }
