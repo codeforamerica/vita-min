@@ -1,11 +1,10 @@
 require "rails_helper"
-include ActiveSupport::Testing::TimeHelpers
 
 RSpec.describe Portal::ClientLoginsController, type: :controller do
   let(:client) do
     create(
       :client,
-      last_seen_at: DateTime.new(2021, 4, 20, 16, 21),
+      last_seen_at: nil,
       intake: create(
         :intake,
         email_address: "client@example.com",
