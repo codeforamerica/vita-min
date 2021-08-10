@@ -42,6 +42,17 @@ describe Ctc::PhoneVerificationForm do
       end
     end
 
+    context 'when the environment is demo and code is incorrect' do
+      let(:form) { Ctc::PhoneVerificationForm.new(intake, { verification_code: '123000' }) }
+      before do
+        allow(Rails).to receive(:env).and_return("demo".inquiry)
+      end
+
+      it 'is not valid' do
+        expect(form).not_to be_valid
+      end
+    end
+
     context 'when the environment is production and the code is 000000' do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)
