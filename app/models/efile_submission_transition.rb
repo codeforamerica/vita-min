@@ -28,6 +28,8 @@ class EfileSubmissionTransition < ApplicationRecord
   after_destroy :update_most_recent, if: :most_recent?
   after_create_commit :persist_efile_error_from_metadata
 
+  default_scope { order(id: :asc) }
+
   def initiated_by
     return nil unless metadata["initiated_by_id"]
 

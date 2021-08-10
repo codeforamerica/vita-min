@@ -18,7 +18,7 @@ class EfileSubmission < ApplicationRecord
   has_one :client, through: :tax_return
   has_many :dependents, through: :intake
   has_one :address, as: :record
-  has_many :efile_submission_transitions, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
+  has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
   has_one_attached :submission_bundle
   has_one :efile_security_information
   accepts_nested_attributes_for :efile_security_information
@@ -36,6 +36,8 @@ class EfileSubmission < ApplicationRecord
   scope :most_recent_by_tax_return, lambda {
     joins(:tax_return).where("efile_submissions.id = (SELECT MAX(efile_submissions.id) FROM efile_submissions WHERE efile_submissions.tax_return_id = tax_returns.id)")
   }
+
+  default_scope { order(id: :asc) }
 
   def state_machine
     @state_machine ||= EfileSubmissionStateMachine.new(self, transition_class: EfileSubmissionTransition)
