@@ -5,7 +5,7 @@
       <h1 class="h2"><%= t("views.ctc.portal.home.title") %></h1>
       <div class="review-box">
         <div class="review-box__title">
-          <h2>Current tax return status:</h2>
+          <h2><%= t("views.ctc.portal.home.current_status") %></h2>
         </div>
         <div class="review-box__body">
           <div class="review-box__status-wrapper spacing-below-25">
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="spacing-above-35">
-        <%= link_to "Message my tax preparer", new_ctc_portal_message_path, class: "button button--primary button--full-width" %>
+        <%= link_to t('views.ctc.portal.home.message_tax_preparer'), new_ctc_portal_message_path, class: "button button--primary button--full-width" %>
       </div>
     </div>
   </div>

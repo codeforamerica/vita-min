@@ -1381,6 +1381,8 @@ en:
       portal:
         home:
           title: Thank you for filing with GetCTC!
+          current_status: "Current tax return status:"
+          message_tax_preparer: "Message my tax preparer"
           status:
             intake_in_progress:
               label: More information needed
@@ -1546,6 +1548,7 @@ en:
         overview:
           help_text: Use our simple e-filing tool to receive your Child Tax Credit and any stimulus payments or corrections you are owed.
           title: Welcome!
+          right_for_you: "This is the right tool for you if:"
           items:
             - You have a valid SSN or ITIN
             - You earned less than $12,400 if single, $24,800 if married filing jointly
@@ -1560,6 +1563,8 @@ en:
           middle_initial: Middle initial
           last_name: Legal last name
           suffix: Suffix
+          tin_type: "Identification Type"
+          ssn_not_valid_for_employment: "This SSN is not valid for employment"
           ssn: SSN or ITIN
           ssn_confirmation: Confirm SSN or ITIN
           sms_phone_number: Phone number
