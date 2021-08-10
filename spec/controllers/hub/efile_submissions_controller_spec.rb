@@ -74,6 +74,29 @@ describe Hub::EfileSubmissionsController do
     end
   end
 
+  describe "#waiting" do
+    let(:submission) { create :efile_submission }
+    let(:params) { { id: submission } }
+    it_behaves_like :an_action_for_admins_only, action: :wait, method: :patch
+
+    context "as an authenticated admin" do
+      let(:user) { create :admin_user }
+      before do
+        sign_in user
+        allow_any_instance_of(EfileSubmission).to receive(:transition_to!)
+      end
+
+      it "transitions the submission to resubmitted and records the initiator" do
+        patch :wait, params: params
+
+        expect(assigns(:efile_submission)).to have_received(:transition_to!).with(:waiting, { initiated_by_id: user.id })
+        expect(response).to redirect_to(hub_efile_submission_path(id: submission.client.id))
+        expect(flash[:notice]).to eq "Waiting for client action."
+      end
+    end
+  end
+
+
   describe "#cancel" do
     let(:submission) { create :efile_submission }
     let(:params) { { id: submission } }

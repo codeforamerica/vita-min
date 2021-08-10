@@ -229,6 +229,16 @@ describe EfileSubmission do
       end
     end
 
+    context "when the status of the last_transition is waiting" do
+      let(:efile_submission) { create :efile_submission, :rejected }
+      before do
+        efile_submission.transition_to!(:waiting)
+      end
+      it "returns last_transition" do
+        expect(efile_submission.last_client_accessible_transition).to eq (efile_submission.efile_submission_transitions.where(to_state: 'rejected').last)
+      end
+    end
+
     context "when the status of the last_transition is not investigating" do
       let(:efile_submission) { create :efile_submission, :preparing }
       it "returns last_transition" do
