@@ -11,6 +11,7 @@ Rails.application.configure do
     default: {ctc: "hello@#{ctc_email_from_domain}", gyr: "hello@#{gyr_email_from_domain}"},
     noreply: {ctc: "no-reply@#{ctc_email_from_domain}", gyr: "no-reply@#{gyr_email_from_domain}"}
   }
+  config.action_mailer.default_url_options = { host: 'www.getyourrefund.org' }
   config.action_mailer.asset_host = config.gyr_url
   config.offseason = false
   config.hide_ctc = true
