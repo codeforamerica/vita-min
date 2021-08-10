@@ -5,6 +5,8 @@ module Ctc
     validates_presence_of :verification_code
 
     def valid?
+      return true if verification_code == "000000" && (Rails.env.demo? || Rails.env.development?)
+
       hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(@intake.email_address, verification_code)
 
       valid_code = EmailAccessToken.lookup(hashed_verification_code).exists?
