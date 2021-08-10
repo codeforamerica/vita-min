@@ -1,4 +1,5 @@
 require "rails_helper"
+include ActiveSupport::Testing::TimeHelpers
 
 RSpec.describe Portal::ClientLoginsController, type: :controller do
   let(:client) do
@@ -211,9 +212,9 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           end
 
           it "updates the clients last_seen_at" do
-            Timecop.freeze do
-              expect { post :update, params: params }
-                .to change{ client.reload.last_seen_at }.to(Time.now)
+            freeze_time do
+              post :update, params: params
+              expect(client.reload.last_seen_at).to eq Time.zone.now
             end
           end
 
