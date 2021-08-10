@@ -297,7 +297,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def send_gyr_client_completion_survey
-    if !intake.is_ctc? && saved_change_to_status? && TaxReturnStatus::TERMINAL_STATUSES.map(&:to_s).include?(status)
+    if !is_ctc && saved_change_to_status? && TaxReturnStatus::TERMINAL_STATUSES.map(&:to_s).include?(status)
       SendClientCompletionSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
     end
   end

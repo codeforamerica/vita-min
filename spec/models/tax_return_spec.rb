@@ -1022,9 +1022,7 @@ describe TaxReturn do
   end
 
   describe "completion survey" do
-    let!(:client) { create(:client, tax_returns: [create(:tax_return)], intake: intake) }
-    let(:intake) { create(:intake) }
-    let(:tax_return) { client.tax_returns.last }
+    let!(:tax_return) { create(:tax_return, is_ctc: false) }
 
     context "when a TaxReturn status is changed to a non-final status" do
       it "does not send the survey" do
@@ -1047,7 +1045,7 @@ describe TaxReturn do
       end
 
       context "and its a CTC intake" do
-        let(:intake) { build(:ctc_intake) }
+        let!(:tax_return) { create(:tax_return, is_ctc: true) }
         it "does not send the survey" do
           expect {
             tax_return.update!(status: "file_accepted")
