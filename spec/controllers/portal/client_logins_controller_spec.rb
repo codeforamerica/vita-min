@@ -4,6 +4,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
   let(:client) do
     create(
       :client,
+      last_seen_at: nil,
       intake: create(
         :intake,
         email_address: "client@example.com",
@@ -207,6 +208,13 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
             expect(subject.current_client).to eq(client)
             expect(response).to redirect_to portal_root_path
+          end
+
+          it "updates the clients last_seen_at" do
+            freeze_time do
+              post :update, params: params
+              expect(client.reload.last_seen_at).to eq Time.zone.now
+            end
           end
 
           context "when the client was trying to access a protected page" do
