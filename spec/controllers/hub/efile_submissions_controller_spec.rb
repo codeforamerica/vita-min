@@ -86,7 +86,7 @@ describe Hub::EfileSubmissionsController do
         allow_any_instance_of(EfileSubmission).to receive(:transition_to!)
       end
 
-      it "transitions the submission to resubmitted and records the initiator" do
+      it "transitions the submission to waiting and records the initiator" do
         patch :wait, params: params
 
         expect(assigns(:efile_submission)).to have_received(:transition_to!).with(:waiting, { initiated_by_id: user.id })
