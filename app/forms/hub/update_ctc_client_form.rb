@@ -12,6 +12,7 @@ module Hub
                        :spouse_birth_date_day,
                        :spouse_birth_date_year,
                        :preferred_name,
+                       :preferred_interview_language,
                        :email_address,
                        :phone_number,
                        :sms_phone_number,
