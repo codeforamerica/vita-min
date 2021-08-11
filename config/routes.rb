@@ -323,6 +323,7 @@ Rails.application.routes.draw do
           login_routes
 
           resources :messages, only: [:new, :create]
+          resources :documents, only: [:show]
         end
 
         # Any other top level slash just goes to home as a source parameter

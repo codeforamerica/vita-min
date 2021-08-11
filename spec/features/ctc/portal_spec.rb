@@ -202,10 +202,11 @@ RSpec.feature "CTC Intake", active_job: true do
     end
   end
 
-  context "when the client has verified the contact, efile submission is status accepted" do
+  context "when the client has verified the contact, efile submission is status accepted, there is a 1040 to download" do
     before do
       intake.update(email_address_verified_at: DateTime.now)
-      create(:efile_submission, :accepted, tax_return: create(:tax_return, client: intake.client, year: 2020))
+      es = create(:efile_submission, :accepted, tax_return: create(:tax_return, client: intake.client, year: 2020))
+      create(:document, document_type: DocumentTypes::Form1040.key, tax_return: es.tax_return, client: es.tax_return.client)
     end
 
     scenario "a client sees and can click on a link to continue their intake" do
@@ -228,6 +229,7 @@ RSpec.feature "CTC Intake", active_job: true do
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Accepted"
       expect(page).to have_text "Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks."
+      expect(page).to have_link "Download my tax return"
     end
   end
 

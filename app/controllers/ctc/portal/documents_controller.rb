@@ -1,0 +1,1 @@
+class Ctc::Portal::DocumentsController < Portal::DocumentsController; end
