@@ -160,6 +160,7 @@ Rails.application.routes.draw do
           patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
           patch '/wait', to: 'efile_submissions#wait', on: :member, as: :wait
+          get '/download', to: 'efile_submissions#download', on: :member, as: :download
         end
 
         resources :efile_errors, path: "errors", except: [:create, :new, :destroy]
