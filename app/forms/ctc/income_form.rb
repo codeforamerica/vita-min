@@ -1,6 +1,6 @@
 module Ctc
   class IncomeForm < QuestionsForm
-    set_attributes_for :intake, :had_reportable_income
+    set_attributes_for :misc, :had_reportable_income
 
     def save; end
 

@@ -11,8 +11,12 @@ module Ctc
       end
 
       def self.from_dependent(dependent)
-        attribute_keys = Attributes.new(attribute_names).to_sym
-        new(dependent, existing_attributes(dependent).slice(*attribute_keys))
+        attribute_keys = Attributes.new(scoped_attributes[:dependent]).to_sym
+        new(dependent, existing_attributes(dependent, attribute_keys))
+      end
+
+      def self.existing_attributes(model, attribute_keys)
+        HashWithIndifferentAccess[(attribute_keys || []).map { |k| [k, model.send(k)] }]
       end
     end
   end

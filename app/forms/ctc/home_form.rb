@@ -1,6 +1,6 @@
 module Ctc
   class HomeForm < QuestionsForm
-    set_attributes_for :intake, :lived_in_fifty_states, :lived_at_military_facility, :lived_in_us_territory, :lived_at_foreign_address
+    set_attributes_for :misc, :lived_in_fifty_states, :lived_at_military_facility, :lived_in_us_territory, :lived_at_foreign_address
 
     def save; end
 

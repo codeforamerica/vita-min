@@ -9,6 +9,10 @@ module Ctc
       def next_path
         @form.lived_in_territory_or_at_foreign_address? ? questions_use_gyr_path : super
       end
+
+      def tracking_data
+        @form.attributes_for(:misc)
+      end
     end
   end
 end

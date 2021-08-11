@@ -46,7 +46,7 @@ module Ctc
       ))
     end
 
-    def self.existing_attributes(intake)
+    def self.existing_attributes(intake, attributes)
       super.merge(ssn_attributes(intake)).merge(date_of_birth_attributes(intake))
     end
 
