@@ -3,7 +3,7 @@ class BuildSubmissionBundleJob < ApplicationJob
     submission = EfileSubmission.includes(:intake, :dependents, :client, :address, :tax_return).find(submission_id)
     address_creation = submission.generate_irs_address
     unless address_creation.valid?
-      submission.transition_to!(:failed, error_code: address_creation.error_code, error_message: address_creation.error_message)
+      submission.transition_to!(:failed, error_source: :usps, error_code: address_creation.error_code, error_message: address_creation.error_message)
       return
     end
 
