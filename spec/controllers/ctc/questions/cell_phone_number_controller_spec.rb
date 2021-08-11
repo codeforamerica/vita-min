@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::CellPhoneNumberController do
-  let(:intake) { create :ctc_intake }
+  let(:intake) { create :ctc_intake, sms_notification_opt_in: 'yes', locale: 'en' }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
@@ -46,6 +46,22 @@ describe Ctc::Questions::CellPhoneNumberController do
                                                                    event_name: "question_answered",
                                                                    data: {}
                                                                  ))
+    end
+  end
+
+  describe "#after_update_success" do
+    before do
+      allow(ClientMessagingService).to receive(:send_system_text_message)
+    end
+
+    it "sends an opt-in sms message" do
+      subject.after_update_success
+
+      expect(ClientMessagingService).to have_received(:send_system_text_message).with(
+        client: intake.client,
+        body: I18n.t("messages.ctc_sms_opt_in"),
+        to: intake.sms_phone_number
+      )
     end
   end
 end

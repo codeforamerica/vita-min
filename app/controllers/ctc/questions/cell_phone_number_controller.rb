@@ -5,6 +5,16 @@ module Ctc
 
       layout "intake"
 
+      def after_update_success
+        if current_intake.sms_notification_opt_in_yes?
+          ClientMessagingService.send_system_text_message(
+            client: current_intake.client,
+            body: I18n.t("messages.ctc_sms_opt_in"),
+            to: current_intake.sms_phone_number
+          )
+        end
+      end
+
       private
 
       def illustration_path

@@ -1077,6 +1077,7 @@ en:
     default_subject: Update from GetYourRefund
     default_subject_with_service_name: Update from %{service_name}
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
+    ctc_sms_opt_in: Welcome to GetCTC messages. Msg&data rates may apply. Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_online_intake:
       email:
         subject: Your tax information has been successfully submitted!
