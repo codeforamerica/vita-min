@@ -46,6 +46,7 @@ class MixpanelService
     def run_later(distinct_id:, event_name:, data: {})
       MixpanelJob.perform_later(distinct_id: distinct_id, event_name: event_name, data: data)
     end
+
     ##
     # convenience method for stripping a list of substrings from a string
     #
@@ -83,7 +84,7 @@ class MixpanelService
 
       if querystring.present?
         path << '?'
-        path <<  querystring.split('&').map do |pair|
+        path << querystring.split('&').map do |pair|
           k, v = pair.split('=')
           [(exclusions.include?(k) ? '***' : k), (exclusions.include?(v) ? '***' : v)].join('=')
         end.join('&')
@@ -108,18 +109,26 @@ class MixpanelService
                    subject: nil,
                    request: nil,
                    source: nil,
-                   path_exclusions: [])
+                   path_exclusions: [],
+                   synchronous: false)
       default_data = {}
       default_data[:locale] = I18n.locale.to_s
       default_data.merge!(data_from(request, path_exclusions: path_exclusions))
       default_data.merge!(data_from(source))
       default_data.merge!(data_from(subject))
 
-      run_later(
-        distinct_id: distinct_id,
-        event_name: event_name,
-        data: default_data.merge(data),
-      )
+      if synchronous
+        MixpanelService.instance.run(
+          distinct_id: distinct_id,
+          event_name: event_name,
+          data: default_data.merge(data))
+      else
+        run_later(
+          distinct_id: distinct_id,
+          event_name: event_name,
+          data: default_data.merge(data),
+        )
+      end
     end
 
     def send_tax_return_event(tax_return, event_name, additional_data = {})
@@ -226,26 +235,26 @@ class MixpanelService
 
     def data_from_gyr_intake(intake)
       {
-          primary_filer_disabled: intake.had_disability_yes? ? "yes" : "no",
-          spouse_disabled: intake.spouse_had_disability_yes? ? "yes" : "no",
-          had_dependents: intake.dependents.empty? ? "no" : "yes",
-          number_of_dependents: intake.dependents.size.to_s,
-          had_dependents_under_6: intake.had_dependents_under?(6) ? "yes" : "no",
-          filing_joint: intake.filing_joint,
-          had_earned_income: intake.had_earned_income? ? "yes" : "no",
-          state: intake.state_of_residence,
-          zip_code: intake.zip_code,
-          needs_help_2020: intake.needs_help_2020,
-          needs_help_2019: intake.needs_help_2019,
-          needs_help_2018: intake.needs_help_2018,
-          needs_help_2017: intake.needs_help_2017,
-          needs_help_2016: intake.needs_help_2016,
-          needs_help_backtaxes: intake.needs_help_with_backtaxes? ? "yes" : "no",
-          vita_partner_name: intake.vita_partner&.name,
-          timezone: intake.timezone,
-          csat: intake.satisfaction_face,
-          claimed_by_another: intake.claimed_by_another,
-          already_applied_for_stimulus: intake.already_applied_for_stimulus,
+        primary_filer_disabled: intake.had_disability_yes? ? "yes" : "no",
+        spouse_disabled: intake.spouse_had_disability_yes? ? "yes" : "no",
+        had_dependents: intake.dependents.empty? ? "no" : "yes",
+        number_of_dependents: intake.dependents.size.to_s,
+        had_dependents_under_6: intake.had_dependents_under?(6) ? "yes" : "no",
+        filing_joint: intake.filing_joint,
+        had_earned_income: intake.had_earned_income? ? "yes" : "no",
+        state: intake.state_of_residence,
+        zip_code: intake.zip_code,
+        needs_help_2020: intake.needs_help_2020,
+        needs_help_2019: intake.needs_help_2019,
+        needs_help_2018: intake.needs_help_2018,
+        needs_help_2017: intake.needs_help_2017,
+        needs_help_2016: intake.needs_help_2016,
+        needs_help_backtaxes: intake.needs_help_with_backtaxes? ? "yes" : "no",
+        vita_partner_name: intake.vita_partner&.name,
+        timezone: intake.timezone,
+        csat: intake.satisfaction_face,
+        claimed_by_another: intake.claimed_by_another,
+        already_applied_for_stimulus: intake.already_applied_for_stimulus,
       }
     end
 
