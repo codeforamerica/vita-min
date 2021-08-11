@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_170036) do
+ActiveRecord::Schema.define(version: 2021_08_11_005744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -648,6 +648,7 @@ ActiveRecord::Schema.define(version: 2021_08_09_170036) do
     t.integer "spouse_active_armed_forces", default: 0
     t.string "spouse_auth_token"
     t.date "spouse_birth_date"
+    t.integer "spouse_can_be_claimed_as_dependent", default: 0
     t.integer "spouse_consented_to_service", default: 0, null: false
     t.datetime "spouse_consented_to_service_at"
     t.inet "spouse_consented_to_service_ip"

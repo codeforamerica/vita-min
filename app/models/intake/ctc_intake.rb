@@ -178,6 +178,7 @@
 #  spouse_active_armed_forces                           :integer          default("unfilled")
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
+#  spouse_can_be_claimed_as_dependent                   :integer          default(0)
 #  spouse_consented_to_service                          :integer          default(0), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
@@ -260,6 +261,7 @@ class Intake::CtcIntake < Intake
   enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
   enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019
   enum had_reportable_income: { yes: 1, no: 2 }, _prefix: :had_reportable_income
+  enum spouse_can_be_claimed_as_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_can_be_claimed_as_dependent
   enum spouse_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_active_armed_forces
   enum cannot_claim_me_as_a_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cannot_claim_me_as_a_dependent
   enum primary_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_active_armed_forces

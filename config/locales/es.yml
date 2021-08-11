@@ -1585,6 +1585,7 @@ es:
           spouse_identity_help_text: "Si utiliza una tarjeta de la seguro, debe ser válida para el empleo"
           spouse_ssn_itin: SSN o ITIN del cónyuge
           spouse_ssn_itin_confirmation: Confirme el SSN o ITIN del cónyuge
+          spouse_can_be_claimed_as_dependent: Mi cónyuge puede ser reclamado como dependiente por otra persona
           spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en el 2020
           spouse_active_armed_forces_reveal: "¿Por qué me preguntan esto?"
           spouse_active_armed_forces_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de Reembolso por Recuperación o Recovery Rebate Credit
