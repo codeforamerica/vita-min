@@ -91,10 +91,6 @@ RSpec.describe "a user editing a clients intake fields" do
         select "Sure", from: "hub_update_ctc_client_form_eip1_and_2_amount_received_confidence"
       end
 
-      within "#bank-account-fields" do
-        choose "Check"
-      end
-
       within "#spouse-info" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"

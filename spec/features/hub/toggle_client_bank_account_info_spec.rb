@@ -10,7 +10,7 @@ RSpec.feature "Toggle bank account info" do
     scenario "client without bank account info" do
       visit hub_client_path(id: client_no_bank)
       within(".client-bank-account-info") do
-        expect(page).to have_text "Bank Account Info"
+        expect(page).to have_text "Refund Payment Info"
         expect(page).not_to have_text "View"
 
         expect(page).to have_text "No bank account info provided."
@@ -21,7 +21,7 @@ RSpec.feature "Toggle bank account info" do
       visit hub_client_path(id: client)
 
       within(".client-bank-account-info") do
-        expect(page).to have_text "Bank Account Info"
+        expect(page).to have_text "Refund Payment Info"
         expect(page).to have_text "View"
 
         expect(page).to have_text "Account type"
