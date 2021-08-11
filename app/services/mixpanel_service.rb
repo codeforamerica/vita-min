@@ -43,6 +43,9 @@ class MixpanelService
   end
 
   class << self
+    def run_later(distinct_id:, event_name:, data: {})
+      MixpanelJob.perform_later(distinct_id: distinct_id, event_name: event_name, data: data)
+    end
     ##
     # convenience method for stripping a list of substrings from a string
     #
@@ -112,7 +115,7 @@ class MixpanelService
       default_data.merge!(data_from(source))
       default_data.merge!(data_from(subject))
 
-      MixpanelService.instance.run(
+      run_later(
         distinct_id: distinct_id,
         event_name: event_name,
         data: default_data.merge(data),
@@ -121,7 +124,7 @@ class MixpanelService
 
     def send_tax_return_event(tax_return, event_name, additional_data = {})
       user_data = tax_return.status_last_changed_by.present? ? data_from_user(tax_return.status_last_changed_by) : {}
-      MixpanelService.instance.run(
+      run_later(
         distinct_id: tax_return.client.intake.visitor_id,
         event_name: event_name,
         data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(additional_data)
@@ -326,7 +329,7 @@ class MixpanelService
       hours_since_tax_return_created = ((DateTime.current.to_time - tax_return.created_at.to_time) / 1.hour).floor
       days_since_tax_return_created = (hours_since_tax_return_created / 24).floor
 
-      MixpanelService.instance.run(
+      run_later(
         distinct_id: tax_return.client.intake.visitor_id,
         event_name: event_name,
         data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(
