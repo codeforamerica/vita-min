@@ -1,6 +1,8 @@
 module Hub
   class EfileSubmissionsController < ApplicationController
     include AccessControllable
+    include FilesConcern
+
     before_action :require_sign_in
     authorize_resource
     load_resource except: [:index, :show]
@@ -41,6 +43,22 @@ module Hub
       @efile_submission.transition_to!(:waiting, { initiated_by_id: current_user.id })
       flash[:notice] = "Waiting for client action."
       redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
+    end
+
+    def download
+      if @efile_submission.submission_bundle.blank?
+        head :not_found
+        return
+      end
+
+      AccessLog.create!(
+        user: current_user,
+        record: @efile_submission,
+        event_type: "downloaded_submission_bundle",
+        ip_address: request.remote_ip,
+        user_agent: request.user_agent,
+      )
+      redirect_to transient_storage_url(@efile_submission.submission_bundle.blob, disposition: "attachment")
     end
   end
 end

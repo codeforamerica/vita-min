@@ -96,7 +96,6 @@ describe Hub::EfileSubmissionsController do
     end
   end
 
-
   describe "#cancel" do
     let(:submission) { create :efile_submission }
     let(:params) { { id: submission } }
@@ -141,4 +140,44 @@ describe Hub::EfileSubmissionsController do
     end
   end
 
+  describe "#download" do
+    let(:bundle) { { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") } }
+    let(:submission) { create(:efile_submission, submission_bundle: bundle) }
+    let(:params) { { id: submission.id} }
+    it_behaves_like :an_action_for_admins_only, action: :index, method: :get
+
+    context "as an authenticated admin" do
+      let(:user) { create :admin_user }
+      let(:transient_download_url) { "https://gyr-demo.s3.amazonaws.com/data.zip?sig=whatever&expires=whatever" }
+
+      before do
+        sign_in user
+        allow(subject).to receive(:transient_storage_url).and_return(transient_download_url)
+      end
+
+      context "when a submission bundle is present" do
+        it "redirects to the file in storage and logs access" do
+          expect {
+            get :download, params: params
+          }.to change(AccessLog, :count).by(1)
+          access_log = AccessLog.last
+          expect(access_log.record).to eq(submission)
+          expect(access_log.event_type).to eq("downloaded_submission_bundle")
+          expect(access_log.user).to eq(user)
+
+          expect(response).to redirect_to(transient_download_url)
+          expect(subject).to have_received(:transient_storage_url).with(submission.submission_bundle.blob, disposition: "attachment")
+        end
+      end
+
+      context "when a submission bundle is not present" do
+        let(:bundle) { nil }
+
+        it "404s" do
+          get :download, params: params
+          expect(response).to be_not_found
+        end
+      end
+    end
+  end
 end
