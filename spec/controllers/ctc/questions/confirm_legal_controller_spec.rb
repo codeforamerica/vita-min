@@ -57,6 +57,22 @@ describe Ctc::Questions::ConfirmLegalController do
             event_name: "ctc_submitted_intake",
           )
         end
+
+        context "when HOLD_OFF_NEW_EFILE_SUBMISSIONS is set" do
+          around do |example|
+            ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'] = '1'
+            example.run
+            ENV.delete('HOLD_OFF_NEW_EFILE_SUBMISSIONS')
+          end
+
+          it "create a submission that is still in status 'new'" do
+            post :update, params: params
+
+            expect(response).to redirect_to ctc_portal_root_path
+            efile_submission = client.reload.tax_returns.last.efile_submissions.last
+            expect(efile_submission.current_state).to eq "new"
+          end
+        end
       end
 
       context "when not checking 'I agree'" do

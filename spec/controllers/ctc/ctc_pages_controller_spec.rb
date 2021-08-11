@@ -9,6 +9,20 @@ describe Ctc::CtcPagesController do
         expect(cookies[:ctc_intake_ok]).to eq('yes')
         expect(response).to redirect_to Ctc::Questions::OverviewController.to_path_helper
       end
+
+      context "when DISABLE_CTC_BETA_PARAM is set" do
+        around do |example|
+          ENV['DISABLE_CTC_BETA_PARAM'] = '1'
+          example.run
+          ENV.delete('DISABLE_CTC_BETA_PARAM')
+        end
+
+        it "renders the home page without any cookies or redirects" do
+          get :home
+          expect(cookies[:ctc_intake_ok]).to be_nil
+          expect(response).to be_ok
+        end
+      end
     end
 
     context "without the ?ctc_beta=1 query parameter" do
