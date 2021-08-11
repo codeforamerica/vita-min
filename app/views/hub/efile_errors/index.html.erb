@@ -34,7 +34,7 @@
       <% @efile_errors.each do |error| %>
         <tr class="index-table__row">
           <td class="index-table__cell index-table__cell--center">
-            <%= image_tag error.expose ? "icons/check" : "icons/cancelled", alt: error.expose ? "yes" : "no" %>
+            <%= image_tag error.expose ? "icons/check.svg" : "icons/cancelled.svg", alt: error.expose ? "yes" : "no" %>
           </td>
           <td class="index-table__cell status">
             <%= link_to error.source, hub_efile_error_path(id: error.id) %>
