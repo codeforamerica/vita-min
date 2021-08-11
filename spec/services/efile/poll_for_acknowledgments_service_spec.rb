@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe Efile::PollForAcknowledgmentsService do
+  before do
+    allow(Rails.application.config).to receive(:efile_environment).and_return("test")
+  end
+
   describe ".run" do
     context "with an EfileSubmission that is in the transmitted state" do
 
@@ -8,7 +12,7 @@ describe Efile::PollForAcknowledgmentsService do
 
       before do
         efile_submission.update!(irs_submission_id: "9999992021197yrv4rvl")
-        allow(Efile::GyrEfilerService).to receive(:run_efiler_command).with("acks", efile_submission.irs_submission_id).and_return("")
+        allow(Efile::GyrEfilerService).to receive(:run_efiler_command).with("test", "acks", efile_submission.irs_submission_id).and_return("")
       end
 
       context "when the IRS has no acknowledgement ready for this submission" do
@@ -21,7 +25,7 @@ describe Efile::PollForAcknowledgmentsService do
       context "when the IRS has an acknowledgement ready for this submission" do
         before do
           allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
-            .with("acks", efile_submission.irs_submission_id)
+            .with("test", "acks", efile_submission.irs_submission_id)
             .and_return expected_irs_return_value
         end
 

@@ -2,7 +2,7 @@ module Efile
   class PollForAcknowledgmentsService
     def self.run
       transmitted_submissions = EfileSubmission.in_state(:transmitted).limit(100)
-      response = Efile::GyrEfilerService.run_efiler_command("acks", *transmitted_submissions.pluck(:irs_submission_id))
+      response = Efile::GyrEfilerService.run_efiler_command(Rails.application.config.efile_environment, "acks", *transmitted_submissions.pluck(:irs_submission_id))
       doc = Nokogiri::XML(response)
       doc.css('AcknowledgementList Acknowledgement').each do |ack|
         irs_submission_id = ack.css("SubmissionId").text.strip

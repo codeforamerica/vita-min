@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
+  before do
+    allow(Rails.application.config).to receive(:efile_environment).and_return("test")
+  end
+
   describe '#perform' do
     let!(:submission) { create(:efile_submission, :queued, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
 
@@ -25,7 +29,7 @@ RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
       end.to change { submission.current_state }.to("transmitted")
       expect(submission.efile_submission_transitions.last.metadata["receipt"]).to eq(successful_result)
 
-      expect(Efile::GyrEfilerService).to have_received(:run_efiler_command).with("submit", match(%r{.*[/]#{submission.submission_bundle.filename}\z}))
+      expect(Efile::GyrEfilerService).to have_received(:run_efiler_command).with("test", "submit", match(%r{.*[/]#{submission.submission_bundle.filename}\z}))
     end
 
     context 'when the submission fails for an unknown reason' do

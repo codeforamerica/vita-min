@@ -53,4 +53,5 @@ Rails.application.configure do
   config.ctc_url = "https://ctc.test.example.com"
   config.gyr_url = "https://test.example.com"
   config.signature_log_bucket = "vita-min-test-signatures"
+  config.efile_environment = ""
 end
