@@ -148,4 +148,36 @@ RSpec.describe "a user editing a clients intake fields" do
       end
     end
   end
+
+  describe "ctc intakes" do
+    context "as an admin user" do
+      let(:user) { create :admin_user }
+
+      before do
+        # Create a CTC intake in a realistic way, then clear cookies
+        allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
+        complete_intake_through_code_verification
+        allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
+
+        Capybara.current_session.reset!
+      end
+
+      it "can see clients created through CTC intake with their current status" do
+        new_client = Client.last
+
+        login_as user
+
+        visit hub_clients_path
+
+        within ".client-table" do
+          click_on new_client.intake.preferred_name
+        end
+
+        within ".tax-return-list" do
+          expect(page).to have_text "2020"
+          expect(page).to have_text I18n.t('hub.tax_returns.status.intake_in_progress')
+        end
+      end
+    end
+  end
 end

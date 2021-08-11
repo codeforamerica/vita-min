@@ -2,6 +2,7 @@ module Ctc
   module Questions
     class EmailVerificationController < QuestionsController
       include AnonymousIntakeConcern
+      include Ctc::AfterVerificationConcern
       include Ctc::CanBeginIntakeConcern
       before_action :redirect_if_duplicate_ctc_client
       before_action :send_verification_code, only: [:edit]
@@ -20,14 +21,7 @@ module Ctc
       end
 
       def after_update_success
-        send_mixpanel_event(event_name: "ctc_contact_verified")
-        sign_in current_intake.client
-
-        ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-          client: current_intake.client,
-          message: AutomatedMessage::CtcGettingStarted.new,
-          locale: current_intake.locale
-        )
+        after_verification_actions
       end
 
       private
