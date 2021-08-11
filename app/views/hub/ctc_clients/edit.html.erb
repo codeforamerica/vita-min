@@ -9,6 +9,14 @@
             <%= @title %>
           </h1>
 
+          <% if @form.errors.present? %>
+            <ul>
+              <% @form.errors.messages.each do |m| %>
+                <li><%= m %></li>
+              <% end %>
+            </ul>
+          <% end %>
+
           <%= render "shared/client_primary_info_fields", f: f, is_ctc: true, is_dropoff: @is_dropoff %>
           <%= render "shared/filing_status_fields", f: f %>
           <%= render "shared/client_spouse_info_fields", f: f, is_ctc: true %>
