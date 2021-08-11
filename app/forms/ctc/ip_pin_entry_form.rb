@@ -7,14 +7,6 @@ module Ctc
     validates :primary_ip_pin, presence: true, ip_pin: true, if: -> { @intake.has_primary_ip_pin_yes? }
     validates :spouse_ip_pin, presence: true, ip_pin: true, if: -> { @intake.has_spouse_ip_pin_yes? }
 
-    def self.from_intake(intake)
-      new(intake, existing_attributes(intake, Attributes.new(attribute_names).to_sym))
-    end
-
-    def self.existing_attributes(model, attribute_keys)
-      HashWithIndifferentAccess[attribute_keys.map { |k| [k, model.send(k)] }]
-    end
-
     def dependents
       @intake.assign_attributes(dependents_attributes: dependents_attributes.to_h)
       @intake.dependents.select { |dep| dep.has_ip_pin_yes? }

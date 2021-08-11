@@ -1,6 +1,6 @@
 module Ctc
   class PhoneVerificationForm < QuestionsForm
-    set_attributes_for :intake, :verification_code
+    set_attributes_for :misc, :verification_code
 
     validates_presence_of :verification_code
 

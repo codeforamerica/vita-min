@@ -45,7 +45,7 @@ describe Ctc::SpouseInfoForm do
     let(:populated_intake) { build :ctc_intake, spouse_birth_date: Date.new(1983, 5, 10), spouse_ssn: "123456789" }
 
     it "returns a hash with the date fields populated" do
-      attributes = Ctc::SpouseInfoForm.existing_attributes(populated_intake)
+      attributes = Ctc::SpouseInfoForm.existing_attributes(populated_intake, Ctc::SpouseInfoForm.scoped_attributes[:intake])
 
       expect(attributes[:spouse_birth_date_year]).to eq 1983
       expect(attributes[:spouse_birth_date_month]).to eq 5
