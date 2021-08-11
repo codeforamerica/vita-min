@@ -1,6 +1,6 @@
 class EfileSubmissionStateMachine
   include Statesman::Machine
-  HOLD_STATUSES = %w[waiting investigating].freeze
+  CLIENT_INACCESSIBLE_STATUSES = %w[waiting investigating queued].freeze
 
   state :new, initial: true
   state :preparing
