@@ -18,6 +18,9 @@ module Ctc
     def what_will_i_need_to_submit
     end
 
+    def check_payment_status
+    end
+
     def what_will_happen_and_when
     end
 

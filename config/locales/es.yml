@@ -3173,6 +3173,15 @@ es:
             answer_html: |
               Necesitará una dirección de correo electrónico, un documento de identidad, una prueba de ingresos y/o beneficios y el número de seguro social de su hijo/a.<br/><br/>
               Los niños que califican para el Crédito Tributario por Hijos deben tener un número de seguro social (SSN en inglés) válido, pero el declarante de impuestos (un padre, abuelo o tutor) puede tener un SSN o un Número de Identificación Personal del Contribuyente (ITIN en inglés).
+          check_payment_status:
+            question: "¿Dónde puedo verificar el estado de mis pagos?"
+            answer_html: |
+              <p>Puede comprobar el estado de sus pagos con el IRS:</p>
+              <ul class="list--bulleted">
+                <li>Para sus pagos mensuales del Crédito Fiscal por Hijos revise el Portal de Actualizaciones del Crédito Fiscal por Hijos (en inglés: Child Tax Credit Update Portal)</li>
+                <li>Para los pagos de estímulo 1 y 2 revise Dónde está Mi Reembolso (en inglés: Where’s My Refund)</li>
+                <li>Para el pago de estímulo 3, verifique Obtener mi pago</li>
+              </ul>
           what_will_happen_and_when:
             question: "¿Cómo es el proceso? ¿Qué ocurrirá y cuándo?"
             answer_html: |

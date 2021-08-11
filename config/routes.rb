@@ -309,6 +309,7 @@ Rails.application.routes.draw do
         get "/privacy", to: "ctc_pages#privacy_policy"
         scope "common-questions" do
           get "/what-will-i-need-to-submit", to: "ctc_pages#what_will_i_need_to_submit"
+          get "/check-payment-status", to: "ctc_pages#check_payment_status"
           get "/what-will-happen-and-when", to: "ctc_pages#what_will_happen_and_when"
           get "/how-do-i-know-what-i-received-for-the-stimulus", to: "ctc_pages#how_do_i_know_what_i_received_for_the_stimulus"
           get "/will-i-ever-have-to-pay-this-money-back", to: "ctc_pages#will_i_ever_have_to_pay_this_money_back"

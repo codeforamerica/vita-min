@@ -3159,6 +3159,15 @@ en:
             answer_html: |
               An email address, ID, proof of income and/or benefits, and your child's Social Security Number.<br/><br/>
               Children claimed for the Child Tax Credit must have a valid Social security number (SSN), however the tax filer (a parent, grandparent, or guardian) can have either a SSN or an Individual Taxpayer Identification Number (ITIN).
+          check_payment_status:
+            question: "Where can I check the status of my payments?"
+            answer_html: |
+              <p>You can check the status of your payments with the IRS:</p>
+              <ul class="list--bulleted">
+                <li>For Child Tax Credit monthly payments check the Child Tax Credit Update Portal</li>
+                <li>For stimulus payments 1 and 2 check Where’s My Refund</li>
+                <li>For stimulus payment 3 check Get My Payment</li>
+              </ul>
           what_will_happen_and_when:
             question: "What will happen and when?"
             answer_html: |
