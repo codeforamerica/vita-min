@@ -47,36 +47,15 @@ module Hub
                        :eip1_amount_received,
                        :eip2_amount_received,
                        :eip1_and_2_amount_received_confidence,
-                       :refund_payment_method,
                        :primary_ip_pin,
                        :spouse_ip_pin
     set_attributes_for :tax_return,
                        :filing_status,
                        :filing_status_note
     set_attributes_for :confirmation,
-                       :account_number_confirmation,
-                       :routing_number_confirmation,
                        :primary_ssn_confirmation,
                        :spouse_ssn_confirmation
-    set_attributes_for :bank_account,
-                       :routing_number,
-                       :account_number,
-                       :bank_name,
-                       :account_type
     attr_accessor :client
-
-    validates :refund_payment_method, presence: true
-    with_options if: -> { refund_payment_method == "direct_deposit" } do
-      validates_confirmation_of :routing_number
-      validates_confirmation_of :account_number
-      validates_presence_of :bank_name
-      validates_presence_of :account_type
-      validates_presence_of :account_number
-      validates_presence_of :routing_number
-    end
-
-    validates_presence_of :account_number_confirmation, if: :account_number
-    validates_presence_of :routing_number_confirmation, if: :routing_number
 
     validates_confirmation_of :primary_ssn
     validates_presence_of :primary_ssn_confirmation, if: :primary_ssn

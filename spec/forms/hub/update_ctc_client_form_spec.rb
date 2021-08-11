@@ -47,7 +47,6 @@ RSpec.describe Hub::UpdateCtcClientForm do
         eip1_amount_received: intake.eip1_amount_received,
         eip2_amount_received: intake.eip2_amount_received,
         eip1_and_2_amount_received_confidence: intake.eip1_and_2_amount_received_confidence,
-        refund_payment_method: "check",
         with_passport_photo_id: "1",
         with_itin_taxpayer_id: "1",
         primary_ip_pin: intake.primary_ip_pin,
