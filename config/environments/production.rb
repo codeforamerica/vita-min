@@ -17,4 +17,5 @@ Rails.application.configure do
   config.hide_ctc = true
 
   Rails.application.default_url_options = config.action_mailer.default_url_options
+  config.efile_environment = "prod"
 end
