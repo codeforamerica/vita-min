@@ -73,14 +73,14 @@ module Efile
           raise StandardError.new("Please clone the gyr-efiler repo to ../gyr-efiler and follow its README")
         end
       else
-        etin, app_sys_id, cert_base64 = config_values
+        app_sys_id, efile_cert_base64, etin = config_values
 
         properties_content = <<~PROPERTIES
           etin=#{etin}
           app_sys_id=#{app_sys_id}
         PROPERTIES
         File.write(File.join(config_dir, 'gyr_secrets.properties'), properties_content)
-        File.write(File.join(config_dir, 'secret_key_and_cert.p12.key'), Base64.decode64(cert_base64), mode: "wb")
+        File.write(File.join(config_dir, 'secret_key_and_cert.p12.key'), Base64.decode64(efile_cert_base64), mode: "wb")
       end
 
       FileUtils.touch(File.join(config_dir, '.ready'))
@@ -96,14 +96,14 @@ module Efile
       # On our Aptible environments, these config values should be in Rails secrets aka EnvironmentCredentials.
       #
       # They can also be configured by environment variables, which is convenient for local dev or manual testing.
-      etin = ENV['GYR_EFILER_ETIN'].presence || EnvironmentCredentials.dig(:irs, :etin)
       app_sys_id = ENV['GYR_EFILER_APP_SYS_ID'].presence || EnvironmentCredentials.dig(:irs, :app_sys_id)
-      cert_base64 = ENV['GYR_EFILER_CERT'].presence || EnvironmentCredentials.dig(:irs, :efiler_cert)
-      if etin.nil? || app_sys_id.nil? || cert_base64.nil?
-        raise StandardError.new("Missing etin and/or app sys id and/or cert base64 configuration")
+      efile_cert_base64 = ENV['GYR_EFILER_CERT'].presence || EnvironmentCredentials.dig(:irs, :efile_cert_base64)
+      etin = ENV['GYR_EFILER_ETIN'].presence || EnvironmentCredentials.dig(:irs, :etin)
+      if app_sys_id.nil? || efile_cert_base64.nil? || etin.nil?
+        raise StandardError.new("Missing app_sys_id and/or efile_cert_base64 and/or etin configuration")
       end
 
-      [etin, app_sys_id, cert_base64]
+      [app_sys_id, efile_cert_base64, etin]
     end
   end
 end
