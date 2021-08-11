@@ -55,11 +55,9 @@ class EfileSubmission < ApplicationRecord
   end
 
   def last_client_accessible_transition
-    return nil unless last_transition.present?
-
-    return last_transition unless EfileSubmissionStateMachine::CLIENT_INACCESSIBLE_STATUSES.include? last_transition.to_state
-
-    efile_submission_transitions.where('id < ?', last_transition.id).last
+    history.reverse.find do |transition|
+      !EfileSubmissionStateMachine::CLIENT_INACCESSIBLE_STATUSES.include?(transition.to_state)
+    end
   end
 
   def resubmission?

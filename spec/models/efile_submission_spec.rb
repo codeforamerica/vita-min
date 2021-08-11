@@ -295,9 +295,11 @@ describe EfileSubmission do
   describe "last_client_accessible_transition" do
     context "when the status of the last_transition is investigating" do
       let(:efile_submission) { create :efile_submission, :rejected }
+
       before do
         efile_submission.transition_to!(:investigating)
       end
+
       it "returns last_transition" do
         expect(efile_submission.last_client_accessible_transition).to eq (efile_submission.efile_submission_transitions.where(to_state: 'rejected').last)
       end
@@ -305,10 +307,25 @@ describe EfileSubmission do
 
     context "when the status of the last_transition is waiting" do
       let(:efile_submission) { create :efile_submission, :rejected }
+
       before do
         efile_submission.transition_to!(:waiting)
       end
+
       it "returns last_transition" do
+        expect(efile_submission.last_client_accessible_transition).to eq (efile_submission.efile_submission_transitions.where(to_state: 'rejected').last)
+      end
+    end
+
+    context "when the last several statuses are things that should not be shown to clients" do
+      let(:efile_submission) { create :efile_submission, :rejected }
+
+      before do
+        efile_submission.transition_to!(:waiting)
+        efile_submission.transition_to!(:investigating)
+      end
+
+      it "returns the last transition suitable for showing to clients" do
         expect(efile_submission.last_client_accessible_transition).to eq (efile_submission.efile_submission_transitions.where(to_state: 'rejected').last)
       end
     end
