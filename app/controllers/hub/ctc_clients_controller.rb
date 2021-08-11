@@ -49,6 +49,7 @@ module Hub
         redirect_to hub_client_path(id: @client.id)
       else
         flash[:alert] = I18n.t("forms.errors.general")
+        @is_dropoff = @client.tax_returns.any? { |tax_return| tax_return.service_type == "drop_off" }
         render :edit
       end
     end
