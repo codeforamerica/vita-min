@@ -1456,19 +1456,12 @@ es:
             file_a_simplified_return: "Presentar una declaración simplificada"
           confirm_dependents:
             title: "Confirmemos sus dependientes"
-            qualifying_for_ctc: "Dependientes con derecho a CTC--Child Tax Credit"
+            qualifying_for_ctc: "Dependientes que califican para CTC y el tercer pago de estímulo"
             qualifying_for_other_credits: "Dependientes con derecho a otros créditos"
             birthday: "Fecha de nacimiento: %{dob}"
             ssn: "Número de Seguro Social: XXX-XX-%{ssn}"
             add_a_dependent: "Agregar una persona dependiente"
             done_adding: "Ya no hay más dependientes por agregar"
-            reveal_title: "¿Quién tiene derecho a CTC?"
-            reveal_body_title: "Se puede declarar a las siguientes personas:"
-            reveal_body_list:
-              - un hijo menor de 19 años el último día del año fiscal (2021)
-              - un hijo menor de 24 años y estudiante de la universidad
-              - un hijo de cualquier edad con una discapacidad permanente y total
-              - "un familiar que haya vivido con usted todo el año cuyos ingresos sean inferiores a 4,300 dólares y por el cual usted haya pagado más de la mitad de sus gastos"
           child_disqualifiers:
             title: "Perfecto, ¡asegurémonos de que %{name} cumple los requisitos!"
             help_text: "Seleccione cualquier situación que haya sido cierta en 2020:"
@@ -1551,7 +1544,7 @@ es:
           primary_active_armed_forces:
             title: "Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020"
             reveal_label: "¿Por qué me preguntan esto?"
-            reveal_content: "El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de Reembolso por Recuperación o Recovery Rebate Credit"
+            reveal_content: "Saber si es miembro de las Fuerzas Armadas nos ayudará a calcular mejor crédito de Reembolso por Recuperación o Recovery Rebate Credit"
           agree_to_share: "Al continuar, acepto compartir mi información personal para preparar mi declaración de impuestos simplificada."
         income:
           title: "En %{tax_year}, ganó más de:"

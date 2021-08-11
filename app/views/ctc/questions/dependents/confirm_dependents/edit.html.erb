@@ -25,15 +25,6 @@
         <% end %>
       </div>
 
-      <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.confirm_dependents.reveal_title")) do %>
-        <p><%= t("views.ctc.questions.dependents.confirm_dependents.reveal_body_title") %></p>
-        <ul class="list--bulleted">
-          <% t("views.ctc.questions.dependents.confirm_dependents.reveal_body_list").each do |item| %>
-            <li><%= item %></li>
-          <% end %>
-        </ul>
-      <% end %>
-
       <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: :new), class: "button button--wide text--centered" do %>
         <%= image_tag("add-person.svg", alt: "") %>
         <%= t('views.ctc.questions.dependents.confirm_dependents.add_a_dependent') %>

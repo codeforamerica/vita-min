@@ -1478,19 +1478,12 @@ en:
             file_a_simplified_return: "File a simplified return"
           confirm_dependents:
             title: "Let’s confirm your dependents!"
-            qualifying_for_ctc: "Dependents qualifying for CTC"
+            qualifying_for_ctc: "Dependents qualifying for CTC and third stimulus payment"
             qualifying_for_other_credits: "Dependents qualifying for other credits"
             birthday: "Date of birth: %{dob}"
             ssn: "SSN: XXX-XX-%{ssn}"
             add_a_dependent: "Add a dependent"
             done_adding: "Done adding dependents"
-            reveal_title: "Who qualifies for CTC?"
-            reveal_body_title: "The following people can be claimed:"
-            reveal_body_list:
-              - a child under 19 on the last day of the tax year (2021)
-              - a child under 24 and in college
-              - a child at any age who is permanently and totally disabled
-              - a relative who lived with you all year whose income was less than $4,300 and you paid over half of their expenses
           child_disqualifiers:
             title: "Great, let's make sure %{name} qualifies!"
             help_text: "Select any situations that were true in 2020:"
@@ -1573,7 +1566,7 @@ en:
           primary_active_armed_forces:
             title: "I was a member of the United States Armed Forces for any time in 2020"
             reveal_label: "Why are you asking this?"
-            reveal_content: "Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit"
+            reveal_content: "Knowing if you are a member of the Armed Forces will help us better calculate your Recovery Rebate Credit"
           agree_to_share: By continuing, I agree to share my personal information in order to prepare my simplified tax return.
         income:
           title: "In  %{tax_year}, did you earn over:"
@@ -1678,26 +1671,26 @@ en:
         stimulus_one:
           title: "Did you receive any of the first stimulus payment?"
           help_html: |
-            <p>The first of three stimulus payments, were sent between April 2020 and October 2020.</p>
+            <p>The first of three stimulus payments were sent between April 2020 and October 2020.</p>
             <p>This payment was $1,200 per adult filer plus $500 per dependent (for example, a parent caring for two children would have received $2,200).</p>
         stimulus_one_received:
           title: "Enter the total amount you received for your first stimulus payment."
           eip1_amount_received_label: "Economic Impact Payment 1"
           help_html: |
-            <p>The first stimulus payment, formally known as Econmic Impact Payment 1, was sent between April 2020 and October 2020.</p>
+            <p>The first stimulus payment, formally known as Economic Impact Payment 1, was sent between April 2020 and October 2020.</p>
             <p>Enter the amount you received, if any, for that payment.</p>
           reveal_label: "Where can I find this amount?"
           reveal_content: "If you are unsure, check the official notice you received OR your bank records."
         stimulus_two:
           title: "Did you receive any of the second stimulus payment?"
           help_html: |
-            <p>The second of three stimulus payments, was sent between December 2020 and January 2021.</p>
+            <p>The second of three stimulus payments was sent between December 2020 and January 2021.</p>
             <p>This payment was $600 per adult filer plus $600 per dependent (for example, a parent caring for two children would have received $1,800)</p>
         stimulus_two_received:
           title: "Enter the total amount you received for your second stimulus payment."
           eip2_amount_received_label: "Economic Impact Payment 2"
           help_html: |
-            <p>The first stimulus payment, formally known as Econmic Impact Payment 2, was sent between December 2020 and January 2021.</p>
+            <p>The first stimulus payment, formally known as Economic Impact Payment 2, was sent between December 2020 and January 2021.</p>
             <p>Enter the amount you received, if any, for that payment.</p>
           reveal_label: "Where can I find this amount?"
           reveal_content: "If you are unsure, check the official notice you received OR your bank records."
