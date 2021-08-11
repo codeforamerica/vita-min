@@ -80,7 +80,7 @@ module Efile
           app_sys_id=#{app_sys_id}
         PROPERTIES
         File.write(File.join(config_dir, 'gyr_secrets.properties'), properties_content)
-        File.write(File.join(config_dir, 'secret_key_and_cert.p12.key'), Base64.decode64(cert_base64, mode: "wb"))
+        File.write(File.join(config_dir, 'secret_key_and_cert.p12.key'), Base64.decode64(cert_base64), mode: "wb")
       end
 
       FileUtils.touch(File.join(config_dir, '.ready'))
