@@ -15,7 +15,6 @@ RSpec.describe "a user editing a clients intake fields" do
                             filing_joint: "yes",
                             primary_first_name: "Colleen",
                             primary_last_name: "Cauliflower",
-                            preferred_interview_language: "es",
                             state_of_residence: "CA",
                             preferred_name: "Colleen Cauliflower",
                             email_notification_opt_in: "yes",
@@ -53,8 +52,6 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(find_field("hub_update_ctc_client_form_primary_first_name").value).to eq "Colleen"
         expect(find_field("hub_update_ctc_client_form_primary_last_name").value).to eq "Cauliflower"
         fill_in "Preferred full name", with: "Colly Cauliflower"
-        select "Mandarin", from: "Preferred language"
-
         fill_in "Email", with: "hello@cauliflower.com"
         check "Opt into email notifications"
         fill_in "Cell phone number", with: "500-555-0006"
@@ -109,19 +106,10 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "hub_update_ctc_client_form_spouse_birth_date_year", with: "1996"
       end
 
-      within "#photo-id-type-fields" do
-        check "Drivers License"
-      end
-
-      within "#taxpayer-id-type-fields" do
-        check "Social Security card"
-      end
-
       click_on "Save"
 
       expect(page).to have_text "Colleen Cauliflower"
       expect(page).to have_text "Colly Cauliflower"
-      expect(page).to have_text "Mandarin"
       expect(page).to have_text "Married filing jointly"
       expect(page).to have_text "Dependents: 1", normalize_ws: true
       within "#dependents-list" do
