@@ -60,7 +60,7 @@ describe Ctc::Questions::CellPhoneNumberController do
       expect(ClientMessagingService).to have_received(:send_system_text_message).with(
         client: intake.client,
         body: I18n.t("messages.ctc_sms_opt_in"),
-        locale: intake.locale
+        to: intake.sms_phone_number
       )
     end
   end

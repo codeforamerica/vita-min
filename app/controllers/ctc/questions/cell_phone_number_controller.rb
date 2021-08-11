@@ -9,8 +9,8 @@ module Ctc
         if current_intake.sms_notification_opt_in_yes?
           ClientMessagingService.send_system_text_message(
             client: current_intake.client,
-            body: I18n.t("messages.ctc_sms_opt_in", locale: current_intake.locale),
-            locale: current_intake.locale
+            body: I18n.t("messages.ctc_sms_opt_in"),
+            to: current_intake.sms_phone_number
           )
         end
       end
