@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::PhoneVerificationController do
   let(:visitor_id) { "asdfasdfa" }
-  let(:client) { create :client, intake: (create :ctc_intake, sms_phone_number: "+15125551234", visitor_id: visitor_id, locale: locale) }
+  let(:client) { create :client, intake: (create :ctc_intake, sms_phone_number: "+15125551234", visitor_id: visitor_id, locale: locale), tax_returns: [build(:tax_return, status: "intake_before_consent")] }
   let(:intake) { client.intake }
   let(:locale) { "en" }
 
@@ -51,6 +51,12 @@ describe Ctc::Questions::PhoneVerificationController do
           distinct_id: visitor_id,
           event_name: "ctc_contact_verified",
         )
+      end
+
+      it "updates the tax return status" do
+        expect do
+          subject.after_update_success
+        end.to change { client.tax_returns.last.reload.status }.to("intake_in_progress")
       end
     end
   end
