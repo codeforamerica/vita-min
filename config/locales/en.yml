@@ -1608,6 +1608,7 @@ en:
           spouse_identity_help_text: If using a social security card, it must be valid for employment.
           spouse_ssn_itin: Spouse's SSN or ITIN
           spouse_ssn_itin_confirmation: Confirm spouse's SSN or ITIN
+          spouse_can_be_claimed_as_dependent: My spouse can be claimed as a dependent by someone else
           spouse_active_armed_forces: My spouse was a member of the United States Armed Forces for any time in 2020
           spouse_active_armed_forces_reveal: Why are you asking this?
           spouse_active_armed_forces_reveal_content: Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit

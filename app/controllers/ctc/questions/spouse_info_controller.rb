@@ -12,7 +12,7 @@ module Ctc
       private
 
       def next_path
-        return questions_use_gyr_path if @form.intake.spouse_tin_type_none?
+        return questions_use_gyr_path if @form.intake.spouse_tin_type_none? || @form.intake.spouse_can_be_claimed_as_dependent_yes?
 
         super
       end

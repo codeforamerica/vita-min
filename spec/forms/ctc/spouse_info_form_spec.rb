@@ -15,6 +15,7 @@ describe Ctc::SpouseInfoForm do
       spouse_ssn_confirmation: "111-22-8888",
       spouse_tin_type: tin_type,
       ssn_no_employment: ssn_no_employment,
+      spouse_can_be_claimed_as_dependent: "no",
       spouse_active_armed_forces: "no"
     }
   }
@@ -70,6 +71,7 @@ describe Ctc::SpouseInfoForm do
       expect(intake.spouse_ssn).to eq "111228888"
       expect(intake.spouse_last_four_ssn).to eq "8888"
       expect(intake.spouse_tin_type).to eq "itin"
+      expect(intake.spouse_can_be_claimed_as_dependent).to eq "no"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
     end
 
