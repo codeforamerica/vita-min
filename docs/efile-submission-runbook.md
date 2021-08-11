@@ -39,5 +39,13 @@ When a crash occurs during a job, we tend to raise an exception so we can see in
 
 If a code change is required, fix the code, then resubmit once the code change is deployed.
 
+## Disabling new submissions temporarily
+
+You can set the HOLD_OFF_NEW_EFILE_SUBMISSIONS environment variable to prevent any EfileSubmission from transitioning to the :preparing state.
+
+Whenever we feel like submitting things again, after the environment variable is removed, you should transition everything that was stuck in 'new' to 'preparing':
+
+`EfileSubmission.in_state(:new).each { |efile_submission| efile_submission.transition_to!(:preparing) }`
+
 ## References
 * The Child Tax Credit is defined in [IRS Revenue Procedure 2021-4.](https://www.irs.gov/pub/irs-drop/rp-21-24.pdf)

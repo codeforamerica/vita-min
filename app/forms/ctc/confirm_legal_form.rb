@@ -16,7 +16,12 @@ module Ctc
       @intake.update(attributes_for(:intake))
       efile_attrs = attributes_for(:efile_security_information).merge(timezone_offset: format_timezone_offset(timezone_offset))
       unless @intake.tax_returns.last.efile_submissions.any?
-        EfileSubmission.create(tax_return: @intake.tax_returns.last, efile_security_information_attributes: efile_attrs).transition_to(:preparing)
+        efile_submission = EfileSubmission.create(tax_return: @intake.tax_returns.last, efile_security_information_attributes: efile_attrs)
+        begin
+          efile_submission.transition_to(:preparing)
+        rescue Statesman::GuardFailedError
+          Rails.logger.error "Failed to transition EfileSubmission##{efile_submission.id} to :preparing"
+        end
       end
     end
 

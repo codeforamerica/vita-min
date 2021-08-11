@@ -30,6 +30,10 @@ class EfileSubmissionStateMachine
   transition from: :resubmitted,    to: [:preparing]
   transition from: :waiting,        to: [:resubmitted, :cancelled, :investigating]
 
+  guard_transition(to: :preparing) do |_submission|
+    ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
+  end
+
   after_transition(to: :preparing) do |submission|
     BuildSubmissionBundleJob.perform_later(submission.id)
     submission.tax_return.update(status: "file_ready_to_file")

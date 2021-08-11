@@ -97,10 +97,23 @@ describe EfileSubmission do
       allow(ClientPdfDocument).to receive(:create_or_update)
     end
     context "new" do
-      let(:submission) { create :efile_submission }
+      let(:submission) { create :efile_submission, :new }
+
       context "can transition to" do
         it "preparing" do
           expect { submission.transition_to!(:preparing) }.not_to raise_error
+        end
+      end
+
+      context "when HOLD_OFF_NEW_EFILE_SUBMISSIONS is set" do
+        around do |example|
+          ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'] = '1'
+          example.run
+          ENV.delete('HOLD_OFF_NEW_EFILE_SUBMISSIONS')
+        end
+
+        it "does not allow transitions from :new to :preparing" do
+          expect { submission.transition_to!(:preparing) }.to raise_error(Statesman::GuardFailedError)
         end
       end
 
