@@ -54,7 +54,7 @@ describe EfileSubmissionTransition do
 
       context "when a matching error already exists" do
         before do
-          EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.")
+          EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.", source: "irs")
         end
 
         let(:transition) { build :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS" } }
@@ -67,12 +67,12 @@ describe EfileSubmissionTransition do
       end
     end
 
-    context "when a code and message are provided" do
-      context "when it matches an existing code/message pair" do
+    context "when a code and message and a source are provided" do
+      context "when it matches an existing code/message/source" do
         before do
-          EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.")
+          EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.", source: "irs")
         end
-        let(:transition) { build :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a problem." } }
+        let(:transition) { build :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a problem.", error_source: "irs" } }
         it "does not create a new EfileError object" do
           transition.save
           expect(EfileError.count).to eq 1
@@ -80,19 +80,21 @@ describe EfileSubmissionTransition do
         end
       end
 
-      context "when it does not match an existing code/message pair" do
+      context "when it does not match an existing code/message/source pair" do
         before do
-          EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.")
+          EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.", source: "irs")
         end
 
-        let(:transition) { build :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a HUGE problem" } }
+        let(:transition) { build :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a problem", error_source: "internal" } }
 
         it "creates a new EfileError object" do
           expect {
             transition.save
           }.to change(EfileError, :count).by(1)
           expect(transition.efile_errors.count).to eq 1
-          expect(transition.efile_errors.first.message).to eq "You have a HUGE problem"
+          expect(transition.efile_errors.first.message).to eq "You have a problem"
+          expect(transition.efile_errors.first.source).to eq "internal"
+
         end
       end
     end

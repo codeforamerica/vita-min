@@ -53,7 +53,8 @@ class EfileSubmissionTransition < ApplicationRecord
   def persist_efile_error_from_metadata
     if metadata["error_code"].present?
       attrs = { code: metadata["error_code"] }
-      attrs.merge!(message: metadata["error_message"]) if metadata["error_message"].present?
+      attrs[:message] = metadata["error_message"] if metadata["error_message"].present?
+      attrs[:source] = metadata["error_source"] if metadata["error_source"].present?
       efile_error = EfileError.find_or_create_by!(attrs)
       self.efile_submission_transition_errors.create(efile_submission_id: efile_submission.id, efile_error: efile_error)
     end
