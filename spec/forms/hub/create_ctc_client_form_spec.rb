@@ -47,7 +47,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         eip1_amount_received: "$280",
         eip2_amount_received: "$250",
         eip1_and_2_amount_received_confidence: "sure",
-        refund_payment_method: "check",
+        refund_payment_method: refund_payment_method,
         navigator_name: "Tax Seasonson",
         navigator_has_verified_client_identity: true,
         with_passport_photo_id: "1",
@@ -57,6 +57,7 @@ RSpec.describe Hub::CreateCtcClientForm do
       }
     end
 
+    let(:refund_payment_method) { "direct_deposit" }
     let(:preferred_interview_language) {"es"}
     let(:sms_opt_in) {"yes"}
     let(:email_opt_in) {"no"}
@@ -247,6 +248,16 @@ RSpec.describe Hub::CreateCtcClientForm do
           intake = Intake.last
           expect(intake.primary_ip_pin).to eq '123456'
           expect(intake.spouse_ip_pin).to eq '234567'
+        end
+      end
+
+      context "refund payment method is check" do
+        let(:refund_payment_method) { "check" }
+
+        it "stores client bank info on the intake" do
+          described_class.new(params).save(current_user)
+          client = Client.last
+          expect(client.intake.bank_account).to eq nil
         end
       end
     end

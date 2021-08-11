@@ -117,11 +117,12 @@ module Hub
                               :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
                       .merge(
                         default_attributes,
-                        bank_account_attributes: attributes_for(:bank_account),
                         dependents_attributes: formatted_dependents_attributes,
                         primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
                         spouse_birth_date: parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day),
-                        visitor_id: SecureRandom.hex(26))
+                        visitor_id: SecureRandom.hex(26)
+                      )
+        intake_attr[:bank_account_attributes] = attributes_for(:bank_account) if refund_payment_method == "direct_deposit"
         @client = Client.create!(
           vita_partner_id: attributes_for(:intake)[:vita_partner_id],
           intake_attributes: intake_attr,
