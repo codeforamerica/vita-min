@@ -283,6 +283,38 @@ describe EfileSubmission do
     end
   end
 
+  describe "#resubmission?" do
+    context "when there was a previous submission to the irs" do
+      let(:previous_submission) { create :efile_submission }
+      let(:submission) { create :efile_submission }
+      before do
+        submission.transition_to!(:preparing, previous_submission_id: previous_submission.id)
+      end
+
+      it "returns true" do
+        expect(submission.resubmission?).to eq true
+      end
+    end
+
+    context "when there was a previous status transition of the existing submission to resubmitted" do
+      let(:submission) { create :efile_submission, :rejected }
+      before do
+        submission.transition_to!(:resubmitted)
+      end
+
+      it "returns true" do
+        expect(submission.resubmission?).to eq true
+      end
+    end
+
+    context "when the submission is not a resubmission" do
+      let(:submission) { create :efile_submission, :preparing }
+      it "returns false" do
+        expect(submission.resubmission?).to eq false
+      end
+    end
+  end
+
   describe "#previously_transmitted_submission" do
     context "when the submission's preparing transition has a previous submission id stored" do
       let(:previous_submission) { create :efile_submission }

@@ -141,7 +141,7 @@ module SubmissionBuilder
               xml.TimeZoneOffsetNum filing_security_information.timezone_offset
               xml.SystemTs datetime_type(filing_security_information.client_system_datetime)
             }
-            if submission.resubmission?
+            if submission.irs_resubmission?
               xml.FederalOriginalSubmissionId submission.previously_transmitted_submission.irs_submission_id
               xml.FederalOriginalSubmissionIdDt date_type(submission.previously_transmitted_submission.created_at)
             end

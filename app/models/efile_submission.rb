@@ -60,7 +60,12 @@ class EfileSubmission < ApplicationRecord
     end
   end
 
+  # There are two types of resubmissions: One
   def resubmission?
+    irs_resubmission? || last_transition_to(:resubmitted).present?
+  end
+
+  def irs_resubmission?
     previously_transmitted_submission.present?
   end
 

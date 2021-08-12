@@ -25,14 +25,27 @@ describe EfileSubmissionStateMachine do
           allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
         end
 
-        it "sends a message to the client" do
-          submission.transition_to!(:preparing)
+        context "when the submission is not a resubmission" do
+          it "sends a message to the client" do
+            submission.transition_to!(:preparing)
 
-          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-            client: submission.client.reload,
-            message: instance_of(AutomatedMessage::EfilePreparing),
-            locale: submission.client.intake.locale
-          )
+            expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+                client: submission.client.reload,
+                message: instance_of(AutomatedMessage::EfilePreparing),
+                locale: submission.client.intake.locale
+            )
+          end
+        end
+
+        context "when the submission is a resubmission" do
+          before do
+            allow(submission).to receive(:resubmission?).and_return true
+          end
+
+          it "does not send the email" do
+            submission.transition_to!(:preparing)
+            expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods)
+          end
         end
       end
     end

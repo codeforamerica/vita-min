@@ -76,12 +76,14 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(from: :new, to: :preparing) do |submission|
-    client = submission.client
-    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-      client: client,
-      message: AutomatedMessage::EfilePreparing.new,
-      locale: client.intake.locale
-    )
+    unless submission.resubmission?
+      client = submission.client
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: client,
+        message: AutomatedMessage::EfilePreparing.new,
+        locale: client.intake.locale
+      )
+    end
   end
 
   after_transition(to: :investigating) do |submission|
