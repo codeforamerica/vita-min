@@ -8,6 +8,17 @@ describe Efile::PollForAcknowledgmentsService do
   end
 
   describe ".run" do
+    context "when there are no EfileSubmissions" do
+      it "quietly runs and does nothing" do
+        expect{ Efile::PollForAcknowledgmentsService.run }.to_not raise_error
+      end
+
+      it "sends a metric to Datadog" do
+        Efile::PollForAcknowledgmentsService.run
+        expect(DatadogApi).to have_received(:increment).with("efile.poll_for_acks")
+      end
+    end
+
     context "when there is 101 EfileSubmissions" do
       let(:efile_submission_ids) { (1..101).to_a.map(&:to_s) }
 
