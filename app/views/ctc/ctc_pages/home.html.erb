@@ -13,10 +13,10 @@
           <%= t("views.ctc_pages.home.header") %>
         </h1>
         <p>
-          <%= t("views.ctc_pages.home.subheader") %>
+          <%= t("views.ctc_pages.home.subheader_html") %>
         </p>
-        <div>
-          <%= link_to t("views.ctc_pages.home.claim_credit"), "#claim-credit", id: "firstCta", class: "button button--primary" %>
+        <div class="spacing-below-25">
+          <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
         </div>
       </div>
 
@@ -26,32 +26,42 @@
     </div>
   </div>
 
-  <div class="slab slab--stimulus-blue slab--secondary-cta">
-    <div class="grid">
-      <div class="grid__item width-two-thirds">
-        <p class="cta-text"><strong><%= t('views.ctc_pages.home.sign_up_for_reminders.p1') %></strong></p>
-        <p class="cta-text spacing-above-15"><%= t('views.ctc_pages.home.sign_up_for_reminders.p2') %></p>
-      </div>
-      <div class="grid__item width-one-third">
-        <%= link_to t('views.ctc_pages.home.sign_up_for_reminders.button'), new_ctc_signup_path, class: 'button' %>
-      </div>
-    </div>
-  </div>
-
-  <div class="slab slab--navigators">
-    <div class="grid">
-      <span><%= t('views.ctc_pages.home.navigator_resources_html') %></span>
-    </div>
-  </div>
-
   <div class="slab slab--green">
     <div class="grid">
-      <div class="grid__item width-one-whole">
-        <h2><%= t('views.ctc_pages.home.what_is.heading') %></h2>
+      <div class="grid__item width-one-half spacing-below-25">
+        <%= image_tag('ctc-iphones.png', alt: "") %>
       </div>
+      <div class="grid__item width-one-half">
+        <h2><%= t('views.ctc_pages.home.what_is.heading') %></h2>
+        <p><%= t('views.ctc_pages.home.what_is.body_html') %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--short slab--why">
+    <div class="grid">
       <div class="grid__item width-one-whole">
-        <p><%= t('views.ctc_pages.home.what_is.body1') %></p>
-        <p><%= t('views.ctc_pages.home.what_is.body2') %></p>
+        <div style="display: flex; align-items: center;">
+          <div>
+            <%= t('views.ctc_pages.home.why.body_html') %>
+          </div>
+          <div style="width: 150px;">
+            <%= image_tag('cfa-logo--black.png', alt: "") %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--short slab--navigators">
+    <div class="grid">
+      <div class="media-box spacing-below-0">
+        <div class="media-box__media">
+          <%= image_tag('question-bubble.svg', alt: "") %>
+        </div>
+        <div class="media-box__content">
+          <%= t('views.ctc_pages.home.navigator_resources_html') %>
+        </div>
       </div>
     </div>
   </div>

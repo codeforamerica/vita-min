@@ -3163,9 +3163,12 @@ es:
     ctc_pages:
       home:
         title: "Crédito Tributario por Hijos"
-        header: "Crédito Tributario por Hijos"
-        subheader: "Ponga dinero en efectivo en el bolsillo de su familia cada mes para las cosas que usted necesita, aún si usted tiene muy pocos ingresos o no tiene ingresos."
-        claim_credit: "Reclamar su crédito"
+        header: "Declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijo"
+        subheader_html: |
+          <strong>¡GetCTC se lanzará próximamente!</strong> Registrese para recibir emails en cuanto el portal para declarar sus impuestos de forma simplificada.<br/>
+          <br/>
+          Reclame su Crédito Tributario por Hijo y su pago de estímulo faltante, aunque no tenga sus formularios tributarios.
+        sign_up_for_updates: Inscríbase para recibir actualizaciones
         common_questions:
           title: "Preguntas Frecuentes"
           what_will_i_need_to_submit:
@@ -3230,16 +3233,18 @@ es:
             question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
             answer_html: |
               No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
-        sign_up_for_reminders:
-          p1: Próximamente estará disponible la declaración simplificada para el Crédito por hijos y los cheques de estímulo pendientes!
-          p2: Inscríbase para recibir un email tan pronto como el portal esté listo.
-          button: Inscríbase para recibir actualizaciones
+        what_is:
+          heading: Crédito Tributario por Hijo
+          body_html: |
+            Ponga dinero en efectivo en el bolsillo de su familia cada mes para las cosas que usted necesita, aún si usted tiene muy pocos ingresos o no tiene ingresos.<br/>
+            <br/>
+            El Plan de Rescate Estadounidense, firmado como ley por el presidente Biden el 11 de marzo de 2021, aumenta el Crédito Tributario por Hijos (CTC en inglés) que le podría proporcionar hasta $300 al mes por cada hijo menor de seis años y hasta $250 por hijo con edades entre 6 y 17 años.<br/>
+            <br/>
+            Puede recibir pagos a partir de julio a diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante.
+        why:
+          body_html: <strong>GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>.</strong> Conozca más del por qué hacemos esta labor <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">aquí</a>.
         navigator_resources_html: |
           <strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Consulte nuestra página de recursos para navegadores <a href='https://www.notion.so/cfa/GetCTC-org-Navigator-Resources-47bd79cc43034fa181e4f54d2131a4b2' rel='noopener' target='_blank'>aquí.</a>
-        what_is:
-          heading: "¿Qué es el Crédito Tributario por Hijos (CTC)?"
-          body1: "El Plan de Rescate Estadounidense, firmado como ley por el presidente Biden el 11 de marzo de 2021, aumenta el Crédito Tributario por Hijos (CTC en inglés) que le podría proporcionar hasta $300 al mes por cada hijo menor de seis años y hasta $250 por hijo con edades entre 6 y 17 años."
-          body2: "Puede recibir pagos a partir de julio a  diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante."
         qualify:
           heading: "¿Califico para el Crédito Tributario por Hijos?"
           body1: "Puede recibir el Crédito Tributario por Hijos si tiene hijos, aún si tiene muy pocos ingresos o no tiene ingresos."
