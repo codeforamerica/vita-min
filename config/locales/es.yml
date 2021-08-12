@@ -1047,6 +1047,7 @@ es:
     phone: Teléfono
     date_of_birth: Fecha de nacimiento
     atin: ATIN
+    enable_javascript: "Habilite Javascript en su navegador o utilice un navegador diferente."
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

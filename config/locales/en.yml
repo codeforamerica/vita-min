@@ -1057,6 +1057,7 @@ en:
     phone: "Phone"
     date_of_birth: "Date of birth"
     atin: "ATIN"
+    enable_javascript: "Please enable Javascript in your browser or use a different browser."
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

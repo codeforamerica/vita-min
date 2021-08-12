@@ -1,6 +1,8 @@
 <% content_for :page_title, t("views.ctc.questions.spouse_info.title") %>
 
 <% content_for :form_card do %>
+  <noscript class="text--red-bold"><%= t("general.enable_javascript") %></noscript>
+
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
     <p>

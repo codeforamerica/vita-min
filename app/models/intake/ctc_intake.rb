@@ -178,7 +178,7 @@
 #  spouse_active_armed_forces                           :integer          default("unfilled")
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
-#  spouse_can_be_claimed_as_dependent                   :integer          default(0)
+#  spouse_can_be_claimed_as_dependent                   :integer          default("unfilled")
 #  spouse_consented_to_service                          :integer          default(0), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
