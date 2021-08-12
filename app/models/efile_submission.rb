@@ -50,6 +50,8 @@ class EfileSubmission < ApplicationRecord
   # the return can be re-transmitted and accepted by the IRS if the Imperfect Return Election is made.
   # This election can only be made if the original return rejected with reject code SEIC-F1040-501-02 or R0000-504-02.
   def imperfect_return_resubmission?
+    return false unless previously_transmitted_submission.present?
+
     previously_transmitted_submission.efile_submission_transitions.collect(&:efile_errors).flatten.any? { |error| ["SEIC-F1040-501-02", "R0000-504-02"].include? error.code }
   end
 
