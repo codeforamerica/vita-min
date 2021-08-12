@@ -1200,14 +1200,19 @@ en:
 
             Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS which means that they can begin processing your payments.
 
-            You can check the status of your payments with the IRS at https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+            You can check the status of your payments with the IRS:
+
+            - For Child Tax credit monthly payments, check the Child Tax Credit Update Portal: https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+            - For stimulus payments 1 and 2, check Where's My Refund: https://www.irs.gov/refunds
+            - For stimulus payment 34, check Get My Payment: https://www.irs.gov/coronavirus/get-my-payment
+
+            We're here to help!
+            Your tax team at GetCTC.org
+
           subject: Thank you for filing your taxes with GetCTC!
         sms: |
-          Hello <<Client.PreferredName>>,
-
-          Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS which means that they can begin processing your payments.
-
-          You can check the status of your payments with the IRS at https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+          Hello <<Client.PreferredName>>, Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS.
+          You can learn how to check the status of your payments here: https://www.getctc.org/en/common-questions/check-payment-status
       rejected:
         email:
           body: |
@@ -1222,9 +1227,8 @@ en:
           subject: Attention needed to submit your taxes with GetCTC
         sms: |
           Hello <<Client.PreferredName>>,
-          Thank you for filing your taxes with GetCTC! Unfortunately, your tax return has been rejected by the IRS.
-          Sign in to see next steps for correcting and resubmitting your tax information: <<Client.LoginLink>>
-          We’re here to help!
+          Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS. Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
+
       preparing:
         email:
           body: |

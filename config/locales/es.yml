@@ -1161,61 +1161,66 @@ es:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
     contact_info_change:
       sms: |
-        Su número de teléfono ha sido cambiado en su cuenta de GetCTC.
+        Su número de teléfono han sido modificados en su cuenta de GetCTC.
 
-        Si cree que su información de contacto puede haber sido cambiada incorrectamente, comuníquese con support@getctc.org
+        Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
 
-        ¡Estamos aquí para ayudar!
-        Su equipo de impuestos en GetCTC.org
+        ¡Estamos aquí para ayudarle!
+        Su Equipo de declaración de impuestos GetCTC.org
       email:
         subject: Su información de contacto en GetCTC
         body: |
-          Su dirección de correo electrónico ha sido cambiada en su cuenta GetCTC.
+          Su dirección de correo electrónico han sido modificados en su cuenta de GetCTC.
 
-          Si cree que su información de contacto puede haber sido cambiada incorrectamente, comuníquese con support@getctc.org
+          Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
 
-          ¡Estamos aquí para ayudar!
-          Su equipo de impuestos en GetCTC.org
+          ¡Estamos aquí para ayudarle!
+          Su Equipo de declaración de impuestos GetCTC.org
     efile:
       acceptance:
         email:
           body: |
-            Hola <<Client.PreferredName>>,
+            ¡Gracias por declarar sus impuestos con GetCTC! Su información sobre sus impuestos han sido aceptados por el IRS, y significa que ya pueden comenzar a procesar sus pagos.
 
-            ¡Gracias por declarar sus impuestos con GetCTC!
+            Puede comprobar el estado de sus pagos con el IRS:
 
-            Sus impuestos han sido aceptado por el IRS, y quiere decir que ellos pueden empezar a procesar sus pagos.
-
-            Usted puede revisar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+            - Para sus pagos mensuales del Crédito Fiscal por Hijos revise el Portal de Actualizaciones del Crédito Fiscal por Hijos (en inglés: Child Tax Credit Update Portal): https://www.irs.gov/es/credits-deductions/child-tax-credit-update-portal
+            - Para los pagos de estímulo 1 y 2 revise Dónde está Mi Reembolso (en inglés: Where’s My Refund): https://www.irs.gov/es/refunds
+            - Para el pago de estímulo 3, verifique Obtener mi pago: https://www.irs.gov/es/coronavirus/get-my-payment
 
             ¡Estamos aquí para ayudarle!
-
-            Su equipo de impuestos en GetCTC.org
-
+            Su Equipo de declaración de impuestos GetCTC.org
           subject: ¡Gracias por declarar sus impuestos con GetCTC!
         sms: |
-          Hola <<Client.PreferredName>>,
+          Hola <<Client.PreferredName>>: ¡Gracias por declarar sus impuestos con GetCTC! Su información sobre sus impuestos han sido aceptados por el IRS.
 
-          ¡Gracias por declarar sus impuestos con GetCTC!
+          Puede comprobar el estado de sus pagos aquí: https://www.getctc.org/es/common-questions/check-payment-status
+      preparing:
+        email:
+          body: |
+            Hola <<Client.PreferredName>>:
 
-          Sus impuestos han sido aceptado por el IRS, y quiere decir que ellos pueden empezar a procesar sus pagos.
+            ¡Su información sobre su declaración de impuestos ha sido enviada con éxito a GetCTC!
 
-          Usted puede revisar el estado de sus pagos con el IRS en https://www.irs.gov/credits-deductions/child-tax-credit-update-portal
+            Estamos procesando su información para enviarla al IRS. Recibirá un mensaje dentro de 48 horas para informarle si su información ha sido aceptada o rechazada.
 
-          ¡Estamos aquí para ayudarle!
-
-          Su equipo de impuestos en GetCTC.org
+            ¡Estamos aquí para ayudarle!
+            Su Equipo de Declaración de Impuestos GetCTC.org
+          subject: ¡Su información ha sido enviada a GetCTC!
+        sms: |
+          Hola <<Client.PreferredName>>:
+          ¡Su información sobre su declaración de impuestos ha sido enviada con éxito a GetCTC! Estamos procesando su información para enviarla al IRS. Recibirá un mensaje dentro de 48 horas para informarle si su información ha sido aceptada o rechazada.
       rejected:
         email:
           body: |
-            Hola <<Client.PreferredName>>,
+            Hola <<Client.PreferredName>>:
 
             ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS.
 
-            Inicie sesión para ver los siguientes pasos para corregir y volver a enviar su información fiscal: <<Client.LoginLink>>
+            Inicie sesión aquí [link to log in page] para ver los siguientes pasos y corregir la información de sus impuestos
 
             ¡Estamos aquí para ayudarle!
-            Su equipo de impuestos en GetCTC.org
+            Su Equipo de Declaración de Impuestos GetCTC
           subject: Le pedimos su atención para poder someter sus impuestos con GetCTC
         sms: |
           Hola <<Client.PreferredName>>,
@@ -1235,9 +1240,7 @@ es:
           ¡Estamos aquí para ayudarle!
           Su Equipo de Declaración de Impuestos GetCTC.org
       sms: |
-        Hola <<Client.PreferredName>>:
-        ¡Gracias por comenzar su declaración de impuestos simplificada con GetCTC! Su ID de cliente es <<Client.ClientId>> Revise su progreso por medio de su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN: <<Client.LoginLink>>
-        ¡Estamos aquí para ayudarle!
+        Hola <<Client.PreferredName>>: ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS. Inicie sesión aquí: <<Client.LoginLink>> para ver los siguientes pasos y corregir la información de sus impuestos
   models:
     intake:
       your_spouse: Su cónyuge
@@ -1500,7 +1503,8 @@ es:
         account_number:
           title: Favor de proporcionarnos el número de su cuenta bancaria
           account_number: Número de cuenta
-          account_number_confirmation: "Confirme su número de cuenta "
+          account_number_confirmation:
+          Confirme su número de cuenta
         confirm_bank_account:
           title: ¡Excelente! Revise que sus datos bancarios sean correctos.
           bank_information: La información de su banco
