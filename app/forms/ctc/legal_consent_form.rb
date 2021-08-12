@@ -34,6 +34,7 @@ module Ctc
     validates :primary_ssn_confirmation, presence: true
     validates :primary_ssn, social_security_number: true, if: -> { primary_tin_type == "ssn" }
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
+    validates_presence_of :device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address
 
     before_validation do
       if ssn_no_employment == "yes" && primary_tin_type == "ssn"

@@ -54,4 +54,5 @@ Rails.application.configure do
   config.gyr_url = "https://test.example.com"
   config.signature_log_bucket = "vita-min-test-signatures"
   config.efile_environment = ""
+  config.efile_security_information_for_testing = nil
 end

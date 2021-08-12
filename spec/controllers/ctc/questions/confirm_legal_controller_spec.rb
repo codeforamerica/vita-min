@@ -87,6 +87,26 @@ describe Ctc::Questions::ConfirmLegalController do
           expect(intake.consented_to_legal).to eq "unfilled"
         end
       end
+
+      context "with invalid params" do
+        context "efile security information fields are missing" do
+          let(:params) do
+            {
+              ctc_confirm_legal_form: {
+                consented_to_legal: "yes",
+              }
+            }
+          end
+
+          it "does not create the EfileSubmission, shows a flash message" do
+            expect {
+              post :update, params: params
+            }.not_to change(EfileSubmission, :count)
+
+            expect(flash[:alert]).to eq I18n.t("general.enable_javascript")
+          end
+        end
+      end
     end
   end
 end

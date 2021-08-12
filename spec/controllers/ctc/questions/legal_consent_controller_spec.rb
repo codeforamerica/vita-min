@@ -77,5 +77,36 @@ describe Ctc::Questions::LegalConsentController do
         )
       end
     end
+
+    context "with invalid params" do
+      context "efile security information fields are missing" do
+        let(:params) do
+          {
+            ctc_legal_consent_form: {
+              primary_first_name: "Marty",
+              primary_middle_initial: "J",
+              primary_last_name: "Mango",
+              primary_birth_date_year: "1963",
+              primary_birth_date_month: "9",
+              primary_birth_date_day: "10",
+              primary_ssn: "111-22-8888",
+              primary_ssn_confirmation: "111-22-8888",
+              primary_active_armed_forces: "no",
+              phone_number: "831-234-5678",
+              timezone: "America/Chicago",
+              primary_tin_type: "ssn",
+            }
+          }
+        end
+
+        it "does not create the client, shows a flash message" do
+          expect {
+            post :update, params: params
+          }.not_to change(Client, :count)
+
+          expect(flash[:alert]).to eq I18n.t("general.enable_javascript")
+        end
+      end
+    end
   end
 end

@@ -36,6 +36,7 @@ describe Ctc::LegalConsentForm do
         platform: "iPad",
         timezone_offset: "240",
         client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
+        ip_address: "1.1.1.1",
       }
     }
     context "when all required information is provided" do
@@ -182,6 +183,18 @@ describe Ctc::LegalConsentForm do
 
       it "is not valid" do
         expect(described_class.new(intake, params)).not_to be_valid
+      end
+    end
+
+    context "when efile security information fields are missing" do
+      before do
+        [:device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address].each { |key| params.delete(key) }
+      end
+
+      it "is not valid" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+        expect(form.errors.keys).to match array_including(:device_id, :user_agent, :browser_language, :platform, :timezone_offset, :ip_address)
       end
     end
   end
