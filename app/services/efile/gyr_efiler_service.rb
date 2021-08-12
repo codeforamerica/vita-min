@@ -1,7 +1,7 @@
 require 'zip'
 module Efile
   class GyrEfilerService
-    CURRENT_VERSION = '596c1106d239fc11c64b05bae72b1f1f13e10891'
+    CURRENT_VERSION = 'f5eeb816f6c919fff8d5c742062e664b1f4cd13a'
 
     def self.run_efiler_command(*args)
       raise StandardError.new("Cannot be used from the test environment") if Rails.env.test?
