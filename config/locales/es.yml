@@ -3178,9 +3178,9 @@ es:
             answer_html: |
               <p>Puede comprobar el estado de sus pagos con el IRS:</p>
               <ul class="list--bulleted">
-                <li>Para sus pagos mensuales del Crédito Fiscal por Hijos revise el Portal de Actualizaciones del Crédito Fiscal por Hijos (en inglés: Child Tax Credit Update Portal)</li>
-                <li>Para los pagos de estímulo 1 y 2 revise Dónde está Mi Reembolso (en inglés: Where’s My Refund)</li>
-                <li>Para el pago de estímulo 3, verifique Obtener mi pago</li>
+                <li>Para sus pagos mensuales del Crédito Fiscal por Hijos revise <a rel='noopener' target='_blank' href="https://www.irs.gov/es/credits-deductions/child-tax-credit-update-portal">el Portal de Actualizaciones del Crédito Fiscal por Hijos</a> (en inglés: Child Tax Credit Update Portal)</li>
+                <li>Para los pagos de estímulo 1 y 2 revise <a rel='noopener' target='_blank' href="https://www.irs.gov/es/refunds">Dónde está Mi Reembolso</a> (en inglés: Where’s My Refund)</li>
+                <li>Para el pago de estímulo 3, verifique <a rel='noopener' target='_blank' href="https://www.irs.gov/es/coronavirus/get-my-payment">Obtener mi pago</a></li>
               </ul>
           what_will_happen_and_when:
             question: "¿Cómo es el proceso? ¿Qué ocurrirá y cuándo?"

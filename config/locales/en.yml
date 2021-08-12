@@ -3164,9 +3164,9 @@ en:
             answer_html: |
               <p>You can check the status of your payments with the IRS:</p>
               <ul class="list--bulleted">
-                <li>For Child Tax Credit monthly payments check the Child Tax Credit Update Portal</li>
-                <li>For stimulus payments 1 and 2 check Where’s My Refund</li>
-                <li>For stimulus payment 3 check Get My Payment</li>
+                <li>For Child Tax Credit monthly payments check the <a rel='noopener' target='_blank' href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal">Child Tax Credit Update Portal</a></li>
+                <li>For stimulus payments 1 and 2 check <a rel='noopener' target='_blank' href="https://www.irs.gov/refunds">Where’s My Refund</a></li>
+                <li>For stimulus payment 3 check <a rel='noopener' target='_blank' href="https://www.irs.gov/coronavirus/get-my-payment">Get My Payment</a></li>
               </ul>
           what_will_happen_and_when:
             question: "What will happen and when?"
