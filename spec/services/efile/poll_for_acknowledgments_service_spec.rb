@@ -10,6 +10,7 @@ describe Efile::PollForAcknowledgmentsService do
   describe ".run" do
     context "when there are no EfileSubmissions" do
       it "quietly runs and does nothing" do
+        expect(EfileSubmission.count).to eq 0
         expect{ Efile::PollForAcknowledgmentsService.run }.to_not raise_error
       end
 
