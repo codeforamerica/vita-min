@@ -9,7 +9,7 @@ RSpec.describe "a user editing a clients intake fields" do
     let!(:client) {
       create :client,
              vita_partner: organization,
-             tax_returns: [ create(:tax_return, filing_status: "married_filing_jointly") ],
+             tax_returns: [create(:tax_return, filing_status: "married_filing_jointly")],
              intake: create(:ctc_intake,
                             email_address: "colleen@example.com",
                             filing_joint: "yes",
@@ -145,7 +145,7 @@ RSpec.describe "a user editing a clients intake fields" do
     end
   end
 
-  describe "ctc intakes" do
+  describe "ctc intakes", efile_security_params: true do
     context "as an admin user" do
       let(:user) { create :admin_user }
 

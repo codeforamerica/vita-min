@@ -23,7 +23,7 @@ RSpec.feature "Session duration" do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
 
-  context "With a client who consented", active_job: true do
+  context "With a client who consented", active_job: true, efile_security_params: true do
     context "As a client logging in twice on CTC questions" do
       let(:hashed_verification_code) { "hashed_verification_code" }
       let(:double_hashed_verification_code) { "double_hashed_verification_code" }

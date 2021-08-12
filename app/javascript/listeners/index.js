@@ -42,11 +42,11 @@ const Listeners =  (function(){
                     initStateRoutingsListeners();
                 }
 
-                if(window.appData.controller_action == "Ctc::Questions::LegalConsentController#edit") {
+                if(window.appData.controller_action == "Ctc::Questions::LegalConsentController#edit" || window.appData.controller_action == "Ctc::Questions::LegalConsentController#update") {
                     getEfileSecurityInformation('ctc_legal_consent_form');
                 }
 
-                if(window.appData.controller_action == "Ctc::Questions::ConfirmLegalController#edit") {
+                if(window.appData.controller_action == "Ctc::Questions::ConfirmLegalController#edit" || window.appData.controller_action == "Ctc::Questions::LegalConsentController#update") {
                     getEfileSecurityInformation('ctc_confirm_legal_form');
                 }
 

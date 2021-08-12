@@ -21,6 +21,7 @@ module Questions
         track_question_answer
         redirect_to(next_path)
       else
+        after_update_failure
         track_validation_error
         render :edit
       end
@@ -88,6 +89,8 @@ module Questions
     private
 
     def after_update_success; end
+
+    def after_update_failure; end
 
     # Overwrite in order to change which record or params are passed to the form during update
     def initialized_update_form

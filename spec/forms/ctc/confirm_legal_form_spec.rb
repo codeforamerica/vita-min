@@ -36,6 +36,18 @@ describe Ctc::ConfirmLegalForm do
         expect(form.errors.keys).to include(:consented_to_legal)
       end
     end
+
+    context "when efile security information fields are missing" do
+      before do
+        [:device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address].each { |key| params.delete(key) }
+      end
+
+      it "is not valid" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+        expect(form.errors.keys).to match array_including(:device_id, :user_agent, :browser_language, :platform, :timezone_offset, :ip_address)
+      end
+    end
   end
 
   context "save" do

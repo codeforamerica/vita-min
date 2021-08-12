@@ -11,6 +11,7 @@ module Ctc
                        :ip_address
 
     validates :consented_to_legal, acceptance: { accept: 'yes', message: I18n.t("views.ctc.questions.confirm_legal.error") }
+    validates_presence_of :device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address
 
     def save
       @intake.update(attributes_for(:intake))
