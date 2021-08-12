@@ -3,11 +3,35 @@ require 'rails_helper'
 describe Efile::PollForAcknowledgmentsService do
   before do
     allow(Rails.application.config).to receive(:efile_environment).and_return("test")
+    allow(DatadogApi).to receive(:gauge)
+    allow(DatadogApi).to receive(:increment)
   end
 
   describe ".run" do
-    context "with an EfileSubmission that is in the transmitted state" do
+    context "when there is 101 EfileSubmissions" do
+      let(:efile_submission_ids) { (1..101).to_a.map(&:to_s) }
 
+      before do
+        allow(Efile::GyrEfilerService).to receive(:run_efiler_command).and_return("")
+        allow(Efile::PollForAcknowledgmentsService).to receive(:transmitted_submission_ids).and_return(efile_submission_ids)
+      end
+
+      it "polls the IRS for all of them" do
+        Efile::PollForAcknowledgmentsService.run
+        expect(Efile::GyrEfilerService).to have_received(:run_efiler_command).with("test", "acks", *efile_submission_ids.first(100)).once
+        expect(Efile::GyrEfilerService).to have_received(:run_efiler_command).with("test", "acks", *efile_submission_ids.last(1)).once
+      end
+
+      it "sends metrics to Datadog" do
+        Efile::PollForAcknowledgmentsService.run
+
+        expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.requested", 101)
+        expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.received", 0)
+        expect(DatadogApi).to have_received(:increment).with("efile.poll_for_acks")
+      end
+    end
+
+    context "with an EfileSubmission that is in the transmitted state" do
       let!(:efile_submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
 
       before do
@@ -44,6 +68,22 @@ describe Efile::PollForAcknowledgmentsService do
             expect(efile_submission.current_state).to eq("rejected")
             expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
           end
+
+          it "sends metrics to Datadog" do
+            Efile::PollForAcknowledgmentsService.run
+
+            expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.requested", 1)
+            expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.received", 1)
+            expect(DatadogApi).to have_received(:increment).with("efile.poll_for_acks")
+          end
+
+          it "updates the last_checked_for_ack_at" do
+            freeze_time do
+              expect(efile_submission.last_checked_for_ack_at).to eq(nil)
+              Efile::PollForAcknowledgmentsService.run
+              expect(efile_submission.reload.last_checked_for_ack_at).to eq(Time.now)
+            end
+          end
         end
 
         context "and it is an acceptance" do
@@ -57,5 +97,22 @@ describe Efile::PollForAcknowledgmentsService do
         end
       end
     end
+  end
+
+  describe ".transmitted_submission_ids" do
+    let(:irs_submission_id1) { "9999992021197yrv4rvl" }
+    let(:irs_submission_id2) { "9999992021197yrv4rvx" }
+    let!(:efile_submission1) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+    let!(:efile_submission2) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+
+    before do
+      efile_submission1.update!(irs_submission_id: irs_submission_id1)
+      efile_submission2.update!(irs_submission_id: irs_submission_id2)
+    end
+
+    it "returns an array of IRS submission IDs" do
+      expect(described_class.transmitted_submission_ids).to match_array([irs_submission_id1, irs_submission_id2])
+    end
+
   end
 end
