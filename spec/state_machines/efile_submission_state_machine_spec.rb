@@ -24,15 +24,27 @@ describe EfileSubmissionStateMachine do
         before do
           allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
         end
+        context "when this is the first submission" do
+          it "sends a message to the client" do
+            submission.transition_to!(:preparing)
 
-        it "sends a message to the client" do
-          submission.transition_to!(:preparing)
+            expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+                client: submission.client.reload,
+                message: instance_of(AutomatedMessage::EfilePreparing),
+                locale: submission.client.intake.locale
+            )
+          end
 
-          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-            client: submission.client.reload,
-            message: instance_of(AutomatedMessage::EfilePreparing),
-            locale: submission.client.intake.locale
-          )
+        end
+
+        context "when there is a previous submission" do
+          before do
+            create(:efile_submission, tax_return: submission.tax_return)
+          end
+          it "does not send a message to the client" do
+            submission.transition_to!(:preparing)
+            expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods)
+          end
         end
       end
     end
