@@ -306,6 +306,33 @@ describe EfileSubmission do
     end
   end
 
+  describe "imperfect_return_resubmission?" do
+    context "when the submission's preparing transition has a previous submission id stored" do
+      let(:previous_submission) { create(:efile_submission) }
+      let(:efile_error) { create(:efile_error, code: "SOMETHING-WRONG") }
+      let(:submission) { create :efile_submission }
+
+      before do
+        create(:efile_submission_transition, :rejected, efile_submission: previous_submission, efile_error_ids: [efile_error.id])
+        submission.transition_to!(:preparing, previous_submission_id: previous_submission.id)
+      end
+
+      context "and the previous submission had an inapplicable error" do
+        it "returns false" do
+          expect(submission.imperfect_return_resubmission?).to eq(false)
+        end
+      end
+
+      context "and the previous submission had a R0000-504-02 error" do
+        let!(:efile_error) { create(:efile_error, code: "R0000-504-02") }
+
+        it "returns true" do
+          expect(submission.imperfect_return_resubmission?).to eq(true)
+        end
+      end
+    end
+  end
+
   describe "last_client_accessible_transition" do
     context "when the status of the last_transition is investigating" do
       let(:efile_submission) { create :efile_submission, :rejected }
