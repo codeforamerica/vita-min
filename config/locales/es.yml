@@ -803,11 +803,11 @@ es:
       09_sister: Hermana
       10_brother: Hermano
       11_other: Otro
-      12_stepchild: Stepchild
+      12_stepchild: Hijastro/Hijastra
       13_stepbrother: Stepbrother
       14_stepsister: Stepsister
-      15_half_brother: Half brother
-      16_half_sister: Half sister
+      15_half_brother: Medio hermano
+      16_half_sister: Medio hermana
       17_grandparent: "Abuela/Abuelo"
     add_ctc_client: Agregar CTC cliente
     add_client: Agregar cliente
@@ -1217,7 +1217,7 @@ es:
 
             ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS.
 
-            Inicie sesión aquí [link to log in page] para ver los siguientes pasos y corregir la información de sus impuestos
+            Inicie sesión aquí <<Client.LoginLink>> para ver los siguientes pasos y corregir la información de sus impuestos
 
             ¡Estamos aquí para ayudarle!
             Su Equipo de Declaración de Impuestos GetCTC
@@ -1391,6 +1391,9 @@ es:
             rejected:
               label: Rechazada
               message: Su declaración no ha sido aceptada por el IRS. Tendremos que corregir su información y volver a enviarla. Favor de comunicarse con su preparador de impuestos para hacer las correcciones.
+            cancelled:
+              label: Cancelado
+              message: Ya no intentaremos enviar esta declaración al IRS. Esto puede deberse a que solicitó que no enviemos la declaración o porque un rechazo del IRS indicó que no podemos volver a enviarla en su nombre.
       questions:
         returning_client:
           next_steps: "Acceda a su cuenta para completar las preguntas. Si tiene alguna pregunta, inicie una sesión de chat con nosotros."
