@@ -1482,8 +1482,8 @@ en:
             file_a_simplified_return: "File a simplified return"
           confirm_dependents:
             title: "Let’s confirm your dependents!"
-            qualifying_for_ctc: "Dependents qualifying for CTC and third stimulus payment"
-            qualifying_for_other_credits: "Dependents qualifying for other credits"
+            qualifying_for_ctc: "Dependents qualifying for CTC and stimulus payments"
+            qualifying_for_other_credits: "Dependents qualifying for stimulus payments only"
             birthday: "Date of birth: %{dob}"
             ssn: "SSN: XXX-XX-%{ssn}"
             add_a_dependent: "Add a dependent"
