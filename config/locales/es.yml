@@ -1503,8 +1503,7 @@ es:
         account_number:
           title: Favor de proporcionarnos el número de su cuenta bancaria
           account_number: Número de cuenta
-          account_number_confirmation:
-          Confirme su número de cuenta
+          account_number_confirmation: Confirme su número de cuenta
         confirm_bank_account:
           title: ¡Excelente! Revise que sus datos bancarios sean correctos.
           bank_information: La información de su banco
