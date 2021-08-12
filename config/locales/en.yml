@@ -3148,9 +3148,12 @@ en:
     ctc_pages:
       home:
         title: "Get Your Child Tax Credit"
-        header: "Child Tax Credit"
-        subheader: "Putting cash in your family’s pocket every month for the things you need, even if you make little or no money."
-        claim_credit: "Claim your credit"
+        header: "Simplified Tax Filing to Claim Your Child Tax Credit"
+        subheader_html: |
+          <strong>GetCTC is launching soon!</strong> Sign up to receive an email as soon as the simplified filing portal is ready.<br/>
+          <br/>
+          Claim your Child Tax Credit and missing stimulus payments, even if you don’t have your tax documents.
+        sign_up_for_updates: Sign up for updates
         common_questions:
           title: "Common Questions"
           what_will_i_need_to_submit:
@@ -3213,16 +3216,18 @@ en:
             question: "Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?"
             answer_html: |
               No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
-        sign_up_for_reminders:
-          p1: Simplified filing for your Child Tax Credit and missing stimulus payments is coming soon!
-          p2: Sign up to receive an email as soon as the filing portal is ready.
-          button: Sign up for updates
+        what_is:
+          heading: Child Tax Credit
+          body_html: |
+            Putting cash in your family’s pocket every month for the things you need, even if you make little or no money.<br/>
+            <br/>
+            The American Rescue Plan, signed into law by President Biden on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $300 per month per child under age 6, and up to $250 per month per child ages 6 to 17.<br/>
+            <br/>
+            You can receive  payments of up to $300 per child every month starting in July 2021 through December 2021. You will need to file a tax return in 2022 to receive the rest of the payment.
+        why:
+          body_html: <strong>GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product.</strong> Learn more about why we are doing this work <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">here</a>.
         navigator_resources_html: |
           <strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="https://www.notion.so/cfa/GetCTC-org-Navigator-Resources-47bd79cc43034fa181e4f54d2131a4b2" rel="noopener" target="_blank">here.</a>
-        what_is:
-          heading: "What is the Child Tax Credit?"
-          body1: "The American Rescue Plan, signed into law by President Biden on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $300 per month per child under age 6, and up to $250 per month per child ages 6 to 17."
-          body2: "You can receive  payments starting in July 2021 through December 2021. You will need to file a tax return in 2022 to receive the rest of the payment."
         qualify:
           heading: "Do I qualify for the Child Tax Credit?"
           body1: "You can receive the Child Tax Credit if you have children, even if you make little or no money."

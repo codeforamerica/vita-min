@@ -18,7 +18,12 @@
     padding-bottom: 0;
   }
 
+  .slab--why {
+    background-color: $color-grey-light;
+  }
+
+  $color-light-gold: #FFD29C;
   .slab--navigators {
-    background-color: $color-beige;
+    background-color: $color-light-gold;
   }
 }

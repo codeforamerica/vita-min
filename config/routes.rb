@@ -250,6 +250,7 @@ Rails.application.routes.draw do
 
       unless Rails.env.production?
         resources :flows, only: [:index, :show]
+        resources :icons, only: [:index]
       end
 
       # Any other top level slash just goes to home as a source parameter

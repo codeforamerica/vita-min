@@ -1,0 +1,18 @@
+<h1>Icons</h1>
+
+<div class="slab">
+  <% @icons.each do |icon_path| %>
+    <div class="spacing-below-15">
+      <%= icon_path %>
+      <div style="display: flex">
+        <div style="padding:5px">
+          <%= image_tag(icon_path, alt: "") %>
+        </div>
+        <div style="width: 25px;"></div>
+        <div style="padding: 5px; background-color: grey;">
+          <%= image_tag(icon_path, alt: "") %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
