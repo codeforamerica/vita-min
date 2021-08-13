@@ -17,6 +17,10 @@
     list-style-type: initial;
   }
 
+  ul.no-bullets {
+    list-style-type: none;
+  }
+
   ol {
     list-style-type: decimal;
   }

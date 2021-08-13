@@ -548,6 +548,10 @@ class Intake < ApplicationRecord
     self.update(navigator_type[:field_name] => true)
   end
 
+  def drop_off?
+    tax_returns.pluck(:service_type).any? "drop_off"
+  end
+
   def navigator_display_names
     names = []
     NAVIGATOR_TYPES.each do |_, type|
