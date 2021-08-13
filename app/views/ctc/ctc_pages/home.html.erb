@@ -78,19 +78,19 @@
 
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1">
-            <h3><%=t("views.ctc_pages.home.qualify.eligible.subheading") %></h3>
+            <h3><%= t("views.ctc_pages.home.qualify.eligible.subheading") %></h3>
           </a>
           <div class="accordion__content" id="a1">
-            <p><%=t("views.ctc_pages.home.qualify.eligible.body_html") %></p>
+            <p><%= t("views.ctc_pages.home.qualify.eligible.body_html") %></p>
           </div>
         </div>
 
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
-            <h3><%=t("views.ctc_pages.home.qualify.dependents.subheading") %></h3>
+            <h3><%= t("views.ctc_pages.home.qualify.dependents.subheading") %></h3>
           </a>
           <div class="accordion__content" id="a2">
-            <%=t("views.ctc_pages.home.qualify.dependents.body") %>
+            <%= t("views.ctc_pages.home.qualify.dependents.body") %>
             <ul>
               <% t("views.ctc_pages.home.qualify.dependents.qualifiers").each do |item| %>
                 <li><%= item %></li>
@@ -115,12 +115,12 @@
 
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a3">
-            <h3><%=t("views.ctc_pages.home.obtain.already_filed.subheading") %></h3>
+            <h3><%= t("views.ctc_pages.home.obtain.already_filed.subheading") %></h3>
           </a>
           <div class="accordion__content" id="a3">
-            <p><%=t("views.ctc_pages.home.obtain.already_filed.body1") %></p>
+            <p><%= t("views.ctc_pages.home.obtain.already_filed.body1") %></p>
             <p>
-              <%=t("views.ctc_pages.home.obtain.already_filed.body2_html") %>
+              <%= t("views.ctc_pages.home.obtain.already_filed.body2_html") %>
             </p>
             <ul>
               <% t("views.ctc_pages.home.obtain.already_filed.update_items").each do |item| %>
@@ -128,14 +128,14 @@
               <% end %>
             </ul>
             <p>
-              <%=t("views.ctc_pages.home.obtain.already_filed.body3_html") %>
+              <%= t("views.ctc_pages.home.obtain.already_filed.body3_html") %>
             </p>
             <ul>
               <% t("views.ctc_pages.home.obtain.already_filed.current_items").each do |item| %>
                 <li><%= item %></li>
               <% end %>
             </ul>
-            <p><%=t("views.ctc_pages.home.obtain.already_filed.body4") %></p>
+            <p><%= t("views.ctc_pages.home.obtain.already_filed.body4") %></p>
             <ul>
               <% t("views.ctc_pages.home.obtain.already_filed.opt_out_items").each do |item| %>
                 <li><%= item %></li>
@@ -149,27 +149,32 @@
 
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a4">
-            <h3><%=t("views.ctc_pages.home.obtain.not_filed.subheading") %></h3>
+            <h3><%= t("views.ctc_pages.home.obtain.not_filed.subheading") %></h3>
           </a>
           <div class="accordion__content" id="a4">
             <p>
-              <%=t("views.ctc_pages.home.obtain.not_filed.body1_html") %>
+              <%= t("views.ctc_pages.home.obtain.not_filed.body1_html") %>
             </p>
-            <p><%=t("views.ctc_pages.home.obtain.not_filed.body2") %></p>
+            <p><%= t("views.ctc_pages.home.obtain.not_filed.body2") %></p>
             <p>
-              <%= t("views.ctc_pages.home.non_filer_sign_up_tool_warning_html") %>
+              <strong><%= t("views.ctc_pages.home.obtain.not_filed.body3") %></strong>
+            </p>
+            <p>
+              <%= t("views.ctc_pages.home.obtain.not_filed.body4_info") %>
+              <strong>
+                <%= link_to t("views.ctc_pages.home.obtain.not_filed.body4_sign_up"), new_ctc_signup_path %>
+              </strong>
             </p>
           </div>
         </div>
 
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a5">
-            <h3><%=t("views.ctc_pages.home.obtain.full_return.subheading") %></h3>
+            <h3><%= t("views.ctc_pages.home.obtain.full_return.subheading") %></h3>
           </a>
           <div class="accordion__content" id="a5">
-            <p><%=t("views.ctc_pages.home.obtain.full_return.body1_html") %></p>
+            <p><%= t("views.ctc_pages.home.obtain.full_return.body1_html") %></p>
             <% unless ENV['CTC_HIDE_DIY_LINK'] == 'true' %>
-              <p><%=t("views.ctc_pages.home.obtain.full_return.body2_html") %></p>
               <p>
                 <%=
                   t("views.ctc_pages.home.obtain.full_return.gyr_diy_explanation_html",
