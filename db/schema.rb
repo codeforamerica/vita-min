@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_12_213057) do
+ActiveRecord::Schema.define(version: 2021_08_13_144311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -223,6 +223,7 @@ ActiveRecord::Schema.define(version: 2021_08_12_213057) do
   end
 
   create_table "ctc_signups", force: :cascade do |t|
+    t.datetime "beta_email_sent_at"
     t.datetime "created_at", precision: 6, null: false
     t.string "email_address"
     t.string "name"
