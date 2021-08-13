@@ -4,6 +4,7 @@ describe Portal::MessagesController do
   let(:client) { create :client, intake: (create :intake, email_address: "exampleton@example.com", email_notification_opt_in: "yes") }
   before do
     sign_in client, scope: :client
+    allow(IntercomService).to receive(:create_intercom_message_from_portal_message)
   end
 
   describe "#new" do
@@ -25,13 +26,14 @@ describe Portal::MessagesController do
         }
       end
 
-      it "creates a message and redirects to portal home with flash" do
+      it "creates a message, forwards to intercom, and redirects to portal home with flash" do
         expect {
           post :create, params: params
         }.to change(client.incoming_portal_messages, :count).by 1
 
         expect(response).to redirect_to portal_root_path
         expect(flash[:notice]).to eq "Message sent! Responses will be sent by email to exampleton@example.com."
+        expect(IntercomService).to have_received(:create_intercom_message_from_portal_message).with(client.incoming_portal_messages.last, inform_of_handoff: true)
       end
     end
 

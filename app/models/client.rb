@@ -262,7 +262,7 @@ class Client < ApplicationRecord
   end
 
   def forward_message_to_intercom?
-    (tax_returns.pluck(:status).map(&:to_sym) & TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES).any?
+    !online_ctc? && tax_returns.pluck(:status).map(&:to_sym).all? { |status| TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES.include? status }
   end
 
   # TODO: Replace with accurate implementation
@@ -270,9 +270,12 @@ class Client < ApplicationRecord
     current_sign_in_ip
   end
 
+  def online_ctc?
+    intake.is_ctc? && intake.tax_returns.any? { |tr| tr.service_type == "online_intake" }
+  end
+
   def hub_status_updatable
-    ctc_online_intake = intake.is_ctc? && intake.tax_returns.any? { |tr| tr.service_type == "online_intake" }
-    !ctc_online_intake
+    !online_ctc?
   end
 
   private

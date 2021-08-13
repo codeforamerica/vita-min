@@ -403,6 +403,7 @@ describe Client do
       end
     end
   end
+
   describe "touch behavior" do
     let!(:client) { create :client }
 
@@ -772,6 +773,48 @@ describe Client do
 
       it "returns a hash with both en & es" do
         expect(Client.all.locale_counts).to eq({ "en" => 2, "es" => 0})
+      end
+    end
+  end
+
+  describe "#forward_message_to_intercom?" do
+    context "an online CTC client" do
+      let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, service_type: "online_intake")] }
+
+      it "returns false" do
+        expect(client.forward_message_to_intercom?).to eq(false)
+      end
+    end
+
+    context "a dropoff client" do
+      let(:client) { create :client, intake: create(:intake), tax_returns: tax_returns }
+      let(:tax_returns) { [create(:tax_return, status: status1, year: "2019"), create(:tax_return, status: status2, year: "2020")] }
+
+      context "all the tax returns have FORWARD_TO_INTERCOM statuses" do
+        let(:status1) { "file_not_filing" }
+        let(:status2) { "file_accepted" }
+
+        it "returns true" do
+          expect(client.forward_message_to_intercom?).to eq(true)
+        end
+      end
+
+      context "some of the tax returns have FORWARD_TO_INTERCOM statuses" do
+        let(:status1) { "file_not_filing" }
+        let(:status2) { "review_reviewing" }
+
+        it "returns false" do
+          expect(client.forward_message_to_intercom?).to eq(false)
+        end
+      end
+
+      context "none of the tax returns have FORWARD_TO_INTERCOM statuses" do
+        let(:status1) { "review_reviewing" }
+        let(:status2) { "file_hold" }
+
+        it "returns false" do
+          expect(client.forward_message_to_intercom?).to eq(false)
+        end
       end
     end
   end
