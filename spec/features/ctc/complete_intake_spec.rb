@@ -11,7 +11,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
-    allow_any_instance_of(Ctc::Questions::LegalConsentController)
   end
 
   scenario "new client entering ctc intake flow" do
@@ -88,7 +87,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
     click_on I18n.t("views.ctc.questions.verification.verify")
-
 
     # =========== FILING STATUS ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))

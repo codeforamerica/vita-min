@@ -328,6 +328,10 @@ Rails.application.routes.draw do
           resources :documents, only: [:show]
         end
 
+        devise_for :users, path: "hub", controllers: {
+          sessions: "users/sessions",
+        }
+
         # Any other top level slash just goes to home as a source parameter
         get "/:source" => "ctc_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
       end
