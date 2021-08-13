@@ -100,6 +100,8 @@ class Dependent < ApplicationRecord
     "daughter",
     "son",
     "stepchild",
+    "stepbrother",
+    "stepsister",
     "foster_child",
     "grandchild",
     "niece",
