@@ -3294,7 +3294,7 @@ es:
           not_filed:
             subheading: "Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos."
             body1_html: |
-              <p>Si usted ganó menos de $12,400 (o menos de $22,500 si está casado), usted puede usar GetCTC, un portal para la declaración de impuestos de forma simplificada para:</p>
+              <p>Si usted ganó menos de $12,400 (o menos de $24,800 si está casado), usted puede usar GetCTC, un portal para la declaración de impuestos de forma simplificada para:</p>
               <ul>
                 <li>obtener el Crédito Tributario por Hijos</li>
                 <li>recibir un pago de estímulo que le falte</li>
