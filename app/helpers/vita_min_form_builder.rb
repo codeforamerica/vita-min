@@ -1,4 +1,57 @@
 class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
+  # Override cfa_* to escape label_text; hopefully Honeycrisp will incorporate a similar fix soon.
+  def cfa_date_select(
+    method,
+    label_text,
+    help_text: nil,
+    options: {},
+    autofocus: nil
+  )
+    super(method, label_text ? ERB::Util.h(label_text) : label_text, help_text: help_text, options: options, autofocus: autofocus)
+  end
+
+  def cfa_textarea(method, label_text, help_text: nil, options: nil, classes: nil, autofocus: nil, hide_label: nil, optional: nil)
+    super(method, label_text ? ERB::Util.h(label_text) : label_text, help_text: help_text, options: options, classes: classes, autofocus: autofocus, hide_label: hide_label, optional: optional)
+  end
+
+  def cfa_radio_set(
+    method,
+    label_text: "",
+    collection:,
+    help_text: nil,
+    layouts: ["block"],
+    legend_class: ""
+  )
+    super(method, label_text: label_text ? ERB::Util.h(label_text) : label_text, collection: collection, help_text: help_text, layouts: layouts, legend_class: legend_class)
+  end
+
+  def cfa_checkbox(method, label_text, options: {})
+    escaped_label_text = label_text ? ERB::Util.h(label_text) : label_text
+    super(method, escaped_label_text, options: options)
+  end
+
+  def cfa_select(method, label_text, collection, options = {}, &block)
+    escaped_label_text = label_text ? ERB::Util.h(label_text) : label_text
+    super(method, escaped_label_text, collection, options, &block)
+  end
+
+  def cfa_input_field(
+    method,
+    label_text,
+    type: "text",
+    help_text: nil,
+    options: {},
+    classes: [],
+    prefix: nil,
+    postfix: nil,
+    autofocus: nil,
+    optional: false,
+    notice: nil
+  )
+    escaped_label_text = label_text ? ERB::Util.h(label_text) : label_text
+    super(method, escaped_label_text, type: type, options: options, classes: classes, prefix: prefix, postfix: postfix, autofocus: autofocus, optional: optional, notice: notice)
+  end
+
   def vita_min_field_in_label(
       method,
       label_text,
@@ -33,12 +86,12 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
   def h1_label_contents(label_text, help_text, optional = false)
     label_text = <<~HTML
-          <h1 class="form-question">#{label_text + optional_text(optional)}</h1>
+      <h1 class="form-question">#{label_text + optional_text(optional)}</h1>
     HTML
 
     if help_text
       label_text << <<~HTML
-            <p class="text--help">#{help_text}</p>
+        <p class="text--help">#{help_text}</p>
       HTML
     end
 
@@ -52,6 +105,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     options = {},
     &block
   )
+    label_text = ERB::Util.h(label_text) if label_text
     html_options = {
       class: "select__element",
     }
@@ -63,19 +117,20 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_options_with_errors = html_options.merge(error_attributes(method: method))
 
     html_output = <<~HTML
-          <div class="form-group#{error_state(object, method)}">
-            #{formatted_label}
-            <div class="select">
-              #{select(method, collection, options, html_options_with_errors, &block)}
-            </div>
-            #{errors_for(object, method)}
-          </div>
+      <div class="form-group#{error_state(object, method)}">
+        #{formatted_label}
+        <div class="select">
+          #{select(method, collection, options, html_options_with_errors, &block)}
+        </div>
+        #{errors_for(object, method)}
+      </div>
     HTML
 
     html_output.html_safe
   end
 
   def simplified_cfa_checkbox(method, label_text, options: {})
+    label_text = ERB::Util.h(label_text) if label_text
     checked_value = options[:checked_value] || "1"
     unchecked_value = options[:unchecked_value] || "0"
 
@@ -99,6 +154,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   end
 
   def hub_checkbox(method, label_text, options: {})
+    label_text = ERB::Util.h(label_text) if label_text
     checked_value = options[:checked_value] || "1"
     unchecked_value = options[:unchecked_value] || "0"
 
@@ -112,16 +168,17 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     options_with_errors = options.merge(error_attributes(method: method))
     <<~HTML.html_safe
-            <div class="checkbox-group input-group form-group#{error_state(object, method)}">
-              <label class="#{classes.join(' ')}">
-                #{check_box(method, options_with_errors, checked_value, unchecked_value)} #{label_text}
-              </label>
-              #{errors_for(object, method)}
-            </div>
+      <div class="checkbox-group input-group form-group#{error_state(object, method)}">
+        <label class="#{classes.join(' ')}">
+          #{check_box(method, options_with_errors, checked_value, unchecked_value)} #{label_text}
+        </label>
+        #{errors_for(object, method)}
+      </div>
     HTML
   end
 
   def cfa_file_field(method, label_text, help_text: nil, options: {}, classes: [], optional: false)
+    label_text = ERB::Util.h(label_text) if label_text
 
     file_field_options = {
         class: (classes + ["file-input"]).join(" ")
@@ -157,6 +214,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     options: {},
     classes: []
   )
+    label_text = ERB::Util.h(label_text) if label_text
     text_field_options = standard_options.merge(
       class: (classes + ["text-input"]).join(" "),
     ).merge(options).merge(error_attributes(method: method))
@@ -170,15 +228,16 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     label_and_field_html = formatted_label + formatted_field(nil, text_field_html, nil, []).html_safe
 
     html_output = <<~HTML
-          <div class="form-group#{error_state(object, method)}">
-          #{label_and_field_html}
-            #{errors_for(object, method)}
-          </div>
+      <div class="form-group#{error_state(object, method)}">
+      #{label_and_field_html}
+        #{errors_for(object, method)}
+      </div>
     HTML
     html_output.html_safe
   end
 
   def vita_min_searchbar(method, label_text, label_icon: "", options: {}, classes: [])
+    label_text = ERB::Util.h(label_text) if label_text
     text_field_options = {
       class: (classes + ["vita-min-searchbar__input text-input"]).join(" ")
     }.merge(options).merge(error_attributes(method: method))
@@ -203,6 +262,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   end
 
   def vita_min_date_text_fields(method, label_text, help_text: nil, options: {}, classes: [])
+    label_text = ERB::Util.h(label_text) if label_text
     date_text_fields = [["month", 2], ["day", 2], ["year", 4]].map do |date_component, max_length|
       date_component_slug = "#{method}_#{date_component}"
       classes += ["text-input date-text-input form-width--short"]
@@ -224,15 +284,15 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     end
 
     <<~HTML.html_safe
-          <fieldset class="form-group#{error_state(object, method)}">
-            #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
-            <div>
-              #{date_text_fields[0]}
-              #{date_text_fields[1]}
-              #{date_text_fields[2]}
-            </div>
-            #{errors_for(object, method)}
-          </fieldset>
+      <fieldset class="form-group#{error_state(object, method)}">
+        #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
+        <div>
+          #{date_text_fields[0]}
+          #{date_text_fields[1]}
+          #{date_text_fields[2]}
+        </div>
+        #{errors_for(object, method)}
+      </fieldset>
     HTML
   end
 end
