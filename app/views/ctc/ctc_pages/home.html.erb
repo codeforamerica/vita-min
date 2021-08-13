@@ -8,19 +8,19 @@
 <main role="main" class="ctc-home">
   <div class="slab slab--hero">
     <div class="grid-flex contained column-row space-between">
-      <div class="grid-flex column-column">
+      <div class="grid-flex column-column spacing-below-35">
         <h1 class="landing-page-header">
           <%= t("views.ctc_pages.home.header") %>
         </h1>
         <p>
           <%= t("views.ctc_pages.home.subheader_html") %>
         </p>
-        <div class="spacing-below-25">
+        <div>
           <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
         </div>
       </div>
 
-      <div class="grid-flex flex-end">
+      <div class="grid-flex align-flex-end">
         <%= image_tag "hero-family.png", alt: "", class: "hero-image hero-image--family" %>
       </div>
     </div>
