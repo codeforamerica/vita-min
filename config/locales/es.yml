@@ -157,10 +157,7 @@ es:
         spouse_contact_info: Información de contacto del cónyuge
         texting_phone: Número celular
         tax_info: Información de impuestos
-        navigator_types: Tipo de navegador utilizada
         navigator_types_empty: No se utiliza navegador
-        photo_id_types: Type of photo ID used
-        taxpayer_id_types: Type of taxpayer ID used
         basic_info: Información básica
         other_info: Other info
         routing_method: Método de enrutamiento inicial

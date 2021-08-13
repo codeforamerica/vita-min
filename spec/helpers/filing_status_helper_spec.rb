@@ -59,9 +59,8 @@ describe FilingStatusHelper do
 
       it "returns formatted filing statuses with notes, if applicable" do
         result = <<-RESULT
-        <ul><li><strong>Head of household</strong><span> (2019)</span><div><i>Married early 2020, qualifying dependent born late 2019.</i></div></li><li><strong>Married filing jointly</strong><span> (2020)</span></li></ul>
+        <ul class="no-bullets"><li><span class="form-question">2019: </span><span>Head of household</span><div><i>Married early 2020, qualifying dependent born late 2019.</i></div></li><li><span class="form-question">2020: </span><span>Married filing jointly</span></li></ul>
         RESULT
-
         expect(helper.filing_status(client)).to eq result.strip_heredoc.chomp
       end
     end
