@@ -324,8 +324,12 @@
     justify-content: space-between;
   }
 
-  &.flex-end {
+  &.justify-flex-end {
     justify-content: flex-end;
+  }
+
+  &.align-flex-end {
+    align-items: flex-end;
   }
 
   &.center-aligned {
