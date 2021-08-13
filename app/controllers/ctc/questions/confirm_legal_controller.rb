@@ -7,7 +7,7 @@ module Ctc
 
       def form_params
         super.merge(ip_address: request.remote_ip).merge(
-          Rails.application.config.efile_security_information_for_testing.presence || {}
+          Rails.application.config.try(:efile_security_information_for_testing).presence || {}
         )
       end
 
