@@ -37,32 +37,26 @@
       </div>
     </div>
   </div>
-
-  <div class="slab banner">
-    <span><%= t("views.public_pages.home.ctc_full_capacity_html") %></span>
-  </div>
-
-  <div class="slab slab--info-section">
+  <div class="slab slab--secondary-cta slab--stimulus-blue">
     <div class="grid">
-      <div class="grid__item width-one-whole">
-        <h2 class="h3 spacing-below-0"><%= t("views.public_pages.home.stimulus_banner.heading") %></h2>
+      <div class="grid__item width-two-thirds">
+        <p class="spacing-below-25">
+          <strong><%= t("views.public_pages.home.get_ctc.title") %></strong>
+        </p>
+        <p class="spacing-below-0"><%= t("views.public_pages.home.get_ctc.body") %></p>
       </div>
-      <div class="grid__item width-one-whole">
-        <ul>
-          <% t("views.public_pages.home.stimulus_banner.facts_html", file_with_help_link: triage_tax_needs_questions_url).each do |item| %>
-            <li>
-              <%= item %>
-            </li>
-          <% end %>
-        </ul>
+      <div class="grid__item width-one-third button-container">
+        <%= link_to url_for(host: Rails.application.config.ctc_domains[Rails.env.to_sym], controller: "/public_pages", action: 'source_routing', source: "gyr"), class: "button" do %>
+          <%= t("views.public_pages.home.get_ctc.button") %>
+        <% end %>
       </div>
     </div>
   </div>
 
-  <div class="slab slab--secondary-cta slab--lavender">
+  <div class="slab slab--secondary-cta slab--grey">
     <div class="grid">
       <div class="grid__item width-two-thirds">
-        <p class="cta-text">
+        <p>
           <strong><%= t("views.public_pages.home.stimulus_faq.info") %></strong>
         </p>
       </div>
@@ -171,7 +165,7 @@
 
   <div class="slab slab--secondary-cta">
     <div class="grid">
-      <div class="grid__item width-three-fourths cta-text">
+      <div class="grid__item width-three-fourths">
         <h2 class="h3 spacing-below-0"><%= t("views.public_pages.home.features.header") %></h2>
         <ul class="list--bulleted text--small text--semibold">
           <li class="spacing-below-0"><%= t("views.public_pages.home.features.free") %></li>

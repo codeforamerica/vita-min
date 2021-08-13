@@ -33,6 +33,10 @@
   background-color: $color-stimulus-blue;
 }
 
+.slab--grey {
+  background-color: $color-grey-light;
+}
+
 .slab--lavender {
   background-color: $color-lavender;
 }
@@ -46,12 +50,14 @@
 }
 
 .slab--secondary-cta {
-  .cta-text {
-    margin-bottom: 3.5rem;
-  }
-
   .button-container {
     text-align: center;
+    margin-top: 3.5rem;
+
+    @media screen and (min-width: $tablet-up) {
+      margin-top: 0;
+     text-align: right;
+    }
   }
 
   .button {
@@ -63,10 +69,6 @@
     .grid {
       display: flex;
       align-items: center;
-    }
-
-    .cta-text {
-      margin-bottom: 0;
     }
   }
 }
