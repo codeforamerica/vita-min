@@ -24,9 +24,7 @@
             help_text: t("hub.clients.show.date_of_birth_help"),
             classes: ["ctc-intake-date-text-input"]
             ) %>
-      <div class="form-width--long">
-        <%= f.cfa_select(:primary_tin_type, t('views.ctc.questions.legal_consent.tin_type'), tin_options_for_select(include_itin: true)) %>
-      </div>
+      <%= f.cfa_select(:primary_tin_type, t('views.ctc.questions.legal_consent.tin_type'), tin_options_for_select(include_itin: true)) %>
       <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>

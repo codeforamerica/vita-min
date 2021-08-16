@@ -3049,7 +3049,7 @@ es:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
         off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}
       footer:
-        ctc_service_description_html: GetYourCTC.org es un servicio sin ánimo de lucro creado por %{link}.
+        ctc_service_description_html: GetCTC.org es un servicio sin ánimo de lucro creado por %{link}.
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
         volunteer_sign_in: Sesión de voluntarios
         service_status: "Estado del servicio"
