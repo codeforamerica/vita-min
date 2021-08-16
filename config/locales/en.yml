@@ -1480,6 +1480,7 @@ en:
             qualifying_for_other_credits: "Dependents qualifying for stimulus payments only"
             birthday: "Date of birth: %{dob}"
             ssn: "SSN: XXX-XX-%{ssn}"
+            ssn_na: "SSN: N/A"
             add_a_dependent: "Add a dependent"
             done_adding: "Done adding dependents"
           child_disqualifiers:

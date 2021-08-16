@@ -1460,6 +1460,7 @@ es:
             qualifying_for_other_credits: "Dependientes que califican para los pagos de estímulo solor"
             birthday: "Fecha de nacimiento: %{dob}"
             ssn: "Número de Seguro Social: XXX-XX-%{ssn}"
+            ssn_na: "Número de Seguro Social: N/A"
             add_a_dependent: "Agregar una persona dependiente"
             done_adding: "Ya no hay más dependientes por agregar"
           child_disqualifiers:

@@ -24,6 +24,15 @@ describe Ctc::Dependents::TinForm do
       expect(form.errors.keys).to include(:tin_type)
     end
 
+    context "there is no tin/ssn entered" do
+      let(:dependent) { create :dependent, intake: intake, tin_type: "ssn", ssn: nil, birth_date: nil }
+      it "is not valid" do
+        form = described_class.from_dependent(dependent)
+        expect(form).not_to be_valid
+        expect(form.errors.keys).to include(:ssn)
+      end
+    end
+
     describe 'ssn_confirmation' do
       context 'if ssn was blank' do
         let(:ssn) { nil }
