@@ -6,6 +6,10 @@ module Ctc
 
         layout "intake"
 
+        def self.show?(intake)
+          intake.had_dependents_yes?
+        end
+
         private
 
         def form_class
