@@ -16,7 +16,7 @@ class StandardizeAddressService
   # the USPS API sometimes responds with # to indicate apt number, but
   # the IRS does not allow that character -- strip it out.
   def street_address
-    @result[:street_address].gsub("#", "")
+    @result[:street_address].gsub("#", "").gsub(/(\s)+/, " ")
   end
 
   def city
