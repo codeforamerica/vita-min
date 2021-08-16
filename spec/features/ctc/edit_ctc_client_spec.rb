@@ -15,6 +15,7 @@ RSpec.describe "a user editing a clients intake fields" do
                             filing_joint: "yes",
                             primary_first_name: "Colleen",
                             primary_last_name: "Cauliflower",
+                            phone_number: "+14404093500",
                             state_of_residence: "CA",
                             preferred_name: "Colleen Cauliflower",
                             email_notification_opt_in: "yes",
@@ -115,7 +116,7 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "Type of navigator used"
       expect(page).to have_text "General, Incarcerated/reentry, Unhoused"
       expect(page).to have_text "hello@cauliflower.com"
-      expect(page).to have_text "+15005550006"
+      expect(page).to have_text "+14404093500"
       expect(page).to have_text "+15005550006"
       expect(page).to have_text "123 Garden Ln"
       expect(page).to have_text "Brassicaville, CA 95032"

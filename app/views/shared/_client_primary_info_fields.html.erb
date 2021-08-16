@@ -40,6 +40,8 @@
       <%= f.hub_checkbox(:sms_notification_opt_in, t("general.opt_in_sms"), options: { checked_value: "yes", unchecked_value: "no" }) %>
     </div>
 
+    <%= f.cfa_input_field(:phone_number, t("general.phone_number"),  classes: ["form-width--phone"]) %>
+
     <% if is_ctc %>
       <%= f.vita_min_date_text_fields(
             :primary_birth_date,
@@ -62,7 +64,6 @@
           ) %>
       <%= f.cfa_input_field(:primary_ip_pin, t("general.ip_pin")) %>
     <% else %>
-      <%= f.cfa_input_field(:phone_number, t("general.phone_number"),  classes: ["form-width--phone"]) %>
       <%= f.cfa_input_field(
             :primary_last_four_ssn,
             t("general.last_four_ssn"),
