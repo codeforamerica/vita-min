@@ -92,6 +92,7 @@ RSpec.describe MailgunWebhooksController do
 
           email = IncomingEmail.last
           client = Client.last
+          expect(client.intake.class).to eq(Intake::GyrIntake)
           expect(client.vita_partner).to eq(VitaPartner.client_support_org)
           expect(email.client).to eq client
           expect(client.intake.email_address).to eq sender_email

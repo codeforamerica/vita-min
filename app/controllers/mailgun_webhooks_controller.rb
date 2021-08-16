@@ -12,7 +12,7 @@ class MailgunWebhooksController < ActionController::Base
     if client_count == 0
       DatadogApi.increment("mailgun.incoming_emails.client_not_found")
       clients = [Client.create!(
-        intake: Intake.create!(
+        intake: Intake::GyrIntake.create!(
           email_address: sender_email,
           visitor_id: SecureRandom.hex(26),
           email_notification_opt_in: "yes",
