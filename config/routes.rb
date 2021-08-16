@@ -328,6 +328,10 @@ Rails.application.routes.draw do
           resources :documents, only: [:show]
         end
 
+        # Devise logs out all logged in records, regardless of what model type they are
+        # It also generally wants a default Rails model to connect its routes to, which for us is :users
+        # These routes are used for logging in/out clients even though the paths are created for :users
+        # TODO: refactor to make more explicit session routes for clients
         devise_for :users, path: "hub", controllers: {
           sessions: "users/sessions",
         }
