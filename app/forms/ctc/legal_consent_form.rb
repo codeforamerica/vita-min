@@ -9,8 +9,7 @@ module Ctc
                        :primary_ssn,
                        :phone_number,
                        :primary_tin_type,
-                       :primary_active_armed_forces,
-                       :timezone
+                       :primary_active_armed_forces
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation
     set_attributes_for :efile_security_information,
@@ -55,20 +54,15 @@ module Ctc
 
     def save
       primary_last_four_ssn = primary_ssn.last(4) # merge last_four_ssn so that client can use data for logging in.
-      intake_attributes = attributes_for(:intake).merge(
+      @intake.update(
+        attributes_for(:intake).merge(
           primary_last_four_ssn: primary_last_four_ssn,
-          primary_birth_date: primary_birth_date,
-          visitor_id: @intake.visitor_id,
-          source: @intake.source,
-          type: @intake.type
+          primary_birth_date: primary_birth_date
+        )
       )
-      efile_attrs = attributes_for(:efile_security_information).merge(timezone_offset: format_timezone_offset(timezone_offset))
-      client = Client.create!(
-        intake_attributes: intake_attributes,
-        tax_returns_attributes: [tax_return_attributes],
-        efile_security_information_attributes: efile_attrs
+      @intake.client.update(
+        efile_security_information_attributes: attributes_for(:efile_security_information).merge(timezone_offset: format_timezone_offset(timezone_offset))
       )
-      @intake = client.intake
     end
 
     def self.existing_attributes(intake, _attribute_keys)

@@ -9,3 +9,18 @@
     <% end %>
   </ul>
 <% end %>
+
+<% content_for :script do %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var hiddenField = document.createElement('input');
+      hiddenField.setAttribute('type', 'hidden')
+      hiddenField.setAttribute('name', 'ctc_income_form[timezone]')
+      hiddenField.setAttribute('id', 'ctc_income_form_timezone')
+      document.querySelector('main form').appendChild(hiddenField);
+
+      var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.getElementById('ctc_income_form_timezone').value = timezone;
+    });
+  </script>
+<% end %>

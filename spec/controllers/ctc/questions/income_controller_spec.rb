@@ -2,17 +2,20 @@ require "rails_helper"
 
 describe Ctc::Questions::IncomeController do
   context '#update' do
-    let(:intake) { Intake::CtcIntake.new(visitor_id: "something") }
     let(:had_reportable_income) { "no" }
     let(:params) do
       {
-          ctc_income_form: {
-              had_reportable_income: had_reportable_income
-          }
+        ctc_income_form: {
+          timezone: "America/Chicago",
+          had_reportable_income: had_reportable_income
+        }
       }
     end
+
     before do
-      allow(subject).to receive(:current_intake).and_return(intake)
+      cookies[:visitor_id] = "visitor-id"
+      session[:source] = "some-source"
+
       allow(MixpanelService).to receive(:send_event)
     end
 
@@ -20,9 +23,9 @@ describe Ctc::Questions::IncomeController do
       post :update, params: params
 
       expect(MixpanelService).to have_received(:send_event).with(hash_including(
-                                                                     event_name: "question_answered",
-                                                                     data: { had_reportable_income: "no" }
-                                                                 ))
+        event_name: "question_answered",
+        data: { had_reportable_income: "no" }
+      ))
     end
 
     context "when answer is yes" do

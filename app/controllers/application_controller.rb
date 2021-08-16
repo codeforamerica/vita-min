@@ -290,10 +290,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_step
-    return unless current_intake.present?
+    return unless current_intake&.persisted?
     return unless request.get? # skip uploads
 
-    current_intake.update(current_step: current_path) unless current_intake.current_step == current_path
+    current_intake.update!(current_step: current_path) unless current_intake.current_step == current_path
   end
 
   def wrapping_layout

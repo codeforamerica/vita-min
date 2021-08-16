@@ -1,12 +1,11 @@
 require "rails_helper"
 
 describe Ctc::Questions::LegalConsentController do
-  let(:intake) { Intake::CtcIntake.new(visitor_id: "visitor-id", source: "some-source") }
+  let(:intake) { create :ctc_intake, visitor_id: "visitor-id" }
 
   before do
-    cookies[:visitor_id] = "visitor-id"
-    session[:source] = "some-source"
     allow(MixpanelService).to receive(:send_event)
+    session[:intake_id] = intake.id
   end
 
   describe "#edit" do
@@ -15,15 +14,6 @@ describe Ctc::Questions::LegalConsentController do
       expect(response).to render_template :edit
       expect(assigns(:form)).to be_an_instance_of Ctc::LegalConsentForm
       expect(assigns(:form).intake).to be_an_instance_of Intake::CtcIntake
-    end
-
-    it "initializes the current intake with a visitor id and source" do
-      expect {
-        get :edit, params: {}
-      }.to change(Intake, :count).by(1)
-      intake = Intake.last
-      expect(intake.visitor_id).to eq("visitor-id")
-      expect(intake.source).to eq("some-source")
     end
   end
 
@@ -48,7 +38,6 @@ describe Ctc::Questions::LegalConsentController do
             primary_ssn_confirmation: "111-22-8888",
             primary_active_armed_forces: "no",
             phone_number: "831-234-5678",
-            timezone: "America/Chicago",
             primary_tin_type: "ssn",
             device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
             user_agent: "GeckoFox",
@@ -93,7 +82,6 @@ describe Ctc::Questions::LegalConsentController do
               primary_ssn_confirmation: "111-22-8888",
               primary_active_armed_forces: "no",
               phone_number: "831-234-5678",
-              timezone: "America/Chicago",
               primary_tin_type: "ssn",
             }
           }
