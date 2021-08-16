@@ -4,7 +4,7 @@ class CtcQuestionNavigation
   FLOW = [
     # Basic info
     Ctc::Questions::OverviewController,
-    Ctc::Questions::IncomeController,
+    Ctc::Questions::IncomeController, # At this point we create the intake, client, and tax return
     Ctc::Questions::FileFullReturnController,
 
     # Eligibility
@@ -14,7 +14,7 @@ class CtcQuestionNavigation
     Ctc::Questions::LifeSituations2020Controller,
 
     # Consent/Contact
-    Ctc::Questions::LegalConsentController, # At this point we create the intake, client, and tax return
+    Ctc::Questions::LegalConsentController,
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,
     Ctc::Questions::EmailAddressController,

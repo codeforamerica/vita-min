@@ -34,13 +34,6 @@
       <%= render('components/molecules/reveal', title: t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_label")) do %>
         <p> <%= t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_content") %> </p>
       <% end %>
-      <%= f.hidden_field(:device_id) %>
-      <%= f.hidden_field(:user_agent) %>
-      <%= f.hidden_field(:browser_language) %>
-      <%= f.hidden_field(:platform) %>
-      <%= f.hidden_field(:timezone_offset) %>
-      <%= f.hidden_field(:client_system_time) %>
-
     </div>
 
     <p><%= t("views.ctc.questions.legal_consent.agree_to_share") %></p>
