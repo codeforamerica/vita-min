@@ -2,12 +2,8 @@ module Ctc
   module Questions
     class IncomeController < QuestionsController
       include AnonymousIntakeConcern
-      layout "yes_no_question"
 
-      def update
-        super
-        session[:intake_id] = current_intake.id
-      end
+      layout "yes_no_question"
 
       private
 
@@ -15,6 +11,10 @@ module Ctc
         super.merge(ip_address: request.remote_ip).merge(
           Rails.application.config.try(:efile_security_information_for_testing).presence || {}
         )
+      end
+
+      def after_update_success
+        session[:intake_id] = current_intake.id
       end
 
       def after_update_failure
