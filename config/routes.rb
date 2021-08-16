@@ -119,7 +119,12 @@ Rails.application.routes.draw do
       get "/relational-efin", to: "consent_pages#relational_efin"
       get "/global-carryforward", to: "consent_pages#global_carryforward"
 
-      devise_for :clients, skip: [:sessions]
+      devise_for :client, skip: [:sessions]
+
+      devise_scope :client do
+        delete 'clients/sign_out', to: 'devise/sessions#destroy', as: :destroy_client_session
+      end
+
       namespace :portal do
         root "portal#home"
 
@@ -296,6 +301,12 @@ Rails.application.routes.draw do
           post :generate, on: :collection
         end
       end
+
+      devise_for :client, skip: [:sessions]
+
+      devise_scope :client do
+        delete 'clients/sign_out', to: 'devise/sessions#destroy', as: :destroy_ctc_client_session
+      end
     end
 
     namespace :ctc, path: "/" do
@@ -327,14 +338,6 @@ Rails.application.routes.draw do
           resources :messages, only: [:new, :create]
           resources :documents, only: [:show]
         end
-
-        # Devise logs out all logged in records, regardless of what model type they are
-        # It also generally wants a default Rails model to connect its routes to, which for us is :users
-        # These routes are used for logging in/out clients even though the paths are created for :users
-        # TODO: refactor to make more explicit session routes for clients
-        devise_for :users, path: "hub", controllers: {
-          sessions: "users/sessions",
-        }
 
         # Any other top level slash just goes to home as a source parameter
         get "/:source" => "ctc_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
