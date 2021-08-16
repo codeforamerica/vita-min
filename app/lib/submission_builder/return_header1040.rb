@@ -122,7 +122,7 @@ module SubmissionBuilder
               # xml.IPPortNum omitted because we cannot get TCP client port number easily from Aptible.
               xml.DeviceId creation_security_information.device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               xml.DeviceTypeCd 1
-              xml.UserAgentTxt creation_security_information.user_agent
+              xml.UserAgentTxt trim(creation_security_information.user_agent, 150)
               xml.BrowserLanguageTxt creation_security_information.browser_language
               xml.PlatformTxt creation_security_information.platform
               xml.TimeZoneOffsetNum creation_security_information.timezone_offset
@@ -135,7 +135,7 @@ module SubmissionBuilder
               }
               xml.DeviceId filing_security_information.device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               xml.DeviceTypeCd 1
-              xml.UserAgentTxt filing_security_information.user_agent
+              xml.UserAgentTxt trim(filing_security_information.user_agent, 150)
               xml.BrowserLanguageTxt filing_security_information.browser_language
               xml.PlatformTxt filing_security_information.platform
               xml.TimeZoneOffsetNum filing_security_information.timezone_offset

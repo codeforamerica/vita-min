@@ -297,6 +297,22 @@ describe SubmissionBuilder::ReturnHeader1040 do
       end
     end
 
+    context "efile security information" do
+      context "UserAgentTxt" do
+        before do
+          submission.client.efile_security_information.update(user_agent: "Mozilla/5.0 (Linux; Android 10; SAMSUNG SM-S205DL) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36")
+          submission.efile_security_information.update(user_agent: "Mozilla/5.0 (Linux; Android 10; SAMSUNG SM-S205DL) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36")
+        end
+
+        it "trims long user agent text down to 150 characters, the max acceptable by the schema" do
+          expect(submission.efile_security_information.user_agent.length).to eq 151
+          response = SubmissionBuilder::ReturnHeader1040.build(submission)
+          xml = Nokogiri::XML::Document.parse(response.document.to_xml)
+          expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp UserAgentTxt").text.length).to eq 150
+          expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp UserAgentTxt").text.length).to eq 150
+        end
+      end
+    end
     it "conforms to the eFileAttachments schema" do
       expect(SubmissionBuilder::ReturnHeader1040.build(submission)).to be_valid
     end
