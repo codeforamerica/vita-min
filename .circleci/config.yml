@@ -25,6 +25,8 @@ commands:
       - run:
           name: install system dependencies
           command: |
+            # The CircleCI environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
+            sudo apt-get update --allow-releaseinfo-change && \
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript
   install_js_dependencies:
