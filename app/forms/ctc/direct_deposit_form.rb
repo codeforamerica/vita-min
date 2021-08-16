@@ -14,8 +14,8 @@ module Ctc
       return super unless intake.bank_account.present?
 
       # bank_name is encrypted, but we want it to be editable for clients
-      bank_account_attributes = intake.bank_account.attributes.merge(bank_name: intake.bank_account.bank_name)
-      super.merge(bank_account_attributes)
+      form_attributes = { bank_name: intake.bank_account.bank_name, account_type: intake.bank_account.account_type, my_bank_account: "yes" }
+      super.merge(form_attributes)
     end
   end
 end
