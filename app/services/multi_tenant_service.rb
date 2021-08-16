@@ -19,12 +19,12 @@ class MultiTenantService
     end
   end
 
-  def from_email
-    if service_type == :ctc
-      Rails.configuration.email_from[:noreply][:ctc]
-    else
-      Rails.configuration.email_from[:default][:gyr]
-    end
+  def default_email
+    Rails.configuration.email_from[:default][service_type]
+  end
+
+  def noreply_email
+    Rails.configuration.email_from[:noreply][service_type]
   end
 
   def delivery_method_options

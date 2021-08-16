@@ -81,6 +81,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
         it 'shows "GetYourRefund"' do
           email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
           expect(email.html_part.decoded).to include('GetYourRefund')
+          expect(email.from).to eq ["hello@test.localhost"]
         end
       end
 
@@ -90,15 +91,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
         it 'shows "GetCTC"' do
           email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
           expect(email.html_part.decoded).to include('GetCTC')
-        end
-
-        it "delivers an email with a no-reply@ address instead" do
-          email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
-          expect do
-            email.deliver_now
-          end.to change(ActionMailer::Base.deliveries, :count).by 1
-
-          expect(email.from).to eq ["no-reply@ctc.test.localhost"]
+          expect(email.from).to eq ["hello@ctc.test.localhost"]
         end
       end
     end
