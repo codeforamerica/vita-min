@@ -5,6 +5,7 @@ RSpec.feature "a client can send a message when logged into the portal" do
     let(:client) { create :client, vita_partner: (create :organization, name: "Koala Company"), intake: (create :intake, preferred_name: "Katie", email_notification_opt_in: "yes", email_address: "exampleemail@example.com", sms_phone_number: "+18324658840", sms_notification_opt_in: "yes") }
     before do
       login_as client, scope: :client
+      allow(IntercomService).to receive(:create_intercom_message_from_portal_message)
     end
 
     scenario "linking to next step" do

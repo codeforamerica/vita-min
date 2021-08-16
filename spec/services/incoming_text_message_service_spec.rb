@@ -33,6 +33,7 @@ describe IncomingTextMessageService do
       allow(DateTime).to receive(:now).and_return current_time
       allow(ClientChannel).to receive(:broadcast_contact_record)
       allow(DatadogApi).to receive(:increment)
+      allow(IntercomService).to receive(:create_intercom_message_from_sms)
     end
 
     context "with a matching intake phone number" do
@@ -64,36 +65,21 @@ describe IncomingTextMessageService do
         expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.client_found")
       end
 
-      context "has tax return status in file_accepted, file_mailed or file_not_filing" do
-        let(:intercom_service) { class_double(IntercomService) }
-        let!(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2020), (create :tax_return, status: "file_accepted")] }
-
-        before do
-          stub_const("IntercomService", intercom_service)
-          allow(intercom_service).to receive(:create_intercom_message_from_sms).and_return nil
-          stub_request(:post, /.*api\.intercom\.io.*/).to_return(status: 200, body: "", headers: {})
-        end
+      context "has all tax return status in file_accepted, file_mailed or file_not_filing" do
+        let!(:tax_returns) { [(create :tax_return, status: "file_not_filing", year: 2020), (create :tax_return, status: "file_accepted")] }
 
         it "creates an intercom message for client" do
           IncomingTextMessageService.process(incoming_message_params)
 
-          expect(intercom_service).to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, inform_of_handoff: true)
+          expect(IntercomService).to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, inform_of_handoff: true)
         end
       end
 
       context "doesn't have tax return status in file_accepted, file_mailed or file_not_filing" do
-        let(:intercom_service) { class_double(IntercomService) }
-
-        before do
-          stub_const("IntercomService", intercom_service)
-          allow(intercom_service).to receive(:create_intercom_message_from_sms).and_return nil
-          stub_request(:post, /.*api\.intercom\.io.*/).to_return(status: 200, body: "", headers: {})
-        end
-
         it "doesn't creates an intercom message for client" do
           IncomingTextMessageService.process(incoming_message_params)
 
-          expect(intercom_service).not_to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, inform_of_handoff: true)
+          expect(IntercomService).not_to have_received(:create_intercom_message_from_sms).with(IncomingTextMessage.last, inform_of_handoff: true)
         end
       end
     end
