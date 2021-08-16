@@ -224,6 +224,14 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
     click_on I18n.t('general.continue')
 
+    click_on "Go back"
+    expect(page).to have_selector("h1", text: I18n.t('views.questions.bank_details.title'))
+    expect(find_field("ctc_direct_deposit_form[my_bank_account]").value).to eq "yes"
+    expect(find_field("ctc_direct_deposit_form[bank_name]").value).to eq "Bank of Two Melons"
+    expect(find_field("ctc_direct_deposit_form_account_type_checking")).to be_checked
+
+    click_on I18n.t('general.continue')
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.routing_number.title'))
     fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "12345678"
     fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "12345678"
