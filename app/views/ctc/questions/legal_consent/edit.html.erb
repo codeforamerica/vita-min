@@ -34,14 +34,6 @@
       <%= render('components/molecules/reveal', title: t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_label")) do %>
         <p> <%= t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_content") %> </p>
       <% end %>
-      <%= f.hidden_field(:timezone) %>
-      <%= f.hidden_field(:device_id) %>
-      <%= f.hidden_field(:user_agent) %>
-      <%= f.hidden_field(:browser_language) %>
-      <%= f.hidden_field(:platform) %>
-      <%= f.hidden_field(:timezone_offset) %>
-      <%= f.hidden_field(:client_system_time) %>
-
     </div>
 
     <p><%= t("views.ctc.questions.legal_consent.agree_to_share") %></p>
@@ -56,9 +48,6 @@
 <% content_for :script do %>
   <script>
       document.addEventListener("DOMContentLoaded", function() {
-        var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        document.getElementById('ctc_legal_consent_form_timezone').value = timezone;
-
         window.TINTypeSelector = document.getElementById("ctc_legal_consent_form_primary_tin_type");
         window.SSNEmploymentCheckboxSelector = document.getElementById("ctc_legal_consent_form_ssn_no_employment").parentElement;
       });

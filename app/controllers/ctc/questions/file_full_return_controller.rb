@@ -1,6 +1,8 @@
 module Ctc
   module Questions
     class FileFullReturnController < QuestionsController
+      include Ctc::ResetToStartIfIntakeNotPersistedConcern
+
       layout "intake"
 
       private

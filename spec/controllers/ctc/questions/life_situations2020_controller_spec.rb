@@ -1,6 +1,11 @@
 require "rails_helper"
 
 describe Ctc::Questions::LifeSituations2020Controller do
+  let(:intake) { create :ctc_intake }
+
+  before do
+    session[:intake_id] = intake.id
+  end
 
   describe "#edit" do
     it "renders edit template and initializes form" do

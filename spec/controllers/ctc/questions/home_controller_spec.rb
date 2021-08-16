@@ -4,6 +4,7 @@ describe Ctc::Questions::HomeController do
   let(:intake) { create :ctc_intake }
 
   before do
+    session[:intake_id] = intake.id
     allow(MixpanelService).to receive(:send_event)
   end
 

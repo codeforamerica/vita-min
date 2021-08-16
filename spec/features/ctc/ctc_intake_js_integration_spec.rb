@@ -5,19 +5,15 @@ RSpec.feature "CTC Intake Javascript Integrations", :js, active_job: true do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
 
-  scenario "we save the timezone for new clients" do
-    visit "/en/questions/legal-consent"
-    fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"
-    fill_in I18n.t('views.ctc.questions.legal_consent.last_name'), with: "Mango"
-    fill_in "ctc_legal_consent_form_primary_birth_date_month", with: "08"
-    fill_in "ctc_legal_consent_form_primary_birth_date_day", with: "24"
-    fill_in "ctc_legal_consent_form_primary_birth_date_year", with: "1996"
-    fill_in "SSN or ITIN", with: "111-22-8888"
-    fill_in "Confirm SSN or ITIN", with: "111-22-8888"
-    fill_in "Phone number", with: "831-234-5678"
-    click_on "Continue"
+  scenario "we save the timezone and security information for new clients" do
+    visit "/en/questions/overview"
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
+    click_on I18n.t('general.continue')
 
+    expect(page).to have_selector(".toolbar", text: "GetCTC")
+    click_on I18n.t('general.negative')
     intake = Intake::CtcIntake.last
     expect(intake.timezone).to be_present
+    expect(intake.client.efile_security_information.client_system_time).to be_present
   end
 end

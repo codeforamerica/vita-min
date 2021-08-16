@@ -1,6 +1,7 @@
 module Ctc
   module Questions
     class Filed2020Controller < QuestionsController
+      include Ctc::ResetToStartIfIntakeNotPersistedConcern
 
       layout "yes_no_question"
 

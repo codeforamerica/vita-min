@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true, efile_security_params: true do
+RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true do
   def strip_inner_newlines(text)
     text.gsub(/\n/, '')
   end
@@ -310,5 +310,21 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # =========== PORTAL ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
     expect(page).to have_text(I18n.t("views.ctc.portal.home.status.preparing.label"))
+  end
+
+  it "allows the basic filer info to be edited after it was created" do
+    complete_intake_through_code_verification
+    expect(Intake.count).to eq(1)
+
+    visit "/en/questions/legal-consent"
+
+    new_birth_date = Date.parse('1967-06-09')
+    fill_in "ctc_legal_consent_form_primary_birth_date_month", with: new_birth_date.month
+    fill_in "ctc_legal_consent_form_primary_birth_date_day", with: new_birth_date.day
+    fill_in "ctc_legal_consent_form_primary_birth_date_year", with: new_birth_date.year
+    click_on I18n.t('general.continue')
+
+    expect(Intake.count).to eq(1)
+    expect(Intake.last.primary_birth_date).to eq(new_birth_date)
   end
 end

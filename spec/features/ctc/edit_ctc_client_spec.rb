@@ -146,7 +146,7 @@ RSpec.describe "a user editing a clients intake fields" do
     end
   end
 
-  describe "ctc intakes", efile_security_params: true do
+  describe "ctc intakes" do
     context "as an admin user" do
       let(:user) { create :admin_user }
 

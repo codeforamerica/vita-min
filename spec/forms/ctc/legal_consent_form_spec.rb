@@ -1,10 +1,12 @@
 require "rails_helper"
 
 describe Ctc::LegalConsentForm do
-  let(:intake) { Intake::CtcIntake.new(visitor_id: "something", source: "some-source") }
+  let(:intake) { create :ctc_intake }
 
   context "initialization with from_intake" do
-    let(:intake) { Intake::CtcIntake.new(visitor_id: "something", source: "some-source", primary_tin_type: "ssn_no_employment") }
+    before do
+      intake.update(primary_tin_type: "ssn_no_employment")
+    end
 
     context "coercing tin_type to the correct value when ssn_no_employment" do
       it "sets ssn_no_employment to yes, and primary_tin_type to ssn" do
@@ -28,15 +30,7 @@ describe Ctc::LegalConsentForm do
         primary_ssn_confirmation: "111-22-8888",
         phone_number: "831-234-5678",
         primary_active_armed_forces: "yes",
-        timezone: "America/Chicago",
         primary_tin_type: "ssn",
-        device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
-        user_agent: "GeckoFox",
-        browser_language: "en-US",
-        platform: "iPad",
-        timezone_offset: "240",
-        client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
-        ip_address: "1.1.1.1",
       }
     }
     context "when all required information is provided" do
@@ -185,18 +179,6 @@ describe Ctc::LegalConsentForm do
         expect(described_class.new(intake, params)).not_to be_valid
       end
     end
-
-    context "when efile security information fields are missing" do
-      before do
-        [:device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address].each { |key| params.delete(key) }
-      end
-
-      it "is not valid" do
-        form = described_class.new(intake, params)
-        expect(form).not_to be_valid
-        expect(form.errors.keys).to match array_including(:device_id, :user_agent, :browser_language, :platform, :timezone_offset, :ip_address)
-      end
-    end
   end
 
   describe "#save" do
@@ -212,16 +194,8 @@ describe Ctc::LegalConsentForm do
           primary_ssn_confirmation: "111-22-8888",
           phone_number: "831-234-5678",
           primary_active_armed_forces: "yes",
-          timezone: "America/Chicago",
           primary_tin_type: tin_type,
           ssn_no_employment: ssn_no_employment,
-          ip_address: "1.1.1.1",
-          device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
-          user_agent: "GeckoFox",
-          browser_language: "en-US",
-          platform: "iPad",
-          timezone_offset: "240",
-          client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
       }
     }
     let(:ssn_no_employment) { "no" }
@@ -229,10 +203,9 @@ describe Ctc::LegalConsentForm do
 
     it "saves the attributes on the intake and creates a client, 2020 tax return and efile security information" do
       form = described_class.new(intake, params)
-      expect {
-        form.valid? # the form only transforms the phone number if it is validated before calling save
-        form.save
-      }.to change(Client, :count).by(1).and change(TaxReturn, :count).by(1).and change(EfileSecurityInformation, :count).by(1)
+      form.valid? # the form only transforms the phone number if it is validated before calling save
+      form.save
+
       intake = Intake.last
       expect(intake.primary_first_name).to eq "Marty"
       expect(intake.primary_middle_initial).to eq "J"
@@ -242,23 +215,9 @@ describe Ctc::LegalConsentForm do
       expect(intake.phone_number).to eq "+18312345678"
       expect(intake.primary_last_four_ssn).to eq "8888"
       expect(intake.primary_active_armed_forces).to eq "yes"
-      expect(intake.timezone).to eq "America/Chicago"
       expect(intake.client).to be_present
-      expect(intake.tax_returns.length).to eq 1
-      expect(intake.tax_returns.first.year).to eq 2020
-      expect(intake.tax_returns.first.is_ctc).to eq true
       expect(intake.primary_tin_type).to eq "itin"
-      expect(intake.visitor_id).to eq "something"
-      expect(intake.source).to eq "some-source"
       expect(intake.type).to eq "Intake::CtcIntake"
-      expect(intake.client.efile_security_information.ip_address).to eq "1.1.1.1"
-      expect(intake.client.efile_security_information.device_id).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
-      expect(intake.client.efile_security_information.user_agent).to eq "GeckoFox"
-      expect(intake.client.efile_security_information.browser_language).to eq "en-US"
-      expect(intake.client.efile_security_information.platform).to eq "iPad"
-      expect(intake.client.efile_security_information.timezone_offset).to eq "+240"
-      expect(intake.client.efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
-      expect(form.intake).to eq intake # resets intake to be the created and persisted intake
     end
 
     context "tin types" do
