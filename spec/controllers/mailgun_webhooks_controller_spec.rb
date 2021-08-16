@@ -14,6 +14,7 @@ RSpec.describe MailgunWebhooksController do
       basic_auth_name: "validuser",
       basic_auth_password: 'p@sswrd!',
     })
+    allow(IntercomService).to receive(:create_intercom_message_from_email).and_return nil
   end
 
   describe "#create_incoming_email" do
@@ -200,33 +201,18 @@ RSpec.describe MailgunWebhooksController do
         end
 
         context "has tax return status in file_accepted, file_mailed or file_not_filing" do
-          let!(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2020), (create :tax_return, status: "file_accepted")] }
-          let(:intercom_service) { class_double(IntercomService) }
-
-          before do
-            stub_const("IntercomService", intercom_service)
-            allow(intercom_service).to receive(:create_intercom_message_from_email).and_return nil
-            stub_request(:post, /.*api\.intercom\.io.*/).to_return(status: 200, body: "", headers: {})
-          end
+          let!(:tax_returns) { [(create :tax_return, status: "file_not_filing", year: 2020), (create :tax_return, status: "file_accepted")] }
 
           it "creates intercom message for the client" do
             post :create_incoming_email, params: params
-            expect(intercom_service).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
+            expect(IntercomService).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
           end
         end
 
         context "doesn't have tax return status in file_accepted, file_mailed or file_not_filing" do
-          let(:intercom_service) { class_double(IntercomService) }
-
-          before do
-            stub_const("IntercomService", intercom_service)
-            allow(intercom_service).to receive(:create_intercom_message_from_email).and_return nil
-            stub_request(:post, /.*api\.intercom\.io.*/).to_return(status: 200, body: "", headers: {})
-          end
-
           it "does not create an intercom message for the client" do
             post :create_incoming_email, params: params
-            expect(intercom_service).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
+            expect(IntercomService).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
           end
         end
       end

@@ -1,6 +1,23 @@
 require 'intercom'
 
 class IntercomService
+  def self.create_intercom_message_from_portal_message(portal_message, inform_of_handoff: false)
+    client = portal_message.client
+    contact_id_from_client_id = contact_id_from_client_id(client.id)
+    contact_id = contact_id_from_client_id.present? ? contact_id_from_client_id : create_or_update_intercom_contact(portal_message).id
+
+    if contact_id_from_client_id.present? && most_recent_conversation(contact_id).present?
+      reply_to_existing_intercom_thread(contact_id, portal_message.body)
+    else
+      create_new_intercom_thread(contact_id, portal_message.body)
+      if inform_of_handoff
+        contact_info = client.intake.contact_info_filtered_by_preferences
+        send_handoff_email(client) if contact_info[:email]
+        send_handoff_sms(client) if contact_info[:sms_phone_number]
+      end
+    end
+  end
+
   def self.create_intercom_message_from_email(incoming_email, inform_of_handoff: false)
     email_address = incoming_email.sender
     body = incoming_email.body
