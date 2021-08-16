@@ -1,9 +1,9 @@
 module FilingStatusHelper
   def filing_status(client)
     if client.tax_returns.map(&:filing_status).any?
-      content_tag :ul do
+      content_tag :ul, class: 'no-bullets' do
         client.tax_returns.collect do |tax_return|
-          content_tag( :li, filing_status_tax_return(tax_return)) if tax_return.filing_status.present?
+          content_tag(:li, filing_status_tax_return(tax_return)) if tax_return.filing_status.present?
         end.compact.join.html_safe
       end
     else
@@ -14,8 +14,8 @@ module FilingStatusHelper
   def filing_status_tax_return(tax_return)
     return nil unless tax_return.filing_status?
 
-    content = content_tag(:strong, I18n.t("general.filing_status.#{tax_return.filing_status}"))
-    content << content_tag(:span, " (#{tax_return.year})")
+    content = content_tag(:span, "#{tax_return.year}: ", class: "form-question")
+    content << content_tag(:span, I18n.t("general.filing_status.#{tax_return.filing_status}"))
     content << content_tag(:div, (content_tag :i, tax_return.filing_status_note)) if tax_return.filing_status_note?
     content
   end

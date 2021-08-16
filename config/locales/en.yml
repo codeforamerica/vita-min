@@ -175,10 +175,7 @@ en:
         spouse_contact_info: Spouse Contact Info
         texting_phone: Phone For Texting
         tax_info: Tax Info
-        navigator_types: Type of navigator used
         navigator_types_empty: No navigator used
-        photo_id_types: Type of photo ID used
-        taxpayer_id_types: Type of taxpayer ID used
         basic_info: Basic Info
         other_info: Other Info
         routing_method: Initial Routing Method

@@ -173,7 +173,7 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(page).to have_text "Cranberry Chung"
         expect(page).to have_text "11/25/2019"
       end
-      expect(page).to have_text "Type of navigator used"
+      expect(page).to have_text "Navigator type"
       expect(page).to have_text "General, Incarcerated/reentry, Unhoused"
       expect(page).to have_text "hello@cauliflower.com"
       expect(page).to have_text "+15005550006"

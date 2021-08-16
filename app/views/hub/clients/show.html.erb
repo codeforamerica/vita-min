@@ -101,37 +101,12 @@
             <div class="field-display">
               <span class="form-question"><%= t("general.dependents") %>:</span>
               <span class="label-value"><%= @client.intake&.dependents.count %></span>
-              <ul id="dependents-list">
+              <ul id="dependents-list" class="no-bullets">
                 <%= render @client.intake.dependents %>
               </ul>
             </div>
 
           </div>
-
-          <div class="client-profile__field-group">
-            <h2 class="text--bold"><%= t(".navigator_types") %></h2>
-            <div class="field-display">
-              <span class="label-value"><%= @client.intake.navigator_display_names.present? ? @client.intake.navigator_display_names : t(".navigator_types_empty") %></span>
-            </div>
-          </div>
-
-          <% if @client.intake.is_ctc? %>
-            <!-- Photo ID info-->
-            <div class="client-profile__field-group">
-              <h2 class="text--bold"><%= t(".photo_id_types") %></h2>
-              <div class="field-display">
-                <span class="label-value"><%= @client.intake.photo_id_display_names %></span>
-              </div>
-            </div>
-
-            <!-- Taxpayer ID info-->
-            <div class="client-profile__field-group">
-              <h2 class="text--bold"><%= t(".taxpayer_id_types") %></h2>
-              <div class="field-display">
-                <span class="label-value"><%= @client.intake.taxpayer_id_display_names %></span>
-              </div>
-            </div>
-          <% end %>
 
           <!-- Payment info-->
           <div class="client-profile__field-group client-bank-account-info">
@@ -252,29 +227,57 @@
           <div class="client-profile__field-group">
             <h2 class="text--bold"><%= t(".other_info") %></h2>
             <div class="field-display">
+              <span class="form-question">Intake type:</span>
+              <span class="label-value">
+                <%= @client.intake.drop_off? ? "Drop off" : "Online" %>
+              </span>
+            </div>
+            <div class="field-display">
               <span class="form-question"><%= t(".routing_method") %>:</span>
               <span class="label-value">
-              <%= readable_routing_method(@client) || t("general.NA") %>
-            </span>
+                <%= readable_routing_method(@client) || t("general.NA") %>
+              </span>
             </div>
             <div class="field-display">
               <span class="form-question"><%= t(".source_param") %>:</span>
               <span class="label-value">
-              <%= @client.intake&.source || t("general.NA") %>
-            </span>
+                <%= @client.intake&.source || t("general.NA") %>
+              </span>
+            </div>
+            <div class="field-display">
+              <span class="form-question">Current Intake Step:</span>
+              <span class="label-value">
+                <%= @client.intake.current_step || t("general.NA") %>
+              </span>
             </div>
           </div>
 
           <!-- Identity verification -->
-          <% if @client.intake.is_ctc? %>
-            <div class="client-profile__field-group">
-              <h2 class="text--bold">Navigator Name</h2>
-              <div class="field-display">
-                <span class="form-question">Legal Name:</span>
-                <span class="label-value"><%= @client.intake.navigator_name %> </span>
-              </div>
+          <div class="client-profile__field-group">
+            <h2 class="text--bold">Navigator Info</h2>
+            <div class="field-display">
+              <span class="form-question">Navigator type:</span>
+              <span class="label-value"><%= @client.intake.navigator_display_names.present? ? @client.intake.navigator_display_names : t(".navigator_types_empty") %></span>
             </div>
+            <% if @client.intake.is_ctc? %>
+              <div class="field-display">
+                <span class="form-question">Navigator Name:</span>
+                <span class="label-value"><%= @client.intake.navigator_name || "N/A" %> </span>
+              </div>
+
+              <% if @client.intake.drop_off? %>
+                <div class="field-display">
+                  <span class="form-question">Photo ID Used:</span>
+                  <span class="label-value"><%= @client.intake.photo_id_display_names || "N/A"%></span>
+                </div>
+                <div class="field-display">
+                  <span class="form-question">Taxpayer ID Used:</span>
+                  <span class="label-value"><%= @client.intake.taxpayer_id_display_names || "N/A" %></span>
+                </div>
+              <% end %>
+
           <% end %>
+          </div>
         </div>
       </div>
       <div class="client-profile__actions"><%= link_to(t("general.edit_info"), @client.intake.is_ctc? ? edit_hub_ctc_client_path : edit_hub_client_path, class: "button hc-button--wide") %></div>
