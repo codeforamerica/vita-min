@@ -96,6 +96,7 @@ describe IncomingTextMessageService do
         expect(message.received_at).to eq current_time
         client = Client.last
         expect(message.client).to eq client
+        expect(client.intake.class).to eq(Intake::GyrIntake)
         expect(client.intake.phone_number).to eq "+15005550006"
         expect(client.intake.sms_phone_number).to eq "+15005550006"
         expect(client.intake.sms_notification_opt_in).to eq("yes")

@@ -11,7 +11,7 @@ class IncomingTextMessageService
     if client_count == 0
       DatadogApi.increment("twilio.incoming_text_messages.client_not_found")
       clients = [Client.create!(
-        intake: Intake.create!(
+        intake: Intake::GyrIntake.create!(
           phone_number: phone_number,
           sms_phone_number: phone_number,
 
