@@ -1457,10 +1457,6 @@ es:
               li1: "Usted es el padre de familia que haya vivido más tiempo con ellos."
               li2: "Si usted y el otro padre vivieron la misma cantidad de tiempo con el dependiente, quien haya ganado más dinero en 2020 puede declararlo."
               li3: "Si ninguno de los dos es el padre del dependiente, el que haya ganado más dinero en 2020 puede declararlo."
-          no_dependents:
-            title: "Es posible que aún pueda obtener otros créditos fiscales."
-            help_text: "Todavía puede presentar una declaración de impuestos simplificada y recibir cualquier pago de estímulo que se le deba y que no haya recibido."
-            file_a_simplified_return: "Presentar una declaración simplificada"
           confirm_dependents:
             title: "Confirmemos sus dependientes"
             qualifying_for_ctc: "Dependientes que califican para CTC y los pagos de estímulo"
