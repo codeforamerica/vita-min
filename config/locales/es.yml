@@ -1425,7 +1425,7 @@ es:
             reveal_title: "¿Qué es una incapacidad permanente?"
             reveal_info: Un médico determina si tiene una incapacidad permanente cuando no puede realizar la mayor parte de su trabajo debido a una enfermedad física o mental.
           had_dependents:
-            title: "¿Desea declarar impuestos para un dependiente para 2020?"
+            title: "¿Desea reclamar a un dependiente en su declaración de impuestos de 2020?"
             help_text: "Una persona que haya vivido con usted la mayor parte del año o a la que Ud. haya mantenido económicamente puede ser considerada como dependiente."
             what_relationships_reveal: "¿Qué relaciones califican?"
           child_lived_with_you:
