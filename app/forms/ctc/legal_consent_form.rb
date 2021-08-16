@@ -45,7 +45,7 @@ module Ctc
 
     def save
       primary_last_four_ssn = primary_ssn.last(4) # merge last_four_ssn so that client can use data for logging in.
-      @intake.update(
+      @intake.update!(
         attributes_for(:intake).merge(
           primary_last_four_ssn: primary_last_four_ssn,
           primary_birth_date: primary_birth_date
