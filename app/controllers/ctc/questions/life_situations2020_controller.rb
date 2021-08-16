@@ -1,6 +1,8 @@
 module Ctc
   module Questions
     class LifeSituations2020Controller < QuestionsController
+      include Ctc::ResetToStartIfIntakeNotPersistedConcern
+
       layout "yes_no_question"
 
       private

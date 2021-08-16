@@ -3,6 +3,8 @@ module Ctc
     class LegalConsentController < QuestionsController
       include AnonymousIntakeConcern
       include Ctc::CanBeginIntakeConcern
+      include Ctc::ResetToStartIfIntakeNotPersistedConcern
+
       layout "intake"
 
       def form_params
