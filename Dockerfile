@@ -1,5 +1,8 @@
 FROM ruby:2.6.5
 
+# The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
+RUN apt-get update --allow-releaseinfo-change
+
 # System prerequisites
 RUN apt-get update \
  && apt-get -y install build-essential libpq-dev pdftk ghostscript poppler-utils curl \
