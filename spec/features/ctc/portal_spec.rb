@@ -229,7 +229,7 @@ RSpec.feature "CTC Intake", active_job: true do
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Accepted"
       expect(page).to have_text "Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks."
-      # expect(page).to have_link "Download my tax return" # uncomment when 1040 bug has been resolved #179253691
+      expect(page).to have_link "Download my tax return" # uncomment when 1040 bug has been resolved #179253691
     end
   end
 
