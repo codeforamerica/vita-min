@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+if [ -z "$(git status --porcelain)" ]; then
+  echo "== 📸 Take baseline images =="
+  git checkout main
+  npx percy exec -- rspec --tag screenshot
+  echo "== 📸 Take new images =="
+  git checkout -
+  npx percy exec -- rspec --tag screenshot
+else
+  echo "== 🚨 Please commit changes first =="
+  exit 1
+fi

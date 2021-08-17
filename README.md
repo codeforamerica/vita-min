@@ -164,6 +164,28 @@ CHROME=y rspec
 COVERAGE=y rspec
 ```
 
+#### Percy visual diff tests
+
+[Percy](https://percy.io/) is an all-in-one visual testing and review platform.
+
+> ℹ️ Ask a teammate to be added to CfA team account for Percy.
+
+A [Percy project token](https://percy.io/Code-for-America/vita-min/settings) is placed in terminal profile so that screenshots can be uploaded to Percy.
+
+```
+# In ~/.zshrc for example
+PERCY_TOKEN=add-key-here
+```
+
+Have a new branch with visual changes checked out locally that will then be compared to images taken from `main`. This is done by taking screenshots from feature tests that have the `screenshot: true` flag enabled.
+
+Run the percy command:
+
+```shell
+# In root directory
+bin/percy
+```
+
 ### Linter
 
 This repo has `rubocop` installed. To check:
