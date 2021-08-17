@@ -36,7 +36,7 @@ module Ctc
 
         options = {}
         if prev_step.resource_name
-          options[:id] = prev_step.last_edited_resource_id(self)
+          options[:id] = prev_step.model_for_show_check(self)&.id
         end
         prev_step.to_path_helper(options)
       end
