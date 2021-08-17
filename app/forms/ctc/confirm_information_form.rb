@@ -2,9 +2,8 @@ module Ctc
   class ConfirmInformationForm < QuestionsForm
     set_attributes_for :intake, :primary_signature_pin, :spouse_signature_pin
 
-    validates :primary_signature_pin, presence: true, format: { with: /\d{5}/ }, exclusion: { in: %w(00000), message: "00000 is not a valid PIN." }
-    validates :spouse_signature_pin, presence: true, format: { with: /\d{5}/ },  exclusion: { in: %w(00000), message: "00000 is not a valid PIN." },
-              if: -> { @intake.filing_jointly? }
+    validates :primary_signature_pin, presence: true, signature_pin: true
+    validates :spouse_signature_pin, presence: true, signature_pin: true, if: -> { @intake.filing_jointly? }
 
     def save
       @intake.update(attributes_for(:intake))
