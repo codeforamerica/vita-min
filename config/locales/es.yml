@@ -1353,8 +1353,11 @@ es:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
     ssn: Por favor, ingrese un número de seguro social válido.
-    itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido
-    ip_pin: IP PINs must be a 6 digit number.
+    itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
+    signature_pin: El PIN debe ser un número de 5 dígitos.
+    signature_pin_zeros: 00000 no es un pin válido
+    ip_pin: IP PINs debe ser un número de 6 dígitos.
+    legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.
     legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.
     file_zero_length: "Sube un archivo válido. El archivo que cargó parece estar vacío."
     pdf_file_type: "%{document_type} debe ser un archivo PDF"

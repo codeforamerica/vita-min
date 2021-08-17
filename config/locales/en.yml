@@ -1375,6 +1375,8 @@ en:
     zip: Please enter a valid 5-digit zip code.
     ssn: Please enter a valid social security number.
     itin: Please enter a valid individual taxpayer identification number.
+    signature_pin: Signature PIN must be a 5 digit number.
+    signature_pin_zeros: 00000 is not a valid PIN.
     ip_pin: IP PINs must be a 6 digit number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
     pdf_file_type: "%{document_type} must be a PDF file"
