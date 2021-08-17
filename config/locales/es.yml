@@ -1393,7 +1393,7 @@ es:
               label: Rechazada
               message: Su declaración no ha sido aceptada por el IRS. Tendremos que corregir su información y volver a enviarla. Favor de comunicarse con su preparador de impuestos para hacer las correcciones.
             cancelled:
-              label: Cancelado
+              label: Rechazada
               message: Ya no intentaremos enviar esta declaración al IRS. Esto puede deberse a que solicitó que no enviemos la declaración o porque un rechazo del IRS indicó que no podemos volver a enviarla en su nombre.
       questions:
         returning_client:
