@@ -72,13 +72,13 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
         expect(dependent_nodes.length).to eq 2
         expect(dependent_nodes[0].at("DependentFirstNm").text).to eq "Keeley"
         expect(dependent_nodes[0].at("DependentLastNm").text).to eq "Kiwi"
-        expect(dependent_nodes[0].at("DependentNameControlTxt").text).to eq "KOAL"
+        expect(dependent_nodes[0].at("DependentNameControlTxt").text).to eq "KIWI"
         expect(dependent_nodes[0].at("DependentSSN").text).to eq "123001234"
         expect(dependent_nodes[0].at("DependentRelationshipCd").text).to eq "DAUGHTER"
         expect(dependent_nodes[0].at("EligibleForChildTaxCreditInd").text).to eq "X"
         expect(dependent_nodes[1].at("DependentFirstNm").text).to eq "Kelly"
         expect(dependent_nodes[1].at("DependentLastNm").text).to eq "Kiwi"
-        expect(dependent_nodes[1].at("DependentNameControlTxt").text).to eq "KOAL"
+        expect(dependent_nodes[1].at("DependentNameControlTxt").text).to eq "KIWI"
         expect(dependent_nodes[1].at("DependentSSN").text).to eq "123001236"
         expect(dependent_nodes[1].at("DependentRelationshipCd").text).to eq "PARENT"
         expect(dependent_nodes[1].at("EligibleForChildTaxCreditInd")).to be_nil
