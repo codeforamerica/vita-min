@@ -75,8 +75,7 @@ class AdvCtcIrs1040Pdf
       answers["DependentLegalNm[#{index}]"] = dependent.full_name
       answers["DependentRelationship[#{index}]"] = dependent.relationship
       answers["DependentSSN[#{index}]"] = pdf_mask(dependent.ssn, 4)
-      # 0 means checked in backwards PDF filling land.
-      answers["DependentCTCInd[#{index}]"] = dependent.eligible_for_child_tax_credit_2020? ? 0 : 1
+      answers["DependentCTCInd[#{index}]"] = dependent.eligible_for_child_tax_credit_2020? ? 1 : 0
     end
     answers
   end
