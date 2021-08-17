@@ -1,48 +1,48 @@
 class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
+  include ActionView::Helpers::TagHelper
+
   def vita_min_field_in_label(
-      method,
-      label_text,
-      field,
-      help_text: nil,
-      prefix: nil,
-      postfix: nil,
-      optional: false,
-      options: {},
-      notice: nil,
-      wrapper_classes: []
+    method,
+    label_text,
+    field,
+    help_text: nil,
+    prefix: nil,
+    postfix: nil,
+    optional: false,
+    options: {},
+    notice: nil,
+    wrapper_classes: []
   )
     # this override allows us to wrap the field in a label
     if options[:input_id]
       for_options = options.merge(
-          for: options[:input_id],
-          )
+        for: options[:input_id],
+      )
       for_options.delete(:input_id)
       for_options.delete(:maxlength)
     end
     field_html = formatted_field(prefix, field, postfix, wrapper_classes).html_safe
 
     formatted_label = label(
-        method,
-        label_contents(label_text, help_text, optional) + field_html,
-        (for_options || options),
-        )
+      method,
+      label_contents(label_text, help_text, optional) + field_html,
+      (for_options || options),
+    )
     formatted_label += notice_html(notice).html_safe if notice
 
     formatted_label.html_safe
   end
 
   def h1_label_contents(label_text, help_text, optional = false)
-    label_text = <<~HTML
-          <h1 class="form-question">#{label_text + optional_text(optional)}</h1>
-    HTML
-
-    if help_text
-      label_text << <<~HTML
-            <p class="text--help">#{help_text}</p>
-      HTML
+    label = tag.h1(class: 'form-question') do
+      label_text + optional_text(optional).html_safe
     end
 
-    label_text.html_safe
+    if help_text
+      label << tag.p { help_text }
+    end
+
+    label
   end
 
   def vita_min_select(
@@ -55,24 +55,16 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_options = {
       class: "select__element",
     }
-
-    formatted_label = label(
-      method,
-      h1_label_contents(label_text, options[:help_text], options[:optional])
-    )
     html_options_with_errors = html_options.merge(error_attributes(method: method))
 
-    html_output = <<~HTML
-          <div class="form-group#{error_state(object, method)}">
-            #{formatted_label}
-            <div class="select">
-              #{select(method, collection, options, html_options_with_errors, &block)}
-            </div>
-            #{errors_for(object, method)}
-          </div>
-    HTML
-
-    html_output.html_safe
+    tag.div(class: "form-group#{error_state(object, method)}") do
+      (
+        label(method,
+              h1_label_contents(label_text, options[:help_text], options[:optional])) +
+          tag.div(class: "select") { select(method, collection, options, html_options_with_errors, &block) } +
+          errors_for(object, method)
+      )
+    end
   end
 
   def simplified_cfa_checkbox(method, label_text, options: {})
@@ -112,20 +104,20 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     options_with_errors = options.merge(error_attributes(method: method))
     <<~HTML.html_safe
-            <div class="checkbox-group input-group form-group#{error_state(object, method)}">
-              <label class="#{classes.join(' ')}">
-                #{check_box(method, options_with_errors, checked_value, unchecked_value)} #{label_text}
-              </label>
-              #{errors_for(object, method)}
-            </div>
+      <div class="checkbox-group input-group form-group#{error_state(object, method)}">
+        <label class="#{classes.join(' ')}">
+          #{check_box(method, options_with_errors, checked_value, unchecked_value)} #{label_text}
+        </label>
+        #{errors_for(object, method)}
+      </div>
     HTML
   end
 
   def cfa_file_field(method, label_text, help_text: nil, options: {}, classes: [], optional: false)
 
     file_field_options = {
-        class: (classes + ["file-input"]).join(" ")
-    }.merge(options).merge(error_attributes(method: method))
+                           class: (classes + ["file-input"]).join(" ")
+                         }.merge(options).merge(error_attributes(method: method))
 
     file_field_options[:id] ||= sanitized_id(method)
     options[:input_id] ||= sanitized_id(method)
@@ -170,18 +162,18 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     label_and_field_html = formatted_label + formatted_field(nil, text_field_html, nil, []).html_safe
 
     html_output = <<~HTML
-          <div class="form-group#{error_state(object, method)}">
-          #{label_and_field_html}
-            #{errors_for(object, method)}
-          </div>
+      <div class="form-group#{error_state(object, method)}">
+      #{label_and_field_html}
+        #{errors_for(object, method)}
+      </div>
     HTML
     html_output.html_safe
   end
 
   def vita_min_searchbar(method, label_text, label_icon: "", options: {}, classes: [])
     text_field_options = {
-      class: (classes + ["vita-min-searchbar__input text-input"]).join(" ")
-    }.merge(options).merge(error_attributes(method: method))
+                           class: (classes + ["vita-min-searchbar__input text-input"]).join(" ")
+                         }.merge(options).merge(error_attributes(method: method))
 
     text_input_html = text_field(method, text_field_options)
 
@@ -209,14 +201,14 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       classes += ["date-text-input-year"] if date_component == "year"
 
       text_field_options = standard_options
-       .merge(class: classes.join(" "))
-       .merge(options).merge(error_attributes(method: date_component_slug))
-       .merge(
-         type: 'tel',
-         inputmode: 'numeric',
-         maxlength: max_length,
-         oninput: "this.value = this.value.replace(/[^0-9]/gi, '');",
-       )
+                           .merge(class: classes.join(" "))
+                           .merge(options).merge(error_attributes(method: date_component_slug))
+                           .merge(
+                             type: 'tel',
+                             inputmode: 'numeric',
+                             maxlength: max_length,
+                             oninput: "this.value = this.value.replace(/[^0-9]/gi, '');",
+                           )
 
       text_field_options[:id] ||= sanitized_id(date_component_slug)
 
@@ -224,15 +216,15 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     end
 
     <<~HTML.html_safe
-          <fieldset class="form-group#{error_state(object, method)}">
-            #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
-            <div>
-              #{date_text_fields[0]}
-              #{date_text_fields[1]}
-              #{date_text_fields[2]}
-            </div>
-            #{errors_for(object, method)}
-          </fieldset>
+      <fieldset class="form-group#{error_state(object, method)}">
+        #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
+        <div>
+          #{date_text_fields[0]}
+          #{date_text_fields[1]}
+          #{date_text_fields[2]}
+        </div>
+        #{errors_for(object, method)}
+      </fieldset>
     HTML
   end
 end
