@@ -27,7 +27,7 @@ module SubmissionBuilder
           xml.TaxPeriodBeginDt date_type(Date.new(tax_return.year, 1, 1))
           xml.TaxPeriodEndDt date_type(Date.new(tax_return.year, 12, 31))
           if submission.imperfect_return_resubmission?
-            xml.ImperfectReturnIndicator "X"
+            xml.ImperfectReturnInd "X"
           end
           xml.SoftwareId EnvironmentCredentials.dig(:irs, :sin)
           xml.OriginatorGrp {
