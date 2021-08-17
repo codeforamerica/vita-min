@@ -25,11 +25,11 @@
               <%= link_to "Complete CTC form", @current_step, class: "button" %>
             <% end %>
 
-            <% if @pdf1040 %>
-              <%= link_to portal_document_path(id: @pdf1040.id), target: "_blank", rel: "no_opener", class: "button" do %>
-                <%= t("views.ctc.portal.home.download_tax_return") %>
-              <% end %>
-            <% end %>
+            <%# if @pdf1040 %>
+              <%#= link_to portal_document_path(id: @pdf1040.id), target: "_blank", rel: "no_opener", class: "button" do %>
+                <%#= t("views.ctc.portal.home.download_tax_return") %>
+              <%# end %>
+            <%# end %>
           </div>
         </div>
       </div>
