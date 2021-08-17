@@ -59,7 +59,7 @@ module SubmissionBuilder
             xml.SpouseSSN intake.spouse_ssn if tax_return.filing_jointly?
             xml.NameLine1Txt name_line_1_type(intake.primary_first_name, intake.primary_middle_initial, intake.primary_last_name, intake.primary_suffix, intake.spouse_first_name, intake.spouse_middle_initial, intake.spouse_last_name)
             xml.PrimaryNameControlTxt person_name_control_type(intake.primary_last_name)
-            xml.SpouseNameControlTxt person_name_control_type(intake.primary_last_name) if tax_return.filing_jointly?
+            xml.SpouseNameControlTxt spouse_name_control(intake) if tax_return.filing_jointly?
             xml.USAddress {
               xml.AddressLine1Txt address.street_address
               xml.CityNm address.city
@@ -182,6 +182,11 @@ module SubmissionBuilder
     def total_active_preparation_minutes
       current_session_duration = submission.client.last_seen_at.to_i - submission.client.current_sign_in_at.to_i
       ((submission.client.previous_sessions_active_seconds || 0) + current_session_duration) / 60
+    end
+
+    def spouse_name_control(intake)
+      name = intake.use_spouse_name_for_name_control? ? intake.spouse_last_name : intake.primary_last_name
+      person_name_control_type(name)
     end
   end
 end
