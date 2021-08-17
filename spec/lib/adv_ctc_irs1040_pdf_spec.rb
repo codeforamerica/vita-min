@@ -63,11 +63,11 @@ RSpec.describe AdvCtcIrs1040Pdf do
                                     "Form8814Ind7" => nil,
                                     "FormW2WithheldTaxAmt25a" => nil,
                                     "Has4972Ind16_2" => nil,
-                                    "Has8814Ind_1" => nil,
+                                    "Has8814Ind16_1" => nil,
                                     "HasOtherFormInd16_3" => nil,
                                     "IRADistributionsAmt4a" => nil,
                                     "MustItemizeInd" => nil,
-                                    "OrdinaryDividendsAmt3a" => nil,
+                                    "OrdinaryDividendsAmt3b" => nil,
                                     "OtherFormName16_3" => nil,
                                     "OverpaidAmt34" => "0",
                                     "OwedAmt37" => nil,
@@ -237,15 +237,15 @@ RSpec.describe AdvCtcIrs1040Pdf do
           "DependentLegalNm[0]" => "Danielle Dob",
           "DependentRelationship[0]" => "daughter",
           "DependentSSN[0]" => "XXXXX6789",
-          "DependentCTCInd[0]" => "0", # checked
+          "DependentCTCInd[0]" => "1", # checked
           "DependentLegalNm[1]" => "Daniel Dob",
           "DependentRelationship[1]" => "son",
           "DependentSSN[1]" => "XXXXX6788",
-          "DependentCTCInd[1]" => "0", # checked
+          "DependentCTCInd[1]" => "1", # checked
           "DependentLegalNm[2]" => "Mother Dob",
           "DependentRelationship[2]" => "parent",
           "DependentSSN[2]" => "XXXXX5788",
-          "DependentCTCInd[2]" => "1", # unchecked
+          "DependentCTCInd[2]" => "0", # unchecked
         ))
       end
     end
