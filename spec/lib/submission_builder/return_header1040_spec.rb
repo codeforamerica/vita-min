@@ -313,6 +313,18 @@ describe SubmissionBuilder::ReturnHeader1040 do
         end
       end
     end
+    context "spouse name control" do
+      context "when use_spouse_name_for_name_control is true" do
+        before do
+          submission.intake.update(use_spouse_name_for_name_control: true)
+        end
+        it "uses the spouses last name to create the name control" do
+          response = SubmissionBuilder::ReturnHeader1040.build(submission)
+          xml = Nokogiri::XML::Document.parse(response.document.to_xml)
+          expect(xml.at("SpouseNameControlTxt").text).to eq "FRAN"
+        end
+      end
+    end
     it "conforms to the eFileAttachments schema" do
       expect(SubmissionBuilder::ReturnHeader1040.build(submission)).to be_valid
     end
