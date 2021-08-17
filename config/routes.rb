@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  devise_for :clients
+
+  devise_scope :client do
+    delete 'clients/sign_out', to: 'devise/sessions#destroy', as: :destroy_client_session
+  end
+
   def login_routes
     resources :client_logins, path: "login", only: [:new, :create, :edit, :update], path_names: { new: '', edit: '' } do
       get "locked", to: "client_logins#account_locked", as: :account_locked, on: :collection
@@ -118,12 +125,6 @@ Rails.application.routes.draw do
       get "/consent-to-disclose", to: "consent_pages#consent_to_disclose"
       get "/relational-efin", to: "consent_pages#relational_efin"
       get "/global-carryforward", to: "consent_pages#global_carryforward"
-
-      devise_for :client, skip: [:sessions]
-
-      devise_scope :client do
-        delete 'clients/sign_out', to: 'devise/sessions#destroy', as: :destroy_client_session
-      end
 
       namespace :portal do
         root "portal#home"
@@ -300,12 +301,6 @@ Rails.application.routes.draw do
         resources :flows, only: [:index, :show] do
           post :generate, on: :collection
         end
-      end
-
-      devise_for :client, skip: [:sessions]
-
-      devise_scope :client do
-        delete 'clients/sign_out', to: 'devise/sessions#destroy', as: :destroy_ctc_client_session
       end
     end
 
