@@ -1392,9 +1392,9 @@ en:
           download_tax_return: Download my tax return
           default_next_steps: Please send us a message with questions or corrections using the "Contact Us" button below.
           failure_title: |
-            Reason for this failure
+            Reason for this failure:
           rejection_title: |
-            Reason for this rejection
+            Reason for this rejection:
           next_step_title: |
             Next steps:
           status:

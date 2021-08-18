@@ -23,7 +23,7 @@
               <div>
                 <% if locale == :en && @exposed_error.description_en.present? %>
                   <%= @exposed_error.description_en %>
-                <% elsif locale == :es && @wxposed_error.description_es.present? %>
+                <% elsif locale == :es && @exposed_error.description_es.present? %>
                   <%= @exposed_error.description_es %>
                 <% else %>
                   <%= @exposed_error.message %>
