@@ -20,9 +20,7 @@ class PublicPagesController < ApplicationController
   def home; end
 
   def healthcheck
-    respond_to do |format|
-      format.any { head 200 }
-    end
+    render :home
   end
 
   def other_options; end

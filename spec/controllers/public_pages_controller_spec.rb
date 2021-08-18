@@ -4,6 +4,8 @@ RSpec.describe PublicPagesController do
   render_views
 
   describe "#home" do
+    let(:demo_banner_text) { I18n.t('views.shared.environment_warning.banner') }
+
     context "in production" do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)
@@ -12,7 +14,7 @@ RSpec.describe PublicPagesController do
       it "does NOT show a banner warning that this is an example site" do
         get :home
 
-        expect(response.body).not_to include("This site is for example purposes only. If you want help with your taxes, go to")
+        expect(response.body).not_to include(demo_banner_text)
       end
 
       it "includes GA script in html" do
@@ -24,7 +26,7 @@ RSpec.describe PublicPagesController do
       it "links to the first question path for digital intake" do
         get :home
 
-        expect(response.body).to include "Get started"
+        expect(response.body).to include I18n.t('general.get_started')
         expect(response.body).to include question_path(:id => QuestionNavigation.first)
       end
     end
@@ -38,7 +40,7 @@ RSpec.describe PublicPagesController do
       it "shows a banner warning that this is an example site" do
         get :home
 
-        expect(response.body).to include("This site is for example purposes only. If you want help with your taxes, go to")
+        expect(response.body).to include(demo_banner_text)
         expect(response.body).to include("https://www.getyourrefund.org")
       end
 
@@ -68,6 +70,14 @@ RSpec.describe PublicPagesController do
         get :home
         expect(response.body).not_to include "https://www.googletagmanager.com/gtag/js?id=UA-156157414-1"
       end
+    end
+  end
+
+  describe "#healthcheck" do
+    it "renders the same content as the home page" do
+      get :healthcheck
+      expect(response).to be_ok
+      expect(response.body).to include I18n.t("views.public_pages.home.header")
     end
   end
 
