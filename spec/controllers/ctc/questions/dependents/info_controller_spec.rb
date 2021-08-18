@@ -2,16 +2,31 @@ require 'rails_helper'
 
 describe Ctc::Questions::Dependents::InfoController do
   let(:intake) { create :ctc_intake }
+  let(:message_verifier) { ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base) }
 
   before do
     sign_in intake.client
   end
 
+  describe "#edit" do
+    let(:unsigned_token) { SecureRandom.base36(24) }
+    let(:signed_token) { message_verifier.generate(unsigned_token) }
+    let!(:dependent) { create :dependent, intake: intake, birth_date: 2.years.ago, relationship: 'daughter', creation_token: unsigned_token }
+
+    it "can access a record by its signed creation_token" do
+      get :edit, params: { id: signed_token }
+      expect(assigns(:dependent)).to eq(dependent)
+    end
+  end
+
   describe "#update" do
-    context "with valid params" do
+    context "with a signed creation token for id" do
+      let(:unsigned_token) { SecureRandom.base36(24) }
+      let(:signed_token) { message_verifier.generate(unsigned_token) }
+
       let(:params) do
         {
-          id: :new,
+          id: signed_token,
           ctc_dependents_info_form: {
             first_name: 'Fae',
             last_name: 'Taxseason',
@@ -29,7 +44,9 @@ describe Ctc::Questions::Dependents::InfoController do
       it "creates a dependent and moves to the next page" do
         post :update, params: params
 
-        expect(intake.dependents.last.full_name).to eq 'Fae Taxseason Jr'
+        new_dependent = intake.dependents.last
+        expect(new_dependent.creation_token).to eq(unsigned_token)
+        expect(new_dependent.full_name).to eq 'Fae Taxseason Jr'
       end
     end
 
@@ -62,9 +79,10 @@ describe Ctc::Questions::Dependents::InfoController do
     end
 
     context "with invalid params" do
+      let(:signed_token) { message_verifier.generate(SecureRandom.base36(24)) }
       let(:params) do
         {
-          id: :new
+          id: signed_token
         }
       end
 

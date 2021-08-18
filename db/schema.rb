@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_18_163805) do
+ActiveRecord::Schema.define(version: 2021_08_18_215926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(version: 2021_08_18_163805) do
     t.integer "cant_be_claimed_by_other", default: 0, null: false
     t.integer "claim_anyway", default: 0, null: false
     t.datetime "created_at", null: false
+    t.string "creation_token"
     t.integer "disabled", default: 0, null: false
     t.string "encrypted_ip_pin"
     t.string "encrypted_ip_pin_iv"
@@ -290,6 +291,7 @@ ActiveRecord::Schema.define(version: 2021_08_18_163805) do
     t.datetime "updated_at", null: false
     t.integer "was_married", default: 0, null: false
     t.integer "was_student", default: 0, null: false
+    t.index ["creation_token"], name: "index_dependents_on_creation_token"
     t.index ["intake_id"], name: "index_dependents_on_intake_id"
   end
 

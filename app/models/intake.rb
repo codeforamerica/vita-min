@@ -578,4 +578,9 @@ class Intake < ApplicationRecord
         needs_to_flush_searchable_data_set_at = NULL
       SQL
   end
+
+  def new_dependent_token
+    verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
+    verifier.generate(SecureRandom.base36(24))
+  end
 end

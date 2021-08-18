@@ -7,6 +7,7 @@
 #  born_in_2020                                :integer          default("unfilled"), not null
 #  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
 #  claim_anyway                                :integer          default("unfilled"), not null
+#  creation_token                              :string
 #  disabled                                    :integer          default("unfilled"), not null
 #  encrypted_ip_pin                            :string
 #  encrypted_ip_pin_iv                         :string
@@ -40,7 +41,8 @@
 #
 # Indexes
 #
-#  index_dependents_on_intake_id  (intake_id)
+#  index_dependents_on_creation_token  (creation_token)
+#  index_dependents_on_intake_id       (intake_id)
 #
 
 class Dependent < ApplicationRecord

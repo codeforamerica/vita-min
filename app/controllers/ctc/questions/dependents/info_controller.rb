@@ -14,8 +14,10 @@ module Ctc
 
         def current_resource
           @dependent ||= begin
-            if params[:id] == 'new'
-              current_intake.dependents.new
+            verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
+            token = verifier.verified(params[:id])
+            if token
+              current_intake.dependents.find_or_initialize_by(creation_token: token)
             else
               super
             end

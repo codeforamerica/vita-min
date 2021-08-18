@@ -10,7 +10,7 @@ module Ctc
 
         def next_path
           if current_intake.had_dependents_yes?
-            Ctc::Questions::Dependents::InfoController.to_path_helper(id: :new)
+            Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token)
           else
             super
           end
