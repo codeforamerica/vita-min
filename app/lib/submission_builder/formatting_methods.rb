@@ -3,7 +3,7 @@ module SubmissionBuilder
     extend ActiveSupport::Concern
 
     def trim(string, length)
-      string.first(length)
+      string.first(length)&.strip
     end
 
     def datetime_type(datetime)
