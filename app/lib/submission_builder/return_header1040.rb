@@ -61,7 +61,9 @@ module SubmissionBuilder
             xml.PrimaryNameControlTxt person_name_control_type(intake.primary_last_name)
             xml.SpouseNameControlTxt spouse_name_control(intake) if tax_return.filing_jointly?
             xml.USAddress {
-              xml.AddressLine1Txt address.street_address
+              # IRS provides no information on how to shorten addresses
+              # but requires that they be < 36 characters long
+              xml.AddressLine1Txt address.street_address.first(35)
               xml.CityNm address.city
               xml.StateAbbreviationCd address.state
               xml.ZIPCd address.zip_code
