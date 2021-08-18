@@ -1569,7 +1569,6 @@ es:
           list:
             - "Tiene todos sus documentos de trabajo (W2, 1099, etc.)"
             - Tiene una copia en papel de la tarjeta de Seguro Social o de los documentos ITIN de todos los miembros de su familia
-          file_for_free: Presente su declaración de impuestos completa de forma gratuita con GetYourRefund.
           simplified_btn: Continuar con la declaración simplificada
           full_btn: Presente su declaración de impuestos completa
         spouse_info:

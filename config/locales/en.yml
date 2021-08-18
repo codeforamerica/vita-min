@@ -1581,14 +1581,12 @@ en:
             - commissions
             - self-employment or contract payments
         file_full_return:
-          title: If you earned income, you could collect additional benefits by filing a full return!
+          title: You are currently filing a simplified tax return to claim your Child Tax Credit and Stimulus Payments.
           help_text:
-            - By filing a full tax return, you could collect all the money you are owed.
-            - "Consider this option if:"
+            - "You might benefit from filing a full tax return if you earned any income in 2020. Filing a full tax return can take longer and you would need:"
           list:
-            - You have all of your employment documents (W2’s, 1099’s, etc)
-            - You have a paper copy of a Social Security Card or ITIN paperwork for everyone in your family
-          file_for_free: File your full tax return for free using GetYourRefund.
+            - All of your employment documents (W2’s, 1099’s, etc)
+            - A paper copy of a Social Security Card or ITIN paperwork for everyone in your family
           simplified_btn: Continue filing a simplified return
           full_btn: File a full tax return
         spouse_info:
