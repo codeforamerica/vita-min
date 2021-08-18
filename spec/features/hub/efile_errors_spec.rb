@@ -16,7 +16,9 @@ RSpec.describe "efile errors" do
           check "Auto-cancel?"
           click_on I18n.t('general.save')
 
-          expect(efile_error.reload).to be_auto_cancel
+          within ".test-auto-cancel" do
+            expect(page).to have_selector("img[alt='yes']")
+          end
         end
       end
     end
