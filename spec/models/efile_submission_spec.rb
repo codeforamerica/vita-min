@@ -267,8 +267,6 @@ describe EfileSubmission do
         context "auto cancellation" do
           let(:rejection_xml) { file_fixture("irs_acknowledgement_rejection.xml").read }
           context "with an error that triggers auto-cancellation" do
-            let(:rejection_xml) { file_fixture("irs_acknowledgement_rejection.xml").read }
-
             before do
               create(:efile_error,
                 code: "IND-189",
