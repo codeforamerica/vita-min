@@ -107,6 +107,16 @@ describe Efile::PollForAcknowledgmentsService do
             expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
           end
         end
+
+        context "and it something else" do
+          let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_exception.xml").read }
+
+          it "changes the state from transmitted to investigating" do
+            Efile::PollForAcknowledgmentsService.run
+            expect(efile_submission.current_state).to eq("failed")
+            expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
+          end
+        end
       end
     end
   end
