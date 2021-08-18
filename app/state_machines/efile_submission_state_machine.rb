@@ -1,6 +1,6 @@
 class EfileSubmissionStateMachine
   include Statesman::Machine
-  CLIENT_INACCESSIBLE_STATUSES = %w[waiting investigating queued].freeze
+  CLIENT_INACCESSIBLE_STATUSES = %w[waiting investigating queued cancelled].freeze
 
   state :new, initial: true
   state :preparing
@@ -23,7 +23,7 @@ class EfileSubmissionStateMachine
   transition from: :new,            to: [:preparing]
   transition from: :preparing,      to: [:queued, :failed]
   transition from: :queued,         to: [:transmitted, :failed]
-  transition from: :transmitted,    to: [:accepted, :rejected]
+  transition from: :transmitted,    to: [:accepted, :rejected, :failed]
   transition from: :failed,         to: [:resubmitted, :cancelled, :investigating, :waiting]
   transition from: :rejected,       to: [:resubmitted, :cancelled, :investigating, :waiting]
   transition from: :investigating,  to: [:resubmitted, :cancelled, :waiting]

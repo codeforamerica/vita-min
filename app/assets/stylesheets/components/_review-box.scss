@@ -3,6 +3,7 @@
   border: 2px solid black;
   border-radius: 1rem;
   max-width: 570px;
+
   &__title {
     h2 {
       font-size: 1.9rem;
@@ -45,11 +46,24 @@
   }
   &__body {
     margin: 0;
+
+    h3 {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+
     li {
       line-height: 3rem;
     }
+
     div {
       line-height: 3rem;
+    }
+
+    .trix-content {
+      div {
+        line-height: 1.5 !important;
+      }
     }
   }
 

@@ -2,6 +2,9 @@
 <div id="address-fields" class="hub-form__card card-small">
   <h3><%= t("hub.clients.fields.mailing_address") %></h3>
   <%= f.cfa_input_field(:street_address, t("general.street_address")) %>
+  <% if is_ctc %>
+    <%= f.cfa_input_field(:street_address2, t("general.street_address2")) %>
+  <% end %>
   <div class="hub-form__row">
     <%= f.cfa_input_field(:city, t("general.city")) %>
     <%= f.cfa_select(:state, t("general.state"), States.name_value_pairs, include_blank: true) %>

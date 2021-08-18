@@ -138,7 +138,7 @@ RSpec.feature "CTC Intake", active_job: true do
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Submission error"
-      expect(page).to have_text "We encountered some errors transmitting your return to the IRS. Information about next steps were sent to your contact info."
+      expect(page).to have_text "Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return."
     end
   end
 
@@ -168,7 +168,7 @@ RSpec.feature "CTC Intake", active_job: true do
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Submission error"
-      expect(page).to have_text "We encountered some errors transmitting your return to the IRS. Information about next steps were sent to your contact info."
+      expect(page).to have_text "Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days."
     end
 
   end
@@ -258,10 +258,11 @@ RSpec.feature "CTC Intake", active_job: true do
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Rejected"
-      expect(page).to have_text "IND-189: 'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
+      expect(page).to have_text "IND-189"
+      expect(page).to have_text "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
       # only show the first error to the user so as not to overwhelm them
       expect(page).not_to have_text "IND-190: 'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
-      expect(page).to have_text "Your return has not been accepted by the IRS. We will need to correct your info and resubmit. Please contact your tax preparer to make corrections."
+      expect(page).to have_text "Please send us a message with questions or corrections using the \"Contact Us\" button below."
       click_on "Contact us"
       expect(page).to have_selector "h1", text: "Message your tax preparers"
       fill_in "What's on your mind?", with: "I have some questions about my tax return."
@@ -273,7 +274,8 @@ RSpec.feature "CTC Intake", active_job: true do
   context "when the client has verified the contact, efile submission is status cancelled" do
     before do
       intake.update(email_address_verified_at: DateTime.now)
-      create(:efile_submission, :cancelled, :with_errors, tax_return: create(:tax_return, client: intake.client, year: 2020))
+      es = create(:efile_submission, :rejected, :with_errors, tax_return: create(:tax_return, client: intake.client, year: 2020))
+      es.transition_to!(:cancelled)
     end
 
     scenario "a client sees information about their cancelled submission" do
@@ -294,7 +296,7 @@ RSpec.feature "CTC Intake", active_job: true do
       click_on "Continue"
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.label")
+      expect(page).to have_text I18n.t("views.ctc.portal.home.status.rejected.label")
       expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.message")
       click_on "Contact us"
       expect(page).to have_selector "h1", text: "Message your tax preparer"

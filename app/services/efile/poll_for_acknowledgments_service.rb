@@ -31,7 +31,12 @@ module Efile
         elsif status == "Accepted"
           EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:accepted, raw_response: raw_response)
         else
-          raise StandardError.new("Submission acknowledgement has an unknown status: #{status} for submission ID #{irs_submission_id}")
+          submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
+          if submission
+            submission.transition_to!(:failed, raw_response: raw_response)
+          else
+            raise StandardError.new("Submission acknowledgement has an unknown status: #{status} for submission ID #{irs_submission_id}")
+          end
         end
       end
       ack_count

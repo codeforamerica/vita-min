@@ -969,6 +969,7 @@ es:
     start_filing: Empiece a declarar
     state: Estado
     street_address: Dirección
+    street_address2: Número de apartamento
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
     suspend_all: Suspender todo
@@ -1367,9 +1368,18 @@ es:
       portal:
         home:
           title: ¡Gracias por presentar su declaración con GetCTC!
-          current_status: "Estado actual de la declaración de impuestos:"
-          message_tax_preparer: Contáctenos
+          current_status: |
+            Estado actual de la declaración de impuestos:
+          contact_us: Contact us
           download_tax_return: Descargar mi declaración de impuestos
+          default_next_steps:
+            Por favor, envíenos un mensaje con preguntas o correcciones utilizando el botón "Contáctenos" que aparece a continuación.
+          failure_title: |
+            Motivo de este fracaso:
+          rejection_title: |
+            Motivo de este rechazo:
+          next_step_title: |
+            Próximos pasos:
           status:
             intake_in_progress:
               label: Necesitamos más información
@@ -1382,7 +1392,8 @@ es:
               message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
             failed:
               label: Error de envío
-              message: Hemos encontrado algunos errores en la transmisión de su declaración al IRS. Le hemos enviado información a su información de contacto sobre los próximos pasos que se deben seguir.
+              message:
+                Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
             transmitted:
               label: Tramitados electrónicamente
               message: Su declaración ha sido presentada al IRS. En 48 horas sabrá si su declaración ha sido aceptada.
@@ -1391,9 +1402,9 @@ es:
               message: Su declaración ha sido aceptada por el IRS. Deberá recibir un pago en un plazo de 1-4 semanas.
             rejected:
               label: Rechazada
-              message: Su declaración no ha sido aceptada por el IRS. Tendremos que corregir su información y volver a enviarla. Favor de comunicarse con su preparador de impuestos para hacer las correcciones.
+              message:
+                Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
             cancelled:
-              label: Rechazada
               message: Ya no intentaremos enviar esta declaración al IRS. Esto puede deberse a que solicitó que no enviemos la declaración o porque un rechazo del IRS indicó que no podemos volver a enviarla en su nombre.
       questions:
         returning_client:
