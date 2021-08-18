@@ -262,8 +262,8 @@ RSpec.feature "CTC Intake", active_job: true do
       # only show the first error to the user so as not to overwhelm them
       expect(page).not_to have_text "IND-190: 'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
       expect(page).to have_text "Your return has not been accepted by the IRS. We will need to correct your info and resubmit. Please contact your tax preparer to make corrections."
-      click_on "Message my tax preparer"
-      expect(page).to have_selector "h1", text: "Message your tax preparer"
+      click_on "Contact us"
+      expect(page).to have_selector "h1", text: "Message your tax preparers"
       fill_in "What's on your mind?", with: "I have some questions about my tax return."
       click_on "Send message"
       expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
@@ -296,7 +296,7 @@ RSpec.feature "CTC Intake", active_job: true do
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.label")
       expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.message")
-      click_on "Message my tax preparer"
+      click_on "Contact us"
       expect(page).to have_selector "h1", text: "Message your tax preparer"
       fill_in "What's on your mind?", with: "I have some questions about my tax return."
       click_on "Send message"
