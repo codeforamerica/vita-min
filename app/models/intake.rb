@@ -506,7 +506,7 @@ class Intake < ApplicationRecord
   def formatted_mailing_address
     return "N/A" unless street_address
     <<~ADDRESS
-      #{street_address}
+      #{street_address} #{street_address2}
       #{city}, #{state} #{zip_code}
     ADDRESS
   end
