@@ -76,6 +76,14 @@
           <% end %>
         </li>
       <% end %>
+
+      <% if current_user.admin? %>
+        <li class="user-action-link">
+          <%= link_to hub_ctc_admin_tools_path, class: "button button--small" do %>
+            CTC Admin Tools
+          <% end %>
+        </li>
+      <% end %>
     </ul>
   </section>
 <% end %>

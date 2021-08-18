@@ -11,6 +11,7 @@
 #
 # Indexes
 #
+#  index_efile_submissions_on_created_at     (created_at)
 #  index_efile_submissions_on_tax_return_id  (tax_return_id)
 #
 FactoryBot.define do

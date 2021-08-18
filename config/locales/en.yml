@@ -1723,6 +1723,10 @@ en:
           visit_ctc_faq: "Visit the Child Tax Credit FAQ"
           visit_stimulus_faq: "Visit the Stimulus FAQ"
           file_gyr: "File with GetYourRefund"
+        at_capacity:
+          title: Wow, it looks like we are at capacity right now. Check back next week!
+          p1: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service! Please check back next week.
+          p2: If you have questions, visit our FAQs.
         filing_status:
           title: How will you be filing your tax return?
           married_filing_jointly: Married Filing Jointly

@@ -1,0 +1,15 @@
+<% @main_heading = t("views.ctc.questions.at_capacity.title") %>
+<% content_for :form_question, @main_heading %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question"><%= @main_heading %></h1>
+  <p class="text--small"><%= t("views.ctc.questions.at_capacity.p1") %></p>
+  <p class="text--small"><%= t("views.ctc.questions.at_capacity.p2") %></p>
+
+  <%= link_to root_path(anchor: 'ctc_faq'), class: "button button--wide text--centered" do %>
+    <%=t("views.ctc.questions.use_gyr.visit_ctc_faq") %>
+  <% end %>
+  <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'stimulus'), class: "button button--wide text--centered" do %>
+    <%=t("views.ctc.questions.use_gyr.visit_stimulus_faq") %>
+  <% end %>
+<% end %>

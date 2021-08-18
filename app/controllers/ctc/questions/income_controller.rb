@@ -5,6 +5,15 @@ module Ctc
 
       layout "yes_no_question"
 
+      def update
+        current_capacity = CtcIntakeCapacity.last&.capacity
+        if !current_capacity.nil? && EfileSubmission.where("created_at > ?", Date.today.beginning_of_day).count >= current_capacity
+          return redirect_to questions_at_capacity_path
+        end
+
+        super
+      end
+
       private
 
       def form_params

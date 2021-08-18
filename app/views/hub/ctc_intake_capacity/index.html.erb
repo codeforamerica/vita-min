@@ -1,0 +1,47 @@
+<% @main_heading = "CTC Intake Capacity" %>
+<% content_for :page_title, @main_heading %>
+<% content_for :back_to, "ctc_admin_tools" %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= @main_heading %></h1>
+
+      <div class="form-card__content">
+      <%= form_for(@form, url: hub_ctc_intake_capacity_index_path, method: :post, local: true, builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" }) do |f| %>
+
+          <%= f.cfa_input_field(:capacity, "Max number of completed intakes per day", notice: "Current value: #{CtcIntakeCapacity.last&.capacity || 'No value set yet'}", help_text: "A value is required. 0 pauses intake. 1000000 allows virtually unlimited intakes per day.", classes: ["form-width--med"]) %>
+
+          <button class="button button--cta spacing-above-0" type="submit">
+            <%= t("general.save") %>
+          </button>
+      <% end %>
+      </div>
+
+      <% if @recent_intake_capacities.present? %>
+        <h2 class="spacing-below-0">History</h2>
+        <table class="data-table">
+          <thead>
+          <tr>
+            <th>Capacity</th>
+            <th>Date</th>
+            <th>User</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @recent_intake_capacities.each do |intake_capacity| %>
+            <tr>
+              <td><%= intake_capacity.capacity %></td>
+              <td><%= formatted_datetime(intake_capacity.created_at) %></td>
+              <td><%= intake_capacity.user.name %>
+                (<%= intake_capacity.user.email %>)
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+      <% end %>
+    </div>
+  </div>
+<% end %>

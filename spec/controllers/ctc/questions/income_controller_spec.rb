@@ -77,5 +77,56 @@ describe Ctc::Questions::IncomeController do
         expect(flash[:alert]).to eq I18n.t("general.enable_javascript")
       end
     end
+
+    context "capacity" do
+      context "when there is no current capacity" do
+        it "creates the intake as usual" do
+          expect {
+            post :update, params: params
+          }.to change(Intake, :count)
+        end
+      end
+
+      context "when CTC intakes are below capacity" do
+        before do
+          create(:ctc_intake_capacity, capacity: 5)
+          create(:efile_submission)
+        end
+
+        it "creates the intake as usual" do
+          expect {
+            post :update, params: params
+          }.to change(Intake, :count)
+        end
+      end
+
+      context "when there are efile submissions in previous days but today does not exceed capacity" do
+        before do
+          create(:ctc_intake_capacity, capacity: 1)
+          create(:efile_submission, created_at: 7.days.ago)
+        end
+
+        it "creates the intake as usual" do
+          expect {
+            post :update, params: params
+          }.to change(Intake, :count)
+        end
+      end
+
+      context "when we would exceed capacity with this intake" do
+        before do
+          create(:ctc_intake_capacity, capacity: 1)
+          create(:efile_submission)
+        end
+
+        it "redirects to the at_capacity page and does not create an intake" do
+          expect {
+            post :update, params: params
+          }.not_to change(Intake, :count)
+
+          expect(response).to redirect_to questions_at_capacity_path
+        end
+      end
+    end
   end
 end

@@ -12,6 +12,8 @@
     <%= link_to "< Return to submissions", hub_efile_submissions_path, class: "breadcrumb-item link--grey" %>
   <% elsif back_to == "efile_errors" %>
     <%= link_to "< Return to errors", hub_efile_errors_path, class: "breadcrumb-item link-grey" %>
+  <% elsif back_to == "ctc_admin_tools" %>
+    <%= link_to "< Return to CTC Admin Tools", hub_ctc_admin_tools_path, class: "breadcrumb-item link-grey" %>
   <% else %>
     <% raise StandardError.new("Invalid value for back_to") %>
   <% end %>
