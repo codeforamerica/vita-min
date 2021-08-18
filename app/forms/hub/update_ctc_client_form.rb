@@ -142,6 +142,10 @@ module Hub
 
     private
 
+    def dependent_validation_contexts
+      [:client_valet_form, :ctc_client_valet_form]
+    end
+
     def at_least_one_photo_id_type_selected
       photo_id_selected = Intake::CtcIntake::PHOTO_ID_TYPES.any? do |_, type|
         self.send(type[:field_name]) == "1"

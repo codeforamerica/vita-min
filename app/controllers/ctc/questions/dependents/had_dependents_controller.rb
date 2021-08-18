@@ -8,11 +8,9 @@ module Ctc
 
         private
 
-        def next_path
+        def after_update_success
           if current_intake.had_dependents_yes?
-            Ctc::Questions::Dependents::InfoController.to_path_helper(id: :new)
-          else
-            super
+            session[:last_edited_dependent_id] = current_intake.find_blank_dependent_or_create_dependent.id
           end
         end
 

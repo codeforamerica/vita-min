@@ -4,6 +4,8 @@ module Ctc
       class InfoController < BaseDependentController
         include AuthenticatedCtcClientConcern
 
+        before_action :redirect_if_deprecated_magic_new_id
+
         layout "intake"
 
         def self.show?(dependent)
@@ -12,20 +14,16 @@ module Ctc
           dependent.intake.had_dependents_yes?
         end
 
-        def current_resource
-          @dependent ||= begin
-            if params[:id] == 'new'
-              current_intake.dependents.new
-            else
-              super
-            end
-          end
-        end
-
         private
 
         def illustration_path
           "ssn-itins.svg"
+        end
+
+        def redirect_if_deprecated_magic_new_id
+          if params[:id].to_s == 'new'
+            redirect_to Ctc::Questions::Dependents::HadDependentsController.to_path_helper
+          end
         end
       end
     end

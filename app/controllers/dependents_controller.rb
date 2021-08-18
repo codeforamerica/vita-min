@@ -17,7 +17,9 @@ class DependentsController < ApplicationController
 
   def update
     @dependent = current_intake.dependents.find(params[:id])
-    if @dependent.update(dependent_params)
+    @dependent.assign_attributes(dependent_params)
+    if @dependent.valid?(:gyr_dependent_form)
+      @dependent.save
       send_mixpanel_event(event_name: "dependent_updated", data: @dependent.mixpanel_data)
       redirect_to dependents_path
     else
@@ -29,7 +31,8 @@ class DependentsController < ApplicationController
   def create
     @dependent = Dependent.new(dependent_params.merge(intake: current_intake))
 
-    if @dependent.save
+    if @dependent.valid?(:gyr_dependent_form)
+      @dependent.save
       send_mixpanel_event(event_name: "dependent_added", data: @dependent.mixpanel_data)
       redirect_to dependents_path
     else

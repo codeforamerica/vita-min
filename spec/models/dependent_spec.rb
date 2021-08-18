@@ -65,10 +65,17 @@ describe Dependent do
   end
 
   describe "validations" do
-    it "requires essential fields" do
+    it "is valid with only an associated intake" do
+      intake = Intake.new
+      dependent = intake.dependents.new
+
+      expect(dependent).to be_valid
+    end
+
+    it "requires essential fields in certain contexts" do
       dependent = Dependent.new
 
-      expect(dependent).to_not be_valid
+      expect(dependent).to_not be_valid(:client_valet_form)
       expect(dependent.errors).to include :intake
       expect(dependent.errors).to include :first_name
       expect(dependent.errors).to include :last_name

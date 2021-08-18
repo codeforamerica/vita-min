@@ -133,8 +133,8 @@ module Hub
 
     private
 
-    def dependent_validation_context
-      :ctc_valet_form
+    def dependent_validation_contexts
+      [:client_valet_form, :ctc_client_valet_form]
     end
 
     def send_confirmation_message

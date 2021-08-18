@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe Ctc::Dependents::InfoForm do
+  let(:intake) { create :ctc_intake }
+  let(:dependent) { create :dependent, intake: intake, first_name: nil, last_name: nil, relationship: nil, birth_date: nil }
+
   context "validations" do
     it "requires first and last name" do
       form = described_class.new
@@ -43,7 +46,7 @@ describe Ctc::Dependents::InfoForm do
     end
 
     it "saves the attributes on the dependent" do
-      form = described_class.new(intake.dependents.new, params)
+      form = described_class.new(dependent, params)
       expect(form.save).to be_truthy
 
       dependent = Dependent.last

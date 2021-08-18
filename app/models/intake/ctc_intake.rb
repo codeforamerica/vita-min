@@ -354,4 +354,8 @@ class Intake::CtcIntake < Intake
   def filing_jointly?
     client.tax_returns.last.filing_status_married_filing_jointly?
   end
+
+  def find_blank_dependent_or_create_dependent
+    dependents.find(&:missing_required_fields?) || dependents.create
+  end
 end

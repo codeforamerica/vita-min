@@ -72,16 +72,21 @@ class Dependent < ApplicationRecord
   enum claim_anyway: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_anyway
   enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
 
-  validates_presence_of :first_name
-  validates_presence_of :last_name
+  # Most of the time when we're editing an individual dependent we can rely on the controller form class
+  # (Ctc::Dependents::InfoForm etc), the remaining validations here are for the CTC valet case
+  # (where we're validating a list of dependents at once) or the GYR dependents case (which does
+  # a raw @dependent.update() without a form)
+  with_options on: [:client_valet_form, :gyr_dependent_form] do
+    validates_presence_of :first_name
+    validates_presence_of :last_name
+    validates_presence_of :birth_date
+  end
 
-  # Allow birth date to be blank when we first create dependents in the CTC intake flow, but nowhere else
-  validates_presence_of :birth_date, unless: -> { intake&.is_ctc? }
-  validates_presence_of :birth_date, on: :ctc_valet_form
+  with_options on: [:ctc_client_valet_form, :gyr_dependent_form] do
+    validates_presence_of :relationship
+  end
 
-  validates_presence_of :relationship, on: :ctc_valet_form
-
-  validates_presence_of :ssn, on: :ctc_valet_form
+  validates_presence_of :ssn, on: :ctc_client_valet_form
   validates_confirmation_of :ssn, if: -> { ssn.present? && ssn_changed? }
   validates :ssn, social_security_number: true, if: -> { ssn.present? && tin_type == "ssn" }
   validates :ssn, individual_taxpayer_identification_number: true, if: -> { ssn.present? && tin_type == "itin" }
@@ -118,6 +123,10 @@ class Dependent < ApplicationRecord
     "aunt",
     "uncle"
   ]
+
+  def missing_required_fields?
+    first_name.blank?
+  end
 
   def full_name
     parts = [first_name, last_name]
@@ -167,22 +176,27 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit_2020?
+    return false if missing_required_fields?
     age_at_end_of_year(2020) < 17 && qualifying_child_2020? && tin_type_ssn?
   end
 
   def eligible_for_eip1?
+    return false if missing_required_fields?
     age_at_end_of_year(2020) < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def eligible_for_eip2?
+    return false if missing_required_fields?
     age_at_end_of_year(2020) < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def qualifying_child_relationship?
+    return false if missing_required_fields?
     QUALIFYING_CHILD_RELATIONSHIPS.include? relationship.downcase
   end
 
   def qualifying_relative_relationship?
+    return false if missing_required_fields?
     QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship.downcase
   end
 

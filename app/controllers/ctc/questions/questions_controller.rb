@@ -24,8 +24,8 @@ module Ctc
       def next_path
         next_step = form_navigation.next
         options = {}
-        if next_step.resource_name.present? && next_step.resource_name == self.class.resource_name
-          options[:id] = current_resource.id
+        if next_step.resource_name
+          options[:id] = next_step.model_for_show_check(self)&.id
         end
         next_step.to_path_helper(options)
       end

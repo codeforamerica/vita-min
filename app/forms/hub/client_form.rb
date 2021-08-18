@@ -43,7 +43,7 @@ module Hub
 
     def valid?
       form_valid = super
-      dependents_valid = dependents.map { |d| d.valid?(dependent_validation_context) }
+      dependents_valid = dependents.map { |d| d.valid?(dependent_validation_contexts) }
       form_valid && !dependents_valid.include?(false)
     end
 
@@ -71,8 +71,8 @@ module Hub
       attribute_names.push( { dependents_attributes: {}, tax_returns_attributes: {} })
     end
 
-    def dependent_validation_context
-      nil
+    def dependent_validation_contexts
+      [:client_valet_form]
     end
 
     def opted_in_sms?
