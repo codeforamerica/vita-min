@@ -1368,7 +1368,7 @@ es:
         home:
           title: ¡Gracias por presentar su declaración con GetCTC!
           current_status: "Estado actual de la declaración de impuestos:"
-          message_tax_preparer: Mensaje a mi preparador de impuestos
+          message_tax_preparer: Contáctenos
           download_tax_return: Descargar mi declaración de impuestos
           status:
             intake_in_progress:

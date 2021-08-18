@@ -1387,7 +1387,7 @@ en:
         home:
           title: Thank you for filing with GetCTC!
           current_status: "Current tax return status:"
-          message_tax_preparer: Message my tax preparer
+          message_tax_preparer: Contact us
           download_tax_return: Download my tax return
           status:
             intake_in_progress:
