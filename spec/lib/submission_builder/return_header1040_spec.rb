@@ -12,7 +12,8 @@ describe SubmissionBuilder::ReturnHeader1040 do
         primary_signature_pin: "12345",
         spouse_signature_pin: "54321",
         primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
-        spouse_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20)
+        spouse_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
+        primary_prior_year_agi_amount: 10000
       )
       submission.client.update!(
         created_at: DateTime.new(2021, 4, 20, 12, 0),
@@ -82,6 +83,8 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("JuratDisclosureCd").text).to eq "Online Self Select PIN"
         expect(xml.at("PrimaryPINEnteredByCd").text).to eq "Taxpayer"
         expect(xml.at("SpousePINEnteredByCd").text).to eq "Taxpayer"
+        expect(xml.at("PrimaryPriorYearAGIAmt").text).to eq "10000"
+        expect(xml.at("SpousePriorYearAGIAmt").text).to eq "0"
         expect(xml.at("PrimarySignaturePIN").text).to eq submission.intake.primary_signature_pin
         expect(xml.at("SpouseSignaturePIN").text).to eq submission.intake.spouse_signature_pin
         expect(xml.at("PrimarySignatureDt").text).to eq submission.intake.primary_signature_pin_at.strftime("%F")

@@ -146,6 +146,7 @@
 #  primary_first_name                                   :string
 #  primary_last_name                                    :string
 #  primary_middle_initial                               :string
+#  primary_prior_year_agi_amount                        :integer
 #  primary_signature_pin_at                             :datetime
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
@@ -188,6 +189,7 @@
 #  spouse_issued_identity_pin                           :integer          default(0), not null
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
+#  spouse_prior_year_agi_amount                         :integer
 #  spouse_signature_pin_at                              :datetime
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
