@@ -10,7 +10,7 @@
       <div class="form-card__content">
       <%= form_for(@form, url: hub_ctc_intake_capacity_index_path, method: :post, local: true, builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" }) do |f| %>
 
-          <%= f.cfa_input_field(:capacity, "Max number of completed intakes per day", notice: "Current value: #{CtcIntakeCapacity.last&.capacity || 'No value set yet'}", help_text: "A value is required. 0 pauses intake. 1000000 allows virtually unlimited intakes per day.", classes: ["form-width--med"]) %>
+          <%= f.cfa_input_field(:capacity, "Max number of completed intakes per day", notice: "Current limit: #{CtcIntakeCapacity.last&.capacity || 'No value set yet'}. Completed intakes so far today: #{EfileSubmission.where("created_at > ?", Date.today.beginning_of_day).count}", help_text: "A value is required. 0 pauses intake. 1000000 allows virtually unlimited intakes per day.", classes: ["form-width--med"]) %>
 
           <button class="button button--cta spacing-above-0" type="submit">
             <%= t("general.save") %>
