@@ -6,6 +6,8 @@ describe Hub::EfileErrorsController do
     it_behaves_like :an_action_for_admins_only , action: :index, method: :get
 
     context "as an authenticated user" do
+      let!(:efile_error) { create :efile_error, code: "CANCEL-ME-123" }
+
       before do
         sign_in user
       end
@@ -13,7 +15,7 @@ describe Hub::EfileErrorsController do
       it "renders index" do
         get :index
         expect(response).to render_template :index
-        expect(assigns(:efile_errors)).to eq EfileError.all
+        expect(assigns(:efile_errors)).to match_array [efile_error]
       end
     end
   end
@@ -42,11 +44,12 @@ describe Hub::EfileErrorsController do
       {
         id: efile_error.id,
         efile_error: {
-            expose: false,
-            description_en: "<div>We were unable to verify your address. Can you check to see if there are any mistakes?</div>",
-            description_es: "<div>We were unable to verify your address. Can you check to see if there are any mistakes? (In spanish)</div>",
-            resolution_en: "<div>Here's how you can fix it.</div>",
-            resolution_es: "<div>Here's how you can fix it. (in spanish)</div>"
+          expose: false,
+          auto_cancel: true,
+          description_en: "<div>We were unable to verify your address. Can you check to see if there are any mistakes?</div>",
+          description_es: "<div>We were unable to verify your address. Can you check to see if there are any mistakes? (In spanish)</div>",
+          resolution_en: "<div>Here's how you can fix it.</div>",
+          resolution_es: "<div>Here's how you can fix it. (in spanish)</div>",
         }
       }
     end
@@ -63,6 +66,7 @@ describe Hub::EfileErrorsController do
         put :update, params: params
         efile_error.reload
         expect(efile_error.expose).to eq false
+        expect(efile_error.auto_cancel).to eq true
         expect(efile_error.description_en.body).to be_an_instance_of ActionText::Content
         expect(efile_error.description_en.body.to_s).to include "<div>We were unable to verify your address. Can you check to see if there are any mistakes?</div>"
         expect(response).to redirect_to hub_efile_error_path(id: efile_error.id)

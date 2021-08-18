@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_18_163805) do
+ActiveRecord::Schema.define(version: 2021_08_18_180724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -335,6 +335,7 @@ ActiveRecord::Schema.define(version: 2021_08_18_163805) do
   end
 
   create_table "efile_errors", force: :cascade do |t|
+    t.boolean "auto_cancel", default: false
     t.string "category"
     t.string "code"
     t.datetime "created_at", precision: 6, null: false

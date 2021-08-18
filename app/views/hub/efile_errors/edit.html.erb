@@ -6,6 +6,7 @@
     <h2>Options</h2>
     <%= form_with model: @efile_error, method: :put, local: true, url: hub_efile_error_path, builder: VitaMinFormBuilder do |f| %>
       <%= f.hub_checkbox :expose, "Exposed to client?" %>
+      <%= f.hub_checkbox :auto_cancel, "Auto-cancel?" %>
 
       <div class="spacing-above-25">
         <%= f.label :description_en, "Description (English)", class: "h4" %>
