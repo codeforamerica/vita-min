@@ -26,6 +26,7 @@ RSpec.describe Hub::UpdateCtcClientForm do
         primary_birth_date_month: intake.primary_birth_date.month,
         primary_birth_date_day: intake.primary_birth_date.day,
         street_address: intake.street_address,
+        street_address2: intake.street_address2,
         city: intake.city,
         state: intake.state,
         zip_code: intake.zip_code,
@@ -84,6 +85,20 @@ RSpec.describe Hub::UpdateCtcClientForm do
             form.save
             tax_return.reload
           end.to change(tax_return, :filing_status).to "single"
+        end
+      end
+
+      context "updating the street address" do
+        before do
+          form_attributes[:street_address2] = "Apt 1"
+        end
+
+        it "persists valid changes to street address" do
+          expect do
+            form = described_class.new(client, form_attributes)
+            form.save
+            intake.reload
+          end.to change(intake, :street_address2).to("Apt 1")
         end
       end
     end

@@ -969,6 +969,7 @@ es:
     start_filing: Empiece a declarar
     state: Estado
     street_address: Dirección
+    street_address2: Número de apartamento
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
     suspend_all: Suspender todo
