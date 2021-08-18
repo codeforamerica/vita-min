@@ -6,7 +6,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
     before do
       submission.intake.update(
         primary_first_name: "Hubert Blaine ",
-        primary_last_name: "Wolfeschlegelsteinhausenbergerdorff ",
+        primary_last_name: "Di Wolfeschlegelsteinhausenbergerdorff ",
         spouse_first_name: "Lisa",
         spouse_last_name: "Frank",
         primary_signature_pin: "12345",
@@ -93,8 +93,8 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("PrimarySSN").text).to eq submission.intake.primary_ssn
         expect(xml.at("SpouseSSN").text).to eq submission.intake.spouse_ssn
         expect(xml.at("NameLine1Txt").text).to eq "HUBERT BLAINE<W<& LISA F" # trimmed to 35 characters
-        expect(xml.at("PrimaryNameControlTxt").text).to eq "WOLF"
-        expect(xml.at("SpouseNameControlTxt").text).to eq "WOLF"
+        expect(xml.at("PrimaryNameControlTxt").text).to eq "DIWO"
+        expect(xml.at("SpouseNameControlTxt").text).to eq "DIWO"
         expect(xml.at("AddressLine1Txt").text).to eq "23627 HAWKINS CREEK CT"
         expect(xml.at("CityNm").text).to eq "KATY"
         expect(xml.at("StateAbbreviationCd").text).to eq "TX"

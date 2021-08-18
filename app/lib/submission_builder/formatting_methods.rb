@@ -77,11 +77,11 @@ module SubmissionBuilder
       name_line
     end
 
-    # Limit to max 4 chars uppercased with special characters removed
+    # Limit to max 4 chars uppercased with special characters and spaces removed
     def person_name_control_type(string)
       return "" unless string.present?
 
-      formatted_last_name(string).first(4)
+      formatted_last_name(string).delete(" ").first(4)
     end
 
     # phone number without country code or formatting
