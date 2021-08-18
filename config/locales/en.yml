@@ -980,6 +980,7 @@ en:
     start_filing: Start filing
     state: State
     street_address: Street address or P.O. Box
+    street_address2: Apartment or unit number
     submit: Submit
     submit_question: Submit a question to GetYourRefund
     suspend_all: Suspend All

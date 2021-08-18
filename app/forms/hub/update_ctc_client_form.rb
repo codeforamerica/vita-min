@@ -20,6 +20,7 @@ module Hub
                        :phone_number,
                        :sms_phone_number,
                        :street_address,
+                       :street_address2,
                        :city,
                        :state,
                        :zip_code,
