@@ -19,6 +19,6 @@ RSpec.describe "efile errors" do
           expect(efile_error.reload).to be_auto_cancel
         end
       end
-      end
+    end
   end
 end
