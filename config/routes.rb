@@ -241,6 +241,8 @@ Rails.application.routes.draw do
         resources :user_notifications, only: [:index], path: "/notifications" do
           post "/mark-all-read", to: 'user_notifications#mark_all_notifications_read', as: :mark_all_read, on: :collection
         end
+        resources :ctc_admin_tools, only: [:index]
+        resources :ctc_intake_capacity, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
       end
 
@@ -288,6 +290,7 @@ Rails.application.routes.draw do
       get "/questions/returning-client", to: "ctc/questions/returning_client#edit", as: :questions_returning_client
       get "/questions/filed-2020-yes", to: "ctc/questions/filed2020_yes#edit", as: :questions_filed2020_yes
       get "/questions/life-situations-2019", to: "ctc/questions/life_situations2019#edit", as: :questions_life_situations2019
+      get "/questions/at-capacity", to: "ctc/questions/at_capacity#edit", as: :questions_at_capacity
 
       # remove-spouse should not be included in default navigation flow
       get "/questions/remove-spouse", to: "ctc/questions/remove_spouse#edit", as: :questions_remove_spouse

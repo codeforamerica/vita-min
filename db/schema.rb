@@ -222,6 +222,15 @@ ActiveRecord::Schema.define(version: 2021_08_18_163805) do
     t.index ["client_id"], name: "index_consents_on_client_id"
   end
 
+  create_table "ctc_intake_capacities", force: :cascade do |t|
+    t.integer "capacity", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["created_at"], name: "index_ctc_intake_capacities_on_created_at"
+    t.index ["user_id"], name: "index_ctc_intake_capacities_on_user_id"
+  end
+
   create_table "ctc_signups", force: :cascade do |t|
     t.datetime "beta_email_sent_at"
     t.datetime "created_at", precision: 6, null: false
@@ -381,6 +390,7 @@ ActiveRecord::Schema.define(version: 2021_08_18_163805) do
     t.datetime "last_checked_for_ack_at"
     t.bigint "tax_return_id"
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_efile_submissions_on_created_at"
     t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
   end
 
@@ -1023,6 +1033,7 @@ ActiveRecord::Schema.define(version: 2021_08_18_163805) do
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
+  add_foreign_key "ctc_intake_capacities", "users"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"

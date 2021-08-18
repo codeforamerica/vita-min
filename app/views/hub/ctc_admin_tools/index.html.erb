@@ -1,0 +1,14 @@
+<% @main_heading = "CTC Admin Tools" %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= @main_heading %></h1>
+
+      <%= link_to hub_ctc_intake_capacity_index_path, class: "button button--small" do %>
+        CTC Capacity
+      <% end %>
+    </div>
+  </div>
+<% end %>
