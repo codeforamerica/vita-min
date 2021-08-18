@@ -224,6 +224,7 @@ class FlowsController < ApplicationController
         primary_last_name: last_name,
         sms_phone_number: sms_phone_number.presence,
         email_address: email_address.presence,
+        email_address_verified_at: (email_address.present? && email_address.end_with?('@example.com')) ? DateTime.now : nil,
         street_address: '123 Main St',
         city: 'Los Angeles',
         state: 'CA',
