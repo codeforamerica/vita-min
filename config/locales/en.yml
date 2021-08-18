@@ -1387,9 +1387,17 @@ en:
       portal:
         home:
           title: Thank you for filing with GetCTC!
-          current_status: "Current tax return status:"
-          message_tax_preparer: Contact us
+          current_status: |
+            Current tax return status:
+          contact_us: Contact us
           download_tax_return: Download my tax return
+          default_next_steps: Please send us a message with questions or corrections using the "Contact Us" button below.
+          failure_title: |
+            Reason for this failure:
+          rejection_title: |
+            Reason for this rejection:
+          next_step_title: |
+            Next steps:
           status:
             intake_in_progress:
               label: More information needed
@@ -1402,7 +1410,7 @@ en:
               message: We are preparing your return. We'll continue to update you on the status of your submission.
             failed:
               label: Submission error
-              message: We encountered some errors transmitting your return to the IRS. Information about next steps were sent to your contact info.
+              message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
             transmitted:
               label: Electronically filed
               message: Your return has been submitted to the IRS. You will know in 48 hours if your return has been accepted.
@@ -1411,9 +1419,8 @@ en:
               message: Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks.
             rejected:
               label: Rejected
-              message: Your return has not been accepted by the IRS. We will need to correct your info and resubmit. Please contact your tax preparer to make corrections.
+              message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
             cancelled:
-              label: Rejected
               message: We will no longer attempt to submit this return to the IRS. This may be because you requested that we do not submit the return, or because a rejection from the IRS indicated that we can not resubmit on your behalf.
       questions:
         returning_client:
