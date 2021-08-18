@@ -12,14 +12,45 @@
             <%= image_tag submission_status_icon(@status) %>
             <%= t("views.ctc.portal.home.status.#{@status}.label") %>
           </div>
+
           <% if @exposed_error.present? %>
-            <div class="text--bold text--small">
-              <%= "#{@exposed_error.code}: " if @exposed_error.source == "irs" %><%= @exposed_error.message %>
+            <h3><%= @status == "failure" ? t("views.ctc.portal.home.failure_title") : t("views.ctc.portal.home.rejection_title") %></h3>
+
+            <div class="text--small">
+              <div class="text--semibold">
+                <%= @exposed_error.code %>
+              </div>
+              <div>
+                <% if locale == :en && @exposed_error.description_en.present? %>
+                  <%= @exposed_error.description_en %>
+                <% elsif locale == :es && @wxposed_error.description_es.present? %>
+                  <%= @exposed_error.description_es %>
+                <% else %>
+                  <%= @exposed_error.message %>
+                <% end %>
+              </div>
             </div>
-          <% end %>
-          <div class="text--small">
+
+            <h3><%= t("views.ctc.portal.home.next_step_title") %></h3>
+            <div class="text--small">
+              <% if locale == :en && @exposed_error.resolution_en.present? %>
+                <%= @exposed_error.resolution_en %>
+              <% elsif locale == :es && @exposed_error.resolution_es.present? %>
+                <%= @exposed_error.resolution_es %>
+              <% elsif @submission.current_state == "cancelled" %>
+                <!--
+                  the client-facing status is rejected, but need to display a special message for cancelled returns
+                  to indicate that there's no actionable next steps for the client.
+                -->
+                <%= t("views.ctc.portal.home.status.cancelled.message") %>
+              <% else %>
+                <%= t("views.ctc.portal.home.default_next_steps") %>
+              <% end %>
+            </div>
+          <% else %>
             <%= t("views.ctc.portal.home.status.#{@status}.message") %>
-          </div>
+          <% end %>
+
           <div class="review-box__cta-button-container">
             <% if @current_step %>
               <%= link_to "Complete CTC form", @current_step, class: "button" %>
@@ -33,7 +64,7 @@
         </div>
       </div>
       <div class="spacing-above-35">
-        <%= link_to t('views.ctc.portal.home.message_tax_preparer'), new_ctc_portal_message_path, class: "button button--primary button--full-width" %>
+        <%= link_to t('views.ctc.portal.home.contact_us'), new_ctc_portal_message_path, class: "button button--primary button--full-width" %>
       </div>
     </div>
   </div>

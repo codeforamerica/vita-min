@@ -11,7 +11,7 @@ import { initTaggableNote, initMultiSelectVitaPartner } from '../lib/tagging';
 import { initBulkAction } from "../lib/bulk_action";
 import { getEfileSecurityInformation } from "../lib/efile_security_information";
 import { initTINTypeSelector } from "../lib/tin_type_selector";
-
+import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 const Listeners =  (function(){
     return {
         init: function () {
@@ -55,6 +55,10 @@ const Listeners =  (function(){
                 }
                 if (document.querySelector('.multi-select-vita-partner')) {
                     initMultiSelectVitaPartner();
+                }
+
+                if (document.querySelector('.trix-content')) {
+                    addTargetBlankToLinks();
                 }
 
                 if (window.TINTypeSelector && window.SSNEmploymentCheckboxSelector) {
