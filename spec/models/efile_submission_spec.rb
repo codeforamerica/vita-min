@@ -263,6 +263,45 @@ describe EfileSubmission do
             subject: submission.intake,
           )
         end
+
+        context "auto cancellation" do
+          let(:rejection_xml) { file_fixture("irs_acknowledgement_rejection.xml").read }
+          context "with an error that triggers auto-cancellation" do
+            before do
+              create(:efile_error,
+                code: "IND-189",
+                message: "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value.",
+                category: "Missing Data",
+                severity: "Reject and Stop",
+                source: "irs",
+                auto_cancel: true,
+              )
+            end
+
+            it "immediately transitions to cancelled" do
+              submission.transition_to!(:rejected, raw_response: rejection_xml)
+              expect(submission.current_state).to eq("cancelled")
+            end
+          end
+
+          context "without an error that triggers auto-cancellation" do
+            before do
+              create(:efile_error,
+                     code: "IND-189",
+                     message: "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value.",
+                     category: "Missing Data",
+                     severity: "Reject and Stop",
+                     source: "irs",
+                     auto_cancel: false,
+                     )
+            end
+
+            it "stays rejected" do
+              submission.transition_to!(:rejected, raw_response: rejection_xml)
+              expect(submission.current_state).to eq("rejected")
+            end
+          end
+        end
       end
     end
   end

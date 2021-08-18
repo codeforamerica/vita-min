@@ -337,6 +337,7 @@ ActiveRecord::Schema.define(version: 2021_08_18_215926) do
   end
 
   create_table "efile_errors", force: :cascade do |t|
+    t.boolean "auto_cancel", default: false
     t.string "category"
     t.string "code"
     t.datetime "created_at", precision: 6, null: false

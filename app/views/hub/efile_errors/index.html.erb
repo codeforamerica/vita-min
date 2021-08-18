@@ -3,8 +3,11 @@
     <table class="fixed-width-table index-table spacing-above-25">
       <thead class="index-table__head">
       <tr class="index-table__row">
-        <th scope="col" width="75" class="index-table__header index-table__header--center">
+        <th scope="col" width="100" class="index-table__header index-table__header--center">
           Expose?
+        </th>
+        <th scope="col" width="100" class="index-table__header index-table__header--center">
+          Auto-cancel?
         </th>
         <th scope="col" width="100" class="index-table__header">
           Source
@@ -35,6 +38,9 @@
         <tr class="index-table__row">
           <td class="index-table__cell index-table__cell--center">
             <%= image_tag error.expose ? "icons/check.svg" : "icons/cancelled.svg", alt: error.expose ? "yes" : "no" %>
+          </td>
+          <td class="index-table__cell index-table__cell--center">
+            <%= image_tag error.auto_cancel ? "icons/check.svg" : "icons/cancelled.svg", alt: error.auto_cancel ? "yes" : "no" %>
           </td>
           <td class="index-table__cell status">
             <%= link_to error.source, hub_efile_error_path(id: error.id) %>

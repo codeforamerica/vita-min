@@ -5,7 +5,9 @@ module Hub
     load_and_authorize_resource
     layout "admin"
 
-    def index; end
+    def index
+      @efile_errors = @efile_errors.order(:source, :code)
+    end
 
     def edit; end
 
@@ -21,7 +23,7 @@ module Hub
     end
 
     def permitted_params
-      params.require(:efile_error).permit(:expose, :description_en, :description_es, :resolution_en, :resolution_es)
+      params.require(:efile_error).permit(:expose, :auto_cancel, :description_en, :description_es, :resolution_en, :resolution_es)
     end
   end
 end

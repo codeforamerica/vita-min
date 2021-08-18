@@ -3,9 +3,15 @@
   <div class="slab slab--not-padded spacing-above-25">
     <%= render "header" %>
     <hr/>
-    <h4 class="spacing-below-5">Expose to client?</h4>
-    <div>
+
+    <div class="spacing-below-25">
+      <h4 class="spacing-below-5">Expose to client?</h4>
       <%= image_tag @efile_error.expose ? "icons/check.svg" : "icons/cancelled.svg", alt: @efile_error.expose ? "yes" : "no" %>
+    </div>
+
+    <div class="test-auto-cancel spacing-below-25">
+      <h4 class="spacing-below-5">Auto-cancel?</h4>
+      <%= image_tag @efile_error.auto_cancel ? "icons/check.svg" : "icons/cancelled.svg", alt: @efile_error.auto_cancel ? "yes" : "no" %>
     </div>
 
     <h4 class="spacing-below-5">Description (English)</h4>

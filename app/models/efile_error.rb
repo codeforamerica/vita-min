@@ -2,15 +2,16 @@
 #
 # Table name: efile_errors
 #
-#  id         :bigint           not null, primary key
-#  category   :string
-#  code       :string
-#  expose     :boolean          default(TRUE)
-#  message    :text
-#  severity   :string
-#  source     :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :bigint           not null, primary key
+#  auto_cancel :boolean          default(FALSE)
+#  category    :string
+#  code        :string
+#  expose      :boolean          default(TRUE)
+#  message     :text
+#  severity    :string
+#  source      :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 class EfileError < ApplicationRecord
   has_rich_text :description_en

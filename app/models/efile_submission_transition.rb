@@ -44,12 +44,6 @@ class EfileSubmissionTransition < ApplicationRecord
 
   private
 
-  def rejection_parser
-    return unless to_state == "rejected" && metadata["raw_response"]
-
-    @rejection_parser ||= Efile::SubmissionRejectionParser.new(metadata["raw_response"])
-  end
-
   def persist_efile_error_from_metadata
     if metadata["error_code"].present?
       attrs = { code: metadata["error_code"] }
@@ -61,6 +55,7 @@ class EfileSubmissionTransition < ApplicationRecord
 
     if to_state == "rejected" && metadata["raw_response"].present?
       Efile::SubmissionRejectionParser.persist_errors(self)
+      efile_submission.transition_to!(:cancelled) if efile_errors.any? { |error| error.auto_cancel }
     end
   end
 
