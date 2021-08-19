@@ -9,6 +9,9 @@
         <th scope="col" width="100" class="index-table__header index-table__header--center">
           Auto-cancel?
         </th>
+        <th scope="col" width="100" class="index-table__header index-table__header--center">
+          Auto-wait?
+        </th>
         <th scope="col" width="100" class="index-table__header">
           Source
         </th>
@@ -41,6 +44,9 @@
           </td>
           <td class="index-table__cell index-table__cell--center">
             <%= image_tag error.auto_cancel ? "icons/check.svg" : "icons/cancelled.svg", alt: error.auto_cancel ? "yes" : "no" %>
+          </td>
+          <td class="index-table__cell index-table__cell--center">
+            <%= image_tag error.auto_wait ? "icons/check.svg" : "icons/cancelled.svg", alt: error.auto_wait ? "yes" : "no" %>
           </td>
           <td class="index-table__cell status">
             <%= link_to error.source, hub_efile_error_path(id: error.id) %>

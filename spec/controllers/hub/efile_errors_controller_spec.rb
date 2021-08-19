@@ -46,6 +46,7 @@ describe Hub::EfileErrorsController do
         efile_error: {
           expose: false,
           auto_cancel: true,
+          auto_wait: true,
           description_en: "<div>We were unable to verify your address. Can you check to see if there are any mistakes?</div>",
           description_es: "<div>We were unable to verify your address. Can you check to see if there are any mistakes? (In spanish)</div>",
           resolution_en: "<div>Here's how you can fix it.</div>",
@@ -67,6 +68,7 @@ describe Hub::EfileErrorsController do
         efile_error.reload
         expect(efile_error.expose).to eq false
         expect(efile_error.auto_cancel).to eq true
+        expect(efile_error.auto_wait).to eq true
         expect(efile_error.description_en.body).to be_an_instance_of ActionText::Content
         expect(efile_error.description_en.body.to_s).to include "<div>We were unable to verify your address. Can you check to see if there are any mistakes?</div>"
         expect(response).to redirect_to hub_efile_error_path(id: efile_error.id)

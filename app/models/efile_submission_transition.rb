@@ -56,6 +56,7 @@ class EfileSubmissionTransition < ApplicationRecord
     if to_state == "rejected" && metadata["raw_response"].present?
       Efile::SubmissionRejectionParser.persist_errors(self)
       efile_submission.transition_to!(:cancelled) if efile_errors.any? { |error| error.auto_cancel }
+      efile_submission.transition_to!(:waiting) if efile_errors.all? { |error| error.auto_wait }
     end
   end
 
