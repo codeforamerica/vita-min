@@ -179,6 +179,26 @@ describe Ctc::LegalConsentForm do
         expect(described_class.new(intake, params)).not_to be_valid
       end
     end
+
+    context "when the year is before 1900" do
+      before do
+        params[:primary_birth_date_year] = "1492"
+      end
+
+      it "is not valid" do
+        expect(described_class.new(intake, params)).not_to be_valid
+      end
+    end
+
+    context "when the year is in the future" do
+      before do
+        params[:primary_birth_date_year] = "2035"
+      end
+
+      it "is not valid" do
+        expect(described_class.new(intake, params)).not_to be_valid
+      end
+    end
   end
 
   describe "#save" do

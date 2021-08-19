@@ -13,6 +13,12 @@ module BirthDateHelper
       self.errors.add(:birth_date, I18n.t("helpers.birth_date_helper.valid_birth_date"))
       return false
     end
+
+    if parsed_birth_date.year < 1900 || parsed_birth_date.year > Date.today.year
+      self.errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
+      return false
+    end
+
     true
   end
 
@@ -22,6 +28,12 @@ module BirthDateHelper
       self.errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
       return false
     end
+
+    if parsed_birth_date.year < 1900 || parsed_birth_date.year > Date.today.year
+      self.errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
+      return false
+    end
+
     true
   end
 

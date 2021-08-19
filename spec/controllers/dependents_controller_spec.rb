@@ -107,7 +107,7 @@ RSpec.describe DependentsController do
               first_name: "Kylie",
               birth_date_month: "12",
               birth_date_day: "2",
-              birth_date_year: "",
+              birth_date_year: "96",
               relationship: "Nibling",
               months_in_home: "12",
               was_student: "no",
