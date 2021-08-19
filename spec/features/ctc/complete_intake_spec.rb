@@ -340,10 +340,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2019.title'))
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.agi2019.title'))
-    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '1234'
 
-    click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.military_facility')
@@ -364,6 +361,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title')
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.agi2019.title'))
+    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '1234'
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
