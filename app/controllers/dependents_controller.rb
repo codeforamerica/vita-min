@@ -90,10 +90,16 @@ class DependentsController < ApplicationController
     birth_date_values = birth_date_params.values
     return nil if birth_date_values.any?(&:blank?)
     begin
-      Date.new(*birth_date_params.values.map(&:to_i))
+      parsed_birth_date = Date.new(*birth_date_params.values.map(&:to_i))
     rescue ArgumentError => error
       raise error unless error.to_s == "invalid date"
-      nil
+      return nil
     end
+
+    if parsed_birth_date.year < 1900 || parsed_birth_date.year > Date.today.year
+      return nil
+    end
+
+    parsed_birth_date
   end
 end
