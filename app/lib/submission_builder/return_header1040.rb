@@ -40,7 +40,7 @@ module SubmissionBuilder
               xml.SpouseBirthDt date_type(intake.spouse_birth_date) if tax_return.filing_jointly?
             end
             xml.PrimaryPriorYearAGIAmt intake.primary_prior_year_agi_amount || 0
-            xml.SpousePriorYearAGIAmt (intake.spouse_prior_year_agi_amount || 0) if tax_return.filing_jointly?
+            xml.SpousePriorYearAGIAmt spouse_prior_year_agi(tax_return, intake) if spouse_prior_year_agi(tax_return, intake)
           }
           xml.IdentityProtectionPIN intake.primary_ip_pin if intake.primary_ip_pin.present?
           xml.SpouseIdentityProtectionPIN intake.spouse_ip_pin if tax_return.filing_jointly? && intake.spouse_ip_pin.present?
@@ -189,6 +189,24 @@ module SubmissionBuilder
     def spouse_name_control(intake)
       name = intake.use_spouse_name_for_name_control? ? intake.spouse_last_name : intake.primary_last_name
       person_name_control_type(name)
+    end
+
+    private
+
+    def spouse_prior_year_agi(tax_return, intake)
+      return nil unless tax_return.filing_jointly?
+
+      if intake.spouse_filed_2019_did_not_file?
+        0
+      elsif intake.spouse_filed_2019_filed_non_filer_separate?
+        1
+      elsif intake.spouse_filed_2019_filed_non_filer_joint?
+        1
+      elsif intake.spouse_filed_2019_filed_full_joint?
+        (intake.primary_prior_year_agi_amount || 0)
+      elsif intake.spouse_filed_2019_filed_full_separate?
+        (intake.spouse_prior_year_agi_amount || 0)
+      end
     end
   end
 end

@@ -1639,7 +1639,7 @@ en:
           visit_stimulus_faq: Visit the Stimulus FAQ
         filed2019:
           title: Did you file a 2019 tax return?
-          help_text: Did you file a tax return, after January 1, 2020, for the 2019 tax year?
+          help_text: Did you file a tax return for the 2019 tax year? This tax return would have originally been due on April 15, 2020.
           filed_full: Yes, I filed a full return
           filed_non_filer: Yes, I filed using the IRS non-filer portal
           did_not_file: No, I didn't file a 2019 tax return
@@ -1768,6 +1768,31 @@ en:
           ready_to_file: "I'm ready to file"
           your_information: "Your information"
           your_dependents: "Your dependents"
+        agi2019:
+          title: "What was your 2019 Adjusted Gross Income?"
+          help_text_html: |
+            Because you stated that you filed a full tax return in 2019, we’ll need to verify what your Adjusted Gross Income (AGI) was in 2019.</br>
+            </br>
+            You can find this information on Line 8B of your 2019 tax return. Please enter the correct amount from your 2019 return or your return will be rejected.
+          label: "2019 Adjusted Gross Income"
+          reveal_label: "Why are you asking this?"
+          reveal_content: "The IRS requires us to ask this to verify your identity prior to submitting your tax return. "
+        spouse_filed2019:
+          title: "Did your spouse file a 2019 tax return?"
+          help_text: "Did your spouse file a tax return, after January 1, 2020, for the 2019 tax year? "
+          filed_full_joint: "My spouse filed a full tax return jointly with me"
+          filed_non_filer_joint: "My spouse filed a tax return with me using the IRS non-filer tool"
+          filed_full_separate: "My spouse filed a full tax return separately from me"
+          filed_non_filer_separate: "My spouse filed a tax return separately from me using the IRS non-filer tool"
+          did_not_file: "My spouse did not file a 2019 tax return"
+        spouse_agi2019:
+          title: "What was your spouse’s 2019 Adjusted Gross Income?"
+          help_text_html: |
+            Because you stated that your spouse filed a tax return in 2019, we’ll need to verify what your spouse’s Adjusted Gross Income (AGI) was in 2019.<br/>
+            <br/>
+            You can find this information on Line 8B of your spouse’s 2019 tax return. Please enter the correct amount or your return will be rejected."
+          reveal_label: "Why are you asking this?"
+          reveal_content: "The IRS requires us to ask this to verify your spouse’s identity prior to submitting your tax return. "
     consent_pages:
       consent_to_use:
         title: Consent to Use

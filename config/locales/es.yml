@@ -1753,6 +1753,31 @@ es:
           ready_to_file: "Estoy listo/a para declarar"
           your_information: "Su información"
           your_dependents: "Sus dependientes"
+        agi2019:
+          title: "¿Cuáles fueron sus ingresos ajustados brutos de 2019?"
+          help_text_html: |
+            Debido a que declaró que presentó una declaración de impuestos completa en 2019, necesitaremos verificar cuál fue su ingreso bruto ajustado (AGI) en 2019.</br>
+            </br>
+            Puede encontrar esta información en la línea 8B de su declaración de impuestos de 2019. Por favor, introduzca la cantidad correcta de su declaración de 2019 o su declaración será rechazada.
+          label: "Ingresos ajustados brutos de 2019"
+          reveal_label: "¿Por qué me preguntan esto?"
+          reveal_content: "El IRS nos obliga a hacer esta pregunta para verificar su identidad antes de presentar su declaración de impuestos."
+        spouse_filed2019:
+          title: "¿Presentó su cónyuge una declaración de impuestos en 2019?"
+          help_text: "¿Presentó su cónyuge una declaración de impuestos, después del 1º de enero de 2020 para el año fiscal 2019?"
+          filed_full_joint: "Mi cónyuge presentó la declaración de impuestos completa conjuntamente conmigo"
+          filed_non_filer_joint: "Mi cónyuge presentó la declaración de impuestos conmigo utilizando la herramienta de no declarantes del IRS"
+          filed_full_separate: "Mi cónyuge presentó la declaración de impuestos completa por separado de la mía"
+          filed_non_filer_separate: "Mi cónyuge presentó la declaración de impuestos completa por separado de la mía utilizando la herramienta de no declarantes"
+          did_not_file: "Mi cónyuge no presentó una declaración de impuestos en 2019"
+        spouse_agi2019:
+          title: "¿Cuáles fueron los Ingresos Ajustados Brutos de su cónyuge en 2019?"
+          help_text_html: |
+            Debido a que declaró que su cónyuge presentó una declaración de impuestos en 2019, necesitaremos verificar cuál fue el Ingreso Bruto Ajustado (AGI) de su cónyuge en 2019.<br/>
+            <br/>
+            Puede encontrar esta información en la línea 8B de la declaración de impuestos de 2019 de su cónyuge. Por favor, introduzca la cantidad correcta o su declaración será rechazada."
+          reveal_label: "¿Por qué me preguntan esto?"
+          reveal_content: "El IRS nos obliga a hacerle esta pregunta para verificar la identidad de su cónyuge antes de presentar su declaración de impuestos."
     dependents:
       form:
         birth_date: Fecha de nacimiento

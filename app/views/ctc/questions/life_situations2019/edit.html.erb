@@ -17,7 +17,7 @@
     <%= t("views.ctc.questions.life_situations2019.p2") %>
   </p>
 
-  <%= link_to t("general.continue"), questions_home_path, class: "button button--primary button--wide text--centered spacing-above-60" %>
+  <%= link_to t("general.continue"), next_path, class: "button button--primary button--wide text--centered spacing-above-60" %>
   <%= link_to t("views.ctc.questions.life_situations2019.visit_ctc_faq"), root_path(anchor: 'ctc_faq'), class: "button button--wide text--centered" %>
   <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'stimulus'), class: "button button--wide text--centered" do %>
     <%=t("views.ctc.questions.filed2020_yes.visit_stimulus_faq") %>

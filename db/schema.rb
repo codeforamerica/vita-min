@@ -670,6 +670,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_175015) do
     t.datetime "spouse_consented_to_service_at"
     t.inet "spouse_consented_to_service_ip"
     t.citext "spouse_email_address"
+    t.integer "spouse_filed_2019", default: 0, null: false
     t.string "spouse_first_name"
     t.integer "spouse_had_disability", default: 0, null: false
     t.integer "spouse_issued_identity_pin", default: 0, null: false

@@ -1,0 +1,26 @@
+<% @main_question = t("views.ctc.questions.spouse_agi2019.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <p>
+    <%= t("views.ctc.questions.spouse_agi2019.help_text_html") %>
+  </p>
+<div class="stimulus-received">
+
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, class: 'stimulus-received-form' do |f| %>
+    <%= f.cfa_input_field(:spouse_prior_year_agi_amount, t("views.ctc.questions.agi2019.label"), prefix: "$") %>
+
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.spouse_agi2019.reveal_label")) do %>
+      <%= t("views.ctc.questions.spouse_agi2019.reveal_content") %>
+    <% end %>
+
+    <%= f.button :submit, class: "button button--wide button--primary spacing-above-60" do %>
+      <%= t("general.continue") %>
+    <% end %>
+  <% end %>
+</div>
+<% end %>

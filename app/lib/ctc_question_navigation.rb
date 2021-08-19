@@ -10,6 +10,8 @@ class CtcQuestionNavigation
     # Eligibility
     Ctc::Questions::Filed2020Controller,
     Ctc::Questions::Filed2019Controller,
+    Ctc::Questions::LifeSituations2019Controller,
+    Ctc::Questions::Agi2019Controller,
     Ctc::Questions::HomeController,
     Ctc::Questions::LifeSituations2020Controller,
 
@@ -24,6 +26,8 @@ class CtcQuestionNavigation
     # Filing Status
     Ctc::Questions::FilingStatusController, # This and all later controllers require the client to be signed in
     Ctc::Questions::SpouseInfoController,
+    Ctc::Questions::SpouseFiled2019Controller,
+    Ctc::Questions::SpouseAgi2019Controller,
     Ctc::Questions::SpouseReviewController,
 
     # Dependents
