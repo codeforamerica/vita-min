@@ -74,8 +74,8 @@ module SubmissionBuilder
           }
           xml.OnlineFilerInformation {
             if intake.refund_payment_method_direct_deposit?
-              xml.RoutingTransitNum intake.bank_account.routing_number
-              xml.DepositorAccountNum intake.bank_account.account_number
+              xml.RoutingTransitNum account_number_type(intake.bank_account.routing_number)
+              xml.DepositorAccountNum account_number_type(intake.bank_account.account_number)
             else
               xml.CheckCd "Check"
             end
@@ -83,8 +83,8 @@ module SubmissionBuilder
           xml.AdditionalFilerInformation {
             xml.AtSubmissionCreationGrp {
               if intake.refund_payment_method_direct_deposit?
-                xml.RoutingTransitNum intake.bank_account.routing_number
-                xml.DepositorAccountNum intake.bank_account.account_number
+                xml.RoutingTransitNum account_number_type(intake.bank_account.routing_number)
+                xml.DepositorAccountNum account_number_type(intake.bank_account.account_number)
                 xml.BankAccountDataCapturedTs datetime_type(intake.bank_account.created_at)
               end
               xml.CellPhoneNum phone_type(intake.sms_phone_number) if intake.sms_phone_number.present?
@@ -96,8 +96,8 @@ module SubmissionBuilder
               xml.RefundDisbursementGrp {
                 xml.RefundDisbursementCd refund_disbursement_code
                 if intake.refund_payment_method_direct_deposit?
-                  xml.RoutingTransitNum intake.bank_account.routing_number
-                  xml.DepositorAccountNum intake.bank_account.account_number
+                  xml.RoutingTransitNum account_number_type(intake.bank_account.routing_number)
+                  xml.DepositorAccountNum account_number_type(intake.bank_account.account_number)
                 end
                 xml.RefundProductCIPCd 0
               }

@@ -84,6 +84,12 @@ module SubmissionBuilder
       formatted_last_name(string).delete(" ").first(4)
     end
 
+    def account_number_type(string)
+      return "" unless string.present?
+
+      string.delete(" ")
+    end
+
     # phone number without country code or formatting
     # results in 10 digit number for transmitting to the IRS
     def phone_type(string)

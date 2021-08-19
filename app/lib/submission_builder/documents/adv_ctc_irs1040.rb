@@ -53,9 +53,9 @@ module SubmissionBuilder
             xml.OverpaidAmt tax_return.claimed_recovery_rebate_credit # 34
             xml.RefundAmt tax_return.claimed_recovery_rebate_credit # 35a
             if bank_account.present? && intake.refund_payment_method_direct_deposit?
-              xml.RoutingTransitNum bank_account.routing_number
+              xml.RoutingTransitNum account_number_type(bank_account.routing_number)
               xml.BankAccountTypeCd bank_account.account_type_code
-              xml.DepositorAccountNum bank_account.account_number
+              xml.DepositorAccountNum account_number_type(bank_account.account_number)
             end
             xml.RefundProductCd "NO FINANCIAL PRODUCT"
           }
