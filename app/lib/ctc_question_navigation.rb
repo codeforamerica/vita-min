@@ -11,12 +11,12 @@ class CtcQuestionNavigation
     Ctc::Questions::Filed2020Controller,
     Ctc::Questions::Filed2019Controller,
     Ctc::Questions::LifeSituations2019Controller,
-    Ctc::Questions::Agi2019Controller,
     Ctc::Questions::HomeController,
     Ctc::Questions::LifeSituations2020Controller,
 
     # Consent/Contact
     Ctc::Questions::LegalConsentController,
+    Ctc::Questions::Agi2019Controller,
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,
     Ctc::Questions::EmailAddressController,
