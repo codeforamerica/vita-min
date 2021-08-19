@@ -17,9 +17,11 @@ FileUtils.chdir APP_ROOT do
       if [ -z "$(git status --porcelain)" ]; then
         echo "== 📸 Take baseline images =="
         git checkout main
+        bundle install
         npx percy exec -- rspec --tag screenshot
         echo "== 📸 Take new images =="
         git checkout -
+        bundle install
         npx percy exec -- rspec --tag screenshot
       else
        echo "== 🚨 Please commit changes first =="
