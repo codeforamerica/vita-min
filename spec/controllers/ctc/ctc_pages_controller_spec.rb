@@ -32,4 +32,14 @@ describe Ctc::CtcPagesController do
       end
     end
   end
+
+  describe "#navigators" do
+    render_views
+
+    it "renders the content" do
+      get :navigators
+
+      expect(response.body).to include "Step 1: Complete navigator orientation"
+    end
+  end
 end
