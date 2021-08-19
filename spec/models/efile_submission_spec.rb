@@ -275,7 +275,8 @@ describe EfileSubmission do
                 severity: "Reject and Stop",
                 source: "irs",
                 auto_cancel: true,
-              )
+                auto_wait: true,
+               )
             end
 
             it "immediately transitions to cancelled" do
@@ -293,6 +294,7 @@ describe EfileSubmission do
                      severity: "Reject and Stop",
                      source: "irs",
                      auto_cancel: false,
+                     auto_wait: false
                      )
             end
 

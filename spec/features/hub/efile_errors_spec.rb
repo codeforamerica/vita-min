@@ -14,9 +14,14 @@ RSpec.describe "efile errors" do
           click_on efile_error.code
           click_on I18n.t('general.edit')
           check "Auto-cancel?"
+          check "Auto-wait?"
           click_on I18n.t('general.save')
 
           within ".test-auto-cancel" do
+            expect(page).to have_selector("img[alt='yes']")
+          end
+
+          within ".test-auto-wait" do
             expect(page).to have_selector("img[alt='yes']")
           end
         end
