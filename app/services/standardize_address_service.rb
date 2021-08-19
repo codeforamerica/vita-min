@@ -78,7 +78,7 @@ class StandardizeAddressService
     end
 
     request_address_xml = Nokogiri::XML(builder.to_xml)
-    usps_request_address = "https://secure.shippingapis.com/ShippingAPI.dll?API=Verify&XML=#{request_address_xml}"
+    usps_request_address = "https://secure.shippingapis.com/ShippingAPI.dll?API=Verify&XML=#{ERB::Util.url_encode(request_address_xml)}"
 
     response = Net::HTTP.get_response(URI(usps_request_address))
     response_xml = Nokogiri::XML(response.body)
