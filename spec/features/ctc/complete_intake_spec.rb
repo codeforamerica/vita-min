@@ -33,12 +33,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
     click_on I18n.t('general.negative')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
-    choose I18n.t('views.ctc.questions.filed2019.filed_non_filer')
-    click_on "Continue"
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.use_gyr.title"))
-    click_on I18n.t("general.back")
     choose I18n.t('views.ctc.questions.filed2019.did_not_file')
-    click_on "Continue"
+    click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.foreign_address')
@@ -105,6 +101,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation'), with: "222-33-4444"
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
     expect(page).not_to have_text(I18n.t('views.ctc.questions.spouse_info.remove_button'))
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed2019.title'))
+    choose I18n.t('views.ctc.questions.spouse_filed2019.did_not_file')
+    click_on I18n.t('general.continue')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.spouse_review.title'))
     expect(page).to have_text("Peter Pepper")
@@ -316,6 +316,105 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # =========== PORTAL ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
     expect(page).to have_text(I18n.t("views.ctc.portal.home.status.preparing.label"))
+  end
+
+  scenario "client who has filed in 2019" do
+    # =========== BASIC INFO ===========
+    visit "/en/questions/overview"
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
+    click_on I18n.t('general.continue')
+
+    within "h1" do
+      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', tax_year: 2020))
+    end
+    click_on I18n.t('general.negative')
+
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title"))
+    click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
+
+    # =========== ELIGIBILITY ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
+    click_on I18n.t('general.negative')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
+    choose I18n.t('views.ctc.questions.filed2019.filed_full')
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2019.title'))
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.agi2019.title'))
+    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '1234'
+
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    check I18n.t('views.ctc.questions.home.options.fifty_states')
+    check I18n.t('views.ctc.questions.home.options.military_facility')
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
+    click_on I18n.t('general.negative')
+
+    # =========== BASIC INFO ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.legal_consent.title'))
+    fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"
+    fill_in I18n.t('views.ctc.questions.legal_consent.middle_initial'), with: "H"
+    fill_in I18n.t('views.ctc.questions.legal_consent.last_name'), with: "Mango"
+    select "III", from: I18n.t('views.ctc.questions.legal_consent.suffix')
+    fill_in "ctc_legal_consent_form_primary_birth_date_month", with: "08"
+    fill_in "ctc_legal_consent_form_primary_birth_date_day", with: "24"
+    fill_in "ctc_legal_consent_form_primary_birth_date_year", with: "1996"
+    fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "111-22-8888"
+    fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
+    fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
+    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title')
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
+    click_on I18n.t('views.ctc.questions.contact_preference.email')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.email_address.title'))
+    fill_in I18n.t('views.questions.email_address.email_address'), with: "mango@example.com"
+    fill_in I18n.t('views.questions.email_address.email_address_confirmation'), with: "mango@example.com"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("p", text: I18n.t('views.ctc.questions.verification.body').strip)
+
+    perform_enqueued_jobs
+    mail = ActionMailer::Base.deliveries.last
+    code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+
+    fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: "000001"
+    click_on I18n.t("views.ctc.questions.verification.verify")
+    expect(page).to have_content(I18n.t('views.ctc.questions.verification.error_message'))
+
+    fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
+    click_on I18n.t("views.ctc.questions.verification.verify")
+
+    # =========== FILING STATUS ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
+    choose I18n.t('views.ctc.questions.filing_status.married_filing_jointly')
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_info.title'))
+    fill_in I18n.t('views.ctc.questions.spouse_info.spouse_first_name'), with: "Peter"
+    fill_in I18n.t('views.ctc.questions.spouse_info.spouse_middle_initial'), with: "P"
+    fill_in I18n.t('views.ctc.questions.spouse_info.spouse_last_name'), with: "Pepper"
+    fill_in "ctc_spouse_info_form[spouse_birth_date_month]", with: "01"
+    fill_in "ctc_spouse_info_form[spouse_birth_date_day]", with: "11"
+    fill_in "ctc_spouse_info_form[spouse_birth_date_year]", with: "1995"
+    select I18n.t('general.tin.ssn')
+    fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin'), with: "222-33-4444"
+    fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation'), with: "222-33-4444"
+    click_on I18n.t('views.ctc.questions.spouse_info.save_button')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed2019.title'))
+    choose I18n.t('views.ctc.questions.spouse_filed2019.filed_full_separate')
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_agi2019.title'))
+    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '4567'
+    click_on I18n.t('general.continue')
+
+    intake = Intake.last
+    expect(intake.primary_prior_year_agi_amount).to eq(1234)
+    expect(intake.spouse_prior_year_agi_amount).to eq(4567)
   end
 
   it "allows the basic filer info to be edited after it was created" do

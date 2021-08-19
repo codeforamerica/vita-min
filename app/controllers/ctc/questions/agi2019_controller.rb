@@ -1,15 +1,15 @@
 module Ctc
   module Questions
-    class Filed2019Controller < QuestionsController
+    class Agi2019Controller < QuestionsController
       include Ctc::ResetToStartIfIntakeNotPersistedConcern
 
       layout "intake"
 
-      private
-
-      def method_name
-        "filed_2019"
+      def self.show?(intake)
+        intake.filed_2019_filed_full? || intake.filed_2019_filed_non_filer?
       end
+
+      private
 
       def illustration_path
         "hand-holding-check.svg"
