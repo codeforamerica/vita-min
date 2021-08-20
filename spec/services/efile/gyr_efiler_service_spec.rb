@@ -40,7 +40,7 @@ RSpec.describe Efile::GyrEfilerService do
     xcontext "command failure" do
       before do
         allow(Process).to receive(:spawn) do |_argv, chdir:, unsetenv_others:, in:|
-          File.open("#{chdir}/output/audit_log.txt", 'wb') do |f|
+          File.open("#{chdir}/output/log/audit_log.txt", 'wb') do |f|
             f.write('Log output')
           end
 

@@ -35,7 +35,7 @@ module Efile
 
         exit_code = $?.exitstatus
 
-        raise StandardError.new(File.read(File.join(working_directory, 'output/audit_log.txt'))) if exit_code != 0
+        raise StandardError.new(File.read(File.join(working_directory, 'output/log/audit_log.txt'))) if exit_code != 0
 
         get_single_file_from_zip(Dir.glob(File.join(working_directory, "output", "*.zip"))[0])
       end
