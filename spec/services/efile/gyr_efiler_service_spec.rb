@@ -8,7 +8,7 @@ RSpec.describe Efile::GyrEfilerService do
       allow(EnvironmentCredentials).to receive(:dig).with(:irs, :etin).and_return "electronictransmitteridentificationnarwhal"
     end
 
-    context "success" do
+    xcontext "success" do
       let(:zip_data) do
         buf = Zip::OutputStream.write_buffer do |zio|
           zio.put_next_entry("filename.txt")
@@ -37,7 +37,7 @@ RSpec.describe Efile::GyrEfilerService do
       end
     end
 
-    context "command failure" do
+    xcontext "command failure" do
       before do
         allow(Process).to receive(:spawn) do |_argv, chdir:, unsetenv_others:, in:|
           File.open("#{chdir}/output/audit_log.txt", 'wb') do |f|
