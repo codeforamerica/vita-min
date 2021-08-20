@@ -4,8 +4,6 @@ module Efile
     CURRENT_VERSION = 'f5eeb816f6c919fff8d5c742062e664b1f4cd13a'
 
     def self.run_efiler_command(*args)
-      raise StandardError.new("Cannot be used from the test environment") if Rails.env.test?
-
       Dir.mktmpdir do |working_directory|
         FileUtils.mkdir_p(File.join(working_directory, "output", "log"))
         ensure_config_dir_prepared
@@ -36,7 +34,8 @@ module Efile
         raise StandardError.new("Process failed to exit?") unless $?.exited?
 
         exit_code = $?.exitstatus
-        raise StandardError.new("gyr-efiler failed; exited with #{exit_code}") if exit_code != 0
+
+        raise StandardError.new(File.read(File.join(working_directory, 'output/audit_log.txt'))) if exit_code != 0
 
         get_single_file_from_zip(Dir.glob(File.join(working_directory, "output", "*.zip"))[0])
       end
