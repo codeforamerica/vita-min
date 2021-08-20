@@ -41,7 +41,7 @@ RSpec.describe Efile::GyrEfilerService do
       before do
         allow(Process).to receive(:spawn) do |_argv, chdir:, unsetenv_others:, in:|
           File.open("#{chdir}/output/log/audit_log.txt", 'wb') do |f|
-            f.write('Log output')
+            f.write("Earlier line\nLogin Certificate: yikesdontsavethis\nLog output")
           end
 
           `false` # Run a command so that $? is set
@@ -52,10 +52,10 @@ RSpec.describe Efile::GyrEfilerService do
         allow(Process).to receive(:wait)
       end
 
-      it "raises an exception with the log output" do
+      it "raises an exception with the log output, with Login Certificate line removed" do
         expect {
           described_class.run_efiler_command
-        }.to raise_error(StandardError, 'Log output')
+        }.to raise_error(StandardError, "Earlier line\nLog output")
       end
     end
   end

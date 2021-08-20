@@ -35,7 +35,9 @@ module Efile
 
         exit_code = $?.exitstatus
 
-        raise StandardError.new(File.read(File.join(working_directory, 'output/log/audit_log.txt'))) if exit_code != 0
+        audit_log = File.read(File.join(working_directory, 'output/log/audit_log.txt'))
+        audit_log = audit_log.split("\n").filter { |line| !line.starts_with?("Login Certificate:") }.join("\n")
+        raise StandardError.new(audit_log) if exit_code != 0
 
         get_single_file_from_zip(Dir.glob(File.join(working_directory, "output", "*.zip"))[0])
       end
