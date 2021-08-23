@@ -39,7 +39,7 @@ describe Ctc::CtcPagesController do
     it "renders the content" do
       get :navigators
 
-      expect(response.body).to include "Step 1: Complete navigator orientation"
+      expect(response.body).to include "1. Getting Started"
     end
   end
 end
