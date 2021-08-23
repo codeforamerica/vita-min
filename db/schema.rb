@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_175015) do
+ActiveRecord::Schema.define(version: 2021_08_23_173312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_175015) do
     t.datetime "created_at", precision: 6, null: false
     t.bigint "record_id"
     t.string "record_type"
+    t.boolean "skip_usps_validation", default: false
     t.string "state"
     t.string "street_address"
     t.string "street_address2"

@@ -76,6 +76,10 @@ class EfileSubmission < ApplicationRecord
   end
 
   def generate_irs_address
+    if address.present? && address.skip_usps_validation
+      return OpenStruct.new(valid?: true)
+    end
+
     address_service = StandardizeAddressService.new(intake)
     if address_service.valid?
       attrs = {
