@@ -252,7 +252,9 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("views.ctc.questions.dependents.confirm_dependents.done_adding")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
-      expect(page).not_to have_content("Jessie Pepper")
+      within "[data-automation='non-qualifying-dependents']" do
+        expect(page).to have_content("Jessie Pepper")
+      end
     end
   end
 end
