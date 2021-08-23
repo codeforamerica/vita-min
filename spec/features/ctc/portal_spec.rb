@@ -1,7 +1,29 @@
 require "rails_helper"
 
 RSpec.feature "CTC Intake", active_job: true do
+  module CtcPortalHelper
+    def log_in_to_ctc_portal
+      visit "/en/portal/login"
+
+      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
+      fill_in "Email address", with: "mango@example.com"
+      click_on "Send code"
+
+      perform_enqueued_jobs
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
+      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
+      fill_in "Enter 6 digit code", with: code
+      click_on "Verify"
+      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
+      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
+      click_on "Continue"
+    end
+  end
+  include CtcPortalHelper
+
   let!(:intake) { create :ctc_intake, email_address: "mango@example.com", email_notification_opt_in: "yes" }
+
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
@@ -31,21 +53,7 @@ RSpec.feature "CTC Intake", active_job: true do
     end
 
     scenario "a client sees and can click on a link to continue their intake" do
-      visit "/en/portal/login"
-
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-      fill_in "Email address", with: "mango@example.com"
-      click_on "Send code"
-
-      perform_enqueued_jobs
-      mail = ActionMailer::Base.deliveries.last
-      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
-      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
-      fill_in "Enter 6 digit code", with: code
-      click_on "Verify"
-      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
-      click_on "Continue"
+      log_in_to_ctc_portal
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "More information needed"
@@ -62,21 +70,7 @@ RSpec.feature "CTC Intake", active_job: true do
     end
 
     scenario "a client sees and can click on a link to continue their intake" do
-      visit "/en/portal/login"
-
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-      fill_in "Email address", with: "mango@example.com"
-      click_on "Send code"
-
-      perform_enqueued_jobs
-      mail = ActionMailer::Base.deliveries.last
-      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
-      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
-      fill_in "Enter 6 digit code", with: code
-      click_on "Verify"
-      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
-      click_on "Continue"
+      log_in_to_ctc_portal
 
       expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
       expect(page).to have_text I18n.t("views.ctc.portal.home.status.new.label")
@@ -91,21 +85,7 @@ RSpec.feature "CTC Intake", active_job: true do
     end
 
     scenario "a client sees and can click on a link to continue their intake" do
-      visit "/en/portal/login"
-
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-      fill_in "Email address", with: "mango@example.com"
-      click_on "Send code"
-
-      perform_enqueued_jobs
-      mail = ActionMailer::Base.deliveries.last
-      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
-      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
-      fill_in "Enter 6 digit code", with: code
-      click_on "Verify"
-      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
-      click_on "Continue"
+      log_in_to_ctc_portal
 
       expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
       expect(page).to have_text I18n.t("views.ctc.portal.home.status.preparing.label")
@@ -120,21 +100,7 @@ RSpec.feature "CTC Intake", active_job: true do
     end
 
     scenario "a client sees and can click on a link to continue their intake" do
-      visit "/en/portal/login"
-
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-      fill_in "Email address", with: "mango@example.com"
-      click_on "Send code"
-
-      perform_enqueued_jobs
-      mail = ActionMailer::Base.deliveries.last
-      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
-      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
-      fill_in "Enter 6 digit code", with: code
-      click_on "Verify"
-      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
-      click_on "Continue"
+      log_in_to_ctc_portal
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Submission error"
@@ -150,21 +116,7 @@ RSpec.feature "CTC Intake", active_job: true do
 
     end
     scenario "a client sees information about the previous transition to failed" do
-      visit "/en/portal/login"
-
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-      fill_in "Email address", with: "mango@example.com"
-      click_on "Send code"
-
-      perform_enqueued_jobs
-      mail = ActionMailer::Base.deliveries.last
-      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
-      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
-      fill_in "Enter 6 digit code", with: code
-      click_on "Verify"
-      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
-      click_on "Continue"
+      log_in_to_ctc_portal
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Submission error"
@@ -180,21 +132,7 @@ RSpec.feature "CTC Intake", active_job: true do
     end
 
     scenario "a client sees and can click on a link to continue their intake" do
-      visit "/en/portal/login"
-
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-      fill_in "Email address", with: "mango@example.com"
-      click_on "Send code"
-
-      perform_enqueued_jobs
-      mail = ActionMailer::Base.deliveries.last
-      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
-      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
-      fill_in "Enter 6 digit code", with: code
-      click_on "Verify"
-      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
-      click_on "Continue"
+      log_in_to_ctc_portal
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Electronically filed"
@@ -210,21 +148,7 @@ RSpec.feature "CTC Intake", active_job: true do
     end
 
     scenario "a client sees and can click on a link to continue their intake" do
-      visit "/en/portal/login"
-
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-      fill_in "Email address", with: "mango@example.com"
-      click_on "Send code"
-
-      perform_enqueued_jobs
-      mail = ActionMailer::Base.deliveries.last
-      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
-      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
-      fill_in "Enter 6 digit code", with: code
-      click_on "Verify"
-      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
-      click_on "Continue"
+      log_in_to_ctc_portal
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Accepted"
@@ -240,21 +164,7 @@ RSpec.feature "CTC Intake", active_job: true do
     end
 
     scenario "a client sees and can click on a link to continue their intake" do
-      visit "/en/portal/login"
-
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-      fill_in "Email address", with: "mango@example.com"
-      click_on "Send code"
-
-      perform_enqueued_jobs
-      mail = ActionMailer::Base.deliveries.last
-      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
-      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
-      fill_in "Enter 6 digit code", with: code
-      click_on "Verify"
-      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
-      click_on "Continue"
+      log_in_to_ctc_portal
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Rejected"
@@ -279,21 +189,7 @@ RSpec.feature "CTC Intake", active_job: true do
     end
 
     scenario "a client sees information about their cancelled submission" do
-      visit "/en/portal/login"
-
-      expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
-      fill_in "Email address", with: "mango@example.com"
-      click_on "Send code"
-
-      perform_enqueued_jobs
-      mail = ActionMailer::Base.deliveries.last
-      expect(mail.html_part.body.to_s).to have_text("Your 6-digit GetCTC verification code is: ")
-      code = mail.html_part.body.to_s.match(/Your 6-digit GetCTC verification code is: (\d+)/)[1]
-      fill_in "Enter 6 digit code", with: code
-      click_on "Verify"
-      expect(page).to have_selector("h1", text: "Authentication needed to continue.")
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: intake.client.id
-      click_on "Continue"
+      log_in_to_ctc_portal
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text I18n.t("views.ctc.portal.home.status.rejected.label")
