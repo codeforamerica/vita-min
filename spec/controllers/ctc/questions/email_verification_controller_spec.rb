@@ -58,6 +58,17 @@ describe Ctc::Questions::EmailVerificationController do
           subject.after_update_success
         end.to change { client.tax_returns.last.reload.status }.to("intake_in_progress")
       end
+
+      context "when status is already beyond intake in progress" do
+        before do
+          client.tax_returns.last.update(status: "file_accepted")
+        end
+
+        it "does not change the status back to intake in progress" do
+          subject.after_update_success
+          expect(client.tax_returns.last.reload.status).to eq "file_accepted"
+        end
+      end
     end
   end
 end
