@@ -1,46 +1,59 @@
 These resources are evolving quickly. **Sign up [here](https://airtable.com/shr4eDAcMdLgjOTjJ) for updates.**
 
-### **Step 1: Complete navigator orientation**
+Millions of families are eligible for thousands of dollars in Child Tax Credit and stimulus payments from the IRS, but won’t receive them because they haven’t recently filed taxes, or their information on file with the IRS is out of date. You can help these families by becoming a Navigator.
 
-- **Learn the essential responsibilities of a Navigator by reviewing this [slide deck](https://docs.google.com/presentation/d/19m9IjerdB14yBQ9HqhIpp2lDi_sQPO7c4F1qUMUtlOw/edit?usp=sharing).** These resources will introduce you to the navigator role and help you determine next steps (if any) for your clients.
-- **Get ready to use the GetCTC Simplified Filing Portal (coming soon)** by watching our demo video [**here**](https://youtu.be/nGoyN_M9SfQ).
-- A complete guide to using the GetCTC Simplified Tax Filing Portal is coming soon.
+Navigators don’t have to be tax experts. Navigators are trusted, community-based guides that help marginalized families utilize IRS tools, and understand and complete the process of filing their taxes.
 
-### **Step 2: Familiarize yourself with resources**
+As a Navigator, you’ll help families:
 
-**Client-facing resources:**
+- Figure out which forms — if any — families need to complete to get their money.
+- Help families file simplified tax returns to get CTC and stimulus payments using GetCTC.org.
+- Help families update their data with the IRS using the CTC Update Portal.
+- Help families start the process of filing a full tax return at GetYourRefund.org.
 
-- [GetCTC.org](http://www.GetCTC.org) landing page with up-to-date information, clear next steps, and FAQs, in English and Spanish. Future home of Code for America's simplified tax filing portal.
-- [GetYourRefund.org](https://www.getyourrefund.org/en) free tax prep services and [FAQ](https://www.getyourrefund.org/en/faq) for clients who want to file a full return, in English and Spanish
-- [How to fill out the IRS Non-filer form](https://www.eitcoutreach.org/tax-filing/coronavirus/how-to-fill-out-the-irs-non-filer-form/) provides step-by-step instructions and other helpful tips to complete the IRS non-filer form, presented by the Center on Budget and Policy Priorities' Get It Back Campaign. The site also features several other helpful toolkits!
-- [How to use the IRS Child Tax Credit Update Portal (CTC UP)](https://www.taxoutreach.org/tax-filing/coronavirus/how-to-use-the-irs-child-tax-credit-update-portal-ctc-up/) provides step-by-step instructions and helpful tips to utilize the CTC Update Portal, presented by Center on Budget and Policy Priorities' Get It Back Campaign.
-- IRS CTC Helpline: (800) 908-4184 The helpline connects clients to an IRS operator to get answers to basic CTC questions and is available in English and Spanish. The operators can only provide general information and are not able to access individual accounts.
+## **1. Getting Started**
 
-🎉  **GetCTC.org’s Simplified Filing Portal for claiming the Child Tax Credit and stimulus payments is coming soon! We need beta testers. (click arrow for more info)**
+### Basic Orientation
 
-Code for America is looking for partner organizations willing to use the [new simplified filing portal](https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/) with real clients and provide us with feedback on the beta version. Submissions received through the beta testing process will be filed with the IRS so the client can receive their Child Tax Credit and any missing stimulus payments. We are primarily looking for feedback on how we ask clients each of the questions, with the goal of making it easier for any client to use the portal without navigator assistance. 
+To get started as a Navigator:
 
-- Feel free to experiment with the portal yourself with this [demo link.](https://ctc.demo.getyourrefund.org/en/questions/overview) Please note the exact copy may change between now and when you are using the live tool, but this link will give you a general sense of the questions and possible outcomes. *Information submitted via the demo link will not be submitted to the IRS.*
-- You can see a full demo of the simplified filing portal [here](https://codeforamerica.zoom.us/rec/share/ozvymqA79_b5SKxZ-q8OTYXXKHyOhQQT5dzP1HPo00Lw9BRBLeqpgAsTh0QimlDs.8cEtMTwZwcsjsxuB). Passcode: FJ2!y5@a
-- If your organization is interested in helping us with beta testing, please review this [slide deck](https://docs.google.com/presentation/d/1oVB7JvJZ32wRrM639nPDa51qRWIS98v7E8Ny28iu7vU/edit#slide=id.gd8f53294e4_0_316), which provides more info on the role. You can also review our [quick guide for beta testers](https://docs.google.com/document/d/19KgzhsRfUY6b3WV8XdQ-td8aOaADrpCZAZp4KuFFaBw/edit).
-- [Fill out this form to become a beta tester](https://airtable.com/shrp6sbV3mn3bFrfG) and receive early access to the portal.
+1. **Learn the essential responsibilities of a Navigator by reviewing this [guide](https://files.codeforamerica.org/2021/08/19180804/navigator-orientation.pdf).** We'll introduce you to the Navigator role, and give you the basic information you need to determine the right next steps for families, based on their tax situation.
+2. **[Watch a short demo of GetCTC](https://www.youtube.com/watch?v=nGoyN_M9SfQ)**. Get a quick tour of GetCTC’s simplified filing portal. The portal is mobile friendly, available in English and Spanish, and can be used as an alternative to the IRS Non-Filer Sign-Up tool. Users are only eligible for this service if their 2020 income is below a certain level — $12,400 if filing single, or $24,800 if filing married.
 
-**Advanced Navigator guides:**
+### Key Additional Resources
 
-- [Determining client's next steps](https://drive.google.com/file/d/1m3ysogunU8Va8cQQ8mOTwSCWi_ZCoz9y/view?usp=sharing): This decision tree is designed to help you know which resource, if any, a client should use based on their tax filing history and needs.
-- [Calculating Recovery Rebate Credit:](https://drive.google.com/file/d/1bx2jVMlc8nKhxMmwP2nCOP5EkZPRBH5m/view?usp=sharing) Clients who missed out on their full 1st or 2nd Economic Impact Payments (EIP) will have the opportunity to claim the missing payments when entering the Recovery Rebate Credit (RRC) as part of the IRS non-filer form. If the RRC entered does not match IRS records, the IRS will delay processing the refund in order to correct the issue. Use this guide to help a client accurately complete this section and claim all eligible benefits.
-- [Reasons to opt-out of the Advance CTC](https://drive.google.com/file/d/1YjLTLG4nUo0MC9AhNuTXwKVFis457CL-/view?usp=sharing): Learn more about Advance Child Tax Credit payments, tax year 2021 reporting process, and why some clients may want to opt-out of these payments.
-- [Common rejects for non-filers and next steps](https://drive.google.com/file/d/1JMSdcLLVFDGsXih7MYSPm0JKuyu4ty_L/view?usp=sharing): After filing the non-filer form, clients will receive an email letting them know if their return was accepted or rejected. This guide explains common reasons a client's return is rejected and possible next steps.
+Here are few more core resources you may find yourself referencing frequently when helping families. Take a quick look before you get started so you know what’s here! It’s ok if you can’t memorize everything, as long as you know where to find the information later.
 
-**Recorded Webinars:**
+- [**How to use GetCTC**.](https://files.codeforamerica.org/2021/08/19180805/getctc-a-step-by-step-guide.pdf) A detailed walk-through of each page in the GetCTC application. This may be helpful so you know what to expect if clients have more complex tax situations.
+- [**How to use the CTC Update Portal (CTC UP)**](https://www.taxoutreach.org/tax-filing/coronavirus/how-to-use-the-irs-child-tax-credit-update-portal-ctc-up/). Step-by-step instructions and helpful tips, presented by Center on Budget and Policy Priorities' Get It Back Campaign.
+- [**Frequently Asked Questions about CTC and stimulus payments**.](https://files.codeforamerica.org/2021/08/19180805/faqs-on-ctc-and-stimulus-payments.pdf) How to handle common confusing situations — including when to use which tool, detailed eligibility for mixed-status families, and much more.
 
-- [Ensuring Families Receive the Child Tax Credit](https://youtu.be/hs1xVN13KnA): Watch the Automatic Benefit of Children (ABC) Coalition's webinar to learn from state and local community-based organizations who serve families about innovate outreach strategies to raise awareness about the CTC and get families sign up.
-- [Becoming a CTC Navigator and Non-filer & CTC Update Portal Walk-through](https://www.taxoutreach.org/blog/training-becoming-a-ctc-navigator-and-non-filer-portal-walk-through/): This training, co-hosted by Center on Budget and Policy Priorities, will help you become a CTC Navigator for your community.
+**Need more direct assistance? [Register for our Navigator Q&A Webinars](https://codeforamerica.zoom.us/webinar/register/WN_NNJKD08uQW2oNFCZ-cH9xA), every other Friday in August and September,** hosted by the Center on Budget and Policy Priorities and Code for America. The sessions will feature open Q&As about CTC, stimulus payments, and the tools used to access them.
 
-### **Step 3: Learn more about common client barriers**
+### Important Links and Hotlines for Clients
 
-Read [Code for America and GetYourRefund.org Non-filer Learnings and Recommendations](https://files.codeforamerica.org/2021/06/16174016/filer-learnings-and-recommendations-april-2021.pdf) for more info about the barriers non-filers face in accessing the tax benefits they deserve.
+- [**GetCTC.org**](http://getctc.org/): information about CTC, and the GetCTC simplified return tool, in English and Spanish.
+- [**GetYourRefund.org**](https://www.getyourrefund.org/en): free tax prep services and [FAQs](https://www.getyourrefund.org/en/faq) for clients who want to file a full return, in English and Spanish.
+- [**IRS CTC Update Portal**](https://www.irs.gov/credits-deductions/child-tax-credit-update-portal): the IRS tool to check CTC eligibility status, opt out of advance CTC payments, and provide updated bank account information for those who have already filed a 2019 or 2020 tax return.
+- **IRS CTC Helpline**: (800) 908-4184. The helpline connects clients to IRS representatives who can answer basic CTC questions. Assistance is available in English and Spanish. If a caller does not have access to the internet and does not have a friend or family who can help them do so, phone operators can also help callers opt out of advance CTC payments. The caller will need to tell the operator that they can’t access the internet, and can’t get assistance to do so.
 
-Read [Code for America and GetYourRefund.org Earned Income Tax Credit Research](https://files.codeforamerica.org/2021/07/09131827/EITC-Research-Findings-Report-_-January-July-2019-_-GetYourRefund.pdf) for more info about the people in the Earned Income Tax Credit (EITC) participation gap. 
+### Tracking Your Progress (coming soon)
 
-Read New America's [Talking to Non-Filers Report](https://www.newamerica.org/new-practice-lab/blog/talking-to-non-filers/) for qualitative research about families who don't regularly file tax returns.
+To help you track the number of clients served, we can provide a unique URL that will record the number of people you refer to GetCTC, and the number of tax returns filed using your URL. In return, we ask that you tell us some basic information about your services so we can better learn from the work being done in the field. **Unique URL survey coming soon.**
+
+## **2: Going Deeper**
+
+### Quick guides on topics of interest:
+
+- **[Common rejects for non-filers and next steps](https://files.codeforamerica.org/2021/08/19180805/common-rejects-for-non-filers-and-next-steps.pdf)**: After filing the non-filer form, clients will receive an email letting them know if their return was accepted or rejected. This guide explains common reasons a client's return is rejected, and possible next steps.
+- **[Reasons to opt-out of the Advance CTC](https://files.codeforamerica.org/2021/08/19180804/reasons-to-opt-out-of-advctc.pdf):** By default, the IRS is issuing Advance CTC payments to anyone who was eligible for CTC last year. For some families, it will be better to receive these payments as a lump sum next year, rather than receive the advance payments. This guide explains under which circumstances a family may choose to opt out of advance payments.
+- **[Eligibility for CTC and stimulus payments](https://files.codeforamerica.org/2021/08/19180805/eligibility-requirements-for-ctc-and-stimulus-payments.pdf):** A detailed reference of which families are eligible for how much from each program, given their immigration status and other factors.
+- **[Calculating Recovery Rebate Credit:](https://files.codeforamerica.org/2021/08/19180735/calculating-the-recovery-rebate-credit.pdf)** Clients who missed out on their full 1st or 2nd stimulus payments have the opportunity to claim the missing funds on their 2020 tax return. GetCTC walks clients through this process, but clients using the IRS non-filer tool or filing a full return need to calculate the missing amount themselves. This guide shows you how.
+
+### **Research and common barriers**
+
+More research based on conversations with families who don’t file taxes, about how they see the IRS, and barriers they face in claiming payments.
+
+- [**Non-filer Learnings and Recommendations**](https://files.codeforamerica.org/2021/06/16174016/filer-learnings-and-recommendations-april-2021.pdf): research from Code for America about the barriers non-filers face in accessing the tax benefits they deserve.
+- [**Earned Income Tax Credit (EITC) Non-Participation:**](https://files.codeforamerica.org/2021/07/09131827/EITC-Research-Findings-Report-_-January-July-2019-_-GetYourRefund.pdf) research from Code for America about people who are eligible for EITC but don’t receive it.
+- [**Talking to Non-Filers:**](https://www.newamerica.org/new-practice-lab/blog/talking-to-non-filers/) learnings from New America based on interviews with families who don't regularly file tax returns.
