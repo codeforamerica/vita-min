@@ -383,6 +383,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redcarpet (3.5.1)
     regexp_parser (2.1.1)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -616,6 +617,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n
   rails_autolink
+  redcarpet
   rspec-rails
   rspec_junit_formatter
   rubocop (~> 0.82.0)

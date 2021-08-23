@@ -1,0 +1,29 @@
+.navigator-resources {
+  .slab--hero {
+    padding-bottom: 0;
+  }
+
+  .hero-image {
+    margin-top: 3.5rem;
+    max-width: 30rem;
+    @media screen and (min-width: $site-max-up) {
+      margin-top: unset;
+      max-width: unset;
+    }
+    &--family {
+      max-height: 30rem;
+      margin-top: -15rem;
+      margin-right: -6rem;
+      @media screen and (min-width: $site-max-up) {
+        max-height: 39rem;
+        margin-top: unset;
+        margin-right: unset;
+      }
+    }
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: $s35;
+  }
+}

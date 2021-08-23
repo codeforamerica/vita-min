@@ -66,6 +66,7 @@ gem 'scenic'
 gem 'rubyzip'
 gem 'intercom', '~> 4.1'
 gem 'statesman', '~> 8.0.3'
+gem 'redcarpet'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data

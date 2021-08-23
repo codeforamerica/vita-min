@@ -12,6 +12,11 @@ module Ctc
       redirect_to root_path(ctc_beta: params[:ctc_beta])
     end
 
+    def navigators
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+      @markdown_content = markdown.render(File.read(Rails.root.join("app", "views", "ctc", "ctc_pages", "navigators.md"))).html_safe
+    end
+
     def privacy_policy
     end
 
