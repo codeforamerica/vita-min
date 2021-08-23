@@ -1422,6 +1422,26 @@ en:
               message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
             cancelled:
               message: We will no longer attempt to submit this return to the IRS. This may be because you requested that we do not submit the return, or because a rejection from the IRS indicated that we can not resubmit on your behalf.
+            ready_to_resubmit:
+              label: Resubmitting
+              message: We are preparing your return. We'll continue to update you on the status of your submission.
+          correct_info: "Correct my information"
+        edit_info:
+          title: Correct your submitted information
+          resubmit: Resubmit my tax return
+        primary_filer:
+          title: "Edit your basic information"
+          help_text: "Confirm/edit your basic information"
+          form_of_identity: "Form of identity"
+          form_of_identity_note: "If using a social security card, it must be valid for employment."
+        dependent_info:
+          title: "Edit %{name}’s basic information"
+          help_text: "Confirm/edit your dependent’s basic information"
+        spouse:
+          title: "Edit spouse basic information"
+          help_text: "Confirm/edit your spouse's basic information"
+        mailing_address:
+          title: "Edit your address"
       questions:
         returning_client:
           next_steps: Sign in to your account to complete the questions. If you have any questions, start a chat with us.

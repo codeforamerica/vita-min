@@ -16,6 +16,18 @@ class ApplicationController < ActionController::Base
     "views.#{controller_path.tr('/', '.')}"
   end
 
+  def self.to_path_helper(options = {})
+    action = options.delete(:action) || :edit
+    Rails.application.routes.url_helpers.url_for({
+      controller: controller_path,
+      action: action,
+      only_path: true,
+      # url_for sometimes uses the current path to determine the right URL in some situations,
+      # explicitly sending an empty _recall disables that behavior
+      _recall: {}
+    }.merge(default_url_options).merge(options))
+  end
+
   def canonical_url(locale=I18n.locale)
     # Leave the locale out of canonical URLs in the default locale (works ok either way but needs to be consistent)
     url_for(only_path: false, locale: locale)

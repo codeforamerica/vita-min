@@ -1,0 +1,13 @@
+<h2 class="review-box__title"><%= t("views.ctc.questions.confirm_mailing_address.mailing_address") %></h2>
+<div class="review-box__space-between address-info">
+  <div>
+    <div><%= intake.street_address %></div>
+    <% if intake.street_address2.present? %>
+      <div><%= intake.street_address2 %></div>
+    <% end %>
+    <div><%= intake.city %>, <%= intake.state %> <%= intake.zip_code %></div>
+  </div>
+  <% if defined?(edit_controller) %>
+    <%= link_to t("general.edit").downcase, edit_controller.to_path_helper, class: "review-box__edit review-box__edit-button" %>
+  <% end %>
+</div>

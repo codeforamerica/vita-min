@@ -1,0 +1,16 @@
+<h2 class="review-box__title"><%= t("views.ctc.questions.spouse_review.your_spouse") %></h2>
+<div class="review-box__space-between spouse-info">
+  <div class="review-box__person">
+    <div>
+      <icon class="icon-person"></icon>
+    </div>
+    <div>
+      <div class="review-box__name"><%= intake.spouse_full_name %></div>
+      <div class="review-box__details"><%= t("general.date_of_birth") %>: <%= default_date_format(intake.spouse_birth_date) %></div>
+      <div class="review-box__details"><%= intake.spouse_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= intake.spouse_last_four_ssn %></div>
+    </div>
+  </div>
+  <% if defined?(edit_controller) %>
+    <%= link_to t("general.edit").downcase, edit_controller.to_path_helper, class: "review-box__edit review-box__edit-button" %>
+  <% end %>
+</div>

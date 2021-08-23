@@ -1,12 +1,10 @@
 module Ctc
   module Dependents
     class TinForm < DependentForm
-      include BirthDateHelper
       set_attributes_for :dependent,
         :tin_type,
         :ssn
       set_attributes_for :confirmation, :ssn_confirmation
-      set_attributes_for :birthday, :birth_date_month, :birth_date_day, :birth_date_year
       set_attributes_for :misc, :ssn_no_employment
       validates_presence_of :tin_type
       validates_presence_of :ssn

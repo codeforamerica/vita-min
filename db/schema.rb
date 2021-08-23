@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_173312) do
+ActiveRecord::Schema.define(version: 2021_08_24_230208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -287,6 +287,7 @@ ActiveRecord::Schema.define(version: 2021_08_23_173312) do
     t.integer "placed_for_adoption", default: 0, null: false
     t.integer "provided_over_half_own_support", default: 0, null: false
     t.string "relationship"
+    t.datetime "soft_deleted_at"
     t.string "suffix"
     t.integer "tin_type"
     t.datetime "updated_at", null: false
