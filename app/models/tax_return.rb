@@ -79,6 +79,8 @@ class TaxReturn < ApplicationRecord
   end
 
   def outstanding_recovery_rebate_credit
+    return nil unless intake.eip1_amount_received && intake.eip2_amount_received
+
     [expected_recovery_rebate_credit_one - intake.eip1_amount_received, 0].max + [expected_recovery_rebate_credit_two - intake.eip2_amount_received, 0].max
   end
 

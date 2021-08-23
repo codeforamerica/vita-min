@@ -89,7 +89,6 @@ RSpec.describe "a user editing a clients intake fields" do
       within "#recovery-rebate-credit-fields" do
         fill_in "Economic Impact Payment 1 received", with: "1200"
         fill_in "Economic Impact Payment 2 received", with: "1300"
-        select "Sure", from: "hub_update_ctc_client_form_eip1_and_2_amount_received_confidence"
       end
 
       within "#spouse-info" do
@@ -141,7 +140,6 @@ RSpec.describe "a user editing a clients intake fields" do
       within ".client-recovery-rebate-credit-amount" do
         expect(page).to have_text "Economic Impact Payment 1 received: $1200"
         expect(page).to have_text "Economic Impact Payment 2 received: $1300"
-        expect(page).to have_text "Confidence: Sure"
       end
     end
   end

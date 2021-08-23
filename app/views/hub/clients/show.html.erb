@@ -60,7 +60,7 @@
                 <% end %>
               </span>
               <% if @client.intake.primary_last_four_ssn.present? %>
-                <%= render 'togglable_single_field', secret_name: :primary_ssn %>
+                <%= render 'togglable_single_field', masked_value: @client.intake.primary_ssn.present? ? mask(@client.intake.primary_ssn, 0) : nil, secret_name: :primary_ssn %>
               <% else %>
                 <span class="label-value"><%= t("general.NA") %></span>
               <% end %>
@@ -105,7 +105,6 @@
                 <%= render @client.intake.dependents %>
               </ul>
             </div>
-
           </div>
 
           <!-- Payment info-->
@@ -142,10 +141,24 @@
                 <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_2") %>:</span>
                 <span class="label-value">$<%= @client.intake.eip2_amount_received %> </span>
               </div>
-              <div class="field-display">
-                <span class="form-question">Confidence:</span>
-                <span class="label-value"><%= @client.intake.eip1_and_2_amount_received_confidence.try(:capitalize) %> </span>
-              </div>
+              <% if @client.intake.drop_off? %>
+                <div class="field-display">
+                  <span class="form-question">Confidence:</span>
+                  <span class="label-value"><%= @client.intake.eip1_and_2_amount_received_confidence.try(:capitalize) %> </span>
+                </div>
+              <% end %>
+              <% unless @client.intake.drop_off? %>
+                <% tax_return = @client.tax_returns.find_by(year: 2020) %>
+                <div class="field-display">
+                  <span class="form-question"> Outstanding RRC / Claimed RRC: </span>
+                  <span class="label-value"><%= "$#{tax_return&.outstanding_recovery_rebate_credit}" if tax_return&.outstanding_recovery_rebate_credit %></span> /
+                  <span class="label-value"><%= "$#{tax_return&.claimed_recovery_rebate_credit}" if tax_return&.claimed_recovery_rebate_credit %></span>
+                </div>
+                <div class="field-display">
+                  <span class="form-question">Claim credit:</span>
+                  <span class="label-value"><%= @client.intake.claim_owed_stimulus_money&.titleize %></span>
+                </div>
+              <% end %>
             </div>
           <% end %>
         </div>
@@ -169,9 +182,11 @@
             </div>
             <div class="field-display">
               <span class="form-question"><%= t(".mailing_address") %>:</span>
-              <span class="label-value">
-                <%= @client.intake&.formatted_mailing_address %>
-            </span>
+              <div class="label-indented spacing-above-10">
+                <div> <%= @client.intake&.street_address %></div>
+                <div><%= @client.intake.street_address2 if @client.intake.street_address2.present? %></div>
+                <div><%= @client.intake.city %>, <%= @client.intake.state %> <%= @client.intake.zip_code %></div>
+              </div>
             </div>
           </div>
 
@@ -204,7 +219,7 @@
                   <% end %>
                 </span>
                 <% if @client.intake.spouse_last_four_ssn.present? %>
-                  <%= render 'togglable_single_field', secret_name: :spouse_ssn %>
+                  <%= render 'togglable_single_field', masked_value: @client.intake.spouse_ssn.present? ? mask(@client.intake.spouse_ssn, 0) : nil, secret_name: :spouse_ssn %>
                 <% else %>
                   <span class="label-value"><%= t("general.NA") %></span>
                 <% end %>
@@ -215,7 +230,7 @@
                     <%= t("general.ip_pin") %>:
                   </span>
                   <% if @client.intake.spouse_ip_pin.present? %>
-                    <%= render 'togglable_single_field', secret_name: :spouse_ip_pin %>
+                    <%= render 'togglable_single_field', masked_value: "●●●●●●", secret_name: :spouse_ip_pin %>
                   <% else %>
                     <span class="label-value"><%= t("general.NA") %></span>
                   <% end %>
