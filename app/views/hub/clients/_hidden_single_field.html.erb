@@ -1,2 +1,3 @@
-<span class="label-value" aria-hidden="true">●●●●</span>
+<% masked_value ||= "●●●●" %>
+<span class="label-value" aria-hidden="true"><%= masked_value %></span>
 <span class="sr-only"><%= t("general.hidden") %></span>

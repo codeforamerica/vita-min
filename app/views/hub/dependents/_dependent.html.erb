@@ -16,7 +16,7 @@
       <span class="form-question">SSN/ITIN:</span>
       <span class="label-value">
         <span id="js-secret-dependent_ssn-<%= dependent.id %>">
-          <%= render "hub/clients/hidden_single_field" %>
+          <%= render "hub/clients/hidden_single_field", masked_value: mask(dependent.ssn, 4) %>
         </span>
         <span id="js-toggle-secret-dependent_ssn-<%= dependent.id %>">
           <%= link_to("View", show_secret_hub_client_path(secret_name: :dependent_ssn, secret_record_id: dependent.id), remote: true) %>
@@ -35,6 +35,38 @@
           <%= link_to("View", show_secret_hub_client_path(secret_name: :dependent_ip_pin, secret_record_id: dependent.id), remote: true) %>
         </span>
       </span>
+    </div>
+  <% end %>
+  <% if @client.intake.is_ctc? %>
+    <div>
+      <span>
+        <span class="form-question">
+          Dependent Type:
+        </span>
+        <span class="label-value">
+          <% if dependent.qualifying_child_2020? %>
+            Qualifying Child
+          <% elsif dependent.qualifying_relative_2020? %>
+            Qualifying Relative
+          <% else %>
+            Nonqualifying
+          <% end %>
+        </span>
+      </span>
+    </div>
+    <div class="spacing-above-5">
+      <% if dependent.eligible_for_child_tax_credit_2020? %>
+        <span class="label">CTC</span>
+      <% end %>
+      <% if dependent.eligible_for_eip1? %>
+        <span class="label">EIP1</span>
+      <% end %>
+      <% if dependent.eligible_for_eip2? %>
+        <span class="label">EIP2</span>
+      <% end %>
+      <% if dependent.eligible_for_eip3? %>
+        <span class="label">EIP3</span>
+      <% end %>
     </div>
   <% end %>
 </li>
