@@ -19,8 +19,12 @@ require "rails_helper"
 describe EfileSubmission do
   before do
     address_service_double = double
-    allow_any_instance_of(EfileSubmission).to receive(:generate_irs_address).and_return(address_service_double)
+    allow(StandardizeAddressService).to receive(:new).and_return(address_service_double)
     allow(address_service_double).to receive(:valid?).and_return true
+    allow(address_service_double).to receive(:zip_code).and_return "77494"
+    allow(address_service_double).to receive(:street_address).and_return "23627 Hawkins Creek Ct"
+    allow(address_service_double).to receive(:state).and_return "TX"
+    allow(address_service_double).to receive(:city).and_return "Katy"
   end
 
   context "validation" do
@@ -295,7 +299,7 @@ describe EfileSubmission do
                      source: "irs",
                      auto_cancel: false,
                      auto_wait: false
-                     )
+              )
             end
 
             it "stays rejected" do
@@ -304,6 +308,18 @@ describe EfileSubmission do
             end
           end
         end
+      end
+    end
+  end
+
+  describe "#generate_irs_address" do
+    context "when there is an existing addresss and skip_usps_validation is set to true" do
+      let(:submission) { create :efile_submission, :preparing }
+      let!(:address) { create :address, record: submission, skip_usps_validation: true }
+      
+      it "returns true and does not connect to USPS service" do
+        expect(submission.generate_irs_address.valid?).to be true
+        expect(StandardizeAddressService).not_to have_received(:new)
       end
     end
   end
