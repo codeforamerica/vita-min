@@ -11,6 +11,10 @@
   <div class="note__body">
     <% if note.is_a? SystemNote::DocumentHelp %>
       <%= render "system_note_document_help", note: note %>
+    <% elsif note.is_a? SystemNote::CtcPortalAction %>
+      <%= render "system_note_ctc_portal_action", note: note %>
+    <% elsif note.is_a? SystemNote::CtcPortalUpdate %>
+      <%= render "system_note_ctc_portal_update", note: note %>
     <% else %>
       <%= format_text(note.body) %>
     <% end %>

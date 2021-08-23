@@ -39,4 +39,30 @@ describe Ctc::Portal::PortalController do
       end
     end
   end
+
+  context "#resubmit" do
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :home
+
+    context "when authenticated" do
+      let(:submission) { create(:efile_submission, :rejected, tax_return: client.tax_returns.first) }
+
+      before do
+        sign_in client, scope: :client
+        client.tax_returns.first.update(efile_submissions: [submission])
+      end
+
+      it "updates status, makes a note, and redirects to the portal home" do
+        put :resubmit
+
+        system_note = SystemNote::CtcPortalAction.last
+        expect(system_note.client).to eq(client)
+        expect(system_note.data).to match({
+          'model' => submission.to_global_id.to_s,
+          'action' => 'ready_to_resubmit'
+        })
+        expect(submission.current_state).to eq("ready_to_resubmit")
+        expect(response).to redirect_to Ctc::Portal::PortalController.to_path_helper(action: :home)
+      end
+    end
+  end
 end

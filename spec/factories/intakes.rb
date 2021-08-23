@@ -277,9 +277,22 @@ FactoryBot.define do
     end
   end
 
+  generate_fake_ssn = -> do
+    # 0s in 4th and 5th position are required for IRS test submissions
+    attempts = 0
+    random_ssn = ''
+    until SocialSecurityNumberValidator::LOOSE_SSN_REGEX.match(random_ssn) do
+      attempts += 1
+      raise StandardError.new("Couldn't make a good fake SSN, last try was #{random_ssn}") if attempts > 5
+      random_ssn = "#{Faker::Number.number(digits: 3)}00#{Faker::Number.number(digits: 4)}"
+    end
+
+    random_ssn
+  end
+
   trait :with_ssns do
-    primary_ssn { "#{Faker::Number.number(digits: 3)}00#{Faker::Number.number(digits: 4)}" } # 0s in 4th and 5th position are required for IRS test submissions
-    spouse_ssn { "#{Faker::Number.number(digits: 3)}00#{Faker::Number.number(digits: 4)}" }
+    primary_ssn { generate_fake_ssn.call }
+    spouse_ssn { generate_fake_ssn.call }
     primary_last_four_ssn { primary_ssn.to_s.last(4) }
     spouse_last_four_ssn { primary_ssn.to_s.last(4) }
   end

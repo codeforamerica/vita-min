@@ -67,7 +67,7 @@ class TaxReturn < ApplicationRecord
   def qualifying_dependents
     raise StandardError, "Qualifying dependent logic is only valid for 2020.  Define new rules for #{year}." unless year == 2020
 
-    intake.dependents.filter { |d| d.qualifying_child_2020? || d.qualifying_relative_2020? }
+    intake.dependents.reject(&:soft_deleted_at).filter { |d| d.qualifying_child_2020? || d.qualifying_relative_2020? }
   end
 
   def filing_status_code

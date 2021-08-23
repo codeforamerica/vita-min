@@ -31,6 +31,7 @@
 #  placed_for_adoption                         :integer          default("unfilled"), not null
 #  provided_over_half_own_support              :integer          default("unfilled"), not null
 #  relationship                                :string
+#  soft_deleted_at                             :datetime
 #  suffix                                      :string
 #  tin_type                                    :integer
 #  was_married                                 :integer          default("unfilled"), not null

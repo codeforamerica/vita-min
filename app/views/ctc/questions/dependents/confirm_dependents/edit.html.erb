@@ -13,10 +13,13 @@
           <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_ctc") %></h2>
         </div>
         <div class="spacing-below-15">
-          <%= render(
-                  partial: 'dependent',
-                  collection: current_intake.dependents.select { |dep| dep.eligible_for_child_tax_credit_2020? }
-              ) || t('views.ctc.questions.dependents.confirm_dependents.no_qualifying_dependents') %>
+          <%=
+            render(
+              partial: 'dependent',
+              locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
+              collection: current_intake.dependents.select { |dep| dep.eligible_for_child_tax_credit_2020? }
+            ) || t('views.ctc.questions.dependents.confirm_dependents.no_qualifying_dependents')
+          %>
         </div>
       </div>
       <div data-automation="other-credits-dependents">
@@ -24,9 +27,13 @@
           <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_other_credits") %></h2>
         </div>
         <div class="spacing-below-35">
-          <%= render(partial: 'dependent', collection:
-              current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && (dep.qualifying_child_2020? || dep.qualifying_relative_2020?) }
-              ) || t('views.ctc.questions.dependents.confirm_dependents.no_qualifying_dependents') %>
+          <%=
+            render(
+              partial: 'dependent',
+              locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
+              collection: current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && (dep.qualifying_child_2020? || dep.qualifying_relative_2020?) }
+            ) || t('views.ctc.questions.dependents.confirm_dependents.no_qualifying_dependents')
+          %>
         </div>
       </div>
 

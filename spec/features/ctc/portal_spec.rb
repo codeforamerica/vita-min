@@ -158,9 +158,109 @@ RSpec.feature "CTC Intake", active_job: true do
   end
 
   context "when the client has verified the contact, efile submission is status rejected" do
+    let(:qualifying_child) { build(:qualifying_child, ssn: "111-22-3333") }
+    let(:dependent_to_delete) { build(:qualifying_child, first_name: "UniqueLookingName", ssn: "111-22-4444") }
+    let!(:intake) do
+      create(
+        :ctc_intake,
+        :with_address,
+        :with_contact_info,
+        :with_ssns,
+        email_address: "mango@example.com",
+        email_notification_opt_in: "yes",
+        spouse_first_name: "Eva",
+        spouse_last_name: "Hesse",
+        spouse_birth_date: Date.new(1929, 9, 2),
+        dependents: [qualifying_child, dependent_to_delete]
+      )
+    end
+    let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2020, status: "intake_in_progress")) }
+
     before do
       intake.update(email_address_verified_at: DateTime.now)
-      create(:efile_submission, :rejected, :with_errors, tax_return: create(:tax_return, client: intake.client, year: 2020))
+    end
+
+    scenario "a client can correct their information" do
+      log_in_to_ctc_portal
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+      expect(page).to have_text "Rejected"
+
+      click_on I18n.t("views.ctc.portal.home.correct_info")
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.edit_info.title'))
+
+      click_on I18n.t('general.back')
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+
+      click_on I18n.t("views.ctc.portal.home.correct_info")
+
+      within ".primary-info" do
+        click_on I18n.t('general.edit').downcase
+      end
+      fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Mangonada"
+      click_on I18n.t('general.save')
+
+      expect(page).to have_text "Mangonada"
+
+      within ".address-info" do
+        click_on I18n.t('general.edit').downcase
+      end
+      fill_in I18n.t("views.questions.mailing_address.street_address"), with: "123 Sandwich Lane"
+      click_on I18n.t('general.save')
+
+      expect(page).to have_text "123 Sandwich Lane"
+
+      within ".spouse-info" do
+        click_on I18n.t('general.edit').downcase
+      end
+      fill_in I18n.t("views.ctc.questions.spouse_info.spouse_first_name"), with: "Pomelostore"
+      click_on I18n.t('general.save')
+
+      expect(page).to have_text "Pomelostore"
+
+      within ".dependent_#{qualifying_child.id}" do
+        click_on I18n.t('general.edit').downcase
+      end
+      fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Papaya"
+      click_on I18n.t('general.save')
+
+      expect(page).to have_text "Papaya"
+
+      within ".dependent_#{dependent_to_delete.id}" do
+        click_on I18n.t('general.edit').downcase
+      end
+      click_on I18n.t('views.ctc.questions.dependents.tin.remove_person')
+      click_on I18n.t('views.ctc.questions.dependents.remove_dependent.remove_button')
+
+      expect(dependent_to_delete.reload.soft_deleted_at).to be_truthy
+      expect(page).not_to have_text dependent_to_delete.first_name
+
+      click_on I18n.t('views.ctc.portal.edit_info.resubmit')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+      expect(page).to have_text I18n.t('views.ctc.portal.home.status.ready_to_resubmit.label')
+
+      # Go look for the note as an admin
+      Capybara.current_session.reset!
+
+      allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
+      login_as create :admin_user
+
+      visit hub_clients_path
+
+      within ".client-table" do
+        click_on intake.preferred_name
+      end
+
+      click_on I18n.t('hub.clients.navigation.client_notes')
+
+      expect(page).to have_content("Mangonada")
+      expect(page).to have_content("Papaya")
+      expect(page).to have_content("Pomelostore")
+      expect(page).to have_content("123 Sandwich Lane")
+
+      expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
+      expect(page).to have_content("Client marked EfileSubmission ##{efile_submission.id} ready to submit")
     end
 
     scenario "a client sees and can click on a link to continue their intake" do

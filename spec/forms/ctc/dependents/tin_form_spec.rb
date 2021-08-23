@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe Ctc::Dependents::TinForm do
   let(:intake) { create :ctc_intake }
-  let(:dependent) { create :dependent, intake: intake, tin_type: nil, ssn: ssn, birth_date: nil }
+  let(:dependent) { create :dependent, intake: intake, tin_type: nil, ssn: ssn }
   let(:ssn) { nil }
 
   context "initialization with from_dependent" do
-    let(:dependent) { create :dependent, intake: intake, ssn: ssn, birth_date: nil, tin_type: "ssn_no_employment" }
+    let(:dependent) { create :dependent, intake: intake, ssn: ssn, tin_type: "ssn_no_employment" }
 
     context "coercing tin_type to the correct value when ssn_no_employment" do
       it "sets ssn_no_employment to yes, and primary_tin_type to ssn" do
@@ -25,7 +25,7 @@ describe Ctc::Dependents::TinForm do
     end
 
     context "there is no tin/ssn entered" do
-      let(:dependent) { create :dependent, intake: intake, tin_type: "ssn", ssn: nil, birth_date: nil }
+      let(:dependent) { create :dependent, intake: intake, tin_type: "ssn", ssn: nil }
       it "is not valid" do
         form = described_class.from_dependent(dependent)
         expect(form).not_to be_valid

@@ -333,6 +333,22 @@ Rails.application.routes.draw do
           root "portal#home"
           login_routes
 
+          get 'edit_info', to: "portal#edit_info"
+          put 'resubmit', to: "portal#resubmit"
+
+          get 'primary_filer', to: "primary_filer#edit"
+          put 'primary_filer', to: "primary_filer#update"
+
+          get 'mailing_address', to: "mailing_address#edit"
+          put 'mailing_address', to: "mailing_address#update"
+
+          get 'spouse', to: "spouse#edit"
+          put 'spouse', to: "spouse#update"
+
+          resources :dependents, only: [:edit, :update, :destroy] do
+            get :confirm_remove, on: :member
+          end
+
           resources :messages, only: [:new, :create]
           resources :documents, only: [:show]
         end

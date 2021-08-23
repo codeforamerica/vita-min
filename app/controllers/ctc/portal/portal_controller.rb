@@ -1,7 +1,4 @@
-class Ctc::Portal::PortalController < ApplicationController
-  include AuthenticatedClientConcern
-  layout "portal"
-
+class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   def home
     if current_client.efile_submissions.any?
       @submission = current_client.efile_submissions.last
@@ -19,13 +16,18 @@ class Ctc::Portal::PortalController < ApplicationController
     end
   end
 
-  private
+  def edit_info; end
 
-  def service_type
-    :ctc
-  end
-
-  def wrapping_layout
-    service_type
+  def resubmit
+    @submission = current_client.efile_submissions.last
+    if @submission.can_transition_to?(:ready_to_resubmit)
+      @submission.transition_to(:ready_to_resubmit)
+      SystemNote::CtcPortalAction.generate!(
+        model: @submission,
+        action: 'ready_to_resubmit',
+        client: current_client
+      )
+    end
+    redirect_to(action: :home)
   end
 end

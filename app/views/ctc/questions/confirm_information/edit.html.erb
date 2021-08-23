@@ -5,34 +5,12 @@
 
   <div class="review-box spacing-below-35">
 
-    <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_information") %></h2>
-    <div class="primary-info">
-      <div class="review-box__name"><%= current_intake.primary_full_name %></div>
-      <div class="review-box__details"><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(current_intake.primary_birth_date) %></div>
-      <div class="review-box__details"><%= t("general.email") %>: <%= current_intake.email_address %></div>
-      <div class="review-box__details"><%= t("general.phone") %>: <%= current_intake.formatted_phone_number %></div>
-      <div class="review-box__details"><%= current_intake.primary_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= current_intake.primary_last_four_ssn %></div>
-    </div>
+    <%= render 'primary_filer_info', intake: current_intake %>
 
-    <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_mailing_address.mailing_address") %></h2>
-    <div class="review-box__body address-info spacing-below-25">
-      <div><%= current_intake.street_address %></div>
-      <% if current_intake.street_address2.present? %>
-        <div><%= current_intake.street_address2 %></div>
-      <% end %>
-      <div><%= current_intake.city %>, <%= current_intake.state %> <%= current_intake.zip_code %></div>
-    </div>
+    <%= render 'mailing_address', intake: current_intake %>
 
     <% if current_intake.filing_jointly? %>
-      <h2 class="review-box__title"><%= t("views.ctc.questions.spouse_review.your_spouse") %></h2>
-      <div class="review-box__person spacing-below-25 spouse-info">
-        <div><i class="icon-person"></i></div>
-        <div>
-          <div class="review-box__name"><%= current_intake.spouse_full_name %></div>
-          <div class="review-box__details"><%= t("general.date_of_birth") %>: <%= default_date_format(current_intake.spouse_birth_date) %></div>
-          <div class="review-box__details"><%= current_intake.spouse_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= current_intake.spouse_last_four_ssn %></div>
-        </div>
-      </div>
+      <%= render 'spouse_info', intake: current_intake %>
     <% end %>
 
     <% if current_intake.dependents.present? %>
