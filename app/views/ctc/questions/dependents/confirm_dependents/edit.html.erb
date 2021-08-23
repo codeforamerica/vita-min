@@ -24,6 +24,14 @@
           <%= render 'dependent', dependent: dependent %>
         <% end %>
       </div>
+      <div data-automation="non-qualifying-dependents">
+        <div class="review-box__title">
+          <h2><%= t("views.ctc.questions.dependents.confirm_dependents.non_qualifying") %></h2>
+        </div>
+        <% current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && !dep.qualifying_child_2020? && !dep.qualifying_relative_2020? }.each do |dependent| %>
+          <%= render 'dependent', dependent: dependent %>
+        <% end %>
+      </div>
 
       <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide text--centered" do %>
         <%= image_tag("add-person.svg", alt: "") %>
