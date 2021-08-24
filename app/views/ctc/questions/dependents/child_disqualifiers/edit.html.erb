@@ -1,4 +1,4 @@
-<% name = @dependent.first_name.capitalize %>
+<% name = @dependent.first_name&.titleize %>
 <% @main_question = t("views.ctc.questions.dependents.child_disqualifiers.title", name: name) %>
 
 <% content_for :page_title, @main_question %>

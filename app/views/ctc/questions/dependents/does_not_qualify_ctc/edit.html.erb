@@ -13,7 +13,7 @@
   </ul>
 
   <div class="spacing-above-60">
-    <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: :new), class: "button button--wide button--primary text--centered button--wide" do %>
+    <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide button--primary text--centered button--wide" do %>
       <%= image_tag("add-person--white.svg", alt: "") %>
       <%= t("views.ctc.questions.dependents.does_not_qualify_ctc.add_button") %>
     <% end %>

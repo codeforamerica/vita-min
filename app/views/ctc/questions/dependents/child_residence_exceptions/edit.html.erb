@@ -1,4 +1,5 @@
-<% content_for :page_title, t("views.ctc.questions.dependents.child_residence_exceptions.title", name: @form.dependent.first_name) %>
+<% content_for :page_title, t("views.ctc.questions.dependents.child_residence_exceptions.title", name: @form.dependent.first_name&.titleize) %>
+<% name = @dependent.first_name&.titleize %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
@@ -9,10 +10,10 @@
       <%=t('views.ctc.questions.dependents.child_residence_exceptions.help_text') %>
     </p>
     <div class="form-card__stacked-checkboxes spacing-above-0">
-      <%= f.cfa_checkbox(:born_in_2020, t('views.ctc.questions.dependents.child_residence_exceptions.born_in_2020', name: @form.dependent.first_name), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:passed_away_2020, t('views.ctc.questions.dependents.child_residence_exceptions.passed_away_2020', name: @form.dependent.first_name), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:placed_for_adoption, t('views.ctc.questions.dependents.child_residence_exceptions.placed_for_adoption', name: @form.dependent.first_name), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:permanent_residence_with_client, t('views.ctc.questions.dependents.child_residence_exceptions.permanent_residence_with_client', name: @form.dependent.first_name), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:born_in_2020, t('views.ctc.questions.dependents.child_residence_exceptions.born_in_2020', name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:passed_away_2020, t('views.ctc.questions.dependents.child_residence_exceptions.passed_away_2020', name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:placed_for_adoption, t('views.ctc.questions.dependents.child_residence_exceptions.placed_for_adoption', name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:permanent_residence_with_client, t('views.ctc.questions.dependents.child_residence_exceptions.permanent_residence_with_client', name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:none, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>
 
