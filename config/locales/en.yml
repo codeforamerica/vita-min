@@ -1488,6 +1488,7 @@ en:
             title: "Let’s confirm your dependents!"
             qualifying_for_ctc: "Dependents qualifying for CTC and stimulus payments"
             qualifying_for_other_credits: "Dependents qualifying for stimulus payments only"
+            no_qualifying_dependents: "No qualifying dependents"
             birthday: "Date of birth: %{dob}"
             ssn: "SSN: XXX-XX-%{ssn}"
             ssn_na: "SSN: N/A"

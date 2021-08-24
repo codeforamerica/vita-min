@@ -19,7 +19,11 @@
     &:first-child {
       margin-top: 0;
     }
+    &-tighter {
+      margin-bottom: 1.5rem;
+    }
   }
+
 
   &__space-between {
     display: flex;
