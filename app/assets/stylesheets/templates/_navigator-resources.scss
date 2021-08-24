@@ -26,4 +26,9 @@
     list-style: disc;
     padding-left: $s35;
   }
+
+  ol {
+    list-style-type: decimal;
+    padding-left: 2em;
+  }
 }
