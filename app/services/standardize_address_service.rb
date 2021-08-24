@@ -13,10 +13,10 @@ class StandardizeAddressService
     @result = build_standardized_address
   end
 
-  # the USPS API sometimes responds with # to indicate apt number, but
-  # the IRS does not allow that character -- strip it out.
+  # the USPS API sometimes responds with # to indicate apt number or with . included,
+  # but the IRS does not allow those characters -- strip them out.
   def street_address
-    @result[:street_address].gsub("#", "").gsub(/(\s)+/, " ")
+    @result[:street_address].gsub(/[#.]/, "").gsub(/(\s)+/, " ")
   end
 
   def city
