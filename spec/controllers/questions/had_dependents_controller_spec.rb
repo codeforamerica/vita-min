@@ -6,7 +6,7 @@ RSpec.describe Questions::HadDependentsController do
   before { sign_in intake.client }
 
   describe "#next_path" do
-    context "when the user answers that they had dependents" do
+    context "when the user had dependents" do
       let(:had_dependents) { "yes" }
 
       it "returns the dependents path" do
@@ -14,7 +14,7 @@ RSpec.describe Questions::HadDependentsController do
       end
     end
 
-    context "when the user didn't didn't have dependents" do
+    context "when the user didn't have dependents" do
       let(:had_dependents) { "no" }
 
       it "returns the default next navigation path" do
