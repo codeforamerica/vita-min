@@ -39,7 +39,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.foreign_address')
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
     click_on I18n.t('general.back')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
@@ -62,6 +62,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title')
     click_on I18n.t('general.continue')
+
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
     click_on I18n.t('views.ctc.questions.contact_preference.email')
@@ -364,7 +365,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.agi2019.title'))
-    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '1234'
+    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '$12,340'
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
@@ -410,11 +411,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_agi2019.title'))
-    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '4567'
+    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '4,567'
     click_on I18n.t('general.continue')
 
     intake = Intake.last
-    expect(intake.primary_prior_year_agi_amount).to eq(1234)
+    expect(intake.primary_prior_year_agi_amount).to eq(12340)
     expect(intake.spouse_prior_year_agi_amount).to eq(4567)
   end
 
