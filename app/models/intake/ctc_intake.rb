@@ -251,6 +251,9 @@
 class Intake::CtcIntake < Intake
   attribute :eip1_amount_received, :money
   attribute :eip2_amount_received, :money
+  attribute :primary_prior_year_agi_amount, :money
+  attribute :spouse_prior_year_agi_amount, :money
+
   attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :primary_ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }

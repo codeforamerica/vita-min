@@ -33,13 +33,15 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
     click_on I18n.t('general.negative')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
-    choose I18n.t('views.ctc.questions.filed2019.did_not_file')
+    choose I18n.t('views.ctc.questions.filed2019.filed_full')
     click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.life_situations2019.title"))
+    click_on "Continue"
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.foreign_address')
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
     click_on I18n.t('general.back')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
@@ -63,6 +65,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title')
     click_on I18n.t('general.continue')
 
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.agi2019.title"))
+    fill_in I18n.t("views.ctc.questions.agi2019.label"), with: "$12,123"
+    click_on I18n.t('general.continue')
+    expect(Intake.last.primary_prior_year_agi_amount).to eq 12123
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
     click_on I18n.t('views.ctc.questions.contact_preference.email')
 
