@@ -74,6 +74,21 @@ describe Ctc::IpPinEntryForm do
         expect(form.dependents.first.errors.keys).to match_array([:ip_pin])
       end
     end
+
+    context "if pins are all zeros" do
+      before do
+        params[:primary_ip_pin] = "000000"
+        params[:spouse_ip_pin] = "000000"
+        params[:dependents_attributes]["0"][:ip_pin] = "000000"
+      end
+
+      it "shows errors on each field" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+        expect(form.errors.keys).to match_array([:primary_ip_pin, :spouse_ip_pin])
+        expect(form.dependents.first.errors.keys).to match_array([:ip_pin])
+      end
+    end
   end
 
   context "save" do
