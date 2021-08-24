@@ -3192,7 +3192,7 @@ en:
           what_will_i_need_to_submit:
             question: "I don’t usually file taxes, what will I need to submit to sign up for the Child Tax Credit?"
             answer_html: |
-              An email address, ID, proof of income and/or benefits, and your child's Social Security Number.<br/><br/>
+              Signing up for the Child Tax Credit is simple: you only need a working email address or phone number and the social security numbers of any children you want to claim.<br/><br/>
               Children claimed for the Child Tax Credit must have a valid Social security number (SSN), however the tax filer (a parent, grandparent, or guardian) can have either a SSN or an Individual Taxpayer Identification Number (ITIN).
           check_payment_status:
             question: "Where can I check the status of my payments?"
