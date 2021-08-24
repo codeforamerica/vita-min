@@ -1458,10 +1458,15 @@ es:
               li5: "%{name} conjuntamente una declaración de impuestos por separado"
           child_can_be_claimed_by_other:
             title: "¿Es usted la única persona que puede declarar a %{name}?"
-            help_text: "Puede decir que no si comparte las responsabilidades de cuidado con otra persona."
+            help_text_html: |
+              <p>Puede decir que no si comparte las responsabilidades de cuidado con otra persona.</p>
+              <p>Tenga en cuenta que si otra persona ha reclamado %{name} y usted también los reclama, su devolución será rechazada. Piense detenidamente si hay alguien más que pueda haberlos reclamado.</p>
+              <p>Si pudiera haber otra persona, seleccione "No" y lo ayudaremos a decidir si puede reclamar %{name} o no.</p>
           claim_child_anyway:
             title: "¿Le gustaría declarar a %{name} de todas maneras?"
-            help_text: "Si usted y otra persona tienen derecho a declarar a %{name}, debe seguir el acuerdo que tiene con la otra persona sobre quién lo declara."
+            help_text_html: |
+              <p>Si usted y otra persona tienen derecho a declarar a %{name}, debe seguir el acuerdo que tiene con la otra persona sobre quién lo declara.</p>
+              <p>Recuerde, si alguien más ya reclamó %{name}, su devolución será rechazada. Si eso sucede, podemos guiarlo a través del proceso de apelar el otro reclamo, pero no es fácil. Puede optar por consultar primero con los demás cuidadores.</p>
             not_sure_reveal:
               title: "No estoy seguro/a. ¿Debería declararlo/a?"
               p: "Debe declarar al dependiente si una de estas situaciones es válida:"
@@ -1616,20 +1621,23 @@ es:
           title: "¿Presentó su declaración de impuestos de 2020 este año?"
           help_text_html: |
             <p>Presentó una declaración de impuestos este año, después del 1o de enero de 2021, para el año fiscal 2020?</p>
-            <p>Conteste que sí, incluso si todavía está esperando los pagos del estímulo, o si utilizó la Herramienta de inscripción para No Declarantes.</p>
+            <p>Conteste que sí, incluso si todavía está esperando los pagos del estímulo, o si utilizó la Herramienta de inscripción para No Declarantes. Si lo hizo, le brindaremos más orientación sobre sus opciones en la página siguiente.</p>
+            <p class="text--bold">If you already filed a 2020 tax return, the return you file with this tool with be rejected by the IRS.</p>
         filed2020_yes:
           title: ¡Magnífico! El IRS tiene la información que necesita para procesar su declaración.
-          p1: "Si ha presentado una declaración de impuestos de 2020, el IRS tendrá la información que necesita para procesar su Crédito Fiscal por Hijos (CTC) y cualquier pago de estímulo."
-          p2_html: "Puede visitar el <a href=\"https://www.irs.gov/credits-deductions/child-tax-credit-update-portal\" target=\"_blank\" rel=\"noopener noreferrer\">Portal de Actualización del Crédito Fiscal por Hijos del IRS</a> para revisar el estado de su pago del CTC. Visite <a href=\"https://www.irs.gov/coronavirus/get-my-payment\" target=\"_blank\" rel=\"noopener noreferrer\">Get My Payment</a> para revisar el estado de su estímulo."
-          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Fiscal por Hijos
-          visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el Estímulo
+          p1: Al igual que la herramienta de registro de no contribuyentes del IRS, GetCTC le ayuda a presentar electrónicamente una declaración de impuestos simplificada de 2020. Si ya presentó una declaración de 2020, el IRS rechazará esta declaración sin revisarla, incluso si su primera declaración fue incorrecta o se procesó incorrectamente.
+          p2_html: "Si la información de su declaración de 2020 ha cambiado y desea actualizar sus pagos de CTC, puede usar el <a href=\"https://www.irs.gov/credits-deductions/child-tax-credit-update-portal\" target=\"_blank\" rel=\"noopener noreferrer\">Portal de Actualización del Crédito Fiscal por Hijos del IRS</a>."
+          p3: Si cree que su declaración de 2020 nunca se procesó y no sabe qué sucedió, necesitará asistencia directa para ayudarlo a resolver su caso. Puede comunicarse con un sitio de Asistencia Voluntaria de Impuestos sobre la Renta (VITA) o con el Servicio de Defensa del Contribuyente.
+          contact_vita: Contactar un sitio de VITA
+          contact_ta: Contactar Defensores del Contribuyente
         filed2019:
           title: "¿Ha presentado la declaración de impuestos de 2019?"
-          help_text: "¿Presentó una declaración de impuestos después del 1 de enero de 2020 para el año fiscal 2019?"
+          help_text: "¿Presentó una declaración de impuestos para el año fiscal 2019? Esta declaración de impuestos se debió presentar originalmente el 15 de abril de 2020."
           filed_full: Sí, presenté una declaración completa
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
           did_not_file: No, no presenté una declaración de impuestos de 2019
         life_situations2019:
+          visit_stimulus_faq: Visita preguntas frecuentes sobre estímulos
           title: ¡Asegurémonos de que esta herramienta es la adecuada para usted!
           p1: |
             Si cualquiera de los siguientes puntos es válido, debe continuar con nuestra herramienta simplificada:

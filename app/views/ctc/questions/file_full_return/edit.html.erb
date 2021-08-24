@@ -14,11 +14,11 @@
     <% end %>
   </ul>
 
-  <%= link_to next_path, class: "button button--wide text--centered spacing-above-60 button--primary" do %>
+  <%= link_to next_path, class: "button button--full-width text--centered spacing-above-60 button--primary" do %>
     <%= t("views.ctc.questions.file_full_return.simplified_btn") %>
   <% end %>
 
-  <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'diy'), class: "button button--wide text--centered" do %>
+  <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'diy'), class: "button button--full-width text--centered" do %>
     <%= t("views.ctc.questions.file_full_return.full_btn") %>
   <% end %>
 <% end %>
