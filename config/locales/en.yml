@@ -1428,7 +1428,7 @@ en:
         dependents:
           tin:
             title: "We need some additional information about %{name}."
-            help_text: "To avoid delays, please provide the your dependent’s legal information as it is written on their identification card. "
+            help_text: "To avoid delays, please provide your family member’s legal information as it is written on their identification card."
             form_of_identity: "%{name}'s form of identity"
             ssn_or_atin: "%{name}'s SSN or ATIN"
             ssn_or_atin_confirmation: "Confirm %{name}'s SSN or ATIN"
@@ -1439,20 +1439,20 @@ en:
             remove_button: Yes, remove them
             nevermind_button: Nevermind, let's save them
           info:
-            title: "Let’s get some basic information about your dependent!"
-            help_text: "To avoid delays, please provide your dependent’s legal information as it is written on their identification card."
-            first_name: "Dependent’s legal first name"
+            title: "Let’s get some basic information about your family member!"
+            help_text: "To avoid delays, please provide your child or family member’s legal information as it is written on their identification card."
+            first_name: "Family member’s legal first name "
             middle_initial: "Dependent’s middle initial"
-            last_name: "Dependent’s legal last name"
-            suffix: "Dependent's suffix"
+            last_name: "Family member’s legal last name"
+            suffix: "Family member’s suffix"
             relationship_to_you: "What is their relationship to you?"
             situations: "Select any situation that was true:"
-            full_time_student: "Dependent is a full-time student"
-            permanently_totally_disabled: "Dependent is permanently and totally disabled"
+            full_time_student: "This family member is a full-time student"
+            permanently_totally_disabled: "This family member is permanently and totally disabled"
             reveal_title: What is a permanent disability?
             reveal_info: A doctor determines if you have a permanent disability when you are unable to do a majority of your work because of a physical or mental condition.
           had_dependents:
-            title: "Would you like to claim a dependent for 2020?"
+            title: "Would you like to add a child or family member who you supported in 2020?"
             help_text: "Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent."
             what_relationships_reveal: "What relationships qualify?"
           child_lived_with_you:
@@ -1490,15 +1490,15 @@ en:
               li2: "If you and the other parent spent the same amount of time with the dependent, whoever earned more money in 2020 can claim them."
               li3: "If neither of you are the dependent’s parent, whoever earned more money in 2020 can claim them."
           confirm_dependents:
-            title: "Let’s confirm your dependents!"
-            qualifying_for_ctc: "Dependents qualifying for CTC and stimulus payments"
-            qualifying_for_other_credits: "Dependents qualifying for stimulus payments only"
-            no_qualifying_dependents: "No qualifying dependents"
+            title: "Let’s confirm!"
+            qualifying_for_ctc: "Children qualifying for CTC and stimulus"
+            qualifying_for_other_credits: "Family members qualifying for only stimulus"
+            no_qualifying_dependents: "No qualifying family members"
             birthday: "Date of birth: %{dob}"
             ssn: "SSN: XXX-XX-%{ssn}"
             ssn_na: "SSN: N/A"
-            add_a_dependent: "Add a dependent"
-            done_adding: "Done adding dependents"
+            add_a_dependent: "Add another person"
+            done_adding: "I’m done adding family members"
           child_disqualifiers:
             title: "Great, let's make sure %{name} qualifies!"
             help_text: "Select any situations that were true in 2020:"
@@ -1508,14 +1508,14 @@ en:
             error: "Please select at least one option"
           does_not_qualify_ctc:
             title: "%{name} can’t be claimed as a dependent."
-            help_text: "For a dependent to qualify for CTC or stimulus payments they would need to meet the following conditions:"
+            help_text: "For a child or family member to qualify for CTC or stimulus payments they would need to meet the following conditions:"
             conditions:
-              - The dependent has a valid Social Security Number or Adoption Identification Number
-              - The dependent was a U.S. citizen, U.S. national, or U.S. resident alien
-              - The dependent lived with you for more than half of 2020
-              - The dependent did not provide over half of their own support for 2020
-              - The dependent did not file a joint return with his or her spouse in 2020
-              - The dependent was not claimed as a dependent on another return
+              - The family member has a valid Social Security Number or Adoption Identification Number
+              - The family member was a U.S. citizen, U.S. national, or U.S. resident alien
+              - The family member lived with you for more than half of 2020
+              - The family member did not provide over half of their own support for 2020
+              - The family member did not file a joint return with his or her spouse in 2020
+              - The family member was not claimed as a dependent on another return
             add_button: Add another dependent
             done_button: Done adding dependents
         mailing_address:
