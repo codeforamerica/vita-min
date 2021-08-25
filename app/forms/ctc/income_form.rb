@@ -14,7 +14,7 @@ module Ctc
     validates_presence_of :device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address
 
     def save
-      @intake.assign_attributes(attributes_for(:intake))
+      @intake.assign_attributes(attributes_for(:intake).merge(locale: I18n.locale))
       @intake.build_client(
         tax_returns_attributes: [{ year: 2020, is_ctc: true }],
         efile_security_information_attributes: attributes_for(:efile_security_information).merge(timezone_offset: format_timezone_offset(timezone_offset))
