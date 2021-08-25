@@ -1,4 +1,4 @@
-<% content_for :page_title, t("views.ctc.portal.dependent_info.title") %>
+<% content_for :page_title, t("views.ctc.portal.dependent_info.title", name: @form.dependent.first_name) %>
 
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
