@@ -1441,8 +1441,8 @@ en:
           info:
             title: "Let’s get some basic information about your family member!"
             help_text: "To avoid delays, please provide your child or family member’s legal information as it is written on their identification card."
-            first_name: "Family member’s legal first name "
-            middle_initial: "Dependent’s middle initial"
+            first_name: "Family member’s legal first name"
+            middle_initial: "Family member’s middle name"
             last_name: "Family member’s legal last name"
             suffix: "Family member’s suffix"
             relationship_to_you: "What is their relationship to you?"
