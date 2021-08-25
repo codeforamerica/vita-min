@@ -1476,7 +1476,7 @@ en:
             title: "Are you the only person who can claim %{name}?"
             help_text_html: |
               <p>You might say no if you share caregiving responsibilities with someone else.</p>
-              <p>Keep in mind, if someone else has claimed %{name} and you claim them too, your return will be rejected</p>
+              <p>Keep in mind, if someone else has claimed %{name} and you claim them too, your return will be rejected.</p>
               <p>Think carefully about whether there is someone else who might have claimed them. If there could be someone else, select "No" and we'll help you decide whether you can claim %{name} or not.</p>
           claim_child_anyway:
             title: "Would you like to claim %{name} anyway?"

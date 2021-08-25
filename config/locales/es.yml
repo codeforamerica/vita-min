@@ -1460,8 +1460,8 @@ es:
             title: "¿Es usted la única persona que puede declarar a %{name}?"
             help_text_html: |
               <p>Puede decir que no si comparte las responsabilidades de cuidado con otra persona.</p>
-              <p>Tenga en cuenta que si otra persona ha reclamado %{name} y usted también los reclama, su devolución será rechazada. Piense detenidamente si hay alguien más que pueda haberlos reclamado.</p>
-              <p>Si pudiera haber otra persona, seleccione "No" y lo ayudaremos a decidir si puede reclamar %{name} o no.</p>
+              <p>Tenga en cuenta que si otra persona ha reclamado %{name} y usted también los reclama, su devolución será rechazada.</p>
+              <p>Piense detenidamente si hay alguien más que pueda haberlos reclamado. Si pudiera haber otra persona, seleccione "No" y lo ayudaremos a decidir si puede reclamar %{name} o no.</p>
           claim_child_anyway:
             title: "¿Le gustaría declarar a %{name} de todas maneras?"
             help_text_html: |
