@@ -49,7 +49,7 @@ describe Ctc::IncomeForm do
     end
     let(:intake) { Intake::CtcIntake.new(visitor_id: "something", source: "some-source") }
 
-    it "saves the timezone on the intake and creates a client, 2020 tax return and efile security information" do
+    it "saves the timezone and locale on the intake and creates a client, 2020 tax return and efile security information" do
       form = described_class.new(intake, params)
 
       expect {
@@ -58,6 +58,7 @@ describe Ctc::IncomeForm do
 
       intake = Intake.last
       expect(intake.timezone).to eq "America/Chicago"
+      expect(intake.locale).to eq "en"
       expect(intake.client).to be_present
       expect(intake.tax_returns.length).to eq 1
       expect(intake.tax_returns.first.year).to eq 2020
