@@ -47,7 +47,9 @@
                 <%= t("views.ctc.portal.home.default_next_steps") %>
               <% end %>
             </div>
-            <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--primary" %>
+            <div class="review-box__cta-button-container">
+              <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--primary" %>
+            </div>
           <% else %>
             <%= t("views.ctc.portal.home.status.#{@status}.message") %>
           <% end %>
