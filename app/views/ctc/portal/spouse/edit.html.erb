@@ -2,6 +2,9 @@
 
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <div class="back">
+      <%= link_to t("general.back"), :back %>
+    </div>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
 
     <p>

@@ -6,7 +6,7 @@
 <% content_for :card do %>
   <div class="question-layout">
     <div class="back">
-      <%= link_to t("general.back"), ctc_portal_root_path %>
+      <%= link_to t("general.back"), :back %>
     </div>
     <div class="question-wrapper">
       <%= form_with model: @form, url: ctc_portal_resubmit_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
@@ -30,16 +30,18 @@
             <%= render 'ctc/questions/confirm_information/spouse_info', edit_controller: Ctc::Portal::SpouseController, intake: @intake %>
           <% end %>
 
-          <div class="review-box__title">
-            <h2><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
-          </div>
-          <%=
-            render(
+          <% if @intake.tax_return(2020).qualifying_dependents.length > 0 %>
+            <div class="review-box__title">
+              <h2><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
+            </div>
+            <%=
+              render(
                 partial: 'ctc/questions/dependents/confirm_dependents/dependent',
                 locals: { edit_controller: Ctc::Portal::DependentsController },
                 collection: @intake.tax_return(2020).qualifying_dependents
-            )
-          %>
+              )
+            %>
+          <% end %>
         </div>
 
         <button class="button button--primary button--full-width" type="submit">
