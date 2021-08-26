@@ -12,7 +12,14 @@ module Ctc
       set_attributes_for :birthday, :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
       set_attributes_for :confirmation, :spouse_ssn_confirmation
 
-      validates :primary_ip_pin, presence: true, ip_pin: true, if: -> { @intake.has_spouse_ip_pin_yes? }
+      validates :spouse_ip_pin, ip_pin: true, if: -> { spouse_ip_pin.present? }
+
+      def save
+        @intake.assign_attributes(
+          has_spouse_ip_pin: spouse_ip_pin.present? ? "yes" : "no"
+        )
+        super
+      end
     end
   end
 end

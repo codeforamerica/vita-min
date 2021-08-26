@@ -28,11 +28,12 @@ module Ctc
 
       validates :ssn, social_security_number: true, if: -> { tin_type == "ssn" && ssn.present? }
 
-      validates :ip_pin, presence: true, ip_pin: true, if: -> { @dependent.has_ip_pin_yes? }
+      validates :ip_pin, ip_pin: true, if: -> { ip_pin.present? }
 
       def save
         @dependent.assign_attributes(attributes_for(:dependent).merge(
-          birth_date: birth_date
+          birth_date: birth_date,
+          has_ip_pin: ip_pin.present? ? "yes" : "no"
         ))
         @dependent.save!
       end
