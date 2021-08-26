@@ -1,5 +1,5 @@
 module Efile
-  class SubmissionRejectionParser
+  class SubmissionErrorParser
     attr_accessor :xml
     def initialize(transition)
       @transition = transition
@@ -10,7 +10,32 @@ module Efile
       Nokogiri::XML(@raw_response)
     end
 
-    def persist_errors
+    def persist_efile_errors_from_transition_metadata
+      metadata = @transition.metadata
+      # these errors are mostly failures on our side of things, like issues with bundling and addresses
+      if metadata["error_code"].present?
+        persist_errors_from_metadata
+      end
+
+      # there errors are responses from the IRS, like rejections or exceptions
+      if @transition.to_state == "rejected" && metadata["raw_response"].present?
+        persist_errors_from_raw_response
+      end
+    end
+
+    def persist_errors_from_metadata
+      efile_submission = @transition.efile_submission
+      metadata = @transition.metadata
+
+      attrs = { code: metadata["error_code"] }
+      attrs[:message] = metadata["error_message"] if metadata["error_message"].present?
+      attrs[:source] = metadata["error_source"] if metadata["error_source"].present?
+      efile_error = EfileError.find_or_create_by!(attrs)
+
+      @transition.efile_submission_transition_errors.create(efile_submission_id: efile_submission.id, efile_error: efile_error)
+    end
+
+    def persist_errors_from_raw_response
       raise UnexpectedFormatError, "raw_response on transition is not in expected format" unless to_xml.at("ValidationErrorGrp").present?
 
       to_xml.search("ValidationErrorGrp").each do |error_group|

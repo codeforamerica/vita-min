@@ -1226,7 +1226,6 @@ en:
         sms: |
           Hello <<Client.PreferredName>>,
           Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS. Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
-
       preparing:
         email:
           body: |
@@ -1243,6 +1242,24 @@ en:
           Hello <<Client.PreferredName>>,
           Your tax information has been successfully submitted to GetCTC! We are currently processing your information to send it to the IRS. You will receive a confirmation email within 48 hours to let you know if your information has been accepted or rejected.
           We’re here to help!
+      failed:
+        email:
+          body: |
+            Hello <<Client.PreferredName>>,
+
+            Thank you for filing your taxes with GetCTC! We need to correct some of your tax information in order to submit your tax return to the IRS.
+
+            Sign in here [link to log in page] to see next steps for correcting your tax information.
+
+            We’re here to help!
+            Your tax team at GetCTC.org
+          subject: Attention needed to submit your your taxes with GetCTC
+        sms: |
+          Hello <<Client.PreferredName>>,
+          Thank you for filing your taxes with GetCTC! We need to correct some of your tax information in order to submit your tax return to the IRS.
+          Sign in here [link to log in page] to see next steps for correcting your tax information.
+          We’re here to help!
+          Your tax team at GetCTC.org
     ctc_getting_started:
       email:
         subject: GetCTC Sign Up
