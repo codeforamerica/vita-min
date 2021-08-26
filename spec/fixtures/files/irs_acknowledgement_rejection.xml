@@ -36,7 +36,7 @@
             <ErrorMessageTxt>'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value.</ErrorMessageTxt>
             <RuleNum>IND-190</RuleNum>
             <SeverityCd>Reject and Stop</SeverityCd>
-            <FieldValueTxt/>
+            <FieldValueTxt>142111111</FieldValueTxt>
          </ValidationErrorGrp>
       </ValidationErrorList>
    </Acknowledgement>

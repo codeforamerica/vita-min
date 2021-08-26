@@ -3,35 +3,42 @@
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <h1 class="h2"><%= @main_question %></h1>
+  <div class="question-layout">
+    <div class="back">
+      <%= link_to t("general.back"), :back %>
+    </div>
+    <div class="question-wrapper">
+      <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+        <h1 class="h2"><%= @main_question %></h1>
 
-    <p>
-      <%= t("views.ctc.portal.primary_filer.help_text") %>
-    </p>
+        <p>
+          <%= t("views.ctc.portal.primary_filer.help_text") %>
+        </p>
 
-    <div class="form-card__content">
-      <%= f.cfa_input_field(:primary_first_name, t("views.ctc.questions.legal_consent.first_name"), classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:primary_middle_initial, t("views.ctc.questions.legal_consent.middle_initial"), classes: ["form-width--short"]) %>
-      <%= f.cfa_input_field(:primary_last_name, t("views.ctc.questions.legal_consent.last_name"), classes: ["form-width--long"]) %>
-      <%= f.cfa_select(:primary_suffix, t("views.ctc.questions.legal_consent.suffix"), suffix_options_for_select, include_blank: true) %>
-      <%= f.vita_min_date_text_fields(
-          :primary_birth_date,
-          t("hub.clients.show.date_of_birth"),
-          help_text: t("hub.clients.show.date_of_birth_help"),
-          classes: ["ctc-intake-date-text-input"]
-          ) %>
-      <%= f.cfa_select(:primary_tin_type, t('views.ctc.portal.primary_filer.form_of_identity'), tin_options_for_select(include_itin: true), help_text: t('views.ctc.portal.primary_filer.form_of_identity_note')) %>
-      <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>
-      <% if current_intake.has_primary_ip_pin_yes? %>
-        <%= f.cfa_input_field(:primary_ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: current_intake.primary_full_name), type: "tel", classes: ["form-width--long"]) %>
+        <div class="form-card__content">
+          <%= f.cfa_input_field(:primary_first_name, t("views.ctc.questions.legal_consent.first_name"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:primary_middle_initial, t("views.ctc.questions.legal_consent.middle_initial"), classes: ["form-width--short"]) %>
+          <%= f.cfa_input_field(:primary_last_name, t("views.ctc.questions.legal_consent.last_name"), classes: ["form-width--long"]) %>
+          <%= f.cfa_select(:primary_suffix, t("views.ctc.questions.legal_consent.suffix"), suffix_options_for_select, include_blank: true) %>
+          <%= f.vita_min_date_text_fields(
+                  :primary_birth_date,
+                  t("hub.clients.show.date_of_birth"),
+                  help_text: t("hub.clients.show.date_of_birth_help"),
+                  classes: ["ctc-intake-date-text-input"]
+              ) %>
+          <%= f.cfa_select(:primary_tin_type, t('views.ctc.portal.primary_filer.form_of_identity'), tin_options_for_select(include_itin: true), help_text: t('views.ctc.portal.primary_filer.form_of_identity_note')) %>
+          <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>
+          <% if current_intake.has_primary_ip_pin_yes? %>
+            <%= f.cfa_input_field(:primary_ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: current_intake.primary_full_name), type: "tel", classes: ["form-width--long"]) %>
+          <% end %>
+        </div>
+
+        <button class="button button--primary button--wide" type="submit">
+          <%=t("general.save") %>
+        </button>
       <% end %>
     </div>
-
-    <button class="button button--primary button--wide" type="submit">
-      <%=t("general.save") %>
-    </button>
-  <% end %>
+  </div>
 <% end %>
 

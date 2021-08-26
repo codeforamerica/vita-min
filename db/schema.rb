@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_230208) do
+ActiveRecord::Schema.define(version: 2021_08_25_151538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -369,10 +369,12 @@ ActiveRecord::Schema.define(version: 2021_08_24_230208) do
 
   create_table "efile_submission_transition_errors", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
+    t.bigint "dependent_id"
     t.bigint "efile_error_id"
     t.bigint "efile_submission_id"
     t.bigint "efile_submission_transition_id"
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["dependent_id"], name: "index_efile_submission_transition_errors_on_dependent_id"
     t.index ["efile_error_id"], name: "index_efile_submission_transition_errors_on_efile_error_id"
     t.index ["efile_submission_id"], name: "index_efile_submission_transition_errors_on_efile_submission_id"
     t.index ["efile_submission_transition_id"], name: "index_este_on_esti"

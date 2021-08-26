@@ -17,10 +17,9 @@
 #  index_efile_submission_transition_errors_on_efile_submission_id  (efile_submission_id)
 #  index_este_on_esti                                               (efile_submission_transition_id)
 #
-class EfileSubmissionTransitionError < ApplicationRecord
-  belongs_to :efile_error
-  belongs_to :efile_submission_transition
-  belongs_to :dependent, optional: true
-
-  delegate_missing_to :efile_error
+FactoryBot.define do
+  factory :efile_submission_transition_error do
+    efile_submission_transition
+    efile_error
+  end
 end

@@ -180,7 +180,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
-    expect(page).to have_content("Jessie Pepper")
+    expect(page).to have_content("Jessie M Pepper")
     expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
 
     # Back up to prove that the 'go back' button brings us back to the dependent we were editing
@@ -270,12 +270,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # =========== IP PINs ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
     check "Gary Mango III"
-    check "Jessie Pepper"
+    check "Jessie M Pepper"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin_entry.title'))
     fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Gary Mango III"), with: "123456"
-    fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie Pepper"), with: "123458"
+    fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie M Pepper"), with: "123458"
     click_on I18n.t('general.continue')
 
     # =========== REVIEW ===========

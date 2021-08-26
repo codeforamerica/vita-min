@@ -79,16 +79,6 @@ describe Dependent do
     end
   end
 
-  describe "#full_name_and_birthdate" do
-    let(:dependent) do
-      build :dependent, first_name: "Kara", last_name: "Kiwi", birth_date: Date.new(2013, 5, 9)
-    end
-
-    it "returns a concatenated string with formatted date" do
-      expect(dependent.full_name_and_birth_date).to eq "Kara Kiwi 5/9/2013"
-    end
-  end
-
   describe "irs_relationship_enum" do
     context "foster_child" do
       let(:dependent) { build :dependent, relationship: "foster_child" }
@@ -111,6 +101,16 @@ describe Dependent do
       it "converts to upcase without underscores" do
         expect(dependent.irs_relationship_enum).to eq "STEPCHILD"
       end
+    end
+  end
+
+  context "destroying" do
+    let(:dependent) { create :dependent, relationship: "stepchild" }
+    let(:error) { create :efile_submission_transition_error, dependent: dependent }
+    it "removes associations from EfileSubmissionTransitionError objects" do
+      expect(error.dependent).to eq dependent
+      dependent.destroy!
+      expect(error.reload.dependent_id).to eq nil
     end
   end
 

@@ -46,7 +46,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do
-        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_content("Jessie M Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
       end
     end
@@ -76,7 +76,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
-        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_content("Jessie M Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
       end
     end
@@ -99,7 +99,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
-        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_content("Jessie M Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
       end
     end
@@ -121,7 +121,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
-        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_content("Jessie M Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
       end
     end
@@ -143,7 +143,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
-        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_content("Jessie M Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
       end
     end
@@ -175,7 +175,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do
-        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_content("Jessie M Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/2020")
       end
     end
@@ -201,7 +201,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
-        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_content("Jessie M Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
       end
     end
@@ -232,7 +232,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do
-        expect(page).to have_content("Jessie Pepper")
+        expect(page).to have_content("Jessie M Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/2020")
       end
     end
@@ -252,7 +252,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("views.ctc.questions.dependents.does_not_qualify_ctc.done_button")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
-      expect(page).not_to have_content("Jessie Pepper")
+      expect(page).not_to have_content("Jessie M Pepper")
     end
   end
 end

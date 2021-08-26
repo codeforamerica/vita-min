@@ -5,8 +5,8 @@
     </div>
     <div>
       <div class="review-box__name"><%= dependent.full_name %></div>
-      <div class="review-box__details"><%= t("views.ctc.questions.dependents.confirm_dependents.birthday", dob: default_date_format(dependent.birth_date)) %></div>
-      <div class="review-box__details"><%= dependent.ssn.present? ? t("views.ctc.questions.dependents.confirm_dependents.ssn", ssn: dependent.ssn&.last(4)) : t("views.ctc.questions.dependents.confirm_dependents.ssn_na") %></div>
+      <div class="review-box__details"><%= t("views.ctc.questions.dependents.confirm_dependents.birthday") %>: <%= default_date_format(dependent.birth_date) %></div>
+      <div class="review-box__details"><%= t("views.ctc.questions.dependents.confirm_dependents.ssn") %>: <%= ssn_mask(dependent.ssn) %></div>
     </div>
   </div>
   <%= link_to t("general.edit").downcase, edit_controller.to_path_helper(id: dependent.id), class: "review-box__edit review-box__edit-button" %>

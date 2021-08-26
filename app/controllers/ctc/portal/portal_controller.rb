@@ -4,7 +4,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
       @submission = current_client.efile_submissions.last
       latest_transition = @submission.last_client_accessible_transition
       @status = latest_transition.present? ? latest_transition.to_state : EfileSubmissionStateMachine.initial_state
-      @exposed_error = latest_transition.present? ? latest_transition.client_facing_errors.first : nil
+      @exposed_error = latest_transition.present? ? latest_transition.exposed_error : nil
       @current_step = nil
       @pdf1040 = current_client.documents.find_by(tax_return: @submission.tax_return, document_type: DocumentTypes::Form1040.key)
     else

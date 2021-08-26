@@ -1371,6 +1371,7 @@ es:
           current_status: |
             Estado actual de la declaración de impuestos:
           contact_us: Contáctanos
+          complete_form: Complete el formulario CTC
           download_tax_return: Descargar mi declaración de impuestos
           default_next_steps:
             Por favor, envíenos un mensaje con preguntas o correcciones utilizando el botón "Contáctenos" que aparece a continuación.
@@ -1498,9 +1499,8 @@ es:
             qualifying_for_ctc: "Dependientes que califican para CTC y los pagos de estímulo"
             qualifying_for_other_credits: "Dependientes que califican para los pagos de estímulo solor"
             no_qualifying_dependents: "No dependientes que califican"
-            birthday: "Fecha de nacimiento: %{dob}"
-            ssn: "Número de Seguro Social: XXX-XX-%{ssn}"
-            ssn_na: "Número de Seguro Social: N/A"
+            birthday: "Fecha de nacimiento"
+            ssn: "Número de Seguro Social"
             add_a_dependent: "Agregar una persona dependiente"
             done_adding: "Ya no hay más dependientes por agregar"
           child_disqualifiers:

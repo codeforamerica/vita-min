@@ -3,6 +3,7 @@ require "rails_helper"
 describe Efile::SubmissionRejectionParser do
   let(:raw_response) { file_fixture("irs_acknowledgement_rejection.xml").read }
   let(:transition) { create :efile_submission_transition, :rejected, metadata: { raw_response: raw_response } }
+
   before do
     # skip before action on model persistance
     allow_any_instance_of(EfileSubmissionTransition).to receive(:persist_efile_error_from_metadata).and_return false
@@ -38,6 +39,18 @@ describe Efile::SubmissionRejectionParser do
         }.to change(transition.efile_errors, :count).by(2)
          .and change(EfileError, :count).by(0)
         expect(EfileError.count).to eq 2
+      end
+
+      context "with dependent association" do
+        before do
+          d = transition.efile_submission.dependents.last
+          d.update(ssn: "142111111")
+        end
+
+        it "associates the efile error with the dependent specified in the FieldValueTxt if there is a match" do
+          Efile::SubmissionRejectionParser.new(transition).persist_errors
+          expect(transition.efile_submission_transition_errors.last.dependent).to eq transition.efile_submission.dependents.last
+        end
       end
     end
   end

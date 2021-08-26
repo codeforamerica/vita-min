@@ -3,18 +3,25 @@
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <h1 class="h2"><%= @main_question %></h1>
-
-    <div class="form-card__content">
-      <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address"), classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:city, t("views.questions.mailing_address.city"), classes: ["form-width--long"]) %>
-      <%= f.cfa_select(:state, t("views.questions.mailing_address.state"), States.name_value_pairs) %>
-      <%= f.cfa_input_field(:zip_code, t("views.questions.mailing_address.zip_code"), classes: ["form-width--zip"]) %>
+  <div class="question-layout">
+    <div class="back">
+      <%= link_to t("general.back"), :back %>
     </div>
+    <div class="question-wrapper">
+      <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+        <h1 class="h2"><%= @main_question %></h1>
 
-    <button class="button button--primary button--wide" type="submit">
-      <%=t("general.save") %>
-    </button>
-  <% end %>
+        <div class="form-card__content">
+          <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:city, t("views.questions.mailing_address.city"), classes: ["form-width--long"]) %>
+          <%= f.cfa_select(:state, t("views.questions.mailing_address.state"), States.name_value_pairs) %>
+          <%= f.cfa_input_field(:zip_code, t("views.questions.mailing_address.zip_code"), classes: ["form-width--zip"]) %>
+        </div>
+
+        <button class="button button--primary button--wide" type="submit">
+          <%=t("general.save") %>
+        </button>
+      <% end %>
+    </div>
+  </div>
 <% end %>

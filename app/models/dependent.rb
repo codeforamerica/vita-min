@@ -75,6 +75,8 @@ class Dependent < ApplicationRecord
   enum claim_anyway: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_anyway
   enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
 
+  before_destroy :remove_error_associations
+
   validates_presence_of :first_name
   validates_presence_of :last_name
 
@@ -123,13 +125,9 @@ class Dependent < ApplicationRecord
   ]
 
   def full_name
-    parts = [first_name, last_name]
+    parts = [first_name, middle_initial, last_name]
     parts << suffix if suffix.present?
-    parts.join(' ')
-  end
-
-  def full_name_and_birth_date
-    "#{full_name} #{birth_date.strftime("%-m/%-d/%Y")}"
+    parts.compact.join(' ')
   end
 
   def last_four_ssn
@@ -247,5 +245,9 @@ class Dependent < ApplicationRecord
       dependent_disabled: disabled,
       dependent_was_married: was_married,
     }
+  end
+
+  def remove_error_associations
+    EfileSubmissionTransitionError.where(dependent_id: self.id).update_all(dependent_id: nil)
   end
 end
