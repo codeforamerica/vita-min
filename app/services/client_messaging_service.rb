@@ -4,10 +4,15 @@ class ClientMessagingService
       applied_locale = locale || client.intake.locale
       replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: applied_locale }
       replaced_body = ReplacementParametersService.new(**replacement_args).process
+
+      service_type = client.intake.is_ctc? ? :ctc : :gyr
+      service = MultiTenantService.new(service_type)
+      subject ||= I18n.t("messages.default_subject_with_service_name", service_name: service.service_name, locale: applied_locale)
+
       OutgoingEmail.create!(
         to: to || client.email_address,
         body: replaced_body,
-        subject: subject || I18n.t("messages.default_subject", locale: applied_locale),
+        subject: subject,
         client: client,
         user: user,
         attachment: attachment,

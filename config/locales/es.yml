@@ -1063,7 +1063,6 @@ es:
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
   messages:
-    default_subject: Actualización de GetYourRefund
     default_subject_with_service_name: Actualización de %{service_name}
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     ctc_sms_opt_in: Welcome to GetCTC messages. Msg&data rates may apply. Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.

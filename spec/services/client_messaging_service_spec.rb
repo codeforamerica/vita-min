@@ -35,6 +35,19 @@ RSpec.describe ClientMessagingService do
         expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
       end
 
+      context "for a CTC intake" do
+        let(:intake) { create :ctc_intake, email_address: "client@example.com", sms_phone_number: "+14155551212" }
+
+        it "uses the default CTC subject" do
+          expect do
+            described_class.send_email(client: client, user: user, body: "hello, <<Client.PreferredName>>")
+          end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
+
+          outgoing_email = OutgoingEmail.last
+          expect(outgoing_email.subject).to eq("Update from GetCTC")
+        end
+      end
+
       context "with blank body" do
         it "raises an error" do
           expect do
