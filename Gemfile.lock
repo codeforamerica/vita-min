@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/codeforamerica/honeycrisp-gem
-  revision: d8f4051f847bcb857fe93b5484de649708f2ddf1
+  revision: af7cd9db0f25fc593914688a76d64100c5e375b6
   branch: main
   specs:
-    cfa-styleguide (0.10.3)
+    cfa-styleguide (0.10.4)
       autoprefixer-rails
       bourbon
       jquery-rails
@@ -574,7 +574,7 @@ DEPENDENCIES
   byebug
   cancancan
   capybara (>= 2.15)
-  cfa-styleguide (= 0.10.3)!
+  cfa-styleguide (= 0.10.4)!
   combine_pdf
   database_cleaner
   ddtrace
