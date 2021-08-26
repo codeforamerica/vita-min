@@ -1559,6 +1559,7 @@ en:
               - The family member did not provide over half of their own support for 2020
               - The family member did not file a joint return with his or her spouse in 2020
               - The family member was not claimed as a dependent on another return
+              - The family member was not born in 2021
             add_button: Add another dependent
             done_button: Done adding dependents
         mailing_address:

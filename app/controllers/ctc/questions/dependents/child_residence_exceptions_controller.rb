@@ -9,7 +9,7 @@ module Ctc
         def self.show?(dependent)
           return false unless dependent&.relationship
 
-          dependent.qualifying_child_relationship? && dependent.meets_qc_age_condition_2020? && dependent.meets_qc_misc_conditions? && dependent.lived_with_more_than_six_months_no?
+          dependent.qualifying_child_relationship? && dependent.meets_qc_age_condition_2020? && dependent.meets_qc_misc_conditions? && dependent.lived_with_more_than_six_months_no? && (dependent.birth_date <= 6.months.ago)
         end
 
         private
