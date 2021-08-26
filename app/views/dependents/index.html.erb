@@ -17,7 +17,7 @@
               <%= image_tag "dependent.svg", alt: "", class: "dependent__icon" %>
               <div class="dependent__details">
                 <h3 class="dependent__label">
-                  <%= dependent.full_name_and_birth_date %>
+                  <%= dependent.full_name %> <%= default_date_format(dependent.birth_date) %>
                 </h3>
                 <%= link_to t("general.edit"), edit_dependent_path(dependent), class: "button button--inline-action" %>
               </div>

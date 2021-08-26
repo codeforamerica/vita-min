@@ -36,10 +36,10 @@ class EfileSubmissionTransition < ApplicationRecord
     User.find(metadata["initiated_by_id"])
   end
 
-  def client_facing_errors
+  def exposed_error
     return EfileError.none unless efile_errors.present?
 
-    efile_errors.where(expose: true)
+    efile_submission_transition_errors.joins(:efile_error).where(efile_errors: { expose: true }).first
   end
 
   private

@@ -23,12 +23,13 @@
 FactoryBot.define do
   factory :efile_submission_transition do
     efile_submission
-    
+    most_recent { true }
+    sort_key { 0 }
+    to_state { "preparing" }
     EfileSubmissionStateMachine.states.each do |state|
       trait state.to_sym do
         to_state { state }
-        sort_key { 0 }
-        most_recent { true }
+
       end
     end
   end

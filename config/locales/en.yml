@@ -1390,6 +1390,7 @@ en:
           current_status: |
             Current tax return status:
           contact_us: Contact us
+          complete_form: Complete CTC form
           download_tax_return: Download my tax return
           default_next_steps: Please send us a message with questions or corrections using the "Contact Us" button below.
           failure_title: |
@@ -1514,9 +1515,8 @@ en:
             qualifying_for_ctc: "Children qualifying for CTC and stimulus"
             qualifying_for_other_credits: "Family members qualifying for only stimulus"
             no_qualifying_dependents: "No qualifying family members"
-            birthday: "Date of birth: %{dob}"
-            ssn: "SSN: XXX-XX-%{ssn}"
-            ssn_na: "SSN: N/A"
+            birthday: "Date of birth"
+            ssn: "SSN"
             add_a_dependent: "Add another person"
             done_adding: "I’m done adding family members"
           child_disqualifiers:

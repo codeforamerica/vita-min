@@ -59,6 +59,11 @@ module ApplicationHelper
     string.gsub(/.(?=.{#{unmasked_char_count}})/, '●')
   end
 
+  def ssn_mask(ssn)
+    return I18n.t("general.NA") unless ssn.present?
+    "XXX-XX-#{ssn.last(4)}"
+  end
+
   def tin_options_for_select(include_ssn_no_employment: false, include_atin: false, include_itin: false, include_none: false)
     options = [
       [I18n.t("general.tin.ssn"), :ssn],

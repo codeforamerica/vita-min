@@ -4,45 +4,48 @@
 <% content_for :page_title, @main_question %>
 
 <% content_for :card do %>
-  <div class="back grid">
-    <%= link_to t("general.back"), ctc_portal_root_path %>
-  </div>
-
-  <%= form_with model: @form, url: ctc_portal_resubmit_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-
-    <h1 class="h2"><%= @main_question %></h1>
-
-    <div class="review-box spacing-below-35">
-      <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_information") %></h2>
-      <div class="review-box__space-between primary-info">
-        <div>
-          <div class="review-box__name"><%= @intake.primary_full_name %></div>
-          <div class="review-box__details"><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(@intake.primary_birth_date) %></div>
-          <div class="review-box__details"><%= @intake.primary_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= @intake.primary_last_four_ssn %></div>
-        </div>
-        <%= link_to t("general.edit").downcase, Ctc::Portal::PrimaryFilerController.to_path_helper, class: "review-box__edit review-box__edit-button" %>
-      </div>
-
-      <%= render 'ctc/questions/confirm_information/mailing_address', edit_controller: Ctc::Portal::MailingAddressController, intake: @intake %>
-
-      <% if @intake.filing_jointly? %>
-        <%= render 'ctc/questions/confirm_information/spouse_info', edit_controller: Ctc::Portal::SpouseController, intake: @intake %>
-      <% end %>
-
-      <div class="review-box__title">
-        <h2><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
-      </div>
-      <%=
-        render(
-          partial: 'ctc/questions/dependents/confirm_dependents/dependent',
-          locals: { edit_controller: Ctc::Portal::DependentsController },
-          collection: @intake.tax_return(2020).qualifying_dependents
-        )
-      %>
+  <div class="question-layout">
+    <div class="back">
+      <%= link_to t("general.back"), ctc_portal_root_path %>
     </div>
+    <div class="question-wrapper">
+      <%= form_with model: @form, url: ctc_portal_resubmit_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
-    <button class="button button--primary button--wide" type="submit">
-      <%= t("views.ctc.portal.edit_info.resubmit") %>
-    </button>
-  <% end %>
+        <h1 class="h2"><%= @main_question %></h1>
+
+        <div class="review-box spacing-below-35">
+          <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_information") %></h2>
+          <div class="review-box__space-between primary-info">
+            <div>
+              <div class="review-box__name"><%= @intake.primary_full_name %></div>
+              <div class="review-box__details"><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(@intake.primary_birth_date) %></div>
+              <div class="review-box__details"><%= @intake.primary_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: <%= ssn_mask(@intake.primary_ssn) %></div>
+            </div>
+            <%= link_to t("general.edit").downcase, Ctc::Portal::PrimaryFilerController.to_path_helper, class: "review-box__edit review-box__edit-button" %>
+          </div>
+
+          <%= render 'ctc/questions/confirm_information/mailing_address', edit_controller: Ctc::Portal::MailingAddressController, intake: @intake %>
+
+          <% if @intake.filing_jointly? %>
+            <%= render 'ctc/questions/confirm_information/spouse_info', edit_controller: Ctc::Portal::SpouseController, intake: @intake %>
+          <% end %>
+
+          <div class="review-box__title">
+            <h2><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
+          </div>
+          <%=
+            render(
+                partial: 'ctc/questions/dependents/confirm_dependents/dependent',
+                locals: { edit_controller: Ctc::Portal::DependentsController },
+                collection: @intake.tax_return(2020).qualifying_dependents
+            )
+          %>
+        </div>
+
+        <button class="button button--primary button--full-width" type="submit">
+          <%= t("views.ctc.portal.edit_info.resubmit") %>
+        </button>
+      <% end %>
+    </div>
+  </div>
 <% end %>
