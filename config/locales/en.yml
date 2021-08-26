@@ -3287,7 +3287,7 @@ en:
         why:
           body_html: <strong>GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product.</strong> Learn more about why we are doing this work <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">here</a>.
         navigator_resources_html: |
-          <strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="https://www.notion.so/cfa/GetCTC-org-Navigator-Resources-47bd79cc43034fa181e4f54d2131a4b2" rel="noopener" target="_blank">here.</a>
+          <strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="%{navigators_link}" rel="noopener" target="_blank">here.</a>
         qualify:
           heading: "Do I qualify for the Child Tax Credit?"
           body1: "You can receive the Child Tax Credit if you have children, even if you make little or no money."
