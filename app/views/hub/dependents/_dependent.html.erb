@@ -67,6 +67,9 @@
       <% if dependent.eligible_for_eip3? %>
         <span class="label">EIP3</span>
       <% end %>
+      <% if dependent.soft_deleted_at.present? %>
+        <span class="label label--red">REMOVED</span>
+      <% end %>
     </div>
   <% end %>
 </li>
