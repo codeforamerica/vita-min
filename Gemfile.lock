@@ -600,7 +600,7 @@ DEPENDENCIES
   lograge
   mailgun-ruby
   memory_profiler
-  mini_racer (= 0.4.0)
+  mini_racer (~> 0.4.0)
   mixpanel-ruby
   nokogiri (>= 1.10.8)
   parallel_tests
