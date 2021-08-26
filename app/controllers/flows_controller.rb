@@ -225,6 +225,8 @@ class FlowsController < ApplicationController
         sms_phone_number: sms_phone_number.presence,
         email_address: email_address.presence,
         email_address_verified_at: (email_address.present? && email_address.end_with?('@example.com')) ? DateTime.now : nil,
+        eip1_amount_received: 0,
+        eip2_amount_received: 0,
         street_address: '123 Main St',
         city: 'Los Angeles',
         state: 'CA',
@@ -232,6 +234,15 @@ class FlowsController < ApplicationController
       }
       client = Client.create!(
         intake_attributes: intake_attributes,
+        efile_security_information_attributes: {
+          ip_address: '127.0.0.1',
+          device_id: "7BA1E530D6503F380F1496A47BEB6F33E40403D1",
+          user_agent: "GeckoFox",
+          browser_language: "en-US",
+          platform: "iPad",
+          timezone_offset: "+240",
+          client_system_time: "2021-07-28T21:21:32.306Z"
+        },
         tax_returns_attributes: [{ year: 2020, is_ctc: true, filing_status: 'single' }],
       )
 

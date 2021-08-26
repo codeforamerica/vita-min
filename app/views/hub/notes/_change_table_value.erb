@@ -1,0 +1,7 @@
+<% if value == nil %>
+  <td class="special-value">nil</td>
+<% elsif value == '' %>
+  <td class="special-value">empty string</td>
+<% else %>
+  <td><%= value %></td>
+<% end %>

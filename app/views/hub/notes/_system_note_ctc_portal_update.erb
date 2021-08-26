@@ -1,7 +1,7 @@
 <% model_gid = GlobalID.parse(note.data['model']) %>
 <strong>Client updated <%= model_gid.model_name %> #<%= model_gid.model_id %>:</strong>
 
-<table class="spacing-above-15 spacing-below-0">
+<table class="spacing-above-15 spacing-below-0 changes-table">
   <thead>
     <th></th>
     <th>Was</th>
@@ -11,8 +11,8 @@
     <% note.data["changes"].sort.each do |k, v| %>
       <tr>
         <td><%= k %></td>
-        <td><%= v[0] %></td>
-        <td><%= v[1] %></td>
+        <%= render 'change_table_value', value: v[0] %>
+        <%= render 'change_table_value', value: v[1] %>
       </tr>
     <% end %>
   </tbody>
