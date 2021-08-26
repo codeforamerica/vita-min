@@ -19,6 +19,12 @@ module Ctc
 
         private
 
+        def self.disqualified_child_qualified_relative?(dependent)
+          return false unless dependent.qualifying_child_relationship?
+
+          !dependent.meets_qc_age_condition_2020? || (dependent.meets_qc_age_condition_2020? && dependent.meets_qc_misc_conditions?)
+        end
+
         def illustration_path
           "dependents.svg"
         end
