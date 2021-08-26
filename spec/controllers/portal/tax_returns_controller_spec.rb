@@ -58,7 +58,7 @@ describe Portal::TaxReturnsController do
     let(:params) { { tax_return_id: tax_return.id } }
 
     before do
-      allow_any_instance_of(TaxReturn).to receive(:filing_joint?).and_return true
+      allow_any_instance_of(TaxReturn).to receive(:filing_jointly?).and_return true
     end
 
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :spouse_authorize_signature
@@ -226,7 +226,7 @@ describe Portal::TaxReturnsController do
   describe "#spouse_sign" do
     let(:tax_return) { create :tax_return, client: (create :client, intake: (create :intake, filing_joint: "no")) }
     before do
-      allow_any_instance_of(TaxReturn).to receive(:filing_joint?).and_return true
+      allow_any_instance_of(TaxReturn).to receive(:filing_jointly?).and_return true
     end
 
     context "when not logged in" do
@@ -284,7 +284,7 @@ describe Portal::TaxReturnsController do
           let(:params) { { tax_return_id: tax_return.id } }
 
           before do
-            allow_any_instance_of(TaxReturn).to receive(:filing_joint?).and_return false
+            allow_any_instance_of(TaxReturn).to receive(:filing_jointly?).and_return false
           end
 
           it "redirects to client portal root" do
