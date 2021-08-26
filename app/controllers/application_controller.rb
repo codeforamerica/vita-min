@@ -267,7 +267,7 @@ class ApplicationController < ActionController::Base
 
   def check_maintenance_mode
     if ENV['MAINTENANCE_MODE'].present?
-      return redirect_to maintenance_path
+      return render 'public_pages/maintenance', status: 503, layout: 'application'
     elsif ENV['MAINTENANCE_MODE_SCHEDULED'].present?
       flash.now[:warning] = I18n.t("controllers.application_controller.maintenance", time: ENV['MAINTENANCE_MODE_SCHEDULED'])
     end

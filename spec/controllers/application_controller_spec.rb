@@ -623,31 +623,30 @@ RSpec.describe ApplicationController, active_job: true do
       end
     end
 
-    shared_examples 'render special pages' do |env_flag, page_path|
-      context "when not #{env_flag} mode" do
-        it 'renders successfully' do
-          get :index
-          expect(response).to be_successful
-        end
-      end
+    context "when not in maintenance mode" do
+      it 'renders the page' do
+        get :index
 
-      context "when in #{env_flag} mode" do
-        before do
-          ENV[env_flag] = '1'
-        end
-
-        after do
-          ENV.delete(env_flag)
-        end
-
-        it "redirects to the #{page_path}" do
-          get :index, params: { locale: 'en' }
-          expect(response).to redirect_to(page_path)
-        end
+        expect(response).to be_successful
       end
     end
 
-    it_behaves_like 'render special pages', 'MAINTENANCE_MODE', '/en/maintenance'
+    context "when in maintenance mode" do
+      before do
+        ENV["MAINTENANCE_MODE"] = '1'
+      end
+
+      after do
+        ENV.delete("MAINTENANCE_MODE")
+      end
+
+      it "renders the maintenance template" do
+        get :index, params: { locale: 'en' }
+
+        expect(response.status).to eq(503)
+        expect(response).to render_template 'public_pages/maintenance'
+      end
+    end
   end
 
   describe '#check_maintenance_mode' do
