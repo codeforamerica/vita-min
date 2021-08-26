@@ -2166,11 +2166,6 @@ en:
         subheader: If you earned income and are ready to file with all of your tax documents, we can help you maximize your tax benefits!
         subheader_offseason: GetYourRefund services will be opening in February for the 2021 tax season. Sign up and we'll notify you when our service is open!
         title: Free tax help from IRS-certified volunteers.
-      maintenance:
-        contact_html: You can also %{email_link}.
-        email: submit a question via email to GetYourRefund
-        info_html: We're making some updates to GetYourRefund, and we'll be back soon! We expect the maintenance to be finished within an hour. We encourage you to come back after that time.
-        title: GetYourRefund is temporarily down for maintenance
       maybe_ineligible:
         info: We’re happy to answer any questions you may have about GetYourRefund! Contact us by using our chat feature below.
         title: We’re unsure if you qualify for our services.
