@@ -44,7 +44,7 @@ describe Hub::OutboundCallsController, type: :controller do
 
   describe "#show" do
     let(:filing_jointly) { "no" }
-    let(:client) { create :client, intake: build(:intake, primary_last_four_ssn: "2222", filing_joint: filing_jointly, spouse_last_four_ssn: "1111") }
+    let(:client) { create :client, tax_returns: [create(:tax_return)], intake: build(:intake, primary_last_four_ssn: "2222", filing_joint: filing_jointly, spouse_last_four_ssn: "1111") }
     let(:outbound_call) { create :outbound_call, client: client }
     let(:params) { { client_id: client.id, id: outbound_call.id } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show

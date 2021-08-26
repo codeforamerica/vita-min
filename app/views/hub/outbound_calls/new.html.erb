@@ -1,7 +1,7 @@
 <% @title = t(".title") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <div class="hub-form">
+  <div class="slab slab--padded">
     <%= form_for(@form, url: hub_client_outbound_calls_path, method: :post, local: true, builder: VitaMinFormBuilder) do |f| %>
       <h1 class="form-card__title">
         <%= @title %>

@@ -329,7 +329,7 @@ describe TaxReturn do
     end
   end
 
-  describe "#filing_joint?" do
+  describe "#filing_jointly?" do
     context "the associated client intake is not filing joint" do
       let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
       let(:tax_return) {
@@ -337,7 +337,7 @@ describe TaxReturn do
                client: client
       }
       it "returns false" do
-        expect(tax_return.filing_joint?).to eq false
+        expect(tax_return.filing_jointly?).to eq false
       end
     end
 
@@ -348,7 +348,7 @@ describe TaxReturn do
                client: client
       }
       it "returns true" do
-        expect(tax_return.filing_joint?).to eq true
+        expect(tax_return.filing_jointly?).to eq true
       end
     end
 
@@ -809,7 +809,7 @@ describe TaxReturn do
 
     context "we're waiting on a spouse signature before we make the document" do
       before do
-        tax_return.client.intake.filing_joint = "yes"
+        tax_return.filing_status = "married_filing_jointly"
       end
 
       it "updates the tax_return with primary signature fields" do
@@ -945,10 +945,7 @@ describe TaxReturn do
     end
 
     context "we're waiting on a primary signature before we make the document" do
-      let(:tax_return) { create :tax_return, year: 2019, client: client, primary_signature: nil, primary_signed_at: nil, primary_signed_ip: nil }
-      before do
-        tax_return.client.intake.filing_joint = "yes"
-      end
+      let(:tax_return) { create :tax_return, filing_status: "married_filing_jointly", year: 2019, client: client, primary_signature: nil, primary_signed_at: nil, primary_signed_ip: nil }
 
       it "updates the tax_return with spouse signature fields" do
         expect { tax_return.sign_spouse!(fake_ip) }

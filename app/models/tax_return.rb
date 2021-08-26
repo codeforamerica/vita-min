@@ -137,7 +137,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def filing_jointly?
-    filing_status == "married_filing_jointly"
+    filing_status == "married_filing_jointly" || intake&.filing_joint == "yes"
   end
 
   def primary_has_signed_8879?
@@ -162,16 +162,12 @@ class TaxReturn < ApplicationRecord
     unsigned_8879s.pluck(:created_at).max < spouse_signed_at
   end
 
-  def filing_joint?
-    client.intake.filing_joint_yes?
-  end
-
   def ready_for_8879_signature?(signature_type)
     case signature_type
     when TaxReturn::PRIMARY_SIGNATURE
       return true if unsigned_8879s.present? && !primary_has_signed_8879?
     when TaxReturn::SPOUSE_SIGNATURE
-      return true if unsigned_8879s.present? && filing_joint? && !spouse_has_signed_8879?
+      return true if unsigned_8879s.present? && filing_jointly? && !spouse_has_signed_8879?
     else
       raise StandardError, "Invalid signature_type parameter"
     end
@@ -179,7 +175,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def completely_signed_8879?
-    if filing_joint?
+    if filing_jointly?
       primary_has_signed_8879? && spouse_has_signed_8879?
     else
       primary_has_signed_8879?
@@ -187,7 +183,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def ready_to_file?
-    (filing_joint? && primary_has_signed_8879? && spouse_has_signed_8879?) || (!filing_joint? && primary_has_signed_8879?)
+    (filing_jointly? && primary_has_signed_8879? && spouse_has_signed_8879?) || (!filing_jointly? && primary_has_signed_8879?)
   end
 
   def unsigned_8879s
