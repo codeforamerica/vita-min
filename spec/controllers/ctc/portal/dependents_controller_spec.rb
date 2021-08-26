@@ -12,7 +12,8 @@ describe Ctc::Portal::DependentsController do
         last_name: "Mango",
         birth_date: Date.parse("2012-05-01"),
         tin_type: "ssn",
-        ssn: '111-22-9999'
+        ssn: '111-22-9999',
+        has_ip_pin: "no"
       )
     end
 
@@ -47,6 +48,16 @@ describe Ctc::Portal::DependentsController do
       expect do
         put :update, params: params
       end.not_to change(SystemNote::CtcPortalUpdate, :count)
+    end
+
+    it "changes has_ip_pin if an ip pin is provided" do
+      params[:ctc_portal_dependent_form].merge!(
+        ip_pin: '123456',
+      )
+      expect do
+        put :update, params: params
+      end.to change { dependent.reload.has_ip_pin }.from("no").to("yes")
+      expect(dependent.ip_pin).to eq('123456')
     end
 
     context "when there are changes of note" do

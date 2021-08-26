@@ -10,7 +10,8 @@ describe Ctc::Portal::SpouseController do
              spouse_birth_date: Date.parse("1963-09-10"),
              spouse_ssn: "111-22-8888",
              spouse_last_four_ssn: "8888",
-             spouse_tin_type: "ssn"
+             spouse_tin_type: "ssn",
+             has_spouse_ip_pin: "no"
     end
 
     let(:params) {
@@ -37,6 +38,16 @@ describe Ctc::Portal::SpouseController do
       expect do
         put :update, params: params
       end.not_to change(SystemNote::CtcPortalUpdate, :count)
+    end
+
+    it "changes has_spouse_ip_pin if an ip pin is provided" do
+      params[:ctc_portal_spouse_form].merge!(
+        spouse_ip_pin: '123456',
+      )
+      expect do
+        put :update, params: params
+      end.to change { intake.reload.has_spouse_ip_pin }.from("no").to("yes")
+      expect(intake.spouse_ip_pin).to eq('123456')
     end
 
     context "when there are changes of note" do
