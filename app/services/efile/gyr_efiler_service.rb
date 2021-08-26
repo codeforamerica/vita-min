@@ -11,8 +11,7 @@ module Efile
         # TODO: If the process blocks for >10 min, terminate it.
         # TODO: Send process stdout to logs.
         # TODO: Send output/logs/ to logs after process terminates.
-        classes_zip_path = Dir.glob(Rails.root.join("vendor", "gyr_efiler", "gyr-efiler-classes-#{CURRENT_VERSION}.zip"))[0]
-        raise StandardError.new("You must run rails setup:download_gyr_efiler") if classes_zip_path.nil?
+        classes_zip_path = ensure_gyr_efiler_downloaded
 
         config_dir = Rails.root.join("tmp", "gyr_efiler", "gyr_efiler_config").to_s
 
@@ -34,10 +33,7 @@ module Efile
         raise StandardError.new("Process failed to exit?") unless $?.exited?
 
         exit_code = $?.exitstatus
-
-        audit_log = File.read(File.join(working_directory, 'output/log/audit_log.txt'))
-        audit_log = audit_log.split("\n").filter { |line| !line.starts_with?("Login Certificate:") }.join("\n")
-        raise StandardError.new(audit_log) if exit_code != 0
+        raise StandardError.new(File.read(File.join(working_directory, 'output/log/audit_log.txt'))) if exit_code != 0
 
         get_single_file_from_zip(Dir.glob(File.join(working_directory, "output", "*.zip"))[0])
       end
@@ -52,8 +48,6 @@ module Efile
         return zipfile.read(entries.first.name)
       end
     end
-
-    private
 
     def self.ensure_config_dir_prepared
       config_dir = Rails.root.join("tmp", "gyr_efiler", "gyr_efiler_config")
@@ -85,6 +79,13 @@ module Efile
       end
 
       FileUtils.touch(File.join(config_dir, '.ready'))
+    end
+
+    def self.ensure_gyr_efiler_downloaded
+      classes_zip_path = Dir.glob(Rails.root.join("vendor", "gyr_efiler", "gyr-efiler-classes-#{CURRENT_VERSION}.zip"))[0]
+      raise StandardError.new("You must run rails setup:download_gyr_efiler") if classes_zip_path.nil?
+
+      return classes_zip_path
     end
 
     private
