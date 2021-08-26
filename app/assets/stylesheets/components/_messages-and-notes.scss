@@ -206,6 +206,23 @@ ul.day-list {
     .note__body {
       @include system_note;
     }
+
+    .changes-table {
+      .special-value {
+        color: $color-lavender;
+      }
+
+      border-collapse: collapse;
+
+      th {
+        min-width: 80px;
+      }
+
+      td {
+        border: 1px solid $color-grey;
+        padding: 5px;
+      }
+    }
   }
   .user-tag {
     background: $color-tag-bg;
