@@ -1,4 +1,23 @@
-<% content_for :page_title, t("views.public_pages.maintenance.title") %>
+<% content_for :page_title, t("views.ctc.questions.at_capacity.title") %>
+<% content_for :header, "&nbsp;" %>
+<% content_for :footer do %>
+  <footer class="footer">
+    <div class="slab slab--footer">
+      <div class="grid">
+        <div class="grid__item width-three-fourths footer-description">
+          <p>
+            <%= image_tag("checkbox-logo--white.png", alt: "") %>
+          </p>
+          <p>
+            <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
+            <%= t("views.shared.footer.ctc_service_description_html", link: cfa_link) %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<% end %>
 
 <main role="main">
   <section class="slab slab--white">
@@ -6,7 +25,7 @@
       <div class="grid__item width-three-fourths shift-one-eighth">
         <main role="main">
           <div class="offboarding--illustration">
-            <%= image_tag("construction.svg", alt: "") %>
+            <%= image_tag("questions/capacity.svg", alt: "") %>
           </div>
           <h1 class="offboarding--title">
             <%= content_for(:page_title) %>
@@ -14,11 +33,7 @@
 
           <div class="offboarding--help-text">
             <p>
-              <%=t("views.public_pages.maintenance.info_html") %>
-            </p>
-
-            <p>
-              <%=t("views.public_pages.maintenance.contact_html", :email_link => link_to(t("views.public_pages.maintenance.email"), "mailto:support@getyourrefund.org")) %>
+              <%=t("views.ctc.questions.at_capacity.p1") %>
             </p>
           </div>
         </main>
