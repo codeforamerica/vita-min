@@ -5,7 +5,7 @@
       <% EfileSubmissionStateMachine.states.each do |state| %>
         <div class="metric-box">
           <div class="status <%= state %>"><%= EfileSubmission.in_state(state).count %></div>
-          <div class="status <%= state %>"><%= state %></div>
+          <div class="status <%= state %>"><%= link_to state, Hub::EfileSubmissionsController.to_path_helper(action: :index, status: state), class: 'link--subtle', style: "color: inherit;" %></div>
          </div>
       <% end %>
     </div>
