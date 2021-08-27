@@ -1232,7 +1232,7 @@ es:
 
             ¡Gracias por presentar su declaración de impuestos con GetCTC! Necesitamos corregir parte de su información tributaria para poder enviar su declaración de impuestos al IRS.
 
-            Inicie sesión aquí [link to log in page] para ver los pasos a seguir para corregir su información tributaria.
+            Inicie sesión aquí <<Client.LoginLink>> para ver los pasos a seguir para corregir su información tributaria.
 
             ¡Estamos aquí para ayudar!
             Su equipo de impuesto de GetCTC.org
@@ -1240,7 +1240,7 @@ es:
         sms: |
           Hola <<Client.PreferredName>>,
           ¡Gracias por presentar su declaración de impuestos con GetCTC! Necesitamos corregir parte de su información tributaria para poder enviar su declaración de impuestos al IRS.
-          Inicie sesión aquí [link to log in page] para ver los pasos a seguir para corregir su información tributaria.
+          Inicie sesión aquí <<Client.LoginLink>> para ver los pasos a seguir para corregir su información tributaria.
           ¡Estamos aquí para ayudar!
           Su equipo de impuesto de GetCTC.org
     ctc_getting_started:
