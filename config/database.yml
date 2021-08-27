@@ -20,6 +20,7 @@ test:
   <<: *local_default
   database: vita-min_test<%= ENV['TEST_ENV_NUMBER'] == '1' ? '' : ENV['TEST_ENV_NUMBER'] %>
   schema_cache_path: tmp/test_db_schema.rb
+  pool: 10
 
 production:
   <<: *deploy_default

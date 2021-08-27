@@ -1,14 +1,26 @@
 module Efile
   class PollForAcknowledgmentsService
     def self.run
-      ack_count = 0
-      submission_ids = transmitted_submission_ids
-      submission_ids.each_slice(100) do |submission_ids|
-        ack_count = _handle_response(Efile::GyrEfilerService.run_efiler_command(Rails.application.config.efile_environment, "acks", *submission_ids))
+      Efile::GyrEfilerService.with_lock(ActiveRecord::Base.connection) do |lock_acquired|
+        unless lock_acquired
+          DatadogApi.increment("efile.poll_for_acks.lock_unavailable")
+          return
+        end
+
+        ack_count = 0
+        submission_ids = transmitted_submission_ids
+        submission_ids.each_slice(100) do |submission_ids|
+          begin
+            ack_count = _handle_response(Efile::GyrEfilerService.run_efiler_command(Rails.application.config.efile_environment, "acks", *submission_ids))
+          rescue Efile::GyrEfilerService::RetryableError
+            DatadogApi.increment("efile.poll_for_acks.retryable_error")
+            return
+          end
+        end
+        DatadogApi.gauge("efile.poll_for_acks.requested", submission_ids.size)
+        DatadogApi.gauge("efile.poll_for_acks.received", ack_count)
+        DatadogApi.increment("efile.poll_for_acks")
       end
-      DatadogApi.gauge("efile.poll_for_acks.requested", submission_ids.size)
-      DatadogApi.gauge("efile.poll_for_acks.received", ack_count)
-      DatadogApi.increment("efile.poll_for_acks")
     end
 
     def self.transmitted_submission_ids

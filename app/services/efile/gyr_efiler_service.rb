@@ -2,6 +2,7 @@ require 'zip'
 module Efile
   class GyrEfilerService
     CURRENT_VERSION = 'f5eeb816f6c919fff8d5c742062e664b1f4cd13a'
+    POSTGRES_LOCK_PREFIX = 1640661264
 
     def self.run_efiler_command(*args)
       Dir.mktmpdir do |working_directory|
@@ -33,7 +34,14 @@ module Efile
         raise StandardError.new("Process failed to exit?") unless $?.exited?
 
         exit_code = $?.exitstatus
-        raise StandardError.new(File.read(File.join(working_directory, 'output/log/audit_log.txt'))) if exit_code != 0
+        if exit_code != 0
+          log_contents = File.read(File.join(working_directory, 'output/log/audit_log.txt'))
+          if log_contents.split("\n").include?("Transaction Result: java.net.SocketTimeoutException: Read timed out")
+            raise RetryableError, log_contents
+          else
+            raise StandardError, log_contents
+          end
+        end
 
         get_single_file_from_zip(Dir.glob(File.join(working_directory, "output", "*.zip"))[0])
       end
@@ -87,6 +95,20 @@ module Efile
 
       return classes_zip_path
     end
+
+    def self.with_lock(connection)
+      # Usage:
+      #   with_lock(ActiveRecord::Base.connection) { |lock_acquired| if lock_acquired; do_work; else; handle_lock_acquisition_failure; end )}
+      #
+      # Allows 5 simultaneous lock holders because the IRS says they permit 5 simultaneous login sessions.
+      lock_namespace = connection.quote(POSTGRES_LOCK_PREFIX)
+      connection.transaction do
+        result = connection.execute("SELECT pg_try_advisory_xact_lock(#{lock_namespace}, 1) OR pg_try_advisory_xact_lock(#{lock_namespace}, 2) OR pg_try_advisory_xact_lock(#{lock_namespace}, 3) OR pg_try_advisory_xact_lock(#{lock_namespace}, 4) OR pg_try_advisory_xact_lock(#{lock_namespace}, 5) as lock_acquired")
+        yield result[0]["lock_acquired"]
+      end
+    end
+
+    class RetryableError < StandardError; end
 
     private
 

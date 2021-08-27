@@ -48,15 +48,49 @@ RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
     end
 
     context 'when the efiler raises an exception' do
-      it 'transitions into failed state' do
-        exception = StandardError.new("A problem happened with your computer")
+      before do
         allow(Efile::GyrEfilerService).to receive(:run_efiler_command).and_raise(exception)
+      end
 
-        expect do
+      context "with a general exception" do
+        let(:exception) { StandardError.new("A problem happened with your computer") }
+
+        it 'transitions into failed state' do
+          expect do
+            described_class.perform_now(submission)
+          end.to raise_error(exception).and change { submission.current_state }.to("failed")
+          expect(submission.efile_submission_transitions.last.efile_errors.length).to eq 1
+          expect(submission.efile_submission_transitions.last.metadata["raw_response"]).to eq("#<StandardError: A problem happened with your computer>")
+        end
+      end
+
+      context "when it is a RetryableError" do
+        let(:exception) { Efile::GyrEfilerService::RetryableError.new("Let's try again later") }
+        before do
+          allow(submission).to receive(:retry_send_submission)
+        end
+
+        it "retries the send submission job and doesn't change the state" do
+          expect do
+            described_class.perform_now(submission)
+          end.not_to change { submission.current_state }
+
+          expect(submission).to have_received(:retry_send_submission)
+        end
+      end
+    end
+
+    context "when the GyrEfiler lock is held" do
+      before do
+        allow(Efile::GyrEfilerService).to receive(:with_lock).and_yield(false)
+        allow(submission).to receive(:retry_send_submission)
+      end
+
+      it "calls EfileSubmission#retry_send_submission" do
+        expect {
           described_class.perform_now(submission)
-        end.to change { submission.current_state }.to("failed").and raise_error(exception)
-        expect(submission.efile_submission_transitions.last.efile_errors.length).to eq 1
-        expect(submission.efile_submission_transitions.last.metadata["raw_response"]).to eq("#<StandardError: A problem happened with your computer>")
+        }.not_to change { submission.current_state }
+        expect(submission).to have_received(:retry_send_submission)
       end
     end
   end
