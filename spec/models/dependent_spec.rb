@@ -163,11 +163,11 @@ describe Dependent do
               full_time_student: "no",
               permanently_totally_disabled: "no",
               provided_over_half_own_support: "no",
-              no_ssn_atin: "no",
               filed_joint_return: "no",
               lived_with_more_than_six_months: "yes",
               cant_be_claimed_by_other: "no",
-              claim_anyway: "yes"
+              claim_anyway: "yes",
+              ssn: "123-12-1234"
       end
 
       it "returns true" do
@@ -183,11 +183,11 @@ describe Dependent do
               full_time_student: "no",
               permanently_totally_disabled: "no",
               provided_over_half_own_support: "no",
-              no_ssn_atin: "no",
               filed_joint_return: "no",
               lived_with_more_than_six_months: "no",
               cant_be_claimed_by_other: "no",
-              claim_anyway: "yes"
+              claim_anyway: "yes",
+              ssn: "123-12-1234"
       end
 
       it "returns false" do
@@ -239,14 +239,6 @@ describe Dependent do
       end
     end
 
-    context "with a dependent that does not have an ssn/atin" do
-      let(:dependent) { build :dependent, no_ssn_atin: "yes" }
-
-      it "returns true" do
-        expect(dependent.meets_qc_misc_conditions?).to eq false
-      end
-    end
-
     context "with a dependent that is married and filing jointly" do
       let(:dependent) { build :dependent, filed_joint_return: "yes" }
 
@@ -256,7 +248,7 @@ describe Dependent do
     end
 
     context "with a dependent that is none of the above" do
-      let(:dependent) { build :dependent, provided_over_half_own_support: "no", no_ssn_atin: "no", filed_joint_return: "no" }
+      let(:dependent) { build :dependent, provided_over_half_own_support: "no", filed_joint_return: "no" }
 
       it "returns false" do
         expect(dependent.meets_qc_misc_conditions?).to eq true
@@ -327,6 +319,7 @@ describe Dependent do
             relationship: relationship,
             birth_date: birthday,
             filed_joint_return: filed_jointly,
+            ssn: "123-12-1234",
             meets_misc_qualifying_relative_requirements: meets_misc
     end
     let(:relationship) { "nephew" }
@@ -405,6 +398,7 @@ describe Dependent do
         months_in_home: 12,
         was_student: "no",
         on_visa: "no",
+        ssn: "123-12-1234",
         north_american_resident: "yes",
         disabled: "no",
         was_married: "no"
@@ -429,7 +423,7 @@ describe Dependent do
     context "when a qualifying child" do
       context "when under 17 " do
         context "with an itin" do
-          let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :itin }
+          let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :itin, ssn: "999793121" }
           it "is not qualified for any special credits" do
             expect(dependent.eligible_for_eip2?).to eq false
             expect(dependent.eligible_for_eip1?).to eq false

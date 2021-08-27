@@ -10,7 +10,6 @@
     <div class="form-card__stacked-checkboxes spacing-above-0">
       <p><strong><%= t("views.ctc.questions.dependents.child_disqualifiers.help_text") %></strong></p>
       <%= f.cfa_checkbox(:provided_over_half_own_support, t("views.ctc.questions.dependents.child_disqualifiers.provided_over_half_own_support", name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:no_ssn_atin, t("views.ctc.questions.dependents.child_disqualifiers.no_ssn_atin", name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:filed_joint_return, t("views.ctc.questions.dependents.child_disqualifiers.filed_joint_return", name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:none_of_the_above, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>

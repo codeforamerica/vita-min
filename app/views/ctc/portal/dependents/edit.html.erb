@@ -41,3 +41,12 @@
     </div>
   </div>
 <% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          window.TINTypeSelector = document.getElementById("ctc_dependents_info_form_tin_type");
+          window.SSNEmploymentCheckboxSelector = document.getElementById("ctc_dependents_info_form_ssn_no_employment").parentElement;
+      });
+  </script>
+<% end %>

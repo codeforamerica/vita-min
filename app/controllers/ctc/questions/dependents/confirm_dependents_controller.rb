@@ -7,7 +7,7 @@ module Ctc
         layout "intake"
 
         def self.show?(intake)
-          intake.had_dependents_yes?
+          intake.had_dependents_yes? || intake.dependents.count > 0
         end
 
         private

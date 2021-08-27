@@ -7,7 +7,6 @@ describe Ctc::Dependents::ChildDisqualifiersForm do
     let(:params) do
       {
         provided_over_half_own_support: "yes",
-        no_ssn_atin: "no",
         filed_joint_return: "yes",
       }
     end
@@ -17,7 +16,6 @@ describe Ctc::Dependents::ChildDisqualifiersForm do
         form = described_class.new(dependent, params)
         form.save
       }.to change(dependent, :provided_over_half_own_support).to("yes")
-       .and change(dependent, :no_ssn_atin).to("no")
        .and change(dependent, :filed_joint_return).to("yes")
     end
   end

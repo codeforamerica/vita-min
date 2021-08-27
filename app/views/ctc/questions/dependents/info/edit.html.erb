@@ -1,4 +1,4 @@
-<% content_for :page_title, t("views.ctc.questions.dependents.info.title") %>
+<% content_for :page_title, @form.dependent.persisted? ? t("views.ctc.portal.dependent_info.title", name: @form.dependent.first_name.titleize) : t("views.ctc.questions.dependents.info.title") %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
@@ -6,7 +6,7 @@
     <p><%= t("views.ctc.questions.dependents.info.help_text") %></p>
     <div class="form-card__content">
       <%= f.cfa_input_field(:first_name, t("views.ctc.questions.dependents.info.first_name"), classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:middle_initial, t("views.ctc.questions.dependents.info.middle_initial"), classes: ["form-width--short"]) %>
+      <%= f.cfa_input_field(:middle_initial, t("views.ctc.questions.dependents.info.middle_initial"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:last_name, t("views.ctc.questions.dependents.info.last_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_select(:suffix, t("views.ctc.questions.dependents.info.suffix"), suffix_options_for_select, include_blank: true) %>
       <%= f.vita_min_date_text_fields(
@@ -21,6 +21,12 @@
             dependent_relationship_options,
             include_blank: true
           ) %>
+      <div class="form-card__content">
+        <%= f.cfa_select(:tin_type, t("views.ctc.questions.dependents.tin.form_of_identity"), tin_options_for_select(include_atin: true)) %>
+        <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.cfa_input_field(:ssn, t("views.ctc.questions.dependents.tin.ssn_or_atin"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:ssn_confirmation, t("views.ctc.questions.dependents.tin.ssn_or_atin_confirmation"), classes: ["form-width--long"]) %>
+      </div>
       <div class="form-card__stacked-checkboxes spacing-above-0">
         <label class="form-question"> <%= t('views.ctc.questions.dependents.info.situations') %> </label>
         <%= f.cfa_checkbox(:full_time_student, t('views.ctc.questions.dependents.info.full_time_student'), options: { checked_value: "yes", unchecked_value: "no" }) %>
@@ -34,5 +40,19 @@
     <button class="button button--primary button--wide" type="submit">
       <%= t("general.continue") %>
     </button>
+    <% if @form.dependent.persisted? %>
+      <%= link_to questions_remove_dependent_path, class: "button button--wide button--danger text--centered" do %>
+        <%= image_tag("remove-minus.svg", alt: "") %>
+        <%= t("views.ctc.questions.dependents.tin.remove_person") %>
+      <% end %>
+    <% end %>
   <% end %>
+<% end %>
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          window.TINTypeSelector = document.getElementById("ctc_dependents_info_form_tin_type");
+          window.SSNEmploymentCheckboxSelector = document.getElementById("ctc_dependents_info_form_ssn_no_employment").parentElement;
+      });
+  </script>
 <% end %>

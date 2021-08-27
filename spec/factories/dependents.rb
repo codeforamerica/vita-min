@@ -68,17 +68,18 @@ FactoryBot.define do
       full_time_student { "no" }
       permanently_totally_disabled { "no" }
       provided_over_half_own_support { "no" }
-      no_ssn_atin { "no" }
       filed_joint_return { "no" }
       lived_with_more_than_six_months { "yes" }
       cant_be_claimed_by_other { "yes" }
       claim_anyway { "yes" }
       tin_type { "ssn" }
+      ssn { "123121234" }
     end
 
     factory :qualifying_relative do
       relationship { "parent" }
       meets_misc_qualifying_relative_requirements { "yes" }
+      ssn { "123121234" }
     end
 
     factory :nonqualifying_dependent do
@@ -87,7 +88,6 @@ FactoryBot.define do
       full_time_student { "no" }
       permanently_totally_disabled { "no" }
       provided_over_half_own_support { "no" }
-      no_ssn_atin { "no" }
       filed_joint_return { "no" }
       lived_with_more_than_six_months { "no" }
       cant_be_claimed_by_other { "no" }

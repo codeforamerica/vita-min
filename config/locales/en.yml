@@ -1,5 +1,12 @@
 ---
 en:
+  activemodel:
+    errors:
+      models:
+        ctc/dependents/info_form:
+          attributes:
+            ssn:
+              blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
   hub:
     unlock_account: "Unlock account"
     unlock_confirmation: "Unlock %{name}'s account? Have they confirmed their identity?"
@@ -1450,20 +1457,21 @@ en:
           tin:
             title: "We need some additional information about %{name}."
             help_text: "To avoid delays, please provide your family member’s legal information as it is written on their identification card."
-            form_of_identity: "%{name}'s form of identity"
-            ssn_or_atin: "%{name}'s SSN or ATIN"
-            ssn_or_atin_confirmation: "Confirm %{name}'s SSN or ATIN"
+            form_of_identity: "Family member's form of identity"
+            ssn_or_atin: "Family member's SSN or ATIN"
+            ssn_or_atin_confirmation: "Confirm SSN or ATIN"
             save_person: Save this person
             remove_person: Remove this person
           remove_dependent:
-            title_html: You're about to remove %{dependent_name}.<br><br>Is that okay?
+            title: You’re about to remove %{dependent_name}.
+            subtitle: Is that okay?
             remove_button: Yes, remove them
             nevermind_button: Nevermind, let's save them
           info:
             title: "Let’s get some basic information about your family member!"
             help_text: "To avoid delays, please provide your child or family member’s legal information as it is written on their identification card."
             first_name: "Family member’s legal first name"
-            middle_initial: "Family member’s middle name"
+            middle_initial: "Family member’s middle name(s) (optional)"
             last_name: "Family member’s legal last name"
             suffix: "Family member’s suffix"
             relationship_to_you: "What is their relationship to you?"
@@ -1523,7 +1531,6 @@ en:
             title: "Great, let's make sure %{name} qualifies!"
             help_text: "Select any situations that were true in 2020:"
             provided_over_half_own_support: "%{name} paid for more than half their own living expenses"
-            no_ssn_atin: "%{name} does not have a valid SSN or Adoption Identification Number"
             filed_joint_return: "%{name} was married and filed taxes with their spouse"
             error: "Please select at least one option"
           does_not_qualify_ctc:

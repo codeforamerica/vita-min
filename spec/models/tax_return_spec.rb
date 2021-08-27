@@ -351,7 +351,6 @@ describe TaxReturn do
         expect(tax_return.filing_joint?).to eq true
       end
     end
-
   end
 
   describe "#ready_for_8879_signature?" do

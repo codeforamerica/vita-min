@@ -218,7 +218,7 @@ RSpec.feature "CTC Intake", active_job: true do
 
       expect(page).to have_text "Pomelostore"
 
-      within ".dependent_#{qualifying_child.id}" do
+      within "#dependent_#{qualifying_child.id}" do
         click_on I18n.t('general.edit').downcase
       end
       fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Papaya"
@@ -226,7 +226,7 @@ RSpec.feature "CTC Intake", active_job: true do
 
       expect(page).to have_text "Papaya"
 
-      within ".dependent_#{dependent_to_delete.id}" do
+      within "#dependent_#{dependent_to_delete.id}" do
         click_on I18n.t('general.edit').downcase
       end
       click_on I18n.t('views.ctc.questions.dependents.tin.remove_person')

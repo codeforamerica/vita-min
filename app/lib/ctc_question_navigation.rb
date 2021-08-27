@@ -40,7 +40,6 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::ClaimChildAnywayController,
     Ctc::Questions::Dependents::QualifyingRelativeController,
     Ctc::Questions::Dependents::DoesNotQualifyCtcController,
-    Ctc::Questions::Dependents::TinController,
     Ctc::Questions::Dependents::ConfirmDependentsController,
 
     # RRC
