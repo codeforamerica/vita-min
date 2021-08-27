@@ -24,7 +24,7 @@ module Efile
         java = ENV["VITA_MIN_JAVA_HOME"] ? File.join(ENV["VITA_MIN_JAVA_HOME"], "bin", "java") : "java"
 
         argv = [java, "-cp", classes_zip_path, "org.codeforamerica.gyr.efiler.App", config_dir, *args]
-        puts "Running: #{argv.inspect}"
+        Rails.logger.info "Running: #{argv.inspect}"
         pid = Process.spawn(*argv,
           unsetenv_others: true,
           chdir: working_directory,
