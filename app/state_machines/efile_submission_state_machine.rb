@@ -55,16 +55,18 @@ class EfileSubmissionStateMachine
 
     Efile::SubmissionErrorParser.new(transition).persist_efile_errors_from_transition_metadata
 
-    if transition.efile_errors.any?(&:expose)
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: submission.client,
-        message: AutomatedMessage::EfileFailed.new,
-        locale: submission.client.intake.locale
-      )
+    if transition.efile_errors.any?
+      if transition.efile_errors.any?(&:expose)
+        ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+          client: submission.client,
+          message: AutomatedMessage::EfileFailed.new,
+          locale: submission.client.intake.locale
+        )
+      end
+      submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
     end
-    send_mixpanel_event(submission, "ctc_efile_return_failed")
 
-    submission.transition_to!(:waiting) if transition.efile_errors.any? && transition.efile_errors.all?(&:auto_wait)
+    send_mixpanel_event(submission, "ctc_efile_return_failed")
   end
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
@@ -72,15 +74,17 @@ class EfileSubmissionStateMachine
 
     Efile::SubmissionErrorParser.new(transition).persist_efile_errors_from_transition_metadata
 
-    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-      client: submission.client,
-      message: AutomatedMessage::EfileRejected.new,
-      locale: submission.client.intake.locale
-    )
-    send_mixpanel_event(submission, "ctc_efile_return_rejected")
+    if transition.efile_errors.any?
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: submission.client,
+        message: AutomatedMessage::EfileRejected.new,
+        locale: submission.client.intake.locale
+      )
+      submission.transition_to!(:cancelled) if transition.efile_errors.any?(&:auto_cancel)
+      submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
+    end
 
-    submission.transition_to!(:cancelled) if transition.efile_errors.any?(&:auto_cancel)
-    submission.transition_to!(:waiting) if transition.efile_errors.any? && transition.efile_errors.all?(&:auto_wait)
+    send_mixpanel_event(submission, "ctc_efile_return_rejected")
   end
 
   after_transition(to: :accepted) do |submission|
