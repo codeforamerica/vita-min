@@ -22,6 +22,8 @@ RSpec.describe "a user editing a clients intake fields" do
                             timezone: "America/Chicago",
                             eip1_and_2_amount_received_confidence: "sure",
                             eip1_amount_received: 900,
+                            primary_ip_pin: 123456,
+                            spouse_ip_pin: 654321,
                             dependents: [
                               create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06", ssn: "123456789"),
                             ])
@@ -50,6 +52,8 @@ RSpec.describe "a user editing a clients intake fields" do
       end
 
       within "#primary-info" do
+        expect(find_field("hub_update_ctc_client_form_primary_ip_pin").value).to eq "123456"
+
         expect(find_field("hub_update_ctc_client_form_primary_first_name").value).to eq "Colleen"
         expect(find_field("hub_update_ctc_client_form_primary_last_name").value).to eq "Cauliflower"
         fill_in "Preferred full name", with: "Colly Cauliflower"
@@ -58,7 +62,6 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Cell phone number", with: "500-555-0006"
         check "Opt into sms notifications"
         fill_in "SSN/ITIN", with: "111-22-4444"
-        fill_in "Re-enter SSN/ITIN", with: "111-22-4444"
         fill_in "hub_update_ctc_client_form_primary_birth_date_month", with: "08"
         fill_in "hub_update_ctc_client_form_primary_birth_date_day", with: "24"
         fill_in "hub_update_ctc_client_form_primary_birth_date_year", with: "1996"
@@ -92,11 +95,11 @@ RSpec.describe "a user editing a clients intake fields" do
       end
 
       within "#spouse-info" do
+        expect(find_field("hub_update_ctc_client_form_spouse_ip_pin").value).to eq "654321"
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
         fill_in "Email", with: "spicypeter@pepper.com"
         fill_in "SSN/ITIN", with: "111-22-3333"
-        fill_in "Re-enter SSN/ITIN", with: "111-22-3333"
         fill_in "hub_update_ctc_client_form_spouse_birth_date_month", with: "10"
         fill_in "hub_update_ctc_client_form_spouse_birth_date_day", with: "24"
         fill_in "hub_update_ctc_client_form_spouse_birth_date_year", with: "1996"

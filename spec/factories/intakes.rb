@@ -443,8 +443,8 @@ FactoryBot.define do
     locale { ["en", "es"].sample }
     source { vita_partner.source_parameters.first&.code || "none" }
     referrer { "/" }
-    primary_birth_date { (20..100).to_a.sample.years.ago }
-    spouse_birth_date { (20..100).to_a.sample.years.ago }
+    primary_birth_date { Date.new(1979, 12, 24) }
+    spouse_birth_date { Date.new(1983, 11, 23) }
     street_address { "123 Cherry Lane" }
     zip_code { "94103" }
     city { "San Francisco" }

@@ -17,32 +17,35 @@
     <%= f.cfa_input_field(:spouse_email_address, t("general.email")) %>
     <% if is_ctc %>
       <%= f.vita_min_date_text_fields(
-            :spouse_birth_date,
-            t("hub.clients.show.date_of_birth"),
-            ) %>
+              :spouse_birth_date,
+              t("hub.clients.show.date_of_birth"),
+          ) %>
       <%= f.cfa_select(:spouse_tin_type, "Identification Type", tin_options_for_select(include_ssn_no_employment: true, include_itin: true, include_none: true)) %>
       <%= f.cfa_input_field(
-          :spouse_ssn,
-          t("general.ssn_itin"),
-          type: :tel,
-          classes: ["form-width--name"],
-          options: { maxlength: 11 }
+              :spouse_ssn,
+              t("general.ssn_itin"),
+              type: :tel,
+              classes: ["form-width--name"],
+              options: { maxlength: 11 }
           ) %>
-      <%= f.cfa_input_field(
-          :spouse_ssn_confirmation,
-          "Re-enter SSN/ITIN",
-          type: :tel,
-          classes: ["form-width--name"],
-          options: { maxlength: 11 }
-          ) %>
+      <% unless f.object.client&.persisted? %>
+
+        <%= f.cfa_input_field(
+                :spouse_ssn_confirmation,
+                "Re-enter SSN/ITIN",
+                type: :tel,
+                classes: ["form-width--name"],
+                options: { maxlength: 11 }
+            ) %>
+      <% end %>
     <% else %>
       <%= f.cfa_input_field(
-          :spouse_last_four_ssn,
-          t("general.last_four_ssn"),
-          prefix: "XXX-XX-",
-          type: :tel,
-          classes: ["form-width--name field--last-four-ssn"],
-          options: { maxlength: 4 }
+              :spouse_last_four_ssn,
+              t("general.last_four_ssn"),
+              prefix: "XXX-XX-",
+              type: :tel,
+              classes: ["form-width--name field--last-four-ssn"],
+              options: { maxlength: 4 }
           ) %>
     <% end %>
     <% if is_ctc %>
