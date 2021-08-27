@@ -18,7 +18,6 @@ describe Ctc::ConfirmInformationForm do
       it "is valid when 5 digits" do
 
         form = described_class.new(intake, { primary_signature_pin: "12345" })
-        puts form.errors.keys
         expect(form).to be_valid
       end
 

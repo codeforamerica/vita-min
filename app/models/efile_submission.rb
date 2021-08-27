@@ -105,6 +105,26 @@ class EfileSubmission < ApplicationRecord
     )
   end
 
+  def retry_send_submission
+    now = DateTime.now.utc
+    age = now.to_time - created_at.to_time
+    if age > 1.days
+      transition_to!(:failed, error_code: "TRANSMISSION-SERVICE", raw_response: "Deadline exceeded when retrying send submission. Waited for about 1 day.")
+      return
+    end
+
+    max_backoff = 60.minutes
+    backoff =
+      if age > max_backoff
+        max_backoff
+      else
+        age ** 1.25
+      end
+    retry_wait = backoff + SecureRandom.rand(30)
+
+    GyrEfiler::SendSubmissionJob.set(wait_until: now + retry_wait).perform_later(self)
+  end
+
   private
 
   def generate_irs_submission_id(i = 0)

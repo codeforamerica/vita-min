@@ -316,7 +316,7 @@ describe EfileSubmission do
     context "when there is an existing addresss and skip_usps_validation is set to true" do
       let(:submission) { create :efile_submission, :preparing }
       let!(:address) { create :address, record: submission, skip_usps_validation: true }
-      
+
       it "returns true and does not connect to USPS service" do
         expect(submission.generate_irs_address.valid?).to be true
         expect(StandardizeAddressService).not_to have_received(:new)
@@ -364,7 +364,7 @@ describe EfileSubmission do
     end
   end
 
-  describe "imperfect_return_resubmission?" do
+  describe ".imperfect_return_resubmission?" do
     context "when the submission's preparing transition has a previous submission id stored" do
       let(:previous_submission) { create(:efile_submission) }
       let(:efile_error) { create(:efile_error, code: "SOMETHING-WRONG") }
@@ -391,7 +391,7 @@ describe EfileSubmission do
     end
   end
 
-  describe "last_client_accessible_transition" do
+  describe ".last_client_accessible_transition" do
     context "when the status of the last_transition is investigating" do
       let(:efile_submission) { create :efile_submission, :rejected }
 
@@ -440,6 +440,62 @@ describe EfileSubmission do
       let(:efile_submission) { create :efile_submission }
       it "returns nil" do
         expect(efile_submission.last_client_accessible_transition).to eq nil
+      end
+    end
+  end
+
+  describe ".retry_send_submission" do
+    context "when the submission is fairly recent" do
+      before do
+        allow(SecureRandom).to receive(:rand).with(30).and_return(4)
+      end
+
+      it "enqueues the SendSubmission job with exponential backoff plus jitter", active_job: true do
+        freeze_time do
+          submission = create(:efile_submission, :queued, created_at: 1.minute.ago)
+          clear_enqueued_jobs
+          expected_delay = (1.minute ** 1.25) + 4
+
+          expect {
+            submission.retry_send_submission
+          }.to have_enqueued_job(GyrEfiler::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
+        end
+      end
+    end
+
+    context "when the submission is more than one hour old" do
+      before do
+        allow(SecureRandom).to receive(:rand).with(30).and_return(4)
+      end
+
+      it "enqueues the SendSubmission job with 60 minute delay plus jitter", active_job: true do
+        freeze_time do
+          submission = create(:efile_submission, :queued, created_at: 61.minutes.ago)
+          clear_enqueued_jobs
+          expected_delay = 60.minutes + 4
+
+          expect {
+            submission.retry_send_submission
+          }.to have_enqueued_job(GyrEfiler::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
+        end
+      end
+    end
+
+    context "when the submission is more than one day old" do
+      before do
+        allow(SecureRandom).to receive(:rand).with(30).and_return(4)
+      end
+
+      it "marks the submission as failed", active_job: true do
+        freeze_time do
+          submission = create(:efile_submission, :queued, created_at: (1.01).days.ago)
+          clear_enqueued_jobs
+
+          expect {
+            submission.retry_send_submission
+          }.not_to have_enqueued_job(GyrEfiler::SendSubmissionJob)
+          expect(submission.current_state).to eq("failed")
+        end
       end
     end
   end

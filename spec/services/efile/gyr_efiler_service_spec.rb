@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Efile::GyrEfilerService do
+  before do
+    # Skip preparing & downloading gyr-efiler since we mock `Process.spawn()` anyway.
+    allow(described_class).to receive(:ensure_config_dir_prepared)
+    allow(described_class).to receive(:ensure_gyr_efiler_downloaded).and_return("/tmp/hypothetical_classes.zip")
+  end
+
   describe ".run_efiler_command" do
     before do
       allow(EnvironmentCredentials).to receive(:dig).with(:irs, :app_sys_id).and_return "asystemidiguess"
@@ -8,7 +14,7 @@ RSpec.describe Efile::GyrEfilerService do
       allow(EnvironmentCredentials).to receive(:dig).with(:irs, :etin).and_return "electronictransmitteridentificationnarwhal"
     end
 
-    xcontext "success" do
+    context "success" do
       let(:zip_data) do
         buf = Zip::OutputStream.write_buffer do |zio|
           zio.put_next_entry("filename.txt")
@@ -37,11 +43,12 @@ RSpec.describe Efile::GyrEfilerService do
       end
     end
 
-    xcontext "command failure" do
+    context "command failure" do
+
       before do
         allow(Process).to receive(:spawn) do |_argv, chdir:, unsetenv_others:, in:|
           File.open("#{chdir}/output/log/audit_log.txt", 'wb') do |f|
-            f.write("Earlier line\nLogin Certificate: yikesdontsavethis\nLog output")
+            f.write(log_output)
           end
 
           `false` # Run a command so that $? is set
@@ -52,10 +59,68 @@ RSpec.describe Efile::GyrEfilerService do
         allow(Process).to receive(:wait)
       end
 
-      it "raises an exception with the log output, with Login Certificate line removed" do
-        expect {
-          described_class.run_efiler_command
-        }.to raise_error(StandardError, "Earlier line\nLog output")
+      context "for unknown errors" do
+        let(:log_output) { "Earlier line\nLogin Certificate: blahBlahBlah\nLog output" }
+
+        it "raises an exception with the log output" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(StandardError, "Earlier line\nLogin Certificate: blahBlahBlah\nLog output")
+        end
+      end
+
+      context "when the cause is a gyr-efiler socket timeout" do
+        let(:log_output) { "Earlier line\nLogin Certificate: blahBlahBlah\nTransaction Result: java.net.SocketTimeoutException: Read timed out\nLog output" }
+
+        it "raises a RetryableError" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(Efile::GyrEfilerService::RetryableError)
+        end
+      end
+    end
+  end
+
+  describe ".with_lock" do
+    context "when there is no lock contention" do
+      it "runs the block with lock_acquired=true" do
+        described_class.with_lock(ActiveRecord::Base.connection) { |lock_acquired| expect(lock_acquired).to eq(true) }
+      end
+    end
+
+    context "when there is are >5 simultaneous callers" do
+      before do
+        ActiveRecord::Base.clear_all_connections!
+      end
+
+      after do
+        ActiveRecord::Base.clear_all_connections!
+      end
+
+      it "runs the block with lock_acquired=false" do
+        described_class.with_lock(ActiveRecord::Base.connection_pool.checkout) do |lock_acquired_1|
+          expect(lock_acquired_1).to eq(true)
+
+          described_class.with_lock(ActiveRecord::Base.connection_pool.checkout) do |lock_acquired_2|
+            expect(lock_acquired_2).to eq(true)
+
+            described_class.with_lock(ActiveRecord::Base.connection_pool.checkout) do |lock_acquired_3|
+              expect(lock_acquired_3).to eq(true)
+
+              described_class.with_lock(ActiveRecord::Base.connection_pool.checkout) do |lock_acquired_4|
+                expect(lock_acquired_4).to eq(true)
+
+                described_class.with_lock(ActiveRecord::Base.connection_pool.checkout) do |lock_acquired_5|
+                  expect(lock_acquired_5).to eq(true)
+
+                  described_class.with_lock(ActiveRecord::Base.connection_pool.checkout) do |lock_acquired_6|
+                    expect(lock_acquired_6).to eq(false)
+                  end
+                end
+              end
+            end
+          end
+        end
       end
     end
   end
