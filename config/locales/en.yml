@@ -1249,7 +1249,7 @@ en:
 
             Thank you for filing your taxes with GetCTC! We need to correct some of your tax information in order to submit your tax return to the IRS.
 
-            Sign in here [link to log in page] to see next steps for correcting your tax information.
+            Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
 
             We’re here to help!
             Your tax team at GetCTC.org
@@ -1257,7 +1257,7 @@ en:
         sms: |
           Hello <<Client.PreferredName>>,
           Thank you for filing your taxes with GetCTC! We need to correct some of your tax information in order to submit your tax return to the IRS.
-          Sign in here [link to log in page] to see next steps for correcting your tax information.
+          Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
           We’re here to help!
           Your tax team at GetCTC.org
     ctc_getting_started:
