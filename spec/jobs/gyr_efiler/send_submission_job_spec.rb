@@ -52,15 +52,15 @@ RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
         allow(Efile::GyrEfilerService).to receive(:run_efiler_command).and_raise(exception)
       end
 
-      context "with a general exception" do
-        let(:exception) { StandardError.new("A problem happened with your computer") }
+      context "with an e-file error" do
+        let(:exception) { Efile::GyrEfilerService::Error.new("A problem happened with your computer") }
 
         it 'transitions into failed state' do
           expect do
             described_class.perform_now(submission)
           end.to raise_error(exception).and change { submission.current_state }.to("failed")
           expect(submission.efile_submission_transitions.last.efile_errors.length).to eq 1
-          expect(submission.efile_submission_transitions.last.metadata["raw_response"]).to eq("#<StandardError: A problem happened with your computer>")
+          expect(submission.efile_submission_transitions.last.metadata["raw_response"]).to eq("#<Efile::GyrEfilerService::Error: A problem happened with your computer>")
         end
       end
 

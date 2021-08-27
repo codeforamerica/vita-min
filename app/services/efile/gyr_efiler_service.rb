@@ -18,7 +18,7 @@ module Efile
 
         # On macOS, "java" will show a confusing pop-up if you run it without a JVM installed. Check for that and exit early.
         if File.exists?("/Library/Java/JavaVirtualMachines") && Dir.glob("/Library/Java/JavaVirtualMachines/*").empty?
-          raise StandardError.new("Seems you are on a mac & lack Java. Run: brew tap AdoptOpenJDK/openjdk && brew install adoptopenjdk8")
+          raise Error.new("Seems you are on a mac & lack Java. Run: brew tap AdoptOpenJDK/openjdk && brew install adoptopenjdk8")
         end
         # /Library/Java/JavaVirtualMachines
         java = ENV["VITA_MIN_JAVA_HOME"] ? File.join(ENV["VITA_MIN_JAVA_HOME"], "bin", "java") : "java"
@@ -31,7 +31,7 @@ module Efile
           in: "/dev/null"
         )
         Process.wait(pid)
-        raise StandardError.new("Process failed to exit?") unless $?.exited?
+        raise Error.new("Process failed to exit?") unless $?.exited?
 
         exit_code = $?.exitstatus
         if exit_code != 0
@@ -39,7 +39,7 @@ module Efile
           if log_contents.split("\n").include?("Transaction Result: java.net.SocketTimeoutException: Read timed out")
             raise RetryableError, log_contents
           else
-            raise StandardError, log_contents
+            raise Error, log_contents
           end
         end
 
@@ -110,6 +110,8 @@ module Efile
 
     class RetryableError < StandardError; end
 
+    class Error < StandardError; end
+
     private
 
     def self.system!(*args)
@@ -124,7 +126,7 @@ module Efile
       efile_cert_base64 = ENV['GYR_EFILER_CERT'].presence || EnvironmentCredentials.dig(:irs, :efile_cert_base64)
       etin = ENV['GYR_EFILER_ETIN'].presence || EnvironmentCredentials.dig(:irs, :etin)
       if app_sys_id.nil? || efile_cert_base64.nil? || etin.nil?
-        raise StandardError.new("Missing app_sys_id and/or efile_cert_base64 and/or etin configuration")
+        raise Error.new("Missing app_sys_id and/or efile_cert_base64 and/or etin configuration")
       end
 
       [app_sys_id, efile_cert_base64, etin]
