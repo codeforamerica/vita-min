@@ -55,13 +55,15 @@
             classes: ["form-width--name"],
             options: { maxlength: 11 }
           ) %>
-      <%= f.cfa_input_field(
-            :primary_ssn_confirmation,
-            "Re-enter SSN/ITIN",
-            type: :tel,
-            classes: ["form-width--name"],
-            options: { maxlength: 11 }
+      <% unless f.object.client&.persisted? %>
+        <%= f.cfa_input_field(
+              :primary_ssn_confirmation,
+              "Re-enter SSN/ITIN",
+              type: :tel,
+              classes: ["form-width--name"],
+              options: { maxlength: 11 }
           ) %>
+      <% end %>
       <%= f.cfa_input_field(:primary_ip_pin, t("general.ip_pin")) %>
     <% else %>
       <%= f.cfa_input_field(

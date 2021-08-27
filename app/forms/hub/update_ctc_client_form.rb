@@ -5,13 +5,6 @@ module Hub
                        :primary_first_name,
                        :primary_last_name,
                        :primary_suffix,
-                       :primary_birth_date_month,
-                       :primary_birth_date_day,
-                       :primary_birth_date_year,
-                       :primary_prior_year_agi_amount,
-                       :spouse_birth_date_month,
-                       :spouse_birth_date_day,
-                       :spouse_birth_date_year,
                        :spouse_prior_year_agi_amount,
                        :use_spouse_name_for_name_control,
                        :preferred_name,
@@ -25,9 +18,7 @@ module Hub
                        :state,
                        :zip_code,
                        :primary_ssn,
-                       :primary_ssn_confirmation,
                        :spouse_ssn,
-                       :spouse_ssn_confirmation,
                        :primary_tin_type,
                        :spouse_tin_type,
                        :sms_notification_opt_in,
@@ -56,18 +47,19 @@ module Hub
     set_attributes_for :tax_return,
                        :filing_status,
                        :filing_status_note
-    set_attributes_for :confirmation,
-                       :primary_ssn_confirmation,
-                       :spouse_ssn_confirmation
+    set_attributes_for :birthdates,
+                       :primary_birth_date_month,
+                       :primary_birth_date_day,
+                       :primary_birth_date_year,
+                       :primary_prior_year_agi_amount,
+                       :spouse_birth_date_month,
+                       :spouse_birth_date_day,
+                       :spouse_birth_date_year
     attr_accessor :client
 
-    validates_confirmation_of :primary_ssn
-    validates_presence_of :primary_ssn_confirmation, if: :primary_ssn
-    validates_presence_of :spouse_ssn_confirmation, if: :spouse_ssn
     validates :primary_ssn, social_security_number: true
 
     with_options if: -> { filing_status == "married_filing_jointly" } do
-      validates_confirmation_of :spouse_ssn
       validates :spouse_ssn, social_security_number: true
     end
 
@@ -86,18 +78,15 @@ module Hub
       self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
     end
 
-    def self.existing_attributes(intake)
-      non_model_attrs = {
-        spouse_ssn: intake.spouse_ssn,
-        spouse_ssn_confirmation: intake.spouse_ssn,
-        primary_ssn: intake.primary_ssn,
-        primary_ssn_confirmation: intake.primary_ssn,
-      }
+    def self.existing_attributes(intake, attribute_keys)
+      intake_attrs = HashWithIndifferentAccess[(attribute_keys || []).map { |k| [k, intake.send(k)] }]
+
       tax_return_attrs = {
         filing_status: intake.client.tax_returns.last.filing_status,
         filing_status_note: intake.client.tax_returns.last.filing_status_note,
       }
-      super.merge(non_model_attrs).merge(date_of_birth_attributes(intake)).merge(tax_return_attrs)
+
+      intake_attrs.merge(date_of_birth_attributes(intake)).merge(tax_return_attrs)
     end
 
     def default_attributes
@@ -121,8 +110,8 @@ module Hub
 
     def self.from_client(client)
       intake = client.intake
-      attribute_keys = Attributes.new(attribute_names).to_sym
-      new(client, existing_attributes(intake).slice(*attribute_keys))
+      attribute_keys = Attributes.new(scoped_attributes[:intake]).to_sym
+      new(client, existing_attributes(intake, attribute_keys))
     end
 
     def save
