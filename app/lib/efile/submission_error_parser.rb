@@ -14,16 +14,16 @@ module Efile
       metadata = @transition.metadata
       # these errors are mostly failures on our side of things, like issues with bundling and addresses
       if metadata["error_code"].present?
-        persist_errors_from_metadata
+        persist_errors_from_error_metadata
       end
 
       # there errors are responses from the IRS, like rejections or exceptions
       if @transition.to_state == "rejected" && metadata["raw_response"].present?
-        persist_errors_from_raw_response
+        persist_errors_from_raw_response_metadata
       end
     end
 
-    def persist_errors_from_metadata
+    def persist_errors_from_error_metadata
       efile_submission = @transition.efile_submission
       metadata = @transition.metadata
 
@@ -35,7 +35,7 @@ module Efile
       @transition.efile_submission_transition_errors.create(efile_submission_id: efile_submission.id, efile_error: efile_error)
     end
 
-    def persist_errors_from_raw_response
+    def persist_errors_from_raw_response_metadata
       raise UnexpectedFormatError, "raw_response on transition is not in expected format" unless to_xml.at("ValidationErrorGrp").present?
 
       to_xml.search("ValidationErrorGrp").each do |error_group|
