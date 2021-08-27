@@ -4,6 +4,7 @@ describe Ctc::Questions::Dependents::QualifyingRelativeController do
   let(:intake) { create :ctc_intake }
   let!(:dependent) do
     create :dependent,
+           ssn: "123-45-1234",
            intake: intake,
            birth_date: birth_date,
            relationship: relationship,
@@ -121,7 +122,7 @@ describe Ctc::Questions::Dependents::QualifyingRelativeController do
       let!(:relationship) { "daughter" }
 
       before do
-        dependent.update(provided_over_half_own_support: "no", no_ssn_atin: "no", filed_joint_return: "yes")
+        dependent.update(provided_over_half_own_support: "no", filed_joint_return: "yes")
       end
 
       it "shows qualifying relative page" do

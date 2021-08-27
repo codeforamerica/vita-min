@@ -36,6 +36,13 @@ module Ctc
           @dependent
         end
 
+        # for purposes of returning clients,
+        # when they come back later, just push them back to the confirm dependents path
+        # and allow them to add dependents or continue from there.
+        def current_path
+          questions_confirm_dependents_path
+        end
+
         private
 
         def initialized_update_form

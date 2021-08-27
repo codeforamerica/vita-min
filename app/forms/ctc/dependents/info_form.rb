@@ -10,14 +10,41 @@ module Ctc
                          :suffix,
                          :relationship,
                          :full_time_student,
+                         :tin_type,
+                         :ssn,
                          :permanently_totally_disabled
       set_attributes_for :birthday, :birth_date_month, :birth_date_day, :birth_date_year
+      set_attributes_for :misc, :ssn_no_employment
+      set_attributes_for :confirmation, :ssn_confirmation
 
       validates :first_name, presence: true, legal_name: true
       validates :last_name, presence: true, legal_name: true
-      validates :middle_initial, length: { maximum: 1 }, legal_name: true
+      validates :middle_initial, legal_name: true
+      validates :ssn, presence: true
+      validates :tin_type, presence: true
       validates_presence_of :relationship
       validate :birth_date_is_valid_date
+
+      with_options if: -> { (ssn.present? && ssn != @dependent.ssn) || ssn_confirmation.present? } do
+        validates :ssn, confirmation: true
+        validates :ssn_confirmation, presence: true
+      end
+
+      validates :ssn, social_security_number: true, if: -> { tin_type == "ssn" && ssn.present? }
+
+      before_validation do
+        if ssn_no_employment == "yes" && tin_type == "ssn"
+          self.tin_type = "ssn_no_employment"
+        end
+      end
+
+      def initialize(dependent, params)
+        super
+        if tin_type == "ssn_no_employment"
+          self.tin_type = "ssn"
+          self.ssn_no_employment = "yes"
+        end
+      end
 
       def save
         @dependent.assign_attributes(attributes_for(:dependent).merge(

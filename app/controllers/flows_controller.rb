@@ -268,7 +268,6 @@ class FlowsController < ApplicationController
           last_name: last_name,
           relationship: %w[son daughter].sample,
           provided_over_half_own_support: 'no',
-          no_ssn_atin: 'no',
           filed_joint_return: 'no',
           lived_with_more_than_six_months: 'yes',
           cant_be_claimed_by_other: 'yes',

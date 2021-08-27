@@ -149,9 +149,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in "ctc_dependents_info_form[birth_date_day]", with: "11"
     fill_in "ctc_dependents_info_form[birth_date_year]", with: dependent_birth_year
     select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
     check I18n.t('views.ctc.questions.dependents.info.full_time_student')
     click_on I18n.t('general.continue')
-
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
     check I18n.t('general.none')
     click_on I18n.t('general.continue')
@@ -162,34 +163,53 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
     click_on I18n.t('general.affirmative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-    select "Social Security Number (SSN)"
-    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-    click_on I18n.t('views.ctc.questions.dependents.tin.remove_person')
-
-    within "h1" do
-      expect(strip_inner_newlines(page.text)).to eq(strip_inner_newlines(strip_html_tags(I18n.t("views.ctc.questions.dependents.remove_dependent.title_html", dependent_name: "Jessie"))))
-    end
-    click_on I18n.t('views.ctc.questions.dependents.remove_dependent.nevermind_button')
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-    select "Social Security Number (SSN)"
-    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-    click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
-
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
     expect(page).to have_content("Jessie M Pepper")
     expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
 
-    # Back up to prove that the 'go back' button brings us back to the dependent we were editing
-    click_on I18n.t('general.back')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-    click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
+    click_on "Add another person"
+
+    dependent_birth_year = 5.years.ago.year
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
+    fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Red"
+    fill_in I18n.t('views.ctc.questions.dependents.info.middle_initial'), with: "Hot"
+    fill_in I18n.t('views.ctc.questions.dependents.info.last_name'), with: "Pepper"
+    fill_in "ctc_dependents_info_form[birth_date_month]", with: "01"
+    fill_in "ctc_dependents_info_form[birth_date_day]", with: "11"
+    fill_in "ctc_dependents_info_form[birth_date_year]", with: dependent_birth_year
+    select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
+    check I18n.t('views.ctc.questions.dependents.info.full_time_student')
+    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Red'))
+    check I18n.t('general.none')
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Red', tax_year: '2020'))
+    click_on I18n.t('general.affirmative')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Red'))
+    click_on I18n.t('general.affirmative')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
+    expect(page).to have_content("Red Hot Pepper")
+    expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
+
+    within "#dependent_#{Dependent.last.id}" do
+      click_on "edit"
+    end
+
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.dependent_info.title", name: "Red"))
+    click_on I18n.t("views.ctc.questions.dependents.tin.remove_person")
+    expect(page).to have_text I18n.t("views.ctc.questions.dependents.remove_dependent.title", dependent_name: "Red")
+    click_on I18n.t("views.ctc.questions.dependents.remove_dependent.remove_button")
+
+    expect(page).to have_selector("h1", text: "Let’s confirm!")
+    expect(page).not_to have_text "Red Hot Pepper"
     click_on I18n.t('views.ctc.questions.dependents.confirm_dependents.done_adding')
+
 
     # =========== RECOVERY REBATE CREDIT ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))

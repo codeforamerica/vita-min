@@ -8,6 +8,9 @@ def fill_in_dependent_info(dependent_birth_year)
   fill_in "ctc_dependents_info_form[birth_date_month]", with: "11"
   fill_in "ctc_dependents_info_form[birth_date_day]", with: "01"
   fill_in "ctc_dependents_info_form[birth_date_year]", with: dependent_birth_year
+  select "Social Security Number (SSN)"
+  fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
+  fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
 end
 
 RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job: true do
@@ -25,6 +28,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     scenario "a minor child" do
       dependent_birth_year = 15.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
+
       select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
@@ -38,11 +42,6 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
       click_on I18n.t('general.affirmative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-      select "Social Security Number (SSN)"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do
@@ -68,11 +67,6 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
       click_on I18n.t('general.affirmative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-      select "Social Security Number (SSN)"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
@@ -91,12 +85,6 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       expect(page).to have_selector("h1", text: "Were all of the following true in 2020?")
       click_on I18n.t('general.affirmative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-      select "Social Security Number (SSN)"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
-
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
         expect(page).to have_content("Jessie M Pepper")
@@ -113,12 +101,6 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       expect(page).to have_selector("h1", text: "Were all of the following true in 2020?")
       click_on I18n.t('general.affirmative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-      select "Social Security Number (SSN)"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
-
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
         expect(page).to have_content("Jessie M Pepper")
@@ -134,12 +116,6 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: "Were all of the following true in 2020?")
       click_on I18n.t('general.affirmative')
-
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-      select "Social Security Number (SSN)"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
@@ -167,12 +143,6 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
       click_on I18n.t('general.affirmative')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-      select "Social Security Number (SSN)"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
-
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do
         expect(page).to have_content("Jessie M Pepper")
@@ -192,12 +162,6 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: "Were all of the following true in 2020?")
       click_on I18n.t('general.affirmative')
-
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-      select "Social Security Number (SSN)"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='other-credits-dependents']" do
@@ -223,12 +187,6 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.claim_child_anyway.title', name: 'Jessie'))
       click_on I18n.t('general.affirmative')
-
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.tin.title', name: 'Jessie'))
-      select "Social Security Number (SSN)"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin', name: "Jessie"), with: "222-33-4445"
-      fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation', name: "Jessie"), with: "222-33-4445"
-      click_on I18n.t('views.ctc.questions.dependents.tin.save_person')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do

@@ -1,15 +1,15 @@
-<% @main_heading = t("views.ctc.questions.dependents.remove_dependent.title_html", dependent_name: @form.dependent.first_name&.titleize) %>
+<% @main_heading = t("views.ctc.questions.dependents.remove_dependent.title", dependent_name: @form.dependent.first_name&.titleize) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="form-question"><%= @main_heading %></h1>
-
+    <h3 class="form-question"><%= I18n.t("views.ctc.questions.dependents.remove_dependent.subtitle") %></h3>
     <button class="button button--primary spacing-below-15 button--wide" type="submit">
       <%= image_tag("file-person.svg", alt: "") %>
       <%=t("views.ctc.questions.dependents.remove_dependent.remove_button") %>
     </button>
-    <%= link_to tin_questions_dependent_path, class: "button button--wide button--danger text--centered" do %>
+    <%= link_to :back, class: "button button--wide button--danger text--centered" do %>
       <%= image_tag("remove-minus.svg", alt: "") %>
       <%= t("views.ctc.questions.dependents.remove_dependent.nevermind_button") %>
     <% end %>

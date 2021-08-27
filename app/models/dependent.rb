@@ -196,7 +196,7 @@ class Dependent < ApplicationRecord
       meets_qc_age_condition_2020? &&
       meets_qc_misc_conditions? &&
       meets_qc_residence_condition_2020? &&
-      meets_qc_claimant_condition?
+      meets_qc_claimant_condition? && ssn.present?
   end
 
   def meets_qc_age_condition_2020?
@@ -204,7 +204,7 @@ class Dependent < ApplicationRecord
   end
 
   def meets_qc_misc_conditions?
-    provided_over_half_own_support_no? && no_ssn_atin_no? && filed_joint_return_no?
+    provided_over_half_own_support_no? && filed_joint_return_no?
   end
 
   def meets_qc_residence_condition_2020?
@@ -218,16 +218,20 @@ class Dependent < ApplicationRecord
       (cant_be_claimed_by_other_no? && claim_anyway_yes?)
   end
 
+  def disqualified_child_qualified_relative?
+    return false unless qualifying_child_relationship?
+
+    # QC relationship and doesn't meet age requirements
+    !meets_qc_age_condition_2020? ||
+        # QC relationship and meets age requirements but is filing jointly
+        (meets_qc_age_condition_2020? && filed_joint_return_yes?)
+  end
+
   def qualifying_relative_2020?
-    ((qualifying_child_relationship? &&
-        # QC relationship and doesn't meet age requirements
-        (!meets_qc_age_condition_2020? ||
-          # QC relationship and meets age requirements but is filing jointly
-          (meets_qc_age_condition_2020? && filed_joint_return_yes?))) ||
-      # QR relationship
-      qualifying_relative_relationship?) &&
-      # everyone needs to meet these "misc" requirements
-      meets_misc_qualifying_relative_requirements_yes?
+    ssn.present? &&
+    (disqualified_child_qualified_relative? || qualifying_relative_relationship?) &&
+    # everyone needs to meet these "misc" requirements
+    meets_misc_qualifying_relative_requirements_yes?
   end
 
   def qualifying_2020?

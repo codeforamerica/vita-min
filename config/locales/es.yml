@@ -1,5 +1,12 @@
 ---
 es:
+  activemodel:
+    errors:
+      models:
+        ctc/dependents/info_form:
+          attributes:
+            ssn:
+              blank: Para reclamar a un miembro de la familia como dependiente para los beneficios, se requiere un SSN o ATIN.
   hub:
     unlock_account: "Desbloquear cuenta"
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
@@ -1451,20 +1458,21 @@ es:
           tin:
             title: "Necesitamos información adicional sobre %{name}."
             help_text: "Para evitar retrasos, favor de facilitarnos los datos legales de su dependiente tal y como aparecen en su documento de identificación."
-            form_of_identity: "Tipo de identificación de %{name}"
-            ssn_or_atin: "El SSN o ATIN: Número de Identificación Fiscal de Adopción de %{name}"
-            ssn_or_atin_confirmation: "Confirme el SSN o ATIN de %{name}"
+            form_of_identity: "Tipo de identificación de su dependiente"
+            ssn_or_atin: "El SSN o ATIN: Número de Identificación Fiscal de Adopción de su dependiente"
+            ssn_or_atin_confirmation: "Confirme el SSN o ATIN de su dependiente"
             save_person: Guarde a esta persona
             remove_person: Quite a esta persona
           remove_dependent:
-            title_html: "Está a punto de borrar a %{dependent_name}.<br><br>¿Está bien?"
+            title: Está a punto de borrar a %{dependent_name}.
+            subtitle: "¿Está bien?"
             remove_button: "Sí, borrémoslo/la"
             nevermind_button: Mejor no lo/la borremos
           info:
             title: "Veamos algunos datos básicos sobre su dependiente."
             help_text: "Para evitar retrasos, favor de facilitar los datos legales de su dependiente tal y como figuran en su tarjeta de identificación."
             first_name: "El primer nombre legal de su dependiente"
-            middle_initial: "La inicial del segundo nombre de su dependiente"
+            middle_initial: "El segundo nombre de su dependiente (Opcional)"
             last_name: "El apellido legal de su dependiente"
             suffix: "Forma de tratamiento del dependiente, por ejemplo, Sr., Sra., Srta."
             relationship_to_you: "¿Qué relación tiene con usted?"
@@ -1524,7 +1532,6 @@ es:
             title: "Perfecto, ¡asegurémonos de que %{name} cumple los requisitos!"
             help_text: "Seleccione cualquier situación que haya sido cierta en 2020:"
             provided_over_half_own_support: "%{name} pagó más de la mitad de sus gastos de manutención"
-            no_ssn_atin: "%{name} no tiene un SSN válido o un Número de identificación de Adopción"
             filed_joint_return: "%{name} estaba casado/a y declaró impuestos con su cónyuge"
             error: "Favor de seleccionar al menos una opción"
           does_not_qualify_ctc:

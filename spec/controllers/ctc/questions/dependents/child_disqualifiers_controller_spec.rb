@@ -15,7 +15,6 @@ describe Ctc::Questions::Dependents::ChildDisqualifiersController do
           id: dependent.id,
           ctc_dependents_child_disqualifiers_form: {
             provided_over_half_own_support: "yes",
-            no_ssn_atin: "no",
             filed_joint_return: "yes"
           }
         }
@@ -25,7 +24,6 @@ describe Ctc::Questions::Dependents::ChildDisqualifiersController do
         post :update, params: params
 
         expect(dependent.reload.provided_over_half_own_support).to eq "yes"
-        expect(dependent.reload.no_ssn_atin).to eq "no"
         expect(dependent.reload.provided_over_half_own_support).to eq "yes"
       end
     end
@@ -36,7 +34,6 @@ describe Ctc::Questions::Dependents::ChildDisqualifiersController do
           id: 'jeff',
           ctc_dependents_child_disqualifiers_form: {
             provided_over_half_own_support: "yes",
-            no_ssn_atin: "no",
             filed_joint_return: "yes"
           }
         }
