@@ -473,8 +473,6 @@ describe EfileSubmission do
           submission = create(:efile_submission, :queued, created_at: 61.minutes.ago)
           clear_enqueued_jobs
           expected_delay = 60.minutes + 4
-          puts(expected_delay)
-          puts(Time.now.utc + expected_delay)
 
           expect {
             submission.retry_send_submission
