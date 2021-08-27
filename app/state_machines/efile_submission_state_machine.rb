@@ -50,18 +50,40 @@ class EfileSubmissionStateMachine
     send_mixpanel_event(submission, "ctc_efile_return_transmitted")
   end
 
-  after_transition(to: :failed) do |submission|
+  after_transition(to: :failed, after_commit: true) do |submission, transition|
     submission.tax_return.update(status: "file_needs_review")
+
+    Efile::SubmissionErrorParser.new(transition).persist_efile_errors_from_transition_metadata
+
+    if transition.efile_errors.any?
+      if transition.efile_errors.any?(&:expose)
+        ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+          client: submission.client,
+          message: AutomatedMessage::EfileFailed.new,
+          locale: submission.client.intake.locale
+        )
+      end
+      submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
+    end
+
+    send_mixpanel_event(submission, "ctc_efile_return_failed")
   end
 
-  after_transition(to: :rejected) do |submission, transition|
+  after_transition(to: :rejected, after_commit: true) do |submission, transition|
     submission.tax_return.update(status: "file_rejected")
 
-    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-      client: submission.client,
-      message: AutomatedMessage::EfileRejected.new,
-      locale: submission.client.intake.locale
-    )
+    Efile::SubmissionErrorParser.new(transition).persist_efile_errors_from_transition_metadata
+
+    if transition.efile_errors.any?
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: submission.client,
+        message: AutomatedMessage::EfileRejected.new,
+        locale: submission.client.intake.locale
+      )
+      submission.transition_to!(:cancelled) if transition.efile_errors.any?(&:auto_cancel)
+      submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
+    end
+
     send_mixpanel_event(submission, "ctc_efile_return_rejected")
   end
 

@@ -60,22 +60,48 @@ describe EfileSubmissionStateMachine do
 
     context "to failed" do
       let(:submission) { create(:efile_submission, :queued) }
-
-      it "updates the tax return status" do
-        submission.transition_to!(:failed)
-        expect(submission.tax_return.status).to eq("file_needs_review")
-      end
-    end
-
-    context "to rejected" do
-      let(:submission) { create(:efile_submission, :transmitted) }
+      let(:efile_error) { create(:efile_error, code: "USPS", expose: true, auto_wait: false, auto_cancel: false) }
 
       before do
         allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
       end
 
       it "updates the tax return status" do
-        submission.transition_to!(:rejected)
+        submission.transition_to!(:failed, error_code: efile_error.code)
+        expect(submission.tax_return.status).to eq("file_needs_review")
+      end
+
+      context "with an exposed error" do
+        it "sends the client a message" do
+          submission.transition_to!(:failed, error_code: efile_error.code)
+          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+            client: submission.client.reload,
+            message: instance_of(AutomatedMessage::EfileFailed),
+            locale: submission.client.intake.locale
+          )
+        end
+      end
+
+      context "without an exposed error" do
+        let(:efile_error) { create(:efile_error, code: "USPS", expose: false) }
+
+        it "does not send a message" do
+          submission.transition_to!(:failed)
+          expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods)
+        end
+      end
+    end
+
+    context "to rejected" do
+      let(:submission) { create(:efile_submission, :transmitted) }
+      let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: false, auto_cancel: false) }
+
+      before do
+        allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
+      end
+
+      it "updates the tax return status" do
+        submission.transition_to!(:rejected, error_code: efile_error.code)
         expect(submission.tax_return.status).to eq("file_rejected")
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: submission.client.reload,

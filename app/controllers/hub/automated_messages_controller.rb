@@ -18,6 +18,7 @@ module Hub
           [AutomatedMessage::EfileAcceptance, {}],
           [AutomatedMessage::EfilePreparing, {}],
           [AutomatedMessage::EfileRejected, {}],
+          [AutomatedMessage::EfileFailed, {}],
           [AutomatedMessage::CtcGettingStarted, {}],
       ]
 

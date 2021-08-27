@@ -6,7 +6,7 @@ module AutomatedMessage
     end
 
     def sms_body(**args)
-      I18n.t("messages.efile.rejected.sms", **args, error_code: @error_code, error_message: @error_message)
+      I18n.t("messages.efile.rejected.sms", **args)
     end
 
     def email_subject(**args)

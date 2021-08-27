@@ -1225,6 +1225,24 @@ es:
           ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS.
           Inicie sesión para ver los siguientes pasos para corregir y volver a enviar su información fiscal: <<Client.LoginLink>>
           ¡Estamos aquí para ayudarle!
+      failed:
+        email:
+          body: |
+            Hola <<Client.PreferredName>>,
+
+            ¡Gracias por presentar su declaración de impuestos con GetCTC! Necesitamos corregir parte de su información tributaria para poder enviar su declaración de impuestos al IRS.
+
+            Inicie sesión aquí [link to log in page] para ver los pasos a seguir para corregir su información tributaria.
+
+            ¡Estamos aquí para ayudar!
+            Su equipo de impuesto de GetCTC.org
+          subject: Atención necesaria para presentar su declaración de impuestos con GetCTC
+        sms: |
+          Hola <<Client.PreferredName>>,
+          ¡Gracias por presentar su declaración de impuestos con GetCTC! Necesitamos corregir parte de su información tributaria para poder enviar su declaración de impuestos al IRS.
+          Inicie sesión aquí [link to log in page] para ver los pasos a seguir para corregir su información tributaria.
+          ¡Estamos aquí para ayudar!
+          Su equipo de impuesto de GetCTC.org
     ctc_getting_started:
       email:
         subject: Inscripción para GetCTC

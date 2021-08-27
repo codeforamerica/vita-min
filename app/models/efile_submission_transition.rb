@@ -26,7 +26,6 @@ class EfileSubmissionTransition < ApplicationRecord
   has_many :efile_errors, through: :efile_submission_transition_errors
 
   after_destroy :update_most_recent, if: :most_recent?
-  after_create_commit :persist_efile_error_from_metadata
 
   default_scope { order(id: :asc) }
 
@@ -43,22 +42,6 @@ class EfileSubmissionTransition < ApplicationRecord
   end
 
   private
-
-  def persist_efile_error_from_metadata
-    if metadata["error_code"].present?
-      attrs = { code: metadata["error_code"] }
-      attrs[:message] = metadata["error_message"] if metadata["error_message"].present?
-      attrs[:source] = metadata["error_source"] if metadata["error_source"].present?
-      efile_error = EfileError.find_or_create_by!(attrs)
-      self.efile_submission_transition_errors.create(efile_submission_id: efile_submission.id, efile_error: efile_error)
-    end
-
-    if to_state == "rejected" && metadata["raw_response"].present?
-      Efile::SubmissionRejectionParser.persist_errors(self)
-      efile_submission.transition_to!(:cancelled) if efile_errors.any? { |error| error.auto_cancel }
-      efile_submission.transition_to!(:waiting) if efile_errors.all? { |error| error.auto_wait }
-    end
-  end
 
   # If a transition is deleted, make the new last transition
   # the "most recent" to maintain proper functionality of most_recent? method.
