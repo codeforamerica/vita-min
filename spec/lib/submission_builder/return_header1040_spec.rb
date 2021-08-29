@@ -310,6 +310,34 @@ describe SubmissionBuilder::ReturnHeader1040 do
           expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "0"
         end
       end
+
+      context "Prior Year Tax Info" do
+        let(:refund_amount) { 5 }
+
+        context "with prior year Signature PINs provided" do
+          before do
+            submission.intake.update(primary_prior_year_signature_pin: "12345", spouse_prior_year_signature_pin: "54321")
+          end
+
+          it "in SelfSelectPINGrp, sends PINs and does not send AGIs" do
+            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            expect(xml.at("SelfSelectPINGrp PrimaryPriorYearAGIAmt")).to be_nil
+            expect(xml.at("SelfSelectPINGrp SpousePriorYearAGIAmt")).to be_nil
+            expect(xml.at("SelfSelectPINGrp PrimaryPriorYearPIN").text).to eq "12345"
+            expect(xml.at("SelfSelectPINGrp SpousePriorYearPIN").text).to eq "54321"
+          end
+        end
+
+        context "without signature PINs provided" do
+          it "in SelfSelectPINGrp, does not send AGI and sends PINs" do
+            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            expect(xml.at("SelfSelectPINGrp PrimaryPriorYearAGIAmt").text).to eq "10000"
+            expect(xml.at("SelfSelectPINGrp SpousePriorYearAGIAmt").text).to eq "0"
+            expect(xml.at("SelfSelectPINGrp PrimaryPriorYearPIN")).to be_nil
+            expect(xml.at("SelfSelectPINGrp SpousePriorYearPIN")).to be_nil
+          end
+        end
+      end
     end
 
     context "when re-submitting" do

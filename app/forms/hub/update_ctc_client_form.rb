@@ -5,7 +5,10 @@ module Hub
                        :primary_first_name,
                        :primary_last_name,
                        :primary_suffix,
+                       :primary_prior_year_agi_amount,
+                       :primary_prior_year_signature_pin,
                        :spouse_prior_year_agi_amount,
+                       :spouse_prior_year_signature_pin,
                        :use_spouse_name_for_name_control,
                        :preferred_name,
                        :preferred_interview_language,
@@ -51,7 +54,6 @@ module Hub
                        :primary_birth_date_month,
                        :primary_birth_date_day,
                        :primary_birth_date_year,
-                       :primary_prior_year_agi_amount,
                        :spouse_birth_date_month,
                        :spouse_birth_date_day,
                        :spouse_birth_date_year

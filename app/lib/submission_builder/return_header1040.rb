@@ -39,8 +39,18 @@ module SubmissionBuilder
             if tax_return.filing_jointly?
               xml.SpouseBirthDt date_type(intake.spouse_birth_date) if tax_return.filing_jointly?
             end
-            xml.PrimaryPriorYearAGIAmt intake.primary_prior_year_agi_amount || 0
-            xml.SpousePriorYearAGIAmt spouse_prior_year_agi(tax_return, intake) if spouse_prior_year_agi(tax_return, intake)
+            if intake.primary_prior_year_signature_pin.present?
+              xml.PrimaryPriorYearPIN intake.primary_prior_year_signature_pin
+            else
+              xml.PrimaryPriorYearAGIAmt intake.primary_prior_year_agi_amount || 0
+            end
+            if tax_return.filing_jointly?
+              if intake.spouse_prior_year_signature_pin.present?
+                xml.SpousePriorYearPIN intake.spouse_prior_year_signature_pin
+              else
+                xml.SpousePriorYearAGIAmt spouse_prior_year_agi(intake)
+              end
+            end
           }
           xml.IdentityProtectionPIN intake.primary_ip_pin if intake.primary_ip_pin.present?
           xml.SpouseIdentityProtectionPIN intake.spouse_ip_pin if tax_return.filing_jointly? && intake.spouse_ip_pin.present?
@@ -193,19 +203,16 @@ module SubmissionBuilder
 
     private
 
-    def spouse_prior_year_agi(tax_return, intake)
-      return nil unless tax_return.filing_jointly?
+    def spouse_prior_year_agi(intake)
 
-      if intake.spouse_filed_2019_did_not_file?
+      if intake.spouse_filed_2019_filed_non_filer_separate? || intake.spouse_filed_2019_filed_non_filer_joint?
+        1
+      elsif intake.spouse_filed_2019_filed_full_joint? && intake.primary_prior_year_agi_amount.present?
+        intake.primary_prior_year_agi_amount
+      elsif intake.spouse_filed_2019_filed_full_separate? && intake.spouse_prior_year_agi_amount.present?
+        intake.spouse_prior_year_agi_amount
+      else
         0
-      elsif intake.spouse_filed_2019_filed_non_filer_separate?
-        1
-      elsif intake.spouse_filed_2019_filed_non_filer_joint?
-        1
-      elsif intake.spouse_filed_2019_filed_full_joint?
-        (intake.primary_prior_year_agi_amount || 0)
-      elsif intake.spouse_filed_2019_filed_full_separate?
-        (intake.spouse_prior_year_agi_amount || 0)
       end
     end
   end
