@@ -1667,7 +1667,7 @@ es:
           help_text_html: |
             <p>Presentó una declaración de impuestos este año, después del 1o de enero de 2021, para el año fiscal 2020?</p>
             <p>Conteste que sí, incluso si todavía está esperando los pagos del estímulo, o si utilizó la Herramienta de inscripción para No Declarantes. Si lo hizo, le brindaremos más orientación sobre sus opciones en la página siguiente.</p>
-            <p class="text--bold">If you already filed a 2020 tax return, the return you file with this tool with be rejected by the IRS.</p>
+            <p class="text--bold">Si ya presentó una declaración de impuestos de 2020, el IRS rechazará la declaración que presente con esta herramienta.</p>
         filed2020_yes:
           title: ¡Magnífico! El IRS tiene la información que necesita para procesar su declaración.
           p1: Al igual que la herramienta de registro de no contribuyentes del IRS, GetCTC le ayuda a presentar electrónicamente una declaración de impuestos simplificada de 2020. Si ya presentó una declaración de 2020, el IRS rechazará esta declaración sin revisarla, incluso si su primera declaración fue incorrecta o se procesó incorrectamente.

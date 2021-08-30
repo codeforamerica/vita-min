@@ -1682,7 +1682,7 @@ en:
           help_text_html: |
             <p>Did you file a tax return this year, after January 1, 2021, for the 2020 tax year?</p>
             <p>Answer yes even if you are still waiting for your stimulus payments, or if you used the Non-filers Sign-Up Tool. If you did, we'll give you more guidance about your options on the next page.</p>
-            <p class="text--bold">If you already filed a 2020 tax return, the return you file with this tool with be rejected by the IRS.</p>
+            <p class="text--bold">If you already filed a 2020 tax return, the return you file with this tool will be rejected by the IRS.</p>
         filed2020_yes:
           title: Unfortunately, you can't use GetCTC.
           p1: Like the IRS non-filer sign up tool, GetCTC helps you e-file a simplified 2020 tax return. If you've already filed a 2020 return, the IRS will reject this return without reviewing it, even if your first return was wrong or processed incorrectly.
