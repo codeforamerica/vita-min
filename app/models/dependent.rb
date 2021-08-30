@@ -197,7 +197,7 @@ class Dependent < ApplicationRecord
       meets_qc_misc_conditions? &&
       meets_qc_residence_condition_2020? &&
       meets_qc_claimant_condition? && ssn.present? &&
-      dependent.birth_date.year != 2021
+      birth_date.year != 2021
   end
 
   def meets_qc_age_condition_2020?
