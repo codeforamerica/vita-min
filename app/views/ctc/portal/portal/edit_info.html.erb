@@ -43,10 +43,13 @@
             %>
           <% end %>
         </div>
-
+        <p>
+          <%= t("views.ctc.portal.edit_info.help_text") %>
+        </p>
         <button class="button button--primary button--full-width" type="submit">
           <%= t("views.ctc.portal.edit_info.resubmit") %>
         </button>
+        <%= link_to t("views.ctc.portal.home.contact_us"), new_portal_message_path, class: "button button--full-width" %>
       <% end %>
     </div>
   </div>

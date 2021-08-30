@@ -1436,6 +1436,7 @@ es:
               message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
           correct_info: "Corrija mi información"
         edit_info:
+          help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
           title: Corrija su información enviada
           resubmit: Volver a enviar mi declaración de impuestos
         primary_filer:

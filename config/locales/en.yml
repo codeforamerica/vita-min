@@ -1451,6 +1451,7 @@ en:
               message: We are preparing your return. We'll continue to update you on the status of your submission.
           correct_info: "Correct my information"
         edit_info:
+          help_text: Please ensure that all of your information is correct prior to submitting your tax return. Once you resubmit, your tax return will be transmitted to the IRS and you will not be able to make any additional changes.
           title: Correct your submitted information
           resubmit: Resubmit my tax return
         primary_filer:
