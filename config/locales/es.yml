@@ -1207,14 +1207,14 @@ es:
 
             ¡Su información sobre su declaración de impuestos ha sido enviada con éxito a GetCTC!
 
-            Estamos procesando su información para enviarla al IRS. Recibirá un mensaje dentro de 48 horas para informarle si su información ha sido aceptada o rechazada.
+            Estamos procesando su información para enviarla al IRS. Recibirá un mensaje en el plazo de una semana para informarle si su información ha sido aceptada o rechazada.
 
             ¡Estamos aquí para ayudarle!
             Su Equipo de Declaración de Impuestos GetCTC.org
           subject: ¡Su información ha sido enviada a GetCTC!
         sms: |
           Hola <<Client.PreferredName>>:
-          ¡Su información sobre su declaración de impuestos ha sido enviada con éxito a GetCTC! Estamos procesando su información para enviarla al IRS. Recibirá un mensaje dentro de 48 horas para informarle si su información ha sido aceptada o rechazada.
+          ¡Su información sobre su declaración de impuestos ha sido enviada con éxito a GetCTC! Estamos procesando su información para enviarla al IRS. Recibirá un mensaje en el plazo de una semana para informarle si su información ha sido aceptada o rechazada.
       rejected:
         email:
           body: |
@@ -1297,7 +1297,7 @@ es:
         title: Mandar un mensaje a %{partner_name}
         your_tax_preparers: mi especialista en impuestos
         contact_preference: Enviaremos la respuesta por %{contact_method} a %{contact_info}.
-        wait_time: Por favor permita hasta tres días hábiles para recibir una respuesta.
+        wait_time: Por favor permita hasta una semana para recibir una respuesta.
         body_label: Mandar un mensaje
       create:
         message_sent: "¡Mensaje enviado!"
@@ -1421,7 +1421,7 @@ es:
                 Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
             transmitted:
               label: Tramitados electrónicamente
-              message: Su declaración ha sido presentada al IRS. En 48 horas sabrá si su declaración ha sido aceptada.
+              message: Su declaración ha sido presentada al IRS. En el plazo de una semana sabrá si su declaración ha sido aceptada.
             accepted:
               label: Aceptada
               message: Su declaración ha sido aceptada por el IRS. Deberá recibir un pago en un plazo de 1-4 semanas.

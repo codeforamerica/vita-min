@@ -136,7 +136,7 @@ RSpec.feature "CTC Intake", active_job: true do
 
       expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
       expect(page).to have_text "Electronically filed"
-      expect(page).to have_text "Your return has been submitted to the IRS. You will know in 48 hours if your return has been accepted."
+      expect(page).to have_text I18n.t("views.ctc.portal.home.status.transmitted.message")
     end
   end
 

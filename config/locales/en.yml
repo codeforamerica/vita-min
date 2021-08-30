@@ -1240,15 +1240,16 @@ en:
 
             Your tax information has been successfully submitted to GetCTC!
 
-            We are currently processing your information to send it to the IRS. You will receive a confirmation email within 48 hours to let you know if your information has been accepted or rejected.
+            We are currently processing your information to send it to the IRS. You will receive a confirmation email within one week to let you know if your information has been accepted or rejected.
 
             We’re here to help!
             Your tax team at GetCTC.org
           subject: Your tax information has been successfully submitted!
         sms: |
           Hello <<Client.PreferredName>>,
-          Your tax information has been successfully submitted to GetCTC! We are currently processing your information to send it to the IRS. You will receive a confirmation email within 48 hours to let you know if your information has been accepted or rejected.
+          Your tax information has been successfully submitted to GetCTC! We are currently processing your information to send it to the IRS. You will receive a confirmation text within one week to let you know if your information has been accepted or rejected.
           We’re here to help!
+          Your tax team at GetCTC.org
       failed:
         email:
           body: |
@@ -1367,7 +1368,7 @@ en:
         title: Message %{partner_name}
         your_tax_preparers: your tax preparers
         contact_preference: Responses will be sent by %{contact_method} to %{contact_info}.
-        wait_time: Please allow up to 3 business days for a response.
+        wait_time: Please allow up to one week for a response.
         body_label: What's on your mind?
       create:
         message_sent: Message sent!
@@ -1437,7 +1438,7 @@ en:
               message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
             transmitted:
               label: Electronically filed
-              message: Your return has been submitted to the IRS. You will know in 48 hours if your return has been accepted.
+              message: Your return has been submitted to the IRS. You will know within one week if your return has been accepted.
             accepted:
               label: Accepted
               message: Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks.
