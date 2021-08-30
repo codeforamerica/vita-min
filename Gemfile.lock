@@ -321,8 +321,6 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    percy-capybara (5.0.0)
-      capybara (>= 3)
     pg (1.2.3)
     pg_search (2.3.5)
       activerecord (>= 5.2)
@@ -608,7 +606,6 @@ DEPENDENCIES
   parallel_tests
   pdf-forms
   pdf-reader
-  percy-capybara
   pg
   pg_search
   phonelib

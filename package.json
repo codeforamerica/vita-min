@@ -20,7 +20,6 @@
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "@percy/cli": "^1.0.0-beta.61",
     "expose-loader": "^2.0.0",
     "jest": "^26.5.2",
     "jest-junit": "^12.0.0",
