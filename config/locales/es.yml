@@ -3250,10 +3250,9 @@ es:
       home:
         title: "Crédito Tributario por Hijos"
         header: "Declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijo"
-        subheader_html: |
-          <strong>¡GetCTC se lanzará próximamente!</strong> Registrese para recibir emails en cuanto el portal para declarar sus impuestos de forma simplificada.<br/>
-          <br/>
-          Reclame su Crédito Tributario por Hijo y su pago de estímulo faltante, aunque no tenga sus formularios tributarios.
+        subheader:
+          launching_soon_html: <strong>¡GetCTC se lanzará próximamente!</strong> Registrese para recibir emails en cuanto el portal para declarar sus impuestos de forma simplificada.
+          claim: Reclame su Crédito Tributario por Hijo y su pago de estímulo faltante, aunque no tenga sus formularios tributarios.
         sign_up_for_updates: Inscríbase para recibir actualizaciones
         common_questions:
           title: "Preguntas Frecuentes"

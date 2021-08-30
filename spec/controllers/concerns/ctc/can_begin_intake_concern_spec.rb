@@ -26,6 +26,21 @@ describe Ctc::CanBeginIntakeConcern, type: :controller do
         allow(Rails.env).to receive(:production?).and_return(true)
       end
 
+      context "when public access is live" do
+        before do
+          ENV['CTC_INTAKE_PUBLIC_ACCESS'] = 'true'
+        end
+
+        after do
+          ENV.delete('CTC_INTAKE_PUBLIC_ACCESS')
+        end
+
+        it "lets you through" do
+          get :index
+          expect(response).to be_ok
+        end
+      end
+
       context "with the required cookie" do
         before do
           cookies[:ctc_intake_ok] = "yes"

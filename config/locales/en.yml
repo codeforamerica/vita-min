@@ -3228,11 +3228,11 @@ en:
       home:
         title: "Get Your Child Tax Credit"
         header: "Simplified Tax Filing to Claim Your Child Tax Credit"
-        subheader_html: |
-          <strong>GetCTC is launching soon!</strong> Sign up to receive an email as soon as the simplified filing portal is ready.<br/>
-          <br/>
-          Claim your Child Tax Credit and missing stimulus payments, even if you don’t have your tax documents.
+        subheader:
+          launching_soon_html: <strong>GetCTC is launching soon!</strong> Sign up to receive an email as soon as the simplified filing portal is ready.
+          claim: Claim your Child Tax Credit and missing stimulus payments, even if you don’t have your tax documents.
         sign_up_for_updates: Sign up for updates
+        file_your_return: File your simplified return now
         common_questions:
           title: "Common Questions"
           what_will_i_need_to_submit:
@@ -3303,8 +3303,10 @@ en:
             The American Rescue Plan, signed into law by President Biden on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $300 per month per child under age 6, and up to $250 per month per child ages 6 to 17.<br/>
             <br/>
             You can receive  payments of up to $300 per child every month starting in July 2021 through December 2021. You will need to file a tax return in 2022 to receive the rest of the payment.
-        why:
-          body_html: <strong>GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product.</strong> Learn more about why we are doing this work <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">here</a>.
+        affiliations:
+          cfa_product_html: GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product.</br><a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">Why do we do this work?</a>
+          white_house: Supported by the White House and U.S. Department of Treasury.
+          irs: IRS-approved official E-file provider.
         navigator_resources_html: |
           <strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="%{navigators_link}">here.</a>
         qualify:
