@@ -113,7 +113,7 @@ describe Ctc::Dependents::InfoForm do
 
     it "saves the attributes on the dependent" do
       form = described_class.new(intake.dependents.new, params)
-      expect(form.save).to be_truthy
+       expect(form.save).to be_truthy
 
       dependent = Dependent.last
       expect(dependent.first_name).to eq "Fae"
