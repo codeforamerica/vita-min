@@ -207,8 +207,13 @@ class Dependent < ApplicationRecord
     provided_over_half_own_support_no? && filed_joint_return_no?
   end
 
+  def born_in_last_6_months_of_2020?
+    birth_date <= Date.parse('2020-12-31') && birth_date >= Date.parse('2020-06-30')
+  end
+
   def meets_qc_residence_condition_2020?
     lived_with_more_than_six_months_yes? ||
+      born_in_last_6_months_of_2020? ||
       (lived_with_more_than_six_months_no? &&
         (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
   end
