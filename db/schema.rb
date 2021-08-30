@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_25_151538) do
+ActiveRecord::Schema.define(version: 2021_08_29_025358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -637,6 +637,7 @@ ActiveRecord::Schema.define(version: 2021_08_25_151538) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.integer "primary_prior_year_agi_amount"
+    t.string "primary_prior_year_signature_pin"
     t.datetime "primary_signature_pin_at"
     t.string "primary_suffix"
     t.integer "primary_tin_type"
@@ -681,6 +682,7 @@ ActiveRecord::Schema.define(version: 2021_08_25_151538) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.integer "spouse_prior_year_agi_amount"
+    t.string "spouse_prior_year_signature_pin"
     t.datetime "spouse_signature_pin_at"
     t.string "spouse_suffix"
     t.integer "spouse_tin_type"

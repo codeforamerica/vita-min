@@ -100,6 +100,28 @@ RSpec.describe Hub::UpdateCtcClientForm do
           end.to change(intake, :street_address2).to("Apt 1")
         end
       end
+
+      context "updating prior year tax information" do
+        before do
+          form_attributes[:primary_prior_year_agi_amount] = "$1,213"
+          form_attributes[:spouse_prior_year_agi_amount] = "$1,216"
+
+          form_attributes[:primary_prior_year_signature_pin] = "12345"
+          form_attributes[:spouse_prior_year_signature_pin] = "54321"
+        end
+
+        it "persists changes to the agi and signature pin fields" do
+          expect do
+            form = described_class.new(client, form_attributes)
+            form.save
+            intake.reload
+          end.to change(intake, :primary_prior_year_agi_amount).to(1213)
+            .and change(intake, :spouse_prior_year_agi_amount).to(1216)
+            .and change(intake, :primary_prior_year_signature_pin).to("12345")
+            .and change(intake, :spouse_prior_year_signature_pin).to("54321")
+        end
+
+      end
     end
   end
 
