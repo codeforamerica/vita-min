@@ -1543,6 +1543,7 @@ en:
             no_qualifying_dependents: "No qualifying family members"
             birthday: "Date of birth"
             ssn: "SSN"
+            atin: "ATIN"
             add_a_dependent: "Add another person"
             done_adding: "I’m done adding family members"
           child_disqualifiers:

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::ConfirmInformationController do
-  let(:intake) { create(:client_with_ctc_intake_and_return).intake  }
+  let(:intake) { create(:client_with_ctc_intake_and_return).intake }
 
   describe "#edit" do
     it_behaves_like :a_get_action_for_authenticated_ctc_clients_only, action: :edit
@@ -19,7 +19,7 @@ describe Ctc::Questions::ConfirmInformationController do
             create(
               :client,
               :with_return,
-              intake: create(:ctc_intake, primary_tin_type: "ssn", primary_last_four_ssn: "1234")
+              intake: create(:ctc_intake, primary_tin_type: "ssn", primary_ssn: "123-12-1234")
             ).intake
           end
 
@@ -35,7 +35,7 @@ describe Ctc::Questions::ConfirmInformationController do
             create(
               :client,
               :with_return,
-              intake: create(:ctc_intake, primary_tin_type: "itin", primary_last_four_ssn: "1234")
+              intake: create(:ctc_intake, primary_tin_type: "itin", primary_ssn: "999-89-1234")
             ).intake
           end
 
@@ -48,7 +48,7 @@ describe Ctc::Questions::ConfirmInformationController do
 
         context "when not filing joint" do
           let(:intake) { create :ctc_intake }
-          let!(:tax_return) { create :tax_return, filing_status: "single", client: intake.client }
+          let!(:tax_return) { create :tax_return, year: 2020, filing_status: "single", client: intake.client }
 
           it "does not show the spouse info" do
             get :edit
@@ -64,8 +64,7 @@ describe Ctc::Questions::ConfirmInformationController do
         end
 
         context "when filing joint" do
-          let(:intake) { create :ctc_intake, spouse_first_name: "Gorby", spouse_last_name: "Pants" }
-          let!(:tax_return) { create :tax_return, filing_status: "married_filing_jointly", client: intake.client }
+          let(:intake) { create(:client, :with_return, filing_status: "married_filing_jointly", intake: (create :ctc_intake, spouse_first_name: "Gorby", spouse_last_name: "Pants")).intake }
 
           it "shows the spouse info" do
             get :edit
@@ -81,7 +80,7 @@ describe Ctc::Questions::ConfirmInformationController do
           end
 
           context "when the spouse has an ITIN" do
-            let(:intake) { create :ctc_intake, spouse_tin_type: "itin", spouse_last_four_ssn: "1234" }
+            let(:intake) { create(:client, :with_return, filing_status: "married_filing_jointly", intake: create(:ctc_intake, spouse_tin_type: "itin", spouse_ssn: "123-12-1234")).intake }
 
             it "properly displays the ITIN" do
               get :edit
@@ -92,17 +91,17 @@ describe Ctc::Questions::ConfirmInformationController do
         end
 
         context "without dependents" do
-          it "does not show dependents section" do
+          it "shows that there are no qualifying dependents" do
             get :edit
 
-            expect(response_html).not_to have_text "Your dependents"
+            expect(response_html).to have_text "No qualifying family members"
           end
         end
 
         context "with dependents" do
+          let!(:qr) { create :qualifying_relative, intake: intake, tin_type: "ssn", ssn: "111887777" }
+          let!(:qc) { create :qualifying_child, intake: intake, tin_type: "atin", ssn: "666554444" }
           before do
-            create :qualifying_relative, intake: intake, tin_type: "ssn", ssn: "111887777"
-            create :qualifying_child, intake: intake, tin_type: "atin", ssn: "666554444"
             create :nonqualifying_dependent, intake: intake, first_name: "Donnie", last_name: "Dependent"
           end
 
@@ -110,9 +109,8 @@ describe Ctc::Questions::ConfirmInformationController do
             get :edit
 
             dependents_html = response_html.at_css(".dependents-info")
-            expect(dependents_html).to have_text "Your dependents"
-            expect(dependents_html.at_css("li:first-child")).to have_text "SSN: XXX-XX-7777"
-            expect(dependents_html.at_css("li:nth-child(2)")).to have_text "ATIN: XXX-XX-4444"
+            expect(dependents_html.at_css("#dependent_#{qr.id}")).to have_text "SSN: XXX-XX-7777"
+            expect(dependents_html.at_css("#dependent_#{qc.id}")).to have_text "ATIN: XXX-XX-4444"
             expect(dependents_html).not_to have_text "Donnie Dependent"
           end
         end

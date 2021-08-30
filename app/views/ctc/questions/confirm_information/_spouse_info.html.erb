@@ -7,7 +7,7 @@
     <div>
       <div class="review-box__name"><%= intake.spouse_full_name %></div>
       <div class="review-box__details"><%= t("general.date_of_birth") %>: <%= default_date_format(intake.spouse_birth_date) %></div>
-      <div class="review-box__details"><%= intake.spouse_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= intake.spouse_last_four_ssn %></div>
+      <div class="review-box__details"><%= intake.spouse_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: <%= ssn_mask(intake.spouse_ssn) %></div>
     </div>
   </div>
   <% if defined?(edit_controller) %>

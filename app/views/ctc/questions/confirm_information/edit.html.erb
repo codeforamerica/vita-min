@@ -5,31 +5,33 @@
 
   <div class="review-box spacing-below-35">
 
-    <%= render 'primary_filer_info', intake: current_intake %>
+    <%= render 'primary_filer_info', intake: current_intake, edit_controller: Ctc::Update::PrimaryFilerController %>
 
-    <%= render 'mailing_address', intake: current_intake %>
+    <%= render 'mailing_address', intake: current_intake, edit_controller: Ctc::Update::MailingAddressController %>
 
     <% if current_intake.filing_jointly? %>
-      <%= render 'spouse_info', intake: current_intake %>
+      <%= render 'spouse_info', intake: current_intake, edit_controller: Ctc::Update::SpouseController %>
     <% end %>
 
-    <% if current_intake.dependents.present? %>
+    <% qualifying_dependents = current_intake.tax_return(2020).qualifying_dependents %>
+    <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
+
+    <% if qualifying_dependents.present? %>
+
       <div class="dependents-info">
-        <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
         <ul>
-          <% current_intake.dependents.each do |dependent| %>
-            <% if dependent.qualifying_2020? %>
-              <li class="review-box__person spacing-below-25">
-                <div><i class="icon-person"></i></div>
-                <div>
-                  <div class="review-box__name"><%= dependent.full_name %></div>
-                  <div class="review-box__details"><%= t("general.date_of_birth") %>: <%= default_date_format(dependent.birth_date) %></div>
-                  <div class="review-box__details"><%= dependent.tin_type == "ssn" ? t("general.ssn") : t("general.atin") %>: XXX-XX-<%= dependent.last_four_ssn %></div>
-                </div>
-              </li>
-            <% end %>
-          <% end %>
+          <%=
+            render(
+                partial: 'ctc/questions/dependents/confirm_dependents/dependent',
+                locals: { edit_controller: Ctc::Update::DependentsController },
+                collection: qualifying_dependents
+            )
+          %>
         </ul>
+      </div>
+    <% else %>
+      <div class="review-box__space-between">
+        <div><%= I18n.t("views.ctc.questions.dependents.confirm_dependents.no_qualifying_dependents") %></div>
       </div>
     <% end %>
 

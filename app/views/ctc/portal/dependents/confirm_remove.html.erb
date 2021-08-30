@@ -1,6 +1,6 @@
+
 <% @main_heading = t("views.ctc.questions.dependents.remove_dependent.title", dependent_name: current_model.first_name&.titleize) %>
 <% content_for :form_question, @main_heading %>
-
 <% content_for :card do %>
   <%= form_with url: { action: :destroy }, local: true, method: "delete", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="form-question"><%= @main_heading %></h1>
@@ -9,7 +9,7 @@
       <%= image_tag("file-person.svg", alt: "") %>
       <%=t("views.ctc.questions.dependents.remove_dependent.remove_button") %>
     </button>
-    <%= link_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info), class: "button button--wide button--danger text--centered" do %>
+    <%= link_to :back, class: "button button--wide button--danger text--centered" do %>
       <%= image_tag("remove-minus.svg", alt: "") %>
       <%= t("views.ctc.questions.dependents.remove_dependent.nevermind_button") %>
     <% end %>
