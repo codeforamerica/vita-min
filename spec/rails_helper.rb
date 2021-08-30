@@ -7,6 +7,8 @@ require "capybara/rails"
 require "capybara/rspec"
 require "selenium/webdriver"
 require "webdrivers"
+require "percy/capybara"
+
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }
 
@@ -65,7 +67,7 @@ RSpec.configure do |config|
   config.include ChannelHelpers, type: :channel
   config.include ActiveSupport::Testing::TimeHelpers
   config.include NavigationHelpers
-
+  config.include FeatureHelpers, type: :feature
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
@@ -148,5 +150,9 @@ RSpec.configure do |config|
         }
       )
     end
+  end
+
+  config.before(type: :feature, js: true) do |example|
+    @metadata_screenshot = example.metadata[:screenshot]
   end
 end
