@@ -235,6 +235,9 @@ RSpec.feature "CTC Intake", active_job: true do
       expect(dependent_to_delete.reload.soft_deleted_at).to be_truthy
       expect(page).not_to have_text dependent_to_delete.first_name
 
+      expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
+      click_on I18n.t("views.ctc.portal.home.contact_us")
+      click_on I18n.t("general.back")
       click_on I18n.t('views.ctc.portal.edit_info.resubmit')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
