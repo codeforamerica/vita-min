@@ -196,7 +196,8 @@ class Dependent < ApplicationRecord
       meets_qc_age_condition_2020? &&
       meets_qc_misc_conditions? &&
       meets_qc_residence_condition_2020? &&
-      meets_qc_claimant_condition? && ssn.present?
+      meets_qc_claimant_condition? && ssn.present? &&
+      dependent.birth_date.year != 2021
   end
 
   def meets_qc_age_condition_2020?
@@ -224,12 +225,7 @@ class Dependent < ApplicationRecord
   end
 
   def disqualified_child_qualified_relative?
-    return false unless qualifying_child_relationship?
-
-    # QC relationship and doesn't meet age requirements
-    !meets_qc_age_condition_2020? ||
-        # QC relationship and meets age requirements but is filing jointly
-        (meets_qc_age_condition_2020? && filed_joint_return_yes?)
+    qualifying_child_relationship? || !meets_qc_age_condition_2020?
   end
 
   def qualifying_relative_2020?

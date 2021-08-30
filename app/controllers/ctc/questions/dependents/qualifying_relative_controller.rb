@@ -10,7 +10,7 @@ module Ctc
 
           # For family members like uncle, we need to show the qualifying relative page.
           # For children, we show the page if they do not meet the age conditions
-          dependent.qualifying_relative_relationship? || (dependent.qualifying_child_relationship? && !dependent.meets_qc_age_condition_2020?)
+          dependent.qualifying_relative_relationship? || dependent.disqualified_child_qualified_relative?
         end
 
         def method_name
