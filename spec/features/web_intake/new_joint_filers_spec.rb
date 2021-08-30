@@ -4,21 +4,17 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   let!(:vita_partner) { create :vita_partner, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
-  scenario "new client filing joint taxes with spouse and dependents", js: true, screenshot: true do
+  scenario "new client filing joint taxes with spouse and dependents" do
     visit "/en/questions/welcome"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Welcome to GetYourRefund")
-    end
+    expect(page).to have_selector("h1", text: "Welcome to GetYourRefund")
     click_on "Continue"
 
     # File With Help
     # Tax Needs
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "What can we help you with?")
-      check "File my 2020 taxes"
-      check "Collect my stimulus check"
-    end
+    expect(page).to have_selector("h1", text: "What can we help you with?")
+    check "File my 2020 taxes"
+    check "Collect my stimulus check"
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
@@ -30,23 +26,17 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     expect(page).to have_selector("h1", text: "We’re unsure if you qualify for our services")
     click_on "Go back"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
-      check "None of the above"
-    end
+    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
+    check "None of the above"
     click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
-    end
+    expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
     click_on "Yes"
 
-    screenshot_after do
-      expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
-      check "My income decreased from 2019"
-      check "I received unemployment income"
-      check "I purchased health insurance through the marketplace"
-    end
+    expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
+    check "My income decreased from 2019"
+    check "I received unemployment income"
+    check "I purchased health insurance through the marketplace"
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Do you have simple taxes?")
@@ -61,26 +51,18 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     expect(page).to have_selector("h1", text: "File your taxes yourself!")
     click_on "Go back"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Do you have simple taxes?")
-    end
+    expect(page).to have_selector("h1", text: "Do you have simple taxes?")
     click_on "No"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
-    end
+    expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
     click_on "No"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Our full service option is right for you!")
-    end
+    expect(page).to have_selector("h1", text: "Our full service option is right for you!")
     click_on "Continue"
 
-    screenshot_after do
-      # Ask about backtaxes
-      expect(page).to have_selector("h1", text: "What years would you like to file for?")
-      check "2019"
-    end
+    # Ask about backtaxes
+    expect(page).to have_selector("h1", text: "What years would you like to file for?")
+    check "2019"
     click_on "Continue"
 
     # Creates intake
@@ -88,554 +70,374 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     expect(intake.client.tax_returns.map(&:year)).to eq [2019]
 
     # Non-production environment warning
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
-    end
+    expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
     click_on "Continue to example"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Let's get started")
-    end
+    expect(page).to have_selector("h1", text: "Let's get started")
     click_on "Continue"
 
-    screenshot_after do
-      # Overview
-      expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
-    end
+    # Overview
+    expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
     click_on "Continue"
 
-    screenshot_after do
-      # Personal Info
-      expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-      fill_in "What is your preferred first name?", with: "Gary"
-      fill_in "ZIP code", with: "20121"
-    end
+    # Personal Info
+    expect(page).to have_selector("h1", text: "First, let's get some basic information.")
+    fill_in "What is your preferred first name?", with: "Gary"
+    fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
-    screenshot_after do
-      # Chat with us
-      expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
-    end
+    # Chat with us
+    expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
     click_on "Continue"
 
-    screenshot_after do
-      # Phone number
-      expect(page).to have_selector("h1", text: "Please share your contact number.")
-      fill_in "Phone number", with: "(415) 553-7865"
-      fill_in "Confirm phone number", with: "(415) 553-7865"
-    end
+    # Phone number
+    expect(page).to have_selector("h1", text: "Please share your contact number.")
+    fill_in "Phone number", with: "(415) 553-7865"
+    fill_in "Confirm phone number", with: "(415) 553-7865"
     click_on "Continue"
 
-    screenshot_after do
-      # Email
-      expect(page).to have_selector("h1", text: "Please share your email address.")
-      fill_in "Email address", with: "gary.gardengnome@example.green"
-      fill_in "Confirm email address", with: "gary.gardengnome@example.green"
-    end
+    # Email
+    expect(page).to have_selector("h1", text: "Please share your email address.")
+    fill_in "Email address", with: "gary.gardengnome@example.green"
+    fill_in "Confirm email address", with: "gary.gardengnome@example.green"
     click_on "Continue"
 
-    screenshot_after do
-      # Notification Preference
-      expect(page).to have_text("What is the best way to reach you?")
-      check "Email Me"
-    end
+    # Notification Preference
+    expect(page).to have_text("What is the best way to reach you?")
+    check "Email Me"
     click_on "Continue"
 
-    screenshot_after do
-      # Consent form
-      expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
-      fill_in "Legal first name", with: "Gary"
-      fill_in "Legal last name", with: "Gnome"
-      fill_in "Last 4 of SSN/ITIN", with: "1234"
-      select "March", from: "Month"
-      select "5", from: "Day"
-      select "1971", from: "Year"
-    end
+    # Consent form
+    expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
+    fill_in "Legal first name", with: "Gary"
+    fill_in "Legal last name", with: "Gnome"
+    fill_in "Last 4 of SSN/ITIN", with: "1234"
+    select "March", from: "Month"
+    select "5", from: "Day"
+    select "1971", from: "Year"
     expect do
       click_on "I agree"
     end.to change { intake.reload.client.tax_returns.pluck(:status) }.from(["intake_before_consent"]).to(["intake_in_progress"])
 
-    screenshot_after do
-      # Optional consent form
-      expect(page).to have_selector("h1", text: "A few more things...")
-    end
+    # Optional consent form
+    expect(page).to have_selector("h1", text: "A few more things...")
     click_on "Continue"
 
-    screenshot_after do
-      # Primary filer personal information
-      expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2019")
-      check "I had a permanent disability"
-      check "I was legally blind"
-      check "I was a full-time student in a college or a trade school"
-      check "I was in the US on a Visa"
-    end
+    # Primary filer personal information
+    expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2019")
+    check "I had a permanent disability"
+    check "I was legally blind"
+    check "I was a full-time student in a college or a trade school"
+    check "I was in the US on a Visa"
     click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Did you receive the first two stimulus checks (Economic Impact Payments) in 2020 and 2021?")
-    end
+    expect(page).to have_selector("h1", text: "Did you receive the first two stimulus checks (Economic Impact Payments) in 2020 and 2021?")
     click_on "No"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
-    end
+    expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
     click_on "No"
-
 
     # Marital status
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Have you ever been legally married?")
-    end
+    expect(page).to have_selector("h1", text: "Have you ever been legally married?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
-    end
+    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Did you live with your spouse during any part of the last six months of 2019?")
-    end
+    expect(page).to have_selector("h1", text: "Did you live with your spouse during any part of the last six months of 2019?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Are you legally separated?")
-    end
+    expect(page).to have_selector("h1", text: "Are you legally separated?")
     click_on "Yes"
     click_on "Go back"
     click_on "No"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "As of December 31, 2019, were you divorced?")
-    end
+    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you divorced?")
     click_on "Yes"
     click_on "Go back"
     click_on "No"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "As of December 31, 2019, were you widowed?")
-    end
+    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you widowed?")
     click_on "Yes"
     click_on "Go back"
     click_on "No"
 
-    screenshot_after do
-      # Filing status
-      expect(page).to have_selector("h1", text: "Are you filing joint taxes with your spouse?")
-    end
+    # Filing status
+    expect(page).to have_selector("h1", text: "Are you filing joint taxes with your spouse?")
     click_on "Yes"
 
     # Alimony
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any income from alimony?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any income from alimony?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any alimony payments?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any alimony payments?")
     click_on "Yes"
 
     # Spouse email
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Please share your spouse's e-mail address")
-      fill_in "E-mail address", with: "greta.gardengnome@example.green"
-      fill_in "Confirm e-mail address", with: "greta.gardengnome@example.green"
-    end
+    expect(page).to have_selector("h1", text: "Please share your spouse's e-mail address")
+    fill_in "E-mail address", with: "greta.gardengnome@example.green"
+    fill_in "Confirm e-mail address", with: "greta.gardengnome@example.green"
     click_on "Continue"
 
-    screenshot_after do
-      # Spouse consent
-      expect(page).to have_selector("h1", text: "We need your spouse to review our legal stuff...")
-      fill_in "Spouse's legal first name", with: "Greta"
-      fill_in "Spouse's legal last name", with: "Gnome"
-      fill_in "Last 4 of SSN/ITIN", with: "1234"
-      select "March", from: "Month"
-      select "5", from: "Day"
-      select "1971", from: "Year"
-    end
+    # Spouse consent
+    expect(page).to have_selector("h1", text: "We need your spouse to review our legal stuff...")
+    fill_in "Spouse's legal first name", with: "Greta"
+    fill_in "Spouse's legal last name", with: "Gnome"
+    fill_in "Last 4 of SSN/ITIN", with: "1234"
+    select "March", from: "Month"
+    select "5", from: "Day"
+    select "1971", from: "Year"
     click_on "I agree"
 
     # Spouse personal information
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Select any situations that were true for your spouse in 2019")
-      check "None of the above"
-    end
+    expect(page).to have_selector("h1", text: "Select any situations that were true for your spouse in 2019")
+    check "None of the above"
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Has your spouse been issued an Identity Protection PIN?")
-    end
+    expect(page).to have_selector("h1", text: "Has your spouse been issued an Identity Protection PIN?")
     click_on "No"
 
     # Dependents
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Would you or your spouse like to claim anyone for 2019?")
-    end
+    expect(page).to have_selector("h1", text: "Would you or your spouse like to claim anyone for 2019?")
     click_on "Yes"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Let’s claim someone!")
-      expect(track_progress).to be_present
-      click_on "Add a person"
-      fill_in "First name", with: "Greg"
-      fill_in "Last name", with: "Gnome"
-      select "March", from: "Month"
-      select "5", from: "Day"
-      select "2003", from: "Year"
-      fill_in "Relationship to you", with: "Son"
-      select "6", from: "How many months did they live in your home in 2019?"
-      check "Full time higher education student"
-      click_on "Save this person"
-      expect(page).to have_text("Greg Gnome")
+    expect(page).to have_selector("h1", text: "Let’s claim someone!")
+    expect(track_progress).to be_present
+    click_on "Add a person"
+    fill_in "First name", with: "Greg"
+    fill_in "Last name", with: "Gnome"
+    select "March", from: "Month"
+    select "5", from: "Day"
+    select "2003", from: "Year"
+    fill_in "Relationship to you", with: "Son"
+    select "6", from: "How many months did they live in your home in 2019?"
+    check "Full time higher education student"
+    click_on "Save this person"
+    expect(page).to have_text("Greg Gnome")
 
-      click_on "Add a person"
-      fill_in "First name", with: "Gallagher"
-      fill_in "Last name", with: "Gnome"
-      select "November", from: "Month"
-      select "24", from: "Day"
-      select "2005", from: "Year"
-      fill_in "Relationship to you", with: "Nibling"
-      select "2", from: "How many months did they live in your home in 2019?"
-      check "Is this person here on a VISA?"
-      check "Married as of 12/31/2019"
-      click_on "Save this person"
-      expect(page).to have_text("Gallagher Gnome")
-    end
+    click_on "Add a person"
+    fill_in "First name", with: "Gallagher"
+    fill_in "Last name", with: "Gnome"
+    select "November", from: "Month"
+    select "24", from: "Day"
+    select "2005", from: "Year"
+    fill_in "Relationship to you", with: "Nibling"
+    select "2", from: "How many months did they live in your home in 2019?"
+    check "Is this person here on a VISA?"
+    check "Married as of 12/31/2019"
+    click_on "Save this person"
+    expect(page).to have_text("Gallagher Gnome")
+
     click_on "Done with this step"
 
     # Dependent related questions
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any child or dependent care expenses?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any child or dependent care expenses?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse adopt a child?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse adopt a child?")
     click_on "Yes"
 
     # Student questions
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, was someone in your family a college or other post high school student?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, was someone in your family a college or other post high school student?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any student loan interest?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any student loan interest?")
     click_on "Yes"
 
     # Income from working
-    screenshot_after do
-      select "3 jobs", from: "In 2019, how many jobs did you or your spouse have?"
-    end
+    select "3 jobs", from: "In 2019, how many jobs did you or your spouse have?"
     click_on "Next"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Virginia?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Virginia?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Tell us about you and your spouse's work in 2019")
-      check "My spouse or I worked for someone else"
-      check "My spouse or I was self-employed or worked as an independent contractor"
-      check "My spouse or I collected tips at work not included in a W-2"
-      check "My spouse or I received unemployment benefits"
-    end
+    expect(page).to have_selector("h1", text: "Tell us about you and your spouse's work in 2019")
+    check "My spouse or I worked for someone else"
+    check "My spouse or I was self-employed or worked as an independent contractor"
+    check "My spouse or I collected tips at work not included in a W-2"
+    check "My spouse or I received unemployment benefits"
     click_on "Continue"
 
     # Income from benefits
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any disability benefits?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any disability benefits?")
     click_on "Yes"
 
     # Investment income/loss
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from interest or dividends?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from interest or dividends?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse sell any stocks, bonds, or real estate?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse sell any stocks, bonds, or real estate?")
     click_on "No"
 
     # Retirement income/contributions
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have Social Security income, retirement income, or retirement contributions?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have Social Security income, retirement income, or retirement contributions?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any contributions to a retirement account?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any contributions to a retirement account?")
     click_on "Yes"
 
     # Other income
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any other money?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any other money?")
     click_on "Yes"
-    screenshot_after do
-      fill_in "What were the other types of income that you or your spouse received?", with: "cash from gardening"
-    end
+    fill_in "What were the other types of income that you or your spouse received?", with: "cash from gardening"
     click_on "Next"
 
     # Health insurance
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse purchase health insurance through the marketplace or exchange?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse purchase health insurance through the marketplace or exchange?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have a Health Savings Account?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have a Health Savings Account?")
     click_on "Yes"
 
     # Itemizing
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for 2019?")
-    end
+    expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for 2019?")
     click_on "I don't know"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any medical, dental, or prescription expenses?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any medical, dental, or prescription expenses?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any charitable contributions?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any charitable contributions?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from gambling winnings, including the lottery?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from gambling winnings, including the lottery?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any state, local, real estate, sales, or other taxes?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any state, local, real estate, sales, or other taxes?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive a state or local income tax refund?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive a state or local income tax refund?")
     click_on "Yes"
 
     # Related to home ownership
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Have you or your spouse ever owned a home?")
-    end
+    expect(page).to have_selector("h1", text: "Have you or your spouse ever owned a home?")
     click_on "No"
 
     # Miscellaneous
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have a loss related to a declared Federal Disaster Area?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have a loss related to a declared Federal Disaster Area?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have debt cancelled or forgiven by a lender?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have debt cancelled or forgiven by a lender?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any letter or bill from the IRS?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any letter or bill from the IRS?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?")
-    end
+    expect(page).to have_selector("h1", text: "Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any estimated tax payments or apply your 2018 refund to your 2019 taxes?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any estimated tax payments or apply your 2018 refund to your 2019 taxes?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Did you or your spouse report a business loss on your 2018 tax return?")
-    end
+    expect(page).to have_selector("h1", text: "Did you or your spouse report a business loss on your 2018 tax return?")
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse purchase energy efficient home items?")
-    end
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse purchase energy efficient home items?")
     click_on "Yes"
 
-    screenshot_after do
-      # Additional Information
-      fill_in "Is there any more information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
-    end
+    # Additional Information
+    fill_in "Is there any more information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
     click_on "Next"
 
-    screenshot_after do
-      # Overview: Documents
-      expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
-    end
+    # Overview: Documents
+    expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
     click_on "Continue"
 
-    screenshot_after do
-      # IRS guidance
-      expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
-    end
+    # IRS guidance
+    expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
     click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Attach photos of ID cards")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    end
+    expect(page).to have_selector("h1", text: "Attach photos of ID cards")
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
-    end
+    expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
     click_on "Submit a photo"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Share a photo of yourself holding your ID card")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    end
+    expect(page).to have_selector("h1", text: "Share a photo of yourself holding your ID card")
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    end
+    expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Continue"
 
-    screenshot_after do
-      # Documents: Intro
-      expect(page).to have_selector("h1", text: "Now, let's collect your tax documents!")
-    end
+    # Documents: Intro
+    expect(page).to have_selector("h1", text: "Now, let's collect your tax documents!")
     click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Attach your 1095-A's")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    end
+
+    expect(page).to have_selector("h1", text: "Attach your 1095-A's")
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Share your employment documents")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    expect(page).to have_selector("h1", text: "Share your employment documents")
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
 
-      expect(page).to have_content("test-pattern.png")
-      expect(page).to have_link("Remove")
+    expect(page).to have_content("test-pattern.png")
+    expect(page).to have_link("Remove")
 
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
 
-      expect(page).to have_content("test-pattern.png")
-      expect(page).to have_content("picture_id.jpg")
-    end
+    expect(page).to have_content("test-pattern.png")
+    expect(page).to have_content("picture_id.jpg")
     click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Attach your 1099-R's")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    end
+    expect(page).to have_selector("h1", text: "Attach your 1099-R's")
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     expect do
       click_on "Continue"
     end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress"]).to(["intake_ready"])
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Please share any additional documents.")
-      upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-      expect(page).to have_content("test-pattern.png")
-    end
+    expect(page).to have_selector("h1", text: "Please share any additional documents.")
+    upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    expect(page).to have_content("test-pattern.png")
     click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
-      expect { track_progress }.to change { @current_progress }
-    end
+    expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
+    expect { track_progress }.to change { @current_progress }
+
     click_on "I've shared all my documents"
 
-    screenshot_after do
-      # Interview time preferences
-      fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
-    end
+    # Interview time preferences
+    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
     click_on "Continue"
 
-    screenshot_after do
-      # Payment info
-      expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
-      choose "Mail me a check (slower)"
-    end
+    # Payment info
+    expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
+    choose "Mail me a check (slower)"
     click_on "Continue"
-
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
-    end
+    expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
     click_on "Continue"
-
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
-    end
+    expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
     click_on "No"
     # Don't ask for bank details
 
-    screenshot_after do
-      # Contact information
-      expect(page).to have_text("What is your mailing address?")
-      expect(page).to have_select('State', selected: 'Virginia')
+    # Contact information
+    expect(page).to have_text("What is your mailing address?")
+    expect(page).to have_select('State', selected: 'Virginia')
 
-      fill_in "Street address", with: "123 Main St."
-      fill_in "City", with: "Anytown"
-      select "California", from: "State"
-      fill_in "ZIP code", with: "94612"
-    end
+    fill_in "Street address", with: "123 Main St."
+    fill_in "City", with: "Anytown"
+    select "California", from: "State"
+    fill_in "ZIP code", with: "94612"
     click_on "Confirm"
 
     # Demographic Questions
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
-    end
+    expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("How well would you say you can carry on a conversation in English?")
-      choose "Well"
-    end
+    expect(page).to have_text("How well would you say you can carry on a conversation in English?")
+    choose "Well"
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("How well would you say you read a newspaper in English?")
-      choose "Not well"
-    end
+    expect(page).to have_text("How well would you say you read a newspaper in English?")
+    choose "Not well"
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("Do you or any member of your household have a disability?")
-      choose "No"
-    end
+    expect(page).to have_text("Do you or any member of your household have a disability?")
+    choose "No"
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("Are you or your spouse a veteran of the U.S. Armed Forces?")
-      choose "Yes"
-    end
+    expect(page).to have_text("Are you or your spouse a veteran of the U.S. Armed Forces?")
+    choose "Yes"
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "What is your race?")
-      check "White"
-    end
+    expect(page).to have_selector("h1", text: "What is your race?")
+    check "White"
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "What is your spouse's race?")
-      check "White"
-    end
+    expect(page).to have_selector("h1", text: "What is your spouse's race?")
+    check "White"
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("What is your ethnicity?")
-      choose "Not Hispanic or Latino"
-    end
+    expect(page).to have_text("What is your ethnicity?")
+    choose "Not Hispanic or Latino"
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("What is your spouse's ethnicity?")
-      choose "Not Hispanic or Latino"
-    end
+    expect(page).to have_text("What is your spouse's ethnicity?")
+    choose "Not Hispanic or Latino"
     click_on "Continue"
 
-    screenshot_after do
-      # Additional Information
-      fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
-    end
+    # Additional Information
+    fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
     click_on "Submit"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-      expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
-    end
+    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+    expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
   end
 end
 

@@ -1,17 +1,13 @@
 require "rails_helper"
 
 RSpec.feature "Visit home page" do
-  scenario "has most critical content", js: true, screenshot: true do
+  scenario "has most critical content" do
     visit "/"
-
-    screenshot_after do
-      within(".main-header") do
-        expect(page).to have_link("GetYourRefund", href: root_path)
-      end
-      expect(page).to have_text "Free tax filing"
-      expect(page).to have_link "Get started"
+    within(".main-header") do
+      expect(page).to have_link("GetYourRefund", href: root_path)
     end
-
+    expect(page).to have_text "Free tax filing"
+    expect(page).to have_link "Get started"
     within ".slab--hero" do
       click_on "Get started"
     end
