@@ -3,8 +3,7 @@ class Ctc::Portal::DependentsController < Ctc::Portal::BaseIntakeRevisionControl
     @form = form_class.from_dependent(current_model)
   end
 
-  def confirm_remove
-  end
+  def confirm_remove; end
 
   def destroy
     current_model.update(soft_deleted_at: Time.current)

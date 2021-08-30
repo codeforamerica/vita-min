@@ -1,8 +1,20 @@
 <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_information") %></h2>
-<div class="primary-info">
-  <div class="review-box__name"><%= intake.primary_full_name %></div>
-  <div class="review-box__details"><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(intake.primary_birth_date) %></div>
-  <div class="review-box__details"><%= t("general.email") %>: <%= intake.email_address %></div>
-  <div class="review-box__details"><%= t("general.phone") %>: <%= intake.formatted_phone_number %></div>
-  <div class="review-box__details"><%= intake.primary_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: XXX-XX-<%= intake.primary_last_four_ssn %></div>
+<div class="review-box__space-between primary-info">
+  <div class="review-box__person">
+    <div>
+      <icon class="icon-person"></icon>
+    </div>
+    <div>
+      <div class="review-box__name"><%= intake.primary_full_name %></div>
+      <div class="review-box__details"><%= t("hub.clients.show.date_of_birth") %>: <%= default_date_format(intake.primary_birth_date) %></div>
+      <div class="review-box__details"><%= t("general.email") %>: <%= intake.email_address %></div>
+      <div class="review-box__details"><%= t("general.phone") %>: <%= intake.formatted_phone_number %></div>
+      <div class="review-box__details"><%= intake.primary_tin_type == "ssn" ? t("general.ssn") : t("general.itin") %>: <%= ssn_mask(intake.primary_ssn) %></div>
+    </div>
+
+  </div>
+
+  <% if defined?(edit_controller) %>
+    <%= link_to t("general.edit").downcase, edit_controller.to_path_helper, class: "review-box__edit review-box__edit-button" %>
+  <% end %>
 </div>

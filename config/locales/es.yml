@@ -1527,6 +1527,7 @@ es:
             no_qualifying_dependents: "No dependientes que califican"
             birthday: "Fecha de nacimiento"
             ssn: "Número de Seguro Social"
+            atin: "Número de Adopción"
             add_a_dependent: "Agregar una persona dependiente"
             done_adding: "Ya no hay más dependientes por agregar"
           child_disqualifiers:

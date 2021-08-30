@@ -14,7 +14,7 @@ RSpec.describe "Filtering clients for bulk actions", active_job: true do
   let!(:unselected_client) { create :client_with_intake_and_return, status: "intake_reviewing", vita_partner: unselected_org }
 
   before do
-    create :tax_return, client: Client.where(vita_partner: selected_org).first, year: 2020
+    create :tax_return, client: Client.where(vita_partner: selected_org).first, year: 2019
   end
 
   scenario "take action on all filtered clients", js: true do

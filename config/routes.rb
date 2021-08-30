@@ -329,6 +329,20 @@ Rails.application.routes.draw do
           get "/will-it-affect-my-immigration-status", to: "ctc_pages#will_it_affect_my_immigration_status"
         end
 
+        namespace :update do
+          get 'primary-filer', to: "primary_filer#edit"
+          put 'primary-filer', to: "primary_filer#update"
+
+          get 'mailing-address', to: "mailing_address#edit"
+          put 'mailing-address', to: "mailing_address#update"
+
+          get 'spouse', to: "spouse#edit"
+          put 'spouse', to: "spouse#update"
+
+          resources :dependents, only: [:edit, :update, :destroy] do
+            get :confirm_remove, on: :member
+          end
+        end
         namespace :portal do
           root "portal#home"
           login_routes
