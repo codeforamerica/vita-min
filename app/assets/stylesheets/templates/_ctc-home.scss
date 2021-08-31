@@ -43,6 +43,10 @@
     }
   }
 
+  .button--nowrap {
+    white-space: nowrap;
+  }
+
   $color-light-gold: #FFD29C;
   .slab--navigators {
     background-color: $color-light-gold;

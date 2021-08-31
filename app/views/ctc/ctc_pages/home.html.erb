@@ -23,7 +23,7 @@
         </p>
         <div>
           <% if intake_public_access %>
-            <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary" %>
+            <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary button--nowrap" %>
           <% else %>
             <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
           <% end %>
