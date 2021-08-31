@@ -23,7 +23,8 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   def resubmit
     @submission = current_client.efile_submissions.last
     if @submission.can_transition_to?(:resubmitted)
-      current_client.efile_security_informations.create(params.require(:ctc_resubmit_form).permit!)
+      efile_attrs = params.require(:ctc_resubmit_form).permit!.merge(ip_address: request.remote_ip)
+      current_client.efile_security_informations.create(efile_attrs)
       @submission.transition_to(:resubmitted)
       SystemNote::CtcPortalAction.generate!(
         model: @submission,

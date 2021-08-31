@@ -66,7 +66,7 @@ describe Ctc::Portal::PortalController do
           put :resubmit, params: params
         }.to change(client.efile_security_informations, :count).by 1
 
-
+        expect(client.reload.efile_security_informations.last.ip_address).to be_present
         system_note = SystemNote::CtcPortalAction.last
         expect(system_note.client).to eq(client)
         expect(system_note.data).to match({
