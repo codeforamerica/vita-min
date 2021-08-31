@@ -3252,10 +3252,9 @@ es:
       home:
         title: "Crédito Tributario por Hijos"
         header: "Declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijo"
-        subheader_html: |
-          <strong>¡GetCTC se lanzará próximamente!</strong> Registrese para recibir emails en cuanto el portal para declarar sus impuestos de forma simplificada.<br/>
-          <br/>
-          Reclame su Crédito Tributario por Hijo y su pago de estímulo faltante, aunque no tenga sus formularios tributarios.
+        subheader:
+          launching_soon_html: <strong>¡GetCTC se lanzará próximamente!</strong> Registrese para recibir emails en cuanto el portal para declarar sus impuestos de forma simplificada.
+          claim: Reclame su Crédito Tributario por Hijo y su pago de estímulo faltante, aunque no tenga sus formularios tributarios.
         sign_up_for_updates: Inscríbase para recibir actualizaciones
         common_questions:
           title: "Preguntas Frecuentes"
@@ -3329,8 +3328,10 @@ es:
             El Plan de Rescate Estadounidense, firmado como ley por el presidente Biden el 11 de marzo de 2021, aumenta el Crédito Tributario por Hijos (CTC en inglés) que le podría proporcionar hasta $300 al mes por cada hijo menor de seis años y hasta $250 por hijo con edades entre 6 y 17 años.<br/>
             <br/>
             Puede recibir pagos a partir de julio a diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante.
-        why:
-          body_html: <strong>GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>.</strong> Conozca más del por qué hacemos esta labor <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">aquí</a>.
+        affiliations:
+          cfa_product_html: GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">¿Por qué hacemos este trabajo?</a>
+          white_house_html: Realizado en colaboración con la <a href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
+          irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
         navigator_resources_html: |
           <strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Consulte nuestra página de recursos para navegadores <a href='%{navigators_link}'>aquí.</a>
         qualify:

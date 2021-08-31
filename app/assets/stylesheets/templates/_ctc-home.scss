@@ -18,8 +18,33 @@
     padding-bottom: 0;
   }
 
-  .slab--why {
+  .slab--affiliations {
     background-color: $color-grey-light;
+  }
+
+  .affiliations {
+    .grid__item {
+      display: grid;
+      justify-items: center;
+      .text {
+        width: 180px;
+        text-align: center;
+      }
+      .image {
+        width: 150px;
+        height: 110px;
+      }
+      .image.cfa {
+        padding-top: 20px;
+      }
+      .image.irs {
+        padding-top: 45px;
+      }
+    }
+  }
+
+  .button--nowrap {
+    white-space: nowrap;
   }
 
   $color-light-gold: #FFD29C;

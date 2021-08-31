@@ -26,6 +26,25 @@ RSpec.feature "Visit CTC home page" do
     end
   end
 
+  context "when public access is allowed" do
+    before do
+      ENV['CTC_INTAKE_PUBLIC_ACCESS'] = 'true'
+    end
+
+    after do
+      ENV.delete('CTC_INTAKE_PUBLIC_ACCESS')
+    end
+
+    it "shows the button to file a simplified return" do
+      visit "/"
+      expect(page).to have_text I18n.t("views.ctc_pages.home.header")
+      expect(page).not_to have_text I18n.t("views.ctc_pages.home.subheader.launching_soon_html")
+      expect(page).to have_text I18n.t("views.ctc_pages.home.subheader.claim")
+
+      expect(page).to have_text I18n.t("views.ctc_pages.home.file_your_return")
+    end
+  end
+
   context "when someone signs up for updates for IRS portal opening" do
     it "saves their contact information" do
       visit "/"

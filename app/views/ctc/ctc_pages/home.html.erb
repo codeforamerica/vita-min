@@ -1,7 +1,8 @@
+<% intake_public_access = ENV['CTC_INTAKE_PUBLIC_ACCESS'] == 'true' %>
+
 <% content_for :page_title do %>
   <%= t("views.ctc_pages.home.title") %>
 <% end %>
-
 <% content_for :body_class, "body--home" %>
 
 <%= render 'shared/facebook_pixel' %>
@@ -12,11 +13,20 @@
         <h1 class="landing-page-header">
           <%= t("views.ctc_pages.home.header") %>
         </h1>
+        <% unless intake_public_access %>
+          <p>
+            <%= t("views.ctc_pages.home.subheader.launching_soon_html") %>
+          </p>
+        <% end %>
         <p>
-          <%= t("views.ctc_pages.home.subheader_html") %>
+          <%= t("views.ctc_pages.home.subheader.claim") %>
         </p>
         <div>
-          <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
+          <% if intake_public_access %>
+            <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary button--nowrap" %>
+          <% else %>
+            <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
+          <% end %>
         </div>
       </div>
 
@@ -38,15 +48,31 @@
     </div>
   </div>
 
-  <div class="slab slab--short slab--why">
+  <div class="slab slab--short slab--affiliations">
     <div class="grid">
-      <div class="grid__item width-one-whole">
-        <div style="display: flex; align-items: center;">
-          <div>
-            <%= t('views.ctc_pages.home.why.body_html') %>
-          </div>
-          <div style="width: 150px;">
+      <div class="grid__item width-one-whole affiliations">
+        <div class="grid__item width-one-third">
+          <div class="image cfa">
             <%= image_tag('cfa-logo--black.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.cfa_product_html') %>
+          </div>
+        </div>
+        <div class="grid__item width-one-third">
+          <div class="image">
+            <%= image_tag('white-house.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.white_house_html') %>
+          </div>
+        </div>
+        <div class="grid__item width-one-third">
+          <div class="image irs">
+            <%= image_tag('irs-efile.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.irs') %>
           </div>
         </div>
       </div>
