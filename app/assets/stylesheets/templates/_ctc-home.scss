@@ -40,6 +40,11 @@
       .image.irs {
         padding-top: 45px;
       }
+      .image.whitehouse {
+        @media screen and (max-width: $mobile-up) {
+          margin-top: 40px;
+        }
+      }
     }
   }
 
