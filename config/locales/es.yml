@@ -1808,6 +1808,16 @@ es:
           ready_to_file: "Estoy listo/a para declarar"
           your_information: "Su información"
           your_dependents: "Sus dependientes"
+        confirm_payments:
+          title: "Here’s a list of the estimated payments you are owed:"
+          monthly_ctc: "Monthly Child Tax Credit:"
+          monthly_ctc_amount: $%{amount}/month
+          monthly_ctc_link: "Claim additional children"
+          rrc: "Recovery Rebate Credit (Missing stimulus payments):"
+          rrc_link: "Review RRC Section"
+          third_stimulus: "Third Stimulus Payment*"
+          third_stimulus_help_text: "*You will a receive a payment for this amount if you did not receive the automatic payment in the spring"
+          third_stimulus_link: "Click here for more information on the third stimulus payment."
         agi2019:
           title: "¿Cuáles fueron sus ingresos ajustados brutos de 2019?"
           help_text_html: |

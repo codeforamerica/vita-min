@@ -1,0 +1,26 @@
+<% content_for :page_title, t("views.ctc.questions.confirm_payment.title") %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= content_for(:page_title) %></h1>
+
+  <div class="review-box">
+    <div class="spacing-above-0">
+      <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.monthly_ctc') %></strong></p>
+      <p class="spacing-below-15"><%= t('views.ctc.questions.confirm_payment.monthly_ctc_amount', amount: 500) %></p>
+      <%= link_to t('views.ctc.questions.confirm_payment.monthly_ctc_link'), questions_confirm_dependents_path, class: "link" %>
+    </div>
+
+    <div class="spacing-above-35">
+      <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.rrc') %></strong></p>
+      <p class="spacing-below-15"><%= "$500" %></p>
+      <%= link_to t('views.ctc.questions.confirm_payment.rrc_link'), questions_stimulus_owed_path, class: "link" %>
+    </div>
+
+    <div class="spacing-above-35">
+      <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.third_stimulus') %></strong></p>
+      <p class="spacing-below-15"><%= t('views.ctc.questions.confirm_payment.monthly_ctc_amount', amount: 500) %></p>
+      <p class="spacing-below-15"><i><%= t('views.ctc.questions.confirm_payment.third_stimulus_help_text') %></i></p>
+      <p><%= t('views.ctc.questions.confirm_payment.third_stimulus_link_html') %></p>
+    </div>
+  </div>
+<% end %>
