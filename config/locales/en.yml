@@ -1512,7 +1512,8 @@ en:
             placed_for_adoption: "%{name} passed away in 2020"
             permanent_residence_with_client: "%{name}’s permanent residence was with you for at least six months, even if they were away for part of that time"
           qualifying_relative:
-            title_html: "Were <u>all</u> of the following true in 2020?"
+            title: "Were all of the following true in 2020?"
+            title_html: Were <u>all</u> of the following true in 2020?
             help_text:
               li1: "You paid for more than half of %{name}'s expenses"
               li2: "%{name} earned less than $4,300"
@@ -1562,6 +1563,7 @@ en:
               - The family member did not provide over half of their own support for 2020
               - The family member did not file a joint return with his or her spouse in 2020
               - The family member was not claimed as a dependent on another return
+              - The family member was not born in 2021
             add_button: Add another dependent
             done_button: Done adding dependents
         mailing_address:

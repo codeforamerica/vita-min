@@ -1,5 +1,7 @@
+<% content_for :page_title, t("views.ctc.questions.dependents.qualifying_relative.title") %>
 <% content_for :form_question, t("views.ctc.questions.dependents.qualifying_relative.title_html") %>
 <% name = @form.dependent.first_name&.titleize %>
+
 <% content_for :form_help_text do %>
   <ul class="checkmark-list teal">
     <li><%=t("views.ctc.questions.dependents.qualifying_relative.help_text.li1", name: name) %></li>

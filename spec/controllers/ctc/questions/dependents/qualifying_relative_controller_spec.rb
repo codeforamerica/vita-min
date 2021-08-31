@@ -117,7 +117,7 @@ describe Ctc::Questions::Dependents::QualifyingRelativeController do
       end
     end
 
-    context "dependent is my child who is young and filed taxes with their spouse, has an ITIN/SSN, and no one else supports them" do
+    context "dependent is my child who is young and filed taxes with their spouse and no one else supports them" do
       let!(:birth_date) { 17.year.ago }
       let!(:relationship) { "daughter" }
 
@@ -125,17 +125,17 @@ describe Ctc::Questions::Dependents::QualifyingRelativeController do
         dependent.update(provided_over_half_own_support: "no", filed_joint_return: "yes")
       end
 
-      it "shows qualifying relative page" do
-        expect(subject.class.show?(dependent)).to eq true
+      it "does not show qualifying relative page" do
+        expect(subject.class.show?(dependent)).to eq false
       end
     end
 
-    context "dependent is my child who is young and didn't file taxes with a spouse, has an ITIN/SSN, and no one else supports them" do
+    context "dependent is my child who is young and didn't file taxes with a spouse and no one else supports them" do
       let!(:birth_date) { 17.year.ago }
       let!(:relationship) { "daughter" }
 
       before do
-        dependent.update(provided_over_half_own_support: "no", no_ssn_atin: "no", filed_joint_return: "no")
+        dependent.update(provided_over_half_own_support: "no", filed_joint_return: "no")
       end
 
       it "does not show qualifying relative page" do
