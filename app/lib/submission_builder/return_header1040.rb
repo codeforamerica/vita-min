@@ -16,8 +16,8 @@ module SubmissionBuilder
       tax_return = submission.tax_return
       intake = submission.intake
       client = submission.client
-      creation_security_information = client.efile_security_information
-      filing_security_information = submission.efile_security_information
+      creation_security_information = client.efile_security_informations.first
+      filing_security_information = client.efile_security_informations.last
       address = submission.address
 
       Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|

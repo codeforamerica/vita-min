@@ -26,8 +26,7 @@
 #  fk_rails_...  (efile_submission_id => efile_submissions.id)
 #
 class EfileSecurityInformation < ApplicationRecord
-  belongs_to :client, optional: true
-  belongs_to :efile_submission, optional: true
+  belongs_to :client
 
   # storing client_system_time as a string and then transforming it into DateTime for the return_header1040
   # b/c the db would record the date in UTC and we would lose the client's timezone

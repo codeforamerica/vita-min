@@ -37,11 +37,14 @@ describe Ctc::Questions::IncomeController do
     end
 
     it "updates client with intake security information" do
+      expect {
+        post :update, params: params
+      }.to change(EfileSecurityInformation, :count).by 1
       post :update, params: params
 
-      client = Client.last
-      expect(client.efile_security_information.user_agent).to eq "GeckoFox"
-      expect(client.efile_security_information.ip_address).to eq ip_address
+      efile_security = Client.last.efile_security_informations.last
+      expect(efile_security.user_agent).to eq "GeckoFox"
+      expect(efile_security.ip_address).to eq ip_address
     end
 
     context "when answer is yes" do

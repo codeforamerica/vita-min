@@ -9,7 +9,7 @@
       <%= link_to t("general.back"), :back %>
     </div>
     <div class="question-wrapper">
-      <%= form_with model: @form, url: ctc_portal_resubmit_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+      <%= form_with url: ctc_portal_resubmit_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
         <h1 class="h2"><%= @main_question %></h1>
 
@@ -43,12 +43,21 @@
             %>
           <% end %>
         </div>
-        <p>
-          <%= t("views.ctc.portal.edit_info.help_text") %>
-        </p>
-        <button class="button button--primary button--full-width" type="submit">
-          <%= t("views.ctc.portal.edit_info.resubmit") %>
-        </button>
+        <% if @current_submission.can_transition_to?(:resubmitted) %>
+          <p>
+            <%= t("views.ctc.portal.edit_info.help_text") %>
+          </p>
+          <button class="button button--primary button--full-width" type="submit">
+            <%= t("views.ctc.portal.edit_info.resubmit") %>
+          </button>
+        <% else %>
+          <p>
+            <%= t("views.ctc.portal.edit_info.help_text_cant_submit") %>
+          </p>
+          <button disabled class="button button--primary button--full-width button--disabled" type="submit">
+            <%= t("views.ctc.portal.edit_info.resubmit") %>
+          </button>
+        <% end %>
         <%= link_to t("views.ctc.portal.home.contact_us"), new_portal_message_path, class: "button button--full-width" %>
       <% end %>
     </div>

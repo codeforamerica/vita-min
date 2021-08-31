@@ -3,4 +3,6 @@
   <strong>Client removed <%= model_gid.model_name %> #<%= model_gid.model_id %></strong>
 <% elsif note.data['action'] == 'ready_to_resubmit' %>
   <strong>Client marked <%= model_gid.model_name %> #<%= model_gid.model_id %> ready to submit</strong>
+<% elsif note.data['action'] == 'resubmitted' %>
+  <strong>Client initiated resubmission of their tax return.</strong>
 <% end %>

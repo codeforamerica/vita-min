@@ -42,7 +42,7 @@
 #
 FactoryBot.define do
   factory :client do
-    efile_security_information { build :efile_security_information }
+    efile_security_informations { [build(:efile_security_information)] }
 
     trait :with_return do
       transient do

@@ -16,15 +16,18 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
     end
   end
 
-  def edit_info; end
+  def edit_info
+    @current_submission = current_intake.client.efile_submissions.last
+  end
 
   def resubmit
     @submission = current_client.efile_submissions.last
-    if @submission.can_transition_to?(:ready_to_resubmit)
-      @submission.transition_to(:ready_to_resubmit)
+    if @submission.can_transition_to?(:resubmitted)
+      current_client.efile_security_informations.create(params.require(:ctc_resubmit_form).permit!)
+      @submission.transition_to(:resubmitted)
       SystemNote::CtcPortalAction.generate!(
         model: @submission,
-        action: 'ready_to_resubmit',
+        action: 'resubmitted',
         client: current_client
       )
     end

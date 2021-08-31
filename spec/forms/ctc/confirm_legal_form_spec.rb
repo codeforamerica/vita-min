@@ -57,9 +57,9 @@ describe Ctc::ConfirmLegalForm do
                                                       .and change(intake.tax_returns.last.efile_submissions, :count).by(1)
     end
 
-    it "persists efile_security_information as a record linked to the efile submission" do
+    it "persists efile_security_information as a record linked to the client" do
       expect { described_class.new(intake, params).save }.to change(EfileSecurityInformation, :count).by(1)
-      efile_security_information = intake.tax_returns.last.efile_submissions.last.efile_security_information
+      efile_security_information = intake.client.reload.efile_security_informations.last
       expect(efile_security_information.ip_address).to eq "1.1.1.1"
       expect(efile_security_information.device_id).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
       expect(efile_security_information.user_agent).to eq "GeckoFox"

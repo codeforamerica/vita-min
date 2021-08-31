@@ -41,12 +41,15 @@ describe Ctc::Questions::ConfirmLegalController do
     context "when submitting the form" do
       context "when checking 'I agree'" do
         it "create a submission with the status of 'preparing' and send client a message and redirect to portal home" do
-          post :update, params: params
+          expect {
+            post :update, params: params
+          }.to change(client.efile_security_informations, :count).by 1
+
 
           expect(response).to redirect_to ctc_portal_root_path
           efile_submission = client.reload.tax_returns.last.efile_submissions.last
           expect(efile_submission.current_state).to eq "preparing"
-          expect(efile_submission.efile_security_information.ip_address).to eq ip_address
+          expect(client.efile_security_informations.last.ip_address).to eq ip_address
         end
 
         it "sends a Mixpanel event" do

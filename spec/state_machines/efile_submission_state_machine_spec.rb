@@ -167,9 +167,6 @@ describe EfileSubmissionStateMachine do
           new_submission = EfileSubmission.last
           expect(new_submission.current_state).to eq "preparing"
           expect(new_submission.last_transition.metadata["previous_submission_id"]).to eq efile_submission.id
-          old_efile_security_information_data = efile_submission.efile_security_information.attributes.except("efile_submission_id", "id", "created_at", "updated_at")
-          new_efile_security_information_data = new_submission.efile_security_information.attributes.except("efile_submission_id", "id", "created_at", "updated_at")
-          expect(old_efile_security_information_data).to eq(new_efile_security_information_data)
         end
       end
 

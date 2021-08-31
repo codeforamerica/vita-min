@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", active_job: true do
+RSpec.feature "CTC Intake", :js, :active_job do
   module CtcPortalHelper
     def log_in_to_ctc_portal
       visit "/en/portal/login"
@@ -241,7 +241,7 @@ RSpec.feature "CTC Intake", active_job: true do
       click_on I18n.t('views.ctc.portal.edit_info.resubmit')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
-      expect(page).to have_text I18n.t('views.ctc.portal.home.status.ready_to_resubmit.label')
+      expect(page).to have_text I18n.t('views.ctc.portal.home.status.preparing.label')
 
       # Go look for the note as an admin
       Capybara.current_session.reset!
@@ -263,7 +263,7 @@ RSpec.feature "CTC Intake", active_job: true do
       expect(page).to have_content("123 Sandwich Lane")
 
       expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
-      expect(page).to have_content("Client marked EfileSubmission ##{efile_submission.id} ready to submit")
+      expect(page).to have_content("Client initiated resubmission of their tax return.")
     end
 
     scenario "a client sees and can click on a link to continue their intake" do

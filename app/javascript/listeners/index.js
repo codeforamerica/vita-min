@@ -50,6 +50,10 @@ const Listeners =  (function(){
                     getEfileSecurityInformation('ctc_confirm_legal_form');
                 }
 
+                if(window.appData.controller_action == "Ctc::Portal::PortalController#edit_info" || window.appData.controller_action == "Ctc::Portal::PortalController#resubmit") {
+                    getEfileSecurityInformation('ctc_resubmit_form');
+                }
+
                 if (document.querySelector('.taggable-note')) {
                     initTaggableNote();
                 }

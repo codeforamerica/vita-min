@@ -14,6 +14,7 @@ RSpec.feature "CTC Intake Javascript Integrations", :js, active_job: true do
     click_on I18n.t('general.negative')
     intake = Intake::CtcIntake.last
     expect(intake.timezone).to be_present
-    expect(intake.client.efile_security_information.client_system_time).to be_present
+    expect(intake.client.efile_security_informations.last.client_system_time).to be_present
+    expect(intake.client.efile_security_informations.last.device_id).to be_present
   end
 end
