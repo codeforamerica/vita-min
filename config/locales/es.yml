@@ -1496,8 +1496,7 @@ es:
             placed_for_adoption: "%{name} falleció en 2020"
             permanent_residence_with_client: "La residencia permanente de %{name} fue con usted durante al menos seis meses, incluso si estuvo fuera durante parte de ese tiempo"
           qualifying_relative:
-            title: ¿Fueron todos de los siguientes ciertos en 2020?
-            title_html: ¿Fueron todos de los siguientes <u>ciertos</u> en 2020?
+            title_html: "¿Fueron todos de los siguientes <u>ciertos</u> en 2020?"
             help_text:
               li1: "Usted pagó más de la mitad de los gastos de %{name}"
               li2: "%{name} ganó menos de $4,300"
