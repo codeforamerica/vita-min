@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "a user editing a clients intake fields" do
+  include FeatureTestHelpers
+
   context "as an admin user" do
     let(:organization) { create(:organization, name: "Assigned Org") }
     let!(:new_site) { create(:site, name: "Other Site") }
@@ -11,6 +13,7 @@ RSpec.describe "a user editing a clients intake fields" do
              vita_partner: organization,
              tax_returns: [create(:tax_return, filing_status: "married_filing_jointly")],
              intake: create(:ctc_intake,
+                            :with_ssns,
                             email_address: "colleen@example.com",
                             filing_joint: "yes",
                             primary_first_name: "Colleen",
@@ -144,6 +147,36 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(page).to have_text "Economic Impact Payment 1 received: $1200"
         expect(page).to have_text "Economic Impact Payment 2 received: $1300"
       end
+    end
+
+    it "creates a system note for client profile change" do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit"
+      end
+
+      within "#primary-info" do
+        fill_in "Preferred full name", with: "Colly Cauliflower"
+      end
+
+      click_on "Save"
+      click_on "Notes"
+
+      expect(changes_table_contents('.changes-table')).to match({
+        "eip1_and_2_amount_received_confidence" => ["sure", "nil"],
+        "preferred_name" => ["Colleen Cauliflower", "Colly Cauliflower"],
+        "sms_notification_opt_in" => ["unfilled", "no"],
+        "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
+        "spouse_tin_type" => ["nil", "ssn"],
+        "use_spouse_name_for_name_control" => ["nil", "false"],
+        "with_drivers_license_photo_id" => ["false", "nil"],
+        "with_itin_taxpayer_id" => ["false", "nil"],
+        "with_other_state_photo_id" => ["false", "nil"],
+        "with_passport_photo_id" => ["false", "nil"],
+        "with_social_security_taxpayer_id" => ["false", "nil"],
+        "with_vita_approved_photo_id" => ["false", "nil"],
+        "with_vita_approved_taxpayer_id" => ["false", "nil"]
+      })
     end
   end
 

@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "a user editing a clients intake fields" do
+  include FeatureTestHelpers
+
   context "as an admin user" do
     let(:organization) { create(:organization, name: "Assigned Org") }
     let!(:new_site) { create(:site, name: "Other Site") }
@@ -233,7 +235,15 @@ RSpec.describe "a user editing a clients intake fields" do
       click_on "Save"
       click_on "Notes"
 
-      expect(page).to have_text "#{user.name} changed: \u2022 preferred name from Colleen Cauliflower to Colly Cauliflower"
+      expect(changes_table_contents('.changes-table')).to match({
+        "divorced" => ["unfilled", "no"],
+        "lived_with_spouse" => ["unfilled", "no"],
+        "married" => ["unfilled", "no"],
+        "preferred_name" => ["Colleen Cauliflower", "Colly Cauliflower"],
+        "separated" => ["unfilled", "no"],
+        "sms_notification_opt_in" => ["unfilled", "no"],
+        "widowed" => ["unfilled", "no"]
+      })
     end
   end
 end
