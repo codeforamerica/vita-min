@@ -280,16 +280,7 @@ RSpec.describe Hub::CtcClientsController do
           "spouse_email_address" => ["eva@hesse.com", "san@diego.com"],
           "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
           "primary_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
-          "with_general_navigator" => [false, nil],
-          "with_unhoused_navigator" => [false, nil],
-          "with_other_state_photo_id" => [false, nil],
-          "with_incarcerated_navigator" => [false, nil],
-          "with_vita_approved_photo_id" => [false, nil],
           "preferred_interview_language" => ["en", nil],
-          "with_drivers_license_photo_id" => [false, nil],
-          "with_limited_english_navigator" => [false, nil],
-          "with_vita_approved_taxpayer_id" => [false, nil],
-          "with_social_security_taxpayer_id" => [false, nil]
         })
       end
 

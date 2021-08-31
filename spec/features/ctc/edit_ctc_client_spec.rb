@@ -165,17 +165,8 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(changes_table_contents('.changes-table')).to match({
         "eip1_and_2_amount_received_confidence" => ["sure", "nil"],
         "preferred_name" => ["Colleen Cauliflower", "Colly Cauliflower"],
-        "sms_notification_opt_in" => ["unfilled", "no"],
         "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
         "spouse_tin_type" => ["nil", "ssn"],
-        "use_spouse_name_for_name_control" => ["nil", "false"],
-        "with_drivers_license_photo_id" => ["false", "nil"],
-        "with_itin_taxpayer_id" => ["false", "nil"],
-        "with_other_state_photo_id" => ["false", "nil"],
-        "with_passport_photo_id" => ["false", "nil"],
-        "with_social_security_taxpayer_id" => ["false", "nil"],
-        "with_vita_approved_photo_id" => ["false", "nil"],
-        "with_vita_approved_taxpayer_id" => ["false", "nil"]
       })
     end
   end

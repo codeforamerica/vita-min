@@ -9,4 +9,12 @@ module FeatureTestHelpers
 
     contents
   end
+
+  def strip_inner_newlines(text)
+    text.gsub(/\n/, '')
+  end
+
+  def strip_html_tags(text)
+    ActionController::Base.helpers.strip_tags(text)
+  end
 end
