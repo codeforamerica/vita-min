@@ -42,14 +42,17 @@
       }
       .image.whitehouse {
         @media screen and (max-width: $mobile-up) {
-          margin-top: 40px;
+          margin-top: 35px;
         }
       }
     }
   }
 
-  .button--nowrap {
+  :lang(en) .button--locale-specific {
     white-space: nowrap;
+  }
+  :lang(es) .button--locale-specific {
+    text-align: center;
   }
 
   $color-light-gold: #FFD29C;
