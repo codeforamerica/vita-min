@@ -52,7 +52,7 @@ describe Ctc::Portal::PortalController do
             "browser_language"=>"en-US",
             "platform"=>"MacIntel",
             "client_system_time"=>"Tue Aug 31 2021 11:46:22 GMT-0500 (Central Daylight Time)",
-            "timezone_offset"=>"300"
+            "timezone_offset"=>"+300"
           }
         }
       end
@@ -76,6 +76,21 @@ describe Ctc::Portal::PortalController do
         expect(submission.last_transition_to(:resubmitted)).to be_present
         expect(submission.current_state).to eq("preparing") # transitions to resubmitted and then to preparing
         expect(response).to redirect_to Ctc::Portal::PortalController.to_path_helper(action: :home)
+      end
+
+      context "without efile security information due to JS being disabled" do
+        before do
+          params[:ctc_resubmit_form]["device_id"] = nil
+        end
+        it "flashes an alert and does not save" do
+          expect {
+            put :resubmit, params: params
+          }.to change(client.efile_security_informations, :count).by 0
+          expect(flash[:alert]).to eq(I18n.t("general.enable_javascript"))
+
+          expect(submission.current_state).to eq("rejected")
+          expect(response).to redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+        end
       end
     end
   end

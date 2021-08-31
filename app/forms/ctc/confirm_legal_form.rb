@@ -15,7 +15,7 @@ module Ctc
 
     def save
       @intake.update(attributes_for(:intake))
-      efile_attrs = attributes_for(:efile_security_information).merge(timezone_offset: format_timezone_offset(timezone_offset))
+      efile_attrs = attributes_for(:efile_security_information)
       unless @intake.tax_returns.last.efile_submissions.any?
         EfileSecurityInformation.create(efile_attrs.merge(client: @intake.client))
         efile_submission = EfileSubmission.create(tax_return: @intake.tax_returns.last)
@@ -25,14 +25,6 @@ module Ctc
           Rails.logger.error "Failed to transition EfileSubmission##{efile_submission.id} to :preparing"
         end
       end
-    end
-
-    private
-
-    def format_timezone_offset(tz_offset)
-      return unless tz_offset.present?
-
-      return (tz_offset.include?("-") || tz_offset.include?("+")) ? tz_offset : "+" + tz_offset
     end
   end
 end
