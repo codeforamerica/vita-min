@@ -18,4 +18,9 @@ class Ctc::Update::DependentsController < Ctc::Portal::DependentsController
       render :edit
     end
   end
+
+  private
+  def edit_template
+    "ctc/portal/dependents/edit"
+  end
 end

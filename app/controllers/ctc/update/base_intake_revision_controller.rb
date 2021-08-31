@@ -5,7 +5,12 @@ class Ctc::Update::BaseIntakeRevisionController < Ctc::Portal::BaseIntakeRevisio
       @form.save
       redirect_to questions_confirm_information_path
     else
-      render :edit
+      render edit_template
     end
   end
+
+  def prev_path
+    questions_confirm_information_path
+  end
+  helper_method :prev_path
 end

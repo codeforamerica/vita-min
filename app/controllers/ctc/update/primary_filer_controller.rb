@@ -1,10 +1,9 @@
 class Ctc::Update::PrimaryFilerController < Ctc::Update::BaseIntakeRevisionController
-  def edit
-    super
-    render "ctc/portal/primary_filer/edit"
-  end
-
   private
+
+  def edit_template
+    "ctc/portal/primary_filer/edit"
+  end
 
   def form_class
     Ctc::Portal::PrimaryFilerForm

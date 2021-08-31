@@ -1,6 +1,11 @@
 class Ctc::Portal::DependentsController < Ctc::Portal::BaseIntakeRevisionController
   def edit
     @form = form_class.from_dependent(current_model)
+    render edit_template
+  end
+
+  def edit_template
+    "ctc/portal/dependents/edit"
   end
 
   def confirm_remove; end

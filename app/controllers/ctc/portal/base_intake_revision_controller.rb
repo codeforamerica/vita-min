@@ -1,6 +1,7 @@
 class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticatedController
   def edit
     @form = form_class.from_intake(current_model)
+    render edit_template
   end
 
   def update
@@ -15,9 +16,19 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
       )
       redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
     else
-      render :edit
+      render edit_template
     end
   end
+
+  def edit_template
+    raise StandardError, "Edit template must be defined"
+  end
+
+  def prev_path
+    ctc_portal_edit_info_path
+  end
+
+  helper_method :prev_path
 
   private
 

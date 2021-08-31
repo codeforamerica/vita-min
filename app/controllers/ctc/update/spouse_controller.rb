@@ -1,10 +1,8 @@
 class Ctc::Update::SpouseController < Ctc::Update::BaseIntakeRevisionController
-  def edit
-    super
-    render "ctc/portal/spouse/edit"
-  end
-
   private
+  def edit_template
+    "ctc/portal/spouse/edit"
+  end
 
   def form_class
     Ctc::Portal::SpouseForm
