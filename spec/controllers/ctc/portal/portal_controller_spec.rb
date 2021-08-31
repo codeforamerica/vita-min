@@ -45,22 +45,36 @@ describe Ctc::Portal::PortalController do
 
     context "when authenticated" do
       let(:submission) { create(:efile_submission, :rejected, tax_return: client.tax_returns.first) }
-
+      let(:params) do
+        { ctc_resubmit_form:
+          { "device_id"=>"2ED97833F3E12B652F96140884F867927DA6E12F",
+            "user_agent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+            "browser_language"=>"en-US",
+            "platform"=>"MacIntel",
+            "client_system_time"=>"Tue Aug 31 2021 11:46:22 GMT-0500 (Central Daylight Time)",
+            "timezone_offset"=>"300"
+          }
+        }
+      end
       before do
         sign_in client, scope: :client
         client.tax_returns.first.update(efile_submissions: [submission])
       end
 
       it "updates status, makes a note, and redirects to the portal home" do
-        put :resubmit
+        expect {
+          put :resubmit, params: params
+        }.to change(client.efile_security_informations, :count).by 1
+
 
         system_note = SystemNote::CtcPortalAction.last
         expect(system_note.client).to eq(client)
         expect(system_note.data).to match({
           'model' => submission.to_global_id.to_s,
-          'action' => 'ready_to_resubmit'
+          'action' => 'resubmitted'
         })
-        expect(submission.current_state).to eq("ready_to_resubmit")
+        expect(submission.last_transition_to(:resubmitted)).to be_present
+        expect(submission.current_state).to eq("preparing") # transitions to resubmitted and then to preparing
         expect(response).to redirect_to Ctc::Portal::PortalController.to_path_helper(action: :home)
       end
     end

@@ -66,13 +66,14 @@ describe Ctc::IncomeForm do
       expect(intake.visitor_id).to eq "something"
       expect(intake.source).to eq "some-source"
       expect(intake.type).to eq "Intake::CtcIntake"
-      expect(intake.client.efile_security_information.ip_address).to eq "1.1.1.1"
-      expect(intake.client.efile_security_information.device_id).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
-      expect(intake.client.efile_security_information.user_agent).to eq "GeckoFox"
-      expect(intake.client.efile_security_information.browser_language).to eq "en-US"
-      expect(intake.client.efile_security_information.platform).to eq "iPad"
-      expect(intake.client.efile_security_information.timezone_offset).to eq "+240"
-      expect(intake.client.efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
+      efile_security_information = intake.client.efile_security_informations.first
+      expect(efile_security_information.ip_address).to eq "1.1.1.1"
+      expect(efile_security_information.device_id).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
+      expect(efile_security_information.user_agent).to eq "GeckoFox"
+      expect(efile_security_information.browser_language).to eq "en-US"
+      expect(efile_security_information.platform).to eq "iPad"
+      expect(efile_security_information.timezone_offset).to eq "+240"
+      expect(efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
     end
   end
 end

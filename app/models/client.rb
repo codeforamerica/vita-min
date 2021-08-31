@@ -61,10 +61,10 @@ class Client < ApplicationRecord
   has_many :outbound_calls, dependent: :destroy
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
   has_many :efile_submissions, through: :tax_returns
-  has_one :efile_security_information, dependent: :destroy
+  has_many :efile_security_informations, dependent: :destroy
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
-  accepts_nested_attributes_for :efile_security_information
+  accepts_nested_attributes_for :efile_security_informations
   attr_accessor :change_initiated_by
   enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3, state: 4, at_capacity: 5 }
   enum still_needs_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :still_needs_help
