@@ -16,7 +16,7 @@ module Ctc
 
       validates :first_name, presence: true, legal_name: true
       validates :last_name, presence: true, legal_name: true
-      validates :middle_initial, length: { maximum: 1 }, legal_name: true
+      validates :middle_initial, legal_name: true
       validate :birth_date_is_valid_date
       validates_presence_of :tin_type
       validates_presence_of :ssn

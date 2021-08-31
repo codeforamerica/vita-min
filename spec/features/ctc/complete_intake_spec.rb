@@ -302,21 +302,53 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
 
     expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.confirm_information.your_information"))
-    expect(page).to have_selector("div", text: "Gary Mango III")
-    expect(page).to have_selector("div", text: "#{I18n.t('hub.clients.show.date_of_birth')}: 8/24/1996")
-    expect(page).to have_selector("div", text: "#{I18n.t('general.email')}: mango@example.com")
-    expect(page).to have_selector("div", text: "#{I18n.t('general.phone')}: (831) 234-5678")
-    expect(page).to have_selector("div", text: "#{I18n.t('general.ssn')}: XXX-XX-8888")
+    within ".primary-info" do
+      expect(page).to have_selector("div", text: "Gary Mango III")
+      expect(page).to have_selector("div", text: "#{I18n.t('hub.clients.show.date_of_birth')}: 8/24/1996")
+      expect(page).to have_selector("div", text: "#{I18n.t('general.email')}: mango@example.com")
+      expect(page).to have_selector("div", text: "#{I18n.t('general.phone')}: (831) 234-5678")
+      expect(page).to have_selector("div", text: "#{I18n.t('general.ssn')}: XXX-XX-8888")
+      click_on "edit"
+    end
+
+    fill_in "Legal first name", with: "Garold"
+    click_on "Save"
+
+    within ".primary-info" do
+      expect(page).to have_selector("div", text: "Garold Mango III")
+    end
 
     expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.confirm_mailing_address.mailing_address"))
-    expect(page).to have_selector("div", text: "26 William Street")
-    expect(page).to have_selector("div", text: "Apt 1234")
-    expect(page).to have_selector("div", text: "Bel Air, CA 90001")
+
+    within ".address-info" do
+      expect(page).to have_selector("div", text: "26 William Street")
+      expect(page).to have_selector("div", text: "Apt 1234")
+      expect(page).to have_selector("div", text: "Bel Air, CA 90001")
+      click_on "edit"
+    end
+
+    fill_in "Street address", with: "28 William Street"
+    click_on "Save"
+
+    within ".address-info" do
+      expect(page).to have_selector("div", text: "28 William Street")
+    end
 
     expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.spouse_review.your_spouse"))
-    expect(page).to have_selector("div", text: "Peter Pepper")
-    expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/1995")
-    expect(page).to have_selector("div", text: "#{I18n.t('general.ssn')}: XXX-XX-4444")
+
+    within ".spouse-info" do
+      expect(page).to have_selector("div", text: "Peter Pepper")
+      expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/1995")
+      expect(page).to have_selector("div", text: "#{I18n.t('general.ssn')}: XXX-XX-4444")
+      click_on "edit"
+    end
+
+    fill_in "Spouse's legal first name", with: "Petra"
+    click_on "Save"
+
+    within ".spouse-info" do
+      expect(page).to have_selector("div", text: "Petra Pepper")
+    end
 
     # TODO: add tests for displaying dependent info after we allow the creation of qualifying dependents
 
@@ -326,8 +358,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.routing_number')}: 123456789")
     expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.account_number')}: ●●●●●6789")
 
-    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Gary Mango III"), with: "12345"
-    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Peter Pepper"), with: "54321"
+    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Garold Mango III"), with: "12345"
+    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Petra Pepper"), with: "54321"
     click_on I18n.t('views.ctc.questions.confirm_information.ready_to_file')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))
