@@ -23,8 +23,10 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   def resubmit
     @submission = current_client.efile_submissions.last
     if @submission.can_transition_to?(:resubmitted)
-      efile_attrs = params.require(:ctc_resubmit_form).permit!.merge(ip_address: request.remote_ip)
-      current_client.efile_security_informations.create(efile_attrs)
+      unless current_client.efile_security_informations.create(efile_security_params).persisted?
+        flash[:alert] = I18n.t("general.enable_javascript")
+        return redirect_back(fallback_location: ctc_portal_edit_info_path)
+      end
       @submission.transition_to(:resubmitted)
       SystemNote::CtcPortalAction.generate!(
         model: @submission,
@@ -33,5 +35,15 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
       )
     end
     redirect_to(action: :home)
+  end
+
+  def efile_security_params
+    params.require(:ctc_resubmit_form).permit(:device_id,
+                                              :user_agent,
+                                              :browser_language,
+                                              :platform,
+                                              :timezone_offset,
+                                              :client_system_time,
+                                              ).merge(ip_address: request.remote_ip)
   end
 end
