@@ -23,27 +23,24 @@
   }
 
   .affiliations {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
     .grid__item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: grid;
+      justify-items: center;
+      .text {
+        width: 180px;
+        text-align: center;
+      }
+      .image {
+        width: 150px;
+        height: 110px;
+      }
+      .image.cfa {
+        padding-top: 20px;
+      }
+      .image.irs {
+        padding-top: 45px;
+      }
     }
-    .grid__item.text {
-      width: 230px;
-      text-align: center;
-    }
-    .grid__item.image {
-      width: 150px;
-      padding-bottom: 15px;
-    }
-  }
-
-  .affiliations.text{
-    align-items: end;
   }
 
   $color-light-gold: #FFD29C;

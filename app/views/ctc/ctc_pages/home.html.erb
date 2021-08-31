@@ -51,25 +51,29 @@
   <div class="slab slab--short slab--affiliations">
     <div class="grid">
       <div class="grid__item width-one-whole affiliations">
-        <div class="grid__item width-one-third image">
-          <%= image_tag('cfa-logo--black.png', alt: "") %>
+        <div class="grid__item width-one-third">
+          <div class="image cfa">
+            <%= image_tag('cfa-logo--black.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.cfa_product_html') %>
+          </div>
         </div>
-        <div class="grid__item width-one-third image">
-          <%= image_tag('white-house.png', alt: "") %>
+        <div class="grid__item width-one-third">
+          <div class="image">
+            <%= image_tag('white-house.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.white_house_html') %>
+          </div>
         </div>
-        <div class="grid__item width-one-third image">
-          <%= image_tag('irs-efile.png', alt: "") %>
-        </div>
-      </div>
-      <div class="grid__item width-one-whole affiliations text">
-        <div class="grid__item width-one-third text">
-          <%= t('views.ctc_pages.home.affiliations.cfa_product_html') %>
-        </div>
-        <div class="grid__item width-one-third text">
-          <%= t('views.ctc_pages.home.affiliations.white_house_html') %>
-        </div>
-        <div class="grid__item width-one-third text">
-          <%= t('views.ctc_pages.home.affiliations.irs') %>
+        <div class="grid__item width-one-third">
+          <div class="image irs">
+            <%= image_tag('irs-efile.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.irs') %>
+          </div>
         </div>
       </div>
     </div>

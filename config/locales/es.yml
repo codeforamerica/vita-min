@@ -3328,7 +3328,7 @@ es:
             Puede recibir pagos a partir de julio a diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante.
         affiliations:
           cfa_product_html: GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">¿Por qué hacemos este trabajo?</a>
-          white_house_html: Realizado en colaboración con <a href="https://home.treasury.gov/news/press-releases/jy0322">la Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
+          white_house_html: Realizado en colaboración con la <a href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
           irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
         navigator_resources_html: |
           <strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Consulte nuestra página de recursos para navegadores <a href='%{navigators_link}'>aquí.</a>
