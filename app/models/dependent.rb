@@ -225,7 +225,7 @@ class Dependent < ApplicationRecord
   end
 
   def disqualified_child_qualified_relative?
-    qualifying_child_relationship? || !meets_qc_age_condition_2020?
+    qualifying_child_relationship? && !meets_qc_age_condition_2020?
   end
 
   def qualifying_relative_2020?
