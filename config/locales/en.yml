@@ -3305,7 +3305,7 @@ en:
             You can receive  payments of up to $300 per child every month starting in July 2021 through December 2021. You will need to file a tax return in 2022 to receive the rest of the payment.
         affiliations:
           cfa_product_html: GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">Why do we do this work?</a>
-          white_house: Supported by the White House and U.S. Department of Treasury.
+          white_house_html: Made in collaboration with <a href="https://home.treasury.gov/news/press-releases/jy0322">the White House and U.S. Department of Treasury</a>.
           irs: IRS-approved official E-file provider.
         navigator_resources_html: |
           <strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="%{navigators_link}">here.</a>
