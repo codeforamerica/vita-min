@@ -284,6 +284,30 @@ describe EfileSubmission do
             end
           end
         end
+
+        context "auto resubmission" do
+          context "with an error that triggers auto-resubmission" do
+            let(:submission) { create :efile_submission, :transmitted }
+            let(:rejection_xml) { file_fixture("irs_acknowledgement_rejection.xml").read }
+
+            before do
+              allow(EfileError).to receive(:error_codes_to_retry_once).and_return(%w[IND-189 IND-190])
+            end
+
+            it "transitions to resubmitted exactly once" do
+              expect {
+                submission.transition_to!(:rejected, raw_response: rejection_xml)
+              }.to change(EfileSubmission, :count).by(1)
+              expect(submission.current_state).to eq("resubmitted")
+
+              resubmission = EfileSubmission.last
+              resubmission.transition_to!(:queued)
+              resubmission.transition_to!(:transmitted)
+              resubmission.transition_to!(:rejected, raw_response: rejection_xml)
+              expect(resubmission.current_state).to eq("rejected")
+            end
+          end
+        end
       end
     end
   end
@@ -340,7 +364,7 @@ describe EfileSubmission do
     end
   end
 
-  describe ".imperfect_return_resubmission?" do
+  describe "#imperfect_return_resubmission?" do
     context "when the submission's preparing transition has a previous submission id stored" do
       let(:previous_submission) { create(:efile_submission) }
       let(:efile_error) { create(:efile_error, code: "SOMETHING-WRONG") }
@@ -367,7 +391,7 @@ describe EfileSubmission do
     end
   end
 
-  describe ".last_client_accessible_transition" do
+  describe "#last_client_accessible_transition" do
     context "when the status of the last_transition is investigating" do
       let(:efile_submission) { create :efile_submission, :rejected }
 
@@ -420,7 +444,7 @@ describe EfileSubmission do
     end
   end
 
-  describe ".retry_send_submission" do
+  describe "#retry_send_submission" do
     context "when the submission is fairly recent" do
       before do
         allow(SecureRandom).to receive(:rand).with(30).and_return(4)
