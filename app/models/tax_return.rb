@@ -114,6 +114,13 @@ class TaxReturn < ApplicationRecord
     )
   end
 
+  def expected_recovery_rebate_credit_three
+    EconomicImpactPaymentThreeCalculator.payment_due(
+      filer_count: rrc_eligible_filer_count,
+      dependent_count: intake.dependents.count(&:eligible_for_eip3?)
+    )
+  end
+
   def has_submissions?
     efile_submissions.count.nonzero?
   end

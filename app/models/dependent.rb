@@ -179,7 +179,7 @@ class Dependent < ApplicationRecord
     age_at_end_of_year(2020) < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
-  def eligible_for_eip3?
+  def eligible_for_eip3? #is this right?
     qualifying_child_2020? || qualifying_relative_2020?
   end
 

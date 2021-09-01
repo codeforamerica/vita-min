@@ -1,26 +1,31 @@
-<% content_for :page_title, t("views.ctc.questions.confirm_payment.title") %>
+<% @main_title = @not_collecting ?  t("views.ctc.questions.confirm_payment.client_not_collecting") : t("views.ctc.questions.confirm_payment.title") %>
+<% content_for :page_title, @main_title %>
 
 <% content_for :form_card do %>
-  <h1 class="h2"><%= content_for(:page_title) %></h1>
+  <h1 class="h2"><%= @main_title %></h1>
 
   <div class="review-box">
     <div class="spacing-above-0">
-      <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.monthly_ctc') %></strong></p>
-      <p class="spacing-below-15"><%= t('views.ctc.questions.confirm_payment.monthly_ctc_amount', amount: 500) %></p>
-      <%= link_to t('views.ctc.questions.confirm_payment.monthly_ctc_link'), questions_confirm_dependents_path, class: "link" %>
+      <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.ctc_due') %></strong></p>
+      <p class="spacing-below-15"><%= number_to_currency(@ctc_amount, precision: 0, locale: :en) %></p>
+      <%= link_to t('views.ctc.questions.confirm_payment.ctc_due_link'), questions_confirm_dependents_path, class: "link" unless @ctc_amount.zero? %>
+      <%= link_to t('views.ctc.questions.confirm_payment.ctc_0_due_link'), Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "link" if @ctc_amount.zero? %>
     </div>
 
     <div class="spacing-above-35">
       <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.rrc') %></strong></p>
-      <p class="spacing-below-15"><%= "$500" %></p>
-      <%= link_to t('views.ctc.questions.confirm_payment.rrc_link'), questions_stimulus_owed_path, class: "link" %>
+      <p class="spacing-below-15"><%= calculated_or_provided_dollar_amount(@rrc_amount) %></p>
+      <%= link_to (@rrc_amount.zero? ? t('views.ctc.questions.confirm_payment.edit_rrc_link') : t('views.ctc.questions.confirm_payment.rrc_link')), questions_stimulus_owed_path, class: "link" %>
     </div>
 
     <div class="spacing-above-35">
       <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.third_stimulus') %></strong></p>
-      <p class="spacing-below-15"><%= t('views.ctc.questions.confirm_payment.monthly_ctc_amount', amount: 500) %></p>
+      <p class="spacing-below-15"><%= number_to_currency(@third_stimulus_amount, precision: 0, locale: :en) %></p>
       <p class="spacing-below-15"><i><%= t('views.ctc.questions.confirm_payment.third_stimulus_help_text') %></i></p>
       <p><%= t('views.ctc.questions.confirm_payment.third_stimulus_link_html') %></p>
     </div>
   </div>
+
+  <%= link_to t("general.continue"), next_path, class: "button button--primary button--wide text--centered spacing-above-60" unless @not_collecting%>
+  <%= link_to t('views.ctc.questions.confirm_payment.do_not_file'), root_path, class: "button button--primary button--wide text--centered spacing-above-60" if @not_collecting %>
 <% end %>

@@ -362,6 +362,15 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Petra Pepper"), with: "54321"
     click_on I18n.t('views.ctc.questions.confirm_information.ready_to_file')
 
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_payment.title"))
+    expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.ctc_due"))
+    expect(page).to have_selector("p", text:  "$1,500")
+    expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.rrc"))
+    expect(page).to have_selector("p", text:  "$0")
+    expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.third_stimulus"))
+    expect(page).to have_selector("p", text:  "$4,200")
+    click_on I18n.t('general.continue')
+
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))
     check I18n.t("views.ctc.questions.confirm_legal.consent")
     click_on I18n.t("views.ctc.questions.confirm_legal.action")

@@ -143,9 +143,25 @@ describe TaxReturn do
       allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due)
     end
 
-    it "calls the EconomicImpactPaymentOneCalculator with appropriate values for the tax return" do
+    it "calls the EconomicImpactPaymentTwoCalculator with appropriate values for the tax return" do
       tax_return.expected_recovery_rebate_credit_two
       expect(EconomicImpactPaymentTwoCalculator).to have_received(:payment_due).with(filer_count: 1, dependent_count: 2)
+    end
+  end
+
+  describe "#expected_recovery_rebate_credit_three" do
+    let(:tax_return) { create :tax_return, client: client, year: 2020 }
+    let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
+    let(:intake) { tax_return.intake }
+    before do
+      allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
+      allow_any_instance_of(Dependent).to receive(:eligible_for_eip3?).and_return true
+      allow(EconomicImpactPaymentThreeCalculator).to receive(:payment_due)
+    end
+
+    it "calls the EconomicImpactPaymentThreeCalculator with appropriate values for the tax return" do
+      tax_return.expected_recovery_rebate_credit_three
+      expect(EconomicImpactPaymentThreeCalculator).to have_received(:payment_due).with(filer_count: 1, dependent_count: 2)
     end
   end
 
