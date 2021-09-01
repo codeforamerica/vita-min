@@ -19,7 +19,7 @@ describe Ctc::SpouseInfoForm do
       spouse_active_armed_forces: "no"
     }
   }
-  let(:spouse_ssn) { "111-22-8888" }
+  let(:spouse_ssn) { "999-78-1224" }
   let(:ssn_no_employment) { "no" }
   let(:tin_type) { "itin" }
 
@@ -83,8 +83,8 @@ describe Ctc::SpouseInfoForm do
       expect(intake.spouse_last_name).to eq "Mango"
       expect(intake.spouse_suffix).to eq "III"
       expect(intake.spouse_birth_date).to eq Date.new(1963, 9, 10)
-      expect(intake.spouse_ssn).to eq "111228888"
-      expect(intake.spouse_last_four_ssn).to eq "8888"
+      expect(intake.spouse_ssn).to eq "999781224"
+      expect(intake.spouse_last_four_ssn).to eq "1224"
       expect(intake.spouse_tin_type).to eq "itin"
       expect(intake.spouse_can_be_claimed_as_dependent).to eq "no"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake
