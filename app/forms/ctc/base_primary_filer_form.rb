@@ -6,7 +6,7 @@ module Ctc
     validates :primary_last_name, presence: true, legal_name: true
     validates :primary_middle_initial, length: { maximum: 1 }, legal_name: true
     validate  :primary_birth_date_is_valid_date
-    validates :primary_ssn, social_security_number: true, if: -> { primary_tin_type == "ssn" }
+    validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
 
     with_options if: -> { (primary_ssn.present? && primary_ssn != intake.primary_ssn) || primary_ssn_confirmation.present? } do
