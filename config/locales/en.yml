@@ -1825,7 +1825,9 @@ en:
           your_dependents: "Your dependents"
         confirm_payment:
           title: "Here’s a list of the estimated payments you are owed:"
-          ctc_due: "Advance Child Tax Credit Due:"
+          ctc_due: "Child Tax Credit Payments:"
+          total: "total"
+          monthly: "Distributed in monthly payments"
           ctc_due_link: "Claim additional children"
           ctc_0_due_link: "Claim children for CTC"
           rrc: "Recovery Rebate Credit (Missing stimulus payments):"

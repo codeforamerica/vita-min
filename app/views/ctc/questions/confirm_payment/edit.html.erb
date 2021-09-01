@@ -7,7 +7,8 @@
   <div class="review-box">
     <div class="spacing-above-0">
       <p class="spacing-below-15"><strong><%= t('views.ctc.questions.confirm_payment.ctc_due') %></strong></p>
-      <p class="spacing-below-15"><%= number_to_currency(@ctc_amount, precision: 0, locale: :en) %></p>
+      <p class="spacing-below-15"><%= number_to_currency(@ctc_amount, precision: 0, locale: :en) %> <%= t('views.ctc.questions.confirm_payment.total') %></p>
+      <p class="spacing-below-15"><em><%= t('views.ctc.questions.confirm_payment.monthly') %></em></p>
       <%= link_to t('views.ctc.questions.confirm_payment.ctc_due_link'), questions_confirm_dependents_path, class: "link" unless @ctc_amount.zero? %>
       <%= link_to t('views.ctc.questions.confirm_payment.ctc_0_due_link'), Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "link" if @ctc_amount.zero? %>
     </div>

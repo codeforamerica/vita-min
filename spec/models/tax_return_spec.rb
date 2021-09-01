@@ -165,6 +165,50 @@ describe TaxReturn do
     end
   end
 
+  describe "#ctc_under_6_eligible_dependent_count" do
+    let(:tax_return) { create :tax_return, client: create(:client, intake: create(:ctc_intake))}
+    let!(:dependent_older_than_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 10.years, intake: tax_return.intake }
+    let!(:dependent_exactly_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 6.years, intake: tax_return.intake }
+    let!(:dependent_younger_than_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake }
+    let!(:dependent_younger_than_6_deleted){ create :dependent, birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake, soft_deleted_at: Time.now }
+    let!(:uncle_not_eligible){ create :dependent, relationship: "uncle", birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake }
+
+    before do
+      allow(tax_return.intake).to receive(:dependents).and_return([dependent_older_than_6, dependent_exactly_6, dependent_younger_than_6, dependent_younger_than_6_deleted, uncle_not_eligible])
+      allow(dependent_older_than_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
+      allow(dependent_exactly_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
+      allow(dependent_younger_than_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
+      allow(dependent_younger_than_6_deleted).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
+      allow(uncle_not_eligible).to receive(:eligible_for_child_tax_credit_2020?).and_return(false)
+    end
+
+    it "returns the number of eligible dependents under 6 for the advance ctc payment" do
+      expect(tax_return.ctc_under_6_eligible_dependent_count).to eq 1
+    end
+  end
+
+  describe "#ctc_6_and_over_eligible_dependent_count" do
+    let(:tax_return) { create :tax_return, client: create(:client, intake: create(:ctc_intake))}
+    let!(:dependent_older_than_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 10.years, intake: tax_return.intake }
+    let!(:dependent_exactly_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 6.years, intake: tax_return.intake }
+    let!(:dependent_younger_than_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake }
+    let!(:dependent_older_than_6_deleted){ create :dependent, birth_date: Date.parse('1-1-2021') - 10.years, intake: tax_return.intake, soft_deleted_at: Time.now }
+    let!(:uncle_not_eligible){ create :dependent, relationship: "uncle", birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake }
+
+    before do
+      allow(tax_return.intake).to receive(:dependents).and_return([dependent_older_than_6, dependent_exactly_6, dependent_younger_than_6, dependent_older_than_6_deleted, uncle_not_eligible])
+      allow(dependent_older_than_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
+      allow(dependent_exactly_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
+      allow(dependent_younger_than_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
+      allow(dependent_older_than_6_deleted).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
+      allow(uncle_not_eligible).to receive(:eligible_for_child_tax_credit_2020?).and_return(false)
+    end
+
+    it "returns the number of eligible dependents over 6 for the advance ctc payment" do
+      expect(tax_return.ctc_6_and_over_eligible_dependent_count).to eq 2
+    end
+  end
+
   describe "translation keys" do
     context "english keys" do
       it "has a key for each tax_return status" do

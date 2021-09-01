@@ -70,6 +70,14 @@ class TaxReturn < ApplicationRecord
     intake.dependents.reject(&:soft_deleted_at).filter { |d| d.qualifying_child_2020? || d.qualifying_relative_2020? }
   end
 
+  def ctc_under_6_eligible_dependent_count
+    intake.dependents.reject(&:soft_deleted_at).filter { |d| d.age_at_end_of_year(2021) < 6 }.count(&:eligible_for_child_tax_credit_2020?)
+  end
+
+  def ctc_6_and_over_eligible_dependent_count
+    intake.dependents.reject(&:soft_deleted_at).filter { |d| d.age_at_end_of_year(2021) >= 6 }.count(&:eligible_for_child_tax_credit_2020?)
+  end
+
   def filing_status_code
     self.class.filing_statuses[filing_status]
   end
