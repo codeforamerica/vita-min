@@ -102,10 +102,6 @@ describe Ctc::SpouseInfoForm do
             form.save
             form.intake.spouse_tin_type = "ssn_no_employment"
           end
-
-          it "requires the ssn to be present and valid" do
-
-          end
         end
 
         context "when the ssn_no_employment checkbox value is no" do
