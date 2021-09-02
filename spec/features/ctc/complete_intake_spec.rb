@@ -388,7 +388,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     expect(changes_table_contents('.changes-table')).to match({
       "preferred_name" => ["nil", "Garnet Mango"],
-      "primary_first_name" => ["Gary", "Garnet"],
+      "primary_first_name" => ["Garold", "Garnet"],
     })
   end
 
