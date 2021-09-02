@@ -95,7 +95,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("SpouseSSN").text).to eq submission.intake.spouse_ssn
         expect(xml.at("NameLine1Txt").text).to eq "HUBERT BLAINE<D<& LISA F" # trimmed to 35 characters
         expect(xml.at("PrimaryNameControlTxt").text).to eq "DIWO"
-        expect(xml.at("SpouseNameControlTxt").text).to eq "DIWO"
+        expect(xml.at("SpouseNameControlTxt").text).to eq "FRAN"
         expect(xml.at("AddressLine1Txt").text).to eq "23627 HAWKINS CREEK CT"
         expect(xml.at("CityNm").text).to eq "KATY"
         expect(xml.at("StateAbbreviationCd").text).to eq "TX"

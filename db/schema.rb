@@ -696,7 +696,7 @@ ActiveRecord::Schema.define(version: 2021_09_02_211714) do
     t.string "timezone"
     t.string "type"
     t.datetime "updated_at"
-    t.boolean "use_primary_name_for_name_control"
+    t.boolean "use_primary_name_for_name_control", default: false
     t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
     t.bigint "vita_partner_id"
