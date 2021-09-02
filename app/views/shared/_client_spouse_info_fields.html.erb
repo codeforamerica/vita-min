@@ -53,11 +53,10 @@
     <% end %>
     <% if is_ctc && !is_dropoff %>
       <div>
-        <%= f.hub_checkbox(:use_spouse_name_for_name_control, "Use spouse last name for spouse name control", options: { checked_value: "true", unchecked_value: "false" }) %>
+        <%= f.hub_checkbox(:use_primary_name_for_name_control, "Use primary last name for spouse name control", options: { checked_value: "true", unchecked_value: "false" }) %>
         <div class="help-text" style="margin-top: -15px;">
-          Only check this box if an efiled return is rejected because spouse name control does not match AND the spouse last name does not match the
-          primary filer's last name. Then, resubmit the return to see if the IRS name control for the spouse is
-          under the spouse's last name.
+          Only check this box if an efiled return is rejected because spouse name control does not match. Then, resubmit the return to see if the IRS name control for the spouse is
+          under the primary's last name.
         </div>
       </div>
     <% end %>

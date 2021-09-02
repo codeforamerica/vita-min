@@ -10,7 +10,7 @@ module Hub
                        :primary_prior_year_signature_pin,
                        :spouse_prior_year_agi_amount,
                        :spouse_prior_year_signature_pin,
-                       :use_spouse_name_for_name_control,
+                       :use_primary_name_for_name_control,
                        :preferred_name,
                        :preferred_interview_language,
                        :email_address,

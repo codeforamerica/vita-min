@@ -205,7 +205,7 @@
 #  street_address2                                      :string
 #  timezone                                             :string
 #  type                                                 :string
-#  use_spouse_name_for_name_control                     :boolean
+#  use_primary_name_for_name_control                    :boolean
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  wants_to_itemize                                     :integer          default(0), not null

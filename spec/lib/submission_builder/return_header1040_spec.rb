@@ -375,14 +375,14 @@ describe SubmissionBuilder::ReturnHeader1040 do
     end
 
     context "spouse name control" do
-      context "when use_spouse_name_for_name_control is true" do
+      context "when use_primary_name_for_name_control is true" do
         before do
-          submission.intake.update(use_spouse_name_for_name_control: true)
+          submission.intake.update(use_primary_name_for_name_control: true)
         end
-        it "uses the spouses last name to create the name control" do
+        it "uses the primary last name to create the name control" do
           response = SubmissionBuilder::ReturnHeader1040.build(submission)
           xml = Nokogiri::XML::Document.parse(response.document.to_xml)
-          expect(xml.at("SpouseNameControlTxt").text).to eq "FRAN"
+          expect(xml.at("SpouseNameControlTxt").text).to eq "DIWO"
         end
       end
     end
