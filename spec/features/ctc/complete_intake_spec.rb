@@ -1,13 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true do
-  def strip_inner_newlines(text)
-    text.gsub(/\n/, '')
-  end
-
-  def strip_html_tags(text)
-    ActionController::Base.helpers.strip_tags(text)
-  end
+  include FeatureTestHelpers
 
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
@@ -369,6 +363,33 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # =========== PORTAL ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
     expect(page).to have_text(I18n.t("views.ctc.portal.home.status.preparing.label"))
+
+    # ========= ADMIN HUB EDITING ======
+    # Prove that making a simple edit in the hub to an intake that was
+    # created in the normal flow only shows a minimal amount
+    # of changes in the SystemNote
+    Capybara.current_session.reset!
+
+    allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
+    login_as create :admin_user
+
+    visit hub_client_path(id: Client.last.id)
+    within ".client-profile" do
+      click_on "Edit"
+    end
+
+    within "#primary-info" do
+      fill_in "Legal first name", with: "Garnet"
+      fill_in "Preferred full name", with: "Garnet Mango"
+    end
+
+    click_on "Save"
+    click_on "Notes"
+
+    expect(changes_table_contents('.changes-table')).to match({
+      "preferred_name" => ["nil", "Garnet Mango"],
+      "primary_first_name" => ["Gary", "Garnet"],
+    })
   end
 
   scenario "client who has filed in 2019" do

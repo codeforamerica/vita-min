@@ -1,6 +1,7 @@
 module Hub
   class UpdateCtcClientForm < ClientForm
     include BirthDateHelper
+    include CtcClientFormAttributes
     set_attributes_for :intake,
                        :primary_first_name,
                        :primary_last_name,
@@ -76,8 +77,6 @@ module Hub
     def initialize(client, params = {})
       @client = client
       super(params)
-      # parent Form class creates setters for each attribute -- won't work til super is called!
-      self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
     end
 
     def self.existing_attributes(intake, attribute_keys)
@@ -126,6 +125,7 @@ module Hub
                          dependents_attributes: formatted_dependents_attributes,
                          primary_birth_date: parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
                          spouse_birth_date: parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day))
+      reduce_dirty_attributes(@client.intake, intake_attr)
       @client.intake.update(intake_attr)
       # only updates the last tax return because we assume that a CTC client only has a single tax return
       @client.tax_returns.last.update(attributes_for(:tax_return))

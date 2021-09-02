@@ -27,7 +27,8 @@ describe SystemNote::ClientChange do
   describe ".generate!" do
     let(:user) { create :user }
     let!(:intake) { create :intake, :with_contact_info, primary_first_name: "Original first name", primary_last_name: "Original last name" }
-    
+    let!(:original_intake) { intake.dup }
+
     context "with changes to the client profile" do
       before do
         intake.update(primary_first_name: "New first name", primary_last_name: "New last name", primary_last_four_ssn: "2345", spouse_last_four_ssn: "1234")
@@ -35,25 +36,26 @@ describe SystemNote::ClientChange do
 
       it "creates a system note summarizing all changes" do
         expect {
-          described_class.generate!(initiated_by: user, intake: intake)
+          described_class.generate!(initiated_by: user, original_intake: original_intake, intake: intake)
         }.to change(described_class, :count).by 1
 
         note = described_class.last
 
         expect(note.client).to eq intake.client
         expect(note.user).to eq user
-        expect(note.body).not_to include("encrypted spouse last four ssn")
-        expect(note.body).not_to include("encrypted primary last four ssn")
-
-        expect(note.body).to include("primary first name from Original first name to New first name")
-        expect(note.body).to include("primary last name from Original last name to New last name")
+        expect(note.data['changes']).to match({
+          "primary_first_name" => ["Original first name", "New first name"],
+          "primary_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
+          "primary_last_name" => ["Original last name", "New last name"],
+          "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
+        })
       end
     end
 
     context "without any changes" do
       it "creates no system note" do
         expect {
-          described_class.generate!(initiated_by: user, intake: Intake.find(intake.id))
+          described_class.generate!(initiated_by: user, original_intake: original_intake, intake: Intake.find(intake.id))
         }.not_to change(SystemNote, :count)
       end
     end
@@ -63,7 +65,7 @@ describe SystemNote::ClientChange do
         intake.update(updated_at: Time.now)
 
         expect {
-          described_class.generate!(initiated_by: user, intake: intake)
+          described_class.generate!(initiated_by: user, original_intake: original_intake, intake: intake)
         }.not_to change(described_class, :count)
       end
     end

@@ -1,5 +1,9 @@
 <% model_gid = GlobalID.parse(note.data['model']) %>
-<strong>Client updated <%= model_gid.model_name %> #<%= model_gid.model_id %>:</strong>
+<% if note.is_a?(SystemNote::CtcPortalUpdate) %>
+  <strong>Client updated <%= model_gid.model_name %> #<%= model_gid.model_id %>:</strong>
+<% elsif note.is_a?(SystemNote::ClientChange) %>
+  <strong><%= note.user.name %> changed <%= model_gid.model_name %> #<%= model_gid.model_id %>:</strong>
+<% end %>
 
 <table class="spacing-above-15 spacing-below-0 changes-table">
   <thead>

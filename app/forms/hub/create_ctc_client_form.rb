@@ -1,6 +1,7 @@
 module Hub
   class CreateCtcClientForm < ClientForm
     include BirthDateHelper
+    include CtcClientFormAttributes
     set_attributes_for :intake,
                        :primary_first_name,
                        :primary_last_name,
@@ -123,6 +124,7 @@ module Hub
                         visitor_id: SecureRandom.hex(26)
                       )
         intake_attr[:bank_account_attributes] = attributes_for(:bank_account) if refund_payment_method == "direct_deposit"
+        reduce_dirty_attributes(nil, intake_attr)
         @client = Client.create!(
           vita_partner_id: attributes_for(:intake)[:vita_partner_id],
           intake_attributes: intake_attr,

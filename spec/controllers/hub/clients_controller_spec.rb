@@ -861,7 +861,6 @@ RSpec.describe Hub::ClientsController do
 
       before do
         sign_in user
-        allow(SystemNote::ClientChange).to receive(:generate!)
       end
 
       it "updates the clients intake and creates a system note" do
@@ -877,7 +876,21 @@ RSpec.describe Hub::ClientsController do
         expect(first_dependent.first_name).to eq "Updated Dependent"
         expect(client.intake.dependents.count).to eq 2
         expect(response).to redirect_to hub_client_path(id: client.id)
-        expect(SystemNote::ClientChange).to have_received(:generate!).with(initiated_by: user, intake: intake)
+        system_note = SystemNote::ClientChange.last
+        expect(system_note.client).to eq(client)
+        expect(system_note.user).to eq(user)
+        expect(system_note.data['changes']).to match({
+          "timezone" => [nil, "America/Chicago"],
+          "primary_last_name" => ["Cherimoya", "Name"],
+          "primary_first_name" => ["Cher", "Updated"],
+          "state_of_residence" => [nil, "CA"],
+          "primary_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
+          "with_general_navigator" => [false, true],
+          "with_unhoused_navigator" => [false, nil],
+          "interview_timing_preference" => [nil, "Tomorrow!"],
+          "with_incarcerated_navigator" => [false, nil],
+          "with_limited_english_navigator" => [false, nil]
+        })
       end
 
       context "with invalid params" do

@@ -42,8 +42,6 @@ module Hub
     def initialize(client, params = {})
       @client = client
       super(params)
-      # parent Form class creates setters for each attribute -- won't work til super is called!
-      self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
     end
 
     def self.existing_attributes(intake)
