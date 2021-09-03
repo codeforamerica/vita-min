@@ -360,16 +360,10 @@ describe EfileSubmission do
       context "and the previous submission had a R0000-504-02 error" do
         let!(:efile_error) { create(:efile_error, code: "R0000-504-02") }
 
-        xit "returns true" do
+        it "returns true" do
           expect(submission.imperfect_return_resubmission?).to eq(true)
         end
-
-        it "returns false" do
-          expect(submission.imperfect_return_resubmission?).to eq (false)
-        end
       end
-
-
     end
   end
 
