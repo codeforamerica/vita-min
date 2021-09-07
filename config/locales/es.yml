@@ -775,6 +775,7 @@ es:
         not_found: No se pudo encontrar la entrada de enrutamiento coincidente para %{state}. Intentar otra vez.
       general: Por favor, corrija los errores indicados antes de continuar.
   general:
+    change: cambia
     tin:
       ssn: Número de Seguro Social (SSN)
       ssn_no_employment: SSN (Not valid for employment)
@@ -1383,10 +1384,11 @@ es:
     signature_pin_zeros: 00000 no es un pin válido
     ip_pin: IP PINs debe ser un número de 6 dígitos.
     legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.
-    legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.
     file_zero_length: "Sube un archivo válido. El archivo que cargó parece estar vacío."
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"
+    routing_number: Este número de ruta no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.
+    account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
   views:
     ctc:
       portal:
@@ -1453,6 +1455,9 @@ es:
           help_text: "Confirmar / editar la información básica de su cónyuge"
         mailing_address:
           title: "Edita tu dirección"
+        bank_account:
+          title: Proporcione sus datos bancarios a continuación
+          help_text: Su nombre debe aparecer en su cuenta bancaria para que pueda recibir su dinero.
       questions:
         returning_client:
           next_steps: "Acceda a su cuenta para completar las preguntas. Si tiene alguna pregunta, inicie una sesión de chat con nosotros."
@@ -1571,6 +1576,7 @@ es:
             label: Confirmo que este es mi nombre en esta cuenta bancaria
             question: Su nombre debe aparecer en la cuenta bancaria para recibir un depósito directo.
             error_message_html: "Introduzca la información de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro método de pago</a>."
+            error_message: "Introduzca la información de una cuenta bancaria con su nombre, o seleccione otro método de pago."
         refund_payment:
           title: "¿Cómo desea recibir los pagos?"
           help_text: "Si elige recibir un cheque enviado por correo, indique una dirección en la que estará hasta diciembre de 2021."

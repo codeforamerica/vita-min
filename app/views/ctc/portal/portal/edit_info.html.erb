@@ -42,6 +42,11 @@
               )
             %>
           <% end %>
+
+          <% if @intake.refund_payment_method_direct_deposit? %>
+            <%= render 'ctc/questions/confirm_information/bank_account_info', bank_account: @intake.bank_account || @intake.build_bank_account, edit_controller: Ctc::Portal::BankAccountController %>
+
+          <% end %>
         </div>
         <% if @current_submission.can_transition_to?(:resubmitted) %>
           <p>

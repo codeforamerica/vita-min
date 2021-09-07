@@ -1,0 +1,14 @@
+<div class="review-box__title">
+  <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
+</div>
+<div class="review-box__space-between bank-account-info">
+  <ul class="spacing-below-0 spacing-above-0">
+    <li class="review-box__name"><%= bank_account.bank_name %></li>
+    <li class="review-box__details"><%= t("general.type") %>: <%= bank_account.account_type&.titleize %></li>
+    <li class="review-box__details"><%= t("general.bank_account.routing_number") %>: <%= bank_account.routing_number %></li>
+    <li class="review-box__details"><%= t("general.bank_account.account_number") %>: <%= mask(bank_account.account_number, 4) %></li>
+  </ul>
+  <% if defined?(edit_controller) %>
+    <%= link_to t("general.change").downcase, edit_controller.to_path_helper, class: "review-box__edit review-box__edit-button" %>
+  <% end %>
+</div>

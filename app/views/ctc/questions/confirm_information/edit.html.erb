@@ -36,15 +36,7 @@
     <% end %>
 
     <% if current_intake.refund_payment_method_direct_deposit? %>
-      <div class="review-box__title">
-        <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
-      </div>
-      <ul class="spacing-below-0">
-        <li class="review-box__name"><%= current_intake.bank_account.bank_name %></li>
-        <li class="review-box__details"><%= t("general.type") %>: <%= current_intake.bank_account.account_type&.titleize %></li>
-        <li class="review-box__details"><%= t("general.bank_account.routing_number") %>: <%= current_intake.bank_account.routing_number %></li>
-        <li class="review-box__details"><%= t("general.bank_account.account_number") %>: <%= mask(current_intake.bank_account.account_number, 4) %></li>
-      </ul>
+      <%= render "bank_account_info", bank_account: current_intake.bank_account %>
     <% end %>
   </div>
 

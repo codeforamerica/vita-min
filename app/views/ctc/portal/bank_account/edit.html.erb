@@ -1,0 +1,42 @@
+<% @main_question = t("views.ctc.portal.bank_account.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :card do %>
+  <div class="question-layout">
+    <div class="back">
+      <%= link_to t("general.back"), defined?(prev_path) ? prev_path : :back %>
+    </div>
+    <div class="question-wrapper">
+      <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+        <h1 class="h2"><%= @main_question %></h1>
+        <p class="help-text"><%= t("views.ctc.portal.bank_account.help_text") %></p>
+        <div class="form-card__content">
+          <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
+          <%= f.cfa_radio_set(
+                  :account_type,
+                  label_text: t("views.questions.bank_details.account_type.label"),
+                  collection: [
+                      { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
+                      { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
+                  ]
+              )
+          %>
+          <%= f.cfa_checkbox(:my_bank_account, t("views.ctc.questions.direct_deposit.my_bank_account.label"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+
+          <%= image_tag "check_routing_and_account.png", class: "spacing-below-35" %>
+
+          <%= f.cfa_input_field(:routing_number, t("views.ctc.questions.routing_number.routing_number"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:routing_number_confirmation, t("views.ctc.questions.routing_number.routing_number_confirmation"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:account_number, t("views.ctc.questions.account_number.account_number"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:account_number_confirmation, t("views.ctc.questions.account_number.account_number_confirmation"), classes: ["form-width--long"]) %>
+        </div>
+
+        <button class="button button--primary button--wide" type="submit">
+          <%=t("general.save") %>
+        </button>
+        <%= link_to t("general.cancel"), defined?(prev_path) ? prev_path : :back, class: "button button--wide" %>
+    <% end %>
+    </div>
+  </div>
+<% end %>
