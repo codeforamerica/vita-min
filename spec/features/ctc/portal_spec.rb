@@ -177,7 +177,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
     let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2020, status: "intake_in_progress")) }
 
     before do
-      intake.update(email_address_verified_at: DateTime.now)
+      intake.update(email_address_verified_at: DateTime.now, refund_payment_method: "direct_deposit")
     end
 
     scenario "a client can correct their information" do
@@ -235,6 +235,34 @@ RSpec.feature "CTC Intake", :js, :active_job do
       expect(dependent_to_delete.reload.soft_deleted_at).to be_truthy
       expect(page).not_to have_text dependent_to_delete.first_name
 
+      expect(page).to have_text "Your bank information"
+
+      within ".bank-account-info" do
+        click_on I18n.t("general.change")
+      end
+
+      fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
+      choose I18n.t('views.questions.bank_details.account_type.checking')
+      fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "133456789"
+      fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "133456789"
+      click_on I18n.t("general.save")
+      expect(page).to have_selector(".text--error", text: I18n.t('validators.routing_number'))
+      fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
+      choose I18n.t('views.questions.bank_details.account_type.checking')
+      check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
+
+      fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "123456789"
+      fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "123456789"
+      fill_in I18n.t('views.ctc.questions.account_number.account_number'), with: "123456789"
+      fill_in I18n.t('views.ctc.questions.account_number.account_number_confirmation'), with: "123456789"
+      click_on I18n.t("general.save")
+
+      within ".bank-account-info" do
+        expect(page).to have_text "Bank of Two Melons"
+        expect(page).to have_text "Type: Checking"
+        expect(page).to have_text "Routing number: 123456789"
+        expect(page).to have_text "Account number: ●●●●●6789"
+      end
       expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
       click_on I18n.t("views.ctc.portal.home.contact_us")
       click_on I18n.t("general.back")
