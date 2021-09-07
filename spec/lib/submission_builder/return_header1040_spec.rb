@@ -95,7 +95,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         expect(xml.at("SpouseSSN").text).to eq submission.intake.spouse_ssn
         expect(xml.at("NameLine1Txt").text).to eq "HUBERT BLAINE<D<& LISA F" # trimmed to 35 characters
         expect(xml.at("PrimaryNameControlTxt").text).to eq "DIWO"
-        expect(xml.at("SpouseNameControlTxt").text).to eq "DIWO"
+        expect(xml.at("SpouseNameControlTxt").text).to eq "FRAN"
         expect(xml.at("AddressLine1Txt").text).to eq "23627 HAWKINS CREEK CT"
         expect(xml.at("CityNm").text).to eq "KATY"
         expect(xml.at("StateAbbreviationCd").text).to eq "TX"
@@ -359,30 +359,48 @@ describe SubmissionBuilder::ReturnHeader1040 do
     context "efile security information" do
       context "UserAgentTxt" do
         before do
-          submission.client.efile_security_informations.first.update(user_agent: "Mozilla/5.0 (Linux; Android 10; SAMSUNG SM-S205DL) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36")
-          submission.client.efile_security_informations.last.update(user_agent: "Mozilla/5.0 (Linux; Android 10; SAMSUNG SM-S205DL) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36")
+
+          submission.client.efile_security_informations.first.update(
+              user_agent: "Mozilla/5.0 (Linux; Android 10; SAMSUNG SM-S205DL) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36",
+              browser_language: "es-419",
+              platform: "Linux armv8l-more"
+          )
+          submission.client.efile_security_informations.last.update(
+              user_agent: "Mozilla/5.0 (Linux; Android 10; SAMSUNG SM-S205DL) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Mobile Safari/537.36",
+              browser_language: "es-419",
+              platform: "Linux armv8l-more"
+          )
         end
 
         it "trims long user agent text down to 150 characters, the max acceptable by the schema" do
           expect(submission.client.efile_security_informations.first.user_agent.length).to eq 151
           expect(submission.client.efile_security_informations.last.user_agent.length).to eq 151
+          expect(submission.client.efile_security_informations.first.browser_language.length).to eq 6
+          expect(submission.client.efile_security_informations.last.browser_language.length).to eq 6
+          expect(submission.client.efile_security_informations.last.platform.length).to eq 17
+          expect(submission.client.efile_security_informations.last.platform.length).to eq 17
+
           response = SubmissionBuilder::ReturnHeader1040.build(submission)
           xml = Nokogiri::XML::Document.parse(response.document.to_xml)
           expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp UserAgentTxt").text.length).to eq 150
           expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp UserAgentTxt").text.length).to eq 150
+          expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp BrowserLanguageTxt").text.length).to eq 5
+          expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp BrowserLanguageTxt").text.length).to eq 5
+          expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp PlatformTxt").text.length).to eq 15
+          expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp PlatformTxt").text.length).to eq 15
         end
       end
     end
 
     context "spouse name control" do
-      context "when use_spouse_name_for_name_control is true" do
+      context "when use_primary_name_for_name_control is true" do
         before do
-          submission.intake.update(use_spouse_name_for_name_control: true)
+          submission.intake.update(use_primary_name_for_name_control: true)
         end
-        it "uses the spouses last name to create the name control" do
+        it "uses the primary last name to create the name control" do
           response = SubmissionBuilder::ReturnHeader1040.build(submission)
           xml = Nokogiri::XML::Document.parse(response.document.to_xml)
-          expect(xml.at("SpouseNameControlTxt").text).to eq "FRAN"
+          expect(xml.at("SpouseNameControlTxt").text).to eq "DIWO"
         end
       end
     end

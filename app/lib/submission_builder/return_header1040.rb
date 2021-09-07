@@ -73,8 +73,8 @@ module SubmissionBuilder
             xml.USAddress {
               # IRS provides no information on how to shorten addresses
               # but requires that they be < 36 characters long
-              xml.AddressLine1Txt address.street_address.first(35)
-              xml.CityNm address.city
+              xml.AddressLine1Txt trim(address.street_address, 35)
+              xml.CityNm trim(address.city, 22)
               xml.StateAbbreviationCd address.state
               xml.ZIPCd address.zip_code
             }
@@ -135,8 +135,8 @@ module SubmissionBuilder
               xml.DeviceId creation_security_information.device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               xml.DeviceTypeCd 1
               xml.UserAgentTxt trim(creation_security_information.user_agent, 150)
-              xml.BrowserLanguageTxt creation_security_information.browser_language
-              xml.PlatformTxt creation_security_information.platform
+              xml.BrowserLanguageTxt trim(creation_security_information.browser_language, 5)
+              xml.PlatformTxt trim(creation_security_information.platform, 15)
               xml.TimeZoneOffsetNum creation_security_information.timezone_offset
               xml.SystemTs datetime_type(creation_security_information.client_system_datetime)
             }
@@ -148,8 +148,8 @@ module SubmissionBuilder
               xml.DeviceId filing_security_information.device_id || "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               xml.DeviceTypeCd 1
               xml.UserAgentTxt trim(filing_security_information.user_agent, 150)
-              xml.BrowserLanguageTxt filing_security_information.browser_language
-              xml.PlatformTxt filing_security_information.platform
+              xml.BrowserLanguageTxt trim(filing_security_information.browser_language, 5)
+              xml.PlatformTxt trim(filing_security_information.platform, 15)
               xml.TimeZoneOffsetNum filing_security_information.timezone_offset
               xml.SystemTs datetime_type(filing_security_information.client_system_datetime)
             }
@@ -197,7 +197,7 @@ module SubmissionBuilder
     end
 
     def spouse_name_control(intake)
-      name = intake.use_spouse_name_for_name_control? ? intake.spouse_last_name : intake.primary_last_name
+      name = intake.use_primary_name_for_name_control ? intake.primary_last_name : intake.spouse_last_name
       person_name_control_type(name)
     end
 

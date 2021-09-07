@@ -11,14 +11,15 @@ describe Ctc::SpouseInfoForm do
       spouse_birth_date_year: "1963",
       spouse_birth_date_month: "9",
       spouse_birth_date_day: "10",
-      spouse_ssn: "111-22-8888",
-      spouse_ssn_confirmation: "111-22-8888",
+      spouse_ssn: spouse_ssn,
+      spouse_ssn_confirmation: spouse_ssn,
       spouse_tin_type: tin_type,
       ssn_no_employment: ssn_no_employment,
       spouse_can_be_claimed_as_dependent: "no",
       spouse_active_armed_forces: "no"
     }
   }
+  let(:spouse_ssn) { "999-78-1224" }
   let(:ssn_no_employment) { "no" }
   let(:tin_type) { "itin" }
 
@@ -38,6 +39,21 @@ describe Ctc::SpouseInfoForm do
     context "when all required information is provided" do
       it "is valid" do
         expect(described_class.new(intake, params)).to be_valid
+      end
+    end
+
+    context "when no ssn is provided" do
+      let(:tin_type) { "ssn" }
+      let(:spouse_ssn) { "" }
+      it "is invalid" do
+        expect(described_class.new(intake, params)).not_to be_valid
+      end
+
+      context "when the ssn_no_employment checkbox is yes" do
+        let(:ssn_no_employment) { "yes" }
+        it "still requires ssn to be present" do
+          expect(described_class.new(intake, params)).not_to be_valid
+        end
       end
     end
   end
@@ -67,8 +83,8 @@ describe Ctc::SpouseInfoForm do
       expect(intake.spouse_last_name).to eq "Mango"
       expect(intake.spouse_suffix).to eq "III"
       expect(intake.spouse_birth_date).to eq Date.new(1963, 9, 10)
-      expect(intake.spouse_ssn).to eq "111228888"
-      expect(intake.spouse_last_four_ssn).to eq "8888"
+      expect(intake.spouse_ssn).to eq "999781224"
+      expect(intake.spouse_last_four_ssn).to eq "1224"
       expect(intake.spouse_tin_type).to eq "itin"
       expect(intake.spouse_can_be_claimed_as_dependent).to eq "no"
       expect(form.intake).to eq intake # resets intake to be the created and persisted intake

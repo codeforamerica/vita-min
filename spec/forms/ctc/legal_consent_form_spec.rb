@@ -102,9 +102,15 @@ describe Ctc::LegalConsentForm do
         params[:primary_ssn] = "666-99-9999"
         params[:primary_ssn_confirmation] = "666-99-9999"
       end
-
       it "not valid" do
         expect(described_class.new(intake, params)).to_not be_valid
+      end
+
+      context "when the ssn_no_employment checkbox is yes" do
+        let(:ssn_no_employment) { "yes" }
+        it "still requires ssn to be formatted correctly" do
+          expect(described_class.new(intake, params)).not_to be_valid
+        end
       end
     end
 

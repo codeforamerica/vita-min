@@ -1,13 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true do
-  def strip_inner_newlines(text)
-    text.gsub(/\n/, '')
-  end
-
-  def strip_html_tags(text)
-    ActionController::Base.helpers.strip_tags(text)
-  end
+  include FeatureTestHelpers
 
   before do
     # create duplicated intake

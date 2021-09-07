@@ -38,10 +38,11 @@ module Hub
 
     def update
       @client = Client.find(params[:id])
+      original_intake = @client.intake.dup
       @form = UpdateCtcClientForm.new(@client, update_client_form_params)
 
       if @form.valid? && @form.save
-        SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
+        SystemNote::ClientChange.generate!(initiated_by: current_user, original_intake: original_intake, intake: @client.intake)
         if @client.tax_returns.last.service_type_online_intake?
           send_email_change_notification if @client.intake.saved_change_to_email_address?
           send_sms_change_notification if @client.intake.saved_change_to_sms_phone_number?
