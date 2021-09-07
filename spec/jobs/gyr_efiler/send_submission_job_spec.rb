@@ -78,6 +78,17 @@ RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
           expect(submission).to have_received(:retry_send_submission)
         end
       end
+
+      context "when the error indicates the IRS already received the data" do
+        let(:exception) { Efile::GyrEfilerService::Error.new("other\nlines\n#{file_fixture("gyr_efiler_duplicate_submission_log_line.txt").read}\nother\nlines") }
+
+        it "transitions to transmitted, storing the exception in raw_response" do
+          expect do
+            described_class.perform_now(submission)
+          end.to change { submission.current_state }.from("queued").to("transmitted")
+          expect(submission.efile_submission_transitions.last.metadata["raw_response"]).to eq(exception.inspect)
+        end
+      end
     end
 
     context "when the GyrEfiler lock is held" do
