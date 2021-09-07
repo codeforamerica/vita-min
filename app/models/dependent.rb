@@ -196,8 +196,7 @@ class Dependent < ApplicationRecord
       meets_qc_age_condition_2020? &&
       meets_qc_misc_conditions? &&
       meets_qc_residence_condition_2020? &&
-      meets_qc_claimant_condition? && ssn.present? &&
-      birth_date.year != 2021
+      meets_qc_claimant_condition? && ssn.present?
   end
 
   def meets_qc_age_condition_2020?
@@ -208,13 +207,8 @@ class Dependent < ApplicationRecord
     provided_over_half_own_support_no? && filed_joint_return_no?
   end
 
-  def born_in_last_6_months_of_2020?
-    birth_date <= Date.parse('2020-12-31') && birth_date >= Date.parse('2020-06-30')
-  end
-
   def meets_qc_residence_condition_2020?
     lived_with_more_than_six_months_yes? ||
-      born_in_last_6_months_of_2020? ||
       (lived_with_more_than_six_months_no? &&
         (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
   end
@@ -225,7 +219,12 @@ class Dependent < ApplicationRecord
   end
 
   def disqualified_child_qualified_relative?
-    qualifying_child_relationship? && !meets_qc_age_condition_2020?
+    return false unless qualifying_child_relationship?
+
+    # QC relationship and doesn't meet age requirements
+    !meets_qc_age_condition_2020? ||
+        # QC relationship and meets age requirements but is filing jointly
+        (meets_qc_age_condition_2020? && filed_joint_return_yes?)
   end
 
   def qualifying_relative_2020?
