@@ -5,7 +5,7 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
     before do
       submission.intake.update(primary_last_name: "Kòala")
       dependent = submission.intake.dependents.first
-      dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234")
+      dependent_attrs = attributes_for(:qualifying_child, first_name: "Keeley Elizabeth Aurora", last_name: "Kiwi-Cucumbersteiningham", birth_date: Date.new(2020, 1, 1), relationship: "daughter", ssn: "123001234")
       dependent.update(dependent_attrs)
       dependent2 = submission.intake.dependents.second
       dependent2_attrs = attributes_for(:qualifying_child, birth_date: Date.new(1975, 1, 1), relationship: "son", ssn: "123001235") # too old to be qualifying child
@@ -70,8 +70,10 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
         expect(xml.at("TotalExemptPrimaryAndSpouseCnt").text).to eq "2" # married filing joint
         dependent_nodes = xml.search("DependentDetail")
         expect(dependent_nodes.length).to eq 2
-        expect(dependent_nodes[0].at("DependentFirstNm").text).to eq "Keeley"
-        expect(dependent_nodes[0].at("DependentLastNm").text).to eq "Kiwi"
+        expect(dependent_nodes[0].at("DependentFirstNm").text).to eq "Keeley Elizabeth Aur"
+        expect(dependent_nodes[0].at("DependentFirstNm").text.length).to eq 20
+        expect(dependent_nodes[0].at("DependentLastNm").text).to eq "Kiwi-Cucumbersteinin"
+        expect(dependent_nodes[0].at("DependentFirstNm").text.length).to eq 20
         expect(dependent_nodes[0].at("DependentNameControlTxt").text).to eq "KIWI"
         expect(dependent_nodes[0].at("DependentSSN").text).to eq "123001234"
         expect(dependent_nodes[0].at("DependentRelationshipCd").text).to eq "DAUGHTER"
