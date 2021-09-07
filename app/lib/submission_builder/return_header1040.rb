@@ -73,8 +73,8 @@ module SubmissionBuilder
             xml.USAddress {
               # IRS provides no information on how to shorten addresses
               # but requires that they be < 36 characters long
-              xml.AddressLine1Txt address.street_address.first(35)
-              xml.CityNm address.city
+              xml.AddressLine1Txt trim(address.street_address, 35)
+              xml.CityNm trim(address.city, 22)
               xml.StateAbbreviationCd address.state
               xml.ZIPCd address.zip_code
             }

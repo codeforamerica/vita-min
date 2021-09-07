@@ -21,7 +21,7 @@ module SubmissionBuilder
     def person_name_type(name)
       return "" unless name.present?
 
-      I18n.transliterate(name).strip.gsub(/[^A-Za-z\-\s]/, '')
+      trim(I18n.transliterate(name).strip.gsub(/[^A-Za-z\-\s]/, ''), 20)
     end
 
     def name_line_1_type(primary_first, primary_middle, primary_last, primary_suffix, spouse_first, spouse_middle, spouse_last)
