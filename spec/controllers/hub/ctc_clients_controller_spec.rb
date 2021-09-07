@@ -229,6 +229,7 @@ RSpec.describe Hub::CtcClientsController do
           refund_payment_method: "check",
           with_passport_photo_id: "1",
           with_itin_taxpayer_id: "1",
+          use_primary_name_for_name_control: false,
           primary_ip_pin: intake.primary_ip_pin,
           spouse_ip_pin: intake.spouse_ip_pin,
           dependents_attributes: {

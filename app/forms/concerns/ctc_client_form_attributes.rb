@@ -38,11 +38,5 @@ module CtcClientFormAttributes
         attributes[column] = intake.send(column)
       end
     end
-
-    # use_spouse_name_for_name_control should treat `nil` and `false` as equivalent
-    # unless we ever make it default(FALSE) and clear out all the nils
-    if intake&.persisted? && attributes[:use_spouse_name_for_name_control] != "true"
-      attributes[:use_spouse_name_for_name_control] = intake.use_spouse_name_for_name_control
-    end
   end
 end

@@ -197,7 +197,7 @@ module SubmissionBuilder
     end
 
     def spouse_name_control(intake)
-      name = intake.use_spouse_name_for_name_control? ? intake.spouse_last_name : intake.primary_last_name
+      name = intake.use_primary_name_for_name_control ? intake.primary_last_name : intake.spouse_last_name
       person_name_control_type(name)
     end
 
