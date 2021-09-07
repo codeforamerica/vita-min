@@ -51,6 +51,8 @@ module Ctc
           birth_date: birth_date
         ))
         @dependent.save
+
+        @dependent.update!(lived_with_more_than_six_months: "yes") if @dependent.born_in_last_6_months_of_2020?
       end
 
       def self.existing_attributes(dependent, _attribute_keys)

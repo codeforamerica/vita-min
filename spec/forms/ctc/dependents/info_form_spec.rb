@@ -90,7 +90,7 @@ describe Ctc::Dependents::InfoForm do
     end
 
   end
-  
+
   describe '#save' do
     let(:intake) { build(:ctc_intake) }
     let(:params) do
@@ -105,7 +105,9 @@ describe Ctc::Dependents::InfoForm do
         full_time_student: "no",
         permanently_totally_disabled: "no",
         tin_type: tin_type,
-        ssn_no_employment: ssn_no_employment
+        ssn_no_employment: ssn_no_employment,
+        ssn: "123456789",
+        ssn_confirmation: "123456789"
       }
     end
     let(:tin_type) { "ssn" }
@@ -113,7 +115,8 @@ describe Ctc::Dependents::InfoForm do
 
     it "saves the attributes on the dependent" do
       form = described_class.new(intake.dependents.new, params)
-      expect(form.save).to be_truthy
+      expect(form).to be_valid
+      form.save
 
       dependent = Dependent.last
       expect(dependent.first_name).to eq "Fae"
