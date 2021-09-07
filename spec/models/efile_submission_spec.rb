@@ -445,14 +445,15 @@ describe EfileSubmission do
   end
 
   describe "#retry_send_submission" do
-    context "when the submission is fairly recent" do
-      before do
-        allow(SecureRandom).to receive(:rand).with(30).and_return(4)
-      end
+    before do
+      allow(SecureRandom).to receive(:rand).with(30).and_return(4)
+    end
 
+    context "when the submission was queued fairly recently" do
       it "enqueues the SendSubmission job with exponential backoff plus jitter", active_job: true do
         freeze_time do
-          submission = create(:efile_submission, :queued, created_at: 1.minute.ago)
+          submission = create(:efile_submission, :queued)
+          submission.efile_submission_transitions.where(to_state: "queued").update(created_at: 1.minute.ago)
           clear_enqueued_jobs
           expected_delay = (1.minute ** 1.25) + 4
 
@@ -463,14 +464,11 @@ describe EfileSubmission do
       end
     end
 
-    context "when the submission is more than one hour old" do
-      before do
-        allow(SecureRandom).to receive(:rand).with(30).and_return(4)
-      end
-
+    context "when the submission was queued more than one hour ago" do
       it "enqueues the SendSubmission job with 60 minute delay plus jitter", active_job: true do
         freeze_time do
-          submission = create(:efile_submission, :queued, created_at: 61.minutes.ago)
+          submission = create(:efile_submission, :queued)
+          submission.efile_submission_transitions.where(to_state: "queued").update(created_at: 61.minutes.ago)
           clear_enqueued_jobs
           expected_delay = 60.minutes + 4
 
@@ -481,14 +479,11 @@ describe EfileSubmission do
       end
     end
 
-    context "when the submission is more than one day old" do
-      before do
-        allow(SecureRandom).to receive(:rand).with(30).and_return(4)
-      end
-
+    context "when the submission was queued more than one day ago" do
       it "marks the submission as failed", active_job: true do
         freeze_time do
-          submission = create(:efile_submission, :queued, created_at: (1.01).days.ago)
+          submission = create(:efile_submission, :queued)
+          submission.efile_submission_transitions.where(to_state: "queued").update(created_at: (1.01).days.ago)
           clear_enqueued_jobs
 
           expect {
