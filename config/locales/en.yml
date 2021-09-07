@@ -786,6 +786,7 @@ en:
         not_found: Matching routing entry for %{state} could not be found. Try again.
       general: Please fix indicated errors before continuing.
   general:
+    change: change
     tin:
       ssn: Social Security Number (SSN)
       ssn_no_employment: SSN (Not valid for employment)
@@ -1406,6 +1407,8 @@ en:
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
     pdf_file_type: "%{document_type} must be a PDF file"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} must be associated with a tax year."
+    routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
+    account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
   views:
     ctc:
       portal:
@@ -1469,6 +1472,9 @@ en:
           help_text: "Confirm/edit your spouse's basic information"
         mailing_address:
           title: "Edit your address"
+        bank_account:
+          title: Please provide your bank details below
+          help_text: Your name must be listed on your bank account for you to receive your money.
       questions:
         returning_client:
           next_steps: Sign in to your account to complete the questions. If you have any questions, start a chat with us.
@@ -1586,6 +1592,7 @@ en:
             label: I confirm that my name is on this bank account.
             question: Your name must be on the bank account to receive a direct deposit.
             error_message_html: Enter info for a bank account with your name on it, or <a href=%{link}> select a different method for your payment</a>.
+            error_message: Enter info for a bank account with your name on it, or switch to check as your payment type.
         refund_payment:
           title: How would you like to receive any payments?
           help_text: If you select a mailed check, please provide an address you will be at through December 2021.

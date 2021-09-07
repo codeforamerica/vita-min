@@ -359,6 +359,9 @@ Rails.application.routes.draw do
           get 'spouse', to: "spouse#edit"
           put 'spouse', to: "spouse#update"
 
+          get 'bank-account', to: "bank_account#edit"
+          put 'bank-account', to: "bank_account#update"
+
           resources :dependents, only: [:edit, :update, :destroy] do
             get :confirm_remove, on: :member
           end
