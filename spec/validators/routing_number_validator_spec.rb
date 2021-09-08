@@ -1,13 +1,17 @@
 require "rails_helper"
-class Validatable
-  include ActiveModel::Validations
-  validates_with RoutingNumberValidator, attributes: :routing_number
-  attr_accessor  :routing_number
-end
 
 describe RoutingNumberValidator do
+  before do
+    @validatable = Class.new do
+      include ActiveModel::Validations
+      validates_with RoutingNumberValidator, attributes: :routing_number
+      attr_accessor  :routing_number
+    end
+  end
+
   let(:routing_number) { nil }
-  subject { Validatable.new }
+
+  subject { @validatable.new }
 
   context 'with valid routing number' do
     before do

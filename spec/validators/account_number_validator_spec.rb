@@ -1,12 +1,15 @@
 require "rails_helper"
-class Validatable
-  include ActiveModel::Validations
-  validates_with AccountNumberValidator, attributes: :account_number
-  attr_accessor  :account_number
-end
 
 describe AccountNumberValidator do
-  subject { Validatable.new }
+  before do
+    @validatable = Class.new do
+      include ActiveModel::Validations
+      validates_with AccountNumberValidator, attributes: :account_number
+      attr_accessor  :account_number
+    end
+  end
+
+  subject { @validatable.new }
 
   context 'with valid account number' do
     before do
