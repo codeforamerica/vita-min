@@ -1838,6 +1838,7 @@ en:
           third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Click here for more information on the third stimulus payment.</a>
           client_not_collecting: You are not collecting any payments, please edit your tax return.
           do_not_file: Do not file
+          do_not_file_flash_message: "Thank you for using GetCTC! Upon your request, we will not file your return."
         agi2019:
           title: "What was your 2019 Adjusted Gross Income?"
           help_text_html: |

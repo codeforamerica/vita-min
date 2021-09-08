@@ -20,6 +20,13 @@ module Ctc
         super
       end
 
+      def do_not_file
+        current_intake.tax_return(2020).update(status: :file_not_filing)
+        session[:intake_id] = nil
+        flash[:notice] = I18n.t('views.ctc.questions.confirm_payment.do_not_file_flash_message')
+        redirect_to root_path
+      end
+
       def illustration_path; end
 
       def form_class

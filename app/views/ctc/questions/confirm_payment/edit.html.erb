@@ -28,5 +28,5 @@
   </div>
 
   <%= link_to t("general.continue"), next_path, class: "button button--primary button--wide text--centered spacing-above-60" unless @not_collecting%>
-  <%= link_to t('views.ctc.questions.confirm_payment.do_not_file'), root_path, class: "button button--primary button--wide text--centered spacing-above-60" if @not_collecting %>
+  <%= link_to t('views.ctc.questions.confirm_payment.do_not_file'), questions_do_not_file_path, method: :patch, class: "button button--primary button--wide text--centered spacing-above-60" if @not_collecting %>
 <% end %>

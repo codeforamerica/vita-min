@@ -299,6 +299,8 @@ Rails.application.routes.draw do
       get "/questions/dependents/:id/remove-dependent", to: "ctc/questions/dependents/remove_dependent#edit", as: :questions_remove_dependent
       put "/questions/dependents/:id/remove-dependent", to: "ctc/questions/dependents/remove_dependent#update"
 
+      patch '/questions/confirm_payment', to: 'ctc/questions/confirm_payment#do_not_file', as: :questions_do_not_file
+
       unless Rails.env.production?
         resources :flows, only: [:index, :show] do
           post :generate, on: :collection
