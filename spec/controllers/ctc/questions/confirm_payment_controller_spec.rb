@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::ConfirmPaymentController do
   let(:intake) { create :ctc_intake }
+  let!(:tax_return) { create(:tax_return, status: :intake_in_progress, year: 2020, client: intake.client) }
 
   before do
     sign_in intake.client
@@ -17,13 +18,6 @@ describe Ctc::Questions::ConfirmPaymentController do
   end
 
   describe '#do_not_file' do
-    let!(:tax_return) { build(:tax_return, status: :intake_in_progress, year: 2020, client: intake.client) }
-    before do
-      session[:intake_id] = intake.id
-      allow(subject).to receive(:current_intake).and_return(intake)
-      allow(subject).to receive_message_chain(:current_intake, :tax_return).with(2020).and_return(tax_return)
-    end
-
     it "moves the tax return object to the 'file_not_filing' status" do
       patch :do_not_file
       expect(tax_return.reload.status).to eq "file_not_filing"
