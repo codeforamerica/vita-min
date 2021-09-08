@@ -38,4 +38,37 @@ class CtcSignupMessage
       ctc_signup.touch(:beta_email_sent_at)
     end
   end
+
+  def self.send_launch_announcement(count)
+    ctc_signups = CtcSignup.where(launch_announcement_sent_at: nil).take(count)
+    ctc_signups.each do |ctc_signup|
+      _send_one_launch_announcement(ctc_signup)
+    end
+  end
+
+  def self._send_one_launch_announcement(ctc_signup)
+    if ctc_signup.email_address.present?
+      CtcSignupMailer.launch_announcement(email_address: ctc_signup.email_address, name: ctc_signup.name).deliver_now
+    end
+
+    text_email_template_file = File.read(File.join(Rails.root, "app/views/ctc_signup_mailer/launch_announcement.text.erb"))
+    text_email_template = ERB.new(text_email_template_file)
+    @name = ctc_signup.name
+    text_email = text_email_template.result(binding)
+
+    en_sms, es_sms = text_email.split('--------------------------')
+
+    if ctc_signup.phone_number.present?
+      TwilioService.send_text_message(
+        to: ctc_signup.phone_number,
+        body: en_sms,
+      )
+      TwilioService.send_text_message(
+        to: ctc_signup.phone_number,
+        body: es_sms,
+      )
+    end
+
+    ctc_signup.touch(:launch_announcement_sent_at)
+  end
 end
