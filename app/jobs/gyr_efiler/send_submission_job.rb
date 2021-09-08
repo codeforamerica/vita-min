@@ -22,8 +22,28 @@ module GyrEfiler
       submission.retry_send_submission
       return
     rescue Efile::GyrEfilerService::Error => e
-      submission.transition_to!(:failed, error_code: "TRANSMISSION-SERVICE", raw_response: e.inspect)
-      raise
+      # For most errors, transition to failed and raise the error for Sentry.
+      #
+      # However, if the IRS says our submission ID is not globally unique, we assume the IRS already received it.
+      if e.message.split("\n").any? do |line|
+        prefix = "Transaction Result: Fault String: ErrorExceptionDetail - Fault Code: soapenv:Server - Detail: "
+        next false unless line.start_with?(prefix)
+
+        parsed_error = Nokogiri::XML(line.slice(prefix.length..))
+        error_message_text = parsed_error.xpath('//ns2:ErrorMessageTxt', 'ns2' => 'http://www.irs.gov/a2a/mef/MeFHeader.xsd').text
+        error_message_code = parsed_error.xpath('//ns2:ErrorMessageCd', 'ns2' => 'http://www.irs.gov/a2a/mef/MeFHeader.xsd').text
+        error_classification_code = parsed_error.xpath('//ns2:ErrorClassificationCd', 'ns2' => 'http://www.irs.gov/a2a/mef/MeFHeader.xsd').text
+        next false unless parsed_error && error_message_text && error_message_code && error_classification_code
+
+        next error_classification_code == "REQUEST_ERROR" && error_message_code == "MEF00005" && error_message_text.match(
+          /\AMessage with Id: [^ ]+ containing submission ids: [^ ]+ specified in the SubmissionDataList is not globally unique - data violates rule: T0000-014\z/
+        )
+      end
+        submission.transition_to!(:transmitted, raw_response: e.inspect)
+      else
+        submission.transition_to!(:failed, error_code: "TRANSMISSION-SERVICE", raw_response: e.inspect)
+        raise
+      end
     end
   end
 end
