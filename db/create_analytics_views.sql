@@ -38,7 +38,7 @@ CREATE VIEW analytics.client_success_roles AS
     FROM public.client_success_roles;
 
 CREATE VIEW analytics.clients AS
-    SELECT id, attention_needed_since, created_at, current_sign_in_at, failed_attempts, first_unanswered_incoming_interaction_at, last_incoming_interaction_at, last_internal_or_outgoing_interaction_at, last_sign_in_at, locked_at, login_requested_at, routing_method, sign_in_count, updated_at, vita_partner_id
+    SELECT id, attention_needed_since, created_at, current_sign_in_at, failed_attempts, first_unanswered_incoming_interaction_at, flagged_at, last_incoming_interaction_at, last_internal_or_outgoing_interaction_at, last_sign_in_at, locked_at, login_requested_at, routing_method, sign_in_count, updated_at, vita_partner_id
     FROM public.clients;
 
 CREATE VIEW analytics.coalition_lead_roles AS
@@ -70,7 +70,7 @@ CREATE VIEW analytics.documents_requests AS
     FROM public.documents_requests;
 
 CREATE VIEW analytics.efile_errors AS
-    SELECT id, category, code, created_at, expose, message, severity, source, updated_at
+    SELECT id, auto_cancel, auto_wait, category, code, created_at, expose, message, severity, source, updated_at
     FROM public.efile_errors;
 
 CREATE VIEW analytics.efile_submission_transition_errors AS
