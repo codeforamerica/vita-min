@@ -321,7 +321,7 @@ FactoryBot.define do
 
   trait :with_faker_contact_info do
     primary_first_name { Faker::Name.first_name }
-    primary_last_name { Faker::Name.last_name }
+    primary_last_name { Faker::Name.last_name.gsub("'", '') }
     preferred_name { primary_first_name }
     phone_number { "+14155551212" }
     sms_phone_number { "+14155551212" }
