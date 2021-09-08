@@ -1833,6 +1833,22 @@ en:
           ready_to_file: "I'm ready to file"
           your_information: "Your information"
           your_dependents: "Your dependents"
+        confirm_payment:
+          title: "Here’s a list of the estimated payments you are owed:"
+          ctc_due: "Child Tax Credit Payments:"
+          total: "total"
+          monthly: "Distributed in monthly payments"
+          ctc_due_link: "Claim additional children"
+          ctc_0_due_link: "Claim children for CTC"
+          rrc: "Recovery Rebate Credit (Missing stimulus payments):"
+          rrc_link: "Review RRC Section"
+          edit_rrc_link: "Edit RRC Section"
+          third_stimulus: "Third Stimulus Payment*"
+          third_stimulus_help_text: "*You will a receive a payment for this amount if you did not receive the automatic payment in the spring"
+          third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Click here for more information on the third stimulus payment.</a>
+          client_not_collecting: You are not collecting any payments, please edit your tax return.
+          do_not_file: Do not file
+          do_not_file_flash_message: "Thank you for using GetCTC! We will not file your return."
         agi2019:
           title: "What was your 2019 Adjusted Gross Income?"
           help_text_html: |

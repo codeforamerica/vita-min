@@ -133,7 +133,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     end
     click_on I18n.t('general.affirmative')
 
-    dependent_birth_year = 22.years.ago.year
+    dependent_birth_year = 5.years.ago.year
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
     fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Jessie"
@@ -163,7 +163,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     click_on "Add another person"
 
-    dependent_birth_year = 5.years.ago.year
+    dependent_birth_year = 22.years.ago.year
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
     fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Red"
@@ -207,24 +207,24 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     # =========== RECOVERY REBATE CREDIT ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
-    expect(page).to have_selector(".first-stimulus", text: "$2,400")
-    expect(page).to have_selector(".second-stimulus", text: "$1,200")
+    expect(page).to have_selector(".first-stimulus", text: "$2,900")
+    expect(page).to have_selector(".second-stimulus", text: "$1,800")
 
     click_on I18n.t('views.ctc.questions.stimulus_payments.no_did_not_receive')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_one.title'))
     click_on I18n.t('general.affirmative')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_one_received.title'))
-    fill_in I18n.t('views.ctc.questions.stimulus_one_received.eip1_amount_received_label'), with: "2400"
+    fill_in I18n.t('views.ctc.questions.stimulus_one_received.eip1_amount_received_label'), with: "2900"
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two.title'))
     click_on I18n.t('general.affirmative')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two_received.title'))
-    fill_in I18n.t('views.ctc.questions.stimulus_two_received.eip2_amount_received_label'), with: "1200"
+    fill_in I18n.t('views.ctc.questions.stimulus_two_received.eip2_amount_received_label'), with: "1800"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_received.title'))
-    expect(page).to have_text("#{I18n.t('views.ctc.questions.stimulus_received.eip_one')}: $2,400")
-    expect(page).to have_text("#{I18n.t('views.ctc.questions.stimulus_received.eip_two')}: $1,200")
+    expect(page).to have_text("#{I18n.t('views.ctc.questions.stimulus_received.eip_one')}: $2,900")
+    expect(page).to have_text("#{I18n.t('views.ctc.questions.stimulus_received.eip_two')}: $1,800")
     click_on I18n.t('general.continue')
 
     # =========== BANK AND MAILING INFO ===========
@@ -355,6 +355,15 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Garold Mango III"), with: "12345"
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Petra Pepper"), with: "54321"
     click_on I18n.t('views.ctc.questions.confirm_information.ready_to_file')
+
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_payment.title"))
+    expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.ctc_due"))
+    expect(page).to have_selector("p", text:  "$1,800")
+    expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.rrc"))
+    expect(page).to have_selector("p", text:  "$0")
+    expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.third_stimulus"))
+    expect(page).to have_selector("p", text:  "$4,200")
+    click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))
     check I18n.t("views.ctc.questions.confirm_legal.consent")

@@ -64,6 +64,7 @@ class CtcQuestionNavigation
     Ctc::Questions::IpPinController,
     Ctc::Questions::IpPinEntryController,
     Ctc::Questions::ConfirmInformationController,
+    Ctc::Questions::ConfirmPaymentController,
     Ctc::Questions::ConfirmLegalController,
   ].freeze
 end
