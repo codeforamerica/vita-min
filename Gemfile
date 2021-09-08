@@ -119,6 +119,7 @@ group :test do
   gem 'shoulda-matchers', '~> 4.3.0'
   gem 'spring-commands-rspec'
   gem 'database_cleaner'
+  gem 'percy-capybara'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
