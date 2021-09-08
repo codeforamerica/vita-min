@@ -99,8 +99,10 @@ describe Ctc::Portal::DependentsController do
 
     it "removes a dependent and leaves a system note" do
       expect do
-        put :destroy, params: { id: dependent.id }
-      end.not_to change(Dependent, :count)
+        expect do
+          put :destroy, params: { id: dependent.id }
+        end.to change(Dependent, :count).by(-1)
+      end.not_to change { Dependent.with_deleted.count }
 
       expect(dependent.reload.soft_deleted_at).to be_truthy
 

@@ -47,6 +47,8 @@
 #
 
 class Dependent < ApplicationRecord
+  include SoftDeletable
+
   belongs_to :intake, inverse_of: :dependents
 
   attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
