@@ -5,7 +5,9 @@ module Ctc
     validates_presence_of :filed_2019
 
     def save
-      @intake.update(attributes_for(:intake))
+      attributes = attributes_for(:intake)
+      attributes[:primary_prior_year_agi_amount] = 1 if filed_2019 == "filed_non_filer"
+      @intake.update(attributes)
     end
 
     def filed_2019?
