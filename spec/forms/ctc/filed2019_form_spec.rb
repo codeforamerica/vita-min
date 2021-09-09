@@ -38,6 +38,7 @@ describe Ctc::Filed2019Form do
       expect {
         described_class.new(intake, params).save
       }.to change(intake, :filed_2019).from("unfilled").to("filed_non_filer")
+       .and change(intake, :primary_prior_year_agi_amount).from(nil).to(1)
     end
   end
 end
