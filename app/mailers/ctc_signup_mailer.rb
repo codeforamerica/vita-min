@@ -10,4 +10,14 @@ class CtcSignupMailer < ApplicationMailer
       subject: @subject,
     )
   end
+
+  def launch_announcement(email_address:, name:)
+    @name = name
+    subject = "Thank you for signing up to receive updates regarding GetCTC! / ¡Gracias por registrarse para recibir las actualizaciones de GetCTC!"
+    @service_type = :ctc
+    mail(
+      to: email_address,
+      subject: subject,
+    )
+  end
 end
