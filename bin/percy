@@ -10,24 +10,31 @@ def system!(*args)
 end
 
 FileUtils.chdir APP_ROOT do
+  puts "Enter the base branch (press enter to use main)"
+  target_branch = gets.chomp.presence || 'main'
+  puts "Enter a 4 digit PR number if available (or press enter)"
+  pr_number = gets.chomp
+
   system!({ "PERCY_TOKEN" => Rails.application.credentials.percy_token },
     '
+      set -e
       if [ -z $PERCY_TOKEN ]; then echo "== 🚨 Please download development.key to access PERCY_TOKEN =="; exit 1; fi
 
-      if [ -z "$(git status --porcelain)" ]; then
-        echo "== 📸 Take baseline images =="
-        git checkout main
-        bundle install
-        npx percy exec -- rspec --tag screenshot
-        echo "== 📸 Take new images =="
-        git checkout -
-        bundle install
-        npx percy exec -- rspec --tag screenshot
-      else
-       echo "== 🚨 Please commit changes first =="
-       exit 1
-      fi
-    '
+      if [ -n "$(git status --porcelain)" ]; then echo "== 🚨 Please commit changes first =="; exit 1; fi
+
+      echo "== 📸 Take baseline images =="
+      git checkout %{target_branch}
+      bundle install
+      yarn install
+      RAILS_ENV=test bin/webpack
+      VITA_MIN_PERCY_ENABLED=1 npx percy exec -- rspec --tag screenshot
+      echo "== 📸 Take new images =="
+      git checkout -
+      bundle install
+      yarn install
+      RAILS_ENV=test bin/webpack
+      VITA_MIN_PERCY_ENABLED=1 PERCY_TARGET_BRANCH=%{target_branch} PERCY_PULL_REQUEST=%{pr_number} npx percy exec -- rspec --tag screenshot
+    ' % { target_branch: target_branch, pr_number: pr_number }
   )
 end
 
