@@ -38,4 +38,33 @@ class CtcSignupMessage
       ctc_signup.touch(:beta_email_sent_at)
     end
   end
+
+  def self.send_launch_announcement(count)
+    ctc_signups = CtcSignup.where(launch_announcement_sent_at: nil).take(count)
+    ctc_signups.each do |ctc_signup|
+      _send_one_launch_announcement(ctc_signup)
+    end
+  end
+
+  def self._send_one_launch_announcement(ctc_signup)
+    if ctc_signup.email_address.present?
+      CtcSignupMailer.launch_announcement(email_address: ctc_signup.email_address, name: ctc_signup.name).deliver_later
+    end
+
+    en_sms = 'Thank you for signing up to receive updates regarding GetCTC! GetCTC is officially live and available for e-filing a simplified return to claim your Child Tax Credit and stimulus payments! Go to GetCTC.org and click "File your simplified return now" to get started.'
+    es_sms = '¡Gracias por registrarse para recibir las actualizaciones de GetCTC! ¡GetCTC está oficialemente disponible y a su disposición para presenter su declaración de impuestos de forma simplificada para reclamara su Crédito Tributario por Hijos y los pagos de estímulo! Ingrese a GetCTC.org y haga clic en “Declare de forma simplificada ahora” para iniciar.'
+
+    if ctc_signup.phone_number.present?
+      TwilioService.send_text_message(
+        to: ctc_signup.phone_number,
+        body: en_sms,
+      )
+      TwilioService.send_text_message(
+        to: ctc_signup.phone_number,
+        body: es_sms,
+      )
+    end
+
+    ctc_signup.touch(:launch_announcement_sent_at)
+  end
 end
