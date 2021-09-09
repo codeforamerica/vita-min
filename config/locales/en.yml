@@ -1175,6 +1175,19 @@ en:
           subject: Welcome to GetYourRefund.org. You're almost there!
         sms: |
           Hello <<Client.PreferredName>>. We noticed you haven't completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>> If you have any questions, you can reply to this message. Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}
+      ctc_experience:
+        email:
+          subject: Your feedback on GetCTC
+          body: |
+            Hello <<Client.PreferredName>>,
+
+            Thank you for submitting your taxes with GetCTC!
+
+            We would love feedback on your experience so we can improve this service! Could you tell us about how it went?
+
+            Take our 5 minute survey here: %{survey_link}
+        sms: |
+          Thank you for submitting your taxes with GetCTC! We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
     intercom_forwarding:
       email:
         body: "This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly."

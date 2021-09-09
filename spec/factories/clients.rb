@@ -5,6 +5,8 @@
 #  id                                       :bigint           not null, primary key
 #  attention_needed_since                   :datetime
 #  completion_survey_sent_at                :datetime
+#  ctc_experience_survey_sent_at            :datetime
+#  ctc_experience_survey_variant            :integer
 #  current_sign_in_at                       :datetime
 #  current_sign_in_ip                       :inet
 #  experience_survey                        :integer          default("unfilled"), not null

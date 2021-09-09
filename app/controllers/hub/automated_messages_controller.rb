@@ -14,6 +14,7 @@ module Hub
           [AutomatedMessage::SuccessfulSubmissionOnlineIntake, {}],
           [AutomatedMessage::InProgressSurvey, {}],
           [AutomatedMessage::CompletionSurvey, {}],
+          [AutomatedMessage::CtcExperienceSurvey, {}],
           [AutomatedMessage::DocumentsReminderLink, {}],
           [AutomatedMessage::EfileAcceptance, {}],
           [AutomatedMessage::EfilePreparing, {}],

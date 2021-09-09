@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_08_222704) do
+ActiveRecord::Schema.define(version: 2021_09_09_182355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -168,6 +168,8 @@ ActiveRecord::Schema.define(version: 2021_09_08_222704) do
     t.datetime "attention_needed_since"
     t.datetime "completion_survey_sent_at"
     t.datetime "created_at", precision: 6, null: false
+    t.datetime "ctc_experience_survey_sent_at"
+    t.integer "ctc_experience_survey_variant"
     t.datetime "current_sign_in_at"
     t.inet "current_sign_in_ip"
     t.integer "experience_survey", default: 0, null: false
