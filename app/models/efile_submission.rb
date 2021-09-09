@@ -56,7 +56,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def accepted_as_imperfect_return?
-    current_state == "accepted" && last_transition.metadata["imperfect_return_acceptance"] == true
+    current_state == "accepted" && last_transition.metadata.key?("imperfect_return_acceptance")
   end
 
   def last_client_accessible_transition

@@ -402,6 +402,7 @@ describe EfileSubmission do
       end
     end
   end
+
   describe "#imperfect_return_resubmission?" do
     context "when the submission's preparing transition has a previous submission id stored" do
       let(:previous_submission) { create(:efile_submission) }

@@ -57,7 +57,7 @@
             <%= t("views.ctc.portal.home.status.#{@status}.message") %>
           <% end %>
 
-          <% if @submission.accepted_as_imperfect_return? %>
+          <% if @submission&.accepted_as_imperfect_return? %>
             <h3><%= t("views.ctc.portal.home.next_step_title") %></h3>
             <div class="text--small">
               <%= I18n.t("views.ctc.portal.home.imperfect_return_indicator_text") %>
