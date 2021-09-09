@@ -38,12 +38,14 @@ module VitaMin
     config.gyr_domains = {
       development: "localhost",
       demo: "demo.getyourrefund.org",
+      heroku_review: /gyr-vita-min-.*\.herokuapp\.com/,
       staging: "staging.getyourrefund.org",
       production: "www.getyourrefund.org"
     }
     config.ctc_domains = {
       development: "ctc.localhost",
       demo: "ctc.demo.getyourrefund.org",
+      heroku_review: /ctc-vita-min-.*\.herokuapp\.com/,
       staging: "ctc.staging.getyourrefund.org",
       production: "www.getctc.org"
     }

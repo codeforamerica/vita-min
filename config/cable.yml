@@ -4,6 +4,9 @@ development:
 staging:
   adapter: postgresql
 
+heroku:
+  adapter: postgresql
+
 demo:
   adapter: postgresql
 
