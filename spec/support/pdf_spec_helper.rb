@@ -3,7 +3,8 @@ module PdfSpecHelper
     filled_in_fields = PdfForms.new.get_fields(file_path)
 
     filled_in_fields.each_with_object({}) do |field, hash|
-      hash[field.name] = field.value
+      # The pdf-forms gem returns HTML-escaped form values when using pdftk-java. Unescape.
+      hash[field.name] = field.value.nil? ? nil : CGI.unescapeHTML(field.value)
     end
   end
 

@@ -250,6 +250,32 @@
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
+module IntakeFactoryHelpers
+  def self.roman_numerals(n)
+    letter_values = {
+      1000 => "M",
+      900 => "CM",
+      500 => "D",
+      400 => "CD",
+      100 => "C",
+      90 => "XC",
+      50 => "L",
+      40 => "XL",
+      10 => "X",
+      9 => "IX",
+      5 => "V",
+      4 => "IV",
+      1 => "I",
+    }
+
+    roman = ""
+    letter_values.each do |value, letter|
+      roman << letter*(n / value)
+      n = n % value
+    end
+    return roman
+  end
+end
 
 FactoryBot.define do
   trait :primary_consented do
@@ -312,20 +338,11 @@ FactoryBot.define do
   trait :with_contact_info do
     preferred_name { "Cherry" }
     primary_first_name { "Cher" }
-    primary_last_name { "Cherimoya" }
+    sequence(:primary_last_name) { |n| "O'Cherimoya #{IntakeFactoryHelpers.roman_numerals(n)}" }
     phone_number { "+14155551212" }
     sms_phone_number { "+14155551212" }
-    email_address { "cher@example.com" }
+    sequence(:email_address) { |n| "cher_#{IntakeFactoryHelpers.roman_numerals(n)}@example.com" }
     email_notification_opt_in { "yes" }
-  end
-
-  trait :with_faker_contact_info do
-    primary_first_name { Faker::Name.first_name }
-    primary_last_name { Faker::Name.last_name }
-    preferred_name { primary_first_name }
-    phone_number { "+14155551212" }
-    sms_phone_number { "+14155551212" }
-    email_address { Faker::Internet.email }
   end
 
   trait :with_address do

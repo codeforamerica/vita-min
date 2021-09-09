@@ -881,8 +881,8 @@ RSpec.describe Hub::ClientsController do
         expect(system_note.user).to eq(user)
         expect(system_note.data['changes']).to match({
           "timezone" => [nil, "America/Chicago"],
-          "primary_last_name" => ["Cherimoya", "Name"],
-          "primary_first_name" => ["Cher", "Updated"],
+          "primary_last_name" => [intake.primary_last_name, "Name"],
+          "primary_first_name" => [intake.primary_first_name, "Updated"],
           "state_of_residence" => [nil, "CA"],
           "primary_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
           "with_general_navigator" => [false, true],

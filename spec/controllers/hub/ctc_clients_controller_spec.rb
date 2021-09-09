@@ -191,7 +191,7 @@ RSpec.describe Hub::CtcClientsController do
   describe "#update" do
     let!(:client) { create :client, :with_return, intake: intake }
 
-    let!(:intake) { create :ctc_intake, :filled_out_ctc, :with_contact_info, :with_ssns, :with_dependents }
+    let!(:intake) { create :ctc_intake, :filled_out_ctc, :with_contact_info, :with_ssns, :with_dependents, email_address: "cher@example.com", primary_last_name: "Cherimoya" }
     let(:first_dependent) { intake.dependents.first }
     let!(:params) do
       {
