@@ -42,6 +42,8 @@ module Efile
           EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:rejected, raw_response: raw_response)
         elsif status == "Accepted"
           EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:accepted, raw_response: raw_response)
+        elsif status == "Exception"
+          EfileSubmission.find_by(irs_submission_id: irs_submission_id).transition_to!(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
         else
           submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
           if submission
