@@ -336,8 +336,8 @@ FactoryBot.define do
   end
 
   trait :with_contact_info do
-    preferred_name { "Cher" }
-    primary_first_name { "Cherry" }
+    preferred_name { "Cherry" }
+    primary_first_name { "Cher" }
     sequence(:primary_last_name) { |n| "O'Cherimoya #{IntakeFactoryHelpers.roman_numerals(n)}" }
     phone_number { "+14155551212" }
     sms_phone_number { "+14155551212" }
