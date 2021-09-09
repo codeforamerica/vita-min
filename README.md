@@ -166,6 +166,8 @@ COVERAGE=y rspec
 
 #### Percy visual diff tests
 
+As an engineer, if you've made changes that _should_ not result in visual changes, but you are afraid they will, Percy can help. Create a pull request in GitHub, then run `bin/percy` locally. This will run the feature specs twice locally -- once on main, then once on your pull request -- and upload both collections to Percy. Percy will add a check in the pull request with a link to the visual comparison as well as print the URL to your console.
+
 [Percy](https://percy.io/) allows us to automatically compare visual changes with screenshots.
 
 We access a `PERCY_TOKEN` from Rails `development` credentials. Ask a teammate about access to development credentials.
