@@ -310,22 +310,13 @@ FactoryBot.define do
   end
 
   trait :with_contact_info do
-    preferred_name { "Cherry" }
-    primary_first_name { "Cher" }
-    primary_last_name { "Cherimoya" }
+    sequence(:preferred_name) { |n| "Cher#{'r' * n}" }
+    sequence(:primary_first_name) { |n| "Che#{'r' *n}" }
+    sequence(:primary_last_name) { |n| "O'Che#{'r' * n}imoya " }
     phone_number { "+14155551212" }
     sms_phone_number { "+14155551212" }
-    email_address { "cher@example.com" }
+    sequence(:email_address) { |n| "che#{'r' * n}@example.com" }
     email_notification_opt_in { "yes" }
-  end
-
-  trait :with_faker_contact_info do
-    primary_first_name { Faker::Name.first_name }
-    primary_last_name { "O'" + Faker::Name.last_name }
-    preferred_name { primary_first_name }
-    phone_number { "+14155551212" }
-    sms_phone_number { "+14155551212" }
-    email_address { Faker::Internet.email }
   end
 
   trait :with_address do
