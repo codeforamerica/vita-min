@@ -1466,7 +1466,7 @@ en:
           title: "Edit your basic information"
           help_text: "Confirm/edit your basic information"
           form_of_identity: "Form of identity"
-          form_of_identity_note: "If using a social security card, it must be valid for employment."
+          form_of_identity_note: If using a social security card, it must be valid for employment.
         dependent_info:
           title: "Edit %{name}’s basic information"
           help_text: "Confirm/edit your dependent’s basic information"

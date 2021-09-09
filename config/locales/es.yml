@@ -102,7 +102,7 @@ es:
         identity_verification:
           title: Identity verification
         ctc_spouse_contact_info: Spouse information, if married filing jointly
-        spouse_contact_info: Información de contacto del cónyuge
+        spouse_contact_info: Información de contacto de su cónyuge
         state_of_residence: Estado de residencia
         signature_method: Método para recoger
         service_type: Service type
@@ -161,8 +161,8 @@ es:
         phone_interview_language: Idioma prefiere para la revisión
         preferred_name: Nombre preferido
         primary_contact_info: Información de contacto
-        spouse_contact_info: Información de contacto del cónyuge
-        texting_phone: Número celular
+        spouse_contact_info: Información de contacto de su cónyuge
+        texting_phone: Número de celular
         tax_info: Información de impuestos
         navigator_types_empty: No se utiliza navegador
         basic_info: Información básica
@@ -445,8 +445,8 @@ es:
       bank_name: Nombre del banco
       account_number: Número de cuenta
       account_number_confirmation: Confirmar número de cuenta
-      routing_number: Número de ruta
-      routing_number_confirmation: Confirmar número de ruta
+      routing_number: Número de ruta bancaria
+      routing_number_confirmation: Confirmar número de ruta bancaria
       account_type: Tipo de cuenta
       checking: Cuenta de Cheques
       savings: Ahorros
@@ -763,7 +763,7 @@ es:
       tax_return_belongs_to_client: No se puede actualizar la declaración de impuestos que no esté relacionada con el cliente actual.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
-      need_phone_number: Por favor, introduzca un número de teléfono celular.
+      need_phone_number: Por favor, introduzca un número de celular.
       tax_returns: "Por favor, proporcione todos los campos obligatorios para las declaraciones de impuestos:: %{attrs}."
       tax_returns_attributes:
         is_hsa: es HSA
@@ -785,7 +785,7 @@ es:
     bank_account:
       checking: Cuenta de Cheques
       savings: Ahorros
-      routing_number: Número de ruta
+      routing_number: Número de ruta bancaria
       account_number: Número de cuenta
     intercom_help: Necesito ayuda
     intercom_cta: Hable con nosotros
@@ -941,7 +941,7 @@ es:
     other_options: Intente otra opción de declaración gratis
     partner: Socio
     password: Contraseña
-    phone_for_texting: Número celular
+    phone_for_texting: Número de celular
     phone_number: Número de teléfono
     privacy_policy: Política de privacidad
     race:
@@ -972,7 +972,7 @@ es:
     sites: "Sitios"
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
-    sms_phone_number: Número Celular
+    sms_phone_number: Número de celular
     sorry: "¡Ay, no! ¡Lo sentimos!"
     start_filing: Empiece a declarar
     state: Estado
@@ -993,7 +993,7 @@ es:
     unsure: No sé
     very_well: Muy bien
     visit_free_file: Visite el sitio de declaración de impuestos gratuita del IRS
-    visit_stimulus_faq: Preguntas Frecuentes
+    visit_stimulus_faq: Preguntas Frecuentes sobre el estímulo
     vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
     widowed: Viudo/a
@@ -1313,7 +1313,7 @@ es:
           submit_additional_documents: Entregue los documentos de impuestos que quedan
           tax_return:
             submit_primary: Añade la firma del contribuyente principal para %{year}
-            submit_spouse: Añade la firma del cónyuge para %{year}
+            submit_spouse: Añade la firma de su cónyuge para %{year}
         waiting_state:
           tax_return:
             file_not_filing: Esta declaración no se está presentando. Comuníquese con su preparador de impuestos si tiene alguna pregunta.
@@ -1387,7 +1387,7 @@ es:
     file_zero_length: "Sube un archivo válido. El archivo que cargó parece estar vacío."
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"
-    routing_number: Este número de ruta no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.
+    routing_number: Este número de ruta bancaria no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
   views:
     ctc:
@@ -1449,12 +1449,12 @@ es:
           title: "Edita tu información básica"
           help_text: "Confirma / edita tu información básica"
           form_of_identity: "Forma de identidad"
-          form_of_identity_note: "Si usa una tarjeta de seguridad social, debe ser válida para el empleo."
+          form_of_identity_note: Si utiliza una tarjeta de Seguro Social, debe ser válida para el empleo.
         dependent_info:
           title: "Edita la información básica de %{name}"
           help_text: "Confirmar / editar la información básica de su dependiente"
         spouse:
-          title: "Editar la información básica del cónyuge"
+          title: "Editar la información básica de su cónyuge"
           help_text: "Confirmar / editar la información básica de su cónyuge"
         mailing_address:
           title: "Edita tu dirección"
@@ -1510,9 +1510,9 @@ es:
             help_text:
               li1: "Usted pagó más de la mitad de los gastos de %{name}"
               li2: "%{name} ganó menos de $4,300"
-              li3: "%{name} tiene números de SSN y ATIN"
+              li3: "%{name} tiene Número de Seguro Social o Número de Identificación Fiscal de Adopción (ATIN)"
               li4: "%{name} no vivió con otra persona que pudiera declararlo/a como dependiente"
-              li5: "%{name} conjuntamente una declaración de impuestos por separado"
+              li5: "%{name} no declaró impuestos con su cónyuge"
           child_can_be_claimed_by_other:
             title: "¿Es usted la única persona que puede declarar a %{name}?"
             help_text_html: |
@@ -1526,10 +1526,10 @@ es:
               <p>Recuerde, si alguien más ya reclamó %{name}, su devolución será rechazada. Si eso sucede, podemos guiarlo a través del proceso de apelar el otro reclamo, pero no es fácil. Puede optar por consultar primero con los demás cuidadores.</p>
             not_sure_reveal:
               title: "No estoy seguro/a. ¿Debería declararlo/a?"
-              p: "Debe declarar al dependiente si una de estas situaciones es válida:"
-              li1: "Usted es el padre de familia que haya vivido más tiempo con ellos."
-              li2: "Si usted y el otro padre vivieron la misma cantidad de tiempo con el dependiente, quien haya ganado más dinero en 2020 puede declararlo."
-              li3: "Si ninguno de los dos es el padre del dependiente, el que haya ganado más dinero en 2020 puede declararlo."
+              p: "Debe declarar al dependiente si una de estas situaciones es cierta:"
+              li1: "Usted es el padre de familia que haya vivido más tiempo con él/ella."
+              li2: "Si usted y el otro padre vivieron la misma cantidad de tiempo con el dependiente, quien haya ganado más dinero en 2020 puede declararlo/a."
+              li3: "Si ninguno de los dos es el padre del dependiente, el que haya ganado más dinero en 2020 puede declararlo/a."
           confirm_dependents:
             title: "Confirmemos sus dependientes"
             qualifying_for_ctc: "Dependientes que califican para CTC y los pagos de estímulo"
@@ -1559,14 +1559,14 @@ es:
             add_button: Agregar a otro dependiente
             done_button: Ya no hay más dependientes por agregar
         mailing_address:
-          title: "Magnífico, denos por favor su dirección postal a continuación."
+          title: "Magnífico, denos por favor su dirección postal."
         confirm_mailing_address:
           title: "¡Muy bien! Por favor, confirme su dirección postal."
           mailing_address: Su dirección postal
         routing_number:
-          title: Favor de indicar su número de ruta bancaria
-          routing_number: Número de ruta
-          routing_number_confirmation: Confirme su número de ruta bancaria
+          title: Favor de indicar su número de ruta bancaria bancaria
+          routing_number: Número de ruta bancaria
+          routing_number_confirmation: Confirme su número de ruta bancaria bancaria
         account_number:
           title: Favor de proporcionarnos el número de su cuenta bancaria
           account_number: Número de cuenta
@@ -1576,7 +1576,7 @@ es:
           bank_information: La información de su banco
         direct_deposit:
           my_bank_account:
-            label: Confirmo que este es mi nombre en esta cuenta bancaria
+            label: Confirmo que mi nombre es en esta cuenta bancaria
             question: Su nombre debe aparecer en la cuenta bancaria para recibir un depósito directo.
             error_message_html: "Introduzca la información de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro método de pago</a>."
             error_message: "Introduzca la información de una cuenta bancaria con su nombre, o seleccione otro método de pago."
@@ -1591,13 +1591,13 @@ es:
           email: Envíenme correos electrónicos
           text: Envíenme un mensaje de texto
         cell_phone_number:
-          title: Favor de compartir su número de teléfono celular
-          label: Número Celular
-          confirm_label: Confirmar el número de teléfono móvil/celular
+          title: Favor de compartir su número de celular
+          label: Número de celular
+          confirm_label: Confirme su número de celular
         email_address:
           title: Favor de compartir la dirección de su correo electrónico
         overview:
-          help_text: Utilice nuestra sencilla herramienta de presentación de impuestos electrónica para recibir su Crédito Fiscal por Hijos y cualquier pago de estímulo o corrección que se le deba.
+          help_text: Utilice nuestra sencilla herramienta de presentación de impuestos electrónica para recibir su Crédito Tributario por Hijos (CTC) y cualquier pago de estímulo o corrección que se le deba.
           title: ¡Bienvenido!
           right_for_you: "Esta es la herramienta adecuada para usted si:"
           items:
@@ -1608,8 +1608,8 @@ es:
         legal_consent:
           title: "Para presentar una declaración, necesitaremos algunos datos básicos."
           body:
-            p1: "Para presentar su declaración de impuestos y recibir su crédito fiscal por hijos y/o sus pagos de estímulo, necesitaremos algunos de sus datos personales."
-            p2: Asegúrese de introducir su nombre tal y como aparece en su tarjeta de la Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
+            p1: Para presentar su declaración de impuestos y recibir su Crédito Tributario por Hijos y/o sus pagos de estímulo, necesitaremos algunos de sus datos personales.
+            p2: Asegúrese de introducir su nombre tal y como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
           first_name: Primer nombre legal
           middle_initial: Inicial del segundo nombre
           last_name: Apellido legal
@@ -1617,16 +1617,16 @@ es:
           tin_type: "Tipo de identificación"
           ssn_not_valid_for_employment: "Este SSN no es válido para empleo"
           ssn: SSN o ITIN
-          ssn_confirmation: Confirmar el SSN o ITIN
+          ssn_confirmation: Confirme el SSN o ITIN
           sms_phone_number: Número de teléfono
           primary_active_armed_forces:
             title: "Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020"
             reveal_label: "¿Por qué me preguntan esto?"
-            reveal_content: "Saber si es miembro de las Fuerzas Armadas nos ayudará a calcular mejor crédito de Reembolso por Recuperación o Recovery Rebate Credit"
+            reveal_content: Saber si es miembro de las Fuerzas Armadas nos ayudará a calcular con mayor precisión su Crédito de Recuperación de Reembolso
           agree_to_share: "Al continuar, acepto compartir mi información personal para preparar mi declaración de impuestos simplificada."
         income:
           title: "En %{tax_year}, ganó más de:"
-          filing_single: $12.400 si declaró soltero
+          filing_single: $12,400 si declaró soltero
           filing_married: "$24,800 si declaró casado"
           help_text: "Los ingresos pueden venir de cualquiera de las siguientes fuentes:"
           income_sources:
@@ -1647,20 +1647,20 @@ es:
           full_btn: Presente su declaración de impuestos completa
         spouse_info:
           title: Denos un poco de información sobre su cónyuge
-          help_text: Favor de asegurarse de introducir el nombre de su cónyuge tal y como aparece en su tarjeta de la Seguridad Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
-          spouse_first_name: Nombre legal de su pareja
+          help_text: Favor de asegurarse de introducir el nombre de su cónyuge tal y como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
+          spouse_first_name: Nombre legal de su cónyuge
           spouse_middle_initial: Inicial del segundo nombre
-          spouse_last_name: Apellido legal de su pareja
-          spouse_suffix: Forma de tratamiento del cónyuge
-          spouse_dob: Fecha de nacimiento del cónyuge
-          spouse_identity: Tipo de identificación del cónyuge
-          spouse_identity_help_text: "Si utiliza una tarjeta de la seguro, debe ser válida para el empleo"
-          spouse_ssn_itin: SSN o ITIN del cónyuge
-          spouse_ssn_itin_confirmation: Confirme el SSN o ITIN del cónyuge
+          spouse_last_name: Apellido legal de su cónyuge
+          spouse_suffix: Forma de tratamiento de su cónyuge
+          spouse_dob: Fecha de nacimiento de su cónyuge
+          spouse_identity: Tipo de identificación de su cónyuge
+          spouse_identity_help_text: Si utiliza una tarjeta de Seguro Social, debe ser válida para el empleo
+          spouse_ssn_itin: SSN o ITIN de su cónyuge
+          spouse_ssn_itin_confirmation: Confirme el SSN o ITIN de su cónyuge
           spouse_can_be_claimed_as_dependent: Mi cónyuge puede ser reclamado como dependiente por otra persona
-          spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en el 2020
+          spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020
           spouse_active_armed_forces_reveal: "¿Por qué me preguntan esto?"
-          spouse_active_armed_forces_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su crédito de Reembolso por Recuperación o Recovery Rebate Credit
+          spouse_active_armed_forces_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su Crédito de Recuperación de Reembolso
           ssn_required_message: "Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href=\"https://www.getyourrefund.org/\">GetYourRefund</a>."
           save_button: Guarde a esta persona
           remove_button: Quite a esta persona
@@ -1694,15 +1694,15 @@ es:
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
           did_not_file: No, no presenté una declaración de impuestos de 2019
         life_situations2019:
-          visit_stimulus_faq: Visita preguntas frecuentes sobre estímulos
-          title: ¡Asegurémonos de que esta herramienta es la adecuada para usted!
+          visit_stimulus_faq: Visita preguntas frecuentes sobre el estímulo
+          title: ¡Asegurémonos de que esta herramienta es adecuada para usted!
           p1: |
             Si cualquiera de los siguientes puntos es válido, debe continuar con nuestra herramienta simplificada:
           p2: "Si ninguna de estas afirmaciones es cierta, deberá recibir sus pagos automáticamente. Puede visitar las Preguntas Frecuentes sobre el CTC para obtener más información."
           item1: El número de personas en su hogar cambió con respecto a su declaración de impuestos de 2019
           item2: Tiene una cuenta bancaria diferente a la que ha indicado en su declaración de 2019
           item3: No recibió la totalidad del estímulo que le correspondía
-          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Fiscal por Hijos
+          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
         home:
           title: "¿Cuál fue su domicilio principal en 2020?"
           help_text: Su domicilio debe haber estado en Estados Unidos durante más de la mitad del año fiscal.
@@ -1777,7 +1777,7 @@ es:
             - Usted y su cónyuge tienen un Número de Seguro Social válido o de ITIN válido
           still_benefit: Todavía puede beneficiarse presentando una declaración de impuestos completa de forma gratuita a través de GetYourRefund.
           collect_money: Reciba todo el dinero que se le debe presentando una solicitud con los servicios de GetYourRefund.
-          visit_ctc_faq: "Visite las Preguntas Frecuentes sobre el Crédito Fiscal por Hijos"
+          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
           visit_stimulus_faq: "Visite las Preguntas Frecuentes sobre el Estímulo"
           file_gyr: "Solicite por medio de GetYourRefund"
         at_capacity:
@@ -2552,7 +2552,7 @@ es:
           label: "¿Qué tipo de cuenta es esta?"
           savings: Ahorros
         bank_name: Nombre del banco
-        routing_number: Número de ruta
+        routing_number: Número de ruta bancaria
         title: "¡Genial, proporcione sus datos bancarios a continuación!"
         help_text: Su nombre debe aparecer en su cuenta bancaria para que pueda recibir su dinero.
       charitable_contributions:
@@ -2878,9 +2878,9 @@ es:
       spouse_consent:
         birth_date: Fecha de nacimiento
         cta: Estoy de acuerdo
-        spouse_first_name: Nombre legal de su pareja
+        spouse_first_name: Nombre legal de su cónyuge
         spouse_last_four_ssn: Últimos 4 del SSN / ITIN
-        spouse_last_name: Apellido legal de su pareja
+        spouse_last_name: Apellido legal de su cónyuge
         title: Necesitamos que su cónyuge revise algunos asuntos legales nuestros ...
       spouse_email_address:
         info: Se requiere un correo electrónico para la última firma en su declaración de impuestos.
