@@ -51,12 +51,8 @@ class CtcSignupMessage
       CtcSignupMailer.launch_announcement(email_address: ctc_signup.email_address, name: ctc_signup.name).deliver_later
     end
 
-    text_email_template_file = File.read(File.join(Rails.root, "app/views/ctc_signup_mailer/launch_announcement.text.erb"))
-    text_email_template = ERB.new(text_email_template_file)
-    @name = ctc_signup.name
-    text_email = text_email_template.result(binding)
-
-    en_sms, es_sms = text_email.split('--------------------------')
+    en_sms = 'Thank you for signing up to receive updates regarding GetCTC! GetCTC is officially live and available for e-filing a simplified return to claim your Child Tax Credit and stimulus payments! Go to GetCTC.org and click "File your simplified return now" to get started.'
+    es_sms = '¡Gracias por registrarse para recibir las actualizaciones de GetCTC! ¡GetCTC está oficialemente disponible y a su disposición para presenter su declaración de impuestos de forma simplificada para reclamara su Crédito Tributario por Hijos y los pagos de estímulo! Ingrese a GetCTC.org y haga clic en “Declare de forma simplificada ahora” para iniciar.'
 
     if ctc_signup.phone_number.present?
       TwilioService.send_text_message(
