@@ -48,7 +48,7 @@ class CtcSignupMessage
 
   def self._send_one_launch_announcement(ctc_signup)
     if ctc_signup.email_address.present?
-      CtcSignupMailer.launch_announcement(email_address: ctc_signup.email_address, name: ctc_signup.name).deliver_now
+      CtcSignupMailer.launch_announcement(email_address: ctc_signup.email_address, name: ctc_signup.name).deliver_later
     end
 
     text_email_template_file = File.read(File.join(Rails.root, "app/views/ctc_signup_mailer/launch_announcement.text.erb"))
