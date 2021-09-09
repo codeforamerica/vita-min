@@ -112,10 +112,10 @@ describe Efile::PollForAcknowledgmentsService do
             end
           end
 
-          context "and it something else" do
+          context "and it is an exception" do
             let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_exception.xml").read }
 
-            it "changes the state from transmitted to investigating" do
+            it "changes the state from transmitted to accepted, with imperfect return acceptance in metadata" do
               Efile::PollForAcknowledgmentsService.run
               expect(efile_submission.current_state).to eq("accepted")
               expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
