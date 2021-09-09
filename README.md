@@ -38,10 +38,6 @@ To make pairing commit history easier, we use [git duet](https://github.com/git-
 brew install git-duet/tap/git-duet
 ```
 
-### Install PDFtk
-
-[PDFtk](https://en.wikipedia.org/wiki/PDFtk) is a toolkit for manipulating PDF documents. Download and install PDFtk from https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg
-
 ### Add credentials
 
 Get the development secret key from LastPass (`development.key`) or ask a teammate who has it set up.
