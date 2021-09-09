@@ -55,7 +55,7 @@ class TaxReturn < ApplicationRecord
   validates :year, presence: true
 
   attr_accessor :status_last_changed_by
-  after_update_commit :send_mixpanel_status_change_event, :send_gyr_client_completion_survey
+  after_update_commit :send_mixpanel_status_change_event, :send_surveys
   after_update_commit { InteractionTrackingService.record_internal_interaction(client) }
 
   before_save do
@@ -309,9 +309,15 @@ class TaxReturn < ApplicationRecord
     self.status = new_status
   end
 
-  def send_gyr_client_completion_survey
-    if !is_ctc && saved_change_to_status? && TaxReturnStatus::TERMINAL_STATUSES.map(&:to_s).include?(status)
-      SendClientCompletionSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
+  def send_surveys
+    if saved_change_to_status? && TaxReturnStatus::TERMINAL_STATUSES.map(&:to_s).include?(status)
+      if is_ctc && service_type_online_intake?
+        SendClientCtcExperienceSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
+      end
+
+      if !is_ctc
+        SendClientCompletionSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
+      end
     end
   end
 end

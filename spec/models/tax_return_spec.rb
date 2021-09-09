@@ -1113,6 +1113,41 @@ describe TaxReturn do
     end
   end
 
+  describe "ctc experience survey" do
+    let!(:tax_return) { create(:tax_return, is_ctc: false) }
+
+    context "when a TaxReturn status is changed to a non-final status" do
+      it "does not send the survey" do
+        expect {
+          tax_return.update!(status: "file_ready_to_file")
+        }.not_to have_enqueued_job(SendClientCtcExperienceSurveyJob)
+      end
+    end
+
+    context "when a TaxReturn status is changed to a final status" do
+      context "and its a GYR intake" do
+        it "does not send the survey" do
+          expect {
+            tax_return.update!(status: "file_accepted")
+          }.not_to have_enqueued_job(SendClientCtcExperienceSurveyJob)
+        end
+      end
+
+      context "and its a CTC intake" do
+        let!(:tax_return) { create(:tax_return, is_ctc: true) }
+
+        it "does send the survey a day later" do
+          t = Time.utc(2021, 2, 11, 10, 5, 0)
+          Timecop.freeze(t) do
+            expect {
+              tax_return.update!(status: "file_accepted")
+            }.to have_enqueued_job(SendClientCtcExperienceSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
+          end
+        end
+      end
+    end
+  end
+
   context "after_update" do
     let(:fake_tracker) { double('mixpanel tracker') }
     let(:client) { create(:intake).client }
