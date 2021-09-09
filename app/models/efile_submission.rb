@@ -55,6 +55,10 @@ class EfileSubmission < ApplicationRecord
     previously_transmitted_submission.efile_submission_transitions.collect(&:efile_errors).flatten.any? { |error| ["SEIC-F1040-501-02", "R0000-504-02"].include? error.code }
   end
 
+  def accepted_as_imperfect_return?
+    current_state == "accepted" && last_transition.metadata["imperfect_return_acceptance"] == true
+  end
+
   def last_client_accessible_transition
     history.reverse.find do |transition|
       !EfileSubmissionStateMachine::CLIENT_INACCESSIBLE_STATUSES.include?(transition.to_state)

@@ -377,6 +377,31 @@ describe EfileSubmission do
     end
   end
 
+  describe "#accepted_as_imperfect_return?" do
+    context "when not accepted status" do
+      let(:efile_submission) { create :efile_submission, :rejected }
+      it "returns false" do
+        expect(efile_submission.accepted_as_imperfect_return?).to eq false
+      end
+    end
+
+    context "when current status is accepted but was not an imperfect return acceptance on metadata" do
+      let(:efile_submission) { create :efile_submission, :accepted }
+
+      it "returns false" do
+        expect(efile_submission.accepted_as_imperfect_return?).to eq false
+
+      end
+    end
+
+    context "when current status is accepted and imperfect return acceptance is present on metadata" do
+      let(:efile_submission) { create :efile_submission, :accepted, metadata: { imperfect_return_acceptance: true } }
+
+      it "returns true" do
+        expect(efile_submission.accepted_as_imperfect_return?).to eq true
+      end
+    end
+  end
   describe "#imperfect_return_resubmission?" do
     context "when the submission's preparing transition has a previous submission id stored" do
       let(:previous_submission) { create(:efile_submission) }

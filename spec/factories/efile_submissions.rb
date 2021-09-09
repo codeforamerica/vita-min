@@ -32,8 +32,8 @@ FactoryBot.define do
 
     EfileSubmissionStateMachine.states.each do |state|
       trait state.to_sym do
-        after :create do |submission|
-          create :efile_submission_transition, state, efile_submission: submission
+        after :create do |submission, evaluator|
+          create :efile_submission_transition, state, efile_submission: submission, metadata: evaluator.metadata
         end
       end
     end

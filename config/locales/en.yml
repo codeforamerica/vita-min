@@ -1426,6 +1426,9 @@ en:
             Reason for this rejection:
           next_step_title: |
             Next steps:
+          imperfect_return_indicator_text: |
+            Your return was accepted by the IRS, inlcuding a request to update one more more of your dependents' legal names in their records.
+            The IRS estimates that it will take 4-8 weeks to process your return. You may also receive a letter confirming your request to update the dependent's legal name.
           status:
             intake_in_progress:
               label: More information needed

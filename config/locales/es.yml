@@ -1407,6 +1407,9 @@ es:
             Motivo de este rechazo:
           next_step_title: |
             Próximos pasos:
+          imperfect_return_indicator_text: |
+            El IRS aceptó su devolución, incluida una solicitud para actualizar uno más de los nombres legales de sus dependientes en sus registros.
+            El IRS estima que le tomará de 4 a 8 semanas procesar su declaración. También puede recibir una carta confirmando su solicitud para actualizar el nombre legal del dependiente.
           status:
             intake_in_progress:
               label: Necesitamos más información
