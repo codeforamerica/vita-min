@@ -67,7 +67,7 @@ module SubmissionBuilder
           xml.Filer {
             xml.PrimarySSN intake.primary_ssn
             xml.SpouseSSN intake.spouse_ssn if tax_return.filing_jointly?
-            xml.NameLine1Txt name_line_1_type(intake.primary_first_name, intake.primary_middle_initial, intake.primary_last_name, intake.primary_suffix, intake.spouse_first_name, intake.spouse_middle_initial, intake.spouse_last_name)
+            xml.NameLine1Txt name_line_1(tax_return, intake)
             xml.PrimaryNameControlTxt person_name_control_type(intake.primary_last_name)
             xml.SpouseNameControlTxt spouse_name_control(intake) if tax_return.filing_jointly?
             xml.USAddress {
@@ -165,6 +165,14 @@ module SubmissionBuilder
       end.doc
     end
 
+    def name_line_1(tax_return, intake)
+      if tax_return.filing_jointly?
+        name_line_1_type(intake.primary_first_name, intake.primary_middle_initial, intake.primary_last_name, intake.primary_suffix, intake.spouse_first_name, intake.spouse_middle_initial, intake.spouse_last_name)
+      else
+        name_line_1_type(intake.primary_first_name, intake.primary_middle_initial, intake.primary_last_name, intake.primary_suffix)
+      end
+    end
+    
     # 0 - zero balance
     # 2 - bank account
     # 3 - check

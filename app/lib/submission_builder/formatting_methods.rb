@@ -24,7 +24,7 @@ module SubmissionBuilder
       trim(I18n.transliterate(name).strip.gsub(/[^A-Za-z\-\s]/, ''), 20)
     end
 
-    def name_line_1_type(primary_first, primary_middle, primary_last, primary_suffix, spouse_first, spouse_middle, spouse_last)
+    def name_line_1_type(primary_first, primary_middle, primary_last, primary_suffix, spouse_first = nil, spouse_middle = nil, spouse_last = nil)
       name_line = build_name_line_1(primary_first, primary_middle, primary_last, primary_suffix, spouse_first, spouse_middle, spouse_last)
 
       # if the line > 35 characters then truncate according to the guidelines on page 189 of https://www.irs.gov/pub/irs-pdf/p4164.pdf
