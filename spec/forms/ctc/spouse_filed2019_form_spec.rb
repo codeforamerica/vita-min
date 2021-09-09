@@ -23,7 +23,7 @@ describe Ctc::SpouseFiled2019Form do
       end
     end
 
-    context "when spouse_filed_2019 is not in the set" do
+    context "when spouse_filed_2019 is not part of the expected value set" do
       let(:filed_2019) { "on_the_moon" }
       it "is not valid" do
         expect {
@@ -56,7 +56,7 @@ describe Ctc::SpouseFiled2019Form do
 
     context "filed_full_separate" do
       let(:filed_2019) { "filed_full_separate" }
-      it "updates spouse filed 2019, sets AGI to 1" do
+      it "updates spouse filed 2019, does not set agi" do
         expect {
           described_class.new(intake, params).save
         }.to change(intake, :spouse_filed_2019).from("unfilled").to("filed_full_separate")
@@ -76,7 +76,7 @@ describe Ctc::SpouseFiled2019Form do
 
     context "filed_non_filer_separate" do
       let(:filed_2019) { "filed_non_filer_separate" }
-      it "updates spouse filed 2019, does not set agi" do
+      it "updates spouse filed 2019, sets AGI to $1" do
         expect {
           described_class.new(intake, params).save
         }.to change(intake, :spouse_filed_2019).from("unfilled").to("filed_non_filer_separate")
