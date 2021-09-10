@@ -64,14 +64,6 @@ In development, we need to download the IRS e-file schemas zip manually from S3.
 rake setup:unzip_efile_schemas
 ```
 
-#### If you need to unzip files without running the repo setup script
-
-If you already have this repo setup locally, but still need to setup efile schemas, get the efile schemas zip file as explained above and then run
-
-```
-rake setup:unzip_efile_schemas
-```
-
 ### Setup script
 
 There is a setup script that handles virtually everything with a single command:
@@ -93,15 +85,18 @@ brew services start postgresql
 
 ### Run the server
 
-If you don't have rails installed, you can follow the [official getting started guide](https://guides.rubyonrails.org/getting_started.html#creating-a-new-rails-project-installing-rails-installing-rails).
-
-With Rails installed, you can serve the application with:
+To get the server running run:
 
 ```sh
-rails server
+foreman start
+```
 
-# or for short
+Foreman will run the following 3 commands:
+
+```sh
 rails s
+rails jobs:work
+bin/webpack-dev-server
 ```
 
 ## Development 💻
