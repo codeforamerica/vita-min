@@ -13,9 +13,7 @@ RSpec.feature "Creating new drop off clients" do
       visit hub_clients_path
       click_on "Add client"
 
-      within("h1") do
-        expect(page).to have_text "Add a new client"
-      end
+      expect(page).to have_selector "h1", text: "Add a new client"
 
       expect(page).to have_text "Drop off"
       select "Floret Financial Readiness", from: "Assign to"

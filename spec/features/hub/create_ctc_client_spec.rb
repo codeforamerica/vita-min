@@ -13,9 +13,7 @@ RSpec.feature "Creating new drop off clients" do
       visit hub_clients_path
       click_on "Add CTC client"
 
-      within("h1") do
-        expect(page).to have_text "Add a new CTC client"
-      end
+      expect(page).to have_selector "h1", text: "Add a new CTC client"
 
       expect(page.find("#hub_create_ctc_client_form_vita_partner_id").all('option').collect(&:text)).to include "Floret Financial Readiness"
       expect(page.find("#hub_create_ctc_client_form_vita_partner_id").all('option').collect(&:text)).not_to include "Brassica Asset Builders"
