@@ -14,7 +14,9 @@ module Ctc
     validates_presence_of :device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address
 
     def save
-      @intake.update(attributes_for(:intake))
+      intake_attributes = attributes_for(:intake)
+      intake_attributes[:completed_at] = DateTime.current unless @intake.completed_at.present?
+      @intake.update(intake_attributes)
       efile_attrs = attributes_for(:efile_security_information)
       unless @intake.tax_returns.last.efile_submissions.any?
         EfileSecurityInformation.create(efile_attrs.merge(client: @intake.client))
