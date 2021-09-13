@@ -62,7 +62,7 @@
           <% end %>
 
           <div class="review-box__cta-button-container spacing-above-35">
-            <% if @submission.can_transition_to?(:resubmitted) %>
+            <% if @submission.present? && @submission.can_transition_to?(:resubmitted) %>
               <div class="review-box__cta-button-container spacing-above-35">
                 <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--wide button--primary spacing-below-0" %>
               </div>
