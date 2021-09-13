@@ -1,85 +1,43 @@
 <% if @client.efile_security_informations.size.nonzero? %>
-  <div class="accordion spacing-above-10">
-    <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
-      <h3>Efile Security Information</h3>
-    </a>
-    <div class="accordion__content" id="a2">
-      <div class="client-container">
-        <div class="client-profile__column-container">
-          <div class="client-profile__column">
-            <div class="client-profile__field-group">
-              <% esf_1 = @client.efile_security_informations.first %>
-              <h2 class="text--bold"><%= "Efile Security Information (##{esf_1.id}) captured at #{timestamp(esf_1.created_at)}" %></h2>
-              <div class="field-display">
-                <span class="form-question">Browser Language:</span>
-                <span class="label-value"><%= esf_1.browser_language %></span>
-              </div>
-              <div class="field-display">
-                <span class="form-question">Client System Time:</span>
-                <span class="label-value"><%= esf_1.client_system_time %></span>
-              </div>
-              <div class="field-display">
-                <span class="form-question">IP Address:</span>
-                <span class="label-value"><%= esf_1.ip_address %></span>
-              </div>
-              <div class="field-display">
-                <span class="form-question">Platform:</span>
-                <span class="label-value"><%= esf_1.platform %></span>
-              </div>
-              <div class="field-display">
-                <span class="form-question">Timezone Offset:</span>
-                <span class="label-value"><%= esf_1.timezone_offset %></span>
-              </div>
-              <div class="field-display">
-                <span class="form-question">User Agent:</span>
-                <span class="label-value"><%= esf_1.user_agent %></span>
-              </div>
-              <div class="field-display">
-                <span class="form-question">Device ID:</span>
-                <span class="label-value"><%= esf_1.device_id %></span>
-              </div>
-            </div>
+<div class="client-container">
+  <div class="client-profile__column-container">
+    <div class="client-profile__column">
+      <div class="client-profile__field-group">
+        <% @client.efile_security_informations.each do |esf| %>
+          <h2 class="text--bold"><%= "Efile Security Information (##{esf.id}) captured at #{timestamp(esf.created_at)}" %></h2>
+          <div class="field-display">
+            <span class="form-question">Browser Language:</span>
+            <span class="label-value"><%= esf.browser_language %></span>
           </div>
-          <% if @client.efile_security_informations.size > 1 %>
-            <div class="client-profile__column">
-              <div class="client-profile__field-group">
-                <% esf_2 = @client.efile_security_informations.last %>
-                <h2 class="text--bold"><%= "Efile Security Information (##{esf_2.id}) captured at #{timestamp(esf_2.created_at)}" %></h2>
-                <div class="field-display">
-                  <span class="form-question">Browser Language:</span>
-                  <span class="label-value"><%= esf_2.browser_language %></span>
-                </div>
-                <div class="field-display">
-                  <span class="form-question">Client System Time:</span>
-                  <span class="label-value"><%= esf_2.client_system_time %></span>
-                </div>
-                <div class="field-display">
-                  <span class="form-question">IP Address:</span>
-                  <span class="label-value"><%= esf_2.ip_address %></span>
-                </div>
-                <div class="field-display">
-                  <span class="form-question">Platform:</span>
-                  <span class="label-value"><%= esf_2.platform %></span>
-                </div>
-                <div class="field-display">
-                  <span class="form-question">Timezone Offset:</span>
-                  <span class="label-value"><%= esf_2.timezone_offset %></span>
-                </div>
-                <div class="field-display">
-                  <span class="form-question">User Agent:</span>
-                  <span class="label-value"><%= esf_2.user_agent %></span>
-                </div>
-                <div class="field-display">
-                  <span class="form-question">Device ID:</span>
-                  <span class="label-value"><%= esf_2.device_id %></span>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
+          <div class="field-display">
+            <span class="form-question">Client System Time:</span>
+            <span class="label-value"><%= esf.client_system_time %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">IP Address:</span>
+            <span class="label-value"><%= esf.ip_address %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">Platform:</span>
+            <span class="label-value"><%= esf.platform %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">Timezone Offset:</span>
+            <span class="label-value"><%= esf.timezone_offset %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">User Agent:</span>
+            <span class="label-value"><%= esf.user_agent %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">Device ID:</span>
+            <span class="label-value"><%= esf.device_id %></span>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
+</div>
 <% else %>
   <p>No efile security information collected for this client.</p>
 <% end %>

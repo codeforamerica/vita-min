@@ -53,7 +53,14 @@
         <% end %>
       </div>
 
-      <%= render(partial: "efile_security_information") %>
+        <div class="accordion spacing-above-10">
+          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
+            <h3>Efile Security Information</h3>
+          </a>
+          <div class="accordion__content" id="a2">
+            <%= render(partial: "efile_security_information") %>
+          </div>
+        </div>
 
       <div class="log-wrapper">
         <h4 class="spacing-below-10">Status Logs</h4>
