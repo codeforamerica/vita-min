@@ -48,7 +48,7 @@
 
           <% end %>
         </div>
-        <% if @current_submission.can_transition_to?(:resubmitted) %>
+        <% if @submission.can_transition_to?(:resubmitted) %>
           <p>
             <%= t("views.ctc.portal.edit_info.help_text") %>
           </p>

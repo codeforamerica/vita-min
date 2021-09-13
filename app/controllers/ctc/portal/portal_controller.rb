@@ -17,7 +17,11 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   end
 
   def edit_info
-    @current_submission = current_intake.client.efile_submissions.last
+    @submission = current_client.efile_submissions.last
+    unless @submission.present?
+      Sentry.capture_message "Client #{current_client.id} unexpectedly lacks an efile submission."
+      redirect_to(action: :home)
+    end
   end
 
   def resubmit

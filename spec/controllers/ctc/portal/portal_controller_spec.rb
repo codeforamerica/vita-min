@@ -94,4 +94,21 @@ describe Ctc::Portal::PortalController do
       end
     end
   end
+
+  context "#edit_info" do
+    context "when there are no efile_submissions for the client" do
+      before do
+        allow(Sentry).to receive(:capture_message)
+        client.efile_submissions.destroy_all
+        sign_in client, scope: :client
+      end
+
+      it "redirects to home" do
+        expect(
+          get :edit_info
+        ).to redirect_to(ctc_portal_root_path)
+        expect(Sentry).to have_received(:capture_message).with("Client #{client.id} unexpectedly lacks an efile submission.")
+      end
+    end
+  end
 end
