@@ -13,9 +13,7 @@ RSpec.feature "Inviting organization leads" do
       click_on "Invitations"
 
       # Invitations page
-      within("h1") do
-        expect(page).to have_text "Invitations"
-      end
+      expect(page).to have_selector "h1", text: "Invitations"
       click_on "Invite a new organization lead"
 
       # new invitation page
