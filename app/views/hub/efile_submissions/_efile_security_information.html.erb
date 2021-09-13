@@ -1,0 +1,43 @@
+<% if @client.efile_security_informations.size.nonzero? %>
+<div class="client-container">
+  <div class="client-profile__column-container">
+    <div class="client-profile__column">
+      <div class="client-profile__field-group">
+        <% @client.efile_security_informations.each do |esf| %>
+          <h2 class="text--bold"><%= "Efile Security Information (##{esf.id}) captured at #{timestamp(esf.created_at)}" %></h2>
+          <div class="field-display">
+            <span class="form-question">Browser Language:</span>
+            <span class="label-value"><%= esf.browser_language %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">Client System Time:</span>
+            <span class="label-value"><%= esf.client_system_time %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">IP Address:</span>
+            <span class="label-value"><%= esf.ip_address %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">Platform:</span>
+            <span class="label-value"><%= esf.platform %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">Timezone Offset:</span>
+            <span class="label-value"><%= esf.timezone_offset %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">User Agent:</span>
+            <span class="label-value"><%= esf.user_agent %></span>
+          </div>
+          <div class="field-display">
+            <span class="form-question">Device ID:</span>
+            <span class="label-value"><%= esf.device_id %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% else %>
+  <p>No efile security information collected for this client.</p>
+<% end %>
