@@ -38,6 +38,8 @@ module Efile
           log_contents = File.read(File.join(working_directory, 'output/log/audit_log.txt'))
           if log_contents.split("\n").include?("Transaction Result: java.net.SocketTimeoutException: Read timed out")
             raise RetryableError, log_contents
+          elsif log_contents.match(/Transaction Result: The server sent HTTP status code 302: Moved Temporarily/)
+            raise RetryableError, log_contents
           else
             raise Error, log_contents
           end
