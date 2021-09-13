@@ -329,6 +329,7 @@ Rails.application.routes.draw do
           get "/no-income-or-income-from-benefits-programs", to: "ctc_pages#no_income_or_income_from_benefits_programs"
           get "/are-daca-recipients-eligible", to: "ctc_pages#are_daca_recipients_eligible"
           get "/will-it-affect-my-immigration-status", to: "ctc_pages#will_it_affect_my_immigration_status"
+          get "/how-do-i-get-an-itin", to: "ctc_pages#how_do_i_get_an_itin"
         end
 
         namespace :update do

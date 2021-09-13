@@ -3362,6 +3362,14 @@ es:
             question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
             answer_html: |
               No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
+          how_do_i_get_an_itin:
+            question: ¿Cómo obtengo un Número de Identificación Personal del Contribuyente (ITIN, por sus siglas en inglés) si no tengo un Número de Seguro Social?
+            answer_html: |
+              Si sus hijos tienen número de seguro social y usted no, puede usar el Número de Identificación Personal del Contribuyente (ITIN) para poder reclamar el Crédito Tributario por Hijos.
+              <br/><br/>
+              Para solicitar un ITIN, debe enviar <a rel='noopener' target='_blank' href='https://www.irs.gov/forms-pubs/about-form-w-7'>el formulario W-7</a> a Servicios de Rentas Internas (IRS, por sus siglas en ingles) junto con los documentos comprobantes de identidad (como el pasaporte, la licencia de conducir, o el acta de nacimiento). Puede ver una lista completa de opciones de documentos para la verificación de identidad <a rel='noopener' target='_blank' href='https://www.irs.gov/instructions/iw7'>aquí</a> bajo “Requisitos para los Documentos Comprobantes”.
+              <br/><br/>
+              Puede presenter su W-7 documentos comprobantes por correo (a la dirección enlistada en el formulario W-7), en persona en una <a rel='noopener' target='_blank' href='https://www.irs.gov/help/contact-your-local-irs-office'>oficina del IRS</a>, o a través de un <a rel='noopener' target='_blank' href='https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program'>Agente tramitador</a> autorizado por el IRS.
         what_is:
           heading: Crédito Tributario por Hijo
           body_html: |

@@ -3340,6 +3340,14 @@ en:
             question: "Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?"
             answer_html: |
               No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
+          how_do_i_get_an_itin:
+            question: How do I get an Individual Taxpayer Identification Number (ITIN) if I do not have a Social Security Number?
+            answer_html: |
+              If your children have social security number(s) but you do not, then you can use an Individual Taxpayer Identification Number (ITIN) in order to claim the Child Tax Credit.
+              <br/><br/>
+              To apply for an ITIN, you must submit <a rel='noopener' target='_blank' href='https://www.irs.gov/forms-pubs/about-form-w-7'>Form W-7</a> to the IRS along with the required identity verification (like a passport, driver's license, or birth certificate). You can see a full list of identity verification document options listed <a rel='noopener' target='_blank' href='https://www.irs.gov/instructions/iw7'>here</a> under “Supporting Documentation”.
+              <br/><br/>
+              You can submit your W-7 and identity verification documents through the mail (using the address shown on Form W-7), in person at an <a rel='noopener' target='_blank' href='https://www.irs.gov/help/contact-your-local-irs-office'>IRS office</a>, or through a <a rel='noopener' target='_blank' href='https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program'>Certified Acceptance Agent</a>.
         what_is:
           heading: Child Tax Credit
           body_html: |
