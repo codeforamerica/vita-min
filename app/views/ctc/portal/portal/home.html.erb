@@ -50,9 +50,6 @@
                 <%= t("views.ctc.portal.home.default_next_steps") %>
               <% end %>
             </div>
-            <div class="review-box__cta-button-container spacing-above-35">
-              <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--wide button--primary spacing-below-0" %>
-            </div>
           <% else %>
             <%= t("views.ctc.portal.home.status.#{@status}.message") %>
           <% end %>
@@ -65,6 +62,11 @@
           <% end %>
 
           <div class="review-box__cta-button-container spacing-above-35">
+            <% if @submission.present? && @submission.can_transition_to?(:resubmitted) %>
+              <div class="review-box__cta-button-container spacing-above-35">
+                <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--wide button--primary spacing-below-0" %>
+              </div>
+            <% end %>
             <% if @current_step %>
               <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--wide spacing-below-0" %>
             <% end %>
