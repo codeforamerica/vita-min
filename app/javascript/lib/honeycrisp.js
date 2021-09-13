@@ -128,10 +128,10 @@ var revealer = (function() {
         init: function() {
             $('.reveal').each(function(index, revealer) {
                 var self = revealer;
-                $(self).addClass('is-hidden');
+                $(self).addClass('is-hiding-content');
                 $(self).find('.reveal__link').click(function(e) {
                     e.preventDefault();
-                    $(self).toggleClass('is-hidden');
+                    $(self).toggleClass('is-hiding-content');
                 });
             });
         }

@@ -3,9 +3,9 @@ $("#flow-wrapper").html("<%= escape_javascript(render(partial: 'flow', locals: {
 // re-initialize reveals -- note that this is the same as revealer.init() from honeycrisp js
 $('.reveal').each(function(index, revealer) {
   var self = revealer;
-  $(self).addClass('is-hidden');
+  $(self).addClass('is-hiding-content');
   $(self).find('.reveal__link').click(function(e) {
     e.preventDefault();
-    $(self).toggleClass('is-hidden');
+    $(self).toggleClass('is-hiding-content');
   });
 });
