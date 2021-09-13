@@ -294,9 +294,7 @@
           </div>
           <% if @client.intake.is_ctc? && !@client.intake.drop_off? %>
             <div class="client-profile__field-group">
-              <h2 class="text--bold">
-                Prior Year AGI Amount
-              </h2>
+              <h2 class="text--bold">Prior Year AGI Amount</h2>
               <div class="field-display">
                 <span class="form-question">Primary Prior Year (2019) AGI:</span>
                 <span class="label-value">$<%= @client.intake.primary_prior_year_agi_amount || 0 %></span>

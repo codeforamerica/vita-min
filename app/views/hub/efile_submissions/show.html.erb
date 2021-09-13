@@ -53,6 +53,8 @@
         <% end %>
       </div>
 
+      <%= render(partial: "efile_security_information") %>
+
       <div class="log-wrapper">
         <h4 class="spacing-below-10">Status Logs</h4>
         <% tax_return.efile_submissions.each_with_index do |efile_submission, i| %>
