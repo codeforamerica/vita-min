@@ -78,6 +78,29 @@ RSpec.describe Efile::GyrEfilerService do
           }.to raise_error(Efile::GyrEfilerService::RetryableError)
         end
       end
+
+      context "when the cause is a gyr-efiler login moved temporarily" do
+        let(:log_output) do
+          <<~AUDIT_LOG
+            Name of Service Call: Login
+            Message ID of Service Call: abcdefg
+            Transaction Submission Date/Time: 2021-09-11T11:58:02Z
+            ETIN of Service Call: 1234
+            ASID: 121212
+            Toolkit Version: 2020v11.1
+            Request data: N/A
+            Name of Service Call: Login
+            Message ID of Service Call: abcdefg
+            Transaction Result: The server sent HTTP status code 302: Moved Temporarily
+          AUDIT_LOG
+        end
+
+        it "raises a RetryableError" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(Efile::GyrEfilerService::RetryableError)
+        end
+      end
     end
   end
 
