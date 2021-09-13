@@ -16,7 +16,6 @@ class EfileSubmissionStateMachine
 
   state :investigating
   state :waiting
-  state :ready_to_resubmit
 
   state :resubmitted
   state :cancelled
@@ -25,12 +24,11 @@ class EfileSubmissionStateMachine
   transition from: :preparing,         to: [:queued, :failed]
   transition from: :queued,            to: [:transmitted, :failed]
   transition from: :transmitted,       to: [:accepted, :rejected, :failed]
-  transition from: :failed,            to: [:resubmitted, :cancelled, :investigating, :waiting, :ready_to_resubmit]
-  transition from: :rejected,          to: [:resubmitted, :cancelled, :investigating, :waiting, :ready_to_resubmit]
-  transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting, :ready_to_resubmit]
+  transition from: :failed,            to: [:resubmitted, :cancelled, :investigating, :waiting]
+  transition from: :rejected,          to: [:resubmitted, :cancelled, :investigating, :waiting]
+  transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting]
   transition from: :resubmitted,       to: [:preparing]
-  transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating, :ready_to_resubmit]
-  transition from: :ready_to_resubmit, to: [:resubmitted, :cancelled, :investigating]
+  transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating]
 
   guard_transition(to: :preparing) do |_submission|
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
@@ -126,10 +124,6 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :waiting) do |submission|
-    submission.tax_return.update(status: :file_hold)
-  end
-
-  after_transition(to: :ready_to_resubmit) do |submission|
     submission.tax_return.update(status: :file_hold)
   end
 

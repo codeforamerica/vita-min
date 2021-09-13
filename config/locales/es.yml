@@ -1450,9 +1450,6 @@ es:
                 Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
             cancelled:
               message: Ya no intentaremos enviar esta declaración al IRS. Esto puede deberse a que solicitó que no enviemos la declaración o porque un rechazo del IRS indicó que no podemos volver a enviarla en su nombre.
-            ready_to_resubmit:
-              label: Reenviar
-              message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
           correct_info: "Corrija mi información"
         edit_info:
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
