@@ -18,22 +18,29 @@ FileUtils.chdir APP_ROOT do
   system!({ "PERCY_TOKEN" => Rails.application.credentials.percy_token },
     '
       set -e
+
       if [ -z $PERCY_TOKEN ]; then echo "== 🚨 Please download development.key to access PERCY_TOKEN =="; exit 1; fi
 
       if [ -n "$(git status --porcelain)" ]; then echo "== 🚨 Please commit changes first =="; exit 1; fi
 
-      echo "== 📸 Take baseline images =="
+      echo "== 📸 Take baseline images on %{target_branch} branch =="
       git checkout %{target_branch}
       bundle install
       yarn install
       RAILS_ENV=test bin/webpack
       VITA_MIN_PERCY_ENABLED=1 npx percy exec -- rspec --tag screenshot
-      echo "== 📸 Take new images =="
+
+      echo "== 🕰️  Please wait for %{target_branch} to fully process snapshoots and complete at the provided link above. (Takes a few minutes) =="
+      read -n 1 -p "== 🕰️  Then press any key to continue =="
+
+      current_branch=$(git branch | sed -n -e \'s/^\* \(.*\)/\1/p\')
+      echo "== 📸 Take new images on ${current_branch} branch =="
       git checkout -
       bundle install
       yarn install
       RAILS_ENV=test bin/webpack
       VITA_MIN_PERCY_ENABLED=1 PERCY_TARGET_BRANCH=%{target_branch} PERCY_PULL_REQUEST=%{pr_number} npx percy exec -- rspec --tag screenshot
+      echo "== 🏁 Script complete =="
     ' % { target_branch: target_branch, pr_number: pr_number }
   )
 end
