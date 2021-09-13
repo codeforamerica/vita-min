@@ -3556,6 +3556,9 @@ en:
           header: Thanks for signing up!
           body: We'll contact you as soon as we have more information.
           button: Return to homepage
+      navigators:
+        title: "GetCTC.org Navigator Resources"
+        help_text: "Guidance for community-based navigators seeking to help hard-to-reach clients access the Advance Child Tax Credit (AdvCTC) or Economic Impact Payment (EIP or Stimulus)."
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."

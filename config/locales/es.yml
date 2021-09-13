@@ -3455,6 +3455,9 @@ es:
           header: Gracias por registrarte!
           body: Nos comunicaremos contigo en cuanto tengamos más información.
           button: Regresar a la página principal
+      navigators:
+        title: "Recursos del navegador GetCTC.org"
+        help_text: "Orientación para los navegadores de la comunidad que buscan ayudar a los clientes de difícil acceso a acceder al Crédito Fiscal Anticipado por Hijo (AdvCTC) o al Pago por Impacto Económico (EIP o Estímulo)."
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
