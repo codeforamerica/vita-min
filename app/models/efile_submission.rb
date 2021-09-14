@@ -110,13 +110,14 @@ class EfileSubmission < ApplicationRecord
   ##
   # Re-enqueue the submission to handle a temporary error.
   #
-  # If the submission was enqueued than 1 day ago, give up and transition to :failed.
+  # If the submission was enqueued more than 1 day ago, give up and transition to :failed.
+  # Always grabs the latest transition to queued so in cases where a user resubmits, we begin the 1 day expiration at that point.
   #
   # This method assumes the submission has already been transitioned to :queued. If the transition
   # was never enqueued, transition to :failed to cover the programming error.
   def retry_send_submission
     now = DateTime.now.utc
-    queued_at = efile_submission_transitions.where(to_state: "queued").pluck(:created_at).min
+    queued_at = efile_submission_transitions.where(to_state: "queued").pluck(:created_at).max
     if queued_at.nil?
       transition_to!(:failed, error_code: "TRANSMISSION-SERVICE", raw_response: "Unable to retry_send_submission because submission was never queued.")
       return
