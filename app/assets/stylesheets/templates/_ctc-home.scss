@@ -59,4 +59,24 @@
   .slab--navigators {
     background-color: $color-light-gold;
   }
+
+  .slab--need-help {
+    background-color: $color-venice-blue;
+    color: $color-white;
+    .button--link {
+      color: $color-white;
+      font-weight: bold;
+    }
+
+    .media-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .media-box__media {
+        margin-right: 1.5rem;
+        display: flex;
+      }
+    }
+  }
 }

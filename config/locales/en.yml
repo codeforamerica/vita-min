@@ -3275,6 +3275,7 @@ en:
           claim: Claim your Child Tax Credit and missing stimulus payments, even if you don’t have your tax documents.
         sign_up_for_updates: Sign up for updates
         file_your_return: File your simplified return now
+        need_help_html: Need help? Call 877-907-0937 or <button type="button" class="open-intercom button--link">chat with us</button> and get help claiming your stimulus payments.
         common_questions:
           title: "Common Questions"
           what_will_i_need_to_submit:
@@ -3408,7 +3409,10 @@ en:
             body4_sign_up: Sign up for updates.
           full_return:
             subheading: "If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed."
-            body1_html: "If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. Filing a full 2020 tax return will allow your family to claim the Child Tax Credit, receive all three stimulus payments, and the Earned Income Credit to get even more cash now."
+            body1_html: |
+              <p>If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. </p>
+
+              <p>Filing a full 2020 tax return will allow your family to claim the Child Tax Credit, receive all three stimulus payments, and the Earned Income Credit to get even more cash now. </p>
             gyr_diy_explanation_html: "File your 2020 taxes for free using <a rel='noopener' target='_blank' href='%{url}'>GetYourRefund’s DIY service.</a> We provide free access to tax prep software, and have certified tax experts ready to provide chat support if you need help."
       privacy_policy_html: |
         <p class="text--help">GetCTC.org is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help low to moderate-income households access tax benefits, like the Advance Child Tax Credit (AdvCTC) and Economic Impact Payments through accessible tax filing services.</p>
@@ -3564,6 +3568,50 @@ en:
       navigators:
         title: "GetCTC.org Navigator Resources"
         help_text: "Guidance for community-based navigators seeking to help hard-to-reach clients access the Advance Child Tax Credit (AdvCTC) or Economic Impact Payment (EIP or Stimulus)."
+      stimulus_home:
+        title: "Simplified Tax Filing to Claim Your Stimulus Payments"
+        header: "Simplified Tax Filing to Claim Your Stimulus Payments"
+        subheader:
+          claim: "Claim your missing stimulus payments (and, if you have kids, your Child Tax Credit), even if you don’t have your tax documents."
+        what_is:
+          heading: "Stimulus Payments"
+          body_html: |
+            <p>Relief to help you through these difficult times, even if you make little or no money.</p>
+
+            <p>Congress passed three rounds of stimulus checks in response to the COVID-19 pandemic, in April 2020, December 2020, and March 2021. All together, the payments are worth up to $3,200 per adult and up to $2,500 per child in your family. The payments are formally known as Economic Impact Payments (EIPs), or as the Recovery Rebate Credit (RRC). </p>
+
+            <p>You can act now to get any of the three payments you haven’t yet received. If you have kids, you’ll also be able to sign up for payments of the new Advance Child Tax Credit.</p>
+        qualify:
+          heading: "Do I qualify for the stimulus payments?"
+          body1: "You can receive stimulus payments if you have a Social Security Number, even if you make little or no money."
+          body2: "Generally, the children in your family qualify for the first two stimulus payments too if they are under 18 and live with you most of the year. You can receive the third stimulus payment for any family member who is your dependent, even if they are not a child."
+          eligible:
+            subheading: "Who is eligible to claim stimulus payments?"
+            body: "Joint filers making up to $150,000, single head of households making up to $112,500, and other single filers making up to $75,000 qualify for the full amount of the stimulus checks. For the first two payments, you (or your spouse, if filing jointly) must have an SSN or must have served in the military in 2020."
+          dependents:
+            subheading: "Does my child or dependent qualify for stimulus payments?"
+            body: "Your child qualifies for the first two payments if:"
+            qualifiers:
+              - The child is your son, daughter, grandchild, stepchild or adopted child; younger sibling, step-sibling, half-sibling, or their descendent; or a foster child placed with you by a government agency.
+              - The child was under 17 at the end of 2020.
+              - The child has a valid Social Security Number.
+              - The child lived with you for more than half of 2020.
+              - The child did not provide over half of their own support for 2020.
+            third_payment: "For the third payment, the children described above qualify — plus some other relatives you primarily support who have very low income."
+        obtain:
+          heading: "How do I get the stimulus payments?"
+          body1: "To issue the third stimulus payment, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your third stimulus automatically."
+          body2: "If you have not submitted any information to the IRS in the last year — or if you need to claim any of the first two stimulus payments — you can submit your information through our simplified filing portal and get your payments."
+          already_filed:
+            body1: "The IRS issued the first two stimulus payments automatically using data from 2019 tax returns, and is issuing the third payment using data from 2019 or 2020 tax returns. If you filed one of these returns, the IRS should have the correct information it needs for you."
+            body2: "If your family situation changed since 2019 and you didn’t file in 2020, or you think the IRS underpaid your stimulus payments last year, you can use the sign-up tools below to update the IRS and request missing funds."
+          not_filed:
+            subheading: "If you have not filed a tax return, you can sign up to get the stimulus payments."
+            body1: "If you earned less than $12,400 (or less than $22,800 if you are married), you can use GetCTC, a simplified tax filing portal to get the stimulus payments, and, if you have kids, the Child Tax Credit as well. (Note, despite the name, you do not need to have children or be claiming the CTC to use GetCTC.)"
+            body2: "To use this tool, you will need to provide the Social Security Numbers or Adoption Taxpayer Identification Numbers of your children. You can sign up for the stimulus payments even if you have little to no income or receive other federal benefits like SSI or SSDI."
+            body4_info: "More resources to help you claim your stimulus payments are coming soon."
+          full_return:
+            file_with_gyr: "File a Tax Return with GetYourRefund"
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."

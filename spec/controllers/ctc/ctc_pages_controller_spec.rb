@@ -31,6 +31,30 @@ describe Ctc::CtcPagesController do
         expect(response).to be_ok
       end
     end
+
+    context "CDSS landing page content" do
+      [
+        %w( cactc ctc/ctc_pages/home true),
+        %w( fed   ctc/ctc_pages/home true),
+        %w( child ctc/ctc_pages/home true),
+        %w( eip ctc/ctc_pages/stimulus_home true),
+        %w( cagov ctc/ctc_pages/stimulus_home true),
+        %w( state ctc/ctc_pages/stimulus_home true),
+        %w( credit  ctc/ctc_pages/stimulus_home false),
+        %w( ca      ctc/ctc_pages/stimulus_home false),
+        %w( castate ctc/ctc_pages/stimulus_home false),
+      ].each do |source, template, show_needs_help|
+        describe "When client visits from source param #{source}" do
+          it "renders #{template} and #{show_needs_help ? 'does' : 'does not'} show blue banner" do
+            session[:source] = source
+            get :home
+            expect(subject).to render_template(template)
+            show_needs_help_bool = show_needs_help == 'true' ? true : false
+            expect(!!assigns[:needs_help_banner]).to eq(show_needs_help_bool)
+          end
+        end
+      end
+    end
   end
 
   describe "#navigators" do

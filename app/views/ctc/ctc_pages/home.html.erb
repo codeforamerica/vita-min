@@ -36,6 +36,21 @@
     </div>
   </div>
 
+  <% if @needs_help_banner %>
+    <div class="slab slab--short slab--need-help">
+      <div class="grid">
+        <div class="media-box spacing-below-0">
+          <div class="media-box__media">
+            <%= image_tag('contact-phone.svg', alt: "") %>
+          </div>
+          <div class="media-box__content">
+            <%= t('views.ctc_pages.home.need_help_html') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="slab slab--green">
     <div class="grid">
       <div class="grid__item width-one-half spacing-below-25">
