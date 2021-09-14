@@ -93,8 +93,6 @@ module ApplicationHelper
       "icons/cancelled.svg"
     when "new", "preparing", "transmitted"
       "icons/sending.svg"
-    when "ready_to_resubmit"
-      "icons/in-progress.svg"
     end
   end
 end
