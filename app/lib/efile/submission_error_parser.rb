@@ -6,15 +6,15 @@ module Efile
       @raw_response = transition.metadata["raw_response"]
     end
 
-    def to_xml
-      Nokogiri::XML(@raw_response)
-    end
-
-    def persist_efile_errors_from_transition_metadata
+    def persist_errors
       metadata = @transition.metadata
       # these errors are mostly failures on our side of things, like issues with bundling and addresses
       if metadata["error_code"].present?
         persist_errors_from_error_metadata
+      end
+
+      if @transition.to_state == "failed" && metadata["raw_response"].present?
+        persist_bundle_errors_from_raw_response_metadata
       end
 
       # there errors are responses from the IRS, like rejections or exceptions
@@ -22,6 +22,8 @@ module Efile
         persist_errors_from_raw_response_metadata
       end
     end
+
+    private
 
     def persist_errors_from_error_metadata
       efile_submission = @transition.efile_submission
@@ -36,9 +38,11 @@ module Efile
     end
 
     def persist_errors_from_raw_response_metadata
-      raise UnexpectedFormatError, "raw_response on transition is not in expected format" unless to_xml.at("ValidationErrorGrp").present?
+      as_xml = Nokogiri::XML(@raw_response)
 
-      to_xml.search("ValidationErrorGrp").each do |error_group|
+      raise UnexpectedFormatError, "raw_response on transition is not in expected format" unless as_xml.at("ValidationErrorGrp").present?
+
+      as_xml.search("ValidationErrorGrp").each do |error_group|
         error = EfileError.find_or_create_by!(
           code: error_group.at("RuleNum")&.text,
           message: error_group.at("ErrorMessageTxt")&.text,
@@ -55,6 +59,15 @@ module Efile
           end
         end
         @transition.efile_submission_transition_errors.create(efile_submission_id: @transition.efile_submission.id, efile_error_id: error.id, dependent_id: dependent_id)
+      end
+    end
+
+    def persist_bundle_errors_from_raw_response_metadata
+      if @transition.metadata["raw_response"].to_s.match?(/(RoutingTransitNum|DepositorAccountNum)/)
+        error = EfileError.find_by(
+          code: "BANK-DETAILS"
+        )
+        @transition.efile_submission_transition_errors.create(efile_submission_id: @transition.efile_submission.id, efile_error_id: error.id)
       end
     end
 

@@ -30,5 +30,12 @@ class DefaultErrorMessages
       source: :internal,
       expose: false
     )
+    EfileError.find_or_create_by!(
+      code: "BANK-DETAILS",
+      message: "Some of the provided bank account details are incorrect or absent.",
+      source: :intake,
+      expose: true,
+      auto_wait: true
+    )
   end
 end

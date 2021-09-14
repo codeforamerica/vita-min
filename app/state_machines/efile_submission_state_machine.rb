@@ -51,7 +51,7 @@ class EfileSubmissionStateMachine
   after_transition(to: :failed, after_commit: true) do |submission, transition|
     submission.tax_return.update(status: "file_needs_review")
 
-    Efile::SubmissionErrorParser.new(transition).persist_efile_errors_from_transition_metadata
+    Efile::SubmissionErrorParser.persist_errors(transition)
 
     if transition.efile_errors.any?
       if transition.efile_errors.any?(&:expose)
@@ -70,7 +70,7 @@ class EfileSubmissionStateMachine
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
     submission.tax_return.update(status: "file_rejected")
 
-    Efile::SubmissionErrorParser.new(transition).persist_efile_errors_from_transition_metadata
+    Efile::SubmissionErrorParser.persist_errors(transition)
 
     if transition.efile_errors.any?
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
