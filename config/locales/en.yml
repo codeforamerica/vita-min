@@ -3607,7 +3607,6 @@ en:
             subheading: "If you have not filed a tax return, you can sign up to get the stimulus payments."
             body1: "If you earned less than $12,400 (or less than $22,800 if you are married), you can use GetCTC, a simplified tax filing portal to get the stimulus payments, and, if you have kids, the Child Tax Credit as well. (Note, despite the name, you do not need to have children or be claiming the CTC to use GetCTC.)"
             body2: "To use this tool, you will need to provide the Social Security Numbers or Adoption Taxpayer Identification Numbers of your children. You can sign up for the stimulus payments even if you have little to no income or receive other federal benefits like SSI or SSDI."
-            body4_info: "More resources to help you claim your stimulus payments are coming soon."
           full_return:
             file_with_gyr: "File a Tax Return with GetYourRefund"
   clients:
