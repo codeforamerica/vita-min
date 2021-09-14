@@ -3404,9 +3404,7 @@ en:
             body1_html: |
               If you earned less than $12,400 (or less than $24,800 if you are married), you can use GetCTC, a simplified tax filing portal to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
             body2: "To get the Child Tax Credit you will need to provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI."
-            body3: Chat with our tax experts if you need help.
-            body4_info: More resources to help you claim your Child Tax Credit are coming soon.
-            body4_sign_up: Sign up for updates.
+            chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Chat with our tax experts</button> if you need help.
           full_return:
             subheading: "If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed."
             body1_html: |

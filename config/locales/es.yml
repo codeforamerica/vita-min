@@ -3436,9 +3436,7 @@ es:
                 <li>y recibir dinero en efectivo ahora.</li>
               </ul>
             body2: "Para obtener el Crédito Tributario por Hijos, necesitará proporcionar los números de seguro social de sus hijos. Puede registrarse para el Crédito Tributario por Hijos aún si usted tiene muy pocos ingresos o no tiene ingresos, o si recibe otros beneficios federales como Seguridad de Ingreso Suplementario (SSI en inglés) o beneficios por incapacidad (SSDI en inglés)."
-            body3: Hable con nuestros expertos en impuestos si necesita ayuda.
-            body4_info: Próximamente habrán más recursos para ayudarle a reclamar su Crédito Tributario por Hijos.
-            body4_sign_up: Apúntese para recibir información actualizada.
+            chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Hable con nuestros expertos en impuestos</button> si necesita ayuda.
           full_return:
             subheading: "Si usted aún no ha proporcionado su información al IRS (por medio de sus impuestos o por el portal para registrar a las personas que no han declarado), usted puede presentar una declaración de impuestos completa para recibir otros créditos tributarios que se le deben."
             body1_html: |
