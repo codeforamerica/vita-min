@@ -531,6 +531,25 @@ describe EfileSubmission do
           expect(submission.current_state).to eq("failed")
         end
       end
+
+      context "and there is a resubmission initiated by a user very recently" do
+        it "enqueues the SendSubmission job with exponential backoff plus jitter", active_job: true do
+          freeze_time do
+            submission = create(:efile_submission, :queued)
+            submission.efile_submission_transitions.where(to_state: "queued").update(created_at: (1.01).days.ago)
+            submission.transition_to!(:failed)
+            submission.transition_to!(:resubmitted)
+            submission.transition_to!(:queued)
+            submission.efile_submission_transitions.where(to_state: "queued").last.update(created_at: 1.minute.ago)
+            clear_enqueued_jobs
+            expected_delay = (1.minute ** 1.25) + 4
+
+            expect {
+              submission.retry_send_submission
+            }.to have_enqueued_job(GyrEfiler::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
+          end
+        end
+      end
     end
   end
 end
