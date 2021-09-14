@@ -1,0 +1,20 @@
+<% content_for :card do %>
+  <%= render "hub/clients/client_header" %>
+  <%= render "hub/clients/navigation" %>
+
+  <div class="slab slab--not-padded spacing-above-25" id="body">
+    <table class="index-table">
+      <thead class="index-table__head">
+        <tr class="index-table__row">
+          <th scope="col" class="index-table__header">Date</th>
+          <th scope="col" class="index-table__header">Action</th>
+          <th scope="col" class="index-table__header">Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= render(partial: "efile_security_information") %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

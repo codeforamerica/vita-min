@@ -133,6 +133,10 @@ It expects to be the primary content of the given page (full width).
     }
   }
 
+  &__vertical_align {
+    vertical-align: top;
+  }
+
   &__row:nth-child(odd) {
     background-color: white;
 
