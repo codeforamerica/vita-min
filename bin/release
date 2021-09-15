@@ -101,7 +101,7 @@ echo "• Released! Watch deployment on CircleCI: https://app.circleci.com/pipel
 echo ""
 
 echo "Creating new release tag $new_tag from $release_notes_file"
-gh release create -F "$release_notes_file" "$new_tag" > /dev/null
+gh release create -F "$release_notes_file" --target "${new_release}" "$new_tag" > /dev/null
 
 # All done!
 echo ""
