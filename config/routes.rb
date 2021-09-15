@@ -192,7 +192,7 @@ Rails.application.routes.draw do
           resources :notes, only: [:create, :index]
           resources :messages, only: [:index]
           get "/efile", to: "efile_submissions#show", on: :member, as: :efile
-          get "/anti_fraud", to: "anti_fraud#show", on: :member, as: :anti_fraud
+          get "/security", to: "security#show", on: :member, as: :security
           resources :outgoing_text_messages, only: [:create]
           resources :outgoing_emails, only: [:create]
           resources :outbound_calls, only: [:new, :create, :show, :update]
