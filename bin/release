@@ -101,7 +101,9 @@ echo "• Released! Watch deployment on CircleCI: https://app.circleci.com/pipel
 echo ""
 
 echo "Creating new release tag $new_tag from $release_notes_file"
-gh release create -F "$release_notes_file" --target "${new_release}" "$new_tag" > /dev/null
+release_notes_body_file="${tmpdir}/release-notes-body.txt"
+tail -n +1 "$release_notes_file" > "$release_notes_body_file"
+gh release create -F "$release_notes_body_file" --target "${new_release}" -t "$(head -n1 "$release_notes_file")" "$new_tag" > /dev/null
 
 # All done!
 echo ""
@@ -109,7 +111,7 @@ echo "✨ Released https://github.com/codeforamerica/vita-min/releases/tag/$new_
 echo "🧷 If needed, rollback to: ${current_release}"
 
 # Remove tempfiles now that they are successfully uploaded.
-rm -f "$release_notes_file" "$commits_file"
+rm -f "$release_notes_file" "$commits_file" "$release_notes_body_file"
 rmdir "$tmpdir"
 
 # Allow the cleanup function to switch back to the user's original branch.
