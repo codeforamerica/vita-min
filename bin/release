@@ -94,18 +94,18 @@ git merge --ff-only "${new_release}" || {
   exit 1
 }
 
-echo "Updating release branch on GitHub. This triggers deployment."
-git push "$origin_git_remote" "${new_release}":release
-echo ""
-echo "• Released! Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
-echo ""
-
 echo "Creating new release tag $new_tag from $release_notes_file"
 release_notes_body_file="${tmpdir}/release-notes-body.txt"
 tail -n +1 "$release_notes_file" > "$release_notes_body_file"
 gh release create -F "$release_notes_body_file" --target "${new_release}" -t "$(head -n1 "$release_notes_file")" "$new_tag" > /dev/null
 # Download the newly tagged release from GitHub
 git fetch "$origin_git_remote" --quiet
+
+echo "Updating release branch on GitHub. This triggers deployment."
+git push "$origin_git_remote" "${new_release}":release
+echo ""
+echo "• Released! Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
+echo ""
 
 # All done!
 echo ""
