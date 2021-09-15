@@ -52,9 +52,13 @@ describe Ctc::ConfirmLegalForm do
 
   context "save" do
     it "persists the consented to legal to intake and create an efile submission and set status to preparing" do
-      expect { described_class.new(intake, params).save }
-        .to change(intake.reload, :consented_to_legal).from("unfilled").to("yes")
-                                                      .and change(intake.tax_returns.last.efile_submissions, :count).by(1)
+      expect {
+        described_class.new(intake, params).save
+        intake.reload
+      }
+        .to change(intake, :consented_to_legal).from("unfilled").to("yes")
+        .and change(intake, :completed_at).from(nil)
+        .and change(intake.tax_returns.last.efile_submissions, :count).by(1)
     end
 
     it "persists efile_security_information as a record linked to the client" do
@@ -77,6 +81,16 @@ describe Ctc::ConfirmLegalForm do
       it "does not create another one" do
         expect { described_class.new(intake, params).save }
           .not_to change(intake.tax_returns.last.efile_submissions, :count)
+      end
+    end
+
+    context "when completed_at has already been set" do
+      before do
+        intake.touch(:completed_at)
+      end
+
+      it "does not overwrite the value" do
+        expect { described_class.new(intake, params).save }.not_to change(intake, :completed_at)
       end
     end
   end
