@@ -36,7 +36,7 @@ RSpec.describe Hub::UpdateCtcClientForm do
           spouse_first_name: intake.spouse_first_name,
           spouse_last_name: intake.spouse_last_name,
           spouse_email_address: intake.spouse_email_address,
-          spouse_ssn: "111227777",
+          spouse_ssn: "999-78-1224",
           spouse_tin_type: "itin",
           spouse_birth_date_year: intake.spouse_birth_date.year,
           spouse_birth_date_month: intake.spouse_birth_date.month,
@@ -54,7 +54,7 @@ RSpec.describe Hub::UpdateCtcClientForm do
           spouse_ip_pin: intake.spouse_ip_pin,
       }
     end
-    let(:primary_ssn) { "111-22-7777" }
+    let(:primary_ssn) { "111-22-4333" }
     let(:primary_tin_type) { "ssn_no_employment" }
 
     let(:sms_opt_in) { "yes" }
@@ -67,16 +67,20 @@ RSpec.describe Hub::UpdateCtcClientForm do
             form = described_class.new(client, form_attributes)
             form.save
             intake.reload
-          end.to change(intake, :primary_ssn).to("111227777").and change(intake, :primary_tin_type).to("ssn_no_employment")
+            puts form.errors.full_messages
+          end.to change(intake, :primary_ssn).to("111224333").and change(intake, :primary_tin_type).to("ssn_no_employment")
         end
 
         context "when it is an itin" do
+          let(:primary_ssn) { "999-78-1223" }
+          let(:primary_tin_type) { "itin" }
+
           it "persists valid changes to ssn" do
             expect do
               form = described_class.new(client, form_attributes)
               form.save
               intake.reload
-            end.to change(intake, :primary_ssn).to("111227777").and change(intake, :primary_tin_type).to("itin")
+            end.to change(intake, :primary_ssn).to("999781223").and change(intake, :primary_tin_type).to("itin")
           end
         end
       end

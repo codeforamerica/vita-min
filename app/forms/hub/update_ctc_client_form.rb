@@ -60,11 +60,11 @@ module Hub
                        :spouse_birth_date_year
     attr_accessor :client
 
-    validates :primary_ssn, social_security_number: true, if: -> { primary_tin_type == "ssn"}
-    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin"}
+    validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
+    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
 
     with_options if: -> { filing_status == "married_filing_jointly" } do
-      validates :spouse_ssn, social_security_number: true, if: -> { spouse_tin_type == "ssn" }
+      validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? spouse_tin_type }
       validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" }
     end
 
