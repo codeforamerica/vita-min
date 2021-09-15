@@ -3461,6 +3461,49 @@ es:
       navigators:
         title: "Recursos del navegador GetCTC.org"
         help_text: "Orientación para los navegadores de la comunidad que buscan ayudar a los clientes de difícil acceso a acceder al Crédito Fiscal Anticipado por Hijo (AdvCTC) o al Pago por Impacto Económico (EIP o Estímulo)."
+      stimulus_home:
+        title: Presentación de impuestos simplificada para reclamar sus pagos de estímulo
+        header: Presentación de impuestos simplificada para reclamar sus pagos de estímulo
+        subheader:
+          claim: Reclame sus pagos de estímulo faltantes (y, si tiene hijos, su Crédito Tributario por Hijos), incluso si no tiene sus documentos fiscales.
+        what_is:
+          heading: Pagos de estímulo
+          body_html: |
+            <p>Alivio para ayudarlo en estos momentos difíciles, incluso si gana poco o nada de dinero.</p>
+
+            <p>El Congreso aprobó tres rondas de controles de estímulo en respuesta a la pandemia de COVID-19, en abril de 2020, diciembre de 2020 y marzo de 2021. En total, los pagos suman hasta $3,200 por adulto y hasta $ 2,500 por niño en su familia. Los pagos se conocen formalmente como Pagos de Impacto Económico (EIP) o como Crédito de Reembolso de Recuperación (RRC).</p>
+
+            <p>Puede actuar ahora para recibir cualquiera de los tres pagos que aún no ha recibido. Si tiene hijos, también podrá inscribirse para recibir pagos del nuevo Crédito Tributario Anticipado por Hijos [enlace a la página principal de GetCTC]. GetCTC es un producto de Code for America. Obtenga más información sobre por qué estamos haciendo este trabajo aquí.</p>
+        qualify:
+          heading: ¿Califico para los cheques de estímulo?
+          body1: Puede recibir cheques de estímulo si tiene un número de seguro social, incluso si gana poco o nada de dinero.
+          body2: Por lo general, los niños de su familia también califican para los dos primeros cheques de estímulo si son menores de 18 años y viven con usted la mayor parte del año. Puede recibir el tercer cheque de estímulo para cualquier miembro de la familia que sea su dependiente, incluso si no es un niño.
+          eligible:
+            subheading: ¿Quién es elegible para reclamar cheques de estímulo?
+            body: Los contribuyentes conjuntos que ganan hasta $ 150,000, un solo cabeza de familia que gana hasta $ 112,500 y otros contribuyentes únicos que ganan hasta $ 75,000 califican para el monto total de los cheques de estímulo. Para los dos primeros pagos, usted (o su cónyuge, si presenta una declaración conjunta) debe tener un SSN o haber prestado servicio en el ejército en 2020.
+          dependents:
+            subheading: ¿Mi hijo o dependiente califica para cheques de estímulo?
+            body: "Su hijo califica para los dos primeros pagos si:"
+            qualifiers:
+              - El niño es su hijo, hija, nieto, hijastro o hijo adoptivo; hermano menor, hermanastro, medio hermano o su descendiente; o un niño de crianza que una agencia gubernamental le colocó.
+              - El niño tenía menos de 17 años a fines de 2020.
+              - El niño tiene un número de seguro social válido.
+              - El niño vivió con usted durante más de la mitad de 2020.
+              - El niño no proporcionó más de la mitad de su propia manutención para 2020.
+            third_payment: Para el tercer pago, los niños descritos anteriormente califican, además de algunos otros parientes a los que mantiene principalmente y que tienen ingresos muy bajos.
+        obtain:
+          heading: ¿Cómo obtengo los pagos de estímulo?
+          body1: Para emitir el tercer pago de estímulo, el IRS necesita conocer información actualizada sobre usted y sus hijos. Si ha presentado una declaración de impuestos de 2019 o 2020, o si utilizó el Portal de no contribuyentes del IRS en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviar a su familia su tercer estímulo automáticamente.
+          body2: Si no ha enviado ninguna información al IRS en el último año, o si necesita reclamar alguno de los dos primeros pagos de estímulo, puede enviar su información a través de nuestro portal de presentación simplificado y recibir sus pagos.
+          already_filed:
+            body1: El IRS emitió los dos primeros pagos de estímulo automáticamente utilizando datos de las declaraciones de impuestos de 2019 y está emitiendo el tercer pago utilizando datos de las declaraciones de impuestos de 2019 o 2020. Si presentó una de estas declaraciones, el IRS debe tener la información correcta que necesita para usted.
+            body2: Si su situación familiar cambió desde 2019 y no presentó la solicitud en 2020, o cree que el IRS pagó una cantidad menor en sus pagos de estímulo el año pasado, puede usar las herramientas de registro a continuación para actualizar el IRS y solicitar los fondos faltantes.
+          not_filed:
+            subheading: Si no ha presentado una declaración de impuestos, puede inscribirse para recibir los pagos de estímulo.
+            body1: Si ganó menos de $ 12,400 (o menos de $ 22,800 si está casado), puede usar GetCTC, un portal de declaración de impuestos simplificado para obtener los pagos de estímulo y, si tiene hijos, el Crédito Tributario por Hijos también. (Tenga en cuenta que, a pesar del nombre, no necesita tener hijos ni reclamar el CTC para usar GetCTC).
+            body2: Para utilizar esta herramienta, deberá proporcionar los números de seguro social o los números de identificación del contribuyente de adopción de sus hijos. Puede inscribirse para los pagos de estímulo incluso si tiene pocos o ningún ingreso o recibe otros beneficios federales como SSI o SSDI.
+          full_return:
+            file_with_gyr: Presentar una declaración de impuestos con GetYourRefund
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."

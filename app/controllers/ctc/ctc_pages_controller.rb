@@ -5,10 +5,10 @@ module Ctc
         cookies.permanent[:ctc_intake_ok] = "yes"
         redirect_to Ctc::Questions::OverviewController.to_path_helper
       end
-      if ["cactc", "fed", "child", "eip", "cagov", "state"].include?(session[:source]) || params[:needs_help_banner].present?
+      if ["cactc", "fed", "child", "eip", "cagov", "state"].include?(session[:source])
         @needs_help_banner = true
       end
-      if ["eip", "cagov", "state", "credit", "ca", "castate"].include?(session[:source]) || params[:stimulus_home].present?
+      if ["eip", "cagov", "state", "credit", "ca", "castate"].include?(session[:source])
         render :stimulus_home and return
       end
     end
