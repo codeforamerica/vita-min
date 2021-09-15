@@ -1,0 +1,36 @@
+<% @client.efile_security_informations.each do |esf| %>
+  <tr class="index-table__row index-table__vertical_align">
+    <td class="index-table__cell"><%= timestamp(esf.created_at) %></td>
+    <td class="index-table__cell"><strong>Device data</strong></td>
+    <td class="index-table__cell">
+      <div class="field-display spacing-below-5">
+        <span class="form-question">Browser Language:</span>
+        <span class="label-value"><%= esf.browser_language %></span>
+      </div>
+      <div class="field-display spacing-below-5">
+        <span class="form-question">Client System Time:</span>
+        <span class="label-value"><%= esf.client_system_time %></span>
+      </div>
+      <div class="field-display spacing-below-5">
+        <span class="form-question">IP Address:</span>
+        <span class="label-value"><%= esf.ip_address %></span>
+      </div>
+      <div class="field-display spacing-below-5">
+        <span class="form-question">Platform:</span>
+        <span class="label-value"><%= esf.platform %></span>
+      </div>
+      <div class="field-display spacing-below-5">
+        <span class="form-question">Timezone Offset:</span>
+        <span class="label-value"><%= esf.timezone_offset %></span>
+      </div>
+      <div class="field-display spacing-below-5">
+        <span class="form-question">User Agent Header:</span>
+        <span class="label-value"><%= esf.user_agent %></span>
+      </div>
+      <div class="field-display spacing-below-5">
+        <span class="form-question">Device ID:</span>
+        <span class="label-value"><%= esf.device_id %></span>
+      </div>
+    </td>
+  </tr>
+<% end %>

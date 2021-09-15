@@ -148,6 +148,7 @@ es:
         client_messages: Mensajes
         client_notes: Notas
         client_profile: Perfil del cliente
+        client_efile: E-file
         notifications: Mis Actualizaciones
       show:
         email: Email
