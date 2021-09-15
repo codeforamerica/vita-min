@@ -104,6 +104,8 @@ echo "Creating new release tag $new_tag from $release_notes_file"
 release_notes_body_file="${tmpdir}/release-notes-body.txt"
 tail -n +1 "$release_notes_file" > "$release_notes_body_file"
 gh release create -F "$release_notes_body_file" --target "${new_release}" -t "$(head -n1 "$release_notes_file")" "$new_tag" > /dev/null
+# Download the newly tagged release from GitHub
+git fetch "$origin_git_remote" --quiet
 
 # All done!
 echo ""
