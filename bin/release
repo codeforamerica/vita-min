@@ -30,7 +30,7 @@ current_release="$(git rev-parse "$origin_git_remote"/release)"
 current_main="$(git rev-parse "$origin_git_remote"/main)"
 
 # show the user a list of commits that will be deployed
-echo "🚀 Preparing to release ${current_main}.  Ctrl-C to cancel. These commits will be included:"
+echo "🚀 Preparing to release origin/main (${current_main}).  Ctrl-C to cancel. These commits will be included:"
 tmpdir="$(mktemp -d -t release-notes)"
 git --no-pager log --pretty="format:* %s" "${current_release}...${current_main}" > "$tmpdir/commits.txt"
 cat "$tmpdir/commits.txt"
