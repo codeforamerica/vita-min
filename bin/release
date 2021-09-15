@@ -74,13 +74,9 @@ Note: everything within the HTML comment block won't be displayed.
 TEMPLATE
 
 # want a different editor? set your EDITOR in your shell's rc file
-if which mine > /dev/null; then
-  DEFAULT_EDITOR="mine --wait"
-else
-  DEFAULT_EDITOR="vim"
-fi
+DEFAULT_EDITOR="vim"
 EDITOR="${EDITOR:-${DEFAULT_EDITOR}}"
-"$EDITOR" "$release_notes_file"
+$EDITOR "$release_notes_file"
 
 echo "Updating local release branch."
 git checkout release
