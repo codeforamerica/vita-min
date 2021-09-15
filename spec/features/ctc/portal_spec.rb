@@ -286,8 +286,6 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
       click_on I18n.t('hub.clients.navigation.client_notes')
 
-      puts page.body
-
       notes = SystemNote::CtcPortalUpdate.order(:id)
 
       expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({
