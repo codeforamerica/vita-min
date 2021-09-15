@@ -50,6 +50,10 @@
                 <%= t("views.ctc.portal.home.default_next_steps") %>
               <% end %>
             </div>
+
+            <div class="review-box__cta-button-container spacing-above-35">
+              <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--full-width button--primary spacing-below-0" %>
+            </div>
           <% else %>
             <%= t("views.ctc.portal.home.status.#{@status}.message") %>
           <% end %>
@@ -58,29 +62,21 @@
             <h3><%= t("views.ctc.portal.home.next_step_title") %></h3>
             <div class="text--small">
               <%= I18n.t("views.ctc.portal.home.imperfect_return_indicator_text") %>
-            <div>
+            </div>
           <% end %>
-
-          <div class="review-box__cta-button-container spacing-above-35">
-            <% if @submission.present? && @submission.can_transition_to?(:resubmitted) %>
-              <div class="review-box__cta-button-container spacing-above-35">
-                <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--wide button--primary spacing-below-0" %>
-              </div>
-            <% end %>
-            <% if @current_step %>
-              <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--wide spacing-below-0" %>
-            <% end %>
-            <% if @pdf1040 %>
-              <%= link_to portal_document_path(id: @pdf1040.id), target: "_blank", rel: "no_opener", class: "button button--wide" do %>
-                <%= t("views.ctc.portal.home.download_tax_return") %>
-              <% end %>
-            <% end %>
           </div>
-        </div>
       </div>
       <div class="spacing-above-35">
         <%= link_to t('views.ctc.portal.home.contact_us'), new_ctc_portal_message_path, class: "button button--primary button--full-width" %>
       </div>
+      <% if @current_step %>
+        <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--full-width spacing-below-0" %>
+      <% end %>
+      <% if @pdf1040 %>
+        <%= link_to portal_document_path(id: @pdf1040.id), target: "_blank", rel: "no_opener", class: "button button--full-width" do %>
+          <%= t("views.ctc.portal.home.download_tax_return") %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 <% end %>
