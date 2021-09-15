@@ -162,6 +162,7 @@ The fastest way to rollback is to directly push this ID to Aptible. Assuming you
 you can do so with:
 
 ```
+git fetch aptible-prod
 git push aptible-prod version-1.2.3:master --force-with-lease
 ```
 
