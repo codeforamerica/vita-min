@@ -78,6 +78,13 @@ DEFAULT_EDITOR="vim"
 EDITOR="${EDITOR:-${DEFAULT_EDITOR}}"
 $EDITOR "$release_notes_file"
 
+# Switch back to current branch when script exits
+branch_name="$(git rev-parse --abbrev-ref HEAD)"
+function cleanup() {
+  git checkout "$branch_name"
+}
+trap cleanup EXIT
+
 echo "Updating local release branch."
 git checkout release
 git merge --ff-only "${new_release}" || {
