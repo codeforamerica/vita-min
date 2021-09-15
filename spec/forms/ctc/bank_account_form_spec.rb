@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Ctc::Portal::BankAccountForm do
+describe Ctc::BankAccountForm do
   let!(:bank_account) { create(:bank_account, intake: intake) }
   let(:intake) { create :ctc_intake }
   let(:bank_name) { "Bank of America" }

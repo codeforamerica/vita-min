@@ -53,9 +53,13 @@ class CtcQuestionNavigation
 
     # Bank and mailing info
     Ctc::Questions::RefundPaymentController,
+
+    # DEPRECATED - remove soon
     Ctc::Questions::DirectDepositController,
     Ctc::Questions::RoutingNumberController,
     Ctc::Questions::AccountNumberController,
+
+    Ctc::Questions::BankAccountController,
     Ctc::Questions::ConfirmBankAccountController,
     Ctc::Questions::MailingAddressController,
     Ctc::Questions::ConfirmMailingAddressController,

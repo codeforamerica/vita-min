@@ -1546,7 +1546,6 @@ es:
     ctc:
       portal:
         bank_account:
-          help_text: Su nombre debe aparecer en su cuenta bancaria para que pueda recibir su dinero.
           title: Proporcione sus datos bancarios a continuación
         dependent_info:
           help_text: Confirmar / editar la información básica de su dependiente
@@ -1611,7 +1610,6 @@ es:
         account_number:
           account_number: Número de cuenta
           account_number_confirmation: Confirme su número de cuenta
-          title: Favor de proporcionarnos el número de su cuenta bancaria
         agi2019:
           help_text_html: |
             Debido a que declaró que presentó una declaración de impuestos completa en 2019, necesitaremos verificar cuál fue su ingreso bruto ajustado (AGI) en 2019.</br>
@@ -1625,6 +1623,8 @@ es:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes/FAQ.
           title: Vaya, parece que ahora mismo nos encontramos a la máxima capacidad. ¡Por favor vuelva la semana entrante!
+        bank_account:
+          title: Proporcione sus datos bancarios a continuación
         cell_phone_number:
           confirm_label: Confirme su número de celular
           label: Número de celular
@@ -1775,7 +1775,6 @@ es:
             error_message: Introduzca la información de una cuenta bancaria con su nombre, o seleccione otro método de pago.
             error_message_html: Introduzca la información de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro método de pago</a>.
             label: Confirmo que mi nombre es en esta cuenta bancaria
-            question: Su nombre debe aparecer en la cuenta bancaria para recibir un depósito directo.
         email_address:
           title: Favor de compartir la dirección de su correo electrónico
         file_full_return:
@@ -1903,7 +1902,6 @@ es:
         routing_number:
           routing_number: Número de ruta bancaria
           routing_number_confirmation: Confirme su número de ruta bancaria bancaria
-          title: Favor de indicar su número de ruta bancaria bancaria
         spouse_agi2019:
           help_text_html: |
             Debido a que declaró que su cónyuge presentó una declaración de impuestos en 2019, necesitaremos verificar cuál fue el Ingreso Bruto Ajustado (AGI) de su cónyuge en 2019.<br/>

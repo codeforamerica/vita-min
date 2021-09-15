@@ -9,6 +9,6 @@
     <li class="review-box__details"><%= t("general.bank_account.account_number") %>: <%= mask(bank_account.account_number, 4) %></li>
   </ul>
   <% if defined?(edit_controller) %>
-    <%= link_to t("general.change").downcase, edit_controller.to_path_helper, class: "review-box__edit review-box__edit-button" %>
+    <%= link_to t("general.change").downcase, edit_controller.to_path_helper(clear: true), class: "review-box__edit review-box__edit-button" %>
   <% end %>
 </div>

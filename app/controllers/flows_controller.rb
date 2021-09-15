@@ -164,7 +164,7 @@ class FlowsController < ApplicationController
             e.string
           end
         else
-          if controller_path.start_with?('ctc') && !unreachable?(@current_controller)
+          if controller_path.start_with?('ctc') && !deprecated_controller?
             raise "Could not find title for: #{controller_path}"
           else
             controller_name.titleize.singularize
