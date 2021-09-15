@@ -1,5 +1,5 @@
+brew "gh"
 brew "ghostscript"
-brew "hub"
 brew "imagemagick"
 brew "pdftk-java"
 brew "poppler"

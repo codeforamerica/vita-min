@@ -128,6 +128,64 @@ Create a hotfix branch directly from `release` (rather than `main`) if a PR is
 recommended. When creating the PR, set the PR to target `release` rather than
 `main`. When reviewed and merged, merge `release` back into `main`.
 
+### Rolling back
+
+A deployment can be safely rolled back so long as the code you're rolling-back to can read a database version
+created by the new code. Our rollback process does not run reverse migrations.
+
+There are three steps to performing a rollback:
+
+1. Identify the commit you wish to roll back to
+2. Say on Slack you'll do a rollback
+3. Force-push the old commit ID to Aptible
+4. Force-push the old commit ID to the release branch
+
+#### Identifying the commit to roll back to
+
+To roll back to a version, you'll need either its `version-x.y.z` name, or a git commit ID, or another ID git understands.
+Visit the [releases page](https://github.com/codeforamerica/vita-min/releases) to find the release you want to roll back to.
+The release script will print a message like this the end of execution:
+
+> 🧷 Old release was: version-1.2.3
+
+Copy this ID to your clipboard.
+
+#### Say on Slack you'll do a rollback
+
+On #gyr-eng and #gyr-team please write something like the following:
+
+> Performing a rollback to version-1.2.3
+
+#### Push the old commit ID to Aptible
+
+The fastest way to rollback is to directly push this ID to Aptible. Assuming you want to roll back to `version-1.2.3`,
+you can do so with:
+
+```
+git push aptible-prod version-1.2.3:master --force-with-lease
+```
+
+This approach is best for a fast rollback. It needs to be a force push in order to go backwards in git history.
+It is faster than pushing release first because it skips CircleCI. You must use the branch name `master` because that
+is Aptible's main branch.
+
+If you do not have the `aptible-prod` git remote, you can add it with this command, then re-try the push.
+
+```
+git remote add aptible-prod git@beta.aptible.com:vita-min-prod/vita-min-prod.git
+```
+
+#### Push the old commit ID to the release branch
+
+It's good to keep the `release` branch up to date. Assuming you are rolling back to `version-1.2.3`, you can run:
+
+```
+git push origin version-1.2.3:release --force-with-lease
+```
+
+This will trigger CircleCI, and CircleCI may or may not have difficulty with the final step of releasing to Aptible
+production. Since you already released to Aptible production, this is peaceful.
+
 ## Other Release-related Tools
 
 To view a detailed list of releases, visit https://github.com/codeforamerica/vita-min/releases

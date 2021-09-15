@@ -1,68 +1,63 @@
 #!/usr/bin/env bash
 
 ##
-# this script merges the current branch into the release branch,
-# then creates a release using GitHub's `hub` tool
+# this script pushes current origin/main onto the release branch
+# and creates a release using GitHub's `hub` tool
 
-# abort on dirty pipes
+# bash strict mode
 set -euo pipefail
 
-# check for hub or bail
-if [ ! $(which hub) ]; then
-  echo "looks like you don't have hub installed! try:"
-  echo "'brew install hub' and then try again"
+# check for dependencies
+if [ ! "$(which gh > /dev/null)" ]; then
+  echo "It looks like you don't have gh installed. Try:"
+  echo ""
+  echo "brew install gh"
+  echo "gh auth login"
+  echo ""
+  echo "After that, run this script again."
   exit 1
-else
-  echo "hub found at $(which hub), excellent, continuing."
-fi
-
-# want a different editor? set your EDITOR in your shell's rc file
-EDITOR=${EDITOR:-$(which vim)}
-
-# check to see if the user is on the main branch, otherwise
-# provide an opportunity to bail
-branch_name=$(git rev-parse --abbrev-ref HEAD)
-if [ ! $branch_name == "main" ]; then
-  echo "WARNING! you're not on the \`main\` branch!"
-  echo "Hit <ctrl>-c to bail, or <enter> to continue."
-  read continue_response
 fi
 
 # capture origin's given name
-origin_git_remote=$(git remote -v | grep 'github.com:codeforamerica/vita-min' | head -n1 | awk '{ print $1 }')
+origin_git_remote="$(git remote -v | grep 'github.com:codeforamerica/vita-min' | head -n1 | awk '{ print $1 }')"
 
 # get the latest tags and branches
-echo "Fetching latest tags from '${origin_git_remote}'"
+echo "Fetching from ${origin_git_remote}"
 git fetch "$origin_git_remote" --quiet
 
-# get the latest version tag
-latest_version=$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)
+# get the old and new commit IDs
+current_release="$(git rev-parse "$origin_git_remote"/release)"
+current_main="$(git rev-parse "$origin_git_remote"/main)"
 
 # show the user a list of commits that will be deployed
-echo '🚀 *Will merge and push `'$(git log -1 --pretty=format:%h ${latest_version})'`..`'$(git log -1 --pretty=format:%h ${origin_git_remote}/main)'` to release, initiating a production deployment*:'
-GIT_PAGER= git log --pretty="format:* %s" ${latest_version}...${origin_git_remote}/main
+echo "🚀 Preparing to release origin/main (${current_main}).  Ctrl-C to cancel. These commits will be included:"
+tmpdir="$(mktemp -d -t release-notes)"
+commits_file="$tmpdir/commits.txt"
+git --no-pager log --pretty="format:* %s" "${current_release}...${current_main}" > "$commits_file"
+cat "$commits_file"
 
 # ask the user for the new tag name/version number, accepting the default if
 # nothing is entered.
-guessed_next_version=$(echo $latest_version | awk -F. -v OFS=. '{ ++$NF; print; }')
+latest_version="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"
+guessed_next_version="$(echo "$latest_version" | awk -F. -v OFS=. '{ ++$NF; print; }')"
 echo ""
 echo "Most recent version tag: ${latest_version}"
 echo -n "New tag name (e.g. '$guessed_next_version'): "
-read new_tag
+read -r new_tag
 new_tag=${new_tag:-$guessed_next_version}
 
-# prompt the user to exit the release message using their $EDITOR
-tmpfile=$(mktemp)
-trap "rm $tmpfile" EXIT
-cat <<TEMPLATE > $tmpfile
+release_notes_file="${tmpdir}/${new_tag}-release-notes.txt"
+
+cat <<TEMPLATE > "$release_notes_file"
 $(date +%Y-%m-%d) RELEASE TITLE
 
-$(git log --pretty="format: * %s" ${latest_version}...${origin_git_remote}/main)
+$(cat "$commits_file")
 
 <!--
-Note: everything within the HTML comment block won't be displayed.
+These release notes will be provided to #gyr-team and should explain
+user-visible changes for non-engineers.
 
-Describe the release--include high-level changes, _markdown accepted_
+Note: everything within the HTML comment block won't be displayed.
 
 * #123123123 - story/feature description
 * short description of change
@@ -70,36 +65,40 @@ Describe the release--include high-level changes, _markdown accepted_
 -->
 TEMPLATE
 
-# Edit the temp file
-$EDITOR "$tmpfile"
+# want a different editor? set your EDITOR in your shell's rc file
+if which mine > /dev/null; then
+  DEFAULT_EDITOR="mine --wait"
+else
+  DEFAULT_EDITOR="vim"
+fi
+EDITOR="${EDITOR:-${DEFAULT_EDITOR}}"
+"$EDITOR" "$release_notes_file"
 
-echo "Merging $branch_name into release branch..."
+echo "Updating local release branch."
 git checkout release
-git pull
-git merge --ff $branch_name
-
-# if an error occurs here, bail out.
-if [ ! $? ] ; then
+git merge --ff-only "${current_main}" || {
   # merge failed
   echo "unable to merge via fast-forward. likely conflict."
   echo "try: \`git merge -ff main\` and resolve conflicts."
-  # if something's broken, ensure user ends up on original branch
-  git checkout $branch_name
   exit 1
-fi
+}
 
-git push $origin_git_remote release
-echo "Merged \`${branch_name}\` into \`release\` branch and pushed."
+echo "Updating release branch on GitHub. This triggers deployment."
+git push "$origin_git_remote" "${current_main}":release
+echo ""
+echo "• Released! Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
+echo ""
 
-echo "Creating new release tag $new_tag"
-hub release create -F "$tmpfile" "$new_tag"
+echo "Creating new release tag $new_tag from $release_notes_file"
+gh release create -F "$release_notes_file" "$new_tag" > /dev/null
 
 # All done!
 echo ""
-echo "✨ Merged $branch_name into release branch!"
-echo "✨ Released tag $new_tag!"
+echo "✨ Released https://github.com/codeforamerica/vita-min/releases/tag/$new_tag !"
+echo "🧷 If needed, rollback to: ${current_release}"
 
-# switch back to original branch
-git checkout $branch_name
+# Remove tempfiles now that they are successfully uploaded.
+rm -f "$release_notes_file" "$commits_file"
+rmdir "$tmpdir"
 
-exit 0
+# Allow the cleanup function to switch back to the user's original branch.
