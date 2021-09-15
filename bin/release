@@ -32,8 +32,9 @@ current_main="$(git rev-parse "$origin_git_remote"/main)"
 # show the user a list of commits that will be deployed
 echo "🚀 Preparing to release origin/main (${current_main}).  Ctrl-C to cancel. These commits will be included:"
 tmpdir="$(mktemp -d -t release-notes)"
-git --no-pager log --pretty="format:* %s" "${current_release}...${current_main}" > "$tmpdir/commits.txt"
-cat "$tmpdir/commits.txt"
+commits_file="$tmpdir/commits.txt"
+git --no-pager log --pretty="format:* %s" "${current_release}...${current_main}" > "$commits_file"
+cat "$commits_file"
 
 # ask the user for the new tag name/version number, accepting the default if
 # nothing is entered.
@@ -50,7 +51,7 @@ release_notes_file="${tmpdir}/${new_tag}-release-notes.txt"
 cat <<TEMPLATE > "$release_notes_file"
 $(date +%Y-%m-%d) RELEASE TITLE
 
-$(cat "$tmpdir"/commits.txt)
+$(cat "$commits_file")
 
 <!--
 These release notes will be provided to #gyr-team and should explain
@@ -84,6 +85,9 @@ git merge --ff-only "${current_main}" || {
 
 echo "Updating release branch on GitHub. This triggers deployment."
 git push "$origin_git_remote" "${current_main}":release
+echo ""
+echo "• Released! Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
+echo ""
 
 echo "Creating new release tag $new_tag from $release_notes_file"
 gh release create -F "$release_notes_file" "$new_tag" > /dev/null
@@ -92,7 +96,9 @@ gh release create -F "$release_notes_file" "$new_tag" > /dev/null
 echo ""
 echo "✨ Released https://github.com/codeforamerica/vita-min/releases/tag/$new_tag !"
 echo "🧷 If needed, rollback to: ${current_release}"
-echo ""
-echo "• Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
+
+# Remove tempfiles now that they are successfully uploaded.
+rm -f "$release_notes_file" "$commits_file"
+rmdir "$tmpdir"
 
 # Allow the cleanup function to switch back to the user's original branch.
