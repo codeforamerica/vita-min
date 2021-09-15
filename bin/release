@@ -3,6 +3,9 @@
 ##
 # this script pushes current origin/main onto the release branch
 # and creates a release using GitHub's `hub` tool
+#
+# If you pass a commit ID as a parameter, it will deploy that instead. It
+# assumes that is a fast-forward from the currently-released commit.
 
 # bash strict mode
 set -euo pipefail
@@ -27,13 +30,18 @@ git fetch "$origin_git_remote" --quiet
 
 # get the old and new commit IDs
 current_release="$(git rev-parse "$origin_git_remote"/release)"
-current_main="$(git rev-parse "$origin_git_remote"/main)"
+new_release="$(git rev-parse "$origin_git_remote"/main)"
+release_description="origin/main ($new_release)"
+if [ -n "$1" ] ; then
+  new_release="$(git rev-parse "$1")"
+  release_description="chosen commit ($new_release)"
+fi
 
 # show the user a list of commits that will be deployed
-echo "🚀 Preparing to release origin/main (${current_main}).  Ctrl-C to cancel. These commits will be included:"
+echo "🚀 Preparing to release $release_description. Ctrl-C to cancel. These commits will be included:"
 tmpdir="$(mktemp -d -t release-notes)"
 commits_file="$tmpdir/commits.txt"
-git --no-pager log --pretty="format:* %s" "${current_release}...${current_main}" > "$commits_file"
+git --no-pager log --pretty="format:* %s" "${current_release}...${new_release}" > "$commits_file"
 cat "$commits_file"
 
 # ask the user for the new tag name/version number, accepting the default if
@@ -76,7 +84,7 @@ EDITOR="${EDITOR:-${DEFAULT_EDITOR}}"
 
 echo "Updating local release branch."
 git checkout release
-git merge --ff-only "${current_main}" || {
+git merge --ff-only "${new_release}" || {
   # merge failed
   echo "unable to merge via fast-forward. likely conflict."
   echo "try: \`git merge -ff main\` and resolve conflicts."
@@ -84,7 +92,7 @@ git merge --ff-only "${current_main}" || {
 }
 
 echo "Updating release branch on GitHub. This triggers deployment."
-git push "$origin_git_remote" "${current_main}":release
+git push "$origin_git_remote" "${new_release}":release
 echo ""
 echo "• Released! Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
 echo ""
