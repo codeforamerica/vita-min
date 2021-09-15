@@ -7,10 +7,13 @@
 # bash strict mode
 set -euo pipefail
 
-# check for hub
-if [ ! $(which hub) ]; then
-  echo "looks like you don't have hub installed! try:"
-  echo "'brew install hub' and then try again"
+# check for dependencies
+if [ ! $(which gh) ]; then
+  echo "looks like you don't have gh installed! try:"
+  echo "brew install gh"
+  echo "gh auth login"
+  echo ""
+  echo "then try again"
   exit 1
 fi
 
@@ -83,11 +86,11 @@ echo "Pushing origin/main (${current_main}) to release branch on GitHub. This tr
 git push "$origin_git_remote" "${current_main}":release
 
 echo "Creating new release tag $new_tag from $tmpfile"
-hub release create -F "$tmpfile" "$new_tag"
+gh release create -F "$tmpfile" "$new_tag" > /dev/null
 
 # All done!
 echo ""
-echo "✨ Released https://github.com/codeforamerica/vita-min/releases/$new_tag !"
+echo "✨ Released https://github.com/codeforamerica/vita-min/releases/tag/$new_tag !"
 echo "🧷 If needed, rollback to: ${current_release}"
 echo ""
 echo "• Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
