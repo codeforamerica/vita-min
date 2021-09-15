@@ -114,13 +114,19 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         render_views
         it "shows all coalitions and organizations, with a link to add a new org" do
           get :index
-          result = [
+          expected = [
             [coalition, [organization, second_organization]],
             [external_coalition, [external_organization]],
             [nil, [VitaPartner.client_support_org]]
           ]
           expect(response).to be_ok
-          expect(assigns(:organizations_by_coalition)).to match_array result
+          actual = assigns(:organizations_by_coalition)
+          deep_sort = -> (nested) do
+            nested.each { |item| item[1].sort! }
+          end
+          deep_sort.call(expected)
+          deep_sort.call(actual)
+          expect(actual).to match_array(expected)
           expect(response.body).to include new_hub_organization_path
         end
       end
