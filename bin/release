@@ -61,7 +61,6 @@ Describe the release--include high-level changes, _markdown accepted_
 -->
 TEMPLATE
 
-# prompt the user to exit the release message using their $EDITOR
 # want a different editor? set your EDITOR in your shell's rc file
 if which mine > /dev/null; then
   DEFAULT_EDITOR="mine --wait"
