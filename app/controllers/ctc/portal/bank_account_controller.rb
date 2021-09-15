@@ -14,4 +14,9 @@ class Ctc::Portal::BankAccountController < Ctc::Portal::BaseIntakeRevisionContro
   def form_class
     Ctc::Portal::BankAccountForm
   end
+
+  def current_model
+    @_current_model ||= current_intake.bank_account
+  end
+  helper_method :current_model
 end

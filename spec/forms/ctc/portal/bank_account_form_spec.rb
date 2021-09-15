@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Portal::BankAccountForm do
+  let!(:bank_account) { create(:bank_account, intake: intake) }
   let(:intake) { create :ctc_intake }
   let(:bank_name) { "Bank of America" }
   let(:account_type) { "checking" }
@@ -25,7 +26,7 @@ describe Ctc::Portal::BankAccountForm do
       context "when not present" do
         let(:bank_name) { nil }
         it "is not valid" do
-          expect(described_class.new(intake, params)).not_to be_valid
+          expect(described_class.new(bank_account, params)).not_to be_valid
         end
       end
     end
@@ -34,7 +35,7 @@ describe Ctc::Portal::BankAccountForm do
       context "when not present" do
         let(:account_type) { nil }
         it "is not valid" do
-          expect(described_class.new(intake, params)).not_to be_valid
+          expect(described_class.new(bank_account, params)).not_to be_valid
         end
       end
     end
@@ -43,7 +44,7 @@ describe Ctc::Portal::BankAccountForm do
       context "when not checked yes" do
         let(:my_bank_account) { "no" }
         it "is not valid" do
-          expect(described_class.new(intake, params)).not_to be_valid
+          expect(described_class.new(bank_account, params)).not_to be_valid
         end
       end
     end
@@ -53,7 +54,7 @@ describe Ctc::Portal::BankAccountForm do
       let(:routing_number_confirmation) { "12345678" }
       it "is not valid" do
         expect(
-            described_class.new(intake, params)
+            described_class.new(bank_account, params)
         ).not_to be_valid
       end
     end
@@ -63,7 +64,7 @@ describe Ctc::Portal::BankAccountForm do
       let(:routing_number_confirmation) { "12345678" }
       it "is not valid" do
         expect(
-            described_class.new(intake, params)
+            described_class.new(bank_account, params)
         ).not_to be_valid
       end
     end
@@ -74,7 +75,7 @@ describe Ctc::Portal::BankAccountForm do
 
       it "is not valid" do
         expect(
-          described_class.new(intake, params)
+          described_class.new(bank_account, params)
         ).not_to be_valid
       end
     end
@@ -84,7 +85,7 @@ describe Ctc::Portal::BankAccountForm do
       let(:account_number_confirmation) { "123456789012345678" }
       it "is not valid" do
         expect(
-            described_class.new(intake, params)
+            described_class.new(bank_account, params)
         ).not_to be_valid
       end
     end
@@ -94,7 +95,7 @@ describe Ctc::Portal::BankAccountForm do
       let(:account_number_confirmation) { "12345678" }
       it "is not valid" do
         expect(
-          described_class.new(intake, params)
+          described_class.new(bank_account, params)
         ).not_to be_valid
       end
     end
@@ -105,34 +106,20 @@ describe Ctc::Portal::BankAccountForm do
 
       it "is not valid" do
         expect(
-            described_class.new(intake, params)
+            described_class.new(bank_account, params)
         ).not_to be_valid
       end
     end
   end
 
   context '#save' do
-    context "when there is no existing bank account object" do
-      it 'creates a bank account object and associates it with the intake' do
-        expect {
-          described_class.new(intake, params).save
-          intake.reload
-        }.to change(BankAccount, :count).by(1)
-        bank_account = BankAccount.last
-        expect(bank_account.bank_name).to eq "Bank of America"
-        expect(bank_account.account_type).to eq "checking"
-        expect(bank_account.intake).to eq intake
-      end
-    end
-
     context "when there is an existing bank account object" do
       before do
-        create(:bank_account, intake: intake)
       end
 
       it "updates the existing bank account object" do
         expect {
-          described_class.new(intake, params).save
+          described_class.new(bank_account, params).save
           intake.reload
         }.to change(BankAccount, :count).by(0)
         bank_account = intake.bank_account
