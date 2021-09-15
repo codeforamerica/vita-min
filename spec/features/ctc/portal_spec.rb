@@ -195,6 +195,9 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
       click_on I18n.t("views.ctc.portal.home.correct_info")
 
+      # Can't resubmit until you have made a meaningful edit
+      expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
+
       within ".primary-info" do
         click_on I18n.t('general.edit').downcase
       end

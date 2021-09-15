@@ -52,9 +52,9 @@
           <p>
             <%= t("views.ctc.portal.edit_info.help_text") %>
           </p>
-          <button class="button button--primary button--full-width" type="submit">
+          <%= button_tag(class: "button button--primary button--full-width", type: "submit", disabled: !@intake_updated_since_last_submission) do %>
             <%= t("views.ctc.portal.edit_info.resubmit") %>
-          </button>
+          <% end %>
         <% else %>
           <p>
             <%= t("views.ctc.portal.edit_info.help_text_cant_submit") %>
