@@ -32,7 +32,7 @@ git fetch "$origin_git_remote" --quiet
 current_release="$(git rev-parse "$origin_git_remote"/release)"
 new_release="$(git rev-parse "$origin_git_remote"/main)"
 release_description="origin/main ($new_release)"
-if [ -n "$1" ] ; then
+if [ -n "${1:-}" ] ; then
   new_release="$(git rev-parse "$1")"
   release_description="chosen commit ($new_release)"
 fi
