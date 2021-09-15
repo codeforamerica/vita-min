@@ -8,17 +8,18 @@
 set -euo pipefail
 
 # check for dependencies
-if [ ! $(which gh) ]; then
-  echo "looks like you don't have gh installed! try:"
+if [ ! "$(which gh > /dev/null)" ]; then
+  echo "It looks like you don't have gh installed. Try:"
+  echo ""
   echo "brew install gh"
   echo "gh auth login"
   echo ""
-  echo "then try again"
+  echo "After that, run this script again."
   exit 1
 fi
 
 # capture origin's given name
-origin_git_remote=$(git remote -v | grep 'github.com:codeforamerica/vita-min' | head -n1 | awk '{ print $1 }')
+origin_git_remote="$(git remote -v | grep 'github.com:codeforamerica/vita-min' | head -n1 | awk '{ print $1 }')"
 
 # get the latest tags and branches
 echo "Fetching from ${origin_git_remote}"
@@ -29,8 +30,10 @@ current_release="$(git rev-parse "$origin_git_remote"/release)"
 current_main="$(git rev-parse "$origin_git_remote"/main)"
 
 # show the user a list of commits that will be deployed
-echo "🚀 Will push ${current_main} to release, initiating a production deployment."
-GIT_PAGER= git log --pretty="format:* %s" ${current_release}...${current_main}
+echo "🚀 Preparing to release ${current_main}.  Ctrl-C to cancel. These commits will be included:"
+tmpdir="$(mktemp -d -t release-notes)"
+git --no-pager log --pretty="format:* %s" "${current_release}...${current_main}" > "$tmpdir/commits.txt"
+cat "$tmpdir/commits.txt"
 
 # ask the user for the new tag name/version number, accepting the default if
 # nothing is entered.
@@ -39,21 +42,21 @@ guessed_next_version="$(echo "$latest_version" | awk -F. -v OFS=. '{ ++$NF; prin
 echo ""
 echo "Most recent version tag: ${latest_version}"
 echo -n "New tag name (e.g. '$guessed_next_version'): "
-read new_tag
+read -r new_tag
 new_tag=${new_tag:-$guessed_next_version}
 
-tmpdir="$(mktemp -d -t release-notes)"
-tmpfile="${tmpdir}/${new_tag}-release-notes.txt"
+release_notes_file="${tmpdir}/${new_tag}-release-notes.txt"
 
-cat <<TEMPLATE > $tmpfile
+cat <<TEMPLATE > "$release_notes_file"
 $(date +%Y-%m-%d) RELEASE TITLE
 
-$(git log --pretty="format:- %s" ${current_release}...${current_main})
+$(cat "$tmpdir"/commits.txt)
 
 <!--
-Note: everything within the HTML comment block won't be displayed.
+These release notes will be provided to #gyr-team and should explain
+user-visible changes for non-engineers.
 
-Describe the release--include high-level changes, _markdown accepted_
+Note: everything within the HTML comment block won't be displayed.
 
 * #123123123 - story/feature description
 * short description of change
@@ -68,24 +71,22 @@ else
   DEFAULT_EDITOR="vim"
 fi
 EDITOR="${EDITOR:-${DEFAULT_EDITOR}}"
-$EDITOR "$tmpfile"
+"$EDITOR" "$release_notes_file"
 
-echo "Updating local release branch to origin/main (${current_main})"
+echo "Updating local release branch."
 git checkout release
-git merge --ff "${current_main}"
-# if an error occurs here, bail out.
-if [ ! $? ] ; then
+git merge --ff-only "${current_main}" || {
   # merge failed
   echo "unable to merge via fast-forward. likely conflict."
   echo "try: \`git merge -ff main\` and resolve conflicts."
   exit 1
-fi
+}
 
-echo "Pushing origin/main (${current_main}) to release branch on GitHub. This triggers deployment."
+echo "Updating release branch on GitHub. This triggers deployment."
 git push "$origin_git_remote" "${current_main}":release
 
-echo "Creating new release tag $new_tag from $tmpfile"
-gh release create -F "$tmpfile" "$new_tag" > /dev/null
+echo "Creating new release tag $new_tag from $release_notes_file"
+gh release create -F "$release_notes_file" "$new_tag" > /dev/null
 
 # All done!
 echo ""
@@ -94,4 +95,4 @@ echo "🧷 If needed, rollback to: ${current_release}"
 echo ""
 echo "• Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
 
-# Allow the cleanup function to switch to the user's original branch.
+# Allow the cleanup function to switch back to the user's original branch.
