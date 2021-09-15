@@ -33,7 +33,7 @@ describe Ctc::Questions::RefundPaymentController do
 
         it "redirects to the next question" do
           post :update, params: params
-          expect(response).to redirect_to questions_direct_deposit_path
+          expect(response).to redirect_to Ctc::Questions::BankAccountController.to_path_helper
         end
       end
 

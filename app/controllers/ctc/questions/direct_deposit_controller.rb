@@ -3,20 +3,20 @@ module Ctc
     class DirectDepositController < QuestionsController
       include AuthenticatedCtcClientConcern
 
-      layout "intake"
-
-      def self.show?(intake)
-        intake.refund_payment_method_direct_deposit?
+      def self.deprecated_controller?
+        true
       end
 
-      def self.i18n_base_path
-        "views.questions.bank_details"
+      def self.show?(_intake)
+        false
       end
 
-      private
+      def edit
+        redirect_to Ctc::Questions::BankAccountController.to_path_helper
+      end
 
-      def illustration_path
-        "bank-details.svg"
+      def update
+        redirect_to Ctc::Questions::BankAccountController.to_path_helper
       end
     end
   end

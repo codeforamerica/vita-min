@@ -1577,7 +1577,6 @@ en:
     ctc:
       portal:
         bank_account:
-          help_text: Your name must be listed on your bank account for you to receive your money.
           title: Please provide your bank details below
         dependent_info:
           help_text: Confirm/edit your dependent’s basic information
@@ -1642,7 +1641,6 @@ en:
         account_number:
           account_number: Account number
           account_number_confirmation: Confirm account number
-          title: Please provide your account number
         agi2019:
           help_text_html: |
             Because you stated that you filed a full tax return in 2019, we’ll need to verify what your Adjusted Gross Income (AGI) was in 2019.</br>
@@ -1656,6 +1654,8 @@ en:
           p1: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service! Please check back next week.
           p2: If you have questions, visit our FAQs.
           title: Wow, it looks like we are at capacity right now. Check back next week!
+        bank_account:
+          title: Please provide your bank details below
         cell_phone_number:
           confirm_label: Confirm cell phone number
           label: Cell phone number
@@ -1807,7 +1807,6 @@ en:
             error_message: Enter info for a bank account with your name on it, or switch to check as your payment type.
             error_message_html: Enter info for a bank account with your name on it, or <a href=%{link}> select a different method for your payment</a>.
             label: I confirm that my name is on this bank account.
-            question: Your name must be on the bank account to receive a direct deposit.
         email_address:
           title: Please share your email address.
         file_full_return:
@@ -1934,7 +1933,6 @@ en:
         routing_number:
           routing_number: Routing number
           routing_number_confirmation: Confirm routing number
-          title: Please provide your bank's routing number
         spouse_agi2019:
           help_text_html: |
             Because you stated that your spouse filed a tax return in 2019, we’ll need to verify what your spouse’s Adjusted Gross Income (AGI) was in 2019.<br/>

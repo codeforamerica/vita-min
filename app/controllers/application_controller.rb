@@ -64,6 +64,10 @@ class ApplicationController < ActionController::Base
     current_controller.visitor_record
   end
 
+  def self.deprecated_controller?
+    false
+  end
+
   def current_resource
     nil
   end

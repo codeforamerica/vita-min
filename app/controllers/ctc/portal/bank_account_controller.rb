@@ -1,7 +1,7 @@
 class Ctc::Portal::BankAccountController < Ctc::Portal::BaseIntakeRevisionController
-
   def edit
-    @form = form_class.new(current_intake)
+    # Deliberately present the form a blank bank account so as to not leak sensitive details
+    @form = form_class.from_bank_account(BankAccount.new)
     render edit_template
   end
 
@@ -12,7 +12,7 @@ class Ctc::Portal::BankAccountController < Ctc::Portal::BaseIntakeRevisionContro
   end
 
   def form_class
-    Ctc::Portal::BankAccountForm
+    Ctc::BankAccountForm
   end
 
   def current_model

@@ -7,34 +7,17 @@ describe Ctc::Questions::RoutingNumberController do
     sign_in intake.client
   end
 
-  describe "#update" do
-    context "with no answer" do
-      let(:params) do
-        {}
-      end
-
-      it "re-renders the form with errors" do
-        post :update, params: params
-        expect(response).to render_template :edit
-        expect(assigns(:form).errors).not_to be_blank
-        expect(intake.bank_account.routing_number).to eq nil
-      end
+  describe "#edit" do
+    it "redirects to the combined bank account page" do
+      get :edit
+      expect(response).to redirect_to Ctc::Questions::BankAccountController.to_path_helper
     end
+  end
 
-    context "with a valid answer" do
-      let(:params) do
-        {
-          ctc_routing_number_form: {
-            routing_number: "123456789",
-            routing_number_confirmation: "123456789"
-          }
-        }
-      end
-
-      it "redirects to the next question" do
-        post :update, params: params
-        expect(response).to redirect_to questions_account_number_path
-      end
+  describe "#update" do
+    it "redirects to the combined bank account page" do
+      post :update, params: { }
+      expect(response).to redirect_to Ctc::Questions::BankAccountController.to_path_helper
     end
   end
 end
