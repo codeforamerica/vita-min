@@ -18,7 +18,9 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
     end
   end
 
-  def edit_info; end
+  def edit_info
+    @intake_updated_since_last_submission = SystemNote.where('created_at > ?', @submission.created_at).where(type: [SystemNote::CtcPortalAction, SystemNote::CtcPortalUpdate].map(&:to_s)).any?
+  end
 
   def resubmit
     if @submission.can_transition_to?(:resubmitted)
