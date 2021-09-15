@@ -17,12 +17,12 @@ module Ctc
       validates :my_bank_account, acceptance: { accept: "yes", message: -> (_object, _data) { I18n.t("views.ctc.questions.direct_deposit.my_bank_account.error_message") }}
 
       def initialize(intake, params = {})
-        @intake = intake
+        @bank_account = intake
         super(params)
       end
 
       def save
-        bank_account = @intake.bank_account || @intake.build_bank_account
+        bank_account = @bank_account
         bank_account.assign_attributes(attributes_for(:bank_account))
         bank_account.save if bank_account.valid?
       end

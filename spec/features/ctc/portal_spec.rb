@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "CTC Intake", :js, :active_job do
+  include FeatureTestHelpers
+
   module CtcPortalHelper
     def log_in_to_ctc_portal
       visit "/en/portal/login"
@@ -166,8 +168,11 @@ RSpec.feature "CTC Intake", :js, :active_job do
         :with_address,
         :with_contact_info,
         :with_ssns,
+        :with_bank_account,
         email_address: "mango@example.com",
         email_notification_opt_in: "yes",
+        email_address_verified_at: DateTime.now,
+        refund_payment_method: "direct_deposit",
         spouse_first_name: "Eva",
         spouse_last_name: "Hesse",
         spouse_birth_date: Date.new(1929, 9, 2),
@@ -175,10 +180,6 @@ RSpec.feature "CTC Intake", :js, :active_job do
       )
     end
     let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2020, status: "intake_in_progress")) }
-
-    before do
-      intake.update(email_address_verified_at: DateTime.now, refund_payment_method: "direct_deposit")
-    end
 
     scenario "a client can correct their information" do
       log_in_to_ctc_portal
@@ -285,10 +286,35 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
       click_on I18n.t('hub.clients.navigation.client_notes')
 
-      expect(page).to have_content("Mangonada")
-      expect(page).to have_content("Papaya")
-      expect(page).to have_content("Pomelostore")
-      expect(page).to have_content("123 Sandwich Lane")
+      puts page.body
+
+      notes = SystemNote::CtcPortalUpdate.order(:id)
+
+      expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({
+        "has_primary_ip_pin" => ["unfilled", "no"],
+        "primary_first_name" => ["Cher", "Mangonada"],
+      })
+
+      expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({
+        "street_address" => ["972 Mission St", "123 Sandwich Lane"],
+      })
+
+      expect(changes_table_contents(".changes-note-#{notes[2].id}")).to match({
+        "spouse_first_name" => ["Eva", "Pomelostore"],
+        "has_spouse_ip_pin" => ["unfilled", "no"],
+        "spouse_tin_type" => ["nil", "ssn"],
+        "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
+      })
+
+      expect(changes_table_contents(".changes-note-#{notes[3].id}")).to match({
+        "first_name" => ["Kara", "Papaya"],
+        "has_ip_pin" => ["unfilled", "no"],
+      })
+
+      expect(changes_table_contents(".changes-note-#{notes[4].id}")).to match({
+        "bank_name" => ["[REDACTED]", "[REDACTED]"],
+        "account_number" => ["[REDACTED]", "[REDACTED]"],
+      })
 
       expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
       expect(page).to have_content("Client initiated resubmission of their tax return.")
