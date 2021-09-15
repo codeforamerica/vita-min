@@ -11,7 +11,7 @@
 set -euo pipefail
 
 # check for dependencies
-if [ ! "$(which gh > /dev/null)" ]; then
+if ! which gh > /dev/null; then
   echo "It looks like you don't have gh installed. Try:"
   echo ""
   echo "brew install gh"
