@@ -4,6 +4,8 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  ctc_amount_cents    :bigint
+#  eip3_amount_cents   :bigint
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -13,6 +15,7 @@
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
 #  ready_for_prep_at   :datetime
+#  refund_amount_cents :bigint
 #  service_type        :integer          default("online_intake")
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
@@ -47,6 +50,7 @@ class TaxReturn < ApplicationRecord
   has_many :tax_return_selection_tax_returns, dependent: :destroy
   has_many :tax_return_selections, through: :tax_return_selection_tax_returns
   has_many :efile_submissions
+  has_one :accepted_tax_return_analytics
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
   enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
@@ -68,14 +72,6 @@ class TaxReturn < ApplicationRecord
     raise StandardError, "Qualifying dependent logic is only valid for 2020.  Define new rules for #{year}." unless year == 2020
 
     intake.dependents.filter { |d| d.qualifying_child_2020? || d.qualifying_relative_2020? }
-  end
-
-  def ctc_under_6_eligible_dependent_count
-    intake.dependents.reject(&:soft_deleted_at).filter { |d| d.age_at_end_of_year(2021) < 6 }.count(&:eligible_for_child_tax_credit_2020?)
-  end
-
-  def ctc_6_and_over_eligible_dependent_count
-    intake.dependents.reject(&:soft_deleted_at).filter { |d| d.age_at_end_of_year(2021) >= 6 }.count(&:eligible_for_child_tax_credit_2020?)
   end
 
   def filing_status_code
@@ -129,6 +125,10 @@ class TaxReturn < ApplicationRecord
     )
   end
 
+  def expected_advance_ctc_payments
+    ChildTaxCreditCalculator.total_advance_payment(self)
+  end
+
   def has_submissions?
     efile_submissions.count.nonzero?
   end
@@ -141,6 +141,16 @@ class TaxReturn < ApplicationRecord
   #
   def advance_to(new_status)
     update!(status: new_status) if TaxReturn.statuses[status.to_sym] < TaxReturn.statuses[new_status.to_sym]
+  end
+
+  def record_expected_payments!
+    raise StandardError, "Cannot record payments on tax return that is not accepted" unless status == "file_accepted"
+
+    create_accepted_tax_return_analytics!(
+      advance_ctc_amount_cents: expected_advance_ctc_payments * 100,
+      refund_amount_cents: claimed_recovery_rebate_credit * 100,
+      eip3_amount_cents: expected_recovery_rebate_credit_three * 100
+    )
   end
 
   def self.filing_years

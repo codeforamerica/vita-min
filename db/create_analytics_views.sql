@@ -13,6 +13,10 @@
 DROP SCHEMA IF EXISTS analytics CASCADE;
 CREATE SCHEMA analytics;
 
+CREATE VIEW analytics.accepted_tax_return_analytics AS
+    SELECT *
+    FROM public.accepted_tax_return_analytics;
+
 CREATE VIEW analytics.active_storage_attachments AS
     SELECT id, blob_id, created_at, record_id, record_type
     FROM public.active_storage_attachments;
@@ -132,7 +136,7 @@ CREATE VIEW analytics.intakes AS
            spouse_consented_to_service_at, spouse_had_disability, spouse_issued_identity_pin, spouse_was_blind,
            spouse_was_full_time_student, spouse_was_on_visa, state, state_of_residence,
            updated_at, viewed_at_capacity, visitor_id, vita_partner_id, was_blind, was_full_time_student,
-           was_on_visa, widowed, type
+           was_on_visa, widowed, type, zip_code
     FROM public.intakes;
 
 CREATE VIEW analytics.notes AS

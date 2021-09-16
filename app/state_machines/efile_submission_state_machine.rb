@@ -95,16 +95,18 @@ class EfileSubmissionStateMachine
   after_transition(to: :accepted) do |submission|
     # Add a note to client page
     client = submission.client
+    tax_return = submission.tax_return
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: client,
       message: AutomatedMessage::EfileAcceptance.new,
       locale: client.intake.locale
     )
-    submission.tax_return.update(status: "file_accepted")
+    tax_return.update!(status: "file_accepted")
+    tax_return.record_expected_payments!
     send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
-      child_tax_credit_advance: ChildTaxCreditCalculator.total_advance_payment(dependents_under_six_count: submission.tax_return.ctc_under_6_eligible_dependent_count, dependents_six_and_over_count: submission.tax_return.ctc_6_and_over_eligible_dependent_count),
-      recovery_rebate_credit: submission.tax_return.claimed_recovery_rebate_credit,
-      third_stimulus_amount: submission.tax_return.expected_recovery_rebate_credit_three,
+      child_tax_credit_advance: tax_return.expected_advance_ctc_payments,
+      recovery_rebate_credit: tax_return.claimed_recovery_rebate_credit,
+      third_stimulus_amount: tax_return.expected_recovery_rebate_credit_three,
     })
   end
 

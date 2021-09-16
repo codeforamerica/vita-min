@@ -4,6 +4,8 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  ctc_amount_cents    :bigint
+#  eip3_amount_cents   :bigint
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -13,6 +15,7 @@
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
 #  ready_for_prep_at   :datetime
+#  refund_amount_cents :bigint
 #  service_type        :integer          default("online_intake")
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
@@ -167,47 +170,35 @@ describe TaxReturn do
     end
   end
 
-  describe "#ctc_under_6_eligible_dependent_count" do
-    let(:tax_return) { create :tax_return, client: create(:client, intake: create(:ctc_intake))}
-    let!(:dependent_older_than_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 10.years, intake: tax_return.intake }
-    let!(:dependent_exactly_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 6.years, intake: tax_return.intake }
-    let!(:dependent_younger_than_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake }
-    let!(:dependent_younger_than_6_deleted){ create :dependent, birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake, soft_deleted_at: Time.now }
-    let!(:uncle_not_eligible){ create :dependent, relationship: "uncle", birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake }
+  describe "#record_expected_payments!" do
+    context "when the return is accepted" do
+      let(:tax_return) { create :tax_return, status: "file_accepted" }
 
-    before do
-      allow(tax_return.intake).to receive(:dependents).and_return([dependent_older_than_6, dependent_exactly_6, dependent_younger_than_6, dependent_younger_than_6_deleted, uncle_not_eligible])
-      allow(dependent_older_than_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
-      allow(dependent_exactly_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
-      allow(dependent_younger_than_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
-      allow(dependent_younger_than_6_deleted).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
-      allow(uncle_not_eligible).to receive(:eligible_for_child_tax_credit_2020?).and_return(false)
+      before do
+        allow(tax_return).to receive(:expected_advance_ctc_payments).and_return(1000)
+        allow(tax_return).to receive(:claimed_recovery_rebate_credit).and_return(1300)
+        allow(tax_return).to receive(:expected_recovery_rebate_credit_three).and_return(2400)
+      end
+
+      it "creates an accepted_tax_return_analytics association" do
+        expect {
+          tax_return.record_expected_payments!
+        }.to change(AcceptedTaxReturnAnalytics, :count).by 1
+        expect(tax_return.accepted_tax_return_analytics.advance_ctc_amount_cents).to eq 100000
+        expect(tax_return.accepted_tax_return_analytics.refund_amount_cents).to eq 130000
+        expect(tax_return.accepted_tax_return_analytics.eip3_amount_cents).to eq 240000
+      end
     end
 
-    it "returns the number of eligible dependents under 6 for the advance ctc payment" do
-      expect(tax_return.ctc_under_6_eligible_dependent_count).to eq 1
-    end
-  end
+    context "when the return is any status other than accepted" do
+      let(:tax_return) { create :tax_return, status: "file_rejected" }
 
-  describe "#ctc_6_and_over_eligible_dependent_count" do
-    let(:tax_return) { create :tax_return, client: create(:client, intake: create(:ctc_intake))}
-    let!(:dependent_older_than_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 10.years, intake: tax_return.intake }
-    let!(:dependent_exactly_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 6.years, intake: tax_return.intake }
-    let!(:dependent_younger_than_6){ create :dependent, birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake }
-    let!(:dependent_older_than_6_deleted){ create :dependent, birth_date: Date.parse('1-1-2021') - 10.years, intake: tax_return.intake, soft_deleted_at: Time.now }
-    let!(:uncle_not_eligible){ create :dependent, relationship: "uncle", birth_date: Date.parse('1-1-2021') - 4.years, intake: tax_return.intake }
-
-    before do
-      allow(tax_return.intake).to receive(:dependents).and_return([dependent_older_than_6, dependent_exactly_6, dependent_younger_than_6, dependent_older_than_6_deleted, uncle_not_eligible])
-      allow(dependent_older_than_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
-      allow(dependent_exactly_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
-      allow(dependent_younger_than_6).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
-      allow(dependent_older_than_6_deleted).to receive(:eligible_for_child_tax_credit_2020?).and_return(true)
-      allow(uncle_not_eligible).to receive(:eligible_for_child_tax_credit_2020?).and_return(false)
-    end
-
-    it "returns the number of eligible dependents over 6 for the advance ctc payment" do
-      expect(tax_return.ctc_6_and_over_eligible_dependent_count).to eq 2
+      it "raises an error to prevent the transition" do
+        expect {
+          tax_return.record_expected_payments!
+        }.to raise_error(StandardError)
+         .and not_change(AcceptedTaxReturnAnalytics, :count)
+      end
     end
   end
 

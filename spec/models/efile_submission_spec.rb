@@ -216,9 +216,7 @@ describe EfileSubmission do
       context "after transition to" do
         before do
           allow(MixpanelService).to receive(:send_event)
-          allow(ChildTaxCreditCalculator).to receive(:total_advance_payment).with(dependents_under_six_count: 1, dependents_six_and_over_count: 0).and_return(1000)
-          allow(submission.tax_return).to receive(:ctc_under_6_eligible_dependent_count).and_return(1)
-          allow(submission.tax_return).to receive(:ctc_6_and_over_eligible_dependent_count).and_return(0)
+          allow(ChildTaxCreditCalculator).to receive(:total_advance_payment).with(submission.tax_return).and_return(1000)
           allow(submission.tax_return).to receive(:claimed_recovery_rebate_credit).and_return(1200)
           allow(submission.tax_return).to receive(:expected_recovery_rebate_credit_three).and_return(3000)
         end

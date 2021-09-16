@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_09_182355) do
+ActiveRecord::Schema.define(version: 2021_09_15_223427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "accepted_tax_return_analytics", force: :cascade do |t|
+    t.bigint "advance_ctc_amount_cents"
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "eip3_amount_cents"
+    t.bigint "refund_amount_cents"
+    t.bigint "tax_return_id"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tax_return_id"], name: "index_accepted_tax_return_analytics_on_tax_return_id"
+  end
 
   create_table "access_logs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
