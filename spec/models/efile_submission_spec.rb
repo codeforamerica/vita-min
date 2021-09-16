@@ -100,7 +100,7 @@ describe EfileSubmission do
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("new", "preparing").each do |state|
+        EfileSubmissionStateMachine.states.excluding("new", "preparing", "fraud_hold").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
@@ -125,7 +125,7 @@ describe EfileSubmission do
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("queued", "preparing", "failed").each do |state|
+        EfileSubmissionStateMachine.states.excluding("queued", "preparing", "failed", "fraud_hold").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
@@ -157,7 +157,7 @@ describe EfileSubmission do
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("transmitted", "failed", "queued").each do |state|
+        EfileSubmissionStateMachine.states.excluding("transmitted", "failed", "queued", "fraud_hold").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
@@ -171,6 +171,27 @@ describe EfileSubmission do
           expect do
             submission.transition_to!(:queued)
           end.to have_enqueued_job(GyrEfiler::SendSubmissionJob).with(submission)
+        end
+      end
+    end
+
+
+    context "fraud_hold" do
+      let(:submission) { create :efile_submission, :fraud_hold }
+      transitionable_states = [:preparing, :queued, :failed, :rejected, :resubmitted, :investigating, :waiting]
+      context "can transition to " do
+        transitionable_states.each do |state|
+          it state.to_s do
+            expect { submission.transition_to!(state) }.not_to raise_error
+          end
+        end
+      end
+
+      context "cannot transition to" do
+        EfileSubmissionStateMachine.states.excluding(*transitionable_states.map(&:to_s)).each do |state|
+          it state.to_s do
+            expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
+          end
         end
       end
     end

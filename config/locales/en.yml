@@ -764,7 +764,7 @@ en:
         outbound_call_synthetic_note: Called by %{user_name}. Call was %{status} and lasted %{duration}.
         outbound_call_synthetic_note_body: 'Call notes:
 
-          '
+'
     organizations:
       activated_all:
         success: Successfully activated %{count} users
@@ -1215,6 +1215,23 @@ en:
         sms: |
           Hello <<Client.PreferredName>>,
           Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS. Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
+    fraud_hold:
+      email:
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          We need some more information from you before we can submit your information to the IRS. To continue, please log in to <<Client.LoginLink>> and use the "Contact Us" button to get in contact with our support team.
+
+          Best,
+          The GetCTC.org Team
+        subject: Your submission is on hold until we hear from you
+      sms: |
+        Hello <<Client.PreferredName>>,
+
+        We need some more information from you before we can submit your information to the IRS. To continue, please log in to <<Client.LoginLink>> and use the "Contact Us" button to get in contact with our support team.
+
+        Best,
+        The GetCTC.org Team
     getting_started:
       email:
         body: |
@@ -1261,7 +1278,7 @@ en:
         subject: Your tax information has been successfully submitted!
       sms: 'Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
 
-        '
+'
     successful_submission_online_intake:
       email:
         body: |
@@ -1296,7 +1313,7 @@ en:
           subject: Thank you for filing your taxes with GetYourRefund!
         sms: 'Thank you for filing your taxes with GetYourRefund. We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
 
-          '
+'
       ctc_experience:
         email:
           body: |
@@ -1310,7 +1327,7 @@ en:
           subject: Your feedback on GetCTC
         sms: 'Thank you for submitting your taxes with GetCTC! We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
 
-          '
+'
       in_progress:
         email:
           body: |
@@ -1329,7 +1346,7 @@ en:
           subject: Welcome to GetYourRefund.org. You're almost there!
         sms: 'Hello <<Client.PreferredName>>. We noticed you haven''t completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>> If you have any questions, you can reply to this message. Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}
 
-          '
+'
   models:
     intake:
       your_spouse: Your spouse
@@ -1504,7 +1521,7 @@ en:
       You can also visit %{url} to get started.
     with_code: 'Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after two days.
 
-      '
+'
   views:
     consent_pages:
       consent_to_disclose:
@@ -1586,21 +1603,17 @@ en:
           correct_info: Correct my information
           current_status: 'Current tax return status:
 
-            '
+'
           default_next_steps: Please send us a message with questions or corrections using the "Contact Us" button below.
           download_tax_return: Download my tax return
           failure_title: 'Reason for this failure:
 
-            '
+'
           imperfect_return_indicator_text: |
             Your return was accepted by the IRS, including a request to update one more more of your dependents' legal names in their records.
             The IRS estimates that it will take 4-8 weeks to process your return. You may also receive a letter confirming your request to update the dependent's legal name.
-          next_step_title: 'Next steps:
-
-            '
-          rejection_title: 'Reason for this rejection:
-
-            '
+          next_step_title: 'Next steps:'
+          rejection_title: 'Reason for this rejection:'
           status:
             accepted:
               label: Accepted
@@ -1610,6 +1623,9 @@ en:
             failed:
               label: Submission error
               message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
+            fraud_hold:
+              label: Submission on hold
+              message: We need some more information from you before we can submit your return. Please send us a message below to continue.
             intake_in_progress:
               label: More information needed
               message: We need more information from you before we can file your return.
@@ -1893,7 +1909,7 @@ en:
           item3: You didn't receive the full amount of stimulus you were owed
           p1: 'If any of the following are true, you should continue with our simplified tool:
 
-            '
+'
           p2: If none of those statements are true,  you should receive your payments automatically. You can visit the CTC FAQ for more information.
           title: Let’s make sure this tool is right for you!
           visit_ctc_faq: Visit the Child Tax Credit FAQ
@@ -2031,7 +2047,7 @@ en:
         verification:
           body: 'A message with your code has been sent to:
 
-            '
+'
           error_message: Incorrect verification code.
           title: Let's verify that contact info with a code!
           verification_code_label: Enter 6 digit code
@@ -2046,7 +2062,7 @@ en:
           are_daca_recipients_eligible:
             answer_html: 'Yes, DACA recipients are eligible for the Child Tax Credit so long as the children being claimed in the household have a valid SSN. DACA recipients who are dependents of ITIN filers can also be claimed for the Child Tax Credit because they have valid Social Security Numbers.
 
-              '
+'
             question: Are DACA recipients eligible for the Child Tax Credit?
           check_payment_status:
             answer_html: |
@@ -2108,18 +2124,18 @@ en:
           will_i_ever_have_to_pay_this_money_back:
             answer_html: 'If you receive payments for a child who is no longer your dependent or if your income has drastically changed, you may have to pay that money back, though there are some protections in place for those with incomes below $80,000 (for individuals or non custodial parents), $100,000 (for single, head-of-household), or $120,000 (for filing jointly).
 
-              '
+'
             question: Will I ever have to pay this money back?
           will_it_affect_my_immigration_status:
             answer_html: 'No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
 
-              '
+'
             question: Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?
         file_your_return: File your simplified return now
         header: Simplified Tax Filing to Claim Your Child Tax Credit
         navigator_resources_html: '<strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="%{navigators_link}">here.</a>
 
-          '
+'
         need_help_html: Need help? Call 877-907-0937 or <button type="button" class="open-intercom button--link">chat with us</button> and get help claiming your stimulus payments.
         obtain:
           already_filed:
@@ -2143,7 +2159,7 @@ en:
           body1: To provide the Advance Child Tax Credit payments, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your Advance Child Tax Credit payments automatically.
           body2_html: 'If you have not submitted any information to the IRS in the last year, you can submit your information through GetCTC, a simplified tax filing portal, and get your payments.
 
-            '
+'
           full_return:
             body1_html: |
               <p>If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. </p>
@@ -2155,7 +2171,7 @@ en:
           not_filed:
             body1_html: 'If you earned less than $12,400 (or less than $24,800 if you are married), you can use GetCTC, a simplified tax filing portal to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
 
-              '
+'
             body2: To get the Child Tax Credit you will need to provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI.
             chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Chat with our tax experts</button> if you need help.
             subheading: If you have not filed a tax return, you can sign up to get the Child Tax Credit.

@@ -1,4 +1,6 @@
 class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
+  before_action :ensure_current_submission, except: [:home]
+
   def home
     if current_client.efile_submissions.any?
       @submission = current_client.efile_submissions.last
@@ -16,16 +18,9 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
     end
   end
 
-  def edit_info
-    @submission = current_client.efile_submissions.last
-    unless @submission.present?
-      Sentry.capture_message "Client #{current_client.id} unexpectedly lacks an efile submission."
-      redirect_to(action: :home)
-    end
-  end
+  def edit_info; end
 
   def resubmit
-    @submission = current_client.efile_submissions.last
     if @submission.can_transition_to?(:resubmitted)
       unless current_client.efile_security_informations.create(efile_security_params).persisted?
         flash[:alert] = I18n.t("general.enable_javascript")
@@ -49,5 +44,16 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
                                               :timezone_offset,
                                               :client_system_time,
                                               ).merge(ip_address: request.remote_ip)
+  end
+
+  def ensure_current_submission
+    @submission = current_client.efile_submissions.last
+    unless @submission.present?
+      Sentry.capture_message "Client #{current_client.id} unexpectedly lacks an efile submission."
+      redirect_to(action: :home) and return
+    end
+    if @submission.current_state == "fraud_hold"
+      redirect_to(action: :home) and return
+    end
   end
 end
