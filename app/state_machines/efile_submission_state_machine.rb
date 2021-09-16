@@ -16,19 +16,21 @@ class EfileSubmissionStateMachine
 
   state :investigating
   state :waiting
+  state :fraud_hold
 
   state :resubmitted
   state :cancelled
 
-  transition from: :new,               to: [:preparing]
-  transition from: :preparing,         to: [:queued, :failed]
-  transition from: :queued,            to: [:transmitted, :failed]
+  transition from: :new,               to: [:preparing, :fraud_hold]
+  transition from: :preparing,         to: [:queued, :failed, :fraud_hold]
+  transition from: :queued,            to: [:transmitted, :failed, :fraud_hold]
   transition from: :transmitted,       to: [:accepted, :rejected, :failed]
-  transition from: :failed,            to: [:resubmitted, :cancelled, :investigating, :waiting]
-  transition from: :rejected,          to: [:resubmitted, :cancelled, :investigating, :waiting]
-  transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting]
+  transition from: :failed,            to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
+  transition from: :rejected,          to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
+  transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
   transition from: :resubmitted,       to: [:preparing]
-  transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating]
+  transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
+  transition from: :fraud_hold,        to: [:preparing, :queued, :failed, :rejected, :investigating, :resubmitted, :waiting]
 
   guard_transition(to: :preparing) do |_submission|
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
@@ -41,6 +43,15 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :queued) do |submission|
     GyrEfiler::SendSubmissionJob.perform_later(submission)
+  end
+
+  after_transition(to: :fraud_hold) do |submission|
+    submission.tax_return.update(status: :file_hold)
+    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+      client: submission.client,
+      message: AutomatedMessage::InformOfFraudHold.new,
+      locale: submission.client.intake.locale,
+    )
   end
 
   after_transition(to: :transmitted) do |submission|

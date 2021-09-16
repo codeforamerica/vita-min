@@ -82,6 +82,7 @@ describe Ctc::Portal::PortalController do
         before do
           params[:ctc_resubmit_form]["device_id"] = nil
         end
+
         it "flashes an alert and does not save" do
           expect {
             put :resubmit, params: params
