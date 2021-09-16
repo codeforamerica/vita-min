@@ -2103,7 +2103,7 @@ es:
           body2_html: 'Si no ha enviado información alguna al IRS en el último año, puede enviar su información a través de GetCTC, un portal para declarar sus impuestos de forma simplificada, y reciba sus pagos.'
           deadline:
             subheading: When is the deadline to sign up for Child Tax Credit payments?
-            body: You can sign up to receive monthly Child Tax Credit payments using the simple tool for non-filers developed by the non-profit Code for America, in collaboration with the Administration, through November 15, 2021. However, eligible families are encouraged to sign up as soon as possible. Signing up early will give the IRS more time to process your information and begin making monthly payments.
+            body: Puede inscribirse para recibir los pagos mensuales del Crédito Fiscal por Hijos utilizando la sencilla herramienta Non-Filer del IRS (IRS Non-Filer Sign-Up Tool, en inglés) desarrollada por la organización sin ánimo de lucro Code for America, en colaboración con la Administración, hasta el 15 de noviembre de 2021. Sin embargo, se les recomienda a las familias que reúnen los requisitos que se inscriban lo más pronto posible. Al inscribirse con anticipación le dará al IRS más tiempo para procesar su información y para comenzar a hacer los pagos mensuales.
           full_return:
             body1_html: |
               Si usted tiene al menos un hijo que califica y tiene cualquier cantidad de ingresos de trabajo, pero aún no ha declarado impuestos, le recomendamos que declare sus impuestos de 2020. Presentar una declaración de impuestos completa del 2020 le permitirá a usted y a su familia:
