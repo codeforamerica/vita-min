@@ -762,9 +762,7 @@ es:
           label: Añadir una nota
           submit: Guardar
         outbound_call_synthetic_note: Llamado por %{user_name}. La llamada se %{status} y duró %{duration}.
-        outbound_call_synthetic_note_body: 'Notas de llamada:
-
-'
+        outbound_call_synthetic_note_body: 'Notas de llamada:'
     organizations:
       activated_all:
         success: Activado con éxito %{count} usuarios
@@ -1123,9 +1121,7 @@ es:
           ¡Estamos aquí para ayudarle!
           Su Equipo de Declaración de Impuestos GetCTC.org
         subject: Inscripción para GetCTC
-      sms: 'Hola <<Client.PreferredName>>: ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS. Inicie sesión aquí: <<Client.LoginLink>> para ver los siguientes pasos y corregir la información de sus impuestos
-
-'
+      sms: 'Hola <<Client.PreferredName>>: ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS. Inicie sesión aquí: <<Client.LoginLink>> para ver los siguientes pasos y corregir la información de sus impuestos'
     ctc_sms_opt_in: Welcome to GetCTC messages. Msg&data rates may apply. Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     default_subject_with_service_name: Actualización de %{service_name}
     efile:
@@ -1257,9 +1253,7 @@ es:
           ¡Estamos aquí para ayudar!
           Su equipo de impuestos en GetYourRefund.org
         subject: "¡Su información de impuestos ha sido enviada con éxito!"
-      sms: 'Hola <<Client.PreferredName>>, Gracias por enviar su información fiscal a <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>. Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!
-
-'
+      sms: 'Hola <<Client.PreferredName>>, Gracias por enviar su información fiscal a <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>. Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!'
     successful_submission_online_intake:
       email:
         body: |
@@ -1287,9 +1281,7 @@ es:
 
             Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
           subject: "¡Gracias por declarar tus impuestos con GetYourRefund!"
-        sms: 'Gracias por presentar sus impuestos con GetYourRefund. ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
-
-'
+        sms: 'Gracias por presentar sus impuestos con GetYourRefund. ¡Nos encantaría recibir comentarios sobre su experiencia para que podamos mejorar este servicio! ¿Podría contarnos cómo le fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}'
       ctc_experience:
         email:
           body: |
@@ -1319,9 +1311,7 @@ es:
             ¡Estamos aquí para ayudar!
             Su equipo de impuestos en GetYourRefund
           subject: Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!
-        sms: 'Hola <<Client.PreferredName>>, Notamos que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe aquí <<Client.LoginLink>> Si tiene alguna pregunta, puede responder a este mensaje. Envíenos sus comentarios y ayúdenos a mejorar nuestro servicio. Puede realizar nuestra encuesta de 5 minutos aquí: %{survey_link}
-
-'
+        sms: 'Hola <<Client.PreferredName>>, Notamos que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe aquí <<Client.LoginLink>> Si tiene alguna pregunta, puede responder a este mensaje. Envíenos sus comentarios y ayúdenos a mejorar nuestro servicio. Puede realizar nuestra encuesta de 5 minutos aquí: %{survey_link}'
   models:
     intake:
       your_spouse: Su cónyuge
@@ -1492,9 +1482,7 @@ es:
     no_match: |
       Alguien intentó ingresar a %{service_name} con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
       También puede ir a %{url} para empezar su declaración.
-    with_code: 'Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.
-
-'
+    with_code: 'Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.'
   views:
     consent_pages:
       consent_to_disclose:
@@ -1570,14 +1558,10 @@ es:
           complete_form: Complete el formulario CTC
           contact_us: Contáctanos
           correct_info: Corrija mi información
-          current_status: 'Estado actual de la declaración de impuestos:
-
-'
+          current_status: 'Estado actual de la declaración de impuestos:'
           default_next_steps: Por favor, envíenos un mensaje con preguntas o correcciones utilizando el botón "Contáctenos" que aparece a continuación.
           download_tax_return: Descargar mi declaración de impuestos
-          failure_title: 'Motivo de este fracaso:
-
-'
+          failure_title: 'Motivo de este fracaso:'
           imperfect_return_indicator_text: |
             El IRS aceptó su devolución, incluida una solicitud para actualizar uno más de los nombres legales de sus dependientes en sus registros.
             El IRS estima que le tomará de 4 a 8 semanas procesar su declaración. También puede recibir una carta confirmando su solicitud para actualizar el nombre legal del dependiente.
@@ -1876,9 +1860,7 @@ es:
           item1: El número de personas en su hogar cambió con respecto a su declaración de impuestos de 2019
           item2: Tiene una cuenta bancaria diferente a la que ha indicado en su declaración de 2019
           item3: No recibió la totalidad del estímulo que le correspondía
-          p1: 'Si cualquiera de los siguientes puntos es válido, debe continuar con nuestra herramienta simplificada:
-
-'
+          p1: 'Si cualquiera de los siguientes puntos es válido, debe continuar con nuestra herramienta simplificada:'
           p2: Si ninguna de estas afirmaciones es cierta, deberá recibir sus pagos automáticamente. Puede visitar las Preguntas Frecuentes sobre el CTC para obtener más información.
           title: "¡Asegurémonos de que esta herramienta es adecuada para usted!"
           visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
@@ -2014,9 +1996,7 @@ es:
           visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
           visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el Estímulo
         verification:
-          body: 'Se le ha enviado un mensaje con su código a:
-
-'
+          body: 'Se le ha enviado un mensaje con su código a:'
           error_message: El código de verificación está equivocado
           title: "¡Verifiquemos esa información de contacto con un código!"
           verification_code_label: 'Introduzca el código de 6 números '
@@ -2092,14 +2072,10 @@ es:
               Los niños que califican para el Crédito Tributario por Hijos deben tener un número de seguro social (SSN en inglés) válido, pero el declarante de impuestos (un padre, abuelo o tutor) puede tener un SSN o un Número de Identificación Personal del Contribuyente (ITIN en inglés).
             question: No suelo declarar impuestos, ¿qué tengo que presentar para inscribirme para el Crédito Tributario por Hijos?
           will_i_ever_have_to_pay_this_money_back:
-            answer_html: 'Si recibe pagos por un hijo que ya no es su dependiente o si sus ingresos han cambiado significativamente, es posible que tenga que devolver ese dinero. En estas situaciones existen algunas protecciones para aquellos con ingresos menos de $80,000 (para individuos o padres sin custodia), $100,000 (para solteros, cabeza de familia) o $120,000 (para declaración conjunta).
-
-'
+            answer_html: 'Si recibe pagos por un hijo que ya no es su dependiente o si sus ingresos han cambiado significativamente, es posible que tenga que devolver ese dinero. En estas situaciones existen algunas protecciones para aquellos con ingresos menos de $80,000 (para individuos o padres sin custodia), $100,000 (para solteros, cabeza de familia) o $120,000 (para declaración conjunta).'
             question: "¿Tendré que devolver este dinero alguna vez?"
           will_it_affect_my_immigration_status:
-            answer_html: 'No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
-
-'
+            answer_html: 'No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).'
             question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
         file_your_return: Presente su declaración de forma simplificada ahora
         header: Declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijo
@@ -2124,9 +2100,10 @@ es:
             - Actualizar el número de dependientes elegibles en su hogar (por ejemplo, si un niño ya no vive con usted o tuvo un bebé)
             - Reportar cambios significativos en sus ingresos familiares
           body1: Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia.
-          body2_html: 'Si no ha enviado información alguna al IRS en el último año, puede enviar su información a través de GetCTC, un portal para declarar sus impuestos de forma simplificada, y reciba sus pagos.
-
-'
+          body2_html: 'Si no ha enviado información alguna al IRS en el último año, puede enviar su información a través de GetCTC, un portal para declarar sus impuestos de forma simplificada, y reciba sus pagos.'
+          deadline:
+            subheading: When is the deadline to sign up for Child Tax Credit payments?
+            body: You can sign up to receive monthly Child Tax Credit payments using the simple tool for non-filers developed by the non-profit Code for America, in collaboration with the Administration, through November 15, 2021. However, eligible families are encouraged to sign up as soon as possible. Signing up early will give the IRS more time to process your information and begin making monthly payments.
           full_return:
             body1_html: |
               Si usted tiene al menos un hijo que califica y tiene cualquier cantidad de ingresos de trabajo, pero aún no ha declarado impuestos, le recomendamos que declare sus impuestos de 2020. Presentar una declaración de impuestos completa del 2020 le permitirá a usted y a su familia:
