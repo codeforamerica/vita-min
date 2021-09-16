@@ -152,7 +152,7 @@ CREATE VIEW analytics.outbound_calls AS
     FROM public.outbound_calls;
 
 CREATE VIEW analytics.outgoing_emails AS
-    SELECT id, client_id, created_at, sent_at, updated_at, user_id
+    SELECT id, client_id, created_at, mailgun_status, message_id, sent_at, updated_at, user_id
     FROM public.outgoing_emails;
 
 CREATE VIEW analytics.outgoing_text_messages AS
