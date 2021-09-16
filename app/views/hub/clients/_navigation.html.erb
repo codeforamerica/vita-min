@@ -7,6 +7,6 @@
     <%= tab_navigation_link(t(".client_efile"), efile_hub_client_path(id: @client, anchor: "body")) %>
   <% end %>
   <% if @client.efile_security_informations.size.nonzero? %>
-    <%= tab_navigation_link("Anti-Fraud", anti_fraud_hub_client_path(id: @client)) %>
+    <%= tab_navigation_link(t(".client_security"), security_hub_client_path(id: @client)) %>
   <% end %>
 </section>

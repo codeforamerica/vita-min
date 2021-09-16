@@ -667,6 +667,7 @@ en:
         client_messages: Messages
         client_notes: Notes
         client_profile: Client Profile
+        client_security: Security
         notifications: My Updates
       new:
         assign_to_label: Assign to
