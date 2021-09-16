@@ -13,6 +13,10 @@
 DROP SCHEMA IF EXISTS analytics CASCADE;
 CREATE SCHEMA analytics;
 
+CREATE VIEW analytics.accepted_tax_return_analytics AS
+    SELECT *
+    FROM public.accepted_tax_return_analytics;
+
 CREATE VIEW analytics.active_storage_attachments AS
     SELECT id, blob_id, created_at, record_id, record_type
     FROM public.active_storage_attachments;

@@ -892,8 +892,6 @@ ActiveRecord::Schema.define(version: 2021_09_15_223427) do
     t.integer "certification_level"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
-    t.bigint "ctc_amount_cents"
-    t.bigint "eip3_amount_cents"
     t.integer "filing_status"
     t.text "filing_status_note"
     t.boolean "internal_efile", default: false, null: false
@@ -903,7 +901,6 @@ ActiveRecord::Schema.define(version: 2021_09_15_223427) do
     t.datetime "primary_signed_at"
     t.inet "primary_signed_ip"
     t.datetime "ready_for_prep_at"
-    t.bigint "refund_amount_cents"
     t.integer "service_type", default: 0
     t.string "spouse_signature"
     t.datetime "spouse_signed_at"
