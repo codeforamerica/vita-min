@@ -6,9 +6,15 @@ module Ctc
       layout "intake"
 
       def form_params
-        super.merge(ip_address: request.remote_ip).merge(
+        params = super.merge(ip_address: request.remote_ip).merge(
           Rails.application.config.try(:efile_security_information_for_testing).presence || {}
         )
+        if verify_recaptcha(action: 'confirm_legal')
+          params[:recaptcha_score] = recaptcha_reply['score']
+        else
+          Rails.logger.error "Failed to verify recaptcha token due to the following errors: #{recaptcha_reply["error-codes"]}"
+        end
+        params
       end
 
       private
