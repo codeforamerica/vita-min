@@ -2345,11 +2345,11 @@ en:
         <p>Most browsers are initially set up to accept HTTP cookies. If you want to restrict or block the cookies that are set by our Site, or any other site, you can do so through your browser setting. The ‘Help’ function in your browser should explain how. Alternatively, you can visit www.aboutcookies.org, which contains comprehensive information on how to do this on a wide variety of browsers. You will find general information about cookies and details on how to delete cookies from your machine.</p>
 
         <p class="text--underline">Transactional SMS (Text) Messages</p>
-        <p>You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see CFA’s SMS Terms, for additional details and opt-out instructions for these services.</p>
+        <p>You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">GetYourRefund's SMS terms</a>, for additional details and opt-out instructions for these services.</p>
 
         <p class="text--underline">Analytics<p>
 
-        <p>We use MixPanel and Google Analytics to understand how visitors use our site and to gather aggregate performance metrics. To learn more about MixPanel’s privacy practices and any opt-out choices it offers, click HERE. To learn more about Google Analytics privacy practices and any opt-out choices it offers, click HERE. You can also email %{email_link} for additional information.</p>
+        <p>We use MixPanel and Google Analytics to understand how visitors use our site and to gather aggregate performance metrics. To learn more about MixPanel’s privacy practices and any opt-out choices it offers, click <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener nofollow" target="_blank">HERE</a>. To learn more about Google Analytics privacy practices and any opt-out choices it offers, click <a href="https://policies.google.com/privacy?hl=en-US" rel="noopener nofollow" target="_blank">HERE</a>. You can also email %{email_link} for additional information.</p>
 
         <p class="text--underline">Additional Services and Resources</p>
 
