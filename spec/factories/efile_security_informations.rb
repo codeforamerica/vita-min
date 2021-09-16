@@ -7,6 +7,7 @@
 #  client_system_time  :string
 #  ip_address          :inet
 #  platform            :string
+#  recaptcha_score     :decimal(, )
 #  timezone_offset     :string
 #  user_agent          :string
 #  created_at          :datetime         not null
