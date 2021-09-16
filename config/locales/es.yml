@@ -265,7 +265,7 @@ es:
       03_grandchild: Nieta/Nieto
       04_niece: Sobrina
       05_nephew: Sobrino
-      06_foster_child: Foster Child
+      06_foster_child: Niño de Crianza Temporal
       07_aunt: Tía
       '08_uncle': Tío
       '09_sister': Hermana
@@ -458,11 +458,11 @@ es:
     text_message: Mensaje de texto
     timezone: Zona horaria
     tin:
-      atin: Adoption Taxpayer ID Number (ATIN)
+      atin: Número de Identificación Fiscal por Adopción (ATIN)
       itin: Número de Identificación Personal del Contribuyente (ITIN)
       none: Ninguna de las anteriores
       ssn: Número de Seguro Social (SSN)
-      ssn_no_employment: SSN (Not valid for employment)
+      ssn_no_employment: Número de Seguro Social/SSN (No es válido para el empleo)
     today: Hoy
     type: Tipo
     ui: UI
@@ -2240,6 +2240,146 @@ es:
       navigators:
         help_text: Orientación para los navegadores de la comunidad que buscan ayudar a los clientes de difícil acceso a acceder al Crédito Fiscal Anticipado por Hijo (AdvCTC) o al Pago por Impacto Económico (EIP o Estímulo).
         title: Recursos del navegador GetCTC.org
+      privacy_policy_html: |
+        <p class="text--help">GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como el Crédito Fiscal Anticipado por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.</p>
+        <p class="text--help">Esta Política de privacidad describe cómo recopilamos, usamos, compartimos y protegemos su información personal. Al utilizar nuestros Servicios, usted acepta los términos de esta Política de privacidad. Este Aviso de privacidad se aplica independientemente del tipo de dispositivo que utilice para acceder a nuestros Servicios.</p>
+        <p>Si tiene alguna pregunta o duda sobre este aviso de privacidad, comuníquese con nosotros a %{email_link}</p>
+        <div><a href="//privacy.truste.com/privacy-seal/validation?rid=fbd38521-2463-471b-85e2-9f705e4d0772" target="_blank"><img style="border: none" src="//privacy-policy.truste.com/privacy-seal/seal?rid=fbd38521-2463-471b-85e2-9f705e4d0772" alt="TRUSTe"/></a></div>
+
+        <h2 class="text--caption">Resumen</h2>
+        <h3>Información que recopilamos</h3>
+        <p>Seguimos el principio de minimización de datos en la recopilación y uso de su información personal. Podemos obtener la siguiente información sobre usted, las personas a su cargo o los miembros de su hogar:</p>
+        <ul class="list--bulleted">
+          <li>Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico</li>
+          <li>Fecha de nacimiento</li>
+          <li>Información demográfica, como la edad y estado marital</li>
+          <li>Características de las clasificaciones protegidas, como género, raza y etnia</li>
+          <li>Información fiscal, como el número de seguridad social o el número de identificación individual del contribuyente (por sus siglas en inglés, ITIN)</li>
+          <li>Identificación emitida por el estado, como el número de licencia de manejar</li>
+          <li>Información financiera, como empleo, ingresos y fuentes de ingresos</li>
+          <li>Datos bancarios para el depósito directo de reembolsos</li>
+          <li>Datos de los dependientes</li>
+          <li>Información sobre el hogar y sobre su cónyuge, si es que corresponde</li>
+          <li>Información de su computadora o dispositivo, como la dirección IP, el sistema operativo, el navegador, la fecha y la hora de la visita y los datos del flujo de clics (el sitio web o el dominio del que proviene, las páginas que visita y los elementos en los que hace clic durante su sesión)</li>
+        </ul>
+        <p>Recopilamos información según lo dispuesto por el IRS en el Procedimiento de Ingresos "Rev RP-21-24".</p>
+
+        <h3>La manera en que recopilamos su información</h3>
+        <p>Recopilamos su información de varias fuentes, como cuando usted o los miembros de su hogar</p>
+        <ul class="list--bulleted">
+          <li>Visite nuestro Sitio, llene formularios en nuestro Sitio, o utilice nuestros Servicios</li>
+          <li>Proporciónenos sus documentos para utilizar nuestros Servicios</li>
+          <li>Comuníquese con nosotros (por ejemplo a través de correo electrónico, chat, redes sociales o de otro tipo)</li>
+        </ul>
+        <p>Es posible que también recopilemos su información de terceros como</p>
+        <ul class="list--bulleted">
+          <li>Nuestros socios que le están ayudando con servicios de preparación de impuestos o cualquier otro programa de beneficios que usted solicite</li>
+          <li>The Internal Revenue Service (“IRS”) or other government agencies relating to our Services</li>
+        </ul>
+
+        <h3>El uso de información que recopilamos</h3>
+        <p>Utilizamos su información para propósitos de nuestra organización e intereses legítimos como, por ejemplo</p>
+        <ul class="list--bulleted">
+          <li>Para ayudarle a conectarse con los servicios gratuitos de preparación de impuestos o cualquier otro programa de beneficios que solicite</li>
+          <li>Para completar los formularios requeridos para el uso de los Servicios o para la presentación de sus impuestos</li>
+          <li>Para proporcionarle apoyo durante el proceso y comunicarnos con usted</li>
+          <li>Para seguir y comprender cómo se utilizan el Sitio y nuestros Servicios</li>
+          <li>Para mejorar la calidad o el alcance del Sitio o de nuestros Servicios</li>
+          <li>Para sugerir otros servicios o programas de asistencia que puedan serle útiles</li>
+          <li>Para la detección de fraude, su prevención, y propósitos de seguridad</li>
+          <li>Para cumplir con los requisitos y obligaciones legales</li>
+          <li>Para el estudio</li>
+        </ul>
+
+        <h3>Información compartida con terceros</h3>
+        <p>No vendemos su información personal.</p>
+        <p>No compartimos información personal con terceros, excepto según lo dispuesto en esta Política de privacidad. Podemos revelar información a contratistas, organizaciones afiliadas y/o terceros no afiliados para proporcionarle los Servicios a usted, para llevar a cabo nuestra tarea o para ayudar con las actividades de nuestra organización. Por ejemplo, podemos compartir su información con</p>
+        <ul class="list--bulleted">
+          <li>Proveedores de VITA para ayudar a preparar y presentar sus declaraciones de impuestos</li>
+          <li>El Servicio de Impuestos Internos (IRS) para ayudarle a presentar electrónicamente sus impuestos y/u otros formularios para tener derecho a los pagos del crédito de impuestos por hijos</li>
+          <li>Terceros para distribuir encuestas, grupos de discusión o para otros fines administrativos, analíticos y de marketing. Estas comunicaciones de terceros tienen por objeto mejorar el producto, conocer la experiencia y ponerle al día si ha solicitado actualizaciones.</li>
+          <li>Code for America mantiene relaciones con terceros proveedores de programas y servicios que prestan servicios en nuestro nombre para ayudarnos en nuestras actividades comerciales. Estas empresas están autorizadas a utilizar sus datos personales sólo en la medida necesaria para prestarnos estos servicios, de acuerdo con instrucciones escritas. Podemos compartir su información con socios comerciales y otros terceros para que puedan ofrecerle ofertas o productos y servicios que creemos que pueden beneficiarle. Si no desea que compartamos su información personal con estas empresas, comuníquese con nosotros en %{email_link}.</li>
+        </ul>
+
+        <p>Requerimos que nuestros terceros actúen a nombre nuestro para mantener su información personal segura, y no permitimos que estos terceros utilicen o compartan su información personal para ningún propósito que no sea proporcionar servicios a nombre nuestro.</p>
+
+        <p>Podemos compartir su información con terceros en situaciones especiales, como cuando lo requiere la ley, o cuando creemos que compartir dicha información ayudará a proteger la seguridad, propiedad o derechos de Code for America, las personas a las que servimos, nuestros asociados u otras personas.</p>
+
+        <p>Podemos compartir información limitada, agregada o personal con agencias gubernamentales, como el IRS, para analizar el uso de nuestros Servicios, los proveedores de servicios de preparación gratuita de impuestos y el Crédito Fiscal por Hijos, con el fin de mejorar y ampliar nuestros Servicios. No compartiremos ninguna información con el IRS que no haya sido ya revelada en su declaración de impuestos o a través del sitio web GetCTC.</p>
+
+        <h3>Sus opciones con respecto a su información</h3>
+        <p>Valoramos y respetamos su privacidad, y le ofrecemos opciones sobre la manera en que recopilamos, usamos y compartimos su información.</p>
+
+        <p class="text--underline">Correo postal, correo electrónico, y promociones</p>
+        <p>Para actualizar sus preferencias o sus datos de contacto, puede</p>
+
+        <ul class="list--bulleted">
+          <li>comuníquese con nosotros a través de %{email_link} y solicite la eliminación de correos electrónicos de actualización de GetCTC</li>
+          <li>siga las instrucciones para no continuar recibiendo correos que se proporcionan en los correos electrónicos o en el correo postal</li>
+          <li>haga clic en el enlace/liga "cancelar la suscripción" que se incluye en nuestros correos electrónicos promocionales de Code for America</li>
+        </ul>
+        <p>Favor de tener en cuenta que incluso si se da de baja de ofertas y actualizaciones de correo electrónico promocionales, aún así podremos comunicarnos con usted para fines transaccionales. Por ejemplo, podremos enviar comunicaciones con respecto a su estado de declaración de impuestos, recordatorios o alertarle de información adicional necesaria.</p>
+
+        <p class="text--underline">Cookies</p>
+        <p>Las cookies son pequeños archivos de texto que los sitios web colocan en las computadoras y dispositivos móviles de las personas que visitan esos sitios web. Las etiquetas de píxel (también llamadas web beacons) son pequeños bloques de código colocados en sitios web y correos electrónicos..</p>
+
+        <ul class="list--bulleted">
+          <li>Utilizamos cookies y otras tecnologías como etiquetas de píxeles para recordar sus preferencias, mejorar su experiencia en línea y recopilar datos sobre cómo utiliza nuestros Sitios para mejorar la forma en que promovemos nuestro contenido, programas y eventos..</li>
+          <li>Su uso de nuestros Sitios indica su consentimiento para dicho uso de cookies.</li>
+        </ul>
+
+        <p>La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de "Ayuda" en su navegador debe incluir una explicación de cómo hacerlo. La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de ayuda en su navegador debe incluir una explicación de cómo hacerlo. Asimismo, puede visitar www.aboutcookies.org, donde hallará información completa sobre cómo hacer esto en una amplia variedad de navegadores. Encontrará información general sobre las cookies y detalles sobre cómo eliminar las cookies de su computadora o dispositivo.</p>
+
+        <p class="text--underline">Mensajes SMS transaccionales (texto)</p>
+        <p>Puede darse de baja de los mensajes transaccionales enviando STOP a 58750 en cualquier momento. Después de recibir su solicitud de exclusión, le enviaremos un mensaje de texto final para confirmar su exclusión. Por favor, consulte los Términos de <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">SMS de GetYourRefund</a>, para más detalles e instrucciones de exclusión para estos servicios.</p>
+
+        <p class="text--underline">Analítica<p>
+
+        <p>Utilizamos MixPanel y Google Analytics para entender cómo los visitantes utilizan nuestro sitio y para recopilar métricas de rendimiento agregadas. Para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece, haga clic <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener nofollow" target="_blank">AQUÍ</a>. Para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece, haga clic <a href="https://policies.google.com/privacy?hl=es" rel="noopener nofollow" target="_blank">AQUÍ</a>. También puede enviar un correo electrónico a %{email_link} para obtener más información.</p>
+
+        <p class="text--underline">Servicios y Recursos Adicionales</p>
+
+        <p>Puede ser que le proporcionemos enlaces adicionales a recursos que consideramos que le serán útiles. Estos enlaces pueden llevarlo a sitios que están afiliados con nosotros que pudieran operar bajo diferentes prácticas de privacidad. No somos responsables del contenido ni de las prácticas de dichos sitios. Animamos a nuestros visitantes y usuarios a estar atentos cuando salgan de nuestro sitio y de leer las declaraciones de privacidad de cualquier otro sitio, ya que no controlamos la manera en la cual los demás sitios recopilan información personal.</p>
+
+        <h3>How we protect your information</h3>
+
+        <p>Proteger su información personal es extremadamente importante para nosotros, por lo que tomamos precauciones administrativas, técnicas y físicas razonables para proteger su información tanto en línea como fuera de línea.</p>
+
+        <p>Aun así, no se puede garantizar que ningún sistema sea 100% seguro. Si tiene alguna duda sobre la seguridad de su información personal, o si tiene motivos para creer que la información personal que tenemos sobre usted ya no está segura, comuníquese con nosotros inmediatamente de la manera descrita en este Aviso de Privacidad.</p>
+
+        <h3>Retención de Datos</h3>
+
+        <p>Conservaremos su información durante el tiempo que sea necesario para: prestarle los Servicios, operar nuestro negocio de acuerdo con este Aviso, o demostrar el cumplimiento de las leyes y obligaciones legales.</p>
+
+        <p>Si ya no desea continuar con la solicitud de GetCTC y pide que se elimine su información de nuestros Servicios antes de presentar la solicitud, eliminaremos o desidentificaremos su información en un plazo de 90 días a partir de la finalización de los Servicios, a menos que la ley nos obligue a conservar su información. En tal caso, sólo conservaremos su información durante el tiempo requerido por dicha ley.</p>
+
+        <h3>Privacidad de menores</h3>
+        <p>No recopilamos información personal a sabiendas de menores de 16 años no emancipados.</p>
+
+        <h2 class="text--caption">Cambios</h2>
+        <p>Es posible que modifiquemos esta Política de Privacidad de vez en cuando. Por favor, revise esta página con frecuencia para ver si hay actualizaciones, ya que su uso continuado de nuestros Servicios después de cualquier cambio en esta Política de Privacidad constituirá su aceptación de los cambios. En el caso de cambios sustanciales, se lo notificaremos por correo electrónico o por otros medios compatibles con la legislación aplicable.</p>
+
+        <h3>Solicitud de Acceso</h3>
+        <p>GetCTC.org respeta el control que usted ejerce sobre su información y, si lo solicita, le confirmaremos si tenemos o estamos procesando la información que hemos recopilado de usted. También tiene derecho a modificar o actualizar la información personal inexacta o incompleta, a solicitar la eliminación de su información personal o a pedir que dejemos de utilizarla. En determinadas circunstancias no podremos atender su solicitud, como por ejemplo si interfiere con nuestras obligaciones reglamentarias, afecta a asuntos legales, no podemos verificar su identidad o supone un costo o esfuerzo desproporcionado, pero en cualquier caso responderemos a su solicitud en un plazo razonable y le daremos una explicación. Para hacernos una solicitud de este tipo, envíenos un correo electrónico a %{email_link}.</p>
+
+        <p>Favor de tener en cuenta que, en el caso de la información personal sobre usted que hayamos obtenido o recibido para su tratamiento en nombre de una entidad independiente y no afiliada, que haya determinado los medios y los fines del tratamiento, todas las solicitudes de este tipo deberán dirigirse directamente a dicha entidad. Respetaremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a su información personal.</p>
+
+        <h2 class="text--caption">Fecha de vigencia</h2>
+        <p>Esta versión de la política entra en vigor el 21 de julio de 2021.</p>
+
+        <h2 class="text--caption">Preguntas</h2>
+        <p>Si tiene un problema de privacidad o de uso de datos sin resolver que no hayamos solucionado satisfactoriamente, póngase en contacto con nuestro proveedor de resolución de conflictos externo con base en Estados Unidos (de forma gratuita) en <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.</p>
+
+        <p>Si tiene cualquier pregunta, comentario, duda o queja con el Sitio, comuníquese con nosotros por correo electrónico a %{email_link} o por correo a:</p>
+
+        <p>
+          GetCTC<br/>
+          c/o Code for America<br/>
+          972 Mission Street<br/>
+          San Francisco, CA 94103
+        </p>
+
+        <p>Haremos todo lo posible para resolver el problema.</p>
       signups:
         confirmation:
           body: Nos comunicaremos contigo en cuanto tengamos más información.
