@@ -2132,7 +2132,7 @@ en:
           body2_html: 'If you have not submitted any information to the IRS in the last year, you can submit your information through GetCTC, a simplified tax filing portal, and get your payments.'
           deadline:
             subheading: When is the deadline to sign up for Child Tax Credit payments?
-            body: You can sign up to receive monthly Child Tax Credit payments using the simple tool for non-filers developed by the non-profit Code for America, in collaboration with the Administration, through November 15, 2021. However, eligible families are encouraged to sign up as soon as possible. Signing up early will give the IRS more time to process your information and begin making monthly payments.
+            body_html: You can sign up to receive monthly Child Tax Credit payments using the <a rel='noopener' target='_blank' href='%{url}'>simple tool</a> for non-filers developed by the non-profit Code for America, in collaboration with the Administration, through November 15, 2021. However, eligible families are encouraged to sign up as soon as possible. Signing up early will give the IRS more time to process your information and begin making monthly payments.
           full_return:
             body1_html: |
               <p>If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. </p>
