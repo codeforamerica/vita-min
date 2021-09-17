@@ -57,6 +57,18 @@ describe Ctc::CtcPagesController do
     end
   end
 
+  describe "#california_benefits" do
+    context "source is present" do
+      let(:params) { { source: 'claim' } }
+
+      it "saves the source in the session" do
+        get :calfornia_benefits, params: params
+        
+        expect(session[:source]).to eq "claim"
+      end
+    end
+  end
+
   describe "#navigators" do
     render_views
 

@@ -27,6 +27,18 @@ module Ctc
     def privacy_policy
     end
 
+    # get "/claim", to: "/califonia_benefits?source=claim"
+    # get "/file", to: "/califonia_benefits?source=file"
+    def california_benefits
+      # session[:source] = params[:source] if params[:source].present?
+    end
+    # /california-benefits?source=pineapple
+
+    def califonia_benefits_track_source
+    #  set source in session
+    # redirect to california benefits
+    end
+
     def what_will_i_need_to_submit
     end
 
