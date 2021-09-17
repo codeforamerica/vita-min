@@ -83,7 +83,7 @@ module ApplicationHelper
     case status
     when "intake_in_progress"
       "icons/in-progress.svg"
-    when "failed", "bundle_failure"
+    when "failed", "bundle_failure", "fraud_hold"
       "icons/exclamation.svg"
     when "rejected"
       "icons/rejected.svg"
