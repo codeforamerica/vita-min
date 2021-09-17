@@ -1,5 +1,6 @@
 ---
 es:
+  test_key: "jenny tiene un buen perro"
   activemodel:
     errors:
       models:
