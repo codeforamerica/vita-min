@@ -10,9 +10,13 @@ namespace :tax_return_analytics do
       unless tax_return.status == "file_accepted"
         tax_return.update(status: "file_accepted")
         wrong_state += 1
-        puts "!!! Updated tax return #{tax_return.id} status to accepted"
+        puts "?? Updated tax return #{tax_return.id} status to accepted"
       end
-      tax_return.record_expected_payments!
+      begin
+        tax_return.record_expected_payments!
+      rescue
+        puts "!!! Could not record payments for #{tax_return.id}"
+      end
       recorded_payments += 1
       puts "--- Recorded expected payments for tax return #{tax_return.id}"
     end
