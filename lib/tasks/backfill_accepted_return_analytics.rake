@@ -4,7 +4,7 @@ namespace :tax_return_analytics do
     wrong_state = 0
     recorded_payments = 0
     EfileSubmissionTransition.where(most_recent: true, to_state: "accepted").find_each do |transition|
-      tax_return = transition.submission.tax_return
+      tax_return = transition.efile_submission.tax_return
       # i do not expect this to happen often, but when we FIRST released, it was possible to
       # change your tax return status back to "not ready" if you re-entered the flow after submitting your return.
       unless tax_return.status == "file_accepted"
