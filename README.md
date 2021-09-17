@@ -211,6 +211,13 @@ They'll be dumped into `public/assets/flow_explorer_screenshots` locally.
 
 You can upload them to the correct S3 bucket with the task `rake flow_explorer:upload_screenshots`
 
+### Translations
+
+We use Transifex for translations.
+
+You can run `bin/tx pull` to download the latest translations from Transifex. Engineers will need an account
+within Transifex.
+
 ## Deploying the Application 🚀☁️
 
 Notes on deployment can be found in [docs/deployment](docs/deployment.md).
