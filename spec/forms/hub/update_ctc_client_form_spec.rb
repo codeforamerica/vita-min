@@ -12,7 +12,8 @@ RSpec.describe Hub::UpdateCtcClientForm do
   let!(:client) {
     create :client, intake: intake, tax_returns: [tax_return]
   }
-  let!(:tax_return) { create :tax_return, filing_status: "married_filing_jointly" }
+  let(:filing_status) { "married_filing_jointly" }
+  let!(:tax_return) { create :tax_return, filing_status: filing_status }
 
   describe "#save" do
     let!(:form_attributes) do
@@ -95,6 +96,48 @@ RSpec.describe Hub::UpdateCtcClientForm do
             form.save
             tax_return.reload
           end.to change(tax_return, :filing_status).to "single"
+        end
+      end
+
+      context "when filing single" do
+        let!(:filing_status) { "single" }
+
+        before do
+          form_attributes[:spouse_first_name] = nil
+          form_attributes[:spouse_last_name] = nil
+          form_attributes[:spouse_email_address] = nil
+          form_attributes[:spouse_ssn] = nil
+          form_attributes[:spouse_tin_type] = nil
+          form_attributes[:spouse_birth_date_year] = nil
+          form_attributes[:spouse_birth_date_month] = nil
+          form_attributes[:spouse_birth_date_day] = nil
+        end
+        
+        it "does not validate for spouse fields" do
+          form = described_class.new(client, form_attributes)
+          form.valid?
+          form.save
+        end
+      end
+
+      context "when filing married" do
+        before do
+          form_attributes[:filing_status] = "married_filing_jointly"
+          form_attributes[:spouse_first_name] = ""
+          form_attributes[:spouse_last_name] = ""
+          form_attributes[:spouse_email_address] = ""
+          form_attributes[:spouse_ssn] = ""
+          form_attributes[:spouse_tin_type] = ""
+          form_attributes[:spouse_birth_date_year] = ""
+          form_attributes[:spouse_birth_date_month] = ""
+          form_attributes[:spouse_birth_date_day] = ""
+        end
+
+        it "does validate for spouse fields" do
+          form = described_class.new(client, form_attributes)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :spouse_ssn
+          expect(form.errors).to include :spouse_first_name
         end
       end
 

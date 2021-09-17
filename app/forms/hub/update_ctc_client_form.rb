@@ -117,6 +117,7 @@ module Hub
 
     def save
       return false unless valid?
+
       intake_attr = attributes_for(:intake)
                        .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day,
                         :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day, :primary_ssn_confirmation, :spouse_ssn_confirmation)
