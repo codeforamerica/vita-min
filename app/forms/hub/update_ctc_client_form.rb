@@ -63,10 +63,8 @@ module Hub
     validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
 
-    with_options if: -> { filing_status == "married_filing_jointly" } do
-      validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? spouse_tin_type }
-      validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" }
-    end
+    validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? spouse_tin_type && filing_status == "married_filing_jointly" }
+    validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_status == "married_filing_jointly" }
 
     validates :primary_ip_pin, ip_pin: true
     validates :spouse_ip_pin, ip_pin: true
