@@ -1,6 +1,6 @@
 ---
 en:
-  test_key: "jenny has a good dog"
+  test_key: "jenny has a very good dog"
   activemodel:
     errors:
       models:
