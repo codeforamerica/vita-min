@@ -96,6 +96,17 @@ module SubmissionBuilder
       Phonelib.parse(string, "US").national(false)
     end
 
+    # Timezones like '-60' need to be padded to '-060' to validate schema
+    # These timezones are all a little suspicious, but it's better to handle
+    # their suspiciousness somewhere else rather than crash on bundle
+    def time_zone_offset_type(string)
+      if (match = string.match(/\A([+-])([0-9]{1,2})\z/))
+        "#{match[1]}#{"%03d" % match[2]}"
+      else
+        string
+      end
+    end
+
     private
 
     def formatted_first_name(name)

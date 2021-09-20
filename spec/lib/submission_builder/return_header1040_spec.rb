@@ -24,6 +24,9 @@ describe SubmissionBuilder::ReturnHeader1040 do
         # Previous sessions have lasted 20 minutes
         previous_sessions_active_seconds: 20 * 60,
       )
+
+      create(:efile_security_information, efile_submission_id: submission.id, client: submission.client)
+      expect(submission.client.efile_security_informations.count).to eq(2)
     end
 
     let(:submission) { create :efile_submission, :ctc, filing_status: filing_status, tax_year: 2020 }
@@ -405,6 +408,27 @@ describe SubmissionBuilder::ReturnHeader1040 do
             xml = Nokogiri::XML::Document.parse(response.document.to_xml)
             expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp UserAgentTxt").text).to eq "IceFerret/262.10 SpaceySpace"
             expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp UserAgentTxt").text).to eq "IceFerret/262.10 SpaceySpace"
+          end
+        end
+      end
+
+      context "TimeZoneOffsetNum" do
+        context "when the timezone offset has less than 3 digits" do
+          before do
+            submission.client.efile_security_informations.where(efile_submission_id: nil).first.update(
+              timezone_offset: '-60',
+            )
+            submission.client.efile_security_informations.where.not(efile_submission_id: nil).first.update(
+              timezone_offset: '+60',
+            )
+          end
+
+          it "pads the offset to contain 3 digits" do
+            response = SubmissionBuilder::ReturnHeader1040.build(submission)
+            xml = Nokogiri::XML::Document.parse(response.document.to_xml)
+
+            expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp TimeZoneOffsetNum").text).to eq "-060"
+            expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp TimeZoneOffsetNum").text).to eq "+060"
           end
         end
       end
