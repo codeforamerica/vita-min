@@ -1,6 +1,5 @@
 module Ctc
   class ConfirmLegalForm < QuestionsForm
-    include Recaptcha::Adapters::ControllerMethods
     set_attributes_for :intake, :consented_to_legal
     set_attributes_for :efile_security_information,
                        :device_id,
