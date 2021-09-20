@@ -6,6 +6,7 @@ describe Ctc::Questions::ConfirmLegalController do
 
   before do
     sign_in intake.client
+    allow_any_instance_of(Recaptcha::Adapters::ControllerMethods).to receive(:recaptcha_reply).and_return({ 'score' => "0.9" })
   end
 
   describe "#edit" do
@@ -50,6 +51,7 @@ describe Ctc::Questions::ConfirmLegalController do
           efile_submission = client.reload.tax_returns.last.efile_submissions.last
           expect(efile_submission.current_state).to eq "preparing"
           expect(client.efile_security_informations.last.ip_address).to eq ip_address
+          expect(client.efile_security_informations.last.recaptcha_score).to eq 0.9
         end
 
         it "sends a Mixpanel event" do
