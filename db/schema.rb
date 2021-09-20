@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_15_223427) do
+ActiveRecord::Schema.define(version: 2021_09_16_110729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -373,6 +373,7 @@ ActiveRecord::Schema.define(version: 2021_09_15_223427) do
     t.bigint "efile_submission_id"
     t.inet "ip_address"
     t.string "platform"
+    t.decimal "recaptcha_score"
     t.string "timezone_offset"
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_agent"

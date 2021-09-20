@@ -8,6 +8,7 @@
   <%= t("views.ctc.questions.confirm_legal.legal_info_html") %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <%= f.cfa_checkbox(:consented_to_legal, t("views.ctc.questions.confirm_legal.consent"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+    <%= recaptcha_v3(action: 'confirm_legal') %>
     <%= f.submit t("views.ctc.questions.confirm_legal.action"), class: "button button--primary button--wide text--centered spacing-above-60" %>
   <% end %>
 <% end %>

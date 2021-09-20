@@ -11,6 +11,7 @@ gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycri
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'mini_racer', '~> 0.4.0', platforms: :ruby
 gem 'nokogiri', '>= 1.10.8'
+gem 'recaptcha'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'

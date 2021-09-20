@@ -13,6 +13,7 @@ describe Ctc::ConfirmLegalForm do
       timezone_offset: "+240",
       client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
       ip_address: "1.1.1.1",
+      recaptcha_score: "0.9"
     }
   end
 
@@ -71,6 +72,7 @@ describe Ctc::ConfirmLegalForm do
       expect(efile_security_information.platform).to eq "iPad"
       expect(efile_security_information.timezone_offset).to eq "+240"
       expect(efile_security_information.client_system_time).to eq "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)"
+      expect(efile_security_information.recaptcha_score).to eq 0.9
     end
 
     context 'when a submission already exists' do
