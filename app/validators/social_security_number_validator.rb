@@ -4,7 +4,7 @@ class SocialSecurityNumberValidator < ActiveModel::EachValidator
 
   def validate_each(record, attr_name, value)
     regex = Rails.env.production? ? REAL_SSN_REGEX : LOOSE_SSN_REGEX
-    unless value =~ regex
+    unless regex.match?(value)
       record.errors[attr_name] << I18n.t("validators.ssn")
     end
   end
