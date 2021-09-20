@@ -1871,6 +1871,13 @@ es:
           title: "¿Puede alguien declararlo como dependiente en 2020?"
         mailing_address:
           title: Magnífico, denos por favor su dirección postal.
+          reveal_label: ¿Qué tal si no tengo una dirección postal?
+          reveal_content_html: |
+            El IRS requiere que remita una dirección.<br/>
+            <br/>
+            Si no tiene un domicilio permanente, puede usar el de una persona de confianza o la de un grupo que conozca (ej. miembro de la familia, iglesia, centro para personas sin hogar).<br/>
+            <br/>
+            Asegúrese de proporcionar una dirección donde pueda recibir correo postal. Si seleccionó deposito directo para sus pagos, existe una posibilidad que el IRS le envíe notificaciones importantes y hasta pagos a este dirección.
         overview:
           help_text: Utilice nuestra sencilla herramienta de presentación de impuestos electrónica para recibir su Crédito Tributario por Hijos (CTC) y cualquier pago de estímulo o corrección que se le deba.
           items:
