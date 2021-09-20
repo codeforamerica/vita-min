@@ -137,7 +137,7 @@ module SubmissionBuilder
               xml.UserAgentTxt trim(creation_security_information.user_agent, 150)
               xml.BrowserLanguageTxt trim(creation_security_information.browser_language, 5)
               xml.PlatformTxt trim(creation_security_information.platform, 15)
-              xml.TimeZoneOffsetNum creation_security_information.timezone_offset
+              xml.TimeZoneOffsetNum time_zone_offset_type(creation_security_information.timezone_offset)
               xml.SystemTs datetime_type(creation_security_information.client_system_datetime)
             }
             xml.AtSubmissionFilingGrp {
@@ -150,7 +150,7 @@ module SubmissionBuilder
               xml.UserAgentTxt trim(filing_security_information.user_agent, 150)
               xml.BrowserLanguageTxt trim(filing_security_information.browser_language, 5)
               xml.PlatformTxt trim(filing_security_information.platform, 15)
-              xml.TimeZoneOffsetNum filing_security_information.timezone_offset
+              xml.TimeZoneOffsetNum time_zone_offset_type(filing_security_information.timezone_offset)
               xml.SystemTs datetime_type(filing_security_information.client_system_datetime)
             }
             if submission.resubmission?
