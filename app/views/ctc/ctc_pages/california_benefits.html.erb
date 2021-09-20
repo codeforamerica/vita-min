@@ -4,9 +4,61 @@
 
 
 <main role="main">
-  <div class="slab slab--white">
+  <div class="slab slab--white spacing-below-60">
     <div class="grid">
-      <h1 class="h2"><%= @main_question %></h1>
+      <h1 class="spacing-above-0 spacing-below-25"><%= @main_question %></h1>
+
+      <p class="spacing-below-60"><%= t("views.ctc_pages.california_benefits.helper_text_html") %></p>
+
+      <div class="client-profile__column-container spacing-below-25">
+        <div class="client-profile__column">
+          <div class="highlight-box--blue">
+            <p class="spacing-below-25"><strong><%= t("views.ctc_pages.california_benefits.option_one.subtitle") %></strong></p>
+            <h2 class="spacing-below-25 spacing-above-0"><%= t("views.ctc_pages.california_benefits.option_one.title_html") %></h2>
+            <p><%= t("views.ctc_pages.california_benefits.option_one.p_1") %></p>
+            <p><%= t("views.ctc_pages.california_benefits.option_one.p_2") %></p>
+            <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'home'), class: "button button--wide text--centered spacing-above-25 button--centered" do %>
+              <%= t("views.ctc.questions.use_gyr.file_gyr") %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="client-profile__column">
+          <div class="highlight-box--yellow">
+            <p class="spacing-below-25"><strong><%= t("views.ctc_pages.california_benefits.option_two.subtitle") %></strong></p>
+            <h2 class="spacing-below-25 spacing-above-0"><%= t("views.ctc_pages.california_benefits.option_two.title_html") %></h2>
+            <p><%= t("views.ctc_pages.california_benefits.option_two.p_1") %></p>
+            <p><%= t("views.ctc_pages.california_benefits.option_two.p_2") %></p>
+            <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'home'), class: "button button--wide text--centered spacing-above-25 button--centered" do %>
+              <%= t("views.ctc_pages.california_benefits.option_two.file_ctc") %>
+<!--              TODO: route this to correct place-->
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button href="#" class="accordion__button" aria-expanded="true" aria-controls="a1">Compare benefits</button>
+        <div class="accordion__content" id="a1">
+          <div class="client-profile__column-container text--small">
+            <div class="client-profile__column">
+              <p><strong>GetYourRefund</strong></p>
+              <ul class="list--padded">
+                <% t("views.ctc_pages.california_benefits.compare_benefits.gyr.list").each do |item| %>
+                  <li><i class="icon-check"></i> <%= item %></li>
+                <% end %>
+              </ul>
+            </div>
+
+            <div class="client-profile__column">
+              <p><strong>GetCTC</strong></p>
+              <li><i class="icon-check"></i> Federal stimulus payments</li>
+              <li><i class="icon-check"></i> Child Tax Credit</li>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </main>

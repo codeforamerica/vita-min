@@ -62,9 +62,9 @@ describe Ctc::CtcPagesController do
       let(:params) { { source: 'claim' } }
 
       it "saves the source in the session" do
-        get :calfornia_benefits, params: params
-        
-        expect(session[:source]).to eq "claim"
+        get :california_benefits, params: params
+
+        expect(session[:source]).to eq "claim" # TODO: do we need to save/send the source anywhere else?
       end
     end
   end

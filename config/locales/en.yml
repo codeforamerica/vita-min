@@ -2177,6 +2177,28 @@ en:
           heading: Child Tax Credit
       california_benefits:
         title: Californians, choose the best option to claim your tax benefits!
+        helper_text_html: |
+          With the Child Tax Credit, stimulus payments, and other credits, many California families can claim over $10,000 in tax benefits this year, even if they have little or no income. <strong>Claim the benefits that you are owed.</strong>
+        option_one:
+          subtitle: Option 1
+          title_html: Collect <u>all</u> tax credits you are owed
+          p_1: This option is longer and requires more documentation, but you may get more money.
+          p_2: Best for people who worked in 2020 and who have all the required documents for a full tax return.
+        option_two:
+          subtitle: Option 2
+          title_html: Collect <u>only</u> the federal stimulus payments and Child Tax Credit
+          p_1: This option is quicker and requires less documentation, but you may not be able to claim all benefits.
+          p_2: Best for people who did not work in 2020 or who don’t have their tax documents to file a full tax return.
+          file_ctc: File with GetCTC
+        compare_benefits:
+          gyr:
+            list:
+              - Federal stimulus payments
+              - Child Tax Credit
+              - Earned Income Tax Credit
+              - Child Tax Credit
+              - Federal stimulus payments
+              - Child Tax Credit
       navigators:
         help_text: Guidance for community-based navigators seeking to help hard-to-reach clients access the Advance Child Tax Credit (AdvCTC) or Economic Impact Payment (EIP or Stimulus).
         title: GetCTC.org Navigator Resources
