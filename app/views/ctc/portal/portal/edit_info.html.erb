@@ -52,6 +52,7 @@
           <p>
             <%= t("views.ctc.portal.edit_info.help_text") %>
           </p>
+          <%= recaptcha_v3(action: 'resubmit') %>
           <button class="button button--primary button--full-width" type="submit">
             <%= t("views.ctc.portal.edit_info.resubmit") %>
           </button>
