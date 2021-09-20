@@ -58,6 +58,7 @@ describe Ctc::Portal::PortalController do
       end
       before do
         sign_in client, scope: :client
+        allow_any_instance_of(Recaptcha::Adapters::ControllerMethods).to receive(:recaptcha_reply).and_return({ 'score' => "0.9" })
         client.tax_returns.first.update(efile_submissions: [submission])
       end
 
@@ -67,6 +68,8 @@ describe Ctc::Portal::PortalController do
         }.to change(client.efile_security_informations, :count).by 1
 
         expect(client.reload.efile_security_informations.last.ip_address).to be_present
+        expect(client.reload.efile_security_informations.last.recaptcha_score).to eq 0.9
+
         system_note = SystemNote::CtcPortalAction.last
         expect(system_note.client).to eq(client)
         expect(system_note.data).to match({
