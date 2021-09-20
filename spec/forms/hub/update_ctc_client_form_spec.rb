@@ -36,8 +36,8 @@ RSpec.describe Hub::UpdateCtcClientForm do
           spouse_first_name: intake.spouse_first_name,
           spouse_last_name: intake.spouse_last_name,
           spouse_email_address: intake.spouse_email_address,
-          spouse_ssn: "999-78-1224",
-          spouse_tin_type: "itin",
+          spouse_ssn: spouse_ssn,
+          spouse_tin_type: spouse_tin_type,
           spouse_birth_date_year: intake.spouse_birth_date.year,
           spouse_birth_date_month: intake.spouse_birth_date.month,
           spouse_birth_date_day: intake.spouse_birth_date.day,
@@ -57,17 +57,30 @@ RSpec.describe Hub::UpdateCtcClientForm do
     let(:primary_ssn) { "111-22-4333" }
     let(:primary_tin_type) { "ssn_no_employment" }
 
+    let(:spouse_ssn) { "999-78-1224" }
+    let(:spouse_tin_type) { "itin" }
+
     let(:sms_opt_in) { "yes" }
     let(:email_opt_in) { "no" }
 
     context "updating a client" do
-      context "updating the ssn" do
+      context "updating the primary ssn" do
         it "persists valid changes to ssn" do
           expect do
             form = described_class.new(client, form_attributes)
             form.save
             intake.reload
           end.to change(intake, :primary_ssn).to("111224333").and change(intake, :primary_tin_type).to("ssn_no_employment")
+        end
+
+        context "when it is an invalid ssn" do
+          let(:primary_ssn) { "000-00-0000" }
+
+          it "validates the data correctly" do
+            form = described_class.new(client, form_attributes)
+            form.save
+            expect(form.errors).to include(:primary_ssn)
+          end
         end
 
         context "when it is an itin" do
@@ -80,6 +93,47 @@ RSpec.describe Hub::UpdateCtcClientForm do
               form.save
               intake.reload
             end.to change(intake, :primary_ssn).to("999781223").and change(intake, :primary_tin_type).to("itin")
+          end
+
+          context "when it is an invalid itin" do
+            let(:primary_ssn) { "111-22-4333" }
+
+            it "validates the data correctly" do
+              form = described_class.new(client, form_attributes)
+              form.save
+              expect(form.errors).to include(:primary_ssn)
+            end
+          end
+        end
+      end
+
+      context "updating the spouse ssn" do
+        it "persists valid changes to ssn" do
+          expect do
+            form = described_class.new(client, form_attributes)
+            form.save
+            intake.reload
+          end.to change(intake, :spouse_ssn).to("999781224").and change(intake, :spouse_tin_type).to("itin")
+        end
+
+        context "when it is an invalid itin" do
+          let(:spouse_ssn) { "000-00-0000" }
+
+          it "validates the data correctly" do
+            form = described_class.new(client, form_attributes)
+            form.save
+            expect(form.errors).to include(:spouse_ssn)
+          end
+        end
+
+        context "when it is an invalid ssn" do
+          let(:spouse_ssn) { "" }
+          let(:spouse_tin_type) { "ssn" }
+
+          it "validates the data correctly" do
+            form = described_class.new(client, form_attributes)
+            form.save
+            expect(form.errors).to include(:spouse_ssn)
           end
         end
       end
