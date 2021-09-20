@@ -1902,6 +1902,13 @@ en:
           title: Can anyone claim you as a dependent in 2020?
         mailing_address:
           title: Great, please provide your mailing address below.
+          reveal_label: What if I don’t have a mailing address?
+          reveal_content_html: |
+            The IRS requires an address to be submitted with your return.<br/>
+            <br/>
+            If you do not have a permanent address, you can use the address of a trusted person or group you know (ex: family member, church, homeless center).<br/>
+            <br/>
+            Make sure you provide an address where you are able to receive mail. Even if you selected direct deposit for your payments, there is a chance the IRS will send important notices and maybe even payments to this address.
         overview:
           help_text: Use our simple e-filing tool to receive your Child Tax Credit and any stimulus payments or corrections you are owed.
           items:

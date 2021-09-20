@@ -6,6 +6,10 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= @main_question %></h1>
 
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.mailing_address.reveal_label")) do %>
+      <%= t("views.ctc.questions.mailing_address.reveal_content_html") %>
+    <% end %>
+
     <div class="form-card__content">
       <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address"), ) %>
       <%= f.cfa_input_field(:street_address2, t("views.questions.mailing_address.street_address2"), classes: ["form-width--zip"]) %>
