@@ -2177,6 +2177,8 @@ en:
           heading: Child Tax Credit
       california_benefits:
         title: Californians, choose the best option to claim your tax benefits!
+        gyr: GetYourRefund
+        ctc: GetCTC
         helper_text_html: |
           With the Child Tax Credit, stimulus payments, and other credits, many California families can claim over $10,000 in tax benefits this year, even if they have little or no income. <strong>Claim the benefits that you are owed.</strong>
         option_one:
@@ -2191,14 +2193,48 @@ en:
           p_2: Best for people who did not work in 2020 or who don’t have their tax documents to file a full tax return.
           file_ctc: File with GetCTC
         compare_benefits:
+          title: Compare benefits
           gyr:
             list:
               - Federal stimulus payments
               - Child Tax Credit
               - Earned Income Tax Credit
-              - Child Tax Credit
+              - California Earned Income Tax Credit
+              - Golden State Stimulus payments
+              - California Young Child Tax Credit
+            p1_html: |
+              A household with 1 child under the age of 6 may receive an average of: <strong>$12,200</strong>
+            p2_html: |
+              A household with no children may receive an average of: <strong>$4,300</strong>
+          ctc:
+            list:
               - Federal stimulus payments
               - Child Tax Credit
+            p1_html: |
+              A household with 1 child under the age of 6 may receive an average of: <strong>$7,500</strong>
+            p2_html: |
+              A household with no children may receive an average of: <strong>$3,200</strong>
+            note_html: |
+              If you file with GetCTC, you can file an amended return later to claim the additional credits you would have received by filing with GetYourRefund. <u>This process can be quite difficult</u>, and you would likely need assistance from a tax professional.
+        compare_required_info:
+          title: Compare required information
+          helper_text: Documents are required for each family member on your tax return.
+          gyr:
+            list:
+              - Employment documents
+              - (W2’s, 1099’s, etc.)
+              - Paper copy of IDs
+              - (Social Security Card or ITIN paperwork)
+          ctc:
+            list:
+              - Social Security or ITIN Numbers
+        compare_length:
+          title: Compare length of processes
+          gyr: 2-3 weeks
+          ctc: 30 minutes
+        questions:
+          stimulus_html: <strong>Do you have questions about Stimulus Payments?</strong> Visit <a href="https://getyourrefund.org/stimulus" target="_blank" rel="nofollow noopener">https://getyourrefund.org/stimulus</a>
+          ctc_html: <strong>Do you have questions about the Child Tax Credit?</strong> Visit <a href="https://getctc.org/index.html#faq" target="_blank" rel="nofollow noopener">https://getctc.org/index.html#faq</a>
       navigators:
         help_text: Guidance for community-based navigators seeking to help hard-to-reach clients access the Advance Child Tax Credit (AdvCTC) or Economic Impact Payment (EIP or Stimulus).
         title: GetCTC.org Navigator Resources
