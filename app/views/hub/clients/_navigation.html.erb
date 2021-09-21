@@ -7,6 +7,7 @@
     <%= tab_navigation_link(t(".client_efile"), efile_hub_client_path(id: @client, anchor: "body")) %>
   <% end %>
   <% if @client.efile_security_informations.size.nonzero? %>
-    <%= tab_navigation_link(t(".client_security"), security_hub_client_path(id: @client)) %>
+    <% fraud_icon = image_tag("security-notification.svg") if @client.efile_security_informations.any?(&:fraud_suspected?) %>
+    <%= tab_navigation_link(t(".client_security_html", fraud_icon: fraud_icon), security_hub_client_path(id: @client)) %>
   <% end %>
 </section>
