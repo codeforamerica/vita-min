@@ -301,6 +301,12 @@
 
   .client-navigation {
     @include no-bleed();
+    .security-wrapper {
+      display: flex;
+      img {
+        margin-left: .5rem;
+      }
+    }
   }
 
   .client-container {
