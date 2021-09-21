@@ -18,36 +18,6 @@
     padding-bottom: 0;
   }
 
-  .slab--affiliations {
-    background-color: $color-grey-light;
-  }
-
-  .affiliations {
-    .grid__item {
-      display: grid;
-      justify-items: center;
-      .text {
-        width: 180px;
-        text-align: center;
-      }
-      .image {
-        width: 150px;
-        height: 110px;
-      }
-      .image.cfa {
-        padding-top: 20px;
-      }
-      .image.irs {
-        padding-top: 45px;
-      }
-      .image.whitehouse {
-        @media screen and (max-width: $mobile-up) {
-          margin-top: 35px;
-        }
-      }
-    }
-  }
-
   :lang(en) .button--locale-specific {
     white-space: nowrap;
   }
@@ -80,3 +50,35 @@
     }
   }
 }
+
+.slab--affiliations {
+  background-color: $color-grey-light;
+
+  .affiliations {
+    .grid__item {
+      display: grid;
+      justify-items: center;
+      .text {
+        width: 180px;
+        text-align: center;
+      }
+      .image {
+        width: 150px;
+        height: 110px;
+      }
+      .image.cfa {
+        padding-top: 20px;
+      }
+      .image.irs {
+        padding-top: 45px;
+      }
+      .image.whitehouse {
+        @media screen and (max-width: $mobile-up) {
+          margin-top: 35px;
+        }
+      }
+    }
+  }
+}
+
+

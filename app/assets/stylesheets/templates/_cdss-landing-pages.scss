@@ -13,3 +13,13 @@
   background-color: $color-white;
   border: 1px solid $color-black;
 }
+
+.list-item--check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  i {
+    padding-right: 1.5rem;
+  }
+}
