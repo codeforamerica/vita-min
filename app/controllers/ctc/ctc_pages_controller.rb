@@ -27,6 +27,12 @@ module Ctc
     def privacy_policy
     end
 
+    def california_benefits
+      if params[:source].present?
+        session[:source] = params[:source]
+      end
+    end
+
     def what_will_i_need_to_submit
     end
 

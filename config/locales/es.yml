@@ -2162,6 +2162,66 @@ es:
             <br/>
             Puede recibir pagos a partir de julio a diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante.
           heading: Crédito Tributario por Hijo
+      california_benefits:
+        title: Californianos, ¡elijan la mejor opción para reclamar sus beneficios tributarios!
+        gyr: GetYourRefund
+        ctc: GetCTC
+        helper_text_html: |
+          Con el Crédito Tributario por Hijos, los pagos de estímulo y otros créditos, muchas familias de California pueden reclamar más de 10,000 dólares en beneficios tributarios este año, incluso si tienen pocos o ningún ingreso. <strong>Reclame los beneficios que le corresponden.</strong>
+        option_one:
+          subtitle: Opción 1
+          title_html: Cobre <u>todos</u> los créditos tributarios que se le deben
+          p_1: Esta opción es más larga y requiere más documentación, pero puede obtener más dinero.
+          p_2: Esta opción es mejor para las personas que trabajaron en 2020 y que tienen todos los documentos requeridos para una declaración de impuestos completa.
+        option_two:
+          subtitle: Opción 2
+          title_html:  Solicite <u>sólo</u> las ayudas federales de estímulo y el Crédito Tributario por Hijos
+          p_1: Esta opción es más rápida y requiere menos documentación, pero es posible que no pueda reclamar todos los beneficios.
+          p_2: Esta opción es mejor para las personas que no trabajaron en 2020 o que no tienen sus documentos fiscales para presentar una declaración de impuestos completa.
+          file_ctc: Declarar con GetCTC
+        compare_benefits:
+          title: Compare los beneficios
+          gyr:
+            list:
+              - Pagos federales de estímulo
+              - Crédito Tributario por Hijos
+              - Crédito tributario por ingresos del trabajo
+              - Crédito tributario por ingresos del trabajo de California
+              - Pagos de estímulo del Golden State
+              - Crédito Tributario por Hijos Jóvenes de California (en inglés: Young Child Tax Credit)
+            p1_html: |
+              Un hogar con un niño menor de 6 años puede recibir un promedio de: <strong>12,200 dólares</strong>
+            p2_html: |
+              Un hogar sin hijos puede recibir un promedio de de: <strong>4,300 dólares</strong>
+          ctc:
+            list:
+              - Pagos federales de estímulo
+              - Crédito Tributario por Hijos
+            p1_html: |
+              Un hogar con un hijo menor de 6 años puede recibir un promedio de: <strong>7,500 dólares</strong>
+            p2_html: |
+              Un hogar sin hijos puede recibir un promedio de: <strong>3,200 dólares</strong>
+            note_html: |
+              Si presenta la declaración con GetCTC, puede presentar una declaración enmendada más tarde para reclamar los créditos adicionales que habría recibido al presentarla con GetYourRefund. <u>Este proceso puede ser bastante difícil</u>, y es probable que necesite la ayuda de un profesional de impuestos.
+        compare_required_info:
+          title: Comparar la información requerida
+          helper_text: Los documentos son necesarios para cada miembro de la familia en su declaración de impuestos.
+          gyr:
+            list:
+              - Documentos de empleo
+              - (W2’s, 1099’s, etc.)
+              - Copia de papel de los documentos de identificación
+              - (tarjeta de Seguro Social o documentos de ITIN)
+          ctc:
+            list:
+              - Seguro Social o número de ITIN
+        compare_length:
+          title: Comparar la duración de los procesos
+          gyr: De 2 a 3 semanas
+          ctc: 30 minutos
+        questions:
+          stimulus_html: <strong>¿Tiene preguntas sobre los pagos de estímulo?</strong> Visite <a href="https://getyourrefund.org/es/stimulus" target="_blank" rel="nofollow noopener">https://getyourrefund.org/stimulus</a>
+          ctc_html: <strong>¿Tiene preguntas sobre el Crédito Tributario por Hijos?</strong> Visite <a href="https://getctc.org/es/index.html#faq" target="_blank" rel="nofollow noopener">https://getctc.org/index.html#faq</a>
       navigators:
         help_text: Orientación para los navegadores de la comunidad que buscan ayudar a los clientes de difícil acceso a acceder al Crédito Fiscal Anticipado por Hijo (AdvCTC) o al Pago por Impacto Económico (EIP o Estímulo).
         title: Recursos del navegador GetCTC.org

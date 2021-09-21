@@ -320,6 +320,10 @@ Rails.application.routes.draw do
         end
         get "/privacy", to: "ctc_pages#privacy_policy"
         get "/navigators", to: "ctc_pages#navigators"
+        get "/california-benefits", to: "ctc_pages#california_benefits"
+        get "/claim", to: "ctc_pages#california_benefits", defaults: { source: "claim" }
+        get "/file", to: "ctc_pages#california_benefits", defaults: { source: "file" }
+
         scope "common-questions" do
           get "/what-will-i-need-to-submit", to: "ctc_pages#what_will_i_need_to_submit"
           get "/check-payment-status", to: "ctc_pages#check_payment_status"

@@ -1,0 +1,163 @@
+<% @main_question = t("views.ctc_pages.california_benefits.title") %>
+
+<% content_for :page_title, @main_question %>
+
+
+<main role="main">
+  <div class="slab slab--white spacing-below-60">
+    <div class="grid">
+      <h1 class="spacing-above-0 spacing-below-25"><%= @main_question %></h1>
+
+      <p class="spacing-below-60"><%= t("views.ctc_pages.california_benefits.helper_text_html") %></p>
+
+      <div class="grid spacing-below-25">
+        <div class="grid__item width-one-half">
+          <div class="highlight-box--blue">
+            <p class="spacing-below-25">
+              <strong><%= t("views.ctc_pages.california_benefits.option_one.subtitle") %></strong></p>
+            <h2 class="spacing-below-25 spacing-above-0"><%= t("views.ctc_pages.california_benefits.option_one.title_html") %></h2>
+            <p><%= t("views.ctc_pages.california_benefits.option_one.p_1") %></p>
+            <p><%= t("views.ctc_pages.california_benefits.option_one.p_2") %></p>
+            <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'home'), class: "button button--full-width text--centered spacing-above-25 button--centered" do %>
+              <%= t("views.ctc.questions.use_gyr.file_gyr") %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="grid__item width-one-half">
+          <div class="highlight-box--yellow">
+            <p class="spacing-below-25">
+              <strong><%= t("views.ctc_pages.california_benefits.option_two.subtitle") %></strong></p>
+            <h2 class="spacing-below-25 spacing-above-0"><%= t("views.ctc_pages.california_benefits.option_two.title_html") %></h2>
+            <p><%= t("views.ctc_pages.california_benefits.option_two.p_1") %></p>
+            <p><%= t("views.ctc_pages.california_benefits.option_two.p_2") %></p>
+            <%= link_to root_url, class: "button button--full-width text--centered spacing-above-25 button--centered" do %>
+              <%= t("views.ctc_pages.california_benefits.option_two.file_ctc") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1"><%= t("views.ctc_pages.california_benefits.compare_benefits.title") %></a>
+
+        <div class="accordion__content" id="a1">
+          <div class="grid text--small spacing-below-0">
+            <div class="grid__item width-one-half">
+              <p class="spacing-below-15"><strong><%= t("views.ctc_pages.california_benefits.gyr") %></strong></p>
+              <ul class="list--padded spacing-below-60">
+                <% t("views.ctc_pages.california_benefits.compare_benefits.gyr.list").each do |item| %>
+                  <li class="list-item--check"><i class="icon-check"></i> <%= item %></li>
+                <% end %>
+              </ul>
+              <p><%= t("views.ctc_pages.california_benefits.compare_benefits.gyr.p1_html") %></p>
+              <p class="spacing-below-0"><%= t("views.ctc_pages.california_benefits.compare_benefits.gyr.p2_html") %></p>
+            </div>
+
+            <div class="grid__item width-one-half">
+              <p class="spacing-below-15"><strong><%= t("views.ctc_pages.california_benefits.ctc") %></strong></p>
+              <ul class="list--padded spacing-below-35">
+                <% t("views.ctc_pages.california_benefits.compare_benefits.ctc.list").each do |item| %>
+                  <li class="list-item--check"><i class="icon-check"></i> <%= item %></li>
+                <% end %>
+              </ul>
+              <p><%= t("views.ctc_pages.california_benefits.compare_benefits.ctc.p1_html") %></p>
+              <p><%= t("views.ctc_pages.california_benefits.compare_benefits.ctc.p2_html") %></p>
+              <div class="note-box">
+                <%= t("views.ctc_pages.california_benefits.compare_benefits.ctc.note_html") %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1"><%= t("views.ctc_pages.california_benefits.compare_required_info.title") %></a>
+        <div class="accordion__content" id="a1">
+          <div class="grid text--small">
+            <p><em><%= t('views.ctc_pages.california_benefits.compare_required_info.helper_text') %></em></p>
+
+            <div class="grid__item width-one-half spacing-below-0">
+              <p class="spacing-below-15"><strong><%= t("views.ctc_pages.california_benefits.gyr") %></strong></p>
+              <ul class="spacing-below-0">
+                <% t("views.ctc_pages.california_benefits.compare_required_info.gyr.list").each_slice(2) do |bullet_1, bullet_2| %>
+                  <li class="list-item--check">
+                    <i class="icon-check"></i>
+                    <span>
+                      <%= bullet_1 %>
+                      </br>
+                      <em><%= bullet_2 %></em>
+                    </span>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+
+            <div class="grid__item width-one-half spacing-below-0">
+              <p class="spacing-below-15"><strong><%= t("views.ctc_pages.california_benefits.ctc") %></strong></p>
+              <ul class="list--padded spacing-below-0">
+                <% t("views.ctc_pages.california_benefits.compare_required_info.ctc.list").each do |item| %>
+                  <li class="list-item--check">
+                    <i class="icon-check"></i> <%= item %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1"><%= t("views.ctc_pages.california_benefits.compare_length.title") %></a>
+        <div class="accordion__content" id="a1">
+          <div class="grid text--small spacing-below-35">
+            <div class="grid__item width-one-half">
+              <p class="spacing-below-15"><strong><%= t("views.ctc_pages.california_benefits.gyr") %></strong></p>
+              <p class="spacing-below-0"><%= t("views.ctc_pages.california_benefits.compare_length.gyr") %></p>
+            </div>
+            <div class="grid__item width-one-half">
+              <p class="spacing-below-15"><strong><%= t("views.ctc_pages.california_benefits.ctc") %></strong></p>
+              <p class="spacing-below-0"><%= t("views.ctc_pages.california_benefits.compare_length.ctc") %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--green">
+    <p class="spacing-above-0"><%= t('views.ctc_pages.california_benefits.questions.stimulus_html') %></p>
+    <p class="spacing-below-0"><%= t('views.ctc_pages.california_benefits.questions.ctc_html') %></p>
+  </div>
+
+  <div class="slab slab--short slab--affiliations">
+    <div class="grid">
+      <div class="grid__item width-one-whole affiliations">
+        <div class="grid__item width-one-third">
+          <div class="image cfa">
+            <%= image_tag('cfa-logo--black.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.cfa_product_html') %>
+          </div>
+        </div>
+        <div class="grid__item width-one-third">
+          <div class="image whitehouse">
+            <%= image_tag('white-house.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.white_house_html') %>
+          </div>
+        </div>
+        <div class="grid__item width-one-third">
+          <div class="image irs">
+            <%= image_tag('irs-efile.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.irs') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
