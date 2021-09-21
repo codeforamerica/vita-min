@@ -2242,7 +2242,7 @@ en:
           ctc: 30 minutes
         questions:
           stimulus_html: <strong>Do you have questions about Stimulus Payments?</strong> Visit <a href="https://getyourrefund.org/stimulus" target="_blank" rel="nofollow noopener">https://getyourrefund.org/stimulus</a>
-          ctc_html: <strong>Do you have questions about the Child Tax Credit?</strong> Visit <a href="https://getctc.org/index.html#faq" target="_blank" rel="nofollow noopener">https://getctc.org/index.html#faq</a>
+          ctc_html: <strong>Do you have questions about the Child Tax Credit?</strong> Visit <a href="https://getctc.org/#claim_credit" target="_blank" rel="nofollow noopener">https://getctc.org#claim-credit</a>
       navigators:
         help_text: Guidance for community-based navigators seeking to help hard-to-reach clients access the Advance Child Tax Credit (AdvCTC) or Economic Impact Payment (EIP or Stimulus).
         title: GetCTC.org Navigator Resources

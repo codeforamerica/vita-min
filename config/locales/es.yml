@@ -2227,8 +2227,8 @@ es:
           gyr: De 2 a 3 semanas
           ctc: 30 minutos
         questions:
-          stimulus_html: <strong>¿Tiene preguntas sobre los pagos de estímulo?</strong> Visite <a href="https://getyourrefund.org/es/stimulus" target="_blank" rel="nofollow noopener">https://getyourrefund.org/stimulus</a>
-          ctc_html: <strong>¿Tiene preguntas sobre el Crédito Tributario por Hijos?</strong> Visite <a href="https://getctc.org/es/index.html#faq" target="_blank" rel="nofollow noopener">https://getctc.org/index.html#faq</a>
+          stimulus_html: <strong>¿Tiene preguntas sobre los pagos de estímulo?</strong> Visite <a href="https://getyourrefund.org/es/stimulus" target="_blank" rel="nofollow noopener">https://getyourrefund.org/es/stimulus</a>
+          ctc_html: <strong>¿Tiene preguntas sobre el Crédito Tributario por Hijos?</strong> Visite <a href="https://getctc.org/es#claim_credit" target="_blank" rel="nofollow noopener">https://getctc.org/es#claim-credit</a>
       navigators:
         help_text: Orientación para los navegadores de la comunidad que buscan ayudar a los clientes de difícil acceso a acceder al Crédito Fiscal Anticipado por Hijo (AdvCTC) o al Pago por Impacto Económico (EIP o Estímulo).
         title: Recursos del navegador GetCTC.org
