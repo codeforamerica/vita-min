@@ -6,6 +6,10 @@ module NavigationHelper
     link_to(text, path, class: "tab-bar__tab#{is_selected}")
   end
 
+  def fraud_icon(client)
+    image_tag("security-notification.svg") if client.efile_security_informations.any?(&:fraud_suspected?)
+  end
+
   private
 
   def locale_agnostic_current_path?(path)

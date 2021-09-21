@@ -1,6 +1,26 @@
 require "rails_helper"
 
 RSpec.describe NavigationHelper do
+  describe "#fraud_icon" do
+    let(:client) { create(:client_with_ctc_intake_and_return)}
+
+    context "the client with fraud suspected" do
+      before do
+        allow_any_instance_of(EfileSecurityInformation).to receive(:fraud_suspected?).and_return(true)
+      end
+
+      it "returns the fraud icon" do
+        expect(helper.fraud_icon(client)).to include("assets/security-notification")
+      end
+    end
+
+    context "client with no fraud suspected" do
+      it "returns nil" do
+        expect(helper.fraud_icon(client)).to be_nil
+      end
+    end
+  end
+
   describe "#selected_if_path_matches" do
     context "with a path that matches the current path" do
       before do
