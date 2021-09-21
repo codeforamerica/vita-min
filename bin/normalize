@@ -1,0 +1,15 @@
+##
+# this script ...
+#
+
+# checkout transifex branch
+git fetch
+git checkout $transifex_branch
+git pull
+
+# run i18n normalize
+i18n-tasks normalize
+
+# make commit and push
+git commit -am  "Run i18n-tasks normalize"
+git push origin head
