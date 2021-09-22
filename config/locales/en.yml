@@ -1664,13 +1664,13 @@ en:
           bank_information: Your bank information
           title: Great! Check to make sure your bank information is correct.
         confirm_information:
+          help_text: You will not be able change your information once the return is accepted by the IRS.
           labels:
             signature_pin: "%{name}'s Five Digit PIN"
           pin_help_text: This is a 5 digit number that you choose as your own password. This PIN can be used to verify your identity when filing next year's tax return.
           ready_to_file: I'm ready to file
-          title: Please review and confirm your information below.
-          help_text: You will not be able change your information once the return is accepted by the IRS.
           set_pin: Finally, let’s set a PIN!
+          title: Please review and confirm your information below.
           your_dependents: Your dependents
           your_information: Your information
         confirm_legal:
@@ -1820,11 +1820,11 @@ en:
           simplified_btn: Continue filing a simplified return
           title: You are currently filing a simplified tax return to claim your Child Tax Credit and Stimulus Payments.
         filed2019:
+          already_filed: If you already filed a 2020 tax return, the return you file with this tool will be rejected by the IRS.
           did_not_file: No, I didn't file a 2019 tax return
           filed_full: Yes, I filed a full return
           filed_non_filer: Yes, I filed using the IRS non-filer portal
           help_text: Did you file a tax return for the 2019 tax year? This tax return would have originally been due on April 15, 2020.
-          already_filed: If you already filed a 2020 tax return, the return you file with this tool will be rejected by the IRS.
           title: Did you file a 2019 tax return?
         filed2020:
           help_text_html: |

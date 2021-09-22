@@ -401,6 +401,7 @@ es:
     phone: Teléfono
     phone_for_texting: Número de celular
     phone_number: Número de teléfono
+    please_wait: Espere por favor...
     privacy_policy: Política de privacidad
     race:
       american_indian_alaska_native: Indio Americano o Nativo de Alaska
@@ -1632,13 +1633,13 @@ es:
           bank_information: La información de su banco
           title: "¡Excelente! Revise que sus datos bancarios sean correctos."
         confirm_information:
+          help_text: No podrá cambiar su información una vez que el IRS acepte la devolución.
           labels:
             signature_pin: El PIN de cinco dígitos de %{name}
           pin_help_text: Se trata de un número de 5 dígitos que usted elige como contraseña propia. Este PIN puede utilizarse para verificar su identidad al presentar la declaración de impuestos del próximo año.
           ready_to_file: Estoy listo/a para declarar
+          set_pin: "¡Por último, establezcamos un PIN!"
           title: Revise y confirme su información a continuación.
-          help_text: No podrá cambiar su información una vez que el IRS acepte la devolución.
-          set_pin: ¡Por último, establezcamos un PIN!
           your_dependents: Sus dependientes
           your_information: Su información
         confirm_legal:
@@ -1788,11 +1789,11 @@ es:
           simplified_btn: Continuar con la declaración simplificada
           title: "¡Si obtuvo ingresos, puede obtener beneficios adicionales presentando una declaración completa!"
         filed2019:
+          already_filed: Si ya presentó una declaración de impuestos de 2020, el IRS rechazará la declaración que presente con esta herramienta.
           did_not_file: No, no presenté una declaración de impuestos de 2019
           filed_full: Sí, presenté una declaración completa
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
           help_text: "¿Presentó una declaración de impuestos para el año fiscal 2019? Esta declaración de impuestos se debió presentar originalmente el 15 de abril de 2020."
-          already_filed: Si ya presentó una declaración de impuestos de 2020, el IRS rechazará la declaración que presente con esta herramienta.
           title: "¿Ha presentado la declaración de impuestos de 2019?"
         filed2020:
           help_text_html: |
