@@ -2,6 +2,7 @@
 
 <% content_for :form_card do %>
   <h1 class="h2"><%= content_for(:page_title) %></h1>
+  <p><%= t("views.ctc.questions.confirm_information.help_text")  %></p>
 
   <div class="review-box spacing-below-35">
 
@@ -40,6 +41,7 @@
     <% end %>
   </div>
 
+  <p><strong><%= t("views.ctc.questions.confirm_information.set_pin") %></strong></p>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <p class="spacing-below-35"><%= t("views.ctc.questions.confirm_information.pin_help_text") %></p>
     <%= f.cfa_input_field(:primary_signature_pin, t("views.ctc.questions.confirm_information.labels.signature_pin", name: current_intake.primary_full_name), type: "tel", classes: ["form-width--long"]) %>
