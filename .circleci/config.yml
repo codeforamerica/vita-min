@@ -70,6 +70,13 @@ commands:
           key: schema-{{ checksum "db/schema.rb" }}
           paths: [tmp/test_db_schema.rb]
 jobs:
+  i18n_normalize:
+    executor: ruby_executor
+    steps:
+      - checkout
+      - install_ruby_dependencies
+      - run: i18n-tasks normalize
+      - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push)
   run_js_tests:
     executor: ruby_executor
     steps:
@@ -158,6 +165,10 @@ workflows:
   version: 2
   ci-and-deploy:
     jobs:
+      - i18n_normalize:
+          filters:
+            branches:
+              only: normalize-ci-build-#179665194 # translations_config-locales-en-yml--main_es
       - run_js_tests
       - run_ruby_tests
       - deploy_to_aptible--demo:
