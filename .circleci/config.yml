@@ -77,7 +77,7 @@ jobs:
       - install_ruby_dependencies
       - run: bundle exec i18n-tasks normalize
       - run: git config --global user.name CircleCI && git config --global user.email circleci@example.com
-      - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push)
+      - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push origin normalize-ci-build-#179665194)
   run_js_tests:
     executor: ruby_executor
     steps:
