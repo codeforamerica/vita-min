@@ -1781,8 +1781,7 @@ es:
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
           help_text:
-          - Con la presentación de una declaración de impuestos completa, podría cobrar todo el dinero que se le debe
-          - 'Considere esta opción si:'
+          - 'Con la presentación de una declaración de impuestos completa, podría cobrar todo el dinero que se le debe. Considere esta opción si:'
           list:
           - Tiene todos sus documentos de trabajo (W2, 1099, etc.)
           - Tiene una copia en papel de la tarjeta de Seguro Social o de los documentos ITIN de todos los miembros de su familia
