@@ -69,11 +69,26 @@ class EfileSubmission < ApplicationRecord
     previously_transmitted_submission.present?
   end
 
-  def previously_transmitted_submission
+  def admin_resubmission?
+    reference_submission = first_submission? ? self : previously_transmitted_submission
+    if reference_submission.present?
+      resubmission_transition = reference_submission.last_transition_to(:resubmitted)
+      resubmission_transition && resubmission_transition.initiated_by.present?
+    end
+  end
+
+  def first_submission?
+    previous_submission_id.nil?
+  end
+
+  def previous_submission_id
     transition = last_transition_to("preparing")
     return unless transition.present?
 
-    previous_submission_id = transition.metadata["previous_submission_id"]
+    transition.metadata["previous_submission_id"]
+  end
+
+  def previously_transmitted_submission
     EfileSubmission.find(previous_submission_id) if previous_submission_id.present?
   end
 

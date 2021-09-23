@@ -37,8 +37,11 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :preparing) do |submission|
-    BuildSubmissionBundleJob.perform_later(submission.id)
-    submission.tax_return.update(status: "file_ready_to_file")
+    has_blocking_fraud_characteristics = FraudIndicatorService.assess!(submission)
+    unless has_blocking_fraud_characteristics
+      BuildSubmissionBundleJob.perform_later(submission.id)
+      submission.tax_return.update(status: "file_ready_to_file")
+    end
   end
 
   after_transition(to: :queued) do |submission|
