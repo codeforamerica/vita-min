@@ -53,7 +53,7 @@
             <%= t("views.ctc.portal.edit_info.help_text") %>
           </p>
           <%= recaptcha_v3(action: 'resubmit') %>
-          <%= button_tag(class: "button button--primary button--full-width", type: "submit", disabled: !@intake_updated_since_last_submission) do %>
+          <%= button_tag(class: "button button--primary button--full-width", type: "submit", data: { disable_with: t("general.please_wait") }, disabled: !@intake_updated_since_last_submission) do %>
             <%= t("views.ctc.portal.edit_info.resubmit") %>
           <% end %>
         <% else %>
