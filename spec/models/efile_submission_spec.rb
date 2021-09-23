@@ -356,6 +356,80 @@ describe EfileSubmission do
     end
   end
 
+  describe "#admin_resubmission?" do
+    let(:submission) { create :efile_submission, :preparing }
+    let(:user) { create :admin_user }
+
+    context "when it is the only submission for the client" do
+      context "when there has been a previous transition to resubmitted" do
+        before do
+          submission.transition_to(:queued)
+          submission.transition_to(:failed)
+        end
+
+        context "and it was resubmitted by a user" do
+          before do
+            submission.transition_to!(:resubmitted, initiated_by_id: user.id)
+          end
+
+          it "is true" do
+            expect(submission.admin_resubmission?).to eq true
+          end
+        end
+
+        context "and it was not resubmitted by a user" do
+          before do
+            submission.transition_to!(:resubmitted)
+          end
+
+          it "is false" do
+            expect(submission.admin_resubmission?).to eq false
+          end
+        end
+      end
+
+      context "when there has not been a previous transition to resubmitted" do
+        it "is falsey" do
+          expect(submission.admin_resubmission?).to eq nil
+        end
+      end
+    end
+
+    context "when the client has more than one submission" do
+      context "when the previous submission was resubmitted" do
+        let(:submission) { create :efile_submission, :preparing }
+
+        context "when the resubmission was by a user" do
+          before do
+            og_submission = EfileSubmission.create(client: submission.client, tax_return: submission.tax_return)
+            submission.last_transition_to(:preparing).update(metadata: { previous_submission_id: og_submission.id })
+            og_submission.transition_to(:preparing)
+            og_submission.transition_to(:failed)
+            og_submission.transition_to(:resubmitted, initiated_by_id: user.id)
+          end
+
+          it "is true" do
+            expect(submission.admin_resubmission?).to eq true
+          end
+        end
+
+        context "when the resubmission was not by a user" do
+          before do
+            og_submission = EfileSubmission.create(client: submission.client, tax_return: submission.tax_return)
+            submission.last_transition_to(:preparing).update(metadata: { previous_submission_id: og_submission.id })
+            og_submission.transition_to(:preparing)
+            og_submission.transition_to(:failed)
+            og_submission.transition_to(:resubmitted, initiated_by_id: nil)
+          end
+
+          it "is false" do
+            expect(submission.admin_resubmission?).to eq false
+          end
+        end
+      end
+    end
+  end
+
   describe "#generate_form_1040_pdf" do
     let(:submission) { create :efile_submission, :ctc }
     let(:example_pdf) { File.open(Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), "rb") }
