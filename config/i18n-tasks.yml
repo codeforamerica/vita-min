@@ -94,8 +94,6 @@ translation:
 
 ## Do not consider these keys missing:
 ignore_missing:
-  - 'views.ctc_pages.*'
-  - 'general.tin.*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
