@@ -2051,13 +2051,13 @@ en:
             - Child Tax Credit
             note_html: 'If you file with GetCTC, you can file an amended return later to claim the additional credits you would have received by filing with GetYourRefund. <u>This process can be quite difficult</u>, and you would likely need assistance from a tax professional.
 
-              '
+'
             p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$7,500</strong>
 
-              '
+'
             p2_html: 'A household with no children may receive an average of: <strong>$3,200</strong>
 
-              '
+'
           gyr:
             list:
             - Federal stimulus payments
@@ -2068,10 +2068,10 @@ en:
             - California Young Child Tax Credit
             p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$12,200</strong>
 
-              '
+'
             p2_html: 'A household with no children may receive an average of: <strong>$4,300</strong>
 
-              '
+'
           title: Compare benefits
         compare_length:
           ctc: 30 minutes
@@ -2093,7 +2093,7 @@ en:
         gyr: GetYourRefund
         helper_text_html: 'With the Child Tax Credit, stimulus payments, and other credits, many California families can claim over $10,000 in tax benefits this year, even if they have little or no income. <strong>Claim the benefits that you are owed.</strong>
 
-          '
+'
         option_one:
           p_1: This option is longer and requires more documentation, but you may get more money.
           p_2: Best for people who worked in 2020 and who have all the required documents for a full tax return.
