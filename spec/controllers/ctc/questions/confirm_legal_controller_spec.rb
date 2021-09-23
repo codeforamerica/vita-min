@@ -6,7 +6,7 @@ describe Ctc::Questions::ConfirmLegalController do
 
   before do
     sign_in intake.client
-    allow_any_instance_of(Recaptcha::Adapters::ControllerMethods).to receive(:recaptcha_reply).and_return({ 'score' => "0.9" })
+    allow_any_instance_of(RecaptchaScoreConcern).to receive(:recaptcha_score_param).and_return({ recaptcha_score: "0.9" })
   end
 
   describe "#edit" do

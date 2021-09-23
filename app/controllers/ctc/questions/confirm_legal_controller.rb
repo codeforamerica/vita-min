@@ -2,6 +2,7 @@ module Ctc
   module Questions
     class ConfirmLegalController < QuestionsController
       include AuthenticatedCtcClientConcern
+      include RecaptchaScoreConcern
 
       layout "intake"
 
@@ -9,14 +10,7 @@ module Ctc
         params = super.merge(ip_address: request.remote_ip).merge(
           Rails.application.config.try(:efile_security_information_for_testing).presence || {}
         )
-        if verify_recaptcha(action: 'confirm_legal')
-          params[:recaptcha_score] = recaptcha_reply['score'] if recaptcha_reply.present?
-        elsif recaptcha_reply.present?
-          Sentry.capture_message "Failed to verify recaptcha token due to the following errors: #{recaptcha_reply["error-codes"]}"
-        else
-          Sentry.capture_message "Something bad happened when attempting recaptcha!"
-        end
-        params
+        params.merge(recaptcha_score_param('confirm_legal'))
       end
 
       private
