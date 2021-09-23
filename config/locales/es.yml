@@ -1,6 +1,5 @@
 ---
 es:
-  test_key: "jenny tiene un buen perro"
   activemodel:
     errors:
       models:
@@ -1255,7 +1254,7 @@ es:
           ¡Estamos aquí para ayudar!
           Su equipo de impuestos en GetYourRefund.org
         subject: "¡Su información de impuestos ha sido enviada con éxito!"
-      sms: 'Hola <<Client.PreferredName>>, Gracias por enviar su información fiscal a <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>. Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!'
+      sms: Hola <<Client.PreferredName>>, Gracias por enviar su información fiscal a <<Client.AssignedOrganization>>. Su ID de cliente es <<Client.ClientId>>. Responda a este mensaje si tiene alguna pregunta. ¡Estamos aquí para ayudar!
     successful_submission_online_intake:
       email:
         body: |
@@ -1873,14 +1872,14 @@ es:
           help_text: Por lo general, alguien puede declararlo/a como dependiente si es un miembro de su familia, vive con él/ella la mayor parte del año y paga la mayor parte de sus gastos de manutención.
           title: "¿Puede alguien declararlo como dependiente en 2020?"
         mailing_address:
-          title: Magnífico, denos por favor su dirección postal.
-          reveal_label: ¿Qué tal si no tengo una dirección postal?
           reveal_content_html: |
             El IRS requiere que remita una dirección.<br/>
             <br/>
             Si no tiene un domicilio permanente, puede usar el de una persona de confianza o la de un grupo que conozca (ej. miembro de la familia, iglesia, centro para personas sin hogar).<br/>
             <br/>
             Asegúrese de proporcionar una dirección donde pueda recibir correo postal. Si seleccionó deposito directo para sus pagos, existe una posibilidad que el IRS le envíe notificaciones importantes y hasta pagos a este dirección.
+          reveal_label: "¿Qué tal si no tengo una dirección postal?"
+          title: Magnífico, denos por favor su dirección postal.
         overview:
           help_text: Utilice nuestra sencilla herramienta de presentación de impuestos electrónica para recibir su Crédito Tributario por Hijos (CTC) y cualquier pago de estímulo o corrección que se le deba.
           items:
@@ -2012,6 +2011,72 @@ es:
           verification_code_label: 'Introduzca el código de 6 números '
           verify: Verifique
     ctc_pages:
+      california_benefits:
+        compare_benefits:
+          ctc:
+            list:
+            - Pagos federales de estímulo
+            - Crédito Tributario por Hijos
+            note_html: 'Si presenta la declaración con GetCTC, puede presentar una declaración enmendada más tarde para reclamar los créditos adicionales que habría recibido al presentarla con GetYourRefund. <u>Este proceso puede ser bastante difícil</u>, y es probable que necesite la ayuda de un profesional de impuestos.
+
+              '
+            p1_html: 'Un hogar con un hijo menor de 6 años puede recibir un promedio de: <strong>7,500 dólares</strong>
+
+              '
+            p2_html: 'Un hogar sin hijos puede recibir un promedio de: <strong>3,200 dólares</strong>
+
+              '
+          gyr:
+            list:
+            - Pagos federales de estímulo
+            - Crédito Tributario por Hijos
+            - Crédito tributario por ingresos del trabajo
+            - Crédito tributario por ingresos del trabajo de California
+            - Pagos de estímulo del Golden State
+            - Crédito Tributario por Hijos Jóvenes de California (en inglés: Young Child Tax Credit)
+            p1_html: 'Un hogar con un niño menor de 6 años puede recibir un promedio de: <strong>12,200 dólares</strong>
+
+              '
+            p2_html: 'Un hogar sin hijos puede recibir un promedio de de: <strong>4,300 dólares</strong>
+
+              '
+          title: Compare los beneficios
+        compare_length:
+          ctc: 30 minutos
+          gyr: De 2 a 3 semanas
+          title: Comparar la duración de los procesos
+        compare_required_info:
+          ctc:
+            list:
+            - Seguro Social o número de ITIN
+          gyr:
+            list:
+            - Documentos de empleo
+            - "(W2’s, 1099’s, etc.)"
+            - Copia de papel de los documentos de identificación
+            - "(tarjeta de Seguro Social o documentos de ITIN)"
+          helper_text: Los documentos son necesarios para cada miembro de la familia en su declaración de impuestos.
+          title: Comparar la información requerida
+        ctc: GetCTC
+        gyr: GetYourRefund
+        helper_text_html: 'Con el Crédito Tributario por Hijos, los pagos de estímulo y otros créditos, muchas familias de California pueden reclamar más de 10,000 dólares en beneficios tributarios este año, incluso si tienen pocos o ningún ingreso. <strong>Reclame los beneficios que le corresponden.</strong>
+
+          '
+        option_one:
+          p_1: Esta opción es más larga y requiere más documentación, pero puede obtener más dinero.
+          p_2: Esta opción es mejor para las personas que trabajaron en 2020 y que tienen todos los documentos requeridos para una declaración de impuestos completa.
+          subtitle: Opción 1
+          title_html: Cobre <u>todos</u> los créditos tributarios que se le deben
+        option_two:
+          file_ctc: Declarar con GetCTC
+          p_1: Esta opción es más rápida y requiere menos documentación, pero es posible que no pueda reclamar todos los beneficios.
+          p_2: Esta opción es mejor para las personas que no trabajaron en 2020 o que no tienen sus documentos fiscales para presentar una declaración de impuestos completa.
+          subtitle: Opción 2
+          title_html: Solicite <u>sólo</u> las ayudas federales de estímulo y el Crédito Tributario por Hijos
+        questions:
+          ctc_html: <strong>¿Tiene preguntas sobre el Crédito Tributario por Hijos?</strong> Visite <a href="https://getctc.org/es#claim_credit" target="_blank" rel="nofollow noopener">https://getctc.org/es#claim-credit</a>
+          stimulus_html: <strong>¿Tiene preguntas sobre los pagos de estímulo?</strong> Visite <a href="https://getyourrefund.org/es/stimulus" target="_blank" rel="nofollow noopener">https://getyourrefund.org/es/stimulus</a>
+        title: Californianos, ¡elijan la mejor opción para reclamar sus beneficios tributarios!
       home:
         affiliations:
           cfa_product_html: GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">¿Por qué hacemos este trabajo?</a>
@@ -2082,10 +2147,10 @@ es:
               Los niños que califican para el Crédito Tributario por Hijos deben tener un número de seguro social (SSN en inglés) válido, pero el declarante de impuestos (un padre, abuelo o tutor) puede tener un SSN o un Número de Identificación Personal del Contribuyente (ITIN en inglés).
             question: No suelo declarar impuestos, ¿qué tengo que presentar para inscribirme para el Crédito Tributario por Hijos?
           will_i_ever_have_to_pay_this_money_back:
-            answer_html: 'Si recibe pagos por un hijo que ya no es su dependiente o si sus ingresos han cambiado significativamente, es posible que tenga que devolver ese dinero. En estas situaciones existen algunas protecciones para aquellos con ingresos menos de $80,000 (para individuos o padres sin custodia), $100,000 (para solteros, cabeza de familia) o $120,000 (para declaración conjunta).'
+            answer_html: Si recibe pagos por un hijo que ya no es su dependiente o si sus ingresos han cambiado significativamente, es posible que tenga que devolver ese dinero. En estas situaciones existen algunas protecciones para aquellos con ingresos menos de $80,000 (para individuos o padres sin custodia), $100,000 (para solteros, cabeza de familia) o $120,000 (para declaración conjunta).
             question: "¿Tendré que devolver este dinero alguna vez?"
           will_it_affect_my_immigration_status:
-            answer_html: 'No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).'
+            answer_html: No, recibir el Crédito Tributario por Hijos u otros créditos tributarios para los que usted califica, no afectará su estatus migratorio, su capacidad para obtener una tarjeta verde, o sus planes futuros de inmigración. El uso de créditos tributarios no se considera una "carga pública" por parte de los Servicios de Ciudadanía e Inmigración de los Estados Unidos (USCIS en inglés).
             question: "¿Recibir el Crédito Tributario por Hijos afectará mi estatus migratorio o mi capacidad de obtener una tarjeta verde?"
         file_your_return: Presente su declaración de forma simplificada ahora
         header: Declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijo
@@ -2110,10 +2175,10 @@ es:
             - Actualizar el número de dependientes elegibles en su hogar (por ejemplo, si un niño ya no vive con usted o tuvo un bebé)
             - Reportar cambios significativos en sus ingresos familiares
           body1: Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia.
-          body2_html: 'Si no ha enviado información alguna al IRS en el último año, puede enviar su información a través de GetCTC, un portal para declarar sus impuestos de forma simplificada, y reciba sus pagos.'
+          body2_html: Si no ha enviado información alguna al IRS en el último año, puede enviar su información a través de GetCTC, un portal para declarar sus impuestos de forma simplificada, y reciba sus pagos.
           deadline:
-            subheading: ¿Cuándo vence el plazo para inscribirse en el Pago del Crédito Tributario por Hijos (CTC en inglés)?
             body_html: Puede inscribirse para recibir los pagos mensuales del Crédito Fiscal por Hijos utilizando <a rel='noopener' target='_blank' href='%{url}'>la sencilla herramienta</a> Non-Filer del IRS (IRS Non-Filer Sign-Up Tool, en inglés) desarrollada por la organización sin ánimo de lucro Code for America, en colaboración con la Administración, hasta el 15 de noviembre de 2021. Sin embargo, se les recomienda a las familias que reúnen los requisitos que se inscriban lo más pronto posible. Al inscribirse con anticipación le dará al IRS más tiempo para procesar su información y para comenzar a hacer los pagos mensuales.
+            subheading: "¿Cuándo vence el plazo para inscribirse en el Pago del Crédito Tributario por Hijos (CTC en inglés)?"
           full_return:
             body1_html: |
               Si usted tiene al menos un hijo que califica y tiene cualquier cantidad de ingresos de trabajo, pero aún no ha declarado impuestos, le recomendamos que declare sus impuestos de 2020. Presentar una declaración de impuestos completa del 2020 le permitirá a usted y a su familia:
@@ -2171,66 +2236,6 @@ es:
             <br/>
             Puede recibir pagos a partir de julio a diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante.
           heading: Crédito Tributario por Hijo
-      california_benefits:
-        title: Californianos, ¡elijan la mejor opción para reclamar sus beneficios tributarios!
-        gyr: GetYourRefund
-        ctc: GetCTC
-        helper_text_html: |
-          Con el Crédito Tributario por Hijos, los pagos de estímulo y otros créditos, muchas familias de California pueden reclamar más de 10,000 dólares en beneficios tributarios este año, incluso si tienen pocos o ningún ingreso. <strong>Reclame los beneficios que le corresponden.</strong>
-        option_one:
-          subtitle: Opción 1
-          title_html: Cobre <u>todos</u> los créditos tributarios que se le deben
-          p_1: Esta opción es más larga y requiere más documentación, pero puede obtener más dinero.
-          p_2: Esta opción es mejor para las personas que trabajaron en 2020 y que tienen todos los documentos requeridos para una declaración de impuestos completa.
-        option_two:
-          subtitle: Opción 2
-          title_html:  Solicite <u>sólo</u> las ayudas federales de estímulo y el Crédito Tributario por Hijos
-          p_1: Esta opción es más rápida y requiere menos documentación, pero es posible que no pueda reclamar todos los beneficios.
-          p_2: Esta opción es mejor para las personas que no trabajaron en 2020 o que no tienen sus documentos fiscales para presentar una declaración de impuestos completa.
-          file_ctc: Declarar con GetCTC
-        compare_benefits:
-          title: Compare los beneficios
-          gyr:
-            list:
-              - Pagos federales de estímulo
-              - Crédito Tributario por Hijos
-              - Crédito tributario por ingresos del trabajo
-              - Crédito tributario por ingresos del trabajo de California
-              - Pagos de estímulo del Golden State
-              - Crédito Tributario por Hijos Jóvenes de California (en inglés: Young Child Tax Credit)
-            p1_html: |
-              Un hogar con un niño menor de 6 años puede recibir un promedio de: <strong>12,200 dólares</strong>
-            p2_html: |
-              Un hogar sin hijos puede recibir un promedio de de: <strong>4,300 dólares</strong>
-          ctc:
-            list:
-              - Pagos federales de estímulo
-              - Crédito Tributario por Hijos
-            p1_html: |
-              Un hogar con un hijo menor de 6 años puede recibir un promedio de: <strong>7,500 dólares</strong>
-            p2_html: |
-              Un hogar sin hijos puede recibir un promedio de: <strong>3,200 dólares</strong>
-            note_html: |
-              Si presenta la declaración con GetCTC, puede presentar una declaración enmendada más tarde para reclamar los créditos adicionales que habría recibido al presentarla con GetYourRefund. <u>Este proceso puede ser bastante difícil</u>, y es probable que necesite la ayuda de un profesional de impuestos.
-        compare_required_info:
-          title: Comparar la información requerida
-          helper_text: Los documentos son necesarios para cada miembro de la familia en su declaración de impuestos.
-          gyr:
-            list:
-              - Documentos de empleo
-              - (W2’s, 1099’s, etc.)
-              - Copia de papel de los documentos de identificación
-              - (tarjeta de Seguro Social o documentos de ITIN)
-          ctc:
-            list:
-              - Seguro Social o número de ITIN
-        compare_length:
-          title: Comparar la duración de los procesos
-          gyr: De 2 a 3 semanas
-          ctc: 30 minutos
-        questions:
-          stimulus_html: <strong>¿Tiene preguntas sobre los pagos de estímulo?</strong> Visite <a href="https://getyourrefund.org/es/stimulus" target="_blank" rel="nofollow noopener">https://getyourrefund.org/es/stimulus</a>
-          ctc_html: <strong>¿Tiene preguntas sobre el Crédito Tributario por Hijos?</strong> Visite <a href="https://getctc.org/es#claim_credit" target="_blank" rel="nofollow noopener">https://getctc.org/es#claim-credit</a>
       navigators:
         help_text: Orientación para los navegadores de la comunidad que buscan ayudar a los clientes de difícil acceso a acceder al Crédito Fiscal Anticipado por Hijo (AdvCTC) o al Pago por Impacto Económico (EIP o Estímulo).
         title: Recursos del navegador GetCTC.org

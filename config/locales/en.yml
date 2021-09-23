@@ -1,6 +1,5 @@
 ---
 en:
-  test_key: "jenny has a very good dog"
   activemodel:
     errors:
       models:
@@ -1276,7 +1275,7 @@ en:
           We’re here to help!
           Your tax team at GetYourRefund.org
         subject: Your tax information has been successfully submitted!
-      sms: 'Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!'
+      sms: Hello <<Client.PreferredName>>, thank you for submitting your tax information to <<Client.AssignedOrganization>>! Your Client ID is <<Client.ClientId>>. Respond to this message if you have any questions. We’re here to help!
     successful_submission_online_intake:
       email:
         body: |
@@ -1904,14 +1903,14 @@ en:
           help_text: Generally, someone can claim you as a dependent if they are your family member, you live with them for most of the year, and they pay for most of your living expenses.
           title: Can anyone claim you as a dependent in 2020?
         mailing_address:
-          title: Great, please provide your mailing address below.
-          reveal_label: What if I don’t have a mailing address?
           reveal_content_html: |
             The IRS requires an address to be submitted with your return.<br/>
             <br/>
             If you do not have a permanent address, you can use the address of a trusted person or group you know (ex: family member, church, homeless center).<br/>
             <br/>
             Make sure you provide an address where you are able to receive mail. Even if you selected direct deposit for your payments, there is a chance the IRS will send important notices and maybe even payments to this address.
+          reveal_label: What if I don’t have a mailing address?
+          title: Great, please provide your mailing address below.
         overview:
           help_text: Use our simple e-filing tool to receive your Child Tax Credit and any stimulus payments or corrections you are owed.
           items:
@@ -2043,6 +2042,72 @@ en:
           verification_code_label: Enter 6 digit code
           verify: Verify
     ctc_pages:
+      california_benefits:
+        compare_benefits:
+          ctc:
+            list:
+            - Federal stimulus payments
+            - Child Tax Credit
+            note_html: 'If you file with GetCTC, you can file an amended return later to claim the additional credits you would have received by filing with GetYourRefund. <u>This process can be quite difficult</u>, and you would likely need assistance from a tax professional.
+
+              '
+            p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$7,500</strong>
+
+              '
+            p2_html: 'A household with no children may receive an average of: <strong>$3,200</strong>
+
+              '
+          gyr:
+            list:
+            - Federal stimulus payments
+            - Child Tax Credit
+            - Earned Income Tax Credit
+            - California Earned Income Tax Credit
+            - Golden State Stimulus payments
+            - California Young Child Tax Credit
+            p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$12,200</strong>
+
+              '
+            p2_html: 'A household with no children may receive an average of: <strong>$4,300</strong>
+
+              '
+          title: Compare benefits
+        compare_length:
+          ctc: 30 minutes
+          gyr: 2-3 weeks
+          title: Compare length of processes
+        compare_required_info:
+          ctc:
+            list:
+            - Social Security or ITIN Numbers
+          gyr:
+            list:
+            - Employment documents
+            - "(W2’s, 1099’s, etc.)"
+            - Paper copy of IDs
+            - "(Social Security Card or ITIN paperwork)"
+          helper_text: Documents are required for each family member on your tax return.
+          title: Compare required information
+        ctc: GetCTC
+        gyr: GetYourRefund
+        helper_text_html: 'With the Child Tax Credit, stimulus payments, and other credits, many California families can claim over $10,000 in tax benefits this year, even if they have little or no income. <strong>Claim the benefits that you are owed.</strong>
+
+          '
+        option_one:
+          p_1: This option is longer and requires more documentation, but you may get more money.
+          p_2: Best for people who worked in 2020 and who have all the required documents for a full tax return.
+          subtitle: Option 1
+          title_html: Collect <u>all</u> tax credits you are owed
+        option_two:
+          file_ctc: File with GetCTC
+          p_1: This option is quicker and requires less documentation, but you may not be able to claim all benefits.
+          p_2: Best for people who did not work in 2020 or who don’t have their tax documents to file a full tax return.
+          subtitle: Option 2
+          title_html: Collect <u>only</u> the federal stimulus payments and Child Tax Credit
+        questions:
+          ctc_html: <strong>Do you have questions about the Child Tax Credit?</strong> Visit <a href="https://getctc.org/#claim_credit" target="_blank" rel="nofollow noopener">https://getctc.org#claim-credit</a>
+          stimulus_html: <strong>Do you have questions about Stimulus Payments?</strong> Visit <a href="https://getyourrefund.org/stimulus" target="_blank" rel="nofollow noopener">https://getyourrefund.org/stimulus</a>
+        title: Californians, choose the best option to claim your tax benefits!
       home:
         affiliations:
           cfa_product_html: GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">Why do we do this work?</a>
@@ -2050,7 +2115,7 @@ en:
           white_house_html: Made in collaboration with the <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">White House and U.S. Department of Treasury</a>.
         common_questions:
           are_daca_recipients_eligible:
-            answer_html: 'Yes, DACA recipients are eligible for the Child Tax Credit so long as the children being claimed in the household have a valid SSN. DACA recipients who are dependents of ITIN filers can also be claimed for the Child Tax Credit because they have valid Social Security Numbers.'
+            answer_html: Yes, DACA recipients are eligible for the Child Tax Credit so long as the children being claimed in the household have a valid SSN. DACA recipients who are dependents of ITIN filers can also be claimed for the Child Tax Credit because they have valid Social Security Numbers.
             question: Are DACA recipients eligible for the Child Tax Credit?
           check_payment_status:
             answer_html: |
@@ -2110,14 +2175,14 @@ en:
               Children claimed for the Child Tax Credit must have a valid Social security number (SSN), however the tax filer (a parent, grandparent, or guardian) can have either a SSN or an Individual Taxpayer Identification Number (ITIN).
             question: I don’t usually file taxes, what will I need to submit to sign up for the Child Tax Credit?
           will_i_ever_have_to_pay_this_money_back:
-            answer_html: 'If you receive payments for a child who is no longer your dependent or if your income has drastically changed, you may have to pay that money back, though there are some protections in place for those with incomes below $80,000 (for individuals or non custodial parents), $100,000 (for single, head-of-household), or $120,000 (for filing jointly).'
+            answer_html: If you receive payments for a child who is no longer your dependent or if your income has drastically changed, you may have to pay that money back, though there are some protections in place for those with incomes below $80,000 (for individuals or non custodial parents), $100,000 (for single, head-of-household), or $120,000 (for filing jointly).
             question: Will I ever have to pay this money back?
           will_it_affect_my_immigration_status:
-            answer_html: 'No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.'
+            answer_html: No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
             question: Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?
         file_your_return: File your simplified return now
         header: Simplified Tax Filing to Claim Your Child Tax Credit
-        navigator_resources_html: '<strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="%{navigators_link}">here.</a>'
+        navigator_resources_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="%{navigators_link}">here.</a>
         need_help_html: Need help? Call 877-907-0937 or <button type="button" class="open-intercom button--link">chat with us</button> and get help claiming your stimulus payments.
         obtain:
           already_filed:
@@ -2139,10 +2204,10 @@ en:
             - Update the number of eligible dependents in your household (for example if a child has moved out, or a new baby was born)
             - Report significant changes in household income
           body1: To provide the Advance Child Tax Credit payments, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your Advance Child Tax Credit payments automatically.
-          body2_html: 'If you have not submitted any information to the IRS in the last year, you can submit your information through GetCTC, a simplified tax filing portal, and get your payments.'
+          body2_html: If you have not submitted any information to the IRS in the last year, you can submit your information through GetCTC, a simplified tax filing portal, and get your payments.
           deadline:
-            subheading: When is the deadline to sign up for Child Tax Credit payments?
             body_html: You can sign up to receive monthly Child Tax Credit payments using the <a rel='noopener' target='_blank' href='%{url}'>simple tool</a> for non-filers developed by the non-profit Code for America, in collaboration with the Administration, through November 15, 2021. However, eligible families are encouraged to sign up as soon as possible. Signing up early will give the IRS more time to process your information and begin making monthly payments.
+            subheading: When is the deadline to sign up for Child Tax Credit payments?
           full_return:
             body1_html: |
               <p>If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. </p>
@@ -2152,7 +2217,7 @@ en:
             subheading: If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed.
           heading: How do I get the Child Tax Credit?
           not_filed:
-            body1_html: 'If you earned less than $12,400 (or less than $24,800 if you are married), you can use GetCTC, a simplified tax filing portal to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.'
+            body1_html: If you earned less than $12,400 (or less than $24,800 if you are married), you can use GetCTC, a simplified tax filing portal to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
             body2: To get the Child Tax Credit you will need to provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI.
             chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Chat with our tax experts</button> if you need help.
             subheading: If you have not filed a tax return, you can sign up to get the Child Tax Credit.
@@ -2185,66 +2250,6 @@ en:
             <br/>
             You can receive  payments of up to $300 per child every month starting in July 2021 through December 2021. You will need to file a tax return in 2022 to receive the rest of the payment.
           heading: Child Tax Credit
-      california_benefits:
-        title: Californians, choose the best option to claim your tax benefits!
-        gyr: GetYourRefund
-        ctc: GetCTC
-        helper_text_html: |
-          With the Child Tax Credit, stimulus payments, and other credits, many California families can claim over $10,000 in tax benefits this year, even if they have little or no income. <strong>Claim the benefits that you are owed.</strong>
-        option_one:
-          subtitle: Option 1
-          title_html: Collect <u>all</u> tax credits you are owed
-          p_1: This option is longer and requires more documentation, but you may get more money.
-          p_2: Best for people who worked in 2020 and who have all the required documents for a full tax return.
-        option_two:
-          subtitle: Option 2
-          title_html: Collect <u>only</u> the federal stimulus payments and Child Tax Credit
-          p_1: This option is quicker and requires less documentation, but you may not be able to claim all benefits.
-          p_2: Best for people who did not work in 2020 or who don’t have their tax documents to file a full tax return.
-          file_ctc: File with GetCTC
-        compare_benefits:
-          title: Compare benefits
-          gyr:
-            list:
-              - Federal stimulus payments
-              - Child Tax Credit
-              - Earned Income Tax Credit
-              - California Earned Income Tax Credit
-              - Golden State Stimulus payments
-              - California Young Child Tax Credit
-            p1_html: |
-              A household with 1 child under the age of 6 may receive an average of: <strong>$12,200</strong>
-            p2_html: |
-              A household with no children may receive an average of: <strong>$4,300</strong>
-          ctc:
-            list:
-              - Federal stimulus payments
-              - Child Tax Credit
-            p1_html: |
-              A household with 1 child under the age of 6 may receive an average of: <strong>$7,500</strong>
-            p2_html: |
-              A household with no children may receive an average of: <strong>$3,200</strong>
-            note_html: |
-              If you file with GetCTC, you can file an amended return later to claim the additional credits you would have received by filing with GetYourRefund. <u>This process can be quite difficult</u>, and you would likely need assistance from a tax professional.
-        compare_required_info:
-          title: Compare required information
-          helper_text: Documents are required for each family member on your tax return.
-          gyr:
-            list:
-              - Employment documents
-              - (W2’s, 1099’s, etc.)
-              - Paper copy of IDs
-              - (Social Security Card or ITIN paperwork)
-          ctc:
-            list:
-              - Social Security or ITIN Numbers
-        compare_length:
-          title: Compare length of processes
-          gyr: 2-3 weeks
-          ctc: 30 minutes
-        questions:
-          stimulus_html: <strong>Do you have questions about Stimulus Payments?</strong> Visit <a href="https://getyourrefund.org/stimulus" target="_blank" rel="nofollow noopener">https://getyourrefund.org/stimulus</a>
-          ctc_html: <strong>Do you have questions about the Child Tax Credit?</strong> Visit <a href="https://getctc.org/#claim_credit" target="_blank" rel="nofollow noopener">https://getctc.org#claim-credit</a>
       navigators:
         help_text: Guidance for community-based navigators seeking to help hard-to-reach clients access the Advance Child Tax Credit (AdvCTC) or Economic Impact Payment (EIP or Stimulus).
         title: GetCTC.org Navigator Resources
