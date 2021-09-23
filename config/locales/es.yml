@@ -1728,6 +1728,7 @@ es:
             - El dependiente no aportó más de la mitad de sus propio apoyo económico para 2020
             - El dependiente no presentó una declaración conjunta con su cónyuge en 2020
             - El dependiente no fue declarado como dependiente en otra declaración
+            - El familiar no nació en 2021
             done_button: Ya no hay más dependientes por agregar
             help_text: 'Para que una persona dependiente tenga derecho a recibir el CTC o las ayudas de estímulo, deberá cumplir las siguientes condiciones:'
             title: "%{name} no puede ser declarado como dependiente."
@@ -2018,15 +2019,9 @@ es:
             list:
             - Pagos federales de estímulo
             - Crédito Tributario por Hijos
-            note_html: 'Si presenta la declaración con GetCTC, puede presentar una declaración enmendada más tarde para reclamar los créditos adicionales que habría recibido al presentarla con GetYourRefund. <u>Este proceso puede ser bastante difícil</u>, y es probable que necesite la ayuda de un profesional de impuestos.
-
-              '
-            p1_html: 'Un hogar con un hijo menor de 6 años puede recibir un promedio de: <strong>7,500 dólares</strong>
-
-              '
-            p2_html: 'Un hogar sin hijos puede recibir un promedio de: <strong>3,200 dólares</strong>
-
-              '
+            note_html: Si presenta la declaración con GetCTC, puede presentar una declaración enmendada más tarde para reclamar los créditos adicionales que habría recibido al presentarla con GetYourRefund. <u>Este proceso puede ser bastante difícil</u>, y es probable que necesite la ayuda de un profesional de impuestos.
+            p1_html: 'Un hogar con un hijo menor de 6 años puede recibir un promedio de: <strong>7,500 dólares</strong>'
+            p2_html: 'Un hogar sin hijos puede recibir un promedio de: <strong>3,200 dólares</strong>'
           gyr:
             list:
             - Pagos federales de estímulo
@@ -2034,13 +2029,9 @@ es:
             - Crédito tributario por ingresos del trabajo
             - Crédito tributario por ingresos del trabajo de California
             - Pagos de estímulo del Golden State
-            - Crédito Tributario por Hijos Jóvenes de California (en inglés: Young Child Tax Credit)
-            p1_html: 'Un hogar con un niño menor de 6 años puede recibir un promedio de: <strong>12,200 dólares</strong>
-
-              '
-            p2_html: 'Un hogar sin hijos puede recibir un promedio de de: <strong>4,300 dólares</strong>
-
-              '
+            - 'Crédito Tributario por Hijos Jóvenes de California (en inglés: Young Child Tax Credit)'
+            p1_html: 'Un hogar con un niño menor de 6 años puede recibir un promedio de: <strong>12,200 dólares</strong>'
+            p2_html: 'Un hogar sin hijos puede recibir un promedio de de: <strong>4,300 dólares</strong>'
           title: Compare los beneficios
         compare_length:
           ctc: 30 minutos
@@ -2060,9 +2051,7 @@ es:
           title: Comparar la información requerida
         ctc: GetCTC
         gyr: GetYourRefund
-        helper_text_html: 'Con el Crédito Tributario por Hijos, los pagos de estímulo y otros créditos, muchas familias de California pueden reclamar más de 10,000 dólares en beneficios tributarios este año, incluso si tienen pocos o ningún ingreso. <strong>Reclame los beneficios que le corresponden.</strong>
-
-          '
+        helper_text_html: Con el Crédito Tributario por Hijos, los pagos de estímulo y otros créditos, muchas familias de California pueden reclamar más de 10,000 dólares en beneficios tributarios este año, incluso si tienen pocos o ningún ingreso. <strong>Reclame los beneficios que le corresponden.</strong>
         option_one:
           p_1: Esta opción es más larga y requiere más documentación, pero puede obtener más dinero.
           p_2: Esta opción es mejor para las personas que trabajaron en 2020 y que tienen todos los documentos requeridos para una declaración de impuestos completa.
@@ -2156,6 +2145,7 @@ es:
         file_your_return: Presente su declaración de forma simplificada ahora
         header: Declaración de impuestos simplificada para reclamar su Crédito Tributario por Hijo
         navigator_resources_html: "<strong>¿Es usted un socio de la comunidad que ayuda a otra persona a acceder al CTC?</strong> <br>Consulte nuestra página de recursos para navegadores <a href='%{navigators_link}'>aquí.</a>\n"
+        need_help_html: ¿Necesitas ayuda? Llame al 877-907-0937 o <button type="button" class="open-intercom button--link">hable con nosotros por el chat</button> y obtenga ayuda para reclamar sus pagos de estímulo.
         obtain:
           already_filed:
             body1: Si ya declaró los impuestos del 2019 o 2020 y no ha tenido cambios significativos en su hogar, no  necesita hacer nada más. Sabemos que las situaciones familiares pueden cambiar rápidamente. Para recibir la cantidad correcta de dinero del Crédito Tributario por Hijos, puede asegurarse  que el IRS tenga la información correcta sobre las personas que forman parte de su hogar actual.
@@ -2838,7 +2828,7 @@ es:
       sms_terms:
         header: Términos y condiciones de código abreviado para GetYourRefund
         terms:
-          carrier_disclaimer: ''
+          carrier_disclaimer: Los operadores (por ejemplo, AT&amp;T, Verizon, T-Mobile, Sprint, etc.) no son responsables por los mensajes retrasados o no entregados.
           carriers_heading_html: "<strong>Nuestros mensajes pueden ser enviados por medio de los teléfonos de las siguientes compañías:</strong>"
           keywords_html: Si en cualquier momento se le olvidan las palabras claves que se utilizan, simplemente envíe el texto "<strong>HELP</strong>" al <strong>58750</strong>. Después de que mande el mensaje SMS de "<strong>HELP</strong>", le reponderemos dándole las instrucciones de cómo utilizar el servicio y cómo darse.
           major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."

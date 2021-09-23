@@ -2049,15 +2049,9 @@ en:
             list:
             - Federal stimulus payments
             - Child Tax Credit
-            note_html: 'If you file with GetCTC, you can file an amended return later to claim the additional credits you would have received by filing with GetYourRefund. <u>This process can be quite difficult</u>, and you would likely need assistance from a tax professional.
-
-              '
-            p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$7,500</strong>
-
-              '
-            p2_html: 'A household with no children may receive an average of: <strong>$3,200</strong>
-
-              '
+            note_html: If you file with GetCTC, you can file an amended return later to claim the additional credits you would have received by filing with GetYourRefund. <u>This process can be quite difficult</u>, and you would likely need assistance from a tax professional.
+            p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$7,500</strong>'
+            p2_html: 'A household with no children may receive an average of: <strong>$3,200</strong>'
           gyr:
             list:
             - Federal stimulus payments
@@ -2066,12 +2060,8 @@ en:
             - California Earned Income Tax Credit
             - Golden State Stimulus payments
             - California Young Child Tax Credit
-            p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$12,200</strong>
-
-              '
-            p2_html: 'A household with no children may receive an average of: <strong>$4,300</strong>
-
-              '
+            p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$12,200</strong>'
+            p2_html: 'A household with no children may receive an average of: <strong>$4,300</strong>'
           title: Compare benefits
         compare_length:
           ctc: 30 minutes
@@ -2091,9 +2081,7 @@ en:
           title: Compare required information
         ctc: GetCTC
         gyr: GetYourRefund
-        helper_text_html: 'With the Child Tax Credit, stimulus payments, and other credits, many California families can claim over $10,000 in tax benefits this year, even if they have little or no income. <strong>Claim the benefits that you are owed.</strong>
-
-          '
+        helper_text_html: With the Child Tax Credit, stimulus payments, and other credits, many California families can claim over $10,000 in tax benefits this year, even if they have little or no income. <strong>Claim the benefits that you are owed.</strong>
         option_one:
           p_1: This option is longer and requires more documentation, but you may get more money.
           p_2: Best for people who worked in 2020 and who have all the required documents for a full tax return.
@@ -3509,7 +3497,8 @@ en:
             - I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed.
           - header: Performing the quality review
             content:
-            - I understand that I will need to participate in a Quality Review via phone in order to have a VITA preparation site file my taxes. I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
+            - I understand that I will need to participate in a Quality Review via phone in order to have a VITA preparation site file my taxes.
+            - I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
           - header: Sharing the completed return
             content:
             - Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission.
