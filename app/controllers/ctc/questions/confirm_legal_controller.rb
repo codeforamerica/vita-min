@@ -7,10 +7,9 @@ module Ctc
       layout "intake"
 
       def form_params
-        params = super.merge(ip_address: request.remote_ip).merge(
+        super.merge(ip_address: request.remote_ip).merge(
           Rails.application.config.try(:efile_security_information_for_testing).presence || {}
-        )
-        params.merge(recaptcha_score_param('confirm_legal'))
+        ).merge(recaptcha_score_param('confirm_legal'))
       end
 
       private

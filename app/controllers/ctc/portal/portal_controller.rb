@@ -40,15 +40,15 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   end
 
   def efile_security_params
-    params[:ctc_resubmit_form].merge!(recaptcha_score_param('submit'))
     params.require(:ctc_resubmit_form).permit(:device_id,
                                               :user_agent,
                                               :browser_language,
                                               :platform,
                                               :timezone_offset,
                                               :client_system_time,
-                                              :recaptcha_score
-                                              ).merge(ip_address: request.remote_ip)
+                                              :recaptcha_score)
+          .merge(ip_address: request.remote_ip)
+          .merge(recaptcha_score_param('resubmit'))
 
   end
 
