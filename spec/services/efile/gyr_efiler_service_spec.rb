@@ -101,6 +101,31 @@ RSpec.describe Efile::GyrEfilerService do
           }.to raise_error(Efile::GyrEfilerService::RetryableError)
         end
       end
+
+      context "when there was a SOAP connect time out" do
+        let(:log_output) do
+          <<~AUDIT_LOG
+            Name of Service Call: Login
+            Message ID of Service Call: abcdefg
+            Transaction Submission Date/Time: 2021-09-20T22:33:26Z
+            ETIN of Service Call: 1234
+            ASID: 121212
+            Login Certificate: abc123
+            Toolkit Version: 2020v11.1
+            Request data: N/A
+            Name of Service Call: Login
+            Message ID of Service Call: abcdefg
+            Transaction IRS Response Date/Time:
+            Transaction Result: Fault String: Error while sending a request to http://MeF-A2A-Remote/a2a/mef/Login : connect timed out - Fault Code: soap:Server - Detail: <?xml version="1.0" encoding="UTF-8"?>__
+          AUDIT_LOG
+        end
+
+        it "raises a RetryableError" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(Efile::GyrEfilerService::RetryableError)
+        end
+      end
     end
   end
 
