@@ -94,7 +94,6 @@ translation:
 
 ## Do not consider these keys missing:
 ignore_missing:
-  - 'test_new_translations_process'
   - 'views.ctc_pages.*'
   - 'general.tin.*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
@@ -102,6 +101,7 @@ ignore_missing:
 
 ## Consider these keys used:
 ignore_unused:
+  - 'test_new_translations_process'
   - 'date.formats.*'
   - 'general.*'
   - 'errors.*'
