@@ -80,10 +80,13 @@ class MailgunWebhooksController < ActionController::Base
           contact_record: contact_record,
           upload: upload_params
         )
-
       end
 
-      IntercomService.create_intercom_message_from_email(contact_record, inform_of_handoff: true) if client.forward_message_to_intercom?
+      if contact_record&.body&.blank? && contact_record&.attachment_count&.zero? && client.forward_message_to_intercom?
+        Sentry.capture_message("IncomingEmail #{contact_record.id} does not have a body or any attachments.")
+      elsif client.forward_message_to_intercom?
+        IntercomService.create_intercom_message_from_email(contact_record, inform_of_handoff: true)
+      end
 
       ClientChannel.broadcast_contact_record(contact_record)
     end

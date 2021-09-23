@@ -204,9 +204,28 @@ RSpec.describe MailgunWebhooksController do
         context "has tax return status in file_accepted, file_mailed or file_not_filing" do
           let!(:tax_returns) { [(create :tax_return, status: "file_not_filing", year: 2020), (create :tax_return, status: "file_accepted")] }
 
-          it "creates intercom message for the client" do
-            post :create_incoming_email, params: params
-            expect(IntercomService).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
+          context "with a body" do
+            it "creates intercom message for the client" do
+              post :create_incoming_email, params: params
+              expect(IntercomService).to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
+            end
+          end
+
+          context "without a body or attachments" do
+            before do
+              allow_any_instance_of(IncomingEmail).to receive(:body).and_return ""
+              allow(Sentry).to receive(:capture_message)
+            end
+
+            it "sends a message to Sentry" do
+              post :create_incoming_email, params: params
+              expect(Sentry).to have_received(:capture_message).with("IncomingEmail #{IncomingEmail.last.id} does not have a body or any attachments.")
+            end
+
+            it "does not create an intercom message for the client" do
+              post :create_incoming_email, params: params
+              expect(IntercomService).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
+            end
           end
         end
 
