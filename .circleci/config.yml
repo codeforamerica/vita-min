@@ -70,6 +70,17 @@ commands:
           key: schema-{{ checksum "db/schema.rb" }}
           paths: [tmp/test_db_schema.rb]
 jobs:
+  i18n_normalize:
+    executor: ruby_executor
+    steps:
+      - checkout
+      - install_ruby_dependencies
+      - run: bundle exec i18n-tasks normalize
+      - run: git config --global user.name CircleCI && git config --global user.email circleci@example.com
+      - add_ssh_keys:
+          fingerprints:
+            - "0a:b8:14:ae:05:dd:17:9c:f4:6e:3c:45:81:8f:06:8d"
+      - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push origin translations_config-locales-en-yml--main_es)
   run_js_tests:
     executor: ruby_executor
     steps:
@@ -158,6 +169,10 @@ workflows:
   version: 2
   ci-and-deploy:
     jobs:
+      - i18n_normalize:
+          filters:
+            branches:
+              only: translations_config-locales-en-yml--main_es
       - run_js_tests
       - run_ruby_tests
       - deploy_to_aptible--demo:
