@@ -1,4 +1,5 @@
 class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
+  include RecaptchaScoreConcern
   before_action :ensure_current_submission, except: [:home]
 
   def home
@@ -39,11 +40,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   end
 
   def efile_security_params
-    if verify_recaptcha(action: 'resubmit')
-      params[:ctc_resubmit_form][:recaptcha_score] = recaptcha_reply['score'] if recaptcha_reply.present?
-    else
-      Rails.logger.error "Failed to verify recaptcha token due to the following errors: #{recaptcha_reply["error-codes"]}"
-    end
+    params[:ctc_resubmit_form].merge!(recaptcha_score_param('submit'))
     params.require(:ctc_resubmit_form).permit(:device_id,
                                               :user_agent,
                                               :browser_language,

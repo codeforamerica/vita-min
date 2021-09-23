@@ -58,7 +58,7 @@ describe Ctc::Portal::PortalController do
       end
       before do
         sign_in client, scope: :client
-        allow_any_instance_of(Recaptcha::Adapters::ControllerMethods).to receive(:recaptcha_reply).and_return({ 'score' => "0.9" })
+        allow_any_instance_of(RecaptchaScoreConcern).to receive(:recaptcha_score_param).and_return({ recaptcha_score: "0.9" })
         client.tax_returns.first.update(efile_submissions: [submission])
       end
 
