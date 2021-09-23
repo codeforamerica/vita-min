@@ -80,7 +80,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "0a:b8:14:ae:05:dd:17:9c:f4:6e:3c:45:81:8f:06:8d"
-      - run: git diff --quiet || ( git commit -am "Run i18n-tasks normalize" && git push origin normalize-ci-build-#179665194 )
+      - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push origin translations_config-locales-en-yml--main_es)
   run_js_tests:
     executor: ruby_executor
     steps:
@@ -172,7 +172,7 @@ workflows:
       - i18n_normalize:
           filters:
             branches:
-              only: normalize-ci-build-#179665194 # translations_config-locales-en-yml--main_es
+              only: translations_config-locales-en-yml--main_es
       - run_js_tests
       - run_ruby_tests
       - deploy_to_aptible--demo:
