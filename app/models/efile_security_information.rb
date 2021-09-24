@@ -42,8 +42,4 @@ class EfileSecurityInformation < ApplicationRecord
 
     DateTime.parse(client_system_time)
   end
-
-  def fraud_suspected?
-    recaptcha_score.present? && recaptcha_score.zero?
-  end
 end

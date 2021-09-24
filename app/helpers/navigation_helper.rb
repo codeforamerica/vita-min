@@ -7,7 +7,7 @@ module NavigationHelper
   end
 
   def fraud_icon(client)
-    image_tag("security-notification.svg") if client.efile_security_informations.any?(&:fraud_suspected?)
+    image_tag("security-notification.svg") if FraudIndicatorService.new(client).fraud_suspected?
   end
 
   private

@@ -6,7 +6,7 @@ RSpec.describe NavigationHelper do
 
     context "the client with fraud suspected" do
       before do
-        allow_any_instance_of(EfileSecurityInformation).to receive(:fraud_suspected?).and_return(true)
+        allow_any_instance_of(FraudIndicatorService).to receive(:fraud_suspected?).and_return(true)
       end
 
       it "returns the fraud icon" do
