@@ -36,6 +36,7 @@ describe EfileSubmissionStateMachine do
         it "transitions the tax return status and submission status to hold" do
           submission.transition_to!(:preparing)
           expect(submission.current_state).to eq "fraud_hold"
+          expect(submission.last_transition.metadata["indicators"]).to eq ["recaptcha_score"]
           expect(submission.tax_return.status).to eq("file_hold")
         end
       end

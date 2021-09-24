@@ -37,8 +37,11 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :preparing) do |submission|
-    has_blocking_fraud_characteristics = FraudIndicatorService.assess!(submission)
-    unless has_blocking_fraud_characteristics
+    fraud_indicator_service = FraudIndicatorService.new(submission)
+    hold_indicators = fraud_indicator_service.hold_indicators
+    if hold_indicators.present? && !submission.admin_resubmission?
+      submission.transition_to!(:fraud_hold, indicators: hold_indicators)
+    else
       BuildSubmissionBundleJob.perform_later(submission.id)
       submission.tax_return.update(status: "file_ready_to_file")
     end
