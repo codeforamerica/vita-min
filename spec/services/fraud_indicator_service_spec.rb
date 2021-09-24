@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe FraudIndicatorService do
   let(:submission) { create :efile_submission, :preparing }
+  let(:client) { submission.client }
   let(:user) { create :admin_user }
 
   describe "#hold_indicators" do
@@ -12,7 +13,7 @@ describe FraudIndicatorService do
         end
 
         it "responds with an array that includes recaptcha_score" do
-          expect(FraudIndicatorService.new(submission).hold_indicators).to eq ['recaptcha_score']
+          expect(FraudIndicatorService.new(client).hold_indicators).to eq ['recaptcha_score']
         end
       end
 
@@ -22,7 +23,7 @@ describe FraudIndicatorService do
         end
 
         it "the response array does not include recaptcha_score" do
-          expect(FraudIndicatorService.new(submission).hold_indicators).to eq []
+          expect(FraudIndicatorService.new(client).hold_indicators).to eq []
         end
       end
 
@@ -32,7 +33,7 @@ describe FraudIndicatorService do
         end
 
         it "the response array does not include recaptcha_score" do
-          expect(FraudIndicatorService.new(submission).hold_indicators).to eq []
+          expect(FraudIndicatorService.new(client).hold_indicators).to eq []
         end
       end
     end

@@ -37,7 +37,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :preparing) do |submission|
-    fraud_indicator_service = FraudIndicatorService.new(submission)
+    fraud_indicator_service = FraudIndicatorService.new(submission.client)
     hold_indicators = fraud_indicator_service.hold_indicators
     if hold_indicators.present? && !submission.admin_resubmission?
       submission.transition_to!(:fraud_hold, indicators: hold_indicators)
