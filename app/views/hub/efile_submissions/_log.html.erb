@@ -1,6 +1,6 @@
 <li role="listitem">
   <div class="timestamp"><%= timestamp transition.created_at %></div>
-  <div class="status <%= transition.to_state %>"><%= transition.to_state %></div>
+  <div class="status <%= transition.to_state %>"><%= transition.to_state.humanize %></div>
   <div class="details">
     <% if transition.initiated_by.present? %>
       <div>Initiated by: <%= transition.initiated_by.name %></div>
@@ -12,7 +12,7 @@
         </div>
     <% end %>
     <% if transition.metadata["indicators"].present? %>
-      <div> <%= image_tag("security-notification.svg") %> <%= transition.metadata["indicators"].map(&:humanize).join(", ") %></div>
+      <div> Fraud indicators: <%= transition.metadata["indicators"].map(&:humanize).join(", ") %></div>
     <% end %>
     <% if transition.metadata["raw_response"].present? %>
       <div class="accordion spacing-above-10">
@@ -25,7 +25,6 @@
               <%= transition.metadata["raw_response"] %>
             </code>
           </pre>
-
         </div>
       </div>
     <% end %>
