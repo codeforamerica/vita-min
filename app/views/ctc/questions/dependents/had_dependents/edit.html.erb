@@ -1,13 +1,5 @@
 <% content_for :form_question, t("views.ctc.questions.dependents.had_dependents.title") %>
 
 <% content_for :form_help_text do %>
-  <%= t("views.ctc.questions.dependents.had_dependents.help_text") %>
-
-  <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.had_dependents.what_relationships_reveal")) do %>
-    <ul>
-      <% dependent_relationship_options.each do |_k, relationship| %>
-        <li><%= translated_relationship(relationship) %></li>
-      <% end %>
-    </ul>
-  <% end %>
+  <%= t("views.ctc.questions.dependents.had_dependents.help_text_html") %>
 <% end %>
