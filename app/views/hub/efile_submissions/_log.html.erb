@@ -12,7 +12,7 @@
         </div>
     <% end %>
     <% if transition.metadata["indicators"].present? %>
-      <div> <%= image_tag("security_notification") %> <%= transition.metadata["indicators"].map(&:humanize).join(", ") %></div>
+      <div> <%= image_tag("security-notification.svg") %> <%= transition.metadata["indicators"].map(&:humanize).join(", ") %></div>
     <% end %>
     <% if transition.metadata["raw_response"].present? %>
       <div class="accordion spacing-above-10">

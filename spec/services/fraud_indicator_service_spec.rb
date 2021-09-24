@@ -23,7 +23,7 @@ describe FraudIndicatorService do
         end
 
         it "the response array does not include recaptcha_score" do
-          expect(FraudIndicatorService.new(client).hold_indicators).to eq []
+          expect(FraudIndicatorService.new(client).hold_indicators).to eq ['recaptcha_score']
         end
       end
 

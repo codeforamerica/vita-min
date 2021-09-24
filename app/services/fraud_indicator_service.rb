@@ -22,6 +22,6 @@ class FraudIndicatorService
   private
 
   def recaptcha_score
-    @efile_security_informations.any? { |esi| esi.recaptcha_score.present? && esi.recaptcha_score <= 0.5 }
+    @efile_security_informations.any? { |esi| esi.recaptcha_score.blank? || esi.recaptcha_score <= 0.5 }
   end
 end
