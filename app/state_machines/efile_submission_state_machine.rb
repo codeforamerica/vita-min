@@ -37,8 +37,14 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :preparing) do |submission|
-    BuildSubmissionBundleJob.perform_later(submission.id)
-    submission.tax_return.update(status: "file_ready_to_file")
+    fraud_indicator_service = FraudIndicatorService.new(submission)
+    hold_indicators = fraud_indicator_service.hold_indicators
+    if hold_indicators.present? && !submission.admin_resubmission?
+      submission.transition_to!(:fraud_hold, indicators: hold_indicators)
+    else
+      BuildSubmissionBundleJob.perform_later(submission.id)
+      submission.tax_return.update(status: "file_ready_to_file")
+    end
   end
 
   after_transition(to: :queued) do |submission|
