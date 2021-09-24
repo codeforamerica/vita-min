@@ -24,8 +24,8 @@ RSpec.describe RecaptchaScoreConcern, type: :controller do
         allow_any_instance_of(Recaptcha::Adapters::ControllerMethods).to receive(:recaptcha_reply).and_return({ 'error-codes' => "[a-terrible-test-failure]" })
       end
 
-      it "sends a Sentry message" do
-        subject.recaptcha_score_param("test")
+      it "sends a Sentry message and returns an empty hash" do
+        expect(subject.recaptcha_score_param("test")).to eq({})
         expect(Sentry).to have_received(:capture_message).with("Failed to verify recaptcha token due to the following errors: [a-terrible-test-failure]")
       end
 
@@ -34,8 +34,8 @@ RSpec.describe RecaptchaScoreConcern, type: :controller do
           allow_any_instance_of(Recaptcha::Adapters::ControllerMethods).to receive(:recaptcha_reply).and_return(nil)
         end
 
-        it "sends a more dire Sentry message" do
-          subject.recaptcha_score_param("test")
+        it "sends a more dire Sentry message and returns an empty hash" do
+          expect(subject.recaptcha_score_param("test")).to eq({})
           expect(Sentry).to have_received(:capture_message).with("Something bad happened when attempting recaptcha!")
         end
       end

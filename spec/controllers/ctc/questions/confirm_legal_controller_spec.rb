@@ -63,6 +63,23 @@ describe Ctc::Questions::ConfirmLegalController do
           )
         end
 
+        context "when unable to get a recaptcha score" do
+          before do
+            allow_any_instance_of(RecaptchaScoreConcern).to receive(:recaptcha_score_param).and_return({})
+          end
+          it "create a submission with the status of 'preparing' and send client a message and redirect to portal home" do
+            expect {
+              post :update, params: params
+            }.to change(client.efile_security_informations, :count).by 1
+
+            expect(response).to redirect_to ctc_portal_root_path
+            efile_submission = client.reload.tax_returns.last.efile_submissions.last
+            expect(efile_submission.current_state).to eq "preparing"
+            expect(client.efile_security_informations.last.ip_address).to eq ip_address
+            expect(client.efile_security_informations.last.recaptcha_score).to eq nil
+          end
+        end
+
         context "when HOLD_OFF_NEW_EFILE_SUBMISSIONS is set" do
           around do |example|
             ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'] = '1'

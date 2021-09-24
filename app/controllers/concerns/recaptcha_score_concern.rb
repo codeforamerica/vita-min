@@ -7,5 +7,6 @@ module RecaptchaScoreConcern
     else
       Sentry.capture_message "Something bad happened when attempting recaptcha!"
     end
+    {}
   end
 end
