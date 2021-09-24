@@ -100,6 +100,7 @@ ignore_missing:
 ## Consider these keys used:
 ignore_unused:
   - 'test_new_translations_process'
+  - 'test_new_translations_process_2'
   - 'date.formats.*'
   - 'general.*'
   - 'errors.*'

@@ -1430,6 +1430,7 @@ es:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
       subheader: Favor de inscribirse aquí para recibir notificaciones cuando abramos en enero 2021.
   test_new_translations_process: Hice mis impuestos y mi perro estaba presente
+  test_new_translations_process_2: Hice mis impuestos y mi gato estaba presente
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.

@@ -1455,6 +1455,7 @@ en:
       header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
       subheader: Please sign up here to receive a notification when we open in January 2021.
   test_new_translations_process: I did my taxes and my dog was there
+  test_new_translations_process_2: I did my taxes and my cat was there
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
