@@ -371,6 +371,9 @@ Rails.application.routes.draw do
           get 'spouse', to: "spouse#edit"
           put 'spouse', to: "spouse#update"
 
+          get 'refund-payment', to: "refund_payment#edit"
+          put 'refund-payment', to: "refund_payment#update"
+
           get 'bank-account', to: "bank_account#edit"
           put 'bank-account', to: "bank_account#update"
 

@@ -44,8 +44,10 @@
           <% end %>
 
           <% if @intake.refund_payment_method_direct_deposit? %>
-            <%= render 'ctc/questions/confirm_information/bank_account_info', bank_account: @intake.bank_account || @intake.build_bank_account, edit_controller: Ctc::Portal::BankAccountController %>
-
+            <%= render 'ctc/questions/confirm_information/bank_account_info', bank_account: @intake.bank_account || @intake.build_bank_account, edit_controller: Ctc::Portal::RefundPaymentController %>
+          <% elsif @intake.refund_payment_method_check? %>
+            <!-- show something else if choose mail check? -->
+            <%= render 'ctc/questions/confirm_information/bank_account_info', bank_account: @intake.bank_account || @intake.build_bank_account, edit_controller: Ctc::Portal::RefundPaymentController %>
           <% end %>
         </div>
         <% if @submission.can_transition_to?(:resubmitted) %>
