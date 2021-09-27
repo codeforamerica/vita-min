@@ -1,0 +1,27 @@
+<% content_for :page_title, t(".title") %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="question__illustration">
+            <%= image_tag("portal/still-need-help.svg", alt: "") %>
+          </div>
+          <h1 class="h2 spacing-above-0"><%= t(".title") %></h1>
+
+          <p class="help-text"><%= t(".help_text") %></p>
+
+
+          <%= link_to portal_edit_upload_documents_path, class: "button button--wide text--centered" do %>
+            <%= t(".upload_additional_documents") %>
+          <% end %>
+
+          <%= link_to portal_still_needs_help_no_more_documents_path, method: :put, class: "button button--wide button--primary text--centered" do %>
+            <%= t(".no_additional_documents") %>
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

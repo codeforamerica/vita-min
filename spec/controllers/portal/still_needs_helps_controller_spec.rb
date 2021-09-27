@@ -63,7 +63,7 @@ describe Portal::StillNeedsHelpsController do
             expect(InteractionTrackingService).to have_received(:record_incoming_interaction).with(client)
 
             # redirects
-            expect(response).to redirect_to portal_still_needs_help_chat_later_path
+            expect(response).to redirect_to portal_still_needs_help_upload_documents_path
           end
         end
 

@@ -34,10 +34,11 @@ RSpec.feature "Still Needs Help" do
 
         click_on "Yes, I still need help"
 
-        expect(page).to have_text "Great! We'll chat with you in June."
+        expect(page).to have_text I18n.t("portal.still_needs_helps.upload_documents.title")
 
-        click_on "Return to home"
+        click_on I18n.t("portal.still_needs_helps.upload_documents.no_additional_documents")
         expect(page).to have_text "Welcome back Carrie!"
+        expect(client.system_notes.last.body).to eq "Client indicated that they do not have any more documents to upload."
       end
     end
   end
