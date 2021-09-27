@@ -279,6 +279,7 @@ es:
       17_grandparent: Abuela/Abuelo
     dependents: Dependientes
     divorced: Divorciado
+    document_deadline: Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.
     document_type: Clase de documento
     document_types:
       care_provider_statement: Declaración del Proveedor de Cuidados
