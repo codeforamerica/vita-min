@@ -2105,6 +2105,7 @@ en:
           cfa_product_html: GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">Why do we do this work?</a>
           irs: IRS-approved official E-file provider.
           white_house_html: Made in collaboration with the <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">White House and U.S. Department of Treasury</a>.
+        closing_banner_html: "<strong>We are unable to accept new clients after October 1st.</strong> If your return is in progress, log in and submit your documents by October 8th in order to file by the deadline."
         common_questions:
           are_daca_recipients_eligible:
             answer_html: Yes, DACA recipients are eligible for the Child Tax Credit so long as the children being claimed in the household have a valid SSN. DACA recipients who are dependents of ITIN filers can also be claimed for the Child Tax Credit because they have valid Social Security Numbers.

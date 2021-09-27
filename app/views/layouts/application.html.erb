@@ -77,6 +77,7 @@
       <div class="flash-alerts">
         <%= render "shared/flash_alerts", flash: flash %>
       </div>
+      <%= yield(:notice) if content_for?(:notice) %>
 
       <%= content_for?(:main) ? yield(:main) : yield %>
       <%= content_for?(:footer) ? yield(:footer) : render('shared/footer') %>
