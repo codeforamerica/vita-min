@@ -7,7 +7,7 @@ export function getEfileSecurityInformation(formName) {
     Fingerprint2.get(function(components) {
         let concatenated = components.map(function (pair) { return pair.value }).join('###')
         let concatenatedAndHashed = CryptoJS.SHA1(concatenated).toString().toUpperCase();
-
+        let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         let now = new Date();
         let timezoneOffset = now.getTimezoneOffset();
         let timezoneOffsetString = timezoneOffset < 0 ? (timezoneOffset.toString()) : ("+" + timezoneOffset);
@@ -17,7 +17,8 @@ export function getEfileSecurityInformation(formName) {
             browser_language: navigator.language,
             platform: navigator.platform,
             client_system_time: now,
-            timezone_offset: timezoneOffsetString
+            timezone_offset: timezoneOffsetString,
+            timezone: timezone,
         };
 
         for (const attr in securityAttributes) {

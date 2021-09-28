@@ -13,7 +13,8 @@ describe Ctc::ConfirmLegalForm do
       timezone_offset: "+240",
       client_system_time: "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)",
       ip_address: "1.1.1.1",
-      recaptcha_score: "0.9"
+      recaptcha_score: "0.9",
+      timezone: "America/New_York"
     }
   end
 

@@ -8,6 +8,7 @@
 #  ip_address          :inet
 #  platform            :string
 #  recaptcha_score     :decimal(, )
+#  timezone            :string
 #  timezone_offset     :string
 #  user_agent          :string
 #  created_at          :datetime         not null
@@ -35,5 +36,6 @@ FactoryBot.define do
     timezone_offset { "+240" }
     client_system_time { "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)" }
     ip_address { IPAddr.new("1.1.1.1") }
+    timezone { "America/New_York" }
   end
 end
