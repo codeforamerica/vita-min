@@ -333,6 +333,23 @@ RSpec.describe ApplicationController, active_job: true do
     end
   end
 
+  describe "#set_source" do
+    context "with a 'cdss' source" do
+      it "redirects to diy" do
+        get :index, params: {source: "cdss"}
+
+        expect(response).to redirect_to diy_path
+      end
+    end
+    context "with a 'ca' source" do
+      it "redirects to diy" do
+        get :index, params: {source: "ca"}
+
+        expect(response).to redirect_to diy_path
+      end
+    end
+  end
+
   describe "#open_for_intake?" do
     context "when the cookie intake_open value is set" do
       before { request.cookies[:intake_open] = { value: DateTime.current } }

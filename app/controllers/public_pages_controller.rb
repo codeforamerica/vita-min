@@ -55,16 +55,6 @@ class PublicPagesController < ApplicationController
 
   def diy; end
 
-  def cdss
-    session[:source] = "cdss"
-    redirect_to diy_path
-  end
-
-  def ca
-    session[:source] = "ca"
-    redirect_to diy_path
-  end
-
   def pki_validation
     # Used for Identrust annual EV certificate validation
     respond_to do |format|

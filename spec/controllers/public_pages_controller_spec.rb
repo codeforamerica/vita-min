@@ -123,22 +123,4 @@ RSpec.describe PublicPagesController do
       expect(response).to be_ok
     end
   end
-
-  describe "#cdss" do
-    it "redirects to diy and sets cdss source" do
-      get :cdss
-
-      expect(response).to redirect_to diy_path
-      expect(session[:source]).to eq "cdss"
-    end
-  end
-
-  describe "#ca" do
-    it "redirects to diy and sets ca source" do
-      get :ca
-
-      expect(response).to redirect_to diy_path
-      expect(session[:source]).to eq "ca"
-    end
-  end
 end
