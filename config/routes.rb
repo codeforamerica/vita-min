@@ -108,6 +108,8 @@ Rails.application.routes.draw do
       end
 
       get "/diy", to: "public_pages#diy"
+      get "/cdss", to: "public_pages#cdss"
+      get "/ca", to: "public_pages#ca"
       get "/other-options", to: "public_pages#other_options"
       get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
       get "/maintenance", to: "public_pages#maintenance"
