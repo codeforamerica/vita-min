@@ -35,6 +35,7 @@ describe Ctc::Questions::ConfirmLegalController do
           platform: "iPad",
           timezone_offset: "+240",
           client_system_time: "2021-07-28T21:21:32.306Z",
+          timezone: "America/Chicago"
         }
       }
     end

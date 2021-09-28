@@ -40,10 +40,11 @@ describe Ctc::Questions::IncomeController do
       expect {
         post :update, params: params
       }.to change(EfileSecurityInformation, :count).by 1
-      post :update, params: params
 
+      expect(Client.last.intake.timezone).to eq "America/Chicago"
       efile_security = Client.last.efile_security_informations.last
       expect(efile_security.user_agent).to eq "GeckoFox"
+      expect(efile_security.timezone).to eq "America/Chicago"
       expect(efile_security.ip_address).to eq ip_address
     end
 
