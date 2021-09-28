@@ -2050,7 +2050,7 @@ es:
           title: Compare los beneficios
         compare_length:
           ctc: 30 minutos
-          gyr: De 2 a 3 semanas
+          gyr: Una hora
           title: Comparar la duración de los procesos
         compare_required_info:
           ctc:
@@ -2060,8 +2060,7 @@ es:
             list:
             - Documentos de empleo
             - "(W2’s, 1099’s, etc.)"
-            - Copia de papel de los documentos de identificación
-            - "(tarjeta de Seguro Social o documentos de ITIN)"
+            - Seguro Social o número de ITIN
           helper_text: Los documentos son necesarios para cada miembro de la familia en su declaración de impuestos.
           title: Comparar la información requerida
         ctc: GetCTC

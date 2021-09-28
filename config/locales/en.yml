@@ -2079,7 +2079,7 @@ en:
           title: Compare benefits
         compare_length:
           ctc: 30 minutes
-          gyr: 2-3 weeks
+          gyr: 1 hour
           title: Compare length of processes
         compare_required_info:
           ctc:
@@ -2089,8 +2089,7 @@ en:
             list:
             - Employment documents
             - "(W2’s, 1099’s, etc.)"
-            - Paper copy of IDs
-            - "(Social Security Card or ITIN paperwork)"
+            - Social Security or ITIN Numbers
           helper_text: Documents are required for each family member on your tax return.
           title: Compare required information
         ctc: GetCTC
