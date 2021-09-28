@@ -1110,6 +1110,15 @@ en:
         sent_at: Sent at %{datetime}
       title: Invitations
   messages:
+    closing_soon:
+      email:
+        body: 'We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. If we do not hear from you by then, we will close out your case and you can file with us next year.
+
+'
+        subject: GetYourRefund closing soon -- take action now if you need tax services
+      sms: 'We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. If we do not hear from you by then, we will close out your case and you can file with us next year.
+
+'
     contact_info_change:
       email:
         body: |
@@ -1412,7 +1421,7 @@ en:
         title: Great! We'll chat with you in June.
         upload_additional_documents: Upload additional documents
       edit:
-        help_text: We really want to help you with your taxes, but we’re currently at capacity. We’ll contact you in June if you still need our help to file your taxes.
+        help_text: We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes.
         not_interested: No, I'm not interested
         still_needs_help: Yes, I still need help
         title: Are you still interested in filing your taxes with us?
@@ -1423,6 +1432,11 @@ en:
           positive: Great!
         survey_question: How was your experience with GetYourRefund?
         title: Thank you for using GetYourRefund.
+      upload_documents:
+        help_text: If you have any additional documents that you need to upload, please use the button below. We need all of your documents by October 8th.
+        no_additional_documents: I have no additional documents
+        title: Great! If you have additional documents, please upload them below.
+        upload_additional_documents: Upload additional documents
     tax_returns:
       authorize_signature:
         efile_acceptance: I authorize GetYourRefund to enter or generate my PIN as my signature on my tax year %{year} electronically filed income tax return.

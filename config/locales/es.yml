@@ -1094,6 +1094,15 @@ es:
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
   messages:
+    closing_soon:
+      email:
+        body: 'Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos. Inicie sesión y responda antes del 8 de octubre. Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentarnos el próximo año.
+
+'
+        subject: 'GetYourRefund cerrará pronto: actúe ahora si necesita servicios de impuestos
+
+'
+      sms: Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos. Inicie sesión y responda antes del 8 de octubre. Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentarnos el próximo año.
     contact_info_change:
       email:
         body: |
@@ -1387,7 +1396,7 @@ es:
         title: "¡Genial! Le hablaremos en junio."
         upload_additional_documents: Subir documentos adicionales
       edit:
-        help_text: Nos gustaría ayudarle con sus impuestos, pero en este momento estamos a capacidad. Le contactaremos en junio si todavía necesita nuestra ayuda para declarar sus impuestos.
+        help_text: Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos.
         not_interested: No, no estoy interesado
         still_needs_help: Sí, todavía necesito ayuda
         title: "¿Todavía le interesa declarar sus impuestos con nosotros?"
@@ -1398,6 +1407,11 @@ es:
           positive: "¡Súper!"
         survey_question: "¿Cómo fue su experiencia con GetYourRefund?"
         title: Gracias por usar GetYourRefund.
+      upload_documents:
+        help_text: Si tiene documentos adicionales que necesita cargar, use el botón a continuación. Necesitamos todos sus documentos antes del 8 de octubre.
+        no_additional_documents: No tengo documentos adicionales
+        title: "¡Excelente! Si tiene documentos adicionales, cárguelos a continuación."
+        upload_additional_documents: Subir documentos adicionales
     tax_returns:
       authorize_signature:
         efile_acceptance: Autorizo a GetYourRefund a ingresar o generar mi PIN como firma mía en mi declaración de impuestos del año %{year} que presentó electrónicamente.

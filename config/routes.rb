@@ -145,6 +145,8 @@ Rails.application.routes.draw do
         get '/still-need-help', to: "still_needs_helps#edit", as: :still_needs_help
         put '/still-need-help', to: "still_needs_helps#update", as: :update_still_needs_help
         get '/still-need-help/chat-later', to: "still_needs_helps#chat_later", as: :still_needs_help_chat_later
+        get '/still-need-help/upload-documents', to: "still_needs_helps#upload_documents", as: :still_needs_help_upload_documents
+        put '/still-need-help/no-more-documents', to: "still_needs_helps#no_more_documents", as: :still_needs_help_no_more_documents
         get '/still-need-help/thank-you', to: "still_needs_helps#no_longer_needs_help", as: :still_needs_help_no_longer_needs_help
         put '/still-need-help/thank-you', to: "still_needs_helps#experience_survey", as: :still_needs_help_experience_survey
         resources :messages, only: [:new, :create]
