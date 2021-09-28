@@ -1096,13 +1096,9 @@ es:
   messages:
     closing_soon:
       email:
-        body: 'Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos. Inicie sesión y responda antes del 8 de octubre. Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentarnos el próximo año.
-
-'
-        subject: 'GetYourRefund cerrará pronto: actúe ahora si necesita servicios de impuestos
-
-'
-      sms: Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos. Inicie sesión y responda antes del 8 de octubre. Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentarnos el próximo año.
+        body: Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos. Inicie sesión y responda antes del 8 de octubre. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentarnos el próximo año.
+        subject: 'GetYourRefund cerrará pronto: actúe ahora si necesita servicios de impuestos'
+      sms: Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos. Inicie sesión y responda antes del 8 de octubre. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentarnos el próximo año.
     contact_info_change:
       email:
         body: |

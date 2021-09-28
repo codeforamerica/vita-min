@@ -1112,13 +1112,9 @@ en:
   messages:
     closing_soon:
       email:
-        body: 'We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. If we do not hear from you by then, we will close out your case and you can file with us next year.
-
-'
+        body: We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
-      sms: 'We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. If we do not hear from you by then, we will close out your case and you can file with us next year.
-
-'
+      sms: We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
     contact_info_change:
       email:
         body: |
