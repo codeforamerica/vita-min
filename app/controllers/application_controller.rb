@@ -104,6 +104,9 @@ class ApplicationController < ActionController::Base
     elsif request.headers.fetch(:referer, "").include?("google.com")
       session[:source] = "organic_google"
     end
+
+    redirect_to diy_path if params[:source] == "cdss"
+    redirect_to diy_path if params[:source] == "ca"
   end
 
   def referrer
