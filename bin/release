@@ -86,8 +86,14 @@ function cleanup() {
 trap cleanup EXIT
 
 echo "Updating local release branch."
-git checkout release
-git merge --ff-only "${new_release}" || {
+git checkout --quiet release
+git merge --quiet --ff-only "$origin_git_remote"/release || {
+  # merge failed
+  echo "unable to merge via fast-forward. likely conflict."
+  echo "try: \`git merge -ff main\` and resolve conflicts."
+  exit 1
+}
+git merge --quiet --ff-only "${new_release}" || {
   # merge failed
   echo "unable to merge via fast-forward. likely conflict."
   echo "try: \`git merge -ff main\` and resolve conflicts."
@@ -102,15 +108,10 @@ gh release create -F "$release_notes_body_file" --target "${new_release}" -t "$(
 git fetch "$origin_git_remote" --quiet
 
 echo "Updating release branch on GitHub. This triggers deployment."
-git push "$origin_git_remote" "${new_release}":release
-echo ""
-echo "• Released! Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
-echo ""
-
-# All done!
-echo ""
-echo "✨ Released https://github.com/codeforamerica/vita-min/releases/tag/$new_tag !"
+git push --quiet "$origin_git_remote" "${new_release}":release
+echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/tag/$new_tag"
 echo "🧷 If needed, rollback to: ${current_release}"
+echo "✨ Released! Watch deployment on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
 
 # Remove tempfiles now that they are successfully uploaded.
 rm -f "$release_notes_file" "$commits_file" "$release_notes_body_file"
