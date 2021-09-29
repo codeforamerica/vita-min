@@ -2,6 +2,8 @@ module Ctc
   module Questions
     class QuestionsController < ::Questions::QuestionsController
       helper_method :wrapping_layout
+      skip_before_action :unauthenticated_redirect_in_offseason
+
 
       private
 

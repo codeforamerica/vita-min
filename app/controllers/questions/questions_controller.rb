@@ -1,7 +1,7 @@
 module Questions
   class QuestionsController < ApplicationController
+    before_action :unauthenticated_redirect_in_offseason
     before_action :set_current_step
-
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 
@@ -87,6 +87,12 @@ module Questions
     end
 
     private
+
+    def unauthenticated_redirect_in_offseason
+      if Rails.configuration.offseason && !current_client
+        redirect_to root_path and return
+      end
+    end
 
     def after_update_success; end
 
