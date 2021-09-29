@@ -88,7 +88,7 @@ Rails.application.configure do
 
   # Allow incoming connections over ngrok
   config.hosts << /[a-z0-9]+\.ngrok\.io/
-  config.offseason = false
+  config.offseason = true
   config.hide_ctc = false
   config.ctc_url = "ctc.localhost:3000"
   config.gyr_url = "localhost:3000"

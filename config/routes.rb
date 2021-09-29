@@ -98,7 +98,9 @@ Rails.application.routes.draw do
 
       resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
 
-      get "/sign-up", to: redirect('/')
+      resources :signups, only: [:new, :create], path: "sign-up", path_names: { new: '' } do
+        get "/confirmation", to: "signups#confirmation", on: :collection
+      end
 
       namespace :diy do
         get "/file-yourself", to: "file_yourself#edit"

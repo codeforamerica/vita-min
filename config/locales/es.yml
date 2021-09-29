@@ -1436,10 +1436,10 @@ es:
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
   signups:
-    flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2021."
+    flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2022."
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
-      subheader: Favor de inscribirse aquí para recibir notificaciones cuando abramos en enero 2021.
+      subheader: Favor de inscribirse aquí para recibir notificaciones cuando abramos en enero 2022.
   test_new_translations_process: Hice mis impuestos y mi perro estaba presente
   test_new_translations_process_2: Hice mis impuestos y mi gato estaba presente
   validators:
@@ -2711,7 +2711,6 @@ es:
           button: Visite GetCTC
           title: "¿Busca sólo el Crédito Tributario por Hijo o le faltan los pagos por los estímulos?"
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
-        header_offseason: Una manera simple y gratuita de declarar sus impuestos.
         partners:
           header: Colaboramos con organizaciones de confianza
           learn_more_html: Obtenga más información sobre nosotros &rsaquo;
@@ -2721,7 +2720,7 @@ es:
         stimulus_faq:
           info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
         subheader: "¡Si tiene ingresos del trabajo y está listo para declarar su declaración con todos sus formularios de impuestos, le podemos ayudar a maximizar sus beneficios tributarios!"
-        subheader_offseason: GetYour Refund reanudará sus servicios en febrero para la temporada de impuestos 2021. Regístrese ahora, para ser notificado cuando empecemos nuestro servicio nuevamente.
+        subheader_offseason: "¡Regístrese ahora para la próxima temporada de impuestos! ¡Le notificaremos tan pronto como nuestro servicio vuelva a funcionar en enero!"
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
         cta: Presentar mis impuestos por mi cuenta gratis

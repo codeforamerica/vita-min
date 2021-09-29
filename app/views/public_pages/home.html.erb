@@ -6,7 +6,9 @@
   <div class="slab slab--banner">
     <div class="grid">
       <div class="grid__item">
-        <%= t('views.public_pages.home.closing_banner_html') %>
+        <% unless open_for_intake? %>
+          <%= t('views.public_pages.home.closing_banner_html') %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -21,7 +23,7 @@
     <div class="grid">
       <div class="grid__item width-one-half">
         <h1>
-          <%= open_for_intake? ? t("views.public_pages.home.header") : t("views.public_pages.home.header_offseason") %>
+          <%= t("views.public_pages.home.header") %>
         </h1>
         <p>
           <strong>
