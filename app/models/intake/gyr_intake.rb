@@ -340,6 +340,14 @@ class Intake::GyrIntake < Intake
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
   enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
 
+  after_save do
+    if saved_change_to_completed_at?(from: nil)
+      InteractionTrackingService.record_incoming_interaction(client) # client completed intake
+    elsif completed_at.present?
+      InteractionTrackingService.record_internal_interaction(client) # user updated completed intake
+    end
+  end
+
   def relevant_document_types
     DocumentTypes::ALL_TYPES.select do |doc_type_class|
       doc_type_class.relevant_to?(self)

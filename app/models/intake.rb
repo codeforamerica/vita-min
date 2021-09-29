@@ -276,14 +276,6 @@ class Intake < ApplicationRecord
     self.needs_to_flush_searchable_data_set_at = Time.current
   end
 
-  after_save do
-    if saved_change_to_completed_at?(from: nil)
-      InteractionTrackingService.record_incoming_interaction(client) # client completed intake
-    elsif completed_at.present?
-      InteractionTrackingService.record_internal_interaction(client) # user updated completed intake
-    end
-  end
-
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :primary_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
