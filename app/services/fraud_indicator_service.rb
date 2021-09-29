@@ -4,7 +4,9 @@ class FraudIndicatorService
     @efile_security_informations = client.efile_security_informations
   end
 
-  HOLD_INDICATORS = ["recaptcha_score"].freeze
+  US_TIMEZONE_STRINGS = ActiveSupport::TimeZone.us_zones.map { |tz| [tz.name, tz.tzinfo.name].uniq }.flatten.freeze
+
+  HOLD_INDICATORS = ["recaptcha_score", "international_timezone", "empty_timezone"].freeze
 
   def hold_indicators
     HOLD_INDICATORS.map do |indicator|
@@ -23,5 +25,13 @@ class FraudIndicatorService
 
   def recaptcha_score
     @efile_security_informations.any? { |esi| esi.recaptcha_score.present? && esi.recaptcha_score <= 0.5 }
+  end
+
+  def international_timezone
+    @efile_security_informations.any? { |esi| esi.timezone.present? && !US_TIMEZONE_STRINGS.include?(esi.timezone) }
+  end
+
+  def empty_timezone
+    @efile_security_informations.any? { |esi| !esi.timezone.present? }
   end
 end

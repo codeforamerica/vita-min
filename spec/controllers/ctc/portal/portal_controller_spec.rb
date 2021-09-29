@@ -52,7 +52,8 @@ describe Ctc::Portal::PortalController do
             "browser_language"=>"en-US",
             "platform"=>"MacIntel",
             "client_system_time"=>"Tue Aug 31 2021 11:46:22 GMT-0500 (Central Daylight Time)",
-            "timezone_offset"=>"+300"
+            "timezone_offset"=>"+300",
+            "timezone" => "America/Chicago"
           }
         }
       end
@@ -68,6 +69,8 @@ describe Ctc::Portal::PortalController do
         }.to change(client.efile_security_informations, :count).by 1
 
         expect(client.reload.efile_security_informations.last.ip_address).to be_present
+        expect(client.reload.efile_security_informations.last.timezone).to eq "America/Chicago"
+
         expect(client.reload.efile_security_informations.last.recaptcha_score).to eq 0.9
 
         system_note = SystemNote::CtcPortalAction.last

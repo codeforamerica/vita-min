@@ -45,6 +45,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
                                               :browser_language,
                                               :platform,
                                               :timezone_offset,
+                                              :timezone,
                                               :client_system_time,
                                               :recaptcha_score)
           .merge(ip_address: request.remote_ip)

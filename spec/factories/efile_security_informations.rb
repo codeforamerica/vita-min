@@ -37,5 +37,6 @@ FactoryBot.define do
     client_system_time { "Mon Aug 02 2021 18:55:41 GMT-0400 (Eastern Daylight Time)" }
     ip_address { IPAddr.new("1.1.1.1") }
     timezone { "America/New_York" }
+    recaptcha_score { 0.9 }
   end
 end

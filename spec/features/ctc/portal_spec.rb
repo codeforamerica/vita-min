@@ -28,6 +28,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
+    allow_any_instance_of(EfileSecurityInformation).to receive(:timezone).and_return("America/Chicago")
   end
 
   context "when the client has not verified" do
