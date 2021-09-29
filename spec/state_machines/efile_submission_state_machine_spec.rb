@@ -24,7 +24,7 @@ describe EfileSubmissionStateMachine do
 
       context "with blocking fraud characteristics" do
         before do
-          submission.client.efile_security_informations.last.update(recaptcha_score: 0.3)
+          submission.client.efile_security_informations.last.update(timezone: "Western Europe")
         end
 
         it "does not enqueue a job" do
@@ -36,7 +36,7 @@ describe EfileSubmissionStateMachine do
         it "transitions the tax return status and submission status to hold" do
           submission.transition_to!(:preparing)
           expect(submission.current_state).to eq "fraud_hold"
-          expect(submission.last_transition.metadata["indicators"]).to eq ["recaptcha_score"]
+          expect(submission.last_transition.metadata["indicators"]).to eq ["international_timezone"]
           expect(submission.tax_return.status).to eq("file_hold")
         end
       end
