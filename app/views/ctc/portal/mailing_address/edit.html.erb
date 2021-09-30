@@ -5,7 +5,7 @@
 <% content_for :card do %>
   <div class="question-layout">
     <div class="back">
-      <%= link_to t("general.back"), defined?(prev_path) ? prev_path : :back %>
+      <%= link_to t("general.back"), :back %>
     </div>
     <div class="question-wrapper">
       <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
