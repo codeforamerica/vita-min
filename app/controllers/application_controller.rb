@@ -231,7 +231,7 @@ class ApplicationController < ActionController::Base
   end
 
   def open_for_intake?
-    true
+    !Rails.configuration.offseason
   end
 
   private

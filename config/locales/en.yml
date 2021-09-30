@@ -1461,10 +1461,10 @@ en:
     home:
       already_started: Already started? Sign in
   signups:
-    flash_notice: Thank you! You will receive a notification when we open in January 2021.
+    flash_notice: Thank you! You will receive a notification when we open in January 2022.
     new:
       header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
-      subheader: Please sign up here to receive a notification when we open in January 2021.
+      subheader: Please sign up here to receive a notification when we open in January 2022.
   test_new_translations_process: I did my taxes and my fish was there
   test_new_translations_process_2: I did my taxes and my cat was there. If I change this copy will it show up as untranslated in Transifex?
   validators:
@@ -2722,7 +2722,6 @@ en:
           button: Visit GetCTC
           title: Looking for just your Child Tax Credit or missing stimulus payments?
         header: Free tax filing, made simple.
-        header_offseason: Free tax filing, real human support.
         partners:
           header: We partner with trusted organizations
           learn_more_html: Learn more about us &rsaquo;
@@ -2732,7 +2731,7 @@ en:
         stimulus_faq:
           info: Already filed your taxes and have questions about your stimulus check?
         subheader: If you earned income and are ready to file with all of your tax documents, we can help you maximize your tax benefits!
-        subheader_offseason: GetYourRefund services will be opening in February for the 2021 tax season. Sign up and we'll notify you when our service is open!
+        subheader_offseason: Sign up for next tax season now! We'll notify you as soon as our service is back up in January!
         title: Free tax help from IRS-certified volunteers.
       maybe_ineligible:
         cta: File DIY

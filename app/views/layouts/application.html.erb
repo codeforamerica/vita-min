@@ -67,10 +67,6 @@
 
       <%= render "shared/environment_warning" %>
 
-      <% if show_offseason_banner?  %>
-        <%= render "shared/offseason_alert" %>
-      <% end %>
-
       <% if content_for(:back_to) %>
         <%= render "hub/back_to", back_to: content_for(:back_to)%>
       <% end %>
