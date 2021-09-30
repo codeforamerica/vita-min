@@ -26,6 +26,10 @@ describe Portal::MessagesController do
         }
       end
 
+      before do
+        allow(Rails.configuration).to receive(:forward_intercom_messages).and_return(true)
+      end
+
       it "creates a message, forwards to intercom, and redirects to portal home with flash" do
         expect {
           post :create, params: params
