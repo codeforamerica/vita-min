@@ -3,6 +3,7 @@
   border: 2px solid black;
   border-radius: 1rem;
   max-width: 570px;
+  word-break: break-word;
 
   &__title {
     h2 {
@@ -29,12 +30,16 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    > div {
+      max-width: 85%;
+    }
   }
 
   &__edit {
     color: $color-black;
     font-size: 1.6rem;
     font-weight: normal;
+    flex-shrink: 0;
   }
   &__edit-button {
     @extend .button;
@@ -45,7 +50,7 @@
     border: 2px solid black;
     padding: 5px 10px;
     line-height: 1;
-    margin: 0;
+    margin: 0 0 0 1rem !important;
     border-radius: 5px;
   }
   &__body {
