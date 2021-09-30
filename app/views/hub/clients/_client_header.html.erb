@@ -9,7 +9,7 @@
         <%= render "shared/urgent_icon", client: @client %>
 
         <% if @client.access_locked? %>
-          <%= link_to t("hub.unlock_account"), unlock_hub_client_path(id: @client), method: :patch, class: "button button--danger button--small", data: {  confirm: t("hub.unlock_confirmation", name: @client.preferred_name ) } %>
+          <%= link_to t("hub.unlock_account"), unlock_hub_client_path(id: @client), method: :patch, class: "button button--danger button--small", data: { confirm: t("hub.unlock_confirmation", name: @client.preferred_name) } %>
         <% end %>
       </div>
 
@@ -17,7 +17,7 @@
         <div class="item-15r"><%= t("general.flagged") %></div>
         <div class="item">
           <label class="toggle-switch">
-            <span class="sr-only" ><%= t("general.flagged") %></span>
+            <span class="sr-only"><%= t("general.flagged") %></span>
             <input id="toggle-flag" type="checkbox" <%= @client.flagged? && "checked" %> onchange="toggleFlag()">
             <span class="slider round"></span>
           </label>
@@ -25,22 +25,35 @@
       </div>
 
 
-      <% dupe_clients = @client.clients_with_dupe_contact_info %>
-      <% unless dupe_clients.empty? %>
+      <% ctc_dupe_clients = @client.clients_with_dupe_contact_info(true) %>
+      <% gyr_dupe_clients = @client.clients_with_dupe_contact_info(false) %>
+      <% if ctc_dupe_clients.present? || gyr_dupe_clients.present? %>
         <div class="text--help">
-          <i class="icon-warning"></i>
-          <span>
-            <%= t("hub.has_duplicates")%>
-            <% dupe_clients.map.with_index do |client_id, index| %>
-              <%= link_to "##{client_id}", hub_client_path(id: client_id) %>
-              <% unless index == (dupe_clients.length - 1) %>, <% end %>
-            <% end %>
-          </span>
+          <div>
+            <i class="icon-warning"></i>
+            <span class="help-text text--bold"><%= t("hub.has_duplicates") %></span>
+          </div>
+          <% if ctc_dupe_clients.present? %>
+            <div>
+              CTC:
+              <% ctc_dupe_clients.map.with_index do |client_id, index| %>
+                <%= link_to("##{client_id}", hub_client_path(id: client_id)) + ((index == (ctc_dupe_clients.length - 1)) ? "" : ", ") %>
+              <% end %>
+            </div>
+          <% end %>
+          <% if gyr_dupe_clients.present? %>
+            <div>
+              GYR:
+              <% gyr_dupe_clients.map.with_index do |client_id, index| %>
+                <%= link_to("##{client_id}", hub_client_path(id: client_id)) + ((index == (gyr_dupe_clients.length - 1)) ? "" : ", ") %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       <% end %>
 
       <div class="client-header__organization">
-      <h2><%= @client.vita_partner&.name || t("hub.not_assigned_html") %></h2>
+        <h2><%= @client.vita_partner&.name || t("hub.not_assigned_html") %></h2>
         <%= link_to "Edit", edit_organization_hub_client_path(id: @client.id), class: "button button--small" %>
       </div>
 
@@ -60,7 +73,7 @@
 <% content_for :script do %>
   <script>
       function toggleFlag() {
-        document.querySelector("form.toggle-flag").submit();
+          document.querySelector("form.toggle-flag").submit();
       }
   </script>
 <% end %>
