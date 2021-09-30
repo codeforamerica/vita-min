@@ -50,6 +50,7 @@ Rails.application.configure do
   config.i18n.available_locales = [:en, :es]
   config.offseason = false
   config.hide_ctc = false
+  config.forward_intercom_messages = false
   config.ctc_url = "https://ctc.test.example.com"
   config.gyr_url = "https://test.example.com"
   config.signature_log_bucket = "vita-min-test-signatures"

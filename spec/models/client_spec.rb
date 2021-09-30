@@ -818,6 +818,32 @@ describe Client do
           expect(client.forward_message_to_intercom?).to eq(false)
         end
       end
+
+      context "forward_intercom_messages is false in rails config" do
+        let(:status1) { "file_not_filing" }
+        let(:status2) { "file_accepted" }
+
+        before do
+          allow(Rails.configuration).to receive(:forward_intercom_messages).and_return(false)
+        end
+
+        it "returns false" do
+          expect(client.forward_message_to_intercom?).to eq(false)
+        end
+      end
+
+      context "forward_intercom_messages is true in rails config and all tax returns have FORWARD_TO_INTERCOM statuses" do
+        let(:status1) { "file_not_filing" }
+        let(:status2) { "file_accepted" }
+
+        before do
+          allow(Rails.configuration).to receive(:forward_intercom_messages).and_return(true)
+        end
+
+        it "returns true" do
+          expect(client.forward_message_to_intercom?).to eq(true)
+        end
+      end
     end
   end
 
