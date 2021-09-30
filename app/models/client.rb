@@ -269,6 +269,8 @@ class Client < ApplicationRecord
   end
 
   def forward_message_to_intercom?
+    return false unless Rails.configuration.forward_intercom_messages
+
     !online_ctc? && tax_returns.pluck(:status).map(&:to_sym).all? { |status| TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES.include? status }
   end
 
