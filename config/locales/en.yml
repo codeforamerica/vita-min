@@ -735,7 +735,7 @@ en:
         system_generated_doc: Auto-generated
         upload_by: Uploaded By
         upload_date: Upload Date
-    has_duplicates: 'Potential duplicates detected: '
+    has_duplicates: Potential duplicates detected
     last_client_update: 'Last client update: '
     last_outgoing_message: Last outgoing message
     messages:

@@ -56,6 +56,7 @@ RSpec.describe "a user viewing a client" do
     let(:first_org) { create :organization, coalition: coalition }
     let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info, email_address: "fizzy_pop@example.com") }
     let!(:intake_with_duplicate_email) { create :intake, email_address: "fizzy_pop@example.com", client: create(:client_with_status, vita_partner: first_org, status: "intake_ready") }
+    let!(:ctc_intake_with_duplicate_email) { create :ctc_intake, email_address: "fizzy_pop@example.com", client: create(:client_with_status, vita_partner: first_org, status: "intake_ready") }
     let!(:second_org) { create :organization, coalition: coalition }
     before { login_as user }
 
@@ -102,7 +103,9 @@ RSpec.describe "a user viewing a client" do
       expect(page).to have_text "fizzy_pop@example.com"
 
       within ".client-header" do
-        expect(page).to have_text "Potential duplicates detected: ##{intake_with_duplicate_email.client.id}"
+        expect(page).to have_text "Potential duplicates detected"
+        expect(page).to have_text "CTC: ##{ctc_intake_with_duplicate_email.client.id}"
+        expect(page).to have_text "GYR: ##{intake_with_duplicate_email.client.id}"
         click_on "##{intake_with_duplicate_email.client.id}"
       end
 
