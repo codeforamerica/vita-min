@@ -246,9 +246,11 @@ RSpec.feature "CTC Intake", :js, :active_job do
         click_on I18n.t("general.change")
       end
 
-      expect(page).to have_text "How would you like to receive any payments?"
-      click_on "Direct deposit (fastest)"
+      expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
+      choose I18n.t("views.questions.refund_payment.direct_deposit")
+      click_on I18n.t('general.continue')
 
+      expect(page).to have_text "Please provide your bank details below"
       fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
       choose I18n.t('views.questions.bank_details.account_type.checking')
       fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "133456789"
@@ -273,11 +275,18 @@ RSpec.feature "CTC Intake", :js, :active_job do
         click_on I18n.t("general.change")
       end
 
-      expect(page).to have_text "How would you like to receive any payments?"
-      click_on "Mail my payment (slower)"
+      expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
+      choose I18n.t("views.questions.refund_payment.check")
+      click_on I18n.t('general.continue')
 
       expect(page).to have_text "Edit your address"
-      # change address
+      fill_in I18n.t("views.questions.mailing_address.zip_code"), with: "94117"
+      click_on "Save"
+
+      expect(page).to have_text "No bank information entered."
+      within ".address-info" do
+        expect(page).to have_text "94117"
+      end
 
       expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
       click_on I18n.t("views.ctc.portal.home.contact_us")

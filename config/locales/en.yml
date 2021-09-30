@@ -3312,7 +3312,7 @@ en:
           one: In %{year}, did you receive any income from alimony?
           other: In %{year}, did you or your spouse receive any income from alimony?
       refund_payment:
-        check: Mail me a check (slower)
+        check: Mail my payment (slower)
         direct_deposit: Direct deposit (fastest)
         title: If due a refund, how would like to receive it?
       retirement_contributions:
