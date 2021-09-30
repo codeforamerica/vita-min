@@ -204,6 +204,10 @@ RSpec.describe MailgunWebhooksController do
         context "has tax return status in file_accepted, file_mailed or file_not_filing" do
           let!(:tax_returns) { [(create :tax_return, status: "file_not_filing", year: 2020), (create :tax_return, status: "file_accepted")] }
 
+          before do
+            allow(Rails.configuration).to receive(:forward_intercom_messages).and_return(true)
+          end
+
           context "with a body" do
             it "creates intercom message for the client" do
               post :create_incoming_email, params: params

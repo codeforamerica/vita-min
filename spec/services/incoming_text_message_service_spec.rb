@@ -68,6 +68,10 @@ describe IncomingTextMessageService do
       context "has all tax return status in file_accepted, file_mailed or file_not_filing" do
         let!(:tax_returns) { [(create :tax_return, status: "file_not_filing", year: 2020), (create :tax_return, status: "file_accepted")] }
 
+        before do
+          allow(Rails.configuration).to receive(:forward_intercom_messages).and_return(true)
+        end
+
         it "creates an intercom message for client" do
           IncomingTextMessageService.process(incoming_message_params)
 
