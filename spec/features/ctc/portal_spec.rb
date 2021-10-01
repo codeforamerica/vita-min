@@ -272,20 +272,6 @@ RSpec.feature "CTC Intake", :js, :active_job do
         expect(page).to have_text "Type: Checking"
         expect(page).to have_text "Routing number: 123456789"
         expect(page).to have_text "Account number: ●●●●●6789"
-        click_on I18n.t("general.change")
-      end
-
-      expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
-      choose I18n.t("views.questions.refund_payment.check")
-      click_on I18n.t('general.continue')
-
-      expect(page).to have_text "Edit your address"
-      fill_in I18n.t("views.questions.mailing_address.zip_code"), with: "94117"
-      click_on "Save"
-
-      expect(page).to have_text "No bank information entered."
-      within ".address-info" do
-        expect(page).to have_text "94117"
       end
 
       expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
@@ -339,6 +325,62 @@ RSpec.feature "CTC Intake", :js, :active_job do
       })
 
       expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
+      expect(page).to have_content("Client initiated resubmission of their tax return.")
+    end
+
+    scenario "a client can change their refund payment method" do
+      log_in_to_ctc_portal
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+      expect(page).to have_text "Rejected"
+
+      click_on I18n.t("views.ctc.portal.home.correct_info")
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.edit_info.title'))
+
+      expect(page).to have_text "Your bank information"
+
+      within ".bank-account-info" do
+        click_on I18n.t("general.change")
+      end
+
+      expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
+      choose I18n.t("views.questions.refund_payment.check")
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_text "Edit your address"
+      fill_in I18n.t("views.questions.mailing_address.zip_code"), with: "94117"
+      click_on "Save"
+
+      expect(page).to have_text "No bank information entered."
+      within ".address-info" do
+        expect(page).to have_text "94117"
+      end
+
+      click_on I18n.t('views.ctc.portal.edit_info.resubmit')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+      expect(page).to have_text I18n.t('views.ctc.portal.home.status.preparing.label')
+
+      # Go look for the note as an admin
+      Capybara.current_session.reset!
+
+      allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
+      login_as create :admin_user
+
+      visit hub_clients_path
+
+      within ".client-table" do
+        click_on intake.preferred_name
+      end
+
+      click_on I18n.t('hub.clients.navigation.client_notes')
+
+      notes = SystemNote::CtcPortalUpdate.order(:id)
+
+      expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({"zip_code" => ["94103", "94117"]})
+
+      expect(changes_table_contents(".changes-note-#{notes[2].id}")).to match({"payment_method" => ["direct_deposit", "check"]})
+
       expect(page).to have_content("Client initiated resubmission of their tax return.")
     end
 

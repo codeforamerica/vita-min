@@ -36,6 +36,9 @@
       </div>
     <% end %>
 
+    <div class="review-box__title">
+      <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
+    </div>
     <% if current_intake.refund_payment_method_direct_deposit? %>
       <%= render "bank_account_info", bank_account: current_intake.bank_account %>
     <% end %>

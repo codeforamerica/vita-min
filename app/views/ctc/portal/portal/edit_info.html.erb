@@ -47,16 +47,17 @@
             <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
           </div>
           <% unless @intake.bank_account.present? %>
-            <p>No bank information entered.</p>
+            <p><%= t("views.ctc.portal.edit_info.no_bank_account") %></p>
           <% end %>
 
           <% if @intake.refund_payment_method_direct_deposit? && @intake.bank_account.present? %>
             <%= render 'ctc/questions/confirm_information/bank_account_info', bank_account: @intake.bank_account || @intake.build_bank_account, edit_controller: Ctc::Portal::RefundPaymentController %>
           <% elsif @intake.refund_payment_method_check? %>
-            <p>You will receive a check to your mailing address above. If you’d like to receive a direct deposit select the add bank information button below.</p>
-            <%= link_to "Add bank information", ctc_portal_bank_account_path, class: "review-box__edit review-box__edit-button" %>
+            <p><%= t("views.ctc.portal.edit_info.will_send_check_to_address") %></p>
+            <%= link_to "Add bank information", ctc_portal_bank_account_path, class: "button button--small spacing-below-0" %>
           <% end %>
         </div>
+
         <% if @submission.can_transition_to?(:resubmitted) %>
           <p>
             <%= t("views.ctc.portal.edit_info.help_text") %>

@@ -1,15 +1,10 @@
 module Ctc
   module Portal
-    class RefundPaymentForm < Form
+    class RefundPaymentForm < QuestionsForm
       include FormAttributes
 
       set_attributes_for :intake, :refund_payment_method
       validates_presence_of :refund_payment_method
-
-      def initialize(intake, params = {})
-        @intake = intake
-        super(params)
-      end
 
       def save
         @intake.bank_account&.destroy if @intake.refund_payment_method == "direct_deposit" && refund_payment_method == "check" && @intake.bank_account.present?

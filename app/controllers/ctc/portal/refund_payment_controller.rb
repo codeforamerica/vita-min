@@ -1,7 +1,7 @@
 class Ctc::Portal::RefundPaymentController < Ctc::Portal::BaseIntakeRevisionController
 
   def edit
-    @form = form_class.new(current_intake)
+    @form = form_class.from_intake(current_intake)
     render edit_template
   end
 
@@ -12,8 +12,6 @@ class Ctc::Portal::RefundPaymentController < Ctc::Portal::BaseIntakeRevisionCont
       redirect_to ctc_portal_bank_account_path
     elsif current_intake.refund_payment_method_check?
       redirect_to ctc_portal_mailing_address_path
-    else
-      redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
     end
   end
 
