@@ -29,7 +29,7 @@ describe FraudIndicatorService do
 
       context "when recaptcha score is present but above the fraud threshold" do
         before do
-          create :efile_security_information, client: submission.client, recaptcha_score: 0.6
+          create :efile_security_information, client: submission.client, recaptcha_score: 0.3
         end
 
         it "the response array does not include recaptcha_score" do
