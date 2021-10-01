@@ -4,8 +4,6 @@ class FraudIndicatorService
     @efile_security_informations = client.efile_security_informations
   end
 
-  US_TIMEZONE_STRINGS = ActiveSupport::TimeZone.us_zones.map { |tz| [tz.name, tz.tzinfo.name].uniq }.flatten.freeze
-
   HOLD_INDICATORS = ["recaptcha_score", "international_timezone", "empty_timezone"].freeze
 
   def hold_indicators
@@ -23,12 +21,20 @@ class FraudIndicatorService
 
   private
 
+  def acceptable_timezone_strings
+    @acceptable_timezone_strings ||= begin
+      us_timezones = ActiveSupport::TimeZone.us_zones.map { |tz| [tz.name, tz.tzinfo.name].uniq }.flatten.freeze
+      overrides = IceNine.deep_freeze!(YAML.load_file("lib/timezone_overrides.yml"))
+      overrides + us_timezones
+    end
+  end
+
   def recaptcha_score
     @efile_security_informations.any? { |esi| esi.recaptcha_score.present? && esi.recaptcha_score < 0.3 }
   end
 
   def international_timezone
-    @efile_security_informations.any? { |esi| esi.timezone.present? && !US_TIMEZONE_STRINGS.include?(esi.timezone) }
+    @efile_security_informations.any? { |esi| esi.timezone.present? && !acceptable_timezone_strings.include?(esi.timezone) }
   end
 
   def empty_timezone

@@ -87,7 +87,16 @@ describe FraudIndicatorService do
 
         it "the response array includes international_timezone" do
           expect(FraudIndicatorService.new(client).hold_indicators).to eq ['empty_timezone']
+        end
+      end
 
+      context "when a timezone is from the overrides yml file" do
+        before do
+          submission.client.efile_security_informations.first.update(timezone: "America/Indianapolis")
+        end
+
+        it "the response array is empty" do
+          expect(FraudIndicatorService.new(client).hold_indicators).to eq []
         end
       end
     end
