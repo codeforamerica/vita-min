@@ -237,4 +237,25 @@ describe Intake::CtcIntake do
       end
     end
   end
+
+  context "before_save" do
+    context "normalize spaces in names" do
+      let(:intake) {
+        build :ctc_intake,
+          primary_first_name: "Anna  Marie",
+          primary_last_name: "Apple   Mango",
+          spouse_first_name: "Roberta    Margaret",
+          spouse_last_name: "Raspberry   Melon"
+      }
+
+      it "makes sure names with spaces only have one space between each name" do
+        intake.save
+
+        expect(intake.primary_first_name).to eq "Anna Marie"
+        expect(intake.primary_last_name).to eq "Apple Mango"
+        expect(intake.spouse_first_name).to eq "Roberta Margaret"
+        expect(intake.spouse_last_name).to eq "Raspberry Melon"
+      end
+    end
+  end
 end
