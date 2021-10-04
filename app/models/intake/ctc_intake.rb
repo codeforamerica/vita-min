@@ -292,8 +292,10 @@ class Intake::CtcIntake < Intake
     name_attributes = ["primary_first_name", "primary_last_name", "spouse_first_name", "spouse_last_name"]
 
     (attributes_to_change & name_attributes).each do |attribute|
-      new_value = self.send(attribute).split(/\s/).filter { |s| !s.empty? }.join(" ")
-      self.assign_attributes(attribute => new_value)
+      if self.send(attribute).present?
+        new_value = self.send(attribute).split(/\s/).filter { |str| !str.empty? }.join(" ")
+        self.assign_attributes(attribute => new_value)
+      end
     end
   end
 
