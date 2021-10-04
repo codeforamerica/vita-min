@@ -287,13 +287,13 @@ class Intake::CtcIntake < Intake
     self.spouse_ssn = self.spouse_ssn.remove(/\D/) if spouse_ssn_changed? && self.spouse_ssn
   end
 
-  before_save do
+  before_validation do
     attributes_to_change = self.changes_to_save.keys
     name_attributes = ["primary_first_name", "primary_last_name", "spouse_first_name", "spouse_last_name"]
 
     (attributes_to_change & name_attributes).each do |attribute|
-      if self.send(attribute).present?
-        new_value = self.send(attribute).split(/\s/).filter { |str| !str.empty? }.join(" ")
+      if self.attributes[attribute].present?
+        new_value = self.attributes[attribute].split(/\s/).filter { |str| !str.empty? }.join(" ")
         self.assign_attributes(attribute => new_value)
       end
     end

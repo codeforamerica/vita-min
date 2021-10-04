@@ -238,7 +238,7 @@ describe Intake::CtcIntake do
     end
   end
 
-  context "before_save" do
+  context "before_validation" do
     context "normalize spaces in names" do
       let(:intake) {
         build :ctc_intake,
@@ -249,7 +249,7 @@ describe Intake::CtcIntake do
       }
 
       it "makes sure names with spaces only have one space between each name" do
-        intake.save
+        intake.valid?
 
         expect(intake.primary_first_name).to eq "Anna Marie"
         expect(intake.primary_last_name).to eq "Apple Mango"
