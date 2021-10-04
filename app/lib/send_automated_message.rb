@@ -1,5 +1,5 @@
 class SendAutomatedMessage
-  attr_accessor :locale, :message, :message_name, :tax_return, :locale, :message_tracker, :sent_messages, :client, :user
+  attr_accessor :locale, :message, :message_name, :tax_return, :locale, :message_tracker, :sent_messages, :client
 
   def initialize(client:, message:, tax_return: nil, locale: nil, message_name: nil)
     @client = client
@@ -14,12 +14,8 @@ class SendAutomatedMessage
     @message_tracker ||= MessageTracker.new(client: client, message_name: message_name)
   end
 
-  def already_sent?
-    message_tracker.already_sent?
-  end
-
   def send_messages
-    return nil if already_sent?
+    return nil if message_tracker.already_sent?
 
     send_email
     send_sms
