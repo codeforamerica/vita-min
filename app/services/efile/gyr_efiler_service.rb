@@ -42,6 +42,8 @@ module Efile
             raise RetryableError, log_contents
           elsif log_contents.match(/connect timed out - Fault Code: soap:Server/)
             raise RetryableError, log_contents
+          elsif log_contents.match(/Transaction Result: The server sent HTTP status code 401: Unauthorized/)
+            raise RetryableError, log_contents
           else
             raise Error, log_contents
           end
