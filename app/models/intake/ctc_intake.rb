@@ -288,16 +288,13 @@ class Intake::CtcIntake < Intake
   end
 
   before_save do
-    # TODO: only normalize spacing when these attributes are being assigned/changed
-    [:primary_first_name, :primary_last_name, :spouse_first_name, :spouse_last_name].each do |attribute|
+    attributes_to_change = self.changes_to_save.keys
+    name_attributes = ["primary_first_name", "primary_last_name", "spouse_first_name", "spouse_last_name"]
+
+    (attributes_to_change & name_attributes).each do |attribute|
       new_value = self.send(attribute).split(/\s/).filter { |s| !s.empty? }.join(" ")
       self.assign_attributes(attribute => new_value)
     end
-
-    # self.primary_first_name = self.primary_first_name.split(/\s/).filter { |s| !s.empty? }.join(" ")
-    # self.primary_last_name = self.primary_last_name.split(/\s/).filter { |s| !s.empty? }.join(" ")
-    # self.spouse_first_name = self.spouse_first_name.split(/\s/).filter { |s| !s.empty? }.join(" ")
-    # self.spouse_last_name = self.spouse_last_name.split(/\s/).filter { |s| !s.empty? }.join(" ")
   end
 
   PHOTO_ID_TYPES = {
