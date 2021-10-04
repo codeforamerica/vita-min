@@ -49,377 +49,375 @@ RSpec.feature "CTC Intake", :js, :active_job do
     end
   end
 
-  context "when the client has verified the contact, intake is in progress" do
-    let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:tax_return, year: 2020)]), email_address: "mango@example.com"}
-    before do
-      intake.update(email_address_verified_at: DateTime.now, current_step: "/en/questions/spouse-info")
-    end
-
-    scenario "a client sees and can click on a link to continue their intake" do
-      log_in_to_ctc_portal
-
-      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text "More information needed"
-      expect(page).to have_text "We need more information from you before we can file your return."
-      click_on "Complete CTC form"
-      expect(page).to have_text "Tell us about your spouse"
-    end
-  end
-
-  context "when the client has verified the contact, efile submission is status new" do
-    before do
-      intake.update(email_address_verified_at: DateTime.now, current_step: "/en/questions/spouse-info")
-      create(:efile_submission, tax_return: create(:tax_return, client: intake.client, year: 2020))
-    end
-
-    scenario "a client sees and can click on a link to continue their intake" do
-      log_in_to_ctc_portal
-
-      expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
-      expect(page).to have_text I18n.t("views.ctc.portal.home.status.new.label")
-      expect(page).to have_text I18n.t("views.ctc.portal.home.status.new.message")
-    end
-  end
-
-  context "when the client has verified the contact, efile submission is status preparing" do
+  context "when the client has verified their contact info" do
     before do
       intake.update(email_address_verified_at: DateTime.now)
-      create(:efile_submission, :preparing, tax_return: create(:tax_return, client: intake.client, year: 2020))
     end
 
-    scenario "a client sees and can click on a link to continue their intake" do
-      log_in_to_ctc_portal
-
-      expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
-      expect(page).to have_text I18n.t("views.ctc.portal.home.status.preparing.label")
-      expect(page).to have_text I18n.t("views.ctc.portal.home.status.preparing.message")
-    end
-  end
-
-  context "when the client has verified the contact, efile submission is status failed" do
-    before do
-      intake.update(email_address_verified_at: DateTime.now)
-      create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client, year: 2020))
-    end
-
-    scenario "a client sees and can click on a link to continue their intake" do
-      log_in_to_ctc_portal
-
-      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text "Submission error"
-      expect(page).to have_text "Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return."
-    end
-  end
-
-  context "when the client has verified the contact, efile submission is status investigating" do
-    before do
-      intake.update(email_address_verified_at: DateTime.now)
-      es = create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client, year: 2020))
-      es.transition_to!(:investigating)
-
-    end
-    scenario "a client sees information about the previous transition to failed" do
-      log_in_to_ctc_portal
-
-      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text "Submission error"
-      expect(page).to have_text "Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days."
-    end
-
-  end
-
-  context "when the client has verified the contact, efile submission is status transmitted" do
-    before do
-      intake.update(email_address_verified_at: DateTime.now)
-      create(:efile_submission, :transmitted, tax_return: create(:tax_return, client: intake.client, year: 2020))
-    end
-
-    scenario "a client sees and can click on a link to continue their intake" do
-      log_in_to_ctc_portal
-
-      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text "Electronically filed"
-      expect(page).to have_text I18n.t("views.ctc.portal.home.status.transmitted.message")
-    end
-  end
-
-  context "when the client has verified the contact, efile submission is status accepted, there is a 1040 to download" do
-    before do
-      intake.update(email_address_verified_at: DateTime.now)
-      es = create(:efile_submission, :accepted, tax_return: create(:tax_return, client: intake.client, year: 2020))
-      create(:document, document_type: DocumentTypes::Form1040.key, tax_return: es.tax_return, client: es.tax_return.client)
-    end
-
-    scenario "a client sees and can click on a link to continue their intake" do
-      log_in_to_ctc_portal
-
-      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text "Accepted"
-      expect(page).to have_text "Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks."
-      expect(page).to have_link "Download my tax return"
-    end
-  end
-
-  context "when the client has verified the contact, efile submission is status rejected" do
-    let(:qualifying_child) { build(:qualifying_child, ssn: "111-22-3333") }
-    let(:dependent_to_delete) { build(:qualifying_child, first_name: "UniqueLookingName", ssn: "111-22-4444") }
-    let!(:intake) do
-      create(
-        :ctc_intake,
-        :with_address,
-        :with_contact_info,
-        :with_ssns,
-        :with_bank_account,
-        email_address: "mango@example.com",
-        email_notification_opt_in: "yes",
-        email_address_verified_at: DateTime.now,
-        refund_payment_method: "direct_deposit",
-        spouse_first_name: "Eva",
-        spouse_last_name: "Hesse",
-        spouse_birth_date: Date.new(1929, 9, 2),
-        dependents: [qualifying_child, dependent_to_delete]
-      )
-    end
-    let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2020, status: "intake_in_progress")) }
-
-    scenario "a client can correct their information" do
-      log_in_to_ctc_portal
-
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
-      expect(page).to have_text "Rejected"
-
-      click_on I18n.t("views.ctc.portal.home.correct_info")
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.edit_info.title'))
-
-      click_on I18n.t('general.back')
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
-
-      click_on I18n.t("views.ctc.portal.home.correct_info")
-
-      # Can't resubmit until you have made a meaningful edit
-      expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
-
-      within ".primary-info" do
-        click_on I18n.t('general.edit').downcase
-      end
-      fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Mangonada"
-      click_on I18n.t('general.save')
-
-      expect(page).to have_text "Mangonada"
-
-      within ".address-info" do
-        click_on I18n.t('general.edit').downcase
-      end
-      fill_in I18n.t("views.questions.mailing_address.street_address"), with: "123 Sandwich Lane"
-      click_on I18n.t('general.save')
-
-      expect(page).to have_text "123 Sandwich Lane"
-
-      within ".spouse-info" do
-        click_on I18n.t('general.edit').downcase
-      end
-      fill_in I18n.t("views.ctc.questions.spouse_info.spouse_first_name"), with: "Pomelostore"
-      click_on I18n.t('general.save')
-
-      expect(page).to have_text "Pomelostore"
-
-      within "#dependent_#{qualifying_child.id}" do
-        click_on I18n.t('general.edit').downcase
-      end
-      fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Papaya"
-      click_on I18n.t('general.save')
-
-      expect(page).to have_text "Papaya"
-
-      within "#dependent_#{dependent_to_delete.id}" do
-        click_on I18n.t('general.edit').downcase
-      end
-      click_on I18n.t('views.ctc.questions.dependents.tin.remove_person')
-      click_on I18n.t('views.ctc.questions.dependents.remove_dependent.remove_button')
-
-      expect(dependent_to_delete.reload.soft_deleted_at).to be_truthy
-      expect(page).not_to have_text dependent_to_delete.first_name
-
-      expect(page).to have_text "Your bank information"
-
-      within ".bank-account-info" do
-        click_on I18n.t("general.change")
+    context "intake is in progress" do
+      let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:tax_return, year: 2020)]), email_address: "mango@example.com" }
+      before do
+        intake.update(current_step: "/en/questions/spouse-info")
       end
 
-      expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
-      choose I18n.t("views.ctc.questions.refund_payment.direct_deposit")
-      click_on I18n.t('general.continue')
+      scenario "a client sees and can click on a link to continue their intake" do
+        log_in_to_ctc_portal
 
-      expect(page).to have_text "Please provide your bank details below"
-      fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
-      choose I18n.t('views.questions.bank_details.account_type.checking')
-      fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "133456789"
-      fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "133456789"
-      click_on I18n.t("general.save")
-      expect(page).to have_selector(".text--error", text: I18n.t('validators.routing_number'))
-      fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
-      choose I18n.t('views.questions.bank_details.account_type.checking')
-      check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
-
-      fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "123456789"
-      fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "123456789"
-      fill_in I18n.t('views.ctc.questions.account_number.account_number'), with: "123456789"
-      fill_in I18n.t('views.ctc.questions.account_number.account_number_confirmation'), with: "123456789"
-      click_on I18n.t("general.save")
-
-      within ".bank-account-info" do
-        expect(page).to have_text "Bank of Two Melons"
-        expect(page).to have_text "Type: Checking"
-        expect(page).to have_text "Routing number: 123456789"
-        expect(page).to have_text "Account number: ●●●●●6789"
+        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_text "More information needed"
+        expect(page).to have_text "We need more information from you before we can file your return."
+        click_on "Complete CTC form"
+        expect(page).to have_text "Tell us about your spouse"
       end
-
-      expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
-      click_on I18n.t("views.ctc.portal.home.contact_us")
-      click_on I18n.t("general.back")
-      click_on I18n.t('views.ctc.portal.edit_info.resubmit')
-
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
-      expect(page).to have_text I18n.t('views.ctc.portal.home.status.preparing.label')
-
-      # Go look for the note as an admin
-      Capybara.current_session.reset!
-
-      allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
-      login_as create :admin_user
-
-      visit hub_clients_path
-
-      within ".client-table" do
-        click_on intake.preferred_name
-      end
-
-      click_on I18n.t('hub.clients.navigation.client_notes')
-
-      notes = SystemNote::CtcPortalUpdate.order(:id)
-
-      expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({
-        "has_primary_ip_pin" => ["unfilled", "no"],
-        "primary_first_name" => ["Cher", "Mangonada"],
-      })
-
-      expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({
-        "street_address" => ["972 Mission St", "123 Sandwich Lane"],
-      })
-
-      expect(changes_table_contents(".changes-note-#{notes[2].id}")).to match({
-        "spouse_first_name" => ["Eva", "Pomelostore"],
-        "has_spouse_ip_pin" => ["unfilled", "no"],
-        "spouse_tin_type" => ["nil", "ssn"],
-        "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
-      })
-
-      expect(changes_table_contents(".changes-note-#{notes[3].id}")).to match({
-        "first_name" => ["Kara", "Papaya"],
-        "has_ip_pin" => ["unfilled", "no"],
-      })
-
-      expect(changes_table_contents(".changes-note-#{notes[4].id}")).to match({
-        "bank_name" => ["[REDACTED]", "[REDACTED]"],
-        "account_number" => ["[REDACTED]", "[REDACTED]"],
-      })
-
-      expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
-      expect(page).to have_content("Client initiated resubmission of their tax return.")
     end
 
-    scenario "a client can change their refund payment method" do
-      log_in_to_ctc_portal
-
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
-      expect(page).to have_text "Rejected"
-
-      click_on I18n.t("views.ctc.portal.home.correct_info")
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.edit_info.title'))
-
-      expect(page).to have_text "Your bank information"
-
-      within ".bank-account-info" do
-        click_on I18n.t("general.change")
+    context "efile submission is status new" do
+      before do
+        intake.update(current_step: "/en/questions/spouse-info")
+        create(:efile_submission, tax_return: create(:tax_return, client: intake.client, year: 2020))
       end
 
-      expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
-      choose I18n.t("views.ctc.questions.refund_payment.check")
-      click_on I18n.t('general.continue')
+      scenario "a client sees and can click on a link to continue their intake" do
+        log_in_to_ctc_portal
 
-      expect(page).to have_text "Edit your address"
-      fill_in I18n.t("views.questions.mailing_address.zip_code"), with: "94117"
-      click_on "Save"
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.new.label")
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.new.message")
+      end
+    end
 
-      expect(page).to have_text "No bank information entered."
-      within ".address-info" do
-        expect(page).to have_text "94117"
+    context "efile submission is status preparing" do
+      before do
+        create(:efile_submission, :preparing, tax_return: create(:tax_return, client: intake.client, year: 2020))
       end
 
-      click_on I18n.t('views.ctc.portal.edit_info.resubmit')
+      scenario "a client sees and can click on a link to continue their intake" do
+        log_in_to_ctc_portal
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
-      expect(page).to have_text I18n.t('views.ctc.portal.home.status.preparing.label')
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.preparing.label")
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.preparing.message")
+      end
+    end
 
-      # Go look for the note as an admin
-      Capybara.current_session.reset!
-
-      allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
-      login_as create :admin_user
-
-      visit hub_clients_path
-
-      within ".client-table" do
-        click_on intake.preferred_name
+    context "efile submission is status failed" do
+      before do
+        create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client, year: 2020))
       end
 
-      click_on I18n.t('hub.clients.navigation.client_notes')
+      scenario "a client sees and can click on a link to continue their intake" do
+        log_in_to_ctc_portal
 
-      notes = SystemNote::CtcPortalUpdate.order(:id)
-
-      expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({"zip_code" => ["94103", "94117"]})
-
-      expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({"refund_payment_method" => ["direct_deposit", "check"]})
-
-      expect(page).to have_content("Client initiated resubmission of their tax return.")
+        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_text "Submission error"
+        expect(page).to have_text "Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return."
+      end
     end
 
-    scenario "a client sees and can click on a link to continue their intake" do
-      log_in_to_ctc_portal
+    context "efile submission is status investigating" do
+      before do
+        es = create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        es.transition_to!(:investigating)
+      end
 
-      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text "Rejected"
-      expect(page).to have_text "IND-189"
-      expect(page).to have_text "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
-      # only show the first error to the user so as not to overwhelm them
-      expect(page).not_to have_text "IND-190: 'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
-      expect(page).to have_text "Please send us a message with questions or corrections using the \"Contact Us\" button below."
-      click_on "Contact us"
-      expect(page).to have_selector "h1", text: "Message your tax preparers"
-      fill_in "What's on your mind?", with: "I have some questions about my tax return."
-      click_on "Send message"
-      expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
-    end
-  end
+      scenario "a client sees information about the previous transition to failed" do
+        log_in_to_ctc_portal
 
-  context "when the client has verified the contact, efile submission is status cancelled" do
-    before do
-      intake.update(email_address_verified_at: DateTime.now)
-      es = create(:efile_submission, :rejected, :with_errors, tax_return: create(:tax_return, client: intake.client, year: 2020))
-      es.transition_to!(:cancelled)
+        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_text "Submission error"
+        expect(page).to have_text "Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days."
+      end
     end
 
-    scenario "a client sees information about their cancelled submission" do
-      log_in_to_ctc_portal
+    context "efile submission is status transmitted" do
+      before do
+        create(:efile_submission, :transmitted, tax_return: create(:tax_return, client: intake.client, year: 2020))
+      end
 
-      expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-      expect(page).to have_text I18n.t("views.ctc.portal.home.status.rejected.label")
-      expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.message")
-      click_on "Contact us"
-      expect(page).to have_selector "h1", text: "Message your tax preparer"
-      fill_in "What's on your mind?", with: "I have some questions about my tax return."
-      click_on "Send message"
-      expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
+      scenario "a client sees and can click on a link to continue their intake" do
+        log_in_to_ctc_portal
+
+        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_text "Electronically filed"
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.transmitted.message")
+      end
+    end
+
+    context "efile submission is status accepted, there is a 1040 to download" do
+      before do
+        es = create(:efile_submission, :accepted, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        create(:document, document_type: DocumentTypes::Form1040.key, tax_return: es.tax_return, client: es.tax_return.client)
+      end
+
+      scenario "a client sees and can click on a link to continue their intake" do
+        log_in_to_ctc_portal
+
+        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_text "Accepted"
+        expect(page).to have_text "Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks."
+        expect(page).to have_link "Download my tax return"
+      end
+    end
+
+    context "efile submission is status rejected" do
+      let(:qualifying_child) { build(:qualifying_child, ssn: "111-22-3333") }
+      let(:dependent_to_delete) { build(:qualifying_child, first_name: "UniqueLookingName", ssn: "111-22-4444") }
+      let!(:intake) do
+        create(
+          :ctc_intake,
+          :with_address,
+          :with_contact_info,
+          :with_ssns,
+          :with_bank_account,
+          email_address: "mango@example.com",
+          email_notification_opt_in: "yes",
+          refund_payment_method: "direct_deposit",
+          spouse_first_name: "Eva",
+          spouse_last_name: "Hesse",
+          spouse_birth_date: Date.new(1929, 9, 2),
+          dependents: [qualifying_child, dependent_to_delete]
+        )
+      end
+      let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2020, status: "intake_in_progress")) }
+
+      scenario "a client can correct their information" do
+        log_in_to_ctc_portal
+
+        expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+        expect(page).to have_text "Rejected"
+
+        click_on I18n.t("views.ctc.portal.home.correct_info")
+        expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.edit_info.title'))
+
+        click_on I18n.t('general.back')
+        expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+
+        click_on I18n.t("views.ctc.portal.home.correct_info")
+
+        # Can't resubmit until you have made a meaningful edit
+        expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
+
+        within ".primary-info" do
+          click_on I18n.t('general.edit').downcase
+        end
+        fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Mangonada"
+        click_on I18n.t('general.save')
+
+        expect(page).to have_text "Mangonada"
+
+        within ".address-info" do
+          click_on I18n.t('general.edit').downcase
+        end
+        fill_in I18n.t("views.questions.mailing_address.street_address"), with: "123 Sandwich Lane"
+        click_on I18n.t('general.save')
+
+        expect(page).to have_text "123 Sandwich Lane"
+
+        within ".spouse-info" do
+          click_on I18n.t('general.edit').downcase
+        end
+        fill_in I18n.t("views.ctc.questions.spouse_info.spouse_first_name"), with: "Pomelostore"
+        click_on I18n.t('general.save')
+
+        expect(page).to have_text "Pomelostore"
+
+        within "#dependent_#{qualifying_child.id}" do
+          click_on I18n.t('general.edit').downcase
+        end
+        fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Papaya"
+        click_on I18n.t('general.save')
+
+        expect(page).to have_text "Papaya"
+
+        within "#dependent_#{dependent_to_delete.id}" do
+          click_on I18n.t('general.edit').downcase
+        end
+        click_on I18n.t('views.ctc.questions.dependents.tin.remove_person')
+        click_on I18n.t('views.ctc.questions.dependents.remove_dependent.remove_button')
+
+        expect(dependent_to_delete.reload.soft_deleted_at).to be_truthy
+        expect(page).not_to have_text dependent_to_delete.first_name
+
+        expect(page).to have_text "Your bank information"
+
+        within ".bank-account-info" do
+          click_on I18n.t("general.change")
+        end
+
+        expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
+        choose I18n.t("views.ctc.questions.refund_payment.direct_deposit")
+        click_on I18n.t('general.continue')
+
+        expect(page).to have_text "Please provide your bank details below"
+        fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
+        choose I18n.t('views.questions.bank_details.account_type.checking')
+        fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "133456789"
+        fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "133456789"
+        click_on I18n.t("general.save")
+        expect(page).to have_selector(".text--error", text: I18n.t('validators.routing_number'))
+        fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
+        choose I18n.t('views.questions.bank_details.account_type.checking')
+        check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
+
+        fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "123456789"
+        fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "123456789"
+        fill_in I18n.t('views.ctc.questions.account_number.account_number'), with: "123456789"
+        fill_in I18n.t('views.ctc.questions.account_number.account_number_confirmation'), with: "123456789"
+        click_on I18n.t("general.save")
+
+        within ".bank-account-info" do
+          expect(page).to have_text "Bank of Two Melons"
+          expect(page).to have_text "Type: Checking"
+          expect(page).to have_text "Routing number: 123456789"
+          expect(page).to have_text "Account number: ●●●●●6789"
+        end
+
+        expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
+        click_on I18n.t("views.ctc.portal.home.contact_us")
+        click_on I18n.t("general.back")
+        click_on I18n.t('views.ctc.portal.edit_info.resubmit')
+
+        expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+        expect(page).to have_text I18n.t('views.ctc.portal.home.status.preparing.label')
+
+        # Go look for the note as an admin
+        Capybara.current_session.reset!
+
+        allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
+        login_as create :admin_user
+
+        visit hub_clients_path
+
+        within ".client-table" do
+          click_on intake.preferred_name
+        end
+
+        click_on I18n.t('hub.clients.navigation.client_notes')
+
+        notes = SystemNote::CtcPortalUpdate.order(:id)
+
+        expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({
+                                                                                  "has_primary_ip_pin" => ["unfilled", "no"],
+                                                                                  "primary_first_name" => ["Cher", "Mangonada"],
+                                                                                })
+
+        expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({
+                                                                                  "street_address" => ["972 Mission St", "123 Sandwich Lane"],
+                                                                                })
+
+        expect(changes_table_contents(".changes-note-#{notes[2].id}")).to match({
+                                                                                  "spouse_first_name" => ["Eva", "Pomelostore"],
+                                                                                  "has_spouse_ip_pin" => ["unfilled", "no"],
+                                                                                  "spouse_tin_type" => ["nil", "ssn"],
+                                                                                  "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
+                                                                                })
+
+        expect(changes_table_contents(".changes-note-#{notes[3].id}")).to match({
+                                                                                  "first_name" => ["Kara", "Papaya"],
+                                                                                  "has_ip_pin" => ["unfilled", "no"],
+                                                                                })
+
+        expect(changes_table_contents(".changes-note-#{notes[4].id}")).to match({
+                                                                                  "bank_name" => ["[REDACTED]", "[REDACTED]"],
+                                                                                  "account_number" => ["[REDACTED]", "[REDACTED]"],
+                                                                                })
+
+        expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
+        expect(page).to have_content("Client initiated resubmission of their tax return.")
+      end
+
+      scenario "a client can change their refund payment method" do
+        log_in_to_ctc_portal
+
+        expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+        expect(page).to have_text "Rejected"
+
+        click_on I18n.t("views.ctc.portal.home.correct_info")
+        expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.edit_info.title'))
+
+        expect(page).to have_text "Your bank information"
+
+        within ".bank-account-info" do
+          click_on I18n.t("general.change")
+        end
+
+        expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
+        choose I18n.t("views.ctc.questions.refund_payment.check")
+        click_on I18n.t('general.continue')
+
+        expect(page).to have_text "Edit your address"
+        fill_in I18n.t("views.questions.mailing_address.zip_code"), with: "94117"
+        click_on "Save"
+
+        expect(page).to have_text "No bank information entered."
+        within ".address-info" do
+          expect(page).to have_text "94117"
+        end
+
+        click_on I18n.t('views.ctc.portal.edit_info.resubmit')
+
+        expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.home.title'))
+        expect(page).to have_text I18n.t('views.ctc.portal.home.status.preparing.label')
+
+        # Go look for the note as an admin
+        Capybara.current_session.reset!
+
+        allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(false)
+        login_as create :admin_user
+
+        visit hub_clients_path
+
+        within ".client-table" do
+          click_on intake.preferred_name
+        end
+
+        click_on I18n.t('hub.clients.navigation.client_notes')
+
+        notes = SystemNote::CtcPortalUpdate.order(:id)
+
+        expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({"zip_code" => ["94103", "94117"]})
+
+        expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({"refund_payment_method" => ["direct_deposit", "check"]})
+
+        expect(page).to have_content("Client initiated resubmission of their tax return.")
+      end
+
+      scenario "a client sees and can click on a link to continue their intake" do
+        log_in_to_ctc_portal
+
+        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_text "Rejected"
+        expect(page).to have_text "IND-189"
+        expect(page).to have_text "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
+        # only show the first error to the user so as not to overwhelm them
+        expect(page).not_to have_text "IND-190: 'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
+        expect(page).to have_text "Please send us a message with questions or corrections using the \"Contact Us\" button below."
+        click_on "Contact us"
+        expect(page).to have_selector "h1", text: "Message your tax preparers"
+        fill_in "What's on your mind?", with: "I have some questions about my tax return."
+        click_on "Send message"
+        expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
+      end
+    end
+
+    context "efile submission is status cancelled" do
+      before do
+        es = create(:efile_submission, :rejected, :with_errors, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        es.transition_to!(:cancelled)
+      end
+
+      scenario "a client sees information about their cancelled submission" do
+        log_in_to_ctc_portal
+
+        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.rejected.label")
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.message")
+        click_on "Contact us"
+        expect(page).to have_selector "h1", text: "Message your tax preparer"
+        fill_in "What's on your mind?", with: "I have some questions about my tax return."
+        click_on "Send message"
+        expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
+      end
     end
   end
 end
