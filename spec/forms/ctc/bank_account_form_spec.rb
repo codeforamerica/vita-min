@@ -127,6 +127,13 @@ describe Ctc::BankAccountForm do
         expect(bank_account.account_type).to eq "checking"
         expect(bank_account.intake).to eq intake
       end
+
+      it "creates a ctc portal update system note" do
+        expect {
+          described_class.new(bank_account, params).save
+          intake.reload
+        }.to change(SystemNote::CtcPortalUpdate, :count).by(1)
+      end
     end
   end
 end

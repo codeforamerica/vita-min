@@ -379,7 +379,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
       expect(changes_table_contents(".changes-note-#{notes[1].id}")).to match({"zip_code" => ["94103", "94117"]})
 
-      expect(changes_table_contents(".changes-note-#{notes[2].id}")).to match({"payment_method" => ["direct_deposit", "check"]})
+      expect(changes_table_contents(".changes-note-#{notes[0].id}")).to match({"refund_payment_method" => ["direct_deposit", "check"]})
 
       expect(page).to have_content("Client initiated resubmission of their tax return.")
     end

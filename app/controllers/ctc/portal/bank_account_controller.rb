@@ -16,8 +16,7 @@ class Ctc::Portal::BankAccountController < Ctc::Portal::BaseIntakeRevisionContro
   end
 
   def current_model
-    # @_current_model ||= current_intake.bank_account
-    current_intake.bank_account || BankAccount.new(intake: current_intake)
+    @_current_model ||= current_intake.bank_account || BankAccount.new(intake: current_intake)
   end
   helper_method :current_model
 end
