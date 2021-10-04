@@ -1,16 +1,48 @@
 {
-  "name": "VitaMin",
+  "name": "My Rails Application",
   "description": "Heroku review apps from GitHub PRs",
-  "addons": [
-    "heroku-postgresql"
-  ],
-  "stack": "heroku-16",
+  "scripts": {
+    "postdeploy": "bin/rails heroku:postdeploy"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    },
+    "worker": {
+      "quantity": 1
+    }
+  },
+  "stack": "heroku-18",
   "buildpacks": [
     {
-      "url": "https://github.com/fxtentacle/heroku-pdftk-buildpack.git"
+      "url": "heroku/ruby"
     },
     {
-      "url": "heroku/ruby"
+      "url": "https://github.com/heroku/heroku-buildpack-activestorage-preview"
+    },
+    {
+      "url": "https://github.com/fxtentacle/heroku-pdftk-buildpack.git"
     }
+  ],
+  "env": {
+    "LOG_LEVEL": {
+      "value": "info"
+    },
+    "RACK_ENV": {
+      "value": "production"
+    },
+    "RAILS_ENV": {
+      "value": "heroku"
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "value": "enabled"
+    },
+    "SECRET_KEY_BASE": {
+      "description": "Secret key base for Rails.",
+      "generator": "secret"
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
   ]
 }
