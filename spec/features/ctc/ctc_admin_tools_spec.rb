@@ -7,7 +7,7 @@ RSpec.feature "CTC Admin Tools", active_job: true do
     login_as user
   end
 
-  xscenario "admin can change CTC intake capacity" do
+  scenario "admin can change CTC intake capacity" do
     visit hub_user_profile_path
     click_on "CTC Admin Tools"
     click_on "CTC Capacity"
@@ -25,5 +25,17 @@ RSpec.feature "CTC Admin Tools", active_job: true do
     click_on I18n.t('general.continue')
     click_on I18n.t('general.affirmative')
     expect(page).to have_text I18n.t("views.ctc.questions.at_capacity.title")
+  end
+
+  scenario "admin can change whether we are forwarding messages to intercom" do
+    visit hub_user_profile_path
+    click_on "CTC Admin Tools"
+    click_on "Intercom Message Forwarding"
+    choose "Do not forward"
+    click_on "Save"
+
+    admin_toggle = AdminToggle.last
+    expect(admin_toggle.name).to eq(AdminToggle::FORWARD_MESSAGES_TO_INTERCOM)
+    expect(admin_toggle.value).to eq(false)
   end
 end

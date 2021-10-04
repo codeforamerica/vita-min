@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_28_153248) do
+ActiveRecord::Schema.define(version: 2021_10_04_222000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -87,6 +87,15 @@ ActiveRecord::Schema.define(version: 2021_09_28_153248) do
   create_table "admin_roles", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "admin_toggles", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "name"
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.json "value"
+    t.index ["user_id"], name: "index_admin_toggles_on_user_id"
   end
 
   create_table "anonymized_diy_intake_csv_extracts", force: :cascade do |t|
@@ -1047,6 +1056,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_153248) do
 
   add_foreign_key "access_logs", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "admin_toggles", "users"
   add_foreign_key "bulk_client_message_outgoing_emails", "bulk_client_messages"
   add_foreign_key "bulk_client_message_outgoing_emails", "outgoing_emails"
   add_foreign_key "bulk_client_message_outgoing_text_messages", "bulk_client_messages"
