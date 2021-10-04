@@ -30,3 +30,7 @@ staging:
 
 demo:
   <<: *deploy_default
+
+heroku:
+  <<: *deploy_default
+  url: <%= ENV.fetch("DATABASE_URL", "").sub('postgres://', 'postgis://') %>
