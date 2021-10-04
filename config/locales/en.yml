@@ -1938,10 +1938,10 @@ en:
           right_for_you: 'This is the right tool for you if:'
           title: Welcome!
         refund_payment:
-          help_text: If you select a mailed check, please provide an address you will be at through December 2021.
-          title: How would you like to receive any payments?
           check: Mail my payment (slower)
           direct_deposit: Direct deposit (fastest)
+          help_text: If you select a mailed check, please provide an address you will be at through December 2021.
+          title: How would you like to receive any payments?
         remove_spouse:
           nevermind_button: Nevermind, let's save them
           remove_button: Yes, remove them

@@ -50,9 +50,9 @@
             <p><%= t("views.ctc.portal.edit_info.no_bank_account") %></p>
           <% end %>
 
-          <% if @intake.refund_payment_method_direct_deposit? && @intake.bank_account.present? %>
+          <% if @intake.refund_payment_method_direct_deposit? %>
             <%= render 'ctc/questions/confirm_information/bank_account_info', bank_account: @intake.bank_account, edit_controller: Ctc::Portal::RefundPaymentController %>
-          <% elsif @intake.refund_payment_method_check? || !@intake.bank_account.present? %>
+          <% elsif @intake.refund_payment_method_check? %>
             <p><%= t("views.ctc.portal.edit_info.will_send_check_to_address") %></p>
             <%= link_to "Add bank information", ctc_portal_refund_payment_path, class: "button button--small spacing-below-0" %>
           <% end %>

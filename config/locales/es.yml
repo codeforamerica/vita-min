@@ -1909,10 +1909,10 @@ es:
           right_for_you: 'Esta es la herramienta adecuada para usted si:'
           title: "¡Bienvenido!"
         refund_payment:
-          help_text: Si elige recibir un cheque enviado por correo, indique una dirección en la que estará hasta diciembre de 2021.
-          title: "¿Cómo desea recibir los pagos?"
           check: Envíame un cheque (más lento)
           direct_deposit: Depósito directo (el más rápido)
+          help_text: Si elige recibir un cheque enviado por correo, indique una dirección en la que estará hasta diciembre de 2021.
+          title: "¿Cómo desea recibir los pagos?"
         remove_spouse:
           nevermind_button: Mejor no lo/la borremos
           remove_button: Sí, borrémoslo/la
