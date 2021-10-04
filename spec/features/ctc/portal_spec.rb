@@ -247,7 +247,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
       end
 
       expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
-      choose I18n.t("views.questions.refund_payment.direct_deposit")
+      choose I18n.t("views.ctc.questions.refund_payment.direct_deposit")
       click_on I18n.t('general.continue')
 
       expect(page).to have_text "Please provide your bank details below"
@@ -344,7 +344,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
       end
 
       expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
-      choose I18n.t("views.questions.refund_payment.check")
+      choose I18n.t("views.ctc.questions.refund_payment.check")
       click_on I18n.t('general.continue')
 
       expect(page).to have_text "Edit your address"

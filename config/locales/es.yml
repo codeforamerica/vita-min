@@ -1565,8 +1565,10 @@ es:
         edit_info:
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
           help_text_cant_submit: Espere a enviar cambios adicionales a su envío. Estamos esperando una respuesta a su presentación anterior del IRS.
+          no_bank_account: No se ingresó información bancaria.
           resubmit: Volver a enviar mi declaración de impuestos
           title: Corrija su información enviada
+          will_send_check_to_address: Recibirá un cheque a su dirección postal arriba. Si desea recibir un depósito directo, seleccione el botón Agregar información bancaria a continuación.
         home:
           complete_form: Complete el formulario CTC
           contact_us: Contáctanos
@@ -1909,6 +1911,8 @@ es:
         refund_payment:
           help_text: Si elige recibir un cheque enviado por correo, indique una dirección en la que estará hasta diciembre de 2021.
           title: "¿Cómo desea recibir los pagos?"
+          check: Envíame un cheque (más lento)
+          direct_deposit: Depósito directo (el más rápido)
         remove_spouse:
           nevermind_button: Mejor no lo/la borremos
           remove_button: Sí, borrémoslo/la

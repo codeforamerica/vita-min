@@ -1940,6 +1940,8 @@ en:
         refund_payment:
           help_text: If you select a mailed check, please provide an address you will be at through December 2021.
           title: How would you like to receive any payments?
+          check: Mail my payment (slower)
+          direct_deposit: Direct deposit (fastest)
         remove_spouse:
           nevermind_button: Nevermind, let's save them
           remove_button: Yes, remove them
@@ -3314,7 +3316,7 @@ en:
           one: In %{year}, did you receive any income from alimony?
           other: In %{year}, did you or your spouse receive any income from alimony?
       refund_payment:
-        check: Mail my payment (slower)
+        check: Mail me a check (slower)
         direct_deposit: Direct deposit (fastest)
         title: If due a refund, how would like to receive it?
       retirement_contributions:

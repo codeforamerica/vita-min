@@ -114,9 +114,6 @@ describe Ctc::BankAccountForm do
 
   context '#save' do
     context "when there is an existing bank account object" do
-      before do
-      end
-
       it "updates the existing bank account object" do
         expect {
           described_class.new(bank_account, params).save
@@ -126,13 +123,6 @@ describe Ctc::BankAccountForm do
         expect(bank_account.bank_name).to eq "Bank of America"
         expect(bank_account.account_type).to eq "checking"
         expect(bank_account.intake).to eq intake
-      end
-
-      it "creates a ctc portal update system note" do
-        expect {
-          described_class.new(bank_account, params).save
-          intake.reload
-        }.to change(SystemNote::CtcPortalUpdate, :count).by(1)
       end
     end
   end

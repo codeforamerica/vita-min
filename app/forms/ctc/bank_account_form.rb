@@ -35,10 +35,10 @@ module Ctc
 
     def save
       @bank_account.assign_attributes(attributes_for(:bank_account))
+
       if @bank_account.valid?
-        # When updating an existing bank account, updating the intake will autosave any changes to @bank_account
+        @bank_account.save
         @bank_account.intake.update(refund_payment_method: "direct_deposit")
-        @bank_account.save unless @bank_account.persisted?
       end
     end
 
