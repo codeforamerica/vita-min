@@ -40,20 +40,16 @@ class SendAutomatedMessage
   end
 
   def email_args
-    base_args.merge(
-      {
-                body: message.email_body(locale: locale),
-                subject: message.email_subject(locale: locale)
-            }
-    )
+    base_args.merge({
+      body: message.email_body(locale: locale),
+      subject: message.email_subject(locale: locale)
+    })
   end
 
   def sms_args
-    base_args.merge(
-      {
-                      body: message.sms_body(locale: locale)
-                  }
-    )
+    base_args.merge({
+      body: message.sms_body(locale: locale)
+    })
   end
 
   def send_email
