@@ -126,6 +126,16 @@ RSpec.describe Efile::GyrEfilerService do
           }.to raise_error(Efile::GyrEfilerService::RetryableError)
         end
       end
+
+      context "when 'unauthorized' for efile" do
+        let(:log_output) { "Earlier line\nLogin Certificate: blahBlahBlah\nTransaction Result: The server sent HTTP status code 401: Unauthorized\nLog output" }
+
+        it "raises a RetryableError" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(Efile::GyrEfilerService::RetryableError)
+        end
+      end
     end
   end
 

@@ -3,6 +3,11 @@ module Efile
   class GyrEfilerService
     CURRENT_VERSION = 'f5eeb816f6c919fff8d5c742062e664b1f4cd13a'
     POSTGRES_LOCK_PREFIX = 1640661264
+    RETRYABLE_LOG_CONTENTS = [
+      /Transaction Result: The server sent HTTP status code 302: Moved Temporarily/,
+      /connect timed out - Fault Code: soap:Server/,
+      /Transaction Result: The server sent HTTP status code 401: Unauthorized/
+    ]
 
     def self.run_efiler_command(*args)
       Dir.mktmpdir do |working_directory|
@@ -38,9 +43,7 @@ module Efile
           log_contents = File.read(File.join(working_directory, 'output/log/audit_log.txt'))
           if log_contents.split("\n").include?("Transaction Result: java.net.SocketTimeoutException: Read timed out")
             raise RetryableError, log_contents
-          elsif log_contents.match(/Transaction Result: The server sent HTTP status code 302: Moved Temporarily/)
-            raise RetryableError, log_contents
-          elsif log_contents.match(/connect timed out - Fault Code: soap:Server/)
+          elsif RETRYABLE_LOG_CONTENTS.any? { |contents| log_contents.match(contents) }
             raise RetryableError, log_contents
           else
             raise Error, log_contents
