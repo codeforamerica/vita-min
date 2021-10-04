@@ -14,7 +14,7 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
         model: current_model,
         client: current_client,
       )
-      redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+      next_path
     else
       render edit_template
     end
@@ -31,6 +31,10 @@ class Ctc::Portal::BaseIntakeRevisionController < Ctc::Portal::BaseAuthenticated
   helper_method :prev_path
 
   private
+
+  def next_path
+    redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+  end
 
   def current_model
     current_intake

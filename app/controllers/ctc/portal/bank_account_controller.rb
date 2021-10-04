@@ -15,8 +15,12 @@ class Ctc::Portal::BankAccountController < Ctc::Portal::BaseIntakeRevisionContro
     Ctc::BankAccountForm
   end
 
+  def prev_path
+    ctc_portal_refund_payment_path
+  end
+
   def current_model
-    @_current_model ||= current_intake.bank_account
+    @_current_model ||= current_intake.bank_account || BankAccount.new(intake: current_intake)
   end
   helper_method :current_model
 end

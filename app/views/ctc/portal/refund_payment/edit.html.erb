@@ -1,0 +1,29 @@
+<% @main_question = t("views.ctc.questions.refund_payment.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :card do %>
+  <div class="question-layout">
+    <div class="back">
+      <%= link_to t("general.back"), defined?(prev_path) ? prev_path : :back %>
+    </div>
+    <div class="question-wrapper">
+      <h1 class="form-question spacing-below-15"><%= @main_question %></h1>
+      <p class="spacing-below-15"><%= t("views.ctc.questions.refund_payment.help_text") %></p>
+      <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card spacing-above-0" } do |f| %>
+        <%= f.cfa_radio_set(
+              :refund_payment_method,
+              collection: [
+                { value: :direct_deposit, label: t("views.ctc.questions.refund_payment.direct_deposit") },
+                { value: :check, label: t("views.ctc.questions.refund_payment.check") },
+              ]
+            )
+        %>
+        <button class="button button--primary button--wide spacing-below-15" type="submit">
+          <%= t("general.continue") %>
+        </button>
+        <%= link_to t("general.cancel"), defined?(prev_path) ? prev_path : :back, class: "button button--wide" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

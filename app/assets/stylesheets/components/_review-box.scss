@@ -38,14 +38,12 @@
   &__edit {
     color: $color-black;
     font-size: 1.6rem;
-    font-weight: normal;
     flex-shrink: 0;
   }
   &__edit-button {
     @extend .button;
     color: $color-black;
     font-size: 1.6rem;
-    font-weight: normal;
     // overrides
     border: 2px solid black;
     padding: 5px 10px;

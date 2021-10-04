@@ -35,7 +35,11 @@ module Ctc
 
     def save
       @bank_account.assign_attributes(attributes_for(:bank_account))
-      @bank_account.save if @bank_account.valid?
+
+      if @bank_account.valid?
+        @bank_account.save
+        @bank_account.intake.update(refund_payment_method: "direct_deposit")
+      end
     end
 
     def self.existing_attributes(model, attribute_keys)

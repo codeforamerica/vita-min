@@ -114,9 +114,6 @@ describe Ctc::BankAccountForm do
 
   context '#save' do
     context "when there is an existing bank account object" do
-      before do
-      end
-
       it "updates the existing bank account object" do
         expect {
           described_class.new(bank_account, params).save

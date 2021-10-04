@@ -1596,8 +1596,10 @@ en:
         edit_info:
           help_text: Please ensure that all of your information is correct prior to submitting your tax return. Once you resubmit, your tax return will be transmitted to the IRS and you will not be able to make any additional changes.
           help_text_cant_submit: Please wait to submit any additional changes to your submission. We are waiting on a response to your previous submission from the IRS.
+          no_bank_account: No bank information entered.
           resubmit: Resubmit my tax return
           title: Correct your submitted information
+          will_send_check_to_address: You will receive a check to your mailing address above. If you’d like to receive a direct deposit select the add bank information button below.
         home:
           complete_form: Complete CTC form
           contact_us: Contact us
@@ -1936,6 +1938,8 @@ en:
           right_for_you: 'This is the right tool for you if:'
           title: Welcome!
         refund_payment:
+          check: Mail my payment (slower)
+          direct_deposit: Direct deposit (fastest)
           help_text: If you select a mailed check, please provide an address you will be at through December 2021.
           title: How would you like to receive any payments?
         remove_spouse:
