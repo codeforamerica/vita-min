@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Admin Tools", active_job: true do #rename
+RSpec.feature "Admin Tools", active_job: true do
   let(:user) { create :admin_user }
 
   before do
