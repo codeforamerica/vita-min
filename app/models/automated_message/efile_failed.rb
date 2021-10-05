@@ -1,5 +1,5 @@
 module AutomatedMessage
-  class EfileFailed
+  class EfileFailed < AutomatedMessage
 
     def self.name
       'messages.efile.failed'.freeze

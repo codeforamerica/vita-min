@@ -70,7 +70,7 @@ module Hub
       locale = @client.intake.preferred_interview_language == "es" ? "es" : "en"
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: @client,
-        message: AutomatedMessage::SuccessfulSubmissionDropOff.new,
+        message: AutomatedMessage::SuccessfulSubmissionDropOff,
         locale: locale
       )
 

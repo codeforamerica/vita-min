@@ -1,5 +1,5 @@
 module AutomatedMessage
-  class ContactInfoChange
+  class ContactInfoChange < AutomatedMessage
     def self.name
       'messages.contact_info_change'.freeze
     end

@@ -144,7 +144,7 @@ module Hub
 
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: client,
-        message: AutomatedMessage::SuccessfulSubmissionDropOff.new,
+        message: AutomatedMessage::SuccessfulSubmissionDropOff,
         locale: locale
       )
     end

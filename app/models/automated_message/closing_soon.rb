@@ -1,8 +1,12 @@
 module AutomatedMessage
-  class ClosingSoon
+  class ClosingSoon < AutomatedMessage
 
     def self.name
       'messages.closing_soon'.freeze
+    end
+
+    def self.send_only_once?
+      true
     end
 
     def sms_body(**args)

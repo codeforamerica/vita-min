@@ -1,11 +1,15 @@
 module AutomatedMessage
-  class InProgressSurvey
+  class InProgressSurvey < AutomatedMessage
     def self.name
       'messages.surveys.in_progress'.freeze
     end
 
     def self.survey_link(client)
       "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_6PDoi6ecHeQYiuq?ExternalDataReference=#{client.id}"
+    end
+
+    def self.send_only_once?
+      true
     end
 
     def sms_body(*args)

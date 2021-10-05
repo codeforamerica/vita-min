@@ -55,7 +55,7 @@ class EfileSubmissionStateMachine
     submission.tax_return.update(status: :file_hold)
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
-      message: AutomatedMessage::InformOfFraudHold.new,
+      message: AutomatedMessage::InformOfFraudHold,
       locale: submission.client.intake.locale,
     )
   end
@@ -74,7 +74,7 @@ class EfileSubmissionStateMachine
       if transition.efile_errors.any?(&:expose)
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
           client: submission.client,
-          message: AutomatedMessage::EfileFailed.new,
+          message: AutomatedMessage::EfileFailed,
           locale: submission.client.intake.locale
         )
       end
@@ -92,7 +92,7 @@ class EfileSubmissionStateMachine
     if transition.efile_errors.any?
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: submission.client,
-        message: AutomatedMessage::EfileRejected.new,
+        message: AutomatedMessage::EfileRejected,
         locale: submission.client.intake.locale
       )
       submission.transition_to!(:cancelled) if transition.efile_errors.any?(&:auto_cancel)
@@ -115,7 +115,7 @@ class EfileSubmissionStateMachine
     tax_return = submission.tax_return
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: client,
-      message: AutomatedMessage::EfileAcceptance.new,
+      message: AutomatedMessage::EfileAcceptance,
       locale: client.intake.locale
     )
     tax_return.update!(status: "file_accepted")
@@ -132,7 +132,7 @@ class EfileSubmissionStateMachine
       client = submission.client
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: client,
-        message: AutomatedMessage::EfilePreparing.new,
+        message: AutomatedMessage::EfilePreparing,
         locale: client.intake.locale,
       )
     end

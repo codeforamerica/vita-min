@@ -1,8 +1,12 @@
 module AutomatedMessage
-  class EfilePreparing
+  class EfilePreparing < AutomatedMessage
 
     def self.name
       'messages.efile.preparing'.freeze
+    end
+
+    def self.send_only_once?
+      true
     end
 
     def sms_body(*args)

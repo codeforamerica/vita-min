@@ -2,13 +2,13 @@ require "rails_helper"
 
 describe MessageTracker do
   let(:client) { create :client }
-  subject { described_class.new(client: client, message_name: "sample_message") }
+  subject { described_class.new(client: client, message: AutomatedMessage::ClosingSoon) }
 
   describe "#record" do
     it "sets the datetime onto client#message_tracker" do
       time = DateTime.current
       subject.record(time)
-      expect(client.reload.message_tracker["sample_message"]).to eq time.to_s
+      expect(client.reload.message_tracker["messages.closing_soon"]).to eq time.to_s
     end
   end
 

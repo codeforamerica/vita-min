@@ -39,7 +39,7 @@ describe Ctc::Questions::PhoneVerificationController do
 
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: client,
-          message: instance_of(AutomatedMessage::CtcGettingStarted),
+          message: AutomatedMessage::CtcGettingStarted,
           locale: 'es'
         )
       end

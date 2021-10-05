@@ -116,7 +116,7 @@ RSpec.describe Questions::ConsentController do
 
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: intake.client,
-            message: instance_of(AutomatedMessage::GettingStarted),
+            message: AutomatedMessage::GettingStarted,
             locale: :en
           )
         end
@@ -132,7 +132,7 @@ RSpec.describe Questions::ConsentController do
 
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: intake.client,
-            message: instance_of(AutomatedMessage::GettingStarted),
+            message: AutomatedMessage::GettingStarted,
             locale: :es
           )
         end

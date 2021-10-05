@@ -51,7 +51,8 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
 
       expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
         client: client,
-        message: instance_of(AutomatedMessage::DocumentsReminderLink),
+        message: AutomatedMessage::DocumentsReminderLink,
+        body_args: { doc_type: DocumentTypes::Identity },
         locale: :en
       )
     end
@@ -62,7 +63,8 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
 
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: client,
-          message: instance_of(AutomatedMessage::DocumentsReminderLink),
+          message: AutomatedMessage::DocumentsReminderLink,
+          body_args: { doc_type: DocumentTypes::Identity },
           locale: :es
         )
       end

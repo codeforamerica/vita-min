@@ -38,7 +38,7 @@ describe StillNeedsHelpService do
       expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with({
                                                                                                                      client: client,
                                                                                                                      locale: "en",
-                                                                                                                     message: an_instance_of(AutomatedMessage::ClosingSoon)
+                                                                                                                     message: AutomatedMessage::ClosingSoon
                                                                                                                  })
     end
 

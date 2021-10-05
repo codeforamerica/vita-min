@@ -372,16 +372,17 @@ RSpec.describe ClientMessagingService do
     it "calls the SendAutomatedMessage class with params" do
       described_class.send_system_message_to_all_opted_in_contact_methods(
         client: client,
-        message: AutomatedMessage::GettingStarted.new,
+        message: AutomatedMessage::GettingStarted,
         locale: "es",
         tax_return: tax_return
       )
 
       expect(SendAutomatedMessage).to have_received(:new).with(
         client: client,
-        message: an_instance_of(AutomatedMessage::GettingStarted),
+        message: AutomatedMessage::GettingStarted,
         locale: "es",
-        tax_return: tax_return
+        tax_return: tax_return,
+        body_args: {}
       )
 
       expect(automated_message_double).to have_received(:send_messages)

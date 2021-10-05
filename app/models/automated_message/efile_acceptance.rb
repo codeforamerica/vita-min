@@ -1,5 +1,5 @@
 module AutomatedMessage
-  class EfileAcceptance
+  class EfileAcceptance < AutomatedMessage
 
     def self.name
       'messages.efile.acceptance'.freeze

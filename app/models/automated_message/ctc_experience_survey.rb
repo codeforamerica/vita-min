@@ -1,7 +1,11 @@
 module AutomatedMessage
-  class CtcExperienceSurvey
+  class CtcExperienceSurvey < AutomatedMessage
     def self.name
       'messages.surveys.ctc_experience'.freeze
+    end
+
+    def self.send_only_once?
+      true
     end
 
     def self.survey_link(client)

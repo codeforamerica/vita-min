@@ -9,8 +9,9 @@ module Documents
     def send_reminder
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
-        message: AutomatedMessage::DocumentsReminderLink.new(doc_type: document_type_from_param),
-        locale: I18n.locale
+        message: AutomatedMessage::DocumentsReminderLink,
+        locale: I18n.locale,
+        body_args: { doc_type: document_type_from_param }
       )
       flash[:notice] = I18n.t("documents.reminder_link.notice")
       redirect_to(next_path)

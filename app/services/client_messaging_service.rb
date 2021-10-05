@@ -71,12 +71,13 @@ class ClientMessagingService
       message_records
     end
 
-    def send_system_message_to_all_opted_in_contact_methods(client:, message:, tax_return: nil, locale: "en")
+    def send_system_message_to_all_opted_in_contact_methods(client:, message:, tax_return: nil, locale: "en", body_args: {})
       SendAutomatedMessage.new(
         client: client,
         message: message,
         tax_return: tax_return,
-        locale: locale
+        locale: locale,
+        body_args: body_args
       ).send_messages
     end
 

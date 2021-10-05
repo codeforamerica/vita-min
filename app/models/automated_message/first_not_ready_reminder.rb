@@ -1,8 +1,12 @@
 module AutomatedMessage
-  class NotReadyReminder
+  class FirstNotReadyReminder < AutomatedMessage
 
     def self.name
-      'messages.not_ready_reminder'.freeze
+      'messages.not_ready_first_reminder'.freeze
+    end
+
+    def self.send_only_once?
+      true
     end
 
     def sms_body(*args)

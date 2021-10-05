@@ -1,7 +1,11 @@
 module AutomatedMessage
-  class SuccessfulSubmissionDropOff
+  class SuccessfulSubmissionDropOff < AutomatedMessage
     def self.name
       'messages.successful_submission_drop_off'.freeze
+    end
+
+    def self.send_only_once?
+      true
     end
 
     def sms_body(*args)
