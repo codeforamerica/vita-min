@@ -1599,7 +1599,7 @@ en:
           no_bank_account: No bank information entered.
           resubmit: Resubmit my tax return
           title: Correct your submitted information
-          will_send_check_to_address: You will receive a check to your mailing address above. If you’d like to receive a direct deposit select the add bank information button below.
+          will_send_check_to_address: You will receive a check to your mailing address above. If you'd like to receive a direct deposit, select the add bank information button below.
         home:
           complete_form: Complete CTC form
           contact_us: Contact us
