@@ -279,7 +279,7 @@ ActiveRecord::Schema.define(version: 2021_10_04_222000) do
   end
 
   create_table "dependents", force: :cascade do |t|
-    t.date "birth_date"
+    t.date "birth_date", null: false
     t.integer "born_in_2020", default: 0, null: false
     t.integer "cant_be_claimed_by_other", default: 0, null: false
     t.integer "claim_anyway", default: 0, null: false
