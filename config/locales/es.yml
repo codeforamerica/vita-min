@@ -1573,6 +1573,7 @@ es:
           complete_form: Complete el formulario CTC
           contact_us: Contáctanos
           correct_info: Corrija mi información
+          submit_documents: Enviar documentos adicionales
           current_status: 'Estado actual de la declaración de impuestos:'
           default_next_steps: Por favor, envíenos un mensaje con preguntas o correcciones utilizando el botón "Contáctenos" que aparece a continuación.
           download_tax_return: Descargar mi declaración de impuestos

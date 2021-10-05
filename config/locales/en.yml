@@ -1604,6 +1604,7 @@ en:
           complete_form: Complete CTC form
           contact_us: Contact us
           correct_info: Correct my information
+          submit_documents: Submit additional documents
           current_status: 'Current tax return status:'
           default_next_steps: Please send us a message with questions or corrections using the "Contact Us" button below.
           download_tax_return: Download my tax return
