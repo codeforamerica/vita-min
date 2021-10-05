@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Admin Tools", active_job: true do
+RSpec.feature "Admin Tools", active_job: true do
   let(:user) { create :admin_user }
 
   before do
@@ -9,7 +9,7 @@ RSpec.feature "CTC Admin Tools", active_job: true do
 
   scenario "admin can change CTC intake capacity" do
     visit hub_user_profile_path
-    click_on "CTC Admin Tools"
+    click_on "Admin Tools"
     click_on "CTC Capacity"
     fill_in "Max number of completed intakes per day", with: 1
     click_on "Save"
@@ -29,7 +29,7 @@ RSpec.feature "CTC Admin Tools", active_job: true do
 
   scenario "admin can change whether we are forwarding messages to intercom" do
     visit hub_user_profile_path
-    click_on "CTC Admin Tools"
+    click_on "Admin Tools"
     click_on "Intercom Message Forwarding"
     choose "Do not forward"
     click_on "Save"
