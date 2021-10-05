@@ -83,7 +83,6 @@ class Dependent < ApplicationRecord
   validates_presence_of :last_name
 
   validates_presence_of :birth_date
-  validates_presence_of :birth_date, on: :ctc_valet_form
 
   validates_presence_of :relationship, on: :ctc_valet_form
 
