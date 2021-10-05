@@ -3,7 +3,7 @@
 # Table name: dependents
 #
 #  id                                          :bigint           not null, primary key
-#  birth_date                                  :date
+#  birth_date                                  :date             not null
 #  born_in_2020                                :integer          default("unfilled"), not null
 #  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
 #  claim_anyway                                :integer          default("unfilled"), not null
