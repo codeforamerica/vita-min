@@ -27,7 +27,7 @@ describe Portal::MessagesController do
       end
 
       before do
-        allow(Rails.configuration).to receive(:forward_intercom_messages).and_return(true)
+        AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
       end
 
       it "creates a message, forwards to intercom, and redirects to portal home with flash" do

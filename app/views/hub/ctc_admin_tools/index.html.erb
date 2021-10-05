@@ -9,6 +9,10 @@
       <%= link_to hub_ctc_intake_capacity_index_path, class: "button button--small" do %>
         CTC Capacity
       <% end %>
+
+      <%= link_to Hub::AdminTogglesController.to_path_helper(action: :index, name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM), class: "button button--small" do %>
+        Intercom Message Forwarding
+      <% end %>
     </div>
   </div>
 <% end %>

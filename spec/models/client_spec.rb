@@ -821,9 +821,9 @@ describe Client do
       let(:client) { create :client, intake: create(:intake), tax_returns: tax_returns }
       let(:tax_returns) { [create(:tax_return, status: status1, year: "2019"), create(:tax_return, status: status2, year: "2020")] }
 
-      context "when forward_intercom_messages is true in rails config" do
+      context "when the FORWARD_MESSAGES_TO_INTERCOM admin toggle is true" do
         before do
-          allow(Rails.configuration).to receive(:forward_intercom_messages).and_return(true)
+          AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
         end
 
         context "some of the tax returns have FORWARD_TO_INTERCOM statuses" do
@@ -854,12 +854,12 @@ describe Client do
         end
       end
 
-      context "forward_intercom_messages is false in rails config" do
+      context "when the FORWARD_MESSAGES_TO_INTERCOM admin toggle is false" do
         let(:status1) { "file_not_filing" }
         let(:status2) { "file_accepted" }
 
         before do
-          allow(Rails.configuration).to receive(:forward_intercom_messages).and_return(false)
+          AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: false, user: create(:admin_user))
         end
 
         it "returns false" do

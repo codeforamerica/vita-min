@@ -1,0 +1,56 @@
+<% @main_heading = "Forward Intercom Messages" %>
+<% content_for :page_title, @main_heading %>
+<% content_for :back_to, "ctc_admin_tools" %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= @main_heading %></h1>
+      <p><%= "Applicable to the following statuses: #{TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES.map{ |status| I18n.t("hub.tax_returns.status.#{status}")}.join(', ')}" %></p>
+
+      <div class="form-card__content">
+      <%= form_for(@form, url: { action: :create }, method: :post, local: true, builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" }) do |f| %>
+          <%= f.hidden_field :name, value: params[:name] %>
+          <%= f.cfa_radio_set(
+                :value,
+                label_text: "<h1 class=\"form-question\">#{@main_question}</h1>".html_safe,
+                collection: [
+                  { value: true, label: "Forward to Intercom" },
+                  { value: false, label: "Do not forward" },
+                ]
+              )
+          %>
+
+          <button class="button button--cta spacing-above-0" type="submit">
+            <%= t("general.save") %>
+          </button>
+      <% end %>
+      </div>
+
+      <% if @recent_toggles.present? %>
+        <h2 class="spacing-below-0">History</h2>
+        <table class="data-table">
+          <thead>
+          <tr>
+            <th>Value</th>
+            <th>Date</th>
+            <th>User</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @recent_toggles.each do |toggle| %>
+            <tr>
+              <td><%= toggle.value %></td>
+              <td><%= formatted_datetime(toggle.created_at) %></td>
+              <td><%= toggle.user.name %>
+                (<%= toggle.user.email %>)
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+      <% end %>
+    </div>
+  </div>
+<% end %>

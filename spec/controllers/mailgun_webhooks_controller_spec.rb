@@ -205,7 +205,8 @@ RSpec.describe MailgunWebhooksController do
           let!(:tax_returns) { [(create :tax_return, status: "file_not_filing", year: 2020), (create :tax_return, status: "file_accepted")] }
 
           before do
-            allow(Rails.configuration).to receive(:forward_intercom_messages).and_return(true)
+            AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
+
           end
 
           context "with a body" do

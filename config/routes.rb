@@ -248,6 +248,7 @@ Rails.application.routes.draw do
         end
         resources :ctc_admin_tools, only: [:index]
         resources :ctc_intake_capacity, only: [:index, :create]
+        resources :admin_toggles, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
       end
 

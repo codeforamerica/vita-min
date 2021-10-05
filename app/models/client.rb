@@ -269,7 +269,7 @@ class Client < ApplicationRecord
   end
 
   def forward_message_to_intercom?
-    return false unless Rails.configuration.forward_intercom_messages
+    return false unless AdminToggle.current_value_for(AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, default: false)
 
     !online_ctc? && tax_returns.pluck(:status).map(&:to_sym).all? { |status| TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES.include? status }
   end
