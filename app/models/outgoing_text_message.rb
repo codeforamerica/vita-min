@@ -27,7 +27,7 @@
 class OutgoingTextMessage < ApplicationRecord
   include ContactRecord
 
-  FAILED_TWILIO_STATUSES = ["undelivered", "failed", "delivery_unknown"].freeze
+  FAILED_TWILIO_STATUSES = ["undelivered", "failed", "delivery_unknown", "twilio_error"].freeze
   SUCCESSFUL_TWILIO_STATUSES = ["sent", "delivered"].freeze
   IN_PROGRESS_TWILIO_STATUSES = ["accepted", "queued", nil].freeze
   ALL_KNOWN_TWILIO_STATUSES = FAILED_TWILIO_STATUSES + SUCCESSFUL_TWILIO_STATUSES + IN_PROGRESS_TWILIO_STATUSES
