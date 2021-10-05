@@ -82,8 +82,7 @@ class Dependent < ApplicationRecord
   validates_presence_of :first_name
   validates_presence_of :last_name
 
-  # Allow birth date to be blank when we first create dependents in the CTC intake flow, but nowhere else
-  validates_presence_of :birth_date, unless: -> { intake&.is_ctc? }
+  validates_presence_of :birth_date
   validates_presence_of :birth_date, on: :ctc_valet_form
 
   validates_presence_of :relationship, on: :ctc_valet_form
