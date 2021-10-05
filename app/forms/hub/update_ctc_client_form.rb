@@ -117,6 +117,10 @@ module Hub
       new(client, existing_attributes(intake, attribute_keys))
     end
 
+    def dependent_validation_context
+      @client.intake.is_ctc? ? :ctc_valet_form : nil
+    end
+
     def save
       return false unless valid?
       intake_attr = attributes_for(:intake)

@@ -52,6 +52,19 @@ RSpec.describe Hub::UpdateCtcClientForm do
           with_itin_taxpayer_id: "1",
           primary_ip_pin: intake.primary_ip_pin,
           spouse_ip_pin: intake.spouse_ip_pin,
+          dependents_attributes: {
+            "0" => {
+              id: intake.dependents.first.id,
+              first_name: intake.dependents.first.first_name,
+              last_name: intake.dependents.first.last_name,
+              relationship: dependent_relationship,
+              ssn: dependent_ssn,
+              tin_type: 'ssn',
+              birth_date_month: "May",
+              birth_date_day: "9",
+              birth_date_year: "2013",
+            }
+          }
       }
     end
     let(:primary_ssn) { "111-22-4333" }
@@ -59,6 +72,9 @@ RSpec.describe Hub::UpdateCtcClientForm do
 
     let(:spouse_ssn) { "999-78-1224" }
     let(:spouse_tin_type) { "itin" }
+
+    let(:dependent_ssn) { '111-33-3333' }
+    let(:dependent_relationship) { 'daughter' }
 
     let(:sms_opt_in) { "yes" }
     let(:email_opt_in) { "no" }
@@ -134,6 +150,28 @@ RSpec.describe Hub::UpdateCtcClientForm do
             form = described_class.new(client, form_attributes)
             form.save
             expect(form.errors).to include(:spouse_ssn)
+          end
+        end
+      end
+
+      context "updating dependents" do
+        context 'when relationship is missing' do
+          let(:dependent_relationship) { nil }
+
+          it "shows a validation error" do
+            form = described_class.new(client, form_attributes)
+            form.save
+            expect(form.dependents.first.errors).to include(:relationship)
+          end
+        end
+
+        context 'when SSN is missing' do
+          let(:dependent_ssn) { nil }
+
+          it "shows a validation error" do
+            form = described_class.new(client, form_attributes)
+            form.save
+            expect(form.dependents.first.errors).to include(:ssn)
           end
         end
       end
