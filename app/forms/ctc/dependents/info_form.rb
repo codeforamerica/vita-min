@@ -16,6 +16,7 @@ module Ctc
       set_attributes_for :birthday, :birth_date_month, :birth_date_day, :birth_date_year
       set_attributes_for :misc, :ssn_no_employment
       set_attributes_for :confirmation, :ssn_confirmation
+      set_attributes_for :recaptcha, :recaptcha_score, :recaptcha_action
 
       validates :first_name, presence: true, legal_name: true
       validates :last_name, presence: true, legal_name: true
@@ -53,6 +54,13 @@ module Ctc
         @dependent.save
 
         @dependent.update!(lived_with_more_than_six_months: "yes") if @dependent.born_in_last_6_months_of_2020?
+
+        if attributes_for(:recaptcha)[:recaptcha_score].present?
+          @dependent.intake.client.recaptcha_scores.create(
+            score: attributes_for(:recaptcha)[:recaptcha_score],
+            action: attributes_for(:recaptcha)[:recaptcha_action]
+          )
+        end
       end
 
       def self.existing_attributes(dependent, _attribute_keys)

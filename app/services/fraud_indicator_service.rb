@@ -30,7 +30,8 @@ class FraudIndicatorService
   end
 
   def recaptcha_score
-    @efile_security_informations.any? { |esi| esi.recaptcha_score.present? && esi.recaptcha_score < 0.3 }
+    average = @client.recaptcha_scores_average
+    average.present? && average < 0.3
   end
 
   def international_timezone

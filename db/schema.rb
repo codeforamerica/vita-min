@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_04_222000) do
+ActiveRecord::Schema.define(version: 2021_10_05_214611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -828,6 +828,15 @@ ActiveRecord::Schema.define(version: 2021_10_04_222000) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "recaptcha_scores", force: :cascade do |t|
+    t.string "action", null: false
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.decimal "score", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_recaptcha_scores_on_client_id"
+  end
+
   create_table "reports", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.jsonb "data"
@@ -1091,6 +1100,7 @@ ActiveRecord::Schema.define(version: 2021_10_04_222000) do
   add_foreign_key "outgoing_emails", "users"
   add_foreign_key "outgoing_text_messages", "clients"
   add_foreign_key "outgoing_text_messages", "users"
+  add_foreign_key "recaptcha_scores", "clients"
   add_foreign_key "site_coordinator_roles", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "system_notes", "clients"

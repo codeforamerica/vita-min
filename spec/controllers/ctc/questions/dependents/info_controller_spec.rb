@@ -6,6 +6,8 @@ describe Ctc::Questions::Dependents::InfoController do
 
   before do
     sign_in intake.client
+    allow(controller).to receive(:verify_recaptcha).and_return(true)
+    allow(controller).to receive(:recaptcha_reply).and_return({ 'score' => "0.9" })
   end
 
   describe "#edit" do
@@ -50,6 +52,9 @@ describe Ctc::Questions::Dependents::InfoController do
         new_dependent = intake.dependents.last
         expect(new_dependent.creation_token).to eq(unsigned_token)
         expect(new_dependent.full_name).to eq 'Fae Taxseason Jr'
+        recaptcha_score = intake.client.recaptcha_scores.last
+        expect(recaptcha_score.score).to eq 0.9
+        expect(recaptcha_score.action).to eq 'dependents_info'
       end
     end
 
@@ -80,6 +85,9 @@ describe Ctc::Questions::Dependents::InfoController do
           post :update, params: params
 
           expect(dependent.reload.full_name).to eq 'Fae Taxseason'
+          recaptcha_score = intake.client.recaptcha_scores.last # do we want to capture the recaptcha score again for editing a dependent?
+          expect(recaptcha_score.score).to eq 0.9
+          expect(recaptcha_score.action).to eq 'dependents_info'
         end
       end
     end

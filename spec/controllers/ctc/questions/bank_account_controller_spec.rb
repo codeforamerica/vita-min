@@ -5,6 +5,8 @@ describe Ctc::Questions::BankAccountController do
 
   before do
     sign_in intake.client
+    allow(controller).to receive(:verify_recaptcha).and_return(true)
+    allow(controller).to receive(:recaptcha_reply).and_return({ 'score' => "0.9" })
   end
 
   describe "#update" do
@@ -37,9 +39,12 @@ describe Ctc::Questions::BankAccountController do
         }
       end
 
-      it "redirects to the next question" do
+      it "redirects to the next question and captures recaptcha score" do
         post :update, params: params
         expect(response).to redirect_to Ctc::Questions::ConfirmBankAccountController.to_path_helper
+        recaptcha_score = intake.client.recaptcha_scores.last
+        expect(recaptcha_score.score).to eq 0.9
+        expect(recaptcha_score.action).to eq 'bank_account'
       end
     end
   end

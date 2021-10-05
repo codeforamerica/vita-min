@@ -7,33 +7,65 @@ describe FraudIndicatorService do
 
   describe "#hold_indicators" do
     context "recaptcha_score" do
-      context "when a recaptcha score is fraudy" do
-        before do
-          create :efile_security_information, client: submission.client, recaptcha_score: 0.1
+      context "for old-style scores (on the efile security information)" do
+        context "when a recaptcha score is fraudy" do
+          before do
+            create :efile_security_information, client: submission.client, recaptcha_score: 0.1
+          end
+
+          it "responds with an array that includes recaptcha_score" do
+            expect(FraudIndicatorService.new(client).hold_indicators).to eq ['recaptcha_score']
+          end
         end
 
-        it "responds with an array that includes recaptcha_score" do
-          expect(FraudIndicatorService.new(client).hold_indicators).to eq ['recaptcha_score']
+        context "when recaptcha scores are not present" do
+          before do
+            create :efile_security_information, client: submission.client, recaptcha_score: nil
+          end
+
+          it "the response array does not include recaptcha_score" do
+            expect(FraudIndicatorService.new(client).hold_indicators).to eq []
+          end
+        end
+
+        context "when recaptcha score is present but above the fraud threshold" do
+          before do
+            create :efile_security_information, client: submission.client, recaptcha_score: 0.3
+          end
+
+          it "the response array does not include recaptcha_score" do
+            expect(FraudIndicatorService.new(client).hold_indicators).to eq []
+          end
         end
       end
 
-      context "when recaptcha scores are not present" do
-        before do
-          create :efile_security_information, client: submission.client, recaptcha_score: nil
+      context "for new-style scores (on the RecaptchaScore table)" do
+        context "when a recaptcha score is fraudy" do
+          before do
+            create :recaptcha_score, client: submission.client, score: 0.1, action: 'bank_account'
+            create :recaptcha_score, client: submission.client, score: 0.3, action: 'confirm_legal'
+          end
+
+          it "responds with an array that includes recaptcha_score" do
+            expect(FraudIndicatorService.new(client).hold_indicators).to eq ['recaptcha_score']
+          end
         end
 
-        it "the response array does not include recaptcha_score" do
-          expect(FraudIndicatorService.new(client).hold_indicators).to eq []
-        end
-      end
-
-      context "when recaptcha score is present but above the fraud threshold" do
-        before do
-          create :efile_security_information, client: submission.client, recaptcha_score: 0.3
+        context "when recaptcha scores are not present" do
+          it "the response array does not include recaptcha_score" do
+            expect(FraudIndicatorService.new(client).hold_indicators).to eq []
+          end
         end
 
-        it "the response array does not include recaptcha_score" do
-          expect(FraudIndicatorService.new(client).hold_indicators).to eq []
+        context "when recaptcha score is present but above the fraud threshold" do
+          before do
+            create :recaptcha_score, client: submission.client, score: 0.3, action: 'bank_account'
+            create :recaptcha_score, client: submission.client, score: 0.6, action: 'confirm_legal'
+          end
+
+          it "the response array does not include recaptcha_score" do
+            expect(FraudIndicatorService.new(client).hold_indicators).to eq []
+          end
         end
       end
     end

@@ -31,6 +31,7 @@
         <label class="form-question"> <%= t('views.ctc.questions.dependents.info.situations') %> </label>
         <%= f.cfa_checkbox(:full_time_student, t('views.ctc.questions.dependents.info.full_time_student'), options: { checked_value: "yes", unchecked_value: "no" }) %>
         <%= f.cfa_checkbox(:permanently_totally_disabled, t('views.ctc.questions.dependents.info.permanently_totally_disabled'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= recaptcha_v3(action: 'dependents_info') %>
         <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.info.reveal_title")) do %>
           <p><%= t("views.ctc.questions.dependents.info.reveal_info") %></p>
         <% end %>

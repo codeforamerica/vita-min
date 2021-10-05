@@ -3,6 +3,10 @@
   <%= render "hub/clients/navigation" %>
 
   <div class="slab slab--not-padded spacing-above-25" id="body">
+    <div class="spacing-below-25">
+      Current recaptcha score average: <%= @client.recaptcha_scores_average %>
+    </div>
+
     <table class="index-table">
       <thead class="index-table__head">
         <tr class="index-table__row">
@@ -13,7 +17,13 @@
       </thead>
 
       <tbody>
-        <%= render(partial: "efile_security_information") %>
+        <% @security_events.each do |event| %>
+          <% if event.is_a?(EfileSecurityInformation) %>
+            <%= render(partial: "efile_security_information", locals: { esf: event }) %>
+          <% elsif event.is_a?(RecaptchaScore) %>
+            <%= render(partial: "recaptcha_score", locals: { recaptcha_score: event }) %>
+          <% end %>
+        <% end %>
       </tbody>
     </table>
   </div>

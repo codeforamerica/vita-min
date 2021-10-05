@@ -9,8 +9,9 @@ module Ctc
                        :timezone_offset,
                        :client_system_time,
                        :ip_address,
-                       :recaptcha_score,
+                       :recaptcha_score, # will eventually be removed, we want it to live on RecaptchaScore
                        :timezone
+    set_attributes_for :recaptcha, :recaptcha_score, :recaptcha_action
 
     validates :consented_to_legal, acceptance: { accept: 'yes', message: I18n.t("views.ctc.questions.confirm_legal.error") }
     validates_presence_of :device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address, :timezone
@@ -29,6 +30,13 @@ module Ctc
         rescue Statesman::GuardFailedError
           Rails.logger.error "Failed to transition EfileSubmission##{efile_submission.id} to :preparing"
         end
+      end
+
+      if attributes_for(:recaptcha)[:recaptcha_score].present?
+        @intake.client.recaptcha_scores.create(
+          score: attributes_for(:recaptcha)[:recaptcha_score],
+          action: attributes_for(:recaptcha)[:recaptcha_action]
+        )
       end
     end
   end

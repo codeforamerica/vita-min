@@ -32,6 +32,12 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
         return redirect_back(fallback_location: ctc_portal_edit_info_path)
       end
       @submission.transition_to(:resubmitted)
+      if recaptcha_score_param('resubmit').present?
+        current_client.recaptcha_scores.create(
+          score: recaptcha_score_param('resubmit')[:recaptcha_score],
+          action: recaptcha_score_param('resubmit')[:recaptcha_action]
+        )
+      end
       SystemNote::CtcPortalAction.generate!(
         model: @submission,
         action: 'resubmitted',
@@ -51,7 +57,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
                                               :client_system_time,
                                               :recaptcha_score)
           .merge(ip_address: request.remote_ip)
-          .merge(recaptcha_score_param('resubmit'))
+          .merge(recaptcha_score: recaptcha_score_param('resubmit')[:recaptcha_score])
 
   end
 

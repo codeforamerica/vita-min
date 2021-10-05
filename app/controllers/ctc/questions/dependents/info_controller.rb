@@ -3,6 +3,7 @@ module Ctc
     module Dependents
       class InfoController < BaseDependentController
         include AuthenticatedCtcClientConcern
+        include RecaptchaScoreConcern
 
         layout "intake"
 
@@ -25,6 +26,10 @@ module Ctc
         end
 
         private
+
+        def form_params
+          super.merge(recaptcha_score_param('dependents_info'))
+        end
 
         def illustration_path
           "ssn-itins.svg"

@@ -13,7 +13,7 @@ RSpec.describe RecaptchaScoreConcern, type: :controller do
       end
 
       it "returns a score" do
-        expect(subject.recaptcha_score_param("test")).to eq({ recaptcha_score: "0.7" })
+        expect(subject.recaptcha_score_param("test")).to eq({ recaptcha_score: "0.7", recaptcha_action: "test" })
       end
     end
 
