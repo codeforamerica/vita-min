@@ -3019,9 +3019,6 @@ en:
         support_html: Our team is here to support you. %{faq_link} or submit a question via chat and we will get back to you!
         title: Tax Questions
     questions:
-      additional_info:
-        help_text: Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review.
-        title: Is there any more information you think we should know?
       adopted_child:
         title:
           one: In %{year}, did you adopt a child?

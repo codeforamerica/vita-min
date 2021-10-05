@@ -20,14 +20,6 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
     context "with an authenticated client " do
       before { sign_in client }
 
-      it "signs out the client and sets a completed_intake_id in the session" do
-        expect do
-          get :edit
-        end.to change{ subject.current_client }.from(client).to(nil)
-
-        expect(session[:completed_intake_id]).to eq intake.id
-      end
-
       it "displays a confirmation number" do
         get :edit
 
@@ -40,19 +32,11 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
         expect(MixpanelService).to have_received(:send_event).with(hash_including(subject: intake))
       end
     end
-
-    context "without an authenticated client or intake in the session" do
-      it "Still renders the page with a success message" do
-        get :edit
-
-        expect(response.body).to include "Success! Your tax information has been submitted."
-      end
-    end
   end
 
   describe "#update" do
     context "with a completed intake id in the session" do
-      before { session[:completed_intake_id] = intake.id }
+      before { sign_in client }
 
       context "with valid params" do
         let(:params) do

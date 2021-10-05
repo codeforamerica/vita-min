@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe QuestionNavigation do
-  context ".determine_current_step" do
+  xcontext ".determine_current_step" do
     context "when before consent" do
       let(:intake) { create :intake }
       it "directs to the consent page" do

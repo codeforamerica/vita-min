@@ -113,6 +113,12 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
+      # Interview time preferences
+      fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+    end
+    click_on "Continue"
+
+    screenshot_after do
       # Chat with us
       expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
     end
@@ -456,10 +462,34 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Yes"
 
     screenshot_after do
-      # Additional Information
-      fill_in "Is there any more information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
+      # Payment info
+      expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
+      choose "Mail me a check (slower)"
     end
-    click_on "Next"
+    click_on "Continue"
+
+    screenshot_after do
+      expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
+    end
+    click_on "Continue"
+
+    screenshot_after do
+      expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
+    end
+    click_on "No"
+    # Don't ask for bank details
+
+    screenshot_after do
+      # Contact information
+      expect(page).to have_text("What is your mailing address?")
+      expect(page).to have_select('State', selected: 'Virginia')
+
+      fill_in "Street address", with: "123 Main St."
+      fill_in "City", with: "Anytown"
+      select "California", from: "State"
+      fill_in "ZIP code", with: "94612"
+    end
+    click_on "Confirm"
 
     screenshot_after do
       # Overview: Documents
@@ -545,40 +575,20 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "I've shared all my documents"
 
     screenshot_after do
-      # Interview time preferences
-      fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+      # Final Information
+      fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
     end
+    click_on "Submit"
+
+    screenshot_after do
+      expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+      expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
+    end
+    click_on "Great!"
+
+    expect(intake.reload.current_step).to eq("/en/questions/feedback")
+    fill_in "Thank you for sharing your experience.", with: "I am a joint filer. I file with my spouse."
     click_on "Continue"
-
-    screenshot_after do
-      # Payment info
-      expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
-      choose "Mail me a check (slower)"
-    end
-    click_on "Continue"
-
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
-    end
-    click_on "Continue"
-
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
-    end
-    click_on "No"
-    # Don't ask for bank details
-
-    screenshot_after do
-      # Contact information
-      expect(page).to have_text("What is your mailing address?")
-      expect(page).to have_select('State', selected: 'Virginia')
-
-      fill_in "Street address", with: "123 Main St."
-      fill_in "City", with: "Anytown"
-      select "California", from: "State"
-      fill_in "ZIP code", with: "94612"
-    end
-    click_on "Confirm"
 
     # Demographic Questions
     screenshot_after do
@@ -625,17 +635,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       choose "Not Hispanic or Latino"
     end
     click_on "Continue"
-
-    screenshot_after do
-      # Additional Information
-      fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
-    end
-    click_on "Submit"
-
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-      expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
-    end
   end
 end
 

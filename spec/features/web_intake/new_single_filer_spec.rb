@@ -60,6 +60,15 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
+    # Interview time preferences
+    expect(intake.reload.current_step).to eq("/en/questions/interview-scheduling")
+    fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
+    expect(page).to have_select(
+      "What is your preferred language for the review?", selected: "English"
+    )
+    select("Spanish", from: "What is your preferred language for the review?")
+    click_on "Continue"
+
     # Chat with us
     expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
     expect(page).to have_selector("p", text: "Virginia Partner handles tax returns from 20121 (Centreville, Virginia).")
@@ -231,9 +240,34 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: "In 2020, did you purchase energy efficient home items?")
     click_on "Yes"
 
-    # Additional Information
-    fill_in "Is there any more information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
-    click_on "Next"
+    # Payment info
+    expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
+    choose "Direct deposit (fastest)"
+    click_on "Continue"
+    # Savings Options
+    expect(intake.reload.current_step).to eq("/en/questions/savings-options")
+    expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
+    check "Purchase United States Savings Bond"
+    click_on "Continue"
+    # Pay from bank account?
+    expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
+    click_on "Yes"
+    # Bank Details
+    expect(page).to have_selector("h1", text: "Great, please provide your bank details below!")
+    fill_in "Bank name", with: "First Savings Bank"
+    fill_in "Routing number", with: "123456"
+    fill_in "Account number", with: "987654321"
+    choose "Checking"
+    click_on "Continue"
+
+    # Contact information
+    expect(intake.reload.current_step).to eq("/en/questions/mailing-address")
+    expect(page).to have_text("What is your mailing address?")
+    fill_in "Street address", with: "123 Main St."
+    fill_in "City", with: "Anytown"
+    select "California", from: "State"
+    fill_in "ZIP code", with: "94612"
+    click_on "Confirm"
 
     # Overview: Documents
     expect(intake.reload.current_step).to eq("/en/questions/overview-documents")
@@ -289,43 +323,21 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
     click_on "I've shared all my documents"
 
-    # Interview time preferences
-    expect(intake.reload.current_step).to eq("/en/questions/interview-scheduling")
-    fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
-    expect(page).to have_select(
-      "What is your preferred language for the review?", selected: "English"
-    )
-    select("Spanish", from: "What is your preferred language for the review?")
-    click_on "Continue"
+    # Final Information
+    expect(intake.reload.current_step).to eq("/en/questions/final-info")
+    fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
+    expect {
+      click_on "Submit"
+    }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
 
-    # Payment info
-    expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
-    choose "Direct deposit (fastest)"
-    click_on "Continue"
-    # Savings Options
-    expect(intake.reload.current_step).to eq("/en/questions/savings-options")
-    expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
-    check "Purchase United States Savings Bond"
-    click_on "Continue"
-    # Pay from bank account?
-    expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
-    click_on "Yes"
-    # Bank Details
-    expect(page).to have_selector("h1", text: "Great, please provide your bank details below!")
-    fill_in "Bank name", with: "First Savings Bank"
-    fill_in "Routing number", with: "123456"
-    fill_in "Account number", with: "987654321"
-    choose "Checking"
-    click_on "Continue"
+    expect(intake.reload.current_step).to eq("/en/questions/successfully-submitted")
+    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+    expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
+    click_on "Great!"
 
-    # Contact information
-    expect(intake.reload.current_step).to eq("/en/questions/mailing-address")
-    expect(page).to have_text("What is your mailing address?")
-    fill_in "Street address", with: "123 Main St."
-    fill_in "City", with: "Anytown"
-    select "California", from: "State"
-    fill_in "ZIP code", with: "94612"
-    click_on "Confirm"
+    expect(intake.reload.current_step).to eq("/en/questions/feedback")
+    fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
+    click_on "Continue"
 
     # Demographic questions
     expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
@@ -349,28 +361,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
     expect(page).to have_text("What is your ethnicity?")
     choose "Not Hispanic or Latino"
-    click_on "Continue"
+    click_on "Submit"
 
-    # Additional Information
-    fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
-    expect do
-      click_on "Submit"
-    end.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
-
-    expect(intake.reload.current_step).to eq("/en/questions/successfully-submitted")
-    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-    expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
-    expect{ track_progress }.to change { @current_progress }.to(100)
-    click_on "Great!"
-
-    expect(intake.reload.current_step).to eq("/en/questions/feedback")
-    fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
-    click_on "Return to home"
     expect(page).to have_selector("h1", text: "Free tax filing")
 
     # going back to another page after submit redirects to client login, does not reset current_step
     visit "/questions/work-situations"
-    expect(intake.reload.current_step).to eq("/en/questions/feedback")
+    expect(intake.reload.current_step).to eq("/en/questions/demographic-primary-ethnicity")
     expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
   end
 end

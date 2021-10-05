@@ -20,8 +20,9 @@ class QuestionNavigation
       # Overview
       Questions::OverviewController,
 
-      # Contact information
+      # Contact information and preferences
       Questions::PersonalInfoController,
+      Questions::InterviewSchedulingController,
       Questions::AtCapacityController,
       Questions::ChatWithUsController,
       Questions::PhoneNumberController,
@@ -137,17 +138,8 @@ class QuestionNavigation
       Questions::TaxCreditDisallowedController,
       Questions::EstimatedTaxPaymentsController,
       Questions::SelfEmploymentLossController,
-      Questions::EnergyEfficientPurchasesController,
-
-      # Additional Information
-      Questions::AdditionalInfoController, # sets 'completed_yes_no_questions_at'
-                                           # generate and replace the "Preliminary" 13614-C signed by the primary and spouse with yes/no questions filled out
-
-      # Documents --> See DocumentNavigation
-      Questions::OverviewDocumentsController,
-
-      # Interview time preferences
-      Questions::InterviewSchedulingController,
+      Questions::EnergyEfficientPurchasesController, # sets 'completed_yes_no_questions_at'
+      # generate and replace the "Preliminary" 13614-C signed by the primary and spouse with yes/no questions filled out
 
       # Payment info
       Questions::RefundPaymentController,
@@ -155,6 +147,13 @@ class QuestionNavigation
       Questions::BalancePaymentController,
       Questions::BankDetailsController,
       Questions::MailingAddressController,
+
+      # Documents --> See DocumentNavigation
+      Questions::OverviewDocumentsController,
+
+      Questions::FinalInfoController,
+      Questions::SuccessfullySubmittedController,
+      Questions::FeedbackController,
 
       # Optional Demographic Questions
       Questions::DemographicQuestionsController,
@@ -166,12 +165,6 @@ class QuestionNavigation
       Questions::DemographicSpouseRaceController,
       Questions::DemographicPrimaryEthnicityController,
       Questions::DemographicSpouseEthnicityController,
-
-      # Additional Information
-      Questions::FinalInfoController, # sets 'completed_at' & creates Original 13614-C
-                                      # replace "Preliminary" with "Original" 13614-C completely filled out
-      Questions::SuccessfullySubmittedController,
-      Questions::FeedbackController,
   ].freeze
 
   # Provides a backfill to determine the current_step value for clients who started intake previous to the addition of

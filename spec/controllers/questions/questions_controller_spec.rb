@@ -53,7 +53,7 @@ RSpec.describe Questions::QuestionsController do
                  [
                      Questions::WelcomeController,
                      Questions::AdoptedChildController,
-                     Questions::AdditionalInfoController,
+                     Questions::FinalInfoController,
                  ]
       )
     end
@@ -73,13 +73,13 @@ RSpec.describe Questions::QuestionsController do
                  [
                      Questions::WelcomeController,
                      Questions::AdoptedChildController,
-                     Questions::AdditionalInfoController,
+                     Questions::FinalInfoController,
                  ]
       )
     end
 
     it "returns the path to the previous controller in the flow" do
-      expect(subject.next_path).to eq Questions::AdditionalInfoController.to_path_helper
+      expect(subject.next_path).to eq Questions::FinalInfoController.to_path_helper
     end
   end
 
