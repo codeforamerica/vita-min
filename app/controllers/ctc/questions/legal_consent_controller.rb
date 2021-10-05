@@ -4,8 +4,13 @@ module Ctc
       include AnonymousIntakeConcern
       include Ctc::CanBeginIntakeConcern
       include Ctc::ResetToStartIfIntakeNotPersistedConcern
+      include RecaptchaScoreConcern
 
       layout "intake"
+
+      def form_params
+        super.merge(recaptcha_score_param('legal_consent'))
+      end
 
       private
 

@@ -25,6 +25,7 @@
       <%= f.cfa_input_field(:routing_number_confirmation, t("views.ctc.questions.routing_number.routing_number_confirmation"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:account_number, t("views.ctc.questions.account_number.account_number"), classes: ["form-width--long"], type: bank_account_field_type(:account_number)) %>
       <%= f.cfa_input_field(:account_number_confirmation, t("views.ctc.questions.account_number.account_number_confirmation"), classes: ["form-width--long"]) %>
+      <%= recaptcha_v3(action: 'bank_account') %>
     </div>
 
     <button class="button button--primary button--wide" type="submit">

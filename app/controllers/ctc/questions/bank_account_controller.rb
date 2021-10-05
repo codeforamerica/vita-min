@@ -2,6 +2,7 @@ module Ctc
   module Questions
     class BankAccountController < QuestionsController
       include AuthenticatedCtcClientConcern
+      include RecaptchaScoreConcern
 
       layout "intake"
 
@@ -11,6 +12,10 @@ module Ctc
 
       def edit
         @form = form_class.from_bank_account(current_model)
+      end
+
+      def form_params
+        super.merge(recaptcha_score_param('bank_account'))
       end
 
       private

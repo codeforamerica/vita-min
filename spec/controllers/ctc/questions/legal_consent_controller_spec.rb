@@ -6,6 +6,8 @@ describe Ctc::Questions::LegalConsentController do
   before do
     allow(MixpanelService).to receive(:send_event)
     session[:intake_id] = intake.id
+    allow(controller).to receive(:verify_recaptcha).and_return(true)
+    allow(controller).to receive(:recaptcha_reply).and_return({ 'score' => "0.9" })
   end
 
   describe "#edit" do
@@ -42,6 +44,9 @@ describe Ctc::Questions::LegalConsentController do
 
         client = Client.last
         expect(client.intake.primary_first_name).to eq "Marty"
+        recaptcha_score = client.recaptcha_scores.last
+        expect(recaptcha_score.score).to eq 0.9
+        expect(recaptcha_score.action).to eq 'legal_consent'
       end
 
       it "sends a Mixpanel event" do

@@ -64,6 +64,7 @@ class Client < ApplicationRecord
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
   has_many :efile_submissions, through: :tax_returns
   has_many :efile_security_informations, dependent: :destroy
+  has_many :recaptcha_scores, dependent: :destroy
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
   accepts_nested_attributes_for :efile_security_informations
@@ -285,6 +286,12 @@ class Client < ApplicationRecord
 
   def hub_status_updatable
     !online_ctc?
+  end
+
+  def recaptcha_scores_average
+    return efile_security_informations.last&.recaptcha_score unless recaptcha_scores.present?
+
+    (recaptcha_scores.map(&:score).sum / recaptcha_scores.size).round(2)
   end
 
   private

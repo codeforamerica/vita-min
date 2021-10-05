@@ -8,6 +8,7 @@ module Ctc
                        :account_number,
                        :account_type
     set_attributes_for :confirmation, :my_bank_account, :routing_number_confirmation, :account_number_confirmation
+    set_attributes_for :recaptcha, :recaptcha_score, :recaptcha_action
 
     with_options if: -> { (account_number.present? && account_number != @bank_account&.account_number) || account_number_confirmation.present? } do
       validates :account_number, confirmation: true
@@ -39,6 +40,13 @@ module Ctc
       if @bank_account.valid?
         @bank_account.save
         @bank_account.intake.update(refund_payment_method: "direct_deposit")
+      end
+
+      if attributes_for(:recaptcha)[:recaptcha_score].present?
+        @bank_account.intake.client.recaptcha_scores.create(
+          score: attributes_for(:recaptcha)[:recaptcha_score],
+          action: attributes_for(:recaptcha)[:recaptcha_action]
+        )
       end
     end
 

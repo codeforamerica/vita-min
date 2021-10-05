@@ -1,0 +1,10 @@
+<tr class="index-table__row index-table__vertical_align">
+  <td class="index-table__cell"><%= timestamp(recaptcha_score.created_at) %></td>
+  <td class="index-table__cell"><strong>Recaptcha score</strong></td>
+  <td class="index-table__cell">
+    <div class="field-display spacing-below-5">
+      <span class="form-question"><%= "#{recaptcha_score.action}:" %></span>
+      <span class="label-value"><%= recaptcha_score.score %></span>
+    </div>
+  </td>
+</tr>

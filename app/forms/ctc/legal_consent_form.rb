@@ -12,6 +12,7 @@ module Ctc
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation
     set_attributes_for :misc, :ssn_no_employment
+    set_attributes_for :recaptcha, :recaptcha_score, :recaptcha_action
 
     before_validation :normalize_phone_numbers
 
@@ -28,6 +29,16 @@ module Ctc
       if primary_tin_type == "ssn_no_employment"
         self.primary_tin_type = "ssn"
         self.ssn_no_employment = "yes"
+      end
+    end
+
+    def save
+      super
+      if attributes_for(:recaptcha)[:recaptcha_score].present?
+        @intake.client.recaptcha_scores.create(
+          score: attributes_for(:recaptcha)[:recaptcha_score],
+          action: attributes_for(:recaptcha)[:recaptcha_action]
+        )
       end
     end
 
