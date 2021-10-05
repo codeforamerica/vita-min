@@ -9,22 +9,38 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
     let(:outgoing_text_message) { create(:outgoing_text_message, body: "body", client: client, user: user, to_phone_number: "+15855551212") }
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
 
-    before do
-      allow(TwilioService).to receive(:send_text_message).and_return(fake_twilio_message)
+    context "when Twilio does not raise an exception" do
+      before do
+        allow(TwilioService).to receive(:send_text_message).and_return(fake_twilio_message)
+      end
+
+      it "replaces sensitive parameters, sends the message to Twilio with a callback URL and saves the status" do
+        Timecop.freeze(fake_time) { SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id) }
+        expect(TwilioService).to have_received(:send_text_message).with(
+          to: outgoing_text_message.to_phone_number,
+          body: "body",
+          status_callback: "http://test.host/outgoing_text_messages/#{outgoing_text_message.id}",
+        )
+
+        outgoing_text_message.reload
+        expect(outgoing_text_message.twilio_sid).to eq "123"
+        expect(outgoing_text_message.twilio_status).to eq "sent"
+        expect(outgoing_text_message.sent_at).to eq fake_time
+      end
     end
 
-    it "replaces sensitive parameters, sends the message to Twilio with a callback URL and saves the status" do
-      Timecop.freeze(fake_time) { SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id) }
-      expect(TwilioService).to have_received(:send_text_message).with(
-        to: outgoing_text_message.to_phone_number,
-        body: "body",
-        status_callback: "http://test.host/outgoing_text_messages/#{outgoing_text_message.id}",
-      )
+    context "when Twilio raises an exception" do
+      before do
+        allow(TwilioService).to receive(:send_text_message) { |*_args, **_kwargs| raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}))) }
+      end
 
-      outgoing_text_message.reload
-      expect(outgoing_text_message.twilio_sid).to eq "123"
-      expect(outgoing_text_message.twilio_status).to eq "sent"
-      expect(outgoing_text_message.sent_at).to eq fake_time
+      it "sets the status to twilio_error" do
+        expect {
+          SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id)
+        }.to raise_error(Twilio::REST::RestError)
+        outgoing_text_message.reload
+        expect(outgoing_text_message.twilio_status).to eq "twilio_error"
+      end
     end
   end
 end
