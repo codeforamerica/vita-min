@@ -296,17 +296,17 @@ RSpec.describe Hub::ClientsController do
 
         let(:assigned_user) { create :user, name: "Lindsay" }
         let!(:george_sr) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", preferred_interview_language: "en", locale: "en") }
-        let!(:george_sr_2019_return) { create :tax_return, client: george_sr, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
-        let!(:george_sr_2018_return) { create :tax_return, client: george_sr, year: 2018, assigned_user: assigned_user, status: "intake_ready" }
+        let!(:george_sr_2019_return) { create :tax_return, :intake_in_progress, client: george_sr, year: 2019, assigned_user: assigned_user }
+        let!(:george_sr_2018_return) { create :tax_return, :intake_ready, client: george_sr, year: 2018, assigned_user: assigned_user }
         let!(:michael) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes", state_of_residence: nil) }
-        let!(:michael_2019_return) { create :tax_return, client: michael, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
+        let!(:michael_2019_return) { create :tax_return, :intake_in_progress, client: michael, year: 2019, assigned_user: assigned_user }
         let!(:tobias) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", preferred_interview_language: "es", state_of_residence: "TX") }
-        let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
-        let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
+        let!(:tobias_2019_return) { create :tax_return, :intake_in_progress, client: tobias, year: 2019, assigned_user: assigned_user }
+        let!(:tobias_2018_return) { create :tax_return, :intake_in_progress, client: tobias, year: 2018, assigned_user: assigned_user }
         let!(:lucille) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Lucille") }
-        let!(:lucille_2018_return) { create(:tax_return, client: lucille, year: 2018, status: "intake_before_consent", assigned_user: assigned_user) }
+        let!(:lucille_2018_return) { create(:tax_return, :intake_before_consent, client: lucille, year: 2018, assigned_user: assigned_user) }
         let!(:bob_loblaw) { create :client, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Bob Loblaw") }
-        let!(:bob_loblaw_online_intake_return) { create :tax_return, service_type: :online_intake, client: bob_loblaw, status: :intake_before_consent }
+        let!(:bob_loblaw_online_intake_return) { create :tax_return, :intake_before_consent, service_type: :online_intake, client: bob_loblaw }
 
         it "does not show a client whose tax returns are all before_consent" do
           get :index
@@ -600,8 +600,8 @@ RSpec.describe Hub::ClientsController do
 
       context "ordering tax returns" do
         let(:client) { (create :intake).client }
-        let!(:tax_return_2020) { create :tax_return, client: client, year: 2020 }
-        let!(:tax_return_2019) { create :tax_return, client: client, year: 2019 }
+        let!(:tax_return_2020) { create :tax_return, :intake_in_progress, client: client, year: 2020 }
+        let!(:tax_return_2019) { create :tax_return, :intake_in_progress, client: client, year: 2019 }
         before { client.update(vita_partner: organization) }
         render_views
 
@@ -616,8 +616,8 @@ RSpec.describe Hub::ClientsController do
 
       context "filtering" do
         context "with a status filter" do
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
-          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_ready")], intake: (create :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_ready)], intake: (create :intake) }
 
           it "includes clients with tax returns in that status" do
             get :index, params: { status: "intake_in_progress" }
@@ -626,8 +626,8 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "with a stage filter" do
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
-          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "prep_ready_for_prep")], intake: (create :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: :intake_in_progress)], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: :prep_ready_for_prep)], intake: (create :intake) }
 
           it "includes clients with tax returns in that stage" do
             get :index, params: { status: "intake" }
@@ -636,7 +636,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by tax return year" do
-          let!(:return_3020) { create :tax_return, year: 3020, client: create(:client, vita_partner: organization) }
+          let!(:return_3020) { create :tax_return, :intake_in_progress, year: 3020, client: create(:client, vita_partner: organization) }
           it "filters in" do
             get :index, params: { year: 3020 }
             expect(assigns(:clients)).to eq [return_3020.client]
@@ -644,7 +644,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by unassigned" do
-          let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: create(:client, vita_partner: organization) }
+          let!(:unassigned) { create :tax_return, :intake_in_progress, year: 2012, assigned_user: nil, client: create(:client, vita_partner: organization) }
           it "filters in" do
             get :index, params: { unassigned: true }
             expect(assigns(:clients)).to include unassigned.client
@@ -653,9 +653,9 @@ RSpec.describe Hub::ClientsController do
 
         context "filtering by organization/site" do
           let(:site) { create :site, parent_organization: organization }
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return)], intake: (create :intake) }
-          let!(:included_site_client) { create :client, vita_partner: site, tax_returns: [(create :tax_return)], intake: (create :intake) }
-          let!(:excluded_client) { create :client, vita_partner: create(:organization), tax_returns: [(create :tax_return)], intake: (create :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (create :intake) }
+          let!(:included_site_client) { create :client, vita_partner: site, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: create(:organization), tax_returns: [(create :tax_return, :intake_in_progress)], intake: (create :intake) }
 
           it "includes clients who are assigned to those vita partners" do
             get :index, params: { vita_partners: [{ id: organization.id, name: organization.name, value: organization.id }, { id: site.id, name: site.name, value: site.id }].to_json }
@@ -667,7 +667,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by needs response" do
-          let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return)] }
+          let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)] }
           it "filters in" do
             get :index, params: { flagged: true }
             expect(assigns(:clients)).to include flagged

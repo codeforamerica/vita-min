@@ -5,7 +5,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, preferred_name: "Katie", current_step: "/en/questions/asset-loss"),
-             tax_returns: [create(:tax_return, status: :intake_in_progress)]
+             tax_returns: [create(:tax_return, :intake_in_progress)]
     end
     before do
       login_as client, scope: :client
@@ -25,7 +25,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, preferred_name: "Randall", current_step: "/en/documents/overview"),
-             tax_returns: [create(:tax_return, status: :intake_in_progress, year: 2019)]
+             tax_returns: [create(:tax_return, :intake_in_progress, year: 2019)]
     end
     before do
       login_as client, scope: :client
@@ -45,7 +45,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, preferred_name: "Randall"),
-             tax_returns: [create(:tax_return, year: 2019, status: :intake_ready)]
+             tax_returns: [create(:tax_return, :intake_ready, year: 2019)]
     end
     before do
       login_as client, scope: :client

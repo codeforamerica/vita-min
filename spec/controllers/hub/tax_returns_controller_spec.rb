@@ -80,6 +80,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           tax_return = TaxReturn.last
           expect(tax_return.year).to eq 2020
           expect(tax_return.status).to eq "intake_in_progress"
+          expect(tax_return.last_transition.to_state).to eq "intake_in_progress"
           expect(tax_return.assigned_user).to eq user
           expect(tax_return.certification_level).to eq "basic"
           expect(response).to redirect_to(hub_client_path(id: client.id))

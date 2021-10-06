@@ -4,6 +4,8 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  ctc_amount_cents    :bigint
+#  eip3_amount_cents   :bigint
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -13,6 +15,7 @@
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
 #  ready_for_prep_at   :datetime
+#  refund_amount_cents :bigint
 #  service_type        :integer          default("online_intake")
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
@@ -36,7 +39,11 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
-
+  has_many :tax_return_transitions, autosave: false
+  include Statesman::Adapters::ActiveRecordQueries[
+              transition_class: TaxReturnTransition,
+              initial_state: TaxReturnStateMachine.initial_state
+          ]
   PRIMARY_SIGNATURE = "primary".freeze
   SPOUSE_SIGNATURE = "spouse".freeze
   belongs_to :client
@@ -58,6 +65,14 @@ class TaxReturn < ApplicationRecord
   attr_accessor :status_last_changed_by
   after_update_commit :send_mixpanel_status_change_event, :send_surveys
   after_update_commit { InteractionTrackingService.record_internal_interaction(client) }
+
+  def state_machine
+    @state_machine ||= TaxReturnStateMachine.new(self, transition_class: TaxReturnTransition)
+  end
+
+  delegate :can_transition_to?, :current_state, :history, :last_transition, :last_transition_to,
+           :transition_to!, :transition_to, :in_state?, :advance_to, :previous_transition, :previous_state, to: :state_machine
+
 
   before_save do
     if status == "prep_ready_for_prep" && status_changed?
@@ -128,16 +143,6 @@ class TaxReturn < ApplicationRecord
 
   def has_submissions?
     efile_submissions.count.nonzero?
-  end
-
-  ##
-  # advance the return to a new status, only if that status more advanced.
-  # An earlier or equal status will be ignored.
-  #
-  # @param [String] new_status: the name of the status to advance to
-  #
-  def advance_to(new_status)
-    update!(status: new_status) if TaxReturn.statuses[status.to_sym] < TaxReturn.statuses[new_status.to_sym]
   end
 
   def record_expected_payments!
@@ -312,8 +317,8 @@ class TaxReturn < ApplicationRecord
   end
 
   def system_change_status(new_status)
-    SystemNote::StatusChange.generate!(tax_return: self, old_status: self.status, new_status: new_status)
-    self.status = new_status
+    SystemNote::StatusChange.generate!(tax_return: self, old_status: current_state, new_status: new_status)
+    transition_to(new_status)
   end
 
   def send_surveys

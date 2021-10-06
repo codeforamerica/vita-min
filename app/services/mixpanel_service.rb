@@ -141,7 +141,7 @@ class MixpanelService
     end
 
     def send_status_change_event(tax_return)
-      send_tax_return_event(tax_return, "status_change", { from_status: tax_return.status_before_last_save })
+      send_tax_return_event(tax_return, "status_change", { from_status: tax_return.previous_state })
     end
 
     def send_file_accepted_event(tax_return)
@@ -278,7 +278,7 @@ class MixpanelService
         year: tax_return.year.to_s,
         certification_level: tax_return.certification_level,
         service_type: tax_return.service_type,
-        status: tax_return.status,
+        status: tax_return.current_state,
         is_ctc: tax_return.is_ctc
       }
     end

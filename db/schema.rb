@@ -909,6 +909,18 @@ ActiveRecord::Schema.define(version: 2021_10_19_194457) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tax_return_transitions", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.jsonb "metadata", default: {}
+    t.boolean "most_recent", null: false
+    t.integer "sort_key", null: false
+    t.integer "tax_return_id", null: false
+    t.string "to_state", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tax_return_id", "most_recent"], name: "index_tax_return_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["tax_return_id", "sort_key"], name: "index_tax_return_transitions_parent_sort", unique: true
+  end
+
   create_table "tax_returns", force: :cascade do |t|
     t.bigint "assigned_user_id"
     t.integer "certification_level"
@@ -1111,6 +1123,7 @@ ActiveRecord::Schema.define(version: 2021_10_19_194457) do
   add_foreign_key "tax_return_assignments", "users", column: "assigner_id"
   add_foreign_key "tax_return_selection_tax_returns", "tax_return_selections"
   add_foreign_key "tax_return_selection_tax_returns", "tax_returns"
+  add_foreign_key "tax_return_transitions", "tax_returns"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "team_member_roles", "vita_partners"

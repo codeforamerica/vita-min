@@ -228,11 +228,8 @@ describe MixpanelService do
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
-        let!(:tax_return) { create :tax_return, certification_level: "basic", client: client, status_last_changed_by: user, status: "intake_before_consent" }
+        let!(:tax_return) { create :tax_return, :review_reviewing, certification_level: "basic", client: client, status_last_changed_by: user, status: "intake_before_consent" }
 
-        before do
-          tax_return.status = "review_reviewing"
-        end
 
         it "sends a status_change event" do
           MixpanelService.send_status_change_event(tax_return)
@@ -606,7 +603,7 @@ describe MixpanelService do
       end
 
       context 'when obj is a TaxReturn' do
-        let(:tax_return) { create :tax_return, year: "2019", certification_level: "basic", service_type: "online_intake", status: "intake_info_requested" }
+        let(:tax_return) { create :tax_return, :intake_info_requested, year: "2019", certification_level: "basic", service_type: "online_intake" }
         let(:data_from_intake) { MixpanelService.data_from(tax_return) }
 
         it 'returns relevant data' do

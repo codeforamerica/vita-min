@@ -13,7 +13,7 @@ module Questions
 
     def after_update_success
       sign_in current_intake.client
-      current_intake.advance_tax_return_statuses_to("intake_in_progress")
+      current_intake.tax_returns.each { |tr| tr.advance_to(:intake_in_progress) }
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
         message: AutomatedMessage::GettingStarted,

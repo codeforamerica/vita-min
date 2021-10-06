@@ -4,6 +4,8 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  ctc_amount_cents    :bigint
+#  eip3_amount_cents   :bigint
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -13,6 +15,7 @@
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
 #  ready_for_prep_at   :datetime
+#  refund_amount_cents :bigint
 #  service_type        :integer          default("online_intake")
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
@@ -40,10 +43,21 @@ FactoryBot.define do
     year { 2019 }
     # when creating a client, also create an intake, since tax returns are made after intake begins
     client { create(:intake).client }
-    status { "intake_in_progress" }
+    transient do
+      metadata { {} }
+    end
+
+    TaxReturnStateMachine.states.each do |state|
+      trait state.to_sym do
+        status { state } # wip to align with current implementation where status is necessary
+        after :create do |tax_return, evaluator|
+          create :tax_return_transition, state, tax_return: tax_return, metadata: evaluator.metadata
+        end
+      end
+    end
 
     trait :ready_to_sign do
-      status { "review_signature_requested" }
+      review_signature_requested
       after(:build) do |tax_return|
         create(:document,
                client: tax_return.client,
@@ -73,7 +87,7 @@ FactoryBot.define do
     end
 
     trait :ready_to_file_solo do
-      status { "file_ready_to_file" }
+      file_ready_to_file
       primary_signature { client.legal_name }
       primary_signed_at { DateTime.current }
       primary_signed_ip { IPAddr.new }
@@ -87,7 +101,7 @@ FactoryBot.define do
     end
 
     trait :ready_to_file_joint do
-      status { "file_ready_to_file" }
+      file_ready_to_file
       primary_signature { client.legal_name }
       primary_signed_at { DateTime.current }
       primary_signed_ip { IPAddr.new }

@@ -13,7 +13,7 @@ module Documents
     private
 
     def advance_to_ready
-      current_intake.advance_tax_return_statuses_to("intake_ready")
+      current_intake.tax_returns.each { |tr| tr.advance_to(:intake_ready) }
     end
 
     def illustration_path
