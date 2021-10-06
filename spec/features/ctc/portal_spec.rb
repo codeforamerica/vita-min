@@ -63,7 +63,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
       scenario "a client sees and can click on a link to continue their intake" do
         log_in_to_ctc_portal
 
-        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
         expect(page).to have_text "More information needed"
         expect(page).to have_text "We need more information from you before we can file your return."
         click_on "Complete CTC form"
@@ -108,43 +108,43 @@ RSpec.feature "CTC Intake", :js, :active_job do
       scenario "a client sees their submission status" do
         log_in_to_ctc_portal
 
-        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-        expect(page).to have_text "Submission error"
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.failed.label")
         expect(page).to have_text "Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return."
       end
 
       scenario "a client can upload a document" do
         log_in_to_ctc_portal
 
-        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-        expect(page).to have_text "Submission error"
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.failed.label")
 
         expect(page).to have_text I18n.t("views.ctc.portal.home.submit_documents")
-        expect(client.documents.where(document_type: "Other").length).to eq 0
+        expect(intake.client.documents.where(document_type: "Other").length).to eq 0
 
-        click_link "Submit additional documents"
-        expect(page).to have_text "Please share any additional documents."
+        click_link I18n.t("views.ctc.portal.home.submit_documents")
+        expect(page).to have_text I18n.t("views.documents.additional_documents.title")
 
         upload_file("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
         expect(page).to have_content("test-pattern.png")
 
-        expect(client.documents.where(document_type: "Other").length).to eq 1
+        expect(intake.client.documents.where(document_type: "Other").length).to eq 1
         page.accept_alert 'Are you sure you want to remove "test-pattern.png"?' do
-          click_on "Remove"
+          click_on I18n.t("general.remove")
         end
 
-        expect(page).to have_text "Please share any additional documents."
-        expect(client.documents.where(document_type: "Other").length).to eq 0
+        expect(page).to have_text I18n.t("views.documents.additional_documents.title")
+        expect(intake.client.documents.where(document_type: "Other").length).to eq 0
 
-        click_on "Continue"
-        expect(page).to have_text "Welcome back"
-        click_on "Submit additional documents"
+        click_on I18n.t("general.continue")
+        expect(page).to have_text I18n.t("views.ctc.portal.home.title")
+        click_on I18n.t("views.ctc.portal.home.submit_documents")
 
         expect(page).not_to have_content("test-pattern.png")
 
-        expect(page).to have_text "Please share any additional documents"
-        expect(page).not_to have_text "I don't have this right now."
-        click_on "Go back"
+        expect(page).to have_text I18n.t("views.documents.additional_documents.title")
+        expect(page).not_to have_text I18n.t("views.layouts.document_upload.dont_have")
+        click_on I18n.t("general.back")
       end
     end
 
@@ -157,9 +157,9 @@ RSpec.feature "CTC Intake", :js, :active_job do
       scenario "a client sees information about the previous transition to failed" do
         log_in_to_ctc_portal
 
-        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
-        expect(page).to have_text "Submission error"
-        expect(page).to have_text "Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days."
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.failed.label")
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.failed.message")
       end
     end
 
@@ -171,7 +171,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
       scenario "a client sees their submission status" do
         log_in_to_ctc_portal
 
-        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
         expect(page).to have_text "Electronically filed"
         expect(page).to have_text I18n.t("views.ctc.portal.home.status.transmitted.message")
       end
@@ -186,7 +186,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
       scenario "a client sees their submission status and can download their tax return" do
         log_in_to_ctc_portal
 
-        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
         expect(page).to have_text "Accepted"
         expect(page).to have_text "Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks."
         expect(page).to have_link "Download my tax return"
@@ -419,7 +419,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
       scenario "a client sees and can click on a link to continue their intake" do
         log_in_to_ctc_portal
 
-        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
         expect(page).to have_text "Rejected"
         expect(page).to have_text "IND-189"
         expect(page).to have_text "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
@@ -443,7 +443,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
       scenario "a client sees information about their cancelled submission" do
         log_in_to_ctc_portal
 
-        expect(page).to have_selector("h1", text: "Thank you for filing with GetCTC!")
+        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
         expect(page).to have_text I18n.t("views.ctc.portal.home.status.rejected.label")
         expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.message")
         click_on "Contact us"
