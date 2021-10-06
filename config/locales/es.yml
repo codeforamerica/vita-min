@@ -1585,7 +1585,7 @@ es:
           status:
             accepted:
               label: Aceptada
-              message: Su declaración ha sido aceptada por el IRS. Deberá recibir un pago en un plazo de 1-4 semanas.
+              message: Su declaración ha sido aceptada por el IRS. Deberá recibir un pago en 4 semanas o más.
             cancelled:
               message: Ya no intentaremos enviar esta declaración al IRS. Esto puede deberse a que solicitó que no enviemos la declaración o porque un rechazo del IRS indicó que no podemos volver a enviarla en su nombre.
             failed:
