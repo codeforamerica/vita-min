@@ -1604,7 +1604,6 @@ en:
           complete_form: Complete CTC form
           contact_us: Contact us
           correct_info: Correct my information
-          submit_documents: Submit additional documents
           current_status: 'Current tax return status:'
           default_next_steps: Please send us a message with questions or corrections using the "Contact Us" button below.
           download_tax_return: Download my tax return
@@ -1641,6 +1640,7 @@ en:
             transmitted:
               label: Electronically filed
               message: Your return has been submitted to the IRS. You will know within one week if your return has been accepted.
+          submit_documents: Submit additional documents
           title: Thank you for filing with GetCTC!
         mailing_address:
           title: Edit your address
