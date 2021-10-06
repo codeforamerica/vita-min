@@ -187,9 +187,9 @@ RSpec.feature "CTC Intake", :js, :active_job do
         log_in_to_ctc_portal
 
         expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
-        expect(page).to have_text "Accepted"
-        expect(page).to have_text "Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks."
-        expect(page).to have_link "Download my tax return"
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.accepted.label")
+        expect(page).to have_text I18n.t("views.ctc.portal.home.status.accepted.message")
+        expect(page).to have_link I18n.t("views.ctc.portal.home.download_tax_return")
       end
     end
 
