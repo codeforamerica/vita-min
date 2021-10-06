@@ -1640,6 +1640,7 @@ en:
             transmitted:
               label: Electronically filed
               message: Your return has been submitted to the IRS. You will know within one week if your return has been accepted.
+          submit_documents: Submit additional documents
           title: Thank you for filing with GetCTC!
         mailing_address:
           title: Edit your address

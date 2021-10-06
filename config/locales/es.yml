@@ -1609,6 +1609,7 @@ es:
             transmitted:
               label: Tramitados electrónicamente
               message: Su declaración ha sido presentada al IRS. En el plazo de una semana sabrá si su declaración ha sido aceptada.
+          submit_documents: Enviar documentos adicionales
           title: "¡Gracias por presentar su declaración con GetCTC!"
         mailing_address:
           title: Edita tu dirección

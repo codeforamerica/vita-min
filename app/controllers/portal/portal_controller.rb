@@ -10,7 +10,7 @@ module Portal
 
       if completed_onboarding_process?
         @tax_returns = current_client.tax_returns.order(year: :desc)
-        @submit_documents = true
+        @can_submit_documents = true
       else
         @current_step = current_intake.current_step || backfill_current_step
         @heres_what_we_need = true

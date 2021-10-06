@@ -384,6 +384,10 @@ Rails.application.routes.draw do
 
           resources :messages, only: [:new, :create]
           resources :documents, only: [:show]
+          resources :upload_documents, only: [:destroy]
+          match 'upload-documents', to: 'upload_documents#edit', via: :get, as: :edit_upload_documents
+          match 'upload-documents', to: 'upload_documents#update', via: :put
+          match 'complete-documents-request', to: 'upload_documents#complete_documents_request', via: :get
         end
 
         # Any other top level slash just goes to home as a source parameter
