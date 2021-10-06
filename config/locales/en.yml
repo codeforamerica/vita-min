@@ -1616,7 +1616,7 @@ en:
           status:
             accepted:
               label: Accepted
-              message: Your return has been accepted by the IRS. You should receive a payment within 1-4 weeks.
+              message: Your return has been accepted by the IRS. You should receive a payment in 4 or more weeks.
             cancelled:
               message: We will no longer attempt to submit this return to the IRS. This may be because you requested that we do not submit the return, or because a rejection from the IRS indicated that we can not resubmit on your behalf.
             failed:
