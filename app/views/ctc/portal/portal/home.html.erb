@@ -69,7 +69,7 @@
       <div class="spacing-above-35">
         <%= link_to t('views.ctc.portal.home.contact_us'), new_ctc_portal_message_path, class: "button button--full-width" %>
       </div>
-      <% if @submit_documents %>
+      <% if @can_submit_documents %>
         <%= link_to t("views.ctc.portal.home.submit_documents"), portal_upload_documents_path, class: "button button--full-width" %>
       <% end %>
       <% if @current_step %>

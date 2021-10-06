@@ -10,14 +10,14 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
       @exposed_error = latest_transition.present? ? latest_transition.exposed_error : nil
       @current_step = nil
       @pdf1040 = current_client.documents.find_by(tax_return: @submission.tax_return, document_type: DocumentTypes::Form1040.key)
-      @submit_documents = true
+      @can_submit_documents = true
     else
       @submission = nil
       @status = "intake_in_progress"
       @exposed_error = nil
       @current_step = current_client.intake.current_step
       @pdf1040 = nil
-      @submit_documents = false
+      @can_submit_documents = false
     end
   end
 
