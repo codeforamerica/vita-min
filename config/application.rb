@@ -49,12 +49,12 @@ module VitaMin
     }
     config.middleware.use Middleware::CleanupMimeTypeHeaders
 
-    # Set LOG_FORMAT=json for production-style logging
-    config.rails_semantic_logger.format = ENV.fetch("LOG_FORMAT", "color").to_sym
     # Logs are typically also available in log/{environment}.log
     if ENV["RAILS_LOG_TO_STDOUT"].present?
       config.rails_semantic_logger.add_file_appender = false
     end
-    config.semantic_logger.add_appender(io: $stdout)
+    # Set LOG_FORMAT=json for production-style logging
+    config.rails_semantic_logger.format = ENV.fetch("LOG_FORMAT", "color").to_sym
+    config.semantic_logger.add_appender(io: $stdout, formatter: config.rails_semantic_logger.format)
   end
 end
