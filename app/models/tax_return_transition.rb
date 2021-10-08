@@ -25,6 +25,10 @@ class TaxReturnTransition < ApplicationRecord
 
   after_destroy :update_most_recent, if: :most_recent?
 
+  def initiated_by_user
+    User.find(metadata["initiated_by_user_id"]) if metadata["initiated_by_user_id"].present?
+  end
+
   private
 
   def update_most_recent

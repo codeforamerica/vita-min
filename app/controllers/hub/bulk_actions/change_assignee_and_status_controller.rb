@@ -35,7 +35,7 @@ module Hub
       end
 
       def load_current_tax_return_statuses
-        @current_tr_statuses = @selection.tax_returns.pluck(:status).uniq
+        @current_tr_statuses = @selection.tax_returns.joins(:tax_return_transitions).where(tax_return_transitions: { most_recent: true }).map(&:current_state).uniq
       end
 
       def load_assignable_users
@@ -45,7 +45,7 @@ module Hub
       def update_assignee_and_status!
         @selection.tax_returns.find_each do |tax_return|
           tax_return.update!(assigned_user: @form.assigned_user) unless assignment_action == BulkTaxReturnUpdate::KEEP
-          tax_return.update!(status: @form.status) unless status_action == BulkTaxReturnUpdate::KEEP
+          tax_return.transition_to!(@form.status) unless status_action == BulkTaxReturnUpdate::KEEP
         end
       end
 

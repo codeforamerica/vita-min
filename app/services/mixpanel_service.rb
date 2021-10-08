@@ -132,7 +132,7 @@ class MixpanelService
     end
 
     def send_tax_return_event(tax_return, event_name, additional_data = {})
-      user_data = tax_return.status_last_changed_by.present? ? data_from_user(tax_return.status_last_changed_by) : {}
+      user_data = tax_return.last_changed_by.present? ? data_from_user(tax_return.last_changed_by) : {}
       run_later(
         distinct_id: tax_return.client.intake.visitor_id,
         event_name: event_name,
@@ -325,7 +325,7 @@ class MixpanelService
     private
 
     def send_file_completed_event(tax_return, event_name)
-      user_data = tax_return.status_last_changed_by.present? ? data_from_user(tax_return.status_last_changed_by) : {}
+      user_data = tax_return.last_changed_by.present? ? data_from_user(tax_return.last_changed_by) : {}
 
       if tax_return.ready_for_prep_at.present?
         hours_since_ready_for_prep = (DateTime.current.to_time - tax_return.ready_for_prep_at.to_time) / 1.hour

@@ -62,7 +62,7 @@ class TaxReturn < ApplicationRecord
   enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
   validates :year, presence: true
 
-  attr_accessor :status_last_changed_by
+  after_update_commit :send_mixpanel_status_change_event, :send_surveys
   after_update_commit :send_mixpanel_status_change_event, :send_surveys
   after_update_commit { InteractionTrackingService.record_internal_interaction(client) }
 
@@ -71,7 +71,7 @@ class TaxReturn < ApplicationRecord
   end
 
   delegate :can_transition_to?, :current_state, :history, :last_transition, :last_transition_to,
-           :transition_to!, :transition_to, :in_state?, :advance_to, :previous_transition, :previous_state, to: :state_machine
+           :transition_to!, :transition_to, :in_state?, :advance_to, :previous_transition, :previous_state, :last_changed_by, to: :state_machine
 
 
   before_save do

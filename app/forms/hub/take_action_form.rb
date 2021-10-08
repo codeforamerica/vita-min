@@ -3,7 +3,6 @@ module Hub
     attr_accessor :tax_return,
                   :tax_return_id,
                   :tax_returns,
-                  :status,
                   :locale,
                   :message_body,
                   :contact_method,
@@ -11,6 +10,7 @@ module Hub
                   :action_list,
                   :current_user,
                   :client
+    attr_accessor :virtual, :status
     validates_presence_of :status
     validate :belongs_to_client
     validate :status_has_changed
@@ -89,7 +89,7 @@ module Hub
     end
 
     def status_has_changed
-      errors.add(:status, I18n.t("forms.errors.status_must_change")) if status == tax_return&.status
+      errors.add(:status, I18n.t("forms.errors.status_must_change")) if status == tax_return&.current_state
     end
 
     def belongs_to_client

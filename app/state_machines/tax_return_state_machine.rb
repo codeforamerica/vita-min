@@ -39,7 +39,7 @@ class TaxReturnStateMachine
   end
 
   def advance_to(new_state)
-    transition_to(new_state) if states.index(current_state) < states.index(new_state.to_s)
+    transition_to(new_state) if self.class.states.index(current_state) < self.class.states.index(new_state.to_s)
   end
 
   def previous_state
@@ -48,5 +48,9 @@ class TaxReturnStateMachine
 
   def previous_transition
     history.where(most_recent: false).last
+  end
+
+  def last_changed_by
+    last_transition&.initiated_by_user
   end
 end

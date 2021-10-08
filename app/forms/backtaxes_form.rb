@@ -5,7 +5,7 @@ class BacktaxesForm < QuestionsForm
   def save
     @intake.update(attributes_for(:intake).merge(client: Client.create!))
     TaxReturn.filing_years.each do |year|
-      TaxReturn.create!(year: year, client: intake.client) if intake.send("needs_help_#{year}") == "yes"
+      TaxReturn.create!(year: year, client: intake.client) if @intake.send("needs_help_#{year}") == "yes"
     end
     data = MixpanelService.data_from([@intake.client, @intake])
 

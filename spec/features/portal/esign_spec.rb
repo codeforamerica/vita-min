@@ -76,7 +76,6 @@ RSpec.feature "Submitting final tax filing signature" do
 
     scenario "when filing jointly" do
       visit portal_root_path
-      puts(client.tax_returns.inspect)
       expect(page).to have_link "Add final primary taxpayer signature for 2019"
       expect(page).to have_link "Add final spouse signature for 2019"
       expect(page).not_to have_text "Final signature added for 2019."
