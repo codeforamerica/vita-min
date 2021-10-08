@@ -4,8 +4,8 @@ class SendAutomatedMessage
   def initialize(client:, message:, tax_return: nil, locale: nil, body_args: {})
     @client = client
     @locale = locale || client.intake.locale || "en"
-    @message = message.is_a?(Class) ? message : message.class
-    @message_instance = message.is_a?(Class) ? message.new : message
+    @message = message
+    @message_instance = message.new
     @tax_return = tax_return
     @sent_messages = []
     @body_args = body_args
