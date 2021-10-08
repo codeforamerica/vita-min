@@ -747,7 +747,6 @@ Style/ParallelAssignment:
 Style/PercentLiteralDelimiters:
   Exclude:
     - 'Guardfile'
-    - 'config/initializers/lograge.rb'
     - 'config/initializers/sentry.rb'
     - 'spec/controllers/users/omniauth_callbacks_controller_spec.rb'
     - 'spec/controllers/users/sessions_controller_spec.rb'

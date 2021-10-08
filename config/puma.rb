@@ -36,3 +36,12 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
+
+on_worker_boot do
+  # Re-open appenders after forking the process
+  SemanticLogger.reopen
+end
+
+log_formatter do |str|
+  { level: "info", timestamp: Time.now.utc.iso8601(3), pid: $$, message: str }.to_json
+end

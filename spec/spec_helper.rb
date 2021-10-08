@@ -91,3 +91,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+parallelize_setup do |worker|
+  SemanticLogger.reopen
+end
