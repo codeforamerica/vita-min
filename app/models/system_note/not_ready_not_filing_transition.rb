@@ -22,17 +22,22 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class SystemNote::NotReadyNotFilingTransition < SystemNote
-  def self.generate!(client:, days:)
+  def self.generate!(client:, days:, tax_return:)
 
     create!(
-        client: client,
-        data: {
-            days: days,
-        }
+      client: client,
+      data: {
+        days: days,
+        tax_year: tax_return.year
+      }
     )
   end
 
   def days
     data["days"]
+  end
+
+  def tax_year
+    data["tax_year"] || ""
   end
 end
