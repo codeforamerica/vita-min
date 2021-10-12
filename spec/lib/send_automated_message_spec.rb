@@ -11,7 +11,7 @@ describe SendAutomatedMessage, active_job: true do
     let(:intake) { create :intake, sms_notification_opt_in: "no", email_notification_opt_in: "no" }
 
     it "returns a hash with nil for both message record types" do
-      expect(described_class.new(client: client, message: AutomatedMessage::GettingStarted.new, locale: 'en').send_messages)
+      expect(described_class.new(client: client, message: AutomatedMessage::GettingStarted, locale: 'en').send_messages)
           .to eq([])
     end
   end
@@ -24,10 +24,10 @@ describe SendAutomatedMessage, active_job: true do
     end
 
     it "returns a hash with the output of send_email as the value for outgoing_email" do
-      getting_started_message = AutomatedMessage::GettingStarted.new
+      getting_started_message = AutomatedMessage::GettingStarted
       expect(described_class.new(client: client, message: getting_started_message, locale: 'en').send_messages)
           .to eq [outgoing_email]
-      expect(ClientMessagingService).to have_received(:send_system_email).with(tax_return: nil, client: client, body: getting_started_message.email_body, subject: getting_started_message.email_subject, locale: 'en')
+      expect(ClientMessagingService).to have_received(:send_system_email).with(tax_return: nil, client: client, body: getting_started_message.new.email_body, subject: getting_started_message.new.email_subject, locale: 'en')
     end
   end
 
@@ -39,10 +39,10 @@ describe SendAutomatedMessage, active_job: true do
     end
 
     it "returns a hash with the output of send_text_message as the value for outgoing_text_message" do
-      getting_started_message = AutomatedMessage::GettingStarted.new
+      getting_started_message = AutomatedMessage::GettingStarted
       expect(described_class.new(client: client, message: getting_started_message, locale: "en").send_messages)
           .to eq [outgoing_text_message]
-      expect(ClientMessagingService).to have_received(:send_system_text_message).with(tax_return: nil, client: client, body: getting_started_message.sms_body, locale: "en")
+      expect(ClientMessagingService).to have_received(:send_system_text_message).with(tax_return: nil, client: client, body: getting_started_message.new.sms_body, locale: "en")
     end
   end
 
@@ -50,7 +50,7 @@ describe SendAutomatedMessage, active_job: true do
     let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "no", sms_phone_number: nil }
 
     it "returns a hash with nil as the value for contact record" do
-      expect(described_class.new(client: client, message: AutomatedMessage::GettingStarted.new, locale: "es").send_messages)
+      expect(described_class.new(client: client, message: AutomatedMessage::GettingStarted, locale: "es").send_messages)
           .to eq []
     end
   end
@@ -65,12 +65,12 @@ describe SendAutomatedMessage, active_job: true do
     end
 
     it "returns a hash containing all contact records" do
-      getting_started_message = AutomatedMessage::GettingStarted.new
+      getting_started_message = AutomatedMessage::GettingStarted
       expect(described_class.new(client: client, message: getting_started_message, locale: "es").send_messages)
           .to eq [outgoing_email, outgoing_text_message]
 
-      expect(ClientMessagingService).to have_received(:send_system_email).with(tax_return: nil, client: client, body: getting_started_message.email_body(locale: "es"), subject: getting_started_message.email_subject(locale: "es"), locale: "es")
-      expect(ClientMessagingService).to have_received(:send_system_text_message).with(tax_return: nil, client: client, body: getting_started_message.sms_body(locale: "es"), locale: "es")
+      expect(ClientMessagingService).to have_received(:send_system_email).with(tax_return: nil, client: client, body: getting_started_message.new.email_body(locale: "es"), subject: getting_started_message.new.email_subject(locale: "es"), locale: "es")
+      expect(ClientMessagingService).to have_received(:send_system_text_message).with(tax_return: nil, client: client, body: getting_started_message.new.sms_body(locale: "es"), locale: "es")
     end
   end
 
@@ -82,10 +82,10 @@ describe SendAutomatedMessage, active_job: true do
     end
 
     it "returns an array with an outgoing email object" do
-      getting_started_message = AutomatedMessage::GettingStarted.new
+      getting_started_message = AutomatedMessage::GettingStarted
       expect(described_class.new(client: client, message: getting_started_message, locale: "en").send_messages)
           .to eq [outgoing_email]
-      expect(ClientMessagingService).to have_received(:send_system_email).with(tax_return: nil, client: client, body: getting_started_message.email_body, subject: getting_started_message.email_subject, locale: "en")
+      expect(ClientMessagingService).to have_received(:send_system_email).with(tax_return: nil, client: client, body: getting_started_message.new.email_body, subject: getting_started_message.new.email_subject, locale: "en")
     end
   end
 end
