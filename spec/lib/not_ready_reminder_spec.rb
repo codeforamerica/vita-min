@@ -12,9 +12,12 @@ describe NotReadyReminder do
     context "when the intake has not been updated in more than 9 days" do
       let(:tax_return) { create :tax_return, status: "intake_in_progress", updated_at: 10.days.ago }
       it "returns changed_status and updates the status to file_not_filing" do
-        response = described_class.process(tax_return)
+        expect {
+          response = described_class.process(tax_return)
+          expect(response).to eq "changed_status"
+        }.to change(SystemNote::NotReadyNotFilingTransition, :count).by 1
+        expect(SystemNote::NotReadyNotFilingTransition.last.client).to eq tax_return.client
         expect(tax_return.reload.status).to eq "file_not_filing"
-        expect(response).to eq "changed_status"
       end
     end
 

@@ -11,6 +11,8 @@
   <div class="note__body">
     <% if note.is_a? SystemNote::DocumentHelp %>
       <%= render "system_note_document_help", note: note %>
+    <% elsif note.is_a? SystemNote::NotReadyNotFilingTransition %>
+      <%= render "system_note_not_ready_not_filing", note: note %>
     <% elsif note.is_a? SystemNote::CtcPortalAction %>
       <%= render "system_note_ctc_portal_action", note: note %>
     <% elsif note.is_a?(SystemNote::CtcPortalUpdate) || (note.is_a?(SystemNote::ClientChange) && note.data.present?) %>
