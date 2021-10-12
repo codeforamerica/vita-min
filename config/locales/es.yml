@@ -1245,6 +1245,22 @@ es:
         subject: Esta conversación ha sido enviada a los especialistas del servicio al cliente de GetYourRefund
       sms:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
+    not_ready_reminder:
+      email:
+        body: |
+          Hola <<Client.PreferredName>>,
+
+          Parece que se alejó antes de terminar nuestra solicitud. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperan trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
+
+          Si tiene alguna pregunta, comuníquese con nosotros.
+
+          ¡Estamos aquí para ayudar!
+          Tu equipo de impuestos
+        subject: "¿Aún necesitas ayuda fiscal? Termine su solicitud GetYourRefund."
+      sms: |
+        Hola <<Client.PreferredName>>,
+        Parece que se alejó antes de terminar nuestra solicitud. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperan trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
+        ¡Gracias!
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_drop_off:
       email:

@@ -23,6 +23,7 @@
 #  locked_at                                :datetime
 #  login_requested_at                       :datetime
 #  login_token                              :string
+#  message_tracker                          :jsonb
 #  previous_sessions_active_seconds         :integer
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null

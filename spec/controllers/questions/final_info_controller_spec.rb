@@ -40,7 +40,7 @@ RSpec.describe Questions::FinalInfoController do
               post :update, params: params
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                message: instance_of(AutomatedMessage::SuccessfulSubmissionOnlineIntake),
+                message: AutomatedMessage::SuccessfulSubmissionOnlineIntake,
                 locale: :en
               )
             end
@@ -52,7 +52,7 @@ RSpec.describe Questions::FinalInfoController do
 
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
-                message: instance_of(AutomatedMessage::SuccessfulSubmissionOnlineIntake),
+                message: AutomatedMessage::SuccessfulSubmissionOnlineIntake,
                 locale: :es
               )
             end

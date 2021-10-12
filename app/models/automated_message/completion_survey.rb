@@ -1,7 +1,11 @@
 module AutomatedMessage
-  class CompletionSurvey
+  class CompletionSurvey < AutomatedMessage
     def self.name
       'messages.surveys.completion'.freeze
+    end
+
+    def self.send_only_once?
+      true
     end
 
     def self.survey_link(client)

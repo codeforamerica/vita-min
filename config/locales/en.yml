@@ -1266,6 +1266,22 @@ en:
         subject: Your message has been forwarded to GetYourRefund customer support
       sms:
         body: This conversation is being forwarded to our customer service specialists. You should expect to see a message from them at a different email shortly.
+    not_ready_reminder:
+      email:
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          It looks like you stepped away before finishing our application. Our preparers at <<Client.AssignedOrganization>> look forward to working with you! To complete our form, simply login here: <<Client.LoginLink>>
+
+          If you have any questions, please reach out.
+
+          We're here to help!
+          Your tax team
+        subject: Still need tax help? Finish your GetYourRefund application.
+      sms: |
+        Hi <<Client.PreferredName>>,
+        It looks like you stepped away before finishing our application. Our preparers at <<Client.AssignedOrganization>> look forward to working with you! To complete our form, simply login here: <<Client.LoginLink>>
+        Thanks!
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_drop_off:
       email:

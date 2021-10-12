@@ -52,7 +52,7 @@ describe EfileSubmissionStateMachine do
 
             expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: submission.client.reload,
-                message: instance_of(AutomatedMessage::EfilePreparing),
+                message: AutomatedMessage::EfilePreparing,
                 locale: submission.client.intake.locale
             )
           end
@@ -98,7 +98,7 @@ describe EfileSubmissionStateMachine do
           submission.transition_to!(:failed, error_code: efile_error.code)
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: submission.client.reload,
-            message: instance_of(AutomatedMessage::EfileFailed),
+            message: AutomatedMessage::EfileFailed,
             locale: submission.client.intake.locale
           )
         end
@@ -127,7 +127,7 @@ describe EfileSubmissionStateMachine do
         expect(submission.tax_return.status).to eq("file_rejected")
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: submission.client.reload,
-          message: instance_of(AutomatedMessage::EfileRejected),
+          message: AutomatedMessage::EfileRejected,
           locale: submission.client.intake.locale
         )
       end
@@ -162,7 +162,7 @@ describe EfileSubmissionStateMachine do
         submission.transition_to!(:accepted)
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: submission.client.reload,
-          message: instance_of(AutomatedMessage::EfileAcceptance),
+          message: AutomatedMessage::EfileAcceptance,
           locale: submission.client.intake.locale
         )
       end

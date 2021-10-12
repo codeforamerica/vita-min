@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(version: 2021_10_05_214611) do
     t.datetime "locked_at"
     t.datetime "login_requested_at"
     t.string "login_token"
+    t.jsonb "message_tracker", default: {}
     t.integer "previous_sessions_active_seconds"
     t.integer "routing_method"
     t.integer "sign_in_count", default: 0, null: false

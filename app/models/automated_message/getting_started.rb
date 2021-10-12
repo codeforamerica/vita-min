@@ -1,7 +1,11 @@
 module AutomatedMessage
-  class GettingStarted
+  class GettingStarted < AutomatedMessage
     def self.name
       'messages.getting_started'.freeze
+    end
+
+    def self.send_only_once?
+      true
     end
 
     def sms_body(*args)

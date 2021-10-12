@@ -1,5 +1,5 @@
 module AutomatedMessage
-  class SuccessfulSubmissionOnlineIntake
+  class SuccessfulSubmissionOnlineIntake < AutomatedMessage
     def self.name
       'messages.successful_submission_online_intake'.freeze
     end

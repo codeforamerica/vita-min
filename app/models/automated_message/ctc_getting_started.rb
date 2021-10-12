@@ -1,7 +1,11 @@
 module AutomatedMessage
-  class CtcGettingStarted
+  class CtcGettingStarted < AutomatedMessage
     def self.name
       'messages.ctc_getting_started'.freeze
+    end
+
+    def self.send_only_once?
+      true
     end
 
     def sms_body(*args)

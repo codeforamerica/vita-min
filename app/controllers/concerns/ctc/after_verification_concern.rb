@@ -11,7 +11,7 @@ module Ctc
 
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
-        message: AutomatedMessage::CtcGettingStarted.new,
+        message: AutomatedMessage::CtcGettingStarted,
         locale: current_intake.locale
       )
     end
