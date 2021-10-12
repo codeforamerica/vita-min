@@ -948,6 +948,7 @@ es:
         cant_locate: Necesito ayuda para encontrar mis documentos de %{doc_type}.
         cant_obtain: No puedo obtener documentos de %{doc_type}.
         doesnt_apply: No creo que este documento de %{doc_type} me aplique.
+      not_ready_to_not_filing: Transitioned from Not Ready to Not Filing after %{days} days of inaction by Client.
     tax_return_selections:
       help_text:
         one: Está viendo %{count} resultado de su búsqueda guardada

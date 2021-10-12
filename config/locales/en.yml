@@ -964,6 +964,7 @@ en:
         cant_locate: I need help finding my %{doc_type} document(s).
         cant_obtain: I can't get %{doc_type} document(s).
         doesnt_apply: I dont think this %{doc_type} document applies to me.
+      not_ready_to_not_filing: Transitioned from Not Ready to Not Filing after %{days} days of inaction by Client.
     tax_return_selections:
       help_text:
         one: You are viewing %{count} result from your saved search

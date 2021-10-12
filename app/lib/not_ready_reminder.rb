@@ -7,6 +7,7 @@ class NotReadyReminder
     if tax_return.updated_at.beginning_of_day <= 9.days.ago.beginning_of_day
       action = "changed_status"
       tax_return.update(status: "file_not_filing")
+      SystemNote::NotReadyNotFilingTransition.generate!(client: client, days: 9)
     elsif tax_return.updated_at.beginning_of_day <= 6.days.ago.beginning_of_day
       message = AutomatedMessage::SecondNotReadyReminder
       unless MessageTracker.new(client: client, message: message).already_sent?
