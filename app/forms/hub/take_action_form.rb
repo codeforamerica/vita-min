@@ -9,8 +9,8 @@ module Hub
                   :internal_note_body,
                   :action_list,
                   :current_user,
-                  :client
-    attr_accessor :virtual, :status
+                  :client,
+                  :status
     validates_presence_of :status
     validate :belongs_to_client
     validate :status_has_changed
