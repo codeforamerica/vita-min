@@ -2599,9 +2599,9 @@ es:
       admin:
         welcome_user_html: Bienvenido/a<strong class="user__name">%{name}</strong>
       application:
-        skip_content: Saltar al contenido principal
         meta:
           description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
+        skip_content: Saltar al contenido principal
       ctc:
         meta:
           description: Dinero en efectivo en el bolsillo de su familia cada mes para las cosas que necesita
