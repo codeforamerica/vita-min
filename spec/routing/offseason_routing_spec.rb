@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "offseason routes", type: :request do
-
   context "when config offseason is true" do
     before do
       allow(Rails.configuration).to receive(:offseason).and_return true
@@ -24,9 +23,9 @@ RSpec.describe "offseason routes", type: :request do
         login_as(client, scope: :client)
       end
 
-      it "other question routes return 200" do
+      it "questions still redirect to root path" do
         get QuestionNavigation.controllers.second.to_path_helper
-        expect(response).to be_ok
+        expect(response).to redirect_to root_path
       end
     end
 
@@ -34,6 +33,59 @@ RSpec.describe "offseason routes", type: :request do
       it "other question routes redirect to root path" do
         get QuestionNavigation.controllers.second.to_path_helper
         expect(response).to redirect_to root_path
+      end
+    end
+
+    context "diy routing" do
+      context "/diy" do
+        it "redirects home" do
+          get "/diy"
+          expect(response).to redirect_to root_path
+        end
+      end
+
+      context "/diy/file-yourself" do
+        it "redirects home" do
+          get "/diy/file-yourself"
+          expect(response).to redirect_to root_path
+        end
+      end
+
+      context "/diy/something" do
+        it "redirects home" do
+          get "/diy/something"
+          expect(response).to redirect_to root_path
+        end
+      end
+
+      context "post to /diy routes" do
+        it "redirects home" do
+          post "/diy/email"
+          expect(response).to redirect_to root_path
+        end
+      end
+    end
+
+    context "logging in" do
+      context "login" do
+        it "redirects home" do
+          get "/portal/login"
+          expect(response).to redirect_to root_path
+        end
+      end
+
+      context "/login/check-verification" do
+        it "redirects home" do
+          put "/portal/login/check-verification"
+          expect(response).to redirect_to root_path
+        end
+      end
+
+      context "/login/locked" do
+        it "redirects home" do
+          get "/portal/login/locked"
+          expect(response).to redirect_to root_path
+        end
       end
     end
   end

@@ -102,14 +102,20 @@ Rails.application.routes.draw do
         get "/confirmation", to: "signups#confirmation", on: :collection
       end
 
-      namespace :diy do
-        get "/file-yourself", to: "file_yourself#edit"
-        get "/email", to: "diy_intakes#new"
-        post "/email", to: "diy_intakes#create"
-        get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
-      end
+      if Rails.configuration.offseason
+        get "/diy", to: redirect(status: 302) { |_, request| "/#{request.params[:locale] || "en"}" }
+        get "/diy/*path", to: redirect(status: 302) { |_, request| "/#{request.params[:locale] || "en"}" }
+        post "/diy/*path", to: redirect(status: 302) { |_, request| "/#{request.params[:locale] || "en"}" }
+      else
+        namespace :diy do
+          get "/file-yourself", to: "file_yourself#edit"
+          get "/email", to: "diy_intakes#new"
+          post "/email", to: "diy_intakes#create"
+          get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
+        end
 
-      get "/diy", to: "public_pages#diy"
+        get "/diy", to: "public_pages#diy"
+      end
       get "/other-options", to: "public_pages#other_options"
       get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
       get "/maintenance", to: "public_pages#maintenance"
@@ -134,7 +140,13 @@ Rails.application.routes.draw do
         # Add redirect for pre-March-2021-style login token links; safe to delete in April 2021
         get "/account/:id", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login/#{request.params[:id]}" }
 
-        login_routes
+        if Rails.configuration.offseason
+          get "/login", to: redirect { |_, request| "/#{request.params[:locale] || "en"}" }
+          get "/login/*path", to: redirect { |_, request| "/#{request.params[:locale] || "en"}" }
+          put "/login/*path", to: redirect { |_, request| "/#{request.params[:locale] || "en"}" }
+        else
+          login_routes
+        end
 
         resources :tax_returns, only: [], path: '/tax-returns' do
           get '/show', to: 'tax_returns#show', as: :show
