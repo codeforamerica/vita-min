@@ -63,12 +63,12 @@ describe RequestVerificationCodeForLoginJob do
         allow(TwilioService).to receive(:send_text_message)
       end
 
-      context "when the email address is a match for an intake" do
+      context "when the phone number is a match for an intake" do
         before do
           allow_any_instance_of(ClientLoginService).to receive(:can_login_by_sms_verification?).and_return true
         end
 
-        it "requests a code from EmailVerificationCodeService" do
+        it "requests a code from TextMessageVerificationCodeService" do
           described_class.perform_now(**params)
           expect(TextMessageVerificationCodeService).to have_received(:request_code).with(a_hash_including(
                                                                                         **params, service_type: service_type
@@ -76,9 +76,9 @@ describe RequestVerificationCodeForLoginJob do
         end
       end
 
-      context "when the email address is not a match for an intake" do
+      context "when the phone number is not a match for an intake" do
         before do
-          allow_any_instance_of(ClientLoginService).to receive(:can_login_by_email_verification?).and_return false
+          allow_any_instance_of(ClientLoginService).to receive(:can_login_by_sms_verification?).and_return false
         end
 
         let(:text_message_body_es) {
