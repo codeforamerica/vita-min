@@ -134,7 +134,7 @@ describe ClientLoginService do
     context "service_type is :gyr" do
       subject { described_class.new(:gyr) }
 
-      let(:intake) { (create :intake, phone_number: phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in)}
+      let(:intake) { (create :intake, sms_phone_number: phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in)}
 
       context "when client phone number maps to online, consented return with sms opt in" do
         it "is true" do
@@ -169,8 +169,8 @@ describe ClientLoginService do
       subject { described_class.new(:ctc) }
 
       let(:intake) { (create :ctc_intake, phone_number: other_phone_number, sms_phone_number: sms_phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in, sms_phone_number_verified_at: verified_at_time, navigator_has_verified_client_identity: navigator_verified)}
-      let(:other_phone_number) { phone_number }
-      let(:sms_phone_number) { nil }
+      let(:sms_phone_number) { phone_number }
+      let(:other_phone_number) { nil }
       let(:verified_at_time) { Time.current }
       let(:navigator_verified) { false }
 
@@ -180,16 +180,16 @@ describe ClientLoginService do
         end
       end
 
-      context "when there is an existing client, a ctc intake, verified phone number, and sms opt in" do
-        it "returns true" do
-          expect(subject.can_login_by_sms_verification?(phone_number)).to be true
+      context "when there is an existing client, a ctc intake, a phone number, and sms opt in" do
+        let(:other_phone_number) { phone_number }
+        let(:sms_phone_number) { nil }
+
+        it "returns false" do
+          expect(subject.can_login_by_sms_verification?(phone_number)).to be false
         end
       end
 
       context "when there is an existing client, a ctc intake, verified sms phone number, and sms opt in" do
-        let(:sms_phone_number) { phone_number }
-        let(:other_phone_number) { nil }
-
         it "returns true" do
           expect(subject.can_login_by_sms_verification?(phone_number)).to be true
         end
