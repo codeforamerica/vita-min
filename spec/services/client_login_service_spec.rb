@@ -126,27 +126,24 @@ describe ClientLoginService do
 
   describe ".can_login_by_sms_verification?" do
     let(:phone_number) { "+18324651680" }
+    let!(:client) { create :client, intake: intake, tax_returns: [create(:tax_return, service_type: service_type, status: "prep_ready_for_prep")] }
+    let(:sms_notification_opt_in) { "yes" }
+    let(:primary_consented_to_service) { "yes" }
+    let(:service_type) { "online_intake" }
 
     context "service_type is :gyr" do
       subject { described_class.new(:gyr) }
 
-      context "when client phone number maps to online and consented return" do
-        before do
-          create :client, intake: (create :intake, phone_number: phone_number, primary_consented_to_service: "yes"), tax_returns: [create(:tax_return, service_type: "online_intake", status: "prep_ready_for_prep")]
-        end
+      let(:intake) { (create :intake, phone_number: phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in)}
 
+      context "when client phone number maps to online, consented return with sms opt in" do
         it "is true" do
           expect(subject.can_login_by_sms_verification?(phone_number)).to be true
         end
       end
 
       context "when a clients phone number is linked to a return that has not consented" do
-        subject { described_class.new(:gyr) }
-
-        let(:phone_number) { "+18324651111" }
-        before do
-          create :client, intake: (create :intake, phone_number: phone_number), tax_returns: [create(:tax_return, service_type: "online_intake", status: "prep_ready_for_prep")]
-        end
+        let(:primary_consented_to_service) { "no" }
 
         it "is false" do
           expect(subject.can_login_by_sms_verification?(phone_number)).to be false
@@ -154,19 +151,14 @@ describe ClientLoginService do
       end
 
       context "when a client is associated to a drop off service type" do
-        subject { described_class.new(:gyr) }
-
-        let(:phone_number) { "+18324651111" }
-        before do
-          create :client, intake: (create :intake, phone_number: phone_number), tax_returns: [create(:tax_return, service_type: "drop_off", status: "prep_ready_for_prep")]
-        end
+        let(:service_type) { "drop_off" }
 
         it "is true" do
           expect(subject.can_login_by_sms_verification?(phone_number)).to be true
         end
       end
 
-      context "when there are no matching returns with that data" do
+      context "when there are no matching intakes with that data" do
         it "is false" do
           expect(subject.can_login_by_sms_verification?("+1111111111")).to be false
         end
@@ -174,45 +166,41 @@ describe ClientLoginService do
     end
 
     context "service_type is :ctc" do
-      let(:client) { create :client }
       subject { described_class.new(:ctc) }
 
-      context "when there are no matching returns with that data" do
-        let(:locale) { "es" }
-        let(:phone_number) { "+1111111111" }
+      let(:intake) { (create :ctc_intake, phone_number: other_phone_number, sms_phone_number: sms_phone_number, primary_consented_to_service: primary_consented_to_service, sms_notification_opt_in: sms_notification_opt_in, sms_phone_number_verified_at: verified_at_time, navigator_has_verified_client_identity: navigator_verified)}
+      let(:other_phone_number) { phone_number }
+      let(:sms_phone_number) { nil }
+      let(:verified_at_time) { Time.current }
+      let(:navigator_verified) { false }
 
+      context "when there are no matching intakes with that data" do
         it "is false" do
-          expect(subject.can_login_by_sms_verification?(phone_number)).to be false
+          expect(subject.can_login_by_sms_verification?("+1111111111")).to be false
         end
       end
 
-      context "when there is an existing client a ctc intake and verified email" do
-        before do
-          create :ctc_intake, sms_phone_number: "+15125551234", email_address: "something@example.com", email_address_verified_at: Time.current, client: client
-        end
-
+      context "when there is an existing client, a ctc intake, verified phone number, and sms opt in" do
         it "returns true" do
-          expect(subject.can_login_by_sms_verification?(client.sms_phone_number)).to be true
+          expect(subject.can_login_by_sms_verification?(phone_number)).to be true
         end
       end
 
-      context "when there is an existing client a ctc intake and verified sms w matching email" do
-        before do
-          create :ctc_intake, sms_phone_number: "+15125551234", sms_phone_number_verified_at: Time.current, client: client
-        end
+      context "when there is an existing client, a ctc intake, verified sms phone number, and sms opt in" do
+        let(:sms_phone_number) { phone_number }
+        let(:other_phone_number) { nil }
 
         it "returns true" do
-          expect(subject.can_login_by_sms_verification?(client.sms_phone_number)).to be true
+          expect(subject.can_login_by_sms_verification?(phone_number)).to be true
         end
       end
 
       context "when there is an existing client a ctc intake and navigator verified identity" do
-        before do
-          create :ctc_intake, sms_phone_number: "+15125551234", navigator_has_verified_client_identity: true, client: client
-        end
+        let(:verified_at_time) { nil }
+        let(:navigator_verified) { true }
 
         it "returns true" do
-          expect(subject.can_login_by_sms_verification?(client.sms_phone_number)).to be true
+          expect(subject.can_login_by_sms_verification?(phone_number)).to be true
         end
       end
     end

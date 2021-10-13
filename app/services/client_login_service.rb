@@ -27,7 +27,7 @@ class ClientLoginService
   end
 
   def can_login_by_sms_verification?(sms_phone_number, service_type: :gyr)
-    accessible_intakes.where(phone_number: sms_phone_number).or(accessible_intakes.where(sms_phone_number: sms_phone_number)).exists?
+    accessible_intakes.where(phone_number: sms_phone_number, sms_notification_opt_in: "yes").or(accessible_intakes.where(sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes")).exists?
   end
 
   private
