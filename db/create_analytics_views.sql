@@ -58,7 +58,7 @@ CREATE VIEW analytics.delayed_jobs AS
     FROM public.delayed_jobs;
 
 CREATE VIEW analytics.dependents AS
-    SELECT id, created_at, disabled, intake_id, months_in_home, north_american_resident, on_visa, updated_at, was_married, was_student
+    SELECT id, created_at, disabled, intake_id, months_in_home, north_american_resident, on_visa, tin_type, updated_at, was_married, was_student
     FROM public.dependents;
 
 CREATE VIEW analytics.diy_intakes AS
@@ -128,12 +128,12 @@ CREATE VIEW analytics.intakes AS
            needs_help_2019, needs_help_2020, no_eligibility_checks_apply, no_ssn, paid_alimony,
            paid_charitable_contributions, paid_dependent_care, paid_local_tax, paid_medical_expenses,
            paid_mortgage_interest, paid_retirement_contributions, paid_school_supplies, paid_student_loan_interest,
-           phone_number_can_receive_texts, preferred_interview_language, primary_consented_to_service, primary_consented_to_service_at,
+           phone_number_can_receive_texts, preferred_interview_language, primary_consented_to_service, primary_consented_to_service_at, primary_tin_type,
            received_alimony, received_irs_letter, refund_payment_method, reported_asset_sale_loss,
            reported_self_employment_loss, satisfaction_face,
            savings_purchase_bond, savings_split_refund, separated, separated_year, signature_method,
            sms_notification_opt_in, sold_a_home, sold_assets, source, spouse_consented_to_service,
-           spouse_consented_to_service_at, spouse_had_disability, spouse_issued_identity_pin, spouse_was_blind,
+           spouse_consented_to_service_at, spouse_had_disability, spouse_issued_identity_pin, spouse_tin_type, spouse_was_blind,
            spouse_was_full_time_student, spouse_was_on_visa, state, state_of_residence,
            updated_at, viewed_at_capacity, visitor_id, vita_partner_id, was_blind, was_full_time_student,
            was_on_visa, widowed, type, zip_code
