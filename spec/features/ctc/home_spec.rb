@@ -10,6 +10,15 @@ RSpec.feature "Visit CTC home page" do
     expect(page).to have_text I18n.t("views.ctc_pages.home.header")
   end
 
+  it "the first tab goes to the skip main content link and the link takes you to maincontent", js: true do
+    visit "/"
+    find('body').send_keys :tab
+    expect(page.driver.browser.switch_to.active_element.attribute('id')).to eq("skip-content-link")
+    find('#skip-content-link').send_keys :enter, :tab
+    expect(page.driver.browser.switch_to.active_element.attribute('id')).to eq("firstCta")
+  end
+
+
   context "when the DIY link is disabled" do
     before do
       ENV['CTC_HIDE_DIY_LINK'] = 'true'

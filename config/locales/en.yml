@@ -2629,6 +2629,7 @@ en:
       application:
         meta:
           description: Maximize your refund by filing with our trusted volunteers. Available to you online or in person!
+        skip_content: Skip to main content
       ctc:
         meta:
           description: Cash in your family’s pocket every month for the things you need.
