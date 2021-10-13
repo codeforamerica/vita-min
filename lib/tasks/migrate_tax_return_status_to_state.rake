@@ -1,6 +1,6 @@
 namespace :tax_return do
   desc "begins using state column and state machine to track statuses"
-  task "state_migration" => :environment do
+  task state_migration: [:environment] do
     TaxReturn.where("status > 100").find_each do |tax_return|
       tax_return.tax_return_transitions.create(
         to_state: tax_return.status,
