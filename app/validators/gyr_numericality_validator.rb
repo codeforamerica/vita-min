@@ -14,7 +14,7 @@ class GyrNumericalityValidator < ActiveModel::Validations::NumericalityValidator
 
   def clean_value(value)
     if value.kind_of?(String)
-      value.gsub(/[^0-9]/, '')
+      value.gsub(/[^0-9.]/, '')
     else
       value
     end
