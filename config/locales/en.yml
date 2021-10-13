@@ -2610,6 +2610,7 @@ en:
       admin:
         welcome_user_html: Welcome <strong class="user__name">%{name}</strong>
       application:
+        skip_content: Skip to main content
         meta:
           description: Maximize your refund by filing with our trusted volunteers. Available to you online or in person!
       ctc:

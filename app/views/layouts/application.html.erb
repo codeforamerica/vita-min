@@ -57,6 +57,7 @@
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
     <div class="page-wrapper">
+      <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
       <% if content_for :header %>
         <%= yield :header %>
       <% elsif hub? %>
@@ -70,13 +71,15 @@
       <% if content_for(:back_to) %>
         <%= render "hub/back_to", back_to: content_for(:back_to)%>
       <% end %>
-      <div class="flash-alerts">
-        <%= render "shared/flash_alerts", flash: flash %>
-      </div>
-      <%= yield(:notice) if content_for?(:notice) %>
+      <div id="maincontent">
+        <div class="flash-alerts">
+          <%= render "shared/flash_alerts", flash: flash %>
+        </div>
+        <%= yield(:notice) if content_for?(:notice) %>
 
-      <%= content_for?(:main) ? yield(:main) : yield %>
-      <%= content_for?(:footer) ? yield(:footer) : render('shared/footer') %>
+        <%= content_for?(:main) ? yield(:main) : yield %>
+        <%= content_for?(:footer) ? yield(:footer) : render('shared/footer') %>
+      </div>
     </div>
     <% if content_for?(:sticky_action_footer) %>
       <div class="sticky-action-footer">
