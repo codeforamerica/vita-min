@@ -40,6 +40,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         visit hub_clients_path
 
         expect(page).to have_text "All clients"
+
         within ".client-table" do
           # Default sort order
           expect(page.all('.client-row')[0]).to have_text(alan_intake_in_progress.preferred_name)
@@ -277,13 +278,12 @@ RSpec.describe "searching, sorting, and filtering clients" do
           check "greetable"
           click_button "Filter results"
         end
-        within ".client-table" do
-          expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
-          expect(page).not_to have_text(marty_ctc.preferred_name)
-          expect(page).to have_text(betty_intake_in_progress.preferred_name)
-          expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
-          expect(page).to have_text(zach_prep_ready_for_call.preferred_name)
-        end
+
+        expect(page).not_to have_selector ".client-table", text: alan_intake_in_progress.preferred_name
+        expect(page).not_to have_selector ".client-table", text: marty_ctc.preferred_name
+        expect(page).to have_selector ".client-table", text: betty_intake_in_progress.preferred_name
+        expect(page).to have_selector ".client-table", text: patty_prep_ready_for_call.preferred_name
+        expect(page).to have_selector ".client-table", text: zach_prep_ready_for_call.preferred_name
 
         # filter for clients who used a navigator
         within ".filter-form" do
@@ -291,13 +291,11 @@ RSpec.describe "searching, sorting, and filtering clients" do
           check "used_navigator"
           click_button "Filter results"
         end
-        within ".client-table" do
-          expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
-          expect(page).not_to have_text(zach_prep_ready_for_call.preferred_name)
 
-          expect(page).to have_text(betty_intake_in_progress.preferred_name)
-          expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
-        end
+        expect(page).not_to have_selector ".client-table", text: alan_intake_in_progress.preferred_name
+        expect(page).not_to have_selector ".client-table", text: zach_prep_ready_for_call.preferred_name
+        expect(page).to have_selector ".client-table", text: betty_intake_in_progress.preferred_name
+        expect(page).to have_selector ".client-table", text: patty_prep_ready_for_call.preferred_name
 
         # filter for CTC clients
         within ".filter-form" do
@@ -305,14 +303,12 @@ RSpec.describe "searching, sorting, and filtering clients" do
           check "ctc_client"
           click_button "Filter results"
         end
-        within ".client-table" do
-          expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
-          expect(page).not_to have_text(zach_prep_ready_for_call.preferred_name)
-          expect(page).not_to have_text(betty_intake_in_progress.preferred_name)
-          expect(page).not_to have_text(patty_prep_ready_for_call.preferred_name)
 
-          expect(page).to have_text(marty_ctc.preferred_name)
-        end
+        expect(page).not_to have_selector ".client-table", text: alan_intake_in_progress.preferred_name
+        expect(page).not_to have_selector ".client-table", text: zach_prep_ready_for_call.preferred_name
+        expect(page).not_to have_selector ".client-table", text: betty_intake_in_progress.preferred_name
+        expect(page).not_to have_selector ".client-table", text: patty_prep_ready_for_call.preferred_name
+        expect(page).to have_selector ".client-table", text: marty_ctc.preferred_name
       end
     end
   end
