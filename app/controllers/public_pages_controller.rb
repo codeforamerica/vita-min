@@ -53,7 +53,9 @@ class PublicPagesController < ApplicationController
 
   def sms_terms; end
 
-  def diy; end
+  def diy
+    redirect_to root_path if Rails.configuration.offseason
+  end
 
   def pki_validation
     # Used for Identrust annual EV certificate validation

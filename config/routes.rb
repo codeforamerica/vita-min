@@ -103,9 +103,8 @@ Rails.application.routes.draw do
       end
 
       if Rails.configuration.offseason
-        get "/diy", to: redirect(status: 302) { |_, request| "/#{request.params[:locale] || "en"}" }
-        get "/diy/*path", to: redirect(status: 302) { |_, request| "/#{request.params[:locale] || "en"}" }
-        post "/diy/*path", to: redirect(status: 302) { |_, request| "/#{request.params[:locale] || "en"}" }
+        get "/diy/*path", to: "public_pages#diy"
+        post "/diy/*path", to: "public_pages#diy"
       else
         namespace :diy do
           get "/file-yourself", to: "file_yourself#edit"
@@ -113,9 +112,8 @@ Rails.application.routes.draw do
           post "/email", to: "diy_intakes#create"
           get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
         end
-
-        get "/diy", to: "public_pages#diy"
       end
+      get "/diy", to: "public_pages#diy"
       get "/other-options", to: "public_pages#other_options"
       get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
       get "/maintenance", to: "public_pages#maintenance"
