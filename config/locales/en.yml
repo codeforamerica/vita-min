@@ -1641,7 +1641,7 @@ en:
               message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
             fraud_hold:
               label: Submission on hold
-              message: We need some more information from you before we can submit your return. Please send us a message below to continue.
+              message: We need some more information from you before we can submit your return. Click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
             intake_in_progress:
               label: More information needed
               message: We need more information from you before we can file your return.
