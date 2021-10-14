@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Hub::UpdateCtcClientForm do
   let!(:intake) {
     create :ctc_intake,
-           :filled_out,
+           :filled_out_ctc,
            :with_ssns,
            :with_contact_info,
            :with_dependents,
@@ -196,12 +196,12 @@ RSpec.describe Hub::UpdateCtcClientForm do
       expect(attributes).to eq({
                                    "id" => intake.id,
                                    "primary_ip_pin" => intake.primary_ip_pin,
-                                   "primary_birth_date_day" => 24,
-                                   "primary_birth_date_month" => 12,
-                                   "primary_birth_date_year" => 1979,
-                                   "spouse_birth_date_day" => 23,
-                                   "spouse_birth_date_month" => 11,
-                                   "spouse_birth_date_year" => 1983,
+                                   "primary_birth_date_day" => 22,
+                                   "primary_birth_date_month" => 3,
+                                   "primary_birth_date_year" => 1929,
+                                   "spouse_birth_date_day" => 2,
+                                   "spouse_birth_date_month" => 9,
+                                   "spouse_birth_date_year" => 1929,
                                    "filing_status" => "married_filing_jointly",
                                    "filing_status_note" => nil
                                })
