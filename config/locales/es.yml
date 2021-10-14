@@ -1824,7 +1824,6 @@ es:
           simplified_btn: Continuar con la declaración simplificada
           title: "¡Si obtuvo ingresos, puede obtener beneficios adicionales presentando una declaración completa!"
         filed2019:
-          already_filed: Si ya presentó una declaración de impuestos de 2020, el IRS rechazará la declaración que presente con esta herramienta.
           did_not_file: No, no presenté una declaración de impuestos de 2019
           filed_full: Sí, presenté una declaración completa
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
