@@ -1510,8 +1510,11 @@ es:
 
         Su equipo de impuestos de %{service_name}.org
   verification_code_sms:
-    no_match: |
-      Alguien intentó ingresar a %{service_name} con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
+    no_match_ctc: |
+      Alguien intentó iniciar sesión en GetCTC con este número de teléfono. Si ya tiene una cuenta con GetCTC, puede intentar iniciar sesión con su dirección de correo electrónico en lugar de %{url}/portal/login.
+      O visite %{url} y haga clic en "Presentar su declaración simplificada ahora" para comenzar.
+    no_match_gyr: |
+      Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
       También puede ir a %{url} para empezar su declaración.
     with_code: 'Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.'
   views:

@@ -1537,8 +1537,11 @@ en:
 
         Your tax team at %{service_name}.org
   verification_code_sms:
-    no_match: |
-      Someone tried to sign in to %{service_name} with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
+    no_match_ctc: |
+      Someone tried to sign into GetCTC with this phone number. If you already have an account with GetCTC you can try to sign in with your email address instead %{url}/portal/login.
+      Or visit %{url} and click "File your simplified return now" to get started.
+    no_match_gyr: |
+      Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
       You can also visit %{url} to get started.
     with_code: 'Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after two days.'
   views:
