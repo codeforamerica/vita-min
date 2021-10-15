@@ -30,30 +30,37 @@ RSpec.describe I18n do
 
     # inspired by I18n::Tasks::Interpolations#inconsistent_interpolations
     @i18n.data[@i18n.base_locale].key_values.each do |key, value|
-      next if !value.is_a?(String) || !value.include?('<')
+      Array(value).each_with_index do |scalar_value, index|
+        next if !scalar_value.is_a?(String) || !scalar_value.include?('<')
+        key_with_index = "#{key}#{value.is_a?(Array) ? "[#{index}]" : ''}"
 
-      base_locale_tag_counts = Hash.new(0)
-      Nokogiri::HTML(value).xpath("//*").each { |el| base_locale_tag_counts[el.name] += 1 }
+        base_locale_tag_counts = Hash.new(0)
+        Nokogiri::HTML(scalar_value).xpath("//*").each { |el| base_locale_tag_counts[el.name] += 1 }
 
-      (@i18n.locales - [@i18n.base_locale]).each do |other_locale|
-        node = @i18n.data[other_locale].first.children[key]
-        next unless node&.value.is_a?(String)
+        (@i18n.locales - [@i18n.base_locale]).each do |other_locale|
+          node = @i18n.data[other_locale].first.children[key]
+          if node&.value&.is_a?(Array)
+            other_locale_value = node.value[index]
+          else
+            other_locale_value = node.value
+          end
 
-        tag_counts = Hash.new(0)
-        Nokogiri::HTML(node.value).xpath("//*").each { |el| tag_counts[el.name] += 1 }
-        if base_locale_tag_counts != tag_counts
-          inconsistent_html_keys << key
-          if ENV['I18N_VERBOSE']
-            puts <<~MESSAGE
-              Inconsistent HTML in #{key}
+          tag_counts = Hash.new(0)
+          Nokogiri::HTML(other_locale_value).xpath("//*").each { |el| tag_counts[el.name] += 1 }
+          if base_locale_tag_counts != tag_counts
+            inconsistent_html_keys << key_with_index
+            if ENV['I18N_VERBOSE']
+              puts <<~MESSAGE
+                Inconsistent HTML in #{key_with_index}
 
-              #{@i18n.base_locale}: #{base_locale_tag_counts.inspect}
-              #{other_locale}: #{tag_counts.inspect}
-              == #{@i18n.base_locale} ==
-              #{value}
-              == #{other_locale} ==
-              #{node.value}\n\n
-            MESSAGE
+                #{@i18n.base_locale}: #{base_locale_tag_counts.inspect}
+                #{other_locale}: #{tag_counts.inspect}
+                == #{@i18n.base_locale} ==
+                #{scalar_value}
+                == #{other_locale} ==
+                #{other_locale_value}\n\n
+              MESSAGE
+            end
           end
         end
       end
