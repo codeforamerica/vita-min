@@ -7,7 +7,7 @@
     <div class="grid">
       <div class="grid__item">
         <% unless open_for_intake? %>
-          <%= t('views.public_pages.home.closing_banner_html') %>
+          <%= t('views.public_pages.home.closing_banner_html', url: vita_providers_path) %>
         <% end %>
       </div>
     </div>

@@ -2717,7 +2717,7 @@ es:
             body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Me gusta mucho más este proceso cuando hay una persona que me puede explicar en detalle las preguntas que tienes y que responden bastante rápido".
             header: Son muy profesionales y amables
           rating: Hemos recibido una valoración de 4.8/5 estrellas
-        closing_banner_html: "<strong>Los servicios GetYourRefund están cerrados durante esta temporada de impuestos.</strong> Esperamos poder brindarle nuestra asistencia tributaria gratuita nuevamente a partir de enero."
+        closing_banner_html: <strong>Los servicios GetYourRefund están cerrados durante esta temporada de impuestos.</strong> Esperamos poder brindarle nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para la preparación de impuestos gratuita ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
         ctc_full_capacity_html: La mayoría de nuestros preparadores de impuestos están a capacidad en este momento y no pueden completar declaraciones completas, pero todavía están disponibles nuestro servicio del Crédito Tributario por Hijos (CTC) y las opciones DIY. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getctc.org/es#claim-credit'>aquí</a></strong> si necesita ayuda para reclamar el Crédito Tributario por Hijos. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getyourrefund.org/es/diy/file-yourself'>aquí</a></strong> si quiere presentar su propia declaración usando nuestro programa gratis.
         features:
           amendments: Presenta enmiendas para años anteriores
