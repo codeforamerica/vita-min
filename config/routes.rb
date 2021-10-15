@@ -138,13 +138,7 @@ Rails.application.routes.draw do
         # Add redirect for pre-March-2021-style login token links; safe to delete in April 2021
         get "/account/:id", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login/#{request.params[:id]}" }
 
-        if Rails.configuration.offseason
-          get "/login", to: redirect { |_, request| "/#{request.params[:locale] || "en"}" }
-          get "/login/*path", to: redirect { |_, request| "/#{request.params[:locale] || "en"}" }
-          put "/login/*path", to: redirect { |_, request| "/#{request.params[:locale] || "en"}" }
-        else
-          login_routes
-        end
+        login_routes
 
         resources :tax_returns, only: [], path: '/tax-returns' do
           get '/show', to: 'tax_returns#show', as: :show

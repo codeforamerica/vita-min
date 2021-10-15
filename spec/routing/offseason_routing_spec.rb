@@ -67,24 +67,55 @@ RSpec.describe "offseason routes", type: :request do
     end
 
     context "logging in" do
-      context "login" do
-        it "redirects home" do
-          get "/portal/login"
-          expect(response).to redirect_to root_path
+      context "for GYR" do
+        context "login" do
+          it "redirects home" do
+            get "/portal/login"
+            expect(response).to redirect_to root_path
+          end
+        end
+
+        context "/login/check-verification" do
+          it "redirects home" do
+            put "/portal/login/check-verification"
+            expect(response).to redirect_to root_path
+          end
+        end
+
+        context "/login/locked" do
+          it "redirects home" do
+            get "/portal/login/locked"
+            expect(response).to redirect_to root_path
+          end
         end
       end
 
-      context "/login/check-verification" do
-        it "redirects home" do
-          put "/portal/login/check-verification"
-          expect(response).to redirect_to root_path
+      context "for GetCTC" do
+        before do
+          allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
         end
-      end
 
-      context "/login/locked" do
-        it "redirects home" do
-          get "/portal/login/locked"
-          expect(response).to redirect_to root_path
+        context "login" do
+          it "does not redirect to home" do
+            get "/portal/login"
+            expect(response).not_to redirect_to root_path
+            expect(response).to be_ok
+          end
+        end
+
+        context "/login/check-verification" do
+          it "does not redirect to home" do
+            put "/portal/login/check-verification"
+            expect(response).not_to redirect_to root_path
+          end
+        end
+
+        context "/login/locked" do
+          it "does not redirect to home" do
+            get "/portal/login/locked"
+            expect(response).not_to redirect_to root_path
+            expect(response).to be_ok
+          end
         end
       end
     end
