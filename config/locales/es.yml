@@ -1610,7 +1610,7 @@ es:
               message: Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
             fraud_hold:
               label: Presentación en espera
-              message: Necesitamos más información de usted antes de poder enviar su declaración. Envíenos un mensaje a continuación para continuar.
+              message: Necesitamos más información de usted antes de poder enviar su declaración. Haga clic en "Cargar documentos adicionales" y envíe una foto de usted mismo con su identificación con foto emitida por el gobierno.
             intake_in_progress:
               label: Necesitamos más información
               message: Necesitamos más información para poder presentar su declaración.
