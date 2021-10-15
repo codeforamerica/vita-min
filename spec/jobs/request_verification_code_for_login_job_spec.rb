@@ -90,7 +90,7 @@ describe RequestVerificationCodeForLoginJob do
 
         let(:ctc_text_message_body_en) {
           <<~ENTEXT
-            Someone tried to sign into GetCTC with this phone number. If you already have an account with GetCTC you can try to sign in with your email address instead https://ctc.test.example.com/en/portal/login.
+            Someone tried to sign into GetCTC with this phone number. If you already have an account with GetCTC, you can try to sign in with your email address instead https://ctc.test.example.com/en/portal/login.
             Or visit https://ctc.test.example.com/en and click "File your simplified return now" to get started.
           ENTEXT
         }
