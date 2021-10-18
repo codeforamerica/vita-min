@@ -30,9 +30,10 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
       else
         service_name = multi_tenant_service.service_name
         url = multi_tenant_service.url(locale: locale)
+        body = service_name == "GetCTC" ? I18n.t("verification_code_sms.no_match_ctc", url: url, locale: locale) : I18n.t("verification_code_sms.no_match_gyr", url: url, locale: locale)
         TwilioService.send_text_message(
           to: phone_number,
-          body: I18n.t("verification_code_sms.no_match", service_name: service_name, url: url, locale: locale)
+          body: body
         )
       end
     end
