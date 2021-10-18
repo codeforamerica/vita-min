@@ -48,7 +48,6 @@ module Hub
     end
 
     def dependents
-      #validate
       @_dependents ||= begin
         unless @dependents_attributes.present?
           return @client.present? ? @client.intake.dependents : Dependent.none
