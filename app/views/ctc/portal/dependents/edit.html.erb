@@ -23,6 +23,7 @@
                   classes: ["ctc-intake-date-text-input"]
               ) %>
           <%= f.cfa_select(:tin_type, t("views.ctc.questions.dependents.tin.form_of_identity", name: @form.dependent.first_name), tin_options_for_select(include_atin: true)) %>
+          <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
           <%= f.cfa_input_field(:ssn, t("views.ctc.questions.dependents.tin.ssn_or_atin", name: @form.dependent.first_name), classes: ["form-width--long"]) %>
           <%= f.cfa_input_field(:ssn_confirmation, t("views.ctc.questions.dependents.tin.ssn_or_atin_confirmation", name: @form.dependent.first_name), classes: ["form-width--long"]) %>
           <%= f.cfa_input_field(:ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: @form.dependent.first_name), classes: ["form-width--long"]) %>

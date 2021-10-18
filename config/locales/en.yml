@@ -1784,6 +1784,7 @@ en:
             qualifying_for_ctc: Children qualifying for CTC and stimulus
             qualifying_for_other_credits: Family members qualifying for only stimulus
             ssn: SSN
+            ssn_no_employment: SSN (not valid for employment)
             title: Let’s confirm!
           does_not_qualify_ctc:
             add_button: Add another dependent

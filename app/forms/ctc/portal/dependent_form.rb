@@ -11,6 +11,7 @@ module Ctc
                          :tin_type,
                          :ssn,
                          :ip_pin
+      set_attributes_for :misc, :ssn_no_employment
       set_attributes_for :confirmation, :ssn_confirmation
       set_attributes_for :birthday, :birth_date_month, :birth_date_day, :birth_date_year
 
@@ -26,9 +27,24 @@ module Ctc
         validates :ssn_confirmation, presence: true
       end
 
-      validates :ssn, social_security_number: true, if: -> { tin_type == "ssn" && ssn.present? }
+      validates :ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(tin_type) && ssn.present? }
+      validates :ssn, individual_taxpayer_identification_number: true, if: -> { ssn.present? && "atin" == tin_type }
 
       validates :ip_pin, ip_pin: true, if: -> { ip_pin.present? }
+
+      before_validation do
+        if ssn_no_employment == "yes" && tin_type == "ssn"
+          self.tin_type = "ssn_no_employment"
+        end
+      end
+
+      def initialize(dependent, params)
+        super
+        if tin_type == "ssn_no_employment"
+          self.tin_type = "ssn"
+          self.ssn_no_employment = "yes"
+        end
+      end
 
       def save
         @dependent.assign_attributes(attributes_for(:dependent).merge(

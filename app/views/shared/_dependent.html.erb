@@ -24,17 +24,17 @@
     ) %>
 
   <% if is_ctc %>
-    <%= f.cfa_select(:tin_type, "Identification Type", tin_options_for_select(include_ssn_no_employment: true, include_atin: true, include_itin: true)) %>
+    <%= f.cfa_select(:tin_type, "Identification Type", tin_options_for_select(include_ssn_no_employment: true, include_atin: true)) %>
     <%= f.cfa_input_field(
         :ssn,
-        t("general.ssn_itin"),
+        "SSN/ATIN",
         type: :tel,
         classes: ["form-width--name"],
         options: { maxlength: 11 }
         ) %>
     <%= f.cfa_input_field(
         :ssn_confirmation,
-        "Re-enter SSN/ITIN",
+        "Re-enter SSN/ATIN",
         type: :tel,
         classes: ["form-width--name"],
         options: { maxlength: 11 }

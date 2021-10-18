@@ -1,11 +1,19 @@
 require 'rails_helper'
 
 describe Ctc::Dependents::InfoForm do
-  let(:dependent) { create :dependent, intake: intake, ssn: ssn, tin_type: "ssn_no_employment" }
+  let(:dependent) { create :dependent, intake: intake }
   let(:intake) { create :ctc_intake }
   let(:ssn) { nil }
+  let(:tin_type) { "ssn_no_employment" }
+  let(:params) do
+    {
+      ssn: ssn,
+      tin_type: tin_type
+    }
+  end
 
   context "initialization with from_dependent" do
+    let(:dependent) { create :dependent, intake: intake, ssn: ssn, tin_type: "ssn_no_employment" }
     context "coercing tin_type to the correct value when ssn_no_employment" do
       it "sets ssn_no_employment to yes, and primary_tin_type to ssn" do
         form = described_class.from_dependent(dependent)
@@ -45,6 +53,17 @@ describe Ctc::Dependents::InfoForm do
       expect(form.errors.keys).to include(:tin_type)
     end
 
+    context "tin_type is atin" do
+      let(:tin_type) { "atin" }
+      let(:ssn) { "123456789" }
+
+      it "requires valid atin number" do
+        form = described_class.new(dependent, params)
+        expect(form).not_to be_valid
+        expect(form.errors.keys).to include(:ssn)
+      end
+    end
+
     context "there is no tin/ssn entered" do
       let(:dependent) { create :dependent, intake: intake, tin_type: "ssn", ssn: nil }
       it "is not valid" do
@@ -78,7 +97,7 @@ describe Ctc::Dependents::InfoForm do
       end
 
       context 'if ssn was not changed' do
-        let(:ssn) { '555112222' }
+        let(:dependent) { create :dependent, intake: intake, ssn:'555112222', tin_type: "ssn" }
 
         it "is not required" do
           form = described_class.from_dependent(dependent)
@@ -88,7 +107,6 @@ describe Ctc::Dependents::InfoForm do
         end
       end
     end
-
   end
 
   describe '#save' do
