@@ -32,6 +32,7 @@ module Ctc
       end
 
       validates :ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(tin_type) && ssn.present? }
+      validates :ssn, individual_taxpayer_identification_number: true, if: -> { ["atin"].include?(tin_type) && ssn.present? }
 
       before_validation do
         if ssn_no_employment == "yes" && tin_type == "ssn"

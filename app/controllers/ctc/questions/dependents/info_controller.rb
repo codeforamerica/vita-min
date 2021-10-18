@@ -13,6 +13,10 @@ module Ctc
           dependent.intake.had_dependents_yes?
         end
 
+        def edit
+          super
+        end
+
         def current_resource
           @dependent ||= begin
             verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)

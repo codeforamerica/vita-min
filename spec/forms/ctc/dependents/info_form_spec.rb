@@ -1,9 +1,16 @@
 require 'rails_helper'
 
 describe Ctc::Dependents::InfoForm do
-  let(:dependent) { create :dependent, intake: intake, ssn: ssn, tin_type: "ssn_no_employment" }
+  let(:dependent) { create :dependent, intake: intake }
   let(:intake) { create :ctc_intake }
   let(:ssn) { nil }
+  let(:tin_type) { "ssn_no_employment" }
+  let(:params) do
+    {
+      ssn: ssn,
+      tin_type: tin_type
+    }
+  end
 
   context "initialization with from_dependent" do
     context "coercing tin_type to the correct value when ssn_no_employment" do
@@ -43,6 +50,28 @@ describe Ctc::Dependents::InfoForm do
       form = described_class.new(dependent, {})
       expect(form).not_to be_valid
       expect(form.errors.keys).to include(:tin_type)
+    end
+
+    context "tin_type is atin" do
+      let(:tin_type) { "atin" }
+      let(:ssn) { "123456789" }
+
+      it "requires valid atin number" do
+        form = described_class.new(dependent, params)
+        expect(form).not_to be_valid
+        expect(form.errors.keys).to include(:ssn)
+      end
+    end
+
+    context "tin_type is itin" do
+      let(:tin_type) { "itin" }
+      let(:ssn) { "123456789" }
+
+      it "requires valid itin number" do
+        form = described_class.new(dependent, params)
+        expect(form).not_to be_valid
+        expect(form.errors.keys).to include(:ssn)
+      end
     end
 
     context "there is no tin/ssn entered" do
@@ -88,7 +117,6 @@ describe Ctc::Dependents::InfoForm do
         end
       end
     end
-
   end
 
   describe '#save' do
