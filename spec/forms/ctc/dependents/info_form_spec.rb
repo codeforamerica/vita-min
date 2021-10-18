@@ -64,17 +64,6 @@ describe Ctc::Dependents::InfoForm do
       end
     end
 
-    context "tin_type is atin" do
-      let(:tin_type) { "atin" }
-      let(:ssn) { "123456789" }
-
-      it "requires valid atin number" do
-        form = described_class.new(dependent, params)
-        expect(form).not_to be_valid
-        expect(form.errors.keys).to include(:ssn)
-      end
-    end
-
     context "there is no tin/ssn entered" do
       let(:dependent) { create :dependent, intake: intake, tin_type: "ssn", ssn: nil }
       it "is not valid" do
