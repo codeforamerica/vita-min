@@ -84,8 +84,12 @@
 
   <div class="slab slab--intro">
     <div class="grid spacing-below-60">
-      <div id="irs-logo" class="grid__item width-one-fourth">
-        <%= image_tag("irs-certified.svg", alt: "") %>
+      <div class="grid__item width-one-fourth irs-logo irs-logo-<%= locale %>">
+        <% if locale == :es %>
+          <%= image_tag("irs-certified-spanish.png") %>
+        <% else %>
+          <%= image_tag("irs-certified.svg", alt: "") %>
+        <% end %>
       </div>
       <div class="grid__item width-two-thirds">
         <h2><%= t("views.public_pages.home.accuracy.header") %></h2>

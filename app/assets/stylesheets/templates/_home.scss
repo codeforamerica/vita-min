@@ -169,7 +169,7 @@
   .slab--intro {
     background-color: white;
 
-    #irs-logo {
+    .irs-logo {
       img {
         width: 178px;
         height: 173px;
@@ -177,8 +177,15 @@
       }
     }
 
+    .irs-logo-es {
+      img {
+        width: 178px;
+        height: unset;
+      }
+    }
+
     @media screen and (max-width: $tablet-up) {
-      #irs-logo {
+      .irs-logo {
         text-align: center;
         padding-bottom: 3.8rem;
 
