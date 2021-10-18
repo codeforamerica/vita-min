@@ -5,7 +5,6 @@
 <% content_for :form_card do %>
   <h1 class="h2"><%= @main_question %></h1>
   <p><%= t("views.ctc.questions.filed2019.help_text") %></p>
-  <p><strong><%= t("views.ctc.questions.filed2019.already_filed") %></strong></p>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.cfa_radio_set(
           :filed_2019,

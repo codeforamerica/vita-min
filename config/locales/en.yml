@@ -1853,7 +1853,6 @@ en:
           simplified_btn: Continue filing a simplified return
           title: You are currently filing a simplified tax return to claim your Child Tax Credit and Stimulus Payments.
         filed2019:
-          already_filed: If you already filed a 2020 tax return, the return you file with this tool will be rejected by the IRS.
           did_not_file: No, I didn't file a 2019 tax return
           filed_full: Yes, I filed a full return
           filed_non_filer: Yes, I filed using the IRS non-filer portal
