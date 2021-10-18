@@ -58,8 +58,8 @@ RSpec.feature "Creating new drop off clients" do
         select "2008", from: "Year"
         select "Daughter", from: "Relationship"
         select "Social Security Number (SSN)"
-        fill_in "SSN/ITIN", with: "222-33-6666"
-        fill_in "Re-enter SSN/ITIN", with: "222-33-6666"
+        fill_in "SSN/ATIN", with: "222-33-6666"
+        fill_in "Re-enter SSN/ATIN", with: "222-33-6666"
         fill_in "IP PIN", with: "345678"
       end
 

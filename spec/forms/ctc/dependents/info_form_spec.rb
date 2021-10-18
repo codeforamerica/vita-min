@@ -13,6 +13,7 @@ describe Ctc::Dependents::InfoForm do
   end
 
   context "initialization with from_dependent" do
+    let(:dependent) { create :dependent, intake: intake, ssn: ssn, tin_type: "ssn_no_employment" }
     context "coercing tin_type to the correct value when ssn_no_employment" do
       it "sets ssn_no_employment to yes, and primary_tin_type to ssn" do
         form = described_class.from_dependent(dependent)
@@ -63,11 +64,11 @@ describe Ctc::Dependents::InfoForm do
       end
     end
 
-    context "tin_type is itin" do
-      let(:tin_type) { "itin" }
+    context "tin_type is atin" do
+      let(:tin_type) { "atin" }
       let(:ssn) { "123456789" }
 
-      it "requires valid itin number" do
+      it "requires valid atin number" do
         form = described_class.new(dependent, params)
         expect(form).not_to be_valid
         expect(form.errors.keys).to include(:ssn)
@@ -107,7 +108,7 @@ describe Ctc::Dependents::InfoForm do
       end
 
       context 'if ssn was not changed' do
-        let(:ssn) { '555112222' }
+        let(:dependent) { create :dependent, intake: intake, ssn:'555112222', tin_type: "ssn" }
 
         it "is not required" do
           form = described_class.from_dependent(dependent)
