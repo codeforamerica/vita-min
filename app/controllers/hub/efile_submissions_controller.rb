@@ -10,7 +10,7 @@ module Hub
 
     def index
       @efile_submission_state_counts = count_efile_submission_states
-      @efile_submissions = EfileSubmission.includes(:efile_submission_transitions, tax_return: [:client, :intake]).most_recent_by_tax_return.page(params[:page])
+      @efile_submissions = EfileSubmission.includes(:efile_submission_transitions, tax_return: [:client, :intake]).page(params[:page])
       @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
     end
 
