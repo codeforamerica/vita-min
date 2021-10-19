@@ -19,6 +19,15 @@ RSpec.feature "Web Intake 211 Assisted Filer", :flow_explorer_screenshot do
     check "2019"
     click_on "Continue"
 
+    # interview time preference
+    visit "/questions/interview-scheduling"
+    fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
+    expect(page).to have_select(
+      "What is your preferred language for the review?", selected: "English"
+    )
+    select("Spanish", from: "What is your preferred language for the review?")
+    click_on "Continue"
+
     # Skip to consent to create ticket
     visit "/questions/consent"
     expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
@@ -30,18 +39,16 @@ RSpec.feature "Web Intake 211 Assisted Filer", :flow_explorer_screenshot do
     select "1971", from: "Year"
     click_on "I agree"
 
-    # Skip to additional information
-    visit "/questions/additional-info"
-    fill_in "Is there any more information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
-    click_on "Next"
+    # Skip to mailing address
+    visit "/questions/mailing-address"
+    fill_in "Street address", with: "123 Main St."
+    fill_in "City", with: "Anytown"
+    select "California", from: "State"
+    fill_in "ZIP code", with: "94612"
+    click_on "Confirm"
 
-    # After additional info, navigation skips documents section and goes to interview time preferences
-    fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
-    expect(page).to have_select(
-      "What is your preferred language for the review?", selected: "English"
-    )
-    select("Spanish", from: "What is your preferred language for the review?")
-    click_on "Continue"
+    # After mailing address skips documents section and goes to final info page
+    expect(Intake.last.current_step).to eq("/en/questions/final-info")
 
     # Try to visit a page not in the flow and ensure it doesn't break from the progress calculation
     visit "/questions/overview-documents"

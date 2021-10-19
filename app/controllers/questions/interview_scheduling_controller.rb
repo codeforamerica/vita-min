@@ -1,6 +1,6 @@
 module Questions
   class InterviewSchedulingController < QuestionsController
-    include AuthenticatedClientConcern
+    include AnonymousIntakeConcern
 
     layout "intake"
 

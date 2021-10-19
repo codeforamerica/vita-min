@@ -43,6 +43,9 @@ feature "Intake Routing Spec", :flow_explorer_screenshot do
     fill_in "ZIP code", with: zip_code
     click_on "Continue"
 
+    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+    click_on "Continue"
+
     expect(page.html).to have_text "Our team at Cobra Academy is here to help!"
   end
 
@@ -71,6 +74,9 @@ feature "Intake Routing Spec", :flow_explorer_screenshot do
     fill_in "ZIP code", with: zip_code
     click_on "Continue"
 
+    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+    click_on "Continue"
+
     expect(page.html).to have_text "Our team at Diagon Alley is here to help!"
   end
 
@@ -97,6 +103,9 @@ feature "Intake Routing Spec", :flow_explorer_screenshot do
     expect(page).to have_text "let's get some basic information"
     fill_in "What is your preferred first name?", with: "Luna Lovegood"
     fill_in "ZIP code", with: "28806"
+    click_on "Continue"
+
+    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
     click_on "Continue"
 
     expect(page.html).to have_text "Our team at Hogwarts is here to help!"

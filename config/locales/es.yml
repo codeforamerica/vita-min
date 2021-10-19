@@ -3015,9 +3015,6 @@ es:
         support_html: Nuestro equipo está aquí para ayudarle. %{faq_link} o envíe una pregunta por chat, y nos comunicaremos con usted.
         title: Preguntas sobre los impuestos
     questions:
-      additional_info:
-        help_text: Comparta cualquier nota o pregunta sobre su situación fiscal. Su preparador de impuestos se asegurará de repasar estas preguntas durante la revisión de su teléfono.
-        title: "¿Hay más información que crea que deberíamos saber?"
       adopted_child:
         title:
           one: En %{year}, ¿adoptó un niño?
