@@ -39,7 +39,7 @@ module Portal
       if @verification_code_form.valid?
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], params[:verification_code])
 
-        if client_login_service.clients_for_token(hashed_verification_code).exists?
+        if client_login_service.clients_for_token(hashed_verification_code).present?
           DatadogApi.increment("client_logins.verification_codes.right_code")
           redirect_to edit_portal_client_login_path(id: hashed_verification_code)
           return
