@@ -19,7 +19,7 @@ class ClientLoginService
     intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
 
     # Client.by_raw_login_token supports login links generated from mid-Jan through early March 2021.
-    Client.where(intake: intake_matches).or(Client.by_raw_login_token(raw_token))
+    (Client.where(intake: intake_matches) + Client.by_raw_login_token(raw_token)).uniq
   end
 
   def can_login_by_email_verification?(email_address, service_type: :gyr)
