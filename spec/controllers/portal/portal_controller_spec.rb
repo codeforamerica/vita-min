@@ -33,7 +33,6 @@ RSpec.describe Portal::PortalController, type: :controller do
     context "as an authenticated client" do
       before do
         sign_in client
-        allow(QuestionNavigation).to receive(:determine_current_step).and_return("/en/questions/asset-sale-loss")
       end
 
       context "with onboarding still to do" do
@@ -55,15 +54,6 @@ RSpec.describe Portal::PortalController, type: :controller do
 
           expect(assigns(:current_step)).to eq "/en/questions/additional-info"
           expect(assigns(:tax_returns)).to eq []
-        end
-
-        context "with current_step nil" do
-          let(:client) { create :client, intake: (create :intake) }
-          it "backfills onto intake" do
-            get :home
-            expect(client.reload.intake.current_step).to eq "/en/questions/asset-sale-loss"
-            expect(assigns(:current_step)).to eq "/en/questions/asset-sale-loss"
-          end
         end
       end
 
