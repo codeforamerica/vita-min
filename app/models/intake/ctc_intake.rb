@@ -242,6 +242,7 @@
 #  index_intakes_on_phone_number                           (phone_number)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                       (sms_phone_number)
+#  index_intakes_on_spouse_email_address                   (spouse_email_address)
 #  index_intakes_on_type                                   (type)
 #  index_intakes_on_vita_partner_id                        (vita_partner_id)
 #
