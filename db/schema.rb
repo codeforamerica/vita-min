@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_05_214611) do
+ActiveRecord::Schema.define(version: 2021_10_19_194457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -751,6 +751,7 @@ ActiveRecord::Schema.define(version: 2021_10_05_214611) do
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
+    t.index ["spouse_email_address"], name: "index_intakes_on_spouse_email_address"
     t.index ["type"], name: "index_intakes_on_type"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
