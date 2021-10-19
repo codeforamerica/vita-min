@@ -11,9 +11,10 @@
 #
 # Indexes
 #
-#  index_efile_submissions_on_created_at         (created_at)
-#  index_efile_submissions_on_irs_submission_id  (irs_submission_id)
-#  index_efile_submissions_on_tax_return_id      (tax_return_id)
+#  index_efile_submissions_on_created_at            (created_at)
+#  index_efile_submissions_on_irs_submission_id     (irs_submission_id)
+#  index_efile_submissions_on_tax_return_id         (tax_return_id)
+#  index_efile_submissions_on_tax_return_id_and_id  (tax_return_id,id DESC)
 #
 require "rails_helper"
 
