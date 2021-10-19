@@ -4,7 +4,7 @@
     <div style="display: flex;">
       <% EfileSubmissionStateMachine.states.each do |state| %>
         <div class="metric-box">
-          <div class="status <%= state %>"><%= EfileSubmission.in_state(state).count %></div>
+          <div class="status <%= state %>"><%= @efile_submission_state_counts[state] %></div>
           <div class="status <%= state %>"><%= link_to state, Hub::EfileSubmissionsController.to_path_helper(action: :index, status: state), class: 'link--subtle', style: "color: inherit;" %></div>
          </div>
       <% end %>
@@ -52,10 +52,10 @@
       <% @efile_submissions.each do |submission| %>
         <% tax_return = submission.tax_return %>
           <tr class="index-table__row">
-            <td class="index-table__cell status"><%= link_to submission.current_state, efile_hub_client_path(id: submission.client.id, anchor: "body"), class: "underline" %></td>
-            <td class="index-table__cell"><%= link_to submission.irs_submission_id, efile_hub_client_path(id: submission.client.id, anchor: "body") %></td>
+            <td class="index-table__cell status"><%= link_to submission.current_state, efile_hub_client_path(id: tax_return.client.id, anchor: "body"), class: "underline" %></td>
+            <td class="index-table__cell"><%= link_to submission.irs_submission_id, efile_hub_client_path(id: tax_return.client.id, anchor: "body") %></td>
             <td class="index-table__cell">
-              <%= link_to submission.client.legal_name, efile_hub_client_path(id: submission.client.id, anchor: "body"), class: "underline" %>
+              <%= link_to tax_return.client.legal_name, efile_hub_client_path(id: tax_return.client.id, anchor: "body"), class: "underline" %>
             </td>
             <td class="index-table__cell">
               <%= tax_return.year %>
