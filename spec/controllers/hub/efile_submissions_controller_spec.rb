@@ -11,24 +11,17 @@ describe Hub::EfileSubmissionsController do
       let!(:another_file_submission) { create :efile_submission}
       before { sign_in user }
 
-      xit "loads most recent submissions for tax returns" do
+      it "loads most recent submissions for tax returns" do
         get :index, params: {}
         expect(assigns(:efile_submissions)).not_to include initial_efile_submission
         expect(assigns(:efile_submissions)).to include later_efile_submission
         expect(assigns(:efile_submissions).length).to eq 2
       end
 
-      it "loads all submissions for tax returns" do
-        get :index, params: {}
-        expect(assigns(:efile_submissions)).to include initial_efile_submission
-        expect(assigns(:efile_submissions)).to include later_efile_submission
-        expect(assigns(:efile_submissions).length).to eq 3
-      end
-
       context "pagination" do
         let(:submissions_double) { double }
         before do
-          allow(EfileSubmission).to receive(:includes).and_return submissions_double
+          allow(EfileSubmission).to receive(:most_recent_by_tax_return).and_return submissions_double
           allow(submissions_double).to receive(:page)
         end
 
