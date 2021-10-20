@@ -122,7 +122,7 @@ describe EfileSubmissionStateMachine do
         allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
       end
 
-      it "updates the tax return status" do
+      it "updates the tax return status and sends a message" do
         submission.transition_to!(:rejected, error_code: efile_error.code)
         expect(submission.tax_return.status).to eq("file_rejected")
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
