@@ -12,9 +12,9 @@ module Portal
         @tax_returns = current_client.tax_returns.order(year: :desc)
         @can_submit_documents = true
       else
-        @current_step = current_intake.current_step || backfill_current_step
+        @current_step = current_intake.current_step
         @heres_what_we_need = true
-        @submit_additional_documents = @current_step.include?("/documents/")
+        @submit_additional_documents = @current_step&.include?("/documents/")
       end
 
       @answered_initial_qs = completed_onboarding_process? || @current_step&.include?("/documents/")
@@ -37,14 +37,6 @@ module Portal
     # show their tax return status information.
     def completed_onboarding_process?
       current_client.intake.completed_at? || current_client.tax_returns.map(&:status_before_type_cast).any? { |status| status >= 102 }
-    end
-
-    # Backfills current_step for clients who started intake before we tracked current_step
-    # TODO: Remove after 2021 tax season.
-    def backfill_current_step
-      step = QuestionNavigation.determine_current_step(current_intake)
-      current_intake.update!(current_step: step)
-      step
     end
   end
 end
