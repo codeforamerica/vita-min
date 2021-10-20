@@ -7,7 +7,7 @@ RSpec.describe IntakePdf do
 
   describe "#output_file" do
     context "with an empty intake record" do
-      let(:intake) { create :intake }
+      let(:intake) { create :intake, current_step: nil }
 
       it "returns a pdf with default fields and values" do
         output_file = intake_pdf.output_file

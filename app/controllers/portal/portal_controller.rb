@@ -14,7 +14,7 @@ module Portal
       else
         @current_step = current_intake.current_step
         @heres_what_we_need = true
-        @submit_additional_documents = @current_step.include?("/documents/")
+        @submit_additional_documents = @current_step&.include?("/documents/")
       end
 
       @answered_initial_qs = completed_onboarding_process? || @current_step&.include?("/documents/")
