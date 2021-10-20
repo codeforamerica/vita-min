@@ -10,7 +10,7 @@ class RunAfterTransitionTasksOnRejectedReturnsJob < ApplicationJob
     rejected_submissions = rejected_submissions.limit(limit) if limit.present?
 
     rejected_submissions.find_each(batch_size: 100) do |submission|
-      AfterTransitionTasksForRejectedReturnJob.perform(submission)
+      AfterTransitionTasksForRejectedReturnJob.perform_later(submission)
     end
   end
 end
