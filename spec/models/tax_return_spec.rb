@@ -185,6 +185,23 @@ describe TaxReturn do
         expect(tax_return.accepted_tax_return_analytics.refund_amount_cents).to eq 130000
         expect(tax_return.accepted_tax_return_analytics.eip3_amount_cents).to eq 240000
       end
+
+      context "when some of the values are nil" do
+        before do
+          allow(tax_return).to receive(:expected_advance_ctc_payments).and_return(nil)
+          allow(tax_return).to receive(:claimed_recovery_rebate_credit).and_return(nil)
+          allow(tax_return).to receive(:expected_recovery_rebate_credit_three).and_return(nil)
+        end
+        
+        it "applies the values as 0" do
+          expect {
+            tax_return.record_expected_payments!
+          }.to change(AcceptedTaxReturnAnalytics, :count).by 1
+          expect(tax_return.accepted_tax_return_analytics.advance_ctc_amount_cents).to eq 0
+          expect(tax_return.accepted_tax_return_analytics.refund_amount_cents).to eq 0
+          expect(tax_return.accepted_tax_return_analytics.eip3_amount_cents).to eq 0
+        end
+      end
     end
 
     context "when the return is any status other than accepted" do

@@ -144,9 +144,9 @@ class TaxReturn < ApplicationRecord
     raise StandardError, "Cannot record payments on tax return that is not accepted" unless status == "file_accepted"
 
     create_accepted_tax_return_analytics!(
-      advance_ctc_amount_cents: expected_advance_ctc_payments * 100,
-      refund_amount_cents: claimed_recovery_rebate_credit * 100,
-      eip3_amount_cents: expected_recovery_rebate_credit_three * 100
+      advance_ctc_amount_cents: expected_advance_ctc_payments ? expected_advance_ctc_payments * 100 : 0,
+      refund_amount_cents: claimed_recovery_rebate_credit ? claimed_recovery_rebate_credit * 100 : 0,
+      eip3_amount_cents: expected_recovery_rebate_credit_three ? expected_recovery_rebate_credit_three * 100 : 0
     )
   end
 
