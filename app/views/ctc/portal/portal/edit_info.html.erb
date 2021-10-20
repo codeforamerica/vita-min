@@ -14,6 +14,11 @@
         <h1 class="h2"><%= @main_question %></h1>
 
         <div class="review-box spacing-below-35">
+          <% if @intake.refund_payment_method_direct_deposit? && !@intake.bank_account.present? %>
+            <div class="notice--error">
+              <p><%= t("views.ctc.portal.edit_info.no_ba_error_html") %></p>
+            </div>
+          <% end %>
           <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_information") %></h2>
           <div class="review-box__space-between primary-info">
             <div>
@@ -43,22 +48,7 @@
             %>
           <% end %>
 
-          <div class="review-box__title">
-            <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
-          </div>
-          <% unless @intake.bank_account.present? %>
-            <p><%= t("views.ctc.portal.edit_info.no_bank_account") %></p>
-          <% end %>
-
-          <% if @intake.refund_payment_method_direct_deposit? %>
-            <%= render 'ctc/questions/confirm_information/bank_account_info', bank_account: @intake.bank_account, edit_controller: Ctc::Portal::RefundPaymentController %>
-          <% elsif @intake.refund_payment_method_check? %>
-            <p><%= t("views.ctc.portal.edit_info.will_send_check_to_address") %></p>
-          <% end %>
-
-          <% if @intake.refund_payment_method_check? || !@intake.bank_account.present? %>
-            <%= link_to "Add bank information", ctc_portal_refund_payment_path, class: "button button--small spacing-below-0" %>
-          <% end %>
+          <%= render 'ctc/questions/confirm_information/bank_info', edit_controller: Ctc::Portal::RefundPaymentController, intake: @intake %>
         </div>
 
         <% if @submission.can_transition_to?(:resubmitted) %>
@@ -66,7 +56,12 @@
             <%= t("views.ctc.portal.edit_info.help_text") %>
           </p>
           <%= recaptcha_v3(action: 'resubmit') %>
-          <%= button_tag(class: "button button--primary button--full-width", type: "submit", data: { disable_with: t("general.please_wait") }, disabled: !@intake_updated_since_last_submission) do %>
+          <%= button_tag(
+                class: "button button--primary button--full-width",
+                type: "submit",
+                data: { disable_with: t("general.please_wait") },
+                disabled: !@submit_enabled
+              ) do %>
             <%= t("views.ctc.portal.edit_info.resubmit") %>
           <% end %>
         <% else %>

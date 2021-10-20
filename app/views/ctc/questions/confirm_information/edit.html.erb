@@ -5,6 +5,11 @@
   <p><%= t("views.ctc.questions.confirm_information.help_text")  %></p>
 
   <div class="review-box spacing-below-35">
+    <% if current_intake.refund_payment_method_direct_deposit? && !current_intake.bank_account.present? %>
+      <div class="notice--error">
+        <p><%= t("views.ctc.portal.edit_info.no_ba_error_html") %></p>
+      </div>
+    <% end %>
 
     <%= render 'primary_filer_info', intake: current_intake, edit_controller: Ctc::Update::PrimaryFilerController %>
 
@@ -36,13 +41,7 @@
       </div>
     <% end %>
 
-    <% if current_intake.refund_payment_method_direct_deposit? %>
-      <div class="review-box__title">
-        <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
-      </div>
-
-      <%= render "bank_account_info", bank_account: current_intake.bank_account %>
-    <% end %>
+    <%= render 'ctc/questions/confirm_information/bank_info', edit_controller: Ctc::Portal::RefundPaymentController, intake: current_intake %>
   </div>
 
   <p><strong><%= t("views.ctc.questions.confirm_information.set_pin") %></strong></p>
