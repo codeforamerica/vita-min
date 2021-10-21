@@ -1,0 +1,20 @@
+<% content_for :title, t("portal.messages.new.title", partner_name: t("portal.messages.new.your_tax_preparers")) %>
+
+<%= content_for :card do %>
+  <div class="question-layout">
+    <div class="back">
+      <%= link_to t("general.back"), :back %>
+    </div>
+    <div class="question-wrapper">
+      <h1 class="h2"><%= content_for :title %></h1>
+      <p><%= client_contact_preference(current_client) %> <%= t("portal.messages.new.wait_time") %></p>
+      <%= form_with model: @message, url: portal_messages_path, local: true, builder: VitaMinFormBuilder, class: "portal-message-form" do |f| %>
+        <%= f.cfa_textarea(:body, t("portal.messages.new.body_label")) %>
+        <div>
+          <%= f.submit t("general.send_message"), class: "button button--primary button--wide" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>

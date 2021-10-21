@@ -79,6 +79,10 @@ class VitaPartner < ApplicationRecord
     VitaPartner.find_by!(name: "GYR National Organization")
   end
 
+  def self.ctc_org
+    VitaPartner.find_by!(name: "GetCTC.org")
+  end
+
   def organization_leads
     User.where(role: OrganizationLeadRole.where(organization: self))
   end

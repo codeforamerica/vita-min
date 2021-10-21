@@ -39,6 +39,10 @@ class Ability
       TaxReturn,
     ], client: { vita_partner: accessible_groups }
 
+    can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
+
+    cannot :index, EfileSubmission unless user.role_type == AdminRole::TYPE
+
     if user.role_type == CoalitionLeadRole::TYPE
       can :read, Coalition, id: user.role.coalition_id
 

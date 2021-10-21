@@ -117,7 +117,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
           expected = [
             [coalition, [organization, second_organization]],
             [external_coalition, [external_organization]],
-            [nil, [VitaPartner.client_support_org]]
+            [nil, [VitaPartner.client_support_org, VitaPartner.ctc_org]]
           ]
           expect(response).to be_ok
           actual = assigns(:organizations_by_coalition)
