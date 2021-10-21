@@ -1,5 +1,6 @@
 class PublicPagesController < ApplicationController
   skip_before_action :check_maintenance_mode
+
   def include_analytics?
     true
   end
@@ -64,4 +65,5 @@ class PublicPagesController < ApplicationController
       format.any { head 404 }
     end
   end
+
 end

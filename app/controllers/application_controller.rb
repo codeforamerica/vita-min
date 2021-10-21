@@ -98,15 +98,12 @@ class ApplicationController < ActionController::Base
 
   def set_source
     source_from_params = params[:source] || params[:utm_source] || params[:s]
-    if source_from_params.present?
+    if !session[:source] && source_from_params.present?
       # Use at most 100 chars in session so we don't overflow it.
       session[:source] = source_from_params.slice(0, 100)
     elsif request.headers.fetch(:referer, "").include?("google.com")
       session[:source] = "organic_google"
     end
-
-    redirect_to diy_path if params[:source] == "cdss"
-    redirect_to diy_path if params[:source] == "ca"
   end
 
   def referrer

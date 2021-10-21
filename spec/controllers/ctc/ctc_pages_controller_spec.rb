@@ -57,6 +57,7 @@ describe Ctc::CtcPagesController do
   describe "#help" do
     it "renders the home template with the needs_help_banner instance variable set to true" do
       get :help
+      expect(session[:source]).to eq "help"
       expect(subject).to render_template(:home)
       expect(assigns(:needs_help_banner)).to eq true
     end
@@ -65,6 +66,7 @@ describe Ctc::CtcPagesController do
   describe "#stimulus" do
     it "renders the stimulus_home template without the help banner instance variable" do
       get :stimulus
+      expect(session[:source]).to eq "stimulus"
       expect(subject).to render_template(:stimulus_home)
       expect(assigns(:needs_help_banner)).to eq nil
     end
@@ -73,8 +75,18 @@ describe Ctc::CtcPagesController do
   describe "#stimulus_navigator" do
     it "renders the stimulus home template with the needs help banner instance variable set to true" do
       get :stimulus_navigator
+      expect(session[:source]).to eq "stimulus-navigator"
       expect(subject).to render_template(:stimulus_home)
       expect(assigns(:needs_help_banner)).to eq true
+    end
+
+    context "when session source has already been set" do
+      it "does not override it" do
+        session[:source] = "original"
+        get :stimulus_navigator
+        expect(session[:source]).to eq "original"
+        expect(subject).to render_template(:stimulus_home)
+      end
     end
   end
 

@@ -17,15 +17,18 @@ module Ctc
     end
 
     def help
+      session[:source] = "help" unless session[:source].present?
       @needs_help_banner = true
       render :home
     end
 
     def stimulus
+      session[:source] = "stimulus" unless session[:source].present?
       render :stimulus_home
     end
 
     def stimulus_navigator
+      session[:source] = "stimulus-navigator" unless session[:source].present?
       @needs_help_banner = true
       render :stimulus_home
     end
@@ -45,9 +48,6 @@ module Ctc
     end
 
     def california_benefits
-      if params[:source].present?
-        session[:source] = params[:source]
-      end
     end
 
     def what_will_i_need_to_submit
