@@ -130,7 +130,7 @@ module Hub
           intake_attributes: intake_attr,
           tax_returns_attributes: [tax_return_attributes]
         )
-        @client.tax_returns.map { |tr| tr.transition_to("prep_ready_for_prep") }
+        @client.tax_returns.map { |tr| tr.transition_to(:prep_ready_for_prep) }
       end
     end
 
