@@ -34,26 +34,47 @@ describe Ctc::CtcPagesController do
 
     context "CDSS landing page content" do
       [
-        %w( cactc ctc/ctc_pages/home true),
-        %w( fed   ctc/ctc_pages/home true),
-        %w( child ctc/ctc_pages/home true),
-        %w( eip ctc/ctc_pages/stimulus_home true),
-        %w( cagov ctc/ctc_pages/stimulus_home true),
-        %w( state ctc/ctc_pages/stimulus_home true),
-        %w( credit  ctc/ctc_pages/stimulus_home false),
-        %w( ca      ctc/ctc_pages/stimulus_home false),
-        %w( castate ctc/ctc_pages/stimulus_home false),
-      ].each do |source, template, show_needs_help|
+        %w( cactc /en/help ),
+        %w( fed   /en/help ),
+        %w( eip /en/stimulus-navigator ),
+        %w( cagov /en/stimulus-navigator ),
+        %w( state /en/stimulus-navigator ),
+        %w( credit  /en/stimulus ),
+        %w( ca      /en/stimulus ),
+        %w( castate /en/stimulus),
+      ].each do |source, location, show_needs_help|
         describe "When client visits from source param #{source}" do
-          it "renders #{template} and #{show_needs_help ? 'does' : 'does not'} show blue banner" do
+          it "redirects to #{location}" do
             session[:source] = source
             get :home
-            expect(subject).to render_template(template)
-            show_needs_help_bool = show_needs_help == 'true' ? true : false
-            expect(!!assigns[:needs_help_banner]).to eq(show_needs_help_bool)
+            expect(subject).to redirect_to(location)
           end
         end
       end
+    end
+  end
+
+  describe "#help" do
+    it "renders the home template with the needs_help_banner instance variable set to true" do
+      get :help
+      expect(subject).to render_template(:home)
+      expect(assigns(:needs_help_banner)).to eq true
+    end
+  end
+
+  describe "#stimulus" do
+    it "renders the stimulus_home template without the help banner instance variable" do
+      get :stimulus
+      expect(subject).to render_template(:stimulus_home)
+      expect(assigns(:needs_help_banner)).to eq nil
+    end
+  end
+
+  describe "#stimulus_navigator" do
+    it "renders the stimulus home template with the needs help banner instance variable set to true" do
+      get :stimulus_navigator
+      expect(subject).to render_template(:stimulus_home)
+      expect(assigns(:needs_help_banner)).to eq true
     end
   end
 

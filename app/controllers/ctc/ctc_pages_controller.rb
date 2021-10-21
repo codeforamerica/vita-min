@@ -5,12 +5,29 @@ module Ctc
         cookies.permanent[:ctc_intake_ok] = "yes"
         redirect_to Ctc::Questions::OverviewController.to_path_helper
       end
-      if ["cactc", "fed", "child", "eip", "cagov", "state"].include?(session[:source])
-        @needs_help_banner = true
+
+      case session[:source]
+      when "cactc", "fed", "child"
+        redirect_to action: :help
+      when "eip", "cagov", "state"
+        redirect_to action: :stimulus_navigator
+      when "credit", "ca", "castate"
+        redirect_to action: :stimulus
       end
-      if ["eip", "cagov", "state", "credit", "ca", "castate"].include?(session[:source])
-        render :stimulus_home and return
-      end
+    end
+
+    def help
+      @needs_help_banner = true
+      render :home
+    end
+
+    def stimulus
+      render :stimulus_home
+    end
+
+    def stimulus_navigator
+      @needs_help_banner = true
+      render :stimulus_home
     end
 
     def source_routing
