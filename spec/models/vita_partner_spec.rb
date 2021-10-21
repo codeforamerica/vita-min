@@ -256,7 +256,7 @@ describe VitaPartner do
       it "is a site" do
         expect(site.site?).to eq(true)
         expect(site.organization?).to eq(false)
-        expect(VitaPartner.sites).to eq [site]
+        expect(VitaPartner.sites).to include site
       end
 
       it "cannot be added to a coalition" do

@@ -61,7 +61,7 @@ describe Ctc::IncomeForm do
       expect(intake.timezone).to eq "America/Chicago"
       expect(intake.locale).to eq "en"
       expect(intake.client).to be_present
-      expect(intake.client.vita_partner.name).to eq "GetCTC.org"
+      expect(intake.client.vita_partner.name).to eq "GetCTC.org (Site)"
       expect(intake.tax_returns.length).to eq 1
       expect(intake.tax_returns.first.year).to eq 2020
       expect(intake.tax_returns.first.is_ctc).to eq true

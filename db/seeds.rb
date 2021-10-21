@@ -3,7 +3,8 @@ national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization")
 national_org.update(allows_greeters: true)
 
 # Create GetCTC.org org if needed
-VitaPartner.find_or_create_by!(name: "GetCTC.org")
+ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org")
+VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", parent_organization: ctc_org)
 
 DefaultErrorMessages.generate!
 

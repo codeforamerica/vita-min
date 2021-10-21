@@ -90,7 +90,7 @@ FactoryBot.define do
 
     factory :client_with_ctc_intake_and_return do
       with_return
-      vita_partner { VitaPartner.ctc_org }
+      vita_partner { VitaPartner.ctc_site }
       transient do
         preferred_name { "Maeby" }
       end
@@ -101,7 +101,7 @@ FactoryBot.define do
     end
 
     factory :ctc_client do
-      vita_partner { VitaPartner.ctc_org }
+      vita_partner { VitaPartner.ctc_site }
     end
   end
 end
