@@ -34,7 +34,7 @@ class TaxReturnStateMachine
   end
 
   after_transition(after_commit: true) do |tax_return, transition|
-    tax_return.status = transition.to_state # save the integer version, too, for now.
+    tax_return.status = transition.to_state # save the integer version, too, for now. (Backwards compatability for data science reports)
     tax_return.save!
   end
 
