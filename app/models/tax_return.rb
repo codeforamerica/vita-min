@@ -60,7 +60,6 @@ class TaxReturn < ApplicationRecord
   validates :year, presence: true
 
   after_update_commit :send_mixpanel_status_change_event, :send_surveys
-  after_update_commit :send_mixpanel_status_change_event, :send_surveys
   after_update_commit { InteractionTrackingService.record_internal_interaction(client) }
 
   def state_machine
