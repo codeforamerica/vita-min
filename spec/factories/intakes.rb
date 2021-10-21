@@ -502,7 +502,7 @@ FactoryBot.define do
     spouse_birth_date { Date.new(1976, 12, 20) }
     sms_phone_number { "+15125551234" }
     email_address { "mango@example.com" }
-    client
+    association :client, factory: :ctc_client
     needs_to_flush_searchable_data_set_at { 1.minute.ago }
     eip1_amount_received { 1000 }
     eip2_amount_received { 1000 }

@@ -18,35 +18,41 @@ module Hub
     # loops through the tax_returns that have efile_submissions.
     def show
       @client = Client.find(params[:id])
+      authorize! :read, @client
       @tax_returns = @client.tax_returns.joins(:efile_submissions).uniq # get all tax returns with submissions
       redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.present?
     end
 
     def resubmit
+      authorize! :update, @efile_submission
       @efile_submission.transition_to!(:resubmitted, { initiated_by_id: current_user.id })
       flash[:notice] = "Resubmission initiated."
       redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
     end
 
     def cancel
+      authorize! :update, @efile_submission
       @efile_submission.transition_to!(:cancelled, { initiated_by_id: current_user.id })
       flash[:notice] = "Submission cancelled, tax return marked 'Not filing'."
       redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
     end
 
     def investigate
+      authorize! :update, @efile_submission
       @efile_submission.transition_to!(:investigating, { initiated_by_id: current_user.id })
       flash[:notice] = "Good luck on your investigation!"
       redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
     end
 
     def wait
+      authorize! :update, @efile_submission
       @efile_submission.transition_to!(:waiting, { initiated_by_id: current_user.id })
       flash[:notice] = "Waiting for client action."
       redirect_back(fallback_location: hub_efile_submission_path(id: @efile_submission.client.id))
     end
 
     def download
+      authorize! :read, @efile_submission
       if @efile_submission.submission_bundle.blank?
         head :not_found
         return
