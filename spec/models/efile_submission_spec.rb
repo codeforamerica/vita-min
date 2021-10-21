@@ -175,7 +175,6 @@ describe EfileSubmission do
       end
     end
 
-
     context "fraud_hold" do
       let(:submission) { create :efile_submission, :fraud_hold }
       transitionable_states = [:preparing, :queued, :failed, :rejected, :resubmitted, :investigating, :waiting]
@@ -263,82 +262,13 @@ describe EfileSubmission do
 
     context "rejected" do
       context "after transition to" do
-        before { allow(MixpanelService).to receive(:send_event) }
-        let!(:submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"), 'rb') }) }
+        let(:submission) { create(:efile_submission, :transmitted) }
+        let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: false, auto_cancel: false) }
 
-        it "sends a mixpanel event" do
-          submission.transition_to!(:rejected)
+        it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+          submission.transition_to!(:rejected, error_code: efile_error.code)
 
-          expect(MixpanelService).to have_received(:send_event).with hash_including(
-            distinct_id: submission.client.intake.visitor_id,
-            event_name: "ctc_efile_return_rejected",
-            subject: submission.intake,
-          )
-        end
-
-        context "auto cancellation" do
-          let(:rejection_xml) { file_fixture("irs_acknowledgement_rejection.xml").read }
-          context "with an error that triggers auto-cancellation" do
-            before do
-              create(:efile_error,
-                code: "IND-189",
-                message: "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value.",
-                category: "Missing Data",
-                severity: "Reject and Stop",
-                source: "irs",
-                auto_cancel: true,
-                auto_wait: true,
-               )
-            end
-
-            it "immediately transitions to cancelled" do
-              submission.transition_to!(:rejected, raw_response: rejection_xml)
-              expect(submission.current_state).to eq("cancelled")
-            end
-          end
-
-          context "without an error that triggers auto-cancellation" do
-            before do
-              create(:efile_error,
-                     code: "IND-189",
-                     message: "'DeviceId' in 'AtSubmissionCreationGrp' in 'FilingSecurityInformation' in the Return Header must have a value.",
-                     category: "Missing Data",
-                     severity: "Reject and Stop",
-                     source: "irs",
-                     auto_cancel: false,
-                     auto_wait: false
-              )
-            end
-
-            it "stays rejected" do
-              submission.transition_to!(:rejected, raw_response: rejection_xml)
-              expect(submission.current_state).to eq("rejected")
-            end
-          end
-        end
-
-        context "auto resubmission" do
-          context "with an error that triggers auto-resubmission" do
-            let(:submission) { create :efile_submission, :transmitted }
-            let(:rejection_xml) { file_fixture("irs_acknowledgement_rejection.xml").read }
-
-            before do
-              allow(EfileError).to receive(:error_codes_to_retry_once).and_return(%w[IND-189 IND-190])
-            end
-
-            it "transitions to resubmitted exactly once" do
-              expect {
-                submission.transition_to!(:rejected, raw_response: rejection_xml)
-              }.to change(EfileSubmission, :count).by(1)
-              expect(submission.current_state).to eq("resubmitted")
-
-              resubmission = EfileSubmission.last
-              resubmission.transition_to!(:queued)
-              resubmission.transition_to!(:transmitted)
-              resubmission.transition_to!(:rejected, raw_response: rejection_xml)
-              expect(resubmission.current_state).to eq("rejected")
-            end
-          end
+          expect(AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
         end
       end
     end

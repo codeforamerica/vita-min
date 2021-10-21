@@ -33,7 +33,6 @@ describe AfterTransitionTasksForRejectedReturnJob do
       end
     end
 
-
     context "when the error is auto-cancel" do
       let(:auto_cancel) { true }
       it "updates the tax status and submission status" do
@@ -41,6 +40,25 @@ describe AfterTransitionTasksForRejectedReturnJob do
 
         expect(submission.tax_return.reload.status).to eq("file_not_filing")
         expect(submission.current_state).to eq("cancelled")
+      end
+    end
+
+    context "when the error is auto-resubmit" do
+      before do
+        allow(EfileError).to receive(:error_codes_to_retry_once).and_return([efile_error.code])
+      end
+
+      it "transitions to resubmitted exactly once" do
+        AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
+
+        expect(EfileSubmission.count).to eq(2)
+        expect(submission.current_state).to eq("resubmitted")
+
+        resubmission = EfileSubmission.last
+        resubmission.transition_to!(:queued)
+        resubmission.transition_to!(:transmitted)
+        resubmission.transition_to!(:rejected, error_code: efile_error.code)
+        expect(resubmission.current_state).to eq("rejected")
       end
     end
   end
