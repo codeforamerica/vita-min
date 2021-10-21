@@ -1,10 +1,7 @@
-# delete this later maybe - it should never happen again, inshallah
-
 class AfterTransitionTasksForRejectedReturnJob < ApplicationJob
-  def perform(submission)
-    transition = submission.last_transition
+  def perform(submission, transition)
+    transition ||= submission.last_transition
 
-    # copy-pasta the whole after transition block
     submission.tax_return.update(status: "file_rejected")
 
     Efile::SubmissionErrorParser.persist_errors(transition)

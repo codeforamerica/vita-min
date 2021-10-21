@@ -85,28 +85,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
-    submission.tax_return.update(status: "file_rejected")
-
-    Efile::SubmissionErrorParser.persist_errors(transition)
-
-    if transition.efile_errors.any?
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: submission.client,
-        message: AutomatedMessage::EfileRejected,
-        locale: submission.client.intake.locale
-      )
-      submission.transition_to!(:cancelled) if transition.efile_errors.any?(&:auto_cancel)
-      submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
-      if transition.efile_errors.all? { |efile_error| EfileError.error_codes_to_retry_once.include?(efile_error.code) }
-        already_auto_resubmitted = submission.previously_transmitted_submission && submission.previously_transmitted_submission.efile_submission_transitions.where(to_state: :resubmitted
-          ).any? { |transition| transition.metadata.dig("auto_resubmitted") }
-        unless already_auto_resubmitted
-          submission.transition_to!(:resubmitted, {auto_resubmitted: true})
-        end
-      end
-    end
-
-    send_mixpanel_event(submission, "ctc_efile_return_rejected")
+    AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
   end
 
   after_transition(to: :accepted) do |submission|
