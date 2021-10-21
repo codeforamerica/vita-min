@@ -61,7 +61,7 @@ describe VitaPartnerHelper do
         expected =
           [
             [VitaPartner.client_support_org.name, [[VitaPartner.client_support_org.name, VitaPartner.client_support_org.id]]],
-            [VitaPartner.ctc_org.name, [[VitaPartner.ctc_org.name, VitaPartner.ctc_org.id]]],
+            [VitaPartner.ctc_org.name, [[VitaPartner.ctc_org.name, VitaPartner.ctc_org.id], [VitaPartner.ctc_site.name, VitaPartner.ctc_site.id]]],
             ["First Org", [["First Org", org_1.id], ["1st Site of 1st Org", site_1.id], ["2nd Site of 1st Org", site_2.id]]],
             ["Org Without Sites", [["Org Without Sites", org_3.id]]],
             ["Second Org", [["Second Org", org_2.id], ["Site Of 2nd Org", site_3.id]]],
