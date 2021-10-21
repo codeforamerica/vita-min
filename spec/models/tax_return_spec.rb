@@ -4,8 +4,6 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
-#  ctc_amount_cents    :bigint
-#  eip3_amount_cents   :bigint
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -15,7 +13,6 @@
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
 #  ready_for_prep_at   :datetime
-#  refund_amount_cents :bigint
 #  service_type        :integer          default("online_intake")
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
