@@ -223,10 +223,10 @@ class User < ApplicationRecord
 
   def suspend!
     assigned_tax_returns.update(assigned_user: nil)
-    update!(suspended_at: DateTime.now)
+    update_columns(suspended_at: DateTime.now)
   end
 
   def activate!
-    update!(suspended_at: nil)
+    update_columns(suspended_at: nil)
   end
 end
