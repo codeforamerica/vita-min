@@ -7,12 +7,12 @@ RSpec.describe NotesPresenter do
     let(:params) { { client_id: client.id } }
     let(:user) { create :admin_user }
 
-    before do
-      create :note # unrelated note
-      create :system_note # unrelated system note
-    end
-
     context "with notes from different days" do
+      before do
+        create :note # unrelated note
+        create :system_note # unrelated system note
+      end
+
       let(:document_note_double) { double(SyntheticNote) }
       let(:outbound_call_note_double) { double(SyntheticNote) }
       let(:day1){ DateTime.new(2019, 10, 5, 8, 1).utc }
@@ -37,5 +37,12 @@ RSpec.describe NotesPresenter do
       end
     end
 
+    context "with no notes at all" do
+      it "returns the empty hash" do
+        all_notes_by_day = NotesPresenter.grouped_notes(client)
+
+        expect(all_notes_by_day).to eq({})
+      end
+    end
   end
 end
