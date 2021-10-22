@@ -20,6 +20,7 @@ module Hub
       end
 
       def hide
+        @bank_account = @client.intake.bank_account
         respond_to :js
       end
     end
