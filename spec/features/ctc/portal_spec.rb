@@ -427,8 +427,8 @@ RSpec.feature "CTC Intake", :js, :active_job do
         expect(page).not_to have_text "IND-190: 'DeviceId' in 'AtSubmissionFilingGrp' in 'FilingSecurityInformation' in the Return Header must have a value."
         expect(page).to have_text "Please send us a message with questions or corrections using the \"Contact Us\" button below."
         click_on "Contact us"
-        expect(page).to have_selector "h1", text: "Message your tax preparers"
-        fill_in "What's on your mind?", with: "I have some questions about my tax return."
+        expect(page).to have_selector "h1", text: I18n.t("views.ctc.portal.messages.new.title")
+        fill_in I18n.t("views.ctc.portal.messages.new.body_label"), with: "I have some questions about my tax return."
         click_on "Send message"
         expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
       end
@@ -447,8 +447,8 @@ RSpec.feature "CTC Intake", :js, :active_job do
         expect(page).to have_text I18n.t("views.ctc.portal.home.status.rejected.label")
         expect(page).to have_text I18n.t("views.ctc.portal.home.status.cancelled.message")
         click_on "Contact us"
-        expect(page).to have_selector "h1", text: "Message your tax preparer"
-        fill_in "What's on your mind?", with: "I have some questions about my tax return."
+        expect(page).to have_selector "h1", text: I18n.t("views.ctc.portal.messages.new.title")
+        fill_in I18n.t("views.ctc.portal.messages.new.body_label"), with: "I have some questions about my tax return."
         click_on "Send message"
         expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
       end
