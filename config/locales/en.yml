@@ -1610,13 +1610,13 @@ en:
       portal:
         bank_account:
           title: Please provide your bank details below
-        dependents:
-          no_eligible_dependents:
-            title: You have removed all of your CTC eligible dependents.
-            subtitle: You will not receive Child Tax Credit, because you have no eligible dependents.
         dependent_info:
           help_text: Confirm/edit your dependent’s basic information
           title: Edit %{name}’s basic information
+        dependents:
+          no_eligible_dependents:
+            subtitle: You will not receive Child Tax Credit, because you have no eligible dependents.
+            title: You have removed all of your CTC eligible dependents.
         edit_info:
           help_text: Please ensure that all of your information is correct prior to submitting your tax return. Once you resubmit, your tax return will be transmitted to the IRS and you will not be able to make any additional changes.
           help_text_cant_submit: Please wait to submit any additional changes to your submission. We are waiting on a response to your previous submission from the IRS.
