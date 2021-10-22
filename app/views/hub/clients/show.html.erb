@@ -122,7 +122,7 @@
             </div>
             <% if @client.intake.bank_account.present? %>
               <div id="js-bank-account-info">
-                <%= render "hub/clients/hidden_bank_account_info" %>
+                <%= render "hub/clients/hidden_bank_account_info", bank_account: @client.intake.bank_account %>
               </div>
             <% else %>
               <span class="label-value">No bank account info provided.</span>

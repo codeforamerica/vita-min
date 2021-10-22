@@ -27,6 +27,7 @@ RSpec.feature "Toggle bank account info" do
         expect(page).to have_text "Account type"
         expect(page).to have_text "Account number"
         expect(page).to have_text "Routing number"
+        expect(page).to have_text "Self-help United"
         expect(page).not_to have_text client.intake.bank_account_number
         expect(page).not_to have_text client.intake.bank_routing_number
         expect(page).not_to have_text client.intake.bank_account_type
@@ -37,6 +38,7 @@ RSpec.feature "Toggle bank account info" do
           expect(page).to have_text "Account type"
           expect(page).to have_text "Account number"
           expect(page).to have_text "Routing number"
+          expect(page).to have_text "Self-help United"
           expect(page).to have_text client.intake.bank_account_number
           expect(page).to have_text client.intake.bank_routing_number
           expect(page).to have_text client.intake.bank_account_type.titleize
