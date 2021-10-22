@@ -54,11 +54,12 @@ commands:
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
-          paths: [/mnt/ramdisk/vendor/bundle]
+          paths: [ /mnt/ramdisk/vendor/bundle ]
   install_efile_schemas:
     description: "Install IRS e-File schemas"
     steps:
-      - run: bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas && find vendor/irs
+      - run: bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas &&
+          find vendor/irs
   setup_test_db:
     description: "Setup test database"
     steps:
@@ -68,7 +69,7 @@ commands:
       - run: bundle exec rake db:create db:schema:load db:schema:cache:dump
       - save_cache:
           key: schema-{{ checksum "db/schema.rb" }}
-          paths: [tmp/test_db_schema.rb]
+          paths: [ tmp/test_db_schema.rb ]
 jobs:
   i18n_normalize:
     executor: ruby_executor
@@ -76,17 +77,20 @@ jobs:
       - checkout
       - install_ruby_dependencies
       - run: bundle exec i18n-tasks normalize
-      - run: git config --global user.name CircleCI && git config --global user.email circleci@example.com
+      - run: git config --global user.name CircleCI && git config --global user.email
+          circleci@example.com
       - add_ssh_keys:
           fingerprints:
             - "0a:b8:14:ae:05:dd:17:9c:f4:6e:3c:45:81:8f:06:8d"
-      - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push origin translations_config-locales-en-yml--main_es)
+      - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push
+          origin translations_config-locales-en-yml--main_es)
   run_js_tests:
     executor: ruby_executor
     steps:
       - checkout
       - install_js_dependencies
-      - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
+      - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir
+          ~/test-results/jest
       - run:
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
@@ -111,6 +115,8 @@ jobs:
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
           path: ~/test-results
+    # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
+    resource_class: large
   walkthroughs:
     executor: rails_executor
     steps:
@@ -121,15 +127,20 @@ jobs:
       - install_ruby_dependencies
       - setup_test_db
       - run: bundle exec rake assets:precompile
-      - run: bundle exec rake auto_screenshots:generate_screenshots auto_screenshots:generate_website
+      - run: bundle exec rake auto_screenshots:generate_screenshots
+          auto_screenshots:generate_website
       # Add SSH key with access to walkthroughs-getyourrefund.github.io, then update the website
       - add_ssh_keys:
           fingerprints:
             - "50:ba:0d:e1:5c:50:68:32:a6:0d:53:92:ae:82:25:71"
       - run: ssh-keyscan -p 22 github.com >> ~/.ssh/known_hosts
-      - run: git clone git@github.com:walkthroughs-getyourrefund/walkthroughs-getyourrefund.github.io /tmp/walkthroughs
-      - run: git config --global user.name CircleCI && git config --global user.email circleci@example.com
-      - run: cd /tmp/walkthroughs && git rm -r * && cp -a $OLDPWD/public/* . && mv walkthroughs/* . && git add . && git commit -m Automatic && git push
+      - run: git clone
+          git@github.com:walkthroughs-getyourrefund/walkthroughs-getyourrefund.github.io
+          /tmp/walkthroughs
+      - run: git config --global user.name CircleCI && git config --global user.email
+          circleci@example.com
+      - run: cd /tmp/walkthroughs && git rm -r * && cp -a $OLDPWD/public/* . && mv
+          walkthroughs/* . && git add . && git commit -m Automatic && git push
     parallelism: 1
   flow_explorer_screenshots:
     executor: rails_executor
@@ -140,14 +151,16 @@ jobs:
       - install_ruby_dependencies
       - setup_test_db
       - run: bundle exec rake assets:precompile
-      - run: bundle exec rake flow_explorer:capture_screenshots flow_explorer:upload_screenshots
+      - run: bundle exec rake flow_explorer:capture_screenshots
+          flow_explorer:upload_screenshots
   deploy_to_aptible--demo:
     executor: ruby_executor
     steps:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master
+      - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git
+          $CIRCLE_SHA1:master
     parallelism: 1
   deploy_to_aptible--staging:
     executor: ruby_executor
@@ -155,7 +168,8 @@ jobs:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
+      - run: git push git@beta.aptible.com:vita-min-staging/vita-min-staging.git
+          $CIRCLE_SHA1:master
     parallelism: 1
   deploy_to_aptible--production:
     executor: ruby_executor
@@ -163,7 +177,8 @@ jobs:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push git@beta.aptible.com:vita-min-prod/vita-min-prod.git $CIRCLE_SHA1:master
+      - run: git push git@beta.aptible.com:vita-min-prod/vita-min-prod.git
+          $CIRCLE_SHA1:master
     parallelism: 1
 workflows:
   version: 2
@@ -176,26 +191,26 @@ workflows:
       - run_js_tests
       - run_ruby_tests
       - deploy_to_aptible--demo:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [ run_js_tests, run_ruby_tests ]
           filters:
             branches:
               only: main
       - deploy_to_aptible--staging:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [ run_js_tests, run_ruby_tests ]
           filters:
             branches:
               only: staging
       - walkthroughs:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [ run_js_tests, run_ruby_tests ]
           filters:
             branches:
-              only: [circleci-update-walkthroughs]
+              only: [ circleci-update-walkthroughs ]
       - flow_explorer_screenshots:
           filters:
             branches:
-              only: [circleci-update-flow-explorer-screenshots]
+              only: [ circleci-update-flow-explorer-screenshots ]
       - deploy_to_aptible--production:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [ run_js_tests, run_ruby_tests ]
           filters:
             branches:
               only: release
