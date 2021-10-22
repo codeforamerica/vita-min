@@ -19,7 +19,7 @@
           <label class="toggle-switch">
             <span class="sr-only"><%= t("general.flagged") %></span>
             <input id="toggle-flag" type="checkbox" <%= @client.flagged? && "checked" %> onchange="toggleFlag()">
-            <span class="slider round"></span>
+            <span class="slider round" tabindex="0"></span>
           </label>
         </div>
       </div>
