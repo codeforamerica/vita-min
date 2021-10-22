@@ -1664,6 +1664,11 @@ en:
           title: Thank you for filing with GetCTC!
         mailing_address:
           title: Edit your address
+        messages:
+          new:
+            body_label: 'Enter your message below:'
+            title: Contact us
+            wait_time: Please allow 3 business days for a response.
         primary_filer:
           form_of_identity: Form of identity
           form_of_identity_note: If using a social security card, it must be valid for employment.

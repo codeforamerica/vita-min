@@ -1633,6 +1633,11 @@ es:
           title: "¡Gracias por presentar su declaración con GetCTC!"
         mailing_address:
           title: Edita tu dirección
+        messages:
+          new:
+            body_label: 'Ingrese su mensaje a continuación:'
+            title: Contáctenos
+            wait_time: Por favor, espere 3 días hábiles para recibir una respuesta..
         primary_filer:
           form_of_identity: Forma de identidad
           form_of_identity_note: Si utiliza una tarjeta de Seguro Social, debe ser válida para el empleo.
