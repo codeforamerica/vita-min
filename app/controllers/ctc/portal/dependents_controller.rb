@@ -1,4 +1,5 @@
 class Ctc::Portal::DependentsController < Ctc::Portal::BaseIntakeRevisionController
+
   def edit
     @form = form_class.from_dependent(current_model)
     render edit_template
@@ -17,8 +18,11 @@ class Ctc::Portal::DependentsController < Ctc::Portal::BaseIntakeRevisionControl
       action: 'removed',
       client: current_client
     )
-
-    redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+    if current_intake.dependents.filter(&:eligible_for_child_tax_credit_2020?).length.zero?
+      redirect_to not_eligible_ctc_portal_dependents_path
+    else
+      redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+    end
   end
 
   private

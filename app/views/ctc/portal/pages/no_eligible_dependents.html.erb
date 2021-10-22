@@ -1,0 +1,16 @@
+<% content_for :page_title, t("views.ctc.portal.dependents.no_eligible_dependents.title") %>
+<% content_for :card do %>
+  <h1 class="form-question">
+    <%= t("views.ctc.portal.dependents.no_eligible_dependents.title") %>
+  </h1>
+  <h2 class="form-question">
+    <%= t("views.ctc.portal.dependents.no_eligible_dependents.subtitle") %>
+
+  </h2>
+  <%= link_to ctc_portal_edit_info_path, class: "button button--wide text--centered" do %>
+    <%= t("general.continue") %>
+  <% end %>
+  <%= link_to portal_messages_path, class: "button button--wide button--primary text--centered" do %>
+    <%= t("views.ctc.portal.home.contact_us") %>
+  <% end %>
+<% end %>
