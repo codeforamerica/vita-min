@@ -1610,6 +1610,10 @@ en:
       portal:
         bank_account:
           title: Please provide your bank details below
+        dependents:
+          no_eligible_dependents:
+            title: You have removed all of your CTC eligible dependents.
+            subtitle: You will not receive Child Tax Credit, because you have no eligible dependents.
         dependent_info:
           help_text: Confirm/edit your dependent’s basic information
           title: Edit %{name}’s basic information
