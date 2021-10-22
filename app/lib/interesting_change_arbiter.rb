@@ -3,6 +3,7 @@ class InterestingChangeArbiter
     interesting_changes = model.saved_changes.reject do |k, v|
       k == "updated_at" ||
         k == "needs_to_flush_searchable_data_set_at" ||
+        k.match?("hashed_") ||
         encrypted_columns(model).include?(k)
     end
 

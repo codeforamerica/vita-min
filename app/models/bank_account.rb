@@ -10,6 +10,8 @@
 #  encrypted_bank_name_iv      :string
 #  encrypted_routing_number    :string
 #  encrypted_routing_number_iv :string
+#  hashed_account_number       :string
+#  hashed_routing_number       :string
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  intake_id                   :bigint
@@ -25,9 +27,19 @@ class BankAccount < ApplicationRecord
   attr_encrypted :account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
   enum account_type: { checking: 1, savings: 2 }
+  before_save :hash_data
 
   # map string enum value back to the corresponding integer
   def account_type_code
     self.class.account_types[account_type]
+  end
+
+  def hash_data
+    key = Rails.configuration.secret_key_base
+    [:routing_number, :account_number].each do |attr|
+      if send("#{attr}_changed?") && send(attr).present?
+        assign_attributes("hashed_#{attr}" => OpenSSL::HMAC.hexdigest("SHA256", key, send(attr)))
+      end
+    end
   end
 end
