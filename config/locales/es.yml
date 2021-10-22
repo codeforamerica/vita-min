@@ -2360,7 +2360,7 @@ es:
         <p>La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de "Ayuda" en su navegador debe incluir una explicación de cómo hacerlo. La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de ayuda en su navegador debe incluir una explicación de cómo hacerlo. Asimismo, puede visitar www.aboutcookies.org, donde hallará información completa sobre cómo hacer esto en una amplia variedad de navegadores. Encontrará información general sobre las cookies y detalles sobre cómo eliminar las cookies de su computadora o dispositivo.</p>
 
         <p class="text--underline">Mensajes SMS transaccionales (texto)</p>
-        <p>Puede darse de baja de los mensajes transaccionales enviando STOP a 58750 en cualquier momento. Después de recibir su solicitud de exclusión, le enviaremos un mensaje de texto final para confirmar su exclusión. Por favor, consulte los Términos de <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">SMS de GetYourRefund</a>, para más detalles e instrucciones de exclusión para estos servicios.</p>
+        <p>Puede darse de baja de los mensajes transaccionales enviando STOP a 58750 en cualquier momento. Después de recibir su solicitud de exclusión, le enviaremos un mensaje de texto final para confirmar su exclusión. Por favor, consulte los Términos de <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">SMS de GetYourRefund</a>, para más detalles e instrucciones de exclusión para estos servicios. Los datos obtenidos a través del programa de código corto no se compartirán con terceros por motivos / propósitos de marketing.</p>
 
         <p class="text--underline">Analítica<p>
 
@@ -2828,7 +2828,7 @@ es:
             respect: Valoramos y respetamos su privacidad, y le ofrecemos opciones sobre la manera en que recopilamos, usamos y compartimos su información.
             sms:
               header: Mensajes SMS transaccionales (texto)
-              unsubscribe: Puede darse de baja de los mensajes transaccionales enviando STOP a 58750 en cualquier momento. Después de recibir su solicitud de exclusión, le enviaremos un mensaje de texto final para confirmar su exclusión. Por favor, consulte los Términos de SMS de CFA, para más detalles e instrucciones de exclusión para estos servicios.
+              unsubscribe: Puede darse de baja de los mensajes transaccionales enviando STOP a 58750 en cualquier momento. Después de recibir su solicitud de exclusión, le enviaremos un mensaje de texto final para confirmar su exclusión. Por favor, consulte los Términos de SMS de CFA, para más detalles e instrucciones de exclusión para estos servicios. Los datos obtenidos a través del programa de código corto no se compartirán con terceros por motivos / propósitos de marketing.
           examples:
             business_relationship: Terceros con los que tenemos una relación profesional para enviarle a usted información sobre otros programas y servicios
             research: Terceros para distribuir encuestas, grupos especializados u otros fines administrativos, analíticos y de marketing

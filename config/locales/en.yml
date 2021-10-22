@@ -2371,7 +2371,7 @@ en:
         <p>Most browsers are initially set up to accept HTTP cookies. If you want to restrict or block the cookies that are set by our Site, or any other site, you can do so through your browser setting. The ‘Help’ function in your browser should explain how. Alternatively, you can visit www.aboutcookies.org, which contains comprehensive information on how to do this on a wide variety of browsers. You will find general information about cookies and details on how to delete cookies from your machine.</p>
 
         <p class="text--underline">Transactional SMS (Text) Messages</p>
-        <p>You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">GetYourRefund's SMS terms</a>, for additional details and opt-out instructions for these services.</p>
+        <p>You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">GetYourRefund's SMS terms</a>, for additional details and opt-out instructions for these services. Data obtained through the short code program will not be shared with any third-parties for their marketing reasons/purposes.</p>
 
         <p class="text--underline">Analytics<p>
 
@@ -2839,7 +2839,7 @@ en:
             respect: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
             sms:
               header: Transactional SMS (Text) Messages
-              unsubscribe: You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see CFA’s SMS Terms, for additional details and opt-out instructions for these services.
+              unsubscribe: You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see CFA’s SMS Terms, for additional details and opt-out instructions for these services. Data obtained through the short code program will not be shared with any third-parties for their marketing reasons/purposes.
           examples:
             business_relationship: Third parties with whom we have a business relationship to send you information about other programs and services
             research: Third parties to distribute surveys, focus groups, or for other administrative, analytical, and marketing purposes
