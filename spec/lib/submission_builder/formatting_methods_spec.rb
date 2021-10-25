@@ -124,4 +124,18 @@ describe SubmissionBuilder::FormattingMethods do
       end
     end
   end
+
+  describe "#phone_type" do
+    context "with a California phone number" do
+      it "returns a 10-digit version without country code or formatting" do
+        expect(dummy_class.phone_type("+14158161286")).to eq("4158161286")
+      end
+    end
+
+    context "with a Puerto Rico phone number" do
+      it "returns a 10-digit version without country code or formatting" do
+        expect(dummy_class.phone_type("+17877640000")).to eq("7877640000")
+      end
+    end
+  end
 end

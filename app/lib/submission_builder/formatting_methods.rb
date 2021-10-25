@@ -93,7 +93,8 @@ module SubmissionBuilder
     # phone number without country code or formatting
     # results in 10 digit number for transmitting to the IRS
     def phone_type(string)
-      Phonelib.parse(string, "US").national(false)
+      phony_normalized = Phony.normalize(string, cc: '1')
+      Phony.format(phony_normalized, format: :national, parentheses: false, spaces: '', local_spaces: '').to_s
     end
 
     # Timezones like '-60' need to be padded to '-060' to validate schema
