@@ -710,6 +710,10 @@ en:
           success: 'Success: Action taken! %{action_list}.'
           text_message: sent text message
       urgent: Urgent
+      organizations:
+        edit:
+          warning_text_1: 'Note: All returns on this client will be assigned to the new organization.'
+          warning_text_2: Changing the organization may cause assigned hub users to lose access and be unassigned.
     ctc_clients:
       edit:
         title: Edit CTC Client Profile

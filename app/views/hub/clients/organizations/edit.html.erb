@@ -5,6 +5,8 @@
     <h2>
       Edit Organization for <%= @client.preferred_name %>
     </h2>
+    <p class="text--help text--bold"><%= t(".warning_text_1") %></p>
+    <p class="text--help text--bold spacing-below-25"><%= t(".warning_text_2") %></p>
     <%= form_with model: @client, url: organization_hub_client_path(id: @client.id), local: true, method: :patch, builder: VitaMinFormBuilder do |f|%>
 
       <%= f.cfa_select(:vita_partner_id, t("general.organization"), grouped_vita_partner_options) %>

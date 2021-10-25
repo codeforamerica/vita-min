@@ -710,6 +710,10 @@ es:
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
       urgent: Urgente
+      organizations:
+        edit:
+          warning_text_1: 'Nota: Todas las devoluciones de este cliente se asignarán a la nueva organización.'
+          warning_text_2: Cambiar la organización puede hacer que los usuarios del concentrador asignados pierdan el acceso y se anulen la asignación.
     ctc_clients:
       edit:
         title: Edit CTC Client Profile

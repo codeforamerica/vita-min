@@ -74,7 +74,7 @@ class Client < ApplicationRecord
   enum still_needs_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :still_needs_help
   enum experience_survey: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :experience_survey
 
-  validate :tax_return_assigned_user_access_maintained, if: :vita_partner_id_changed?
+  before_update :unassign_tax_return_users_who_will_lose_access, if: :vita_partner_id_changed?
   after_update_commit :create_org_change_note, if: :saved_change_to_vita_partner_id?
 
   def self.delegated_intake_attributes
@@ -297,24 +297,10 @@ class Client < ApplicationRecord
 
   private
 
-  def tax_return_assigned_user_access_maintained
-    # assuming the vita_partner was changed
-    # if any tax returns have assigned users ...
-    if persisted? && users_assigned_to_tax_returns.exists?
-      # ... find out who would lose access based on the new partner
-      users_who_would_lose_access = users_assigned_to_tax_returns.select do |user|
-        user.accessible_vita_partners.where(id: vita_partner_id).empty?
-      end
-      if users_who_would_lose_access.present?
-        affected_user_names = users_who_would_lose_access.map(&:name).join(", ")
-        errors.add(:vita_partner_id,
-          I18n.t(
-            "clients.errors.tax_return_assigned_user_access",
-            new_partner: vita_partner.name,
-            affected_users: affected_user_names
-          )
-        )
-      end
+  def unassign_tax_return_users_who_will_lose_access
+    tax_returns.where.not(assigned_user: nil).each do |tax_return|
+      assigned_user_retains_access = tax_return.assigned_user.accessible_vita_partners.include?(vita_partner)
+      tax_return.update!(assigned_user: nil) unless assigned_user_retains_access
     end
   end
 

@@ -46,31 +46,6 @@
 require "rails_helper"
 
 describe Client do
-  describe "#valid?" do
-    context "when assigning to a new partner would remove access for a tax return assignee" do
-      let(:current_site) { create :site }
-      let(:client) { create :client, vita_partner: current_site }
-      let(:other_site) { create :site, parent_organization: current_site.parent_organization }
-      let(:assigned_user) { create :team_member_user, site: current_site }
-      let(:another_assigned_user) { create :site_coordinator_user, site: current_site }
-      before do
-        create :tax_return, year: 2019, client: client, assigned_user: assigned_user
-        create :tax_return, year: 2020, client: client, assigned_user: another_assigned_user
-      end
-
-      it "adds a useful validation error message to vita_partner" do
-        client.vita_partner = other_site
-
-        expect(client).not_to be_valid
-        access_loss_error_message = client.errors[:vita_partner_id][0]
-        expect(access_loss_error_message).to include assigned_user.name
-        expect(access_loss_error_message).to include another_assigned_user.name
-        expect(access_loss_error_message).to include "would lose access if you assign this client to "\
-          "#{other_site.name}. Please change tax return assignments before reassigning this client."
-      end
-    end
-  end
-
   describe ".sla_tracked scope" do
     let(:client_before_consent) { create(:client) }
     let(:client_in_progress) { create(:client) }
@@ -761,7 +736,7 @@ describe Client do
     end
   end
 
-  context "after_commit for creating vita partner note" do
+  describe "after_commit for creating vita partner note" do
     let(:user) { create :user }
     let(:client) { create :client }
     let(:new_vita_partner) { create :vita_partner }
@@ -780,6 +755,31 @@ describe Client do
       it "should not create a system note recording the change" do
         client.update(routing_method: "source_param")
         expect(SystemNote::OrganizationChange).not_to have_received(:generate!)
+      end
+    end
+  end
+
+  describe "after_update for un-assigning tax return users" do
+    let(:current_site) { create :site }
+    let(:other_site) { create :site, parent_organization: current_site.parent_organization }
+    let(:client) { create :client, vita_partner: current_site, tax_returns: [tax_return] }
+    let(:tax_return) { create :tax_return, year: 2019, assigned_user: assigned_user }
+
+    context "when the assigned user does not have access to the new vita partner" do
+      let(:assigned_user) { create :team_member_user, site: current_site }
+
+      it "removes the assignee from the return" do
+        client.update(vita_partner: other_site)
+        expect(tax_return.reload.assigned_user).to eq(nil)
+      end
+    end
+
+    context "when the assigned user does have access to the new vita partner" do
+      let(:assigned_user) { create :organization_lead_user, organization: current_site.parent_organization }
+
+      it "leaves the assignee on the return" do
+        client.update(vita_partner: other_site)
+        expect(tax_return.reload.assigned_user).to eq(assigned_user)
       end
     end
   end
