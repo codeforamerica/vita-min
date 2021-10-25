@@ -36,6 +36,22 @@ RSpec.describe PhoneNumberForm do
           expect(form.attributes_for(:intake)[:phone_number]).to eq "+14155537865"
         end
       end
+
+      context "when phone number is a valid Puerto Rico number without country code" do
+        it "is valid and prepends a country code" do
+          form = PhoneNumberForm.new(
+            intake,
+            {
+              phone_number: "787.764.0000",
+              phone_number_confirmation: "787.764.0000",
+              phone_number_can_receive_texts: "no",
+            }
+          )
+
+          expect(form).to be_valid
+          expect(form.attributes_for(:intake)[:phone_number]).to eq "+17877640000"
+        end
+      end
     end
 
     context "when phone number is not valid" do

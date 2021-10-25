@@ -26,7 +26,7 @@ RSpec.describe Hub::CreateClientForm do
         widowed_year: "",
         email_address: "someone@example.com",
         phone_number: "5005550006",
-        sms_phone_number: "500-555-(0006)",
+        sms_phone_number: "500-555-0006",
         street_address: "972 Mission St.",
         city: "San Francisco",
         state: "CA",

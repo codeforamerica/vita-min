@@ -23,5 +23,23 @@ describe PhoneParser do
         end
       end
     end
+
+    context "with nil" do
+      it "returns nil" do
+        expect(described_class.normalize(nil)).to eq(nil)
+      end
+    end
+
+    context "with empty string" do
+      it "returns empty string" do
+        expect(described_class.normalize("")).to eq("")
+      end
+    end
+
+    context "with an invalid, too-short number" do
+      it "returns it as-is" do
+        expect(described_class.normalize("415")).to eq("415")
+      end
+    end
   end
 end
