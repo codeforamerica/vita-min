@@ -109,13 +109,10 @@ module Efile
       #
       # Allows 5 simultaneous lock holders because the IRS says they permit 5 simultaneous login sessions.
       lock_namespace = connection.quote(POSTGRES_LOCK_PREFIX)
+      max_efiler_locks = ENV.fetch('MAX_EFILER_LOCKS', 5).to_i
+      lock_clause = (1..max_efiler_locks).map { |n| "pg_try_advisory_lock(#{lock_namespace}, #{n})" }.join(' OR ')
       connection.transaction do
-        result = connection.execute("
-          SELECT pg_try_advisory_xact_lock(#{lock_namespace}, 1) OR
-                 pg_try_advisory_xact_lock(#{lock_namespace}, 2) OR
-                 pg_try_advisory_xact_lock(#{lock_namespace}, 3) OR
-                 pg_try_advisory_xact_lock(#{lock_namespace}, 4) OR
-                 pg_try_advisory_xact_lock(#{lock_namespace}, 5) as lock_acquired")
+        result = connection.execute("SELECT #{lock_clause} as lock_acquired")
         yield result[0]["lock_acquired"]
       end
     end
