@@ -12,7 +12,7 @@ RSpec.describe IntakePdf do
       it "returns a pdf with default fields and values" do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
-        expect(result).to match(hash_including({
+        expect(result).to include(
           "first_name" => "",
           "middle_initial" => "",
           "last_name" => "",
@@ -152,7 +152,7 @@ RSpec.describe IntakePdf do
           "made_estimated_tax_payments" => "unfilled",
           "received_stimulus_payment" => "unfilled",
           "additional_comments" => ""
-        }))
+        )
       end
     end
 
@@ -326,7 +326,7 @@ RSpec.describe IntakePdf do
       it "returns a filled out pdf" do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
-        expect(result).to match(hash_including({
+        expect(result).to include(
            "first_name" => "Hoofie",
            "middle_initial" => "",
            "last_name" => "Heifer",
@@ -466,7 +466,7 @@ RSpec.describe IntakePdf do
            "made_estimated_tax_payments" => "unsure",
            "received_stimulus_payment" => "yes",
            "additional_comments" => "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.",
-        }))
+        )
       end
     end
   end
