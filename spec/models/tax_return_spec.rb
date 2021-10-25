@@ -1250,6 +1250,7 @@ describe TaxReturn do
     let(:assigned_user) { create :user }
     let(:assigned_by) { create :user }
     let(:tax_return) { create :tax_return, assigned_user: (create :user) }
+
     before do
       allow(UserMailer).to receive_message_chain(:assignment_email, :deliver_later)
     end
@@ -1278,6 +1279,19 @@ describe TaxReturn do
             tax_return: tax_return,
             assigned_at: tax_return.updated_at
         ).once
+      end
+
+      context "when assigned user has a different vita partner than the clients" do
+        let(:tax_return) { create :tax_return, assigned_user: (create :user), client: create(:client, vita_partner: old_site) }
+        let(:assigned_user) { create :user, role: create(:team_member_role, site: new_site) }
+        let(:new_site) { create :site }
+        let(:old_site) { create :site }
+
+        it "updates the vita partner to the assigned users vita partner" do
+          expect {
+            tax_return.assign!(assigned_user: assigned_user, assigned_by: assigned_by)
+          }.to change(tax_return.reload.client, :vita_partner).from(old_site).to(new_site)
+        end
       end
     end
   end

@@ -295,6 +295,10 @@ class TaxReturn < ApplicationRecord
         tax_return: self
       ).deliver_later
     end
+
+    if assigned_user.present? && assigned_user.role.try(:vita_partner_id).present? && assigned_user.role.vita_partner_id != client.vita_partner_id
+      client.update!(vita_partner_id: assigned_user.role.vita_partner_id)
+    end
   end
 
   private
