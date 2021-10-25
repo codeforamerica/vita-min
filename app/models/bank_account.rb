@@ -35,10 +35,9 @@ class BankAccount < ApplicationRecord
   end
 
   def hash_data
-    key = Rails.configuration.secret_key_base
     [:routing_number, :account_number].each do |attr|
       if send("#{attr}_changed?") && send(attr).present?
-        assign_attributes("hashed_#{attr}" => OpenSSL::HMAC.hexdigest("SHA256", key, send(attr)))
+        assign_attributes("hashed_#{attr}" => HashAttribute.hmac_hexdigest(attr))
       end
     end
   end
