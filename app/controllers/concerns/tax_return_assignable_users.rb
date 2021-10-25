@@ -8,9 +8,8 @@ module TaxReturnAssignableUsers
         org_leads = User.where(role: OrganizationLeadRole.where(organization: client.vita_partner.parent_organization))
         assignable_users += team_members.or(site_coordinators).or(org_leads).active.order(name: :asc)
       else
-        # when client.vita_partner is an organization
-        # we want to include all team and site members under the org
-        # due to user permissions, this will only be included if the user is an org lead/admin
+        # client.vita_partner is an organization
+        # include all team and site members under the org
         child_sites = VitaPartner.sites.where(parent_organization: client.vita_partner)
         org_team_members = User.where(role: TeamMemberRole.where(site: child_sites))
         org_site_coordinators = User.where(role: SiteCoordinatorRole.where(site: child_sites))
