@@ -759,7 +759,7 @@ describe Client do
     end
   end
 
-  describe "after_update for un-assigning tax return users" do
+  describe "before_update for un-assigning tax return users" do
     let(:current_site) { create :site }
     let(:other_site) { create :site, parent_organization: current_site.parent_organization }
     let(:client) { create :client, vita_partner: current_site, tax_returns: [tax_return] }
