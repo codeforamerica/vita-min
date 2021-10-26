@@ -34,4 +34,9 @@ class PhoneParser
       raw_phone_number
     end
   end
+
+  def self.valid?(raw_phone_number)
+    phony_normalized = Phony.normalize(raw_phone_number, cc: '1')
+    Phony.plausible?(phony_normalized)
+  end
 end
