@@ -1,13 +1,13 @@
 require "rails_helper"
 
 describe TaxReturnAssignmentService do
+  subject do
+    TaxReturnAssignmentService.new(tax_return: tax_return,
+                                   assigned_user: assigned_user,
+                                   assigned_by: assigned_by)
+  end
+
   describe ".assign" do
-    subject do
-      TaxReturnAssignmentService.new(tax_return: tax_return,
-                                         assigned_user: assigned_user,
-                                         assigned_by: assigned_by,
-                                         create_notifications: create_notifications).assign!
-    end
     let(:tax_return) { create :tax_return, assigned_user: (create :user) }
     let(:assigned_user) { create :user }
     let(:assigned_by) { create :user }
@@ -20,7 +20,7 @@ describe TaxReturnAssignmentService do
     context "when assigned_user_id is nil" do
       let(:assigned_user) { nil }
       it "updates the assigned user to be nil, creates a note, does not send email" do
-        expect { subject }.to change(tax_return.reload, :assigned_user_id).to(nil)
+        expect { subject.assign! }.to change(tax_return.reload, :assigned_user_id).to(nil)
                                                                           .and change(SystemNote, :count).by(1)
         expect(UserMailer).not_to have_received(:assignment_email)
       end
@@ -28,7 +28,7 @@ describe TaxReturnAssignmentService do
 
     context "when assigned_user_id is present" do
       it "updates the user, creates a system note, and sends an email" do
-        expect { subject }.to change(tax_return.reload, :assigned_user_id).to(assigned_user.id)
+        expect { subject.assign! }.to change(tax_return.reload, :assigned_user_id).to(assigned_user.id)
                                                                           .and change(SystemNote, :count).by(1)
         expect(UserMailer).to have_received(:assignment_email).with(
           assigned_user: assigned_user,

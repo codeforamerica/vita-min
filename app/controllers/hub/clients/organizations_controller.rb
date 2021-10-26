@@ -16,7 +16,7 @@ module Hub
           UpdateClientVitaPartnerService.new(client: @client,
                                              vita_partner_id: client_params[:vita_partner_id],
                                              change_initiated_by: current_user).update!
-        rescue
+        rescue ActiveRecord::Rollback
           render :edit
         else
           redirect_to hub_client_path(id: @client.id)

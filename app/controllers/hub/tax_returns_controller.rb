@@ -42,10 +42,11 @@ module Hub
     def show; end
 
     def update
-      TaxReturnAssignmentService.assign!(tax_return: @tax_return,
-                                     assigned_user: @assigned_user,
-                                     assigned_by: current_user,
-                                     create_notifications: true)
+      assignment_service = TaxReturnAssignmentService.new(tax_return: @tax_return,
+                                                          assigned_user: @assigned_user,
+                                                          assigned_by: current_user)
+      assignment_service.assign!
+      assignment_service.send_notifications
       flash.now[:notice] = I18n.t("hub.tax_returns.update.flash_success",
                                   client_name: @tax_return.client.preferred_name,
                                   tax_year: @tax_return.year,

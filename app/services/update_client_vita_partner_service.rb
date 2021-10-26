@@ -7,11 +7,14 @@ class UpdateClientVitaPartnerService
 
   def update!
     ActiveRecord::Base.transaction do
-      @client.update!(vita_partner: @new_vita_partner, change_initiated_by: @change_initiated_by)
+      raise ActiveRecord::Rollback unless @client.update(vita_partner: @new_vita_partner, change_initiated_by: @change_initiated_by)
+
       # unassign users who have lost access
       @client.tax_returns.where.not(assigned_user: nil).each do |tax_return|
         assigned_user_retains_access = tax_return.assigned_user.accessible_vita_partners.include?(@new_vita_partner)
-        tax_return.update!(assigned_user: nil) unless assigned_user_retains_access
+        unless assigned_user_retains_access
+          raise ActiveRecord::Rollback unless tax_return.update(assigned_user: nil)
+        end
       end
       SystemNote::OrganizationChange.generate!(client: @client, initiated_by: @change_initiated_by)
     end

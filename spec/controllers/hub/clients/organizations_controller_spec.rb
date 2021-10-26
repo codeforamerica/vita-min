@@ -49,13 +49,23 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
       end
 
       context "when assigning to an vita partner that you don't have access to" do
-        let(:other_org) { create :organization}
+        let(:other_org) { create :organization }
         let(:params) { { id: client.id, client: { vita_partner_id: other_org.id } } }
 
         it "returns a 403" do
           patch :update, params: params
-
           expect(response).to be_forbidden
+        end
+      end
+
+      context "when something goes wrong in the service call" do
+        before do
+          allow(instance).to receive(:update!).and_raise(ActiveRecord::Rollback)
+        end
+
+        it "rescues the ActiveRecord::Rollback and returns a 300" do
+          patch :update, params: params
+          expect(response).to render_template :edit
         end
       end
     end
