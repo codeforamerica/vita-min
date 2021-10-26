@@ -34,10 +34,14 @@ class BankAccount < ApplicationRecord
     self.class.account_types[account_type]
   end
 
+  def duplicated?
+    DeduplificationService.detect_duplicates(self, [:hashed_routing_number, :hashed_account_number])
+  end
+
   def hash_data
     [:routing_number, :account_number].each do |attr|
       if send("#{attr}_changed?") && send(attr).present?
-        assign_attributes("hashed_#{attr}" => HashAttribute.hmac_hexdigest(attr))
+        assign_attributes("hashed_#{attr}" => DeduplificationService.hmac_hexdigest(send(attr)))
       end
     end
   end

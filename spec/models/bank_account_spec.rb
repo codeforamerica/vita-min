@@ -23,6 +23,11 @@
 require "rails_helper"
 
 describe BankAccount do
+  before do
+    allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_call_original
+    allow(EnvironmentCredentials).to receive(:dig).with(:hash_key).and_return "secret"
+  end
+
   describe "#account_type_code" do
     context "when checking" do
       let(:bank_account) { create :bank_account, account_type: "checking" }
@@ -46,11 +51,33 @@ describe BankAccount do
     end
   end
 
-  describe "before_save" do
-    before do
-      allow(Rails.configuration).to receive(:secret_key_base).and_return "secret"
+  describe "#duplicated?" do
+    context "when there is a bank account with duplicated routing and account number" do
+      let(:bank_account) { create :bank_account }
+
+      before do
+        create :bank_account
+      end
+
+      it "returns true" do
+        expect(bank_account.duplicated?).to eq true
+      end
     end
 
+    context "when there is a bank account with same account number but different routing number" do
+      let(:bank_account) { create :bank_account }
+
+      before do
+        create :bank_account, routing_number: "111111111"
+      end
+
+      it "returns false" do
+        expect(bank_account.duplicated?).to eq false
+      end
+    end
+  end
+
+  describe "before_save" do
     context "when routing number changes" do
       let(:bank_account) { create :bank_account, routing_number: "123456789" }
 
