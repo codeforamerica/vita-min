@@ -1172,18 +1172,17 @@ es:
       preparing:
         email:
           body: |
-            Hola <<Client.PreferredName>>:
+            Hola <<Client.PreferredName>>,
 
-            ¡Su información sobre su declaración de impuestos ha sido enviada con éxito a GetCTC!
-
-            Estamos procesando su información para enviarla al IRS. Recibirá un mensaje en el plazo de una semana para informarle si su información ha sido aceptada o rechazada.
+            Actualmente estamos procesando su información para enviarla al IRS. Le informaremos dentro de una semana si sus impuestos han sido aceptados o rechazados. No recibirá crédito tributario por hijos ni pagos de estímulo hasta que se acepten sus impuestos.
 
             ¡Estamos aquí para ayudarle!
             Su Equipo de Declaración de Impuestos GetCTC.org
-          subject: "¡Su información ha sido enviada a GetCTC!"
+          subject: Tus impuestos se están procesando
         sms: |
-          Hola <<Client.PreferredName>>:
-          ¡Su información sobre su declaración de impuestos ha sido enviada con éxito a GetCTC! Estamos procesando su información para enviarla al IRS. Recibirá un mensaje en el plazo de una semana para informarle si su información ha sido aceptada o rechazada.
+          Hola <<Client.PreferredName>>,
+          Actualmente estamos procesando su información para enviarla al IRS. Le informaremos dentro de una semana si sus impuestos han sido aceptados o rechazados. No recibirá crédito tributario por hijos ni pagos de estímulo hasta que se acepten sus impuestos.
+          Su equipo de impuestos en GetCTC.org
       rejected:
         email:
           body: |
