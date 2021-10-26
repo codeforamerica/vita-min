@@ -1194,17 +1194,14 @@ en:
           body: |
             Hello <<Client.PreferredName>>,
 
-            Your tax information has been successfully submitted to GetCTC!
-
-            We are currently processing your information to send it to the IRS. You will receive a confirmation email within one week to let you know if your information has been accepted or rejected.
+            We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive Child Tax Credit or stimulus payments until your taxes are accepted.
 
             We’re here to help!
             Your tax team at GetCTC.org
-          subject: Your tax information has been successfully submitted!
+          subject: Your taxes are processing
         sms: |
           Hello <<Client.PreferredName>>,
-          Your tax information has been successfully submitted to GetCTC! We are currently processing your information to send it to the IRS. You will receive a confirmation text within one week to let you know if your information has been accepted or rejected.
-          We’re here to help!
+          We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive Child Tax Credit or stimulus payments until your taxes are accepted.
           Your tax team at GetCTC.org
       rejected:
         email:
