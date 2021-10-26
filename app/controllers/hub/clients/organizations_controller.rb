@@ -12,10 +12,14 @@ module Hub
       def edit; end
 
       def update
-        if @client.update(client_params)
-          redirect_to hub_client_path(id: @client.id)
-        else
+        begin
+          UpdateClientVitaPartnerService.new(client: @client,
+                                             vita_partner_id: client_params[:vita_partner_id],
+                                             change_initiated_by: current_user).update!
+        rescue
           render :edit
+        else
+          redirect_to hub_client_path(id: @client.id)
         end
       end
 

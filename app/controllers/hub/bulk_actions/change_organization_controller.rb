@@ -12,6 +12,7 @@ module Hub
         @new_vita_partner = @vita_partners.find(@form.vita_partner_id)
 
         ActiveRecord::Base.transaction do
+          unassign_users_who_will_lose_access!
           update_clients_with_new_partner!
           create_notes!
           create_change_org_notifications!
@@ -36,6 +37,13 @@ module Hub
         if @new_vita_partner.present?
           bulk_update = BulkClientOrganizationUpdate.create!(tax_return_selection: @selection, vita_partner: @new_vita_partner)
           UserNotification.create!(notifiable: bulk_update, user: current_user)
+        end
+      end
+
+      def unassign_users_who_will_lose_access!
+        TaxReturn.where(client: @clients).where.not(assigned_user: nil).find_each do |tax_return|
+          assigned_user_retains_access = tax_return.assigned_user.accessible_vita_partners.include?(@new_vita_partner)
+          tax_return.update!(assigned_user: nil) unless assigned_user_retains_access
         end
       end
 

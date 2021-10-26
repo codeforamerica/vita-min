@@ -736,54 +736,6 @@ describe Client do
     end
   end
 
-  describe "after_commit for creating vita partner note" do
-    let(:user) { create :user }
-    let(:client) { create :client }
-    let(:new_vita_partner) { create :vita_partner }
-    before do
-      allow(SystemNote::OrganizationChange).to receive(:generate!)
-    end
-
-    context "when updating the vita partner" do
-      it "should create a system note recording the change" do
-        client.update(vita_partner: new_vita_partner, change_initiated_by: user)
-        expect(SystemNote::OrganizationChange).to have_received(:generate!).with({ client: client, initiated_by: user })
-      end
-    end
-
-    context "when updating other attributes" do
-      it "should not create a system note recording the change" do
-        client.update(routing_method: "source_param")
-        expect(SystemNote::OrganizationChange).not_to have_received(:generate!)
-      end
-    end
-  end
-
-  describe "before_update for un-assigning tax return users" do
-    let(:current_site) { create :site }
-    let(:other_site) { create :site, parent_organization: current_site.parent_organization }
-    let(:client) { create :client, vita_partner: current_site, tax_returns: [tax_return] }
-    let(:tax_return) { create :tax_return, year: 2019, assigned_user: assigned_user }
-
-    context "when the assigned user does not have access to the new vita partner" do
-      let(:assigned_user) { create :team_member_user, site: current_site }
-
-      it "removes the assignee from the return" do
-        client.update(vita_partner: other_site)
-        expect(tax_return.reload.assigned_user).to eq(nil)
-      end
-    end
-
-    context "when the assigned user does have access to the new vita partner" do
-      let(:assigned_user) { create :organization_lead_user, organization: current_site.parent_organization }
-
-      it "leaves the assignee on the return" do
-        client.update(vita_partner: other_site)
-        expect(tax_return.reload.assigned_user).to eq(assigned_user)
-      end
-    end
-  end
-
   describe ".locale_counts" do
     context "with all languages present" do
       before do

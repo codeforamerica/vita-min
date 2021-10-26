@@ -44,7 +44,7 @@ module Hub
 
       def update_assignee_and_status!
         @selection.tax_returns.find_each do |tax_return|
-          tax_return.assign!(assigned_user: @form.assigned_user, assigned_by: current_user) unless assignment_action == BulkTaxReturnUpdate::KEEP
+          UserAssignmentService.assign_tax_return!(tax_return: tax_return, assigned_user: @form.assigned_user) unless assignment_action == BulkTaxReturnUpdate::KEEP
           tax_return.transition_to!(@form.status) unless status_action == BulkTaxReturnUpdate::KEEP
         end
       end

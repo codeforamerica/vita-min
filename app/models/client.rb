@@ -74,9 +74,6 @@ class Client < ApplicationRecord
   enum still_needs_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :still_needs_help
   enum experience_survey: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :experience_survey
 
-  before_update :unassign_tax_return_users_who_will_lose_access, if: :vita_partner_id_changed?
-  after_update_commit :create_org_change_note, if: :saved_change_to_vita_partner_id?
-
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
   end
@@ -293,18 +290,5 @@ class Client < ApplicationRecord
     return efile_security_informations.last&.recaptcha_score unless recaptcha_scores.present?
 
     (recaptcha_scores.map(&:score).sum / recaptcha_scores.size).round(2)
-  end
-
-  private
-
-  def unassign_tax_return_users_who_will_lose_access
-    tax_returns.where.not(assigned_user: nil).each do |tax_return|
-      assigned_user_retains_access = tax_return.assigned_user.accessible_vita_partners.include?(vita_partner)
-      tax_return.update!(assigned_user: nil) unless assigned_user_retains_access
-    end
-  end
-
-  def create_org_change_note
-    SystemNote::OrganizationChange.generate!(client: self, initiated_by: change_initiated_by)
   end
 end
