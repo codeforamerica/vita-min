@@ -17,10 +17,6 @@ CREATE VIEW analytics.accepted_tax_return_analytics AS
     SELECT *
     FROM public.accepted_tax_return_analytics;
 
-CREATE OR REPLACE VIEW analytics.access_logs AS
-    SELECT id, client_id, created_at, event_type, updated_at, user_id, user_agent
-    FROM public.access_logs;
-
 CREATE VIEW analytics.active_storage_attachments AS
     SELECT id, blob_id, created_at, record_id, record_type
     FROM public.active_storage_attachments;
