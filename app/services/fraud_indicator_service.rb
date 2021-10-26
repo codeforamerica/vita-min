@@ -4,7 +4,7 @@ class FraudIndicatorService
     @efile_security_informations = client.efile_security_informations
   end
 
-  HOLD_INDICATORS = ["recaptcha_score", "international_timezone", "empty_timezone"].freeze
+  HOLD_INDICATORS = ["recaptcha_score", "international_timezone", "empty_timezone", "duplicate_bank_account"].freeze
 
   def hold_indicators
     HOLD_INDICATORS.map do |indicator|
@@ -40,5 +40,9 @@ class FraudIndicatorService
 
   def empty_timezone
     @efile_security_informations.any? { |esi| !esi.timezone.present? }
+  end
+
+  def duplicate_bank_account
+    @client.intake.bank_account.duplicated?
   end
 end

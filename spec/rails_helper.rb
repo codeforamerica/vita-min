@@ -101,6 +101,7 @@ RSpec.configure do |config|
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
     @test_environment_credentials = {
       db_encryption_key: '12345678901234567890123456789012',
+      hash_key: "secret",
       irs: {
         efin: '123456',
         sin: '11111111'
