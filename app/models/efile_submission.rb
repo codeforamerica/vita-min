@@ -152,7 +152,6 @@ class EfileSubmission < ApplicationRecord
         age ** 1.25
       end
     retry_wait = backoff + SecureRandom.rand(30)
-
     GyrEfiler::SendSubmissionJob.set(wait_until: now + retry_wait).perform_later(self)
   end
 

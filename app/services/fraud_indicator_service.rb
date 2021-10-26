@@ -43,6 +43,7 @@ class FraudIndicatorService
   end
 
   def duplicate_bank_account
-    @client.intake.bank_account.duplicated?
+    bank_account = @client.intake.bank_account
+    bank_account.present? && bank_account.duplicates.exists?
   end
 end

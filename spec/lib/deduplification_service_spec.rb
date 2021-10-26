@@ -12,26 +12,25 @@ describe DeduplificationService do
     end
   end
 
-  describe ".detect_duplicates" do
+  describe ".duplicates" do
     let(:instance) { create :bank_account }
     let(:query_double) { double }
 
     before do
       allow(BankAccount).to receive_message_chain(:where, :not).and_return query_double
       allow(query_double).to receive(:where).and_return query_double
-      allow(query_double).to receive(:exists?)
     end
 
     context "when passed with one attr" do
       it "uses the single argument to create the where clause" do
-        described_class.detect_duplicates(instance, :hashed_routing_number)
+        described_class.duplicates(instance, :hashed_routing_number)
         expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number })
       end
     end
 
     context "when passed with an array of attributes" do
       it "uses the attributes to create the where clause" do
-        described_class.detect_duplicates(instance, :hashed_routing_number, :hashed_account_number)
+        described_class.duplicates(instance, :hashed_routing_number, :hashed_account_number)
         expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number, hashed_account_number: instance.hashed_account_number })
       end
     end

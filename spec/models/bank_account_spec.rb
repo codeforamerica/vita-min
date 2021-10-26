@@ -61,8 +61,9 @@ describe BankAccount do
         create :bank_account
       end
 
-      it "returns true" do
-        expect(bank_account.duplicated?).to eq true
+      it "returns a collection of duplicates" do
+        expect(bank_account.duplicates.length).to eq 1
+        expect(bank_account.duplicates).to include(an_instance_of(BankAccount))
       end
     end
 
@@ -73,8 +74,8 @@ describe BankAccount do
         create :bank_account, routing_number: "111111111"
       end
 
-      it "returns false" do
-        expect(bank_account.duplicated?).to eq false
+      it "is empty" do
+        expect(bank_account.duplicates.length).to eq 0
       end
     end
   end
