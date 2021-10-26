@@ -1,5 +1,5 @@
 class TaxReturnAssignmentService
-  def initialize(tax_return: nil, assigned_user: nil, assigned_by: nil)
+  def initialize(tax_return:, assigned_user:, assigned_by: nil)
     @tax_return = tax_return
     @client = tax_return.client
     @assigned_user = assigned_user

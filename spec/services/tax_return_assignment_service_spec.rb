@@ -8,34 +8,21 @@ describe TaxReturnAssignmentService do
   end
 
   describe ".assign" do
-    let(:tax_return) { create :tax_return, assigned_user: (create :user) }
-    let(:assigned_user) { create :user }
+    let(:tax_return) { create :tax_return, assigned_user: (create :site_coordinator_user) }
+    let(:assigned_user) { create :team_member_user }
     let(:assigned_by) { create :user }
-    let(:create_notifications) { true }
-
-    before do
-      allow(UserMailer).to receive_message_chain(:assignment_email, :deliver_later)
-    end
 
     context "when assigned_user_id is nil" do
       let(:assigned_user) { nil }
-      it "updates the assigned user to be nil, creates a note, does not send email" do
+
+      it "updates the assigned user to be nil" do
         expect { subject.assign! }.to change(tax_return.reload, :assigned_user_id).to(nil)
-                                                                          .and change(SystemNote, :count).by(1)
-        expect(UserMailer).not_to have_received(:assignment_email)
       end
     end
 
     context "when assigned_user_id is present" do
-      it "updates the user, creates a system note, and sends an email" do
+      it "updates the user" do
         expect { subject.assign! }.to change(tax_return.reload, :assigned_user_id).to(assigned_user.id)
-                                                                          .and change(SystemNote, :count).by(1)
-        expect(UserMailer).to have_received(:assignment_email).with(
-          assigned_user: assigned_user,
-          assigning_user: assigned_by,
-          tax_return: tax_return,
-          assigned_at: tax_return.updated_at
-        ).once
       end
 
       context "when assigned user has a different vita partner than the clients" do
@@ -53,9 +40,39 @@ describe TaxReturnAssignmentService do
         end
 
         it "calls the UpdateClientVitaPartnerService" do
-          subject
+          subject.assign!
           expect(instance).to have_received(:update!).once
         end
+      end
+    end
+  end
+
+  describe ".send_notifications" do
+    let(:tax_return) { create :tax_return, assigned_user: (create :site_coordinator_user) }
+    let(:assigned_user) { create :team_member_user }
+    let(:assigned_by) { create :user }
+
+    before do
+      allow(UserMailer).to receive_message_chain(:assignment_email, :deliver_later)
+    end
+
+    context "when assigned_user_id is nil" do
+      let(:assigned_user) { nil }
+      it "creates a note, does not send email" do
+        expect { subject.send_notifications }.to change(SystemNote, :count).by(1)
+        expect(UserMailer).not_to have_received(:assignment_email)
+      end
+    end
+
+    context "when assigned_user_id is present" do
+      it "creates a system note, and sends an email" do
+        expect { subject.send_notifications }.to change(SystemNote, :count).by(1)
+        expect(UserMailer).to have_received(:assignment_email).with(
+          assigned_user: assigned_user,
+          assigning_user: assigned_by,
+          tax_return: tax_return,
+          assigned_at: tax_return.updated_at
+        ).once
       end
     end
   end

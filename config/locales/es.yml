@@ -7,9 +7,6 @@ es:
           attributes:
             ssn:
               blank: Para reclamar a un miembro de la familia como dependiente para los beneficios, se requiere un SSN o ATIN.
-  clients:
-    errors:
-      tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará inactivo para mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
@@ -676,6 +673,10 @@ es:
         send_for_prep: Enviar para preparar
         tax_years: Años de impuestos
         title: Agregar un nuevo cliente
+      organizations:
+        edit:
+          warning_text_1: 'Nota: Todas las devoluciones de este cliente se asignarán a la nueva organización.'
+          warning_text_2: Cambiar la organización puede hacer que los usuarios del concentrador asignados pierdan el acceso y se anulen la asignación.
       show:
         basic_info: Información básica
         date_of_birth: Fecha de nacimiento
@@ -710,10 +711,6 @@ es:
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
       urgent: Urgente
-      organizations:
-        edit:
-          warning_text_1: 'Nota: Todas las devoluciones de este cliente se asignarán a la nueva organización.'
-          warning_text_2: Cambiar la organización puede hacer que los usuarios del concentrador asignados pierdan el acceso y se anulen la asignación.
     ctc_clients:
       edit:
         title: Edit CTC Client Profile

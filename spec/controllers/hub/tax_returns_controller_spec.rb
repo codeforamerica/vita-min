@@ -150,11 +150,11 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
       context "client is assigned to an org" do
         let(:client_assigned_group) { organization }
 
-        it "returns a list of org leads at the client's assigned organization + the assigned user + myself" do
+        it "returns a list of org leads, site coords, and team members at the client's assigned organization, the assigned user, and myself" do
           get :edit, params: params, format: :js, xhr: true
 
           expect(response).to be_ok
-          expect(assigns(:assignable_users)).to match_array [user, currently_assigned_coalition_lead, organization_lead]
+          expect(assigns(:assignable_users)).to match_array [user, currently_assigned_coalition_lead, organization_lead, site_coordinator, team_member]
         end
       end
 
@@ -286,7 +286,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
       end
 
       context "when trying to assign to an unassignable user" do
-        let(:assigned_user) { site_coordinator }
+        let(:assigned_user) { create(:team_member_user) }
 
         it "is is forbidden" do
           put :update, params: params, format: :js, xhr: true
