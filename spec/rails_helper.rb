@@ -107,7 +107,6 @@ RSpec.configure do |config|
       },
     }
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)
-    allow(Rails.configuration).to receive(:secret_key_base).and_return("secret")
     # Stub valid_email2's network-dependent functionality per https://github.com/micke/valid_email2
     allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?) { true }
     # Stub DNS implementation to avoid network calls from test suite; valid_email2 uses this
