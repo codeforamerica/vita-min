@@ -1,6 +1,6 @@
 <% content_for :card do %>
   <div class="slab slab--padded">
-    <p><%= t(".body_html", to_phone_number: local_phone_number(@outbound_call.to_phone_number), from_phone_number: local_phone_number(@outbound_call.from_phone_number)) %></p>
+    <p><%= t(".body_html", to_phone_number: formatted_phone_number(@outbound_call.to_phone_number), from_phone_number: formatted_phone_number(@outbound_call.from_phone_number)) %></p>
     <p><%= link_to t(".back"), hub_client_path(id: @client.id) %></p>
     <div class="spacing-below-25">
       <div class="spacing-below-10 text--bold"><%= t("general.client_info") %></div>

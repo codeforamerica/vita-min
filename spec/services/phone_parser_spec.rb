@@ -42,4 +42,18 @@ describe PhoneParser do
       end
     end
   end
+
+  describe ".formatted_phone_number" do
+    it "returns a locally formatted phone number" do
+      expect(described_class.formatted_phone_number("4158161286")).to eq "(415) 816-1286"
+      expect(described_class.formatted_phone_number("14158161286")).to eq "(415) 816-1286"
+    end
+  end
+
+  describe ".with_country_code" do
+    it "returns a concise phone number with country code" do
+      expect(described_class.with_country_code("4158161286")).to eq "14158161286"
+      expect(described_class.with_country_code("14158161286")).to eq "14158161286"
+    end
+  end
 end

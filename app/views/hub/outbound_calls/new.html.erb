@@ -6,7 +6,7 @@
       <h1 class="form-card__title">
         <%= @title %>
       </h1>
-      <p><%= t(".notice_html", receiving_number: local_phone_number(@form.twilio_phone_number))  %></p>
+      <p><%= t(".notice_html", receiving_number: formatted_phone_number(@form.twilio_phone_number))  %></p>
       <ul class="with-bullets">
         <% t(".notice_list").each do |item| %>
           <li><%= item %></li>

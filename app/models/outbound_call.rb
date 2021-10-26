@@ -40,6 +40,6 @@ class OutboundCall < ApplicationRecord
   end
 
   def to
-    Phonelib.parse(to_phone_number, "US").local_number
+    PhoneParser.formatted_phone_number(to_phone_number)
   end
 end

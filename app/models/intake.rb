@@ -328,11 +328,11 @@ class Intake < ApplicationRecord
 
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
-    Phonelib.parse(phone_number).local_number
+    PhoneParser.formatted_phone_number(phone_number)
   end
 
   def formatted_sms_phone_number
-    Phonelib.parse(sms_phone_number).local_number
+    PhoneParser.formatted_phone_number(sms_phone_number)
   end
 
   # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"
