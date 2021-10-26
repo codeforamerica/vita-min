@@ -35,7 +35,7 @@ class BankAccount < ApplicationRecord
   end
 
   def duplicated?
-    DeduplificationService.detect_duplicates(self, [:hashed_routing_number, :hashed_account_number])
+    DeduplificationService.detect_duplicates(self, :hashed_routing_number, :hashed_account_number)
   end
 
   def hash_data
