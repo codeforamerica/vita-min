@@ -42,20 +42,22 @@
 </head>
 
 <body class="admin honeycrisp-compact">
-  <div class="page-wrapper">
+  <div class="page-wrapper" style="display: flex; flex-direction: column; height: 100vh">
     <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
-    <%#= render 'shared/hub_header' %>
-    <%= render "shared/environment_warning" %>
-    <div class="flash-alerts">
-      <%= render "shared/flash_alerts", flash: flash %>
+    <div>
+      <%= render "shared/environment_warning" %>
+      <div class="flash-alerts">
+        <%= render "shared/flash_alerts", flash: flash %>
+      </div>
+      <%= yield(:notice) if content_for?(:notice) %>
+      <% if content_for(:back_to) %>
+        <%= render "hub/back_to", back_to: content_for(:back_to)%>
+      <% end %>
     </div>
-    <%= yield(:notice) if content_for?(:notice) %>
-    <% if content_for(:back_to) %>
-      <%= render "hub/back_to", back_to: content_for(:back_to)%>
-    <% end %>
 
-    <div id="maincontent" style="display: flex;">
-      <%= react_component "hub/MainMenu",
+
+    <div id="maincontent" style="display: flex; flex-grow: 1;">
+      <%= react_component "hub/MainMenu/MainMenu",
                           current_user: current_user,
                           my_clients_link: hub_root_path,
                           all_clients_link: hub_clients_path,
