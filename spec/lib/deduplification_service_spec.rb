@@ -40,8 +40,8 @@ describe DeduplificationService do
       context "when an old key is present" do
         before do
           allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_call_original
-          allow(EnvironmentCredentials).to receive(:dig).with(:hash_key).and_call_original
-          allow(EnvironmentCredentials).to receive(:dig).with(:previous_hash_key).and_return "another_secret"
+          allow(EnvironmentCredentials).to receive(:dig).with(:duplicate_hashing_key).and_call_original
+          allow(EnvironmentCredentials).to receive(:dig).with(:previous_duplicate_hashing_key).and_return "another_secret"
 
           allow(described_class).to receive(:sensitive_attribute_hashed).and_return "new_hash"
           allow(described_class).to receive(:sensitive_attribute_hashed).with(instance, "routing_number", "another_secret").and_return "old_hash"

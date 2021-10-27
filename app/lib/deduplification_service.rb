@@ -1,5 +1,5 @@
 class DeduplificationService
-  def self.sensitive_attribute_hashed(instance, attr, key = EnvironmentCredentials.dig(:hash_key))
+  def self.sensitive_attribute_hashed(instance, attr, key = EnvironmentCredentials.dig(:duplicate_hashing_key))
     value = instance.send(attr)
     return unless value.present?
 
@@ -18,7 +18,7 @@ class DeduplificationService
     _, attr_without_hashed = attr.to_s.split("hashed_")
     return instance.send(attr) if attr_without_hashed.nil?
 
-    old_key = EnvironmentCredentials.dig(:previous_hash_key)
+    old_key = EnvironmentCredentials.dig(:previous_duplicate_hashing_key)
     return instance.send(attr) unless old_key.present?
 
     [sensitive_attribute_hashed(instance, attr_without_hashed), sensitive_attribute_hashed(instance, attr_without_hashed, old_key)]
