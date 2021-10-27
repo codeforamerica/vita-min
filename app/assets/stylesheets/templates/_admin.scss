@@ -46,3 +46,49 @@
 section.client-index-header.slab--padded {
   padding-bottom: 0;
 }
+
+
+.left-menu {
+  height: 100%;
+  z-index: 1;
+  width: 75px;
+  background: #2D2E2F;
+  color: white;
+  position: relative;
+
+  &.expanded {
+    width: 250px;
+  }
+
+  .toggle {
+    position: absolute;
+    right: -12px;
+    top: 5px;
+    cursor: pointer;
+  }
+
+  .container {
+  }
+
+  .menu-item {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 1px;
+    padding-left: 20px;
+    &:hover {
+      background: transparentize(#F1F3F6, .85);
+    }
+    &:active, &.active {
+      background: transparentize(#F1F3F6, .75);
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: center;
+  }
+}
