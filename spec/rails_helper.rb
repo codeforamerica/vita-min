@@ -102,6 +102,7 @@ RSpec.configure do |config|
     @test_environment_credentials = {
       db_encryption_key: '12345678901234567890123456789012',
       hash_key: "secret",
+      previous_hash_key: "",
       irs: {
         efin: '123456',
         sin: '11111111'

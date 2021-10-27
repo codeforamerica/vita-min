@@ -2,13 +2,23 @@ require "rails_helper"
 
 describe DeduplificationService do
   before do
-    allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_call_original
-    allow(EnvironmentCredentials).to receive(:dig).with(:hash_key).and_return "secret"
+    allow(OpenSSL::HMAC).to receive(:hexdigest)
   end
 
-  describe '.hmac_hexdigest' do
-    it 'uses the hash_key to create a hexdigest' do
-      expect(described_class.hmac_hexdigest("123456789")).to eq "e9f1f91535398c73105b095ee2be45fa6a26fd4ee56f17b1410ce2145850df42"
+  describe '.sensitive_attribute_hashed' do
+    let(:bank_account) { build :bank_account, routing_number: "123456789" }
+    context "without key param passed" do
+      it 'uses the credentials hash_key to create a hexdigest' do
+        described_class.sensitive_attribute_hashed(bank_account, :routing_number)
+        expect(OpenSSL::HMAC).to have_received(:hexdigest).with("SHA256", "secret", "routing_number|123456789")
+      end
+    end
+
+    context "with an explicit key param passed" do
+      it 'uses the passed key as the key' do
+        described_class.sensitive_attribute_hashed(bank_account, :routing_number, "shh")
+        expect(OpenSSL::HMAC).to have_received(:hexdigest).with("SHA256", "shh", "routing_number|123456789")
+      end
     end
   end
 
@@ -25,6 +35,22 @@ describe DeduplificationService do
       it "uses the single argument to create the where clause" do
         described_class.duplicates(instance, :hashed_routing_number)
         expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number })
+      end
+
+      context "when an old key is present" do
+        before do
+          allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_call_original
+          allow(EnvironmentCredentials).to receive(:dig).with(:hash_key).and_call_original
+          allow(EnvironmentCredentials).to receive(:dig).with(:previous_hash_key).and_return "another_secret"
+
+          allow(described_class).to receive(:sensitive_attribute_hashed).and_return "new_hash"
+          allow(described_class).to receive(:sensitive_attribute_hashed).with(instance, "routing_number", "another_secret").and_return "old_hash"
+        end
+
+        it "looks for the old and new hash in the db for matches on either" do
+          described_class.duplicates(instance, :hashed_routing_number)
+          expect(query_double).to have_received(:where).with({ hashed_routing_number: ["new_hash", "old_hash"] })
+        end
       end
     end
 

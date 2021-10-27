@@ -43,7 +43,7 @@ class BankAccount < ApplicationRecord
   def hash_data
     [:routing_number, :account_number].each do |attr|
       if send("#{attr}_changed?") && send(attr).present?
-        assign_attributes("hashed_#{attr}" => DeduplificationService.hmac_hexdigest(send(attr)))
+        assign_attributes("hashed_#{attr}" => DeduplificationService.sensitive_attribute_hashed(self, attr))
       end
     end
   end
