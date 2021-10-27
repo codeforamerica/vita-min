@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>" class="background--white">
-  <head>
-    <%= render 'shared/combined_analytics' if include_analytics? && Rails.env.production? %>
-    <% unless content_for? :page_title %>
-      <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
-    <% end %>
+<head>
+  <% unless content_for? :page_title %>
+    <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
+  <% end %>
 
-    <title><%= content_for(:page_title) %> | The Hub</title>
+  <title><%= content_for(:page_title) %> | The Hub</title>
 
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="<%=t("views.layouts.application.meta.description") %>">
-    <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
-    <meta property="og:description" content="<%=t("views.layouts.application.meta.description") %>">
-    <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
-    <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
-    <meta property="twitter:description" content="<%=t("views.layouts.application.meta.description") %>">
-    <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="<%= canonical_url %>">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="<%= canonical_url %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="<%=t("views.layouts.application.meta.description") %>">
+  <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+  <meta property="og:description" content="<%=t("views.layouts.application.meta.description") %>">
+  <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
+  <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+  <meta property="twitter:description" content="<%=t("views.layouts.application.meta.description") %>">
+  <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= canonical_url %>">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="<%= canonical_url %>">
 
-    <link rel="canonical" href="<%= canonical_url %>" />
-    <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="x-default" />
-    <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="en" />
-    <link rel="alternate" href="<%= canonical_url(:es) %>" hreflang="es" />
+  <link rel="canonical" href="<%= canonical_url %>" />
+  <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="x-default" />
+  <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="en" />
+  <link rel="alternate" href="<%= canonical_url(:es) %>" hreflang="es" />
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
 
-    <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type=>'image/png', :sizes => '57x57' %>
+  <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type=>'image/png', :sizes => '57x57' %>
+  <%= render 'shared/app_data_mixpanel_data_script' %>
 
-    <%= render 'shared/app_data_mixpanel_data_script' %>
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
 
-    <%= stylesheet_pack_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application', defer: true %>
+</head>
 
-    <%= javascript_pack_tag 'application', defer: true %>
-  </head>
-
-  <body class="admin honeycrisp-compact">
+<body class="admin honeycrisp-compact">
   <div class="page-wrapper">
     <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
-
-    <%= render 'shared/hub_header' %>
-
+    <%#= render 'shared/hub_header' %>
     <%= render "shared/environment_warning" %>
-
+    <div class="flash-alerts">
+      <%= render "shared/flash_alerts", flash: flash %>
+    </div>
+    <%= yield(:notice) if content_for?(:notice) %>
     <% if content_for(:back_to) %>
       <%= render "hub/back_to", back_to: content_for(:back_to)%>
     <% end %>
-    <div id="maincontent">
-      <div class="flash-alerts">
-        <%= render "shared/flash_alerts", flash: flash %>
-      </div>
-      <%= yield(:notice) if content_for?(:notice) %>
 
+    <div id="maincontent" style="display: flex;">
+      <%= react_component "hub/MainMenu",
+                          current_user: current_user,
+                          my_clients_link: hub_root_path,
+                          all_clients_link: hub_clients_path,
+                          notifications_link: hub_user_notifications_path,
+                          profile_link: hub_user_profile_path
+      %>
       <main role="main">
         <%= yield(:card) || yield %>
       </main>
@@ -71,5 +73,7 @@
     </div>
   <% end %>
   <%= yield(:script) if content_for?(:script) %>
-  </body>
+</body>
 </html>
+
+>>>>>>> WIP add react + play with creating a left menu

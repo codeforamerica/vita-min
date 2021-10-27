@@ -108,6 +108,10 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bcrypt (3.1.16)
     bindex (0.8.1)
     bootsnap (1.7.5)
@@ -141,6 +145,7 @@ GEM
     combine_pdf (1.0.21)
       ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -386,6 +391,12 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    react-rails (2.6.1)
+      babel-transpiler (>= 0.7.0)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     recaptcha (5.8.1)
       json
     redcarpet (3.5.1)
@@ -623,6 +634,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n
   rails_autolink
+  react-rails
   recaptcha
   redcarpet
   rspec-rails

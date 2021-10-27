@@ -12,6 +12,7 @@ gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycri
 gem 'mini_racer', '~> 0.4.0', platforms: :ruby
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
+gem 'react-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
