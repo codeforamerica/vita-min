@@ -56,46 +56,4 @@ describe PhoneParser do
       expect(described_class.with_country_code("14158161286")).to eq "14158161286"
     end
   end
-
-  describe ".valid?" do
-    context "with a valid e164 Twilio US format phone number" do
-      let(:value) { "+15005550006" }
-
-      it "does not add an error" do
-        expect(described_class.valid?(value)).to eq(true)
-      end
-    end
-
-    context "with an e164 number lacking a plus sign" do
-      let(:value) { "15005550006" }
-
-      it "adds an error" do
-        expect(described_class.valid?(value)).to eq(false)
-      end
-    end
-
-    context "with a valid non-e164 format phone number" do
-      let(:value) { "(500) 555-0006" }
-
-      it "adds an error" do
-        expect(described_class.valid?(value)).to eq(false)
-      end
-    end
-
-    context "with a clearly invalid phone number" do
-      let(:value) { "653423" }
-
-      it "adds an error" do
-        expect(record.errors[:phone_number]).to eq(["Please enter a valid phone number."])
-      end
-    end
-
-    context "with a blank value" do
-      let(:value) { " " }
-
-      it "adds an error" do
-        expect(record.errors[:phone_number]).to eq(["Please enter a valid phone number."])
-      end
-    end
-  end
 end

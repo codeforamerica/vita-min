@@ -26,7 +26,6 @@ gem 'image_processing'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.5.1', require: false
-gem 'phonelib'
 gem 'phony'
 gem 'pg'
 gem 'pg_search'
