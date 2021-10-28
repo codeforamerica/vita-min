@@ -162,7 +162,7 @@ describe MixpanelService do
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
-        let!(:tax_return) { create :tax_return, certification_level: "basic", client: client, status_last_changed_by: user, status: "intake_before_consent" }
+        let!(:tax_return) { create :tax_return, :intake_before_consent, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
 
         it "sends a Mixpanel event" do
           MixpanelService.send_tax_return_event(tax_return, "ready_for_prep", { additional_data: "1234"})
@@ -197,7 +197,7 @@ describe MixpanelService do
       context "when the event is triggered by the system" do
         let!(:tax_return) { create :tax_return, certification_level: "basic", client: client, status: "intake_before_consent" }
 
-        it "handles the lack of a status_last_changed_by user" do
+        it "handles the lack of a last_changed_by user" do
           MixpanelService.send_tax_return_event(tax_return, "ready_for_prep")
           perform_enqueued_jobs
 
@@ -228,11 +228,8 @@ describe MixpanelService do
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
-        let!(:tax_return) { create :tax_return, certification_level: "basic", client: client, status_last_changed_by: user, status: "intake_before_consent" }
+        let!(:tax_return) { create :tax_return, :review_reviewing, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
 
-        before do
-          tax_return.status = "review_reviewing"
-        end
 
         it "sends a status_change event" do
           MixpanelService.send_status_change_event(tax_return)
@@ -273,7 +270,7 @@ describe MixpanelService do
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
-        let(:tax_return) { create :tax_return, certification_level: "basic", client: client, status_last_changed_by: user }
+        let(:tax_return) { create :tax_return, :intake_in_progress, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
 
         before do
           tax_return.update_column(:ready_for_prep_at, 28.hours.ago)
@@ -321,7 +318,7 @@ describe MixpanelService do
           tax_return.update_column(:created_at, 2.days.ago)
         end
 
-        it "handles the lack of a status_last_changed_by user" do
+        it "handles the lack of a last_changed_by user" do
           MixpanelService.send_file_rejected_event(tax_return)
           perform_enqueued_jobs
 
@@ -376,7 +373,7 @@ describe MixpanelService do
       let(:user) { create :team_member_user, site: site }
 
       context "when the event is triggered by a user" do
-        let(:tax_return) { create :tax_return, certification_level: "basic", client: client, status_last_changed_by: user }
+        let(:tax_return) { create :tax_return, :intake_in_progress, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
 
         before do
           tax_return.update_column(:ready_for_prep_at, 28.hours.ago)
@@ -606,7 +603,7 @@ describe MixpanelService do
       end
 
       context 'when obj is a TaxReturn' do
-        let(:tax_return) { create :tax_return, year: "2019", certification_level: "basic", service_type: "online_intake", status: "intake_info_requested" }
+        let(:tax_return) { create :tax_return, :intake_info_requested, year: "2019", certification_level: "basic", service_type: "online_intake" }
         let(:data_from_intake) { MixpanelService.data_from(tax_return) }
 
         it 'returns relevant data' do

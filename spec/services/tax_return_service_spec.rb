@@ -14,7 +14,7 @@ describe TaxReturnService do
       )
     end
     let(:user) { create :user }
-    let(:tax_return) { create :tax_return, client: client, year: 2019, status: "intake_in_progress" }
+    let(:tax_return) { create :tax_return, :intake_in_progress, client: client, year: 2019 }
     let(:form_params) {
       { tax_return_id: tax_return.id, status: "intake_info_requested" }
     }
@@ -32,13 +32,10 @@ describe TaxReturnService do
       }.to change { tax_return.reload.status }.to("intake_info_requested")
     end
 
-    context "setting TaxReturn.status_last_changed_by" do
-      before do
-        expect_any_instance_of(TaxReturn).to receive(:status_last_changed_by=).with(user)
-      end
-
+    context "setting initiated_by_user_id" do
       it "sets it to the current_user" do
         TaxReturnService.handle_status_change(form)
+        expect(tax_return.last_transition.metadata["initiated_by_user_id"]).to eq user.id
       end
     end
 
@@ -60,7 +57,7 @@ describe TaxReturnService do
       it "raises an error" do
         expect do
           TaxReturnService.handle_status_change(form)
-        end.to raise_error(ArgumentError)
+        end.to raise_error(Statesman::TransitionFailedError)
       end
     end
 

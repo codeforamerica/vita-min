@@ -61,7 +61,7 @@ describe Ctc::Questions::EmailVerificationController do
 
       context "when status is already beyond intake in progress" do
         before do
-          client.tax_returns.last.update(status: "file_accepted")
+          client.tax_returns.last.transition_to("file_accepted")
         end
 
         it "does not change the status back to intake in progress" do

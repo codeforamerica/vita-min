@@ -75,15 +75,10 @@ class BetaTestDataGenerator
     return [first_name, last_name]
   end
 
-  def self.get_status_open_or_later
-
-  end
-
   def self.make_clients_for_user(user, all_possible_assignees, count)
     clients = FactoryBot.create_list :beta_test_client, count, vita_partner: user.accessible_vita_partners.first
     clients.each do |client|
       client.tax_returns.each do |tax_return|
-        tax_return.status = STATUSES_AFTER_OPEN.sample
         case rand(10)
         when 0..4
           tax_return.assigned_user = user
@@ -92,6 +87,7 @@ class BetaTestDataGenerator
           tax_return.assigned_user = all_possible_assignees.order(Arel.sql("RANDOM()")).first
         end
         tax_return.save
+        tax_return.transition_to(STATUSES_AFTER_OPEN.sample)
       end
     end
   end

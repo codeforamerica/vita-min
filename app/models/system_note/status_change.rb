@@ -24,7 +24,8 @@
 class SystemNote::StatusChange < SystemNote
   def self.generate!(tax_return:, initiated_by: nil, old_status: nil, new_status: nil)
     unless old_status && new_status
-      old_status, new_status = tax_return.saved_change_to_status
+      old_status = tax_return.previous_state
+      new_status = tax_return.current_state
     end
 
     old_status_with_stage = TaxReturnStatusHelper.stage_and_status_translation(old_status)

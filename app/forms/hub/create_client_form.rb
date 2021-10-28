@@ -64,7 +64,7 @@ module Hub
       @client = Client.create!(
         vita_partner_id: attributes_for(:intake)[:vita_partner_id],
         intake_attributes: attributes_for(:intake).merge(default_intake_attributes),
-        tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
+        tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? attributes_for(:tax_return).merge(v) : nil }.compact
       )
 
       locale = @client.intake.preferred_interview_language == "es" ? "es" : "en"
@@ -75,6 +75,7 @@ module Hub
       )
 
       @client.tax_returns.each do |tax_return|
+        tax_return.transition_to(:prep_ready_for_prep)
         MixpanelService.send_event(
           distinct_id: @client.intake.visitor_id,
           event_name: "drop_off_submitted",
@@ -96,10 +97,6 @@ module Hub
         type: "Intake::GyrIntake",
         visitor_id: SecureRandom.hex(26)
       }
-    end
-
-    def tax_return_defaults
-      { status: :prep_ready_for_prep }.merge(attributes_for(:tax_return))
     end
 
     def create_tax_return_for_year?(year)

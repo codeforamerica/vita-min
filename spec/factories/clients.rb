@@ -53,7 +53,7 @@ FactoryBot.define do
         filing_status { "single" }
       end
       after(:create) do |client, evaluator|
-        create :tax_return, year: 2020, client: client, status: evaluator.status, filing_status: evaluator.filing_status
+        create :tax_return, evaluator.status, year: 2020, client: client, filing_status: evaluator.filing_status
       end
     end
 

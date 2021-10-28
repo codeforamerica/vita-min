@@ -793,7 +793,7 @@ describe TaxReturn do
     let(:fake_ip) { IPAddr.new }
     let(:document_service_double) { double }
     let(:client) { create :client, intake: (create :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
-    let(:tax_return) { create :tax_return, year: 2019, client: client, status: "intake_in_progress" }
+    let(:tax_return) { create :tax_return, :intake_in_progress, year: 2019, client: client }
 
     before do
       allow(Sign8879Service).to receive(:create)
@@ -942,7 +942,7 @@ describe TaxReturn do
     end
 
     context "when the primary has already signed and we can create the 8879 document" do
-      let(:tax_return) { create :tax_return, year: 2019, client: client, primary_signature: "Primary Taxpayer", primary_signed_at: DateTime.current, primary_signed_ip: fake_ip }
+      let(:tax_return) { create :tax_return, :intake_in_progress, year: 2019, client: client, primary_signature: "Primary Taxpayer", primary_signed_at: DateTime.current, primary_signed_ip: fake_ip }
 
       context "when the transaction is successful" do
         it "creates a signed document" do
