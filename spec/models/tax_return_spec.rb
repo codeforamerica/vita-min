@@ -1080,7 +1080,7 @@ describe TaxReturn do
     end
 
     it "includes all filed statuses" do
-      expect(result["file"].length).to eq 8
+      expect(result["file"].length).to eq 9
     end
   end
 

@@ -39,8 +39,11 @@ class EfileSubmissionStateMachine
   after_transition(to: :preparing) do |submission|
     fraud_indicator_service = FraudIndicatorService.new(submission.client)
     hold_indicators = fraud_indicator_service.hold_indicators
-    if hold_indicators.present? && !submission.admin_resubmission?
+    hold_no_dependents = ActiveModel::Type::Boolean.new.cast(ENV["FRAUD_HOLD_NO_DEPENDENTS"]) && submission.tax_return.qualifying_dependents.count.zero?
+    if (hold_no_dependents || hold_indicators.present?) && !submission.admin_resubmission?
       submission.transition_to!(:fraud_hold, indicators: hold_indicators)
+      # flag client on resubmission since an admin needs to resubmit for them
+      submission.client.flag! if submission.resubmission?
     else
       BuildSubmissionBundleJob.perform_later(submission.id)
       submission.tax_return.transition_to(:file_ready_to_file)
@@ -52,7 +55,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :fraud_hold) do |submission|
-    submission.tax_return.transition_to(:file_hold)
+    submission.tax_return.transition_to(:file_fraud_hold)
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
       message: AutomatedMessage::InformOfFraudHold,

@@ -27,6 +27,7 @@ class TaxReturnStateMachine
   state :file_accepted
   state :file_not_filing
   state :file_hold
+  state :file_fraud_hold
 
   # Allow free transition from any state, to any state for now
   states.each do |state|
