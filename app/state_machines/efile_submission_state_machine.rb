@@ -43,7 +43,7 @@ class EfileSubmissionStateMachine
       submission.transition_to!(:fraud_hold, indicators: hold_indicators)
     else
       BuildSubmissionBundleJob.perform_later(submission.id)
-      submission.tax_return.update(status: "file_ready_to_file")
+      submission.tax_return.transition_to(:file_ready_to_file)
     end
   end
 
@@ -52,7 +52,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :fraud_hold) do |submission|
-    submission.tax_return.update(status: :file_hold)
+    submission.tax_return.transition_to(:file_hold)
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: submission.client,
       message: AutomatedMessage::InformOfFraudHold,
@@ -61,12 +61,12 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :transmitted) do |submission|
-    submission.tax_return.update(status: "file_efiled")
+    submission.tax_return.transition_to(:file_efiled)
     send_mixpanel_event(submission, "ctc_efile_return_transmitted")
   end
 
   after_transition(to: :failed, after_commit: true) do |submission, transition|
-    submission.tax_return.update(status: "file_needs_review")
+    submission.tax_return.transition_to(:file_needs_review)
 
     Efile::SubmissionErrorParser.persist_errors(transition)
 
@@ -97,7 +97,7 @@ class EfileSubmissionStateMachine
       message: AutomatedMessage::EfileAcceptance,
       locale: client.intake.locale
     )
-    tax_return.update!(status: "file_accepted")
+    tax_return.transition_to(:file_accepted)
     tax_return.record_expected_payments!
     send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
       child_tax_credit_advance: tax_return.expected_advance_ctc_payments,
@@ -118,11 +118,11 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :investigating) do |submission|
-    submission.tax_return.update(status: :file_hold)
+    submission.tax_return.transition_to(:file_hold)
   end
 
   after_transition(to: :waiting) do |submission|
-    submission.tax_return.update(status: :file_hold)
+    submission.tax_return.transition_to(:file_hold)
   end
 
   after_transition(to: :resubmitted) do |submission|
@@ -136,7 +136,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :cancelled) do |submission|
-    submission.tax_return.update(status: "file_not_filing")
+    submission.tax_return.transition_to(:file_not_filing)
   end
 
   def self.send_mixpanel_event(efile_submission, event_name, data: {})
