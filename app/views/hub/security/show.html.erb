@@ -8,7 +8,7 @@
     </div>
     <% if @duplicate_bank_client_ids.present? %>
       <div class="spacing-below-25">
-        With duplicated bank data: <%= @duplicate_bank_client_ids.each { |id| link_to "##{id}", hub_clients_path(id) } %>
+        With duplicated bank data: <%= @duplicate_bank_client_ids.map { |id| link_to "##{id}", hub_clients_path(id) } %>
       </div>
     <% end %>
 
