@@ -54,7 +54,7 @@ class TaxReturnStatus
   PAUSED_STATUSES = [:file_not_filing, :file_hold]
   # If you change the statuses included in capacity, please also update the organization capacities sql view
   # tax_returns.status >= 102 AND tax_returns.status <= 404 AND tax_returns.status != 403 AND tax_returns.status != 106
-  EXCLUDED_FROM_CAPACITY = (ONBOARDING_STATUSES + [:file_mailed, :file_accepted, :file_not_filing, :file_hold]).freeze
+  EXCLUDED_FROM_CAPACITY = (ONBOARDING_STATUSES + [:file_mailed, :file_accepted, :file_not_filing, :file_hold, :file_fraud_hold]).freeze
   STATUS_KEYS_INCLUDED_IN_CAPACITY = (STATUSES.keys - EXCLUDED_FROM_CAPACITY).freeze
   GREETER_STATUSES_BEYOND_INTAKE = { "file" => [:file_not_filing, :file_hold] }.freeze
   FORWARD_TO_INTERCOM_STATUSES = [:file_accepted, :file_mailed, :file_not_filing]

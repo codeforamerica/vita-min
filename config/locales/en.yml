@@ -1007,6 +1007,7 @@ en:
       status:
         file_accepted: Accepted
         file_efiled: E-filed
+        file_fraud_hold: ID Check
         file_hold: Hold
         file_mailed: Filed by mail
         file_needs_review: Needs review

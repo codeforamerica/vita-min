@@ -22,6 +22,25 @@ describe EfileSubmissionStateMachine do
         end
       end
 
+      context "when FRAUD_HOLD_EVERYTHING is set" do
+        around do |example|
+          ENV['FRAUD_HOLD_EVERYTHING'] = '1'
+          example.run
+          ENV.delete('FRAUD_HOLD_EVERYTHING')
+        end
+
+        it "does not enqueue a BuildSubmissionBundleJob" do
+          expect {
+            submission.transition_to!(:preparing)
+          }.not_to have_enqueued_job(BuildSubmissionBundleJob)
+        end
+
+        it "updates the tax return status" do
+          submission.transition_to!(:preparing)
+          expect(submission.tax_return.current_state).to eq("file_fraud_hold")
+        end
+      end
+
       context "with blocking fraud characteristics" do
         before do
           submission.client.efile_security_informations.last.update(timezone: "Western Europe")
@@ -37,7 +56,7 @@ describe EfileSubmissionStateMachine do
           submission.transition_to!(:preparing)
           expect(submission.current_state).to eq "fraud_hold"
           expect(submission.last_transition.metadata["indicators"]).to eq ["international_timezone"]
-          expect(submission.tax_return.status).to eq("file_hold")
+          expect(submission.tax_return.status).to eq("file_fraud_hold")
         end
       end
 
