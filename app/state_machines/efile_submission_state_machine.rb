@@ -39,8 +39,8 @@ class EfileSubmissionStateMachine
   after_transition(to: :preparing) do |submission|
     fraud_indicator_service = FraudIndicatorService.new(submission.client)
     hold_indicators = fraud_indicator_service.hold_indicators
-    hold_all = !ENV["FRAUD_HOLD_EVERYTHING"].blank?
-    if (hold_all || hold_indicators.present?) && !submission.admin_resubmission?
+    hold_no_dependents = ActiveModel::Type::Boolean.new.cast(ENV["FRAUD_HOLD_NO_DEPENDENTS"]) && submission.tax_return.qualifying_dependents.count.zero?
+    if (hold_no_dependents || hold_indicators.present?) && !submission.admin_resubmission?
       submission.transition_to!(:fraud_hold, indicators: hold_indicators)
       # flag client on resubmission since an admin needs to resubmit for them
       submission.client.flag! if submission.resubmission?
