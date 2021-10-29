@@ -20,8 +20,9 @@ function MenuItem(props) {
     }, [active])
 
     return (
-        <a className={`menu-item ${active && 'active'}`} href={props.link} onClick={() => setActive(true)}>
-            {props.label}
+        <a className={`menu-item ${active && 'active'} ${props.expanded ? 'expanded' : 'collapsed'}`} href={props.link} onClick={() => setActive(true)}>
+            <img src={props.icon} alt={""} />
+            <div>{props.label}</div>
         </a>
     )
 }

@@ -49,15 +49,30 @@ section.client-index-header.slab--padded {
 
 
 .left-menu {
-  height: 100%;
-  z-index: 1;
+  height: 100vh;
+  z-index: 1000;
   width: 75px;
+
   background: #2D2E2F;
   color: white;
   position: relative;
-
   &.expanded {
     width: 250px;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    padding: 60px;
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 20px;
+      margin-left: 10px;
+    }
+    &.collapsed {
+      padding: 20px 0 20px 5px;
+    }
   }
 
   .toggle {
@@ -65,20 +80,27 @@ section.client-index-header.slab--padded {
     right: -12px;
     top: 5px;
     cursor: pointer;
+    transition: .25s ease;
+    &.collapsed {
+      transform: rotate(180deg);
+    }
   }
 
   .container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .menu-item {
-    height: 60px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     font-weight: 500;
     color: white;
     text-decoration: none;
     margin-bottom: 1px;
-    padding-left: 20px;
     &:hover {
       background: transparentize(#F1F3F6, .85);
     }
@@ -87,8 +109,47 @@ section.client-index-header.slab--padded {
     }
   }
 
+  .expanded.menu-item {
+    height: 60px;
+    flex-direction: row;
+    padding-left: 20px;
+    img {
+      margin-right: 5px;
+    }
+  }
+
+  .collapsed.menu-item {
+    height: 75px;
+    font-size: 10px;
+    justify-content: center;
+    img {
+      margin-bottom: 5px;
+    }
+  }
+
   .bottom {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    .name {
+      font-weight: bold;
+      height: 40px;
+    }
+    a {
+      color: white;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .collapsed.bottom {
+    align-items: center;
+    padding: 0 0 10px 0;
+    img {
+      height: 24px;
+    }
+    font-size: 10px;
   }
 }
