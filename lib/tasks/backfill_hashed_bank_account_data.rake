@@ -9,8 +9,8 @@ namespace :bank_accounts do
       unless account.hashed_routing_number.present?
         columns[:hashed_routing_number] = DeduplificationService.sensitive_attribute_hashed(account, :routing_number)
       end
-      unless columns.keys.length.empty?
-        bank_account.update_columns(columns)
+      unless columns.keys.length.zero?
+        account.update_columns(columns)
       end
     end
   end
