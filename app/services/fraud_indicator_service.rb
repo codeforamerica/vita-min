@@ -4,7 +4,7 @@ class FraudIndicatorService
     @efile_security_informations = client.efile_security_informations
   end
 
-  HOLD_INDICATORS = ["recaptcha_score", "international_timezone", "empty_timezone", "duplicate_bank_account"].freeze
+  HOLD_INDICATORS = ["recaptcha_score", "international_timezone", "empty_timezone", "duplicate_bank_account", "duplicate_phone_number"].freeze
 
   def hold_indicators
     HOLD_INDICATORS.map do |indicator|
@@ -45,5 +45,9 @@ class FraudIndicatorService
   def duplicate_bank_account
     bank_account = @client.intake.bank_account
     bank_account.present? && bank_account.duplicates.exists?
+  end
+
+  def duplicate_phone_number
+    DeduplificationService.duplicates(@client.intake, :phone_number).where(type: "Intake::CtcIntake").count >= 2
   end
 end

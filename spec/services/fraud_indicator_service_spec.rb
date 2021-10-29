@@ -155,5 +155,46 @@ describe FraudIndicatorService do
         end
       end
     end
+
+    context "duplicated phone number" do
+      let(:intake) { create :ctc_intake, phone_number: "+18324658840" }
+      context "when there are 3 or more CTC Intakes with duplicated phone numbers" do
+        before do
+          3.times do
+            create :ctc_intake, phone_number: "+18324658840"
+          end
+        end
+
+        it "marks for fraud" do
+          expect(FraudIndicatorService.new(intake.client).hold_indicators).to eq ["duplicate_phone_number"]
+        end
+      end
+
+      context "when there are fewer than 3 CTC intakes with the same phone number" do
+        let(:intake) { create :ctc_intake, phone_number: "+15124441234" }
+
+        before do
+          create :ctc_intake, phone_number: "+15124441234"
+        end
+
+        it "doesnt mark for fraud" do
+          expect(FraudIndicatorService.new(intake.client).hold_indicators).to eq []
+        end
+      end
+
+      context "when there are GYR intakes with the same phone number" do
+        let(:intake) { create :ctc_intake, phone_number: "+18324658840" }
+
+        before do
+          3.times do
+            create :intake, phone_number: "+18324758840", type: "Intake::GyrIntake"
+          end
+        end
+
+        it "doesnt mark for fraud" do
+          expect(FraudIndicatorService.new(intake.client).hold_indicators).to eq []
+        end
+      end
+    end
   end
 end
