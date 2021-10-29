@@ -133,5 +133,27 @@ describe FraudIndicatorService do
       end
     end
 
+    context "duplicated bank account" do
+      context "when there is a duplicate bank account" do
+        before do
+          client.intake.update(bank_account: (create :bank_account, routing_number: "122345678"))
+          create :bank_account, routing_number: "122345678"
+        end
+
+        it "includes duplicated_bank_account in fraud concerns" do
+          expect(FraudIndicatorService.new(client).hold_indicators).to eq ["duplicate_bank_account"]
+        end
+      end
+
+      context "when there is no duplicated bank account" do
+        before do
+          create :bank_account, routing_number: "123456333", account_number: "1234345435", intake: submission.intake
+        end
+
+        it "includes duplicated_bank_account in fraud concerns" do
+          expect(FraudIndicatorService.new(client).hold_indicators).to eq []
+        end
+      end
+    end
   end
 end

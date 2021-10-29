@@ -7,9 +7,18 @@ module Hub
 
     def show
       @client = Client.find(params[:id])
+      @duplicate_bank_clients = duplicate_bank_clients
       @security_events = (
         @client.efile_security_informations + @client.recaptcha_scores
       ).sort_by(&:created_at)
+    end
+
+    private
+
+    def duplicate_bank_clients
+      return [] unless @client.intake.bank_account.present?
+
+      Client.where(intake_id: @client.intake.bank_account.duplicates.pluck(:intake_id))
     end
   end
 end
