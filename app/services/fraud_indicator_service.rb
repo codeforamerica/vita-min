@@ -48,6 +48,6 @@ class FraudIndicatorService
   end
 
   def duplicate_phone_number
-    DeduplificationService.duplicates(@client.intake, :phone_number).where(type: "Intake::CtcIntake").count > 2
+    DeduplificationService.duplicates(@client.intake, :phone_number).where(type: "Intake::CtcIntake").count >= 2
   end
 end
