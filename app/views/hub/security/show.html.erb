@@ -6,9 +6,9 @@
     <div class="spacing-below-25">
       Current recaptcha score average: <%= @client.recaptcha_scores_average || "N/A" %>
     </div>
-    <% if @duplicate_bank_clients.present? %>
+    <% if @duplicate_bank_client_ids.present? %>
       <div class="spacing-below-25">
-        With duplicated bank data: <%= @duplicate_bank_clients.each { |dupe| link_to "##{dupe.id}", hub_clients_path(dupe.id) } %>
+        With duplicated bank data: <%= @duplicate_bank_client_ids.each { |id| link_to "##{id}", hub_clients_path(id) } %>
       </div>
     <% end %>
 
