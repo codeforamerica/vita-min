@@ -42,6 +42,8 @@ class EfileSubmissionStateMachine
     hold_all = !ENV["FRAUD_HOLD_EVERYTHING"].blank?
     if (hold_all || hold_indicators.present?) && !submission.admin_resubmission?
       submission.transition_to!(:fraud_hold, indicators: hold_indicators)
+      # flag client on resubmission since an admin needs to resubmit for them
+      submission.client.flag! if submission.resubmission?
     else
       BuildSubmissionBundleJob.perform_later(submission.id)
       submission.tax_return.transition_to(:file_ready_to_file)
