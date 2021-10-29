@@ -66,11 +66,11 @@ class TaxReturn < ApplicationRecord
     @state_machine ||= TaxReturnStateMachine.new(self, transition_class: TaxReturnTransition)
   end
 
-  delegate :can_transition_to?, :history, :last_transition, :last_transition_to,
+  delegate :can_transition_to?, :history, :last_transition, :current_state, :last_transition_to,
            :transition_to!, :transition_to, :in_state?, :advance_to, :previous_transition, :previous_state, :last_changed_by, to: :state_machine
 
   def current_state
-    state_machine.last_transition&.to_state || status
+    state_machine.current_state || status
   end
 
   before_save do

@@ -34,6 +34,7 @@ describe IncomingTextMessageService do
       allow(ClientChannel).to receive(:broadcast_contact_record)
       allow(DatadogApi).to receive(:increment)
       allow(IntercomService).to receive(:create_intercom_message_from_sms)
+      allow(TransitionNotFilingService).to receive(:run)
     end
 
     context "with a matching intake phone number" do
@@ -125,6 +126,11 @@ describe IncomingTextMessageService do
         expect do
           IncomingTextMessageService.process(incoming_message_params)
         end.to change(IncomingTextMessage.where(client: [client1, client2, client3, client4]), :count).by(3).and change(Client, :count).by(0)
+      end
+
+      it "calls the TransitionNotFilingService status service for each client" do
+        IncomingTextMessageService.process(incoming_message_params)
+        expect(TransitionNotFilingService).to have_received(:run).exactly(3).times
       end
 
       it "sends a metric to Datadog" do
