@@ -1224,7 +1224,7 @@ en:
         body: |
           Hello <<Client.PreferredName>>,
 
-          We need some more information from you before we can submit your information to the IRS. To continue, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
+          Your submission requires additional review. To fast track your review, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
 
           Best,
           The GetCTC.org Team
@@ -1232,7 +1232,7 @@ en:
       sms: |
         Hello <<Client.PreferredName>>,
 
-        We need some more information from you before we can submit your information to the IRS. To continue, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
+        Your submission requires additional review. To fast track your review, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
 
         Best,
         The GetCTC.org Team
