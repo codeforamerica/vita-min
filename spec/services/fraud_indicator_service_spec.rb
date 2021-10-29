@@ -177,7 +177,7 @@ describe FraudIndicatorService do
           create :ctc_intake, phone_number: "+15124441234"
         end
 
-        it "marks for fraud" do
+        it "doesnt mark for fraud" do
           expect(FraudIndicatorService.new(intake.client).hold_indicators).to eq []
         end
       end
@@ -191,7 +191,7 @@ describe FraudIndicatorService do
           end
         end
 
-        it "marks for fraud" do
+        it "doesnt mark for fraud" do
           expect(FraudIndicatorService.new(intake.client).hold_indicators).to eq []
         end
       end
