@@ -1,5 +1,5 @@
 ## Delete Barely Started Intakes
-Delete unconsented GYR intakes (intakes that are between the backtaxes and consent page) that were created more than 2 weeks ago with the `DeleteBarelyStartedGyrIntakesJob` in the rails console.
+Delete unconsented GYR intakes (intakes that are between the backtaxes and consent page) that were created more than 2 days ago with the `DeleteBarelyStartedGyrIntakesJob` in the rails console.
 
 ```bigquery
  DeleteBarelyStartedGyrIntakesJob.new.perform
