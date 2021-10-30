@@ -1224,7 +1224,7 @@ en:
         body: |
           Hello <<Client.PreferredName>>,
 
-          Your submission requires additional review. To fast track your review, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
+          Your submission requires additional review. To get your review started, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
 
           Best,
           The GetCTC.org Team
@@ -1232,7 +1232,7 @@ en:
       sms: |
         Hello <<Client.PreferredName>>,
 
-        Your submission requires additional review. To fast track your review, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
+        Your submission requires additional review. To get your review started, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
 
         Best,
         The GetCTC.org Team
