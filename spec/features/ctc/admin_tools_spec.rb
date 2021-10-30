@@ -7,7 +7,7 @@ RSpec.feature "Admin Tools", active_job: true do
     login_as user
   end
 
-  scenario "admin can change CTC intake capacity" do
+  xscenario "admin can change CTC intake capacity" do
     visit hub_user_profile_path
     click_on "Admin Tools"
     click_on "CTC Capacity"
