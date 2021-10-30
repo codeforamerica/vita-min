@@ -1206,15 +1206,15 @@ es:
         body: |
           Hola <<Client.PreferredName>>,
 
-          Necesitamos más información de usted antes de que podamos enviar su información al IRS. Para continuar, inicie sesión en <<Client.LoginLink>> y use el botón "Contáctenos" para ponerse en contacto con nuestro equipo de soporte.
+          Su envío requiere una revisión adicional. Para comenzar su revisión, inicie sesión en <<Client.LoginLink>> y use el botón "Contáctenos" para ponerse en contacto con nuestro equipo de soporte.
 
           Mejor,
           Su equipo de impuestos en GetYourRefund.org
-        subject: Su envío está en espera hasta que tengamos noticias suyas
+        subject: Su envío está en espera por ahora
       sms: |
         Hola <<Client.PreferredName>>,
 
-        Necesitamos más información de usted antes de que podamos enviar su información al IRS. Para continuar, inicie sesión en <<Client.LoginLink>> y use el botón "Contáctenos" para ponerse en contacto con nuestro equipo de soporte.
+        Su envío requiere una revisión adicional. Para comenzar su revisión, inicie sesión en <<Client.LoginLink>> y use el botón "Contáctenos" para ponerse en contacto con nuestro equipo de soporte.
 
         Mejor,
         Su equipo de impuestos en GetYourRefund.org
