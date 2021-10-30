@@ -1210,7 +1210,7 @@ es:
 
           Mejor,
           Su equipo de impuestos en GetYourRefund.org
-        subject: Su envío está en espera hasta que tengamos noticias suyas
+        subject: Su envío está en espera por ahora
       sms: |
         Hola <<Client.PreferredName>>,
 

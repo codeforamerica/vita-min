@@ -1228,7 +1228,7 @@ en:
 
           Best,
           The GetCTC.org Team
-        subject: Your submission is on hold until we hear from you
+        subject: Your submission is on hold for now
       sms: |
         Hello <<Client.PreferredName>>,
 
