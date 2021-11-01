@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe BaseService do
   describe '.ensure_transaction' do
     context "with a caller inside of a transaction" do
