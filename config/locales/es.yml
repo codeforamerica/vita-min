@@ -2119,6 +2119,8 @@ es:
           cfa_product_html: GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">¿Por qué hacemos este trabajo?</a>
           irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
           white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
+        closing_date: GetCTC cerrará el 15 de noviembre.
+        closing_warning: "¡Presente hoy para reclamar su Crédito Tributario por Hijos por adelantado y pagos de estímulo perdidos! Si no cumple con esta fecha límite, deberá reclamar su Crédito Tributario por Hijos completo cuando presente sus impuestos a principios de 2022."
         common_questions:
           are_daca_recipients_eligible:
             answer_html: |
