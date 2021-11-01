@@ -45,6 +45,12 @@ class EfileSubmissionStateMachine
       # flag client on resubmission since an admin needs to resubmit for them
       submission.client.flag! if submission.resubmission?
     else
+      # Only sends if efile preparing message has never been sent bc
+      # AutomatedMessage::EfilePreparing has send_only_once set to true
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: submission.client,
+        message: AutomatedMessage::EfilePreparing
+      )
       BuildSubmissionBundleJob.perform_later(submission.id)
       submission.tax_return.transition_to(:file_ready_to_file)
     end
@@ -107,17 +113,6 @@ class EfileSubmissionStateMachine
       recovery_rebate_credit: tax_return.claimed_recovery_rebate_credit,
       third_stimulus_amount: tax_return.expected_recovery_rebate_credit_three,
     })
-  end
-
-  after_transition(from: :new, to: :preparing) do |submission|
-    if submission.tax_return.efile_submissions.size == 1
-      client = submission.client
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: client,
-        message: AutomatedMessage::EfilePreparing,
-        locale: client.intake.locale,
-      )
-    end
   end
 
   after_transition(to: :investigating) do |submission|
