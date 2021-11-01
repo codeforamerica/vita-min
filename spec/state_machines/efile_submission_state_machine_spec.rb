@@ -3,6 +3,7 @@ require 'rails_helper'
 describe EfileSubmissionStateMachine do
   before do
     allow(ClientPdfDocument).to receive(:create_or_update)
+    allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
   end
 
   describe "after_transition" do
@@ -19,6 +20,10 @@ describe EfileSubmissionStateMachine do
         it "updates the tax return status" do
           submission.transition_to!(:preparing)
           expect(submission.tax_return.status).to eq("file_ready_to_file")
+          expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+              client: submission.client.reload,
+              message: AutomatedMessage::EfilePreparing,
+          )
         end
       end
 
@@ -43,6 +48,10 @@ describe EfileSubmissionStateMachine do
           it "updates the tax return status" do
             submission.transition_to!(:preparing)
             expect(submission.tax_return.status).to eq("file_ready_to_file")
+            expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+              client: submission.client.reload,
+              message: AutomatedMessage::EfilePreparing,
+            )
           end
         end
 
@@ -55,6 +64,10 @@ describe EfileSubmissionStateMachine do
             expect {
               submission.transition_to!(:preparing)
             }.not_to have_enqueued_job(BuildSubmissionBundleJob)
+            expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+              client: submission.client.reload,
+              message: AutomatedMessage::EfilePreparing,
+            )
           end
 
           it "updates the tax return status" do
@@ -80,35 +93,6 @@ describe EfileSubmissionStateMachine do
           expect(submission.current_state).to eq "fraud_hold"
           expect(submission.last_transition.metadata["indicators"]).to eq ["international_timezone"]
           expect(submission.tax_return.status).to eq("file_fraud_hold")
-        end
-      end
-
-
-      context "from new to preparing" do
-        before do
-          allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
-        end
-        context "when this is the first submission" do
-          it "sends a message to the client" do
-            submission.transition_to!(:preparing)
-
-            expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-                client: submission.client.reload,
-                message: AutomatedMessage::EfilePreparing,
-                locale: submission.client.intake.locale
-            )
-          end
-
-        end
-
-        context "when there is a previous submission" do
-          before do
-            create(:efile_submission, tax_return: submission.tax_return)
-          end
-          it "does not send a message to the client" do
-            submission.transition_to!(:preparing)
-            expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods)
-          end
         end
       end
     end
