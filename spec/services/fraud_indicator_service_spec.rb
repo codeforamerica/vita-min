@@ -161,7 +161,7 @@ describe FraudIndicatorService do
       context "when there are 3 or more CTC Intakes with duplicated phone numbers" do
         before do
           3.times do
-            create :ctc_intake, phone_number: "+18324658840"
+            create :ctc_intake, phone_number: "+18324658840", completed_at: DateTime.current
           end
         end
 
