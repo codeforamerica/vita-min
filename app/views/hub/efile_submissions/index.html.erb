@@ -2,9 +2,9 @@
   <div class="spacing-above-25 submissions-index">
 
     <div style="display: flex;">
-      <% EfileSubmissionStateMachine.states.each do |state| %>
+      <% @efile_submission_state_counts.each do |state, count| %>
         <div class="metric-box">
-          <div class="status <%= state %>"><%= @efile_submission_state_counts[state] %></div>
+          <div class="status <%= state %>"><%= count %></div>
           <div class="status <%= state %>"><%= link_to state, Hub::EfileSubmissionsController.to_path_helper(action: :index, status: state), class: 'link--subtle', style: "color: inherit;" %></div>
          </div>
       <% end %>
