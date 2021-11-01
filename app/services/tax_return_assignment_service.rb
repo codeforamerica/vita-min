@@ -7,13 +7,15 @@ class TaxReturnAssignmentService
   end
 
   def assign!
-    @tax_return.update!(assigned_user: @assigned_user)
-    if @assigned_user.present? &&
-       [TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE, OrganizationLeadRole::TYPE].include?(@assigned_user.role_type) &&
-       @assigned_user.role.vita_partner_id != @client.vita_partner_id
-      UpdateClientVitaPartnerService.new(client: @client,
-                                         vita_partner_id: @assigned_user.role.vita_partner_id,
-                                         change_initiated_by: @assigned_user).update!
+    ActiveRecord::Base.transaction do
+      @tax_return.update!(assigned_user: @assigned_user)
+      if @assigned_user.present? &&
+         [TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE, OrganizationLeadRole::TYPE].include?(@assigned_user.role_type) &&
+         @assigned_user.role.vita_partner_id != @client.vita_partner_id
+        UpdateClientVitaPartnerService.new(clients: [@client],
+                                           vita_partner_id: @assigned_user.role.vita_partner_id,
+                                           change_initiated_by: @assigned_user).update!
+      end
     end
   end
 

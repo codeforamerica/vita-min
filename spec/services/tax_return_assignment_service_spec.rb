@@ -40,7 +40,7 @@ describe TaxReturnAssignmentService do
         end
 
         it "calls the UpdateClientVitaPartnerService" do
-          subject.assign!
+          expect{ subject.assign! }.not_to raise_error
           expect(instance).to have_received(:update!).once
         end
       end

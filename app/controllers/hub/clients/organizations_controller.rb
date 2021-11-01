@@ -13,10 +13,12 @@ module Hub
 
       def update
         begin
-          UpdateClientVitaPartnerService.new(client: @client,
-                                             vita_partner_id: client_params[:vita_partner_id],
-                                             change_initiated_by: current_user).update!
-        rescue ActiveRecord::Rollback
+          ActiveRecord::Base.transaction do
+            UpdateClientVitaPartnerService.new(clients: [@client],
+                                               vita_partner_id: client_params[:vita_partner_id],
+                                               change_initiated_by: current_user).update!
+          end
+        rescue ActiveRecord::RecordInvalid
           render :edit
         else
           redirect_to hub_client_path(id: @client.id)

@@ -60,7 +60,7 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
 
       context "when something goes wrong in the service call" do
         before do
-          allow(instance).to receive(:update!).and_raise(ActiveRecord::Rollback)
+          allow(instance).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
         end
 
         it "rescues the ActiveRecord::Rollback and returns a 300" do

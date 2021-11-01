@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe UpdateClientVitaPartnerService do
   describe ".update" do
-    subject { UpdateClientVitaPartnerService.new(client: client, vita_partner_id: other_site.id, change_initiated_by: assigned_user) }
+    subject { UpdateClientVitaPartnerService.new(clients: [client], vita_partner_id: other_site.id, change_initiated_by: assigned_user) }
 
     let(:current_site) { create :site }
     let(:other_site) { create :site, parent_organization: current_site.parent_organization }
@@ -27,14 +27,21 @@ describe UpdateClientVitaPartnerService do
 
       context "and something goes terribly wrong in un-assignment" do
         before do
-          allow_any_instance_of(TaxReturn).to receive(:update).and_return false
+          allow_any_instance_of(TaxReturn).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
         end
 
-        it "rolls back the transaction, saving nothing" do
-          subject.update!
-          expect(client.reload.vita_partner).to eq(current_site)
-          expect(tax_return.reload.assigned_user).to eq(assigned_user)
-          expect(SystemNote::OrganizationChange.count).to eq(0)
+        it "raises an exception" do
+          expect { subject.update! }.to raise_error(ActiveRecord::RecordInvalid)
+        end
+      end
+
+      context "when called without a transaction wrapping it" do
+        before do
+          allow(BaseService).to receive(:ensure_transaction).and_raise(StandardError, "Service requiring transaction was called without a transaction open")
+        end
+
+        it "raises an error" do
+          expect { subject.update! }.to raise_error(StandardError, "Service requiring transaction was called without a transaction open")
         end
       end
     end
