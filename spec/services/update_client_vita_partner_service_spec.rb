@@ -2,6 +2,10 @@ require "rails_helper"
 
 describe UpdateClientVitaPartnerService do
   describe ".update" do
+    before do
+      allow(BaseService).to receive(:ensure_transaction).and_yield
+    end
+
     subject { UpdateClientVitaPartnerService.new(clients: [client], vita_partner_id: other_site.id, change_initiated_by: assigned_user) }
 
     let(:current_site) { create :site }
