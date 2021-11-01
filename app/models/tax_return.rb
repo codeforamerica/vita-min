@@ -276,27 +276,6 @@ class TaxReturn < ApplicationRecord
     true
   end
 
-  def assign!(assigned_user: nil, assigned_by: nil)
-    update!(assigned_user: assigned_user)
-    SystemNote::AssignmentChange.generate!(initiated_by: assigned_by, tax_return: self)
-
-    if assigned_user.present? && (assigned_user != assigned_by)
-      UserNotification.create!(
-        user: assigned_user,
-        notifiable: TaxReturnAssignment.create!(
-          assigner: assigned_by,
-          tax_return: self
-        )
-      )
-      UserMailer.assignment_email(
-        assigned_user: assigned_user,
-        assigning_user: assigned_by,
-        assigned_at: updated_at,
-        tax_return: self
-      ).deliver_later
-    end
-  end
-
   private
 
   def send_mixpanel_status_change_event

@@ -46,31 +46,6 @@
 require "rails_helper"
 
 describe Client do
-  describe "#valid?" do
-    context "when assigning to a new partner would remove access for a tax return assignee" do
-      let(:current_site) { create :site }
-      let(:client) { create :client, vita_partner: current_site }
-      let(:other_site) { create :site, parent_organization: current_site.parent_organization }
-      let(:assigned_user) { create :team_member_user, site: current_site }
-      let(:another_assigned_user) { create :site_coordinator_user, site: current_site }
-      before do
-        create :tax_return, year: 2019, client: client, assigned_user: assigned_user
-        create :tax_return, year: 2020, client: client, assigned_user: another_assigned_user
-      end
-
-      it "adds a useful validation error message to vita_partner" do
-        client.vita_partner = other_site
-
-        expect(client).not_to be_valid
-        access_loss_error_message = client.errors[:vita_partner_id][0]
-        expect(access_loss_error_message).to include assigned_user.name
-        expect(access_loss_error_message).to include another_assigned_user.name
-        expect(access_loss_error_message).to include "would lose access if you assign this client to "\
-          "#{other_site.name}. Please change tax return assignments before reassigning this client."
-      end
-    end
-  end
-
   describe ".sla_tracked scope" do
     let(:client_before_consent) { create(:client) }
     let(:client_in_progress) { create(:client) }
@@ -757,29 +732,6 @@ describe Client do
 
       it "falls through to locale" do
         expect(client.preferred_language).to eq "en"
-      end
-    end
-  end
-
-  context "after_commit for creating vita partner note" do
-    let(:user) { create :user }
-    let(:client) { create :client }
-    let(:new_vita_partner) { create :vita_partner }
-    before do
-      allow(SystemNote::OrganizationChange).to receive(:generate!)
-    end
-
-    context "when updating the vita partner" do
-      it "should create a system note recording the change" do
-        client.update(vita_partner: new_vita_partner, change_initiated_by: user)
-        expect(SystemNote::OrganizationChange).to have_received(:generate!).with({ client: client, initiated_by: user })
-      end
-    end
-
-    context "when updating other attributes" do
-      it "should not create a system note recording the change" do
-        client.update(routing_method: "source_param")
-        expect(SystemNote::OrganizationChange).not_to have_received(:generate!)
       end
     end
   end

@@ -286,8 +286,9 @@ RSpec.describe User, type: :model do
     let(:admin) { create :admin_user }
 
     context "team member user" do
-      it "return only the current user" do
+      it "should return all the site coordinators and team members at the site, and the org leads" do
         expected_results = [
+          organization_lead, sibling_organization_lead,
           site_coordinator, sibling_site_coordinator,
           team_member, sibling_team_member
         ]
@@ -296,8 +297,9 @@ RSpec.describe User, type: :model do
     end
 
     context "site coordinator user" do
-      it "should return all the site coordinators and team members at the site" do
+      it "should return all the site coordinators and team members at the site, and the org leads" do
         expected_results = [
+          organization_lead, sibling_organization_lead,
           site_coordinator, sibling_site_coordinator,
           team_member, sibling_team_member
         ]

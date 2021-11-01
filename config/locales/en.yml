@@ -7,9 +7,6 @@ en:
           attributes:
             ssn:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
-  clients:
-    errors:
-      tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance for about 1 hour starting at %{time}.
@@ -676,6 +673,10 @@ en:
         send_for_prep: Send for prep
         tax_years: Tax years
         title: Add a new client
+      organizations:
+        edit:
+          warning_text_1: 'Note: All returns on this client will be assigned to the new organization.'
+          warning_text_2: Changing the organization may cause assigned hub users to lose access and be unassigned.
       show:
         basic_info: Basic Info
         date_of_birth: Date of birth

@@ -26,49 +26,46 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
 
   describe "#update" do
     let(:params) { { id: client.id, client: { vita_partner_id: site.id } } }
+    let(:instance) { instance_double(UpdateClientVitaPartnerService) }
+    let(:double_class) { class_double(UpdateClientVitaPartnerService).as_stubbed_const }
+
+    before do
+      allow(double_class).to receive(:new).and_return(instance)
+      allow(instance).to receive(:update!)
+    end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
     context "as an authenticated organization lead user" do
-      before { sign_in user }
+      before do
+        sign_in user
+      end
 
-      it "can assign to a site in my organiztion" do
-        expect {
-          patch :update, params: params
-          client.reload
-        }.to change(client, :vita_partner).from(client.vita_partner).to(site)
-         .and change(SystemNote::OrganizationChange, :count).by(1)
+      it "calls the UpdateClientVitaPartnerService service and redirects" do
+        patch :update, params: params
 
-        expect(SystemNote.last.user).to eq user
-
+        expect(instance).to have_received(:update!).once
         expect(response).to redirect_to hub_client_path(id: client.id)
       end
 
-      context "when reassigning would remove access for one or more tax return assignees" do
-        let(:tax_return_assignee) { create :team_member_user, site: site }
-        let(:client) { create :client, vita_partner: site }
-        let!(:tax_return) { create :tax_return, client: client, assigned_user: tax_return_assignee }
-        let(:params) { { id: client.id, client: { vita_partner_id: other_site.id } } }
-
-        render_views
-        it "adds a validation error and does not reassign the client" do
-          patch :update, params: params
-
-          expect(response).to be_ok
-          expect(client.reload.vita_partner).to eq site
-          expect(response).to render_template :edit
-          expect(assigns(:client).errors).to include :vita_partner_id
-        end
-      end
-
-      context "when assigning to an vite partner that you don't have access to" do
-        let(:other_org) { create :organization}
+      context "when assigning to an vita partner that you don't have access to" do
+        let(:other_org) { create :organization }
         let(:params) { { id: client.id, client: { vita_partner_id: other_org.id } } }
 
         it "returns a 403" do
           patch :update, params: params
-
           expect(response).to be_forbidden
+        end
+      end
+
+      context "when something goes wrong in the service call" do
+        before do
+          allow(instance).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
+        end
+
+        it "rescues the ActiveRecord::Rollback and returns a 300" do
+          patch :update, params: params
+          expect(response).to render_template :edit
         end
       end
     end
