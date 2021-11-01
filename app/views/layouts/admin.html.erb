@@ -1,22 +1,77 @@
-<% content_for :toolbar_right do %>
-  <%= link_to hub_user_profile_path, class: "toolbar__item" do %>
-    <%= t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" class="background--white">
+<head>
+  <%= render 'shared/combined_analytics' if include_analytics? && Rails.env.production? %>
+  <% unless content_for? :page_title %>
+    <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
   <% end %>
 
-  <%= form_with url: destroy_user_session_path, local: true, method: :delete, class: "toolbar__item" do |f| %>
-    <%= f.submit value: t("general.sign_out"), class: "button--link" %>
+  <title><%= content_for(:page_title) %> | The Hub %></title>
+
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="<%=t("views.layouts.application.meta.description") %>">
+  <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+  <meta property="og:description" content="<%=t("views.layouts.application.meta.description") %>">
+  <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
+  <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+  <meta property="twitter:description" content="<%=t("views.layouts.application.meta.description") %>">
+  <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= canonical_url %>">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="<%= canonical_url %>">
+
+  <link rel="canonical" href="<%= canonical_url %>" />
+  <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="x-default" />
+  <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="en" />
+  <link rel="alternate" href="<%= canonical_url(:es) %>" hreflang="es" />
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+
+  <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type=>'image/png', :sizes => '57x57' %>
+
+  <%= render 'shared/app_data_mixpanel_data_script' %>
+
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
+
+  <%= javascript_pack_tag 'application', defer: true %>
+</head>
+
+<body class="admin honeycrisp-compact">
+<div class="page-wrapper">
+  <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
+
+  <%= render 'shared/hub_header' %>
+
+  <%= render "shared/environment_warning" %>
+
+  <% if content_for(:back_to) %>
+    <%= render "hub/back_to", back_to: content_for(:back_to)%>
   <% end %>
-<% end if current_user %>
-<% content_for :html_class, "background--white" %>
-<% content_for :body_class, "admin honeycrisp-compact" %>
-<% content_for :main do %>
-  <main role="main">
-    <%= yield(:card) %>
-  </main>
-<% end %>
+  <div id="maincontent">
+    <div class="flash-alerts">
+      <%= render "shared/flash_alerts", flash: flash %>
+    </div>
+    <%= yield(:notice) if content_for?(:notice) %>
 
-<% content_for :footer do %>
-  <div></div>
+    <main role="main">
+      <%= yield(:card) || yield %>
+    </main>
+  </div>
+</div>
+<% if content_for?(:sticky_action_footer) %>
+  <div class="sticky-action-footer">
+    <%= yield(:sticky_action_footer) %>
+  </div>
 <% end %>
-
-<%= render template: "layouts/application" %>
+<%= yield(:script) if content_for?(:script) %>
+<!-- hiding intercom on hub again until we tackle styling it into the sticky action footer -->
+<%= render("shared/intercom", isHub: hub?) unless hub? %>
+</body>
+</html>

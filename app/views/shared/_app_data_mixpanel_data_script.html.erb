@@ -1,0 +1,7 @@
+<script>
+    window.appData = JSON.parse(<%= JSON.generate(
+        controller_action: "#{controller.class.name}##{action_name}",
+        full_path: request.fullpath
+      ).inspect.html_safe %>);
+    window.mixpanelData = window.appData;
+</script>
