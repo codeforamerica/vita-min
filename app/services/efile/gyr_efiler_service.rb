@@ -6,7 +6,10 @@ module Efile
     RETRYABLE_LOG_CONTENTS = [
       /Transaction Result: The server sent HTTP status code 302: Moved Temporarily/,
       /connect timed out - Fault Code: soap:Server/,
-      /Transaction Result: The server sent HTTP status code 401: Unauthorized/
+      /Transaction Result: The server sent HTTP status code 401: Unauthorized/,
+      /SSLException:Unsupported or unrecognized SSL message/,
+      /Transaction Result: Fault String: Session limit reached/,
+      /The server sent HTTP status code 503: Service Unavailable/,
     ]
 
     def self.run_efiler_command(*args)
