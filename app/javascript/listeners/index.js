@@ -12,6 +12,8 @@ import { initBulkAction } from "../lib/bulk_action";
 import { getEfileSecurityInformation } from "../lib/efile_security_information";
 import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
+import { initMainMenu } from "../hub/main_menu";
+
 const Listeners =  (function(){
     return {
         init: function () {
@@ -52,6 +54,10 @@ const Listeners =  (function(){
 
                 if(window.appData.controller_action == "Ctc::Portal::PortalController#edit_info" || window.appData.controller_action == "Ctc::Portal::PortalController#resubmit") {
                     getEfileSecurityInformation('ctc_resubmit_form');
+                }
+
+                if (document.querySelector('body.admin')) {
+                    initMainMenu();
                 }
 
                 if (document.querySelector('.taggable-note')) {
