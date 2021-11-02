@@ -2121,7 +2121,7 @@ es:
           cfa_product_html: GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">¿Por qué hacemos este trabajo?</a>
           irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
           white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
-        closing_date: GetCTC cerrará el 15 de noviembre.
+        closing_date: GetCTC cerrará el 19 de noviembre.
         closing_warning: "¡Presente hoy para reclamar su Crédito Tributario por Hijos por adelantado y pagos de estímulo perdidos! Si no cumple con esta fecha límite, deberá reclamar su Crédito Tributario por Hijos completo cuando presente sus impuestos a principios de 2022."
         common_questions:
           are_daca_recipients_eligible:
@@ -2219,7 +2219,7 @@ es:
           body1: Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia.
           body2_html: Si no ha enviado información alguna al IRS en el último año, puede enviar su información a través de GetCTC, un portal para declarar sus impuestos de forma simplificada, y reciba sus pagos.
           deadline:
-            body_html: Puede inscribirse para recibir los pagos mensuales del Crédito Fiscal por Hijos utilizando <a rel='noopener' target='_blank' href='%{url}'>la sencilla herramienta</a> Non-Filer del IRS (IRS Non-Filer Sign-Up Tool, en inglés) desarrollada por la organización sin ánimo de lucro Code for America, en colaboración con la Administración, hasta el 15 de noviembre de 2021. Sin embargo, se les recomienda a las familias que reúnen los requisitos que se inscriban lo más pronto posible. Al inscribirse con anticipación le dará al IRS más tiempo para procesar su información y para comenzar a hacer los pagos mensuales.
+            body_html: Puede inscribirse para recibir los pagos mensuales del Crédito Fiscal por Hijos utilizando <a rel='noopener' target='_blank' href='%{url}'>la sencilla herramienta</a> Non-Filer del IRS (IRS Non-Filer Sign-Up Tool, en inglés) desarrollada por la organización sin ánimo de lucro Code for America, en colaboración con la Administración, hasta el 19 de noviembre de 2021. Sin embargo, se les recomienda a las familias que reúnen los requisitos que se inscriban lo más pronto posible. Al inscribirse con anticipación le dará al IRS más tiempo para procesar su información y para comenzar a hacer los pagos mensuales.
             subheading: "¿Cuándo vence el plazo para inscribirse en el Pago del Crédito Tributario por Hijos (CTC en inglés)?"
           full_return:
             body1_html: |

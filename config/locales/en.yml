@@ -2148,7 +2148,7 @@ en:
           cfa_product_html: GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">Why do we do this work?</a>
           irs: IRS-approved official E-file provider.
           white_house_html: Made in collaboration with the <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">White House and U.S. Department of Treasury</a>.
-        closing_date: GetCTC will close on November 15.
+        closing_date: GetCTC will close on November 19.
         closing_warning: File today to claim your advance Child Tax Credit and missed stimulus payments! If you miss this deadline, you will need to claim your full Child Tax Credit when you file taxes in early 2022.
         common_questions:
           are_daca_recipients_eligible:
@@ -2243,7 +2243,7 @@ en:
           body1: To provide the Advance Child Tax Credit payments, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your Advance Child Tax Credit payments automatically.
           body2_html: If you have not submitted any information to the IRS in the last year, you can submit your information through GetCTC, a simplified tax filing portal, and get your payments.
           deadline:
-            body_html: You can sign up to receive monthly Child Tax Credit payments using the <a rel='noopener' target='_blank' href='%{url}'>simple tool</a> for non-filers developed by the non-profit Code for America, in collaboration with the Administration, through November 15, 2021. However, eligible families are encouraged to sign up as soon as possible. Signing up early will give the IRS more time to process your information and begin making monthly payments.
+            body_html: You can sign up to receive monthly Child Tax Credit payments using the <a rel='noopener' target='_blank' href='%{url}'>simple tool</a> for non-filers developed by the non-profit Code for America, in collaboration with the Administration, through November 19, 2021. However, eligible families are encouraged to sign up as soon as possible. Signing up early will give the IRS more time to process your information and begin making monthly payments.
             subheading: When is the deadline to sign up for Child Tax Credit payments?
           full_return:
             body1_html: |
