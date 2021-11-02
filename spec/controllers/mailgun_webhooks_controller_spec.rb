@@ -115,6 +115,7 @@ RSpec.describe MailgunWebhooksController do
       context "with a matching client" do
         before do
           allow(ClientChannel).to receive(:broadcast_contact_record)
+          allow(TransitionNotFilingService).to receive(:run)
         end
 
         let(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2020)] }
@@ -127,6 +128,11 @@ RSpec.describe MailgunWebhooksController do
         it "sends a real-time update to anyone on this client's page", active_job: true do
           post :create_incoming_email, params: params
           expect(ClientChannel).to have_received(:broadcast_contact_record).with(IncomingEmail.last)
+        end
+
+        it "calls the TransitionNotFilingService" do
+          post :create_incoming_email, params: params
+          expect(TransitionNotFilingService).to have_received(:run).with(client)
         end
 
         context "without an attachment" do

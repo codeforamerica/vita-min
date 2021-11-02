@@ -28,9 +28,10 @@ describe Portal::MessagesController do
 
       before do
         AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
+        allow(TransitionNotFilingService).to receive(:run)
       end
 
-      it "creates a message, forwards to intercom, and redirects to portal home with flash" do
+      it "creates a message, forwards to intercom, processes necessary status transitions,and redirects to portal home with flash" do
         expect {
           post :create, params: params
         }.to change(client.incoming_portal_messages, :count).by 1
@@ -38,6 +39,7 @@ describe Portal::MessagesController do
         expect(response).to redirect_to portal_root_path
         expect(flash[:notice]).to eq "Message sent! Responses will be sent by email to exampleton@example.com."
         expect(IntercomService).to have_received(:create_intercom_message_from_portal_message).with(client.incoming_portal_messages.last, inform_of_handoff: true)
+        expect(TransitionNotFilingService).to have_received(:run).with(client)
       end
     end
 
