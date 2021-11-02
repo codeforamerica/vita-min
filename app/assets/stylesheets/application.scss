@@ -227,6 +227,15 @@ pre {
   z-index: 3;
 }
 
+.admin .skip-link {
+  left: unset;
+  right: 25px;
+  border-radius: .5rem;
+
+  box-shadow:  0 4px 6px rgba(0, 0, 0, 0.30);
+
+}
+
 .skip-link:visited {
   color: black;
 }

@@ -165,7 +165,7 @@ Rails.application.routes.draw do
 
       # Hub Admin routes (Case Management)
       namespace :hub do
-        root "assigned_clients#index"
+        # root "assigned_clients#index"
 
         resources :metrics, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
@@ -178,7 +178,7 @@ Rails.application.routes.draw do
         end
 
         resources :efile_errors, path: "errors", except: [:create, :new, :destroy]
-
+        resources :assigned_clients, path: "assigned", only: [:index]
         resources :unlinked_clients, only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
           delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy
