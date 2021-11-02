@@ -344,6 +344,7 @@ es:
     get_help: Pedir ayuda
     get_my_payment: Recibir mi pago
     get_started: Empiece ahora
+    go_home: Ir a Inicio
     greetable: Pueden ser saludados
     greeter: Saludador
     here: aquí
@@ -1664,6 +1665,12 @@ es:
           reveal_content: El IRS nos obliga a hacer esta pregunta para verificar su identidad antes de presentar su declaración de impuestos.
           reveal_label: "¿Por qué me preguntan esto?"
           title: "¿Cuáles fueron sus ingresos ajustados brutos de 2019?"
+        already_completed:
+          content_html: |
+            <p> Ha completado todas nuestras preguntas de admisión y hemos enviado su información. </p>
+            <p> Si desea iniciar una nueva solicitud para otro miembro de la familia, haga clic en "Cerrar sesión" para finalizar su sesión actual. </p>
+            <p> De lo contrario, haga clic en "Ir a Inicio" para ver el estado de su envío y los próximos pasos. </p>
+          title: Hold on a minute...
         at_capacity:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes/FAQ.

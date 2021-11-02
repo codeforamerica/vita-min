@@ -79,5 +79,7 @@ module Ctc
 
     def how_do_i_get_an_itin
     end
+
+    def completed; end
   end
 end

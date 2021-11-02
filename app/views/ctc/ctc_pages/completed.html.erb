@@ -1,0 +1,22 @@
+<% @main_heading = t("views.ctc.questions.already_completed.title") %>
+<% content_for :page_title, @main_heading %>
+<% content_for :body_clas, "body--home" %>
+<%= form_with url: destroy_client_session_path, local: true, method: "delete", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+  <main role="main">
+    <div class="slab slab--hero">
+      <div class="grid-flex contained column-row space-between">
+        <div class="grid-flex column-column spacing-below-35">
+          <h1><%= @main_heading %></h1>
+          <%= t("views.ctc.questions.already_completed.content_html") %>
+          <button class="button spacing-below-15 button--wide" type="submit">
+            <%= t("general.sign_out") %>
+          </button>
+          <%= link_to ctc_portal_root_path, class: "button button--primary button--wide text--centered" do %>
+            <%= t("general.go_home") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<% end %>

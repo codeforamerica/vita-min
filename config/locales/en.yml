@@ -344,6 +344,7 @@ en:
     get_help: Get help
     get_my_payment: Get My Payment
     get_started: Get started
+    go_home: Go Home
     greetable: Greetable
     greeter: Greeter
     here: here
@@ -1693,6 +1694,12 @@ en:
           reveal_content: 'The IRS requires us to ask this to verify your identity prior to submitting your tax return. '
           reveal_label: Why are you asking this?
           title: What was your 2019 Adjusted Gross Income?
+        already_completed:
+          content_html: |
+            <p> You've completed all of our intake questions and we're reviewing and submitting your tax return. </p>
+            <p> If you want to start a new application for another person, click "Sign out" to end your current session.</p>
+            <p> Otherwise, click "Go Home" to see the status of your submission and next steps.</p>
+          title: It looks like you’ve already started!
         at_capacity:
           p1: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service! Please check back next week.
           p2: If you have questions, visit our FAQs.
