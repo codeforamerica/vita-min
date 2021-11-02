@@ -881,4 +881,18 @@ describe Client do
       end.to change { client.reload.previous_sessions_active_seconds }.from(nil).to(5 * 60)
     end
   end
+
+  describe "#accumulate_total_session_durations" do
+    context "previous_session_duration is negative" do
+      let(:client) { create :client, last_sign_in_at: last_sign_in_at, last_seen_at: last_seen_at, previous_sessions_active_seconds: 5400 }
+      let(:last_seen_at) {Time.utc(2021, 2, 5, 0, 0, 0)}
+      let(:last_sign_in_at) {Time.utc(2021, 2, 6, 0, 0, 0)}
+
+      it "should not store the previous_sessions_active_seconds" do
+        expect do
+          client.accumulate_total_session_durations
+        end.not_to change { client.reload.previous_sessions_active_seconds }
+      end
+    end
+  end
 end

@@ -185,6 +185,10 @@ class Client < ApplicationRecord
     return if last_sign_in_at.nil?
 
     previous_session_duration = last_seen_at - last_sign_in_at
+    # In one case, previous session duration came out negative. This resulted in a negative total session duration,
+    # which the IRS rejected. We're not sure why the session duration came out negative, but it was
+    # very rare, so we don't worry about it.
+    return if previous_session_duration.negative?
 
     update!(previous_sessions_active_seconds: (previous_sessions_active_seconds || 0) + previous_session_duration)
   end
