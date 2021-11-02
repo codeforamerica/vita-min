@@ -24,7 +24,7 @@ RSpec.describe "a user editing a user" do
         click_on "Return to Dashboard"
 
         screenshot_after do
-          expect(page).to have_current_path(hub_root_path)
+          expect(page).to have_current_path(hub_assigned_clients_path)
         end
       end
 
