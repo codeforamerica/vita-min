@@ -1,9 +1,9 @@
 <div class="breadcrumb user-navigation honeycrisp-compact">
   <% if back_to == "dashboard" %>
-    <%= link_to "< #{t('.return_to_dashboard')}", hub_root_path, class: "breadcrumb-item link--grey" %>
+    <%= link_to "< #{t('.return_to_dashboard')}", hub_assigned_clients_path, class: "breadcrumb-item link--grey" %>
   <% elsif back_to == "clients" %>
     <%= link_to t('.all_clients'), hub_clients_path, class: "breadcrumb-item link--grey" %>
-    <%= link_to t('.my_clients'), hub_root_path, class: "breadcrumb-item link--grey" %>
+    <%= link_to t('.my_clients'), hub_assigned_clients_path, class: "breadcrumb-item link--grey" %>
     <%= link_to t('.my_profile'), hub_user_profile_path, class: "breadcrumb-item link--grey" %>
     <%= link_to t("hub.clients.navigation.notifications"), hub_user_notifications_path, class: "breadcrumb-item link--grey" %>
   <% elsif back_to == "profile" %>

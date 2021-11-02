@@ -308,7 +308,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_user)
-    @after_login_path || hub_root_path
+    @after_login_path || hub_assigned_clients_path
   end
 
   def set_time_zone

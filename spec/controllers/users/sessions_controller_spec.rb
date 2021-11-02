@@ -45,7 +45,7 @@ RSpec.describe Users::SessionsController do
         post :create, params: params
       end.to change(subject, :current_user).from(nil).to(user)
 
-      expect(response).to redirect_to hub_root_path
+      expect(response).to redirect_to hub_assigned_clients_path
     end
 
     context "with 'after_login_path' set in the session" do

@@ -87,7 +87,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
           expect(page).to have_select("status", selected: "Ready for prep")
 
-          visit hub_root_path
+          visit hub_assigned_clients_path
           expect(page).not_to have_text("Alan's Org")
           expect(page).to have_select("year", selected: "")
           expect(page).to have_select("status", selected: "")
@@ -103,7 +103,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_select("status", selected: "Not filing")
 
           # Filters persist when visiting the page directly
-          visit hub_root_path
+          visit hub_assigned_clients_path
           expect(page).to have_text("Some Other Org")
           expect(page).to have_select("year", selected: "2019")
           expect(page).to have_select("status", selected: "Not filing")

@@ -8,7 +8,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     visit new_user_session_path
 
     within(".main-header") do
-      expect(page).to have_link("The Hub", href: hub_root_path)
+      expect(page).to have_link("The Hub", href: hub_assigned_clients_path)
     end
 
     expect(page).to have_text "Sign in"
