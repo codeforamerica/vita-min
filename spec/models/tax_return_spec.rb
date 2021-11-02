@@ -169,7 +169,7 @@ describe TaxReturn do
 
   describe "#record_expected_payments!" do
     context "when the return is accepted" do
-      let(:tax_return) { create :tax_return, status: "file_accepted" }
+      let(:tax_return) { create :tax_return, :file_accepted }
 
       before do
         allow(tax_return).to receive(:expected_advance_ctc_payments).and_return(1000)
