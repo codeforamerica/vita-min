@@ -7,6 +7,7 @@
   background: #2D2E2F;
   color: white;
   position: relative;
+
   &.expanded {
     width: 250px;
   }
@@ -22,9 +23,9 @@
       font-size: 20px;
       margin-left: 10px;
     }
-    &.collapsed {
-      padding: 20px 0 20px 5px;
-    }
+  }
+  &.collapsed .logo {
+    padding: 20px 0 20px 5px;
   }
 
   .toggle {
@@ -33,9 +34,9 @@
     top: 5px;
     cursor: pointer;
     transition: .25s ease;
-    &.collapsed {
-      transform: rotate(180deg);
-    }
+  }
+  &.collapsed .toggle {
+    transform: rotate(180deg);
   }
 
   .container {
@@ -60,8 +61,7 @@
       background: transparentize(#F1F3F6, .75);
     }
   }
-
-  .expanded.menu-item {
+  &.expanded .menu-item {
     height: 60px;
     flex-direction: row;
     padding-left: 20px;
@@ -69,8 +69,7 @@
       margin-right: 5px;
     }
   }
-
-  .collapsed.menu-item {
+  &.collapsed .menu-item {
     height: 75px;
     font-size: 10px;
     justify-content: center;
@@ -96,7 +95,7 @@
       }
     }
   }
-  .collapsed.bottom {
+  &.collapsed .bottom {
     align-items: center;
     padding: 0 0 10px 0;
     img {
