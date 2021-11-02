@@ -27,17 +27,29 @@ function MainMenu(props) {
                 <div>
                     <div className={`logo ${!expanded && 'collapsed'}`}>
                         <img src={LogoImg} alt={""}/>
-                        {expanded && <div class="logo-text">The Hub</div>}
+                        {expanded && <div className="logo-text">The Hub</div>}
                     </div>
                     <div>
-                        <MenuItem link={props.all_clients_link} label="All Clients" icon={AllClientsImg}
-                                  expanded={expanded}/>
-                        <MenuItem link={props.my_clients_link} label="My Clients" icon={MyClientsImg}
-                                  expanded={expanded}/>
-                        <MenuItem link={props.notifications_link} label="My Updates" icon={NotificationsImg}
-                                  expanded={expanded}/>
-                        <MenuItem link={props.efile_link} label="CTC Efile" icon={NotificationsImg}
-                                  expanded={expanded}/>
+                        <MenuItem link={props.all_clients_link}
+                                  label="All Clients"
+                                  icon={AllClientsImg}
+                                  expanded={expanded}
+                        />
+                        <MenuItem link={props.my_clients_link}
+                                  label="My Clients"
+                                  icon={MyClientsImg}
+                                  expanded={expanded}
+                        />
+                        <MenuItem link={props.notifications_link}
+                                  label="My Updates"
+                                  icon={NotificationsImg}
+                                  expanded={expanded}
+                        />
+                        <MenuItem link={props.efile_link}
+                                  label="CTC Efile"
+                                  icon={NotificationsImg}
+                                  expanded={expanded}
+                        />
                     </div>
                 </div>
                 <div className={`bottom ${expanded ? "expanded" : "collapsed"}`}>

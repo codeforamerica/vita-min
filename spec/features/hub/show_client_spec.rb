@@ -79,7 +79,7 @@ RSpec.describe "a user viewing a client" do
         visit hub_client_path(id: client.id)
         click_on("My Clients")
 
-        expect(current_path).to eq(hub_root_path)
+        expect(current_path).to eq(hub_assigned_clients_path)
       end
     end
 
