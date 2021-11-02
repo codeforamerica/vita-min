@@ -19,7 +19,7 @@ function MainMenu(props) {
     }, [expanded])
 
     return (
-        <div className={`left-menu ${expanded && 'expanded'}`}>
+        <div className={`main-menu ${expanded && 'expanded'}`}>
             <div className="container">
                 <span className={`toggle ${!expanded && 'collapsed'}`} onClick={() => toggleMenu(!expanded)}>
                     <img src={ToggleImg} alt="toggle menu" />
@@ -30,9 +30,9 @@ function MainMenu(props) {
                         {expanded && <div class="logo-text">The Hub</div>}
                     </div>
                     <div>
-                        <MenuItem link={props.my_clients_link} label="My Clients" icon={MyClientsImg}
-                                  expanded={expanded}/>
                         <MenuItem link={props.all_clients_link} label="All Clients" icon={AllClientsImg}
+                                  expanded={expanded}/>
+                        <MenuItem link={props.my_clients_link} label="My Clients" icon={MyClientsImg}
                                   expanded={expanded}/>
                         <MenuItem link={props.notifications_link} label="My Updates" icon={NotificationsImg}
                                   expanded={expanded}/>
@@ -45,12 +45,12 @@ function MainMenu(props) {
                         <img width="24" src={MyProfileImg} alt="My Profile" />
                     </a>
                     {expanded &&
-                    <a href={props.profile_link} class="name">
+                    <a href={props.profile_link} className="name">
                         {current_user.name}
                     </a>
                     }
                     {!expanded &&
-                    <a href={props.profile_link} class="name">
+                    <a href={props.profile_link} className="name">
                         {firstName}
                     </a>
                     }

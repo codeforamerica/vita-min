@@ -8,7 +8,11 @@ function MenuItem(props) {
 
     // on mount, ensure there is a value in localStorage for menu item
     useEffect(() => {
-        if(!localStorage.getItem(activeMenuItem)) {
+        let storedLink = localStorage.getItem(activeMenuItem)
+        if(window.location.pathname.indexOf(storedLink) == -1) {
+            localStorage.setItem(activeMenuItem, props.link)
+        }
+        if(!storedLink) {
             localStorage.setItem(activeMenuItem, props.link)
         }
     }, [])
