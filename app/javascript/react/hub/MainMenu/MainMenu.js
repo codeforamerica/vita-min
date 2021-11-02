@@ -5,7 +5,7 @@ import MyProfileImg from 'icons/my-profile.svg'
 import NotificationsImg from 'icons/notifications.svg'
 import MyClientsImg from 'icons/person-outline.svg'
 import AllClientsImg from 'icons/people-outline.svg'
-import LogoImg from 'checkbox-logo--white.png'
+import LogoImg from 'icons/logo-white.svg'
 import MenuItem from './MenuItem'
 
 function MainMenu(props) {
