@@ -187,6 +187,26 @@ RSpec.describe Hub::UpdateCtcClientForm do
         end
 
       end
+
+      context "updating the eip amounts received" do
+        context "if the eip1/2 values were already set" do
+          before do
+            intake.update(eip1_amount_received: 123, eip2_amount_received: 456)
+
+            form_attributes[:eip1_amount_received] = ""
+            form_attributes[:eip2_amount_received] = ""
+          end
+
+          it "does not allow settings amounts to nil" do
+            expect do
+              form = described_class.new(client, form_attributes)
+              form.save
+              intake.reload
+            end.not_to change(intake, :eip1_amount_received)
+            expect(intake.eip2_amount_received).to eq(456)
+          end
+        end
+      end
     end
   end
 
