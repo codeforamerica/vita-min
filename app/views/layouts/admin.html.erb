@@ -46,16 +46,15 @@
     <div style="display: flex; flex-direction: column; min-height: 100vh">
       <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
       <div style="display: flex;">
-        <% if current_user %>
-          <%= react_component "hub/MainMenu/MainMenu",
-                              {current_user: current_user,
-                              my_clients_link: hub_assigned_clients_path,
-                              all_clients_link: hub_clients_path,
-                              notifications_link: hub_user_notifications_path,
-                              profile_link: hub_user_profile_path,
-                              efile_link: hub_efile_submissions_path}, {prerender: true}
-          %>
-        <% end %>
+        <%= react_component "hub/MainMenu/MainMenu",
+                            {current_user_name: current_user&.name,
+                            my_clients_link: hub_assigned_clients_path,
+                            all_clients_link: hub_clients_path,
+                            notifications_link: hub_user_notifications_path,
+                            profile_link: hub_user_profile_path,
+                            signout_link: destroy_client_session_path,
+                            efile_link: hub_efile_submissions_path}, {prerender: true}
+        %>
         <main role="main" style="overflow-y: scroll; height: 100vh; flex-grow: 1;" id="maincontent">
           <div>
             <div class="flash-alerts">
