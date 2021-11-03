@@ -57,10 +57,6 @@ const Listeners =  (function(){
                     getEfileSecurityInformation('ctc_resubmit_form');
                 }
 
-                if (document.querySelector('body.admin')) {
-                    initMainMenu();
-                }
-
                 if (document.querySelector('.taggable-note')) {
                     initTaggableNote();
                 }

@@ -1,9 +1,9 @@
 <div>
-  <div class="main-menu expanded">
+  <div data-component="MainMenuComponent" class="main-menu expanded">
     <div class="container">
-  <span class="toggle">
-  <img src="<%= image_path("icons/toggle.svg") %>" alt="toggle menu"/>
-  </span>
+      <span class="toggle">
+        <img src="<%= image_path("icons/toggle.svg") %>" alt="toggle menu"/>
+      </span>
       <div>
         <div class="logo">
           <img src="<%= image_path("icons/logo-white.svg") %>" alt={""}/>
@@ -32,7 +32,7 @@
           %>
         </div>
       </div>
-      <div class="bottom"> <!-- .main-menu.expanded { .bottom { ... } } -->
+      <div class="bottom">
         <a href="<%= hub_user_profile_path %>">
           <img width="24" src="<%= image_path 'icons/my-profile.svg' %>" alt="My Profile"/>
         </a>
