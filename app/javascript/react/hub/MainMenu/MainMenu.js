@@ -11,8 +11,8 @@ import MenuItem from './MenuItem'
 function MainMenu(props) {
     const initialMenuState = typeof localStorage !== 'undefined' ? localStorage.getItem("hub.menu.expanded") == "true" : true;
     const [expanded, toggleMenu] = useState(initialMenuState)
-    let { current_user_name } = props
-    current_user_name = current_user_name || "";
+    let { current_user } = props
+    let current_user_name = current_user.name || "";
     let firstName = current_user_name.split(" ")[0]
 
     useEffect(() => {
@@ -61,7 +61,7 @@ function MainMenu(props) {
                     </a>
                     {expanded &&
                     <a href={props.profile_link} className="name">
-                        {current_user_name}
+                        {current_user.name}
                     </a>
                     }
                     {!expanded &&

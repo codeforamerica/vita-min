@@ -47,7 +47,7 @@
       <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
       <div style="display: flex;">
         <%= react_component "hub/MainMenu/MainMenu",
-                            {current_user_name: current_user&.name,
+                            {current_user: current_user.serializable_hash.only(:name),
                             my_clients_link: hub_assigned_clients_path,
                             all_clients_link: hub_clients_path,
                             notifications_link: hub_user_notifications_path,
