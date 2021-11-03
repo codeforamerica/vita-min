@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_01_234237) do
+ActiveRecord::Schema.define(version: 2021_11_03_233101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -269,10 +269,13 @@ ActiveRecord::Schema.define(version: 2021_11_01_234237) do
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
+    t.string "active_job_id"
     t.integer "attempts", default: 0, null: false
     t.datetime "created_at"
     t.datetime "failed_at"
     t.text "handler", null: false
+    t.string "job_class"
+    t.bigint "job_object_id"
     t.text "last_error"
     t.datetime "locked_at"
     t.string "locked_by"
@@ -280,6 +283,8 @@ ActiveRecord::Schema.define(version: 2021_11_01_234237) do
     t.string "queue"
     t.datetime "run_at"
     t.datetime "updated_at"
+    t.index ["active_job_id"], name: "index_delayed_jobs_on_active_job_id"
+    t.index ["job_class", "job_object_id"], name: "index_delayed_jobs_on_job_class_and_job_object_id"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 

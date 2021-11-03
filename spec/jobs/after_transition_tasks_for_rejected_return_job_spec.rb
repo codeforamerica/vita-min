@@ -62,4 +62,18 @@ describe AfterTransitionTasksForRejectedReturnJob do
       end
     end
   end
+
+  describe '#job_object_id' do
+    let(:submission) { create(:efile_submission, :transmitted) }
+    let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: false, auto_cancel: false) }
+
+    before do
+      submission.transition_to!(:rejected, error_code: efile_error.code)
+    end
+
+    it 'returns the id of the EfileSubmission record' do
+      job = described_class.perform_later(submission, submission.last_transition)
+      expect(job.job_object_id).to eq(submission.id)
+    end
+  end
 end
