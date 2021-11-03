@@ -69,6 +69,6 @@ class CtcQuestionNavigation
     Ctc::Questions::IpPinEntryController,
     Ctc::Questions::ConfirmInformationController,
     Ctc::Questions::ConfirmPaymentController,
-    Ctc::Questions::ConfirmLegalController,
+    Ctc::Questions::ConfirmLegalController, # sets completed_at, after which a client will no longer be able to make changes in the questions flow.
   ].freeze
 end
