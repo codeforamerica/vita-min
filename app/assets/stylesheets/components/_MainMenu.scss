@@ -1,15 +1,32 @@
 .main-menu {
   height: 100%;
   z-index: 1000;
-  width: 75px;
-  position: fixed;
 
   background: #2D2E2F;
   color: white;
   position: relative;
 
+  &.collapsed {
+    width: 75px;
+
+    .show-if-expanded {
+      display: none;
+    }
+
+    .show-if-not-expanded {
+      display: unset;
+    }
+  }
+
   &.expanded {
     width: 250px;
+
+    .show-if-expanded {
+      display: unset;
+    }
+    .show-if-not-expanded {
+      display: none;
+    }
   }
 
   .logo {
@@ -24,6 +41,7 @@
       margin-left: 10px;
     }
   }
+
   &.collapsed .logo {
     padding: 20px 0 20px 5px;
   }

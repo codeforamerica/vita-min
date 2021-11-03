@@ -1,51 +1,53 @@
-<div class="main-menu expanded">
-  <div class="container">
+<div>
+  <div class="main-menu expanded">
+    <div class="container">
   <span class="toggle">
   <img src="<%= image_path("icons/toggle.svg") %>" alt="toggle menu"/>
   </span>
-    <div>
-      <div class="logo">
-        <img src="<%= image_path("icons/logo-white.svg") %>" alt={""}/>
-        <div class="logo-text hidden-unless-expanded">The Hub</div>
-      </div>
       <div>
-        <%= render "hub/components/menu_item",
-                  link: hub_clients_path,
-                  item_label: "All Clients",
-                  icon_path: image_path("icons/people-outline.svg")
-        %>
-        <%= render "hub/components/menu_item",
-                  link: hub_assigned_clients_path,
-                  item_label: "My Clients",
-                  icon_path: image_path("icons/person-outline.svg")
-        %>
-        <%= render "hub/components/menu_item",
-                  link: hub_user_notifications_path,
-                  item_label: "My Updates",
-                  icon_path: image_path("icons/notifications.svg")
-        %>
-        <%= render "hub/components/menu_item",
-                  link: hub_efile_submissions_path,
-                  item_label: "CTC Efile",
-                  icon_path: image_path("icons/notifications.svg")
-        %>
+        <div class="logo">
+          <img src="<%= image_path("icons/logo-white.svg") %>" alt={""}/>
+          <div class="logo-text show-if-expanded">The Hub</div>
+        </div>
+        <div>
+          <%= render "hub/components/menu_item",
+                     link: hub_clients_path,
+                     item_label: "All Clients",
+                     icon_path: image_path("icons/people-outline.svg")
+          %>
+          <%= render "hub/components/menu_item",
+                     link: hub_assigned_clients_path,
+                     item_label: "My Clients",
+                     icon_path: image_path("icons/person-outline.svg")
+          %>
+          <%= render "hub/components/menu_item",
+                     link: hub_user_notifications_path,
+                     item_label: "My Updates",
+                     icon_path: image_path("icons/notifications.svg")
+          %>
+          <%= render "hub/components/menu_item",
+                     link: hub_efile_submissions_path,
+                     item_label: "CTC Efile",
+                     icon_path: image_path("icons/notifications.svg")
+          %>
+        </div>
       </div>
-    </div>
-    <div class="bottom"> <!-- .main-menu.expanded { .bottom { ... } } -->
-      <a href="<%= hub_user_profile_path %>">
-        <img width="24" src="<%= image_path 'icons/my-profile.svg' %>" alt="My Profile"/>
-      </a>
-      <a href="<%= hub_user_profile_path %>" class="name">
+      <div class="bottom"> <!-- .main-menu.expanded { .bottom { ... } } -->
+        <a href="<%= hub_user_profile_path %>">
+          <img width="24" src="<%= image_path 'icons/my-profile.svg' %>" alt="My Profile"/>
+        </a>
+        <a href="<%= hub_user_profile_path %>" class="name">
         <span class="show-if-expanded">
           <%= current_user&.name %>
         </span>
-        <span class="show-if-not-expanded">
-          <%= current_user&.name&.split(" ")&[0] %>
+          <span class="show-if-not-expanded">
+          <%= current_user&.name&.split(" ") & [0] %>
         </span>
-      </a>
-      <a data-method="delete" href="<%= destroy_client_session_path %>">
-        Sign out
-      </a>
+        </a>
+        <a data-method="delete" href="<%= destroy_client_session_path %>">
+          Sign out
+        </a>
+      </div>
     </div>
   </div>
 </div>
