@@ -86,7 +86,7 @@ CREATE VIEW analytics.efile_submission_transitions AS
     FROM public.efile_submission_transitions;
 
 CREATE VIEW analytics.efile_submissions AS
-    SELECT id, created_at, tax_return_id, updated_at
+    SELECT id, created_at, irs_submission_id, tax_return_id, updated_at
     FROM public.efile_submissions;
 
 CREATE VIEW analytics.greeter_coalition_join_records AS
