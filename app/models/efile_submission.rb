@@ -46,6 +46,21 @@ class EfileSubmission < ApplicationRecord
   delegate :can_transition_to?, :current_state, :history, :last_transition, :last_transition_to,
            :transition_to!, :transition_to, :in_state?, to: :state_machine
 
+  def self.state_counts(except: [])
+    result = {}
+    EfileSubmissionStateMachine.states.each { |state| result[state] = 0 }
+    ActiveRecord::Base.connection.execute(<<~SQL).each { |row| result[row['to_state']] = row['count'] }
+      SELECT to_state, COUNT(*) FROM "efile_submissions"
+      LEFT OUTER JOIN efile_submission_transitions AS most_recent_efile_submission_transition ON (
+        efile_submissions.id = most_recent_efile_submission_transition.efile_submission_id AND 
+        most_recent_efile_submission_transition.most_recent = TRUE
+      )
+      WHERE most_recent_efile_submission_transition.to_state IS NOT NULL
+      GROUP BY to_state
+    SQL
+    result.except(*except)
+  end
+
   # If a federal tax return is rejected for a dependent SSN/Name Control mismatch,
   # the return can be re-transmitted and accepted by the IRS if the Imperfect Return Election is made.
   # This election can only be made if the original return rejected with reject code SEIC-F1040-501-02 or R0000-504-02.

@@ -52,9 +52,10 @@ module DatadogApi
     self.client.emit_point(self.apply_namespace(label), 1, {:tags => ["env:" + configuration.env], :type => METRIC_TYPES[:count]})
   end
 
-  def self.gauge(label, value)
+  def self.gauge(label, value, tags: [])
     return unless configuration.enabled
 
-    self.client.emit_point(self.apply_namespace(label), value, {:tags => ["env:" + configuration.env], :type => METRIC_TYPES[:gauge]})
+    tags << "env:#{configuration.env}"
+    self.client.emit_point(self.apply_namespace(label), value, {:tags => tags, :type => METRIC_TYPES[:gauge]})
   end
 end
