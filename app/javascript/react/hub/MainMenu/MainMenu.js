@@ -9,13 +9,15 @@ import LogoImg from 'icons/logo-white.svg'
 import MenuItem from './MenuItem'
 
 function MainMenu(props) {
-    const initialMenuState = localStorage.getItem("hub.menu.expanded") == "true"
+    const initialMenuState = typeof localStorage !== 'undefined' ? localStorage.getItem("hub.menu.expanded") == "true" : true;
     const [expanded, toggleMenu] = useState(initialMenuState)
     let { current_user } = props
     let firstName = current_user.name.split(" ")[0]
 
     useEffect(() => {
-        localStorage.setItem("hub.menu.expanded", expanded)
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem("hub.menu.expanded", expanded)
+        }
     }, [expanded])
 
     return (

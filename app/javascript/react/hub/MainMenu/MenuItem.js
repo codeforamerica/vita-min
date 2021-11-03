@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 function MenuItem(props) {
     const activeMenuItem = 'hub.menu.active-menu-item'
-    let isActive = localStorage.getItem(activeMenuItem) == props.link
+    let isActive = typeof localStorage !== 'undefined' ? localStorage.getItem(activeMenuItem) == props.link : false
 
     const [active, setActive] = useState(isActive);
 
     // on mount, ensure there is a value in localStorage for menu item
     useEffect(() => {
+        if (typeof localStorage === 'undefined') {
+            return;
+        }
         let storedLink = localStorage.getItem(activeMenuItem)
         if(window.location.pathname.indexOf(storedLink) == -1) {
             localStorage.setItem(activeMenuItem, props.link)
