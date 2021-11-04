@@ -6,7 +6,7 @@
       </span>
       <div>
         <div class="logo">
-          <img src="<%= image_path("icons/logo-white.svg") %>" alt={""}/>
+          <img src="<%= image_path("icons/logo-white.svg") %>" alt=""/>
           <div class="logo-text show-if-expanded">The Hub</div>
         </div>
         <div>
@@ -41,7 +41,7 @@
           <%= current_user&.name %>
         </span>
           <span class="show-if-not-expanded">
-          <%= current_user&.name&.split(" ") & [0] %>
+          <%= current_user.name.split(" ")[0] %>
         </span>
         </a>
         <a data-method="delete" href="<%= destroy_client_session_path %>">

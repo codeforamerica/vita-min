@@ -47,7 +47,9 @@
     <div style="display: flex; flex-direction: column; min-height: 100vh">
       <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
       <div style="display: flex;">
-        <%= render "hub/components/main_menu" %>
+        <% if current_user %>
+          <%= render "hub/components/main_menu" %>
+        <% end %>
         <main role="main" style="overflow-y: scroll; height: 100vh; flex-grow: 1;" id="maincontent">
           <div>
             <div class="flash-alerts">
