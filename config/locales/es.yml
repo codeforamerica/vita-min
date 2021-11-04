@@ -2435,8 +2435,8 @@ es:
           header: Gracias por registrarte!
           title: Regístrate
         new:
-          header: Manténgase en contacto. Podemos enviarle un email cuando haya más información disponible.
-          sub_header: Lo único que tiene que hacer es proporcionar su nombre y su correo electrónico o número de teléfono y le enviaremos un email o mensaje de texto cuando haya más información disponible.
+          header: Mantente en contacto. Podemos enviarle un mensaje con actualizaciones.
+          sub_header: Todo lo que necesita hacer es proporcionarnos su nombre y una dirección de correo electrónico o un número de teléfono, y le enviaremos un correo electrónico o un mensaje de texto cuando haya actualizaciones.
           submit: Manténganme actualizado
           title: Regístrate
       stimulus_home:
