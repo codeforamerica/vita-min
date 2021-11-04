@@ -12,6 +12,8 @@ import { initBulkAction } from "../lib/bulk_action";
 import { getEfileSecurityInformation } from "../lib/efile_security_information";
 import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
+import { limitTextMessageLength } from "../lib/text_message_length_limiter";
+
 const Listeners =  (function(){
     return {
         init: function () {
@@ -67,6 +69,10 @@ const Listeners =  (function(){
 
                 if (window.TINTypeSelector && window.SSNEmploymentCheckboxSelector) {
                     initTINTypeSelector();
+                }
+
+                if (document.querySelector('textarea.text-message-body')) {
+                    limitTextMessageLength();
                 }
                 initMetricsTableSortAndFilter();
                 // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally
