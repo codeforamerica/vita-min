@@ -1618,8 +1618,10 @@ en:
             subtitle: You will not receive Child Tax Credit, because you have no eligible dependents.
             title: You have removed all of your CTC eligible dependents.
         edit_info:
+          add_bank_information: Add bank information
           help_text: Please ensure that all of your information is correct prior to submitting your tax return. Once you resubmit, your tax return will be transmitted to the IRS and you will not be able to make any additional changes.
           help_text_cant_submit: Please wait to submit any additional changes to your submission. We are waiting on a response to your previous submission from the IRS.
+          no_ba_error_html: "<strong>Error:</strong> You selected Direct Deposit, but you did not add your bank information. Please update your bank information by selecting Add bank information below."
           no_bank_account: No bank information entered.
           resubmit: Resubmit my tax return
           title: Correct your submitted information

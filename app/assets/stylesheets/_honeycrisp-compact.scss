@@ -203,6 +203,10 @@
     margin-left: $s15;
   }
 
+  .button--no-margin {
+    margin: 0;
+  }
+
   .button--cta {
     background-color: black;
     border: 1px solid black;
