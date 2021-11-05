@@ -119,8 +119,8 @@ module ClientSortable
   def normalize_phone_number_if_present(full_query)
     return if full_query.nil?
 
-    # Regex tested at https://regex101.com/r/4C0dgE/3
-    phone_match = full_query.match(/ ?(?<phone>\(?(\d[ \.\(\)-]{0,2}){10,11})/)
+    # Regex tested at https://regex101.com/r/2K13UX/1/
+    phone_match = full_query.match(/ ?(?<phone>\+?\(?(\d[ \.\(\)-]{0,2}){10,11})/)
     if phone_match.present?
       phone_numberish_substring = phone_match["phone"]
       full_query = full_query.sub(phone_numberish_substring, PhoneParser.normalize(phone_numberish_substring))

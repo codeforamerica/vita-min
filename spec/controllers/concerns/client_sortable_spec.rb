@@ -282,6 +282,16 @@ RSpec.describe ClientSortable, type: :controller do
           expect(Intake).to have_received(:search).with "colleen +14155551212"
         end
       end
+
+      context "with a phone number in e.164 international format" do
+        let(:params) do
+          { search: "colleen +14155551212" }
+        end
+
+        it "normalizes the number before passing it to Intake#search" do
+          expect(Intake).to have_received(:search).with "colleen +14155551212"
+        end
+      end
     end
   end
 
