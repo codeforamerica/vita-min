@@ -153,14 +153,6 @@ class Dependent < ApplicationRecord
     end
   end
 
-  def age_at_end_of_tax_year
-    age_at_end_of_year(intake.tax_year)
-  end
-
-  def age_at_end_of_year(tax_year)
-    tax_year - birth_date.year
-  end
-
   # Transforms relationship to the format expected by the IRS submission
   # (upcased with spaces instead of underscores)
   def irs_relationship_enum
@@ -168,15 +160,15 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit_2020?
-    age_at_end_of_year(2020) < 17 && qualifying_child_2020? && tin_type_ssn?
+    yr_2020_age < 17 && qualifying_child_2020? && tin_type_ssn?
   end
 
   def eligible_for_eip1?
-    age_at_end_of_year(2020) < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
+    yr_2020_age < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def eligible_for_eip2?
-    age_at_end_of_year(2020) < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
+    yr_2020_age < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def eligible_for_eip3?
@@ -201,7 +193,7 @@ class Dependent < ApplicationRecord
   end
 
   def meets_qc_age_condition_2020?
-    (full_time_student_yes? && age_at_end_of_year(2020) < 24) || permanently_totally_disabled_yes? || age_at_end_of_year(2020) < 19
+    (full_time_student_yes? && yr_2020_age < 24) || permanently_totally_disabled_yes? || yr_2020_age < 19
   end
 
   def meets_qc_misc_conditions?
@@ -237,8 +229,8 @@ class Dependent < ApplicationRecord
 
   def mixpanel_data
     {
-      dependent_age_at_end_of_tax_year: age_at_end_of_tax_year.to_s,
-      dependent_under_6: age_at_end_of_tax_year < 6 ? "yes" : "no",
+      dependent_age_at_end_of_tax_year: yr_2020_age.to_s,
+      dependent_under_6: yr_2020_age < 6 ? "yes" : "no",
       dependent_months_in_home: months_in_home.to_s,
       dependent_was_student: was_student,
       dependent_on_visa: on_visa,
@@ -250,8 +242,8 @@ class Dependent < ApplicationRecord
 
   # Methods on Dependent::Rules can be accessed (and mocked-out) as yr_2020_* and yr_2021_*. In the future, we might
   # add a default year with no prefix.
-  delegate :born_in_last_6_months?, to: :rules_2020, prefix: :yr_2020
-  delegate :born_in_last_6_months?, to: :rules_2021, prefix: :yr_2021
+  delegate :age, :born_in_last_6_months?, to: :rules_2020, prefix: :yr_2020
+  delegate :age, :born_in_last_6_months?, to: :rules_2021, prefix: :yr_2021
 
   private
 

@@ -381,10 +381,6 @@ class Intake < ApplicationRecord
     States.name_for_key(state_of_residence)
   end
 
-  def tax_year
-    2019
-  end
-
   def had_a_job?
     job_count.present? && job_count > 0
   end
@@ -459,6 +455,10 @@ class Intake < ApplicationRecord
     sms_notification_opt_in_yes? || email_notification_opt_in_yes?
   end
 
+  def tax_year
+    2019 # TODO: This is wrong. Migrate to a Rails setting or similar
+  end
+
   def age_end_of_tax_year
     return unless primary_birth_date.present?
 
@@ -476,7 +476,7 @@ class Intake < ApplicationRecord
   end
 
   def had_dependents_under?(yrs)
-    dependents.any? { |dependent| dependent.age_at_end_of_tax_year < yrs }
+    dependents.any? { |dependent| dependent.yr_2020_age < yrs }
   end
 
   def needs_help_with_backtaxes?

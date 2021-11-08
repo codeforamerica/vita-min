@@ -132,28 +132,6 @@ describe Dependent do
     end
   end
 
-  describe "#age_at_end_of_year" do
-    let(:dependent) { build :dependent, birth_date: dob }
-    let(:intake_double) { instance_double("Intake", tax_year: tax_year) }
-    before { allow(dependent).to receive(:intake).and_return intake_double }
-
-    context "a kid born the same year as the tax year" do
-      let(:dob) { Date.new(2019, 12, 31) }
-      let(:tax_year) { 2019 }
-      it "returns 0" do
-        expect(dependent.age_at_end_of_year(tax_year)).to eq 0
-      end
-    end
-
-    context "a kid born in 2015 at end of 2019" do
-      let(:dob) { Date.new(2015, 12, 25) }
-      let(:tax_year) { 2019 }
-      it "returns 4" do
-        expect(dependent.age_at_end_of_year(tax_year)).to eq 4
-      end
-    end
-  end
-
   describe "#qualifying_child_2020?" do
     context "with a qualifying child" do
       let(:dependent) do
@@ -407,7 +385,7 @@ describe Dependent do
 
     it "returns the expected hash" do
       expect(dependent.mixpanel_data).to eq({
-        dependent_age_at_end_of_tax_year: "4",
+        dependent_age_at_end_of_tax_year: "5",
         dependent_under_6: "yes",
         dependent_months_in_home: "12",
         dependent_was_student: "no",
