@@ -208,13 +208,9 @@ class Dependent < ApplicationRecord
     provided_over_half_own_support_no? && filed_joint_return_no?
   end
 
-  def born_in_last_6_months_of_2020?
-    birth_date <= Date.parse('2020-12-31') && birth_date >= Date.parse('2020-06-30')
-  end
-
   def meets_qc_residence_condition_2020?
     lived_with_more_than_six_months_yes? ||
-      born_in_last_6_months_of_2020? ||
+      yr_2020_born_in_last_6_months? ||
       (lived_with_more_than_six_months_no? &&
         (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
   end
@@ -252,7 +248,24 @@ class Dependent < ApplicationRecord
     }
   end
 
+  # Methods on Dependent::Rules can be accessed (and mocked-out) as yr_2020_* and yr_2021_*. In the future, we might
+  # add a default year with no prefix.
+  delegate :born_in_last_6_months?, to: :rules_2020, prefix: :yr_2020
+  delegate :born_in_last_6_months?, to: :rules_2021, prefix: :yr_2021
+
   private
+
+  def rules_default
+    Dependent::Rules.new(birth_date, intake.most_recent_filing_year)
+  end
+
+  def rules_2020
+    Dependent::Rules.new(birth_date, 2020)
+  end
+
+  def rules_2021
+    Dependent::Rules.new(birth_date, 2021)
+  end
 
   def remove_error_associations
     EfileSubmissionTransitionError.where(dependent_id: self.id).update_all(dependent_id: nil)
