@@ -14,7 +14,7 @@ namespace :efile do
     puts("#{user.email} retrying up to #{limit} failed efile submissions")
 
     puts("Printing 1 dot per EfileSubmission:")
-    EfileSubmission.in_state(:failed).limit(limit) do |submission|
+    EfileSubmission.in_state(:failed).limit(limit).find_each do |submission|
       submission.transition_to!(:resubmitted, { initiated_by_id: user.id })
       print(".")
     end
