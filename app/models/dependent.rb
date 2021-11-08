@@ -252,6 +252,8 @@ class Dependent < ApplicationRecord
     }
   end
 
+  private
+
   def remove_error_associations
     EfileSubmissionTransitionError.where(dependent_id: self.id).update_all(dependent_id: nil)
   end
