@@ -3,8 +3,9 @@ export function limitTextMessageLength() {
     const component = document.querySelector('.text-message-length-limiter');
     const textMessageFormButton = textMessageInput.form.querySelector("input[type='submit']");
 
+    setLengthProperties(textMessageInput.value.length, component, textMessageFormButton);
     textMessageInput.addEventListener('input', function() {
-        setLengthProperties(this.value.length, component, textMessageFormButton)
+        setLengthProperties(textMessageInput.value.length, component, textMessageFormButton)
     });
 }
 
