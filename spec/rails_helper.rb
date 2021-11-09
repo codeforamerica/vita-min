@@ -90,9 +90,9 @@ RSpec.configure do |config|
 
   config.before(:all) do
     # Create client support org
-    VitaPartner.find_or_create_by!(name: "GYR National Organization", allows_greeters: true)
-    ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", allows_greeters: false)
-    VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", parent_organization: ctc_org)
+    Organization.find_or_create_by!(name: "GYR National Organization", allows_greeters: true)
+    ctc_org = Organization.find_or_create_by!(name: "GetCTC.org", allows_greeters: false)
+    Site.find_or_create_by!(name: "GetCTC.org (Site)", parent_organization: ctc_org)
   end
 
   config.before(:each) do

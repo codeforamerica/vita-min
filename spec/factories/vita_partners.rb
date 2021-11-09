@@ -31,18 +31,18 @@ FactoryBot.define do
   sequence :name do |n|
     "Partner #{n}"
   end
+
   factory :vita_partner do
     name { generate :name }
+  end
 
-    factory :organization do
-      sequence(:name) { |n| "Organization #{n}" }
-      capacity_limit { 100 }
-      parent_organization { nil }
-    end
+  factory :organization, class: 'Organization' do
+    sequence(:name) { |n| "Organization #{n}" }
+    capacity_limit { 100 }
+  end
 
-    factory :site do
-      sequence(:name) { |n| "Site #{n}" }
-      parent_organization { create :organization }
-    end
+  factory :site, class: 'Site' do
+    sequence(:name) { |n| "Site #{n}" }
+    parent_organization { create :organization }
   end
 end

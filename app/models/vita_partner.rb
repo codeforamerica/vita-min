@@ -34,20 +34,32 @@ class VitaPartner < ApplicationRecord
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode"
   has_many :serviced_states, class_name: "VitaPartnerState"
 
-  validate :one_level_of_depth
-  validates :name, uniqueness: { scope: [:coalition, :parent_organization] }
-
-  scope :allows_greeters, -> {
-    greetable_organizations = Organization.where(allows_greeters: true)
-    greetable_sites = Site.where(parent_organization: greetable_organizations)
-    greetable_organizations.or(greetable_sites)
+  scope :allows_greeters, lambda {
+    greetable_organizations = Organization.default_scoped.where(allows_greeters: true)
+    greetable_sites = Site.default_scoped.where(parent_organization: greetable_organizations)
+    greetable_organizations + greetable_sites
   }
 
-  accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
+  accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: ->(attributes) { attributes['code'].blank? }
 
-  def one_level_of_depth
-    if parent_organization&.parent_organization.present?
-      errors.add(:parent_organization, "Only one level of sub-organization depth allowed.")
-    end
+  def self.client_support_org
+    # When a person messages us, but their contact info does not match any Client, link them to this org.
+    VitaPartner.find_by!(name: "GYR National Organization")
+  end
+
+  def self.ctc_org
+    VitaPartner.find_by!(name: "GetCTC.org")
+  end
+
+  def self.ctc_site
+    VitaPartner.find_by!(name: "GetCTC.org (Site)")
+  end
+
+  def site?
+    type == Site::TYPE
+  end
+
+  def organization?
+    type == Organization::TYPE
   end
 end

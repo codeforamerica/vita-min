@@ -1,6 +1,9 @@
 class Site < VitaPartner
+  TYPE = "Site"
+
   belongs_to :parent_organization, class_name: "Organization"
 
+  validates :name, uniqueness: { scope: [:parent_organization] }
   validate :no_coalitions
   validate :no_capacity
   validate :no_allows_greeters
