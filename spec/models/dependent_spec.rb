@@ -195,40 +195,6 @@ describe Dependent do
     end
   end
 
-  describe "#meets_qc_age_condition_2020?" do
-    context "with a dependent that is under 19" do
-      let(:dependent) { build :dependent, birth_date: Date.new(2015, 12, 25) }
-
-      it "returns true" do
-        expect(dependent.meets_qc_age_condition_2020?).to eq true
-      end
-    end
-
-    context "with a dependent that is between 19 and 24 and a full time student" do
-      let(:dependent) { build :dependent, birth_date: Date.new(1999, 12, 25), full_time_student: "yes" }
-
-      it "returns true" do
-        expect(dependent.meets_qc_age_condition_2020?).to eq true
-      end
-    end
-
-    context "with a dependent that is over 24 but disabled" do
-      let(:dependent) { build :dependent, birth_date: Date.new(1980, 12, 25), permanently_totally_disabled: "yes" }
-
-      it "returns true" do
-        expect(dependent.meets_qc_age_condition_2020?).to eq true
-      end
-    end
-
-    context "with a dependent that is over 19 and not a student, not disabled" do
-      let(:dependent) { build :dependent, birth_date: Date.new(1997, 12, 25), full_time_student: "no", permanently_totally_disabled: "no" }
-
-      it "returns false" do
-        expect(dependent.meets_qc_age_condition_2020?).to eq false
-      end
-    end
-  end
-
   describe "#meets_qc_misc_conditions?" do
     context "with a dependent that paid for more than half their expenses" do
       let(:dependent) { build :dependent, provided_over_half_own_support: "yes" }

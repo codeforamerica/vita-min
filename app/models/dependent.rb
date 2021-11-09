@@ -160,15 +160,11 @@ class Dependent < ApplicationRecord
 
   def qualifying_child_2020?
     qualifying_child_relationship? &&
-      meets_qc_age_condition_2020? &&
+      yr_2020_meets_qc_age_condition? &&
       meets_qc_misc_conditions? &&
       meets_qc_residence_condition_2020? &&
       meets_qc_claimant_condition? && ssn.present? &&
       yr_2020_age >= 0
-  end
-
-  def meets_qc_age_condition_2020?
-    (full_time_student_yes? && yr_2020_age < 24) || permanently_totally_disabled_yes? || yr_2020_age < 19
   end
 
   def meets_qc_residence_condition_2020?
@@ -184,7 +180,8 @@ class Dependent < ApplicationRecord
   end
 
   def disqualified_child_qualified_relative?
-    qualifying_child_relationship? && !meets_qc_age_condition_2020?
+    # TODO: Move this method next.
+    qualifying_child_relationship? && !yr_2020_meets_qc_age_condition?
   end
 
   def qualifying_relative_2020?
@@ -213,21 +210,21 @@ class Dependent < ApplicationRecord
 
   # Methods on Dependent::Rules can be accessed (and mocked-out) as yr_2020_* and yr_2021_*. In the future, we might
   # add a default year with no prefix.
-  delegate :age, :born_in_last_6_months?, to: :rules_2020, prefix: :yr_2020
-  delegate :age, :born_in_last_6_months?, to: :rules_2021, prefix: :yr_2021
+  delegate :age, :born_in_last_6_months?, :meets_qc_age_condition?, to: :rules_2020, prefix: :yr_2020
+  delegate :age, :born_in_last_6_months?, :meets_qc_age_condition?, to: :rules_2021, prefix: :yr_2021
 
   private
 
   def rules_default
-    Dependent::Rules.new(birth_date, intake.most_recent_filing_year)
+    Dependent::Rules.new(birth_date, intake.most_recent_filing_year, full_time_student_yes?, permanently_totally_disabled_yes?)
   end
 
   def rules_2020
-    Dependent::Rules.new(birth_date, 2020)
+    Dependent::Rules.new(birth_date, 2020, full_time_student_yes?, permanently_totally_disabled_yes?)
   end
 
   def rules_2021
-    Dependent::Rules.new(birth_date, 2021)
+    Dependent::Rules.new(birth_date, 2021, full_time_student_yes?, permanently_totally_disabled_yes?)
   end
 
   def remove_error_associations
