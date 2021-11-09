@@ -83,6 +83,8 @@ class Dependent < ApplicationRecord
   validates_presence_of :last_name
 
   validates_presence_of :birth_date
+  # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
+  delegate :month, :day, :year, to: :birth_date, prefix: :birth_date, allow_nil: true
 
   validates_presence_of :relationship, on: :ctc_valet_form
 
@@ -132,18 +134,6 @@ class Dependent < ApplicationRecord
 
   def last_four_ssn
     ssn&.last(4)
-  end
-
-  def birth_date_year
-    birth_date&.year
-  end
-
-  def birth_date_month
-    birth_date&.month
-  end
-
-  def birth_date_day
-    birth_date&.day
   end
 
   def error_summary
