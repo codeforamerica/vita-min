@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_03_233101) do
+ActiveRecord::Schema.define(version: 2021_11_09_200705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -1065,6 +1065,7 @@ ActiveRecord::Schema.define(version: 2021_11_03_233101) do
     t.bigint "parent_organization_id"
     t.boolean "processes_ctc", default: false
     t.string "timezone", default: "America/New_York"
+    t.string "type"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
     t.index ["parent_organization_id", "name", "coalition_id"], name: "index_vita_partners_on_parent_name_and_coalition", unique: true
