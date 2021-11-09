@@ -33,7 +33,7 @@ RSpec.describe FlowsController do
         expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
         expect(controller.current_intake.dependents.count).to eq(2)
         expect(controller.current_intake.dependents.select { |d| d.eligible_for_child_tax_credit_2020? }.length).to eq(1)
-        expect(controller.current_intake.dependents.select { |d| !d.eligible_for_child_tax_credit_2020? && d.qualifying_relative_2020? }.length).to eq(1)
+        expect(controller.current_intake.dependents.select { |d| !d.eligible_for_child_tax_credit_2020? && d.yr_2020_qualifying_relative? }.length).to eq(1)
       end
     end
   end

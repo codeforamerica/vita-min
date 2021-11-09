@@ -278,56 +278,6 @@ describe Dependent do
     end
   end
 
-  describe "#qualifying_relative_2020?" do
-    let(:dependent) do
-      build :dependent,
-            relationship: relationship,
-            birth_date: birthday,
-            filed_joint_return: filed_jointly,
-            ssn: "123-12-1234",
-            meets_misc_qualifying_relative_requirements: meets_misc
-    end
-    let(:relationship) { "nephew" }
-    let(:birthday) { Date.new(2000, 12, 25) }
-    let(:filed_jointly) { "no" }
-
-    context "with a dependent who meets misc requirements" do
-      let(:meets_misc) { "yes" }
-
-      context "with a dependent who has a QC relationship but doesn't meet age conditions" do
-        let(:birthday) { Date.new(1960, 12, 25) }
-
-        it "returns true" do
-          expect(dependent.qualifying_relative_2020?).to eq true
-        end
-      end
-
-      context "with a dependent who has a QC relationship and does meet age conditions but filed jointly with their spouse" do
-        let(:filed_jointly) { "yes" }
-
-        it "returns true" do
-          expect(dependent.qualifying_relative_2020?).to eq true
-        end
-      end
-
-      context "with a dependent who has a QR relationship" do
-        let(:relationship) { "parent" }
-
-        it "returns true" do
-          expect(dependent.qualifying_relative_2020?).to eq true
-        end
-      end
-    end
-
-    context "with a dependent who does not meet misc requirements" do
-      let(:meets_misc) { "no" }
-
-      it "returns false" do
-        expect(dependent.qualifying_relative_2020?).to eq false
-      end
-    end
-  end
-
   describe "#qualifying?" do
     context "with a qualifying child" do
       let(:dependent) { create :qualifying_child }

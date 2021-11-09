@@ -5,7 +5,10 @@ describe Dependent::Rules do
   let(:full_time_student_yes) { false }
   let(:permanently_totally_disabled_yes) { false }
   let(:qualifying_child_relationship) { false }
-  let(:subject) { described_class.new(birth_date, tax_year, full_time_student_yes, permanently_totally_disabled_yes, qualifying_child_relationship) }
+  let(:qualifying_relative_relationship) { false }
+  let(:ssn_present) { false }
+  let(:meets_misc_qualifying_relative_requirements) { false }
+  let(:subject) { described_class.new(birth_date, tax_year, full_time_student_yes, permanently_totally_disabled_yes, ssn_present, qualifying_child_relationship, qualifying_relative_relationship, meets_misc_qualifying_relative_requirements) }
 
   context ".born_in_last_6_months?" do
     context "when born on Jan 1" do
@@ -117,6 +120,46 @@ describe Dependent::Rules do
         end
       end
     end
+  end
 
+  describe ".qualifying_relative?" do
+    context "with an old dependent who meets misc requirements and has a ssn/itin/atin stored" do
+      let(:meets_misc_qualifying_relative_requirements) { true }
+      let(:ssn_present) { true }
+
+      context "with a dependent who has a qualified child relationship but doesn't meet age conditions" do
+        let(:birth_date) { Date.new(tax_year - 70, 12, 25) }
+        let(:qualifying_child_relationship) { true }
+
+        it "returns true" do
+          expect(subject.qualifying_relative?).to eq true
+        end
+
+        context "when meet misc requirements are not met" do
+          let(:meets_misc_qualifying_relative_requirements) { false }
+
+          it "returns false" do
+            expect(subject.qualifying_relative?).to eq false
+          end
+        end
+      end
+
+      context "with a dependent who has a qualified relative relationship" do
+        let(:birth_date) { Date.new(tax_year - 30, 12, 25) }
+        let(:qualifying_relative_relationship) { true }
+
+        it "returns true" do
+          expect(subject.qualifying_relative?).to eq true
+        end
+
+        context "when meet misc requirements are not met" do
+          let(:meets_misc_qualifying_relative_requirements) { false }
+
+          it "returns false" do
+            expect(subject.qualifying_relative?).to eq false
+          end
+        end
+      end
+    end
   end
 end
