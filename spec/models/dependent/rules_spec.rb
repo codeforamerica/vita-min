@@ -4,7 +4,8 @@ describe Dependent::Rules do
   let(:tax_year) { 2020 }
   let(:full_time_student_yes) { false }
   let(:permanently_totally_disabled_yes) { false }
-  let(:subject) { described_class.new(birth_date, tax_year, full_time_student_yes, permanently_totally_disabled_yes) }
+  let(:qualifying_child_relationship) { false }
+  let(:subject) { described_class.new(birth_date, tax_year, full_time_student_yes, permanently_totally_disabled_yes, qualifying_child_relationship) }
 
   context ".born_in_last_6_months?" do
     context "when born on Jan 1" do
@@ -84,5 +85,38 @@ describe Dependent::Rules do
         expect(subject.meets_qc_age_condition?).to eq false
       end
     end
+  end
+
+  describe ".disqualified_child_qualified_relative?" do
+    context "with a relationship that's normally a qualifying child" do
+      let(:qualifying_child_relationship) { true }
+      context "when young" do
+        let(:birth_date) { Date.new(tax_year - 2, 12, 25) }
+        it "is not a disqualified-child child relative" do
+          expect(subject.disqualified_child_qualified_relative?).to eq(false)
+        end
+      end
+      context "when old" do
+        let(:birth_date) { Date.new(tax_year - 40, 12, 25) }
+        it "is a disqualified-child child relative" do
+          expect(subject.disqualified_child_qualified_relative?).to eq(true)
+        end
+      end
+    end
+    context "with a relationship other than qualifying child" do
+      context "when young" do
+        let(:birth_date) { Date.new(tax_year - 2, 12, 25) }
+        it "is not a disqualified-child child relative" do
+          expect(subject.disqualified_child_qualified_relative?).to eq(false)
+        end
+      end
+      context "when old" do
+        let(:birth_date) { Date.new(tax_year - 40, 12, 25) }
+        it "is not a disqualified-child child relative" do
+          expect(subject.disqualified_child_qualified_relative?).to eq(false)
+        end
+      end
+    end
+
   end
 end

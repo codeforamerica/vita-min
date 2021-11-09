@@ -179,14 +179,9 @@ class Dependent < ApplicationRecord
       (cant_be_claimed_by_other_no? && claim_anyway_yes?)
   end
 
-  def disqualified_child_qualified_relative?
-    # TODO: Move this method next.
-    qualifying_child_relationship? && !yr_2020_meets_qc_age_condition?
-  end
-
   def qualifying_relative_2020?
     ssn.present? &&
-    (disqualified_child_qualified_relative? || qualifying_relative_relationship?) &&
+    (yr_2020_disqualified_child_qualified_relative? || qualifying_relative_relationship?) &&
     # everyone needs to meet these "misc" requirements
     meets_misc_qualifying_relative_requirements_yes?
   end
@@ -210,21 +205,21 @@ class Dependent < ApplicationRecord
 
   # Methods on Dependent::Rules can be accessed (and mocked-out) as yr_2020_* and yr_2021_*. In the future, we might
   # add a default year with no prefix.
-  delegate :age, :born_in_last_6_months?, :meets_qc_age_condition?, to: :rules_2020, prefix: :yr_2020
-  delegate :age, :born_in_last_6_months?, :meets_qc_age_condition?, to: :rules_2021, prefix: :yr_2021
+  delegate :age, :born_in_last_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, to: :rules_2020, prefix: :yr_2020
+  delegate :age, :born_in_last_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, to: :rules_2021, prefix: :yr_2021
 
   private
 
   def rules_default
-    Dependent::Rules.new(birth_date, intake.most_recent_filing_year, full_time_student_yes?, permanently_totally_disabled_yes?)
+    Dependent::Rules.new(birth_date, intake.most_recent_filing_year, full_time_student_yes?, permanently_totally_disabled_yes?, qualifying_child_relationship?)
   end
 
   def rules_2020
-    Dependent::Rules.new(birth_date, 2020, full_time_student_yes?, permanently_totally_disabled_yes?)
+    Dependent::Rules.new(birth_date, 2020, full_time_student_yes?, permanently_totally_disabled_yes?, qualifying_child_relationship?)
   end
 
   def rules_2021
-    Dependent::Rules.new(birth_date, 2021, full_time_student_yes?, permanently_totally_disabled_yes?)
+    Dependent::Rules.new(birth_date, 2021, full_time_student_yes?, permanently_totally_disabled_yes?, qualifying_child_relationship?)
   end
 
   def remove_error_associations
