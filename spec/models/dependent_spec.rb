@@ -172,6 +172,27 @@ describe Dependent do
         expect(dependent.qualifying_child_2020?).to eq false
       end
     end
+
+    context "with a child that does not qualify due to not being born yet in 2020" do
+      let(:dependent) do
+        build :dependent,
+            relationship: "NIECE",
+            birth_date: Date.new(2021, 12, 25),
+            full_time_student: "no",
+            permanently_totally_disabled: "no",
+            provided_over_half_own_support: "no",
+            filed_joint_return: "no",
+            lived_with_more_than_six_months: "yes",
+            cant_be_claimed_by_other: "no",
+            claim_anyway: "yes",
+            ssn: "123-12-1234"
+        end
+
+
+      it "returns false" do
+        expect(dependent.qualifying_child_2020?).to eq false
+      end
+    end
   end
 
   describe "#meets_qc_age_condition_2020?" do

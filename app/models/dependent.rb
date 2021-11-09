@@ -103,28 +103,9 @@ class Dependent < ApplicationRecord
     self.ssn = self.ssn.remove(/\D/) if ssn_changed? && self.ssn
   end
 
-  QUALIFYING_CHILD_RELATIONSHIPS = [
-    "daughter",
-    "son",
-    "stepchild",
-    "stepbrother",
-    "stepsister",
-    "foster_child",
-    "grandchild",
-    "niece",
-    "nephew",
-    "half_brother",
-    "half_sister",
-    "brother",
-    "sister"
-  ]
+  QUALIFYING_CHILD_RELATIONSHIPS = %w[daughter son stepchild stepbrother stepsister foster_child grandchild niece nephew half_brother half_sister brother sister]
 
-  QUALIFYING_RELATIVE_RELATIONSHIPS = [
-    "parent",
-    "grandparent",
-    "aunt",
-    "uncle"
-  ]
+  QUALIFYING_RELATIVE_RELATIONSHIPS = %w[parent grandparent aunt uncle]
 
   def full_name
     parts = [first_name, middle_initial, last_name]
@@ -173,21 +154,21 @@ class Dependent < ApplicationRecord
     QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship.downcase
   end
 
+  def meets_qc_misc_conditions?
+    provided_over_half_own_support_no? && filed_joint_return_no?
+  end
+
   def qualifying_child_2020?
     qualifying_child_relationship? &&
       meets_qc_age_condition_2020? &&
       meets_qc_misc_conditions? &&
       meets_qc_residence_condition_2020? &&
       meets_qc_claimant_condition? && ssn.present? &&
-      birth_date.year != 2021
+      yr_2020_age >= 0
   end
 
   def meets_qc_age_condition_2020?
     (full_time_student_yes? && yr_2020_age < 24) || permanently_totally_disabled_yes? || yr_2020_age < 19
-  end
-
-  def meets_qc_misc_conditions?
-    provided_over_half_own_support_no? && filed_joint_return_no?
   end
 
   def meets_qc_residence_condition_2020?
