@@ -10,7 +10,7 @@ export function limitTextMessageLength() {
 }
 
 function setLengthProperties(length, lengthSelector, textMessageFormButton) {
-    lengthSelector.innerHTML = `${length} / 1600`;
+    lengthSelector.innerHTML = `${length} / 1600 characters used.`;
     if (length >= 1600) {
         lengthSelector.classList.add('text--error');
         textMessageFormButton.disabled = true;
