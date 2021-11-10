@@ -172,10 +172,6 @@ class Dependent < ApplicationRecord
         (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
   end
 
-  def qualifying_2020?
-    yr_2020_qualifying_child? || yr_2020_qualifying_relative?
-  end
-
   def mixpanel_data
     {
       dependent_age_at_end_of_tax_year: yr_2020_age.to_s,

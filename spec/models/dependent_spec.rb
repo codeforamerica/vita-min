@@ -216,32 +216,6 @@ describe Dependent do
     end
   end
 
-  describe "#qualifying?" do
-    context "with a qualifying child" do
-      let(:dependent) { create :qualifying_child }
-
-      it "returns true" do
-        expect(dependent.qualifying_2020?).to eq true
-      end
-    end
-
-    context "with a qualifying relative" do
-      let(:dependent) { create :qualifying_relative }
-
-      it "returns true" do
-        expect(dependent.qualifying_2020?).to eq true
-      end
-    end
-
-    context "with a dependent that does not qualify" do
-      let(:dependent) { create :nonqualifying_dependent }
-
-      it "returns false" do
-        expect(dependent.qualifying_2020?).to eq false
-      end
-    end
-  end
-
   describe "#mixpanel_data" do
     let(:dependent) do
       build(
