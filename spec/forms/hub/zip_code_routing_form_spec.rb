@@ -3,7 +3,7 @@ require "rails_helper"
 describe Hub::ZipCodeRoutingForm do
   subject { described_class.new(vita_partner, params) }
 
-  let(:vita_partner) { create :vita_partner }
+  let(:vita_partner) { create :site }
   let(:zip_code) { 94606 }
   let(:params) do
     {
@@ -24,7 +24,7 @@ describe Hub::ZipCodeRoutingForm do
       end
 
       context "when it belongs to a different vita partner" do
-        let(:other_vita_partner) { create :vita_partner, name: "Oregano Org" }
+        let(:other_vita_partner) { create :organization, name: "Oregano Org" }
         before do
           create :vita_partner_zip_code, vita_partner: other_vita_partner, zip_code: zip_code
         end
