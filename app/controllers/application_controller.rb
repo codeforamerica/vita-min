@@ -1,11 +1,13 @@
 class ApplicationController < ActionController::Base
+  CTC_CLOSING_TIME = Time.find_zone('America/Los_Angeles').parse('2021-11-15 11:59:59')
+
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?, :wrapping_layout
+  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?, :open_for_ctc_intake?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -230,7 +232,20 @@ class ApplicationController < ActionController::Base
     !Rails.configuration.offseason
   end
 
+  def open_for_ctc_intake?
+    app_time <= CTC_CLOSING_TIME
+  end
+
   private
+
+  def app_time
+    if Rails.env.production?
+      Time.current
+    else
+      fake_time = DateTime.parse(params[:fake_time]) rescue nil if params[:fake_time].present?
+      fake_time || Time.current
+    end
+  end
 
   def available_locale(locale)
     locale if I18n.available_locales.map(&:to_sym).include?(locale&.to_sym)
