@@ -160,8 +160,7 @@ class ApplicationController < ActionController::Base
       data: invalid_field_flags.merge(additional_data),
       subject: current_intake,
       request: request,
-      source: self,
-      synchronous: true # Run synchronously to avoid having to serialize a ActionDispatch::Http::UploadedFile
+      source: self
     )
   end
 
