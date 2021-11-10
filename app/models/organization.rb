@@ -31,7 +31,7 @@ class Organization < VitaPartner
   TYPE = "Organization"
 
   belongs_to :coalition, optional: true
-  has_one :organization_capacity
+  has_one :organization_capacity, foreign_key: "vita_partner_id"
   has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
 
   validates :capacity_limit, gyr_numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
