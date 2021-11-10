@@ -2158,6 +2158,7 @@ en:
           irs: IRS-approved official E-file provider.
           white_house_html: Made in collaboration with the <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">White House and U.S. Department of Treasury</a>.
         closing_date: GetCTC will close on November 15.
+        closing_date_not_open: GetCTC is currently closed for the season.
         closing_warning: File today to claim your advance Child Tax Credit and missed stimulus payments! If you miss this deadline, you will need to claim your full Child Tax Credit when you file taxes in early 2022.
         common_questions:
           are_daca_recipients_eligible:
@@ -2286,6 +2287,7 @@ en:
         sign_up_for_updates: Sign up for updates
         subheader:
           claim: Claim your Child Tax Credit and missing stimulus payments, even if you don’t have your tax documents.
+          claim_next_year_html: "<strong>Missed out on the CTC payments this year?</strong> Don't worry—you can still claim your complete CTC when you file taxes in early 2022."
           launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive an email as soon as the simplified filing portal is ready."
         title: Get Your Child Tax Credit
         what_is:

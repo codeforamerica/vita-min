@@ -5,7 +5,15 @@ module Ctc
 
       layout "yes_no_question"
 
+      def edit
+        return redirect_to root_path unless open_for_ctc_intake?
+
+        super
+      end
+
       def update
+        return redirect_to root_path unless open_for_ctc_intake?
+
         current_capacity = CtcIntakeCapacity.last&.capacity
         if !current_capacity.nil? && EfileSubmission.where("created_at > ?", Date.today.beginning_of_day).count >= current_capacity
           return redirect_to questions_at_capacity_path
