@@ -1,9 +1,9 @@
 require "rails_helper"
 
 feature "Intake Routing Spec", :flow_explorer_screenshot do
-  let!(:expected_source_param_vita_partner) { create :vita_partner, name: "Cobra Academy" }
-  let!(:expected_zip_code_vita_partner) { create :vita_partner, name: "Diagon Alley" }
-  let!(:expected_state_vita_partner) { create :vita_partner, name: "Hogwarts", capacity_limit: 10 }
+  let!(:expected_source_param_vita_partner) { create :organization, name: "Cobra Academy" }
+  let!(:expected_zip_code_vita_partner) { create :organization, name: "Diagon Alley" }
+  let!(:expected_state_vita_partner) { create :organization, name: "Hogwarts", capacity_limit: 10 }
   let!(:source_parameter) { create :source_parameter, code: "cobra", vita_partner: expected_source_param_vita_partner }
   let!(:zip_code) { "94606" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: zip_code, vita_partner: expected_zip_code_vita_partner }
@@ -112,7 +112,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot do
   end
 
   context "vita partner is at capacity" do
-    let!(:default_vita_partner) { create :vita_partner, name: "Default Organization", national_overflow_location: true }
+    let!(:default_vita_partner) { create :organization, name: "Default Organization", national_overflow_location: true }
 
     before do
       expected_state_vita_partner.update(capacity_limit: 0)

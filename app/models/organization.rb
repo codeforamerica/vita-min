@@ -33,6 +33,8 @@ class Organization < VitaPartner
   belongs_to :coalition, optional: true
   has_one :organization_capacity, foreign_key: "vita_partner_id"
   has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
+  has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode"
+  has_many :serviced_states, class_name: "VitaPartnerState"
 
   validates :capacity_limit, gyr_numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   validates :name, uniqueness: { scope: [:coalition] }

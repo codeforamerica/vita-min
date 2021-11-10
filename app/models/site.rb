@@ -2,6 +2,8 @@ class Site < VitaPartner
   TYPE = "Site"
 
   belongs_to :parent_organization, class_name: "Organization"
+  has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode"
+  has_many :serviced_states, class_name: "VitaPartnerState"
 
   validates :name, uniqueness: { scope: [:parent_organization] }
   validate :no_coalitions

@@ -19,6 +19,8 @@
 #
 class VitaPartnerZipCode < ApplicationRecord
   belongs_to :vita_partner
+  belongs_to :organization, optional: true, foreign_key: 'vita_partner_id', class_name: 'Organization'
+  belongs_to :site, optional: true, foreign_key: 'vita_partner_id', class_name: 'Site'
   validate :record_of_zip_code
   validates :zip_code, uniqueness: true
 
