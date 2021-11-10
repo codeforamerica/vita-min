@@ -108,13 +108,13 @@ class User < ApplicationRecord
     when AdminRole::TYPE
       VitaPartner.all
     when OrganizationLeadRole::TYPE
-      VitaPartner.organizations.where(id: role.organization) + VitaPartner.sites.where(parent_organization_id: role.organization)
+      VitaPartner.organizations.where(id: role.organization).or(VitaPartner.sites.where(parent_organization: role.organization))
     when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
       VitaPartner.sites.where(id: role.site)
     when CoalitionLeadRole::TYPE
       organizations = VitaPartner.organizations.where(coalition: role.coalition)
       sites = VitaPartner.sites.where(parent_organization: organizations)
-      organizations + sites
+      organizations.or(sites)
     when GreeterRole::TYPE
       VitaPartner.allows_greeters
     else

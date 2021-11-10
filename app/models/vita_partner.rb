@@ -32,12 +32,15 @@ class VitaPartner < ApplicationRecord
   has_many :intakes
   has_many :source_parameters
 
-  scope :organizations, -> { Organization.default_scoped.with_child_sites }
-  scope :sites, -> { Site.default_scoped.all }
+  belongs_to :coalition, optional: true
+  belongs_to :parent_organization, class_name: "Organization", optional: true
+
+  scope :organizations, -> { where(type: Organization::TYPE) }
+  scope :sites, -> { where(type: Site::TYPE) }
   scope :allows_greeters, lambda {
-    greetable_organizations = Organization.default_scoped.where(allows_greeters: true)
-    greetable_sites = Site.default_scoped.where(parent_organization: greetable_organizations)
-    greetable_organizations + greetable_sites
+    greetable_organizations = where(allows_greeters: true)
+    greetable_sites = where(parent_organization_id: greetable_organizations)
+    greetable_organizations.or(greetable_sites)
   }
 
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: ->(attributes) { attributes['code'].blank? }

@@ -39,8 +39,7 @@ class Organization < VitaPartner
   validates :capacity_limit, gyr_numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   validates :name, uniqueness: { scope: [:coalition] }
 
-  scope :with_child_sites, lambda { includes(:child_sites).order(name: :asc) }
-
+  default_scope -> { includes(:child_sites).order(name: :asc) }
   alias_attribute :allows_greeters?, :allows_greeters
 
   def at_capacity?
