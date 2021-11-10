@@ -152,7 +152,7 @@ class User < ApplicationRecord
 
   def self.taggable_for(client)
     users = User.where(role_type: [AdminRole::TYPE, ClientSuccessRole::TYPE, GreeterRole::TYPE])
-    coalition = client.vita_partner&.coalition || client.vita_partner&.parent_organization&.coalition
+    coalition = client.vita_partner&.coalition
     users = users.or(User.where(role: CoalitionLeadRole.where(coalition: coalition))) if coalition.present?
     users = users.or(User.where(role: OrganizationLeadRole.where(organization: client.vita_partner))) if client.vita_partner&.organization?
 

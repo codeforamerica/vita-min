@@ -8,6 +8,10 @@ class Site < VitaPartner
   validate :no_capacity
   validate :no_allows_greeters
 
+  def coalition
+    parent_organization.coalition
+  end
+
   def at_capacity?
     parent_organization.at_capacity?
   end
