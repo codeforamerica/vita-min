@@ -10,7 +10,7 @@ module Ctc
           return false unless dependent&.relationship
           return false unless dependent.intake.had_dependents_yes?
 
-          dependent.qualifying_child_2020? || dependent.yr_2020_qualifying_relative?
+          dependent.yr_2020_qualifying_child? || dependent.yr_2020_qualifying_relative?
         end
 
         private

@@ -9,7 +9,9 @@ describe Dependent::Rules do
   let(:ssn_present) { false }
   let(:meets_misc_qualifying_relative_requirements) { false }
   let(:meets_qc_residence_condition_generic) { false }
-  let(:subject) { described_class.new(birth_date, tax_year, full_time_student_yes, permanently_totally_disabled_yes, ssn_present, qualifying_child_relationship, qualifying_relative_relationship, meets_misc_qualifying_relative_requirements, meets_qc_residence_condition_generic) }
+  let(:meets_qc_claimant_condition) { false }
+  let(:meets_qc_misc_conditions) { false }
+  let(:subject) { described_class.new(birth_date, tax_year, full_time_student_yes, permanently_totally_disabled_yes, ssn_present, qualifying_child_relationship, qualifying_relative_relationship, meets_misc_qualifying_relative_requirements, meets_qc_residence_condition_generic, meets_qc_claimant_condition, meets_qc_misc_conditions) }
 
   describe ".born_in_last_6_months?" do
     context "when born on Jan 1" do
@@ -197,6 +199,57 @@ describe Dependent::Rules do
         let(:birth_date) { Date.new(tax_year, 1, 1) }
         it "returns false" do
           expect(subject.meets_qc_residence_condition?).to eq(false)
+        end
+      end
+    end
+  end
+
+  describe ".qualifying_child?" do
+    context "as a child who generally qualifies" do
+      let(:qualifying_child_relationship) { true }
+      let(:ssn_present) { true }
+      let(:meets_qc_claimant_condition) { true }
+      let(:meets_qc_misc_conditions) { true }
+
+      context "when the child is < 6 months old" do
+        let(:birth_date) { Date.new(tax_year, 12, 25) }
+
+        it "returns true" do
+          expect(subject.qualifying_child?).to eq(true)
+        end
+
+        context "and not born yet" do
+          let(:birth_date) { Date.new(tax_year + 1, 1, 1) }
+          it "returns false" do
+            expect(subject.qualifying_child?).to eq(false)
+          end
+        end
+      end
+
+      context "when the child is about 1 year old" do
+        let(:birth_date) { Date.new(tax_year, 1, 1) }
+
+        context "when the residence condition is met" do
+          let(:meets_qc_residence_condition_generic) { true }
+
+          it "returns true" do
+            expect(subject.qualifying_child?).to eq(true)
+          end
+        end
+
+        context "when the residence condition is not met" do
+          it "returns false" do
+            expect(subject.qualifying_child?).to eq(false)
+          end
+        end
+      end
+
+      context "when the child is 40 years old and the residence condition is met" do
+        let(:birth_date) { Date.new(tax_year - 40, 1, 1) }
+        let(:meets_qc_residence_condition_generic) { true }
+
+        it "returns false" do
+          expect(subject.qualifying_child?).to eq(false)
         end
       end
     end
