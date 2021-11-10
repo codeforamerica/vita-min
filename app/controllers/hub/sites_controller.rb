@@ -4,7 +4,7 @@ module Hub
     before_action :require_sign_in
     before_action :load_organizations, only: [:new, :edit, :update]
 
-    load_and_authorize_resource :vita_partner, parent: false
+    load_and_authorize_resource :site, parent: false
 
     layout "admin"
 
@@ -13,7 +13,7 @@ module Hub
     end
 
     def create
-      @site = Site.new(vita_partner_params)
+      @site = Site.new(site_params)
       if @site.save
         redirect_to edit_hub_organization_path(id: @site.parent_organization)
       else
@@ -22,19 +22,17 @@ module Hub
     end
 
     def edit
-      @site = @vita_partner
-      @routing_form = ZipCodeRoutingForm.new(@vita_partner)
-      @source_params_form = SourceParamsForm.new(@vita_partner)
+      @routing_form = ZipCodeRoutingForm.new(@site)
+      @source_params_form = SourceParamsForm.new(@site)
       @show_unique_links = true
     end
 
     def update
-      if @vita_partner.update(vita_partner_params)
+      if @site.update(site_params)
         flash[:notice] = I18n.t("general.changes_saved")
-        redirect_to edit_hub_site_path(id: @vita_partner.id)
+        redirect_to edit_hub_site_path(id: @site.id)
       else
         @show_unique_links = true
-        @site = @vita_partner
         flash.now[:alert] = I18n.t("general.error.form_failed")
         render :edit
       end
@@ -46,8 +44,8 @@ module Hub
       @organizations = VitaPartner.accessible_by(current_ability).organizations
     end
 
-    def vita_partner_params
-      params.require(:vita_partner).permit(:name, :parent_organization_id, :timezone, source_parameters_attributes: [:_destroy, :id, :code])
+    def site_params
+      params.require(:site).permit(:name, :parent_organization_id, :timezone, source_parameters_attributes: [:_destroy, :id, :code])
     end
   end
 end
