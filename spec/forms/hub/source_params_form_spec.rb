@@ -3,7 +3,7 @@ require "rails_helper"
 describe Hub::SourceParamsForm do
   subject { described_class.new(vita_partner, params) }
 
-  let(:vita_partner) { create :vita_partner }
+  let(:vita_partner) { create :organization }
   let(:code) { "my_code" }
   let(:params) do
     {
@@ -24,7 +24,7 @@ describe Hub::SourceParamsForm do
       end
 
       context "when it belongs to a different vita partner" do
-        let(:other_vita_partner) { create :vita_partner, name: "Oregano Org" }
+        let(:other_vita_partner) { create :organization, name: "Oregano Org" }
         before do
           create :source_parameter, vita_partner: other_vita_partner, code: code
         end
