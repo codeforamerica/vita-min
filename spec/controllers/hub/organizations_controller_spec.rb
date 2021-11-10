@@ -22,9 +22,9 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
   describe "#create" do
     let(:params) do
       {
-        vita_partner: {
+        organization: {
           name: "Orangutan Organization",
-          coalition_id: parent_coalition.id
+          coalition_id: parent_coalition.id,
         }
       }
     end
@@ -61,22 +61,12 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     context "as an authenticated organization lead" do
       let(:user) { create :organization_lead_user, organization: organization }
       before { sign_in user }
+
       it "shows the sites in my organization" do
         get :show, params: params
 
         expect(response.status).to eq 200
         expect(assigns(:sites)).to match_array [site, second_site]
-      end
-
-
-      context "with a site id" do
-        let(:params) { { id: site.id } }
-
-        it "is not found" do
-          expect do
-            get :show, params: params
-          end.to raise_error(ActionController::RoutingError) # in deployment configs, this would be a 404
-        end
       end
     end
   end
@@ -192,7 +182,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     let(:params) do
       {
         id: organization.id,
-        vita_partner: {
+        organization: {
           coalition_id: new_coalition.id,
           name: "Oregano Organization",
           timezone: "America/Chicago",
