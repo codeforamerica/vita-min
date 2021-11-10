@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
   let!(:coalition) { create :coalition }
-  let!(:vita_partner) { create :vita_partner }
+  let!(:vita_partner) { create :organization }
 
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
@@ -25,8 +25,8 @@ RSpec.describe Users::InvitationsController do
 
     context "as a non-admin user" do
       let(:user) { create :coalition_lead_user }
-      let(:coalition_member_organization) { create :organization, coalition: user.role.coalition }
-      let(:coalition_member_site) { create :site, parent_organization: coalition_member_organization }
+      let!(:coalition_member_organization) { create :organization, coalition: user.role.coalition }
+      let!(:coalition_member_site) { create :site, parent_organization: coalition_member_organization }
       let!(:inaccessible_site) { create :site }
       before { sign_in user }
 
