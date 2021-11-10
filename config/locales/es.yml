@@ -276,7 +276,7 @@ es:
       17_grandparent: Abuela/Abuelo
     dependents: Dependientes
     divorced: Divorciado
-    document_deadline: Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.
+    document_deadline: Para presentar su declaración de impuestos antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.
     document_type: Clase de documento
     document_types:
       care_provider_statement: Declaración del Proveedor de Cuidados
@@ -344,7 +344,7 @@ es:
     get_help: Pedir ayuda
     get_my_payment: Recibir mi pago
     get_started: Empiece ahora
-    go_home: Ir a Inicio
+    go_home: Ir a inicio
     greetable: Pueden ser saludados
     greeter: Saludador
     here: aquí
@@ -676,8 +676,8 @@ es:
         title: Agregar un nuevo cliente
       organizations:
         edit:
-          warning_text_1: 'Nota: Todas las devoluciones de este cliente se asignarán a la nueva organización.'
-          warning_text_2: Cambiar la organización puede hacer que los usuarios del concentrador asignados pierdan el acceso y se anulen la asignación.
+          warning_text_1: 'Nota: Todas las declaraciones de este cliente se asiganrán a la nueva organización.'
+          warning_text_2: Cambiar la organización puede causar que los usuarios del hub pierdan acceso y asignación.
       show:
         basic_info: Información básica
         date_of_birth: Fecha de nacimiento
@@ -950,7 +950,7 @@ es:
         cant_locate: Necesito ayuda para encontrar mis documentos de %{doc_type}.
         cant_obtain: No puedo obtener documentos de %{doc_type}.
         doesnt_apply: No creo que este documento de %{doc_type} me aplique.
-      not_ready_to_not_filing: Transitioned %{tax_year} tax return from Not Ready to Not Filing after %{days} days of inaction by Client.
+      not_ready_to_not_filing: Transición%{tax_year}declaración de impuestos de No listo a No presentar después de%{days}días de inacción por parte del Cliente.
     tax_return_selections:
       help_text:
         one: Está viendo %{count} resultado de su búsqueda guardada
@@ -993,7 +993,7 @@ es:
       status:
         file_accepted: Aceptado
         file_efiled: Presentada electrónicamente
-        file_fraud_hold: ID Check
+        file_fraud_hold: Verificación de identificación
         file_hold: En pausa
         file_mailed: Presentada por correo
         file_needs_review: Necesita revisión
@@ -1100,9 +1100,9 @@ es:
   messages:
     closing_soon:
       email:
-        body: Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos. Inicie sesión y responda antes del 8 de octubre. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentarnos el próximo año.
-        subject: 'GetYourRefund cerrará pronto: actúe ahora si necesita servicios de impuestos'
-      sms: Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos. Inicie sesión y responda antes del 8 de octubre. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentarnos el próximo año.
+        body: 'Cerramos la temporada de impuestos de GetYourRefund el 15 de octubre. Necesitamos todos los documentos requeridos antes del 8 de octubre de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del 8 de octubre.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
+        subject: 'GetYourRefund cerrará próximamente -- actúe ahora si necesita services de preparación de impuestos. '
+      sms: 'Cerramos la temporada de impuestos de GetYourRefund el 15 de octubre. Necesitamos todos los documentos requeridos antes del 8 de octubre; de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del 8 de octubre.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
     contact_info_change:
       email:
         body: |
@@ -1174,18 +1174,9 @@ es:
           Su equipo de impuesto de GetCTC.org
       preparing:
         email:
-          body: |
-            Hola <<Client.PreferredName>>,
-
-            Actualmente estamos procesando su información para enviarla al IRS. Le informaremos dentro de una semana si sus impuestos han sido aceptados o rechazados. No recibirá crédito tributario por hijos ni pagos de estímulo hasta que se acepten sus impuestos.
-
-            ¡Estamos aquí para ayudarle!
-            Su Equipo de Declaración de Impuestos GetCTC.org
-          subject: Tus impuestos se están procesando
-        sms: |
-          Hola <<Client.PreferredName>>,
-          Actualmente estamos procesando su información para enviarla al IRS. Le informaremos dentro de una semana si sus impuestos han sido aceptados o rechazados. No recibirá crédito tributario por hijos ni pagos de estímulo hasta que se acepten sus impuestos.
-          Su equipo de impuestos en GetCTC.org
+          body: "Hola <<Client.PreferredName>>, \n\nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los de estímulo hasta que acepten su declaración. \n\nEstamos aquí para ayudarle! \nSu equipo de Impuestos de GetCTC.org\n"
+          subject: Tu declaración de impuestos se está procesando.
+        sms: "Hola <<Client.PreferredName>>, \nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los de estímulo hasta que acepten su declaración.\nSu equipo de Impuestos de GetCTC.org\n"
       rejected:
         email:
           body: |
@@ -1205,21 +1196,9 @@ es:
           ¡Estamos aquí para ayudarle!
     fraud_hold:
       email:
-        body: |
-          Hola <<Client.PreferredName>>,
-
-          Su envío requiere una revisión adicional. Para comenzar su revisión, inicie sesión en <<Client.LoginLink>> y use el botón "Contáctenos" para ponerse en contacto con nuestro equipo de soporte.
-
-          Mejor,
-          Su equipo de impuestos en GetYourRefund.org
-        subject: Su envío está en espera por ahora
-      sms: |
-        Hola <<Client.PreferredName>>,
-
-        Su envío requiere una revisión adicional. Para comenzar su revisión, inicie sesión en <<Client.LoginLink>> y use el botón "Contáctenos" para ponerse en contacto con nuestro equipo de soporte.
-
-        Mejor,
-        Su equipo de impuestos en GetYourRefund.org
+        body: "Hola <<Client.PreferredName>>,\n\nSu sumisión requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto suya con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
+        subject: Su sumisión está en espera por ahora
+      sms: "Hola <<Client.PreferredName>>,\n\nSu sumisión requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto suya con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     getting_started:
       email:
         body: |
@@ -1250,19 +1229,20 @@ es:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
     not_ready_reminder:
       email:
-        body: |
+        body: |+
           Hola <<Client.PreferredName>>,
 
-          Parece que se alejó antes de terminar nuestra solicitud. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperan trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
+          Parece que no ha terminado nuestra aplicación. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperamos trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
 
           Si tiene alguna pregunta, comuníquese con nosotros.
 
-          ¡Estamos aquí para ayudar!
-          Tu equipo de impuestos
-        subject: "¿Aún necesitas ayuda fiscal? Termine su solicitud GetYourRefund."
+          ¡Estamos aquí para ayudarte!
+          Su equipo de impuestos
+
+        subject: "¿Todavía necesita ayuda con sus impuestos? Finalice su aplicación en GetYourRefund."
       sms: |
         Hola <<Client.PreferredName>>,
-        Parece que se alejó antes de terminar nuestra solicitud. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperan trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
+        Parece que no a terminado nuestra aplicación. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperamos trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
         ¡Gracias!
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_drop_off:
@@ -1411,7 +1391,7 @@ es:
         title: "¡Genial! Le hablaremos en junio."
         upload_additional_documents: Subir documentos adicionales
       edit:
-        help_text: Cerraremos GetYourRefund para la temporada de impuestos el 15 de octubre. Necesitaremos toda la documentación requerida antes del 8 de octubre; de lo contrario, no podremos preparar sus impuestos.
+        help_text: Cerramos la temporada de impuestos de GetYourRefund el 15 de octubre. Necesitamos todos los documentos requeridos antes del 8 de octubre; de lo contrario, no podremos preparar su declaración de impuestos.
         not_interested: No, no estoy interesado
         still_needs_help: Sí, todavía necesito ayuda
         title: "¿Todavía le interesa declarar sus impuestos con nosotros?"
@@ -1423,9 +1403,9 @@ es:
         survey_question: "¿Cómo fue su experiencia con GetYourRefund?"
         title: Gracias por usar GetYourRefund.
       upload_documents:
-        help_text: Si tiene documentos adicionales que necesita cargar, use el botón a continuación. Necesitamos todos sus documentos antes del 8 de octubre.
-        no_additional_documents: No tengo documentos adicionales
-        title: "¡Excelente! Si tiene documentos adicionales, cárguelos a continuación."
+        help_text: Si tiene documentos adicionales que necesita subir, por favor use el botón a continuación. Necesitamos todos sus documentos antes del 8 de octubre.
+        no_additional_documents: No tengo documentos adicionales.
+        title: "!Excelente! Si tiene documentos adicionales, favor de subirlos a continuación."
         upload_additional_documents: Subir documentos adicionales
     tax_returns:
       authorize_signature:
@@ -1455,12 +1435,12 @@ es:
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
   signups:
-    flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2022."
+    flash_notice: Gracias, recibirá una notificación cuando iniciemos en enero del 2022.
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
-      subheader: Favor de inscribirse aquí para recibir notificaciones cuando abramos en enero 2022.
-  test_new_translations_process: Hice mis impuestos y mi perro estaba presente
-  test_new_translations_process_2: Hice mis impuestos y mi gato estaba presente
+      subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero del 2022.
+  test_new_translations_process: Hice mis impuestos y mi pescado estaba presente
+  test_new_translations_process_2: 'Preparé mis impuestos y mi gato estuvo ahí. Si cambio esta copia, ¿aparecerá en lo no traducido de Transifex? '
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
@@ -1513,11 +1493,9 @@ es:
         Su equipo de impuestos de %{service_name}.org
   verification_code_sms:
     no_match_ctc: |
-      Alguien intentó iniciar sesión en GetCTC con este número de teléfono. Si ya tiene una cuenta con GetCTC, puede intentar iniciar sesión con su dirección de correo electrónico en lugar de %{url}/portal/login.
-      O visite %{url} y haga clic en "Presentar su declaración simplificada ahora" para comenzar.
-    no_match_gyr: |
-      Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
-      También puede ir a %{url} para empezar su declaración.
+      Alguien intentó iniciar una sesión en GetCTC con este número de teléfono. Si ya tiene una cuenta con GetCTC, puede intentar iniciar una sesión con su correo electrónico %{url}/portal/iniciar sesión.
+      O visite %{url}y haga clic en "Presentar su declaración simplificada ahora" para empezar.
+    no_match_gyr: "Alguien intentó iniciar una sesión en GetYourRefund con este número de teléfono, pero no pudimos verificar sus credenciales. Se registró con un número de teléfono diferente? \nTambién puede visitar %{url}para empezar.\n"
     with_code: 'Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.'
   views:
     consent_pages:
@@ -1586,17 +1564,17 @@ es:
           title: Edita la información básica de %{name}
         dependents:
           no_eligible_dependents:
-            subtitle: No recibirá Crédito Tributario por Hijos porque no tiene dependientes elegibles.
-            title: Ha eliminado a todos sus dependientes elegibles de CTC.
+            subtitle: No recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
+            title: 'Usted ha eliminado a todos sus dependientes elegibles del CTC. '
         edit_info:
-          add_bank_information: Agregar información bancaria
+          add_bank_information: Agregue su información bancaria
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
           help_text_cant_submit: Espere a enviar cambios adicionales a su envío. Estamos esperando una respuesta a su presentación anterior del IRS.
-          no_ba_error_html: "<strong>Error:</strong> Seleccionó Depósito directo, pero no agregó su información bancaria. Actualice su información bancaria seleccionando Agregar información bancaria a continuación."
-          no_bank_account: No se ingresó información bancaria.
+          no_ba_error_html: "<strong>Error: </strong>Seleccionó Deposito Directo, pero no agregó su información bancaria. Por favor actualice su información bancaria seleccionando Agregar información bancaria a continuación."
+          no_bank_account: 'No ingreso su información bancaria. '
           resubmit: Volver a enviar mi declaración de impuestos
           title: Corrija su información enviada
-          will_send_check_to_address: Recibirá un cheque a su dirección postal arriba. Si desea recibir un depósito directo, seleccione el botón Agregar información bancaria a continuación.
+          will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para añadir su información bancaria a continuación.
         home:
           complete_form: Complete el formulario CTC
           contact_us: Contáctanos
@@ -1613,7 +1591,7 @@ es:
           status:
             accepted:
               label: Aceptada
-              message: Su declaración ha sido aceptada por el IRS. Deberá recibir un pago en 4 semanas o más.
+              message: El IRS aceptó su declaración de impuestos. Recibirá un pago en 4 o más semanas.
             cancelled:
               message: Ya no intentaremos enviar esta declaración al IRS. Esto puede deberse a que solicitó que no enviemos la declaración o porque un rechazo del IRS indicó que no podemos volver a enviarla en su nombre.
             failed:
@@ -1621,7 +1599,7 @@ es:
               message: Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
             fraud_hold:
               label: Presentación en espera
-              message: Necesitamos más información de usted antes de poder enviar su declaración. Haga clic en "Cargar documentos adicionales" y envíe una foto de usted mismo con su identificación con foto emitida por el gobierno.
+              message: Necesitamos más información de usted antes de poder enviar su declaración. Haga clic en "Cargar documentos adicionales" y envíe una foto suya sosteniendo su identificación con foto emitida por el gobierno.
             intake_in_progress:
               label: Necesitamos más información
               message: Necesitamos más información para poder presentar su declaración.
@@ -1645,7 +1623,7 @@ es:
           new:
             body_label: 'Ingrese su mensaje a continuación:'
             title: Contáctenos
-            wait_time: Por favor, espere 3 días hábiles para recibir una respuesta..
+            wait_time: Por favor espere 3 días hábiles para recibir una respuesta.
         primary_filer:
           form_of_identity: Forma de identidad
           form_of_identity_note: Si utiliza una tarjeta de Seguro Social, debe ser válida para el empleo.
@@ -1669,10 +1647,10 @@ es:
           title: "¿Cuáles fueron sus ingresos ajustados brutos de 2019?"
         already_completed:
           content_html: |
-            <p> Ha completado todas nuestras preguntas de admisión y hemos enviado su información. </p>
-            <p> Si desea iniciar una nueva solicitud para otro miembro de la familia, haga clic en "Cerrar sesión" para finalizar su sesión actual. </p>
-            <p> De lo contrario, haga clic en "Ir a Inicio" para ver el estado de su envío y los próximos pasos. </p>
-          title: Hold on a minute...
+            <p>Ha completado todas las preguntas de admisión y estamos revisando y presentando su declaración de impuestos.</p>
+            <p>Si desea iniciar una solicitud nueva para otra persona, haga clic en "Cerrar sesión" para finalizar su sesión actual. </p>
+            <p>De lo contrario, haga clic en "Ir a inicio" para ver el estado de su sumisión y los siguientes pasos. </p>
+          title: Parece que ya empezó!
         at_capacity:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes/FAQ.
@@ -1772,7 +1750,7 @@ es:
             qualifying_for_ctc: Dependientes que califican para CTC y los pagos de estímulo
             qualifying_for_other_credits: Dependientes que califican para los pagos de estímulo solor
             ssn: Número de Seguro Social
-            ssn_no_employment: Número de Seguro Social/SSN (No es válido para el empleo)
+            ssn_no_employment: Número de seguro social (no válido para empleo)
             title: Confirmemos sus dependientes
           does_not_qualify_ctc:
             add_button: Agregar a otro dependiente
@@ -1789,12 +1767,10 @@ es:
             title: "%{name} no puede ser declarado como dependiente."
           had_dependents:
             help_text_html: |
-              <p>Alguien que vivió con usted la mayor parte de 2020 o a quien usted apoya financieramente puede calificar.</p>
-
-              <p>Conteste Sí si quiere obtener el Crédito Tributario por Hijos.</p>
-
-              <p>¿No sabe si el miembro de su familia califica? Conteste Sí y le guiaremos.</p>
-            title: "¿Desea agregar a un hijo o miembro de su familia para reclamar el Crédito Tributario por Hijos y otros beneficios?"
+              <p>Podría calificar alguien que vivió con usted la mayor parte del año en el 2020 o a quien usted apoyó económicamente.</p>
+              <p>Responda Sí, si está intentando obtener el Crédito Tributario por Hijos.</p>
+              <p>¿No está seguro si el miembro de su familia califica? Responda Sí, y lo guiaremos.</p>
+            title: "¿Desea agregar a un niño o a un miembro de la familia para reclamar el Crédito Tributario por Hijos y otros beneficios?"
           info:
             first_name: El primer nombre legal de su dependiente
             full_time_student: La persona dependiente es estudiante de tiempo completo
@@ -1949,7 +1925,7 @@ es:
           right_for_you: 'Esta es la herramienta adecuada para usted si:'
           title: "¡Bienvenido!"
         refund_payment:
-          check: Envíame un cheque (más lento)
+          check: Envíeme mi pago (más lento)
           direct_deposit: Depósito directo (el más rápido)
           help_text: Si elige recibir un cheque enviado por correo, indique una dirección en la que estará hasta diciembre de 2021.
           title: "¿Cómo desea recibir los pagos?"
@@ -2094,7 +2070,7 @@ es:
           title: Compare los beneficios
         compare_length:
           ctc: 30 minutos
-          gyr: Una hora
+          gyr: 1 hora
           title: Comparar la duración de los procesos
         compare_required_info:
           ctc:
@@ -2131,7 +2107,7 @@ es:
           irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
           white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
         closing_date: GetCTC cerrará el 15 de noviembre.
-        closing_warning: "¡Presente hoy para reclamar su Crédito Tributario por Hijos por adelantado y pagos de estímulo perdidos! Si no cumple con esta fecha límite, deberá reclamar su Crédito Tributario por Hijos completo cuando presente sus impuestos a principios de 2022."
+        closing_warning: "¡Presente su declaración hoy para reclamar su Crédito Tributario por Hijos por adelantado y sus pagos de estímulo omitidos! Si no cumple con esta fecha limite, tendrá que reclamar el Crédito Tributario completo cuando presente su declaración de impuestos a principios de 2022."
         common_questions:
           are_daca_recipients_eligible:
             answer_html: |
@@ -2220,7 +2196,7 @@ es:
             opt_out_items:
             - Prefiere recibir su crédito en un solo pago en el 2022
             - Su información bancaria o su dirección ha cambiado en el último año
-            - No planea reclamar dependientes en su declaración de impuestos de 2021 (que declarará en el 2022), por ejemplo, si comparte custodia con alguien y se alternan quien reclama el niño como dependiente
+            - No planea reclamar a sus dependientes en su declaración de impuestos del 2021 (temporada impuestos del 2022), por ejemplo, si comparte custodia con otra persona y se alternan quien reclama su hijo como dependiente
             subheading: Si ya declaró los impuestos del 2019 o 2020, no tiene que hacer nada.
             update_items:
             - Actualizar el número de dependientes elegibles en su hogar (por ejemplo, si un niño ya no vive con usted o tuvo un bebé)
@@ -2228,7 +2204,7 @@ es:
           body1: Para proporcionar los pagos por adelantado del Crédito Tributario por Hijos, el IRS necesita  información actualizada sobre usted y sus hijos. Si declaró impuestos en el 2019 o 2020, o si utilizó el Portal de no declarantes del IRS (IRS Non-Filer Portal en inglés) en 2020 para reclamar sus pagos de estímulo, entonces el IRS tiene suficiente información para enviarle automáticamente sus pagos por adelantado del Crédito Tributario por Hijos, a su familia.
           body2_html: Si no ha enviado información alguna al IRS en el último año, puede enviar su información a través de GetCTC, un portal para declarar sus impuestos de forma simplificada, y reciba sus pagos.
           deadline:
-            body_html: Puede inscribirse para recibir los pagos mensuales del Crédito Fiscal por Hijos utilizando <a rel='noopener' target='_blank' href='%{url}'>la sencilla herramienta</a> Non-Filer del IRS (IRS Non-Filer Sign-Up Tool, en inglés) desarrollada por la organización sin ánimo de lucro Code for America, en colaboración con la Administración, hasta el 15 de noviembre de 2021. Sin embargo, se les recomienda a las familias que reúnen los requisitos que se inscriban lo más pronto posible. Al inscribirse con anticipación le dará al IRS más tiempo para procesar su información y para comenzar a hacer los pagos mensuales.
+            body_html: Puede inscribirse para recibir los pagos mensuales del Crédito Fiscal por Hijos utilizando <a rel='noopener' target='_blank' href='%{url}'>la herramienta sencilla</a> para no declarantes (Non-Filers) del IRS (IRS Non-Filer Sign-Up Tool, en inglés) desarrollada por la organización sin lucro Code for America, en colaboración con la Administración, hasta el 15 de noviembre de 2021. Sin embargo, se les recomienda a las familias que reúnen los requisitos que se inscriban lo más pronto posible. Al inscribirse con anticipación le dará al IRS más tiempo para procesar su información y comenzar a hacer los pagos mensuales.
             subheading: "¿Cuándo vence el plazo para inscribirse en el Pago del Crédito Tributario por Hijos (CTC en inglés)?"
           full_return:
             body1_html: |
@@ -2288,10 +2264,10 @@ es:
             Puede recibir pagos a partir de julio a diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante.
           heading: Crédito Tributario por Hijo
       navigators:
-        help_text: Orientación para los navegadores de la comunidad que buscan ayudar a los clientes de difícil acceso a acceder al Crédito Fiscal Anticipado por Hijo (AdvCTC) o al Pago por Impacto Económico (EIP o Estímulo).
+        help_text: Orientación para los navegadores de la comunidad que buscan ayudar a los clientes de difícil acceso a acceder al Crédito Tributario Anticipado por Hijo (AdvCTC) o al Pago por Impacto Económico (EIP o Estímulo).
         title: Recursos del navegador GetCTC.org
       privacy_policy_html: |
-        <p class="text--help">GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como el Crédito Fiscal Anticipado por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.</p>
+        <p class="text--help">GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como los Pagos por Adelantado del Crédito Tributario por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.</p>
         <p class="text--help">Esta Política de privacidad describe cómo recopilamos, usamos, compartimos y protegemos su información personal. Al utilizar nuestros Servicios, usted acepta los términos de esta Política de privacidad. Este Aviso de privacidad se aplica independientemente del tipo de dispositivo que utilice para acceder a nuestros Servicios.</p>
         <p>Si tiene alguna pregunta o duda sobre este aviso de privacidad, comuníquese con nosotros a %{email_link}</p>
         <div><a href="//privacy.truste.com/privacy-seal/validation?rid=fbd38521-2463-471b-85e2-9f705e4d0772" target="_blank"><img style="border: none" src="//privacy-policy.truste.com/privacy-seal/seal?rid=fbd38521-2463-471b-85e2-9f705e4d0772" alt="TRUSTe"/></a></div>
@@ -2300,62 +2276,62 @@ es:
         <h3>Información que recopilamos</h3>
         <p>Seguimos el principio de minimización de datos en la recopilación y uso de su información personal. Podemos obtener la siguiente información sobre usted, las personas a su cargo o los miembros de su hogar:</p>
         <ul class="list--bulleted">
-          <li>Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico</li>
-          <li>Fecha de nacimiento</li>
-          <li>Información demográfica, como la edad y estado marital</li>
-          <li>Características de las clasificaciones protegidas, como género, raza y etnia</li>
-          <li>Información fiscal, como el número de seguridad social o el número de identificación individual del contribuyente (por sus siglas en inglés, ITIN)</li>
-          <li>Identificación emitida por el estado, como el número de licencia de manejar</li>
-          <li>Información financiera, como empleo, ingresos y fuentes de ingresos</li>
-          <li>Datos bancarios para el depósito directo de reembolsos</li>
-          <li>Datos de los dependientes</li>
-          <li>Información sobre el hogar y sobre su cónyuge, si es que corresponde</li>
-          <li>Información de su computadora o dispositivo, como la dirección IP, el sistema operativo, el navegador, la fecha y la hora de la visita y los datos del flujo de clics (el sitio web o el dominio del que proviene, las páginas que visita y los elementos en los que hace clic durante su sesión)</li>
+        <li>Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico</li>
+        <li>Fecha de nacimiento</li>
+        <li>Información demográfica, como la edad y estado marital</li>
+        <li>Características de las clasificaciones protegidas, como género, raza y etnia</li>
+        <li>Información fiscal, como el número de seguro social o el número de identificación individual del contribuyente (por sus siglas en inglés, ITIN)</li>
+        <li>Identificación emitida por el estado, como el número de licencia de manejar</li>
+        <li>Información financiera, como empleo, ingresos y fuentes de ingresos</li>
+        <li>Datos bancarios para el depósito directo de reembolsos</li>
+        <li>Datos de los dependientes</li>
+        <li>Información sobre el hogar y sobre su cónyuge, si es que corresponde</li>
+        <li>Información de su computadora o dispositivo, como la dirección IP, el sistema operativo, el navegador, la fecha y la hora de la visita y los datos del flujo de clics (el sitio web o el dominio del que proviene, las páginas que visita y los elementos en los que hace clic durante su sesión)</li>
         </ul>
         <p>Recopilamos información según lo dispuesto por el IRS en el Procedimiento de Ingresos "Rev RP-21-24".</p>
 
         <h3>La manera en que recopilamos su información</h3>
         <p>Recopilamos su información de varias fuentes, como cuando usted o los miembros de su hogar</p>
         <ul class="list--bulleted">
-          <li>Visite nuestro Sitio, llene formularios en nuestro Sitio, o utilice nuestros Servicios</li>
-          <li>Proporciónenos sus documentos para utilizar nuestros Servicios</li>
-          <li>Comuníquese con nosotros (por ejemplo a través de correo electrónico, chat, redes sociales o de otro tipo)</li>
+        <li>Visite nuestro Sitio, llene formularios en nuestro Sitio, o utilice nuestros Servicios</li>
+        <li>Proporciónenos sus documentos para utilizar nuestros Servicios</li>
+        <li>Comuníquese con nosotros (por ejemplo a través de correo electrónico, chat, redes sociales o de otro tipo)</li>
         </ul>
         <p>Es posible que también recopilemos su información de terceros como</p>
         <ul class="list--bulleted">
-          <li>Nuestros socios que le están ayudando con servicios de preparación de impuestos o cualquier otro programa de beneficios que usted solicite</li>
-          <li>The Internal Revenue Service (“IRS”) or other government agencies relating to our Services</li>
+        <li>Nuestros socios que le están ayudando con servicios de preparación de impuestos o cualquier otro programa de beneficios que usted solicite</li>
+        <li>The Internal Revenue Service (“IRS”) or other government agencies relating to our Services</li>
         </ul>
 
         <h3>El uso de información que recopilamos</h3>
         <p>Utilizamos su información para propósitos de nuestra organización e intereses legítimos como, por ejemplo</p>
         <ul class="list--bulleted">
-          <li>Para ayudarle a conectarse con los servicios gratuitos de preparación de impuestos o cualquier otro programa de beneficios que solicite</li>
-          <li>Para completar los formularios requeridos para el uso de los Servicios o para la presentación de sus impuestos</li>
-          <li>Para proporcionarle apoyo durante el proceso y comunicarnos con usted</li>
-          <li>Para seguir y comprender cómo se utilizan el Sitio y nuestros Servicios</li>
-          <li>Para mejorar la calidad o el alcance del Sitio o de nuestros Servicios</li>
-          <li>Para sugerir otros servicios o programas de asistencia que puedan serle útiles</li>
-          <li>Para la detección de fraude, su prevención, y propósitos de seguridad</li>
-          <li>Para cumplir con los requisitos y obligaciones legales</li>
-          <li>Para el estudio</li>
+        <li>Para ayudarle a conectarse con los servicios gratuitos de preparación de impuestos o cualquier otro programa de beneficios que solicite</li>
+        <li>Para completar los formularios requeridos para el uso de los Servicios o para la presentación de sus impuestos</li>
+        <li>Para proporcionarle apoyo durante el proceso y comunicarnos con usted</li>
+        <li>Para seguir y comprender cómo se utilizan el Sitio y nuestros Servicios</li>
+        <li>Para mejorar la calidad o el alcance del Sitio o de nuestros Servicios</li>
+        <li>Para sugerir otros servicios o programas de asistencia que puedan serle útiles</li>
+        <li>Para la detección de fraude, su prevención, y propósitos de seguridad</li>
+        <li>Para cumplir con los requisitos y obligaciones legales</li>
+        <li>Para el estudio</li>
         </ul>
 
         <h3>Información compartida con terceros</h3>
         <p>No vendemos su información personal.</p>
         <p>No compartimos información personal con terceros, excepto según lo dispuesto en esta Política de privacidad. Podemos revelar información a contratistas, organizaciones afiliadas y/o terceros no afiliados para proporcionarle los Servicios a usted, para llevar a cabo nuestra tarea o para ayudar con las actividades de nuestra organización. Por ejemplo, podemos compartir su información con</p>
         <ul class="list--bulleted">
-          <li>Proveedores de VITA para ayudar a preparar y presentar sus declaraciones de impuestos</li>
-          <li>El Servicio de Impuestos Internos (IRS) para ayudarle a presentar electrónicamente sus impuestos y/u otros formularios para tener derecho a los pagos del crédito de impuestos por hijos</li>
-          <li>Terceros para distribuir encuestas, grupos de discusión o para otros fines administrativos, analíticos y de marketing. Estas comunicaciones de terceros tienen por objeto mejorar el producto, conocer la experiencia y ponerle al día si ha solicitado actualizaciones.</li>
-          <li>Code for America mantiene relaciones con terceros proveedores de programas y servicios que prestan servicios en nuestro nombre para ayudarnos en nuestras actividades comerciales. Estas empresas están autorizadas a utilizar sus datos personales sólo en la medida necesaria para prestarnos estos servicios, de acuerdo con instrucciones escritas. Podemos compartir su información con socios comerciales y otros terceros para que puedan ofrecerle ofertas o productos y servicios que creemos que pueden beneficiarle. Si no desea que compartamos su información personal con estas empresas, comuníquese con nosotros en %{email_link}.</li>
+        <li>Proveedores de VITA para ayudar a preparar y presentar sus declaraciones de impuestos</li>
+        <li>El Servicio de Impuestos Internos (IRS) para ayudarle a presentar electrónicamente sus impuestos y/u otros formularios para tener derecho a los pagos del Crédito Tributario por Hijos</li>
+        <li>Terceros para distribuir encuestas, grupos de discusión o para otros fines administrativos, analíticos y de marketing. Estas comunicaciones de terceros tienen por objeto mejorar el producto, conocer la experiencia y ponerle al día si ha solicitado actualizaciones.</li>
+        <li>Code for America mantiene relaciones con terceros proveedores de programas y servicios que prestan servicios en nuestro nombre para ayudarnos en nuestras actividades comerciales. Estas empresas están autorizadas a utilizar sus datos personales sólo en la medida necesaria para prestarnos estos servicios, de acuerdo con instrucciones escritas. Podemos compartir su información con socios comerciales y otros terceros para que puedan ofrecerle ofertas o productos y servicios que creemos que pueden beneficiarle. Si no desea que compartamos su información personal con estas empresas, comuníquese con nosotros en %{email_link}.</li>
         </ul>
 
         <p>Requerimos que nuestros terceros actúen a nombre nuestro para mantener su información personal segura, y no permitimos que estos terceros utilicen o compartan su información personal para ningún propósito que no sea proporcionar servicios a nombre nuestro.</p>
 
         <p>Podemos compartir su información con terceros en situaciones especiales, como cuando lo requiere la ley, o cuando creemos que compartir dicha información ayudará a proteger la seguridad, propiedad o derechos de Code for America, las personas a las que servimos, nuestros asociados u otras personas.</p>
 
-        <p>Podemos compartir información limitada, agregada o personal con agencias gubernamentales, como el IRS, para analizar el uso de nuestros Servicios, los proveedores de servicios de preparación gratuita de impuestos y el Crédito Fiscal por Hijos, con el fin de mejorar y ampliar nuestros Servicios. No compartiremos ninguna información con el IRS que no haya sido ya revelada en su declaración de impuestos o a través del sitio web GetCTC.</p>
+        <p>Podemos compartir información limitada, agregada o personal con agencias gubernamentales, como el IRS, para analizar el uso de nuestros Servicios, los proveedores de servicios de preparación gratuita de impuestos y el Crédito Tributario por Hijos, con el fin de mejorar y ampliar nuestros Servicios. No compartiremos ninguna información con el IRS que no haya sido ya revelada en su declaración de impuestos o a través del sitio web GetCTC.</p>
 
         <h3>Sus opciones con respecto a su información</h3>
         <p>Valoramos y respetamos su privacidad, y le ofrecemos opciones sobre la manera en que recopilamos, usamos y compartimos su información.</p>
@@ -2364,9 +2340,9 @@ es:
         <p>Para actualizar sus preferencias o sus datos de contacto, puede</p>
 
         <ul class="list--bulleted">
-          <li>comuníquese con nosotros a través de %{email_link} y solicite la eliminación de correos electrónicos de actualización de GetCTC</li>
-          <li>siga las instrucciones para no continuar recibiendo correos que se proporcionan en los correos electrónicos o en el correo postal</li>
-          <li>haga clic en el enlace/liga "cancelar la suscripción" que se incluye en nuestros correos electrónicos promocionales de Code for America</li>
+        <li>comuníquese con nosotros a través de %{email_link} y solicite la eliminación de correos electrónicos de actualización de GetCTC</li>
+        <li>siga las instrucciones para no continuar recibiendo correos que se proporcionan en los correos electrónicos o en el correo postal</li>
+        <li>haga clic en el enlace/liga "cancelar la suscripción" que se incluye en nuestros correos electrónicos promocionales de Code for America</li>
         </ul>
         <p>Favor de tener en cuenta que incluso si se da de baja de ofertas y actualizaciones de correo electrónico promocionales, aún así podremos comunicarnos con usted para fines transaccionales. Por ejemplo, podremos enviar comunicaciones con respecto a su estado de declaración de impuestos, recordatorios o alertarle de información adicional necesaria.</p>
 
@@ -2374,8 +2350,8 @@ es:
         <p>Las cookies son pequeños archivos de texto que los sitios web colocan en las computadoras y dispositivos móviles de las personas que visitan esos sitios web. Las etiquetas de píxel (también llamadas web beacons) son pequeños bloques de código colocados en sitios web y correos electrónicos..</p>
 
         <ul class="list--bulleted">
-          <li>Utilizamos cookies y otras tecnologías como etiquetas de píxeles para recordar sus preferencias, mejorar su experiencia en línea y recopilar datos sobre cómo utiliza nuestros Sitios para mejorar la forma en que promovemos nuestro contenido, programas y eventos..</li>
-          <li>Su uso de nuestros Sitios indica su consentimiento para dicho uso de cookies.</li>
+        <li>Utilizamos cookies y otras tecnologías como etiquetas de píxeles para recordar sus preferencias, mejorar su experiencia en línea y recopilar datos sobre cómo utiliza nuestros Sitios para mejorar la forma en que promovemos nuestro contenido, programas y eventos..</li>
+        <li>Su uso de nuestros Sitios indica su consentimiento para dicho uso de cookies.</li>
         </ul>
 
         <p>La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de "Ayuda" en su navegador debe incluir una explicación de cómo hacerlo. La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de ayuda en su navegador debe incluir una explicación de cómo hacerlo. Asimismo, puede visitar www.aboutcookies.org, donde hallará información completa sobre cómo hacer esto en una amplia variedad de navegadores. Encontrará información general sobre las cookies y detalles sobre cómo eliminar las cookies de su computadora o dispositivo.</p>
@@ -2423,10 +2399,10 @@ es:
         <p>Si tiene cualquier pregunta, comentario, duda o queja con el Sitio, comuníquese con nosotros por correo electrónico a %{email_link} o por correo a:</p>
 
         <p>
-          GetCTC<br/>
-          c/o Code for America<br/>
-          972 Mission Street<br/>
-          San Francisco, CA 94103
+        GetCTC<br/>
+        c/o Code for America<br/>
+        972 Mission Street<br/>
+        San Francisco, CA 94103
         </p>
 
         <p>Haremos todo lo posible para resolver el problema.</p>
@@ -2437,8 +2413,8 @@ es:
           header: Gracias por registrarte!
           title: Regístrate
         new:
-          header: Mantente en contacto. Podemos enviarle un mensaje con actualizaciones.
-          sub_header: Todo lo que necesita hacer es proporcionarnos su nombre y una dirección de correo electrónico o un número de teléfono, y le enviaremos un correo electrónico o un mensaje de texto cuando haya actualizaciones.
+          header: 'Manténgase en contacto. Podemos enviarle un mensaje con actualizaciones. '
+          sub_header: Lo único que tiene que hacer es proporcionarnos su nombre y su correo electrónico o su numero de teléfono, y le enviaremos un correo electrónico o mensaje de texto cuando haya actualizaciones.
           submit: Manténganme actualizado
           title: Regístrate
       stimulus_home:
@@ -2642,7 +2618,7 @@ es:
       application:
         meta:
           description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
-        skip_content: Saltar al contenido principal
+        skip_content: Ir al contenido principal
       ctc:
         meta:
           description: Dinero en efectivo en el bolsillo de su familia cada mes para las cosas que necesita
@@ -2679,7 +2655,7 @@ es:
           subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $66,000 dólares al año. '
         title: Quiénes somos
       diy_home:
-        body_html: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para crear su propio acceso a TaxSlayer, para que pueda presentarlo por su cuenta. <strong>La fecha límite para utilizar TaxSlayer es el 15 de octubre.</strong>
+        body_html: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para que cree su propia cuenta de sesión de inicio de TaxSlayer.<strong>La fecha límite para usar TaxSlayer es el 15 de octubre.</strong>
         title: "¡Declare sus impuestos por su cuenta de forma gratuita!"
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
@@ -2741,7 +2717,7 @@ es:
             body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Me gusta mucho más este proceso cuando hay una persona que me puede explicar en detalle las preguntas que tienes y que responden bastante rápido".
             header: Son muy profesionales y amables
           rating: Hemos recibido una valoración de 4.8/5 estrellas
-        closing_banner_html: <strong>Los servicios GetYourRefund están cerrados durante esta temporada de impuestos.</strong> Esperamos poder brindarle nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para la preparación de impuestos gratuita ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
+        closing_banner_html: <strong>Los servicios de GetYourRefund están cerrados para esta temporada de impuestos. </strong>Esperamos proveer nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para obtener asistencia gratuita de preparación de impuestos ahora<a href="%{url}"> puede buscar una ubicación de VITA en su área.</a>
         ctc_full_capacity_html: La mayoría de nuestros preparadores de impuestos están a capacidad en este momento y no pueden completar declaraciones completas, pero todavía están disponibles nuestro servicio del Crédito Tributario por Hijos (CTC) y las opciones DIY. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getctc.org/es#claim-credit'>aquí</a></strong> si necesita ayuda para reclamar el Crédito Tributario por Hijos. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getyourrefund.org/es/diy/file-yourself'>aquí</a></strong> si quiere presentar su propia declaración usando nuestro programa gratis.
         features:
           amendments: Presenta enmiendas para años anteriores
@@ -2767,7 +2743,7 @@ es:
         stimulus_faq:
           info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
         subheader: "¡Si tiene ingresos del trabajo y está listo para declarar su declaración con todos sus formularios de impuestos, le podemos ayudar a maximizar sus beneficios tributarios!"
-        subheader_offseason: "¡Regístrese ahora para la próxima temporada de impuestos! ¡Le notificaremos tan pronto como nuestro servicio vuelva a funcionar en enero!"
+        subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! ¡Le notificaremos tan pronto como nuestro servicio esté de vuelta en enero!"
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
         cta: Presentar mis impuestos por mi cuenta gratis
@@ -2849,7 +2825,7 @@ es:
             respect: Valoramos y respetamos su privacidad, y le ofrecemos opciones sobre la manera en que recopilamos, usamos y compartimos su información.
             sms:
               header: Mensajes SMS transaccionales (texto)
-              unsubscribe: Puede darse de baja de los mensajes transaccionales enviando STOP a 58750 en cualquier momento. Después de recibir su solicitud de exclusión, le enviaremos un mensaje de texto final para confirmar su exclusión. Por favor, consulte los Términos de SMS de CFA, para más detalles e instrucciones de exclusión para estos servicios. Los datos obtenidos a través del programa de código corto no se compartirán con terceros por motivos / propósitos de marketing.
+              unsubscribe: Puede darse de baja, de los mensajes transaccionales, enviando un mensaje de texto con la palabra STOP al 58750, en cualquier momento. Después de recibir su solicitud de exclusión voluntaria, le enviaremos un último mensaje de texto, para confirmar su exclusión voluntaria. Consulte los Términos de SMS de CFA para obtener detalles adicionales e instrucciones de exclusión voluntaria para estos servicios. Los datos obtenidos a través del programa de código corto, no se compartirán con terceros por motivos / propósitos de marketing.
           examples:
             business_relationship: Terceros con los que tenemos una relación profesional para enviarle a usted información sobre otros programas y servicios
             research: Terceros para distribuir encuestas, grupos especializados u otros fines administrativos, analíticos y de marketing
