@@ -34,6 +34,8 @@ class VitaPartner < ApplicationRecord
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode"
   has_many :serviced_states, class_name: "VitaPartnerState"
 
+  scope :organizations, -> { Organization.default_scoped.with_child_sites }
+  scope :sites, -> { Site.default_scoped.all }
   scope :allows_greeters, lambda {
     greetable_organizations = Organization.default_scoped.where(allows_greeters: true)
     greetable_sites = Site.default_scoped.where(parent_organization: greetable_organizations)
