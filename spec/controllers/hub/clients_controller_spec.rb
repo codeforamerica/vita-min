@@ -686,8 +686,8 @@ RSpec.describe Hub::ClientsController do
           end
 
           context "when current_user is an admin" do
-            let(:vita_partner_not_greetable) { create :vita_partner, allows_greeters: false }
-            let(:vita_partner_greetable) { create :vita_partner, allows_greeters: true }
+            let(:vita_partner_not_greetable) { create :organization, allows_greeters: false }
+            let(:vita_partner_greetable) { create :organization, allows_greeters: true }
             let!(:greetable_client) { create :client_with_intake_and_return, vita_partner_id: vita_partner_greetable.id }
             let!(:not_greetable_client) { create :client_with_intake_and_return, vita_partner_id: vita_partner_not_greetable.id }
             before do
