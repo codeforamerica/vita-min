@@ -121,7 +121,7 @@ RSpec.describe Hub::CtcClientsController do
       end
 
       context "with a vita partner they do not have access to" do
-        let(:vita_partner_id) { create(:vita_partner).id }
+        let(:vita_partner_id) { create(:organization).id }
 
         it "does not save the client and renders new" do
           expect do

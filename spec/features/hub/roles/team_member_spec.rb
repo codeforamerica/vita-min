@@ -21,13 +21,13 @@ RSpec.feature "Team member role" do
     }
     let!(:abigail_invisible) {
       create :client,
-             vita_partner: create(:vita_partner),
+             vita_partner: create(:organization),
              intake: (create :intake, preferred_name: "Abigail Apricot", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"),
              tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress")]
     }
     let!(:mirabel_invisible) {
       create :client,
-             vita_partner: create(:vita_partner),
+             vita_partner: create(:organization),
              intake: (create :intake, preferred_name: "Mirabel Mushroom", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"),
              tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress")]
     }
