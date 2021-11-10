@@ -9,11 +9,11 @@ module Hub
     layout "admin"
 
     def new
-      @site = VitaPartner.new(parent_organization_id: params[:parent_organization_id])
+      @site = Site.new(parent_organization_id: params[:parent_organization_id])
     end
 
     def create
-      @site = VitaPartner.new(vita_partner_params)
+      @site = Site.new(vita_partner_params)
       if @site.save
         redirect_to edit_hub_organization_path(id: @site.parent_organization)
       else
