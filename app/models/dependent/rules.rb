@@ -1,5 +1,5 @@
 class Dependent::Rules
-  def initialize(birth_date, tax_year, full_time_student_yes, permanently_totally_disabled_yes, ssn_present, qualifying_child_relationship, qualifying_relative_relationship, meets_misc_qualifying_relative_requirements_yes)
+  def initialize(birth_date, tax_year, full_time_student_yes, permanently_totally_disabled_yes, ssn_present, qualifying_child_relationship, qualifying_relative_relationship, meets_misc_qualifying_relative_requirements_yes, meets_qc_residence_condition_generic)
     @birth_date = birth_date
     @tax_year = tax_year
     @full_time_student_yes = full_time_student_yes
@@ -8,6 +8,7 @@ class Dependent::Rules
     @qualifying_child_relationship = qualifying_child_relationship
     @qualifying_relative_relationship = qualifying_relative_relationship
     @meets_misc_qualifying_relative_requirements_yes = meets_misc_qualifying_relative_requirements_yes
+    @meets_qc_residence_condition_generic = meets_qc_residence_condition_generic
 
     @age = @tax_year - @birth_date.year
   end
@@ -32,5 +33,9 @@ class Dependent::Rules
     @meets_misc_qualifying_relative_requirements_yes &&
       @ssn_present &&
       (disqualified_child_qualified_relative? || @qualifying_relative_relationship)
+  end
+
+  def meets_qc_residence_condition?
+    @meets_qc_residence_condition_generic || born_in_last_6_months?
   end
 end

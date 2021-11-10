@@ -11,7 +11,7 @@ module Ctc
           dependent.qualifying_child_relationship? &&
             dependent.yr_2020_meets_qc_age_condition? &&
             dependent.meets_qc_misc_conditions? &&
-            dependent.meets_qc_residence_condition_2020?
+            dependent.yr_2020_meets_qc_residence_condition?
         end
 
         def method_name

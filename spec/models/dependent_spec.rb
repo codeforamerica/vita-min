@@ -221,12 +221,12 @@ describe Dependent do
     end
   end
 
-  describe "#meets_qc_residence_condition_2020?" do
+  describe "#meets_qc_residence_condition_generic?" do
     context "with a dependent that lived with the client for 6 months or more" do
       let(:dependent) { build :dependent, lived_with_more_than_six_months: "yes" }
 
       it "returns true" do
-        expect(dependent.meets_qc_residence_condition_2020?).to eq true
+        expect(dependent.meets_qc_residence_condition_generic?).to eq true
       end
     end
 
@@ -235,7 +235,7 @@ describe Dependent do
 
       context "doesn't meet an exception" do
         it "returns false" do
-          expect(dependent.meets_qc_residence_condition_2020?).to eq false
+          expect(dependent.meets_qc_residence_condition_generic?).to eq false
         end
       end
 
@@ -243,7 +243,8 @@ describe Dependent do
         it "returns true" do
           [:born_in_2020, :passed_away_2020, :placed_for_adoption, :permanent_residence_with_client].each do |field|
             dependent[field] = "yes"
-            expect(dependent.meets_qc_residence_condition_2020?).to eq true
+            expect(dependent.meets_qc_residence_condition_generic?).to eq true
+            dependent[field] = "no"
           end
         end
       end

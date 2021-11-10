@@ -163,21 +163,25 @@ class Dependent < ApplicationRecord
       (cant_be_claimed_by_other_no? && claim_anyway_yes?)
   end
 
-  def qualifying_child_2020?
-    qualifying_child_relationship? &&
-      yr_2020_meets_qc_age_condition? &&
-      meets_qc_misc_conditions? &&
-      meets_qc_residence_condition_2020? &&
-      meets_qc_claimant_condition? && ssn.present? &&
-      yr_2020_age >= 0
-  end
-
-  def meets_qc_residence_condition_2020?
+  def meets_qc_residence_condition_generic?
+    # This method should only be called when creating the `Rules` instance.
+    #
+    # The age check is handled in the year-specific rules; the rest is handled here.
     lived_with_more_than_six_months_yes? ||
-      yr_2020_born_in_last_6_months? ||
       (lived_with_more_than_six_months_no? &&
         (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
   end
+
+  def qualifying_child_2020?
+    qualifying_child_relationship? &&
+      ssn.present? &&
+      meets_qc_claimant_condition? &&
+      meets_qc_misc_conditions? &&
+      yr_2020_meets_qc_age_condition? &&
+      yr_2020_meets_qc_residence_condition? &&
+      yr_2020_age >= 0
+  end
+
 
   def qualifying_2020?
     qualifying_child_2020? || yr_2020_qualifying_relative?
@@ -198,8 +202,8 @@ class Dependent < ApplicationRecord
 
   # Methods on Dependent::Rules can be accessed (and mocked-out) as yr_2020_* and yr_2021_*. In the future, we might
   # add a default year with no prefix.
-  delegate :age, :born_in_last_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :qualifying_relative?, to: :rules_2020, prefix: :yr_2020
-  delegate :age, :born_in_last_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :qualifying_relative?, to: :rules_2021, prefix: :yr_2021
+  delegate :age, :born_in_last_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_relative?, to: :rules_2020, prefix: :yr_2020
+  delegate :age, :born_in_last_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_relative?, to: :rules_2021, prefix: :yr_2021
 
   private
 
@@ -216,7 +220,7 @@ class Dependent < ApplicationRecord
   end
 
   def rules(year)
-    Dependent::Rules.new(birth_date, year, full_time_student_yes?, permanently_totally_disabled_yes?, ssn.present?, qualifying_child_relationship?, qualifying_relative_relationship?, meets_misc_qualifying_relative_requirements_yes?)
+    Dependent::Rules.new(birth_date, year, full_time_student_yes?, permanently_totally_disabled_yes?, ssn.present?, qualifying_child_relationship?, qualifying_relative_relationship?, meets_misc_qualifying_relative_requirements_yes?, meets_qc_residence_condition_generic?)
   end
 
   def remove_error_associations
