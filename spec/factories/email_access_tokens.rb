@@ -12,8 +12,9 @@
 #
 # Indexes
 #
-#  index_email_access_tokens_on_client_id  (client_id)
-#  index_email_access_tokens_on_token      (token)
+#  index_email_access_tokens_on_client_id      (client_id)
+#  index_email_access_tokens_on_email_address  (email_address)
+#  index_email_access_tokens_on_token          (token)
 #
 FactoryBot.define do
   factory :email_access_token do
