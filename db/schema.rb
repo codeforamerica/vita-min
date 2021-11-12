@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_03_233101) do
+ActiveRecord::Schema.define(version: 2021_11_12_081410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -535,6 +535,7 @@ ActiveRecord::Schema.define(version: 2021_11_03_233101) do
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
     t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
+    t.string "canonical_email_address"
     t.string "city"
     t.integer "claim_owed_stimulus_money", default: 0, null: false
     t.integer "claimed_by_another", default: 0, null: false
@@ -574,6 +575,7 @@ ActiveRecord::Schema.define(version: 2021_11_03_233101) do
     t.boolean "eip_only"
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.string "email_domain"
     t.integer "email_notification_opt_in", default: 0, null: false
     t.string "encrypted_bank_account_number"
     t.string "encrypted_bank_account_number_iv"
@@ -755,9 +757,11 @@ ActiveRecord::Schema.define(version: 2021_11_03_233101) do
     t.boolean "with_vita_approved_taxpayer_id", default: false
     t.string "zip_code"
     t.index ["bank_account_id"], name: "index_intakes_on_bank_account_id"
+    t.index ["canonical_email_address"], name: "index_intakes_on_canonical_email_address"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
     t.index ["email_address"], name: "index_intakes_on_email_address"
+    t.index ["email_domain"], name: "index_intakes_on_email_domain"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
