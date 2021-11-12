@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_12_213611) do
+ActiveRecord::Schema.define(version: 2021_11_12_231601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -434,6 +434,7 @@ ActiveRecord::Schema.define(version: 2021_11_12_213611) do
     t.bigint "tax_return_id"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_efile_submissions_on_created_at"
+    t.index ["irs_submission_id"], name: "index_efile_submissions_on_irs_submission_id"
     t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
   end
 
