@@ -12,6 +12,7 @@
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
+#  canonical_email_address                              :string
 #  city                                                 :string
 #  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
@@ -49,6 +50,7 @@
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
+#  email_domain                                         :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  encrypted_bank_account_number                        :string
 #  encrypted_bank_account_number_iv                     :string
@@ -236,9 +238,11 @@
 # Indexes
 #
 #  index_intakes_on_bank_account_id                        (bank_account_id)
+#  index_intakes_on_canonical_email_address                (canonical_email_address)
 #  index_intakes_on_client_id                              (client_id)
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
 #  index_intakes_on_email_address                          (email_address)
+#  index_intakes_on_email_domain                           (email_domain)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
@@ -276,6 +280,10 @@ class Intake < ApplicationRecord
 
   before_save do
     self.needs_to_flush_searchable_data_set_at = Time.current
+    if email_address.present?
+      self.email_domain = email_address.split('@').last.downcase
+      self.canonical_email_address = compute_canonical_email_address
+    end
   end
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
@@ -567,5 +575,14 @@ class Intake < ApplicationRecord
   def new_dependent_token
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
     verifier.generate(SecureRandom.base36(24))
+  end
+
+  def compute_canonical_email_address
+    if email_domain == 'gmail.com'
+      username, domain = email_address.split('@')
+      [username.gsub('.', ''), domain].join('@').downcase
+    else
+      email_address.downcase
+    end
   end
 end
