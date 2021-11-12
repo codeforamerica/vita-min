@@ -53,9 +53,10 @@ RSpec.feature "Creating new drop off clients" do
         click_on "Add dependent"
         fill_in "Legal first name", with: "Miranda"
         fill_in "Legal last name", with: "Mango"
-        select "December", from: "Month"
-        select "1", from: "Day"
-        select "2008", from: "Year"
+        new_field_id = all(".dependent-form")[0].first("input")["id"].tr('^0-9', '')
+        fill_in "hub_create_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_month", with: "12"
+        fill_in "hub_create_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_day", with: "1"
+        fill_in "hub_create_ctc_client_form_dependents_attributes_#{new_field_id}_birth_date_year", with: "2008"
         select "Daughter", from: "Relationship"
         select "Social Security Number (SSN)"
         fill_in "SSN/ATIN", with: "222-33-6666"
