@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_13_002344) do
+ActiveRecord::Schema.define(version: 2021_11_13_003152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -980,6 +980,7 @@ ActiveRecord::Schema.define(version: 2021_11_13_002344) do
     t.string "token_type", default: "link"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_text_message_access_tokens_on_client_id"
+    t.index ["sms_phone_number"], name: "index_text_message_access_tokens_on_sms_phone_number"
     t.index ["token"], name: "index_text_message_access_tokens_on_token"
   end
 
