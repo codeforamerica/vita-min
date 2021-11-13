@@ -74,9 +74,10 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Legal first name", with: "Laura"
         expect(find_field("hub_update_ctc_client_form[dependents_attributes][0][first_name]").value).to eq "Laura"
         fill_in "Legal last name", with: "Peaches"
-        select "December", from: "Month"
-        select "1", from: "Day"
-        select "2008", from: "Year"
+        field_id = all(".dependent-form")[0].first("input")["id"].tr('^0-9', '')
+        fill_in "hub_update_ctc_client_form_dependents_attributes_#{field_id}_birth_date_month", with: "12"
+        fill_in "hub_update_ctc_client_form_dependents_attributes_#{field_id}_birth_date_day", with: "1"
+        fill_in "hub_update_ctc_client_form_dependents_attributes_#{field_id}_birth_date_year", with: "2008"
       end
 
       within "#navigator-fields" do
