@@ -12,8 +12,9 @@
 #
 # Indexes
 #
-#  index_text_message_access_tokens_on_client_id  (client_id)
-#  index_text_message_access_tokens_on_token      (token)
+#  index_text_message_access_tokens_on_client_id         (client_id)
+#  index_text_message_access_tokens_on_sms_phone_number  (sms_phone_number)
+#  index_text_message_access_tokens_on_token             (token)
 #
 class TextMessageAccessToken < ApplicationRecord
   validates_presence_of :token
