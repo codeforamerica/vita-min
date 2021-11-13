@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_12_231601) do
+ActiveRecord::Schema.define(version: 2021_11_13_002344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 2021_11_12_231601) do
     t.string "street_address2"
     t.datetime "updated_at", precision: 6, null: false
     t.string "zip_code"
+    t.index ["record_type", "record_id"], name: "index_addresses_on_record_type_and_record_id"
   end
 
   create_table "admin_roles", force: :cascade do |t|

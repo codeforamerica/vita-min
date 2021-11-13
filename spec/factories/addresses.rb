@@ -14,6 +14,10 @@
 #  updated_at           :datetime         not null
 #  record_id            :bigint
 #
+# Indexes
+#
+#  index_addresses_on_record_type_and_record_id  (record_type,record_id)
+#
 FactoryBot.define do
   factory :address do
     record { efile_submission }
