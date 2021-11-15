@@ -5,7 +5,7 @@ shared_examples :a_controller_which_is_skipped_when_vita_partner_source_param_is
     let(:source) { "validsource" }
     before do
       session[:source] = source
-      allow(SourceParameter).to receive(:find_vita_partner_by_code).with(source).and_return (create :vita_partner)
+      allow(SourceParameter).to receive(:find_vita_partner_by_code).with(source).and_return (create :organization)
     end
 
     it "redirects from edit to /questions/file-with-help" do

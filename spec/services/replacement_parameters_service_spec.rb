@@ -68,7 +68,7 @@ describe ReplacementParametersService do
     end
 
     context "with a ctc intake" do
-      let(:client) { create :client, intake: create(:ctc_intake, preferred_name: "Preferred Name"), tax_returns: [create(:tax_return)], vita_partner: (create :vita_partner, name: "Koala County VITA") }
+      let(:client) { create :client, intake: create(:ctc_intake, preferred_name: "Preferred Name"), tax_returns: [create(:tax_return)], vita_partner: (create :organization, name: "Koala County VITA") }
 
       it "replaces with the ctc login link" do
         expect(subject.process).to eq "Log in here: https://ctc.test.example.com/en/portal/login"

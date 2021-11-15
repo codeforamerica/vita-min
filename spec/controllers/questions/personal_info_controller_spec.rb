@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Questions::PersonalInfoController do
-  let(:vita_partner) { create :vita_partner }
+  let(:vita_partner) { create :organization }
   let(:organization_router) { double }
   before do
     allow(subject).to receive(:current_intake).and_return(intake)

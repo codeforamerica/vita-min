@@ -75,7 +75,7 @@ describe PartnerRoutingService do
         context "when state for that zip code has associated Vita Partners" do
           subject { PartnerRoutingService.new(zip_code: "28806") } #NC
 
-          let!(:expected_vita_partner) { create :vita_partner }
+          let!(:expected_vita_partner) { create :organization }
 
           context "with state qualified vita partners, but none have capacity" do
             let!(:org_state_routed_no_capacity) {

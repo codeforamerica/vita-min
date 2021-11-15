@@ -174,7 +174,7 @@ RSpec.describe User, type: :model do
   describe "#accessible_vita_partners" do
     context "team member user" do
       let!(:user) { create :team_member_user }
-      let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
+      let!(:not_accessible_partner) { create :site, name: "Not accessible" }
 
       it "should return a user's site" do
         accessible_group_ids = user.accessible_vita_partners.pluck(:id)
@@ -198,7 +198,7 @@ RSpec.describe User, type: :model do
       let!(:organization) { create :organization, name: "Parent org" }
       let!(:site) { create :site, parent_organization: organization, name: "Child org" }
       let!(:user) { create :organization_lead_user, organization: organization }
-      let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
+      let!(:not_accessible_partner) { create :site, name: "Not accessible" }
 
       it "should return a user's primary org and child sites" do
         accessible_group_ids = user.accessible_vita_partners.pluck(:id)
@@ -213,7 +213,7 @@ RSpec.describe User, type: :model do
       let!(:organization) { create :organization, coalition: coalition }
       let!(:site) { create :site, parent_organization: organization }
       let!(:user) { create :coalition_lead_user, coalition: coalition }
-      let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
+      let!(:not_accessible_partner) { create :organization, name: "Not accessible" }
 
       it "should return a user's child orgs, and those orgs' child sites, but not coalition" do
         accessible_groups = user.accessible_vita_partners
@@ -248,7 +248,7 @@ RSpec.describe User, type: :model do
       let!(:organization) { create :organization, coalition: coalition }
       let!(:site) { create :site, parent_organization: organization }
       let!(:user) { create :admin_user }
-      let!(:other_partner) { create :vita_partner, name: "accessible to admins" }
+      let!(:other_partner) { create :site, name: "accessible to admins" }
 
       it "should return all orgs and sites" do
         accessible_groups = user.accessible_vita_partners

@@ -25,7 +25,7 @@ require 'rails_helper'
 
 describe SystemNote::OrganizationChange do
   let(:initiating_user) { create :user, name: "Marlie Mango" }
-  let(:oregano_org) { create :vita_partner, name: "Oregano Org" }
+  let(:oregano_org) { create :organization, name: "Oregano Org" }
   context 'when a change was not persisted to clients vita partner' do
     let(:client) { create :client }
     it "returns nil" do
@@ -99,7 +99,7 @@ describe SystemNote::OrganizationChange do
     context "when changing vita partner assignment" do
       let(:client) { create :client, vita_partner: oregano_org }
       before do
-        client.update(vita_partner: (create :vita_partner, name: "Koala Kitchen"))
+        client.update(vita_partner: (create :organization, name: "Koala Kitchen"))
       end
 
       context "with an initiating user" do

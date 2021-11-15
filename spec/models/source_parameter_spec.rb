@@ -24,7 +24,7 @@ RSpec.describe SourceParameter, type: :model do
   it { should validate_presence_of(:code) }
 
   describe ".find_vita_partner_by_code" do
-    let(:vita_partner) { create :vita_partner, name: "Oregano Organization" }
+    let(:vita_partner) { create :organization, name: "Oregano Organization" }
     let!(:source_parameter) { create :source_parameter, code: "oregorg", vita_partner: vita_partner }
 
     context "when the source string matches a source parameter exactly" do

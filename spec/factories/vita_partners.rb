@@ -39,10 +39,12 @@ FactoryBot.define do
   factory :organization, class: 'Organization' do
     sequence(:name) { |n| "Organization #{n}" }
     capacity_limit { 100 }
+    type { Organization::TYPE }
   end
 
   factory :site, class: 'Site' do
     sequence(:name) { |n| "Site #{n}" }
     parent_organization { create :organization }
+    type { Site::TYPE }
   end
 end
