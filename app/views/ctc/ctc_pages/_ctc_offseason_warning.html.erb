@@ -1,0 +1,8 @@
+<div class="slab slab--flash flash--offseason-warning">
+  <% if open_for_ctc_intake? %>
+    <strong><%= t("views.ctc_pages.home.closing_date") %></strong>
+    <%= t("views.ctc_pages.home.closing_warning") %>
+  <%else %>
+    <strong><%= t("views.ctc_pages.home.closing_date_not_open") %></strong>
+  <% end %>
+</div>
