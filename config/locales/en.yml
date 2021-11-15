@@ -2298,6 +2298,7 @@ en:
             <br/>
             You can receive  payments of up to $300 per child every month starting in July 2021 through December 2021. You will need to file a tax return in 2022 to receive the rest of the payment.
           heading: Child Tax Credit
+        portal_sign_in_link: "Already started? Sign in to check your progress"
       navigators:
         help_text: Guidance for community-based navigators seeking to help hard-to-reach clients access the Advance Child Tax Credit (AdvCTC) or Economic Impact Payment (EIP or Stimulus).
         title: GetCTC.org Navigator Resources
