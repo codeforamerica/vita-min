@@ -49,7 +49,7 @@ describe Dependent::Rules do
     end
 
     context "when born on Dec 31 of the previous year" do
-      let(:birth_date) { Date.new(tax_year - 1, 12, 1) }
+      let(:birth_date) { Date.new(tax_year - 1, 12, 31) }
 
       it "is 1" do
         expect(subject.age).to eq(1)
