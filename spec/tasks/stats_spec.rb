@@ -33,6 +33,7 @@ describe 'stats:track_metrics' do
 
     expect(@emit_point_params).to match(array_including(
       ["vita-min.dogapi.delayed_job.queue_length", 2, tags: ["env:test"], type: "gauge"],
+      ["vita-min.dogapi.delayed_job.queued_jobs", 2, tags: ["job_class:SendOutgoingEmailJob", "env:test"], type: "gauge"],
       ["vita-min.dogapi.efile_submissions.state_counts", 2, tags: ["current_state:accepted", "env:test"], type: "gauge"],
       ["vita-min.dogapi.efile_submissions.state_counts", 1, tags: ["current_state:failed", "env:test"], type: "gauge"]
     ))
