@@ -1,0 +1,35 @@
+<% @main_heading = "Session Toggles" %>
+<% content_for :page_title, @main_heading %>
+<% content_for :back_to, "admin_tools" %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= @main_heading %></h1>
+
+      <div class="form-card__content">
+        <%= form_for(@toggle, url: { action: :create }, method: :post, local: true, builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" }) do |f| %>
+          <%= f.hidden_field :name %>
+          <%=
+            f.cfa_input_field(
+              :value,
+              "App time",
+              type: 'datetime-local',
+              options: {
+                value: f.object.value&.in_time_zone("America/Los_Angeles")&.strftime('%Y-%m-%dT%H:%M')
+              },
+              classes: ['form-width--long'],
+            )
+          %>
+
+          <button class="button button--cta spacing-above-0" type="submit">
+            <%= t("general.save") %>
+          </button>
+          <button class="button button--cta spacing-above-0" type="submit" name="clear">
+            <%= "Clear" %>
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

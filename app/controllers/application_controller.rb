@@ -242,8 +242,7 @@ class ApplicationController < ActionController::Base
     if Rails.env.production?
       Time.current
     else
-      fake_time = DateTime.parse(params[:fake_time]) rescue nil if params[:fake_time].present?
-      fake_time || Time.current
+      SessionToggle.new(session, 'app_time').value || Time.current
     end
   end
 

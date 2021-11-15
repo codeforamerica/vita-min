@@ -7,4 +7,14 @@
       </div>
     </div>
   </div>
+  <% if session[:session_toggles].present? %>
+    <div class="slab slab--flash flash--warning">
+      <div class="grid">
+        <div class="grid__item">
+          <strong>Active Session Toggles:</strong>
+          <div><%= session[:session_toggles] %></div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <% end %>
