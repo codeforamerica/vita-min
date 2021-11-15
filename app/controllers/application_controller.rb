@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  CTC_CLOSING_TIME = Time.find_zone('America/Los_Angeles').parse('2021-11-15 11:59:59')
+  CTC_CLOSING_TIME = Time.find_zone('America/Los_Angeles').parse('2021-11-15 23:59:59')
 
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
