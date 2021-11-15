@@ -13,12 +13,12 @@ describe Dependent::Rules do
   let(:meets_qc_misc_conditions) { false }
   let(:subject) { described_class.new(birth_date, tax_year, full_time_student_yes, permanently_totally_disabled_yes, ssn_present, qualifying_child_relationship, qualifying_relative_relationship, meets_misc_qualifying_relative_requirements, meets_qc_residence_condition_generic, meets_qc_claimant_condition, meets_qc_misc_conditions) }
 
-  describe ".born_in_last_6_months?" do
+  describe ".born_in_final_6_months?" do
     context "when born on Jan 1" do
       let(:birth_date) { Date.new(tax_year, 1, 1) }
 
       it "is false" do
-        expect(subject.born_in_last_6_months?).to be_falsey
+        expect(subject.born_in_final_6_months?).to be_falsey
       end
     end
 
@@ -26,7 +26,7 @@ describe Dependent::Rules do
       let(:birth_date) { Date.new(tax_year, 6, 30) }
 
       it "is true" do
-        expect(subject.born_in_last_6_months?).to be_truthy
+        expect(subject.born_in_final_6_months?).to be_truthy
       end
     end
 
@@ -34,7 +34,7 @@ describe Dependent::Rules do
       let(:birth_date) { Date.new(tax_year, 6, 30) }
 
       it "is true" do
-        expect(subject.born_in_last_6_months?).to be_truthy
+        expect(subject.born_in_final_6_months?).to be_truthy
       end
     end
   end

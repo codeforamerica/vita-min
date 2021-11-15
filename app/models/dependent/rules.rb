@@ -15,7 +15,7 @@ class Dependent::Rules
     @age = @tax_year - @birth_date.year
   end
 
-  def born_in_last_6_months?
+  def born_in_final_6_months?
     @birth_date >= Date.new(@tax_year, 6, 30) && @birth_date <= Date.new(@tax_year, 12, 31)
   end
 
@@ -38,7 +38,7 @@ class Dependent::Rules
   end
 
   def meets_qc_residence_condition?
-    @meets_qc_residence_condition_generic || born_in_last_6_months?
+    @meets_qc_residence_condition_generic || born_in_final_6_months?
   end
 
   def qualifying_child?

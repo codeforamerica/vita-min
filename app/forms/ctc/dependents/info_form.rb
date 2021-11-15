@@ -54,7 +54,7 @@ module Ctc
         ))
         @dependent.save
 
-        @dependent.update!(lived_with_more_than_six_months: "yes") if @dependent.yr_2020_born_in_last_6_months?
+        @dependent.update!(lived_with_more_than_six_months: "yes") if @dependent.yr_2020_born_in_final_6_months?
 
         if attributes_for(:recaptcha)[:recaptcha_score].present?
           @dependent.intake.client.recaptcha_scores.create(
