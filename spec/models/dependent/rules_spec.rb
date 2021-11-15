@@ -58,6 +58,14 @@ describe Dependent::Rules do
   end
 
   describe ".meets_qc_age_condition?" do
+    context "with a dependent born after the tax year" do
+      let(:birth_date) { Date.new(tax_year + 1, 1, 1) }
+
+      it "returns false" do
+        expect(subject.meets_qc_age_condition?).to eq false
+      end
+    end
+
     context "with a dependent that is under 19" do
       let(:birth_date) { Date.new(tax_year - 5, 12, 25) }
 

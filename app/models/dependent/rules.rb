@@ -22,9 +22,11 @@ class Dependent::Rules
   def age; @age; end
 
   def meets_qc_age_condition?
-    @permanently_totally_disabled_yes ||
-      (@age < 19) ||
-      (@full_time_student_yes && @age < 24)
+    @age >= 0 && (
+      @permanently_totally_disabled_yes ||
+        (@age < 19) ||
+        (@full_time_student_yes && @age < 24)
+    )
   end
 
   def disqualified_child_qualified_relative?
@@ -47,7 +49,6 @@ class Dependent::Rules
       @meets_qc_claimant_condition &&
       @meets_qc_misc_conditions &&
       meets_qc_age_condition? &&
-      meets_qc_residence_condition? &&
-      age >= 0
+      meets_qc_residence_condition?
   end
 end

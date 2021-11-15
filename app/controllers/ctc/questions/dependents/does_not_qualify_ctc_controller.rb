@@ -8,7 +8,7 @@ module Ctc
         def self.show?(dependent)
           return false unless dependent&.relationship
 
-          (!dependent.yr_2020_qualifying_child? && !dependent.yr_2020_qualifying_relative?) || dependent.yr_2020_age == -1
+          !dependent.yr_2020_qualifying_child? && !dependent.yr_2020_qualifying_relative?
         end
 
         def edit
