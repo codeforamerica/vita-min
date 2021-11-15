@@ -2229,6 +2229,7 @@ es:
             body2: Para obtener el Crédito Tributario por Hijos, necesitará proporcionar los números de seguro social de sus hijos. Puede registrarse para el Crédito Tributario por Hijos aún si usted tiene muy pocos ingresos o no tiene ingresos, o si recibe otros beneficios federales como Seguridad de Ingreso Suplementario (SSI en inglés) o beneficios por incapacidad (SSDI en inglés).
             chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Hable con nuestros expertos en impuestos</button> si necesita ayuda.
             subheading: Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos.
+        portal_sign_in_link: "¿Ya iniciado? Inicie sesión para comprobar su progreso"
         qualify:
           body1: Puede recibir el Crédito Tributario por Hijos si tiene hijos, aún si tiene muy pocos ingresos o no tiene ingresos.
           body2: En general, los niños de su familia califican para el Crédito Tributario por Hijos si son menores de 18 años y viven con usted la mayoría del tiempo.
@@ -2265,7 +2266,6 @@ es:
             <br/>
             Puede recibir pagos a partir de julio a diciembre de 2021. Tendrá que declarar impuestos en el 2022 para recibir el pago restante.
           heading: Crédito Tributario por Hijo
-        portal_sign_in_link: "¿Ya iniciado? Inicie sesión para comprobar su progreso"
       navigators:
         help_text: Orientación para los navegadores de la comunidad que buscan ayudar a los clientes de difícil acceso a acceder al Crédito Tributario Anticipado por Hijo (AdvCTC) o al Pago por Impacto Económico (EIP o Estímulo).
         title: Recursos del navegador GetCTC.org

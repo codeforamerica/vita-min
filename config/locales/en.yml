@@ -2268,6 +2268,7 @@ en:
             body2: To get the Child Tax Credit you will need to provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI.
             chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Chat with our tax experts</button> if you need help.
             subheading: If you have not filed a tax return, you can sign up to get the Child Tax Credit.
+        portal_sign_in_link: Already started? Sign in to check your progress
         qualify:
           body1: You can receive the Child Tax Credit if you have children, even if you make little or no money.
           body2: Generally, the children in your family qualify for the Child Tax Credit if they are under 18 and live with you most of the time.
@@ -2298,7 +2299,6 @@ en:
             <br/>
             You can receive  payments of up to $300 per child every month starting in July 2021 through December 2021. You will need to file a tax return in 2022 to receive the rest of the payment.
           heading: Child Tax Credit
-        portal_sign_in_link: "Already started? Sign in to check your progress"
       navigators:
         help_text: Guidance for community-based navigators seeking to help hard-to-reach clients access the Advance Child Tax Credit (AdvCTC) or Economic Impact Payment (EIP or Stimulus).
         title: GetCTC.org Navigator Resources
