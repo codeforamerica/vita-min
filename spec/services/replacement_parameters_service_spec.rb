@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe ReplacementParametersService do
-  let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name"), tax_returns: [create(:tax_return)], vita_partner: (create :vita_partner, name: "Koala County VITA") }
+  let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name"), tax_returns: [create(:tax_return)], vita_partner: (create :organization, name: "Koala County VITA") }
   let(:user) { create :user, name: "Preparer Name" }
   let(:locale) { "en" }
   subject { ReplacementParametersService.new(body: body, client: client, preparer: user, tax_return: client.tax_returns.first, locale: locale) }

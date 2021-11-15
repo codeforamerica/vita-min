@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Web Intake 211 Assisted Filer", :flow_explorer_screenshot do
   before do
     # Create the hard-coded VITA partner for EIP-only returns
-    create(:vita_partner, name: "Get Your Refund")
+    create(:organization, name: "Get Your Refund")
   end
 
   scenario "new EIP-only client filing joint with a dependent" do

@@ -79,12 +79,12 @@ describe PartnerRoutingService do
 
           context "with state qualified vita partners, but none have capacity" do
             let!(:org_state_routed_no_capacity) {
-              vita_partner = create(:vita_partner, capacity_limit: 0)
+              vita_partner = create(:organization, capacity_limit: 0)
               create(:vita_partner_state, state: "NC", routing_fraction: 0.3, vita_partner: vita_partner)
               vita_partner
             }
             let!(:org_state_routed_no_excess_capacity) {
-              vita_partner = create(:vita_partner, capacity_limit: 5)
+              vita_partner = create(:organization, capacity_limit: 5)
               create(:vita_partner_state, state: "NC", routing_fraction: 0.4, vita_partner: vita_partner)
               (vita_partner.capacity_limit + 1).times do
                 create :client_with_status, vita_partner: vita_partner, status: "intake_ready"

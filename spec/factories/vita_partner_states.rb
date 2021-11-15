@@ -21,6 +21,6 @@
 FactoryBot.define do
   factory :vita_partner_state do
     state { "CA" }
-    vita_partner { build(:vita_partner) }
+    vita_partner { build(:organization) }
   end
 end
