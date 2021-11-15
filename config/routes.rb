@@ -44,6 +44,9 @@ Rails.application.routes.draw do
   end
 
   get '/healthcheck' => 'public_pages#healthcheck'
+  unless Rails.env.production?
+    resources :session_toggles, only: [:index, :create]
+  end
 
   constraints(Routes::GyrDomain.new) do
     mount Cfa::Styleguide::Engine => "/cfa"
