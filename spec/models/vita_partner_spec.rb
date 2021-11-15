@@ -11,7 +11,7 @@
 #  national_overflow_location :boolean          default(FALSE)
 #  processes_ctc              :boolean          default(FALSE)
 #  timezone                   :string           default("America/New_York")
-#  type                       :string
+#  type                       :string           not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  coalition_id               :bigint
