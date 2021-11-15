@@ -1,10 +1,10 @@
 # Create client_support_org if needed
-national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization", type: "Organization")
+national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization", type: Organization::TYPE)
 national_org.update(allows_greeters: true)
 
 # Create GetCTC.org org if needed
-ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", type: "Organization")
-VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", type: "Site", parent_organization: ctc_org)
+ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", type: Organization::TYPE)
+VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", type: Site::TYPE, parent_organization: ctc_org)
 
 DefaultErrorMessages.generate!
 
@@ -14,14 +14,14 @@ Coalition.find_or_create_by(name: "Cola Coalition")
 vp1 = first_org = VitaPartner.find_or_create_by!(
   name: "Oregano Org",
   coalition: koalas,
-  type: "Organization"
+  type: Organization::TYPE
 )
 SourceParameter.find_or_create_by(code: "oregano", vita_partner_id: vp1.id)
 
 vp2 = VitaPartner.find_or_create_by!(
   name: "Orangutan Organization",
   coalition: koalas,
-  type: "Organization"
+  type: Organization::TYPE
 )
 
 SourceParameter.find_or_create_by(code: "orangutan", vita_partner_id: vp2.id)
@@ -29,7 +29,7 @@ SourceParameter.find_or_create_by(code: "orangutan", vita_partner_id: vp2.id)
 first_site = VitaPartner.find_or_create_by!(
   name: "Liberry Site",
   parent_organization: first_org,
-  type: "Site",
+  type: Site::TYPE,
   processes_ctc: true
 )
 
