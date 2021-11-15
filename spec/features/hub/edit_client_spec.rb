@@ -160,7 +160,6 @@ RSpec.describe "a user editing a clients intake fields" do
       within "#dependents-fields" do
         new_field_id = all(".dependent-form").last.first("input")["id"].tr('^0-9', '')
         fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_last_name", with: "Cranberry"
-        # fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_year", with: "2019"
       end
 
       click_on "Save"
