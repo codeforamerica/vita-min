@@ -22,7 +22,11 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   end
 
   def edit_info
-    intake_updated_since_last_submission = SystemNote.where('created_at > ?', @submission.created_at).where(type: [SystemNote::CtcPortalAction, SystemNote::CtcPortalUpdate].map(&:to_s)).any?
+    intake_updated_since_last_submission = SystemNote
+      .where(client: current_client)
+      .where('created_at > ?', @submission.created_at)
+      .where(type: [SystemNote::CtcPortalAction, SystemNote::CtcPortalUpdate].map(&:to_s))
+      .any?
     direct_deposit_missing_bank_account = current_client.intake.refund_payment_method_direct_deposit? && !current_client.intake.bank_account.present?
     @submit_enabled = intake_updated_since_last_submission && !direct_deposit_missing_bank_account
   end
