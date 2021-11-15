@@ -30,8 +30,8 @@ describe Dependent::Rules do
       end
     end
 
-    context "when born on June 30" do
-      let(:birth_date) { Date.new(tax_year, 6, 30) }
+    context "when born on December 31" do
+      let(:birth_date) { Date.new(tax_year, 12, 31) }
 
       it "is true" do
         expect(subject.born_in_final_6_months?).to be_truthy
