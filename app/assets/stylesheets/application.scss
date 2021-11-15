@@ -234,3 +234,8 @@ pre {
 .skip-link:focus {
   transform: translateY(0%);
 }
+
+// Use `.hidden` for elements that should be fully removed from the page, even for screen readers.
+.hidden {
+  display: none;
+}

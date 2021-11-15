@@ -1,5 +1,8 @@
 <form class="some-form">
     <textarea class="text-message-body"></textarea>
-    <div id="text-message-length-counter"></div>
+    <div class="text-message-length-limiter spacing-below-15">
+        <span data-target="length-counter">0</span> / 1600 characters used.
+        <span data-target="error-message" class="hidden">Character count must be reduced to send this message.</span>
+    </div>
     <input type="submit"/>
 </form>

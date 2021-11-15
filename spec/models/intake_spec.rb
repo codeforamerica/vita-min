@@ -12,6 +12,7 @@
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default(0), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
+#  canonical_email_address                              :string
 #  city                                                 :string
 #  claim_owed_stimulus_money                            :integer          default("unfilled"), not null
 #  claimed_by_another                                   :integer          default(0), not null
@@ -49,6 +50,7 @@
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
+#  email_domain                                         :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  encrypted_bank_account_number                        :string
 #  encrypted_bank_account_number_iv                     :string
@@ -236,9 +238,11 @@
 # Indexes
 #
 #  index_intakes_on_bank_account_id                        (bank_account_id)
+#  index_intakes_on_canonical_email_address                (canonical_email_address)
 #  index_intakes_on_client_id                              (client_id)
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
 #  index_intakes_on_email_address                          (email_address)
+#  index_intakes_on_email_domain                           (email_domain)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
@@ -313,10 +317,30 @@ describe Intake do
     end
   end
 
+  describe "canonical_email_address" do
+    it "is persisted when the intake is saved" do
+      example_intake = Intake.create!(email_address: "a.REAL.email@example.com", visitor_id: "visitor_id")
+      expect(example_intake.canonical_email_address).to eq('a.real.email@example.com')
+
+      gmail_intake = Intake.create!(email_address: "a.REAL.email@gmail.com", visitor_id: "visitor_id")
+      expect(gmail_intake.canonical_email_address).to eq('arealemail@gmail.com')
+    end
+  end
+
   describe "email_address" do
     it "searches case-insensitively" do
       intake = Intake.create!(email_address: "eXample@EXAMPLE.COM", visitor_id: "visitor_id")
       expect(Intake.where(email_address: "example@example.com")).to include(intake)
+    end
+  end
+
+  describe "email_domain" do
+    it "is persisted when the intake is saved" do
+      example_intake = Intake.create!(email_address: "a.REAL.email@example.com", visitor_id: "visitor_id")
+      expect(example_intake.email_domain).to eq('example.com')
+
+      gmail_intake = Intake.create!(email_address: "a.REAL.email@gmail.com", visitor_id: "visitor_id")
+      expect(gmail_intake.email_domain).to eq('gmail.com')
     end
   end
 

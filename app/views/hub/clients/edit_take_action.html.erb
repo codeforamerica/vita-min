@@ -33,7 +33,7 @@
           help_text: @take_action_form.contact_method_help_text,
           collection: @take_action_form.contact_method_options,
         ) %>
-        <div>
+        <div class="no-form-group-padding">
           <%= f.cfa_textarea(
                   :message_body,
                   t("general.send_message"),
@@ -41,9 +41,8 @@
                   classes: ['text-message-body'],
 
                   help_text: t(".blank_no_message_sent")
-              )%>
-          <div class="grid-flex justify-flex-end"
-          <div id="text-message-length-counter"></div>
+              ) %>
+          <%= render "hub/components/length_counter" %>
         </div>
 
 

@@ -14,6 +14,10 @@
 #  updated_at           :datetime         not null
 #  record_id            :bigint
 #
+# Indexes
+#
+#  index_addresses_on_record_type_and_record_id  (record_type,record_id)
+#
 class Address < ApplicationRecord
   belongs_to :record, polymorphic: true
 end

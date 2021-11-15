@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_09_200705) do
+ActiveRecord::Schema.define(version: 2021_11_13_003152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_200705) do
     t.string "street_address2"
     t.datetime "updated_at", precision: 6, null: false
     t.string "zip_code"
+    t.index ["record_type", "record_id"], name: "index_addresses_on_record_type_and_record_id"
   end
 
   create_table "admin_roles", force: :cascade do |t|
@@ -434,6 +435,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_200705) do
     t.bigint "tax_return_id"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_efile_submissions_on_created_at"
+    t.index ["irs_submission_id"], name: "index_efile_submissions_on_irs_submission_id"
     t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
   end
 
@@ -445,6 +447,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_200705) do
     t.string "token_type", default: "link"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_email_access_tokens_on_client_id"
+    t.index ["email_address"], name: "index_email_access_tokens_on_email_address"
     t.index ["token"], name: "index_email_access_tokens_on_token"
   end
 
@@ -535,6 +538,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_200705) do
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
     t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
+    t.string "canonical_email_address"
     t.string "city"
     t.integer "claim_owed_stimulus_money", default: 0, null: false
     t.integer "claimed_by_another", default: 0, null: false
@@ -574,6 +578,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_200705) do
     t.boolean "eip_only"
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.string "email_domain"
     t.integer "email_notification_opt_in", default: 0, null: false
     t.string "encrypted_bank_account_number"
     t.string "encrypted_bank_account_number_iv"
@@ -755,9 +760,11 @@ ActiveRecord::Schema.define(version: 2021_11_09_200705) do
     t.boolean "with_vita_approved_taxpayer_id", default: false
     t.string "zip_code"
     t.index ["bank_account_id"], name: "index_intakes_on_bank_account_id"
+    t.index ["canonical_email_address"], name: "index_intakes_on_canonical_email_address"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
     t.index ["email_address"], name: "index_intakes_on_email_address"
+    t.index ["email_domain"], name: "index_intakes_on_email_domain"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
@@ -973,6 +980,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_200705) do
     t.string "token_type", default: "link"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_text_message_access_tokens_on_client_id"
+    t.index ["sms_phone_number"], name: "index_text_message_access_tokens_on_sms_phone_number"
     t.index ["token"], name: "index_text_message_access_tokens_on_token"
   end
 

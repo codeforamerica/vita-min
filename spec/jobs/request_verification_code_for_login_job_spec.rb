@@ -81,33 +81,13 @@ describe RequestVerificationCodeForLoginJob do
           allow_any_instance_of(ClientLoginService).to receive(:can_login_by_sms_verification?).and_return false
         end
 
-        let(:ctc_text_message_body_es) {
-          <<~ESTEXT
-            Alguien intentó iniciar sesión en GetCTC con este número de teléfono. Si ya tiene una cuenta con GetCTC, puede intentar iniciar sesión con su dirección de correo electrónico en lugar de https://ctc.test.example.com/es/portal/login.
-            O visite https://ctc.test.example.com/es y haga clic en "Presentar su declaración simplificada ahora" para comenzar.
-          ESTEXT
-        }
+        let(:ctc_text_message_body_es) { I18n.t("verification_code_sms.no_match_ctc", url: "https://ctc.test.example.com/es", locale: :es) }
 
-        let(:ctc_text_message_body_en) {
-          <<~ENTEXT
-            Someone tried to sign into GetCTC with this phone number. If you already have an account with GetCTC, you can try to sign in with your email address instead https://ctc.test.example.com/en/portal/login.
-            Or visit https://ctc.test.example.com/en and click "File your simplified return now" to get started.
-          ENTEXT
-        }
+        let(:ctc_text_message_body_en) { I18n.t("verification_code_sms.no_match_ctc", url: "https://ctc.test.example.com/en", locale: :en) }
 
-        let(:gyr_text_message_body_es) {
-          <<~ESTEXT
-            Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
-            También puede ir a https://test.example.com/es para empezar su declaración.
-          ESTEXT
-        }
+        let(:gyr_text_message_body_es) { I18n.t("verification_code_sms.no_match_gyr", url: "https://test.example.com/es", locale: :es) }
 
-        let(:gyr_text_message_body_en) {
-          <<~ENTEXT
-            Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
-            You can also visit https://test.example.com/en to get started.
-          ENTEXT
-        }
+        let(:gyr_text_message_body_en) { I18n.t("verification_code_sms.no_match_gyr", url: "https://test.example.com/en", locale: :en) }
 
         context "locale es and service type is gyr" do
           let(:locale) { "es" }

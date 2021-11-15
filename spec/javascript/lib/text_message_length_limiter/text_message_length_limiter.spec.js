@@ -9,20 +9,22 @@ describe('text message form with length limiter', () => {
 
     let textarea;
     let counter;
+    let component;
     let submitButton;
     const TEMPLATE = fs.readFileSync(path.join(__dirname, "/template.html"));
 
     beforeEach(() => {
         body.innerHTML = TEMPLATE;
         textarea = body.querySelector("textarea.text-message-body");
-        counter = body.querySelector("#text-message-length-counter");
+        component = body.querySelector(".text-message-length-limiter")
+        counter = body.querySelector('[data-target="length-counter"]');
         submitButton = body.querySelector("input[type='submit']");
     });
 
     test("it sets the current length into the counter on initialization (less than 1600)", () => {
         textarea.value = "123456789"
         limitTextMessageLength();
-        expect(counter.innerHTML).toEqual("9 / 1600")
+        expect(counter.innerHTML).toEqual("9")
         expect(counter.classList.length).toEqual(0)
         expect(submitButton.disabled).toEqual(false)
 
@@ -31,29 +33,29 @@ describe('text message form with length limiter', () => {
     test("it sets the current length into the counter on initialization (= 1600)", () => {
         textarea.value = lorumIpsum
         limitTextMessageLength();
-        expect(counter.innerHTML).toEqual("1600 / 1600");
-        expect(counter.classList[0]).toEqual('text--error');
+        expect(counter.innerHTML).toEqual("1600");
+        expect(component.classList).toContain('text--error');
         expect(submitButton.disabled).toEqual(true);
     });
 
     test("it sets the current length into the counter on initialization (= 1605)", () => {
         textarea.value = lorumIpsum + "12345"
         limitTextMessageLength();
-        expect(counter.innerHTML).toEqual("1605 / 1600");
-        expect(counter.classList[0]).toEqual('text--error');
+        expect(counter.innerHTML).toEqual("1605");
+        expect(component.classList).toContain('text--error');
         expect(submitButton.disabled).toEqual(true);
     });
 
     test("changing the length and triggering an input event (9 -> 1605)", () => {
         textarea.value = "123456789"
         limitTextMessageLength();
-        expect(counter.innerHTML).toEqual("9 / 1600");
+        expect(counter.innerHTML).toEqual("9");
 
         textarea.value = lorumIpsum;
         let event = new Event('input');
         textarea.dispatchEvent(event);
-        expect(counter.innerHTML).toEqual("1600 / 1600");
-        expect(counter.classList[0]).toEqual('text--error');
+        expect(counter.innerHTML).toEqual("1600");
+        expect(component.classList).toContain('text--error');
         expect(submitButton.disabled).toEqual(true);
     });
 });

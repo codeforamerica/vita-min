@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ApplicationController, active_job: true do
+RSpec.describe ApplicationController do
   let(:user_agent_string) { "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.360" }
 
   controller do
@@ -485,7 +485,10 @@ RSpec.describe ApplicationController, active_job: true do
   end
 
   describe "#send_mixpanel_event" do
+    let(:mixpanel_spy) { spy(MixpanelService) }
+
     before do
+      allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
       cookies[:visitor_id] = "123"
       session[:source] = "vdss"
       session[:utm_state] = "CA"
@@ -526,7 +529,7 @@ RSpec.describe ApplicationController, active_job: true do
         controller_action_name: "index",
       }
 
-      expect(MixpanelJob).to have_been_enqueued.with(
+      expect(mixpanel_spy).to have_received(:run).with(
         distinct_id: "123",
         event_name: "beep",
         data: expected_mixpanel_data
@@ -537,10 +540,9 @@ RSpec.describe ApplicationController, active_job: true do
       let(:user_agent_string) { "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" }
 
       it "sends nothing to mixpanel" do
-        clear_enqueued_jobs
         get :index
 
-        expect(MixpanelJob).not_to have_been_enqueued
+        expect(mixpanel_spy).not_to have_received(:run)
       end
     end
 
@@ -565,7 +567,7 @@ RSpec.describe ApplicationController, active_job: true do
       it "sends fields about the intake" do
         get :index
 
-        expect(MixpanelJob).to have_been_enqueued.with(
+        expect(mixpanel_spy).to have_received(:run).with(
           distinct_id: "current_intake_visitor_id",
           event_name: "page_view",
           data: hash_including(
@@ -585,7 +587,7 @@ RSpec.describe ApplicationController, active_job: true do
       it "sends the new locale" do
         get :index, params: { locale: 'es' }
 
-        expect(MixpanelJob).to have_been_enqueued.with(
+        expect(mixpanel_spy).to have_received(:run).with(
           distinct_id: "123",
           event_name: "page_view",
           data: hash_including(locale: "es")
