@@ -1,12 +1,13 @@
 class BackfillTypeOnVitaPartner < ActiveRecord::Migration[6.0]
-  disable_ddl_transaction!
 
   def up
-    orgs = VitaPartner.where(parent_organization_id: nil)
-    orgs.update_all(type: "Organization")
+    ActiveRecord::Base.connection.execute(
+      "UPDATE vita_partners SET type='Organization' WHERE parent_organization_id IS NULL"
+    )
 
-    sites = VitaPartner.where.not(parent_organization_id: nil)
-    sites.update_all(type: "Site")
+    ActiveRecord::Base.connection.execute(
+      "UPDATE vita_partners SET type='Site' WHERE parent_organization_id IS NOT NULL"
+    )
   end
 
   def down
