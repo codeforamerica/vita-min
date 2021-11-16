@@ -30,7 +30,9 @@ class Dependent::Rules
   end
 
   def disqualified_child_qualified_relative?
-    @qualifying_child_relationship && !meets_qc_age_condition?
+    @age >= 0 && (
+      @qualifying_child_relationship && !meets_qc_age_condition?
+    )
   end
 
   def qualifying_relative?

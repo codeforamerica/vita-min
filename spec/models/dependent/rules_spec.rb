@@ -104,6 +104,13 @@ describe Dependent::Rules do
   describe ".disqualified_child_qualified_relative?" do
     context "with a relationship that's normally a qualifying child" do
       let(:qualifying_child_relationship) { true }
+      context "when negative years old" do
+        let(:birth_date) { Date.new(tax_year + 1, 12, 25) }
+
+        it "is not a disqualified-child child relative" do
+          expect(subject.disqualified_child_qualified_relative?).to eq(false)
+        end
+      end
       context "when young" do
         let(:birth_date) { Date.new(tax_year - 2, 12, 25) }
         it "is not a disqualified-child child relative" do
