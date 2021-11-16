@@ -264,8 +264,8 @@ class MixpanelService
         intake_source: intake.source,
         intake_referrer: intake.referrer,
         intake_referrer_domain: intake.referrer_domain,
-        primary_filer_age_at_end_of_tax_year: intake.age_end_of_tax_year.to_s,
-        spouse_age_at_end_of_tax_year: intake.spouse_age_end_of_tax_year.to_s,
+        primary_filer_age_at_end_of_tax_year: age_from_date_of_birth(intake.primary_birth_date).to_s,
+        spouse_age_at_end_of_tax_year: age_from_date_of_birth(intake.spouse_birth_date).to_s,
         with_general_navigator: intake.with_general_navigator,
         with_incarcerated_navigator: intake.with_incarcerated_navigator,
         with_limited_english_navigator: intake.with_limited_english_navigator,
@@ -350,6 +350,14 @@ class MixpanelService
           }
         )
       )
+    end
+
+    def age_from_date_of_birth(date_of_birth)
+      if date_of_birth.present?
+        Rails.application.config.default_tax_year - date_of_birth.year
+      else
+        nil
+      end
     end
   end
 end

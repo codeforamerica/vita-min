@@ -319,10 +319,6 @@ class Intake < ApplicationRecord
     }
   }
 
-  def tax_return(tax_year)
-    tax_returns.find_by(year: tax_year)
-  end
-
   def is_ctc?
     false
   end
@@ -455,20 +451,8 @@ class Intake < ApplicationRecord
     sms_notification_opt_in_yes? || email_notification_opt_in_yes?
   end
 
-  def tax_year
-    2019 # TODO: This is wrong. Migrate to a Rails setting or similar
-  end
-
-  def age_end_of_tax_year
-    return unless primary_birth_date.present?
-
-    tax_year - primary_birth_date.year
-  end
-
-  def spouse_age_end_of_tax_year
-    return unless spouse_birth_date.present?
-
-    tax_year - spouse_birth_date.year
+  def default_tax_return
+    tax_returns.find_by(year: Rails.application.config.default_tax_year)
   end
 
   def had_earned_income?

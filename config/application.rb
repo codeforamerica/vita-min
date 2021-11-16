@@ -50,5 +50,6 @@ module VitaMin
       production: "www.getctc.org"
     }
     config.middleware.use Middleware::CleanupMimeTypeHeaders
+    config.default_tax_year = 2020
   end
 end

@@ -6,7 +6,7 @@ module Ctc
       layout "intake"
 
       def edit
-        tax_return = current_intake.tax_return(2020)
+        tax_return = current_intake.default_tax_return
         @ctc_amount = tax_return.expected_advance_ctc_payments
         @rrc_amount = tax_return.claimed_recovery_rebate_credit
         @third_stimulus_amount = tax_return.expected_recovery_rebate_credit_three
@@ -21,7 +21,7 @@ module Ctc
       end
 
       def do_not_file
-        current_intake.tax_return(2020).transition_to(:file_not_filing)
+        current_intake.default_tax_return.transition_to(:file_not_filing)
         session.delete("intake_id")
         flash[:notice] = I18n.t('views.ctc.questions.confirm_payment.do_not_file_flash_message')
         redirect_to root_path
