@@ -53,7 +53,7 @@ describe SLABreachService do
   end
 
   describe "#active_sla_clients_count" do
-    let(:vita_partners) { create_list(:vita_partner, 2) }
+    let(:vita_partners) { create_list(:organization, 2) }
     let(:clients_first) { create_list(:client, 3, vita_partner: vita_partners.first) }
     let(:clients_second) { create_list(:client, 2, vita_partner: vita_partners.second) }
     before do

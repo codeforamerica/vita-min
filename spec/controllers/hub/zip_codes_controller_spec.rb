@@ -41,7 +41,7 @@ describe Hub::ZipCodesController do
 
       context "when the code already exists" do
         before do
-          create :vita_partner_zip_code, zip_code: zip_code, vita_partner: create(:vita_partner)
+          create :vita_partner_zip_code, zip_code: zip_code, vita_partner: create(:organization)
         end
 
         it "does not make a new source parameter" do

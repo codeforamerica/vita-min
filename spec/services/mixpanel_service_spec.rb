@@ -404,7 +404,7 @@ describe MixpanelService do
 
     describe '#data_from(obj)' do
       let(:state_of_residence) { 'CA' }
-      let(:vita_partner) { create(:vita_partner, name: "test_partner") }
+      let(:vita_partner) { create(:organization, name: "test_partner") }
       let(:intake) do
         create(
           :intake,

@@ -57,7 +57,7 @@ describe Ability do
       shared_examples :can_only_read_accessible_org_or_site do
         let(:accessible_site) { create(:site) }
         before do
-          allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: accessible_site))
+          allow(user).to receive(:accessible_vita_partners).and_return(Site.where(id: accessible_site))
         end
 
         it "can read the site" do

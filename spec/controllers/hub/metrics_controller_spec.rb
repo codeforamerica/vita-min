@@ -3,9 +3,9 @@ require 'rails_helper'
 describe Hub::MetricsController do
   describe '#index' do
     let(:sla_breach_report_double) { instance_double(Report::SLABreachReport) }
-    let(:vita_partner_1) { create :vita_partner, name: "Vita Partner 1" }
-    let(:vita_partner_2) { create :vita_partner, name: "Vita Partner 2" }
-    let(:vita_partner_3) { create :vita_partner, name: "Vita Partner 3" }
+    let(:vita_partner_1) { create :organization, name: "Vita Partner 1" }
+    let(:vita_partner_2) { create :organization, name: "Vita Partner 2" }
+    let(:vita_partner_3) { create :site, name: "Vita Partner 3" }
     let!(:generated_at) { DateTime.current }
     let(:breach_threshold_date) { DateTime.new(2020, 8, 30) }
     let(:breach_data) { { vita_partner_1.id => 2, vita_partner_2.id => 1} }

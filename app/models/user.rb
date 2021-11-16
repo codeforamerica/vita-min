@@ -108,9 +108,7 @@ class User < ApplicationRecord
     when AdminRole::TYPE
       VitaPartner.all
     when OrganizationLeadRole::TYPE
-      VitaPartner.organizations.where(id: role.organization).or(
-        VitaPartner.sites.where(parent_organization_id: role.organization)
-      )
+      VitaPartner.organizations.where(id: role.organization).or(VitaPartner.sites.where(parent_organization: role.organization))
     when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
       VitaPartner.sites.where(id: role.site)
     when CoalitionLeadRole::TYPE
@@ -154,7 +152,7 @@ class User < ApplicationRecord
 
   def self.taggable_for(client)
     users = User.where(role_type: [AdminRole::TYPE, ClientSuccessRole::TYPE, GreeterRole::TYPE])
-    coalition = client.vita_partner&.coalition || client.vita_partner&.parent_organization&.coalition
+    coalition = client.vita_partner&.coalition
     users = users.or(User.where(role: CoalitionLeadRole.where(coalition: coalition))) if coalition.present?
     users = users.or(User.where(role: OrganizationLeadRole.where(organization: client.vita_partner))) if client.vita_partner&.organization?
 

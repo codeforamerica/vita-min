@@ -518,7 +518,7 @@ describe Client do
 
   describe "#destroy" do
     context "with many associated records" do
-      let(:vita_partner) { create :vita_partner }
+      let(:vita_partner) { create :site }
       let(:user) { create :user }
       let(:organization_lead_role) { create :organization_lead_role, user: user, organization: vita_partner }
       let(:client) { create :client, vita_partner: vita_partner }

@@ -38,7 +38,7 @@ RSpec.describe Hub::StateRoutingForm do
       end
 
       context "creating vita partner state objects" do
-        let(:vita_partner) { create :vita_partner }
+        let(:vita_partner) { create :organization }
         let(:params) {
           { vita_partner_states_attributes: {
               "0" => {

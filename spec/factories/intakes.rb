@@ -462,7 +462,7 @@ FactoryBot.define do
     dependent_count { [1, 2, 3].sample }
     with_dependents
     with_documents
-    vita_partner
+    vita_partner { build(:organization) }
     primary_tin_type { :ssn }
     spouse_tin_type { :ssn }
     locale { ["en", "es"].sample }

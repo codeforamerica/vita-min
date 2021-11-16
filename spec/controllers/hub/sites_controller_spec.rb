@@ -29,7 +29,7 @@ RSpec.describe Hub::SitesController, type: :controller do
     let(:other_organization) { create :organization }
     let(:params) do
       {
-        vita_partner: {
+        site: {
           name: "Library Site",
           parent_organization_id: other_organization.id
         }
@@ -113,7 +113,7 @@ RSpec.describe Hub::SitesController, type: :controller do
     let(:params) do
       {
         id: site.id,
-        vita_partner: {
+        site: {
           name: "Silly Site",
           parent_organization_id: other_organization.id,
           timezone: "America/Chicago",

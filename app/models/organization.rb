@@ -27,24 +27,34 @@
 #
 #  fk_rails_...  (coalition_id => coalitions.id)
 #
-FactoryBot.define do
-  sequence :name do |n|
-    "Partner #{n}"
+class Organization < VitaPartner
+  TYPE = "Organization"
+
+  belongs_to :coalition, optional: true
+  has_one :organization_capacity, foreign_key: "vita_partner_id"
+  has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
+  has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode", foreign_key: "vita_partner_id"
+  has_many :serviced_states, class_name: "VitaPartnerState", foreign_key: "vita_partner_id"
+
+  validates :capacity_limit, gyr_numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+  validates :name, uniqueness: { scope: [:coalition] }
+
+  default_scope -> { includes(:child_sites).order(name: :asc) }
+  alias_attribute :allows_greeters?, :allows_greeters
+
+  def at_capacity?
+    !OrganizationCapacity.with_capacity.where(organization: self).exists?
   end
 
-  factory :vita_partner do
-    name { generate :name }
+  def organization_leads
+    User.where(role: OrganizationLeadRole.where(organization: self))
   end
 
-  factory :organization, class: 'Organization' do
-    sequence(:name) { |n| "Organization #{n}" }
-    capacity_limit { 100 }
-    type { Organization::TYPE }
+  def site_coordinators
+    User.where(role: SiteCoordinatorRole.where(site: child_sites))
   end
 
-  factory :site, class: 'Site' do
-    sequence(:name) { |n| "Site #{n}" }
-    parent_organization { create :organization }
-    type { Site::TYPE }
+  def team_members
+    User.where(role: TeamMemberRole.where(site: child_sites))
   end
 end
