@@ -192,10 +192,6 @@ class Dependent < ApplicationRecord
 
   private
 
-  def rules_default
-    rules(intake.most_recent_filing_year)
-  end
-
   def rules_2020
     rules(2020)
   end

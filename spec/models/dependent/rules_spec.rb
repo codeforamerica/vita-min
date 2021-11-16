@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe Dependent::Rules do
   let(:tax_year) { 2020 }
+  let(:birth_date) { Date.new(tax_year - 50, 11, 2) }
   let(:full_time_student_yes) { false }
   let(:permanently_totally_disabled_yes) { false }
   let(:qualifying_child_relationship) { false }
@@ -104,6 +105,7 @@ describe Dependent::Rules do
   describe ".disqualified_child_qualified_relative?" do
     context "with a relationship that's normally a qualifying child" do
       let(:qualifying_child_relationship) { true }
+
       context "when negative years old" do
         let(:birth_date) { Date.new(tax_year + 1, 12, 25) }
 
@@ -111,12 +113,14 @@ describe Dependent::Rules do
           expect(subject.disqualified_child_qualified_relative?).to eq(false)
         end
       end
+
       context "when young" do
         let(:birth_date) { Date.new(tax_year - 2, 12, 25) }
         it "is not a disqualified-child child relative" do
           expect(subject.disqualified_child_qualified_relative?).to eq(false)
         end
       end
+
       context "when old" do
         let(:birth_date) { Date.new(tax_year - 40, 12, 25) }
         it "is a disqualified-child child relative" do
@@ -124,6 +128,7 @@ describe Dependent::Rules do
         end
       end
     end
+
     context "with a relationship other than qualifying child" do
       context "when young" do
         let(:birth_date) { Date.new(tax_year - 2, 12, 25) }
@@ -131,6 +136,7 @@ describe Dependent::Rules do
           expect(subject.disqualified_child_qualified_relative?).to eq(false)
         end
       end
+
       context "when old" do
         let(:birth_date) { Date.new(tax_year - 40, 12, 25) }
         it "is not a disqualified-child child relative" do
@@ -141,41 +147,66 @@ describe Dependent::Rules do
   end
 
   describe ".qualifying_relative?" do
-    context "with an old dependent who meets misc requirements and has a ssn/itin/atin stored" do
-      let(:meets_misc_qualifying_relative_requirements) { true }
-      let(:ssn_present) { true }
+    context "with a dependent who has a qualified child relationship but doesn't meet age conditions" do
+      let(:birth_date) { Date.new(tax_year - 70, 12, 25) }
+      let(:qualifying_child_relationship) { true }
 
-      context "with a dependent who has a qualified child relationship but doesn't meet age conditions" do
-        let(:birth_date) { Date.new(tax_year - 70, 12, 25) }
-        let(:qualifying_child_relationship) { true }
+      context "when misc requirements are met and has a ssn/itin/atin stored" do
+        let(:meets_misc_qualifying_relative_requirements) { true }
+        let(:ssn_present) { true }
 
         it "returns true" do
           expect(subject.qualifying_relative?).to eq true
-        end
-
-        context "when meet misc requirements are not met" do
-          let(:meets_misc_qualifying_relative_requirements) { false }
-
-          it "returns false" do
-            expect(subject.qualifying_relative?).to eq false
-          end
         end
       end
 
-      context "with a dependent who has a qualified relative relationship" do
-        let(:birth_date) { Date.new(tax_year - 30, 12, 25) }
-        let(:qualifying_relative_relationship) { true }
+      context "when misc requirements are not met" do
+        let(:meets_misc_qualifying_relative_requirements) { false }
+        let(:ssn_present) { true }
+
+        it "returns false" do
+          expect(subject.qualifying_relative?).to eq false
+        end
+      end
+
+      context "when ssn/itin/atin not present" do
+        let(:meets_misc_qualifying_relative_requirements) { true }
+        let(:ssn_present) { false }
+
+        it "returns false" do
+          expect(subject.qualifying_relative?).to eq false
+        end
+      end
+    end
+
+    context "with a dependent who has a qualified relative relationship" do
+      let(:birth_date) { Date.new(tax_year - 30, 12, 25) }
+      let(:qualifying_relative_relationship) { true }
+
+      context "when misc requirements are met and has a ssn/itin/atin stored" do
+        let(:meets_misc_qualifying_relative_requirements) { true }
+        let(:ssn_present) { true }
 
         it "returns true" do
           expect(subject.qualifying_relative?).to eq true
         end
+      end
 
-        context "when meet misc requirements are not met" do
-          let(:meets_misc_qualifying_relative_requirements) { false }
+      context "when misc requirements are not met" do
+        let(:meets_misc_qualifying_relative_requirements) { false }
+        let(:ssn_present) { true }
 
-          it "returns false" do
-            expect(subject.qualifying_relative?).to eq false
-          end
+        it "returns false" do
+          expect(subject.qualifying_relative?).to eq false
+        end
+      end
+
+      context "when ssn/itin/atin not present" do
+        let(:meets_misc_qualifying_relative_requirements) { true }
+        let(:ssn_present) { false }
+
+        it "returns false" do
+          expect(subject.qualifying_relative?).to eq false
         end
       end
     end
@@ -220,52 +251,69 @@ describe Dependent::Rules do
   end
 
   describe ".qualifying_child?" do
-    context "as a child who generally qualifies" do
-      let(:qualifying_child_relationship) { true }
-      let(:ssn_present) { true }
-      let(:meets_qc_claimant_condition) { true }
-      let(:meets_qc_misc_conditions) { true }
+    let(:qualifying_child_relationship) { true }
+    let(:ssn_present) { true }
+    let(:meets_qc_claimant_condition) { true }
+    let(:meets_qc_misc_conditions) { true }
+    let(:meets_qc_age_condition) { true }
+    let(:meets_qc_residence_condition) { true }
 
-      context "when the child is < 6 months old" do
-        let(:birth_date) { Date.new(tax_year, 12, 25) }
+    before do
+      allow(subject).to receive(:meets_qc_age_condition?).and_return meets_qc_age_condition
+      allow(subject).to receive(:meets_qc_residence_condition?).and_return meets_qc_residence_condition
+    end
 
-        it "returns true" do
-          expect(subject.qualifying_child?).to eq(true)
-        end
-
-        context "and not born yet" do
-          let(:birth_date) { Date.new(tax_year + 1, 1, 1) }
-          it "returns false" do
-            expect(subject.qualifying_child?).to eq(false)
-          end
-        end
+    context "when all conditions are met" do
+      it "returns true" do
+        expect(subject.qualifying_child?).to eq true
       end
+    end
 
-      context "when the child is about 1 year old" do
-        let(:birth_date) { Date.new(tax_year, 1, 1) }
+    context "when not a qualifying child relationship" do
+      let(:qualifying_child_relationship) { false }
 
-        context "when the residence condition is met" do
-          let(:meets_qc_residence_condition_generic) { true }
-
-          it "returns true" do
-            expect(subject.qualifying_child?).to eq(true)
-          end
-        end
-
-        context "when the residence condition is not met" do
-          it "returns false" do
-            expect(subject.qualifying_child?).to eq(false)
-          end
-        end
+      it "returns false" do
+        expect(subject.qualifying_child?).to eq false
       end
+    end
 
-      context "when the child is 40 years old and the residence condition is met" do
-        let(:birth_date) { Date.new(tax_year - 40, 1, 1) }
-        let(:meets_qc_residence_condition_generic) { true }
+    context "when ssn/itin/atin not present" do
+      let(:ssn_present) { false }
 
-        it "returns false" do
-          expect(subject.qualifying_child?).to eq(false)
-        end
+      it "returns false" do
+        expect(subject.qualifying_child?).to eq false
+      end
+    end
+
+    context "when not meeting the qualified child claimant condition" do
+      let(:meets_qc_claimant_condition) { false }
+
+      it "returns false" do
+        expect(subject.qualifying_child?).to eq false
+      end
+    end
+
+    context "when not meeting the qualified child misc conditions" do
+      let(:meets_qc_misc_conditions) { false }
+
+      it "returns false" do
+        expect(subject.qualifying_child?).to eq false
+      end
+    end
+
+    context "when not meeting the age condition" do
+      let(:meets_qc_age_condition) { false }
+
+      it "returns false" do
+        expect(subject.qualifying_child?).to eq false
+      end
+    end
+
+    context "when not meeting the residence condition" do
+      let(:meets_qc_residence_condition) { false }
+
+      it "returns false" do
+        expect(subject.qualifying_child?).to eq false
       end
     end
   end
