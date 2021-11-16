@@ -163,4 +163,4 @@ married_intake = Intake::GyrIntake.create!(
   primary_consented_to_service: "yes",
   primary_consented_to_service_ip: "127.0.0.1",
 )
-TaxReturn.create!(client: married_intake.client, year: Rails.application.config.default_tax_year, status: TaxReturnStatus::STATUSES[:prep_preparing])
+TaxReturn.create!(client: married_intake.client, year: 2020, status: TaxReturnStatus::STATUSES[:prep_preparing])

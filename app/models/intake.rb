@@ -451,10 +451,6 @@ class Intake < ApplicationRecord
     sms_notification_opt_in_yes? || email_notification_opt_in_yes?
   end
 
-  def default_tax_return
-    tax_returns.find_by(year: Rails.application.config.default_tax_year)
-  end
-
   def had_earned_income?
     had_a_job? || had_wages_yes? || had_self_employment_income_yes?
   end

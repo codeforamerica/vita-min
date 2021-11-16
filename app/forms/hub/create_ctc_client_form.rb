@@ -174,7 +174,7 @@ module Hub
 
     def tax_return_attributes
       {
-        year: Rails.application.config.default_tax_year,
+        year: Rails.application.config.ctc_current_tax_year,
         is_ctc: true,
         certification_level: :basic,
         service_type: :drop_off

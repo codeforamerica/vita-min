@@ -5,7 +5,7 @@ covered below.
 
 ## Configuring the default tax year
 
-To change the default `TaxReturn` year that we create during intake, change `Rails.application.config.default_tax_year`.
+To change the default `TaxReturn` year that we create during CTC intake, change `Rails.application.config.default_tax_year`.
 
 This will also change the default tax year for computing primary taxpayer age within Mixpanel analytics.
 
@@ -24,7 +24,7 @@ This approach allows us to compute dependent eligibility for whatever tax year w
 
 ## Writing new year-independent code
 
-Rely on `Intake#default_tax_return` if possible. This returns the default tax return for an intake, based on
+Rely on `CtcIntake#default_tax_return` if possible. This returns the default tax return for an intake, based on
 `Rails.application.config.default_tax_year`.
 
 Rely on the `Dependent#yr_2021_*` methods if you need a year-specific computation. If you want to compute

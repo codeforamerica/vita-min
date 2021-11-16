@@ -1,4 +1,4 @@
-<% content_for :form_question, t("views.ctc.questions.income.title", tax_year: Rails.application.config.default_tax_year) %>
+<% content_for :form_question, t("views.ctc.questions.income.title", tax_year: Rails.application.config.ctc_current_tax_year) %>
 <% content_for :form_help_text do %>
   <p class="form-question--tabbed"><%=t("views.ctc.questions.income.filing_single") %></p>
   <p class="form-question--tabbed"><%=t("views.ctc.questions.income.filing_married") %></p>
