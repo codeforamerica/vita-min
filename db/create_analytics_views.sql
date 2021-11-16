@@ -195,9 +195,9 @@ CREATE VIEW analytics.users AS
            locked_at, reset_password_sent_at, role_id, role_type, sign_in_count, suspended_at, timezone, updated_at
     FROM public.users;
 
-CREATE VIEW analytics.vita_partner_states AS
+CREATE VIEW analytics.state_routing_targets AS
     SELECT id, created_at, routing_fraction, state, updated_at, vita_partner_id
-    FROM public.vita_partner_states;
+    FROM public.state_routing_targets;
 
 CREATE VIEW analytics.vita_partner_zip_codes AS
     SELECT id, created_at, updated_at, vita_partner_id, zip_code

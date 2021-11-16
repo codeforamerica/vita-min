@@ -9,7 +9,7 @@ describe Hub::StateRoutingsController do
       end
     end
 
-    context "when authenticated as a user type without access to VitaPartnerState objects" do
+    context "when authenticated as a user type without access to StateRoutingTarget objects" do
       let(:user) { create :team_member_user }
       before do
         sign_in user
@@ -25,10 +25,10 @@ describe Hub::StateRoutingsController do
       let(:user) { create :admin_user }
 
       before do
-        create(:vita_partner_state, state: "CA", routing_fraction: 0.5)
-        create(:vita_partner_state, state: "CA", routing_fraction: 0.3)
-        create(:vita_partner_state, state: "TX", routing_fraction: 0.3)
-        create(:vita_partner_state, state: "AZ", routing_fraction: 0.5)
+        create(:state_routing_target, state: "CA", routing_fraction: 0.5)
+        create(:state_routing_target, state: "CA", routing_fraction: 0.3)
+        create(:state_routing_target, state: "TX", routing_fraction: 0.3)
+        create(:state_routing_target, state: "AZ", routing_fraction: 0.5)
 
         sign_in user
       end
@@ -70,8 +70,8 @@ describe Hub::StateRoutingsController do
 
   describe '#update' do
     let(:user) { create :admin_user }
-    let(:vps1) { create(:vita_partner_state, state: "FL", routing_fraction: 0.6) }
-    let(:vps2) { create(:vita_partner_state, state: "FL", routing_fraction: 0.5) }
+    let(:vps1) { create(:state_routing_target, state: "FL", routing_fraction: 0.6) }
+    let(:vps2) { create(:state_routing_target, state: "FL", routing_fraction: 0.5) }
 
     before do
       sign_in user
@@ -82,7 +82,7 @@ describe Hub::StateRoutingsController do
         put :update, params: {
           state: "FL",
           "hub_state_routing_form" => {
-            "vita_partner_states_attributes" => {
+            "state_routing_targets_attributes" => {
               vps1.id => {
                 routing_percentage: 60
               },
@@ -102,7 +102,7 @@ describe Hub::StateRoutingsController do
         put :update, params: {
           state: "FL",
           "hub_state_routing_form" => {
-            "vita_partner_states_attributes" => {
+            "state_routing_targets_attributes" => {
               "0" => {
                 vita_partner_id: vps1.vita_partner.id,
                 routing_percentage: 60
@@ -126,7 +126,7 @@ describe Hub::StateRoutingsController do
         put :update, params: {
           state: "FL",
           "hub_state_routing_form" => {
-            "vita_partner_states_attributes" => {
+            "state_routing_targets_attributes" => {
               "0" => {
                 id: 1,
                 routing_percentage: 40,
@@ -153,7 +153,7 @@ describe Hub::StateRoutingsController do
   describe '#destory' do
     let(:user) { create :admin_user }
     let(:routing_fraction) { 0.0 }
-    let!(:vita_partner_state) { create :vita_partner_state, routing_fraction: routing_fraction, state: "FL" }
+    let!(:state_routing_target) { create :state_routing_target, routing_fraction: routing_fraction, state: "FL" }
 
     before do
       sign_in user
@@ -162,8 +162,8 @@ describe Hub::StateRoutingsController do
     context "when vita partner state has a routing percentage of 0" do
       it "deletes the vita partner state and redirects to the state routing page" do
         expect {
-          delete :destroy, params: { id: vita_partner_state.id, state: "FL" }
-        }.to change(VitaPartnerState, :count).by(-1)
+          delete :destroy, params: { id: state_routing_target.id, state: "FL" }
+        }.to change(StateRoutingTarget, :count).by(-1)
         expect(response).to redirect_to(edit_hub_state_routing_path(state: "FL"))
       end
     end
@@ -181,7 +181,7 @@ describe Hub::StateRoutingsController do
       let!(:routing_fraction) { 0.4 }
 
       it "shows an error message and redirects to edit" do
-        delete :destroy, params: { id: vita_partner_state.id, state: "FL" }
+        delete :destroy, params: { id: state_routing_target.id, state: "FL" }
 
         expect(flash[:alert]).to eq "To delete a persisted routing rule, routing percentage must be 0%."
         expect(response).to redirect_to(edit_hub_state_routing_path(state: "FL"))

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_15_175837) do
+ActiveRecord::Schema.define(version: 2021_11_16_182257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -892,6 +892,16 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
   end
 
+  create_table "state_routing_targets", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.float "routing_fraction", default: 0.0, null: false
+    t.string "state", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "vita_partner_id", null: false
+    t.index ["state", "vita_partner_id"], name: "index_state_routing_targets_on_state_and_vita_partner_id", unique: true
+    t.index ["vita_partner_id"], name: "index_state_routing_targets_on_vita_partner_id"
+  end
+
   create_table "system_notes", force: :cascade do |t|
     t.text "body"
     t.bigint "client_id", null: false
@@ -1042,16 +1052,6 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
     t.index ["role_type", "role_id"], name: "index_users_on_role_type_and_role_id", unique: true
   end
 
-  create_table "vita_partner_states", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.float "routing_fraction", default: 0.0, null: false
-    t.string "state", null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "vita_partner_id", null: false
-    t.index ["state", "vita_partner_id"], name: "index_vita_partner_states_on_state_and_vita_partner_id", unique: true
-    t.index ["vita_partner_id"], name: "index_vita_partner_states_on_vita_partner_id"
-  end
-
   create_table "vita_partner_zip_codes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1137,6 +1137,7 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
   add_foreign_key "recaptcha_scores", "clients"
   add_foreign_key "site_coordinator_roles", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
+  add_foreign_key "state_routing_targets", "vita_partners"
   add_foreign_key "system_notes", "clients"
   add_foreign_key "system_notes", "users"
   add_foreign_key "tax_return_assignments", "tax_returns"
@@ -1149,7 +1150,6 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
   add_foreign_key "team_member_roles", "vita_partners"
   add_foreign_key "user_notifications", "users"
   add_foreign_key "users", "users", column: "invited_by_id"
-  add_foreign_key "vita_partner_states", "vita_partners"
   add_foreign_key "vita_partner_zip_codes", "vita_partners"
   add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"

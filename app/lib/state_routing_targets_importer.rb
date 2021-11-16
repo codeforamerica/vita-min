@@ -1,8 +1,8 @@
 require 'csv'
 
-class VitaPartnerStatesImporter
+class StateRoutingTargetsImporter
   def from_csv(filename)
-    # To use, run "VitaPartnerStatesImporter.from_csv('./wave_1_routing.csv')" in console
+    # To use, run "StateRoutingTargetsImporter.from_csv('./wave_1_routing.csv')" in console
     successes = []
     problems = []
     unfound_vita_partners = []
@@ -29,10 +29,10 @@ class VitaPartnerStatesImporter
 
       states.to_s.split(",").map do |state|
         begin
-          VitaPartnerState.create!(state: state&.strip&.upcase, vita_partner: vita_partner)
-          successes << "Created VitaPartnerState with #{state} for #{vita_partner&.name}"
+          StateRoutingTarget.create!(state: state&.strip&.upcase, vita_partner: vita_partner)
+          successes << "Created StateRoutingTarget with #{state} for #{vita_partner&.name}"
         rescue => e
-          problems << "SKIPPED Unable to create VitaPartnerState with #{state} for #{vita_partner&.name} because: #{ e.message }"
+          problems << "SKIPPED Unable to create StateRoutingTarget with #{state} for #{vita_partner&.name} because: #{ e.message }"
         end
       end
     end

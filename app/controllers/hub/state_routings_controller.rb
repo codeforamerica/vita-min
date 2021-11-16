@@ -3,11 +3,11 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:edit, :update]
-    authorize_resource :vita_partner_state
+    authorize_resource :state_routing_target
     layout "admin"
 
     def index
-      @state_routings = VitaPartnerState.joins(:vita_partner).order(state: :asc).all.group_by(&:state).sort
+      @state_routings = StateRoutingTarget.joins(:vita_partner).order(state: :asc).all.group_by(&:state).sort
     end
 
     def edit
@@ -28,14 +28,14 @@ module Hub
     end
 
     def destroy
-      @vita_partner_state = VitaPartnerState.find_by(state: params[:state], id: params[:id])
-      unless @vita_partner_state.present?
+      @state_routing_target = StateRoutingTarget.find_by(state: params[:state], id: params[:id])
+      unless @state_routing_target.present?
         flash[:alert] = I18n.t("forms.errors.state_routings.not_found", state: params[:state])
         redirect_to edit_hub_state_routing_path(state: params[:state]) and return
       end
 
-      if @vita_partner_state.routing_fraction.zero?
-        @vita_partner_state.destroy!
+      if @state_routing_target.routing_fraction.zero?
+        @state_routing_target.destroy!
       else
         flash[:alert] = I18n.t("forms.errors.state_routings.zero_to_delete")
       end
@@ -44,7 +44,7 @@ module Hub
     end
 
     def state_routing_params
-      params.require(:hub_state_routing_form).permit(vita_partner_states_attributes: {})
+      params.require(:hub_state_routing_form).permit(state_routing_targets_attributes: {})
     end
   end
 end

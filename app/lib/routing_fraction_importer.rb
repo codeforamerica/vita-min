@@ -76,7 +76,7 @@ class RoutingFractionImporter
 
       org[:state_percent_pairs].map do |pair|
         begin
-          vps = VitaPartnerState.find_or_create_by!(state: pair[:state], vita_partner: vita_partner)
+          vps = StateRoutingTarget.find_or_create_by!(state: pair[:state], vita_partner: vita_partner)
           previous_routing_fraction = vps.routing_fraction
           vps.update!(routing_fraction: pair[:routing_fraction])
 
@@ -89,9 +89,9 @@ class RoutingFractionImporter
                 "No change to"
               end
 
-          @successes << "#{record_status} VitaPartnerState (#{vps.id}) record with [#{vps.state}, #{vps.routing_fraction}] for \"#{vps.vita_partner.name}\" (#{vps.vita_partner.id})"
+          @successes << "#{record_status} StateRoutingTarget (#{vps.id}) record with [#{vps.state}, #{vps.routing_fraction}] for \"#{vps.vita_partner.name}\" (#{vps.vita_partner.id})"
         rescue => e
-          @problems << "SKIPPED Unable to create/update VitaPartnerState with [#{pair[:state]}, #{pair[:routing_fraction]}] for \"#{vita_partner.name}\" (#{vita_partner.id}) because: #{e.message}"
+          @problems << "SKIPPED Unable to create/update StateRoutingTarget with [#{pair[:state]}, #{pair[:routing_fraction]}] for \"#{vita_partner.name}\" (#{vita_partner.id}) because: #{e.message}"
         end
       end
     end

@@ -19,7 +19,7 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 FactoryBot.define do
-  factory :vita_partner_state do
+  factory :state_routing_target do
     state { "CA" }
     vita_partner { build(:organization) }
   end

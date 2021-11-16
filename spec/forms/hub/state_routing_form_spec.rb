@@ -1,13 +1,13 @@
 require "rails_helper"
 
 RSpec.describe Hub::StateRoutingForm do
-  let!(:vps_1) { create :vita_partner_state, routing_fraction: 0.0, state: "FL" }
-  let!(:vps_2) { create :vita_partner_state, routing_fraction: 0.1, state: "FL" }
+  let!(:vps_1) { create :state_routing_target, routing_fraction: 0.0, state: "FL" }
+  let!(:vps_2) { create :state_routing_target, routing_fraction: 0.1, state: "FL" }
   describe "#initialize" do
     it "accepts a set of state_routing_attributes and assigns to vita partner states" do
       params = {}
       form = described_class.new(params, state: "FL")
-      expect(form.vita_partner_states).to match_array VitaPartnerState.where(state: "FL")
+      expect(form.state_routing_targets).to match_array StateRoutingTarget.where(state: "FL")
     end
   end
 
@@ -15,7 +15,7 @@ RSpec.describe Hub::StateRoutingForm do
     context "when values add up to 100%" do
       context "updating existing vita partner state objects" do
         let(:params) {
-          { vita_partner_states_attributes: {
+          { state_routing_targets_attributes: {
               "0" => {
                   id: vps_1.id,
                   vita_partner_id: vps_1.vita_partner.id,
@@ -40,7 +40,7 @@ RSpec.describe Hub::StateRoutingForm do
       context "creating vita partner state objects" do
         let(:vita_partner) { create :organization }
         let(:params) {
-          { vita_partner_states_attributes: {
+          { state_routing_targets_attributes: {
               "0" => {
                   id: vps_1.id,
                   vita_partner_id: vps_1.vita_partner.id,
@@ -57,10 +57,10 @@ RSpec.describe Hub::StateRoutingForm do
           expect {
             form = Hub::StateRoutingForm.new(params, state: "FL")
             form.save
-          }.to change(VitaPartnerState, :count)
+          }.to change(StateRoutingTarget, :count)
 
           expect(vps_1.reload.routing_fraction).to eq 0.6
-          expect(VitaPartnerState.last.routing_fraction).to eq 0.4
+          expect(StateRoutingTarget.last.routing_fraction).to eq 0.4
         end
       end
     end
@@ -69,7 +69,7 @@ RSpec.describe Hub::StateRoutingForm do
   describe "#valid?" do
     context "when proposed values add up to less than to 100%" do
       let(:params) {
-        { vita_partner_states_attributes: {
+        { state_routing_targets_attributes: {
             "0" => {
                 id: vps_1.id,
                 vita_partner_id: vps_1.vita_partner.id,
@@ -91,7 +91,7 @@ RSpec.describe Hub::StateRoutingForm do
 
     context "when proposed values add up to more than to 100%" do
       let(:params) {
-        { vita_partner_states_attributes: {
+        { state_routing_targets_attributes: {
             "0" => {
                 id: vps_1.id,
                 vita_partner_id: vps_1.vita_partner.id,
@@ -113,7 +113,7 @@ RSpec.describe Hub::StateRoutingForm do
 
     context "when there are duplicate entries for the same vita_partner_id" do
       let(:params) do
-        { vita_partner_states_attributes: {
+        { state_routing_targets_attributes: {
             "0" => {
                 id: 1,
                 routing_percentage: 40,
