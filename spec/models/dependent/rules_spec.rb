@@ -23,6 +23,7 @@ describe Dependent::Rules do
       end
     end
 
+    # TODO: find out whether June 30 is 1st or 2nd half of the year
     context "when born on June 30" do
       let(:birth_date) { Date.new(tax_year, 6, 30) }
 
