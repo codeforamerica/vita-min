@@ -50,8 +50,6 @@ module VitaMin
       production: "www.getctc.org"
     }
     config.middleware.use Middleware::CleanupMimeTypeHeaders
-    # TODO: Use just one variable because it's fine to do that (and Kelly is confirming this with Gabriel)
-    config.ctc_current_tax_year = 2020
-    config.gyr_current_tax_year = 2020
+    config.current_tax_year = 2020
   end
 end

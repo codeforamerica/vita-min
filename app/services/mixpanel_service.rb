@@ -264,9 +264,8 @@ class MixpanelService
         intake_source: intake.source,
         intake_referrer: intake.referrer,
         intake_referrer_domain: intake.referrer_domain,
-        # TODO: Make the below fields be computed based on teh current date; Kelly doesn't need a lot of precision and accuracy.
-        primary_filer_age_at_end_of_tax_year: age_from_date_of_birth(intake.primary_birth_date).to_s,
-        spouse_age_at_end_of_tax_year: age_from_date_of_birth(intake.spouse_birth_date).to_s,
+        primary_filer_age: age_from_date_of_birth(intake.primary_birth_date).to_s,
+        spouse_age: age_from_date_of_birth(intake.spouse_birth_date).to_s,
         with_general_navigator: intake.with_general_navigator,
         with_incarcerated_navigator: intake.with_incarcerated_navigator,
         with_limited_english_navigator: intake.with_limited_english_navigator,
@@ -355,7 +354,7 @@ class MixpanelService
 
     def age_from_date_of_birth(date_of_birth)
       if date_of_birth.present?
-        Rails.application.config.gyr_current_tax_year - date_of_birth.year
+        Rails.application.config.current_tax_year - date_of_birth.year
       else
         nil
       end
