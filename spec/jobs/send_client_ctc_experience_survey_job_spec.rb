@@ -7,7 +7,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
       allow(ClientMessagingService).to receive(:send_system_text_message)
     end
 
-    let(:client) { create(:intake, locale: "es").client }
+    let(:client) { create(:ctc_intake, locale: "es").client }
     let!(:tax_return) { create :tax_return, client: client, year: 2020 }
 
     context "sending the survey" do
@@ -32,7 +32,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
       end
 
       context "with a client who is opted-in to sms notifications" do
-        let(:client) { create(:intake, locale: "es").client }
+        let(:client) { create(:ctc_intake, locale: "es").client }
         before do
           allow(ClientMessagingService).to receive(:contact_methods).and_return({sms_phone_number: "+14155551212"})
         end

@@ -132,104 +132,6 @@ describe Dependent do
     end
   end
 
-  describe "#age_at_end_of_year" do
-    let(:dependent) { build :dependent, birth_date: dob }
-    let(:intake_double) { instance_double("Intake", tax_year: tax_year) }
-    before { allow(dependent).to receive(:intake).and_return intake_double }
-
-    context "a kid born the same year as the tax year" do
-      let(:dob) { Date.new(2019, 12, 31) }
-      let(:tax_year) { 2019 }
-      it "returns 0" do
-        expect(dependent.age_at_end_of_year(tax_year)).to eq 0
-      end
-    end
-
-    context "a kid born in 2015 at end of 2019" do
-      let(:dob) { Date.new(2015, 12, 25) }
-      let(:tax_year) { 2019 }
-      it "returns 4" do
-        expect(dependent.age_at_end_of_year(tax_year)).to eq 4
-      end
-    end
-  end
-
-  describe "#qualifying_child_2020?" do
-    context "with a qualifying child" do
-      let(:dependent) do
-        build :dependent,
-              relationship: "NIECE",
-              birth_date: Date.new(2015, 12, 25),
-              full_time_student: "no",
-              permanently_totally_disabled: "no",
-              provided_over_half_own_support: "no",
-              filed_joint_return: "no",
-              lived_with_more_than_six_months: "yes",
-              cant_be_claimed_by_other: "no",
-              claim_anyway: "yes",
-              ssn: "123-12-1234"
-      end
-
-      it "returns true" do
-        expect(dependent.qualifying_child_2020?).to eq true
-      end
-    end
-
-    context "with a child that does not qualify" do
-      let(:dependent) do
-        build :dependent,
-              relationship: "niece",
-              birth_date: Date.new(2015, 12, 25),
-              full_time_student: "no",
-              permanently_totally_disabled: "no",
-              provided_over_half_own_support: "no",
-              filed_joint_return: "no",
-              lived_with_more_than_six_months: "no",
-              cant_be_claimed_by_other: "no",
-              claim_anyway: "yes",
-              ssn: "123-12-1234"
-      end
-
-      it "returns false" do
-        expect(dependent.qualifying_child_2020?).to eq false
-      end
-    end
-  end
-
-  describe "#meets_qc_age_condition_2020?" do
-    context "with a dependent that is under 19" do
-      let(:dependent) { build :dependent, birth_date: Date.new(2015, 12, 25) }
-
-      it "returns true" do
-        expect(dependent.meets_qc_age_condition_2020?).to eq true
-      end
-    end
-
-    context "with a dependent that is between 19 and 24 and a full time student" do
-      let(:dependent) { build :dependent, birth_date: Date.new(1999, 12, 25), full_time_student: "yes" }
-
-      it "returns true" do
-        expect(dependent.meets_qc_age_condition_2020?).to eq true
-      end
-    end
-
-    context "with a dependent that is over 24 but disabled" do
-      let(:dependent) { build :dependent, birth_date: Date.new(1980, 12, 25), permanently_totally_disabled: "yes" }
-
-      it "returns true" do
-        expect(dependent.meets_qc_age_condition_2020?).to eq true
-      end
-    end
-
-    context "with a dependent that is over 19 and not a student, not disabled" do
-      let(:dependent) { build :dependent, birth_date: Date.new(1997, 12, 25), full_time_student: "no", permanently_totally_disabled: "no" }
-
-      it "returns false" do
-        expect(dependent.meets_qc_age_condition_2020?).to eq false
-      end
-    end
-  end
-
   describe "#meets_qc_misc_conditions?" do
     context "with a dependent that paid for more than half their expenses" do
       let(:dependent) { build :dependent, provided_over_half_own_support: "yes" }
@@ -256,12 +158,12 @@ describe Dependent do
     end
   end
 
-  describe "#meets_qc_residence_condition_2020?" do
+  describe "#meets_qc_residence_condition_generic?" do
     context "with a dependent that lived with the client for 6 months or more" do
       let(:dependent) { build :dependent, lived_with_more_than_six_months: "yes" }
 
       it "returns true" do
-        expect(dependent.meets_qc_residence_condition_2020?).to eq true
+        expect(dependent.meets_qc_residence_condition_generic?).to eq true
       end
     end
 
@@ -270,7 +172,7 @@ describe Dependent do
 
       context "doesn't meet an exception" do
         it "returns false" do
-          expect(dependent.meets_qc_residence_condition_2020?).to eq false
+          expect(dependent.meets_qc_residence_condition_generic?).to eq false
         end
       end
 
@@ -278,7 +180,8 @@ describe Dependent do
         it "returns true" do
           [:born_in_2020, :passed_away_2020, :placed_for_adoption, :permanent_residence_with_client].each do |field|
             dependent[field] = "yes"
-            expect(dependent.meets_qc_residence_condition_2020?).to eq true
+            expect(dependent.meets_qc_residence_condition_generic?).to eq true
+            dependent[field] = "no"
           end
         end
       end
@@ -313,82 +216,6 @@ describe Dependent do
     end
   end
 
-  describe "#qualifying_relative_2020?" do
-    let(:dependent) do
-      build :dependent,
-            relationship: relationship,
-            birth_date: birthday,
-            filed_joint_return: filed_jointly,
-            ssn: "123-12-1234",
-            meets_misc_qualifying_relative_requirements: meets_misc
-    end
-    let(:relationship) { "nephew" }
-    let(:birthday) { Date.new(2000, 12, 25) }
-    let(:filed_jointly) { "no" }
-
-    context "with a dependent who meets misc requirements" do
-      let(:meets_misc) { "yes" }
-
-      context "with a dependent who has a QC relationship but doesn't meet age conditions" do
-        let(:birthday) { Date.new(1960, 12, 25) }
-
-        it "returns true" do
-          expect(dependent.qualifying_relative_2020?).to eq true
-        end
-      end
-
-      context "with a dependent who has a QC relationship and does meet age conditions but filed jointly with their spouse" do
-        let(:filed_jointly) { "yes" }
-
-        it "returns true" do
-          expect(dependent.qualifying_relative_2020?).to eq true
-        end
-      end
-
-      context "with a dependent who has a QR relationship" do
-        let(:relationship) { "parent" }
-
-        it "returns true" do
-          expect(dependent.qualifying_relative_2020?).to eq true
-        end
-      end
-    end
-
-    context "with a dependent who does not meet misc requirements" do
-      let(:meets_misc) { "no" }
-
-      it "returns false" do
-        expect(dependent.qualifying_relative_2020?).to eq false
-      end
-    end
-  end
-
-  describe "#qualifying?" do
-    context "with a qualifying child" do
-      let(:dependent) { create :qualifying_child }
-
-      it "returns true" do
-        expect(dependent.qualifying_2020?).to eq true
-      end
-    end
-
-    context "with a qualifying relative" do
-      let(:dependent) { create :qualifying_relative }
-
-      it "returns true" do
-        expect(dependent.qualifying_2020?).to eq true
-      end
-    end
-
-    context "with a dependent that does not qualify" do
-      let(:dependent) { create :nonqualifying_dependent }
-
-      it "returns false" do
-        expect(dependent.qualifying_2020?).to eq false
-      end
-    end
-  end
-
   describe "#mixpanel_data" do
     let(:dependent) do
       build(
@@ -407,7 +234,7 @@ describe Dependent do
 
     it "returns the expected hash" do
       expect(dependent.mixpanel_data).to eq({
-        dependent_age_at_end_of_tax_year: "4",
+        dependent_age_at_end_of_tax_year: "5",
         dependent_under_6: "yes",
         dependent_months_in_home: "12",
         dependent_was_student: "no",

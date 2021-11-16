@@ -123,7 +123,7 @@ describe TaxReturn do
     let(:intake) { tax_return.intake }
     before do
       allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
-      allow_any_instance_of(Dependent).to receive(:qualifying_child_2020?).and_return true
+      allow_any_instance_of(Dependent).to receive(:yr_2020_qualifying_child?).and_return true
       allow_any_instance_of(Dependent).to receive(:eligible_for_eip1?).and_return true
       allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due)
     end
@@ -140,7 +140,7 @@ describe TaxReturn do
     let(:intake) { tax_return.intake }
     before do
       allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
-      allow_any_instance_of(Dependent).to receive(:qualifying_child_2020?).and_return true
+      allow_any_instance_of(Dependent).to receive(:yr_2020_qualifying_child?).and_return true
       allow_any_instance_of(Dependent).to receive(:eligible_for_eip2?).and_return true
       allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due)
     end
@@ -192,7 +192,7 @@ describe TaxReturn do
           allow(tax_return).to receive(:claimed_recovery_rebate_credit).and_return(nil)
           allow(tax_return).to receive(:expected_recovery_rebate_credit_three).and_return(nil)
         end
-        
+
         it "applies the values as 0" do
           expect {
             tax_return.record_expected_payments!
@@ -780,7 +780,7 @@ describe TaxReturn do
         expect(tax_return.final_tax_documents.map(&:document_type).uniq).to eq [DocumentTypes::FinalTaxDocument.key]
       end
     end
-    
+
     context "with no final tax documents " do
       it "returns an empty array" do
         expect(subject).to eq []

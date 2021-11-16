@@ -86,7 +86,7 @@ RSpec.describe DependentsController do
         expect(MixpanelService).to have_received(:send_event).with(hash_including(
           event_name: "dependent_added",
           data: {
-            dependent_age_at_end_of_tax_year: "4",
+            dependent_age_at_end_of_tax_year: "5",
             dependent_under_6: "yes",
             dependent_months_in_home: "12",
             dependent_was_student: "no",
@@ -235,7 +235,7 @@ RSpec.describe DependentsController do
         expect(MixpanelService).to have_received(:send_event).with(hash_including(
           event_name: "dependent_updated",
           data: {
-            dependent_age_at_end_of_tax_year: "4",
+            dependent_age_at_end_of_tax_year: "5",
             dependent_under_6: "yes",
             dependent_months_in_home: "12",
             dependent_was_student: "no",

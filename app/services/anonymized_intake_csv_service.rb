@@ -6,8 +6,6 @@ class AnonymizedIntakeCsvService
     locale
     source
     referrer
-    age_end_of_tax_year
-    spouse_age_end_of_tax_year
     dependent_count
     had_dependents_under_6?
     had_earned_income?

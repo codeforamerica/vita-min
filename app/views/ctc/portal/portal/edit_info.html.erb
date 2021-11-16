@@ -35,7 +35,7 @@
             <%= render 'ctc/questions/confirm_information/spouse_info', edit_controller: Ctc::Portal::SpouseController, intake: @intake %>
           <% end %>
 
-          <% if @intake.tax_return(2020).qualifying_dependents.length > 0 %>
+          <% if @intake.default_tax_return.qualifying_dependents.length > 0 %>
             <div class="review-box__title">
               <h2><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
             </div>
@@ -43,7 +43,7 @@
               render(
                 partial: 'ctc/questions/dependents/confirm_dependents/dependent',
                 locals: { edit_controller: Ctc::Portal::DependentsController },
-                collection: @intake.tax_return(2020).qualifying_dependents
+                collection: @intake.default_tax_return.qualifying_dependents
               )
             %>
           <% end %>

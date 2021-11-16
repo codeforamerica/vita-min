@@ -803,22 +803,6 @@ describe Intake do
     end
   end
 
-  describe "#age_end_of_tax_year" do
-    let(:intake) { build :intake, primary_birth_date: Date.new(1990, 4, 21) }
-
-    it "returns their age at the end of 2019" do
-      expect(intake.age_end_of_tax_year).to eq 29
-    end
-
-    context "when birth_date is nil" do
-      let(:intake) { build :intake, primary_birth_date: nil }
-
-      it "returns nil and does not error" do
-        expect(intake.age_end_of_tax_year).to be_nil
-      end
-    end
-  end
-
   describe "#include_bank_details?" do
     let(:refund_method) {nil}
     let(:pay_from_bank) {nil}

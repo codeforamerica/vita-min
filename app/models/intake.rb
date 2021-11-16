@@ -327,10 +327,6 @@ class Intake < ApplicationRecord
     }
   }
 
-  def tax_return(tax_year)
-    tax_returns.find_by(year: tax_year)
-  end
-
   def is_ctc?
     false
   end
@@ -387,10 +383,6 @@ class Intake < ApplicationRecord
 
   def state_of_residence_name
     States.name_for_key(state_of_residence)
-  end
-
-  def tax_year
-    2019
   end
 
   def had_a_job?
@@ -467,24 +459,12 @@ class Intake < ApplicationRecord
     sms_notification_opt_in_yes? || email_notification_opt_in_yes?
   end
 
-  def age_end_of_tax_year
-    return unless primary_birth_date.present?
-
-    tax_year - primary_birth_date.year
-  end
-
-  def spouse_age_end_of_tax_year
-    return unless spouse_birth_date.present?
-
-    tax_year - spouse_birth_date.year
-  end
-
   def had_earned_income?
     had_a_job? || had_wages_yes? || had_self_employment_income_yes?
   end
 
   def had_dependents_under?(yrs)
-    dependents.any? { |dependent| dependent.age_at_end_of_tax_year < yrs }
+    dependents.any? { |dependent| dependent.yr_2020_age < yrs }
   end
 
   def needs_help_with_backtaxes?

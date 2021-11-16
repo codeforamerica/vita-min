@@ -83,6 +83,8 @@ class Dependent < ApplicationRecord
   validates_presence_of :last_name
 
   validates_presence_of :birth_date
+  # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
+  delegate :month, :day, :year, to: :birth_date, prefix: :birth_date, allow_nil: true
 
   validates_presence_of :relationship, on: :ctc_valet_form
 
@@ -101,28 +103,9 @@ class Dependent < ApplicationRecord
     self.ssn = self.ssn.remove(/\D/) if ssn_changed? && self.ssn
   end
 
-  QUALIFYING_CHILD_RELATIONSHIPS = [
-    "daughter",
-    "son",
-    "stepchild",
-    "stepbrother",
-    "stepsister",
-    "foster_child",
-    "grandchild",
-    "niece",
-    "nephew",
-    "half_brother",
-    "half_sister",
-    "brother",
-    "sister"
-  ]
+  QUALIFYING_CHILD_RELATIONSHIPS = %w[daughter son stepchild stepbrother stepsister foster_child grandchild niece nephew half_brother half_sister brother sister]
 
-  QUALIFYING_RELATIVE_RELATIONSHIPS = [
-    "parent",
-    "grandparent",
-    "aunt",
-    "uncle"
-  ]
+  QUALIFYING_RELATIVE_RELATIONSHIPS = %w[parent grandparent aunt uncle]
 
   def full_name
     parts = [first_name, middle_initial, last_name]
@@ -134,31 +117,11 @@ class Dependent < ApplicationRecord
     ssn&.last(4)
   end
 
-  def birth_date_year
-    birth_date&.year
-  end
-
-  def birth_date_month
-    birth_date&.month
-  end
-
-  def birth_date_day
-    birth_date&.day
-  end
-
   def error_summary
     if errors.present?
       concatenated_message_strings = errors.messages.map { |key, messages| messages.join(" ") }.join(" ")
       "Errors: " + concatenated_message_strings
     end
-  end
-
-  def age_at_end_of_tax_year
-    age_at_end_of_year(intake.tax_year)
-  end
-
-  def age_at_end_of_year(tax_year)
-    tax_year - birth_date.year
   end
 
   # Transforms relationship to the format expected by the IRS submission
@@ -168,19 +131,19 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit_2020?
-    age_at_end_of_year(2020) < 17 && qualifying_child_2020? && tin_type_ssn?
+    yr_2020_age < 17 && yr_2020_qualifying_child? && tin_type_ssn?
   end
 
   def eligible_for_eip1?
-    age_at_end_of_year(2020) < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
+    yr_2020_age < 17 && yr_2020_qualifying_child? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def eligible_for_eip2?
-    age_at_end_of_year(2020) < 17 && qualifying_child_2020? && [:ssn, :atin].include?(tin_type&.to_sym)
+    yr_2020_age < 17 && yr_2020_qualifying_child? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def eligible_for_eip3?
-    qualifying_child_2020? || qualifying_relative_2020?
+    yr_2020_qualifying_child? || yr_2020_qualifying_relative?
   end
 
   def qualifying_child_relationship?
@@ -191,32 +154,8 @@ class Dependent < ApplicationRecord
     QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship.downcase
   end
 
-  def qualifying_child_2020?
-    qualifying_child_relationship? &&
-      meets_qc_age_condition_2020? &&
-      meets_qc_misc_conditions? &&
-      meets_qc_residence_condition_2020? &&
-      meets_qc_claimant_condition? && ssn.present? &&
-      birth_date.year != 2021
-  end
-
-  def meets_qc_age_condition_2020?
-    (full_time_student_yes? && age_at_end_of_year(2020) < 24) || permanently_totally_disabled_yes? || age_at_end_of_year(2020) < 19
-  end
-
   def meets_qc_misc_conditions?
     provided_over_half_own_support_no? && filed_joint_return_no?
-  end
-
-  def born_in_last_6_months_of_2020?
-    birth_date <= Date.parse('2020-12-31') && birth_date >= Date.parse('2020-06-30')
-  end
-
-  def meets_qc_residence_condition_2020?
-    lived_with_more_than_six_months_yes? ||
-      born_in_last_6_months_of_2020? ||
-      (lived_with_more_than_six_months_no? &&
-        (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
   end
 
   def meets_qc_claimant_condition?
@@ -224,25 +163,19 @@ class Dependent < ApplicationRecord
       (cant_be_claimed_by_other_no? && claim_anyway_yes?)
   end
 
-  def disqualified_child_qualified_relative?
-    qualifying_child_relationship? && !meets_qc_age_condition_2020?
-  end
-
-  def qualifying_relative_2020?
-    ssn.present? &&
-    (disqualified_child_qualified_relative? || qualifying_relative_relationship?) &&
-    # everyone needs to meet these "misc" requirements
-    meets_misc_qualifying_relative_requirements_yes?
-  end
-
-  def qualifying_2020?
-    qualifying_child_2020? || qualifying_relative_2020?
+  def meets_qc_residence_condition_generic?
+    # This method should only be called when creating the `Rules` instance.
+    #
+    # The age check is handled in the year-specific rules; the rest is handled here.
+    lived_with_more_than_six_months_yes? ||
+      (lived_with_more_than_six_months_no? &&
+        (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
   end
 
   def mixpanel_data
     {
-      dependent_age_at_end_of_tax_year: age_at_end_of_tax_year.to_s,
-      dependent_under_6: age_at_end_of_tax_year < 6 ? "yes" : "no",
+      dependent_age_at_end_of_tax_year: yr_2020_age.to_s,
+      dependent_under_6: yr_2020_age < 6 ? "yes" : "no",
       dependent_months_in_home: months_in_home.to_s,
       dependent_was_student: was_student,
       dependent_on_visa: on_visa,
@@ -250,6 +183,25 @@ class Dependent < ApplicationRecord
       dependent_disabled: disabled,
       dependent_was_married: was_married,
     }
+  end
+
+  # Methods on Dependent::Rules can be accessed (and mocked-out) as yr_2020_* and yr_2021_*. In the future, we might
+  # add a default year with no prefix.
+  delegate :age, :born_in_final_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2020, prefix: :yr_2020
+  delegate :age, :born_in_final_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2021, prefix: :yr_2021
+
+  private
+
+  def rules_2020
+    rules(2020)
+  end
+
+  def rules_2021
+    rules(2021)
+  end
+
+  def rules(year)
+    Dependent::Rules.new(birth_date, year, full_time_student_yes?, permanently_totally_disabled_yes?, ssn.present?, qualifying_child_relationship?, qualifying_relative_relationship?, meets_misc_qualifying_relative_requirements_yes?, meets_qc_residence_condition_generic?, meets_qc_claimant_condition?, meets_qc_misc_conditions?)
   end
 
   def remove_error_associations

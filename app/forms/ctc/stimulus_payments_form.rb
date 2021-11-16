@@ -6,7 +6,7 @@ module Ctc
     )
 
     def save
-      tax_return = intake.tax_return(2020)
+      tax_return = intake.default_tax_return
       if eip_received_choice == 'yes_received'
         @intake.update(
           eip1_entry_method: 'calculated_amount',

@@ -5,7 +5,7 @@ class ChildTaxCreditCalculator
 
   def self.total_advance_payment(tax_return)
     qualifying_dependents = tax_return.qualifying_dependents.filter(&:eligible_for_child_tax_credit_2020?)
-    dependents_under_six, dependents_six_and_over = qualifying_dependents.partition { |qd| qd.age_at_end_of_year(2021) < 6 }
+    dependents_under_six, dependents_six_and_over = qualifying_dependents.partition { |qd| qd.yr_2021_age < 6 }
     (dependents_under_six.length * PER_DEPENDENT_UNDER_SIX_PAYMENT) + (dependents_six_and_over.count * PER_DEPENDENT_SIX_AND_OVER_PAYMENT)
   end
 end

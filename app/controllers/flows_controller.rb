@@ -243,7 +243,7 @@ class FlowsController < ApplicationController
           timezone_offset: "+240",
           client_system_time: "2021-07-28T21:21:32.306Z"
         }],
-        tax_returns_attributes: [{ year: 2020, is_ctc: true, filing_status: 'single' }],
+        tax_returns_attributes: [{ year: Rails.application.config.current_tax_year, is_ctc: true, filing_status: 'single' }],
       )
 
       if type == :married_filing_jointly || type == :married_filing_jointly_with_dependents

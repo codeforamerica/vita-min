@@ -19,7 +19,7 @@
       <%= render 'spouse_info', intake: current_intake, edit_controller: Ctc::Update::SpouseController %>
     <% end %>
 
-    <% qualifying_dependents = current_intake.tax_return(2020).qualifying_dependents %>
+    <% qualifying_dependents = current_intake.default_tax_return.qualifying_dependents %>
     <h2 class="review-box__title"><%= t("views.ctc.questions.confirm_information.your_dependents") %></h2>
 
     <% if qualifying_dependents.present? %>
