@@ -23,12 +23,12 @@
                      icon_path: image_path("icons/notifications.svg")
           %>
           <%= render "hub/components/menu_item",
-                     link: hub_user_notifications_path, #FIX LINK HERE
+                     link: hub_user_notifications_path, #TO DO: FIX LINK HERE
                      item_label: "Tools",
                      icon_path: image_path("icons/tools.svg")
           %>
           <%= render "hub/components/menu_item",
-                     link: hub_user_notifications_path, #FIX LINK HERE
+                     link: hub_user_notifications_path, #TO DO: FIX LINK HERE
                      item_label: "Admin Tools",
                      icon_path: image_path("icons/admin-tools.svg")
           %>
@@ -47,6 +47,7 @@
         </span>
         </a>
         <a data-method="delete" href="<%= destroy_client_session_path %>">
+          <img width="24" src="<%= image_path 'icons/sign-out.svg' %>" alt="Sign out"/>
           Sign out
         </a>
       </div>
