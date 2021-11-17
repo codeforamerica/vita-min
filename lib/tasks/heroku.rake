@@ -9,7 +9,7 @@ namespace :heroku do
   end
 
   task review_app_setup: :environment do
-    # Create vita-min-pr-*.getyourrefund-testing.org
+    # Create pr-*.getyourrefund-testing.org and ctc.pr-*.getyourrefund-testing.org
     #
     # Implementation based on https://medium.com/clutter-engineering/heroku-review-apps-with-custom-domains-8edfc0a2b153
     #
