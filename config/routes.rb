@@ -253,6 +253,7 @@ Rails.application.routes.draw do
         resources :user_notifications, only: [:index], path: "/notifications" do
           post "/mark-all-read", to: 'user_notifications#mark_all_notifications_read', as: :mark_all_read, on: :collection
         end
+        resources :tools, only: [:index]
         resources :admin_tools, only: [:index]
         resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]
