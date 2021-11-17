@@ -22,6 +22,16 @@
                      item_label: "My Updates",
                      icon_path: image_path("icons/notifications.svg")
           %>
+          <%= render "hub/components/menu_item",
+                     link: hub_user_notifications_path, #FIX LINK HERE
+                     item_label: "Tools",
+                     icon_path: image_path("icons/tools.svg")
+          %>
+          <%= render "hub/components/menu_item",
+                     link: hub_user_notifications_path, #FIX LINK HERE
+                     item_label: "Admin Tools",
+                     icon_path: image_path("icons/admin-tools.svg")
+          %>
         </div>
       </div>
       <div class="bottom">
