@@ -110,6 +110,7 @@ RSpec.configure do |config|
     }
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)
     allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return(true)
+    allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_login?).and_return(true)
     # Stub valid_email2's network-dependent functionality per https://github.com/micke/valid_email2
     allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?) { true }
     # Stub DNS implementation to avoid network calls from test suite; valid_email2 uses this
