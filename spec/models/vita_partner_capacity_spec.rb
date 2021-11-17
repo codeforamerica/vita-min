@@ -9,7 +9,7 @@
 #
 require 'rails_helper'
 
-describe OrganizationCapacity do
+describe VitaPartnerCapacity do
   # Ensures that the query for statuses in the view code matches our implementation of clients
   # included in capacity in TaxReturnStatus code.
   describe 'active_client_count' do

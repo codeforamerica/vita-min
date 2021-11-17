@@ -31,7 +31,6 @@ class Organization < VitaPartner
   TYPE = "Organization"
 
   belongs_to :coalition, optional: true
-  has_one :organization_capacity, foreign_key: "vita_partner_id"
   has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode", foreign_key: "vita_partner_id"
   has_many :serviced_states, class_name: "VitaPartnerState", foreign_key: "vita_partner_id"
@@ -43,7 +42,7 @@ class Organization < VitaPartner
   alias_attribute :allows_greeters?, :allows_greeters
 
   def at_capacity?
-    !OrganizationCapacity.with_capacity.where(organization: self).exists?
+    !VitaPartnerCapacity.with_capacity.where(vita_partner: self).exists?
   end
 
   def organization_leads

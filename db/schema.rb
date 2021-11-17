@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_15_175837) do
+ActiveRecord::Schema.define(version: 2021_11_16_223501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -1154,7 +1154,7 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
   add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 
-  create_view "organization_capacities", sql_definition: <<-SQL
+  create_view "vita_partner_capacities", sql_definition: <<-SQL
       WITH organization_id_by_vita_partner_id AS (
            SELECT vita_partners_1.id,
                   CASE

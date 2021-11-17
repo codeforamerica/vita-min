@@ -7,8 +7,8 @@
 #  name                :string
 #  vita_partner_id     :bigint           primary key
 #
-class OrganizationCapacity < ApplicationRecord
-  belongs_to :organization, foreign_key: "vita_partner_id", class_name: "Organization"
+class VitaPartnerCapacity < ApplicationRecord
+  belongs_to :vita_partner, foreign_key: "vita_partner_id"
   self.primary_key = :vita_partner_id # vita partner id
   scope :with_capacity, lambda {
     where(arel_table[:capacity_limit].eq(nil)).or(

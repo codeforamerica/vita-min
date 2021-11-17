@@ -31,6 +31,7 @@ class VitaPartner < ApplicationRecord
   has_many :clients
   has_many :intakes
   has_many :source_parameters
+  has_one :vita_partner_capacity, foreign_key: "vita_partner_id"
 
   belongs_to :coalition, optional: true
   belongs_to :parent_organization, class_name: "Organization", optional: true
