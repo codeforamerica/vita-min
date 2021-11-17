@@ -78,6 +78,9 @@
     &:active, &.active {
       background: transparentize(#F1F3F6, .75);
     }
+    img {
+      width: 24px;
+    }
   }
   &.expanded .menu-item {
     height: 60px;
