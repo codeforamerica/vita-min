@@ -27,8 +27,8 @@ namespace :heroku do
     # To create this key, follow https://help.heroku.com/PBGP6IDE/how-should-i-generate-an-api-key-that-allows-me-to-use-the-heroku-platform-api
     heroku_client = PlatformAPI.connect_oauth(ENV["HEROKU_PLATFORM_KEY"])
     heroku_app_name = ENV["HEROKU_APP_NAME"]
-    heroku_client.domain.create(heroku_app_name, hostname: gyr_hostname)
-    heroku_client.domain.create(heroku_app_name, hostname: ctc_hostname)
+    heroku_client.domain.create(heroku_app_name, hostname: gyr_hostname, sni_endpoint: nil)
+    heroku_client.domain.create(heroku_app_name, hostname: ctc_hostname, sni_endpoint: nil)
     Rails.logger.info("Created Heroku domains")
 
     # Add both to Route 53; route53 code example based on https://www.petekeen.net/lets-encrypt-without-certbot & https://blog.rocketinsights.com/heroku-review-apps/
