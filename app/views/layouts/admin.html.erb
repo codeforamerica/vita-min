@@ -1,71 +1,79 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>" class="background--white">
-  <head>
-    <% unless content_for? :page_title %>
-      <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
+<html lang="<%= I18n.locale %>" class="background--white" style="height: 100%;">
+<head>
+  <% unless content_for? :page_title %>
+    <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.
     <% end %>
+  <% end %>
 
-    <title><%= content_for(:page_title) %> | The Hub</title>
+  <title><%= content_for(:page_title) %> | The Hub</title>
 
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="<%=t("views.layouts.application.meta.description") %>">
-    <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
-    <meta property="og:description" content="<%=t("views.layouts.application.meta.description") %>">
-    <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
-    <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
-    <meta property="twitter:description" content="<%=t("views.layouts.application.meta.description") %>">
-    <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="<%= canonical_url %>">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="<%= canonical_url %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="<%= t("views.layouts.application.meta.description") %>">
+  <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+  <meta property="og:description" content="<%= t("views.layouts.application.meta.description") %>">
+  <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
+  <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+  <meta property="twitter:description" content="<%= t("views.layouts.application.meta.description") %>">
+  <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= canonical_url %>">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="<%= canonical_url %>">
 
-    <link rel="canonical" href="<%= canonical_url %>" />
-    <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="x-default" />
-    <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="en" />
-    <link rel="alternate" href="<%= canonical_url(:es) %>" hreflang="es" />
+  <link rel="canonical" href="<%= canonical_url %>"/>
+  <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="x-default"/>
+  <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="en"/>
+  <link rel="alternate" href="<%= canonical_url(:es) %>" hreflang="es"/>
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= stylesheet_link_tag 'hub', media: 'all' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'hub', media: 'all' %>
 
-    <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type=>'image/png', :sizes => '57x57' %>
-    <%= render 'shared/app_data_mixpanel_data_script' %>
+  <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type => 'image/png', :sizes => '57x57' %>
+  <%= render 'shared/app_data_mixpanel_data_script' %>
 
-    <%= stylesheet_pack_tag 'application', media: 'all' %>
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
 
-    <%= javascript_pack_tag 'application', defer: true %>
-    <%= javascript_pack_tag 'hub', defer: true %>
-  </head>
+  <%= javascript_pack_tag 'application', defer: true %>
+  <%= javascript_pack_tag 'hub', defer: true %>
+</head>
 
-  <body class="admin honeycrisp-compact" style="height: 100%;">
-    <div style="display: flex; flex-direction: column; min-height: 100vh">
-      <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
-      <div style="display: flex;">
-        <% if current_user %>
-          <%= render "hub/components/main_menu" %>
-        <% end %>
-        <main role="main" style="overflow-y: scroll; height: 100vh; flex-grow: 1;" id="maincontent">
-          <div>
-            <div class="flash-alerts">
-              <%= render "shared/flash_alerts", flash: flash %>
-            </div>
-            <%= yield(:notice) if content_for?(:notice) %>
+<body class="admin honeycrisp-compact" style="height: 100%; display: flex; overflow: hidden; margin: 0px;">
+<div id="left" style="display: flex; flex-direction: column; height: 100%;">
+  <div style="overflow-y: auto; height: 100%;">
+    <% if current_user %>
+      <%= render "hub/components/main_menu" %>
+    <% end %>
+  </div>
+</div>
+
+<div id="right" style="display: flex; flex-direction: column;">
+  <div style="overflow-y: auto; overflow-x: scroll;">
+    <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content') %></a>
+    <div>
+      <main role="main" id="maincontent">
+        <div>
+          <div class="flash-alerts">
+            <%= render "shared/flash_alerts", flash: flash %>
           </div>
-          <%= yield(:card) || yield %>
-        </main>
-      </div>
+          <%= yield(:notice) if content_for?(:notice) %>
+        </div>
+        <%= yield(:card) || yield %>
+      </main>
     </div>
-    <% if content_for?(:sticky_action_footer) %>
-      <div class="sticky-action-footer">
-        <%= yield(:sticky_action_footer) %>
-      </div>
-    <% end %>
-    <%= yield(:script) if content_for?(:script) %>
-  </body>
+  </div>
+</div>
+<% if content_for?(:sticky_action_footer) %>
+  <div class="sticky-action-footer">
+    <%= yield(:sticky_action_footer) %>
+  </div>
+<% end %>
+<%= yield(:script) if content_for?(:script) %>
+</body>
 </html>
