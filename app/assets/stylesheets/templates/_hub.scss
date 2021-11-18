@@ -2,6 +2,14 @@ html.hub {
   height: 100%;
 }
 
+body.hub {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  margin: 0px;
+}
+
+// TODO: Move these styles into .hub
 .admin {
   background: white;
   .hub-section {
