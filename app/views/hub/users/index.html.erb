@@ -2,21 +2,22 @@
 <% content_for :page_title, t(".title") %>
 
 <% content_for :card do %>
-  <table class="index-table user-table">
-    <caption class="index-table__title">
-      <h1 class="h2"><%= t(".title") %></h1>
-      <%= page_entries_info @users, model: "entry" %>
-      <%= will_paginate(
-            @users,
-            previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
-            next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
-            inner_window: 1,
-            outer_window: 1,
-            param_name: "page",
-      ) %>
-    </caption>
+  <div class="slab">
+    <h1 class="h1"><%= t(".title") %></h1>
+    <table class="index-table user-table">
+      <caption class="index-table__title">
+        <%= page_entries_info @users, model: "entry" %>
+        <%= will_paginate(
+              @users,
+              previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
+              next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+              inner_window: 1,
+              outer_window: 1,
+              param_name: "page",
+            ) %>
+      </caption>
 
-    <thead class="index-table__head">
+      <thead class="index-table__head">
       <tr class="index-table__row">
         <th scope="col" class="index-table__header"><%= t("general.name") %></th>
         <th scope="col" class="index-table__header"><%= t("general.email") %></th>
@@ -24,9 +25,9 @@
         <th scope="col" class="index-table__header"><%= t("general.organization") %></th>
         <th scope="col" class="index-table__header"><%= t(".needs_to_accept_invite") %></th>
       </tr>
-    </thead>
+      </thead>
 
-    <tbody class="index-table__body">
+      <tbody class="index-table__body">
       <% @users.each do |user| %>
         <tr id="user-<%= user.id %>" class="index-table__row">
           <th scope="row" class="index-table__row-header">
@@ -51,6 +52,7 @@
         </tr>
       <% end %>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 <% end %>
