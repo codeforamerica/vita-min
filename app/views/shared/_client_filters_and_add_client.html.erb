@@ -62,7 +62,7 @@
     </div>
 
     <div>
-      <!-- Only show vita partner filtering if user has more than one available vita partner to select from.-->
+      <% # Only show vita partner filtering if user has more than one available vita partner to select from. %>
       <% if @vita_partners.size > 1 %>
         <div class="form-group">
           <label for="org-site-filter" class="form-question"><%= t("hub.clients.index.organization") %></label>
