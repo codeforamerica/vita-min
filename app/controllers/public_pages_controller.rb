@@ -74,7 +74,7 @@ class PublicPagesController < ApplicationController
 
     # On Heroku Review Apps, it's convenient to use our *.getyourrefund-testing.org URL where possible.
     if request.host != MultiTenantService.new(:gyr).host
-      redirect_to(request.path, host: MultiTenantService.new(:gyr).host)
+      redirect_to(url_for(action: :home, host: MultiTenantService.new(:gyr).host))
     end
   end
 end
