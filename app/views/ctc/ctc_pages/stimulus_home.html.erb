@@ -26,9 +26,11 @@
             <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
           <% end %>
         </div>
-        <div class="spacing-below-60">
-          <strong><%= link_to t('views.ctc_pages.home.portal_sign_in_link'), new_ctc_portal_client_login_path, class: "link link--subtle" %></strong>
-        </div>
+        <% if open_for_ctc_login? %>
+          <div class="spacing-below-60">
+            <strong><%= link_to t('views.ctc_pages.home.portal_sign_in_link'), new_ctc_portal_client_login_path, class: "link link--subtle" %></strong>
+          </div>
+        <% end %>
       </div>
 
       <div class="grid-flex align-flex-end justify-flex-end">
@@ -185,10 +187,10 @@
           </a>
           <div class="accordion__content" id="a5">
             <p><%= t("views.ctc_pages.home.obtain.full_return.body1_html") %></p>
-            <p><%= t("views.ctc_pages.home.obtain.full_return.gyr_diy_explanation_html", url: url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy', params: {source: session[:source]})) %></p>
+            <p><%= t("views.ctc_pages.home.obtain.full_return.gyr_diy_explanation_html", url: url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy', params: { source: session[:source] })) %></p>
             <% unless ENV['CTC_HIDE_DIY_LINK'] == 'true' %>
               <p>
-                <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy', params: {source: session[:source]}), class: "button button--primary" do %>
+                <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy', params: { source: session[:source] }), class: "button button--primary" do %>
                   <% t("views.ctc_pages.stimulus_home.obtain.full_return.file_with_gyr") %>
                 <% end %>
               </p>

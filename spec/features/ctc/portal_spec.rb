@@ -54,6 +54,20 @@ RSpec.feature "CTC Intake", :js, :active_job do
       intake.update(email_address_verified_at: DateTime.now)
     end
 
+    context "ctc login is closed for the season" do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_login?).and_return(false)
+        allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return(false)
+      end
+
+      it "redirects to the ctc home" do
+        visit "/en/portal/login"
+
+        expect(page).not_to have_selector("h1", text: I18n.t('portal.client_logins.new.title'))
+        expect(page).to have_text(I18n.t('views.ctc_pages.home.closing_date_not_open'))
+      end
+    end
+
     context "intake is in progress" do
       let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:tax_return, year: 2020)]), email_address: "mango@example.com" }
       before do
