@@ -8,8 +8,27 @@ body.hub {
   overflow: hidden;
   margin: 0px;
 }
+// thing 1
+// .hub .columns { display: flex; etc: etc; }
 
+// thing 2
+// .columns { display: flex: etc: etc; }
+
+// thing 3
+// .hub { .columns { display: flex; etc: etc; } }
+// a sass way to express "thing 1"
+
+.hub {
+  .columns {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
 // TODO: Move these styles into .hub
+// When we do that, remove the 'hub' class from body
+// look for .admin in the other sass files to
+// make sure they target .hub instead at that time
 .admin {
   background: white;
   .hub-section {
