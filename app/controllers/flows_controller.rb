@@ -31,7 +31,7 @@ class FlowsController < ApplicationController
       raise ActionController::RoutingError.new('Not Found')
     end
 
-    if params[:id] == 'ctc' && !MultiTenantService.new(:ctc).host == request.host
+    if params[:id] == 'ctc' && (MultiTenantService.new(:ctc).host != request.host)
       return redirect_to flow_url(id: :ctc, host: MultiTenantService.new(:ctc).host)
     end
 
