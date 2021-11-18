@@ -22,7 +22,7 @@
               <p><%= t("views.ctc_pages.california_benefits.option_one.p_2") %></p>
             </div>
             <div>
-              <%= link_to url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'diy'), class: "button button--full-width text--centered spacing-above-25 button--centered" do %>
+              <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy'), class: "button button--full-width text--centered spacing-above-25 button--centered" do %>
                 <%= t("views.ctc.questions.use_gyr.file_gyr") %>
               <% end %>
             </div>

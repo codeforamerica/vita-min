@@ -60,7 +60,7 @@
         <p class="spacing-below-0"><%= t("views.public_pages.home.get_ctc.body") %></p>
       </div>
       <div class="grid__item width-one-third button-container">
-        <%= link_to url_for(host: Rails.application.config.ctc_domains[Rails.env.to_sym], controller: "/public_pages", action: 'source_routing', source: "gyr"), class: "button" do %>
+        <%= link_to url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"), class: "button" do %>
           <%= t("views.public_pages.home.get_ctc.button") %>
         <% end %>
       </div>

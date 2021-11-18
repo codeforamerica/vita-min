@@ -222,7 +222,7 @@
               <p>
                 <%=
                   t("views.ctc_pages.home.obtain.full_return.gyr_diy_explanation_html",
-                    url: url_for(host: Rails.application.config.gyr_domains[Rails.env.to_sym], controller: "/public_pages", action: 'diy')) %>
+                    url: url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy')) %>
               </p>
             <% end %>
           </div>
@@ -233,7 +233,7 @@
             <h3><%= t("views.ctc_pages.home.obtain.deadline.subheading") %></h3>
           </a>
           <div class="accordion__content" id="a5">
-            <p><%= t("views.ctc_pages.home.obtain.deadline.body_html", url: url_for(host: Rails.application.config.ctc_domains[Rails.env.to_sym], action: 'edit', controller: "ctc/questions/overview")) %></p>
+            <p><%= t("views.ctc_pages.home.obtain.deadline.body_html", url: url_for(host: MultiTenantService.new(:ctc).host, action: 'edit', controller: "ctc/questions/overview")) %></p>
           </div>
         </div>
 

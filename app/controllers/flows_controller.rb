@@ -31,8 +31,8 @@ class FlowsController < ApplicationController
       raise ActionController::RoutingError.new('Not Found')
     end
 
-    if params[:id] == 'ctc' && !Rails.application.config.ctc_domains.values.include?(request.host)
-      return redirect_to flow_url(id: :ctc, host: Rails.application.config.ctc_domains[Rails.env.to_sym])
+    if params[:id] == 'ctc' && !MultiTenantService.new(:ctc).host == request.host
+      return redirect_to flow_url(id: :ctc, host: MultiTenantService.new(:ctc).host)
     end
 
     type = params[:id].to_sym
@@ -129,8 +129,8 @@ class FlowsController < ApplicationController
             action: navigation_entry_action,
             _recall: {},
           }.merge(navigation_entry_params(@current_controller))
-          if controller_path.start_with?('ctc') && Rails.application.config.ctc_domains[Rails.env.to_sym].present?
-            url_params[:host] = Rails.application.config.ctc_domains[Rails.env.to_sym]
+          if controller_path.start_with?('ctc') && MultiTenantService.new(:ctc).host.present?
+            url_params[:host] = MultiTenantService.new(:ctc).host
           else
             url_params[:only_path] = true
           end

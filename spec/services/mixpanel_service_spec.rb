@@ -568,23 +568,23 @@ describe MixpanelService do
         let(:data_from_request) { MixpanelService.data_from(request) }
 
         context "when it is a GYR request" do
-          let(:request) { ActionDispatch::Request.new("HTTP_HOST" => "www.getyourrefund.org") }
+          let(:request) { ActionDispatch::Request.new("HTTP_HOST" => "test.localhost") }
 
           it "returns the expected hash" do
             expect(data_from_request).to include({
                                                   is_ctc: false,
-                                                  domain: "www.getyourrefund.org"
+                                                  domain: "test.localhost"
                                                 })
           end
         end
 
         context "when it is a CTC request" do
-          let(:request) { ActionDispatch::Request.new("HTTP_HOST" => "www.getctc.org") }
+          let(:request) { ActionDispatch::Request.new("HTTP_HOST" => "ctc.test.localhost") }
 
           it "returns the expected hash" do
             expect(data_from_request).to include({
                                             is_ctc: true,
-                                            domain: "www.getctc.org"
+                                            domain: "ctc.test.localhost"
                                            })
           end
         end

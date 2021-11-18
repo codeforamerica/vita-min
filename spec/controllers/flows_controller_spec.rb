@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe FlowsController do
-  before do
-    allow(Rails.application.config).to receive(:ctc_domains).and_return({test: "test.host"})
-  end
-
   describe '#generate' do
     let(:default_params) do
       {
