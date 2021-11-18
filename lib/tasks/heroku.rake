@@ -41,8 +41,7 @@ namespace :heroku do
     )
     [gyr_hostname, ctc_hostname].each do |hostname|
       cname_target = heroku_client.domain.info(heroku_app_name, hostname)["cname"]
-      fully_qualified_domain = "#{hostname}.getyourrefund-testing.org"
-      Rails.logger.info("Setting up AWS with cname_target=#{cname_target} fully_qualified_domain=#{fully_qualified_domain}")
+      Rails.logger.info("Setting up AWS with cname_target=#{cname_target} fully_qualified_domain=#{hostname}")
 
       route53_client.change_resource_record_sets(
         hosted_zone_id: 'Z07292202GQEWB2CT0FOE', # Hosted Zone ID for getyourrefund-testing.org in Route 53
@@ -51,7 +50,7 @@ namespace :heroku do
             {
               action: 'UPSERT',
               resource_record_set: {
-                name: fully_qualified_domain,
+                name: hostname,
                 type: 'CNAME',
                 ttl: 300,
                 resource_records: [
