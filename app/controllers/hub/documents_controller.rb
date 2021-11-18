@@ -8,7 +8,7 @@ module Hub
     load_and_authorize_resource through: :client
     helper_method :transient_storage_url
 
-    layout "admin"
+    layout "hub"
 
     def index
       @documents = sorted_documents.active

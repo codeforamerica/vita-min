@@ -5,7 +5,7 @@ module Hub
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client, only: [:create]
     load_and_authorize_resource :user, parent: false, only: [:index]
-    layout "admin"
+    layout "hub"
 
     def index
       @taggable_users = User.taggable_for(@client).to_json(only: [:name, :id], methods: :name_with_role_and_entity).to_s.html_safe

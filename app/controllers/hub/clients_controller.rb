@@ -8,7 +8,7 @@ module Hub
     before_action :load_vita_partners, only: [:new, :create, :index]
     before_action :load_users, :setup_sortable_client, only: [:index]
     load_and_authorize_resource except: [:new, :create]
-    layout "admin"
+    layout "hub"
 
     def index
       @page_title = I18n.t("hub.clients.index.title")

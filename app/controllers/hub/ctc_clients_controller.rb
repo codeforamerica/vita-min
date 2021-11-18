@@ -4,7 +4,7 @@ module Hub
 
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:new, :create, :index]
-    layout "admin"
+    layout "hub"
 
     def new
       @form = CreateCtcClientForm.new

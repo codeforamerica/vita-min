@@ -4,7 +4,7 @@ module Hub
     before_action :require_sign_in
     load_and_authorize_resource :organization, parent: false
 
-    layout "admin"
+    layout "hub"
 
     def new
       @coalitions = Coalition.all

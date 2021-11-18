@@ -3,7 +3,7 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     load_and_authorize_resource
-    layout "admin"
+    layout "hub"
 
     def index
       @efile_errors = @efile_errors.order(:source, :code)
