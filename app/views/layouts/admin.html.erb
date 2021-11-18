@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>" class="background--white" style="height: 100%;">
+<html lang="<%= I18n.locale %>" class="background--white admin-html-root">
 <head>
   <% unless content_for? :page_title %>
     <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.
@@ -68,12 +68,12 @@
       </main>
     </div>
   </div>
+  <% if content_for?(:sticky_action_footer) %>
+    <div class="sticky-action-footer">
+      <%= yield(:sticky_action_footer) %>
+    </div>
+  <% end %>
 </div>
-<% if content_for?(:sticky_action_footer) %>
-  <div class="sticky-action-footer">
-    <%= yield(:sticky_action_footer) %>
-  </div>
-<% end %>
 <%= yield(:script) if content_for?(:script) %>
 </body>
 </html>
