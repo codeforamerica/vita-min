@@ -63,6 +63,10 @@ namespace :heroku do
       )
     end
 
+    # Enable HTTPS Automated Certificate Management on Heroku for the custom domain
+    Rails.logger.info("Setting up Heroku app HTTPS")
+    heroku_client.enable_acm(heroku_app_name)
+
     Rails.logger.info("Done setting up Heroku review app DNS")
   end
 
