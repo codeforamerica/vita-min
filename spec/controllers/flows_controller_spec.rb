@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe FlowsController do
-  before do
-    allow(Rails.application.config).to receive(:ctc_domains).and_return({test: "test.host"})
-  end
-
   describe '#generate' do
     let(:default_params) do
       {
@@ -50,6 +46,12 @@ RSpec.describe FlowsController do
     end
 
     context 'for the ctc flow' do
+      let(:host) { MultiTenantService.new(:ctc).host }
+
+      before do
+        @request.host = host
+      end
+
       it 'renders successfully' do
         get :show, params: { id: :ctc }
 
@@ -67,6 +69,16 @@ RSpec.describe FlowsController do
           get :show, params: { id: :ctc }
 
           expect(response.body).to have_content('CTC Flow')
+        end
+      end
+
+      context "with a hostname other than the ctc hostname" do
+        let(:host) { 'any-other-hostname' }
+
+        it "redirects to the ctc hostname" do
+          get :show, params: { id: :ctc }
+
+          expect(response).to redirect_to(flow_url(id: :ctc, host: MultiTenantService.new(:ctc).host))
         end
       end
     end

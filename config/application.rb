@@ -35,20 +35,6 @@ module VitaMin
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     #
-    config.gyr_domains = {
-      development: "localhost",
-      demo: "demo.getyourrefund.org",
-      heroku_review: /gyr-vita-min-.*\.herokuapp\.com/,
-      staging: "staging.getyourrefund.org",
-      production: "www.getyourrefund.org"
-    }
-    config.ctc_domains = {
-      development: "ctc.localhost",
-      demo: "ctc.demo.getyourrefund.org",
-      heroku_review: /ctc-vita-min-.*\.herokuapp\.com/,
-      staging: "ctc.staging.getyourrefund.org",
-      production: "www.getctc.org"
-    }
     config.middleware.use Middleware::CleanupMimeTypeHeaders
     config.current_tax_year = 2020
   end

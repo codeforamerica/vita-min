@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Routes::GyrDomain do
-  let(:ctc_localhost) { instance_double(ActionDispatch::Request, host: "ctc.localhost") }
+  let(:ctc_localhost) { instance_double(ActionDispatch::Request, host: "ctc.test.localhost") }
   let(:root_demo) { instance_double(ActionDispatch::Request, host: "demo.getyourrefund.org") }
   let(:root_localhost) { instance_double(ActionDispatch::Request, host: "localhost") }
   let(:root_staging_www) { instance_double(ActionDispatch::Request, host: "www.staging.getyourrefund.org") }

@@ -50,8 +50,8 @@ Rails.application.configure do
   config.i18n.available_locales = [:en, :es]
   config.offseason = false
   config.hide_ctc = false
-  config.ctc_url = "https://ctc.test.example.com"
-  config.gyr_url = "https://test.example.com"
+  config.ctc_url = "http://ctc.test.localhost"
+  config.gyr_url = "http://test.localhost"
   config.signature_log_bucket = "vita-min-test-signatures"
   config.efile_environment = ""
   config.efile_security_information_for_testing = nil
