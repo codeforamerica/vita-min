@@ -1,5 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
-  layout "admin"
+  layout "hub"
 
   def new
     super do |user|

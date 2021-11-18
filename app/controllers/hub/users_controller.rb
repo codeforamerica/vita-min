@@ -7,7 +7,7 @@ module Hub
     before_action :load_and_authorize_role, only: [:update_role]
     load_and_authorize_resource
 
-    layout "admin"
+    layout "hub"
 
     def profile; end
 

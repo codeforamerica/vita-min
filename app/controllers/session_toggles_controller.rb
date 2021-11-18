@@ -1,5 +1,5 @@
 class SessionTogglesController < ApplicationController
-  layout "admin"
+  layout "hub"
 
   def index
     @toggle = SessionToggle.new(session, 'app_time')

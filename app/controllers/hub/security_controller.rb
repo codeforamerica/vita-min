@@ -3,7 +3,7 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     load_and_authorize_resource :client
-    layout "admin"
+    layout "hub"
 
     def show
       @client = Client.find(params[:id])

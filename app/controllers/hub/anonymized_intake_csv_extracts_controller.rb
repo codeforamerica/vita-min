@@ -1,7 +1,7 @@
 module Hub
   class AnonymizedIntakeCsvExtractsController < ApplicationController
     include FilesConcern
-    layout "admin"
+    layout "hub"
 
     load_and_authorize_resource
 

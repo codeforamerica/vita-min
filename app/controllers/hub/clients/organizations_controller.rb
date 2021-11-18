@@ -6,7 +6,7 @@ module Hub
       before_action :load_vita_partners, only: [:edit, :update]
       before_action :authorize_vita_partner, only: [:update]
 
-      layout "admin"
+      layout "hub"
       load_and_authorize_resource :client, parent: false
 
       def edit; end
