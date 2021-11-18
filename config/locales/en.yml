@@ -1480,7 +1480,9 @@ en:
   signups:
     flash_notice: Thank you! You will receive a notification when we open in January 2022.
     new:
+      detail_links_html: See our <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> and <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
       header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
+      opt_in_message: 'Note: Providing your phone number means you have opted in to the following in order to use the GetYourRefund service: Receiving a GetYourRefund Verification Code Tax return notifications. Message frequency will vary. Standard message rates apply. Text HELP to 11111 for help. Text STOP to 11111 to cancel. Carriers (e.g. AT&T, Verizon, etc.) are not responsible or liable for undelivered or delayed messages.'
       subheader: Please sign up here to receive a notification when we open in January 2022.
   test_new_translations_process: I did my taxes and my fish was there
   test_new_translations_process_2: I did my taxes and my cat was there. If I change this copy will it show up as untranslated in Transifex?
