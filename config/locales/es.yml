@@ -1439,6 +1439,8 @@ es:
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
       subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero del 2022.
+      opt_in_message: "Nota: Proporcionar su número de teléfono significa que ha optado por lo siguiente para utilizar el servicio GetYourRefund: Recibir notificaciones de devolución de impuestos del código de verificación GetYourRefund. La frecuencia de los mensajes variará. Se aplican tarifas de mensajes estándar. Envíe el mensaje de texto HELP al 11111 para obtener ayuda. Envía STOP al 11111 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, etc.) no son responsables de los mensajes retrasados o no entregados."
+      detail_links_html: Consulte nuestros <a href=%{terms_link} target="_blank" rel="noopener noreferrer">Términos y condiciones</a> y <a href=%{privacy_link} target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
   test_new_translations_process: Hice mis impuestos y mi pescado estaba presente
   test_new_translations_process_2: 'Preparé mis impuestos y mi gato estuvo ahí. Si cambio esta copia, ¿aparecerá en lo no traducido de Transifex? '
   validators:
