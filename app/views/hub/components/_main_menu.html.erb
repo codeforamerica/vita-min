@@ -28,11 +28,13 @@
                      item_label: "Tools",
                      icon_path: image_path("icons/tools.svg")
           %>
-          <%= render "hub/components/menu_item",
-                     link: hub_admin_tools_path,
-                     item_label: "Admin Tools",
-                     icon_path: image_path("icons/admin-tools.svg")
-          %>
+          <% if current_user.admin? %>
+            <%= render "hub/components/menu_item",
+                       link: hub_admin_tools_path,
+                       item_label: "Admin Tools",
+                       icon_path: image_path("icons/admin-tools.svg")
+            %>
+          <% end %>
           <%= render "hub/components/menu_item",
                      link: hub_user_profile_path,
                      item_label: current_user&.name,
