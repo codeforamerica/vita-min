@@ -70,6 +70,45 @@ namespace :heroku do
     Rails.logger.info("Done setting up Heroku review app DNS")
   end
 
+  task review_app_predestroy: :environment do
+    # Delete this app's hostnames from Route 53
+    gyr_hostname = Rails.application.config.gyr_url.sub(/^https:\/\//, '')
+    ctc_hostname = Rails.application.config.ctc_url.sub(/^https:\/\//, '')
+    Rails.logger.info("Deleting Route 53 DNS: gyr_hostname=#{gyr_hostname} ctc_hostname=#{ctc_hostname}")
+
+    heroku_app_name = ENV["HEROKU_APP_NAME"]
+    heroku_client = PlatformAPI.connect_oauth(ENV["HEROKU_PLATFORM_KEY"])
+    route53_client = Aws::Route53::Client.new(
+      access_key_id: ENV["HEROKU_DNS_AWS_ACCESS_KEY_ID"],
+      secret_access_key: ENV["HEROKU_DNS_SECRET_ACCESS_KEY"],
+      region: 'us-east-1',
+      )
+    [gyr_hostname, ctc_hostname].each do |hostname|
+      cname_target = heroku_client.domain.info(heroku_app_name, hostname)["cname"]
+      Rails.logger.info("Deleting AWS CNAME with cname_target=#{cname_target} fully_qualified_domain=#{hostname}")
+
+      route53_client.change_resource_record_sets(
+        hosted_zone_id: 'Z07292202GQEWB2CT0FOE', # Hosted Zone ID for getyourrefund-testing.org in Route 53
+        change_batch: {
+          changes: [
+            {
+              action: 'DELETE',
+              resource_record_set: {
+                name: hostname,
+                type: 'CNAME',
+                ttl: 300,
+                resource_records: [
+                  { value: cname_target }
+                ]
+              }
+            }
+          ]
+        }
+      )
+    end
+
+  end
+
   desc 'Heroku postdeploy task (runs once on review app creation, after release task)'
   task postdeploy: :environment do
     Rake::Task['db:schema:load'].invoke
