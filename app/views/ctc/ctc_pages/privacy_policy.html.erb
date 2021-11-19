@@ -9,7 +9,158 @@
         <main role="main">
           <h1 class="h2"><%= content_for(:page_title) %></h1>
 
-          <%= t("views.ctc_pages.privacy_policy_html", email_link: mail_to("support@getctc.org")) %>
+          <% t("views.ctc_pages.privacy_policy.01_intro").each do |line| %>
+            <p class="text--help"><%= line %></p>
+          <% end %>
+
+          <p><%= t("views.ctc_pages.privacy_policy.02_questions_html", email_link: mail_to("support@getctc.org")) %></p>
+
+          <div><a href="//privacy.truste.com/privacy-seal/validation?rid=fbd38521-2463-471b-85e2-9f705e4d0772" target="_blank"><img style="border: none" src="//privacy-policy.truste.com/privacy-seal/seal?rid=fbd38521-2463-471b-85e2-9f705e4d0772" alt="TRUSTe"/></a></div>
+
+          <h2 class="text--caption"><%= t("views.ctc_pages.privacy_policy.03_overview") %></h2>
+
+          <h3><%= t("views.ctc_pages.privacy_policy.04_info_we_collect") %></h3>
+
+          <p><%= t("views.ctc_pages.privacy_policy.05_info_we_collect_details") %></p>
+
+          <ul class="list--bulleted">
+            <% t("views.ctc_pages.privacy_policy.06_info_we_collect_list").each do |line| %>
+              <li><%= line %></li>
+            <% end %>
+          </ul>
+
+          <p><%= t("views.ctc_pages.privacy_policy.07_info_required_by_irs") %></p>
+
+          <h3><%= t("views.ctc_pages.privacy_policy.08_how_we_collect") %></h3>
+
+          <p><%= t("views.ctc_pages.privacy_policy.09_various_sources") %></p>
+
+          <ul class="list--bulleted">
+            <% t("views.ctc_pages.privacy_policy.10_various_sources_list").each do |line| %>
+              <li><%= line %></li>
+            <% end %>
+          </ul>
+
+          <p><%= t("views.ctc_pages.privacy_policy.11_third_parties") %></p>
+
+          <ul class="list--bulleted">
+            <% t("views.ctc_pages.privacy_policy.12_third_parties_list").each do |line| %>
+              <li><%= line %></li>
+            <% end %>
+          </ul>
+
+          <h3><%= t("views.ctc_pages.privacy_policy.13_using_information") %></h3>
+
+          <p><%= t("views.ctc_pages.privacy_policy.14_using_information_details") %></p>
+
+          <ul class="list--bulleted">
+            <% t("views.ctc_pages.privacy_policy.14_using_information_list").each do |line| %>
+              <li><%= line %></li>
+            <% end %>
+          </ul>
+
+          <h3><%= t("views.ctc_pages.privacy_policy.15_information_shared_with_others") %></h3>
+
+          <p><%= t("views.ctc_pages.privacy_policy.16_we_dont_sell") %></p>
+
+          <p><%= t("views.ctc_pages.privacy_policy.17_disclose_to_others_details") %></p>
+
+          <ul class="list--bulleted">
+            <% t("views.ctc_pages.privacy_policy.18_disclose_to_others_list_html", email_link: mail_to("support@getctc.org")).each do |line| %>
+              <li><%= line %></li>
+            <% end %>
+          </ul>
+
+          <p><%= t("views.ctc_pages.privacy_policy.19_require_third_parties") %></p>
+
+          <p><%= t("views.ctc_pages.privacy_policy.20_may_share_third_parties") %></p>
+
+          <p><%= t("views.ctc_pages.privacy_policy.21_may_share_government") %></p>
+
+          <h3><%= t("views.ctc_pages.privacy_policy.22_your_choices") %></h3>
+
+          <p><%= t("views.ctc_pages.privacy_policy.23_your_choices_details") %></p>
+
+          <p class="text--underline"><%= t("views.ctc_pages.privacy_policy.24_your_choices_contact_methods") %></p>
+
+          <p><%= t("views.ctc_pages.privacy_policy.25_to_update_prefs") %></p>
+
+          <ul class="list--bulleted">
+            <% t("views.ctc_pages.privacy_policy.26_to_update_prefs_list_html", email_link: mail_to("support@getctc.org")).each do |line| %>
+              <li><%= line %></li>
+            <% end %>
+          </ul>
+
+          <p><%= t("views.ctc_pages.privacy_policy.27_unsubscribe_note") %></p>
+
+          <p class="text--underline"><%= t("views.ctc_pages.privacy_policy.28_cookies") %></p>
+
+          <p><%= t("views.ctc_pages.privacy_policy.29_cookies_details") %></p>
+
+          <ul class="list--bulleted">
+            <% t("views.ctc_pages.privacy_policy.30_cookies_list").each do |line| %>
+              <li><%= line %></li>
+            <% end %>
+          </ul>
+
+          <p><%= t("views.ctc_pages.privacy_policy.31_cookies_default") %></p>
+
+          <p class="text--underline"><%= t("views.ctc_pages.privacy_policy.32_sms") %></p>
+
+          <p><%= t("views.ctc_pages.privacy_policy.33_sms_details") %></p>
+
+          <p class="text--underline"><%= t("views.ctc_pages.privacy_policy.34_analytics") %></p>
+
+          <p><%= t("views.ctc_pages.privacy_policy.35_analytics_details_html", email_link: mail_to("support@getctc.org")) %>
+
+          <p class="text--underline"><%= t("views.ctc_pages.privacy_policy.36_additional_services") %></p>
+
+          <p><%= t("views.ctc_pages.privacy_policy.37_additional_services_details") %></p>
+
+          <h3><%= t("views.ctc_pages.privacy_policy.38_how_we_protect") %></h3>
+
+          <% t("views.ctc_pages.privacy_policy.39_how_we_protect_list").each do |line| %>
+            <p><%= line %></p>
+          <% end %>
+
+          <h3><%= t("views.ctc_pages.privacy_policy.40_retention") %></h3>
+
+          <% t("views.ctc_pages.privacy_policy.41_retention_list").each do |line| %>
+            <p><%= line %></p>
+          <% end %>
+
+          <h3><%= t("views.ctc_pages.privacy_policy.42_children") %></h3>
+
+          <p><%= t("views.ctc_pages.privacy_policy.43_children_details") %></p>
+
+          <h2 class="text--caption"><%= t("views.ctc_pages.privacy_policy.44_changes") %></h2>
+
+          <p><%= t("views.ctc_pages.privacy_policy.45_changes_summary") %></p>
+
+          <h3><%= t("views.ctc_pages.privacy_policy.46_access_request") %></h3>
+
+          <% t("views.ctc_pages.privacy_policy.47_access_request_list").each do |line| %>
+            <p><%= line %></p>
+          <% end %>
+
+          <h2 class="text--caption"><%= t("views.ctc_pages.privacy_policy.47_effective_date") %></h2>
+
+          <p><%= t("views.ctc_pages.privacy_policy.48_effective_date_info") %></p>
+
+          <h2 class="text--caption"><%= t("views.ctc_pages.privacy_policy.49_questions") %></h2>
+
+          <% t("views.ctc_pages.privacy_policy.50_questions_list_html", email_link: mail_to("support@getctc.org")).each do |line| %>
+            <p><%= line %></p>
+          <% end %>
+
+          <p>
+            GetCTC<br/>
+            c/o Code for America<br/>
+            972 Mission Street<br/>
+            San Francisco, CA 94103
+          </p>
+
+          <p><%= t("views.ctc_pages.privacy_policy.51_do_our_best") %></p>
         </main>
       </div>
     </div>
