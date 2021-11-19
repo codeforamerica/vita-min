@@ -6,45 +6,50 @@
           <img src="<%= image_path("icons/logo-white.svg") %>" alt=""/>
           <div class="logo-text show-if-expanded">The Hub</div>
         </div>
-        <%= render "hub/components/menu_item",
-                   link: hub_clients_path,
-                   item_label: "All Clients",
-                   icon_path: image_path("icons/people-outline.svg")
-        %>
-        <%= render "hub/components/menu_item",
-                   link: hub_assigned_clients_path,
-                   item_label: "My Clients",
-                   icon_path: image_path("icons/person-outline.svg")
-        %>
-        <%= render "hub/components/menu_item",
-                   link: hub_user_notifications_path,
-                   item_label: "My Updates",
-                   icon_path: image_path("icons/notifications.svg")
-        %>
-        <%= render "hub/components/menu_item",
-                   link: hub_tools_path,
-                   item_label: "Tools",
-                   icon_path: image_path("icons/tools.svg")
-        %>
-        <%= render "hub/components/menu_item",
-                   link: hub_admin_tools_path,
-                   item_label: "Admin Tools",
-                   icon_path: image_path("icons/admin-tools.svg")
-        %>
-        <%= render "hub/components/menu_item",
-                   link: hub_user_profile_path,
-                   item_label: current_user&.name,
-                   icon_path: image_path("icons/my-profile.svg")
-        %>
+
+        <% if current_user %>
+          <%= render "hub/components/menu_item",
+                     link: hub_clients_path,
+                     item_label: "All Clients",
+                     icon_path: image_path("icons/people-outline.svg")
+          %>
+          <%= render "hub/components/menu_item",
+                     link: hub_assigned_clients_path,
+                     item_label: "My Clients",
+                     icon_path: image_path("icons/person-outline.svg")
+          %>
+          <%= render "hub/components/menu_item",
+                     link: hub_user_notifications_path,
+                     item_label: "My Updates",
+                     icon_path: image_path("icons/notifications.svg")
+          %>
+          <%= render "hub/components/menu_item",
+                     link: hub_tools_path,
+                     item_label: "Tools",
+                     icon_path: image_path("icons/tools.svg")
+          %>
+          <%= render "hub/components/menu_item",
+                     link: hub_admin_tools_path,
+                     item_label: "Admin Tools",
+                     icon_path: image_path("icons/admin-tools.svg")
+          %>
+          <%= render "hub/components/menu_item",
+                     link: hub_user_profile_path,
+                     item_label: current_user&.name,
+                     icon_path: image_path("icons/my-profile.svg")
+          %>
+        <% end %>
       </div>
-      <div class="bottom">
-        <%= render "hub/components/menu_item",
-                   link: destroy_client_session_path,
-                   link_method: "delete",
-                   item_label: "Sign out",
-                   icon_path: image_path("icons/sign-out.svg")
-        %>
-      </div>
+      <% if current_user %>
+        <div class="bottom">
+          <%= render "hub/components/menu_item",
+                     link: destroy_client_session_path,
+                     link_method: "delete",
+                     item_label: "Sign out",
+                     icon_path: image_path("icons/sign-out.svg")
+          %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
