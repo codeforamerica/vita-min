@@ -24,7 +24,7 @@ RSpec.feature "Assign a user to a tax return", js: true do
         click_on "Save"
       end
 
-      expect(page).to have_selector(".is-selected", text: "All clients")
+      # expect(page).to have_selector(".is-selected", text: "All clients") TO DO: waiting on design input
       expect(page).to have_text "Assigned Buster's 2019 tax return to Lucille 2."
 
       within "#tax-return-#{tax_return_to_assign.id}" do
