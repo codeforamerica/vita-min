@@ -23,6 +23,15 @@ body.hub {
     display: flex;
     flex-direction: column;
     height: 100%;
+
+    .columns--child {
+      overflow-y: auto;
+      height: 100%;
+    }
+  }
+  .columns--right{
+    width: 100%;
+    overflow-x: auto;
   }
 }
 // TODO: Move these styles into .hub

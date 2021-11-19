@@ -45,14 +45,14 @@
 </head>
 
 <body class="admin honeycrisp-compact hub">
-<div id="left" class="columns">
-  <div style="overflow-y: auto; height: 100%;">
+<div class="columns">
+  <div class="columns--child">
     <%= render "hub/components/main_menu" %>
   </div>
 </div>
 
-<div id="right" style="display: flex; flex-direction: column; width: 100%; overflow-x: auto;">
-  <div style="overflow-y: auto;">
+<div class="columns columns--right">
+  <div class="columns--child">
     <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content') %></a>
     <div>
       <main role="main" id="maincontent">
