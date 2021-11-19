@@ -24,17 +24,13 @@ RSpec.describe Hub::UsersController do
         sign_in user
       end
 
-      it "renders information about the current user with helpful links" do
+      it "renders information about the current user" do
         get :profile
 
         expect(response).to be_ok
         expect(response.body).to have_content "Adam Avocado"
         expect(response.body).to have_content "Organization lead"
         expect(response.body).to have_content "Orange organization"
-        expect(response.body).to include invitations_path
-        expect(response.body).to include hub_clients_path
-        expect(response.body).to include hub_users_path
-        expect(response.body).to include hub_organization_path(id: organization)
       end
 
       context "with a datetime for when the user accepted an invitation" do
@@ -54,34 +50,6 @@ RSpec.describe Hub::UsersController do
           get :profile
 
           expect(response.body).to have_content "1/9/2015"
-        end
-      end
-
-      context "as a team member" do
-        let(:user) { create(:team_member_user) }
-
-        it "shows links for clients and users, but no invitations or organizations links" do
-          get :profile
-
-          expect(response).to be_ok
-          expect(response.body).to include hub_clients_path
-          expect(response.body).to include hub_users_path
-          expect(response.body).not_to include hub_organizations_path
-          expect(response.body).not_to include invitations_path
-        end
-      end
-
-      context "as a coalition lead user" do
-        let(:user) { create :coalition_lead_user }
-
-        it "shows links for invitations, clients, users, and organizations" do
-          get :profile
-
-          expect(response).to be_ok
-          expect(response.body).to include hub_clients_path
-          expect(response.body).to include hub_users_path
-          expect(response.body).to include hub_organizations_path
-          expect(response.body).to include invitations_path
         end
       end
     end

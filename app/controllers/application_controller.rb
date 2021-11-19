@@ -337,7 +337,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html do
-        render status: :forbidden, template: "public_pages/forbidden", layout: "admin"
+        render status: :forbidden, template: "public_pages/forbidden", layout: "hub"
       end
       format.js { head :forbidden }
     end
