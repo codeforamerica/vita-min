@@ -2049,8 +2049,8 @@ es:
           verify: Verifique
     ctc_pages:
       07_info_required_by_irs: Recopilamos información según lo dispuesto por el IRS en el Procedimiento de Ingresos "Rev RP-21-24".
-      08_how_we_collect: La manera en que recopilamos su información
-      09_various_sources: Recopilamos su información de varias fuentes, como cuando usted o los miembros de su hogar
+      '08_how_we_collect': La manera en que recopilamos su información
+      '09_various_sources': Recopilamos su información de varias fuentes, como cuando usted o los miembros de su hogar
       10_various_sources_list:
       - Visite nuestro Sitio, llene formularios en nuestro Sitio, o utilice nuestros Servicios
       - Proporciónenos sus documentos para utilizar nuestros Servicios

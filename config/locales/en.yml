@@ -2326,8 +2326,8 @@ en:
         - Household information and information about your spouse, if applicable
         - Information from your computer or device, such as IP address, operating system, browser, date and time of visit, and click-stream data (the website or domain you came from, the pages you visit, and the items you click on during your session)
         07_info_required_by_irs: We collect information as required by the IRS in Revenue Procedure “Rev RP-21-24.”
-        08_how_we_collect: How we collect your information
-        09_various_sources: We collect your information from various sources, such as when you or your household members
+        '08_how_we_collect': How we collect your information
+        '09_various_sources': We collect your information from various sources, such as when you or your household members
         10_various_sources_list:
         - Visit our Site, fill out forms on our Site, or use our Services
         - Provide us with documents to use our Services
