@@ -19,8 +19,8 @@ namespace :heroku do
     require 'aws-sdk-route53'
 
     # Extract out "pr-<pull request ID>" from heroku runtime app variable; use as subdomain
-    gyr_hostname = Rails.application.config.gyr_url.sub(/^https:\/\//, '')
-    ctc_hostname = Rails.application.config.ctc_url.sub(/^https:\/\//, '')
+    gyr_hostname = MultiTenantService.new(:gyr).host
+    ctc_hostname = MultiTenantService.new(:ctc).host
     Rails.logger.info("Setting up Heroku review app DNS: gyr_hostname=#{gyr_hostname} ctc_hostname=#{ctc_hostname}")
 
     # Add the hostnames as to the Heroku app.
@@ -72,8 +72,8 @@ namespace :heroku do
 
   task review_app_predestroy: :environment do
     # Delete this app's hostnames from Route 53
-    gyr_hostname = Rails.application.config.gyr_url.sub(/^https:\/\//, '')
-    ctc_hostname = Rails.application.config.ctc_url.sub(/^https:\/\//, '')
+    gyr_hostname = MultiTenantService.new(:gyr).host
+    ctc_hostname = MultiTenantService.new(:ctc).host
     Rails.logger.info("Deleting Route 53 DNS: gyr_hostname=#{gyr_hostname} ctc_hostname=#{ctc_hostname}")
 
     heroku_app_name = ENV["HEROKU_APP_NAME"]
@@ -82,7 +82,7 @@ namespace :heroku do
       access_key_id: ENV["HEROKU_DNS_AWS_ACCESS_KEY_ID"],
       secret_access_key: ENV["HEROKU_DNS_SECRET_ACCESS_KEY"],
       region: 'us-east-1',
-      )
+    )
     [gyr_hostname, ctc_hostname].each do |hostname|
       cname_target = heroku_client.domain.info(heroku_app_name, hostname)["cname"]
       Rails.logger.info("Deleting AWS CNAME with cname_target=#{cname_target} fully_qualified_domain=#{hostname}")
