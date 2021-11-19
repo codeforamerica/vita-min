@@ -3,8 +3,8 @@ require_relative "./shared_deployment_config"
 Rails.application.configure do
   config.active_storage.service = :s3_prod
 
-  config.ctc_url = "https://getctc.org"
-  config.gyr_url = "https://getyourrefund.org"
+  config.ctc_url = "https://www.getctc.org"
+  config.gyr_url = "https://www.getyourrefund.org"
   ctc_email_from_domain = "getctc.org"
   gyr_email_from_domain = "getyourrefund.org"
   config.email_from = {
