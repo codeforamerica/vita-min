@@ -47,6 +47,10 @@
     text-decoration: none;
     margin-bottom: 1px;
 
+    &.selected {
+      background: transparentize(#F1F3F6, .75);
+    }
+
     &:hover {
       background: transparentize(#F1F3F6, .85);
     }
