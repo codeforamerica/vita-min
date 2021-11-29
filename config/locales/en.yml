@@ -1083,9 +1083,7 @@ en:
         needs_to_accept_invite: Needs to accept invite
         title: Users
       profile:
-        clients_link: Clients
         start_date: Start date
-        users_link: Users
       suspend:
         success: Suspended %{name}'s account
       unlock:

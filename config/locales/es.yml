@@ -1067,9 +1067,7 @@ es:
         needs_to_accept_invite: Necesita aceptar la invitación
         title: Usuarios
       profile:
-        clients_link: Clientes
         start_date: Fecha de inicio
-        users_link: Usuarios
       suspend:
         success: La cuenta de %{name} se ha suspendida
       unlock:
