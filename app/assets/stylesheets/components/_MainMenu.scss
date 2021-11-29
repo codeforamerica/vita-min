@@ -68,6 +68,11 @@
     img {
       margin-right: 5px;
     }
+
+    div {
+      width: 200px;
+      overflow-wrap: break-word;
+    }
   }
 
   &.collapsed .menu-item {
