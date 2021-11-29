@@ -70,7 +70,7 @@ RSpec.describe "a user viewing a client" do
 
       scenario "returns to user's profile" do
         visit hub_client_path(id: client.id)
-        click_on("My Profile")
+        click_on(user.name)
 
         expect(current_path).to eq(hub_user_profile_path)
       end

@@ -710,27 +710,6 @@ RSpec.describe Hub::ClientsController do
           end
         end
       end
-
-      context "navigation link to unlinked clients" do
-        render_views
-
-        context "as an admin" do
-          let(:user) { create(:admin_user) }
-          it "does show" do
-            get :index
-
-            expect(response.body).to have_content "Unlinked clients"
-          end
-        end
-
-        context "as an organization lead" do
-          it "does not show" do
-            get :index
-
-            expect(response.body).not_to have_content "Unlinked clients"
-          end
-        end
-      end
     end
   end
 
