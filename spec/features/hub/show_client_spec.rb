@@ -61,25 +61,34 @@ RSpec.describe "a user viewing a client" do
     before { login_as user }
 
     context "navigation bar" do
-      scenario "returns to all clients" do
+      scenario "returns to all clients", :js do
         visit hub_client_path(id: client.id)
         click_on("All Clients")
 
         expect(current_path).to eq(hub_clients_path)
+        within ".selected" do
+          expect(page).to have_text "All Clients"
+        end
       end
 
-      scenario "returns to user's profile" do
+      scenario "returns to user's profile", :js do
         visit hub_client_path(id: client.id)
         click_on(user.name)
 
         expect(current_path).to eq(hub_user_profile_path)
+        within ".selected" do
+          expect(page).to have_text user.name
+        end
       end
 
-      scenario "returns to user's clients" do
+      scenario "returns to user's clients", :js do
         visit hub_client_path(id: client.id)
         click_on("My Clients")
 
         expect(current_path).to eq(hub_assigned_clients_path)
+        within ".selected" do
+          expect(page).to have_text "My Clients"
+        end
       end
     end
 
