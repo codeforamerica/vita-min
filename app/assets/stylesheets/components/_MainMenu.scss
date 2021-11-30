@@ -22,7 +22,7 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    padding: 20px;
+    padding: 35px;
 
     .logo-text {
       font-weight: 700;
@@ -69,7 +69,7 @@
     padding-left: 20px;
 
     img {
-      margin-right: 5px;
+      margin-right: 10px;
     }
 
     div {
@@ -86,5 +86,9 @@
     img {
       margin-bottom: 5px;
     }
+  }
+
+  .bottom {
+    margin-bottom: 35px;
   }
 }
