@@ -7,27 +7,6 @@ RSpec.describe "a user editing a user" do
       let(:user_to_edit) { create :user }
       before { login_as current_user }
 
-      scenario "navigation", js: true, screenshot: true do
-        screenshot_after do
-          visit edit_hub_user_path(id: user_to_edit.id)
-        end
-        click_on "Cancel"
-
-        screenshot_after do
-          expect(page).to have_current_path(hub_users_path)
-        end
-        click_on "Return to Profile"
-
-        screenshot_after do
-          expect(page).to have_current_path(hub_user_profile_path)
-        end
-        click_on "Return to Dashboard"
-
-        screenshot_after do
-          expect(page).to have_current_path(hub_assigned_clients_path)
-        end
-      end
-
       scenario "update all fields" do
         visit edit_hub_user_path(id: user_to_edit.id)
         expect(page).to have_text user_to_edit.name
