@@ -711,7 +711,6 @@ es:
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
-      urgent: Urgente
     ctc_clients:
       edit:
         title: Edit CTC Client Profile
