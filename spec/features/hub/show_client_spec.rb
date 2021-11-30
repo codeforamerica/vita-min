@@ -66,9 +66,7 @@ RSpec.describe "a user viewing a client" do
         click_on("All Clients")
 
         expect(current_path).to eq(hub_clients_path)
-        within ".selected" do
-          expect(page).to have_text "All Clients"
-        end
+        expect(page).to have_selector(".selected", text: "All Clients")
       end
 
       scenario "returns to user's profile", :js do
@@ -76,9 +74,7 @@ RSpec.describe "a user viewing a client" do
         click_on(user.name)
 
         expect(current_path).to eq(hub_user_profile_path)
-        within ".selected" do
-          expect(page).to have_text user.name
-        end
+        expect(page).to have_selector(".selected", text: user.name)
       end
 
       scenario "returns to user's clients", :js do
@@ -86,9 +82,7 @@ RSpec.describe "a user viewing a client" do
         click_on("My Clients")
 
         expect(current_path).to eq(hub_assigned_clients_path)
-        within ".selected" do
-          expect(page).to have_text "My Clients"
-        end
+        expect(page).to have_selector(".selected", text: "My Clients")
       end
     end
 
