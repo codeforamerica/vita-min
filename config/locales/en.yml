@@ -7,6 +7,11 @@ en:
           attributes:
             ssn:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
+  attributes:
+    confirm_primary_ssn: Confirm SSN or ITIN
+    confirm_spouse_ssn: Confirm spouse's SSN or ITIN
+    primary_ssn: SSN or ITIN
+    spouse_ssn: Spouse's SSN or ITIN
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance for about 1 hour starting at %{time}.
@@ -159,11 +164,12 @@ en:
         blank: Please enter your preferred name.
       primary_first_name:
         blank: Please enter your first name.
-      primary_last_four_ssn:
-        too_long: Please enter the last four digits of your SSN or ITIN.
-        too_short: Please enter the last four digits of your SSN or ITIN.
       primary_last_name:
         blank: Please enter your last name.
+      primary_ssn:
+        blank: An SSN or ITIN is required.
+      primary_tin_type:
+        blank: Identification type is required.
       signature_method:
         inclusion: Please select a pickup method.
       sms_phone_number:
@@ -174,11 +180,12 @@ en:
         confirmation: Please double check that the email addresses match.
       spouse_first_name:
         blank: Please enter your spouse's first name.
-      spouse_last_four_ssn:
-        too_long: Please enter the last four digits of your spouse's SSN or ITIN.
-        too_short: Please enter the last four digits of your spouse's SSN or ITIN.
       spouse_last_name:
         blank: Please enter your spouse's last name.
+      spouse_ssn:
+        blank: Spouse SSN or ITIN is required.
+      spouse_tin_type:
+        blank: Identification type is required.
       state:
         inclusion: Please select a state.
       state_of_residence:
@@ -437,6 +444,7 @@ en:
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
     ssn: SSN
     ssn_itin: SSN/ITIN
+    ssn_not_valid_for_employment: This SSN is not valid for employment
     start_filing: Start filing
     state: State
     state_routing: "%{state} Routing"
@@ -462,6 +470,7 @@ en:
       none: None of the above
       ssn: Social Security Number (SSN)
       ssn_no_employment: SSN (Not valid for employment)
+    tin_type: Identification Type
     today: Today
     type: Type
     ui: UI
@@ -1950,7 +1959,6 @@ en:
           ssn_confirmation: Confirm SSN or ITIN
           ssn_not_valid_for_employment: This SSN is not valid for employment
           suffix: Suffix
-          tin_type: Identification Type
           title: In order to file, we’ll need some basic information.
         life_situations2019:
           item1: The number of people in your household changed from your 2019 tax return
@@ -3062,7 +3070,6 @@ en:
         birth_date: Date of birth
         cta: I agree
         primary_first_name: Legal first name
-        primary_last_four_ssn: Last 4 of SSN/ITIN
         primary_last_name: Legal last name
         title: Great! Here's the legal stuff...
       debt_forgiven:
@@ -3377,7 +3384,6 @@ en:
         birth_date: Date of birth
         cta: I agree
         spouse_first_name: Spouse's legal first name
-        spouse_last_four_ssn: Last 4 of SSN/ITIN
         spouse_last_name: Spouse's legal last name
         title: We need your spouse to review our legal stuff...
       spouse_email_address:

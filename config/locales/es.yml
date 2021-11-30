@@ -7,6 +7,11 @@ es:
           attributes:
             ssn:
               blank: Para reclamar a un miembro de la familia como dependiente para los beneficios, se requiere un SSN o ATIN.
+  attributes:
+    confirm_primary_ssn: Confirmar SSN o ITIN
+    confirm_spouse_ssn: Confirme el SSN o ITIN del cónyuge
+    primary_ssn: Número de seguro social o ITIN
+    spouse_ssn: Número de seguro social o ITIN del cónyuge
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará inactivo para mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
@@ -159,11 +164,12 @@ es:
         blank: Por favor, introduzca su nombre preferido.
       primary_first_name:
         blank: Por favor, introduzca su primer nombre.
-      primary_last_four_ssn:
-        too_long: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
-        too_short: Por favor, ingrese los últimos cuatro dígitos de su SSN o ITIN.
       primary_last_name:
         blank: Por favor, ingrese su apellido.
+      primary_ssn:
+        blank: Se requiere un SSN o ITIN.
+      primary_tin_type:
+        blank: Se requiere el tipo de identificación.
       signature_method:
         inclusion: Por favor, seleccione un método de recogida.
       sms_phone_number:
@@ -174,11 +180,12 @@ es:
         confirmation: Por favor, revise que las direcciones de correo electrónico sean iguales.
       spouse_first_name:
         blank: Por favor ingrese el nombre de su cónyuge.
-      spouse_last_four_ssn:
-        too_long: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
-        too_short: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
       spouse_last_name:
         blank: Por favor, ingrese el apellido de su pareja.
+      spouse_ssn:
+        blank: Se requiere el número de seguro social o ITIN del cónyuge.
+      spouse_tin_type:
+        blank: Se requiere el tipo de identificación.
       state:
         inclusion: Por favor, seleccione un estado.
       state_of_residence:
@@ -437,6 +444,7 @@ es:
     spouse_last_four_ssn: Últimos 4 de SSN / ITIN (cónyuge)
     ssn: SSN
     ssn_itin: SSN/ITIN
+    ssn_not_valid_for_employment: Este SSN no es válido para empleo
     start_filing: Empiece a declarar
     state: Estado
     state_routing: Enrutamiento de %{state}
@@ -462,6 +470,7 @@ es:
       none: Ninguna de las anteriores
       ssn: Número de Seguro Social (SSN)
       ssn_no_employment: Número de Seguro Social/SSN (No es válido para el empleo)
+    tin_type: Tipo de identificación
     today: Hoy
     type: Tipo
     ui: UI
@@ -1899,7 +1908,6 @@ es:
           ssn_confirmation: Confirme el SSN o ITIN
           ssn_not_valid_for_employment: Este SSN no es válido para empleo
           suffix: Forma de tratamiento, por ejemplo, Sr., Sra., Srta.
-          tin_type: Tipo de identificación
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
         life_situations2019:
           item1: El número de personas en su hogar cambió con respecto a su declaración de impuestos de 2019
@@ -3031,7 +3039,6 @@ es:
         birth_date: Fecha de nacimiento
         cta: estoy de acuerdo
         primary_first_name: Primer nombre legal
-        primary_last_four_ssn: Últimos 4 de SSN / ITIN
         primary_last_name: Apellido legal
         title: "¡Excelente! Aquí están las cosas legales ..."
       debt_forgiven:
@@ -3346,7 +3353,6 @@ es:
         birth_date: Fecha de nacimiento
         cta: Estoy de acuerdo
         spouse_first_name: Nombre legal de su cónyuge
-        spouse_last_four_ssn: Últimos 4 del SSN / ITIN
         spouse_last_name: Apellido legal de su cónyuge
         title: Necesitamos que su cónyuge revise algunos asuntos legales nuestros ...
       spouse_email_address:

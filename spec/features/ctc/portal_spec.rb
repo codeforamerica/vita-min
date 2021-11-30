@@ -357,7 +357,6 @@ RSpec.feature "CTC Intake", :js, :active_job do
           "spouse_first_name" => ["Eva", "Pomelostore"],
           "has_spouse_ip_pin" => ["unfilled", "no"],
           "spouse_tin_type" => ["nil", "ssn"],
-          "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
         })
 
         expect(changes_table_contents(".changes-note-#{notes[3].id}")).to match({

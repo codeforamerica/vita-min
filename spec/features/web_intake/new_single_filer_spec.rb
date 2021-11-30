@@ -99,7 +99,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
     fill_in "Legal first name", with: "Gary"
     fill_in "Legal last name", with: "Gnome"
-    fill_in "Last 4 of SSN/ITIN", with: "1234"
+    fill_in I18n.t("attributes.primary_ssn"), with: "123456789"
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123456789"
     select "March", from: "Month"
     select "5", from: "Day"
     select "1971", from: "Year"

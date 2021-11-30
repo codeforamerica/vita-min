@@ -10,13 +10,30 @@ class ConsentForm < QuestionsForm
     :birth_date_day,
     :primary_first_name,
     :primary_last_name,
-    :primary_last_four_ssn
+    :primary_ssn,
+    :primary_tin_type
   )
+  set_attributes_for :confirmation, :primary_ssn_confirmation
+  set_attributes_for :virtual, :ssn_no_employment
 
   validates_presence_of :primary_first_name
   validates_presence_of :primary_last_name
-  validates_length_of :primary_last_four_ssn, maximum: 4, minimum: 4
   validate :valid_birth_date
+  validates :primary_tin_type, presence: true
+  validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
+  validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
+  validates_presence_of :primary_ssn
+
+  with_options if: -> { (primary_ssn.present? && primary_ssn != intake.primary_ssn) || primary_ssn_confirmation.present? } do
+    validates :primary_ssn, confirmation: true
+    validates :primary_ssn_confirmation, presence: true
+  end
+
+  before_validation do
+    if ssn_no_employment == "yes" && primary_tin_type == "ssn"
+      self.primary_tin_type = "ssn_no_employment"
+    end
+  end
 
   def save
     attributes = attributes_for(:intake)

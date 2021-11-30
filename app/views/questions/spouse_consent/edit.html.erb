@@ -15,14 +15,7 @@
 
             <%= f.cfa_input_field(:spouse_first_name, t("views.questions.spouse_consent.spouse_first_name")) %>
             <%= f.cfa_input_field(:spouse_last_name, t("views.questions.spouse_consent.spouse_last_name")) %>
-            <%= f.cfa_input_field(
-                    :spouse_last_four_ssn,
-                    t("views.questions.spouse_consent.spouse_last_four_ssn"),
-                    prefix: "XXX-XX-",
-                    type: :tel,
-                    classes: ["form-width--name field--last-four-ssn"],
-                    options: { maxlength: 4 }
-                ) %>
+            <%= f.cfa_select(:spouse_tin_type, t("views.ctc.questions.spouse_info.spouse_identity"), tin_options_for_select(include_itin: true, include_none: true), help_text: t("views.ctc.questions.spouse_info.spouse_identity_help_text")) %>
             <div class="date-select">
               <%= f.cfa_date_select(
                       :birth_date,
@@ -33,6 +26,9 @@
                       }
                   ) %>
             </div>
+            <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+            <%= f.cfa_input_field(:spouse_ssn, t("attributes.spouse_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
+            <%= f.cfa_input_field(:spouse_ssn_confirmation, t("attributes.confirm_spouse_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
             <button class="button button--primary button--wide" type="submit">
               <%= t("views.questions.spouse_consent.cta") %>
             </button>
@@ -41,4 +37,13 @@
       </div>
     </div>
   </section>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          window.TINTypeSelector = document.getElementById("spouse_consent_form_spouse_tin_type");
+          window.SSNEmploymentCheckboxSelector = document.getElementById("spouse_consent_form_ssn_no_employment").parentElement;
+      });
+  </script>
 <% end %>

@@ -97,8 +97,6 @@ module Hub
     def default_attributes
       {
         type: "Intake::CtcIntake",
-        primary_last_four_ssn: primary_ssn&.last(4),
-        spouse_last_four_ssn: spouse_ssn&.last(4),
       }
     end
 

@@ -317,6 +317,74 @@ describe Intake do
     end
   end
 
+  describe "keeping last 4 ssn in sync with ssn" do
+    context "when creating the object" do
+      let(:intake) { create :intake, primary_ssn: "12345678", spouse_ssn: "2345677777" }
+
+      it "updates last_four values when setting" do
+        expect(intake.primary_last_four_ssn).to eq "5678"
+        expect(intake.spouse_last_four_ssn).to eq "7777"
+      end
+    end
+
+    context "primary_ssn" do
+      let!(:intake) { create :intake, primary_ssn: "12345678", spouse_ssn: "2345677777" }
+
+      context "when removing primary_ssn" do
+        it "sets primary_last_four_ssn to nil" do
+          expect{
+            intake.update(primary_ssn: nil)
+          }.to change(intake, :primary_last_four_ssn).to(nil)
+        end
+      end
+
+      context "when setting primary_ssn to an empty string" do
+        it "sets primary_last_four_ssn to an empty string" do
+          expect{
+            intake.update(primary_ssn: "")
+          }.to change(intake, :primary_last_four_ssn).to("")
+        end
+      end
+
+      context "when changing primary_ssn" do
+        it "sets primary_last_four_ssn to a new value" do
+          expect{
+            intake.update(primary_ssn: "123456666")
+          }.to change(intake, :primary_last_four_ssn).to("6666")
+        end
+      end
+    end
+
+    context "spouse_ssn" do
+      let!(:intake) { create :intake, primary_ssn: "12345678", spouse_ssn: "2345677777" }
+
+      context "when removing spouse_ssn" do
+        it "sets spouse_last_four_ssn to nil" do
+          expect{
+            intake.update(spouse_ssn: nil)
+          }.to change(intake, :spouse_last_four_ssn).to(nil)
+        end
+      end
+
+      context "when setting spouse_ssn to an empty string" do
+        it "sets spouse_last_four_ssn to an empty string" do
+          expect{
+            intake.update(spouse_ssn: "")
+          }.to change(intake, :spouse_last_four_ssn).to("")
+        end
+      end
+
+      context "when changing spouse_ssn" do
+        it "sets spouse_last_four_ssn to a new value" do
+          expect{
+            intake.update(spouse_ssn: "123456666")
+          }.to change(intake, :spouse_last_four_ssn).to("6666")
+        end
+      end
+    end
+
+  end
+
   describe "canonical_email_address" do
     it "is persisted when the intake is saved" do
       example_intake = Intake.create!(email_address: "a.REAL.email@example.com", visitor_id: "visitor_id")

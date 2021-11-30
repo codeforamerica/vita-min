@@ -15,7 +15,9 @@ RSpec.describe SpouseConsentForm do
         birth_date_day: "10",
         spouse_first_name: "Greta",
         spouse_last_name: "Gnome",
-        spouse_last_four_ssn: "5678"
+        spouse_tin_type: "ssn",
+        spouse_ssn: "123456789",
+        spouse_ssn_confirmation: "123456789"
       }
     )
   end
@@ -40,7 +42,8 @@ RSpec.describe SpouseConsentForm do
               birth_date_day: "10",
               spouse_first_name: "Greta",
               spouse_last_name: nil,
-              spouse_last_four_ssn: nil
+              spouse_ssn: nil,
+              spouse_tin_type: nil
             }
           )
         )
@@ -48,18 +51,42 @@ RSpec.describe SpouseConsentForm do
         expect(form).not_to be_valid
         expect(form.errors[:birth_date]).to be_present
         expect(form.errors[:spouse_last_name]).to be_present
-        expect(form.errors[:spouse_last_four_ssn]).to be_present
+        expect(form.errors[:spouse_ssn]).to be_present
+        expect(form.errors[:spouse_tin_type]).to be_present
       end
     end
 
-    context "with a last_four_ssn of a different length" do
-      let(:params) { valid_params.merge(spouse_last_four_ssn: "765") }
+    context "with a spouse_ssn that is too short" do
+      let(:params) { valid_params.merge(spouse_ssn: "765") }
 
       it "adds a validation error" do
         form = SpouseConsentForm.new(intake, params)
 
         expect(form).not_to be_valid
-        expect(form.errors[:spouse_last_four_ssn]).to be_present
+        expect(form.errors[:spouse_ssn]).to be_present
+      end
+    end
+
+    context "with a spouse_ssn that is too long" do
+      let(:params) { valid_params.merge(spouse_ssn: "765123123123123123123123") }
+
+      it "adds a validation error" do
+        form = SpouseConsentForm.new(intake, params)
+
+        expect(form).not_to be_valid
+        expect(form.errors[:spouse_ssn]).to be_present
+      end
+    end
+
+    context "when ssn_no_employment is yes and tin_type is ssn" do
+      let(:params) { valid_params.merge(spouse_tin_type: "ssn", ssn_no_employment: "yes") }
+
+      it "persists tin_type as ssn_no_employment" do
+        form = SpouseConsentForm.new(intake, params)
+        form.valid?
+        form.save
+
+        expect(form.intake.reload.spouse_tin_type).to eq "ssn_no_employment"
       end
     end
 
