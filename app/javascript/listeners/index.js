@@ -13,7 +13,6 @@ import { getEfileSecurityInformation } from "../lib/efile_security_information";
 import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 import { limitTextMessageLength } from "../lib/text_message_length_limiter";
-import { initMainMenu } from "../hub/main_menu";
 
 const Listeners =  (function(){
     return {
