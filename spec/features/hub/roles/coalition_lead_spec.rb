@@ -30,10 +30,11 @@ RSpec.feature "Coalition lead role" do
       login_as user
     end
 
-    scenario "Viewing client list" do
+    scenario "Viewing client list", :js do
       visit hub_clients_path
 
-      expect(page).to have_text "All clients"
+      expect(page).to have_selector(".selected", text: "All Clients")
+
       within ".client-table" do
         expect(page).to have_text(greta_visible.preferred_name)
         expect(page).to have_text(clarence_visible.preferred_name)

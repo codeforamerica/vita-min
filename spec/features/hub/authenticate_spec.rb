@@ -7,18 +7,13 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     # go to password-based sign in page
     visit new_user_session_path
 
-    within(".main-header") do
-      expect(page).to have_link("The Hub", href: hub_root_path)
-    end
-
     expect(page).to have_text "Sign in"
     fill_in "Email", with: "german@flowers.orange"
     fill_in "Password", with: "goodPassword"
     click_on "Sign in"
 
     # Expect to be redirected to dashboard
-    expect(page).to have_text "Welcome German Geranium"
-    expect(page).to have_text "Assigned clients"
+    expect(page).to have_text "My Clients"
 
     click_on "Sign out"
     # Should be redirected to home page

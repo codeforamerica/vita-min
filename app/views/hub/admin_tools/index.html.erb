@@ -13,6 +13,18 @@
       <%= link_to Hub::AdminTogglesController.to_path_helper(action: :index, name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM), class: "button button--small" do %>
         Intercom Message Forwarding
       <% end %>
+
+      <%= link_to hub_state_routings_path, class: "button button--small" do %>
+        Routing
+      <% end %>
+
+      <%= link_to hub_automated_messages_path, class: "button button--small" do %>
+        Automated Messages
+      <% end %>
+
+      <%= link_to hub_unlinked_clients_path, class: "button button--small" do %>
+        Unlinked Clients
+      <% end %>
     </div>
   </div>
 <% end %>

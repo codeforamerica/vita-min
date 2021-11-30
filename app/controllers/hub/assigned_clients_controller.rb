@@ -7,7 +7,7 @@ module Hub
     before_action :require_sign_in
     before_action :ensure_always_current_user_assigned, :load_vita_partners, :load_users, :setup_sortable_client, only: [:index]
     load_and_authorize_resource :client, parent: false
-    layout "admin"
+    layout "hub"
 
     def index
       @page_title = I18n.t("hub.assigned_clients.index.title")

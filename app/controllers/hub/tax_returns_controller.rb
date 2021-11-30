@@ -12,7 +12,7 @@ module Hub
     before_action :load_assignable_users, except: [:show]
     before_action :load_and_authorize_assignee, only: [:update]
 
-    layout "admin"
+    layout "hub"
     respond_to :js, except: [:new, :create]
 
     def new

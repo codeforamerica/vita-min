@@ -58,9 +58,11 @@
     display: flex;
     margin-top: .5rem;
     margin-bottom: 2rem;
+    align-items: flex-start;
 
     > * {
       margin-right: 2rem;
+      align-items: flex-start;
     }
 
     h4 {

@@ -2,7 +2,7 @@ module Hub
   class AutomatedMessagesController < ApplicationController
     include AccessControllable
 
-    layout "admin"
+    layout "hub"
     load_and_authorize_resource class: false
 
     before_action :require_sign_in

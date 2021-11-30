@@ -6,7 +6,7 @@ module Hub
     before_action :require_sign_in
     authorize_resource
     load_resource except: [:index, :show]
-    layout "admin"
+    layout "hub"
 
     def index
       @efile_submission_state_counts = EfileSubmission.state_counts(except: %w[new resubmitted ready_to_resubmit])

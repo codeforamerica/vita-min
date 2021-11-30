@@ -2,7 +2,7 @@ module Hub
   class UserNotificationsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    layout "admin"
+    layout "hub"
 
     def index
       @page_title = I18n.t("hub.clients.navigation.notifications")

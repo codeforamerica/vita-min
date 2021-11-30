@@ -71,7 +71,7 @@
 @import "organisms/provider-details";
 @import "organisms/welcome";
 @import "templates/additional-documents";
-@import "templates/admin";
+@import "templates/hub";
 @import "templates/about-us";
 @import "templates/chat-bubble";
 @import "templates/client-profile";
@@ -225,6 +225,15 @@ pre {
   transform: translateY(-100%);
   transition: transform 0.3s;
   z-index: 3;
+}
+
+.admin .skip-link {
+  left: unset;
+  right: 25px;
+  border-radius: .5rem;
+
+  box-shadow:  0 4px 6px rgba(0, 0, 0, 0.30);
+
 }
 
 .skip-link:visited {

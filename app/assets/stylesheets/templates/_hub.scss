@@ -1,3 +1,34 @@
+html.hub {
+  height: 100%;
+}
+
+body.hub {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  margin: 0px;
+}
+
+.hub {
+  .columns {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .columns--child {
+      overflow-y: auto;
+      height: 100%;
+    }
+  }
+  .columns--right{
+    width: 100%;
+    overflow-x: auto;
+  }
+}
+// TODO: Move these styles into .hub
+// When we do that, remove the 'hub' class from body
+// look for .admin in the other sass files to
+// make sure they target .hub instead at that time
 .admin {
   background: white;
   .hub-section {

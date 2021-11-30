@@ -6,7 +6,7 @@ module Hub
 
     load_and_authorize_resource :site, parent: false
 
-    layout "admin"
+    layout "hub"
 
     def new
       @site = Site.new(parent_organization_id: params[:parent_organization_id])
