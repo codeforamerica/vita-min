@@ -711,7 +711,6 @@ en:
           status: updated status
           success: 'Success: Action taken! %{action_list}.'
           text_message: sent text message
-      urgent: Urgent
     ctc_clients:
       edit:
         title: Edit CTC Client Profile
