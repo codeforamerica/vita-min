@@ -344,7 +344,7 @@ es:
     get_help: Pedir ayuda
     get_my_payment: Recibir mi pago
     get_started: Empiece ahora
-    go_home: Ir a inicio
+    go_home: Ir al inicio
     greetable: Pueden ser saludados
     greeter: Saludador
     here: aquí
@@ -676,7 +676,7 @@ es:
         title: Agregar un nuevo cliente
       organizations:
         edit:
-          warning_text_1: 'Nota: Todas las declaraciones de este cliente se asiganrán a la nueva organización.'
+          warning_text_1: 'Aviso: Todas las declaraciones de este cliente se asiganrán a la nueva organización.'
           warning_text_2: Cambiar la organización puede causar que los usuarios del hub pierdan acceso y asignación.
       show:
         basic_info: Información básica
@@ -1175,7 +1175,7 @@ es:
       preparing:
         email:
           body: "Hola <<Client.PreferredName>>, \n\nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los de estímulo hasta que acepten su declaración. \n\nEstamos aquí para ayudarle! \nSu equipo de Impuestos de GetCTC.org\n"
-          subject: Tu declaración de impuestos se está procesando.
+          subject: Su declaración de impuestos se está procesando.
         sms: "Hola <<Client.PreferredName>>, \nActualmente estamos procesando su información para enviarla al IRS. Dentro de una semana le informaremos si su declaración de impuestos fue aceptada o rechazada. No recibirá los pagos del Crédito Tributario por Hijos ni los de estímulo hasta que acepten su declaración.\nSu equipo de Impuestos de GetCTC.org\n"
       rejected:
         email:
@@ -1196,9 +1196,9 @@ es:
           ¡Estamos aquí para ayudarle!
     fraud_hold:
       email:
-        body: "Hola <<Client.PreferredName>>,\n\nSu sumisión requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto suya con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
-        subject: Su sumisión está en espera por ahora
-      sms: "Hola <<Client.PreferredName>>,\n\nSu sumisión requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto suya con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
+        body: "Hola <<Client.PreferredName>>,\n\nSu entrega requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto suya con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
+        subject: La información ha enviado está en espera por ahora
+      sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto suya con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     getting_started:
       email:
         body: |
@@ -1439,12 +1439,12 @@ es:
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
       opt_in_message:
-        01_intro: 'Nota: Proporcionar su número de teléfono significa que ha optado por lo siguiente para utilizar el servicio GetYourRefund:'
+        01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para utilizar el servicio GetYourRefund:'
         02_list:
-        - Recibir un código de verificación GetYourRefund
-        - Notificaciones de declaración de impuestos
-        03_message_freq: La frecuencia de los mensajes variará. Se aplican tarifas de mensajes estándar. Envíe el mensaje de texto HELP al 11111 para obtener ayuda. Envía STOP al 11111 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, etc.) no son responsables de los mensajes retrasados o no entregados.
-        04_detail_links_html: Consulte nuestros <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Términos y condiciones</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
+        - Recibir un código de verificación de GetYourRefund
+        - Notificaciones sobre la declaración de impuestos
+        03_message_freq: La frecuencia de los mensajes varía. Se aplican las tarifas estándar de los mensajes. Envíe HELP al 11111 para obtener ayuda. Envíe STOP al 11111 para cancelarlo. Los operadores (por ejemplo, AT&T, Verizon, etc.) no son responsables de los mensajes no entregados o retrasados.
+        04_detail_links_html: Favor de consultar nuestras <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Condiciones generales</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
       subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero del 2022.
   test_new_translations_process: Hice mis impuestos y mi pescado estaba presente
   test_new_translations_process_2: 'Preparé mis impuestos y mi gato estuvo ahí. Si cambio esta copia, ¿aparecerá en lo no traducido de Transifex? '
@@ -1572,7 +1572,7 @@ es:
         dependents:
           no_eligible_dependents:
             subtitle: No recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
-            title: 'Usted ha eliminado a todos sus dependientes elegibles del CTC. '
+            title: 'Usted ha eliminado a todos sus dependientes elegibles para CTC. '
         edit_info:
           add_bank_information: Agregue su información bancaria
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
@@ -1628,7 +1628,7 @@ es:
           title: Edita tu dirección
         messages:
           new:
-            body_label: 'Ingrese su mensaje a continuación:'
+            body_label: 'Escriba su mensaje a continuación:'
             title: Contáctenos
             wait_time: Por favor espere 3 días hábiles para recibir una respuesta.
         primary_filer:
@@ -1656,8 +1656,8 @@ es:
           content_html: |
             <p>Ha completado todas las preguntas de admisión y estamos revisando y presentando su declaración de impuestos.</p>
             <p>Si desea iniciar una solicitud nueva para otra persona, haga clic en "Cerrar sesión" para finalizar su sesión actual. </p>
-            <p>De lo contrario, haga clic en "Ir a inicio" para ver el estado de su sumisión y los siguientes pasos. </p>
-          title: Parece que ya empezó!
+            <p>De lo contrario, haga clic en "Ir al inicio" para ver el estado de su sumisión y los siguientes pasos. </p>
+          title: "¡Parece que ya ha comenzado!"
         at_capacity:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes/FAQ.
@@ -2113,9 +2113,9 @@ es:
           cfa_product_html: GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">¿Por qué hacemos este trabajo?</a>
           irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
           white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
-        closing_date: GetCTC cerrará el 15 de noviembre.
-        closing_date_not_open: GetCTC está cerrado actualmente durante la temporada.
-        closing_warning: "¡Presente su declaración hoy para reclamar su Crédito Tributario por Hijos por adelantado y sus pagos de estímulo omitidos! Si no cumple con esta fecha limite, tendrá que reclamar el Crédito Tributario completo cuando presente su declaración de impuestos a principios de 2022."
+        closing_date: GetCTC permanecerá cerrado el 15 de noviembre.
+        closing_date_not_open: GetCTC se encuentra por ahora cerrado por motivo de la temporada.
+        closing_warning: "¡Presente su declaración hoy para solicitar su Crédito Tributario por Hijos por adelantado y sus pagos de estímulo omitidos! Si no cumple con esta fecha limite, tendrá que solicitar el Crédito Tributario completo cuando presente su declaración de impuestos a principios de 2022."
         common_questions:
           are_daca_recipients_eligible:
             answer_html: |
@@ -2236,7 +2236,7 @@ es:
             body2: Para obtener el Crédito Tributario por Hijos, necesitará proporcionar los números de seguro social de sus hijos. Puede registrarse para el Crédito Tributario por Hijos aún si usted tiene muy pocos ingresos o no tiene ingresos, o si recibe otros beneficios federales como Seguridad de Ingreso Suplementario (SSI en inglés) o beneficios por incapacidad (SSDI en inglés).
             chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Hable con nuestros expertos en impuestos</button> si necesita ayuda.
             subheading: Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos.
-        portal_sign_in_link: "¿Ya iniciado? Inicie sesión para comprobar su progreso"
+        portal_sign_in_link: "¿Ya ha empezado? Inicie sesión para revisar su progreso"
         qualify:
           body1: Puede recibir el Crédito Tributario por Hijos si tiene hijos, aún si tiene muy pocos ingresos o no tiene ingresos.
           body2: En general, los niños de su familia califican para el Crédito Tributario por Hijos si son menores de 18 años y viven con usted la mayoría del tiempo.
@@ -2262,7 +2262,7 @@ es:
         sign_up_for_updates: Inscríbase para recibir actualizaciones
         subheader:
           claim: Reclame su Crédito Tributario por Hijo y su pago de estímulo faltante, aunque no tenga sus formularios tributarios.
-          claim_next_year_html: "<strong>¿Se perdió de los pagos de CTC este año?</strong> No se preocupe, aún puede reclamar su CTC completo cuando presente sus impuestos a principios de 2022."
+          claim_next_year_html: "<strong>¿No ha recibido los pagos del CTC este año?</strong> No se preocupe. Todavía puede solicitar el CTC en su totalidad cuando presente su declaración de impuestos a principios de 2022."
           launching_soon_html: "<strong>¡GetCTC se lanzará próximamente!</strong> Registrese para recibir emails en cuanto el portal para declarar sus impuestos de forma simplificada."
         title: Crédito Tributario por Hijos
         what_is:
@@ -2278,13 +2278,16 @@ es:
         title: Recursos del navegador GetCTC.org
       privacy_policy:
         01_intro:
-        - GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como los Pagos por Adelantado del Crédito Tributario por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.
+        - GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como el Crédito Fiscal Anticipado por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.
         - Esta Política de privacidad describe cómo recopilamos, usamos, compartimos y protegemos su información personal. Al utilizar nuestros Servicios, usted acepta los términos de esta Política de privacidad. Este Aviso de privacidad se aplica independientemente del tipo de dispositivo que utilice para acceder a nuestros Servicios.
-        02_questions_html: Si tiene alguna pregunta o duda sobre este aviso de privacidad, comuníquese con nosotros a %{email_link}
+        02_questions_html: Si tiene preguntas, comentarios, o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a %{email_link}
         03_overview: Resumen
         04_info_we_collect: Información que recopilamos
-        05_info_we_collect_details: 'Seguimos el principio de minimización de datos en la recopilación y uso de su información personal. Podemos obtener la siguiente información sobre usted, las personas a su cargo o los miembros de su hogar:'
+        05_info_we_collect_details: 'Seguimos el principio de Minimización de Datos en la recopilación y uso de su información personal. Podemos obtener la siguiente información sobre usted, las personas a su cargo o los miembros de su hogar:'
         06_info_we_collect_list:
+        - Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
+        - Fecha de nacimiento
+        - Información demográfica, como la edad y estado marital
         - Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
         - Fecha de nacimiento
         - Información demográfica, como la edad y estado marital
@@ -2293,20 +2296,20 @@ es:
         - Identificación emitida por el estado, como el número de licencia de manejar
         - Información financiera, como empleo, ingresos y fuentes de ingresos
         - Datos bancarios para el depósito directo de reembolsos
-        - Datos de los dependientes
+        - Datos sobre los dependientes
         - Información sobre el hogar y sobre su cónyuge, si es que corresponde
-        - Información de su computadora o dispositivo, como la dirección IP, el sistema operativo, el navegador, la fecha y la hora de la visita y los datos del flujo de clics (el sitio web o el dominio del que proviene, las páginas que visita y los elementos en los que hace clic durante su sesión)
+        - Información de su computadora o dispositivo, como dirección IP, sistema operativo, navegador, fecha y hora de visita, y datos de flujo de clics (el sitio web o dominio del que procede, las páginas que visita y los elementos sobre los que hace clic durante su sesión).
         07_info_required_by_irs: Recopilamos información según lo dispuesto por el IRS en el Procedimiento de Ingresos "Rev RP-21-24".
         '08_how_we_collect': La manera en que recopilamos su información
         '09_various_sources': Recopilamos su información de varias fuentes, como cuando usted o los miembros de su hogar
         10_various_sources_list:
-        - Visite nuestro Sitio, llene formularios en nuestro Sitio, o utilice nuestros Servicios
-        - Proporciónenos sus documentos para utilizar nuestros Servicios
-        - Comuníquese con nosotros (por ejemplo a través de correo electrónico, chat, redes sociales o de otro tipo)
+        - Visitan nuestro Sitio, llenan formularios en nuestro Sitio, o utilizan nuestros Servicios
+        - Nos proporciona sus documentos para utilizar nuestros Servicios
+        - Se comunica con nosotros (por ejemplo a través de correo electrónico, chat, redes sociales o de otro tipo)
         11_third_parties: Es posible que también recopilemos su información de terceros como
         12_third_parties_list:
         - Nuestros socios que le están ayudando con servicios de preparación de impuestos o cualquier otro programa de beneficios que usted solicite
-        - The Internal Revenue Service (“IRS”) or other government agencies relating to our Services
+        - El Servicio de Rentas Internas ("IRS") u otras agencias gubernamentales relacionadas con nuestros Servicios
         13_using_information: El uso de información que recopilamos
         14_using_information_details: Utilizamos su información para propósitos de nuestra organización e intereses legítimos como, por ejemplo
         14_using_information_list:
@@ -2324,9 +2327,9 @@ es:
         17_disclose_to_others_details: No compartimos información personal con terceros, excepto según lo dispuesto en esta Política de privacidad. Podemos revelar información a contratistas, organizaciones afiliadas y/o terceros no afiliados para proporcionarle los Servicios a usted, para llevar a cabo nuestra tarea o para ayudar con las actividades de nuestra organización. Por ejemplo, podemos compartir su información con
         18_disclose_to_others_list_html:
         - Proveedores de VITA para ayudar a preparar y presentar sus declaraciones de impuestos
-        - El Servicio de Impuestos Internos (IRS) para ayudarle a presentar electrónicamente sus impuestos y/u otros formularios para tener derecho a los pagos del Crédito Tributario por Hijos
+        - El Servicio de Impuestos Internos (IRS) para ayudarle a presentar electrónicamente sus impuestos y/u otros formularios para tener derecho a los pagos del Crédito de Impuestos por Hijos
         - Terceros para distribuir encuestas, grupos de discusión o para otros fines administrativos, analíticos y de marketing. Estas comunicaciones de terceros tienen por objeto mejorar el producto, conocer la experiencia y ponerle al día si ha solicitado actualizaciones.
-        - Code for America mantiene relaciones con terceros proveedores de programas y servicios que prestan servicios en nuestro nombre para ayudarnos en nuestras actividades comerciales. Estas empresas están autorizadas a utilizar sus datos personales sólo en la medida necesaria para prestarnos estos servicios, de acuerdo con instrucciones escritas. Podemos compartir su información con socios comerciales y otros terceros para que puedan ofrecerle ofertas o productos y servicios que creemos que pueden beneficiarle. Si no desea que compartamos su información personal con estas empresas, comuníquese con nosotros en %{email_link}.
+        - Code for America mantiene relaciones con terceros proveedores de programas y servicios que prestan servicios en nuestro nombre para ayudarnos en nuestras actividades comerciales. Estas empresas están autorizadas para utilizar su información personal sólo en la medida necesaria para prestarnos estos servicios, de acuerdo con instrucciones escritas. Podemos compartir su información con socios comerciales y otros terceros para que puedan ofrecerle ofertas o productos y servicios que creemos que pueden beneficiarle. Si no desea que compartamos su información personal con estas empresas, comuníquese con nosotros a %{email_link}.
         19_require_third_parties: Requerimos que nuestros terceros actúen a nombre nuestro para mantener su información personal segura, y no permitimos que estos terceros utilicen o compartan su información personal para ningún propósito que no sea proporcionar servicios a nombre nuestro.
         20_may_share_third_parties: Podemos compartir su información con terceros en situaciones especiales, como cuando lo requiere la ley, o cuando creemos que compartir dicha información ayudará a proteger la seguridad, propiedad o derechos de Code for America, las personas a las que servimos, nuestros asociados u otras personas.
         21_may_share_government: Podemos compartir información limitada, agregada o personal con agencias gubernamentales, como el IRS, para analizar el uso de nuestros Servicios, los proveedores de servicios de preparación gratuita de impuestos y el Crédito Tributario por Hijos, con el fin de mejorar y ampliar nuestros Servicios. No compartiremos ninguna información con el IRS que no haya sido ya revelada en su declaración de impuestos o a través del sitio web GetCTC.
@@ -2335,20 +2338,20 @@ es:
         24_your_choices_contact_methods: Correo postal, correo electrónico, y promociones
         25_to_update_prefs: Para actualizar sus preferencias o sus datos de contacto, puede
         26_to_update_prefs_list_html:
-        - comuníquese con nosotros a través de %{email_link} y solicite la eliminación de correos electrónicos de actualización de GetCTC
-        - siga las instrucciones para no continuar recibiendo correos que se proporcionan en los correos electrónicos o en el correo postal
-        - haga clic en el enlace/liga "cancelar la suscripción" que se incluye en nuestros correos electrónicos promocionales de Code for America
-        27_unsubscribe_note: Favor de tener en cuenta que incluso si se da de baja de ofertas y actualizaciones de correo electrónico promocionales, aún así podremos comunicarnos con usted para fines transaccionales. Por ejemplo, podremos enviar comunicaciones con respecto a su estado de declaración de impuestos, recordatorios o alertarle de información adicional necesaria.
+        - Comunicarse con nosotros a través de %{email_link}, y solicitar que lo den de baja de los correos electrónicos de actualización de GetCTC.
+        - seguir las instrucciones proporcionadas para darse de baja de correos electrónicos o correos postales
+        - 'seleccionar el enlace para "darse de baja"--en inglés: unsubscribe--que se encuentra en nuestros correos electrónicos promocionales de Code for America'
+        27_unsubscribe_note: Favor de tener en cuenta que incluso si se da de baja de ofertas y actualizaciones de correo electrónico promocionales, aún así podremos comunicarnos con usted para fines operativos. Por ejemplo, podremos enviar comunicaciones con respecto a su estado de declaración de impuestos, recordatorios o alertarle de información adicional necesaria.
         28_cookies: Cookies
-        29_cookies_details: Las cookies son pequeños archivos de texto que los sitios web colocan en las computadoras y dispositivos móviles de las personas que visitan esos sitios web. Las etiquetas de píxel (también llamadas web beacons) son pequeños bloques de código colocados en sitios web y correos electrónicos..
+        29_cookies_details: Los cookies son pequeños archivos de texto que los sitios web colocan en las computadoras y dispositivos móviles de las personas que visitan esos sitios web. Las etiquetas de píxel (también llamadas web beacons) son pequeños bloques de código colocados en sitios web y correos electrónicos.
         30_cookies_list:
         - Utilizamos cookies y otras tecnologías como etiquetas de píxeles para recordar sus preferencias, mejorar su experiencia en línea y recopilar datos sobre cómo utiliza nuestros Sitios para mejorar la forma en que promovemos nuestro contenido, programas y eventos.
         - Su uso de nuestros Sitios indica su consentimiento para dicho uso de cookies.
-        31_cookies_default: La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de "Ayuda" en su navegador debe incluir una explicación de cómo hacerlo. La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de ayuda en su navegador debe incluir una explicación de cómo hacerlo. Asimismo, puede visitar www.aboutcookies.org, donde hallará información completa sobre cómo hacer esto en una amplia variedad de navegadores. Encontrará información general sobre las cookies y detalles sobre cómo eliminar las cookies de su computadora o dispositivo.
-        32_sms: Mensajes SMS transaccionales (texto)
-        33_sms_details_html: Puede darse de baja de los mensajes transaccionales enviando STOP a 58750 en cualquier momento. Después de recibir su solicitud de exclusión, le enviaremos un mensaje de texto final para confirmar su exclusión. Por favor, consulte los Términos de <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">SMS de GetYourRefund</a>, para más detalles e instrucciones de exclusión para estos servicios. Los datos obtenidos a través del programa de código corto no se compartirán con terceros por motivos / propósitos de marketing.
+        31_cookies_default: La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de "Ayuda" en su navegador debe incluir una explicación de cómo hacerlo. La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de ayuda en su navegador debe incluir una explicación de cómo hacerlo. Asimismo, puede visitar www.aboutcookies.org, donde hallará información completa sobre cómo hacer esto en una amplia variedad de navegadores. Encontrará información general sobre los cookies y detalles sobre cómo eliminar los cookies de su computadora o dispositivo.
+        32_sms: Mensajes SMS operativos (texto)
+        33_sms_details_html: Puede darse de baja de los mensajes transaccionales enviando un mensaje de texto de STOP al 58750 en cualquier momento. Cuando recibamos su solicitud de cancelación, le enviaremos un último mensaje de texto para confirmar su cancelación. Consulte las <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">condiciones de GetYourRefund</a> para obtener más detalles e instrucciones para darse de baja de estos servicios. Los datos obtenidos a través del programa de códigos cortos no se compartirán con terceros para sus fines de marketing.
         34_analytics: Analítica
-        35_analytics_details_html: Utilizamos MixPanel y Google Analytics para entender cómo los visitantes utilizan nuestro sitio y para recopilar métricas de rendimiento agregadas. Para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece, haga clic <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener nofollow" target="_blank">AQUÍ</a>. Para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece, haga clic <a href="https://policies.google.com/privacy?hl=es" rel="noopener nofollow" target="_blank">AQUÍ</a>. También puede enviar un correo electrónico a %{email_link} para obtener más información.
+        35_analytics_details_html: Utilizamos MixPanel y Google Analytics para entender cómo los visitantes utilizan nuestro sitio y para recopilar métricas de rendimiento agregadas. Para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece, haga clic en <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener nofollow" target="_blank">HERE</a>. Para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece, haga clic en <a href="https://policies.google.com/privacy?hl=en-US" rel="noopener nofollow" target="_blank">HERE</a>. También puede enviar un correo electrónico a %{email_link} para obtener más información.
         36_additional_services: Servicios y Recursos Adicionales
         37_additional_services_details: Puede ser que le proporcionemos enlaces adicionales a recursos que consideramos que le serán útiles. Estos enlaces pueden llevarlo a sitios que están afiliados con nosotros que pudieran operar bajo diferentes prácticas de privacidad. No somos responsables del contenido ni de las prácticas de dichos sitios. Animamos a nuestros visitantes y usuarios a estar atentos cuando salgan de nuestro sitio y de leer las declaraciones de privacidad de cualquier otro sitio, ya que no controlamos la manera en la cual los demás sitios recopilan información personal.
         38_how_we_protect: Cómo protegemos su información
@@ -2358,21 +2361,21 @@ es:
         40_retention: Retención de Datos
         41_retention_list:
         - 'Conservaremos su información durante el tiempo que sea necesario para: prestarle los Servicios, operar nuestro negocio de acuerdo con este Aviso, o demostrar el cumplimiento de las leyes y obligaciones legales.'
-        - Si ya no desea continuar con la solicitud de GetCTC y pide que se elimine su información de nuestros Servicios antes de presentar la solicitud, eliminaremos o desidentificaremos su información en un plazo de 90 días a partir de la finalización de los Servicios, a menos que la ley nos obligue a conservar su información. En tal caso, sólo conservaremos su información durante el tiempo requerido por dicha ley.
+        - Si ya no desea continuar con la solicitud de GetCTC y solicita que se elimine su información de nuestros Servicios antes de presentar la solicitud, eliminaremos o eliminaremos la información que le identifica en un plazo de 90 días a partir de la finalización de los Servicios, a menos que la ley nos obligue a conservar su información. En tal caso, sólo conservaremos su información durante el tiempo requerido por dicha ley.
         42_children: Privacidad de menores
-        43_children_details: No recopilamos información personal a sabiendas de menores de 16 años no emancipados.
+        43_children_details: No recopilamos información personal de forma intencionada de menores de 16 años no emancipados.
         44_changes: Cambios
         45_changes_summary: Es posible que modifiquemos esta Política de Privacidad de vez en cuando. Por favor, revise esta página con frecuencia para ver si hay actualizaciones, ya que su uso continuado de nuestros Servicios después de cualquier cambio en esta Política de Privacidad constituirá su aceptación de los cambios. En el caso de cambios sustanciales, se lo notificaremos por correo electrónico o por otros medios compatibles con la legislación aplicable.
         46_access_request: Solicitud de Acceso
         47_access_request_list:
         - GetCTC.org respeta el control que usted ejerce sobre su información y, si lo solicita, le confirmaremos si tenemos o estamos procesando la información que hemos recopilado de usted. También tiene derecho a modificar o actualizar la información personal inexacta o incompleta, a solicitar la eliminación de su información personal o a pedir que dejemos de utilizarla. En determinadas circunstancias no podremos atender su solicitud, como por ejemplo si interfiere con nuestras obligaciones reglamentarias, afecta a asuntos legales, no podemos verificar su identidad o supone un costo o esfuerzo desproporcionado, pero en cualquier caso responderemos a su solicitud en un plazo razonable y le daremos una explicación. Para hacernos una solicitud de este tipo, envíenos un correo electrónico a %{email_link}.
-        - Favor de tener en cuenta que, en el caso de la información personal sobre usted que hayamos obtenido o recibido para su tratamiento en nombre de una entidad independiente y no afiliada, que haya determinado los medios y los fines del tratamiento, todas las solicitudes de este tipo deberán dirigirse directamente a dicha entidad. Respetaremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a su información personal.
+        - Favor de tener en cuenta que, en el caso de la información personal sobre usted que hayamos obtenido o recibido para su utilización en nombre de una entidad independiente y no afiliada, que haya determinado los medios y los fines del tratamiento, todas las solicitudes de este tipo deberán dirigirse directamente a dicha entidad. Respetaremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a su información personal.
         47_effective_date: Fecha de vigencia
-        48_effective_date_info: Esta versión de la política entra en vigor el 22 de octubre de 2021.
+        48_effective_date_info: Esta versión de la política entrará en vigor a partir del 22 de octubre de 2021.
         49_questions: Preguntas
         50_questions_list_html:
-        - Si tiene un problema de privacidad o de uso de datos sin resolver que no hayamos solucionado satisfactoriamente, póngase en contacto con nuestro proveedor de resolución de conflictos externo con base en Estados Unidos (de forma gratuita) en <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.
-        - 'Si tiene cualquier pregunta, comentario, duda o queja con el Sitio, comuníquese con nosotros por correo electrónico a %{email_link} o por correo a:'
+        - Si tiene un problema de privacidad o de uso de datos sin resolver que no hayamos solucionado satisfactoriamente, favor de comunicarse con nuestro proveedor de resolución de disputas con sede en Estados Unidos (sin costo alguno) a <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.
+        - 'Si tiene preguntas, comentarios, inquietudes o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a support@getyourrefund.org o por correo postal a: %{email_link}'
         51_do_our_best: Haremos todo lo posible para resolver el problema.
       signups:
         confirmation:
@@ -2793,7 +2796,7 @@ es:
             respect: Valoramos y respetamos su privacidad, y le ofrecemos opciones sobre la manera en que recopilamos, usamos y compartimos su información.
             sms:
               header: Mensajes SMS transaccionales (texto)
-              unsubscribe: Puede darse de baja, de los mensajes transaccionales, enviando un mensaje de texto con la palabra STOP al 58750, en cualquier momento. Después de recibir su solicitud de exclusión voluntaria, le enviaremos un último mensaje de texto, para confirmar su exclusión voluntaria. Consulte los Términos de SMS de CFA para obtener detalles adicionales e instrucciones de exclusión voluntaria para estos servicios. Los datos obtenidos a través del programa de código corto, no se compartirán con terceros por motivos / propósitos de marketing.
+              unsubscribe: Puede darse de baja, de los mensajes operativos, enviando un mensaje de texto con la palabra STOP al 58750, en cualquier momento. Después de recibir su solicitud de exclusión voluntaria, le enviaremos un último mensaje de texto, para confirmar su exclusión voluntaria. Consulte los Términos de SMS de CFA para obtener detalles adicionales e instrucciones de exclusión voluntaria para estos servicios. Los datos obtenidos a través del programa de código corto, no se compartirán con terceros por motivos/propósitos de marketing.
           examples:
             business_relationship: Terceros con los que tenemos una relación profesional para enviarle a usted información sobre otros programas y servicios
             research: Terceros para distribuir encuestas, grupos especializados u otros fines administrativos, analíticos y de marketing
