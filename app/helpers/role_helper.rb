@@ -1,6 +1,10 @@
 module RoleHelper
   def user_role(user)
-    case user.role_type
+    readable_role_from_role_type(user.role_type)
+  end
+
+  def readable_role_from_role_type(role_type)
+    case role_type
     when AdminRole::TYPE
       I18n.t("general.admin")
     when OrganizationLeadRole::TYPE
@@ -15,7 +19,7 @@ module RoleHelper
       I18n.t("general.greeter")
     when TeamMemberRole::TYPE
       I18n.t("general.team_member")
-    end
+    end.titleize
   end
 
   def user_group(user)

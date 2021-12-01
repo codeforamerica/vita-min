@@ -1,7 +1,7 @@
 <% content_for :page_title, @user.name %>
 <% content_for :card do %>
   <div class ="slab slab--padded">
-    <div class="client-container">
+    <div>
       <h1><%= @user.name %></h1>
 
       <% if current_user.admin? %>
@@ -16,15 +16,20 @@
         <% end %>
       <% end %>
 
-      <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
-        <p>
-          <strong><%= t("general.email") %>:</strong> <%= @user.email %>
-          <%= link_to t("general.resend_invitation"), user_profile_resend_invitation_path(user_id: @user.id), class: "button button-small", method: :put %>
-        </p>
+      <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+        <div>
+          <div class="form-group">
+            <%= label_tag(:email, t("general.email"), class: "form-question") %>
+            <%= text_field_tag :email, @user.email, disabled: true, class: "text-input form-width--long" %>
+            <%= link_to t("general.resend_invitation"), user_profile_resend_invitation_path(user_id: @user.id), class: "button button--small spacing-above-5", style:"margin-bottom: 0", method: :put %>
+          </div>
+        </div>
 
-        <%= f.cfa_input_field(:name, t("general.name")) %>
-        <%= f.cfa_input_field(:phone_number, t("general.phone_number"), type: "phone") %>
-        <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+        <%= f.cfa_input_field(:name, t("general.name"), classes: ['form-width--long']) %>
+        <%= f.cfa_input_field(:phone_number, t("general.phone_number"), classes: ['form-width--long']) %>
+        <div class="form-width--long">
+          <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+        </div>
 
         <button class="button button--cta" type="submit">
           <%=t("general.save") %>
@@ -36,17 +41,20 @@
 
         <p id="current-role"><%= [user_role(@user), user_group(@user)].compact.join(", ") %></p>
 
-        <%= render('components/molecules/reveal', title: t(".reassign")) do %>
-          <ul class="list--bulleted">
-            <li><%= link_to t("general.admin"), edit_role_hub_user_path({user: {role: AdminRole::TYPE}}) %></li>
-            <li><%= link_to t("general.client_success"), edit_role_hub_user_path({user: {role: ClientSuccessRole::TYPE}}) %></li>
-            <li><%= link_to t("general.greeter"), edit_role_hub_user_path({user: {role: GreeterRole::TYPE}}) %></li>
-            <li><%= link_to t("general.coalition_lead"), edit_role_hub_user_path({user: {role: CoalitionLeadRole::TYPE}}) %></li>
-            <li><%= link_to t("general.organization_lead"), edit_role_hub_user_path({user: {role: OrganizationLeadRole::TYPE}}) %></li>
-            <li><%= link_to t("general.site_coordinator"), edit_role_hub_user_path({user: {role: SiteCoordinatorRole::TYPE}}) %></li>
-            <li><%= link_to t("general.team_member"), edit_role_hub_user_path({user: {role: TeamMemberRole::TYPE}}) %></li>
-          </ul>
-        <% end %>
+        <div style="width: 375px">
+          <%= render('components/molecules/reveal', title: t(".reassign")) do %>
+            <ul class="list--bulleted">
+              <li><%= link_to t("general.admin"), edit_role_hub_user_path({user: {role: AdminRole::TYPE}}) %></li>
+              <li><%= link_to t("general.client_success"), edit_role_hub_user_path({user: {role: ClientSuccessRole::TYPE}}) %></li>
+              <li><%= link_to t("general.greeter"), edit_role_hub_user_path({user: {role: GreeterRole::TYPE}}) %></li>
+              <li><%= link_to t("general.coalition_lead"), edit_role_hub_user_path({user: {role: CoalitionLeadRole::TYPE}}) %></li>
+              <li><%= link_to t("general.organization_lead"), edit_role_hub_user_path({user: {role: OrganizationLeadRole::TYPE}}) %></li>
+              <li><%= link_to t("general.site_coordinator"), edit_role_hub_user_path({user: {role: SiteCoordinatorRole::TYPE}}) %></li>
+              <li><%= link_to t("general.team_member"), edit_role_hub_user_path({user: {role: TeamMemberRole::TYPE}}) %></li>
+            </ul>
+          <% end %>
+        </div>
+
       <% end %>
     </div>
   </div>
