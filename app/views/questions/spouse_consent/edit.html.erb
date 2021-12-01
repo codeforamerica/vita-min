@@ -37,12 +37,3 @@
     </div>
   </section>
 <% end %>
-
-<% content_for :script do %>
-  <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          window.TINTypeSelector = document.getElementById("spouse_consent_form_spouse_tin_type");
-          window.SSNEmploymentCheckboxSelector = document.getElementById("spouse_consent_form_ssn_no_employment").parentElement;
-      });
-  </script>
-<% end %>
