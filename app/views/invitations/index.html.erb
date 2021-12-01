@@ -10,21 +10,19 @@
     </div>
       <%= f.submit "Continue", class: "button button--primary" %>
     <% end %>
-
     <hr/>
     <h3><%= @unaccepted_invitations.length %> outstanding invitations</h3>
     <% if @unaccepted_invitations.present? %>
       <ul class="invitations">
         <% @unaccepted_invitations.each do |invited_user| %>
           <li id="invitation-<%= invited_user.id %>" class="invitation">
-            <%= invited_user.name %> (<%= user_role(invited_user) %>) &lt;<%= invited_user.email %>&gt; <%= user_group(invited_user) %> (<%= t(".invitation.sent_at", datetime: formatted_datetime(invited_user.invitation_sent_at) %>)
+            <%= invited_user.name %> (<%= user_role(invited_user) %>) &lt;<%= invited_user.email %>&gt; <%= user_group(invited_user) %> (<%= t(".invitation.sent_at", datetime: formatted_datetime(invited_user.invitation_sent_at)) %>)
             <%= form_with(model: invited_user, url: user_invitation_path, method: :post, local: true) do |f| %>
-              <%= link_to t("general.resend_invitation"), user_resend_invitation_path(user_id: invited_user.id), class: "button button--small", method: :put %>
+              <%= link_to t("general.resend_invitation"), user_resend_invitation_path(user_id: invited_user.id), class: "button button--small spacing-above-5", method: :put %>
             <% end %>
           </li>
         <% end %>
       </ul>
     <% end %>
   </div>
-
 <% end %>
