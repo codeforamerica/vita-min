@@ -1,10 +1,13 @@
 <div style="height: 100%;">
-  <div data-component="MainMenuComponent" class="main-menu expanded">
+  <div data-component="MainMenuComponent" class="main-menu expanded" data-target="toggle">
     <div class="container">
+      <span class="toggle">
+        <img src="<%= image_path("icons/toggle.svg") %>" alt="toggle menu"/>
+      </span>
       <div>
         <div class="logo">
           <img src="<%= image_path("icons/logo-white.svg") %>" alt=""/>
-          <div class="logo-text show-if-expanded">The Hub</div>
+          <div class="logo-text">The Hub</div>
         </div>
 
         <% if current_user %>
