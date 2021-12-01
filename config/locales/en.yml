@@ -2397,7 +2397,7 @@ en:
         44_changes: Changes
         45_changes_summary: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.
         46_access_request: Access Request
-        47_access_request_list:
+        47_access_request_list_html:
         - GetCTC.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at %{email_link}.
         - Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity--which determined the means and purposes of processing, all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
         47_effective_date: Effective Date

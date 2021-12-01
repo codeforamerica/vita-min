@@ -139,7 +139,7 @@
 
           <h3><%= t("views.ctc_pages.privacy_policy.46_access_request") %></h3>
 
-          <% t("views.ctc_pages.privacy_policy.47_access_request_list").each do |line| %>
+          <% t("views.ctc_pages.privacy_policy.47_access_request_list_html", email_link: mail_to("support@getctc.org")).each do |line| %>
             <p><%= line %></p>
           <% end %>
 
