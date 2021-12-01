@@ -126,8 +126,8 @@ class User < ApplicationRecord
     [
       AdminRole::TYPE,
       ClientSuccessRole::TYPE,
-      GreeterRole::TYPE,
       CoalitionLeadRole::TYPE,
+      GreeterRole::TYPE,
       OrganizationLeadRole::TYPE,
       SiteCoordinatorRole::TYPE,
       TeamMemberRole::TYPE

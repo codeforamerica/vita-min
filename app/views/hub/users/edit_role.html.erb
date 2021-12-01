@@ -48,8 +48,8 @@
         <p><%= readable_role_from_role_type(SiteCoordinatorRole::TYPE) %></p>
 
         <div class="form-group">
+          <%= label_tag(:site_id, t("devise.invitations.new.site_label"), class: "form-question") %>
           <div class="select form-width--long">
-            <%= label_tag(:site_id, t("devise.invitations.new.site_label"), class: "form-question") %>
             <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] }), class: "select__element") %>
           </div>
         </div>

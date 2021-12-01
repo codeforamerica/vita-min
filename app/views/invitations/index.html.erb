@@ -8,7 +8,7 @@
         <%= select_tag :role, options_for_select(User.roles.map {|role_type| [readable_role_from_role_type(role_type), role_type] if can?(:manage, role_type.constantize)}.compact), class: "select__element" %>
       </div>
     </div>
-      <%= f.submit "Continue", class: "button" %>
+      <%= f.submit "Continue", class: "button button--primary" %>
     <% end %>
 
     <hr/>
@@ -17,9 +17,9 @@
       <ul class="invitations list--bulleted">
         <% @unaccepted_invitations.each do |invited_user| %>
           <li id="invitation-<%= invited_user.id %>" class="invitation">
-            <%= invited_user.name %> (<%= user_role(invited_user) %>) &lt;<%= invited_user.email %>&gt; <%= user_group(invited_user) unless invited_user.role.is_a?(GreeterRole) %> (<%= t(".invitation.sent_at", datetime: invited_user.invitation_sent_at) %>)
+            <%= invited_user.name %> (<%= user_role(invited_user) %>) &lt;<%= invited_user.email %>&gt; <%= user_group(invited_user) %> (<%= t(".invitation.sent_at", datetime: invited_user.invitation_sent_at) %>)
             <%= form_with(model: invited_user, url: user_invitation_path, method: :post, local: true) do |f| %>
-              <%= link_to t("general.resend_invitation"), user_resend_invitation_path(user_id: invited_user.id), class: "button button-small", method: :put %>
+              <%= link_to t("general.resend_invitation"), user_resend_invitation_path(user_id: invited_user.id), class: "button button--small", method: :put %>
             <% end %>
           </li>
         <% end %>
