@@ -1,74 +1,76 @@
 <% content_for :page_title, @user.name %>
 <% content_for :card do %>
-  <h1><%= @user.name %></h1>
+  <div class="slab slab--padded">
+    <h1><%= @user.name %></h1>
 
-  <h2>Current role</h2>
+    <h2>Current role</h2>
 
-  <p><%= [user_role(@user), user_group(@user)].compact.join(", ") %></p>
+    <p><%= [user_role(@user), user_group(@user)].compact.join(", ") %></p>
 
-  <h2>New role</h2>
+    <h2>New role</h2>
 
-  <%= form_for(@user, method: :patch, url: update_role_hub_user_path, local: true, builder: VitaMinFormBuilder) do |f| %>
+    <%= form_for(@user, method: :patch, url: update_role_hub_user_path, local: true, builder: VitaMinFormBuilder) do |f| %>
 
-    <%= f.hidden_field :role, value: params[:role] %>
-    <% if params[:role] == AdminRole::TYPE %>
-      <p><%= t("general.admin") %></p>
-    <% end %>
+      <%= f.hidden_field :role, value: params[:role] %>
+      <% if params[:role] == AdminRole::TYPE %>
+        <p><%= t("general.admin") %></p>
+      <% end %>
 
-    <% if params[:role] == ClientSuccessRole::TYPE %>
-      <p><%= t("general.client_success") %></p>
-    <% end %>
+      <% if params[:role] == ClientSuccessRole::TYPE %>
+        <p><%= t("general.client_success") %></p>
+      <% end %>
 
-    <% if params[:role] == GreeterRole::TYPE %>
-      <p><%= t("general.greeter") %></p>
-    <% end %>
+      <% if params[:role] == GreeterRole::TYPE %>
+        <p><%= t("general.greeter") %></p>
+      <% end %>
 
-    <% if params[:role] == CoalitionLeadRole::TYPE %>
-      <p><%= readable_role_from_role_type(CoalitionLeadRole::TYPE) %></p>
-      <div class="form-group">
-        <%= label_tag(:coalition_id, t("devise.invitations.new.coalition_label"), class: "form-question") %>
-        <div class="select form-width--long">
-          <%= select_tag(:coalition_id, options_for_select(@coalitions.all.map { |coalition| [coalition.name, coalition.id] }), class: "select__element") %>
+      <% if params[:role] == CoalitionLeadRole::TYPE %>
+        <p><%= readable_role_from_role_type(CoalitionLeadRole::TYPE) %></p>
+        <div class="form-group">
+          <%= label_tag(:coalition_id, t("devise.invitations.new.coalition_label"), class: "form-question") %>
+          <div class="select form-width--long">
+            <%= select_tag(:coalition_id, options_for_select(@coalitions.all.map { |coalition| [coalition.name, coalition.id] }), class: "select__element") %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
 
-    <% if params[:role] == OrganizationLeadRole::TYPE %>
-      <p><%= readable_role_from_role_type(OrganizationLeadRole::TYPE) %></p>
-      <div class="form-group">
-        <%= label_tag(:organization_id, t("devise.invitations.new.organization_label"), class: "form-question") %>
-        <div class="select form-width--long">
-          <%= select_tag :organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] }), class: "select__element" %>
+      <% if params[:role] == OrganizationLeadRole::TYPE %>
+        <p><%= readable_role_from_role_type(OrganizationLeadRole::TYPE) %></p>
+        <div class="form-group">
+          <%= label_tag(:organization_id, t("devise.invitations.new.organization_label"), class: "form-question") %>
+          <div class="select form-width--long">
+            <%= select_tag :organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] }), class: "select__element" %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
 
-    <% if params[:role] == SiteCoordinatorRole::TYPE %>
-      <p><%= readable_role_from_role_type(SiteCoordinatorRole::TYPE) %></p>
+      <% if params[:role] == SiteCoordinatorRole::TYPE %>
+        <p><%= readable_role_from_role_type(SiteCoordinatorRole::TYPE) %></p>
 
-      <div class="form-group">
-        <div class="select form-width--long">
+        <div class="form-group">
+          <div class="select form-width--long">
+            <%= label_tag(:site_id, t("devise.invitations.new.site_label"), class: "form-question") %>
+            <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] }), class: "select__element") %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if params[:role] == TeamMemberRole::TYPE %>
+        <p><%= readable_role_from_role_type(TeamMemberRole::TYPE) %></p>
+
+        <div class="form-group">
           <%= label_tag(:site_id, t("devise.invitations.new.site_label"), class: "form-question") %>
-          <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] }), class: "select__element") %>
+          <div class="select form-width--long">
+            <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] }), class: "select__element") %>
+          </div>
         </div>
+      <% end %>
+
+      <div>
+        <%= f.submit t("general.submit"), class: "button button--primary" %>
+
+        <%= link_to t("general.cancel"), edit_hub_user_path, class: "button" %>
       </div>
     <% end %>
-
-    <% if params[:role] == TeamMemberRole::TYPE %>
-      <p><%= readable_role_from_role_type(TeamMemberRole::TYPE) %></p>
-
-      <div class="form-group">
-        <%= label_tag(:site_id, t("devise.invitations.new.site_label"), class: "form-question") %>
-        <div class="select form-width--long">
-          <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] }), class: "select__element") %>
-        </div>
-      </div>
-    <% end %>
-
-    <div>
-      <%= f.submit t("general.submit"), class: "button button--primary" %>
-
-      <%= link_to t("general.cancel"), edit_hub_user_path, class: "button" %>
-    </div>
-  <% end %>
+  </div>
 <% end %>
