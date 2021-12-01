@@ -78,18 +78,6 @@ RSpec.describe SpouseConsentForm do
       end
     end
 
-    context "when ssn_no_employment is yes and tin_type is ssn" do
-      let(:params) { valid_params.merge(spouse_tin_type: "ssn", ssn_no_employment: "yes") }
-
-      it "persists tin_type as ssn_no_employment" do
-        form = SpouseConsentForm.new(intake, params)
-        form.valid?
-        form.save
-
-        expect(form.intake.reload.spouse_tin_type).to eq "ssn_no_employment"
-      end
-    end
-
     context "when the date is not valid" do
       let(:params) { valid_params.merge(birth_date_month: "2", birth_date_day: "31") }
 

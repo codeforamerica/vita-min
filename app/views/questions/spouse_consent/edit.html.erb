@@ -26,7 +26,6 @@
                       }
                   ) %>
             </div>
-            <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
             <%= f.cfa_input_field(:spouse_ssn, t("attributes.spouse_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
             <%= f.cfa_input_field(:spouse_ssn_confirmation, t("attributes.confirm_spouse_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
             <button class="button button--primary button--wide" type="submit">
