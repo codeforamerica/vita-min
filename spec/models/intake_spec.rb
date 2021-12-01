@@ -319,7 +319,7 @@ describe Intake do
 
   describe "keeping last 4 ssn in sync with ssn" do
     context "when creating the object" do
-      let(:intake) { create :intake, primary_ssn: "12345678", spouse_ssn: "2345677777" }
+      let(:intake) { create :intake, primary_ssn: "12345678", spouse_ssn: "234567777" }
 
       it "updates last_four values when setting" do
         expect(intake.primary_last_four_ssn).to eq "5678"
