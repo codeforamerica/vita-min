@@ -4,13 +4,14 @@
   background: #2D2E2F;
   color: white;
   position: relative;
+  transition: .25s ease;
 
   &.expanded {
     width: 250px;
   }
 
   &.collapsed {
-    width: 75px;
+    width: 64px;
   }
 
   .toggle {
@@ -29,7 +30,7 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    padding: 35px;
+    padding: 35px 0 35px 20px;
 
     .logo-text {
       font-weight: 700;
@@ -39,8 +40,6 @@
   }
 
   &.collapsed .logo {
-    padding: 35px 0 35px 25px;
-
     .logo-text {
       display: none;
     }
@@ -55,11 +54,15 @@
 
   .menu-item {
     display: flex;
+    flex-direction: row;
     align-items: center;
+
     font-weight: 500;
     color: white;
     text-decoration: none;
-    margin-bottom: 1px;
+
+    height: 70px;
+    padding-left: 20px;
 
     &.selected {
       background: transparentize(#F1F3F6, .75);
@@ -75,10 +78,6 @@
   }
 
   &.expanded .menu-item {
-    height: 70px;
-    flex-direction: row;
-    padding-left: 20px;
-
     img {
       margin-right: 10px;
     }
@@ -90,9 +89,6 @@
   }
 
   &.collapsed .menu-item {
-    height: 70px;
-    justify-content: center;
-
     img {
       margin-bottom: 5px;
     }

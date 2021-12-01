@@ -1,7 +1,7 @@
 export default function MainMenuComponent() {
     const mainMenu = document.querySelector('[data-component="MainMenuComponent"]');
     highlightSelectedPageNavigation(mainMenu);
-    setSidebarExpandCollapse(mainMenu);
+    toggleSidebarExpandCollapse(mainMenu);
 }
 
 function highlightSelectedPageNavigation(mainMenu) {
@@ -12,10 +12,16 @@ function highlightSelectedPageNavigation(mainMenu) {
     });
 }
 
-function setSidebarExpandCollapse(mainMenu) {
+function toggleSidebarExpandCollapse(mainMenu) {
     mainMenu.querySelector('.toggle').addEventListener("click", () => {
         const classes = mainMenu.classList;
         classes.toggle("expanded");
         classes.toggle("collapsed");
+
+        if (classes.contains("collapsed")) {
+            document.cookie = "sidebar=collapsed";
+        } else {
+            document.cookie = "sidebar=";
+        }
     });
 }

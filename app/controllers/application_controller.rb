@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_initial_main_menu_state
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
@@ -208,6 +208,10 @@ class ApplicationController < ActionController::Base
         client_id: current_client&.id
       )
     end
+  end
+
+  def set_initial_main_menu_state
+    @initial_main_menu_state = cookies[:sidebar] == "collapsed" ? "collapsed" : "expanded"
   end
 
   def switch_locale(&action)
