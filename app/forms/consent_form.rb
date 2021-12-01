@@ -14,7 +14,6 @@ class ConsentForm < QuestionsForm
     :primary_tin_type
   )
   set_attributes_for :confirmation, :primary_ssn_confirmation
-  set_attributes_for :virtual, :ssn_no_employment
 
   validates_presence_of :primary_first_name
   validates_presence_of :primary_last_name
