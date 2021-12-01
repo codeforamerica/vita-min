@@ -25,7 +25,7 @@ describe("toggleSidebarExpandCollapse", () => {
     expect(mainMenu.getAttribute("class")).toEqual("main-menu collapsed");
   });
 
-  it('toggles the cookie to indicate it is collapsed when collapsing', () => {
+  it('toggles the cookie to indicate it is collapsed', () => {
     toggle.click();
     expect(mainMenu.getAttribute("class")).toEqual("main-menu collapsed");
 
