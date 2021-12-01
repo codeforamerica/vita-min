@@ -29,12 +29,6 @@ class ConsentForm < QuestionsForm
     validates :primary_ssn_confirmation, presence: true
   end
 
-  before_validation do
-    if ssn_no_employment == "yes" && primary_tin_type == "ssn"
-      self.primary_tin_type = "ssn_no_employment"
-    end
-  end
-
   def save
     attributes = attributes_for(:intake)
       .except(:birth_date_year, :birth_date_month, :birth_date_day)

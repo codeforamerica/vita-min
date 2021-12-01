@@ -10,7 +10,6 @@
       <%= f.cfa_input_field(:primary_first_name, t("views.questions.consent.primary_first_name")) %>
       <%= f.cfa_input_field(:primary_last_name, t("views.questions.consent.primary_last_name")) %>
     <%= f.cfa_select(:primary_tin_type, t('general.tin_type'), tin_options_for_select(include_itin: true)) %>
-    <%= f.cfa_checkbox(:ssn_no_employment, t('general.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
     <%= f.cfa_input_field(:primary_ssn, t("attributes.primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
     <%= f.cfa_input_field(:primary_ssn_confirmation, t("attributes.confirm_primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
       <div class="date-select">
@@ -29,13 +28,4 @@
       </button>
     <% end %>
 
-<% end %>
-
-<% content_for :script do %>
-  <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          window.TINTypeSelector = document.getElementById("consent_form_primary_tin_type");
-          window.SSNEmploymentCheckboxSelector = document.getElementById("consent_form_ssn_no_employment").parentElement;
-      });
-  </script>
 <% end %>
