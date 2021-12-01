@@ -113,10 +113,6 @@ class Dependent < ApplicationRecord
     parts.compact.join(' ')
   end
 
-  def last_four_ssn
-    ssn&.last(4)
-  end
-
   def error_summary
     if errors.present?
       concatenated_message_strings = errors.messages.map { |key, messages| messages.join(" ") }.join(" ")

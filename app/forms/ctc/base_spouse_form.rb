@@ -17,10 +17,8 @@ module Ctc
     validates_presence_of :spouse_ssn, message: -> (_object, _data) { I18n.t('views.ctc.questions.spouse_info.ssn_required_message') }, if: -> { spouse_tin_type != "none" }
 
     def save
-      spouse_last_four_ssn = spouse_ssn.last(4) # merge last_four_ssn so that client can use data for logging in.
       @intake.update(attributes_for(:intake).merge(
         spouse_birth_date: spouse_birth_date,
-        spouse_last_four_ssn: spouse_last_four_ssn
       ))
     end
 

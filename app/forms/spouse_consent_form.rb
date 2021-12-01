@@ -11,12 +11,18 @@ class SpouseConsentForm < QuestionsForm
     :birth_date_day,
     :spouse_first_name,
     :spouse_last_name,
-    :spouse_last_four_ssn
+    :spouse_ssn,
+    :spouse_tin_type
   )
+  set_attributes_for :confirmation, :spouse_ssn_confirmation
 
   validates_presence_of :spouse_first_name
   validates_presence_of :spouse_last_name
-  validates_length_of :spouse_last_four_ssn, maximum: 4, minimum: 4
+
+  validates :spouse_tin_type, presence: true
+  validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? spouse_tin_type }
+  validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" }
+  validates_presence_of :spouse_ssn
   validate :valid_birth_date
 
   def save

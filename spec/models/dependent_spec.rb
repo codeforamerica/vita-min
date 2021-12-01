@@ -114,24 +114,6 @@ describe Dependent do
     end
   end
 
-  describe "#last_four_ssn" do
-    context "with an SSN filled out" do
-      let(:dependent) { build :dependent, ssn: "123456789" }
-
-      it "returns the last four digits" do
-        expect(dependent.last_four_ssn).to eq "6789"
-      end
-    end
-
-    context "without an SSN filled out" do
-      let(:dependent) { build :dependent, ssn: nil }
-
-      it "returns nil" do
-        expect(dependent.last_four_ssn).to be_nil
-      end
-    end
-  end
-
   describe "#meets_qc_misc_conditions?" do
     context "with a dependent that paid for more than half their expenses" do
       let(:dependent) { build :dependent, provided_over_half_own_support: "yes" }
