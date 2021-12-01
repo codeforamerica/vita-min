@@ -4,7 +4,7 @@
     <%= form_for :invitation, url: "/hub/invitation/new", method: "get" do |f| %>
     <div class="form-group">
       <%= label_tag(:role, "What type of user do you want to invite?", class: "form-question") %>
-      <div class="select">
+      <div class="select form-width--long">
         <%= select_tag :role, options_for_select(User.roles.map {|role_type| [readable_role_from_role_type(role_type), role_type] if can?(:manage, role_type.constantize)}.compact), class: "select__element" %>
       </div>
     </div>
