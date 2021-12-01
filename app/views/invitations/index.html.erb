@@ -5,15 +5,7 @@
     <div class="form-group">
       <%= label_tag(:role, "What type of user do you want to invite?", class: "form-question") %>
       <div class="select">
-        <%= select_tag :role, options_for_select([
-            ([t("general.admin"), AdminRole::TYPE] if can?(:manage, AdminRole)),
-            ([t("general.coalition_lead"), CoalitionLeadRole::TYPE] if can?(:manage, CoalitionLeadRole)),
-            ([t("general.organization_lead"), OrganizationLeadRole::TYPE] if can?(:manage, OrganizationLeadRole)),
-            ([t("general.site_coordinator"), SiteCoordinatorRole::TYPE] if can?(:manage, SiteCoordinatorRole)),
-            ([t("general.client_success"), ClientSuccessRole::TYPE] if can?(:manage, ClientSuccessRole)),
-            ([t("general.greeter"), GreeterRole::TYPE] if can?(:manage, GreeterRole)),
-            ([t("general.team_member"), TeamMemberRole::TYPE] if can?(:manage, TeamMemberRole))
-        ].compact), class: "select__element" %>
+        <%= select_tag :role, options_for_select(User.roles.map {|role_type| [readable_role_from_role_type(role_type), role_type] if can?(:manage, role_type.constantize)}.compact), class: "select__element" %>
       </div>
     </div>
       <%= f.submit "Continue", class: "button" %>

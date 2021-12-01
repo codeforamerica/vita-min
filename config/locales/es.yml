@@ -1083,14 +1083,6 @@ es:
       success: Se agregó %{code} a %{name}.
   invitations:
     index:
-      actions:
-        new_admin_invite: Invite a un nuevo admin
-        new_client_success_invite: Invitar a un nuevo cliente al éxito
-        new_coalition_lead_invite: Invite a un nuevo líder de la coalición
-        new_greeter_invite: Invitar a un nuevo saludador
-        new_org_lead_invite: Invite a un nuevo líder de la organización
-        new_site_coordinator_invite: Invitar a una nueva coordinadora del sitio
-        new_team_member_invite: Invitar a un nuevo miembro del equipo
       invitation:
         sent_at: Enviado a las %{datetime}
       title: Invitaciones

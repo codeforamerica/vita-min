@@ -21,7 +21,9 @@
           <div class="form-group">
             <%= label_tag(:email, t("general.email"), class: "form-question") %>
             <%= text_field_tag :email, @user.email, disabled: true, class: "text-input form-width--long" %>
-            <%= link_to t("general.resend_invitation"), user_profile_resend_invitation_path(user_id: @user.id), class: "button button--small spacing-above-5", style:"margin-bottom: 0", method: :put %>
+            <% unless @user.invitation_accepted? %>
+              <%= link_to t("general.resend_invitation"), user_profile_resend_invitation_path(user_id: @user.id), class: "button button--small spacing-above-5", style:"margin-bottom: 0", method: :put %>
+            <% end %>
           </div>
         </div>
 
@@ -44,13 +46,9 @@
         <div style="width: 375px">
           <%= render('components/molecules/reveal', title: t(".reassign")) do %>
             <ul class="list--bulleted">
-              <li><%= link_to t("general.admin"), edit_role_hub_user_path({user: {role: AdminRole::TYPE}}) %></li>
-              <li><%= link_to t("general.client_success"), edit_role_hub_user_path({user: {role: ClientSuccessRole::TYPE}}) %></li>
-              <li><%= link_to t("general.greeter"), edit_role_hub_user_path({user: {role: GreeterRole::TYPE}}) %></li>
-              <li><%= link_to t("general.coalition_lead"), edit_role_hub_user_path({user: {role: CoalitionLeadRole::TYPE}}) %></li>
-              <li><%= link_to t("general.organization_lead"), edit_role_hub_user_path({user: {role: OrganizationLeadRole::TYPE}}) %></li>
-              <li><%= link_to t("general.site_coordinator"), edit_role_hub_user_path({user: {role: SiteCoordinatorRole::TYPE}}) %></li>
-              <li><%= link_to t("general.team_member"), edit_role_hub_user_path({user: {role: TeamMemberRole::TYPE}}) %></li>
+              <% User.roles.each do |role_type| %>
+                <li><%= link_to readable_role_from_role_type(role_type), edit_role_hub_user_path(role: role_type) if can?(:manage, role_type.constantize) %></li>
+              <% end %>
             </ul>
           <% end %>
         </div>

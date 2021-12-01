@@ -20,7 +20,7 @@
       <% if params[:role] == OrganizationLeadRole::TYPE %>
         <div class="form-group">
           <%= label_tag(:organization_id, t(".organization_label"), class: "form-question") %>
-          <div class="select form-width--long"">
+          <div class="select form-width--long">
             <%= select_tag :organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] }), class: "select__element" %>
           </div>
         </div>

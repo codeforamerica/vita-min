@@ -30,12 +30,12 @@ RSpec.describe InvitationsController do
           allow(subject.current_ability).to receive(:can?).with(:manage, GreeterRole).and_return(true)
         end
 
-        it "filters invite buttons based on ability" do
+        it "filters invite options" do
           get :index
 
           expect(response).to be_ok
-          expect(response.body).not_to include("Invite a new admin")
-          expect(response.body).to include("Invite a new greeter")
+          expect(response.body).not_to include('value="AdminRole"')
+          expect(response.body).to include('value="GreeterRole"')
         end
       end
     end
