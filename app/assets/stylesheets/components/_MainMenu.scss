@@ -1,33 +1,43 @@
 .main-menu {
   min-height: 100%;
   z-index: 1000;
-
   background: #2D2E2F;
   color: white;
   position: relative;
+  width: 250px;
 
-  &.expanded {
-    width: 250px;
+  &.collapsed {
+    width: 64px;
+  }
 
-    .show-if-expanded {
-      display: unset;
-    }
+  .toggle {
+    position: absolute;
+    right: -12px;
+    top: 75px;
+    cursor: pointer;
+    transition: .25s ease;
+  }
 
-    .show-if-not-expanded {
-      display: none;
-    }
+  &.collapsed .toggle {
+    transform: rotate(180deg);
   }
 
   .logo {
     display: flex;
     justify-content: left;
     align-items: center;
-    padding: 35px;
+    padding: 35px 0 35px 20px;
 
     .logo-text {
       font-weight: 700;
       font-size: 20px;
       margin-left: 10px;
+    }
+  }
+
+  &.collapsed .logo {
+    .logo-text {
+      display: none;
     }
   }
 
@@ -40,11 +50,15 @@
 
   .menu-item {
     display: flex;
+    flex-direction: row;
     align-items: center;
+
     font-weight: 500;
     color: white;
     text-decoration: none;
-    margin-bottom: 1px;
+
+    height: 70px;
+    padding-left: 20px;
 
     &.selected {
       background: transparentize(#F1F3F6, .75);
@@ -54,22 +68,9 @@
       background: transparentize(#F1F3F6, .85);
     }
 
-    &:active, &.active {
-      background: transparentize(#F1F3F6, .75);
-    }
-
-    img {
-      width: 24px;
-    }
-  }
-
-  &.expanded .menu-item {
-    height: 60px;
-    flex-direction: row;
-    padding-left: 20px;
-
     img {
       margin-right: 10px;
+      width: 24px;
     }
 
     div {
@@ -79,12 +80,12 @@
   }
 
   &.collapsed .menu-item {
-    height: 75px;
-    font-size: 10px;
-    justify-content: center;
-
     img {
       margin-bottom: 5px;
+    }
+
+    div {
+      display: none;
     }
   }
 
