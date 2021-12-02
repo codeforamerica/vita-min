@@ -46,10 +46,11 @@ module DatadogApi
     end
   end
 
-  def self.increment(label)
+  def self.increment(label, tags: [])
     return unless configuration.enabled
 
-    self.client.emit_point(self.apply_namespace(label), 1, {:tags => ["env:" + configuration.env], :type => METRIC_TYPES[:count]})
+    tags << "env:#{configuration.env}"
+    self.client.emit_point(self.apply_namespace(label), 1, {:tags => tags, :type => METRIC_TYPES[:count]})
   end
 
   def self.gauge(label, value, tags: [])
