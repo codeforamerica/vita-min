@@ -38,15 +38,15 @@
                        icon_path: image_path("icons/admin-tools.svg")
             %>
           <% end %>
+        <% end %>
+      </div>
+      <% if current_user %>
+        <div class="bottom">
           <%= render "hub/components/menu_item",
                      link: hub_user_profile_path,
                      item_label: current_user&.name,
                      icon_path: image_path("icons/my-profile.svg")
           %>
-        <% end %>
-      </div>
-      <% if current_user %>
-        <div class="bottom">
           <%= render "hub/components/menu_item",
                      link: destroy_client_session_path,
                      link_method: "delete",

@@ -45,6 +45,8 @@
 </head>
 
 <body class="admin honeycrisp-compact hub">
+<a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content') %></a>
+
 <div class="columns">
   <div>
     <%= render "hub/components/main_menu" %>
@@ -53,7 +55,6 @@
 
 <div class="columns columns--right">
   <div class="columns--child">
-    <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content') %></a>
     <div>
       <main role="main" id="maincontent">
         <div>
