@@ -30,6 +30,9 @@
 class Site < VitaPartner
   TYPE = "Site"
 
+  # Site records should not have an .organization_capacity but we want VitaPartner.includes(:organization_capacity) not to crash
+  has_one :organization_capacity, foreign_key: "vita_partner_id"
+
   belongs_to :parent_organization, class_name: "Organization"
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode", foreign_key: "vita_partner_id"
   has_many :serviced_states, class_name: "VitaPartnerState", foreign_key: "vita_partner_id"
