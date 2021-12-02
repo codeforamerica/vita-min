@@ -17,7 +17,7 @@ describe("toggleSidebarExpandCollapse", () => {
   });
 
   it('starts with an expanded state', () => {
-    expect(mainMenu.getAttribute("class")).toEqual("main-menu expanded");
+    expect(mainMenu.getAttribute("class")).toEqual("main-menu");
   });
 
   it('toggles the classes on the main menu when the toggle is clicked', () => {
@@ -32,7 +32,7 @@ describe("toggleSidebarExpandCollapse", () => {
     expect(document.cookie).toContain("sidebar=collapsed");
 
     toggle.click();
-    expect(mainMenu.getAttribute("class")).toEqual("main-menu expanded");
+    expect(mainMenu.getAttribute("class")).toEqual("main-menu");
     expect(document.cookie).not.toContain("sidebar=collapsed");
   });
 })

@@ -4,10 +4,7 @@
   background: #2D2E2F;
   color: white;
   position: relative;
-
-  &.expanded {
-    width: 250px;
-  }
+  width: 250px;
 
   &.collapsed {
     width: 64px;
@@ -72,13 +69,8 @@
     }
 
     img {
-      width: 24px;
-    }
-  }
-
-  &.expanded .menu-item {
-    img {
       margin-right: 10px;
+      width: 24px;
     }
 
     div {

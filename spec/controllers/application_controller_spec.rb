@@ -840,11 +840,11 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#set_initial_main_menu_state" do
+  describe "#set_collapse_main_menu" do
     context "there is no cookie" do
-      it "sets initial main menu state to expanded" do
-        subject.set_initial_main_menu_state
-        expect(assigns(:initial_main_menu_state)).to eq "expanded"
+      it "sets collapse main menu to true" do
+        subject.set_collapse_main_menu
+        expect(assigns(:collapse_main_menu)).to eq false
       end
     end
 
@@ -853,9 +853,9 @@ RSpec.describe ApplicationController do
         allow(controller).to receive(:cookies).and_return({sidebar: "collapsed"})
       end
 
-      it "sets initial main menu state to collapsed" do
-        subject.set_initial_main_menu_state
-        expect(assigns(:initial_main_menu_state)).to eq "collapsed"
+      it "sets collapse main menu to true" do
+        subject.set_collapse_main_menu
+        expect(assigns(:collapse_main_menu)).to eq true
       end
     end
   end

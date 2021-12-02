@@ -15,7 +15,6 @@ function highlightSelectedPageNavigation(mainMenu) {
 function toggleSidebarExpandCollapse(mainMenu) {
     mainMenu.querySelector('.toggle').addEventListener("click", () => {
         const classes = mainMenu.classList;
-        classes.toggle("expanded");
         classes.toggle("collapsed");
 
         if (classes.contains("collapsed")) {
