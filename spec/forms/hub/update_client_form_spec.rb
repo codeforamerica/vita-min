@@ -9,7 +9,10 @@ RSpec.describe Hub::UpdateClientForm do
              email_notification_opt_in: "yes",
              state_of_residence: "CA",
              preferred_interview_language: "es",
-             spouse_last_four_ssn: "5678"
+             spouse_ssn: "912345678",
+             primary_ssn: "123456789",
+             primary_tin_type: "ssn",
+             spouse_tin_type: "itin"
     }
     let!(:client) {
       create :client, intake: intake
@@ -30,8 +33,10 @@ RSpec.describe Hub::UpdateClientForm do
         email_address: intake.email_address,
         phone_number: intake.phone_number,
         sms_phone_number: intake.sms_phone_number,
-        primary_last_four_ssn: intake.primary_last_four_ssn,
-        spouse_last_four_ssn: intake.spouse_last_four_ssn,
+        primary_tin_type: intake.primary_tin_type,
+        spouse_tin_type: intake.spouse_tin_type,
+        primary_ssn: intake.primary_ssn,
+        spouse_ssn: intake.spouse_ssn,
         street_address: intake.street_address,
         city: intake.city,
         state: intake.state,
@@ -61,7 +66,7 @@ RSpec.describe Hub::UpdateClientForm do
     context "updating a client" do
       context "updating spouse ssn" do
         before do
-          form_attributes[:spouse_last_four_ssn] = "3456"
+          form_attributes[:spouse_ssn] = "922334455"
         end
 
         it "persists valid changes to spouse ssn" do
@@ -69,7 +74,7 @@ RSpec.describe Hub::UpdateClientForm do
             form = described_class.new(client, form_attributes)
             form.save
             intake.reload
-          end.to change(intake, :spouse_last_four_ssn).to "3456"
+          end.to change(intake, :spouse_ssn).to "922334455"
         end
       end
     end
@@ -193,8 +198,10 @@ RSpec.describe Hub::UpdateClientForm do
              email_notification_opt_in: "yes",
              state_of_residence: "CA",
              preferred_interview_language: "es",
-             spouse_last_four_ssn: "5678",
-             primary_last_four_ssn: "1234",
+             spouse_ssn: "912345678",
+             primary_ssn: "123456789",
+             primary_tin_type: "ssn",
+             spouse_tin_type: "itin",
              timezone: "America/Chicago"
     }
     let!(:client) {

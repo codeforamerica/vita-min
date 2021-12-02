@@ -84,7 +84,7 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Phone number", with: "(500) 555-0006"
         check "Opt into sms notifications"
         fill_in "Cell phone number", with: "500-555-0006"
-        fill_in "Last 4 of SSN/ITIN", with: "4444"
+        fill_in "SSN/ITIN", with: "222-33-4444"
       end
 
       within "#marital-status-fields" do
@@ -151,7 +151,7 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
         fill_in "Email", with: "spicypeter@pepper.com"
-        fill_in "Last 4 of SSN/ITIN", with: "3456"
+        fill_in "SSN/ITIN", with: "222-33-5555"
       end
 
       click_on "Save"
@@ -212,8 +212,8 @@ RSpec.describe "a user editing a clients intake fields" do
         click_on "Edit"
       end
 
-      expect(find_field("hub_update_client_form[spouse_last_four_ssn]").value).to eq "3456"
-      expect(find_field("hub_update_client_form[primary_last_four_ssn]").value).to eq "4444"
+      expect(find_field("hub_update_client_form[spouse_ssn]").value).to eq "123456789"
+      expect(find_field("hub_update_client_form[primary_ssn]").value).to eq "123445567"
     end
 
     scenario "I can delete a client", js: true do
