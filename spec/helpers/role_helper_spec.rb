@@ -12,7 +12,7 @@ describe RoleHelper do
     context "a client success user" do
       let(:user) { create :client_success_user }
       it "returns the user role" do
-        expect(helper.user_role(user)).to eq "Client success"
+        expect(helper.user_role(user)).to eq "Client Success"
       end
     end
 
@@ -20,7 +20,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:organization_lead_role) }
 
       it "shows they are an org lead" do
-        expect(helper.user_role(user)).to eq "Organization lead"
+        expect(helper.user_role(user)).to eq "Organization Lead"
       end
     end
 
@@ -28,7 +28,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:team_member_role) }
 
       it "shows their role" do
-        expect(helper.user_role(user)).to eq "Team member"
+        expect(helper.user_role(user)).to eq "Team Member"
       end
     end
 
@@ -36,7 +36,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:coalition_lead_role) }
 
       it "shows they are a coalition lead" do
-        expect(helper.user_role(user)).to eq "Coalition lead"
+        expect(helper.user_role(user)).to eq "Coalition Lead"
       end
     end
 
@@ -44,7 +44,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:site_coordinator_role) }
 
       it "shows they are a site coordinator" do
-        expect(helper.user_role(user)).to eq "Site coordinator"
+        expect(helper.user_role(user)).to eq "Site Coordinator"
       end
     end
 

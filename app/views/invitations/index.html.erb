@@ -1,77 +1,28 @@
 <% content_for :card do %>
   <div class="slab">
     <h1><%= t(".title") %></h1>
-
-    <div class="actions">
-      <div>
-        <% if can? :manage, OrganizationLeadRole %>
-          <%= link_to new_user_invitation_path(user: {role: OrganizationLeadRole::TYPE}), class: "button" do %>
-            <%= t(".actions.new_org_lead_invite") %>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div>
-        <% if can? :manage, AdminRole %>
-          <%= link_to new_user_invitation_path(user: {role: AdminRole::TYPE}), class: "button" do %>
-            <%= t(".actions.new_admin_invite") %>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div>
-        <% if can? :manage, CoalitionLeadRole %>
-          <%= link_to new_user_invitation_path(user: {role: CoalitionLeadRole::TYPE}), class: "button" do %>
-            <%= t(".actions.new_coalition_lead_invite") %>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div>
-        <% if can? :manage, SiteCoordinatorRole %>
-          <%= link_to new_user_invitation_path(user: {role: SiteCoordinatorRole::TYPE}), class: "button" do %>
-            <%= t(".actions.new_site_coordinator_invite") %>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div>
-        <% if can? :manage, ClientSuccessRole %>
-          <%= link_to new_user_invitation_path(user: {role: ClientSuccessRole::TYPE}), class: "button" do %>
-            <%= t(".actions.new_client_success_invite") %>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div>
-        <% if can? :manage, GreeterRole %>
-          <%= link_to new_user_invitation_path(user: {role: GreeterRole::TYPE}), class: "button" do %>
-            <%= t(".actions.new_greeter_invite") %>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div>
-        <% if can? :manage, TeamMemberRole %>
-          <%= link_to new_user_invitation_path(user: {role: TeamMemberRole::TYPE}), class: "button" do %>
-            <%= t(".actions.new_team_member_invite") %>
-          <% end %>
-        <% end %>
+    <%= form_for :invitation, url: "/hub/invitation/new", method: "get" do |f| %>
+    <div class="form-group">
+      <%= label_tag(:role, "What type of user do you want to invite?", class: "form-question") %>
+      <div class="select form-width--long">
+        <%= select_tag :role, options_for_select(User.roles.map {|role_type| [readable_role_from_role_type(role_type), role_type] if can?(:manage, role_type.constantize)}.compact), class: "select__element" %>
       </div>
     </div>
-
+      <%= f.submit "Continue", class: "button button--primary" %>
+    <% end %>
+    <hr/>
+    <h3><%= @unaccepted_invitations.length %> outstanding invitations</h3>
     <% if @unaccepted_invitations.present? %>
-      <ul class="invitations list--bulleted">
+      <ul class="invitations">
         <% @unaccepted_invitations.each do |invited_user| %>
           <li id="invitation-<%= invited_user.id %>" class="invitation">
-            <%= invited_user.name %> (<%= user_role(invited_user) %>) &lt;<%= invited_user.email %>&gt; <%= user_group(invited_user) unless invited_user.role.is_a?(GreeterRole) %> (<%= t(".invitation.sent_at", datetime: invited_user.invitation_sent_at) %>)
+            <%= invited_user.name %> (<%= user_role(invited_user) %>) &lt;<%= invited_user.email %>&gt; <%= user_group(invited_user) %> (<%= t(".invitation.sent_at", datetime: formatted_datetime(invited_user.invitation_sent_at, year: true)) %>)
             <%= form_with(model: invited_user, url: user_invitation_path, method: :post, local: true) do |f| %>
-              <%= link_to t("general.resend_invitation"), user_resend_invitation_path(user_id: invited_user.id), class: "button button-small", method: :put %>
+              <%= link_to t("general.resend_invitation"), user_resend_invitation_path(user_id: invited_user.id), class: "button button--small spacing-above-5", method: :put %>
             <% end %>
           </li>
         <% end %>
       </ul>
     <% end %>
   </div>
-
 <% end %>

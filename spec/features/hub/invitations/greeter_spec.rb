@@ -14,7 +14,8 @@ RSpec.feature "Inviting greeters" do
 
       # Invitations page
       expect(page).to have_selector "h1", text: "Invitations"
-      click_on "Invite a new greeter"
+      select "Greeter", from: "What type of user do you want to invite?"
+      click_on "Continue"
 
       # new invitation page
       expect(page).to have_text "Send a new invitation"

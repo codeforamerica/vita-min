@@ -14,7 +14,8 @@ RSpec.feature "Inviting organization leads" do
 
       # Invitations page
       expect(page).to have_selector "h1", text: "Invitations"
-      click_on "Invite a new organization lead"
+      select "Organization Lead", from: "What type of user do you want to invite?"
+      click_on "Continue"
 
       # new invitation page
       expect(page).to have_text "Send a new invitation"
@@ -69,7 +70,7 @@ RSpec.feature "Inviting organization leads" do
 
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
       expect(page).to have_text "Colleen Cauliflower"
-      expect(page).to have_text "Organization lead"
+      expect(page).to have_text "Organization Lead"
       expect(page).to have_text "Brassica Asset Builders"
     end
   end

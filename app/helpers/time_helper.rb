@@ -32,10 +32,11 @@ module TimeHelper
     entry.presence && entry[0]
   end
 
-  def formatted_datetime(datetime)
+  def formatted_datetime(datetime, year: false)
     return unless datetime
 
-    datetime.strftime("%b %d %-l:%M %p")
+    format = year ? "%b %d %Y %-l:%M %p" : "%b %d %-l:%M %p"
+    datetime.strftime(format)
   end
 
   def formatted_business_days_ago(time)
@@ -45,11 +46,5 @@ module TimeHelper
     converted_now = Date.parse(DateTime.now.utc.to_s)
 
     converted_time.business_days_until(converted_now)
-  end
-
-  def formatted_datetime(datetime)
-    return unless datetime
-
-    tag.span(datetime.strftime("%b %d %-l:%M %p"))
   end
 end

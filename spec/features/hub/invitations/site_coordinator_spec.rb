@@ -14,7 +14,8 @@ RSpec.feature "Inviting site coordinator" do
 
       # Invitations page
       expect(page).to have_selector "h1", text: "Invitations"
-      click_on "Invite a new site coordinator"
+      select "Site Coordinator", from: "What type of user do you want to invite?"
+      click_on "Continue"
 
       # new invitation page
       expect(page).to have_text "Send a new invitation"
@@ -30,7 +31,7 @@ RSpec.feature "Inviting site coordinator" do
       within(".invitations") do
         expect(page).to have_text "Colleen Cauliflower"
         expect(page).to have_text "colleague@cauliflower.org"
-        expect(page).to have_text "Site coordinator"
+        expect(page).to have_text "Site Coordinator"
       end
 
       # resend invitation
@@ -69,7 +70,7 @@ RSpec.feature "Inviting site coordinator" do
 
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
       expect(page).to have_text "Colleen Cauliflower"
-      expect(page).to have_text "Site coordinator"
+      expect(page).to have_text "Site Coordinator"
       expect(page).to have_text "Spring Onion Site"
     end
   end
