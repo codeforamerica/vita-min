@@ -10,5 +10,6 @@ Sentry.init do |config|
 
   config.excluded_exceptions = Sentry::Configuration::IGNORE_DEFAULT + Sentry::Rails::IGNORE_DEFAULT + %w(
     ActionController::UnknownFormat
+    ActionDispatch::RemoteIp::IpSpoofAttackError
   )
 end
