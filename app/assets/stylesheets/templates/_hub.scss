@@ -17,6 +17,7 @@ body.hub {
 
     .columns--child {
       height: 100%;
+      overflow-y: auto;
     }
   }
   .columns--right{
@@ -24,6 +25,7 @@ body.hub {
     overflow-x: auto;
   }
 }
+
 // TODO: Move these styles into .hub
 // When we do that, remove the 'hub' class from body
 // look for .admin in the other sass files to
