@@ -22,8 +22,10 @@ module Hub
                        :state,
                        :state_of_residence,
                        :zip_code,
-                       :primary_last_four_ssn,
-                       :spouse_last_four_ssn,
+                       :primary_ssn,
+                       :spouse_ssn,
+                       :primary_tin_type,
+                       :spouse_tin_type,
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
                        :spouse_first_name,
@@ -43,6 +45,7 @@ module Hub
                        :with_limited_english_navigator,
                        :with_unhoused_navigator
     set_attributes_for :tax_return, :service_type
+    set_attributes_for :confirmation, :primary_ssn_confirmation, :spouse_ssn_confirmation
     attr_accessor :tax_returns, :tax_returns_attributes, :client, :intake
 
     # See parent ClientForm for additional validations.
@@ -52,6 +55,16 @@ module Hub
     validate :at_least_one_tax_return_present
     validates :state_of_residence, inclusion: { in: States.keys }
     validates :preferred_interview_language, presence: true, allow_blank: false
+    validates :primary_tin_type, presence: true
+    validates_confirmation_of :primary_ssn
+    validates_presence_of :primary_ssn_confirmation, if: :primary_ssn
+    validates_presence_of :spouse_ssn_confirmation, if: :spouse_ssn
+    validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
+    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin"}
+
+    validates_confirmation_of :spouse_ssn, if: -> { filing_joint == "yes" }
+    validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(spouse_tin_type) && filing_joint == "yes"}
+    validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_joint == "yes" }
 
     def initialize(attributes = {})
       @tax_returns = TaxReturn.filing_years.map { |year| TaxReturn.new(year: year) }

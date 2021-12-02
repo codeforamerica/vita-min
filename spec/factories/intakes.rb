@@ -461,11 +461,13 @@ FactoryBot.define do
     with_dependents
     with_documents
     vita_partner { build(:organization) }
-    primary_tin_type { :ssn }
-    spouse_tin_type { :ssn }
     locale { ["en", "es"].sample }
     source { vita_partner.source_parameters.first&.code || "none" }
     referrer { "/" }
+    primary_ssn { "123456789" }
+    primary_tin_type { "ssn" }
+    spouse_ssn { "912345678" }
+    spouse_tin_type { "itin" }
     primary_birth_date { Date.new(1979, 12, 24) }
     spouse_birth_date { Date.new(1983, 11, 23) }
     street_address { "123 Cherry Lane" }

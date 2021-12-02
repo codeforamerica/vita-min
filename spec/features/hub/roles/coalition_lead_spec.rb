@@ -16,13 +16,13 @@ RSpec.feature "Coalition lead role" do
     let!(:greta_visible) {
       create :client,
              vita_partner: site,
-             intake: create(:intake, preferred_name: "Greta Gherkin", primary_consented_to_service_at: 1.day.ago),
+             intake: create(:intake, :filled_out, preferred_name: "Greta Gherkin", primary_consented_to_service_at: 1.day.ago),
              tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress")]
     }
     let!(:shep_invisible) {
       create :client,
              vita_partner: create(:organization),
-             intake: (create :intake, preferred_name: "Shep Shallot", primary_consented_to_service_at: 1.day.ago),
+             intake: (create :intake, :filled_out, preferred_name: "Shep Shallot", primary_consented_to_service_at: 1.day.ago),
              tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress")]
     }
 
