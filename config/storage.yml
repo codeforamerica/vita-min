@@ -5,7 +5,7 @@ deploy_default: &deploy_default
   region: us-east-1
 
 test:
-  service: Disk
+  service: GyrDisk
   # Use /tmp which is autocleared periodically on macOS
   root: "/tmp/vita-min-test-storage"
 
