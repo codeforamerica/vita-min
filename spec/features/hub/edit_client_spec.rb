@@ -15,6 +15,10 @@ RSpec.describe "a user editing a clients intake fields" do
              vita_partner: organization,
              tax_returns: [tax_return],
              intake: create(:intake,
+                            primary_ssn: "123456789",
+                            spouse_ssn: "111423256",
+                            primary_tin_type: "ssn",
+                            spouse_tin_type: "ssn",
                             email_address: "colleen@example.com",
                             filing_joint: "yes",
                             primary_first_name: "Colleen",
@@ -84,7 +88,7 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Phone number", with: "(500) 555-0006"
         check "Opt into sms notifications"
         fill_in "Cell phone number", with: "500-555-0006"
-        fill_in "SSN/ITIN", with: "222-33-4444"
+        fill_in "SSN/ITIN", with: "123456789"
       end
 
       within "#marital-status-fields" do
@@ -151,7 +155,8 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
         fill_in "Email", with: "spicypeter@pepper.com"
-        fill_in "SSN/ITIN", with: "222-33-5555"
+        select "Social Security Number (SSN)", from: "Identification Type"
+        fill_in "SSN/ITIN", with: "142862222"
       end
 
       click_on "Save"
@@ -195,7 +200,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within ".primary-ssn" do
         expect do
           click_on "View"
-          expect(page).to have_text "4444"
+          expect(page).to have_text "6789"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
@@ -203,7 +208,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within ".spouse-ssn" do
         expect do
           click_on "View"
-          expect(page).to have_text "3456"
+          expect(page).to have_text "2222"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
@@ -212,8 +217,8 @@ RSpec.describe "a user editing a clients intake fields" do
         click_on "Edit"
       end
 
-      expect(find_field("hub_update_client_form[spouse_ssn]").value).to eq "123456789"
-      expect(find_field("hub_update_client_form[primary_ssn]").value).to eq "123445567"
+      expect(find_field("hub_update_client_form[spouse_ssn]").value).to eq "142862222"
+      expect(find_field("hub_update_client_form[primary_ssn]").value).to eq "123456789"
     end
 
     scenario "I can delete a client", js: true do
@@ -238,6 +243,7 @@ RSpec.describe "a user editing a clients intake fields" do
 
       within "#primary-info" do
         fill_in "Preferred full name", with: "Colly Cauliflower"
+        fill_in "SSN/ITIN", with: "123456789"
       end
 
       click_on "Save"

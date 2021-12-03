@@ -208,10 +208,10 @@ RSpec.describe Hub::UpdateClientForm do
       create :client, intake: intake
     }
 
-    it "includes non-model primary_last_four_ssn and spouse_last_four_ssn" do
+    it "includes non-model primary_ssn and spouse_ssn" do
       form = described_class.from_client(client)
-      expect(form.spouse_last_four_ssn).to eq "5678"
-      expect(form.primary_last_four_ssn).to eq "1234"
+      expect(form.spouse_ssn).to eq "912345678"
+      expect(form.primary_ssn).to eq "123456789"
       expect(form.timezone).to eq "America/Chicago"
     end
   end
