@@ -38,7 +38,25 @@
               "Re-enter SSN/ITIN",
               type: :tel,
               classes: ["form-width--name"],
-              options: { maxlength: 11 }
+              options: { maxlength: 11, 'data-mask': '000-00-0000' }
+          ) %>
+      <% unless f.object.client&.persisted? %>
+        <%= f.cfa_input_field(
+                :spouse_ssn_confirmation,
+                "Re-enter SSN/ITIN",
+                type: :tel,
+                classes: ["form-width--name"],
+                options: { maxlength: 11, 'data-mask': '000-00-0000' }
+            ) %>
+      <% end %>
+    <% else %>
+      <%= f.cfa_input_field(
+              :spouse_last_four_ssn,
+              t("general.last_four_ssn"),
+              prefix: "XXX-XX-",
+              type: :tel,
+              classes: ["form-width--name field--last-four-ssn"],
+              options: { maxlength: 4 }
           ) %>
     <% end %>
     <% if is_ctc %>

@@ -27,14 +27,14 @@
         "SSN/ATIN",
         type: :tel,
         classes: ["form-width--name"],
-        options: { maxlength: 11 }
+        options: { maxlength: 11, 'data-mask': '000-00-0000' }
         ) %>
     <%= f.cfa_input_field(
         :ssn_confirmation,
         "Re-enter SSN/ATIN",
         type: :tel,
         classes: ["form-width--name"],
-        options: { maxlength: 11 }
+        options: { maxlength: 11, 'data-mask': '000-00-0000' }
         ) %>
 
     <%= f.cfa_input_field(:ip_pin, t("general.ip_pin")) %>
