@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-    end
+  end
 
-    create_table "addresses", force: :cascade do |t|
+  create_table "addresses", force: :cascade do |t|
     t.string "city"
     t.datetime "created_at", precision: 6, null: false
     t.bigint "record_id"

@@ -1561,6 +1561,15 @@ es:
           Para propósitos de 3 años: El propósito de la divulgación es con el fin de que el Desarrollador de Software le proporcione la Información Personal del Contribuyente al programa VITA de la Oficina Relational/Relational Office de manera que puedan proporcionar apoyo y asistencia administrativa al Preparador de Impuestos.
         title: EFIN relacional
     ctc:
+      offboarding:
+        already_filed:
+          contact_ta: Contactar Defensores del Contribuyente
+          contact_vita: Contactar un sitio de VITA
+          content_html:
+          - Al igual que la herramienta de registro de no contribuyentes del IRS, GetCTC le ayuda a presentar electrónicamente una declaración de impuestos simplificada de %{current_tax_year}. Si ya presentó una declaración de %{current_tax_year}, el IRS rechazará esta declaración sin revisarla, incluso si su primera declaración fue incorrecta o se procesó incorrectamente.
+          - Si la información de su declaración de %{current_tax_year} ha cambiado y desea actualizar sus pagos de CTC, puede usar el <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">Portal de Actualización del Crédito Fiscal por Hijos del IRS</a>.
+          - Si cree que su declaración de %{current_tax_year} nunca se procesó y no sabe qué sucedió, necesitará asistencia directa para ayudarlo a resolver su caso. Puede comunicarse con un sitio de Asistencia Voluntaria de Impuestos sobre la Renta (VITA) o con el Servicio de Defensa del Contribuyente.
+          title: "¡Magnífico! El IRS tiene la información que necesita para procesar su declaración."
       portal:
         bank_account:
           title: Proporcione sus datos bancarios a continuación
@@ -1656,6 +1665,12 @@ es:
             <p>Si desea iniciar una solicitud nueva para otra persona, haga clic en "Cerrar sesión" para finalizar su sesión actual. </p>
             <p>De lo contrario, haga clic en "Ir al inicio" para ver el estado de su sumisión y los siguientes pasos. </p>
           title: "¡Parece que ya ha comenzado!"
+        already_filed:
+          help_text_html: |
+            <p>Presentó una declaración de impuestos este año, después del 1o de enero de 2021, para el año fiscal 2020?</p>
+            <p>Conteste que sí, incluso si todavía está esperando los pagos del estímulo, o si utilizó la Herramienta de inscripción para No Declarantes. Si lo hizo, le brindaremos más orientación sobre sus opciones en la página siguiente.</p>
+            <p class="text--bold">Si ya presentó una declaración de impuestos de 2020, el IRS rechazará la declaración que presente con esta herramienta.</p>
+          title: "¿Presentó su declaración de impuestos de 2020 este año?"
         at_capacity:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes/FAQ.
@@ -1833,19 +1848,6 @@ es:
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
           help_text: "¿Presentó una declaración de impuestos para el año fiscal 2019? Esta declaración de impuestos se debió presentar originalmente el 15 de abril de 2020."
           title: "¿Ha presentado la declaración de impuestos de 2019?"
-        filed2020:
-          help_text_html: |
-            <p>Presentó una declaración de impuestos este año, después del 1o de enero de 2021, para el año fiscal 2020?</p>
-            <p>Conteste que sí, incluso si todavía está esperando los pagos del estímulo, o si utilizó la Herramienta de inscripción para No Declarantes. Si lo hizo, le brindaremos más orientación sobre sus opciones en la página siguiente.</p>
-            <p class="text--bold">Si ya presentó una declaración de impuestos de 2020, el IRS rechazará la declaración que presente con esta herramienta.</p>
-          title: "¿Presentó su declaración de impuestos de 2020 este año?"
-        filed2020_yes:
-          contact_ta: Contactar Defensores del Contribuyente
-          contact_vita: Contactar un sitio de VITA
-          p1: Al igual que la herramienta de registro de no contribuyentes del IRS, GetCTC le ayuda a presentar electrónicamente una declaración de impuestos simplificada de 2020. Si ya presentó una declaración de 2020, el IRS rechazará esta declaración sin revisarla, incluso si su primera declaración fue incorrecta o se procesó incorrectamente.
-          p2_html: Si la información de su declaración de 2020 ha cambiado y desea actualizar sus pagos de CTC, puede usar el <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">Portal de Actualización del Crédito Fiscal por Hijos del IRS</a>.
-          p3: Si cree que su declaración de 2020 nunca se procesó y no sabe qué sucedió, necesitará asistencia directa para ayudarlo a resolver su caso. Puede comunicarse con un sitio de Asistencia Voluntaria de Impuestos sobre la Renta (VITA) o con el Servicio de Defensa del Contribuyente.
-          title: "¡Magnífico! El IRS tiene la información que necesita para procesar su declaración."
         filing_status:
           married_filing_jointly: Casado con declaración conjunta
           reveal_body: Si normalmente declara como jefe de familia o casado que presenta la declaración por separado, seleccione "soltero" a efectos de esta declaración.

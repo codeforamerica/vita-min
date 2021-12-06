@@ -12,7 +12,7 @@ def begin_intake
   click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
 
   # =========== ELIGIBILITY ===========
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2020.title'))
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title'))
   click_on I18n.t('general.negative')
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
   choose I18n.t('views.ctc.questions.filed2019.did_not_file')
