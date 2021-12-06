@@ -19,6 +19,10 @@ module States
     self.states
   end
 
+  def self.html_safe_names
+    self.states.map(&:first).to_json.html_safe
+  end
+
   private
 
   def self.states

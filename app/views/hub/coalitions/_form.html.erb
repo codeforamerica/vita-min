@@ -5,9 +5,20 @@
     </h1>
 
     <%= f.cfa_input_field :name, t("general.name") %>
-    <%= f.cfa_select :states, t("general.state"), States.states, options: { multiple: true } %>
+    <div class="form-group state-select">
+      <label for="state-select" class="form-question"><%= t("general.state") %></label>
+      <div>
+        <%= text_field_tag("states", @coalition.state_routing_targets.map(&:state), id: "state-select", class: "text-input multi-select-state") %>
+      </div>
+    </div>
     <div>
       <%= f.submit t("general.save"), class: "button button--primary button--wide" %>
     </div>
   <% end %>
 </div>
+
+<% content_for :script do %>
+  <script>
+      window.taggableItems = <%= States.html_safe_names %>;
+  </script>
+<% end %>

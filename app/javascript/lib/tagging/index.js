@@ -60,3 +60,21 @@ export function initMultiSelectVitaPartner() {
         }
     });
 }
+
+export function initMultiSelectState() {
+    const input = document.querySelector('.multi-select-state');
+
+    new Tagify(input, {
+        // Array for initial interpolation, which allows only these tags to be used
+        whitelist: window.taggableItems,
+        enforceWhitelist: true,
+        dropdown : {
+            classname: "multi-select-dropdown",
+            enabled: 0,
+            highlightFirst: true,  // <-- automatically highlights first suggestion item in the dropdown
+            closeOnSelect: false, // <-- keep dropdown open after selection
+            maxItems: window.taggableItems.length, // <-- render all available items for the dropdown
+            position: 'text', // <-- render the suggestions list next to the text carat
+        },
+    });
+}
