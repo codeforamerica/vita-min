@@ -1,6 +1,8 @@
 ---
 version: 2.1
 
+orbs:
+  browser-tools: circleci/browser-tools@1.1
 executors:
   ruby_executor:
     working_directory: /mnt/ramdisk
@@ -22,6 +24,7 @@ commands:
   install_system_dependencies:
     description: "Install system dependencies"
     steps:
+      - browser-tools/install-browser-tools
       - run:
           name: install system dependencies
           command: |
