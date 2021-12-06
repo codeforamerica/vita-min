@@ -24,7 +24,8 @@ commands:
   install_system_dependencies:
     description: "Install system dependencies"
     steps:
-      - browser-tools/install-browser-tools
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - run:
           name: install system dependencies
           command: |
