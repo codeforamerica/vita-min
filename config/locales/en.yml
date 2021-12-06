@@ -1697,15 +1697,6 @@ en:
         spouse:
           help_text: Confirm/edit your spouse's basic information
           title: Edit spouse basic information
-      offboarding:
-        already_filed:
-          contact_ta: Contact a Taxpayer Advocate
-          contact_vita: Contact a VITA Site
-          content_html:
-          - Like the IRS non-filer sign up tool, GetCTC helps you e-file a simplified 2020 tax return. If you've already filed a %{current_tax_year} return, the IRS will reject this return without reviewing it, even if your first return was wrong or processed incorrectly.
-          - If the information on your 2020 return has changed and you want to update your CTC payments, you can use the IRS's <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">CTC Update Portal</a>.
-          - If you think your %{current_tax_year} return was never processed and you don't know what happened, you'll need direct assistance to help resolve your case. You can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
-          title: Unfortunately, you can't use GetCTC.
       questions:
         account_number:
           account_number: Account number
