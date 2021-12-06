@@ -65,6 +65,9 @@
             classes: ["form-width--name"],
             options: { maxlength: 11, 'data-mask': '000-00-0000' }
           ) %>
+        ) %>
+    <% end %>
+    <% if is_ctc %>
       <%= f.cfa_input_field(:primary_ip_pin, t("general.ip_pin")) %>
     <% end %>
   </div>
