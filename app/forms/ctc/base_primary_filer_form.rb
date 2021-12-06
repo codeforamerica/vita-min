@@ -9,6 +9,7 @@ module Ctc
     validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
 
+    before_validation { primary_ssn.remove!("-") }
     with_options if: -> { (primary_ssn.present? && primary_ssn != intake.primary_ssn) || primary_ssn_confirmation.present? } do
       validates :primary_ssn, confirmation: true
       validates :primary_ssn_confirmation, presence: true
