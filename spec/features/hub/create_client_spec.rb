@@ -25,7 +25,9 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Email", with: "hello@cauliflower.com"
         fill_in "Phone number", with: "8324658840"
         fill_in "Cell phone number", with: "8324651680"
-        fill_in "Last 4 of SSN/ITIN", with: "4444"
+        fill_in "SSN/ITIN", with: "222-33-4444"
+        fill_in "Re-enter SSN/ITIN", with: "222-33-4444"
+
         check "Opt into email notifications"
         check "Opt into sms notifications"
         select "Mandarin", from: "Preferred language"
@@ -55,6 +57,8 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
         fill_in "Email", with: "spicypeter@pepper.com"
+        fill_in "SSN/ITIN", with: "222-33-5555"
+        fill_in "Re-enter SSN/ITIN", with: "222-33-5555"
       end
 
       # fields for tax return years
