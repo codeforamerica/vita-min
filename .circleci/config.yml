@@ -32,7 +32,7 @@ commands:
             # The CircleCI environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
             sudo apt-get update --allow-releaseinfo-change && \
             sudo apt-get update && \
-            sudo apt-get install -y pdftk ghostscript
+            sudo apt-get install -y pdftk ghostscript convert
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
