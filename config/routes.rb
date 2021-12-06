@@ -237,6 +237,7 @@ Rails.application.routes.draw do
         resources :tax_returns, only: [] do
           patch "update_certification", to: "tax_returns/certifications#update", on: :member
         end
+        resources :coalitions, only: [:new, :create, :edit, :update]
         resources :organizations, only: [:index, :create, :new, :show, :edit, :update] do
           patch "/suspend_all", to: "organizations#suspend_all", on: :member, as: :suspend_all
           patch "/activate_all", to: "organizations#activate_all", on: :member, as: :activate_all

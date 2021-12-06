@@ -1,0 +1,13 @@
+<div>
+  <%= form_with model: @coalition, url: url, method: http_method, local: true, builder: VitaMinFormBuilder, id: "coalition-form" do |f| %>
+    <h1 class="form-card__title">
+      <%= @title %>
+    </h1>
+
+    <%= f.cfa_input_field :name, t("general.name") %>
+    <%= f.cfa_select :states, t("general.state"), States.states, options: { multiple: true } %>
+    <div>
+      <%= f.submit t("general.save"), class: "button button--primary button--wide" %>
+    </div>
+  <% end %>
+</div>
