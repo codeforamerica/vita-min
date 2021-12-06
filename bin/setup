@@ -23,8 +23,8 @@ FileUtils.chdir APP_ROOT do
   system! "gem list foreman | grep -q foreman || gem install foreman"
 
   puts "== Install Bundler =="
-  system! "gem update --system"
-  system! "gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d \" \")"
+  system! "gem update --no-document --system"
+  system! "gem install --no-document bundler:$(cat Gemfile.lock | tail -1 | tr -d \" \")"
 
   puts "== Install Ruby dependencies =="
   system! "gem install bundler --conservative"
