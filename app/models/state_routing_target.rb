@@ -11,8 +11,7 @@
 #
 # Indexes
 #
-#  index_state_routing_targets_on_state_abbreviation  (state_abbreviation)
-#  index_state_routing_targets_on_target              (target_type,target_id)
+#  index_state_routing_targets_on_target  (target_type,target_id)
 #
 class StateRoutingTarget < ApplicationRecord
   belongs_to :target, polymorphic: true

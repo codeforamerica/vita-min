@@ -906,7 +906,6 @@ ActiveRecord::Schema.define(version: 2021_12_06_193923) do
     t.bigint "target_id", null: false
     t.string "target_type", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["state_abbreviation"], name: "index_state_routing_targets_on_state_abbreviation"
     t.index ["target_type", "target_id"], name: "index_state_routing_targets_on_target"
   end
 
