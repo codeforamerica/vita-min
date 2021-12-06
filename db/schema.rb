@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_15_175837) do
+ActiveRecord::Schema.define(version: 2021_12_06_193923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-    end
+  end
 
-    create_table "addresses", force: :cascade do |t|
+  create_table "addresses", force: :cascade do |t|
     t.string "city"
     t.datetime "created_at", precision: 6, null: false
     t.bigint "record_id"
@@ -898,6 +898,16 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
     t.bigint "vita_partner_id", null: false
     t.index ["code"], name: "index_source_parameters_on_code", unique: true
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
+  end
+
+  create_table "state_routing_targets", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "state_abbreviation", null: false
+    t.bigint "target_id", null: false
+    t.string "target_type", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["state_abbreviation"], name: "index_state_routing_targets_on_state_abbreviation"
+    t.index ["target_type", "target_id"], name: "index_state_routing_targets_on_target"
   end
 
   create_table "system_notes", force: :cascade do |t|
