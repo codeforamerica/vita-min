@@ -9,9 +9,9 @@
     <%= t("views.ctc.questions.prior_tax_year_life_situations.p1") %>
   </p>
   <ul class="checkmark-list teal">
-    <li><%= t("views.ctc.questions.prior_tax_year_life_situations.item1" )%></li>
-    <li><%= t("views.ctc.questions.prior_tax_year_life_situations.item2" )%></li>
-    <li><%= t("views.ctc.questions.prior_tax_year_life_situations.item3" )%></li>
+    <%= t("views.ctc.questions.prior_tax_year_life_situations.items", prior_tax_year: prior_tax_year).each do |item| %>
+      <li><%= item %></li>
+    <% end %>
   </ul>
   <p>
     <%= t("views.ctc.questions.prior_tax_year_life_situations.p2") %>

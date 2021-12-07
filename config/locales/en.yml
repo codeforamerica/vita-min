@@ -1942,18 +1942,9 @@ en:
           ssn_not_valid_for_employment: This SSN is not valid for employment
           suffix: Suffix
           title: In order to file, we’ll need some basic information.
-        life_situations2019:
-          item1: The number of people in your household changed from your 2019 tax return
-          item2: You have a different bank account from the one you listed in your 2019 return
-          item3: You didn't receive the full amount of stimulus you were owed
-          p1: 'If any of the following are true, you should continue with our simplified tool:'
-          p2: If none of those statements are true,  you should receive your payments automatically. You can visit the CTC FAQ for more information.
-          title: Let’s make sure this tool is right for you!
-          visit_ctc_faq: Visit the Child Tax Credit FAQ
-          visit_stimulus_faq: Visit Stimulus FAQ
-        life_situations2020:
+        life_situations:
           help_text: Generally, someone can claim you as a dependent if they are your family member, you live with them for most of the year, and they pay for most of your living expenses.
-          title: Can anyone claim you as a dependent in 2020?
+          title: Can anyone claim you as a dependent in %{current_tax_year}?
         mailing_address:
           reveal_content_html: |
             The IRS requires an address to be submitted with your return.<br/>
@@ -1981,6 +1972,16 @@ en:
           reveal_content: 'The IRS requires us to ask this to verify your identity prior to submitting your tax return. '
           reveal_label: Why are you asking this?
           title: What was your 2019 Adjusted Gross Income?
+        prior_tax_year_life_situations:
+          items:
+          - The number of people in your household changed from your %{prior_tax_year} tax return
+          - You have a different bank account from the one you listed in your %{prior_tax_year} return
+          - You didn't receive the full amount of stimulus you were owed
+          p1: 'If any of the following are true, you should continue with our simplified tool:'
+          p2: If none of those statements are true,  you should receive your payments automatically. You can visit the CTC FAQ for more information.
+          title: Let’s make sure this tool is right for you!
+          visit_ctc_faq: Visit the Child Tax Credit FAQ
+          visit_stimulus_faq: Visit Stimulus FAQ
         refund_payment:
           check: Mail my payment (slower)
           direct_deposit: Direct deposit (fastest)

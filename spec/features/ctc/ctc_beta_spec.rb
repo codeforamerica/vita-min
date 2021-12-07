@@ -14,8 +14,8 @@ def begin_intake
   # =========== ELIGIBILITY ===========
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title'))
   click_on I18n.t('general.negative')
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: Rails.application.config.current_tax_year - 1))
-  choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: Rails.application.config.current_tax_year - 1)
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+  choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
   click_on "Continue"
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
   check I18n.t('views.ctc.questions.home.options.fifty_states')
@@ -27,11 +27,13 @@ def begin_intake
   check I18n.t('views.ctc.questions.home.options.fifty_states')
   check I18n.t('views.ctc.questions.home.options.military_facility')
   click_on I18n.t('general.continue')
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title'))
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
   click_on I18n.t('general.negative')
 end
 
 RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active_job: true do
+  include FeatureTestHelpers
+
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
     allow(Rails.env).to receive(:production?).and_return(true)

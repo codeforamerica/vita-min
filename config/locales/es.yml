@@ -1891,18 +1891,9 @@ es:
           ssn_not_valid_for_employment: Este SSN no es válido para empleo
           suffix: Forma de tratamiento, por ejemplo, Sr., Sra., Srta.
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
-        life_situations2019:
-          item1: El número de personas en su hogar cambió con respecto a su declaración de impuestos de 2019
-          item2: Tiene una cuenta bancaria diferente a la que ha indicado en su declaración de 2019
-          item3: No recibió la totalidad del estímulo que le correspondía
-          p1: 'Si cualquiera de los siguientes puntos es válido, debe continuar con nuestra herramienta simplificada:'
-          p2: Si ninguna de estas afirmaciones es cierta, deberá recibir sus pagos automáticamente. Puede visitar las Preguntas Frecuentes sobre el CTC para obtener más información.
-          title: "¡Asegurémonos de que esta herramienta es adecuada para usted!"
-          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
-          visit_stimulus_faq: Visita preguntas frecuentes sobre el estímulo
-        life_situations2020:
+        life_situations:
           help_text: Por lo general, alguien puede declararlo/a como dependiente si es un miembro de su familia, vive con él/ella la mayor parte del año y paga la mayor parte de sus gastos de manutención.
-          title: "¿Puede alguien declararlo como dependiente en 2020?"
+          title: "¿Puede alguien declararlo como dependiente en %{current_tax_year}?"
         mailing_address:
           reveal_content_html: |
             El IRS requiere que remita una dirección.<br/>
@@ -1930,6 +1921,16 @@ es:
           reveal_content: El IRS nos obliga a hacer esta pregunta para verificar su identidad antes de presentar su declaración de impuestos.
           reveal_label: "¿Por qué me preguntan esto?"
           title: "¿Cuáles fueron sus ingresos ajustados brutos de 2019?"
+        prior_tax_year_life_situations:
+          items:
+          - El número de personas en su hogar cambió con respecto a su declaración de impuestos de %{prior_tax_year}
+          - Tiene una cuenta bancaria diferente a la que ha indicado en su declaración de %{prior_tax_year}
+          - No recibió la totalidad del estímulo que le correspondía
+          p1: 'Si cualquiera de los siguientes puntos es válido, debe continuar con nuestra herramienta simplificada:'
+          p2: Si ninguna de estas afirmaciones es cierta, deberá recibir sus pagos automáticamente. Puede visitar las Preguntas Frecuentes sobre el CTC para obtener más información.
+          title: "¡Asegurémonos de que esta herramienta es adecuada para usted!"
+          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
+          visit_stimulus_faq: Visita preguntas frecuentes sobre el estímulo
         refund_payment:
           check: Envíeme mi pago (más lento)
           direct_deposit: Depósito directo (el más rápido)
@@ -3184,7 +3185,7 @@ es:
         help_text: Estas respuestas nos ayudan a determinar para qué créditos fiscales califica.
         options:
           had_disability: Yo tenía una discapacidad permanente
-          was_blind: Yo estaba legalmente ciego 
+          was_blind: Yo estaba legalmente ciego
           was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
           was_on_visa: Yo estaba en los Estados Unidos con una visa
         title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
