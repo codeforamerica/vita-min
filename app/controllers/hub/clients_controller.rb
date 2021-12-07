@@ -10,10 +10,20 @@ module Hub
     load_and_authorize_resource except: [:new, :create]
     layout "hub"
 
+    MAX_COUNT = 1000
+
     def index
       @page_title = I18n.t("hub.clients.index.title")
       # @tax_return_count HAS to be defined before @clients, otherwise it will cause SQL errors
-      @tax_return_count = TaxReturn.where(client: filtered_clients.with_eager_loaded_associations.without_pagination).size
+
+      # Compute the count of tax returns, up to a maximum amount. Postgres is slow at computing counts if they are very large.
+      tax_return_count = TaxReturn.where(client: filtered_clients.with_eager_loaded_associations.without_pagination).limit(MAX_COUNT + 1).size
+      @tax_return_count =
+        if tax_return_count > MAX_COUNT
+          "> #{MAX_COUNT}"
+        else
+          tax_return_count.to_s
+        end
       @clients = filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
     end

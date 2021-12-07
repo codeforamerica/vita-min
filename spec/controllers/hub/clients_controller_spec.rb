@@ -601,7 +601,19 @@ RSpec.describe Hub::ClientsController do
         it "shows the full amount of tax returns" do
           get :index, params: params
 
-          expect(assigns(:tax_return_count)).to eq 50
+          expect(assigns(:tax_return_count)).to eq "50"
+        end
+
+        context "when there are too many to count quickly" do
+          before do
+            stub_const("Hub::ClientsController::MAX_COUNT", 49)
+          end
+
+          it "shows a placeholder value" do
+            get :index, params: params
+
+            expect(assigns(:tax_return_count)).to eq "> 49"
+          end
         end
       end
 
