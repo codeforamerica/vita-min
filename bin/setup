@@ -16,6 +16,9 @@ FileUtils.chdir APP_ROOT do
   puts "== Install Homebrew dependencies =="
   system! "brew bundle install"
 
+  puts "== Ensuring homebrew node version is 16 =="
+  system! "if /usr/local/bin/node --version | grep -q -v ^v16 ; then brew link --overwrite node@16 ; fi"
+
   puts "== Installing Ruby =="
   system! "rbenv install --skip-existing"
 
