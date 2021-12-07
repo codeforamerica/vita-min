@@ -267,7 +267,6 @@ class Intake < ApplicationRecord
   pg_search_scope :search, against: searchable_fields, using: { tsearch: { prefix: true, tsvector_column: 'searchable_data' } }
 
   has_many :documents, dependent: :destroy
-  has_many :documents_requests, dependent: :destroy
   has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy
   belongs_to :client, inverse_of: :intake, optional: true
   has_many :tax_returns, through: :client
