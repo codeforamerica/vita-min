@@ -214,8 +214,7 @@ class FlowsController < ApplicationController
       intake_attributes = {
         type: Intake::CtcIntake.to_s,
         visitor_id: SecureRandom.hex(26),
-        filed_2020: 'no',
-        filed_2019: 'did_not_file',
+        filed_prior_tax_year: 'did_not_file',
         primary_birth_date: 30.years.ago,
         primary_tin_type: 'ssn',
         primary_ssn: '555112222',

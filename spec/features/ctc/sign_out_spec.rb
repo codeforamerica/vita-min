@@ -19,7 +19,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on I18n.t('general.negative')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
     click_on I18n.t('general.negative')
-    choose I18n.t('views.ctc.questions.filed2019.did_not_file')
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: Rails.application.config.current_tax_year.to_i - 1)
     click_on "Continue"
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     click_on I18n.t('general.continue')

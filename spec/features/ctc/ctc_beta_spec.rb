@@ -14,14 +14,14 @@ def begin_intake
   # =========== ELIGIBILITY ===========
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title'))
   click_on I18n.t('general.negative')
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
-  choose I18n.t('views.ctc.questions.filed2019.did_not_file')
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: Rails.application.config.current_tax_year - 1))
+  choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: Rails.application.config.current_tax_year - 1)
   click_on "Continue"
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
   check I18n.t('views.ctc.questions.home.options.fifty_states')
   check I18n.t('views.ctc.questions.home.options.foreign_address')
   click_on I18n.t('general.continue')
-  expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
   click_on I18n.t('general.back')
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
   check I18n.t('views.ctc.questions.home.options.fifty_states')

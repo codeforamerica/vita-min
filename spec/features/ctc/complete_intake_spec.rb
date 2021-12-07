@@ -26,8 +26,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # =========== ELIGIBILITY ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title'))
     click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
-    choose I18n.t('views.ctc.questions.filed2019.did_not_file')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: Rails.application.config.current_tax_year - 1))
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: Rails.application.config.current_tax_year - 1)
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
@@ -97,8 +97,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
     expect(page).not_to have_text(I18n.t('views.ctc.questions.spouse_info.remove_button'))
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed2019.title'))
-    choose I18n.t('views.ctc.questions.spouse_filed2019.did_not_file')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: Rails.application.config.current_tax_year - 1))
+    choose I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.did_not_file', prior_tax_year: Rails.application.config.current_tax_year - 1)
     click_on I18n.t('general.continue')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.spouse_review.title'))
@@ -401,8 +401,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # =========== ELIGIBILITY ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title'))
     click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
-    choose I18n.t('views.ctc.questions.filed2019.filed_full')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: Rails.application.config.current_tax_year - 1))
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.filed_full', prior_tax_year: Rails.application.config.current_tax_year - 1)
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2019.title'))
     click_on I18n.t('general.continue')
@@ -429,8 +429,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.agi2019.title'))
-    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '$12,340'
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.prior_tax_year_agi.title'))
+    fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label'), with: '$12,340'
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
@@ -470,13 +470,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin'), with: "222-33-4444"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation'), with: "222-33-4444"
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed2019.title'))
-    choose I18n.t('views.ctc.questions.spouse_filed2019.filed_full_separate')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: Rails.application.config.current_tax_year - 1))
+    choose I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.filed_full_separate')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_agi2019.title'))
-    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '4,567'
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_prior_tax_year_agi.title', prior_tax_year: Rails.application.config.current_tax_year - 1))
+    fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label'), with: '4,567'
     click_on I18n.t('general.continue')
 
     intake = Intake.last
