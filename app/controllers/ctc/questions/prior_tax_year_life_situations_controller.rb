@@ -1,6 +1,6 @@
 module Ctc
   module Questions
-    class LifeSituations2019Controller < QuestionsController
+    class PriorTaxYearLifeSituationsController < QuestionsController
 
       layout "intake"
 

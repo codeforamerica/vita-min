@@ -30,7 +30,7 @@ module NavigationHelpers
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title'))
     click_on I18n.t('general.negative')
 
     # =========== BASIC INFO ===========

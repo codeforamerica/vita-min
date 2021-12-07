@@ -27,7 +27,7 @@ def begin_intake
   check I18n.t('views.ctc.questions.home.options.fifty_states')
   check I18n.t('views.ctc.questions.home.options.military_facility')
   click_on I18n.t('general.continue')
-  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title'))
   click_on I18n.t('general.negative')
 end
 

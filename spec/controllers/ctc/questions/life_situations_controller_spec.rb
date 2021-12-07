@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Ctc::Questions::LifeSituations2020Controller do
+describe Ctc::Questions::LifeSituationsController do
   let(:intake) { create :ctc_intake }
 
   before do
@@ -12,14 +12,14 @@ describe Ctc::Questions::LifeSituations2020Controller do
       get :edit, params: {}
 
       expect(response).to render_template :edit
-      expect(assigns(:form)).to be_an_instance_of Ctc::LifeSituations2020Form
+      expect(assigns(:form)).to be_an_instance_of Ctc::LifeSituationsForm
     end
   end
 
   describe "#update" do
     let(:params) do
       {
-        ctc_life_situations2020_form: {
+        ctc_life_situations_form: {
           can_be_claimed_as_dependent: "yes",
         }
       }
@@ -35,7 +35,7 @@ describe Ctc::Questions::LifeSituations2020Controller do
 
       context "when checking no one can claim them" do
         before do
-          params[:ctc_life_situations2020_form][:can_be_claimed_as_dependent] = "no"
+          params[:ctc_life_situations_form][:can_be_claimed_as_dependent] = "no"
         end
 
         it "redirects to consent" do

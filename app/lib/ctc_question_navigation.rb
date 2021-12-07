@@ -10,9 +10,9 @@ class CtcQuestionNavigation
     # Eligibility
     Ctc::Questions::AlreadyFiledController,
     Ctc::Questions::FiledPriorTaxYearController,
-    Ctc::Questions::LifeSituations2019Controller,
+    Ctc::Questions::PriorTaxYearLifeSituationsController,
     Ctc::Questions::HomeController,
-    Ctc::Questions::LifeSituations2020Controller,
+    Ctc::Questions::LifeSituationsController,
 
     # Consent/Contact
     Ctc::Questions::LegalConsentController,

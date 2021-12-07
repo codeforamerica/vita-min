@@ -39,7 +39,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.military_facility')
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title'))
     click_on I18n.t('general.negative')
 
     # =========== BASIC INFO ===========
@@ -404,14 +404,14 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: Rails.application.config.current_tax_year - 1))
     choose I18n.t('views.ctc.questions.filed_prior_tax_year.filed_full', prior_tax_year: Rails.application.config.current_tax_year - 1)
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2019.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.prior_tax_year_life_situations.title'))
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.military_facility')
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title'))
     click_on I18n.t('general.negative')
 
     # =========== BASIC INFO ===========
