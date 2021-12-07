@@ -499,6 +499,11 @@ RSpec.describe ApplicationController do
     it "sends default data using mixpanel service" do
       get :index
 
+      @mixpanel_calls = []
+      allow(mixpanel_spy).to receive(:run) do |*args|
+        @mixpanel_calls << args[0]
+      end
+
       subject.send_mixpanel_event(event_name: "beep", data: { sound: "boop" })
       expected_mixpanel_data = {
         sound: "boop",
@@ -515,7 +520,7 @@ RSpec.describe ApplicationController do
         os_major_version: "10",
         is_bot: false,
         bot_name: nil,
-        device_brand: nil,
+        device_brand: "Apple",
         device_name: nil,
         device_type: "desktop",
         device_browser_version: "Mac desktop Chrome 79",
@@ -532,8 +537,9 @@ RSpec.describe ApplicationController do
       expect(mixpanel_spy).to have_received(:run).with(
         distinct_id: "123",
         event_name: "beep",
-        data: expected_mixpanel_data
+        data: anything
       )
+      expect(@mixpanel_calls[0][:data]).to eq(expected_mixpanel_data)
     end
 
     context "with a request from a bot" do
