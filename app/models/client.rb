@@ -50,6 +50,7 @@ class Client < ApplicationRecord
 
   belongs_to :vita_partner, optional: true
   has_many :documents, dependent: :destroy
+  has_many :documents_requests, dependent: :destroy
   has_one :intake, inverse_of: :client, dependent: :destroy
   has_one :consent, dependent: :destroy
   has_many :outgoing_text_messages, dependent: :destroy

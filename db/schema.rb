@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_06_220636) do
+ActiveRecord::Schema.define(version: 2021_12_07_222217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -371,11 +371,11 @@ ActiveRecord::Schema.define(version: 2021_12_06_220636) do
   end
 
   create_table "documents_requests", force: :cascade do |t|
+    t.bigint "client_id"
     t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
-    t.bigint "intake_id"
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
+    t.index ["client_id"], name: "index_documents_requests_on_client_id"
   end
 
   create_table "efile_errors", force: :cascade do |t|
@@ -1134,7 +1134,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_220636) do
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
-  add_foreign_key "documents_requests", "intakes"
+  add_foreign_key "documents_requests", "clients"
   add_foreign_key "efile_security_informations", "clients"
   add_foreign_key "efile_security_informations", "efile_submissions"
   add_foreign_key "efile_submission_transitions", "efile_submissions"

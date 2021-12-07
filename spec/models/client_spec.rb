@@ -527,7 +527,7 @@ describe Client do
       let(:attachment) { fixture_file_upload("test-pattern.png") }
       let(:tax_return_selection) { create(:tax_return_selection) }
       before do
-        doc_request = create :documents_request, intake: intake
+        doc_request = create :documents_request, client: client
         create_list :document, 2, client: client, intake: intake, documents_request_id: doc_request.id
         create_list :document, 2, client: client, intake: intake
         create_list :dependent, 2, intake: intake
