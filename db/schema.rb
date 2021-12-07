@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_15_175837) do
+ActiveRecord::Schema.define(version: 2021_12_06_220636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -614,8 +614,8 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
     t.integer "ever_owned_home", default: 0, null: false
     t.string "feedback"
     t.integer "feeling_about_taxes", default: 0, null: false
-    t.integer "filed_2019", default: 0, null: false
     t.integer "filed_2020", default: 0, null: false
+    t.integer "filed_prior_tax_year", default: 0, null: false
     t.integer "filing_for_stimulus", default: 0, null: false
     t.integer "filing_joint", default: 0, null: false
     t.string "final_info"
@@ -723,7 +723,7 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
     t.datetime "spouse_consented_to_service_at"
     t.inet "spouse_consented_to_service_ip"
     t.citext "spouse_email_address"
-    t.integer "spouse_filed_2019", default: 0, null: false
+    t.integer "spouse_filed_prior_tax_year", default: 0, null: false
     t.string "spouse_first_name"
     t.integer "spouse_had_disability", default: 0, null: false
     t.integer "spouse_issued_identity_pin", default: 0, null: false

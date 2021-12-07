@@ -9,14 +9,14 @@ class CtcQuestionNavigation
 
     # Eligibility
     Ctc::Questions::AlreadyFiledController,
-    Ctc::Questions::Filed2019Controller,
+    Ctc::Questions::FiledPriorTaxYearController,
     Ctc::Questions::LifeSituations2019Controller,
     Ctc::Questions::HomeController,
     Ctc::Questions::LifeSituations2020Controller,
 
     # Consent/Contact
     Ctc::Questions::LegalConsentController,
-    Ctc::Questions::Agi2019Controller,
+    Ctc::Questions::PriorYearAgiController,
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,
     Ctc::Questions::EmailAddressController,
@@ -26,8 +26,8 @@ class CtcQuestionNavigation
     # Filing Status
     Ctc::Questions::FilingStatusController, # This and all later controllers require the client to be signed in
     Ctc::Questions::SpouseInfoController,
-    Ctc::Questions::SpouseFiled2019Controller,
-    Ctc::Questions::SpouseAgi2019Controller,
+    Ctc::Questions::SpouseFiledPriorTaxYearController,
+    Ctc::Questions::SpousePriorYearAgiController,
     Ctc::Questions::SpouseReviewController,
 
     # Dependents

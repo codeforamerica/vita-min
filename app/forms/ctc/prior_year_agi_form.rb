@@ -1,5 +1,5 @@
 module Ctc
-  class Agi2019Form < QuestionsForm
+  class PriorYearAgiForm < QuestionsForm
     set_attributes_for :intake, :primary_prior_year_agi_amount
 
     validates :primary_prior_year_agi_amount, gyr_numericality: true, if: :not_blank?

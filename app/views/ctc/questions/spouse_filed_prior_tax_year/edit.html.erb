@@ -1,0 +1,28 @@
+<% content_for :page_title, t("views.ctc.questions.spouse_filed_prior_tax_year.title", prior_tax_year: prior_tax_year) %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= content_for(:page_title) %></h1>
+    <p>
+      <%=t("views.ctc.questions.spouse_filed_prior_tax_year.help_text", current_tax_year: current_tax_year, prior_tax_year: prior_tax_year) %>
+    </p>
+
+    <div class="form-card__content">
+      <%= f.cfa_radio_set(
+            :spouse_filed_prior_tax_year,
+            collection: [
+              { value: :filed_full_joint, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_full_joint", prior_tax_year: prior_tax_year) },
+              { value: :filed_non_filer_joint, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_non_filer_joint") },
+              { value: :filed_full_separate, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_full_separate") },
+              { value: :filed_non_filer_separate, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_non_filer_separate") },
+              { value: :did_not_file, label: t("views.ctc.questions.spouse_filed_prior_tax_year.did_not_file", prior_tax_year: prior_tax_year) },
+            ]
+          )
+      %>
+    </div>
+
+    <button class="button button--primary button--wide spacing-below-15" type="submit">
+      <%=t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>
