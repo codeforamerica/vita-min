@@ -6,7 +6,7 @@
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
 #  already_applied_for_stimulus                         :integer          default(0), not null
-#  already_filed                                        :integer          default("unfilled"), not null
+#  already_filed                                        :integer          default(0), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
 #  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
@@ -78,8 +78,8 @@
 #  ever_owned_home                                      :integer          default(0), not null
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
+#  filed_2019                                           :integer          default(0), not null
 #  filed_2020                                           :integer          default(0), not null
-#  filed_prior_tax_year                                 :integer          default(0), not null
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
@@ -187,7 +187,7 @@
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_email_address                                 :citext
-#  spouse_filed_prior_tax_year                          :integer          default(0), not null
+#  spouse_filed_2019                                    :integer          default(0), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_issued_identity_pin                           :integer          default(0), not null
@@ -466,8 +466,8 @@ FactoryBot.define do
     referrer { "/" }
     primary_ssn { "123456789" }
     primary_tin_type { "ssn" }
-    spouse_ssn { "912345678" }
-    spouse_tin_type { "itin" }
+    spouse_ssn { "123456789" }
+    spouse_tin_type { "ssn" }
     primary_birth_date { Date.new(1979, 12, 24) }
     spouse_birth_date { Date.new(1983, 11, 23) }
     street_address { "123 Cherry Lane" }
