@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   include FeatureTestHelpers
+  include MockTwilio
+
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
@@ -112,6 +114,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "First, let's get some basic information.")
       fill_in "What is your preferred first name?", with: "Gary"
       fill_in "ZIP code", with: "20121"
+      fill_in "Phone number", with: "415-888-0088"
+      fill_in "Confirm phone number", with: "415-888-0088"
     end
     click_on "Continue"
 
@@ -128,12 +132,36 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      # Phone number
-      expect(page).to have_selector("h1", text: "Please share your contact number.")
-      fill_in "Phone number", with: "(415) 553-7865"
-      fill_in "Confirm phone number", with: "(415) 553-7865"
+      # Notification Preference
+      expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
+      check "Email Me"
+      check "Text Me"
+      click_on "Continue"
     end
-    click_on "Continue"
+
+    screenshot_after do
+      # Phone number can text
+      expect(page).to have_text("Can we text the phone number you previously entered?")
+      click_on "No"
+    end
+
+    screenshot_after do
+      # Phone number
+      expect(page).to have_selector("h1", text: "Please share your cell phone number.")
+      fill_in "Cell phone number", with: "(415) 553-7865"
+      fill_in "Confirm cell phone number", with: "+1415553-7865"
+      click_on "Continue"
+    end
+
+    screenshot_after do
+      # Verify cell phone contact
+      expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
+      perform_enqueued_jobs
+      sms = FakeTwilioClient.messages.last
+      code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
+      fill_in "Enter 6 digit code", with: code
+      click_on "Verify"
+    end
 
     screenshot_after do
       # Email
@@ -144,11 +172,14 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      # Notification Preference
-      expect(page).to have_text("What is the best way to reach you?")
-      check "Email Me"
+      # Verify email contact
+      expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
+      perform_enqueued_jobs
+      mail = ActionMailer::Base.deliveries.last
+      code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+      fill_in "Enter 6 digit code", with: code
+      click_on "Verify"
     end
-    click_on "Continue"
 
     expect(intake.client.tax_returns.pluck(:status)).to eq ["intake_before_consent"]
     screenshot_after do

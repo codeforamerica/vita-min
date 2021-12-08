@@ -174,6 +174,8 @@ en:
         inclusion: Please select a pickup method.
       sms_phone_number:
         invalid: Please enter a valid phone number.
+      sms_phone_number_confirmation:
+        confirmation: Please double check that the cell phone numbers match.
       spouse_email_address:
         invalid: Please enter a valid email address.
       spouse_email_address_confirmation:
@@ -198,7 +200,6 @@ en:
       general: Please fix indicated errors before continuing.
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
-      need_phone_number: Please enter a cell phone number.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
       state_routings:
         duplicate_vita_partner: An organization is duplicated in the routing list.
@@ -3258,9 +3259,10 @@ en:
         note_html: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply. Text HELP to 58750 for help. Text STOP to 58750 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a href="%{terms_url}">Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.
         options:
           email_notification_opt_in: Email Me
-          header: We’ll need to reach out with questions and updates. Please let us know the option(s) that work best for you!
+          header: We’ll send a code to verify each contact method so that we can send updates on your return. Please select all available contact methods!
+          note: 'Note: Standard SMS message rates apply. We will not share your information with any outside parties.'
           sms_notification_opt_in: Text Me
-        title: What is the best way to reach you?
+        title: What ways can we reach you?
       optional_consent:
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
         consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consent to Use:</a> You allow us to count your return in reports.
@@ -3316,15 +3318,19 @@ en:
           other: In %{year}, did you or your spouse make any alimony payments?
       personal_info:
         info: Welcome, we're excited to help you. We need some basic information to get started.
+        phone_number: Phone number
+        phone_number_confirmation: Confirm phone number
         preferred_name: What is your preferred first name?
         title: First, let's get some basic information.
         zip_code: ZIP code
       phone_number:
         info: Once you've answered all the tax questions, your tax preparer will call to review your tax situation.
-        phone_number: Phone number
-        phone_number_can_receive_texts: This number can receive text messages
-        phone_number_confirmation: Confirm phone number
-        title: Please share your contact number.
+        phone_number: Cell phone number
+        phone_number_confirmation: Confirm cell phone number
+        title: Please share your cell phone number.
+      phone_number_can_receive_texts:
+        help_text: Please be sure that this number can receive text messages.
+        title: Can we text the phone number you previously entered?
       received_alimony:
         help_text: Answer "Yes" even if you did not receive an official IRS document about the alimony. Do not include child support you received.
         title:
@@ -3473,6 +3479,12 @@ en:
         file_this_year: File my %{current_year} taxes
         help_text: 'Select all the situations that apply to you:'
         title: What can we help you with?
+      verification:
+        body: 'A message with your code has been sent to:'
+        error_message: Incorrect verification code.
+        title: Let's verify that contact info with a code!
+        verification_code_label: Enter 6 digit code
+        verify: Verify
       welcome:
         help_text: To provide the best service, we'll start with a few questions.
         title: Welcome to GetYourRefund!

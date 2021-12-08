@@ -7,6 +7,8 @@ class EmailAddressForm < QuestionsForm
   validates :email_address_confirmation, presence: true
 
   def save
-    @intake.update(attributes_for(:intake))
+    attributes = attributes_for(:intake)
+    attributes[:email_address_verified_at] = nil if @intake.email_address != email_address
+    @intake.update(attributes)
   end
 end

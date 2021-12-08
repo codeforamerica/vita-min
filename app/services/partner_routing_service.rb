@@ -72,7 +72,8 @@ class PartnerRoutingService
   end
 
   def route_to_national_overflow_partner
-    vita_partner = VitaPartner.where(national_overflow_location: true).order(Arel.sql('RANDOM()')).first
+    national_overflow_locations = VitaPartner.where(national_overflow_location: true).order(Arel.sql('RANDOM()'))
+    vita_partner = national_overflow_locations.first
     if vita_partner.present?
       @routing_method = :national_overflow
       vita_partner

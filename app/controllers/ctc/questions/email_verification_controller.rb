@@ -13,7 +13,7 @@ module Ctc
       def self.show?(intake)
         return false if intake.sms_phone_number_verified_at? # only require one verified contact type
 
-        intake.email_address.present? && intake.email_notification_opt_in_yes? && intake.email_address_verified_at.present?
+        intake.email_address.present? && intake.email_notification_opt_in_yes? && !intake.email_address_verified_at.present?
       end
 
       def self.i18n_base_path
