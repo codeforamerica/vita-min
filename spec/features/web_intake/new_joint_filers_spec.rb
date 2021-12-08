@@ -150,6 +150,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Continue"
 
+    expect(intake.client.tax_returns.pluck(:status)).to eq ["intake_before_consent"]
     screenshot_after do
       # Consent form
       expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
@@ -161,9 +162,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       select "5", from: "Day"
       select "1971", from: "Year"
     end
-    expect do
-      click_on "I agree"
-    end.to change { intake.reload.client.tax_returns.pluck(:status) }.from(["intake_before_consent"]).to(["intake_in_progress"])
+    click_on "I agree"
+    expect(intake.reload.client.tax_returns.pluck(:status)).to eq ["intake_in_progress"]
 
     screenshot_after do
       # Optional consent form
