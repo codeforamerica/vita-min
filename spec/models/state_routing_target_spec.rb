@@ -1,31 +1,17 @@
 # == Schema Information
 #
-# Table name: vita_partners
+# Table name: state_routing_targets
 #
-#  id                         :bigint           not null, primary key
-#  allows_greeters            :boolean
-#  archived                   :boolean          default(FALSE)
-#  capacity_limit             :integer
-#  logo_path                  :string
-#  name                       :string           not null
-#  national_overflow_location :boolean          default(FALSE)
-#  processes_ctc              :boolean          default(FALSE)
-#  timezone                   :string           default("America/New_York")
-#  type                       :string           not null
-#  created_at                 :datetime         not null
-#  updated_at                 :datetime         not null
-#  coalition_id               :bigint
-#  parent_organization_id     :bigint
+#  id                 :bigint           not null, primary key
+#  state_abbreviation :string           not null
+#  target_type        :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  target_id          :bigint           not null
 #
 # Indexes
 #
-#  index_vita_partners_on_coalition_id               (coalition_id)
-#  index_vita_partners_on_parent_name_and_coalition  (parent_organization_id,name,coalition_id) UNIQUE
-#  index_vita_partners_on_parent_organization_id     (parent_organization_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (coalition_id => coalitions.id)
+#  index_state_routing_targets_on_target  (target_type,target_id)
 #
 require "rails_helper"
 
