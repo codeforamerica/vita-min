@@ -222,6 +222,7 @@ es:
     admin_controls: Controles de administrador
     affirmative: Sí
     all_organizations: Todas organizaciones
+    and: y
     assign: Asignar
     assignee: Asignada a
     at_time: a las %{time}
@@ -1658,10 +1659,10 @@ es:
           title: "¡Parece que ya ha comenzado!"
         already_filed:
           help_text_html: |
-            <p>Presentó una declaración de impuestos este año, después del 1o de enero de 2021, para el año fiscal 2020?</p>
+            <p>Presentó una declaración de impuestos este año, después del 1o de enero de %{calendar_year}, para el año fiscal 2020?</p>
             <p>Conteste que sí, incluso si todavía está esperando los pagos del estímulo, o si utilizó la Herramienta de inscripción para No Declarantes. Si lo hizo, le brindaremos más orientación sobre sus opciones en la página siguiente.</p>
-            <p class="text--bold">Si ya presentó una declaración de impuestos de 2020, el IRS rechazará la declaración que presente con esta herramienta.</p>
-          title: "¿Presentó su declaración de impuestos de 2020 este año?"
+            <p class="text--bold">Si ya presentó una declaración de impuestos de %{current_tax_year}, el IRS rechazará la declaración que presente con esta herramienta.</p>
+          title: "¿Presentó su declaración de impuestos de %{current_tax_year} este año?"
         at_capacity:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes/FAQ.
@@ -1729,26 +1730,27 @@ es:
           child_disqualifiers:
             error: Favor de seleccionar al menos una opción
             filed_joint_return: "%{name} estaba casado/a y declaró impuestos con su cónyuge"
-            help_text: 'Seleccione cualquier situación que haya sido cierta en 2020:'
+            help_text: 'Seleccione cualquier situación que haya sido cierta en %{current_tax_year}:'
             provided_over_half_own_support: "%{name} pagó más de la mitad de sus gastos de manutención"
             title: Perfecto, ¡asegurémonos de que %{name} cumple los requisitos!
           child_lived_with_you:
-            title: "¿Vivió %{name} con usted por más de 6 meses en %{tax_year}?"
+            title: "¿Vivió %{name} con usted por más de 6 meses en %{current_tax_year}?"
           child_residence_exceptions:
-            born_in_2020: "%{name} nació en 2020"
+            born_tax_year: "%{name} nació en %{current_tax_year}"
             help_text: Podrían aún calificar para los pagos si vivieron con usted por menos de 6 meses y se diera cualquiera de los siguientes casos.
-            passed_away_2020: "%{name} fue entregado legalmente a usted para su adopción en 2020"
+            passed_away_tax_year: "%{name} fue entregado legalmente a usted para su adopción en %{current_tax_year}"
             permanent_residence_with_client: La residencia permanente de %{name} fue con usted durante al menos seis meses, incluso si estuvo fuera durante parte de ese tiempo
-            placed_for_adoption: "%{name} falleció en 2020"
+            placed_for_adoption: "%{name} falleció en %{current_tax_year}"
             title: "¿Son algunas de las siguientes situaciones válidas para %{name}?"
           claim_child_anyway:
             help_text_html: |
               <p>Si usted y otra persona tienen derecho a declarar a %{name}, debe seguir el acuerdo que tiene con la otra persona sobre quién lo declara.</p>
               <p>Recuerde, si alguien más ya reclamó %{name}, su devolución será rechazada. Si eso sucede, podemos guiarlo a través del proceso de apelar el otro reclamo, pero no es fácil. Puede optar por consultar primero con los demás cuidadores.</p>
             not_sure_reveal:
-              li1: Usted es el padre de familia que haya vivido más tiempo con él/ella.
-              li2: Si usted y el otro padre vivieron la misma cantidad de tiempo con el dependiente, quien haya ganado más dinero en 2020 puede declararlo/a.
-              li3: Si ninguno de los dos es el padre del dependiente, el que haya ganado más dinero en 2020 puede declararlo/a.
+              items:
+              - Usted es el padre de familia que haya vivido más tiempo con él/ella.
+              - Si usted y el otro padre vivieron la misma cantidad de tiempo con el dependiente, quien haya ganado más dinero en %{current_tax_year} puede declararlo/a.
+              - Si ninguno de los dos es el padre del dependiente, el que haya ganado más dinero en %{current_tax_year} puede declararlo/a.
               p: 'Debe declarar al dependiente si una de estas situaciones es cierta:'
               title: No estoy seguro/a. ¿Debería declararlo/a?
             title: "¿Le gustaría declarar a %{name} de todas maneras?"
@@ -1768,17 +1770,17 @@ es:
             conditions:
             - El dependiente tiene un número de Seguro Social o un Número de Identificación de Adopción válido
             - El dependiente era ciudadano estadounidense, nacional de Estados Unidos o extranjero residente en Estados Unidos
-            - El dependiente vivió con usted por más de la mitad del 2020
-            - El dependiente no aportó más de la mitad de sus propio apoyo económico para 2020
-            - El dependiente no presentó una declaración conjunta con su cónyuge en 2020
+            - El dependiente vivió con usted por más de la mitad del %{current_tax_year}
+            - El dependiente no aportó más de la mitad de sus propio apoyo económico para %{current_tax_year}
+            - El dependiente no presentó una declaración conjunta con su cónyuge en %{current_tax_season}
             - El dependiente no fue declarado como dependiente en otra declaración
-            - El familiar no nació en 2021
+            - El familiar no nació en %{filing_year}
             done_button: Ya no hay más dependientes por agregar
             help_text: 'Para que una persona dependiente tenga derecho a recibir el CTC o las ayudas de estímulo, deberá cumplir las siguientes condiciones:'
             title: "%{name} no puede ser declarado como dependiente."
           had_dependents:
             help_text_html: |
-              <p>Podría calificar alguien que vivió con usted la mayor parte del año en el 2020 o a quien usted apoyó económicamente.</p>
+              <p>Podría calificar alguien que vivió con usted la mayor parte del año en el %{current_tax_year} o a quien usted apoyó económicamente.</p>
               <p>Responda Sí, si está intentando obtener el Crédito Tributario por Hijos.</p>
               <p>¿No está seguro si el miembro de su familia califica? Responda Sí, y lo guiaremos.</p>
             title: "¿Desea agregar a un niño o a un miembro de la familia para reclamar el Crédito Tributario por Hijos y otros beneficios?"
@@ -1797,13 +1799,15 @@ es:
             title: Veamos algunos datos básicos sobre su dependiente.
           qualifying_relative:
             help_text:
-              li1: Usted pagó más de la mitad de los gastos de %{name}
-              li2: "%{name} ganó menos de $4,300"
-              li3: "%{name} tiene Número de Seguro Social o Número de Identificación Fiscal de Adopción (ATIN)"
-              li4: "%{name} no vivió con otra persona que pudiera declararlo/a como dependiente"
-              li5: "%{name} no declaró impuestos con su cónyuge"
-            title: "¿Fueron todos de los siguientes ciertos en 2020?"
-            title_html: "¿Fueron todos de los siguientes <u>ciertos</u> en 2020?"
+              in_items:
+              - Usted pagó más de la mitad de los gastos de %{name}
+              - "%{name} ganó menos de $4,300"
+              - "%{name} tiene Número de Seguro Social o Número de Identificación Fiscal de Adopción (ATIN)"
+              out_items:
+              - "%{name} no vivió con otra persona que pudiera declararlo/a como dependiente"
+              - "%{name} no declaró impuestos con su cónyuge"
+            title: "¿Fueron todos de los siguientes ciertos en %{current_tax_year}?"
+            title_html: "¿Fueron todos de los siguientes <u>ciertos</u> en %{current_tax_year}?"
           remove_dependent:
             nevermind_button: Mejor no lo/la borremos
             remove_button: Sí, borrémoslo/la
@@ -1826,8 +1830,7 @@ es:
           title: Favor de compartir la dirección de su correo electrónico
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
-          help_text:
-          - 'Con la presentación de una declaración de impuestos completa, podría cobrar todo el dinero que se le debe. Considere esta opción si:'
+          help_text: 'Con la presentación de una declaración de impuestos completa de %{current_tax_year}, podría cobrar todo el dinero que se le debe. Considere esta opción si:'
           list:
           - Tiene todos sus documentos de trabajo (W2, 1099, etc.)
           - Tiene una copia en papel de la tarjeta de Seguro Social o de los documentos ITIN de todos los miembros de su familia
@@ -1852,10 +1855,10 @@ es:
             foreign_address: Dirección en el extranjero
             military_facility: Instalación militar estadounidense
             us_territory: Territorio de Estados Unidos, como Puerto Rico o Guam
-          title: "¿Cuál fue su domicilio principal en 2020?"
+          title: "¿Cuál fue su domicilio principal en %{current_tax_year}?"
         income:
-          filing_married: "$24,800 si declaró casado"
-          filing_single: "$12,400 si declaró soltero"
+          filing_married: "%{joint_deduction} si declaró casado"
+          filing_single: "%{single_deduction} si declaró soltero"
           help_text: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
           income_sources:
           - salario
@@ -1863,7 +1866,7 @@ es:
           - propinas
           - comisiones
           - pagos de trabajo por cuenta propia o por contrato
-          title: 'En %{tax_year}, ganó más de:'
+          title: 'En %{current_tax_year}, ganó más de:'
         ip_pin:
           error: Seleccione una persona o "Ninguno de los anteriores".
           help_text: Tener un PIN de IP es muy poco frecuente. Si no está familiarizado con lo que es, es probable que no se le haya emitido un PIN de IP. Seleccione "Ninguna de las anteriores" para continuar.
@@ -1884,7 +1887,7 @@ es:
           primary_active_armed_forces:
             reveal_content: Saber si es miembro de las Fuerzas Armadas nos ayudará a calcular con mayor precisión su Crédito de Recuperación de Reembolso
             reveal_label: "¿Por qué me preguntan esto?"
-            title: Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020
+            title: Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en %{current_tax_year}
           sms_phone_number: Número de teléfono
           ssn: SSN o ITIN
           ssn_confirmation: Confirme el SSN o ITIN
@@ -1907,7 +1910,7 @@ es:
           help_text: Utilice nuestra sencilla herramienta de presentación de impuestos electrónica para recibir su Crédito Tributario por Hijos (CTC) y cualquier pago de estímulo o corrección que se le deba.
           items:
           - Tiene un número válido de Seguro Social o de ITIN
-          - Ganó menos de $12,400 si es soltero, $24,800 si está casado y presenta una declaración conjunta
+          - Ganó menos de %{single_deduction} si es soltero, %{joint_deduction} si está casado y presenta una declaración conjunta
           - Usted no ha declarado impuestos este año
           - No recibió la totalidad del estímulo que le correspondía
           right_for_you: 'Esta es la herramienta adecuada para usted si:'
@@ -1957,7 +1960,7 @@ es:
           help_text: Favor de asegurarse de introducir el nombre de su cónyuge tal y como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
           remove_button: Quite a esta persona
           save_button: Guarde a esta persona
-          spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en 2020
+          spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cualquier tiempo en %{current_tax_year}
           spouse_active_armed_forces_reveal: "¿Por qué me preguntan esto?"
           spouse_active_armed_forces_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su Crédito de Recuperación de Reembolso
           spouse_can_be_claimed_as_dependent: Mi cónyuge puede ser reclamado como dependiente por otra persona
@@ -2038,7 +2041,7 @@ es:
         use_gyr:
           collect_money: Reciba todo el dinero que se le debe presentando una solicitud con los servicios de GetYourRefund.
           ctc_conditions:
-          - Ganó menos de $12,400 dólares si presenta una declaración individual, $24,800 dólares si está casado y presenta una declaración conjunta en 2020
+          - Ganó menos de ${single_deduction} si presenta una declaración individual, ${joint_deduction} si está casado y presenta una declaración conjunta en %{current_tax_year}
           - Es usted ciudadano estadounidense, nacional de Estados Unidos o extranjero residente en Estados Unidos
           - Usted no puede ser declarado como dependiente
           - Usted y su cónyuge tienen un Número de Seguro Social válido o de ITIN válido
@@ -2094,14 +2097,14 @@ es:
         gyr: GetYourRefund
         helper_text_html: Con el Crédito Tributario por Hijos, los pagos de estímulo y otros créditos, muchas familias de California pueden reclamar más de 10,000 dólares en beneficios tributarios este año, incluso si tienen pocos o ningún ingreso. <strong>Reclame los beneficios que le corresponden.</strong>
         option_one:
-          p_1: Esta opción es más larga y requiere más documentación, pero puede obtener más dinero.
-          p_2: Esta opción es mejor para las personas que trabajaron en 2020 y que tienen todos los documentos requeridos para una declaración de impuestos completa.
+          p1: Esta opción es más larga y requiere más documentación, pero puede obtener más dinero.
+          p2: Esta opción es mejor para las personas que trabajaron en %{current_tax_year} y que tienen todos los documentos requeridos para una declaración de impuestos completa.
           subtitle: Opción 1
           title_html: Cobre <u>todos</u> los créditos tributarios que se le deben
         option_two:
           file_ctc: Declarar con GetCTC
-          p_1: Esta opción es más rápida y requiere menos documentación, pero es posible que no pueda reclamar todos los beneficios.
-          p_2: Esta opción es mejor para las personas que no trabajaron en 2020 o que no tienen sus documentos fiscales para presentar una declaración de impuestos completa.
+          p1: Esta opción es más rápida y requiere menos documentación, pero es posible que no pueda reclamar todos los beneficios.
+          p2: Esta opción es mejor para las personas que no trabajaron en %{current_tax_year} o que no tienen sus documentos fiscales para presentar una declaración de impuestos completa.
           subtitle: Opción 2
           title_html: Solicite <u>sólo</u> las ayudas federales de estímulo y el Crédito Tributario por Hijos
         questions:
@@ -2227,7 +2230,7 @@ es:
           heading: "¿Cómo recibo el Crédito Tributario por Hijos?"
           not_filed:
             body1_html: |
-              <p>Si usted ganó menos de $12,400 (o menos de $24,800 si está casado), usted puede usar GetCTC, un portal para la declaración de impuestos de forma simplificada para:</p>
+              <p>Si usted ganó menos de %{single_deduction} (o menos de %{joint_deduction} si está casado), usted puede usar GetCTC, un portal para la declaración de impuestos de forma simplificada para:</p>
               <ul>
                 <li>obtener el Crédito Tributario por Hijos</li>
                 <li>recibir un pago de estímulo que le falte</li>
@@ -3166,8 +3169,8 @@ es:
         title: "¿Alguna vez ha recibido un PIN de IP por causa de robo de identidad?"
       itemizing:
         help_text:
-          one: Responda Sí, si gastó más de $12,000 en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos.
-          other: Responda Sí, si usted y su cónyuge gastaron más de $24,000 en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos.
+          one: Responda Sí, si gastó más de ${single_deduction} en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos.
+          other: Responda Sí, si usted y su cónyuge gastaron más de ${joint_deduction} en organizaciones benéficas, gastos médicos o dentales, provisiones escolares, u otros gastos misceláneos.
         title: "¿Le gustaría detallar su deducción para %{year}?"
       job_count:
         options:
@@ -3404,20 +3407,20 @@ es:
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
       triage_backtaxes:
         help_text: Si ganó ingreso y ha presentado para todos los años anteriores, conteste sí. Incluso si usó un servicio diferente para declarar en los años anteriores.
-        title: "¿Ha declarado impuestos para los años 2017, 2018, y 2019?"
+        title: "¿Ha declarado impuestos para los años %{backtaxes_years}?"
       triage_eligibility:
         info: Díganos si cualquiera de las siguientes situaciones aplican a usted.
         situations:
           had_farm_income: Gané dinero por tener una granja
           had_rental_income: Gané dinero de una propiedad alquilada
-          income_over_limit: Gané más de $ 66,000 en %{year}
+          income_over_limit: Gané más de $ 66,000 en %{current_tax_year}
         title: Sí, nuestro servicio es completamente gratis. ¡Nos aseguraremos de que usted califica!
       triage_lookback:
-        had_income_decrease: Mi ingreso disminuyó desde 2019
+        had_income_decrease: Mi ingreso disminuyó desde %{prior_tax_year}
         had_marketplace_insurance: Compré seguros médicos del mercado de seguros médicos
         had_unemployment: Recibí beneficios de desempleo
-        help_text: "¿Se aplican algunas de las situaciones que siguen para 2020?"
-        title: "¿Se aplican algunas de las situaciones que siguen para 2020?"
+        help_text: "¿Se aplican algunas de las situaciones que siguen para %{current_tax_year}?"
+        title: "¿Se aplican algunas de las situaciones que siguen para %{current_tax_year}?"
       triage_prepare_solo:
         help_text: Es simple para preparar su declaración, especialmente si tiene menos de 3 empleos. Proveeremos chats de asistencia mientras usted sigue con nuestra opción de auto-servicio.
         title: "¿Le interesa preparar su propia declaración?"

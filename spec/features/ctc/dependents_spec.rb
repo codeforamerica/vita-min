@@ -14,6 +14,8 @@ def fill_in_dependent_info(dependent_birth_year)
 end
 
 RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job: true do
+  include FeatureTestHelpers
+
   let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, year: 2020)] }
 
   before do
@@ -36,7 +38,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       check I18n.t('general.none')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', tax_year: '2020'))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
@@ -61,7 +63,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       check I18n.t('general.none')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', tax_year: '2020'))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
@@ -82,7 +84,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       check I18n.t('views.ctc.questions.dependents.info.permanently_totally_disabled')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title'))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
@@ -98,7 +100,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.08_uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title'))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
@@ -114,7 +116,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.01_son'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title'))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
@@ -152,7 +154,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       check I18n.t('general.none')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', tax_year: '2020'))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
@@ -176,7 +178,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.08_uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title'))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title', current_tax_year: current_tax_year))
       click_on I18n.t('general.negative')
 
       expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.dependents.does_not_qualify_ctc.title", name: "Jessie"))

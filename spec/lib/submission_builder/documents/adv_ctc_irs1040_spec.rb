@@ -15,9 +15,7 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
       dependent3.update(dependent3_attrs)
     end
 
-    let(:submission) { create :efile_submission, :ctc, filing_status: filing_status, tax_year: 2020 }
-
-    let(:filing_status) { "married_filing_jointly" }
+    let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2020 }
 
     context "when the XML is valid" do
       let(:file_double) { double }

@@ -18,24 +18,24 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
-      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', tax_year: 2020))
+      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
     end
     click_on I18n.t('general.negative')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
 
     # =========== ELIGIBILITY ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: Rails.application.config.current_tax_year - 1))
-    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: Rails.application.config.current_tax_year - 1)
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on "Continue"
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.foreign_address')
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text:  I18n.t('views.ctc.questions.use_gyr.title'))
     click_on I18n.t('general.back')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.military_facility')
     click_on I18n.t('general.continue')

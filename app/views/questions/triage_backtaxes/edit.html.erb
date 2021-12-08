@@ -1,2 +1,3 @@
-<% content_for :form_question, t("views.questions.triage_backtaxes.title") %>
+<% content_for :form_question, t("views.questions.triage_backtaxes.title",
+                                 backtaxes_years: TaxReturn.backtaxes_years.reverse.to_sentence(last_word_connector: " #{t("general.and")} ")) %>
 <% content_for :form_help_text, t("views.questions.triage_backtaxes.help_text") %>

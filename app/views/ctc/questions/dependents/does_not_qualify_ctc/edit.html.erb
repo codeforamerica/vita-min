@@ -7,7 +7,7 @@
   <h1 class="h2"><%= @main_question %></h1>
   <p><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.help_text") %></p>
   <ul class="checkmark-list teal">
-    <% t("views.ctc.questions.dependents.does_not_qualify_ctc.conditions").each do |condition| %>
+    <% t("views.ctc.questions.dependents.does_not_qualify_ctc.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1).each do |condition| %>
       <li><%= condition %></li>
     <% end %>
   </ul>

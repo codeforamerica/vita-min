@@ -1,4 +1,4 @@
-<% content_for :page_title, t('views.ctc.questions.home.title') %>
+<% content_for :page_title, t('views.ctc.questions.home.title', current_tax_year: current_tax_year) %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>

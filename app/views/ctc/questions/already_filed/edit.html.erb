@@ -1,2 +1,2 @@
-<% content_for :form_question, t("views.ctc.questions.already_filed.title") %>
-<% content_for :form_help_text, t("views.ctc.questions.already_filed.help_text_html") %>
+<% content_for :form_question, t("views.ctc.questions.already_filed.title", current_tax_year: current_tax_year) %>
+<% content_for :form_help_text, t("views.ctc.questions.already_filed.help_text_html", calendar_year: current_tax_year + 1, current_tax_year: current_tax_year) %>

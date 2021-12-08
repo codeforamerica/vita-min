@@ -205,7 +205,10 @@
           </a>
           <div class="accordion__content" id="a4">
             <p>
-              <%= t("views.ctc_pages.home.obtain.not_filed.body1_html") %>
+              <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year) %>
+              <%= t("views.ctc_pages.home.obtain.not_filed.body1_html",
+                    single_deduction: number_to_currency(standard_deduction.standard_deduction(:single)),
+                    joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_jointly))) %>
             </p>
             <p><%= t("views.ctc_pages.home.obtain.not_filed.body2") %></p>
             <p>

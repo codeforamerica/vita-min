@@ -1,3 +1,8 @@
 <% content_for :form_question, t("views.questions.itemizing.title", year: current_intake.most_recent_filing_year) %>
-
-<% content_for :form_help_text, t("views.questions.itemizing.help_text", count: current_intake.filer_count ) %>
+<% standard_deduction = StandardDeduction.new(tax_year: current_tax_year) %>
+<% content_for :form_help_text, t("views.questions.itemizing.help_text",
+                                  count: current_intake.filer_count,
+                                  joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_jointly)),
+                                  single_deduction: number_to_currency(standard_deduction.standard_deduction(:single))
+                                  )
+%>
