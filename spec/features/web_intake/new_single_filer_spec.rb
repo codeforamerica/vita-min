@@ -27,7 +27,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     text = I18n.t("views.questions.triage_backtaxes.title",
-                         backtaxes_years: TaxReturn.backtaxes_years.reverse.to_sentence(last_word_connector: " #{I18n.t("general.and")} "))
+                  backtax_years: TaxReturn.backtax_years.reverse.to_sentence(last_word_connector: " #{I18n.t("general.and")} "))
     expect(page).to have_selector("h1", text: text)
     click_on "No"
 

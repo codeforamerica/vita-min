@@ -1283,13 +1283,13 @@ describe TaxReturn do
     end
   end
 
-  describe ".backtaxes_years" do
+  describe ".backtax_years" do
     before do
       allow(Rails.application.config).to receive(:current_tax_year).and_return 2021
     end
 
     it "excludes the current filing year from backtaxes" do
-      expect(TaxReturn.backtaxes_years).to eq [2020, 2019, 2018]
+      expect(TaxReturn.backtax_years).to eq [2020, 2019, 2018]
     end
   end
 end

@@ -432,7 +432,7 @@ class Intake < ApplicationRecord
   end
 
   def most_recent_filing_year
-    filing_years.first || Rails.application.config.current_tax_year
+    filing_years.first || TaxReturn.current_tax_year
   end
 
   def filing_years

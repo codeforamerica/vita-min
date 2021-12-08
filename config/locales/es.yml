@@ -3407,7 +3407,7 @@ es:
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
       triage_backtaxes:
         help_text: Si ganó ingreso y ha presentado para todos los años anteriores, conteste sí. Incluso si usó un servicio diferente para declarar en los años anteriores.
-        title: "¿Ha declarado impuestos para los años %{backtaxes_years}?"
+        title: "¿Ha declarado impuestos para los años %{backtax_years}?"
       triage_eligibility:
         info: Díganos si cualquiera de las siguientes situaciones aplican a usted.
         situations:
