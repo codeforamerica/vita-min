@@ -720,6 +720,11 @@ en:
           status: updated status
           success: 'Success: Action taken! %{action_list}.'
           text_message: sent text message
+    coalitions:
+      edit:
+        title: Edit Coalition
+      new:
+        title: Create Coalition
     ctc_clients:
       edit:
         title: Edit CTC Client Profile
@@ -1106,11 +1111,6 @@ en:
       already_taken: "%{zip_code} is already routed to <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
       confirm: Are you sure you want to delete %{code} from %{name}?
       success: Added %{code} to %{name}.
-    coalitions:
-      edit:
-        title: "Edit Coalition"
-      new:
-        title: "Create Coalition"
   invitations:
     index:
       invitation:
