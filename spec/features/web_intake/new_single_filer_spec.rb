@@ -26,7 +26,9 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     check "None of the above"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
+    text = I18n.t("views.questions.triage_backtaxes.title",
+                  backtax_years: TaxReturn.backtax_years.reverse.to_sentence(last_word_connector: " #{I18n.t("general.and")} "))
+    expect(page).to have_selector("h1", text: text)
     click_on "No"
 
     expect(page).to have_selector("h1", text: "Our full service option is right for you!")

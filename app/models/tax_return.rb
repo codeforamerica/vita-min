@@ -154,8 +154,16 @@ class TaxReturn < ApplicationRecord
     )
   end
 
+  def self.current_tax_year
+    Rails.application.config.current_tax_year.to_i
+  end
+
+  def self.backtax_years
+    filing_years.without(current_tax_year)
+  end
+
   def self.filing_years
-    [2020, 2019, 2018, 2017]
+    Array((current_tax_year - 3)..current_tax_year).reverse.freeze
   end
 
   def self.service_type_options

@@ -4,9 +4,7 @@
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
-  <% t("views.ctc.questions.file_full_return.help_text").each do |help| %>
-    <p><%= help %></p>
-  <% end %>
+  <p><%= t("views.ctc.questions.file_full_return.help_text", current_tax_year: current_tax_year)%></p>
 
   <ul class="list--bulleted">
     <% t("views.ctc.questions.file_full_return.list").each do |list| %>

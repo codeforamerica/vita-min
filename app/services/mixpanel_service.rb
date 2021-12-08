@@ -342,7 +342,7 @@ class MixpanelService
 
     def age_from_date_of_birth(date_of_birth)
       if date_of_birth.present?
-        Rails.application.config.current_tax_year - date_of_birth.year
+        TaxReturn.current_tax_year - date_of_birth.year
       else
         nil
       end

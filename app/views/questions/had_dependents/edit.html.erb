@@ -1,2 +1,2 @@
-<% content_for :form_question, t("views.questions.had_dependents.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filer_count) %>
-<% content_for :form_help_text, t("views.questions.had_dependents.help_text") %>
+<% content_for :form_question, t("views.questions.had_dependents.title", year: current_intake.most_recent_filing_year, :count => current_intake.filer_count) %>
+<% content_for :form_help_text, t("views.questions.had_dependents.help_text", year: current_intake.most_recent_filing_year) %>

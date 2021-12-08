@@ -11,7 +11,7 @@
     <div class="form-card__stacked-checkboxes spacing-above-0">
       <%= f.cfa_checkbox(:had_rental_income, t("views.questions.triage_eligibility.situations.had_rental_income"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:had_farm_income, t("views.questions.triage_eligibility.situations.had_farm_income"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:income_over_limit, t("views.questions.triage_eligibility.situations.income_over_limit", year: TaxReturn.filing_years.first), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:income_over_limit, t("views.questions.triage_eligibility.situations.income_over_limit", current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:no_eligibility_checks_apply, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>
 

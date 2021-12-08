@@ -148,7 +148,7 @@
                 </div>
               <% end %>
               <% unless @client.intake.drop_off? %>
-                <% tax_return = @client.tax_returns.find_by(year: Rails.application.config.current_tax_year) %>
+                <% tax_return = @client.tax_returns.find_by(year: TaxReturn.current_tax_year) %>
                 <div class="field-display">
                   <span class="form-question"> Outstanding RRC / Claimed RRC: </span>
                   <span class="label-value"><%= "$#{tax_return&.outstanding_recovery_rebate_credit}" if tax_return&.outstanding_recovery_rebate_credit %></span> /
