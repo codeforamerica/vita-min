@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_params: true do
+  include FeatureTestHelpers
+
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
@@ -19,7 +21,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on I18n.t('general.negative')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
     click_on I18n.t('general.negative')
-    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: Rails.application.config.current_tax_year.to_i - 1)
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on "Continue"
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     click_on I18n.t('general.continue')
