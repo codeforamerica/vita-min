@@ -5,12 +5,12 @@
     </h1>
 
     <%= f.cfa_input_field :name, t("general.name") %>
-    <div class="form-group state-select">
-      <label for="state-select" class="form-question"><%= t("general.state") %></label>
-      <div>
-        <%= text_field_tag("states", @coalition.state_routing_targets.map(&:state), id: "state-select", class: "text-input multi-select-state") %>
+      <div class="form-group state-select">
+        <label for="state-select" class="form-question"><%= t("general.state") %></label>
+        <div>
+          <%= text_field_tag("state_routing_targets[states]", @coalition.state_routing_targets.map(&:state_name).to_json.html_safe, id: "state-select", class: "text-input multi-select-state") %>
+        </div>
       </div>
-    </div>
     <div>
       <%= f.submit t("general.save"), class: "button button--primary button--wide" %>
     </div>

@@ -76,5 +76,6 @@ export function initMultiSelectState() {
             maxItems: window.taggableItems.length, // <-- render all available items for the dropdown
             position: 'text', // <-- render the suggestions list next to the text carat
         },
+        originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','), // <-- specifies value format
     });
 }

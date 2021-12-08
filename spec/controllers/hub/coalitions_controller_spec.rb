@@ -11,8 +11,10 @@ RSpec.describe Hub::CoalitionsController, type: :controller do
     let(:params) do
       {
         coalition: {
-          name: "Koala Coalition",
-          states: ["CA", "OH"]
+          name: "Koala Coalition The 2nd",
+        },
+        state_routing_targets: {
+          states: "California,Ohio"
         }
       }
     end
@@ -23,13 +25,10 @@ RSpec.describe Hub::CoalitionsController, type: :controller do
       before { sign_in admin_user }
 
       it "creates the coalition and associated routing targets, and redirects to the organizations page" do
-        expect do
-          post :create, params: params
-        end.to change { Coalition.count }.by 1
+        post :create, params: params
 
-        #expect do
-        #  post :create, params: params
-        #end.to change { StateRoutingTarget.count }.by 2
+        expect(Coalition.last.name).to eq "Koala Coalition The 2nd"
+        expect(StateRoutingTarget.all.pluck(:state)).to match_array ["CA", "OH"]
 
         expect(response).to redirect_to hub_organizations_path
       end
@@ -53,7 +52,9 @@ RSpec.describe Hub::CoalitionsController, type: :controller do
         id: coalition.id,
         coalition: {
           name: "Koala Coalition's New Name",
-          states: ["CA", "OH", "UT"]
+        },
+        state_routing_targets: {
+          states: "Alabama,Ohio,Utah"
         }
       }
     end
@@ -61,18 +62,19 @@ RSpec.describe Hub::CoalitionsController, type: :controller do
     it_behaves_like :a_post_action_for_admins_only, action: :update
 
     context "as an authenticated admin user" do
-      before { sign_in admin_user }
+      before do
+        sign_in admin_user
+        create(:state_routing_target, state: "CA", target: coalition)
+        create(:state_routing_target, state: "OH", target: coalition)
+      end
 
       context "when coalition object is valid" do
         it "updates the coalition with the new attributes, creates the new associated records and reloads the page" do
           post :update, params: params
 
-          #expect do
-          #  post :create, params: params
-          #end.to change { StateRoutingTarget.count }.by 1
-
           coalition.reload
           expect(coalition.name).to eq "Koala Coalition's New Name"
+          expect(coalition.state_routing_targets.pluck(:state_abbreviation)).to match_array ["AL", "OH", "UT"]
 
           expect(flash[:notice]).to eq "Changes saved"
           expect(response).to redirect_to edit_hub_coalition_path(id: coalition.id)
@@ -81,7 +83,7 @@ RSpec.describe Hub::CoalitionsController, type: :controller do
 
       context "when the coalition object is not valid" do
         before do
-          allow_any_instance_of(Coalition).to receive(:update).and_return false
+          allow_any_instance_of(Coalition).to receive(:save).and_return false
         end
 
         it "re-renders edit with an error message" do
