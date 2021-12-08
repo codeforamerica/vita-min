@@ -2,8 +2,8 @@ module Hub
   class OrganizationsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    before_action :load_coalitions
     load_and_authorize_resource :organization, parent: false
+    before_action :load_coalitions
 
     layout "hub"
 
