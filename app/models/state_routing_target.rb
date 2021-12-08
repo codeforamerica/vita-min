@@ -15,7 +15,7 @@
 #
 class StateRoutingTarget < ApplicationRecord
   belongs_to :target, polymorphic: true
-  validate :invalid_state
+  validate :valid_state_abbreviation
 
   def routing_percentage
     (routing_fraction * 100).to_i
@@ -23,7 +23,7 @@ class StateRoutingTarget < ApplicationRecord
 
   private
 
-  def invalid_state
-    errors.add(:state, "Invalid state abbreviation") if States.name_for_key(state).nil?
+  def valid_state_abbreviation
+    errors.add(:state_abbreviation, "Invalid state abbreviation") if States.name_for_key(state_abbreviation).nil?
   end
 end
