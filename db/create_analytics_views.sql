@@ -70,7 +70,7 @@ CREATE VIEW analytics.documents AS
     FROM public.documents;
 
 CREATE VIEW analytics.documents_requests AS
-    SELECT id, created_at, intake_id, updated_at
+    SELECT id, created_at, client_id, updated_at
     FROM public.documents_requests;
 
 CREATE VIEW analytics.efile_errors AS
