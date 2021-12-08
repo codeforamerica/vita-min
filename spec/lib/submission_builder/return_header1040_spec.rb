@@ -11,7 +11,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         spouse_last_name: "Frank",
         primary_signature_pin: "12345",
         spouse_signature_pin: "54321",
-        spouse_filed_2019: "did_not_file",
+        spouse_filed_prior_tax_year: "did_not_file",
         primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
         spouse_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
         primary_prior_year_agi_amount: 10000
@@ -149,23 +149,23 @@ describe SubmissionBuilder::ReturnHeader1040 do
         let(:filing_status) { "married_filing_jointly" }
 
         it "returns $0 for the prior year AGI if the spouse did not file" do
-          submission.intake.update(spouse_filed_2019: "did_not_file")
+          submission.intake.update(spouse_filed_prior_tax_year: "did_not_file")
           xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
           expect(xml.at("SpousePriorYearAGIAmt").text).to eq("0")
         end
 
         it "returns $1 for the prior year AGI if the non-filer tool was used in 2019" do
-          submission.intake.update(spouse_filed_2019: "filed_non_filer_joint")
+          submission.intake.update(spouse_filed_prior_tax_year: "filed_non_filer_joint")
           xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
           expect(xml.at("SpousePriorYearAGIAmt").text).to eq("1")
 
-          submission.intake.update(spouse_filed_2019: "filed_non_filer_separate")
+          submission.intake.update(spouse_filed_prior_tax_year: "filed_non_filer_separate")
           xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
           expect(xml.at("SpousePriorYearAGIAmt").text).to eq("1")
         end
 
         it "returns the user-entered value for prior year AGI if the spouse filed separately" do
-          submission.intake.update(spouse_filed_2019: "filed_full_separate", spouse_prior_year_agi_amount: 123)
+          submission.intake.update(spouse_filed_prior_tax_year: "filed_full_separate", spouse_prior_year_agi_amount: 123)
           xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
           expect(xml.at("SpousePriorYearAGIAmt").text).to eq("123")
         end

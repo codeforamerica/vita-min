@@ -466,8 +466,8 @@ FactoryBot.define do
     referrer { "/" }
     primary_ssn { "123456789" }
     primary_tin_type { "ssn" }
-    spouse_ssn { "912345678" }
-    spouse_tin_type { "itin" }
+    spouse_ssn { "123456789" }
+    spouse_tin_type { "ssn" }
     primary_birth_date { Date.new(1979, 12, 24) }
     spouse_birth_date { Date.new(1983, 11, 23) }
     street_address { "123 Cherry Lane" }

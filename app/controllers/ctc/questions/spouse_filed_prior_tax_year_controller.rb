@@ -1,6 +1,6 @@
 module Ctc
   module Questions
-    class SpouseFiled2019Controller < QuestionsController
+    class SpouseFiledPriorTaxYearController < QuestionsController
       include AuthenticatedCtcClientConcern
 
       layout "intake"

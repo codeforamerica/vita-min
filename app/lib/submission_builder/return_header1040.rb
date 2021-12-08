@@ -212,12 +212,11 @@ module SubmissionBuilder
     private
 
     def spouse_prior_year_agi(intake)
-
-      if intake.spouse_filed_2019_filed_non_filer_separate? || intake.spouse_filed_2019_filed_non_filer_joint?
+      if intake.spouse_filed_prior_tax_year_filed_non_filer_separate? || intake.spouse_filed_prior_tax_year_filed_non_filer_joint?
         1
-      elsif intake.spouse_filed_2019_filed_full_joint? && intake.primary_prior_year_agi_amount.present?
+      elsif intake.spouse_filed_prior_tax_year_filed_full_joint? && intake.primary_prior_year_agi_amount.present?
         intake.primary_prior_year_agi_amount
-      elsif intake.spouse_filed_2019_filed_full_separate? && intake.spouse_prior_year_agi_amount.present?
+      elsif intake.spouse_filed_prior_tax_year_filed_full_separate? && intake.spouse_prior_year_agi_amount.present?
         intake.spouse_prior_year_agi_amount
       else
         0

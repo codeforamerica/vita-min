@@ -1650,15 +1650,6 @@ es:
         account_number:
           account_number: Número de cuenta
           account_number_confirmation: Confirme su número de cuenta
-        agi2019:
-          help_text_html: |
-            Debido a que declaró que presentó una declaración de impuestos completa en 2019, necesitaremos verificar cuál fue su ingreso bruto ajustado (AGI) en 2019.</br>
-            </br>
-            Puede encontrar esta información en la línea 8B de su declaración de impuestos de 2019. Por favor, introduzca la cantidad correcta de su declaración de 2019 o su declaración será rechazada.
-          label: Ingresos ajustados brutos de 2019
-          reveal_content: El IRS nos obliga a hacer esta pregunta para verificar su identidad antes de presentar su declaración de impuestos.
-          reveal_label: "¿Por qué me preguntan esto?"
-          title: "¿Cuáles fueron sus ingresos ajustados brutos de 2019?"
         already_completed:
           content_html: |
             <p>Ha completado todas las preguntas de admisión y estamos revisando y presentando su declaración de impuestos.</p>
@@ -1842,12 +1833,12 @@ es:
           - Tiene una copia en papel de la tarjeta de Seguro Social o de los documentos ITIN de todos los miembros de su familia
           simplified_btn: Continuar con la declaración simplificada
           title: "¡Si obtuvo ingresos, puede obtener beneficios adicionales presentando una declaración completa!"
-        filed2019:
-          did_not_file: No, no presenté una declaración de impuestos de 2019
+        filed_prior_tax_year:
+          did_not_file: No, no presenté una declaración de impuestos de %{prior_tax_year}
           filed_full: Sí, presenté una declaración completa
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
-          help_text: "¿Presentó una declaración de impuestos para el año fiscal 2019? Esta declaración de impuestos se debió presentar originalmente el 15 de abril de 2020."
-          title: "¿Ha presentado la declaración de impuestos de 2019?"
+          help_text: "¿Presentó una declaración de impuestos para el año fiscal %{prior_tax_year}? Esta declaración de impuestos se debió presentar originalmente el 15 de abril de %{current_tax_year}."
+          title: "¿Ha presentado la declaración de impuestos de %{prior_tax_year}?"
         filing_status:
           married_filing_jointly: Casado con declaración conjunta
           reveal_body: Si normalmente declara como jefe de familia o casado que presenta la declaración por separado, seleccione "soltero" a efectos de esta declaración.
@@ -1900,18 +1891,9 @@ es:
           ssn_not_valid_for_employment: Este SSN no es válido para empleo
           suffix: Forma de tratamiento, por ejemplo, Sr., Sra., Srta.
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
-        life_situations2019:
-          item1: El número de personas en su hogar cambió con respecto a su declaración de impuestos de 2019
-          item2: Tiene una cuenta bancaria diferente a la que ha indicado en su declaración de 2019
-          item3: No recibió la totalidad del estímulo que le correspondía
-          p1: 'Si cualquiera de los siguientes puntos es válido, debe continuar con nuestra herramienta simplificada:'
-          p2: Si ninguna de estas afirmaciones es cierta, deberá recibir sus pagos automáticamente. Puede visitar las Preguntas Frecuentes sobre el CTC para obtener más información.
-          title: "¡Asegurémonos de que esta herramienta es adecuada para usted!"
-          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
-          visit_stimulus_faq: Visita preguntas frecuentes sobre el estímulo
-        life_situations2020:
+        life_situations:
           help_text: Por lo general, alguien puede declararlo/a como dependiente si es un miembro de su familia, vive con él/ella la mayor parte del año y paga la mayor parte de sus gastos de manutención.
-          title: "¿Puede alguien declararlo como dependiente en 2020?"
+          title: "¿Puede alguien declararlo como dependiente en %{current_tax_year}?"
         mailing_address:
           reveal_content_html: |
             El IRS requiere que remita una dirección.<br/>
@@ -1930,6 +1912,25 @@ es:
           - No recibió la totalidad del estímulo que le correspondía
           right_for_you: 'Esta es la herramienta adecuada para usted si:'
           title: "¡Bienvenido!"
+        prior_tax_year_agi:
+          help_text_html: |
+            Debido a que declaró que presentó una declaración de impuestos completa en 2019, necesitaremos verificar cuál fue su ingreso bruto ajustado (AGI) en 2019.</br>
+            </br>
+            Puede encontrar esta información en la línea 8B de su declaración de impuestos de 2019. Por favor, introduzca la cantidad correcta de su declaración de 2019 o su declaración será rechazada.
+          label: Ingresos ajustados brutos de 2019
+          reveal_content: El IRS nos obliga a hacer esta pregunta para verificar su identidad antes de presentar su declaración de impuestos.
+          reveal_label: "¿Por qué me preguntan esto?"
+          title: "¿Cuáles fueron sus ingresos ajustados brutos de 2019?"
+        prior_tax_year_life_situations:
+          items:
+          - El número de personas en su hogar cambió con respecto a su declaración de impuestos de %{prior_tax_year}
+          - Tiene una cuenta bancaria diferente a la que ha indicado en su declaración de %{prior_tax_year}
+          - No recibió la totalidad del estímulo que le correspondía
+          p1: 'Si cualquiera de los siguientes puntos es válido, debe continuar con nuestra herramienta simplificada:'
+          p2: Si ninguna de estas afirmaciones es cierta, deberá recibir sus pagos automáticamente. Puede visitar las Preguntas Frecuentes sobre el CTC para obtener más información.
+          title: "¡Asegurémonos de que esta herramienta es adecuada para usted!"
+          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
+          visit_stimulus_faq: Visita preguntas frecuentes sobre el estímulo
         refund_payment:
           check: Envíeme mi pago (más lento)
           direct_deposit: Depósito directo (el más rápido)
@@ -1944,22 +1945,14 @@ es:
         routing_number:
           routing_number: Número de ruta bancaria
           routing_number_confirmation: Confirme su número de ruta bancaria bancaria
-        spouse_agi2019:
-          help_text_html: |
-            Debido a que declaró que su cónyuge presentó una declaración de impuestos en 2019, necesitaremos verificar cuál fue el Ingreso Bruto Ajustado (AGI) de su cónyuge en 2019.<br/>
-            <br/>
-            Puede encontrar esta información en la línea 8B de la declaración de impuestos de 2019 de su cónyuge. Por favor, introduzca la cantidad correcta o su declaración será rechazada."
-          reveal_content: El IRS nos obliga a hacerle esta pregunta para verificar la identidad de su cónyuge antes de presentar su declaración de impuestos.
-          reveal_label: "¿Por qué me preguntan esto?"
-          title: "¿Cuáles fueron los Ingresos Ajustados Brutos de su cónyuge en 2019?"
-        spouse_filed2019:
-          did_not_file: Mi cónyuge no presentó una declaración de impuestos en 2019
+        spouse_filed_prior_tax_year:
+          did_not_file: Mi cónyuge no presentó una declaración de impuestos en %{prior_tax_year}
           filed_full_joint: Mi cónyuge presentó la declaración de impuestos completa conjuntamente conmigo
           filed_full_separate: Mi cónyuge presentó la declaración de impuestos completa por separado de la mía
           filed_non_filer_joint: Mi cónyuge presentó la declaración de impuestos conmigo utilizando la herramienta de no declarantes del IRS
           filed_non_filer_separate: Mi cónyuge presentó la declaración de impuestos completa por separado de la mía utilizando la herramienta de no declarantes
-          help_text: "¿Presentó su cónyuge una declaración de impuestos, después del 1º de enero de 2020 para el año fiscal 2019?"
-          title: "¿Presentó su cónyuge una declaración de impuestos en 2019?"
+          help_text: "¿Presentó su cónyuge una declaración de impuestos, después del 1º de enero de %{current_tax_year} para el año fiscal %{prior_tax_year}?"
+          title: "¿Presentó su cónyuge una declaración de impuestos en %{prior_tax_year}?"
         spouse_info:
           help_text: Favor de asegurarse de introducir el nombre de su cónyuge tal y como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
           remove_button: Quite a esta persona
@@ -1979,6 +1972,14 @@ es:
           spouse_suffix: Forma de tratamiento de su cónyuge
           ssn_required_message: Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href="https://www.getyourrefund.org/">GetYourRefund</a>.
           title: Denos un poco de información sobre su cónyuge
+        spouse_prior_tax_year_agi:
+          help_text_html: |
+            Debido a que declaró que su cónyuge presentó una declaración de impuestos en %{prior_tax_year}, necesitaremos verificar cuál fue el Ingreso Bruto Ajustado (AGI) de su cónyuge en %{prior_tax_year}.<br/>
+            <br/>
+            Puede encontrar esta información en la línea 8B de la declaración de impuestos de %{prior_tax_year} de su cónyuge. Por favor, introduzca la cantidad correcta o su declaración será rechazada."
+          reveal_content: El IRS nos obliga a hacerle esta pregunta para verificar la identidad de su cónyuge antes de presentar su declaración de impuestos.
+          reveal_label: "¿Por qué me preguntan esto?"
+          title: "¿Cuáles fueron los Ingresos Ajustados Brutos de su cónyuge en %{prior_tax_year}?"
         spouse_review:
           help_text: Hemos agregado a la siguiente persona como su cónyuge en su declaración.
           spouse_birthday: 'Fecha de nacimiento: %{dob}'
@@ -3184,7 +3185,7 @@ es:
         help_text: Estas respuestas nos ayudan a determinar para qué créditos fiscales califica.
         options:
           had_disability: Yo tenía una discapacidad permanente
-          was_blind: Yo estaba legalmente ciego 
+          was_blind: Yo estaba legalmente ciego
           was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
           was_on_visa: Yo estaba en los Estados Unidos con una visa
         title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
