@@ -8,8 +8,8 @@
       <div class="form-group state-select">
         <label for="state-select" class="form-question"><%= t("general.state") %></label>
         <div>
-          <%= text_field_tag("state_routing_targets[states]",
-                             @coalition.state_routing_targets.map { |srt| States.name_for_key(srt.state_abbreviation) }.to_json.html_safe,
+          <%= hidden_field_tag("state_routing_targets[states]",
+                             taggable_states(@coalition.state_routing_targets.pluck(:state_abbreviation)),
                              id: "state-select", class: "text-input multi-select-state") %>
         </div>
       </div>
@@ -21,6 +21,6 @@
 
 <% content_for :script do %>
   <script>
-      window.taggableItems = <%= States.html_safe_names %>;
+      window.taggableItems = <%= taggable_states(States.keys) %>;
   </script>
 <% end %>

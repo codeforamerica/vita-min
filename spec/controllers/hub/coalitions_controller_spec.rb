@@ -10,7 +10,7 @@ RSpec.describe Hub::CoalitionsController, type: :controller do
         name: "Koala Coalition's New Name",
       },
       state_routing_targets: {
-        states: "Alabama,Ohio,Utah"
+        states: "AL,OH,UT"
       }
     }
   end
