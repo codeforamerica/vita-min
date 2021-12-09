@@ -6,12 +6,10 @@ module Hub
 
     layout "hub"
 
-    def new
-      @coalition = Coalition.new
-    end
+    def new; end
 
     def create
-      @form = CoalitionForm.new(@coalition, coalition_params.merge(state_routing_target_params))
+      @form = CoalitionForm.new(coalition_params.merge(state_routing_target_params).merge({ coalition: @coalition }))
       if @form.save
         redirect_to hub_organizations_path
       else
@@ -22,7 +20,7 @@ module Hub
     def edit; end
 
     def update
-      @form = CoalitionForm.new(@coalition, coalition_params.merge(state_routing_target_params))
+      @form = CoalitionForm.new(coalition_params.merge(state_routing_target_params).merge({ coalition: @coalition }))
       if @form.save
         flash[:notice] = I18n.t("general.changes_saved")
         redirect_to edit_hub_coalition_path(id: @coalition.id)

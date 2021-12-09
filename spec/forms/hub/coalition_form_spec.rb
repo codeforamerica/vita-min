@@ -2,11 +2,11 @@ require "rails_helper"
 
 RSpec.describe Hub::CoalitionForm do
   describe "#save" do
-    subject { described_class.new(coalition, params) }
+    subject { described_class.new(params) }
 
     context "saving name" do
       let(:coalition) { Coalition.new }
-      let(:params) { { name: "A New Coalition", states: "" } }
+      let(:params) { { name: "A New Coalition", states: "", coalition: coalition} }
 
       it "saves the coalition with the new name" do
         subject.save
@@ -27,7 +27,7 @@ RSpec.describe Hub::CoalitionForm do
 
     context "adding states" do
       let(:coalition) { create(:coalition, name: "A New Coalition") }
-      let(:params) { { name: "A New New Name", states: "Ohio,California" } }
+      let(:params) { { name: "A New New Name", states: "Ohio,California", coalition: coalition} }
 
       before do
         create(:state_routing_target, state_abbreviation: "OH", target: coalition)
@@ -38,23 +38,11 @@ RSpec.describe Hub::CoalitionForm do
         expect(coalition.reload.state_routing_targets.pluck(:state_abbreviation)).to match_array ["OH", "CA"]
         expect(coalition.name).to eq "A New New Name"
       end
-
-      context "when something goes wrong creating StateRoutingTargets" do
-        before do
-          allow(StateRoutingTarget).to receive(:create).and_return false
-        end
-
-        it "rolls back the transaction and does not save the coalition" do
-          subject.save
-          expect(coalition.reload.state_routing_targets.pluck(:state_abbreviation)).to match_array ["OH"]
-          expect(coalition.name).to eq "A New Coalition"
-        end
-      end
     end
 
     context "removing states" do
       let(:coalition) { create(:coalition, name: "A New Coalition") }
-      let(:params) { { name: "A New Coalition", states: "Utah,California" } }
+      let(:params) { { name: "A New Coalition", states: "Utah,California", coalition: coalition } }
 
       before do
         create(:state_routing_target, state_abbreviation: "OH", target: coalition)

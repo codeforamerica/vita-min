@@ -14,5 +14,5 @@
 class Coalition < ApplicationRecord
   validates :name, uniqueness: true
   has_many :organizations, class_name: "Organization", foreign_key: "coalition_id"
-  has_many :state_routing_targets, class_name: "StateRoutingTarget", foreign_key: "target_id"
+  has_many :state_routing_targets, class_name: "StateRoutingTarget", as: :target, dependent: :destroy
 end

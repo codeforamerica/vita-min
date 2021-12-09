@@ -1,5 +1,5 @@
 <div>
-  <%= form_with model: @coalition, url: url, method: http_method, local: true, builder: VitaMinFormBuilder, id: "coalition-form" do |f| %>
+  <%= form_with model: @coalition, url: url, method: local_assigns[:http_method], local: true, builder: VitaMinFormBuilder, id: "coalition-form" do |f| %>
     <h1 class="form-card__title">
       <%= @title %>
     </h1>
@@ -8,7 +8,9 @@
       <div class="form-group state-select">
         <label for="state-select" class="form-question"><%= t("general.state") %></label>
         <div>
-          <%= text_field_tag("state_routing_targets[states]", @coalition.state_routing_targets.map(&:state_name).to_json.html_safe, id: "state-select", class: "text-input multi-select-state") %>
+          <%= text_field_tag("state_routing_targets[states]",
+                             @coalition.state_routing_targets.map { |srt| States.name_for_key(srt.state_abbreviation) }.to_json.html_safe,
+                             id: "state-select", class: "text-input multi-select-state") %>
         </div>
       </div>
     <div>

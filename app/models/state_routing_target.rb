@@ -15,16 +15,12 @@
 #
 class StateRoutingTarget < ApplicationRecord
   belongs_to :target, polymorphic: true
-  alias_attribute :state, :state_abbreviation
 
+  validates :state_abbreviation, uniqueness: { scope: [:target] }
   validate :valid_state_abbreviation
 
   def routing_percentage
     (routing_fraction * 100).to_i
-  end
-
-  def state_name
-    States.name_for_key(state)
   end
 
   private

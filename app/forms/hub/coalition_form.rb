@@ -1,29 +1,18 @@
 module Hub
   class CoalitionForm < Form
+    include ActiveModel::Model
 
-    def initialize(coalition, form_params)
-      @coalition = coalition
-      @params = form_params
-    end
+    attr_accessor :coalition, :name, :states
 
     def save
-      ActiveRecord::Base.transaction(joinable: false, requires_new: true) do
-        @coalition.name = @params[:name]
-        return false unless @coalition.save
+      coalition.name = name
+      form_states = states.split(",").map { |abbr| States.key_for_name(abbr) } # states are comma delimited in a string, i.e. "Ohio,California"
+      existing_states = coalition.state_routing_targets.pluck(:state_abbreviation)
 
-        existing_states = @coalition.state_routing_targets.map(&:state_name)
-        form_states = @params[:states].split(",") # states are comma delimited in a string, i.e. "Ohio,California"
-
-        new_states = form_states - existing_states
-        new_states.each do |state|
-          raise ActiveRecord::Rollback unless StateRoutingTarget.create(state_abbreviation: States.key_for_name(state), target: @coalition)
-        end
-
-        states_to_delete = existing_states - form_states
-        state_abbrs = states_to_delete.map { |state| States.key_for_name(state) }
-        StateRoutingTarget.destroy(@coalition.state_routing_targets.where(state_abbreviation: state_abbrs).pluck(:id))
-      end
-      true
+      new_states = form_states - existing_states
+      new_states.each { |state| coalition.state_routing_targets.build(state_abbreviation: state, target: @coalition) }
+      coalition.state_routing_targets = coalition.state_routing_targets.select { |t| form_states.include?(t.state_abbreviation) }
+      coalition.save
     end
   end
 end
