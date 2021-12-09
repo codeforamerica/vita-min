@@ -721,6 +721,11 @@ es:
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
+    coalitions:
+      edit:
+        title: Editar Coalición
+      new:
+        title: Crear Coalición
     ctc_clients:
       edit:
         title: Edit CTC Client Profile

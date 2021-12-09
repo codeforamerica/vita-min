@@ -721,6 +721,11 @@ en:
           status: updated status
           success: 'Success: Action taken! %{action_list}.'
           text_message: sent text message
+    coalitions:
+      edit:
+        title: Edit Coalition
+      new:
+        title: Create Coalition
     ctc_clients:
       edit:
         title: Edit CTC Client Profile
