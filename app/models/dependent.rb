@@ -45,6 +45,10 @@
 #  index_dependents_on_creation_token  (creation_token)
 #  index_dependents_on_intake_id       (intake_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (intake_id => intakes.id)
+#
 
 class Dependent < ApplicationRecord
   include SoftDeletable
