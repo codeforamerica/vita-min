@@ -77,6 +77,10 @@ CREATE VIEW analytics.efile_errors AS
     SELECT id, auto_cancel, auto_wait, category, code, created_at, expose, message, severity, source, updated_at
     FROM public.efile_errors;
 
+CREATE VIEW analytics.efile_security_informations AS
+    SELECT id, browser_language, client_id, client_system_time, created_at, device_id, efile_submission_id, ip_address, platform, recaptcha_score, timezone, timezone_offset, updated_at, user_agent
+    FROM public.efile_security_informations;
+
 CREATE VIEW analytics.efile_submission_transition_errors AS
     SELECT id, created_at, efile_error_id, efile_submission_id, efile_submission_transition_id, updated_at
     FROM public.efile_submission_transition_errors;
