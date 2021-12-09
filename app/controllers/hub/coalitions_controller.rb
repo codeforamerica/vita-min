@@ -9,7 +9,7 @@ module Hub
     def new; end
 
     def create
-      @form = CoalitionForm.new(coalition: @coalition, states: state_routing_target_params[:states])
+      @form = CoalitionForm.new(@coalition, states: state_routing_target_params[:states], name: coalition_params[:name])
       if @form.save
         redirect_to hub_organizations_path
       else
@@ -20,7 +20,7 @@ module Hub
     def edit; end
 
     def update
-      @form = CoalitionForm.new(coalition: @coalition, states: state_routing_target_params[:states])
+      @form = CoalitionForm.new(@coalition, states: state_routing_target_params[:states], name: coalition_params[:name])
       if @form.save
         flash[:notice] = I18n.t("general.changes_saved")
         redirect_to edit_hub_coalition_path(id: @coalition.id)
@@ -33,7 +33,7 @@ module Hub
     private
 
     def coalition_params
-      params.require(:coalition).permit(:name, source_parameters_attributes: [:_destroy, :id, :code])
+      params.require(:coalition).permit(:name)
     end
 
     def state_routing_target_params

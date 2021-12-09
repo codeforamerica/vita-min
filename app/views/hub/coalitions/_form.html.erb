@@ -8,9 +8,9 @@
       <div class="form-group state-select">
         <label for="state-select" class="form-question"><%= t("general.state") %></label>
         <div>
-          <%= text_field_tag("state_routing_targets[states]",
+          <%= hidden_field_tag("state_routing_targets[states]",
                              taggable_states(@coalition.state_routing_targets.pluck(:state_abbreviation)),
-                             id: "state-select", class: "text-input multi-select-state hidden") %>
+                             id: "state-select", class: "text-input multi-select-state") %>
         </div>
       </div>
     <div>
