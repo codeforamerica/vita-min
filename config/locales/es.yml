@@ -722,9 +722,9 @@ es:
           text_message: envió mensjaje de texto
     coalitions:
       edit:
-        title: ''
+        title: Editar Coalición
       new:
-        title: ''
+        title: Crear Coalición
     ctc_clients:
       edit:
         title: Edit CTC Client Profile
