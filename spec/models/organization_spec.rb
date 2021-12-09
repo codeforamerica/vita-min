@@ -74,7 +74,7 @@ describe Organization do
       expect(organization.team_members).to match_array([site1_team_member, site2_team_member])
     end
   end
-  
+
   describe "#at_capacity?" do
     let(:out_of_range_statuses) { TaxReturnStatus::STATUSES.keys - TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
     let(:in_range_statuses) { TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
@@ -184,7 +184,7 @@ describe Organization do
   end
 
   describe "validations" do
-    let!(:valid_params) {
+    let(:valid_params) {
       {
         name: "Coala Org"
       }
@@ -210,6 +210,27 @@ describe Organization do
       create(:organization, coalition: coalition, name: "Oregano Org")
       new_org = build(:organization, coalition: coalition, name: "Oregano Org")
       expect(new_org).not_to be_valid
+    end
+
+    context "when it is part of a coalition" do
+      let(:subject) { described_class.new(valid_params) }
+      before do
+        create(:coalition, organizations: [subject])
+      end
+
+      it "can be valid" do
+        expect(subject).to be_valid
+      end
+
+      context "when it also has state routing targets" do
+        before do
+          create(:state_routing_target, target: subject)
+        end
+
+        it "is not valid" do
+          expect(subject).not_to be_valid
+        end
+      end
     end
   end
 
