@@ -9,4 +9,8 @@ module TaggingHelper
     end
     taggable_vita_partners.to_json.to_s.html_safe
   end
+
+  def taggable_states(state_abbreviations)
+    state_abbreviations.map { |abbreviation| { value: abbreviation, name: States.name_for_key(abbreviation)} }.to_json.html_safe
+  end
 end

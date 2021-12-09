@@ -6,7 +6,7 @@ module Hub
 
     def save
       coalition.name = name
-      form_states = states.split(",").map { |abbr| States.key_for_name(abbr) } # states are comma delimited in a string, i.e. "Ohio,California"
+      form_states = states.split(",")
       existing_states = coalition.state_routing_targets.pluck(:state_abbreviation)
 
       new_states = form_states - existing_states
