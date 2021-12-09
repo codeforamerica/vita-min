@@ -64,7 +64,7 @@ class Organization < VitaPartner
 
   def no_state_routing_targets_if_in_coalition
     if coalition.present? && state_routing_targets.present?
-      errors.add(:coalition, "Eek")
+      errors.add(:coalition, "Since the organization is has states configured, it cannot also be part of a coalition.")
     end
   end
 end

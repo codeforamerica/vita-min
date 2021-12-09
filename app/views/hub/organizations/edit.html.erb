@@ -85,3 +85,9 @@
     </div>
   </section>
 <% end %>
+
+<% content_for :script do %>
+  <script>
+      window.taggableItems = <%= States.html_safe_names %>;
+  </script>
+<% end %>

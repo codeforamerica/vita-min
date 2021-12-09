@@ -1,5 +1,12 @@
 require "rails_helper"
 
+# TODO: Move somewhere else
+def fill_in_tagify(element, value)
+  find(element).click
+  find("#{element} .tagify__input").send_keys value
+  find("#{element} .tagify__input").send_keys :enter
+end
+
 RSpec.describe "create VITA organization hierarchy", :js do
   context "as an admin user" do
     let(:admin_user) { create :admin_user }
@@ -8,7 +15,7 @@ RSpec.describe "create VITA organization hierarchy", :js do
     let!(:other_coalition) { create :coalition, name: "Coati Coalition" } # https://en.wikipedia.org/wiki/Coati
     let!(:organization) { create :organization, name: "Orangutan Organization", coalition: coalition }
 
-    scenario "create a new organization" do
+    scenario "create a new organization in a coalition" do
       visit hub_tools_path
       click_on "Orgs"
 
@@ -16,7 +23,7 @@ RSpec.describe "create VITA organization hierarchy", :js do
       expect(page).to have_selector("h2", text: "Koala Koalition")
       expect(page).to have_selector("li", text: "Orangutan Organization")
 
-      # create a new organization
+      # create a new organization in a coalition
       click_on "New Organization"
       fill_in "Name", with: "Origami Organization"
       select "Koala Koalition", from: "Coalition"
@@ -90,6 +97,22 @@ RSpec.describe "create VITA organization hierarchy", :js do
       click_on "All organizations"
 
       expect(page).to have_text("Oregano Org (1 site)")
+    end
+
+    scenario "create a new independent organization" do
+      visit hub_tools_path
+      click_on "Orgs"
+
+      click_on "New Organization"
+      fill_in "Name", with: "Independent Wombat Organization"
+      check "This organization is not part of a coalition"
+      fill_in_tagify ".state-select", "California"
+      click_on "Save"
+
+      # Validate that the state saved
+      click_on "Independent Wombat Organization"
+      expect(page).to have_text("California")
+      expect(page).not_to have_text("Ohio")
     end
   end
 end
