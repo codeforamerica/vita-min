@@ -10,7 +10,7 @@
         <div>
           <%= text_field_tag("state_routing_targets[states]",
                              taggable_states(@coalition.state_routing_targets.pluck(:state_abbreviation)),
-                             id: "state-select", class: "text-input multi-select-state") %>
+                             id: "state-select", class: "text-input multi-select-state hidden") %>
         </div>
       </div>
     <div>

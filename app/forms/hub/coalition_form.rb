@@ -2,10 +2,9 @@ module Hub
   class CoalitionForm < Form
     include ActiveModel::Model
 
-    attr_accessor :coalition, :name, :states
+    attr_accessor :coalition, :states
 
     def save
-      coalition.name = name
       form_states = states.split(",")
       existing_states = coalition.state_routing_targets.pluck(:state_abbreviation)
 
