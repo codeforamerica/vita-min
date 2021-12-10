@@ -62,7 +62,6 @@ export function initMultiSelectVitaPartner() {
 }
 
 export function initMultiSelectState() {
-    const stateSelectWrapper = document.querySelector('.state-select');
     const input = document.querySelector('.multi-select-state');
     new Tagify(input, {
         tagTextProp: 'name',  // <-- defines which attr is used as the tag display value
@@ -82,15 +81,15 @@ export function initMultiSelectState() {
         originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','), // <-- specifies value format
     });
 
+    // For the organizations edit page, hide/show coalition input field & state input field.
     const stateSelectVisibilityToggle = document.querySelector('.toggle-multi-select-state-visibility');
+    const stateSelectWrapper = document.querySelector('.state-select');
+    const coalitionSelectWrapper = document.querySelector('.coalition-select-wrapper');
     if (stateSelectVisibilityToggle !== null) {
         stateSelectVisibilityToggle.addEventListener("click", (event) => {
+            // Hide/show states, clearing the value if needed.
             stateSelectWrapper.classList.toggle("hidden");
-            // If we just un-hid it, clear the coalition value
-            if (!stateSelectWrapper.classList.contains("hidden")) {
-                debugger;
-            }
-            event.stopPropagation();
+            coalitionSelectWrapper.classList.toggle("hidden");
         })
     }
 }

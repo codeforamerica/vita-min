@@ -1,6 +1,8 @@
 <%= f.cfa_input_field :name, t("general.name") %>
 <%= f.cfa_checkbox :coalition_id_nil, "This organization is not part of a coalition", options: { class: 'toggle-multi-select-state-visibility' } %>
-<%= f.cfa_select :coalition_id, t("general.coalition"), @coalitions.map { |c| [c.name, c.id] }, include_blank: true %>
+<div class="coalition-select-wrapper">
+  <%= f.cfa_select :coalition_id, t("general.coalition"), @coalitions.map { |c| [c.name, c.id] }, include_blank: true %>
+</div>
 <div class="form-group state-select hidden">
   <label for="state-select" class="form-question"><%= t("general.state") %></label>
   <div>
