@@ -1,12 +1,12 @@
 <%= f.cfa_input_field :name, t("general.name") %>
-<%= f.cfa_checkbox :coalition_id_nil, "This organization is not part of a coalition", options: {class: 'toggle-multi-select-state-visibility'} %>
+<%= f.cfa_checkbox :coalition_id_nil, "This organization is not part of a coalition", options: { class: 'toggle-multi-select-state-visibility' } %>
 <%= f.cfa_select :coalition_id, t("general.coalition"), @coalitions.map { |c| [c.name, c.id] }, include_blank: true %>
 <div class="form-group state-select hidden">
   <label for="state-select" class="form-question"><%= t("general.state") %></label>
   <div>
-    <%= text_field_tag("state_routing_targets[states]",
-        @organization.state_routing_targets.map { |srt| States.name_for_key(srt.state_abbreviation) }.to_json.html_safe,
-        id: "state-select", class: "text-input multi-select-state") %>
+    <%= hidden_field_tag("state_routing_targets[states]",
+                         taggable_states(@organization.state_routing_targets),
+                         id: "state-select", class: "text-input multi-select-state") %>
   </div>
 </div>
 <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>

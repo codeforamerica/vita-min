@@ -15,6 +15,6 @@
 
 <% content_for :script do %>
   <script>
-      window.taggableItems = <%= States.html_safe_names %>;
+      window.taggableItems = <%= taggable_states(States.keys) %>;
   </script>
 <% end %>
