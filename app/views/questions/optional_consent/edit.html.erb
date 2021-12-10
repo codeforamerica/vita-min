@@ -14,9 +14,11 @@
     <%= f.simplified_cfa_checkbox(:relational_efin_consented, t("views.questions.optional_consent.relational_efin_html", relational_efin_url: relational_efin_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
     <%= f.simplified_cfa_checkbox(:global_carryforward_consented, t("views.questions.optional_consent.global_carryforward_html", global_carryforward_url: global_carryforward_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
 
-    <%= render("components/molecules/reveal", title: t("views.questions.optional_consent.legal_details_title")) do %>
-      <%= t("views.questions.optional_consent.legal_details_html") %>
-    <% end %>
+    <div class="reveal-shrink-wrapper">
+      <%= render("components/molecules/reveal", title: t("views.questions.optional_consent.legal_details_title")) do %>
+        <%= t("views.questions.optional_consent.legal_details_html") %>
+      <% end %>
+    </div>
 
     <button class="button button--primary button--wide spacing-above-60" type="submit">
       <%= t("views.questions.optional_consent.cta") %>

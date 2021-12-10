@@ -6,6 +6,15 @@
   padding: .2em .5em .3em .7em;
 }
 
+// this is used in places where we want the reveal to match the width of the form inputs above it
+.reveal-shrink-wrapper {
+  .reveal {
+    @media screen and (min-width: $mobile-up) {
+      width: 475px;
+    }
+  }
+}
+
 .reveal > p:first-of-type {
   margin-bottom: 0;
 }
