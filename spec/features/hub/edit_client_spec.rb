@@ -217,8 +217,8 @@ RSpec.describe "a user editing a clients intake fields" do
         click_on "Edit"
       end
 
-      expect(find_field("hub_update_client_form[spouse_ssn]").value).to eq "142862222"
-      expect(find_field("hub_update_client_form[primary_ssn]").value).to eq "123456789"
+      expect(find_field("hub_update_client_form[spouse_ssn]").value).to eq "142-86-2222"
+      expect(find_field("hub_update_client_form[primary_ssn]").value).to eq "123-45-6789"
     end
 
     scenario "I can delete a client", js: true do

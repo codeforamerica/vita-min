@@ -10,14 +10,14 @@ RSpec.feature "Toggle ssn display" do
     scenario "client without ssn/itin" do
       visit hub_client_path(id: client_no_ssn)
       within(".primary-ssn") do
-        expect(page).to have_text "Last 4 of SSN/ITIN"
+        expect(page).to have_text "SSN/ITIN"
         expect(page).not_to have_text "View"
 
         expect(page).to have_text "N/A"
       end
 
       within(".spouse-ssn") do
-        expect(page).to have_text "Last 4 of SSN/ITIN"
+        expect(page).to have_text "SSN/ITIN"
         expect(page).not_to have_text "View"
 
         expect(page).to have_text "N/A"
