@@ -94,6 +94,16 @@ RSpec.describe Hub::OrganizationForm do
           expect(organization.coalition).to be_nil
         end
       end
+
+      context "when states are submitted" do
+        let(:extra_params) { { is_independent: true, states: "OH,NY" } }
+
+        it "creates state routing targets" do
+          subject.save
+          expect(organization.state_routing_targets.pluck(:state_abbreviation)).to match_array %w[OH NY]
+
+        end
+      end
     end
 
     context "when is_independent is false" do
