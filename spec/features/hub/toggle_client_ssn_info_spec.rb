@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Toggle ssn display" do
   context "As an authenticated user" do
     let(:user) { create :admin_user}
-    let(:client) { create(:client, intake: create(:intake, filing_joint: "yes", primary_last_four_ssn: "1234", spouse_last_four_ssn: "4444" )) }
+    let(:client) { create(:client, intake: create(:intake, filing_joint: "yes", primary_ssn: "123456789", spouse_ssn: "444411222" )) }
     let(:client_no_ssn) { create(:client, intake: create(:intake, filing_joint: "yes")) }
     before { login_as user }
 
