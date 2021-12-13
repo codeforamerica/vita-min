@@ -2,16 +2,17 @@ module Hub
   class OrganizationsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    load_and_authorize_resource :organization, parent: false
+
     before_action :load_coalitions
+    load_and_authorize_resource :organization, parent: false
 
     layout "hub"
 
-    def new
-    end
+    def new; end
 
     def create
-      if @organization.save
+      @organization_form = OrganizationForm.new(@organization, organization_params)
+      if @organization_form.save
         redirect_to hub_organizations_path
       else
         render :new
@@ -38,10 +39,12 @@ module Hub
     def edit
       @routing_form = ZipCodeRoutingForm.new(@organization)
       @source_params_form = SourceParamsForm.new(@organization)
+      @organization_form = OrganizationForm.new(@organization)
     end
 
     def update
-      if @organization.update(organization_params)
+      @organization_form = OrganizationForm.new(@organization, organization_params)
+      if @organization_form.save
         flash[:notice] = I18n.t("general.changes_saved")
         redirect_to edit_hub_organization_path(id: @organization.id)
       else
