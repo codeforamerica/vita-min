@@ -86,8 +86,11 @@ export function initMultiSelectState() {
     const stateSelectWrapper = document.querySelector('.state-select');
     const coalitionSelectWrapper = document.querySelector('.coalition-select-wrapper');
     if (stateSelectVisibilityToggle !== null) {
+        if (stateSelectVisibilityToggle.checked) {
+            stateSelectWrapper.classList.toggle("hidden");
+            coalitionSelectWrapper.classList.toggle("hidden");
+        }
         stateSelectVisibilityToggle.addEventListener("click", (event) => {
-            // Hide/show states, clearing the value if needed.
             stateSelectWrapper.classList.toggle("hidden");
             coalitionSelectWrapper.classList.toggle("hidden");
         })

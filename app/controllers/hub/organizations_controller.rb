@@ -11,7 +11,7 @@ module Hub
     def new; end
 
     def create
-      @organization_form = OrganizationForm.new(@organization, organization_params)
+      @organization_form = OrganizationForm.new(@organization, organization_form_params)
       if @organization_form.save
         redirect_to hub_organizations_path
       else
@@ -43,7 +43,7 @@ module Hub
     end
 
     def update
-      @organization_form = OrganizationForm.new(@organization, organization_params)
+      @organization_form = OrganizationForm.new(@organization, organization_form_params)
       if @organization_form.save
         flash[:notice] = I18n.t("general.changes_saved")
         redirect_to edit_hub_organization_path(id: @organization.id)
@@ -97,8 +97,8 @@ module Hub
       params.require(:role_type)
     end
 
-    def organization_params
-      params.require(:organization).permit(:name, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code])
+    def organization_form_params
+      params.require(:hub_organization_form).permit(:name, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code])
     end
 
     def load_coalitions
