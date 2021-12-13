@@ -39,7 +39,7 @@ module Hub
     def edit
       @routing_form = ZipCodeRoutingForm.new(@organization)
       @source_params_form = SourceParamsForm.new(@organization)
-      @organization_form = OrganizationForm.new(@organization)
+      @organization_form = OrganizationForm.from_record(@organization)
     end
 
     def update

@@ -15,8 +15,17 @@ module Hub
     end
 
     def save
+      if @is_independent
+        @coalition_id = nil
+      end
+
       organization.assign_attributes(attributes_for(:organization))
       organization.save
+    end
+
+    def self.from_record(record)
+      attribute_keys = Attributes.new(attribute_names).to_sym
+      new(record, existing_attributes(record).slice(*attribute_keys))
     end
 
     private
