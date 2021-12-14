@@ -869,14 +869,13 @@ RSpec.describe ApplicationController do
       end
 
       context "when there is no source param and the referrer is anything else" do
-        it "sets the source to nil" do
+        before do
           request.headers[:referer] = "bing.com/something"
         end
 
-        it "sets the source to organic_google" do
+        it "sets the source to nil" do
           get :index, params: { source: nil, utm_source: nil, s: nil }
           expect(session[:source]).to eq nil
-        end
         end
       end
     end
