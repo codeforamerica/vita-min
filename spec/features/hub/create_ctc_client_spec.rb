@@ -144,7 +144,7 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "Terry Taxseason"
 
       within ".tax-return-list" do
-        expect(page).to have_text "2020"
+        expect(page).to have_text "#{TaxReturn.current_tax_year}"
       end
 
       within ".primary-ssn" do

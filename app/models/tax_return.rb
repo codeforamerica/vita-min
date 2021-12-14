@@ -80,9 +80,9 @@ class TaxReturn < ApplicationRecord
   end
 
   def qualifying_dependents
-    raise StandardError, "Qualifying dependent logic is only valid for 2020.  Define new rules for #{year}." unless year == 2020
+    raise StandardError, "Qualifying dependent logic does not exist for #{year}  Define new rules for #{year}." unless [2020, 2021].include?(year)
 
-    intake.dependents.filter { |d| d.yr_2020_qualifying_child? || d.yr_2020_qualifying_relative? }
+    intake.dependents.filter { |d| d.send("yr_#{year}_qualifying_child?") || d.send("yr_#{year}_qualifying_relative?") }
   end
 
   def filing_status_code

@@ -66,7 +66,7 @@ FactoryBot.define do
     end
 
     trait :ctc do
-      year { 2020 }
+      year { 2021 }
       client { create(:ctc_intake, :with_contact_info, :with_address, :with_dependents, :with_ssns, :with_bank_account, :primary_consented, dependent_count: 3).client }
       is_ctc { true }
       internal_efile { true }

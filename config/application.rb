@@ -36,6 +36,6 @@ module VitaMin
     # the framework and any gems in your application.
     #
     config.middleware.use Middleware::CleanupMimeTypeHeaders
-    config.current_tax_year = 2020
+    config.current_tax_year = 2021
   end
 end

@@ -123,6 +123,7 @@
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
+#  needs_help_2021                                      :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
@@ -473,7 +474,7 @@ class Intake < ApplicationRecord
   end
 
   def needs_help_with_backtaxes?
-    needs_help_2019_yes? || needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?
+    TaxReturn.backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
   end
 
   def formatted_contact_preferences

@@ -44,7 +44,7 @@ RSpec.describe Hub::CreateClientForm do
         needs_help_2020: "yes",
         needs_help_2019: "yes",
         needs_help_2018: "yes",
-        needs_help_2017: "no",
+        needs_help_2021: "yes",
         state_of_residence: "CA",
         service_type: "drop_off",
         signature_method: "online",
@@ -148,7 +148,7 @@ RSpec.describe Hub::CreateClientForm do
         expect(intake.needs_help_2020).to eq "yes"
         expect(intake.needs_help_2019).to eq "yes"
         expect(intake.needs_help_2018).to eq "yes"
-        expect(intake.needs_help_2017).to eq "no"
+        expect(intake.needs_help_2021).to eq "yes"
         expect(tax_returns.map(&:year)).to match_array [2020, 2019, 2018]
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
@@ -321,10 +321,10 @@ RSpec.describe Hub::CreateClientForm do
 
       context "when no tax return years are selected for prep" do
         before do
-          params[:needs_help_2017] = "no"
           params[:needs_help_2018] = "no"
           params[:needs_help_2019] = "no"
           params[:needs_help_2020] = "no"
+          params[:needs_help_2021] = "no"
         end
 
         it "is not valid" do

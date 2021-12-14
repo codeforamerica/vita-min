@@ -373,7 +373,7 @@ describe EfileSubmission do
     it "generates and stores the 1040 PDF" do
       expect { submission.generate_form_1040_pdf }.to change(Document, :count).by(1)
       doc = submission.client.documents.last
-      expect(doc.display_name).to eq("IRS 1040 - TY 2020 - #{submission.irs_submission_id}.pdf")
+      expect(doc.display_name).to eq("IRS 1040 - TY #{TaxReturn.current_tax_year} - #{submission.irs_submission_id}.pdf")
       expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
       expect(doc.tax_return).to eq(submission.tax_return)
       expect(doc.upload.blob.download).to eq(File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "rb").read)
