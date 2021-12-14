@@ -79,6 +79,10 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     let!(:second_organization) { create :organization, coalition: coalition }
     let!(:site) { create :site, parent_organization: organization }
 
+    before do
+      create :state_routing_target, target: coalition, state_abbreviation: "AL"
+    end
+
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
 
     context "as an authenticated user" do
@@ -91,8 +95,9 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         it "shows my coalition and child organizations but no link to add or edit orgs" do
           get :index
           expect(response).to be_ok
-          expect(assigns(:organizations_by_coalition)).to match([[coalition, match_array([organization, second_organization])]])
+          expect(assigns(:presenter)).to be_an_instance_of Hub::OrganizationsPresenter
           expect(response.body).to include hub_organization_path(id: organization)
+          expect(response.body).not_to include new_hub_coalition_path
           expect(response.body).not_to include new_hub_organization_path
           expect(response.body).not_to include edit_hub_organization_path(id: organization)
         end
@@ -102,22 +107,14 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         let(:user) { create :admin_user }
 
         render_views
-        it "shows all coalitions and organizations, with a link to add a new org" do
+        it "shows links for organization and coalition, and initializes the presenter" do
           get :index
-          expected = [
-            [coalition, [organization, second_organization]],
-            [external_coalition, [external_organization]],
-            [nil, [VitaPartner.client_support_org, VitaPartner.ctc_org]]
-          ]
+
           expect(response).to be_ok
-          actual = assigns(:organizations_by_coalition)
-          deep_sort = -> (nested) do
-            nested.each { |item| item[1].sort! }
-          end
-          deep_sort.call(expected)
-          deep_sort.call(actual)
-          expect(actual).to match_array(expected)
+          expect(assigns(:presenter)).to be_an_instance_of Hub::OrganizationsPresenter
           expect(response.body).to include new_hub_organization_path
+          expect(response.body).to include new_hub_coalition_path
+          expect(response.body).to include edit_hub_organization_path(id: organization)
         end
       end
     end

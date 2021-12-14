@@ -1,0 +1,13 @@
+<li class="grid-flex column-column">
+  <div class="grid-flex space-between spacing-above-5">
+    <%= link_to "#{coalition.name} (#{pluralize(@presenter.organizations_in_coalition(coalition).length, "organization")})",
+                can?(:edit, coalition) ? edit_hub_coalition_path(id: coalition) : hub_coalition_path(id: coalition) %>
+    <div><%= display_capacity(@presenter.coalition_capacity(coalition)) %></div>
+  </div>
+  <ul class="item-15l">
+    <% @presenter.organizations_in_coalition(coalition).each do |organization| %>
+      <%= render "organization", organization: organization, presenter: @presenter, from_coalition: true %>
+    <% end %>
+  </ul>
+</li>
+

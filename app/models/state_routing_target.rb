@@ -23,6 +23,10 @@ class StateRoutingTarget < ApplicationRecord
     (routing_fraction * 100).to_i
   end
 
+  def full_state_name
+    States.name_for_key(state_abbreviation)
+  end
+
   private
 
   def valid_state_abbreviation
