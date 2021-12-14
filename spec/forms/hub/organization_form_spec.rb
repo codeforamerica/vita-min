@@ -107,7 +107,7 @@ RSpec.describe Hub::OrganizationForm do
 
     context "when is_independent is false" do
       context "when a coalition is submitted" do
-        let(:extra_params) { { is_independent: false, coalition_id: create(:coalition, name: "Koala Koalition").id } }
+        let(:extra_params) { { is_independent: false, states: "OH,CA", coalition_id: create(:coalition, name: "Koala Koalition").id } }
 
         it "updates the organization's coalition" do
           subject.save
@@ -115,13 +115,8 @@ RSpec.describe Hub::OrganizationForm do
         end
 
         it "removes any existing states" do
-          
-        end
-      end
-
-      context "when states are submitted" do
-        it "removes them all" do
-
+          subject.save
+          expect(UpdateStateRoutingTargetsService).to have_received(:update).with(coalition, [])
         end
       end
     end
