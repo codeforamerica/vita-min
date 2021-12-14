@@ -96,12 +96,11 @@ RSpec.describe Hub::OrganizationForm do
       end
 
       context "when states are submitted" do
-        let(:extra_params) { { is_independent: true, states: "OH,NY" } }
+        let(:extra_params) { { is_independent: true, states: "OH,CA" } }
 
-        it "creates state routing targets" do
+        it "updates states" do
           subject.save
-          expect(organization.state_routing_targets.pluck(:state_abbreviation)).to match_array %w[OH NY]
-
+          expect(UpdateStateRoutingTargetsService).to have_received(:update).with(coalition, %w[OH CA])
         end
       end
     end
@@ -113,6 +112,16 @@ RSpec.describe Hub::OrganizationForm do
         it "updates the organization's coalition" do
           subject.save
           expect(organization.coalition.name).to eq("Koala Koalition")
+        end
+
+        it "removes any existing states" do
+          
+        end
+      end
+
+      context "when states are submitted" do
+        it "removes them all" do
+
         end
       end
     end
