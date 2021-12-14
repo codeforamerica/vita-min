@@ -39,7 +39,7 @@ describe Ctc::Questions::IncomeController do
 
     it "stores referrer, visitor_id, and referrer onto the intake" do
       post :update, params: params
-      
+
       intake = Intake.last
       expect(intake.visitor_id).to eq "visitor-id"
       expect(intake.source).to eq "some-source"
