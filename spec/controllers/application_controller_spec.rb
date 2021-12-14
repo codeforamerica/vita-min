@@ -846,6 +846,42 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#set_source" do
+    let(:source) { nil }
+
+    context "when session[:source] is not already set" do
+      context "when there is a source param" do
+        it "sets it to the source param" do
+          get :index, params: { source: "my_custom_param" }
+          expect(session[:source]).to eq "my_custom_param"
+        end
+      end
+
+      context "when there is no source param and referrer is google" do
+        before do
+          request.headers[:referer] = "google.com/something"
+        end
+
+        it "sets the source to organic_google" do
+          get :index, params: { source: nil, utm_source: nil, s: nil }
+          expect(session[:source]).to eq "organic_google"
+        end
+      end
+
+      context "when there is no source param and the referrer is anything else" do
+        it "sets the source to nil" do
+          request.headers[:referer] = "bing.com/something"
+        end
+
+        it "sets the source to organic_google" do
+          get :index, params: { source: nil, utm_source: nil, s: nil }
+          expect(session[:source]).to eq nil
+        end
+        end
+      end
+    end
+  end
+
   describe "#set_collapse_main_menu" do
     context "there is no cookie" do
       it "sets collapse main menu to true" do
