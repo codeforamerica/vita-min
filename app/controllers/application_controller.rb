@@ -107,9 +107,11 @@ class ApplicationController < ActionController::Base
     session[:source]
   end
 
+  # Allow session[:source] to re-set on every interaction so we can track all
+  # unique source entry points in Mixpanel.
   def set_source
     source_from_params = params[:source] || params[:utm_source] || params[:s]
-    if !session[:source] && source_from_params.present?
+    if source_from_params.present?
       # Use at most 100 chars in session so we don't overflow it.
       session[:source] = source_from_params.slice(0, 100)
     elsif request.headers.fetch(:referer, "").include?("google.com")
