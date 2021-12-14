@@ -150,6 +150,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Continue"
 
+    expect(intake.client.tax_returns.pluck(:status)).to eq ["intake_before_consent"]
     screenshot_after do
       # Consent form
       expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
@@ -161,9 +162,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       select "5", from: "Day"
       select "1971", from: "Year"
     end
-    expect do
-      click_on "I agree"
-    end.to change { intake.reload.client.tax_returns.pluck(:status) }.from(["intake_before_consent"]).to(["intake_in_progress"])
+    click_on "I agree"
+    expect(intake.reload.client.tax_returns.pluck(:status)).to eq ["intake_in_progress"]
 
     screenshot_after do
       # Optional consent form
@@ -253,8 +253,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "We need your spouse to review our legal stuff...")
       fill_in "Spouse's legal first name", with: "Greta"
       fill_in "Spouse's legal last name", with: "Gnome"
-      fill_in I18n.t("attributes.spouse_ssn"), with: "123456789"
-      fill_in I18n.t("attributes.confirm_spouse_ssn"), with: "123456789"
+      fill_in I18n.t("attributes.spouse_ssn"), with: "123-45-6789"
+      fill_in I18n.t("attributes.confirm_spouse_ssn"), with: "123-45-6789"
       select "March", from: "Month"
       select "5", from: "Day"
       select "1971", from: "Year"

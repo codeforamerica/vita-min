@@ -23,6 +23,12 @@ class SpouseConsentForm < QuestionsForm
   validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? spouse_tin_type }
   validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" }
   validates_presence_of :spouse_ssn
+
+  with_options if: -> { (spouse_ssn.present? && spouse_ssn.remove("-") != intake.spouse_ssn) || spouse_ssn_confirmation.present? } do
+    validates :spouse_ssn, confirmation: true
+    validates :spouse_ssn_confirmation, presence: true
+  end
+
   validate :valid_birth_date
 
   def save

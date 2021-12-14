@@ -88,7 +88,7 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Phone number", with: "(500) 555-0006"
         check "Opt into sms notifications"
         fill_in "Cell phone number", with: "500-555-0006"
-        fill_in "SSN/ITIN", with: "123456789"
+        fill_in "SSN/ITIN", with: "123-45-6789"
       end
 
       within "#marital-status-fields" do
@@ -156,7 +156,7 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Legal last name", with: "Pepper"
         fill_in "Email", with: "spicypeter@pepper.com"
         select "Social Security Number (SSN)", from: "Identification Type"
-        fill_in "SSN/ITIN", with: "142862222"
+        fill_in "SSN/ITIN", with: "142-86-2222"
       end
 
       click_on "Save"
@@ -200,7 +200,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within ".primary-ssn" do
         expect do
           click_on "View"
-          expect(page).to have_text "6789"
+          expect(page).to have_text "123456789"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
@@ -208,7 +208,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within ".spouse-ssn" do
         expect do
           click_on "View"
-          expect(page).to have_text "2222"
+          expect(page).to have_text "142862222"
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
@@ -217,8 +217,8 @@ RSpec.describe "a user editing a clients intake fields" do
         click_on "Edit"
       end
 
-      expect(find_field("hub_update_client_form[spouse_ssn]").value).to eq "142862222"
-      expect(find_field("hub_update_client_form[primary_ssn]").value).to eq "123456789"
+      expect(find_field("hub_update_client_form[spouse_ssn]").value).to eq "142-86-2222"
+      expect(find_field("hub_update_client_form[primary_ssn]").value).to eq "123-45-6789"
     end
 
     scenario "I can delete a client", js: true do

@@ -26,8 +26,8 @@
                       }
                   ) %>
             </div>
-            <%= f.cfa_input_field(:spouse_ssn, t("attributes.spouse_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
-            <%= f.cfa_input_field(:spouse_ssn_confirmation, t("attributes.confirm_spouse_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
+            <%= f.cfa_input_field(:spouse_ssn, t("attributes.spouse_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
+            <%= f.cfa_input_field(:spouse_ssn_confirmation, t("attributes.confirm_spouse_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
             <button class="button button--primary button--wide" type="submit">
               <%= t("views.questions.spouse_consent.cta") %>
             </button>

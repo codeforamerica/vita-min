@@ -275,6 +275,11 @@ class Intake < ApplicationRecord
   validates :phone_number, :sms_phone_number, allow_blank: true, e164_phone: true
   validates_presence_of :visitor_id
 
+  before_validation do
+    self.primary_ssn = self.primary_ssn.remove(/\D/) if primary_ssn_changed? && self.primary_ssn
+    self.spouse_ssn = self.spouse_ssn.remove(/\D/) if spouse_ssn_changed? && self.spouse_ssn
+  end
+
   before_save do
     self.needs_to_flush_searchable_data_set_at = Time.current
     if email_address.present?
