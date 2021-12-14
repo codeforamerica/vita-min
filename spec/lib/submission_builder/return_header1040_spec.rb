@@ -29,7 +29,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
       expect(submission.client.efile_security_informations.count).to eq(2)
     end
 
-    let(:submission) { create :efile_submission, :ctc, filing_status: filing_status, tax_year: 2020 }
+    let(:submission) { create :efile_submission, :ctc, filing_status: filing_status, tax_year: 2021 }
     let(:filing_status) { "married_filing_jointly" }
 
     context "when the XML is valid" do
@@ -77,9 +77,9 @@ describe SubmissionBuilder::ReturnHeader1040 do
           Timecop.freeze(fake_time) { SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml }
         )
         expect(xml.at("ReturnTs").text).to eq submission.created_at.strftime("%FT%T%:z")
-        expect(xml.at("TaxYr").text).to eq "2020"
-        expect(xml.at("TaxPeriodBeginDt").text).to eq "2020-01-01"
-        expect(xml.at("TaxPeriodEndDt").text).to eq "2020-12-31"
+        expect(xml.at("TaxYr").text).to eq "2021"
+        expect(xml.at("TaxPeriodBeginDt").text).to eq "2021-01-01"
+        expect(xml.at("TaxPeriodEndDt").text).to eq "2021-12-31"
         expect(xml.at("SoftwareId").text).to eq "11111111" # placeholder
         expect(xml.at("EFIN").text).to eq "123456"
         expect(xml.at("OriginatorTypeCd").text).to eq "OnlineFiler" # TBD -- change to online filer once we have ONlineFiler EFIN

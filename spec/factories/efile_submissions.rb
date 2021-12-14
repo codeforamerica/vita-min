@@ -19,7 +19,7 @@
 FactoryBot.define do
   factory :efile_submission do
     transient do
-      tax_year { 2020 }
+      tax_year { TaxReturn.current_tax_year }
       filing_status { "single" }
       metadata { {} }
     end

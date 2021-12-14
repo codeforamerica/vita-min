@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::ConfirmPaymentController do
   let(:intake) { create :ctc_intake }
-  let!(:tax_return) { create(:tax_return, status: :intake_in_progress, year: 2020, client: intake.client) }
+  let!(:tax_return) { create :tax_return, year: TaxReturn.current_tax_year, client: intake.client }
 
   before do
     sign_in intake.client

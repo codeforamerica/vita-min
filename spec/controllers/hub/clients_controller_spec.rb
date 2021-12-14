@@ -74,10 +74,10 @@ RSpec.describe Hub::ClientsController do
           spouse_email_address: "spouse@example.com",
           filing_joint: "yes",
           timezone: "America/Chicago",
+          needs_help_2021: "yes",
           needs_help_2020: "yes",
           needs_help_2019: "yes",
           needs_help_2018: "yes",
-          needs_help_2017: "no",
           signature_method: "online",
           service_type: "drop_off",
           vita_partner_id: vita_partner_id,
@@ -305,7 +305,7 @@ RSpec.describe Hub::ClientsController do
         let!(:george_sr) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", preferred_interview_language: "en", locale: "en") }
         let!(:george_sr_2019_return) { create :tax_return, :intake_in_progress, client: george_sr, year: 2019, assigned_user: assigned_user }
         let!(:george_sr_2018_return) { create :tax_return, :intake_ready, client: george_sr, year: 2018, assigned_user: assigned_user }
-        let!(:michael) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes", state_of_residence: nil) }
+        let!(:michael) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", state_of_residence: nil) }
         let!(:michael_2019_return) { create :tax_return, :intake_in_progress, client: michael, year: 2019, assigned_user: assigned_user }
         let!(:tobias) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", preferred_interview_language: "es", state_of_residence: "TX") }
         let!(:tobias_2019_return) { create :tax_return, :intake_in_progress, client: tobias, year: 2019, assigned_user: assigned_user }
@@ -412,7 +412,7 @@ RSpec.describe Hub::ClientsController do
 
         context "when there are clients with no current intakes (clients from previous tax years)" do
           let!(:former_year_client) { create :client, vita_partner: organization, intake: build(:intake, :filled_out) }
-          let!(:former_year_tax_return) { create :tax_return, :intake_in_progress, client: former_year_client, year: 2020, assigned_user: assigned_user }
+          let!(:former_year_tax_return) { create :tax_return, :intake_in_progress, client: former_year_client, year: 2021, assigned_user: assigned_user }
 
           before do
             # In reality this intake would be moved to the `archived_intakes_2021` table, but removing it from the DB is good enough for our purposes
@@ -623,7 +623,7 @@ RSpec.describe Hub::ClientsController do
 
       context "ordering tax returns" do
         let(:client) { (create :intake).client }
-        let!(:tax_return_2020) { create :tax_return, :intake_in_progress, client: client, year: 2020 }
+        let!(:tax_return_2020) { create :tax_return, :intake_in_progress, client: client, year: 2021 }
         let!(:tax_return_2019) { create :tax_return, :intake_in_progress, client: client, year: 2019 }
         before { client.update(vita_partner: organization) }
         render_views
@@ -633,7 +633,7 @@ RSpec.describe Hub::ClientsController do
 
           html = Nokogiri::HTML.parse(response.body)
           expect(html.css(".tax-return-list__year").first).to have_text("2019")
-          expect(html.css(".tax-return-list__year").last).to have_text("2020")
+          expect(html.css(".tax-return-list__year").last).to have_text(TaxReturn.current_tax_year)
         end
       end
 

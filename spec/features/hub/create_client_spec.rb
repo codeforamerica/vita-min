@@ -62,9 +62,9 @@ RSpec.feature "Creating new drop off clients" do
       end
 
       # fields for tax return years
-      check "2020"
+      check "2021"
       check "2019"
-      check "2017"
+      check "2018"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_0_certification_level"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_1_certification_level"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_2_certification_level"
@@ -96,9 +96,9 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "spicypeter@pepper.com"
 
       within ".tax-return-list" do
-        expect(page).to have_text "2020"
+        expect(page).to have_text "2021"
         expect(page).to have_text "2019"
-        expect(page).to have_text "2017"
+        expect(page).to have_text "2018"
       end
 
       within ".primary-ssn" do
