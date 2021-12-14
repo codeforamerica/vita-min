@@ -23,6 +23,7 @@ describe Ctc::Questions::IncomeController do
       request.remote_ip = ip_address
       cookies[:visitor_id] = "visitor-id"
       session[:source] = "some-source"
+      session[:referrer] = "https://www.goggles.com/get-tax-refund"
 
       allow(MixpanelService).to receive(:send_event)
     end
@@ -34,6 +35,15 @@ describe Ctc::Questions::IncomeController do
         event_name: "question_answered",
         data: { had_reportable_income: "no" }
       ))
+    end
+
+    it "stores referrer, visitor_id, and referrer onto the intake" do
+      post :update, params: params
+      
+      intake = Intake.last
+      expect(intake.visitor_id).to eq "visitor-id"
+      expect(intake.source).to eq "some-source"
+      expect(intake.referrer).to eq "https://www.goggles.com/get-tax-refund"
     end
 
     it "updates client with intake security information" do
