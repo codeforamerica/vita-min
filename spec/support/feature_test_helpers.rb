@@ -25,4 +25,10 @@ module FeatureTestHelpers
   def prior_tax_year
     current_tax_year - 1
   end
+
+  def fill_in_tagify(element, value)
+    find(element).click
+    find("#{element} .tagify__input").send_keys value
+    find("#{element} .tagify__input").send_keys :enter
+  end
 end

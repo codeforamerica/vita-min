@@ -1,13 +1,8 @@
 require "rails_helper"
 
-# TODO: Move somewhere else
-def fill_in_tagify(element, value)
-  find(element).click
-  find("#{element} .tagify__input").send_keys value
-  find("#{element} .tagify__input").send_keys :enter
-end
-
 RSpec.describe "create VITA organization hierarchy", :js do
+  include FeatureTestHelpers
+
   context "as an admin user" do
     let(:admin_user) { create :admin_user }
     before { login_as admin_user }
