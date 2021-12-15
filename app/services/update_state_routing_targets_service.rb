@@ -1,6 +1,7 @@
 class UpdateStateRoutingTargetsService
   def self.update(target, state_abbreviations)
-    existing_states = target.state_routing_targets.pluck(:state_abbreviation)
+    state_abbreviations ||= []
+    existing_states = target.state_routing_targets.pluck(:state_abbreviation) || []
 
     new_states = state_abbreviations - existing_states
     new_states.each { |state| target.state_routing_targets.build(state_abbreviation: state, target: target) }

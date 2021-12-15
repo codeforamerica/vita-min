@@ -11,15 +11,20 @@ module Hub
     def initialize(organization, params = {})
       @organization = organization
       super(params)
+      puts(params.to_json)
       @is_independent = @is_independent.nil? ? model_is_independent : @is_independent
     end
 
     def save
+      puts("first @is_independent=#{@is_independent}")
       if @is_independent
         @coalition_id = nil
+      else
+        @states = ""
       end
-
       organization.assign_attributes(attributes_for(:organization))
+      UpdateStateRoutingTargetsService.update(organization, @states)
+      binding.pry
       organization.save
     end
 

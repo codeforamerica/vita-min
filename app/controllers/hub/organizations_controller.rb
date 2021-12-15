@@ -8,22 +8,7 @@ module Hub
 
     layout "hub"
 
-    def new; end
-
-    def create
-      @organization_form = OrganizationForm.new(@organization, organization_form_params)
-      if @organization_form.save
-        redirect_to hub_organizations_path
-      else
-        render :new
-      end
-    end
-
-    def show
-      raise ActionController::RoutingError.new('Not Found') unless @organization.organization?
-
-      @sites = @organization.child_sites
-    end
+    # index show new edit create update destroy
 
     def index
       # Load organizations slowly first, to avoid lots of queries later
@@ -36,10 +21,27 @@ module Hub
                                     end
     end
 
+    def show
+      raise ActionController::RoutingError.new('Not Found') unless @organization.organization?
+
+      @sites = @organization.child_sites
+    end
+
+    def new; end
+
     def edit
       @routing_form = ZipCodeRoutingForm.new(@organization)
       @source_params_form = SourceParamsForm.new(@organization)
       @organization_form = OrganizationForm.from_record(@organization)
+    end
+
+    def create
+      @organization_form = OrganizationForm.new(@organization, organization_form_params)
+      if @organization_form.save
+        redirect_to hub_organizations_path
+      else
+        render :new
+      end
     end
 
     def update
@@ -98,7 +100,7 @@ module Hub
     end
 
     def organization_form_params
-      params.require(:hub_organization_form).permit(:name, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code])
+      params.require(:hub_organization_form).permit(:name, :is_independent, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code])
     end
 
     def load_coalitions
