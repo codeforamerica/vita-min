@@ -83,7 +83,7 @@ class Client < ApplicationRecord
     [:created_at, :state_of_residence] + delegated_intake_attributes
   end
 
-  delegate *delegated_intake_attributes, to: :intake
+  delegate *delegated_intake_attributes, to: :intake , allow_nil: true
   scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where("status > 100")) }
   scope :greetable, -> do
     greeter_statuses = TaxReturnStatus.available_statuses_for(role_type: GreeterRole::TYPE).values.flatten
@@ -241,6 +241,8 @@ class Client < ApplicationRecord
   end
 
   def clients_with_dupe_contact_info(is_ctc)
+    return [] unless intake
+
     matching_intakes = Intake.where(
       "email_address = ? OR phone_number = ? OR phone_number = ? OR sms_phone_number = ? OR sms_phone_number = ?",
       intake.email_address,
@@ -284,7 +286,9 @@ class Client < ApplicationRecord
   end
 
   def online_ctc?
-    intake.is_ctc? && intake.tax_returns.any? { |tr| tr.service_type == "online_intake" }
+    if intake
+      intake.is_ctc? && intake.tax_returns.any? { |tr| tr.service_type == "online_intake" }
+    end
   end
 
   def hub_status_updatable

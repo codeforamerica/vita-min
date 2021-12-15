@@ -1,6 +1,6 @@
 <%= content_for :back_to, "clients" %>
 
-<% content_for :page_title, "#{@client.preferred_name} ##{@client.id}" %>
+<% content_for :page_title, "#{@client.intake&.preferred_name} ##{@client.id}" %>
 
 <% content_for :card do %>
 
@@ -39,7 +39,7 @@
               <span class="form-question"><%= t("general.timezone") %>:</span>
               <span class="label-value"><%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></span>
             </div>
-            <% if @client.intake.is_ctc? %>
+            <% if @client.intake&.is_ctc? %>
               <div class="field-display">
                 <span class="form-question">Date of Birth:</span>
                 <span class="label-value"><%= default_date_format(@client.intake.primary_birth_date) %></span>
@@ -47,7 +47,7 @@
             <% else %>
               <div class="field-display">
                 <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
-                <span class="label-value"><%= @client.intake.state_of_residence %></span>
+                <span class="label-value"><%= @client.intake&.state_of_residence %></span>
               </div>
             <% end %>
             <!-- SSN/ITIN hidden -->
@@ -55,13 +55,13 @@
               <span class="form-question">
                   <%= t("general.ssn_itin") %>:
               </span>
-              <% if @client.intake.primary_ssn.present? %>
+              <% if @client.intake&.primary_ssn.present? %>
                 <%= render 'togglable_single_field', masked_value: @client.intake.primary_ssn.present? ? mask(@client.intake.primary_ssn, 0) : nil, secret_name: :primary_ssn %>
               <% else %>
                 <span class="label-value"><%= t("general.NA") %></span>
               <% end %>
             </div>
-            <% if @client.intake.is_ctc? %>
+            <% if @client.intake&.is_ctc? %>
               <div class="field-display primary-ip-pin">
                 <span class="form-question">
                   <%= t("general.ip_pin") %>:
@@ -96,9 +96,9 @@
             </div>
             <div class="field-display">
               <span class="form-question"><%= t("general.dependents") %>:</span>
-              <span class="label-value"><%= @client.intake&.dependents.with_deleted.length %></span>
+              <span class="label-value"><%= @client.intake&.dependents&.with_deleted&.length %></span>
               <ul id="dependents-list" class="no-bullets">
-                <%= render @client.intake.dependents.with_deleted %>
+                <%= render @client.intake&.dependents&.with_deleted %>
               </ul>
             </div>
           </div>

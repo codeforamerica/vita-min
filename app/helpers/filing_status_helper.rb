@@ -21,6 +21,7 @@ module FilingStatusHelper
   end
 
   def marital_status(client)
+    return [] unless client.intake
     intake = client.intake
 
     statuses = [

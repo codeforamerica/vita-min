@@ -3,7 +3,7 @@
     <div class="client-header__left">
       <div class="title-row">
         <h1 class="h1">
-          <%= @client.preferred_name %>
+          <%= @client.intake&.preferred_name %>
         </h1>
         <span class="text--help">#<%= @client.id %></span>
         <%= render "shared/urgent_icon", client: @client %>
