@@ -22,7 +22,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
   describe "#create" do
     let(:params) do
       {
-        organization: {
+        hub_organization_form: {
           name: "Orangutan Organization",
           coalition_id: parent_coalition.id,
         }
@@ -182,7 +182,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     let(:params) do
       {
         id: organization.id,
-        organization: {
+        hub_organization_form: {
           coalition_id: new_coalition.id,
           name: "Oregano Organization",
           timezone: "America/Chicago",
@@ -225,7 +225,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
       context "the organization object is not valid" do
         before do
-          allow_any_instance_of(VitaPartner).to receive(:update).and_return false
+          allow_any_instance_of(VitaPartner).to receive(:save).and_return false
         end
 
         it "re-renders edit with an error message" do

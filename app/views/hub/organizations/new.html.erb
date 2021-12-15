@@ -2,7 +2,7 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--padded">
-    <%= form_with model: @organization, url: hub_organizations_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
+    <%= form_with model: @organization_form, url: hub_organizations_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
       <h1 class="form-card__title">
         <%= @title %>
       </h1>

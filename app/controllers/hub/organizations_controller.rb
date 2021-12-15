@@ -27,7 +27,9 @@ module Hub
       @sites = @organization.child_sites
     end
 
-    def new; end
+    def new
+      @organization_form = OrganizationForm.new(Organization.new, {})
+    end
 
     def edit
       @routing_form = ZipCodeRoutingForm.new(@organization)

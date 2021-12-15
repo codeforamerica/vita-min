@@ -3,12 +3,12 @@ require "rails_helper"
 RSpec.describe Hub::CoalitionForm do
   describe "#save" do
     subject { described_class.new(coalition, params) }
+    let(:coalition) { build(:coalition) }
     let(:params) { { states: states, name: name } }
     let(:name) { coalition.name }
     let(:states) { "" }
 
     context "saving name" do
-      let(:coalition) { Coalition.new }
       let(:name) { "A New Coalition" }
 
       it "saves the coalition with the new name" do
@@ -30,6 +30,10 @@ RSpec.describe Hub::CoalitionForm do
 
     context "updating states" do
       let(:states) { "OH,CA" }
+
+      before do
+        allow(UpdateStateRoutingTargetsService).to receive(:update)
+      end
 
       it "creates the new state routing target" do
         subject.save
