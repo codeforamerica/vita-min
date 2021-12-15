@@ -9,5 +9,5 @@ fi
 # Increase the # of max open files to avoid https://stackoverflow.com/questions/59890432/rack-error-runtimeerror-failed-to-get-urandom-in-a-rails-app-rails-5-0-6-ru
 ulimit -n 524288
 
-EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests || { echo "Not running JS tests due to rspec failure." ; exit 1; }
+RUBYOPT="-W0" EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests || { echo "Not running JS tests due to rspec failure." ; exit 1; }
 yarn jest
