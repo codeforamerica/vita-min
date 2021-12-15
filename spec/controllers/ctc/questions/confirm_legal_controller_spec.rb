@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::ConfirmLegalController do
   let(:intake) { create :ctc_intake, client: client }
-  let(:client) { create :client, tax_returns: [create(:tax_return, year: 2020)] }
+  let(:client) { create :client, tax_returns: [create(:tax_return, year: 2021)] }
 
   before do
     sign_in intake.client

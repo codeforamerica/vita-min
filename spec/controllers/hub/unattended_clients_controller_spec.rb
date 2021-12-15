@@ -26,7 +26,7 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
                tax_returns: [
                  build(:tax_return, year: 2018, status: "file_not_filing"),
                  build(:tax_return, year: 2019, status: "file_accepted"),
-                 build(:tax_return, year: 2020, status: "file_mailed"),
+                 build(:tax_return, year: 2021, status: "file_mailed"),
                ]
       end
       let!(:ten_day_breach_client_half_done_filing) do

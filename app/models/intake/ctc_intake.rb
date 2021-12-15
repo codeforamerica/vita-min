@@ -123,6 +123,7 @@
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
+#  needs_help_2021                                      :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
@@ -284,11 +285,6 @@ class Intake::CtcIntake < Intake
 
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account
-
-  before_validation do
-    self.primary_ssn = self.primary_ssn.remove(/\D/) if primary_ssn_changed? && self.primary_ssn
-    self.spouse_ssn = self.spouse_ssn.remove(/\D/) if spouse_ssn_changed? && self.spouse_ssn
-  end
 
   before_validation do
     attributes_to_change = self.changes_to_save.keys

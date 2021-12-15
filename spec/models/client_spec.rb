@@ -363,7 +363,7 @@ describe Client do
       context "when all tax returns are filing single" do
         let(:client) { create :client, intake: (create :intake, filing_joint: "unfilled"), tax_returns: [tr_2020, tr_2019] }
         let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
-        let(:tr_2020) { create :tax_return, filing_status: "single", year: 2020 }
+        let(:tr_2020) { create :tax_return, filing_status: "single", year: 2021 }
 
         it "returns false" do
           expect(client.requires_spouse_info?).to eq false
@@ -373,7 +373,7 @@ describe Client do
       context "when tax returns have any other status or a mix of statuses" do
         let(:client) { create :client, intake: (create :intake, filing_joint: "unfilled"), tax_returns: [tr_2020, tr_2019] }
         let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
-        let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2020 }
+        let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2021 }
 
         it "returns true" do
           expect(client.requires_spouse_info?).to eq true
@@ -829,7 +829,7 @@ describe Client do
     before do
       create :tax_return, year: 2019, assigned_user: assigned_user_a, client: client
       create :tax_return, year: 2018, assigned_user: assigned_user_b, client: client
-      create :tax_return, year: 2020, assigned_user: assigned_user_a, client: client
+      create :tax_return, year: 2021, assigned_user: assigned_user_a, client: client
     end
 
     context "with valid data" do

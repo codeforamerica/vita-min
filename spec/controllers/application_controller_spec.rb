@@ -580,8 +580,8 @@ RSpec.describe ApplicationController do
             intake_source: "horse-ad-campaign-26",
             intake_referrer: "http://coolwebsite.horse/tax-help/vita",
             intake_referrer_domain: "coolwebsite.horse",
-            primary_filer_age: "27",
-            spouse_age: "28",
+            primary_filer_age: "28",
+            spouse_age: "29",
             primary_filer_disabled: "yes",
             spouse_disabled: "no",
           )
@@ -842,6 +842,41 @@ RSpec.describe ApplicationController do
         expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(user_id: 3))
         expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(client_id: 4))
         expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(request_id: 5))
+      end
+    end
+  end
+
+  describe "#set_source" do
+    let(:source) { nil }
+
+    context "when session[:source] is not already set" do
+      context "when there is a source param" do
+        it "sets it to the source param" do
+          get :index, params: { source: "my_custom_param" }
+          expect(session[:source]).to eq "my_custom_param"
+        end
+      end
+
+      context "when there is no source param and referrer is google" do
+        before do
+          request.headers[:referer] = "google.com/something"
+        end
+
+        it "sets the source to organic_google" do
+          get :index, params: { source: nil, utm_source: nil, s: nil }
+          expect(session[:source]).to eq "organic_google"
+        end
+      end
+
+      context "when there is no source param and the referrer is anything else" do
+        before do
+          request.headers[:referer] = "bing.com/something"
+        end
+
+        it "sets the source to nil" do
+          get :index, params: { source: nil, utm_source: nil, s: nil }
+          expect(session[:source]).to eq nil
+        end
       end
     end
   end

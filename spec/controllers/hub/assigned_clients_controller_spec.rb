@@ -13,7 +13,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       let!(:assigned_to_me) { create :client, vita_partner: organization, intake: (build :intake), tax_returns: [(create :tax_return, :intake_ready, assigned_user: user)] }
-      let!(:assigned_to_me_two_trs) { create :client, vita_partner: organization, intake: (build :intake), tax_returns: [(create :tax_return, :review_reviewing, assigned_user: user), (create :tax_return, :intake_ready_for_call, year: 2020, assigned_user: user)] }
+      let!(:assigned_to_me_two_trs) { create :client, vita_partner: organization, intake: (build :intake), tax_returns: [(create :tax_return, :review_reviewing, assigned_user: user), (create :tax_return, :intake_ready_for_call, year: 2021, assigned_user: user)] }
       let!(:not_assigned_to_me) { create :client, vita_partner: organization, intake: (build :intake), tax_returns: [(create :tax_return, :intake_in_progress)] }
 
       it "should allow me to see only clients with tax returns assigned to me" do

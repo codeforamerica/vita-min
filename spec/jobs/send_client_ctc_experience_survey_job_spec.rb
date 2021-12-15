@@ -8,7 +8,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
     end
 
     let(:client) { create(:ctc_intake, locale: "es").client }
-    let!(:tax_return) { create :tax_return, client: client, year: 2020 }
+    let!(:tax_return) { create :tax_return, client: client, year: TaxReturn.current_tax_year }
 
     context "sending the survey" do
       context "with a client who is opted-in to email notifications" do
@@ -103,7 +103,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
       end
 
       context "with a client whose efile submission was rejected" do
-        let!(:tax_return) { create :tax_return, client: client, year: 2020, status: :file_rejected }
+        let!(:tax_return) { create :tax_return, client: client, year: TaxReturn.current_tax_year, status: :file_rejected }
 
         before do
           allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com", sms_phone_number: "+14155551212"})

@@ -123,6 +123,7 @@
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
+#  needs_help_2021                                      :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
@@ -274,6 +275,11 @@ class Intake < ApplicationRecord
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, :sms_phone_number, allow_blank: true, e164_phone: true
   validates_presence_of :visitor_id
+
+  before_validation do
+    self.primary_ssn = self.primary_ssn.remove(/\D/) if primary_ssn_changed? && self.primary_ssn
+    self.spouse_ssn = self.spouse_ssn.remove(/\D/) if spouse_ssn_changed? && self.spouse_ssn
+  end
 
   before_save do
     self.needs_to_flush_searchable_data_set_at = Time.current
@@ -468,7 +474,7 @@ class Intake < ApplicationRecord
   end
 
   def needs_help_with_backtaxes?
-    needs_help_2019_yes? || needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?
+    TaxReturn.backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
   end
 
   def formatted_contact_preferences

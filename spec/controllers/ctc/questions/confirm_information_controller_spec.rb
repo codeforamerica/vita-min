@@ -48,7 +48,7 @@ describe Ctc::Questions::ConfirmInformationController do
 
         context "when not filing joint" do
           let(:intake) { create :ctc_intake }
-          let!(:tax_return) { create :tax_return, year: 2020, filing_status: "single", client: intake.client }
+          let!(:tax_return) { create :tax_return, year: 2021, filing_status: "single", client: intake.client }
 
           it "does not show the spouse info" do
             get :edit

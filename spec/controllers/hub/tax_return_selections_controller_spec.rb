@@ -71,7 +71,7 @@ RSpec.describe Hub::TaxReturnSelectionsController do
   end
 
   describe "#create" do
-    let(:tax_return1) { clients[0].tax_returns.find_by(year: 2020) }
+    let(:tax_return1) { clients[0].tax_returns.find_by(year: 2021) }
     let(:tax_return2) { create(:tax_return, client: clients[0], year: 2018) }
     let(:tax_return3) { create(:tax_return, client: clients[1], year: 2018) }
     let(:params) { { create_tax_return_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: action_type } } }
@@ -124,7 +124,7 @@ RSpec.describe Hub::TaxReturnSelectionsController do
       end
 
       context "with tax returns the user doesn't have access to" do
-        let(:tax_return1) { clients[0].tax_returns.find_by(year: 2020) }
+        let(:tax_return1) { clients[0].tax_returns.find_by(year: 2021) }
         let(:tax_return2) { create(:tax_return, client: clients[0], year: 2018) }
         let(:tax_return3) { create(:tax_return, client: create(:client), year: 2018) }
         let(:params) { { create_tax_return_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: "change-organization" } } }
