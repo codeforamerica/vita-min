@@ -7,12 +7,10 @@
   <h1 class="h2"><%= @main_question %></h1>
 
   <%= t("views.ctc.questions.stimulus_one_received.help_html") %>
-  <div class="reveal">
-    <span class="text--small"><a href="#" class="reveal__link"><%= t("views.ctc.questions.stimulus_one_received.reveal_label") %></a></span>
-    <div class="reveal__content">
-      <%= t("views.ctc.questions.stimulus_one_received.reveal_content") %>
-    </div>
-  </div>
+
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.stimulus_one_received.reveal_label")) do %>
+    <%= t("views.ctc.questions.stimulus_one_received.reveal_content") %>
+  <% end %>
 
   <%= form_with model: @form, url: questions_stimulus_one_received_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "stimulus-received-form" do |f| %>
     <%= f.cfa_input_field(:eip1_amount_received, t("views.ctc.questions.stimulus_one_received.eip1_amount_received_label"), prefix: "$") %>
