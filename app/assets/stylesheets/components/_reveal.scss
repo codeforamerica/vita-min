@@ -9,9 +9,7 @@
 // this is used in places where we want the reveal to match the width of the form inputs above it
 .reveal-shrink-wrapper {
   .reveal {
-    @media screen and (min-width: $mobile-up) {
-      width: 475px;
-    }
+    max-width: $width-form-long;
   }
 }
 
