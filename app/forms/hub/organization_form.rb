@@ -8,23 +8,22 @@ module Hub
     set_attributes_for :state_routing_targets, :states
     set_attributes_for :organization_synthetic_attributes, :is_independent
 
+    validates :name, presence: true
+
     def initialize(organization, params = {})
       @organization = organization
       super(params)
-      puts(params.to_json)
-      @is_independent = @is_independent.nil? ? model_is_independent : @is_independent
+      normalize_is_independent
     end
 
     def save
-      puts("first @is_independent=#{@is_independent}")
-      if @is_independent
+      if @is_independent == "yes"
         @coalition_id = nil
       else
-        @states = ""
+        @states = nil
       end
       organization.assign_attributes(attributes_for(:organization))
-      UpdateStateRoutingTargetsService.update(organization, @states)
-      binding.pry
+      UpdateStateRoutingTargetsService.update(organization, (@states || "").split(","))
       organization.save
     end
 
@@ -34,6 +33,16 @@ module Hub
     end
 
     private
+
+    def normalize_is_independent
+      is_independent_boolean =
+        if @is_independent.nil?
+          model_is_independent
+        else
+          @is_independent == "yes"
+        end
+      @is_independent = is_independent_boolean ? "yes" : "no"
+    end
 
     def model_is_independent
       organization.persisted? ? organization.coalition.nil? : false

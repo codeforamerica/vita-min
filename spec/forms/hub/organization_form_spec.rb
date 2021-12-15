@@ -10,16 +10,16 @@ RSpec.describe Hub::OrganizationForm do
   describe "#independent_org" do
     context "with an unpersisted org" do
       context "when params specify is_independent is true" do
-        let(:params) { { is_independent: true } }
+        let(:params) { { is_independent: "yes" } }
 
-        it "returns true" do
-          expect(subject.is_independent).to be_truthy
+        it "returns yes" do
+          expect(subject.is_independent).to eq("yes")
         end
       end
 
       context "when params do not specify is_independent" do
-        it "returns false" do
-          expect(subject.is_independent).to be_falsey
+        it "returns no" do
+          expect(subject.is_independent).to eq("no")
         end
       end
     end
@@ -30,20 +30,20 @@ RSpec.describe Hub::OrganizationForm do
       end
 
       context "when params specify is_independent" do
-        context "when the model has a coalition but the params specify is_independent=true" do
+        context "when the model has a coalition but the params specify is_independent yes" do
           let(:coalition) { build(:coalition) }
-          let(:params) { { is_independent: true } }
+          let(:params) { { is_independent: "yes" } }
 
-          it "returns true" do
-            expect(subject.is_independent).to be_truthy
+          it "returns yes" do
+            expect(subject.is_independent).to eq("yes")
           end
         end
 
-        context "when the model does not have a coalition but the params specify is_independent=false" do
-          let(:params) { { is_independent: false } }
+        context "when the model does not have a coalition but the params specify is_independent no" do
+          let(:params) { { is_independent: "no" } }
 
           it "returns false" do
-            expect(subject.is_independent).to be_falsey
+            expect(subject.is_independent).to eq("no")
           end
         end
       end
@@ -52,14 +52,14 @@ RSpec.describe Hub::OrganizationForm do
         context "when it is part of a coalition" do
           let(:coalition) { build(:coalition) }
 
-          it "returns false" do
-            expect(subject.is_independent).to be_falsey
+          it "returns no" do
+            expect(subject.is_independent).to eq("no")
           end
         end
 
         context "when it is not part of a coalition" do
-          it "returns true" do
-            expect(subject.is_independent).to be_truthy
+          it "returns yes" do
+            expect(subject.is_independent).to eq("yes")
           end
         end
       end
@@ -74,6 +74,10 @@ RSpec.describe Hub::OrganizationForm do
   end
 
   describe "#save" do
+    before do
+      allow(UpdateStateRoutingTargetsService).to receive(:update)
+    end
+
     let(:params) { { name: "New Name", timezone: "America/Juneau", capacity_limit: 9001, allows_greeters: "yes" }.merge(extra_params) }
     let(:extra_params) { {} }
 
@@ -85,9 +89,9 @@ RSpec.describe Hub::OrganizationForm do
       expect(organization.allows_greeters).to be_truthy
     end
 
-    context "when is_independent is true" do
+    context "when is_independent is yes" do
       context "when a coalition is submitted" do
-        let(:extra_params) { { is_independent: true, coalition_id: create(:coalition, name: "Koala Koalition").id } }
+        let(:extra_params) { { is_independent: "yes", coalition_id: create(:coalition, name: "Koala Koalition").id } }
 
         it "sets the organization's coalition to nil anyway" do
           subject.save
@@ -96,18 +100,18 @@ RSpec.describe Hub::OrganizationForm do
       end
 
       context "when states are submitted" do
-        let(:extra_params) { { is_independent: true, states: "OH,CA" } }
+        let(:extra_params) { { is_independent: "yes", states: "OH,CA" } }
 
         it "updates states" do
           subject.save
-          expect(UpdateStateRoutingTargetsService).to have_received(:update).with(coalition, %w[OH CA])
+          expect(UpdateStateRoutingTargetsService).to have_received(:update).with(Organization.last, %w[OH CA])
         end
       end
     end
 
-    context "when is_independent is false" do
+    context "when is_independent is no" do
       context "when a coalition is submitted" do
-        let(:extra_params) { { is_independent: false, states: "OH,CA", coalition_id: create(:coalition, name: "Koala Koalition").id } }
+        let(:extra_params) { { is_independent: "no", states: "OH,CA", coalition_id: create(:coalition, name: "Koala Koalition").id } }
 
         it "updates the organization's coalition" do
           subject.save
@@ -116,7 +120,7 @@ RSpec.describe Hub::OrganizationForm do
 
         it "removes any existing states" do
           subject.save
-          expect(UpdateStateRoutingTargetsService).to have_received(:update).with(coalition, [])
+          expect(UpdateStateRoutingTargetsService).to have_received(:update).with(organization, [])
         end
       end
     end

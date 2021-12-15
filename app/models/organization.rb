@@ -38,7 +38,7 @@ class Organization < VitaPartner
 
   validates :capacity_limit, gyr_numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   validates :name, uniqueness: { scope: [:coalition] }
-  has_many :state_routing_targets, as: :target
+  has_many :state_routing_targets, as: :target, dependent: :destroy
   validate :no_state_routing_targets_if_in_coalition
 
   default_scope -> { includes(:child_sites).order(name: :asc) }

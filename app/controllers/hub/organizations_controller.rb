@@ -100,7 +100,9 @@ module Hub
     end
 
     def organization_form_params
-      params.require(:hub_organization_form).permit(:name, :is_independent, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code])
+      params.require(:hub_organization_form).permit(
+        :name, :is_independent, :states, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code]
+      )
     end
 
     def load_coalitions
