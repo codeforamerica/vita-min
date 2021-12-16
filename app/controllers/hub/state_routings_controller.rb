@@ -3,11 +3,11 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:edit, :update]
-    authorize_resource :vita_partner_state
+    authorize_resource :state_routing_target
     layout "hub"
 
     def index
-      @state_routings = VitaPartnerState.joins(:vita_partner).order(state: :asc).all.group_by(&:state).sort
+      @state_routings = StateRoutingTarget.order(state_abbreviation: :asc).all.group_by(&:state_abbreviation).sort
     end
 
     def edit
