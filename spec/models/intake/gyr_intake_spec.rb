@@ -123,7 +123,7 @@
 #  needs_help_2018                                      :integer          default("unfilled"), not null
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  needs_help_2020                                      :integer          default("unfilled"), not null
-#  needs_help_2021                                      :integer          default(0), not null
+#  needs_help_2021                                      :integer          default("unfilled"), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
 #  no_ssn                                               :integer          default("unfilled"), not null
