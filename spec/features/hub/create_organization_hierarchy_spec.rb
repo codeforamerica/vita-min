@@ -21,8 +21,8 @@ RSpec.describe "create VITA organization hierarchy", :js do
       expect(page).to have_selector("h1", text: "Organization List")
       within "#alabama" do
         expect(page).to have_selector("h2", text: "Alabama")
-        expect(page).to have_selector("li", text: "Koala Koalition (1 organization)")
-        expect(page).to have_selector("li", text: "Orangutan Organization (0 sites)")
+        expect(page).to have_selector("li", text: "Koala Koalition")
+        expect(page).to have_selector("li", text: "Orangutan Organization")
       end
 
       # create a new organization
@@ -100,10 +100,10 @@ RSpec.describe "create VITA organization hierarchy", :js do
       click_on "All organizations"
 
       within "#washington" do
-        expect(page).to have_text("Oregano Org (1 site)")
+        expect(page).to have_text("Oregano Org")
       end
       within "#california" do
-        expect(page).to have_text("Oregano Org (1 site)")
+        expect(page).to have_text("Oregano Org")
       end
     end
   end
