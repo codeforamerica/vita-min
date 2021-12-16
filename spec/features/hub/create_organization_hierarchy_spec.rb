@@ -4,20 +4,29 @@ RSpec.describe "create VITA organization hierarchy", :js do
   context "as an admin user" do
     let(:admin_user) { create :admin_user }
     before { login_as admin_user }
-    let(:coalition) { create :coalition, name: "Koala Koalition" }
-    let!(:other_coalition) { create :coalition, name: "Coati Coalition" } # https://en.wikipedia.org/wiki/Coati
-    let!(:organization) { create :organization, name: "Orangutan Organization", coalition: coalition }
+    let(:koala_coalition) { create :coalition, name: "Koala Koalition" }
+    let!(:coati_coalition) { create :coalition, name: "Coati Coalition" } # https://en.wikipedia.org/wiki/Coati
+    let!(:organization) { create :organization, name: "Orangutan Organization", coalition: koala_coalition }
+
+    before do
+      create :state_routing_target, target: koala_coalition, state_abbreviation: "AL"
+      create :state_routing_target, target: coati_coalition, state_abbreviation: "CA"
+      create :state_routing_target, target: coati_coalition, state_abbreviation: "WA"
+    end
 
     scenario "create a new organization" do
       visit hub_tools_path
       click_on "Orgs"
 
-      expect(page).to have_selector("h1", text: "Organizations")
-      expect(page).to have_selector("h2", text: "Koala Koalition")
-      expect(page).to have_selector("li", text: "Orangutan Organization")
+      expect(page).to have_selector("h1", text: "Organization List")
+      within "#alabama" do
+        expect(page).to have_selector("h2", text: "Alabama")
+        expect(page).to have_selector("li", text: "Koala Koalition (1 organization)")
+        expect(page).to have_selector("li", text: "Orangutan Organization (0 sites)")
+      end
 
       # create a new organization
-      click_on "New Organization"
+      click_on "Add new organization"
       fill_in "Name", with: "Origami Organization"
       select "Koala Koalition", from: "Coalition"
       click_on "Save"
@@ -33,6 +42,7 @@ RSpec.describe "create VITA organization hierarchy", :js do
         select "Coati Coalition", from: "Coalition"
         click_on "Save"
       end
+
       expect(page).to have_selector("h1", text: "Oregano Org")
 
       # adding / removing zip codes
@@ -89,7 +99,12 @@ RSpec.describe "create VITA organization hierarchy", :js do
       # Go back to organization index
       click_on "All organizations"
 
-      expect(page).to have_text("Oregano Org (1 site)")
+      within "#washington" do
+        expect(page).to have_text("Oregano Org (1 site)")
+      end
+      within "#california" do
+        expect(page).to have_text("Oregano Org (1 site)")
+      end
     end
   end
 end
