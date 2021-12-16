@@ -21,7 +21,7 @@ class EfileSubmission < ApplicationRecord
   has_one :intake, through: :tax_return
   has_one :client, through: :tax_return
   has_many :dependents, through: :intake
-  has_one :address, as: :record
+  has_one :address, as: :record, dependent: :destroy
   has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
   has_one_attached :submission_bundle
 

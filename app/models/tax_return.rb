@@ -50,7 +50,7 @@ class TaxReturn < ApplicationRecord
   has_many :assignments, class_name: "TaxReturnAssignment", dependent: :destroy
   has_many :tax_return_selection_tax_returns, dependent: :destroy
   has_many :tax_return_selections, through: :tax_return_selection_tax_returns
-  has_many :efile_submissions
+  has_many :efile_submissions, dependent: :destroy
   has_one :accepted_tax_return_analytics
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
