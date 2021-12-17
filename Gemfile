@@ -96,6 +96,7 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'turbo_tests'
   gem 'timecop'
+  gem 'warning', require: false
 end
 
 group :development do
