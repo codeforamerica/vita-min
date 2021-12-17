@@ -35,7 +35,7 @@ class Organization < VitaPartner
   has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode", foreign_key: "vita_partner_id"
   has_many :serviced_states, class_name: "VitaPartnerState", foreign_key: "vita_partner_id"
-
+  has_many :state_routing_targets, as: :target
   validates :capacity_limit, gyr_numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   validates :name, uniqueness: { scope: [:coalition] }
   has_many :state_routing_targets, as: :target, dependent: :destroy

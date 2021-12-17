@@ -1,0 +1,23 @@
+<div id="<%= state_name.downcase %>">
+  <div class="grid-flex space-between spacing-below-0" style="border-bottom: 1px solid black;">
+    <div class="text--semibold text--small spacing-below-0">Name</div>
+    <div class="text--semibold text--small spacing-below-0">Current Clients/Client Capacity</div>
+  </div>
+  <div class="grid-flex space-between spacing-above-10 spacing-below-0">
+    <h2 class="spacing-below-0"><%= state_name %></h2>
+    <div class="text--small spacing-below-0"><%= display_capacity(@presenter.state_capacity(state_abbreviation)) %></div>
+  </div>
+  <ul class="no-bullets">
+    <% if @presenter.accessible_entities_for(state_abbreviation) %>
+      <% @presenter.accessible_entities_for(state_abbreviation).each do |entity| %>
+        <% if entity.is_a? Coalition %>
+          <%= render "coalition", coalition: entity %>
+        <% else %>
+          <%= render "organization", organization: entity %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <li><i>No partners operating in <%= state_name %></i></li>
+    <% end %>
+  </ul>
+</div>
