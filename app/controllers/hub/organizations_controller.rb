@@ -4,7 +4,7 @@ module Hub
     before_action :require_sign_in
 
     before_action :load_coalitions
-    load_and_authorize_resource :organization, parent: false
+    load_and_authorize_resource
 
     layout "hub"
 
