@@ -32,18 +32,18 @@ RSpec.describe Hub::OrganizationForm do
     end
   end
 
-  describe "#independent_org" do
+  describe "#initialize" do
     context "with an unpersisted org" do
       context "when params specify is_independent is true" do
         let(:params) { { is_independent: "yes" } }
 
-        it "returns yes" do
+        it "sets is_independent to yes" do
           expect(subject.is_independent).to eq("yes")
         end
       end
 
       context "when params do not specify is_independent" do
-        it "returns no" do
+        it "sets is_independent to no" do
           expect(subject.is_independent).to eq("no")
         end
       end
@@ -59,7 +59,7 @@ RSpec.describe Hub::OrganizationForm do
           let(:coalition) { build(:coalition) }
           let(:params) { { is_independent: "yes" } }
 
-          it "returns yes" do
+          it "sets is_independent to yes" do
             expect(subject.is_independent).to eq("yes")
           end
         end
@@ -67,7 +67,7 @@ RSpec.describe Hub::OrganizationForm do
         context "when the model does not have a coalition but the params specify is_independent no" do
           let(:params) { { is_independent: "no" } }
 
-          it "returns false" do
+          it "sets is_independent to no" do
             expect(subject.is_independent).to eq("no")
           end
         end
@@ -77,13 +77,13 @@ RSpec.describe Hub::OrganizationForm do
         context "when it is part of a coalition" do
           let(:coalition) { build(:coalition) }
 
-          it "returns no" do
+          it "sets is_independent to no" do
             expect(subject.is_independent).to eq("no")
           end
         end
 
         context "when it is not part of a coalition" do
-          it "returns yes" do
+          it "sets is_independent to yes" do
             expect(subject.is_independent).to eq("yes")
           end
         end
