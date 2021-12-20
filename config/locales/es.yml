@@ -1572,9 +1572,9 @@ es:
           contact_ta: Contactar Defensores del Contribuyente (Taxpayer Advocate en inglés)
           contact_vita: Contactar un sitio de VITA
           content_html:
-          - Al igual que la herramienta de registro de no declarantes del IRS, GetCTC le ayuda a presentar electrónicamente una declaración de impuestos simplificada de 2020. Si ya ha presentado una declaración %{current_tax_year}, el IRS rechazará esta declaración sin revisarla, incluso si su primera declaración se llenó de forma incorrecta o se procesó incorrectamente.
-          - Si la información de su declaración de 2020 ha cambiado y desea actualizar sus pagos de CTC, puede usar el <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">Portal de Actualización del Crédito Fiscal por Hijos del IRS</a>.
-          - Si cree que su declaración de %{current_tax_year} nunca fue procesada y no sabe qué pasó, necesitará asistencia directa para ayudar a resolver su caso. Puede dirigirse a un centro de Asistencia Voluntaria al Contribuyente (VITA) o al Servicio de Defensa del Contribuyente (Taxpayer Advocate Service en inglés).
+          - Al igual que la herramienta de registro de no contribuyentes del IRS, GetCTC le ayuda a presentar electrónicamente una declaración de impuestos simplificada de %{current_tax_year}. Si ya presentó una declaración de %{current_tax_year}, el IRS rechazará esta declaración sin revisarla, incluso si su primera declaración fue incorrecta o se procesó incorrectamente.
+          - Si la información de su declaración de %{current_tax_year} ha cambiado y desea actualizar sus pagos de CTC, puede usar el <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">Portal de Actualización del Crédito Fiscal por Hijos del IRS</a>.
+          - Si cree que su declaración de %{current_tax_year} nunca se procesó y no sabe qué sucedió, necesitará asistencia directa para ayudarlo a resolver su caso. Puede comunicarse con un sitio de Asistencia Voluntaria de Impuestos sobre la Renta (VITA) o con el Servicio de Defensa del Contribuyente.
           title: "¡Magnífico! El IRS tiene la información que necesita para procesar su declaración."
       portal:
         bank_account:
