@@ -5,12 +5,12 @@
     <%= link_to t("general.all_organizations"), hub_organizations_path %>
     <div class="grid">
       <div class="grid--item width-one-half">
-        <%= form_with model: @organization, url: hub_organization_path, method: :put, local: true, builder: VitaMinFormBuilder, id: "organization-form" do |f| %>
+        <%= form_with model: @organization_form, url: hub_organization_path, method: :put, local: true, builder: VitaMinFormBuilder, id: "organization-form" do |f| %>
           <h1 class="form-card__title">
             <%= @title %>
           </h1>
 
-          <%= render "hub/organizations/edit_organization", f: f, additional_options: {} %>
+          <%= render "hub/organizations/organization_form", f: f, additional_options: {} %>
         <% end %>
         <hr/>
 
@@ -84,4 +84,10 @@
       </div>
     </div>
   </section>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      window.taggableItems = <%= taggable_states(States.keys) %>;
+  </script>
 <% end %>

@@ -2,13 +2,19 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--padded">
-    <%= form_with model: @organization, url: hub_organizations_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
+    <%= form_with model: @organization_form, url: hub_organizations_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
       <h1 class="form-card__title">
         <%= @title %>
       </h1>
 
-      <%= render "hub/organizations/edit_organization", f: f, additional_options: { checked: "checked" } %>
+      <%= render "hub/organizations/organization_form", f: f, additional_options: { checked: "checked" } %>
 
     <% end %>
   </div>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      window.taggableItems = <%= taggable_states(States.keys) %>;
+  </script>
 <% end %>

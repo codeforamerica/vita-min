@@ -80,4 +80,19 @@ export function initMultiSelectState() {
         },
         originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','), // <-- specifies value format
     });
+
+    // For the organizations edit page, hide/show coalition input field & state input field.
+    const stateSelectVisibilityToggle = document.querySelector('.toggle-multi-select-state-visibility');
+    const stateSelectWrapper = document.querySelector('.state-select');
+    const coalitionSelectWrapper = document.querySelector('.coalition-select-wrapper');
+    if (stateSelectVisibilityToggle !== null) {
+        if (stateSelectVisibilityToggle.checked) {
+            stateSelectWrapper.classList.toggle("hidden");
+            coalitionSelectWrapper.classList.toggle("hidden");
+        }
+        stateSelectVisibilityToggle.addEventListener("click", (event) => {
+            stateSelectWrapper.classList.toggle("hidden");
+            coalitionSelectWrapper.classList.toggle("hidden");
+        })
+    }
 }

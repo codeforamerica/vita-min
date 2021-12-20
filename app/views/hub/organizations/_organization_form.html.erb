@@ -1,5 +1,16 @@
 <%= f.cfa_input_field :name, t("general.name") %>
-<%= f.cfa_select :coalition_id, t("general.coalition"), @coalitions.map { |c| [c.name, c.id] }, include_blank: true %>
+<%= f.cfa_checkbox :is_independent, "This organization is not part of a coalition", options: { class: 'toggle-multi-select-state-visibility', checked_value: "yes", unchecked_value: "no" } %>
+<div class="coalition-select-wrapper">
+  <%= f.cfa_select :coalition_id, t("general.coalition"), @coalitions.map { |c| [c.name, c.id] }, include_blank: true %>
+</div>
+<div class="form-group state-select hidden">
+  <label for="state-select" class="form-question"><%= t("general.state") %></label>
+  <div>
+    <%= hidden_field_tag("hub_organization_form[states]",
+                         taggable_states(@organization.state_routing_targets.pluck(:state_abbreviation)),
+                         id: "state-select", class: "text-input multi-select-state") %>
+  </div>
+</div>
 <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
 <div class="grid-flex center-aligned">
   <div class="item-15r">

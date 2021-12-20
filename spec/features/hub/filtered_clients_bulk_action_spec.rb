@@ -1,12 +1,8 @@
 require "rails_helper"
 
-def fill_in_tagify(element, value)
-  find(element).click
-  find("#{element} .tagify__input").send_keys value
-  find("#{element} .tagify__input").send_keys :enter
-end
-
 RSpec.describe "Filtering clients for bulk actions", active_job: true do
+  include FeatureTestHelpers
+
   let!(:user) { create :admin_user }
   let(:selected_org) { create :organization, name: "Orange Organization" }
   let(:unselected_org) { create :organization, name: "Rooster Brew" }
