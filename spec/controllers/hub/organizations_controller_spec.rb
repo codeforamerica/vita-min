@@ -3,23 +3,38 @@ require "rails_helper"
 RSpec.describe Hub::OrganizationsController, type: :controller do
   let(:parent_coalition) { create :coalition }
   let(:user) { create :admin_user }
+  let(:form_instance) { instance_double(Hub::OrganizationForm) }
+
+  before do
+    allow(form_instance).to receive(:model_name).and_return(Hub::OrganizationForm.new(Organization.new).model_name)
+    allow(form_instance).to receive(:errors).and_return([])
+  end
 
   describe "#new" do
     it_behaves_like :a_get_action_for_admins_only, action: :new
+
+    before do
+      allow(Hub::OrganizationForm).to receive(:new).and_return(form_instance)
+    end
 
     context "as an authenticated admin user" do
       let!(:coalitions) { create_list :coalition, 2 }
       before { sign_in user }
 
-      it "includes coalitions" do
+      it "includes coalitions and the organization form" do
         get :new
 
         expect(assigns(:coalitions)).to eq coalitions
+        expect(assigns(:organization_form)).to eq(form_instance)
       end
     end
   end
 
   describe "#create" do
+    before do
+      allow(Hub::OrganizationForm).to receive(:new).and_return(form_instance)
+    end
+
     let(:params) do
       {
         hub_organization_form: {
@@ -34,16 +49,27 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     context "as a logged in admin user" do
       before { sign_in user }
 
-      it "saves a new organization" do
-        expect {
-          post :create, params: params
-        }.to change(VitaPartner.organizations, :count).by 1
+      context "when saving the form succeeds" do
+        before do
+          allow(form_instance).to receive(:save).and_return(true)
+        end
 
-        organization = VitaPartner.organizations.last
-        expect(organization.name).to eq "Orangutan Organization"
-        expect(organization.coalition).to eq parent_coalition
-        expect(parent_coalition.organizations).to include organization
-        expect(response).to redirect_to(hub_organizations_path)
+        it "redirects to :new" do
+          post :create, params: params
+          expect(response).to redirect_to(hub_organizations_path)
+        end
+      end
+
+      context "when saving the form fails" do
+        before do
+          allow(form_instance).to receive(:save).and_return(false)
+        end
+
+        it "re-renders the :new page" do
+          post :create, params: params
+          expect(response).to render_template(:new)
+          expect(assigns(:organization_form)).to eq(form_instance)
+        end
       end
     end
   end
@@ -147,6 +173,11 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         expect(response.body).to include new_hub_site_path(parent_organization_id: organization)
       end
 
+      it "shows the organization edit form" do
+        get :edit, params: params
+        expect(assigns(:organization_form)).to be_an_instance_of(Hub::OrganizationForm)
+      end
+
       context "with SourceParameters for this org" do
         before do
           create(:source_parameter, code: "shortlink1", vita_partner: organization)
@@ -201,35 +232,34 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
     it_behaves_like :a_post_action_for_admins_only, action: :update
 
+    before do
+      allow(Hub::OrganizationForm).to receive(:new).and_return(form_instance)
+    end
+
     context "as a logged in admin" do
       before { sign_in user }
 
-      context "the organization object is valid" do
-        it "updates the name and coalition and source parameters" do
-          post :update, params: params
+      context "when the form is valid and saves successfully" do
+        before do
+          allow(form_instance).to receive(:save).and_return(true)
+        end
 
-          organization.reload
-          expect(organization.name).to eq "Oregano Organization"
-          expect(organization.coalition).to eq new_coalition
-          expect(organization.timezone).to eq "America/Chicago"
-          expect(organization.capacity_limit).to eq 200
-          expect(organization.allows_greeters).to eq true
+        it "redirects to the edit page" do
+          post :update, params: params
           expect(response).to redirect_to(edit_hub_organization_path(id: organization.id))
-          expect(SourceParameter.find_by(code: "shortlink")).to be_nil
-          expect(organization.reload.source_parameters.pluck(:code)).to eq(["newshortlink"])
         end
       end
 
-      context "the organization object is not valid" do
+      context "when the form is invalid and does not save successfully" do
         before do
-          allow_any_instance_of(VitaPartner).to receive(:save).and_return false
+          allow(form_instance).to receive(:save).and_return(false)
         end
 
-        it "re-renders edit with an error message" do
+        it "re-renders the edit page" do
           post :update, params: params
-
-          expect(flash.now[:alert]).to eq "Please fix indicated errors and try again."
-          expect(response).to render_template :edit
+          expect(response).to be_ok
+          expect(response).to render_template(:edit)
+          expect(assigns(:organization_form)).to eq(form_instance)
         end
       end
     end
