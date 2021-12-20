@@ -16,18 +16,18 @@ RSpec.describe Hub::OrganizationForm do
     context "when is_independent=yes" do
       let(:params) { { is_independent: "yes" }}
 
-      it "requires only name" do
+      it "requires name and states" do
         expect(subject).not_to be_valid
-        expect(subject.errors.attribute_names).to match_array(:name)
+        expect(subject.errors.attribute_names).to match_array([:name, :states])
       end
     end
 
     context "when is_independent=no" do
       let(:params) { { is_independent: "no" }}
 
-      it "also requires coalition_id" do
+      it "requires name and coalition ID" do
         expect(subject).not_to be_valid
-        expect(subject.errors.attribute_names).to include(:coalition_id)
+        expect(subject.errors.attribute_names).to match_array([:name, :coalition_id])
       end
     end
   end

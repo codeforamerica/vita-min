@@ -10,6 +10,7 @@ module Hub
 
     validates :name, presence: true
     validates :coalition_id, presence: true, if: -> { @is_independent != "yes" }
+    validates :states, presence: true, if: -> { @is_independent == "yes" }
 
     def initialize(organization, params = {})
       @organization = organization
