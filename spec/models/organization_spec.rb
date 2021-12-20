@@ -197,8 +197,10 @@ describe Organization do
     }
     let(:subject) { described_class.new(params) }
 
-    it "can be valid" do
-      expect(subject).to be_valid
+    context "with valid params" do
+      it "is valid" do
+        expect(subject).to be_valid
+      end
     end
 
     context "when capacity limit is not a number" do
