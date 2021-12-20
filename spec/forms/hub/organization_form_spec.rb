@@ -7,6 +7,31 @@ RSpec.describe Hub::OrganizationForm do
   let(:params) { {} }
   let(:coalition) { nil }
 
+  describe "validations" do
+    it "requires name" do
+      expect(subject).not_to be_valid
+      expect(subject.errors.attribute_names).to include(:name)
+    end
+
+    context "when is_independent=yes" do
+      let(:params) { { is_independent: "yes" }}
+
+      it "requires only name" do
+        expect(subject).not_to be_valid
+        expect(subject.errors.attribute_names).to match_array(:name)
+      end
+    end
+
+    context "when is_independent=no" do
+      let(:params) { { is_independent: "no" }}
+
+      it "also requires coalition_id" do
+        expect(subject).not_to be_valid
+        expect(subject.errors.attribute_names).to include(:coalition_id)
+      end
+    end
+  end
+
   describe "#independent_org" do
     context "with an unpersisted org" do
       context "when params specify is_independent is true" do
@@ -63,13 +88,6 @@ RSpec.describe Hub::OrganizationForm do
           end
         end
       end
-    end
-  end
-
-  describe "validations" do
-    it "requires name" do
-      expect(subject).not_to be_valid
-      expect(subject.errors).to include(:name)
     end
   end
 

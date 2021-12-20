@@ -9,6 +9,7 @@ module Hub
     set_attributes_for :organization_synthetic_attributes, :is_independent
 
     validates :name, presence: true
+    validates :coalition_id, presence: true, if: -> { @is_independent != "yes" }
 
     def initialize(organization, params = {})
       @organization = organization
