@@ -221,15 +221,16 @@ describe Organization do
     end
 
     context "when it shares the name as another organization in the same coalition" do
+      let(:coalition) { create(:coalition) }
+
       before do
-        coalition = create :coalition
         create(:organization, coalition: coalition, name: "Oregano Org")
       end
 
       it "is not valid" do
         new_org = build(:organization, coalition: coalition, name: "Oregano Org")
         expect(new_org).not_to be_valid
-        expect(new_org).errors to include(:name)
+        expect(new_org.errors).to include(:name)
       end
     end
 
