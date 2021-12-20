@@ -113,7 +113,7 @@ RSpec.describe "create VITA organization hierarchy", :js do
       visit hub_tools_path
       click_on "Orgs"
 
-      click_on "New Organization"
+      click_on "Add new organization"
       fill_in "Name", with: "Independent Wombat Organization"
       check "This organization is not part of a coalition"
       fill_in_tagify ".state-select", "California"
