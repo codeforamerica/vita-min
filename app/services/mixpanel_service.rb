@@ -232,11 +232,10 @@ class MixpanelService
         had_earned_income: intake.had_earned_income? ? "yes" : "no",
         state: intake.state_of_residence,
         zip_code: intake.zip_code,
+        needs_help_2021: intake.needs_help_2021,
         needs_help_2020: intake.needs_help_2020,
         needs_help_2019: intake.needs_help_2019,
         needs_help_2018: intake.needs_help_2018,
-        needs_help_2017: intake.needs_help_2017,
-        needs_help_2016: intake.needs_help_2016,
         needs_help_backtaxes: intake.needs_help_with_backtaxes? ? "yes" : "no",
         vita_partner_name: intake.vita_partner&.name,
         timezone: intake.timezone,
@@ -342,7 +341,7 @@ class MixpanelService
 
     def age_from_date_of_birth(date_of_birth)
       if date_of_birth.present?
-        Rails.application.config.current_tax_year - date_of_birth.year
+        TaxReturn.current_tax_year - date_of_birth.year
       else
         nil
       end

@@ -363,7 +363,7 @@ describe Client do
       context "when all tax returns are filing single" do
         let(:client) { create :client, intake: (create :intake, filing_joint: "unfilled"), tax_returns: [tr_2020, tr_2019] }
         let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
-        let(:tr_2020) { create :tax_return, filing_status: "single", year: 2020 }
+        let(:tr_2020) { create :tax_return, filing_status: "single", year: 2021 }
 
         it "returns false" do
           expect(client.requires_spouse_info?).to eq false
@@ -373,7 +373,7 @@ describe Client do
       context "when tax returns have any other status or a mix of statuses" do
         let(:client) { create :client, intake: (create :intake, filing_joint: "unfilled"), tax_returns: [tr_2020, tr_2019] }
         let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
-        let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2020 }
+        let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2021 }
 
         it "returns true" do
           expect(client.requires_spouse_info?).to eq true
@@ -527,13 +527,15 @@ describe Client do
       let(:attachment) { fixture_file_upload("test-pattern.png") }
       let(:tax_return_selection) { create(:tax_return_selection) }
       before do
-        doc_request = create :documents_request, intake: intake
+        doc_request = create :documents_request, client: client
         create_list :document, 2, client: client, intake: intake, documents_request_id: doc_request.id
-        create_list :document, 2, client: client, intake: intake
         create_list :dependent, 2, intake: intake
         tax_return = create :tax_return, client: client, assigned_user: user, tax_return_selections: [tax_return_selection]
         tax_return_assignment = create :tax_return_assignment, tax_return: tax_return
         create :user_notification, user: user, notifiable: tax_return_assignment
+        submission = create :efile_submission, :investigating, tax_return: tax_return
+        create :address, record: submission
+        create_list :document, 2, client: client, intake: intake, tax_return: tax_return
         note = create :note, client: client, user: user
         create :user_notification, user: user, notifiable: note
         create :system_note, client: client
@@ -562,6 +564,8 @@ describe Client do
         expect(DocumentsRequest.count).to eq 0
         expect(TaxReturnAssignment.count).to eq 0
         expect(UserNotification.count).to eq 0
+        expect(Address.count).to eq(0)
+        expect(EfileSubmission.count).to eq(0)
       end
     end
   end
@@ -829,7 +833,7 @@ describe Client do
     before do
       create :tax_return, year: 2019, assigned_user: assigned_user_a, client: client
       create :tax_return, year: 2018, assigned_user: assigned_user_b, client: client
-      create :tax_return, year: 2020, assigned_user: assigned_user_a, client: client
+      create :tax_return, year: 2021, assigned_user: assigned_user_a, client: client
     end
 
     context "with valid data" do

@@ -1,0 +1,26 @@
+<div>
+  <%= form_with model: @coalition, url: url, method: local_assigns[:http_method], local: true, builder: VitaMinFormBuilder, id: "coalition-form" do |f| %>
+    <h1 class="form-card__title">
+      <%= @title %>
+    </h1>
+
+    <%= f.cfa_input_field :name, t("general.name") %>
+      <div class="form-group state-select">
+        <label for="state-select" class="form-question"><%= t("general.state") %></label>
+        <div>
+          <%= hidden_field_tag("state_routing_targets[states]",
+                             taggable_states(@coalition.state_routing_targets.pluck(:state_abbreviation)),
+                             id: "state-select", class: "text-input multi-select-state") %>
+        </div>
+      </div>
+    <div>
+      <%= f.submit t("general.save"), class: "button button--primary button--wide" %>
+    </div>
+  <% end %>
+</div>
+
+<% content_for :script do %>
+  <script>
+      window.taggableItems = <%= taggable_states(States.keys) %>;
+  </script>
+<% end %>

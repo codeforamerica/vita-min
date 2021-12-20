@@ -59,7 +59,7 @@ describe TaxReturn do
   end
 
   describe "#outstanding_recovery_rebate_credit" do
-    let(:tax_return) { create :tax_return, client: client, year: 2020 }
+    let(:tax_return) { create :tax_return, client: client, year: TaxReturn.current_tax_year }
     let(:client) { create :client, intake: create(:ctc_intake, eip1_amount_received: eip1_amount_received, eip2_amount_received: eip2_amount_received) }
     let(:intake) { tax_return.intake }
 
@@ -118,12 +118,12 @@ describe TaxReturn do
   end
 
   describe "#expected_recovery_rebate_credit_one" do
-    let(:tax_return) { create :tax_return, client: client, year: 2020 }
+    let(:tax_return) { create :tax_return, client: client, year: TaxReturn.current_tax_year }
     let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
     let(:intake) { tax_return.intake }
     before do
       allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
-      allow_any_instance_of(Dependent).to receive(:yr_2020_qualifying_child?).and_return true
+      allow_any_instance_of(Dependent).to receive("yr_#{TaxReturn.current_tax_year}_qualifying_child?").and_return true
       allow_any_instance_of(Dependent).to receive(:eligible_for_eip1?).and_return true
       allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due)
     end
@@ -135,12 +135,12 @@ describe TaxReturn do
   end
 
   describe "#expected_recovery_rebate_credit_two" do
-    let(:tax_return) { create :tax_return, client: client, year: 2020 }
+    let(:tax_return) { create :tax_return, client: client, year: TaxReturn.current_tax_year }
     let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
     let(:intake) { tax_return.intake }
     before do
       allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
-      allow_any_instance_of(Dependent).to receive(:yr_2020_qualifying_child?).and_return true
+      allow_any_instance_of(Dependent).to receive("yr_#{TaxReturn.current_tax_year}_qualifying_child?").and_return true
       allow_any_instance_of(Dependent).to receive(:eligible_for_eip2?).and_return true
       allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due)
     end
@@ -152,7 +152,7 @@ describe TaxReturn do
   end
 
   describe "#expected_recovery_rebate_credit_three" do
-    let(:tax_return) { create :tax_return, client: client, year: 2020 }
+    let(:tax_return) { create :tax_return, client: client, year: 2021 }
     let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
     let(:intake) { tax_return.intake }
     before do
@@ -241,7 +241,7 @@ describe TaxReturn do
   describe "#rrc_eligible_filer_count" do
     context "when filing status is single" do
       let(:intake) { create :ctc_intake, primary_tin_type: :itin }
-      let(:tax_return) { create(:tax_return, year: 2020, filing_status: :single, client: intake.client) }
+      let(:tax_return) { create(:tax_return, year: 2021, filing_status: :single, client: intake.client) }
       context "when the primary is using an ITIN" do
         it "filer_count is 0" do
           expect(tax_return.rrc_eligible_filer_count).to eq 0
@@ -250,7 +250,7 @@ describe TaxReturn do
 
       context "when the primary is using an SSN" do
         let(:intake) { create :ctc_intake, primary_tin_type: :ssn }
-        let(:tax_return) { create(:tax_return, year: 2020, filing_status: :single, client: intake.client) }
+        let(:tax_return) { create(:tax_return, year: 2021, filing_status: :single, client: intake.client) }
         it "filer count is 1" do
           expect(tax_return.rrc_eligible_filer_count).to eq 1
         end
@@ -258,7 +258,7 @@ describe TaxReturn do
     end
 
     context "when filing with a spouse" do
-      let(:tax_return) { create(:tax_return, year: 2020, filing_status: :married_filing_jointly, client: intake.client) }
+      let(:tax_return) { create(:tax_return, year: 2021, filing_status: :married_filing_jointly, client: intake.client) }
       let(:spouse_military) { "no" }
       let(:primary_military) { "no" }
       let(:primary_tin_type) { "itin" }
@@ -1262,14 +1262,34 @@ describe TaxReturn do
   end
 
   describe "#standard_deduction" do
-    let(:tax_return) { create :tax_return, year: 2020, filing_status: :married_filing_jointly }
+    let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
     before do
       allow(StandardDeduction).to receive(:for)
     end
 
     it "calls StandardDeduction with appropriate params" do
       tax_return.standard_deduction
-      expect(StandardDeduction).to have_received(:for).with(tax_year: 2020, filing_status: "married_filing_jointly")
+      expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly")
+    end
+  end
+
+  describe ".filing_years" do
+    before do
+      allow(Rails.application.config).to receive(:current_tax_year).and_return 2021
+    end
+
+    it "provides an array of available filing years, which is the current tax year and three previous years" do
+      expect(TaxReturn.filing_years).to eq [2021, 2020, 2019, 2018]
+    end
+  end
+
+  describe ".backtax_years" do
+    before do
+      allow(Rails.application.config).to receive(:current_tax_year).and_return 2021
+    end
+
+    it "excludes the current filing year from backtaxes" do
+      expect(TaxReturn.backtax_years).to eq [2020, 2019, 2018]
     end
   end
 end

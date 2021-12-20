@@ -6,7 +6,7 @@ describe Portal::UploadDocumentsController do
     it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :edit
 
     context "when authenticated" do
-      let(:client) { create :client, intake: (create :intake), current_sign_in_at: Time.now }
+      let(:client) { create :client, intake: (build :intake), current_sign_in_at: Time.now }
 
       before do
         sign_in client
@@ -18,7 +18,7 @@ describe Portal::UploadDocumentsController do
       end
 
       context "when a documents request exists for the session" do
-        let!(:doc_request) { create(:documents_request, intake: client.intake) }
+        let!(:doc_request) { create(:documents_request, client: client) }
         let(:requested_docs_double) { double RequestedDocumentUploadForm }
         before do
           5.times do

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :current_tax_year, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?, :open_for_ctc_intake?, :open_for_ctc_login?, :wrapping_layout
+  helper_method :include_analytics?, :current_intake, :current_tax_year, :prior_tax_year, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?, :open_for_ctc_intake?, :open_for_ctc_login?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -47,7 +47,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_tax_year
-    Rails.application.config.current_tax_year
+    TaxReturn.current_tax_year.to_i
+  end
+
+  def prior_tax_year
+    current_tax_year - 1
   end
 
   def intake_from_completed_session
@@ -103,9 +107,11 @@ class ApplicationController < ActionController::Base
     session[:source]
   end
 
+  # Allow session[:source] to re-set on every interaction so we can track all
+  # unique source entry points in Mixpanel.
   def set_source
     source_from_params = params[:source] || params[:utm_source] || params[:s]
-    if !session[:source] && source_from_params.present?
+    if source_from_params.present?
       # Use at most 100 chars in session so we don't overflow it.
       session[:source] = source_from_params.slice(0, 100)
     elsif request.headers.fetch(:referer, "").include?("google.com")

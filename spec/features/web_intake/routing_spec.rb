@@ -41,6 +41,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot do
     expect(page).to have_text "let's get some basic information"
     fill_in "What is your preferred first name?", with: "Betty Banana"
     fill_in "ZIP code", with: zip_code
+    fill_in "Phone number", with: "415-888-0088"
+    fill_in "Confirm phone number", with: "415-888-0088"
     click_on "Continue"
 
     fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
@@ -72,6 +74,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot do
     expect(page).to have_text "let's get some basic information"
     fill_in "What is your preferred first name?", with: "Minerva Mcgonagall"
     fill_in "ZIP code", with: zip_code
+    fill_in "Phone number", with: "415-888-0088"
+    fill_in "Confirm phone number", with: "415-888-0088"
     click_on "Continue"
 
     fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
@@ -103,6 +107,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot do
     expect(page).to have_text "let's get some basic information"
     fill_in "What is your preferred first name?", with: "Luna Lovegood"
     fill_in "ZIP code", with: "28806"
+    fill_in "Phone number", with: "415-888-0088"
+    fill_in "Confirm phone number", with: "415-888-0088"
     click_on "Continue"
 
     fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
@@ -141,6 +147,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot do
       expect(page).to have_text "let's get some basic information"
       fill_in "What is your preferred first name?", with: "Luna Lovegood"
       fill_in "ZIP code", with: "28806"
+      fill_in "Phone number", with: "415-888-0088"
+      fill_in "Confirm phone number", with: "415-888-0088"
       click_on "Continue"
 
       expect(page.html).to have_text "Wow, it looks like we are at capacity right now."

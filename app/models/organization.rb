@@ -35,9 +35,11 @@ class Organization < VitaPartner
   has_many :child_sites, -> { order(:id) }, class_name: "Site", foreign_key: "parent_organization_id"
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode", foreign_key: "vita_partner_id"
   has_many :serviced_states, class_name: "VitaPartnerState", foreign_key: "vita_partner_id"
-
+  has_many :state_routing_targets, as: :target
   validates :capacity_limit, gyr_numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   validates :name, uniqueness: { scope: [:coalition] }
+  has_many :state_routing_targets, as: :target, dependent: :destroy
+  validate :no_state_routing_targets_if_in_coalition
 
   default_scope -> { includes(:child_sites).order(name: :asc) }
   alias_attribute :allows_greeters?, :allows_greeters
@@ -56,5 +58,13 @@ class Organization < VitaPartner
 
   def team_members
     User.where(role: TeamMemberRole.where(site: child_sites))
+  end
+
+  private
+
+  def no_state_routing_targets_if_in_coalition
+    if coalition.present? && state_routing_targets.present?
+      errors.add(:coalition, "Since the organization has states configured, it cannot also be part of a coalition.")
+    end
   end
 end

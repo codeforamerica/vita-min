@@ -4,7 +4,8 @@ RSpec.describe AdvCtcIrs1040Pdf do
   include PdfSpecHelper
 
   let(:pdf) { described_class.new(submission) }
-  let(:submission) { create :efile_submission, :ctc }
+  # Locked to 2020 because the resulting PDF matches 2020 revenue procedure needs.
+  let(:submission) { create :efile_submission, :ctc, tax_year: 2020 }
 
   describe "#output_file" do
     context "with an empty submission record" do

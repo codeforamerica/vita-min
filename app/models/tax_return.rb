@@ -50,7 +50,7 @@ class TaxReturn < ApplicationRecord
   has_many :assignments, class_name: "TaxReturnAssignment", dependent: :destroy
   has_many :tax_return_selection_tax_returns, dependent: :destroy
   has_many :tax_return_selections, through: :tax_return_selection_tax_returns
-  has_many :efile_submissions
+  has_many :efile_submissions, dependent: :destroy
   has_one :accepted_tax_return_analytics
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
@@ -80,9 +80,9 @@ class TaxReturn < ApplicationRecord
   end
 
   def qualifying_dependents
-    raise StandardError, "Qualifying dependent logic is only valid for 2020.  Define new rules for #{year}." unless year == 2020
+    raise StandardError, "Qualifying dependent logic does not exist for #{year}  Define new rules for #{year}." unless [2020, 2021].include?(year)
 
-    intake.dependents.filter { |d| d.yr_2020_qualifying_child? || d.yr_2020_qualifying_relative? }
+    intake.dependents.filter { |d| d.send("yr_#{year}_qualifying_child?") || d.send("yr_#{year}_qualifying_relative?") }
   end
 
   def filing_status_code
@@ -154,8 +154,16 @@ class TaxReturn < ApplicationRecord
     )
   end
 
+  def self.current_tax_year
+    Rails.application.config.current_tax_year.to_i
+  end
+
+  def self.backtax_years
+    filing_years.without(current_tax_year)
+  end
+
   def self.filing_years
-    [2020, 2019, 2018, 2017]
+    Array((current_tax_year - 3)..current_tax_year).reverse.freeze
   end
 
   def self.service_type_options

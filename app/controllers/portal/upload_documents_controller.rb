@@ -62,7 +62,7 @@ module Portal
     end
 
     def find_or_create_document_request
-      @document_request = DocumentsRequest.find_or_create_by(completed_at: nil, intake: current_client.intake)
+      @document_request = DocumentsRequest.find_or_create_by(completed_at: nil, client: current_client)
     end
 
     def current_path

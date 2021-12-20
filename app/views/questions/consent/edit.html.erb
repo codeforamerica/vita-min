@@ -10,8 +10,8 @@
       <%= f.cfa_input_field(:primary_first_name, t("views.questions.consent.primary_first_name")) %>
       <%= f.cfa_input_field(:primary_last_name, t("views.questions.consent.primary_last_name")) %>
     <%= f.cfa_select(:primary_tin_type, t('general.tin_type'), tin_options_for_select(include_itin: true)) %>
-    <%= f.cfa_input_field(:primary_ssn, t("attributes.primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
-    <%= f.cfa_input_field(:primary_ssn_confirmation, t("attributes.confirm_primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
+    <%= f.cfa_input_field(:primary_ssn, t("attributes.primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
+    <%= f.cfa_input_field(:primary_ssn_confirmation, t("attributes.confirm_primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
       <div class="date-select">
         <%= f.cfa_date_select(
                 :birth_date,

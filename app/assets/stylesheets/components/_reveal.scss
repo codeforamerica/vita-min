@@ -6,6 +6,13 @@
   padding: .2em .5em .3em .7em;
 }
 
+// this is used in places where we want the reveal to match the width of the form inputs above it
+.reveal-shrink-wrapper {
+  .reveal {
+    max-width: $width-form-long;
+  }
+}
+
 .reveal > p:first-of-type {
   margin-bottom: 0;
 }

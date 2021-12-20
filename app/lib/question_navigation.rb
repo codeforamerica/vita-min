@@ -25,10 +25,16 @@ class QuestionNavigation
       Questions::InterviewSchedulingController,
       Questions::AtCapacityController,
       Questions::ChatWithUsController,
-      Questions::PhoneNumberController,
-      Questions::EmailAddressController,
-      Questions::ReturningClientController, # possible off-boarding from flow
       Questions::NotificationPreferenceController,
+      Questions::PhoneNumberCanReceiveTextsController,
+      Questions::CellPhoneNumberController,
+      Questions::PhoneVerificationController,
+      Questions::EmailAddressController,
+      Questions::EmailVerificationController,
+      Questions::ReturningClientController, # possible off-boarding from flow
+
+      #TODO
+      # 1. make sure there are appropriate tests for each controller and form & an overall test for the different paths in the flow
 
       # Consent
       Questions::ConsentController, # Authenticates the client

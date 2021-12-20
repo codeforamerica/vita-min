@@ -6,7 +6,7 @@
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
 #  already_applied_for_stimulus                         :integer          default(0), not null
-#  already_filed                                        :integer          default(0), not null
+#  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
 #  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
@@ -78,8 +78,8 @@
 #  ever_owned_home                                      :integer          default(0), not null
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
-#  filed_2019                                           :integer          default(0), not null
 #  filed_2020                                           :integer          default(0), not null
+#  filed_prior_tax_year                                 :integer          default(0), not null
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
@@ -123,6 +123,7 @@
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
+#  needs_help_2021                                      :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
@@ -187,7 +188,7 @@
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_email_address                                 :citext
-#  spouse_filed_2019                                    :integer          default(0), not null
+#  spouse_filed_prior_tax_year                          :integer          default(0), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_issued_identity_pin                           :integer          default(0), not null
@@ -221,9 +222,8 @@
 #  with_limited_english_navigator                       :boolean          default(FALSE)
 #  with_unhoused_navigator                              :boolean          default(FALSE)
 #  zip_code                                             :string
-#  created_at                                           :datetime
-#  updated_at                                           :datetime
-#  bank_account_id                                      :bigint
+#  created_at                                           :datetime         not null
+#  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
@@ -237,7 +237,6 @@
 #
 # Indexes
 #
-#  index_intakes_on_bank_account_id                        (bank_account_id)
 #  index_intakes_on_canonical_email_address                (canonical_email_address)
 #  index_intakes_on_client_id                              (client_id)
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
@@ -466,8 +465,8 @@ FactoryBot.define do
     referrer { "/" }
     primary_ssn { "123456789" }
     primary_tin_type { "ssn" }
-    spouse_ssn { "912345678" }
-    spouse_tin_type { "itin" }
+    spouse_ssn { "123456789" }
+    spouse_tin_type { "ssn" }
     primary_birth_date { Date.new(1979, 12, 24) }
     spouse_birth_date { Date.new(1983, 11, 23) }
     street_address { "123 Cherry Lane" }
@@ -491,11 +490,21 @@ FactoryBot.define do
     demographic_english_reading { "well" }
     demographic_english_conversation { "not_well" }
     bought_energy_efficient_items { "unfilled" } # no default value in db for this enum.
+    bank_account_type { "checking" }
+    refund_payment_method { "check" }
+
     after(:build) do |intake|
+      # default any unsupplied enum values to 'no' if possible
       intake.class.defined_enums.each_key do |key|
-        # only randomize values for keys that have not been supplied
         if intake[key] == "unfilled"
-          intake[key] = intake.class.send(key.pluralize).keys.sample
+          enum_keys = intake.class.send(key.pluralize).keys
+          default_choices = %w(no prefer_not_to_answer neutral)
+          default_choice = enum_keys.find { |k| k.in?(default_choices) }
+          if default_choice
+            intake[key] = default_choice
+          else
+            raise "Didn't know what to do for enum #{key} - we usually default to [#{default_choices.join(' or ')}] but that value was not available"
+          end
         end
       end
     end

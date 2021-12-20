@@ -70,7 +70,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :prep_preparing, year: 2020)]
+             tax_returns: [(create :tax_return, :prep_preparing, year: 2021)]
     end
 
     before do
@@ -83,8 +83,8 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "2020 Tax Return"
-      within "#tax-year-2020" do
+      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
+      within "#tax-year-#{TaxReturn.current_tax_year}" do
         expect(page).to have_text "Completed review"
         expect(page).to have_text "Your tax team is preparing the return"
       end
@@ -95,7 +95,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :prep_info_requested, year: 2020)]
+             tax_returns: [(create :tax_return, :prep_info_requested, year: 2021)]
     end
 
     before do
@@ -108,8 +108,8 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "2020 Tax Return"
-      within "#tax-year-2020" do
+      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
+      within "#tax-year-#{TaxReturn.current_tax_year}" do
         expect(page).to have_text "Completed review"
         expect(page).to have_text "Submit requested tax documents"
       end
@@ -120,7 +120,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :intake_greeter_info_requested, year: 2020)]
+             tax_returns: [(create :tax_return, :intake_greeter_info_requested, year: 2021)]
     end
 
     before do
@@ -141,7 +141,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :review_reviewing, year: 2020)]
+             tax_returns: [(create :tax_return, :review_reviewing, year: 2021)]
     end
 
     before do
@@ -154,11 +154,11 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "2020 Tax Return"
-      within "#tax-year-2020" do
+      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
+      within "#tax-year-#{TaxReturn.current_tax_year}" do
         expect(page).to have_text "Completed review"
         expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Your tax team is waiting to discuss your final 2020 return with you"
+        expect(page).to have_text "Your tax team is waiting to discuss your final #{TaxReturn.current_tax_year} return with you"
       end
     end
   end
@@ -167,7 +167,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :file_not_filing, year: 2020)]
+             tax_returns: [(create :tax_return, :file_not_filing, year: 2021)]
     end
 
     before do
@@ -180,8 +180,8 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "2020 Tax Return"
-      within "#tax-year-2020" do
+      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
+      within "#tax-year-#{TaxReturn.current_tax_year}" do
         expect(page).not_to have_text "Completed review"
         expect(page).not_to have_text "Return prepared"
         expect(page).not_to have_text "Completed quality review"
@@ -194,7 +194,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :file_hold, year: 2020)]
+             tax_returns: [(create :tax_return, :file_hold, year: 2021)]
     end
 
     before do
@@ -207,8 +207,8 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "2020 Tax Return"
-      within "#tax-year-2020" do
+      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
+      within "#tax-year-#{TaxReturn.current_tax_year}" do
         expect(page).not_to have_text "Completed review"
         expect(page).not_to have_text "Return prepared"
         expect(page).not_to have_text "Completed quality review"
@@ -221,7 +221,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake, filing_joint: "yes"),
-             tax_returns: [(create :tax_return, :review_signature_requested, year: 2020)]
+             tax_returns: [(create :tax_return, :review_signature_requested, year: 2021)]
     end
 
     before do
@@ -239,13 +239,13 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
 
-      expect(page).to have_text "2020 Tax Return"
-      within "#tax-year-2020" do
+      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
+      within "#tax-year-#{TaxReturn.current_tax_year}" do
         expect(page).to have_text "Completed review"
         expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Completed quality review for 2020"
-        expect(page).to have_link "Add final primary taxpayer signature for 2020"
-        expect(page).to have_link "Add final spouse signature for 2020"
+        expect(page).to have_text "Completed quality review for #{TaxReturn.current_tax_year}"
+        expect(page).to have_link "Add final primary taxpayer signature for #{TaxReturn.current_tax_year}"
+        expect(page).to have_link "Add final spouse signature for #{TaxReturn.current_tax_year}"
       end
     end
   end
@@ -254,7 +254,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed, year: 2020)]
+             tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed, year: 2021)]
     end
 
     before do
@@ -270,12 +270,12 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Completed review"
 
 
-      expect(page).to have_text "2020 Tax Return"
-      within "#tax-year-2020" do
+      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
+      within "#tax-year-#{TaxReturn.current_tax_year}" do
         expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Completed quality review for 2020"
-        expect(page).to have_text "Final signature added for 2020"
-        expect(page).to have_link("Download final tax papers 2020")
+        expect(page).to have_text "Completed quality review for #{TaxReturn.current_tax_year}"
+        expect(page).to have_text "Final signature added for #{TaxReturn.current_tax_year}"
+        expect(page).to have_link("Download final tax papers #{TaxReturn.current_tax_year}")
       end
     end
   end
@@ -352,7 +352,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
         intake: (create :ctc_intake),
-        tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed, year: 2020, is_ctc: true)]
+        tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed, year: 2021, is_ctc: true)]
     end
 
     before do

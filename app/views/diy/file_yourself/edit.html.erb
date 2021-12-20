@@ -19,7 +19,7 @@
         <div class="text--semibold spacing-below-35">
           <p><%= t(".right_option.header") %></p>
           <ul class="checkmark-list purple">
-            <% t(".right_option.description").each do |item| %>
+            <% t(".right_option.description", current_tax_year: current_tax_year).each do |item| %>
             <li>
               <%= item %>
             </li>

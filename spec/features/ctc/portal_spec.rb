@@ -69,7 +69,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
     end
 
     context "intake is in progress" do
-      let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:tax_return, year: 2020)]), email_address: "mango@example.com" }
+      let!(:intake) { create :ctc_intake, client: create(:client, tax_returns: [build(:tax_return, year: 2021)]), email_address: "mango@example.com" }
       before do
         intake.update(current_step: "/en/questions/spouse-info")
       end
@@ -88,7 +88,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
     context "efile submission is status new" do
       before do
         intake.update(current_step: "/en/questions/spouse-info")
-        create(:efile_submission, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        create(:efile_submission, tax_return: create(:tax_return, client: intake.client, year: 2021))
       end
 
       scenario "a client sees and can click on a link to continue their intake" do
@@ -102,7 +102,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
     context "efile submission is status preparing" do
       before do
-        create(:efile_submission, :preparing, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        create(:efile_submission, :preparing, tax_return: create(:tax_return, client: intake.client, year: 2021))
       end
 
       scenario "a client sees and can click on a link to continue their intake" do
@@ -116,7 +116,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
     context "efile submission is status failed" do
       before do
-        create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client, year: 2021))
       end
 
       scenario "a client sees their submission status" do
@@ -164,7 +164,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
     context "efile submission is status investigating" do
       before do
-        es = create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        es = create(:efile_submission, :failed, tax_return: create(:tax_return, client: intake.client, year: 2021))
         es.transition_to!(:investigating)
       end
 
@@ -179,7 +179,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
     context "efile submission is status transmitted" do
       before do
-        create(:efile_submission, :transmitted, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        create(:efile_submission, :transmitted, tax_return: create(:tax_return, client: intake.client, year: 2021))
       end
 
       scenario "a client sees their submission status" do
@@ -193,7 +193,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
     context "efile submission is status accepted, there is a 1040 to download" do
       before do
-        es = create(:efile_submission, :accepted, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        es = create(:efile_submission, :accepted, tax_return: create(:tax_return, client: intake.client, year: 2021))
         create(:document, document_type: DocumentTypes::Form1040.key, tax_return: es.tax_return, client: es.tax_return.client)
       end
 
@@ -226,7 +226,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
           dependents: [qualifying_child, dependent_to_delete]
         )
       end
-      let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2020, status: "intake_in_progress")) }
+      let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2021, status: "intake_in_progress")) }
 
       scenario "a client can correct their information" do
         log_in_to_ctc_portal
@@ -495,7 +495,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
 
     context "efile submission is status cancelled" do
       before do
-        es = create(:efile_submission, :rejected, :with_errors, tax_return: create(:tax_return, client: intake.client, year: 2020))
+        es = create(:efile_submission, :rejected, :with_errors, tax_return: create(:tax_return, client: intake.client, year: 2021))
         es.transition_to!(:cancelled)
       end
 

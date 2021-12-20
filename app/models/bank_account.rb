@@ -22,6 +22,10 @@
 #  index_bank_accounts_on_hashed_routing_number  (hashed_routing_number)
 #  index_bank_accounts_on_intake_id              (intake_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (intake_id => intakes.id)
+#
 class BankAccount < ApplicationRecord
   belongs_to :intake
   attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }

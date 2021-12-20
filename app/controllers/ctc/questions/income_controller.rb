@@ -41,7 +41,11 @@ module Ctc
       end
 
       def current_intake
-        @intake ||= Intake::CtcIntake.new(visitor_id: cookies[:visitor_id], source: session[:source])
+        @intake ||= Intake::CtcIntake.new(
+            visitor_id: cookies[:visitor_id],
+            source: session[:source],
+            referrer: session[:referrer]
+            )
       end
 
       def method_name

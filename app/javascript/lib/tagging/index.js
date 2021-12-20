@@ -60,3 +60,39 @@ export function initMultiSelectVitaPartner() {
         }
     });
 }
+
+export function initMultiSelectState() {
+    const input = document.querySelector('.multi-select-state');
+    new Tagify(input, {
+        tagTextProp: 'name',  // <-- defines which attr is used as the tag display value
+        // Array for initial interpolation, which allows only these tags to be used
+        whitelist: window.taggableItems,
+        enforceWhitelist: true,
+        dropdown : {
+            classname: "multi-select-dropdown",
+            enabled: 0,
+            mapValueTo: 'name', // <-- defines which attr is used to display dropdown items
+            searchKeys: ['name', 'abbreviation'], // <-- defines the attr used to search for in dropdown
+            highlightFirst: true,  // <-- automatically highlights first suggestion item in the dropdown
+            closeOnSelect: false, // <-- keep dropdown open after selection
+            maxItems: window.taggableItems.length, // <-- render all available items for the dropdown
+            position: 'text', // <-- render the suggestions list next to the text carat
+        },
+        originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','), // <-- specifies value format
+    });
+
+    // For the organizations edit page, hide/show coalition input field & state input field.
+    const stateSelectVisibilityToggle = document.querySelector('.toggle-multi-select-state-visibility');
+    const stateSelectWrapper = document.querySelector('.state-select');
+    const coalitionSelectWrapper = document.querySelector('.coalition-select-wrapper');
+    if (stateSelectVisibilityToggle !== null) {
+        if (stateSelectVisibilityToggle.checked) {
+            stateSelectWrapper.classList.toggle("hidden");
+            coalitionSelectWrapper.classList.toggle("hidden");
+        }
+        stateSelectVisibilityToggle.addEventListener("click", (event) => {
+            stateSelectWrapper.classList.toggle("hidden");
+            coalitionSelectWrapper.classList.toggle("hidden");
+        })
+    }
+}

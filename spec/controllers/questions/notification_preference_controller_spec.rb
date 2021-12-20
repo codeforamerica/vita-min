@@ -17,48 +17,17 @@ RSpec.describe Questions::NotificationPreferenceController do
       get :edit
       expect(response).to be_successful
     end
-
-    it "pre-populates the cell phone field if they said they can receive texts" do
-      get :edit
-
-      expect(response.body).to include("+15005550006")
-    end
   end
 
   describe "#update" do
-    context "with invalid params" do
-      let(:params) do
-        {
-          notification_preference_form: {
-            sms_notification_opt_in: "yes",
-            sms_phone_number: nil,
-          }
-        }
-      end
-
-      it "renders an error" do
-        post :update, params: params
-
-        intake.reload
-        expect(intake.sms_notification_opt_in).to eq("unfilled")
-        expect(response.body).to include("Please enter a cell phone number.")
-        expect(response).not_to be_redirect
-      end
-    end
-
     context "with valid params" do
       let(:params) do
         {
           notification_preference_form: {
             email_notification_opt_in: "yes",
             sms_notification_opt_in: "no",
-            sms_phone_number: "500-555-0006"
           }
         }
-      end
-
-      before do
-        allow(ClientMessagingService).to receive(:send_system_text_message)
       end
 
       it "updates the intake's notification preferences" do
@@ -70,8 +39,6 @@ RSpec.describe Questions::NotificationPreferenceController do
         intake.reload
         expect(intake.sms_notification_opt_in).to eq("no")
         expect(intake.email_notification_opt_in).to eq("yes")
-        expect(intake.sms_phone_number).to eq("+15005550006")
-        expect(ClientMessagingService).to_not have_received(:send_system_text_message)
       end
 
       it "sends an event to mixpanel with relevant data" do
@@ -84,39 +51,6 @@ RSpec.describe Questions::NotificationPreferenceController do
             sms_notification_opt_in: "no",
           }
         )
-      end
-
-      context "when the client opts into sms messages" do
-        let(:params) do
-          {
-            notification_preference_form: {
-              email_notification_opt_in: "no",
-              sms_notification_opt_in: "yes",
-              sms_phone_number: "500-555-0006"
-            }
-          }
-        end
-        context "locale is english" do
-          it "sends the client the opt-in sms message" do
-            post :update, params: params
-
-            expect(ClientMessagingService).to have_received(:send_system_text_message).with(
-              client: intake.client,
-              body: I18n.t("messages.sms_opt_in", locale: "en")
-            )
-          end
-        end
-
-        context "locale is spanish" do
-          it "sends the client the opt-in sms message in spanish" do
-            post :update, params: params.merge(locale: "es")
-
-            expect(ClientMessagingService).to have_received(:send_system_text_message).with(
-              client: intake.client,
-              body: I18n.t("messages.sms_opt_in", locale: "es")
-            )
-          end
-        end
       end
     end
   end

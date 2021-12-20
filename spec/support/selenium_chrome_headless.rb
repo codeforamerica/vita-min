@@ -3,8 +3,6 @@
 # someday if we move from /features/ to /system/
 # like in https://github.com/codeforamerica/gcf-backend/blob/main/spec/support/system_tests.rb#L34
 Capybara.register_driver :selenium_chrome_headless do |app|
-  version = Capybara::Selenium::Driver.load_selenium
-  options_key = Capybara::Selenium::Driver::CAPS_VERSION.satisfied_by?(version) ? :capabilities : :options
   browser_options = ::Selenium::WebDriver::Chrome::Options.new.tap do |opts|
     opts.add_argument('--headless')
     opts.add_argument('--disable-gpu') if Gem.win_platform?
@@ -17,5 +15,5 @@ Capybara.register_driver :selenium_chrome_headless do |app|
     opts.add_argument('--force-device-scale-factor=1')
   end
 
-  Capybara::Selenium::Driver.new(app, **Hash[:browser => :chrome, options_key => browser_options])
+  Capybara::Selenium::Driver.new(app, **Hash[:browser => :chrome, :capabilities => browser_options])
 end

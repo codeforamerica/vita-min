@@ -14,10 +14,10 @@ RSpec.describe Questions::BacktaxesController do
       let(:params) do
         {
           backtaxes_form: {
-            needs_help_2017: "no",
             needs_help_2018: "yes",
             needs_help_2019: "yes",
             needs_help_2020: "no",
+            needs_help_2021: "yes"
           }
         }
       end
@@ -34,9 +34,9 @@ RSpec.describe Questions::BacktaxesController do
           expect(intake.source).to eq "source_from_session"
           expect(intake.referrer).to eq "referrer_from_session"
           expect(intake.locale).to eq "en"
-          expect(intake.needs_help_2017).to eq "no"
           expect(intake.needs_help_2018).to eq "yes"
           expect(intake.needs_help_2019).to eq "yes"
+          expect(intake.needs_help_2021).to eq "yes"
           expect(intake.visitor_id).to eq "some_visitor_id"
         end
       end
@@ -75,10 +75,10 @@ RSpec.describe Questions::BacktaxesController do
       let(:params) do
         {
           backtaxes_form: {
-            needs_help_2017: "no",
             needs_help_2018: "no",
             needs_help_2019: "no",
             needs_help_2020: "no",
+            needs_help_2021: "no"
           }
         }
       end

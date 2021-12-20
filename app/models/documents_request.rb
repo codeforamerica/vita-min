@@ -6,19 +6,19 @@
 #  completed_at :datetime
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  intake_id    :bigint
+#  client_id    :bigint
 #
 # Indexes
 #
-#  index_documents_requests_on_intake_id  (intake_id)
+#  index_documents_requests_on_client_id  (client_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (intake_id => intakes.id)
+#  fk_rails_...  (client_id => clients.id)
 #
 class DocumentsRequest < ApplicationRecord
-  belongs_to :intake
+  belongs_to :client
   has_many :documents
 
-  validates :intake, presence: true
+  validates :client, presence: true
 end

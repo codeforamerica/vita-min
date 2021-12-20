@@ -26,15 +26,17 @@
             ) %>
       <%= f.cfa_select(:primary_tin_type, t('general.tin_type'), tin_options_for_select(include_itin: true)) %>
       <%= f.cfa_checkbox(:ssn_no_employment, t('general.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
-      <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
+      <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
+      <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
       <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.legal_consent.sms_phone_number"), classes: ["form-width--long"]) %>
-      <%= f.cfa_checkbox(:primary_active_armed_forces, t("views.ctc.questions.legal_consent.primary_active_armed_forces.title"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:primary_active_armed_forces, t("views.ctc.questions.legal_consent.primary_active_armed_forces.title", current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= recaptcha_v3(action: 'legal_consent') %>
 
-      <%= render('components/molecules/reveal', title: t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_label")) do %>
-        <p> <%= t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_content") %> </p>
-      <% end %>
+      <div class="reveal-shrink-wrapper">
+        <%= render('components/molecules/reveal', title: t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_label")) do %>
+          <p> <%= t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_content") %> </p>
+        <% end %>
+      </div>
     </div>
 
     <p><%= t("views.ctc.questions.legal_consent.agree_to_share") %></p>

@@ -53,13 +53,9 @@
             <!-- SSN/ITIN hidden -->
             <div class="field-display primary-ssn">
               <span class="form-question">
-                <% if @client.intake.is_ctc? %>
                   <%= t("general.ssn_itin") %>:
-                <% else %>
-                  <%= t("general.last_four_ssn") %>:
-                <% end %>
               </span>
-              <% if @client.intake.primary_last_four_ssn.present? %>
+              <% if @client.intake.primary_ssn.present? %>
                 <%= render 'togglable_single_field', masked_value: @client.intake.primary_ssn.present? ? mask(@client.intake.primary_ssn, 0) : nil, secret_name: :primary_ssn %>
               <% else %>
                 <span class="label-value"><%= t("general.NA") %></span>
@@ -148,10 +144,11 @@
                 </div>
               <% end %>
               <% unless @client.intake.drop_off? %>
-                <% tax_return = @client.tax_returns.find_by(year: Rails.application.config.current_tax_year) %>
+                <% tax_return = @client.tax_returns.find_by(year: TaxReturn.current_tax_year) %>
                 <div class="field-display">
                   <span class="form-question"> Outstanding RRC / Claimed RRC: </span>
-                  <span class="label-value"><%= "$#{tax_return&.outstanding_recovery_rebate_credit}" if tax_return&.outstanding_recovery_rebate_credit %></span> /
+                  <span class="label-value"><%= "$#{tax_return&.outstanding_recovery_rebate_credit}" if tax_return&.outstanding_recovery_rebate_credit %></span>
+                  /
                   <span class="label-value"><%= "$#{tax_return&.claimed_recovery_rebate_credit}" if tax_return&.claimed_recovery_rebate_credit %></span>
                 </div>
                 <div class="field-display">
@@ -212,13 +209,9 @@
               <% end %>
               <div class="field-display spouse-ssn">
                 <span class="form-question">
-                  <% if @client.intake.is_ctc? %>
-                    <%= t("general.ssn_itin") %>:
-                  <% else %>
-                    <%= t("general.last_four_ssn") %>:
-                  <% end %>
+                  <%= t("general.ssn_itin") %>:
                 </span>
-                <% if @client.intake.spouse_last_four_ssn.present? %>
+                <% if @client.intake.spouse_ssn.present? %>
                   <%= render 'togglable_single_field', masked_value: @client.intake.spouse_ssn.present? ? mask(@client.intake.spouse_ssn, 0) : nil, secret_name: :spouse_ssn %>
                 <% else %>
                   <span class="label-value"><%= t("general.NA") %></span>
@@ -283,7 +276,7 @@
               <% if @client.intake.drop_off? %>
                 <div class="field-display">
                   <span class="form-question">Photo ID Used:</span>
-                  <span class="label-value"><%= @client.intake.photo_id_display_names || "N/A"%></span>
+                  <span class="label-value"><%= @client.intake.photo_id_display_names || "N/A" %></span>
                 </div>
                 <div class="field-display">
                   <span class="form-question">Taxpayer ID Used:</span>

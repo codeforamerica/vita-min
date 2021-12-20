@@ -1,27 +1,35 @@
-<% @title = t("general.organizations") %>
-<% content_for :page_title, @title %>
+<% title = t("hub.organizations.index.title") %>
+<% content_for :page_title, title %>
 <% content_for :card do %>
-  <div class="slab">
-    <div style="display: flex; justify-content: space-between;">
-      <h1 class="h1"><%= @title %></h1>
-      <% if can? :create, VitaPartner %>
-        <%= link_to t("hub.organizations.new.title"), new_hub_organization_path, class: "button button--cta"%>
-      <% end %>
+  <div class="slab slab--half-padded">
+    <div>
+      <h1 class="h1"><%= title %></h1>
+      <div>
+        <% if can? :create, VitaPartner %>
+          <%= link_to t("hub.organizations.index.add_organization"), new_hub_organization_path, class: "button"%>
+        <% end %>
+      </div>
+      <div>
+        <% if can? :create, Coalition %>
+          <%= link_to t("hub.organizations.index.add_coalition"), new_hub_coalition_path, class: "button"%>
+        <% end %>
+      </div>
     </div>
 
     <div class="grid">
       <div class="grid__item width-one-half">
-        <% @organizations_by_coalition.each do |coalition, organizations| %>
-          <div class="grid-flex space-between center-aligned spacing-above-10">
-            <h2 class="spacing-below-0"><%= coalition.nil? ? t(".independent_organizations", count: @organizations_by_coalition.length) : coalition.name %> </h2>
-            <div class="help-text"><%= t("general.capacity") %></div>
-          </div>
-
-          <div class="organization-list spacing-below-25">
-            <ul>
-              <%= render partial: "organization", collection: organizations || t('.no_organizations') %>
-            </ul>
-          </div>
+        <% if current_user.admin? %>
+          <% States.hash.each do |abbreviation, full| %>
+            <%= render "state", state_abbreviation: abbreviation, state_name: full %>
+          <% end %>
+        <% else %>
+          <% if @presenter.state_routing_targets.length > 0 %>
+            <%= @presenter.state_routing_targets.values.flatten.each do |state_routing_target| %>
+              <%= render "state", state_abbreviation: state_routing_target.state_abbreviation, state_name: state_routing_target.full_state_name%>
+            <% end %>
+          <% else %>
+            <div>None of your organizations have current routing targets.</div>
+          <% end %>
         <% end %>
       </div>
     </div>

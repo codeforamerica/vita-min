@@ -78,8 +78,8 @@
 #  ever_owned_home                                      :integer          default("unfilled"), not null
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default("unfilled"), not null
-#  filed_2019                                           :integer          default(0), not null
 #  filed_2020                                           :integer          default(0), not null
+#  filed_prior_tax_year                                 :integer          default(0), not null
 #  filing_for_stimulus                                  :integer          default("unfilled"), not null
 #  filing_joint                                         :integer          default("unfilled"), not null
 #  final_info                                           :string
@@ -123,6 +123,7 @@
 #  needs_help_2018                                      :integer          default("unfilled"), not null
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  needs_help_2020                                      :integer          default("unfilled"), not null
+#  needs_help_2021                                      :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
 #  no_ssn                                               :integer          default("unfilled"), not null
@@ -187,7 +188,7 @@
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_email_address                                 :citext
-#  spouse_filed_2019                                    :integer          default(0), not null
+#  spouse_filed_prior_tax_year                          :integer          default(0), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
@@ -221,9 +222,8 @@
 #  with_limited_english_navigator                       :boolean          default(FALSE)
 #  with_unhoused_navigator                              :boolean          default(FALSE)
 #  zip_code                                             :string
-#  created_at                                           :datetime
-#  updated_at                                           :datetime
-#  bank_account_id                                      :bigint
+#  created_at                                           :datetime         not null
+#  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
@@ -237,7 +237,6 @@
 #
 # Indexes
 #
-#  index_intakes_on_bank_account_id                        (bank_account_id)
 #  index_intakes_on_canonical_email_address                (canonical_email_address)
 #  index_intakes_on_client_id                              (client_id)
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)

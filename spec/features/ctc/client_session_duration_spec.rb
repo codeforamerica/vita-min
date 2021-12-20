@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Session duration" do
+  include FeatureTestHelpers
+
   def authenticate_client(client)
     expect(page).to have_text "To view your progress, we’ll send you a secure code"
     fill_in "Email address", with: client.intake.email_address

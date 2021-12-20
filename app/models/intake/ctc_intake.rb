@@ -6,7 +6,7 @@
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
 #  already_applied_for_stimulus                         :integer          default(0), not null
-#  already_filed                                        :integer          default(0), not null
+#  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
 #  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
@@ -78,8 +78,8 @@
 #  ever_owned_home                                      :integer          default(0), not null
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
-#  filed_2019                                           :integer          default("unfilled"), not null
-#  filed_2020                                           :integer          default("unfilled"), not null
+#  filed_2020                                           :integer          default(0), not null
+#  filed_prior_tax_year                                 :integer          default("unfilled"), not null
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
@@ -123,6 +123,7 @@
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
+#  needs_help_2021                                      :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
@@ -187,7 +188,7 @@
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_email_address                                 :citext
-#  spouse_filed_2019                                    :integer          default("unfilled"), not null
+#  spouse_filed_prior_tax_year                          :integer          default("unfilled"), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_issued_identity_pin                           :integer          default(0), not null
@@ -221,9 +222,8 @@
 #  with_limited_english_navigator                       :boolean          default(FALSE)
 #  with_unhoused_navigator                              :boolean          default(FALSE)
 #  zip_code                                             :string
-#  created_at                                           :datetime
-#  updated_at                                           :datetime
-#  bank_account_id                                      :bigint
+#  created_at                                           :datetime         not null
+#  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
@@ -237,7 +237,6 @@
 #
 # Indexes
 #
-#  index_intakes_on_bank_account_id                        (bank_account_id)
 #  index_intakes_on_canonical_email_address                (canonical_email_address)
 #  index_intakes_on_client_id                              (client_id)
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
@@ -273,9 +272,8 @@ class Intake::CtcIntake < Intake
   enum eip1_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip1_entry_method
   enum eip2_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip2_entry_method
   enum eip1_and_2_amount_received_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :eip1_and_2_amount_received_confidence
-  enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
-  enum filed_2019: { unfilled: 0, filed_full: 1, filed_non_filer: 2, did_not_file: 3 }, _prefix: :filed_2019
-  enum spouse_filed_2019: { unfilled: 0, filed_full_joint: 1, filed_non_filer_joint: 2, filed_full_separate: 3, filed_non_filer_separate: 4, did_not_file: 5 }, _prefix: :spouse_filed_2019
+  enum filed_prior_tax_year: { unfilled: 0, filed_full: 1, filed_non_filer: 2, did_not_file: 3 }, _prefix: :filed_prior_tax_year
+  enum spouse_filed_prior_tax_year: { unfilled: 0, filed_full_joint: 1, filed_non_filer_joint: 2, filed_full_separate: 3, filed_non_filer_separate: 4, did_not_file: 5 }, _prefix: :spouse_filed_prior_tax_year
   enum had_reportable_income: { yes: 1, no: 2 }, _prefix: :had_reportable_income
   enum spouse_can_be_claimed_as_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_can_be_claimed_as_dependent
   enum spouse_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_active_armed_forces
@@ -287,11 +285,6 @@ class Intake::CtcIntake < Intake
 
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account
-
-  before_validation do
-    self.primary_ssn = self.primary_ssn.remove(/\D/) if primary_ssn_changed? && self.primary_ssn
-    self.spouse_ssn = self.spouse_ssn.remove(/\D/) if spouse_ssn_changed? && self.spouse_ssn
-  end
 
   before_validation do
     attributes_to_change = self.changes_to_save.keys
@@ -348,7 +341,7 @@ class Intake::CtcIntake < Intake
   end
 
   def default_tax_return
-    tax_returns.find_by(year: Rails.application.config.current_tax_year)
+    tax_returns.find_by(year: TaxReturn.current_tax_year)
   end
 
   # we dont currently ask for preferred name in the onboarding flow, so let's use primary first name to keep the app working for MVP

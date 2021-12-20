@@ -17,4 +17,18 @@ module FeatureTestHelpers
   def strip_html_tags(text)
     ActionController::Base.helpers.strip_tags(text)
   end
+
+  def current_tax_year
+    TaxReturn.current_tax_year.to_i
+  end
+
+  def prior_tax_year
+    current_tax_year - 1
+  end
+
+  def fill_in_tagify(element, value)
+    find(element).click
+    find("#{element} .tagify__input").send_keys value
+    find("#{element} .tagify__input").send_keys :enter
+  end
 end

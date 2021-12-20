@@ -16,7 +16,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
-      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', tax_year: 2020))
+      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
     end
     click_on I18n.t('general.negative')
 
@@ -24,22 +24,22 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
 
     # =========== ELIGIBILITY ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
-    choose I18n.t('views.ctc.questions.filed2019.did_not_file')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.foreign_address')
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
     click_on I18n.t('general.back')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.military_facility')
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     # =========== BASIC INFO ===========
@@ -54,7 +54,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
-    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title')
+    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
     click_on I18n.t('general.continue')
 
 
@@ -97,8 +97,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
     expect(page).not_to have_text(I18n.t('views.ctc.questions.spouse_info.remove_button'))
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed2019.title'))
-    choose I18n.t('views.ctc.questions.spouse_filed2019.did_not_file')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+    choose I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on I18n.t('general.continue')
 
     expect(page).to have_text(I18n.t('views.ctc.questions.spouse_review.title'))
@@ -151,7 +151,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     check I18n.t('general.none')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', tax_year: '2020'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', current_tax_year: current_tax_year))
     click_on I18n.t('general.affirmative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
@@ -181,7 +181,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     check I18n.t('general.none')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Red', tax_year: '2020'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Red', current_tax_year: current_tax_year))
     click_on I18n.t('general.affirmative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Red'))
@@ -391,7 +391,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     within "h1" do
-      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', tax_year: 2020))
+      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
     end
     click_on I18n.t('general.negative')
 
@@ -399,19 +399,19 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
 
     # =========== ELIGIBILITY ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed2019.title'))
-    choose I18n.t('views.ctc.questions.filed2019.filed_full')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.filed_full', prior_tax_year: prior_tax_year)
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2019.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.prior_tax_year_life_situations.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
     check I18n.t('views.ctc.questions.home.options.fifty_states')
     check I18n.t('views.ctc.questions.home.options.military_facility')
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations2020.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     # =========== BASIC INFO ===========
@@ -426,11 +426,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
-    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title')
+    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.agi2019.title'))
-    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '$12,340'
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.prior_tax_year_agi.title'))
+    fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label'), with: '$12,340'
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
@@ -470,13 +470,12 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin'), with: "222-33-4444"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation'), with: "222-33-4444"
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed2019.title'))
-    choose I18n.t('views.ctc.questions.spouse_filed2019.filed_full_separate')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+    choose I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.filed_full_separate')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_agi2019.title'))
-    fill_in I18n.t('views.ctc.questions.agi2019.label'), with: '4,567'
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_prior_tax_year_agi.title', prior_tax_year: prior_tax_year))
+    fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label'), with: '4,567'
     click_on I18n.t('general.continue')
 
     intake = Intake.last

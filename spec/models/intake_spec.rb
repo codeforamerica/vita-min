@@ -6,7 +6,7 @@
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
 #  already_applied_for_stimulus                         :integer          default(0), not null
-#  already_filed                                        :integer          default(0), not null
+#  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
 #  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
@@ -78,8 +78,8 @@
 #  ever_owned_home                                      :integer          default(0), not null
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
-#  filed_2019                                           :integer          default(0), not null
 #  filed_2020                                           :integer          default(0), not null
+#  filed_prior_tax_year                                 :integer          default(0), not null
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
@@ -123,6 +123,7 @@
 #  needs_help_2018                                      :integer          default(0), not null
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
+#  needs_help_2021                                      :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
@@ -187,7 +188,7 @@
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_email_address                                 :citext
-#  spouse_filed_2019                                    :integer          default(0), not null
+#  spouse_filed_prior_tax_year                          :integer          default(0), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_issued_identity_pin                           :integer          default(0), not null
@@ -221,9 +222,8 @@
 #  with_limited_english_navigator                       :boolean          default(FALSE)
 #  with_unhoused_navigator                              :boolean          default(FALSE)
 #  zip_code                                             :string
-#  created_at                                           :datetime
-#  updated_at                                           :datetime
-#  bank_account_id                                      :bigint
+#  created_at                                           :datetime         not null
+#  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
@@ -237,7 +237,6 @@
 #
 # Indexes
 #
-#  index_intakes_on_bank_account_id                        (bank_account_id)
 #  index_intakes_on_canonical_email_address                (canonical_email_address)
 #  index_intakes_on_client_id                              (client_id)
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
@@ -742,11 +741,11 @@ describe Intake do
     context "with a couple filing years selected" do
       let!(:client) { create :client, tax_returns: [
         create(:tax_return, year: 2019),
-        create(:tax_return, year: 2020)
+        create(:tax_return, year: 2021)
       ], intake: intake }
 
       it "returns them as an array" do
-        expect(intake.filing_years).to eq([2020, 2019])
+        expect(intake.filing_years).to eq([2021, 2019])
       end
     end
   end
@@ -756,8 +755,8 @@ describe Intake do
     let!(:client) { create :client, tax_returns: [], intake: intake }
 
     context "with unfilled filing years" do
-      it "returns 2020" do
-        expect(intake.most_recent_filing_year).to eq 2020
+      it "returns current tax year" do
+        expect(intake.most_recent_filing_year).to eq TaxReturn.current_tax_year
       end
     end
 
@@ -779,7 +778,7 @@ describe Intake do
 
     context "with unfilled filing years" do
       it "returns 2019" do
-        expect(intake.year_before_most_recent_filing_year).to eq 2019
+        expect(intake.year_before_most_recent_filing_year).to eq 2020
       end
     end
 

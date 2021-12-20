@@ -40,7 +40,7 @@ RSpec.describe Portal::PortalController, type: :controller do
 
         before do
           create :tax_return, year: 2018, status: :intake_in_progress, client: client
-          create :tax_return, year: 2017, status: :intake_in_progress, client: client
+          create :tax_return, year: 2019, status: :intake_in_progress, client: client
         end
 
         it "is ok" do
@@ -62,8 +62,8 @@ RSpec.describe Portal::PortalController, type: :controller do
 
         before do
           create :tax_return, year: 2018, status: :intake_in_progress, client: client
-          create :tax_return, year: 2017, status: :prep_ready_for_prep, client: client
-          create :tax_return, year: 2020, status: :intake_ready_for_call, client: client
+          create :tax_return, year: 2019, status: :prep_ready_for_prep, client: client
+          create :tax_return, year: 2021, status: :intake_ready_for_call, client: client
         end
 
         it "is ok" do
@@ -75,7 +75,7 @@ RSpec.describe Portal::PortalController, type: :controller do
         it "loads the client tax returns in desc order" do
           get :home
 
-          expect(assigns(:tax_returns).map(&:year)).to eq [2020, 2018, 2017]
+          expect(assigns(:tax_returns).map(&:year)).to eq [2021, 2019, 2018]
           expect(assigns(:current_step)).to eq nil
         end
       end

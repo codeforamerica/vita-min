@@ -33,7 +33,7 @@ describe Ctc::EmailAddressForm do
 
     context "when the email address gets updated to a new address" do
       let(:intake) { create :intake, email_address: "martin@fruitnames.com", email_address_verified_at: Time.current }
-      it "does not clear out the verification and will not force them to re-verify" do
+      it "does clear out the verification and will force them to re-verify" do
         described_class.new(intake, {
           email_address: "mango@fruitnames.com",
           email_address_confirmation: "mango@fruitnames.com"

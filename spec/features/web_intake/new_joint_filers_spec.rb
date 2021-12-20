@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
+  include FeatureTestHelpers
+  include MockTwilio
+
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
@@ -16,7 +19,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     # Tax Needs
     screenshot_after do
       expect(page).to have_selector("h1", text: "What can we help you with?")
-      check "File my 2020 taxes"
+      check "File my #{TaxReturn.current_tax_year} taxes"
       check "Collect my stimulus check"
     end
     click_on "Continue"
@@ -37,13 +40,15 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
+      text = I18n.t("views.questions.triage_backtaxes.title",
+                    backtax_years: TaxReturn.backtax_years.reverse.to_sentence(last_word_connector: " #{I18n.t("general.and")} "))
+      expect(page).to have_selector("h1", text: text)
     end
     click_on "Yes"
 
     screenshot_after do
-      expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
-      check "My income decreased from 2019"
+      expect(page).to have_text I18n.t("views.questions.triage_lookback.help_text", current_tax_year: current_tax_year)
+      check "My income decreased from #{TaxReturn.current_tax_year - 1}"
       check "I received unemployment income"
       check "I purchased health insurance through the marketplace"
     end
@@ -109,6 +114,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "First, let's get some basic information.")
       fill_in "What is your preferred first name?", with: "Gary"
       fill_in "ZIP code", with: "20121"
+      fill_in "Phone number", with: "415-888-0088"
+      fill_in "Confirm phone number", with: "415-888-0088"
     end
     click_on "Continue"
 
@@ -125,12 +132,36 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      # Phone number
-      expect(page).to have_selector("h1", text: "Please share your contact number.")
-      fill_in "Phone number", with: "(415) 553-7865"
-      fill_in "Confirm phone number", with: "(415) 553-7865"
+      # Notification Preference
+      expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
+      check "Email Me"
+      check "Text Me"
+      click_on "Continue"
     end
-    click_on "Continue"
+
+    screenshot_after do
+      # Phone number can text
+      expect(page).to have_text("Can we text the phone number you previously entered?")
+      click_on "No"
+    end
+
+    screenshot_after do
+      # Phone number
+      expect(page).to have_selector("h1", text: "Please share your cell phone number.")
+      fill_in "Cell phone number", with: "(415) 553-7865"
+      fill_in "Confirm cell phone number", with: "+1415553-7865"
+      click_on "Continue"
+    end
+
+    screenshot_after do
+      # Verify cell phone contact
+      expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
+      perform_enqueued_jobs
+      sms = FakeTwilioClient.messages.last
+      code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
+      fill_in "Enter 6 digit code", with: code
+      click_on "Verify"
+    end
 
     screenshot_after do
       # Email
@@ -141,26 +172,29 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      # Notification Preference
-      expect(page).to have_text("What is the best way to reach you?")
-      check "Email Me"
+      # Verify email contact
+      expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
+      perform_enqueued_jobs
+      mail = ActionMailer::Base.deliveries.last
+      code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+      fill_in "Enter 6 digit code", with: code
+      click_on "Verify"
     end
-    click_on "Continue"
 
+    expect(intake.client.tax_returns.pluck(:status)).to eq ["intake_before_consent"]
     screenshot_after do
       # Consent form
       expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
       fill_in "Legal first name", with: "Gary"
       fill_in "Legal last name", with: "Gnome"
-      fill_in I18n.t("attributes.primary_ssn"), with: "123456789"
-      fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123456789"
+      fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+      fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
       select "March", from: "Month"
       select "5", from: "Day"
       select "1971", from: "Year"
     end
-    expect do
-      click_on "I agree"
-    end.to change { intake.reload.client.tax_returns.pluck(:status) }.from(["intake_before_consent"]).to(["intake_in_progress"])
+    click_on "I agree"
+    expect(intake.reload.client.tax_returns.pluck(:status)).to eq ["intake_in_progress"]
 
     screenshot_after do
       # Optional consent form
@@ -250,8 +284,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "We need your spouse to review our legal stuff...")
       fill_in "Spouse's legal first name", with: "Greta"
       fill_in "Spouse's legal last name", with: "Gnome"
-      fill_in I18n.t("attributes.spouse_ssn"), with: "123456789"
-      fill_in I18n.t("attributes.confirm_spouse_ssn"), with: "123456789"
+      fill_in I18n.t("attributes.spouse_ssn"), with: "123-45-6789"
+      fill_in I18n.t("attributes.confirm_spouse_ssn"), with: "123-45-6789"
       select "March", from: "Month"
       select "5", from: "Day"
       select "1971", from: "Year"

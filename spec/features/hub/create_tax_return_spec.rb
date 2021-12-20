@@ -19,7 +19,7 @@ RSpec.feature "Add a tax return for an existing client" do
 
       expect(page).to have_selector("h1", text: "Add tax year for Bart Simpson")
       expect(page).to have_select("Tax year", options: (TaxReturn.filing_years - [2019]).map(&:to_s))
-      select "2017", from: "Tax year"
+      select "2018", from: "Tax year"
       select "Org Lead", from: "Assigned user"
       select "Basic", from: "Certification level"
       select "Greeter - info requested", from: "Status"
@@ -29,7 +29,7 @@ RSpec.feature "Add a tax return for an existing client" do
       new_tax_return = TaxReturn.last
       within "#tax-return-#{new_tax_return.id}" do
         expect(page).to have_selector(".certification-label", text: "BAS")
-        expect(page).to have_text "2017"
+        expect(page).to have_text "2018"
         expect(page).to have_text "Org Lead"
         expect(page).to have_text "Greeter - info requested"
       end
@@ -39,7 +39,7 @@ RSpec.feature "Add a tax return for an existing client" do
       before do
         # 2019 already created above
         create :tax_return, client: client, year: 2018
-        create :tax_return, client: client, year: 2020
+        create :tax_return, client: client, year: 2021
         create :tax_return, client: client, year: 2017
       end
 

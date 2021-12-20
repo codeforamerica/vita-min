@@ -1,0 +1,21 @@
+<% @main_question = t("views.questions.phone_number.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= @main_question %></h1>
+    <p class="text--help">
+      <%=t("views.questions.phone_number.info") %>
+    </p>
+
+    <div class="form-card__content">
+      <%= f.cfa_input_field(:sms_phone_number, t("views.questions.phone_number.phone_number"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:sms_phone_number_confirmation, t("views.questions.phone_number.phone_number_confirmation"), classes: ["form-width--long"]) %>
+    </div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>

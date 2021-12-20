@@ -7,7 +7,7 @@ import { initMetricsTableSortAndFilter } from "../lib/metrics_table_sort";
 import { documentSubmittingIndicator } from "../lib/document_submitting_indicator";
 import { initStateRoutingsListeners } from "../lib/state_routings";
 import tooltip from "../components/tooltip";
-import { initTaggableNote, initMultiSelectVitaPartner } from '../lib/tagging';
+import { initTaggableNote, initMultiSelectVitaPartner, initMultiSelectState } from '../lib/tagging';
 import { initBulkAction } from "../lib/bulk_action";
 import { getEfileSecurityInformation } from "../lib/efile_security_information";
 import { initTINTypeSelector } from "../lib/tin_type_selector";
@@ -62,7 +62,9 @@ const Listeners =  (function(){
                 if (document.querySelector('.multi-select-vita-partner')) {
                     initMultiSelectVitaPartner();
                 }
-
+                if (document.querySelector('.multi-select-state')) {
+                    initMultiSelectState();
+                }
                 if (document.querySelector('.trix-content')) {
                     addTargetBlankToLinks();
                 }

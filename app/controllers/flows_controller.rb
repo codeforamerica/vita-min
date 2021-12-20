@@ -214,8 +214,7 @@ class FlowsController < ApplicationController
       intake_attributes = {
         type: Intake::CtcIntake.to_s,
         visitor_id: SecureRandom.hex(26),
-        filed_2020: 'no',
-        filed_2019: 'did_not_file',
+        filed_prior_tax_year: 'did_not_file',
         primary_birth_date: 30.years.ago,
         primary_tin_type: 'ssn',
         primary_ssn: '555112222',
@@ -243,7 +242,7 @@ class FlowsController < ApplicationController
           timezone_offset: "+240",
           client_system_time: "2021-07-28T21:21:32.306Z"
         }],
-        tax_returns_attributes: [{ year: Rails.application.config.current_tax_year, is_ctc: true, filing_status: 'single' }],
+        tax_returns_attributes: [{ year: TaxReturn.current_tax_year, is_ctc: true, filing_status: 'single' }],
       )
 
       if type == :married_filing_jointly || type == :married_filing_jointly_with_dependents
