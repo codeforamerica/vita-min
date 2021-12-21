@@ -43,7 +43,7 @@ describe Hub::SourceParamsController do
       context "when the code already exists" do
         let(:code) { "koala" }
         before do
-          create :source_parameter, code: "koala", vita_partner: create(:vita_partner)
+          create :source_parameter, code: "koala", vita_partner: create(:organization)
         end
 
         it "does not make a new source parameter" do

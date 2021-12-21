@@ -20,6 +20,6 @@
 FactoryBot.define do
   factory :vita_partner_zip_code do
     zip_code { "73130" }
-    vita_partner { build(:vita_partner) }
+    vita_partner { build(:organization) }
   end
 end

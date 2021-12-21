@@ -101,7 +101,7 @@ RSpec.describe Report::SLABreachReport, type: :model do
   end
 
   describe "#response_needed_breach_count" do
-    let(:vita_partner) { create :vita_partner }
+    let(:vita_partner) { create :site }
     let(:report) do
       Report::SLABreachReport.create(data: {
           response_needed_breaches_by_vita_partner_id: { vita_partner.id => 1, 58394940 => 2 },
@@ -132,7 +132,7 @@ RSpec.describe Report::SLABreachReport, type: :model do
 
 
   describe "#communication_breach_count" do
-    let(:vita_partner) { create :vita_partner }
+    let(:vita_partner) { create :organization }
     let(:report) do
       Report::SLABreachReport.create(data: {
           communication_breaches_by_vita_partner_id: { vita_partner.id => 2, 1467580 => 3 },
@@ -162,7 +162,7 @@ RSpec.describe Report::SLABreachReport, type: :model do
   end
 
   describe "#interacation_breach_count" do
-    let(:vita_partner) { create :vita_partner }
+    let(:vita_partner) { create :organization }
     let(:report) do
       Report::SLABreachReport.create(data: {
           interaction_breaches_by_vita_partner_id: { vita_partner.id => 1, 58394940 => 2 },

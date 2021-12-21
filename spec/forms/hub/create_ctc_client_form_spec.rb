@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Hub::CreateCtcClientForm do
   describe "#save" do
-    let(:vita_partner) {create :vita_partner, name: "Caravan Palace"}
+    let(:vita_partner) { create :organization, name: "Caravan Palace" }
     let(:params) do
       {
         vita_partner_id: vita_partner.id,
@@ -58,10 +58,10 @@ RSpec.describe Hub::CreateCtcClientForm do
     end
 
     let(:refund_payment_method) { "direct_deposit" }
-    let(:preferred_interview_language) {"es"}
-    let(:sms_opt_in) {"yes"}
-    let(:email_opt_in) {"no"}
-    let(:current_user) {create :user}
+    let(:preferred_interview_language) { "es" }
+    let(:sms_opt_in) { "yes" }
+    let(:email_opt_in) { "no" }
+    let(:current_user) { create :user }
 
     before do
       allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
@@ -136,8 +136,8 @@ RSpec.describe Hub::CreateCtcClientForm do
       end
 
       context "when the client's preferred language is not Spanish" do
-        let(:preferred_interview_language) {"en"}
-        let(:email_opt_in) {"yes"}
+        let(:preferred_interview_language) { "en" }
+        let(:email_opt_in) { "yes" }
 
         it "sends the message in english" do
           described_class.new(params).save(current_user)
@@ -150,8 +150,8 @@ RSpec.describe Hub::CreateCtcClientForm do
       end
 
       context "when the client's preferred language is Spanish" do
-        let(:preferred_interview_language) {"es"}
-        let(:email_opt_in) {"yes"}
+        let(:preferred_interview_language) { "es" }
+        let(:email_opt_in) { "yes" }
 
         it "sends the message in spanish" do
           described_class.new(params).save(current_user)
@@ -191,8 +191,8 @@ RSpec.describe Hub::CreateCtcClientForm do
       end
 
       context "mixpanel" do
-        let(:fake_tracker) {double('mixpanel tracker')}
-        let(:fake_mixpanel_data) {{}}
+        let(:fake_tracker) { double('mixpanel tracker') }
+        let(:fake_mixpanel_data) { {} }
 
         before do
           allow(MixpanelService).to receive(:data_from).and_return(fake_mixpanel_data)
@@ -231,7 +231,7 @@ RSpec.describe Hub::CreateCtcClientForm do
       end
 
       context "when associated models are not valid" do
-        let(:form) {described_class.new(params)}
+        let(:form) { described_class.new(params) }
 
         before do
           params[:sms_phone_number] = nil
@@ -239,7 +239,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         end
 
         it "does not save the associations" do
-          expect {form.save(current_user)}.to raise_error ActiveRecord::RecordInvalid
+          expect { form.save(current_user) }.to raise_error ActiveRecord::RecordInvalid
         end
       end
 
@@ -297,8 +297,8 @@ RSpec.describe Hub::CreateCtcClientForm do
 
     context "validations" do
       context "with an invalid email" do
-        before {params[:email_address] = "someone@example"}
-        let(:form) {described_class.new(params)}
+        before { params[:email_address] = "someone@example" }
+        let(:form) { described_class.new(params) }
 
         it "is not valid and adds an error to the email field" do
           expect(form).not_to be_valid

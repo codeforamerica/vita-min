@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Questions::AtCapacityController do
   render_views
-  let(:vita_partner) { create :vita_partner }
+  let(:vita_partner) { create :organization }
   let(:intake) { create :intake, vita_partner: vita_partner }
 
   before do

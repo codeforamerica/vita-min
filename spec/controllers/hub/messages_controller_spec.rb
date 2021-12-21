@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Hub::MessagesController do
-  let(:organization) { create :vita_partner }
+  let(:organization) { create :organization }
   let(:client) { create :client, vita_partner: organization }
   let!(:intake) { create :intake, client: client }
   let(:params) do

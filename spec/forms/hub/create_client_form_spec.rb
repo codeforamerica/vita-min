@@ -8,7 +8,7 @@ RSpec.describe Hub::CreateClientForm do
   end
 
   describe "#save" do
-    let(:vita_partner) { create :vita_partner, name: "Caravan Palace" }
+    let(:vita_partner) { create :site, name: "Caravan Palace" }
     let(:params) do
       {
         vita_partner_id: vita_partner.id,

@@ -24,7 +24,7 @@ RSpec.describe VitaPartnerState, type: :model do
   describe "validations" do
     context "with vita partner and valid state abbreviation" do
       it "is valid" do
-        vita_partner_state = described_class.new(state: "RI", vita_partner: create(:vita_partner))
+        vita_partner_state = described_class.new(state: "RI", vita_partner: create(:organization))
 
         expect(vita_partner_state).to be_valid
       end
@@ -41,7 +41,7 @@ RSpec.describe VitaPartnerState, type: :model do
 
     context "invalid state abbreviation" do
       it "is not valid" do
-        vita_partner_state = described_class.new(state: "TW", vita_partner: create(:vita_partner))
+        vita_partner_state = described_class.new(state: "TW", vita_partner: create(:organization))
 
         expect(vita_partner_state).not_to be_valid
         expect(vita_partner_state.errors).to include :state

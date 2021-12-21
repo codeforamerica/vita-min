@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Questions::ChatWithUsController do
   render_views
 
-  let(:vita_partner) { create :vita_partner, name: "Fake Partner" }
+  let(:vita_partner) { create :organization, name: "Fake Partner" }
   let(:zip_code) { nil }
   let(:intake) { create :intake, vita_partner: vita_partner, zip_code: zip_code }
 

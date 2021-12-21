@@ -25,7 +25,7 @@ RSpec.describe VitaPartnerZipCode, type: :model do
 
     context "record of zip code in helper/zip_codes ZIP_CODES hash and vita partner is present" do
       it "is valid" do
-        vita_partner_zip_code = described_class.new(zip_code: "28806", vita_partner: create(:vita_partner))
+        vita_partner_zip_code = described_class.new(zip_code: "28806", vita_partner: create(:organization))
         expect(vita_partner_zip_code).to be_valid
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe VitaPartnerZipCode, type: :model do
 
     context "no record of zip code in helper/zip_codes ZIP_CODES hash" do
       it "is not valid" do
-        vita_partner_zip_code = described_class.new(zip_code: "1982379128738", vita_partner: create(:vita_partner))
+        vita_partner_zip_code = described_class.new(zip_code: "1982379128738", vita_partner: create(:organization))
 
         expect(vita_partner_zip_code).not_to be_valid
         expect(vita_partner_zip_code.errors).to include :zip_code
@@ -59,7 +59,7 @@ RSpec.describe VitaPartnerZipCode, type: :model do
 
     context "when a record exists with duplicate zip code and different vita partner" do
       it "is not valid" do
-        new_record = described_class.new(zip_code: existing_record.zip_code, vita_partner: create(:vita_partner))
+        new_record = described_class.new(zip_code: existing_record.zip_code, vita_partner: create(:organization))
 
         expect(new_record).not_to be_valid
       end

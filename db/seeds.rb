@@ -1,10 +1,10 @@
 # Create client_support_org if needed
-national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization")
+national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization", type: Organization::TYPE)
 national_org.update(allows_greeters: true)
 
 # Create GetCTC.org org if needed
-ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org")
-VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", parent_organization: ctc_org)
+ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", type: Organization::TYPE)
+VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", type: Site::TYPE, parent_organization: ctc_org)
 
 DefaultErrorMessages.generate!
 
@@ -13,14 +13,15 @@ Coalition.find_or_create_by(name: "Cola Coalition")
 
 vp1 = first_org = VitaPartner.find_or_create_by!(
   name: "Oregano Org",
-  coalition: koalas
+  coalition: koalas,
+  type: Organization::TYPE
 )
 SourceParameter.find_or_create_by(code: "oregano", vita_partner_id: vp1.id)
-
 
 vp2 = VitaPartner.find_or_create_by!(
   name: "Orangutan Organization",
   coalition: koalas,
+  type: Organization::TYPE
 )
 
 SourceParameter.find_or_create_by(code: "orangutan", vita_partner_id: vp2.id)
@@ -28,6 +29,7 @@ SourceParameter.find_or_create_by(code: "orangutan", vita_partner_id: vp2.id)
 first_site = VitaPartner.find_or_create_by!(
   name: "Liberry Site",
   parent_organization: first_org,
+  type: Site::TYPE,
   processes_ctc: true
 )
 
@@ -63,15 +65,15 @@ user.update(role: OrganizationLeadRole.create(organization: first_org)) if user.
 # site coordinator user
 user = User.where(email: "cucumber@example.com").first_or_initialize
 user.update(
-    name: "Cindy Cucumber",
-    password: "theforcevita")
+  name: "Cindy Cucumber",
+  password: "theforcevita")
 user.update(role: SiteCoordinatorRole.create(site: first_site)) if user.role_type != SiteCoordinatorRole::TYPE
 
 # site team member user
 user = User.where(email: "melon@example.com").first_or_initialize
 user.update(
-    name: "Marty Melon",
-    password: "theforcevita")
+  name: "Marty Melon",
+  password: "theforcevita")
 user.update(role: TeamMemberRole.create(site: first_site)) if user.role_type != TeamMemberRole::TYPE
 
 # coalition lead user
@@ -94,14 +96,13 @@ admin_user.update(
   password: "theforcevita")
 admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
 
-
 greeter_user = User.where(email: "greeter@example.com").first_or_initialize
 greeter_user.update(
   name: "Greeter Greg (GYR Greeter)",
   password: "theforcevita"
 )
 
-greeter_user.update(role: GreeterRole.create ) if greeter_user.role_type != GreeterRole::TYPE
+greeter_user.update(role: GreeterRole.create) if greeter_user.role_type != GreeterRole::TYPE
 
 client = Client.find_or_create_by(vita_partner: first_org)
 

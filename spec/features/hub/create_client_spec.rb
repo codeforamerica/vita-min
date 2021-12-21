@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.feature "Creating new drop off clients" do
   context "As an authenticated admin user" do
     let(:user) { create :admin_user }
-    let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
-    let!(:child_partner) { create :vita_partner, parent_organization: vita_partner, name: "Floret Financial Readiness" }
+    let!(:vita_partner) { create :organization, name: "Brassica Asset Builders" }
+    let!(:child_partner) { create :site, parent_organization: vita_partner, name: "Floret Financial Readiness" }
     before do
       login_as user
     end

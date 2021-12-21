@@ -3,7 +3,7 @@ require 'rails_helper'
 describe PartnerRoutingService do
   subject { PartnerRoutingService.new }
 
-  let(:vita_partner) { create :vita_partner }
+  let(:vita_partner) { create :organization }
 
   let(:code) { "SourceParam" }
 
@@ -11,7 +11,7 @@ describe PartnerRoutingService do
     create :source_parameter, code: code, vita_partner: vita_partner
     create :vita_partner_zip_code, zip_code: "94606", vita_partner: vita_partner
     create :vita_partner_state, state: "CA", vita_partner: vita_partner
-    5.times { create :vita_partner, national_overflow_location: true }
+    5.times { create :organization, national_overflow_location: true }
   end
 
   describe "#determine_partner" do
@@ -75,16 +75,16 @@ describe PartnerRoutingService do
         context "when state for that zip code has associated Vita Partners" do
           subject { PartnerRoutingService.new(zip_code: "28806") } #NC
 
-          let!(:expected_vita_partner) { create :vita_partner }
+          let!(:expected_vita_partner) { create :organization }
 
           context "with state qualified vita partners, but none have capacity" do
             let!(:org_state_routed_no_capacity) {
-              vita_partner = create(:vita_partner, capacity_limit: 0)
+              vita_partner = create(:organization, capacity_limit: 0)
               create(:vita_partner_state, state: "NC", routing_fraction: 0.3, vita_partner: vita_partner)
               vita_partner
             }
             let!(:org_state_routed_no_excess_capacity) {
-              vita_partner = create(:vita_partner, capacity_limit: 5)
+              vita_partner = create(:organization, capacity_limit: 5)
               create(:vita_partner_state, state: "NC", routing_fraction: 0.4, vita_partner: vita_partner)
               (vita_partner.capacity_limit + 1).times do
                 create :client_with_status, vita_partner: vita_partner, status: "intake_ready"

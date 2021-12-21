@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe "a user viewing a client" do
   context "as an admin user" do
     let(:user) { create :admin_user }
-    let(:client) { create :client, vita_partner: (create :vita_partner), intake: create(:intake, :with_contact_info), tax_returns: [create(:tax_return, certification_level: "advanced")] }
+    let(:client) { create :client, vita_partner: (create :organization), intake: create(:intake, :with_contact_info), tax_returns: [create(:tax_return, certification_level: "advanced")] }
     let(:tax_return) { client.tax_returns.first }
-    let!(:other_vita_partner) { create :vita_partner, name: "Tax Help Test" }
+    let!(:other_vita_partner) { create :site, name: "Tax Help Test" }
     before do
       login_as user
     end
