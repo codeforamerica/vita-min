@@ -38,6 +38,14 @@ RSpec.describe E164PhoneValidator do
     end
   end
 
+  context "with binary garbage" do
+    let(:value) { "\x80" } # .valid_encoding? returns false for this string
+
+    it "adds an error" do
+      expect(record.errors[:phone_number]).to eq(["Please enter a valid phone number."])
+    end
+  end
+
   context "with a blank value" do
     let(:value) { " " }
 
