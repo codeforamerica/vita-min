@@ -78,8 +78,8 @@
 #  ever_owned_home                                      :integer          default(0), not null
 #  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default(0), not null
-#  filed_2020                                           :integer          default("unfilled"), not null
-#  filed_prior_tax_year                                 :integer          default(0), not null
+#  filed_2020                                           :integer          default(0), not null
+#  filed_prior_tax_year                                 :integer          default("unfilled"), not null
 #  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default(0), not null
 #  final_info                                           :string
@@ -187,7 +187,7 @@
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_email_address                                 :citext
-#  spouse_filed_prior_tax_year                          :integer          default(0), not null
+#  spouse_filed_prior_tax_year                          :integer          default("unfilled"), not null
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default(0), not null
 #  spouse_issued_identity_pin                           :integer          default(0), not null
