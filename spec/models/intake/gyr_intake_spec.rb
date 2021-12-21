@@ -237,6 +237,7 @@
 #
 #  index_intakes_on_bank_account_id                        (bank_account_id)
 #  index_intakes_on_client_id                              (client_id)
+#  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)

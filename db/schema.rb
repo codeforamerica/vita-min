@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_22_214045) do
+ActiveRecord::Schema.define(version: 2021_11_01_145402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -750,6 +750,7 @@ ActiveRecord::Schema.define(version: 2021_10_22_214045) do
     t.string "zip_code"
     t.index ["bank_account_id"], name: "index_intakes_on_bank_account_id"
     t.index ["client_id"], name: "index_intakes_on_client_id"
+    t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
