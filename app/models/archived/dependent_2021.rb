@@ -1,3 +1,54 @@
+# == Schema Information
+#
+# Table name: archived_dependents_2021
+#
+#  id                                          :bigint           not null, primary key
+#  birth_date                                  :date             not null
+#  born_in_2020                                :integer          default("unfilled"), not null
+#  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
+#  claim_anyway                                :integer          default("unfilled"), not null
+#  creation_token                              :string
+#  disabled                                    :integer          default("unfilled"), not null
+#  encrypted_ip_pin                            :string
+#  encrypted_ip_pin_iv                         :string
+#  encrypted_ssn                               :string
+#  encrypted_ssn_iv                            :string
+#  filed_joint_return                          :integer          default("unfilled"), not null
+#  first_name                                  :string
+#  full_time_student                           :integer          default("unfilled"), not null
+#  has_ip_pin                                  :integer          default("unfilled"), not null
+#  last_name                                   :string
+#  lived_with_more_than_six_months             :integer          default("unfilled"), not null
+#  meets_misc_qualifying_relative_requirements :integer          default("unfilled"), not null
+#  middle_initial                              :string
+#  months_in_home                              :integer
+#  no_ssn_atin                                 :integer          default("unfilled"), not null
+#  north_american_resident                     :integer          default("unfilled"), not null
+#  on_visa                                     :integer          default("unfilled"), not null
+#  passed_away_2020                            :integer          default("unfilled"), not null
+#  permanent_residence_with_client             :integer          default("unfilled"), not null
+#  permanently_totally_disabled                :integer          default("unfilled"), not null
+#  placed_for_adoption                         :integer          default("unfilled"), not null
+#  provided_over_half_own_support              :integer          default("unfilled"), not null
+#  relationship                                :string
+#  soft_deleted_at                             :datetime
+#  suffix                                      :string
+#  tin_type                                    :integer
+#  was_married                                 :integer          default("unfilled"), not null
+#  was_student                                 :integer          default("unfilled"), not null
+#  created_at                                  :datetime         not null
+#  updated_at                                  :datetime         not null
+#  archived_intakes_2021_id                    :bigint           not null
+#
+# Indexes
+#
+#  index_archived_dependents_2021_on_archived_intakes_2021_id  (archived_intakes_2021_id)
+#  index_archived_dependents_2021_on_creation_token            (creation_token)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (archived_intakes_2021_id => archived_intakes_2021.id)
+#
 module Archived
   class Dependent2021 < ApplicationRecord
     self.table_name = 'archived_dependents_2021'

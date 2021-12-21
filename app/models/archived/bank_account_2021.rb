@@ -1,3 +1,31 @@
+# == Schema Information
+#
+# Table name: archived_bank_accounts_2021
+#
+#  id                          :bigint           not null, primary key
+#  account_type                :integer
+#  encrypted_account_number    :string
+#  encrypted_account_number_iv :string
+#  encrypted_bank_name         :string
+#  encrypted_bank_name_iv      :string
+#  encrypted_routing_number    :string
+#  encrypted_routing_number_iv :string
+#  hashed_account_number       :string
+#  hashed_routing_number       :string
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  archived_intakes_2021_id    :bigint
+#
+# Indexes
+#
+#  index_archived_bank_accounts_2021_on_archived_intakes_2021_id  (archived_intakes_2021_id)
+#  index_archived_bank_accounts_2021_on_hashed_account_number     (hashed_account_number)
+#  index_archived_bank_accounts_2021_on_hashed_routing_number     (hashed_routing_number)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (archived_intakes_2021_id => archived_intakes_2021.id)
+#
 module Archived
   class BankAccount2021 < ApplicationRecord
     self.table_name = 'archived_bank_accounts_2021'
