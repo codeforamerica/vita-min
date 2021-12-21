@@ -19,4 +19,13 @@ RSpec.describe SendOutgoingEmailJob, type: :job do
       expect(outgoing_email.sent_at).to eq fake_time
     end
   end
+
+  describe '#job_object_id' do
+    let(:outgoing_email) { create :outgoing_email }
+
+    it 'returns the id of the OutgoingEmail record' do
+      job = described_class.perform_later(outgoing_email.id)
+      expect(job.job_object_id).to eq(outgoing_email.id)
+    end
+  end
 end
