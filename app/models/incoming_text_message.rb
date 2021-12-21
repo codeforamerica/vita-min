@@ -39,7 +39,7 @@ class IncomingTextMessage < ApplicationRecord
   end
 
   def from
-    PhoneParser.local_phone_number(from_phone_number)
+    PhoneParser.formatted_phone_number(from_phone_number)
   end
 
   private
