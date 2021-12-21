@@ -63,14 +63,16 @@ export function initMultiSelectVitaPartner() {
 
 export function initMultiSelectState() {
     const input = document.querySelector('.multi-select-state');
-
     new Tagify(input, {
+        tagTextProp: 'name',  // <-- defines which attr is used as the tag display value
         // Array for initial interpolation, which allows only these tags to be used
         whitelist: window.taggableItems,
         enforceWhitelist: true,
         dropdown : {
             classname: "multi-select-dropdown",
             enabled: 0,
+            mapValueTo: 'name', // <-- defines which attr is used to display dropdown items
+            searchKeys: ['name', 'abbreviation'], // <-- defines the attr used to search for in dropdown
             highlightFirst: true,  // <-- automatically highlights first suggestion item in the dropdown
             closeOnSelect: false, // <-- keep dropdown open after selection
             maxItems: window.taggableItems.length, // <-- render all available items for the dropdown

@@ -2,11 +2,14 @@ require "rails_helper"
 
 RSpec.describe Hub::CoalitionForm do
   describe "#save" do
-    subject { described_class.new(params) }
+    subject { described_class.new(coalition, params) }
+    let(:params) { { states: states, name: name } }
+    let(:name) { coalition.name }
+    let(:states) { "" }
 
     context "saving name" do
       let(:coalition) { Coalition.new }
-      let(:params) { { name: "A New Coalition", states: "", coalition: coalition} }
+      let(:name) { "A New Coalition" }
 
       it "saves the coalition with the new name" do
         subject.save
@@ -26,23 +29,18 @@ RSpec.describe Hub::CoalitionForm do
     end
 
     context "adding states" do
-      let(:coalition) { create(:coalition, name: "A New Coalition") }
-      let(:params) { { name: "A New New Name", states: "Ohio,California", coalition: coalition} }
-
-      before do
-        create(:state_routing_target, state_abbreviation: "OH", target: coalition)
-      end
+      let(:coalition) { create(:coalition, state_routing_targets: [build(:state_routing_target, state_abbreviation: "OH")]) }
+      let(:states) { "OH,CA" }
 
       it "creates the new state routing target" do
         subject.save
         expect(coalition.reload.state_routing_targets.pluck(:state_abbreviation)).to match_array ["OH", "CA"]
-        expect(coalition.name).to eq "A New New Name"
       end
     end
 
     context "removing states" do
-      let(:coalition) { create(:coalition, name: "A New Coalition") }
-      let(:params) { { name: "A New Coalition", states: "Utah,California", coalition: coalition } }
+      let(:coalition) { create(:coalition) }
+      let(:states) { "UT,CA" }
 
       before do
         create(:state_routing_target, state_abbreviation: "OH", target: coalition)

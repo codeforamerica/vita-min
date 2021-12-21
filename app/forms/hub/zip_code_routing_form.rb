@@ -11,7 +11,6 @@ module Hub
       @vita_partner = vita_partner
       @params = form_params
       @serviced_zip_code = vita_partner.serviced_zip_codes.new(@params)
-
     end
 
     def save!
