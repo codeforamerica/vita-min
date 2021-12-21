@@ -491,11 +491,21 @@ FactoryBot.define do
     demographic_english_reading { "well" }
     demographic_english_conversation { "not_well" }
     bought_energy_efficient_items { "unfilled" } # no default value in db for this enum.
+    bank_account_type { "checking" }
+    refund_payment_method { "check" }
+
     after(:build) do |intake|
+      # default any unsupplied enum values to 'no' if possible
       intake.class.defined_enums.each_key do |key|
-        # only randomize values for keys that have not been supplied
         if intake[key] == "unfilled"
-          intake[key] = intake.class.send(key.pluralize).keys.sample
+          enum_keys = intake.class.send(key.pluralize).keys
+          default_choices = %w(no prefer_not_to_answer neutral)
+          default_choice = enum_keys.find { |k| k.in?(default_choices) }
+          if default_choice
+            intake[key] = default_choice
+          else
+            raise "Didn't know what to do for enum #{key} - we usually default to [#{default_choices.join(' or ')}] but that value was not available"
+          end
         end
       end
     end
