@@ -196,11 +196,11 @@ en:
       blank: Can't be blank.
   forms:
     errors:
+      at_least_one_year: Please pick at least one year.
+      general: Please fix indicated errors before continuing.
       hub:
         communication_opt_in: If service type is "online", a contact method and communication opt in is required.
         contact_method_required: "%{attribute} is required if opting into notifications"
-      at_least_one_year: Please pick at least one year.
-      general: Please fix indicated errors before continuing.
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
