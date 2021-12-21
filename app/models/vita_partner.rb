@@ -28,6 +28,8 @@
 #  fk_rails_...  (coalition_id => coalitions.id)
 #
 class VitaPartner < ApplicationRecord
+  self.inheritance_column = 'not_a_type_column'
+
   belongs_to :coalition, optional: true
   has_many :clients
   has_many :intakes
