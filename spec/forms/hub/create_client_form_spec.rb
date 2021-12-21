@@ -213,6 +213,61 @@ RSpec.describe Hub::CreateClientForm do
         end
       end
 
+      context "contact opt in -- no opted into methods" do
+        let(:sms_opt_in) { "no" }
+        let(:email_opt_in) { "no" }
+        let(:form) { described_class.new(params) }
+
+        context "when signature method is online" do
+          before do
+            params[:signature_method] = "online"
+          end
+
+          it "is not valid" do
+            expect(form).not_to be_valid
+            expect(form.errors).to include :communication_preference
+          end
+        end
+
+        context "when service type is drop off" do
+          before do
+            params[:signature_method] = "drop_off"
+          end
+
+          it "is valid without contact info" do
+            expect(form).to be_valid
+          end
+        end
+      end
+
+      context "contact methods -- opting in" do
+        context "when email notifications are opted in to" do
+          let(:email_opt_in) { "yes" }
+          let(:form) { described_class.new(params)}
+          before do
+            params[:email_address] = nil
+          end
+
+          it "email_address is required" do
+            expect(form).not_to be_valid
+            expect(form.errors).to include :email_address
+          end
+        end
+
+        context "when sms notifications are opted in to" do
+          let(:sms_opt_in) { "yes" }
+          let(:form) { described_class.new(params)}
+          before do
+            params[:sms_phone_number] = nil
+          end
+
+          it "email_address is required" do
+            expect(form).not_to be_valid
+            expect(form.errors).to include :sms_phone_number
+          end
+        end
+      end
+
       context "vita_partner_id" do
         before do
           params[:vita_partner_id] = nil

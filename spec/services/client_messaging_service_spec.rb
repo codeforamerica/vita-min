@@ -1,7 +1,17 @@
 require "rails_helper"
 
 RSpec.describe ClientMessagingService do
-  let(:intake) { create :intake, preferred_name: "Mona Lisa", email_address: "client@example.com", sms_phone_number: "+14155551212" }
+  let(:email_opt_in) { "yes" }
+  let(:sms_opt_in) { "yes" }
+  let(:email_address) { "client@example.com" }
+  let(:sms_phone_number) { "+14155551212" }
+  let(:intake) { create :intake,
+                        preferred_name: "Mona Lisa",
+                        email_address: email_address,
+                        sms_phone_number: sms_phone_number,
+                        email_notification_opt_in: email_opt_in,
+                        sms_notification_opt_in: sms_opt_in
+  }
   let!(:client) { intake.client }
   let!(:user) { create :user }
   let(:expected_time) { DateTime.new(2020, 9, 9) }
@@ -17,6 +27,32 @@ RSpec.describe ClientMessagingService do
         expect do
           described_class.send_email(client: client, body: "hello")
         end.to raise_error(ArgumentError, "missing keyword: user")
+      end
+    end
+
+    context "when the client has opted into messaging but did not provide an email" do
+      let(:email_opt_in) { "yes" }
+      let(:email_address) { nil }
+      before do
+        allow(DatadogApi).to receive(:increment).with('clients.missing_email_for_email_opt_in')
+      end
+
+      it "does not send an email but should increment datadog metric by 1" do
+        expect do
+          described_class.send_email(client: client, user: user, body: "hello")
+          expect(DatadogApi).to have_received(:increment).with('clients.missing_email_for_email_opt_in')
+        end.to change(OutgoingEmail, :count).by(0)
+      end
+    end
+
+    context "when the client has not opted into email messaging" do
+      let(:email_opt_in) { "no" }
+      let(:email_address) { nil }
+      it "returns false and does not send an email" do
+        expect do
+          return_value = described_class.send_email(client: client, user: user, body: "hello")
+          expect(return_value).to eq false
+        end.to change(OutgoingEmail, :count).by(0)
       end
     end
 
@@ -36,7 +72,7 @@ RSpec.describe ClientMessagingService do
       end
 
       context "for a CTC intake" do
-        let(:intake) { create :ctc_intake, email_address: "client@example.com", sms_phone_number: "+14155551212" }
+        let(:intake) { create :ctc_intake, email_address: "client@example.com", sms_phone_number: "+14155551212", email_notification_opt_in: "yes" }
 
         it "uses the default CTC subject" do
           expect do
@@ -110,55 +146,59 @@ RSpec.describe ClientMessagingService do
     end
 
     context "with an authenticated user" do
-      it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
-        expect do
-          described_class.send_email_to_all_signers(client: client, user: user, body: "hello")
-        end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
+      context "when the client has opted into email comms" do
+        let(:email_opt_in) { "yes" }
 
-        outgoing_email = OutgoingEmail.last
-        expect(outgoing_email.subject).to eq("Update from GetYourRefund")
-        expect(outgoing_email.body).to eq("hello")
-        expect(outgoing_email.client).to eq client
-        expect(outgoing_email.user).to eq user
-        expect(outgoing_email.to).to eq client.email_address
-        expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
-      end
+        it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
+          expect do
+            described_class.send_email_to_all_signers(client: client, user: user, body: "hello")
+          end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
 
-      context "when the client is filing joint" do
-        let(:intake) do
-          create :intake, email_address: "client@example.com", spouse_email_address: "spouse@example.com", filing_joint: "yes"
+          outgoing_email = OutgoingEmail.last
+          expect(outgoing_email.subject).to eq("Update from GetYourRefund")
+          expect(outgoing_email.body).to eq("hello")
+          expect(outgoing_email.client).to eq client
+          expect(outgoing_email.user).to eq user
+          expect(outgoing_email.to).to eq client.email_address
+          expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
         end
 
-        it "includes the spouse email in the 'to' field" do
-          described_class.send_email_to_all_signers(client: client, user: user, body: "hello")
+        context "when the client is filing joint" do
+          let(:intake) do
+            create :intake, email_address: "client@example.com", spouse_email_address: "spouse@example.com", filing_joint: "yes", email_notification_opt_in: "yes"
+          end
 
-          expect(OutgoingEmail.last.to).to eq "client@example.com,spouse@example.com"
+          it "includes the spouse email in the 'to' field" do
+            described_class.send_email_to_all_signers(client: client, user: user, body: "hello")
+
+            expect(OutgoingEmail.last.to).to eq "client@example.com,spouse@example.com"
+          end
         end
-      end
 
-      context "with an attachment" do
-        let(:attachment) { fixture_file_upload("test-pattern.png") }
+        context "with an attachment" do
+          let(:attachment) { fixture_file_upload("test-pattern.png") }
 
-        it "saves the attachment" do
-          described_class.send_email_to_all_signers(client: client, user: user, body: "hello", attachment: attachment)
+          it "saves the attachment" do
+            described_class.send_email_to_all_signers(client: client, user: user, body: "hello", attachment: attachment)
 
-          expect(OutgoingEmail.last.attachment).to be_present
+            expect(OutgoingEmail.last.attachment).to be_present
+          end
         end
-      end
 
-      context "with a custom subject locale" do
-        it "uses that locale" do
-          described_class.send_email_to_all_signers(client: client, user: user, body: "hola", locale: "es")
-          expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
+        context "with a custom subject locale" do
+          it "uses that locale" do
+            described_class.send_email_to_all_signers(client: client, user: user, body: "hola", locale: "es")
+            expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
+          end
         end
-      end
 
-      context "with a client whose locale differs from the current request" do
-        before { intake.update(locale: "es") }
+        context "with a client whose locale differs from the current request" do
+          before { intake.update(locale: "es") }
 
-        it "uses the client locale" do
-          described_class.send_email_to_all_signers(client: client, user: user, body: "hola")
-          expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
+          it "uses the client locale" do
+            described_class.send_email_to_all_signers(client: client, user: user, body: "hola")
+            expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
+          end
         end
       end
     end
@@ -196,6 +236,34 @@ RSpec.describe ClientMessagingService do
   end
 
   describe ".send_text_message", active_job: true do
+    before do
+      allow(DatadogApi).to receive(:increment).with("clients.missing_sms_phone_number_for_sms_opt_in")
+    end
+
+    context "when they are opted into communications with no listed phone number" do
+      let(:sms_opt_in) { "yes" }
+      let(:sms_phone_number) { "" }
+
+
+      it "does not send a message and increments data dog" do
+        expect do
+          described_class.send_text_message(client: client, user: user, body: "hello")
+          expect(DatadogApi).to have_received(:increment).with("clients.missing_sms_phone_number_for_sms_opt_in")
+        end.to change(OutgoingTextMessage, :count).by(0)
+      end
+    end
+
+    context "when they are not opted into communications" do
+      let(:sms_opt_in) { "no" }
+      it "returns false, does not send a message or increment" do
+        expect do
+          return_value = described_class.send_text_message(client: client, user: user, body: "hello")
+          expect(return_value).to eq false
+          expect(DatadogApi).not_to have_received(:increment).with("clients.missing_sms_phone_number_for_sms_opt_in")
+        end.to change(OutgoingTextMessage, :count).by(0)
+      end
+    end
+
     context "with a nil user" do
       it "raises an error" do
         expect do
@@ -268,11 +336,11 @@ RSpec.describe ClientMessagingService do
     context "when the client has not opted in to anything" do
       let(:intake) { create :intake, sms_notification_opt_in: "no", email_notification_opt_in: "no" }
 
-      it "returns a hash with nil for both message record types" do
+      it "returns a hash with false for both message record types" do
         expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
-                   outgoing_email: nil,
-                   outgoing_text_message: nil
+                   outgoing_email: false,
+                   outgoing_text_message: false
                  })
       end
     end
@@ -288,7 +356,7 @@ RSpec.describe ClientMessagingService do
         expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
                    outgoing_email: outgoing_email,
-                   outgoing_text_message: nil
+                   outgoing_text_message: false
                  })
         expect(described_class).to have_received(:send_email).with(client: client, user: user, body: body)
       end
@@ -305,7 +373,7 @@ RSpec.describe ClientMessagingService do
         expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
                    outgoing_text_message: outgoing_text_message,
-                   outgoing_email: nil
+                   outgoing_email: false
                  })
         expect(described_class).to have_received(:send_text_message).with(client: client, user: user, body: body)
       end
@@ -314,11 +382,11 @@ RSpec.describe ClientMessagingService do
     context "when the client has opted into one contact method but lacks the contact info" do
       let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "no", sms_phone_number: nil }
 
-      it "returns a hash with nil as the value for contact record" do
+      it "returns a hash with false as the value for contact record" do
         expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
-                   outgoing_text_message: nil,
-                   outgoing_email: nil
+                   outgoing_text_message: false,
+                   outgoing_email: false
                  })
       end
     end
@@ -353,7 +421,7 @@ RSpec.describe ClientMessagingService do
       it "returns a hash containing with only one contact record for the fully usable method" do
         expect(described_class.send_message_to_all_opted_in_contact_methods(client: client, user: user, body: body))
           .to eq({
-                   outgoing_text_message: nil,
+                   outgoing_text_message: false,
                    outgoing_email: outgoing_email
                  })
         expect(described_class).to have_received(:send_email).with(client: client, user: user, body: body)

@@ -14,7 +14,8 @@ module Hub
         :spouse_last_name,
         :email_address,
         :sms_notification_opt_in,
-        :email_notification_opt_in
+        :email_notification_opt_in,
+        :signature_method
 
     before_validation do
       self.sms_phone_number = PhoneParser.normalize(sms_phone_number)
@@ -38,6 +39,7 @@ module Hub
     validates :spouse_first_name, legal_name: true
     validates :spouse_last_name, legal_name: true
     validate :at_least_one_contact_method
+    validate :contact_method_if_opted_in
 
     attr_accessor :dependents_attributes
 
@@ -76,16 +78,28 @@ module Hub
     end
 
     def opted_in_sms?
-      sms_notification_opt_in == "yes"
+      sms_notification_opt_in == "yes" && sms_phone_number.present?
     end
 
     def opted_in_email?
-      email_notification_opt_in == "yes"
+      email_notification_opt_in == "yes" && email_address.present?
     end
 
     def at_least_one_contact_method
+      return unless signature_method == "online"
+
       unless opted_in_email? || opted_in_sms?
-        errors.add(:communication_preference, I18n.t("forms.errors.need_one_communication_method"))
+        errors.add(:email_address, I18n.t("forms.errors.hub.communication_opt_in"))
+        errors.add(:sms_phone_number, I18n.t("forms.errors.hub.communication_opt_in"))
+      end
+    end
+
+    def contact_method_if_opted_in
+      if email_notification_opt_in == "yes" && email_address.blank?
+        errors.add(:email_address, I18n.t("forms.errors.hub.contact_method_required", attribute: "email"))
+      end
+      if sms_notification_opt_in == "yes" && sms_phone_number.blank?
+        errors.add(:sms_phone_number, I18n.t("forms.errors.hub.contact_method_required", attribute: "cell phone number"))
       end
     end
 

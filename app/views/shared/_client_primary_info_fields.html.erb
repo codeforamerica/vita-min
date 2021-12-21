@@ -31,6 +31,7 @@
     <% end %>
 
     <%= error_message(@form, :communication_preference) %>
+
     <div class="hub-form__input-with-checkbox">
       <%= f.cfa_input_field(:email_address, t("general.email")) %>
       <%= f.hub_checkbox(:email_notification_opt_in, t("general.opt_in_email"), options: { checked_value: "yes", unchecked_value: "no" }) %>

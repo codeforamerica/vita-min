@@ -1,6 +1,14 @@
 class ClientMessagingService
   class << self
+    # only sends email if the client can receive emails
     def send_email(client:, user:, body:, attachment: nil, subject: nil, locale: nil, tax_return: nil, to: nil)
+      if client.intake.email_notification_opt_in_yes? && !client.email_address.present?
+        DatadogApi.increment('clients.missing_email_for_email_opt_in')
+        return false
+      end
+
+      return false unless client.intake.email_notification_opt_in_yes?
+
       applied_locale = locale || client.intake.locale
       replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: applied_locale }
       replaced_body = ReplacementParametersService.new(**replacement_args).process
@@ -35,7 +43,14 @@ class ClientMessagingService
       send_email(**args)
     end
 
+    # only sends text message if client can receive texts
     def send_text_message(client:, user:, body:, tax_return: nil, locale: nil, to: nil)
+      if client.intake.sms_notification_opt_in_yes? && !client.sms_phone_number.present?
+        DatadogApi.increment('clients.missing_sms_phone_number_for_sms_opt_in')
+        return false
+      end
+      return false unless client.intake.sms_notification_opt_in_yes?
+
       replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: locale }
       replaced_body = ReplacementParametersService.new(**replacement_args).process
       OutgoingTextMessage.create!(
@@ -62,12 +77,9 @@ class ClientMessagingService
       args = { client: client, user: user, body: body }
       args[:tax_return] = tax_return if tax_return.present?
       args[:locale] = locale if locale.present?
-      if client.intake.email_notification_opt_in_yes? && client.email_address.present?
-        message_records[:outgoing_email] = send_email(**args)
-      end
-      if client.intake.sms_notification_opt_in_yes? && client.sms_phone_number.present?
-        message_records[:outgoing_text_message] = send_text_message(**args)
-      end
+      # returns nil unless client opted in to contact method
+      message_records[:outgoing_email] = send_email(**args)
+      message_records[:outgoing_text_message] = send_text_message(**args)
       message_records
     end
 
@@ -118,6 +130,5 @@ class ClientMessagingService
       end
       bulk_client_message
     end
-
   end
 end
