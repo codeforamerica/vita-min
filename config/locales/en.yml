@@ -2446,8 +2446,8 @@ en:
           header: Thanks for signing up!
           title: Sign Up
         new:
-          header: Stay in touch. We can email you when more information is available.
-          sub_header: All you need to do is provide us with your name and either an email address or phone number and we'll email or text you when there is more information.
+          header: Stay in touch. We can message you with updates.
+          sub_header: All you need to do is provide us with your name and either an email address or phone number, and we'll email or text you when there are updates.
           submit: Keep me updated
           title: Sign Up
       stimulus_home:
