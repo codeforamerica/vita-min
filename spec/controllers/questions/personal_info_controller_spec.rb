@@ -15,7 +15,9 @@ RSpec.describe Questions::PersonalInfoController do
         personal_info_form: {
           timezone: "America/New_York",
           zip_code: "80309",
-          preferred_name: "Shep"
+          preferred_name: "Shep",
+          phone_number: "+14156778899",
+          phone_number_confirmation: "+14156778899"
         }
       }
     end
@@ -30,6 +32,11 @@ RSpec.describe Questions::PersonalInfoController do
     it "sets the timezone on the intake" do
       expect { post :update, params: params }
         .to change { intake.timezone }.to("America/New_York")
+    end
+
+    it "sets preferred name, zip code and phone number" do
+      expect { post :update, params: params }
+        .to change { intake.preferred_name }.to("Shep").and change { intake.zip_code }.to("80309").and change { intake.phone_number }.to("+14156778899")
     end
 
     context "when a client has not yet consented" do
@@ -54,8 +61,8 @@ RSpec.describe Questions::PersonalInfoController do
           post :update, params: params
           intake.reload
         }.to change(intake, :vita_partner_id).to(vita_partner.id)
-         .and change(intake.client, :vita_partner_id).to(vita_partner.id)
-         .and change(intake.client, :routing_method).to eq("source_param")
+                                             .and change(intake.client, :vita_partner_id).to(vita_partner.id)
+                                                                                         .and change(intake.client, :routing_method).to eq("source_param")
       end
 
       context "when routing service returns nil" do

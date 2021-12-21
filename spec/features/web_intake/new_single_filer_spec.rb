@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: true do
+  include MockTwilio
+
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
@@ -59,6 +61,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(intake.reload.current_step).to eq("/en/questions/personal-info")
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "What is your preferred first name?", with: "Gary"
+    fill_in "Phone number", with: "8286345533"
+    fill_in "Confirm phone number", with: "828-634-5533"
     fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
@@ -76,12 +80,33 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("p", text: "Virginia Partner handles tax returns from 20121 (Centreville, Virginia).")
     click_on "Continue"
 
-    # Phone number
-    expect(page).to have_selector("h1", text: "Please share your contact number.")
-    fill_in "Phone number", with: "(415) 553-7865"
-    fill_in "Confirm phone number", with: "(415) 553-7865"
-    check "This number can receive text messages"
+    # Notification Preference
+    expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
+    expect(page).to have_text("What ways can we reach you")
+    expect(page).to have_text("We’ll send a code to verify each contact method")
+    check "Email Me"
+    check "Text Me"
     click_on "Continue"
+
+    # Phone number can text
+    expect(page).to have_text("Can we text the phone number you previously entered?")
+    expect(page).to have_text("(828) 634-5533")
+    expect(page).to have_text("Please be sure that this number can receive text messages.")
+    click_on "No"
+
+    # Phone number
+    expect(page).to have_selector("h1", text: "Please share your cell phone number.")
+    fill_in "Cell phone number", with: "(415) 553-7865"
+    fill_in "Confirm cell phone number", with: "+1415553-7865"
+    click_on "Continue"
+
+    # Verify cell phone contact
+    expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
+    perform_enqueued_jobs
+    sms = FakeTwilioClient.messages.last
+    code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
+    fill_in "Enter 6 digit code", with: code
+    click_on "Verify"
 
     # Email
     expect(page).to have_selector("h1", text: "Please share your email address.")
@@ -89,13 +114,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     fill_in "Confirm email address", with: "gary.gardengnome@example.green"
     click_on "Continue"
 
-    # Notification Preference
-    expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
-    expect(page).to have_text("What is the best way to reach you?")
-    check "Email Me"
-    check "Text Me"
-    fill_in "Cell phone number", with: "(415) 553-7865"
-    click_on "Continue"
+    # Verify email contact
+    expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
+    perform_enqueued_jobs
+    mail = ActionMailer::Base.deliveries.last
+    code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+    fill_in "Enter 6 digit code", with: code
+    click_on "Verify"
 
     # Consent form
     expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
@@ -127,11 +152,11 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Did you receive the first two stimulus checks (Economic Impact Payments) in 2020 and 2021?")
-    expect{ track_progress }.to change { @current_progress }.by_at_least(1)
+    expect { track_progress }.to change { @current_progress }.by_at_least(1)
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
-    expect{ track_progress }.to change { @current_progress }.by_at_least(1)
+    expect { track_progress }.to change { @current_progress }.by_at_least(1)
     click_on "No"
 
     # Marital status
