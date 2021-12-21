@@ -45,10 +45,14 @@
       <% if @client&.intake.sms_phone_number.present? %>
         <div class="single-input-form">
           <%= form_with model: @outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
-            <%= f.cfa_textarea :body, t(".text_message_form.label"), options: { spellcheck: true } %>
+            <%= f.cfa_textarea :body, t(".text_message_form.label"), options: { spellcheck: true }, classes: ["text-message-body"] %>
             <%= f.hidden_field :client_id %>
-            <div>
-              <%= f.submit t(".text_message_form.submit"), class: "button" %>
+            <div class="grid-flex center-aligned space-between">
+              <div>
+                <%= f.submit t(".text_message_form.submit"), class: "button" %>
+              </div>
+              <div id="text-message-length-counter"></div>
+
             </div>
           <% end %>
         </div>
