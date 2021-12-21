@@ -72,7 +72,7 @@ module Hub
 
     def count_efile_submission_states
       result = {}
-      EfileSubmissionStateMachine.states.each { |state| result[state] = 0 }
+      EfileSubmissionStateMachine.states.without("new", "resubmitted").each { |state| result[state] = 0 }
       ActiveRecord::Base.connection.execute(<<~SQL).each { |row| result[row['to_state']] = row['count'] }
         SELECT to_state, COUNT(*) FROM "efile_submissions"
         LEFT OUTER JOIN efile_submission_transitions AS most_recent_efile_submission_transition ON (
