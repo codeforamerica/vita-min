@@ -33,7 +33,7 @@ class VitaProvidersController < ApplicationController
     @provider = VitaProvider.find(params[:id])
     @zip = params[:zip]
     @page = params[:page]
-    if @zip.present?
+    if @zip.present? && ZipCodes.details(@zip)
       zip_details = ZipCodes.details(@zip)
       @zip_name = zip_details[:name]
       zip_centroid = Geometry.coords_to_point(
@@ -83,7 +83,7 @@ class VitaProvidersController < ApplicationController
       provider_id: @provider.id.to_s,
       provider_name: @provider.name,
     }
-    if @zip.present?
+    if @zip.present? && @distance.present?
       event_data = event_data.merge({
         provider_searched_zip: @zip,
         provider_searched_zip_name: @zip_name,
