@@ -13,6 +13,7 @@
 #
 # Indexes
 #
+#  index_efile_submission_transitions_on_created_at       (created_at)
 #  index_efile_submission_transitions_parent_most_recent  (efile_submission_id,most_recent) UNIQUE WHERE most_recent
 #  index_efile_submission_transitions_parent_sort         (efile_submission_id,sort_key) UNIQUE
 #

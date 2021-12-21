@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_01_145402) do
+ActiveRecord::Schema.define(version: 2021_11_01_234237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -417,6 +417,7 @@ ActiveRecord::Schema.define(version: 2021_11_01_145402) do
     t.integer "sort_key", null: false
     t.string "to_state", null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_efile_submission_transitions_on_created_at"
     t.index ["efile_submission_id", "most_recent"], name: "index_efile_submission_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["efile_submission_id", "sort_key"], name: "index_efile_submission_transitions_parent_sort", unique: true
   end
