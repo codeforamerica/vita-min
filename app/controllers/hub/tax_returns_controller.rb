@@ -27,6 +27,7 @@ module Hub
       if @tax_return.valid?
         @tax_return.save!
         @tax_return.transition_to(tax_return_params[:status])
+        TaxReturnAssignmentService.new(tax_return: @tax_return, assigned_user: @tax_return.assigned_user, assigned_by: current_user).assign!
         SystemNote::TaxReturnCreated.generate!(initiated_by: current_user, tax_return: @tax_return)
         flash[:notice] = I18n.t("hub.tax_returns.create.success", year: @tax_return.year, name: @client.preferred_name)
         redirect_to hub_client_path(id: @client.id)
@@ -42,7 +43,11 @@ module Hub
     def show; end
 
     def update
-      @tax_return.assign!(assigned_user: @assigned_user, assigned_by: current_user)
+      assignment_service = TaxReturnAssignmentService.new(tax_return: @tax_return,
+                                                          assigned_user: @assigned_user,
+                                                          assigned_by: current_user)
+      assignment_service.assign!
+      assignment_service.send_notifications
       flash.now[:notice] = I18n.t("hub.tax_returns.update.flash_success",
                                   client_name: @tax_return.client.preferred_name,
                                   tax_year: @tax_return.year,

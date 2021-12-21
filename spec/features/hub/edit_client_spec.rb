@@ -8,7 +8,8 @@ RSpec.describe "a user editing a clients intake fields" do
     let!(:new_site) { create(:site, name: "Other Site") }
 
     let(:user) { create :admin_user }
-    let(:tax_return) { create :tax_return, year: 2019, assigned_user: (create :user, role: create(:organization_lead_role, organization: organization)) }
+    let(:assigned_user) { create :user, role: create(:organization_lead_role, organization: organization) }
+    let(:tax_return) { create :tax_return, year: 2019, assigned_user: assigned_user }
     let(:client) {
       create :client,
              vita_partner: organization,
@@ -30,17 +31,25 @@ RSpec.describe "a user editing a clients intake fields" do
     }
     before { login_as user }
 
-    scenario "I see a warning if I try to update a clients' organization that an assigned tax return user cannot access" do
+    scenario "if I update a clients' organization that an assigned tax return user cannot access, they are unassigned" do
       visit hub_client_path(id: client.id)
+
+      within '.tax-return-list__assignment' do
+        expect(page).to have_text assigned_user.name
+      end
+
       within ".client-header__organization" do
         click_on "Edit"
       end
 
       expect(page).to have_text "Edit Organization for #{client.preferred_name}"
+      expect(page).to have_text I18n.t("hub.clients.organizations.edit.warning_text_1")
       select "Other Site", from: "Organization"
       click_on "Save"
 
-      expect(page).to have_text "would lose access if you assign"
+      within '.tax-return-list__assignment' do
+        expect(page).not_to have_text assigned_user.name
+      end
     end
 
     scenario "I can update available fields", js: true do

@@ -74,9 +74,6 @@ class Client < ApplicationRecord
   enum still_needs_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :still_needs_help
   enum experience_survey: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :experience_survey
 
-  validate :tax_return_assigned_user_access_maintained, if: :vita_partner_id_changed?
-  after_update_commit :create_org_change_note, if: :saved_change_to_vita_partner_id?
-
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
   end
@@ -293,32 +290,5 @@ class Client < ApplicationRecord
     return efile_security_informations.last&.recaptcha_score unless recaptcha_scores.present?
 
     (recaptcha_scores.map(&:score).sum / recaptcha_scores.size).round(2)
-  end
-
-  private
-
-  def tax_return_assigned_user_access_maintained
-    # assuming the vita_partner was changed
-    # if any tax returns have assigned users ...
-    if persisted? && users_assigned_to_tax_returns.exists?
-      # ... find out who would lose access based on the new partner
-      users_who_would_lose_access = users_assigned_to_tax_returns.select do |user|
-        user.accessible_vita_partners.where(id: vita_partner_id).empty?
-      end
-      if users_who_would_lose_access.present?
-        affected_user_names = users_who_would_lose_access.map(&:name).join(", ")
-        errors.add(:vita_partner_id,
-          I18n.t(
-            "clients.errors.tax_return_assigned_user_access",
-            new_partner: vita_partner.name,
-            affected_users: affected_user_names
-          )
-        )
-      end
-    end
-  end
-
-  def create_org_change_note
-    SystemNote::OrganizationChange.generate!(client: self, initiated_by: change_initiated_by)
   end
 end

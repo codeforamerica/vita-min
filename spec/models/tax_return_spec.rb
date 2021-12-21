@@ -1246,42 +1246,6 @@ describe TaxReturn do
     end
   end
 
-  describe "#assign!" do
-    let(:assigned_user) { create :user }
-    let(:assigned_by) { create :user }
-    let(:tax_return) { create :tax_return, assigned_user: (create :user) }
-    before do
-      allow(UserMailer).to receive_message_chain(:assignment_email, :deliver_later)
-    end
-
-    context "when assigned_user_id is nil" do
-      it "updates the assigned user to be nil, creates a note, does not send email" do
-        expect {
-          tax_return.assign!(assigned_user: nil, assigned_by: assigned_by)
-        }.to change(tax_return.reload, :assigned_user_id).to(nil)
-         .and change(SystemNote, :count).by(1)
-
-        expect(UserMailer).not_to have_received(:assignment_email)
-      end
-    end
-
-    context "when assigned_user_id is present" do
-      it "updates the user, creates a system note, and sends an email" do
-        expect {
-          tax_return.assign!(assigned_user: assigned_user, assigned_by: assigned_by)
-        }.to change(tax_return.reload, :assigned_user_id).to(assigned_user.id)
-         .and change(SystemNote, :count).by(1)
-
-        expect(UserMailer).to have_received(:assignment_email).with(
-            assigned_user: assigned_user,
-            assigning_user: assigned_by,
-            tax_return: tax_return,
-            assigned_at: tax_return.updated_at
-        ).once
-      end
-    end
-  end
-
   describe "filing_status_code" do
     let(:tax_return) { create :tax_return, filing_status: "single" }
     it "returns the integer corresponding to the enum string value" do
