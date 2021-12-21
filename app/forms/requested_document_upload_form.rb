@@ -12,9 +12,9 @@ class RequestedDocumentUploadForm < QuestionsForm
     document_type = attributes_for(:documents_request)[:document_type] || DocumentTypes::RequestedLater
     if document_file_upload.present?
       @documents_request.documents.create(
-        uploaded_by: @documents_request.intake.client,
+        uploaded_by: @documents_request.client,
         document_type: document_type.key,
-        client_id: @documents_request.intake.client_id,
+        client: @documents_request.client,
         upload: document_file_upload,
       )
     end
