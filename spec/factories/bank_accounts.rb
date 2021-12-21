@@ -10,13 +10,17 @@
 #  encrypted_bank_name_iv      :string
 #  encrypted_routing_number    :string
 #  encrypted_routing_number_iv :string
+#  hashed_account_number       :string
+#  hashed_routing_number       :string
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  intake_id                   :bigint
 #
 # Indexes
 #
-#  index_bank_accounts_on_intake_id  (intake_id)
+#  index_bank_accounts_on_hashed_account_number  (hashed_account_number)
+#  index_bank_accounts_on_hashed_routing_number  (hashed_routing_number)
+#  index_bank_accounts_on_intake_id              (intake_id)
 #
 FactoryBot.define do
   factory :bank_account do

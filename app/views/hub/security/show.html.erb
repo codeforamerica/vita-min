@@ -4,8 +4,13 @@
 
   <div class="slab slab--not-padded spacing-above-25" id="body">
     <div class="spacing-below-25">
-      Current recaptcha score average: <%= @client.recaptcha_scores_average %>
+      Current recaptcha score average: <%= @client.recaptcha_scores_average || "N/A" %>
     </div>
+    <% if @duplicate_bank_clients.present? %>
+      <div class="spacing-below-25">
+        With duplicated bank data: <%= @duplicate_bank_clients.each { |dupe| link_to "##{dupe.id}", hub_clients_path(dupe.id) } %>
+      </div>
+    <% end %>
 
     <table class="index-table">
       <thead class="index-table__head">
@@ -17,6 +22,7 @@
       </thead>
 
       <tbody>
+
         <% @security_events.each do |event| %>
           <% if event.is_a?(EfileSecurityInformation) %>
             <%= render(partial: "efile_security_information", locals: { esf: event }) %>

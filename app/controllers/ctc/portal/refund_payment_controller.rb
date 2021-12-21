@@ -26,5 +26,6 @@ class Ctc::Portal::RefundPaymentController < Ctc::Portal::BaseIntakeRevisionCont
   def current_model
     @_current_model ||= current_intake
   end
+
   helper_method :current_model
 end
