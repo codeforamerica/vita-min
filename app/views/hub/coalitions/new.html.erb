@@ -1,0 +1,11 @@
+<% @title = t(".title") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="slab slab--padded">
+    <div class="grid">
+      <div class="grid-item width-one-half">
+        <%= render "hub/coalitions/form", url: hub_coalitions_path, http_method: :post %>
+      </div>
+    </div>
+  </div>
+<% end %>

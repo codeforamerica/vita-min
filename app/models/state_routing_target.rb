@@ -15,6 +15,8 @@
 #
 class StateRoutingTarget < ApplicationRecord
   belongs_to :target, polymorphic: true
+
+  validates :state_abbreviation, uniqueness: { scope: [:target] }
   validate :valid_state_abbreviation
 
   def routing_percentage
