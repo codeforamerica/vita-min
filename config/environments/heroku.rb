@@ -4,10 +4,8 @@ Rails.application.configure do
   # TODO: have an S3 bucket
   config.active_storage.service = :local
 
-  # HEROKU_APP_NAME variable is documented at https://devcenter.heroku.com/articles/dyno-metadata
-  heroku_app_name = ENV["HEROKU_APP_NAME"]
-  pr_number = heroku_app_name.match(/.*(pr-\d+)/).captures.first
-  gyr_hostname = "#{pr_number}.getyourrefund-testing.org"
+  # HEROKU_PR_NUMBER variable is documented at https://devcenter.heroku.com/articles/github-integration-review-apps#injected-environment-variables
+  gyr_hostname = "pr-#{ENV['HEROKU_PR_NUMBER']}.getyourrefund-testing.org"
   ctc_hostname = "ctc.#{gyr_hostname}"
 
   config.gyr_url = "https://#{gyr_hostname}"
