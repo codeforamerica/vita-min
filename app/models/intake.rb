@@ -223,7 +223,6 @@
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
-#  bank_account_id                                      :bigint
 #  client_id                                            :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
@@ -237,7 +236,6 @@
 #
 # Indexes
 #
-#  index_intakes_on_bank_account_id                        (bank_account_id)
 #  index_intakes_on_canonical_email_address                (canonical_email_address)
 #  index_intakes_on_client_id                              (client_id)
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
