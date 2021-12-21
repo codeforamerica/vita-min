@@ -81,13 +81,13 @@ describe RequestVerificationCodeForLoginJob do
           allow_any_instance_of(ClientLoginService).to receive(:can_login_by_sms_verification?).and_return false
         end
 
-        let(:ctc_text_message_body_es) { I18n.t("verification_code_sms.no_match_ctc", url: "https://ctc.test.example.com/es", locale: :es) }
+        let(:ctc_text_message_body_es) { I18n.t("verification_code_sms.no_match_ctc", url: "http://ctc.test.localhost/es", locale: :es) }
 
-        let(:ctc_text_message_body_en) { I18n.t("verification_code_sms.no_match_ctc", url: "https://ctc.test.example.com/en", locale: :en) }
+        let(:ctc_text_message_body_en) { I18n.t("verification_code_sms.no_match_ctc", url: "http://ctc.test.localhost/en", locale: :en) }
 
-        let(:gyr_text_message_body_es) { I18n.t("verification_code_sms.no_match_gyr", url: "https://test.example.com/es", locale: :es) }
+        let(:gyr_text_message_body_es) { I18n.t("verification_code_sms.no_match_gyr", url: "http://test.localhost/es", locale: :es) }
 
-        let(:gyr_text_message_body_en) { I18n.t("verification_code_sms.no_match_gyr", url: "https://test.example.com/en", locale: :en) }
+        let(:gyr_text_message_body_en) { I18n.t("verification_code_sms.no_match_gyr", url: "http://test.localhost/en", locale: :en) }
 
         context "locale es and service type is gyr" do
           let(:locale) { "es" }

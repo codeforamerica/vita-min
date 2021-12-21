@@ -2,7 +2,7 @@
   "name": "My Rails Application",
   "description": "Heroku review apps from GitHub PRs",
   "scripts": {
-    "postdeploy": "bin/rails heroku:postdeploy"
+    "postdeploy": "bin/rails heroku:postdeploy heroku:review_app_setup"
   },
   "formation": {
     "web": {
@@ -40,6 +40,9 @@
     "SECRET_KEY_BASE": {
       "description": "Secret key base for Rails.",
       "generator": "secret"
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
     }
   },
   "addons": [

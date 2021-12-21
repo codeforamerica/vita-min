@@ -36,6 +36,7 @@ gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'pdf-forms'
 gem 'aws-sdk-s3'
+gem 'aws-sdk-route53'
 gem 'device_detector'
 gem 'mixpanel-ruby'
 gem 'devise'
@@ -68,6 +69,7 @@ gem 'rubyzip'
 gem 'intercom', '~> 4.1'
 gem 'statesman', '~> 8.0.3'
 gem 'redcarpet'
+gem 'platform-api'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data

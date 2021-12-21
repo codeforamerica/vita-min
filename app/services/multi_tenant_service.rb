@@ -12,6 +12,11 @@ class MultiTenantService
     [base, locale].compact.join("/")
   end
 
+  def host
+    base = service_type == :ctc ? Rails.configuration.ctc_url : Rails.configuration.gyr_url
+    URI(base).hostname
+  end
+
   def service_name
     case service_type
     when :ctc then "GetCTC"
