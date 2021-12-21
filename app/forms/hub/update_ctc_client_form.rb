@@ -70,6 +70,9 @@ module Hub
     validates :primary_ip_pin, ip_pin: true
     validates :spouse_ip_pin, ip_pin: true
 
+    validates :eip1_amount_received, gyr_numericality: { only_integer: true }, if: -> { @client.intake.eip1_amount_received.present? }
+    validates :eip2_amount_received, gyr_numericality: { only_integer: true }, if: -> { @client.intake.eip2_amount_received.present? }
+
     validate :at_least_one_photo_id_type_selected, if: -> { @client.tax_returns.any? { |tax_return| tax_return.service_type == "drop_off" } }
     validate :at_least_one_taxpayer_id_type_selected, if: -> { @client.tax_returns.any? { |tax_return| tax_return.service_type == "drop_off" } }
     validate :valid_primary_birth_date
