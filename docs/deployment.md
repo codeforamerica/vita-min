@@ -10,6 +10,7 @@ system (CI/CD).
 
 Details about the environments:
 
+- Development - developer workstations.
 - Staging - an experimental environment. It is deployed manually as engineers choose.
 - Demo - an acceptance testing and demonstration environment. It remains up to date with `main` thanks to continuous deployment.
   Unlike Staging, it is rarely used for experimentation.
@@ -19,6 +20,7 @@ Details about the environments:
   
 Links to the environments:
 
+* Dev: [GYR](http://localhost:3000), [CTC](http://ctc.localhost:3000)
 * Demo: [GYR](https://demo.getyourrefund.org), [CTC](https://ctc.demo.getyourrefund.org), [Spanish-by-default](https://demo.mireembolso.org)
 * Staging: [GYR](https://staging.getyourrefund.org), [CTC](https://ctc.staging.getyourrefund.org), [Spanish-by-default](https://staging.mireembolso.org)
 * Production: [GYR](https://www.getyourrefund.org), [CTC](https://www.getctc.org), [Spanish-by-default](https://www.mireembolso.org)
