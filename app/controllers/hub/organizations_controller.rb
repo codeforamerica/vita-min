@@ -7,8 +7,7 @@ module Hub
 
     layout "hub"
 
-    def new
-    end
+    def new; end
 
     def create
       if @organization.save
@@ -25,14 +24,7 @@ module Hub
     end
 
     def index
-      # Load organizations slowly first, to avoid lots of queries later
-      organizations = @organizations.includes(:coalition, :child_sites, :organization_capacity).load
-
-      @organizations_by_coalition = if can? :read, Coalition
-                                      organizations.group_by(&:coalition).sort_by { |el| [el[0]&.name ? 0 : 1, el[0]&.name || 0] } # sort independent org (nil coalition) to end of list
-                                    else
-                                      { nil => organizations }
-                                    end
+      @presenter = Hub::OrganizationsPresenter.new(current_ability)
     end
 
     def edit

@@ -789,10 +789,9 @@ es:
         allows_greeters: Permite saludadores
         excludes: 'Excluye estados: Aceptado, No Archivar, en En Pausa'
       index:
-        independent_organizations:
-          one: " "
-          other: Organizaciones Independientes
-        no_organizations: Sin organizaciones
+        add_coalition: Add new coalition
+        add_organization: Add new organization
+        title: Organization List
       new:
         title: Nueva Organización
       no_sites: Ningunos sitios
@@ -3598,4 +3597,4 @@ es:
         no_hours_listed: Disculpe, no hay horario de apertura.
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
-        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
+        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})

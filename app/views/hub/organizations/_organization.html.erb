@@ -1,7 +1,7 @@
-<li>
+<li class="grid-flex space-between spacing-above-5" >
   <div>
     <%= link_to "#{organization.name} (#{t(".site_count", count: organization.child_sites.length)})",
                 can?(:edit, organization) ? edit_hub_organization_path(id: organization) : hub_organization_path(id: organization) %>
   </div>
-  <div><%= "#{organization.organization_capacity.active_client_count || "-"} / #{organization.organization_capacity.capacity_limit || "-"}" %></div>
+  <div><%= display_capacity(@presenter.organization_capacity(organization)) %></div>
 </li>

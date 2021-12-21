@@ -789,10 +789,9 @@ en:
         allows_greeters: Allows Greeters
         excludes: 'excludes statuses: Accepted, Not filing, On hold'
       index:
-        independent_organizations:
-          one: " "
-          other: Independent Organizations
-        no_organizations: No organizations
+        add_coalition: Add new coalition
+        add_organization: Add new organization
+        title: Organization List
       new:
         title: New Organization
       no_sites: No sites
