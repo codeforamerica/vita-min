@@ -29,6 +29,8 @@ describe Hub::MetricsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context 'when authenticated as an admin' do
+      render_views
+
       before do
         sign_in current_user
       end
@@ -36,6 +38,7 @@ describe Hub::MetricsController do
       it 'renders the metrics index template' do
         get :index
         expect(response).to render_template :index
+        expect(response.body).to include(VitaPartner.client_support_org.name)
       end
 
       context "when a recent report already exists" do
