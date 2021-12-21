@@ -39,8 +39,8 @@ module SubmissionBuilder
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
             end
-            xml.ChldWhoLivedWithYouCnt qualifying_dependents.count(&:qualifying_child_2020?)
-            xml.OtherDependentsListedCnt qualifying_dependents.count(&:qualifying_relative_2020?)
+            xml.ChldWhoLivedWithYouCnt qualifying_dependents.count(&:yr_2020_qualifying_child?)
+            xml.OtherDependentsListedCnt qualifying_dependents.count(&:yr_2020_qualifying_relative?)
             xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
             xml.TaxableInterestAmt 1 # 2b
             xml.TotalIncomeAmt 1 # 9

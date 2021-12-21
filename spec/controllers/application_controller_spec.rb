@@ -574,8 +574,8 @@ RSpec.describe ApplicationController do
             intake_source: "horse-ad-campaign-26",
             intake_referrer: "http://coolwebsite.horse/tax-help/vita",
             intake_referrer_domain: "coolwebsite.horse",
-            primary_filer_age_at_end_of_tax_year: "26",
-            spouse_age_at_end_of_tax_year: "27",
+            primary_filer_age: "27",
+            spouse_age: "28",
             primary_filer_disabled: "yes",
             spouse_disabled: "no",
           )

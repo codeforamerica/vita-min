@@ -9,9 +9,9 @@ module Ctc
           return false unless dependent&.relationship
 
           dependent.qualifying_child_relationship? &&
-            dependent.meets_qc_age_condition_2020? &&
+            dependent.yr_2020_meets_qc_age_condition? &&
             dependent.meets_qc_misc_conditions? &&
-            dependent.meets_qc_residence_condition_2020? &&
+            dependent.yr_2020_meets_qc_residence_condition? &&
             dependent.cant_be_claimed_by_other_no?
         end
 

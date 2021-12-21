@@ -17,7 +17,7 @@ module Ctc
     def save
       @intake.assign_attributes(attributes_for(:intake).merge(locale: I18n.locale, timezone: timezone))
       @intake.build_client(
-        tax_returns_attributes: [{ year: 2020, is_ctc: true }],
+        tax_returns_attributes: [{ year: Rails.application.config.current_tax_year, is_ctc: true }],
         efile_security_informations_attributes: [attributes_for(:efile_security_information)],
         vita_partner: VitaPartner.ctc_site
       )

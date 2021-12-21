@@ -31,7 +31,7 @@
             render(
               partial: 'dependent',
               locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
-              collection: current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && (dep.qualifying_child_2020? || dep.qualifying_relative_2020?) }
+              collection: current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && (dep.yr_2020_qualifying_child? || dep.yr_2020_qualifying_relative?) }
             ) || t('views.ctc.questions.dependents.confirm_dependents.no_qualifying_dependents')
           %>
         </div>
