@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  CTC_CLOSING_TIME = Time.find_zone('America/Los_Angeles').parse('2021-11-15 23:59:59')
+  CTC_INTAKE_CLOSING_TIME = Time.find_zone('America/Los_Angeles').parse('2021-11-15 23:59:59')
+  CTC_LOGIN_CLOSING_TIME = Time.find_zone('America/Los_Angeles').parse('2021-11-19 23:59:59')
 
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
@@ -7,7 +8,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?, :open_for_ctc_intake?, :wrapping_layout
+  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?, :open_for_ctc_intake?, :open_for_ctc_login?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -233,7 +234,11 @@ class ApplicationController < ActionController::Base
   end
 
   def open_for_ctc_intake?
-    app_time <= CTC_CLOSING_TIME
+    app_time <= CTC_INTAKE_CLOSING_TIME
+  end
+
+  def open_for_ctc_login?
+    app_time <= CTC_LOGIN_CLOSING_TIME
   end
 
   private
