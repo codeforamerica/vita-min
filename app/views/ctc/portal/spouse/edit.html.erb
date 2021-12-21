@@ -26,8 +26,8 @@
               ) %>
           <%= f.cfa_select(:spouse_tin_type, t("views.ctc.questions.spouse_info.spouse_identity"), tin_options_for_select(include_itin: true, include_none: true), help_text: t("views.ctc.questions.spouse_info.spouse_identity_help_text")) %>
           <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-          <%= f.cfa_input_field(:spouse_ssn, t("views.ctc.questions.spouse_info.spouse_ssn_itin"), classes: ["form-width--long"]) %>
-          <%= f.cfa_input_field(:spouse_ssn_confirmation, t("views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:spouse_ssn, t("views.ctc.questions.spouse_info.spouse_ssn_itin"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
+          <%= f.cfa_input_field(:spouse_ssn_confirmation, t("views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
           <%= f.cfa_input_field(:spouse_ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: current_intake.spouse_full_name), type: "tel", classes: ["form-width--long"]) %>
         </div>
 

@@ -27,8 +27,8 @@
                   classes: ["ctc-intake-date-text-input"]
               ) %>
           <%= f.cfa_select(:primary_tin_type, t('views.ctc.portal.primary_filer.form_of_identity'), tin_options_for_select(include_itin: true), help_text: t('views.ctc.portal.primary_filer.form_of_identity_note')) %>
-          <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"]) %>
-          <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
+          <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"], options: { maxlength: 11 }) %>
           <%= f.cfa_input_field(:primary_ip_pin, t("views.ctc.questions.ip_pin_entry.label", name: current_intake.primary_full_name), type: "tel", classes: ["form-width--long"]) %>
         </div>
 
