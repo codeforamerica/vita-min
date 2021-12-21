@@ -360,6 +360,53 @@ RSpec.feature "CTC Intake", :js, :active_job do
         expect(page).to have_content("Client initiated resubmission of their tax return.")
       end
 
+      context "when the client's original intake wants a refund by check" do
+        let!(:intake) do
+          create(
+            :ctc_intake,
+            :with_address,
+            :with_contact_info,
+            :with_ssns,
+            email_address: "mango@example.com",
+            email_notification_opt_in: "yes",
+            refund_payment_method: "check",
+          )
+        end
+
+        it "does not allow the client ot resubmit if they change to direct deposit with no bank info" do
+          log_in_to_ctc_portal
+          click_on I18n.t("views.ctc.portal.home.correct_info")
+
+          click_on I18n.t('views.ctc.portal.edit_info.add_bank_information')
+          choose I18n.t("views.ctc.questions.refund_payment.direct_deposit")
+          click_on I18n.t('general.continue')
+
+          # Go back to the portal
+          click_on I18n.t('general.back')
+          click_on I18n.t('general.back')
+
+          # Can't resubmit until you enter direct deposit info
+          expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
+
+          click_on I18n.t('views.ctc.portal.edit_info.add_bank_information')
+          choose I18n.t("views.ctc.questions.refund_payment.direct_deposit")
+          click_on I18n.t('general.continue')
+
+          fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
+          choose I18n.t('views.questions.bank_details.account_type.checking')
+          check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
+
+          fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "123456789"
+          fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "123456789"
+          fill_in I18n.t('views.ctc.questions.account_number.account_number'), with: "123456789"
+          fill_in I18n.t('views.ctc.questions.account_number.account_number_confirmation'), with: "123456789"
+          click_on I18n.t("general.save")
+
+          click_on I18n.t('views.ctc.portal.edit_info.resubmit')
+          expect(page).to have_text I18n.t('views.ctc.portal.home.status.preparing.label')
+        end
+      end
+
       scenario "a client can change their refund payment method" do
         log_in_to_ctc_portal
 
@@ -382,8 +429,7 @@ RSpec.feature "CTC Intake", :js, :active_job do
         expect(page).to have_text "Edit your address"
         fill_in I18n.t("views.questions.mailing_address.zip_code"), with: "94117"
         click_on "Save"
-
-        expect(page).to have_text "No bank information entered."
+        
         within ".address-info" do
           expect(page).to have_text "94117"
         end

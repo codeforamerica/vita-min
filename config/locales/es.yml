@@ -1589,8 +1589,10 @@ es:
             subtitle: No recibirá Crédito Tributario por Hijos porque no tiene dependientes elegibles.
             title: Ha eliminado a todos sus dependientes elegibles de CTC.
         edit_info:
+          add_bank_information: Agregar información bancaria
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
           help_text_cant_submit: Espere a enviar cambios adicionales a su envío. Estamos esperando una respuesta a su presentación anterior del IRS.
+          no_ba_error_html: "<strong>Error:</strong> Seleccionó Depósito directo, pero no agregó su información bancaria. Actualice su información bancaria seleccionando Agregar información bancaria a continuación."
           no_bank_account: No se ingresó información bancaria.
           resubmit: Volver a enviar mi declaración de impuestos
           title: Corrija su información enviada

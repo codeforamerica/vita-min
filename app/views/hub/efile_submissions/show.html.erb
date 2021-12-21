@@ -9,11 +9,12 @@
         <h1><%= tax_return.year %> Tax Return (<%= latest_efile_submission.current_state %>)</h1>
         <% if latest_efile_submission.can_transition_to?(:resubmitted) %>
           <div style="margin-left: 10px;">
-            <%= link_to("Resubmit",
+            <%= button_to("Resubmit",
                         resubmit_hub_efile_submission_path(id: latest_efile_submission.id),
                         method: :patch,
+                        disabled: latest_efile_submission.intake.refund_payment_method_direct_deposit? && !latest_efile_submission.intake.bank_account.present?,
                         data: { confirm: "Have you updated the necessary information for #{@client.legal_name}?" },
-                        class: "button button--small button--teal")
+                        class: "button button--small button--teal button--no-margin")
             %>
           </div>
         <% end %>

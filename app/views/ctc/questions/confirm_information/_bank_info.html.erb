@@ -1,0 +1,19 @@
+<div class="review-box__title">
+  <% if intake.refund_payment_method_direct_deposit? %>
+    <h2><%= t("views.ctc.questions.confirm_bank_account.bank_information") %></h2>
+  <% end %>
+</div>
+
+<% if intake.bank_account.present? && intake.refund_payment_method_direct_deposit? %>
+  <%= render 'ctc/questions/confirm_information/bank_account_info', bank_account: intake.bank_account, edit_controller: edit_controller %>
+<% else %>
+  <% if intake.refund_payment_method_direct_deposit? && intake.bank_account.blank? %>
+    <p><%= t("views.ctc.portal.edit_info.no_bank_account") %></p>
+  <% end %>
+
+  <% if intake.refund_payment_method_check? %>
+    <p><%= t("views.ctc.portal.edit_info.will_send_check_to_address") %></p>
+  <% end %>
+
+  <%= link_to t("views.ctc.portal.edit_info.add_bank_information"), edit_controller.to_path_helper(clear: true), class: "button button--small spacing-below-0" %>
+<% end %>
