@@ -10,7 +10,7 @@ RSpec.feature "client is not eligible for VITA services", :flow_explorer_screens
     # File With Help
     # Tax Needs
     expect(page).to have_selector("h1", text: "What can we help you with?")
-    check "File my 2020 taxes"
+    check "File my #{TaxReturn.current_tax_year} taxes"
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")

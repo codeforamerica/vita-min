@@ -17,7 +17,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     # Tax Needs
     screenshot_after do
       expect(page).to have_selector("h1", text: "What can we help you with?")
-      check "File my 2020 taxes"
+      check "File my #{TaxReturn.current_tax_year} taxes"
       check "Collect my stimulus check"
     end
     click_on "Continue"
@@ -46,7 +46,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     screenshot_after do
       expect(page).to have_text I18n.t("views.questions.triage_lookback.help_text", current_tax_year: current_tax_year)
-      check "My income decreased from 2019"
+      check "My income decreased from #{TaxReturn.current_tax_year - 1}"
       check "I received unemployment income"
       check "I purchased health insurance through the marketplace"
     end

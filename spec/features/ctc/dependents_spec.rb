@@ -16,7 +16,7 @@ end
 RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job: true do
   include FeatureTestHelpers
 
-  let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, year: 2020)] }
+  let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, year: 2021)] }
 
   before do
     login_as client, scope: :client

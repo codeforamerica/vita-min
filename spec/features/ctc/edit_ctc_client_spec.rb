@@ -196,7 +196,7 @@ RSpec.describe "a user editing a clients intake fields" do
         end
 
         within ".tax-return-list" do
-          expect(page).to have_text "2020"
+          expect(page).to have_text TaxReturn.current_tax_year
           expect(page).to have_text I18n.t('hub.tax_returns.status.intake_in_progress')
         end
       end

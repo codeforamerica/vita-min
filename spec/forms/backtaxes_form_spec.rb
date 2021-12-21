@@ -6,7 +6,7 @@ RSpec.describe BacktaxesForm do
       intake = Intake::GyrIntake.new
       form = BacktaxesForm.new(intake, {
         visitor_id: "some_visitor_id",
-        needs_help_2017: "yes",
+        needs_help_2021: "yes",
         needs_help_2018: "no",
         needs_help_2019: "yes",
         needs_help_2020: "yes",
@@ -16,7 +16,7 @@ RSpec.describe BacktaxesForm do
       }.to change(Client, :count).by(1)
       client = Client.last
       expect(client.intake).to eq(intake.reload)
-      expect(client.tax_returns.map(&:year).sort).to eq([2017, 2019, 2020])
+      expect(client.tax_returns.map(&:year).sort).to eq([2019, 2020, 2021])
       expect(client.tax_returns.map(&:service_type).uniq).to eq ["online_intake"]
     end
 
@@ -33,10 +33,10 @@ RSpec.describe BacktaxesForm do
         intake = Intake::GyrIntake.new
 
         form = BacktaxesForm.new(intake, {
-          needs_help_2017: "yes",
           needs_help_2018: "no",
           needs_help_2019: "yes",
           needs_help_2020: "yes",
+          needs_help_2021: "yes",
           visitor_id: "visitor_1"
         })
         form.save

@@ -63,7 +63,7 @@ describe Ctc::IncomeForm do
       expect(intake.client).to be_present
       expect(intake.client.vita_partner.name).to eq "GetCTC.org (Site)"
       expect(intake.tax_returns.length).to eq 1
-      expect(intake.tax_returns.first.year).to eq 2020
+      expect(intake.tax_returns.first.year).to eq 2021
       expect(intake.tax_returns.first.is_ctc).to eq true
       expect(intake.visitor_id).to eq "something"
       expect(intake.source).to eq "some-source"
