@@ -38,7 +38,6 @@ module Hub
     validates :primary_last_name, presence: true, allow_blank: false, legal_name: true
     validates :spouse_first_name, legal_name: true
     validates :spouse_last_name, legal_name: true
-    validate :at_least_one_contact_method
     validate :contact_method_if_opted_in
 
     attr_accessor :dependents_attributes
@@ -86,8 +85,6 @@ module Hub
     end
 
     def at_least_one_contact_method
-      return unless signature_method == "online"
-
       unless opted_in_email? || opted_in_sms?
         errors.add(:email_address, I18n.t("forms.errors.hub.communication_opt_in"))
         errors.add(:sms_phone_number, I18n.t("forms.errors.hub.communication_opt_in"))
