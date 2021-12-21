@@ -29,7 +29,7 @@ RSpec.describe Hub::UsersController do
 
         expect(response).to be_ok
         expect(response.body).to have_content "Adam Avocado"
-        expect(response.body).to have_content "Organization lead"
+        expect(response.body).to have_content "Organization Lead"
         expect(response.body).to have_content "Orange organization"
       end
 

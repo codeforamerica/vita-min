@@ -14,7 +14,8 @@ RSpec.feature "Inviting coalition leads" do
 
       # Invitations page
       expect(page).to have_selector "h1", text: "Invitations"
-      click_on "Invite a new coalition lead"
+      select "Coalition Lead", from: "What type of user do you want to invite?"
+      click_on "Continue"
 
       # new invitation page
       expect(page).to have_text "Send a new invitation"
@@ -30,7 +31,7 @@ RSpec.feature "Inviting coalition leads" do
       within(".invitations") do
         expect(page).to have_text "Colleen Cauliflower"
         expect(page).to have_text "colleague@cauliflower.org"
-        expect(page).to have_text "Coalition lead"
+        expect(page).to have_text "Coalition Lead"
       end
       invited_user = User.where(invited_by: user).last
       expect(invited_user).to be_present
@@ -69,7 +70,7 @@ RSpec.feature "Inviting coalition leads" do
 
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
       expect(page).to have_text "Colleen Cauliflower"
-      expect(page).to have_text "Coalition lead"
+      expect(page).to have_text "Coalition Lead"
       expect(page).to have_text "Kohlrabi Koalition"
     end
   end

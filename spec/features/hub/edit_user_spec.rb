@@ -73,12 +73,12 @@ RSpec.describe "a user editing a user" do
           user_to_edit = create(:coalition_lead_user)
 
           visit edit_hub_user_path(id: user_to_edit)
-          click_on "Client success"
+          click_on "Client Success"
 
           click_on "Submit"
 
           within "#current-role" do
-            expect(page).to have_text "Client success"
+            expect(page).to have_text "Client Success"
           end
         end
 
@@ -102,7 +102,7 @@ RSpec.describe "a user editing a user" do
           create :coalition, name: "Coal Coalition"
 
           visit edit_hub_user_path(id: user_to_edit)
-          click_on "Coalition lead"
+          click_on "Coalition Lead"
 
           expect(page).to have_text("Coal Coalition")
 
@@ -111,7 +111,7 @@ RSpec.describe "a user editing a user" do
           click_on "Submit"
 
           within "#current-role" do
-            expect(page).to have_text "Coalition lead, Koala Koalition"
+            expect(page).to have_text "Coalition Lead, Koala Koalition"
           end
         end
 
@@ -120,7 +120,7 @@ RSpec.describe "a user editing a user" do
           create :organization, name: "Odious Organization"
 
           visit edit_hub_user_path(id: user_to_edit)
-          click_on "Organization lead"
+          click_on "Organization Lead"
 
           expect(page).to have_text("Odious Organization")
 
@@ -129,7 +129,7 @@ RSpec.describe "a user editing a user" do
           click_on "Submit"
 
           within "#current-role" do
-            expect(page).to have_text "Organization lead, Orange Organization"
+            expect(page).to have_text "Organization Lead, Orange Organization"
           end
         end
 
@@ -139,7 +139,7 @@ RSpec.describe "a user editing a user" do
           create :site, name: "Sour Site"
 
           visit edit_hub_user_path(id: user_to_edit)
-          click_on "Site coordinator"
+          click_on "Site Coordinator"
 
           expect(page).to have_text("Sour Site")
 
@@ -148,7 +148,7 @@ RSpec.describe "a user editing a user" do
           click_on "Submit"
 
           within "#current-role" do
-            expect(page).to have_text "Site coordinator, Suite Site"
+            expect(page).to have_text "Site Coordinator, Suite Site"
           end
         end
 
@@ -158,7 +158,7 @@ RSpec.describe "a user editing a user" do
           create :site, name: "Sour Site"
 
           visit edit_hub_user_path(id: user_to_edit)
-          click_on "Team member"
+          click_on "Team Member"
 
           expect(page).to have_text("Sour Site")
 
@@ -167,7 +167,7 @@ RSpec.describe "a user editing a user" do
           click_on "Submit"
 
           within "#current-role" do
-            expect(page).to have_text "Team member, Suite Site"
+            expect(page).to have_text "Team Member, Suite Site"
           end
         end
       end

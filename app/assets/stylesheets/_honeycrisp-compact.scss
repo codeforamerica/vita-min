@@ -176,6 +176,13 @@
         display: none;
       }
     }
+    .select, select {
+      width: 100%;
+    }
+    input:disabled, select:disabled {
+      background-color: darken($color-grey-light, 5%);
+      cursor: not-allowed;
+    }
   }
 
   .checkbox-group {

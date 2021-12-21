@@ -16,7 +16,8 @@ RSpec.feature "Inviting team members" do
 
       # Invitations page
       expect(page).to have_selector "h1", text: "Invitations"
-      click_on "Invite a new team member"
+      select "Team Member", from: "What type of user do you want to invite?"
+      click_on "Continue"
 
       # new invitation page
       expect(page).to have_text "Send a new invitation"
@@ -33,7 +34,7 @@ RSpec.feature "Inviting team members" do
       within(".invitations") do
         expect(page).to have_text "Tammy Tomato"
         expect(page).to have_text "colleague@tomato.org"
-        expect(page).to have_text "Team member"
+        expect(page).to have_text "Team Member"
         expect(page).to have_text "Squash Site"
       end
       invited_user = User.where(invited_by: user).last
@@ -49,7 +50,7 @@ RSpec.feature "Inviting team members" do
       within(".invitations") do
         expect(page).to have_text "Tammy Tomato"
         expect(page).to have_text "colleague@tomato.org"
-        expect(page).to have_text "Team member"
+        expect(page).to have_text "Team Member"
         expect(page).to have_text "Squash Site"
       end
       invited_user = User.where(invited_by: user).last
@@ -79,7 +80,7 @@ RSpec.feature "Inviting team members" do
 
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
       expect(page).to have_text "Tammy Tomato"
-      expect(page).to have_text "Team member"
+      expect(page).to have_text "Team Member"
       expect(page).to have_text "Squash Site"
     end
   end

@@ -122,6 +122,18 @@ class User < ApplicationRecord
     end
   end
 
+  def self.roles
+    [
+      AdminRole::TYPE,
+      ClientSuccessRole::TYPE,
+      CoalitionLeadRole::TYPE,
+      GreeterRole::TYPE,
+      OrganizationLeadRole::TYPE,
+      SiteCoordinatorRole::TYPE,
+      TeamMemberRole::TYPE
+    ]
+  end
+
   def accessible_users
     case role_type
     when AdminRole::TYPE

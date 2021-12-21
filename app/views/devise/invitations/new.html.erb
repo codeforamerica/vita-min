@@ -1,7 +1,7 @@
 <% @main_heading = t(".title") %>
 <% content_for :page_title, @main_heading %>
 <% content_for :card do %>
-  <div class="slab">
+  <div class="slab slab--not-padded">
     <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), local: true, builder: VitaMinFormBuilder, html: { method: :post }) do |f| %>
       <h1><%= @main_heading %></h1>
 
@@ -10,32 +10,57 @@
           <li><%= error_message %></li>
         <% end %>
       </ul>
+      <div class="form-group">
+        <%= label_tag(:role, "Which role?", class: "form-question") %>
+        <div class="select form-width--long">
+          <%= select_tag(:role, options_for_select([readable_role_from_role_type(params[:role]), params[:role]]), class: "select__element", disabled: true, style: "background-color: #F8F8F8") %>
+        </div>
+      </div>
+
+      <% if params[:role] == OrganizationLeadRole::TYPE %>
+        <div class="form-group">
+          <%= label_tag(:organization_id, t(".organization_label"), class: "form-question") %>
+          <div class="select form-width--long">
+            <%= select_tag :organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] }), class: "select__element" %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if params[:role] == CoalitionLeadRole::TYPE %>
+        <div class="form-group">
+          <%= label_tag(:coalition_id, t(".coalition_label"), class: "form-question") %>
+          <div class="select form-width--long">
+            <%= select_tag(:coalition_id, options_for_select(@coalitions.all.map { |coalition| [coalition.name, coalition.id] }), class: "select__element") %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if params[:role] == SiteCoordinatorRole::TYPE %>
+        <div class="form-group">
+          <%= label_tag(:site_id, t(".site_label"), class: "form-question") %>
+
+          <div class="select form-width--long">
+            <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] }), class: "select__element") %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if params[:role] == TeamMemberRole::TYPE %>
+        <div class="form-group">
+          <%= label_tag(:site_id, t(".site_label"), class: "form-question") %>
+          <div class="select form-width--long">
+            <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] }), class: "select__element") %>
+          </div>
+        </div>
+      <% end %>
 
       <%= f.cfa_input_field(:name, t(".name_label"), classes: ['form-width--long']) %>
       <%= f.cfa_input_field(:email, t(".email_label"), type: 'email', classes: ['form-width--long']) %>
-      <%= f.hidden_field :role, value: params.dig(:user, :role) %>
+      <%= f.hidden_field(:role, value: params[:role]) %>
 
-      <% if params.dig(:user, :role) == OrganizationLeadRole::TYPE %>
-        <%= label_tag(:organization_id, t(".organization_label")) %>
-        <%= select_tag :organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] }) %>
-      <% end %>
-
-      <% if params.dig(:user, :role) == CoalitionLeadRole::TYPE %>
-        <%= label_tag(:coalition_id, t(".coalition_label")) %>
-        <%= select_tag(:coalition_id, options_for_select(@coalitions.all.map { |coalition| [coalition.name, coalition.id] })) %>
-      <% end %>
-
-      <% if params.dig(:user, :role) == SiteCoordinatorRole::TYPE %>
-        <%= label_tag(:site_id, t(".site_label")) %>
-        <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
-      <% end %>
-
-      <% if params.dig(:user, :role) == TeamMemberRole::TYPE %>
-        <%= label_tag(:site_id, t(".site_label")) %>
-        <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
-      <% end %>
-
-      <%= f.submit t(".submit"), class: "button button--primary" %>
+      <div>
+        <%= f.submit t(".submit"), class: "button button--primary" %>
+      </div>
     <% end %>
   </div>
 <% end %>

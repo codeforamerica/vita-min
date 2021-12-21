@@ -13,7 +13,8 @@ RSpec.feature "Inviting client success" do
 
       # Invitations page
       expect(page).to have_selector "h1", text: "Invitations"
-      click_on "Invite a new client success"
+      select "Client Success", from: "What type of user do you want to invite?"
+      click_on "Continue"
 
       # new invitation page
       expect(page).to have_text "Send a new invitation"
@@ -27,7 +28,7 @@ RSpec.feature "Inviting client success" do
       within(".invitations") do
         expect(page).to have_text "Chard Swiss"
         expect(page).to have_text "chard@clientsuccess.org"
-        expect(page).to have_text "Client success"
+        expect(page).to have_text "Client Success"
       end
       invited_user = User.where(invited_by: user).last
       expect(invited_user).to be_present
@@ -65,7 +66,7 @@ RSpec.feature "Inviting client success" do
 
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
       expect(page).to have_text "Chard Swiss"
-      expect(page).to have_text "Client success"
+      expect(page).to have_text "Client Success"
     end
   end
 end
