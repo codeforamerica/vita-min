@@ -37,6 +37,44 @@ CREATE VIEW analytics.anonymized_intake_csv_extracts AS
     SELECT id, created_at, record_count, run_at, updated_at
     FROM public.anonymized_intake_csv_extracts;
 
+CREATE VIEW analytics.archived_dependents_2021 AS
+    SELECT id, created_at, disabled, archived_intakes_2021_id, months_in_home, north_american_resident, on_visa, tin_type, updated_at, was_married, was_student
+    FROM public.archived_dependents_2021;
+
+CREATE VIEW analytics.archived_intakes_2021 AS
+    SELECT id, adopted_child, already_applied_for_stimulus, already_filed, balance_pay_from_bank,
+           bank_account_type, bought_energy_efficient_items, bought_health_insurance, city,
+           claimed_by_another, client_id, completed_at, completed_yes_no_questions_at, continued_at_capacity,
+           created_at, demographic_disability, demographic_english_conversation, demographic_english_reading,
+           demographic_primary_american_indian_alaska_native, demographic_primary_asian,
+           demographic_primary_black_african_american, demographic_primary_ethnicity,
+           demographic_primary_native_hawaiian_pacific_islander, demographic_primary_prefer_not_to_answer_race,
+           demographic_primary_white, demographic_questions_opt_in, demographic_spouse_american_indian_alaska_native,
+           demographic_spouse_asian, demographic_spouse_black_african_american, demographic_spouse_ethnicity,
+           demographic_spouse_native_hawaiian_pacific_islander, demographic_spouse_prefer_not_to_answer_race,
+           demographic_spouse_white, demographic_veteran, divorced, divorced_year, eip_only,
+           email_notification_opt_in, ever_married, feeling_about_taxes, filing_for_stimulus, filing_joint,
+           had_asset_sale_income, had_debt_forgiven, had_dependents, had_disability, had_disability_income,
+           had_disaster_loss, had_farm_income, had_gambling_income, had_hsa, had_interest_income,
+           had_local_tax_refund, had_other_income, had_rental_income, had_retirement_income,
+           had_self_employment_income, had_social_security_income, had_social_security_or_retirement,
+           had_student_in_family, had_tax_credit_disallowed, had_tips, had_unemployment_income, had_wages,
+           income_over_limit, issued_identity_pin, job_count, lived_with_spouse, locale,
+           made_estimated_tax_payments, married, multiple_states, needs_help_2016, needs_help_2017, needs_help_2018,
+           needs_help_2019, needs_help_2020, no_eligibility_checks_apply, no_ssn, paid_alimony,
+           paid_charitable_contributions, paid_dependent_care, paid_local_tax, paid_medical_expenses,
+           paid_mortgage_interest, paid_retirement_contributions, paid_school_supplies, paid_student_loan_interest,
+           phone_number_can_receive_texts, preferred_interview_language, primary_consented_to_service, primary_consented_to_service_at, primary_tin_type,
+           received_alimony, received_irs_letter, refund_payment_method, reported_asset_sale_loss,
+           reported_self_employment_loss, satisfaction_face,
+           savings_purchase_bond, savings_split_refund, separated, separated_year, signature_method,
+           sms_notification_opt_in, sold_a_home, sold_assets, source, spouse_consented_to_service,
+           spouse_consented_to_service_at, spouse_had_disability, spouse_issued_identity_pin, spouse_tin_type, spouse_was_blind,
+           spouse_was_full_time_student, spouse_was_on_visa, state, state_of_residence,
+           updated_at, viewed_at_capacity, visitor_id, vita_partner_id, was_blind, was_full_time_student,
+           was_on_visa, widowed, type, zip_code
+    FROM public.archived_intakes_2021;
+
 CREATE VIEW analytics.client_success_roles AS
     SELECT id, created_at, updated_at
     FROM public.client_success_roles;
