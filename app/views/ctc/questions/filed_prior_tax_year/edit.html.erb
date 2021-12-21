@@ -1,0 +1,22 @@
+<% @main_question = t("views.ctc.questions.filed_prior_tax_year.title", prior_tax_year: prior_tax_year) %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+  <p><%= t("views.ctc.questions.filed_prior_tax_year.help_text", current_tax_year: current_tax_year, prior_tax_year: prior_tax_year) %></p>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <%= f.cfa_radio_set(
+          :filed_prior_tax_year,
+          collection: [
+              { value: :filed_full, label: t("views.ctc.questions.filed_prior_tax_year.filed_full") },
+              { value: :filed_non_filer, label: t("views.ctc.questions.filed_prior_tax_year.filed_non_filer")  },
+              { value: :did_not_file, label: t("views.ctc.questions.filed_prior_tax_year.did_not_file", current_tax_year: current_tax_year, prior_tax_year: prior_tax_year) }
+          ]
+      )
+  %>
+    <div class="spacing-above-60">
+      <%= f.submit t("general.continue"), class: "button button--primary button--wide" %>
+    </div>
+  <% end %>
+<% end %>

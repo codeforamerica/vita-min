@@ -1,5 +1,5 @@
 module Ctc
-  class LifeSituations2020Form < QuestionsForm
+  class LifeSituationsForm < QuestionsForm
     set_attributes_for :eligibility, :can_be_claimed_as_dependent
 
     def save; end

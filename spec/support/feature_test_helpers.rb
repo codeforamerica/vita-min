@@ -17,4 +17,12 @@ module FeatureTestHelpers
   def strip_html_tags(text)
     ActionController::Base.helpers.strip_tags(text)
   end
+
+  def current_tax_year
+    Rails.application.config.current_tax_year.to_i
+  end
+
+  def prior_tax_year
+    current_tax_year - 1
+  end
 end

@@ -1,12 +1,12 @@
 module Ctc
   module Questions
-    class Agi2019Controller < QuestionsController
+    class PriorTaxYearAgiController < QuestionsController
       include Ctc::ResetToStartIfIntakeNotPersistedConcern
 
       layout "intake"
 
       def self.show?(intake)
-        intake.filed_2019_filed_full?
+        intake.filed_prior_tax_year_filed_full?
       end
 
       private
