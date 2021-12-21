@@ -11,7 +11,7 @@ RSpec.feature "Inviting team members" do
     end
 
     scenario "Inviting, re-sending invites, and accepting invites" do
-      visit hub_user_profile_path
+      visit hub_tools_path
       click_on "Invitations"
 
       # Invitations page

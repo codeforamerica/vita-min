@@ -3,7 +3,7 @@ module Hub
     class BaseBulkActionsController < ApplicationController
       include AccessControllable
 
-      layout "admin"
+      layout "hub"
 
       before_action :require_sign_in, :load_selection, :load_clients, :load_template_variables
       before_action :load_edit_form, only: :edit

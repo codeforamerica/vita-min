@@ -5,7 +5,7 @@ module Hub
 
     before_action :require_sign_in
     before_action :load_and_authorize_unlinked_clients
-    layout "admin"
+    layout "hub"
 
     def index
       @page_title = I18n.t("hub.clients.unlinked_clients.title")

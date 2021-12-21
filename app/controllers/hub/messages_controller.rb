@@ -4,7 +4,7 @@ module Hub
 
     before_action :require_sign_in
     load_and_authorize_resource :client
-    layout "admin"
+    layout "hub"
 
     def index
       @messages_by_day = MessagePresenter.grouped_messages(@client)

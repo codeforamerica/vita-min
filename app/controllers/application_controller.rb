@@ -308,7 +308,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_user)
-    @after_login_path || hub_root_path
+    @after_login_path || hub_assigned_clients_path
   end
 
   def set_time_zone
@@ -337,7 +337,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html do
-        render status: :forbidden, template: "public_pages/forbidden", layout: "admin"
+        render status: :forbidden, template: "public_pages/forbidden", layout: "hub"
       end
       format.js { head :forbidden }
     end

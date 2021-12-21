@@ -711,7 +711,6 @@ en:
           status: updated status
           success: 'Success: Action taken! %{action_list}.'
           text_message: sent text message
-      urgent: Urgent
     ctc_clients:
       edit:
         title: Edit CTC Client Profile
@@ -1083,9 +1082,7 @@ en:
         needs_to_accept_invite: Needs to accept invite
         title: Users
       profile:
-        clients_link: Clients
         start_date: Start date
-        users_link: Users
       suspend:
         success: Suspended %{name}'s account
       unlock:

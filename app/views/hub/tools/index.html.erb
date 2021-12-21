@@ -1,0 +1,23 @@
+<% @main_heading = "Tools" %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= @main_heading %></h1>
+
+      <%= link_to hub_organizations_path, class: "button button--small" do %>
+        Orgs
+      <% end %>
+
+      <%= link_to hub_users_path, class: "button button--small" do %>
+        Users
+      <% end %>
+
+      <%= link_to invitations_path, class: "button button--small" do %>
+        Invitations
+      <% end %>
+    </div>
+
+  </div>
+<% end %>

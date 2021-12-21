@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" class="background--white hub">
+<head>
+  <% unless content_for? :page_title %>
+    <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.
+    <% end %>
+  <% end %>
+
+  <title><%= content_for(:page_title) %> | The Hub</title>
+
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="<%= t("views.layouts.application.meta.description") %>">
+  <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+  <meta property="og:description" content="<%= t("views.layouts.application.meta.description") %>">
+  <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
+  <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
+  <meta property="twitter:description" content="<%= t("views.layouts.application.meta.description") %>">
+  <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= canonical_url %>">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="<%= canonical_url %>">
+
+  <link rel="canonical" href="<%= canonical_url %>"/>
+  <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="x-default"/>
+  <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="en"/>
+  <link rel="alternate" href="<%= canonical_url(:es) %>" hreflang="es"/>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'hub', media: 'all' %>
+
+  <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type => 'image/png', :sizes => '57x57' %>
+  <%= render 'shared/app_data_mixpanel_data_script' %>
+
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
+
+  <%= javascript_pack_tag 'application', defer: true %>
+  <%= javascript_pack_tag 'hub', defer: true %>
+</head>
+
+<body class="admin honeycrisp-compact hub">
+<div class="columns">
+  <div class="columns--child">
+    <%= render "hub/components/main_menu" %>
+  </div>
+</div>
+
+<div class="columns columns--right">
+  <div class="columns--child">
+    <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content') %></a>
+    <div>
+      <main role="main" id="maincontent">
+        <div>
+          <div class="flash-alerts">
+            <%= render "shared/flash_alerts", flash: flash %>
+          </div>
+          <%= yield(:notice) if content_for?(:notice) %>
+        </div>
+        <%= yield(:card) || yield %>
+      </main>
+    </div>
+  </div>
+  <% if content_for?(:sticky_action_footer) %>
+    <div class="sticky-action-footer">
+      <%= yield(:sticky_action_footer) %>
+    </div>
+  <% end %>
+</div>
+<%= yield(:script) if content_for?(:script) %>
+</body>
+</html>

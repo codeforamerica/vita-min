@@ -1,13 +1,12 @@
 <% content_for :page_title, @page_title %>
 
 <% content_for :card do %>
-  <%= render "shared/dashboard_navigation" %>
-
   <section class="mark_all_notifications_read slab slab--padded">
     <%= link_to "Mark all as Read", mark_all_read_hub_user_notifications_path, method: :post %>
   </section>
 
   <section class="slab slab--padded">
+    <h1><%= @page_title %></h1>
     <div class="pagination-wrapper">
       <div>
         <%= page_entries_info @user_notifications, model: "notification" %>

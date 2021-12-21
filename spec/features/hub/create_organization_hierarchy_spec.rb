@@ -9,8 +9,8 @@ RSpec.describe "create VITA organization hierarchy", :js do
     let!(:organization) { create :organization, name: "Orangutan Organization", coalition: coalition }
 
     scenario "create a new organization" do
-      visit hub_user_profile_path
-      click_on "Organizations"
+      visit hub_tools_path
+      click_on "Orgs"
 
       expect(page).to have_selector("h1", text: "Organizations")
       expect(page).to have_selector("h2", text: "Koala Koalition")

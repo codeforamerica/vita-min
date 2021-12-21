@@ -3,7 +3,7 @@ module Hub
     include AccessControllable
     include ClientSortable
 
-    layout "admin"
+    layout "hub"
 
     before_action :require_sign_in, :load_vita_partners, :load_users
     before_action :load_bulk_message, :load_selection, :load_clients, only: [:show]

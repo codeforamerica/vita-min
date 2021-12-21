@@ -5,7 +5,7 @@ module Hub
     skip_before_action :verify_authenticity_token, only: :call
     load_and_authorize_resource :client, except: :call
 
-    layout "admin"
+    layout "hub"
 
     def create
       @form = OutboundCallForm.new(permitted_params, client: @client, user: current_user)

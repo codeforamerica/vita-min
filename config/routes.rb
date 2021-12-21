@@ -168,7 +168,7 @@ Rails.application.routes.draw do
 
       # Hub Admin routes (Case Management)
       namespace :hub do
-        root "assigned_clients#index"
+        # root "assigned_clients#index"
 
         resources :metrics, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
@@ -181,7 +181,7 @@ Rails.application.routes.draw do
         end
 
         resources :efile_errors, path: "errors", except: [:create, :new, :destroy]
-
+        resources :assigned_clients, path: "assigned", only: [:index]
         resources :unlinked_clients, only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
           delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy
@@ -253,6 +253,7 @@ Rails.application.routes.draw do
         resources :user_notifications, only: [:index], path: "/notifications" do
           post "/mark-all-read", to: 'user_notifications#mark_all_notifications_read', as: :mark_all_read, on: :collection
         end
+        resources :tools, only: [:index]
         resources :admin_tools, only: [:index]
         resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]

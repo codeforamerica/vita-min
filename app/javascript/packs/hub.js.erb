@@ -1,0 +1,12 @@
+// See `app/javascript/hub/README.md`
+
+<% components = Dir["app/javascript/hub/*Component.js"].map { |f| File.basename(f, ".js") } %>
+<% components.each do |component_name| %>
+  import <%= component_name %> from "../hub/<%= component_name %>";
+<% end %>
+
+window.addEventListener("load", function() {
+    <% components.each do |component| %>
+        <%= component %>();
+    <% end %>
+});

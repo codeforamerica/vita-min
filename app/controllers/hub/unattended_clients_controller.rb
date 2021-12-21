@@ -9,7 +9,7 @@ module Hub
 
     load_and_authorize_resource :client, parent: false
     load_and_authorize_resource :vita_partner, parent: false
-    layout "admin"
+    layout "hub"
 
     def index
       @page_title = "Clients who haven't received a response in #{day_param} business days"

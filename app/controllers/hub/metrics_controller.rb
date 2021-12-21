@@ -2,7 +2,7 @@ module Hub
   class MetricsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    layout "admin"
+    layout "hub"
     load_and_authorize_resource :vita_partner, parent: false
 
     def index

@@ -1,3 +1,3 @@
 class BaseDeviseController < ApplicationController
-  layout "admin"
+  layout "hub"
 end
