@@ -24,9 +24,11 @@
       <%= f.cfa_input_field(:spouse_ssn_confirmation, t("views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
       <%= f.cfa_checkbox(:spouse_can_be_claimed_as_dependent, t("views.ctc.questions.spouse_info.spouse_can_be_claimed_as_dependent"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:spouse_active_armed_forces, t("views.ctc.questions.spouse_info.spouse_active_armed_forces", current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= render('components/molecules/reveal', title: t("views.ctc.questions.spouse_info.spouse_active_armed_forces_reveal")) do %>
-        <p><%= t("views.ctc.questions.spouse_info.spouse_active_armed_forces_reveal_content") %></p>
-      <% end %>
+      <div class="reveal-shrink-wrapper">
+        <%= render('components/molecules/reveal', title: t("views.ctc.questions.spouse_info.spouse_active_armed_forces_reveal")) do %>
+          <p><%= t("views.ctc.questions.spouse_info.spouse_active_armed_forces_reveal_content") %></p>
+        <% end %>
+      </div>
     </div>
 
     <button class="button button--primary button--wide spacing-below-15" type="submit">
