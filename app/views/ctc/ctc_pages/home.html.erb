@@ -8,15 +8,7 @@
 
 <%= render 'shared/facebook_pixel' %>
 <main role="main" class="ctc-home">
-
-  <div class="slab slab--flash flash--offseason-warning">
-    <% if open_for_ctc_intake? %>
-      <strong><%= t("views.ctc_pages.home.closing_date") %></strong>
-      <%= t("views.ctc_pages.home.closing_warning") %>
-    <%else %>
-      <strong><%= t("views.ctc_pages.home.closing_date_not_open") %></strong>
-    <% end %>
-  </div>
+  <%= render 'ctc_offseason_warning' %>
   <div class="slab slab--hero">
     <div class="grid-flex contained column-row space-between">
       <div class="grid-flex column-column spacing-below-35">
