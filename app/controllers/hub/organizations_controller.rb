@@ -3,18 +3,17 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     load_and_authorize_resource :organization, parent: false
+    before_action :load_coalitions
 
     layout "hub"
 
     def new
-      @coalitions = Coalition.all
     end
 
     def create
       if @organization.save
         redirect_to hub_organizations_path
       else
-        @coalitions = Coalition.all
         render :new
       end
     end
@@ -37,7 +36,6 @@ module Hub
     end
 
     def edit
-      @coalitions = Coalition.all
       @routing_form = ZipCodeRoutingForm.new(@organization)
       @source_params_form = SourceParamsForm.new(@organization)
     end
@@ -47,7 +45,6 @@ module Hub
         flash[:notice] = I18n.t("general.changes_saved")
         redirect_to edit_hub_organization_path(id: @organization.id)
       else
-        @coalitions = Coalition.all
         flash.now[:alert] = I18n.t("general.error.form_failed")
         render :edit
       end
@@ -99,6 +96,10 @@ module Hub
 
     def organization_params
       params.require(:organization).permit(:name, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code])
+    end
+
+    def load_coalitions
+      @coalitions = Coalition.all
     end
   end
 end
