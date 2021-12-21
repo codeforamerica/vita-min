@@ -93,10 +93,10 @@ describe MixpanelService do
       end
     end
 
-    describe "#send_event", active_job: true do
+    describe "#send_event" do
       it 'tracks an event by name and id' do
         MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
-        perform_enqueued_jobs
+
         expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, any_args)
       end
 
@@ -107,21 +107,18 @@ describe MixpanelService do
           data: {},
           request: bare_request
         )
-        perform_enqueued_jobs
 
         expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, hash_including(:device_browser_version))
       end
 
       it 'includes locale information' do
         MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
-        perform_enqueued_jobs
 
         expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, hash_including(:locale))
       end
 
       it 'includes submitted data:' do
         MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: { test: "SUCCESS" })
-        perform_enqueued_jobs
 
         expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, hash_including(test: "SUCCESS"))
       end
@@ -134,7 +131,6 @@ describe MixpanelService do
           request: bare_request,
           path_exclusions: ['remove-me', 'immaterial']
         )
-        perform_enqueued_jobs
 
         expect(fake_tracker).to have_received(:track).with(
           distinct_id,
@@ -148,13 +144,12 @@ describe MixpanelService do
 
       it 'overwrites defaults with included data' do
         MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: { locale: "NO!" })
-        perform_enqueued_jobs
 
         expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, hash_including(locale: "NO!"))
       end
     end
 
-    describe "#send_tax_return_event", active_job: true do
+    describe "#send_tax_return_event" do
       let(:coalition) { create :coalition }
       let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
       let(:site) { create :site, name: "Child Site", parent_organization: organization }
@@ -166,7 +161,6 @@ describe MixpanelService do
 
         it "sends a Mixpanel event" do
           MixpanelService.send_tax_return_event(tax_return, "ready_for_prep", { additional_data: "1234"})
-          perform_enqueued_jobs
 
           expect(fake_tracker).to have_received(:track).with(
             "fake_visitor_id",
@@ -199,7 +193,6 @@ describe MixpanelService do
 
         it "handles the lack of a last_changed_by user" do
           MixpanelService.send_tax_return_event(tax_return, "ready_for_prep")
-          perform_enqueued_jobs
 
           expect(fake_tracker).to have_received(:track).with(
             "fake_visitor_id",
@@ -220,7 +213,7 @@ describe MixpanelService do
       end
     end
 
-    describe "#send_status_change_event", active_job: true do
+    describe "#send_status_change_event" do
       let(:coalition) { create :coalition }
       let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
       let(:site) { create :site, name: "Child Site", parent_organization: organization }
@@ -233,7 +226,6 @@ describe MixpanelService do
 
         it "sends a status_change event" do
           MixpanelService.send_status_change_event(tax_return)
-          perform_enqueued_jobs
 
           expect(fake_tracker).to have_received(:track).with(
             "fake_visitor_id",
@@ -262,7 +254,7 @@ describe MixpanelService do
       end
     end
 
-    describe "#send_file_rejected_event", active_job: true do
+    describe "#send_file_rejected_event" do
       let(:coalition) { create :coalition }
       let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
       let(:site) { create :site, name: "Child Site", parent_organization: organization }
@@ -279,7 +271,6 @@ describe MixpanelService do
 
         it "sends a file_rejected event" do
           MixpanelService.send_file_rejected_event(tax_return)
-          perform_enqueued_jobs
 
           expect(fake_tracker).to have_received(:track).with(
             "fake_visitor_id",
@@ -320,7 +311,6 @@ describe MixpanelService do
 
         it "handles the lack of a last_changed_by user" do
           MixpanelService.send_file_rejected_event(tax_return)
-          perform_enqueued_jobs
 
           expect(fake_tracker).to have_received(:track).with(
             "fake_visitor_id",
@@ -349,7 +339,6 @@ describe MixpanelService do
 
         it "set days_since_ready_for_prep and hours_since_ready_for_prep to nil" do
           MixpanelService.send_file_rejected_event(tax_return)
-          perform_enqueued_jobs
 
           expect(fake_tracker).to have_received(:track).with(
             "fake_visitor_id",
@@ -365,7 +354,7 @@ describe MixpanelService do
       end
     end
 
-    describe "#send_file_accepted_event", active_job: true do
+    describe "#send_file_accepted_event" do
       let(:coalition) { create :coalition }
       let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
       let(:site) { create :site, name: "Child Site", parent_organization: organization }
@@ -382,7 +371,6 @@ describe MixpanelService do
 
         it "sends a filing_completed event" do
           MixpanelService.send_file_accepted_event(tax_return)
-          perform_enqueued_jobs
 
           expect(fake_tracker).to have_received(:track).with(
             "fake_visitor_id",
@@ -781,7 +769,7 @@ describe ApplicationController, type: :controller do
     MixpanelService.instance.remove_instance_variable(:@tracker)
   end
 
-  describe "#send_event", active_job: true do
+  describe "#send_event" do
     controller do
       skip_after_action :track_page_view
 
@@ -805,7 +793,6 @@ describe ApplicationController, type: :controller do
 
     it 'includes controller (source) information, if present' do
       get :index
-      perform_enqueued_jobs
 
       expect(fake_tracker).to have_received(:track).with(
         '72347234',
@@ -824,7 +811,6 @@ describe ApplicationController, type: :controller do
       routes.draw { get "req_test/:intake_id/rest?the-id=9999998" => "anonymous#req_test" }
       params = { intake_id: 9999998 }
       get :req_test, params: params
-      perform_enqueued_jobs
 
       expect(fake_tracker).to have_received(:track).with(
         '72347235',
@@ -841,7 +827,6 @@ describe ApplicationController, type: :controller do
       routes.draw { get "req_test/:id/rest?the-id=9999998" => "anonymous#req_test" }
       params = { id: 9999998 }
       get :req_test, params: params
-      perform_enqueued_jobs
 
       expect(fake_tracker).to have_received(:track).with(
         '72347235',
@@ -858,7 +843,6 @@ describe ApplicationController, type: :controller do
       routes.draw { get "req_test/:token/rest?the-id=9999998" => "anonymous#req_test" }
       params = { token: 9999998 }
       get :req_test, params: params
-      perform_enqueued_jobs
 
       expect(fake_tracker).to have_received(:track).with(
         '72347235',
@@ -875,7 +859,6 @@ describe ApplicationController, type: :controller do
       routes.draw { get "req_test/:ticket_id/rest?the-id=9999998" => "anonymous#req_test" }
       params = { ticket_id: 9999998 }
       get :req_test, params: params
-      perform_enqueued_jobs
 
       expect(fake_tracker).to have_received(:track).with(
         '72347235',
@@ -892,7 +875,6 @@ describe ApplicationController, type: :controller do
       intake = create(:intake)
       routes.draw { get "inst_test/:intake_id/rest" => "anonymous#inst_test" }
       get :inst_test, params: { intake_id: intake.id }
-      perform_enqueued_jobs
 
       expect(fake_tracker).to have_received(:track).with(
         '72347236',
