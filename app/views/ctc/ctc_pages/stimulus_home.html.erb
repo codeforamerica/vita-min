@@ -13,11 +13,17 @@
         <h1 class="landing-page-header">
           <%= t("views.ctc_pages.stimulus_home.header") %>
         </h1>
-        <p>
-          <%= t("views.ctc_pages.stimulus_home.subheader.claim") %>
-        </p>
+        <% if open_for_ctc_intake? %>
+          <p>
+            <%= t("views.ctc_pages.stimulus_home.subheader.claim") %>
+          </p>
+        <% end %>
         <div>
-          <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
+          <% if open_for_ctc_intake? %>
+            <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
+          <% else %>
+            <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
+          <% end %>
         </div>
       </div>
 

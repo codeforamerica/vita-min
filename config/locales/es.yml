@@ -2107,6 +2107,7 @@ es:
           irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
           white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
         closing_date: GetCTC cerrará el 15 de noviembre.
+        closing_date_not_open: GetCTC está cerrado actualmente durante la temporada.
         closing_warning: "¡Presente su declaración hoy para reclamar su Crédito Tributario por Hijos por adelantado y sus pagos de estímulo omitidos! Si no cumple con esta fecha limite, tendrá que reclamar el Crédito Tributario completo cuando presente su declaración de impuestos a principios de 2022."
         common_questions:
           are_daca_recipients_eligible:
@@ -2253,6 +2254,7 @@ es:
         sign_up_for_updates: Inscríbase para recibir actualizaciones
         subheader:
           claim: Reclame su Crédito Tributario por Hijo y su pago de estímulo faltante, aunque no tenga sus formularios tributarios.
+          claim_next_year_html: "<strong>¿Se perdió de los pagos de CTC este año?</strong> No se preocupe, aún puede reclamar su CTC completo cuando presente sus impuestos a principios de 2022."
           launching_soon_html: "<strong>¡GetCTC se lanzará próximamente!</strong> Registrese para recibir emails en cuanto el portal para declarar sus impuestos de forma simplificada."
         title: Crédito Tributario por Hijos
         what_is:

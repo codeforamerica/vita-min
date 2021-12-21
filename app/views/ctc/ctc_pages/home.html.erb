@@ -8,9 +8,14 @@
 
 <%= render 'shared/facebook_pixel' %>
 <main role="main" class="ctc-home">
+
   <div class="slab slab--flash flash--offseason-warning">
-    <strong><%=t("views.ctc_pages.home.closing_date") %></strong>
-    <%= t("views.ctc_pages.home.closing_warning") %>
+    <% if open_for_ctc_intake? %>
+      <strong><%= t("views.ctc_pages.home.closing_date") %></strong>
+      <%= t("views.ctc_pages.home.closing_warning") %>
+    <%else %>
+      <strong><%= t("views.ctc_pages.home.closing_date_not_open") %></strong>
+    <% end %>
   </div>
   <div class="slab slab--hero">
     <div class="grid-flex contained column-row space-between">
@@ -24,10 +29,14 @@
           </p>
         <% end %>
         <p>
-          <%= t("views.ctc_pages.home.subheader.claim") %>
+          <% if open_for_ctc_intake? %>
+            <%= t("views.ctc_pages.home.subheader.claim") %>
+          <% else %>
+            <%= t("views.ctc_pages.home.subheader.claim_next_year_html") %>
+          <% end %>
         </p>
         <div>
-          <% if intake_public_access %>
+          <% if intake_public_access && open_for_ctc_intake? %>
             <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
           <% else %>
             <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
