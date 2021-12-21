@@ -22,6 +22,10 @@
 #  index_bank_accounts_on_hashed_routing_number  (hashed_routing_number)
 #  index_bank_accounts_on_intake_id              (intake_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (intake_id => intakes.id)
+#
 FactoryBot.define do
   factory :bank_account do
     intake

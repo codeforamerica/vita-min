@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_08_221550) do
+ActiveRecord::Schema.define(version: 2021_12_09_183810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -118,6 +118,65 @@ ActiveRecord::Schema.define(version: 2021_12_08_221550) do
     t.integer "record_count"
     t.datetime "run_at"
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "archived_bank_accounts_2021", force: :cascade do |t|
+    t.integer "account_type"
+    t.bigint "archived_intakes_2021_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.string "encrypted_account_number"
+    t.string "encrypted_account_number_iv"
+    t.string "encrypted_bank_name"
+    t.string "encrypted_bank_name_iv"
+    t.string "encrypted_routing_number"
+    t.string "encrypted_routing_number_iv"
+    t.string "hashed_account_number"
+    t.string "hashed_routing_number"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["archived_intakes_2021_id"], name: "index_archived_bank_accounts_2021_on_archived_intakes_2021_id"
+    t.index ["hashed_account_number"], name: "index_archived_bank_accounts_2021_on_hashed_account_number"
+    t.index ["hashed_routing_number"], name: "index_archived_bank_accounts_2021_on_hashed_routing_number"
+  end
+
+  create_table "archived_dependents_2021", force: :cascade do |t|
+    t.bigint "archived_intakes_2021_id", null: false
+    t.date "birth_date", null: false
+    t.integer "born_in_2020", default: 0, null: false
+    t.integer "cant_be_claimed_by_other", default: 0, null: false
+    t.integer "claim_anyway", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.string "creation_token"
+    t.integer "disabled", default: 0, null: false
+    t.string "encrypted_ip_pin"
+    t.string "encrypted_ip_pin_iv"
+    t.string "encrypted_ssn"
+    t.string "encrypted_ssn_iv"
+    t.integer "filed_joint_return", default: 0, null: false
+    t.string "first_name"
+    t.integer "full_time_student", default: 0, null: false
+    t.integer "has_ip_pin", default: 0, null: false
+    t.string "last_name"
+    t.integer "lived_with_more_than_six_months", default: 0, null: false
+    t.integer "meets_misc_qualifying_relative_requirements", default: 0, null: false
+    t.string "middle_initial"
+    t.integer "months_in_home"
+    t.integer "no_ssn_atin", default: 0, null: false
+    t.integer "north_american_resident", default: 0, null: false
+    t.integer "on_visa", default: 0, null: false
+    t.integer "passed_away_2020", default: 0, null: false
+    t.integer "permanent_residence_with_client", default: 0, null: false
+    t.integer "permanently_totally_disabled", default: 0, null: false
+    t.integer "placed_for_adoption", default: 0, null: false
+    t.integer "provided_over_half_own_support", default: 0, null: false
+    t.string "relationship"
+    t.datetime "soft_deleted_at"
+    t.string "suffix"
+    t.integer "tin_type"
+    t.datetime "updated_at", null: false
+    t.integer "was_married", default: 0, null: false
+    t.integer "was_student", default: 0, null: false
+    t.index ["archived_intakes_2021_id"], name: "index_archived_dependents_2021_on_archived_intakes_2021_id"
+    t.index ["creation_token"], name: "index_archived_dependents_2021_on_creation_token"
   end
 
   create_table "archived_intakes_2021", force: :cascade do |t|
@@ -1361,8 +1420,11 @@ ActiveRecord::Schema.define(version: 2021_12_08_221550) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_toggles", "users"
+  add_foreign_key "archived_bank_accounts_2021", "archived_intakes_2021"
+  add_foreign_key "archived_dependents_2021", "archived_intakes_2021"
   add_foreign_key "archived_intakes_2021", "clients"
   add_foreign_key "archived_intakes_2021", "vita_partners"
+  add_foreign_key "bank_accounts", "intakes"
   add_foreign_key "bulk_client_message_outgoing_emails", "bulk_client_messages"
   add_foreign_key "bulk_client_message_outgoing_emails", "outgoing_emails"
   add_foreign_key "bulk_client_message_outgoing_text_messages", "bulk_client_messages"
@@ -1376,6 +1438,7 @@ ActiveRecord::Schema.define(version: 2021_12_08_221550) do
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "ctc_intake_capacities", "users"
+  add_foreign_key "dependents", "intakes"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
