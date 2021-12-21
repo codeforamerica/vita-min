@@ -286,11 +286,6 @@ class Intake::CtcIntake < Intake
   accepts_nested_attributes_for :bank_account
 
   before_validation do
-    self.primary_ssn = self.primary_ssn.remove(/\D/) if primary_ssn_changed? && self.primary_ssn
-    self.spouse_ssn = self.spouse_ssn.remove(/\D/) if spouse_ssn_changed? && self.spouse_ssn
-  end
-
-  before_validation do
     attributes_to_change = self.changes_to_save.keys
     name_attributes = ["primary_first_name", "primary_last_name", "spouse_first_name", "spouse_last_name"]
 
