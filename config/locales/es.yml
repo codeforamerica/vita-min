@@ -991,6 +991,7 @@ es:
       status:
         file_accepted: Aceptado
         file_efiled: Presentada electrónicamente
+        file_fraud_hold: ID Check
         file_hold: En pausa
         file_mailed: Presentada por correo
         file_needs_review: Necesita revisión

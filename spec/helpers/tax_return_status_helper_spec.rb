@@ -39,7 +39,8 @@ describe TaxReturnStatusHelper do
          ["Rejected", "file_rejected"],
          ["Accepted", "file_accepted"],
          ["Not filing", "file_not_filing"],
-         ["Hold", "file_hold"]
+         ["Hold", "file_hold"],
+         ["ID Check", "file_fraud_hold"]
        ]
       ]
     ]
