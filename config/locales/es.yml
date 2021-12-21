@@ -1582,6 +1582,10 @@ es:
         dependent_info:
           help_text: Confirmar / editar la información básica de su dependiente
           title: Edita la información básica de %{name}
+        dependents:
+          no_eligible_dependents:
+            subtitle: No recibirá Crédito Tributario por Hijos porque no tiene dependientes elegibles.
+            title: Ha eliminado a todos sus dependientes elegibles de CTC.
         edit_info:
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
           help_text_cant_submit: Espere a enviar cambios adicionales a su envío. Estamos esperando una respuesta a su presentación anterior del IRS.
