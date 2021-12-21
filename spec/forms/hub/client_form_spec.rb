@@ -138,55 +138,5 @@ RSpec.describe Hub::ClientForm do
         end
       end
     end
-
-    describe "at least one communication preference is required" do
-      context "when neither sms or email are opted in to" do
-        before do
-          form_attributes[:sms_notification_opt_in] = "no"
-          form_attributes[:email_notification_opt_in] = "no"
-          form.valid?
-        end
-
-        it "adds an error for communication_preference" do
-          expect(form.errors[:communication_preference]).to eq ["Please choose some way for us to contact you."]
-        end
-      end
-
-      context "when sms is opted into but email is not" do
-        before do
-          form_attributes[:sms_notification_opt_in] = "yes"
-          form_attributes[:email_notification_opt_in] = "no"
-          form.valid?
-        end
-
-        it "is a valid field with no errors" do
-          expect(form.errors[:communication_preference]).to be_blank
-        end
-      end
-
-      context "when email is opted into but sms is not" do
-        before do
-          form_attributes[:sms_notification_opt_in] = "no"
-          form_attributes[:email_notification_opt_in] = "yes"
-          form.valid?
-        end
-
-        it "is a valid field with no errors" do
-          expect(form.errors[:communication_preference]).to be_blank
-        end
-      end
-
-      context "when both sms and email are opted into" do
-        before do
-          form_attributes[:sms_notification_opt_in] = "yes"
-          form_attributes[:email_notification_opt_in] = "yes"
-          form.valid?
-        end
-
-        it "is a valid field with no errors" do
-          expect(form.errors[:communication_preference]).to be_blank
-        end
-      end
-    end
   end
 end

@@ -225,7 +225,8 @@ RSpec.describe Hub::CreateClientForm do
 
           it "is not valid" do
             expect(form).not_to be_valid
-            expect(form.errors).to include :communication_preference
+            expect(form.errors).to include :email_address
+            expect(form.errors).to include :sms_phone_number
           end
         end
 
