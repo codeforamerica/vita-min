@@ -38,7 +38,11 @@ CREATE VIEW analytics.anonymized_intake_csv_extracts AS
     FROM public.anonymized_intake_csv_extracts;
 
 CREATE VIEW analytics.archived_dependents_2021 AS
-    SELECT id, created_at, disabled, archived_intakes_2021_id, months_in_home, north_american_resident, on_visa, tin_type, updated_at, was_married, was_student
+    SELECT id, archived_intakes_2021_id, birth_date, born_in_2020, claim_anyway, cant_be_claimed_by_other, created_at,
+           disabled, filed_joint_return, full_time_student, lived_with_more_than_six_months,
+           meets_misc_qualifying_relative_requirements, months_in_home, no_ssn_atin, north_american_resident,
+           on_visa, passed_away_2020, permanent_residence_with_client, permanently_totally_disabled, placed_for_adoption,
+           provided_over_half_own_support, relationship, tin_type, updated_at, was_married, was_student
     FROM public.archived_dependents_2021;
 
 CREATE VIEW analytics.archived_intakes_2021 AS
