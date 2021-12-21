@@ -296,6 +296,7 @@ class Intake < ApplicationRecord
   attr_encrypted :bank_routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :bank_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
+  enum already_filed: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :already_filed
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
   enum signature_method: { online: 0, in_person: 1 }, _prefix: :signature_method

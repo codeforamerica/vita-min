@@ -1,0 +1,20 @@
+<% @main_question = t("views.ctc.offboarding.already_filed.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <% t("views.ctc.offboarding.already_filed.content_html", current_tax_year: current_tax_year).each do |paragraph| %>
+    <p>
+      <%= paragraph %>
+    </p>
+  <% end %>
+
+  <div class="spacing-above-60">
+    <%= link_to t("views.ctc.offboarding.already_filed.contact_vita"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/vita_providers", action: 'index'), class: "button button--full-width text--centered" %>
+    <%= link_to "https://www.taxpayeradvocate.irs.gov/contact-us/", target: "_blank", rel: "noopener nofollow", class: "button button--full-width text--centered" do %>
+      <%=t("views.ctc.offboarding.already_filed.contact_ta") %>
+    <% end %>
+  </div>
+<% end %>

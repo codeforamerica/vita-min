@@ -44,6 +44,7 @@ module Portal
     def illustration_folder
       "questions"
     end
+
     def illustration_path
       "documents.svg"
     end
