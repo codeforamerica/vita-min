@@ -13,7 +13,7 @@ function setLengthProperties(length, component, textMessageFormButton) {
     const lengthElement = component.querySelector('[data-target="length-counter"]');
     const errorMessageElement = component.querySelector('[data-target="error-message"]');
     lengthElement.textContent = length;
-    if (length >= 1600) {
+    if (length >= 900) {
         component.classList.add('text--error');
         errorMessageElement.classList.remove("hidden");
         textMessageFormButton.disabled = true;
