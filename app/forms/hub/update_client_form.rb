@@ -20,8 +20,10 @@ module Hub
                        :city,
                        :state,
                        :zip_code,
-                       :primary_last_four_ssn,
-                       :spouse_last_four_ssn,
+                       :primary_ssn,
+                       :spouse_ssn,
+                       :primary_tin_type,
+                       :spouse_tin_type,
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
                        :spouse_first_name,
@@ -39,13 +41,23 @@ module Hub
     validates :state_of_residence, inclusion: { in: States.keys }
     validates :preferred_interview_language, presence: true, allow_blank: false
 
+    validates :primary_tin_type, presence: true
+    validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
+    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin"}
+
+    validates_confirmation_of :spouse_ssn, if: -> { filing_joint == "yes" }
+    validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(spouse_tin_type) && filing_joint == "yes"}
+    validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_joint == "yes" }
+
+    attr_accessor :client
+
     def initialize(client, params = {})
       @client = client
       super(params)
     end
 
     def self.existing_attributes(intake)
-      non_model_attrs = { primary_last_four_ssn: intake.primary_last_four_ssn, spouse_last_four_ssn: intake.spouse_last_four_ssn }
+      non_model_attrs = { primary_ssn: intake.primary_ssn, spouse_ssn: intake.spouse_ssn }
       super.merge(non_model_attrs)
     end
 
