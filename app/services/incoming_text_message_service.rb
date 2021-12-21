@@ -51,6 +51,8 @@ class IncomingTextMessageService
         documents: documents
       )
 
+      TransitionNotFilingService.run(client)
+
       IntercomService.create_intercom_message_from_sms(contact_record, inform_of_handoff: true) if client.forward_message_to_intercom?
 
       ClientChannel.broadcast_contact_record(contact_record)

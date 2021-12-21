@@ -10,6 +10,7 @@ module Portal
       if @message.save
         flash_message = "#{I18n.t("portal.messages.create.message_sent")} #{helpers.client_contact_preference(current_client, no_tags: true)}"
         flash[:notice] = flash_message
+        TransitionNotFilingService.run(current_client)
         IntercomService.create_intercom_message_from_portal_message(@message, inform_of_handoff: true) if current_client.forward_message_to_intercom?
         redirect_to portal_root_path
       else
