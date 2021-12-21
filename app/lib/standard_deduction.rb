@@ -1,13 +1,12 @@
 class StandardDeduction
-  attr_accessor :filing_status, :tax_year
+  attr_accessor :tax_year
 
-  def initialize(tax_year:, filing_status:)
+  def initialize(tax_year:)
     @tax_year = tax_year
-    @filing_status = filing_status&.to_sym
   end
 
-  def standard_deduction_2020
-    case filing_status
+  def standard_deduction_2020(filing_status: nil)
+    case filing_status.to_sym
     when :married_filing_jointly, :qualifying_widow
       24800
     when :head_of_household
@@ -17,14 +16,15 @@ class StandardDeduction
     end
   end
 
-  def standard_deduction
-    send("standard_deduction_#{tax_year}")
+  def standard_deduction(filing_status)
+    return unless filing_status
+    send("standard_deduction_#{tax_year}", filing_status: filing_status)
   rescue NoMethodError
     raise NotImplementedError, "Standard deduction rule not implemented for #{tax_year}"
   end
 
-  def self.for(*args)
-    obj = new(*args)
-    obj.standard_deduction
+  def self.for(tax_year:, filing_status:)
+    obj = new(tax_year: tax_year)
+    obj.standard_deduction(filing_status)
   end
 end

@@ -1272,4 +1272,24 @@ describe TaxReturn do
       expect(StandardDeduction).to have_received(:for).with(tax_year: 2020, filing_status: "married_filing_jointly")
     end
   end
+
+  describe ".filing_years" do
+    before do
+      allow(Rails.application.config).to receive(:current_tax_year).and_return 2021
+    end
+
+    it "provides an array of available filing years, which is the current tax year and three previous years" do
+      expect(TaxReturn.filing_years).to eq [2021, 2020, 2019, 2018]
+    end
+  end
+
+  describe ".backtax_years" do
+    before do
+      allow(Rails.application.config).to receive(:current_tax_year).and_return 2021
+    end
+
+    it "excludes the current filing year from backtaxes" do
+      expect(TaxReturn.backtax_years).to eq [2020, 2019, 2018]
+    end
+  end
 end

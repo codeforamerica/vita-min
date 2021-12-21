@@ -83,7 +83,7 @@ en:
         info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
         right_option:
           description:
-          - You are only filing for 2020 (not previous years)
+          - You are only filing for %{current_tax_year} (not previous years)
           - You’re comfortable using online tax services
           - Your tax situation is simple/straightforward
           - You need a quick option
@@ -222,6 +222,7 @@ en:
     admin_controls: Admin Controls
     affirmative: 'Yes'
     all_organizations: All organizations
+    and: and
     assign: Assign
     assignee: Assignee
     at_time: at %{time}
@@ -1617,8 +1618,8 @@ en:
           contact_ta: Contact a Taxpayer Advocate
           contact_vita: Contact a VITA Site
           content_html:
-          - Like the IRS non-filer sign up tool, GetCTC helps you e-file a simplified 2020 tax return. If you've already filed a %{current_tax_year} return, the IRS will reject this return without reviewing it, even if your first return was wrong or processed incorrectly.
-          - If the information on your 2020 return has changed and you want to update your CTC payments, you can use the IRS's <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">CTC Update Portal</a>.
+          - Like the IRS non-filer sign up tool, GetCTC helps you e-file a simplified %{current_tax_year} tax return. If you've already filed a %{current_tax_year} return, the IRS will reject this return without reviewing it, even if your first return was wrong or processed incorrectly.
+          - If the information on your %{current_tax_year} return has changed and you want to update your CTC payments, you can use the IRS's <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">CTC Update Portal</a>.
           - If you think your %{current_tax_year} return was never processed and you don't know what happened, you'll need direct assistance to help resolve your case. You can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
           title: Unfortunately, you can't use GetCTC.
       portal:
@@ -1709,10 +1710,10 @@ en:
           title: It looks like you’ve already started!
         already_filed:
           help_text_html: |
-            <p>Did you file a tax return this year, after January 1, 2021, for the 2020 tax year?</p>
+            <p>Did you file a tax return this year, after January 1, %{calendar_year}, for the %{current_tax_year} tax year?</p>
             <p>Answer yes even if you are still waiting for your stimulus payments, or if you used the Non-filers Sign-Up Tool. If you did, we'll give you more guidance about your options on the next page.</p>
-            <p class="text--bold">If you already filed a 2020 tax return, the return you file with this tool will be rejected by the IRS.</p>
-          title: Did you file a 2020 tax return this year?
+            <p class="text--bold">If you already filed a %{current_tax_year} tax return, the return you file with this tool will be rejected by the IRS.</p>
+          title: Did you file a %{current_tax_year} tax return this year?
         at_capacity:
           p1: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service! Please check back next week.
           p2: If you have questions, visit our FAQs.
@@ -1780,26 +1781,27 @@ en:
           child_disqualifiers:
             error: Please select at least one option
             filed_joint_return: "%{name} was married and filed taxes with their spouse"
-            help_text: 'Select any situations that were true in 2020:'
+            help_text: 'Select any situations that were true in %{current_tax_year}:'
             provided_over_half_own_support: "%{name} paid for more than half their own living expenses"
             title: Great, let's make sure %{name} qualifies!
           child_lived_with_you:
-            title: Did %{name} live with you for more than 6 months in %{tax_year}?
+            title: Did %{name} live with you for more than 6 months in %{current_tax_year}?
           child_residence_exceptions:
-            born_in_2020: "%{name} was born in 2020"
+            born_tax_year: "%{name} was born in %{current_tax_year}"
             help_text: They could still qualify for payments if they lived with you for less than 6 months and any of the following were true.
-            passed_away_2020: "%{name} was lawfully placed with you for adoption in 2020"
+            passed_away_tax_year: "%{name} was lawfully placed with you for adoption in %{current_tax_year}"
             permanent_residence_with_client: "%{name}’s permanent residence was with you for at least six months, even if they were away for part of that time"
-            placed_for_adoption: "%{name} passed away in 2020"
+            placed_for_adoption: "%{name} passed away in %{current_tax_year}"
             title: Were any of the following true for %{name}?
           claim_child_anyway:
             help_text_html: |
               <p>If you and someone else are eligible to claim %{name}, you should follow any existing agreement with the other person about who claims them.</p>
               <p>Remember, if someone else has already claimed %{name} your return will be rejected. If that happens, we can guide you through the process of appealing the other claim, but it's not easy. You may choose to check first with the other caregivers.</p>
             not_sure_reveal:
-              li1: You are the parent who spent more time living with them.
-              li2: If you and the other parent spent the same amount of time with the dependent, whoever earned more money in 2020 can claim them.
-              li3: If neither of you are the dependent’s parent, whoever earned more money in 2020 can claim them.
+              items:
+              - You are the parent who spent more time living with them.
+              - If you and the other parent spent the same amount of time with the dependent, whoever earned more money in %{current_tax_year} can claim them.
+              - If neither of you are the dependent’s parent, whoever earned more money in %{current_tax_year} can claim them.
               p: 'You should claim the dependent if one of these situations is true:'
               title: I’m unsure. Should I claim them?
             title: Would you like to claim %{name} anyway?
@@ -1819,17 +1821,17 @@ en:
             conditions:
             - The family member has a valid Social Security Number or Adoption Identification Number
             - The family member was a U.S. citizen, U.S. national, or U.S. resident alien
-            - The family member lived with you for more than half of 2020
-            - The family member did not provide over half of their own support for 2020
-            - The family member did not file a joint return with his or her spouse in 2020
+            - The family member lived with you for more than half of %{current_tax_year}
+            - The family member did not provide over half of their own support for %{current_tax_year}
+            - The family member did not file a joint return with his or her spouse in %{current_tax_year}
             - The family member was not claimed as a dependent on another return
-            - The family member was not born in 2021
+            - The family member was not born in %{filing_year}
             done_button: Done adding dependents
             help_text: 'For a child or family member to qualify for CTC or stimulus payments they would need to meet the following conditions:'
             title: "%{name} can’t be claimed as a dependent."
           had_dependents:
             help_text_html: |
-              <p>Someone who lived with you for a majority of the year in 2020 or who you supported financially could qualify.</p>
+              <p>Someone who lived with you for a majority of the year in %{current_tax_year} or who you supported financially could qualify.</p>
               <p>Answer Yes if you are trying to get the Child Tax Credit.</p>
               <p>Not sure if your family member qualifies? Answer Yes and we’ll walk you through it.</p>
             title: Would you like to add a child or family member in order to claim the child tax credit and other benefits?
@@ -1848,13 +1850,15 @@ en:
             title: Let’s get some basic information about your family member!
           qualifying_relative:
             help_text:
-              li1: You paid for more than half of %{name}'s expenses
-              li2: "%{name} earned less than $4,300"
-              li3: "%{name} has a SSN or ATIN"
-              li4: "%{name} did not live with someone else who could claim them"
-              li5: "%{name} did not file jointly on a separate tax return"
-            title: Were all of the following true in 2020?
-            title_html: Were <u>all</u> of the following true in 2020?
+              in_items:
+              - You paid for more than half of %{name}'s expenses
+              - "%{name} earned less than $4,300"
+              - "%{name} has a SSN or ATIN"
+              out_items:
+              - "%{name} did not live with someone else who could claim them"
+              - "%{name} did not file jointly on a separate tax return"
+            title: Were all of the following true in %{current_tax_year}?
+            title_html: Were <u>all</u> of the following true in %{current_tax_year}?
           remove_dependent:
             nevermind_button: Nevermind, let's save them
             remove_button: Yes, remove them
@@ -1877,8 +1881,7 @@ en:
           title: Please share your email address.
         file_full_return:
           full_btn: File a full tax return
-          help_text:
-          - 'You might benefit from filing a full tax return if you earned any income in 2020. Filing a full tax return can take longer and you would need:'
+          help_text: 'You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need:'
           list:
           - All of your employment documents (W2’s, 1099’s, etc)
           - A paper copy of a Social Security Card or ITIN paperwork for everyone in your family
@@ -1903,10 +1906,10 @@ en:
             foreign_address: Foreign address
             military_facility: U.S. military facility
             us_territory: U.S. territory, such as Puerto Rico or Guam
-          title: Where was your main home for 2020?
+          title: Where was your main home for %{current_tax_year}?
         income:
-          filing_married: "$24,800 if filing married"
-          filing_single: "$12,400 if filing single"
+          filing_married: "%{joint_deduction} if filing married"
+          filing_single: "%{single_deduction} if filing single"
           help_text: 'Income could come from any of the following sources:'
           income_sources:
           - salary
@@ -1914,7 +1917,7 @@ en:
           - tips
           - commissions
           - self-employment or contract payments
-          title: 'In  %{tax_year}, did you earn over:'
+          title: 'In %{current_tax_year}, did you earn over:'
         ip_pin:
           error: Please pick a person or ‘None of the above’.
           help_text: Having an IP PIN is rare. If you are unfamiliar with what this is, it’s likely that you have not been issued an IP PIN. Select ‘None of the above’ to continue.
@@ -1935,7 +1938,7 @@ en:
           primary_active_armed_forces:
             reveal_content: Knowing if you are a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
             reveal_label: Why are you asking this?
-            title: I was a member of the United States Armed Forces for any time in 2020
+            title: I was a member of the United States Armed Forces for any time in %{current_tax_year}
           sms_phone_number: Phone number
           ssn: SSN or ITIN
           ssn_confirmation: Confirm SSN or ITIN
@@ -1958,7 +1961,7 @@ en:
           help_text: Use our simple e-filing tool to receive your Child Tax Credit and any stimulus payments or corrections you are owed.
           items:
           - You have a valid SSN or ITIN
-          - You earned less than $12,400 if single, $24,800 if married filing jointly
+          - You earned less than %{single_deduction} if single, %{joint_deduction} if married filing jointly
           - You have not filed a return this year
           - You didn't receive the full amount of stimulus you were owed
           right_for_you: 'This is the right tool for you if:'
@@ -2008,7 +2011,7 @@ en:
           help_text: Please make sure you enter your spouse’s name as it appears on their Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
           remove_button: Remove this person
           save_button: Save this person
-          spouse_active_armed_forces: My spouse was a member of the United States Armed Forces for any time in 2020
+          spouse_active_armed_forces: My spouse was a member of the United States Armed Forces for any time in %{current_tax_year}
           spouse_active_armed_forces_reveal: Why are you asking this?
           spouse_active_armed_forces_reveal_content: Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
           spouse_can_be_claimed_as_dependent: My spouse can be claimed as a dependent by someone else
@@ -2089,7 +2092,7 @@ en:
         use_gyr:
           collect_money: Collect all the money you are owed by filing with GetYourRefund.
           ctc_conditions:
-          - You earned less than $12,400 if filing single, $24,800 if married filing jointly in 2020
+          - You earned less than %{single_deduction} if filing single, %{joint_deduction} if married filing jointly in %{current_tax_year}
           - You are a U.S. citizen, U.S. national, or U.S. resident alien
           - You cannot be claimed as a dependent
           - You and your spouse have a valid SSN or ITIN
@@ -2145,14 +2148,14 @@ en:
         gyr: GetYourRefund
         helper_text_html: With the Child Tax Credit, stimulus payments, and other credits, many California families can claim over $10,000 in tax benefits this year, even if they have little or no income. <strong>Claim the benefits that you are owed.</strong>
         option_one:
-          p_1: This option is longer and requires more documentation, but you may get more money.
-          p_2: Best for people who worked in 2020 and who have all the required documents for a full tax return.
+          p1: This option is longer and requires more documentation, but you may get more money.
+          p2: Best for people who worked in %{current_tax_year} and who have all the required documents for a full tax return.
           subtitle: Option 1
           title_html: Collect <u>all</u> tax credits you are owed
         option_two:
           file_ctc: File with GetCTC
-          p_1: This option is quicker and requires less documentation, but you may not be able to claim all benefits.
-          p_2: Best for people who did not work in 2020 or who don’t have their tax documents to file a full tax return.
+          p1: This option is quicker and requires less documentation, but you may not be able to claim all benefits.
+          p2: Best for people who did not work in %{current_tax_year} or who don’t have their tax documents to file a full tax return.
           subtitle: Option 2
           title_html: Collect <u>only</u> the federal stimulus payments and Child Tax Credit
         questions:
@@ -2271,7 +2274,7 @@ en:
             subheading: If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed.
           heading: How do I get the Child Tax Credit?
           not_filed:
-            body1_html: If you earned less than $12,400 (or less than $24,800 if you are married), you can use GetCTC, a simplified tax filing portal to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
+            body1_html: If you earned less than %{single_deduction} (or less than %{joint_deduction} if you are married), you can use GetCTC, a simplified tax filing portal to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
             body2: To get the Child Tax Credit you will need to provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI.
             chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Chat with our tax experts</button> if you need help.
             subheading: If you have not filed a tax return, you can sign up to get the Child Tax Credit.
@@ -3192,8 +3195,8 @@ en:
         title: Have you ever been issued an IP PIN because of identity theft?
       itemizing:
         help_text:
-          one: Answer yes if you spent over $12,000 on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
-          other: Answer yes if you or your spouse spent over $24,000 on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
+          one: Answer yes if you spent over ${single_deduction} on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
+          other: Answer yes if you or your spouse spent over ${joint_deduction} on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
         title: Would you like to itemize your deductions for %{year}?
       job_count:
         options:
@@ -3430,20 +3433,20 @@ en:
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
       triage_backtaxes:
         help_text: If you earned income and you have filed for all the above years, answer yes. Even if you used a different service to file for previous years.
-        title: Have you filed taxes for 2017, 2018, and 2019?
+        title: Have you filed taxes for %{backtax_years}?
       triage_eligibility:
         info: Let us know if any of the situations below apply to you.
         situations:
           had_farm_income: I earned money from owning a farm
           had_rental_income: I earned money from a rental property
-          income_over_limit: I earned more than $66,000 in %{year}
+          income_over_limit: I earned more than $66,000 in %{current_tax_year}
         title: Yes, our service is completely free. Let's make sure you qualify!
       triage_lookback:
-        had_income_decrease: My income decreased from 2019
+        had_income_decrease: My income decreased from %{prior_tax_year}
         had_marketplace_insurance: I purchased health insurance through the marketplace
         had_unemployment: I received unemployment income
-        help_text: Do any of the situations below apply to 2020?
-        title: 2020 tax situations
+        help_text: Do any of the situations below apply to %{current_tax_year}?
+        title: "%{current_tax_year} tax situations"
       triage_prepare_solo:
         help_text: Preparing your return is easy, especially if you have less than 3 jobs. We'll provide chat support as you go through our DIY option.
         title: Are you interested in preparing your own return?

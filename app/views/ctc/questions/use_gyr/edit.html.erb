@@ -6,7 +6,12 @@
   <p class="text--small"><%= t("views.ctc.questions.use_gyr.help_text") %></p>
 
   <ul class="checkmark-list teal">
-    <% t("views.ctc.questions.use_gyr.ctc_conditions").each do |condition| %>
+    <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year) %>
+    <% t("views.ctc.questions.use_gyr.ctc_conditions",
+         current_tax_year: current_tax_year,
+         single_deduction: number_to_currency(standard_deduction.standard_deduction(:single)),
+         joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_joint))
+       ).each do |condition| %>
       <li><%= condition %></li>
     <% end %>
   </ul>

@@ -3,10 +3,10 @@
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <p class="text--help">
-      <%=t("views.questions.triage_lookback.help_text") %>
+      <%=t("views.questions.triage_lookback.help_text", current_tax_year: current_tax_year) %>
     </p>
     <div class="form-card__stacked-checkboxes spacing-above-0">
-      <%= f.cfa_checkbox(:had_income_decrease, t("views.questions.triage_lookback.had_income_decrease"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:had_income_decrease, t("views.questions.triage_lookback.had_income_decrease", prior_tax_year: prior_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:had_unemployment, t("views.questions.triage_lookback.had_unemployment"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:had_marketplace_insurance, t("views.questions.triage_lookback.had_marketplace_insurance"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:none, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>

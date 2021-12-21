@@ -8,8 +8,12 @@
   </p>
 
   <h2 class="h3"><%= t("views.ctc.questions.overview.right_for_you") %></h2>
+  <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year) %>
   <ul class="checkmark-list teal">
-    <% t("views.ctc.questions.overview.items").each do |item| %>
+    <% t("views.ctc.questions.overview.items",
+         joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_jointly)),
+         single_deduction: number_to_currency(standard_deduction.standard_deduction(:single))
+       ).each do |item| %>
       <li class="text--semibold"><%= item %></li>
     <% end %>
   </ul>

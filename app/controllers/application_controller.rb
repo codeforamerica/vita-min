@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_tax_year
-    Rails.application.config.current_tax_year.to_i
+    TaxReturn.current_tax_year.to_i
   end
 
   def prior_tax_year

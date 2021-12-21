@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
+  include FeatureTestHelpers
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
@@ -37,12 +38,14 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
+      text = I18n.t("views.questions.triage_backtaxes.title",
+                    backtax_years: TaxReturn.backtax_years.reverse.to_sentence(last_word_connector: " #{I18n.t("general.and")} "))
+      expect(page).to have_selector("h1", text: text)
     end
     click_on "Yes"
 
     screenshot_after do
-      expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
+      expect(page).to have_text I18n.t("views.questions.triage_lookback.help_text", current_tax_year: current_tax_year)
       check "My income decreased from 2019"
       check "I received unemployment income"
       check "I purchased health insurance through the marketplace"

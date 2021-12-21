@@ -431,7 +431,7 @@ class Intake < ApplicationRecord
   end
 
   def most_recent_filing_year
-    filing_years.first || 2020
+    filing_years.first || TaxReturn.current_tax_year
   end
 
   def filing_years
