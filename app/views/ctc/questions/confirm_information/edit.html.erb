@@ -41,7 +41,7 @@
       </div>
     <% end %>
 
-    <%= render 'ctc/questions/confirm_information/bank_info', edit_controller: Ctc::Portal::RefundPaymentController, intake: current_intake %>
+    <%= render 'ctc/questions/confirm_information/bank_info', edit_controller: Ctc::Questions::RefundPaymentController, intake: current_intake %>
   </div>
 
   <p><strong><%= t("views.ctc.questions.confirm_information.set_pin") %></strong></p>
