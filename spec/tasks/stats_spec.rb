@@ -2,8 +2,7 @@ require 'rails_helper'
 
 describe 'stats:track_metrics' do
   include_context "rake"
-
-  let(:fake_dogapi) { instance_double(Dogapi::Client) }
+  include MockDogapi
 
   around do |example|
     ActiveJob::Base.queue_adapter = :delayed_job
@@ -16,9 +15,8 @@ describe 'stats:track_metrics' do
       allow(c).to receive(:enabled).and_return(true)
     end
 
-    allow(Dogapi::Client).to receive(:new).and_return(fake_dogapi)
     @emit_point_params = []
-    allow(fake_dogapi).to receive(:emit_point) do |*params|
+    allow(@mock_dogapi).to receive(:emit_point) do |*params|
       @emit_point_params << params
     end
 
