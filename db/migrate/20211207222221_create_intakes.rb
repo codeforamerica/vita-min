@@ -231,7 +231,6 @@ class CreateIntakes < ActiveRecord::Migration[6.1]
       t.boolean "with_vita_approved_photo_id", default: false
       t.boolean "with_vita_approved_taxpayer_id", default: false
       t.string "zip_code"
-      t.index ["bank_account_id"], name: "index_intakes_on_bank_account_id"
       t.index ["canonical_email_address"], name: "index_intakes_on_canonical_email_address"
       t.index ["client_id"], name: "index_intakes_on_client_id"
       t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
