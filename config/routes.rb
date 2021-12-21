@@ -327,6 +327,8 @@ Rails.application.routes.draw do
         resources :signups, only: [:new, :create], path: "sign-up", path_names: { new: '' } do
           get "/confirmation", to: "signups#confirmation", on: :collection
         end
+
+        get "/completed-intake", to: "ctc_pages#completed"
         get "/help", to: "ctc_pages#help", defaults: { source: "help" }
         get "/stimulus", to: "ctc_pages#stimulus", defaults: { source: "stimulus" }
         get "/stimulus-navigator", to: "ctc_pages#stimulus_navigator", defaults: { source: "stimulus-navigator" }

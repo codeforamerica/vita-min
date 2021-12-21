@@ -2,9 +2,16 @@ module Ctc
   module Questions
     class QuestionsController < ::Questions::QuestionsController
       helper_method :wrapping_layout
+      before_action :redirect_if_completed_intake_present
       skip_before_action :redirect_in_offseason
 
       private
+
+      def redirect_if_completed_intake_present
+        if current_intake && current_intake.completed_at.present?
+          redirect_to ctc_completed_intake_path
+        end
+      end
 
       def wrapping_layout
         "ctc"
