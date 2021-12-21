@@ -12,9 +12,9 @@ RSpec.describe Hub::AssignedClientsController do
         sign_in user
       end
 
-      let!(:assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_ready")] }
-      let!(:assigned_to_me_two_trs) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "review_reviewing"), (create :tax_return, year: 2020, assigned_user: user, status: "intake_ready_for_call")] }
-      let!(:not_assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return)] }
+      let!(:assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, :intake_ready, assigned_user: user)] }
+      let!(:assigned_to_me_two_trs) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, :review_reviewing, assigned_user: user), (create :tax_return, :intake_ready_for_call, year: 2020, assigned_user: user)] }
+      let!(:not_assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, :intake_in_progress)] }
 
       it "should allow me to see only clients with tax returns assigned to me" do
         get :index
@@ -33,7 +33,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       context "filtering" do
-        let!(:second_return) { create :tax_return, year: 2018, assigned_user: user, client: assigned_to_me, status: "intake_in_progress" }
+        let!(:second_return) { create :tax_return, :intake_in_progress, year: 2018, assigned_user: user, client: assigned_to_me }
 
         context "filter always to me" do
           it "always filters to assigned to me" do
@@ -72,7 +72,7 @@ RSpec.describe Hub::AssignedClientsController do
         end
 
         context "filtering by tax return year" do
-          let!(:return_3020) { create :tax_return, year: 3020, assigned_user: user, client: assigned_to_me, status: "intake_ready" }
+          let!(:return_3020) { create :tax_return, :intake_ready, year: 3020, assigned_user: user, client: assigned_to_me }
           it "filters in" do
             get :index, params: { year: 3020 }
             expect(assigns(:clients)).to eq [return_3020.client]
@@ -80,7 +80,7 @@ RSpec.describe Hub::AssignedClientsController do
         end
 
         context "filtering by unassigned" do
-          let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: assigned_to_me, status: "intake_ready" }
+          let!(:unassigned) { create :tax_return, :intake_ready, year: 2012, assigned_user: nil, client: assigned_to_me }
           it "filters in" do
             get :index, params: { unassigned: true }
             expect(assigns(:clients)).to include unassigned.client
@@ -88,7 +88,7 @@ RSpec.describe Hub::AssignedClientsController do
         end
 
         context "filtering by flagged" do
-          let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return, assigned_user: user)] }
+          let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress, assigned_user: user)] }
           it "filters in" do
             get :index, params: { flagged: true }
             expect(assigns(:clients)).to include flagged
@@ -96,7 +96,7 @@ RSpec.describe Hub::AssignedClientsController do
         end
 
         context "filtering and sorting" do
-          let!(:starts_with_a_assigned) { create :client, intake: (create :intake, preferred_name: "Aardvark Alan"), vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_in_progress", assigned_user: user)] }
+          let!(:starts_with_a_assigned) { create :client, intake: (create :intake, preferred_name: "Aardvark Alan"), vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress, assigned_user: user)] }
 
           it "preferred_name, asc" do
             get :index, params: { status: "intake_in_progress", column: "preferred_name", order: "asc" }
@@ -126,7 +126,7 @@ RSpec.describe Hub::AssignedClientsController do
 
       context "tax return count" do
         # Create 47 more intakes that are assigned to the user
-        let!(:pagination_assigned_to_me) { 47.times { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_ready")] } }
+        let!(:pagination_assigned_to_me) { 47.times { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, :intake_ready, assigned_user: user)] } }
         let(:params) do
           {
             page: "1"

@@ -26,11 +26,11 @@ require 'rails_helper'
 describe SystemNote::StatusChange do
   describe ".generate!" do
     let(:user) { create :user, name: "Olive Oil" }
-    let(:tax_return) { create :tax_return, status: "intake_in_progress", year: 3020 }
+    let(:tax_return) { create :tax_return, :intake_in_progress, year: 3020 }
 
     context "with recently persisted changes and provided user" do
       before do
-        tax_return.update(status: "intake_ready")
+        tax_return.transition_to(:intake_ready)
       end
 
       it "can track the changes" do

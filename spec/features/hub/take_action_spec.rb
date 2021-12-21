@@ -6,8 +6,8 @@ RSpec.feature "Change tax return status on a client" do
     let(:user) { create :user, name: "Example Preparer", role: create(:organization_lead_role, organization: organization) }
     let(:client) { create :client, vita_partner: organization }
     let!(:intake) { create :intake, client: client, locale: "en", email_address: "client@example.com", phone_number: "+14155551212", sms_phone_number: "+14155551212", email_notification_opt_in: "yes", interview_timing_preference: "tomorrow!", sms_notification_opt_in: "yes" }
-    let!(:tax_return) { create :tax_return, year: 2019, client: client, status: "intake_in_progress" }
-    let!(:other_tax_return) { create :tax_return, year: 2018, client: client, status: "intake_in_progress" }
+    let!(:tax_return) { create :tax_return, :intake_in_progress, year: 2019, client: client }
+    let!(:other_tax_return) { create :tax_return, :intake_in_progress, year: 2018, client: client }
 
     before do
       login_as user

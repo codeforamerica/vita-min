@@ -36,7 +36,11 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
-
+  has_many :tax_return_transitions, autosave: false
+  include Statesman::Adapters::ActiveRecordQueries[
+              transition_class: TaxReturnTransition,
+              initial_state: TaxReturnStateMachine.initial_state
+          ]
   PRIMARY_SIGNATURE = "primary".freeze
   SPOUSE_SIGNATURE = "spouse".freeze
   belongs_to :client
@@ -55,9 +59,19 @@ class TaxReturn < ApplicationRecord
   enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
   validates :year, presence: true
 
-  attr_accessor :status_last_changed_by
   after_update_commit :send_mixpanel_status_change_event, :send_surveys
   after_update_commit { InteractionTrackingService.record_internal_interaction(client) }
+
+  def state_machine
+    @state_machine ||= TaxReturnStateMachine.new(self, transition_class: TaxReturnTransition)
+  end
+
+  delegate :can_transition_to?, :history, :last_transition, :last_transition_to,
+           :transition_to!, :transition_to, :in_state?, :advance_to, :previous_transition, :previous_state, :last_changed_by, to: :state_machine
+
+  def current_state
+    state_machine.last_transition&.to_state || status
+  end
 
   before_save do
     if status == "prep_ready_for_prep" && status_changed?
@@ -128,16 +142,6 @@ class TaxReturn < ApplicationRecord
 
   def has_submissions?
     efile_submissions.count.nonzero?
-  end
-
-  ##
-  # advance the return to a new status, only if that status more advanced.
-  # An earlier or equal status will be ignored.
-  #
-  # @param [String] new_status: the name of the status to advance to
-  #
-  def advance_to(new_status)
-    update!(status: new_status) if TaxReturn.statuses[status.to_sym] < TaxReturn.statuses[new_status.to_sym]
   end
 
   def record_expected_payments!
@@ -312,8 +316,8 @@ class TaxReturn < ApplicationRecord
   end
 
   def system_change_status(new_status)
-    SystemNote::StatusChange.generate!(tax_return: self, old_status: self.status, new_status: new_status)
-    self.status = new_status
+    SystemNote::StatusChange.generate!(tax_return: self, old_status: current_state, new_status: new_status)
+    transition_to(new_status)
   end
 
   def send_surveys

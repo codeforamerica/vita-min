@@ -470,18 +470,6 @@ class Intake < ApplicationRecord
     tax_year - spouse_birth_date.year
   end
 
-  ##
-  # advances all tax returns to a new status, only if the new status is more advanced.
-  # Earlier or equal statuses will be ignored.
-  #
-  # @param [String] new_status: the name of the status to advance to
-  #
-  def advance_tax_return_statuses_to(new_status)
-    client.tax_returns.each do |tax_return|
-      tax_return.advance_to(new_status)
-    end
-  end
-
   def had_earned_income?
     had_a_job? || had_wages_yes? || had_self_employment_income_yes?
   end

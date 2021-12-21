@@ -130,6 +130,7 @@ module Hub
           intake_attributes: intake_attr,
           tax_returns_attributes: [tax_return_attributes]
         )
+        @client.tax_returns.map { |tr| tr.transition_to(:prep_ready_for_prep) }
       end
     end
 
@@ -176,7 +177,6 @@ module Hub
         year: 2020,
         is_ctc: true,
         certification_level: :basic,
-        status: :prep_ready_for_prep,
         service_type: :drop_off
       }.merge(attributes_for(:tax_return))
     end

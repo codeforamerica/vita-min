@@ -35,7 +35,7 @@
     <% @tax_returns.each do |tax_return| %>
       <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>
         <h2 class="h3"><%= t(".tax_return_heading", year: tax_return.year) %></h2>
-        <% status = tax_return.status.to_sym %>
+        <% status = tax_return.current_state.to_sym %>
         <% status_number = TaxReturnStatus::STATUSES[status] %>
 
         <% if TaxReturnStatus::PAUSED_STATUSES.include?(status) %>
