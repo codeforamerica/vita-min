@@ -529,11 +529,13 @@ describe Client do
       before do
         doc_request = create :documents_request, client: client
         create_list :document, 2, client: client, intake: intake, documents_request_id: doc_request.id
-        create_list :document, 2, client: client, intake: intake
         create_list :dependent, 2, intake: intake
         tax_return = create :tax_return, client: client, assigned_user: user, tax_return_selections: [tax_return_selection]
         tax_return_assignment = create :tax_return_assignment, tax_return: tax_return
         create :user_notification, user: user, notifiable: tax_return_assignment
+        submission = create :efile_submission, :investigating, tax_return: tax_return
+        create :address, record: submission
+        create_list :document, 2, client: client, intake: intake, tax_return: tax_return
         note = create :note, client: client, user: user
         create :user_notification, user: user, notifiable: note
         create :system_note, client: client
@@ -562,6 +564,8 @@ describe Client do
         expect(DocumentsRequest.count).to eq 0
         expect(TaxReturnAssignment.count).to eq 0
         expect(UserNotification.count).to eq 0
+        expect(Address.count).to eq(0)
+        expect(EfileSubmission.count).to eq(0)
       end
     end
   end
