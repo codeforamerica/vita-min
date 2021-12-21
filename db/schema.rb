@@ -436,6 +436,7 @@ ActiveRecord::Schema.define(version: 2021_11_15_175837) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_efile_submissions_on_created_at"
     t.index ["irs_submission_id"], name: "index_efile_submissions_on_irs_submission_id"
+    t.index ["tax_return_id", "id"], name: "index_efile_submissions_on_tax_return_id_and_id", order: { id: :desc }
     t.index ["tax_return_id"], name: "index_efile_submissions_on_tax_return_id"
   end
 
