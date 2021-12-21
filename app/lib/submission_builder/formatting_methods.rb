@@ -53,20 +53,20 @@ module SubmissionBuilder
     # The IRS has very particular guidelines for what this line should look like and they are
     # outlined on page 189 of https://www.irs.gov/pub/irs-pdf/p4164.pdf
     def build_name_line_1(primary_first, primary_middle, primary_last, primary_suffix, spouse_first, spouse_middle, spouse_last)
-      name_line = formatted_first_name(primary_first)
-      name_line << " #{primary_middle.upcase}" if primary_middle
+      name_line = formatted_first_or_middle_name(primary_first)
+      name_line << " #{formatted_first_or_middle_name(primary_middle.upcase)}" if primary_middle
 
       if spouse_last == primary_last # spouse with same last name
-        name_line << " & #{formatted_first_name(spouse_first)}"
-        name_line << " #{spouse_middle.upcase}" if spouse_middle
+        name_line << " & #{formatted_first_or_middle_name(spouse_first)}"
+        name_line << " #{formatted_first_or_middle_name(spouse_middle.upcase)}" if spouse_middle
       elsif spouse_last && spouse_last != primary_last # spouse with different last name
         name_line << "<#{formatted_last_name(primary_last)}"
         name_line << if primary_suffix
-                       "<#{primary_suffix.upcase} & #{formatted_first_name(spouse_first)}"
+                       "<#{primary_suffix.upcase} & #{formatted_first_or_middle_name(spouse_first)}"
                      else
-                       "<& #{formatted_first_name(spouse_first)}"
+                       "<& #{formatted_first_or_middle_name(spouse_first)}"
                      end
-        name_line << " #{spouse_middle.upcase}" if spouse_middle
+        name_line << " #{formatted_first_or_middle_name(spouse_middle.upcase)}" if spouse_middle
         name_line << " #{formatted_last_name(spouse_last)}"
         return name_line
       end
@@ -110,7 +110,7 @@ module SubmissionBuilder
 
     private
 
-    def formatted_first_name(name)
+    def formatted_first_or_middle_name(name)
       # removes accented characters and any special characters, except space
       I18n.transliterate(name).strip.upcase.gsub(/[^A-Z\s]/, '')
     end

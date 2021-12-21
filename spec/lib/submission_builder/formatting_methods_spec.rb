@@ -22,6 +22,13 @@ describe SubmissionBuilder::FormattingMethods do
         end
       end
 
+      context 'with an accented middle initial' do
+        let(:primary_middle) { "Ç" }
+        it 'formats it correctly' do
+          expect(formatted_name).to eq("SAMANTHA C<SEASHELLS")
+        end
+      end
+
       context 'with an accent' do
         let(:primary_first) { "Sám" }
         it 'formats it correctly' do
@@ -70,18 +77,18 @@ describe SubmissionBuilder::FormattingMethods do
 
     context 'when there is a spouse name' do
       let(:spouse_first) { "Cora" }
-      let(:spouse_middle) { "O" }
+      let(:spouse_middle) { "Ç" }
 
       context "with a different last name" do
         let(:spouse_last) { "Coconut" }
         it 'formats it correctly' do
-          expect(formatted_name).to eq("SAMANTHA<SEASHELLS<& CORA O COCONUT")
+          expect(formatted_name).to eq("SAMANTHA<SEASHELLS<& CORA C COCONUT")
         end
 
         context 'with a primary suffix' do
           let(:primary_suffix) { "Jr" }
           it 'formats it correctly' do
-            expect(formatted_name).to eq("SAMANTHA<SEASHELLS<JR & CORA O C")
+            expect(formatted_name).to eq("SAMANTHA<SEASHELLS<JR & CORA C C")
           end
         end
 
@@ -96,7 +103,7 @@ describe SubmissionBuilder::FormattingMethods do
           context "due to a long last name" do
             let(:spouse_last) { "Coooooooocoooooooooooonut" }
             it "truncates it correctly" do
-              expect(formatted_name).to eq("SAMANTHA<SEASHELLS<& CORA O C")
+              expect(formatted_name).to eq("SAMANTHA<SEASHELLS<& CORA C C")
             end
           end
         end
@@ -105,13 +112,13 @@ describe SubmissionBuilder::FormattingMethods do
       context "with the same last name" do
         let(:spouse_last) { "Seashells" }
         it 'formats it correctly' do
-          expect(formatted_name).to eq("SAMANTHA & CORA O<SEASHELLS")
+          expect(formatted_name).to eq("SAMANTHA & CORA C<SEASHELLS")
         end
 
         context 'with a primary suffix' do
           let(:primary_suffix) { "Jr" }
           it 'formats it correctly' do
-            expect(formatted_name).to eq("SAMANTHA & CORA O<SEASHELLS<JR")
+            expect(formatted_name).to eq("SAMANTHA & CORA C<SEASHELLS<JR")
           end
         end
 
