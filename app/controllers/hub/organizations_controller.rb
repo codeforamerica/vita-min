@@ -2,19 +2,14 @@ module Hub
   class OrganizationsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    load_and_authorize_resource :organization, parent: false
+
     before_action :load_coalitions
+    load_and_authorize_resource
 
     layout "hub"
 
-    def new; end
-
-    def create
-      if @organization.save
-        redirect_to hub_organizations_path
-      else
-        render :new
-      end
+    def index
+      @presenter = Hub::OrganizationsPresenter.new(current_ability)
     end
 
     def show
@@ -23,17 +18,28 @@ module Hub
       @sites = @organization.child_sites
     end
 
-    def index
-      @presenter = Hub::OrganizationsPresenter.new(current_ability)
+    def new
+      @organization_form = OrganizationForm.new(Organization.new, {})
     end
 
     def edit
       @routing_form = ZipCodeRoutingForm.new(@organization)
       @source_params_form = SourceParamsForm.new(@organization)
+      @organization_form = OrganizationForm.from_record(@organization)
+    end
+
+    def create
+      @organization_form = OrganizationForm.new(@organization, organization_form_params)
+      if @organization_form.save
+        redirect_to hub_organizations_path
+      else
+        render :new
+      end
     end
 
     def update
-      if @organization.update(organization_params)
+      @organization_form = OrganizationForm.new(@organization, organization_form_params)
+      if @organization_form.save
         flash[:notice] = I18n.t("general.changes_saved")
         redirect_to edit_hub_organization_path(id: @organization.id)
       else
@@ -86,8 +92,10 @@ module Hub
       params.require(:role_type)
     end
 
-    def organization_params
-      params.require(:organization).permit(:name, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code])
+    def organization_form_params
+      params.require(:hub_organization_form).permit(
+        :name, :is_independent, :states, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code]
+      )
     end
 
     def load_coalitions

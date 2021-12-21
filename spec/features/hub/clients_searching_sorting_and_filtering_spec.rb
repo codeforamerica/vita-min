@@ -1,12 +1,8 @@
 require "rails_helper"
 
-def fill_in_tagify(element, value)
-  find(element).click
-  find("#{element} .tagify__input").send_keys value
-  find("#{element} .tagify__input").send_keys :enter
-end
-
 RSpec.describe "searching, sorting, and filtering clients" do
+  include FeatureTestHelpers
+
   context "as an admin user" do
     let(:user) { create :admin_user }
     let(:mona_user) { create :user, name: "Mona Mandarin" }

@@ -74,7 +74,7 @@ describe Organization do
       expect(organization.team_members).to match_array([site1_team_member, site2_team_member])
     end
   end
-  
+
   describe "#at_capacity?" do
     let(:out_of_range_statuses) { TaxReturnStatus::STATUSES.keys - TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
     let(:in_range_statuses) { TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
@@ -184,32 +184,71 @@ describe Organization do
   end
 
   describe "validations" do
-    let!(:valid_params) {
+    let(:capacity_limit) { nil }
+    let(:state_routing_targets) { [] }
+    let(:coalition) { nil }
+    let(:params) {
       {
-        name: "Coala Org"
+        coalition: coalition,
+        name: "Coala Org",
+        state_routing_targets: state_routing_targets,
+        capacity_limit: capacity_limit,
       }
     }
-    it "can be valid" do
-      expect(described_class.new(valid_params)).to be_valid
+    let(:subject) { described_class.new(params) }
+
+    context "with valid params" do
+      it "is valid" do
+        expect(subject).to be_valid
+      end
     end
 
-    it "validates that capacity limit is a number" do
-      valid_params[:capacity_limit] = "not number"
+    context "when capacity limit is not a number" do
+      let(:capacity_limit) { "not number" }
 
-      expect(described_class.new(valid_params)).not_to be_valid
+      it "is not valid" do
+        expect(subject).not_to be_valid
+        expect(subject.errors).to include(:capacity_limit)
+      end
     end
 
-    it "validates that capacity limit is a positive number" do
-      valid_params[:capacity_limit] = -1
-
-      expect(described_class.new(valid_params)).not_to be_valid
+    context "when capacity limit is negative" do
+      let(:capacity_limit) { -1 }
+      it "is not valid" do
+        expect(subject).not_to be_valid
+        expect(subject.errors).to include(:capacity_limit)
+      end
     end
 
-    it "cannot have the same name as another organization in the same coalition" do
-      coalition = create :coalition
-      create(:organization, coalition: coalition, name: "Oregano Org")
-      new_org = build(:organization, coalition: coalition, name: "Oregano Org")
-      expect(new_org).not_to be_valid
+    context "when it shares the name as another organization in the same coalition" do
+      let(:coalition) { create(:coalition) }
+
+      before do
+        create(:organization, coalition: coalition, name: "Oregano Org")
+      end
+
+      it "is not valid" do
+        new_org = build(:organization, coalition: coalition, name: "Oregano Org")
+        expect(new_org).not_to be_valid
+        expect(new_org.errors).to include(:name)
+      end
+    end
+
+    context "when it is part of a coalition" do
+      let(:coalition) { build(:coalition) }
+
+      it "can be valid" do
+        expect(subject).to be_valid
+      end
+
+      context "when it also has state routing targets" do
+        let(:state_routing_targets) { [build(:state_routing_target, state_abbreviation: "CA")] }
+
+        it "is not valid" do
+          expect(subject).not_to be_valid
+          expect(subject.errors).to include(:coalition)
+        end
+      end
     end
   end
 

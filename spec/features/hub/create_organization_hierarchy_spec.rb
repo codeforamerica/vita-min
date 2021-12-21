@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "create VITA organization hierarchy", :js do
+  include FeatureTestHelpers
+
   context "as an admin user" do
     let(:admin_user) { create :admin_user }
     before { login_as admin_user }
@@ -14,7 +16,7 @@ RSpec.describe "create VITA organization hierarchy", :js do
       create :state_routing_target, target: coati_coalition, state_abbreviation: "WA"
     end
 
-    scenario "create a new organization" do
+    scenario "create a new organization in a coalition" do
       visit hub_tools_path
       click_on "Orgs"
 
@@ -25,7 +27,7 @@ RSpec.describe "create VITA organization hierarchy", :js do
         expect(page).to have_selector("li", text: "Orangutan Organization")
       end
 
-      # create a new organization
+      # create a new organization in a coalition
       click_on "Add new organization"
       fill_in "Name", with: "Origami Organization"
       select "Koala Koalition", from: "Coalition"
@@ -105,6 +107,22 @@ RSpec.describe "create VITA organization hierarchy", :js do
       within "#california" do
         expect(page).to have_text("Oregano Org")
       end
+    end
+
+    scenario "create a new independent organization" do
+      visit hub_tools_path
+      click_on "Orgs"
+
+      click_on "Add new organization"
+      fill_in "Name", with: "Independent Wombat Organization"
+      check "This organization is not part of a coalition"
+      fill_in_tagify ".state-select", "California"
+      click_on "Save"
+
+      # Validate that the state saved
+      click_on "Independent Wombat Organization"
+      expect(page).to have_text("California")
+      expect(page).not_to have_text("Ohio")
     end
   end
 end
