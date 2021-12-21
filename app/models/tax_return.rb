@@ -145,7 +145,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def record_expected_payments!
-    raise StandardError, "Cannot record payments on tax return that is not accepted" unless status == "file_accepted"
+    raise StandardError, "Cannot record payments on tax return that is not accepted" unless current_state == "file_accepted"
 
     create_accepted_tax_return_analytics!(
       advance_ctc_amount_cents: expected_advance_ctc_payments ? expected_advance_ctc_payments * 100 : 0,

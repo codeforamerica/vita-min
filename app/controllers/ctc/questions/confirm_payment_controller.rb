@@ -21,7 +21,7 @@ module Ctc
       end
 
       def do_not_file
-        current_intake.tax_return(2020).update(status: :file_not_filing)
+        current_intake.tax_return(2020).transition_to(:file_not_filing)
         session.delete("intake_id")
         flash[:notice] = I18n.t('views.ctc.questions.confirm_payment.do_not_file_flash_message')
         redirect_to root_path

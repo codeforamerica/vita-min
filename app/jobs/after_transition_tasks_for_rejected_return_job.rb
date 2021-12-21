@@ -2,7 +2,7 @@ class AfterTransitionTasksForRejectedReturnJob < ApplicationJob
   def perform(submission, transition)
     transition ||= submission.last_transition
 
-    submission.tax_return.update(status: "file_rejected")
+    submission.tax_return.transition_to(:file_rejected)
 
     Efile::SubmissionErrorParser.persist_errors(transition)
 
