@@ -10,7 +10,7 @@
       <div class="spacing-below-25">
         With duplicated bank data:
         <% @duplicate_bank_client_ids.each do |id| %>
-          <%= link_to "##{id}", hub_client_path(id) %>
+          <%= link_to "##{id}", hub_client_path(id: id) %>
         <% end %>
       </div>
     <% end %>
