@@ -166,7 +166,6 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(changes_table_contents('.changes-table')).to match({
         "eip1_and_2_amount_received_confidence" => ["sure", "nil"],
         "preferred_name" => ["Colleen Cauliflower", "Colly Cauliflower"],
-        "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
         "spouse_tin_type" => ["nil", "ssn"],
       })
     end

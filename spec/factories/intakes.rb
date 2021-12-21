@@ -327,8 +327,6 @@ FactoryBot.define do
   trait :with_ssns do
     primary_ssn { generate_fake_ssn.call }
     spouse_ssn { generate_fake_ssn.call }
-    primary_last_four_ssn { primary_ssn.to_s.last(4) }
-    spouse_last_four_ssn { primary_ssn.to_s.last(4) }
   end
 
   trait :with_documents do

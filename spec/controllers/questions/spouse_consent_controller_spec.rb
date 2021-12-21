@@ -34,7 +34,9 @@ RSpec.describe Questions::SpouseConsentController do
             birth_date_day: "10",
             spouse_first_name: "Greta",
             spouse_last_name: "Gnome",
-            spouse_last_four_ssn: "5678"
+            spouse_ssn: "123456789",
+            spouse_ssn_confirmation: "123456789",
+            spouse_tin_type: "ssn"
           }
         }
       end
@@ -70,7 +72,8 @@ RSpec.describe Questions::SpouseConsentController do
             birth_date_day: "10",
             spouse_first_name: "George",
             spouse_last_name: nil,
-            spouse_last_four_ssn: nil
+            spouse_ssn: nil,
+            spouse_tin_type: nil,
           }
         }
       end
@@ -80,7 +83,8 @@ RSpec.describe Questions::SpouseConsentController do
 
         expect(response).to render_template :edit
         error_messages = assigns(:form).errors.messages
-        expect(error_messages[:spouse_last_four_ssn].first).to eq "Please enter the last four digits of your spouse's SSN or ITIN."
+        expect(error_messages[:spouse_ssn].first).to eq "Spouse SSN or ITIN is required."
+        expect(error_messages[:spouse_tin_type].first).to eq "Identification type is required."
         expect(error_messages[:spouse_last_name].first).to eq "Please enter your spouse's last name."
       end
     end

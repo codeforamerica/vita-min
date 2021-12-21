@@ -284,6 +284,8 @@ class Intake < ApplicationRecord
       self.email_domain = email_address.split('@').last.downcase
       self.canonical_email_address = compute_canonical_email_address
     end
+    self.primary_last_four_ssn = primary_ssn&.last(4) if encrypted_primary_ssn_changed?
+    self.spouse_last_four_ssn = spouse_ssn&.last(4) if encrypted_spouse_ssn_changed?
   end
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
