@@ -30,7 +30,7 @@ describe Ctc::IpPinForm do
         it "shows error on ‘None of the above’ option" do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
-          expect(form.errors.keys).to match_array([:no_ip_pins])
+          expect(form.errors.attribute_names).to match_array([:no_ip_pins])
         end
       end
 
@@ -44,7 +44,7 @@ describe Ctc::IpPinForm do
         it "shows error on ‘None of the above’ option" do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
-          expect(form.errors.keys).to match_array([:no_ip_pins])
+          expect(form.errors.attribute_names).to match_array([:no_ip_pins])
         end
       end
     end

@@ -49,8 +49,8 @@ describe Ctc::IpPinEntryForm do
       it "shows errors on each empty field" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
-        expect(form.errors.keys).to match_array([:primary_ip_pin, :spouse_ip_pin])
-        expect(form.dependents.first.errors.keys).to match_array([:ip_pin])
+        expect(form.errors.attribute_names).to match_array([:primary_ip_pin, :spouse_ip_pin])
+        expect(form.dependents.first.errors.attribute_names).to match_array([:ip_pin])
       end
 
       it "displays the errored values on dependents" do
@@ -70,8 +70,8 @@ describe Ctc::IpPinEntryForm do
       it "shows errors on each empty field" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
-        expect(form.errors.keys).to match_array([:primary_ip_pin, :spouse_ip_pin])
-        expect(form.dependents.first.errors.keys).to match_array([:ip_pin])
+        expect(form.errors.attribute_names).to match_array([:primary_ip_pin, :spouse_ip_pin])
+        expect(form.dependents.first.errors.attribute_names).to match_array([:ip_pin])
       end
     end
 
@@ -85,8 +85,8 @@ describe Ctc::IpPinEntryForm do
       it "shows errors on each field" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
-        expect(form.errors.keys).to match_array([:primary_ip_pin, :spouse_ip_pin])
-        expect(form.dependents.first.errors.keys).to match_array([:ip_pin])
+        expect(form.errors.attribute_names).to match_array([:primary_ip_pin, :spouse_ip_pin])
+        expect(form.dependents.first.errors.attribute_names).to match_array([:ip_pin])
       end
     end
   end

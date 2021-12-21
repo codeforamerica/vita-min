@@ -56,7 +56,7 @@ describe Ctc::Questions::Dependents::ChildDisqualifiersController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:none_selected)
+        expect(assigns(:form).errors.attribute_names).to include(:none_selected)
       end
     end
   end

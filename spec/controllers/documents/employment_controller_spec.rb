@@ -93,7 +93,7 @@ RSpec.describe Documents::EmploymentController, type: :controller do
     end
 
     context "with a non-image document" do
-      let(:document_path) { Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf") }
+      let(:document_path) { Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf") }
 
       it "renders the thumbnails" do
         create :document, document_type: "Employment", intake: intake,
@@ -110,7 +110,7 @@ RSpec.describe Documents::EmploymentController, type: :controller do
       let(:valid_params) do
         {
             document_type_upload_form: {
-                document: fixture_file_upload("attachments/test-pattern.png", "image/png")
+                document: fixture_file_upload("test-pattern.png", "image/png")
             }
         }
       end

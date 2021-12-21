@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 gem 'rack', '>= 2.0.8'
-gem 'rails', '>= 6.0.3.7'
+gem 'rails', '>= 6.1'
 gem 'puma', '>= 5.3.2'
 gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main'

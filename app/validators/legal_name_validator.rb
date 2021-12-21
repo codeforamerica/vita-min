@@ -5,7 +5,7 @@ class LegalNameValidator < ActiveModel::EachValidator
     return if value.blank?
 
     unless I18n.transliterate(value).match? NAME_REGEXP
-      record.errors[attr_name] << I18n.t('validators.legal_name')
+      record.errors.add(attr_name, I18n.t('validators.legal_name'))
     end
   end
 end

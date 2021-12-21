@@ -103,7 +103,7 @@ describe Ctc::Questions::Dependents::InfoController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:first_name)
+        expect(assigns(:form).errors.attribute_names).to include(:first_name)
       end
     end
   end

@@ -53,7 +53,7 @@ describe Ctc::Questions::Dependents::ChildLivedWithYouController do
       it "re-renders the form with errors" do
         post :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors.keys).to include(:lived_with_more_than_six_months)
+        expect(assigns(:form).errors.attribute_names).to include(:lived_with_more_than_six_months)
       end
     end
   end

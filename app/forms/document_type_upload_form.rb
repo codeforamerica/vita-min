@@ -19,7 +19,7 @@ class DocumentTypeUploadForm < QuestionsForm
   def instantiate_document
     document_file_upload = attributes_for(:intake)[:document]
     if document_file_upload.blank?
-      errors[:document] << I18n.t("validators.file_type")
+      errors.add(:document, I18n.t("validators.file_type"))
       return
     end
 
@@ -39,7 +39,7 @@ class DocumentTypeUploadForm < QuestionsForm
     if doc.valid?
       @doc = doc
     else
-      doc.errors.values.flatten.each { |msg| errors[:document] << msg }
+      doc.errors.map { |error| error.message }.flatten.each { |msg| errors.add(:document, msg) }
     end
   end
 end

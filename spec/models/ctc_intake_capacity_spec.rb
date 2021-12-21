@@ -24,7 +24,7 @@ RSpec.describe CtcIntakeCapacity, type: :model do
     it "requires user and capacity" do
       record = CtcIntakeCapacity.new
       expect(record).not_to be_valid
-      expect(record.errors.keys).to match_array([:user, :capacity])
+      expect(record.errors.attribute_names).to match_array([:user, :capacity])
       expect(CtcIntakeCapacity.new(capacity: 0, user: build(:admin_user))).to be_valid
     end
   end

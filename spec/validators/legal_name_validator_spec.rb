@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe LegalNameValidator do
   subject { described_class.new(attributes: [:primary_first_name]) }
 
-  let!(:record) { OpenStruct.new(errors: { primary_first_name: [] }) }
+  let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
 
   specify do
     assert_invalid("Rainbows🌈")

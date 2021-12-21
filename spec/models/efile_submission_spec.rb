@@ -167,7 +167,7 @@ describe EfileSubmission do
       end
 
       context "after transition to" do
-        let!(:submission) { create(:efile_submission, :preparing, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"), 'rb') }) }
+        let!(:submission) { create(:efile_submission, :preparing, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
 
         it "queues a GyrEfilerSendSubmissionJob" do
           expect do
@@ -220,7 +220,7 @@ describe EfileSubmission do
 
       context "after transition to" do
         before { allow(MixpanelService).to receive(:send_event) }
-        let!(:submission) { create(:efile_submission, :queued, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"), 'rb') }) }
+        let!(:submission) { create(:efile_submission, :queued, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
 
         it "sends a mixpanel event" do
           submission.transition_to!(:transmitted)
@@ -243,7 +243,7 @@ describe EfileSubmission do
           allow(submission.tax_return).to receive(:expected_recovery_rebate_credit_three).and_return(3000)
         end
 
-        let!(:submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"), 'rb') }) }
+        let!(:submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
 
         it "sends a mixpanel event" do
           submission.transition_to!(:accepted)
@@ -364,7 +364,7 @@ describe EfileSubmission do
 
   describe "#generate_form_1040_pdf" do
     let(:submission) { create :efile_submission, :ctc }
-    let(:example_pdf) { File.open(Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), "rb") }
+    let(:example_pdf) { File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "rb") }
 
     before do
       allow(AdvCtcIrs1040Pdf).to receive(:new).and_return(instance_double(AdvCtcIrs1040Pdf, output_file: example_pdf))
@@ -376,7 +376,7 @@ describe EfileSubmission do
       expect(doc.display_name).to eq("IRS 1040 - TY 2020 - #{submission.irs_submission_id}.pdf")
       expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
       expect(doc.tax_return).to eq(submission.tax_return)
-      expect(doc.upload.blob.download).to eq(File.open(Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), "rb").read)
+      expect(doc.upload.blob.download).to eq(File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "rb").read)
     end
   end
 
