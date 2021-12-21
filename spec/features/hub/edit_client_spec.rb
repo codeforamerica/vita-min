@@ -116,27 +116,27 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Legal first name", with: "Laura"
         expect(find_field("hub_update_client_form[dependents_attributes][0][first_name]").value).to eq "Laura"
         fill_in "Legal last name", with: "Peaches"
-        select "December", from: "Month"
-        select "1", from: "Day"
-        select "2008", from: "Year"
+        field_id = all(".dependent-form")[0].first("input")["id"].tr('^0-9', '')
+        fill_in "hub_update_client_form_dependents_attributes_#{field_id}_birth_date_month", with: "12"
+        fill_in "hub_update_client_form_dependents_attributes_#{field_id}_birth_date_day", with: "1"
+        fill_in "hub_update_client_form_dependents_attributes_#{field_id}_birth_date_year", with: "2008"
 
         click_on "Add dependent"
-
         new_field_id = all(".dependent-form")[1].first("input")["id"].tr('^0-9', '')
         expect(find_field("hub_update_client_form[dependents_attributes][#{new_field_id}][first_name]").value).to eq ""
         fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_first_name", with: "Paul"
         fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_last_name", with: "Pumpkin"
-        select "October", from: "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_month"
-        select "31", from: "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_day"
-        select "2020", from: "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_year"
+        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_month", with: "10"
+        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_day", with: "31"
+        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_year", with: "2020"
 
         click_on "Add dependent"
         new_field_id = all(".dependent-form")[2].first("input")["id"].tr('^0-9', '')
         expect(find_field("hub_update_client_form[dependents_attributes][#{new_field_id}][first_name]").value).to eq ""
-        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_first_name", with: "Cranberry"
-        select "November", from: "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_month"
-        select "25", from: "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_day"
-        select "2019", from: "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_year"
+        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_first_name", with: "Candice"
+        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_month", with: "11"
+        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_day", with: "25"
+        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_year", with: "2019"
 
         click_on "Add dependent"
         new_section = all(".dependent-form")[3]
@@ -159,8 +159,7 @@ RSpec.describe "a user editing a clients intake fields" do
 
       within "#dependents-fields" do
         new_field_id = all(".dependent-form").last.first("input")["id"].tr('^0-9', '')
-        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_last_name", with: "Chung"
-        select "2019", from: "hub_update_client_form_dependents_attributes_#{new_field_id}_birth_date_year"
+        fill_in "hub_update_client_form_dependents_attributes_#{new_field_id}_last_name", with: "Cranberry"
       end
 
       click_on "Save"
@@ -181,7 +180,7 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(page).to have_text "12/1/2008"
         expect(page).to have_text "Paul Pumpkin"
         expect(page).to have_text "10/31/2020"
-        expect(page).to have_text "Cranberry Chung"
+        expect(page).to have_text "Candice Cranberry"
         expect(page).to have_text "11/25/2019"
       end
       expect(page).to have_text "Navigator type"

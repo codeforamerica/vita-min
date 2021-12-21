@@ -8,14 +8,11 @@
     <%= f.cfa_select(:suffix, t("hub.clients.fields.suffix"), suffix_options_for_select, include_blank: true) %>
   <% end %>
 
-  <%= f.cfa_date_select(
+  <%= f.vita_min_date_text_fields(
           :birth_date,
-          t("views.questions.consent.birth_date"),
-          options: {
-              start_year: Time.now.year,
-              end_year: Time.now.year - 120,
-          }
-      ) %>
+          t("hub.clients.show.date_of_birth"),
+          help_text: t("hub.clients.show.date_of_birth_help"),
+          ) %>
     <%= f.cfa_select(
             :relationship,
             "Relationship",
