@@ -87,8 +87,8 @@
             <h2 class="provider-field__label h3"><%=t("general.phone_number") %></h2>
             <div class="provider-field__value">
               <% if @provider.phone_number.present? %>
-                <%= link_to "tel:#{@provider.sanitized_phone_number}", title: t("views.vita_providers.show.phone_number_title", :provider_name => @provider.name) do %>
-                  <%= @provider.formatted_phone_number %>
+                <%= link_to phone_number_link(@provider.phone_number), title: t("views.vita_providers.show.phone_number_title", :provider_name => @provider.name) do %>
+                  <%= formatted_phone_number(@provider.phone_number) %>
                 <% end %>
               <% else %>
                 <%=t("views.vita_providers.show.no_phone_number_listed") %>

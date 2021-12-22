@@ -50,10 +50,10 @@ describe PhoneParser do
     end
   end
 
-  describe ".with_country_code" do
-    it "returns a concise phone number with country code" do
-      expect(described_class.with_country_code("4158161286")).to eq "14158161286"
-      expect(described_class.with_country_code("14158161286")).to eq "14158161286"
+  describe ".phone_number_link" do
+    it "returns a concise phone number link with country code" do
+      expect(described_class.phone_number_link("4158161286")).to eq "tel:+14158161286"
+      expect(described_class.phone_number_link("14158161286")).to eq "tel:+14158161286"
     end
   end
 end
