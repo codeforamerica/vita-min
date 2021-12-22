@@ -41,6 +41,12 @@ describe PhoneParser do
         expect(described_class.normalize("415")).to eq("415")
       end
     end
+
+    context "with an integer phone number" do
+      it "returns the normalized number" do
+        expect(described_class.normalize(4158161286)).to eq("+14158161286")
+      end
+    end
   end
 
   describe ".formatted_phone_number" do
