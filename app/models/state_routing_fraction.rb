@@ -23,7 +23,7 @@ class StateRoutingFraction < ApplicationRecord
   belongs_to :vita_partner
   belongs_to :organization, optional: true, foreign_key: 'vita_partner_id', class_name: 'Organization'
   belongs_to :site, optional: true, foreign_key: 'vita_partner_id', class_name: 'Site'
-  belongs_to :state_routing_target
+  belongs_to :state_routing_target, foreign_key: :state_routing_target_id
 
   def routing_percentage
     (routing_fraction * 100).to_i
