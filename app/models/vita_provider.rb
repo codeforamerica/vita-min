@@ -90,10 +90,6 @@ class VitaProvider < ApplicationRecord
     PhoneParser.formatted_phone_number(phone_number)
   end
 
-  def sanitized_phone_number
-    PhoneParser.with_country_code(phone_number)
-  end
-
   def google_maps_url
     zoom_level = 16
     escaped_address = CGI.escape("#{street_address} #{unit} #{city_state_zip}").gsub(" ", "+")

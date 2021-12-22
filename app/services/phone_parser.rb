@@ -23,16 +23,19 @@ class PhoneParser
     end
   end
 
-  def self.with_country_code(raw_phone_number)
+  def self.phone_number_link(raw_phone_number)
     return nil if raw_phone_number.nil?
     return "" if raw_phone_number == ""
 
     phony_normalized = Phony.normalize(raw_phone_number, cc: '1')
-    if Phony.plausible?(phony_normalized)
-      phony_normalized
-    else
-      raw_phone_number
-    end
+    number =
+      if Phony.plausible?(phony_normalized)
+        phony_normalized
+      else
+        raw_phone_number
+      end
+
+    "tel:+#{number}"
   end
 
   def self.valid?(raw_phone_number)
