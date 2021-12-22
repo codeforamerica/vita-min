@@ -39,7 +39,7 @@ module TimeHelper
     datetime.strftime(format)
   end
 
-  def formatted_business_days_ago(time)
+  def business_days_ago(time)
     return unless time
 
     converted_time = Date.parse(time.utc.to_s)

@@ -184,29 +184,30 @@ RSpec.describe "searching, sorting, and filtering clients" do
         # return to default sort order
         click_link "sort-first_unanswered_incoming_interaction_at"
         expect(page.all('.client-row')[0]).to have_text(alan_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[0]).to have_text("7 business days")
+        expect(page.all('.client-row')[0]).to have_text("7 days")
         expect(page.all('.client-row')[0]).to have_css(".text--red-bold")
         expect(page.all('.client-row')[1]).to have_text(betty_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[1]).to have_text("4 business days")
+        expect(page.all('.client-row')[1]).to have_text("1 day")
         expect(page.all('.client-row')[1]).not_to have_css(".text--red-bold")
         expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
-        expect(page.all('.client-row')[2]).to have_text("1 business day")
+        expect(page.all('.client-row')[2]).to have_text("1 day")
         expect(page.all('.client-row')[3]).to have_text(zach_prep_ready_for_call.preferred_name)
-        expect(page.all('.client-row')[3]).to have_text("1 business day")
+        expect(page.all('.client-row')[3]).to have_css(".text--red-bold")
+        expect(page.all('.client-row')[3]).to have_text("4 days")
 
         click_link "sort-last_outgoing_communication_at"
         expect(page.all('.client-row')[0]).to have_text(alan_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[0]).to have_text("7 business days")
+        expect(page.all('.client-row')[0]).to have_text("7 days")
         expect(page.all('.client-row')[0]).to have_css(".text--red-bold")
         expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
-        expect(page.all('.client-row')[1]).to have_text("4 business days")
-        expect(page.all('.client-row')[1]).not_to have_css(".text--red-bold")
+        expect(page.all('.client-row')[1]).to have_text("4 days")
         expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
-        expect(page.all('.client-row')[2]).to have_text("1 business day")
+        expect(page.all('.client-row')[2]).to have_text("1 day")
+        expect(page.all('.client-row')[2]).not_to have_css(".text--red-bold")
         expect(page.all('.client-row')[3]).to have_text(marty_ctc.preferred_name)
-        expect(page.all('.client-row')[3]).to have_text("1 business day")
+        expect(page.all('.client-row')[3]).to have_text("1 day")
         expect(page.all('.client-row')[4]).to have_text(betty_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[4]).to have_text("1 business day")
+        expect(page.all('.client-row')[4]).to have_text("1 day")
 
         within ".filter-form" do
           select "2019", from: "year"

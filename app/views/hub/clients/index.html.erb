@@ -54,10 +54,10 @@
             <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
           </th>
           <th scope="col" class="index-table__header">
-            <%= render "shared/column_sort_link", title: t("hub.waiting_on_response"), column_name: "first_unanswered_incoming_interaction_at" %>
+            <%= render "shared/column_sort_link", title: t("hub.last_contact"), column_name: "last_outgoing_communication_at" %>
           </th>
           <th scope="col" class="index-table__header">
-            <%= render "shared/column_sort_link", title: t("hub.last_outgoing_message"), column_name: "last_outgoing_communication_at" %>
+            <%= render "shared/column_sort_link", title: t("hub.waiting_on"), column_name: "first_unanswered_incoming_interaction_at" %>
           </th>
           <th scope="col" class="index-table__header">
             <%= render "shared/column_sort_link", title: t(".created_at"), column_name: "created_at" %>
@@ -107,20 +107,24 @@
             <td class="index-table__cell"><%= "✓" if client.intake.had_unemployment_income == "yes" %></td>
             <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
 
-            <% if client.first_unanswered_incoming_interaction_at.present? %>
-              <% business_days_count = formatted_business_days_ago(client.first_unanswered_incoming_interaction_at) %>
-              <% business_days_urgent = business_days_count >= 7 ? "text--red-bold" : "" %>
-              <td class="index-table__cell <%= business_days_urgent %>"><%= t("general.business_days", count: business_days_count) %></td>
+            <% if client.last_outgoing_communication_at.present? %>
+              <% business_days_count = business_days_ago(client.last_outgoing_communication_at) %>
+              <% business_days_urgent = business_days_count > 3 ? "text--red-bold" : "" %>
+              <td class="index-table__cell <%= business_days_urgent %>">
+                <% if business_days_count > 0 %>
+                  <%= t("general.days", count: business_days_count) %>
+                <% else %>
+                  <%= t("general.less_than_one_day") %>
+                <% end %>
+              </td>
             <% else %>
               <td class="index-table__cell"></td>
             <% end %>
 
-            <% if client.last_outgoing_communication_at.present? %>
-              <% business_days_count = formatted_business_days_ago(client.last_outgoing_communication_at) %>
-              <% business_days_urgent = business_days_count >= 7 ? "text--red-bold" : "" %>
-              <td class="index-table__cell <%= business_days_urgent %>"><%= t("general.business_days", count: business_days_count) %></td>
+            <% if client.first_unanswered_incoming_interaction_at.present? %>
+              <td class="index-table__cell"><%= t("general.response") %></td>
             <% else %>
-              <td class="index-table__cell"></td>
+              <td class="index-table__cell"><%= t("general.update") %></td>
             <% end %>
 
             <td class="index-table__cell"><%= formatted_datetime(client.intake.created_at) || "-" %> </td>

@@ -356,10 +356,10 @@ RSpec.describe Hub::ClientsController do
           expect(tobias_2018_assignee).to have_text "Lindsay"
         end
 
-        context "when a client needs a response" do
+        context "when a client is flagged" do
           before { tobias.touch(:flagged_at) }
 
-          it "adds the needs response icon into the DOM" do
+          it "adds the flagged icon into the DOM" do
             get :index
 
             html = Nokogiri::HTML.parse(response.body)
@@ -733,6 +733,50 @@ RSpec.describe Hub::ClientsController do
               expect(assigns(:clients)).to include greetable_client
               expect(assigns(:clients)).not_to include not_greetable_client
             end
+          end
+        end
+      end
+
+      context "SLA columns" do
+        render_views
+        around do |example|
+          Timecop.freeze(DateTime.new(2021, 12, 21, 8))
+          example.run
+          Timecop.return
+        end
+
+        context "last contact" do
+          let!(:client_less_than_one_business_day) { create :client, :with_return, last_outgoing_communication_at: 1.hour.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_one_business_day) { create :client, :with_return, last_outgoing_communication_at: 1.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_three_business_days) { create :client, :with_return, last_outgoing_communication_at: 3.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_four_business_days) { create :client, :with_return, last_outgoing_communication_at: 4.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+
+          it "shows the number of business days since a client was contacted" do
+            get :index
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("#client-#{client_less_than_one_business_day.id}")).to have_text("<1 day")
+            expect(html.at_css("#client-#{client_one_business_day.id}")).to have_text("1 day")
+            expect(html.at_css("#client-#{client_three_business_days.id}")).to have_text("3 days")
+            expect(html.at_css("#client-#{client_four_business_days.id}")).to have_text("4 days")
+            expect(html.at_css("#client-#{client_four_business_days.id}")).to have_css(".text--red-bold")
+          end
+        end
+
+        context "waiting on response or update" do
+          let!(:client_update) { create :client, :with_return, first_unanswered_incoming_interaction_at: nil, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_response_min) { create :client, :with_return, first_unanswered_incoming_interaction_at: 32.minutes.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_response_hours) { create :client, :with_return, first_unanswered_incoming_interaction_at: 5.hours.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+          let!(:client_response_days) { create :client, :with_return, first_unanswered_incoming_interaction_at: 1.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
+
+          it "shows whether a client is waiting for a response or update and how long they have been waiting for a response" do
+            get :index
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("#client-#{client_update.id}").children[17].text).to eq("Update")
+            expect(html.at_css("#client-#{client_response_min.id}").children[17].text).to eq("Response")
+            expect(html.at_css("#client-#{client_response_hours.id}").children[17].text).to eq("Response")
+            expect(html.at_css("#client-#{client_response_days.id}").children[17].text).to eq("Response")
           end
         end
       end
