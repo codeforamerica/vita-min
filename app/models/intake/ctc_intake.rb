@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
+#  advance_ctc_amount_received                          :integer
 #  already_applied_for_stimulus                         :integer          default(0), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
@@ -47,6 +48,7 @@
 #  eip1_entry_method                                    :integer          default("unfilled"), not null
 #  eip2_amount_received                                 :integer
 #  eip2_entry_method                                    :integer          default("unfilled"), not null
+#  eip3_amount_received                                 :integer
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -141,6 +143,7 @@
 #  phone_number_can_receive_texts                       :integer          default(0), not null
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
+#  preferred_written_language                           :string
 #  primary_active_armed_forces                          :integer          default("unfilled"), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null

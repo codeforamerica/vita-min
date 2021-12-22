@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_13_204245) do
+ActiveRecord::Schema.define(version: 2021_12_22_155434) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -843,6 +843,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_204245) do
   create_table "intakes", force: :cascade do |t|
     t.string "additional_info"
     t.integer "adopted_child", default: 0, null: false
+    t.integer "advance_ctc_amount_received"
     t.integer "already_applied_for_stimulus", default: 0, null: false
     t.integer "already_filed", default: 0, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
@@ -887,6 +888,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_204245) do
     t.integer "eip1_entry_method", default: 0, null: false
     t.integer "eip2_amount_received"
     t.integer "eip2_entry_method", default: 0, null: false
+    t.integer "eip3_amount_received"
     t.boolean "eip_only"
     t.citext "email_address"
     t.datetime "email_address_verified_at"
@@ -981,6 +983,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_204245) do
     t.integer "phone_number_can_receive_texts", default: 0, null: false
     t.string "preferred_interview_language"
     t.string "preferred_name"
+    t.string "preferred_written_language"
     t.integer "primary_active_armed_forces", default: 0, null: false
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false

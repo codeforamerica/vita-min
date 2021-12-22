@@ -2,7 +2,7 @@ class IntakePdf
   include PdfHelper
 
   def source_pdf_name
-    "f13614c-TY2020"
+    "f13614c-TY2021"
   end
 
   def initialize(intake)
@@ -16,81 +16,86 @@ class IntakePdf
       city: @intake.city,
       state: @intake.state&.upcase,
       zip_code: @intake.zip_code,
+
       claimed_by_another: @intake.claimed_by_another,
-      never_married: yes_no_unfilled_to_opposite_checkbox_0(@intake.ever_married),
-      married: yes_no_unfilled_to_checkbox_0(@intake.married),
-      divorced: yes_no_unfilled_to_checkbox_0(@intake.divorced),
-      widowed: yes_no_unfilled_to_checkbox_0(@intake.widowed),
-      legally_separated: yes_no_unfilled_to_checkbox_0(@intake.separated),
+      never_married: yes_no_unfilled_to_opposite_checkbox(@intake.ever_married),
+      married: yes_no_unfilled_to_checkbox(@intake.married),
+      divorced: yes_no_unfilled_to_checkbox(@intake.divorced),
+      widowed: yes_no_unfilled_to_checkbox(@intake.widowed),
+      legally_separated: yes_no_unfilled_to_checkbox(@intake.separated),
       lived_with_spouse: @intake.lived_with_spouse,
-      married_in_2020: nil,
+      married_during_tax_year: nil,
       widowed_date: @intake.widowed_year,
       divorced_date: @intake.divorced_year,
       separated_date: @intake.separated_year,
+      issued_pin: collective_yes_no_unsure(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin),
+      email_address: @intake.email_address,
+
       had_wages: @intake.had_wages,
       job_count: @intake.job_count.to_s,
       had_tips: @intake.had_tips,
       had_scholarships: nil,
-      had_unreported_work_income: nil,
-      had_retirement_income: @intake.had_retirement_income,
-      had_social_security_income: @intake.had_social_security_income,
-      had_unemployment_income: @intake.had_unemployment_income,
-      had_disability_income: @intake.had_disability_income,
       had_interest_income: @intake.had_interest_income,
-      had_asset_sale_income_loss: collective_yes_no_unsure(@intake.had_asset_sale_income, @intake.reported_asset_sale_loss),
-      # reported_asset_sale_loss: @intake.reported_asset_sale_loss,
-      received_alimony: @intake.received_alimony,
-      had_rental_income: @intake.had_rental_income,
-      # had_gambling_income: @intake.had_gambling_income,
       had_local_tax_income: @intake.had_local_tax_refund,
+      received_alimony: @intake.received_alimony,
       had_self_employment_income: @intake.had_self_employment_income,
-      # reported_self_employment_loss: @intake.reported_self_employment_loss,
+      had_unreported_work_income: nil,
+      had_asset_sale_income_loss: collective_yes_no_unsure(@intake.had_asset_sale_income, @intake.reported_asset_sale_loss),
+      had_disability_income: @intake.had_disability_income,
+      had_retirement_income: @intake.had_retirement_income,
+      had_unemployment_income: @intake.had_unemployment_income,
+      had_social_security_income: @intake.had_social_security_income,
+      had_rental_income: @intake.had_rental_income,
       had_other_income: collective_yes_no_unsure(@intake.had_other_income, @intake.had_gambling_income),
-      other_income_types: @intake.other_income_types,
-      paid_local_tax: yes_no_unfilled_to_checkbox_0(@intake.paid_local_tax),
-      paid_mortgage_interest: yes_no_unfilled_to_checkbox_0(@intake.paid_mortgage_interest),
-      paid_medical_expenses: yes_no_unfilled_to_checkbox_0(@intake.paid_medical_expenses),
-      paid_charitable_contributions: yes_no_unfilled_to_checkbox_0(@intake.paid_charitable_contributions),
-      had_misc_expenses: collective_yes_no_unsure(@intake.paid_local_tax, @intake.paid_mortgage_interest, @intake.paid_medical_expenses, @intake.paid_charitable_contributions),
-      paid_student_loan_interest: @intake.paid_student_loan_interest,
-      paid_dependent_care: @intake.paid_dependent_care,
-      paid_retirement_contributions: @intake.paid_retirement_contributions,
-      paid_into_traditional_ira: yes_no_unfilled_to_checkbox_0(nil),
-      paid_into_401k: yes_no_unfilled_to_checkbox_0(nil),
-      paid_into_other_retirement_account: yes_no_unfilled_to_checkbox_0(nil),
-      paid_into_roth_ira: yes_no_unfilled_to_checkbox_0(nil),
-      paid_school_supplies: @intake.paid_school_supplies,
+      # other_income_types: @intake.other_income_types, # not written onto PDF
+
       paid_alimony: @intake.paid_alimony,
       have_alimony_recipient_ssn: nil,
+
       paid_post_secondary_expenses: @intake.had_student_in_family,
-      # sold_a_home: @intake.sold_a_home,
+
+      paid_retirement_contributions: @intake.paid_retirement_contributions,
+      paid_into_traditional_ira: yes_no_unfilled_to_checkbox(nil),
+      paid_into_401k: yes_no_unfilled_to_checkbox(nil),
+      paid_into_other_retirement_account: yes_no_unfilled_to_checkbox(nil),
+      paid_into_roth_ira: yes_no_unfilled_to_checkbox(nil),
+
+
+      had_misc_expenses: collective_yes_no_unsure(@intake.paid_local_tax, @intake.paid_mortgage_interest, @intake.paid_medical_expenses, @intake.paid_charitable_contributions),
+      paid_local_tax: yes_no_unfilled_to_checkbox(@intake.paid_local_tax),
+      paid_mortgage_interest: yes_no_unfilled_to_checkbox(@intake.paid_mortgage_interest),
+      paid_medical_expenses: yes_no_unfilled_to_checkbox(@intake.paid_medical_expenses),
+      paid_charitable_contributions: yes_no_unfilled_to_checkbox(@intake.paid_charitable_contributions),
+      paid_dependent_care: @intake.paid_dependent_care,
+      paid_school_supplies: @intake.paid_school_supplies,
+      paid_self_employment_expenses: nil,
+      paid_student_loan_interest: @intake.paid_student_loan_interest,
+
       had_hsa: @intake.had_hsa,
-      bought_health_insurance: @intake.bought_health_insurance,
-      bought_energy_efficient_items: @intake.bought_energy_efficient_items || "unfilled", # no default in db
-      received_homebuyer_credit: @intake.received_homebuyer_credit,
       had_debt_forgiven: @intake.had_debt_forgiven,
-      had_disaster_loss: @intake.had_disaster_loss,
       adopted_child: @intake.adopted_child,
       had_tax_credit_disallowed: @intake.had_tax_credit_disallowed,
-      received_irs_letter: @intake.received_irs_letter,
+      bought_energy_efficient_items: @intake.bought_energy_efficient_items || "unfilled", # no default in db
+      received_homebuyer_credit: @intake.received_homebuyer_credit,
       made_estimated_tax_payments: @intake.made_estimated_tax_payments,
-      additional_comments: "#{@intake.additional_info} #{@intake.final_info}",
-      student: @intake.was_full_time_student,
-      spouse_student: @intake.spouse_was_full_time_student,
-      blind: @intake.was_blind,
-      spouse_blind: @intake.spouse_was_blind,
-      is_disabled: @intake.had_disability,
-      spouse_is_disabled: @intake.spouse_had_disability,
-      is_citizen: nil,
-      spouse_is_citizen: nil,
-      issued_pin: collective_yes_no_unsure(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin),
-      direct_deposit: determine_direct_deposit(@intake),
-      savings_split_refund: @intake.savings_split_refund,
-      savings_purchase_bond: @intake.savings_purchase_bond,
-      balance_due_transfer: @intake.balance_pay_from_bank,
-      spouse_was_on_visa: yes_no_unfilled_to_checkbox_0(@intake.spouse_was_on_visa),
-      primary_was_on_visa: yes_no_unfilled_to_checkbox_0(@intake.was_on_visa),
+      filed_capital_loss_carryover: nil,
+      bought_health_insurance: @intake.bought_health_insurance,
       received_stimulus_payment: @intake.received_stimulus_payment,
+      received_advance_ctc: @intake.received_advance_ctc_payment,
+
+      ## add the amounts
+
+      # Additional Information Section
+      other_written_communication_language: @intake.preferred_written_language.present? ? "yes" : "no",
+      preferred_written_language: @intake.preferred_written_language,
+      direct_deposit: determine_direct_deposit(@intake),
+      savings_purchase_bond: @intake.savings_purchase_bond,
+      savings_split_refund: @intake.savings_split_refund,
+      balance_due_transfer: @intake.balance_pay_from_bank,
+      had_disaster_loss: @intake.had_disaster_loss,
+      received_irs_letter: @intake.received_irs_letter,
+
+      additional_comments: "#{@intake.additional_info} #{@intake.final_info}",
     }
     answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
     answers.merge!(primary_info)
@@ -102,24 +107,37 @@ class IntakePdf
   def primary_info
     {
       first_name: @intake.primary_first_name,
+      middle_initial: nil,
       last_name: @intake.primary_last_name,
       date_of_birth: strftime_date(@intake.primary_birth_date),
       phone_number: @intake.formatted_phone_number,
-      email_address: @intake.email_address,
+      job_title: nil,
+      is_citizen: nil,
+      is_disabled: @intake.had_disability,
+      is_student: @intake.was_full_time_student,
+      is_blind: @intake.was_blind,
+      is_on_visa: yes_no_unfilled_to_checkbox(@intake.was_on_visa),
     }
   end
 
   def spouse_info
     {
       spouse_first_name: @intake.spouse_first_name,
+      spouse_middle_initial: nil,
       spouse_last_name: @intake.spouse_last_name,
       spouse_date_of_birth: strftime_date(@intake.spouse_birth_date),
+      spouse_job_title: nil,
+      spouse_is_blind: @intake.spouse_was_blind,
+      spouse_is_disabled: @intake.spouse_had_disability,
+      spouse_is_citizen: nil,
+      spouse_is_student: @intake.spouse_was_full_time_student,
+      spouse_was_on_visa: yes_no_unfilled_to_checkbox(@intake.spouse_was_on_visa),
     }
   end
 
   def dependents_info
     answers = {}
-    @dependents.first(4).each_with_index do |dependent, index|
+    @dependents.first(3).each_with_index do |dependent, index|
       prefix = "dependent_#{index + 1}"
       {
         name: dependent.full_name,
@@ -145,18 +163,18 @@ class IntakePdf
       demographic_english_reading: @intake.demographic_english_reading,
       demographic_household_disability: @intake.demographic_disability,
       demographic_household_veteran: @intake.demographic_veteran,
-      demographic_primary_race_american_indian_alaska_native: bool_checkbox_0(@intake.demographic_primary_american_indian_alaska_native),
-      demographic_primary_race_asian: bool_checkbox_0(@intake.demographic_primary_asian),
-      demographic_primary_race_black_african_american: bool_checkbox_0(@intake.demographic_primary_black_african_american),
-      demographic_primary_race_native_hawaiian_pacific_islander: bool_checkbox_0(@intake.demographic_primary_native_hawaiian_pacific_islander),
-      demographic_primary_race_white: bool_checkbox_0(@intake.demographic_primary_white),
-      demographic_primary_race_prefer_not_to_answer_race: bool_checkbox_0(@intake.demographic_primary_prefer_not_to_answer_race),
-      demographic_spouse_race_american_indian_alaska_native: bool_checkbox_0(@intake.demographic_spouse_american_indian_alaska_native),
-      demographic_spouse_race_asian: bool_checkbox_0(@intake.demographic_spouse_asian),
-      demographic_spouse_race_black_african_american: bool_checkbox_0(@intake.demographic_spouse_black_african_american),
-      demographic_spouse_race_native_hawaiian_pacific_islander: bool_checkbox_0(@intake.demographic_spouse_native_hawaiian_pacific_islander),
-      demographic_spouse_race_white: bool_checkbox_0(@intake.demographic_spouse_white),
-      demographic_spouse_race_prefer_not_to_answer_race: bool_checkbox_0(@intake.demographic_spouse_prefer_not_to_answer_race),
+      demographic_primary_race_american_indian_alaska_native: bool_checkbox(@intake.demographic_primary_american_indian_alaska_native),
+      demographic_primary_race_asian: bool_checkbox(@intake.demographic_primary_asian),
+      demographic_primary_race_black_african_american: bool_checkbox(@intake.demographic_primary_black_african_american),
+      demographic_primary_race_native_hawaiian_pacific_islander: bool_checkbox(@intake.demographic_primary_native_hawaiian_pacific_islander),
+      demographic_primary_race_white: bool_checkbox(@intake.demographic_primary_white),
+      demographic_primary_race_prefer_not_to_answer_race: bool_checkbox(@intake.demographic_primary_prefer_not_to_answer_race),
+      demographic_spouse_race_american_indian_alaska_native: bool_checkbox(@intake.demographic_spouse_american_indian_alaska_native),
+      demographic_spouse_race_asian: bool_checkbox(@intake.demographic_spouse_asian),
+      demographic_spouse_race_black_african_american: bool_checkbox(@intake.demographic_spouse_black_african_american),
+      demographic_spouse_race_native_hawaiian_pacific_islander: bool_checkbox(@intake.demographic_spouse_native_hawaiian_pacific_islander),
+      demographic_spouse_race_white: bool_checkbox(@intake.demographic_spouse_white),
+      demographic_spouse_race_prefer_not_to_answer_race: bool_checkbox(@intake.demographic_spouse_prefer_not_to_answer_race),
       demographic_primary_ethnicity: @intake.demographic_primary_ethnicity,
       demographic_spouse_ethnicity: @intake.demographic_spouse_ethnicity,
     }
@@ -169,22 +187,6 @@ class IntakePdf
     return "no" if intake.refund_payment_method_check?
 
     "unfilled"
-  end
-
-
-  # Oddly, 0 is checked and 1 is unchecked in the 2020 f13614-c.
-  def yes_no_unfilled_to_checkbox_0(value)
-    value == "yes" ? 0 : nil
-  end
-
-  # Oddly, 0 is checked value in the 2020 f13614-c.
-  def yes_no_unfilled_to_opposite_checkbox_0(value)
-    value == "no" ? 0 : nil
-  end
-
-  # Oddly, 0 is checked value in the 2020 f13614-c.
-  def bool_checkbox_0(value)
-    value ? 0 : nil
   end
 
   def yes_no_unfilled_to_YN(yes_no_unfilled)
