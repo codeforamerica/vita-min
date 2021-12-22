@@ -9,10 +9,10 @@
         <div class="organization-list">
             <%= form_with model: @form, url: hub_state_routing_path, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
               <ul>
-                <%= f.fields_for :vita_partner_states do |state_routing_fields| %>
+                <%= f.fields_for :state_routing_fractions do |state_routing_fields| %>
                   <%= render 'hub/state_routings/routing_entry', f: state_routing_fields %>
                 <% end %>
-                <%= link_to_add_fields t(".add_routing"), f, :vita_partner_states, { class: "button button--small spacing-above-35", no_association: true }, partial: "hub/state_routings/routing_entry"  %>
+                <%= link_to_add_fields t(".add_routing"), f, :state_routing_fractions, { class: "button button--small spacing-above-35", no_association: true }, partial: "hub/state_routings/routing_entry"  %>
                 <div class="routing-percentage-total"><!-- Placeholder for JS calculation of total !--></div>
               </ul>
 

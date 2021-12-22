@@ -9,34 +9,31 @@ module Hub
     def initialize(form_params = nil, state:)
       @params = form_params
       @state = state
-      @vita_partner_states_attributes = form_params[:vita_partner_states_attributes] if form_params.present?
+      @state_routing_fraction_attributes = form_params[:state_routing_fraction_attributes] if form_params.present?
     end
 
-    def vita_partner_states
-      if @vita_partner_states_attributes
-        @vita_partner_states_attributes&.values.map do |v|
+    def state_routing_fractions
+      if @state_routing_fraction_attributes
+        @state_routing_fraction_attributes&.values&.map do |v|
           routing_fraction = routing_fraction_from_percentage(v[:routing_percentage])
           if v[:id].present?
-           vps = VitaPartnerState.find(v[:id])
-           vps.assign_attributes(routing_fraction: routing_fraction)
-           vps
+            srf = StateRoutingFraction.find(v[:id])
+            srf.assign_attributes(routing_fraction: routing_fraction)
+            srf
           else
-            VitaPartnerState.new(v.except(:routing_percentage).merge(routing_fraction: routing_fraction))
+            StateRoutingFraction.new(v.except(:routing_percentage).merge(routing_fraction: routing_fraction))
           end
         end
       else
-        VitaPartnerState.where(state: @state).joins(:vita_partner).order(routing_fraction: :desc)
+        StateRoutingFraction.where(state: @state).joins(:vita_partner).order(routing_fraction: :desc)
       end
     end
 
-    def vita_partner_state
-      VitaPartnerState
-    end
-
     def save
-      vita_partner_states_attributes.values.map do |v|
-        vps = VitaPartnerState.find_or_initialize_by(state: @state, vita_partner_id: v[:vita_partner_id])
-        vps.update!(routing_fraction: routing_fraction_from_percentage(v[:routing_percentage]))
+      state_routing_fraction_attributes.values.map do |v|
+        state_routing_target = VitaPartner.find(v[:vita_partner_id])
+        srf = StateRoutingFraction.find_or_initialize_by(state_routing_target: @state_routing_target, vita_partner_id: v[:vita_partner_id])
+        srf.update!(routing_fraction: routing_fraction_from_percentage(v[:routing_percentage]))
       end
     end
 

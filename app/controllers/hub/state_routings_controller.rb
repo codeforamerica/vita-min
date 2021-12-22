@@ -44,7 +44,7 @@ module Hub
     end
 
     def state_routing_params
-      params.require(:hub_state_routing_form).permit(vita_partner_states_attributes: {})
+      params.require(:hub_state_routing_form).permit(state_routing_fraction_attributes: {})
     end
   end
 end
