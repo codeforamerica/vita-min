@@ -87,11 +87,11 @@ class VitaProvider < ApplicationRecord
   end
 
   def formatted_phone_number
-    phone_data.local_number
+    PhoneParser.formatted_phone_number(phone_number)
   end
 
   def sanitized_phone_number
-    phone_data.sanitized
+    PhoneParser.with_country_code(phone_number)
   end
 
   def google_maps_url
@@ -132,10 +132,6 @@ class VitaProvider < ApplicationRecord
   end
 
   private
-
-  def phone_data
-    Phonelib.parse(phone_number, "US")
-  end
 
   def get_phone_number(lines)
     lines.length > 0 && lines[-1].match?(/(\d{3}-\d{3}-\d{4})/) ? lines.pop : nil

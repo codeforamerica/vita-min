@@ -6,7 +6,7 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= @main_question %></h1>
     <p>
-      <%= t("views.questions.verification.body") %> <strong><%= Phonelib.parse(current_intake.sms_phone_number).local_number %></strong>
+      <%= t("views.questions.verification.body") %> <strong><%= PhoneParser.formatted_phone_number(current_intake.sms_phone_number) %></strong>
     </p>
 
     <div class="form-card__content">
