@@ -1,45 +1,30 @@
 class PhoneParser
   def self.normalize(raw_phone_number)
-    return nil if raw_phone_number.nil?
-    return "" if raw_phone_number == ""
-
-    phony_normalized = Phony.normalize(raw_phone_number, cc: '1')
-    if Phony.plausible?(phony_normalized)
-      Phony.format(phony_normalized, format: :international, parentheses: false, spaces: '', local_spaces: '').to_s
-    else
-      raw_phone_number
-    end
+    valid, normalized = self.normalize_or_error(raw_phone_number)
+    valid ? Phony.format(normalized, format: :international, parentheses: false, spaces: '', local_spaces: '').to_s : raw_phone_number
   end
 
   def self.formatted_phone_number(raw_phone_number)
-    return nil if raw_phone_number.nil?
-    return "" if raw_phone_number == ""
-
-    phony_normalized = Phony.normalize(raw_phone_number, cc: '1')
-    if Phony.plausible?(phony_normalized)
-      Phony.format(phony_normalized, format: :national)
-    else
-      raw_phone_number
-    end
+    valid, normalized = self.normalize_or_error(raw_phone_number)
+    valid ? Phony.format(normalized, format: :national) : raw_phone_number
   end
 
   def self.phone_number_link(raw_phone_number)
-    return nil if raw_phone_number.nil?
-    return "" if raw_phone_number == ""
-
-    phony_normalized = Phony.normalize(raw_phone_number, cc: '1')
-    number =
-      if Phony.plausible?(phony_normalized)
-        phony_normalized
-      else
-        raw_phone_number
-      end
-
-    "tel:+#{number}"
+    valid, normalized = self.normalize_or_error(raw_phone_number)
+    valid ? "tel:+#{normalized}" : "tel:"
   end
 
-  def self.valid?(raw_phone_number)
+  private
+
+  def self.normalize_or_error(raw_phone_number)
+    return [false, nil] if raw_phone_number.nil?
+    return [false, ""] if raw_phone_number == ""
+
     phony_normalized = Phony.normalize(raw_phone_number, cc: '1')
-    Phony.plausible?(phony_normalized)
+    if Phony.plausible?(phony_normalized)
+      [true, phony_normalized]
+    else
+      [false, raw_phone_number]
+    end
   end
 end
