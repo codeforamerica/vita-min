@@ -560,13 +560,13 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "with no or bad params" do
-          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 1.day.ago }
-          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 2.days.ago }
+          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), last_outgoing_communication_at: 1.day.ago }
+          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), last_outgoing_communication_at: 2.days.ago }
 
           it "defaults to sorting by first_unanswered_incoming_interaction_at, asc by default" do
             get :index
 
-            expect(assigns[:sort_column]).to eq "first_unanswered_incoming_interaction_at"
+            expect(assigns[:sort_column]).to eq "last_outgoing_communication_at"
             expect(assigns[:sort_order]).to eq "asc"
 
             expect(assigns(:clients)).to eq [second_id, first_id]
@@ -575,7 +575,7 @@ RSpec.describe Hub::ClientsController do
           it "defaults to sorting by id, desc with bad params" do
             get :index, params: { column: "bad_order", order: "no_order" }
 
-            expect(assigns[:sort_column]).to eq "first_unanswered_incoming_interaction_at"
+            expect(assigns[:sort_column]).to eq "last_outgoing_communication_at"
             expect(assigns[:sort_order]).to eq "asc"
 
             expect(assigns(:clients)).to eq [second_id, first_id]
