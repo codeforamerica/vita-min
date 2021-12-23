@@ -157,6 +157,7 @@
 #  primary_signature_pin_at                             :datetime
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
+#  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -379,11 +380,7 @@ class Intake < ApplicationRecord
   end
 
   def pdf
-    IntakePdf.new(self).output_file
-  end
-
-  def consent_pdf
-    ConsentPdf.new(self).output_file
+    F13614cPdf.new(self).output_file
   end
 
   def referrer_domain
@@ -504,21 +501,13 @@ class Intake < ApplicationRecord
     )
   end
 
-  def update_or_create_14446_document(filename)
+  def update_or_create_required_consent_pdf
+    consent_pdf = ConsentPdf.new(self)
     ClientPdfDocument.create_or_update(
-      output_file: consent_pdf,
-      document_type: DocumentTypes::Form14446,
+      output_file: consent_pdf.output_file,
+      document_type: consent_pdf.document_type,
       client: client,
-      filename: filename
-    )
-  end
-
-  def update_or_create_additional_consent_pdf
-    ClientPdfDocument.create_or_update(
-      output_file: AdditionalConsentPdf.new(client).output_file,
-      document_type: DocumentTypes::AdditionalConsentForm,
-      client: client,
-      filename: "additional-consent-2021.pdf"
+      filename: consent_pdf.output_filename
     )
   end
 

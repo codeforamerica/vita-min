@@ -157,6 +157,7 @@
 #  primary_signature_pin_at                             :datetime
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
+#  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -476,17 +477,17 @@ describe Intake do
 
   describe "#pdf" do
     let(:intake) { create :intake }
-    let(:intake_pdf_spy) { instance_double(IntakePdf) }
+    let(:intake_pdf_spy) { instance_double(F13614cPdf) }
 
     before do
-      allow(IntakePdf).to receive(:new).with(intake).and_return(intake_pdf_spy)
+      allow(F13614cPdf).to receive(:new).with(intake).and_return(intake_pdf_spy)
       allow(intake_pdf_spy).to receive(:output_file).and_return("i am a pdf")
     end
 
     it "generates a 13614c pdf for this intake" do
       result = intake.pdf
 
-      expect(IntakePdf).to have_received(:new).with(intake)
+      expect(F13614cPdf).to have_received(:new).with(intake)
       expect(intake_pdf_spy).to have_received(:output_file)
       expect(result).to eq "i am a pdf"
     end

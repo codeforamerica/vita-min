@@ -157,6 +157,7 @@
 #  primary_signature_pin_at                             :datetime
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
+#  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null

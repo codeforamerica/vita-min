@@ -387,7 +387,7 @@ module Archived
     end
 
     def pdf
-      IntakePdf.new(self).output_file
+      F13614cPdf.new(self).output_file
     end
 
     def consent_pdf

@@ -13,7 +13,7 @@ module Questions
     end
 
     def after_update_success
-      OptionalConsentPdfJob.perform_later(current_intake.client.consent)
+      GenerateOptionalConsentPdfJob.perform_later(current_intake.client.consent)
     end
   end
 end

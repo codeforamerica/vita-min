@@ -5,6 +5,14 @@ class ConsentPdf
     "2021-GYR-Consent"
   end
 
+  def output_filename
+    "F14446 - GYR Consent Form"
+  end
+
+  def document_type
+    DocumentTypes::Form14446
+  end
+
   def initialize(intake)
     @intake = intake
   end

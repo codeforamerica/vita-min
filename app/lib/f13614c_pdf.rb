@@ -1,4 +1,4 @@
-class IntakePdf
+class F13614cPdf
   include PdfHelper
 
   def source_pdf_name
@@ -39,7 +39,7 @@ class IntakePdf
       had_local_tax_income: @intake.had_local_tax_refund,
       received_alimony: @intake.received_alimony,
       had_self_employment_income: @intake.had_self_employment_income,
-      had_unreported_work_income: nil,
+      had_unreported_income: nil,
       had_asset_sale_income_loss: collective_yes_no_unsure(@intake.had_asset_sale_income, @intake.reported_asset_sale_loss),
       had_disability_income: @intake.had_disability_income,
       had_retirement_income: @intake.had_retirement_income,
@@ -47,7 +47,7 @@ class IntakePdf
       had_social_security_income: @intake.had_social_security_income,
       had_rental_income: @intake.had_rental_income,
       had_other_income: collective_yes_no_unsure(@intake.had_other_income, @intake.had_gambling_income),
-      # other_income_types: @intake.other_income_types, # not written onto PDF
+      other_income_types: @intake.other_income_types,
 
       paid_alimony: @intake.paid_alimony,
       have_alimony_recipient_ssn: nil,
@@ -81,9 +81,13 @@ class IntakePdf
       filed_capital_loss_carryover: nil,
       bought_health_insurance: @intake.bought_health_insurance,
       received_stimulus_payment: @intake.received_stimulus_payment,
-      received_advance_ctc: @intake.received_advance_ctc_payment,
+      received_advance_ctc_payment: @intake.received_advance_ctc_payment,
 
       ## add the amounts
+      eip1_amount_received: @intake.eip1_amount_received,
+      eip2_amount_received: @intake.eip2_amount_received,
+      eip3_amount_received: @intake.eip3_amount_received,
+      advance_ctc_amount_received: @intake.advance_ctc_amount_received,
 
       # Additional Information Section
       other_written_communication_language: @intake.preferred_written_language.present? ? "yes" : "no",
@@ -131,14 +135,14 @@ class IntakePdf
       spouse_is_disabled: @intake.spouse_had_disability,
       spouse_is_citizen: nil,
       spouse_is_student: @intake.spouse_was_full_time_student,
-      spouse_was_on_visa: yes_no_unfilled_to_checkbox(@intake.spouse_was_on_visa),
+      spouse_is_on_visa: yes_no_unfilled_to_checkbox(@intake.spouse_was_on_visa),
     }
   end
 
   def dependents_info
     answers = {}
     @dependents.first(3).each_with_index do |dependent, index|
-      prefix = "dependent_#{index + 1}"
+      prefix = "dependent_#{index}"
       {
         name: dependent.full_name,
         date_of_birth: strftime_date(dependent.birth_date),

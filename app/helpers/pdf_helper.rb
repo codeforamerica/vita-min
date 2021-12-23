@@ -1,11 +1,11 @@
 module PdfHelper
 
   def yes_no_unfilled_to_checkbox(value)
-    value == "yes" ? "Yes" : nil
+    value == "yes" ? "yes" : nil
   end
 
   def yes_no_unfilled_to_opposite_checkbox(value)
-    value == "no" ? "Yes" : nil
+    value == "no" ? "yes" : nil
   end
 
   def bool_checkbox(value)

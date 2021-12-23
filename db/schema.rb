@@ -997,6 +997,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_155434) do
     t.datetime "primary_signature_pin_at"
     t.string "primary_suffix"
     t.integer "primary_tin_type"
+    t.integer "received_advance_ctc_payment"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
     t.integer "received_irs_letter", default: 0, null: false

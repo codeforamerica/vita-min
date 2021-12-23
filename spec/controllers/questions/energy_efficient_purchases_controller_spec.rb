@@ -20,7 +20,7 @@ RSpec.describe Questions::EnergyEfficientPurchasesController do
 
         expect(intake.reload.bought_energy_efficient_items).to eq("yes")
         expect(intake.reload.completed_yes_no_questions_at).to be_present
-        expect(IntakePdfJob).to have_been_enqueued.with(intake.id, "Preliminary 13614-C.pdf")
+        expect(GenerateF13614cPdfJob).to have_been_enqueued.with(intake.id, "Preliminary 13614-C.pdf")
       end
     end
   end

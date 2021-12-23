@@ -17,7 +17,7 @@ RSpec.describe Questions::FinalInfoController do
 
     context "for any intake" do
       before do
-        allow(IntakePdfJob).to receive(:perform_later)
+        allow(GenerateF13614cPdfJob).to receive(:perform_later)
       end
 
       let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com", locale: "en", preferred_name: "Mona Lisa", client: client }
@@ -26,7 +26,7 @@ RSpec.describe Questions::FinalInfoController do
       it "the model after_update when completed at changes should enqueue the creation of the 13614c document" do
         post :update, params: params
 
-        expect(IntakePdfJob).to have_received(:perform_later).with(intake.id, "Original 13614-C.pdf")
+        expect(GenerateF13614cPdfJob).to have_received(:perform_later).with(intake.id, "Original 13614-C.pdf")
       end
 
       context "messaging" do
