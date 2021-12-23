@@ -8,7 +8,7 @@ module Questions
 
     def after_update_success
       current_intake.update(completed_at: Time.now)
-      IntakePdfJob.perform_later(current_intake.id, "Original 13614-C.pdf")
+      GenerateF13614cPdfJob.perform_later(current_intake.id, "Original 13614-C.pdf")
 
       MixpanelService.send_event(
         distinct_id: current_intake.visitor_id,

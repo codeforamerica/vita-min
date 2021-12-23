@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  advance_ctc_amount_received                          :integer
 #  already_applied_for_stimulus                         :integer          default("unfilled"), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
@@ -47,6 +48,7 @@
 #  eip1_entry_method                                    :integer          default(0), not null
 #  eip2_amount_received                                 :integer
 #  eip2_entry_method                                    :integer          default(0), not null
+#  eip3_amount_received                                 :integer
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -123,7 +125,7 @@
 #  needs_help_2018                                      :integer          default("unfilled"), not null
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  needs_help_2020                                      :integer          default("unfilled"), not null
-#  needs_help_2021                                      :integer          default(0), not null
+#  needs_help_2021                                      :integer          default("unfilled"), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
 #  no_ssn                                               :integer          default("unfilled"), not null
@@ -141,6 +143,7 @@
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
+#  preferred_written_language                           :string
 #  primary_active_armed_forces                          :integer          default(0), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
@@ -154,6 +157,7 @@
 #  primary_signature_pin_at                             :datetime
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
+#  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null

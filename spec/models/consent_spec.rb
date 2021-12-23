@@ -26,7 +26,6 @@ describe Consent do
     before do
       example_pdf = Tempfile.new("example.pdf")
       example_pdf.write("example pdf contents")
-      allow(OptionalConsentPdf).to receive(:new).and_return(double(output_file: example_pdf))
     end
 
     context "when there is not an existing optional consent document" do
