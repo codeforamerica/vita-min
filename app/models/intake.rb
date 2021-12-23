@@ -367,21 +367,12 @@ class Intake < ApplicationRecord
     parts.join(' ')
   end
 
-  def pdf
-    F13614cPdf.new(self).output_file
-  end
-
   def referrer_domain
     URI.parse(referrer).host if referrer.present?
   end
 
   def state_of_residence_name
     States.name_for_key(state_of_residence)
-  end
-
-  def eligible_for_vita?
-    # if any are unfilled this will return false
-    had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
   end
 
   def any_students?
@@ -439,10 +430,6 @@ class Intake < ApplicationRecord
     contact_info
   end
 
-  def opted_into_notifications?
-    sms_notification_opt_in_yes? || email_notification_opt_in_yes?
-  end
-
   def had_earned_income?
     (job_count&.> 0) || had_wages_yes? || had_self_employment_income_yes?
   end
@@ -456,11 +443,12 @@ class Intake < ApplicationRecord
   end
 
   def update_or_create_13614c_document(filename)
+    pdf = F13614cPdf.new(self)
     ClientPdfDocument.create_or_update(
-      output_file: pdf,
-      document_type: DocumentTypes::Form13614C,
+      output_file: pdf.output_file,
+      document_type: pdf.document_type,
       client: client,
-      filename: filename
+      filename: filename || pdf.output_filename
     )
   end
 
@@ -472,10 +460,6 @@ class Intake < ApplicationRecord
       client: client,
       filename: consent_pdf.output_filename
     )
-  end
-
-  def might_encounter_delayed_service?
-    vita_partner.at_capacity?
   end
 
   def set_navigator(param)

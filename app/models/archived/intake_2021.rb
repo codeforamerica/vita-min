@@ -374,25 +374,12 @@ module Archived
       parts.join(' ')
     end
 
-    def pdf
-      F13614cPdf.new(self).output_file
-    end
-
-    def consent_pdf
-      ConsentPdf.new(self).output_file
-    end
-
     def referrer_domain
       URI.parse(referrer).host if referrer.present?
     end
 
     def state_of_residence_name
       States.name_for_key(state_of_residence)
-    end
-
-    def eligible_for_vita?
-      # if any are unfilled this will return false
-      had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
     end
 
     def any_students?
@@ -450,10 +437,6 @@ module Archived
       contact_info
     end
 
-    def opted_into_notifications?
-      sms_notification_opt_in_yes? || email_notification_opt_in_yes?
-    end
-
     def had_earned_income?
       (job_count&.> 0) || had_wages_yes? || had_self_employment_income_yes?
     end
@@ -467,34 +450,23 @@ module Archived
     end
 
     def update_or_create_13614c_document(filename)
+      pdf = F13614cPdf.new(self).output_file
       ClientPdfDocument.create_or_update(
-        output_file: pdf,
-        document_type: DocumentTypes::Form13614C,
+        output_file: pdf.output_file,
+        document_type: pdf.document_type,
         client: client,
-        filename: filename
+        filename: filename || pdf.output_filename
       )
     end
 
-    def update_or_create_14446_document(filename)
+    def update_or_create_required_consent_pdf
+      consent_pdf = ConsentPdf.new(self)
       ClientPdfDocument.create_or_update(
-        output_file: consent_pdf,
-        document_type: DocumentTypes::Form14446,
+        output_file: consent_pdf.output_file,
+        document_type: consent_pdf.document_type,
         client: client,
-        filename: filename
+        filename: consent_pdf.output_filename
       )
-    end
-
-    def update_or_create_additional_consent_pdf
-      ClientPdfDocument.create_or_update(
-        output_file: AdditionalConsentPdf.new(client).output_file,
-        document_type: DocumentTypes::AdditionalConsentForm,
-        client: client,
-        filename: "additional-consent-2021.pdf"
-      )
-    end
-
-    def might_encounter_delayed_service?
-      vita_partner.at_capacity?
     end
 
     def set_navigator(param)
