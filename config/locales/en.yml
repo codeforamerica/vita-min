@@ -501,12 +501,6 @@ en:
     birth_date_helper:
       valid_birth_date: Please select a valid date
   hub:
-    anonymized_intake_csv_extracts:
-      index:
-        filename: Filename
-        header: Anonymized Intake CSV Extracts
-        record_count: Record Count
-        run_at: Run At
     assigned_clients:
       index:
         title: Assigned clients

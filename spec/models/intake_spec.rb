@@ -665,24 +665,6 @@ describe Intake do
     end
   end
 
-  describe "#external_id" do
-    let(:intake) { build :intake }
-
-    context "when unsaved" do
-      it "is nil" do
-        expect(intake.external_id).to eq(nil)
-      end
-    end
-
-    context "when saved" do
-      it "is in the intended format" do
-        intake.save
-        intake.reload
-        expect(intake.external_id).to eq("intake-#{intake.id}")
-      end
-    end
-  end
-
   describe "#get_or_create_spouse_auth_token" do
     let(:intake) { build :intake, spouse_auth_token: existing_token }
     let(:new_token) { "n3wt0k3n" }
