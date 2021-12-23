@@ -40,7 +40,7 @@ class F13614cPdf
       received_alimony: @intake.received_alimony,
       had_self_employment_income: @intake.had_self_employment_income,
       had_unreported_income: nil,
-      had_asset_sale_income_loss: collective_yes_no_unsure(@intake.had_asset_sale_income, @intake.reported_asset_sale_loss),
+      had_asset_sale_income_loss: collective_yes_no_unsure(@intake.had_asset_sale_income, @intake.reported_asset_sale_loss, @intake.sold_a_home),
       had_disability_income: @intake.had_disability_income,
       had_retirement_income: @intake.had_retirement_income,
       had_unemployment_income: @intake.had_unemployment_income,
