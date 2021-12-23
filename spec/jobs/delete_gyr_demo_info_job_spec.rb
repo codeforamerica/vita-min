@@ -83,6 +83,8 @@ RSpec.describe DeleteGyrDemoInfoJob, type: :job do
         described_class.perform_now([gyr_client.id])
 
         expect(admin_user.reload).to be_present
+        expect(tax_return_2.reload).to be_present
+        expect(tax_return_2.reload.assigned_user).to be_nil
         expect { site_coordinator_user.reload }.to raise_error(ActiveRecord::RecordNotFound)
         expect { greeter_user.reload }.to raise_error(ActiveRecord::RecordNotFound)
       end
