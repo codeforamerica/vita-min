@@ -1,5 +1,7 @@
 class DeleteGyrDemoInfoJob < ApplicationJob
   def perform(exempted_client_ids)
+    return if Rails.env.production?
+
     # Delete all non-exempted GYR clients
     Client.includes(:intake).where(intake: { type: "Intake::GyrIntake" })
           .where.not(id: exempted_client_ids).map(&:destroy)

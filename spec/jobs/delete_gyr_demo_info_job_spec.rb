@@ -62,5 +62,17 @@ RSpec.describe DeleteGyrDemoInfoJob, type: :job do
       expect { papaya_org.reload }.to raise_error(ActiveRecord::RecordNotFound)
       expect { snake_site.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
+
+    context "in the production environment" do
+      before do
+        allow(Rails).to receive(:env).and_return("production".inquiry)
+      end
+
+      it "does not make db changes" do
+        expect do
+          described_class.perform_now([])
+        end.to change(Client, :count).by(0).and change(Organization, :count).by(0)
+      end
+    end
   end
 end
