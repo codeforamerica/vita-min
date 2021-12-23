@@ -13,7 +13,7 @@ executors:
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
-      - image: circleci/postgres:11.11-postgis-ram
+      - image: cimg/postgres:13.4-postgis
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle-test_test
