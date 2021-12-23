@@ -186,10 +186,6 @@ class User < ApplicationRecord
     invitation_accepted_at || created_at
   end
 
-  def format_phone_number
-    self.phone_number = PhoneParser.normalize(phone_number) if phone_number_changed?
-  end
-
   # Send Devise emails via job, per https://github.com/heartcombo/devise#activejob-integration
   def send_devise_notification(notification, *args)
     if Rails.env.development?
@@ -239,5 +235,11 @@ class User < ApplicationRecord
 
   def activate!
     update_columns(suspended_at: nil)
+  end
+
+  private
+
+  def format_phone_number
+    self.phone_number = PhoneParser.normalize(phone_number) if phone_number_changed?
   end
 end
