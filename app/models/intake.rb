@@ -367,37 +367,12 @@ class Intake < ApplicationRecord
     parts.join(' ')
   end
 
-  def primary_user
-    users.where.not(is_spouse: true).first
-  end
-
-  def spouse
-    users.where(is_spouse: true).first
-  end
-
-  def consented?
-    primary_consented_to_service_at.present?
-  end
-
-  def pdf
-    F13614cPdf.new(self).output_file
-  end
-
   def referrer_domain
     URI.parse(referrer).host if referrer.present?
   end
 
   def state_of_residence_name
     States.name_for_key(state_of_residence)
-  end
-
-  def had_a_job?
-    job_count.present? && job_count > 0
-  end
-
-  def eligible_for_vita?
-    # if any are unfilled this will return false
-    had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
   end
 
   def any_students?
@@ -419,8 +394,6 @@ class Intake < ApplicationRecord
     names += dependents.where(was_student: "yes").map(&:full_name)
     names
   end
-
-
 
   def get_or_create_spouse_auth_token
     return spouse_auth_token if spouse_auth_token.present?
@@ -457,12 +430,8 @@ class Intake < ApplicationRecord
     contact_info
   end
 
-  def opted_into_notifications?
-    sms_notification_opt_in_yes? || email_notification_opt_in_yes?
-  end
-
   def had_earned_income?
-    had_a_job? || had_wages_yes? || had_self_employment_income_yes?
+    (job_count&.> 0) || had_wages_yes? || had_self_employment_income_yes?
   end
 
   def had_dependents_under?(yrs)
@@ -473,27 +442,13 @@ class Intake < ApplicationRecord
     TaxReturn.backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
   end
 
-  def formatted_contact_preferences
-    text = "Prefers notifications by:\n"
-    text << "    • Text message\n" if sms_notification_opt_in_yes?
-    text << "    • Email\n" if email_notification_opt_in_yes?
-    text
-  end
-
-  def formatted_mailing_address
-    return "N/A" unless street_address
-    <<~ADDRESS
-      #{street_address} #{street_address2}
-      #{city}, #{state} #{zip_code}
-    ADDRESS
-  end
-
   def update_or_create_13614c_document(filename)
+    pdf = F13614cPdf.new(self)
     ClientPdfDocument.create_or_update(
-      output_file: pdf,
-      document_type: DocumentTypes::Form13614C,
+      output_file: pdf.output_file,
+      document_type: pdf.document_type,
       client: client,
-      filename: filename
+      filename: filename || pdf.output_filename
     )
   end
 
@@ -505,10 +460,6 @@ class Intake < ApplicationRecord
       client: client,
       filename: consent_pdf.output_filename
     )
-  end
-
-  def might_encounter_delayed_service?
-    vita_partner.at_capacity?
   end
 
   def set_navigator(param)

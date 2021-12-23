@@ -5,6 +5,14 @@ class F13614cPdf
     "f13614c-TY2021"
   end
 
+  def document_type
+    DocumentTypes::Form13614C
+  end
+
+  def output_filename
+    "F13614-C"
+  end
+
   def initialize(intake)
     @intake = intake
     @dependents = intake.dependents
