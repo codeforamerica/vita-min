@@ -374,18 +374,6 @@ module Archived
       parts.join(' ')
     end
 
-    def primary_user
-      users.where.not(is_spouse: true).first
-    end
-
-    def spouse
-      users.where(is_spouse: true).first
-    end
-
-    def consented?
-      primary_consented_to_service_at.present?
-    end
-
     def pdf
       F13614cPdf.new(self).output_file
     end
@@ -400,10 +388,6 @@ module Archived
 
     def state_of_residence_name
       States.name_for_key(state_of_residence)
-    end
-
-    def had_a_job?
-      job_count.present? && job_count > 0
     end
 
     def eligible_for_vita?
@@ -471,7 +455,7 @@ module Archived
     end
 
     def had_earned_income?
-      had_a_job? || had_wages_yes? || had_self_employment_income_yes?
+      (job_count&.> 0) || had_wages_yes? || had_self_employment_income_yes?
     end
 
     def had_dependents_under?(yrs)
@@ -480,21 +464,6 @@ module Archived
 
     def needs_help_with_backtaxes?
       TaxReturn.backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
-    end
-
-    def formatted_contact_preferences
-      text = "Prefers notifications by:\n"
-      text << "    • Text message\n" if sms_notification_opt_in_yes?
-      text << "    • Email\n" if email_notification_opt_in_yes?
-      text
-    end
-
-    def formatted_mailing_address
-      return "N/A" unless street_address
-      <<~ADDRESS
-      #{street_address} #{street_address2}
-      #{city}, #{state} #{zip_code}
-      ADDRESS
     end
 
     def update_or_create_13614c_document(filename)

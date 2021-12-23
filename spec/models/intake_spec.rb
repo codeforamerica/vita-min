@@ -647,24 +647,6 @@ describe Intake do
     end
   end
 
-  describe "#consented?" do
-    context "when primary_consented_to_service_at is present" do
-      subject { create(:intake, primary_consented_to_service_at: Date.current) }
-
-      it "is true" do
-        expect(subject.consented?).to be true
-      end
-    end
-
-    context "when primary_consented_at is not present" do
-      subject { create(:intake, primary_consented_to_service_at: nil) }
-
-      it "is false" do
-        expect(subject.consented?).to be false
-      end
-    end
-  end
-
   describe "#get_or_create_spouse_auth_token" do
     let(:intake) { build :intake, spouse_auth_token: existing_token }
     let(:new_token) { "n3wt0k3n" }
@@ -951,35 +933,6 @@ describe Intake do
 
       it "doesn't include already uploaded documents" do
         expect(intake.document_types_possibly_needed).to eq []
-      end
-    end
-  end
-
-  describe "#formatted_contact_preferences" do
-    let(:intake) { create(:intake, email_notification_opt_in: email_opt_in, sms_notification_opt_in: sms_opt_in) }
-
-    context "with sms and email" do
-      let(:email_opt_in) { "yes" }
-      let(:sms_opt_in) { "yes" }
-
-      it "shows both" do
-        expect(intake.formatted_contact_preferences).to eq <<~TEXT
-          Prefers notifications by:
-              • Text message
-              • Email
-        TEXT
-      end
-    end
-
-    context "with just sms" do
-      let(:email_opt_in) { "no" }
-      let(:sms_opt_in) { "yes" }
-
-      it "shows just sms" do
-        expect(intake.formatted_contact_preferences).to eq <<~TEXT
-          Prefers notifications by:
-              • Text message
-        TEXT
       end
     end
   end
