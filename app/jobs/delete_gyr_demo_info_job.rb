@@ -7,7 +7,10 @@ class DeleteGyrDemoInfoJob < ApplicationJob
           .where.not(id: exempted_client_ids).map(&:destroy)
 
     # Delete all non-admin users
-    User.where.not(role_type: AdminRole::TYPE).map(&:destroy)
+    User.where.not(role_type: AdminRole::TYPE).map do |user|
+      user.assigned_tax_returns.update(assigned_user: nil)
+      user.destroy
+    end
 
     # Delete sites GYR sites with no clients
     Site.where(national_overflow_location: false, processes_ctc: false)
@@ -18,6 +21,7 @@ class DeleteGyrDemoInfoJob < ApplicationJob
     Organization.where(national_overflow_location: false, processes_ctc: false)
       .where.not(name: "GetCTC.org")
       .where.not(name: "GYR National Organization")
+      .where.missing(:clients)
       .where.not(id: Site.all.pluck(:parent_organization_id)).map(&:destroy)
   end
 end
