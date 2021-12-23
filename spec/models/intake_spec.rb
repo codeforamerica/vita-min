@@ -475,24 +475,6 @@ describe Intake do
     end
   end
 
-  describe "#pdf" do
-    let(:intake) { create :intake }
-    let(:intake_pdf_spy) { instance_double(F13614cPdf) }
-
-    before do
-      allow(F13614cPdf).to receive(:new).with(intake).and_return(intake_pdf_spy)
-      allow(intake_pdf_spy).to receive(:output_file).and_return("i am a pdf")
-    end
-
-    it "generates a 13614c pdf for this intake" do
-      result = intake.pdf
-
-      expect(F13614cPdf).to have_received(:new).with(intake)
-      expect(intake_pdf_spy).to have_received(:output_file)
-      expect(result).to eq "i am a pdf"
-    end
-  end
-
   describe "#referrer_domain" do
     let(:intake) { build :intake, referrer: referrer }
 
@@ -938,12 +920,6 @@ describe Intake do
   end
 
   describe "#update_or_create_13614c_document" do
-    before do
-      example_pdf = Tempfile.new("example.pdf")
-      example_pdf.write("example pdf contents")
-      allow(intake).to receive(:pdf).and_return(example_pdf)
-    end
-
     let(:intake) { create(:intake) }
 
     context "when there is not an existing 13614-C document" do
@@ -953,40 +929,6 @@ describe Intake do
         doc = Document.last
         expect(doc.display_name).to eq("filename.pdf")
         expect(doc.document_type).to eq(DocumentTypes::Form13614C.key)
-        expect(intake).to have_received(:pdf)
-      end
-    end
-
-    context "when there is an existing 13614-C document" do
-      let!(:document) { intake.update_or_create_13614c_document("filename.pdf") }
-
-      it "updates the existing document with a regenerated form" do
-        expect {
-          expect {
-            intake.update_or_create_13614c_document("new-filename.pdf")
-          }.not_to change(Document, :count)
-        }.to change{document.reload.updated_at}
-        expect(document.display_name).to eq "new-filename.pdf"
-      end
-    end
-  end
-  describe "#update_or_create_13614c_document" do
-    before do
-      example_pdf = Tempfile.new("example.pdf")
-      example_pdf.write("example pdf contents")
-      allow(intake).to receive(:pdf).and_return(example_pdf)
-    end
-
-    let(:intake) { create(:intake) }
-
-    context "when there is not an existing 13614-C document" do
-      it "creates a preliminary 13614-C PDF with a given filename" do
-        expect { intake.update_or_create_13614c_document("filename.pdf") }.to change(Document, :count).by(1)
-
-        doc = Document.last
-        expect(doc.display_name).to eq("filename.pdf")
-        expect(doc.document_type).to eq(DocumentTypes::Form13614C.key)
-        expect(intake).to have_received(:pdf)
       end
     end
 

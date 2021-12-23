@@ -99,9 +99,7 @@ RSpec.describe Questions::FinalInfoController do
 
     context "for a full intake" do
       before do
-        example_pdf = Tempfile.new("example.pdf")
-        example_pdf.write("example pdf contents")
-        allow(intake).to receive(:pdf).and_return(example_pdf)
+        allow(intake).to receive(:update_or_create_13614c_document)
       end
 
       let(:intake) { create :intake }
