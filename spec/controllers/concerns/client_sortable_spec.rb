@@ -226,8 +226,7 @@ RSpec.describe ClientSortable, type: :controller do
       end
     end
 
-    # TODO: make SLA dashboard work again
-    xcontext "with a sla breach date param" do
+    context "with a sla breach date param" do
       let(:params) do
         {
           sla_breach_date: DateTime.new(2021, 5, 18, 11, 32)

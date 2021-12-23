@@ -210,6 +210,11 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row')[4]).to have_text(zach_prep_ready_for_call.preferred_name)
         expect(page.all('.client-row')[4]).to have_text("Update")
 
+        # sort by "waiting on" in reverse puts updates at the top
+        click_link "sort-first_unanswered_incoming_interaction_at"
+        expect(page.all('.client-row')[0]).to have_text("Update")
+        expect(page.all('.client-row')[1]).to have_text("Response")
+
         within ".filter-form" do
           select "2019", from: "year"
           click_button "Filter results"
