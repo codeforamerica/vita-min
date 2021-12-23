@@ -460,7 +460,6 @@ RSpec.describe F13614cPdf do
            "had_local_tax_income" => "yes",
            "had_self_employment_income" => "yes",
            "had_other_income" => "yes",
-           "other_income_types" => "garden gnoming",
            "paid_mortgage_interest" => "",
            "paid_local_tax"  => "yes",
            "paid_medical_expenses" => "yes",

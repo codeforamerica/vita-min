@@ -493,24 +493,6 @@ describe Intake do
     end
   end
 
-  describe "#consent_pdf" do
-    let(:intake) { create :intake }
-    let(:consent_pdf_spy) { instance_double(ConsentPdf) }
-
-    before do
-      allow(ConsentPdf).to receive(:new).with(intake).and_return(consent_pdf_spy)
-      allow(consent_pdf_spy).to receive(:output_file).and_return("i am a pdf")
-    end
-
-    it "generates a consent pdf for this intake" do
-      result = intake.consent_pdf
-
-      expect(ConsentPdf).to have_received(:new).with(intake)
-      expect(consent_pdf_spy).to have_received(:output_file)
-      expect(result).to eq "i am a pdf"
-    end
-  end
-
   describe "#referrer_domain" do
     let(:intake) { build :intake, referrer: referrer }
 
