@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe GenerateRequiredConsentPdfsJob, type: :job do
+RSpec.describe GenerateRequiredConsentPdfJob, type: :job do
   describe "#perform" do
     let(:intake) { create(:intake) }
 

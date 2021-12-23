@@ -44,7 +44,7 @@ RSpec.describe Questions::SpouseConsentController do
 
       before do
         request.remote_ip = ip_address
-        allow(Intake14446PdfJob).to receive(:perform_later)
+        allow(GenerateRequiredConsentPdfJob).to receive(:perform_later)
         allow(GenerateF13614cPdfJob).to receive(:perform_later)
       end
 
@@ -58,7 +58,7 @@ RSpec.describe Questions::SpouseConsentController do
       it "queues a job to regenerate the 14446 and the 13614-C" do
         post :update, params: params
 
-        expect(Intake14446PdfJob).to have_received(:perform_later).with(intake, "Consent Form 14446.pdf")
+        expect(GenerateRequiredConsentPdfJob).to have_received(:perform_later).with(intake, "Consent Form 14446.pdf")
         expect(GenerateF13614cPdfJob).to have_received(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
       end
     end
