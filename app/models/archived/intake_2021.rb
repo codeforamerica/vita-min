@@ -431,12 +431,6 @@ module Archived
       names
     end
 
-    def external_id
-      return unless id.present?
-
-      ["intake", id].join("-")
-    end
-
     def get_or_create_spouse_auth_token
       return spouse_auth_token if spouse_auth_token.present?
 

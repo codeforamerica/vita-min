@@ -501,12 +501,6 @@ es:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
   hub:
-    anonymized_intake_csv_extracts:
-      index:
-        filename: Nombre de archivo
-        header: Extractos anónimos CSV de Intakes
-        record_count: Número de registros
-        run_at: Ejecutado a
     assigned_clients:
       index:
         title: Clientes asignados
