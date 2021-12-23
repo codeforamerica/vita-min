@@ -74,5 +74,20 @@ RSpec.describe DeleteGyrDemoInfoJob, type: :job do
         end.to change(Client, :count).by(0).and change(Organization, :count).by(0)
       end
     end
+
+    context "users with assigned tax returns of exempted clients" do
+      let!(:tax_return_2) { create :tax_return, :file_ready_to_file, assigned_user: site_coordinator_user, client: gyr_client, year: 2020 }
+      let!(:tax_return_3) { create :tax_return, :file_ready_to_file, assigned_user: greeter_user, year: 2021 }
+
+      it "deletes non-admin users" do
+        described_class.perform_now([gyr_client.id])
+
+        expect(admin_user.reload).to be_present
+        expect(tax_return_2.reload).to be_present
+        expect(tax_return_2.reload.assigned_user).to be_nil
+        expect { site_coordinator_user.reload }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { greeter_user.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
   end
 end
