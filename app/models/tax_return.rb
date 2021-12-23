@@ -36,7 +36,7 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
-  has_many :tax_return_transitions, autosave: false
+  has_many :tax_return_transitions, dependent: :destroy, autosave: false
   include Statesman::Adapters::ActiveRecordQueries[
               transition_class: TaxReturnTransition,
               initial_state: TaxReturnStateMachine.initial_state
