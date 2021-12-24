@@ -198,60 +198,6 @@ describe Client do
         expect(client.flagged?).to eq false
       end
     end
-
-    context "when client has a new document" do
-      let!(:client) { create :client }
-      before { create :document, client: client, uploaded_by: client }
-
-      it "is flagged" do
-        expect(client.flagged?).to eq true
-      end
-    end
-
-    context "when clients intake was completed" do
-      let!(:client) { create :client, intake: create(:intake) }
-
-      it "is flagged" do
-        client.intake.update(completed_at: Time.now)
-        expect(client.flagged?).to eq true
-      end
-    end
-
-    context "when client has a new incoming text message" do
-      let!(:client) { create :client }
-      before { create :incoming_text_message, client: client }
-
-      it "is flagged" do
-        expect(client.flagged?).to eq true
-      end
-    end
-
-    context "when client has a new incoming email" do
-      let!(:client) { create :client }
-      before { create :incoming_email, client: client }
-
-      it "is flagged" do
-        expect(client.flagged?).to eq true
-      end
-    end
-
-    context "when client has a new outgoing email" do
-      let!(:client) { create :client }
-      before { create :outgoing_email, client: client }
-
-      it "is not flagged" do
-        expect(client.flagged?).to eq false
-      end
-    end
-
-    context "when client has a new outgoing text" do
-      let!(:client) { create :client }
-      before { create :outgoing_email, client: client }
-
-      it "is not flagged" do
-        expect(client.flagged?).to eq false
-      end
-    end
   end
 
   describe "#flag!" do
@@ -347,10 +293,6 @@ describe Client do
       it "updates client#last_incoming_interaction_at" do
         expect { create :incoming_text_message, client: client }.to change(client, :last_incoming_interaction_at)
       end
-
-      it "updates client#flagged_at" do
-        expect { create :incoming_email, client: client }.to change(client, :flagged_at)
-      end
     end
 
     describe "incoming email" do
@@ -360,10 +302,6 @@ describe Client do
 
       it "updates client#last_incoming_interaction_at" do
         expect { create :incoming_email, client: client }.to change(client, :last_incoming_interaction_at)
-      end
-
-      it "updates client#flagged_at" do
-        expect { create :incoming_email, client: client }.to change(client, :flagged_at)
       end
     end
 
@@ -377,11 +315,6 @@ describe Client do
       it "updates client#last_internal_or_outgoing_interaction_at" do
         expect { create :outgoing_email, client: client }.to change(client, :last_internal_or_outgoing_interaction_at)
       end
-
-      it "clears #flagged_at" do
-        create :outgoing_email, client: client
-        expect(client.flagged_at).to be nil
-      end
     end
 
     describe "outgoing text" do
@@ -393,11 +326,6 @@ describe Client do
 
       it "updates client #last_internal_or_outgoing_interaction_at" do
         expect { create :outgoing_text_message, client: client }.to change(client, :last_internal_or_outgoing_interaction_at)
-      end
-
-      it "clears flagged_at" do
-        create :outgoing_text_message, client: client
-        expect(client.flagged_at).to be nil
       end
     end
 
@@ -420,21 +348,7 @@ describe Client do
         it "updates client last_incoming_interaction" do
           expect { create :document, client: client, uploaded_by: client }.to change(client, :last_incoming_interaction_at)
         end
-
-        it "updates client flagged_at" do
-          expect { create :document, client: client, uploaded_by: client }.to change(client, :flagged_at)
-
-        end
-
-        context "without an explicit relationship to client but an intake that has a client id" do
-          let(:client) { create :client, intake: create(:intake) }
-          it "still should update the associated client" do
-            expect { create :document, intake: client.intake, uploaded_by: client }.to change(client, :flagged_at)
-          end
-        end
       end
-
-
 
       context "when a user is uploading the document" do
         it "does updates client last_internal_or_outgoing_interaction_at" do
