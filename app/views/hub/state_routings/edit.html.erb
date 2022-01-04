@@ -9,10 +9,18 @@
         <div class="organization-list">
             <%= form_with model: @form, url: hub_state_routing_path, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
               <ul>
-                <%= f.fields_for :state_routing_fractions do |state_routing_fields| %>
-                  <%= render 'hub/state_routings/routing_entry', f: state_routing_fields %>
+                <% @coalition_srts.each do |coalition_srt| %>
+                    <text><%= coalition_srt.target.name %></text>
+                    <% coalition_srt.target.organizations.each do |org| %>
+                      <%= render 'hub/state_routings/organization_routing_entry', f: @form, org: org, state_routing_target: coalition_srt %>
+                    <% end %>
                 <% end %>
-                <%= link_to_add_fields t(".add_routing"), f, :state_routing_fractions, { class: "button button--small spacing-above-35", no_association: true }, partial: "hub/state_routings/routing_entry"  %>
+                <% if @independent_org_srts.any? %>
+                  <text>Independent Organizations</text>
+                <% end %>
+                <% @independent_org_srts.each do |org_srt| %>
+                  <%= render 'hub/state_routings/organization_routing_entry', f: @form, org: org_srt.target, state_routing_target: org_srt %>
+                <% end %>
                 <div class="routing-percentage-total"><!-- Placeholder for JS calculation of total !--></div>
               </ul>
 

@@ -3,7 +3,6 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:edit, :update]
-    authorize_resource :state_routing_target
     layout "hub"
 
     def index
@@ -11,6 +10,8 @@ module Hub
     end
 
     def edit
+      @coalition_srts = StateRoutingTarget.where(state_abbreviation: params[:state], target_type: Coalition::TYPE)
+      @independent_org_srts = StateRoutingTarget.where(state_abbreviation: params[:state], target_type: VitaPartner::TYPE)
       @state = params[:state]
       @form = Hub::StateRoutingForm.new(state: params[:state])
     end
@@ -25,22 +26,6 @@ module Hub
         flash.now[:alert] = I18n.t('general.error.form_failed') if @form.errors.present?
         render :edit
       end
-    end
-
-    def destroy
-      @vita_partner_state = VitaPartnerState.find_by(state: params[:state], id: params[:id])
-      unless @vita_partner_state.present?
-        flash[:alert] = I18n.t("forms.errors.state_routings.not_found", state: params[:state])
-        redirect_to edit_hub_state_routing_path(state: params[:state]) and return
-      end
-
-      if @vita_partner_state.routing_fraction.zero?
-        @vita_partner_state.destroy!
-      else
-        flash[:alert] = I18n.t("forms.errors.state_routings.zero_to_delete")
-      end
-
-      redirect_to edit_hub_state_routing_path(state: params[:state])
     end
 
     def state_routing_params

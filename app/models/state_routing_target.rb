@@ -15,7 +15,7 @@
 #
 class StateRoutingTarget < ApplicationRecord
   belongs_to :target, polymorphic: true
-  has_many :state_routing_fractions
+  has_many :state_routing_fractions, dependent: :destroy
 
   validates :state_abbreviation, uniqueness: { scope: [:target] }
   validate :valid_state_abbreviation

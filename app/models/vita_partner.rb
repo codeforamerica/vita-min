@@ -28,6 +28,8 @@
 #  fk_rails_...  (coalition_id => coalitions.id)
 #
 class VitaPartner < ApplicationRecord
+  TYPE = "VitaPartner"
+
   has_many :clients
   has_many :intakes
   has_many :source_parameters

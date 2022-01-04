@@ -12,6 +12,8 @@
 #  index_coalitions_on_name  (name) UNIQUE
 #
 class Coalition < ApplicationRecord
+  TYPE = "Coalition"
+
   validates :name, uniqueness: true
   has_many :organizations, class_name: "Organization", foreign_key: "coalition_id"
   has_many :state_routing_targets, class_name: "StateRoutingTarget", as: :target, dependent: :destroy
