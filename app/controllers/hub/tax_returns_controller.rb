@@ -16,6 +16,8 @@ module Hub
     respond_to :js, except: [:new, :create]
 
     def new
+      redirect_to hub_client_path(@client.id) unless @client.intake
+
       if @remaining_years.blank?
         flash[:notice] = I18n.t("hub.tax_returns.new.no_remaining_years")
         redirect_to hub_client_path(id: @client.id)

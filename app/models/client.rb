@@ -227,6 +227,7 @@ class Client < ApplicationRecord
   end
 
   def requires_spouse_info?
+    return false unless intake # TODO presenter
     intake.filing_joint == "yes" || !tax_returns.map(&:filing_status).all?("single")
   end
 
@@ -241,6 +242,8 @@ class Client < ApplicationRecord
   end
 
   def clients_with_dupe_contact_info(is_ctc)
+    return [] unless intake
+
     matching_intakes = Intake.where(
       "email_address = ? OR phone_number = ? OR phone_number = ? OR sms_phone_number = ? OR sms_phone_number = ?",
       intake.email_address,
@@ -288,7 +291,8 @@ class Client < ApplicationRecord
   end
 
   def hub_status_updatable
-    !online_ctc?
+    # TODO: Probably move to the presenter
+    intake && !online_ctc?
   end
 
   def recaptcha_scores_average

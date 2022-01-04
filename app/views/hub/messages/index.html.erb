@@ -8,11 +8,11 @@
 
   <div class="slab slab--padded">
     <div class="client-container">
-      <% if @messages_by_day.present? %>
+      <% if @client.messages_by_day.present? %>
         <ul class="day-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
-          <% @messages_by_day.each_with_index do |(datetime, contact_records), day_index| %>
+          <% @client.messages_by_day.each_with_index do |(datetime, contact_records), day_index| %>
             <li class="day-heading"><%= date_heading(datetime) %></li>
-            <%= render partial: "contact_record", collection: contact_records, locals: { last_day: day_index + 1 == @messages_by_day.length } %>
+            <%= render partial: "contact_record", collection: contact_records, locals: { last_day: day_index + 1 == @client.messages_by_day.length } %>
           <% end %>
         </ul>
       <% else %>
@@ -44,7 +44,7 @@
 
       <% if @client&.intake.sms_phone_number.present? %>
         <div class="single-input-form no-form-group-padding">
-          <%= form_with model: @outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
+          <%= form_with model: @client.outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
             <%= f.cfa_textarea :body, t(".text_message_form.label"), options: { spellcheck: true }, classes: ["text-message-body"] %>
             <%= f.hidden_field :client_id %>
             <%= render "hub/components/length_counter" %>
@@ -62,7 +62,7 @@
 
       <% if @client&.intake.email_address.present? %>
         <div class="single-input-form spacing-above-25">
-          <%= form_with model: @outgoing_email, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
+          <%= form_with model: @client.outgoing_email, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
             <%= f.cfa_textarea :body, t(".email_form.label"), options: { spellcheck: true } %>
             <%= f.hidden_field :client_id %>
             <div class="attachment-uploader">

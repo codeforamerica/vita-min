@@ -41,7 +41,9 @@ module Hub
       redirect_to hub_clients_path
     end
 
-    def show; end
+    def show
+      @client = HubClientPresenter.new(@client)
+    end
 
     def request_bank_account_info
       @client = Client.find(params[:id])
@@ -134,6 +136,26 @@ module Hub
 
     def filter_cookie_name
       FILTER_COOKIE_NAME
+    end
+
+    class HubClientPresenter < SimpleDelegator
+      attr_reader :intake
+
+      def self.delegated_intake_attributes
+        [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
+      end
+
+      delegate *delegated_intake_attributes, to: :intake
+
+      def initialize(client)
+        @client = client
+        __setobj__(client)
+        @intake = client.intake || Archived::Intake2021.find_by(client_id: @client.id)
+      end
+
+      def editable?
+        !!@client.intake
+      end
     end
   end
 end
