@@ -12,6 +12,7 @@ class Dependent::Rules
     @meets_qc_claimant_condition = meets_qc_claimant_condition
     @meets_qc_misc_conditions = meets_qc_misc_conditions
 
+    # For tax year e.g. 1999, someone is 1 year old if born on any day in 1998.
     @age = @tax_year - @birth_date.year
   end
 
