@@ -79,7 +79,7 @@ describe Ctc::Questions::Dependents::QualifyingRelativeController do
     end
 
     context "dependent is 19-23 years old and NOT a full time student" do
-      let!(:birth_date) { 20.year.ago }
+      let!(:birth_date) { 21.year.ago }
       let!(:full_time_student) { "no" }
       let!(:relationship) { "daughter" }
 
