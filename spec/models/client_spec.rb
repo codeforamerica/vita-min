@@ -711,7 +711,6 @@ describe Client do
           assigned_user_a.reload
           assigned_user_b.reload
         }.to change(SystemNote::DocumentHelp, :count).by(1)
-         .and change(client, :flagged_at).from(nil)
          .and change(assigned_user_a.notifications, :count).by(1)
          .and change(assigned_user_b.notifications, :count).by(1)
         expect(assigned_user_a.notifications.last.notifiable).to eq SystemNote::DocumentHelp.last

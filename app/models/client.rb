@@ -263,7 +263,6 @@ class Client < ApplicationRecord
       UserNotification.create(notifiable_type: "SystemNote::DocumentHelp", notifiable_id: note.id, user: user)
     end
     tax_returns.each { |tax_return| tax_return.transition_to(:intake_needs_doc_help) }
-    flag!
   end
 
   def forward_message_to_intercom?

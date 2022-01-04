@@ -769,7 +769,7 @@ RSpec.describe Hub::ClientsController do
           let!(:client_response_hours) { create :client, :with_return, first_unanswered_incoming_interaction_at: 5.hours.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
           let!(:client_response_days) { create :client, :with_return, first_unanswered_incoming_interaction_at: 1.business_days.ago, vita_partner: organization, intake: create(:intake, :filled_out) }
 
-          it "shows whether a client is waiting for a response or update and how long they have been waiting for a response" do
+          it "shows whether a client is waiting for a response or update" do
             get :index
 
             html = Nokogiri::HTML.parse(response.body)
