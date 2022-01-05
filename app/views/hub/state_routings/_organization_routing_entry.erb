@@ -1,6 +1,6 @@
 <% if organization && state_routing_target %>
   <div class="state-routing-item" id="state-routing-org-<%= organization.id %>">
-    <%= f.cfa_input_field :routing_percentage, organization.name, classes: ["form-width--short"] %>
+    <%= f.cfa_input_field :routing_percentage, organization.name, options: { value: current_routing_percentage(state_routing_target, organization) }, classes: ["form-width--short"] %>
     <%= f.hidden_field :state_routing_target_id, value: state_routing_target.id %>
     <%= f.hidden_field :vita_partner_id, value: organization.id %>
     <% organization.child_sites.each do |site| %>
