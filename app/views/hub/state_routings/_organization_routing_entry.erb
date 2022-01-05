@@ -1,8 +1,8 @@
-<% if org && state_routing_target %>
-  <li class="state-routing-item" id="state-routing-org-<%= org.id %>">
-    <text><%= org.name %></text>
-    <% org.child_sites.each do |site| %>
-      <%= render 'hub/state_routings/site_routing_entry', f: @form, site: site, state_routing_target: state_routing_target %>
+<% if organization && state_routing_target %>
+  <div class="state-routing-item" id="state-routing-org-<%= organization.id %>">
+    <%= f.cfa_input_field :routing_percentage, organization.name, classes: ["form-width--short"] %>
+    <% organization.child_sites.each do |site| %>
+      <%= render 'hub/state_routings/site_routing_entry', f: f, site: site, state_routing_target: state_routing_target %>
     <% end %>
-  </li>
+  </div>
 <% end %>

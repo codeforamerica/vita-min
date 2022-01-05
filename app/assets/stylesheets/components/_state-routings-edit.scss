@@ -6,22 +6,13 @@
     position: relative;
   }
 
+  .site > .form-group {
+    padding-left: 5rem;
+  }
+
   .form-group {
     padding: 1rem 0;
     margin-bottom: 0;
-  }
-
-  .delete-item {
-    position: absolute;
-    right: -2rem;
-    bottom: 2.5rem;
-    text-decoration: none;
-    a {
-      text-decoration: none; // target class and child a due to slightly different implementations for persisted vs unpersisted.
-    }
-    i {
-      font-size: 1.8rem;
-    }
   }
 
   .routing-percentage-input-wrapper {

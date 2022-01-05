@@ -18,6 +18,7 @@ module Hub
 
     def update
       @state = params[:state]
+      byebug
       @form = Hub::StateRoutingForm.new(state_routing_params, state: params[:state])
       if @form.valid?
         @form.save

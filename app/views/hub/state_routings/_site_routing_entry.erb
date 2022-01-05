@@ -1,5 +1,5 @@
 <% if site %>
-  <li class="state-routing-item" id="state-routing-site-<%= site.id %>">
-    <%= site.name %>
-  </li>
+  <div class="state-routing-item site" id="state-routing-site-<%= site.id %>">
+    <%= f.cfa_input_field :routing_percentage, site.name, classes: ["form-width--short"] %>
+  </div>
 <% end %>

@@ -7,35 +7,35 @@
       <h1 class="spacing-below-0"><%= @page_title %></h1>
       <div class="grid__item width-one-half">
         <div class="organization-list">
-            <%= form_with model: @form, url: hub_state_routing_path, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
-              <ul>
-                <% @coalition_srts.each do |coalition_srt| %>
-                    <text><%= coalition_srt.target.name %></text>
-                    <% coalition_srt.target.organizations.each do |org| %>
-                      <%= render 'hub/state_routings/organization_routing_entry', f: @form, org: org, state_routing_target: coalition_srt %>
-                    <% end %>
-                <% end %>
-                <% if @independent_org_srts.any? %>
-                  <text>Independent Organizations</text>
-                <% end %>
-                <% @independent_org_srts.each do |org_srt| %>
-                  <%= render 'hub/state_routings/organization_routing_entry', f: @form, org: org_srt.target, state_routing_target: org_srt %>
-                <% end %>
-                <div class="routing-percentage-total"><!-- Placeholder for JS calculation of total !--></div>
-              </ul>
-
-              <% if @form.errors.present? %>
-                <% @form.errors.attribute_names.each do |key| %>
-                    <div class="form-group">
-                      <%= error_message(@form, key) %>
-                    </div>
+          <%= form_with model: @form, url: hub_state_routing_path, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+            <div>
+              <% @coalition_srts.each do |coalition_srt| %>
+                <strong><%= coalition_srt.target.name %></strong>
+                <% coalition_srt.target.organizations.each do |org| %>
+                  <%= render 'hub/state_routings/organization_routing_entry', f: f, organization: org, state_routing_target: coalition_srt %>
                 <% end %>
               <% end %>
+              <% if @independent_org_srts.any? %>
+                <strong>Independent Organizations</strong>
+              <% end %>
+              <% @independent_org_srts.each do |org_srt| %>
+                <%= render 'hub/state_routings/organization_routing_entry', f: f, organization: org_srt.target, state_routing_target: org_srt %>
+              <% end %>
+              <div class="routing-percentage-total"><!-- Placeholder for JS calculation of total !--></div>
+            </div>
 
-              <div class="spacing-above-35">
-                <%= f.submit t("general.save"), class: "button button--primary" %>
-              </div>
+            <% if @form.errors.present? %>
+              <% @form.errors.attribute_names.each do |key| %>
+                <div class="form-group">
+                  <%= error_message(@form, key) %>
+                </div>
+              <% end %>
             <% end %>
+
+            <div class="spacing-above-35">
+              <%= f.submit t("general.save"), class: "button button--primary" %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
