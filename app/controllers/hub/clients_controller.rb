@@ -156,6 +156,12 @@ module Hub
       def editable?
         !!@client.intake
       end
+
+      def requires_spouse_info?
+        return false unless intake
+
+        intake.filing_joint == "yes" || !tax_returns.map(&:filing_status).all?("single")
+      end
     end
   end
 end

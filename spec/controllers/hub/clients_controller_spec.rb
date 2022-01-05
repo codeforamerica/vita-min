@@ -1228,8 +1228,9 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "presenter" do
+    let(:tax_returns) { [] }
     let(:intake) { build(:intake) }
-    let(:client) { create(:client, intake: intake) }
+    let(:client) { create(:client, intake: intake, tax_returns: tax_returns) }
     let(:presenter) { Hub::ClientsController::HubClientPresenter.new(client) }
 
     describe ".editable?" do
@@ -1244,6 +1245,47 @@ RSpec.describe Hub::ClientsController do
 
         it "returns false" do
           expect(presenter.editable?).to be_falsey
+        end
+      end
+    end
+
+    describe "#requires_spouse_info?" do
+      context "from intake filing_joint" do
+        context "when filing_joint is yes" do
+          let(:intake) { build(:intake, filing_joint: "yes") }
+          it "returns true" do
+            expect(presenter.requires_spouse_info?).to be_truthy
+          end
+        end
+
+        context "when filing_joint is no" do
+          let(:intake) { build(:intake, filing_joint: "no") }
+          it "returns false" do
+            expect(presenter.requires_spouse_info?).to be_falsey
+          end
+        end
+      end
+
+      context "from tax return status" do
+        let(:intake) { build(:intake, filing_joint: "unfilled") }
+        let(:tax_returns) { [tr_2020, tr_2019] }
+
+        context "when all tax returns are filing single" do
+          let(:tr_2019) { build :tax_return, filing_status: "single", year: 2019 }
+          let(:tr_2020) { build :tax_return, filing_status: "single", year: 2021 }
+
+          it "returns false" do
+            expect(presenter.requires_spouse_info?).to be_falsey
+          end
+        end
+
+        context "when tax returns have any other status or a mix of statuses" do
+          let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
+          let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2021 }
+
+          it "returns true" do
+            expect(presenter.requires_spouse_info?).to be_truthy
+          end
         end
       end
     end
