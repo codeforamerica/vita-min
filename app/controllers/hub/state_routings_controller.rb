@@ -10,15 +10,14 @@ module Hub
     end
 
     def edit
-      @coalition_srts = StateRoutingTarget.where(state_abbreviation: params[:state], target_type: Coalition::TYPE)
-      @independent_org_srts = StateRoutingTarget.where(state_abbreviation: params[:state], target_type: VitaPartner::TYPE)
+      @coalition_srts = StateRoutingTarget.where(state_abbreviation: params[:state], target_type: Coalition::TYPE).includes(:state_routing_fractions)
+      @independent_org_srts = StateRoutingTarget.where(state_abbreviation: params[:state], target_type: VitaPartner::TYPE).includes(:state_routing_fractions)
       @state = params[:state]
       @form = Hub::StateRoutingForm.new(state: params[:state])
     end
 
     def update
       @state = params[:state]
-      byebug
       @form = Hub::StateRoutingForm.new(state_routing_params, state: params[:state])
       if @form.valid?
         @form.save
