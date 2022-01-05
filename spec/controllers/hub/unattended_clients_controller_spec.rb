@@ -43,9 +43,9 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
         sign_in user
       end
 
-      it "shows clients whose last incoming interaction was 3 or more business days, sorted by how long they've been waiting" do
+      it "shows clients whose last incoming interaction was 3 or more business days" do
         get :index
-        expect(assigns(:clients)).to eq [ten_day_breach_client_half_done_filing, six_day_breach_client, four_day_breach_client]
+        expect(assigns(:clients)).to match_array [ten_day_breach_client_half_done_filing, six_day_breach_client, four_day_breach_client]
       end
 
       context "with a sla_days param" do
@@ -54,7 +54,7 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
         it "filters the breach threshold" do
           get :index, params: params
 
-          expect(assigns(:clients)).to eq [ten_day_breach_client_half_done_filing, six_day_breach_client]
+          expect(assigns(:clients)).to match_array [ten_day_breach_client_half_done_filing, six_day_breach_client]
         end
       end
 
@@ -64,7 +64,7 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
         it "ignores the value and just defaults to 3 days" do
           get :index, params: params
 
-          expect(assigns(:clients)).to eq [ten_day_breach_client_half_done_filing, six_day_breach_client, four_day_breach_client]
+          expect(assigns(:clients)).to match_array [ten_day_breach_client_half_done_filing, six_day_breach_client, four_day_breach_client]
         end
       end
 

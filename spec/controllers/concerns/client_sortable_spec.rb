@@ -75,9 +75,9 @@ RSpec.describe ClientSortable, type: :controller do
     context "default sort order" do
       let(:params) { {} }
 
-      it "sorts clients by first_unanswered_incoming_interaction_at" do
+      it "sorts clients by last_outgoing_communication_at" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:delegated_order).with("first_unanswered_incoming_interaction_at", "asc")
+        expect(clients_query_double).to have_received(:delegated_order).with("last_outgoing_communication_at", "asc")
       end
     end
 

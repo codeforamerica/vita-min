@@ -811,12 +811,6 @@ describe TaxReturn do
           expect { tax_return.sign_primary!(fake_ip) }.to change(tax_return, :primary_signed_at).and change(tax_return, :primary_signed_ip).to(fake_ip).and change(tax_return, :primary_signature).to("Primary Taxpayer")
         end
 
-        it "updates the tax return's client to flagged" do
-          expect {
-            tax_return.sign_primary!(fake_ip)
-          }.to change(tax_return.client, :flagged?).to(true)
-        end
-
         it "updates the tax return's status to ready to file" do
           expect {
             tax_return.sign_primary!(fake_ip)
@@ -956,12 +950,6 @@ describe TaxReturn do
             tax_return.sign_spouse!(fake_ip)
             tax_return.reload
           }.to change(tax_return, :spouse_signed_at).and change(tax_return, :spouse_signed_ip).to(fake_ip).and change(tax_return, :spouse_signature).to("Spouse Taxpayer")
-        end
-
-        it "updates the tax return's client to flagged" do
-          expect {
-            tax_return.sign_spouse!(fake_ip)
-          }.to change(tax_return.client, :flagged?).to(true)
         end
 
         it "updates the tax return's status to ready to file" do

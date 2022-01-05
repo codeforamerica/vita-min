@@ -126,12 +126,6 @@ class Client < ApplicationRecord
       select(column_names).joins(:intake).merge(Intake.order(Hash[column, direction])).distinct
     else
       order = {column => direction}
-      if column == "first_unanswered_incoming_interaction_at" && direction == "desc"
-        order = "clients.first_unanswered_incoming_interaction_at DESC NULLS LAST"
-      elsif column == "last_outgoing_communication_at" && direction == "desc"
-        order = "clients.last_outgoing_communication_at DESC NULLS LAST"
-      end
-
       includes(:intake).order(order).distinct
     end
   end
@@ -269,7 +263,6 @@ class Client < ApplicationRecord
       UserNotification.create(notifiable_type: "SystemNote::DocumentHelp", notifiable_id: note.id, user: user)
     end
     tax_returns.each { |tax_return| tax_return.transition_to(:intake_needs_doc_help) }
-    flag!
   end
 
   def forward_message_to_intercom?

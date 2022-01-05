@@ -235,9 +235,6 @@ es:
       checking: Cuenta de Cheques
       routing_number: Número de ruta bancaria
       savings: Ahorros
-    business_days:
-      one: "%{count} día hábil"
-      other: "%{count} días hábiles"
     call: Llamada
     cancel: Cancelar
     capacity: Capacidad
@@ -263,6 +260,9 @@ es:
     continue_example: Continúe para ver un ejemplo
     ctc_client: CTC client
     date_of_birth: Fecha de nacimiento
+    days:
+      one: "%{count} día"
+      other: "%{count} días"
     delete: Eliminar
     dependent_relationships:
       00_daughter: Hija
@@ -380,6 +380,7 @@ es:
       zh: Mandarín
     languages: Idiomas
     last_four_ssn: Últimos 4 de SSN / ITIN
+    less_than_one_day: "<1 día"
     lived_with_spouse: Vivieron con su cónyuge
     locked: Bloqueada
     married: Casado
@@ -422,6 +423,7 @@ es:
     resend_invitation: Reenviar email de invitación
     resolve: Resolver
     responded_to_client: Respondido al cliente
+    response: Respuesta
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     role: Rol
@@ -748,7 +750,7 @@ es:
         upload_date: Fecha de carga
     has_duplicates: Posibles duplicados detectados
     last_client_update: 'Última actualización de cliente: '
-    last_outgoing_message: Último mensaje en
+    last_contact: Último contacto
     messages:
       automated: Automatizado
       from: de
@@ -1084,7 +1086,7 @@ es:
         success: Anular la suspensión de la cuenta de %{name}
       update_role:
         success: Se actualizó el rol de %{name}
-    waiting_on_response: 'Esperando respuesta desde: '
+    waiting_on: Esperando por
     zip_codes:
       already_applied: "%{zip_code} ya está enrutado a este socio."
       already_taken: "%{zip_code} ya está enrutado a <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
