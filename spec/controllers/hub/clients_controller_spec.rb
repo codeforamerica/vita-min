@@ -1233,7 +1233,7 @@ RSpec.describe Hub::ClientsController do
     let(:client) { create(:client, intake: intake, tax_returns: tax_returns) }
     let(:presenter) { Hub::ClientsController::HubClientPresenter.new(client) }
 
-    describe ".editable?" do
+    describe "#editable?" do
       context "when there is a .intake" do
         it "returns true" do
           expect(presenter.editable?).to be_truthy
@@ -1245,6 +1245,31 @@ RSpec.describe Hub::ClientsController do
 
         it "returns false" do
           expect(presenter.editable?).to be_falsey
+        end
+      end
+    end
+
+    describe "#archived?" do
+      context "when there is a .intake" do
+        it "returns false" do
+          expect(presenter.archived?).to be_falsey
+        end
+      end
+
+      context "when there is no intake" do
+        let(:intake) { nil }
+
+        it "returns false" do
+          expect(presenter.archived?).to be_falsey
+        end
+      end
+
+      context "when there is an archived intake" do
+        let(:intake) { nil }
+        let!(:archived_intake) { create(:archived_2021_intake, client: client) }
+
+        it "returns true" do
+          expect(presenter.archived?).to be_truthy
         end
       end
     end

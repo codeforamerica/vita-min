@@ -278,7 +278,7 @@ module Archived
 
     has_many :documents, dependent: :destroy
     has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::Dependent2021', foreign_key: 'archived_intakes_2021_id'
-    belongs_to :client, inverse_of: :intake, optional: true
+    belongs_to :client, optional: true
     has_many :tax_returns, through: :client
     belongs_to :vita_partner, optional: true
     accepts_nested_attributes_for :dependents, allow_destroy: true

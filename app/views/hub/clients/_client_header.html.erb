@@ -1,3 +1,12 @@
+<% if @client.archived? %>
+  <div class="slab slab--flash flash--warning">
+    <div class="grid-flex center-aligned">
+      <%= image_tag("icons/warning-triangle.svg", class: "item-15r") %>
+      <span><%= t('hub.archived_client_warning') %></span>
+    </div>
+  </div>
+<% end %>
+
 <section class="slab slab--padded">
   <div class="client-header">
     <div class="client-header__left">

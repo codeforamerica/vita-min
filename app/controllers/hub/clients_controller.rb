@@ -142,6 +142,8 @@ module Hub
 
     class HubClientPresenter < SimpleDelegator
       attr_reader :intake
+      attr_reader :archived
+      alias_method :archived?, :archived
 
       def self.delegated_intake_attributes
         [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
@@ -152,7 +154,11 @@ module Hub
       def initialize(client)
         @client = client
         __setobj__(client)
-        @intake = client.intake || Archived::Intake2021.find_by(client_id: @client.id)
+        @intake = client.intake
+        unless @intake
+          @intake = Archived::Intake2021.find_by(client_id: @client.id)
+          @archived = true if @intake
+        end
       end
 
       def editable?
