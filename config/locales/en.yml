@@ -501,6 +501,7 @@ en:
     birth_date_helper:
       valid_birth_date: Please select a valid date
   hub:
+    archived_client_warning: This is a previous year’s ticket. This information is archived and should only be used for reference.
     assigned_clients:
       index:
         title: Assigned clients
@@ -1106,7 +1107,6 @@ en:
       already_taken: "%{zip_code} is already routed to <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
       confirm: Are you sure you want to delete %{code} from %{name}?
       success: Added %{code} to %{name}.
-    archived_client_warning: "This is a previous year’s ticket. This information is archived and should only be used for reference."
   invitations:
     index:
       invitation:
