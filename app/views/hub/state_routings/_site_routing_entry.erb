@@ -1,6 +1,6 @@
 <% if site %>
   <div class="state-routing-item site" id="state-routing-site-<%= site.id %>">
-    <%= f.fields_for "state_routing[]", site do |ff| %>
+    <%= f.fields_for "state_routing_fraction_attributes[]", site do |ff| %>
       <%= ff.cfa_input_field :routing_percentage, site.name, options: { value: current_routing_percentage(state_routing_target, site) }, classes: ["form-width--short"] %>
       <%= ff.hidden_field :state_routing_target_id, value: state_routing_target.id %>
       <%= ff.hidden_field :vita_partner_id, value: site.id %>
