@@ -1226,4 +1226,26 @@ RSpec.describe Hub::ClientsController do
       end
     end
   end
+
+  describe "presenter" do
+    let(:intake) { build(:intake) }
+    let(:client) { create(:client, intake: intake) }
+    let(:presenter) { Hub::ClientsController::HubClientPresenter.new(client) }
+
+    describe ".editable?" do
+      context "when there is a .intake" do
+        it "returns true" do
+          expect(presenter.editable?).to be_truthy
+        end
+      end
+
+      context "when there is no .intake" do
+        let(:intake) { nil }
+
+        it "returns false" do
+          expect(presenter.editable?).to be_falsey
+        end
+      end
+    end
+  end
 end
