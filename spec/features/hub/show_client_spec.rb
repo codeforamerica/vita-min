@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe "a user viewing a client" do
   context "as an admin user" do
     let(:user) { create :admin_user }
-    let(:client) { create :client, vita_partner: (create :organization), intake: build(:intake, :with_contact_info), tax_returns: [build(:tax_return, certification_level: "advanced")] }
+    let(:intake) { build(:intake, :with_contact_info) }
+    let(:client) { create :client, vita_partner: (create :organization), intake: intake, tax_returns: [build(:tax_return, certification_level: "advanced")] }
     let(:tax_return) { client.tax_returns.first }
     let!(:other_vita_partner) { create :site, name: "Tax Help Test" }
     before do
@@ -50,14 +51,12 @@ RSpec.describe "a user viewing a client" do
     end
 
     context "for a client with an archived 2021 intake" do
-      before do
-        client.intake.destroy
-        @intake = create(:archived_2021_intake, client: client)
-      end
+      let(:intake) { nil }
+      let!(:archived_intake) {  create(:archived_2021_intake, client: client) }
 
       it "can view intake information" do
         visit hub_client_path(id: client.id)
-        expect(page).to have_content(@intake.preferred_name)
+        expect(page).to have_content(archived_intake.preferred_name)
       end
     end
   end
