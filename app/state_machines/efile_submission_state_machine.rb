@@ -42,9 +42,6 @@ class EfileSubmissionStateMachine
     hold_no_dependents = ActiveModel::Type::Boolean.new.cast(ENV["FRAUD_HOLD_NO_DEPENDENTS"]) && submission.tax_return.qualifying_dependents.count.zero?
     if (hold_no_dependents || hold_indicators.present?) && !submission.admin_resubmission?
       submission.transition_to!(:fraud_hold, indicators: hold_indicators)
-      # TODO: flag has been decoupled from everything (SLA, new client actions, etc) except the toggle/button. this is the only place left where it auto-flags the client. should it?
-      # flag client on resubmission since an admin needs to resubmit for them
-      submission.client.flag! if submission.resubmission?
     else
       # Only sends if efile preparing message has never been sent bc
       # AutomatedMessage::EfilePreparing has send_only_once set to true
