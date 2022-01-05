@@ -44,7 +44,7 @@
 
       <% if @client&.intake.sms_phone_number.present? %>
         <div class="single-input-form no-form-group-padding">
-          <%= form_with model: @client.outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
+          <%= form_with model: @client.outgoing_text_messages.build, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
             <%= f.cfa_textarea :body, t(".text_message_form.label"), options: { spellcheck: true }, classes: ["text-message-body"] %>
             <%= f.hidden_field :client_id %>
             <%= render "hub/components/length_counter" %>
@@ -62,7 +62,7 @@
 
       <% if @client&.intake.email_address.present? %>
         <div class="single-input-form spacing-above-25">
-          <%= form_with model: @client.outgoing_email, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
+          <%= form_with model: @client.outgoing_emails.build, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
             <%= f.cfa_textarea :body, t(".email_form.label"), options: { spellcheck: true } %>
             <%= f.hidden_field :client_id %>
             <div class="attachment-uploader">
