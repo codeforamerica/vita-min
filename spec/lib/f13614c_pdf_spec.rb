@@ -485,7 +485,6 @@ RSpec.describe F13614cPdf do
            "received_irs_letter" => "no",
            "made_estimated_tax_payments" => "unsure",
            "received_stimulus_payment" => "yes",
-           "received_advance_ctc_payment" => "yes",
            "additional_comments" => "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.",
         )
       end
