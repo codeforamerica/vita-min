@@ -41,7 +41,9 @@ module Hub
       redirect_to hub_clients_path
     end
 
-    def show; end
+    def show
+      @client = HubClientPresenter.new(@client)
+    end
 
     def request_bank_account_info
       @client = Client.find(params[:id])
@@ -91,6 +93,8 @@ module Hub
     end
 
     def update_take_action
+      @client = HubClientPresenter.new(@client)
+
       unless @client.hub_status_updatable
         return head :bad_request
       end
@@ -134,6 +138,42 @@ module Hub
 
     def filter_cookie_name
       FILTER_COOKIE_NAME
+    end
+
+    class HubClientPresenter < SimpleDelegator
+      attr_reader :intake
+      attr_reader :archived
+      alias_method :archived?, :archived
+
+      def self.delegated_intake_attributes
+        [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
+      end
+
+      delegate *delegated_intake_attributes, to: :intake
+
+      def initialize(client)
+        @client = client
+        __setobj__(client)
+        @intake = client.intake
+        unless @intake
+          @intake = Archived::Intake2021.find_by(client_id: @client.id)
+          @archived = true if @intake
+        end
+      end
+
+      def editable?
+        !!@client.intake
+      end
+
+      def hub_status_updatable
+        @client.intake && !@client.online_ctc?
+      end
+
+      def requires_spouse_info?
+        return false unless intake
+
+        intake.filing_joint == "yes" || !tax_returns.map(&:filing_status).all?("single")
+      end
     end
   end
 end

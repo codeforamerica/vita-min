@@ -8,6 +8,7 @@ module Hub
 
       layout "hub"
       load_and_authorize_resource :client, parent: false
+      before_action :redirect_to_client_show_if_archived
 
       def edit; end
 
@@ -37,6 +38,10 @@ module Hub
 
       def authorize_vita_partner
         raise CanCan::AccessDenied unless @vita_partners.find_by(id: client_params[:vita_partner_id]).present?
+      end
+
+      def redirect_to_client_show_if_archived
+        redirect_to hub_client_path(@client.id) unless @client.intake
       end
     end
   end

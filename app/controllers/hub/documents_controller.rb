@@ -11,10 +11,12 @@ module Hub
     layout "hub"
 
     def index
+      @client = Hub::ClientsController::HubClientPresenter.new(@client)
       @documents = sorted_documents.active
     end
 
     def archived
+      @client = Hub::ClientsController::HubClientPresenter.new(@client)
       @documents = sorted_documents.archived
       @show_archived_index = true
       render :index

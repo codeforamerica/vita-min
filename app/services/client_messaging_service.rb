@@ -9,11 +9,10 @@ class ClientMessagingService
       service = MultiTenantService.new(service_type)
       subject ||= I18n.t("messages.default_subject_with_service_name", service_name: service.service_name, locale: applied_locale)
 
-      OutgoingEmail.create!(
+      client.outgoing_emails.create!(
         to: to || client.email_address,
         body: replaced_body,
         subject: subject,
-        client: client,
         user: user,
         attachment: attachment,
       )
@@ -38,8 +37,7 @@ class ClientMessagingService
     def send_text_message(client:, user:, body:, tax_return: nil, locale: nil, to: nil)
       replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: locale }
       replaced_body = ReplacementParametersService.new(**replacement_args).process
-      OutgoingTextMessage.create!(
-        client: client,
+      client.outgoing_text_messages.create!(
         to_phone_number: to || client.sms_phone_number,
         sent_at: DateTime.now,
         user: user,

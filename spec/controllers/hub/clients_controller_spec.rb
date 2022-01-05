@@ -1150,7 +1150,7 @@ RSpec.describe Hub::ClientsController do
 
       context "when the client is not hub updatable" do
         before do
-          allow_any_instance_of(Client).to receive(:hub_status_updatable).and_return(false)
+          allow_any_instance_of(Hub::ClientsController::HubClientPresenter).to receive(:hub_status_updatable).and_return(false)
         end
 
         it "raises bad request" do
@@ -1267,6 +1267,95 @@ RSpec.describe Hub::ClientsController do
         expect(client.reload.access_locked?).to eq false
         expect(response).to redirect_to(hub_client_path(id: client))
         expect(flash[:notice]).to eq "Unlocked #{client.preferred_name}'s account."
+      end
+    end
+  end
+
+  describe "presenter" do
+    let(:tax_returns) { [] }
+    let(:intake) { build(:intake) }
+    let(:client) { create(:client, intake: intake, tax_returns: tax_returns) }
+    let(:presenter) { Hub::ClientsController::HubClientPresenter.new(client) }
+
+    describe "#editable?" do
+      context "when there is a .intake" do
+        it "returns true" do
+          expect(presenter.editable?).to be_truthy
+        end
+      end
+
+      context "when there is no .intake" do
+        let(:intake) { nil }
+
+        it "returns false" do
+          expect(presenter.editable?).to be_falsey
+        end
+      end
+    end
+
+    describe "#archived?" do
+      context "when there is a .intake" do
+        it "returns false" do
+          expect(presenter.archived?).to be_falsey
+        end
+      end
+
+      context "when there is no intake" do
+        let(:intake) { nil }
+
+        it "returns false" do
+          expect(presenter.archived?).to be_falsey
+        end
+      end
+
+      context "when there is an archived intake" do
+        let(:intake) { nil }
+        let!(:archived_intake) { create(:archived_2021_intake, client: client) }
+
+        it "returns true" do
+          expect(presenter.archived?).to be_truthy
+        end
+      end
+    end
+
+    describe "#requires_spouse_info?" do
+      context "from intake filing_joint" do
+        context "when filing_joint is yes" do
+          let(:intake) { build(:intake, filing_joint: "yes") }
+          it "returns true" do
+            expect(presenter.requires_spouse_info?).to be_truthy
+          end
+        end
+
+        context "when filing_joint is no" do
+          let(:intake) { build(:intake, filing_joint: "no") }
+          it "returns false" do
+            expect(presenter.requires_spouse_info?).to be_falsey
+          end
+        end
+      end
+
+      context "from tax return status" do
+        let(:intake) { build(:intake, filing_joint: "unfilled") }
+        let(:tax_returns) { [tr_2020, tr_2019] }
+
+        context "when all tax returns are filing single" do
+          let(:tr_2019) { build :tax_return, filing_status: "single", year: 2019 }
+          let(:tr_2020) { build :tax_return, filing_status: "single", year: 2021 }
+
+          it "returns false" do
+            expect(presenter.requires_spouse_info?).to be_falsey
+          end
+        end
+
+        context "when tax returns have any other status or a mix of statuses" do
+          let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
+          let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2021 }
+
+          it "returns true" do
+            expect(presenter.requires_spouse_info?).to be_truthy
+          end
+        end
       end
     end
   end

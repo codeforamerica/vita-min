@@ -1,3 +1,12 @@
+<% if @client.archived? %>
+  <div class="slab slab--flash flash--warning">
+    <div class="grid-flex center-aligned">
+      <%= image_tag("icons/warning-triangle.svg", class: "item-15r") %>
+      <span><%= t('hub.archived_client_warning') %></span>
+    </div>
+  </div>
+<% end %>
+
 <section class="slab slab--padded">
   <div class="client-header">
     <div class="client-header__left">
@@ -18,7 +27,7 @@
         <div class="item">
           <label class="toggle-switch">
             <span class="sr-only"><%= t("general.flagged") %></span>
-            <input id="toggle-flag" type="checkbox" <%= @client.flagged? && "checked" %> onchange="toggleFlag()">
+            <input id="toggle-flag" type="checkbox" <%= @client.flagged? && "checked" %> <%= !@client.editable? && "disabled" %> onchange="toggleFlag()">
             <span class="slider round"></span>
           </label>
         </div>
@@ -54,7 +63,9 @@
 
       <div class="client-header__organization">
         <h2><%= @client.vita_partner&.name || t("hub.not_assigned_html") %></h2>
-        <%= link_to "Edit", edit_organization_hub_client_path(id: @client.id), class: "button button--small" %>
+        <% if @client.editable? %>
+          <%= link_to "Edit", edit_organization_hub_client_path(id: @client.id), class: "button button--small" %>
+        <% end %>
       </div>
 
       <div class="text--help"><%= t("hub.last_client_update") + timestamp(@client.updated_at) %></div>
@@ -65,7 +76,7 @@
     </div>
 
     <div class="client-header__right">
-      <%= render "shared/tax_return_list", client: @client, status_updatable: @client.hub_status_updatable, tax_return_creatable: true %>
+      <%= render "shared/tax_return_list", client: @client, status_updatable: @client.hub_status_updatable, tax_return_creatable: @client.editable? %>
     </div>
   </div>
 </section>

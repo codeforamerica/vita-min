@@ -1,2 +1,2 @@
-$('<%="#tax-return-#{@tax_return.id}"%> .tax-return-list__assignee').html("<%= escape_javascript render("assignee", tax_return: @tax_return) %>")
+$('<%="#tax-return-#{@tax_return.id}"%> .tax-return-list__assignee').html("<%= escape_javascript render("assignee", tax_return: @tax_return, editable: @client.editable?) %>")
 <%= flash_alerts %>

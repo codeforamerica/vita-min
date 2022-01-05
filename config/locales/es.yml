@@ -503,6 +503,7 @@ es:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
   hub:
+    archived_client_warning: This is a previous year’s ticket. This information is archived and should only be used for reference.
     assigned_clients:
       index:
         title: Clientes asignados
