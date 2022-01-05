@@ -286,7 +286,6 @@ class Client < ApplicationRecord
   end
 
   def hub_status_updatable
-    # TODO: Probably move to the presenter
     intake && !online_ctc?
   end
 
