@@ -18,7 +18,7 @@
         <div class="item">
           <label class="toggle-switch">
             <span class="sr-only"><%= t("general.flagged") %></span>
-            <input id="toggle-flag" type="checkbox" <%= @client.flagged? && "checked" %> onchange="toggleFlag()">
+            <input id="toggle-flag" type="checkbox" <%= @client.flagged? && "checked" %> <%= !@client.editable? && "disabled" %> onchange="toggleFlag()">
             <span class="slider round"></span>
           </label>
         </div>
@@ -67,7 +67,7 @@
     </div>
 
     <div class="client-header__right">
-      <%= render "shared/tax_return_list", client: @client, status_updatable: @client.hub_status_updatable, tax_return_creatable: true %>
+      <%= render "shared/tax_return_list", client: @client, status_updatable: @client.hub_status_updatable, tax_return_creatable: @client.editable? %>
     </div>
   </div>
 </section>

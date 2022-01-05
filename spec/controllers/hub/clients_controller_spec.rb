@@ -1106,7 +1106,7 @@ RSpec.describe Hub::ClientsController do
 
       context "when the client is not hub updatable" do
         before do
-          allow_any_instance_of(Client).to receive(:hub_status_updatable).and_return(false)
+          allow_any_instance_of(Hub::ClientsController::HubClientPresenter).to receive(:hub_status_updatable).and_return(false)
         end
 
         it "raises bad request" do

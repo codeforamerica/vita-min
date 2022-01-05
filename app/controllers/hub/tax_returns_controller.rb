@@ -42,7 +42,9 @@ module Hub
 
     def edit; end
 
-    def show; end
+    def show
+      @client = Hub::ClientsController::HubClientPresenter.new(@tax_return.client)
+    end
 
     def update
       assignment_service = TaxReturnAssignmentService.new(tax_return: @tax_return,
@@ -54,6 +56,7 @@ module Hub
                                   client_name: @tax_return.client.preferred_name,
                                   tax_year: @tax_return.year,
                                   assignee_name: @tax_return.assigned_user ? @tax_return.assigned_user.name : I18n.t("hub.tax_returns.update.no_one"))
+      @client = Hub::ClientsController::HubClientPresenter.new(@tax_return.client)
       render :show
     end
 

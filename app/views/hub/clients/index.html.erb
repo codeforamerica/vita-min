@@ -78,7 +78,7 @@
         </thead>
 
         <tbody class="index-table__body clients-table">
-        <% @clients.each do |client| %>
+        <% @clients.map { |client| Hub::ClientsController::HubClientPresenter.new(client) }.each do |client| %>
           <tr id="client-<%= client.id %>" class="index-table__row client-row">
             <td class="index-table__cell client-attribute__needs-response">
               <%= render "shared/urgent_icon", client: client %>

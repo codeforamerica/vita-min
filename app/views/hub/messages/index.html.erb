@@ -42,45 +42,46 @@
         <% end %>
       </div>
 
-      <% if @client&.intake.sms_phone_number.present? %>
-        <div class="single-input-form no-form-group-padding">
-          <%= form_with model: @client.outgoing_text_messages.build, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
-            <%= f.cfa_textarea :body, t(".text_message_form.label"), options: { spellcheck: true }, classes: ["text-message-body"] %>
-            <%= f.hidden_field :client_id %>
-            <%= render "hub/components/length_counter" %>
-            <div class="grid-flex center-aligned space-between">
+      <% if @client.editable? %>
+        <% if @client&.intake.sms_phone_number.present? %>
+          <div class="single-input-form no-form-group-padding">
+            <%= form_with model: @client.outgoing_text_messages.build, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
+              <%= f.cfa_textarea :body, t(".text_message_form.label"), options: { spellcheck: true }, classes: ["text-message-body"] %>
+              <%= f.hidden_field :client_id %>
+              <%= render "hub/components/length_counter" %>
+              <div class="grid-flex center-aligned space-between">
+                <div>
+                  <%= f.submit t(".text_message_form.submit"), class: "button" %>
+                </div>
+
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p><%= t(".no_sms_number") %></p>
+        <% end %>
+
+        <% if @client&.intake.email_address.present? %>
+          <div class="single-input-form spacing-above-25">
+            <%= form_with model: @client.outgoing_emails.build, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
+              <%= f.cfa_textarea :body, t(".email_form.label"), options: { spellcheck: true } %>
+              <%= f.hidden_field :client_id %>
+              <div class="attachment-uploader">
+                <%= f.cfa_file_field :attachment, t('general.attachment'), classes: ['attachment-upload'] %>
+                <div id="attachment-image-preview-wrapper">
+                  <%= image_tag "file-icon.svg", id: "attachment-image-preview", alt: "" %>
+                </div>
+                <button id="attachment-image-clear" hidden>Remove Attachment</button>
+              </div>
               <div>
-                <%= f.submit t(".text_message_form.submit"), class: "button" %>
+                <%= f.submit t(".email_form.submit"), class: "button", disabled: @client.intake.email_address.blank? %>
               </div>
-
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p><%= t(".no_sms_number") %></p>
+            <% end %>
+          </div>
+        <% else %>
+          <p><%= t(".no_email_address") %></p>
+        <% end %>
       <% end %>
-
-      <% if @client&.intake.email_address.present? %>
-        <div class="single-input-form spacing-above-25">
-          <%= form_with model: @client.outgoing_emails.build, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
-            <%= f.cfa_textarea :body, t(".email_form.label"), options: { spellcheck: true } %>
-            <%= f.hidden_field :client_id %>
-            <div class="attachment-uploader">
-              <%= f.cfa_file_field :attachment, t('general.attachment'), classes: ['attachment-upload'] %>
-              <div id="attachment-image-preview-wrapper">
-                <%= image_tag "file-icon.svg", id: "attachment-image-preview", alt: "" %>
-              </div>
-              <button id="attachment-image-clear" hidden>Remove Attachment</button>
-            </div>
-            <div>
-              <%= f.submit t(".email_form.submit"), class: "button", disabled: @client.intake.email_address.blank? %>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p><%= t(".no_email_address") %></p>
-      <% end %>
-
     </div>
   </div>
 

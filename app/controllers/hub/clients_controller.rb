@@ -93,6 +93,8 @@ module Hub
     end
 
     def update_take_action
+      @client = HubClientPresenter.new(@client)
+
       unless @client.hub_status_updatable
         return head :bad_request
       end
@@ -155,6 +157,10 @@ module Hub
 
       def editable?
         !!@client.intake
+      end
+
+      def hub_status_updatable
+        @client.intake && !@client.online_ctc?
       end
 
       def requires_spouse_info?

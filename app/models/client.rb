@@ -285,10 +285,6 @@ class Client < ApplicationRecord
     intake.is_ctc? && intake.tax_returns.any? { |tr| tr.service_type == "online_intake" }
   end
 
-  def hub_status_updatable
-    intake && !online_ctc?
-  end
-
   def recaptcha_scores_average
     return efile_security_informations.last&.recaptcha_score unless recaptcha_scores.present?
 
