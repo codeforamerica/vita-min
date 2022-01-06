@@ -2,7 +2,7 @@ module Hub
   class StateRoutingsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    before_action :load_vita_partners, only: [:edit, :update]
+    before_action :load_state_and_routing_targets, only: [:edit, :update]
     layout "hub"
 
     def index
@@ -10,15 +10,11 @@ module Hub
     end
 
     def edit
-      @coalition_srts = StateRoutingTarget.where(state_abbreviation: params[:state], target_type: Coalition::TYPE).includes(:state_routing_fractions)
-      @independent_org_srts = StateRoutingTarget.where(state_abbreviation: params[:state], target_type: VitaPartner::TYPE).includes(:state_routing_fractions)
-      @state = params[:state]
-      @form = Hub::StateRoutingForm.new(state: params[:state])
+      @form = Hub::StateRoutingForm.new
     end
 
     def update
-      @state = params[:state]
-      @form = Hub::StateRoutingForm.new(state_routing_params, state: params[:state])
+      @form = Hub::StateRoutingForm.new(state_routing_params)
       if @form.valid?
         @form.save
         redirect_to action: :edit
@@ -28,8 +24,16 @@ module Hub
       end
     end
 
+    private
+
     def state_routing_params
       params.require(:hub_state_routing_form).permit(state_routing_fraction_attributes: {})
+    end
+
+    def load_state_and_routing_targets
+      @state = params[:state]
+      @coalition_srts = StateRoutingTarget.where(state_abbreviation: @state, target_type: Coalition.name).includes(:state_routing_fractions)
+      @independent_org_srts = StateRoutingTarget.where(state_abbreviation: @state, target_type: VitaPartner.name).includes(:state_routing_fractions)
     end
   end
 end

@@ -5,16 +5,20 @@ module Hub
     validate :percentages_must_equal_100
     validate :vita_partners_are_unique
 
-    def initialize(form_params = nil, state:)
-      @params = form_params
-      @state = state
+    def initialize(form_params = nil)
+      @form_params = form_params
     end
 
     def save
-      state_routing_fraction_attributes.each do |_, v|
-        StateRoutingFraction.create(state_routing_target_id: v[:state_routing_target_id],
-                                    vita_partner_id: v[:vita_partner_id],
-                                    routing_fraction: routing_fraction_from_percentage(v[:routing_percentage]))
+      state_routing_fraction_attributes.each do |vita_partner_id, v|
+        existing_fraction = StateRoutingFraction.where(vita_partner_id: vita_partner_id, state_routing_target_id: v[:state_routing_target_id]).first
+        if existing_fraction.present?
+          existing_fraction.update(routing_fraction: routing_fraction_from_percentage(v[:routing_percentage]))
+        else
+          StateRoutingFraction.create(state_routing_target_id: v[:state_routing_target_id],
+                                      vita_partner_id: vita_partner_id,
+                                      routing_fraction: routing_fraction_from_percentage(v[:routing_percentage]))
+        end
       end
     end
 
@@ -35,7 +39,7 @@ module Hub
     end
 
     def vita_partners_are_unique
-      vps_ids = state_routing_fraction_attributes.values.pluck(:vita_partner_id)
+      vps_ids = state_routing_fraction_attributes.keys
       unless vps_ids.uniq.length == vps_ids.length
         errors.add(:duplicate_vita_partner, I18n.t("forms.errors.state_routings.duplicate_vita_partner"))
       end

@@ -3,7 +3,6 @@
     <%= f.fields_for "state_routing_fraction_attributes[]", organization do |ff| %>
       <%= ff.cfa_input_field :routing_percentage, organization.name, options: { value: current_routing_percentage(state_routing_target, organization) }, classes: ["form-width--short"] %>
       <%= ff.hidden_field :state_routing_target_id, value: state_routing_target.id %>
-      <%= ff.hidden_field :vita_partner_id, value: organization.id %>
     <% end %>
     <% organization.child_sites.each do |site| %>
       <%= render 'hub/state_routings/site_routing_entry', f: f, site: site, state_routing_target: state_routing_target %>
