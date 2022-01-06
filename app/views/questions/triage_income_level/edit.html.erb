@@ -1,0 +1,40 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :main do %>
+  <section class="slab slab--white welcome">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="question__illustration">
+            <%= image_tag "questions/balance-payment.svg" %>
+          </div>
+
+          <h1 class="form-question text--line-breaks">
+            <%= content_for(:page_title) %>
+          </h1>
+
+          <p><%= t('.help_text') %></p>
+
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+            <%= f.cfa_radio_set(
+                :triage_income_level,
+                label_text: t('.levels_label'),
+                collection: [
+                  { value: :zero, label: t(".levels.zero") },
+                  { value: :hh_1_to_25100, label: t(".levels.hh_1_to_25100_html") },
+                  { value: :hh_25101_to_66000, label: t(".levels.hh_25100_to_66000") },
+                  { value: :hh_66000_to_73000, label: t(".levels.hh_66000_to_73000") },
+                  { value: :hh_over_73000, label: t(".levels.hh_over_73000") }
+                ]
+              )
+            %>
+          <% end %>
+
+          <div class="spacing-above-60">
+            <%= link_to I18n.t('general.continue'), next_path, class: "button button--primary button--wide text--centered" %>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

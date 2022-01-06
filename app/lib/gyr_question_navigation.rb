@@ -3,13 +3,28 @@ class GyrQuestionNavigation
 
   FLOW = [
       Questions::WelcomeController,
-      Questions::TriageTaxNeedsController,
-      Questions::TriageStimulusCheckController,
-      Questions::TriageEligibilityController, # VITA triage_eligibility checks\
-      Questions::TriageBacktaxesController,
-      Questions::TriageLookbackController,
-      Questions::TriageSimpleTaxController,
-      Questions::TriagePrepareSoloController,
+      Questions::TriageIncomeLevelController,
+      Questions::TriageStartIdsController,
+      Questions::TriageIdTypeController,
+      Questions::TriageDocTypeController,
+      Questions::TriageBacktaxesYearsController,
+      Questions::TriageAssistanceController,
+
+      # NEW POST-TRIAGE
+      # Questions::TriageFinalController,
+      # Questions::TriageDeluxeController,
+      # Questions::TriageReferralController,
+      # Questions::TriageExpressController,
+      # Questions::TriageDoNotQualifyController,
+
+      # OLD TRIAGE
+      # Questions::TriageTaxNeedsController,
+      # Questions::TriageStimulusCheckController,
+      # Questions::TriageEligibilityController, # VITA triage_eligibility checks
+      # Questions::TriageBacktaxesController,
+      # Questions::TriageLookbackController,
+      # Questions::TriageSimpleTaxController,
+      # Questions::TriagePrepareSoloController,
 
       ## Main flow
       Questions::FileWithHelpController,

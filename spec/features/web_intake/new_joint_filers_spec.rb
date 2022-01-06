@@ -11,70 +11,11 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     visit "/en/questions/welcome"
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Welcome to GetYourRefund")
+      expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
     end
-    click_on "Continue"
+    click_on I18n.t('general.continue')
 
-    # File With Help
-    # Tax Needs
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "What can we help you with?")
-      check "File my #{TaxReturn.current_tax_year} taxes"
-      check "Collect my stimulus check"
-    end
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
-    # VITA triage_eligibility checks
-    expect(page).to have_selector("p", text: "Let us know if any of the situations below apply to you.")
-    check "I earned money from a rental property"
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "We’re unsure if you qualify for our services")
-    click_on "Go back"
-
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
-      check "None of the above"
-    end
-    click_on "Continue"
-
-    screenshot_after do
-      text = I18n.t("views.questions.triage_backtaxes.title",
-                    backtax_years: TaxReturn.backtax_years.reverse.to_sentence(last_word_connector: " #{I18n.t("general.and")} "))
-      expect(page).to have_selector("h1", text: text)
-    end
-    click_on "Yes"
-
-    screenshot_after do
-      expect(page).to have_text I18n.t("views.questions.triage_lookback.help_text", current_tax_year: current_tax_year)
-      check "My income decreased from #{TaxReturn.current_tax_year - 1}"
-      check "I received unemployment income"
-      check "I purchased health insurance through the marketplace"
-    end
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Do you have simple taxes?")
-    click_on "No"
-
-    expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
-    click_on "Go back"
-
-    expect(page).to have_selector("h1", text: "Do you have simple taxes?")
-    click_on "Yes"
-
-    expect(page).to have_selector("h1", text: "File your taxes yourself!")
-    click_on "Go back"
-
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Do you have simple taxes?")
-    end
-    click_on "No"
-
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
-    end
-    click_on "No"
+    answer_gyr_intake_questions(screenshot: true)
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Our full service option is right for you!")

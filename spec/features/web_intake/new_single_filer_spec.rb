@@ -10,28 +10,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     visit "/en/questions/welcome"
 
     # Welcome
-    expect(page).to have_selector("h1", text: "Welcome to GetYourRefund")
+    expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
     within ".main-header" do
-      expect(page).to have_text("Sign in")
+      expect(page).to have_text(I18n.t('general.sign_in'))
     end
-    click_on "Continue"
+    click_on I18n.t('general.continue')
 
-    # Tax Needs
-    expect(page).to have_selector("h1", text: "What can we help you with?")
-    check "Collect my stimulus check"
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "In order to collect your stimulus check, you are required to file your taxes.")
-    click_on "Yes! Help me file my taxes."
-
-    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
-    check "None of the above"
-    click_on "Continue"
-
-    text = I18n.t("views.questions.triage_backtaxes.title",
-                  backtax_years: TaxReturn.backtax_years.reverse.to_sentence(last_word_connector: " #{I18n.t("general.and")} "))
-    expect(page).to have_selector("h1", text: text)
-    click_on "No"
+    answer_gyr_intake_questions
 
     expect(page).to have_selector("h1", text: "Our full service option is right for you!")
     click_on "Continue"

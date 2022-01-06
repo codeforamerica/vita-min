@@ -1,4 +1,4 @@
-<% content_for :page_title, t("views.questions.welcome.title") %>
+<% content_for :page_title, t('.title') %>
 
 <% content_for :main do %>
   <section class="slab slab--white welcome">
@@ -6,22 +6,14 @@
       <div class="grid__item width-three-fourths shift-one-eighth">
         <main role="main">
           <div class="question__illustration">
-            <%= image_tag "questions/welcome.svg"%>
+            <%= image_tag "questions/documents-and-ids.svg"%>
           </div>
 
           <h1 class="form-question">
             <%= content_for(:page_title) %>
           </h1>
 
-          <p><%= t("views.questions.welcome.help_text")%></p>
-
-          <ul class="list--bulleted">
-            <% t("views.questions.welcome.list").each do |list_item| %>
-              <li><%= list_item.html_safe %></li>
-            <% end %>
-          </ul>
-
-          <p><strong><%= t("views.questions.welcome.find_right_service")%></strong></p>
+          <p><%= t('.help_text') %></p>
 
           <div class="spacing-above-60">
             <%= link_to I18n.t('general.continue'), next_path, class: "button button--primary button--wide text--centered" %>
