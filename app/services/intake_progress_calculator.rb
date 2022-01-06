@@ -1,8 +1,8 @@
 class IntakeProgressCalculator
 
-  starting_index = QuestionNavigation::FLOW.index(Questions::LifeSituationsController)
-  ending_index = QuestionNavigation::FLOW.index(Questions::SuccessfullySubmittedController)
-  question_steps = QuestionNavigation::FLOW[starting_index..ending_index]
+  starting_index = GyrQuestionNavigation::FLOW.index(Questions::LifeSituationsController)
+  ending_index = GyrQuestionNavigation::FLOW.index(Questions::SuccessfullySubmittedController)
+  question_steps = GyrQuestionNavigation::FLOW[starting_index..ending_index]
   doc_overview_index = question_steps.index(Questions::OverviewDocumentsController)
 
   POSSIBLE_STEPS = question_steps.insert(doc_overview_index + 1, *DocumentNavigation::FLOW)

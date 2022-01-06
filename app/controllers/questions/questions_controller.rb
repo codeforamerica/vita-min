@@ -78,7 +78,7 @@ module Questions
     end
 
     def question_navigator
-      QuestionNavigation
+      GyrQuestionNavigation
     end
 
     def form_navigation
