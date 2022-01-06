@@ -129,37 +129,5 @@ RSpec.describe Hub::StateRoutingForm do
         expect(form.errors[:must_equal_100]).to be_present
       end
     end
-
-    context "when there are duplicate entries for the same vita_partner_id" do
-      let(:params) do
-        {
-          state_routing_fraction_attributes: {
-            organization_1.id => {
-              state_routing_target_id: coalition_1_state_routing_target.id,
-              routing_percentage: 30
-            },
-            organization_2.id => {
-              state_routing_target_id: coalition_1_state_routing_target.id,
-              routing_percentage: 60
-            },
-            organization_2.id => {
-              state_routing_target_id: coalition_1_state_routing_target.id,
-              routing_percentage: 10
-            }
-          }
-        }
-      end
-
-      it "adds an error" do
-        # CT: ok so here's what happened: this validation was checking for the vita_partner_id value, which we removed because it was redundant with the key
-        # the thing is you actually can't make a hash with two of the same key, duh
-        # so it doesn't register this as having a duplicate
-        # i think this validation actually belongs in the form where you add a new routing target
-        form = Hub::StateRoutingForm.new(params)
-        form.valid?
-        expect(form.valid?).to eq false
-        expect(form.errors[:duplicate_vita_partner]).to be_present
-      end
-    end
   end
 end

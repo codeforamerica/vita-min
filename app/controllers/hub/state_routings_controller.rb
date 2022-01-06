@@ -3,6 +3,7 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     before_action :load_state_and_routing_targets, only: [:edit, :update]
+    authorize_resource :state_routing_target
     layout "hub"
 
     def index
