@@ -1435,6 +1435,62 @@ es:
       title: Acceso no permitido
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
+  questions:
+    triage_assistance:
+      edit:
+        assistance:
+          chat: chat support
+          in_person: in-person assistance
+          phone_review_english: phone review (english)
+          phone_review_non_english: phone review (non english language)
+        help_text: 'Select the option(s) that apply to you:'
+        title: Do you require any additional assistance?
+    triage_backtaxes_years:
+      edit:
+        help_text_html: |
+          Even if you used a different service to file for previous years, <strong>select all the years that apply.</strong>
+          <br/><br/>
+          Don’t worry if you haven’t filed for any of these years, we’re here to help!
+        title: Have you filed taxes in the past? Let us know years that you filed.
+    triage_doc_type:
+      edit:
+        doc_type:
+          all_copies_html: I have <u>all</u> copies of my official tax documents
+          does_not_apply_html: I <u>do not</u> have copies any official tax documents because they <u>do not apply to me</u>
+          need_help_html: I <u>do not</u> have copies any official tax documents and <u>would like help</u> getting them
+          some_copies_html: 'I have <u>some</u> copies of my official tax documents '
+        help_text: Tax documents refers to any official IRS documents or documents that confirm your employment like a W2, 1099, personal work log, etc.
+        title: What type of tax documents do you have?
+    triage_id_type:
+      edit:
+        ssn_itin_type:
+          have_paperwork: I have my Social Security card or ITIN paperwork
+          know_number: I know my Social Security or ITIN number, but I do not have a copy of it
+          need_help: I need help getting my ITIN paperwork
+        title: What type of identification do you have?
+    triage_income_level:
+      edit:
+        help_text: Household income is the total you (and your spouse) made in the past year.
+        levels:
+          hh_1_to_25100_html: |
+            <div>$1- 25,100</div>
+
+            <div class="text--label-secondary-text spacing-above-15">
+              $1- 12,550 if filing individually
+            </div>
+          hh_25100_to_66000: "$25,100 - 66,000"
+          hh_66000_to_73000: "$66,000 - 73,000"
+          hh_over_73000: over $73,000
+          zero: "$0"
+        levels_label: 'Select your household income level:'
+        title: |-
+          Let's get started
+
+          Tell us about your income.
+    triage_start_ids:
+      edit:
+        help_text: It might be helpful to gather all of your tax documents and Social Security Card or ITIN paperwork at this point. We’ll confirm the information again later in the process.
+        title: We’ll start by asking about your documents and IDs.
   signups:
     flash_notice: Gracias, recibirá una notificación cuando iniciemos en enero del 2022.
     new:
@@ -3451,8 +3507,13 @@ es:
         verification_code_label: 'Introduzca el código de 6 números '
         verify: Verifique
       welcome:
-        help_text: Para proporcionar el mejor servicio, empecemos con algunas preguntas.
-        title: "¡Bienvenidos a GetYourRefund!"
+        find_right_service: We’ll ask a few questions, to find the right service for you!
+        help_text: 'We provide multiple tax filing options to households that qualify:'
+        list:
+        - "<strong>Deluxe</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
+        - "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
+        - "<strong>Express</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
+        title: Welcome to our free service!
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
       widowed_year:
@@ -3601,57 +3662,3 @@ es:
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
         search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
-  questions:
-    triage_income_level:
-      edit:
-        title: "Let's get started\n\nTell us about your income."
-        help_text: "Household income is the total you (and your spouse) made in the past year."
-        levels_label: "Select your household income level:"
-        levels:
-          zero: "$0"
-          hh_1_to_25100_html: |
-            <div>$1- 25,100</div>
-
-            <div class="text--label-secondary-text spacing-above-15">
-              $1- 12,550 if filing individually
-            </div>
-          hh_25100_to_66000: "$25,100 - 66,000"
-          hh_66000_to_73000: "$66,000 - 73,000"
-          hh_over_73000: "over $73,000"
-    triage_start_ids:
-      edit:
-        title: "We’ll start by asking about your documents and IDs."
-        help_text: "It might be helpful to gather all of your tax documents and Social Security Card or ITIN paperwork at this point. We’ll confirm the information again later in the process."
-    triage_id_type:
-      edit:
-        title: "What type of identification do you have?"
-        ssn_itin_type:
-          have_paperwork: "I have my Social Security card or ITIN paperwork"
-          know_number: "I know my Social Security or ITIN number, but I do not have a copy of it"
-          need_help: "I need help getting my ITIN paperwork"
-    triage_doc_type:
-      edit:
-        title: "What type of tax documents do you have?"
-        have_all_documents: "I have all copies of my official tax documents"
-        doc_type:
-          all_copies_html: "I have <u>all</u> copies of my official tax documents"
-          some_copies_html: "I have <u>some</u> copies of my official tax documents "
-          need_help_html: "I <u>do not</u> have copies any official tax documents and <u>would like help</u> getting them"
-          does_not_apply_html: "I <u>do not</u> have copies any official tax documents because they <u>do not apply to me</u>"
-        help_text: "Tax documents refers to any official IRS documents or documents that confirm your employment like a W2, 1099, personal work log, etc."
-    triage_backtaxes_years:
-      edit:
-        title: "Have you filed taxes in the past? Let us know years that you filed."
-        help_text_html: |
-          Even if you used a different service to file for previous years, <strong>select all the years that apply.</strong>
-          <br/><br/>
-          Don’t worry if you haven’t filed for any of these years, we’re here to help!
-    triage_assistance:
-      edit:
-        title: "Do you require any additional assistance?"
-        help_text: "Select the option(s) that apply to you:"
-        assistance:
-          in_person: "in-person assistance"
-          chat: "chat support"
-          phone_review_english: "phone review (english)"
-          phone_review_non_english: "phone review (non english language)"
