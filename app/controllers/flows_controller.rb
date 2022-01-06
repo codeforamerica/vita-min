@@ -67,7 +67,7 @@ class FlowsController < ApplicationController
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(Intake::GyrIntake) ? controller.current_intake : nil,
-          controller_list: QuestionNavigation::FLOW
+          controller_list: GyrQuestionNavigation::FLOW
         )
       elsif type == :ctc
         FlowParams.new(

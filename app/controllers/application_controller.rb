@@ -278,7 +278,7 @@ class ApplicationController < ActionController::Base
   end
 
   def question_navigator
-    QuestionNavigation
+    GyrQuestionNavigation
   end
 
   # convenience method for redirection to beginning of

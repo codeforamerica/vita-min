@@ -2,7 +2,7 @@
   <div class="grid">
     <div class="grid__item width-one-whole text--centered">
       <div class="h2 spacing-below-35"><%=t("views.public_pages.home.file.header") %></div>
-      <%= link_to question_path(id: QuestionNavigation.first),
+      <%= link_to question_path(id: GyrQuestionNavigation.first),
         class: "button button--wide button--primary button--centered spacing-below-0",
         **local_assigns.fetch(:link_attributes, {}) do %>
         <%=t("general.get_started") %>

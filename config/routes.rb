@@ -66,7 +66,7 @@ Rails.application.routes.draw do
 
       resources :questions, controller: :questions do
         collection do
-          QuestionNavigation.controllers.uniq.each do |controller_class|
+          GyrQuestionNavigation.controllers.uniq.each do |controller_class|
             { get: :edit, put: :update }.each do |method, action|
               match "/#{controller_class.to_param}",
                     action: action,

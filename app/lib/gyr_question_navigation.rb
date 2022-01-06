@@ -1,4 +1,4 @@
-class QuestionNavigation
+class GyrQuestionNavigation
   include ControllerNavigation
 
   FLOW = [
