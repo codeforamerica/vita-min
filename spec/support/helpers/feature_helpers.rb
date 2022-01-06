@@ -32,7 +32,7 @@ module FeatureHelpers
     maybe_screenshot(screenshot) do
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_doc_type.edit.title'))
     end
-    choose I18n.t("questions.triage_doc_type.edit.have_all_documents")
+    choose strip_html_tags(I18n.t("questions.triage_doc_type.edit.doc_type.all_copies_html"))
     click_on I18n.t('general.continue')
 
     maybe_screenshot(screenshot) do

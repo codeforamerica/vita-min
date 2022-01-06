@@ -3494,44 +3494,6 @@ en:
         title:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
-      triage_backtaxes:
-        help_text: If you earned income and you have filed for all the above years, answer yes. Even if you used a different service to file for previous years.
-        title: Have you filed taxes for %{backtax_years}?
-      triage_eligibility:
-        info: Let us know if any of the situations below apply to you.
-        situations:
-          had_farm_income: I earned money from owning a farm
-          had_rental_income: I earned money from a rental property
-          income_over_limit: I earned more than $66,000 in %{current_tax_year}
-        title: Yes, our service is completely free. Let's make sure you qualify!
-      triage_lookback:
-        had_income_decrease: My income decreased from %{prior_tax_year}
-        had_marketplace_insurance: I purchased health insurance through the marketplace
-        had_unemployment: I received unemployment income
-        help_text: Do any of the situations below apply to %{current_tax_year}?
-        title: "%{current_tax_year} tax situations"
-      triage_prepare_solo:
-        help_text: Preparing your return is easy, especially if you have less than 3 jobs. We'll provide chat support as you go through our DIY option.
-        title: Are you interested in preparing your own return?
-      triage_simple_tax:
-        help_text: 'Answer yes if you have 1-3 jobs to report and no deductions. You might have these forms: W-2, 1099R, 1099SSA, 1099G'
-        title: Do you have simple taxes?
-      triage_stimulus_check:
-        faq: Visit Stimulus FAQ
-        get_your_money: Get all the cash support you're owed!
-        help_me: Yes! Help me file my taxes.
-        help_text: Don't worry, we're here to support you throughout the process. We'll help you collect your stimulus payment, file your taxes, and make sure you receive the maximum refund owed to you!
-        perks:
-        - Receive addition money through tax credits, if you qualify
-        - File for previous years and collect past refunds
-        - Access our free tax filing assistance that will answer all of your questions
-        title: In order to collect your stimulus check, you are required to file your taxes.
-      triage_tax_needs:
-        collect_stimulus: Collect my stimulus check
-        file_previous_years: File taxes for previous years
-        file_this_year: File my %{current_year} taxes
-        help_text: 'Select all the situations that apply to you:'
-        title: What can we help you with?
       verification:
         body: 'A message with your code has been sent to:'
         error_message: Incorrect verification code.

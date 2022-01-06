@@ -3462,44 +3462,6 @@ es:
         title:
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
-      triage_backtaxes:
-        help_text: Si ganó ingreso y ha presentado para todos los años anteriores, conteste sí. Incluso si usó un servicio diferente para declarar en los años anteriores.
-        title: "¿Ha declarado los impuestos para %{backtax_years}?"
-      triage_eligibility:
-        info: Díganos si cualquiera de las siguientes situaciones aplican a usted.
-        situations:
-          had_farm_income: Gané dinero por tener una granja
-          had_rental_income: Gané dinero de una propiedad alquilada
-          income_over_limit: Gané más de 66.000 dólares en %{current_tax_year}
-        title: Sí, nuestro servicio es completamente gratis. ¡Nos aseguraremos de que usted califica!
-      triage_lookback:
-        had_income_decrease: Mis ingresos bajaron comparados con los de %{prior_tax_year}
-        had_marketplace_insurance: Compré seguros médicos del mercado de seguros médicos
-        had_unemployment: Recibí beneficios de desempleo
-        help_text: "¿Alguna de las siguientes situaciones se aplica a %{current_tax_year}?"
-        title: situaciones respecto a los impuestos de %{current_tax_year}
-      triage_prepare_solo:
-        help_text: Es simple para preparar su declaración, especialmente si tiene menos de 3 empleos. Proveeremos chats de asistencia mientras usted sigue con nuestra opción de auto-servicio.
-        title: "¿Le interesa preparar su propia declaración?"
-      triage_simple_tax:
-        help_text: 'Conteste sí, si tiene 1-3 empleos para declarar y no tiene ninguna deducción. Podría tener estos formularios: W-2, 1099R, 1099SSA, 1099G.'
-        title: "¿Tiene impuestos simples?"
-      triage_stimulus_check:
-        faq: Visitar la sección de Preguntas Frecuentes sobre el estímulo económico
-        get_your_money: "¡Consiga todo el apoyo monetario que se le debe!"
-        help_me: "¡Sí! Ayúdame a presentar los impuestos."
-        help_text: "¡No se preocupe! Estamos aquí para ayudarle durante todo el proceso. Le ayudaremos a cobrar su pago de estímulo, declarar sus impuestos, y asegurar que reciba el máximo reembolso que se le debe."
-        perks:
-        - Reciba dinero adicional por medio de créditos fiscales, si usted califica
-        - Declare impuestos para años anteriores y reciba los reembolsos pasados
-        - Tenga acceso a nuestro servicio gratuito de asistencia de declaración de impuestos que contestará todas sus preguntas.
-        title: Para cobrar su cheque de estímulo económico, se requiere que presente los impuestos.
-      triage_tax_needs:
-        collect_stimulus: Cobrar mi cheque de estímulo económico
-        file_previous_years: Declarar los impuestos para años anteriores
-        file_this_year: Declarar los impuestos para %{current_year}
-        help_text: 'Seleccione todas las situaciones que se aplican a usted:'
-        title: "¿En qué podemos ayudarle?"
       verification:
         body: 'Se le ha enviado un mensaje con su código a:'
         error_message: El código de verificación está equivocado

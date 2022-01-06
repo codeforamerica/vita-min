@@ -15,7 +15,7 @@ RSpec.feature "Visit home page" do
     within ".slab--hero" do
       click_on "Get started"
     end
-    expect(page).to have_text "Welcome to GetYourRefund!"
+    expect(page).to have_text I18n.t('views.questions.welcome.title')
   end
 
   scenario "it has the correct SEO link tags in English" do
