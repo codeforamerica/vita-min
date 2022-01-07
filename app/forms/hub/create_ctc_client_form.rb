@@ -75,7 +75,6 @@ module Hub
     validates :filing_status, presence: true
     validates :refund_payment_method, presence: true
     validates :preferred_interview_language, presence: true, allow_blank: false
-    validate :at_least_one_contact_method
 
     after_save :send_confirmation_message, :send_mixpanel_data, :add_system_note
 

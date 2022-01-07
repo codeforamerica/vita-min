@@ -77,7 +77,6 @@ module Hub
     validate :at_least_one_taxpayer_id_type_selected, if: -> { @client.tax_returns.any? { |tax_return| tax_return.service_type == "drop_off" } }
     validate :valid_primary_birth_date
     validate :valid_spouse_birth_date, if: -> { filing_status == "married_filing_jointly" }
-    validate :at_least_one_contact_method
 
     def initialize(client, params = {})
       @client = client

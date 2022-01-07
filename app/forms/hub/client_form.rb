@@ -33,12 +33,12 @@ module Hub
     validates :email_address, 'valid_email_2/email': true
     validates :phone_number, allow_blank: true, e164_phone: true
     validates :sms_phone_number, allow_blank: true, e164_phone: true
-    validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
     validates :primary_first_name, presence: true, allow_blank: false, legal_name: true
     validates :primary_last_name, presence: true, allow_blank: false, legal_name: true
     validates :spouse_first_name, legal_name: true
     validates :spouse_last_name, legal_name: true
     validate :contact_method_if_opted_in
+    validate :at_least_one_contact_method_if_signature_method_online
 
     attr_accessor :dependents_attributes
 
@@ -76,19 +76,13 @@ module Hub
       nil
     end
 
-    def opted_in_sms?
-      sms_notification_opt_in == "yes" && sms_phone_number.present?
-    end
+    def at_least_one_contact_method_if_signature_method_online
+      return if signature_method != "online"
+      return if email_notification_opt_in == "yes" && email_address.present?
+      return if sms_notification_opt_in == "yes" && sms_phone_number.present?
 
-    def opted_in_email?
-      email_notification_opt_in == "yes" && email_address.present?
-    end
-
-    def at_least_one_contact_method
-      unless opted_in_email? || opted_in_sms?
-        errors.add(:email_address, I18n.t("forms.errors.hub.communication_opt_in"))
-        errors.add(:sms_phone_number, I18n.t("forms.errors.hub.communication_opt_in"))
-      end
+      errors.add(:email_address, I18n.t("forms.errors.hub.communication_opt_in"))
+      errors.add(:sms_phone_number, I18n.t("forms.errors.hub.communication_opt_in"))
     end
 
     def contact_method_if_opted_in
