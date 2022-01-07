@@ -14,8 +14,6 @@ def fill_in_dependent_info(dependent_birth_year)
 end
 
 RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job: true do
-  include FeatureTestHelpers
-
   let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, year: 2021)] }
 
   before do

@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "searching, sorting, and filtering clients" do
-  include FeatureTestHelpers
-
   context "as an admin user" do
     let(:user) { create :admin_user }
     let(:mona_user) { create :user, name: "Mona Mandarin" }

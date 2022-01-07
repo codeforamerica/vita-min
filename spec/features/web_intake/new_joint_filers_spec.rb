@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
-  include FeatureTestHelpers
   include MockTwilio
 
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }

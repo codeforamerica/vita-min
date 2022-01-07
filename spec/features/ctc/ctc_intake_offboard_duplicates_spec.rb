@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true do
-  include FeatureTestHelpers
-
   before do
     # create duplicated intake
     create(:ctc_intake, email_address: "mango@example.com", email_notification_opt_in: "yes", email_address_verified_at: DateTime.now)

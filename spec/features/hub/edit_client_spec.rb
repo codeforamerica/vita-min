@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "a user editing a clients intake fields" do
-  include FeatureTestHelpers
-
   context "as an admin user" do
     let(:organization) { create(:organization, name: "Assigned Org") }
     let!(:new_site) { create(:site, name: "Other Site") }

@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "create VITA organization hierarchy", :js do
-  include FeatureTestHelpers
-
   context "as an admin user" do
     let(:admin_user) { create :admin_user }
     before { login_as admin_user }

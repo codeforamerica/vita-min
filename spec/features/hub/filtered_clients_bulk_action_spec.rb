@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Filtering clients for bulk actions", active_job: true do
-  include FeatureTestHelpers
-
   let!(:user) { create :admin_user }
   let(:selected_org) { create :organization, name: "Orange Organization" }
   let(:unselected_org) { create :organization, name: "Rooster Brew" }
