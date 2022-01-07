@@ -206,6 +206,7 @@ en:
         must_equal_100: Routing percentages must total 100%.
         not_found: Matching routing entry for %{state} could not be found. Try again.
         zero_to_delete: To delete a persisted routing rule, routing percentage must be 0%.
+        delegated_routing: "You can only submit routing percentages for an organization OR its child sites, not both."
       status_must_change: Can't initiate status change to current status.
       tax_return_belongs_to_client: Can't update tax return unrelated to current client.
       tax_returns: 'Please provide all required fields for tax returns: %{attrs}.'

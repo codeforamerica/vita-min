@@ -3,6 +3,7 @@ module Hub
     include FormAttributes
 
     validate :percentages_must_equal_100
+    validate :org_delegates_routing_to_child_sites
 
     def initialize(form_params = nil)
       @form_params = form_params
@@ -34,6 +35,16 @@ module Hub
       end
       unless sum == 100
         errors.add(:must_equal_100, I18n.t("forms.errors.state_routings.must_equal_100"))
+      end
+    end
+
+    def org_delegates_routing_to_child_sites
+      vita_partner_ids = state_routing_fraction_attributes.keys
+      vita_partner_ids.each do |vita_partner_id|
+        vita_partner = VitaPartner.find(vita_partner_id)
+        if vita_partner.site? && vita_partner_ids.include?(vita_partner.parent_organization.id)
+          errors.add(:delegated_routing, I18n.t("forms.errors.state_routings.delegated_routing"))
+        end
       end
     end
 
