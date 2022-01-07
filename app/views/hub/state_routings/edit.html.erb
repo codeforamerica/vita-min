@@ -2,27 +2,42 @@
 <% content_for :page_title, @page_title %>
 
 <% content_for :card do %>
-  <div class="slab slab state-routings-edit">
-    <div class="grid">
-      <h1 class="spacing-below-0"><%= @page_title %></h1>
-      <div class="grid__item width-one-half">
-        <div class="organization-list">
-          <%= form_with model: @form, url: hub_state_routing_path, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
-            <div>
-              <% @coalition_srts&.each do |coalition_srt| %>
-                <strong><%= coalition_srt.target.name %></strong>
-                <% coalition_srt.target.organizations.each do |org| %>
-                  <%= render 'hub/state_routings/organization_routing_entry', f: f, organization: org, state_routing_target: coalition_srt %>
-                <% end %>
+  <div class="slab">
+    <h1> Routing </h1>
+    <h1> <%= States.name_for_key(@state) %> </h1>
+
+    <div class="grid state-routing-grid">
+      <div class="grid__item width-two-thirds">
+        <div class="state-routing-row__headers">
+          <div class="grid__item width-one-half">
+            <text> Name</text>
+          </div>
+          <div class="grid__item width-one-fourth">
+            <text> Org Level Routing</text>
+          </div>
+          <div class="grid__item width-one-fourth">
+            <text> Routing Percentage</text>
+          </div>
+        </div>
+
+        <%= form_with model: @form, url: hub_state_routing_path, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+          <div class="state-routing-body">
+            <% @coalition_srts.each do |coalition_srt| %>
+              <div class="state-routing-row__sub-header">
+                <text><%= coalition_srt.target.name %></text>
+              </div>
+              <% coalition_srt.target.organizations.each do |org| %>
+                <%= render 'hub/state_routings/organization_routing_entry', f: f, organization: org, state_routing_target: coalition_srt %>
               <% end %>
-              <% if @independent_org_srts&.any? %>
-                <strong>Independent Organizations</strong>
-              <% end %>
-              <% @independent_org_srts&.each do |org_srt| %>
-                <%= render 'hub/state_routings/organization_routing_entry', f: f, organization: org_srt.target, state_routing_target: org_srt %>
-              <% end %>
-              <div class="routing-percentage-total"><!-- Placeholder for JS calculation of total !--></div>
-            </div>
+            <% end %>
+            <% if @independent_org_srts.any? %>
+              <div class="state-routing-row__sub-header">
+                <text>Independent Organizations</text>
+              </div>
+            <% end %>
+            <% @independent_org_srts.each do |org_srt| %>
+              <%= render 'hub/state_routings/organization_routing_entry', f: f, organization: org_srt.target, state_routing_target: org_srt %>
+            <% end %>
 
             <% if @form.errors.present? %>
               <% @form.errors.attribute_names.each do |key| %>
@@ -31,12 +46,21 @@
                 </div>
               <% end %>
             <% end %>
+          </div>
 
+          <div class="state-routing-row__footer">
+            <div class="grid__item routing-total">
+              <div class="grid__item routing-total-label"> Total Routing Percentage:</div>
+              <div class="grid__item routing-percentage-total"><!-- Placeholder for JS calculation of total !--></div>
+            </div>
+          </div>
+
+          <div class="state-routing-row">
             <div class="spacing-above-35">
               <%= f.submit t("general.save"), class: "button button--primary" %>
             </div>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

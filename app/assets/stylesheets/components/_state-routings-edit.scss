@@ -1,41 +1,70 @@
-.state-routings-edit {
-  ul {
-    position: relative;
-  }
-  .state-routing-item {
-    position: relative;
+.state-routing-grid {
+  .state-routing-body {
+    overflow: hidden;
+
+    .routing-fields {
+      display: flex;
+      align-items: center;
+      padding-bottom: 2rem;
+    }
   }
 
-  .site > .form-group {
-    padding-left: 5rem;
-  }
+  .state-routing-row {
+    &__headers {
+      border-bottom: 1px solid black;
+      overflow: hidden;
+      font-weight: bold;
+      margin-bottom: 2rem;
 
-  .form-group {
-    padding: 1rem 0;
-    margin-bottom: 0;
+      div:last-child {
+        text-align: right;
+      }
+    }
+
+    &__sub-header {
+      text-decoration: underline;
+      margin-bottom: 2rem;
+    }
+
+    &__footer {
+      width: 100%;
+      text-align: right;
+      // match text--error styling
+      font-size: 1.6rem;
+      line-height: 2.5rem;
+
+      border-top: 1px solid black;
+      padding-top: 2rem;
+
+      .routing-total {
+        .routing-total-label {
+          display: inline-block;
+          margin-right: 1rem;
+          padding-right: 1rem;
+        }
+
+        .routing-percentage-total {
+          display: inline-block;
+          font-weight: bold;
+        }
+      }
+    }
   }
 
   .routing-percentage-input-wrapper {
     position: relative;
+    height: 4.5rem;
+
     &:after {
       position: absolute;
       content: '%';
-      top: 54%;
+      top: 35%;
       right: .5rem;
     }
+
     input {
       text-align: right;
       padding-right: 2rem;
     }
-  }
-  .routing-percentage-total {
-    position: absolute;
-    bottom: 2.5rem;
-    right: 0;
-    font-weight: bold;
-    margin: 0 .5rem;
-    // match text--error styling
-    font-size: 1.6rem;
-    line-height: 2.5rem;
   }
 }
