@@ -17,8 +17,8 @@ module Questions
     end
 
     def after_update_success
-      Intake14446PdfJob.perform_later(current_intake, "Consent Form 14446.pdf")
-      IntakePdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
+      GenerateRequiredConsentPdfJob.perform_later(current_intake, "Consent Form 14446.pdf")
+      GenerateF13614cPdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
     end
   end
 end

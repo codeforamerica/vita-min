@@ -7,7 +7,7 @@ module Portal
     def formatted_contact_info
       return contact_info if contact_info.include?("@")
 
-      local_phone_number(contact_info)
+      PhoneParser.formatted_phone_number(contact_info)
     end
   end
 end

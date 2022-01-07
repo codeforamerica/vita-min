@@ -19,6 +19,7 @@ module DocumentTypes
     DocumentTypes::Form1099R,
     DocumentTypes::Form1099S,
     DocumentTypes::Form1099Sa,
+    DocumentTypes::Form15080,
     DocumentTypes::Rrb1099,
     DocumentTypes::Ssa1099,
     DocumentTypes::Form5498Sa,

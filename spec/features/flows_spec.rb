@@ -5,8 +5,8 @@ RSpec.feature 'Flow visualizations' do
     it 'shows all the pages' do
       visit flow_path(id: :gyr)
 
-      expect(page).to have_content(QuestionNavigation::FLOW.first.name)
-      expect(page).to have_content(QuestionNavigation::FLOW.last.name)
+      expect(page).to have_content(GyrQuestionNavigation::FLOW.first.name)
+      expect(page).to have_content(GyrQuestionNavigation::FLOW.last.name)
     end
   end
 

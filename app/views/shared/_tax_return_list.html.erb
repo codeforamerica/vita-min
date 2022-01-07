@@ -19,7 +19,7 @@
         </div>
 
         <div class ="tax-return-list__assignee">
-          <%= render "hub/tax_returns/assignee", tax_return: tax_return %>
+          <%= render "hub/tax_returns/assignee", tax_return: tax_return, editable: client.editable? %>
         </div>
       </div>
       <div class="tax-return-list__right">

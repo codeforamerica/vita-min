@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
+#  advance_ctc_amount_received                          :integer
 #  already_applied_for_stimulus                         :integer          default(0), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
@@ -47,6 +48,7 @@
 #  eip1_entry_method                                    :integer          default(0), not null
 #  eip2_amount_received                                 :integer
 #  eip2_entry_method                                    :integer          default(0), not null
+#  eip3_amount_received                                 :integer
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -141,6 +143,7 @@
 #  phone_number_can_receive_texts                       :integer          default(0), not null
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
+#  preferred_written_language                           :string
 #  primary_active_armed_forces                          :integer          default(0), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
@@ -154,6 +157,7 @@
 #  primary_signature_pin_at                             :datetime
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
+#  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -471,42 +475,6 @@ describe Intake do
     end
   end
 
-  describe "#pdf" do
-    let(:intake) { create :intake }
-    let(:intake_pdf_spy) { instance_double(IntakePdf) }
-
-    before do
-      allow(IntakePdf).to receive(:new).with(intake).and_return(intake_pdf_spy)
-      allow(intake_pdf_spy).to receive(:output_file).and_return("i am a pdf")
-    end
-
-    it "generates a 13614c pdf for this intake" do
-      result = intake.pdf
-
-      expect(IntakePdf).to have_received(:new).with(intake)
-      expect(intake_pdf_spy).to have_received(:output_file)
-      expect(result).to eq "i am a pdf"
-    end
-  end
-
-  describe "#consent_pdf" do
-    let(:intake) { create :intake }
-    let(:consent_pdf_spy) { instance_double(ConsentPdf) }
-
-    before do
-      allow(ConsentPdf).to receive(:new).with(intake).and_return(consent_pdf_spy)
-      allow(consent_pdf_spy).to receive(:output_file).and_return("i am a pdf")
-    end
-
-    it "generates a consent pdf for this intake" do
-      result = intake.consent_pdf
-
-      expect(ConsentPdf).to have_received(:new).with(intake)
-      expect(consent_pdf_spy).to have_received(:output_file)
-      expect(result).to eq "i am a pdf"
-    end
-  end
-
   describe "#referrer_domain" do
     let(:intake) { build :intake, referrer: referrer }
 
@@ -657,42 +625,6 @@ describe Intake do
 
       it "shows a placeholder for the spouse name" do
         expect(intake.student_names).to eq(["Henrietta Huckleberry", "Your spouse"])
-      end
-    end
-  end
-
-  describe "#consented?" do
-    context "when primary_consented_to_service_at is present" do
-      subject { create(:intake, primary_consented_to_service_at: Date.current) }
-
-      it "is true" do
-        expect(subject.consented?).to be true
-      end
-    end
-
-    context "when primary_consented_at is not present" do
-      subject { create(:intake, primary_consented_to_service_at: nil) }
-
-      it "is false" do
-        expect(subject.consented?).to be false
-      end
-    end
-  end
-
-  describe "#external_id" do
-    let(:intake) { build :intake }
-
-    context "when unsaved" do
-      it "is nil" do
-        expect(intake.external_id).to eq(nil)
-      end
-    end
-
-    context "when saved" do
-      it "is in the intended format" do
-        intake.save
-        intake.reload
-        expect(intake.external_id).to eq("intake-#{intake.id}")
       end
     end
   end
@@ -987,42 +919,7 @@ describe Intake do
     end
   end
 
-  describe "#formatted_contact_preferences" do
-    let(:intake) { create(:intake, email_notification_opt_in: email_opt_in, sms_notification_opt_in: sms_opt_in) }
-
-    context "with sms and email" do
-      let(:email_opt_in) { "yes" }
-      let(:sms_opt_in) { "yes" }
-
-      it "shows both" do
-        expect(intake.formatted_contact_preferences).to eq <<~TEXT
-          Prefers notifications by:
-              • Text message
-              • Email
-        TEXT
-      end
-    end
-
-    context "with just sms" do
-      let(:email_opt_in) { "no" }
-      let(:sms_opt_in) { "yes" }
-
-      it "shows just sms" do
-        expect(intake.formatted_contact_preferences).to eq <<~TEXT
-          Prefers notifications by:
-              • Text message
-        TEXT
-      end
-    end
-  end
-
   describe "#update_or_create_13614c_document" do
-    before do
-      example_pdf = Tempfile.new("example.pdf")
-      example_pdf.write("example pdf contents")
-      allow(intake).to receive(:pdf).and_return(example_pdf)
-    end
-
     let(:intake) { create(:intake) }
 
     context "when there is not an existing 13614-C document" do
@@ -1032,40 +929,6 @@ describe Intake do
         doc = Document.last
         expect(doc.display_name).to eq("filename.pdf")
         expect(doc.document_type).to eq(DocumentTypes::Form13614C.key)
-        expect(intake).to have_received(:pdf)
-      end
-    end
-
-    context "when there is an existing 13614-C document" do
-      let!(:document) { intake.update_or_create_13614c_document("filename.pdf") }
-
-      it "updates the existing document with a regenerated form" do
-        expect {
-          expect {
-            intake.update_or_create_13614c_document("new-filename.pdf")
-          }.not_to change(Document, :count)
-        }.to change{document.reload.updated_at}
-        expect(document.display_name).to eq "new-filename.pdf"
-      end
-    end
-  end
-  describe "#update_or_create_13614c_document" do
-    before do
-      example_pdf = Tempfile.new("example.pdf")
-      example_pdf.write("example pdf contents")
-      allow(intake).to receive(:pdf).and_return(example_pdf)
-    end
-
-    let(:intake) { create(:intake) }
-
-    context "when there is not an existing 13614-C document" do
-      it "creates a preliminary 13614-C PDF with a given filename" do
-        expect { intake.update_or_create_13614c_document("filename.pdf") }.to change(Document, :count).by(1)
-
-        doc = Document.last
-        expect(doc.display_name).to eq("filename.pdf")
-        expect(doc.document_type).to eq(DocumentTypes::Form13614C.key)
-        expect(intake).to have_received(:pdf)
       end
     end
 

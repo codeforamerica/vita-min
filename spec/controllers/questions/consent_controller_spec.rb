@@ -96,15 +96,15 @@ RSpec.describe Questions::ConsentController do
   describe "#after_update_success" do
     before do
       allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
-      allow(Intake14446PdfJob).to receive(:perform_later)
-      allow(IntakePdfJob).to receive(:perform_later)
+      allow(GenerateRequiredConsentPdfJob).to receive(:perform_later)
+      allow(GenerateF13614cPdfJob).to receive(:perform_later)
     end
 
     it "enqueues a job to generate the consent form and the intake form" do
       subject.after_update_success
 
-      expect(Intake14446PdfJob).to have_received(:perform_later).with(intake, "Consent Form 14446.pdf")
-      expect(IntakePdfJob).to have_received(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
+      expect(GenerateRequiredConsentPdfJob).to have_received(:perform_later).with(intake)
+      expect(GenerateF13614cPdfJob).to have_received(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
     end
 
     context "messaging" do

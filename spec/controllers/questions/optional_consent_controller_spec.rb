@@ -51,7 +51,7 @@ RSpec.describe Questions::OptionalConsentController do
     end
 
     it "enqueues a job to generate optional consent form" do
-      expect(OptionalConsentPdfJob).to receive(:perform_later).with(intake.client.consent)
+      expect(GenerateOptionalConsentPdfJob).to receive(:perform_later).with(intake.client.consent)
 
       subject.after_update_success
     end

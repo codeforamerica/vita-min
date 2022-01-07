@@ -7,9 +7,15 @@ module Hub
     layout "hub"
 
     def index
-      @messages_by_day = MessagePresenter.grouped_messages(@client)
-      @outgoing_text_message = OutgoingTextMessage.new(client: @client)
-      @outgoing_email = OutgoingEmail.new(client: @client)
+      @client = HubClientPresenter.new(@client)
+    end
+
+    private
+
+    class HubClientPresenter < Hub::ClientsController::HubClientPresenter
+      def messages_by_day
+        @_messages ||= MessagePresenter.grouped_messages(@client)
+      end
     end
   end
 end

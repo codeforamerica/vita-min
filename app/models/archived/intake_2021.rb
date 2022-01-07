@@ -278,7 +278,7 @@ module Archived
 
     has_many :documents, dependent: :destroy
     has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::Dependent2021', foreign_key: 'archived_intakes_2021_id'
-    belongs_to :client, inverse_of: :intake, optional: true
+    belongs_to :client, optional: true
     has_many :tax_returns, through: :client
     belongs_to :vita_partner, optional: true
     accepts_nested_attributes_for :dependents, allow_destroy: true
@@ -350,11 +350,11 @@ module Archived
 
     # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
     def formatted_phone_number
-      Phonelib.parse(phone_number).local_number
+      PhoneParser.formatted_phone_number(phone_number)
     end
 
     def formatted_sms_phone_number
-      Phonelib.parse(sms_phone_number).local_number
+      PhoneParser.formatted_phone_number(sms_phone_number)
     end
 
     # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"
@@ -374,41 +374,12 @@ module Archived
       parts.join(' ')
     end
 
-    def primary_user
-      users.where.not(is_spouse: true).first
-    end
-
-    def spouse
-      users.where(is_spouse: true).first
-    end
-
-    def consented?
-      primary_consented_to_service_at.present?
-    end
-
-    def pdf
-      IntakePdf.new(self).output_file
-    end
-
-    def consent_pdf
-      ConsentPdf.new(self).output_file
-    end
-
     def referrer_domain
       URI.parse(referrer).host if referrer.present?
     end
 
     def state_of_residence_name
       States.name_for_key(state_of_residence)
-    end
-
-    def had_a_job?
-      job_count.present? && job_count > 0
-    end
-
-    def eligible_for_vita?
-      # if any are unfilled this will return false
-      had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
     end
 
     def any_students?
@@ -429,12 +400,6 @@ module Archived
       names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
       names += dependents.where(was_student: "yes").map(&:full_name)
       names
-    end
-
-    def external_id
-      return unless id.present?
-
-      ["intake", id].join("-")
     end
 
     def get_or_create_spouse_auth_token
@@ -472,12 +437,8 @@ module Archived
       contact_info
     end
 
-    def opted_into_notifications?
-      sms_notification_opt_in_yes? || email_notification_opt_in_yes?
-    end
-
     def had_earned_income?
-      had_a_job? || had_wages_yes? || had_self_employment_income_yes?
+      (job_count&.> 0) || had_wages_yes? || had_self_employment_income_yes?
     end
 
     def had_dependents_under?(yrs)
@@ -488,50 +449,24 @@ module Archived
       TaxReturn.backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
     end
 
-    def formatted_contact_preferences
-      text = "Prefers notifications by:\n"
-      text << "    • Text message\n" if sms_notification_opt_in_yes?
-      text << "    • Email\n" if email_notification_opt_in_yes?
-      text
-    end
-
-    def formatted_mailing_address
-      return "N/A" unless street_address
-      <<~ADDRESS
-      #{street_address} #{street_address2}
-      #{city}, #{state} #{zip_code}
-      ADDRESS
-    end
-
     def update_or_create_13614c_document(filename)
+      pdf = F13614cPdf.new(self).output_file
       ClientPdfDocument.create_or_update(
-        output_file: pdf,
-        document_type: DocumentTypes::Form13614C,
+        output_file: pdf.output_file,
+        document_type: pdf.document_type,
         client: client,
-        filename: filename
+        filename: filename || pdf.output_filename
       )
     end
 
-    def update_or_create_14446_document(filename)
+    def update_or_create_required_consent_pdf
+      consent_pdf = ConsentPdf.new(self)
       ClientPdfDocument.create_or_update(
-        output_file: consent_pdf,
-        document_type: DocumentTypes::Form14446,
+        output_file: consent_pdf.output_file,
+        document_type: consent_pdf.document_type,
         client: client,
-        filename: filename
+        filename: consent_pdf.output_filename
       )
-    end
-
-    def update_or_create_additional_consent_pdf
-      ClientPdfDocument.create_or_update(
-        output_file: AdditionalConsentPdf.new(client).output_file,
-        document_type: DocumentTypes::AdditionalConsentForm,
-        client: client,
-        filename: "additional-consent-2021.pdf"
-      )
-    end
-
-    def might_encounter_delayed_service?
-      vita_partner.at_capacity?
     end
 
     def set_navigator(param)

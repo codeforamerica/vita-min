@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
+#  advance_ctc_amount_received                          :integer
 #  already_applied_for_stimulus                         :integer          default(0), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
@@ -47,6 +48,7 @@
 #  eip1_entry_method                                    :integer          default(0), not null
 #  eip2_amount_received                                 :integer
 #  eip2_entry_method                                    :integer          default(0), not null
+#  eip3_amount_received                                 :integer
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -141,6 +143,7 @@
 #  phone_number_can_receive_texts                       :integer          default(0), not null
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
+#  preferred_written_language                           :string
 #  primary_active_armed_forces                          :integer          default(0), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
@@ -154,6 +157,7 @@
 #  primary_signature_pin_at                             :datetime
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
+#  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -339,11 +343,11 @@ class Intake < ApplicationRecord
 
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
-    Phonelib.parse(phone_number).local_number
+    PhoneParser.formatted_phone_number(phone_number)
   end
 
   def formatted_sms_phone_number
-    Phonelib.parse(sms_phone_number).local_number
+    PhoneParser.formatted_phone_number(sms_phone_number)
   end
 
   # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"
@@ -363,41 +367,12 @@ class Intake < ApplicationRecord
     parts.join(' ')
   end
 
-  def primary_user
-    users.where.not(is_spouse: true).first
-  end
-
-  def spouse
-    users.where(is_spouse: true).first
-  end
-
-  def consented?
-    primary_consented_to_service_at.present?
-  end
-
-  def pdf
-    IntakePdf.new(self).output_file
-  end
-
-  def consent_pdf
-    ConsentPdf.new(self).output_file
-  end
-
   def referrer_domain
     URI.parse(referrer).host if referrer.present?
   end
 
   def state_of_residence_name
     States.name_for_key(state_of_residence)
-  end
-
-  def had_a_job?
-    job_count.present? && job_count > 0
-  end
-
-  def eligible_for_vita?
-    # if any are unfilled this will return false
-    had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
   end
 
   def any_students?
@@ -418,12 +393,6 @@ class Intake < ApplicationRecord
     names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
     names += dependents.where(was_student: "yes").map(&:full_name)
     names
-  end
-
-  def external_id
-    return unless id.present?
-
-    ["intake", id].join("-")
   end
 
   def get_or_create_spouse_auth_token
@@ -461,12 +430,8 @@ class Intake < ApplicationRecord
     contact_info
   end
 
-  def opted_into_notifications?
-    sms_notification_opt_in_yes? || email_notification_opt_in_yes?
-  end
-
   def had_earned_income?
-    had_a_job? || had_wages_yes? || had_self_employment_income_yes?
+    (job_count&.> 0) || had_wages_yes? || had_self_employment_income_yes?
   end
 
   def had_dependents_under?(yrs)
@@ -477,50 +442,24 @@ class Intake < ApplicationRecord
     TaxReturn.backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
   end
 
-  def formatted_contact_preferences
-    text = "Prefers notifications by:\n"
-    text << "    • Text message\n" if sms_notification_opt_in_yes?
-    text << "    • Email\n" if email_notification_opt_in_yes?
-    text
-  end
-
-  def formatted_mailing_address
-    return "N/A" unless street_address
-    <<~ADDRESS
-      #{street_address} #{street_address2}
-      #{city}, #{state} #{zip_code}
-    ADDRESS
-  end
-
   def update_or_create_13614c_document(filename)
+    pdf = F13614cPdf.new(self)
     ClientPdfDocument.create_or_update(
-      output_file: pdf,
-      document_type: DocumentTypes::Form13614C,
+      output_file: pdf.output_file,
+      document_type: pdf.document_type,
       client: client,
-      filename: filename
+      filename: filename || pdf.output_filename
     )
   end
 
-  def update_or_create_14446_document(filename)
+  def update_or_create_required_consent_pdf
+    consent_pdf = ConsentPdf.new(self)
     ClientPdfDocument.create_or_update(
-      output_file: consent_pdf,
-      document_type: DocumentTypes::Form14446,
+      output_file: consent_pdf.output_file,
+      document_type: consent_pdf.document_type,
       client: client,
-      filename: filename
+      filename: consent_pdf.output_filename
     )
-  end
-
-  def update_or_create_additional_consent_pdf
-    ClientPdfDocument.create_or_update(
-      output_file: AdditionalConsentPdf.new(client).output_file,
-      document_type: DocumentTypes::AdditionalConsentForm,
-      client: client,
-      filename: "additional-consent-2021.pdf"
-    )
-  end
-
-  def might_encounter_delayed_service?
-    vita_partner.at_capacity?
   end
 
   def set_navigator(param)

@@ -13,7 +13,7 @@
             <%= link_to t("general.documents"), hub_client_documents_path %>
             >
             <%= t(".archived_documents") %>
-          <% else %>
+          <% elsif @client.editable? %>
             <%= link_to t(".add_doc"), new_hub_client_document_path, class: "button spacing-below-0" %>
           <% end %>
         </div>

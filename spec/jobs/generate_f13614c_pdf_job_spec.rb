@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe IntakePdfJob, type: :job do
+RSpec.describe GenerateF13614cPdfJob, type: :job do
   describe "#perform" do
     let(:intake_mock) { double }
 

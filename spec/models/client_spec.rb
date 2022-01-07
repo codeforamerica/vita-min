@@ -178,52 +178,6 @@ describe Client do
     end
   end
 
-  describe ".delegated_order scope" do
-    context "when sorting first_unanswered_incoming_interaction_at" do
-      let!(:client_with_recent_message) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: 2.days.ago) }
-      let!(:client_with_old_message) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: 3.days.ago) }
-      let!(:client_with_null_value) { create(:client_with_intake_and_return, first_unanswered_incoming_interaction_at: nil) }
-
-      context "when desc" do
-        it "sorts nulls last and most recent messages first" do
-          expect(Client.delegated_order("first_unanswered_incoming_interaction_at", "desc")).to(
-            eq([client_with_recent_message, client_with_old_message, client_with_null_value])
-          )
-        end
-      end
-
-      context "when asc" do
-        it "sorts nulls last and oldest messages first" do
-          expect(Client.delegated_order("first_unanswered_incoming_interaction_at", "asc")).to(
-            eq([client_with_old_message, client_with_recent_message, client_with_null_value])
-          )
-        end
-      end
-    end
-
-    context "when sorting last_outgoing_communication_at" do
-      let!(:client_with_recent_communication) { create(:client_with_intake_and_return, last_outgoing_communication_at: 2.days.ago) }
-      let!(:client_with_old_communication) { create(:client_with_intake_and_return, last_outgoing_communication_at: 3.days.ago) }
-      let!(:client_with_null_value) { create(:client_with_intake_and_return, last_outgoing_communication_at: nil) }
-
-      context "when desc" do
-        it "sorts nulls last and most recent messages first" do
-          expect(Client.delegated_order("last_outgoing_communication_at", "desc")).to(
-            eq([client_with_recent_communication, client_with_old_communication, client_with_null_value])
-          )
-        end
-      end
-
-      context "when asc" do
-        it "sorts nulls last and oldest messages first" do
-          expect(Client.delegated_order("last_outgoing_communication_at", "asc")).to(
-            eq([client_with_old_communication, client_with_recent_communication, client_with_null_value])
-          )
-        end
-      end
-    end
-  end
-
   describe ".greetable scope" do
     let!(:greetable_client) { create(:client, tax_returns: [create(:tax_return, status: :intake_in_progress)]) }
     let!(:ungreetable_client) { create(:client, tax_returns: [create(:tax_return, status: :prep_preparing)]) }
@@ -239,60 +193,6 @@ describe Client do
   describe "#flagged?" do
     context "when flagged_at is nil" do
       let!(:client) { create :client }
-
-      it "is not flagged" do
-        expect(client.flagged?).to eq false
-      end
-    end
-
-    context "when client has a new document" do
-      let!(:client) { create :client }
-      before { create :document, client: client, uploaded_by: client }
-
-      it "is flagged" do
-        expect(client.flagged?).to eq true
-      end
-    end
-
-    context "when clients intake was completed" do
-      let!(:client) { create :client, intake: create(:intake) }
-
-      it "is flagged" do
-        client.intake.update(completed_at: Time.now)
-        expect(client.flagged?).to eq true
-      end
-    end
-
-    context "when client has a new incoming text message" do
-      let!(:client) { create :client }
-      before { create :incoming_text_message, client: client }
-
-      it "is flagged" do
-        expect(client.flagged?).to eq true
-      end
-    end
-
-    context "when client has a new incoming email" do
-      let!(:client) { create :client }
-      before { create :incoming_email, client: client }
-
-      it "is flagged" do
-        expect(client.flagged?).to eq true
-      end
-    end
-
-    context "when client has a new outgoing email" do
-      let!(:client) { create :client }
-      before { create :outgoing_email, client: client }
-
-      it "is not flagged" do
-        expect(client.flagged?).to eq false
-      end
-    end
-
-    context "when client has a new outgoing text" do
-      let!(:client) { create :client }
-      before { create :outgoing_email, client: client }
 
       it "is not flagged" do
         expect(client.flagged?).to eq false
@@ -342,46 +242,6 @@ describe Client do
     end
   end
 
-  describe "#requires_spouse_info?" do
-    context "from intake filing_joint" do
-      context "when filing_joint is yes" do
-        let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
-        it "returns true" do
-          expect(client.requires_spouse_info?).to eq true
-        end
-      end
-
-      context "when filing_joint is no" do
-        let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
-        it "returns false" do
-          expect(client.requires_spouse_info?).to eq false
-        end
-      end
-    end
-
-    context "from tax return status" do
-      context "when all tax returns are filing single" do
-        let(:client) { create :client, intake: (create :intake, filing_joint: "unfilled"), tax_returns: [tr_2020, tr_2019] }
-        let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
-        let(:tr_2020) { create :tax_return, filing_status: "single", year: 2021 }
-
-        it "returns false" do
-          expect(client.requires_spouse_info?).to eq false
-        end
-      end
-
-      context "when tax returns have any other status or a mix of statuses" do
-        let(:client) { create :client, intake: (create :intake, filing_joint: "unfilled"), tax_returns: [tr_2020, tr_2019] }
-        let(:tr_2019) { create :tax_return, filing_status: "single", year: 2019 }
-        let(:tr_2020) { create :tax_return, filing_status: "head_of_household", year: 2021 }
-
-        it "returns true" do
-          expect(client.requires_spouse_info?).to eq true
-        end
-      end
-    end
-  end
-
   describe "touch behavior" do
     let!(:client) { create :client }
 
@@ -393,10 +253,6 @@ describe Client do
       it "updates client#last_incoming_interaction_at" do
         expect { create :incoming_text_message, client: client }.to change(client, :last_incoming_interaction_at)
       end
-
-      it "updates client#flagged_at" do
-        expect { create :incoming_email, client: client }.to change(client, :flagged_at)
-      end
     end
 
     describe "incoming email" do
@@ -406,10 +262,6 @@ describe Client do
 
       it "updates client#last_incoming_interaction_at" do
         expect { create :incoming_email, client: client }.to change(client, :last_incoming_interaction_at)
-      end
-
-      it "updates client#flagged_at" do
-        expect { create :incoming_email, client: client }.to change(client, :flagged_at)
       end
     end
 
@@ -423,11 +275,6 @@ describe Client do
       it "updates client#last_internal_or_outgoing_interaction_at" do
         expect { create :outgoing_email, client: client }.to change(client, :last_internal_or_outgoing_interaction_at)
       end
-
-      it "clears #flagged_at" do
-        create :outgoing_email, client: client
-        expect(client.flagged_at).to be nil
-      end
     end
 
     describe "outgoing text" do
@@ -439,11 +286,6 @@ describe Client do
 
       it "updates client #last_internal_or_outgoing_interaction_at" do
         expect { create :outgoing_text_message, client: client }.to change(client, :last_internal_or_outgoing_interaction_at)
-      end
-
-      it "clears flagged_at" do
-        create :outgoing_text_message, client: client
-        expect(client.flagged_at).to be nil
       end
     end
 
@@ -466,21 +308,7 @@ describe Client do
         it "updates client last_incoming_interaction" do
           expect { create :document, client: client, uploaded_by: client }.to change(client, :last_incoming_interaction_at)
         end
-
-        it "updates client flagged_at" do
-          expect { create :document, client: client, uploaded_by: client }.to change(client, :flagged_at)
-
-        end
-
-        context "without an explicit relationship to client but an intake that has a client id" do
-          let(:client) { create :client, intake: create(:intake) }
-          it "still should update the associated client" do
-            expect { create :document, intake: client.intake, uploaded_by: client }.to change(client, :flagged_at)
-          end
-        end
       end
-
-
 
       context "when a user is uploading the document" do
         it "does updates client last_internal_or_outgoing_interaction_at" do
@@ -843,7 +671,6 @@ describe Client do
           assigned_user_a.reload
           assigned_user_b.reload
         }.to change(SystemNote::DocumentHelp, :count).by(1)
-         .and change(client, :flagged_at).from(nil)
          .and change(assigned_user_a.notifications, :count).by(1)
          .and change(assigned_user_b.notifications, :count).by(1)
         expect(assigned_user_a.notifications.last.notifiable).to eq SystemNote::DocumentHelp.last

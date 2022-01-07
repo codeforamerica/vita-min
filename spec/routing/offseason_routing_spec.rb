@@ -13,7 +13,7 @@ RSpec.describe "offseason routes", type: :request do
     end
 
     it "redirects the question welcome page to root" do
-      get QuestionNavigation.first.to_path_helper
+      get GyrQuestionNavigation.first.to_path_helper
       expect(response).to redirect_to root_path
     end
 
@@ -24,14 +24,14 @@ RSpec.describe "offseason routes", type: :request do
       end
 
       it "questions still redirect to root path" do
-        get QuestionNavigation.controllers.second.to_path_helper
+        get GyrQuestionNavigation.controllers.second.to_path_helper
         expect(response).to redirect_to root_path
       end
     end
 
     context "when a client is not logged in in" do
       it "other question routes redirect to root path" do
-        get QuestionNavigation.controllers.second.to_path_helper
+        get GyrQuestionNavigation.controllers.second.to_path_helper
         expect(response).to redirect_to root_path
       end
     end

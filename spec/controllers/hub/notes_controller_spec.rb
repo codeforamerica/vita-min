@@ -101,9 +101,10 @@ RSpec.describe Hub::NotesController, type: :controller do
         let!(:system_note) { create :system_note, client: client, created_at: DateTime.new(2020, 9, 3) }
         let!(:client_note) { create :note, client: client, created_at: DateTime.new(2020, 10, 3) }
 
-        it "renders a form" do
+        it "renders the presenter and a note form" do
           get :index, params: params
           expect(assigns(:note)).to be_a(Note)
+          expect(assigns(:client)).to be_a(Hub::NotesController::HubClientPresenter)
         end
 
         context "when rendering HTML" do
@@ -117,29 +118,37 @@ RSpec.describe Hub::NotesController, type: :controller do
           end
         end
       end
+    end
+  end
 
-      context "loads notes" do
-        let(:admin_user) { create :admin_user, name: "Penelope Persimmon" }
-        let(:team_member) { create :team_member_user, name: "Mel Melon", site: (create :site, name: "Some Site") }
-        before do
+  describe "presenter" do
+    let(:client) { build(:client) }
+    let(:presenter) { Hub::NotesController::HubClientPresenter.new(client) }
 
-          allow(NotesPresenter).to receive(:grouped_notes).with(client).and_return({})
-          allow(User).to receive(:taggable_for).with(client).and_return([team_member, admin_user])
-        end
+    describe "#all_notes_by_day" do
+      before do
+        allow(NotesPresenter).to receive(:grouped_notes).and_return([])
+      end
 
-        let(:timezone) { "America/Los_Angeles" }
+      it "returns notes grouped by day" do
+        expect(presenter.all_notes_by_day).to eq([])
+        expect(NotesPresenter).to have_received(:grouped_notes).with(client)
+      end
+    end
 
-        it "assigns grouped notes for use in template" do
-          get :index, params: params
-          expect(NotesPresenter).to have_received(:grouped_notes).with(client)
-          expect(assigns(:all_notes_by_day)).not_to be_nil
-        end
+    describe "#taggable_users" do
+      let(:admin_user) { create :admin_user, name: "Penelope Persimmon" }
+      let(:team_member) { create :team_member_user, name: "Mel Melon", site: (create :site, name: "Some Site") }
 
-        it "assigns taggable_users as stringified json" do
-          get :index, params: params
-          expect(User).to have_received(:taggable_for).with(client)
-          expect(assigns(:taggable_users)).to eq "[{\"id\":#{team_member.id},\"name\":\"Mel Melon\",\"name_with_role_and_entity\":\"Mel Melon - Team Member - Some Site\"},{\"id\":#{admin_user.id},\"name\":\"Penelope Persimmon\",\"name_with_role_and_entity\":\"Penelope Persimmon - Admin\"}]"
-        end
+      before do
+        allow(User).to receive(:taggable_for).and_return([team_member, admin_user])
+      end
+
+      it "returns taggable users as json" do
+        expect(JSON.parse(presenter.taggable_users)).to eq [
+          {"id" => team_member.id, "name" => "Mel Melon", "name_with_role_and_entity" => "Mel Melon - Team Member - Some Site"},
+          {"id" => admin_user.id, "name" => "Penelope Persimmon", "name_with_role_and_entity" => "Penelope Persimmon - Admin"},
+        ]
       end
     end
   end

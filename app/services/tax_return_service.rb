@@ -21,9 +21,8 @@ class TaxReturnService
     end
 
     if form.internal_note_body.present?
-      Note.create!(
+      form.client.notes.create!(
         body: form.internal_note_body,
-        client: form.client,
         user: form.current_user
       )
       action_list << I18n.t("hub.clients.update_take_action.flash_message.internal_note")

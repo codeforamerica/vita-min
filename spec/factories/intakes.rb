@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
+#  advance_ctc_amount_received                          :integer
 #  already_applied_for_stimulus                         :integer          default(0), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null
@@ -47,6 +48,7 @@
 #  eip1_entry_method                                    :integer          default(0), not null
 #  eip2_amount_received                                 :integer
 #  eip2_entry_method                                    :integer          default(0), not null
+#  eip3_amount_received                                 :integer
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime
@@ -141,6 +143,7 @@
 #  phone_number_can_receive_texts                       :integer          default(0), not null
 #  preferred_interview_language                         :string
 #  preferred_name                                       :string
+#  preferred_written_language                           :string
 #  primary_active_armed_forces                          :integer          default(0), not null
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
@@ -154,6 +157,7 @@
 #  primary_signature_pin_at                             :datetime
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
+#  received_advance_ctc_payment                         :integer
 #  received_alimony                                     :integer          default(0), not null
 #  received_homebuyer_credit                            :integer          default(0), not null
 #  received_irs_letter                                  :integer          default(0), not null
@@ -317,7 +321,7 @@ FactoryBot.define do
     until SocialSecurityNumberValidator::LOOSE_SSN_REGEX.match(random_ssn) do
       attempts += 1
       raise StandardError.new("Couldn't make a good fake SSN, last try was #{random_ssn}") if attempts > 5
-      random_ssn = "#{Faker::Number.number(digits: 3)}00#{Faker::Number.number(digits: 4)}"
+      random_ssn = "8#{Faker::Number.number(digits: 2)}00#{Faker::Number.number(digits: 4)}"
     end
 
     random_ssn

@@ -148,7 +148,7 @@ describe Ctc::LegalConsentForm do
 
     context "when phone number is not valid" do
       before do
-        params[:phone_number] = "555-123-4567"
+        params[:phone_number] = "not-a-phone"
       end
 
       it "is not valid" do

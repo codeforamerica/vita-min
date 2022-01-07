@@ -17,4 +17,12 @@ class OptionalConsentPdf
       global_carryforward: @consent.global_carryforward_consented_at? ? "Yes" : "No",
     }
   end
+
+  def document_type
+    DocumentTypes::OptionalConsentForm
+  end
+
+  def output_filename
+    "optional-consent-2021.pdf"
+  end
 end

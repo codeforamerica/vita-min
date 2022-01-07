@@ -16,6 +16,8 @@ module Hub
     respond_to :js, except: [:new, :create]
 
     def new
+      redirect_to hub_client_path(@client.id) unless @client.intake
+
       if @remaining_years.blank?
         flash[:notice] = I18n.t("hub.tax_returns.new.no_remaining_years")
         redirect_to hub_client_path(id: @client.id)
@@ -40,7 +42,9 @@ module Hub
 
     def edit; end
 
-    def show; end
+    def show
+      @client = Hub::ClientsController::HubClientPresenter.new(@tax_return.client)
+    end
 
     def update
       assignment_service = TaxReturnAssignmentService.new(tax_return: @tax_return,
@@ -52,6 +56,7 @@ module Hub
                                   client_name: @tax_return.client.preferred_name,
                                   tax_year: @tax_return.year,
                                   assignee_name: @tax_return.assigned_user ? @tax_return.assigned_user.name : I18n.t("hub.tax_returns.update.no_one"))
+      @client = Hub::ClientsController::HubClientPresenter.new(@tax_return.client)
       render :show
     end
 

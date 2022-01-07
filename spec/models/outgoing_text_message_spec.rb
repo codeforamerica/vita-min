@@ -145,9 +145,14 @@ RSpec.describe OutgoingTextMessage, type: :model do
   describe "#to" do
     let(:outgoing_text_message) { build :outgoing_text_message, to_phone_number: input_number }
     let(:input_number) { "+15005550006" }
+    let(:output) { "(500) 555-0006" }
+    before do
+      allow(PhoneParser).to receive(:formatted_phone_number).with(input_number).and_return(output)
+    end
 
     it "formats the provided phone number" do
-      expect(outgoing_text_message.to).to eq "(500) 555-0006"
+      expect(outgoing_text_message.to).to eq output
+      expect(PhoneParser).to have_received(:formatted_phone_number).with(input_number)
     end
   end
 

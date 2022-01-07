@@ -126,12 +126,6 @@ class Client < ApplicationRecord
       select(column_names).joins(:intake).merge(Intake.order(Hash[column, direction])).distinct
     else
       order = {column => direction}
-      if column == "first_unanswered_incoming_interaction_at" && direction == "desc"
-        order = "clients.first_unanswered_incoming_interaction_at DESC NULLS LAST"
-      elsif column == "last_outgoing_communication_at" && direction == "desc"
-        order = "clients.last_outgoing_communication_at DESC NULLS LAST"
-      end
-
       includes(:intake).order(order).distinct
     end
   end
@@ -226,10 +220,6 @@ class Client < ApplicationRecord
     end
   end
 
-  def requires_spouse_info?
-    intake.filing_joint == "yes" || !tax_returns.map(&:filing_status).all?("single")
-  end
-
   def generate_login_link
     # Compute a new login URL. This invalidates any existing login URLs.
     raw_token, encrypted_token = Devise.token_generator.generate(Client, :login_token)
@@ -241,6 +231,8 @@ class Client < ApplicationRecord
   end
 
   def clients_with_dupe_contact_info(is_ctc)
+    return [] unless intake
+
     matching_intakes = Intake.where(
       "email_address = ? OR phone_number = ? OR phone_number = ? OR sms_phone_number = ? OR sms_phone_number = ?",
       intake.email_address,
@@ -269,7 +261,6 @@ class Client < ApplicationRecord
       UserNotification.create(notifiable_type: "SystemNote::DocumentHelp", notifiable_id: note.id, user: user)
     end
     tax_returns.each { |tax_return| tax_return.transition_to(:intake_needs_doc_help) }
-    flag!
   end
 
   def forward_message_to_intercom?
@@ -285,10 +276,6 @@ class Client < ApplicationRecord
 
   def online_ctc?
     intake.is_ctc? && intake.tax_returns.any? { |tr| tr.service_type == "online_intake" }
-  end
-
-  def hub_status_updatable
-    !online_ctc?
   end
 
   def recaptcha_scores_average

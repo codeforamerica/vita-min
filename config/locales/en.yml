@@ -238,9 +238,6 @@ en:
       checking: Checking
       routing_number: Routing number
       savings: Savings
-    business_days:
-      one: "%{count} business day"
-      other: "%{count} business days"
     call: Call
     cancel: Cancel
     capacity: Capacity
@@ -266,6 +263,9 @@ en:
     continue_example: Continue to example
     ctc_client: CTC client
     date_of_birth: Date of birth
+    days:
+      one: "%{count} day"
+      other: "%{count} days"
     delete: Delete
     dependent_relationships:
       00_daughter: Daughter
@@ -383,6 +383,7 @@ en:
       zh: Mandarin
     languages: Languages
     last_four_ssn: Last 4 of SSN/ITIN
+    less_than_one_day: "<1 day"
     lived_with_spouse: Lived with spouse
     locked: Locked
     married: Married
@@ -425,6 +426,7 @@ en:
     resend_invitation: Resend invitation email
     resolve: Resolve
     responded_to_client: Responded to client
+    response: Response
     return_home: Return to home
     return_search: Return to search
     role: Role
@@ -504,12 +506,7 @@ en:
     birth_date_helper:
       valid_birth_date: Please select a valid date
   hub:
-    anonymized_intake_csv_extracts:
-      index:
-        filename: Filename
-        header: Anonymized Intake CSV Extracts
-        record_count: Record Count
-        run_at: Run At
+    archived_client_warning: This is a previous year’s ticket. This information is archived and should only be used for reference.
     assigned_clients:
       index:
         title: Assigned clients
@@ -757,7 +754,7 @@ en:
         upload_date: Upload Date
     has_duplicates: Potential duplicates detected
     last_client_update: 'Last client update: '
-    last_outgoing_message: Last outgoing message
+    last_contact: Last contact
     messages:
       automated: Automated
       from: from
@@ -1109,7 +1106,7 @@ en:
         success: Unsuspended %{name}'s account
       update_role:
         success: Updated %{name}'s role
-    waiting_on_response: Waiting on response
+    waiting_on: Waiting on
     zip_codes:
       already_applied: "%{zip_code} is already routed to this partner."
       already_taken: "%{zip_code} is already routed to <a href=%{vita_partner_path}>%{vita_partner_name}</a>."

@@ -45,7 +45,7 @@ module ClientSortable
   private
 
   def setup_sortable_client
-    @default_order = { "first_unanswered_incoming_interaction_at" => "asc" }
+    @default_order = { "last_outgoing_communication_at" => "asc" }
     delete_cookie if params[:clear]
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order

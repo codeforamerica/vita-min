@@ -12,7 +12,7 @@ RSpec.describe Hub::CreateCtcClientForm do
         preferred_interview_language: preferred_interview_language,
         email_address: "someone@example.com",
         phone_number: "5005550006",
-        sms_phone_number: "500-555-(0006)",
+        sms_phone_number: "500-555-0006",
         primary_birth_date_year: "1963",
         primary_birth_date_month: "9",
         primary_birth_date_day: "10",

@@ -36,7 +36,7 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
-  has_many :tax_return_transitions, autosave: false
+  has_many :tax_return_transitions, dependent: :destroy, autosave: false
   include Statesman::Adapters::ActiveRecordQueries[
               transition_class: TaxReturnTransition,
               initial_state: TaxReturnStateMachine.initial_state
@@ -246,7 +246,6 @@ class TaxReturn < ApplicationRecord
         system_change_status(:file_ready_to_file)
         Sign8879Service.create(self)
         SystemNote::SignedDocument.generate!(signed_by_type: :primary, tax_return: self)
-        client.flag!
       else
         SystemNote::SignedDocument.generate!(signed_by_type: :primary, waiting: true, tax_return: self)
       end
@@ -272,7 +271,6 @@ class TaxReturn < ApplicationRecord
         system_change_status(:file_ready_to_file)
         Sign8879Service.create(self)
         SystemNote::SignedDocument.generate!(signed_by_type: :spouse, tax_return: self)
-        client.flag!
       else
         SystemNote::SignedDocument.generate!(signed_by_type: :spouse, waiting: true, tax_return: self)
       end
