@@ -30,32 +30,6 @@ RSpec.describe ClientMessagingService do
       end
     end
 
-    context "when the client has opted into messaging but did not provide an email" do
-      let(:email_opt_in) { "yes" }
-      let(:email_address) { nil }
-      before do
-        allow(DatadogApi).to receive(:increment).with('clients.missing_email_for_email_opt_in')
-      end
-
-      it "does not send an email but should increment datadog metric by 1" do
-        expect do
-          described_class.send_email(client: client, user: user, body: "hello")
-          expect(DatadogApi).to have_received(:increment).with('clients.missing_email_for_email_opt_in')
-        end.to change(OutgoingEmail, :count).by(0)
-      end
-    end
-
-    context "when the client has not opted into email messaging" do
-      let(:email_opt_in) { "no" }
-      let(:email_address) { nil }
-      it "returns false and does not send an email" do
-        expect do
-          return_value = described_class.send_email(client: client, user: user, body: "hello")
-          expect(return_value).to be_nil
-        end.to change(OutgoingEmail, :count).by(0)
-      end
-    end
-
     context "when user is present" do
       context "with a GYR intake" do
         it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
@@ -132,6 +106,32 @@ RSpec.describe ClientMessagingService do
           described_class.send_email(client: client, user: user, body: body)
           expect(ReplacementParametersService).to have_received(:new).with(client: client, preparer: user, body: body, tax_return: nil, locale: nil)
           expect(OutgoingEmail.last.body).to eq "replaced body"
+        end
+      end
+
+      context "when the client has opted into messaging but did not provide an email" do
+        let(:email_opt_in) { "yes" }
+        let(:email_address) { nil }
+        before do
+          allow(DatadogApi).to receive(:increment).with('clients.missing_email_for_email_opt_in')
+        end
+
+        it "does not send an email but should increment datadog metric by 1" do
+          expect do
+            described_class.send_email(client: client, user: user, body: "hello")
+            expect(DatadogApi).to have_received(:increment).with('clients.missing_email_for_email_opt_in')
+          end.to change(OutgoingEmail, :count).by(0)
+        end
+      end
+
+      context "when the client has not opted into email messaging" do
+        let(:email_opt_in) { "no" }
+        let(:email_address) { nil }
+        it "returns false and does not send an email" do
+          expect do
+            return_value = described_class.send_email(client: client, user: user, body: "hello")
+            expect(return_value).to be_nil
+          end.to change(OutgoingEmail, :count).by(0)
         end
       end
     end
@@ -241,30 +241,6 @@ RSpec.describe ClientMessagingService do
       allow(DatadogApi).to receive(:increment).with("clients.missing_sms_phone_number_for_sms_opt_in")
     end
 
-    context "when they are opted into sms with no listed phone number" do
-      let(:sms_opt_in) { "yes" }
-      let(:sms_phone_number) { "" }
-
-
-      it "does not send a message and increments data dog" do
-        expect do
-          described_class.send_text_message(client: client, user: user, body: "hello")
-          expect(DatadogApi).to have_received(:increment).with("clients.missing_sms_phone_number_for_sms_opt_in")
-        end.to change(OutgoingTextMessage, :count).by(0)
-      end
-    end
-
-    context "when they are not opted into sms" do
-      let(:sms_opt_in) { "no" }
-      it "returns false, does not send a message or increment" do
-        expect do
-          return_value = described_class.send_text_message(client: client, user: user, body: "hello")
-          expect(return_value).to be_nil
-          expect(DatadogApi).not_to have_received(:increment).with("clients.missing_sms_phone_number_for_sms_opt_in")
-        end.to change(OutgoingTextMessage, :count).by(0)
-      end
-    end
-
     context "when user is nil" do
       it "raises an error" do
         expect do
@@ -309,6 +285,30 @@ RSpec.describe ClientMessagingService do
           described_class.send_text_message(client: client, user: user, body: body)
           expect(ReplacementParametersService).to have_received(:new).with(client: client, preparer: user, body: body, tax_return: nil, locale: nil)
           expect(OutgoingTextMessage.last.body).to eq "replaced body"
+        end
+      end
+
+      context "when they are opted into sms but lack a phone number" do
+        let(:sms_opt_in) { "yes" }
+        let(:sms_phone_number) { "" }
+
+
+        it "does not send a message and increments data dog" do
+          expect do
+            described_class.send_text_message(client: client, user: user, body: "hello")
+            expect(DatadogApi).to have_received(:increment).with("clients.missing_sms_phone_number_for_sms_opt_in")
+          end.to change(OutgoingTextMessage, :count).by(0)
+        end
+      end
+
+      context "when they are not opted into sms" do
+        let(:sms_opt_in) { "no" }
+        it "returns false, does not send a message or increment" do
+          expect do
+            return_value = described_class.send_text_message(client: client, user: user, body: "hello")
+            expect(return_value).to be_nil
+            expect(DatadogApi).not_to have_received(:increment).with("clients.missing_sms_phone_number_for_sms_opt_in")
+          end.to change(OutgoingTextMessage, :count).by(0)
         end
       end
     end
