@@ -199,7 +199,7 @@ es:
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       hub:
-        communication_opt_in: Si el tipo de servicio es "en línea", se requiere un método de contacto y una suscripción de comunicación.
+        communication_opt_in: Si el método para recoger es "en línea", se requiere un método de contacto y una suscripción de comunicación.
         contact_method_required: "%{attribute} es obligatorio si se habilita para recibir notificaciones"
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
