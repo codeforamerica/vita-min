@@ -14,7 +14,8 @@ module Hub
         :spouse_last_name,
         :email_address,
         :sms_notification_opt_in,
-        :email_notification_opt_in
+        :email_notification_opt_in,
+        :signature_method
 
     before_validation do
       self.sms_phone_number = PhoneParser.normalize(sms_phone_number)
@@ -32,12 +33,12 @@ module Hub
     validates :email_address, 'valid_email_2/email': true
     validates :phone_number, allow_blank: true, e164_phone: true
     validates :sms_phone_number, allow_blank: true, e164_phone: true
-    validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
     validates :primary_first_name, presence: true, allow_blank: false, legal_name: true
     validates :primary_last_name, presence: true, allow_blank: false, legal_name: true
     validates :spouse_first_name, legal_name: true
     validates :spouse_last_name, legal_name: true
-    validate :at_least_one_contact_method
+    validate :contact_method_if_opted_in
+    validate :at_least_one_contact_method_if_signature_method_online
 
     attr_accessor :dependents_attributes
 
@@ -75,17 +76,21 @@ module Hub
       nil
     end
 
-    def opted_in_sms?
-      sms_notification_opt_in == "yes"
+    def at_least_one_contact_method_if_signature_method_online
+      return if signature_method != "online"
+      return if email_notification_opt_in == "yes" && email_address.present?
+      return if sms_notification_opt_in == "yes" && sms_phone_number.present?
+
+      errors.add(:email_address, I18n.t("forms.errors.hub.communication_opt_in"))
+      errors.add(:sms_phone_number, I18n.t("forms.errors.hub.communication_opt_in"))
     end
 
-    def opted_in_email?
-      email_notification_opt_in == "yes"
-    end
-
-    def at_least_one_contact_method
-      unless opted_in_email? || opted_in_sms?
-        errors.add(:communication_preference, I18n.t("forms.errors.need_one_communication_method"))
+    def contact_method_if_opted_in
+      if email_notification_opt_in == "yes" && email_address.blank?
+        errors.add(:email_address, I18n.t("forms.errors.hub.contact_method_required", attribute: "email"))
+      end
+      if sms_notification_opt_in == "yes" && sms_phone_number.blank?
+        errors.add(:sms_phone_number, I18n.t("forms.errors.hub.contact_method_required", attribute: "cell phone number"))
       end
     end
 

@@ -11,8 +11,10 @@ RSpec.feature "Read and send messages to a client", js: true do
           :intake,
           preferred_name: "Tobias",
           email_address: "tfunke@example.com",
+          email_notification_opt_in: "yes",
           phone_number: "+14155551212",
-          sms_phone_number: "+14155551212"
+          sms_phone_number: "+14155551212",
+          sms_notification_opt_in: "yes"
         )
       )
     end

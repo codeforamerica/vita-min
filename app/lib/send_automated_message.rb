@@ -50,14 +50,16 @@ class SendAutomatedMessage
   end
 
   def send_email
-    if client.intake.email_notification_opt_in_yes? && client.email_address.present? && @message_instance.email_body.present?
-      sent_messages << ClientMessagingService.send_system_email(**email_args)
+    if @message_instance.email_body.present?
+      sent_message = ClientMessagingService.send_system_email(**email_args)
+      sent_messages << sent_message if sent_message.present?
     end
   end
 
   def send_sms
-    if client.intake.sms_notification_opt_in_yes? && client.sms_phone_number.present? && @message_instance.sms_body.present?
-      sent_messages << ClientMessagingService.send_system_text_message(**sms_args)
+    if @message_instance.sms_body.present?
+      sent_message = ClientMessagingService.send_system_text_message(**sms_args)
+      sent_messages << sent_message if sent_message.present?
     end
   end
 end
