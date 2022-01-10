@@ -1,29 +1,21 @@
 <% content_for :page_title, t('.title') %>
 
-<% content_for :main do %>
-  <section class="slab slab--white welcome">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <main role="main">
-          <h1 class="form-question">
-            <%= content_for(:page_title) %>
-          </h1>
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
 
-          <p><%= t('.help_text_html') %></p>
+  <p><%= t('.help_text_html') %></p>
 
-          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
-            <div class="form-card__stacked-checkboxes spacing-above-0">
-              <% TaxReturn.filing_years.sort.map do |year| %>
-                <%= f.cfa_checkbox("filed_#{year}".to_sym, year.to_s, options: { checked_value: "yes", unchecked_value: "no" }) %>
-              <% end %>
-            </div>
-          <% end %>
-
-          <div class="spacing-above-60">
-            <%= link_to I18n.t('general.continue'), next_path, class: "button button--primary button--wide text--centered" %>
-          </div>
-        </main>
-      </div>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <div class="form-card__stacked-checkboxes spacing-above-0">
+      <% TaxReturn.filing_years.sort.map do |year| %>
+        <%= f.cfa_checkbox("filed_#{year}".to_sym, year.to_s, options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <% end %>
     </div>
-  </section>
+  <% end %>
+
+  <div class="spacing-above-60">
+    <%= link_to I18n.t('general.continue'), next_path, class: "button button--primary button--wide text--centered" %>
+  </div>
 <% end %>

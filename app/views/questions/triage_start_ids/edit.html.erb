@@ -1,25 +1,13 @@
 <% content_for :page_title, t('.title') %>
 
-<% content_for :main do %>
-  <section class="slab slab--white welcome">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <main role="main">
-          <div class="question__illustration">
-            <%= image_tag illustration_path %>
-          </div>
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
 
-          <h1 class="form-question">
-            <%= content_for(:page_title) %>
-          </h1>
+  <p><%= t('.help_text') %></p>
 
-          <p><%= t('.help_text') %></p>
-
-          <div class="spacing-above-60">
-            <%= link_to I18n.t('general.continue'), next_path, class: "button button--primary button--wide text--centered" %>
-          </div>
-        </main>
-      </div>
-    </div>
-  </section>
+  <div class="spacing-above-60">
+    <%= link_to I18n.t('general.continue'), next_path, class: "button button--primary button--wide text--centered" %>
+  </div>
 <% end %>

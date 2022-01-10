@@ -12,7 +12,7 @@ module Questions
     private
 
     def illustration_path
-      "questions/id-guidance.svg"
+      "id-guidance.svg"
     end
   end
 end

@@ -21,7 +21,7 @@ module Questions
     end
 
     def illustration_path
-      "questions/balance-payment.svg"
+      "balance-payment.svg"
     end
 
     def form_params

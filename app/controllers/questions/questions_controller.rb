@@ -96,7 +96,7 @@ module Questions
     def after_update_failure; end
 
     # Overwrite in order to change which record or params are passed to the form during edit
-    def initialize_edit_form
+    def initialized_edit_form
       form_class.from_intake(current_intake)
     end
 
