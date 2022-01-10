@@ -1,9 +1,8 @@
 module Questions
   class TriageController < QuestionsController
-    include AnonymousIntakeConcern
     include PreviousPathIsBackConcern
+    before_action :set_show_client_sign_in_link
     before_action :redirect_if_matching_source_param
-    skip_before_action :require_intake
 
     def edit
       @form = form_class.new
@@ -31,6 +30,10 @@ module Questions
 
     def redirect_if_matching_source_param
       redirect_to file_with_help_questions_path if SourceParameter.find_vita_partner_by_code(session[:source]).present?
+    end
+
+    def set_show_client_sign_in_link
+      @show_client_sign_in_link = true
     end
   end
 end
