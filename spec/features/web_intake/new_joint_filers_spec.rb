@@ -126,12 +126,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      # Chat with us
-      expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
-    end
-    click_on "Continue"
-
-    screenshot_after do
       # Notification Preference
       expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
       check "Email Me"
@@ -199,6 +193,12 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       # Optional consent form
       expect(page).to have_selector("h1", text: "A few more things...")
+    end
+    click_on "Continue"
+
+    screenshot_after do
+      # Chat with us
+      expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
     end
     click_on "Continue"
 

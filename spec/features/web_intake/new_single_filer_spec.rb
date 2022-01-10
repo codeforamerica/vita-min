@@ -75,11 +75,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     select("Spanish", from: "What is your preferred language for the review?")
     click_on "Continue"
 
-    # Chat with us
-    expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
-    expect(page).to have_selector("p", text: "Virginia Partner handles tax returns from 20121 (Centreville, Virginia).")
-    click_on "Continue"
-
     # Notification Preference
     expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
     expect(page).to have_text("What ways can we reach you")
@@ -144,6 +139,11 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_checked_field("Global Carryforward")
     expect(page).to have_link("Global Carryforward", href: global_carryforward_path)
     uncheck "Global Carryforward"
+    click_on "Continue"
+
+    # Chat with us
+    expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
+    expect(page).to have_selector("p", text: "Virginia Partner handles tax returns from 20121 (Centreville, Virginia).")
     click_on "Continue"
 
     # Primary filer personal information
