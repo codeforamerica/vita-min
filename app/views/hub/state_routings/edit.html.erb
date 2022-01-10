@@ -6,17 +6,17 @@
     <h1> Routing </h1>
     <h1> <%= States.name_for_key(@state) %> </h1>
 
-    <div class="grid state-routing-grid">
-      <div class="grid__item width-two-thirds">
+    <div class="state-routing-grid">
+      <div class="grid">
         <div class="state-routing-row__headers">
           <div class="grid__item width-one-half">
-            <text> Name</text>
+            Name
           </div>
           <div class="grid__item width-one-fourth">
-            <text> Org Level Routing</text>
+            Org Level Routing
           </div>
           <div class="grid__item width-one-fourth">
-            <text> Routing Percentage</text>
+            Routing Percentage
           </div>
         </div>
 
@@ -24,7 +24,7 @@
           <div class="state-routing-body">
             <% @coalition_srts.each do |coalition_srt| %>
               <div class="state-routing-row__sub-header">
-                <text><%= coalition_srt.target.name %></text>
+                <%= coalition_srt.target.name %>
               </div>
               <% coalition_srt.target.organizations.each do |org| %>
                 <%= render 'hub/state_routings/organization_routing_entry', f: f, organization: org, state_routing_target: coalition_srt %>
@@ -32,7 +32,7 @@
             <% end %>
             <% if @independent_org_srts.any? %>
               <div class="state-routing-row__sub-header">
-                <text>Independent Organizations</text>
+                Independent Organizations
               </div>
             <% end %>
             <% @independent_org_srts.each do |org_srt| %>
@@ -50,7 +50,7 @@
 
           <div class="state-routing-row__footer">
             <div class="grid__item routing-total">
-              <div class="grid__item routing-total-label"> Total Routing Percentage:</div>
+              <div class="grid__item routing-total-label">Total Routing Percentage:</div>
               <div class="grid__item routing-percentage-total"><!-- Placeholder for JS calculation of total !--></div>
             </div>
           </div>
