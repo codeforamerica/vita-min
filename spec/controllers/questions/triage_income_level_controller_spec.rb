@@ -52,22 +52,5 @@ RSpec.describe Questions::TriageIncomeLevelController do
         end
       end
     end
-
-    context "with invalid params" do
-      let(:params) do
-        {
-          triage_income_level_form: {
-            income_level: nil
-          }
-        }
-      end
-
-      it "renders with errors" do
-        expect {
-          post :update, params: params
-        }.not_to change(Triage, :count)
-        expect(response).to render_template(:edit)
-      end
-    end
   end
 end

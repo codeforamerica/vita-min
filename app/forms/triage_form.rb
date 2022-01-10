@@ -1,4 +1,4 @@
-class IntakeForm < Form
+class TriageForm < Form
   include FormAttributes
   attr_reader :triage
 

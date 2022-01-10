@@ -1,4 +1,4 @@
-class TriageIncomeLevelForm < IntakeForm
+class TriageIncomeLevelForm < TriageForm
   include FormAttributes
   set_attributes_for :triage, :income_level, :source, :referrer, :locale, :visitor_id
 
