@@ -1,0 +1,10 @@
+<% if organization && state_routing_target %>
+  <div id="state-routing-org-<%= organization.id %>">
+    <%= f.fields_for "state_routing_fraction_attributes[]", organization do |ff| %>
+      <%= render 'hub/state_routings/routing_fields', f: ff, vita_partner: organization, state_routing_target: state_routing_target %>
+    <% end %>
+    <% organization.child_sites.each do |site| %>
+      <%= render 'hub/state_routings/site_routing_entry', f: f, site: site, state_routing_target: state_routing_target %>
+    <% end %>
+  </div>
+<% end %>

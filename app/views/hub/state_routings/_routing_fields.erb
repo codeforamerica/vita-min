@@ -1,0 +1,10 @@
+<div class="routing-fields">
+  <div class="width-one-half <%= vita_partner.site? ? "site-name" : "" %>">
+    <%= vita_partner.name %>
+  </div>
+  <div class="width-one-fourth"> -- </div>
+  <div class="width-one-fourth routing-percentage-input-wrapper">
+    <%= f.cfa_input_field :routing_percentage, "", options: { value: current_routing_percentage(state_routing_target, vita_partner), "aria-label" => vita_partner.name }, classes: ["form-width--short"] %>
+  </div>
+</div>
+<%= f.hidden_field :state_routing_target_id, value: state_routing_target.id %>

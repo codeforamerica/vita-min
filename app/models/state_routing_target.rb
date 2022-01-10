@@ -15,12 +15,13 @@
 #
 class StateRoutingTarget < ApplicationRecord
   belongs_to :target, polymorphic: true
+  has_many :state_routing_fractions, dependent: :destroy
 
   validates :state_abbreviation, uniqueness: { scope: [:target] }
   validate :valid_state_abbreviation
 
-  def routing_percentage
-    (routing_fraction * 100).to_i
+  def total_routing_percentage
+    state_routing_fractions.sum(&:routing_percentage)
   end
 
   def full_state_name

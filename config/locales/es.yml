@@ -205,10 +205,8 @@ es:
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
       state_routings:
-        duplicate_vita_partner: Una organización está duplicada en la lista de enrutamiento.
+        delegated_routing: Solo puede enviar porcentajes de enrutamiento para una organización O sus sitios secundarios, no para ambos.
         must_equal_100: Los porcentajes de enrutamiento deben totalizar el 100%.
-        not_found: No se pudo encontrar la entrada de enrutamiento coincidente para %{state}. Intentar otra vez.
-        zero_to_delete: Para eliminar una regla de enrutamiento persistente, el porcentaje de enrutamiento debe ser 0%.
       status_must_change: No se puede iniciar el cambio de estado al estado actual.
       tax_return_belongs_to_client: No se puede actualizar la declaración de impuestos que no esté relacionada con el cliente actual.
       tax_returns: 'Por favor, proporcione todos los campos obligatorios para las declaraciones de impuestos:: %{attrs}.'
@@ -837,12 +835,6 @@ es:
       success: Se agregó un enlace único %{code} a %{name}.
     ssn_itins:
       displayed: Visualización de la SSN o ITIN
-    state_routings:
-      edit:
-        add_routing: Agregar enrutamiento
-      routing_entry:
-        delete_confirmation: "¿Estás segura de que quieres eliminar %{name}?"
-        routing_percentage: Porcentaje de enrutamiento
     status_macros:
       file_accepted: |
         ¡Hola <<Client.PreferredName>>!

@@ -12,17 +12,16 @@
               <h3 class="h4"><%= link_to state_name_from_abbreviation(state), edit_hub_state_routing_path(state) %></h3>
               <% state_routing = @state_routings.find { |sr| sr[0] == state } %>
               <% if state_routing.present? %>
-
-                  <% state_routing[1].each do |entry| %>
-                    <li <%= "class='zero'" if entry.routing_fraction.zero? %>>
-                      <div>
-                        <%= link_to entry.vita_partner.name, edit_hub_organization_path(id: entry.vita_partner.id)  %>
-                      </div>
-                      <div>
-                        <%= routing_fraction_to_percentage entry.routing_fraction %>
-                      </div>
-                    </li>
-                  <% end %>
+                <% state_routing[1].each do |entry| %>
+                  <li <%= "class='zero'" if entry.total_routing_percentage.zero? %>>
+                    <div>
+                      <%= link_to entry.target.name, entry.target_type == "VitaPartner" ? edit_hub_organization_path(id: entry.target.id) : edit_hub_coalition_path(id: entry.target.id) %>
+                    </div>
+                    <div>
+                      <%= entry.total_routing_percentage %>
+                    </div>
+                  </li>
+                <% end %>
               <% else %>
                 <li class="empty"><%= t("general.NA") %></li>
               <% end %>
