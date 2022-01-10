@@ -56,10 +56,12 @@ class PartnerRoutingService
     return false unless @zip_code.present?
 
     state = ZipCodes.details(@zip_code)[:state]
-    eligible_with_capacity = VitaPartnerState.where(state: state).joins(organization: :organization_capacity).merge(
-      OrganizationCapacity.with_capacity
-    )
-    routing_ranges = WeightedRoutingService.new(eligible_with_capacity).weighted_routing_ranges
+    with_capacity = StateRoutingFraction.joins(:state_routing_target).where(state_routing_targets: { state_abbreviation: state })
+    # eligible_with_capacity = VitaPartnerState.where(state: state).joins(organization: :organization_capacity).merge(
+    #   OrganizationCapacity.with_capacity
+    # )
+    # Pass in StateRoutingFractions that have VitaPartners with capacity to weighted routing service
+    routing_ranges = WeightedRoutingService.new(with_capacity).weighted_routing_ranges
     random_num = Random.rand(0..1.0)
     vita_partner_id = routing_ranges.map do |range|
       range[:id] if random_num.between?(range[:low], range[:high])

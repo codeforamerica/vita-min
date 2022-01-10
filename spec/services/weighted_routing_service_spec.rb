@@ -3,12 +3,17 @@ require 'rails_helper'
 describe WeightedRoutingService do
   describe "#weighted_routing_ranges" do
     context "when there are vita partners for state" do
-      subject { described_class.new(VitaPartnerState.where(state: "RI")) }
+      subject { described_class.new(StateRoutingTarget.where(state_abbreviation: "RI").state_routing_fractions) }
 
       context "when all the vita partners have a value of 0 for routing fraction" do
-        let!(:first_vps) { create :vita_partner_state, routing_fraction: 0.0, state: "RI" }
-        let!(:second_vps) { create :vita_partner_state, routing_fraction: 0.0, state: "RI" }
-        let!(:third_vps) { create :vita_partner_state, routing_fraction: 0.0, state: "RI" }
+        let(:first_srt) { create(:state_routing_target, target: create(:organization), state_abbreviation: "RI") }
+        let(:second_srt) { create(:state_routing_target, target: create(:organization), state_abbreviation: "RI") }
+        let(:third_srt) { create(:state_routing_target, target: create(:organization), state_abbreviation: "RI") }
+
+        let!(:first_srf) { create(:state_routing_fraction, state_routing_target: first_srt, routing_fraction: 0.0, vita_partner: first_srt.target) }
+        let!(:second_srf) { create(:state_routing_fraction, state_routing_target: second_srt, routing_fraction: 0.0, vita_partner: second_srt.target) }
+        let!(:third_srf) { create(:state_routing_fraction, state_routing_target: third_srt, routing_fraction: 0.0, vita_partner: third_srt.target) }
+
         it "returns an empty array" do
           expect(subject.weighted_routing_ranges).to eq []
         end
