@@ -1,6 +1,7 @@
 module Questions
   class TriageIncomeLevelController < TriageController
     layout "intake"
+    skip_before_action :require_triage
 
     def next_path
       case current_triage&.income_level
@@ -14,6 +15,10 @@ module Questions
     end
 
     private
+
+    def current_triage
+      super || Triage.new
+    end
 
     def illustration_path
       "questions/balance-payment.svg"

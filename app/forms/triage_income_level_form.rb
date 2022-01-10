@@ -1,9 +1,10 @@
-class TriageIncomeLevelForm < Form
+class TriageIncomeLevelForm < IntakeForm
   include FormAttributes
   set_attributes_for :triage, :income_level, :source, :referrer, :locale, :visitor_id
-  attr_reader :triage
+
+  validates_presence_of :income_level
 
   def save
-    @triage = Triage.create!(attributes_for(:triage))
+    triage.update!(attributes_for(:triage))
   end
 end

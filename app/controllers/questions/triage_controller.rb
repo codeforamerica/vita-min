@@ -3,10 +3,7 @@ module Questions
     include PreviousPathIsBackConcern
     before_action :set_show_client_sign_in_link
     before_action :redirect_if_matching_source_param
-
-    def edit
-      @form = form_class.new
-    end
+    before_action :require_triage
 
     private
 
@@ -14,8 +11,18 @@ module Questions
       @_current_triage ||= (Triage.find_by_id(session[:triage_id]) unless session[:triage_id].nil?)
     end
 
+    def require_triage
+      unless current_triage
+        redirect_to Questions::TriageIncomeLevelController.to_path_helper
+      end
+    end
+
+    def initialized_edit_form
+      form_class.from_record(current_triage)
+    end
+
     def initialized_update_form
-      form_class.new(form_params)
+      form_class.new(current_triage, form_params)
     end
 
     def track_question_answer

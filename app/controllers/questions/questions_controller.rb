@@ -10,7 +10,7 @@ module Questions
     layout "intake"
 
     def edit
-      @form = form_class.from_intake(current_intake)
+      @form = initialized_edit_form
     end
 
     def update
@@ -94,6 +94,11 @@ module Questions
     def after_update_success; end
 
     def after_update_failure; end
+
+    # Overwrite in order to change which record or params are passed to the form during edit
+    def initialize_edit_form
+      form_class.from_intake(current_intake)
+    end
 
     # Overwrite in order to change which record or params are passed to the form during update
     def initialized_update_form

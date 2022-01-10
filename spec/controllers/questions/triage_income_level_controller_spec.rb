@@ -22,7 +22,6 @@ RSpec.describe Questions::TriageIncomeLevelController do
         expect {
           post :update, params: params
         }.to change(Triage, :count).by(1)
-        puts(params)
 
         triage = Triage.last
         expect(triage.income_level).to eq('zero')
@@ -32,7 +31,6 @@ RSpec.describe Questions::TriageIncomeLevelController do
         expect {
           post :update, params: params
         }.to change(Triage, :count).by(1)
-        puts(params)
 
         triage = Triage.last
         expect(triage.source).to eq("source_from_session")
@@ -52,6 +50,23 @@ RSpec.describe Questions::TriageIncomeLevelController do
 
           expect(response).to redirect_to(maybe_ineligible_path)
         end
+      end
+    end
+
+    context "with invalid params" do
+      let(:params) do
+        {
+          triage_income_level_form: {
+            income_level: nil
+          }
+        }
+      end
+
+      it "renders with errors" do
+        expect {
+          post :update, params: params
+        }.not_to change(Triage, :count)
+        expect(response).to render_template(:edit)
       end
     end
   end
