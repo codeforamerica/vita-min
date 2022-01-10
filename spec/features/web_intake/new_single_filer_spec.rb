@@ -16,7 +16,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
     click_on I18n.t('general.continue')
 
-    answer_gyr_intake_questions
+    answer_gyr_triage_questions
 
     expect(page).to have_selector("h1", text: "Our full service option is right for you!")
     click_on "Continue"

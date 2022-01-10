@@ -15,7 +15,7 @@
 
           <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
             <%= f.cfa_radio_set(
-                :triage_id_type,
+                :id_type,
                 collection: [
                 { value: :have_paperwork, label: t(".ssn_itin_type.have_paperwork") },
                 { value: :know_number, label: t(".ssn_itin_type.know_number") },

@@ -17,7 +17,7 @@
 
           <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
             <%= f.cfa_radio_set(
-                :triage_doc_type,
+                :doc_type,
                 collection: [
                 { value: :all_copies, label: t(".doc_type.all_copies_html") },
                 { value: :some_copies, label: t(".doc_type.some_copies_html") },

@@ -1,7 +1,7 @@
 module FeatureHelpers
   extend ActiveSupport::Concern
 
-  def answer_gyr_intake_questions(screenshot: false)
+  def answer_gyr_triage_questions(screenshot: false)
     def maybe_screenshot(screenshot)
       if screenshot
         screenshot_after do

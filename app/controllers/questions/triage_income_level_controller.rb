@@ -2,29 +2,32 @@ module Questions
   class TriageIncomeLevelController < TriageController
     layout "intake"
 
-    class MinimumForm < Form
-    end
-
-    def edit
-      @form = MinimumForm.new
-    end
-
-    def update
-      if update_params[:income_level] == "hh_over_73000"
-        redirect_to maybe_ineligible_path
-      elsif update_params[:income_level] == "hh_66000_to_73000"
-        redirect_to diy_file_yourself_path
-      else
-        redirect_to next_path
+    def next_path
+      case current_triage&.income_level
+      when "hh_over_73000"
+        return maybe_ineligible_path
+      when "hh_66000_to_73000"
+        return diy_file_yourself_path
       end
+
+      super
     end
 
     private
 
     def illustration_path; end
 
-    def update_params
-      params.require(:questions_triage_income_level_controller_minimum_form).permit(:income_level)
+    def form_params
+      super.merge(
+        source: session[:source],
+        referrer: session[:referrer],
+        locale: I18n.locale,
+        visitor_id: cookies[:visitor_id],
+      )
+    end
+
+    def after_update_success
+      session[:triage_id] = @form.triage.id
     end
   end
 end

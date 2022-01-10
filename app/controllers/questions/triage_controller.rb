@@ -9,20 +9,24 @@ module Questions
       @form = form_class.new
     end
 
-    def update
-      @form = form_class.new(form_params)
-      render :edit and return unless @form.valid?
+    private
 
-      send_mixpanel_event(event_name: "answered_question", data: form_attributes, subject: "triage")
-      redirect_to next_path
+    def current_triage
+      @_current_triange ||= (Triage.find_by_id(session[:triage_id]) unless session[:triage_id].nil?)
     end
 
-    private
+    def initialized_update_form
+      form_class.new(form_params)
+    end
+
+    def track_question_answer
+      send_mixpanel_event(event_name: "answered_question", data: form_attributes, subject: "triage")
+    end
 
     def form_attributes
       return {} unless @form.class.scoped_attributes.key?(:triage)
 
-      @form.attributes_for(:triage).except(*Rails.application.config.filter_parameters)
+      @form.attributes_for(:triage)
     end
 
     def redirect_if_matching_source_param
