@@ -11,6 +11,8 @@ module Questions
 
     private
 
-    def illustration_path; end
+    def illustration_path
+      "questions/id-guidance.svg"
+    end
   end
 end

@@ -15,7 +15,9 @@ module Questions
 
     private
 
-    def illustration_path; end
+    def illustration_path
+      "questions/balance-payment.svg"
+    end
 
     def form_params
       super.merge(
