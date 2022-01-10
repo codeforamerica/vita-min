@@ -12,7 +12,7 @@ module Questions
     private
 
     def current_triage
-      @_current_triange ||= (Triage.find_by_id(session[:triage_id]) unless session[:triage_id].nil?)
+      @_current_triage ||= (Triage.find_by_id(session[:triage_id]) unless session[:triage_id].nil?)
     end
 
     def initialized_update_form
