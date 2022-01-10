@@ -1,27 +1,21 @@
 require "rails_helper"
 
 RSpec.describe Questions::TriageController do
-  controller do
-    def edit
-      super
-      render plain: 'ok'
-    end
-
-    def form_class
-      Class.new(TriageForm) do
-        def valid?; true; end
+  context "#edit" do
+    controller do
+      def form_class
+        Class.new(TriageForm) do
+          def valid?; true; end
+        end
       end
     end
-  end
 
-  before do
-    routes.draw {
-      get "edit" => "questions/triage#edit"
-      post "update" => "questions/triage#update"
-    }
-  end
+    before do
+      routes.draw {
+        get "edit" => "questions/triage#edit"
+      }
+    end
 
-  context "#edit" do
     context "when a triage is in the session" do
       before do
         session[:triage_id] = create(:triage).id

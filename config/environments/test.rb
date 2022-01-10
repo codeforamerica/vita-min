@@ -75,4 +75,7 @@ Rails.application.configure do
   config.signature_log_bucket = "vita-min-test-signatures"
   config.efile_environment = ""
   config.efile_security_information_for_testing = nil
+
+  # Allow stub views for base controller classes https://stackoverflow.com/questions/5147734/rspec-stubing-view-for-anonymous-controller
+  config.paths['app/views'] << "spec/test_views"
 end
