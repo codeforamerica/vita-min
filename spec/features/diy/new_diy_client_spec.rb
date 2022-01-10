@@ -27,7 +27,5 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
     expect(page).to have_selector(
                       "a.button[href=\"#{fake_taxslayer_link}\"][data-track-click=\"diy-cfa-taxslayer-link\"]",
                       text: "Continue to TaxSlayer")
-    # should show a telephone link to call 211 direct line for TaxSlayer help
-    expect(page).to have_selector("a[href=\"tel:+18666989435\"][data-track-click=\"call-211-hotline\"]")
   end
 end

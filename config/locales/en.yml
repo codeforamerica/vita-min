@@ -92,9 +92,6 @@ en:
     tax_slayer:
       show:
         continue_to_tax_slayer: Continue to TaxSlayer
-        phone_support:
-          contact_html: If you have any questions, please call <a href="tel:+18666989435" data-track-click="call-211-hotline">866-698-9435</a>, 10 AM-10 PM ET.
-          note: Our partners at United Ways Worldwide are providing phone support!
         steps:
           description:
           - To start filing, create a login in TaxSlayer.
