@@ -30,6 +30,42 @@
 require "rails_helper"
 
 describe VitaPartner do
+  describe "#active?" do
+    context "when there is a routing target for vita partner > 0.0" do
+      let(:vita_partner) { create :organization }
+
+      before do
+        srt = create :state_routing_target, target: (create :coalition), state_abbreviation: "TX"
+        create :state_routing_fraction, routing_fraction: 0.4, vita_partner: vita_partner, state_routing_target: srt
+      end
+
+      it "is true" do
+        expect(vita_partner.active?).to eq true
+      end
+    end
+
+    context "when there are no routing targets for the vita partner" do
+      let(:vita_partner) { create :organization }
+
+      it "is false" do
+        expect(vita_partner.active?).to eq false
+      end
+    end
+
+    context "when there is a routing target but it is equal to 0" do
+      let(:vita_partner) { create :organization }
+      
+      before do
+        srt = create :state_routing_target, target: (create :coalition), state_abbreviation: "TX"
+        create :state_routing_fraction, routing_fraction: 0.0, vita_partner: vita_partner, state_routing_target: srt
+      end
+
+      it "is false" do
+        expect(vita_partner.active?).to eq false
+      end
+    end
+  end
+
   describe ".allows_greeters" do
     let!(:coalition) { create :coalition }
     let!(:organization) { create :organization, coalition: coalition, allows_greeters: true }

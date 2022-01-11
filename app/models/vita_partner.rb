@@ -68,4 +68,9 @@ class VitaPartner < ApplicationRecord
   def organization?
     type == Organization::TYPE
   end
+
+  # A VitaPartner is considered active if they have a StateRoutingFraction that is greater than 0 for any state.
+  def active?
+    StateRoutingFraction.where(vita_partner_id: id).where(StateRoutingFraction.arel_table[:routing_fraction].gt(0.0)).exists?
+  end
 end

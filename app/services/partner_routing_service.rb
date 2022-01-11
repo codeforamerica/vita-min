@@ -1,14 +1,18 @@
 class PartnerRoutingService
   attr_accessor :routing_method
 
-  def initialize(source_param: nil, zip_code: nil)
+  def initialize(intake: nil, source_param: nil, zip_code: nil)
     @source_param = source_param
     @zip_code = zip_code
+    @intake = intake
     @routing_method = nil
   end
 
   # @return VitaPartner the object of the vita_partner we recommend routing to.
   def determine_partner
+    from_previous_year_partner = previous_year_partner
+    return from_previous_year_partner if from_previous_year_partner.present?
+
     from_source_param = vita_partner_from_source_param if @source_param.present?
     return from_source_param if from_source_param.present?
 
@@ -24,6 +28,19 @@ class PartnerRoutingService
   end
 
   private
+
+  def previous_year_partner
+    return false unless @intake
+
+    probable_previous_year_client = @intake.client.probable_previous_year_client
+
+    potential_vita_partner = probable_previous_year_client.vita_partner
+
+    if vita_partner.present? && vita_partner.active?
+      @routing_method = :returning_client
+      vita_partner
+    end
+  end
 
   def vita_partner_from_source_param
     return false unless @source_param.present?

@@ -20,6 +20,15 @@ describe PartnerRoutingService do
       end
     end
 
+    context "when a client is returning and it has a vita partner" do
+      subject { PartnerRoutingService.new(intake: (create :intake, client: (create :client, vita_partner: vita_partner))) }
+
+      it "returns last years partner" do
+        expect(subject.determine_partner).to eq vita_partner
+        expect(subject.routing_method).to eq :returning_client
+      end
+    end
+
     context "when source param is provided" do
       context "when a source param is valid" do
         subject { PartnerRoutingService.new(source_param: code) }
