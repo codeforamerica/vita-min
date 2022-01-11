@@ -24,17 +24,5 @@
 #
 FactoryBot.define do
   factory :triage do
-    income_level { 1 }
-    id_type { 1 }
-    doc_type { 1 }
-    backtaxes_2018 { false }
-    backtaxes_2019 { false }
-    backtaxes_2020 { false }
-    backtaxes_2021 { false }
-    assistance_in_person { false }
-    assistance_chat { false }
-    assistance_phone_review_english { false }
-    assistance_phone_review_non_english { false }
-    assistance_none { false }
   end
 end

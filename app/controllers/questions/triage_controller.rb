@@ -5,11 +5,11 @@ module Questions
     before_action :redirect_if_matching_source_param
     before_action :require_triage
 
-    private
-
     def current_triage
       @_current_triage ||= (Triage.find_by_id(session[:triage_id]) unless session[:triage_id].nil?)
     end
+
+    private
 
     def require_triage
       unless current_triage

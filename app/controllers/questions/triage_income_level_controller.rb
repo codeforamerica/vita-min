@@ -16,10 +16,6 @@ module Questions
 
     private
 
-    def current_triage
-      super || Triage.new
-    end
-
     def illustration_path
       "balance-payment.svg"
     end

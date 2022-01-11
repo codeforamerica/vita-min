@@ -14,4 +14,12 @@ class TriageForm < Form
     @triage = record
     super(params)
   end
+
+  def save
+    if triage
+      triage.update!(attributes_for(:triage))
+    else
+      Triage.create!(attributes_for(:triage))
+    end
+  end
 end

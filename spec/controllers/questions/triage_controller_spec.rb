@@ -17,13 +17,18 @@ RSpec.describe Questions::TriageController do
     end
 
     context "when a triage is in the session" do
+      let(:triage) { create(:triage) }
       before do
-        session[:triage_id] = create(:triage).id
+        session[:triage_id] = triage.id
       end
 
       it "shows the sign-in link" do
         get :edit
         expect(assigns[:show_client_sign_in_link]).to be_truthy
+      end
+
+      it "exposes the current_triage" do
+        expect(subject.current_triage).to eq(triage)
       end
     end
 
