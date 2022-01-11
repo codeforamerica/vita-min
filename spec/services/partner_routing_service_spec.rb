@@ -95,6 +95,12 @@ describe PartnerRoutingService do
               srt = create(:state_routing_target, target: vita_partner, state_abbreviation: "NC")
               create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.5, vita_partner: vita_partner)
             }
+            let!(:NC_site_no_capacity_srf) {
+              parent_org_no_capacity = create(:organization, capacity_limit: 0, coalition: create(:coalition))
+              vita_partner = create(:site, parent_organization: parent_org_no_capacity)
+              srt = create(:state_routing_target, target: parent_org_no_capacity.coalition, state_abbreviation: "NC")
+              create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.1, vita_partner: vita_partner)
+            }
             let!(:with_capacity_CA_state_routing_fraction) {
               vita_partner = create(:organization, capacity_limit: 1)
               srt = create(:state_routing_target, target: vita_partner, state_abbreviation: "CA")
