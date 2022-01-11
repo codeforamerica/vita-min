@@ -3,17 +3,17 @@ require 'rails_helper'
 describe WeightedRoutingService do
   describe "#weighted_routing_ranges" do
     context "when initialized with a collection of routing fractions" do
-      subject { described_class.new(StateRoutingFraction.joins(:state_routing_target).where(state_routing_targets: { state_abbreviation: "RI" }))}
+      subject { described_class.new([first_srf, second_srf, third_srf, fourth_srf]) }
 
       let(:first_srt) { create(:state_routing_target, target: create(:organization), state_abbreviation: "RI") }
       let(:second_srt) { create(:state_routing_target, target: create(:organization), state_abbreviation: "RI") }
       let(:third_srt) { create(:state_routing_target, target: create(:organization), state_abbreviation: "RI") }
       let(:fourth_srt) { create(:state_routing_target, target: create(:organization), state_abbreviation: "RI") }
 
-      let!(:first_srf) { create(:state_routing_fraction, state_routing_target: first_srt, routing_fraction: fraction_1, vita_partner: first_srt.target) }
-      let!(:second_srf) { create(:state_routing_fraction, state_routing_target: second_srt, routing_fraction: fraction_2, vita_partner: second_srt.target) }
-      let!(:third_srf) { create(:state_routing_fraction, state_routing_target: third_srt, routing_fraction: fraction_3, vita_partner: third_srt.target) }
-      let!(:fourth_srf) { create(:state_routing_fraction, state_routing_target: third_srt, routing_fraction: fraction_4, vita_partner: third_srt.target) }
+      let(:first_srf) { create(:state_routing_fraction, state_routing_target: first_srt, routing_fraction: fraction_1, vita_partner: first_srt.target) }
+      let(:second_srf) { create(:state_routing_fraction, state_routing_target: second_srt, routing_fraction: fraction_2, vita_partner: second_srt.target) }
+      let(:third_srf) { create(:state_routing_fraction, state_routing_target: third_srt, routing_fraction: fraction_3, vita_partner: third_srt.target) }
+      let(:fourth_srf) { create(:state_routing_fraction, state_routing_target: third_srt, routing_fraction: fraction_4, vita_partner: third_srt.target) }
 
       context "when all the vita partners have a value of 0 for routing fraction" do
         let(:fraction_1) { 0.0 }
