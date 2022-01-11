@@ -78,12 +78,17 @@ describe PartnerRoutingService do
             let!(:expected_vita_partner) { create :organization, capacity_limit: 2, coalition: create(:coalition) }
             let!(:with_capacity_NC_state_routing_fraction) {
               srt = create(:state_routing_target, target: expected_vita_partner.coalition, state_abbreviation: "NC")
-              create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.3, vita_partner: expected_vita_partner)
+              create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.0, vita_partner: expected_vita_partner)
             }
             let!(:another_with_capacity_NC_state_routing_fraction) {
               vita_partner = create(:organization, capacity_limit: 1, coalition: create(:coalition))
               srt = create(:state_routing_target, target: vita_partner.coalition, state_abbreviation: "NC")
               create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.2, vita_partner: vita_partner)
+            }
+            let!(:site_with_capacity_NC_state_routing_fraction) {
+              vita_partner = create(:site, parent_organization: with_capacity_NC_state_routing_fraction.vita_partner)
+              srt = with_capacity_NC_state_routing_fraction.state_routing_target
+              create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.3, vita_partner: vita_partner)
             }
             let!(:no_capacity_NC_state_routing_fraction) {
               vita_partner = create(:organization, capacity_limit: 0)
@@ -112,7 +117,15 @@ describe PartnerRoutingService do
 
             it "routes a Vita Partner in that state based on percentage" do
               expect(subject.determine_partner).to eq(expected_vita_partner)
-              expect(WeightedRoutingService).to have_received(:new).with([with_capacity_NC_state_routing_fraction, another_with_capacity_NC_state_routing_fraction])
+              expect(WeightedRoutingService).to have_received(:new).with(
+                match_array(
+                  [
+                    with_capacity_NC_state_routing_fraction,
+                    another_with_capacity_NC_state_routing_fraction,
+                    site_with_capacity_NC_state_routing_fraction
+                  ]
+                )
+              )
             end
           end
 
