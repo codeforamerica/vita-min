@@ -76,32 +76,32 @@ describe PartnerRoutingService do
 
           context "and some VitaPartners have capacity" do
             let!(:expected_vita_partner) { create :organization, capacity_limit: 2, coalition: create(:coalition) }
-            let!(:with_capacity_NC_state_routing_fraction) {
+            let!(:nc_org_with_capacity_state_routing_fraction) {
               srt = create(:state_routing_target, target: expected_vita_partner.coalition, state_abbreviation: "NC")
               create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.0, vita_partner: expected_vita_partner)
             }
-            let!(:another_with_capacity_NC_state_routing_fraction) {
+            let!(:nc_org_with_capacity_2_state_routing_fraction) {
               vita_partner = create(:organization, capacity_limit: 1, coalition: create(:coalition))
               srt = create(:state_routing_target, target: vita_partner.coalition, state_abbreviation: "NC")
               create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.2, vita_partner: vita_partner)
             }
-            let!(:site_with_capacity_NC_state_routing_fraction) {
-              vita_partner = create(:site, parent_organization: with_capacity_NC_state_routing_fraction.vita_partner)
-              srt = with_capacity_NC_state_routing_fraction.state_routing_target
+            let!(:nc_site_with_capacity_state_routing_fraction) {
+              vita_partner = create(:site, parent_organization: nc_org_with_capacity_state_routing_fraction.vita_partner)
+              srt = nc_org_with_capacity_state_routing_fraction.state_routing_target
               create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.3, vita_partner: vita_partner)
             }
-            let!(:no_capacity_NC_state_routing_fraction) {
+            let!(:nc_org_no_capacity_state_routing_fraction) {
               vita_partner = create(:organization, capacity_limit: 0)
               srt = create(:state_routing_target, target: vita_partner, state_abbreviation: "NC")
               create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.5, vita_partner: vita_partner)
             }
-            let!(:NC_site_no_capacity_srf) {
+            let!(:nc_site_no_capacity_state_routing_fraction) {
               parent_org_no_capacity = create(:organization, capacity_limit: 0, coalition: create(:coalition))
               vita_partner = create(:site, parent_organization: parent_org_no_capacity)
               srt = create(:state_routing_target, target: parent_org_no_capacity.coalition, state_abbreviation: "NC")
               create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.1, vita_partner: vita_partner)
             }
-            let!(:with_capacity_CA_state_routing_fraction) {
+            let!(:ca_org_with_capacity_state_routing_fraction) {
               vita_partner = create(:organization, capacity_limit: 1)
               srt = create(:state_routing_target, target: vita_partner, state_abbreviation: "CA")
               create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.5, vita_partner: vita_partner)
@@ -126,9 +126,9 @@ describe PartnerRoutingService do
               expect(WeightedRoutingService).to have_received(:new).with(
                 match_array(
                   [
-                    with_capacity_NC_state_routing_fraction,
-                    another_with_capacity_NC_state_routing_fraction,
-                    site_with_capacity_NC_state_routing_fraction
+                    nc_org_with_capacity_state_routing_fraction,
+                    nc_org_with_capacity_2_state_routing_fraction,
+                    nc_site_with_capacity_state_routing_fraction
                   ]
                 )
               )
