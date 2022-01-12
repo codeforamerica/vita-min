@@ -26,7 +26,7 @@ module Questions
     end
 
     def track_question_answer
-      send_mixpanel_event(event_name: "answered_question", data: form_attributes, subject: "triage")
+      send_mixpanel_event(event_name: "answered_triage_question", data: form_attributes)
     end
 
     def form_attributes
