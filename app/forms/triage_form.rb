@@ -7,6 +7,8 @@ class TriageForm < Form
   end
 
   def self.existing_attributes(model, attribute_keys)
+    return unless model
+
     HashWithIndifferentAccess[(attribute_keys || []).map { |k| [k, model.send(k)] }]
   end
 
