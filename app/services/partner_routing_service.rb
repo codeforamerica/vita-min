@@ -32,9 +32,7 @@ class PartnerRoutingService
   def previous_year_partner
     return false unless @intake
 
-    probable_previous_year_client = @intake.client.probable_previous_year_client
-
-    potential_vita_partner = probable_previous_year_client.vita_partner
+    vita_partner = @intake.probable_previous_year_intake&.vita_partner
 
     if vita_partner.present? && vita_partner.active?
       @routing_method = :returning_client

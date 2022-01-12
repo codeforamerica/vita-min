@@ -175,17 +175,6 @@ class Client < ApplicationRecord
     counts
   end
 
-  def probable_previous_year_client
-    last_four_ssn = intake.last_four_ssn
-    primary_first_name = intake.primary_first_name
-    primary_last_name = intake.primary_last_name
-
-    return nil unless last_four_ssn && primary_first_name && primary_last_name
-
-    archived_intake = Archived::Intake2021.find_by(last_four_ssn: last_four_ssn, primary_first_name: primary_first_name, primary_last_name: primary_last_name)
-    archived_intake&.client
-  end
-
   def accumulate_total_session_durations
     return if last_seen_at.nil?
     return if last_sign_in_at.nil?

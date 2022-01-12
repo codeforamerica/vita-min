@@ -54,7 +54,7 @@ describe VitaPartner do
 
     context "when there is a routing target but it is equal to 0" do
       let(:vita_partner) { create :organization }
-      
+
       before do
         srt = create :state_routing_target, target: (create :coalition), state_abbreviation: "TX"
         create :state_routing_fraction, routing_fraction: 0.0, vita_partner: vita_partner, state_routing_target: srt

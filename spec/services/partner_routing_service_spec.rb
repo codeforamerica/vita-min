@@ -21,7 +21,13 @@ describe PartnerRoutingService do
     end
 
     context "when a client is returning and it has a vita partner" do
-      subject { PartnerRoutingService.new(intake: (create :intake, client: (create :client, vita_partner: vita_partner))) }
+      let!(:this_year_intake) { create :intake, primary_birth_date: Date.new(1960, 5, 12), primary_last_four_ssn: 1122, primary_first_name: "Sean", primary_last_name: "Strawberry", client: (create :client) }
+      let!(:last_year_intake) { create :archived_2021_gyr_intake, primary_birth_date: Date.new(1960, 5, 12), primary_last_four_ssn: 1122, primary_first_name: "Sean", primary_last_name: "Strawberry", client: (create :client, vita_partner: vita_partner) }
+      subject { PartnerRoutingService.new(intake: this_year_intake) }
+
+      before do
+        allow_any_instance_of(VitaPartner).to receive(:active?).and_return true
+      end
 
       it "returns last years partner" do
         expect(subject.determine_partner).to eq vita_partner

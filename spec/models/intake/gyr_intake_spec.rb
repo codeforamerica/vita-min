@@ -276,4 +276,22 @@ describe Intake::GyrIntake do
       let(:subject) { create :intake, completed_at: Time.now }
     end
   end
+
+  describe "#probable_previous_year_intake" do
+
+    context "when there is a matching intake with same first, last, birthday, and last 4 ssn" do
+      let!(:archived_intake) { create :archived_2021_gyr_intake, primary_birth_date: Date.new(1929, 3, 22), primary_first_name: "Seth", primary_last_name: "Strawberry", primary_last_four_ssn: 1234 }
+      let(:intake) { create :intake, primary_birth_date: Date.new(1929, 3, 22), primary_first_name: "Seth", primary_last_name: "Strawberry", primary_ssn: "12341234" }
+
+      it "returns the Archived::Intake2021 object" do
+        expect(intake.probable_previous_year_intake).to eq archived_intake
+      end
+    end
+
+    context "when there is not a matching intake" do
+      it "returns nil" do
+
+      end
+    end
+  end
 end

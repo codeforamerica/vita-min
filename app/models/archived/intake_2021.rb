@@ -280,7 +280,7 @@ module Archived
     has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::Dependent2021', foreign_key: 'archived_intakes_2021_id'
     belongs_to :client, optional: true
     has_many :tax_returns, through: :client
-    belongs_to :vita_partner, optional: true
+    has_one :vita_partner, through: :client
     accepts_nested_attributes_for :dependents, allow_destroy: true
     scope :completed_yes_no_questions, -> { where.not(completed_yes_no_questions_at: nil) }
     validates :email_address, 'valid_email_2/email': true
@@ -298,8 +298,8 @@ module Archived
         self.email_domain = email_address.split('@').last.downcase
         self.canonical_email_address = compute_canonical_email_address
       end
-      self.primary_last_four_ssn = primary_ssn&.last(4) if encrypted_primary_ssn_changed?
-      self.spouse_last_four_ssn = spouse_ssn&.last(4) if encrypted_spouse_ssn_changed?
+      # self.primary_last_four_ssn = primary_ssn&.last(4) if encrypted_primary_ssn_changed? && self.primary_ssn
+      # self.spouse_last_four_ssn = spouse_ssn&.last(4) if encrypted_spouse_ssn_changed? && self.spouse_ssn
     end
 
     attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
