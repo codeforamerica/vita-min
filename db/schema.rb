@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +13,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2022_01_10_185340) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1329,15 +1330,14 @@ ActiveRecord::Schema.define(version: 2022_01_10_185340) do
   end
 
   create_table "triages", force: :cascade do |t|
-    t.boolean "assistance_chat"
-    t.boolean "assistance_in_person"
-    t.boolean "assistance_none"
-    t.boolean "assistance_phone_review_english"
-    t.boolean "assistance_phone_review_non_english"
-    t.boolean "backtaxes_2018"
-    t.boolean "backtaxes_2019"
-    t.boolean "backtaxes_2020"
-    t.boolean "backtaxes_2021"
+    t.integer "assistance_chat", default: 0, null: false
+    t.integer "assistance_in_person", default: 0, null: false
+    t.integer "assistance_phone_review_english", default: 0, null: false
+    t.integer "assistance_phone_review_non_english", default: 0, null: false
+    t.integer "backtaxes_2018", default: 0, null: false
+    t.integer "backtaxes_2019", default: 0, null: false
+    t.integer "backtaxes_2020", default: 0, null: false
+    t.integer "backtaxes_2021", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.integer "doc_type"
     t.integer "id_type"

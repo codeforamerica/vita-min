@@ -13,7 +13,7 @@ RSpec.describe TriageBacktaxesYearsForm do
       end
 
       let(:triage) do
-        create(:triage, backtaxes_2018: nil, backtaxes_2019: nil, backtaxes_2020: nil, backtaxes_2021: nil)
+        create(:triage)
       end
 
       it "saves the data" do

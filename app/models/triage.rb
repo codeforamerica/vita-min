@@ -3,15 +3,14 @@
 # Table name: triages
 #
 #  id                                  :bigint           not null, primary key
-#  assistance_chat                     :boolean
-#  assistance_in_person                :boolean
-#  assistance_none                     :boolean
-#  assistance_phone_review_english     :boolean
-#  assistance_phone_review_non_english :boolean
-#  backtaxes_2018                      :boolean
-#  backtaxes_2019                      :boolean
-#  backtaxes_2020                      :boolean
-#  backtaxes_2021                      :boolean
+#  assistance_chat                     :integer          default("unfilled"), not null
+#  assistance_in_person                :integer          default("unfilled"), not null
+#  assistance_phone_review_english     :integer          default("unfilled"), not null
+#  assistance_phone_review_non_english :integer          default("unfilled"), not null
+#  backtaxes_2018                      :integer          default("unfilled"), not null
+#  backtaxes_2019                      :integer          default("unfilled"), not null
+#  backtaxes_2020                      :integer          default("unfilled"), not null
+#  backtaxes_2021                      :integer          default("unfilled"), not null
 #  doc_type                            :integer
 #  id_type                             :integer
 #  income_level                        :integer
@@ -33,5 +32,13 @@ class Triage < ApplicationRecord
   }, _prefix: :income_level
   enum id_type: { unfilled: 0, have_paperwork: 1, know_number: 2, need_help: 3 }, _prefix: :id_type
   enum doc_type: { unfilled: 0, all_copies: 1, some_copies: 2, need_help: 3, does_not_apply: 4 }, _prefix: :doc_type
-
+  enum backtaxes_2018: { unfilled: 0, yes: 1, no: 2 }, _prefix: :backtaxes_2018
+  enum backtaxes_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :backtaxes_2019
+  enum backtaxes_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :backtaxes_2020
+  enum backtaxes_2021: { unfilled: 0, yes: 1, no: 2 }, _prefix: :backtaxes_2021
+  enum assistance_in_person: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_in_person
+  enum assistance_chat: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_chat
+  enum assistance_phone_review_english: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_phone_review_english
+  enum assistance_phone_review_non_english: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_phone_review_non_english
+  enum assistance_none: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_none
 end

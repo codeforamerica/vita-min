@@ -407,6 +407,7 @@ es:
     phone: Teléfono
     phone_for_texting: Número de celular
     phone_number: Número de teléfono
+    please_select_at_least_one_option: Favor de seleccionar al menos una opción.
     please_wait: Espere por favor...
     privacy_policy: Política de privacidad
     race:
@@ -497,7 +498,6 @@ es:
     zendesk:
       access_denied: No tiene autorización para acceder a esa página
     zip_code: Código postal
-    please_select_at_least_one_option: "Please select at least one option."
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -1779,7 +1779,6 @@ es:
               <p>Piense detenidamente si hay alguien más que pueda haberlos reclamado. Si pudiera haber otra persona, seleccione "No" y lo ayudaremos a decidir si puede reclamar %{name} o no.</p>
             title: "¿Es usted la única persona que puede declarar a %{name}?"
           child_disqualifiers:
-            error: Favor de seleccionar al menos una opción
             filed_joint_return: "%{name} estaba casado/a y declaró impuestos con su cónyuge"
             help_text: 'Seleccione cualquier situación que haya sido cierta en %{current_tax_year}:'
             provided_over_half_own_support: "%{name} pagó más de la mitad de sus gastos de manutención"
@@ -1919,7 +1918,6 @@ es:
           - pagos de trabajo por cuenta propia o por contrato
           title: En el %{current_tax_year}, ¿ganó más de la siguiente cantidad?
         ip_pin:
-          error: Seleccione una persona o "Ninguno de los anteriores".
           help_text: Tener un PIN de IP es muy poco frecuente. Si no está familiarizado con lo que es, es probable que no se le haya emitido un PIN de IP. Seleccione "Ninguna de las anteriores" para continuar.
           reveal_label: "¿Qué es un IP PIN?"
           title: "¿Alguien de su declaración ha recibido un PIN de IP a causa de un robo de identidad?"

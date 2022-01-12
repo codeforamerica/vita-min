@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe TriageAssistanceForm do
   let(:triage) do
-    create(:triage, assistance_in_person: nil, assistance_chat: nil, assistance_phone_review_english: nil, assistance_phone_review_non_english: nil, assistance_none: nil)
+    create(:triage)
   end
 
   describe "validation" do
@@ -13,32 +13,46 @@ RSpec.describe TriageAssistanceForm do
       expect(form).not_to be_valid
       expect(form.errors).to include(:assistance_none)
     end
-  end
 
-  xdescribe "#save" do
-    context "with valid params" do
-      # TODO
+    context "when both 'none' and any other value is selected" do
       let(:params) do
         {
           assistance_in_person: "no",
-          backtaxes_2019: "no",
-          backtaxes_2020: "no",
-          backtaxes_2021: "yes",
+          assistance_chat: "yes",
+          assistance_phone_review_english: "no",
+          assistance_phone_review_non_english: "no",
+          assistance_none: "yes"
         }
       end
 
-      let(:triage) do
-        create(:triage, backtaxes_2018: nil, backtaxes_2019: nil, backtaxes_2020: nil, backtaxes_2021: nil)
+      it "shows a validation error" do
+        form = described_class.new(triage, params)
+        expect(form).not_to be_valid
+        expect(form.errors).to include(:assistance_none)
+      end
+    end
+  end
+
+  describe "#save" do
+    context "with valid params" do
+      let(:params) do
+        {
+          assistance_in_person: "no",
+          assistance_chat: "yes",
+          assistance_phone_review_english: "no",
+          assistance_phone_review_non_english: "no",
+          assistance_none: "no"
+        }
       end
 
       it "saves the data" do
         described_class.new(triage, params).save
         triage.reload
 
-        expect(triage.backtaxes_2018).to eq "no"
-        expect(triage.backtaxes_2019).to eq "no"
-        expect(triage.backtaxes_2020).to eq "no"
-        expect(triage.backtaxes_2021).to eq "yes"
+        expect(triage.assistance_in_person).to eq "no"
+        expect(triage.assistance_chat).to eq "yes"
+        expect(triage.assistance_phone_review_english).to eq "no"
+        expect(triage.assistance_phone_review_non_english).to eq "no"
       end
     end
   end

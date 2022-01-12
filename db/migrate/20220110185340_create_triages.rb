@@ -8,15 +8,14 @@ class CreateTriages < ActiveRecord::Migration[6.1]
       t.integer :income_level
       t.integer :id_type
       t.integer :doc_type
-      t.boolean :backtaxes_2018
-      t.boolean :backtaxes_2019
-      t.boolean :backtaxes_2020
-      t.boolean :backtaxes_2021
-      t.boolean :assistance_in_person
-      t.boolean :assistance_chat
-      t.boolean :assistance_phone_review_english
-      t.boolean :assistance_phone_review_non_english
-      t.boolean :assistance_none
+      t.integer :backtaxes_2018, default: 0, null: false
+      t.integer :backtaxes_2019, default: 0, null: false
+      t.integer :backtaxes_2020, default: 0, null: false
+      t.integer :backtaxes_2021, default: 0, null: false
+      t.integer :assistance_in_person, default: 0, null: false
+      t.integer :assistance_chat, default: 0, null: false
+      t.integer :assistance_phone_review_english, default: 0, null: false
+      t.integer :assistance_phone_review_non_english, default: 0, null: false
 
       t.timestamps
     end
