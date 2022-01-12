@@ -1334,12 +1334,12 @@ ActiveRecord::Schema.define(version: 2022_01_10_185340) do
     t.integer "assistance_in_person", default: 0, null: false
     t.integer "assistance_phone_review_english", default: 0, null: false
     t.integer "assistance_phone_review_non_english", default: 0, null: false
-    t.integer "backtaxes_2018", default: 0, null: false
-    t.integer "backtaxes_2019", default: 0, null: false
-    t.integer "backtaxes_2020", default: 0, null: false
-    t.integer "backtaxes_2021", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.integer "doc_type"
+    t.integer "filed_2018", default: 0, null: false
+    t.integer "filed_2019", default: 0, null: false
+    t.integer "filed_2020", default: 0, null: false
+    t.integer "filed_2021", default: 0, null: false
     t.integer "id_type"
     t.integer "income_level"
     t.integer "income_type_farm", default: 0, null: false

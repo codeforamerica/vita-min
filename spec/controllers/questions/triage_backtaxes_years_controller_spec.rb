@@ -15,10 +15,10 @@ RSpec.describe Questions::TriageBacktaxesYearsController do
           let(:params) do
             {
               triage_backtaxes_years_form: {
-                backtaxes_2018: "yes",
-                backtaxes_2019: "no",
-                backtaxes_2020: "no",
-                backtaxes_2021: "no",
+                filed_2018: "yes",
+                filed_2019: "no",
+                filed_2020: "no",
+                filed_2021: "no",
               }
             }
           end
@@ -42,10 +42,10 @@ RSpec.describe Questions::TriageBacktaxesYearsController do
           let(:params) do
             {
               triage_backtaxes_years_form: {
-                backtaxes_2018: "yes",
-                backtaxes_2019: "no",
-                backtaxes_2020: "no",
-                backtaxes_2021: "no",
+                filed_2018: "yes",
+                filed_2019: "no",
+                filed_2020: "no",
+                filed_2021: "no",
               }
             }
           end
@@ -69,10 +69,10 @@ RSpec.describe Questions::TriageBacktaxesYearsController do
           let(:params) do
             {
               triage_backtaxes_years_form: {
-                backtaxes_2018: "yes",
-                backtaxes_2019: "no",
-                backtaxes_2020: "no",
-                backtaxes_2021: "no",
+                filed_2018: "yes",
+                filed_2019: "no",
+                filed_2020: "no",
+                filed_2021: "no",
               }
             }
           end

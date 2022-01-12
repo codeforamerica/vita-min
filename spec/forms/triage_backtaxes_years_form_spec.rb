@@ -5,10 +5,10 @@ RSpec.describe TriageBacktaxesYearsForm do
     context "with valid params" do
       let(:params) do
         {
-          backtaxes_2018: "no",
-          backtaxes_2019: "no",
-          backtaxes_2020: "no",
-          backtaxes_2021: "yes",
+          filed_2018: "no",
+          filed_2019: "no",
+          filed_2020: "no",
+          filed_2021: "yes",
         }
       end
 
@@ -20,10 +20,10 @@ RSpec.describe TriageBacktaxesYearsForm do
         described_class.new(triage, params).save
         triage.reload
 
-        expect(triage.backtaxes_2018).to eq "no"
-        expect(triage.backtaxes_2019).to eq "no"
-        expect(triage.backtaxes_2020).to eq "no"
-        expect(triage.backtaxes_2021).to eq "yes"
+        expect(triage.filed_2018).to eq "no"
+        expect(triage.filed_2019).to eq "no"
+        expect(triage.filed_2020).to eq "no"
+        expect(triage.filed_2021).to eq "yes"
       end
     end
   end

@@ -1,4 +1,4 @@
 class TriageBacktaxesYearsForm < TriageForm
   include FormAttributes
-  set_attributes_for :triage, :backtaxes_2018, :backtaxes_2019, :backtaxes_2020, :backtaxes_2021
+  set_attributes_for :triage, :filed_2018, :filed_2019, :filed_2020, :filed_2021
 end
