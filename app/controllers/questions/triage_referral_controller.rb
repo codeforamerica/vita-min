@@ -2,7 +2,7 @@ module Questions
   class TriageReferralController < TriageController
     layout "intake"
 
-    def self.show(triage)
+    def self.show?(triage)
       false
     end
 
