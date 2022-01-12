@@ -52,7 +52,7 @@ RSpec.describe "a user viewing a client" do
 
     context "for a client with an archived 2021 intake" do
       let(:intake) { nil }
-      let!(:archived_intake) {  create(:archived_2021_intake, client: client) }
+      let!(:archived_intake) {  create(:archived_2021_gyr_intake, client: client) }
 
       it "can view intake information" do
         visit hub_client_path(id: client.id)

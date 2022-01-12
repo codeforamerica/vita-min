@@ -49,6 +49,7 @@ RSpec.describe Questions::PersonalInfoController do
 
         expect(PartnerRoutingService).to have_received(:new).with(
           {
+            intake: intake,
             source_param: "SourceParam",
             zip_code: "80309"
           }
@@ -60,9 +61,8 @@ RSpec.describe Questions::PersonalInfoController do
         expect {
           post :update, params: params
           intake.reload
-        }.to change(intake, :vita_partner_id).to(vita_partner.id)
-                                             .and change(intake.client, :vita_partner_id).to(vita_partner.id)
-                                                                                         .and change(intake.client, :routing_method).to eq("source_param")
+        }.to change(intake.client, :vita_partner_id).to(vita_partner.id)
+         .and change(intake.client, :routing_method).to eq("source_param")
       end
 
       context "when routing service returns nil" do
@@ -78,6 +78,7 @@ RSpec.describe Questions::PersonalInfoController do
 
           expect(PartnerRoutingService).to have_received(:new).with(
             {
+              intake: intake,
               source_param: "SourceParam",
               zip_code: "80309"
             }
