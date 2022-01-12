@@ -61,7 +61,6 @@ module Hub
     validates_presence_of :spouse_ssn_confirmation, if: :spouse_ssn
     validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin"}
-
     validates_confirmation_of :spouse_ssn, if: -> { filing_joint == "yes" }
     validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(spouse_tin_type) && filing_joint == "yes"}
     validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_joint == "yes" }

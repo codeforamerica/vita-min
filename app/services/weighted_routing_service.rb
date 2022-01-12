@@ -1,7 +1,7 @@
 class WeightedRoutingService
   def initialize(collection)
     @collection = collection.reject { |obj| obj.routing_fraction.zero? }
-    @balanced_total = collection.sum(:routing_fraction)
+    @balanced_total = collection.sum(&:routing_fraction)
   end
 
   def weighted_routing_ranges

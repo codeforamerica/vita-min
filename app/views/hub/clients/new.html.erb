@@ -8,10 +8,11 @@
           <h1 class="form-card__title">
             <%= @title %>
           </h1>
-          <%= f.cfa_select(:service_type, t("hub.clients.fields.service_type"), [["Drop off", "drop_off"]], options: { selected: "drop_off" } ) %>
-          <%= f.cfa_select(:signature_method, t("hub.clients.fields.signature_method"), signature_methods_for_select, options: { selected: "online" }) %>
-          <%= f.cfa_select(:vita_partner_id, t(".assign_to_label"), grouped_vita_partner_options) %>
-
+          <div class="hub-form__card card-small">
+            <%= f.cfa_select(:service_type, t("hub.clients.fields.service_type"), [["Drop off", "drop_off"]], options: { selected: "drop_off" } ) %>
+            <%= f.cfa_select(:signature_method, t("hub.clients.fields.signature_method"), signature_methods_for_select, options: { selected: "online" }) %>
+            <%= f.cfa_select(:vita_partner_id, t(".assign_to_label"), grouped_vita_partner_options) %>
+          </div>
           <%= render "shared/client_primary_info_fields", f: f, is_dropoff: true %>
           <%= render "shared/marital_status_fields", f: f %>
           <%= render "shared/navigator_fields", f: f %>

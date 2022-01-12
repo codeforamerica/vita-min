@@ -92,9 +92,6 @@ es:
     tax_slayer:
       show:
         continue_to_tax_slayer: Continuar con TaxSlayer
-        phone_support:
-          contact_html: Si tiene alguna pregunta, llame al <a href="tel:+18666989435" data-track-click="call-211-hotline">866-698-9435</a>, 10 AM-10 PM ET.
-          note: "¡Nuestros socios en United Ways Worldwide están brindando soporte telefónico!"
         steps:
           description:
           - Para comenzar a declarar, cree un inicio de sesión en TaxSlayer.
@@ -198,14 +195,15 @@ es:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
+      hub:
+        communication_opt_in: Si el método para recoger es "en línea", se requiere un método de contacto y una suscripción de comunicación.
+        contact_method_required: "%{attribute} es obligatorio si se habilita para recibir notificaciones"
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
       state_routings:
-        duplicate_vita_partner: Una organización está duplicada en la lista de enrutamiento.
+        delegated_routing: Solo puede enviar porcentajes de enrutamiento para una organización O sus sitios secundarios, no para ambos.
         must_equal_100: Los porcentajes de enrutamiento deben totalizar el 100%.
-        not_found: No se pudo encontrar la entrada de enrutamiento coincidente para %{state}. Intentar otra vez.
-        zero_to_delete: Para eliminar una regla de enrutamiento persistente, el porcentaje de enrutamiento debe ser 0%.
       status_must_change: No se puede iniciar el cambio de estado al estado actual.
       tax_return_belongs_to_client: No se puede actualizar la declaración de impuestos que no esté relacionada con el cliente actual.
       tax_returns: 'Por favor, proporcione todos los campos obligatorios para las declaraciones de impuestos:: %{attrs}.'
@@ -834,12 +832,6 @@ es:
       success: Se agregó un enlace único %{code} a %{name}.
     ssn_itins:
       displayed: Visualización de la SSN o ITIN
-    state_routings:
-      edit:
-        add_routing: Agregar enrutamiento
-      routing_entry:
-        delete_confirmation: "¿Estás segura de que quieres eliminar %{name}?"
-        routing_percentage: Porcentaje de enrutamiento
     status_macros:
       file_accepted: |
         ¡Hola <<Client.PreferredName>>!

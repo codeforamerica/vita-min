@@ -28,9 +28,12 @@
 #  fk_rails_...  (coalition_id => coalitions.id)
 #
 class VitaPartner < ApplicationRecord
+  TYPE = "VitaPartner"
+
   has_many :clients
   has_many :intakes
   has_many :source_parameters
+  has_many :state_routing_fractions
 
   belongs_to :coalition, optional: true
   belongs_to :parent_organization, class_name: "Organization", optional: true

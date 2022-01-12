@@ -1,50 +1,128 @@
-.state-routings-edit {
-  ul {
-    position: relative;
-  }
-  .state-routing-item {
-    position: relative;
-  }
+.state-routing-grid {
+  max-width: 70rem;
 
-  .form-group {
-    padding: 1rem 0;
-    margin-bottom: 0;
-  }
+  .state-routing-body {
+    overflow: hidden;
 
-  .delete-item {
-    position: absolute;
-    right: -2rem;
-    bottom: 2.5rem;
-    text-decoration: none;
-    a {
-      text-decoration: none; // target class and child a due to slightly different implementations for persisted vs unpersisted.
+    .site-name {
+      padding-left: 2rem;
     }
-    i {
-      font-size: 1.8rem;
+
+    .routing-fields {
+      display: flex;
+      align-items: center;
+      padding-bottom: 2rem;
+    }
+
+    .state-routing-accordion {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+
+      .state-routing-accordion__button {
+        // an extremely janky thing i did because i broke the feature spec on main:
+        // this div now has the content "." to make it clickable in capybara
+        // the content is transparent and had to have some other styling to not mess up the width of the row
+        // i could not figure out how to click the :before element instead :(
+        color: transparent;
+        float: left;
+        width: auto;
+        padding: 0;
+
+        &:after {
+          display: none;
+        }
+      }
+
+      &.accordion--is-closed {
+        .state-routing-accordion__button {
+          &:before {
+            content: image-url('icons/arrow_right.svg');
+            float: left;
+            padding: 1.1rem;
+          }
+        }
+      }
+
+      &:not(.accordion--is-closed) {
+        .state-routing-accordion__button {
+          &:before {
+            content: image-url('icons/arrow_down--small.svg');
+            float: left;
+            padding: 1rem;
+          }
+        }
+      }
+
+      // content is the site rows for an org
+      .state-routing-accordion__content {
+        margin-top: 0;
+        // 28px is the width of the before element on the org row
+        // this margin allows the site row to be the same width as the parent org row
+        margin-left: 2.8rem;
+      }
+    }
+  }
+
+  .state-routing-row {
+    &__headers {
+      border-bottom: 1px solid black;
+      overflow: hidden;
+      font-weight: bold;
+      margin-bottom: 2rem;
+
+      div:last-child {
+        text-align: right;
+      }
+    }
+
+    &__sub-header {
+      text-decoration: underline;
+      margin-bottom: 2rem;
+    }
+
+    &__footer {
+      width: 100%;
+      text-align: right;
+      // match text--error styling
+      font-size: 1.6rem;
+      line-height: 2.5rem;
+
+      border-top: 1px solid black;
+      padding-top: 2rem;
+
+      .routing-total {
+        .routing-total-label {
+          display: inline-block;
+          margin-right: 1rem;
+          padding-right: 1rem;
+        }
+
+        .routing-percentage-total {
+          display: inline-block;
+          font-weight: bold;
+        }
+      }
     }
   }
 
   .routing-percentage-input-wrapper {
-    position: relative;
-    &:after {
-      position: absolute;
-      content: '%';
-      top: 54%;
-      right: .5rem;
+    height: 4.5rem;
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      &:after {
+        content: '%';
+        margin-left: 0.5rem;
+      }
     }
+
     input {
       text-align: right;
-      padding-right: 2rem;
     }
-  }
-  .routing-percentage-total {
-    position: absolute;
-    bottom: 2.5rem;
-    right: 0;
-    font-weight: bold;
-    margin: 0 .5rem;
-    // match text--error styling
-    font-size: 1.6rem;
-    line-height: 2.5rem;
   }
 }

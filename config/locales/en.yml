@@ -92,9 +92,6 @@ en:
     tax_slayer:
       show:
         continue_to_tax_slayer: Continue to TaxSlayer
-        phone_support:
-          contact_html: If you have any questions, please call <a href="tel:+18666989435" data-track-click="call-211-hotline">866-698-9435</a>, 10 AM-10 PM ET.
-          note: Our partners at United Ways Worldwide are providing phone support!
         steps:
           description:
           - To start filing, create a login in TaxSlayer.
@@ -198,14 +195,15 @@ en:
     errors:
       at_least_one_year: Please pick at least one year.
       general: Please fix indicated errors before continuing.
+      hub:
+        communication_opt_in: If signature method is "online", a contact method and communication opt-in is required.
+        contact_method_required: "%{attribute} is required if opting into notifications"
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
       state_routings:
-        duplicate_vita_partner: An organization is duplicated in the routing list.
+        delegated_routing: You can only submit routing percentages for an organization OR its child sites, not both.
         must_equal_100: Routing percentages must total 100%.
-        not_found: Matching routing entry for %{state} could not be found. Try again.
-        zero_to_delete: To delete a persisted routing rule, routing percentage must be 0%.
       status_must_change: Can't initiate status change to current status.
       tax_return_belongs_to_client: Can't update tax return unrelated to current client.
       tax_returns: 'Please provide all required fields for tax returns: %{attrs}.'
@@ -834,12 +832,6 @@ en:
       success: Added unique link %{code} to %{name}.
     ssn_itins:
       displayed: Displaying SSN or ITIN
-    state_routings:
-      edit:
-        add_routing: Add routing
-      routing_entry:
-        delete_confirmation: Are you sure you want to remove routing for %{name}?
-        routing_percentage: Routing percentage
     status_macros:
       file_accepted: |
         Hello <<Client.PreferredName>>,

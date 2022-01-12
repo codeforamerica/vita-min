@@ -1,42 +1,24 @@
 module Hub
   class StateRoutingForm < Form
-    # include FormAttributes
-    attr_accessor :vita_partner_state
-    attr_accessor :vita_partner_states_attributes
+    include FormAttributes
+
     validate :percentages_must_equal_100
-    validate :vita_partners_are_unique
+    validate :org_delegates_routing_to_child_sites
 
-    def initialize(form_params = nil, state:)
-      @params = form_params
-      @state = state
-      @vita_partner_states_attributes = form_params[:vita_partner_states_attributes] if form_params.present?
-    end
-
-    def vita_partner_states
-      if @vita_partner_states_attributes
-        @vita_partner_states_attributes&.values.map do |v|
-          routing_fraction = routing_fraction_from_percentage(v[:routing_percentage])
-          if v[:id].present?
-           vps = VitaPartnerState.find(v[:id])
-           vps.assign_attributes(routing_fraction: routing_fraction)
-           vps
-          else
-            VitaPartnerState.new(v.except(:routing_percentage).merge(routing_fraction: routing_fraction))
-          end
-        end
-      else
-        VitaPartnerState.where(state: @state).joins(:vita_partner).order(routing_fraction: :desc)
-      end
-    end
-
-    def vita_partner_state
-      VitaPartnerState
+    def initialize(form_params = nil)
+      @form_params = form_params
     end
 
     def save
-      vita_partner_states_attributes.values.map do |v|
-        vps = VitaPartnerState.find_or_initialize_by(state: @state, vita_partner_id: v[:vita_partner_id])
-        vps.update!(routing_fraction: routing_fraction_from_percentage(v[:routing_percentage]))
+      state_routing_fraction_attributes.each do |vita_partner_id, v|
+        existing_fraction = StateRoutingFraction.where(vita_partner_id: vita_partner_id, state_routing_target_id: v[:state_routing_target_id]).first
+        if existing_fraction.present?
+          existing_fraction.update(routing_fraction: routing_fraction_from_percentage(v[:routing_percentage]))
+        else
+          StateRoutingFraction.create(state_routing_target_id: v[:state_routing_target_id],
+                                      vita_partner_id: vita_partner_id,
+                                      routing_fraction: routing_fraction_from_percentage(v[:routing_percentage]))
+        end
       end
     end
 
@@ -48,7 +30,7 @@ module Hub
 
     def percentages_must_equal_100
       sum = 0
-      vita_partner_states_attributes.each do |_, v|
+      state_routing_fraction_attributes.each do |_, v|
         sum += v[:routing_percentage].to_i
       end
       unless sum == 100
@@ -56,11 +38,18 @@ module Hub
       end
     end
 
-    def vita_partners_are_unique
-      vps_ids = vita_partner_states_attributes.values.pluck(:vita_partner_id)
-      unless vps_ids.uniq.length == vps_ids.length
-        errors.add(:duplicate_vita_partner, I18n.t("forms.errors.state_routings.duplicate_vita_partner"))
+    def org_delegates_routing_to_child_sites
+      vita_partner_ids = state_routing_fraction_attributes.keys
+      vita_partner_ids.each do |vita_partner_id|
+        vita_partner = VitaPartner.find(vita_partner_id)
+        if vita_partner.site? && vita_partner_ids.include?(vita_partner.parent_organization.id)
+          errors.add(:delegated_routing, I18n.t("forms.errors.state_routings.delegated_routing"))
+        end
       end
+    end
+
+    def state_routing_fraction_attributes
+      @form_params.present? ? @form_params[:state_routing_fraction_attributes] : {}
     end
   end
 end

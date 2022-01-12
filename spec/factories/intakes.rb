@@ -321,7 +321,7 @@ FactoryBot.define do
     until SocialSecurityNumberValidator::LOOSE_SSN_REGEX.match(random_ssn) do
       attempts += 1
       raise StandardError.new("Couldn't make a good fake SSN, last try was #{random_ssn}") if attempts > 5
-      random_ssn = "#{Faker::Number.number(digits: 3)}00#{Faker::Number.number(digits: 4)}"
+      random_ssn = "8#{Faker::Number.number(digits: 2)}00#{Faker::Number.number(digits: 4)}"
     end
 
     random_ssn

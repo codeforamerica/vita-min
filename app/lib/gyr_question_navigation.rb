@@ -39,7 +39,6 @@ class GyrQuestionNavigation
       Questions::PersonalInfoController,
       Questions::InterviewSchedulingController,
       Questions::AtCapacityController,
-      Questions::ChatWithUsController,
       Questions::NotificationPreferenceController,
       Questions::PhoneNumberCanReceiveTextsController,
       Questions::CellPhoneNumberController,
@@ -57,7 +56,7 @@ class GyrQuestionNavigation
                                     # generate a 14446 signed by the primary
                                     # generate a "Preliminary" 13614-C signed by the primary
       Questions::OptionalConsentController, # This and all later controllers require a client to be signed in.
-
+      Questions::ChatWithUsController,
       # Primary filer personal information
       Questions::LifeSituationsController,
       Questions::StimulusPaymentsController,
