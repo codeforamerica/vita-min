@@ -1342,6 +1342,8 @@ ActiveRecord::Schema.define(version: 2022_01_10_185340) do
     t.integer "doc_type"
     t.integer "id_type"
     t.integer "income_level"
+    t.integer "income_type_farm", default: 0, null: false
+    t.integer "income_type_rent", default: 0, null: false
     t.string "locale"
     t.string "referrer"
     t.string "source"
@@ -1438,7 +1440,7 @@ ActiveRecord::Schema.define(version: 2022_01_10_185340) do
   create_table "vita_providers", force: :cascade do |t|
     t.string "appointment_info"
     t.boolean "archived", default: false, null: false
-    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.geography "coordinates", limit: { srid: 4326, type: "st_point", geographic: true }
     t.datetime "created_at"
     t.string "dates"
     t.string "details"

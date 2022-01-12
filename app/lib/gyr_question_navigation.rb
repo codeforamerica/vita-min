@@ -9,9 +9,9 @@ class GyrQuestionNavigation
       Questions::TriageDocTypeController,
       Questions::TriageBacktaxesYearsController,
       Questions::TriageAssistanceController,
+      Questions::TriageIncomeTypesController,
 
       # NEW POST-TRIAGE
-      # Questions::TriageFinalController,
       # Questions::TriageDeluxeController,
       # Questions::TriageReferralController,
       # Questions::TriageExpressController,

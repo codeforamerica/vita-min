@@ -16,6 +16,8 @@ class CreateTriages < ActiveRecord::Migration[6.1]
       t.integer :assistance_chat, default: 0, null: false
       t.integer :assistance_phone_review_english, default: 0, null: false
       t.integer :assistance_phone_review_non_english, default: 0, null: false
+      t.integer :income_type_rent, default: 0, null: false
+      t.integer :income_type_farm, default: 0, null: false
 
       t.timestamps
     end

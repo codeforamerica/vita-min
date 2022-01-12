@@ -14,6 +14,8 @@
 #  doc_type                            :integer
 #  id_type                             :integer
 #  income_level                        :integer
+#  income_type_farm                    :integer          default("unfilled"), not null
+#  income_type_rent                    :integer          default("unfilled"), not null
 #  locale                              :string
 #  referrer                            :string
 #  source                              :string

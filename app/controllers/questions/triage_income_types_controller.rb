@@ -1,5 +1,5 @@
 module Questions
-  class TriageAssistanceController < TriageController
+  class TriageIncomeTypesController < TriageController
     layout "intake"
 
     private

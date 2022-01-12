@@ -1527,6 +1527,13 @@ en:
       edit:
         help_text: It might be helpful to gather all of your tax documents and Social Security Card or ITIN paperwork at this point. We’ll confirm the information again later in the process.
         title: We’ll start by asking about your documents and IDs.
+    triage_income_types:
+      edit:
+        title: "One final question before we select the service for you!"
+        income_types_label: "Did any of the situations below apply to you?"
+        income_types:
+          rental: "I earned money from a rental property"
+          farm: "I earned money from owning a farm"
   signups:
     flash_notice: Thank you! You will receive a notification when we open in January 2022.
     new:

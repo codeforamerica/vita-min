@@ -47,6 +47,12 @@ module FeatureHelpers
     end
     check I18n.t("general.none_of_the_above")
     click_on I18n.t('general.continue')
+
+    maybe_screenshot(screenshot) do
+      expect(page).to have_selector("h1", text: I18n.t('questions.triage_income_types.edit.title'))
+    end
+    check I18n.t("general.none_of_the_above")
+    click_on I18n.t('general.continue')
   end
 
   def screenshot_after

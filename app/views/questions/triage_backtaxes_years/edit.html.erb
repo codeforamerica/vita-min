@@ -13,9 +13,9 @@
         <%= f.cfa_checkbox("backtaxes_#{year}".to_sym, year.to_s, options: { checked_value: "yes", unchecked_value: "no" }) %>
       <% end %>
     </div>
-  <% end %>
 
-  <div class="spacing-above-60">
-    <%= link_to I18n.t('general.continue'), next_path, class: "button button--primary button--wide text--centered" %>
-  </div>
+    <div class="spacing-above-60">
+      <%= f.submit t("general.continue"), class: "button button--primary button--wide text--centered" %>
+    </div>
+  <% end %>
 <% end %>

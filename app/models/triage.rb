@@ -14,6 +14,8 @@
 #  doc_type                            :integer
 #  id_type                             :integer
 #  income_level                        :integer
+#  income_type_farm                    :integer          default("unfilled"), not null
+#  income_type_rent                    :integer          default("unfilled"), not null
 #  locale                              :string
 #  referrer                            :string
 #  source                              :string
@@ -41,4 +43,6 @@ class Triage < ApplicationRecord
   enum assistance_phone_review_english: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_phone_review_english
   enum assistance_phone_review_non_english: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_phone_review_non_english
   enum assistance_none: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_none
+  enum income_type_rent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :income_type_rent
+  enum income_type_farm: { unfilled: 0, yes: 1, no: 2 }, _prefix: :income_type_farm
 end
