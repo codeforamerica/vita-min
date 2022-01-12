@@ -15,9 +15,9 @@ module Questions
     private
 
     def probably_full_service
-      [:backtaxes_2018, :backtaxes_2019, :backtaxes_2020].any? { |m| @form.triage.send(m) == "no" } &&
-        %w[all_copies some_copies].include?(@form.triage.doc_type) &&
-        @form.triage.id_type == "have_paperwork"
+      [:backtaxes_2018, :backtaxes_2019, :backtaxes_2020].any? { |m| current_triage.send(m) == "no" } &&
+        %w[all_copies some_copies].include?(current_triage.doc_type) &&
+        current_triage.id_type == "have_paperwork"
     end
 
     def illustration_path; end
