@@ -497,6 +497,7 @@ es:
     zendesk:
       access_denied: No tiene autorización para acceder a esa página
     zip_code: Código postal
+    please_select_at_least_one_option: "Please select at least one option."
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
