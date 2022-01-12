@@ -19,7 +19,7 @@ class TriageForm < Form
     if triage
       triage.update!(attributes_for(:triage))
     else
-      Triage.create!(attributes_for(:triage))
+      @triage = Triage.create!(attributes_for(:triage))
     end
   end
 end
