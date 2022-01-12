@@ -1240,6 +1240,20 @@ es:
         Hola <<Client.PreferredName>>,
         Parece que no a terminado nuestra aplicación. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperamos trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
         ¡Gracias!
+    save_ctc_letter:
+      email:
+        body: |
+          Hola,
+
+          Recibirá lo que se llama una Carta 6419 del IRS en enero de 2022. Esta carta lo ayudará a usted y a su preparador de impuestos a reclamar correctamente su Crédito Tributario por Hijos para usted y su familia. La carta tendrá impreso 6419 e incluirá información sobre los pagos del Crédito Tributario por Hijos que recibió en 2021.
+
+          Guarde esta carta para cuando presente su declaración de impuestos. Ya sea que presente su solicitud con GetYourRefund o cualquier otro servicio, esto lo ayudará a cobrar los pagos faltantes y recibir cualquier reembolso adeudado sin demora.
+
+          Feliz año nuevo,
+
+          Su equipo de impuestos en %{service_name}
+        subject: Información importante para reclamar Pagos de Crédito Tributario por Hijos
+      sms: Saludos de su equipo de impuestos - si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá una carta 6419 del IRS en enero de 2022. Guarde esta carta para cuando presente su declaración de impuestos para cobrar los pagos faltantes y evitar demoras en el procesamiento su reembolso.
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_drop_off:
       email:
