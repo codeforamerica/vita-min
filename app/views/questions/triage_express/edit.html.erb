@@ -1,0 +1,48 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
+
+  <p class="text--line-breaks"><%= t('.help_text_html') %></p>
+
+  <table class="marketing-comparison-table">
+    <thead>
+    <tr>
+      <th><%= t('.table.headers.compare_options') %></th>
+      <th class="deemphasized"><%= t('.table.headers.express') %></th>
+      <th class="emphasized"><%= t('.table.headers.deluxe') %></th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= t('.table.rows.federal_stimulus_payments') %></td>
+        <td class="deemphasized"><%= image_tag 'checkmark.svg' %></td>
+        <td class="emphasized"><%= image_tag 'checkmark.svg' %></td>
+      </tr>
+      <tr>
+        <td><%= t('.table.rows.child_tax_credit') %></td>
+        <td class="deemphasized"><%= image_tag 'checkmark.svg' %></td>
+        <td class="emphasized"><%= image_tag 'checkmark.svg' %></td>
+      </tr>
+      <tr>
+        <td><%= t('.table.rows.earned_income_tax_credit') %></td>
+        <td class="deemphasized"></td>
+        <td class="emphasized"><%= image_tag 'checkmark.svg' %></td>
+      </tr>
+      <tr>
+        <td><i><%= t('.table.rows.approximate_refund') %></i></td>
+        <td class="deemphasized"><i>$2500</i></td>
+        <td class="emphasized"><i>$5000</i></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="spacing-above-60">
+    <%= link_to t('.file_with_deluxe'), next_path, class: "button button--primary button--wide text--centered" %>
+  </div>
+  <div>
+    <%= link_to t('.sign_up_for_express'), next_path, class: "button button--wide text--centered" %>
+  </div>
+<% end %>

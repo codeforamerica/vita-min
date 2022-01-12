@@ -10,21 +10,10 @@ class GyrQuestionNavigation
       Questions::TriageBacktaxesYearsController,
       Questions::TriageAssistanceController,
       Questions::TriageIncomeTypesController,
-
-      # NEW POST-TRIAGE
-      # Questions::TriageDeluxeController,
-      # Questions::TriageReferralController,
-      # Questions::TriageExpressController,
-      # Questions::TriageDoNotQualifyController,
-
-      # OLD TRIAGE
-      # Questions::TriageTaxNeedsController,
-      # Questions::TriageStimulusCheckController,
-      # Questions::TriageEligibilityController, # VITA triage_eligibility checks
-      # Questions::TriageBacktaxesController,
-      # Questions::TriageLookbackController,
-      # Questions::TriageSimpleTaxController,
-      # Questions::TriagePrepareSoloController,
+      Questions::TriageDeluxeController,
+      Questions::TriageReferralController,
+      Questions::TriageExpressController,
+      Questions::TriageDoNotQualifyController,
 
       ## Main flow
       Questions::FileWithHelpController,

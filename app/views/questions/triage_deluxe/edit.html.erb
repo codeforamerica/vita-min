@@ -1,0 +1,18 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
+
+  <p class="text--line-breaks"><%= t('.help_text') %></p>
+
+  <div class="spacing-above-60">
+    <%= link_to t('.file_online'), next_path, class: "button button--primary button--wide text--centered" %>
+  </div>
+  <div>
+    <%= link_to t('.file_in_person'), next_path, class: "button button--wide text--centered" %>
+  </div>
+
+  <p><%= link_to t('.file_on_my_own'), next_path, class: "link--cta" %></p>
+<% end %>

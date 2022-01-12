@@ -1488,6 +1488,24 @@ en:
           <br/><br/>
           Don’t worry if you haven’t filed for any of these years, we’re here to help!
         title: Have you filed taxes in the past? Let us know years that you filed.
+    triage_deluxe:
+      edit:
+        file_in_person: File In Person
+        file_on_my_own: Actually, I prefer to file quickly on my own without assistance.
+        file_online: File Online
+        help_text: |
+          Collect all of the tax credits you are owed with assistance.
+
+          Available online or in person!
+
+          Our IRS-certified tax team will provide hands on support with your taxes!
+        title: We recommend filing with our free Deluxe option!
+    triage_do_not_qualify:
+      edit:
+        faq_link_text: If you have additional questions, visit our FAQ page.
+        help_text: It looks like you are above our filing limit. Our free service is available to households earning less than $73,000 a year.
+        return_home: Return Home
+        title: Unfortunately, it looks like you do not qualify for our free service.
     triage_doc_type:
       edit:
         doc_type:
@@ -1497,6 +1515,27 @@ en:
           some_copies_html: 'I have <u>some</u> copies of my official tax documents '
         help_text: Tax documents refers to any official IRS documents or documents that confirm your employment like a W2, 1099, personal work log, etc.
         title: What type of tax documents do you have?
+    triage_express:
+      edit:
+        file_with_deluxe: File with Deluxe
+        help_text_html: |
+          <strong>Deluxe</strong> <i>(2-3 weeks to file)</I>
+          Collect the largest refund! File with assistance from our IRS-certified navigators.
+
+          <strong>Express</strong> <i>(15 minutes to file, available in March 2022 )</i>
+          Collect only your Stimulus payment and Child Tax Credit. File on your own.
+        sign_up_for_express: Sign up for Express
+        table:
+          headers:
+            compare_options: Compare Options
+            deluxe: Deluxe
+            express: Express
+          rows:
+            approximate_refund: 'Approximate refund:'
+            child_tax_credit: Child Tax Credit
+            earned_income_tax_credit: Earned Income Tax Credit
+            federal_stimulus_payments: Federal Stimulus Payments
+        title: We have two free options that may work for you!
     triage_id_type:
       edit:
         ssn_itin_type:
@@ -1530,6 +1569,13 @@ en:
           rental: I earned money from a rental property
         income_types_label: Did any of the situations below apply to you?
         title: One final question before we select the service for you!
+    triage_referral:
+      edit:
+        help_text: |
+          File online on your own using an IRS-certified partner website. This is our quickest option to file your taxes and collect the tax credits you are owed!
+
+          By clicking continue, you will be taken to our partner’s site to continue filing on your own. The process is simple, quick, and easy.
+        title: We recommend filing with our free File Myself option!
     triage_start_ids:
       edit:
         help_text: It might be helpful to gather all of your tax documents and Social Security Card or ITIN paperwork at this point. We’ll confirm the information again later in the process.

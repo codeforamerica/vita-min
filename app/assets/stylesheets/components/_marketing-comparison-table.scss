@@ -1,0 +1,26 @@
+.marketing-comparison-table {
+  border: 1px solid black;
+  border-radius: 5px;
+
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 1.5rem;
+
+    &:first-of-type {
+      padding-bottom: 1rem;
+    }
+  }
+
+  tr:last-of-type td:first-of-type {
+    padding-bottom: 0;
+  }
+
+  .emphasized {
+    color: $color-venice-blue;
+  }
+
+  .deemphasized {
+    color: $color-grey-medium;
+  }
+}
