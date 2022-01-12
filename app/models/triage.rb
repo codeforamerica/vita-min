@@ -33,6 +33,5 @@ class Triage < ApplicationRecord
   }, _prefix: :income_level
   enum id_type: { unfilled: 0, have_paperwork: 1, know_number: 2, need_help: 3 }, _prefix: :id_type
   enum doc_type: { unfilled: 0, all_copies: 1, some_copies: 2, need_help: 3, does_not_apply: 4 }, _prefix: :doc_type
-  enum backtaxes_2018: { unfilled: nil, yes: 1, no: 2, unsure: 3 }, _prefix: :already_filed
 
 end
