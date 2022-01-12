@@ -21,6 +21,15 @@
       margin: 0;
 
       .state-routing-accordion__button {
+        // an extremely janky thing i did because i broke the feature spec on main:
+        // this div now has the content "." to make it clickable in capybara
+        // the content is transparent and had to have some other styling to not mess up the width of the row
+        // i could not figure out how to click the :before element instead :(
+        color: transparent;
+        float: left;
+        width: auto;
+        padding: 0;
+
         &:after {
           display: none;
         }

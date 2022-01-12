@@ -1,7 +1,7 @@
 <% if organization && state_routing_target %>
   <div id="state-routing-org-<%= organization.id %>">
     <div class="state-routing-accordion accordion">
-      <div class="state-routing-accordion__button accordion__button"></div>
+      <div class="state-routing-accordion__button accordion__button">.</div>
       <%= f.fields_for "state_routing_fraction_attributes[]", organization do |ff| %>
         <%= render 'hub/state_routings/routing_fields', f: ff, vita_partner: organization, state_routing_target: state_routing_target %>
       <% end %>
