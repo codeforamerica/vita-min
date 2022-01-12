@@ -5,10 +5,10 @@ module Questions
 
     def next_path
       case current_triage&.income_level
-      when "hh_over_73000"
-        return maybe_ineligible_path
       when "hh_66000_to_73000"
-        return diy_file_yourself_path
+        return Questions::TriageReferralController.to_path_helper
+      when "hh_over_73000"
+        return Questions::TriageDoNotQualifyController.to_path_helper
       end
 
       super

@@ -40,15 +40,27 @@ RSpec.describe Questions::TriageIncomeLevelController do
         expect(session[:triage_id]).to eq(triage.id)
       end
 
-      context "when the income level makes them ineligible" do
-        let(:income_level) { "hh_over_73000" }
+      context "when the income level makes them eligible only for DIY" do
+        let(:income_level) { "hh_66000_to_73000" }
 
-        it "redirects to /maybe_ineligible" do
+        it "redirects to /triage/referral" do
           expect {
             post :update, params: params
           }.to change(Triage, :count).by(1)
 
-          expect(response).to redirect_to(maybe_ineligible_path)
+          expect(response).to redirect_to(Questions::TriageReferralController.to_path_helper)
+        end
+      end
+
+      context "when the income level makes them ineligible" do
+        let(:income_level) { "hh_over_73000" }
+
+        it "redirects to /triage/do-not-qualify" do
+          expect {
+            post :update, params: params
+          }.to change(Triage, :count).by(1)
+
+          expect(response).to redirect_to(Questions::TriageDoNotQualifyController.to_path_helper)
         end
       end
     end
