@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_10_185340) do
+ActiveRecord::Schema.define(version: 2022_01_11_235145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1427,6 +1427,7 @@ ActiveRecord::Schema.define(version: 2022_01_10_185340) do
     t.string "logo_path"
     t.string "name", null: false
     t.boolean "national_overflow_location", default: false
+    t.boolean "org_level_routing_enabled", default: true
     t.bigint "parent_organization_id"
     t.boolean "processes_ctc", default: false
     t.string "timezone", default: "America/New_York"

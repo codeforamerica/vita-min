@@ -9,6 +9,7 @@
 #  logo_path                  :string
 #  name                       :string           not null
 #  national_overflow_location :boolean          default(FALSE)
+#  org_level_routing_enabled  :boolean          default(TRUE)
 #  processes_ctc              :boolean          default(FALSE)
 #  timezone                   :string           default("America/New_York")
 #  type                       :string           not null

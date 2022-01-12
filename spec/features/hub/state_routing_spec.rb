@@ -5,7 +5,7 @@ RSpec.feature "Adjust state routing", :js do
     let(:user) { create :admin_user }
     let(:orange_organization) { create(:organization, name: "Orange Organization", coalition: nil) }
     let(:crocodile_conglomerate) { create(:coalition, name: "Crocodile Conglomerate") }
-    let(:squid_association) { create(:organization, name: "Squid Association", coalition: crocodile_conglomerate) }
+    let(:squid_association) { create(:organization, name: "Squid Association", coalition: crocodile_conglomerate, org_level_routing_enabled: false) }
     let(:tadpole_division) { create(:site, name: "Tadpole Division", parent_organization: squid_association) }
 
     let(:orange_state_target) { create(:state_routing_target, state_abbreviation: "FL", target: orange_organization) }

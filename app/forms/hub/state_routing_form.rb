@@ -11,6 +11,11 @@ module Hub
 
     def save
       state_routing_fraction_attributes.each do |vita_partner_id, v|
+        vita_partner = VitaPartner.find_by_id(vita_partner_id)
+        if vita_partner.organization?
+          org_level_routing_enabled = v[:org_level_routing_enabled] == "on"
+          vita_partner.update(org_level_routing_enabled: org_level_routing_enabled)
+        end
         existing_fraction = StateRoutingFraction.where(vita_partner_id: vita_partner_id, state_routing_target_id: v[:state_routing_target_id]).first
         if existing_fraction.present?
           existing_fraction.update(routing_fraction: routing_fraction_from_percentage(v[:routing_percentage]))
