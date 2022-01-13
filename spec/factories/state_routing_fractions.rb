@@ -2,12 +2,13 @@
 #
 # Table name: state_routing_fractions
 #
-#  id                      :bigint           not null, primary key
-#  routing_fraction        :float            default(0.0), not null
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  state_routing_target_id :bigint           not null
-#  vita_partner_id         :bigint           not null
+#  id                        :bigint           not null, primary key
+#  org_level_routing_enabled :boolean
+#  routing_fraction          :float            default(0.0), not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  state_routing_target_id   :bigint           not null
+#  vita_partner_id           :bigint           not null
 #
 # Indexes
 #

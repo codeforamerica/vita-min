@@ -12,6 +12,13 @@
       display: flex;
       align-items: center;
       padding-bottom: 2rem;
+
+      .org-level-routing-toggle {
+        margin-left: 4rem;
+        input:checked + .slider {
+          background-color: #02CEAA;
+        }
+      }
     }
 
     .state-routing-accordion {

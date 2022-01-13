@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_10_185340) do
+ActiveRecord::Schema.define(version: 2022_01_11_235145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1210,6 +1210,7 @@ ActiveRecord::Schema.define(version: 2022_01_10_185340) do
 
   create_table "state_routing_fractions", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
+    t.boolean "org_level_routing_enabled"
     t.float "routing_fraction", default: 0.0, null: false
     t.bigint "state_routing_target_id", null: false
     t.datetime "updated_at", precision: 6, null: false

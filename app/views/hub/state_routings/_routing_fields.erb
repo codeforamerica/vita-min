@@ -2,9 +2,50 @@
   <div class="width-one-half <%= vita_partner.site? ? "site-name" : "" %>">
     <%= vita_partner.name %>
   </div>
-  <div class="width-one-fourth"> -- </div>
+  <div class="width-one-fourth">
+    <% if vita_partner.organization? %>
+      <label class="toggle-switch org-level-routing-toggle">
+        <span class="sr-only">Org level routing</span>
+        <input name="hub_state_routing_form[state_routing_fraction_attributes][<%= vita_partner.id %>][org_level_routing_enabled]"
+               id="toggle-org-level-routing"
+               type="checkbox"
+               <%= routing_enabled && "checked" %>
+               onchange="toggleOrgLevelRouting(<%= vita_partner.id %>)">
+        <span class="slider round"></span>
+      </label>
+    <% end %>
+  </div>
   <div class="width-one-fourth routing-percentage-input-wrapper">
-    <%= f.cfa_input_field :routing_percentage, "", options: { value: current_routing_percentage(state_routing_target, vita_partner), "aria-label" => vita_partner.name }, classes: ["form-width--short"] %>
+    <%= f.cfa_input_field :routing_percentage, "", options:
+      { value: routing_fraction&.routing_percentage || 0,
+        "aria-label" => vita_partner.name,
+        disabled: !routing_enabled }, classes: ["form-width--short"] %>
   </div>
 </div>
 <%= f.hidden_field :state_routing_target_id, value: state_routing_target.id %>
+
+<% content_for :script do %>
+  <script>
+      function toggleOrgLevelRouting(vitaPartnerId) {
+          let orgFields = document.getElementById("state-routing-org-"+ vitaPartnerId);
+          let orgRoutingPercentageInput = orgFields.querySelector(".routing-fields .routing-percentage-input-wrapper div input");
+          let orgLevelRoutingDisabled = orgRoutingPercentageInput.disabled;
+          if (orgLevelRoutingDisabled) {
+              orgRoutingPercentageInput.disabled = false;
+          } else {
+              orgRoutingPercentageInput.value = 0;
+              orgRoutingPercentageInput.disabled = true;
+          }
+
+          let siteRoutingPercentageInputs = orgFields.querySelectorAll(".state-routing-site .routing-fields .routing-percentage-input-wrapper div input");
+          siteRoutingPercentageInputs.forEach(function (input) {
+              if (input.disabled) {
+                  input.disabled = false;
+              } else {
+                  input.value = 0;
+                  input.disabled = true;
+              }
+          });
+      }
+  </script>
+<% end %>
