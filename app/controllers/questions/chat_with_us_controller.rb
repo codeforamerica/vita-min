@@ -11,7 +11,7 @@ module Questions
     private
 
     def illustration_path
-      "file-with-help.svg"
+      "chat-with-us.svg"
     end
 
     def self.form_class

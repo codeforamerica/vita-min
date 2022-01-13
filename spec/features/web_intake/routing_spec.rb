@@ -82,9 +82,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     expect(page).to have_text "Welcome"
     click_on "Continue"
 
-    expect(page).to have_text "Our full service option is right for you!"
-    click_on "Continue"
-
     expect(page).to have_text "What years would you like to file for?"
     check "2020"
     click_on "Continue"
@@ -115,10 +112,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
   end
 
   scenario "routing by zip code" do
-    visit "/questions/file-with-help"
-
-    expect(page).to have_text "Our full service option is right for you!"
-    click_on "Continue"
+    visit "/questions/backtaxes"
 
     expect(page).to have_text "What years would you like to file for?"
     check "2020"
@@ -150,10 +144,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
   end
 
   scenario "routing by state" do
-    visit "/questions/file-with-help"
-
-    expect(page).to have_text "Our full service option is right for you!"
-    click_on "Continue"
+    visit "/questions/backtaxes"
 
     expect(page).to have_text "What years would you like to file for?"
     check "2020"
@@ -192,10 +183,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     end
 
     scenario "would have been routed by state, redirects to at capacity page" do
-      visit "/questions/file-with-help"
-
-      expect(page).to have_text "Our full service option is right for you!"
-      click_on "Continue"
+      visit "/questions/backtaxes"
 
       expect(page).to have_text "What years would you like to file for?"
       check "2020"
