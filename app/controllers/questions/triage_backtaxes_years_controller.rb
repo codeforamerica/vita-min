@@ -5,20 +5,10 @@ module Questions
     private
 
     def next_path
-      if probably_full_service
-        Questions::TriageIncomeTypesController.to_path_helper
-      else
-        super
-      end
+      TriageResultService.new(current_triage).after_backtaxes_years || super
     end
 
     private
-
-    def probably_full_service
-      [:filed_2018, :filed_2019, :filed_2020].any? { |m| current_triage.send(m) == "no" } &&
-        %w[all_copies some_copies].include?(current_triage.doc_type) &&
-        current_triage.id_type == "have_paperwork"
-    end
 
     def illustration_path; end
   end

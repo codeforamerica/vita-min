@@ -4,14 +4,7 @@ module Questions
     skip_before_action :require_triage
 
     def next_path
-      case current_triage&.income_level
-      when "hh_66000_to_73000"
-        return Questions::TriageReferralController.to_path_helper
-      when "hh_over_73000"
-        return Questions::TriageDoNotQualifyController.to_path_helper
-      end
-
-      super
+      TriageResultService.new(current_triage).after_income_levels || super
     end
 
     private
