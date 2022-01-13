@@ -1,0 +1,24 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
+
+  <p><strong><%= t('.help_text') %></strong></p>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <div class="form-card__stacked-checkboxes spacing-above-0">
+      <%= f.cfa_checkbox(:assistance_in_person, t('.assistance.in_person'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:assistance_chat, t('.assistance.chat'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:assistance_phone_review_english, t('.assistance.phone_review_english'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:assistance_phone_review_non_english, t('.assistance.phone_review_non_english'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:assistance_none, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
+    </div>
+
+    <div class="spacing-above-60">
+      <%= f.submit t("general.continue"), class: "button button--primary button--wide text--centered" %>
+    </div>
+  <% end %>
+
+<% end %>

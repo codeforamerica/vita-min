@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_155434) do
+ActiveRecord::Schema.define(version: 2022_01_10_185340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1327,6 +1327,28 @@ ActiveRecord::Schema.define(version: 2021_12_22_155434) do
     t.index ["text_message_access_token_id"], name: "text_message_login_request_access_token_id"
     t.index ["twilio_sid"], name: "index_text_message_login_requests_on_twilio_sid"
     t.index ["visitor_id"], name: "index_text_message_login_requests_on_visitor_id"
+  end
+
+  create_table "triages", force: :cascade do |t|
+    t.integer "assistance_chat", default: 0, null: false
+    t.integer "assistance_in_person", default: 0, null: false
+    t.integer "assistance_phone_review_english", default: 0, null: false
+    t.integer "assistance_phone_review_non_english", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.integer "doc_type"
+    t.integer "filed_2018", default: 0, null: false
+    t.integer "filed_2019", default: 0, null: false
+    t.integer "filed_2020", default: 0, null: false
+    t.integer "filed_2021", default: 0, null: false
+    t.integer "id_type"
+    t.integer "income_level"
+    t.integer "income_type_farm", default: 0, null: false
+    t.integer "income_type_rent", default: 0, null: false
+    t.string "locale"
+    t.string "referrer"
+    t.string "source"
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "visitor_id"
   end
 
   create_table "user_notifications", force: :cascade do |t|

@@ -407,6 +407,7 @@ es:
     phone: Teléfono
     phone_for_texting: Número de celular
     phone_number: Número de teléfono
+    please_select_at_least_one_option: Favor de seleccionar al menos una opción.
     please_wait: Espere por favor...
     privacy_policy: Política de privacidad
     race:
@@ -1427,6 +1428,115 @@ es:
       title: Acceso no permitido
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
+  questions:
+    triage_assistance:
+      edit:
+        assistance:
+          chat: chat support
+          in_person: in-person assistance
+          phone_review_english: phone review (english)
+          phone_review_non_english: phone review (non english language)
+        help_text: 'Select the option(s) that apply to you:'
+        title: Do you require any additional assistance?
+    triage_backtaxes_years:
+      edit:
+        help_text_html: |
+          Even if you used a different service to file for previous years, <strong>select all the years that apply.</strong>
+          <br/><br/>
+          Don’t worry if you haven’t filed for any of these years, we’re here to help!
+        title: Have you filed taxes in the past? Let us know years that you filed.
+    triage_deluxe:
+      edit:
+        file_in_person: File In Person
+        file_on_my_own: Actually, I prefer to file quickly on my own without assistance.
+        file_online: File Online
+        help_text: |
+          Collect all of the tax credits you are owed with assistance.
+
+          Available online or in person!
+
+          Our IRS-certified tax team will provide hands on support with your taxes!
+        title: We recommend filing with our free Deluxe option!
+    triage_do_not_qualify:
+      edit:
+        faq_link_text: If you have additional questions, visit our FAQ page.
+        help_text: It looks like you are above our filing limit. Our free service is available to households earning less than $73,000 a year.
+        return_home: Return Home
+        title: Unfortunately, it looks like you do not qualify for our free service.
+    triage_doc_type:
+      edit:
+        doc_type:
+          all_copies_html: I have <u>all</u> copies of my official tax documents
+          does_not_apply_html: I <u>do not</u> have copies any official tax documents because they <u>do not apply to me</u>
+          need_help_html: I <u>do not</u> have copies any official tax documents and <u>would like help</u> getting them
+          some_copies_html: 'I have <u>some</u> copies of my official tax documents '
+        help_text: Tax documents refers to any official IRS documents or documents that confirm your employment like a W2, 1099, personal work log, etc.
+        title: What type of tax documents do you have?
+    triage_express:
+      edit:
+        file_with_deluxe: File with Deluxe
+        help_text_html: |
+          <strong>Deluxe</strong> <i>(2-3 weeks to file)</I>
+          Collect the largest refund! File with assistance from our IRS-certified navigators.
+
+          <strong>Express</strong> <i>(15 minutes to file, available in March 2022 )</i>
+          Collect only your Stimulus payment and Child Tax Credit. File on your own.
+        sign_up_for_express: Sign up for Express
+        table:
+          headers:
+            compare_options: Compare Options
+            deluxe: Deluxe
+            express: Express
+          rows:
+            approximate_refund: 'Approximate refund:'
+            child_tax_credit: Child Tax Credit
+            earned_income_tax_credit: Earned Income Tax Credit
+            federal_stimulus_payments: Federal Stimulus Payments
+        title: We have two free options that may work for you!
+    triage_id_type:
+      edit:
+        ssn_itin_type:
+          have_paperwork: I have my Social Security card or ITIN paperwork
+          know_number: I know my Social Security or ITIN number, but I do not have a copy of it
+          need_help: I need help getting my ITIN paperwork
+        title: What type of identification do you have?
+    triage_income_level:
+      edit:
+        help_text: Household income is the total you (and your spouse) made in the past year.
+        levels:
+          hh_1_to_25100_html: |
+            <div>$1- 25,100</div>
+
+            <div class="text--label-secondary-text spacing-above-15">
+              $1- 12,550 if filing individually
+            </div>
+          hh_25100_to_66000: "$25,100 - 66,000"
+          hh_66000_to_73000: "$66,000 - 73,000"
+          hh_over_73000: over $73,000
+          zero: "$0"
+        levels_label: 'Select your household income level:'
+        title: |-
+          Let's get started
+
+          Tell us about your income.
+    triage_income_types:
+      edit:
+        income_types:
+          farm: I earned money from owning a farm
+          rental: I earned money from a rental property
+        income_types_label: Did any of the situations below apply to you?
+        title: One final question before we select the service for you!
+    triage_referral:
+      edit:
+        help_text: |
+          File online on your own using an IRS-certified partner website. This is our quickest option to file your taxes and collect the tax credits you are owed!
+
+          By clicking continue, you will be taken to our partner’s site to continue filing on your own. The process is simple, quick, and easy.
+        title: We recommend filing with our free File Myself option!
+    triage_start_ids:
+      edit:
+        help_text: It might be helpful to gather all of your tax documents and Social Security Card or ITIN paperwork at this point. We’ll confirm the information again later in the process.
+        title: We’ll start by asking about your documents and IDs.
   signups:
     flash_notice: Gracias, recibirá una notificación cuando iniciemos en enero del 2022.
     new:
@@ -1722,7 +1832,6 @@ es:
               <p>Piense detenidamente si hay alguien más que pueda haberlos reclamado. Si pudiera haber otra persona, seleccione "No" y lo ayudaremos a decidir si puede reclamar %{name} o no.</p>
             title: "¿Es usted la única persona que puede declarar a %{name}?"
           child_disqualifiers:
-            error: Favor de seleccionar al menos una opción
             filed_joint_return: "%{name} estaba casado/a y declaró impuestos con su cónyuge"
             help_text: 'Seleccione cualquier situación que haya sido cierta en %{current_tax_year}:'
             provided_over_half_own_support: "%{name} pagó más de la mitad de sus gastos de manutención"
@@ -1862,7 +1971,6 @@ es:
           - pagos de trabajo por cuenta propia o por contrato
           title: En el %{current_tax_year}, ¿ganó más de la siguiente cantidad?
         ip_pin:
-          error: Seleccione una persona o "Ninguno de los anteriores".
           help_text: Tener un PIN de IP es muy poco frecuente. Si no está familiarizado con lo que es, es probable que no se le haya emitido un PIN de IP. Seleccione "Ninguna de las anteriores" para continuar.
           reveal_label: "¿Qué es un IP PIN?"
           title: "¿Alguien de su declaración ha recibido un PIN de IP a causa de un robo de identidad?"
@@ -3398,44 +3506,6 @@ es:
         title:
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
-      triage_backtaxes:
-        help_text: Si ganó ingreso y ha presentado para todos los años anteriores, conteste sí. Incluso si usó un servicio diferente para declarar en los años anteriores.
-        title: "¿Ha declarado los impuestos para %{backtax_years}?"
-      triage_eligibility:
-        info: Díganos si cualquiera de las siguientes situaciones aplican a usted.
-        situations:
-          had_farm_income: Gané dinero por tener una granja
-          had_rental_income: Gané dinero de una propiedad alquilada
-          income_over_limit: Gané más de 66.000 dólares en %{current_tax_year}
-        title: Sí, nuestro servicio es completamente gratis. ¡Nos aseguraremos de que usted califica!
-      triage_lookback:
-        had_income_decrease: Mis ingresos bajaron comparados con los de %{prior_tax_year}
-        had_marketplace_insurance: Compré seguros médicos del mercado de seguros médicos
-        had_unemployment: Recibí beneficios de desempleo
-        help_text: "¿Alguna de las siguientes situaciones se aplica a %{current_tax_year}?"
-        title: situaciones respecto a los impuestos de %{current_tax_year}
-      triage_prepare_solo:
-        help_text: Es simple para preparar su declaración, especialmente si tiene menos de 3 empleos. Proveeremos chats de asistencia mientras usted sigue con nuestra opción de auto-servicio.
-        title: "¿Le interesa preparar su propia declaración?"
-      triage_simple_tax:
-        help_text: 'Conteste sí, si tiene 1-3 empleos para declarar y no tiene ninguna deducción. Podría tener estos formularios: W-2, 1099R, 1099SSA, 1099G.'
-        title: "¿Tiene impuestos simples?"
-      triage_stimulus_check:
-        faq: Visitar la sección de Preguntas Frecuentes sobre el estímulo económico
-        get_your_money: "¡Consiga todo el apoyo monetario que se le debe!"
-        help_me: "¡Sí! Ayúdame a presentar los impuestos."
-        help_text: "¡No se preocupe! Estamos aquí para ayudarle durante todo el proceso. Le ayudaremos a cobrar su pago de estímulo, declarar sus impuestos, y asegurar que reciba el máximo reembolso que se le debe."
-        perks:
-        - Reciba dinero adicional por medio de créditos fiscales, si usted califica
-        - Declare impuestos para años anteriores y reciba los reembolsos pasados
-        - Tenga acceso a nuestro servicio gratuito de asistencia de declaración de impuestos que contestará todas sus preguntas.
-        title: Para cobrar su cheque de estímulo económico, se requiere que presente los impuestos.
-      triage_tax_needs:
-        collect_stimulus: Cobrar mi cheque de estímulo económico
-        file_previous_years: Declarar los impuestos para años anteriores
-        file_this_year: Declarar los impuestos para %{current_year}
-        help_text: 'Seleccione todas las situaciones que se aplican a usted:'
-        title: "¿En qué podemos ayudarle?"
       verification:
         body: 'Se le ha enviado un mensaje con su código a:'
         error_message: El código de verificación está equivocado
@@ -3443,8 +3513,13 @@ es:
         verification_code_label: 'Introduzca el código de 6 números '
         verify: Verifique
       welcome:
-        help_text: Para proporcionar el mejor servicio, empecemos con algunas preguntas.
-        title: "¡Bienvenidos a GetYourRefund!"
+        find_right_service: We’ll ask a few questions, to find the right service for you!
+        help_text: 'We provide multiple tax filing options to households that qualify:'
+        list:
+        - "<strong>Deluxe</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
+        - "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
+        - "<strong>Express</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
+        title: Welcome to our free service!
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
       widowed_year:

@@ -13,14 +13,18 @@
             <%= content_for(:page_title) %>
           </h1>
 
-          <p>
-            <%= t("views.questions.welcome.help_text") %>
-          </p>
-          <div class="notice--warning">
-            <span class="text--bold"><%= t("general.document_deadline") %></span>
-          </div>
+          <p><%= t("views.questions.welcome.help_text")%></p>
+
+          <ul class="list--bulleted">
+            <% t("views.questions.welcome.list").each do |list_item| %>
+              <li><%= list_item.html_safe %></li>
+            <% end %>
+          </ul>
+
+          <p><strong><%= t("views.questions.welcome.find_right_service")%></strong></p>
+
           <div class="spacing-above-60">
-            <%= link_to "Continue", next_path, class: "button button--primary button--wide text--centered" %>
+            <%= link_to t('general.continue'), next_path, class: "button button--primary button--wide text--centered" %>
           </div>
         </main>
       </div>

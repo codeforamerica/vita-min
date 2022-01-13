@@ -28,6 +28,11 @@ a {
   font-weight: 500;
 }
 
+.text--label-secondary-text {
+  font-weight: $font-weight-normal;
+  font-style: italic;
+}
+
 .text--teal {
   color: $color-teal;
 }
@@ -38,4 +43,8 @@ a {
 
 .text--black {
   color: rgb(0, 0, 0);
+}
+
+.text--line-breaks {
+  white-space: pre-line;
 }

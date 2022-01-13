@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "CTC Intake", :js, :active_job do
-  include FeatureTestHelpers
-
   module CtcPortalHelper
     def log_in_to_ctc_portal
       visit "/en/portal/login"

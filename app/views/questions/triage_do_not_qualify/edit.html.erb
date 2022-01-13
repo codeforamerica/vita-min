@@ -1,0 +1,15 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
+
+  <p><%= t('.help_text') %></p>
+
+  <p><%= link_to t('.faq_link_text'), faq_path, class: "link--cta" %></p>
+
+  <div class="spacing-above-60">
+    <%= link_to t('.return_home'), root_path, class: "button button--primary button--wide text--centered" %>
+  </div>
+<% end %>

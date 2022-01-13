@@ -1,0 +1,26 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
+
+  <p><%= t('.help_text') %></p>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <%= f.cfa_radio_set(
+        :doc_type,
+        collection: [
+        { value: :all_copies, label: t(".doc_type.all_copies_html") },
+        { value: :some_copies, label: t(".doc_type.some_copies_html") },
+        { value: :need_help, label: t(".doc_type.need_help_html") },
+        { value: :does_not_apply, label: t(".doc_type.does_not_apply_html") },
+        ]
+        )
+    %>
+  <% end %>
+
+  <div class="spacing-above-60">
+    <%= link_to t('general.continue'), next_path, class: "button button--primary button--wide text--centered" %>
+  </div>
+<% end %>

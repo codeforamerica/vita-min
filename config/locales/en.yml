@@ -407,6 +407,7 @@ en:
     phone: Phone
     phone_for_texting: Phone for texting
     phone_number: Phone number
+    please_select_at_least_one_option: Please select at least one option.
     please_wait: Please wait...
     privacy_policy: privacy policy
     race:
@@ -1470,6 +1471,115 @@ en:
       title: Access not allowed
     home:
       already_started: Already started? Sign in
+  questions:
+    triage_assistance:
+      edit:
+        assistance:
+          chat: chat support
+          in_person: in-person assistance
+          phone_review_english: phone review (english)
+          phone_review_non_english: phone review (non english language)
+        help_text: 'Select the option(s) that apply to you:'
+        title: Do you require any additional assistance?
+    triage_backtaxes_years:
+      edit:
+        help_text_html: |
+          Even if you used a different service to file for previous years, <strong>select all the years that apply.</strong>
+          <br/><br/>
+          Don’t worry if you haven’t filed for any of these years, we’re here to help!
+        title: Have you filed taxes in the past? Let us know years that you filed.
+    triage_deluxe:
+      edit:
+        file_in_person: File In Person
+        file_on_my_own: Actually, I prefer to file quickly on my own without assistance.
+        file_online: File Online
+        help_text: |
+          Collect all of the tax credits you are owed with assistance.
+
+          Available online or in person!
+
+          Our IRS-certified tax team will provide hands on support with your taxes!
+        title: We recommend filing with our free Deluxe option!
+    triage_do_not_qualify:
+      edit:
+        faq_link_text: If you have additional questions, visit our FAQ page.
+        help_text: It looks like you are above our filing limit. Our free service is available to households earning less than $73,000 a year.
+        return_home: Return Home
+        title: Unfortunately, it looks like you do not qualify for our free service.
+    triage_doc_type:
+      edit:
+        doc_type:
+          all_copies_html: I have <u>all</u> copies of my official tax documents
+          does_not_apply_html: I <u>do not</u> have copies any official tax documents because they <u>do not apply to me</u>
+          need_help_html: I <u>do not</u> have copies any official tax documents and <u>would like help</u> getting them
+          some_copies_html: 'I have <u>some</u> copies of my official tax documents '
+        help_text: Tax documents refers to any official IRS documents or documents that confirm your employment like a W2, 1099, personal work log, etc.
+        title: What type of tax documents do you have?
+    triage_express:
+      edit:
+        file_with_deluxe: File with Deluxe
+        help_text_html: |
+          <strong>Deluxe</strong> <i>(2-3 weeks to file)</I>
+          Collect the largest refund! File with assistance from our IRS-certified navigators.
+
+          <strong>Express</strong> <i>(15 minutes to file, available in March 2022 )</i>
+          Collect only your Stimulus payment and Child Tax Credit. File on your own.
+        sign_up_for_express: Sign up for Express
+        table:
+          headers:
+            compare_options: Compare Options
+            deluxe: Deluxe
+            express: Express
+          rows:
+            approximate_refund: 'Approximate refund:'
+            child_tax_credit: Child Tax Credit
+            earned_income_tax_credit: Earned Income Tax Credit
+            federal_stimulus_payments: Federal Stimulus Payments
+        title: We have two free options that may work for you!
+    triage_id_type:
+      edit:
+        ssn_itin_type:
+          have_paperwork: I have my Social Security card or ITIN paperwork
+          know_number: I know my Social Security or ITIN number, but I do not have a copy of it
+          need_help: I need help getting my ITIN paperwork
+        title: What type of identification do you have?
+    triage_income_level:
+      edit:
+        help_text: Household income is the total you (and your spouse) made in the past year.
+        levels:
+          hh_1_to_25100_html: |
+            <div>$1- 25,100</div>
+
+            <div class="text--label-secondary-text spacing-above-15">
+              $1- 12,550 if filing individually
+            </div>
+          hh_25100_to_66000: "$25,100 - 66,000"
+          hh_66000_to_73000: "$66,000 - 73,000"
+          hh_over_73000: over $73,000
+          zero: "$0"
+        levels_label: 'Select your household income level:'
+        title: |-
+          Let's get started
+
+          Tell us about your income.
+    triage_income_types:
+      edit:
+        income_types:
+          farm: I earned money from owning a farm
+          rental: I earned money from a rental property
+        income_types_label: Did any of the situations below apply to you?
+        title: One final question before we select the service for you!
+    triage_referral:
+      edit:
+        help_text: |
+          File online on your own using an IRS-certified partner website. This is our quickest option to file your taxes and collect the tax credits you are owed!
+
+          By clicking continue, you will be taken to our partner’s site to continue filing on your own. The process is simple, quick, and easy.
+        title: We recommend filing with our free File Myself option!
+    triage_start_ids:
+      edit:
+        help_text: It might be helpful to gather all of your tax documents and Social Security Card or ITIN paperwork at this point. We’ll confirm the information again later in the process.
+        title: We’ll start by asking about your documents and IDs.
   signups:
     flash_notice: Thank you! You will receive a notification when we open in January 2022.
     new:
@@ -1773,7 +1883,6 @@ en:
               <p>Think carefully about whether there is someone else who might have claimed them. If there could be someone else, select "No" and we'll help you decide whether you can claim %{name} or not.</p>
             title: Are you the only person who can claim %{name}?
           child_disqualifiers:
-            error: Please select at least one option
             filed_joint_return: "%{name} was married and filed taxes with their spouse"
             help_text: 'Select any situations that were true in %{current_tax_year}:'
             provided_over_half_own_support: "%{name} paid for more than half their own living expenses"
@@ -1913,7 +2022,6 @@ en:
           - self-employment or contract payments
           title: 'In %{current_tax_year}, did you earn over:'
         ip_pin:
-          error: Please pick a person or ‘None of the above’.
           help_text: Having an IP PIN is rare. If you are unfamiliar with what this is, it’s likely that you have not been issued an IP PIN. Select ‘None of the above’ to continue.
           reveal_label: What is an IP PIN?
           title: Has anyone on your return been issued an IP PIN because of identity theft?
@@ -3430,44 +3538,6 @@ en:
         title:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
-      triage_backtaxes:
-        help_text: If you earned income and you have filed for all the above years, answer yes. Even if you used a different service to file for previous years.
-        title: Have you filed taxes for %{backtax_years}?
-      triage_eligibility:
-        info: Let us know if any of the situations below apply to you.
-        situations:
-          had_farm_income: I earned money from owning a farm
-          had_rental_income: I earned money from a rental property
-          income_over_limit: I earned more than $66,000 in %{current_tax_year}
-        title: Yes, our service is completely free. Let's make sure you qualify!
-      triage_lookback:
-        had_income_decrease: My income decreased from %{prior_tax_year}
-        had_marketplace_insurance: I purchased health insurance through the marketplace
-        had_unemployment: I received unemployment income
-        help_text: Do any of the situations below apply to %{current_tax_year}?
-        title: "%{current_tax_year} tax situations"
-      triage_prepare_solo:
-        help_text: Preparing your return is easy, especially if you have less than 3 jobs. We'll provide chat support as you go through our DIY option.
-        title: Are you interested in preparing your own return?
-      triage_simple_tax:
-        help_text: 'Answer yes if you have 1-3 jobs to report and no deductions. You might have these forms: W-2, 1099R, 1099SSA, 1099G'
-        title: Do you have simple taxes?
-      triage_stimulus_check:
-        faq: Visit Stimulus FAQ
-        get_your_money: Get all the cash support you're owed!
-        help_me: Yes! Help me file my taxes.
-        help_text: Don't worry, we're here to support you throughout the process. We'll help you collect your stimulus payment, file your taxes, and make sure you receive the maximum refund owed to you!
-        perks:
-        - Receive addition money through tax credits, if you qualify
-        - File for previous years and collect past refunds
-        - Access our free tax filing assistance that will answer all of your questions
-        title: In order to collect your stimulus check, you are required to file your taxes.
-      triage_tax_needs:
-        collect_stimulus: Collect my stimulus check
-        file_previous_years: File taxes for previous years
-        file_this_year: File my %{current_year} taxes
-        help_text: 'Select all the situations that apply to you:'
-        title: What can we help you with?
       verification:
         body: 'A message with your code has been sent to:'
         error_message: Incorrect verification code.
@@ -3475,8 +3545,13 @@ en:
         verification_code_label: Enter 6 digit code
         verify: Verify
       welcome:
-        help_text: To provide the best service, we'll start with a few questions.
-        title: Welcome to GetYourRefund!
+        find_right_service: We’ll ask a few questions, to find the right service for you!
+        help_text: 'We provide multiple tax filing options to households that qualify:'
+        list:
+        - "<strong>Deluxe</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
+        - "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
+        - "<strong>Express</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
+        title: Welcome to our free service!
       widowed:
         title: As of December 31, %{year}, were you widowed?
       widowed_year:

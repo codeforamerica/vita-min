@@ -6,4 +6,8 @@ class NullForm < QuestionsForm
   def save
     true
   end
+
+  def self.from_record(record)
+    new(nil, {})
+  end
 end
