@@ -3226,11 +3226,6 @@ es:
       feedback:
         body: Apreciamos cualquier comentario adicional que tenga para servir mejor a nuestros clientes en el futuro.
         title: Gracias por compartir su experiencia.
-      file_with_help:
-        diy: No, gracias. Estoy buscando una opción más rápida.
-        info: "¡Con la opción de servicio completo nuestros socios de VITA lo atenderán y trabajarán con usted para conseguir el reembolso más grande!"
-        note: 'Nota: este proceso toma de 2 a 3 semanas.'
-        title: Creemos que la opción de servicio completo es la mejor opción para usted.
       filing_joint:
         help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
         title: "¿Está declarando sus impuestos con su cónyuge?"

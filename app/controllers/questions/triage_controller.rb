@@ -36,7 +36,7 @@ module Questions
     end
 
     def redirect_if_matching_source_param
-      redirect_to file_with_help_questions_path if SourceParameter.find_vita_partner_by_code(session[:source]).present?
+      redirect_to backtaxes_questions_path if SourceParameter.find_vita_partner_by_code(session[:source]).present?
     end
 
     def set_show_client_sign_in_link
