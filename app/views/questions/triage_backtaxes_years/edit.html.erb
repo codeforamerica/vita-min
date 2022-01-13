@@ -10,7 +10,7 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <div class="form-card__stacked-checkboxes spacing-above-0">
       <% TaxReturn.filing_years.sort.map do |year| %>
-        <%= f.cfa_checkbox("backtaxes_#{year}".to_sym, year.to_s, options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.cfa_checkbox("filed_#{year}".to_sym, year.to_s, options: { checked_value: "yes", unchecked_value: "no" }) %>
       <% end %>
     </div>
 
