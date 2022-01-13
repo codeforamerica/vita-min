@@ -1,7 +1,8 @@
+<% routing_fraction = current_routing_fraction(state_routing_target, site) %>
 <% if site %>
   <div id="state-routing-site-<%= site.id %>" class="state-routing-site">
     <%= f.fields_for "state_routing_fraction_attributes[]", site do |ff| %>
-      <%= render 'hub/state_routings/routing_fields', f: ff, vita_partner: site, state_routing_target: state_routing_target %>
+      <%= render 'hub/state_routings/routing_fields', f: ff, vita_partner: site, routing_fraction: routing_fraction, routing_enabled: routing_enabled %>
     <% end %>
   </div>
 <% end %>

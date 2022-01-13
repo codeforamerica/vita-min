@@ -1,14 +1,15 @@
-<% if organization && state_routing_target %>
+<% routing_fraction = current_routing_fraction(state_routing_target, organization) %>
+<% if organization && state_routing_target && routing_fraction %>
   <div id="state-routing-org-<%= organization.id %>">
     <div class="state-routing-accordion accordion">
       <div class="state-routing-accordion__button accordion__button">.</div>
       <%= f.fields_for "state_routing_fraction_attributes[]", organization do |ff| %>
-        <%= render 'hub/state_routings/routing_fields', f: ff, vita_partner: organization, state_routing_target: state_routing_target %>
+        <%= render 'hub/state_routings/routing_fields', f: ff, vita_partner: organization, routing_fraction: routing_fraction, routing_enabled: routing_fraction.org_level_routing_enabled %>
       <% end %>
       <% if organization.child_sites.present? %>
         <div class="state-routing-accordion__content accordion__content">
           <% organization.child_sites.each do |site| %>
-            <%= render 'hub/state_routings/site_routing_entry', f: f, site: site, state_routing_target: state_routing_target %>
+            <%= render 'hub/state_routings/site_routing_entry', f: f, site: site, state_routing_target: state_routing_target, routing_enabled: !routing_fraction.org_level_routing_enabled %>
           <% end %>
         </div>
       <% end %>

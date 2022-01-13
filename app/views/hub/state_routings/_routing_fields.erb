@@ -9,7 +9,7 @@
         <input name="hub_state_routing_form[state_routing_fraction_attributes][<%= vita_partner.id %>][org_level_routing_enabled]"
                id="toggle-org-level-routing"
                type="checkbox"
-               <%= vita_partner.org_level_routing_enabled && "checked" %>
+               <%= routing_enabled && "checked" %>
                onchange="toggleOrgLevelRouting(<%= vita_partner.id %>)">
         <span class="slider round"></span>
       </label>
@@ -17,12 +17,12 @@
   </div>
   <div class="width-one-fourth routing-percentage-input-wrapper">
     <%= f.cfa_input_field :routing_percentage, "", options:
-      { value: current_routing_percentage(state_routing_target, vita_partner),
+      { value: routing_fraction&.routing_percentage || 0,
         "aria-label" => vita_partner.name,
-        disabled: !vita_partner.state_routing_enabled? }, classes: ["form-width--short"] %>
+        disabled: !routing_enabled }, classes: ["form-width--short"] %>
   </div>
 </div>
-<%= f.hidden_field :state_routing_target_id, value: state_routing_target.id %>
+<%= f.hidden_field :state_routing_target_id, value: routing_fraction.state_routing_target_id %>
 
 <% content_for :script do %>
   <script>

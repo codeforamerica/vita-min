@@ -1210,6 +1210,7 @@ ActiveRecord::Schema.define(version: 2022_01_11_235145) do
 
   create_table "state_routing_fractions", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
+    t.boolean "org_level_routing_enabled"
     t.float "routing_fraction", default: 0.0, null: false
     t.bigint "state_routing_target_id", null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1427,7 +1428,6 @@ ActiveRecord::Schema.define(version: 2022_01_11_235145) do
     t.string "logo_path"
     t.string "name", null: false
     t.boolean "national_overflow_location", default: false
-    t.boolean "org_level_routing_enabled", default: true
     t.bigint "parent_organization_id"
     t.boolean "processes_ctc", default: false
     t.string "timezone", default: "America/New_York"

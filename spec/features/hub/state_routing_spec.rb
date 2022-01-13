@@ -5,14 +5,14 @@ RSpec.feature "Adjust state routing", :js do
     let(:user) { create :admin_user }
     let(:orange_organization) { create(:organization, name: "Orange Organization", coalition: nil) }
     let(:crocodile_conglomerate) { create(:coalition, name: "Crocodile Conglomerate") }
-    let(:squid_association) { create(:organization, name: "Squid Association", coalition: crocodile_conglomerate, org_level_routing_enabled: true) }
+    let(:squid_association) { create(:organization, name: "Squid Association", coalition: crocodile_conglomerate) }
     let(:tadpole_division) { create(:site, name: "Tadpole Division", parent_organization: squid_association) }
 
     let(:orange_state_target) { create(:state_routing_target, state_abbreviation: "FL", target: orange_organization) }
-    let!(:orange_fraction) { create(:state_routing_fraction, state_routing_target: orange_state_target, vita_partner: orange_organization, routing_fraction: 0.6) }
+    let!(:orange_fraction) { create(:state_routing_fraction, state_routing_target: orange_state_target, vita_partner: orange_organization, routing_fraction: 0.6, org_level_routing_enabled: true) }
 
     let(:crocodile_state_target) { create(:state_routing_target, state_abbreviation: "FL", target: crocodile_conglomerate) }
-    let!(:squid_fraction) { create(:state_routing_fraction, state_routing_target: crocodile_state_target, vita_partner: squid_association, routing_fraction: 0.4) }
+    let!(:squid_fraction) { create(:state_routing_fraction, state_routing_target: crocodile_state_target, vita_partner: squid_association, routing_fraction: 0.4, org_level_routing_enabled: true) }
     let!(:tadpole_fraction) { create(:state_routing_fraction, state_routing_target: crocodile_state_target, vita_partner: tadpole_division, routing_fraction: 0.0) }
 
     before do
