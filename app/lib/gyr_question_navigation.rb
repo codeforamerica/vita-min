@@ -27,7 +27,6 @@ class GyrQuestionNavigation
       # Contact information and preferences
       Questions::PersonalInfoController,
       Questions::InterviewSchedulingController,
-      Questions::AtCapacityController,
       Questions::NotificationPreferenceController,
       Questions::PhoneNumberCanReceiveTextsController,
       Questions::CellPhoneNumberController,
@@ -44,8 +43,10 @@ class GyrQuestionNavigation
                                     # Advances statuses to "In Progress"
                                     # generate a 14446 signed by the primary
                                     # generate a "Preliminary" 13614-C signed by the primary
-      Questions::OptionalConsentController, # This and all later controllers require a client to be signed in.
-      Questions::ChatWithUsController,
+                                    # Routes client to a vita partner, if routeable
+      Questions::OptionalConsentController,
+      Questions::AtCapacityController,
+      Questions::ChatWithUsController, # This and all later controllers require a client to be signed in.,
       # Primary filer personal information
       Questions::LifeSituationsController,
       Questions::StimulusPaymentsController,

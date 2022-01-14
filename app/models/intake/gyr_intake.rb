@@ -358,6 +358,13 @@ class Intake::GyrIntake < Intake
     end
   end
 
+  def probable_previous_year_intake
+    return nil unless primary_last_four_ssn && primary_first_name && primary_last_name && primary_birth_date
+
+    previous_options = Archived::Intake2021.where(type: "Intake::GyrIntake", primary_birth_date: primary_birth_date, primary_first_name: primary_first_name, primary_last_name: primary_last_name)
+    previous_options&.find { |po| po.primary_last_four_ssn.to_s == primary_last_four_ssn.to_s } # last_four_ssn is encrypted, so we need to manually loop
+  end
+
   def relevant_document_types
     DocumentTypes::ALL_TYPES.select do |doc_type_class|
       doc_type_class.relevant_to?(self)

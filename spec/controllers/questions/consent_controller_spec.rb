@@ -1,12 +1,14 @@
 require "rails_helper"
 
 RSpec.describe Questions::ConsentController do
-  let(:intake) { create :intake, preferred_name: "Ruthie Rutabaga", email_address: "hi@example.com", sms_phone_number: "+18324651180" }
+  let(:intake) { create :intake, preferred_name: "Ruthie Rutabaga", email_address: "hi@example.com", sms_phone_number: "+18324651180", source: "SourceParam", zip_code: "80309" }
   let(:client) { intake.client }
   let!(:tax_return) { create :tax_return, client: client }
+  let!(:routing_double) { double(routing_method: "zip_code", determine_partner: (create :organization) ) }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
+    allow(PartnerRoutingService).to receive(:new).and_return(routing_double)
   end
 
   describe "#update" do
@@ -65,6 +67,79 @@ RSpec.describe Questions::ConsentController do
 
         expect(session[:intake_id]).to be_nil
       end
+
+      context "routing the client in after update callback" do
+        let(:organization_router) { double }
+        let(:organization) { create :organization }
+
+        before do
+          allow(PartnerRoutingService).to receive(:new).and_return organization_router
+          allow(organization_router).to receive(:determine_partner).and_return organization
+          allow(organization_router).to receive(:routing_method).and_return :source_param
+        end
+
+        context "when a client has not yet been routed (routing_method is not present)" do
+          it "gets routed" do
+            post :update, params: params
+
+            expect(PartnerRoutingService).to have_received(:new).with(
+                {
+                  intake: intake,
+                  source_param: "SourceParam",
+                  zip_code: "80309"
+                }
+            )
+            expect(organization_router).to have_received(:determine_partner)
+          end
+
+          it "updates the intake and the client with the routed organization" do
+            expect {
+              post :update, params: params
+              intake.reload
+            }.to change(intake.client, :vita_partner_id).to(organization.id)
+                     .and change(intake.client, :routing_method).to eq("source_param")
+
+            expect(response).to redirect_to optional_consent_questions_path
+
+          end
+
+          context "when routing service returns nil" do
+            before do
+              allow(organization_router).to receive(:determine_partner).and_return nil
+              allow(organization_router).to receive(:routing_method).and_return :at_capacity
+            end
+
+            it "saves routing method to at capacity, but does not set a vita partner" do
+              expect {
+                post :update, params: params
+              }.to change(intake.client, :routing_method).to eq("at_capacity")
+
+              expect(intake.client.vita_partner).to eq nil
+
+              expect(PartnerRoutingService).to have_received(:new).with(
+                  {
+                      intake: intake,
+                      source_param: "SourceParam",
+                      zip_code: "80309"
+                  }
+              )
+              expect(organization_router).to have_received(:determine_partner)
+              expect(response).to redirect_to optional_consent_questions_path
+            end
+          end
+        end
+
+        context "when a client has already been routed (routing_method is nil)" do
+          let(:client) { create :client, routing_method: "returning_client" }
+          let(:intake) { create :intake, client: client }
+
+          it "does not route again" do
+            post :update, params: params
+
+            expect(organization_router).not_to have_received(:determine_partner)
+          end
+        end
+      end
     end
 
     context "with invalid params" do
@@ -111,6 +186,22 @@ RSpec.describe Questions::ConsentController do
       before do
         intake.update(email_notification_opt_in: "yes")
         intake.update(sms_notification_opt_in: "yes")
+      end
+
+      context "when routing method is set to at capacity on the client" do
+        before do
+          intake.client.update(routing_method: "at_capacity")
+        end
+
+        it "does not send a message" do
+          subject.after_update_success
+
+          expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+              client: intake.client,
+              message: AutomatedMessage::GettingStarted,
+              locale: :en
+          )
+        end
       end
 
       context "when the intake locale is en" do

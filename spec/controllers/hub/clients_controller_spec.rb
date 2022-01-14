@@ -1310,7 +1310,7 @@ RSpec.describe Hub::ClientsController do
 
       context "when there is an archived intake" do
         let(:intake) { nil }
-        let!(:archived_intake) { create(:archived_2021_intake, client: client) }
+        let!(:archived_intake) { create(:archived_2021_gyr_intake, client: client) }
 
         it "returns true" do
           expect(presenter.archived?).to be_truthy

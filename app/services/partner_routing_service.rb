@@ -1,14 +1,18 @@
 class PartnerRoutingService
   attr_accessor :routing_method
 
-  def initialize(source_param: nil, zip_code: nil)
+  def initialize(intake: nil, source_param: nil, zip_code: nil)
     @source_param = source_param
     @zip_code = zip_code
+    @intake = intake
     @routing_method = nil
   end
 
   # @return VitaPartner the object of the vita_partner we recommend routing to.
   def determine_partner
+    from_previous_year_partner = previous_year_partner
+    return from_previous_year_partner if from_previous_year_partner.present?
+
     from_source_param = vita_partner_from_source_param if @source_param.present?
     return from_source_param if from_source_param.present?
 
@@ -25,8 +29,19 @@ class PartnerRoutingService
 
   private
 
+  def previous_year_partner
+    return false unless @intake
+
+    vita_partner = @intake.probable_previous_year_intake&.vita_partner
+
+    if vita_partner.present? && vita_partner.active?
+      @routing_method = :returning_client
+      vita_partner
+    end
+  end
+
   def vita_partner_from_source_param
-    return false unless @source_param.present?
+    return unless @source_param.present?
 
     source_param_downcase = @source_param.downcase
     vita_partner = SourceParameter.includes(:vita_partner).find_by(code: source_param_downcase)&.vita_partner
@@ -38,7 +53,7 @@ class PartnerRoutingService
   end
 
   def vita_partner_from_zip_code
-    return false unless @zip_code.present?
+    return unless @zip_code.present?
 
     eligible_with_capacity = VitaPartnerZipCode.where(zip_code: @zip_code).joins(organization: :organization_capacity).merge(
       OrganizationCapacity.with_capacity
@@ -53,7 +68,7 @@ class PartnerRoutingService
   end
 
   def vita_partner_from_state
-    return false unless @zip_code.present?
+    return unless @zip_code.present?
 
     state = ZipCodes.details(@zip_code)[:state]
     in_state_routing_fractions = StateRoutingFraction.joins(:state_routing_target)

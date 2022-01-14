@@ -218,6 +218,11 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
       fill_in "Confirm phone number", with: "415-888-0088"
       click_on "Continue"
 
+      fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+      click_on "Continue"
+
+      fill_out_notification_preferences
+
       expect(page.html).to have_text "Wow, it looks like we are at capacity right now."
     end
   end
