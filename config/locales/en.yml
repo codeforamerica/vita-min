@@ -1286,7 +1286,7 @@ en:
 
           You will receive what’s called a 6419 Letter from the IRS in January 2022. This letter will help you and your tax preparer correctly claim your Child Tax Credit for you and your family. The letter will be have 6419 printed on it and will include information about the Child Tax Credit payments that you received in 2021.
 
-          Please save this letter for when you file your taxes. Whether you file with GetYourRefund or any other service, this will help you collect any missing payments and receive any refund due without delay.
+          Please save this letter for when you file your taxes. Whether you file with %{service_name} or any other service, this will help you collect any missing payments and receive any refund due without delay.
 
           Happy New Year,
 

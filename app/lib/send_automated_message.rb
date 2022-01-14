@@ -3,7 +3,7 @@ class SendAutomatedMessage
 
   def initialize(client:, message:, tax_return: nil, locale: nil, body_args: {})
     @client = client
-    @locale = locale || client.intake.locale || "en"
+    @locale = locale || client.intake&.locale || "en"
     @message = message
     @message_instance = message.new
     @tax_return = tax_return

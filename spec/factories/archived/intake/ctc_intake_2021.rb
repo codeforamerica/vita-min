@@ -3,6 +3,7 @@ FactoryBot.define do
     preferred_name { "Cherry" }
     type { 'Intake::CtcIntake' }
     primary_first_name { "Cher" }
+    association :client, factory: :ctc_client
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
     needs_to_flush_searchable_data_set_at { 1.minute.ago }
   end

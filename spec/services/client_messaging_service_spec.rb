@@ -23,10 +23,42 @@ RSpec.describe ClientMessagingService do
 
   describe ".send_email", active_job: true do
     context "when user is nil" do
-      it "raises an error" do
-        expect do
-          described_class.send_email(client: client, body: "hello")
-        end.to raise_error(ArgumentError, "missing keyword: user")
+      context "with a GYR intake" do
+        it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
+          expect do
+            described_class.send_email(client: client, user: nil, body: "hello from a system email")
+          end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
+
+          outgoing_email = OutgoingEmail.last
+          expect(outgoing_email.subject).to eq("Update from GetYourRefund")
+          expect(outgoing_email.body).to eq("hello from a system email")
+          expect(outgoing_email.client).to eq client
+          expect(outgoing_email.user).to eq nil
+          expect(outgoing_email.to).to eq client.email_address
+          expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
+        end
+      end
+
+      context "when an archived intake" do
+        let!(:intake) { create :archived_2021_intake,
+                               preferred_name: "Mona Lisa",
+                               email_address: email_address,
+                               email_notification_opt_in: email_opt_in
+        }
+
+        it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
+          expect do
+            described_class.send_email(client: client, user: nil, body: "hello from a system email")
+          end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
+
+          outgoing_email = OutgoingEmail.last
+          expect(outgoing_email.subject).to eq("Update from GetCTC")
+          expect(outgoing_email.body).to eq("hello from a system email")
+          expect(outgoing_email.client).to eq client
+          expect(outgoing_email.user).to eq nil
+          expect(outgoing_email.to).to eq intake.email_address
+          expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
+        end
       end
     end
 
@@ -242,10 +274,44 @@ RSpec.describe ClientMessagingService do
     end
 
     context "when user is nil" do
-      it "raises an error" do
-        expect do
-          described_class.send_text_message(client: client, body: "hello")
-        end.to raise_error(ArgumentError, "missing keyword: user")
+      context "with a GYR intake" do
+        it "saves a new outgoing text message with the right info, enqueues job, and broadcasts to ClientChannel" do
+          expect do
+            described_class.send_text_message(client: client, user: nil, body: "hello, <<Client.PreferredName>>")
+          end.to change(OutgoingTextMessage, :count).by(1)
+
+          outgoing_text_message = OutgoingTextMessage.last
+          expect(outgoing_text_message.body).to eq("hello, Mona Lisa")
+          expect(outgoing_text_message.client).to eq client
+          expect(outgoing_text_message.user).to eq nil
+          expect(outgoing_text_message.sent_at).to eq expected_time
+          expect(outgoing_text_message.to_phone_number).to eq client.sms_phone_number
+          expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_text_message)
+          expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
+        end
+      end
+
+      context "with an archived intake" do
+        let!(:intake) { create :archived_2021_intake,
+                               preferred_name: "Mona Lisa",
+                               sms_phone_number: sms_phone_number,
+                               sms_notification_opt_in: sms_opt_in
+        }
+
+        it "saves a new outgoing text message with the right info, enqueues job, and broadcasts to ClientChannel" do
+          expect do
+            described_class.send_text_message(client: client, user: nil, body: "hello, <<Client.PreferredName>>")
+          end.to change(OutgoingTextMessage, :count).by(1)
+
+          outgoing_text_message = OutgoingTextMessage.last
+          expect(outgoing_text_message.body).to eq("hello, Mona Lisa")
+          expect(outgoing_text_message.client).to eq client
+          expect(outgoing_text_message.user).to eq nil
+          expect(outgoing_text_message.sent_at).to eq expected_time
+          expect(outgoing_text_message.to_phone_number).to eq intake.sms_phone_number
+          expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_text_message)
+          expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
+        end
       end
     end
 
@@ -275,7 +341,7 @@ RSpec.describe ClientMessagingService do
 
       context "replacing parameters" do
         let(:param_double) { double(ReplacementParametersService) }
-        let(:body) { "raw body"}
+        let(:body) { "raw body" }
         before do
           allow(ReplacementParametersService).to receive(:new).and_return param_double
           allow(param_double).to receive(:process).and_return "replaced body"
@@ -291,7 +357,6 @@ RSpec.describe ClientMessagingService do
       context "when they are opted into sms but lack a phone number" do
         let(:sms_opt_in) { "yes" }
         let(:sms_phone_number) { "" }
-
 
         it "does not send a message and increments data dog" do
           expect do
@@ -540,13 +605,13 @@ RSpec.describe ClientMessagingService do
       it "sends messages to clients with the appropriate locales" do
         described_class.send_bulk_message(tax_return_selection, user, en: message_body_en, es: message_body_es)
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-            client: client_es, user: user, body: message_body_es
+          client: client_es, user: user, body: message_body_es
         )
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-            client: client_en, user: user, body: message_body_en
+          client: client_en, user: user, body: message_body_en
         )
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-            client: client_nil, user: user, body: message_body_en
+          client: client_nil, user: user, body: message_body_en
         )
       end
 
@@ -584,7 +649,7 @@ RSpec.describe ClientMessagingService do
           bulk_message = described_class.send_bulk_message(tax_return_selection, user, en: message_body_en, es: message_body_es)
           expect(bulk_message.outgoing_emails).to match_array([outgoing_email_1, outgoing_email_2])
           expect(bulk_message.outgoing_text_messages).to match_array([outgoing_text_message_1, outgoing_text_message_2])
-       end
+        end
       end
     end
 
@@ -596,7 +661,7 @@ RSpec.describe ClientMessagingService do
           described_class.send_bulk_message(tax_return_selection, user, es: message_body_es)
 
           expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-              client: client_es, user: user, body: message_body_es
+            client: client_es, user: user, body: message_body_es
           )
         end
       end
@@ -623,10 +688,10 @@ RSpec.describe ClientMessagingService do
       it "scopes down to only the accessible clients" do
         described_class.send_bulk_message(tax_return_selection, user, en: message_body_en)
         expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
-            client: accessible_client, user: user, body: message_body_en
+          client: accessible_client, user: user, body: message_body_en
         )
         expect(ClientMessagingService).not_to have_received(:send_message_to_all_opted_in_contact_methods).with(
-            client: inaccessible_client, user: user, body: message_body_en
+          client: inaccessible_client, user: user, body: message_body_en
         )
       end
     end
