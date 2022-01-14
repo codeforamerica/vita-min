@@ -1498,7 +1498,7 @@ en:
     triage_backtaxes_years:
       edit:
         help_text_html: |
-          Even if you used a different service to file for previous years, <strong>select all the years that apply.</strong>
+          Even if you used a different service to file for previous years, <strong>select any/all the years that apply.</strong>
           <br/><br/>
           Don’t worry if you haven’t filed for any of these years, we’re here to help!
         title: Have you filed taxes in the past? Let us know years that you filed.
@@ -1573,8 +1573,7 @@ en:
           zero: "$0"
         levels_label: 'Select your household income level:'
         title: |-
-          Let's get started
-
+          Let's get started!
           Tell us about your income.
     triage_income_types:
       edit:

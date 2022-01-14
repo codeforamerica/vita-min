@@ -16,7 +16,10 @@ class TriageResultService
   end
 
   def after_backtaxes_years
-    if no_previous_year_filings && has_some_tax_docs && triage.id_type_have_paperwork?
+    # The presence of missing previous year filings may mean DIY isn't appropriate because it charges
+    # clients for years other than the current tax year. Plus GetCTC doesn't work for previous tax years.
+    # That leaves just full service/VITA.
+    if any_missing_previous_year_filings && has_some_tax_docs && triage.id_type_have_paperwork?
       return Questions::TriageIncomeTypesController.to_path_helper
     end
   end
@@ -31,7 +34,7 @@ class TriageResultService
     %w[all_copies some_copies].include?(triage.doc_type)
   end
 
-  def no_previous_year_filings
+  def any_missing_previous_year_filings
     [:filed_2018, :filed_2019, :filed_2020].any? { |m| triage.send(m) == "no" }
   end
 end

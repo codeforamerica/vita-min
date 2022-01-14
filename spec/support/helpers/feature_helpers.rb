@@ -40,6 +40,9 @@ module FeatureHelpers
     maybe_screenshot(screenshot) do
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_backtaxes_years.edit.title'))
     end
+    check (TaxReturn.current_tax_year - 3).to_s
+    check (TaxReturn.current_tax_year - 2).to_s
+    check (TaxReturn.current_tax_year - 1).to_s
     click_on I18n.t('general.continue')
 
     maybe_screenshot(screenshot) do
