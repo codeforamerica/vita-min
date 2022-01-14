@@ -125,5 +125,8 @@ group :test do
   gem 'percy-capybara'
 end
 
+# Add a fix for lograge/request_store to avoid fatal errors: https://github.com/steveklabnik/request_store/pull/78
+gem 'request_store', github: 'ghiculescu/request_store', branch: 'stack-overflow-const-response'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
