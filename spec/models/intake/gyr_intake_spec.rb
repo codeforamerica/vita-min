@@ -289,8 +289,11 @@ describe Intake::GyrIntake do
     end
 
     context "when there is not a matching intake" do
-      it "returns nil" do
+      let(:intake) { create :intake, primary_birth_date: Date.new(1929, 3, 21), primary_first_name: "Seth", primary_last_name: "Strawberry", primary_ssn: "12341234" }
+      let(:intake) { create :intake, primary_birth_date: Date.new(1929, 3, 22), primary_first_name: "Seth", primary_last_name: "Strawberry", primary_ssn: "12341234" }
 
+      it "returns nil" do
+        expect(intake.probable_previous_year_intake).to eq nil
       end
     end
   end

@@ -3022,6 +3022,9 @@ es:
         chat: Si tiene preguntas, puede chatear con nosotros haciendo clic en el botón en la parte inferior derecha de su pantalla.
         info: "¡Sabemos que los impuestos pueden ser difíciles y estamos aquí para ayudarlo en cada paso del camino!"
         partner_info_html: "%{partner_name} prepara declaraciones de impuestos de <strong>%{zip} (%{zip_name}).</strong>"
+        returning_client:
+          partner_info: Nuestro equipo en %{partner_name} está aquí para ayudarlo a presentar su solicitud nuevamente.
+          title: Bienvenida de nuevo %{name}!
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
       consent:
         birth_date: Fecha de nacimiento

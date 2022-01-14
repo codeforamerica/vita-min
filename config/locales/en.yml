@@ -3054,6 +3054,9 @@ en:
         chat: If you have questions, you can chat with us by clicking the button in the bottom right of your screen.
         info: We know taxes can be hard and we’re here to support you every step of the way!
         partner_info_html: "%{partner_name} handles tax returns from <strong>%{zip} (%{zip_name}).</strong>"
+        returning_client:
+          partner_info: Our team at %{partner_name} is here to help you file again.
+          title: Welcome back %{name}!
         title: Our team at %{partner_name} is here to help!
       consent:
         birth_date: Date of birth

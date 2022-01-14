@@ -41,7 +41,7 @@ class PartnerRoutingService
   end
 
   def vita_partner_from_source_param
-    return false unless @source_param.present?
+    return unless @source_param.present?
 
     source_param_downcase = @source_param.downcase
     vita_partner = SourceParameter.includes(:vita_partner).find_by(code: source_param_downcase)&.vita_partner
@@ -53,7 +53,7 @@ class PartnerRoutingService
   end
 
   def vita_partner_from_zip_code
-    return false unless @zip_code.present?
+    return unless @zip_code.present?
 
     eligible_with_capacity = VitaPartnerZipCode.where(zip_code: @zip_code).joins(organization: :organization_capacity).merge(
       OrganizationCapacity.with_capacity
@@ -68,7 +68,7 @@ class PartnerRoutingService
   end
 
   def vita_partner_from_state
-    return false unless @zip_code.present?
+    return unless @zip_code.present?
 
     state = ZipCodes.details(@zip_code)[:state]
     in_state_routing_fractions = StateRoutingFraction.joins(:state_routing_target)
