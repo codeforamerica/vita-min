@@ -1960,7 +1960,7 @@ es:
             us_territory: Territorio de Estados Unidos, como Puerto Rico o Guam
           title: "¿Cuál fue su domicilio principal durante %{current_tax_year}?"
         income:
-          filing_married: "%{joint_deduction}si declara como persona casada"
+          filing_married: "%{joint_deduction} si declara como persona casada"
           filing_single: "%{single_deduction} si declara como persona soltera"
           help_text: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
           income_sources:
@@ -2331,7 +2331,7 @@ es:
             subheading: Si usted aún no ha proporcionado su información al IRS (por medio de sus impuestos o por el portal para registrar a las personas que no han declarado), usted puede presentar una declaración de impuestos completa para recibir otros créditos tributarios que se le deben.
           heading: "¿Cómo recibo el Crédito Tributario por Hijos?"
           not_filed:
-            body1_html: Si ganó menos de %{single_deduction} (o menos de%{joint_deduction} si es casado), puede utilizar GetCTC, un portal de declaración de impuestos simplificado para obtener el Crédito Tributario por Hijos, recibir un pago de estímulo que falta y obtener dinero en efectivo ahora.
+            body1_html: Si ganó menos de %{single_deduction} (o menos de %{joint_deduction} si es casado), puede utilizar GetCTC, un portal de declaración de impuestos simplificado para obtener el Crédito Tributario por Hijos, recibir un pago de estímulo que falta y obtener dinero en efectivo ahora.
             body2: Para obtener el Crédito Tributario por Hijos, necesitará proporcionar los números de seguro social de sus hijos. Puede registrarse para el Crédito Tributario por Hijos aún si usted tiene muy pocos ingresos o no tiene ingresos, o si recibe otros beneficios federales como Seguridad de Ingreso Suplementario (SSI en inglés) o beneficios por incapacidad (SSDI en inglés).
             chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Hable con nuestros expertos en impuestos</button> si necesita ayuda.
             subheading: Si usted no ha declarado sus impuestos puede registrarse para recibir el Crédito Tributario por Hijos.
@@ -3268,8 +3268,8 @@ es:
         title: "¿Alguna vez ha recibido un PIN de IP por causa de robo de identidad?"
       itemizing:
         help_text:
-          one: Responda que sí si usted o su cónyuge han gastado más de ${joint_deduction} en organizaciones de caridad, gastos médicos o dentales, material escolar u otros gastos diversos.
-          other: Responda que sí si usted o su cónyuge han gastado más de ${joint_deduction} en organizaciones de caridad, gastos médicos o dentales, material escolar u otros gastos diversos.
+          one: Responda que sí si usted o su cónyuge han gastado más de %{single_deduction} en organizaciones de caridad, gastos médicos o dentales, material escolar u otros gastos diversos.
+          other: Responda que sí si usted o su cónyuge han gastado más de %{joint_deduction} en organizaciones de caridad, gastos médicos o dentales, material escolar u otros gastos diversos.
         title: "¿Le gustaría detallar su deducción para %{year}?"
       job_count:
         options:

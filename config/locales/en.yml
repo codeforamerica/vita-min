@@ -3300,8 +3300,8 @@ en:
         title: Have you ever been issued an IP PIN because of identity theft?
       itemizing:
         help_text:
-          one: Answer yes if you spent over ${single_deduction} on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
-          other: Answer yes if you or your spouse spent over ${joint_deduction} on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
+          one: Answer yes if you spent over %{single_deduction} on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
+          other: Answer yes if you or your spouse spent over %{joint_deduction} on charities, medical or dental expenses, school supplies, or other miscellaneous expenses.
         title: Would you like to itemize your deductions for %{year}?
       job_count:
         options:
