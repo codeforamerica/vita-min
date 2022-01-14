@@ -22,7 +22,7 @@ module Hub
           [AutomatedMessage::EfileFailed, {}],
           [AutomatedMessage::CtcGettingStarted, {}],
           [AutomatedMessage::ClosingSoon, {}],
-          [AutomatedMessage::SaveCtcLetter, {}]
+          [AutomatedMessage::SaveCtcLetter, {}],
       ]
 
       @messages = messages.map do |message|
