@@ -9,6 +9,14 @@ GIT
       jquery-rails
       sass
 
+GIT
+  remote: https://github.com/ghiculescu/request_store.git
+  revision: 3d8e7bff5ba1ec270b412d3c658b1c6372cf73a3
+  branch: stack-overflow-const-response
+  specs:
+    request_store (1.5.0)
+      rack (>= 1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -422,8 +430,6 @@ GEM
       json
     redcarpet (3.5.1)
     regexp_parser (2.2.0)
-    request_store (1.5.0)
-      rack (>= 1.4)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -666,6 +672,7 @@ DEPENDENCIES
   rails_autolink
   recaptcha
   redcarpet
+  request_store!
   rspec-rails
   rspec_junit_formatter
   rubocop (~> 0.82.0)
