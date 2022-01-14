@@ -63,5 +63,18 @@ RSpec.describe SendClientSaveCtcLetterMessageJob, type: :job do
         )
       end
     end
+
+    context "when there are multiple clients that have opted into communication" do
+      let!(:intake_1) { create :archived_2021_intake, locale: "en", email_notification_opt_in: "yes", email_address: "example@example.com" }
+      let!(:intake_2) { create :archived_2021_intake, locale: "en", sms_notification_opt_in: "yes", sms_phone_number: "+14155551212" }
+      let!(:intake_3) { create :archived_2021_intake, locale: "en", sms_notification_opt_in: "yes", sms_phone_number: "+14155551213" }
+
+      it "sends messages to the number of clients specified" do
+        described_class.perform_now(number_of_clients: 2)
+
+        expect(ClientMessagingService).to have_received(:send_system_text_message).exactly(2)
+        expect(ClientMessagingService).to have_received(:send_system_email).exactly(2)
+      end
+    end
   end
 end
