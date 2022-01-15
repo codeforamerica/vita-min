@@ -3518,9 +3518,22 @@ en:
         info: We’ll start by asking about your situation in %{year}.
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: Let's get started
-      stimulus_payments:
-        help_text: If you did not receive the first two stimulus payments, you will claim the amount owed to you on your tax return. Respond "No" if you received only one stimulus payment.
-        title: Did you receive the first two stimulus checks (Economic Impact Payments) in 2020 and 2021?
+      arp_payments:
+        title: Have you received your stimulus payments and Child Tax Credit (if applicable)?
+        help_text_html:
+          - Starting April 2020, three stimulus payments, formerly known as Economic Impact Payments, have been issued as part of the American Rescue Plan.
+          - Additionally, families with children under 17 years old have been issued CTC payments.
+          - "<strong>Please share your payment info below!</strong> If you did not receive a payment, enter 0."
+        labels:
+          stimulus_1: Stimulus 1
+          stimulus_2: Stimulus 2
+          stimulus_3: Stimulus 3
+          stimulus_unsure: I am unsure of my Stimulus amounts
+          child_tax_credit: Advanced Child Tax Credit
+          ctc_unsure: I am unsure of my Advanced Child Tax Credit amount
+        errors:
+          eip: "Please enter values for each stimulus payment, or tell us you're unsure of how much you received."
+          advance_child_tax_credit: "Please enter value for advance child tax credit, or tell us you're unsure. If you did not receive CTC or it is not applicable to you, enter 0."
       student:
         help_text: This includes community college, technical school, professional development classes, higher education, and vocational education.
         title: In %{year}, was someone in your family a college or other post high school student?

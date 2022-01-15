@@ -1,5 +1,5 @@
 module Questions
-  class StimulusPaymentsController < QuestionsController
+  class ArpPaymentsController < QuestionsController
     include AuthenticatedClientConcern
 
     layout "yes_no_question"

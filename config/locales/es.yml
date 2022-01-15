@@ -3485,9 +3485,19 @@ es:
         info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Empecemos
-      stimulus_payments:
-        help_text: Si usted no recibió los dos primeros pagos de estímulo puede reclamar el monto que se le debe en su declaración de impuestos. Responda “no” si solo recibió uno de los pagos de estímulo.
-        title: "¿Recibió los dos primeros cheques de estímulo (Pagos de impacto económico) en 2020 y 2021?"
+      arp_payments:
+        title: Have you received your stimulus payments and Child Tax Credit (if applicable)?
+        help_text_html:
+          - Starting April 2020, three stimulus payments, formerly known as Economic Impact Payments, have been issued as part of the American Rescue Plan.
+          - Additionally, families with children under 17 years old have been issued CTC payments.
+          - "<strong>Please share your payment info below!</strong> If you did not receive a payment, enter 0."
+        labels:
+          stimulus_1: Stimulus 1
+          stimulus_2: Stimulus 2
+          stimulus_3: Stimulus 3
+          stimulus_unsure: I am unsure of my Stimulus amounts
+          child_tax_credit: Advanced Child Tax Credit
+          ctc_unsure: I am unsure of my Advanced Child Tax Credit amount
       student:
         help_text: Esto incluye colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional.
         title: En el %{year}, ¿alguien de su familia era estudiante universitario u otro estudiante de secundaria?
