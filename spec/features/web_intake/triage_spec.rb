@@ -91,4 +91,35 @@ RSpec.feature "client is not eligible for VITA services", :flow_explorer_screens
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t("questions.triage_referral.edit.title"))
   end
+
+  scenario "clients with 0 income and didn't file in 2021 and did file in 2020 are routed to getctc option" do
+    visit "/en/questions/welcome"
+
+    expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('questions.triage_income_level.edit.title').split("\n").first)
+    choose I18n.t('questions.triage_income_level.edit.levels.zero')
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('questions.triage_start_ids.edit.title'))
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('questions.triage_id_type.edit.title'))
+    choose I18n.t("questions.triage_id_type.edit.ssn_itin_type.have_paperwork")
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('questions.triage_doc_type.edit.title'))
+    choose strip_html_tags(I18n.t("questions.triage_doc_type.edit.doc_type.all_copies_html"))
+    click_on I18n.t('general.continue')
+
+    # To be eligible for free DIY from our perspective, they need to have filed the previous years' returns
+    expect(page).to have_selector("h1", text: I18n.t('questions.triage_backtaxes_years.edit.title'))
+    check (2020).to_s
+    click_on I18n.t('general.continue')
+
+    # Since they have 0 income, the income types question doesn't need to be asked.
+    # People with 0 income and who haven't filed in 2021 are eligible for GetCTC.
+    expect(page).to have_selector("h1", text: I18n.t("questions.triage_express.edit.title"))
+  end
 end

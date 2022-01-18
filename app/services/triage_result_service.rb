@@ -15,6 +15,10 @@ class TriageResultService
   end
 
   def after_backtaxes_years
+    if triage.income_level_zero? && triage.filed_2020_yes? && triage.filed_2021_no?
+      return Questions::TriageExpressController.to_path_helper
+    end
+
     # The presence of missing previous year filings may mean DIY isn't appropriate because it charges
     # clients for years other than the current tax year. Plus GetCTC doesn't work for previous tax years.
     # That leaves just full service/VITA.
