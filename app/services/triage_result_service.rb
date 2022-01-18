@@ -24,6 +24,12 @@ class TriageResultService
     end
   end
 
+  def after_assistance
+    if triage.assistance_none_yes?
+      return Questions::TriageReferralController.to_path_helper
+    end
+  end
+
   def after_income_type
 
   end
