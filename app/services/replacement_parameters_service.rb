@@ -6,7 +6,7 @@ class ReplacementParametersService
   def initialize(body:, client:, preparer: nil, tax_return: nil, locale: nil)
     @body = body
     @client = client
-    @intake = client.intake
+    @intake = client.intake.nil? ? Archived::Intake2021.where(client_id: client.id).first : client.intake
     @tax_return = tax_return
     @preparer_user = preparer
     @locale = locale || "en"
@@ -30,11 +30,11 @@ class ReplacementParametersService
 
   def replacements
     {
-        "Client.PreferredName": client&.preferred_name&.titleize,
+        "Client.PreferredName": intake&.preferred_name&.titleize,
         "Preparer.FirstName": preparer_first_name,
         "Documents.List": documents_list,
-        "Client.LoginLink": intake.is_ctc? ? new_ctc_portal_client_login_url(locale: @locale, host: Rails.configuration.ctc_url) : new_portal_client_login_url(locale: @locale),
-        "Link.E-signature": new_portal_client_login_url(locale: @locale),
+        "Client.LoginLink": intake.is_ctc? ? new_ctc_portal_client_login_url(locale: locale, host: Rails.configuration.ctc_url) : new_portal_client_login_url(locale: locale),
+        "Link.E-signature": new_portal_client_login_url(locale: locale),
         "GetYourRefund.PhoneNumber": OutboundCall.twilio_number,
         "TaxReturn.TaxYear": tax_return&.year,
         "Client.ClientId": client&.id,
@@ -47,7 +47,7 @@ class ReplacementParametersService
   end
 
   def documents_list
-    client.intake.document_types_definitely_needed.map do |doc_type|
+    @intake.document_types_definitely_needed.map do |doc_type|
       "  - " + doc_type.translated_label_with_description(locale)
     end.join("\n")
   end

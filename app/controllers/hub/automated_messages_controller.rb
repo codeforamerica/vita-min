@@ -21,7 +21,8 @@ module Hub
           [AutomatedMessage::EfileRejected, {}],
           [AutomatedMessage::EfileFailed, {}],
           [AutomatedMessage::CtcGettingStarted, {}],
-          [AutomatedMessage::ClosingSoon, {}]
+          [AutomatedMessage::ClosingSoon, {}],
+          [AutomatedMessage::SaveCtcLetter, {}],
       ]
 
       @messages = messages.map do |message|

@@ -2,23 +2,24 @@ class ClientMessagingService
   class << self
     # only sends email if the client can receive emails
     def send_email(client:, user:, body:, attachment: nil, subject: nil, locale: nil, tax_return: nil, to: nil)
-      return unless client.intake.email_notification_opt_in_yes?
+      intake = client.intake.nil? ? Archived::Intake2021.where(client_id: client.id).first : client.intake
+      return unless intake.email_notification_opt_in_yes?
 
-      if client.intake.email_notification_opt_in_yes? && !client.email_address.present?
+      if intake.email_notification_opt_in_yes? && !intake.email_address.present?
         DatadogApi.increment('clients.missing_email_for_email_opt_in')
         return
       end
 
-      applied_locale = locale || client.intake.locale
+      applied_locale = locale || intake.locale
       replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: applied_locale }
       replaced_body = ReplacementParametersService.new(**replacement_args).process
 
-      service_type = client.intake.is_ctc? ? :ctc : :gyr
+      service_type = intake.is_ctc? ? :ctc : :gyr
       service = MultiTenantService.new(service_type)
       subject ||= I18n.t("messages.default_subject_with_service_name", service_name: service.service_name, locale: applied_locale)
 
       client.outgoing_emails.create!(
-        to: to || client.email_address,
+        to: to || intake.email_address,
         body: replaced_body,
         subject: subject,
         user: user,
@@ -44,9 +45,10 @@ class ClientMessagingService
 
     # only sends text message if client can receive texts
     def send_text_message(client:, user:, body:, tax_return: nil, locale: nil, to: nil)
-      return unless client.intake.sms_notification_opt_in_yes?
+      intake = client.intake.nil? ? Archived::Intake2021.where(client_id: client.id).first : client.intake
+      return unless intake.sms_notification_opt_in_yes?
 
-      if client.intake.sms_notification_opt_in_yes? && !client.sms_phone_number.present?
+      if intake.sms_notification_opt_in_yes? && !intake.sms_phone_number.present?
         DatadogApi.increment('clients.missing_sms_phone_number_for_sms_opt_in')
         return
       end
@@ -54,7 +56,7 @@ class ClientMessagingService
       replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: locale }
       replaced_body = ReplacementParametersService.new(**replacement_args).process
       client.outgoing_text_messages.create!(
-        to_phone_number: to || client.sms_phone_number,
+        to_phone_number: to || intake.sms_phone_number,
         sent_at: DateTime.now,
         user: user,
         body: replaced_body,
