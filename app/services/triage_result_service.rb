@@ -53,7 +53,7 @@ class TriageResultService
   end
 
   def has_some_tax_docs
-    %w[all_copies some_copies].include?(triage.doc_type)
+    %w[all_copies some_copies does_not_apply].include?(triage.doc_type)
   end
 
   def any_missing_previous_year_filings

@@ -1555,7 +1555,7 @@ en:
         ssn_itin_type:
           have_paperwork: I have my Social Security card or ITIN paperwork
           know_number: I know my Social Security or ITIN number, but I do not have a copy of it
-          need_help: I need help getting my ITIN paperwork
+          need_help: I need help applying for my ITIN
         title: What type of identification do you have?
     triage_income_level:
       edit:
