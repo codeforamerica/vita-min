@@ -255,10 +255,6 @@ class Client < ApplicationRecord
     intake.locale || intake.preferred_interview_language
   end
 
-  def intake_or_archived_intake
-    intake.nil? ? Archived::Intake2021.where(client_id: id).first : intake
-  end
-
   def request_document_help(doc_type:, help_type:)
     note = SystemNote::DocumentHelp.generate!(client: self, doc_type: doc_type, help_type: help_type)
     tax_returns.map(&:assigned_user).uniq.each do |user|

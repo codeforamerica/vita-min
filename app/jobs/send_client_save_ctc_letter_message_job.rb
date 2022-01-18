@@ -3,13 +3,13 @@ class SendClientSaveCtcLetterMessageJob < ApplicationJob
     total_sent = 0
 
     puts "\n==Sending messages to #{number_of_clients} clients=="
-    Archived::Intake2021.all.limit(number_of_clients).find_each do |intake|
+    Archived::Intake2021.limit(number_of_clients).find_each do |intake|
       message_tracker = MessageTracker.new(client: intake.client, message: AutomatedMessage::SaveCtcLetter)
       next if message_tracker.already_sent?
 
       messages = send_message(intake)
       puts "Client ##{intake.client.id} sent messages: #{messages}" if messages.present?
-      total_sent += 1 if messages.present?
+      total_sent += 1 if messages.count
     end
 
     puts "==Sent #{total_sent} messages=="
