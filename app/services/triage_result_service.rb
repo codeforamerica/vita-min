@@ -8,11 +8,10 @@ class TriageResultService
   def after_income_levels
     case triage&.income_level
     when "hh_66000_to_73000"
-      return Questions::TriageReferralController.to_path_helper
+      return route_to_full_service
     when "hh_over_73000"
-      return Questions::TriageDoNotQualifyController.to_path_helper
+      return route_to_does_not_qualify
     end
-
   end
 
   def after_backtaxes_years
@@ -20,21 +19,38 @@ class TriageResultService
     # clients for years other than the current tax year. Plus GetCTC doesn't work for previous tax years.
     # That leaves just full service/VITA.
     if any_missing_previous_year_filings && has_some_tax_docs && triage.id_type_have_paperwork?
-      return Questions::TriageIncomeTypesController.to_path_helper
+      return route_to_full_service
     end
   end
 
   def after_assistance
     if triage.assistance_none_yes?
-      return Questions::TriageReferralController.to_path_helper
+      return route_to_diy
     end
   end
 
-  def after_income_type
+  def after_doc_type
+    return route_to_full_service if triage.doc_type_need_help?
+  end
 
+  def after_income_type
+    return route_to_diy if triage.income_type_farm_yes? || triage.income_type_rent_yes?
+    return Questions::TriageDeluxeController.to_path_helper
   end
 
   private
+
+  def route_to_full_service
+    Questions::TriageIncomeTypesController.to_path_helper
+  end
+
+  def route_to_does_not_qualify
+    Questions::TriageDoNotQualifyController.to_path_helper
+  end
+
+  def route_to_diy
+    Questions::TriageReferralController.to_path_helper
+  end
 
   def has_some_tax_docs
     %w[all_copies some_copies].include?(triage.doc_type)
