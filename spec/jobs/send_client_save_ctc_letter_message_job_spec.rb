@@ -8,9 +8,13 @@ RSpec.describe SendClientSaveCtcLetterMessageJob, type: :job do
       allow(ClientMessagingService).to receive(:send_email).and_call_original
     end
 
+    around do |example|
+      capture_output { example.run }
+    end
+
     let(:sms_opt_in) { "yes" }
     let(:email_opt_in) { "yes" }
-    let!(:intake) { create :archived_2021_intake, locale: "en", email_notification_opt_in: email_opt_in, sms_notification_opt_in: sms_opt_in, email_address: "example@example.com", sms_phone_number: "+14155551212" }
+    let!(:intake) { create :archived_2021_ctc_intake, locale: "en", email_notification_opt_in: email_opt_in, sms_notification_opt_in: sms_opt_in, email_address: "example@example.com", sms_phone_number: "+14155551212" }
 
     context "a client has opted-in to email notification" do
       context "CTC client" do
@@ -32,7 +36,7 @@ RSpec.describe SendClientSaveCtcLetterMessageJob, type: :job do
       end
 
       context "GYR client" do
-        let!(:intake) { create :archived_2021_intake, locale: "en", email_notification_opt_in: email_opt_in, sms_notification_opt_in: sms_opt_in, type: 'Intake::GyrIntake' }
+        let!(:intake) { create :archived_2021_gyr_intake, locale: "en", email_notification_opt_in: email_opt_in, sms_notification_opt_in: sms_opt_in, type: 'Intake::GyrIntake' }
 
         it "sends a message with GYR sign-off" do
           described_class.perform_now(number_of_clients: 1)
@@ -62,9 +66,9 @@ RSpec.describe SendClientSaveCtcLetterMessageJob, type: :job do
     end
 
     context "when there are multiple clients that have opted into communication" do
-      let!(:intake_1) { create :archived_2021_intake, locale: "en", email_notification_opt_in: "yes", email_address: "example@example.com" }
-      let!(:intake_2) { create :archived_2021_intake, locale: "en", sms_notification_opt_in: "yes", sms_phone_number: "+14155551212" }
-      let!(:intake_3) { create :archived_2021_intake, locale: "en", sms_notification_opt_in: "yes", sms_phone_number: "+14155551213" }
+      let!(:intake_1) { create :archived_2021_ctc_intake, locale: "en", email_notification_opt_in: "yes", email_address: "example@example.com" }
+      let!(:intake_2) { create :archived_2021_ctc_intake, locale: "en", sms_notification_opt_in: "yes", sms_phone_number: "+14155551212" }
+      let!(:intake_3) { create :archived_2021_ctc_intake, locale: "en", sms_notification_opt_in: "yes", sms_phone_number: "+14155551213" }
 
       it "sends messages to the number of clients specified" do
         described_class.perform_now(number_of_clients: 2)
