@@ -40,7 +40,7 @@ RSpec.describe ClientMessagingService do
       end
 
       context "when an archived intake" do
-        let!(:intake) { create :archived_2021_intake,
+        let!(:intake) { create :archived_2021_ctc_intake,
                                preferred_name: "Mona Lisa",
                                email_address: email_address,
                                email_notification_opt_in: email_opt_in
@@ -292,7 +292,7 @@ RSpec.describe ClientMessagingService do
       end
 
       context "with an archived intake" do
-        let!(:intake) { create :archived_2021_intake,
+        let!(:intake) { create :archived_2021_ctc_intake,
                                preferred_name: "Mona Lisa",
                                sms_phone_number: sms_phone_number,
                                sms_notification_opt_in: sms_opt_in
