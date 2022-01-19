@@ -47,6 +47,8 @@ class ReplacementParametersService
   end
 
   def documents_list
+    return if client.intake.nil?
+
     @intake.document_types_definitely_needed.map do |doc_type|
       "  - " + doc_type.translated_label_with_description(locale)
     end.join("\n")
