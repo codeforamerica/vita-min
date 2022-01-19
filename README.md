@@ -83,6 +83,22 @@ If you see this error, `PostgreSQL` is not running. You can get it running with:
 brew services start postgresql
 ```
 
+If this doesn't fix your problem, you should check if the service is in an `error` state by running this command:
+
+```sh
+brew services
+```
+
+If it is, you probably need to reead the last 10 lines of the Postgres log file at `/usr/local/var/log/postgres.log`. If it says something about needing an upgrade, try running this:
+
+```sh
+brew postgresql-upgrade-database
+```
+
+See also [this upgrade guide](https://quaran.to/Upgrade-PostgreSQL-from-12-to-13-with-Homebrew)
+
+If this doesn't get Postgres out of `error` state, or you otherwise can't figure out what's going wrong, ask for help in #tax-eng and say that you tried the instructions in the README.
+
 ### Run the server
 
 To get the server running run:
