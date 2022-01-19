@@ -8,8 +8,8 @@ class SendClientSaveCtcLetterMessageJob < ApplicationJob
       next if message_tracker.already_sent?
 
       messages = send_message(intake)
-      puts "Client ##{intake.client.id} sent messages: #{messages}" if messages.present?
-      total_sent += 1 if messages.count
+      puts "Client ##{intake.client.id} sent messages: #{messages.count}" if messages.present?
+      total_sent += messages.count if messages.present?
     end
 
     puts "==Sent #{total_sent} messages=="
