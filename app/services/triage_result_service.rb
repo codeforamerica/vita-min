@@ -8,7 +8,7 @@ class TriageResultService
   def after_income_levels
     case triage&.income_level
     when "hh_66000_to_73000"
-      return route_to_full_service
+      return route_to_diy
     when "hh_over_73000"
       return route_to_does_not_qualify
     end
@@ -16,7 +16,7 @@ class TriageResultService
 
   def after_backtaxes_years
     if triage.income_level_zero? && triage.filed_2020_yes? && triage.filed_2021_no?
-      return Questions::TriageExpressController.to_path_helper
+      return route_to_ctc
     end
 
     # The presence of missing previous year filings may mean DIY isn't appropriate because it charges
@@ -33,7 +33,14 @@ class TriageResultService
     end
   end
 
+  def after_id_type
+    return route_to_full_service if triage.id_type_need_help?
+  end
+
   def after_doc_type
+    return route_to_ctc if triage.income_level_hh_1_to_25100? &&
+      (triage.id_type_have_paperwork? || triage.id_type_know_number?) &&
+      triage.doc_type_need_help?
     return route_to_full_service if triage.doc_type_need_help?
   end
 
@@ -43,6 +50,10 @@ class TriageResultService
   end
 
   private
+
+  def route_to_ctc
+    Questions::TriageExpressController.to_path_helper
+  end
 
   def route_to_full_service
     Questions::TriageIncomeTypesController.to_path_helper
