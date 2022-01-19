@@ -14,6 +14,7 @@ module Questions
     def after_update_success
       GenerateRequiredConsentPdfJob.perform_later(current_intake)
 
+      # client has not yet been routed
       unless current_intake.client.routing_method.present?
         routing_service = PartnerRoutingService.new(
           intake: current_intake,
@@ -23,7 +24,12 @@ module Questions
         current_intake.client.update(vita_partner: routing_service.determine_partner, routing_method: routing_service.routing_method)
       end
 
+      # the vita partner the client was routed to has capacity
       unless current_intake.client.routing_method_at_capacity?
+        TaxReturn.filing_years.each do |year|
+          TaxReturn.create!(year: year, client: current_intake.client) if current_intake.send("needs_help_#{year}") == "yes"
+        end
+
         sign_in current_intake.client
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
           client: current_intake.client,

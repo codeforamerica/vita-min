@@ -16,7 +16,7 @@ class GyrQuestionNavigation
       Questions::TriageDoNotQualifyController,
 
       ## Main flow
-      Questions::BacktaxesController, # creates Intake record, creates Client record, creates Tax Returns records
+      Questions::BacktaxesController, # creates Intake record and Client record
       Questions::EnvironmentWarningController,
       Questions::StartWithCurrentYearController,
 
@@ -43,6 +43,7 @@ class GyrQuestionNavigation
                                     # generate a 14446 signed by the primary
                                     # generate a "Preliminary" 13614-C signed by the primary
                                     # Routes client to a vita partner, if routeable
+                                    # creates TaxReturn records for backtaxes years
       Questions::OptionalConsentController,
       Questions::AtCapacityController,
       Questions::ChatWithUsController, # This and all later controllers require a client to be signed in.,

@@ -271,6 +271,7 @@ class Intake < ApplicationRecord
 
   has_many :documents, dependent: :destroy
   has_many :dependents, -> { order(created_at: :asc) }, inverse_of: :intake, dependent: :destroy
+  has_one :triage
   belongs_to :client, inverse_of: :intake, optional: true
   has_many :tax_returns, through: :client
   has_one :vita_partner, through: :client

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe BacktaxesForm do
   describe "#save" do
-    it "makes a new client with tax returns for each year they need" do
+    it "makes a new client" do
       intake = Intake::GyrIntake.new
       form = BacktaxesForm.new(intake, {
         visitor_id: "some_visitor_id",
@@ -16,8 +16,6 @@ RSpec.describe BacktaxesForm do
       }.to change(Client, :count).by(1)
       client = Client.last
       expect(client.intake).to eq(intake.reload)
-      expect(client.tax_returns.map(&:year).sort).to eq([2019, 2020, 2021])
-      expect(client.tax_returns.map(&:service_type).uniq).to eq ["online_intake"]
     end
 
     context "Mixpanel tracking" do
@@ -27,6 +25,32 @@ RSpec.describe BacktaxesForm do
       before do
         allow(MixpanelService).to receive(:data_from).and_return(fake_mixpanel_data)
         allow(MixpanelService).to receive(:send_event)
+      end
+
+      it "saves the right attributes" do
+        intake = Intake::GyrIntake.new
+
+        form = BacktaxesForm.new(intake, {
+          needs_help_2018: "no",
+          needs_help_2019: "yes",
+          needs_help_2020: "yes",
+          needs_help_2021: "yes",
+          visitor_id: "visitor_1",
+          source: "source",
+          referrer: "referrer",
+          locale: "es"
+        })
+        form.save
+
+        intake.reload
+        expect(intake.needs_help_2018).to eq "no"
+        expect(intake.needs_help_2019).to eq "yes"
+        expect(intake.needs_help_2020).to eq "yes"
+        expect(intake.needs_help_2021).to eq "yes"
+        expect(intake.visitor_id).to eq "visitor_1"
+        expect(intake.source).to eq "source"
+        expect(intake.referrer).to eq "referrer"
+        expect(intake.locale).to eq "es"
       end
 
       it "sends intake_started to Mixpanel" do

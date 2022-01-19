@@ -20,10 +20,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       check "2019"
     end
     click_on "Continue"
-
-    # Creates intake
+    # creates intake
     intake = Intake.last
-    expect(intake.client.tax_returns.map(&:year)).to eq [2019]
 
     # Non-production environment warning
     screenshot_after do
@@ -108,7 +106,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       click_on "Verify"
     end
 
-    expect(intake.client.tax_returns.pluck(:status)).to eq ["intake_before_consent"]
     screenshot_after do
       # Consent form
       expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
@@ -121,6 +118,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       select "1971", from: "Year"
     end
     click_on "I agree"
+    # create tax returns only after client has consented
+    expect(intake.client.tax_returns.map(&:year)).to eq [2019]
     expect(intake.reload.client.tax_returns.pluck(:status)).to eq ["intake_in_progress"]
 
     screenshot_after do

@@ -21,9 +21,15 @@
 #  source                              :string
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
+#  intake_id                           :bigint
 #  visitor_id                          :string
 #
+# Indexes
+#
+#  index_triages_on_intake_id  (intake_id)
+#
 class Triage < ApplicationRecord
+  belongs_to :intake, optional: true
   enum income_level: {
     unfilled: 0,
     zero: 1,
