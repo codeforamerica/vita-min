@@ -1243,15 +1243,14 @@ es:
         body: |
           Hola,
 
-          Recibirá lo que se llama una Carta 6419 del IRS en enero de 2022. Esta carta lo ayudará a usted y a su preparador de impuestos a reclamar correctamente su Crédito Tributario por Hijos para usted y su familia. La carta tendrá impreso 6419 e incluirá información sobre los pagos del Crédito Tributario por Hijos que recibió en 2021.
+          Recibirá lo que llaman la carta 6419 del IRS en enero de 2022. Esta carta le ayudará a usted y a su preparador de impuestos a reclamar el Crédito Tributario por Hijos correctamente para usted y su familia. La carta tendrá 6419 impreso e incluirá información sobre los pagos del Crédito Tributario por Hijos que recibió en el 2021.
 
-          Guarde esta carta para cuando presente su declaración de impuestos. Ya sea que presente su solicitud con GetYourRefund o cualquier otro servicio, esto lo ayudará a cobrar los pagos faltantes y recibir cualquier reembolso adeudado sin demora.
+          Por favor, guarde esta carta para cuando presente su declaración de impuestos. Ya sea que presente su declaración con %{service_name} u otro servicio, esta le ayudará a reclamar los pagos restantes y recibirá cualquier reembolso adeudado sin demora.
 
-          Feliz año nuevo,
-
-          Su equipo de impuestos en %{service_name}
-        subject: Información importante para reclamar Pagos de Crédito Tributario por Hijos
-      sms: Saludos de su equipo de impuestos - si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá una carta 6419 del IRS en enero de 2022. Guarde esta carta para cuando presente su declaración de impuestos para cobrar los pagos faltantes y evitar demoras en el procesamiento su reembolso.
+          Feliz Año Nuevo,
+          Su Equipo de Impuestos de %{service_name}
+        subject: Información importante para reclamar los pagos del Crédito Tributario por Hijos
+      sms: Saludos de su equipo de impuestos – Si recibió los pagos del Crédito Tributario por Hijos en el 2021, recibirá la carta 6419 del IRS en enero de 2022. Por favor, guarde esta carta para cuando presente su declaración de impuestos reclame los pagos restantes y evite demoras con el tramite de su reembolso.
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_drop_off:
       email:
