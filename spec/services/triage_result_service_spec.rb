@@ -23,23 +23,28 @@ describe TriageResultService do
 
   describe "#after_backtaxes_years" do
     context "with triage answers that are within the filing limit and with at least some documents and with SSN/ITIN paperwork and they need help with any non-2021 year" do
-      let(:triage) do
-        create(
-          :triage,
-          id_type: "have_paperwork",
-          income_level: "hh_1_to_25100",
-          doc_type: "some_copies",
-          filed_2018: "yes",
-          filed_2019: "no",
-          filed_2020: "no",
-          filed_2021: "no",
-        )
-      end
+      %w[all_copies some_copies does_not_apply].each do |doc_type|
+        context "with doc_type=#{doc_type}" do
+          let(:triage) do
+            create(
+              :triage,
+              id_type: "have_paperwork",
+              income_level: "hh_1_to_25100",
+              doc_type: doc_type,
+              filed_2018: "yes",
+              filed_2019: "no",
+              filed_2020: "no",
+              filed_2021: "no",
+            )
+          end
 
-      it "redirects to start of full service" do
-        expect(subject.after_backtaxes_years).to eq(Questions::TriageIncomeTypesController.to_path_helper)
+          it "redirects to start of full service" do
+            expect(subject.after_backtaxes_years).to eq(Questions::TriageIncomeTypesController.to_path_helper)
+          end
+        end
       end
     end
+
 
     context "with triage answers that do not have any documents and they need help with any non-2021 year" do
       let(:triage) do

@@ -4,6 +4,10 @@ module Questions
 
     private
 
+    def next_path
+      TriageResultService.new(current_triage).after_assistance || super
+    end
+
     def illustration_path; end
   end
 end

@@ -42,7 +42,10 @@ class Triage < ApplicationRecord
   enum assistance_chat: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_chat
   enum assistance_phone_review_english: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_phone_review_english
   enum assistance_phone_review_non_english: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_phone_review_non_english
-  enum assistance_none: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_none
   enum income_type_rent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :income_type_rent
   enum income_type_farm: { unfilled: 0, yes: 1, no: 2 }, _prefix: :income_type_farm
+
+  def assistance_none_yes?
+    [assistance_in_person, assistance_chat, assistance_phone_review_english, assistance_phone_review_non_english].uniq == ["no"]
+  end
 end

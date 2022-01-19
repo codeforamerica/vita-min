@@ -8,8 +8,6 @@ module Questions
       TriageResultService.new(current_triage).after_backtaxes_years || super
     end
 
-    private
-
     def illustration_path; end
   end
 end

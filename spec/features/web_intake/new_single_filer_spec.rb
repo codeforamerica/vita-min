@@ -7,16 +7,10 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
   scenario "new client filing single without dependents" do
-    visit "/en/questions/welcome"
-
-    # Welcome
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
-    within ".main-header" do
-      expect(page).to have_text(I18n.t('general.sign_in'))
-    end
-    click_on I18n.t('general.continue')
-
     answer_gyr_triage_questions
+
+    expect(page).to have_selector("h1", text: I18n.t('questions.triage_deluxe.edit.title'))
+    click_on I18n.t('questions.triage_deluxe.edit.file_online')
 
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: "What years would you like to file for?")
