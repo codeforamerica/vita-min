@@ -4,10 +4,10 @@ module FeatureHelpers
   class TriagePageDivergence < StandardError; end
 
   class TriageFeatureHelper
-    def initialize(page, screenshot)
+    def initialize(page, screenshot_method = nil)
       @seen_pages = []
       @page = page
-      @screenshot = screenshot
+      @screenshot_method = screenshot_method
     end
 
     def assert_page(title_key)
@@ -18,8 +18,8 @@ module FeatureHelpers
       @seen_pages << @page.current_path
 
       @page.assert_selector("h1", text: first_line)
-      if @screenshot
-        screenshot_after { yield if block_given? }
+      if @screenshot_method
+        @screenshot_method.call { yield if block_given? }
       else
         yield if block_given?
       end
@@ -35,7 +35,7 @@ module FeatureHelpers
   end
 
   def answer_gyr_triage_questions(
-    screenshot: false,
+    screenshot_method: nil,
     income_level: "hh_1_to_25100_html",
     id_type: "have_paperwork",
     doc_type: "all_copies_html",
@@ -52,7 +52,7 @@ module FeatureHelpers
     expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
     click_on I18n.t('general.continue')
 
-    triage_feature_helper = TriageFeatureHelper.new(page, screenshot)
+    triage_feature_helper = TriageFeatureHelper.new(page, screenshot_method)
     triage_feature_helper.assert_page('questions.triage_income_level.edit.title') do
       choose strip_html_tags(I18n.t("questions.triage_income_level.edit.levels.#{income_level}").split("\n").first)
       click_on I18n.t('general.continue')
