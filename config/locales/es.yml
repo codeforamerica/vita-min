@@ -2959,7 +2959,7 @@ es:
         title: Términos de código
       stimulus:
         facts_html:
-        - Recoja su cheque de estímulo de 2020 declarando sus impuestos a través de <a href="%{file_with_help_link}">GetYourRefund</a>!
+        - Recoja su cheque de estímulo de 2020 declarando sus impuestos a través de <a href="/">GetYourRefund</a>!
         - Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage'>IRS Obtener mi pago website</a>
         - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
         file_with_help:

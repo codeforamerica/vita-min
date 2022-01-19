@@ -2999,7 +2999,7 @@ en:
         title: SMS terms
       stimulus:
         facts_html:
-        - Collect your 2020 stimulus check by filing your taxes through <a href="%{file_with_help_link}">GetYourRefund</a>!
+        - Collect your 2020 stimulus check by filing your taxes through <a href="/">GetYourRefund</a>!
         - Check the status of your stimulus check on the <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Get My Payment website</a>
         - 'Call the 211 Economic Impact Payment Helpline with questions: <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
         file_with_help:
