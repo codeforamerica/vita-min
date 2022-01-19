@@ -1,125 +1,112 @@
 require "rails_helper"
 
-RSpec.feature "client is not eligible for VITA services", :flow_explorer_screenshot do
+RSpec.feature "triage flow", :flow_explorer_screenshot do
   scenario "client's income is over the income limit" do
-    visit "/en/questions/welcome"
+    pages = answer_gyr_triage_questions(
+      income_level: "hh_over_73000"
+    )
 
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_income_level.edit.title').split("\n").first)
-    choose I18n.t('questions.triage_income_level.edit.levels.hh_over_73000')
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_do_not_qualify.edit.title'))
+    expect(pages).to eq([
+      Questions::TriageIncomeLevelController,
+      Questions::TriageDoNotQualifyController
+    ].map(&:to_path_helper))
   end
 
   scenario "client's income is eligible for DIY but not full service" do
-    visit "/en/questions/welcome"
+    pages = answer_gyr_triage_questions(
+      income_level: "hh_66000_to_73000"
+    )
 
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_income_level.edit.title').split("\n").first)
-    choose I18n.t('questions.triage_income_level.edit.levels.hh_66000_to_73000')
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_referral.edit.title'))
+    expect(pages).to eq([
+      Questions::TriageIncomeLevelController,
+      Questions::TriageIncomeTypesController,
+      Questions::TriageDeluxeController
+    ].map(&:to_path_helper))
   end
 
   scenario "client does not have any documents and needs help" do
-    visit "/en/questions/welcome"
+    pages = answer_gyr_triage_questions(
+      income_level: "zero",
+      id_type: "have_paperwork",
+      doc_type: "need_help_html",
+      income_type_options: ['none_of_the_above']
+    )
 
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_income_level.edit.title').split("\n").first)
-    choose I18n.t('questions.triage_income_level.edit.levels.zero')
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_start_ids.edit.title'))
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_id_type.edit.title'))
-    choose I18n.t("questions.triage_id_type.edit.ssn_itin_type.have_paperwork")
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_doc_type.edit.title'))
-    choose strip_html_tags(I18n.t("questions.triage_doc_type.edit.doc_type.need_help_html"))
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_income_types.edit.title'))
-    check I18n.t('general.none_of_the_above')
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t("questions.triage_deluxe.edit.title"))
+    expect(pages).to eq([
+      Questions::TriageIncomeLevelController,
+      Questions::TriageStartIdsController,
+      Questions::TriageIdTypeController,
+      Questions::TriageDocTypeController,
+      Questions::TriageIncomeTypesController,
+      Questions::TriageDeluxeController
+    ].map(&:to_path_helper))
   end
 
-  scenario "clients who don't need assistance are routed to diy" do
-    visit "/en/questions/welcome"
-
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_income_level.edit.title').split("\n").first)
-    choose I18n.t('questions.triage_income_level.edit.levels.zero')
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_start_ids.edit.title'))
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_id_type.edit.title'))
-    choose I18n.t("questions.triage_id_type.edit.ssn_itin_type.have_paperwork")
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_doc_type.edit.title'))
-    choose strip_html_tags(I18n.t("questions.triage_doc_type.edit.doc_type.all_copies_html"))
-    click_on I18n.t('general.continue')
-
-    # To be eligible for free DIY from our perspective, they need to have filed the previous years' returns
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_backtaxes_years.edit.title'))
-    check (TaxReturn.current_tax_year - 3).to_s
-    check (TaxReturn.current_tax_year - 2).to_s
-    check (TaxReturn.current_tax_year - 1).to_s
-    click_on I18n.t('general.continue')
-
-    # Since they don't need assistance, they'll be routed to DIY. We can skip the income types page;
-    # that page only exists to turn full-service clients into DIY clients, and these are already
-    # destined for DIY.
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_assistance.edit.title'))
-    check I18n.t("general.none_of_the_above")
-    click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t("questions.triage_referral.edit.title"))
+  scenario "client with small non-zero income who doesn't need assistance is routed to diy" do
+    # To be eligible for free DIY from our perspective, they need to have filed the previous years' returns.
+    pages = answer_gyr_triage_questions(
+      income_level: "hh_1_to_25100_html",
+      id_type: "have_paperwork",
+      doc_type: "all_copies_html",
+      filed_past_years: [
+        TaxReturn.current_tax_year - 3,
+        TaxReturn.current_tax_year - 2,
+        TaxReturn.current_tax_year - 1,
+      ],
+      income_type_options: ['none_of_the_above'],
+      assistance_options: ['none_of_the_above']
+    )
+    expect(pages).to eq([
+      Questions::TriageIncomeLevelController,
+      Questions::TriageStartIdsController,
+      Questions::TriageIdTypeController,
+      Questions::TriageDocTypeController,
+      Questions::TriageBacktaxesYearsController,
+      Questions::TriageAssistanceController,
+      Questions::TriageReferralController,
+    ].map(&:to_path_helper))
   end
 
-  scenario "clients with 0 income and didn't file in 2021 and did file in 2020 are routed to getctc option" do
-    visit "/en/questions/welcome"
+  scenario "client with 0 income and didn't file in 2021 and did file in 2020 is routed to getctc option" do
+    pages = answer_gyr_triage_questions(
+      income_level: "zero",
+      id_type: "have_paperwork",
+      doc_type: "all_copies_html",
+      filed_past_years: [
+        TaxReturn.current_tax_year - 1,
+      ],
+      income_type_options: ['none_of_the_above']
+    )
 
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
-    click_on I18n.t('general.continue')
+    expect(pages).to eq([
+      Questions::TriageIncomeLevelController,
+      Questions::TriageStartIdsController,
+      Questions::TriageIdTypeController,
+      Questions::TriageDocTypeController,
+      Questions::TriageBacktaxesYearsController,
+      Questions::TriageExpressController,
+    ].map(&:to_path_helper))
+  end
 
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_income_level.edit.title').split("\n").first)
-    choose I18n.t('questions.triage_income_level.edit.levels.zero')
-    click_on I18n.t('general.continue')
+  scenario "client with IDs and some/all tax docs and within filing limit of 66k and with back taxes and no rental income/farm income is routed to full service" do
+    pages = answer_gyr_triage_questions(
+      income_level: "hh_25100_to_66000",
+      id_type: "have_paperwork",
+      doc_type: "all_copies_html",
+      filed_past_years: [
+        TaxReturn.current_tax_year - 1,
+      ],
+      income_type_options: ['none_of_the_above']
+    )
 
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_start_ids.edit.title'))
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_id_type.edit.title'))
-    choose I18n.t("questions.triage_id_type.edit.ssn_itin_type.have_paperwork")
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_doc_type.edit.title'))
-    choose strip_html_tags(I18n.t("questions.triage_doc_type.edit.doc_type.all_copies_html"))
-    click_on I18n.t('general.continue')
-
-    # To be eligible for free DIY from our perspective, they need to have filed the previous years' returns
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_backtaxes_years.edit.title'))
-    check (2020).to_s
-    click_on I18n.t('general.continue')
-
-    # Since they have 0 income, the income types question doesn't need to be asked.
-    # People with 0 income and who haven't filed in 2021 are eligible for GetCTC.
-    expect(page).to have_selector("h1", text: I18n.t("questions.triage_express.edit.title"))
+    expect(pages).to eq([
+      Questions::TriageIncomeLevelController,
+      Questions::TriageStartIdsController,
+      Questions::TriageIdTypeController,
+      Questions::TriageDocTypeController,
+      Questions::TriageBacktaxesYearsController,
+      Questions::TriageIncomeTypesController,
+      Questions::TriageDeluxeController,
+    ].map(&:to_path_helper))
   end
 end

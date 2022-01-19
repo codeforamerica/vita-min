@@ -7,14 +7,12 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
   scenario "new client filing joint taxes with spouse and dependents", js: true, screenshot: true do
-    visit "/en/questions/welcome"
+    answer_gyr_triage_questions(screenshot: true)
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
+      expect(page).to have_selector("h1", text: I18n.t('questions.triage_deluxe.edit.title'))
+      click_on I18n.t('questions.triage_deluxe.edit.file_online')
     end
-    click_on I18n.t('general.continue')
-
-    answer_gyr_triage_questions(screenshot: true)
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Our full service option is right for you!")
