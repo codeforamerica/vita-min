@@ -95,6 +95,22 @@ If it is, you probably need to reead the last 10 lines of the Postgres log file 
 brew postgresql-upgrade-database
 ```
 
+If it gives you an error about needing to remove the postgres.old directory, then you can run this command:
+
+```sh
+rm -rf /usr/local/var/postgres.old
+```
+
+You can also try uninstalling postgresql & postgis, removing the whole postgres folder and running bin/setup again
+
+```sh
+brew services stop postgresql
+brew uninstall postgresql
+brew uninstall postgis
+rm -rf /usr/local/var/postgres
+bin/setup
+```
+
 See also [this upgrade guide](https://quaran.to/Upgrade-PostgreSQL-from-12-to-13-with-Homebrew)
 
 If this doesn't get Postgres out of `error` state, or you otherwise can't figure out what's going wrong, ask for help in #tax-eng and say that you tried the instructions in the README.
