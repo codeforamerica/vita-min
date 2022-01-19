@@ -2839,7 +2839,7 @@ en:
             body: "“I thought the tax preparers were very professional, very friendly, very open to questions so I really appreciated that, and they were also patient with my questions. I like this process a lot better where there’s a person that can explain in detail questions that you have and they respond pretty fast”"
             header: Very professional, very friendly
           rating: Rated 4.8 / 5 stars
-        closing_banner_html: <strong>GetYourRefund services are closed for this tax season.</strong> We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can <a href="%{url}">search for a VITA location in your area.</a>
+        closing_banner_html: <strong>GetYourRefund services will reopen on January 31 for the 2022 tax season.</strong> For free tax prep now, you can <a href="%{url}">search for a VITA location in your area.</a>
         ctc_full_capacity_html: Most of our tax preparers are at capacity and unable to complete full returns right now, but our Child Tax Credit service and DIY options are still available. Click <strong><a rel='noopener' target='_blank' href='https://www.getctc.org/en#claim-credit'>here</a></strong> if you need help claiming the Child Tax Credit. Click <strong><a rel='noopener' target='_blank' href='https://www.getyourrefund.org/en/diy/file-yourself'>here</a></strong> if you want to file your own return using free software.
         features:
           amendments: File amendments for past years
@@ -2865,7 +2865,7 @@ en:
         stimulus_faq:
           info: Already filed your taxes and have questions about your stimulus check?
         subheader: If you earned income and are ready to file with all of your tax documents, we can help you maximize your tax benefits!
-        subheader_offseason: Sign up for next tax season now! We'll notify you as soon as our service is back up in January!
+        subheader_offseason: Sign up for the 2022 tax season now! We'll notify you as soon as our service reopens on January 31 at 1pm EST.
         title: Free tax help from IRS-certified volunteers.
       maybe_ineligible:
         cta: File DIY
