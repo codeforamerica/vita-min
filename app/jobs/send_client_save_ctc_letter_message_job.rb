@@ -4,6 +4,8 @@ class SendClientSaveCtcLetterMessageJob < ApplicationJob
 
     puts "\n==Sending messages to #{number_of_clients} clients=="
     Archived::Intake2021.limit(number_of_clients).find_each do |intake|
+      next if intake.client.nil?
+
       message_tracker = MessageTracker.new(client: intake.client, message: AutomatedMessage::SaveCtcLetter)
       next if message_tracker.already_sent?
 
