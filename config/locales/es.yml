@@ -2825,7 +2825,7 @@ es:
         stimulus_faq:
           info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
         subheader: "¡Si tiene ingresos del trabajo y está listo para declarar su declaración con todos sus formularios de impuestos, le podemos ayudar a maximizar sus beneficios tributarios!"
-        subheader_offseason: ¡Regístrese para la temporada de impuestos 2022 ahora! Le notificaremos tan pronto como nuestro servicio vuelva a abrir el 31 de enero a la 1:00 p.m. EST.
+        subheader_offseason: "¡Regístrese para la temporada de impuestos 2022 ahora! Le notificaremos tan pronto como nuestro servicio vuelva a abrir el 31 de enero a la 1:00 p.m. EST."
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
         cta: Presentar mis impuestos por mi cuenta gratis
