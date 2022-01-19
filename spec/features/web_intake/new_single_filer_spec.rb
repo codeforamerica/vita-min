@@ -12,9 +12,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: I18n.t('questions.triage_deluxe.edit.title'))
     click_on I18n.t('questions.triage_deluxe.edit.file_online')
 
-    expect(page).to have_selector("h1", text: "Our full service option is right for you!")
-    click_on "Continue"
-
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: "What years would you like to file for?")
     check "#{TaxReturn.current_tax_year}"
