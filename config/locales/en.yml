@@ -1531,24 +1531,24 @@ en:
         title: What type of tax documents do you have?
     triage_express:
       edit:
+        collect_your: 'Collect your:'
+        collectables:
+          additional_credits: Additional State Credits
+          ctc: Child Tax Credit
+          eitc: Earned Income Tax Credit
+          missing_stimulus: Missing Stimulus Payments
+        comparison:
+          deluxe:
+            description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
+            timeframe: 2-3 weeks to file
+            title: Deluxe
+          express:
+            description: File quickly on your own!
+            timeframe: 15 minutes to file, available March 2022
+            title: Express
         file_with_deluxe: File with Deluxe
-        help_text_html: |
-          <strong>Deluxe</strong> <i>(2-3 weeks to file)</I>
-          Collect the largest refund! File with assistance from our IRS-certified navigators.
-
-          <strong>Express</strong> <i>(15 minutes to file, available in March 2022 )</i>
-          Collect only your Stimulus payment and Child Tax Credit. File on your own.
+        refund: Refund
         sign_up_for_express: Sign up for Express
-        table:
-          headers:
-            compare_options: Compare Options
-            deluxe: Deluxe
-            express: Express
-          rows:
-            approximate_refund: 'Approximate refund:'
-            child_tax_credit: Child Tax Credit
-            earned_income_tax_credit: Earned Income Tax Credit
-            federal_stimulus_payments: Federal Stimulus Payments
         title: We have two free options that may work for you!
     triage_id_type:
       edit:

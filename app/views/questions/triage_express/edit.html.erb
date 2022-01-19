@@ -5,39 +5,47 @@
     <%= content_for(:page_title) %>
   </h1>
 
-  <p class="text--line-breaks"><%= t('.help_text_html') %></p>
+  <div class="marketing-comparison spacing-below-25">
+    <h2><%= t('.comparison.express.title') %></h2>
+    <p><i><%= t('.comparison.express.timeframe') %></i></p>
+    <p><%= t('.comparison.express.description') %></p>
+    <div class="bottom-section">
+      <div>
+        <div><%= t('.collect_your') %></div>
+        <ul class="list--bulleted">
+          <li><%= t('.collectables.missing_stimulus') %></li>
+          <li><%= t('.collectables.ctc') %></li>
+        </ul>
+      </div>
+      <div class="spacer"></div>
+      <div class="refund-indicator">
+        <div class="spacing-below-10"><%= t('.refund') %></div>
+        <div class="symbols">$</div>
+      </div>
+    </div>
+  </div>
 
-  <table class="marketing-comparison-table">
-    <thead>
-    <tr>
-      <th><%= t('.table.headers.compare_options') %></th>
-      <th class="deemphasized"><%= t('.table.headers.express') %></th>
-      <th class="emphasized"><%= t('.table.headers.deluxe') %></th>
-    </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= t('.table.rows.federal_stimulus_payments') %></td>
-        <td class="deemphasized"><%= image_tag 'icons/checkmark-gray.svg' %></td>
-        <td class="emphasized"><%= image_tag 'icons/checkmark-blue.svg' %></td>
-      </tr>
-      <tr>
-        <td><%= t('.table.rows.child_tax_credit') %></td>
-        <td class="deemphasized"><%= image_tag 'icons/checkmark-gray.svg' %></td>
-        <td class="emphasized"><%= image_tag 'icons/checkmark-blue.svg' %></td>
-      </tr>
-      <tr>
-        <td><%= t('.table.rows.earned_income_tax_credit') %></td>
-        <td class="deemphasized"></td>
-        <td class="emphasized"><%= image_tag 'icons/checkmark-blue.svg' %></td>
-      </tr>
-      <tr>
-        <td><i><%= t('.table.rows.approximate_refund') %></i></td>
-        <td class="deemphasized">$2500</td>
-        <td class="emphasized">$5000</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="marketing-comparison">
+    <h2><%= t('.comparison.deluxe.title') %></h2>
+    <p><i><%= t('.comparison.deluxe.timeframe') %></i></p>
+    <p><%= t('.comparison.deluxe.description') %></p>
+    <div class="bottom-section">
+      <div>
+        <div><%= t('.collect_your') %></div>
+        <ul class="list--bulleted">
+          <li><%= t('.collectables.missing_stimulus') %></li>
+          <li><%= t('.collectables.ctc') %></li>
+          <li><%= t('.collectables.eitc') %></li>
+          <li><%= t('.collectables.additional_credits') %></li>
+        </ul>
+      </div>
+      <div class="spacer"></div>
+      <div class="refund-indicator">
+        <div class="spacing-below-10"><%= t('.refund') %></div>
+        <div class="symbols">$$$</div>
+      </div>
+    </div>
+  </div>
 
   <div class="spacing-above-60">
     <%= link_to t('.file_with_deluxe'), next_path, class: "button button--wide text--centered" %>

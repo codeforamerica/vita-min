@@ -1,0 +1,38 @@
+.marketing-comparison {
+  border: 1px solid $color-grey-medium;
+  border-radius: 10px;
+  padding: 10px;
+  clear: both;
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  .bottom-section {
+    display: flex;
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
+
+  .list--bulleted {
+    margin: 0;
+    li {
+      margin-bottom: 0;
+    }
+  }
+
+  .refund-indicator {
+    align-self: flex-end;
+    font-size: 18px;
+    padding: 0 10px 10px 0;
+    font-weight: $font-weight-bold;
+
+    .symbols {
+      font-size: 3rem;
+      text-align: center;
+      letter-spacing: 4px;
+    }
+  }
+}
