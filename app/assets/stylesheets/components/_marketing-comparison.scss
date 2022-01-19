@@ -18,6 +18,7 @@
 
   .list--bulleted {
     margin: 0;
+    padding-left: 1.5em;
     li {
       margin-bottom: 0;
     }
@@ -26,13 +27,13 @@
   .refund-indicator {
     align-self: flex-end;
     font-size: 18px;
-    padding: 0 10px 10px 0;
+    padding: 10px;
     font-weight: $font-weight-bold;
 
     .symbols {
-      font-size: 3rem;
       text-align: center;
-      letter-spacing: 4px;
+      letter-spacing: 2px;
+      white-space: nowrap;
     }
   }
 }
