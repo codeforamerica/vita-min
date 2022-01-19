@@ -2,6 +2,22 @@ require "rails_helper"
 
 RSpec.describe BacktaxesForm do
   describe "#save" do
+    it "makes a new client" do
+      intake = Intake::GyrIntake.new
+      form = BacktaxesForm.new(intake, {
+        visitor_id: "some_visitor_id",
+        needs_help_2021: "yes",
+        needs_help_2018: "no",
+        needs_help_2019: "yes",
+        needs_help_2020: "yes",
+      })
+      expect {
+        form.save
+      }.to change(Client, :count).by(1)
+      client = Client.last
+      expect(client.intake).to eq(intake.reload)
+    end
+
     context "Mixpanel tracking" do
       let(:fake_tracker) { double('mixpanel tracker') }
       let(:fake_mixpanel_data) { {} }

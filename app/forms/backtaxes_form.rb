@@ -3,9 +3,9 @@ class BacktaxesForm < QuestionsForm
   validate :at_least_one_year
 
   def save
-    @intake.update(attributes_for(:intake))
+    @intake.update(attributes_for(:intake).merge(client: Client.create!))
 
-    data = MixpanelService.data_from(@intake)
+    data = MixpanelService.data_from([@intake.client, @intake])
     MixpanelService.send_event(
       distinct_id: @intake.visitor_id,
       event_name: "intake_started",

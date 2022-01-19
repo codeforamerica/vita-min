@@ -17,9 +17,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     check "#{TaxReturn.current_tax_year}"
     check "2019"
     click_on "Continue"
+    # creates intake
     intake = Intake.last
-
-    expect(intake.client.tax_returns.pluck(:year).sort).to eq [2019, TaxReturn.current_tax_year]
 
     # Non-production environment warning
     expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
@@ -103,6 +102,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     select "5", from: "Day"
     select "1971", from: "Year"
     click_on "I agree"
+    # create tax returns only after client has consented
+    expect(intake.client.tax_returns.pluck(:year).sort).to eq [2019, TaxReturn.current_tax_year]
 
     # Optional consent form
     expect(page).to have_selector("h1", text: "A few more things...")

@@ -23,13 +23,14 @@ RSpec.describe Questions::BacktaxesController do
       end
 
       context "without an intake in the session" do
-        it "creates new intake with backtaxes answers" do
+        it "creates new intake with backtaxes answers and an associated client" do
           expect {
             post :update, params: params
           }.to change(Intake, :count).by(1)
 
           intake = Intake.last
 
+          expect(intake.client).to be_present
           expect(intake.source).to eq "source_from_session"
           expect(intake.referrer).to eq "referrer_from_session"
           expect(intake.locale).to eq "en"
@@ -40,6 +41,7 @@ RSpec.describe Questions::BacktaxesController do
         end
       end
 
+      # TODO: should this check something about client? should it create a new client?
       context "with an existing intake in the session" do
         let(:intake) { create :intake }
 
