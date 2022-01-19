@@ -99,5 +99,16 @@ RSpec.describe SendClientSaveCtcLetterMessageJob, type: :job do
         end.to change(OutgoingEmail, :count).by(0)
       end
     end
+
+    context "a client has opted-in to no communications" do
+      let(:email_opt_in) { "no" }
+      let(:sms_opt_in) { "no" }
+
+      it "sends no messages" do
+        expect do
+          described_class.perform_now(number_of_clients: 1)
+        end.to change(OutgoingEmail, :count).by(0)
+      end
+    end
   end
 end
