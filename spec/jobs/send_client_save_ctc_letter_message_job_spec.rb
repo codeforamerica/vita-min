@@ -89,5 +89,15 @@ RSpec.describe SendClientSaveCtcLetterMessageJob, type: :job do
         end.to change(OutgoingEmail, :count).by(0)
       end
     end
+
+    context "when client is nil" do
+      let!(:intake) { create :archived_2021_ctc_intake, client: nil, locale: "en", email_notification_opt_in: email_opt_in, sms_notification_opt_in: sms_opt_in, email_address: "example@example.com", sms_phone_number: "+14155551212" }
+
+      it "does not send them another message" do
+        expect do
+          described_class.perform_now(number_of_clients: 1)
+        end.to change(OutgoingEmail, :count).by(0)
+      end
+    end
   end
 end
