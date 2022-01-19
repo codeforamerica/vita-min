@@ -17,7 +17,7 @@ FileUtils.chdir APP_ROOT do
   system! "brew bundle install"
 
   puts "== Ensuring homebrew node version is 16 =="
-  system! "if /usr/local/bin/node --version | grep -q -v ^v16 ; then brew link --overwrite node@16 ; fi"
+  system! "brew link node@16 || if /usr/local/bin/node --version | grep -q -v ^v16 ; then brew link --overwrite node@16 ; fi"
 
   puts "== Installing Ruby =="
   system! "rbenv install --skip-existing"
@@ -41,6 +41,9 @@ FileUtils.chdir APP_ROOT do
   # unless File.exist?("config/database.yml")
   #   FileUtils.cp "config/database.yml.sample", "config/database.yml"
   # end
+
+  puts "\n== Starting database =="
+  system! "brew services start postgresql"
 
   puts "\n== Preparing database =="
   system! "bin/rails db:prepare"
