@@ -22,6 +22,8 @@
   padding-bottom: 0;
   padding-top: 0.5rem;
   padding-left: 4rem;
+  width: 100%;
+  min-height: unset;
 
   &.is-selected {
     background-color: transparent;
@@ -37,7 +39,7 @@
   }
 
   input[type='checkbox'] {
-    top: 1rem;
+    top: .75rem;
     left: 0;
   }
 }
@@ -50,6 +52,12 @@
 .text-input--small-label {
   .form-question {
     font-size: 1.9rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.form-group-tight {
+  .form-group {
     margin-bottom: 1rem;
   }
 }
