@@ -121,4 +121,28 @@ describe Hub::StateRoutingsController do
       end
     end
   end
+
+  describe "#add_organizations" do
+    let(:independent_org_1) { create(:organization, coalition: nil) }
+    let(:independent_org_2) { create(:organization, coalition: nil) }
+    let(:params) { { state: "FL", vita_partners: [{ id: independent_org_1.id, name: independent_org_1.name, value: independent_org_1.id }, { id: independent_org_2.id, name: independent_org_2.name, value: independent_org_2.id }].to_json } }
+
+    it_behaves_like :a_post_action_for_admins_only, action: :add_organizations
+
+    context "as an authenticated user" do
+      let(:user) { create :admin_user }
+
+      before do
+        sign_in user
+      end
+
+      it "creates the corresponding StateRoutingTargets" do
+        put :add_organizations, params: params
+
+        expect(StateRoutingTarget.where(target: independent_org_1)).to exist
+        expect(StateRoutingTarget.where(target: independent_org_2)).to exist
+        expect(response).to redirect_to edit_hub_state_routing_path(state: "FL")
+      end
+    end
+  end
 end
