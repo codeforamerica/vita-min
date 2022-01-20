@@ -9,13 +9,13 @@
     <div class="state-routing-grid">
       <div class="grid">
         <div class="state-routing-row__headers">
-          <div class="grid__item width-one-half">
+          <div class="width-one-half">
             Name
           </div>
-          <div class="grid__item width-one-fourth">
+          <div class="width-one-fourth">
             Org Level Routing
           </div>
-          <div class="grid__item width-one-fourth">
+          <div class="width-one-fourth">
             Routing Percentage
           </div>
         </div>
@@ -48,16 +48,25 @@
             <% end %>
           </div>
 
-          <div class="state-routing-row__footer">
-            <div class="grid__item routing-total">
-              <div class="grid__item routing-total-label">Total Routing Percentage:</div>
-              <div class="grid__item routing-percentage-total"><!-- Placeholder for JS calculation of total !--></div>
+          <div class="state-routing-row__footer spacing-below-60">
+            <div class="width-one-half save-button">
+              <%= f.submit t("general.save"), class: "button button--primary" %>
+            </div>
+            <div class="routing-total width-one-half">
+              <div class="routing-total-label">Total Routing Percentage:</div>
+              <div class="routing-percentage-total"><!-- Placeholder for JS calculation of total !--></div>
             </div>
           </div>
+        <% end %>
 
-          <div class="state-routing-row">
-            <div class="spacing-above-35">
-              <%= f.submit t("general.save"), class: "button button--primary" %>
+        <%= form_with url: add_organizations_hub_state_routing_path, method: :put, local: true, builder: VitaMinFormBuilder do |f| %>
+          <div id="add-org-form" class="form-group spacing-above-35">
+            <label for="add-org-select" class="form-question">Add independent organization(s)</label>
+            <div>
+              <%= hidden_field_tag("vita_partners", "", id: "add-org-select", class: "text-input multi-select-vita-partner") %>
+            </div>
+            <div class="spacing-above-10">
+              <%= f.submit "Add", class: "button button--no-margin" %>
             </div>
           </div>
         <% end %>
@@ -66,4 +75,9 @@
   </div>
 <% end %>
 
+<% content_for :script do %>
+  <script>
+      window.taggableItems = <%= taggable_independent_organizations(@independent_organizations) %>;
+  </script>
+<% end %>
 

@@ -4,6 +4,7 @@ RSpec.feature "Adjust state routing", :js do
   context "As an authenticated admin" do
     let(:user) { create :admin_user }
     let(:orange_organization) { create(:organization, name: "Orange Organization", coalition: nil) }
+    let!(:apple_organization) { create(:organization, name: "Apple Organization", coalition: nil) }
     let(:crocodile_conglomerate) { create(:coalition, name: "Crocodile Conglomerate") }
     let(:squid_association) { create(:organization, name: "Squid Association", coalition: crocodile_conglomerate) }
     let(:tadpole_division) { create(:site, name: "Tadpole Division", parent_organization: squid_association) }
@@ -23,6 +24,14 @@ RSpec.feature "Adjust state routing", :js do
       visit hub_state_routings_path
       click_on "Florida"
 
+      expect(page).not_to have_text "Apple Organization"
+
+      within "#add-org-form" do
+        fill_in_tagify '.multi-select-vita-partner', "Apple Organization"
+        click_button "Add"
+      end
+
+      apple_routing_percentage_field = "hub_state_routing_form[state_routing_fraction_attributes][#{apple_organization.id}][routing_percentage]"
       orange_routing_percentage_field = "hub_state_routing_form[state_routing_fraction_attributes][#{orange_organization.id}][routing_percentage]"
       squid_routing_percentage_field = "hub_state_routing_form[state_routing_fraction_attributes][#{squid_association.id}][routing_percentage]"
       tadpole_routing_percentage_field = "hub_state_routing_form[state_routing_fraction_attributes][#{tadpole_division.id}][routing_percentage]"
@@ -30,6 +39,7 @@ RSpec.feature "Adjust state routing", :js do
       within "#state-routing-org-#{orange_organization.id}" do
         expect(page).to have_text "Orange Organization"
         expect(find_field(orange_routing_percentage_field).value).to eq "60"
+        fill_in orange_routing_percentage_field, with: 10
       end
 
       within "#state-routing-org-#{squid_association.id}" do
@@ -49,25 +59,32 @@ RSpec.feature "Adjust state routing", :js do
       within "#state-routing-site-#{tadpole_division.id}" do
         expect(find_field(tadpole_routing_percentage_field).value).to eq "0"
         expect(page).to have_text "Tadpole Division"
-        fill_in tadpole_routing_percentage_field, with: 40
-        expect(find_field(tadpole_routing_percentage_field).value).to eq "40"
+        fill_in tadpole_routing_percentage_field, with: 70
+        expect(find_field(tadpole_routing_percentage_field).value).to eq "70"
       end
 
-      fill_in orange_routing_percentage_field, with: 10
-      fill_in tadpole_routing_percentage_field, with: 90
+      within "#state-routing-org-#{apple_organization.id}" do
+        expect(page).to have_text "Apple Organization"
+
+        expect(page).to have_field("toggle-org-level-routing", visible: false, checked: false)
+        find(".slider").click
+        expect(page).to have_field("toggle-org-level-routing", visible: false, checked: true)
+
+        expect(find_field(apple_routing_percentage_field).value).to eq "0"
+        fill_in apple_routing_percentage_field, with: 20
+        expect(find_field(apple_routing_percentage_field).value).to eq "20"
+      end
 
       click_on "Save"
-
-      tadpole_routing_percentage_field = "hub_state_routing_form[state_routing_fraction_attributes][#{tadpole_division.id}][routing_percentage]"
-      orange_routing_percentage_field = "hub_state_routing_form[state_routing_fraction_attributes][#{orange_organization.id}][routing_percentage]"
 
       # make tadpole site visible
       within "#state-routing-org-#{squid_association.id}" do
         find(".state-routing-accordion__button").click
       end
 
-      expect(find_field(tadpole_routing_percentage_field).value).to eq "90"
+      expect(find_field(tadpole_routing_percentage_field).value).to eq "70"
       expect(find_field(orange_routing_percentage_field).value).to eq "10"
+      expect(find_field(apple_routing_percentage_field).value).to eq "20"
     end
   end
 end
