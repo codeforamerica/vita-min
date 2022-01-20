@@ -183,9 +183,51 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
 
     expect(page.html).to have_text "Our team at Hogwarts is here to help!"
   end
+  context "at capacity but overflow site exists" do
+    let!(:default_vita_partner) { create :organization, name: "Default Organization", national_overflow_location: true }
+
+    before do
+      expected_state_vita_partner.update(capacity_limit: 0)
+    end
+
+    scenario "routes to national partner" do
+      visit "/questions/file-with-help"
+
+      expect(page).to have_text "Our full service option is right for you!"
+      click_on "Continue"
+
+      expect(page).to have_text "What years would you like to file for?"
+      check "2020"
+      click_on "Continue"
+
+      expect(Intake.last.source).to eq nil
+      expect(page).to have_text "Thanks for visiting the GetYourRefund demo application!"
+      click_on "Continue to example"
+
+      expect(page).to have_text "Let's get started"
+      click_on "Continue"
+
+      expect(page).to have_text "Just a few simple steps to file!"
+      click_on "Continue"
+
+      expect(page).to have_text "let's get some basic information"
+      fill_in "What is your preferred first name?", with: "Luna Lovegood"
+      fill_in "ZIP code", with: "28806"
+      fill_in "Phone number", with: "415-888-0088"
+      fill_in "Confirm phone number", with: "415-888-0088"
+      click_on "Continue"
+
+      fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+      click_on "Continue"
+
+      fill_out_notification_preferences
+
+      expect(page.html).to have_text "Default Organization is here to help"
+    end
+  end
 
   context "vita partner is at capacity" do
-    let!(:default_vita_partner) { create :organization, name: "Default Organization", national_overflow_location: true }
+    let!(:default_vita_partner) { create :organization, name: "Default Organization", national_overflow_location: false }
 
     before do
       expected_state_vita_partner.update(capacity_limit: 0)

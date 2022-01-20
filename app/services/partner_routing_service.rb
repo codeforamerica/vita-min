@@ -22,7 +22,9 @@ class PartnerRoutingService
     from_state_routing = vita_partner_from_state if @zip_code.present?
     return from_state_routing if from_state_routing.present?
 
-    # route_to_national_overflow_partner
+    from_national_routing = route_to_national_overflow_partner
+    return from_national_routing if from_national_routing.present?
+
     @routing_method = :at_capacity
     return
   end
