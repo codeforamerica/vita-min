@@ -184,7 +184,7 @@ Rails.application.routes.draw do
         resources :assigned_clients, path: "assigned", only: [:index]
         resources :unlinked_clients, only: [:index]
         resources :state_routings, only: [:index, :edit, :update], param: :state do
-          delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy
+          put "/add-organizations", to: "state_routings#add_organizations", on: :member, as: :add_organizations
         end
         resources :automated_messages, only: [:index]
         resources :clients do
