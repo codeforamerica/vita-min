@@ -145,9 +145,13 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Did you receive the first two stimulus checks (Economic Impact Payments) in 2020 and 2021?")
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.arp_payments.title"))
     end
-    click_on "No"
+    fill_in "Stimulus 1", with: 800
+    fill_in 'Stimulus 2', with: 1000
+    fill_in 'Stimulus 3', with: 1000
+    check "I am unsure of my Advanced Child Tax Credit amount"
+    click_on "Continue"
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
