@@ -3,7 +3,8 @@ class OutgoingEmailMailer < ApplicationMailer
     @outgoing_email = outgoing_email
     attachment = outgoing_email.attachment
 
-    service_type = @outgoing_email.client.intake.is_ctc? ? :ctc : :gyr
+    is_ctc = (@outgoing_email.client.intake || Archived::Intake2021.where(client_id: @outgoing_email.client.id).first).is_ctc?
+    service_type = is_ctc ? :ctc : :gyr
     service = MultiTenantService.new(service_type)
     @service_type = service.service_type
 
