@@ -94,6 +94,26 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
           expect(email.from).to eq ["hello@ctc.test.localhost"]
         end
       end
+
+      context 'for a client with an archived CTC intake' do
+        let!(:intake) { create :archived_2021_ctc_intake, client: outgoing_email.client, locale: "en" }
+
+        it 'shows "GetCTC"' do
+          email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
+          expect(email.html_part.decoded).to include('GetCTC')
+          expect(email.from).to eq ["hello@ctc.test.localhost"]
+        end
+      end
+
+      context 'for a client with an archived GYR intake' do
+        let!(:intake) { create :archived_2021_gyr_intake, client: outgoing_email.client, locale: "en" }
+
+        it 'shows "GetCTC"' do
+          email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
+          expect(email.html_part.decoded).to include('GetYourRefund')
+          expect(email.from).to eq ["hello@test.localhost"]
+        end
+      end
     end
   end
 end
