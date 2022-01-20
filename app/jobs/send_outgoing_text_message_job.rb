@@ -22,4 +22,8 @@ class SendOutgoingTextMessageJob < ApplicationJob
       sent_at: DateTime.now
     )
   end
+
+  def priority
+    low_priority
+  end
 end
