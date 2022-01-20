@@ -10,7 +10,6 @@ describe PartnerRoutingService do
   before do
     create :source_parameter, code: code, vita_partner: vita_partner
     create :vita_partner_zip_code, zip_code: "94606", vita_partner: vita_partner
-    5.times { create :organization, national_overflow_location: true }
   end
 
   describe "#determine_partner" do
@@ -183,5 +182,18 @@ describe PartnerRoutingService do
         end
       end
     end
+    
+    context "when there are no matches on other data or routing rules" do
+      context "when national overflow partners exist" do
+        let!(:overflow_partner) { create :organization, national_overflow_location: true }
+
+        it "routes to a national overflow partner" do
+          subject { PartnerRoutingService.new(zip_code: "11111") }
+          expect(subject.determine_partner).to eq overflow_partner
+          expect(subject.routing_method).to eq :national_overflow
+        end
+      end
+    end
+
   end
 end
