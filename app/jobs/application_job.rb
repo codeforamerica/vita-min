@@ -18,4 +18,8 @@ class ApplicationJob < ActiveJob::Base
   def serialize
     super.merge("job_object_id" => job_object_id)
   end
+
+  def low_priority
+    10
+  end
 end
