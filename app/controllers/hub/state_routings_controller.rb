@@ -12,7 +12,6 @@ module Hub
 
     def edit
       @form = Hub::StateRoutingForm.new
-      @independent_organizations = Organization.where(coalition: nil).where.not(id: @independent_org_srts.pluck(:target_id))
     end
 
     def update
