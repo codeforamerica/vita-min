@@ -3,15 +3,15 @@
 <% end %>
 
 <% content_for :notice do %>
+<% unless open_for_intake? %>
   <div class="slab slab--banner">
     <div class="grid">
       <div class="grid__item">
-        <% unless open_for_intake? %>
           <%= t('views.public_pages.home.closing_banner_html', url: vita_providers_path) %>
-        <% end %>
       </div>
     </div>
   </div>
+<% end %>
 <% end %>
 
 <% content_for :body_class, "body--home" %>
