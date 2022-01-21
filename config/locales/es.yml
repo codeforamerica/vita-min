@@ -3098,6 +3098,22 @@ es:
         title:
           one: En %{year}, ¿adoptó un niño?
           other: En %{year}, ¿usted o su cónyuge adoptaron un hijo?
+      arp_payments:
+        errors:
+          advance_child_tax_credit: Ingrese un valor para el crédito fiscal anticipado por hijos o díganos si no está seguro. Si no recibió CTC o no se aplica a usted, ingrese 0.
+          eip: Ingrese valores para cada pago de estímulo o díganos que no está seguro de cuánto recibió.
+        help_text_html:
+        - A partir de abril de 2020, se emitieron tres pagos de estímulo, anteriormente conocidos como Pagos de impacto económico, como parte del Plan de rescate estadounidense.
+        - Además, las familias con niños menores de 17 años han recibido pagos de CTC.
+        - "<strong>¡Por favor comparta su información de pago a continuación!</strong> Si no recibió un pago, ingrese 0."
+        labels:
+          child_tax_credit: Crédito fiscal avanzado por hijos
+          ctc_unsure: No estoy seguro del monto de mi Crédito Tributario por Hijo Avanzado
+          stimulus_1: Estímulo 1
+          stimulus_2: Estímulo 2
+          stimulus_3: Estímulo 3
+          stimulus_unsure: No estoy seguro de mis montos de estímulo
+        title: "¿Ha recibido sus pagos de estímulo y el Crédito Tributario por Hijos (si corresponde)?"
       asset_sale_gate:
         title:
           one: En %{year}, ¿vendió acciones, bonos o bienes inmuebles?
@@ -3485,19 +3501,6 @@ es:
         info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Empecemos
-      arp_payments:
-        title: Have you received your stimulus payments and Child Tax Credit (if applicable)?
-        help_text_html:
-          - Starting April 2020, three stimulus payments, formerly known as Economic Impact Payments, have been issued as part of the American Rescue Plan.
-          - Additionally, families with children under 17 years old have been issued CTC payments.
-          - "<strong>Please share your payment info below!</strong> If you did not receive a payment, enter 0."
-        labels:
-          stimulus_1: Stimulus 1
-          stimulus_2: Stimulus 2
-          stimulus_3: Stimulus 3
-          stimulus_unsure: I am unsure of my Stimulus amounts
-          child_tax_credit: Advanced Child Tax Credit
-          ctc_unsure: I am unsure of my Advanced Child Tax Credit amount
       student:
         help_text: Esto incluye colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional.
         title: En el %{year}, ¿alguien de su familia era estudiante universitario u otro estudiante de secundaria?

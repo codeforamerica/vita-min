@@ -18,8 +18,7 @@ describe ArpPaymentsForm do
   let(:eip3_amount_received) { 0 }
   let(:advance_ctc_amount_received) { 0 }
   let(:received_advance_ctc_payment) { "unfilled" }
-  '
-  # '
+
   describe "validations" do
     context "eip" do
       context "when eip amounts are all blank and not unsure" do
@@ -44,7 +43,7 @@ describe ArpPaymentsForm do
 
     context "ctc" do
       context "when ctc amount is blank and not unsure" do
-        let(:advance_ctc_amount_received) {  }
+        let(:advance_ctc_amount_received) { nil }
         let(:received_advance_ctc_payment) { "unfilled" }
         it "adds an error" do
           form.valid?

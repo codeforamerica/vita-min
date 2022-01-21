@@ -40,7 +40,7 @@ class ArpPaymentsForm < QuestionsForm
   end
 
   def advance_ctc_amount_present_or_unsure
-    if received_advance_ctc_payment != "unsure" && advance_ctc_amount_received.to_i.blank?
+    if received_advance_ctc_payment != "unsure" && advance_ctc_amount_received.blank?
       errors.add(:received_advance_ctc_payment, I18n.t("views.questions.arp_payments.errors.advance_child_tax_credit"))
     end
   end
