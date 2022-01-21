@@ -24,15 +24,24 @@ RSpec.describe PublicPagesController do
       end
 
       context "when the app is open for intake" do
-        before do
-          allow(subject).to receive(:open_for_intake?).and_return(true)
-        end
-
         it "links to the first question path for digital intake" do
           get :home
 
           expect(response.body).to include I18n.t('general.get_started')
           expect(response.body).to include question_path(:id => GyrQuestionNavigation.first)
+        end
+      end
+
+      context "when the app is not open for intake" do
+        before do
+          allow(subject).to receive(:open_for_intake?).and_return(false)
+        end
+
+        it "links to the first question path for digital intake" do
+          get :home
+
+          expect(response.body).not_to include I18n.t('general.get_started')
+          expect(response.body).not_to include question_path(:id => GyrQuestionNavigation.first)
         end
       end
     end

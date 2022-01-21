@@ -746,12 +746,12 @@ RSpec.describe ApplicationController do
       [
         [nil, false],
         ["yes", false],
-      ].each do |cookie_value, expect_to_be_open|
+      ].each do |cookie_value, expected|
         context "when the used_unique_link cookie is #{cookie_value.inspect}" do
           before { cookies.encrypted[:used_unique_link] = cookie_value }
 
-          it "returns #{expect_to_be_open}" do
-            expect(subject.open_for_intake?).to eq expect_to_be_open
+          it "returns #{expected}" do
+            expect(subject.open_for_intake?).to eq expected
           end
         end
       end
@@ -767,12 +767,12 @@ RSpec.describe ApplicationController do
       [
         [nil, false],
         ["yes", true],
-      ].each do |cookie_value, expect_to_be_open|
+      ].each do |cookie_value, expected|
         context "when the used_unique_link cookie is #{cookie_value.inspect}" do
           before { request.cookies[:used_unique_link] = cookie_value }
 
-          it "returns #{expect_to_be_open}" do
-            expect(subject.open_for_intake?).to eq expect_to_be_open
+          it "returns #{expected}" do
+            expect(subject.open_for_intake?).to eq expected
           end
         end
       end
@@ -788,12 +788,12 @@ RSpec.describe ApplicationController do
       [
         [nil, true],
         ["yes", true],
-      ].each do |cookie_value, expect_to_be_open|
+      ].each do |cookie_value, expected|
         context "when the used_unique_link cookie is #{cookie_value.inspect}" do
           before { request.cookies[:used_unique_link] = cookie_value }
 
-          it "returns #{expect_to_be_open}" do
-            expect(subject.open_for_intake?).to eq expect_to_be_open
+          it "returns #{expected}" do
+            expect(subject.open_for_intake?).to eq expected
           end
         end
       end
@@ -809,12 +809,12 @@ RSpec.describe ApplicationController do
       [
         [nil, false],
         ["yes", false],
-      ].each do |cookie_value, expect_to_be_open|
+      ].each do |cookie_value, expected|
         context "when the used_unique_link cookie is #{cookie_value.inspect}" do
           before { request.cookies[:used_unique_link] = cookie_value }
 
-          it "returns #{expect_to_be_open}" do
-            expect(subject.open_for_intake?).to eq expect_to_be_open
+          it "returns #{expected}" do
+            expect(subject.open_for_intake?).to eq expected
           end
         end
       end
