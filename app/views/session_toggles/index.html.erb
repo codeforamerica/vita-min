@@ -7,13 +7,21 @@
     <div class="grid">
       <h1><%= @main_heading %></h1>
 
+      <p>Relevant times in this environment:</p>
+
+      <ul class="list--bulleted">
+        <li>Start of unique-links only intake: <%= timestamp(Rails.configuration.start_of_unique_links_only_intake) %></li>
+        <li>Start of open intake: <%= timestamp(Rails.configuration.start_of_open_intake) %></li>
+        <li>End of intake: <%= timestamp(Rails.configuration.end_of_intake) %></li>
+      </ul>
+
       <div class="form-card__content">
         <%= form_for(@toggle, url: { action: :create }, method: :post, local: true, builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" }) do |f| %>
           <%= f.hidden_field :name %>
           <%=
             f.cfa_input_field(
               :value,
-              "App time",
+              "App time (Pacific)",
               type: 'datetime-local',
               options: {
                 value: f.object.value&.in_time_zone("America/Los_Angeles")&.strftime('%Y-%m-%dT%H:%M')
