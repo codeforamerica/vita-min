@@ -182,10 +182,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     end
 
     scenario "routes to national partner" do
-      visit "/questions/file-with-help"
-
-      expect(page).to have_text "Our full service option is right for you!"
-      click_on "Continue"
+      visit "/questions/backtaxes"
 
       expect(page).to have_text "What years would you like to file for?"
       check "2020"
