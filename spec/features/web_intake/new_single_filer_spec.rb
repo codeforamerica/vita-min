@@ -7,7 +7,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
   scenario "new client filing single without dependents" do
-    answer_gyr_triage_questions
+    answer_gyr_triage_questions(choices: :defaults)
 
     expect(page).to have_selector("h1", text: I18n.t('questions.triage_deluxe.edit.title'))
     click_on I18n.t('questions.triage_deluxe.edit.file_online')

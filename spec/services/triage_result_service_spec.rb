@@ -38,13 +38,12 @@ describe TriageResultService do
             )
           end
 
-          it "redirects to start of full service" do
-            expect(subject.after_backtaxes_years).to eq(Questions::TriageIncomeTypesController.to_path_helper)
+          it "redirects to full service" do
+            expect(subject.after_backtaxes_years).to eq(Questions::TriageDeluxeController.to_path_helper)
           end
         end
       end
     end
-
 
     context "with triage answers that do not have any documents and they need help with any non-2021 year" do
       let(:triage) do

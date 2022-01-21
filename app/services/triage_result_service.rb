@@ -23,7 +23,7 @@ class TriageResultService
     # clients for years other than the current tax year. Plus GetCTC doesn't work for previous tax years.
     # That leaves just full service/VITA.
     if any_missing_previous_year_filings && has_some_tax_docs && triage.id_type_have_paperwork?
-      return route_to_full_service
+      return Questions::TriageDeluxeController.to_path_helper
     end
   end
 
@@ -34,14 +34,14 @@ class TriageResultService
   end
 
   def after_id_type
-    return route_to_full_service if triage.id_type_need_help?
+    return Questions::TriageIncomeTypesController.to_path_helper if triage.id_type_need_help?
   end
 
   def after_doc_type
     return route_to_ctc if triage.income_level_hh_1_to_25100? &&
       (triage.id_type_have_paperwork? || triage.id_type_know_number?) &&
       triage.doc_type_need_help?
-    return route_to_full_service if triage.doc_type_need_help?
+    return Questions::TriageIncomeTypesController.to_path_helper if triage.doc_type_need_help?
   end
 
   def after_income_type
@@ -53,10 +53,6 @@ class TriageResultService
 
   def route_to_ctc
     Questions::TriageExpressController.to_path_helper
-  end
-
-  def route_to_full_service
-    Questions::TriageIncomeTypesController.to_path_helper
   end
 
   def route_to_does_not_qualify

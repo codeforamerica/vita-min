@@ -123,7 +123,6 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
       Questions::TriageIdTypeController,
       Questions::TriageDocTypeController,
       Questions::TriageBacktaxesYearsController,
-      Questions::TriageIncomeTypesController,
       Questions::TriageDeluxeController,
     ].map(&:to_path_helper))
   end
