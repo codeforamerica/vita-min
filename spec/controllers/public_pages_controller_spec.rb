@@ -23,11 +23,17 @@ RSpec.describe PublicPagesController do
         expect(response.body).to include "https://www.googletagmanager.com/gtag/js?id=UA-156157414-1"
       end
 
-      it "links to the first question path for digital intake" do
-        get :home
+      context "when the app is open for intake" do
+        before do
+          allow(subject).to receive(:open_for_intake?).and_return(true)
+        end
 
-        expect(response.body).to include I18n.t('general.get_started')
-        expect(response.body).to include question_path(:id => GyrQuestionNavigation.first)
+        it "links to the first question path for digital intake" do
+          get :home
+
+          expect(response.body).to include I18n.t('general.get_started')
+          expect(response.body).to include question_path(:id => GyrQuestionNavigation.first)
+        end
       end
     end
 
