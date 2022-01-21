@@ -19,5 +19,5 @@ Rails.application.configure do
   config.efile_environment = "test"
   # At the moment on demo, we want intake to operate even if it's before the production launch.
   config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2022-01-01 00:00:00')
-  config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2022-01-01 00:00:00')
+  config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2022-01-03 00:00:00')
 end
