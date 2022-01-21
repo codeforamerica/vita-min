@@ -333,29 +333,6 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#open_for_intake?" do
-    context "before the time when unique links allow intake" do
-      around do |example|
-        travel_to Rails.application.config.start_of_unique_links_only_intake - 1.second
-        example.run
-        Timecop.return
-      end
-
-      [
-        [nil, false],
-        ["yes", true],
-      ].each do |cookie_value, expect_to_be_open|
-        context "when the used_unique_link cookie is #{cookie_value.inspect}" do
-          before { request.cookies.encrypted[:used_unique_link] = cookie_value }
-
-          it "returns #{expect_to_be_open}" do
-            expect(subject.open_for_intake?).to eq expect_to_be_open
-          end
-        end
-      end
-    end
-  end
-
   describe "#referrer" do
     context "with an existing referrer in the session" do
       before do
@@ -750,27 +727,96 @@ RSpec.describe ApplicationController do
   end
 
   describe "#open_for_intake?" do
-    context "when session key for intake is true" do
-      before do
-        request.cookies[:intake_open] = { value: DateTime.current }
-      end
-      it "is true" do
-        expect(subject.open_for_intake?).to eq true
+    around do |example|
+      freeze_time do
+        example.run
       end
     end
 
-    context "when session key for intake is not set" do
-      it "is true" do
-        expect(subject.open_for_intake?).to eq true
+    let(:past) { 1.minute.ago }
+    let(:future) { Time.now + 1.minute }
+
+    context "before the time when unique links allow intake" do
+      before do
+        allow(Rails.application.config).to receive(:start_of_unique_links_only_intake).and_return(future)
+        allow(Rails.application.config).to receive(:start_of_open_intake).and_return(future)
+        allow(Rails.application.config).to receive(:end_of_intake).and_return(future)
+      end
+
+      [
+        [nil, false],
+        ["yes", false],
+      ].each do |cookie_value, expect_to_be_open|
+        context "when the used_unique_link cookie is #{cookie_value.inspect}" do
+          before { cookies.encrypted[:used_unique_link] = cookie_value }
+
+          it "returns #{expect_to_be_open}" do
+            expect(subject.open_for_intake?).to eq expect_to_be_open
+          end
+        end
       end
     end
 
-    context "when session key for intake is false" do
+    context "during the time when only unique links allow intake" do
       before do
-        request.cookies[:intake_open] = false
+        allow(Rails.application.config).to receive(:start_of_unique_links_only_intake).and_return(past)
+        allow(Rails.application.config).to receive(:start_of_open_intake).and_return(future)
+        allow(Rails.application.config).to receive(:end_of_intake).and_return(future)
       end
-      it "is true" do
-        expect(subject.open_for_intake?).to eq true
+
+      [
+        [nil, false],
+        ["yes", true],
+      ].each do |cookie_value, expect_to_be_open|
+        context "when the used_unique_link cookie is #{cookie_value.inspect}" do
+          before { request.cookies[:used_unique_link] = cookie_value }
+
+          it "returns #{expect_to_be_open}" do
+            expect(subject.open_for_intake?).to eq expect_to_be_open
+          end
+        end
+      end
+    end
+
+    context "during the time when intake is open" do
+      before do
+        allow(Rails.application.config).to receive(:start_of_unique_links_only_intake).and_return(past)
+        allow(Rails.application.config).to receive(:start_of_open_intake).and_return(past)
+        allow(Rails.application.config).to receive(:end_of_intake).and_return(future)
+      end
+
+      [
+        [nil, true],
+        ["yes", true],
+      ].each do |cookie_value, expect_to_be_open|
+        context "when the used_unique_link cookie is #{cookie_value.inspect}" do
+          before { request.cookies[:used_unique_link] = cookie_value }
+
+          it "returns #{expect_to_be_open}" do
+            expect(subject.open_for_intake?).to eq expect_to_be_open
+          end
+        end
+      end
+    end
+
+    context "during the time when intake is closed" do
+      before do
+        allow(Rails.configuration).to receive(:start_of_unique_links_only_intake).and_return(past)
+        allow(Rails.configuration).to receive(:start_of_open_intake).and_return(past)
+        allow(Rails.configuration).to receive(:end_of_intake).and_return(past)
+      end
+
+      [
+        [nil, false],
+        ["yes", false],
+      ].each do |cookie_value, expect_to_be_open|
+        context "when the used_unique_link cookie is #{cookie_value.inspect}" do
+          before { request.cookies[:used_unique_link] = cookie_value }
+
+          it "returns #{expect_to_be_open}" do
+            expect(subject.open_for_intake?).to eq expect_to_be_open
+          end
+        end
       end
     end
   end
