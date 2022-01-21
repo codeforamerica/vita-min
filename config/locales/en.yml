@@ -1499,7 +1499,7 @@ en:
       edit:
         help_text_html: |
           Even if you used a different service to file for previous years, <strong>select any/all the years that apply.</strong>
-          <br/><br/>
+
           Don’t worry if you haven’t filed for any of these years, we’re here to help!
         title: Have you filed taxes in the past? Let us know years that you filed.
     triage_deluxe:
@@ -1518,7 +1518,6 @@ en:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
         help_text: It looks like you are above our filing limit. Our free service is available to households earning less than $73,000 a year.
-        return_home: Return Home
         title: Unfortunately, it looks like you do not qualify for our free service.
     triage_doc_type:
       edit:
