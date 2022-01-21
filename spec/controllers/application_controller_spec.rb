@@ -46,7 +46,7 @@ RSpec.describe ApplicationController do
   describe "#set_visitor_id" do
     context "existing visitor_id" do
       context "on current_intake" do
-        let(:intake) { create :intake, visitor_id: "123"}
+        let(:intake) { create :intake, visitor_id: "123" }
 
         before do
           allow(subject).to receive(:current_intake).and_return(intake)
@@ -287,7 +287,7 @@ RSpec.describe ApplicationController do
 
     context "with a 'source' param" do
       let(:params) do
-        { source: "shromps"}
+        { source: "shromps" }
       end
 
       it "stores the param in the session" do
@@ -298,7 +298,7 @@ RSpec.describe ApplicationController do
 
       context "when the param is very long" do
         let(:params) do
-          { source: ("shromps" * 200)}
+          { source: ("shromps" * 200) }
         end
 
         it "truncates it" do
@@ -312,7 +312,7 @@ RSpec.describe ApplicationController do
 
     context "with an 's' param" do
       let(:params) do
-        { s: "shremps"}
+        { s: "shremps" }
       end
 
       it "stores the param in the session" do
@@ -334,17 +334,24 @@ RSpec.describe ApplicationController do
   end
 
   describe "#open_for_intake?" do
-    context "when the cookie intake_open value is set" do
-      before { request.cookies[:intake_open] = { value: DateTime.current } }
-
-      it "returns true" do
-        expect(subject.open_for_intake?).to eq true
+    context "before the time when unique links allow intake" do
+      around do |example|
+        travel_to Rails.application.config.start_of_unique_links_only_intake - 1.second
+        example.run
+        Timecop.return
       end
-    end
 
-    context "when the cookie intake_open value is not set" do
-      it "returns true" do
-        expect(subject.open_for_intake?).to eq true
+      [
+        [nil, false],
+        ["yes", true],
+      ].each do |cookie_value, expect_to_be_open|
+        context "when the used_unique_link cookie is #{cookie_value.inspect}" do
+          before { request.cookies.encrypted[:used_unique_link] = cookie_value }
+
+          it "returns #{expect_to_be_open}" do
+            expect(subject.open_for_intake?).to eq expect_to_be_open
+          end
+        end
       end
     end
   end
@@ -891,7 +898,7 @@ RSpec.describe ApplicationController do
 
     context "there is a sidebar=collapsed cookie" do
       before do
-        allow(controller).to receive(:cookies).and_return({sidebar: "collapsed"})
+        allow(controller).to receive(:cookies).and_return({ sidebar: "collapsed" })
       end
 
       it "sets collapse main menu to true" do
