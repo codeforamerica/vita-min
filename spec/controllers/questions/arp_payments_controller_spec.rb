@@ -18,7 +18,7 @@ describe Questions::ArpPaymentsController do
         { arp_payments_form: {
             eip1_amount_received: 100,
             eip2_amount_received: "300",
-            eip3_amount_received: 100.5,
+            eip3_amount_received: 100,
             received_stimulus_payment: "unfilled",
             advance_ctc_amount_received: 900,
             received_advance_ctc_payment: "unfilled"

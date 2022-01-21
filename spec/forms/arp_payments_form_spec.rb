@@ -120,6 +120,5 @@ describe ArpPaymentsForm do
         expect(intake.reload.received_advance_ctc_payment).to eq "unsure"
       end
     end
-
   end
 end
