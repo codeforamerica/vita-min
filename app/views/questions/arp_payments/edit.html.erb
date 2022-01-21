@@ -1,0 +1,32 @@
+<% content_for :page_title, t('views.questions.arp_payments.title') %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
+
+  <% t('views.questions.arp_payments.help_text_html').each do |text| %>
+    <p><%= text %></p>
+  <% end %>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <div class="spacing-above-0">
+      <%= f.cfa_input_field :eip1_amount_received, t("views.questions.arp_payments.labels.stimulus_1"), type: "number", prefix: "$" %>
+      <%= f.cfa_input_field :eip2_amount_received, t("views.questions.arp_payments.labels.stimulus_2"), type: "number", prefix: "$" %>
+      <div class="form-group-tight">
+        <%= f.cfa_input_field :eip3_amount_received, t("views.questions.arp_payments.labels.stimulus_3"), type: "number", prefix: "$" %>
+      </div>
+      <%= f.simplified_cfa_checkbox :received_stimulus_payment, t("views.questions.arp_payments.labels.stimulus_unsure"), options: { checked_value: "unsure", unchecked_value: "unfilled" } %>
+      <div class="form-group-tight">
+
+        <%= f.cfa_input_field :advance_ctc_amount_received, t("views.questions.arp_payments.labels.child_tax_credit"), type: "number", prefix: "$" %>
+      </div>
+      <%= f.simplified_cfa_checkbox :received_advance_ctc_payment, t("views.questions.arp_payments.labels.ctc_unsure"), options: { checked_value: "unsure", unchecked_value: "unfilled" } %>
+
+    </div>
+
+    <div class="spacing-above-60">
+      <%= f.submit t("general.continue"), class: "button button--primary button--wide text--centered" %>
+    </div>
+  <% end %>
+<% end %>
