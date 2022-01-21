@@ -1,15 +1,11 @@
 require "rails_helper"
 
 RSpec.describe "offseason routes", type: :request do
-  context "when config offseason is true" do
+  context "when intake is closed" do
     before do
-      allow(Rails.configuration).to receive(:offseason).and_return true
-      Rails.application.reload_routes!
-    end
-
-    after do
-      allow(Rails.configuration).to receive(:offseason).and_call_original
-      Rails.application.reload_routes!
+      allow(Rails.configuration).to receive(:start_of_unique_links_only_intake).and_return(1.minute.ago)
+      allow(Rails.configuration).to receive(:start_of_open_intake).and_return(1.minute.ago)
+      allow(Rails.configuration).to receive(:end_of_intake).and_return(1.minute.ago)
     end
 
     it "redirects the question welcome page to root" do
@@ -51,9 +47,9 @@ RSpec.describe "offseason routes", type: :request do
         end
       end
 
-      context "/diy/something" do
+      context "/diy/email" do
         it "redirects home" do
-          get "/diy/something"
+          get "/diy/email"
           expect(response).to redirect_to root_path
         end
       end

@@ -248,7 +248,11 @@ class ApplicationController < ActionController::Base
   end
 
   def open_for_intake?
-    !Rails.configuration.offseason
+    return true if cookies[:used_unique_link] == "yes" &&
+      app_time >= Rails.configuration.start_of_unique_links_only_intake &&
+      app_time <= Rails.configuration.end_of_intake
+
+    return app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_intake
   end
 
   def open_for_ctc_intake?

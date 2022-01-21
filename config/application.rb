@@ -37,5 +37,10 @@ module VitaMin
     #
     config.middleware.use Middleware::CleanupMimeTypeHeaders
     config.current_tax_year = 2021
+
+    # These defaults can be overridden per-environment if needed
+    config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2022-01-17 09:59:59')
+    config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2022-01-24 09:59:59')
+    config.end_of_intake = Time.find_zone('America/Los_Angeles').parse('2022-08-31 23:59:59')
   end
 end

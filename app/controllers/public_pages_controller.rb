@@ -14,7 +14,7 @@ class PublicPagesController < ApplicationController
     vita_partner = SourceParameter.find_vita_partner_by_code(params[:source])
     if vita_partner.present?
       flash[:notice] = I18n.t("controllers.public_pages.partner_welcome_notice", partner_name: vita_partner.name)
-      cookies[:intake_open] = { value: DateTime.current, expires: 1.year.from_now.utc }
+      cookies[:used_unique_link] = {value: "yes", expiration: 1.year.from_now.utc }
     end
     redirect_to root_path
   end
@@ -56,7 +56,7 @@ class PublicPagesController < ApplicationController
   def sms_terms; end
 
   def diy
-    redirect_to root_path if Rails.configuration.offseason
+    redirect_to root_path unless open_for_intake?
   end
 
   def pki_validation

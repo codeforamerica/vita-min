@@ -23,14 +23,28 @@ RSpec.describe PublicPagesController do
         expect(response.body).to include "https://www.googletagmanager.com/gtag/js?id=UA-156157414-1"
       end
 
-      it "links to the first question path for digital intake" do
-        get :home
+      context "when the app is open for intake" do
+        it "links to the first question path for digital intake" do
+          get :home
 
-        expect(response.body).to include I18n.t('general.get_started')
-        expect(response.body).to include question_path(:id => GyrQuestionNavigation.first)
+          expect(response.body).to include I18n.t('general.get_started')
+          expect(response.body).to include question_path(:id => GyrQuestionNavigation.first)
+        end
+      end
+
+      context "when the app is not open for intake" do
+        before do
+          allow(subject).to receive(:open_for_intake?).and_return(false)
+        end
+
+        it "links to the first question path for digital intake" do
+          get :home
+
+          expect(response.body).not_to include I18n.t('general.get_started')
+          expect(response.body).not_to include question_path(:id => GyrQuestionNavigation.first)
+        end
       end
     end
-
 
     context "in demo env" do
       before do
@@ -91,9 +105,9 @@ RSpec.describe PublicPagesController do
         expect(response).to redirect_to :root
       end
 
-      it "sets the cookie intake_open" do
+      it "sets the used_unique_link cookie" do
         get :source_routing, params: { source: source_parameter.code }
-        expect(cookies[:intake_open]).to be_present
+        expect(cookies[:used_unique_link]).to eq("yes")
       end
     end
 
@@ -103,9 +117,9 @@ RSpec.describe PublicPagesController do
         expect(response).to redirect_to :root
       end
 
-      it "does not set the session intake_open" do
+      it "does not set the used_unique_link cookie" do
         get :source_routing, params: { source: "no-match" }
-        expect(cookies[:intake_open]).to be_nil
+        expect(cookies[:used_unique_link]).to be_nil
       end
     end
   end
