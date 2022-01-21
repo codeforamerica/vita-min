@@ -105,16 +105,11 @@ Rails.application.routes.draw do
         get "/confirmation", to: "signups#confirmation", on: :collection
       end
 
-      if Rails.configuration.offseason
-        get "/diy/*path", to: "public_pages#diy"
-        post "/diy/*path", to: "public_pages#diy"
-      else
-        namespace :diy do
-          get "/file-yourself", to: "file_yourself#edit"
-          get "/email", to: "diy_intakes#new"
-          post "/email", to: "diy_intakes#create"
-          get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
-        end
+      namespace :diy do
+        get "/file-yourself", to: "file_yourself#edit"
+        get "/email", to: "diy_intakes#new"
+        post "/email", to: "diy_intakes#create"
+        get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
       end
       get "/diy", to: "public_pages#diy"
       get "/other-options", to: "public_pages#other_options"

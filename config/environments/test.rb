@@ -77,4 +77,9 @@ Rails.application.configure do
 
   # Allow stub views for base controller classes https://stackoverflow.com/questions/5147734/rspec-stubing-view-for-anonymous-controller
   config.paths['app/views'] << "spec/test_views"
+
+  # By default, intake is open in the test suite
+  config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2001-01-01 00:00:00')
+  config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2001-01-01 00:00:00')
+  config.end_of_intake = Time.find_zone('America/Los_Angeles').parse('2038-12-31 23:59:59')
 end

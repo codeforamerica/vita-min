@@ -1,5 +1,7 @@
 module Diy
   class DiyIntakesController < ApplicationController
+    before_action :redirect_in_offseason
+
     def new
       @diy_intake = DiyIntake.new
     end
@@ -22,6 +24,10 @@ module Diy
         visitor_id: visitor_id,
         locale: I18n.locale
       )
+    end
+
+    def redirect_in_offseason
+      redirect_to root_path unless open_for_intake?
     end
   end
 end
