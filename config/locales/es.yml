@@ -1445,110 +1445,109 @@ es:
     triage_assistance:
       edit:
         assistance:
-          chat: chat support
-          in_person: in-person assistance
-          phone_review_english: phone review (english)
-          phone_review_non_english: phone review (non english language)
-        help_text: 'Select the option(s) that apply to you:'
-        title: Do you require any additional assistance?
+          chat: soporte de chat
+          in_person: asistencia en persona
+          phone_review_english: revisión telefónica (inglés)
+          phone_review_non_english: revisión telefónica (idioma no inglés)
+        help_text: 'Seleccione la(s) opción(es) que se aplican a usted:'
+        title: "¿Necesitas alguna ayuda adicional?"
     triage_backtaxes_years:
       edit:
         help_text_html: |
-          Even if you used a different service to file for previous years, <strong>select any/all the years that apply.</strong>
-          <br/><br/>
-          Don’t worry if you haven’t filed for any of these years, we’re here to help!
-        title: Have you filed taxes in the past? Let us know years that you filed.
+          Incluso si utilizó un servicio diferente para presentar la solicitud de años anteriores, <strong>seleccione cualquiera o todos los años que correspondan.</strong>
+
+          No se preocupe si no ha solicitado ninguno de estos años, ¡estamos aquí para ayudarlo!
+        title: "¿Ha presentado impuestos en el pasado? Háganos saber los años que presentó."
     triage_deluxe:
       edit:
-        file_in_person: File In Person
-        file_on_my_own: Actually, I prefer to file quickly on my own without assistance.
-        file_online: File Online
+        file_in_person: Presentar en persona
+        file_on_my_own: En realidad, prefiero presentar la solicitud rápidamente por mi cuenta sin ayuda.
+        file_online: Archivo en línea
         help_text: |
-          Collect all of the tax credits you are owed with assistance.
+          Recoja todos los créditos fiscales que le deben con asistencia.
 
-          Available online or in person!
+          ¡Disponible en línea o en persona!
 
-          Our IRS-certified tax team will provide hands on support with your taxes!
-        title: We recommend filing with our free Deluxe option!
+          ¡Nuestro equipo de impuestos certificado por el IRS le brindará apoyo práctico con sus impuestos!
+        title: "¡Recomendamos presentar con nuestra opción Deluxe gratuita!"
     triage_do_not_qualify:
       edit:
-        faq_link_text: If you have additional questions, visit our FAQ page.
-        help_text: It looks like you are above our filing limit. Our free service is available to households earning less than $73,000 a year.
-        return_home: Return Home
-        title: Unfortunately, it looks like you do not qualify for our free service.
+        faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
+        help_text: Parece que está por encima de nuestro límite de presentación. Nuestro servicio gratuito está disponible para hogares que ganan menos de $73,000 al año.
+        title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_doc_type:
       edit:
         doc_type:
-          all_copies_html: I have <u>all</u> copies of my official tax documents
-          does_not_apply_html: I <u>do not</u> have copies any official tax documents because they <u>do not apply to me</u>
-          need_help_html: I <u>do not</u> have copies any official tax documents and <u>would like help</u> getting them
-          some_copies_html: 'I have <u>some</u> copies of my official tax documents '
-        help_text: Tax documents refers to any official IRS documents or documents that confirm your employment like a W2, 1099, personal work log, etc.
-        title: What type of tax documents do you have?
+          all_copies_html: Tengo <u>todas</u> copias de mis documentos fiscales oficiales
+          does_not_apply_html: "<u>No</u> tengo copias de ningún documento fiscal oficial porque <u>no se aplican a mí</u>"
+          need_help_html: "<u>No tengo</u> copias de ningún documento fiscal oficial y <u>me gustaría recibir ayuda</u> para obtenerlas"
+          some_copies_html: Tengo <u>algunas</u> copias de mis documentos fiscales oficiales
+        help_text: Los documentos fiscales se refieren a cualquier documento oficial del IRS o documentos que confirmen su empleo como un W2, 1099, registro de trabajo personal, etc.
+        title: "¿Qué tipo de documentos fiscales tiene?"
     triage_express:
       edit:
-        collect_your: 'Collect your:'
+        collect_your: 'Recoge tu:'
         collectables:
-          additional_credits: Additional State Credits
-          ctc: Child Tax Credit
-          eitc: Earned Income Tax Credit
-          missing_stimulus: Missing Stimulus Payments
+          additional_credits: Créditos Estatales Adicionales
+          ctc: Crédito Tributario por Hijos
+          eitc: Crédito tributario por ingresos del trabajo
+          missing_stimulus: Faltan Pagos de Estímulo
         comparison:
           deluxe:
-            description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
-            timeframe: 2-3 weeks to file
+            description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
+            timeframe: 2-3 semanas para presentar
             title: Deluxe
           express:
-            description: File quickly on your own!
-            timeframe: 15 minutes to file, available March 2022
+            description: "¡Archive rápidamente por su cuenta!"
+            timeframe: 15 minutos para presentar, disponible en marzo de 2022
             title: Express
-        file_with_deluxe: File with Deluxe
-        refund: Refund
-        sign_up_for_express: Sign up for Express
-        title: We have two free options that may work for you!
+        file_with_deluxe: Archivo con Deluxe
+        refund: Reembolso
+        sign_up_for_express: Suscríbete a Express
+        title: "¡Tenemos dos opciones gratuitas que pueden funcionar para usted!"
     triage_id_type:
       edit:
         ssn_itin_type:
-          have_paperwork: I have my Social Security card or ITIN paperwork
-          know_number: I know my Social Security or ITIN number, but I do not have a copy of it
-          need_help: I need help applying for my ITIN
-        title: What type of identification do you have?
+          have_paperwork: Tengo mi tarjeta de Seguro Social o papeleo ITIN
+          know_number: Sé mi número de Seguro Social o ITIN, pero no tengo una copia del mismo
+          need_help: Necesito ayuda para solicitar mi ITIN
+        title: "¿Qué tipo de identificación tiene?"
     triage_income_level:
       edit:
-        help_text: Household income is the total you (and your spouse) made in the past year.
+        help_text: El ingreso del hogar es el total que usted (y su cónyuge) hizo en el último año.
         levels:
           hh_1_to_25100_html: |
             <div>$1- 25,100</div>
 
-            <div class="text--label-secondary-text spacing-above-15">
-              $1- 12,550 if filing individually
+            <div class="texto--etiqueta-texto-secundario-espaciado-sobre-15">
+              $1- 12,550 si se presenta individualmente
             </div>
           hh_25100_to_66000: "$25,100 - 66,000"
           hh_66000_to_73000: "$66,000 - 73,000"
-          hh_over_73000: over $73,000
+          hh_over_73000: más de $ 73,000
           zero: "$0"
-        levels_label: 'Select your household income level:'
+        levels_label: 'Seleccione el nivel de ingresos de su hogar:'
         title: |-
-          Let's get started!
-          Tell us about your income.
+          ¡Empecemos!
+          Cuéntanos sobre tus ingresos.
     triage_income_types:
       edit:
         income_types:
-          farm: I earned money from owning a farm
-          rental: I earned money from a rental property
-        income_types_label: Did any of the situations below apply to you?
-        title: One final question before we select the service for you!
+          farm: Gané dinero siendo dueño de una granja.
+          rental: Gané dinero de una propiedad de alquiler
+        income_types_label: "¿Alguna de las siguientes situaciones se aplica a usted?"
+        title: "¡Una última pregunta antes de que seleccionemos el servicio para usted!"
     triage_referral:
       edit:
         help_text: |
-          File online on your own using an IRS-certified partner website. This is our quickest option to file your taxes and collect the tax credits you are owed!
+          Presente en línea por su cuenta utilizando un sitio web asociado certificado por el IRS. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que se le deben!
 
-          By clicking continue, you will be taken to our partner’s site to continue filing on your own. The process is simple, quick, and easy.
-        title: We recommend filing with our free File Myself option!
+          Al hacer clic en continuar, será redirigido al sitio de nuestro socio para continuar con la presentación por su cuenta. El proceso es simple, rápido y fácil.
+        title: "¡Recomendamos realizar la presentación con nuestra opción gratuita File Myself!"
     triage_start_ids:
       edit:
-        help_text: It might be helpful to gather all of your tax documents and Social Security Card or ITIN paperwork at this point. We’ll confirm the information again later in the process.
-        title: We’ll start by asking about your documents and IDs.
+        help_text: Puede ser útil reunir todos sus documentos de impuestos y la Tarjeta de Seguro Social o el papeleo de ITIN en este momento. Confirmaremos la información nuevamente más adelante en el proceso.
+        title: Comenzaremos preguntándole sobre sus documentos e identificaciones.
   signups:
     flash_notice: Gracias, recibirá una notificación cuando iniciemos en enero del 2022.
     new:

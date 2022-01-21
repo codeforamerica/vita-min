@@ -35,7 +35,11 @@ RSpec.describe I18n do
         key_with_index = "#{key}#{value.is_a?(Array) ? "[#{index}]" : ''}"
 
         base_locale_tag_counts = Hash.new(0)
-        Nokogiri::HTML(scalar_value).xpath("//*").each { |el| base_locale_tag_counts[el.name] += 1 }
+
+        # Nokogiri will inconsistently introduce a wrapping <p> depending on whether the string
+        # starts with an angle bracket or not. This part deliberately wraps the string in a tag,
+        # using "sup" because it is funnier than "span".
+        Nokogiri::HTML("<sup>#{scalar_value}</sup>").xpath("//*").each { |el| base_locale_tag_counts[el.name] += 1 }
 
         (@i18n.locales - [@i18n.base_locale]).each do |other_locale|
           node = @i18n.data[other_locale].first.children[key]
@@ -46,7 +50,7 @@ RSpec.describe I18n do
           end
 
           tag_counts = Hash.new(0)
-          Nokogiri::HTML(other_locale_value).xpath("//*").each { |el| tag_counts[el.name] += 1 }
+          Nokogiri::HTML("<sup>#{other_locale_value}</sup>").xpath("//*").each { |el| tag_counts[el.name] += 1 }
           if base_locale_tag_counts != tag_counts
             inconsistent_html_keys << key_with_index
             if ENV['I18N_VERBOSE']
