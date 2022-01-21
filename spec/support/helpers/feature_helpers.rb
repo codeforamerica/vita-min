@@ -34,19 +34,39 @@ module FeatureHelpers
     end
   end
 
-  def answer_gyr_triage_questions(
-    screenshot_method: nil,
-    income_level: "hh_1_to_25100_html",
-    id_type: "have_paperwork",
-    doc_type: "all_copies_html",
-    filed_past_years: [
-      TaxReturn.current_tax_year - 3,
-      TaxReturn.current_tax_year - 2,
-      TaxReturn.current_tax_year - 1,
-    ],
-    assistance_options: ['chat'],
-    income_type_options: ['none_of_the_above']
-  )
+  class TriageChoices
+    def initialize(choices)
+      @choices = choices
+    end
+
+    private
+
+    def method_missing(symbol, *args)
+      if @choices[symbol]
+        @choices[symbol]
+      else
+        raise "Tried to get a value for #{symbol} but this test didn't provide one."
+      end
+    end
+  end
+
+  def answer_gyr_triage_questions(screenshot_method: nil, **options)
+    if options[:choices] == :defaults
+      options = {
+        income_level: "hh_1_to_25100_html",
+        id_type: "have_paperwork",
+        doc_type: "all_copies_html",
+        filed_past_years: [
+          TaxReturn.current_tax_year - 3,
+          TaxReturn.current_tax_year - 2,
+          TaxReturn.current_tax_year - 1,
+        ],
+        assistance_options: ['chat'],
+        income_type_options: ['none_of_the_above']
+      }
+    end
+    choices = TriageChoices.new(options)
+
     visit "/en/questions/welcome"
 
     expect(page).to have_selector("h1", text: I18n.t('views.questions.welcome.title'))
@@ -54,7 +74,7 @@ module FeatureHelpers
 
     triage_feature_helper = TriageFeatureHelper.new(page, screenshot_method)
     triage_feature_helper.assert_page('questions.triage_income_level.edit.title') do
-      choose strip_html_tags(I18n.t("questions.triage_income_level.edit.levels.#{income_level}").split("\n").first)
+      choose strip_html_tags(I18n.t("questions.triage_income_level.edit.levels.#{choices.income_level}").split("\n").first)
       click_on I18n.t('general.continue')
     end
 
@@ -63,31 +83,31 @@ module FeatureHelpers
     end
 
     triage_feature_helper.assert_page('questions.triage_id_type.edit.title') do
-      choose I18n.t("questions.triage_id_type.edit.ssn_itin_type.#{id_type}")
+      choose I18n.t("questions.triage_id_type.edit.ssn_itin_type.#{choices.id_type}")
       click_on I18n.t('general.continue')
     end
 
     triage_feature_helper.assert_page('questions.triage_doc_type.edit.title') do
-      choose strip_html_tags(I18n.t("questions.triage_doc_type.edit.doc_type.#{doc_type}"))
+      choose strip_html_tags(I18n.t("questions.triage_doc_type.edit.doc_type.#{choices.doc_type}"))
       click_on I18n.t('general.continue')
     end
 
     triage_feature_helper.assert_page('questions.triage_backtaxes_years.edit.title') do
-      filed_past_years.each do |year|
+      choices.filed_past_years.each do |year|
         check year.to_s
       end
       click_on I18n.t('general.continue')
     end
 
     triage_feature_helper.assert_page('questions.triage_assistance.edit.title') do
-      assistance_options.each do |option|
+      choices.assistance_options.each do |option|
         check option == 'none_of_the_above' ? I18n.t("general.none_of_the_above") : I18n.t("questions.triage_assistance.edit.assistance.#{option}")
       end
       click_on I18n.t('general.continue')
     end
 
     triage_feature_helper.assert_page('questions.triage_income_types.edit.title') do
-      income_type_options.each do |option|
+      choices.income_type_options.each do |option|
         check option == 'none_of_the_above' ? I18n.t("general.none_of_the_above") : I18n.t("questions.triage_income_types.edit.income_types.#{option}")
       end
       click_on I18n.t('general.continue')
