@@ -70,5 +70,22 @@ RSpec.feature "Read and send messages to a client", js: true do
         expect(page).to have_text "document_bundle.pdf"
       end
     end
+
+    context "the last outgoing message is from the client" do
+      let(:outgoing_text_message) { build :outgoing_text_message, client: client, created_at: DateTime.now - 1.hour }
+      let!(:incoming_text_message) { create :incoming_text_message, client: client, body: "thank you! :)))))))))", created_at: DateTime.now }
+
+      scenario "I can mark a client as response not needed" do
+        visit hub_client_path(id: client)
+        click_on "Messages"
+
+        within(".day-list") do
+          expect(page).to have_text('Mark as "Response not needed"', count: 1)
+          expect(client.first_unanswered_incoming_interaction_at).to be_present
+          click_on 'Mark as "Response not needed"'
+          expect(client.first_unanswered_incoming_interaction_at).not_to be_present
+        end
+      end
+    end
   end
 end

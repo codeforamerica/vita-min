@@ -10,6 +10,11 @@ module Hub
       @client = HubClientPresenter.new(@client)
     end
 
+    def no_response_needed
+      @client.update!(first_unanswered_incoming_interaction_at: nil)
+      redirect_to hub_client_messages_path
+    end
+
     private
 
     class HubClientPresenter < Hub::ClientsController::HubClientPresenter

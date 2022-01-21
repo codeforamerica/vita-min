@@ -767,6 +767,8 @@ en:
           submit: Send
       portal_message: from client portal
       to: to
+      contact_record:
+        response_not_needed: 'Mark as "Response not needed"'
     not_assigned_html: "<i>Not assigned</i>"
     notes:
       index:

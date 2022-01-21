@@ -31,7 +31,7 @@
           Subj: <%= contact_record.subject %>
         </div>
       <% end %>
-      <%= simple_format(contact_record.body)  %>
+      <%= simple_format(contact_record.body) %>
 
       <% if contact_record.contact_record_type == :outgoing_email %>
         <% if contact_record.attachments.present? %>
@@ -55,5 +55,9 @@
         <% end %>
       <% end %>
     </div>
+
+    <% if contact_record.client.first_unanswered_incoming_interaction_at.present? && last_day && contact_record_iteration&.last? %>
+      <%= button_to t(".response_not_needed"), hub_client_no_response_needed_path, method: :post, class: "button button--small" %>
+    <% end %>
   </div>
 </li>
