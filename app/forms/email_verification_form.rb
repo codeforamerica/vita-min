@@ -4,7 +4,7 @@
     validates_presence_of :verification_code
 
     def valid?
-      return true if (Rails.env.demo? || Rails.env.development?) && verification_code == "000000"
+      return true if (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?) && verification_code == "000000"
 
       hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(@intake.email_address, verification_code)
 
