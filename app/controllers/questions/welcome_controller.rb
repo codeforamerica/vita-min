@@ -6,7 +6,7 @@ module Questions
     layout "application"
 
     def edit
-      redirect_to root_path if Rails.configuration.offseason
+      redirect_to root_path unless open_for_intake?
     end
 
     private

@@ -68,7 +68,6 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   config.i18n.available_locales = [:en, :es]
-  config.offseason = false
   config.hide_ctc = false
   config.ctc_url = "http://ctc.test.localhost"
   config.gyr_url = "http://test.localhost"

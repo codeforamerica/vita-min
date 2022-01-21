@@ -37,7 +37,6 @@ RSpec.describe PublicPagesController do
       end
     end
 
-
     context "in demo env" do
       before do
         allow(Rails).to receive(:env).and_return("demo".inquiry)
@@ -97,9 +96,9 @@ RSpec.describe PublicPagesController do
         expect(response).to redirect_to :root
       end
 
-      it "sets the cookie intake_open" do
+      it "sets the used_unique_link cookie" do
         get :source_routing, params: { source: source_parameter.code }
-        expect(cookies[:intake_open]).to be_present
+        expect(cookies[:used_unique_link]).to eq("yes")
       end
     end
 
@@ -109,9 +108,9 @@ RSpec.describe PublicPagesController do
         expect(response).to redirect_to :root
       end
 
-      it "does not set the session intake_open" do
+      it "does not set the used_unique_link cookie" do
         get :source_routing, params: { source: "no-match" }
-        expect(cookies[:intake_open]).to be_nil
+        expect(cookies[:used_unique_link]).to be_nil
       end
     end
   end

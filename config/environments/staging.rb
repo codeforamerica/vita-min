@@ -13,7 +13,6 @@ Rails.application.configure do
   }
   config.action_mailer.default_url_options = { host: 'staging.getyourrefund.org' }
   config.action_mailer.asset_host = config.gyr_url
-  config.offseason = true
   config.hide_ctc = false
 
   Rails.application.default_url_options = config.action_mailer.default_url_options

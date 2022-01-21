@@ -88,7 +88,7 @@ module Questions
     private
 
     def redirect_in_offseason
-      redirect_to root_path and return if Rails.configuration.offseason
+      redirect_to root_path unless open_for_intake?
     end
 
     def after_update_success; end
