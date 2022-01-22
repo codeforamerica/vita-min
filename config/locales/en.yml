@@ -762,13 +762,12 @@ en:
         no_sms_number: Client has not provided an SMS phone number.
         no_way_to_communicate: Client has not provided contact info for digital communication.
         preference_intro: "%{preferred_name} has opted in to contact by:"
+        response_not_needed: 'Mark as "Response not needed"'
         text_message_form:
           label: Send a text message
           submit: Send
       portal_message: from client portal
       to: to
-      contact_record:
-        response_not_needed: 'Mark as "Response not needed"'
     not_assigned_html: "<i>Not assigned</i>"
     notes:
       index:

@@ -55,9 +55,5 @@
         <% end %>
       <% end %>
     </div>
-
-    <% if contact_record.client.first_unanswered_incoming_interaction_at.present? && last_day && contact_record_iteration&.last? %>
-      <%= button_to t(".response_not_needed"), hub_client_no_response_needed_path, method: :post, class: "button button--small" %>
-    <% end %>
   </div>
 </li>

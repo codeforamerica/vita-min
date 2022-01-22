@@ -79,11 +79,11 @@ RSpec.feature "Read and send messages to a client", js: true do
         visit hub_client_path(id: client)
         click_on "Messages"
 
-        within(".day-list") do
-          expect(page).to have_text('Mark as "Response not needed"', count: 1)
+        within(".client-container") do
           expect(client.first_unanswered_incoming_interaction_at).to be_present
+          expect(page).to have_selector :link_or_button, 'Mark as "Response not needed"'
           click_on 'Mark as "Response not needed"'
-          expect(client.first_unanswered_incoming_interaction_at).not_to be_present
+          expect(page).not_to have_selector :link_or_button, 'Mark as "Response not needed"'
         end
       end
     end

@@ -250,4 +250,5 @@ RSpec.describe Hub::MessagesController do
       end
     end
   end
+
 end
