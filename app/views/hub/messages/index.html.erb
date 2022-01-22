@@ -25,6 +25,12 @@
         <ul class="day-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
       <% end %>
 
+      <% if @client.first_unanswered_incoming_interaction_at.present? %>
+        <div class="grid-flex justify-flex-end">
+          <%= button_to t(".response_not_needed"), hub_client_no_response_needed_path, method: :post, class: "button button--small button--no-margin" %>
+        </div>
+      <% end %>
+
       <hr/>
       <div class="communication-preferences">
         <% unless @client&.intake.email_address.present? || @client&.intake.sms_phone_number.present? %>
