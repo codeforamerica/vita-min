@@ -251,4 +251,21 @@ RSpec.describe Hub::MessagesController do
     end
   end
 
+  describe "#no_response_needed" do
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :no_response_needed
+
+    context "as an authenticated user" do
+      before { sign_in(user) }
+
+      context "with a client with messages" do
+        let!(:incoming_text_message) { create :incoming_text_message, client: client, body: "thank you! :)))))))))", created_at: DateTime.now }
+
+        it "removes the need to answer the message" do
+          expect(client.first_unanswered_incoming_interaction_at).to be_present
+          post :no_response_needed, params: {client_id: client.id}
+          expect(client.reload.first_unanswered_incoming_interaction_at).to be_nil
+        end
+      end
+    end
+  end
 end
