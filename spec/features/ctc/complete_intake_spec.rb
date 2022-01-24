@@ -119,16 +119,10 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     # =========== DEPENDENTS ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.had_dependents.title'))
-    if Capybara.current_driver == Capybara.javascript_driver
-      page.execute_script("document.querySelector('.reveal').remove()")
-    end
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
     click_on I18n.t('general.back')
-    if Capybara.current_driver == Capybara.javascript_driver
-      page.execute_script("document.querySelector('.reveal').remove()")
-    end
     click_on I18n.t('general.affirmative')
 
     dependent_birth_year = 5.years.ago.year
