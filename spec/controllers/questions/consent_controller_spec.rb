@@ -49,12 +49,44 @@ RSpec.describe Questions::ConsentController do
         expect(session[:intake_id]).to be_nil
       end
 
-      it "creates tax returns in the intake in progress status for years indicated as needing help" do
-        post :update, params: params
+      context "creating tax returns" do
+        it "creates tax returns in the intake in progress status for years indicated as needing help" do
+          post :update, params: params
 
-        expect(intake.tax_returns.pluck(:status).uniq).to eq ["intake_in_progress"]
-        expect(intake.tax_returns.count).to eq 2
-        expect(intake.tax_returns.pluck(:year)).to eq [2021, 2020]
+          expect(intake.tax_returns.pluck(:status).uniq).to eq ["intake_in_progress"]
+          expect(intake.tax_returns.count).to eq 2
+          expect(intake.tax_returns.pluck(:year)).to eq [2021, 2020]
+        end
+
+        context "when a tax return for a selected year already exists" do
+          let!(:tax_return) { create :tax_return, client: intake.client, year: 2018, status: "intake_in_progress" }
+          before do
+            intake.update(needs_help_2018: "yes")
+          end
+
+          it "uses the existing tax return object and does not crash" do
+            post :update, params: params
+
+            expect(intake.tax_returns.count).to eq 3
+            expect(intake.tax_returns.pluck(:year)).to eq [2018, 2021, 2020]
+            expect(intake.tax_returns.find_by(year: 2018)).to eq tax_return
+          end
+        end
+
+        context "when a tax return had existed for a specific year but the needs_help_xxxx value is now false" do
+          let!(:tax_return) { create :tax_return, client: intake.client, year: 2021, status: "intake_in_progress" }
+
+          before do
+            intake.update(needs_help_2021: "no")
+          end
+
+          it "does not have that tax return associated anymore" do
+            expect(intake.tax_returns.pluck(:year)).to include 2021
+
+            post :update, params: params
+            expect(intake.tax_returns.pluck(:year)).not_to include 2021
+          end
+        end
       end
 
       it "sends an event to mixpanel without PII" do
@@ -129,6 +161,17 @@ RSpec.describe Questions::ConsentController do
           end
         end
 
+        context "when a client has already been routed as at capacity" do
+          let(:client) { create :client, routing_method: "at_capacity" }
+          let(:intake) { create :intake, client: client }
+
+          it "runs routing on them again" do
+            post :update, params: params
+
+            expect(organization_router).to have_received(:determine_partner)
+          end
+        end
+
         context "when a client has already been routed (routing_method is present)" do
           let(:client) { create :client, routing_method: "returning_client" }
           let(:intake) { create :intake, client: client }
@@ -190,7 +233,7 @@ RSpec.describe Questions::ConsentController do
 
       context "when routing method is set to at capacity on the client" do
         before do
-          intake.create_client(routing_method: "at_capacity")
+          allow_any_instance_of(Client).to receive(:routing_method_at_capacity?).and_return true
         end
 
         it "does not send a message" do
