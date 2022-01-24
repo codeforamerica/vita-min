@@ -1,3 +1,3 @@
 <% content_for :form_question, t("views.questions.disaster_loss.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filer_count) %>
 
-<% content_for :form_help_text, t("views.questions.disaster_loss.help_text_html", :fema_link => link_to(t("views.questions.disaster_loss.fema_tool"), "https://www.fema.gov/disasters/year/#{current_intake.most_recent_filing_year}?field_dv2_declaration_type_value=All", target: "_blank", rel: "noopener")).html_safe %>
+<% content_for :form_help_text, t("views.questions.disaster_loss.help_text_html", :fema_link => link_to(t("views.questions.disaster_loss.fema_tool"), "https://www.fema.gov/disaster/declarations", target: "_blank", rel: "noopener")).html_safe %>
