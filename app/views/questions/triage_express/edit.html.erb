@@ -51,6 +51,6 @@
     <%= link_to t('.file_with_deluxe'), next_path, class: "button button--wide text--centered" %>
   </div>
   <div>
-    <%= link_to t('.sign_up_for_express'), next_path, class: "button button--wide text--centered" %>
+    <%= link_to t('.sign_up_for_express'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"), class: "button button--wide text--centered" %>
   </div>
 <% end %>
