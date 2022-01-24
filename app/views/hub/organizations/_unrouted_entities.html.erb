@@ -1,0 +1,21 @@
+<div id="stateless">
+  <div class="grid-flex space-between spacing-below-0" style="border-bottom: 1px solid black;">
+    <div class="text--semibold text--small spacing-below-0">
+      <%= t("hub.organizations.index.no_state") %>
+    </div>
+  </div>
+
+  <% if @presenter.unrouted_organizations.any? %>
+    <ul class="no-bullets">
+      <% @presenter.unrouted_organizations.each do |org| %>
+        <% if org.coalition.present? %>
+          <%= render "coalition", coalition: org.coalition %>
+        <% else %>
+          <%= render "organization", organization: org %>
+        <% end %>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= t("general.NA") %>
+  <% end %>
+</div>

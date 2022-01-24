@@ -101,7 +101,10 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     let(:coalition) { create :coalition }
     let!(:external_coalition) { create :coalition }
     let!(:external_organization) { create :organization, coalition: external_coalition }
-    let!(:organization) { create :organization, coalition: coalition }
+    let!(:organization) { create :organization, coalition: coalition, name: "Org with routing target in AL" }
+    let!(:coalition_without_routing_target) { create(:coalition, name: "Coalition with no routing target") }
+    let!(:org_without_routing_target) { create :organization, name: "Org with no routing target", coalition: coalition_without_routing_target }
+    let!(:independent_org_without_routing_target) { create :organization, name: "Independent org with no routing target" }
     let!(:second_organization) { create :organization, coalition: coalition }
     let!(:site) { create :site, parent_organization: organization }
 
@@ -120,19 +123,36 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         render_views
         it "shows my coalition and child organizations but no link to add or edit orgs" do
           get :index
+
           expect(response).to be_ok
           expect(assigns(:presenter)).to be_an_instance_of Hub::OrganizationsPresenter
           expect(response.body).to include hub_organization_path(id: organization)
           expect(response.body).not_to include new_hub_coalition_path
           expect(response.body).not_to include new_hub_organization_path
+          expect(response.body).not_to include edit_hub_coalition_path(id: coalition)
           expect(response.body).not_to include edit_hub_organization_path(id: organization)
         end
       end
 
-      context "as an admin user " do
+      context "as a coalition lead user whose coalition has no routing rules" do
+        let(:user) { create :coalition_lead_user, coalition: coalition_without_routing_target }
+
+        render_views
+        it "shows my coalition and child organizations under 'no state'" do
+          get :index
+
+          response_html = Nokogiri::HTML.parse(response.body)
+          stateless_element = response_html.at_css("#stateless")
+          expect(stateless_element).to have_link(href: hub_coalition_path(id: coalition_without_routing_target))
+          expect(stateless_element).to have_link(href: hub_organization_path(id: org_without_routing_target))
+        end
+      end
+
+      context "as an admin user" do
         let(:user) { create :admin_user }
 
         render_views
+
         it "shows links for organization and coalition, and initializes the presenter" do
           get :index
 
@@ -141,6 +161,17 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
           expect(response.body).to include new_hub_organization_path
           expect(response.body).to include new_hub_coalition_path
           expect(response.body).to include edit_hub_organization_path(id: organization)
+        end
+
+        it "displays entities with and without routing rules" do
+          get :index
+
+          response_html = Nokogiri::HTML.parse(response.body)
+          stateless_element = response_html.at_css("#stateless")
+          expect(stateless_element).to have_link(href: edit_hub_organization_path(id: organization))
+          expect(stateless_element).to have_link(href: edit_hub_organization_path(id: independent_org_without_routing_target))
+          expect(stateless_element).to have_link(href: edit_hub_organization_path(id: org_without_routing_target))
+          expect(stateless_element).to have_link(href: edit_hub_coalition_path(id: coalition_without_routing_target))
         end
       end
     end
