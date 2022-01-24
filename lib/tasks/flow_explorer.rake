@@ -1,6 +1,8 @@
 namespace :flow_explorer do
   desc "Capture flow explorer screenshots by running specialized Capybara runs"
   task capture_screenshots: :environment do |_task|
+    all_passed = true
+
     # We run specs in spec/features/ctc because the GYR specs sometimes fail.
     # TODO(someday): Remove "spec/features/ctc" from command lines below so we generate screenshots from
     # any spec marked flow_explorer_screenshot: true or flow_explorer_screenshot_i18n_friendly: true.
@@ -10,8 +12,11 @@ namespace :flow_explorer do
       "FLOW_EXPLORER_LOCALE=es rspec --tag flow_explorer_screenshot_i18n_friendly spec/features/ctc",
     ].each do |cmd|
       puts "RUNNING: #{cmd}"
-      system(cmd)
+      result = system(cmd)
+      all_passed = false unless result
     end
+
+    exit all_passed
   end
 
   desc "Upload flow explorer screenshots to s3"
