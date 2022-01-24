@@ -6,7 +6,7 @@
     <%= t(".body_html",
           client_link:
             link_to(
-                notification.notifiable.client.preferred_name,
+                Hub::ClientsController::HubClientPresenter.new(notification.notifiable.client).preferred_name,
                 hub_client_notes_path(client_id: notification.notifiable.client.id)
             )
         ) %>

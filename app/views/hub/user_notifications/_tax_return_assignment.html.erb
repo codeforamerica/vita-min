@@ -6,7 +6,7 @@
     <%= t(".body_html",
           assigner: notification.notifiable.assigner.name,
           tax_return_year: notification.notifiable.tax_return.year.to_s,
-          client_link: link_to(t(".body_link", client_name: notification.notifiable.tax_return.client.preferred_name), hub_client_path(id: notification.notifiable.tax_return.client)))
+          client_link: link_to(t(".body_link", client_name: Hub::ClientsController::HubClientPresenter.new(notification.notifiable.tax_return.client).preferred_name), hub_client_path(id: notification.notifiable.tax_return.client)))
     %>
   </div>
 </div>
