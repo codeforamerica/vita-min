@@ -14,7 +14,7 @@ module Questions
     def after_update_success
       GenerateRequiredConsentPdfJob.perform_later(current_intake)
 
-      # client has not yet been routed, or was previousl determined to have been at capacity
+      # client has not yet been routed, or was previously determined to have been at capacity
       if current_intake.client.routing_method.blank? || current_intake.client.routing_method_at_capacity?
         routing_service = PartnerRoutingService.new(
           intake: current_intake,
