@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe NavigationHelper do
+RSpec.describe NavigationHelper, requires_default_vita_partners: true do
   describe "#fraud_icon" do
     let(:client) { create(:client_with_ctc_intake_and_return)}
 

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Ctc::Questions::IncomeController do
+describe Ctc::Questions::IncomeController, requires_default_vita_partners: true do
   context '#update' do
     let(:ip_address) { "127.0.0.1" }
     let(:had_reportable_income) { "no" }

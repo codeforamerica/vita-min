@@ -15,7 +15,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe Report::SLABreachReport, type: :model do
+RSpec.describe Report::SLABreachReport, type: :model, requires_default_vita_partners: true do
   describe ".generate!" do
 
     let(:fake_report) do

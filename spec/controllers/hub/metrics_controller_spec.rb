@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Hub::MetricsController do
+describe Hub::MetricsController, requires_default_vita_partners: true do
   describe '#index' do
     let(:sla_breach_report_double) { instance_double(Report::SLABreachReport) }
     let(:vita_partner_1) { create :organization, name: "Vita Partner 1" }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hub::UnlinkedClientsController do
+RSpec.describe Hub::UnlinkedClientsController, requires_default_vita_partners: true do
   describe "#index" do
     it_behaves_like :a_get_action_for_admins_only, action: :index
 
