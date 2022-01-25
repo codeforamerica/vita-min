@@ -98,7 +98,7 @@
               <span class="form-question"><%= t("general.dependents") %>:</span>
               <span class="label-value"><%= @client.intake&.dependents.with_deleted.length %></span>
               <ul id="dependents-list" class="no-bullets">
-                <%= render @client.intake.dependents.with_deleted %>
+                <%= render partial: 'hub/dependents/dependent', collection: @client.intake.dependents.with_deleted %>
               </ul>
             </div>
           </div>
