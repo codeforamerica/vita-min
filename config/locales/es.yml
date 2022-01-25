@@ -789,6 +789,7 @@ es:
       index:
         add_coalition: Agregar una nueva coalición
         add_organization: Agregar una nueva coalición
+        no_state: Sin estado
         title: Lista de Organizaciones
       new:
         title: Nueva Organización
