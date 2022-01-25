@@ -163,12 +163,11 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
           expect(response.body).to include edit_hub_organization_path(id: organization)
         end
 
-        it "displays entities with and without routing rules" do
+        it "displays entities without routing rules" do
           get :index
 
           response_html = Nokogiri::HTML.parse(response.body)
           stateless_element = response_html.at_css("#stateless")
-          expect(stateless_element).to have_link(href: edit_hub_organization_path(id: organization))
           expect(stateless_element).to have_link(href: edit_hub_organization_path(id: independent_org_without_routing_target))
           expect(stateless_element).to have_link(href: edit_hub_organization_path(id: org_without_routing_target))
           expect(stateless_element).to have_link(href: edit_hub_coalition_path(id: coalition_without_routing_target))

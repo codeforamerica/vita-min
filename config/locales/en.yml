@@ -789,8 +789,8 @@ en:
       index:
         add_coalition: Add new coalition
         add_organization: Add new organization
+        no_state: No state
         title: Organization List
-        no_state: "No state"
       new:
         title: New Organization
       no_sites: No sites
