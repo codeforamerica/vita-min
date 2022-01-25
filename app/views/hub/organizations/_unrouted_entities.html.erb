@@ -5,17 +5,21 @@
     </div>
   </div>
 
-  <% if @presenter.unrouted_organizations.any? %>
-    <ul class="no-bullets">
-      <% @presenter.unrouted_organizations.each do |org| %>
-        <% if org.coalition.present? %>
-          <%= render "coalition", coalition: org.coalition %>
-        <% else %>
-          <%= render "organization", organization: org %>
-        <% end %>
+  <ul class="no-bullets">
+    <% if @presenter.unrouted_independent_organizations.any? %>
+      <% @presenter.unrouted_independent_organizations.each do |org| %>
+        <%= render "organization", organization: org %>
       <% end %>
-    </ul>
-  <% else %>
+    <% end %>
+
+    <% if @presenter.unrouted_coalitions.any? %>
+      <% @presenter.unrouted_coalitions.each do |coalition| %>
+        <%= render "coalition", coalition: coalition %>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <% if @presenter.unrouted_independent_organizations.empty? && @presenter.unrouted_coalitions.empty? %>
     <%= t("general.NA") %>
   <% end %>
 </div>
