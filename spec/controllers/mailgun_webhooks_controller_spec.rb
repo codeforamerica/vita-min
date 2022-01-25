@@ -66,7 +66,7 @@ RSpec.describe MailgunWebhooksController do
       end
     end
 
-    context "with HTTP basic auth credentials", requires_default_vita_partners: true do
+    context "with HTTP basic auth credentials" do
       before do
         request.env["HTTP_AUTHORIZATION"] = valid_auth_credentials
         allow(DatadogApi).to receive(:increment)

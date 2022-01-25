@@ -47,7 +47,7 @@
 #
 require "rails_helper"
 
-RSpec.describe User, type: :model, requires_default_vita_partners: true do
+RSpec.describe User, type: :model do
   describe "#valid?" do
     it "required fields" do
       user = User.new

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: true do
+RSpec.feature "CTC Intake", :js, :active_job do
   module CtcPortalHelper
     def log_in_to_ctc_portal
       visit "/en/portal/login"

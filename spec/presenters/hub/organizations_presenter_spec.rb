@@ -59,7 +59,13 @@ describe Hub::OrganizationsPresenter do
 
     describe "#unrouted_independent_organizations" do
       it "returns a collection of the independent organizations that have no state routing rules" do
-        expect(subject.unrouted_independent_organizations).to match_array([unrouted_organization])
+        ctc_org = Organization.find_by(name: "GetCTC.org")
+        national_org = VitaPartner.find_by(name: "GYR National Organization")
+        expect(subject.unrouted_independent_organizations).to match_array([
+          unrouted_organization,
+          national_org,
+          ctc_org
+        ])
       end
     end
 

@@ -29,7 +29,7 @@
 #
 require "rails_helper"
 
-describe VitaPartner, requires_default_vita_partners: true do
+describe VitaPartner do
   describe "#active?" do
     context "when there is a routing target for vita partner > 0.0" do
       let(:vita_partner) { create :organization }

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Ctc::IncomeForm, requires_default_vita_partners: true do
+describe Ctc::IncomeForm do
   context "validations" do
     let(:params) {
       {

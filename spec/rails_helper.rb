@@ -88,6 +88,13 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  config.before(:all) do
+    # Create client support org
+    Organization.find_or_create_by!(name: "GYR National Organization", allows_greeters: true)
+    ctc_org = Organization.find_or_create_by!(name: "GetCTC.org", allows_greeters: false)
+    Site.find_or_create_by!(name: "GetCTC.org (Site)", parent_organization: ctc_org)
+  end
+
   config.before(:each) do
     stub_request(:post, /.*api\.twilio\.com.*/).to_return(status: 200, body: "", headers: {})
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
