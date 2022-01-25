@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe VitaPartnerHelper do
+describe VitaPartnerHelper, requires_default_vita_partners: true do
   describe "#grouped_vita_partner_options" do
     context "when user's role is Team Member" do
       let(:team_member) { create :team_member_user }
