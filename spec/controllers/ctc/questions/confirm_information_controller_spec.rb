@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Ctc::Questions::ConfirmInformationController do
+describe Ctc::Questions::ConfirmInformationController, requires_default_vita_partners: true do
   let(:intake) { create(:client_with_ctc_intake_and_return).intake }
 
   describe "#edit" do

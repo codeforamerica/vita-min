@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Hub::EfileSubmissionsController do
+describe Hub::EfileSubmissionsController, requires_default_vita_partners: true do
   describe '#index' do
     it_behaves_like :an_action_for_admins_only, action: :index, method: :get
 

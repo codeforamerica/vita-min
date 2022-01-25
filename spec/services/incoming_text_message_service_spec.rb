@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe IncomingTextMessageService do
+describe IncomingTextMessageService, requires_default_vita_partners: true do
   describe ".process" do
     let(:body) { "Hello, it me" }
     let(:incoming_message_params) do

@@ -31,7 +31,7 @@ def begin_intake
   click_on I18n.t('general.negative')
 end
 
-RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active_job: true do
+RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active_job: true, requires_default_vita_partners: true do
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
     allow(Rails.env).to receive(:production?).and_return(true)
