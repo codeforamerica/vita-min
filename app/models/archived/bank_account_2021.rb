@@ -30,7 +30,7 @@ module Archived
   class BankAccount2021 < ApplicationRecord
     self.table_name = 'archived_bank_accounts_2021'
 
-    belongs_to :intake, inverse_of: :bank_account
+    belongs_to :intake, inverse_of: :bank_account, foreign_key: 'archived_intakes_2021_id', class_name: 'Archived::Intake::CtcIntake2021'
 
     attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
     attr_encrypted :routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
