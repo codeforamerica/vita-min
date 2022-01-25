@@ -55,7 +55,7 @@ module Archived
 
     include SoftDeletable
 
-    belongs_to :intake, inverse_of: :dependents
+    belongs_to :intake, inverse_of: :dependents, foreign_key: 'archived_intakes_2021_id', class_name: 'Archived::Intake2021'
 
     attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
     attr_encrypted :ip_pin, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
