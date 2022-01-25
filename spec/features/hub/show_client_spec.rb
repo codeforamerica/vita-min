@@ -50,7 +50,7 @@ RSpec.describe "a user viewing a client" do
       end
     end
 
-    context "for a client with an archived 2021 intake" do
+    context "for a client with an archived 2021 GYR intake" do
       let(:intake) { nil }
       let!(:archived_intake) {  create(:archived_2021_gyr_intake, client: client) }
       let!(:archived_dependent) {  create(:archived_2021_dependent, intake: archived_intake) }
@@ -59,6 +59,20 @@ RSpec.describe "a user viewing a client" do
         visit hub_client_path(id: client.id)
         expect(page).to have_content(archived_intake.preferred_name)
         expect(page).to have_content(archived_dependent.full_name)
+      end
+    end
+
+    context "for a client with an archived 2021 CTC intake" do
+      let(:intake) { nil }
+      let!(:archived_intake) {  create(:archived_2021_ctc_intake, client: client) }
+      let!(:archived_dependent) {  create(:archived_2021_dependent, intake: archived_intake) }
+      let!(:archived_bank_account) {  create(:archived_2021_bank_account, intake: archived_intake) }
+
+      it "can view intake information" do
+        visit hub_client_path(id: client.id)
+        expect(page).to have_content(archived_intake.preferred_name)
+        expect(page).to have_content(archived_dependent.full_name)
+        expect(page).to have_content(archived_bank_account.bank_name)
       end
     end
   end
