@@ -18,7 +18,7 @@ RSpec.describe TriageAssistanceForm do
       let(:params) do
         {
           assistance_in_person: "no",
-          assistance_phone_review_english: "no",
+          assistance_phone_review_english: "yes",
           assistance_phone_review_non_english: "no",
           assistance_none: "yes"
         }

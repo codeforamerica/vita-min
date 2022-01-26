@@ -138,7 +138,7 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
         TaxReturn.current_tax_year - 1,
       ],
       income_type_options: ['none_of_the_above'],
-      assistance_options: ['chat'],
+      assistance_options: ['in_person', 'phone_review_english', 'phone_review_non_english'],
     )
 
     expect(pages).to eq([
