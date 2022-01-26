@@ -14,6 +14,17 @@
 #
 FactoryBot.define do
   factory :verification_attempt do
-    
+    client
+    selfie { nil }
+    photo_identification { nil }
+    note_body { "This looks right to me. What do you think?" }
+
+    transient do
+      selfie_path { Rails.root.join("spec", "fixtures", "files", "picture_id.jpg") }
+    end
+
+    transient do
+      photo_identification_path { Rails.root.join("spec", "fixtures", "files", "picture_id.jpg") }
+    end
   end
 end

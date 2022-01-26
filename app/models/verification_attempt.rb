@@ -17,3 +17,4 @@ class VerificationAttempt < ApplicationRecord
   has_one_attached :selfie
   has_one_attached :photo_identification
 end
+
