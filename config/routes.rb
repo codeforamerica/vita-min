@@ -88,7 +88,7 @@ Rails.application.routes.draw do
             end
           end
         end
-      end
+    end
 
       namespace :documents do
         get "/add/:token", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login" }, as: :add_requested_documents
