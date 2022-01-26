@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,8 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_09_183810) do
-
+ActiveRecord::Schema.define(version: 2022_01_25_232709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1361,6 +1362,14 @@ ActiveRecord::Schema.define(version: 2021_12_09_183810) do
     t.index ["role_type", "role_id"], name: "index_users_on_role_type_and_role_id", unique: true
   end
 
+  create_table "verification_attempts", force: :cascade do |t|
+    t.bigint "client_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.text "note_body"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_verification_attempts_on_client_id"
+  end
+
   create_table "vita_partner_states", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.float "routing_fraction", default: 0.0, null: false
@@ -1402,7 +1411,7 @@ ActiveRecord::Schema.define(version: 2021_12_09_183810) do
   create_table "vita_providers", force: :cascade do |t|
     t.string "appointment_info"
     t.boolean "archived", default: false, null: false
-    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.geography "coordinates", limit: { srid: 4326, type: "st_point", geographic: true }
     t.datetime "created_at"
     t.string "dates"
     t.string "details"
