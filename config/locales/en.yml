@@ -1491,7 +1491,6 @@ en:
     triage_assistance:
       edit:
         assistance:
-          chat: chat support
           in_person: in-person assistance
           phone_review_english: phone review (english)
           phone_review_non_english: phone review (non english language)

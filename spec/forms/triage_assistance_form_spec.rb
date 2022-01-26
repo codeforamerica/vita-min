@@ -18,7 +18,6 @@ RSpec.describe TriageAssistanceForm do
       let(:params) do
         {
           assistance_in_person: "no",
-          assistance_chat: "yes",
           assistance_phone_review_english: "no",
           assistance_phone_review_non_english: "no",
           assistance_none: "yes"
@@ -38,7 +37,6 @@ RSpec.describe TriageAssistanceForm do
       let(:params) do
         {
           assistance_in_person: "no",
-          assistance_chat: "yes",
           assistance_phone_review_english: "no",
           assistance_phone_review_non_english: "no",
           assistance_none: "no"
@@ -50,7 +48,6 @@ RSpec.describe TriageAssistanceForm do
         triage.reload
 
         expect(triage.assistance_in_person).to eq "no"
-        expect(triage.assistance_chat).to eq "yes"
         expect(triage.assistance_phone_review_english).to eq "no"
         expect(triage.assistance_phone_review_non_english).to eq "no"
       end

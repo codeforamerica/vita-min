@@ -1447,7 +1447,6 @@ es:
     triage_assistance:
       edit:
         assistance:
-          chat: soporte de chat
           in_person: asistencia en persona
           phone_review_english: revisión telefónica (inglés)
           phone_review_non_english: revisión telefónica (idioma no inglés)
