@@ -9,8 +9,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
   scenario "new client filing single without dependents" do
     answer_gyr_triage_questions(choices: :defaults)
 
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_deluxe.edit.title'))
-    click_on I18n.t('questions.triage_deluxe.edit.file_online')
+    expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr.edit.title'))
+    click_on I18n.t('questions.triage_gyr.edit.file_online')
 
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: "What years would you like to file for?")

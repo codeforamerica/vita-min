@@ -26,9 +26,9 @@
   </div>
 
   <div class="marketing-comparison">
-    <h2><%= t('.comparison.deluxe.title') %></h2>
-    <p><i><%= t('.comparison.deluxe.timeframe') %></i></p>
-    <p><%= t('.comparison.deluxe.description') %></p>
+    <h2><%= t('.comparison.gyr.title') %></h2>
+    <p><i><%= t('.comparison.gyr.timeframe') %></i></p>
+    <p><%= t('.comparison.gyr.description') %></p>
     <div class="bottom-section">
       <div>
         <div><%= t('.collect_your') %></div>
@@ -48,7 +48,7 @@
   </div>
 
   <div class="spacing-above-60">
-    <%= link_to t('.file_with_deluxe'), next_path, class: "button button--wide text--centered" %>
+    <%= link_to t('.file_with_gyr'), next_path, class: "button button--wide text--centered" %>
   </div>
   <div>
     <%= link_to t('.sign_up_for_express'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"), class: "button button--wide text--centered" %>

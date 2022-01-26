@@ -1504,7 +1504,7 @@ en:
 
           Don’t worry if you haven’t filed for any of these years, we’re here to help!
         title: Have you filed taxes in the past? Let us know years that you filed.
-    triage_deluxe:
+    triage_gyr:
       edit:
         file_in_person: File In Person
         file_on_my_own: Actually, I want to try filing quickly on my own using free software.
@@ -1515,7 +1515,7 @@ en:
           Available online or in person!
 
           Our IRS-certified tax team will provide hands on support with your taxes!
-        title: We recommend filing with our free Deluxe option!
+        title: We recommend filing with our free GetYourRefund option!
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
@@ -1539,15 +1539,15 @@ en:
           eitc: Earned Income Tax Credit
           missing_stimulus: Missing Stimulus Payments
         comparison:
-          deluxe:
+          gyr:
             description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
             timeframe: 2-3 weeks to file
-            title: Deluxe
+            title: GetYourRefund
           express:
             description: File quickly on your own!
             timeframe: 15 minutes to file, available April 2022
             title: Express
-        file_with_deluxe: File with Deluxe
+        file_with_gyr: File with GetYourRefund
         refund: Refund
         sign_up_for_express: Sign up for Express
         title: We have two free options that may work for you!
@@ -3573,7 +3573,7 @@ en:
         find_right_service: We’ll ask a few questions, to find the right service for you!
         help_text: 'We provide multiple tax filing options to households that qualify:'
         list:
-        - "<strong>Deluxe</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
+        - "<strong>GetYourRefund</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
         - "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
         - "<strong>Express</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
         title: Welcome to our free service!

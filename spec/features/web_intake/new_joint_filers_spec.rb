@@ -10,8 +10,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     answer_gyr_triage_questions(screenshot_method: self.method(:screenshot_after), choices: :defaults)
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: I18n.t('questions.triage_deluxe.edit.title'))
-      click_on I18n.t('questions.triage_deluxe.edit.file_online')
+      expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr.edit.title'))
+      click_on I18n.t('questions.triage_gyr.edit.file_online')
     end
 
     screenshot_after do

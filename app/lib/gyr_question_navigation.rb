@@ -10,7 +10,7 @@ class GyrQuestionNavigation
       Questions::TriageBacktaxesYearsController,
       Questions::TriageAssistanceController,
       Questions::TriageIncomeTypesController,
-      Questions::TriageDeluxeController,
+      Questions::TriageGyrController,
       Questions::TriageReferralController,
       Questions::TriageExpressController,
       Questions::TriageDoNotQualifyController,

@@ -1460,7 +1460,7 @@ es:
 
           No se preocupe si no ha solicitado ninguno de estos años, ¡estamos aquí para ayudarlo!
         title: "¿Ha presentado impuestos en el pasado? Háganos saber los años que presentó."
-    triage_deluxe:
+    triage_gyr:
       edit:
         file_in_person: Presentar en persona
         file_on_my_own: En realidad, prefiero presentar la solicitud rápidamente por mi cuenta sin ayuda.
@@ -1471,7 +1471,7 @@ es:
           ¡Disponible en línea o en persona!
 
           ¡Nuestro equipo de impuestos certificado por el IRS le brindará apoyo práctico con sus impuestos!
-        title: "¡Recomendamos presentar con nuestra opción Deluxe gratuita!"
+        title: "¡Recomendamos presentar con nuestra opción GetYourRefund gratuita!"
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
@@ -1498,12 +1498,12 @@ es:
           deluxe:
             description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
             timeframe: 2-3 semanas para presentar
-            title: Deluxe
+            title: GetYourRefund
           express:
             description: "¡Archive rápidamente por su cuenta!"
             timeframe: 15 minutos para presentar, disponible en marzo de 2022
             title: Express
-        file_with_deluxe: Archivo con Deluxe
+        file_with_gyr: Archivo con GetYourRefund
         refund: Reembolso
         sign_up_for_express: Suscríbete a Express
         title: "¡Tenemos dos opciones gratuitas que pueden funcionar para usted!"
@@ -3540,7 +3540,7 @@ es:
         find_right_service: We’ll ask a few questions, to find the right service for you!
         help_text: 'We provide multiple tax filing options to households that qualify:'
         list:
-        - "<strong>Deluxe</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
+        - "<strong>GetYourRefund</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
         - "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
         - "<strong>Express</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
         title: Welcome to our free service!
