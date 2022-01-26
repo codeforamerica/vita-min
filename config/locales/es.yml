@@ -1495,7 +1495,7 @@ es:
           eitc: Crédito tributario por ingresos del trabajo
           missing_stimulus: Faltan Pagos de Estímulo
         comparison:
-          deluxe:
+          gyr:
             description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
             timeframe: 2-3 semanas para presentar
             title: GetYourRefund
