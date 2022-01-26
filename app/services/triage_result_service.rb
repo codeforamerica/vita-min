@@ -28,9 +28,9 @@ class TriageResultService
   end
 
   def after_assistance
-    if triage.assistance_none_yes?
-      return route_to_diy
-    end
+    # if triage.assistance_none_yes?
+    #   return route_to_diy
+    # end
   end
 
   def after_id_type
@@ -38,15 +38,19 @@ class TriageResultService
   end
 
   def after_doc_type
-    return route_to_ctc if triage.income_level_hh_1_to_25100? &&
-      (triage.id_type_have_paperwork? || triage.id_type_know_number?) &&
-      triage.doc_type_need_help?
+    # return route_to_ctc if
+    #   (triage.income_level_zero? || triage.income_level_hh_1_to_25100?) &&
+    #   (triage.id_type_have_paperwork? || triage.id_type_know_number?) &&
+    #   (triage.doc_type_need_help? || triage.doc_type_does_not_apply?)
     return Questions::TriageIncomeTypesController.to_path_helper if triage.doc_type_need_help?
   end
 
   def after_income_type
     return route_to_diy if triage.income_type_farm_yes? || triage.income_type_rent_yes?
-    return Questions::TriageGyrController.to_path_helper
+    return route_to_ctc if (triage.income_level_zero? || triage.income_level_hh_1_to_25100?) &&
+      (triage.id_type_have_paperwork? || triage.id_type_know_number?) &&
+      (triage.doc_type_need_help? || triage.doc_type_does_not_apply?)
+    return Questions::TriageDeluxeController.to_path_helper
   end
 
   private

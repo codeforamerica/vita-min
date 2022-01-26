@@ -87,7 +87,33 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
     ].map(&:to_path_helper))
   end
 
-  scenario "client with next step above 0 and does not have tax documents is routed to getctc option" do
+  scenario "client filing for just 2021 with lowest non-zero income and says tax docs don't apply to them is routed to getctc option" do
+    pages = answer_gyr_triage_questions(
+      income_level: "hh_1_to_25100_html",
+      id_type: "have_paperwork",
+      doc_type: "does_not_apply_html",
+      filed_past_years: [
+        TaxReturn.current_tax_year - 3,
+        TaxReturn.current_tax_year - 2,
+        TaxReturn.current_tax_year - 1,
+      ],
+      income_type_options: ['none_of_the_above'],
+      assistance_options: ['none_of_the_above'],
+    )
+
+    expect(pages).to eq([
+                          Questions::TriageIncomeLevelController,
+                          Questions::TriageStartIdsController,
+                          Questions::TriageIdTypeController,
+                          Questions::TriageDocTypeController,
+                          Questions::TriageBacktaxesYearsController,
+                          Questions::TriageAssistanceController,
+                          Questions::TriageIncomeTypesController,
+                          Questions::TriageExpressController,
+                        ].map(&:to_path_helper))
+  end
+
+  scenario "client with income above 0 and does not have tax documents is routed to getctc option" do
     pages = answer_gyr_triage_questions(
       income_level: "hh_1_to_25100_html",
       id_type: "have_paperwork",
@@ -150,6 +176,32 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
       Questions::TriageAssistanceController,
       Questions::TriageIncomeTypesController,
       Questions::TriageGyrController,
+    ].map(&:to_path_helper))
+  end
+
+  scenario "client with IDs and some/all tax docs and within filing limit of 66k and needing assistance and rental or farm income is routed to do not qualify" do
+    pages = answer_gyr_triage_questions(
+      income_level: "hh_25100_to_66000",
+      id_type: "have_paperwork",
+      doc_type: "all_copies_html",
+      filed_past_years: [
+        TaxReturn.current_tax_year - 3,
+        TaxReturn.current_tax_year - 2,
+        TaxReturn.current_tax_year - 1,
+      ],
+      income_type_options: ['farm'],
+      assistance_options: ['chat'],
+    )
+
+    expect(pages).to eq([
+      Questions::TriageIncomeLevelController,
+      Questions::TriageStartIdsController,
+      Questions::TriageIdTypeController,
+      Questions::TriageDocTypeController,
+      Questions::TriageBacktaxesYearsController,
+      Questions::TriageAssistanceController,
+      Questions::TriageIncomeTypesController,
+      Questions::TriageReferralController,
     ].map(&:to_path_helper))
   end
 
