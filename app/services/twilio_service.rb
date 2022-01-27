@@ -56,7 +56,7 @@ class TwilioService
       )
     end
 
-    def send_text_message(to:, body:, status_callback: nil)
+    def send_text_message(to:, body:, status_callback: nil, outgoing_text_message: nil)
       arguments = {
         messaging_service_sid: EnvironmentCredentials.dig(:twilio, :messaging_service_sid),
         to: to,
@@ -67,6 +67,11 @@ class TwilioService
       DatadogApi.increment("twilio.outgoing_text_messages.sent")
 
       client.messages.create(arguments)
+    rescue Twilio::REST::RestError => e
+      outgoing_text_message.update(twilio_status: "twilio_error") if outgoing_text_message
+      unless e.code == 21211 # Invalid 'To' Phone Number https://www.twilio.com/docs/api/errors/21211
+        raise
+      end
     end
   end
 end
