@@ -255,6 +255,13 @@ class ApplicationController < ActionController::Base
     return app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_intake
   end
 
+  def open_for_soft_launch?
+    return true if app_time >= Rails.configuration.start_of_unique_links_only_intake &&
+      app_time <= Rails.configuration.end_of_intake
+
+    return app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_intake
+  end
+
   def open_for_ctc_intake?
     app_time <= CTC_INTAKE_CLOSING_TIME
   end
