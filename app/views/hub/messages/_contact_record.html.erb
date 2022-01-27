@@ -3,6 +3,7 @@
   to add new messages to the page as a result of a websocket broadcast
 !-->
 <% self.extend(ContactRecordHelper) %>
+<% presenter = ContactRecordPresenter.new(contact_record) %>
 <% last_day ||= false %>
 <% contact_record_iteration ||= nil %>
 <li class="message message--<%= contact_record.contact_record_type %>" id="<%= "last-item" if last_day && contact_record_iteration&.last? %>">
@@ -10,11 +11,11 @@
     <div class="message__heading">
       <div class="message__authority">
         <div class="message__author">
-          <%= display_author(contact_record) %>
+          <%= presenter.display_author %>
         </div>
 
         <div class="message__contact-info">
-          <%= message_heading(contact_record) %>
+          <%= presenter.message_heading %>
         </div>
 
         <%= twilio_deliverability_status(contact_record.twilio_status) if contact_record.respond_to? :twilio_status %>

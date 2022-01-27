@@ -1,28 +1,4 @@
 module ContactRecordHelper
-  def display_author(contact_record)
-    type = contact_record.contact_record_type
-    return "#{I18n.t("hub.messages.automated")} " if type.to_s.include?("outgoing") && !contact_record.try(:author)
-
-    contact_record.try(:author)
-  end
-
-  def message_heading(contact_record)
-    case contact_record.contact_record_type
-    when :incoming_text_message
-      "#{I18n.t("hub.messages.from")} #{contact_record.from}"
-    when :outgoing_text_message
-      "#{I18n.t("hub.messages.to")} #{contact_record.to}"
-    when :incoming_email
-      "#{I18n.t("hub.messages.from")} #{contact_record.from}"
-    when :outgoing_email
-      "#{I18n.t("hub.messages.to")} #{contact_record.to}"
-    when :incoming_portal_message
-      I18n.t("hub.messages.portal_message")
-    else
-      contact_record.try(:heading)
-    end
-  end
-
   def twilio_deliverability_status(status)
     status ||= "sending"
 

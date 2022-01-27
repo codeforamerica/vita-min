@@ -34,10 +34,6 @@ class IncomingTextMessage < ApplicationRecord
     received_at
   end
 
-  def author
-    client.preferred_name
-  end
-
   def from
     PhoneParser.formatted_phone_number(from_phone_number)
   end
