@@ -19,7 +19,7 @@ module RoleHelper
       I18n.t("general.greeter")
     when TeamMemberRole::TYPE
       I18n.t("general.team_member")
-    end.titleize
+    end&.titleize
   end
 
   def user_group(user)

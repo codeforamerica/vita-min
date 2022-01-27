@@ -2,7 +2,7 @@
 <% content_for :page_title, @main_heading %>
 <% content_for :card do %>
   <div class="slab slab--not-padded">
-    <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), local: true, builder: VitaMinFormBuilder, html: { method: :post }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: invitation_path(resource_name, role: params[:role]), local: true, builder: VitaMinFormBuilder, html: { method: :post }) do |f| %>
       <h1><%= @main_heading %></h1>
 
       <ul>
@@ -13,7 +13,7 @@
       <div class="form-group">
         <%= label_tag(:role, "Which role?", class: "form-question") %>
         <div class="select form-width--long">
-          <%= select_tag(:role, options_for_select([readable_role_from_role_type(params[:role]), params[:role]]), class: "select__element", disabled: true, style: "background-color: #F8F8F8") %>
+          <%= select_tag(:role, options_for_select([readable_role_from_role_type(params[:role]), params[:role]], params[:role]), class: "select__element", disabled: true, style: "background-color: #F8F8F8") %>
         </div>
       </div>
 

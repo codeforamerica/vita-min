@@ -69,5 +69,22 @@ RSpec.feature "Inviting admin users" do
       expect(page).to have_text "Aileen Artichoke"
       expect(page).to have_text "Admin"
     end
+
+    it "shows errors if the required data was not provided" do
+      visit hub_tools_path
+      click_on "Invitations"
+
+      # Invitations page
+      expect(page).to have_selector "h1", text: "Invitations"
+      select "Admin", from: "What type of user do you want to invite?"
+      click_on "Continue"
+
+      # new invitation page
+      expect(page).to have_text "Send a new invitation"
+      click_on "Send invitation email"
+
+      expect(page).to have_text(I18n.t('errors.messages.blank'))
+      expect(page).to have_select('Which role?', selected: 'AdminRole', disabled: true)
+    end
   end
 end
