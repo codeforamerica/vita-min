@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_25_233029) do
+ActiveRecord::Schema.define(version: 2022_01_26_233222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1331,7 +1331,6 @@ ActiveRecord::Schema.define(version: 2022_01_25_233029) do
   end
 
   create_table "triages", force: :cascade do |t|
-    t.integer "assistance_chat", default: 0, null: false
     t.integer "assistance_in_person", default: 0, null: false
     t.integer "assistance_phone_review_english", default: 0, null: false
     t.integer "assistance_phone_review_non_english", default: 0, null: false

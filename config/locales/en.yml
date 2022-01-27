@@ -1491,7 +1491,6 @@ en:
     triage_assistance:
       edit:
         assistance:
-          chat: chat support
           in_person: in-person assistance
           phone_review_english: phone review (english)
           phone_review_non_english: phone review (non english language)
@@ -1504,18 +1503,6 @@ en:
 
           Don’t worry if you haven’t filed for any of these years, we’re here to help!
         title: Have you filed taxes in the past? Let us know years that you filed.
-    triage_deluxe:
-      edit:
-        file_in_person: File In Person
-        file_on_my_own: Actually, I prefer to file quickly on my own without assistance.
-        file_online: File Online
-        help_text: |
-          Collect all of the tax credits you are owed with assistance.
-
-          Available online or in person!
-
-          Our IRS-certified tax team will provide hands on support with your taxes!
-        title: We recommend filing with our free Deluxe option!
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
@@ -1539,18 +1526,30 @@ en:
           eitc: Earned Income Tax Credit
           missing_stimulus: Missing Stimulus Payments
         comparison:
-          deluxe:
-            description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
-            timeframe: 2-3 weeks to file
-            title: Deluxe
           express:
             description: File quickly on your own!
-            timeframe: 15 minutes to file, available March 2022
+            timeframe: 15 minutes to file, available April 2022
             title: Express
-        file_with_deluxe: File with Deluxe
+          gyr:
+            description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
+            timeframe: 2-3 weeks to file
+            title: GetYourRefund
+        file_with_gyr: File with GetYourRefund
         refund: Refund
         sign_up_for_express: Sign up for Express
         title: We have two free options that may work for you!
+    triage_gyr:
+      edit:
+        file_in_person: File In Person
+        file_on_my_own: Actually, I want to try filing quickly on my own using free software.
+        file_online: File Online
+        help_text: |
+          Collect all of the tax credits you are owed with assistance.
+
+          Available online or in person!
+
+          Our IRS-certified tax team will provide hands on support with your taxes!
+        title: We recommend filing with our free GetYourRefund option!
     triage_id_type:
       edit:
         ssn_itin_type:
@@ -1586,7 +1585,7 @@ en:
     triage_referral:
       edit:
         help_text: |
-          File online on your own using an IRS-certified partner website. This is our quickest option to file your taxes and collect the tax credits you are owed!
+          File online on your own using a partner website. This is our quickest option to file your taxes and collect the tax credits you are owed!
 
           By clicking continue, you will be taken to our partner’s site to continue filing on your own. The process is simple, quick, and easy.
         title: We recommend filing with our free File Myself option!
@@ -3573,7 +3572,7 @@ en:
         find_right_service: We’ll ask a few questions, to find the right service for you!
         help_text: 'We provide multiple tax filing options to households that qualify:'
         list:
-        - "<strong>Deluxe</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
+        - "<strong>GetYourRefund</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
         - "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
         - "<strong>Express</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
         title: Welcome to our free service!

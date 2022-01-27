@@ -39,7 +39,7 @@ describe TriageResultService do
           end
 
           it "redirects to full service" do
-            expect(subject.after_backtaxes_years).to eq(Questions::TriageDeluxeController.to_path_helper)
+            expect(subject.after_backtaxes_years).to eq(Questions::TriageGyrController.to_path_helper)
           end
         end
       end

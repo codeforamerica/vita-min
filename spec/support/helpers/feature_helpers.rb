@@ -61,7 +61,7 @@ module FeatureHelpers
           TaxReturn.current_tax_year - 2,
           TaxReturn.current_tax_year - 1,
         ],
-        assistance_options: ['chat'],
+        assistance_options: ['in_person', 'phone_review_english', 'phone_review_non_english'],
         income_type_options: ['none_of_the_above']
       }
     end

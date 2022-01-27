@@ -3,7 +3,6 @@
 # Table name: triages
 #
 #  id                                  :bigint           not null, primary key
-#  assistance_chat                     :integer          default("unfilled"), not null
 #  assistance_in_person                :integer          default("unfilled"), not null
 #  assistance_phone_review_english     :integer          default("unfilled"), not null
 #  assistance_phone_review_non_english :integer          default("unfilled"), not null

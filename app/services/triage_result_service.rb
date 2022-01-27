@@ -23,7 +23,7 @@ class TriageResultService
     # clients for years other than the current tax year. Plus GetCTC doesn't work for previous tax years.
     # That leaves just full service/VITA.
     if any_missing_previous_year_filings && has_some_tax_docs && triage.id_type_have_paperwork?
-      return Questions::TriageDeluxeController.to_path_helper
+      return Questions::TriageGyrController.to_path_helper
     end
   end
 
@@ -46,7 +46,7 @@ class TriageResultService
 
   def after_income_type
     return route_to_diy if triage.income_type_farm_yes? || triage.income_type_rent_yes?
-    return Questions::TriageDeluxeController.to_path_helper
+    return Questions::TriageGyrController.to_path_helper
   end
 
   private

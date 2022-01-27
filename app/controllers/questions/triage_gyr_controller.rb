@@ -1,5 +1,5 @@
 module Questions
-  class TriageDeluxeController < TriageController
+  class TriageGyrController < TriageController
     layout "intake"
 
     def self.show?(triage)

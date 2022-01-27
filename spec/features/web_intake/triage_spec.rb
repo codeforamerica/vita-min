@@ -37,7 +37,7 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
       Questions::TriageIdTypeController,
       Questions::TriageDocTypeController,
       Questions::TriageIncomeTypesController,
-      Questions::TriageDeluxeController
+      Questions::TriageGyrController
     ].map(&:to_path_helper))
   end
 
@@ -123,7 +123,7 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
       Questions::TriageIdTypeController,
       Questions::TriageDocTypeController,
       Questions::TriageBacktaxesYearsController,
-      Questions::TriageDeluxeController,
+      Questions::TriageGyrController,
     ].map(&:to_path_helper))
   end
 
@@ -138,7 +138,7 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
         TaxReturn.current_tax_year - 1,
       ],
       income_type_options: ['none_of_the_above'],
-      assistance_options: ['chat'],
+      assistance_options: ['in_person', 'phone_review_english', 'phone_review_non_english'],
     )
 
     expect(pages).to eq([
@@ -149,7 +149,7 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
       Questions::TriageBacktaxesYearsController,
       Questions::TriageAssistanceController,
       Questions::TriageIncomeTypesController,
-      Questions::TriageDeluxeController,
+      Questions::TriageGyrController,
     ].map(&:to_path_helper))
   end
 
@@ -165,7 +165,7 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
       Questions::TriageStartIdsController,
       Questions::TriageIdTypeController,
       Questions::TriageIncomeTypesController,
-      Questions::TriageDeluxeController,
+      Questions::TriageGyrController,
     ].map(&:to_path_helper))
   end
 end
