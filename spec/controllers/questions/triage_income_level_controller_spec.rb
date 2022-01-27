@@ -13,6 +13,7 @@ RSpec.describe Questions::TriageIncomeLevelController do
       let(:params) do
         {
           triage_income_level_form: {
+            filing_status: "single",
             income_level: income_level
           }
         }
@@ -24,7 +25,8 @@ RSpec.describe Questions::TriageIncomeLevelController do
         }.to change(Triage, :count).by(1)
 
         triage = Triage.last
-        expect(triage.income_level).to eq('zero')
+        expect(triage.filing_status).to eq("single")
+        expect(triage.income_level).to eq("zero")
       end
 
       it "saves the source param, referrer, & visitor_id and puts the triage in the session" do

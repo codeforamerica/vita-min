@@ -12,13 +12,13 @@ RSpec.describe TriageIdTypeForm do
   describe "#save" do
     context "with valid params" do
       let(:params) do
-        { "id_type": "have_paperwork" }
+        { "id_type": "have_id" }
       end
-      let(:triage) { create(:triage, id_type: nil) }
+      let(:triage) { create(:triage) }
 
       it "saves the data" do
         described_class.new(triage, params).save
-        expect(triage.reload.id_type).to eq("have_paperwork")
+        expect(triage.reload.id_type).to eq("have_id")
       end
     end
   end

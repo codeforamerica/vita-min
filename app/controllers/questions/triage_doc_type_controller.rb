@@ -2,6 +2,10 @@ module Questions
   class TriageDocTypeController < TriageController
     layout "intake"
 
+    def self.show?(triage)
+      false
+    end
+
     private
 
     def next_path

@@ -1509,28 +1509,31 @@ es:
     triage_id_type:
       edit:
         ssn_itin_type:
-          have_paperwork: Tengo mi tarjeta de Seguro Social o papeleo ITIN
+          have_id: Tengo mi tarjeta de Seguro Social o papeleo ITIN
           know_number: Sé mi número de Seguro Social o ITIN, pero no tengo una copia del mismo
           need_help: Necesito ayuda para solicitar mi ITIN
         title: "¿Qué tipo de identificación tiene?"
     triage_income_level:
       edit:
-        help_text: El ingreso del hogar es el total que usted (y su cónyuge) hizo en el último año.
-        levels:
-          hh_1_to_25100_html: |
-            <div>$1- 25,100</div>
+        filing_status:
+          label: "¿Cómo vas a declarar sus impuestos este año?"
+          options:
+            jointly: Declarar con mi cónyuge (presenta conjuntamente)
+            single: Declarar mis impuestos por mi cuenta (soltero)
+        income_level:
+          label_html: |-
+            ¿Cuál era su nivel de ingresos?
 
-            <div class="texto--etiqueta-texto-secundario-espaciado-sobre-15">
-              $1- 12,550 si se presenta individualmente
-            </div>
-          hh_25100_to_66000: "$25,100 - 66,000"
-          hh_66000_to_73000: "$66,000 - 73,000"
-          hh_over_73000: más de $ 73,000
-          zero: "$0"
-        levels_label: 'Seleccione el nivel de ingresos de su hogar:'
-        title: |-
-          ¡Empecemos!
-          Cuéntanos sobre tus ingresos.
+            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos del Crédito Tributario por Hijos por adelantado, los pagos del estímulo, beneficios públicos o Seguridad de Ingreso Suplementario (SSI en inglés).</p>
+          options:
+            12500_to_25000: "$12,500 - 25,000"
+            1_to_12500: "$1 - 12,500"
+            25000_to_40000: "$25,000 - 40,000"
+            40000_to_65000: "$40,000 - 65,000"
+            65000_to_73000: "$65,000 - 73,000"
+            over_73000: más de $73,000
+            zero: "$0"
+        title: "¡Empecemos!"
     triage_income_types:
       edit:
         income_types:

@@ -5,21 +5,28 @@
     <%= content_for(:page_title) %>
   </h1>
 
-  <p><%= t('.help_text') %></p>
-
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <%= f.cfa_radio_set(
+    <%= f.cfa_select(
+        :filing_status,
+        t(".filing_status.label"),
+        [
+          [t(".filing_status.options.single"), :single],
+          [t(".filing_status.options.jointly"), :jointly],
+        ],
+      ) %>
+    <%= f.cfa_select(
         :income_level,
-        label_text: t('.levels_label'),
-        collection: [
-          { value: :zero, label: t(".levels.zero") },
-          { value: :hh_1_to_25100, label: t(".levels.hh_1_to_25100_html") },
-          { value: :hh_25101_to_66000, label: t(".levels.hh_25100_to_66000") },
-          { value: :hh_66000_to_73000, label: t(".levels.hh_66000_to_73000") },
-          { value: :hh_over_73000, label: t(".levels.hh_over_73000") }
-        ]
-      )
-    %>
+        t(".income_level.label_html"),
+        [
+          [t(".income_level.options.zero"), :zero],
+          [t(".income_level.options.1_to_12500"), "1_to_12500"],
+          [t(".income_level.options.12500_to_25000"), "12500_to_25000"],
+          [t(".income_level.options.25000_to_40000"), "25000_to_40000"],
+          [t(".income_level.options.40000_to_65000"), "40000_to_65000"],
+          [t(".income_level.options.65000_to_73000"), "65000_to_73000"],
+          [t(".income_level.options.over_73000"), :over_73000],
+        ],
+      ) %>
 
     <div class="spacing-above-60">
       <%= f.submit t("general.continue"), class: "button button--primary button--wide text--centered" %>

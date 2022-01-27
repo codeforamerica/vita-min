@@ -1553,28 +1553,31 @@ en:
     triage_id_type:
       edit:
         ssn_itin_type:
-          have_paperwork: I have my Social Security card or ITIN paperwork
+          have_id: I have my Social Security card or ITIN paperwork
           know_number: I know my Social Security or ITIN number, but I do not have a copy of it
           need_help: I need help applying for my ITIN
         title: What type of identification do you have?
     triage_income_level:
       edit:
-        help_text: Household income is the total you (and your spouse) made in the past year.
-        levels:
-          hh_1_to_25100_html: |
-            <div>$1- 25,100</div>
+        filing_status:
+          label: How will you be filing this year?
+          options:
+            jointly: Filing with my spouse (filing jointly)
+            single: Filing by myself (single)
+        income_level:
+          label_html: |-
+            What was your income level?
 
-            <div class="text--label-secondary-text spacing-above-15">
-              $1- 12,550 if filing individually
-            </div>
-          hh_25100_to_66000: "$25,100 - 66,000"
-          hh_66000_to_73000: "$66,000 - 73,000"
-          hh_over_73000: over $73,000
-          zero: "$0"
-        levels_label: 'Select your household income level:'
-        title: |-
-          Let's get started!
-          Tell us about your income.
+            <p class="text--small spacing-above-15">Your income level should not include Adv CTC payments, stimulus payments, public benefits, or SSI.</p>
+          options:
+            12500_to_25000: "$12,500 - 25,000"
+            1_to_12500: "$1 - 12,500"
+            25000_to_40000: "$25,000 - 40,000"
+            40000_to_65000: "$40,000 - 65,000"
+            65000_to_73000: "$65,000 - 73,000"
+            over_73000: over $73,000
+            zero: "$0"
+        title: Let's get started!
     triage_income_types:
       edit:
         income_types:
