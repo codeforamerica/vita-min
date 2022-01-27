@@ -16,6 +16,7 @@ module Hub
     private
 
     def duplicate_bank_client_ids
+      return [] unless @client.intake
       return [] unless @client.intake.bank_account.present?
       Intake.where(id: @client.intake.bank_account.duplicates.pluck(:intake_id)).pluck(:client_id)
     end
