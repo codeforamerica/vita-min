@@ -42,8 +42,4 @@ class IncomingEmail < ApplicationRecord
   def datetime
     received_at
   end
-
-  def author
-    client.preferred_name
-  end
 end

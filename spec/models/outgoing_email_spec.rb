@@ -180,15 +180,5 @@ RSpec.describe OutgoingEmail, type: :model do
         expect(delivered.datetime).to eq delivered.created_at
       end
     end
-
-    describe "author" do
-      before do
-        delivered.user.update!(name: "User Name")
-      end
-
-      it "returns the user name" do
-        expect(delivered.author).to eq "User Name"
-      end
-    end
   end
 end

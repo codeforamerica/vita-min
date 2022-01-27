@@ -56,10 +56,6 @@ class OutgoingEmail < ApplicationRecord
     sent_at || created_at
   end
 
-  def author
-    user&.name
-  end
-
   def attachments
     attachment.present? ? [attachment] : nil
   end

@@ -9,10 +9,6 @@ class SyntheticNote
     @heading = heading
   end
 
-  def author
-    user&.name
-  end
-
   def self.from_client_documents(client)
     grouped = client.documents.order(created_at: :asc).where(uploaded_by: client).group_by { |doc| doc.created_at.beginning_of_day }
     grouped.map do |_, values|

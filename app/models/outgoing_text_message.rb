@@ -49,10 +49,6 @@ class OutgoingTextMessage < ApplicationRecord
     sent_at || created_at
   end
 
-  def author
-    user&.name
-  end
-
   def documents
     []
   end
