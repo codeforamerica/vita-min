@@ -20,6 +20,7 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
           to: outgoing_text_message.to_phone_number,
           body: "body",
           status_callback: "http://test.host/outgoing_text_messages/#{outgoing_text_message.id}",
+          outgoing_text_message: outgoing_text_message
         )
 
         outgoing_text_message.reload
@@ -30,8 +31,10 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
     end
 
     context "when Twilio raises an exception" do
+      include MockTwilio
+
       before do
-        allow(TwilioService).to receive(:send_text_message) { |*_args, **_kwargs| raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}))) }
+        allow_any_instance_of(FakeTwilioMessageContext).to receive(:create).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {})))
       end
 
       it "sets the status to twilio_error" do
