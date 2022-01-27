@@ -115,7 +115,7 @@ module Portal
     end
 
     def redirect_gyr_in_offseason
-      redirect_to root_path if Routes::GyrDomain.new.matches?(request) && !open_for_intake?
+      redirect_to root_path if Routes::GyrDomain.new.matches?(request) && !open_for_soft_launch?
     end
   end
 end
