@@ -7,6 +7,8 @@ class TriageResultService
 
   def after_income_levels
     case triage&.income_level
+    when "25000_to_40000"
+      return route_to_gyr
     when "40000_to_65000"
       return route_to_diy
     when "65000_to_73000"
@@ -14,7 +16,7 @@ class TriageResultService
     when "over_73000"
       return route_to_does_not_qualify
     else
-      return route_to_full_service
+      return route_to_express_gyr_choice
     end
   end
 
@@ -81,8 +83,12 @@ class TriageResultService
     Questions::TriageReferralController.to_path_helper
   end
 
-  def route_to_full_service
+  def route_to_gyr
     Questions::TriageGyrController.to_path_helper
+  end
+
+  def route_to_express_gyr_choice
+    Questions::TriageExpressController.to_path_helper
   end
 
   def has_some_tax_docs

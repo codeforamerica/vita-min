@@ -54,7 +54,7 @@ module FeatureHelpers
     if options[:choices] == :defaults
       options = {
         filing_status: "single",
-        income_level: "1_to_12500",
+        income_level: "25000_to_40000",
         id_type: "have_id",
         doc_type: "all_copies_html",
         filed_past_years: [
