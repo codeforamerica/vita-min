@@ -3171,8 +3171,8 @@ en:
         diy_taxslayer: Prepare your own taxes through an online tax filing tool called TaxSlayer!
         title: Wow, it looks like we are at capacity right now.
       backtaxes:
-        select_all_that_apply: Select all that apply.
-        title: What years would you like to file for?
+        select_all_that_apply: "Select all the years you would like to file for:"
+        title: Which of the following years would you like to file for?
       balance_payment:
         title: If you have a balance due, would you like to make a payment directly from your bank account?
       bank_details:

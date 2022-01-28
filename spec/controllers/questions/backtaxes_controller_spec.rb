@@ -3,6 +3,67 @@ require "rails_helper"
 RSpec.describe Questions::BacktaxesController do
   render_views
 
+  describe "#load_possible_filing_years" do
+    context "with a triage in the session" do
+      let(:triage) { create(:triage, filed_2018: "yes", filed_2019: "yes", filed_2020: "no", filed_2021: "no") }
+
+      before do
+        session[:triage_id] = triage.id
+      end
+
+      it "sets possible_filing_years to all years not marked filed on triage" do
+        get :edit
+
+        expect(assigns(:possible_filing_years)).to eq [2020, 2021]
+      end
+    end
+
+    context "with no triage in the session" do
+      it "sets possible_filing_years to all tax return filing years" do
+        get :edit
+
+        expect(assigns(:possible_filing_years)).to eq TaxReturn.filing_years.sort
+      end
+    end
+  end
+
+  describe "#edit" do
+    context "with a triage in the session" do
+      let(:triage) { create(:triage, filed_2018: "yes", filed_2019: "yes", filed_2020: "no", filed_2021: "no") }
+
+      before do
+        session[:triage_id] = triage.id
+      end
+
+      context "when all years but the current year have been filed" do
+        let(:triage) { create(:triage, filed_2018: "yes", filed_2019: "yes", filed_2020: "yes", filed_2021: "no") }
+
+        it "saves needs_help for the current year as yes and redirects to next path" do
+          get :edit
+
+          expect(Intake.last.needs_help_2021).to eq("yes")
+          expect(response).to redirect_to(Questions::EnvironmentWarningController.to_path_helper)
+        end
+      end
+
+      context "when some years have been filed but not all of them" do
+        it "renders the edit page as usual" do
+          get :edit
+
+          expect(response).to render_template :edit
+        end
+      end
+    end
+
+    context "with no triage in the session" do
+      it "renders the edit page as usual" do
+        get :edit
+
+        expect(response).to render_template :edit
+      end
+    end
+  end
+
   describe "#update" do
     before do
       session[:source] = "source_from_session"
