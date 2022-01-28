@@ -53,8 +53,9 @@ module FeatureHelpers
   def answer_gyr_triage_questions(screenshot_method: nil, **options)
     if options[:choices] == :defaults
       options = {
-        income_level: "hh_1_to_25100_html",
-        id_type: "have_paperwork",
+        filing_status: "single",
+        income_level: "1_to_12500",
+        id_type: "have_id",
         doc_type: "all_copies_html",
         filed_past_years: [
           TaxReturn.current_tax_year - 3,
@@ -74,7 +75,8 @@ module FeatureHelpers
 
     triage_feature_helper = TriageFeatureHelper.new(page, screenshot_method)
     triage_feature_helper.assert_page('questions.triage_income_level.edit.title') do
-      choose strip_html_tags(I18n.t("questions.triage_income_level.edit.levels.#{choices.income_level}").split("\n").first)
+      select strip_html_tags(I18n.t("questions.triage_income_level.edit.filing_status.options.#{choices.filing_status}").split("\n").first)
+      select strip_html_tags(I18n.t("questions.triage_income_level.edit.income_level.options.#{choices.income_level}").split("\n").first)
       click_on I18n.t('general.continue')
     end
 

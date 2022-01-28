@@ -4,7 +4,8 @@ RSpec.describe TriageIncomeLevelForm do
   describe "#save" do
     let(:params) do
       {
-        income_level: "hh_1_to_25100",
+        filing_status: "single",
+        income_level: "1_to_12500",
         source: "example_source",
         referrer: "http://boop.horse/mane",
         locale: "en",
@@ -18,7 +19,8 @@ RSpec.describe TriageIncomeLevelForm do
       }.to change(Triage, :count).by(1)
 
       triage = Triage.last
-      expect(triage.income_level).to eq "hh_1_to_25100"
+      expect(triage.filing_status).to eq "single"
+      expect(triage.income_level).to eq "1_to_12500"
       expect(triage.source).to eq "example_source"
       expect(triage.referrer).to eq "http://boop.horse/mane"
       expect(triage.locale).to eq "en"

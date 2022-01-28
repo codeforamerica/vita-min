@@ -16,7 +16,7 @@ RSpec.describe TriageDocTypeForm do
           doc_type: "all_copies",
         }
       end
-      let(:triage) { create(:triage, doc_type: nil) }
+      let(:triage) { create(:triage) }
 
       it "saves the data" do
         described_class.new(triage, params).save

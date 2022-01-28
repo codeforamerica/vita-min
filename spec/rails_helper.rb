@@ -52,6 +52,9 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.max_formatted_output_length = nil # Set to nil to prevent RSpec from doing truncation
+  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

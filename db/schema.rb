@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_26_233222) do
+ActiveRecord::Schema.define(version: 2022_01_27_212445) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1335,13 +1335,14 @@ ActiveRecord::Schema.define(version: 2022_01_26_233222) do
     t.integer "assistance_phone_review_english", default: 0, null: false
     t.integer "assistance_phone_review_non_english", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
-    t.integer "doc_type"
+    t.integer "doc_type", default: 0, null: false
     t.integer "filed_2018", default: 0, null: false
     t.integer "filed_2019", default: 0, null: false
     t.integer "filed_2020", default: 0, null: false
     t.integer "filed_2021", default: 0, null: false
-    t.integer "id_type"
-    t.integer "income_level"
+    t.integer "filing_status", default: 0, null: false
+    t.integer "id_type", default: 0, null: false
+    t.integer "income_level", default: 0, null: false
     t.integer "income_type_farm", default: 0, null: false
     t.integer "income_type_rent", default: 0, null: false
     t.bigint "intake_id"
