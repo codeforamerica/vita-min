@@ -4,10 +4,22 @@ describe TriageResultService do
   let(:subject) { described_class.new(triage)}
 
   describe "#after_income_levels" do
+    context "when the income level makes them ineligible for any service" do
+      let(:triage) { build(:triage, income_level: "over_73000", filing_status: "jointly") }
+
+      it "redirects to /triage-do-not-qualify" do
+        %w[single jointly].each do |filing_status|
+          triage.update(filing_status: filing_status)
+
+          expect(subject.after_income_levels).to eq(Questions::TriageDoNotQualifyController.to_path_helper)
+        end
+      end
+    end
+
     context "when the income level makes them eligible only for DIY" do
       let(:triage) { build(:triage, income_level: "unfilled", filing_status: "unfilled") }
 
-      it "redirects to /triage/referral" do
+      it "redirects to /triage-referral" do
         %w[single jointly].each do |filing_status|
           triage.update(filing_status: filing_status)
           %w[40000_to_65000 65000_to_73000].each do |income_level|
@@ -19,29 +31,31 @@ describe TriageResultService do
       end
     end
 
-    context "when the income level makes them ineligible for any service" do
-      let(:triage) { build(:triage, income_level: "over_73000", filing_status: "jointly") }
+    context "when the income level makes them eligible for full service but not express" do
+      let(:triage) { build(:triage, income_level: "unfilled") }
 
-      it "redirects to /triage/do-not-qualify" do
+      it "redirects to /triage-gyr" do
         %w[single jointly].each do |filing_status|
           triage.update(filing_status: filing_status)
+          %w[25000_to_40000].each do |income_level|
+            triage.update(income_level: income_level)
 
-          expect(subject.after_income_levels).to eq(Questions::TriageDoNotQualifyController.to_path_helper)
+            expect(subject.after_income_levels).to eq(Questions::TriageGyrController.to_path_helper)
+          end
         end
       end
     end
 
-    # temporary income-only triage
-    context "when the income level makes them eligible for full service" do
+    context "when the income level makes them eligible for full service or express" do
       let(:triage) { build(:triage, income_level: "unfilled") }
 
-      it "redirects to /triage/do-not-qualify" do
+      it "redirects to /triage-express" do
         %w[single jointly].each do |filing_status|
           triage.update(filing_status: filing_status)
-          %w[zero 1_to_12500 12500_to_25000 25000_to_40000].each do |income_level|
+          %w[zero 1_to_12500 12500_to_25000].each do |income_level|
             triage.update(income_level: income_level)
 
-            expect(subject.after_income_levels).to eq(Questions::TriageGyrController.to_path_helper)
+            expect(subject.after_income_levels).to eq(Questions::TriageExpressController.to_path_helper)
           end
         end
       end

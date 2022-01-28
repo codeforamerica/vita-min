@@ -53,6 +53,136 @@ RSpec.feature "triage flow", :flow_explorer_screenshot do
     end
   end
 
+  context "client has income between 40000 and 65000" do
+    scenario "client is filing single" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "single",
+        income_level: "40000_to_65000"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageReferralController
+      ].map(&:to_path_helper))
+    end
+
+    scenario "client is filing jointly" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "jointly",
+        income_level: "40000_to_65000"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageReferralController
+      ].map(&:to_path_helper))
+    end
+  end
+
+  context "client has income between 25000 and 40000" do
+    scenario "client is filing single" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "single",
+        income_level: "25000_to_40000"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageGyrController
+      ].map(&:to_path_helper))
+    end
+
+    scenario "client is filing jointly" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "jointly",
+        income_level: "25000_to_40000"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageGyrController
+      ].map(&:to_path_helper))
+    end
+  end
+
+  context "client has income between 12500 and 25000" do
+    scenario "client is filing single" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "single",
+        income_level: "12500_to_25000"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageExpressController
+      ].map(&:to_path_helper))
+    end
+
+    scenario "client is filing jointly" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "jointly",
+        income_level: "12500_to_25000"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageExpressController
+      ].map(&:to_path_helper))
+    end
+  end
+
+  context "client has income between 1 and 12500" do
+    scenario "client is filing single" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "single",
+        income_level: "1_to_12500"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageExpressController
+      ].map(&:to_path_helper))
+    end
+
+    scenario "client is filing jointly" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "jointly",
+        income_level: "1_to_12500"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageExpressController
+      ].map(&:to_path_helper))
+    end
+  end
+
+  context "client has no income" do
+    scenario "client is filing single" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "single",
+        income_level: "zero"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageExpressController
+      ].map(&:to_path_helper))
+    end
+
+    scenario "client is filing jointly" do
+      pages = answer_gyr_triage_questions(
+        filing_status: "jointly",
+        income_level: "zero"
+      )
+
+      expect(pages).to eq([
+        Questions::TriageIncomeLevelController,
+        Questions::TriageExpressController
+      ].map(&:to_path_helper))
+    end
+  end
+
   xscenario "client does not have any documents and needs help" do
     pages = answer_gyr_triage_questions(
       income_level: "zero",
