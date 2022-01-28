@@ -3,13 +3,10 @@ namespace :flow_explorer do
   task capture_screenshots: :environment do |_task|
     all_passed = true
 
-    # We run specs in spec/features/ctc because the GYR specs sometimes fail.
-    # TODO(someday): Remove "spec/features/ctc" from command lines below so we generate screenshots from
-    # any spec marked flow_explorer_screenshot: true or flow_explorer_screenshot_i18n_friendly: true.
     [
-      "rspec --tag flow_explorer_screenshot spec/features/ctc",
-      "FLOW_EXPLORER_LOCALE=en rspec --tag flow_explorer_screenshot_i18n_friendly spec/features/ctc",
-      "FLOW_EXPLORER_LOCALE=es rspec --tag flow_explorer_screenshot_i18n_friendly spec/features/ctc",
+      "rspec --tag flow_explorer_screenshot",
+      "FLOW_EXPLORER_LOCALE=en rspec --tag flow_explorer_screenshot_i18n_friendly",
+      "FLOW_EXPLORER_LOCALE=es rspec --tag flow_explorer_screenshot_i18n_friendly",
     ].each do |cmd|
       puts "RUNNING: #{cmd}"
       result = system(cmd)
