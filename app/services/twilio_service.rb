@@ -72,6 +72,8 @@ class TwilioService
       unless e.code == 21211 # Invalid 'To' Phone Number https://www.twilio.com/docs/api/errors/21211
         raise
       end
+
+      nil
     end
   end
 end
