@@ -82,7 +82,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     expect(page).to have_text "Welcome"
     click_on "Continue"
 
-    expect(page).to have_text "What years would you like to file for?"
+    expect(page).to have_text I18n.t("views.questions.backtaxes.title")
     check "2020"
     click_on "Continue"
 
@@ -114,7 +114,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
   scenario "routing by zip code" do
     visit "/questions/backtaxes"
 
-    expect(page).to have_text "What years would you like to file for?"
+    expect(page).to have_text I18n.t("views.questions.backtaxes.title")
     check "2020"
     click_on "Continue"
 
@@ -146,7 +146,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
   scenario "routing by state" do
     visit "/questions/backtaxes"
 
-    expect(page).to have_text "What years would you like to file for?"
+    expect(page).to have_text I18n.t("views.questions.backtaxes.title")
     check "2020"
     click_on "Continue"
 
@@ -184,7 +184,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     scenario "routes to national partner" do
       visit "/questions/backtaxes"
 
-      expect(page).to have_text "What years would you like to file for?"
+      expect(page).to have_text I18n.t("views.questions.backtaxes.title")
       check "2020"
       click_on "Continue"
 
@@ -224,7 +224,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     scenario "would have been routed by state, redirects to at capacity page" do
       visit "/questions/backtaxes"
 
-      expect(page).to have_text "What years would you like to file for?"
+      expect(page).to have_text I18n.t("views.questions.backtaxes.title")
       check "2020"
       click_on "Continue"
 
