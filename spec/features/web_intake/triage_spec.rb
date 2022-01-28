@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "triage flow", :flow_explorer_screenshot do
+RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
   context "client has income over 73000" do
     scenario "client is filing single" do
       pages = answer_gyr_triage_questions(
