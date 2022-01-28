@@ -16,7 +16,7 @@ namespace :flow_explorer do
       all_passed = false unless result
     end
 
-    exit all_passed
+    abort "One or more tests failed!" unless all_passed
   end
 
   desc "Upload flow explorer screenshots to s3"
