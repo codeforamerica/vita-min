@@ -1516,10 +1516,25 @@ en:
           all_copies_html: I have <u>all</u> copies of my official tax documents
           does_not_apply_html: I <u>do not</u> have copies any official tax documents because they <u>do not apply to me</u>
           need_help_html: I <u>do not</u> have copies any official tax documents and <u>would like help</u> getting them
-          some_copies_html: 'I have <u>some</u> copies of my official tax documents '
+          some_copies_html: I have <u>some</u> copies of my official tax documents
         help_text: Tax documents refers to any official IRS documents or documents that confirm your employment like a W2, 1099, personal work log, etc.
         title: What type of tax documents do you have?
     triage_express:
+      edit:
+        title: We recommend filing with our Express option!
+    triage_gyr:
+      edit:
+        file_in_person: File In Person
+        file_on_my_own: Actually, I want to try filing quickly on my own using free software.
+        file_online: File Online
+        help_text: |
+          Collect all of the tax credits you are owed with assistance.
+
+          Available online or in person!
+
+          Our IRS-certified tax team will provide hands on support with your taxes!
+        title: We recommend filing with our free GetYourRefund option!
+    triage_gyr_express:
       edit:
         collect_your: 'Collect your:'
         collectables:
@@ -1540,18 +1555,6 @@ en:
         refund: Refund
         sign_up_for_express: Sign up for Express
         title: We have two free options that may work for you!
-    triage_gyr:
-      edit:
-        file_in_person: File In Person
-        file_on_my_own: Actually, I want to try filing quickly on my own using free software.
-        file_online: File Online
-        help_text: |
-          Collect all of the tax credits you are owed with assistance.
-
-          Available online or in person!
-
-          Our IRS-certified tax team will provide hands on support with your taxes!
-        title: We recommend filing with our free GetYourRefund option!
     triage_id_type:
       edit:
         ssn_itin_type:
@@ -3538,7 +3541,7 @@ en:
           was_blind: They were legally blind
           was_full_time_student: They were a full-time student in a college or a trade school
           was_on_visa: They were in the US on a Visa
-        title: Select any situations that were true for your spouse in 2019
+        title: Select any situations that were true for your spouse in %{year}
       start_with_current_year:
         info: We’ll start by asking about your situation in %{year}.
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.

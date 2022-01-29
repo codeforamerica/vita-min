@@ -1,4 +1,4 @@
-<% content_for :page_title, t('views.questions.spouse_life_situations.title') %>
+<% content_for :page_title, t('views.questions.spouse_life_situations.title', year: current_intake.most_recent_filing_year) %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>

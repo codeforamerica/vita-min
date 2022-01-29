@@ -13,6 +13,7 @@ class GyrQuestionNavigation
       Questions::TriageGyrController,
       Questions::TriageReferralController,
       Questions::TriageExpressController,
+      Questions::TriageGyrExpressController,
       Questions::TriageDoNotQualifyController,
 
       ## Main flow

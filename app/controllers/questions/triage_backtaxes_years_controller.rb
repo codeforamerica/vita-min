@@ -2,10 +2,6 @@ module Questions
   class TriageBacktaxesYearsController < TriageController
     layout "intake"
 
-    def self.show?(triage)
-      false
-    end
-
     private
 
     def next_path
