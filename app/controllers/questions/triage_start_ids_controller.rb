@@ -2,10 +2,6 @@ module Questions
   class TriageStartIdsController < TriageController
     layout "intake"
 
-    def self.show?(triage)
-      false
-    end
-
     private
 
     def illustration_path

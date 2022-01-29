@@ -2,14 +2,10 @@ module Questions
   class TriageIncomeTypesController < TriageController
     layout "intake"
 
-    def self.show?(triage)
-      false
-    end
-
     private
 
     def next_path
-      TriageResultService.new(current_triage).after_income_type
+      TriageResultService.new(current_triage).after_income_type || super
     end
 
     def illustration_path; end

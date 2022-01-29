@@ -1,383 +1,143 @@
 require "rails_helper"
 
+require 'csv'
+
 RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
-  context "client has income over 73000" do
-    scenario "client is filing single" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "single",
-        income_level: "over_73000"
-      )
+  class TriageFlowTestHelper
+    def self.read_csv
+      csv = CSV.read(File.join(__dir__, 'triage-results.csv'), headers: true)
+      column_names = csv.headers
 
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageDoNotQualifyController
-      ].map(&:to_path_helper))
+      # remove rows that are all blanks
+      csv = csv.reject { |row| row.to_h.values.uniq == [nil] }
+      last_row = csv.first.to_h
+      rows = []
+
+      # carry over values from previous rows if some columns are blank
+      csv.each do |row|
+        this_row = Hash[row.to_h.map { |k, v| [k, v || last_row[k]] }]
+        last_row = this_row
+        rows << this_row
+      end
+
+      # for cells with "single or joint" for example, multiply the output rows
+      # so there is both a 'single' and 'joint' row
+      column_names.each do |column|
+        new_rows = []
+        rows.each do |row|
+          row[column].split(' or ').each do |option|
+            new_row = row.dup
+            new_row[column] = option
+            new_rows << new_row
+          end
+        end
+        rows = new_rows
+      end
+
+      rows
     end
 
-    scenario "client is filing jointly" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "jointly",
-        income_level: "over_73000"
-      )
+    attr_reader :row
 
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageDoNotQualifyController
-      ].map(&:to_path_helper))
+    def initialize(row)
+      @row = row
     end
-  end
 
-  context "client has income between 65000 and 73000" do
-    scenario "client is filing single" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "single",
-        income_level: "65000_to_73000"
-      )
+    def context_name
+      Hash[row.reject { |k, v| k == 'service' || v == 'skip' }].values.compact.join(' - ')
+    end
 
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
+    def test_name
+      "shows the #{final_page} page"
+    end
+
+    def final_page
+      case row['service']
+      when 'We have two free options that may work for you!'
+        Questions::TriageGyrExpressController
+      when 'We recommend filing with our free File Myself option!'
         Questions::TriageReferralController
-      ].map(&:to_path_helper))
-    end
-
-    scenario "client is filing jointly" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "jointly",
-        income_level: "65000_to_73000"
-      )
-
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageReferralController
-      ].map(&:to_path_helper))
-    end
-  end
-
-  context "client has income between 40000 and 65000" do
-    scenario "client is filing single" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "single",
-        income_level: "40000_to_65000"
-      )
-
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageReferralController
-      ].map(&:to_path_helper))
-    end
-
-    scenario "client is filing jointly" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "jointly",
-        income_level: "40000_to_65000"
-      )
-
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageReferralController
-      ].map(&:to_path_helper))
-    end
-  end
-
-  context "client has income between 25000 and 40000" do
-    scenario "client is filing single" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "single",
-        income_level: "25000_to_40000"
-      )
-
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
+      when 'We recommend filing for free with GetYourRefund!'
         Questions::TriageGyrController
-      ].map(&:to_path_helper))
-    end
-
-    scenario "client is filing jointly" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "jointly",
-        income_level: "25000_to_40000"
-      )
-
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageGyrController
-      ].map(&:to_path_helper))
-    end
-  end
-
-  context "client has income between 12500 and 25000" do
-    scenario "client is filing single" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "single",
-        income_level: "12500_to_25000"
-      )
-
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
+      when 'We recommend filing with our Express option!'
         Questions::TriageExpressController
-      ].map(&:to_path_helper))
+      when 'Unfortunately, it looks like you do not qualify for our free service.'
+        Questions::TriageDoNotQualifyController
+      end
     end
 
-    scenario "client is filing jointly" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "jointly",
-        income_level: "12500_to_25000"
-      )
-
-      expect(pages).to eq([
+    def build_expectation
+      [
         Questions::TriageIncomeLevelController,
-        Questions::TriageExpressController
-      ].map(&:to_path_helper))
+        (Questions::TriageStartIdsController unless row['id_type'] == 'skip'),
+        (Questions::TriageIdTypeController unless row['id_type'] == 'skip'),
+        (Questions::TriageDocTypeController unless row['doc_type'] == 'skip'),
+        (Questions::TriageBacktaxesYearsController unless row['filed_past_years'] == 'skip'),
+        (Questions::TriageAssistanceController unless row['assistance_options'] == 'skip'),
+        (Questions::TriageIncomeTypesController unless row['income_type_options'] == 'skip'),
+        final_page
+      ].compact.map(&:to_path_helper)
+    end
+
+    def income(answer)
+      answer
+    end
+
+    def filing_status(answer)
+      if answer == 'any answer'
+        'single'
+      else
+        answer
+      end
+    end
+
+    def doc_type(answer)
+      if answer == 'any answer'
+        'all_copies'
+      else
+        answer
+      end
+    end
+
+    def filed_past_years(answer)
+      return if answer == 'skip'
+
+      case answer
+      when '2021 yes/no, any prior no'
+        [2021]
+      when '2021 no, all prior yes'
+        [2020, 2019, 2018]
+      when '2021 yes, all prior yes'
+        [2021, 2020, 2019, 2018]
+      end
+    end
+
+    def assistance_options(answer)
+      answer == 'yes' ? ['in_person'] : ['none_of_the_above']
+    end
+
+    def income_type_options(answer)
+      answer == 'yes' ? ['farm'] : ['none_of_the_above']
     end
   end
 
-  context "client has income between 1 and 12500" do
-    scenario "client is filing single" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "single",
-        income_level: "1_to_12500"
-      )
+  TriageFlowTestHelper.read_csv.each do |row|
+    helper = TriageFlowTestHelper.new(row)
 
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageExpressController
-      ].map(&:to_path_helper))
+    context helper.context_name do
+      it helper.test_name do
+        pages = answer_gyr_triage_questions(
+          income_level: helper.income(row['income']),
+          filing_status: helper.filing_status(row['filing_status']),
+          id_type: row['id_type'],
+          doc_type: helper.doc_type(row['doc_type']),
+          filed_past_years: helper.filed_past_years(row['filed_past_years']),
+          income_type_options: helper.income_type_options(row['income_type_options']),
+          assistance_options: helper.assistance_options(row['assistance_options'])
+        )
+
+        expect(pages).to eq(helper.build_expectation)
+      end
     end
-
-    scenario "client is filing jointly" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "jointly",
-        income_level: "1_to_12500"
-      )
-
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageExpressController
-      ].map(&:to_path_helper))
-    end
-  end
-
-  context "client has no income" do
-    scenario "client is filing single" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "single",
-        income_level: "zero"
-      )
-
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageExpressController
-      ].map(&:to_path_helper))
-    end
-
-    scenario "client is filing jointly" do
-      pages = answer_gyr_triage_questions(
-        filing_status: "jointly",
-        income_level: "zero"
-      )
-
-      expect(pages).to eq([
-        Questions::TriageIncomeLevelController,
-        Questions::TriageExpressController
-      ].map(&:to_path_helper))
-    end
-  end
-
-  xscenario "client does not have any documents and needs help" do
-    pages = answer_gyr_triage_questions(
-      income_level: "zero",
-      id_type: "have_id",
-      doc_type: "need_help_html",
-      income_type_options: ['none_of_the_above']
-    )
-
-    expect(pages).to eq([
-      Questions::TriageIncomeLevelController,
-      Questions::TriageStartIdsController,
-      Questions::TriageIdTypeController,
-      Questions::TriageDocTypeController,
-      Questions::TriageIncomeTypesController,
-      Questions::TriageGyrController
-    ].map(&:to_path_helper))
-  end
-
-  xscenario "client with small non-zero income who doesn't need assistance is routed to diy" do
-    # To be eligible for free DIY from our perspective, they need to have filed the previous years' returns.
-    pages = answer_gyr_triage_questions(
-      income_level: "1_to_12500",
-      id_type: "have_id",
-      doc_type: "all_copies_html",
-      filed_past_years: [
-        TaxReturn.current_tax_year - 3,
-        TaxReturn.current_tax_year - 2,
-        TaxReturn.current_tax_year - 1,
-      ],
-      income_type_options: ['none_of_the_above'],
-      assistance_options: ['none_of_the_above']
-    )
-    expect(pages).to eq([
-      Questions::TriageIncomeLevelController,
-      Questions::TriageStartIdsController,
-      Questions::TriageIdTypeController,
-      Questions::TriageDocTypeController,
-      Questions::TriageBacktaxesYearsController,
-      Questions::TriageAssistanceController,
-      Questions::TriageReferralController,
-    ].map(&:to_path_helper))
-  end
-
-  xscenario "client with 0 income and didn't file in 2021 and did file in 2020 is routed to getctc option" do
-    pages = answer_gyr_triage_questions(
-      income_level: "zero",
-      id_type: "have_id",
-      doc_type: "all_copies_html",
-      filed_past_years: [
-        TaxReturn.current_tax_year - 1,
-      ],
-      income_type_options: ['none_of_the_above']
-    )
-
-    expect(pages).to eq([
-      Questions::TriageIncomeLevelController,
-      Questions::TriageStartIdsController,
-      Questions::TriageIdTypeController,
-      Questions::TriageDocTypeController,
-      Questions::TriageBacktaxesYearsController,
-      Questions::TriageExpressController,
-    ].map(&:to_path_helper))
-  end
-
-  xscenario "client filing for just 2021 with lowest non-zero income and says tax docs don't apply to them is routed to getctc option" do
-    pages = answer_gyr_triage_questions(
-      income_level: "hh_1_to_25100_html",
-      id_type: "have_id",
-      doc_type: "does_not_apply_html",
-      filed_past_years: [
-        TaxReturn.current_tax_year - 3,
-        TaxReturn.current_tax_year - 2,
-        TaxReturn.current_tax_year - 1,
-      ],
-      income_type_options: ['none_of_the_above'],
-      assistance_options: ['none_of_the_above'],
-    )
-
-    expect(pages).to eq([
-                          Questions::TriageIncomeLevelController,
-                          Questions::TriageStartIdsController,
-                          Questions::TriageIdTypeController,
-                          Questions::TriageDocTypeController,
-                          Questions::TriageBacktaxesYearsController,
-                          Questions::TriageAssistanceController,
-                          Questions::TriageIncomeTypesController,
-                          Questions::TriageExpressController,
-                        ].map(&:to_path_helper))
-  end
-
-  xscenario "client with income above 0 and does not have tax documents is routed to getctc option" do
-    pages = answer_gyr_triage_questions(
-      income_level: "hh_1_to_25100_html",
-      id_type: "have_id",
-      doc_type: "need_help_html",
-      filed_past_years: [
-      ],
-      income_type_options: ['none_of_the_above']
-    )
-
-    expect(pages).to eq([
-      Questions::TriageIncomeLevelController,
-      Questions::TriageStartIdsController,
-      Questions::TriageIdTypeController,
-      Questions::TriageDocTypeController,
-      Questions::TriageExpressController,
-    ].map(&:to_path_helper))
-  end
-
-  xscenario "client with IDs and some/all tax docs and within filing limit of 66k and with back taxes and no rental income/farm income is routed to full service" do
-    pages = answer_gyr_triage_questions(
-      income_level: "hh_25100_to_66000",
-      id_type: "have_id",
-      doc_type: "all_copies_html",
-      filed_past_years: [
-        TaxReturn.current_tax_year - 1,
-      ],
-      income_type_options: ['none_of_the_above']
-    )
-
-    expect(pages).to eq([
-      Questions::TriageIncomeLevelController,
-      Questions::TriageStartIdsController,
-      Questions::TriageIdTypeController,
-      Questions::TriageDocTypeController,
-      Questions::TriageBacktaxesYearsController,
-      Questions::TriageGyrController,
-    ].map(&:to_path_helper))
-  end
-
-  xscenario "client with IDs and some/all tax docs and within filing limit of 66k and needing assistance and no rental income/farm income is routed to full service" do
-    pages = answer_gyr_triage_questions(
-      income_level: "hh_25100_to_66000",
-      id_type: "have_id",
-      doc_type: "all_copies_html",
-      filed_past_years: [
-        TaxReturn.current_tax_year - 3,
-        TaxReturn.current_tax_year - 2,
-        TaxReturn.current_tax_year - 1,
-      ],
-      income_type_options: ['none_of_the_above'],
-      assistance_options: ['in_person', 'phone_review_english', 'phone_review_non_english'],
-    )
-
-    expect(pages).to eq([
-      Questions::TriageIncomeLevelController,
-      Questions::TriageStartIdsController,
-      Questions::TriageIdTypeController,
-      Questions::TriageDocTypeController,
-      Questions::TriageBacktaxesYearsController,
-      Questions::TriageAssistanceController,
-      Questions::TriageIncomeTypesController,
-      Questions::TriageGyrController,
-    ].map(&:to_path_helper))
-  end
-
-  xscenario "client with IDs and some/all tax docs and within filing limit of 66k and needing assistance and rental or farm income is routed to do not qualify" do
-    pages = answer_gyr_triage_questions(
-      income_level: "hh_25100_to_66000",
-      id_type: "have_id",
-      doc_type: "all_copies_html",
-      filed_past_years: [
-        TaxReturn.current_tax_year - 3,
-        TaxReturn.current_tax_year - 2,
-        TaxReturn.current_tax_year - 1,
-      ],
-      income_type_options: ['farm'],
-      assistance_options: ['chat'],
-    )
-
-    expect(pages).to eq([
-      Questions::TriageIncomeLevelController,
-      Questions::TriageStartIdsController,
-      Questions::TriageIdTypeController,
-      Questions::TriageDocTypeController,
-      Questions::TriageBacktaxesYearsController,
-      Questions::TriageAssistanceController,
-      Questions::TriageIncomeTypesController,
-      Questions::TriageReferralController,
-    ].map(&:to_path_helper))
-  end
-
-  xscenario "client needing ITIN assistance within the income limit is routed to full service" do
-    pages = answer_gyr_triage_questions(
-      income_level: "hh_25100_to_66000",
-      id_type: "need_help",
-      income_type_options: ['none_of_the_above'],
-    )
-
-    expect(pages).to eq([
-      Questions::TriageIncomeLevelController,
-      Questions::TriageStartIdsController,
-      Questions::TriageIdTypeController,
-      Questions::TriageIncomeTypesController,
-      Questions::TriageGyrController,
-    ].map(&:to_path_helper))
   end
 end

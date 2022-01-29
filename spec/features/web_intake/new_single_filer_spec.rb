@@ -15,7 +15,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
     check "#{TaxReturn.current_tax_year}"
-    check "2019"
+    check "#{TaxReturn.current_tax_year - 3}"
     click_on "Continue"
     # creates intake
     intake = Intake.last
@@ -103,7 +103,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     select "1971", from: "Year"
     click_on "I agree"
     # create tax returns only after client has consented
-    expect(intake.client.tax_returns.pluck(:year).sort).to eq [2019, TaxReturn.current_tax_year]
+    expect(intake.client.tax_returns.pluck(:year).sort).to eq [TaxReturn.current_tax_year - 3, TaxReturn.current_tax_year]
 
     # Optional consent form
     expect(page).to have_selector("h1", text: "A few more things...")

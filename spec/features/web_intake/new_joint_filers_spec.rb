@@ -17,7 +17,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       # Ask about backtaxes
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "2019"
+      check "#{TaxReturn.current_tax_year - 3}"
+      check "#{TaxReturn.current_tax_year}"
     end
     click_on "Continue"
     # creates intake
@@ -119,8 +120,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "I agree"
     # create tax returns only after client has consented
-    expect(intake.client.tax_returns.map(&:year)).to eq [2019]
-    expect(intake.reload.client.tax_returns.pluck(:status)).to eq ["intake_in_progress"]
+    expect(intake.client.tax_returns.map(&:year)).to match_array [TaxReturn.current_tax_year - 3, TaxReturn.current_tax_year]
+    expect(intake.reload.client.tax_returns.pluck(:status)).to eq ["intake_in_progress", "intake_in_progress"]
 
     screenshot_after do
       # Optional consent form
@@ -136,7 +137,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     screenshot_after do
       # Primary filer personal information
-      expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2019")
+      expect(page).to have_selector("h1", text: "Select any situations that were true for you in #{TaxReturn.current_tax_year}")
       check "I had a permanent disability"
       check "I was legally blind"
       check "I was a full-time student in a college or a trade school"
@@ -165,11 +166,11 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
+      expect(page).to have_selector("h1", text: "As of December 31, #{TaxReturn.current_tax_year}, were you legally married?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Did you live with your spouse during any part of the last six months of 2019?")
+      expect(page).to have_selector("h1", text: "Did you live with your spouse during any part of the last six months of #{TaxReturn.current_tax_year}?")
     end
     click_on "Yes"
     screenshot_after do
@@ -179,13 +180,13 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Go back"
     click_on "No"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "As of December 31, 2019, were you divorced?")
+      expect(page).to have_selector("h1", text: "As of December 31, #{TaxReturn.current_tax_year}, were you divorced?")
     end
     click_on "Yes"
     click_on "Go back"
     click_on "No"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "As of December 31, 2019, were you widowed?")
+      expect(page).to have_selector("h1", text: "As of December 31, #{TaxReturn.current_tax_year}, were you widowed?")
     end
     click_on "Yes"
     click_on "Go back"
@@ -199,11 +200,11 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     # Alimony
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any income from alimony?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse receive any income from alimony?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any alimony payments?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse make any alimony payments?")
     end
     click_on "Yes"
 
@@ -230,7 +231,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     # Spouse personal information
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Select any situations that were true for your spouse in 2019")
+      expect(page).to have_selector("h1", text: "Select any situations that were true for your spouse in #{TaxReturn.current_tax_year}")
       check "None of the above"
     end
     click_on "Continue"
@@ -241,7 +242,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     # Dependents
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Would you or your spouse like to claim anyone for 2019?")
+      expect(page).to have_selector("h1", text: "Would you or your spouse like to claim anyone for #{TaxReturn.current_tax_year}?")
     end
     click_on "Yes"
 
@@ -255,7 +256,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       select "5", from: "Day"
       select "2003", from: "Year"
       fill_in "Relationship to you", with: "Son"
-      select "6", from: "How many months did they live in your home in 2019?"
+      select "6", from: "How many months did they live in your home in #{TaxReturn.current_tax_year}?"
       check "Full time higher education student"
       click_on "Save this person"
       expect(page).to have_text("Greg Gnome")
@@ -267,9 +268,9 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       select "24", from: "Day"
       select "2005", from: "Year"
       fill_in "Relationship to you", with: "Nibling"
-      select "2", from: "How many months did they live in your home in 2019?"
+      select "2", from: "How many months did they live in your home in #{TaxReturn.current_tax_year}?"
       check "Is this person here on a VISA?"
-      check "Married as of 12/31/2019"
+      check "Married as of 12/31/#{TaxReturn.current_tax_year}"
       click_on "Save this person"
       expect(page).to have_text("Gallagher Gnome")
     end
@@ -277,35 +278,35 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     # Dependent related questions
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any child or dependent care expenses?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse pay any child or dependent care expenses?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse adopt a child?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse adopt a child?")
     end
     click_on "Yes"
 
     # Student questions
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, was someone in your family a college or other post high school student?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, was someone in your family a college or other post high school student?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any student loan interest?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse pay any student loan interest?")
     end
     click_on "Yes"
 
     # Income from working
     screenshot_after do
-      select "3 jobs", from: "In 2019, how many jobs did you or your spouse have?"
+      select "3 jobs", from: "In #{TaxReturn.current_tax_year}, how many jobs did you or your spouse have?"
     end
     click_on "Next"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Virginia?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you live or work in any other states besides Virginia?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Tell us about you and your spouse's work in 2019")
+      expect(page).to have_selector("h1", text: "Tell us about you and your spouse's work in #{TaxReturn.current_tax_year}")
       check "My spouse or I worked for someone else"
       check "My spouse or I was self-employed or worked as an independent contractor"
       check "My spouse or I collected tips at work not included in a W-2"
@@ -315,41 +316,41 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     # Income from benefits
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any disability benefits?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse receive any disability benefits?")
     end
     click_on "Yes"
 
     # Investment income/loss
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from interest or dividends?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse have any income from interest or dividends?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse sell any stocks, bonds, or real estate?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse sell any stocks, bonds, or real estate?")
     end
     click_on "No"
 
     # Retirement income/contributions
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have Social Security income, retirement income, or retirement contributions?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse have Social Security income, retirement income, or retirement contributions?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any contributions to a retirement account?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse make any contributions to a retirement account?")
     end
     click_on "Yes"
 
     # Other income
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any other money?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse receive any other money?")
     end
     click_on "Yes"
     screenshot_after do
@@ -359,41 +360,41 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     # Health insurance
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse purchase health insurance through the marketplace or exchange?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse purchase health insurance through the marketplace or exchange?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have a Health Savings Account?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse have a Health Savings Account?")
     end
     click_on "Yes"
 
     # Itemizing
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for 2019?")
+      expect(page).to have_selector("h1", text: "Would you like to itemize your deductions for #{TaxReturn.current_tax_year}?")
     end
     click_on "I don't know"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any medical, dental, or prescription expenses?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse pay any medical, dental, or prescription expenses?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any charitable contributions?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse make any charitable contributions?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from gambling winnings, including the lottery?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse have any income from gambling winnings, including the lottery?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any state, local, real estate, sales, or other taxes?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse pay any state, local, real estate, sales, or other taxes?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive a state or local income tax refund?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse receive a state or local income tax refund?")
     end
     click_on "Yes"
 
@@ -405,15 +406,15 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     # Miscellaneous
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have a loss related to a declared Federal Disaster Area?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse have a loss related to a declared Federal Disaster Area?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have debt cancelled or forgiven by a lender?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse have debt cancelled or forgiven by a lender?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any letter or bill from the IRS?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse receive any letter or bill from the IRS?")
     end
     click_on "Yes"
     screenshot_after do
@@ -421,15 +422,15 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any estimated tax payments or apply your 2018 refund to your 2019 taxes?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse make any estimated tax payments or apply your #{TaxReturn.current_tax_year - 1} refund to your #{TaxReturn.current_tax_year} taxes?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Did you or your spouse report a business loss on your 2018 tax return?")
+      expect(page).to have_selector("h1", text: "Did you or your spouse report a business loss on your #{TaxReturn.current_tax_year - 1} tax return?")
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In 2019, did you or your spouse purchase energy efficient home items?")
+      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse purchase energy efficient home items?")
     end
     click_on "Yes"
 
@@ -531,7 +532,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     expect do
       click_on "Continue"
-    end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress"]).to(["intake_ready"])
+    end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress", "intake_in_progress"]).to(["intake_ready", "intake_ready"])
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Please share any additional documents.")

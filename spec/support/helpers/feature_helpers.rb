@@ -56,9 +56,8 @@ module FeatureHelpers
         filing_status: "single",
         income_level: "25000_to_40000",
         id_type: "have_id",
-        doc_type: "all_copies_html",
+        doc_type: "all_copies",
         filed_past_years: [
-          TaxReturn.current_tax_year - 3,
           TaxReturn.current_tax_year - 2,
           TaxReturn.current_tax_year - 1,
         ],
@@ -85,12 +84,12 @@ module FeatureHelpers
     end
 
     triage_feature_helper.assert_page('questions.triage_id_type.edit.title') do
-      choose I18n.t("questions.triage_id_type.edit.ssn_itin_type.#{choices.id_type}")
+      choose option: choices.id_type
       click_on I18n.t('general.continue')
     end
 
     triage_feature_helper.assert_page('questions.triage_doc_type.edit.title') do
-      choose strip_html_tags(I18n.t("questions.triage_doc_type.edit.doc_type.#{choices.doc_type}"))
+      choose option: choices.doc_type
       click_on I18n.t('general.continue')
     end
 
