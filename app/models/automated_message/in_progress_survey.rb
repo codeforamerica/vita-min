@@ -5,7 +5,7 @@ module AutomatedMessage
     end
 
     def self.survey_link(client)
-      "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_6PDoi6ecHeQYiuq?ExternalDataReference=#{client.id}"
+      "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_9KwOYGguQ7L0y22?ExternalDataReference=#{client.id}"
     end
 
     def self.send_only_once?
