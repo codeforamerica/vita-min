@@ -255,6 +255,10 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Archived::Intake::CtcIntake2021 < Archived::Intake2021
+  def self.sti_name
+    'Intake::CtcIntake'
+  end
+
   attribute :eip1_amount_received, :money
   attribute :eip2_amount_received, :money
   attribute :primary_prior_year_agi_amount, :money
