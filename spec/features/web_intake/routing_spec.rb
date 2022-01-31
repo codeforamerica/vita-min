@@ -1,66 +1,69 @@
 require "rails_helper"
 
-feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
+feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_job do
   include MockTwilio
 
   def fill_out_notification_preferences
     # Notification Preference
-    check "Email Me"
-    check "Text Me"
-    click_on "Continue"
+    check I18n.t('views.questions.notification_preference.options.email_notification_opt_in')
+    check I18n.t('views.questions.notification_preference.options.sms_notification_opt_in')
+    click_on I18n.t('general.continue')
 
     # Phone number can text
     expect(page).to have_text("(415) 888-0088")
-    click_on "No"
+    click_on I18n.t('general.negative')
 
     # Phone number
-    expect(page).to have_selector("h1", text: "Please share your cell phone number.")
-    fill_in "Cell phone number", with: "(415) 553-7865"
-    fill_in "Confirm cell phone number", with: "+1415553-7865"
-    click_on "Continue"
+    expect(page).to have_selector("h1", text: I18n.t("views.questions.phone_number.title"))
+    fill_in I18n.t("views.questions.phone_number.phone_number"), with: "(415) 553-7865"
+    fill_in I18n.t("views.questions.phone_number.phone_number_confirmation"), with: "+1415553-7865"
+    click_on I18n.t('general.continue')
 
     # Verify cell phone contact
     perform_enqueued_jobs
     sms = FakeTwilioClient.messages.last
     code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
-    fill_in "Enter 6 digit code", with: code
-    click_on "Verify"
+    fill_in I18n.t("views.questions.verification.verification_code_label"), with: code
+    click_on I18n.t("views.questions.verification.verify")
 
     # Email
-    fill_in "Email address", with: "gary.gardengnome@example.green"
-    fill_in "Confirm email address", with: "gary.gardengnome@example.green"
-    click_on "Continue"
+    fill_in I18n.t("views.questions.email_address.email_address"), with: "gary.gardengnome@example.green"
+    fill_in I18n.t("views.questions.email_address.email_address_confirmation"), with: "gary.gardengnome@example.green"
+    click_on I18n.t('general.continue')
 
     # Verify email contact
     perform_enqueued_jobs
     mail = ActionMailer::Base.deliveries.last
     code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
-    fill_in "Enter 6 digit code", with: code
-    click_on "Verify"
+    fill_in I18n.t("views.questions.verification.verification_code_label"), with: code
+    click_on I18n.t("views.questions.verification.verify")
 
     # Consent form
-    fill_in "Legal first name", with: "Gary"
-    fill_in "Legal last name", with: "Gnome"
-    fill_in I18n.t("attributes.primary_ssn"), with: "123456789"
-    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123456789"
-    select "March", from: "Month"
-    select "5", from: "Day"
-    select "1971", from: "Year"
-    click_on "I agree"
+    fill_in I18n.t("views.questions.consent.primary_first_name"), with: "Gary"
+    fill_in I18n.t("views.questions.consent.primary_last_name"), with: "Gnome"
+    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+    select I18n.t("date.month_names")[3], from: "consent_form_birth_date_month"
+    select "5", from: "consent_form_birth_date_day"
+    select "1971", from: "consent_form_birth_date_year"
+    click_on I18n.t("views.questions.consent.cta")
 
     # Optional consent form
-    expect(page).to have_selector("h1", text: "A few more things...")
-    expect(page).to have_checked_field("Consent to Use")
-    expect(page).to have_link("Consent to Use", href: consent_to_use_path)
-    expect(page).to have_checked_field("Consent to Disclose")
-    expect(page).to have_link("Consent to Disclose", href: consent_to_disclose_path)
-    expect(page).to have_checked_field("Relational EFIN")
-    expect(page).to have_link("Relational EFIN", href: relational_efin_path)
-    expect(page).to have_checked_field("Global Carryforward")
-    expect(page).to have_link("Global Carryforward", href: global_carryforward_path)
-    uncheck "Global Carryforward"
-    click_on "Continue"
+    expect(page).to have_selector("h1", text: I18n.t('views.questions.optional_consent.title'))
+    toggles = {
+      strip_html_tags(I18n.t('views.questions.optional_consent.consent_to_use_html')).split(':').first => consent_to_use_path,
+      strip_html_tags(I18n.t('views.questions.optional_consent.consent_to_disclose_html')).split(':').first => consent_to_disclose_path,
+      strip_html_tags(I18n.t('views.questions.optional_consent.relational_efin_html')).split(':').first => relational_efin_path,
+      strip_html_tags(I18n.t('views.questions.optional_consent.global_carryforward_html')).split(':').first => global_carryforward_path,
+    }
+    toggles.each do |toggle_text, link_path|
+      expect(page).to have_checked_field(toggle_text)
+      expect(page).to have_link(toggle_text, href: link_path)
+    end
+    uncheck toggles.keys.last
+    click_on I18n.t('general.continue')
   end
+
   let!(:expected_source_param_vita_partner) { create :organization, name: "Cobra Academy" }
   let!(:expected_zip_code_vita_partner) { create :organization, name: "Diagon Alley" }
   let!(:expected_state_vita_partner) { create :organization, name: "Hogwarts", capacity_limit: 10, coalition: create(:coalition) }
@@ -75,105 +78,106 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     # expect redirect to locale path
     # expect that this sets a cookie that routes to cobra.
 
-    expect(page).to have_text "Free tax filing, made simple."
+    expect(page).to have_text I18n.t('views.public_pages.home.header')
 
     # clients with matching vita partner source param skip triage questions
-    click_on "Get started", id: "firstCta"
-    expect(page).to have_text "Welcome"
-    click_on "Continue"
+    click_on I18n.t("general.get_started"), id: "firstCta"
+    expect(page).to have_text I18n.t("views.questions.welcome.title")
+    click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t("views.questions.backtaxes.title")
+    expect(page).to have_text I18n.t('views.questions.backtaxes.title')
     check "2020"
-    click_on "Continue"
+    click_on I18n.t('general.continue')
 
     expect(Intake.last.source).to eq "cobra"
-    expect(page).to have_text "Thanks for visiting the GetYourRefund demo application!"
-    click_on "Continue to example"
+    expect(page).to have_text I18n.t('views.questions.environment_warning.title')
+    click_on I18n.t('general.continue_example')
 
-    expect(page).to have_text "Let's get started"
-    click_on "Continue"
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+    click_on I18n.t('general.continue')
 
-    expect(page).to have_text "Just a few simple steps to file!"
-    click_on "Continue"
+    expect(page).to have_text I18n.t('views.questions.overview.title')
+    click_on I18n.t('general.continue')
 
-    expect(page).to have_text "let's get some basic information"
-    fill_in "What is your preferred first name?", with: "Betty Banana"
-    fill_in "ZIP code", with: zip_code
-    fill_in "Phone number", with: "415-888-0088"
-    fill_in "Confirm phone number", with: "415-888-0088"
-    click_on "Continue"
+    expect(page).to have_text I18n.t('views.questions.personal_info.title')
+    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Betty Banana"
+    fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
+    fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
+    fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    click_on I18n.t('general.continue')
 
-    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
-    click_on "Continue"
+    fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
+    click_on I18n.t('general.continue')
 
     fill_out_notification_preferences
 
-    expect(page.html).to have_text "Our team at Cobra Academy is here to help!"
+    expect(page.html).to have_text I18n.t("views.questions.chat_with_us.title", partner_name: "Cobra Academy")
   end
 
   scenario "routing by zip code" do
     visit "/questions/backtaxes"
 
-    expect(page).to have_text I18n.t("views.questions.backtaxes.title")
+    expect(page).to have_text I18n.t('views.questions.backtaxes.title')
     check "2020"
-    click_on "Continue"
+    click_on I18n.t('general.continue')
 
     expect(Intake.last.source).to eq nil
-    expect(page).to have_text "Thanks for visiting the GetYourRefund demo application!"
-    click_on "Continue to example"
+    expect(page).to have_text I18n.t('views.questions.environment_warning.title')
+    click_on I18n.t('general.continue_example')
 
-    expect(page).to have_text "Let's get started"
-    click_on "Continue"
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+    click_on I18n.t('general.continue')
 
-    expect(page).to have_text "Just a few simple steps to file!"
-    click_on "Continue"
+    expect(page).to have_text I18n.t('views.questions.overview.title')
+    click_on I18n.t('general.continue')
 
-    expect(page).to have_text "let's get some basic information"
-    fill_in "What is your preferred first name?", with: "Minerva Mcgonagall"
-    fill_in "ZIP code", with: zip_code
-    fill_in "Phone number", with: "415-888-0088"
-    fill_in "Confirm phone number", with: "415-888-0088"
-    click_on "Continue"
+    expect(page).to have_text I18n.t('views.questions.personal_info.title')
+    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Minerva Mcgonagall"
+    fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
+    fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
+    fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    click_on I18n.t('general.continue')
 
-    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
-    click_on "Continue"
+    fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
+    click_on I18n.t('general.continue')
 
     fill_out_notification_preferences
 
-    expect(page.html).to have_text "Our team at Diagon Alley is here to help!"
+    expect(page.html).to have_text I18n.t("views.questions.chat_with_us.title", partner_name: "Diagon Alley")
   end
 
   scenario "routing by state" do
     visit "/questions/backtaxes"
 
-    expect(page).to have_text I18n.t("views.questions.backtaxes.title")
+    expect(page).to have_text I18n.t('views.questions.backtaxes.title')
     check "2020"
-    click_on "Continue"
+    click_on I18n.t('general.continue')
 
     expect(Intake.last.source).to eq nil
-    expect(page).to have_text "Thanks for visiting the GetYourRefund demo application!"
-    click_on "Continue to example"
+    expect(page).to have_text I18n.t('views.questions.environment_warning.title')
+    click_on I18n.t('general.continue_example')
 
-    expect(page).to have_text "Let's get started"
-    click_on "Continue"
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+    click_on I18n.t('general.continue')
 
-    expect(page).to have_text "Just a few simple steps to file!"
-    click_on "Continue"
+    expect(page).to have_text I18n.t('views.questions.overview.title')
+    click_on I18n.t('general.continue')
 
-    expect(page).to have_text "let's get some basic information"
-    fill_in "What is your preferred first name?", with: "Luna Lovegood"
-    fill_in "ZIP code", with: "28806"
-    fill_in "Phone number", with: "415-888-0088"
-    fill_in "Confirm phone number", with: "415-888-0088"
-    click_on "Continue"
+    expect(page).to have_text I18n.t('views.questions.personal_info.title')
+    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Luna Lovegood"
+    fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
+    fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
+    fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    click_on I18n.t('general.continue')
 
-    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
-    click_on "Continue"
+    fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
+    click_on I18n.t('general.continue')
 
     fill_out_notification_preferences
 
-    expect(page.html).to have_text "Our team at Hogwarts is here to help!"
+    expect(page.html).to have_text I18n.t("views.questions.chat_with_us.title", partner_name: "Hogwarts")
   end
+
   context "at capacity but overflow site exists" do
     let!(:default_vita_partner) { create :organization, name: "Default Organization", national_overflow_location: true }
 
@@ -184,29 +188,29 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     scenario "routes to national partner" do
       visit "/questions/backtaxes"
 
-      expect(page).to have_text I18n.t("views.questions.backtaxes.title")
+      expect(page).to have_text I18n.t('views.questions.backtaxes.title')
       check "2020"
-      click_on "Continue"
+      click_on I18n.t('general.continue')
 
       expect(Intake.last.source).to eq nil
-      expect(page).to have_text "Thanks for visiting the GetYourRefund demo application!"
-      click_on "Continue to example"
+      expect(page).to have_text I18n.t('views.questions.environment_warning.title')
+      click_on I18n.t('general.continue_example')
 
-      expect(page).to have_text "Let's get started"
-      click_on "Continue"
+      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+      click_on I18n.t('general.continue')
 
-      expect(page).to have_text "Just a few simple steps to file!"
-      click_on "Continue"
+      expect(page).to have_text I18n.t('views.questions.overview.title')
+      click_on I18n.t('general.continue')
 
-      expect(page).to have_text "let's get some basic information"
-      fill_in "What is your preferred first name?", with: "Luna Lovegood"
-      fill_in "ZIP code", with: "28806"
-      fill_in "Phone number", with: "415-888-0088"
-      fill_in "Confirm phone number", with: "415-888-0088"
-      click_on "Continue"
+      expect(page).to have_text I18n.t('views.questions.personal_info.title')
+      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Luna Lovegood"
+      fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
+      fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
+      fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+      click_on I18n.t('general.continue')
 
-      fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
-      click_on "Continue"
+      fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
+      click_on I18n.t('general.continue')
 
       fill_out_notification_preferences
 
@@ -224,33 +228,33 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     scenario "would have been routed by state, redirects to at capacity page" do
       visit "/questions/backtaxes"
 
-      expect(page).to have_text I18n.t("views.questions.backtaxes.title")
+      expect(page).to have_text I18n.t('views.questions.backtaxes.title')
       check "2020"
-      click_on "Continue"
+      click_on I18n.t('general.continue')
 
       expect(Intake.last.source).to eq nil
-      expect(page).to have_text "Thanks for visiting the GetYourRefund demo application!"
-      click_on "Continue to example"
+      expect(page).to have_text I18n.t('views.questions.environment_warning.title')
+      click_on I18n.t('general.continue_example')
 
-      expect(page).to have_text "Let's get started"
-      click_on "Continue"
+      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
+      click_on I18n.t('general.continue')
 
-      expect(page).to have_text "Just a few simple steps to file!"
-      click_on "Continue"
+      expect(page).to have_text I18n.t('views.questions.overview.title')
+      click_on I18n.t('general.continue')
 
-      expect(page).to have_text "let's get some basic information"
-      fill_in "What is your preferred first name?", with: "Luna Lovegood"
-      fill_in "ZIP code", with: "28806"
-      fill_in "Phone number", with: "415-888-0088"
-      fill_in "Confirm phone number", with: "415-888-0088"
-      click_on "Continue"
+      expect(page).to have_text I18n.t('views.questions.personal_info.title')
+      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Luna Lovegood"
+      fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
+      fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
+      fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+      click_on I18n.t('general.continue')
 
-      fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
-      click_on "Continue"
+      fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
+      click_on I18n.t('general.continue')
 
       fill_out_notification_preferences
 
-      expect(page.html).to have_text I18n.t("views.questions.at_capacity.title")
+      expect(page.html).to have_text I18n.t('views.questions.at_capacity.title')
     end
   end
 end
