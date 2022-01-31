@@ -2780,7 +2780,10 @@ en:
           subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year.
         title: About Us
       diy_home:
-        body_html: We provide free access to an online tax prep site called TaxSlayer. We'll send you a link to create your own TaxSlayer login, so you can file on your own. <strong>The deadline to use TaxSlayer is October 15th.</strong>
+        body: |
+          This is our quickest option to file your taxes and collect the tax credits you are owed! By clicking continue, you will be taken to our partner’s website to continue filing on your own. The process is simple, quick, and easy.
+
+          You must earn less than $73,000 a year to be eligible for this service.
         title: File taxes on your own for free!
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
