@@ -49,7 +49,6 @@ describe SyntheticNote do
       end
     end
 
-
     context "with outbound calls" do
       let(:day1) { DateTime.new(2019, 10, 5, 8, 1).utc }
       let(:day2) { DateTime.new(2020, 10, 5, 5, 1).utc }

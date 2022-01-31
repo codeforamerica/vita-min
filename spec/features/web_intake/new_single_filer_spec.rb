@@ -21,8 +21,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     intake = Intake.last
 
     # Non-production environment warning
-    expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
-    click_on "Continue to example"
+    expect(page).to have_text I18n.t('views.questions.environment_warning.title')
+    click_on I18n.t('general.continue_example')
 
     expect(page).to have_selector("h1", text: "Let's get started")
     expect(page).to have_text("We’ll start by asking about your situation in #{TaxReturn.current_tax_year}.")
@@ -93,30 +93,32 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Verify"
 
     # Consent form
-    expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
-    fill_in "Legal first name", with: "Gary"
-    fill_in "Legal last name", with: "Gnome"
-    fill_in I18n.t("attributes.primary_ssn"), with: "123456789"
-    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123456789"
-    select "March", from: "Month"
-    select "5", from: "Day"
-    select "1971", from: "Year"
-    click_on "I agree"
+    expect(page).to have_selector("h1", text: I18n.t('views.questions.consent.title'))
+    fill_in I18n.t("views.questions.consent.primary_first_name"), with: "Gary"
+    fill_in I18n.t("views.questions.consent.primary_last_name"), with: "Gnome"
+    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+    select I18n.t("date.month_names")[3], from: "consent_form_birth_date_month"
+    select "5", from: "consent_form_birth_date_day"
+    select "1971", from: "consent_form_birth_date_year"
+    click_on I18n.t("views.questions.consent.cta")
     # create tax returns only after client has consented
     expect(intake.client.tax_returns.pluck(:year).sort).to eq [TaxReturn.current_tax_year - 3, TaxReturn.current_tax_year]
 
     # Optional consent form
-    expect(page).to have_selector("h1", text: "A few more things...")
-    expect(page).to have_checked_field("Consent to Use")
-    expect(page).to have_link("Consent to Use", href: consent_to_use_path)
-    expect(page).to have_checked_field("Consent to Disclose")
-    expect(page).to have_link("Consent to Disclose", href: consent_to_disclose_path)
-    expect(page).to have_checked_field("Relational EFIN")
-    expect(page).to have_link("Relational EFIN", href: relational_efin_path)
-    expect(page).to have_checked_field("Global Carryforward")
-    expect(page).to have_link("Global Carryforward", href: global_carryforward_path)
-    uncheck "Global Carryforward"
-    click_on "Continue"
+    expect(page).to have_selector("h1", text: I18n.t('views.questions.optional_consent.title'))
+    toggles = {
+      strip_html_tags(I18n.t('views.questions.optional_consent.consent_to_use_html')).split(':').first => consent_to_use_path,
+      strip_html_tags(I18n.t('views.questions.optional_consent.consent_to_disclose_html')).split(':').first => consent_to_disclose_path,
+      strip_html_tags(I18n.t('views.questions.optional_consent.relational_efin_html')).split(':').first => relational_efin_path,
+      strip_html_tags(I18n.t('views.questions.optional_consent.global_carryforward_html')).split(':').first => global_carryforward_path,
+    }
+    toggles.each do |toggle_text, link_path|
+      expect(page).to have_checked_field(toggle_text)
+      expect(page).to have_link(toggle_text, href: link_path)
+    end
+    uncheck toggles.keys.last
+    click_on I18n.t('general.continue')
 
     # Chat with us
     expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
