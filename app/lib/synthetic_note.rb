@@ -33,7 +33,7 @@ class SyntheticNote
         duration += "#{duration_minutes}m" if duration_minutes.positive?
         duration += "#{duration_seconds}s"
       end
-      body = I18n.t("hub.notes.index.outbound_call_synthetic_note", user_name: outbound_call.user.name, client_name: outbound_call.client.preferred_name, status: outbound_call.twilio_status, duration: duration)
+      body = I18n.t("hub.notes.index.outbound_call_synthetic_note", user_name: outbound_call.user.name, client_name: client.preferred_name, status: outbound_call.twilio_status, duration: duration)
       body += "\n#{I18n.t("hub.notes.index.outbound_call_synthetic_note_body")}\n#{outbound_call.note}" if outbound_call.note.present?
       SyntheticNote.new(
         created_at: outbound_call.created_at,
