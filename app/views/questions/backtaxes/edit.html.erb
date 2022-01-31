@@ -9,7 +9,7 @@
       <%=t("views.questions.backtaxes.select_all_that_apply") %>
     </p>
     <div class="form-card__stacked-checkboxes spacing-above-0">
-      <% TaxReturn.filing_years.map do |year| %>
+      <% @possible_filing_years.map do |year| %>
         <%= f.cfa_checkbox("needs_help_#{year}".to_sym, year.to_s, options: { checked_value: "yes", unchecked_value: "no" }) %>
       <% end %>
     </div>

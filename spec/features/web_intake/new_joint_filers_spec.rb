@@ -16,7 +16,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     screenshot_after do
       # Ask about backtaxes
-      expect(page).to have_selector("h1", text: "What years would you like to file for?")
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
       check "2019"
     end
     click_on "Continue"
