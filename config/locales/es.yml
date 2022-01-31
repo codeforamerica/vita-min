@@ -1459,7 +1459,7 @@ es:
           Incluso, aunque haya usado un servicio diferente para presentar su declaración de impuestos de años anteriores, <strong>seleccione cualquier/ todos los años que correspondan.</strong>
 
           No se preocupe si no ha presentado una declaración de impuestos para ninguno de estos años, ¡estamos aquí para ayudarle!
-        title: "¿Ha presentado declaraciones de impuestos en el pasado? Favor de decirnos en qué años los presentó. "
+        title: "¿Ha presentado declaraciones de impuestos en el pasado? Favor de decirnos en qué años los presentó."
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
@@ -1468,10 +1468,10 @@ es:
     triage_doc_type:
       edit:
         doc_type:
-          all_copies_html: 'Tengo  <u>todas</u> las copias de mis documentos fiscales oficiales '
-          does_not_apply_html: "<u> No tengo </u> copias de ningún documento fiscal oficial porque <u> no me aplican </u>"
-          need_help_html: "<u> No tengo</u> ninguna copia de mis documentos fiscales oficiales y <u> me gustaría recibir ayuda </u> para obtenerlas."
-          some_copies_html: 'Tengo <u>algunas</u> copias de mis documentos fiscales oficiales '
+          all_copies_html: Tengo <u>todas</u> las copias de mis documentos fiscales oficiales
+          does_not_apply_html: "<u>No tengo</u> copias de ningún documento fiscal oficial porque <u>no me aplican</u>"
+          need_help_html: "<u>No tengo</u> ninguna copia de mis documentos fiscales oficiales y <u>me gustaría recibir ayuda</u> para obtenerlas."
+          some_copies_html: Tengo <u>algunas</u> copias de mis documentos fiscales oficiales
         help_text: Los documentos fiscales se refieren a cualquier documento oficial del IRS o documentos que confirmen su empleo como una W2, 1099, registro de trabajo personal, etc.
         title: "¿Qué tipo de documentos fiscales tiene?"
     triage_express:
@@ -3108,7 +3108,7 @@ es:
           eip: 'Favor de ingresar los montos de cada pago de estímulo, o díganos que no está seguro cuánto recibió. '
         help_text_html:
         - A partir de abril 2020, se emitieron tres pagos de estímulo, anteriormente conocidos como Pagos de impacto económico, como parte del Plan de Rescate Estadounidense.
-        - 'Además, se les han enviado los pagos de Crédito Tributario por Hijos o CTC a familias con hijos menores de 17 años de edad. '
+        - Además, se les han enviado los pagos de Crédito Tributario por Hijos o CTC a familias con hijos menores de 17 años de edad.
         - "<strong>Favor de compartir la información de su pagos a continuación.</strong>Si no recibió un pago, ingrese 0."
         labels:
           child_tax_credit: Pagos por adelantado del Crédito Tributario por Hijos
@@ -3163,7 +3163,7 @@ es:
         info: "¡Sabemos que los impuestos pueden ser difíciles y estamos aquí para ayudarlo en cada paso del camino!"
         partner_info_html: "%{partner_name} prepara declaraciones de impuestos de <strong>%{zip} (%{zip_name}).</strong>"
         returning_client:
-          partner_info: 'De nuevo, nuestro equipo en %{partner_name}está aquí para ayudarle a presentar su declaración . '
+          partner_info: De nuevo, nuestro equipo en %{partner_name}está aquí para ayudarle a presentar su declaración.
           title: "¡Bienvenido de nuevo %{name}!"
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
       consent:
@@ -3543,9 +3543,9 @@ es:
         find_right_service: "¡Le haremos algunas preguntas para encontrar el mejor servicio para usted!"
         help_text: 'Le brindamos opciones múltiples para presentar su declaración de impuestos a hogares que califiquen:'
         list:
-        - "<strong>GetYourRefund</strong> Nuestros especialistas certificados de impuestos le ayudarán a presentar su declaración y a cobrar todos los créditos tributarios que se le deben. "
-        - "<strong>File Myself</strong> Una opción rápida en línea le permite presentar su declaración y cobrar los créditos tributarios por su cuenta.  "
-        - "<strong>Express</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago de estímulo federal y el Crédito Tributario por Hijos por su cuenta. "
+        - "<strong>GetYourRefund</strong> Nuestros especialistas certificados de impuestos le ayudarán a presentar su declaración y a cobrar todos los créditos tributarios que se le deben."
+        - "<strong>File Myself</strong> Una opción rápida en línea le permite presentar su declaración y cobrar los créditos tributarios por su cuenta."
+        - "<strong>Express</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago de estímulo federal y el Crédito Tributario por Hijos por su cuenta."
         title: "¡Bienvenidos a nuestro servicio gratuito!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
