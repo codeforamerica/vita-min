@@ -196,13 +196,13 @@ es:
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       hub:
-        communication_opt_in: Si el método para recoger es "en línea", se requiere un método de contacto y una suscripción de comunicación.
-        contact_method_required: "%{attribute} es obligatorio si se habilita para recibir notificaciones"
+        communication_opt_in: Si el método de la firma es "en línea", se requiere que opte por un método de comunicación y de contacto.
+        contact_method_required: "%{attribute} es obligatorio si opta para recibir notificaciones "
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
       state_routings:
-        delegated_routing: Solo puede enviar porcentajes de enrutamiento para una organización O sus sitios secundarios, no para ambos.
+        delegated_routing: Solo puede enviar los porcentajes de enrutamiento para una organización o su sub-organización, no para ambas.
         must_equal_100: Los porcentajes de enrutamiento deben totalizar el 100%.
       status_must_change: No se puede iniciar el cambio de estado al estado actual.
       tax_return_belongs_to_client: No se puede actualizar la declaración de impuestos que no esté relacionada con el cliente actual.
@@ -407,7 +407,7 @@ es:
     phone: Teléfono
     phone_for_texting: Número de celular
     phone_number: Número de teléfono
-    please_select_at_least_one_option: Favor de seleccionar al menos una opción.
+    please_select_at_least_one_option: Favor de seleccionar por lo menos una opción.
     please_wait: Espere por favor...
     privacy_policy: Política de privacidad
     race:
@@ -422,7 +422,7 @@ es:
     resend_invitation: Reenviar email de invitación
     resolve: Resolver
     responded_to_client: Respondido al cliente
-    response: Respuesta
+    response: 'Respuesta '
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     role: Rol
@@ -502,7 +502,7 @@ es:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
   hub:
-    archived_client_warning: This is a previous year’s ticket. This information is archived and should only be used for reference.
+    archived_client_warning: Este es un boleto de un año anterior. Esta información está archivada y solo debe usarse como referencia.
     assigned_clients:
       index:
         title: Clientes asignados
@@ -750,7 +750,7 @@ es:
         upload_date: Fecha de carga
     has_duplicates: Posibles duplicados detectados
     last_client_update: 'Última actualización de cliente: '
-    last_contact: Último contacto
+    last_contact: último contacto
     messages:
       automated: Automatizado
       from: de
@@ -762,7 +762,7 @@ es:
         no_sms_number: El cliente no ha proporcionado un número de teléfono SMS.
         no_way_to_communicate: El cliente no ha proporcionado información de contacto para la comunicación digital.
         preference_intro: "%{preferred_name} ha optado por contactar por:"
-        response_not_needed: Mark as "Response not needed"
+        response_not_needed: Marcar como "Respuesta no necesaria"
         text_message_form:
           label: Enviar un mensaje de texto
           submit: Enviar
@@ -788,7 +788,7 @@ es:
         excludes: 'Excluye estados: Aceptado, No Archivar, en En Pausa'
       index:
         add_coalition: Agregar una nueva coalición
-        add_organization: Agregar una nueva coalición
+        add_organization: Agregar una nueva organización
         no_state: Sin estado
         title: Lista de Organizaciones
       new:
@@ -1082,7 +1082,7 @@ es:
         success: Anular la suspensión de la cuenta de %{name}
       update_role:
         success: Se actualizó el rol de %{name}
-    waiting_on: Esperando por
+    waiting_on: En espera
     zip_codes:
       already_applied: "%{zip_code} ya está enrutado a este socio."
       already_taken: "%{zip_code} ya está enrutado a <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
@@ -1245,14 +1245,15 @@ es:
         body: |
           Hola,
 
-          Recibirá lo que llaman la carta 6419 del IRS en enero de 2022. Esta carta le ayudará a usted y a su preparador de impuestos a reclamar el Crédito Tributario por Hijos correctamente para usted y su familia. La carta tendrá 6419 impreso e incluirá información sobre los pagos del Crédito Tributario por Hijos que recibió en el 2021.
+          Recibirá lo que llaman la carta 6419 del IRS en enero de 2022. Esta carta le ayudará a usted y su preparador de impuestos a reclamar su Crédito Tributario por Hijos correctamente para usted y su familia. La carta tendrá 6419 impreso e incluirá información sobre los pagos del Crédito Tributario por Hijos que recibió en 2021.
 
-          Por favor, guarde esta carta para cuando presente su declaración de impuestos. Ya sea que presente su declaración con %{service_name} u otro servicio, esta le ayudará a reclamar los pagos restantes y recibirá cualquier reembolso adeudado sin demora.
+          Favor de guardar esta carta para cuando presente sus impuestos. Ya sea que presente su declaración con %{service_name} o cualquier otro servicio, esta le ayudará a cobrar cualquier pago restante y recibirá cualquier reembolso que se le deba, sin demora.
 
           Feliz Año Nuevo,
-          Su Equipo de Impuestos de %{service_name}
+
+          Su equipo de impuestos de %{service_name}
         subject: Información importante para reclamar los pagos del Crédito Tributario por Hijos
-      sms: Saludos de su equipo de impuestos – Si recibió los pagos del Crédito Tributario por Hijos en el 2021, recibirá la carta 6419 del IRS en enero de 2022. Por favor, guarde esta carta para cuando presente su declaración de impuestos reclame los pagos restantes y evite demoras con el tramite de su reembolso.
+      sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission_drop_off:
       email:
@@ -1448,110 +1449,110 @@ es:
       edit:
         assistance:
           in_person: asistencia en persona
-          phone_review_english: revisión telefónica (inglés)
-          phone_review_non_english: revisión telefónica (idioma no inglés)
-        help_text: 'Seleccione la(s) opción(es) que se aplican a usted:'
-        title: "¿Necesitas alguna ayuda adicional?"
+          phone_review_english: Repaso por teléfono (inglés)
+          phone_review_non_english: Repaso por teléfono (idioma no inglés)
+        help_text: 'Seleccione la opción(es) que mejor apliquen a usted:'
+        title: "¿Necesita alguna ayuda adicional?"
     triage_backtaxes_years:
       edit:
         help_text_html: |
-          Incluso si utilizó un servicio diferente para presentar la solicitud de años anteriores, <strong>seleccione cualquiera o todos los años que correspondan.</strong>
+          Incluso, aunque haya usado un servicio diferente para presentar su declaración de impuestos de años anteriores, <strong>seleccione cualquier/ todos los años que correspondan.</strong>
 
-          No se preocupe si no ha solicitado ninguno de estos años, ¡estamos aquí para ayudarlo!
-        title: "¿Ha presentado impuestos en el pasado? Háganos saber los años que presentó."
+          No se preocupe si no ha presentado una declaración de impuestos para ninguno de estos años, ¡estamos aquí para ayudarle!
+        title: "¿Ha presentado declaraciones de impuestos en el pasado? Favor de decirnos en qué años los presentó. "
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
-        help_text: Parece que está por encima de nuestro límite de presentación. Nuestro servicio gratuito está disponible para hogares que ganan menos de $73,000 al año.
+        help_text: Parece que está sobre el límite para presentar su declaración. Nuestros servicios gratuitos están disponibles para hogares que ganan menos de $73,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_doc_type:
       edit:
         doc_type:
-          all_copies_html: Tengo <u>todas</u> copias de mis documentos fiscales oficiales
-          does_not_apply_html: "<u>No</u> tengo copias de ningún documento fiscal oficial porque <u>no se aplican a mí</u>"
-          need_help_html: "<u>No tengo</u> copias de ningún documento fiscal oficial y <u>me gustaría recibir ayuda</u> para obtenerlas"
-          some_copies_html: Tengo <u>algunas</u> copias de mis documentos fiscales oficiales
-        help_text: Los documentos fiscales se refieren a cualquier documento oficial del IRS o documentos que confirmen su empleo como un W2, 1099, registro de trabajo personal, etc.
+          all_copies_html: 'Tengo  <u>todas</u> las copias de mis documentos fiscales oficiales '
+          does_not_apply_html: "<u> No tengo </u> copias de ningún documento fiscal oficial porque <u> no me aplican </u>"
+          need_help_html: "<u> No tengo</u> ninguna copia de mis documentos fiscales oficiales y <u> me gustaría recibir ayuda </u> para obtenerlas."
+          some_copies_html: 'Tengo <u>algunas</u> copias de mis documentos fiscales oficiales '
+        help_text: Los documentos fiscales se refieren a cualquier documento oficial del IRS o documentos que confirmen su empleo como una W2, 1099, registro de trabajo personal, etc.
         title: "¿Qué tipo de documentos fiscales tiene?"
     triage_express:
       edit:
-        collect_your: 'Recoge tu:'
+        collect_your: 'Cobre su:'
         collectables:
-          additional_credits: Créditos Estatales Adicionales
+          additional_credits: Créditos estatales adicionales
           ctc: Crédito Tributario por Hijos
           eitc: Crédito tributario por ingresos del trabajo
-          missing_stimulus: Faltan Pagos de Estímulo
+          missing_stimulus: Pagos de estímulos faltantes
         comparison:
           express:
-            description: "¡Archive rápidamente por su cuenta!"
-            timeframe: 15 minutos para presentar, disponible en marzo de 2022
-            title: Express
+            description: "¡Declare rápido por cuenta propia!"
+            timeframe: 15 minutos para declarar sus impuestos, disponible abril 2022
+            title: Express/Rápido
           gyr:
-            description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
-            timeframe: 2-3 semanas para presentar
+            description: "¡Cobre el reembolso más grande! Presente su declaración con asistencia de nuestros voluntarios certificados por IRS."
+            timeframe: De 2-3 semanas para declarar sus impuestos
             title: GetYourRefund
-        file_with_gyr: Archivo con GetYourRefund
+        file_with_gyr: Solicite por medio de GetYourRefund
         refund: Reembolso
-        sign_up_for_express: Suscríbete a Express
-        title: "¡Tenemos dos opciones gratuitas que pueden funcionar para usted!"
+        sign_up_for_express: Subscríbase para Express
+        title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_gyr:
       edit:
-        file_in_person: Presentar en persona
-        file_on_my_own: En realidad, prefiero presentar la solicitud rápidamente por mi cuenta sin ayuda.
-        file_online: Archivo en línea
+        file_in_person: Presente su declaración en persona
+        file_on_my_own: 'En realidad, quiero intentar presentar mi declaración rápidamente por mi cuenta utilizando software gratuito. '
+        file_online: Presente su declaración en línea
         help_text: |
-          Recoja todos los créditos fiscales que le deben con asistencia.
+          Cobre todos los créditos tributarios que se le deben con asistencia.
 
           ¡Disponible en línea o en persona!
 
-          ¡Nuestro equipo de impuestos certificado por el IRS le brindará apoyo práctico con sus impuestos!
-        title: "¡Recomendamos presentar con nuestra opción GetYourRefund gratuita!"
+          ¡Nuestro equipo certificado por el IRS le brindará apoyo práctico con sus impuestos!
+        title: "¡Le recomendamos que presente su declaración con nuestra opción gratuita de GetYourRefund!"
     triage_id_type:
       edit:
         ssn_itin_type:
-          have_id: Tengo mi tarjeta de Seguro Social o papeleo ITIN
-          know_number: Sé mi número de Seguro Social o ITIN, pero no tengo una copia del mismo
-          need_help: Necesito ayuda para solicitar mi ITIN
+          have_id: Tengo mi tarjeta de Número de Seguro Social o la documentación de mi Número de Identificación Personal del Contribuyente o ITIN en inglés
+          know_number: 'Me sé mi Número de Seguro Social o Número de Identificación Personal del Contribuyente o ITIN en inglés, pero no tengo una copia '
+          need_help: Necesito solicitar un número de identificación personal del contribuyente (ITIN)
         title: "¿Qué tipo de identificación tiene?"
     triage_income_level:
       edit:
         filing_status:
-          label: "¿Cómo vas a declarar sus impuestos este año?"
+          label: "¿Cómo desea presentar su declaración de impuestos?"
           options:
-            jointly: Declarar con mi cónyuge (presenta conjuntamente)
-            single: Declarar mis impuestos por mi cuenta (soltero)
+            jointly: Declarar con mi cónyuge (declaración conjunta)
+            single: Declarar independientemente (soltero)
         income_level:
           label_html: |-
-            ¿Cuál era su nivel de ingresos?
+            ¿Cuál fue su nivel de ingresos?
 
-            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos del Crédito Tributario por Hijos por adelantado, los pagos del estímulo, beneficios públicos o Seguridad de Ingreso Suplementario (SSI en inglés).</p>
+            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir los pagos por adelantado del Crédito Tributario por Hijos o Adv CTC, los pagos de estímulo, las prestaciones públicas o el pago de Seguridad de Ingreso Suplementario o SSI.</p>
           options:
-            12500_to_25000: "$12,500 - 25,000"
-            1_to_12500: "$1 - 12,500"
-            25000_to_40000: "$25,000 - 40,000"
-            40000_to_65000: "$40,000 - 65,000"
-            65000_to_73000: "$65,000 - 73,000"
+            12500_to_25000: De $12,500 a 25,000 dólares
+            1_to_12500: De $1 a 12,500 dólares
+            25000_to_40000: De $25,000 a 40,000 dólares
+            40000_to_65000: De $40,000 a 65,000 dólares
+            65000_to_73000: De $65,000 a 73,000 dólares
             over_73000: más de $73,000
             zero: "$0"
-        title: "¡Empecemos!"
+        title: "¡Vamos a empezar!"
     triage_income_types:
       edit:
         income_types:
-          farm: Gané dinero siendo dueño de una granja.
-          rental: Gané dinero de una propiedad de alquiler
-        income_types_label: "¿Alguna de las siguientes situaciones se aplica a usted?"
-        title: "¡Una última pregunta antes de que seleccionemos el servicio para usted!"
+          farm: Gané dinero por tener una granja
+          rental: Gané dinero de una propiedad alquilada
+        income_types_label: "¿Alguna situación a continuación le aplica a usted?"
+        title: "¡Una última pregunta antes de seleccionar un servicio para usted!"
     triage_referral:
       edit:
         help_text: |
-          Presente en línea por su cuenta utilizando un sitio web asociado certificado por el IRS. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que se le deben!
+          Presente su declaración en línea por su cuenta utilizando el sitio web de un asociado. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos tributarios que se le deben!
 
-          Al hacer clic en continuar, será redirigido al sitio de nuestro socio para continuar con la presentación por su cuenta. El proceso es simple, rápido y fácil.
-        title: "¡Recomendamos realizar la presentación con nuestra opción gratuita File Myself!"
+          Al hacer clic en continuar, será dirigido al sitio web de nuestro asociado para que continúe presentando sus impuestos por su cuenta. El proceso es sencillo, rápido y fácil.
+        title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
     triage_start_ids:
       edit:
-        help_text: Puede ser útil reunir todos sus documentos de impuestos y la Tarjeta de Seguro Social o el papeleo de ITIN en este momento. Confirmaremos la información nuevamente más adelante en el proceso.
-        title: Comenzaremos preguntándole sobre sus documentos e identificaciones.
+        help_text: 'Le puede ser útil juntar todos sus documentos fiscales y su tarjeta de Número de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN en inglés), en este momento. Confirmaremos la información nuevamente, más adelante en el proceso.  '
+        title: Comenzaremos preguntándole acerca de sus documentos y sus identificaciones.
   signups:
     flash_notice: Gracias, recibirá una notificación cuando iniciemos en enero del 2022.
     new:
@@ -1858,7 +1859,7 @@ es:
             help_text: Podrían aún calificar para los pagos si vivieron con usted por menos de 6 meses y se diera cualquiera de los siguientes casos.
             passed_away_tax_year: "%{name} le fue dado/a legalmente en adopción en el %{current_tax_year}"
             permanent_residence_with_client: La residencia permanente de %{name} fue con usted durante al menos seis meses, incluso si estuvo fuera durante parte de ese tiempo
-            placed_for_adoption: "%{name}falleció en %{current_tax_year}"
+            placed_for_adoption: "%{name} falleció en %{current_tax_year}"
             title: "¿Son algunas de las siguientes situaciones válidas para %{name}?"
           claim_child_anyway:
             help_text_html: |
@@ -1958,7 +1959,7 @@ es:
           did_not_file: No, no presenté la declaración de impuestos del %{prior_tax_year}
           filed_full: Sí, presenté una declaración completa
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
-          help_text: "¿Presentó la declaración de impuestos correspondiente del%{prior_tax_year}? Esta declaración de impuestos debió haber sido presentada el 15 de abril del %{current_tax_year}."
+          help_text: "¿Presentó la declaración de impuestos correspondiente del %{prior_tax_year}? Esta declaración de impuestos debió haber sido presentada el 15 de abril del %{current_tax_year}."
           title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
         filing_status:
           married_filing_jointly: Casado con declaración conjunta
@@ -2013,7 +2014,7 @@ es:
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
         life_situations:
           help_text: Por lo general, alguien puede declararlo/a como dependiente si es un miembro de su familia, vive con él/ella la mayor parte del año y paga la mayor parte de sus gastos de manutención.
-          title: "¿Hay alguna persona que pudiera declararlo a usted como dependiente en%{current_tax_year}?"
+          title: "¿Hay alguna persona que pudiera declararlo a usted como dependiente en %{current_tax_year}?"
         mailing_address:
           reveal_content_html: |
             El IRS requiere que remita una dirección.<br/>
@@ -2802,7 +2803,7 @@ es:
             body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Me gusta mucho más este proceso cuando hay una persona que me puede explicar en detalle las preguntas que tienes y que responden bastante rápido".
             header: Son muy profesionales y amables
           rating: Hemos recibido una valoración de 4.8/5 estrellas
-        closing_banner_html: <strong>Los servicios de GetYourRefund reabrirán el 31 de enero para la temporada de impuestos de 2022.</strong> Para la preparación de impuestos gratis ahora, <a href="%{url}">puede buscar una ubicación de VITA en su área.</a>
+        closing_banner_html: <strong>Los servicios de GetYourRefund volverán abrir el 31 de enero de 2022 esta temporada de impuestos.</strong>Para recibir asistencia para la preparación de sus impuestos gratis ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
         ctc_full_capacity_html: La mayoría de nuestros preparadores de impuestos están a capacidad en este momento y no pueden completar declaraciones completas, pero todavía están disponibles nuestro servicio del Crédito Tributario por Hijos (CTC) y las opciones DIY. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getctc.org/es#claim-credit'>aquí</a></strong> si necesita ayuda para reclamar el Crédito Tributario por Hijos. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getyourrefund.org/es/diy/file-yourself'>aquí</a></strong> si quiere presentar su propia declaración usando nuestro programa gratis.
         features:
           amendments: Presenta enmiendas para años anteriores
@@ -2828,7 +2829,7 @@ es:
         stimulus_faq:
           info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
         subheader: "¡Si tiene ingresos del trabajo y está listo para declarar su declaración con todos sus formularios de impuestos, le podemos ayudar a maximizar sus beneficios tributarios!"
-        subheader_offseason: "¡Regístrese para la temporada de impuestos 2022 ahora! Le notificaremos tan pronto como nuestro servicio vuelva a abrir el 31 de enero a la 1:00 p.m. EST."
+        subheader_offseason: "¡Regístrese para la temporada de impuestos de 2022 ahora! Le notificaremos en cuanto nuestros servicios vuelvan a abrir el 31 de enero a la 1pm EST-- Hora estándar del Este. "
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
         cta: Presentar mis impuestos por mi cuenta gratis
@@ -2962,7 +2963,7 @@ es:
         title: Términos de código
       stimulus:
         facts_html:
-        - Recoja su cheque de estímulo de 2020 declarando sus impuestos a través de <a href="/">GetYourRefund</a>!
+        - ¡Cobre su cheque de estímulo de 2020 presentando su impuestos por medio de <a href="/">GetYourRefund</a>!
         - Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage'>IRS Obtener mi pago website</a>
         - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
         file_with_help:
@@ -3103,20 +3104,20 @@ es:
           other: En %{year}, ¿usted o su cónyuge adoptaron un hijo?
       arp_payments:
         errors:
-          advance_child_tax_credit: Ingrese un valor para el crédito fiscal anticipado por hijos o díganos si no está seguro. Si no recibió CTC o no se aplica a usted, ingrese 0.
-          eip: Ingrese valores para cada pago de estímulo o díganos que no está seguro de cuánto recibió.
+          advance_child_tax_credit: Favor de ingresar el monto del pago por adelantado del Crédito Tributario por Hijos, o díganos que no está seguro. Si no recibió el CTC o no aplica a usted, ingrese el 0.
+          eip: 'Favor de ingresar los montos de cada pago de estímulo, o díganos que no está seguro cuánto recibió. '
         help_text_html:
-        - A partir de abril de 2020, se emitieron tres pagos de estímulo, anteriormente conocidos como Pagos de impacto económico, como parte del Plan de rescate estadounidense.
-        - Además, las familias con niños menores de 17 años han recibido pagos de CTC.
-        - "<strong>¡Por favor comparta su información de pago a continuación!</strong> Si no recibió un pago, ingrese 0."
+        - A partir de abril 2020, se emitieron tres pagos de estímulo, anteriormente conocidos como Pagos de impacto económico, como parte del Plan de Rescate Estadounidense.
+        - 'Además, se les han enviado los pagos de Crédito Tributario por Hijos o CTC a familias con hijos menores de 17 años de edad. '
+        - "<strong>Favor de compartir la información de su pagos a continuación.</strong>Si no recibió un pago, ingrese 0."
         labels:
-          child_tax_credit: Crédito fiscal avanzado por hijos
-          ctc_unsure: No estoy seguro del monto de mi Crédito Tributario por Hijo Avanzado
+          child_tax_credit: Pagos por adelantado del Crédito Tributario por Hijos
+          ctc_unsure: No estoy seguro de la cantidad de mis Pagos por Adelantado del Crédito Tributario por Hijos.
           stimulus_1: Estímulo 1
           stimulus_2: Estímulo 2
           stimulus_3: Estímulo 3
-          stimulus_unsure: No estoy seguro de mis montos de estímulo
-        title: "¿Ha recibido sus pagos de estímulo y el Crédito Tributario por Hijos (si corresponde)?"
+          stimulus_unsure: No estoy seguro de los montos de mi estímulo
+        title: "¿Ha recibido sus pagos de estímulo y el Crédito Tributario por Hijos (si aplica)?"
       asset_sale_gate:
         title:
           one: En %{year}, ¿vendió acciones, bonos o bienes inmuebles?
@@ -3162,8 +3163,8 @@ es:
         info: "¡Sabemos que los impuestos pueden ser difíciles y estamos aquí para ayudarlo en cada paso del camino!"
         partner_info_html: "%{partner_name} prepara declaraciones de impuestos de <strong>%{zip} (%{zip_name}).</strong>"
         returning_client:
-          partner_info: Nuestro equipo en %{partner_name} está aquí para ayudarlo a presentar su solicitud nuevamente.
-          title: Bienvenida de nuevo %{name}!
+          partner_info: 'De nuevo, nuestro equipo en %{partner_name}está aquí para ayudarle a presentar su declaración . '
+          title: "¡Bienvenido de nuevo %{name}!"
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
       consent:
         birth_date: Fecha de nacimiento
@@ -3294,8 +3295,8 @@ es:
         title: "¿Alguna vez ha recibido un PIN de IP por causa de robo de identidad?"
       itemizing:
         help_text:
-          one: Responda que sí si usted o su cónyuge han gastado más de %{single_deduction} en organizaciones de caridad, gastos médicos o dentales, material escolar u otros gastos diversos.
-          other: Responda que sí si usted o su cónyuge han gastado más de %{joint_deduction} en organizaciones de caridad, gastos médicos o dentales, material escolar u otros gastos diversos.
+          one: Responda que sí si usted o su cónyuge han gastado más del %{single_deduction} en obras de caridad, gastos médicos o dentales, material escolar u otros gastos diversos.
+          other: Responda que sí si usted o su cónyuge han gastado más del %{joint_deduction} en obras de caridad, gastos médicos o dentales, material escolar u otros gastos diversos.
         title: "¿Le gustaría detallar su deducción para %{year}?"
       job_count:
         options:
@@ -3539,13 +3540,13 @@ es:
         verification_code_label: 'Introduzca el código de 6 números '
         verify: Verifique
       welcome:
-        find_right_service: We’ll ask a few questions, to find the right service for you!
-        help_text: 'We provide multiple tax filing options to households that qualify:'
+        find_right_service: "¡Le haremos algunas preguntas para encontrar el mejor servicio para usted!"
+        help_text: 'Le brindamos opciones múltiples para presentar su declaración de impuestos a hogares que califiquen:'
         list:
-        - "<strong>GetYourRefund</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
-        - "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
-        - "<strong>Express</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
-        title: Welcome to our free service!
+        - "<strong>GetYourRefund</strong> Nuestros especialistas certificados de impuestos le ayudarán a presentar su declaración y a cobrar todos los créditos tributarios que se le deben. "
+        - "<strong>File Myself</strong> Una opción rápida en línea le permite presentar su declaración y cobrar los créditos tributarios por su cuenta.  "
+        - "<strong>Express</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago de estímulo federal y el Crédito Tributario por Hijos por su cuenta. "
+        title: "¡Bienvenidos a nuestro servicio gratuito!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
       widowed_year:
