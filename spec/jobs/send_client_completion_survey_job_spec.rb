@@ -84,7 +84,7 @@ RSpec.describe SendClientCompletionSurveyJob, type: :job do
 
             expect(ClientMessagingService).to have_received(:send_system_email).with(
                 client: client,
-                body: a_string_including("qualtrics.com/jfe/form/SV_ebtml6MMfhf8Vsa"),
+                body: a_string_including("qualtrics.com/jfe/form/SV_1Ch7S3rTLOgzbFk"),
                 subject: "¡Gracias por declarar tus impuestos con GetYourRefund!",
                 locale: "es"
             )
