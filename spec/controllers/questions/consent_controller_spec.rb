@@ -55,7 +55,7 @@ RSpec.describe Questions::ConsentController do
 
           expect(intake.tax_returns.pluck(:status).uniq).to eq ["intake_in_progress"]
           expect(intake.tax_returns.count).to eq 2
-          expect(intake.tax_returns.pluck(:year)).to eq [2021, 2020]
+          expect(intake.tax_returns.pluck(:year)).to match_array([2021, 2020])
         end
 
         context "when a tax return for a selected year already exists" do
@@ -68,7 +68,7 @@ RSpec.describe Questions::ConsentController do
             post :update, params: params
 
             expect(intake.tax_returns.count).to eq 3
-            expect(intake.tax_returns.pluck(:year)).to eq [2018, 2021, 2020]
+            expect(intake.tax_returns.pluck(:year)).to match_array([2018, 2021, 2020])
             expect(intake.tax_returns.find_by(year: 2018)).to eq tax_return
           end
         end
