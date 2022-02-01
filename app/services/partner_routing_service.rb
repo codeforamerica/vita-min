@@ -13,7 +13,6 @@ class PartnerRoutingService
   def determine_partner
     unless Rails.env.production?
       if @zip_code.to_s == TESTING_AT_CAPACITY_ZIP_CODE
-        puts(TESTING_AT_CAPACITY_ZIP_CODE)
         @routing_method = :at_capacity
         return
       end
