@@ -3,26 +3,26 @@ require "rails_helper"
 describe NotReadyReminder do
   context '.process' do
     context "when the intake status was not intake in progress" do
-      let(:tax_return) { create :tax_return, status: "file_accepted" }
+      let(:tax_return) { create :tax_return, :file_accepted }
       it "returns nil" do
         expect(described_class.process(tax_return)).to be_nil
       end
     end
 
     context "when the intake has not been updated in more than 9 days" do
-      let(:tax_return) { create :tax_return, status: "intake_in_progress", updated_at: 10.days.ago }
+      let(:tax_return) { create :tax_return, :intake_in_progress, updated_at: 10.days.ago }
       it "returns changed_status and updates the status to file_not_filing" do
         expect {
           response = described_class.process(tax_return)
           expect(response).to eq "changed_status"
         }.to change(SystemNote::NotReadyNotFilingTransition, :count).by 1
         expect(SystemNote::NotReadyNotFilingTransition.last.client).to eq tax_return.client
-        expect(tax_return.reload.status).to eq "file_not_filing"
+        expect(tax_return.reload.state).to eq "file_not_filing"
       end
     end
 
     context "when the intake has not been updated in more than 6 days, less than 9" do
-      let(:tax_return) { create :tax_return, status: "intake_in_progress", updated_at: 7.days.ago }
+      let(:tax_return) { create :tax_return, :intake_in_progress, updated_at: 7.days.ago }
       let(:automated_message_double) { double }
 
       before do
@@ -56,7 +56,7 @@ describe NotReadyReminder do
     end
 
     context "when the intake has not been updated in more than 3 days, less than 6" do
-      let(:tax_return) { create :tax_return, status: "intake_in_progress", updated_at: 4.days.ago }
+      let(:tax_return) { create :tax_return, :intake_in_progress, updated_at: 4.days.ago }
       let(:automated_message_double) { double }
 
       before do
@@ -90,7 +90,7 @@ describe NotReadyReminder do
 
 
     context "when the intake was updated recently" do
-      let(:tax_return) { create :tax_return, status: "intake_in_progress", updated_at: 1.day.ago }
+      let(:tax_return) { create :tax_return, :intake_in_progress, updated_at: 1.day.ago }
       it "returns nil" do
         expect(described_class.process(tax_return)).to be_nil
       end

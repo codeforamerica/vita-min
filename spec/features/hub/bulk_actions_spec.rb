@@ -5,8 +5,8 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
   let!(:new_user) { create :admin_user, name: "Admin the Second", role: create(:organization_lead_role, organization: old_org)}
   let!(:old_org) { create :organization, name: "Onion Organization" }
   let!(:new_org) { create :organization, name: "Orange Organization" }
-  let!(:client_es) { create :client_with_intake_and_return, status: "prep_info_requested", vita_partner: old_org }
-  let!(:client_en) { create :client_with_intake_and_return, status: "intake_reviewing", vita_partner: old_org }
+  let!(:client_es) { create :client_with_intake_and_return, state: "prep_info_requested", vita_partner: old_org }
+  let!(:client_en) { create :client_with_intake_and_return, state: "intake_reviewing", vita_partner: old_org }
   before do
     login_as user
     client_es.intake.update(preferred_name: "Nombre", locale: "es", email_notification_opt_in: "yes", email_address: "someone@example.com")

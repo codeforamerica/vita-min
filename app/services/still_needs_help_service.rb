@@ -5,7 +5,7 @@ class StillNeedsHelpService
 
   def self.trigger_still_needs_help_flow(client)
     client.triggered_still_needs_help_at = Time.now
-    client.tax_returns.where(status: may_need_help_statuses).each { |tr| tr.transition_to(:file_not_filing) }
+    client.tax_returns.where(state: may_need_help_statuses).each { |tr| tr.transition_to(:file_not_filing) }
     client.save
     send_still_need_help_notification(client)
   end
@@ -25,6 +25,6 @@ class StillNeedsHelpService
   def self.clients_who_still_may_need_help(intake_type: nil)
     query = Client.joins(:tax_returns, :intake)
     query = query.where(intakes: { type: intake_type }) if intake_type.present?
-    query.where(tax_returns: { status: may_need_help_statuses })
+    query.where(tax_returns: { state: may_need_help_statuses })
   end
 end

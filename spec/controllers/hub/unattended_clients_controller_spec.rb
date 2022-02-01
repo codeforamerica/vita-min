@@ -13,10 +13,10 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
     context "as an authenticated team member" do
       let(:user) { create(:team_member_user) }
       let(:site) { user.role.site }
-      let!(:client_within_sla) { create :client_with_intake_and_return, status: "intake_ready", first_unanswered_incoming_interaction_at: 2.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site }
-      let!(:four_day_completed_status) { create :client_with_intake_and_return, status: "file_accepted", first_unanswered_incoming_interaction_at: 4.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site}
-      let!(:four_day_breach_client) { create :client_with_intake_and_return, status: "intake_ready", first_unanswered_incoming_interaction_at: 4.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site }
-      let!(:six_day_breach_client) { create :client_with_intake_and_return, status: "intake_ready", first_unanswered_incoming_interaction_at: 6.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site }
+      let!(:client_within_sla) { create :client_with_intake_and_return, state: "intake_ready", first_unanswered_incoming_interaction_at: 2.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site }
+      let!(:four_day_completed_status) { create :client_with_intake_and_return, state: "file_accepted", first_unanswered_incoming_interaction_at: 4.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site}
+      let!(:four_day_breach_client) { create :client_with_intake_and_return, state: "intake_ready", first_unanswered_incoming_interaction_at: 4.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site }
+      let!(:six_day_breach_client) { create :client_with_intake_and_return, state: "intake_ready", first_unanswered_incoming_interaction_at: 6.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site }
       let!(:ten_day_breach_client_done_filing) do
         create :client,
                first_unanswered_incoming_interaction_at: 10.business_days.ago,
@@ -24,9 +24,9 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
                vita_partner: site,
                intake: build(:intake),
                tax_returns: [
-                 build(:tax_return, year: 2018, status: "file_not_filing"),
-                 build(:tax_return, year: 2019, status: "file_accepted"),
-                 build(:tax_return, year: 2021, status: "file_mailed"),
+                 build(:tax_return, :file_not_filing, year: 2018),
+                 build(:tax_return, :file_accepted, year: 2019),
+                 build(:tax_return, :file_mailed,  year: 2021),
                ]
       end
       let!(:ten_day_breach_client_half_done_filing) do
@@ -35,8 +35,8 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
                vita_partner: site,
                intake: build(:intake),
                tax_returns: [
-                 build(:tax_return, year: 2018, status: "file_not_filing"),
-                 build(:tax_return, year: 2019, status: "review_ready_for_call"),
+                 build(:tax_return, :file_not_filing, year: 2018),
+                 build(:tax_return, :review_ready_for_call, year: 2019),
                ]
       end
       before do
@@ -83,7 +83,7 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
       end
 
       context "tax return count" do
-        let!(:over_pagination_clients) { create_list :client_with_intake_and_return, 41, status: "intake_ready", first_unanswered_incoming_interaction_at: 6.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site }
+        let!(:over_pagination_clients) { create_list :client_with_intake_and_return, 41, state: "intake_ready", first_unanswered_incoming_interaction_at: 6.business_days.ago, last_internal_or_outgoing_interaction_at: 11.business_days.ago, vita_partner: site }
         let(:params) do
           {
             page: "1"

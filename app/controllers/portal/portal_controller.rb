@@ -32,7 +32,7 @@ module Portal
     end
 
     def ask_for_answers?
-      !current_client.intake.completed_at? && current_client.tax_returns.map(&:status).all? { |status| (TaxReturnStatus::STATUSES_BY_STAGE["intake"]).include?(status.to_sym) }
+      !current_client.intake.completed_at? && current_client.tax_returns.map(&:status).all? { |status| (TaxReturnStateMachine::STATES_BY_STAGE["intake"]).include?(status.to_sym) }
     end
   end
 end

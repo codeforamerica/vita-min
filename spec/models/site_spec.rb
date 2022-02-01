@@ -61,8 +61,8 @@ describe Site do
   end
   
   describe "#at_capacity?" do
-    let(:out_of_range_statuses) { TaxReturnStatus::STATUSES.keys - TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
-    let(:in_range_statuses) { TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
+    let(:out_of_range_statuses) { TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY }
+    let(:in_range_statuses) { TaxReturnStateMachine.states - TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY }
     let(:parent_organization) { create :organization, capacity_limit: 10 }
     let(:site) { create :site, parent_organization: parent_organization }
 
@@ -70,7 +70,7 @@ describe Site do
       before do
         10.times do
           client = create :client, vita_partner: site, intake: create(:intake)
-          create :tax_return, status: "intake_ready", client: client
+          create :tax_return, :intake_ready, client: client
         end
       end
 
@@ -83,7 +83,7 @@ describe Site do
       before do
         2.times do
           client = create :client, vita_partner: site
-          create :tax_return, status: "intake_ready", client: client
+          create :tax_return, :intake_ready, client: client
         end
       end
 

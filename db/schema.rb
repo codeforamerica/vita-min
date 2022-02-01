@@ -488,10 +488,12 @@ ActiveRecord::Schema.define(version: 2022_02_02_214204) do
     t.bigint "assigned_user_id"
     t.datetime "created_at", precision: 6, null: false
     t.json "data"
+    t.string "state"
     t.integer "status"
     t.bigint "tax_return_selection_id", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
+    t.index ["state"], name: "index_bulk_tax_return_updates_on_state"
     t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
   end
 
@@ -1293,11 +1295,13 @@ ActiveRecord::Schema.define(version: 2022_02_02_214204) do
     t.string "spouse_signature"
     t.datetime "spouse_signed_at"
     t.inet "spouse_signed_ip"
+    t.string "state"
     t.integer "status", default: 100, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "year", null: false
     t.index ["assigned_user_id"], name: "index_tax_returns_on_assigned_user_id"
     t.index ["client_id"], name: "index_tax_returns_on_client_id"
+    t.index ["state"], name: "index_tax_returns_on_state"
     t.index ["year", "client_id"], name: "index_tax_returns_on_year_and_client_id", unique: true
   end
 
@@ -1522,9 +1526,14 @@ ActiveRecord::Schema.define(version: 2022_02_02_214204) do
              FROM vita_partners vita_partners_1
           ), client_ids AS (
            SELECT DISTINCT tax_returns.client_id
+<<<<<<< HEAD
              FROM (tax_returns
                JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
             WHERE ((tax_returns.status >= 102) AND (tax_returns.status <= 404) AND (tax_returns.status <> 403) AND (tax_returns.status <> 106) AND (tax_returns.status <> 130))
+=======
+             FROM tax_returns
+            WHERE ((tax_returns.state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
+>>>>>>> Persist tax return status as string called state
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count

@@ -30,7 +30,6 @@
 require "rails_helper"
 
 describe Organization do
-
   describe "#organization_leads" do
     let(:organization) { create :organization }
     let(:site) { create :site, parent_organization: organization }
@@ -76,15 +75,15 @@ describe Organization do
   end
 
   describe "#at_capacity?" do
-    let(:out_of_range_statuses) { TaxReturnStatus::STATUSES.keys - TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
-    let(:in_range_statuses) { TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
+    let(:out_of_range_statuses) { TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY }
+    let(:in_range_statuses) { TaxReturnStateMachine.states - TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY }
     let(:organization) { create :organization, capacity_limit: 10 }
 
     context "at capacity" do
       before do
         organization.capacity_limit.times do
-          client = create :client, vita_partner: organization, intake: create(:intake)
-          create :tax_return, status: "intake_ready", client: client
+          client = create :client, vita_partner: organization
+          create :tax_return, state: "intake_ready", client: client, create(:intake)
         end
       end
 
@@ -97,8 +96,8 @@ describe Organization do
       context "clients assigned to organization exceed capacity limit" do
         before do
           (organization.capacity_limit + 1).times do
-            client = create :client, vita_partner: organization, intake: create(:intake)
-            create :tax_return, status: in_range_statuses.sample, client: client
+            client = create :client, vita_partner: organization
+            create :tax_return, :prep_ready_for_prep, client: client, intake: create(:intake)
           end
         end
 
@@ -114,7 +113,7 @@ describe Organization do
         before do
           (organization.capacity_limit + 1).times do
             client = create :client, vita_partner: [site_1, site_2, organization].sample, intake: create(:intake)
-            create :tax_return, status: in_range_statuses.sample, client: client
+            create :tax_return, state: :review_in_review, client: client
           end
         end
 
@@ -142,12 +141,12 @@ describe Organization do
         before do
           (organization.capacity_limit / 2).times do
             client = create :client, vita_partner: organization
-            create :tax_return, status: out_of_range_statuses.sample, client: client
+            create :tax_return, state: out_of_range_statuses.sample, client: client
           end
 
           (organization.capacity_limit / 2).times do
             client = create :client, vita_partner: organization
-            create :tax_return, status: in_range_statuses.sample, client: client
+            create :tax_return, state: in_range_statuses.sample, client: client
           end
         end
 
@@ -162,7 +161,7 @@ describe Organization do
       before do
         20.times do
           client = create :client, vita_partner: organization
-          create :tax_return, status: "intake_ready", client: client
+          create :tax_return, state: "intake_ready", client: client
         end
       end
 

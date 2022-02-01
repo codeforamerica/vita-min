@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Hub::TaxReturnSelectionsController do
   let(:organization) { create :organization }
   let(:user) { create :organization_lead_user, organization: organization }
-  let(:clients) { create_list :client_with_intake_and_return, 3, vita_partner: organization, status: "file_efiled" }
+  let(:clients) { create_list :client_with_intake_and_return, 3, vita_partner: organization, state: "file_efiled" }
 
   describe "#show" do
     let(:tax_return_selection) { create :tax_return_selection, tax_returns: TaxReturn.joins(:client).where(clients: { id: clients}) }
@@ -22,8 +22,8 @@ RSpec.describe Hub::TaxReturnSelectionsController do
 
       context "as a user who does not have access to all the clients in the client selection" do
         let(:site) { create :site, parent_organization: organization }
-        let(:clients_for_org) { create_list :client_with_intake_and_return, 3, vita_partner: organization, status: "file_efiled" }
-        let(:clients_for_site) { create_list :client_with_intake_and_return, 2, vita_partner: site, status: "file_efiled" }
+        let(:clients_for_org) { create_list :client_with_intake_and_return, 3, vita_partner: organization, state: "file_efiled" }
+        let(:clients_for_site) { create_list :client_with_intake_and_return, 2, vita_partner: site, state: "file_efiled" }
         let(:user) { create :site_coordinator_user, site: site }
         let(:clients) { clients_for_org + clients_for_site }
 
@@ -143,7 +143,7 @@ RSpec.describe Hub::TaxReturnSelectionsController do
   end
 
   describe "#new" do
-    let!(:clients) { create_list :client_with_intake_and_return, 30, vita_partner: organization, status: "file_efiled" }
+    let!(:clients) { create_list :client_with_intake_and_return, 30, vita_partner: organization, state: "file_efiled" }
     let!(:client_other_org) { create :client, vita_partner: create(:organization) }
     let!(:tax_return1) { create(:tax_return, client: clients[0], year: 2019) }
     let!(:tax_return2) { create(:tax_return, client: clients[0], year: 2018) }

@@ -4,6 +4,7 @@
 #
 #  id                      :bigint           not null, primary key
 #  data                    :json
+#  state                   :string
 #  status                  :integer
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -12,8 +13,9 @@
 #
 # Indexes
 #
-#  index_btru_on_assigned_user_id         (assigned_user_id)
-#  index_btru_on_tax_return_selection_id  (tax_return_selection_id)
+#  index_btru_on_assigned_user_id          (assigned_user_id)
+#  index_btru_on_tax_return_selection_id   (tax_return_selection_id)
+#  index_bulk_tax_return_updates_on_state  (state)
 #
 # Foreign Keys
 #
@@ -25,7 +27,7 @@ class BulkTaxReturnUpdate < ApplicationRecord
   belongs_to :tax_return_selection
   belongs_to :assigned_user, class_name: "User", optional: true
 
-  enum status: TaxReturnStatus::STATUSES, _prefix: :status
+  enum status: TaxReturnStateMachine.states, _prefix: :status
 
   validate :data_stored_appropriately
 
@@ -40,8 +42,8 @@ class BulkTaxReturnUpdate < ApplicationRecord
 
   def updates
     updates = {}
-    if status.present?
-      updates["status"] = TaxReturnStatusHelper.status_translation(status)
+    if state.present?
+      updates["status"] = TaxReturnStatusHelper.status_translation(state)
     end
     if assigned_user.present?
       updates["assigned"] = assigned_user.name

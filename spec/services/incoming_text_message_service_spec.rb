@@ -39,7 +39,7 @@ describe IncomingTextMessageService, requires_default_vita_partners: true do
 
     context "with a matching intake phone number" do
       let(:client) { create :client, tax_returns: tax_returns }
-      let(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2021)] }
+      let(:tax_returns) { [(create :tax_return, :prep_preparing, year: 2021)] }
       let!(:intake) { create(:intake, client: client, phone_number: "+15005550006") }
 
       it "creates a new IncomingTextMessage linked to the client the right data" do
@@ -67,7 +67,7 @@ describe IncomingTextMessageService, requires_default_vita_partners: true do
       end
 
       context "has all tax return status in file_accepted, file_mailed or file_not_filing" do
-        let!(:tax_returns) { [(create :tax_return, status: "file_not_filing", year: 2021), (create :tax_return, status: "file_accepted")] }
+        let!(:tax_returns) { [(create :tax_return, :file_not_filing, year: 2021), (create :tax_return, :file_accepted)] }
 
         before do
           AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))

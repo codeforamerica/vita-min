@@ -6,7 +6,7 @@
   <div class="slab">
     <div class="grid">
       <h1><%= @main_heading %></h1>
-      <p><%= "Applicable to the following statuses: #{TaxReturnStatus::FORWARD_TO_INTERCOM_STATUSES.map{ |status| I18n.t("hub.tax_returns.status.#{status}")}.join(', ')}" %></p>
+      <p><%= "Applicable to the following statuses: #{TaxReturnStateMachine::FORWARD_TO_INTERCOM_STATES.map{ |status| I18n.t("hub.tax_returns.status.#{status}")}.join(', ')}" %></p>
 
       <div class="form-card__content">
       <%= form_for(@form, url: { action: :create }, method: :post, local: true, builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" }) do |f| %>

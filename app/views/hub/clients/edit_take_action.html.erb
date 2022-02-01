@@ -12,7 +12,7 @@
       <%= f.cfa_select(:tax_return_id, "Filing year", @take_action_form.tax_returns.pluck(:year, :id), include_blank: true) %>
       <div id="status">
         <%= f.cfa_select(
-                :status,
+                :state,
                 "Updated status",
                 grouped_status_options_for_select,
                 include_blank: true,
@@ -46,7 +46,7 @@
         </div>
 
 
-        <% if params.dig(:tax_return, :status)&.include?("call") || params.dig(:hub_take_action_form, :status)&.include?("call") %>
+        <% if params.dig(:tax_return, :state)&.include?("call") || params.dig(:hub_take_action_form, :state)&.include?("call") %>
           <div style="margin-top: -5rem; margin-bottom: 3.5rem"><%= t("general.interview_timing_preference")%>: <%= @take_action_form.client.intake.try(:interview_timing_preference) || t("general.NA")  %></div>
         <% end %>
       <% else %>

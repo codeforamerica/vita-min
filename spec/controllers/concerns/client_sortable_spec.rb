@@ -103,7 +103,7 @@ RSpec.describe ClientSortable, type: :controller do
 
       it "creates a query for the search and scopes by other provided queries" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with({ tax_returns: { status: params[:status].to_sym } })
+        expect(clients_query_double).to have_received(:where).with({ tax_returns: { state: params[:status] } })
         expect(clients_query_double).to have_received(:where).with(intake: intakes_query_double)
       end
     end

@@ -42,17 +42,13 @@
         <% status = tax_return.current_state.to_sym %>
         <% status_number = TaxReturnStatus::STATUSES[status] %>
 
-        <% if TaxReturnStatus::PAUSED_STATUSES.include?(status) %>
-          <% if status == :file_not_filing %>
-            <%= render "action_state", link: false do %>
-              <%= t("portal.portal.home.waiting_state.tax_return.file_not_filing") %>
-            <% end %>
+        <% if status == :file_not_filing %>
+          <%= render "action_state", link: false do %>
+            <%= t("portal.portal.home.waiting_state.tax_return.file_not_filing") %>
           <% end %>
-
-          <% if status == :file_hold %>
-            <%= render "action_state", link: false do %>
-              <%= t("portal.portal.home.waiting_state.tax_return.file_hold") %>
-            <% end %>
+        <% elsif status == :file_hold %>
+          <%= render "action_state", link: false do %>
+            <%= t("portal.portal.home.waiting_state.tax_return.file_hold") %>
           <% end %>
         <% else %>
           <% if status_number.between?(TaxReturnStatus::STATUSES[:intake_ready], TaxReturnStatus::STATUSES[:intake_ready_for_call]) %>
