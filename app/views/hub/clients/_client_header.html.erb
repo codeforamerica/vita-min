@@ -33,6 +33,9 @@
         </div>
       </div>
 
+      <% if @client.needs_itin_help_status == I18n.t("general.affirmative") %>
+        <span><%= t("hub.itin_applicant") %></span>
+      <% end %>
 
       <% ctc_dupe_clients = @client.clients_with_dupe_contact_info(true) %>
       <% gyr_dupe_clients = @client.clients_with_dupe_contact_info(false) %>

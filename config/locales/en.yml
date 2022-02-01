@@ -691,6 +691,7 @@ en:
         date_of_birth_help: mm/dd/yyyy
         email: Email
         filing_status: Filing Status
+        itin_help_required: ITIN Help Required
         intake_language: Intake Language
         interview_timing_preference: Preferred Interview Time
         legal_name: Legal Name
@@ -750,6 +751,7 @@ en:
         upload_date: Upload Date
     has_duplicates: Potential duplicates detected
     last_client_update: 'Last client update: '
+    itin_applicant: ITIN applicant
     last_contact: Last contact
     messages:
       automated: Automated

@@ -95,6 +95,10 @@
               <div class="label-indented"><%= filing_status(@client) %></div>
             </div>
             <div class="field-display">
+              <span class="form-question"><%= t(".itin_help_required") %>:</span>
+              <div class="label-indented"><%= @client.needs_itin_help_status %></div>
+            </div>
+            <div class="field-display">
               <span class="form-question"><%= t("general.dependents") %>:</span>
               <span class="label-value"><%= @client.intake&.dependents.with_deleted.length %></span>
               <ul id="dependents-list" class="no-bullets">
