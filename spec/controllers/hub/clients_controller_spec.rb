@@ -1358,5 +1358,38 @@ RSpec.describe Hub::ClientsController do
         end
       end
     end
+
+    describe "#needs_itin_help_status" do
+      context "when there is a triage associated with the intake" do
+        let!(:triage) { create(:triage, intake: intake, doc_type: doc_type) }
+
+        context "when triage doc_type is need_help" do
+          let(:doc_type) { "need_help" }
+          it "returns Yes" do
+            expect(presenter.needs_itin_help_status).to eq(I18n.t("general.affirmative"))
+          end
+        end
+
+        context "when triage doc_type is another answer" do
+          let(:doc_type) { "some_copies" }
+          it "returns No" do
+            expect(presenter.needs_itin_help_status).to eq(I18n.t("general.negative"))
+          end
+        end
+
+        context "when triage doc_type is unfilled" do
+          let(:doc_type) { "unfilled" }
+          it "returns N/A" do
+            expect(presenter.needs_itin_help_status).to eq(I18n.t("general.NA"))
+          end
+        end
+      end
+
+      context "when there is no triage associated with the intake" do
+        it "returns N/A" do
+          expect(presenter.needs_itin_help_status).to eq(I18n.t("general.NA"))
+        end
+      end
+    end
   end
 end
