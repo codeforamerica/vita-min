@@ -1,6 +1,6 @@
 class DuplicateIntakeGuard < SimpleDelegator
   def has_duplicate?
-    ClientLoginService.new(:gyr).active_intake_accounts
+    ClientLoginService.new(:gyr).accessible_intakes
       .where(
          (arel_table[:email_address].eq(email_address)
            .and(arel_table[:email_address].not_eq(nil)))
