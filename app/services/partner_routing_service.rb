@@ -1,5 +1,6 @@
 class PartnerRoutingService
   attr_accessor :routing_method
+  TESTING_AT_CAPACITY_ZIP_CODE = "83011"
 
   def initialize(intake: nil, source_param: nil, zip_code: nil)
     @source_param = source_param
@@ -10,6 +11,14 @@ class PartnerRoutingService
 
   # @return VitaPartner the object of the vita_partner we recommend routing to.
   def determine_partner
+    unless Rails.env.production?
+      if @zip_code.to_s == TESTING_AT_CAPACITY_ZIP_CODE
+        puts(TESTING_AT_CAPACITY_ZIP_CODE)
+        @routing_method = :at_capacity
+        return
+      end
+    end
+
     from_previous_year_partner = previous_year_partner
     return from_previous_year_partner if from_previous_year_partner.present?
 
