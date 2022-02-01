@@ -176,7 +176,7 @@ module Hub
       end
 
       def needs_itin_help_status
-        return I18n.t("general.NA") if intake&.triage.nil? || intake.triage.doc_type_unfilled?
+        return I18n.t("general.NA") if archived? || intake&.triage.nil? || intake.triage.doc_type_unfilled?
 
         intake.triage.doc_type_need_help? ? I18n.t("general.affirmative") : I18n.t("general.negative")
       end

@@ -693,6 +693,7 @@ es:
         filing_status: Estado civil para declarar
         intake_language: Idioma del formulario de admisión
         interview_timing_preference: Preferencia de tiempo de entrevista
+        itin_help_required: Se requiere ayuda con el ITIN
         legal_name: Nombre legal
         mailing_address: Dirección postal
         marital_status: Estado civil
@@ -749,6 +750,7 @@ es:
         upload_by: Subido por
         upload_date: Fecha de carga
     has_duplicates: Posibles duplicados detectados
+    itin_applicant: Solicitante de ITIN
     last_client_update: 'Última actualización de cliente: '
     last_contact: último contacto
     messages:
