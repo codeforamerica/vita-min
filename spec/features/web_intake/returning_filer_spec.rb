@@ -6,6 +6,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot do
       :intake,
       email_address: "returning@client.com",
       primary_consented_to_service: "yes",
+      client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
     )
   end
 

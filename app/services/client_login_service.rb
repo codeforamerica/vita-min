@@ -30,19 +30,19 @@ class ClientLoginService
     accessible_intakes.where(sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes").exists?
   end
 
-  private
-
   def accessible_intakes
-    service_type.to_sym == :gyr ? self.class.gyr_accessible_intakes : self.class.ctc_accessible_intakes
+    service_type.to_sym == :gyr ? self.class.accessible_gyr_intakes : self.class.accessible_ctc_intakes
   end
 
-  def self.gyr_accessible_intakes
+  private
+
+  def self.accessible_gyr_intakes
     online_consented = Intake::GyrIntake.joins(:tax_returns).where({ tax_returns: { service_type: "online_intake" } }).where(primary_consented_to_service: "yes")
     drop_off = Intake::GyrIntake.joins(:tax_returns).where({ tax_returns: { service_type: "drop_off" } })
     online_consented.or(drop_off)
   end
 
-  def self.ctc_accessible_intakes
+  def self.accessible_ctc_intakes
     sms_verified = Intake::CtcIntake.where.not(sms_phone_number_verified_at: nil)
     email_verified = Intake::CtcIntake.where.not(email_address_verified_at: nil)
     navigator_verified = Intake::CtcIntake.where.not(navigator_has_verified_client_identity: nil)
@@ -52,7 +52,7 @@ class ClientLoginService
 
   def self.has_ctc_duplicate?(intake)
     has_dupe = false
-    accessible_intakes = ctc_accessible_intakes.where.not(id: intake.id)
+    accessible_intakes = accessible_ctc_intakes.where.not(id: intake.id)
     if intake.email_address.present?
       has_dupe = accessible_intakes.where(email_address: intake.email_address).exists?
     end

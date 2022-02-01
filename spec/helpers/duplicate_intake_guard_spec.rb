@@ -13,7 +13,7 @@ RSpec.describe DuplicateIntakeGuard do
 
   describe "has_duplicate?" do
     context "intake with matching email address exists" do
-      let!(:existing_intake) { create(:intake, email_address: "existing@client.com") }
+      let!(:existing_intake) { create(:intake, email_address: "existing@client.com", client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])) }
       let(:matching_intake) { create(:intake, email_address: "existing@client.com") }
 
       it "returns false if the intake is not completed" do
@@ -27,7 +27,7 @@ RSpec.describe DuplicateIntakeGuard do
     end
 
     context "intake with matching phone number exists" do
-      let!(:existing_intake) { create(:intake, phone_number: "+15005550006") }
+      let!(:existing_intake) { create(:intake, phone_number: "+15005550006", client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])) }
       let(:matching_intake) { create(:intake, phone_number: "+15005550006") }
 
       it "returns false if the intake is not completed" do
