@@ -34,6 +34,36 @@ describe PartnerRoutingService do
       end
     end
 
+    context "when client uses the special at-capacity testing ZIP code" do
+      subject { PartnerRoutingService.new(zip_code: "94606") }
+
+      before do
+        stub_const("PartnerRoutingService::TESTING_AT_CAPACITY_ZIP_CODE", "94606")
+      end
+
+      context "on demo" do
+        before do
+          allow(Rails).to receive(:env).and_return("demo".inquiry)
+        end
+
+        it "returns at capacity" do
+          expect(subject.determine_partner).to eq nil
+          expect(subject.routing_method).to eq :at_capacity
+        end
+      end
+
+      context "on production" do
+        before do
+          allow(Rails).to receive(:env).and_return("production".inquiry)
+        end
+
+        it "returns the VitaPartner with that ZIP code" do
+          expect(subject.determine_partner).to eq vita_partner
+          expect(subject.routing_method).to eq :zip_code
+        end
+      end
+    end
+
     context "when source param is provided" do
       context "when a source param is valid" do
         subject { PartnerRoutingService.new(source_param: code) }
@@ -182,7 +212,7 @@ describe PartnerRoutingService do
         end
       end
     end
-    
+
     context "when there are no matches on other data or routing rules" do
       context "when national overflow partners exist" do
         let!(:overflow_partner) { create :organization, national_overflow_location: true }
