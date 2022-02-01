@@ -250,7 +250,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
 
       fill_out_notification_preferences
 
-      expect(page.html).to have_text "Wow, it looks like we are at capacity right now."
+      expect(page.html).to have_text I18n.t("views.questions.at_capacity.title")
     end
   end
 end
