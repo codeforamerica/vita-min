@@ -17,4 +17,15 @@
       </div>
     </div>
   <% end %>
+  <% if Rails.env.heroku? %>
+    <div class="slab slab--flash flash--warning">
+      <div class="grid">
+        <div class="grid__item">
+          You're on a Heroku review app, you can also visit this via the url
+            <%= link_to url_for(action: :home, host: MultiTenantService.new(:gyr).host), url_for(action: :home, host: MultiTenantService.new(:gyr).host) %> (GYR) or
+            <%= link_to url_for(action: :home, host: MultiTenantService.new(:ctc).host), url_for(action: :home, host: MultiTenantService.new(:ctc).host) %> (CTC)
+        </div>
+      </div>
+    </div>
+  <% end %>
 <% end %>
