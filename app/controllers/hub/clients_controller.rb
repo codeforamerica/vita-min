@@ -175,10 +175,16 @@ module Hub
         intake.filing_joint == "yes" || !tax_returns.map(&:filing_status).all?("single")
       end
 
-      def needs_itin_help_status
+      def needs_itin_help_text
         return I18n.t("general.NA") if archived? || intake&.triage.nil? || intake.triage.doc_type_unfilled?
 
         intake.triage.doc_type_need_help? ? I18n.t("general.affirmative") : I18n.t("general.negative")
+      end
+
+      def needs_itin_help_yes?
+        return false if archived?
+
+        intake&.triage&.doc_type_need_help?
       end
     end
   end
