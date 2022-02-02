@@ -31,6 +31,30 @@ describe OrganizationCapacity do
         end
       end
     end
+
+    context "when intake associated with client is archived" do
+      let(:organization) { create :organization }
+      before do
+        client = create :client_with_status, status: :prep_ready_for_prep, vita_partner: organization
+        create :archived_2021_gyr_intake, client: client
+      end
+
+      it "does not include the client in the client count" do
+        expect(described_class.find(organization.id).active_client_count).to eq 0
+      end
+    end
+
+    context "when intake associated with client is not archived" do
+      let(:organization) { create :organization }
+      let(:intake) { create :intake }
+      before do
+        create :client_with_status, status: :prep_ready_for_prep, vita_partner: organization, intake: intake
+      end
+
+      it "does include the client in the client count" do
+        expect(described_class.find(organization.id).active_client_count).to eq 1
+      end
+    end
   end
 
   describe '.with_capacity' do
