@@ -257,6 +257,21 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
         expect(accessible_groups).to include(site)
       end
     end
+
+    context "customer support user" do
+      let!(:coalition) { create :coalition }
+      let!(:organization) { create :organization, coalition: coalition }
+      let!(:site) { create :site, parent_organization: organization }
+      let!(:user) { create :client_success_user }
+      let!(:other_partner) { create :site, name: "accessible to admins" }
+
+      it "should return all orgs and sites" do
+        accessible_groups = user.accessible_vita_partners
+        expect(accessible_groups).to include(organization)
+        expect(accessible_groups).to include(other_partner)
+        expect(accessible_groups).to include(site)
+      end
+    end
   end
 
   describe "#accessible_users" do

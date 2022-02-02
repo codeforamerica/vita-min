@@ -105,7 +105,7 @@ class User < ApplicationRecord
 
   def accessible_vita_partners
     case role_type
-    when AdminRole::TYPE
+    when AdminRole::TYPE, ClientSuccessRole::TYPE
       VitaPartner.all
     when OrganizationLeadRole::TYPE
       VitaPartner.organizations.where(id: role.organization).or(VitaPartner.sites.where(parent_organization: role.organization))
