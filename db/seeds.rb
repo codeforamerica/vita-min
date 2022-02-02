@@ -45,16 +45,6 @@ VitaPartnerZipCode.find_or_create_by!(
   vita_partner: first_site,
 )
 
-VitaPartnerState.find_or_create_by!(
-  state: "CA",
-  vita_partner: first_org,
-)
-
-VitaPartnerState.find_or_create_by!(
-  state: "CA",
-  vita_partner: first_site,
-)
-
 # organization lead user
 user = User.where(email: "skywalker@example.com").first_or_initialize
 user.update(
