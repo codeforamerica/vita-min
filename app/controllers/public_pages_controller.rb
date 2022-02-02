@@ -1,6 +1,5 @@
 class PublicPagesController < ApplicationController
   skip_before_action :check_maintenance_mode
-  before_action :redirect_to_main_url_on_heroku, only: [:home]
 
   def include_analytics?
     true
@@ -64,17 +63,6 @@ class PublicPagesController < ApplicationController
     respond_to do |format|
       format.text { render 'public_pages/pki_validation'  }
       format.any { head 404 }
-    end
-  end
-
-  private
-
-  def redirect_to_main_url_on_heroku
-    return unless Rails.env.heroku?
-
-    # On Heroku Review Apps, it's convenient to use our *.getyourrefund-testing.org URL where possible.
-    if request.host != MultiTenantService.new(:gyr).host
-      redirect_to(url_for(action: :home, host: MultiTenantService.new(:gyr).host))
     end
   end
 end
