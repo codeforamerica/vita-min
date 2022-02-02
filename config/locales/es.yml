@@ -3140,8 +3140,8 @@ es:
         - Si desea trabajar con un preparador de impuestos, vuelva a intentarlo en unos días en <a href="https://www.getyourrefund.org">www.GetYourRefund.org</a>.
         - Si desea presentar sus impuestos hoy, puede presentarlos por su cuenta con el software de declaración de impuestos gratuito de nuestro socio. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que se le deben!
         continue_to_diy: Continuar para presentarme
-        return_to_homepage: Return to homepage
-        title: We're sorry! GetYourRefund's tax preparation partners are currently at capacity.
+        return_to_homepage: Regresar a la página principal
+        title: "¡Lo lamentamos! Los socios de preparación de impuestos de GetYourRefund están actualmente al máximo de su capacidad."
       backtaxes:
         select_all_that_apply: Seleccione todas las que correspondan.
         title: "¿Qué años necesita presentar?"
