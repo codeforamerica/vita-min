@@ -1,3 +1,53 @@
 
 
-<!--Not sure how to use this page. How will this be different from the index page ? -->
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid-flex contained">
+      <div>
+        <%= link_to "##{@verification_attempt.client.id}", hub_client_path(id: @verification_attempt.client.id) , target: :_blank %>
+        <h1 class="spacing-above-0"><%= @verification_attempt.client.legal_name %></h1>
+        <ul>
+          <% @fraud_indicators.each do |indicator| %>
+            <li><%= "#{indicator}" %></li>
+          <%end %>
+        </ul>
+
+        <div class="grid-flex contained">
+          <div class="item-15r"><%= image_tag transient_storage_url(@verification_attempt.selfie.blob) %></div>
+          <div><%= image_tag transient_storage_url(@verification_attempt.photo_identification.blob) %></div>
+        </div>
+
+
+        <h2> Notes:</h2>
+        <ul class="no-bullets">
+          <% @verification_attempt.verification_attempt_notes.each do |note| %>
+            <li>
+              <div class="note">
+                <div class="note__heading">
+                  <div class="note__author">
+                    <%= note.user.name %>
+                  </div>
+                  <div class="note__time">
+                    <%= timestamp(note.created_at) %>
+                  </div>
+                </div>
+                <div class="note__body">
+                  <%= note.body %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+<!-- :verification_attempt_notes -->
+<!--verification_attempt_id-->
+<!--user_id-->
+<!--body-->
+
+<!--has_many :notes-->
+

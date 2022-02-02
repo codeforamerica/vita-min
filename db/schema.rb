@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_25_232709) do
+ActiveRecord::Schema.define(version: 2022_01_31_222440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1362,10 +1362,19 @@ ActiveRecord::Schema.define(version: 2022_01_25_232709) do
     t.index ["role_type", "role_id"], name: "index_users_on_role_type_and_role_id", unique: true
   end
 
+  create_table "verification_attempt_notes", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "verification_attempt_id"
+    t.index ["user_id"], name: "index_verification_attempt_notes_on_user_id"
+    t.index ["verification_attempt_id"], name: "index_verification_attempt_notes_on_verification_attempt_id"
+  end
+
   create_table "verification_attempts", force: :cascade do |t|
     t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
-    t.text "note_body"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_verification_attempts_on_client_id"
   end

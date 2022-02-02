@@ -3,7 +3,6 @@
 # Table name: verification_attempts
 #
 #  id         :bigint           not null, primary key
-#  note_body  :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  client_id  :bigint

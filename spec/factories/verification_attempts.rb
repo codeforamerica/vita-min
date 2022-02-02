@@ -3,7 +3,6 @@
 # Table name: verification_attempts
 #
 #  id         :bigint           not null, primary key
-#  note_body  :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  client_id  :bigint
@@ -15,16 +14,18 @@
 FactoryBot.define do
   factory :verification_attempt do
     client
-    selfie { nil }
-    photo_identification { nil }
-    note_body { "This looks right to me. What do you think?" }
 
-    transient do
-      selfie_path { Rails.root.join("spec", "fixtures", "files", "picture_id.jpg") }
-    end
-
-    transient do
-      photo_identification_path { Rails.root.join("spec", "fixtures", "files", "picture_id.jpg") }
+    after(:build) do |verification_attempt|
+      verification_attempt.selfie.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),
+        filename: 'test.jpg',
+        content_type: 'image/jpeg'
+      )
+      verification_attempt.photo_identification.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),
+        filename: 'test.jpg',
+        content_type: 'image/jpeg'
+      )
     end
   end
 end

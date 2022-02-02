@@ -3,7 +3,6 @@
 # Table name: verification_attempts
 #
 #  id         :bigint           not null, primary key
-#  note_body  :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  client_id  :bigint
@@ -16,5 +15,6 @@ class VerificationAttempt < ApplicationRecord
   belongs_to :client
   has_one_attached :selfie
   has_one_attached :photo_identification
+  has_many :verification_attempt_notes
 end
 
