@@ -35,7 +35,6 @@ class Site < VitaPartner
 
   belongs_to :parent_organization, class_name: "Organization"
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode", foreign_key: "vita_partner_id"
-  has_many :serviced_states, class_name: "VitaPartnerState", foreign_key: "vita_partner_id"
   has_many :site_coordinator_roles, class_name: "SiteCoordinatorRole", foreign_key: "vita_partner_id", dependent: :destroy
 
   validates :name, uniqueness: { scope: [:parent_organization] }
