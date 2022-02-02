@@ -5,20 +5,12 @@ module Portal
     layout "portal"
 
     def home
-      @current_step = nil
+      @ask_for_answers = ask_for_answers?
+
+      @current_step = current_intake.current_step if ask_for_answers?
       @tax_returns = []
-
-      if completed_onboarding_process?
-        @tax_returns = current_client.tax_returns.order(year: :desc)
-        @can_submit_documents = true
-      else
-        @current_step = current_intake.current_step
-        @heres_what_we_need = true
-        @submit_additional_documents = @current_step&.include?("/documents/")
-      end
-
-      @answered_initial_qs = completed_onboarding_process? || @current_step&.include?("/documents/")
-      @shared_initial_docs = completed_onboarding_process?
+      @document_count = current_client.documents.where(uploaded_by: current_client).count
+      @tax_returns = current_client.tax_returns.order(year: :desc) if show_tax_returns?
     end
 
     def current_intake
@@ -35,8 +27,12 @@ module Portal
     # 2) don't currently (3/22/21) set completed_at on drop-off clients.
     # Once we've started preparing their taxes, we don't want to prompt them through the intake flow, but instead
     # show their tax return status information.
-    def completed_onboarding_process?
+    def show_tax_returns?
       current_client.intake.completed_at? || current_client.tax_returns.map(&:status_before_type_cast).any? { |status| status >= 102 }
+    end
+
+    def ask_for_answers?
+      !current_client.intake.completed_at? && current_client.tax_returns.map(&:status).all? { |status| (TaxReturnStatus::STATUSES_BY_STAGE["intake"]).include?(status.to_sym) }
     end
   end
 end

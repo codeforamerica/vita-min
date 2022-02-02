@@ -7,9 +7,11 @@ RSpec.feature "a client on their portal" do
              intake: (create :intake, preferred_name: "Katie", current_step: "/en/questions/asset-loss"),
              tax_returns: [create(:tax_return, :intake_in_progress)]
     end
+
     before do
       login_as client, scope: :client
     end
+
     scenario "linking to next step" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Katie!"
@@ -17,7 +19,7 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_link "Message my tax specialist"
 
       expect(page).not_to have_text "Answered initial tax questions"
-      expect(page).not_to have_link "Submit additional documents"
+      expect(page).to have_link "Submit additional documents"
     end
   end
 
@@ -37,18 +39,19 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_link("Submit remaining tax documents", href: "/en/documents/overview")
       expect(page).to have_link "Message my tax specialist"
 
-      expect(page).not_to have_link "Submit additional documents"
+      expect(page).to have_link "Submit additional documents"
     end
   end
 
-  context "when a client has completed intake questions and reached the end of the document flow and is waiting for review" do
+  context "when a client has completed intake and uploaded at least one document" do
     let(:client) do
       create :client,
-             intake: (create :intake, preferred_name: "Randall"),
+             intake: (create :intake, preferred_name: "Randall", completed_at: DateTime.current),
              tax_returns: [create(:tax_return, :intake_ready, year: 2019)]
     end
     before do
       login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
     end
 
     scenario "waiting for review" do
@@ -75,6 +78,7 @@ RSpec.feature "a client on their portal" do
 
     before do
       login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
     end
 
     scenario "waiting for tax team to prepare the return" do
@@ -100,6 +104,7 @@ RSpec.feature "a client on their portal" do
 
     before do
       login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
     end
 
     scenario "link to submit tax documents" do
@@ -119,21 +124,22 @@ RSpec.feature "a client on their portal" do
   context "when the client's status is greeter info requested" do
     let(:client) do
       create :client,
-             intake: (create :intake),
+             intake: (create :intake, current_step: "/en/questions/asset-loss"),
              tax_returns: [(create :tax_return, :intake_greeter_info_requested, year: 2021)]
     end
 
     before do
       login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
     end
 
     scenario "link to submit tax documents" do
       visit portal_root_path
+      expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss")
 
-      expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
       expect(page).not_to have_text "Submit remaining tax documents"
-      expect(page).to have_text "Submit requested tax documents"
+      expect(page).to have_text "Submit additional documents"
     end
   end
 
@@ -146,6 +152,7 @@ RSpec.feature "a client on their portal" do
 
     before do
       login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
     end
 
     scenario "waiting on quality review" do
@@ -172,6 +179,8 @@ RSpec.feature "a client on their portal" do
 
     before do
       login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
+
     end
 
     scenario "shows that the client requested not to file" do
@@ -193,19 +202,18 @@ RSpec.feature "a client on their portal" do
   context "when the tax return is on hold" do
     let(:client) do
       create :client,
-             intake: (create :intake),
+             intake: (create :intake, current_step: "/en/questions/asset-loss"),
              tax_returns: [(create :tax_return, :file_hold, year: 2021)]
     end
 
     before do
       login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
+
     end
 
     scenario "shows that the return is on hold" do
       visit portal_root_path
-
-      expect(page).to have_text "Answered initial tax questions"
-      expect(page).to have_text "Shared initial tax documents"
 
       expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
       within "#tax-year-#{TaxReturn.current_tax_year}" do
@@ -226,6 +234,8 @@ RSpec.feature "a client on their portal" do
 
     before do
       login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
+
       create :document,
              document_type: DocumentTypes::UnsignedForm8879.key,
              tax_return: client.tax_returns.first,
@@ -260,6 +270,8 @@ RSpec.feature "a client on their portal" do
     before do
       create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: client.tax_returns.first, client: client
       login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
+
     end
 
     scenario "able to download final tax papers" do
@@ -287,6 +299,8 @@ RSpec.feature "a client on their portal" do
     before do
       create :document, display_name: "Another 8879", document_type: DocumentTypes::UnsignedForm8879.key, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), tax_return: tax_return2019, client: tax_return2019.client
       create :tax_return, year: 2017, client: client
+      create :document, client: client, uploaded_by: client
+
       create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return2019, client: tax_return2019.client
       create :document, document_type: DocumentTypes::FinalTaxDocument.key, display_name: "Some final tax document", tax_return: tax_return2018, client: tax_return2018.client
       create :document, document_type: DocumentTypes::FinalTaxDocument.key, display_name: "Another final tax document", tax_return: tax_return2018, client: tax_return2018.client
