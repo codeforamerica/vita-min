@@ -693,6 +693,7 @@ en:
         filing_status: Filing Status
         intake_language: Intake Language
         interview_timing_preference: Preferred Interview Time
+        itin_help_required: ITIN Help Required
         legal_name: Legal Name
         mailing_address: Mailing Address
         marital_status: Marital Status
@@ -749,6 +750,7 @@ en:
         upload_by: Uploaded By
         upload_date: Upload Date
     has_duplicates: Potential duplicates detected
+    itin_applicant: ITIN applicant
     last_client_update: 'Last client update: '
     last_contact: Last contact
     messages:

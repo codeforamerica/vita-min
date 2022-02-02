@@ -20,6 +20,10 @@
         <% if @client.access_locked? %>
           <%= link_to t("hub.unlock_account"), unlock_hub_client_path(id: @client), method: :patch, class: "button button--danger button--small", data: { confirm: t("hub.unlock_confirmation", name: @client.preferred_name) } %>
         <% end %>
+
+        <% if @client.needs_itin_help_yes? %>
+          <span class="label"><%= t("hub.itin_applicant") %></span>
+        <% end %>
       </div>
 
       <div class="grid-flex align-center">
@@ -32,7 +36,6 @@
           </label>
         </div>
       </div>
-
 
       <% ctc_dupe_clients = @client.clients_with_dupe_contact_info(true) %>
       <% gyr_dupe_clients = @client.clients_with_dupe_contact_info(false) %>
