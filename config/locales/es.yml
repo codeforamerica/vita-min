@@ -2741,7 +2741,10 @@ es:
           subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $66,000 dólares al año. '
         title: Quiénes somos
       diy_home:
-        body_html: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para que cree su propia cuenta de sesión de inicio de TaxSlayer.<strong>La fecha límite para usar TaxSlayer es el 15 de octubre.</strong>
+        body: |
+          ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que se le deben! Al hacer clic en continuar, será redirigido al sitio web de nuestro socio para continuar con la presentación por su cuenta. El proceso es simple, rápido y fácil.
+
+          Debe ganar menos de $73,000 al año para ser elegible para este servicio.
         title: "¡Declare sus impuestos por su cuenta de forma gratuita!"
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
