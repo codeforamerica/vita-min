@@ -11,39 +11,37 @@
   </div>
 </div>
 
-<% if params[:id] == 'ctc' %>
-  <div class="reveal">
-    <a href="#" class="reveal__link">
-      <h3 class="spacing-below-0">Magic Intake Generator 🧙</h3>
-    </a>
-    <div class="reveal__content">
-      <p>This attempts to generate an intake so you can test specific pages. It might not work perfectly.</p>
-      <%= form_for @flow_params.form, url: generate_flows_path(type: :ctc), style: 'display: inline-block;' do |f| %>
-        <div class="honeycrisp-compact" style="display: flex;">
-          <div class="form-group">
-            <label>First Name:</label>
-            <%= f.text_field :first_name, style: 'width: 100%; max-width: 180px;' %>
-          </div>
-          <div class="form-group">
-            <label>Last Name:</label>
-            <%= f.text_field :last_name, style: 'width: 100%; max-width: 180px;' %>
-          </div>
-          <div class="form-group">
-            <label>Email Address:</label>
-            <%= f.text_field :email_address, style: 'width: 100%; max-width: 180px;' %>
-          </div>
-          <div class="form-group">
-            <label>SMS Phone Number:</label>
-            <%= f.text_field :sms_phone_number, style: 'width: 100%; max-width: 180px;' %>
-          </div>
+<div class="reveal">
+  <a href="#" class="reveal__link">
+    <h3 class="spacing-below-0">Magic Intake Generator 🧙</h3>
+  </a>
+  <div class="reveal__content">
+    <p>This attempts to generate an intake so you can test specific pages. It might not work perfectly.</p>
+    <%= form_for @flow_params.form, url: generate_flows_path(type: params[:id]), style: 'display: inline-block;' do |f| %>
+      <div class="honeycrisp-compact" style="display: flex;">
+        <div class="form-group">
+          <label>First Name:</label>
+          <%= f.text_field :first_name, style: 'width: 100%; max-width: 180px;' %>
         </div>
-        <% @sample_types.each do |app_type| %>
-          <%= submit_tag "#{app_type.to_s.titleize} ✨", name: "submit_#{app_type}", class: 'button button--small', method: :put %>
-        <% end %>
+        <div class="form-group">
+          <label>Last Name:</label>
+          <%= f.text_field :last_name, style: 'width: 100%; max-width: 180px;' %>
+        </div>
+        <div class="form-group">
+          <label>Email Address:</label>
+          <%= f.text_field :email_address, style: 'width: 100%; max-width: 180px;' %>
+        </div>
+        <div class="form-group">
+          <label>SMS Phone Number:</label>
+          <%= f.text_field :sms_phone_number, style: 'width: 100%; max-width: 180px;' %>
+        </div>
+      </div>
+      <% @sample_types.each do |app_type| %>
+        <%= submit_tag "#{app_type.to_s.titleize} ✨", name: "submit_#{app_type}", class: 'button button--small', method: :put %>
       <% end %>
-    </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 
 <%= render 'flow_events' %>
 <div id="flow-wrapper">

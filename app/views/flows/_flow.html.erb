@@ -14,7 +14,7 @@
           <%=
             image_tag(
               screenshot_path(decorated_controller),
-              onerror: 'this.onerror = null; $(this).hide()'
+              onerror: "this.onerror = null; this.style.display = 'none'"
             )
           %>
         </div>

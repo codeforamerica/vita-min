@@ -5,6 +5,7 @@ class FlowsController < ApplicationController
   }
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly, :married_filing_jointly_with_dependents],
+    gyr: [:single, :married_filing_jointly, :married_filing_jointly_with_dependents],
   }.freeze
 
   def index
@@ -23,6 +24,11 @@ class FlowsController < ApplicationController
       sign_in(intake.client)
 
       redirect_to flow_path(id: :ctc)
+    elsif type == :gyr
+      intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
+      sign_in(intake.client)
+
+      redirect_to flow_path(id: :gyr)
     end
   end
 
@@ -67,7 +73,8 @@ class FlowsController < ApplicationController
         FlowParams.new(
           controller: controller,
           reference_object: controller.current_intake&.is_a?(Intake::GyrIntake) ? controller.current_intake : nil,
-          controller_list: GyrQuestionNavigation::FLOW
+          controller_list: GyrQuestionNavigation::FLOW,
+          form: SampleGyrIntakeGenerator.new.form
         )
       elsif type == :ctc
         FlowParams.new(
@@ -178,7 +185,7 @@ class FlowsController < ApplicationController
     end
   end
 
-  class SampleCtcIntakeForm
+  class SampleIntakeForm
     include ActiveModel::Model
 
     attr_accessor :first_name
@@ -196,7 +203,7 @@ class FlowsController < ApplicationController
 
   class SampleCtcIntakeGenerator
     def form
-      SampleCtcIntakeForm.new(
+      SampleIntakeForm.new(
         first_name: 'Testuser',
         last_name: 'Testuser',
         sms_phone_number: nil,
@@ -206,10 +213,10 @@ class FlowsController < ApplicationController
 
     def generate_ctc_intake(params)
       type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
-      first_name = params[:flows_controller_sample_ctc_intake_form][:first_name]
-      last_name = params[:flows_controller_sample_ctc_intake_form][:last_name]
-      sms_phone_number = params[:flows_controller_sample_ctc_intake_form][:sms_phone_number]
-      email_address = params[:flows_controller_sample_ctc_intake_form][:email_address]
+      first_name = params[:flows_controller_sample_intake_form][:first_name]
+      last_name = params[:flows_controller_sample_intake_form][:last_name]
+      sms_phone_number = params[:flows_controller_sample_intake_form][:sms_phone_number]
+      email_address = params[:flows_controller_sample_intake_form][:email_address]
 
       intake_attributes = {
         type: Intake::CtcIntake.to_s,
@@ -284,6 +291,90 @@ class FlowsController < ApplicationController
           tin_type: 'ssn',
           ssn: '555115555'
         )
+      end
+
+      client.intake
+    end
+  end
+
+  class SampleGyrIntakeGenerator
+    def form
+      SampleIntakeForm.new(
+        first_name: 'Testuser',
+        last_name: 'Testuser',
+        sms_phone_number: nil,
+        email_address: 'testuser@example.com',
+      )
+    end
+
+    def generate_gyr_intake(params)
+      type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
+      first_name = params[:flows_controller_sample_intake_form][:first_name]
+      last_name = params[:flows_controller_sample_intake_form][:last_name]
+      sms_phone_number = params[:flows_controller_sample_intake_form][:sms_phone_number]
+      email_address = params[:flows_controller_sample_intake_form][:email_address]
+
+      intake_attributes = {
+        type: Intake::GyrIntake.to_s,
+        visitor_id: SecureRandom.hex(26),
+        filed_prior_tax_year: 'did_not_file',
+        primary_birth_date: 30.years.ago,
+        primary_tin_type: 'ssn',
+        primary_ssn: '555112222',
+        primary_last_four_ssn: '2222',
+        primary_first_name: first_name,
+        primary_last_name: last_name,
+        preferred_name: "#{first_name} #{last_name}",
+        sms_phone_number: sms_phone_number.presence,
+        email_address: email_address.presence,
+        email_address_verified_at: (email_address.present? && email_address.end_with?('@example.com')) ? DateTime.now : nil,
+        eip1_amount_received: 0,
+        eip2_amount_received: 0,
+        street_address: '123 Main St',
+        city: 'Los Angeles',
+        state: 'CA',
+        zip_code: '90210',
+        filing_joint: 'no',
+      }
+      client = Client.create!(
+        intake_attributes: intake_attributes,
+        tax_returns_attributes: [{ year: TaxReturn.current_tax_year, is_ctc: false }],
+      )
+
+      if type == :married_filing_jointly || type == :married_filing_jointly_with_dependents
+        client.intake.update(
+          spouse_birth_date: 31.years.ago + 51.days,
+          spouse_last_four_ssn: '3333',
+          spouse_first_name: "#{first_name}Spouse",
+          spouse_last_name: last_name,
+          filing_joint: 'yes',
+        )
+      end
+
+      if type == :married_filing_jointly_with_dependents
+        client.intake.update(
+          had_dependents: 'yes'
+        )
+        default_attributes = {
+          months_in_home: 12,
+          on_visa: 'no',
+          was_married: 'no',
+          was_student: 'no',
+          north_american_resident: 'no',
+          disabled: 'no',
+        }
+        client.intake.dependents.create(default_attributes.merge(
+          first_name: 'Childy',
+          last_name: last_name,
+          relationship: %w[son daughter].sample,
+          birth_date: 12.years.ago,
+        ))
+        client.intake.dependents.create(default_attributes.merge(
+          first_name: 'Relly',
+          last_name: last_name,
+          relationship: %w[aunt uncle].sample,
+          birth_date: 52.years.ago,
+        ))
       end
 
       client.intake
