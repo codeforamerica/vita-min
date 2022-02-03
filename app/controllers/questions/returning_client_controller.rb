@@ -6,7 +6,7 @@ module Questions
     layout "application"
 
     def self.show?(intake)
-      intake.has_duplicates?
+      intake.has_duplicate?
     end
 
     private
