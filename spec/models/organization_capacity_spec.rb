@@ -68,7 +68,7 @@ describe OrganizationCapacity do
     context "with an organization whose active clients equal capacity" do
       let(:organization) { create :organization, capacity_limit: 1 }
       before do
-        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization
+        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization, intake: create(:intake)
       end
 
       it "does not have capacity" do
