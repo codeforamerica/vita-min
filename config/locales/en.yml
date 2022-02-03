@@ -1713,7 +1713,7 @@ en:
           <strong>I authorize the VITA site:</strong>
           Global Carry Forward of data allows TaxSlayer LLC, the provider of the VITA/TCE tax software to make your tax return information available to ANY volunteer site participating in the IRS's VITA/TCE program that you select to prepare a tax return in the next filing season. This means you will be able to visit any volunteer site using TaxSlayer next year and have your tax return populate with your current year data, regardless of where you filed your tax return this year.
 
-          <strong>This consent is valid through November 12, 2022</strong>
+          <strong>This consent is valid through November 30, 2023</strong>
 
           The tax return information that will be disclosed includes, but is not limited to, demographic, financial and other personally identifiable information, about you, your tax return and your sources of income, which was input into the tax preparation software for the purpose of preparing your tax return.
 
@@ -1721,7 +1721,7 @@ en:
 
           You do not need to provide consent for the VITA/TCE partner preparing your tax return this year Carry Forward will assist you only if you visit a different VITA or TCE partner next year.
 
-          <i>Limitation on the Duration of Consent</i>: I/we, the taxpayer, do not wish to limit the duration of the consent-of the disclosure of tax return information to a date earlier than presented above (November 12, 2022). If I/we wish to limit the duration of the consent of the disclosure to an earlier date, I will deny consent.
+          <i>Limitation on the Duration of Consent</i>: I/we, the taxpayer, do not wish to limit the duration of the consent-of the disclosure of tax return information to a date earlier than presented above (November 30, 2023). If I/we wish to limit the duration of the consent of the disclosure to an earlier date, I will deny consent.
 
           <i>Limitation on the Scope of Disclosure</i>: I/we, the taxpayer, do not wish to limit the scope of the disclosure of tax return information further than presented above. If I/we wish to limit the scope of the disclosure of tax return information further than presented above, I/we will deny consent.
 
@@ -3480,7 +3480,7 @@ en:
         help_text: For example, a 401k, 403b, or any IRA.
         title:
           one: In %{year}, did you make any contributions to a retirement account?
-          other: In %{year}, did you or your spouse make any contributions to a retirement account?
+          other: In %{year}, did you or your spouse make any contributions or repayments to a retirement account?
       retirement_income:
         help_text: Answer "Yes" if you moved money between retirement accounts, took money out of your retirement account, or received a 1099-R form.
         title:
