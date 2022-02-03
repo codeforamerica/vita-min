@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_01_182812) do
+ActiveRecord::Schema.define(version: 2022_02_02_214204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1524,7 +1524,8 @@ ActiveRecord::Schema.define(version: 2022_02_01_182812) do
              FROM vita_partners vita_partners_1
           ), client_ids AS (
            SELECT DISTINCT tax_returns.client_id
-             FROM tax_returns
+             FROM (tax_returns
+               JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
             WHERE ((tax_returns.status >= 102) AND (tax_returns.status <= 404) AND (tax_returns.status <> 403) AND (tax_returns.status <> 106) AND (tax_returns.status <> 130))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,

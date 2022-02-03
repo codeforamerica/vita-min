@@ -83,7 +83,7 @@ describe Organization do
     context "at capacity" do
       before do
         organization.capacity_limit.times do
-          client = create :client, vita_partner: organization
+          client = create :client, vita_partner: organization, intake: create(:intake)
           create :tax_return, status: "intake_ready", client: client
         end
       end
@@ -97,7 +97,7 @@ describe Organization do
       context "clients assigned to organization exceed capacity limit" do
         before do
           (organization.capacity_limit + 1).times do
-            client = create :client, vita_partner: organization
+            client = create :client, vita_partner: organization, intake: create(:intake)
             create :tax_return, status: in_range_statuses.sample, client: client
           end
         end
@@ -113,7 +113,7 @@ describe Organization do
 
         before do
           (organization.capacity_limit + 1).times do
-            client = create :client, vita_partner: [site_1, site_2, organization].sample
+            client = create :client, vita_partner: [site_1, site_2, organization].sample, intake: create(:intake)
             create :tax_return, status: in_range_statuses.sample, client: client
           end
         end
