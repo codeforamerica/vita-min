@@ -288,7 +288,12 @@ class Intake::CtcIntake < Intake
   enum has_primary_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_primary_ip_pin
   enum has_spouse_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_spouse_ip_pin
   enum consented_to_legal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_legal
-
+  scope :accessible_intakes, -> do
+    sms_verified = where.not(sms_phone_number_verified_at: nil)
+    email_verified = where.not(email_address_verified_at: nil)
+    navigator_verified = where.not(navigator_has_verified_client_identity: nil)
+    sms_verified.or(email_verified).or(navigator_verified)
+  end
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   accepts_nested_attributes_for :bank_account
 
@@ -337,6 +342,21 @@ class Intake::CtcIntake < Intake
       field_name: :with_vita_approved_taxpayer_id
     }
   }
+
+  def duplicates
+    has_dupe = false
+    if email_address.present?
+      has_dupe = DeduplicationService.duplicates(self, :email_address, from_scope: accessible_intakes).exists?
+    end
+    if sms_phone_number.present? && !has_dupe
+      has_dupe = DeduplicationService.duplicates(self, :sms_phone_number, from_scope: accessible_intakes).exists?
+    end
+    has_dupe
+  end
+
+  def has_duplicates?
+    duplicates.exists?
+  end
 
   def document_types_definitely_needed
     []

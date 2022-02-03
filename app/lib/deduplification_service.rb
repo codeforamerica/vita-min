@@ -6,12 +6,17 @@ class DeduplificationService
     OpenSSL::HMAC.hexdigest("SHA256", key, "#{attr}|#{value}")
   end
 
-  def self.duplicates(instance, *attrs)
+  def self.duplicates(instance, *attrs, from_scope: nil)
     match_on = Array(attrs).inject({}) do |hash, attr|
       hash[attr] = values(instance, attr)
       hash
     end
-    instance.class.where.not(id: instance.id).where(match_on)
+
+    if from_scope.present?
+      from_scope.where.not(id: instance.id).where(match_on)
+    else
+      instance.class.where.not(id: instance.id).where(match_on)
+    end
   end
 
   def self.values(instance, attr)
