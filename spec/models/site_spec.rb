@@ -69,7 +69,7 @@ describe Site do
     context "when parent org is at capacity" do
       before do
         10.times do
-          client = create :client, vita_partner: site
+          client = create :client, vita_partner: site, intake: create(:intake)
           create :tax_return, status: "intake_ready", client: client
         end
       end

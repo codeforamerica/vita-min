@@ -17,7 +17,7 @@ describe OrganizationCapacity do
       context "for #{status} status" do
         let(:organization) { create :organization }
         before do
-          create :client_with_status, status: status[0], vita_partner: organization
+          create :client_with_status, status: status[0], vita_partner: organization, intake: create(:intake)
         end
 
         if TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY.include?(status[0])
@@ -29,6 +29,30 @@ describe OrganizationCapacity do
             expect(described_class.find(organization.id).active_client_count).to eq 0
           end
         end
+      end
+    end
+
+    context "when intake associated with client is archived" do
+      let(:organization) { create :organization }
+      before do
+        client = create :client_with_status, status: :prep_ready_for_prep, vita_partner: organization
+        create :archived_2021_gyr_intake, client: client
+      end
+
+      it "does not include the client in the client count" do
+        expect(described_class.find(organization.id).active_client_count).to eq 0
+      end
+    end
+
+    context "when intake associated with client is not archived" do
+      let(:organization) { create :organization }
+      let(:intake) { create :intake }
+      before do
+        create :client_with_status, status: :prep_ready_for_prep, vita_partner: organization, intake: intake
+      end
+
+      it "does include the client in the client count" do
+        expect(described_class.find(organization.id).active_client_count).to eq 1
       end
     end
   end
@@ -44,7 +68,7 @@ describe OrganizationCapacity do
     context "with an organization whose active clients equal capacity" do
       let(:organization) { create :organization, capacity_limit: 1 }
       before do
-        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization
+        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization, intake: create(:intake)
       end
 
       it "does not have capacity" do
