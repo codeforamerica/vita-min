@@ -17,7 +17,7 @@ describe OrganizationCapacity do
       context "for #{status} status" do
         let(:organization) { create :organization }
         before do
-          create :client_with_status, status: status[0], vita_partner: organization
+          create :client_with_status, status: status[0], vita_partner: organization, intake: create(:intake)
         end
 
         if TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY.include?(status[0])
