@@ -33,7 +33,6 @@ class GyrQuestionNavigation
       Questions::PhoneVerificationController,
       Questions::EmailAddressController,
       Questions::EmailVerificationController,
-      Questions::ReturningClientController, # possible off-boarding from flow
 
       # Consent
       Questions::ConsentController, # Authenticates the client

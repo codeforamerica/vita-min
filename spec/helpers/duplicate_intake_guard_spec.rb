@@ -46,16 +46,37 @@ RSpec.describe DuplicateIntakeGuard do
     end
 
     context "intake with matching primary ssn exists" do
-      let!(:existing_intake) { create(:intake, primary_ssn: "123456789") }
-      let(:matching_intake) { create(:intake,  primary_ssn: "123456789") }
-
-      xit "returns false if the intake is not completed" do
-        expect(subject).not_to have_duplicate
+      before do
+        existing_intake.update(primary_ssn: "123456789")
       end
 
-      it "returns true if the primary filer has consented" do
-        existing_intake.update(primary_consented_to_service: "yes")
-        expect(subject).to have_duplicate
+      let!(:matching_intake) { create(:intake, primary_ssn: "123456789") }
+
+      context "service type is online_intake" do
+        before do
+          existing_intake.tax_returns.first.update(service_type: "online_intake")
+        end
+
+        it "returns true if online intake and primary filer has consented" do
+          existing_intake.update(primary_consented_to_service: "yes")
+          expect(subject).to have_duplicate
+        end
+
+        it "returns false if online intake and primary filer has not consented" do
+          existing_intake.update(primary_consented_to_service: "no")
+          expect(subject).not_to have_duplicate
+        end
+      end
+
+      context "service type is drop_off" do
+        it "returns true if service type is drop-off regardless of primary consented at value" do
+          existing_intake.tax_returns.first.update(service_type: "drop_off")
+          existing_intake.update(primary_consented_to_service: "unfilled")
+          expect(subject).to have_duplicate
+
+          existing_intake.update(primary_consented_to_service: "no")
+          expect(subject).to have_duplicate
+        end
       end
     end
   end

@@ -2,10 +2,12 @@ require "rails_helper"
 
 RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot do
   let(:primary_ssn) { "123456789" }
+  let!(:original_intake) { create :intake, email_address: "original@client.com", phone_number: "+14155537865", primary_consented_to_service: "yes", primary_ssn: primary_ssn, client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")]) }
   before do
     create(
       :intake,
-      email_address: "original@client.com",
+      email_address: "dupe@client.com",
+      phone_number: "+18285537865",
       primary_consented_to_service: "yes",
       primary_ssn: primary_ssn,
       client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
@@ -35,14 +37,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot do
     check "2019"
     click_on "Continue"
 
-    visit email_address_questions_path
-    expect(page).to have_selector("h1", text: "Please share your email address.")
-    fill_in "Email address", with: "returning@client.com"
-    fill_in "Confirm email address", with: "returning@client.com"
-    click_on "Continue"
-
-    expect(page).not_to have_text "Looks like you’ve already started!"
-    consent_questions_path
+    visit consent_questions_path
     fill_in "Legal first name", with: "Dupe"
     fill_in "Legal last name", with: "Gnome"
     fill_in I18n.t("attributes.primary_ssn"), with: primary_ssn

@@ -16,7 +16,8 @@ RSpec.feature "Web Intake Duplicate Intake", :flow_explorer_screenshot, active_j
            primary_ssn: primary_ssn,
            email_address: "client@example.com",
            phone_number: "+18287654422",
-           primary_consented_to_service: "yes"
+           primary_consented_to_service: "yes",
+           client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
   end
 
   scenario "client sees a duplicate guard when they have already filed a GYR intake and try to file another one" do
@@ -24,7 +25,6 @@ RSpec.feature "Web Intake Duplicate Intake", :flow_explorer_screenshot, active_j
     click_on I18n.t('questions.triage_gyr.edit.file_online')
     # Ask about backtaxes
     check "#{TaxReturn.current_tax_year}"
-    check "2019"
     click_on "Continue"
     # creates intake
     intake = Intake.last
@@ -88,7 +88,7 @@ RSpec.feature "Web Intake Duplicate Intake", :flow_explorer_screenshot, active_j
     select "1971", from: "Year"
     click_on "I agree"
     # expect not to create new tax return
-    expect(intake.client.tax_returns.pluck(:year).sort).not_to eq [2019, TaxReturn.current_tax_year]
+    expect(intake.client.tax_returns.pluck(:year).sort).not_to eq [TaxReturn.current_tax_year]
 
     expect(page).to have_text "Looks like you’ve already started!"
   end
