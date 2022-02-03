@@ -2,17 +2,9 @@
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card"} do |f| %>
-    <%= f.vita_min_select(:separated_year, content_for(:form_question), [
-        ["2020", "2020"],
-        ["2019", "2019"],
-        ["2018", "2018"],
-        ["2017", "2017"],
-        ["2016", "2016"],
-        ["2015", "2015"],
-        ["2014", "2014"],
-        [t("views.questions.separated_year.before_2014"), "before 2014"],
-      ]
-    ) %>
+    <%= f.vita_min_select(:separated_year, content_for(:form_question),
+                          ((TaxReturn.current_tax_year + 1).downto(2014)).map { |year| [year.to_s, year.to_s] } + [[t("views.questions.separated_year.before_2014"), "before 2014"]]
+        ) %>
     <button class="button button--primary button--wide" type="submit">
       <%=t("general.next") %>
     </button>
