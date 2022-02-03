@@ -1,9 +1,14 @@
 class DuplicateIntakeGuard < SimpleDelegator
   def has_duplicate?
-    ClientLoginService.new(:gyr).accessible_intakes.each do |intake|
-      return true if DeduplificationService.duplicates(intake, :hashed_primary_ssn).exists?
-    end
+    intake = Intake.find(id)
+    return if intake.primary_ssn == nil
 
-    false
+    dupes = DeduplificationService.duplicates(intake, :hashed_primary_ssn)
+
+    if intake.type == "Intake::GyrIntake"
+      dupes.any?(&:drop_off?) ? dupes.exists? : dupes.exists?(primary_consented_to_service: "yes")
+    else
+      dupes.exists?('sms_phone_number_verified_at != nil OR email_address_verified_at != nil OR navigator_has_verified_client_identity != nil')
+    end
   end
 end

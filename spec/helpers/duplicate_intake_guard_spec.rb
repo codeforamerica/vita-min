@@ -1,14 +1,17 @@
 require "rails_helper"
 
 RSpec.describe DuplicateIntakeGuard do
+  let(:primary_consented_to_service) { "yes" }
+  let(:primary_ssn) { "123456789" }
+  let(:service_type) { "online_intake" }
   let!(:existing_intake) do
     create(
       :intake,
       email_address: "existing@client.com",
-      primary_consented_to_service: "yes",
       phone_number: "+15005550006",
-      primary_ssn: "123456789",
-      client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
+      primary_consented_to_service: primary_consented_to_service,
+      primary_ssn: primary_ssn,
+      client: build(:client, tax_returns: [build(:tax_return, service_type: service_type)])
     )
   end
 
@@ -32,7 +35,7 @@ RSpec.describe DuplicateIntakeGuard do
     end
 
     context "existing intake is missing primary ssn" do
-      let!(:existing_intake) { create(:intake, primary_consented_to_service: "yes", primary_ssn: nil) }
+      let(:primary_ssn) { nil }
       let(:matching_intake) { create(:intake, primary_ssn: nil) }
 
       it "there is no match without primary ssn" do
@@ -46,20 +49,13 @@ RSpec.describe DuplicateIntakeGuard do
     end
 
     context "intake with matching primary ssn exists" do
-      before do
-        existing_intake.update(primary_ssn: "123456789")
-      end
-
+      let(:primary_ssn) { "123456789" }
       let!(:matching_intake) { create(:intake, primary_ssn: "123456789") }
 
       context "service type is online_intake" do
-        before do
-          existing_intake.tax_returns.first.update(service_type: "online_intake")
-        end
-
         it "returns true if online intake and primary filer has consented" do
           existing_intake.update(primary_consented_to_service: "yes")
-          expect(subject).to have_duplicate
+          expect(DuplicateIntakeGuard.new(matching_intake)).to have_duplicate
         end
 
         it "returns false if online intake and primary filer has not consented" do
@@ -69,14 +65,25 @@ RSpec.describe DuplicateIntakeGuard do
       end
 
       context "service type is drop_off" do
+        let(:service_type) { "drop_off" }
+        let(:primary_consented_to_service) { "unfilled" }
+
         it "returns true if service type is drop-off regardless of primary consented at value" do
-          existing_intake.tax_returns.first.update(service_type: "drop_off")
-          existing_intake.update(primary_consented_to_service: "unfilled")
           expect(subject).to have_duplicate
 
           existing_intake.update(primary_consented_to_service: "no")
           expect(subject).to have_duplicate
         end
+      end
+    end
+
+    context "other intakes are duplicates with each other but not the current intake" do
+      let!(:other_intake) { create(:intake, primary_ssn: "222456789", primary_consented_to_service: "yes", client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])) }
+      let!(:other_matching_intake) { create(:intake, primary_ssn: "222456789", primary_consented_to_service: "yes", client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])) }
+
+      it "returns false" do
+        existing_intake.update(primary_consented_to_service: "yes")
+        expect(DuplicateIntakeGuard.new(existing_intake)).not_to have_duplicate
       end
     end
   end
