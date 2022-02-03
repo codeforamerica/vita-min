@@ -24,7 +24,7 @@ class ClientLoginService
   end
 
   def can_login_by_email_verification?(email_address)
-    service_class.accessible_intakes.where(email_address: email_address).or(accessible_intakes.where(spouse_email_address: email_address)).exists?
+    service_class.accessible_intakes.where(email_address: email_address).or(service_class.accessible_intakes.where(spouse_email_address: email_address)).exists?
   end
 
   def can_login_by_sms_verification?(sms_phone_number)

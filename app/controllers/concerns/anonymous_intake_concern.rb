@@ -8,7 +8,7 @@ module AnonymousIntakeConcern
   private
 
   def redirect_if_duplicate_ctc_client
-    redirect_to questions_returning_client_path if ClientLoginService.ctc_duplicate?(current_intake)
+    redirect_to questions_returning_client_path if current_intake.has_duplicate?
   end
 
   def set_show_client_sign_in_link

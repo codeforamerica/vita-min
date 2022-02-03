@@ -344,17 +344,20 @@ class Intake::CtcIntake < Intake
   }
 
   def duplicates
-    has_dupe = false
-    if email_address.present?
-      has_dupe = DeduplicationService.duplicates(self, :email_address, from_scope: accessible_intakes).exists?
+      email_dupes = DeduplificationService.duplicates(self, :email_address, from_scope: self.class.accessible_intakes)
+      sms_dupes = DeduplificationService.duplicates(self, :sms_phone_number, from_scope: self.class.accessible_intakes)
+    if email_address.present? && sms_phone_number.present?
+      email_dupes.or(sms_dupes)
+    elsif email_address.present?
+      email_dupes
+    elsif sms_phone_number.present?
+      sms_dupes
+    else
+      self.class.none
     end
-    if sms_phone_number.present? && !has_dupe
-      has_dupe = DeduplicationService.duplicates(self, :sms_phone_number, from_scope: accessible_intakes).exists?
-    end
-    has_dupe
   end
 
-  def has_duplicates?
+  def has_duplicate?
     duplicates.exists?
   end
 

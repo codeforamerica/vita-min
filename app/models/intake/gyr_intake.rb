@@ -399,12 +399,12 @@ class Intake::GyrIntake < Intake
   end
 
   def duplicates
-    return false unless hashed_primary_ssn.present?
+    return Model.none unless hashed_primary_ssn.present?
 
-    DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: accessible_intakes).exists?
+    DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
   end
 
-  def has_duplicates?
+  def has_duplicate?
     duplicates.exists?
   end
 
