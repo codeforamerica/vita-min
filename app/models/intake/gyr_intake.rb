@@ -351,7 +351,11 @@ class Intake::GyrIntake < Intake
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
   enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
   enum received_advance_ctc_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_advance_ctc_payment
-
+  scope :accessible_intakes, -> do
+    online_consented = joins(:tax_returns).where({ tax_returns: { service_type: "online_intake" } }).where(primary_consented_to_service: "yes")
+    drop_off = joins(:tax_returns).where({ tax_returns: { service_type: "drop_off" } })
+    online_consented.or(drop_off)
+  end
   after_save do
     if saved_change_to_completed_at?(from: nil)
       InteractionTrackingService.record_incoming_interaction(client) # client completed intake
@@ -392,6 +396,16 @@ class Intake::GyrIntake < Intake
 
     type = BankAccount.account_types.keys.include?(bank_account_type) ? bank_account_type : nil
     @bank_account ||= BankAccount.new(account_type: type, bank_name: bank_name, account_number: bank_account_number, routing_number: bank_routing_number)
+  end
+
+  def duplicates
+    return false unless hashed_primary_ssn.present?
+
+    DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: accessible_intakes).exists?
+  end
+
+  def has_duplicates?
+    duplicates.exists?
   end
 
   def document_types_possibly_needed
