@@ -132,7 +132,7 @@ RSpec.describe Hub::NotesController, type: :controller do
 
       it "returns notes grouped by day" do
         expect(presenter.all_notes_by_day).to eq([])
-        expect(NotesPresenter).to have_received(:grouped_notes).with(client)
+        expect(NotesPresenter).to have_received(:grouped_notes).with(presenter)
       end
     end
 

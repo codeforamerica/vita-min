@@ -19,7 +19,7 @@ module Hub
 
     class HubClientPresenter < Hub::ClientsController::HubClientPresenter
       def messages_by_day
-        @_messages ||= MessagePresenter.grouped_messages(@client)
+        @_messages ||= MessagePresenter.grouped_messages(self)
       end
     end
   end

@@ -35,11 +35,11 @@ module Hub
 
     class HubClientPresenter < Hub::ClientsController::HubClientPresenter
       def all_notes_by_day
-        NotesPresenter.grouped_notes(@client)
+        NotesPresenter.grouped_notes(self)
       end
 
       def taggable_users
-        @_taggable_users ||= User.taggable_for(@client).to_json(only: [:name, :id], methods: :name_with_role_and_entity).to_s.html_safe
+        @_taggable_users ||= User.taggable_for(self).to_json(only: [:name, :id], methods: :name_with_role_and_entity).to_s.html_safe
       end
     end
   end

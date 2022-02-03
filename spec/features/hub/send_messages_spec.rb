@@ -71,6 +71,7 @@ RSpec.feature "Read and send messages to a client", js: true do
 
     context "the client's intake has been archived" do
       let!(:incoming_text_message) { create :incoming_text_message, client: client, body: "it is me, a client", created_at: DateTime.now }
+      let!(:outbound_call) { create :outbound_call, client: client, user: user }
 
       let(:intake) { nil }
       let!(:archived_intake) do
@@ -92,6 +93,7 @@ RSpec.feature "Read and send messages to a client", js: true do
 
         expect(page).to have_content(archived_intake.preferred_name)
         expect(page).to have_content(incoming_text_message.body)
+        expect(page).to have_content("Called by")
       end
     end
 
