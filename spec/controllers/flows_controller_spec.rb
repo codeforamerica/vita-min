@@ -2,18 +2,18 @@ require "rails_helper"
 
 RSpec.describe FlowsController do
   describe '#generate' do
-    let(:default_params) do
-      {
-        type: :ctc,
-        flows_controller_sample_ctc_intake_form: {
-          first_name: 'Testuser',
-          last_name: 'Testuser',
-          email_address: 'testuser@example.com',
-        },
-      }
-    end
-
     context 'for a ctc intake' do
+      let(:default_params) do
+        {
+          type: :ctc,
+          flows_controller_sample_intake_form: {
+            first_name: 'Testuser',
+            last_name: 'Testuser',
+            email_address: 'testuser@example.com',
+          },
+        }
+      end
+
       it 'can generate a single intake' do
         post :generate, params: default_params.merge({ submit_single: 'Single ✨' })
         expect(controller.current_intake.tax_returns.last).to be_filing_status_single
@@ -30,6 +30,35 @@ RSpec.describe FlowsController do
         expect(controller.current_intake.dependents.count).to eq(2)
         expect(controller.current_intake.dependents.select { |d| d.eligible_for_child_tax_credit_2020? }.length).to eq(1)
         expect(controller.current_intake.dependents.select { |d| !d.eligible_for_child_tax_credit_2020? && d.yr_2020_qualifying_relative? }.length).to eq(1)
+      end
+    end
+
+    context 'for a gyr intake' do
+      let(:default_params) do
+        {
+          type: :gyr,
+          flows_controller_sample_intake_form: {
+            first_name: 'Testuser',
+            last_name: 'Testuser',
+            email_address: 'testuser@example.com',
+          },
+        }
+      end
+
+      it 'can generate a single intake' do
+        post :generate, params: default_params.merge({ submit_single: 'Single ✨' })
+        expect(controller.current_intake).to be_filing_joint_no
+      end
+
+      it 'can generate a married filing jointly intake' do
+        post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
+        expect(controller.current_intake).to be_filing_joint_yes
+      end
+
+      it 'can generate a married filing jointly with dependents intake' do
+        post :generate, params: default_params.merge({ submit_married_filing_jointly_with_dependents: 'Married Filing Jointly With Dependents ✨' })
+        expect(controller.current_intake).to be_filing_joint_yes
+        expect(controller.current_intake.dependents.count).to eq(2)
       end
     end
   end

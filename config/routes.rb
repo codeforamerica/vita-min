@@ -268,7 +268,9 @@ Rails.application.routes.draw do
       ### END Hub Admin routes (Case Management)
 
       unless Rails.env.production?
-        resources :flows, only: [:index, :show]
+        resources :flows, only: [:index, :show] do
+          post :generate, on: :collection
+        end
         resources :icons, only: [:index]
       end
 
