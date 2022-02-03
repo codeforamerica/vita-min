@@ -233,7 +233,7 @@ describe TaxReturn do
       end
 
       it "has a key for each tax_return status" do
-        described_class.statuses.each_key do |status|
+        TaxReturnStateMachine.states.each do |status|
           expect(I18n.t("hub.tax_returns.status.#{status}")).not_to include("translation missing")
         end
       end

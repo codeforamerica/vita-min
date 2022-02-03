@@ -35,18 +35,6 @@ class TaxReturnStateMachine
     transition from: state, to: states
   end
 
-  def self.determine_statuses_by_stage
-    ## Returns a hash of statuses grouped by stage
-    stages = {}
-    statuses = TaxReturnStateMachine.states.without("intake_before_consent")
-    statuses.map do |status, _|
-      stage = status.to_s.split("_")[0]
-      stages[stage] = [] unless stages.key?(stage)
-      stages[stage].push(status)
-    end
-    stages
-  end
-
   STATES_BY_STAGE = begin
                       stages = {}
                       statuses = states.without("intake_before_consent")

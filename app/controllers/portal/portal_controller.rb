@@ -6,11 +6,9 @@ module Portal
 
     def home
       @ask_for_answers = ask_for_answers?
-
       @current_step = current_intake.current_step if ask_for_answers?
-      @tax_returns = []
       @document_count = current_client.documents.where(uploaded_by: current_client).count
-      @tax_returns = current_client.tax_returns.order(year: :desc) if show_tax_returns?
+      @tax_returns = show_tax_returns? ? current_client.tax_returns.order(year: :desc) : []
     end
 
     def current_intake
@@ -28,11 +26,11 @@ module Portal
     # Once we've started preparing their taxes, we don't want to prompt them through the intake flow, but instead
     # show their tax return status information.
     def show_tax_returns?
-      current_client.intake.completed_at? || current_client.tax_returns.map(&:status_before_type_cast).any? { |status| status >= 102 }
+      current_client.intake.completed_at? || current_client.tax_returns.map(&:state).any? { |state| TaxReturnStateMachine.states.index(state) >= TaxReturnStateMachine.states.index("intake_ready") }
     end
 
     def ask_for_answers?
-      !current_client.intake.completed_at? && current_client.tax_returns.map(&:status).all? { |status| (TaxReturnStateMachine::STATES_BY_STAGE["intake"]).include?(status.to_sym) }
+      !current_client.intake.completed_at? && current_client.tax_returns.map(&:state).all? { |state| (TaxReturnStateMachine::STATES_BY_STAGE["intake"]).include?(state) }
     end
   end
 end

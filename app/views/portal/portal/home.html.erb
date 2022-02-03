@@ -39,49 +39,49 @@
     <% @tax_returns.each do |tax_return| %>
       <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>
         <h2 class="h3"><%= t(".tax_return_heading", year: tax_return.year) %></h2>
-        <% status = tax_return.current_state.to_sym %>
-        <% status_number = TaxReturnStatus::STATUSES[status] %>
+        <% state = tax_return.state.to_sym %>
+        <% state_index = TaxReturnStateMachine.states.index(tax_return.state) %>
 
-        <% if status == :file_not_filing %>
+        <% if state == :file_not_filing %>
           <%= render "action_state", link: false do %>
             <%= t("portal.portal.home.waiting_state.tax_return.file_not_filing") %>
           <% end %>
-        <% elsif status == :file_hold %>
+        <% elsif state == :file_hold %>
           <%= render "action_state", link: false do %>
             <%= t("portal.portal.home.waiting_state.tax_return.file_hold") %>
           <% end %>
         <% else %>
-          <% if status_number.between?(TaxReturnStatus::STATUSES[:intake_ready], TaxReturnStatus::STATUSES[:intake_ready_for_call]) %>
+          <% if state_index.between?(TaxReturnStateMachine.states.index("intake_ready"), TaxReturnStateMachine.states.index("intake_ready_for_call")) %>
             <%= render "action_state", link: false do %>
               <%= t("portal.portal.home.waiting_state.tax_return.waiting_for_review") %>
             <% end %>
           <% end %>
 
-          <% if status_number >= TaxReturnStatus::STATUSES[:prep_ready_for_prep] %>
+          <% if state_index >= TaxReturnStateMachine.states.index("prep_ready_for_prep") %>
             <%= render "progress_state" do %>
               <% t("portal.portal.home.progress_state.tax_return.completed_review") %>
             <% end %>
           <% end %>
 
-          <% if [:prep_ready_for_prep, :prep_preparing].include?(status) %>
+          <% if [:prep_ready_for_prep, :prep_preparing].include?(state) %>
             <%= render "waiting_state" do %>
               <%= t("portal.portal.home.waiting_state.tax_return.preparing_return") %>
             <% end %>
           <% end %>
 
-          <% if status_number >= TaxReturnStatus::STATUSES[:review_ready_for_qr] %>
+          <% if state_index >= TaxReturnStateMachine.states.index("review_ready_for_qr")%>
             <%= render "progress_state" do %>
               <%= t("portal.portal.home.progress_state.tax_return.return_prepared") %>
             <% end %>
           <% end %>
 
-          <% if [:review_ready_for_qr, :review_reviewing, :review_ready_for_call].include?(status) %>
+          <% if [:review_ready_for_qr, :review_reviewing, :review_ready_for_call].include?(state) %>
             <%= render "action_state", link: false do %>
               <%= t("portal.portal.home.waiting_state.tax_return.waiting_for_qr", year: tax_return.year) %>
             <% end %>
           <% end %>
 
-          <% if status_number >= TaxReturnStatus::STATUSES[:review_signature_requested] %>
+          <% if state_index >= TaxReturnStateMachine.states.index("review_signature_requested") %>
             <%= render "progress_state" do %>
               <%= t("portal.portal.home.progress_state.tax_return.completed_qr", year: tax_return.year) %>
             <% end %>
@@ -108,7 +108,7 @@
             <% end %>
           <% end %>
 
-          <% if [:intake_info_requested, :prep_info_requested, :review_info_requested].include?(status) %>
+          <% if [:intake_info_requested, :prep_info_requested, :review_info_requested].include?(state) %>
             <%= render "action_state", link: true do %>
               <%= link_to t("portal.portal.home.waiting_state.tax_return.info_requested"), portal_upload_documents_path, class: "link" %>
             <% end %>
