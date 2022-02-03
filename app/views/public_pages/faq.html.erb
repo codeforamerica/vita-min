@@ -19,7 +19,12 @@
             <h3><%=t("views.public_pages.faq.getting_started.non_filer.q") %></h3>
           </a>
           <div class="accordion__content" id="a1">
-            <p><%=t("views.public_pages.faq.getting_started.non_filer.a") %></p>
+            <p>
+              <%= t(
+                "views.public_pages.faq.getting_started.non_filer.a",
+                years: [TaxReturn.current_tax_year - 3, TaxReturn.current_tax_year - 2, TaxReturn.current_tax_year - 1].to_sentence(locale: locale)
+              ) %>
+            </p>
           </div>
         </div>
 
