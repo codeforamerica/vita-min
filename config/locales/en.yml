@@ -233,6 +233,7 @@ en:
       checking: Checking
       routing_number: Routing number
       savings: Savings
+    before_2014: before 2014
     call: Call
     cancel: Cancel
     capacity: Capacity
@@ -3255,7 +3256,6 @@ en:
       divorced:
         title: As of December 31, %{year}, were you divorced?
       divorced_year:
-        before_2014: before 2014
         title: What year was your divorce finalized?
       email_address:
         email_address: Email address
@@ -3506,7 +3506,6 @@ en:
       separated:
         title: Are you legally separated?
       separated_year:
-        before_2014: before 2014
         title: What year was the separation finalized?
       social_security_income:
         help_text: Answer "Yes" if you received an SSA-1099 or an RRB-1099.
@@ -3591,7 +3590,6 @@ en:
       widowed:
         title: As of December 31, %{year}, were you widowed?
       widowed_year:
-        before_2014: before 2014
         title: What was the year of your spouse's death?
       work_situations:
         help_text: Select all the options that apply.

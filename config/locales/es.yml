@@ -233,6 +233,7 @@ es:
       checking: Cuenta de Cheques
       routing_number: Número de ruta bancaria
       savings: Ahorros
+    before_2014: antes de 2014
     call: Llamada
     cancel: Cancelar
     capacity: Capacidad
@@ -3223,7 +3224,6 @@ es:
       divorced:
         title: Al 31 de diciembre, %{year}, ¿estaba divorciado?
       divorced_year:
-        before_2014: antes de 2014
         title: "¿En qué año se finalizó su divorcio?"
       email_address:
         email_address: Dirección de correo electrónico
@@ -3474,7 +3474,6 @@ es:
       separated:
         title: "¿Estás legalmente separado?"
       separated_year:
-        before_2014: antes de 2014
         title: "¿En qué año se finalizó la separación?"
       social_security_income:
         help_text: Responda "Sí" si recibió un SSA-1099 o un RRB-1099.
@@ -3559,7 +3558,6 @@ es:
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
       widowed_year:
-        before_2014: antes del 2014
         title: "¿En qué año falleció su cónyuge?"
       work_situations:
         help_text: Seleccione todas las opciones aplicables.
