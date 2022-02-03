@@ -344,7 +344,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Yes"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "In #{TaxReturn.current_tax_year}, did you or your spouse make any contributions to a retirement account?")
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.retirement_contributions.title.other", year: TaxReturn.current_tax_year))
     end
     click_on "Yes"
 
