@@ -12,6 +12,8 @@ module Questions
     end
 
     def after_update_success
+      return if current_intake.has_duplicate?
+
       GenerateRequiredConsentPdfJob.perform_later(current_intake)
 
       # client has not yet been routed, or was previously determined to have been at capacity
@@ -23,7 +25,7 @@ module Questions
         )
         current_intake.client.update(vita_partner: routing_service.determine_partner, routing_method: routing_service.routing_method)
       end
-      
+
       # the vita partner the client was routed to has capacity
       unless current_intake.client.routing_method_at_capacity?
         tax_returns = []
