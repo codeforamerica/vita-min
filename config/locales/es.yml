@@ -3652,33 +3652,6 @@ es:
       tax_return_list:
         add_tax_year: Agregar año fiscal
         select_tax_return: Seleccione %{tax_year}
-    stimulus:
-      file_for_stimulus:
-        info: Puede que también califique para recibir dinero adicional a través de créditos fiscales. ¡Vamos a ayudarle a máximizar su desembolso!
-        title: "¡Le ayudaremos a obtener su cheque de estímulo declarando sus impuestos!"
-      filed_prior_years:
-        title: "¿Ha declarado sus impuestos para 2017?"
-      filed_recently:
-        title: "¿Ha declarado sus impuestos para los años 2018 y 2019?"
-      filing_might_help:
-        button_no: No. Sólo quiero mi cheque de estímulo.
-        button_yes: "¡Sí! Ayúdenme a declarar mis impuestos."
-        info: Sabemos que está interesado en cobrar su cheque de estímulo, pero puede calificar para recibir dinero adicional si declara sus impuestos de años anteriores.
-        list:
-          header: "¡Recibe todo el apoyo financiero que se merece!"
-          item_1: Puede que reciba dinero adicional a través de créditos fiscales
-          item_2: Proporcionamos asistencia gratuita para la declaración de impuestos
-        title: Podemos ayudarle a maximizar su dinero en efectivo, a través de la declaración de sus impuestos, aparte de su cheque de estimulo.
-      need_to_correct:
-        help_text: Puede que necesite modificar su declaración de impuestos para corregir su estado civil, el número de dependientes que ha declarado o su ingreso bruto que ha reportado en su declaración de impuestos original.
-        title: "¿Necesita corregir sus impuestos del 2019?"
-      need_to_file:
-        help_text: Es posible que requiera declarar si ha recibido algún ingreso, alguna beca, si ha tenido una Cuenta de Ahorros de Salud o ha recibido el Formulario 1095-A.
-        title: "¿Necesita declarar este año?"
-      visit_stimulus_faq:
-        cta: Revise las preguntas frecuentes sobre el cheque de estímulo
-        info: Como ya ha declarado para 2018 y 2019, le recomendamos que consulte nuestra nuestra página de preguntas frecuentes del cheque de estímulo.
-        title: "¡Reciba su cheque de estímulo!"
     vita_providers:
       index:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
