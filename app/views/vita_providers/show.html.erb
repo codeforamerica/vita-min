@@ -19,7 +19,7 @@
         <% end %>
 
         <h1 class="provider-name h2"><%= @provider.name %></h1>
-        <% if @zip.present? %>
+        <% if @distance.present? %>
           <p class="text--small">
             <%=t("views.vita_providers.show.search_radius", :distance => round_meters_up_to_5_mi(@distance), :zip => @zip, :zip_name => @zip_name) %>
           </p>
