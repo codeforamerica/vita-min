@@ -3684,33 +3684,6 @@ en:
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}
-    stimulus:
-      file_for_stimulus:
-        info: You might also be eligible for additional money through tax credits. We’ll help you get the most out of your return!
-        title: We’ll help you collect your stimulus check by filing!
-      filed_prior_years:
-        title: Have you already filed for 2017?
-      filed_recently:
-        title: Have you already filed for 2018 and 2019?
-      filing_might_help:
-        button_no: No. I only want my stimulus.
-        button_yes: Yes! Help me file my taxes.
-        info: We know you're interested in collecting your stimulus payment, but you might be eligible for additional money by filing taxes for previous years.
-        list:
-          header: Get all the cash support you're owed!
-          item_1: You may receive additional money through tax credits
-          item_2: We provide free tax filing assistance
-        title: We can help increase your cash support, by filing your taxes in addition to the stimulus
-      need_to_correct:
-        help_text: You may need to amend your tax return to correct your filing status, the number of dependents you claim, or your gross income you reported on your original tax return.
-        title: Do you need to correct your 2019 taxes?
-      need_to_file:
-        help_text: You may be required to file if you earned any income, received scholarship income, had a Health Savings Account, or received Form 1095-A.
-        title: Do you need to file this year?
-      visit_stimulus_faq:
-        cta: Visit Stimulus FAQ
-        info: Since you’ve already filed, we recommend checking out our Stimulus FAQ page.
-        title: Get your stimulus check!
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.
