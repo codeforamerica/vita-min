@@ -2,10 +2,12 @@ require "rails_helper"
 
 require 'csv'
 
-RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
+RSpec.feature "triage flow" do
   class TriageFlowTestHelper
-    def self.read_csv
-      csv = CSV.read(File.join(__dir__, 'triage-results.csv'), headers: true)
+    attr_accessor :test_cases
+
+    def initialize(csv_file = 'triage-results.csv')
+      csv = CSV.read(File.join(__dir__, csv_file), headers: true)
       column_names = csv.headers
 
       # remove rows that are all blanks
@@ -34,10 +36,28 @@ RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
         rows = new_rows
       end
 
-      rows
-    end
+      @test_cases = rows.map { |row| TriageFlowTestCase.new(row) }
 
+      # flag certain test cases as `flow_explorer_screenshot_i18n_friendly` to ensure we screenshot
+      # every page at least once, without having to run every single test case through headless chrome
+      # (which takes like 10 minutes as of the writing of this comment)
+      seen_controllers = {}
+      @test_cases.each do |test_case|
+        test_case.expected_controllers.each do |controller|
+          unless seen_controllers[controller]
+            test_case.screenshot = true
+          end
+          seen_controllers[controller] = true
+        end
+      end
+
+      puts "Gonna screenshot: #{@test_cases.select { |tc| tc.screenshot }.length}"
+    end
+  end
+
+  class TriageFlowTestCase
     attr_reader :row
+    attr_accessor :screenshot
 
     def initialize(row)
       @row = row
@@ -49,6 +69,10 @@ RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
 
     def test_name
       "shows the #{final_page} page"
+    end
+
+    def rspec_metadata
+      screenshot ? { flow_explorer_screenshot_i18n_friendly: true } : { }
     end
 
     def final_page
@@ -66,7 +90,7 @@ RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
       end
     end
 
-    def build_expectation
+    def expected_controllers
       [
         Questions::TriageIncomeLevelController,
         (Questions::TriageStartIdsController unless row['id_type'] == 'skip'),
@@ -76,14 +100,19 @@ RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
         (Questions::TriageAssistanceController unless row['assistance_options'] == 'skip'),
         (Questions::TriageIncomeTypesController unless row['income_type_options'] == 'skip'),
         final_page
-      ].compact.map(&:to_path_helper)
+      ].compact
     end
 
-    def income(answer)
-      answer
+    def expected_paths
+      expected_controllers.map(&:to_path_helper)
     end
 
-    def filing_status(answer)
+    def income
+      row['income']
+    end
+
+    def filing_status
+      answer = row['filing_status']
       if answer == 'any answer'
         'single'
       else
@@ -91,7 +120,12 @@ RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
       end
     end
 
-    def doc_type(answer)
+    def id_type
+      row['id_type']
+    end
+
+    def doc_type
+      answer = row['doc_type']
       if answer == 'any answer'
         'all_copies'
       else
@@ -99,7 +133,8 @@ RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
       end
     end
 
-    def filed_past_years(answer)
+    def filed_past_years
+      answer = row['filed_past_years']
       return if answer == 'skip'
 
       case answer
@@ -112,31 +147,31 @@ RSpec.feature "triage flow", :flow_explorer_screenshot_i18n_friendly do
       end
     end
 
-    def assistance_options(answer)
+    def assistance_options
+      answer = row['assistance_options']
       answer == 'yes' ? ['in_person'] : ['none_of_the_above']
     end
 
-    def income_type_options(answer)
+    def income_type_options
+      answer = row['income_type_options']
       answer == 'yes' ? ['farm'] : ['none_of_the_above']
     end
   end
 
-  TriageFlowTestHelper.read_csv.each do |row|
-    helper = TriageFlowTestHelper.new(row)
-
-    context helper.context_name do
-      it helper.test_name do
+  TriageFlowTestHelper.new.test_cases.each do |test_case|
+    context test_case.context_name do
+      it test_case.test_name, test_case.rspec_metadata do
         pages = answer_gyr_triage_questions(
-          income_level: helper.income(row['income']),
-          filing_status: helper.filing_status(row['filing_status']),
-          id_type: row['id_type'],
-          doc_type: helper.doc_type(row['doc_type']),
-          filed_past_years: helper.filed_past_years(row['filed_past_years']),
-          income_type_options: helper.income_type_options(row['income_type_options']),
-          assistance_options: helper.assistance_options(row['assistance_options'])
+          income_level: test_case.income,
+          filing_status: test_case.filing_status,
+          id_type: test_case.id_type,
+          doc_type: test_case.doc_type,
+          filed_past_years: test_case.filed_past_years,
+          income_type_options: test_case.income_type_options,
+          assistance_options: test_case.assistance_options
         )
 
-        expect(pages).to eq(helper.build_expectation)
+        expect(pages).to eq(test_case.expected_paths)
       end
     end
   end
