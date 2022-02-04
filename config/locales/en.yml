@@ -947,21 +947,23 @@ en:
       review_signature_requested: |
         Hello!
 
-        Your <<TaxReturn.TaxYear>> tax return is now ready for your electronic signature. Please double-check your return to:
+        Your <<TaxReturn.TaxYear>> tax return is ready for you to sign.
 
-        * make sure your street address and bank account numbers are correct (This can affect your final numbers and/or delay your refund if not correct.)
-        * check (if applicable) all dependent information is correct.
+        Please check:
+
+        * your street address and bank account numbers (This can affect your final numbers and/or delay your refund if not correct.)
+        * any dependent information
         * make sure all income is included (including unemployment).
 
-        If any of this needs to change or if you have any questions about your return, please send us a message back.
+        If anything on your return needs to change or if you have any questions, please respond and do not sign your return.
 
-        To approve your return, click on the link below, enter the last four digits of your social security number OR your Client ID (You can find this in your original GYR welcome email/text). You can review your return and click a box saying you approve your return.
+        To approve your return, click on the link below enter the last four digits of your social security number OR your Client ID, review your return, and click a box saying you approve your return.
 
-        For jointly filed returns: If you provided your spouse's contact info, they'll get this message as well. If not, please make sure they have access to this link so they can also review and sign.
+        For jointly filed returns: your spouse also needs to review and sign.
 
         Once you electronically sign, we can efile your return.
 
-        Log in to access your return and your 8879 (the form to give your approval):
+        Log in to access your return and give your approval:
         <<Client.LoginLink>>
 
         Thanks!
