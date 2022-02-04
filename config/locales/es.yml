@@ -2782,7 +2782,7 @@ es:
             a_html: Si ha perdido un documento fiscal o nunca lo recibió, lo primero que debe hacer es consultarlo con su empleador. Normalmente, su empleador puede volver a emitir rápidamente la documentación fiscal a sus empleados. Si eso no funciona, puede solicitar sus documentos de impuestos al IRS en %{transcript_link}.
             q: "¿Qué debo hacer si no encuentro un documento de impuestos?"
           non_filer:
-            a: Podemos presentar sus declaraciones de impuestos de los años 2017, 2018 y 2019. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
+            a: Podemos presentar sus declaraciones de impuestos de los años %{years}. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
             q: "¿Qué debo hacer si no he declarado impuestos desde hace varios años?"
         header: Preguntas frecuentes
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
@@ -2800,7 +2800,7 @@ es:
           body2: Voluntarios capacitados y certificados por el IRS prepararán y revisarán su declaración de impuestos para asegurarse de que todo esté correcto antes de presentarla.
           header: Ofrecemos la máxima precisión. Gratis.
         backtaxes:
-          body: Podemos presentar sus declaraciones de impuestos estatales y federales de los años fiscales 2017, 2018 y 2019. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos tributarios que le correspondan.
+          body: Podemos presentar sus declaraciones de impuestos estatales y federales de los años fiscales %{years}. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos tributarios que le correspondan.
           header: Presente las declaraciones de impuestos de años anteriores y obtenga un reembolso mayor.
         clients:
           across_us: de clientes en todo Estados Unidos.
@@ -2816,7 +2816,7 @@ es:
         ctc_full_capacity_html: La mayoría de nuestros preparadores de impuestos están a capacidad en este momento y no pueden completar declaraciones completas, pero todavía están disponibles nuestro servicio del Crédito Tributario por Hijos (CTC) y las opciones DIY. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getctc.org/es#claim-credit'>aquí</a></strong> si necesita ayuda para reclamar el Crédito Tributario por Hijos. Haga clic <strong><a rel='noopener' target='_blank' href='https://www.getyourrefund.org/es/diy/file-yourself'>aquí</a></strong> si quiere presentar su propia declaración usando nuestro programa gratis.
         features:
           amendments: Presenta enmiendas para años anteriores
-          backtaxes: Presenta declaraciones de impuestos atrasados (2017-2019)
+          backtaxes: Presenta declaraciones de impuestos atrasados (%{least_recent_bt_year}-%{most_recent_bt_year})
           chat: Asistencia por chat disponible
           faq_cta: Preguntas Frecuentes
           free: Servicio completamente gratuito
@@ -3030,7 +3030,7 @@ es:
                   data-track-attribute-position="stimulus-how-faq3">
                 Obtener mi pago</a> mostrará un estado de "se necesita más información" y usted tendrá la oportunidad de proporcionar nueva información bancaria.
             - title: "¿Qué pasa si no he declarado los impuestos federales?"
-              content_html: Le recomendamos que presente sus impuestos para poder acceder a los Pagos por Impacto Económico y a cualquier crédito fiscal adicional al que pueda optar. Puede presentar las declaraciones de 2017, 2018, 2019 y 2020 de forma gratuita con GetYourRefund.
+              content_html: Le recomendamos que presente sus impuestos para poder acceder a los Pagos por Impacto Económico y a cualquier crédito fiscal adicional al que pueda optar. Puede presentar las declaraciones de 2018, 2019, 2020 y 2021 de forma gratuita con GetYourRefund.
             - title: "¿Qué pasa si no tengo una cuenta bancaria?"
               content_html: |-
                 Si no tiene una cuenta bancaria,  puede tardar hasta cinco meses en recibir su cheque del EIP por correo. Para recibir su pago rápidamente a través de un depósito directo, <a

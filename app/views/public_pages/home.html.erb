@@ -100,7 +100,12 @@
     <div class="grid spacing-above-60">
       <div class="grid__item width-two-thirds">
         <h2><%= t("views.public_pages.home.backtaxes.header") %></h2>
-        <p class="spacing-below-0"><%= t("views.public_pages.home.backtaxes.body") %></p>
+        <p class="spacing-below-0">
+          <%= t(
+            "views.public_pages.home.backtaxes.body",
+            years: TaxReturn.backtax_years.reverse.to_sentence(locale: locale)
+          ) %>
+        </p>
       </div>
       <div id="money-fan" class="grid__item width-one-fourth">
         <%= image_tag("money-fan.svg", alt: "") %>
@@ -187,7 +192,7 @@
         <ul class="list--bulleted text--small text--semibold">
           <li class="spacing-below-0"><%= t("views.public_pages.home.features.free") %></li>
           <li class="spacing-below-0"><%= t("views.public_pages.home.features.chat") %></li>
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.backtaxes") %></li>
+          <li class="spacing-below-0"><%= t("views.public_pages.home.features.backtaxes", least_recent_bt_year: TaxReturn.backtax_years.last, most_recent_bt_year: TaxReturn.backtax_years.first) %></li>
           <li class="spacing-below-0"><%= t("views.public_pages.home.features.amendments") %></li>
         </ul>
         <p class="text--small spacing-below-0"><%= t("views.public_pages.home.features.questions") %></p>
