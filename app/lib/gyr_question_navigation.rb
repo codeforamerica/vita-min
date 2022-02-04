@@ -33,15 +33,18 @@ class GyrQuestionNavigation
       Questions::PhoneVerificationController,
       Questions::EmailAddressController,
       Questions::EmailVerificationController,
+      Questions::ReturningClientController, # possible off-boarding from flow
+
+      #TODO
+      # 1. make sure there are appropriate tests for each controller and form & an overall test for the different paths in the flow
 
       # Consent
       Questions::ConsentController, # Authenticates the client
                                     # Advances statuses to "In Progress"
                                     # generate a 14446 signed by the primary
                                     # generate a "Preliminary" 13614-C signed by the primary
-                                    # Routes client to a vita partner, if route-able
+                                    # Routes client to a vita partner, if routeable
                                     # creates TaxReturn records for backtaxes years
-      Questions::ReturningClientController, # possible off-boarding from flow
       Questions::OptionalConsentController,
       Questions::AtCapacityController,
       Questions::ChatWithUsController, # This and all later controllers require a client to be signed in.,

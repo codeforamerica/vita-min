@@ -60,17 +60,5 @@ describe DeduplificationService do
         expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number, hashed_account_number: instance.hashed_account_number })
       end
     end
-
-    context "when from_scope argument is present" do
-      before do
-        allow(BankAccount).to receive_message_chain(:order, :where, :not).and_return query_double
-        allow(query_double).to receive(:where).and_return query_double
-      end
-
-      it "calls the query off of the scoped query passed in" do
-        described_class.duplicates(instance, :hashed_routing_number, :hashed_account_number, from_scope: BankAccount.order(:created_at))
-        expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number, hashed_account_number: instance.hashed_account_number })
-      end
-    end
   end
 end

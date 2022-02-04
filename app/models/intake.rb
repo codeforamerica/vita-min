@@ -109,7 +109,6 @@
 #  had_wages                                            :integer          default(0), not null
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
-#  hashed_primary_ssn                                   :string
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default(0), not null
@@ -247,7 +246,6 @@
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
-#  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
@@ -294,10 +292,7 @@ class Intake < ApplicationRecord
       self.email_domain = email_address.split('@').last.downcase
       self.canonical_email_address = compute_canonical_email_address
     end
-    if primary_ssn_changed?
-      self.primary_last_four_ssn = primary_ssn&.last(4)
-      self.hashed_primary_ssn = DeduplificationService.sensitive_attribute_hashed(self, :primary_ssn)
-    end
+    self.primary_last_four_ssn = primary_ssn&.last(4) if primary_ssn_changed?
     self.spouse_last_four_ssn = spouse_ssn&.last(4) if spouse_ssn_changed?
   end
 

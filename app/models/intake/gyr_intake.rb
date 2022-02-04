@@ -109,7 +109,6 @@
 #  had_wages                                            :integer          default("unfilled"), not null
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
-#  hashed_primary_ssn                                   :string
 #  income_over_limit                                    :integer          default("unfilled"), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default("unfilled"), not null
@@ -247,7 +246,6 @@
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
-#  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
@@ -351,11 +349,7 @@ class Intake::GyrIntake < Intake
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
   enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
   enum received_advance_ctc_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_advance_ctc_payment
-  scope :accessible_intakes, -> do
-    online_consented = joins(:tax_returns).where({ tax_returns: { service_type: "online_intake" } }).where(primary_consented_to_service: "yes")
-    drop_off = joins(:tax_returns).where({ tax_returns: { service_type: "drop_off" } })
-    online_consented.or(drop_off)
-  end
+
   after_save do
     if saved_change_to_completed_at?(from: nil)
       InteractionTrackingService.record_incoming_interaction(client) # client completed intake
@@ -396,16 +390,6 @@ class Intake::GyrIntake < Intake
 
     type = BankAccount.account_types.keys.include?(bank_account_type) ? bank_account_type : nil
     @bank_account ||= BankAccount.new(account_type: type, bank_name: bank_name, account_number: bank_account_number, routing_number: bank_routing_number)
-  end
-
-  def duplicates
-    return self.class.none unless hashed_primary_ssn.present?
-
-    DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
-  end
-
-  def has_duplicate?
-    duplicates.exists?
   end
 
   def document_types_possibly_needed

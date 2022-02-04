@@ -109,7 +109,6 @@
 #  had_wages                                            :integer          default(0), not null
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
-#  hashed_primary_ssn                                   :string
 #  income_over_limit                                    :integer          default(0), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default(0), not null
@@ -247,7 +246,6 @@
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
-#  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
@@ -322,7 +320,7 @@ describe Intake do
     end
   end
 
-  describe "keeping last 4 ssn and hashed primary ssn in sync with ssn" do
+  describe "keeping last 4 ssn in sync with ssn" do
     context "when creating the object" do
       let(:intake) { create :intake, primary_ssn: "12345678", spouse_ssn: "234567777" }
 
@@ -330,41 +328,32 @@ describe Intake do
         expect(intake.primary_last_four_ssn).to eq "5678"
         expect(intake.spouse_last_four_ssn).to eq "7777"
       end
-
-      it "updates the hashed primary ssn when setting" do
-        expect(intake.hashed_primary_ssn).to eq DeduplificationService.sensitive_attribute_hashed(intake, :primary_ssn)
-      end
     end
 
     context "primary_ssn" do
       let!(:intake) { create :intake, primary_ssn: "12345678", spouse_ssn: "2345677777" }
 
       context "when removing primary_ssn" do
-        it "sets primary_last_four_ssn and hashed_primary_ssn to nil" do
+        it "sets primary_last_four_ssn to nil" do
           expect{
             intake.update(primary_ssn: nil)
           }.to change(intake, :primary_last_four_ssn).to(nil)
-           .and change(intake, :hashed_primary_ssn).to(nil)
         end
       end
 
       context "when setting primary_ssn to an empty string" do
-        it "sets primary_last_four_ssn to an empty string and hashed primary ssn to nil" do
+        it "sets primary_last_four_ssn to an empty string" do
           expect{
             intake.update(primary_ssn: "")
           }.to change(intake, :primary_last_four_ssn).to("")
-           .and change(intake, :hashed_primary_ssn).to(nil)
         end
       end
 
       context "when changing primary_ssn" do
-        let(:hashed_ssn) { DeduplificationService.sensitive_attribute_hashed((create :intake, primary_ssn: "123456666"), :primary_ssn) }
-
         it "sets primary_last_four_ssn to a new value" do
           expect{
             intake.update(primary_ssn: "123456666")
           }.to change(intake, :primary_last_four_ssn).to("6666")
-           .and change(intake.reload, :hashed_primary_ssn).to(hashed_ssn)
         end
       end
     end

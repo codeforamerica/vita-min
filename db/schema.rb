@@ -949,7 +949,6 @@ ActiveRecord::Schema.define(version: 2022_02_02_214204) do
     t.integer "had_wages", default: 0, null: false
     t.integer "has_primary_ip_pin", default: 0, null: false
     t.integer "has_spouse_ip_pin", default: 0, null: false
-    t.string "hashed_primary_ssn"
     t.integer "income_over_limit", default: 0, null: false
     t.string "interview_timing_preference"
     t.integer "issued_identity_pin", default: 0, null: false
@@ -1082,7 +1081,6 @@ ActiveRecord::Schema.define(version: 2022_02_02_214204) do
     t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
-    t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
@@ -1396,7 +1394,7 @@ ActiveRecord::Schema.define(version: 2022_02_02_214204) do
     t.datetime "suspended_at"
     t.string "timezone", default: "America/New_York", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
