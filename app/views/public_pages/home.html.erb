@@ -103,7 +103,7 @@
         <p class="spacing-below-0">
           <%= t(
             "views.public_pages.home.backtaxes.body",
-            years: [TaxReturn.current_tax_year - 3, TaxReturn.current_tax_year - 2, TaxReturn.current_tax_year - 1].to_sentence(locale: locale)
+            years: TaxReturn.backtax_years.reverse.to_sentence(locale: locale)
           ) %>
         </p>
       </div>
@@ -192,7 +192,7 @@
         <ul class="list--bulleted text--small text--semibold">
           <li class="spacing-below-0"><%= t("views.public_pages.home.features.free") %></li>
           <li class="spacing-below-0"><%= t("views.public_pages.home.features.chat") %></li>
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.backtaxes", least_recent_bt_year: TaxReturn.current_tax_year - 3, most_recent_bt_year: TaxReturn.current_tax_year - 1) %></li>
+          <li class="spacing-below-0"><%= t("views.public_pages.home.features.backtaxes", least_recent_bt_year: TaxReturn.backtax_years.last, most_recent_bt_year: TaxReturn.backtax_years.first) %></li>
           <li class="spacing-below-0"><%= t("views.public_pages.home.features.amendments") %></li>
         </ul>
         <p class="text--small spacing-below-0"><%= t("views.public_pages.home.features.questions") %></p>
