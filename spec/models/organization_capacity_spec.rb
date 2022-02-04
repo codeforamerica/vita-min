@@ -37,7 +37,7 @@ describe OrganizationCapacity do
     context "when intake associated with client is archived" do
       let(:organization) { create :organization }
       before do
-        client = create :client_with_status, status: :prep_ready_for_prep, vita_partner: organization
+        client = create :client_with_tax_return_state, state: :prep_ready_for_prep, vita_partner: organization
         create :archived_2021_gyr_intake, client: client
       end
 
@@ -50,7 +50,7 @@ describe OrganizationCapacity do
       let(:organization) { create :organization }
       let(:intake) { create :intake }
       before do
-        create :client_with_status, status: :prep_ready_for_prep, vita_partner: organization, intake: intake
+        create :client_with_tax_return_state, state: :prep_ready_for_prep, vita_partner: organization, intake: intake
       end
 
       it "does include the client in the client count" do

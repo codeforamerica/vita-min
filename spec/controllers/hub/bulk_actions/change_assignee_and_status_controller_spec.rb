@@ -86,6 +86,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           expect(bulk_update.tax_return_selection).to eq tax_return_selection
           expect(bulk_update.user_notification.user).to eq team_member
           expect(bulk_update.user_notification.notifiable.state).to eq new_status
+          expect(bulk_update.user_notification.notifiable.updates["status"]).to eq "Ready for call"
           expect(bulk_update.user_notification.notifiable.assigned_user).to eq site_coordinator
 
           expect(response).to redirect_to hub_user_notifications_path

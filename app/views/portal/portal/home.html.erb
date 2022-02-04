@@ -39,8 +39,8 @@
     <% @tax_returns.each do |tax_return| %>
       <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>
         <h2 class="h3"><%= t(".tax_return_heading", year: tax_return.year) %></h2>
-        <% state = tax_return.state.to_sym %>
-        <% state_index = TaxReturnStateMachine.states.index(tax_return.state) %>
+        <% state = tax_return.current_state.to_sym %>
+        <% state_index = TaxReturnStateMachine.states.index(tax_return.current_state) %>
 
         <% if state == :file_not_filing %>
           <%= render "action_state", link: false do %>

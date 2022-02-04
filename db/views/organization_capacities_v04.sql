@@ -20,4 +20,3 @@ WITH
 SELECT id as vita_partner_id, name, capacity_limit, CASE WHEN partner_and_client_counts.active_client_count IS NULL THEN 0 ELSE partner_and_client_counts.active_client_count END
     FROM vita_partners
     LEFT OUTER JOIN partner_and_client_counts ON vita_partners.id=partner_and_client_counts.organization_id WHERE parent_organization_id IS NULL;
-

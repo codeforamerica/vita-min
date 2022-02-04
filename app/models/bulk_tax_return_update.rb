@@ -42,8 +42,8 @@ class BulkTaxReturnUpdate < ApplicationRecord
 
   def updates
     updates = {}
-    if state.present?
-      updates["status"] = TaxReturnStatusHelper.status_translation(state)
+    if (state || status).present?
+      updates["status"] = TaxReturnStatusHelper.status_translation(state || status)
     end
     if assigned_user.present?
       updates["assigned"] = assigned_user.name

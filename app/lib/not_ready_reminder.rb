@@ -1,6 +1,6 @@
 class NotReadyReminder
   def self.process(tax_return)
-    return unless tax_return.state == "intake_in_progress"
+    return unless tax_return.current_state == "intake_in_progress"
 
     client = tax_return.client
     action = nil

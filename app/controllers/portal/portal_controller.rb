@@ -26,11 +26,11 @@ module Portal
     # Once we've started preparing their taxes, we don't want to prompt them through the intake flow, but instead
     # show their tax return status information.
     def show_tax_returns?
-      current_client.intake.completed_at? || current_client.tax_returns.map(&:state).any? { |state| TaxReturnStateMachine.states.index(state) >= TaxReturnStateMachine.states.index("intake_ready") }
+      current_client.intake.completed_at? || current_client.tax_returns.map(&:current_state).any? { |state| TaxReturnStateMachine.states.index(state) >= TaxReturnStateMachine.states.index("intake_ready") }
     end
 
     def ask_for_answers?
-      !current_client.intake.completed_at? && current_client.tax_returns.map(&:state).all? { |state| (TaxReturnStateMachine::STATES_BY_STAGE["intake"]).include?(state) }
+      !current_client.intake.completed_at? && current_client.tax_returns.map(&:current_state).all? { |state| (TaxReturnStateMachine::STATES_BY_STAGE["intake"]).include?(state) }
     end
   end
 end
