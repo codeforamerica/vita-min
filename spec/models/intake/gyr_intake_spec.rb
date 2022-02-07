@@ -264,6 +264,52 @@
 require "rails_helper"
 
 describe Intake::GyrIntake do
+  describe ".accessible_intakes" do
+    context "consented intake without tax returns" do
+      let!(:intake) { create :intake, primary_consented_to_service: "yes" }
+      it "does not appear in the accessible intakes" do
+        expect(described_class.accessible_intakes).not_to include intake
+      end
+    end
+
+    context "consented online intake with tax returns" do
+      let!(:intake) {
+        (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: "yes")), service_type: "online_intake").intake
+      }
+      it "appears in the accessible intakes" do
+        expect(described_class.accessible_intakes).to include intake
+      end
+    end
+
+    context "drop off intakes" do
+      let!(:intake) {
+        (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: "yes")), service_type: "drop_off").intake
+      }
+      it "appears in the accessible intakes" do
+        expect(described_class.accessible_intakes).to include intake
+      end
+    end
+  end
+
+  describe "#duplicates" do
+    context "when hashed_primary_ssn is nil" do
+      let(:intake) { create :intake, primary_ssn: nil }
+
+      it "returns an empty active record collection" do
+        expect(intake.duplicates).to eq described_class.none
+      end
+    end
+
+    context "when there is another accessible intake with the same ssn" do
+      let!(:dupe) {
+        (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: "yes", primary_ssn: "123456789")), service_type: "drop_off").intake
+      }
+      let(:intake) { create :intake, primary_ssn: "123456789" }
+      it "returns that as a duplicate" do
+        expect(intake.duplicates).to include dupe
+      end
+    end
+  end
   describe "after_save when the intake is completed" do
     let(:intake) { create :intake }
 
