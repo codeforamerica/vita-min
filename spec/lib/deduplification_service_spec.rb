@@ -52,6 +52,21 @@ describe DeduplificationService do
           expect(query_double).to have_received(:where).with({ hashed_routing_number: ["new_hash", "old_hash"] })
         end
       end
+
+      context "when working with an attribute that has no hashed version" do
+        let(:instance) { create :intake, phone_number: "+18324658840" }
+        let(:query_double) { double }
+
+        before do
+          allow(Intake).to receive_message_chain(:where, :not).and_return query_double
+          allow(query_double).to receive(:where).and_return query_double
+        end
+
+        it "uses the raw attr value to build the query" do
+          described_class.duplicates(instance, :phone_number)
+          expect(query_double).to have_received(:where).with({ phone_number: "+18324658840" })
+        end
+      end
     end
 
     context "when passed with an array of attributes" do
