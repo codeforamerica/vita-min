@@ -219,7 +219,7 @@
 
 require "rails_helper"
 
-describe Intake::CtcIntake do
+describe Intake::CtcIntake, requires_default_vita_partners: true do
   describe "#any_ip_pins?" do
     context "when any member of household has an IP PIN" do
       let(:intake) { create :ctc_intake, dependents: [ create(:dependent, ssn: '111-22-3333', ip_pin: 123456) ] }

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Hub::UpdateCtcClientForm do
+RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
   let!(:intake) {
     create :ctc_intake,
            :filled_out_ctc,

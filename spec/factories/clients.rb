@@ -90,7 +90,10 @@ FactoryBot.define do
 
     factory :client_with_ctc_intake_and_return do
       with_return
-      vita_partner { VitaPartner.ctc_site }
+      vita_partner do
+        ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", type: Organization::TYPE)
+        VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", type: Site::TYPE, parent_organization: ctc_org)
+      end
       transient do
         preferred_name { "Maeby" }
       end
@@ -101,10 +104,7 @@ FactoryBot.define do
     end
 
     factory :ctc_client do
-      vita_partner do
-        org = Organization.find_or_initialize_by(name: "GetCTC.org")
-        Site.find_or_initialize_by(name: "GetCTC.org (Site)", parent_organization: org)
-      end
+      vita_partner { VitaPartner.ctc_site }
     end
   end
 end
