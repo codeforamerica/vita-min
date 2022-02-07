@@ -104,7 +104,10 @@ FactoryBot.define do
     end
 
     factory :ctc_client do
-      vita_partner { VitaPartner.ctc_site }
+      vita_partner do
+        ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", type: Organization::TYPE)
+        VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", type: Site::TYPE, parent_organization: ctc_org)
+      end
     end
   end
 end
