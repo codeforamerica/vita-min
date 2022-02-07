@@ -20,9 +20,6 @@ RSpec.describe Questions::ConsentController do
             birth_date_day: "10",
             primary_first_name: "Greta",
             primary_last_name: "Gnome",
-            primary_ssn: "123455678",
-            primary_ssn_confirmation: "123455678",
-            primary_tin_type: "ssn_no_employment"
           }
         }
       end
@@ -193,8 +190,6 @@ RSpec.describe Questions::ConsentController do
             birth_date_month: nil,
             birth_date_day: "10",
             primary_first_name: "Grindelwald",
-            primary_last_name: nil,
-            primary_ssn: nil
           }
         }
       end
@@ -204,8 +199,6 @@ RSpec.describe Questions::ConsentController do
 
         expect(response).to render_template :edit
         error_messages = assigns(:form).errors.messages
-        expect(error_messages[:primary_ssn].first).to eq "An SSN or ITIN is required."
-        expect(error_messages[:primary_tin_type].first).to eq "Identification type is required."
         expect(error_messages[:primary_last_name].first).to eq "Please enter your last name."
       end
     end
