@@ -38,6 +38,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     fill_in "What is your preferred first name?", with: "Gary"
     fill_in "Phone number", with: "8286345533"
     fill_in "Confirm phone number", with: "828-634-5533"
+    fill_in I18n.t("attributes.primary_ssn"), with: "123456789"
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123456789"
     fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
@@ -96,12 +98,11 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: I18n.t('views.questions.consent.title'))
     fill_in I18n.t("views.questions.consent.primary_first_name"), with: "Gary"
     fill_in I18n.t("views.questions.consent.primary_last_name"), with: "Gnome"
-    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
-    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     select I18n.t("date.month_names")[3], from: "consent_form_birth_date_month"
     select "5", from: "consent_form_birth_date_day"
     select "1971", from: "consent_form_birth_date_year"
     click_on I18n.t("views.questions.consent.cta")
+
     # create tax returns only after client has consented
     expect(intake.client.tax_returns.pluck(:year).sort).to eq [TaxReturn.current_tax_year - 3, TaxReturn.current_tax_year]
 

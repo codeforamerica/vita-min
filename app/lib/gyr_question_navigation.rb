@@ -26,6 +26,7 @@ class GyrQuestionNavigation
 
       # Contact information and preferences
       Questions::PersonalInfoController,
+      Questions::ReturningClientController, # possible off-boarding from flow
       Questions::InterviewSchedulingController,
       Questions::NotificationPreferenceController,
       Questions::PhoneNumberCanReceiveTextsController,
@@ -41,7 +42,6 @@ class GyrQuestionNavigation
                                     # generate a "Preliminary" 13614-C signed by the primary
                                     # Routes client to a vita partner, if route-able
                                     # creates TaxReturn records for backtaxes years
-      Questions::ReturningClientController, # possible off-boarding from flow
       Questions::OptionalConsentController,
       Questions::AtCapacityController,
       Questions::ChatWithUsController, # This and all later controllers require a client to be signed in.,

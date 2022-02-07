@@ -20,15 +20,15 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot do
     check "2019"
     click_on "Continue"
 
-    visit consent_questions_path
-    fill_in "Legal first name", with: "Dupe"
-    fill_in "Legal last name", with: "Gnome"
+    visit personal_info_questions_path
+    expect(page).to have_selector("h1", text: "First, let's get some basic information.")
+    fill_in "What is your preferred first name?", with: "Dupe"
+    fill_in "Phone number", with: "8286345533"
+    fill_in "Confirm phone number", with: "828-634-5533"
     fill_in I18n.t("attributes.primary_ssn"), with: primary_ssn
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: primary_ssn
-    select "March", from: "Month"
-    select "5", from: "Day"
-    select "1971", from: "Year"
-    click_on "I agree"
+    fill_in "ZIP code", with: "20121"
+    click_on "Continue"
 
     expect(page).to have_text "Looks like you’ve already started!"
     expect(current_path).to eq(returning_client_questions_path)
@@ -39,20 +39,22 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot do
     expect(current_path).to eq(new_portal_client_login_path)
   end
 
+  #scenario for a matching ITIN
+
   scenario "client with matching CTC intake & no matching GYR intake doesn't see GYR duplicate guard" do
     visit backtaxes_questions_path
     check "2019"
     click_on "Continue"
 
-    visit consent_questions_path
-    fill_in "Legal first name", with: "Dupe"
-    fill_in "Legal last name", with: "Gnome"
-    fill_in I18n.t("attributes.primary_ssn"), with: primary_ssn
+    visit personal_info_questions_path
+    expect(page).to have_selector("h1", text: "First, let's get some basic information.")
+    fill_in "What is your preferred first name?", with: "Dupe"
+    fill_in "Phone number", with: "8286345533"
+    fill_in "Confirm phone number", with: "828-634-5533"
+    fill_in I18n.t("attributes.primary_ssn"), with: "987654321"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "987654321"
-    select "March", from: "Month"
-    select "5", from: "Day"
-    select "1971", from: "Year"
-    click_on "I agree"
+    fill_in "ZIP code", with: "20121"
+    click_on "Continue"
 
     expect(page).not_to have_text "Looks like you’ve already started!"
     expect(current_path).not_to eq(returning_client_questions_path)
