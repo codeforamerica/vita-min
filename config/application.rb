@@ -1,5 +1,6 @@
 require_relative "boot"
 require_relative "../lib/middleware/cleanup_mime_type_headers"
+require_relative "../lib/middleware/respond_with_400_on_bad_request"
 
 require "rails"
 # Pick the frameworks you want:
@@ -36,6 +37,7 @@ module VitaMin
     # the framework and any gems in your application.
     #
     config.middleware.use Middleware::CleanupMimeTypeHeaders
+    config.middleware.use Middleware::RespondWith400OnBadRequest
     config.current_tax_year = 2021
 
     # These defaults can be overridden per-environment if needed
