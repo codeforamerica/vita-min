@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Ctc::LegalConsentForm do
+describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
   let(:intake) { create :ctc_intake }
 
   context "initialization with from_intake" do

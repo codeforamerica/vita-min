@@ -87,6 +87,7 @@ FactoryBot.define do
 
     factory :team_member_user do
       sequence(:email) { |n| "team.member#{n}@example.com" }
+
       sequence(:name) { |n| "Team Member the #{n}th" }
 
       transient do
@@ -97,7 +98,8 @@ FactoryBot.define do
     end
 
     factory :admin_user do
-      sequence(:email) { |n| "admin#{n}@example.com" }
+      sequence(:email) { |n| "#{Faker::Name.first_name}#{n}@example.com" }
+
       sequence(:name) { |n| "Admin the #{n}th" }
 
       role { build(:admin_role) }

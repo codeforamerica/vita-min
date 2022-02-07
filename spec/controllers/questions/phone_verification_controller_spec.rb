@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Questions::PhoneVerificationController do
+RSpec.describe Questions::PhoneVerificationController, requires_default_vita_partners: true do
   let(:visitor_id) { "asdfasdfa" }
   let(:client) { create :client, intake: (create :intake, sms_phone_number: "+15125551234", visitor_id: visitor_id, locale: locale) }
   let(:intake) { client.intake }
