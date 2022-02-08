@@ -302,7 +302,7 @@ Rails.application.routes.draw do
       # offboarding pages
       get "/questions/use-gyr", to: "ctc/questions/use_gyr#edit", as: :questions_use_gyr
       get "/questions/returning-client", to: "ctc/questions/returning_client#edit", as: :questions_returning_client
-      get "/already-filed", to: "ctc/offboarding/already_filed_yes#edit", as: :offboarding_already_filed
+      get "/already-filed", to: "ctc/offboarding/already_filed#show", as: :offboarding_already_filed
       get "/questions/at-capacity", to: "ctc/questions/at_capacity#edit", as: :questions_at_capacity
 
       # remove-spouse should not be included in default navigation flow

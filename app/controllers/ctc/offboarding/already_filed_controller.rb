@@ -1,7 +1,7 @@
 module Ctc
   module Offboarding
     class AlreadyFiledController < CtcController
-      helper_method :illustration_path, :illustration_folder
+      helper_method :illustration_path, :illustration_folder, :prev_path
 
       layout "intake"
 
@@ -13,6 +13,10 @@ module Ctc
 
       def illustration_folder
         "questions"
+      end
+
+      def prev_path
+        nil
       end
     end
   end
