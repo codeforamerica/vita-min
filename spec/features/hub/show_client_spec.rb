@@ -81,9 +81,10 @@ RSpec.describe "a user viewing a client" do
     let(:coalition) { create :coalition }
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
     let(:first_org) { create :organization, coalition: coalition }
-    let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info, email_address: "fizzy_pop@example.com") }
-    let!(:intake_with_duplicate_email) { create :intake, email_address: "fizzy_pop@example.com", client: create(:client_with_tax_return_state, vita_partner: first_org, state: "intake_ready") }
-    let!(:ctc_intake_with_duplicate_email) { create :ctc_intake, email_address: "fizzy_pop@example.com", client: create(:client_with_tax_return_state, vita_partner: first_org, state: "intake_ready") }
+    let(:primary_ssn) { "1112223333" }
+    let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info, primary_ssn: primary_ssn,) }
+    let!(:intake_with_ssn_match) { create :intake, primary_ssn: primary_ssn, client: create(:client_with_tax_return_state, vita_partner: first_org, status: "intake_ready") }
+    let!(:ctc_intake_with_ssn_match) { create :ctc_intake, primary_ssn: primary_ssn, client: create(:client_with_tax_return_state, vita_partner: first_org, status: "intake_ready") }
     let!(:second_org) { create :organization, coalition: coalition }
     before { login_as user }
 
@@ -129,18 +130,26 @@ RSpec.describe "a user viewing a client" do
     end
 
     scenario "can view potential duplicate intakes" do
+      page.driver.header("User-Agent", "GeckoFox")
+
       visit hub_client_path(id: client.id)
-      expect(page).to have_text "fizzy_pop@example.com"
+      within ".primary-ssn" do
+        click_on "View"
+        expect(page).to have_content primary_ssn
+      end
 
       within ".client-header" do
         expect(page).to have_text "Potential duplicates detected"
-        expect(page).to have_text "CTC: ##{ctc_intake_with_duplicate_email.client.id}"
-        expect(page).to have_text "GYR: ##{intake_with_duplicate_email.client.id}"
-        click_on "##{intake_with_duplicate_email.client.id}"
+        expect(page).to have_text "CTC: ##{ctc_intake_with_ssn_match.client.id}"
+        expect(page).to have_text "GYR: ##{intake_with_ssn_match.client.id}"
+        click_on "##{intake_with_ssn_match.client.id}"
       end
 
-      expect(page.current_path).to eq hub_client_path(id: intake_with_duplicate_email.client.id)
-      expect(page).to have_text "fizzy_pop@example.com"
+      expect(page.current_path).to eq hub_client_path(id: intake_with_ssn_match.client.id)
+      within ".primary-ssn" do
+        click_on "View"
+        expect(page).to have_content primary_ssn
+      end
     end
   end
 end
