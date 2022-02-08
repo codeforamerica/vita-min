@@ -108,7 +108,7 @@ describe Ctc::CtcPagesController do
     it "renders the content" do
       get :navigators
 
-      expect(response.body).to include "1. Getting Started"
+      expect(response.body).to include "Need help claiming your tax benefits?"
     end
   end
 end
