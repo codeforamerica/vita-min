@@ -247,14 +247,50 @@ describe Ability do
             let(:user) { create :coalition_lead_user }
 
             it_behaves_like :user_can_manage_themselves
-            it_behaves_like :user_cannot_manage_other_users_in_their_site
+
+            context "users in their coalition" do
+              let!(:target_user) do
+                create :site_coordinator_user,
+                       site: create(:site, parent_organization: create(:organization, coalition: user.role.coalition))
+              end
+
+              it "can manage users in their coalition" do
+                expect(subject.can?(:manage, target_user)).to eq true
+              end
+            end
+
+            context "users outside their coalition" do
+              let!(:target_user) { create :site_coordinator_user }
+
+              it "cannot manage users outside their coalition" do
+                expect(subject.can?(:manage, target_user)).to eq false
+              end
+            end
           end
 
           context "an organization lead" do
             let(:user) { create :organization_lead_user }
 
             it_behaves_like :user_can_manage_themselves
-            it_behaves_like :user_cannot_manage_other_users_in_their_site
+
+            context "users in their org" do
+              let!(:target_user) do
+                create :site_coordinator_user,
+                       site: create(:site, parent_organization: user.role.organization)
+              end
+
+              it "can manage users in their org" do
+                expect(subject.can?(:manage, target_user)).to eq true
+              end
+            end
+
+            context "users outside their org" do
+              let!(:target_user) { create :site_coordinator_user }
+
+              it "cannot manage users outside their org" do
+                expect(subject.can?(:manage, target_user)).to eq false
+              end
+            end
           end
 
           context "a site coordinator" do

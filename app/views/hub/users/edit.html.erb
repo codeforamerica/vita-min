@@ -4,7 +4,7 @@
     <div>
       <h1><%= @user.name %></h1>
 
-      <% if current_user.admin? %>
+      <% if can?(:edit, @user) %>
         <% if @user.access_locked? %>
           <%= link_to t("hub.unlock_account"), unlock_hub_user_path(id: @user), method: :patch, class: "button button--danger", data: {confirm: t("hub.unlock_confirmation", name: @user.name )} %>
         <% end %>
