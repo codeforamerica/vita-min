@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Document Help Flow", :flow_explorer_screenshot, active_job: true do
+RSpec.feature "Document Help Flow", :flow_explorer_screenshot_i18n_friendly, active_job: true do
   let(:client) do
     create :client,
            intake: (create :intake, bought_health_insurance: "yes", had_retirement_income: "yes", sms_notification_opt_in: "yes", sms_phone_number: "+15105551234")
@@ -11,37 +11,37 @@ RSpec.feature "Document Help Flow", :flow_explorer_screenshot, active_job: true 
 
   scenario "getting through documents flow with help pages" do
     visit "documents/ids"
-    expect(page).to have_text "Attach a photo of your ID card"
+    expect(page).to have_text I18n.t('views.documents.ids.title.one')
 
-    click_on "I don't have this right now"
-    expect(page).to have_text "We know documents can be hard to collect. Let us know how we can help!"
+    click_on I18n.t('views.layouts.document_upload.dont_have')
+    expect(page).to have_text I18n.t('documents.documents_help.show.header')
     expect do
-      click_on "Send a reminder link for this document"
+      click_on I18n.t('documents.documents_help.show.reminder_link')
     end.to change(OutgoingTextMessage, :count).by(1)
-    expect(page).to have_text "Great! We just sent you a reminder link."
-    expect(page).to have_text "Confirm your identity with a photo of yourself holding your ID card"
-    click_on "Submit a photo"
-    expect(page).to have_text "Share a photo of yourself holding your ID card"
+    expect(page).to have_text I18n.t('documents.reminder_link.notice')
+    expect(page).to have_text I18n.t('views.documents.selfie_instructions.header')
+    click_on I18n.t('views.documents.selfie_instructions.submit_photo')
+    expect(page).to have_text I18n.t('views.documents.selfies.title')
 
-    click_on "I don't have this right now"
+    click_on I18n.t('views.layouts.document_upload.dont_have')
     expect do
-      click_on "I need help finding this document"
+      click_on I18n.t('documents.documents_help.show.need_help_find')
     end.to change(SystemNote::DocumentHelp, :count).by(1)
-    expect(page).to have_text "Thank you! We updated your tax specialist."
-    expect(page).to have_text "Attach photos of Social Security Card or ITIN"
+    expect(page).to have_text I18n.t('documents.updated_specialist.notice')
+    expect(page).to have_text I18n.t('views.documents.ssn_itins.title')
 
-    click_on "I don't have this right now"
+    click_on I18n.t('views.layouts.document_upload.dont_have')
     expect do
-      click_on "I can't get this document"
+      click_on I18n.t('documents.documents_help.show.cant_get')
     end.to change(SystemNote::DocumentHelp, :count).by(1)
-    expect(page).to have_text "Thank you! We updated your tax specialist."
-    expect(page).to have_text "Now, let's collect your tax documents!"
-    click_on "Continue"
-    expect(page).to have_text "Attach your 1095-A's"
+    expect(page).to have_text I18n.t('documents.updated_specialist.notice')
+    expect(page).to have_text I18n.t('views.documents.intro.title')
+    click_on I18n.t('general.continue')
+    expect(page).to have_text I18n.t('views.documents.form1095as.title')
 
-    click_on "I don't have this right now"
+    click_on I18n.t('views.layouts.document_upload.dont_have')
     expect do
-      click_on "This document doesn't apply to me"
+      click_on I18n.t('documents.documents_help.show.doesnt_apply')
     end.to change(SystemNote::DocumentHelp, :count).by(1)
   end
 end

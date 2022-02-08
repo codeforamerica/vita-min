@@ -300,20 +300,20 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     expect(intake.reload.current_step).to eq("/en/documents/selfie-instructions")
     expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
-    click_on "Submit a photo"
+    click_on I18n.t('views.documents.selfie_instructions.submit_photo')
 
     expect(intake.reload.current_step).to eq("/en/documents/selfies")
-    expect(page).to have_selector("h1", text: "Share a photo of yourself holding your ID card")
+    expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
     upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
     expect(intake.reload.current_step).to eq("/en/documents/ssn-itins")
-    expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
+    expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
     upload_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     click_on "Continue"
 
     # Documents: Intro
-    expect(page).to have_selector("h1", text: "Now, let's collect your tax documents!")
+    expect(page).to have_selector("h1", text: I18n.t('views.documents.intro.title'))
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Share your employment documents")
