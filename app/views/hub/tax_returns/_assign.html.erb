@@ -1,5 +1,5 @@
 <div role="alert">
-  <%= form_with class: tax_return, url: [:hub, tax_return], method: :put, builder: VitaMinFormBuilder, html: { class: "tax-return-inline-form" } do |f| %>
+  <%= form_with class: tax_return, url: [:hub, tax_return], local: false, method: :put, builder: VitaMinFormBuilder, html: { class: "tax-return-inline-form" } do |f| %>
     <div class="before">
       <%= link_to "Cancel", hub_tax_return_path(id: tax_return.id), remote: true %>
     </div>
