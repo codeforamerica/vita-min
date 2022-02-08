@@ -7,6 +7,28 @@ RSpec.describe Questions::PersonalInfoController do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
+  describe "#edit" do
+    context "when a client said they need help getting an ITIN during triage" do
+      let(:intake) { create :intake, triage: create(:triage, id_type: "need_help") }
+
+      it "sets show_ssn_field to false" do
+        get :edit
+
+        expect(assigns(:show_ssn_field)).to eq false
+      end
+    end
+
+    context "when a client did not say they need help getting an ITIN during triage" do
+      let(:intake) { create :intake, triage: create(:triage, id_type: "have_id") }
+
+      it "sets show_ssn_field to true" do
+        get :edit
+
+        expect(assigns(:show_ssn_field)).to eq true
+      end
+    end
+  end
+
   describe "#update" do
     let(:intake) { create :intake, source: "SourceParam" }
     let(:state) { 'CO' }
