@@ -72,7 +72,7 @@ class TaxReturn < ApplicationRecord
 
   def current_state
     ## backwards compatible with current implementation while TaxReturn#state can be nil
-    state || state_machine.current_state
+    state || state_machine.current_state || status
   end
 
   def ready_for_prep_at
