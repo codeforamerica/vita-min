@@ -15,9 +15,6 @@ RSpec.describe ConsentForm do
         birth_date_day: "10",
         primary_first_name: "Greta",
         primary_last_name: "Gnome",
-        primary_ssn: "123456789",
-        primary_ssn_confirmation: "123456789",
-        primary_tin_type: "ssn"
       }
     )
   end
@@ -42,9 +39,6 @@ RSpec.describe ConsentForm do
               birth_date_day: "10",
               primary_first_name: "Greta",
               primary_last_name: nil,
-              primary_ssn: nil,
-              primary_ssn_confirmation: nil,
-              primary_tin_type: nil
             }
           )
         )
@@ -52,30 +46,6 @@ RSpec.describe ConsentForm do
         expect(form).not_to be_valid
         expect(form.errors[:birth_date]).to be_present
         expect(form.errors[:primary_last_name]).to be_present
-        expect(form.errors[:primary_ssn]).to be_present
-        expect(form.errors[:primary_tin_type]).to be_present
-      end
-    end
-
-    context "with a last_four_ssn that is too short" do
-      let(:params) { valid_params.merge(primary_ssn: "765") }
-
-      it "adds a validation error" do
-        form = ConsentForm.new(intake, params)
-
-        expect(form).not_to be_valid
-        expect(form.errors[:primary_ssn]).to be_present
-      end
-    end
-
-    context "with a last_four_ssn that is too long" do
-      let(:params) { valid_params.merge(primary_ssn: "12345678987654323") }
-
-      it "adds a validation error" do
-        form = ConsentForm.new(intake, params)
-
-        expect(form).not_to be_valid
-        expect(form.errors[:primary_ssn]).to be_present
       end
     end
 

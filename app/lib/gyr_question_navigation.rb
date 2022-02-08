@@ -26,6 +26,7 @@ class GyrQuestionNavigation
 
       # Contact information and preferences
       Questions::PersonalInfoController,
+      Questions::ReturningClientController, # possible off-boarding from flow
       Questions::InterviewSchedulingController,
       Questions::NotificationPreferenceController,
       Questions::PhoneNumberCanReceiveTextsController,
@@ -33,17 +34,13 @@ class GyrQuestionNavigation
       Questions::PhoneVerificationController,
       Questions::EmailAddressController,
       Questions::EmailVerificationController,
-      Questions::ReturningClientController, # possible off-boarding from flow
-
-      #TODO
-      # 1. make sure there are appropriate tests for each controller and form & an overall test for the different paths in the flow
 
       # Consent
       Questions::ConsentController, # Authenticates the client
                                     # Advances statuses to "In Progress"
                                     # generate a 14446 signed by the primary
                                     # generate a "Preliminary" 13614-C signed by the primary
-                                    # Routes client to a vita partner, if routeable
+                                    # Routes client to a vita partner, if route-able
                                     # creates TaxReturn records for backtaxes years
       Questions::OptionalConsentController,
       Questions::AtCapacityController,

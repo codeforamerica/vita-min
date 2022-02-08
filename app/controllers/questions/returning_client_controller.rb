@@ -6,7 +6,7 @@ module Questions
     layout "application"
 
     def self.show?(intake)
-      DuplicateIntakeGuard.new(intake).has_duplicate?
+      intake.has_duplicate?
     end
 
     private

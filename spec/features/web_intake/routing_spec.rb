@@ -41,8 +41,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     # Consent form
     fill_in I18n.t("views.questions.consent.primary_first_name"), with: "Gary"
     fill_in I18n.t("views.questions.consent.primary_last_name"), with: "Gnome"
-    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
-    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     select I18n.t("date.month_names")[3], from: "consent_form_birth_date_month"
     select "5", from: "consent_form_birth_date_day"
     select "1971", from: "consent_form_birth_date_year"
@@ -104,6 +102,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
     fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -136,6 +136,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
     fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -168,6 +170,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
     fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -207,6 +211,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
       fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
       fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
       fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+      fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+      fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
       click_on I18n.t('general.continue')
 
       fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -247,6 +253,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
       fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
       fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
       fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+      fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+      fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
       click_on I18n.t('general.continue')
 
       fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"

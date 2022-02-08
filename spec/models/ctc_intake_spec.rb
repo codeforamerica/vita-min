@@ -219,7 +219,75 @@
 
 require "rails_helper"
 
-describe Intake::CtcIntake, requires_default_vita_partners: true do
+describe Intake::CtcIntake do
+  describe ".accessible_intakes" do
+    context "when no verification has occurred" do
+      let!(:intake) { create :ctc_intake }
+      it "is not accessible" do
+        expect(described_class.accessible_intakes).not_to include intake
+      end
+    end
+
+    context "when sms verification has occured" do
+      let!(:intake) { create :ctc_intake, sms_phone_number_verified_at: DateTime.now }
+      it "is accessible" do
+        expect(described_class.accessible_intakes).to include intake
+      end
+    end
+
+    context "when sms verification has occurred" do
+      let!(:intake) { create :ctc_intake, email_address_verified_at: DateTime.now }
+      it "is accessible" do
+        expect(described_class.accessible_intakes).to include intake
+      end
+    end
+    
+    context "when navigator verification has occurred" do
+      let!(:intake) { create :ctc_intake, navigator_has_verified_client_identity: true }
+      it "is accessible" do
+        expect(described_class.accessible_intakes).to include intake
+      end
+    end
+  end
+
+  describe "#duplicates" do
+    let(:dupe_double) { double}
+    before do
+      allow(DeduplificationService).to receive(:duplicates).and_return dupe_double
+      allow(dupe_double).to receive(:or)
+    end
+
+    context "when only email is present" do
+      let(:intake) { create :ctc_intake, email_address: "mango@example.com", sms_phone_number: nil }
+      it "responds with duplicates from both email and sms" do
+        intake.duplicates
+        expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :email_address, from_scope: described_class.accessible_intakes)
+      end
+    end
+
+    context "when only sms is present" do
+      let(:intake) { create :ctc_intake, email_address: nil, sms_phone_number: "+18324658840" }
+      it "responds with duplicates from sms" do
+        intake.duplicates
+        expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :sms_phone_number, from_scope: described_class.accessible_intakes)
+      end
+    end
+
+    context "when both email and sms are present" do
+      let(:intake) { create :ctc_intake, email_address: "mango@example.com", sms_phone_number: "+18324658840" }
+      it "responds with duplicates from both email and sms" do
+        intake.duplicates
+        expect(DeduplificationService).to have_received(:duplicates).exactly(2).times
+      end
+    end
+
+    context "when neither phone number nor email are present" do
+      let(:intake) { create :ctc_intake, email_address: nil, sms_phone_number: nil }
+      it "responds with an empty ActiveRecord relation" do
+        expect(intake.duplicates).to eq described_class.none
+      end
+    end
+  end
   describe "#any_ip_pins?" do
     context "when any member of household has an IP PIN" do
       let(:intake) { create :ctc_intake, dependents: [ create(:dependent, ssn: '111-22-3333', ip_pin: 123456) ] }
