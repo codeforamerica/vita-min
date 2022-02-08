@@ -47,8 +47,10 @@
           <%= render('components/molecules/reveal', title: t(".reassign")) do %>
             <ul class="list--bulleted">
               <% User.roles.each do |role_type| %>
-                <li><%= link_to readable_role_from_role_type(role_type), edit_role_hub_user_path(role: role_type) if can?(:manage, role_type.constantize) %></li>
-              <% end %>
+                <% if can?(:manage, role_type.constantize)  %>
+                  <li><%= link_to readable_role_from_role_type(role_type), edit_role_hub_user_path(role: role_type) %></li>
+                <% end %>
+            <% end %>
             </ul>
           <% end %>
         </div>
