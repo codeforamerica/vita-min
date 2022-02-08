@@ -30,21 +30,4 @@ class ClientLoginService
   def can_login_by_sms_verification?(sms_phone_number)
     service_class.accessible_intakes.where(sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes").exists?
   end
-
-  # def self.ctc_duplicate?(intake)
-  #   has_dupe = false
-  #   if intake.email_address.present?
-  #     has_dupe = DeduplicationService.duplicates(intake, email_address, from_scope: service_class.accessible_intakes).exists?
-  #   end
-  #   if intake.sms_phone_number.present? && !has_dupe
-  #     has_dupe = DeduplicationService.duplicates(intake, sms_phone_number, from_scope: service_class.accessible_intakes).exists?
-  #   end
-  #   has_dupe
-  # end
-
-  def self.gyr_duplicate?(intake)
-    return false unless intake.hashed_primary_ssn.present?
-
-    DeduplificationService.duplicates(intake, :hashed_primary_ssn, service_class.accessible_intakes).exists?
-  end
 end
