@@ -39,6 +39,8 @@ module DocumentTypes
     DocumentTypes::Form13614C,
     DocumentTypes::Form14446,
     DocumentTypes::OptionalConsentForm,
+    DocumentTypes::FormW7,
+    DocumentTypes::FormW7Coa
   ].freeze
 
   HELP_TYPES = [
