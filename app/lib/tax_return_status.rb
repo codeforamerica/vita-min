@@ -1,19 +1,5 @@
 class TaxReturnStatus
   class << self
-    private
-
-    def determine_statuses_by_stage
-      ## Returns a hash of statuses grouped by stage
-      stages = {}
-      statuses = STATUSES.except(:intake_before_consent)
-      statuses.map do |status, _|
-        stage = status.to_s.split("_")[0]
-        stages[stage] = [] unless stages.key?(stage)
-        stages[stage].push(status)
-      end
-      stages
-    end
-
     def message_templates
       {
         intake_info_requested: "hub.status_macros.needs_more_information",
@@ -46,26 +32,7 @@ class TaxReturnStatus
     file_needs_review: 400, file_ready_to_file: 401, file_efiled: 402, file_mailed: 403, file_rejected: 404, file_accepted: 405, file_not_filing: 406, file_hold: 450, file_fraud_hold: 460
   }.freeze
 
-  ONBOARDING_STATUSES = [:intake_before_consent, :intake_in_progress, :intake_greeter_info_requested, :intake_needs_doc_help]
-  EXCLUDED_FROM_SLA = [:intake_before_consent, :file_accepted, :file_not_filing, :file_hold, :file_mailed].freeze
-  STATUSES_BY_STAGE = determine_statuses_by_stage.freeze
-  STAGES = STATUSES_BY_STAGE.keys.freeze
-  TERMINAL_STATUSES = [:file_accepted, :file_rejected, :file_mailed].freeze
-  PAUSED_STATUSES = [:file_not_filing, :file_hold]
-  # If you change the statuses included in capacity, please also update the organization capacities sql view
-  # tax_returns.status >= 102 AND tax_returns.status <= 404 AND tax_returns.status != 403 AND tax_returns.status != 106
-  EXCLUDED_FROM_CAPACITY = (ONBOARDING_STATUSES + [:file_mailed, :file_accepted, :file_not_filing, :file_hold, :file_fraud_hold]).freeze
-  STATUS_KEYS_INCLUDED_IN_CAPACITY = (STATUSES.keys - EXCLUDED_FROM_CAPACITY).freeze
-  GREETER_STATUSES_BEYOND_INTAKE = { "file" => [:file_not_filing, :file_hold] }.freeze
-  FORWARD_TO_INTERCOM_STATUSES = [:file_accepted, :file_mailed, :file_not_filing]
-
   def self.message_template_for(status, locale = "en")
     message_templates[status.to_sym] ? I18n.t(message_templates[status.to_sym], locale: locale) : ""
-  end
-
-  def self.available_statuses_for(role_type:)
-    return TaxReturnStatus::STATUSES_BY_STAGE.slice("intake").merge(GREETER_STATUSES_BEYOND_INTAKE) if role_type == GreeterRole::TYPE
-
-    TaxReturnStatus::STATUSES_BY_STAGE
   end
 end

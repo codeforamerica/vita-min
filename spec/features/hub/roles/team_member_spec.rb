@@ -11,25 +11,25 @@ RSpec.feature "Team member role" do
       create :client,
              vita_partner: vita_partner,
              intake: hester_intake,
-             tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress")]
+             tax_returns: [(create :tax_return, :intake_in_progress, year: 2019)]
     }
     let!(:jerry_visible) {
       create :client,
              vita_partner: vita_partner,
              intake: (create :intake, :filled_out, preferred_name: "Jerry Jujube", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"),
-             tax_returns: [(create :tax_return, year: 2021, status: "intake_in_progress")]
+             tax_returns: [(create :tax_return, :intake_in_progress, year: 2021)]
     }
     let!(:abigail_invisible) {
       create :client,
              vita_partner: create(:organization),
              intake: (create :intake, preferred_name: "Abigail Apricot", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"),
-             tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress")]
+             tax_returns: [(create :tax_return, :intake_in_progress, year: 2018)]
     }
     let!(:mirabel_invisible) {
       create :client,
              vita_partner: create(:organization),
              intake: (create :intake, preferred_name: "Mirabel Mushroom", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"),
-             tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress")]
+             tax_returns: [(create :tax_return, :intake_in_progress, year: 2019)]
     }
 
     before do

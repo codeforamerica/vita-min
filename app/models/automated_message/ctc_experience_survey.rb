@@ -9,7 +9,7 @@ module AutomatedMessage
     end
 
     def self.survey_link(client)
-      ctc_rejected_status = client.intake.default_tax_return.status == "file_rejected" ? 'TRUE' : 'FALSE'
+      ctc_rejected_status = client.intake.default_tax_return.current_state == "file_rejected" ? 'TRUE' : 'FALSE'
 
       "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_cHN2H3IWcxAEKPA?&ExternalDataReference=#{client.id}&ctcRejected=#{ctc_rejected_status}&expGroup=#{client.ctc_experience_survey_variant}"
     end

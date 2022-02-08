@@ -181,7 +181,6 @@ RSpec.describe Hub::CreateCtcClientForm do
         intake = Intake.last
         expect(tax_return.year).to eq 2021
         expect(tax_return.certification_level).to eq "basic"
-        expect(tax_return.status).to eq "prep_ready_for_prep"
         expect(tax_return.current_state).to eq "prep_ready_for_prep"
         expect(tax_return.client).to eq intake.client
         expect(tax_return.service_type).to eq "drop_off"

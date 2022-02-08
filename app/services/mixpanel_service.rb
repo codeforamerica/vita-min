@@ -128,18 +128,6 @@ class MixpanelService
       )
     end
 
-    def send_status_change_event(tax_return)
-      send_tax_return_event(tax_return, "status_change", { from_status: tax_return.previous_state })
-    end
-
-    def send_file_accepted_event(tax_return)
-      send_file_completed_event(tax_return, "filing_completed")
-    end
-
-    def send_file_rejected_event(tax_return)
-      send_file_completed_event(tax_return, "filing_rejected")
-    end
-
     ##
     # creates Mixpanel-specific data from objects submitted, stripping included path exclusions.
     # data will be merged in the order it is submitted: the last object included in `objs` will overwrite
@@ -309,8 +297,6 @@ class MixpanelService
       }
     end
 
-    private
-
     def send_file_completed_event(tax_return, event_name)
       user_data = tax_return.last_changed_by.present? ? data_from_user(tax_return.last_changed_by) : {}
 
@@ -326,18 +312,20 @@ class MixpanelService
       days_since_tax_return_created = (hours_since_tax_return_created / 24).floor
 
       MixpanelService.instance.run(
-        distinct_id: tax_return.client.intake.visitor_id,
-        event_name: event_name,
-        data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(
-          {
-            days_since_ready_for_prep: days_since_ready_for_prep,
-            hours_since_ready_for_prep: hours_since_ready_for_prep,
-            days_since_tax_return_created: days_since_tax_return_created,
-            hours_since_tax_return_created: hours_since_tax_return_created
-          }
-        )
+          distinct_id: tax_return.client.intake.visitor_id,
+          event_name: event_name,
+          data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(
+              {
+                  days_since_ready_for_prep: days_since_ready_for_prep,
+                  hours_since_ready_for_prep: hours_since_ready_for_prep,
+                  days_since_tax_return_created: days_since_tax_return_created,
+                  hours_since_tax_return_created: hours_since_tax_return_created
+              }
+          )
       )
     end
+
+    private
 
     def age_from_date_of_birth(date_of_birth)
       if date_of_birth.present?

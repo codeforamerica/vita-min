@@ -15,11 +15,11 @@ module ClientSortable
     # Force an inner join to `intakes` to exclude clients from previous years
     clients = clients.joins(:intake)
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
-    clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
+    clients = clients.where(tax_returns: { state: TaxReturnStateMachine::STATES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
     clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
-    clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
+    clients = clients.where(tax_returns: { state: @filters[:status] }) if @filters[:status].present?
     clients = clients.where("intakes.locale = :language OR intakes.preferred_interview_language = :language", language: @filters[:language]) if @filters[:language].present?
     clients = clients.where(tax_returns: { service_type: @filters[:service_type] }) if @filters[:service_type].present?
     clients = clients.where(intake: Intake.where(had_unemployment_income: "yes")) if @filters[:unemployment_income].present?
@@ -103,11 +103,11 @@ module ClientSortable
   end
 
   def status_filter(source)
-    TaxReturnStatus::STATUSES.keys.find { |status| status == source[:status]&.to_sym }
+    TaxReturnStateMachine.states.find { |state| state == source[:status] }
   end
 
   def stage_filter(source)
-    TaxReturnStatus::STAGES.find { |stage| stage == source[:status] }
+    TaxReturnStateMachine::STAGES.find { |stage| stage == source[:status] }
   end
 
   def limited_user_ids

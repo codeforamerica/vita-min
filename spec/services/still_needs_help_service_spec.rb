@@ -45,50 +45,50 @@ describe StillNeedsHelpService do
     context "with tax returns with status ready for review (aka intake ready)" do
       let(:tax_returns) do
         [
-          build(:tax_return, status: :intake_ready, year: 2019),
-          build(:tax_return, status: :intake_ready, year: 2018)
+          build(:tax_return, :intake_ready, year: 2019),
+          build(:tax_return, :intake_ready, year: 2018)
         ]
       end
 
       it "does not mark them as not filing" do
         described_class.trigger_still_needs_help_flow(client)
-        expect(client.reload.tax_returns.map(&:status).uniq).to eq(["intake_ready"])
+        expect(client.reload.tax_returns.map(&:state).uniq).to eq(["intake_ready"])
       end
     end
 
     context "with tax returns with status not ready (aka in progress)" do
       let(:tax_returns) do
         [
-          build(:tax_return, status: :intake_in_progress, year: 2019),
-          build(:tax_return, status: :intake_in_progress, year: 2018)
+          build(:tax_return, :intake_in_progress, year: 2019),
+          build(:tax_return, :intake_in_progress, year: 2018)
         ]
       end
 
       it "marks them as not filing" do
         described_class.trigger_still_needs_help_flow(client)
-        expect(client.reload.tax_returns.map(&:status).uniq).to eq(["file_not_filing"])
+        expect(client.reload.tax_returns.map(&:state).uniq).to eq(["file_not_filing"])
       end
     end
 
     context "with tax returns with status intake_info_requested" do
       let(:tax_returns) do
         [
-          build(:tax_return, status: :intake_info_requested, year: 2019),
-          build(:tax_return, status: :intake_info_requested, year: 2018)
+          build(:tax_return, :intake_info_requested, year: 2019),
+          build(:tax_return, :intake_info_requested, year: 2018)
         ]
       end
 
       it "marks them as not filing" do
         described_class.trigger_still_needs_help_flow(client)
-        expect(client.reload.tax_returns.map(&:status).uniq).to eq(["file_not_filing"])
+        expect(client.reload.tax_returns.map(&:state).uniq).to eq(["file_not_filing"])
       end
     end
 
     context "with tax returns with status intake_greeter_info_requested" do
       let(:tax_returns) do
         [
-          build(:tax_return, status: :intake_greeter_info_requested, year: 2019),
-          build(:tax_return, status: :intake_greeter_info_requested, year: 2018)
+          build(:tax_return, :intake_greeter_info_requested, year: 2019),
+          build(:tax_return, :intake_greeter_info_requested, year: 2018)
         ]
       end
 
@@ -101,42 +101,42 @@ describe StillNeedsHelpService do
     context "with tax returns with status intake_needs_doc_help" do
       let(:tax_returns) do
         [
-          build(:tax_return, status: :intake_needs_doc_help, year: 2019),
-          build(:tax_return, status: :intake_needs_doc_help, year: 2018)
+          build(:tax_return, :intake_needs_doc_help, year: 2019),
+          build(:tax_return, :intake_needs_doc_help, year: 2018)
         ]
       end
 
       it "marks them as not filing" do
         described_class.trigger_still_needs_help_flow(client)
-        expect(client.reload.tax_returns.map(&:status).uniq).to eq(["file_not_filing"])
+        expect(client.reload.tax_returns.map(&:state).uniq).to eq(["file_not_filing"])
       end
     end
 
     context "with returns in other statuses" do
       let(:tax_returns) do
         [
-          build(:tax_return, status: :file_accepted, year: 2018),
-          build(:tax_return, status: :prep_preparing, year: 2019)
+          build(:tax_return, :file_accepted, year: 2018),
+          build(:tax_return, :prep_preparing, year: 2019)
         ]
       end
 
       it "does not change their status" do
         described_class.trigger_still_needs_help_flow(client)
-        expect(client.tax_returns.map(&:status)).to match_array(%w[file_accepted prep_preparing])
+        expect(client.tax_returns.map(&:state)).to match_array(%w[file_accepted prep_preparing])
       end
     end
 
     context "with returns in a mix of statuses" do
       let(:tax_returns) do
         [
-          build(:tax_return, status: :intake_greeter_info_requested, year: 2018),
-          build(:tax_return, status: :prep_preparing, year: 2019)
+          build(:tax_return, :intake_greeter_info_requested, year: 2018),
+          build(:tax_return, :prep_preparing, year: 2019)
         ]
       end
 
       it "changes only the statuses that are indicated to change" do
         described_class.trigger_still_needs_help_flow(client)
-        expect(client.tax_returns.map(&:status)).to match_array(%w[intake_greeter_info_requested prep_preparing])
+        expect(client.tax_returns.map(&:state)).to match_array(%w[intake_greeter_info_requested prep_preparing])
       end
     end
   end

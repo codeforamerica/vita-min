@@ -17,6 +17,7 @@
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
 #  spouse_signed_ip    :inet
+#  state               :string
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
@@ -28,6 +29,7 @@
 #
 #  index_tax_returns_on_assigned_user_id    (assigned_user_id)
 #  index_tax_returns_on_client_id           (client_id)
+#  index_tax_returns_on_state               (state)
 #  index_tax_returns_on_year_and_client_id  (year,client_id) UNIQUE
 #
 # Foreign Keys
@@ -46,7 +48,7 @@ FactoryBot.define do
 
     TaxReturnStateMachine.states.each do |state|
       trait state.to_sym do
-        status { state } # wip to align with current implementation where status is necessary
+        state { state }
         after :create do |tax_return, evaluator|
           create :tax_return_transition, state, tax_return: tax_return, metadata: evaluator.metadata
         end

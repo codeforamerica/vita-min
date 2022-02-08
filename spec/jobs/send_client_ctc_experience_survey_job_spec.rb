@@ -54,7 +54,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
 
       context "with a client who is opted-in to email and sms notifications" do
         before do
-          allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com", sms_phone_number: "+14155551212"})
+          allow(ClientMessagingService).to receive(:contact_methods).and_return({ email: "example@example.com", sms_phone_number: "+14155551212" })
         end
 
         context "when the client has not received this survey" do
@@ -103,7 +103,7 @@ RSpec.describe SendClientCtcExperienceSurveyJob, type: :job do
       end
 
       context "with a client whose efile submission was rejected" do
-        let!(:tax_return) { create :tax_return, client: client, year: TaxReturn.current_tax_year, status: :file_rejected }
+        let!(:tax_return) { create :tax_return, :file_rejected, client: client, year: TaxReturn.current_tax_year }
 
         before do
           allow(ClientMessagingService).to receive(:contact_methods).and_return({email: "example@example.com", sms_phone_number: "+14155551212"})

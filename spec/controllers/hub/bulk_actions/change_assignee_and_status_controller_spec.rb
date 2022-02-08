@@ -61,12 +61,9 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
         it "changes the status" do
           put :update, params: params
 
-          expect(tax_return_1.reload.status).to eq new_status
-          expect(tax_return_1.current_state).to eq new_status
-          expect(tax_return_2.reload.status).to eq new_status
-          expect(tax_return_2.current_state).to eq new_status
-          expect(tax_return_3.reload.status).to eq new_status
-          expect(tax_return_3.current_state).to eq new_status
+          expect(tax_return_1.reload.state).to eq new_status
+          expect(tax_return_2.reload.state).to eq new_status
+          expect(tax_return_3.reload.state).to eq new_status
 
         end
 
@@ -88,7 +85,8 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           bulk_update = BulkTaxReturnUpdate.last
           expect(bulk_update.tax_return_selection).to eq tax_return_selection
           expect(bulk_update.user_notification.user).to eq team_member
-          expect(bulk_update.user_notification.notifiable.status).to eq new_status
+          expect(bulk_update.user_notification.notifiable.state).to eq new_status
+          expect(bulk_update.user_notification.notifiable.updates["status"]).to eq "Ready for call"
           expect(bulk_update.user_notification.notifiable.assigned_user).to eq site_coordinator
 
           expect(response).to redirect_to hub_user_notifications_path
@@ -109,9 +107,9 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
         it "does not change any tax return status" do
           put :update, params: params
 
-          expect(tax_return_1.status).to eq "file_ready_to_file"
-          expect(tax_return_2.status).to eq "review_signature_requested"
-          expect(tax_return_3.status).to eq "review_signature_requested"
+          expect(tax_return_1.state).to eq "file_ready_to_file"
+          expect(tax_return_2.state).to eq "review_signature_requested"
+          expect(tax_return_3.state).to eq "review_signature_requested"
         end
 
         it "does not create a notification and redirects to the notification page" do

@@ -17,6 +17,7 @@
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
 #  spouse_signed_ip    :inet
+#  state               :string
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
@@ -28,6 +29,7 @@
 #
 #  index_tax_returns_on_assigned_user_id    (assigned_user_id)
 #  index_tax_returns_on_client_id           (client_id)
+#  index_tax_returns_on_state               (state)
 #  index_tax_returns_on_year_and_client_id  (year,client_id) UNIQUE
 #
 # Foreign Keys
@@ -59,24 +61,22 @@ class TaxReturn < ApplicationRecord
   enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
   validates :year, presence: true
 
-  after_update_commit :send_mixpanel_status_change_event, :send_surveys
   after_update_commit { InteractionTrackingService.record_internal_interaction(client) }
 
   def state_machine
     @state_machine ||= TaxReturnStateMachine.new(self, transition_class: TaxReturnTransition)
   end
 
-  delegate :can_transition_to?, :history, :last_transition, :current_state, :last_transition_to,
+  delegate :can_transition_to?, :history, :last_transition, :last_transition_to,
            :transition_to!, :transition_to, :in_state?, :advance_to, :previous_transition, :previous_state, :last_changed_by, to: :state_machine
 
   def current_state
-    state_machine.current_state || status
+    ## backwards compatible with current implementation while TaxReturn#state can be nil
+    state || state_machine.current_state || status
   end
 
-  before_save do
-    if status == "prep_ready_for_prep" && status_changed?
-      self.ready_for_prep_at = DateTime.current
-    end
+  def ready_for_prep_at
+    tax_return_transitions.order(:created_at).find_by(to_state: "prep_ready_for_prep")&.created_at
   end
 
   def qualifying_dependents
@@ -282,39 +282,21 @@ class TaxReturn < ApplicationRecord
     true
   end
 
-  private
+  def enqueue_experience_survey
+    if is_ctc && service_type_online_intake?
+      SendClientCtcExperienceSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
+    end
 
-  def send_mixpanel_status_change_event
-    if saved_change_to_status?
-      MixpanelService.send_status_change_event(self)
-
-      if status == "file_rejected"
-        MixpanelService.send_file_rejected_event(self)
-      elsif status == "file_accepted"
-        MixpanelService.send_file_accepted_event(self)
-      elsif status == "prep_ready_for_prep"
-        MixpanelService.send_tax_return_event(self, "ready_for_prep")
-      elsif status == "file_efiled"
-        MixpanelService.send_tax_return_event(self, "filing_filed")
-      end
+    if !is_ctc
+      SendClientCompletionSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
     end
   end
+
+  private
 
   def system_change_status(new_status)
     SystemNote::StatusChange.generate!(tax_return: self, old_status: current_state, new_status: new_status)
     transition_to(new_status)
-  end
-
-  def send_surveys
-    if saved_change_to_status? && TaxReturnStatus::TERMINAL_STATUSES.map(&:to_s).include?(status)
-      if is_ctc && service_type_online_intake?
-        SendClientCtcExperienceSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
-      end
-
-      if !is_ctc
-        SendClientCompletionSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
-      end
-    end
   end
 end
 

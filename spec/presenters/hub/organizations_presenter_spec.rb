@@ -14,7 +14,7 @@ describe Hub::OrganizationsPresenter do
     create :state_routing_target, target: organization, state_abbreviation: "CA"
     create :state_routing_target, target: coalition, state_abbreviation: "CA"
     create :state_routing_target, target: organization, state_abbreviation: "TX"
-    create :client, :with_return, vita_partner: organization, status: "review_ready_for_qr", intake: create(:intake)
+    create :client, :with_return, vita_partner: organization, state: "review_ready_for_qr", intake: create(:intake)
   end
 
   context "with an admin user with admin abilities" do

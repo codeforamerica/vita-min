@@ -18,20 +18,20 @@ RSpec.describe Hub::TakeActionForm do
     end
 
     context "when new status is same as current status" do
-      let(:form_params) {{ status: tax_return.status, tax_return_id: tax_return.id }}
+      let(:form_params) {{ state: tax_return.status, tax_return_id: tax_return.id }}
 
       it "add an error to the object" do
         expect(form).not_to be_valid
-        expect(form.errors[:status]).to include "Can't initiate status change to current status."
+        expect(form.errors[:state]).to include "Can't initiate status change to current status."
       end
     end
 
     context "when the status is blank" do
-      let(:form_params) {{ tax_return_id: tax_return.id, status: " \n" }}
+      let(:form_params) {{ tax_return_id: tax_return.id, state: " \n" }}
 
       it "add an error to the object" do
         expect(form).not_to be_valid
-        expect(form.errors[:status]).to include "Can't be blank."
+        expect(form.errors[:state]).to include "Can't be blank."
       end
     end
 
@@ -72,7 +72,7 @@ RSpec.describe Hub::TakeActionForm do
     context "default message body" do
 
       context "when a message body is provided" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user,{ message_body: "hi", status: "intake_needs_info" }) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user,{ message_body: "hi", state: "intake_needs_info" }) }
         it "does not overwrite the message body" do
           expect(form.message_body).to eq "hi"
         end
@@ -87,7 +87,7 @@ RSpec.describe Hub::TakeActionForm do
       end
 
       context "when a status that has a message template is provided and locale is english" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_info_requested", locale: "en" }) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { state: "intake_info_requested", locale: "en" }) }
         before do
           allow(intake).to receive(:email_notification_opt_in_yes?).and_return true
           allow(intake).to receive(:sms_notification_opt_in_yes?).and_return true
@@ -100,7 +100,7 @@ RSpec.describe Hub::TakeActionForm do
         end
 
         context "when the user has no contact methods" do
-          let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_info_requested", locale: "en" }) }
+          let(:form) { Hub::TakeActionForm.new(client, current_user, { state: "intake_info_requested", locale: "en" }) }
           before do
             allow(intake).to receive(:email_notification_opt_in_yes?).and_return false
             allow(intake).to receive(:sms_notification_opt_in_yes?).and_return false
@@ -112,7 +112,7 @@ RSpec.describe Hub::TakeActionForm do
       end
 
       context "when a status that has a message template is provided and locale is spanish" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_info_requested", locale: "es" }) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { state: "intake_info_requested", locale: "es" }) }
         let(:filled_out_template) {
           <<~MESSAGE
             ¡Hola Luna Lemon!
@@ -144,7 +144,7 @@ RSpec.describe Hub::TakeActionForm do
       end
 
       context "when a status without a message template is provided" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "non_matching_status"})}
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { state: "non_matching_status"})}
         it "sets message body as an empty string" do
           expect(form.message_body).to eq ""
         end

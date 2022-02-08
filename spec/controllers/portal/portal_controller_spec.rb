@@ -39,8 +39,8 @@ RSpec.describe Portal::PortalController, type: :controller do
         let(:client) { create :client, intake: (create :intake, current_step: "/en/questions/additional-info") }
 
         before do
-          create :tax_return, year: 2018, status: :intake_in_progress, client: client
-          create :tax_return, year: 2019, status: :intake_in_progress, client: client
+          create :tax_return, :intake_in_progress, year: 2018, client: client
+          create :tax_return, :intake_in_progress, year: 2019, client: client
         end
 
         it "is ok" do
@@ -61,9 +61,9 @@ RSpec.describe Portal::PortalController, type: :controller do
         let(:client) { create :client, intake: (create :intake) }
 
         before do
-          create :tax_return, year: 2018, status: :intake_in_progress, client: client
-          create :tax_return, year: 2019, status: :prep_ready_for_prep, client: client
-          create :tax_return, year: 2021, status: :intake_ready_for_call, client: client
+          create :tax_return, :intake_in_progress, year: 2018, client: client
+          create :tax_return, :prep_ready_for_prep, year: 2019, client: client
+          create :tax_return, :intake_ready_for_call, year: 2021, client: client
         end
 
         it "is ok" do

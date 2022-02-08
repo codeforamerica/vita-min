@@ -15,7 +15,7 @@ describe AfterTransitionTasksForRejectedReturnJob do
     it "updates the tax return status and sends a message" do
       AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
-      expect(submission.tax_return.reload.status).to eq("file_rejected")
+      expect(submission.tax_return.reload.state).to eq("file_rejected")
       expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
         client: submission.client.reload,
         message: AutomatedMessage::EfileRejected,
@@ -28,7 +28,7 @@ describe AfterTransitionTasksForRejectedReturnJob do
       it "updates the tax status and submission status" do
         AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
-        expect(submission.tax_return.reload.status).to eq("file_hold")
+        expect(submission.tax_return.reload.state).to eq("file_hold")
         expect(submission.current_state).to eq("waiting")
       end
     end
@@ -38,7 +38,7 @@ describe AfterTransitionTasksForRejectedReturnJob do
       it "updates the tax status and submission status" do
         AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
-        expect(submission.tax_return.reload.status).to eq("file_not_filing")
+        expect(submission.tax_return.reload.state).to eq("file_not_filing")
         expect(submission.current_state).to eq("cancelled")
       end
     end

@@ -13,6 +13,7 @@ class TaxReturnStateMachine
   state :prep_ready_for_prep
   state :prep_preparing
   state :prep_info_requested
+
   state :review_ready_for_qr
   state :review_reviewing
   state :review_ready_for_call
@@ -34,9 +35,52 @@ class TaxReturnStateMachine
     transition from: state, to: states
   end
 
+  STATES_BY_STAGE = begin
+                      stages = {}
+                      statuses = states.without("intake_before_consent")
+                      statuses.map do |status, _|
+                        stage = status.to_s.split("_")[0]
+                        stages[stage] = [] unless stages.key?(stage)
+                        stages[stage].push(status)
+                      end
+                      stages
+                    end.freeze
+
+  STAGES = STATES_BY_STAGE.keys.freeze
+  EXCLUDED_FROM_SLA = [:intake_before_consent, :file_accepted, :file_not_filing, :file_hold, :file_mailed].freeze
+  # If you change the statuses included in capacity, you must also update the organization capacities sql view (organization_capacities_vXX.sql)
+  EXCLUDED_FROM_CAPACITY = [:intake_before_consent, :intake_in_progress, :intake_greeter_info_requested, :intake_needs_doc_help, :file_mailed, :file_accepted, :file_not_filing, :file_hold, :file_fraud_hold].freeze
+  INCLUDED_IN_CAPACITY = (states - EXCLUDED_FROM_CAPACITY).freeze
+  FORWARD_TO_INTERCOM_STATES = [:file_accepted, :file_mailed, :file_not_filing]
+
   after_transition(after_commit: true) do |tax_return, transition|
     tax_return.status = transition.to_state # save the integer version, too, for now. (Backwards compatability for data science reports)
+    tax_return.state = transition.to_state
     tax_return.save!
+    MixpanelService.send_tax_return_event(tax_return, "status_change", { from_status: tax_return.previous_state })
+  end
+
+  after_transition(to: "file_accepted") do |tax_return, _|
+    tax_return.enqueue_experience_survey
+    MixpanelService.send_file_completed_event(tax_return, "filing_completed")
+  end
+
+  after_transition(to: "file_rejected") do |tax_return, _|
+    tax_return.enqueue_experience_survey
+    MixpanelService.send_file_completed_event(tax_return, "filing_rejected")
+  end
+
+  after_transition(to: "file_mailed") do |tax_return, _|
+    tax_return.enqueue_experience_survey
+    MixpanelService.send_tax_return_event(tax_return, "filing_filed", { filing_type: "mail" })
+  end
+
+  after_transition(to: "prep_ready_for_prep") do |tax_return, _|
+    MixpanelService.send_tax_return_event(tax_return, "ready_for_prep")
+  end
+
+  after_transition(to: "file_efiled") do |tax_return, _|
+    MixpanelService.send_tax_return_event(tax_return, "filing_filed", { filing_type: "efile" })
   end
 
   def advance_to(new_state)
@@ -53,5 +97,11 @@ class TaxReturnStateMachine
 
   def last_changed_by
     last_transition&.initiated_by_user
+  end
+
+  def self.available_states_for(role_type:)
+    return STATES_BY_STAGE.slice("intake").merge({ "file" => [:file_not_filing, :file_hold] }.freeze) if role_type == GreeterRole::TYPE
+
+    STATES_BY_STAGE
   end
 end

@@ -73,7 +73,7 @@ module Hub
         bulk_update = BulkTaxReturnUpdate.create!(
           tax_return_selection: @selection,
           assigned_user: @form.assigned_user,
-          status: status_action == BulkTaxReturnUpdate::KEEP ? nil : @form.status,
+          state: status_action == BulkTaxReturnUpdate::KEEP ? nil : @form.status,
           data: {
             assigned_user: assignment_action,
             status: status_action

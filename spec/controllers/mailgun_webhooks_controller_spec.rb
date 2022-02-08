@@ -118,7 +118,7 @@ RSpec.describe MailgunWebhooksController do
           allow(TransitionNotFilingService).to receive(:run)
         end
 
-        let(:tax_returns) { [(create :tax_return, status: "prep_preparing", year: 2021)] }
+        let(:tax_returns) { [(create :tax_return, :prep_preparing, year: 2021)] }
         let!(:client) do
           create :client,
                  intake: create(:intake, email_address: sender_email),
@@ -208,11 +208,10 @@ RSpec.describe MailgunWebhooksController do
         end
 
         context "has tax return status in file_accepted, file_mailed or file_not_filing" do
-          let!(:tax_returns) { [(create :tax_return, status: "file_not_filing", year: 2021), (create :tax_return, status: "file_accepted")] }
+          let!(:tax_returns) { [(create :tax_return, :file_not_filing, year: 2021), (create :tax_return, :file_accepted)] }
 
           before do
             AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
-
           end
 
           context "with a body" do

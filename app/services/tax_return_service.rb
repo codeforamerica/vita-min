@@ -1,14 +1,14 @@
 class TaxReturnService
-  def self.handle_status_change(form)
+  def self.handle_state_change(form)
     action_list = []
-    form.tax_return.transition_to!(form.status, initiated_by_user_id: form.current_user.id)
+    form.tax_return.transition_to!(form.state, initiated_by_user_id: form.current_user.id)
     action_list << I18n.t("hub.clients.update_take_action.flash_message.status")
     SystemNote::StatusChange.generate!(initiated_by: form.current_user, tax_return: form.tax_return)
     if form.message_body.present?
       args = { client: form.client, user: form.current_user, body: form.message_body, tax_return: form.tax_return, locale: form.locale }
       case form.contact_method
       when "email"
-        if form.status == "review_signature_requested"
+        if form.state == "review_signature_requested"
           ClientMessagingService.send_email_to_all_signers(**args)
         else
           ClientMessagingService.send_email(**args)

@@ -649,8 +649,8 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "with a stage filter" do
-          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: :intake_in_progress)], intake: (build :intake) }
-          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: :prep_ready_for_prep)], intake: (build :intake) }
+          let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :intake_in_progress)], intake: (build :intake) }
+          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, :prep_ready_for_prep)], intake: (build :intake) }
 
           it "includes clients with tax returns in that stage" do
             get :index, params: { status: "intake" }
@@ -1043,7 +1043,7 @@ RSpec.describe Hub::ClientsController do
           get :edit_take_action, params: params
 
           expect(assigns(:take_action_form)).to be_present
-          expect(assigns(:take_action_form).status).to be_nil
+          expect(assigns(:take_action_form).state).to be_nil
           expect(assigns(:take_action_form).tax_return_id).to be_nil
         end
       end
@@ -1054,7 +1054,7 @@ RSpec.describe Hub::ClientsController do
             id: client,
             tax_return: {
               id: tax_return_2019.id,
-              status: "intake_info_requested",
+              state: "intake_info_requested",
               locale: "es"
             },
           }
@@ -1066,7 +1066,7 @@ RSpec.describe Hub::ClientsController do
           get :edit_take_action, params: params
 
           expect(assigns(:take_action_form).tax_return_id).to eq tax_return_2019.id
-          expect(assigns(:take_action_form).status).to eq "intake_info_requested"
+          expect(assigns(:take_action_form).state).to eq "intake_info_requested"
           expect(assigns(:take_action_form).locale).to eq "es"
           expect(assigns(:take_action_form).message_body).not_to be_blank
           expect(assigns(:take_action_form).contact_method).to eq "email"
@@ -1114,7 +1114,7 @@ RSpec.describe Hub::ClientsController do
       }
     end
 
-    let(:tax_return_2019) { create :tax_return, status: "intake_in_progress", client: client, year: 2019 }
+    let(:tax_return_2019) { create :tax_return, :intake_in_progress, client: client, year: 2019 }
     let(:new_status_2019) { "intake_ready" }
     let(:locale) { "en" }
     let(:internal_note_body) { "" }
@@ -1129,10 +1129,10 @@ RSpec.describe Hub::ClientsController do
       before do
         sign_in user
         allow(Hub::TakeActionForm).to receive(:new).and_return(fake_form)
-        allow(TaxReturnService).to receive(:handle_status_change).and_return(action_list)
+        allow(TaxReturnService).to receive(:handle_state_change).and_return(action_list)
       end
 
-      let(:new_status_2019) { tax_return_2019.status }
+      let(:new_status_2019) { tax_return_2019.state }
 
       context "when there is an error" do
         before do
@@ -1167,7 +1167,7 @@ RSpec.describe Hub::ClientsController do
         it "handles the status change, adds a flashes message, and redirects to client show page" do
           post :update_take_action, params: params
 
-          expect(TaxReturnService).to have_received(:handle_status_change).with(fake_form)
+          expect(TaxReturnService).to have_received(:handle_state_change).with(fake_form)
           expect(flash[:notice]).to eq "Success: Action taken! Updated status, sent email, added internal note."
           expect(response).to redirect_to hub_client_path(id: client.id)
         end

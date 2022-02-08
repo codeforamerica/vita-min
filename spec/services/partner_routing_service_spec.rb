@@ -191,7 +191,7 @@ describe PartnerRoutingService do
               srt = create(:state_routing_target, target: vita_partner, state_abbreviation: "NC")
               create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.4, vita_partner: vita_partner)
               (vita_partner.capacity_limit + 1).times do
-                create :client_with_status, vita_partner: vita_partner, status: "intake_ready", intake: create(:intake)
+                create :client_with_tax_return_state, vita_partner: vita_partner, state: "intake_ready", intake: create(:intake)
               end
             }
 

@@ -9,7 +9,7 @@
         <div class="select">
           <select name="status" class="select__element" id="status-filter">
             <option value></option>
-            <% TaxReturnStatus.available_statuses_for(role_type: current_user.role_type).each do |stage, statuses| %>
+            <% TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).each do |stage, statuses| %>
               <option value="<%= stage %>" <%= @filters[:stage] == stage && "selected" %>><%= TaxReturnStatusHelper.stage_translation(stage) %></option>
               <% statuses.each do |status| %>
                 <option value="<%= status %>" <%= [status, status.to_s].include?(@filters[:status]) && "selected" %>>&emsp;<%= status_translation(status) %></option>

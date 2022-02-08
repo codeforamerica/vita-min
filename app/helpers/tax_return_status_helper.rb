@@ -1,6 +1,6 @@
 module TaxReturnStatusHelper
   def grouped_status_options_for_select
-    TaxReturnStatus.available_statuses_for(role_type: current_user.role_type).map do |stage, statuses|
+    TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).map do |stage, statuses|
       translated_stage = TaxReturnStatusHelper.stage_translation(stage)
       translated_statuses = statuses.map { |status| [TaxReturnStatusHelper.status_translation(status), status.to_s] }
       [translated_stage, translated_statuses]

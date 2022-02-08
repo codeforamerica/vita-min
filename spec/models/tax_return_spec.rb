@@ -17,6 +17,7 @@
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
 #  spouse_signed_ip    :inet
+#  state               :string
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
@@ -28,6 +29,7 @@
 #
 #  index_tax_returns_on_assigned_user_id    (assigned_user_id)
 #  index_tax_returns_on_client_id           (client_id)
+#  index_tax_returns_on_state               (state)
 #  index_tax_returns_on_year_and_client_id  (year,client_id) UNIQUE
 #
 # Foreign Keys
@@ -231,7 +233,7 @@ describe TaxReturn do
       end
 
       it "has a key for each tax_return status" do
-        described_class.statuses.each_key do |status|
+        TaxReturnStateMachine.states.each do |status|
           expect(I18n.t("hub.tax_returns.status.#{status}")).not_to include("translation missing")
         end
       end
@@ -1045,7 +1047,7 @@ describe TaxReturn do
   end
 
   describe ".grouped_statuses" do
-    let(:result) { TaxReturnStatus::STATUSES_BY_STAGE }
+    let(:result) { TaxReturnStateMachine::STATES_BY_STAGE }
 
     it "returns a hash with all stage keys" do
       expect(result).to have_key("intake")
@@ -1072,164 +1074,62 @@ describe TaxReturn do
     end
   end
 
-  describe "completion survey" do
-    let!(:tax_return) { create(:tax_return, is_ctc: false) }
+  describe "experience survey" do
 
-    context "when a TaxReturn status is changed to a non-final status" do
+    context "when a TaxReturn is ctc and drop off" do
+      let!(:tax_return) { create(:tax_return, is_ctc: true, service_type: "drop_off") }
+
       it "does not send the survey" do
         expect {
-          tax_return.update!(status: "file_ready_to_file")
+          tax_return.enqueue_experience_survey
         }.not_to have_enqueued_job(SendClientCompletionSurveyJob)
       end
     end
 
-    context "when a TaxReturn status is changed to a final status" do
-      context "and its a GYR intake" do
-        it "does send the survey a day later" do
-          t = Time.utc(2021, 2, 11, 10, 5, 0)
-          Timecop.freeze(t) do
-            expect {
-              tax_return.update!(status: "file_accepted")
-            }.to have_enqueued_job(SendClientCompletionSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
-          end
+    context "when a TaxReturn is ctc and online intake" do
+      let!(:tax_return) { create(:tax_return, is_ctc: true, service_type: "online_intake") }
+      it "enqueues a job for tomorrow" do
+        t = Time.utc(2021, 2, 11, 10, 5, 0)
+        Timecop.freeze(t) do
+          expect {
+            tax_return.enqueue_experience_survey
+          }.to have_enqueued_job(SendClientCtcExperienceSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
         end
       end
+    end
 
-      context "and its a CTC intake" do
-        let!(:tax_return) { create(:tax_return, is_ctc: true) }
-        it "does not send the survey" do
+    context "when a tax return is not ctc" do
+      let!(:tax_return) { create(:tax_return, is_ctc: false) }
+
+      it "sends the survey a day later" do
+        t = Time.utc(2021, 2, 11, 10, 5, 0)
+        Timecop.freeze(t) do
           expect {
-            tax_return.update!(status: "file_accepted")
-          }.not_to have_enqueued_job(SendClientCompletionSurveyJob)
+            tax_return.enqueue_experience_survey
+          }.to have_enqueued_job(SendClientCompletionSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
         end
       end
     end
   end
 
-  describe "ctc experience survey" do
-    let!(:tax_return) { create(:tax_return, is_ctc: false) }
+  describe "#ready_for_prep_at" do
+    let(:tax_return) { create :tax_return, status: "intake_ready" }
 
-    context "when a TaxReturn status is changed to a non-final status" do
-      it "does not send the survey" do
-        expect {
-          tax_return.update!(status: "file_ready_to_file")
-        }.not_to have_enqueued_job(SendClientCtcExperienceSurveyJob)
-      end
-    end
-
-    context "when a TaxReturn status is changed to a final status" do
-      context "and its a GYR intake" do
-        it "does not send the survey" do
-          expect {
-            tax_return.update!(status: "file_accepted")
-          }.not_to have_enqueued_job(SendClientCtcExperienceSurveyJob)
-        end
-      end
-
-      context "and its a CTC intake" do
-        let!(:tax_return) { create(:tax_return, is_ctc: true) }
-
-        it "does send the survey a day later" do
-          t = Time.utc(2021, 2, 11, 10, 5, 0)
-          Timecop.freeze(t) do
-            expect {
-              tax_return.update!(status: "file_accepted")
-            }.to have_enqueued_job(SendClientCtcExperienceSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
-          end
-        end
-      end
-    end
-  end
-
-  context "after_update" do
-    let(:fake_tracker) { double('mixpanel tracker') }
-    let(:client) { create(:intake).client }
-    let(:tax_return) { create(:tax_return, status: "intake_ready", client: client) }
-
-    context "when status changes" do
-      it "sends a status_change Mixpanel event" do
-        allow(MixpanelService).to receive(:send_status_change_event)
-
-        tax_return.update(status: "prep_info_requested")
-
-        expect(MixpanelService).to have_received(:send_status_change_event).with(tax_return)
-      end
-
-      context "when the status is changed to file_rejected" do
-        it "sends a filing_rejected Mixpanel event" do
-          allow(MixpanelService).to receive(:send_file_rejected_event)
-
-          tax_return.update(status: "file_rejected")
-
-          expect(MixpanelService).to have_received(:send_file_rejected_event).with(tax_return)
-        end
-      end
-
-      context "when the status is changed to file_accepted" do
-        it "sends a filing_completed Mixpanel event" do
-          allow(MixpanelService).to receive(:send_file_accepted_event)
-
-          tax_return.update(status: "file_accepted")
-
-          expect(MixpanelService).to have_received(:send_file_accepted_event).with(tax_return)
-        end
-      end
-
-      context "when the status is changed to prep_ready_for_prep" do
-        it "sends a ready_for_prep Mixpanel event" do
-          allow(MixpanelService).to receive(:send_tax_return_event)
-
-          tax_return.update(status: "prep_ready_for_prep")
-
-          expect(MixpanelService).to have_received(:send_tax_return_event).with(tax_return, "ready_for_prep")
-        end
-      end
-
-      context "when the status is changed to file_efiled" do
-        it "sends a filing_filed Mixpanel event" do
-          allow(MixpanelService).to receive(:send_tax_return_event)
-
-          tax_return.update(status: "file_efiled")
-
-          expect(MixpanelService).to have_received(:send_tax_return_event).with(tax_return, "filing_filed")
-        end
-      end
-    end
-
-    context "when status did not change" do
-      let(:tax_return) { create(:tax_return, is_hsa: false) }
+    context "when there is a tax return transition to read for prep" do
+      let(:current_timestamp) { DateTime.new }
       before do
-        tax_return.update(is_hsa: true)
-        allow(MixpanelService).to receive(:send_status_change_event)
+        allow_any_instance_of(TaxReturnTransition).to receive(:created_at).and_return(current_timestamp)
+        tax_return.transition_to("prep_ready_for_prep")
+
       end
-
-      it "sends no event to Mixpanel" do
-        expect(MixpanelService).not_to have_received(:send_status_change_event)
-      end
-    end
-  end
-
-  context "before_save" do
-    context "when the status changes to prep_ready_for_prep" do
-      it "sets the ready_for_prep_at" do
-        current_timestamp = DateTime.new
-        expect(DateTime).to receive(:current).and_return(current_timestamp)
-
-        tax_return = create :tax_return, { status: "intake_ready" }
-
-        expect {
-          tax_return.update(status: "prep_ready_for_prep")
-        }.to change{ tax_return.reload.ready_for_prep_at }.from(nil).to(current_timestamp)
+      it "returns the created at of the tax return transition" do
+        expect(tax_return.ready_for_prep_at).to eq current_timestamp
       end
     end
 
-    context "when tax return status is currently prep_ready_for_prep, and something other than the status is changed" do
-      it "does not update ready_for_prep_at" do
-        tax_return = create :tax_return, { status: "prep_ready_for_prep" }
-
-        expect {
-          tax_return.update(certification_level: "advanced")
-        }.not_to change{ tax_return.reload.ready_for_prep_at }
+    context "when there is no transition to ready for prep" do
+      it "returns nil" do
+        expect(tax_return.ready_for_prep_at).to eq nil
       end
     end
   end

@@ -40,7 +40,7 @@
         <% if status_updatable %>
           <%= form_with model: tax_return, url: edit_take_action_hub_client_path(id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "tax-return-list__status-form form-wrapper"} do |f| %>
             <%= f.hidden_field "id", value: tax_return.id %>
-            <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select, hide_label: true) %>
+            <%= f.cfa_select(:state, t("general.status"), grouped_status_options_for_select, hide_label: true) %>
             <%= f.submit t("general.update"), class: "button"%>
           <% end %>
         <% else %>

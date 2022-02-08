@@ -13,7 +13,7 @@ module Portal
 
       if current_client.update(update_params)
         if current_client.still_needs_help_yes?
-          current_client.tax_returns.where(status: "file_not_filing").each { |tax_return| tax_return.update!(status: "file_hold") }
+          current_client.tax_returns.where(state: "file_not_filing").each { |tax_return| tax_return.transition_to(:file_hold) }
           InteractionTrackingService.record_incoming_interaction(current_client)
           redirect_to portal_still_needs_help_upload_documents_path
         elsif current_client.still_needs_help_no?

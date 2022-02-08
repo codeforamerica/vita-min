@@ -5,7 +5,7 @@ RSpec.describe "Filtering clients for bulk actions", active_job: true do
   let(:selected_org) { create :organization, name: "Orange Organization" }
   let(:unselected_org) { create :organization, name: "Rooster Brew" }
   let!(:all_selected_clients) { create_list :client_with_intake_and_return, 30, vita_partner: selected_org }
-  let!(:unselected_client) { create :client_with_intake_and_return, status: "intake_reviewing", vita_partner: unselected_org }
+  let!(:unselected_client) { create :client_with_intake_and_return, state: "intake_reviewing", vita_partner: unselected_org }
 
   before do
     create :tax_return, client: Client.where(vita_partner: selected_org).first, year: 2019

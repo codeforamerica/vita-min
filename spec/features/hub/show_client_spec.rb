@@ -82,8 +82,8 @@ RSpec.describe "a user viewing a client" do
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
     let(:first_org) { create :organization, coalition: coalition }
     let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info, email_address: "fizzy_pop@example.com") }
-    let!(:intake_with_duplicate_email) { create :intake, email_address: "fizzy_pop@example.com", client: create(:client_with_status, vita_partner: first_org, status: "intake_ready") }
-    let!(:ctc_intake_with_duplicate_email) { create :ctc_intake, email_address: "fizzy_pop@example.com", client: create(:client_with_status, vita_partner: first_org, status: "intake_ready") }
+    let!(:intake_with_duplicate_email) { create :intake, email_address: "fizzy_pop@example.com", client: create(:client_with_tax_return_state, vita_partner: first_org, state: "intake_ready") }
+    let!(:ctc_intake_with_duplicate_email) { create :ctc_intake, email_address: "fizzy_pop@example.com", client: create(:client_with_tax_return_state, vita_partner: first_org, state: "intake_ready") }
     let!(:second_org) { create :organization, coalition: coalition }
     before { login_as user }
 

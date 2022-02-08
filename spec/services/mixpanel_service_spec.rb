@@ -213,7 +213,7 @@ describe MixpanelService do
       end
     end
 
-    describe "#send_status_change_event" do
+    describe "#send_tax_return_event (status-change)" do
       let(:coalition) { create :coalition }
       let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
       let(:site) { create :site, name: "Child Site", parent_organization: organization }
@@ -225,7 +225,7 @@ describe MixpanelService do
 
 
         it "sends a status_change event" do
-          MixpanelService.send_status_change_event(tax_return)
+          MixpanelService.send_tax_return_event(tax_return, "status_change", { from_status: "intake_before_consent"})
 
           expect(fake_tracker).to have_received(:track).with(
             "fake_visitor_id",
@@ -254,153 +254,157 @@ describe MixpanelService do
       end
     end
 
-    describe "#send_file_rejected_event" do
-      let(:coalition) { create :coalition }
-      let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
-      let(:site) { create :site, name: "Child Site", parent_organization: organization }
-      let(:client) { create :client, intake: (create :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
-      let(:user) { create :team_member_user, site: site }
+    describe "#send_file_completed_event" do
+      context "event_name: filing_rejected" do
+        let(:coalition) { create :coalition }
+        let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
+        let(:site) { create :site, name: "Child Site", parent_organization: organization }
+        let(:client) { create :client, intake: (create :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
+        let(:user) { create :team_member_user, site: site }
 
-      context "when the event is triggered by a user" do
-        let(:tax_return) { create :tax_return, :intake_in_progress, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
+        context "when the event is triggered by a user" do
+          let(:tax_return) { create :tax_return, :prep_ready_for_prep, metadata: { initiated_by_user_id: user.id }, certification_level: "basic", client: client }
 
-        before do
-          tax_return.update_column(:ready_for_prep_at, 28.hours.ago)
-          tax_return.update_column(:created_at, 2.days.ago)
+          before do
+            TaxReturnTransition.where(to_state: "prep_ready_for_prep", tax_return: tax_return).update(created_at: 28.hours.ago)
+            tax_return.update_column(:created_at, 2.days.ago)
+          end
+
+          it "sends a file_rejected event" do
+            MixpanelService.send_file_completed_event(tax_return, "filing_rejected")
+
+            expect(fake_tracker).to have_received(:track).with(
+                "fake_visitor_id",
+                "filing_rejected",
+                {
+                    year: tax_return.year.to_s,
+                    certification_level: tax_return.certification_level,
+                    is_ctc: false,
+                    service_type: tax_return.service_type,
+                    status: tax_return.current_state,
+                    client_organization_name: "Parent Org",
+                    client_organization_id: client.vita_partner.parent_organization.id,
+                    client_site_name: "Child Site",
+                    client_site_id: client.vita_partner.id,
+                    user_id: user.id,
+                    user_site_name: site.name,
+                    user_site_id: site.id,
+                    user_organization_name: organization.name,
+                    user_organization_id: organization.id,
+                    user_coalition_name: coalition.name,
+                    user_coalition_id: coalition.id,
+                    days_since_ready_for_prep: 1,
+                    hours_since_ready_for_prep: 28,
+                    days_since_tax_return_created: 2,
+                    hours_since_tax_return_created: 48
+                }
+            )
+          end
         end
 
-        it "sends a file_rejected event" do
-          MixpanelService.send_file_rejected_event(tax_return)
+        context "when the event is triggered by the system" do
+          let(:tax_return) { create :tax_return, certification_level: "basic", client: client }
 
-          expect(fake_tracker).to have_received(:track).with(
-            "fake_visitor_id",
-            "filing_rejected",
-            {
-              year: tax_return.year.to_s,
-              certification_level: tax_return.certification_level,
-              is_ctc: false,
-              service_type: tax_return.service_type,
-              status: tax_return.status,
-              client_organization_name: "Parent Org",
-              client_organization_id: client.vita_partner.parent_organization.id,
-              client_site_name: "Child Site",
-              client_site_id: client.vita_partner.id,
-              user_id: user.id,
-              user_site_name: site.name,
-              user_site_id: site.id,
-              user_organization_name: organization.name,
-              user_organization_id: organization.id,
-              user_coalition_name: coalition.name,
-              user_coalition_id: coalition.id,
-              days_since_ready_for_prep: 1,
-              hours_since_ready_for_prep: 28,
-              days_since_tax_return_created: 2,
-              hours_since_tax_return_created: 48
-            }
-          )
+          before do
+            tax_return.transition_to(:prep_ready_for_prep)
+            TaxReturnTransition.where(to_state: "prep_ready_for_prep", tax_return_id: tax_return.id).update(created_at: 28.hours.ago)
+            tax_return.update_column(:created_at, 2.days.ago)
+          end
+
+          it "handles the lack of a last_changed_by user" do
+            MixpanelService.send_file_completed_event(tax_return, "filing_rejected")
+
+            expect(fake_tracker).to have_received(:track).with(
+                "fake_visitor_id",
+                "filing_rejected",
+                hash_excluding(
+                    {
+                        user_id: user.id,
+                        user_site_name: site.name,
+                        user_site_id: site.id,
+                        user_organization_name: organization.name,
+                        user_organization_id: organization.id,
+                        user_coalition_name: coalition.name,
+                        user_coalition_id: coalition.id,
+                    }
+                )
+            )
+          end
+        end
+
+        context "when ready_for_prep_at has not been set" do
+          let(:tax_return) { create :tax_return, certification_level: "basic", client: client }
+
+          before do
+            tax_return.update_column(:created_at, 2.days.ago)
+          end
+
+          it "set days_since_ready_for_prep and hours_since_ready_for_prep to nil" do
+            MixpanelService.send_file_completed_event(tax_return, "filing_rejected")
+
+            expect(fake_tracker).to have_received(:track).with(
+                "fake_visitor_id",
+                "filing_rejected",
+                hash_including(
+                    {
+                        days_since_ready_for_prep: "N/A",
+                        hours_since_ready_for_prep: "N/A",
+                    }
+                )
+            )
+          end
         end
       end
 
-      context "when the event is triggered by the system" do
-        let(:tax_return) { create :tax_return, certification_level: "basic", client: client }
+      describe "event_name: filing_completed" do
+        let(:coalition) { create :coalition }
+        let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
+        let(:site) { create :site, name: "Child Site", parent_organization: organization }
+        let(:client) { create :client, intake: (create :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
+        let(:user) { create :team_member_user, site: site }
 
-        before do
-          tax_return.update_column(:ready_for_prep_at, 28.hours.ago)
-          tax_return.update_column(:created_at, 2.days.ago)
-        end
+        context "when the event is triggered by a user" do
+          let(:tax_return) { create :tax_return, :prep_ready_for_prep, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
 
-        it "handles the lack of a last_changed_by user" do
-          MixpanelService.send_file_rejected_event(tax_return)
+          before do
+            TaxReturnTransition.where(to_state: "prep_ready_for_prep", tax_return_id: tax_return.id).update(created_at: 28.hours.ago)
+            tax_return.update_column(:created_at, 2.days.ago)
+          end
 
-          expect(fake_tracker).to have_received(:track).with(
-            "fake_visitor_id",
-            "filing_rejected",
-            hash_excluding(
-              {
-                user_id: user.id,
-                user_site_name: site.name,
-                user_site_id: site.id,
-                user_organization_name: organization.name,
-                user_organization_id: organization.id,
-                user_coalition_name: coalition.name,
-                user_coalition_id: coalition.id,
-              }
+          it "sends a filing_completed event" do
+            MixpanelService.send_file_completed_event(tax_return, "filing_completed")
+
+            expect(fake_tracker).to have_received(:track).with(
+                "fake_visitor_id",
+                "filing_completed",
+                {
+                    year: tax_return.year.to_s,
+                    certification_level: tax_return.certification_level,
+                    is_ctc: false,
+                    service_type: tax_return.service_type,
+                    status: tax_return.current_state,
+                    client_organization_name: "Parent Org",
+                    client_organization_id: client.vita_partner.parent_organization.id,
+                    client_site_name: "Child Site",
+                    client_site_id: client.vita_partner.id,
+                    user_id: user.id,
+                    user_site_name: site.name,
+                    user_site_id: site.id,
+                    user_organization_name: organization.name,
+                    user_organization_id: organization.id,
+                    user_coalition_name: coalition.name,
+                    user_coalition_id: coalition.id,
+                    days_since_ready_for_prep: 1,
+                    hours_since_ready_for_prep: 28,
+                    days_since_tax_return_created: 2,
+                    hours_since_tax_return_created: 48
+                }
             )
-          )
-        end
-      end
-
-      context "when ready_for_prep_at has not been set" do
-        let(:tax_return) { create :tax_return, certification_level: "basic", client: client }
-
-        before do
-          tax_return.update_column(:created_at, 2.days.ago)
-        end
-
-        it "set days_since_ready_for_prep and hours_since_ready_for_prep to nil" do
-          MixpanelService.send_file_rejected_event(tax_return)
-
-          expect(fake_tracker).to have_received(:track).with(
-            "fake_visitor_id",
-            "filing_rejected",
-            hash_including(
-              {
-                days_since_ready_for_prep: "N/A",
-                hours_since_ready_for_prep: "N/A",
-              }
-            )
-          )
+          end
         end
       end
     end
 
-    describe "#send_file_accepted_event" do
-      let(:coalition) { create :coalition }
-      let(:organization) { create :organization, name: "Parent Org", coalition: coalition }
-      let(:site) { create :site, name: "Child Site", parent_organization: organization }
-      let(:client) { create :client, intake: (create :intake, visitor_id: "fake_visitor_id"), vita_partner: site }
-      let(:user) { create :team_member_user, site: site }
-
-      context "when the event is triggered by a user" do
-        let(:tax_return) { create :tax_return, :intake_in_progress, certification_level: "basic", client: client, metadata: { initiated_by_user_id: user.id } }
-
-        before do
-          tax_return.update_column(:ready_for_prep_at, 28.hours.ago)
-          tax_return.update_column(:created_at, 2.days.ago)
-        end
-
-        it "sends a filing_completed event" do
-          MixpanelService.send_file_accepted_event(tax_return)
-
-          expect(fake_tracker).to have_received(:track).with(
-            "fake_visitor_id",
-            "filing_completed",
-            {
-              year: tax_return.year.to_s,
-              certification_level: tax_return.certification_level,
-              is_ctc: false,
-              service_type: tax_return.service_type,
-              status: tax_return.status,
-              client_organization_name: "Parent Org",
-              client_organization_id: client.vita_partner.parent_organization.id,
-              client_site_name: "Child Site",
-              client_site_id: client.vita_partner.id,
-              user_id: user.id,
-              user_site_name: site.name,
-              user_site_id: site.id,
-              user_organization_name: organization.name,
-              user_organization_id: organization.id,
-              user_coalition_name: coalition.name,
-              user_coalition_id: coalition.id,
-              days_since_ready_for_prep: 1,
-              hours_since_ready_for_prep: 28,
-              days_since_tax_return_created: 2,
-              hours_since_tax_return_created: 48
-            }
-          )
-        end
-      end
-    end
 
     describe '#data_from(obj)' do
       let(:state_of_residence) { 'CA' }

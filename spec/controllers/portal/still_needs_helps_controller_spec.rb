@@ -36,12 +36,12 @@ describe Portal::StillNeedsHelpsController do
     context "with an authenticated client" do
       before do
         allow(InteractionTrackingService).to receive(:record_incoming_interaction)
-        allow(MixpanelService).to receive(:send_status_change_event)
+        allow(MixpanelService).to receive(:send_tax_return_event)
       end
 
       context "when the client has triggered still needs help" do
-        let(:tax_return_in_progress) { build(:tax_return, status: :intake_in_progress, year: 2018) }
-        let(:tax_return_not_filing) { build(:tax_return, status: :file_not_filing, year: 2019) }
+        let(:tax_return_in_progress) { build(:tax_return, :intake_in_progress, year: 2018) }
+        let(:tax_return_not_filing) { build(:tax_return, :file_not_filing, year: 2019) }
         let(:client) { create :client, tax_returns: [tax_return_in_progress, tax_return_not_filing], triggered_still_needs_help_at: Time.now, intake: build(:intake) }
         let(:fake_time) { DateTime.new(2021, 1, 1) }
         before { sign_in client }
@@ -55,9 +55,9 @@ describe Portal::StillNeedsHelpsController do
             expect(client.still_needs_help_yes?).to eq true
 
             # updates tax return statuses
-            expect(tax_return_in_progress.reload.status).to eq "intake_in_progress"
-            expect(tax_return_not_filing.reload.status).to eq "file_hold"
-            expect(MixpanelService).to have_received(:send_status_change_event).with(tax_return_not_filing)
+            expect(tax_return_in_progress.reload.state).to eq "intake_in_progress"
+            expect(tax_return_not_filing.reload.state).to eq "file_hold"
+            expect(MixpanelService).to have_received(:send_tax_return_event).with(tax_return_not_filing, 'status_change', { from_status: "intake_before_consent" })
 
             # tracks interaction
             expect(InteractionTrackingService).to have_received(:record_incoming_interaction).with(client)
@@ -78,7 +78,7 @@ describe Portal::StillNeedsHelpsController do
             expect(client.still_needs_help_no?).to eq true
 
             # does not update tax return statuses
-            expect(client.reload.tax_returns.pluck(:status)).to match_array %w[file_not_filing intake_in_progress]
+            expect(client.reload.tax_returns.pluck(:state)).to match_array %w[file_not_filing intake_in_progress]
 
             # tracks interaction and creates internal note
             expect(InteractionTrackingService).to have_received(:record_incoming_interaction).with(client)

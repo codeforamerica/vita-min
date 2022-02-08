@@ -87,7 +87,7 @@ module Hub
         @client,
         current_user,
         tax_return_id: params.dig(:tax_return, :id)&.to_i,
-        status: params.dig(:tax_return, :status),
+        state: params.dig(:tax_return, :state),
         locale: params.dig(:tax_return, :locale)
       )
     end
@@ -101,7 +101,7 @@ module Hub
 
       @take_action_form = Hub::TakeActionForm.new(@client, current_user, take_action_form_params)
       if @take_action_form.valid?
-        action_list = TaxReturnService.handle_status_change(@take_action_form)
+        action_list = TaxReturnService.handle_state_change(@take_action_form)
         flash[:notice] = I18n.t("hub.clients.update_take_action.flash_message.success", action_list: action_list.join(", ").capitalize)
         redirect_to hub_client_path(id: @client)
       else

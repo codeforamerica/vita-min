@@ -10,17 +10,19 @@
 require 'rails_helper'
 
 describe OrganizationCapacity do
+  let(:in_range_states) { TaxReturnStateMachine.states.map(&:to_sym) - TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY }
+
   # Ensures that the query for statuses in the view code matches our implementation of clients
   # included in capacity in TaxReturnStatus code.
   describe 'active_client_count' do
-    TaxReturnStatus::STATUSES.each do |status|
-      context "for #{status} status" do
+    TaxReturnStateMachine.states.map(&:to_sym).each do |state|
+      context "for #{state} tax return state" do
         let(:organization) { create :organization }
         before do
-          create :client_with_status, status: status[0], vita_partner: organization, intake: create(:intake)
+          create :client_with_tax_return_state, state: state, vita_partner: organization,intake: create(:intake)
         end
 
-        if TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY.include?(status[0])
+        unless TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY.include?(state)
           it "includes client in client count" do
             expect(described_class.find(organization.id).active_client_count).to eq 1
           end
@@ -35,7 +37,7 @@ describe OrganizationCapacity do
     context "when intake associated with client is archived" do
       let(:organization) { create :organization }
       before do
-        client = create :client_with_status, status: :prep_ready_for_prep, vita_partner: organization
+        client = create :client_with_tax_return_state, state: :prep_ready_for_prep, vita_partner: organization
         create :archived_2021_gyr_intake, client: client
       end
 
@@ -48,7 +50,7 @@ describe OrganizationCapacity do
       let(:organization) { create :organization }
       let(:intake) { create :intake }
       before do
-        create :client_with_status, status: :prep_ready_for_prep, vita_partner: organization, intake: intake
+        create :client_with_tax_return_state, state: :prep_ready_for_prep, vita_partner: organization, intake: intake
       end
 
       it "does include the client in the client count" do
@@ -68,7 +70,7 @@ describe OrganizationCapacity do
     context "with an organization whose active clients equal capacity" do
       let(:organization) { create :organization, capacity_limit: 1 }
       before do
-        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization, intake: create(:intake)
+        create :client_with_tax_return_state, state: in_range_states[0], vita_partner: organization, intake: create(:intake)
       end
 
       it "does not have capacity" do
@@ -87,7 +89,7 @@ describe OrganizationCapacity do
     context "with an organization whose active clients are below its capacity" do
       let!(:organization) { create :organization, capacity_limit: 2 }
       before do
-        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization
+        create :client_with_tax_return_state, state: in_range_states[0], vita_partner: organization
       end
 
       it "has capacity" do
@@ -98,7 +100,7 @@ describe OrganizationCapacity do
     context "with an organization whose active clients are above its capacity" do
       let(:organization) { create :organization, capacity_limit: 0 }
       before do
-        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization
+        create :client_with_tax_return_state, state: in_range_states[0], vita_partner: organization
       end
 
       it "does not have capacity" do
@@ -109,7 +111,7 @@ describe OrganizationCapacity do
     context "with an organization whose capacity_limit is nil" do
       let(:organization) { create :organization, capacity_limit: nil }
       before do
-        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization
+        create :client_with_tax_return_state, state: in_range_states[0], vita_partner: organization
       end
 
       it "has capacity" do
