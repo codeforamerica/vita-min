@@ -227,18 +227,21 @@ describe Intake::CtcIntake do
         expect(described_class.accessible_intakes).not_to include intake
       end
     end
+
     context "when sms verification has occured" do
       let!(:intake) { create :ctc_intake, sms_phone_number_verified_at: DateTime.now }
       it "is accessible" do
         expect(described_class.accessible_intakes).to include intake
       end
     end
+
     context "when sms verification has occurred" do
       let!(:intake) { create :ctc_intake, email_address_verified_at: DateTime.now }
       it "is accessible" do
         expect(described_class.accessible_intakes).to include intake
       end
     end
+    
     context "when navigator verification has occurred" do
       let!(:intake) { create :ctc_intake, navigator_has_verified_client_identity: true }
       it "is accessible" do
@@ -285,7 +288,6 @@ describe Intake::CtcIntake do
       end
     end
   end
->>>>>>> Add tests for duplicate functionality
   describe "#any_ip_pins?" do
     context "when any member of household has an IP PIN" do
       let(:intake) { create :ctc_intake, dependents: [ create(:dependent, ssn: '111-22-3333', ip_pin: 123456) ] }
