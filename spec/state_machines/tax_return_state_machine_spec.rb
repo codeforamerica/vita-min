@@ -76,12 +76,16 @@ describe TaxReturnStateMachine do
 
   context "transitions" do
     let(:tax_return) { create(:tax_return) }
-
     context "to file_accepted" do
       before do
         allow_any_instance_of(TaxReturn).to receive(:enqueue_experience_survey)
         allow(MixpanelService).to receive(:send_file_completed_event)
+      end
 
+      it "sets state and status as well" do
+        tax_return.transition_to(:file_accepted)
+        expect(tax_return.read_attribute(:state)).to eq "file_accepted"
+        expect(tax_return.read_attribute(:status)).to eq "file_accepted"
       end
 
       it "enqueues the experience survey" do
