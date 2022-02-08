@@ -486,28 +486,28 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
     end
-    click_on "Submit a photo"
+    click_on I18n.t('views.documents.selfie_instructions.submit_photo')
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Share a photo of yourself holding your ID card")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
       upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     end
     click_on "Continue"
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
       upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     end
     click_on "Continue"
 
     screenshot_after do
       # Documents: Intro
-      expect(page).to have_selector("h1", text: "Now, let's collect your tax documents!")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.intro.title'))
     end
     click_on "Continue"
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: "Attach your 1095-A's")
+      expect(page).to have_selector("h1", text: I18n.t('views.documents.form1095as.title'))
       upload_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
     end
     click_on "Continue"

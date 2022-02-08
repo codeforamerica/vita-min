@@ -73,7 +73,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
     it "redirects to next path and flashes an notice" do
       post :send_reminder, params: params
       expect(response).to redirect_to("/en/documents/selfies")
-      expect(flash.now[:notice]).to eq "Great! We just sent you a reminder link."
+      expect(flash.now[:notice]).to eq I18n.t('documents.reminder_link.notice')
     end
   end
 
@@ -100,7 +100,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
             it "flashes a notice and redirects to next path" do
               post :request_doc_help, params: params
               expect(response).to redirect_to("/en/documents/selfies")
-              expect(flash.now[:notice]).to eq "Thank you! We updated your tax specialist."
+              expect(flash.now[:notice]).to eq I18n.t('documents.updated_specialist.notice')
             end
 
             it "calls client request_doc_help" do
