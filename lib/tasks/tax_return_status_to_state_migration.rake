@@ -8,23 +8,27 @@ namespace :tax_return_state do
   end
   
   task tax_return_2021_migrate: [:environment] do
-    TaxReturn.where(state: nil, year: 2021).find_each do |tax_return|
-      tax_return.update(state: tax_return.status)
-      prints "."
+    TaxReturnStateMachine.states.each do |state|
+      puts "#{state}: #{TaxReturn.where(state: nil, year: 2021, status: state).count} records"
+      TaxReturn.where(state: nil, year: 2021, status: state).in_batches do |batch|
+        batch.update_all(state: state)
+      end
     end
   end
 
   task tax_return_migrate: [:environment] do
-    TaxReturn.where(state: nil).where.not(status: "intake_before_consent").find_each do |tax_return|
-      tax_return.update(state: tax_return.status)
-      print "."
+    TaxReturnStateMachine.states.without("intake_before_consent").each do |state|
+      puts "#{state}: #{TaxReturn.where(state: nil).where(status: state).count} records"
+      TaxReturn.where(state: nil).where(status: state).in_batches do |batch|
+        batch.update_all(state: state)
+      end
     end
   end
 
   task tax_return_low_priority_migrate: [:environment] do
-    TaxReturn.where(state: nil).where(status: "intake_before_consent").find_each do |tax_return|
-      tax_return.update(state: tax_return.status)
-      print "."
+    puts "#{state}: #{TaxReturn.where(state: nil, status: "intake_before_consent")} records"
+    TaxReturn.where(state: nil, status: "intake_before_consent").in_batches do |batch|
+      batch.update_all(state: "intake_before_consent")
     end
   end
 end
