@@ -1,4 +1,4 @@
-***Need help claiming your tax benefits?*** To get help claiming the Child Tax Credit, stimulus payments, Earned Income Tax Credit, and other credits, go to **[GetYourRefund.org](https://www.getyourrefund.org/en)** and click "Get Started." If you need assistance, click "Chat with us."*
+***Need help claiming your tax benefits?*** *To get help claiming the Child Tax Credit, stimulus payments, Earned Income Tax Credit, and other credits, go to [**GetYourRefund.org**](https://www.getyourrefund.org/en) and click "Get Started." If you need assistance, click "Chat with us."*
 
 Each year millions of families are eligible for thousands of dollars in tax benefits like the Child Tax Credit and Earned Income Tax Credit, but don’t receive them because they haven’t filed a tax return. This year, more families than ever qualify for these expanded tax benefits. You can help these families by becoming a community Navigator.
 
@@ -13,7 +13,7 @@ There are a number of ways you can assist families in accessing their benefits. 
 
 ## Resources to get you started
 
-- This year all tax filing services are available at GetYourRefund.org. Full details on the services available at GetYourRefund and information on how outreach partners can get involved are available in our **[2022 Outreach Partnership guide](https://docs.google.com/document/d/1CscoC5uPx3EoN_vlkG-H2PF1oGwbL0zZu0t3jkNQyDs/edit).** Included in the guide is an overview of the 2022 GetYourRefund service options.
+- This year all tax filing services are available at GetYourRefund.org. Full details on the services available at GetYourRefund and information on how outreach partners can get involved are available in our **[2022 Outreach Partnership guide](https://codeforamerica.org/getyourrefund-outreach).** Included in the guide is an overview of the 2022 GetYourRefund service options.
 - **[Watch this recorded Navigator training](https://drive.google.com/file/d/169-ziuNn6H6E14DoqDD5NN8-xVw1dJjq/view?usp=sharing)** to learn more about available tax credits, the services available at GetYourRefund.org, and how your organization can help families access their benefits.
 - **[Complete this form](https://airtable.com/shrHvPtoDS8VzSOXN) to sign up for updates and request a unique URL**. To help you track the number of clients served, we can provide a unique URL that will record the number of people you refer to GetYourRefund, and the estimated number of tax returns filed using your URL.
 - Help build awareness and trust in tax benefits and GetYourRefund by utilizing [**this EITC and CTC outreach toolkit**](https://thesocialpresskit.com/ctcoutreach).
@@ -42,17 +42,18 @@ The following is an update on Code for America’s plans for the 2022 filing sea
     - Upon launch, simplified filing will allow households without a tax filing obligation to claim 2021 Child Tax Credit (CTC) and EIP3 payments.
     - Although the regulations authorizing simplified filing mention the Earned Income Tax Credit (EITC), the process outlined to claim EITC is not simple; it requires filers to report their income and provide a W-2. Simplified filers using our service will *not* be able to claim EITC when simplified filing launches. We will research the possibility of adding EITC functionality later in the year.
     - At present, the simplified filing rules do *not* accommodate Puerto Rican residents who are seeking to claim CTC. The IRS and Treasury are currently working on this issue, and we hope to have an update soon.
-- Code for America encourages other organizations and government agencies to assist with outreach efforts to promote tax filing tools.
-    - We encourage partners who are focused on reaching traditional non-filers with no (or nearly no) earned income to wait until simplified filing is available to launch significant outreach efforts. While we do our best to provide streamlined service to GetYourRefund clients, filing a full return will likely be a significant barrier for these families, and they may have more luck waiting for the simplified tool.
-    - Full details on the services available at [GetYourRefund.org](http://getyourrefund.org/) — and information on how outreach partners can get involved — are available **[here](https://codeforamerica.org/getyourrefund-outreach)**.
-    - Additional research on best practices in tax benefits outreach — based on our experience offering simplified filing in 2021 — is available [**here**](https://codeforamerica.org/wp-content/uploads/2022/01/lessons-from-simplified-filing-in-2021-getctc-report-january-2022.pdf). Note that this research is based on simplified filing, not filing full tax returns.
-    - For reference, during this tax season, Code for America will be prioritizing the following outreach strategies:
-        - Following up with last year’s GetYourRefund and GetCTC clients, including testing to see when GetCTC clients are successful making it through a full return.
-        - Running Google search ads, beginning when simplified filing is available.
-        - Encouraging state and local benefits agencies to send outreach messages to their beneficiaries.
 
-    Outreach partners should get in touch with questions, comments, or ideas for collaboration at [**Navigators@getyourrefund.org**](mailto:Navigators@getyourrefund.org)
+Code for America encourages other organizations and government agencies to assist with outreach efforts to promote tax filing tools.
 
+- We encourage partners who are focused on reaching traditional non-filers with no (or nearly no) earned income to wait until simplified filing is available to launch significant outreach efforts. While we do our best to provide streamlined service to GetYourRefund clients, filing a full return will likely be a significant barrier for these families, and they may have more luck waiting for the simplified tool.
+- Full details on the services available at [GetYourRefund.org](http://getyourrefund.org/) — and information on how outreach partners can get involved — are available **[here](https://codeforamerica.org/getyourrefund-outreach)**.
+- Additional research on best practices in tax benefits outreach — based on our experience offering simplified filing in 2021 — is available [**here**](https://codeforamerica.org/wp-content/uploads/2022/01/lessons-from-simplified-filing-in-2021-getctc-report-january-2022.pdf). Note that this research is based on simplified filing, not filing full tax returns.
+- For reference, during this tax season, Code for America will be prioritizing the following outreach strategies:
+    - Following up with last year’s GetYourRefund and GetCTC clients, including testing to see when GetCTC clients are successful making it through a full return.
+    - Running Google search ads, beginning when simplified filing is available.
+    - Encouraging state and local benefits agencies to send outreach messages to their beneficiaries.
+
+Outreach partners should get in touch with questions, comments, or ideas for collaboration at [**Navigators@getyourrefund.org**](mailto:Navigators@getyourrefund.org)
 
 ## Coming Soon!
 
@@ -69,4 +70,4 @@ Make sure you’ve completed our [partner form](https://airtable.com/shrHvPtoDS8
 
 ## Questions?
 
-Email GYR navigator support at **[navigators@getyourrefund.org](mailto:Navigators@getyourrefund.org)**
+Email GYR navigator support at [**navigators@getyourrefund.org**](mailto:Navigators@getyourrefund.org)
