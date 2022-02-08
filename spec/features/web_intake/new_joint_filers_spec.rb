@@ -44,7 +44,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       # Personal Info
       expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-      fill_in "What is your preferred first name?", with: "Gary"
+      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
       fill_in "Phone number", with: "415-888-0088"
       fill_in "Confirm phone number", with: "415-888-0088"
       fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
