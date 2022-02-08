@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -9,8 +11,7 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-
-ActiveRecord::Schema.define(version: 2022_02_04_002509) do
+ActiveRecord::Schema.define(version: 2022_02_08_220255) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1398,7 +1399,7 @@ ActiveRecord::Schema.define(version: 2022_02_04_002509) do
     t.datetime "suspended_at"
     t.string "timezone", default: "America/New_York", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -1433,6 +1434,7 @@ ActiveRecord::Schema.define(version: 2022_02_04_002509) do
   end
 
   create_table "vita_partners", force: :cascade do |t|
+    t.boolean "accepts_itin_applicants", default: false
     t.boolean "allows_greeters"
     t.boolean "archived", default: false
     t.integer "capacity_limit"
@@ -1454,7 +1456,7 @@ ActiveRecord::Schema.define(version: 2022_02_04_002509) do
   create_table "vita_providers", force: :cascade do |t|
     t.string "appointment_info"
     t.boolean "archived", default: false, null: false
-    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.geography "coordinates", limit: { srid: 4326, type: "st_point", geographic: true }
     t.datetime "created_at"
     t.string "dates"
     t.string "details"

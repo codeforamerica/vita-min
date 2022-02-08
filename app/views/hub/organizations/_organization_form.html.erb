@@ -24,7 +24,8 @@
   </div>
 </div>
 
-<%= f.hub_checkbox(:allows_greeters, t('hub.organizations.form.allows_greeters'), options: { checked_value: true, unchecked_value: false, **local_assigns[:additional_options] }) %>
+<%= f.hub_checkbox(:allows_greeters, t('hub.organizations.form.allows_greeters'), options: { checked_value: true, unchecked_value: false, **local_assigns[:additional_options] }) %> <!-- local_assigns[:additional_options] sets default to true for new orgs -->
+<%= f.hub_checkbox(:accepts_itin_applicants, "Accepts ITIN applicants", options: { checked_value: true, unchecked_value: false }) %>
 <div>
   <%= f.submit t("general.save"), class: "button button--primary button--wide" %>
 </div>

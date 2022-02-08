@@ -31,7 +31,8 @@ RSpec.describe Hub::SitesController, type: :controller do
       {
         site: {
           name: "Library Site",
-          parent_organization_id: other_organization.id
+          parent_organization_id: other_organization.id,
+          accepts_itin_applicants: true
         }
       }
     end
@@ -49,6 +50,7 @@ RSpec.describe Hub::SitesController, type: :controller do
         site = VitaPartner.sites.last
         expect(site.name).to eq "Library Site"
         expect(site.parent_organization).to eq other_organization
+        expect(site.accepts_itin_applicants).to eq true
         expect(response).to redirect_to edit_hub_organization_path(id: other_organization)
       end
     end

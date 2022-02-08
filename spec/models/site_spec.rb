@@ -3,6 +3,7 @@
 # Table name: vita_partners
 #
 #  id                         :bigint           not null, primary key
+#  accepts_itin_applicants    :boolean          default(FALSE)
 #  allows_greeters            :boolean
 #  archived                   :boolean          default(FALSE)
 #  capacity_limit             :integer
