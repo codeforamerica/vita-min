@@ -13,7 +13,7 @@
   <% end %>
 </ul>
 
-<%= form_with model: form, url: hub_zip_codes_path(vita_partner_id: form.vita_partner_id), builder: VitaMinFormBuilder do |f| %>
+<%= form_with model: form, url: hub_zip_codes_path(vita_partner_id: form.vita_partner_id), local: false, builder: VitaMinFormBuilder do |f| %>
   <div>
     <%= f.cfa_input_field :zip_code, "Zip code", classes: ["form-width--short"] %>
     <div>

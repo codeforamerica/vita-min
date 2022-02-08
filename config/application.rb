@@ -22,11 +22,13 @@ Bundler.require(*Rails.groups)
 
 module VitaMin
   class Application < Rails::Application
-    config.load_defaults 6.0
+    config.load_defaults 6.1
 
     config.i18n.default_locale = :en
     config.i18n.fallbacks = [I18n.default_locale]
     config.i18n.available_locales = [:en, :es]
+
+    config.action_mailer.deliver_later_queue_name = 'mailers'
 
     config.active_job.queue_adapter = :delayed_job
     config.action_view.automatically_disable_submit_tag = false
