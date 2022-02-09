@@ -12,11 +12,11 @@
       <%= f.cfa_input_field(:preferred_name, t("views.questions.personal_info.preferred_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:phone_number, t("views.questions.personal_info.phone_number"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:phone_number_confirmation, t("views.questions.personal_info.phone_number_confirmation"), classes: ["form-width--long"]) %>
-      <%= f.cfa_select(:primary_tin_type, t('general.tin_type'), tin_options_for_select(include_itin: true)) %>
       <% if @show_ssn_field %>
+        <%= f.cfa_select(:primary_tin_type, t('general.tin_type'), tin_options_for_select(include_itin: true)) %>
         <%= f.cfa_input_field(:primary_ssn, t("attributes.primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
+        <%= f.cfa_input_field(:primary_ssn_confirmation, t("attributes.confirm_primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
       <% end %>
-      <%= f.cfa_input_field(:primary_ssn_confirmation, t("attributes.confirm_primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
       <%= f.cfa_input_field(:zip_code, t("views.questions.personal_info.zip_code"), classes: ["form-width--zip"]) %>
     </div>
 

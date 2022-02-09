@@ -21,6 +21,25 @@ RSpec.describe PersonalInfoForm do
 
         expect(form).to be_valid
       end
+
+      context "when all ssn fields are missing" do
+        let!(:triage) { create :triage, intake: intake, id_type: "need_help" }
+
+        let(:valid_params) do
+          {
+            preferred_name: "Greta",
+            phone_number: "8286065544",
+            phone_number_confirmation: "828-606-5544",
+            zip_code: "94107",
+          }
+        end
+
+        it "is still valid if client needs help getting an ITIN" do
+          form = described_class.new(intake, valid_params)
+
+          expect(form).to be_valid
+        end
+      end
     end
 
     context "required params are missing" do

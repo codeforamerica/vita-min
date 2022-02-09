@@ -7,8 +7,8 @@ class PersonalInfoForm < QuestionsForm
   validates :preferred_name, presence: true
   validates :phone_number, presence: true, confirmation: true
   validates :phone_number_confirmation, presence: true
-  validates_presence_of :primary_tin_type
-  validates_presence_of :primary_ssn
+  validates_presence_of :primary_tin_type, unless: :itin_applicant?
+  validates_presence_of :primary_ssn, unless: :itin_applicant?
   validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
   validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
 
@@ -25,5 +25,11 @@ class PersonalInfoForm < QuestionsForm
   def save
     state = ZipCodes.details(zip_code)[:state]
     @intake.update(attributes_for(:intake).except(:phone_number_confirmation).merge(state_of_residence: state))
+  end
+
+  private
+
+  def itin_applicant?
+    @intake&.triage&.id_type_need_help?
   end
 end
