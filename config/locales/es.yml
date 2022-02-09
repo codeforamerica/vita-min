@@ -3434,6 +3434,7 @@ es:
         title: Favor de compartir su número de teléfono celular
       phone_number_can_receive_texts:
         help_text: Asegúrese de que este número pueda recibir mensajes de texto.
+        standard_rates_apply: Se aplican tarifas estándar de mensajes. No compartiremos su información con ninguna parte externa.
         title: "¿Podemos enviarle mensajes de texto al número de teléfono que indicó anteriormente?"
       received_alimony:
         help_text: Responda "Sí" incluso si no recibió un documento oficial del IRS sobre la pensión alimenticia. No incluya la manutención de niños que recibió.
