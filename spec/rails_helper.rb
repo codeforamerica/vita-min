@@ -25,6 +25,24 @@ Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
 
+Capybara::Session.class_exec do
+  capybara_visit = instance_method(:fill_in)
+
+  def filling_in_ssn_without_dashes(args)
+    args[0].is_a?(String) &&
+      args[0].downcase.include?('ssn') &&
+      !args[0].downcase.include?('last 4') &&
+      !args[0].downcase.include?('4 últimos') &&
+      !args[1][:with].to_s.match(/\d{3}-\d{2}-\d{4}/)
+  end
+
+  define_method :fill_in do |*args|
+    if filling_in_ssn_without_dashes(args)
+      raise ArgumentError.new("Looks like you're trying to fill_in '#{args[0]}' with '#{args[1][:with]}' -- SSN fields must include dashes in tests or else the test will flake")
+    end
+    capybara_visit.bind(self).call(*args)
+  end
+end
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

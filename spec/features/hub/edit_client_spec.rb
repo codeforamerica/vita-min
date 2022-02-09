@@ -241,7 +241,7 @@ RSpec.describe "a user editing a clients intake fields" do
 
       within "#primary-info" do
         fill_in "Preferred full name", with: "Colly Cauliflower"
-        fill_in "SSN/ITIN", with: "123456789"
+        fill_in "SSN/ITIN", with: "123-45-6789"
       end
 
       click_on "Save"

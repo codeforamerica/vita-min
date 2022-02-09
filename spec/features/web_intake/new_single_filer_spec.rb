@@ -35,11 +35,11 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Personal Info
     expect(intake.reload.current_step).to eq("/en/questions/personal-info")
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-    fill_in "What is your preferred first name?", with: "Gary"
+    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
     fill_in "Phone number", with: "8286345533"
     fill_in "Confirm phone number", with: "828-634-5533"
-    fill_in I18n.t("attributes.primary_ssn"), with: "123456789"
-    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123456789"
+    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
