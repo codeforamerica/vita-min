@@ -7,6 +7,9 @@
     <%= f.cfa_input_field :name, t("general.name") %>
     <%= f.cfa_select :parent_organization_id, t("general.organization"), @organizations.map { |c| [c.name, c.id] } %>
     <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+
+    <%= f.hub_checkbox(:accepts_itin_applicants, "Accepts ITIN applicants", options: { checked_value: true, unchecked_value: false }) %>
+
     <div>
       <%= f.submit t("general.save"), class: "button button--primary button--wide" %>
     </div>

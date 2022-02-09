@@ -96,7 +96,15 @@ RSpec.describe Hub::OrganizationForm do
       allow(UpdateStateRoutingTargetsService).to receive(:update)
     end
 
-    let(:params) { { name: "New Name", timezone: "America/Juneau", capacity_limit: 9001, allows_greeters: "yes" }.merge(extra_params) }
+    let(:params) do
+      {
+        name: "New Name",
+        timezone: "America/Juneau",
+        capacity_limit: 9001,
+        allows_greeters: true,
+        accepts_itin_applicants: true
+      }.merge(extra_params)
+    end
     let(:extra_params) { {} }
 
     it "saves name, timezone, capacity_limit, allows_greeters" do
@@ -104,7 +112,8 @@ RSpec.describe Hub::OrganizationForm do
       expect(organization.name).to eq("New Name")
       expect(organization.timezone).to eq("America/Juneau")
       expect(organization.capacity_limit).to eq(9001)
-      expect(organization.allows_greeters).to be_truthy
+      expect(organization.allows_greeters).to eq true
+      expect(organization.accepts_itin_applicants).to eq true
     end
 
     context "when is_independent is yes" do

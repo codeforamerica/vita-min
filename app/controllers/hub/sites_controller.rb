@@ -45,7 +45,7 @@ module Hub
     end
 
     def site_params
-      params.require(:site).permit(:name, :parent_organization_id, :timezone, source_parameters_attributes: [:_destroy, :id, :code])
+      params.require(:site).permit(:name, :parent_organization_id, :timezone, :accepts_itin_applicants, source_parameters_attributes: [:_destroy, :id, :code])
     end
   end
 end

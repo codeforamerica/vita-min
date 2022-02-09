@@ -40,6 +40,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         hub_organization_form: {
           name: "Orangutan Organization",
           coalition_id: parent_coalition.id,
+          assists_itin_applicants: true
         }
       }
     end

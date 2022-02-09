@@ -40,6 +40,7 @@ RSpec.describe "create VITA organization hierarchy", :js do
       within "#organization-form" do
         fill_in "Name", with: "Oregano Org"
         select "Coati Coalition", from: "Coalition"
+        check "Accepts ITIN applicants"
         click_on "Save"
       end
 
