@@ -3468,8 +3468,8 @@ en:
         title: Please share your cell phone number.
       phone_number_can_receive_texts:
         help_text: Please be sure that this number can receive text messages.
-        title: Can we text the phone number you previously entered?
         standard_rates_apply: Standard message rates apply. We will not share your information with any outside parties.
+        title: Can we text the phone number you previously entered?
       received_alimony:
         help_text: Answer "Yes" even if you did not receive an official IRS document about the alimony. Do not include child support you received.
         title:
