@@ -54,8 +54,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     # Notification Preference
     expect(intake.reload.current_step).to eq("/en/questions/notification-preference")
-    expect(page).to have_text("What ways can we reach you")
-    expect(page).to have_text("We’ll send a code to verify each contact method")
+    expect(page).to have_text(I18n.t("views.questions.notification_preference.title"))
     check "Email Me"
     check "Text Me"
     click_on "Continue"
@@ -63,7 +62,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Phone number can text
     expect(page).to have_text("Can we text the phone number you previously entered?")
     expect(page).to have_text("(828) 634-5533")
-    expect(page).to have_text("Please be sure that this number can receive text messages.")
     click_on "No"
 
     # Phone number

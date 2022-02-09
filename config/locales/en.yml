@@ -3398,7 +3398,6 @@ en:
         options:
           email_notification_opt_in: Email Me
           header: We’ll need to reach out with questions and updates. Please select the option(s) that work best for you!
-          note: 'Note: Standard SMS message rates apply. We will not share your information with any outside parties.'
           sms_notification_opt_in: Text Me
         title: What is the best way to reach you?
       optional_consent:
@@ -3467,7 +3466,6 @@ en:
         phone_number_confirmation: Confirm cell phone number
         title: Please share your cell phone number.
       phone_number_can_receive_texts:
-        help_text: Please be sure that this number can receive text messages.
         standard_rates_apply: Standard message rates apply. We will not share your information with any outside parties.
         title: Can we text the phone number you previously entered?
       received_alimony:

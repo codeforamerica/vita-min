@@ -3364,7 +3364,6 @@ es:
         options:
           email_notification_opt_in: Envíeme un correo electrónico
           header: Le enviaremos un código para verificar cada método de contacto y así poder enviarle información sobre su devolución. Seleccione todos los métodos de contacto disponibles.
-          note: 'Aviso: Se aplican las tarifas estándar de los mensajes SMS. No compartiremos su información con terceros.'
           sms_notification_opt_in: Mensaje de Texto
         title: "¿De qué maneras podemos comunicarnos con usted?"
       optional_consent:
@@ -3433,7 +3432,6 @@ es:
         phone_number_confirmation: Confirme su número de teléfono celular
         title: Favor de compartir su número de teléfono celular
       phone_number_can_receive_texts:
-        help_text: Asegúrese de que este número pueda recibir mensajes de texto.
         standard_rates_apply: Se aplican tarifas estándar de mensajes. No compartiremos su información con ninguna parte externa.
         title: "¿Podemos enviarle mensajes de texto al número de teléfono que indicó anteriormente?"
       received_alimony:
