@@ -137,14 +137,12 @@ class TriageResultService
   private
 
   def route_no_income_clients
-    case triage&.income_level
-    when "zero"
-      case triage&.id_type
-      when "have_id"
+    if triage&.income_level_zero?
+      if triage&.id_type_have_id?
         return route_to_express_gyr_choice
-      when "know_number"
+      elsif triage&.id_type_know_number?
         return route_to_diy
-      when "need_help"
+      elsif triage&.id_type_need_itin_help?
         return route_to_gyr
       end
     end

@@ -50,8 +50,6 @@ RSpec.feature "triage flow" do
           seen_controllers[controller] = true
         end
       end
-
-      puts "Gonna screenshot: #{@test_cases.select { |tc| tc.screenshot }.length}"
     end
   end
 

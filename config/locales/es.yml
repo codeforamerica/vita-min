@@ -1518,7 +1518,7 @@ es:
         ssn_itin_type:
           have_id: Tengo mi tarjeta de Número de Seguro Social o la documentación de mi Número de Identificación Personal del Contribuyente o ITIN en inglés
           know_number: 'Me sé mi Número de Seguro Social o Número de Identificación Personal del Contribuyente o ITIN en inglés, pero no tengo una copia '
-          need_help: Necesito solicitar un número de identificación personal del contribuyente (ITIN)
+          need_itin_help: Necesito solicitar un número de identificación personal del contribuyente (ITIN)
         title: "¿Qué tipo de identificación tiene?"
     triage_income_level:
       edit:
