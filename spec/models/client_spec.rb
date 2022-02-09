@@ -458,92 +458,16 @@ describe Client do
     end
   end
 
-  describe "#clients_with_dupe_contact_info" do
-    let!(:client) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com", phone_number: "+15855551212", sms_phone_number: "+18285551212") }
-
-    context "when there are other GYR clients with the same contact info" do
-      let!(:client_dupe_email) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), state: "intake_ready" }
-      let!(:ctc_client_dupe_email) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), state: "intake_ready" }
-      let!(:client_phone) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+15855551212"), state: "intake_ready" }
-      let!(:client_sms) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+18285551212"), state: "intake_ready" }
-      let!(:client_phone_match_sms) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+18285551212"), state: "intake_ready" }
-      let!(:client_sms_match_phone) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+15855551212"), state: "intake_ready" }
-
-      context "when searching for matching GYR clients" do
-        it "returns the GYR clients ids" do
-          expect(client.clients_with_dupe_contact_info(false)).to match_array([client_dupe_email.id, client_phone.id, client_sms.id, client_phone_match_sms.id, client_sms_match_phone.id])
-        end
-
-        context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), state: "intake_before_consent" }
-
-          it "does not return the client who hasn't consented" do
-            expect(client.clients_with_dupe_contact_info(false)).not_to include(client_before_consent.id)
-          end
-        end
-      end
-    end
-
-    context "when there are other CTC clients with the same contact info" do
-      let!(:client_dupe_email) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), state: "intake_ready" }
-      let!(:gyr_client_dupe_email) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), state: "intake_ready" }
-      let!(:client_phone) { create :client_with_tax_return_state, intake: create(:ctc_intake, phone_number: "+15855551212"), state: "intake_ready" }
-      let!(:client_sms) { create :client_with_tax_return_state, intake: create(:ctc_intake, sms_phone_number: "+18285551212"), state: "intake_ready" }
-      let!(:client_phone_match_sms) { create :client_with_tax_return_state, intake: create(:ctc_intake, phone_number: "+18285551212"), state: "intake_ready" }
-      let!(:client_sms_match_phone) { create :client_with_tax_return_state, intake: create(:ctc_intake, sms_phone_number: "+15855551212"), state: "intake_ready" }
-
-      context "when searching for matching CTC clients" do
-        it "returns the CTC clients ids" do
-          expect(client.clients_with_dupe_contact_info(true)).to match_array([client_dupe_email.id, client_phone.id, client_sms.id, client_phone_match_sms.id, client_sms_match_phone.id])
-        end
-
-        context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), state: "intake_before_consent" }
-
-          it "does not return the client who hasn't consented" do
-            expect(client.clients_with_dupe_contact_info(true)).not_to include(client_before_consent.id)
-          end
-        end
-      end
-    end
-
-    context "when there are no other clients with the same contact info" do
-      it "returns an empty array" do
-        expect(client.clients_with_dupe_contact_info(true)).to eq []
-        expect(client.clients_with_dupe_contact_info(false)).to eq []
-      end
-    end
-
-    context "when there is a matching intake with a nil client" do
-      let!(:intake) { create :intake, email_address: "fizzy_pop@example.com", client_id: nil }
-
-      it "returns an empty array" do
-        expect(client.clients_with_dupe_contact_info(true)).to eq []
-        expect(client.clients_with_dupe_contact_info(false)).to eq []
-      end
-    end
-
-    context "with empty contact info fields" do
-      let!(:client) { create :client_with_tax_return_state, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), state: "intake_ready" }
-      let!(:other_blank_client) { create :client_with_tax_return_state, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), state: "intake_ready" }
-
-      it "does not match on nil values" do
-        expect(client.clients_with_dupe_contact_info(true)).to eq []
-        expect(client.clients_with_dupe_contact_info(false)).to eq []
-      end
-    end
-  end
-
   describe "#clients_with_dupe_ssn" do
     let(:primary_ssn) { "311456789" }
     let(:ctc_client_accessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
     let(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
     let(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
 
-    let(:gyr_client_accessible_ssn_match_online) { create :client, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
-    let(:gyr_client_accessible_ssn_match_drop_off) { create :client, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
-    let(:gyr_client_inaccessible_ssn_match) { create :client, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
-    let(:gyr_client_accessible_no_ssn_match) { create :client, intake: create(:intake, primary_ssn: "123456789"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
+    let(:gyr_client_accessible_ssn_match_online) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
+    let(:gyr_client_accessible_ssn_match_drop_off) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
+    let(:gyr_client_inaccessible_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
+    let(:gyr_client_accessible_no_ssn_match) { create :client_with_tax_return_state, intake: create(:intake, primary_ssn: "123456789"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
 
     context "GYR client" do
       let!(:client) { create :client, intake: create(:intake, primary_ssn: primary_ssn) }
