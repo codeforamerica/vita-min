@@ -335,6 +335,7 @@ class FlowsController < ApplicationController
         state: 'CA',
         zip_code: '90210',
         filing_joint: 'no',
+        primary_consented_to_service: 'yes',
       }
       client = Client.create!(
         intake_attributes: intake_attributes,
