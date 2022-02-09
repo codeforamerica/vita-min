@@ -83,8 +83,8 @@ RSpec.describe "a user viewing a client" do
     let(:first_org) { create :organization, coalition: coalition }
     let(:primary_ssn) { "1112223333" }
     let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info, primary_ssn: primary_ssn,) }
-    let!(:intake_with_ssn_match) { create :intake, primary_ssn: primary_ssn, client: create(:client_with_tax_return_state, vita_partner: first_org, status: "intake_ready") }
-    let!(:ctc_intake_with_ssn_match) { create :ctc_intake, primary_ssn: primary_ssn, client: create(:client_with_tax_return_state, vita_partner: first_org, status: "intake_ready") }
+    let!(:intake_with_ssn_match) { create :intake, primary_ssn: primary_ssn, client: create(:client_with_tax_return_state, tax_returns: [(create :tax_return, service_type: "drop_off")]) }
+    let!(:ctc_intake_with_ssn_match) { create :ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now }
     let!(:second_org) { create :organization, coalition: coalition }
     before { login_as user }
 
@@ -130,26 +130,18 @@ RSpec.describe "a user viewing a client" do
     end
 
     scenario "can view potential duplicate intakes" do
-      page.driver.header("User-Agent", "GeckoFox")
-
       visit hub_client_path(id: client.id)
-      within ".primary-ssn" do
-        click_on "View"
-        expect(page).to have_content primary_ssn
-      end
+      expect(client.intake.primary_ssn).to eq primary_ssn
 
       within ".client-header" do
-        expect(page).to have_text "Potential duplicates detected"
+        expect(page).to have_text(I18n.t('hub.has_duplicates'))
         expect(page).to have_text "CTC: ##{ctc_intake_with_ssn_match.client.id}"
         expect(page).to have_text "GYR: ##{intake_with_ssn_match.client.id}"
         click_on "##{intake_with_ssn_match.client.id}"
       end
 
       expect(page.current_path).to eq hub_client_path(id: intake_with_ssn_match.client.id)
-      within ".primary-ssn" do
-        click_on "View"
-        expect(page).to have_content primary_ssn
-      end
+      expect(intake_with_ssn_match.primary_ssn).to eq primary_ssn
     end
   end
 end

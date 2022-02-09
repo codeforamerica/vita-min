@@ -534,6 +534,90 @@ describe Client do
     end
   end
 
+  describe "#clients_with_dupe_ssn" do
+    let(:primary_ssn) { "311456789" }
+    let(:ctc_client_accessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now) }
+    let(:ctc_client_inaccessible_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: nil, email_address_verified_at: nil, navigator_has_verified_client_identity: nil) }
+    let(:ctc_client_accessible_no_ssn_match) { create :client, intake: create(:ctc_intake, primary_ssn: "123456789", sms_phone_number_verified_at: DateTime.now) }
+
+    let(:gyr_client_accessible_ssn_match_online) { create :client, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "yes"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
+    let(:gyr_client_accessible_ssn_match_drop_off) { create :client, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
+    let(:gyr_client_inaccessible_ssn_match) { create :client, intake: create(:intake, primary_ssn: primary_ssn, primary_consented_to_service: "unfilled"), tax_returns: [(create :tax_return, service_type: "online_intake")] }
+    let(:gyr_client_accessible_no_ssn_match) { create :client, intake: create(:intake, primary_ssn: "123456789"), tax_returns: [(create :tax_return, service_type: "drop_off")] }
+
+    context "GYR client" do
+      let!(:client) { create :client, intake: create(:intake, primary_ssn: primary_ssn) }
+
+      context "looking for CTC matches" do
+        let(:display_type) { Intake::CtcIntake }
+
+        it "returns accessible CTC clients with the same ssn" do
+          expect(client.clients_with_dupe_ssn(display_type)).to include ctc_client_accessible_ssn_match
+          expect(client.clients_with_dupe_ssn(display_type)).not_to include(ctc_client_inaccessible_ssn_match, ctc_client_accessible_no_ssn_match, gyr_client_accessible_ssn_match_online)
+        end
+      end
+
+      context "looking for GYR matches" do
+        let(:display_type) { Intake::GyrIntake }
+
+        it "returns accessible CTC clients with the same ssn" do
+          expect(client.clients_with_dupe_ssn(display_type)).to include(gyr_client_accessible_ssn_match_online, gyr_client_accessible_ssn_match_drop_off)
+          expect(client.clients_with_dupe_ssn(display_type)).not_to include(gyr_client_inaccessible_ssn_match, gyr_client_accessible_no_ssn_match, ctc_client_accessible_ssn_match)
+        end
+      end
+    end
+
+    context "CTC client" do
+      let!(:client) { create :client, intake: create(:ctc_intake, primary_ssn: primary_ssn) }
+
+      context "looking for CTC matches" do
+        let(:display_type) { Intake::CtcIntake }
+
+        it "returns accessible CTC clients with the same ssn" do
+          expect(client.clients_with_dupe_ssn(display_type)).to include ctc_client_accessible_ssn_match
+          expect(client.clients_with_dupe_ssn(display_type)).not_to include(ctc_client_inaccessible_ssn_match, ctc_client_accessible_no_ssn_match, gyr_client_accessible_ssn_match_online)
+        end
+      end
+
+      context "looking for GYR matches" do
+        let(:display_type) { Intake::GyrIntake }
+
+        it "returns accessible CTC clients with the same ssn" do
+          expect(client.clients_with_dupe_ssn(display_type)).to include(gyr_client_accessible_ssn_match_online, gyr_client_accessible_ssn_match_drop_off)
+          expect(client.clients_with_dupe_ssn(display_type)).not_to include(gyr_client_inaccessible_ssn_match, gyr_client_accessible_no_ssn_match, ctc_client_accessible_ssn_match)
+        end
+      end
+    end
+
+    context "there are no other clients with a matching SSN" do
+      let!(:client) { create :client, intake: create(:ctc_intake, primary_ssn: "987654111") }
+
+      it "returns an empty collection" do
+        expect(client.clients_with_dupe_ssn(Intake::GyrIntake)).to be_empty
+        expect(client.clients_with_dupe_ssn(Intake::CtcIntake)).to be_empty
+      end
+    end
+
+    context "there is a matching intake with nil client" do
+      let!(:client) { create :client, intake: create(:ctc_intake, primary_ssn: "987654111") }
+      let!(:intake) { create :intake, primary_ssn: "987654111", client: nil }
+
+      it "returns an empty collection" do
+        expect(client.clients_with_dupe_ssn(Intake::GyrIntake)).to be_empty
+        expect(client.clients_with_dupe_ssn(Intake::CtcIntake)).to be_empty
+      end
+    end
+
+    context "no primary ssn provided" do
+      let!(:client) { create :client, intake: create(:ctc_intake, primary_ssn: nil) }
+
+      it "does not match on nil values" do
+        expect(client.clients_with_dupe_ssn(Intake::GyrIntake)).to be_empty
+        expect(client.clients_with_dupe_ssn(Intake::CtcIntake)).to be_empty
+      end
+    end
+  end
+
   describe "#preferred_language" do
     context "when preferred language is set to something other than english" do
       let(:client) { create :client, intake: (create :intake, preferred_interview_language: "de", locale: "es")}

@@ -231,23 +231,12 @@ class Client < ApplicationRecord
     Rails.application.routes.url_helpers.portal_client_login_url(id: raw_token)
   end
 
-  def clients_with_dupe_contact_info(is_ctc)
-    return [] unless intake
+  def clients_with_dupe_ssn(service_class)
+    return Client.none unless intake || hashed_primary_ssn.nil?
 
-    matching_intakes = Intake.where(
-      "email_address = ? OR phone_number = ? OR phone_number = ? OR sms_phone_number = ? OR sms_phone_number = ?",
-      intake.email_address,
-      intake.phone_number,
-      intake.sms_phone_number,
-      intake.phone_number,
-      intake.sms_phone_number,
-    )
-    if is_ctc
-      matching_intakes = matching_intakes.where(type: "Intake::CtcIntake")
-    else
-      matching_intakes = matching_intakes.where.not(type: "Intake::CtcIntake")
-    end
-    Client.where.not(id: id).after_consent.where(intake: matching_intakes).pluck(:id)
+    matching_intakes = service_class.accessible_intakes.where(hashed_primary_ssn: intake.hashed_primary_ssn)
+
+    Client.where.not(id: id).where(intake: matching_intakes)
   end
 
   def preferred_language
