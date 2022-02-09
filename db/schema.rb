@@ -11,6 +11,7 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
+
 ActiveRecord::Schema.define(version: 2022_02_08_220255) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -492,7 +493,6 @@ ActiveRecord::Schema.define(version: 2022_02_08_220255) do
     t.bigint "tax_return_selection_id", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
-    t.index ["state"], name: "index_bulk_tax_return_updates_on_state"
     t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
   end
 

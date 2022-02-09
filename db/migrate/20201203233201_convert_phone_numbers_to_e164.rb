@@ -20,4 +20,9 @@ class ConvertPhoneNumbersToE164 < ActiveRecord::Migration[6.0]
   def down
     # we can't reverse this and we think it's harmless
   end
+
+  class Intake < ActiveRecord::Base; end
+  class IncomingTextMessage < ActiveRecord::Base; end
+  class OutgoingTextMessage < ActiveRecord::Base; end
+  class Signup < ActiveRecord::Base; end
 end

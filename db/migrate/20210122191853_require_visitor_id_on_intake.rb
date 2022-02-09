@@ -4,4 +4,6 @@ class RequireVisitorIdOnIntake < ActiveRecord::Migration[6.0]
       intake.update(visitor_id: SecureRandom.hex(26))
     end
   end
+
+  class Intake < ActiveRecord::Base; end
 end

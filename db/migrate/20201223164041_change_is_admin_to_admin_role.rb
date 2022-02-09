@@ -1,9 +1,6 @@
 class ChangeIsAdminToAdminRole < ActiveRecord::Migration[6.0]
   def change
-    User.where("is_admin = true").find_each do |user|
-      admin_role = AdminRole.create
-      user.role.destroy if user.role.present?
-      user.update(role: admin_role, is_admin: false)
-    end
+    # This migration used to query for User.where("is_admin = true"), set is_admin to false, and create an AdminRole.
+    # It's already done that.
   end
 end
