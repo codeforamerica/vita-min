@@ -47,6 +47,9 @@ class Ability
     if user.role_type == CoalitionLeadRole::TYPE
       can :read, Coalition, id: user.role.coalition_id
 
+      # Coalition leads can view and edit users who are coalition leads, organization leads, site coordinators, and team members in their coalition
+      can :manage, User, id: user.accessible_users.pluck(:id)
+
       # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
       can :manage, CoalitionLeadRole, coalition: user.role.coalition
       can :manage, OrganizationLeadRole, organization: { coalition_id: user.role.coalition_id }
@@ -55,6 +58,10 @@ class Ability
     end
 
     if user.role_type == OrganizationLeadRole::TYPE
+
+      # Organization leads can view and edit users who are organization leads, site coordinators, and team members in their coalition
+      can :manage, User, id: user.accessible_users.pluck(:id)
+
       # Organization leads can create organization leads, site coordinators, and team members in their org
       can :manage, OrganizationLeadRole, organization: user.role.organization
       can :manage, SiteCoordinatorRole, site: { parent_organization: user.role.organization }

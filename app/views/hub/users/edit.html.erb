@@ -4,7 +4,7 @@
     <div>
       <h1><%= @user.name %></h1>
 
-      <% if current_user.admin? %>
+      <% if can?(:edit, @user) %>
         <% if @user.access_locked? %>
           <%= link_to t("hub.unlock_account"), unlock_hub_user_path(id: @user), method: :patch, class: "button button--danger", data: {confirm: t("hub.unlock_confirmation", name: @user.name )} %>
         <% end %>
@@ -47,8 +47,10 @@
           <%= render('components/molecules/reveal', title: t(".reassign")) do %>
             <ul class="list--bulleted">
               <% User.roles.each do |role_type| %>
-                <li><%= link_to readable_role_from_role_type(role_type), edit_role_hub_user_path(role: role_type) if can?(:manage, role_type.constantize) %></li>
-              <% end %>
+                <% if can?(:manage, role_type.constantize)  %>
+                  <li><%= link_to readable_role_from_role_type(role_type), edit_role_hub_user_path(role: role_type) %></li>
+                <% end %>
+            <% end %>
             </ul>
           <% end %>
         </div>

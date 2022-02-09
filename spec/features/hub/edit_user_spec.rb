@@ -172,5 +172,178 @@ RSpec.describe "a user editing a user" do
         end
       end
     end
+
+    context "as an coalition lead" do
+      let(:current_user) { create :coalition_lead_user, coalition: coalition }
+      let(:coalition) { create(:coalition, name: "Koala Coalition") }
+
+      context "editing a user in my coalition" do
+        let(:organization) { create :organization, coalition: coalition, name: "Apples Associated" }
+        let(:user_to_edit) { create :organization_lead_user, organization: organization }
+        before { login_as current_user }
+
+        scenario "update all fields" do
+          visit edit_hub_user_path(id: user_to_edit.id)
+          expect(page).to have_text user_to_edit.name
+
+          fill_in "Name", with: "Nathan Namely"
+          fill_in "Phone number", with: "(415) 553-7865"
+
+          click_on "Save"
+
+          expect(page).to have_text "Changes saved"
+
+          expect(page).to have_text("Nathan Namely")
+          expect(page).to have_selector("input[value='+14155537865']")
+        end
+
+        context "editing user roles" do
+          scenario "assigning a coalition lead role" do
+            visit edit_hub_user_path(id: user_to_edit)
+            click_on "Coalition Lead"
+
+            expect(page).to have_text("Koala Coalition")
+
+            select "Koala Coalition"
+
+            click_on "Submit"
+
+            within "#current-role" do
+              expect(page).to have_text "Coalition Lead, Koala Coalition"
+            end
+          end
+
+          scenario "assigning a organization lead role on a different org" do
+            create :organization, name: "Orange Organization", coalition: coalition
+
+            visit edit_hub_user_path(id: user_to_edit)
+            click_on "Organization Lead"
+
+            expect(page).to have_text("Apples Associated")
+
+            select "Orange Organization"
+
+            click_on "Submit"
+
+            within "#current-role" do
+              expect(page).to have_text "Organization Lead, Orange Organization"
+            end
+          end
+
+          scenario "assigning a site coordinator role" do
+            create :site, name: "Sweet Site", parent_organization: organization
+            create :site, name: "Sour Site", parent_organization: organization
+
+            visit edit_hub_user_path(id: user_to_edit)
+            click_on "Site Coordinator"
+
+            expect(page).to have_text("Sour Site")
+
+            select "Sweet Site"
+
+            click_on "Submit"
+
+            within "#current-role" do
+              expect(page).to have_text "Site Coordinator, Sweet Site"
+            end
+          end
+
+          scenario "assigning a team member role" do
+            create :site, name: "Sweet Site", parent_organization: organization
+            create :site, name: "Sour Site", parent_organization: organization
+
+            visit edit_hub_user_path(id: user_to_edit)
+            click_on "Team Member"
+
+            expect(page).to have_text("Sour Site")
+
+            select "Sweet Site"
+
+            click_on "Submit"
+
+            within "#current-role" do
+              expect(page).to have_text "Team Member, Sweet Site"
+            end
+          end
+        end
+      end
+    end
+
+    context "as an organization lead" do
+      let(:organization) { create :organization, name: "Apples Associated" }
+      let(:current_user) { create :organization_lead_user, organization: organization }
+
+      context "editing a user in my organization" do
+        let(:site) { create :site, parent_organization: organization, name: "Sweet Site" }
+        let(:user_to_edit) { create :site_coordinator_user, site: site }
+        before { login_as current_user }
+
+        scenario "update all fields" do
+          visit edit_hub_user_path(id: user_to_edit.id)
+          expect(page).to have_text user_to_edit.name
+
+          fill_in "Name", with: "Nathan Namely"
+          fill_in "Phone number", with: "(415) 553-7865"
+
+          click_on "Save"
+
+          expect(page).to have_text "Changes saved"
+
+          expect(page).to have_text("Nathan Namely")
+          expect(page).to have_selector("input[value='+14155537865']")
+        end
+
+        context "editing user roles" do
+          scenario "assigning a organization lead role" do
+            visit edit_hub_user_path(id: user_to_edit)
+            click_on "Organization Lead"
+
+            expect(page).to have_text("Apples Associated")
+
+            select "Apples Associated"
+
+            click_on "Submit"
+
+            within "#current-role" do
+              expect(page).to have_text "Organization Lead, Apples Associated"
+            end
+          end
+
+          scenario "assigning a site coordinator role on a different site" do
+            create :site, name: "Sour Site", parent_organization: organization
+
+            visit edit_hub_user_path(id: user_to_edit)
+            click_on "Site Coordinator"
+
+            expect(page).to have_text("Sweet Site")
+
+            select "Sour Site"
+
+            click_on "Submit"
+
+            within "#current-role" do
+              expect(page).to have_text "Site Coordinator, Sour Site"
+            end
+          end
+
+          scenario "assigning a team member role" do
+            create :site, name: "Sour Site", parent_organization: organization
+
+            visit edit_hub_user_path(id: user_to_edit)
+            click_on "Team Member"
+
+            expect(page).to have_text("Sour Site")
+
+            select "Sweet Site"
+
+            click_on "Submit"
+
+            within "#current-role" do
+              expect(page).to have_text "Team Member, Sweet Site"
+            end
+          end
+        end
+      end
+    end
   end
 end
