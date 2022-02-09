@@ -176,15 +176,15 @@ module Hub
       end
 
       def needs_itin_help_text
-        return I18n.t("general.NA") if archived? || intake&.triage.nil? || intake.triage.doc_type_unfilled?
+        return I18n.t("general.NA") if archived? || intake&.triage.nil? || intake.triage.id_type_unfilled?
 
-        intake.triage.doc_type_need_help? ? I18n.t("general.affirmative") : I18n.t("general.negative")
+        intake.triage.id_type_need_itin_help? ? I18n.t("general.affirmative") : I18n.t("general.negative")
       end
 
       def needs_itin_help_yes?
         return false if archived?
 
-        intake&.triage&.doc_type_need_help?
+        intake&.triage&.id_type_need_itin_help?
       end
     end
   end
