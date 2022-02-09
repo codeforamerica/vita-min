@@ -26,7 +26,7 @@ class TriageResultService
         elsif triage.doc_type_need_help?
           Questions::TriageIncomeTypesController.to_path_helper
         end
-      elsif triage.id_type_need_help?
+      elsif triage.id_type_need_itin_help?
         Questions::TriageIncomeTypesController.to_path_helper
       end
     elsif inside_gyr_income_limit?
@@ -36,7 +36,7 @@ class TriageResultService
         end
       elsif triage.id_type_know_number?
         route_to_diy
-      elsif triage.id_type_need_help?
+      elsif triage.id_type_need_itin_help?
         Questions::TriageIncomeTypesController.to_path_helper
       end
     end
@@ -108,7 +108,7 @@ class TriageResultService
         if triage.doc_type_need_help?
           branch_on_income_type_condition(route_to_express_gyr_choice, route_to_express)
         end
-      elsif triage.id_type_need_help?
+      elsif triage.id_type_need_itin_help?
         branch_on_income_type_condition(route_to_gyr, route_to_express)
       end
     elsif inside_gyr_income_limit?
@@ -124,7 +124,7 @@ class TriageResultService
         elsif triage.doc_type_need_help?
           branch_on_income_type_condition(route_to_gyr, route_to_diy)
         end
-      elsif triage.id_type_need_help?
+      elsif triage.id_type_need_itin_help?
         if triage.income_level_25000_to_40000? || triage.income_level_40000_to_65000?
           branch_on_income_type_condition(route_to_gyr, route_to_does_not_qualify)
         else
@@ -137,14 +137,12 @@ class TriageResultService
   private
 
   def route_no_income_clients
-    case triage&.income_level
-    when "zero"
-      case triage&.id_type
-      when "have_id"
+    if triage&.income_level_zero?
+      if triage&.id_type_have_id?
         return route_to_express_gyr_choice
-      when "know_number"
+      elsif triage&.id_type_know_number?
         return route_to_diy
-      when "need_help"
+      elsif triage&.id_type_need_itin_help?
         return route_to_gyr
       end
     end

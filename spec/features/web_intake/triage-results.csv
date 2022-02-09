@@ -1,7 +1,7 @@
 income,filing_status,id_type,doc_type,filed_past_years,assistance_options,income_type_options,service
 zero,single or jointly,have_id,skip,skip,skip,skip,We have two free options that may work for you!
 ,,know_number,skip,skip,skip,skip,We recommend filing with our free File Myself option!
-,,need_help,skip,skip,skip,skip,We recommend filing for free with GetYourRefund!
+,,need_itin_help,skip,skip,skip,skip,We recommend filing for free with GetYourRefund!
 ,,,,,,,
 1_to_12500,single or jointly,have_id,all_copies or some_copies,"2021 yes/no, any prior no",skip,yes,We recommend filing with our free File Myself option!
 ,,,,,,no,We recommend filing for free with GetYourRefund!
@@ -14,7 +14,7 @@ zero,single or jointly,have_id,skip,skip,skip,skip,We have two free options that
 ,,know_number,all_copies or some_copies,skip,skip,skip,We recommend filing with our free File Myself option!
 ,,,need_help,skip,skip,yes,We recommend filing with our Express option!
 ,,,,,,no,We have two free options that may work for you!
-,,need_help,any answer,skip,skip,yes,We recommend filing with our Express option!
+,,need_itin_help,any answer,skip,skip,yes,We recommend filing with our Express option!
 ,,,,,,no,We recommend filing for free with GetYourRefund!
 ,,,,,,,
 12500_to_25000,single,have_id,all_copies or some_copies,"2021 yes/no, any prior no",skip,yes,We recommend filing with our free File Myself option!
@@ -26,7 +26,7 @@ zero,single or jointly,have_id,skip,skip,skip,skip,We have two free options that
 ,,,need_help,skip,skip,yes,We recommend filing with our free File Myself option!
 ,,,,,,no,We recommend filing for free with GetYourRefund!
 ,,know_number,any answer,skip,skip,skip,We recommend filing with our free File Myself option!
-,,need_help,any answer,skip,skip,yes,We recommend filing with our free File Myself option!
+,,need_itin_help,any answer,skip,skip,yes,We recommend filing with our free File Myself option!
 ,,,,,,no,We recommend filing for free with GetYourRefund!
 12500_to_25000,jointly,have_id,all_copies or some_copies,"2021 yes/no, any prior no",skip,yes,We recommend filing with our free File Myself option!
 ,,,,,,no,We recommend filing for free with GetYourRefund!
@@ -39,7 +39,7 @@ zero,single or jointly,have_id,skip,skip,skip,skip,We have two free options that
 ,,know_number,all_copies or some_copies,skip,skip,skip,We recommend filing with our free File Myself option!
 ,,,need_help,skip,skip,yes,We recommend filing with our Express option!
 ,,,,,,no,We have two free options that may work for you!
-,,need_help,any answer,skip,skip,yes,We recommend filing with our Express option!
+,,need_itin_help,any answer,skip,skip,yes,We recommend filing with our Express option!
 ,,,,,,no,We recommend filing for free with GetYourRefund!
 ,,,,,,,
 25000_to_40000 or 40000_to_65000,single or jointly,have_id,all_copies or some_copies,"2021 yes/no, any prior no",skip,yes,We recommend filing with our free File Myself option!
@@ -51,7 +51,7 @@ zero,single or jointly,have_id,skip,skip,skip,skip,We have two free options that
 ,,,need_help,skip,skip,yes,We recommend filing with our free File Myself option!
 ,,,,,,no,We recommend filing for free with GetYourRefund!
 ,,know_number,any answer,skip,skip,skip,We recommend filing with our free File Myself option!
-,,need_help,any answer,skip,skip,yes,"Unfortunately, it looks like you do not qualify for our free service."
+,,need_itin_help,any answer,skip,skip,yes,"Unfortunately, it looks like you do not qualify for our free service."
 ,,,,,,no,We recommend filing for free with GetYourRefund!
 ,,,,,,,
 65000_to_73000,single or jointly,skip,skip,skip,skip,skip,We recommend filing with our free File Myself option!

@@ -41,7 +41,7 @@ class Triage < ApplicationRecord
     "65000_to_73000" => 6,
     "over_73000" => 7,
   }, _prefix: :income_level
-  enum id_type: { unfilled: 0, have_id: 1, know_number: 2, need_help: 3 }, _prefix: :id_type
+  enum id_type: { unfilled: 0, have_id: 1, know_number: 2, need_itin_help: 3 }, _prefix: :id_type
   enum doc_type: { unfilled: 0, all_copies: 1, some_copies: 2, need_help: 3, does_not_apply: 4 }, _prefix: :doc_type
   enum filed_2018: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2018
   enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019
