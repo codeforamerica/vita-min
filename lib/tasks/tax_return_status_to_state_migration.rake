@@ -3,7 +3,7 @@ namespace :tax_return_state do
   task bulk_update_migrate: [:environment] do
     BulkTaxReturnUpdate.find_each do |btru|
       btru.update(state: btru.status)
-      prints "."
+      print "."
     end
   end
   
