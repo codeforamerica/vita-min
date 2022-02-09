@@ -7,9 +7,6 @@
     <p>
       <%=t("views.questions.notification_preference.options.header") %>
     </p>
-    <p>
-      <%=t("views.questions.notification_preference.options.note") %>
-    </p>
 
     <% if @form.errors[:base].any? %>
       <div class="form-group form-group--error">
@@ -19,17 +16,17 @@
       </div>
     <% end %>
 
-    <div class="form-card__stacked-checkboxes">
+    <div class="form-card__stacked-checkboxes spacing-above-35">
       <%= f.cfa_checkbox(:email_notification_opt_in, t("views.questions.notification_preference.options.email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <div class="question-with-follow-up">
         <div class="question-with-follow-up__question">
           <%= f.cfa_checkbox(:sms_notification_opt_in, t("views.questions.notification_preference.options.sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
         </div>
-        <p class="text--small">
+
+        <p class="text--small spacing-above-25">
           <%= t("views.questions.notification_preference.note_html", terms_url: sms_terms_url, privacy_url: privacy_url) %>
         </p>
       </div>
-
     </div>
 
     <button class="button button--primary button--wide" type="submit">
