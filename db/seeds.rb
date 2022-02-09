@@ -1,6 +1,6 @@
 # Create client_support_org if needed
 national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization", type: Organization::TYPE)
-national_org.update(allows_greeters: true)
+national_org.update(allows_greeters: true, national_overflow_location: true)
 
 # Create GetCTC.org org if needed
 ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", type: Organization::TYPE)
