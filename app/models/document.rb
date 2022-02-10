@@ -116,7 +116,7 @@ class Document < ApplicationRecord
   private
 
   def tax_return_belongs_to_client
-    errors.add(:tax_return, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
+    errors.add(:tax_return_id, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
   end
 
   def upload_must_have_data

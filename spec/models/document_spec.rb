@@ -86,7 +86,7 @@ describe Document do
 
         it "is not valid" do
           expect(document).not_to be_valid
-          expect(document.errors).to include :tax_return
+          expect(document.errors).to include :tax_return_id
         end
       end
 
@@ -158,10 +158,10 @@ describe Document do
 
         it "they are invalid" do
           expect(final_tax_doc).not_to be_valid
-          expect(final_tax_doc.errors[:tax_return]).to include "Final Tax Document must be associated with a tax year."
+          expect(final_tax_doc.errors[:tax_return_id]).to include "Final Tax Document must be associated with a tax year."
 
           expect(unsigned_8879).not_to be_valid
-          expect(unsigned_8879.errors[:tax_return]).to include "Form 8879 (Unsigned) must be associated with a tax year."
+          expect(unsigned_8879.errors[:tax_return_id]).to include "Form 8879 (Unsigned) must be associated with a tax year."
         end
       end
     end
