@@ -47,8 +47,8 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
           let(:inaccessible_org) { create :organization }
           let(:intake1) { create(:intake, :with_contact_info) }
           let(:intake2) { create(:intake, :with_contact_info) }
-          let(:accessible_tax_return) { create(:tax_return, status: "intake_in_progress", tax_return_selections: [tax_return_selection]) }
-          let(:inaccessible_tax_return) { create(:tax_return, status: "intake_in_progress", tax_return_selections: [tax_return_selection]) }
+          let(:accessible_tax_return) { create(:tax_return, :intake_in_progress, tax_return_selections: [tax_return_selection]) }
+          let(:inaccessible_tax_return) { create(:tax_return, :intake_in_progress, tax_return_selections: [tax_return_selection]) }
           let!(:accessible_client) { create :client, intake: intake1, tax_returns: [accessible_tax_return], vita_partner: organization }
           let!(:inaccessible_client) { create :client, intake: intake2, tax_returns: [inaccessible_tax_return], vita_partner: inaccessible_org }
 

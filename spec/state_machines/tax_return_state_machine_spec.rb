@@ -82,9 +82,9 @@ describe TaxReturnStateMachine do
         allow(MixpanelService).to receive(:send_file_completed_event)
       end
 
-      it "sets state and status as well" do
+      it "sets current_state and status as well" do
         tax_return.transition_to(:file_accepted)
-        expect(tax_return.read_attribute(:state)).to eq "file_accepted"
+        expect(tax_return.read_attribute(:current_state)).to eq "file_accepted"
         expect(tax_return.read_attribute(:status)).to eq "file_accepted"
       end
 

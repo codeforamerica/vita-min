@@ -100,7 +100,7 @@ describe Client do
     end
 
     context "clients who should not get the survey" do
-      let!(:tax_return) { create :tax_return, status: status, client: create(:client, in_progress_survey_sent_at: in_progress_survey_sent_at, intake: create(:intake, primary_consented_to_service_at: primary_consented_to_service_at)) }
+      let!(:tax_return) { create :tax_return, status.to_sym, client: create(:client, in_progress_survey_sent_at: in_progress_survey_sent_at, intake: create(:intake, primary_consented_to_service_at: primary_consented_to_service_at)) }
       let(:status) { "intake_in_progress" }
       let(:in_progress_survey_sent_at) { nil }
       let(:primary_consented_to_service_at) { fake_time - 11.days }
@@ -462,12 +462,12 @@ describe Client do
     let!(:client) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com", phone_number: "+15855551212", sms_phone_number: "+18285551212") }
 
     context "when there are other GYR clients with the same contact info" do
-      let!(:client_dupe_email) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), state: "intake_ready" }
-      let!(:ctc_client_dupe_email) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), state: "intake_ready" }
-      let!(:client_phone) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+15855551212"), state: "intake_ready" }
-      let!(:client_sms) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+18285551212"), state: "intake_ready" }
-      let!(:client_phone_match_sms) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+18285551212"), state: "intake_ready" }
-      let!(:client_sms_match_phone) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+15855551212"), state: "intake_ready" }
+      let!(:client_dupe_email) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:ctc_client_dupe_email) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:client_phone) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_phone_match_sms) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms_match_phone) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
 
       context "when searching for matching GYR clients" do
         it "returns the GYR clients ids" do
@@ -475,7 +475,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), state: "intake_before_consent" }
+          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_before_consent" }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(false)).not_to include(client_before_consent.id)
@@ -485,12 +485,12 @@ describe Client do
     end
 
     context "when there are other CTC clients with the same contact info" do
-      let!(:client_dupe_email) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), state: "intake_ready" }
-      let!(:gyr_client_dupe_email) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), state: "intake_ready" }
-      let!(:client_phone) { create :client_with_tax_return_state, intake: create(:ctc_intake, phone_number: "+15855551212"), state: "intake_ready" }
-      let!(:client_sms) { create :client_with_tax_return_state, intake: create(:ctc_intake, sms_phone_number: "+18285551212"), state: "intake_ready" }
-      let!(:client_phone_match_sms) { create :client_with_tax_return_state, intake: create(:ctc_intake, phone_number: "+18285551212"), state: "intake_ready" }
-      let!(:client_sms_match_phone) { create :client_with_tax_return_state, intake: create(:ctc_intake, sms_phone_number: "+15855551212"), state: "intake_ready" }
+      let!(:client_dupe_email) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:gyr_client_dupe_email) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
+      let!(:client_phone) { create :client_with_tax_return_state, intake: create(:ctc_intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms) { create :client_with_tax_return_state, intake: create(:ctc_intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_phone_match_sms) { create :client_with_tax_return_state, intake: create(:ctc_intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
+      let!(:client_sms_match_phone) { create :client_with_tax_return_state, intake: create(:ctc_intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
 
       context "when searching for matching CTC clients" do
         it "returns the CTC clients ids" do
@@ -498,7 +498,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), state: "intake_before_consent" }
+          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_before_consent" }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(true)).not_to include(client_before_consent.id)
@@ -524,8 +524,8 @@ describe Client do
     end
 
     context "with empty contact info fields" do
-      let!(:client) { create :client_with_tax_return_state, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), state: "intake_ready" }
-      let!(:other_blank_client) { create :client_with_tax_return_state, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), state: "intake_ready" }
+      let!(:client) { create :client_with_tax_return_state, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
+      let!(:other_blank_client) { create :client_with_tax_return_state, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), tax_return_state: "intake_ready" }
 
       it "does not match on nil values" do
         expect(client.clients_with_dupe_contact_info(true)).to eq []
@@ -688,7 +688,7 @@ describe Client do
 
     context "a dropoff client" do
       let(:client) { create :client, intake: create(:intake), tax_returns: tax_returns }
-      let(:tax_returns) { [create(:tax_return, state: status1, year: "2019"), create(:tax_return, state: status2, year: "2020")] }
+      let(:tax_returns) { [create(:tax_return, status1.to_sym, year: "2019"), create(:tax_return, status2.to_sym, year: "2020")] }
 
       context "when the FORWARD_MESSAGES_TO_INTERCOM admin toggle is true" do
         before do

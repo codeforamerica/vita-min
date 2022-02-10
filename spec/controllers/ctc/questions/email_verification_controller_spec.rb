@@ -2,7 +2,11 @@ require "rails_helper"
 
 describe Ctc::Questions::EmailVerificationController do
   let(:visitor_id) { "asdfasdfa" }
-  let(:client) { create :client, intake: (create :ctc_intake, email_address: "email@example.com", visitor_id: visitor_id, locale: locale), tax_returns: [build(:tax_return, status: "intake_before_consent")] }
+  let(:client) do
+    c = create :client, intake: (create :ctc_intake, email_address: "email@example.com", visitor_id: visitor_id, locale: locale)
+    create :tax_return, :intake_before_consent, client: c
+    c
+  end
   let(:intake) { client.intake }
   let(:locale) { "en" }
 
@@ -53,20 +57,20 @@ describe Ctc::Questions::EmailVerificationController do
         )
       end
 
-      it "updates the tax return status" do
+      it "updates the tax return current_state" do
         expect do
           subject.after_update_success
-        end.to change { client.tax_returns.last.reload.status }.to("intake_in_progress")
+        end.to change { client.tax_returns.last.reload.current_state }.to("intake_in_progress")
       end
 
-      context "when status is already beyond intake in progress" do
+      context "when current_state is already beyond intake in progress" do
         before do
           client.tax_returns.last.transition_to("file_accepted")
         end
 
-        it "does not change the status back to intake in progress" do
+        it "does not change the current_state back to intake in progress" do
           subject.after_update_success
-          expect(client.tax_returns.last.reload.status).to eq "file_accepted"
+          expect(client.tax_returns.last.reload.current_state).to eq "file_accepted"
         end
       end
     end

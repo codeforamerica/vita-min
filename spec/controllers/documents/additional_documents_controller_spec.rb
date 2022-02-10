@@ -7,7 +7,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
   before { sign_in intake.client }
 
   describe "#edit" do
-    let!(:tax_return) { create :tax_return, client: intake.client, status: "intake_in_progress" }
+    let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client }
 
     it "advances the tax returns to 'Ready for review' status" do
       get :edit

@@ -49,11 +49,11 @@ FactoryBot.define do
 
     trait :with_return do
       transient do
-        state { "intake_in_progress" }
+        tax_return_state { "intake_in_progress" }
         filing_status { "single" }
       end
       after(:create) do |client, evaluator|
-        create :tax_return, evaluator.state, year: TaxReturn.current_tax_year, client: client, filing_status: evaluator.filing_status
+        create :tax_return, evaluator.tax_return_state, year: TaxReturn.current_tax_year, client: client, filing_status: evaluator.filing_status
       end
     end
 

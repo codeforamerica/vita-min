@@ -22,13 +22,12 @@ module Hub
         flash[:notice] = I18n.t("hub.tax_returns.new.no_remaining_years")
         redirect_to hub_client_path(id: @client.id)
       end
-      @tax_return.status = "intake_in_progress"
     end
 
     def create
       if @tax_return.valid?
         @tax_return.save!
-        @tax_return.transition_to(tax_return_params[:status])
+        @tax_return.transition_to(current_state_param)
         TaxReturnAssignmentService.new(tax_return: @tax_return, assigned_user: @tax_return.assigned_user, assigned_by: current_user).assign!
         SystemNote::TaxReturnCreated.generate!(initiated_by: current_user, tax_return: @tax_return)
         flash[:notice] = I18n.t("hub.tax_returns.create.success", year: @tax_return.year, name: @client.preferred_name)
@@ -74,7 +73,11 @@ module Hub
     def tax_return_params
       merge_params = { client_id: params[:client_id] }
       merge_params[:service_type] = "drop_off" if Client.find(params[:client_id]).tax_returns.pluck(:service_type).include? "drop_off"
-      params.require(:tax_return).permit(:year, :assigned_user_id, :certification_level, :status).merge(merge_params)
+      params.require(:tax_return).permit(:year, :assigned_user_id, :certification_level).merge(merge_params)
+    end
+
+    def current_state_param
+      params.require(:tax_return).permit(:current_state)[:current_state]
     end
 
     def prepare_form

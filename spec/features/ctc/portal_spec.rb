@@ -224,7 +224,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           dependents: [qualifying_child, dependent_to_delete]
         )
       end
-      let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2021, status: "intake_in_progress")) }
+      let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :intake_in_progress, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2021)) }
 
       scenario "a client can correct their information" do
         log_in_to_ctc_portal

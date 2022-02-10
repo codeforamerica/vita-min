@@ -87,7 +87,7 @@ module Hub
         @client,
         current_user,
         tax_return_id: params.dig(:tax_return, :id)&.to_i,
-        state: params.dig(:tax_return, :state),
+        current_state: params.dig(:tax_return, :current_state),
         locale: params.dig(:tax_return, :locale)
       )
     end

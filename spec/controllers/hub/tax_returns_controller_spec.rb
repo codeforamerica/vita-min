@@ -36,7 +36,6 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         expect(response).to render_template :new
         expect(assigns(:client)).to eq client
         expect(assigns(:tax_return)).to be_an_instance_of TaxReturn
-        expect(assigns(:tax_return).status).to eq "intake_in_progress"
         expect(assigns(:tax_return_years)).to eq [2018]
         expect(assigns(:remaining_years)).to eq TaxReturn.filing_years - [2018]
       end
@@ -65,7 +64,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
                 year: "2020",
                 certification_level: "basic",
                 assigned_user_id: user.id,
-                status: :intake_in_progress
+                current_state: :intake_in_progress
             }
         }
       end
