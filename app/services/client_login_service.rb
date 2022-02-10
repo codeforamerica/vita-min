@@ -5,8 +5,7 @@ class ClientLoginService
   def initialize(service_type)
     raise ArgumentError, "Service type must be one of: #{SERVICE_TYPES.join(', ')}" unless SERVICE_TYPES.include? service_type.to_sym
 
-    @service_type = service_type
-    @service_class = service_type == :gyr ? Intake::GyrIntake : Intake::CtcIntake
+    @service_class = service_type.to_sym == :gyr ? Intake::GyrIntake : Intake::CtcIntake
   end
 
   def clients_for_token(raw_token)
