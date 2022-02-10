@@ -139,7 +139,7 @@ describe Document do
       end
     end
 
-    describe "#final_tax_doc_and_unsigned_8879_have_tax_return" do
+    describe "#tax_return" do
       let(:client) { create :client }
       let(:final_tax_doc) { build :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return, client: client }
       let(:unsigned_8879) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
@@ -158,10 +158,10 @@ describe Document do
 
         it "they are invalid" do
           expect(final_tax_doc).not_to be_valid
-          expect(final_tax_doc.errors[:tax_return_id]).to include "Final Tax Document must be associated with a tax year."
+          expect(final_tax_doc.errors[:tax_return]).to include "Final Tax Document must be associated with a tax year."
 
           expect(unsigned_8879).not_to be_valid
-          expect(unsigned_8879.errors[:tax_return_id]).to include "Form 8879 (Unsigned) must be associated with a tax year."
+          expect(unsigned_8879.errors[:tax_return]).to include "Form 8879 (Unsigned) must be associated with a tax year."
         end
       end
     end
