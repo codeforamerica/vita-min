@@ -22,7 +22,7 @@
               <p><%= t("views.ctc_pages.california_benefits.option_one.p2", current_tax_year: current_tax_year) %></p>
             </div>
             <div>
-              <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy'), class: "button button--full-width text--centered spacing-above-25 button--centered" do %>
+              <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy'), class: "button button--full-width text--centered spacing-above-25 button--centered", "data-track-click": "click_cdss-active-choice-file-gyr" do %>
                 <%= t("views.ctc.questions.use_gyr.file_gyr") %>
               <% end %>
             </div>
@@ -36,7 +36,7 @@
             <h2 class="spacing-below-25 spacing-above-0"><%= t("views.ctc_pages.california_benefits.option_two.title_html") %></h2>
             <p><%= t("views.ctc_pages.california_benefits.option_two.p1", current_tax_year: current_tax_year) %></p>
             <p><%= t("views.ctc_pages.california_benefits.option_two.p2", current_tax_year: current_tax_year) %></p>
-            <%= link_to root_url, class: "button button--full-width text--centered spacing-above-25 button--centered" do %>
+            <%= link_to root_url, class: "button button--full-width text--centered spacing-above-25 button--centered", "data-track-click": "click_cdss-active-choice-file-getctc" do %>
               <%= t("views.ctc_pages.california_benefits.option_two.file_ctc") %>
             <% end %>
           </div>

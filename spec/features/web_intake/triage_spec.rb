@@ -173,4 +173,47 @@ RSpec.feature "triage flow" do
       end
     end
   end
+
+  context "Mixpanel events" do
+    scenario "client ends up on GYR/Express choice page after filling out triage" do
+      answer_gyr_triage_questions(
+        income_level: "zero",
+        filing_status: "single",
+        id_type: "have_id",
+      )
+
+      expect(page).to have_selector("h1", text: I18n.t("questions.triage_gyr_express.edit.title"))
+
+      expect(page).to have_selector("a.button[data-track-click=\"click_triage-gyr-express-choose-gyr\"]", text: I18n.t("questions.triage_gyr_express.edit.file_with_gyr"))
+      expect(page).to have_selector("a.button[data-track-click=\"click_triage-gyr-express-choose-express-signup\"]", text: I18n.t("questions.triage_gyr_express.edit.sign_up_for_express"))
+    end
+
+    scenario "client ends up on Express page after filling out triage" do
+      answer_gyr_triage_questions(
+        income_level: "1_to_12500",
+        filing_status: "single",
+        id_type: "have_id",
+        doc_type: "need_help",
+        income_type_options: ["farm"],
+      )
+
+      expect(page).to have_selector("h1", text: I18n.t("questions.triage_express.edit.title"))
+
+      expect(page).to have_selector("a.button[data-track-click=\"click_triage-express-only-choose-express-signup\"]", text: I18n.t("questions.triage_gyr_express.edit.sign_up_for_express"))
+    end
+
+    scenario "client ends up on GYR page after filling out triage" do
+      answer_gyr_triage_questions(
+        income_level: "zero",
+        filing_status: "single",
+        id_type: "need_itin_help",
+      )
+
+      expect(page).to have_selector("h1", text: I18n.t("questions.triage_gyr.edit.title"))
+
+      expect(page).to have_selector("a.button[data-track-click=\"click_triage-gyr-file-online\"]", text: I18n.t("questions.triage_gyr.edit.file_online"))
+      expect(page).to have_selector("a.button[data-track-click=\"click_triage-gyr-file-in-person\"]", text: I18n.t("questions.triage_gyr.edit.file_in_person"))
+      expect(page).to have_selector("a[data-track-click=\"click_triage-gyr-actually-diy\"]", text: I18n.t("questions.triage_gyr.edit.file_on_my_own"))
+    end
+  end
 end
