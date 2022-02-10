@@ -1577,10 +1577,10 @@ es:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
-    final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"
     ip_pin: IP PINs debe ser un número de 6 dígitos.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.
+    must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     routing_number: Este número de ruta bancaria no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.
     signature_pin: El PIN debe ser un número de 5 dígitos.

@@ -19,6 +19,10 @@ class DocumentType
       false
     end
 
+    def must_be_associated_with_tax_return
+      false
+    end
+
     def provide_doc_help?
       false
     end

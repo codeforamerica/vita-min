@@ -86,7 +86,7 @@ describe Document do
 
         it "is not valid" do
           expect(document).not_to be_valid
-          expect(document.errors).to include :tax_return
+          expect(document.errors).to include :tax_return_id
         end
       end
 
@@ -139,7 +139,7 @@ describe Document do
       end
     end
 
-    describe "#final_tax_doc_and_unsigned_8879_have_tax_return" do
+    describe "#tax_return" do
       let(:client) { create :client }
       let(:final_tax_doc) { build :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return, client: client }
       let(:unsigned_8879) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }

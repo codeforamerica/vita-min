@@ -1622,10 +1622,10 @@ en:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
-    final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} must be associated with a tax year."
     ip_pin: IP PINs must be a 6 digit number.
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
+    must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
     pdf_file_type: "%{document_type} must be a PDF file"
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
     signature_pin: Signature PIN must be a 5 digit number.

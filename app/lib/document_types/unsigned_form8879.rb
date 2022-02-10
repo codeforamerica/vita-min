@@ -14,6 +14,10 @@ module DocumentTypes
         false
       end
 
+      def must_be_associated_with_tax_return
+        true
+      end
+
       def writeable_locations
         {
           primary_signature: { y: 315, x: 90 },

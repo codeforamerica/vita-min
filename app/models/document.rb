@@ -45,9 +45,9 @@ class Document < ApplicationRecord
   validates_presence_of :client
   validates_presence_of :upload
   validate :tax_return_belongs_to_client
+  validate :tax_return_required_sometimes
   validate :upload_must_have_data
   validate :file_type
-  validate :final_tax_doc_and_unsigned_8879_have_tax_return
   # Permit all existing document types plus two historical ones
   validates_presence_of :document_type
   validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested", "F13614C / F15080 2020"] }, allow_blank: true
@@ -76,8 +76,12 @@ class Document < ApplicationRecord
     upload&.content_type == "application/pdf"
   end
 
+  def document_type_class
+    DocumentTypes::ALL_TYPES.find { |doc_type_class| doc_type_class.key == document_type }
+  end
+
   def document_type_label
-    DocumentTypes::ALL_TYPES.find { |doc_type_class| doc_type_class.key == document_type } || document_type
+    document_type_class || document_type
   end
 
   def set_display_name
@@ -112,7 +116,13 @@ class Document < ApplicationRecord
   private
 
   def tax_return_belongs_to_client
-    errors.add(:tax_return, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
+    errors.add(:tax_return_id, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
+  end
+
+  def tax_return_required_sometimes
+    if document_type_class&.must_be_associated_with_tax_return && tax_return.blank?
+      errors.add(:tax_return_id, I18n.t("validators.must_be_associated_with_tax_return", document_type: document_type))
+    end
   end
 
   def upload_must_have_data
@@ -124,12 +134,6 @@ class Document < ApplicationRecord
   def file_type
     if upload.attached? && document_type == DocumentTypes::UnsignedForm8879.key && !upload.content_type.in?(%w(application/pdf))
       errors.add(:upload, I18n.t("validators.pdf_file_type", document_type: document_type))
-    end
-  end
-
-  def final_tax_doc_and_unsigned_8879_have_tax_return
-    if [DocumentTypes::UnsignedForm8879.key, DocumentTypes::FinalTaxDocument.key].include?(document_type) && tax_return.nil?
-      errors.add(:tax_return_id, I18n.t("validators.final_tax_doc_and_unsigned_8879_have_tax_return", document_type: document_type))
     end
   end
 end
