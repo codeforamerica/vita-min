@@ -13,7 +13,7 @@
       </div>
     <% end %>
     <%= f.vita_min_text_field :display_name, t('hub.documents.display_name'), classes: ["form-width--long"] %>
-    <%= f.cfa_select :document_type, t("general.document_type"), DocumentTypes::ALL_TYPES.map { |doc_type| [doc_type.label, doc_type.key] }, include_blank: true %>
+    <%= f.cfa_select :document_type, t("general.document_type"), @document.available_document_types.map { |doc_type| [doc_type.label, doc_type.key] }, include_blank: true %>
     <%= f.cfa_select :tax_return_id, t("general.tax_return"), @client.tax_returns.map { |tax_return| [tax_return.year, tax_return.id] }, include_blank: true %>
     <%= f.hub_checkbox :archived, t(".archived_label") %>
 

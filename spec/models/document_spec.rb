@@ -75,10 +75,23 @@ describe Document do
           expect(document.errors).not_to include :document_type
         end
       end
+
+      context "document type not in #available_document_types" do
+        context "with a non-ITIN client" do
+          let(:client) { build(:client, intake: build(:intake, triage: build(:triage))) }
+          let(:tax_return) { build(:tax_return, client: client) }
+
+          it "does not allow a 1040 since that is only for ITIN clients" do
+            document = build(:document, client: client, tax_return: tax_return, document_type: DocumentTypes::Form1040.key)
+            expect(document).to be_invalid
+            expect(document.errors).to include :document_type
+          end
+        end
+      end
     end
 
     describe "#tax_return_belongs_to_client" do
-      let(:client){ create :client }
+      let(:client) { create :client }
       let(:document) { build :document, client: client, tax_return: tax_return }
 
       context "with a tax return for a different client" do
@@ -117,7 +130,7 @@ describe Document do
 
     describe "#file_type" do
       let(:client) { create :client }
-      let(:tax_return) { build :tax_return, client: client}
+      let(:tax_return) { build :tax_return, client: client }
 
       context "Form 8879 (Unsigned)" do
         context "not a PDF" do
@@ -243,8 +256,26 @@ describe Document do
 
       expect {
         document.convert_heic_upload_to_jpg!
-      }.to (change{ document.upload.attachment.filename.extension }.from("HEIC").to("jpg")).and(
+      }.to (change { document.upload.attachment.filename.extension }.from("HEIC").to("jpg")).and(
         change { document.reload.display_name }.from("IMG_4851.HEIC").to("IMG_4851.HEIC.jpg"))
+    end
+  end
+
+  describe "#available_document_types" do
+    context "with a non-ITIN client" do
+      let(:document) { build(:document, client: build(:client, intake: build(:intake, triage: build(:triage)))) }
+
+      it "lists all document types except the 1040" do
+        expect(document.available_document_types).to match_array(DocumentTypes::ALL_TYPES - [DocumentTypes::Form1040])
+      end
+    end
+
+    context "with an ITIN client" do
+      let(:document) { build(:document, client: build(:client, intake: build(:intake, triage: build(:triage, id_type: "need_itin_help")))) }
+
+      it "lists all document types except Final Tax Document" do
+        expect(document.available_document_types).to match_array(DocumentTypes::ALL_TYPES - [DocumentTypes::FinalTaxDocument])
+      end
     end
   end
 end

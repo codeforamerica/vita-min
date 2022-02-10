@@ -35,6 +35,8 @@
 require "mini_magick"
 
 class Document < ApplicationRecord
+  DEPRECATED_DOCUMENT_TYPES = ["Requested", "F13614C / F15080 2020"]
+
   belongs_to :intake, optional: true
   belongs_to :client, touch: true
   belongs_to :documents_request, optional: true
@@ -50,7 +52,7 @@ class Document < ApplicationRecord
   validate :file_type
   # Permit all existing document types plus two historical ones
   validates_presence_of :document_type
-  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested", "F13614C / F15080 2020"] }, allow_blank: true
+  validates :document_type, inclusion: { in: -> (object) { object.available_document_types.map(&:key) + DEPRECATED_DOCUMENT_TYPES } }, allow_blank: true
 
   before_save :set_display_name
 
@@ -111,6 +113,16 @@ class Document < ApplicationRecord
 
   def confirmation_needed?
     document_type.in? [DocumentTypes::FinalTaxDocument.key, DocumentTypes::UnsignedForm8879.key]
+  end
+
+  def available_document_types
+    excluded =
+      if client&.intake&.itin_applicant?
+        DocumentTypes::FinalTaxDocument
+      else
+        DocumentTypes::Form1040
+      end
+    DocumentTypes::ALL_TYPES - [excluded]
   end
 
   private
