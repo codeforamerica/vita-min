@@ -250,6 +250,14 @@ class Client < ApplicationRecord
     Client.where.not(id: id).after_consent.where(intake: matching_intakes).pluck(:id)
   end
 
+  def clients_with_dupe_ssn(service_class)
+    return Client.none unless intake && intake.hashed_primary_ssn.present?
+
+    matching_intakes = service_class.accessible_intakes.where(hashed_primary_ssn: intake.hashed_primary_ssn)
+
+    Client.where.not(id: id).where(intake: matching_intakes)
+  end
+
   def preferred_language
     return intake.preferred_interview_language if intake.preferred_interview_language && intake.preferred_interview_language != "en"
 

@@ -37,8 +37,8 @@
         </div>
       </div>
 
-      <% ctc_dupe_clients = @client.clients_with_dupe_contact_info(true) %>
-      <% gyr_dupe_clients = @client.clients_with_dupe_contact_info(false) %>
+      <% ctc_dupe_clients = @client.clients_with_dupe_ssn(Intake::CtcIntake).pluck(:id)%>
+      <% gyr_dupe_clients = @client.clients_with_dupe_ssn(Intake::GyrIntake).pluck(:id) %>
       <% if ctc_dupe_clients.present? || gyr_dupe_clients.present? %>
         <div class="text--help">
           <div>
