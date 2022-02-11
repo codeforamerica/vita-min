@@ -3,7 +3,7 @@ module Questions
     include AnonymousIntakeConcern
 
     def edit
-      @show_ssn_field = current_intake&.triage&.id_type_need_help? ? false : true
+      @hide_ssn_field = current_intake.itin_applicant?
       super
     end
 

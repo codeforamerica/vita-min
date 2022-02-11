@@ -23,7 +23,7 @@ RSpec.describe PersonalInfoForm do
       end
 
       context "when all ssn fields are missing" do
-        let!(:triage) { create :triage, intake: intake, id_type: "need_help" }
+        let!(:triage) { create :triage, intake: intake, id_type: "need_itin_help" }
 
         let(:valid_params) do
           {

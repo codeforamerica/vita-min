@@ -508,6 +508,10 @@ class Intake < ApplicationRecord
     verifier.generate(SecureRandom.base36(24))
   end
 
+  def itin_applicant?
+    self&.triage&.id_type_need_itin_help?
+  end
+
   def compute_canonical_email_address
     if email_domain == 'gmail.com'
       username, domain = email_address.split('@')

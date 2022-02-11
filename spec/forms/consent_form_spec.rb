@@ -2,21 +2,15 @@ require "rails_helper"
 
 RSpec.describe ConsentForm do
   let(:intake) { create :intake }
-  let(:default_params) do
-    {
-      primary_consented_to_service_ip: "123.1.2.7",
-    }
-  end
+
   let(:valid_params) do
-    default_params.merge(
-      {
+    {
         birth_date_year: "1983",
         birth_date_month: "5",
         birth_date_day: "10",
         primary_first_name: "Greta",
         primary_last_name: "Gnome",
-      }
-    )
+    }
   end
 
   describe "validations" do
@@ -32,7 +26,6 @@ RSpec.describe ConsentForm do
       it "adds errors for each" do
         form = ConsentForm.new(
           intake,
-          default_params.merge(
             {
               birth_date_year: "1983",
               birth_date_month: nil,
@@ -40,7 +33,6 @@ RSpec.describe ConsentForm do
               primary_first_name: "Greta",
               primary_last_name: nil,
             }
-          )
         )
 
         expect(form).not_to be_valid
@@ -73,8 +65,6 @@ RSpec.describe ConsentForm do
       intake.reload
 
       expect(intake.primary_birth_date).to eq Date.new(1983, 5, 10)
-      expect(intake.primary_consented_to_service).to eq "yes"
-      expect(intake.primary_consented_to_service_at).to eq DateTime.new(2025, 2, 7, 11, 10, 1)
     end
   end
 

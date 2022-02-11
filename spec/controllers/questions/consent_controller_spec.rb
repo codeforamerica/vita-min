@@ -30,11 +30,13 @@ RSpec.describe Questions::ConsentController do
         allow(MixpanelService).to receive(:send_event)
       end
 
-      it "saves the answer, along with a timestamp and ip address" do
+      it "saves the answer, along with a timestamp and ip address and consent fields" do
         post :update, params: params
 
         intake.reload
         expect(intake.primary_consented_to_service_ip).to eq ip_address
+        expect(intake.primary_consented_to_service_at).not_to eq nil
+        expect(intake.primary_consented_to_service).to eq "yes"
       end
 
       it "authenticates the client and clears the intake_id from the session" do
@@ -200,6 +202,31 @@ RSpec.describe Questions::ConsentController do
         expect(response).to render_template :edit
         error_messages = assigns(:form).errors.messages
         expect(error_messages[:primary_last_name].first).to eq "Please enter your last name."
+      end
+    end
+
+    context "with an itin applicant that has a duplicate" do
+      before do
+        allow(intake).to receive(:has_duplicate?).and_return true
+        allow(intake).to receive(:itin_applicant?).and_return true
+      end
+      let(:params) do
+        {
+            consent_form: {
+                birth_date_year: "1983",
+                birth_date_month: "5",
+                birth_date_day: "10",
+                primary_first_name: "Greta",
+                primary_last_name: "Gnome",
+            }
+        }
+      end
+      it "redirects to returning_clients page without saving as consented" do
+        post :update, params: params
+
+        expect(response).to redirect_to returning_client_questions_path
+        expect(intake.primary_consented_to_service_at).to be_nil
+        expect(intake)
       end
     end
   end

@@ -1041,4 +1041,27 @@ describe Intake do
       expect(intake.relevant_intake_document_types).to eq doc_types
     end
   end
+
+  describe "#itin_applicant?" do
+    context "when there is no triage associated" do
+      let(:intake) { create(:intake) }
+      it "is falsey" do
+        expect(intake.itin_applicant?).to be_falsey
+      end
+    end
+
+    context "when there is a triage but the id_type is not need_itin_help" do
+      let(:intake) { create(:intake, triage: (create :triage, id_type: "have_id"))}
+      it "is falsey" do
+        expect(intake.itin_applicant?).to be_falsey
+      end
+    end
+
+    context "when there is a triage and the id_type is need_itin_help" do
+      let(:intake) { create(:intake, triage: (create :triage, id_type: "need_itin_help"))}
+      it "is true" do
+        expect(intake.itin_applicant?).to eq true
+      end
+    end
+  end
 end

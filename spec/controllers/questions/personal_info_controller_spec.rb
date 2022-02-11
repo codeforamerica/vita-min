@@ -9,22 +9,22 @@ RSpec.describe Questions::PersonalInfoController do
 
   describe "#edit" do
     context "when a client said they need help getting an ITIN during triage" do
-      let(:intake) { create :intake, triage: create(:triage, id_type: "need_help") }
+      let(:intake) { create :intake, triage: create(:triage, id_type: "need_itin_help") }
 
-      it "sets show_ssn_field to false" do
+      it "sets hide_ssn_field to be truthy" do
         get :edit
 
-        expect(assigns(:show_ssn_field)).to eq false
+        expect(assigns(:hide_ssn_field)).to be_truthy
       end
     end
 
     context "when a client did not say they need help getting an ITIN during triage" do
       let(:intake) { create :intake, triage: create(:triage, id_type: "have_id") }
 
-      it "sets show_ssn_field to true" do
+      it "sets hide_ssn_field to falsey" do
         get :edit
 
-        expect(assigns(:show_ssn_field)).to eq true
+        expect(assigns(:hide_ssn_field)).to be_falsey
       end
     end
   end
@@ -83,7 +83,6 @@ RSpec.describe Questions::PersonalInfoController do
           personal_info_form: {
             timezone: "America/New_York",
             zip_code: "80309",
-            preferred_name: "Shep",
             phone_number: "+14156778899",
             phone_number_confirmation: "+14156778899",
             preferred_name: "Grindelwald",

@@ -30,6 +30,6 @@ class PersonalInfoForm < QuestionsForm
   private
 
   def itin_applicant?
-    @intake&.triage&.id_type_need_help?
+    @intake.itin_applicant?
   end
 end

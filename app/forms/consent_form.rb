@@ -2,9 +2,6 @@ class ConsentForm < QuestionsForm
   include BirthDateHelper
   set_attributes_for(
     :intake,
-    :primary_consented_to_service,
-    :primary_consented_to_service_ip,
-    :primary_consented_to_service_at,
     :birth_date_year,
     :birth_date_month,
     :birth_date_day,
@@ -21,8 +18,6 @@ class ConsentForm < QuestionsForm
       .except(:birth_date_year, :birth_date_month, :birth_date_day)
       .merge(
         primary_birth_date: parse_birth_date_params(birth_date_year, birth_date_month, birth_date_day),
-        primary_consented_to_service: "yes",
-        primary_consented_to_service_at: DateTime.now
       )
     intake.update(attributes)
   end
