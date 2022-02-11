@@ -15,6 +15,7 @@ describe ChildTaxCreditCalculator do
 
   describe ".total_advance_payment" do
     it "returns the correct payment amount based on dependent counts" do
+      tax_return.reload # Reload so we can rely on the dependents default scope to hide the soft_deleted one
       expected_payment = 4800
       total_payment_amount = described_class.total_advance_payment(tax_return)
 
