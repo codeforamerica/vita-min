@@ -34,6 +34,7 @@ class GyrQuestionNavigation
       Questions::PhoneVerificationController,
       Questions::EmailAddressController,
       Questions::EmailVerificationController,
+      Questions::ReturningClientController,
 
       # Consent
       Questions::ConsentController, # Authenticates the client

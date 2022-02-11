@@ -7,6 +7,28 @@ RSpec.describe Questions::PersonalInfoController do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
+  describe "#edit" do
+    context "when a client said they need help getting an ITIN during triage" do
+      let(:intake) { create :intake, triage: create(:triage, id_type: "need_itin_help") }
+
+      it "sets hide_ssn_field to be truthy" do
+        get :edit
+
+        expect(assigns(:hide_ssn_field)).to be_truthy
+      end
+    end
+
+    context "when a client did not say they need help getting an ITIN during triage" do
+      let(:intake) { create :intake, triage: create(:triage, id_type: "have_id") }
+
+      it "sets hide_ssn_field to falsey" do
+        get :edit
+
+        expect(assigns(:hide_ssn_field)).to be_falsey
+      end
+    end
+  end
+
   describe "#update" do
     let(:intake) { create :intake, source: "SourceParam" }
     let(:state) { 'CO' }
@@ -61,7 +83,6 @@ RSpec.describe Questions::PersonalInfoController do
           personal_info_form: {
             timezone: "America/New_York",
             zip_code: "80309",
-            preferred_name: "Shep",
             phone_number: "+14156778899",
             phone_number_confirmation: "+14156778899",
             preferred_name: "Grindelwald",

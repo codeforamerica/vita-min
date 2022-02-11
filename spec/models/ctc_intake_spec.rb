@@ -251,7 +251,7 @@ describe Intake::CtcIntake do
   end
 
   describe "#duplicates" do
-    let(:dupe_double) { double}
+    let(:dupe_double) { double }
     before do
       allow(DeduplificationService).to receive(:duplicates).and_return dupe_double
       allow(dupe_double).to receive(:or)

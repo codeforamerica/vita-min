@@ -292,23 +292,65 @@ describe Intake::GyrIntake do
   end
 
   describe "#duplicates" do
-    context "when hashed_primary_ssn is nil" do
-      let(:intake) { create :intake, primary_ssn: nil }
+    context "when an itin applicant" do
+      let(:dupe_double) { double }
+      let(:triage) { create(:triage, id_type: "need_itin_help" )}
+      before do
+        allow(DeduplificationService).to receive(:duplicates).and_return dupe_double
+        allow(dupe_double).to receive(:or)
+      end
+      context "when only email is present" do
+        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: "mango@example.com", sms_phone_number: nil, triage: triage }
+        it "responds with duplicates from birth date and email" do
+          intake.duplicates
+          expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :email_address, :primary_birth_date, from_scope: described_class.accessible_intakes)
+        end
+      end
 
-      it "returns an empty active record collection" do
-        expect(intake.duplicates).to eq described_class.none
+      context "when only sms is present" do
+        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: nil, sms_phone_number: "+18324658840", triage: triage }
+        it "responds with duplicates from sms" do
+          intake.duplicates
+          expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :sms_phone_number, :primary_birth_date, from_scope: described_class.accessible_intakes)
+        end
+      end
+
+      context "when both email and sms are present" do
+        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: "mango@example.com", sms_phone_number: "+18324658840", triage: triage }
+        it "responds with duplicates from both email and sms" do
+          intake.duplicates
+          expect(DeduplificationService).to have_received(:duplicates).exactly(2).times
+        end
+      end
+
+      context "when neither phone number nor email are present" do
+        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: nil, sms_phone_number: nil, triage: triage }
+        it "responds with an empty ActiveRecord relation" do
+          expect(intake.duplicates).to eq described_class.none
+        end
       end
     end
 
-    context "when there is another accessible intake with the same ssn" do
-      let!(:dupe) {
-        (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: "yes", primary_ssn: "123456789")), service_type: "drop_off").intake
-      }
-      let(:intake) { create :intake, primary_ssn: "123456789" }
-      it "returns that as a duplicate" do
-        expect(intake.duplicates).to include dupe
+    context "when not an itin applicant" do
+      context "when hashed_primary_ssn is nil" do
+        let(:intake) { create :intake, primary_ssn: nil }
+
+        it "returns an empty active record collection" do
+          expect(intake.duplicates).to eq described_class.none
+        end
+      end
+
+      context "when there is another accessible intake with the same ssn" do
+        let!(:dupe) {
+          (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: "yes", primary_ssn: "123456789")), service_type: "drop_off").intake
+        }
+        let(:intake) { create :intake, primary_ssn: "123456789" }
+        it "returns that as a duplicate" do
+          expect(intake.duplicates).to include dupe
+        end
       end
     end
+
   end
   describe "after_save when the intake is completed" do
     let(:intake) { create :intake }
