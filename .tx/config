@@ -1,10 +1,10 @@
 [main]
 host = https://www.transifex.com
 
-[getyourrefund.en-yml]
-file_filter = config/locales/<lang>.yml
+[o:code-for-america-1:p:getyourrefund:r:config-locales-en-yml]
+file_filter  = config/locales/<lang>.yml
+source_file  = config/locales/en.yml
+source_lang  = en
+type         = YML
 minimum_perc = 0
-source_file = config/locales/en.yml
-source_lang = en
-type = YML
 

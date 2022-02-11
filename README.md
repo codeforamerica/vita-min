@@ -247,8 +247,18 @@ You can upload them to the correct S3 bucket with the task `rake flow_explorer:u
 
 We use Transifex for translations.
 
-You can run `bin/tx pull` to download the latest translations from Transifex. Engineers will need an account
+You can run `tx pull --branch main -l es -f` to download the latest translations from Transifex. Engineers will need an account
 within Transifex.
+
+You have to install `tx`. Try these commands.
+
+```sh
+mkdir -p ~/bin
+cd ~/bin
+curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+```
+
+You may have to restart your terminal to have this work.
 
 ## Deploying the Application 🚀☁️
 
