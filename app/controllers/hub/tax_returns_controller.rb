@@ -67,7 +67,7 @@ module Hub
     end
 
     def load_assignable_users
-      @client ||= @tax_return&.client
+      @client ||= @tax_return.client
       @assignable_users = assignable_users(@client, [current_user, @tax_return&.assigned_user].compact)
     end
 

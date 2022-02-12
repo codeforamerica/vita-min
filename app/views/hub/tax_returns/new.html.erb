@@ -2,7 +2,7 @@
 <% content_for :page_title, @page_title %>
 
 <% content_for :card do %>
-  <div class="slab">
+  <div class="slab slab--padded">
     <div class="grid">
       <h1 class="spacing-below-0"><%= @page_title %></h1>
       <p><%= t(".current_years") %> <%= @form.tax_return_years.join(", ") %> </p>
