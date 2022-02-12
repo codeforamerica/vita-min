@@ -265,28 +265,17 @@ require "rails_helper"
 
 describe Intake::GyrIntake do
   describe ".accessible_intakes" do
-    context "consented intake without tax returns" do
-      let!(:intake) { create :intake, primary_consented_to_service: "yes" }
-      it "does not appear in the accessible intakes" do
+    context "a consented intake" do
+      let!(:intake) { create :intake, primary_consented_to_service_at: DateTime.now }
+      it "appears as an accessible intake" do
+        expect(described_class.accessible_intakes).to include intake
+      end
+    end
+
+    context "not consented intakes" do
+      let!(:intake) { create :intake, primary_consented_to_service_at: nil }
+      it "are not present in the accessible intakes" do
         expect(described_class.accessible_intakes).not_to include intake
-      end
-    end
-
-    context "consented online intake with tax returns" do
-      let!(:intake) {
-        (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: "yes")), service_type: "online_intake").intake
-      }
-      it "appears in the accessible intakes" do
-        expect(described_class.accessible_intakes).to include intake
-      end
-    end
-
-    context "drop off intakes" do
-      let!(:intake) {
-        (create :tax_return, client: (create :client, intake: create(:intake, primary_consented_to_service: "yes")), service_type: "drop_off").intake
-      }
-      it "appears in the accessible intakes" do
-        expect(described_class.accessible_intakes).to include intake
       end
     end
   end

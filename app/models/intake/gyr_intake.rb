@@ -351,11 +351,7 @@ class Intake::GyrIntake < Intake
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
   enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
   enum received_advance_ctc_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_advance_ctc_payment
-  scope :accessible_intakes, -> do
-    online_consented = joins(:tax_returns).where({ tax_returns: { service_type: "online_intake" } }).where(primary_consented_to_service: "yes")
-    drop_off = joins(:tax_returns).where({ tax_returns: { service_type: "drop_off" } })
-    online_consented.or(drop_off)
-  end
+  scope :accessible_intakes, -> { where.not(primary_consented_to_service_at: nil) }
   after_save do
     if saved_change_to_completed_at?(from: nil)
       InteractionTrackingService.record_incoming_interaction(client) # client completed intake

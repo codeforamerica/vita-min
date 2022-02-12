@@ -107,7 +107,9 @@ module Hub
     def default_intake_attributes
       {
         type: "Intake::GyrIntake",
-        visitor_id: SecureRandom.hex(26)
+        visitor_id: SecureRandom.hex(26),
+        primary_consented_to_service: "yes",
+        primary_consented_to_service_at: DateTime.now
       }
     end
 

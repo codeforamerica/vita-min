@@ -83,7 +83,7 @@ RSpec.describe "a user viewing a client" do
     let(:first_org) { create :organization, coalition: coalition }
     let(:primary_ssn) { "1112223333" }
     let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info, primary_ssn: primary_ssn) }
-    let!(:intake_with_ssn_match) { create :intake, primary_ssn: primary_ssn, client: create(:client_with_tax_return_state, tax_returns: [(create :tax_return, service_type: "drop_off")]) }
+    let!(:intake_with_ssn_match) { create :intake, primary_consented_to_service_at: DateTime.now, primary_ssn: primary_ssn, client: create(:client_with_tax_return_state, tax_returns: [(create :tax_return, service_type: "drop_off")]) }
     let!(:ctc_intake_with_ssn_match) { create :ctc_intake, primary_ssn: primary_ssn, sms_phone_number_verified_at: DateTime.now }
     let!(:second_org) { create :organization, coalition: coalition }
     before { login_as user }

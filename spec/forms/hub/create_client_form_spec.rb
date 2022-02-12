@@ -137,6 +137,8 @@ RSpec.describe Hub::CreateClientForm do
         expect(intake.vita_partner).to eq vita_partner
         expect(intake.primary_ssn).to eq "123456789"
         expect(intake.spouse_ssn).to eq "934769258"
+        expect(intake.primary_consented_to_service).to eq "yes"
+        expect(intake.primary_consented_to_service_at).not_to be_nil
       end
 
       it "creates tax returns for each tax_return where _create is true" do
