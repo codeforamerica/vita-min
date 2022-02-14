@@ -226,7 +226,7 @@ describe ClientLoginService do
       context "when there is a drop off intake with a matching email" do
         let(:email_address) { "persimmion@example.com" }
         before do
-          create :client, intake: (create :intake, email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
+          create :client, intake: (create :intake, :primary_consented, email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
         end
 
         it "is true" do
@@ -237,7 +237,7 @@ describe ClientLoginService do
       context "when there is a drop off intake with a matching spouse email" do
         let(:email_address) { "persimmion@example.com" }
         before do
-          create :client, intake: (create :intake, spouse_email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
+          create :client, intake: (create :intake, :primary_consented, spouse_email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
         end
 
         it "is true" do
