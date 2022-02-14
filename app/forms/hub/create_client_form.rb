@@ -109,7 +109,8 @@ module Hub
         type: "Intake::GyrIntake",
         visitor_id: SecureRandom.hex(26),
         primary_consented_to_service: "yes",
-        primary_consented_to_service_at: DateTime.now
+        primary_consented_to_service_at: DateTime.now,
+        completed_at: DateTime.now
       }
     end
 
