@@ -4,10 +4,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 gem 'rack', '>= 2.0.8'
-gem 'rails', '>= 6.1.4.1'
+gem 'rails', '~> 6.1.4.6'
 gem 'puma', '>= 5.3.2'
 gem 'sass-rails', '~> 5.0'
-gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main'
+gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'mini_racer', '~> 0.4.0', platforms: :ruby
 gem 'nokogiri', '>= 1.10.8'
