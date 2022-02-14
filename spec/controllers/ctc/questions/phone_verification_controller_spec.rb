@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Ctc::Questions::PhoneVerificationController, requires_default_vita_partners: true do
   let(:visitor_id) { "asdfasdfa" }
-  let(:client) { create :client, intake: (create :ctc_intake, sms_phone_number: "+15125551234", visitor_id: visitor_id, locale: locale), tax_returns: [build(:tax_return, status: "intake_before_consent")] }
+  let(:client) { create :client, intake: (create :ctc_intake, sms_phone_number: "+15125551234", visitor_id: visitor_id, locale: locale), tax_returns: [build(:tax_return, :intake_before_consent)] }
   let(:intake) { client.intake }
   let(:locale) { "en" }
 
@@ -53,10 +53,10 @@ describe Ctc::Questions::PhoneVerificationController, requires_default_vita_part
         )
       end
 
-      it "updates the tax return status" do
+      it "updates the tax return state" do
         expect do
           subject.after_update_success
-        end.to change { client.tax_returns.last.reload.status }.to("intake_in_progress")
+        end.to change { client.tax_returns.last.reload.current_state }.to("intake_in_progress")
       end
     end
   end

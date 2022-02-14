@@ -7,8 +7,7 @@ module Hub
     load_and_authorize_resource except: [:new, :create]
     # on new/create, authorize through client but initialize tax return object
     authorize_resource :client, parent: false, only: [:new, :create]
-    load_resource only: [:new, :create]
-    before_action :prepare_form, only: [:new]
+    before_action :load_client, only: [:new, :create]
     before_action :load_assignable_users, except: [:show]
     before_action :load_and_authorize_assignee, only: [:update]
 
@@ -17,24 +16,25 @@ module Hub
 
     def new
       redirect_to hub_client_path(@client.id) unless @client.intake
+      @form = TaxReturnForm.new(@client)
+      @tax_return = @form.tax_return
 
-      if @remaining_years.blank?
+      if @form.remaining_years.blank?
         flash[:notice] = I18n.t("hub.tax_returns.new.no_remaining_years")
         redirect_to hub_client_path(id: @client.id)
       end
-      @tax_return.status = "intake_in_progress"
     end
 
     def create
-      if @tax_return.valid?
-        @tax_return.save!
-        @tax_return.transition_to(tax_return_params[:status])
+      @form = TaxReturnForm.new(@client, tax_return_params)
+      @tax_return = @form.tax_return
+      if @form.valid?
+        @form.save
         TaxReturnAssignmentService.new(tax_return: @tax_return, assigned_user: @tax_return.assigned_user, assigned_by: current_user).assign!
         SystemNote::TaxReturnCreated.generate!(initiated_by: current_user, tax_return: @tax_return)
         flash[:notice] = I18n.t("hub.tax_returns.create.success", year: @tax_return.year, name: @client.preferred_name)
         redirect_to hub_client_path(id: @client.id)
       else
-        prepare_form
         flash[:notice] = I18n.t("forms.errors.general")
         render :new
       end
@@ -62,9 +62,13 @@ module Hub
 
     private
 
+    def load_client
+      @client = Client.find(params[:client_id])
+    end
+
     def load_assignable_users
       @client ||= @tax_return.client
-      @assignable_users = assignable_users(@client, [current_user, @tax_return.assigned_user])
+      @assignable_users = assignable_users(@client, [current_user, @tax_return&.assigned_user].compact)
     end
 
     def assign_params
@@ -72,15 +76,7 @@ module Hub
     end
 
     def tax_return_params
-      merge_params = { client_id: params[:client_id] }
-      merge_params[:service_type] = "drop_off" if Client.find(params[:client_id]).tax_returns.pluck(:service_type).include? "drop_off"
-      params.require(:tax_return).permit(:year, :assigned_user_id, :certification_level, :status).merge(merge_params)
-    end
-
-    def prepare_form
-      @client = Client.find_by(id: params[:client_id])
-      @tax_return_years = @client.tax_returns.pluck(:year)
-      @remaining_years = TaxReturn.filing_years - @tax_return_years
+      params.require(TaxReturnForm.form_param).permit(TaxReturnForm.permitted_params)
     end
 
     def load_and_authorize_assignee

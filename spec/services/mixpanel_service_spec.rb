@@ -189,7 +189,7 @@ describe MixpanelService do
       end
 
       context "when the event is triggered by the system" do
-        let!(:tax_return) { create :tax_return, certification_level: "basic", client: client, status: "intake_before_consent" }
+        let!(:tax_return) { create :tax_return, :intake_before_consent, certification_level: "basic", client: client }
 
         it "handles the lack of a last_changed_by user" do
           MixpanelService.send_tax_return_event(tax_return, "ready_for_prep")

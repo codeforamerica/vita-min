@@ -95,9 +95,9 @@ describe TaxReturnStatusHelper do
 
   describe "#stage_and_status_translation" do
     describe "with an example status" do
-      let(:tax_return) { create :tax_return, status: "intake_in_progress" }
+      let(:tax_return) { create :tax_return, :intake_in_progress }
       it "returns the expected text" do
-        expect(helper.stage_and_status_translation(tax_return.status)).to eq "Intake/Not ready"
+        expect(helper.stage_and_status_translation(tax_return.current_state)).to eq "Intake/Not ready"
       end
     end
   end

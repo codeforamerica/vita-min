@@ -5,6 +5,7 @@ module ClientSortable
     filtered_clients.delegated_order(@sort_column, @sort_order)
   end
 
+  # TEMPORARILY reverting to use status in filtering so that we don't experience downtime when renaming column.
   def filtered_clients
     clients = if current_user&.greeter?
                 # Greeters should only have "search" access to clients in intake stage AND clients assigned to them.
@@ -15,11 +16,11 @@ module ClientSortable
     # Force an inner join to `intakes` to exclude clients from previous years
     clients = clients.joins(:intake)
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
-    clients = clients.where(tax_returns: { state: TaxReturnStateMachine::STATES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
+    clients = clients.where(tax_returns: { status: TaxReturnStateMachine::STATES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
     clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
-    clients = clients.where(tax_returns: { state: @filters[:status] }) if @filters[:status].present?
+    clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
     clients = clients.where("intakes.locale = :language OR intakes.preferred_interview_language = :language", language: @filters[:language]) if @filters[:language].present?
     clients = clients.where(tax_returns: { service_type: @filters[:service_type] }) if @filters[:service_type].present?
     clients = clients.where(intake: Intake.where(had_unemployment_income: "yes")) if @filters[:unemployment_income].present?

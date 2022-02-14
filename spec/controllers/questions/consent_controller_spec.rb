@@ -58,7 +58,7 @@ RSpec.describe Questions::ConsentController do
         end
 
         context "when a tax return for a selected year already exists" do
-          let!(:tax_return) { create :tax_return, client: intake.client, year: 2018, status: "intake_in_progress" }
+          let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2018 }
           before do
             intake.update(needs_help_2018: "yes")
           end
@@ -73,7 +73,7 @@ RSpec.describe Questions::ConsentController do
         end
 
         context "when a tax return had existed for a specific year but the needs_help_xxxx value is now false" do
-          let!(:tax_return) { create :tax_return, client: intake.client, year: 2021, status: "intake_in_progress" }
+          let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2021 }
 
           before do
             intake.update(needs_help_2021: "no")

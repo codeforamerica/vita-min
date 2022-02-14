@@ -85,14 +85,14 @@ class Client < ApplicationRecord
   end
 
   delegate *delegated_intake_attributes, to: :intake
-  scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where.not(state: "intake_before_consent")) }
+  scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where.not(status: "intake_before_consent")) }
   scope :greetable, -> do
     greeter_statuses = TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten
-    distinct.joins(:tax_returns).where(tax_returns: { state: greeter_statuses })
+    distinct.joins(:tax_returns).where(tax_returns: { status: greeter_statuses })
   end
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
-  scope :sla_tracked, -> { distinct.joins(:tax_returns).where.not(tax_returns: { state: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
+  scope :sla_tracked, -> { distinct.joins(:tax_returns).where.not(tax_returns: { status: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
   scope :response_needed_breaches, ->(breach_threshold_datetime) do
     sla_tracked.where(arel_table[:flagged_at].lteq(breach_threshold_datetime))
   end
@@ -147,7 +147,7 @@ class Client < ApplicationRecord
 
   scope :needs_in_progress_survey, -> do
     where(in_progress_survey_sent_at: nil)
-      .includes(:tax_returns).where(tax_returns: { state: "intake_in_progress" })
+      .includes(:tax_returns).where(tax_returns: { status: "intake_in_progress" })
       .includes(:intake).where("primary_consented_to_service_at < ?", 10.days.ago)
       .includes(:incoming_text_messages).where(incoming_text_messages: { client_id: nil })
       .includes(:incoming_emails).where(incoming_emails: { client_id: nil })

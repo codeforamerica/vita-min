@@ -1043,7 +1043,7 @@ RSpec.describe Hub::ClientsController do
           get :edit_take_action, params: params
 
           expect(assigns(:take_action_form)).to be_present
-          expect(assigns(:take_action_form).state).to be_nil
+          expect(assigns(:take_action_form).current_state).to be_nil
           expect(assigns(:take_action_form).tax_return_id).to be_nil
         end
       end
@@ -1054,7 +1054,7 @@ RSpec.describe Hub::ClientsController do
             id: client,
             tax_return: {
               id: tax_return_2019.id,
-              state: "intake_info_requested",
+              current_state: "intake_info_requested",
               locale: "es"
             },
           }
@@ -1066,7 +1066,7 @@ RSpec.describe Hub::ClientsController do
           get :edit_take_action, params: params
 
           expect(assigns(:take_action_form).tax_return_id).to eq tax_return_2019.id
-          expect(assigns(:take_action_form).state).to eq "intake_info_requested"
+          expect(assigns(:take_action_form).current_state).to eq "intake_info_requested"
           expect(assigns(:take_action_form).locale).to eq "es"
           expect(assigns(:take_action_form).message_body).not_to be_blank
           expect(assigns(:take_action_form).contact_method).to eq "email"
@@ -1132,7 +1132,7 @@ RSpec.describe Hub::ClientsController do
         allow(TaxReturnService).to receive(:handle_state_change).and_return(action_list)
       end
 
-      let(:new_status_2019) { tax_return_2019.state }
+      let(:new_status_2019) { tax_return_2019.current_state }
 
       context "when there is an error" do
         before do

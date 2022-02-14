@@ -19,7 +19,7 @@ RSpec.feature "Change tax return status on a client" do
       click_on "Take action"
 
       expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
-      expect(page).to have_select("hub_take_action_form_state")
+      expect(page).to have_select("hub_take_action_form_current_state")
       select "Preparing", from: "Updated status"
       select "2019", from: "Filing year"
 
@@ -40,7 +40,7 @@ RSpec.feature "Change tax return status on a client" do
 
     scenario "can change a status on a tax return and send a templated message" do
       visit hub_client_path(id: client.id)
-      expect(page).to have_select("tax_return[state]", selected: "Not ready")
+      expect(page).to have_select("tax_return[current_state]", selected: "Not ready")
 
       within "#tax-return-#{tax_return.id}" do
         select "Accepted"
@@ -49,7 +49,7 @@ RSpec.feature "Change tax return status on a client" do
 
       expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
       expect(page).to have_select("hub_take_action_form_tax_return_id", selected: "2019")
-      expect(page).to have_select("hub_take_action_form_state", selected: "Accepted")
+      expect(page).to have_select("hub_take_action_form_current_state", selected: "Accepted")
       expect(page).to have_select("hub_take_action_form_locale", selected: "English")
 
       expect(page).to have_text("Send message")
@@ -69,7 +69,7 @@ RSpec.feature "Change tax return status on a client" do
 
     scenario "can cancel the updates and return to client's profile" do
       visit hub_client_path(id: client.id)
-      expect(page).to have_select("tax_return[state]", selected: "Not ready")
+      expect(page).to have_select("tax_return[current_state]", selected: "Not ready")
 
       within "#tax-return-#{tax_return.id}" do
         select "Accepted"
@@ -80,7 +80,7 @@ RSpec.feature "Change tax return status on a client" do
       click_on "Cancel"
 
       expect(current_path).to eq(hub_client_path(id: client.id))
-      expect(page).to have_select("tax_return[state]", selected: "Not ready")
+      expect(page).to have_select("tax_return[current_state]", selected: "Not ready")
     end
 
     context "for an online intake ctc tax return" do
