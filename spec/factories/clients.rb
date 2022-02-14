@@ -96,10 +96,12 @@ FactoryBot.define do
       end
       transient do
         preferred_name { "Maeby" }
+        primary_first_name { "Maeby" }
+        primary_last_name { "Tomorrow" }
       end
 
       after(:create) do |client, evaluator|
-        create :ctc_intake, client: client, preferred_name: evaluator.preferred_name
+        create :ctc_intake, client: client, preferred_name: evaluator.preferred_name, primary_first_name: evaluator.primary_first_name, primary_last_name: evaluator.primary_last_name
       end
     end
 
