@@ -12,8 +12,26 @@ module Hub
     end
 
     def show
-      @verification_attempt = VerificationAttempt.find(params[:id])
-      @fraud_indicators = FraudIndicatorService.new(@verification_attempt.client).hold_indicators
+      @verification_attempt = VerificationAttempt.includes(:client).find(params[:id])
+      @form = Hub::UpdateVerificationAttemptForm.new(@verification_attempt, current_user, {})
+    end
+
+    def update
+      @verification_attempt = VerificationAttempt.includes(:client).find(params[:id])
+
+      @form = Hub::UpdateVerificationAttemptForm.new(@verification_attempt, current_user, form_params)
+      if @form.valid?
+        @form.save
+        redirect_to action: :show
+      else
+        render :show
+      end
+    end
+
+    private
+
+    def form_params
+      params.require(:hub_update_verification_attempt_form).permit(:body)
     end
   end
 end

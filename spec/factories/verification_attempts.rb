@@ -27,6 +27,7 @@ FactoryBot.define do
         content_type: 'image/jpeg'
       )
     end
+
     after(:create) do |verification_attempt|
       create :ctc_intake, :filled_out_ctc, :with_bank_account
       create :bank_account, intake: verification_attempt.intake
