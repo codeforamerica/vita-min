@@ -2,7 +2,26 @@
   <div class="slab">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <h1><%=  "#{@attempt_count} clients to be verified" %></h1>
+        <h1><%=  "#{pluralize(@attempt_count, "client")} to be verified" %></h1>
+
+        <table class="index-table">
+          <thead class="index-table__head">
+          <tr class="index-table__row">
+            <th scope="col" class="index-table__header">Name</th>
+            <th scope="col" class="index-table__header">Submitted at</th>
+            <th scope="col" class="index-table__header">Held since (?)</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% VerificationAttempt.find_each do|attempt| %>
+              <tr class="index-table__row" id="verification-attempt-<%= attempt.id %>">
+                <td class="index-table__cell"><%= link_to "#{attempt.client.legal_name}", hub_verification_attempt_path(id: attempt.id) %></td>
+                <td class="index-table__cell"><%= link_to timestamp(attempt.created_at), hub_verification_attempt_path(id: attempt.id) %></td> <%# The link is only working for the first 6 entries in this table %>
+                <th scope="col" class="index-table__header">TBD</th>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

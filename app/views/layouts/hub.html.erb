@@ -63,7 +63,7 @@
           </div>
           <%= yield(:notice) if content_for?(:notice) %>
         </div>
-        <%= yield(:card) || yield %>
+        <%= content_for?(:card) ? yield(:card) : yield %>
       </main>
     </div>
   </div>
