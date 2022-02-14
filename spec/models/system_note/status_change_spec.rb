@@ -70,7 +70,7 @@ describe SystemNote::StatusChange do
 
     context "without a user" do
       before do
-        tax_return.update(status: "intake_ready")
+        tax_return.transition_to :intake_ready
       end
 
       it "can track the changes" do

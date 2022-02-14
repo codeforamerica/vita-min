@@ -19,7 +19,7 @@ describe OrganizationCapacity do
       context "for #{state} tax return state" do
         let(:organization) { create :organization }
         before do
-          create :client_with_tax_return_state, state: state, vita_partner: organization,intake: create(:intake)
+          create :client_with_tax_return_state, tax_return_state: state, vita_partner: organization,intake: create(:intake)
         end
 
         unless TaxReturnStateMachine::EXCLUDED_FROM_CAPACITY.include?(state)
@@ -37,7 +37,7 @@ describe OrganizationCapacity do
     context "when intake associated with client is archived" do
       let(:organization) { create :organization }
       before do
-        client = create :client_with_tax_return_state, state: :prep_ready_for_prep, vita_partner: organization
+        client = create :client_with_tax_return_state, tax_return_state: :prep_ready_for_prep, vita_partner: organization
         create :archived_2021_gyr_intake, client: client
       end
 
@@ -50,7 +50,7 @@ describe OrganizationCapacity do
       let(:organization) { create :organization }
       let(:intake) { create :intake }
       before do
-        create :client_with_tax_return_state, state: :prep_ready_for_prep, vita_partner: organization, intake: intake
+        create :client_with_tax_return_state, tax_return_state: :prep_ready_for_prep, vita_partner: organization, intake: intake
       end
 
       it "does include the client in the client count" do
@@ -70,7 +70,7 @@ describe OrganizationCapacity do
     context "with an organization whose active clients equal capacity" do
       let(:organization) { create :organization, capacity_limit: 1 }
       before do
-        create :client_with_tax_return_state, state: in_range_states[0], vita_partner: organization, intake: create(:intake)
+        create :client_with_tax_return_state, tax_return_state: in_range_states[0], vita_partner: organization, intake: create(:intake)
       end
 
       it "does not have capacity" do
@@ -89,7 +89,7 @@ describe OrganizationCapacity do
     context "with an organization whose active clients are below its capacity" do
       let!(:organization) { create :organization, capacity_limit: 2 }
       before do
-        create :client_with_tax_return_state, state: in_range_states[0], vita_partner: organization
+        create :client_with_tax_return_state, tax_return_state: in_range_states[0], vita_partner: organization
       end
 
       it "has capacity" do
@@ -100,7 +100,7 @@ describe OrganizationCapacity do
     context "with an organization whose active clients are above its capacity" do
       let(:organization) { create :organization, capacity_limit: 0 }
       before do
-        create :client_with_tax_return_state, state: in_range_states[0], vita_partner: organization
+        create :client_with_tax_return_state, tax_return_state: in_range_states[0], vita_partner: organization
       end
 
       it "does not have capacity" do
@@ -111,7 +111,7 @@ describe OrganizationCapacity do
     context "with an organization whose capacity_limit is nil" do
       let(:organization) { create :organization, capacity_limit: nil }
       before do
-        create :client_with_tax_return_state, state: in_range_states[0], vita_partner: organization
+        create :client_with_tax_return_state, tax_return_state: in_range_states[0], vita_partner: organization
       end
 
       it "has capacity" do

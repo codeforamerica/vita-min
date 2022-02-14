@@ -4,6 +4,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  current_state       :string
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -17,7 +18,6 @@
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
 #  spouse_signed_ip    :inet
-#  state               :string
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
@@ -29,7 +29,7 @@
 #
 #  index_tax_returns_on_assigned_user_id    (assigned_user_id)
 #  index_tax_returns_on_client_id           (client_id)
-#  index_tax_returns_on_state               (state)
+#  index_tax_returns_on_current_state       (current_state)
 #  index_tax_returns_on_year_and_client_id  (year,client_id) UNIQUE
 #
 # Foreign Keys
@@ -71,8 +71,16 @@ class TaxReturn < ApplicationRecord
            :transition_to!, :transition_to, :in_state?, :advance_to, :previous_transition, :previous_state, :last_changed_by, to: :state_machine
 
   def current_state
-    ## backwards compatible with current implementation while TaxReturn#state can be nil
-    state || state_machine.current_state || status
+    ## backwards compatible with current implementation while cutting over column name to current_state
+    read_attribute(:current_state) || read_attribute(:state) || state_machine.current_state || status
+  end
+
+  def current_state=(_)
+    raise("Avoid writing to TaxReturn#current_state directly. Instead, use #transition_to or #transition_to!")
+  end
+
+  def status=(_)
+    raise("Avoid writing to TaxReturn#status directly. Instead, use #transition_to or #transition_to!")
   end
 
   def ready_for_prep_at

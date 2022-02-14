@@ -2,21 +2,21 @@
 <% content_for :page_title, @page_title %>
 
 <% content_for :card do %>
-  <div class="slab">
+  <div class="slab slab--padded">
     <div class="grid">
       <h1 class="spacing-below-0"><%= @page_title %></h1>
-      <p><%= t(".current_years") %> <%= @tax_return_years.join(", ") %> </p>
+      <p><%= t(".current_years") %> <%= @form.tax_return_years.join(", ") %> </p>
       <div class="grid__item width-one-half">
-        <%= form_with model: @tax_return, url: [:hub, @client, @tax_return], builder: VitaMinFormBuilder, local: true do |f| %>
-          <%= f.cfa_select :year, t(".tax_year"), @remaining_years %>
+        <%= form_with model: @form, url: [:hub, @client, @form.tax_return], builder: VitaMinFormBuilder, local: true do |f| %>
+          <%= f.cfa_select :year, t(".tax_year"), @form.remaining_years %>
           <%= f.cfa_select :assigned_user_id, t(".assigned_user"), @assignable_users.map { |u| [u.name, u.id]} , { include_blank: true } %>
           <%= f.cfa_select :certification_level, t(".certification_level"), certification_options_for_select, { include_blank: true } %>
-          <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select) %>
+          <%= f.cfa_select(:current_state, t("general.status"), grouped_status_options_for_select) %>
 
-          <% if @tax_return.errors.present? %>
-            <% @tax_return.errors.attribute_names.each do |key| %>
+          <% if @form.errors.present? %>
+            <% @form.errors.attribute_names.each do |key| %>
               <div class="form-group">
-                <%= error_message(@tax_return, key) %>
+                <%= error_message(@form, key) %>
               </div>
             <% end %>
           <% end %>

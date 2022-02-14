@@ -54,9 +54,8 @@ class TaxReturnStateMachine
   FORWARD_TO_INTERCOM_STATES = [:file_accepted, :file_mailed, :file_not_filing]
 
   after_transition(after_commit: true) do |tax_return, transition|
-    tax_return.status = transition.to_state # save the integer version, too, for now. (Backwards compatability for data science reports)
-    tax_return.state = transition.to_state
-    tax_return.save!
+    tax_return.update_columns(current_state: transition.to_state, status: TaxReturnStatus::STATUSES[transition.to_state.to_sym]) # save the integer version, too, for now. (Backwards compatability for data science reports)
+    InteractionTrackingService.record_internal_interaction(tax_return.client) # manually run since the update_columns doesn't run callbacks
     MixpanelService.send_tax_return_event(tax_return, "status_change", { from_status: tax_return.previous_state })
   end
 

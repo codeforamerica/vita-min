@@ -36,9 +36,8 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         expect(response).to render_template :new
         expect(assigns(:client)).to eq client
         expect(assigns(:tax_return)).to be_an_instance_of TaxReturn
-        expect(assigns(:tax_return).status).to eq "intake_in_progress"
-        expect(assigns(:tax_return_years)).to eq [2018]
-        expect(assigns(:remaining_years)).to eq TaxReturn.filing_years - [2018]
+        expect(assigns(:form).tax_return_years).to eq [2018]
+        expect(assigns(:form).remaining_years).to eq TaxReturn.filing_years - [2018]
       end
     end
   end
@@ -61,11 +60,11 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
       let(:params) do
         {
             client_id: client.id,
-            tax_return: {
+            hub_tax_return_form: {
                 year: "2020",
                 certification_level: "basic",
                 assigned_user_id: user.id,
-                status: :intake_in_progress
+                current_state: :intake_in_progress
             }
         }
       end
@@ -91,7 +90,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         let(:params) do
           {
               client_id: client.id,
-              tax_return: {
+              hub_tax_return_form: {
                   year: "2020",
                   certification_level: "basic",
                   assigned_user_id: user.id,
@@ -111,7 +110,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
       context "with invalid tax return" do
         before do
-          allow_any_instance_of(TaxReturn).to receive(:valid?).and_return false
+          allow_any_instance_of(Hub::TaxReturnForm).to receive(:valid?).and_return false
         end
 
         it "does not persist the tax return, renders new and flashes an error" do

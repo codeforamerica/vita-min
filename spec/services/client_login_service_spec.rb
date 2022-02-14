@@ -126,7 +126,7 @@ describe ClientLoginService do
 
   describe ".can_login_by_sms_verification?" do
     let(:phone_number) { "+18324651680" }
-    let!(:client) { create :client, intake: intake, tax_returns: [create(:tax_return, service_type: service_type, status: "prep_ready_for_prep")] }
+    let!(:client) { create :client, intake: intake, tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: service_type)] }
     let(:sms_notification_opt_in) { "yes" }
     let(:primary_consented_to_service) { "yes" }
     let(:service_type) { "online_intake" }
@@ -212,7 +212,7 @@ describe ClientLoginService do
       context "when there is a consented online intake with matching email" do
         let(:email_address) { "mango@example.com" }
         before do
-          create :client, intake: (create :intake, email_address: email_address, primary_consented_to_service: "yes"), tax_returns: [create(:tax_return, service_type: "online_intake", status: "prep_ready_for_prep")]
+          create :client, intake: (create :intake, email_address: email_address, primary_consented_to_service: "yes"), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "online_intake")]
         end
 
         it "is true" do
@@ -223,7 +223,7 @@ describe ClientLoginService do
       context "when there is a consented online intake with a matching spouse email" do
         let(:email_address) { "mangospouse@example.com" }
         before do
-          create :client, intake: (create :intake, spouse_email_address: email_address, primary_consented_to_service: "yes"), tax_returns: [create(:tax_return, service_type: "online_intake", status: "prep_ready_for_prep")]
+          create :client, intake: (create :intake, spouse_email_address: email_address, primary_consented_to_service: "yes"), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "online_intake")]
         end
 
         it "is true" do
@@ -234,7 +234,7 @@ describe ClientLoginService do
       context "when there is a drop off intake with a matching email" do
         let(:email_address) { "persimmion@example.com" }
         before do
-          create :client, intake: (create :intake, email_address: email_address), tax_returns: [create(:tax_return, service_type: "drop_off", status: "prep_ready_for_prep")]
+          create :client, intake: (create :intake, email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
         end
 
         it "is true" do
@@ -245,7 +245,7 @@ describe ClientLoginService do
       context "when there is a drop off intake with a matching spouse email" do
         let(:email_address) { "persimmion@example.com" }
         before do
-          create :client, intake: (create :intake, spouse_email_address: email_address), tax_returns: [create(:tax_return, service_type: "drop_off", status: "prep_ready_for_prep")]
+          create :client, intake: (create :intake, spouse_email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
         end
 
         it "is true" do
@@ -256,7 +256,7 @@ describe ClientLoginService do
       context "when there is a matching online intake that has not consented to service" do
         let(:email_address) { "noconsent@example.com" }
         before do
-          create :client, intake: (create :intake, spouse_email_address: email_address), tax_returns: [create(:tax_return, service_type: "online_intake", status: "prep_ready_for_prep")]
+          create :client, intake: (create :intake, spouse_email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "online_intake")]
         end
 
         it "is false" do

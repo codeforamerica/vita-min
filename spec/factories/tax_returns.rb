@@ -4,6 +4,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  current_state       :string
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -17,7 +18,6 @@
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
 #  spouse_signed_ip    :inet
-#  state               :string
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
@@ -29,7 +29,7 @@
 #
 #  index_tax_returns_on_assigned_user_id    (assigned_user_id)
 #  index_tax_returns_on_client_id           (client_id)
-#  index_tax_returns_on_state               (state)
+#  index_tax_returns_on_current_state       (current_state)
 #  index_tax_returns_on_year_and_client_id  (year,client_id) UNIQUE
 #
 # Foreign Keys
@@ -48,9 +48,9 @@ FactoryBot.define do
 
     TaxReturnStateMachine.states.each do |state|
       trait state.to_sym do
-        state { state }
         after :create do |tax_return, evaluator|
           create :tax_return_transition, state, tax_return: tax_return, metadata: evaluator.metadata
+          tax_return.update_columns(current_state: state, status: TaxReturnStatus::STATUSES[state.to_sym])
         end
       end
     end

@@ -17,7 +17,7 @@ describe NotReadyReminder do
           expect(response).to eq "changed_status"
         }.to change(SystemNote::NotReadyNotFilingTransition, :count).by 1
         expect(SystemNote::NotReadyNotFilingTransition.last.client).to eq tax_return.client
-        expect(tax_return.reload.state).to eq "file_not_filing"
+        expect(tax_return.reload.current_state).to eq "file_not_filing"
       end
     end
 

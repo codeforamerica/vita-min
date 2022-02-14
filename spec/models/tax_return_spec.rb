@@ -4,6 +4,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
+#  current_state       :string
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -17,7 +18,6 @@
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
 #  spouse_signed_ip    :inet
-#  state               :string
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
@@ -29,7 +29,7 @@
 #
 #  index_tax_returns_on_assigned_user_id    (assigned_user_id)
 #  index_tax_returns_on_client_id           (client_id)
-#  index_tax_returns_on_state               (state)
+#  index_tax_returns_on_current_state       (current_state)
 #  index_tax_returns_on_year_and_client_id  (year,client_id) UNIQUE
 #
 # Foreign Keys
@@ -207,7 +207,7 @@ describe TaxReturn do
     end
 
     context "when the return is any status other than accepted" do
-      let(:tax_return) { create :tax_return, status: "file_rejected" }
+      let(:tax_return) { create :tax_return, :file_rejected }
 
       it "raises an error to prevent the transition" do
         expect {
@@ -324,7 +324,7 @@ describe TaxReturn do
   end
 
   describe "#advance_to" do
-    let(:tax_return) { create :tax_return, status: status }
+    let(:tax_return) { create :tax_return, status.to_sym }
 
     context "with a status that comes before the current status" do
       let(:status) { "intake_in_progress" }
@@ -1113,7 +1113,7 @@ describe TaxReturn do
   end
 
   describe "#ready_for_prep_at" do
-    let(:tax_return) { create :tax_return, status: "intake_ready" }
+    let(:tax_return) { create :tax_return, :intake_ready }
 
     context "when there is a tax return transition to read for prep" do
       let(:current_timestamp) { DateTime.new }
