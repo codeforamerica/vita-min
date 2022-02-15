@@ -194,6 +194,9 @@ ul.day-list {
     font-size: 1.4rem;
     padding-left: 1rem; // match indention to body
   }
+  &__weight-normal {
+    font-weight: normal
+  }
   &__time {
     font-size: 1.2rem;
     color: $color-grey-medium;

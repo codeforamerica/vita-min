@@ -20,25 +20,16 @@
 #
 #  fk_rails_...  (verification_attempt_id => verification_attempts.id)
 #
-class VerificationAttemptTransition < ApplicationRecord
-  belongs_to :verification_attempt, inverse_of: :transitions
-
-  after_destroy :update_most_recent, if: :most_recent?
-
-  def initiated_by
-    User.find(metadata['initiated_by_id']) if metadata['initiated_by_id'].present?
-  end
-
-  def note
-    metadata['note']
-  end
-
-  private
-
-  def update_most_recent
-    last_transition = verification_attempt.transitions.order(:sort_key).last
-    return unless last_transition.present?
-
-    last_transition.update_column(:most_recent, true)
+FactoryBot.define do
+  factory :verification_attempt_transition do
+    verification_attempt
+    most_recent { true }
+    sort_key { 0 }
+    to_state { "pending" }
+    VerificationAttemptStateMachine.states.each do |state|
+      trait state.to_sym do
+        to_state { state }
+      end
+    end
   end
 end

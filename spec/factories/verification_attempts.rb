@@ -32,5 +32,22 @@ FactoryBot.define do
       create :ctc_intake, :filled_out_ctc, :with_bank_account
       create :bank_account, intake: verification_attempt.intake
     end
+
+    VerificationAttemptStateMachine.states.each do |state|
+      trait state.to_sym do
+        transient do
+          metadata { {} }
+        end
+        after :create do |attempt, evaluator|
+          create :verification_attempt_transition, state, verification_attempt: attempt, metadata: evaluator.metadata
+        end
+      end
+    end
+
+    trait :with_fraud_hold_efile_submission do
+      after(:create) do |verification_attempt|
+        create :efile_submission, :fraud_hold, tax_return: verification_attempt.client.tax_returns.first
+      end
+    end
   end
 end

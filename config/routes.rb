@@ -182,7 +182,7 @@ Rails.application.routes.draw do
           put "/add-organizations", to: "state_routings#add_organizations", on: :member, as: :add_organizations
         end
         resources :automated_messages, only: [:index]
-        resources :verification_attempts, only: [:index, :show, :update]
+        resources :verification_attempts, path: "verifications", only: [:index, :show, :update]
 
         resources :clients do
           get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches

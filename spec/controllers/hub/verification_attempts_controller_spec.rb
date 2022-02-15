@@ -84,16 +84,20 @@ describe Hub::VerificationAttemptsController, type: :controller do
       let(:params) do
         {
             id: verification_attempt.id,
+            state: "approved",
             hub_update_verification_attempt_form: {
-              body: "some note"
+                note: "some note"
           }
         }
       end
+
       context "when the form object is valid" do
-        it "creates a new note and stores the new note, then redirects to show page" do
+        it "creates a new transition and stores the note, changes state then redirects to show page" do
           expect do
             post :update, params: params
-          end.to change(verification_attempt.notes, :count).by(1)
+          end.to change(verification_attempt.transitions, :count).by(1)
+          expect(verification_attempt.last_transition.note).to be_present
+          expect(verification_attempt.current_state).to eq "approved"
           expect(response).to redirect_to hub_verification_attempt_path(id: verification_attempt.id)
         end
       end
