@@ -3,9 +3,12 @@ module Hub
     include FormAttributes
     attr_accessor :verification_attempt, :current_user
 
-    set_attributes_for :verification_attempt_note, :body
+    set_attributes_for :verification_attempt_note, :note
+    set_attributes_for :transition, :state
 
-    validates :body, presence: true
+    # validates :body, presence: true
+    validates :state, presence: true
+
     def initialize(verification_attempt, current_user, params)
       @verification_attempt = verification_attempt
       @current_user = current_user
@@ -13,9 +16,11 @@ module Hub
     end
 
     def save
-      if body.present?
-        verification_attempt.notes.create(body: body, user: current_user)
-      end
+      metadata = {
+        initiated_by_id: current_user.id,
+        note: note
+      }
+      verification_attempt.transition_to!(state, metadata)
     end
 
     # ensure that fraud_indicators are available if show re-renders after failed update

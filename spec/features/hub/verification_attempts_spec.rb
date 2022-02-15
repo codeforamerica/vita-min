@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Clients who have been flagged for fraud" do
-  let(:user) { create :admin_user }
-  let!(:note) { create :verification_attempt_note, body: "this client looks like a racoon", verification_attempt: verification_attempt_1 }
+  let(:user) { create :admin_user, name: "Judith Juice" }
+  let!(:note) { create :verification_attempt_transition, :escalated, metadata: { initiated_by_id: user.id, note: "this client looks like a racoon" }, verification_attempt: verification_attempt_1 }
   let(:verification_attempt_1) { create :verification_attempt }
   let(:verification_attempt_2) { create :verification_attempt }
   let(:verification_attempt_3) { create :verification_attempt }
@@ -39,7 +39,6 @@ RSpec.feature "Clients who have been flagged for fraud" do
     # viewing an individual verification attempt
     # - click on a verification attempt
     click_on "Tina"
-    expect(page).to have_text "Notes"
 
     # - check info on show page
     #   - check name
@@ -52,20 +51,20 @@ RSpec.feature "Clients who have been flagged for fraud" do
     expect(page).to have_selector("img#photo_id")
 
     #   - check notes
-    expect(page).to have_text "Notes"
     expect(page).to have_text "this client looks like a racoon"
 
     # - create note
     fill_in "Add a new note", with: "These are my notes"
-    click_on "Save"
+    click_on "Approve"
 
     within "ul#verification-attempt-notes" do
+      expect(page).to have_text "Judith Juice - Admin approved verification attempt."
       expect(page).to have_text "These are my notes"
     end
 
-    #   - check that page re-renders and note is displayed
-    # - click link to client profile
-    click_on "##{verification_attempt_1.client_id}"
-    expect(page).to have_text "Client Profile"
+    # Go to client notes page and make sure there is a record of the note there as well
+    visit hub_client_notes_path(client_id: verification_attempt_1.client_id)
+
+    expect(page).to have_content "Judith Juice - Admin approved verification attempt."
   end
 end

@@ -2,8 +2,14 @@
   <div class="grid-flex contained">
     <div>
       <%= link_to "##{@verification_attempt.client.id}", hub_client_path(id: @verification_attempt.client.id) , target: :_blank %>
-      <h1 class="spacing-above-0"><%= @verification_attempt.client.legal_name %></h1>
-      <ul>
+      <div class="grid-flex space-between">
+        <h1 class="spacing-above-5"><%= @verification_attempt.client.legal_name %></h1>
+        <div>
+          <div class="label"><%= @verification_attempt.current_state %></div>
+        </div>
+      </div>
+
+      <ul class="item-40l">
         <% @form.fraud_indicators.each do |indicator| %>
           <li><%= indicator.humanize %></li>
         <%end %>
@@ -22,33 +28,45 @@
         <% end %>
       </div>
 
-      <h2>Notes:</h2>
       <ul class="no-bullets" id="verification-attempt-notes">
-        <% @verification_attempt.notes.each do |note| %>
+        <% @verification_attempt.transitions.each do |transition| %>
           <li>
             <div class="note">
               <div class="note__heading">
-                <div class="note__author">
-                  <%= note.user.name %>
+                <div class="note__author note__weight-normal">
+                  <%= transition.initiated_by&.name_with_role %> <strong><%= transition.to_state %></strong> verification attempt.
+
                 </div>
+
                 <div class="note__time">
-                  <%= timestamp(note.created_at) %>
+                  <%= timestamp transition.created_at %>
                 </div>
               </div>
-              <div class="note__body">
-                <%= note.body %>
-              </div>
+              <% if transition.note.present? %>
+                <div class="note__body">
+                  <%= simple_format transition.note %>
+                </div>
+              <% end %>
             </div>
           </li>
         <% end %>
+      </ul>
 
+      <div>
         <%= form_for @form, url: hub_verification_attempt_path(id: @verification_attempt.id), method: :patch, builder: VitaMinFormBuilder, html: { class: "note-form" } do |f| %>
-          <%= f.cfa_textarea :body, "Add a new note" %>
           <div>
-            <%= f.submit "Save", class: "button button--primary" %>
+            <%= f.cfa_textarea :note, "Add a new note", classes: ["textarea--short"] %>
+          </div>
+          <div>
+            <% if @verification_attempt.can_transition_to? :approved %>
+              <%= f.submit "Approve", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "approved"), class: "button button--primary" %>
+          <% end %>
+            <%#= f.submit "Deny and Close", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "denied"), class: "button button--primary" %>
+            <%#= f.submit "Escalate", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "escalated"), class: "button button--primary" %>
+            <%#= f.submit "Request replacement photos", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "requested_replacements"), class: "button button--primary" %>
           </div>
         <% end %>
-      </ul>
+      </div>
     </div>
   </div>
 </div>

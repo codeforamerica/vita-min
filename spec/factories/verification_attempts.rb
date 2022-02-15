@@ -14,7 +14,6 @@
 FactoryBot.define do
   factory :verification_attempt do
     client { create :client_with_ctc_intake_and_return }
-    notes { build_list :verification_attempt_note, 1 }
     after(:build) do |verification_attempt|
       verification_attempt.selfie.attach(
         io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),
@@ -31,6 +30,23 @@ FactoryBot.define do
     after(:create) do |verification_attempt|
       create :ctc_intake, :filled_out_ctc, :with_bank_account
       create :bank_account, intake: verification_attempt.intake
+    end
+
+    VerificationAttemptStateMachine.states.each do |state|
+      trait state.to_sym do
+        transient do
+          metadata { {} }
+        end
+        after :create do |attempt, evaluator|
+          create :verification_attempt_transition, state, verification_attempt: attempt, metadata: evaluator.metadata
+        end
+      end
+    end
+
+    trait :with_fraud_hold_efile_submission do
+      after(:create) do |verification_attempt|
+        create :efile_submission, :fraud_hold, tax_return: verification_attempt.client.tax_returns.first
+      end
     end
   end
 end

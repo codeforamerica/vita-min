@@ -16,13 +16,18 @@ class VerificationAttempt < ApplicationRecord
   has_one :intake, through: :client
   has_one_attached :selfie
   has_one_attached :photo_identification
-  has_many :notes, class_name: "VerificationAttemptNote"
 
   has_many :transitions, class_name: "VerificationAttemptTransition", autosave: false
 
+  include Statesman::Adapters::ActiveRecordQueries[
+              transition_class: VerificationAttemptTransition,
+              initial_state: VerificationAttemptStateMachine.initial_state,
+              transition_name: :transitions
+          ]
+
   def state_machine
     @state_machine ||= VerificationAttemptStateMachine.new(self, transition_class: VerificationAttemptTransition,
-                                             association_name: :transitions)
+                                                                 association_name: :transitions)
   end
 
   delegate :can_transition_to?,

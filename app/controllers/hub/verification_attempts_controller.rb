@@ -12,14 +12,14 @@ module Hub
     end
 
     def show
-      @verification_attempt = VerificationAttempt.includes(:client, :notes).find(params[:id])
-      @form = Hub::UpdateVerificationAttemptForm.new(@verification_attempt, current_user, {})
+      @verification_attempt = VerificationAttempt.includes(:client, :transitions).find(params[:id])
+      @form = form_class.new(@verification_attempt, current_user, {})
     end
 
     def update
-      @verification_attempt = VerificationAttempt.includes(:client, :notes).find(params[:id])
+      @verification_attempt = VerificationAttempt.includes(:client, :transitions).find(params[:id])
 
-      @form = Hub::UpdateVerificationAttemptForm.new(@verification_attempt, current_user, form_params)
+      @form = form_class.new(@verification_attempt, current_user, form_params)
       if @form.valid?
         @form.save
         redirect_to action: :show
@@ -30,8 +30,12 @@ module Hub
 
     private
 
+    def form_class
+      Hub::UpdateVerificationAttemptForm
+    end
+
     def form_params
-      params.require(:hub_update_verification_attempt_form).permit(:body)
+      params.require(form_class.form_param).permit(:note).merge(state: params[:state])
     end
   end
 end

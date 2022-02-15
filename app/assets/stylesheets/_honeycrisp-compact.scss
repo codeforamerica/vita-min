@@ -11,6 +11,10 @@
   textarea {
     border-width: 1px;
     min-height: 18rem;
+
+    &.textarea--short {
+      min-height: unset;
+    }
   }
 
   ul {
@@ -408,5 +412,6 @@
   .text--error {
     margin: unset;
   }
+
 }
 

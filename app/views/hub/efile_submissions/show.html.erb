@@ -6,7 +6,7 @@
     <div class="slab slab--not-padded spacing-above-25 submission" id="body">
 
       <div style="display: flex;">
-        <h1><%= tax_return.year %> Tax Return (<%= latest_efile_submission.current_state %>)</h1>
+        <h1><%= tax_return.year %> Tax Return (<%= latest_efile_submission.current_state.humanize %>)</h1>
         <% if latest_efile_submission.can_transition_to?(:resubmitted) %>
           <div style="margin-left: 10px;">
             <%= button_to("Resubmit",

@@ -5,6 +5,7 @@ class NotesPresenter
     notes = (client.notes.includes(:user) + SystemNote.where(client: client))
     synthetic_notes = SyntheticNote.from_client_documents(client)
     synthetic_notes += SyntheticNote.from_outbound_calls(client)
-    (notes + synthetic_notes).sort_by(&:created_at).group_by { |note| note.created_at.beginning_of_day }
+    synthetic_notes += SyntheticNote.from_verification_attempts(client)
+    (notes + synthetic_notes).flatten.sort_by(&:created_at).group_by { |note| note.created_at.beginning_of_day }
   end
 end

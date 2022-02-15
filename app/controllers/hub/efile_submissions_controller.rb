@@ -17,9 +17,10 @@ module Hub
     # a little bit unexpectedly, the "show" page actually uses the client id to load the client. Then,
     # loops through the tax_returns that have efile_submissions.
     def show
-      @client = Client.find(params[:id])
-      authorize! :read, @client
-      @tax_returns = @client.tax_returns.joins(:efile_submissions).uniq # get all tax returns with submissions
+      client = Client.find(params[:id])
+      @client = Hub::ClientsController::HubClientPresenter.new(client)
+      authorize! :read, client
+      @tax_returns = client.tax_returns.joins(:efile_submissions).uniq # get all tax returns with submissions
       redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.present?
     end
 

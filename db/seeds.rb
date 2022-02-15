@@ -156,5 +156,6 @@ married_intake = Intake::GyrIntake.create!(
 )
 t = TaxReturn.create!(client: married_intake.client, year: 2020)
 t.transition_to! :prep_preparing
-FactoryBot.create :verification_attempt
+
+FactoryBot.create :verification_attempt, :with_fraud_hold_efile_submission
 
