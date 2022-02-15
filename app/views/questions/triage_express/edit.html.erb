@@ -13,6 +13,10 @@
   </ul>
 
   <div>
-    <%= link_to t('questions.triage_gyr_express.edit.sign_up_for_express'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"), class: "button button--primary button--wide spacing-above-60 text--centered" %>
+    <%= link_to t("questions.triage_gyr_express.edit.sign_up_for_express"),
+                url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: "source_routing", source: "gyr"),
+                class: "button button--primary button--wide spacing-above-60 text--centered",
+                "data-track-click": "click_triage-express-only-choose-express-signup"
+    %>
   </div>
 <% end %>

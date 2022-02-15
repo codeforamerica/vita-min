@@ -48,9 +48,13 @@
   </div>
 
   <div class="spacing-above-60">
-    <%= link_to t('.file_with_gyr'), next_path, class: "button button--wide text--centered" %>
+    <%= link_to t('.file_with_gyr'), next_path, class: "button button--wide text--centered", "data-track-click": "click_triage-gyr-express-choose-gyr" %>
   </div>
   <div>
-    <%= link_to t('.sign_up_for_express'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"), class: "button button--wide text--centered" %>
+    <%= link_to t('.sign_up_for_express'),
+                url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"),
+                class: "button button--wide text--centered",
+                "data-track-click": "click_triage-gyr-express-choose-express-signup"
+    %>
   </div>
 <% end %>
