@@ -24,7 +24,7 @@
 
       <h2>Notes:</h2>
       <ul class="no-bullets" id="verification-attempt-notes">
-        <% @verification_attempt.verification_attempt_notes.each do |note| %>
+        <% @verification_attempt.notes.each do |note| %>
           <li>
             <div class="note">
               <div class="note__heading">
@@ -47,7 +47,6 @@
           <div>
             <%= f.submit "Save", class: "button button--primary" %>
           </div>
-
         <% end %>
       </ul>
     </div>

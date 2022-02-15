@@ -12,12 +12,12 @@ module Hub
     end
 
     def show
-      @verification_attempt = VerificationAttempt.includes(:client).find(params[:id])
+      @verification_attempt = VerificationAttempt.includes(:client, :notes).find(params[:id])
       @form = Hub::UpdateVerificationAttemptForm.new(@verification_attempt, current_user, {})
     end
 
     def update
-      @verification_attempt = VerificationAttempt.includes(:client).find(params[:id])
+      @verification_attempt = VerificationAttempt.includes(:client, :notes).find(params[:id])
 
       @form = Hub::UpdateVerificationAttemptForm.new(@verification_attempt, current_user, form_params)
       if @form.valid?

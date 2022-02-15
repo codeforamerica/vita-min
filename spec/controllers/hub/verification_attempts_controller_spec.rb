@@ -93,7 +93,7 @@ describe Hub::VerificationAttemptsController, type: :controller do
         it "creates a new note and stores the new note, then redirects to show page" do
           expect do
             post :update, params: params
-          end.to change(verification_attempt.verification_attempt_notes, :count).by(1)
+          end.to change(verification_attempt.notes, :count).by(1)
           expect(response).to redirect_to hub_verification_attempt_path(id: verification_attempt.id)
         end
       end

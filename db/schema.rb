@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_191119) do
+ActiveRecord::Schema.define(version: 2022_02_14_235515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -1416,6 +1416,18 @@ ActiveRecord::Schema.define(version: 2022_02_09_191119) do
     t.index ["verification_attempt_id"], name: "index_verification_attempt_notes_on_verification_attempt_id"
   end
 
+  create_table "verification_attempt_transitions", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.jsonb "metadata", default: {}
+    t.boolean "most_recent", null: false
+    t.integer "sort_key", null: false
+    t.string "to_state", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "verification_attempt_id", null: false
+    t.index ["verification_attempt_id", "most_recent"], name: "index_verification_attempt_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["verification_attempt_id", "sort_key"], name: "index_verification_attempt_transitions_parent_sort", unique: true
+  end
+
   create_table "verification_attempts", force: :cascade do |t|
     t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
@@ -1530,6 +1542,7 @@ ActiveRecord::Schema.define(version: 2022_02_09_191119) do
   add_foreign_key "team_member_roles", "vita_partners"
   add_foreign_key "user_notifications", "users"
   add_foreign_key "users", "users", column: "invited_by_id"
+  add_foreign_key "verification_attempt_transitions", "verification_attempts"
   add_foreign_key "vita_partner_zip_codes", "vita_partners"
   add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
