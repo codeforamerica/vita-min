@@ -46,7 +46,7 @@ describe SystemNote::OrganizationChange do
             described_class.generate!(client: client, initiated_by: initiating_user)
           }.to change(SystemNote::OrganizationChange, :count).by(1)
           note = SystemNote.last
-          expect(note.body).to eq "Marlie Mango assigned client to Oregano Org."
+          expect(note.body).to eq "#{initiating_user.name_with_role} assigned client to Oregano Org."
           expect(note.user).to eq initiating_user
           expect(note.client).to eq client
         end
@@ -77,7 +77,7 @@ describe SystemNote::OrganizationChange do
             described_class.generate!(client: client, initiated_by: initiating_user)
           }.to change(SystemNote::OrganizationChange, :count).by(1)
           note = SystemNote.last
-          expect(note.body).to eq "Marlie Mango removed partner assignment from client. (Previously assigned to Oregano Org.)"
+          expect(note.body).to eq "#{initiating_user.name_with_role} removed partner assignment from client. (Previously assigned to Oregano Org.)"
           expect(note.user).to eq initiating_user
           expect(note.client).to eq client
         end
@@ -108,7 +108,7 @@ describe SystemNote::OrganizationChange do
             described_class.generate!(client: client, initiated_by: initiating_user)
           }.to change(SystemNote::OrganizationChange, :count).by(1)
           note = SystemNote.last
-          expect(note.body).to eq "Marlie Mango changed assigned partner from Oregano Org to Koala Kitchen."
+          expect(note.body).to eq "#{initiating_user.name_with_role} changed assigned partner from Oregano Org to Koala Kitchen."
           expect(note.user).to eq initiating_user
           expect(note.client).to eq client
         end

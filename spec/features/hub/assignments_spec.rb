@@ -20,23 +20,23 @@ RSpec.feature "Assign a user to a tax return", js: true do
         click_link "Assign"
         expect(page).to have_text "Assign to"
         expect(page).to have_text "Cancel"
-        select "Lucille 2", from: "Assign to"
+        select user_to_assign.name_with_role, from: "Assign to"
         click_on "Save"
       end
 
       expect(page).to have_selector(".selected", text: "All Clients")
 
-      expect(page).to have_text "Assigned Buster's 2019 tax return to Lucille 2."
+      expect(page).to have_text "Assigned Buster's 2019 tax return to #{user_to_assign.name_with_role}."
 
       within "#tax-return-#{tax_return_to_assign.id}" do
-        expect(page).to have_text "Lucille 2"
+        expect(page).to have_text user_to_assign.name_with_role
       end
 
       click_on intake.preferred_name
 
       click_on "Notes"
 
-      expect(page).to have_text "Lucille 1 assigned 2019 return to Lucille 2."
+      expect(page).to have_text "#{logged_in_user.name_with_role} assigned 2019 return to #{user_to_assign.name_with_role}."
     end
   end
 end

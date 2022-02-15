@@ -147,7 +147,7 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
 
     expect(current_path).to eq hub_user_notifications_path
 
-    expect(page).to have_text "You successfully assigned 2 tax returns to Admin the Second."
+    expect(page).to have_text "You successfully assigned 2 tax returns to #{new_user.name_with_role}."
     expect(page).to have_text "You successfully updated 2 tax returns to Greeter - info requested."
     expect(page).to have_text "Bulk Send a Message In Progress"
     expect(page).to have_text "We are still contacting 2 clients."

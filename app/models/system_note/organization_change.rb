@@ -36,7 +36,7 @@ class SystemNote::OrganizationChange < SystemNote
                "removed partner assignment from client. (Previously assigned to #{previous_partner.name}.)"
              end
 
-    body = initiated_by ? "#{initiated_by.name} #{action}" : "A system action #{action}"
+    body = initiated_by ? "#{initiated_by.name_with_role} #{action}" : "A system action #{action}"
 
     create!(
       user: initiated_by,

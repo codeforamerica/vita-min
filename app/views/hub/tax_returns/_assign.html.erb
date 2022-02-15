@@ -5,7 +5,7 @@
     </div>
     <label for=<%="assigned_user_id_#{tax_return.id}"%>>
       <div class="offset-label"><%= t("hub.tax_returns.edit.assigned_user_label")%></div>
-      <%= f.select :assigned_user_id, assignable_users.map { |u| [u.name, u.id] }, { include_blank: true, selected: tax_return.assigned_user_id }, {id: "assigned_user_id_#{tax_return.id}"}  %>
+      <%= f.select :assigned_user_id, assignable_users.map { |u| [u.name_with_role, u.id] }, { include_blank: true, selected: tax_return.assigned_user_id }, {id: "assigned_user_id_#{tax_return.id}"}  %>
     </label>
     <div>
       <%= f.button :submit do %>

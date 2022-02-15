@@ -44,7 +44,7 @@ describe SystemNote::AssignmentChange do
       it "describes the change" do
         described_class.generate!(initiated_by: current_user, tax_return: tax_return)
         expect(described_class.last.client).to eq(tax_return.client)
-        expect(described_class.last.body).to eq("Example User assigned 2019 return to Alice.")
+        expect(described_class.last.body).to eq("#{current_user.name_with_role} assigned 2019 return to #{user_to_assign.name_with_role}.")
       end
     end
 
@@ -71,7 +71,7 @@ describe SystemNote::AssignmentChange do
         expect {
           described_class.generate!(initiated_by: current_user, tax_return: tax_return)
         }.to change(SystemNote, :count).by 1
-        expect(SystemNote.last.body).to eq "Example User removed assignment from 2019 return."
+        expect(SystemNote.last.body).to eq "#{current_user.name_with_role} removed assignment from 2019 return."
       end
     end
   end

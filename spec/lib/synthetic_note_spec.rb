@@ -57,7 +57,7 @@ describe SyntheticNote do
       it "does not include outbound_calls in status queued" do
         result = SyntheticNote.from_outbound_calls(client)
         expect(result.length).to eq 1
-        expect(result[0].body).to include "Called by #{user.name}. Call was completed and lasted 1m15s."
+        expect(result[0].body).to include "Called by #{user.name_with_role}. Call was completed and lasted 1m15s."
         expect(result[0].body).to match /^I talked to them!$/
       end
     end

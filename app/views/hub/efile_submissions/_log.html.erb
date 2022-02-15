@@ -3,7 +3,7 @@
   <div class="status <%= transition.to_state %>"><%= transition.to_state.humanize %></div>
   <div class="details">
     <% if transition.initiated_by.present? %>
-      <div>Initiated by: <%= transition.initiated_by.name %></div>
+      <div>Initiated by: <%= transition.initiated_by.name_with_role %></div>
     <% end %>
     <% transition.efile_errors.each do |error| %>
         <div>

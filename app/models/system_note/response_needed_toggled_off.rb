@@ -26,7 +26,7 @@ class SystemNote::ResponseNeededToggledOff < SystemNote
     create!(
       client: client,
       user: initiated_by,
-      body: "#{initiated_by.name} indicated that this client received a response."
+      body: "#{initiated_by.name_with_role} indicated that this client received a response."
     )
   end
 end

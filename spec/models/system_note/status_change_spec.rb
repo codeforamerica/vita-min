@@ -42,7 +42,7 @@ describe SystemNote::StatusChange do
 
         expect(note.user).to eq(user)
         expect(note.client).to eq(tax_return.client)
-        expect(note.body).to eq("Olive Oil updated 3020 tax return status from Intake/Not ready to Intake/Ready for review")
+        expect(note.body).to eq("#{user.name_with_role} updated 3020 tax return status from Intake/Not ready to Intake/Ready for review")
       end
     end
 

@@ -45,7 +45,7 @@ class BulkTaxReturnUpdate < ApplicationRecord
       updates["status"] = TaxReturnStatusHelper.status_translation(state || status)
     end
     if assigned_user.present?
-      updates["assigned"] = assigned_user.name
+      updates["assigned"] = assigned_user.name_with_role
     elsif data["assigned_user"] == REMOVE
       updates["unassigned"] = nil
     end

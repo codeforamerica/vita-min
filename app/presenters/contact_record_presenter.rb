@@ -18,7 +18,7 @@ class ContactRecordPresenter
       @intake.preferred_name
     else
       if contact_record.user
-        contact_record.user.name
+        contact_record.user.name_with_role
       else
         "#{I18n.t("hub.messages.automated")} "
       end

@@ -64,7 +64,7 @@ RSpec.feature "Change tax return status on a client" do
       end
 
       click_on "Notes"
-      expect(page).to have_text("Example Preparer updated 2019 tax return status from Intake/Not ready to Final steps/Accepted")
+      expect(page).to have_text("#{user.name_with_role} updated 2019 tax return status from Intake/Not ready to Final steps/Accepted")
     end
 
     scenario "can cancel the updates and return to client's profile" do

@@ -34,7 +34,7 @@ describe SystemNote::ResponseNeededToggledOff do
       expect(note).to be_persisted
       expect(note.client).to eq client
       expect(note.user).to eq user
-      expect(note.body).to eq "Teague Toggleson indicated that this client received a response."
+      expect(note.body).to eq "#{user.name_with_role} indicated that this client received a response."
     end
   end
 end

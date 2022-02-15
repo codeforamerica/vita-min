@@ -71,14 +71,14 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_button "Filter results"
           expect(page).to have_text("Alan's Org")
           expect(page).to have_select("year", selected: "2020")
-          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+          expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
 
           # reload page and filters persist
           visit hub_clients_path
           expect(page).to have_text("Alan's Org")
           expect(page).to have_select("year", selected: "2020")
-          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+          expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
 
           visit hub_assigned_clients_path
@@ -106,16 +106,16 @@ RSpec.describe "searching, sorting, and filtering clients" do
           visit hub_clients_path
           expect(page).to have_text("Alan's Org")
           expect(page).to have_select("year", selected: "2020")
-          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+          expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
         end
         # Clear links on hub_clients_path filter form
         click_link "Clear"
 
         within ".filter-form" do
-          select "Mona Mandarin", from: "assigned_user_id"
+          select mona_user.name_with_role, from: "assigned_user_id"
           click_button "Filter results"
-          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+          expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
         end
 
         expect(page.all('.client-row').length).to eq 1
