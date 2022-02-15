@@ -117,8 +117,8 @@ ul.day-list {
   }
 
   &--hr {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
   }
 
   &--attachments {
@@ -204,6 +204,11 @@ ul.day-list {
   }
   &__body {
     @include message_body;
+  }
+
+  &--hr {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
   }
   &.system_note {
     .note__body {

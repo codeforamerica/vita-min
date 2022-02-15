@@ -1,7 +1,7 @@
 <p>
-  <%= transition.initiated_by.name %> <%= transition.to_state %> <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>.
+  <%= transition.initiated_by.name_with_role %> <%= transition.to_state %> <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>.
 </p>
 <% if transition.note.present? %>
-  <br/>
-  "<%= transition.note %>"
+  <hr class="note--hr"/>
+  "<%= simple_format(transition.note) %>"
 <% end %>
