@@ -1,12 +1,32 @@
 class SyntheticNote
-  attr_accessor :created_at, :body, :contact_record_type, :user, :heading
+  attr_accessor :created_at, :body, :contact_record_type, :user, :heading, :contact_record
+  delegate :verification_attempt_path, to: "Rails.application.routes.url_helpers"
 
-  def initialize(created_at:, body:, contact_record_type:, user: nil, heading: nil)
+  def initialize(created_at:, body: nil, contact_record_type: nil, contact_record: nil, user: nil, heading: nil)
     @created_at = created_at
     @body = body
     @contact_record_type = contact_record_type
+    @contact_record = contact_record
     @user = user
     @heading = heading
+  end
+
+  def self.from_verification_attempts(client)
+    notes = []
+    verification_attempts = client.verification_attempts.includes(:transitions).order(created_at: :asc)
+    verification_attempts.each do |attempt|
+      notes << SyntheticNote.new(
+        created_at: attempt.created_at,
+        contact_record: attempt
+      )
+      attempt.transitions.each do |transition|
+        notes << SyntheticNote.new(
+          created_at: transition.created_at,
+          contact_record: transition
+        )
+      end
+    end
+    notes
   end
 
   def self.from_client_documents(client)

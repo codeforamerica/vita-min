@@ -1,7 +1,7 @@
 <div class="note <%= "system_note" unless note.is_a? Note %>" id="<%= "last-item" if note_iteration.last? && last_day %>">
   <div class="note__heading">
     <div class="note__author">
-      <%= note&.user&.name unless note.is_a? SystemNote %>
+      <%= note&.user&.name if note.respond_to?(:user) %>
     </div>
     <div class="note__time">
       <%= timestamp(note.created_at) %>
@@ -9,7 +9,11 @@
   </div>
 
   <div class="note__body">
-    <% if note.is_a? SystemNote::DocumentHelp %>
+    <% if note.is_a?(SyntheticNote) && note.contact_record.is_a?(VerificationAttempt) %>
+      <%= render "system_note_verification_attempt", verification_attempt: note.contact_record %>
+    <% elsif note.is_a?(SyntheticNote) && note.contact_record.is_a?(VerificationAttemptTransition) %>
+      <%= render "system_note_verification_attempt_transition", transition: note.contact_record %>
+    <% elsif note.is_a? SystemNote::DocumentHelp %>
       <%= render "system_note_document_help", note: note %>
     <% elsif note.is_a? SystemNote::NotReadyNotFilingTransition %>
       <%= render "system_note_not_ready_not_filing", note: note %>
