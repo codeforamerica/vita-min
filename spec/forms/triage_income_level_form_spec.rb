@@ -1,6 +1,40 @@
 require "rails_helper"
 
 RSpec.describe TriageIncomeLevelForm do
+  let(:income_level) { "1_to_12500" }
+  let(:params) do
+    {
+        filing_status: "single",
+        income_level: income_level,
+        source: "example_source",
+        referrer: "http://boop.horse/mane",
+        locale: "en",
+        visitor_id: "visitor_42",
+    }
+  end
+  describe "validations" do
+    context 'when params include a bad income level value' do
+      let(:income_level) { "other" }
+      it "does not pass validation" do
+        expect(described_class.new(nil, params)).not_to be_valid
+      end
+    end
+
+    context "when params includes an empty value for income" do
+      let(:income_level) { nil }
+      it "does not pass validation" do
+        expect(described_class.new(nil, params)).not_to be_valid
+      end
+    end
+
+    context "when params includes a valid value for income" do
+      let(:income_level) { "1_to_12500" }
+      it "passes validation" do
+        expect(described_class.new(nil, params)).to be_valid
+      end
+    end
+  end
+
   describe "#save" do
     let(:params) do
       {
