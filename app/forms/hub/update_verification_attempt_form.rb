@@ -27,5 +27,9 @@ module Hub
     def fraud_indicators
       FraudIndicatorService.new(verification_attempt.client).hold_indicators
     end
+
+    def can_write_note?
+      verification_attempt.can_transition_to?(:approved) || verification_attempt.can_transition_to?(:denied)
+    end
   end
 end

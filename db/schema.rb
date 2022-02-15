@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_215821) do
+ActiveRecord::Schema.define(version: 2022_02_15_232201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -512,6 +512,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_215821) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "first_unanswered_incoming_interaction_at"
     t.datetime "flagged_at"
+    t.datetime "identity_verification_denied_at"
     t.datetime "identity_verified_at"
     t.datetime "in_progress_survey_sent_at"
     t.datetime "last_incoming_interaction_at"

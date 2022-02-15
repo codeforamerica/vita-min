@@ -13,6 +13,7 @@
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
 #  flagged_at                               :datetime
+#  identity_verification_denied_at          :datetime
 #  identity_verified_at                     :datetime
 #  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
