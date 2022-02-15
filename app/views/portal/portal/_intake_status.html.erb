@@ -1,0 +1,31 @@
+<div class="status-line-items">
+  <% unless @ask_for_answers %>
+    <%= render "progress_state" do %>
+      <%= t("portal.portal.home.progress_state.answered_questions") %>
+    <% end %>
+  <% end %>
+
+  <% if @ask_for_answers && @current_step&.include?("/documents") %>
+    <%= render "progress_state" do %>
+      <%= t("portal.portal.home.progress_state.answered_questions") %>
+    <% end %>
+  <% end %>
+
+  <% if @ask_for_answers && !@current_step&.include?("/documents") %>
+    <%= render "action_state", link: true do %>
+      <%= link_to(t("portal.portal.home.action_state.answer_questions"), @current_step, class: "link") %>
+    <% end %>
+  <% end %>
+
+  <% unless @document_count.zero? %>
+    <%= render "progress_state" do %>
+      <%= t("portal.portal.home.progress_state.shared_documents") %>
+    <% end %>
+  <% end %>
+
+  <% if @ask_for_answers && @current_step&.include?("/documents") %>
+    <%= render "action_state", link: true do %>
+      <%= link_to(t("portal.portal.home.action_state.submit_additional_documents"), @current_step, class: "link") %>
+    <% end %>
+  <% end %>
+</div>

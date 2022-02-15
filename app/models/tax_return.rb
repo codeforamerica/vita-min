@@ -236,6 +236,18 @@ class TaxReturn < ApplicationRecord
     documents.active.where(document_type: DocumentTypes::CompletedForm8879.key)
   end
 
+  def completed_1040s
+    documents.active.where(document_type: DocumentTypes::Form1040.key)
+  end
+
+  def w7s
+    documents.active.where(document_type: DocumentTypes::FormW7.key)
+  end
+
+  def w7_coas
+    documents.active.where(document_type: DocumentTypes::FormW7Coa.key)
+  end
+
   def final_tax_documents
     documents.active.where(document_type: DocumentTypes::FinalTaxDocument.key)
   end
