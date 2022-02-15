@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_003451) do
+ActiveRecord::Schema.define(version: 2022_02_15_215821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -1405,16 +1405,6 @@ ActiveRecord::Schema.define(version: 2022_02_15_003451) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_type", "role_id"], name: "index_users_on_role_type_and_role_id", unique: true
-  end
-
-  create_table "verification_attempt_notes", force: :cascade do |t|
-    t.text "body"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id"
-    t.bigint "verification_attempt_id"
-    t.index ["user_id"], name: "index_verification_attempt_notes_on_user_id"
-    t.index ["verification_attempt_id"], name: "index_verification_attempt_notes_on_verification_attempt_id"
   end
 
   create_table "verification_attempt_transitions", force: :cascade do |t|

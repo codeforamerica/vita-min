@@ -58,7 +58,9 @@
             <%= f.cfa_textarea :note, "Add a new note", classes: ["textarea--short"] %>
           </div>
           <div>
-            <%= f.submit "Approve", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "approved"), class: "button button--primary" %>
+            <% if @verification_attempt.can_transition_to? :approved %>
+              <%= f.submit "Approve", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "approved"), class: "button button--primary" %>
+          <% end %>
             <%#= f.submit "Deny and Close", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "denied"), class: "button button--primary" %>
             <%#= f.submit "Escalate", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "escalated"), class: "button button--primary" %>
             <%#= f.submit "Request replacement photos", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "requested_replacements"), class: "button button--primary" %>

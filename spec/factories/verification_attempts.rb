@@ -14,7 +14,6 @@
 FactoryBot.define do
   factory :verification_attempt do
     client { create :client_with_ctc_intake_and_return }
-    notes { build_list :verification_attempt_note, 1 }
     after(:build) do |verification_attempt|
       verification_attempt.selfie.attach(
         io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),

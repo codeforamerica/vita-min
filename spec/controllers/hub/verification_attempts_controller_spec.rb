@@ -110,7 +110,7 @@ describe Hub::VerificationAttemptsController, type: :controller do
         it "renders :show and does not persist changes" do
           expect do
             post :update, params: params
-          end.to change(VerificationAttemptNote, :count).by(0)
+          end.to change(verification_attempt.transitions, :count).by(0)
           expect(response).to render_template :show
         end
       end
