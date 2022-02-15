@@ -14,7 +14,7 @@ module Hub
 
     def save
       if body.present?
-        verification_attempt.verification_attempt_notes.create(body: body, user: current_user)
+        verification_attempt.notes.create(body: body, user: current_user)
       end
     end
 

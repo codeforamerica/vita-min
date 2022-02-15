@@ -19,13 +19,13 @@ describe Hub::UpdateVerificationAttemptForm do
       it "increases the verification attempt note count by 1" do
         expect {
           subject.save
-        }.to change(verification_attempt.verification_attempt_notes, :count).by 1
+        }.to change(verification_attempt.notes, :count).by 1
 
       end
 
       it "persists the current_user onto the verification_note as the creating user, and persists the provided body" do
         subject.save
-        verification_attempt_note = verification_attempt.verification_attempt_notes.last
+        verification_attempt_note = verification_attempt.notes.last
         expect(verification_attempt_note.user).to eq user
         expect(verification_attempt_note.body).to eq "this is a note body."
       end
