@@ -1,6 +1,6 @@
 <% if tax_return.assigned_user.present? %>
   <%= link_to edit_hub_tax_return_path(id: tax_return.id), class: 'current-assignee', remote: true do %>
-    <%= tax_return.assigned_user&.name_with_suspended %>
+    <%= tax_return.assigned_user&.name_with_role %>
   <% end %>
 <% elsif local_assigns[:editable] %>
   <%= link_to edit_hub_tax_return_path(id: tax_return.id), remote: true, class: "button button--small" do %>

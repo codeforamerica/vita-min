@@ -30,7 +30,7 @@ class SystemNote::StatusChange < SystemNote
 
     old_status_with_stage = TaxReturnStatusHelper.stage_and_status_translation(old_status)
     new_status_with_stage = TaxReturnStatusHelper.stage_and_status_translation(new_status)
-    initiated_by_message = initiated_by.present? ? "#{initiated_by.name} updated" : "Automated update of"
+    initiated_by_message = initiated_by.present? ? "#{initiated_by.name_with_role} updated" : "Automated update of"
 
     create!(
       body: "#{initiated_by_message} #{tax_return.year} tax return status from #{old_status_with_stage} to #{new_status_with_stage}",

@@ -55,7 +55,7 @@ module Hub
       flash.now[:notice] = I18n.t("hub.tax_returns.update.flash_success",
                                   client_name: @tax_return.client.preferred_name,
                                   tax_year: @tax_return.year,
-                                  assignee_name: @tax_return.assigned_user ? @tax_return.assigned_user.name : I18n.t("hub.tax_returns.update.no_one"))
+                                  assignee_name: @tax_return.assigned_user ? @tax_return.assigned_user.name_with_role : I18n.t("hub.tax_returns.update.no_one"))
       @client = Hub::ClientsController::HubClientPresenter.new(@tax_return.client)
       render :show
     end

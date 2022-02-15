@@ -223,7 +223,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
           tax_return.reload
           expect(response).to render_template :show
-          expect(flash.now[:notice]).to eq "Assigned Lucille's 2018 tax return to #{user.name}."
+          expect(flash.now[:notice]).to eq "Assigned Lucille's 2018 tax return to #{user.name_with_role}."
 
           expect(SystemNote::AssignmentChange).to have_received(:generate!).with({ initiated_by: user, tax_return: tax_return })
         end
@@ -238,7 +238,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           tax_return.reload
           expect(tax_return.assigned_user).to eq organization_lead
           expect(response).to render_template :show
-          expect(flash.now[:notice]).to eq "Assigned Lucille's 2018 tax return to #{organization_lead.name}."
+          expect(flash.now[:notice]).to eq "Assigned Lucille's 2018 tax return to #{organization_lead.name_with_role}."
         end
 
         it "creates a system note" do

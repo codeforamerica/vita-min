@@ -2,7 +2,7 @@
 <% if note.is_a?(SystemNote::CtcPortalUpdate) %>
   <strong>Client updated <%= model_gid.model_name %> #<%= model_gid.model_id %>:</strong>
 <% elsif note.is_a?(SystemNote::ClientChange) %>
-  <strong><%= note.user.name %> changed <%= model_gid.model_name %> #<%= model_gid.model_id %>:</strong>
+  <strong><%= note.user.name_with_role %> changed <%= model_gid.model_name %> #<%= model_gid.model_id %>:</strong>
 <% end %>
 
 <table class="spacing-above-15 spacing-below-0 changes-table changes-note-<%= note.id %>">

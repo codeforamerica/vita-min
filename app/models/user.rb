@@ -93,8 +93,12 @@ class User < ApplicationRecord
     role&.served_entity if role.respond_to? :served_entity
   end
 
+  def name_with_role
+    "#{name_with_suspended} - #{role_name}"
+  end
+
   def name_with_role_and_entity
-    content = "#{name_with_suspended} - #{role_name}"
+    content = name_with_role
     content += " - #{served_entity.name}" if served_entity.present?
     content
   end
