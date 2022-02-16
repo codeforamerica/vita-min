@@ -121,7 +121,6 @@ Rails.application.routes.draw do
       get "/faq", to: "public_pages#faq"
       get "/sms-terms", to: "public_pages#sms_terms"
       get "/stimulus", to: "public_pages#stimulus"
-      get "/full-service", to: "public_pages#full_service_home"
       get "/500", to: "public_pages#internal_server_error"
       get "/422", to: "public_pages#internal_server_error"
       get "/404", to: "public_pages#page_not_found"
@@ -335,8 +334,6 @@ Rails.application.routes.draw do
 
         get "/completed-intake", to: "ctc_pages#completed"
         get "/help", to: "ctc_pages#help"
-        get "/stimulus", to: "ctc_pages#stimulus"
-        get "/stimulus-navigator", to: "ctc_pages#stimulus_navigator"
         get "/privacy", to: "ctc_pages#privacy_policy"
         get "/navigators", to: "ctc_pages#navigators"
         get "/california-benefits", to: "ctc_pages#california_benefits"
