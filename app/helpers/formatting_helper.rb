@@ -10,7 +10,7 @@ module FormattingHelper
       next unless tag[0][0] == "{" && tag[0][-1] == "}" # skip content that won't respond to JSON.parse
 
       data = JSON.parse(tag[0]).to_hash
-      span = "<span data-user-id='#{data['id']}' class='user-tag'>#{data['prefix']}#{data['name_with_role']}</span>"
+      span = "<span data-user-id='#{data['id']}' class='user-tag'>#{data['prefix']}#{data['name_with_role'] || data['name']}</span>"
       regex = /\[{2}#{Regexp.escape(tag[0])}\]{2}/
       text.gsub!(regex, span)
     end

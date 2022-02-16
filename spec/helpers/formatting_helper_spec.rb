@@ -55,6 +55,24 @@ describe FormattingHelper do
       end
     end
 
+    context "with old tags to interpret" do
+      # tags previously used name and not name_with_role in their json, this tests that the formatter is backwards compatible
+      let(:body) {
+        <<~BODY
+          [[{\"id\":3,\"name\":\"Marty Melon\", \"value\":3,\"prefix\":\"@\"}]] in a message
+        BODY
+      }
+      let(:output) do
+        <<~BODY
+          <p><span data-user-id='3' class='user-tag'>@Marty Melon</span> in a message
+          </p>
+        BODY
+      end
+      it "replaces the tag with a span including the name and prefix, with id in the data of the span" do
+        expect(helper.format_text(body)).to eq output.chomp
+      end
+    end
+
     context "with multiple tags and replacement param to interpret" do
       let(:body) {
         <<~BODY
