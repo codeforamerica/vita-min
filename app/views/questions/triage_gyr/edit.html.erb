@@ -8,11 +8,11 @@
   <p class="text--line-breaks"><%= t('.help_text') %></p>
 
   <div class="spacing-above-60">
-    <%= link_to t('.file_online'), next_path, class: "button button--primary button--wide text--centered", "data-track-click": "click_triage-gyr-file-online" %>
+    <%= link_to t('.file_online'), next_path, class: "button button--primary button--wide text--centered", "data-track-click": "triage-gyr-file-online" %>
   </div>
   <div>
-    <%= link_to t('.file_in_person'), vita_providers_path, class: "button button--wide text--centered", "data-track-click": "click_triage-gyr-file-in-person" %>
+    <%= link_to t('.file_in_person'), vita_providers_path, class: "button button--wide text--centered", "data-track-click": "triage-gyr-file-in-person" %>
   </div>
 
-  <p><%= link_to t('.file_on_my_own'), diy_email_path, class: "link--cta", "data-track-click": "click_triage-gyr-actually-diy" %></p>
+  <p><%= link_to t('.file_on_my_own'), diy_email_path, class: "link--cta", "data-track-click": "triage-gyr-actually-diy" %></p>
 <% end %>
