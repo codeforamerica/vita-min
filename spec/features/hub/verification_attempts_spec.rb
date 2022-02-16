@@ -58,13 +58,13 @@ RSpec.feature "Clients who have been flagged for fraud" do
     click_on "Approve"
 
     within "ul#verification-attempt-notes" do
-      expect(page).to have_text "#{admin_user.name_with_role} approved verification attempt."
+      expect(page).to have_text "#{user.name_with_role} approved verification attempt."
       expect(page).to have_text "These are my notes"
     end
 
     # Go to client notes page and make sure there is a record of the note there as well
     visit hub_client_notes_path(client_id: verification_attempt_1.client_id)
 
-    expect(page).to have_content "#{admin_user.name_with_role} approved verification attempt."
+    expect(page).to have_content "#{user.name_with_role} approved verification attempt."
   end
 end
