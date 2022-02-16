@@ -118,8 +118,6 @@ class ApplicationController < ActionController::Base
     if source_from_params.present?
       # Use at most 100 chars in session so we don't overflow it.
       session[:source] = source_from_params.slice(0, 100)
-    elsif request.headers.fetch(:referer, "").include?("google.com")
-      session[:source] = "organic_google"
     end
   end
 
@@ -127,10 +125,18 @@ class ApplicationController < ActionController::Base
     session[:referrer]
   end
 
+  def referrer_from_different_host?
+    referrer_host = URI.parse(request.headers[:referer]).host rescue nil
+    referrer_host != request.host
+  end
+
   def set_referrer
-    unless referrer.present?
-      # Use at most 200 chars in the session to avoid overflow.
-      session[:referrer] = request.headers.fetch(:referer, "None").slice(0, 200)
+    return unless referrer_from_different_host?
+
+    # Use at most 200 chars in the session to avoid overflow.
+    header_value = request.headers.fetch(:referer, "None")
+    if header_value != "None" || session[:referrer].nil?
+      session[:referrer] = header_value.slice(0, 200)
     end
   end
 

@@ -321,50 +321,57 @@ RSpec.describe ApplicationController do
         expect(session[:source]).to eq "shremps"
       end
     end
-
-    context "with an google.com referer header" do
-      before { request.headers["HTTP_REFERER"] = "http://google.com/search" }
-
-      it "stores the param in the session" do
-        get :index
-
-        expect(session[:source]).to eq "organic_google"
-      end
-    end
   end
 
-  describe "#referrer" do
+  describe "#set_referrer" do
     context "with an existing referrer in the session" do
       before do
         session[:referrer] = "searchengine.shrimp"
-        request.headers["HTTP_REFERER"] = "/previous_page"
       end
 
-      it "does not override it" do
-        get :index
+      context "if the new referer is from the same host" do
+        before do
+          request.headers["HTTP_REFERER"] = "http://test.host/previous_page"
+        end
 
-        expect(subject.referrer).to eq "searchengine.shrimp"
+        it "does not override the referrer in the session" do
+          get :index
+
+          expect(subject.referrer).to eq "searchengine.shrimp"
+        end
+      end
+
+      context "if the new referer is from a different host" do
+        before do
+          request.headers["HTTP_REFERER"] = "http://computer.example"
+        end
+
+        it "overrides it" do
+          get :index
+
+          expect(subject.referrer).to eq "http://computer.example"
+        end
       end
     end
 
     context "with no referrer in the session" do
       context "with an HTTP_REFERER header" do
-        before { request.headers["HTTP_REFERER"] = "coolwebsite.horse" }
+        before { request.headers["HTTP_REFERER"] = "http://coolwebsite.horse" }
 
         it "sets the referrer from the headers" do
           get :index
 
-          expect(session[:referrer]).to eq "coolwebsite.horse"
+          expect(session[:referrer]).to eq "http://coolwebsite.horse"
         end
       end
 
       context "with a very long HTTP_REFERER header" do
-        before { request.headers["HTTP_REFERER"] = ('!' * 9001) }
+        before { request.headers["HTTP_REFERER"] = 'http://' + ('!' * 9001) }
 
         it "sets the referrer to a truncated version" do
           get :index
 
-          expect(session[:referrer]).to eq ('!' * 200)
+          expect(session[:referrer]).to eq 'http://' + ('!' * 193)
         end
       end
 
@@ -995,35 +1002,24 @@ RSpec.describe ApplicationController do
   end
 
   describe "#set_source" do
-    let(:source) { nil }
+    context "when there is already a source in the session" do
+      before do
+        session[:source] = "existing_source_param"
+      end
 
-    context "when session[:source] is not already set" do
-      context "when there is a source param" do
-        it "sets it to the source param" do
-          get :index, params: { source: "my_custom_param" }
-          expect(session[:source]).to eq "my_custom_param"
+      context "when the source param in the request is nil" do
+        it "does not overwrite the source in the session" do
+          get :index, params: { source: nil, utm_source: nil, s: nil }
+
+          expect(session[:source]).to eq "existing_source_param"
         end
       end
 
-      context "when there is no source param and referrer is google" do
-        before do
-          request.headers[:referer] = "google.com/something"
-        end
+      context "when the source param in the request is not nil" do
+        it "overwrites the source in the session" do
+          get :index, params: { source: "new_source_param" }
 
-        it "sets the source to organic_google" do
-          get :index, params: { source: nil, utm_source: nil, s: nil }
-          expect(session[:source]).to eq "organic_google"
-        end
-      end
-
-      context "when there is no source param and the referrer is anything else" do
-        before do
-          request.headers[:referer] = "bing.com/something"
-        end
-
-        it "sets the source to nil" do
-          get :index, params: { source: nil, utm_source: nil, s: nil }
-          expect(session[:source]).to eq nil
+          expect(session[:source]).to eq "new_source_param"
         end
       end
     end
