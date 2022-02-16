@@ -33,13 +33,13 @@ RSpec.feature "View and add internal notes for a client" do
       input.send_keys("@")
       expect(page).to have_css(".tagify__dropdown")
       option = find("div.tagify__dropdown__wrapper div")
-      expect(option).to have_text("#{user.name} - Organization Lead - #{organization.name}")
+      expect(option).to have_text user.name_with_role_and_entity
       option.click
-      expect(input).to have_text("#{user.name}")
+      expect(input).to have_text user.name_with_role
       click_on "Save"
 
       note = find(".note#last-item")
-      expect(note).to have_text "@#{user.name}"
+      expect(note).to have_text "@#{user.name_with_role}"
     end
   end
 end

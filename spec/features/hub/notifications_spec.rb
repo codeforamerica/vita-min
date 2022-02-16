@@ -20,12 +20,12 @@ RSpec.feature "View user notifications" do
       visit hub_user_notifications_path
 
       expect(page).to have_text("You've Been Assigned a Client")
-      expect(page).to have_text("Jia Tolentino has assigned")
+      expect(page).to have_text("#{user_who_assigned.name_with_role} has assigned")
       expect(page).to have_link("Jenny Odell's")
       expect(page).to have_text("2020 return to you.")
 
       expect(page).to have_text("You've Been Tagged in a Note")
-      expect(page).to have_text("Someone Cool has tagged you in Jenny Odell's notes.")
+      expect(page).to have_text("#{note.user.name_with_role} has tagged you in Jenny Odell's notes.")
     end
 
     context "when the notifications reference archived clients" do
@@ -36,12 +36,12 @@ RSpec.feature "View user notifications" do
         visit hub_user_notifications_path
 
         expect(page).to have_text("You've Been Assigned a Client")
-        expect(page).to have_text("Jia Tolentino has assigned")
+        expect(page).to have_text("#{user_who_assigned.name_with_role} has assigned")
         expect(page).to have_link("Jenny Odell's")
         expect(page).to have_text("2020 return to you.")
 
         expect(page).to have_text("You've Been Tagged in a Note")
-        expect(page).to have_text("Someone Cool has tagged you in Jenny Odell's notes.")
+        expect(page).to have_text("#{note.user.name_with_role} has tagged you in Jenny Odell's notes.")
       end
     end
   end
