@@ -2550,49 +2550,6 @@ en:
           sub_header: All you need to do is provide us with your name and either an email address or phone number, and we'll email or text you when there are updates.
           submit: Keep me updated
           title: Sign Up
-      stimulus_home:
-        header: Simplified Tax Filing to Claim Your Stimulus Payments
-        obtain:
-          already_filed:
-            body1: The IRS issued the first two stimulus payments automatically using data from 2019 tax returns, and is issuing the third payment using data from 2019 or 2020 tax returns. If you filed one of these returns, the IRS should have the correct information it needs for you.
-            body2: If your family situation changed since 2019 and you didn’t file in 2020, or you think the IRS underpaid your stimulus payments last year, you can use the sign-up tools below to update the IRS and request missing funds.
-          body1: To issue the third stimulus payment, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your third stimulus automatically.
-          body2: If you have not submitted any information to the IRS in the last year — or if you need to claim any of the first two stimulus payments — you can submit your information through our simplified filing portal and get your payments.
-          full_return:
-            file_with_gyr: File a Tax Return with GetYourRefund
-          heading: How do I get the stimulus payments?
-          not_filed:
-            body1: If you earned less than $12,400 (or less than $22,800 if you are married), you can use GetCTC, a simplified tax filing portal to get the stimulus payments, and, if you have kids, the Child Tax Credit as well. (Note, despite the name, you do not need to have children or be claiming the CTC to use GetCTC.)
-            body2: To use this tool, you will need to provide the Social Security Numbers or Adoption Taxpayer Identification Numbers of your children. You can sign up for the stimulus payments even if you have little to no income or receive other federal benefits like SSI or SSDI.
-            subheading: If you have not filed a tax return, you can sign up to get the stimulus payments.
-        qualify:
-          body1: You can receive stimulus payments if you have a Social Security Number, even if you make little or no money.
-          body2: Generally, the children in your family qualify for the first two stimulus payments too if they are under 18 and live with you most of the year. You can receive the third stimulus payment for any family member who is your dependent, even if they are not a child.
-          dependents:
-            body: 'Your child qualifies for the first two payments if:'
-            qualifiers:
-            - The child is your son, daughter, grandchild, stepchild or adopted child; younger sibling, step-sibling, half-sibling, or their descendent; or a foster child placed with you by a government agency.
-            - The child was under 17 at the end of 2020.
-            - The child has a valid Social Security Number.
-            - The child lived with you for more than half of 2020.
-            - The child did not provide over half of their own support for 2020.
-            subheading: Does my child or dependent qualify for stimulus payments?
-            third_payment: For the third payment, the children described above qualify — plus some other relatives you primarily support who have very low income.
-          eligible:
-            body: Joint filers making up to $150,000, single head of households making up to $112,500, and other single filers making up to $75,000 qualify for the full amount of the stimulus checks. For the first two payments, you (or your spouse, if filing jointly) must have an SSN or must have served in the military in 2020.
-            subheading: Who is eligible to claim stimulus payments?
-          heading: Do I qualify for the stimulus payments?
-        subheader:
-          claim: Claim your missing stimulus payments (and, if you have kids, your Child Tax Credit), even if you don’t have your tax documents.
-        title: Simplified Tax Filing to Claim Your Stimulus Payments
-        what_is:
-          body_html: |
-            <p>Relief to help you through these difficult times, even if you make little or no money.</p>
-
-            <p>Congress passed three rounds of stimulus checks in response to the COVID-19 pandemic, in April 2020, December 2020, and March 2021. All together, the payments are worth up to $3,200 per adult and up to $2,500 per child in your family. The payments are formally known as Economic Impact Payments (EIPs), or as the Recovery Rebate Credit (RRC). </p>
-
-            <p>You can act now to get any of the three payments you haven’t yet received. If you have kids, you’ll also be able to sign up for payments of the new Advance Child Tax Credit.</p>
-          heading: Stimulus Payments
     dependents:
       form:
         birth_date: Date of birth
@@ -2828,13 +2785,6 @@ en:
         header: Frequently asked questions
         subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
         title: FAQ
-      full_service_home:
-        header: Your money is waiting!
-        subheader1: Does your family make less than $57,000? You might qualify for a refund of up to $6,728.
-        subheader2: Millions of people qualify for stimulus checks and tax credits. We have partnered with the IRS to offer a free service to help you get your share.
-        subheader3: Trained volunteers are ready to help you file your taxes and get your refund. It takes less than an hour to sign up.
-        subheader4: Don't miss out!
-        title: File taxes with help for free!
       home:
         accuracy:
           body1: Yes, our service is truly free. We provide this free service by partnering with IRS-certified Volunteer Income Tax Assistance (VITA) sites to provide tax filing assistance to families earning less than $66,000 a year.

@@ -22,17 +22,6 @@ module Ctc
       render :home
     end
 
-    def stimulus
-      session[:source] = "stimulus" unless session[:source].present?
-      render :stimulus_home
-    end
-
-    def stimulus_navigator
-      session[:source] = "stimulus-navigator" unless session[:source].present?
-      @needs_help_banner = true
-      render :stimulus_home
-    end
-
     def source_routing
       # allow before_action to stash the source, then go to the homepage
       redirect_to root_path(ctc_beta: params[:ctc_beta])
