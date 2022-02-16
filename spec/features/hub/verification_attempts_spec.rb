@@ -92,7 +92,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
     click_on "Deny and Close"
 
     within "ul#verification-attempt-notes" do
-      expect(page).to have_text "Judith Juice - Admin denied verification attempt."
+      expect(page).to have_text "Judith Juice (Admin) denied verification attempt."
       expect(page).to have_text "This is a racoon! Not Catie Cucumber!"
     end
 
@@ -102,6 +102,6 @@ RSpec.feature "Clients who have been flagged for fraud" do
 
     visit hub_client_notes_path(client_id: verification_attempt_2.client_id)
 
-    expect(page).to have_content "Judith Juice - Admin denied verification attempt."
+    expect(page).to have_content "Judith Juice (Admin) denied verification attempt."
   end
 end
