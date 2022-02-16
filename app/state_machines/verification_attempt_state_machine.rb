@@ -7,7 +7,7 @@ class VerificationAttemptStateMachine
   state :escalated
   state :requested_replacements
 
-  transition from: :pending, to: [:approved, :denied]
+  transition from: :pending, to: [:approved, :denied, :escalated]
   transition from: :escalated, to: [:approved, :denied]
 
   after_transition(to: :approved, after_commit: true) do |verification_attempt, transition|

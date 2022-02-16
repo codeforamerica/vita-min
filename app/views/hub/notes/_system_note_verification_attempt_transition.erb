@@ -1,5 +1,9 @@
 <p>
-  <%= transition.initiated_by.name_with_role %> <%= transition.to_state %> <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>.
+  <% if transition.to_state == "escalated" %>
+    <%= transition.initiated_by.name_with_role %> <%= transition.to_state %> <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %> for additional review.
+  <% else %>
+    <%= transition.initiated_by.name_with_role %> <%= transition.to_state %> <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>.
+  <% end %>
 </p>
 <% if transition.note.present? %>
   <hr class="note--hr"/>

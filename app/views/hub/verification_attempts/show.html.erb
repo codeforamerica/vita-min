@@ -66,7 +66,9 @@
             <% if @verification_attempt.can_transition_to? :denied %>
               <%= f.submit "Deny and Close", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "denied"), class: "button button--primary", id: "deny" %>
             <% end %>
-            <%#= f.submit "Escalate", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "escalated"), class: "button button--primary" %>
+            <% if @verification_attempt.can_transition_to? :escalated %>
+              <%= f.submit "Escalate", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "escalated"), class: "button button--primary", id: "escalate" %>
+            <% end %>
             <%#= f.submit "Request replacement photos", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "requested_replacements"), class: "button button--primary" %>
           </div>
         <% end %>

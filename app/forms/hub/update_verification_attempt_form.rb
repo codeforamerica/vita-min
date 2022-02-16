@@ -6,7 +6,7 @@ module Hub
     set_attributes_for :verification_attempt_note, :note
     set_attributes_for :transition, :state
 
-    # validates :body, presence: true
+    validates :note, presence: { message: "A note is required when escalating a verification attempt.", if: -> { state == "escalated"} }
     validates :state, presence: true
 
     def initialize(verification_attempt, current_user, params)
