@@ -143,20 +143,32 @@ describe Document do
       let(:client) { create :client }
       let(:final_tax_doc) { build :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return, client: client }
       let(:unsigned_8879) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
+      let(:w7) { build :document, document_type: DocumentTypes::FormW7.key, tax_return: tax_return, client: client, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
+      let(:w7coa) { build :document, document_type: DocumentTypes::FormW7Coa.key, tax_return: tax_return, client: client, upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf") }
 
       context "with a tax return" do
         let(:tax_return) { create :tax_return, client: client }
 
-        it "they are valid" do
+        it "some document types are valid" do
           expect(final_tax_doc).to be_valid
           expect(unsigned_8879).to be_valid
+        end
+
+        it "some document types are invalid" do
+          expect(w7).to be_invalid
+          expect(w7coa).to be_invalid
         end
       end
 
       context "without a tax return" do
         let(:tax_return) { nil }
 
-        it "they are invalid" do
+        it "some document types are valid" do
+          expect(w7).to be_valid
+          expect(w7coa).to be_valid
+        end
+
+        it "some document types are invalid" do
           expect(final_tax_doc).not_to be_valid
           expect(final_tax_doc.errors[:tax_return_id]).to include "Final Tax Document must be associated with a tax year."
 

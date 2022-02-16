@@ -12,7 +12,7 @@
   </div>
 
   <% if @tax_returns.present? %>
-    <% @tax_returns.each do |tax_return| %>
+    <% @tax_returns.each_with_index do |tax_return, index| %>
       <div class="status-line-items spacing-below-15" id=<%= "tax-year-#{tax_return.year}" %>>
         <h2 class="h3"><%= t(".tax_return_heading", year: tax_return.year) %></h2>
         <% state = tax_return.current_state.to_sym %>
@@ -98,8 +98,10 @@
           in GetCTC for letting clients download their e-filed 1040, not to be attached to GYR clients.
         -->
         <%= render "document_links", label: t("portal.portal.home.document_link.view_1040", year: tax_return.year), documents: tax_return.completed_1040s %>
-        <%= render "document_links", label: t("portal.portal.home.document_link.view_w7", year: tax_return.year), documents: tax_return.w7s %>
-        <%= render "document_links", label: t("portal.portal.home.document_link.view_w7_coa", year: tax_return.year), documents: tax_return.w7_coas %>
+        <% if index.zero? %>
+          <%= render "document_links", label: t("portal.portal.home.document_link.view_w7", year: tax_return.year), documents: current_client.documents.active.where(document_type: DocumentTypes::FormW7.key) %>
+          <%= render "document_links", label: t("portal.portal.home.document_link.view_w7_coa", year: tax_return.year), documents: current_client.documents.active.where(document_type: DocumentTypes::FormW7Coa.key) %>
+        <% end %>
         <%= render "document_links", label: t("portal.portal.home.document_link.view_signed_8879", year: tax_return.year), documents: tax_return.signed_8879s %>
         <%= render "document_links", label: t("portal.portal.home.document_link.view_unsigned_8879", year: tax_return.year), documents: tax_return.unsigned_8879s %>
       </div>
