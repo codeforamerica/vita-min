@@ -18,6 +18,9 @@ class PartnerRoutingService
       end
     end
 
+    from_itin_enabled = vita_partner_from_itin_enabled if @intake.present? && @intake.itin_applicant?
+    return from_itin_enabled if from_itin_enabled.present?
+
     from_previous_year_partner = previous_year_partner
     return from_previous_year_partner if from_previous_year_partner.present?
 
@@ -59,6 +62,31 @@ class PartnerRoutingService
     if vita_partner.present?
       @routing_method = :source_param
       vita_partner
+    end
+  end
+
+  def vita_partner_from_itin_enabled
+    return unless @intake && @intake.itin_applicant?
+
+    state = ZipCodes.details(@zip_code)[:state]
+    active_vita_partners_ids_in_state = StateRoutingFraction.joins(:state_routing_target)
+                                                            .where(state_routing_targets: { state_abbreviation: state })
+                                                            .where("routing_fraction > ?", 0).pluck(:vita_partner_id)
+
+    active_vita_partners_in_state_itin_enabled = VitaPartner.where(id: active_vita_partners_ids_in_state, accepts_itin_applicants: true)
+
+    if active_vita_partners_in_state_itin_enabled.present?
+      @routing_method = :itin_enabled
+      return active_vita_partners_in_state_itin_enabled.order(Arel.sql('RANDOM()')).first
+    end
+
+    # look for any active ITIN enabled partner if none are available in applicant's state
+    active_vita_partners_itin_enabled = VitaPartner.joins(:state_routing_fractions)
+                                                   .where(["state_routing_fractions.routing_fraction > ?", 0])
+                                                   .where(accepts_itin_applicants: true)
+    if active_vita_partners_itin_enabled.present?
+      @routing_method = :itin_enabled
+      active_vita_partners_itin_enabled.order(Arel.sql('RANDOM()')).first
     end
   end
 
