@@ -385,18 +385,18 @@ RSpec.feature "a client on their portal" do
       end
     end
 
-    context "when the client was helped by a certifying acceptance agent" do
+    context "when the client was helped by a certifying acceptance agent", js: true do
       before do
         create(:document, document_type: DocumentTypes::FormW7Coa, tax_return: tax_return, client: client)
 
         login_as create :admin_user
         visit hub_client_path(id: client.id)
-        within ".client-profile" do
-          click_on "Edit"
+        within ".client-header" do
+          # 'check' doesn't work because of the way the checkboxes are set up, we need to click on the 'span' inside
+          # the checkboxes' containing label
+          page.find(:checkbox, 'client_used_itin_certifying_acceptance_agent', visible: :all).ancestor('label').find('.slider').click
         end
 
-        check "Used a Certifying Acceptance Agent"
-        click_on "Save"
         expect(client.reload.intake.used_itin_certifying_acceptance_agent?).to be_truthy
       end
 

@@ -207,6 +207,7 @@ Rails.application.routes.draw do
           resources :tax_returns, only: [:new, :create]
           member do
             patch "flag"
+            patch "toggle_field"
             get "edit_take_action"
             post "update_take_action"
           end

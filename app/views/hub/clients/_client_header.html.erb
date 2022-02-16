@@ -26,6 +26,20 @@
         <% end %>
       </div>
 
+      <% if @client.needs_itin_help_yes? %>
+        <%= form_with model: [:hub, @client], local: false, method: :patch, url: toggle_field_hub_client_path(id: @client.id) do |f| %>
+          <div class="grid-flex align-center">
+            <div class="item-15r">Used a Certifying Acceptance Agent</div>
+            <div class="item">
+              <label class="toggle-switch">
+                <%= f.check_box(:used_itin_certifying_acceptance_agent?, disabled: !@client.editable?, onchange: 'this.form.submit();') %>
+                <span class="slider slider-green round"></span>
+              </label>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
       <div class="grid-flex align-center">
         <div class="item-15r"><%= t("general.flagged") %></div>
         <div class="item">

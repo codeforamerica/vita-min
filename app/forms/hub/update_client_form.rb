@@ -33,7 +33,6 @@ module Hub
                        :interview_timing_preference,
                        :timezone,
                        :state_of_residence,
-                       :used_itin_certifying_acceptance_agent,
                        :with_general_navigator,
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
@@ -51,10 +50,6 @@ module Hub
     validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_joint == "yes" }
 
     attr_accessor :client
-
-    before_validation do
-      self.used_itin_certifying_acceptance_agent ||= false # TODO: Remove after next release; this line protects forms in flight during a deploy.
-    end
 
     def initialize(client, params = {})
       @client = client
