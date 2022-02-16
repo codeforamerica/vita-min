@@ -42,29 +42,30 @@
       }
     }
   }
+  // override default table behavior for alternating backgrounds
+  .index-table__row:nth-child(even) td {
+    background: white;
+  }
+
+  .org-metrics-table .site td:first-child {
+    padding-left: 6rem;
+  }
+  .org-metrics-table tr > :first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    opacity: 1;
+  }
 
   td {
-    background: unset;
-    border-bottom: 1px solid $color-grey-light;
+    background: white;
+    border-bottom: 1px solid darken($color-grey-light, 20%);
   }
 
   tr > :first-child {
     position: sticky;
     left: 0;
     opacity: 1;
-  }
-
-  tfoot th {
-    position: sticky;
-    bottom: 8.8rem;
-    height: 5rem;
-    border-bottom: 1px solid $color-teal-light;
-    z-index: 5;
-    background: $color-teal-light;
-  }
-
-  tfoot th:first-child {
-    background: $color-teal-light;
   }
 
   th {
@@ -82,6 +83,18 @@
 
   .org {
     font-weight: bold;
+  }
+
+  .cell-bold {
+    font-weight: bold;
+  }
+
+  .metrics-totals {
+    height: 5rem;
+    .index-table__cell {
+      border-bottom: 1px solid black;
+      background-color: $color-grey-light;
+    }
   }
 
   .site {

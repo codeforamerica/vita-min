@@ -148,21 +148,15 @@ beforeEach(() => {
 });
 
 test('determines org-level counts', () => {
-    const outgoingCommunicationBreach = $('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.outgoing-communication-breach').first();
     const unansweredCommunicationBreach = $('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.unanswered-communication-breach').first();
-    const interactionBreach =$('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.interaction-breach').first();
 
-    expect(outgoingCommunicationBreach.attr('data-js-count')).toEqual('3');
     expect(unansweredCommunicationBreach.attr('data-js-count')).toEqual('3');
 
-    expect(interactionBreach.attr('data-js-count')).toEqual('1');
 
     initMetricsTableSortAndFilter();
 
-    expect(outgoingCommunicationBreach.attr('data-js-count')).toEqual("7");
     expect(unansweredCommunicationBreach.attr('data-js-count')).toEqual("7");
 
-    expect(interactionBreach.attr('data-js-count')).toEqual("5");
 });
 
 test("determining capacity percentage", () => {
@@ -276,38 +270,6 @@ test('sorting by organization name', () => {
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("United Way of Greater Richmond and Petersburg");
     $('th#organization-name').click();
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
-});
-
-test('sorting by profile-interaction-breaches count', () => {
-    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
-    initMetricsTableSortAndFilter();
-    $('th#profile-interaction-breaches').click();
-    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
-    expect($('.org-metrics').first().find('.org .interaction-breach').attr('data-js-count')).toEqual('15')
-    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
-
-    $('th#profile-interaction-breaches').click();
-    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
-    expect($('.org-metrics').first().find('.org .interaction-breach').attr('data-js-count')).toEqual('0')
-
-    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Apple Org");
-    $('th#organization-name').click();
-});
-
-test('sorting by outgoing-communication-breaches count', () => {
-    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
-    initMetricsTableSortAndFilter();
-    $('th#outgoing-communication-breaches').click();
-    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
-    expect($('.org-metrics').first().find('.org .interaction-breach').attr('data-js-count')).toEqual('15')
-    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
-
-    $('th#outgoing-communication-breaches').click();
-    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
-    expect($('.org-metrics').first().find('.org .outgoing-communication-breach').attr('data-js-count')).toEqual('0')
-
-    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Apple Org");
-    $('th#organization-name').click();
 });
 
 test('sorting by unanswered-communication-breaches count', () => {
