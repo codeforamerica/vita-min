@@ -41,12 +41,12 @@ describe FormattingHelper do
     context "with tags to interpret" do
       let(:body) {
         <<~BODY
-          [[{\"id\":3,\"name\":\"Marty Melon\", \"value\":3,\"prefix\":\"@\"}]] in a message
+          [[{\"id\":3,\"name_with_role\":\"Marty Melon (Admin)\", \"value\":3,\"prefix\":\"@\"}]] in a message
         BODY
       }
       let(:output) do
         <<~BODY
-          <p><span data-user-id='3' class='user-tag'>@Marty Melon</span> in a message
+          <p><span data-user-id='3' class='user-tag'>@Marty Melon (Admin)</span> in a message
           </p>
         BODY
       end
@@ -58,9 +58,9 @@ describe FormattingHelper do
     context "with multiple tags and replacement param to interpret" do
       let(:body) {
         <<~BODY
-          [[{\"id\":3,\"name\":\"Marty Melon\", \"value\":3,\"prefix\":\"@\"}]] in a message
+          [[{\"id\":3,\"name_with_role\":\"Marty Melon (Admin)\", \"value\":3,\"prefix\":\"@\"}]] in a message
 
-          with [[{\"id\":2,\"name\":\"Luna Lemon\", \"value\":2,\"prefix\":\"@\"}]] too
+          with [[{\"id\":2,\"name_with_role\":\"Luna Lemon (Greeter)\", \"value\":2,\"prefix\":\"@\"}]] too
 
           <<Replace.Link>> <<Replace.Link>> [[Something Else]]
         BODY
@@ -68,9 +68,9 @@ describe FormattingHelper do
 
       let(:output) do
         <<~OUTPUT
-          <p><span data-user-id='3' class='user-tag'>@Marty Melon</span> in a message</p>
+          <p><span data-user-id='3' class='user-tag'>@Marty Melon (Admin)</span> in a message</p>
 
-          <p>with <span data-user-id='2' class='user-tag'>@Luna Lemon</span> too</p>
+          <p>with <span data-user-id='2' class='user-tag'>@Luna Lemon (Greeter)</span> too</p>
 
           <p><< Replace.Link>> << Replace.Link>> [[Something Else]]
           </p>
