@@ -3,7 +3,7 @@ require 'rails_helper'
 describe PartnerRoutingService do
   subject { PartnerRoutingService.new }
 
-  let(:vita_partner) { create :organization }
+  let(:vita_partner) { create :organization, accepts_itin_applicants: false }
 
   let(:code) { "SourceParam" }
 
@@ -16,6 +16,32 @@ describe PartnerRoutingService do
     context "fallback logic" do
       it "returns nil" do
         expect(subject.determine_partner).to be_nil
+      end
+    end
+
+    context "when a client's tin type is itin" do
+      let!(:srt_one) { create(:state_routing_target, target: vita_partner, state_abbreviation: "CA") }
+      let!(:srt_two) { create(:state_routing_target, target: vita_partner_in_state_no_itin, state_abbreviation: "CA") }
+      let!(:vita_partner_in_state_no_itin) { create :organization, accepts_itin_applicants: false }
+      let(:intake) { create :intake, primary_tin_type: "itin", primary_ssn: "999-89-1234", state: "CA", zip_code: "94606" }
+      subject { PartnerRoutingService.new(intake: intake, zip_code: "94606") }
+
+      before { vita_partner.update(accepts_itin_applicants: true) }
+
+      context "when there is an ITIN-enabled vita partner in their state" do
+        it "routes them there" do
+          expect(subject.determine_partner).to eq vita_partner
+          expect(subject.routing_method).to eq :itin_enabled
+        end
+      end
+
+      context "when there is not an ITIN-enabled vita partner in their state" do
+        let!(:srt_one) { create(:state_routing_target, target: vita_partner, state_abbreviation: "WY") }
+
+        it "routes them to any ITIN-enabled vita partner" do
+          expect(subject.determine_partner).to eq vita_partner
+          expect(subject.routing_method).to eq :itin_enabled
+        end
       end
     end
 
