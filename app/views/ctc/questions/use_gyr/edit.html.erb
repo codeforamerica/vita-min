@@ -25,7 +25,4 @@
   <%= link_to root_path(anchor: 'ctc_faq'), class: "button button--wide text--centered" do %>
     <%=t("views.ctc.questions.use_gyr.visit_ctc_faq") %>
   <% end %>
-  <%= link_to  url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'stimulus'), class: "button button--wide text--centered" do %>
-    <%=t("views.ctc.questions.use_gyr.visit_stimulus_faq") %>
-  <% end %>
 <% end %>
