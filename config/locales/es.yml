@@ -1334,12 +1334,12 @@ es:
     verification_attempt_denied:
       email:
         body: |
-        Su caso de verificación de identidad se ha cerrado y nos negamos a enviar esta declaración de impuestos al IRS.
-        Si tiene preguntas o desea obtener más información sobre esta decisión, comuníquese con hello@getctc.org.
+          Su caso de verificación de identidad se ha cerrado y nos negamos a enviar esta declaración de impuestos al IRS.
+          Si tiene preguntas o desea obtener más información sobre esta decisión, comuníquese con hello@getctc.org.
         subject: Su caso de verificación de identidad ha sido cerrado
       sms: |
-      Su caso de verificación de identidad se ha cerrado y nos negamos a enviar esta declaración de impuestos al IRS.
-      Si tiene preguntas o desea obtener más información sobre esta decisión, comuníquese con hello@getctc.org.
+        Su caso de verificación de identidad se ha cerrado y nos negamos a enviar esta declaración de impuestos al IRS.
+        Si tiene preguntas o desea obtener más información sobre esta decisión, comuníquese con hello@getctc.org.
   models:
     intake:
       your_spouse: Su cónyuge
