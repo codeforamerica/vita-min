@@ -334,6 +334,8 @@ Rails.application.routes.draw do
 
         get "/completed-intake", to: "ctc_pages#completed"
         get "/help", to: "ctc_pages#help"
+        get "/stimulus", to: "ctc_pages#stimulus"
+        get "/stimulus-navigator", to: "ctc_pages#stimulus_navigator"
         get "/privacy", to: "ctc_pages#privacy_policy"
         get "/navigators", to: "ctc_pages#navigators"
         get "/california-benefits", to: "ctc_pages#california_benefits"

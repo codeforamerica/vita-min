@@ -1,0 +1,203 @@
+<% intake_public_access = ENV['CTC_INTAKE_PUBLIC_ACCESS'] == 'true' %>
+
+<% content_for :page_title do %>
+  <%= t("views.ctc_pages.stimulus_home.title") %>
+<% end %>
+<% content_for :body_class, "body--home" %>
+
+<%= render 'shared/facebook_pixel' %>
+<main role="main" class="ctc-home">
+  <%= render 'ctc_offseason_warning' %>
+  <div class="slab slab--hero">
+    <div class="grid-flex contained column-row space-between">
+      <div class="grid-flex column-column spacing-below-35">
+        <h1 class="landing-page-header">
+          <%= t("views.ctc_pages.stimulus_home.header") %>
+        </h1>
+        <% if open_for_ctc_intake? %>
+          <p>
+            <%= t("views.ctc_pages.stimulus_home.subheader.claim") %>
+          </p>
+        <% end %>
+        <div>
+          <% if open_for_ctc_intake? %>
+            <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
+          <% else %>
+            <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
+          <% end %>
+        </div>
+        <% if open_for_ctc_login? %>
+          <div class="spacing-below-60">
+            <strong><%= link_to t('views.ctc_pages.home.portal_sign_in_link'), new_ctc_portal_client_login_path, class: "link link--subtle" %></strong>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="grid-flex align-flex-end justify-flex-end">
+        <%= image_tag "mother-baby-computer.png", alt: "", class: "hero-image hero-image--family" %>
+      </div>
+    </div>
+  </div>
+
+  <% if @needs_help_banner %>
+    <div class="slab slab--short slab--need-help">
+      <div class="grid">
+        <div class="media-box spacing-below-0">
+          <div class="media-box__media">
+            <%= image_tag('contact-phone.svg', alt: "") %>
+          </div>
+          <div class="media-box__content">
+            <%= t('views.ctc_pages.home.need_help_html') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="slab slab--green">
+    <div class="grid">
+      <div class="grid__item width-one-half spacing-below-25">
+        <%= image_tag('stimulus-phones.png', alt: "") %>
+      </div>
+      <div class="grid__item width-one-half">
+        <h2><%= t('views.ctc_pages.stimulus_home.what_is.heading') %></h2>
+        <p><%= t('views.ctc_pages.stimulus_home.what_is.body_html') %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--short slab--affiliations">
+    <div class="grid">
+      <div class="grid__item width-one-whole affiliations">
+        <div class="grid__item width-one-third">
+          <div class="image cfa">
+            <%= image_tag('cfa-logo--black.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.cfa_product_html') %>
+          </div>
+        </div>
+        <div class="grid__item width-one-third">
+          <div class="image whitehouse">
+            <%= image_tag('white-house.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.white_house_html') %>
+          </div>
+        </div>
+        <div class="grid__item width-one-third">
+          <div class="image irs">
+            <%= image_tag('irs-efile.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.irs') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--short slab--navigators">
+    <div class="grid">
+      <div class="media-box spacing-below-0">
+        <div class="media-box__media">
+          <%= image_tag('question-bubble.svg', alt: "") %>
+        </div>
+        <div class="media-box__content">
+          <%= t('views.ctc_pages.home.navigator_resources_html', navigators_link: ctc_navigators_url) %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab">
+    <div class="grid">
+      <div class="grid__item">
+        <h2><%= t("views.ctc_pages.stimulus_home.qualify.heading") %></h2>
+        <p><%= t("views.ctc_pages.stimulus_home.qualify.body1") %></p>
+        <p><%= t("views.ctc_pages.stimulus_home.qualify.body2") %></p>
+
+        <div class="accordion">
+          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1">
+            <h3><%= t("views.ctc_pages.stimulus_home.qualify.eligible.subheading") %></h3>
+          </a>
+          <div class="accordion__content" id="a1">
+            <p><%= t("views.ctc_pages.stimulus_home.qualify.eligible.body") %></p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
+            <h3><%= t("views.ctc_pages.stimulus_home.qualify.dependents.subheading") %></h3>
+          </a>
+          <div class="accordion__content" id="a2">
+            <%= t("views.ctc_pages.stimulus_home.qualify.dependents.body") %>
+            <ul>
+              <% t("views.ctc_pages.stimulus_home.qualify.dependents.qualifiers").each do |item| %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+            <%= t("views.ctc_pages.stimulus_home.qualify.dependents.third_payment") %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slab slab--blue" id="claim-credit">
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <h2><%= t('views.ctc_pages.stimulus_home.obtain.heading') %></h2>
+      </div>
+      <div class="grid__item width-one-whole">
+        <p><%= t('views.ctc_pages.stimulus_home.obtain.body1') %></p>
+        <p>
+          <%= t('views.ctc_pages.stimulus_home.obtain.body2') %>
+        </p>
+
+        <div class="accordion">
+          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a3">
+            <h3><%= t("views.ctc_pages.home.obtain.already_filed.subheading") %></h3>
+          </a>
+          <div class="accordion__content" id="a3">
+            <p><%= t("views.ctc_pages.stimulus_home.obtain.already_filed.body1") %></p>
+            <p>
+              <%= t("views.ctc_pages.stimulus_home.obtain.already_filed.body2") %>
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a4">
+            <h3><%= t("views.ctc_pages.stimulus_home.obtain.not_filed.subheading") %></h3>
+          </a>
+          <div class="accordion__content" id="a4">
+            <p>
+              <%= t("views.ctc_pages.stimulus_home.obtain.not_filed.body1") %>
+            </p>
+            <p><%= t("views.ctc_pages.stimulus_home.obtain.not_filed.body2") %></p>
+            <p>
+              <strong><%= t("views.ctc_pages.home.obtain.not_filed.chat_with_tax_experts_html") %></strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a5">
+            <h3><%= t("views.ctc_pages.home.obtain.full_return.subheading") %></h3>
+          </a>
+          <div class="accordion__content" id="a5">
+            <p><%= t("views.ctc_pages.home.obtain.full_return.body1_html") %></p>
+            <p><%= t("views.ctc_pages.home.obtain.full_return.gyr_diy_explanation_html", url: url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy', params: { source: session[:source] })) %></p>
+            <% unless ENV['CTC_HIDE_DIY_LINK'] == 'true' %>
+              <p>
+                <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy', params: { source: session[:source] }), class: "button button--primary" do %>
+                  <% t("views.ctc_pages.stimulus_home.obtain.full_return.file_with_gyr") %>
+                <% end %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
