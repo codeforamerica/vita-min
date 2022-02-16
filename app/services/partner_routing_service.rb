@@ -18,7 +18,7 @@ class PartnerRoutingService
       end
     end
 
-    from_itin_enabled = vita_partner_from_itin_enabled if @intake.present? && @intake.primary_tin_type == "itin" && @intake.primary_ssn.present?
+    from_itin_enabled = vita_partner_from_itin_enabled if @intake.present? && @intake.itin_applicant?
     return from_itin_enabled if from_itin_enabled.present?
 
     from_previous_year_partner = previous_year_partner
@@ -66,22 +66,26 @@ class PartnerRoutingService
   end
 
   def vita_partner_from_itin_enabled
-    return unless @intake && @intake.primary_tin_type == "itin" && @intake.primary_ssn.present?
+    return unless @intake && @intake.itin_applicant?
 
     state = ZipCodes.details(@zip_code)[:state]
-    # TODO: Can people be assigned to Coalitions too? Or only organizations?
-    # coalitions_ids_in_state = StateRoutingTarget.preload(:target).where(state_abbreviation: state, target_type: "Coalition").pluck(:target_id)
-    # do I need to look for these vita partners' child sites and
-    vita_partners_ids_in_state = StateRoutingTarget.preload(:target).where(state_abbreviation: state, target_type: "VitaPartner").pluck(:target_id)
+    active_vita_partners_ids_in_state = StateRoutingFraction.joins(:state_routing_target)
+                                                            .where(state_routing_targets: { state_abbreviation: state })
+                                                            .where("routing_fraction > ?", 0).pluck(:vita_partner_id)
 
-    vita_partners_in_state_itin_enabled = VitaPartner.where(id: vita_partners_ids_in_state, accepts_itin_applicants: true)
+    active_vita_partners_in_state_itin_enabled = VitaPartner.where(id: active_vita_partners_ids_in_state, accepts_itin_applicants: true)
 
-    if vita_partners_in_state_itin_enabled.present?
+    if active_vita_partners_in_state_itin_enabled.present?
       @routing_method = :itin_enabled
-      return vita_partners_in_state_itin_enabled.order(Arel.sql('RANDOM()')).first
-    elsif vita_partners_itin_enabled = VitaPartner.where(accepts_itin_applicants: true)
+      return active_vita_partners_in_state_itin_enabled.order(Arel.sql('RANDOM()')).first
+    end
+
+    active_vita_partners_itin_enabled = VitaPartner.joins(:state_routing_fractions)
+                                                   .where(["state_routing_fractions.routing_fraction > ?", 0])
+                                                   .where(accepts_itin_applicants: true)
+    if active_vita_partners_itin_enabled.present?
       @routing_method = :itin_enabled
-      return vita_partners_itin_enabled.order(Arel.sql('RANDOM()')).first if vita_partners_itin_enabled.present?
+      active_vita_partners_itin_enabled.order(Arel.sql('RANDOM()')).first
     end
   end
 

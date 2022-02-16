@@ -20,15 +20,17 @@ describe PartnerRoutingService do
     end
 
     context "when a client's tin type is itin" do
-      let!(:srt_one) { create(:state_routing_target, target: vita_partner, state_abbreviation: "CA") }
-      let!(:srt_two) { create(:state_routing_target, target: vita_partner_in_state_no_itin, state_abbreviation: "CA") }
-      let!(:vita_partner_in_state_no_itin) { create :organization, accepts_itin_applicants: false }
-      let(:intake) { create :intake, primary_tin_type: "itin", primary_ssn: "999-89-1234", state: "CA", zip_code: "94606" }
+      let(:srt_one) { create(:state_routing_target, target: vita_partner, state_abbreviation: "CA") }
+      let(:srt_two) { create(:state_routing_target, target: vita_partner_in_state_no_itin, state_abbreviation: "CA") }
+      let!(:srf_one) { create(:state_routing_fraction, routing_fraction: 0.1, vita_partner: vita_partner, state_routing_target: srt_one) }
+      let!(:srf_two) { create(:state_routing_fraction, routing_fraction: 0.3, vita_partner: vita_partner_in_state_no_itin, state_routing_target: srt_two) }
+      let(:vita_partner_in_state_no_itin) { create :organization, accepts_itin_applicants: false }
+      let(:intake) { create :intake, state: "CA", zip_code: "94606", triage: create(:triage, id_type: "need_itin_help") }
       subject { PartnerRoutingService.new(intake: intake, zip_code: "94606") }
 
       before { vita_partner.update(accepts_itin_applicants: true) }
 
-      context "when there is an ITIN-enabled vita partner in their state" do
+      context "when there is an active ITIN-enabled vita partner in their state" do
         it "routes them there" do
           expect(subject.determine_partner).to eq vita_partner
           expect(subject.routing_method).to eq :itin_enabled
@@ -41,6 +43,24 @@ describe PartnerRoutingService do
         it "routes them to any ITIN-enabled vita partner" do
           expect(subject.determine_partner).to eq vita_partner
           expect(subject.routing_method).to eq :itin_enabled
+        end
+      end
+
+      context "when there is an ITIN-enabled vita partner in their state but it is not active" do
+        let!(:srf_one) { create(:state_routing_fraction, routing_fraction: 0.0, vita_partner: vita_partner, state_routing_target: srt_one) }
+        let!(:srf_active_itin_enabled_vp) { create(:state_routing_fraction, routing_fraction: 0.3, vita_partner: create(:organization, accepts_itin_applicants: true), state_routing_target: create(:state_routing_target, target: vita_partner, state_abbreviation: "WY")) }
+
+        it "does not routes them there" do
+          expect(subject.determine_partner).not_to eq vita_partner
+        end
+      end
+
+      context "when there are no active ITIN-enabled vita partners" do
+        let!(:srf_one) { create(:state_routing_fraction, routing_fraction: 0.0, vita_partner: vita_partner, state_routing_target: srt_one) }
+        let!(:srf_two) { create(:state_routing_fraction, routing_fraction: 0.0, vita_partner: vita_partner_in_state_no_itin, state_routing_target: srt_two) }
+
+        it "routing method is not itin_enabled" do
+          expect(subject.routing_method).not_to eq :itin_enabled
         end
       end
     end
