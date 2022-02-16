@@ -38,4 +38,11 @@ RSpec.feature "Admin Tools", active_job: true do
     expect(admin_toggle.name).to eq(AdminToggle::FORWARD_MESSAGES_TO_INTERCOM)
     expect(admin_toggle.value).to eq(false)
   end
+
+  scenario "admin can click on SLA breach link" do
+    visit hub_user_profile_path
+    click_on "Admin Tools"
+    click_on "SLA Breaches"
+    expect(page).to have_text "Report run at:"
+  end
 end

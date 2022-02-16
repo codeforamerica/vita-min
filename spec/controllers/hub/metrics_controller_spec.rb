@@ -8,17 +8,13 @@ describe Hub::MetricsController, requires_default_vita_partners: true do
     let(:vita_partner_3) { create :site, name: "Vita Partner 3" }
     let!(:generated_at) { DateTime.current }
     let(:breach_threshold_date) { DateTime.new(2020, 8, 30) }
-    let(:breach_data) { { vita_partner_1.id => 2, vita_partner_2.id => 1} }
+    let(:breach_data) { { vita_partner_1.id => 2, vita_partner_2.id => 1 } }
     let(:breach_count) { breach_data.values.inject(:+) }
     let(:report_data) do
       {
         breached_at: breach_threshold_date,
         communication_breaches_by_vita_partner_id: breach_data,
-        last_outgoing_communication_breaches_by_vita_partner_id: breach_data,
-        interaction_breaches_by_vita_partner_id: breach_data,
-        interaction_breach_count: breach_count,
         communication_breach_count: breach_count,
-        last_outgoing_communication_breach_count: breach_count,
         active_sla_clients_by_vita_partner_id: breach_data,
         active_sla_clients_count: breach_count
       }
@@ -54,8 +50,6 @@ describe Hub::MetricsController, requires_default_vita_partners: true do
         it 'uses the accumulated totals for all vita partners' do
           get :index
           expect(assigns(:total_breaches)[:unanswered_communication]).to eq 3
-          expect(assigns(:total_breaches)[:outgoing_communication]).to eq 3
-          expect(assigns(:total_breaches)[:interaction]).to eq 3
         end
       end
 
@@ -92,8 +86,6 @@ describe Hub::MetricsController, requires_default_vita_partners: true do
         it 'limits the totals to those that are relevant to the vita partner the user has access to' do
           get :index
           expect(assigns(:total_breaches)[:unanswered_communication]).to eq 2
-          expect(assigns(:total_breaches)[:outgoing_communication]).to eq 2
-          expect(assigns(:total_breaches)[:interaction]).to eq 2
         end
       end
     end

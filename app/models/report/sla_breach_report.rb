@@ -20,31 +20,12 @@ class Report::SLABreachReport < Report
     create!(data: data, generated_at: generated_at)
   end
 
-  # JSON keys must be strings, but we need vita_partner id keys to be integers
-  def response_needed_breaches
-    @response_needed_breaches ||= format_hash(data["response_needed_breaches_by_vita_partner_id"])
-  end
-
   def unanswered_communication_breaches
     @communication_breaches ||= format_hash(data["communication_breaches_by_vita_partner_id"])
   end
 
-  def last_outgoing_communication_breaches
-    @last_outgoing_communication_breaches ||= format_hash(data["last_outgoing_communication_breaches_by_vita_partner_id"])
-  end
-
-  def interaction_breaches
-    @interaction_breaches ||= format_hash(data["interaction_breaches_by_vita_partner_id"])
-  end
-
   def active_sla_clients
     @active_sla_clients ||= format_hash(data["active_sla_clients_by_vita_partner_id"])
-  end
-
-  def response_needed_breach_count(vita_partners = nil)
-    return data["response_needed_breach_count"] unless vita_partners.present?
-
-    response_needed_breaches.slice(*vita_partners.map(&:id)).values.sum
   end
 
   def unanswered_communication_breach_count(vita_partners = nil)
@@ -53,24 +34,12 @@ class Report::SLABreachReport < Report
     unanswered_communication_breaches.slice(*vita_partners.map(&:id)).values.sum
   end
 
-  def last_outgoing_communication_breach_count(vita_partners = nil)
-    return data["last_outgoing_communication_breach_count"] unless vita_partners.present?
-
-    last_outgoing_communication_breaches.slice(*vita_partners.map(&:id)).values.sum
-  end
-
-  def interaction_breach_count(vita_partners = nil)
-    return data["interaction_breach_count"] unless vita_partners.present?
-
-    interaction_breaches.slice(*vita_partners.map(&:id)).values.sum
-  end
-
   def active_sla_clients_count(vita_partners = nil)
     return data["active_sla_clients_count"] unless vita_partners.present?
 
     active_sla_clients.slice(*vita_partners.map(&:id)).values.sum
   end
-  
+
   def breached_at
     @breached_at ||= data["breached_at"].in_time_zone
   end
