@@ -603,35 +603,35 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     context "an admin" do
       let(:user) { create :admin_user, name: "Some Name" }
       it "is Admin" do
-        expect(user.name_with_role_and_entity).to eq "Some Name - Admin"
+        expect(user.name_with_role_and_entity).to eq "Some Name (Admin)"
       end
     end
 
     context "a team member" do
       let(:user) { create :team_member_user, name: "Marty Melon", site: (create :site, name: "New Site") }
       it "is Admin" do
-        expect(user.name_with_role_and_entity).to eq "Marty Melon - Team Member - New Site"
+        expect(user.name_with_role_and_entity).to eq "Marty Melon (Team Member) - New Site"
       end
     end
 
     context "site coordinator" do
       let(:user) { create :site_coordinator_user, name: "Luna Lemon", site: (create :site, name: "New Site") }
       it "is Site Coordinator" do
-        expect(user.name_with_role_and_entity).to eq "Luna Lemon - Site Coordinator - New Site"
+        expect(user.name_with_role_and_entity).to eq "Luna Lemon (Site Coordinator) - New Site"
       end
     end
 
     context "coalition lead" do
       let(:user) { create :coalition_lead_user, name: "Martha Mango", coalition: (create :coalition, name: "This Coalition") }
       it "is Admin" do
-        expect(user.name_with_role_and_entity).to eq "Martha Mango - Coalition Lead - This Coalition"
+        expect(user.name_with_role_and_entity).to eq "Martha Mango (Coalition Lead) - This Coalition"
       end
     end
 
     context "organization lead" do
       let(:user) { create :organization_lead_user, name: "Patty Persimmon", organization: (create :organization, name: "Some Org") }
       it "is Admin" do
-        expect(user.name_with_role_and_entity).to eq "Patty Persimmon - Organization Lead - Some Org"
+        expect(user.name_with_role_and_entity).to eq "Patty Persimmon (Organization Lead) - Some Org"
       end
     end
   end

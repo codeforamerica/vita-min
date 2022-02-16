@@ -146,8 +146,8 @@ RSpec.describe Hub::NotesController, type: :controller do
 
       it "returns taggable users as json" do
         expect(JSON.parse(presenter.taggable_users)).to eq [
-          {"id" => team_member.id, "name" => "Mel Melon", "name_with_role_and_entity" => "Mel Melon - Team Member - Some Site"},
-          {"id" => admin_user.id, "name" => "Penelope Persimmon", "name_with_role_and_entity" => "Penelope Persimmon - Admin"},
+          {"id" => team_member.id, "name" => team_member.name, "name_with_role" => team_member.name_with_role, "name_with_role_and_entity" => team_member.name_with_role_and_entity},
+          {"id" => admin_user.id, "name" => admin_user.name, "name_with_role" => admin_user.name_with_role, "name_with_role_and_entity" => admin_user.name_with_role_and_entity},
         ]
       end
     end

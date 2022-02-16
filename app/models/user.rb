@@ -94,7 +94,7 @@ class User < ApplicationRecord
   end
 
   def name_with_role
-    "#{name_with_suspended} - #{role_name}"
+    "#{name_with_suspended} (#{role_name})"
   end
 
   def name_with_role_and_entity

@@ -4,7 +4,7 @@
   <div class="notification__body <%= notification.read ? 'notification__read' : 'notification__unread' %>">
     <%= render 'shared/unread_icon', flag: true unless notification.read? %>
     <%= t(".body_html",
-          assigner: notification.notifiable.user.name,
+          assigner: notification.notifiable.user.name_with_role,
           client_link: link_to(t(".body_link", client_name: Hub::ClientsController::HubClientPresenter.new(notification.notifiable.client).preferred_name), hub_client_notes_path(client_id: notification.notifiable.client, anchor: 'last-item')))
     %>
   </div>

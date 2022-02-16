@@ -39,7 +39,7 @@ module Hub
       end
 
       def taggable_users
-        @_taggable_users ||= User.taggable_for(self).to_json(only: [:name, :id], methods: :name_with_role_and_entity).to_s.html_safe
+        @_taggable_users ||= User.taggable_for(self).to_json(only: [:name, :id], methods: [:name_with_role_and_entity, :name_with_role]).to_s.html_safe
       end
     end
   end
