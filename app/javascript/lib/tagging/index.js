@@ -12,7 +12,7 @@ export function initTaggableNote() {
     new Tagify(input, {
         mode: 'mix',  // <--  Enable mixed-content
         pattern: /@/,  // <--  Text starting with @ (if single, String can be used here)
-        tagTextProp: 'name',  // <-- defines which attr is used as the tag display value
+        tagTextProp: 'name_with_role',  // <-- defines which attr is used as the tag display value
         // Array for initial interpolation, which allows only these tags to be used
         whitelist: whitelist,
         enforceWhitelist: true,
