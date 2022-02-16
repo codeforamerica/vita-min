@@ -1331,6 +1331,15 @@ es:
             Su equipo de impuestos en GetYourRefund
           subject: Bienvenido a GetYourRefund.org. ¡Ya casi estás ahí!
         sms: 'Hola <<Client.PreferredName>>, Notamos que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe aquí <<Client.LoginLink>> Si tiene alguna pregunta, puede responder a este mensaje. Envíenos sus comentarios y ayúdenos a mejorar nuestro servicio. Puede realizar nuestra encuesta de 5 minutos aquí: %{survey_link}'
+    verification_attempt_denied:
+      email:
+        body: |
+        Su caso de verificación de identidad se ha cerrado y nos negamos a enviar esta declaración de impuestos al IRS.
+        Si tiene preguntas o desea obtener más información sobre esta decisión, comuníquese con hello@getctc.org.
+        subject: Su caso de verificación de identidad ha sido cerrado
+      sms: |
+      Su caso de verificación de identidad se ha cerrado y nos negamos a enviar esta declaración de impuestos al IRS.
+      Si tiene preguntas o desea obtener más información sobre esta decisión, comuníquese con hello@getctc.org.
   models:
     intake:
       your_spouse: Su cónyuge

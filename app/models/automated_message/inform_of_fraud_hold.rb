@@ -15,6 +15,5 @@ module AutomatedMessage
     def email_body(*args)
       I18n.t("messages.fraud_hold.email.body", *args)
     end
-
   end
 end

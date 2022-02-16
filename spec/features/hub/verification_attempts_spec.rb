@@ -50,6 +50,9 @@ RSpec.feature "Clients who have been flagged for fraud" do
     expect(page).to have_selector("img#selfie")
     expect(page).to have_selector("img#photo_id")
 
+    expect(page).to have_selector("input#approve")
+    expect(page).to have_selector("input#deny")
+
     #   - check notes
     expect(page).to have_text "this client looks like a racoon"
 
@@ -62,9 +65,43 @@ RSpec.feature "Clients who have been flagged for fraud" do
       expect(page).to have_text "These are my notes"
     end
 
+    expect(page).not_to have_selector("input#approve")
+    expect(page).not_to have_selector("input#deny")
+
+
     # Go to client notes page and make sure there is a record of the note there as well
     visit hub_client_notes_path(client_id: verification_attempt_1.client_id)
 
     expect(page).to have_content "Judith Juice - Admin approved verification attempt."
+  end
+
+  scenario "I can deny a verification attempt" do
+    visit hub_verification_attempts_path
+
+    # check info in table
+    within "#verification-attempt-#{verification_attempt_2.id}" do
+      # check name
+      expect(page).to have_text "Catie Cucumber"
+    end
+    click_on "Catie"
+
+    expect(page).to have_selector("input#deny")
+    expect(page).to have_selector("input#approve")
+
+    fill_in "Add a new note", with: "This is a racoon! Not Catie Cucumber!"
+    click_on "Deny and Close"
+
+    within "ul#verification-attempt-notes" do
+      expect(page).to have_text "Judith Juice - Admin denied verification attempt."
+      expect(page).to have_text "This is a racoon! Not Catie Cucumber!"
+    end
+
+    expect(page).not_to have_selector("textarea#hub_update_verification_form_note")
+    expect(page).not_to have_selector("input#deny")
+    expect(page).not_to have_selector("input#approve")
+
+    visit hub_client_notes_path(client_id: verification_attempt_2.client_id)
+
+    expect(page).to have_content "Judith Juice - Admin denied verification attempt."
   end
 end

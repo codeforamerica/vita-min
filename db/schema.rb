@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_215821) do
+ActiveRecord::Schema.define(version: 2022_02_15_232201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -512,6 +512,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_215821) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "first_unanswered_incoming_interaction_at"
     t.datetime "flagged_at"
+    t.datetime "identity_verification_denied_at"
     t.datetime "identity_verified_at"
     t.datetime "in_progress_survey_sent_at"
     t.datetime "last_incoming_interaction_at"
@@ -1550,7 +1551,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_215821) do
            SELECT DISTINCT tax_returns.client_id
              FROM (tax_returns
                JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
-            WHERE ((tax_returns.current_state)::text <> ALL (ARRAY[('intake_before_consent'::character varying)::text, ('intake_in_progress'::character varying)::text, ('intake_greeter_info_requested'::character varying)::text, ('intake_needs_doc_help'::character varying)::text, ('file_mailed'::character varying)::text, ('file_accepted'::character varying)::text, ('file_not_filing'::character varying)::text, ('file_hold'::character varying)::text, ('file_fraud_hold'::character varying)::text]))
+            WHERE ((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count
