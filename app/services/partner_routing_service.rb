@@ -80,6 +80,7 @@ class PartnerRoutingService
       return active_vita_partners_in_state_itin_enabled.order(Arel.sql('RANDOM()')).first
     end
 
+    # look for any active ITIN enabled partner if none are available in applicant's state
     active_vita_partners_itin_enabled = VitaPartner.joins(:state_routing_fractions)
                                                    .where(["state_routing_fractions.routing_fraction > ?", 0])
                                                    .where(accepts_itin_applicants: true)
