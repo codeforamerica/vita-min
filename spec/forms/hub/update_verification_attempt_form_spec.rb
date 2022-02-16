@@ -43,6 +43,21 @@ describe Hub::UpdateVerificationAttemptForm do
         end
       end
     end
+
+    context "note" do
+      context "when state is escalated" do
+        let(:params) do
+          {
+              note: "",
+              state: "escalated"
+          }
+        end
+        it "requires a note" do
+          expect(subject).not_to be_valid
+          expect(subject.errors[:note]).to include "A note is required when escalating a verification attempt."
+        end
+      end
+    end
   end
 
   describe "#save" do

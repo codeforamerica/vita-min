@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.feature "Clients who have been flagged for fraud" do
   let(:user) { create :admin_user, name: "Judith Juice" }
-  let!(:note) { create :verification_attempt_transition, :escalated, metadata: { initiated_by_id: user.id, note: "this client looks like a racoon" }, verification_attempt: verification_attempt_1 }
   let(:verification_attempt_1) { create :verification_attempt }
   let(:verification_attempt_2) { create :verification_attempt }
   let(:verification_attempt_3) { create :verification_attempt }
@@ -52,11 +51,9 @@ RSpec.feature "Clients who have been flagged for fraud" do
 
     expect(page).to have_selector("input#approve")
     expect(page).to have_selector("input#deny")
+    expect(page).to have_selector("input#escalate")
 
-    #   - check notes
-    expect(page).to have_text "this client looks like a racoon"
-
-    # - create note
+    # - create note + approve
     fill_in "Add a new note", with: "These are my notes"
     click_on "Approve"
 
@@ -67,12 +64,47 @@ RSpec.feature "Clients who have been flagged for fraud" do
 
     expect(page).not_to have_selector("input#approve")
     expect(page).not_to have_selector("input#deny")
-
+    expect(page).not_to have_selector("input#escalate")
 
     # Go to client notes page and make sure there is a record of the note there as well
     visit hub_client_notes_path(client_id: verification_attempt_1.client_id)
 
     expect(page).to have_content "#{user.name_with_role} approved verification attempt."
+  end
+
+  scenario "I can escalate a verification attempt" do
+    visit hub_verification_attempts_path
+
+    # check info in table
+    within "#verification-attempt-#{verification_attempt_2.id}" do
+      # check name
+      expect(page).to have_text "Catie Cucumber"
+    end
+    click_on "Catie"
+
+    expect(page).to have_selector("input#deny")
+    expect(page).to have_selector("input#approve")
+    expect(page).to have_selector("input#escalate")
+
+    click_on "Escalate"
+    expect(page).to have_text "A note is required when escalating a verification attempt."
+
+    fill_in "Add a new note", with: "This is a racoon! Not Catie Cucumber!"
+    click_on "Escalate"
+
+    within "ul#verification-attempt-notes" do
+      expect(page).to have_text "Judith Juice - Admin escalated verification attempt."
+      expect(page).to have_text "This is a racoon! Not Catie Cucumber!"
+    end
+
+    expect(page).to have_selector("input#deny")
+    expect(page).to have_selector("input#approve")
+    expect(page).to have_selector("textarea#hub_update_verification_attempt_form_note")
+    expect(page).not_to have_selector("input#escalate")
+
+    visit hub_client_notes_path(client_id: verification_attempt_2.client_id)
+
+    expect(page).to have_content "Judith Juice - Admin escalated verification attempt for additional review."
   end
 
   scenario "I can deny a verification attempt" do
@@ -87,6 +119,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
 
     expect(page).to have_selector("input#deny")
     expect(page).to have_selector("input#approve")
+    expect(page).to have_selector("input#escalate")
 
     fill_in "Add a new note", with: "This is a racoon! Not Catie Cucumber!"
     click_on "Deny and Close"
@@ -96,7 +129,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
       expect(page).to have_text "This is a racoon! Not Catie Cucumber!"
     end
 
-    expect(page).not_to have_selector("textarea#hub_update_verification_form_note")
+    expect(page).not_to have_selector("textarea#hub_update_verification_attempt_form_note")
     expect(page).not_to have_selector("input#deny")
     expect(page).not_to have_selector("input#approve")
 
