@@ -120,8 +120,6 @@ Rails.application.routes.draw do
       get "/tax-questions", to: "public_pages#tax_questions"
       get "/faq", to: "public_pages#faq"
       get "/sms-terms", to: "public_pages#sms_terms"
-      get "/stimulus", to: "public_pages#stimulus"
-      get "/full-service", to: "public_pages#full_service_home"
       get "/500", to: "public_pages#internal_server_error"
       get "/422", to: "public_pages#internal_server_error"
       get "/404", to: "public_pages#page_not_found"
