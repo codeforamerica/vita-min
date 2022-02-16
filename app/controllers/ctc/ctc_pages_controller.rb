@@ -6,13 +6,8 @@ module Ctc
         redirect_to Ctc::Questions::OverviewController.to_path_helper
       end
 
-      case session[:source]
-      when "cactc", "fed", "child"
+      if ["cactc", "fed", "child"].include? session[:source]
         redirect_to action: :help
-      when "eip", "cagov", "state"
-        redirect_to action: :stimulus_navigator
-      when "credit", "ca", "castate"
-        redirect_to action: :stimulus
       end
     end
 

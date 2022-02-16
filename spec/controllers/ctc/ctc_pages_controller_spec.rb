@@ -36,13 +36,7 @@ describe Ctc::CtcPagesController do
       [
         %w( cactc /en/help ),
         %w( fed   /en/help ),
-        %w( eip /en/stimulus-navigator ),
-        %w( cagov /en/stimulus-navigator ),
-        %w( state /en/stimulus-navigator ),
-        %w( credit  /en/stimulus ),
-        %w( ca      /en/stimulus ),
-        %w( castate /en/stimulus),
-      ].each do |source, location, show_needs_help|
+      ].each do |source, location|
         describe "When client visits from source param #{source}" do
           it "redirects to #{location}" do
             session[:source] = source
