@@ -1262,15 +1262,6 @@ en:
         Hello <<Client.PreferredName>>,
         Thanks for starting your taxes with GetYourRefund - you’re almost there! Your Client ID is <<Client.ClientId>> We will begin to prepare your taxes once we have all of your required information and tax documents. Check your progress and add additional documents here: <<Client.LoginLink>> The entire GetYourRefund process will take 2-3 weeks.
         Respond to this message if you have any questions. We’re here to help!
-    verification_attempt_denied:
-      email:
-        body: |
-          Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
-          If you have questions or would like more information about this decision, please contact hello@getctc.org.
-        subject: Your identity verification case has been closed
-      sms: |
-        Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
-        If you have questions or would like more information about this decision, please contact hello@getctc.org.
     intercom_forwarding:
       email:
         body: This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly.
@@ -1385,6 +1376,15 @@ en:
             Your Tax Team at GetYourRefund
           subject: Welcome to GetYourRefund.org. You're almost there!
         sms: 'Hello <<Client.PreferredName>>. We noticed you haven''t completed providing the information we need to prepare your taxes. Continue where you left off here <<Client.LoginLink>> If you have any questions, you can reply to this message. Provide feedback and help us improve our service! You can take our 5 minute survey here: %{survey_link}'
+    verification_attempt_denied:
+      email:
+        body: |
+          Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
+          If you have questions or would like more information about this decision, please contact hello@getctc.org.
+        subject: Your identity verification case has been closed
+      sms: |
+        Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
+        If you have questions or would like more information about this decision, please contact hello@getctc.org.
   models:
     intake:
       your_spouse: Your spouse
