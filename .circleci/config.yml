@@ -147,7 +147,7 @@ jobs:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:warm_aptible_build_cache-$CIRCLE_SHA1
+      - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:refs/heads/warm_aptible_build_cache-$CIRCLE_SHA1
     parallelism: 1
   deploy_to_aptible--demo:
     executor: ruby_executor
