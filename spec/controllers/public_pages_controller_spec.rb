@@ -93,6 +93,12 @@ RSpec.describe PublicPagesController do
       expect(response).to be_ok
       expect(response.body).to include I18n.t("views.public_pages.home.header")
     end
+
+    it "is not instrumented by Mixpanel" do
+      allow(MixpanelService).to receive(:send_event)
+      get :healthcheck
+      expect(MixpanelService).not_to have_received(:send_event)
+    end
   end
 
   describe "#source_routing" do
