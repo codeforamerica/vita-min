@@ -174,7 +174,7 @@ RSpec.describe ClientMessagingService do
       it "raises an error" do
         expect do
           described_class.send_email_to_all_signers(client: client, body: "hello")
-        end.to raise_error(ArgumentError, "missing keyword: user")
+        end.to raise_error(ArgumentError, "missing keyword: :user")
       end
     end
 

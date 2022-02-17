@@ -1,4 +1,4 @@
-FROM ruby:2.6.5
+FROM ruby:2.7.5
 
 # The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
 RUN apt-get update --allow-releaseinfo-change
@@ -39,7 +39,7 @@ ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
 WORKDIR /app
 ADD package.json yarn.lock /app/
 RUN NODE_ENV=production yarn install --frozen-lockfile
-ADD Gemfile Gemfile.lock /app/
+ADD .ruby-version Gemfile Gemfile.lock /app/
 RUN gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
  && bundle install --without test development
 
