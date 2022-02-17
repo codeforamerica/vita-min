@@ -1,5 +1,6 @@
 class PublicPagesController < ApplicationController
   skip_before_action :check_maintenance_mode
+  skip_after_action :track_page_view, only: [:healthcheck]
 
   def include_analytics?
     true
