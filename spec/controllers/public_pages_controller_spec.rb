@@ -87,6 +87,23 @@ RSpec.describe PublicPagesController do
     end
   end
 
+  describe "#stimulus" do
+    it "redirects to the beginning of intake" do
+      get :stimulus
+
+      expect(response).to redirect_to Questions::WelcomeController.to_path_helper
+    end
+  end
+
+  describe "#full-service" do
+    it "redirects to backtaxes and sets session source" do
+      get :full_service
+
+      expect(session[:source]).to eq "full-service"
+      expect(response).to redirect_to Questions::BacktaxesController.to_path_helper
+    end
+  end
+
   describe "#healthcheck" do
     it "renders the same content as the home page" do
       get :healthcheck

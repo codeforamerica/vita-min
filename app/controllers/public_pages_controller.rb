@@ -51,6 +51,16 @@ class PublicPagesController < ApplicationController
 
   def tax_questions; end
 
+  def stimulus
+    # the copy on this page is wrong and until we get it updated, redirect to beginning of intake
+    redirect_to_beginning_of_intake
+  end
+
+  def full_service
+    session[:source] = "full-service"
+    redirect_to Questions::BacktaxesController.to_path_helper
+  end
+
   def stimulus_recommendation; end
 
   def sms_terms; end

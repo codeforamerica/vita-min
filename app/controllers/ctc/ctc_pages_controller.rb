@@ -6,8 +6,13 @@ module Ctc
         redirect_to Ctc::Questions::OverviewController.to_path_helper
       end
 
-      if ["cactc", "fed", "child"].include? session[:source]
+      case session[:source]
+      when "cactc", "fed", "child"
         redirect_to action: :help
+      when "eip", "cagov", "state"
+        redirect_to action: :stimulus_navigator
+      when "credit", "ca", "castate"
+        redirect_to action: :stimulus
       end
     end
 
@@ -15,6 +20,17 @@ module Ctc
       session[:source] = "help" unless session[:source].present?
       @needs_help_banner = true
       render :home
+    end
+
+    def stimulus
+      session[:source] = "stimulus" unless session[:source].present?
+      render :stimulus_home
+    end
+
+    def stimulus_navigator
+      session[:source] = "stimulus-navigator" unless session[:source].present?
+      @needs_help_banner = true
+      render :stimulus_home
     end
 
     def source_routing
