@@ -1,6 +1,8 @@
 <p>
   <% if transition.to_state == "escalated" %>
     <%= transition.initiated_by.name_with_role %> <%= transition.to_state %> <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %> for additional review.
+  <% elsif transition.to_state == "requested_replacements" %>
+    <%= transition.initiated_by.name_with_role %> <%= I18n.t("messages.new_photos_requested.admin_note") %> for <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>
   <% else %>
     <%= transition.initiated_by.name_with_role %> <%= transition.to_state %> <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>.
   <% end %>
@@ -9,3 +11,6 @@
   <hr class="note--hr"/>
   <i><%= simple_format(transition.note) %></i>
 <% end %>
+
+
+

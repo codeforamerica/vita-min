@@ -1226,6 +1226,12 @@ es:
         subject: Esta conversación ha sido enviada a los especialistas del servicio al cliente de GetYourRefund
       sms:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
+    new_photos_requested:
+      admin_note: solicito nuevas fotos
+      email:
+        body: 'Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Le solicitamos que vuelva a cargar estas imágenes iniciando sesión aquí: <<Client.LoginLink>>'
+        subject: Documentos de identidad adicionales solicitados
+      sms: 'Desafortunadamente, sus documentos de identidad no pasaron nuestra revisión. Le solicitamos que vuelva a cargar estas imágenes iniciando sesión aquí: <<Client.LoginLink>>'
     not_ready_reminder:
       email:
         body: |+

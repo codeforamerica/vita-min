@@ -34,10 +34,12 @@
             <div class="note">
               <div class="note__heading">
                 <div class="note__author note__weight-normal">
-                  <%= transition.initiated_by&.name_with_role %> <strong><%= transition.to_state %></strong> verification attempt.
-
+                  <% if transition.to_state == 'requested_replacements'%>
+                    <%= transition.initiated_by&.name_with_role %> <strong><%= I18n.t("messages.new_photos_requested.admin_note") %></strong>
+                  <%else%>
+                    <%= transition.initiated_by&.name_with_role %> <strong><%= transition.to_state %></strong> verification attempt.
+                  <%end %>
                 </div>
-
                 <div class="note__time">
                   <%= timestamp transition.created_at %>
                 </div>
@@ -69,7 +71,9 @@
             <% if @verification_attempt.can_transition_to? :escalated %>
               <%= f.submit "Escalate", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "escalated"), class: "button button--primary", id: "escalate" %>
             <% end %>
-            <%#= f.submit "Request replacement photos", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "requested_replacements"), class: "button button--primary" %>
+            <% if @verification_attempt.can_transition_to? :requested_replacements %>
+              <%= f.submit "Request replacement photos", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "requested_replacements"), class: "button button--primary", id: "request_replacement"%>
+          <% end %>
           </div>
         <% end %>
       </div>

@@ -1268,6 +1268,16 @@ en:
         subject: Your message has been forwarded to GetYourRefund customer support
       sms:
         body: This conversation is being forwarded to our customer service specialists. You should expect to see a message from them at a different email shortly.
+    new_photos_requested:
+      admin_note: requested new photos
+      email:
+        body: |
+          Unfortunately, your identity documents did not pass our review.
+          We request that you re-upload these images by logging in here: <<Client.LoginLink>>
+        subject: Additional identity documents requested
+      sms: |
+        Unfortunately, your identity documents did not pass our review.
+        We request that you re-upload these images by logging in here: <<Client.LoginLink>>
     not_ready_reminder:
       email:
         body: |

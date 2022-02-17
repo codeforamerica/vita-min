@@ -32,5 +32,21 @@ describe VerificationAttemptStateMachine do
         )
       end
     end
+
+    context " request new photos" do
+      before do
+        allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
+      end
+
+      it "sends a message to the client" do
+        verification_attempt.transition_to(:requested_replacements)
+        expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+          client: verification_attempt.client,
+          locale: verification_attempt.client.intake.locale,
+          message: AutomatedMessage::NewPhotosRequested
+        )
+      end
+
+    end
   end
 end
