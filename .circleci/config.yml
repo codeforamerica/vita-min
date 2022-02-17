@@ -5,11 +5,11 @@ executors:
   ruby_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.7.5-node-browsers
   rails_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.7.5-node-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
