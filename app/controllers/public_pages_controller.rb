@@ -18,7 +18,11 @@ class PublicPagesController < ApplicationController
     redirect_to root_path
   end
 
-  def home; end
+  def home
+    if session[:source] == "full-service"
+      redirect_to Questions::BacktaxesController.to_path_helper
+    end
+  end
 
   def healthcheck
     render :home
