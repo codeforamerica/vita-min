@@ -175,7 +175,11 @@ RSpec.feature "triage flow" do
   end
 
   context "Mixpanel events" do
-    scenario "client ends up on GYR/Express choice page after filling out triage" do
+    before do
+      allow(MixpanelService).to receive(:send_event)
+    end
+
+    scenario "client ends up on GYR/Express choice page after filling out triage", js: true do
       answer_gyr_triage_questions(
         income_level: "zero",
         filing_status: "single",
@@ -186,6 +190,10 @@ RSpec.feature "triage flow" do
 
       expect(page).to have_selector("a.button[data-track-click=\"triage-gyr-express-choose-gyr\"]", text: I18n.t("questions.triage_gyr_express.edit.file_with_gyr"))
       expect(page).to have_selector("a.button[data-track-click=\"triage-gyr-express-choose-express-signup\"]", text: I18n.t("questions.triage_gyr_express.edit.sign_up_for_express"))
+
+      click_on I18n.t("questions.triage_gyr_express.edit.file_with_gyr")
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
+      expect(MixpanelService).to have_received(:send_event).with(event_name: "click_triage-gyr-express-choose-gyr")
     end
 
     scenario "client ends up on Express page after filling out triage" do
