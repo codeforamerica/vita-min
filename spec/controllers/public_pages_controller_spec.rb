@@ -103,6 +103,14 @@ RSpec.describe PublicPagesController do
     end
   end
 
+  describe "#stimulus" do
+    it "redirects to the beginning of intake" do
+      get :stimulus
+
+      expect(response).to redirect_to Questions::WelcomeController.to_path_helper
+    end
+  end
+
   describe "#healthcheck" do
     it "renders the same content as the home page" do
       get :healthcheck
