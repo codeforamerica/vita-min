@@ -1,0 +1,5 @@
+<%= t("views.public_pages.faq.question_groups.#{@section_key}.title") %>
+<% FaqController::QUESTIONS[@section_key.to_sym].each do |question| %>
+  <%= link_to t("views.public_pages.faq.question_groups.#{@section_key}.#{question}.question"),
+              faq_question_path(section_key: @section_key, question_key: question) %>
+<% end %>

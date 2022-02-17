@@ -1,0 +1,9 @@
+<div class="breadcrumb">
+  <%= link_to "FAQ", faq_path %> &gt;
+  <%= link_to t("views.public_pages.faq.question_groups.#{@section_key}.title"), faq_section_path(section_key: @section_key) %> &gt;
+  <span><%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %></span>
+</div>
+
+<%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %>
+
+<%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html") %>
