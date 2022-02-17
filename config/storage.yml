@@ -26,6 +26,10 @@ s3_demo:
   <<: *deploy_default
   bucket: vita-min-demo-docs
 
+s3_heroku:
+  <<: *deploy_default
+  bucket: vita-min-heroku-docs
+
 # Remember not to checkin your GCS keyfile to a repository
 # google:
 #   service: GCS
