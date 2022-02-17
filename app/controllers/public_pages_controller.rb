@@ -18,11 +18,7 @@ class PublicPagesController < ApplicationController
     redirect_to root_path
   end
 
-  def home
-    if session[:source] == "full-service"
-      redirect_to Questions::BacktaxesController.to_path_helper
-    end
-  end
+  def home; end
 
   def healthcheck
     render :home
@@ -57,6 +53,11 @@ class PublicPagesController < ApplicationController
   def stimulus
     # the copy on this page is wrong and until we get it updated, redirect to beginning of intake
     redirect_to_beginning_of_intake
+  end
+
+  def full_service
+    session[:source] = "full-service"
+    redirect_to Questions::BacktaxesController.to_path_helper
   end
 
   def stimulus_recommendation; end

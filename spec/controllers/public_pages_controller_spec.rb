@@ -23,22 +23,6 @@ RSpec.describe PublicPagesController do
         expect(response.body).to include "https://www.googletagmanager.com/gtag/js?id=UA-156157414-1"
       end
 
-      context "when source is full-service" do
-        it "redirects to the Backtaxes question" do
-          get :home, params: { source: "full-service" }
-
-          expect(response).to redirect_to Questions::BacktaxesController.to_path_helper
-        end
-      end
-
-      context "when source is not full-service" do
-        it "does not redirect" do
-          get :home, params: { source: "stimulus" }
-
-          expect(response).to render_template :home
-        end
-      end
-
       context "when the app is open for intake" do
         it "links to the first question path for digital intake" do
           get :home
@@ -108,6 +92,15 @@ RSpec.describe PublicPagesController do
       get :stimulus
 
       expect(response).to redirect_to Questions::WelcomeController.to_path_helper
+    end
+  end
+
+  describe "#full-service" do
+    it "redirects to backtaxes and sets session source" do
+      get :full_service
+
+      expect(session[:source]).to eq "full-service"
+      expect(response).to redirect_to Questions::BacktaxesController.to_path_helper
     end
   end
 
