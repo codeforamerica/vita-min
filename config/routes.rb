@@ -119,6 +119,10 @@ Rails.application.routes.draw do
       get "/about-us", to: "public_pages#about_us"
       get "/tax-questions", to: "public_pages#tax_questions"
       get "/faq", to: "public_pages#faq"
+
+      # TODO: generate routes + views (from translation keys?)
+      get "/how_many_stimulus_payments_were_there", to: "public_pages#how_many_stimulus_payments_were_there"
+
       get "/sms-terms", to: "public_pages#sms_terms"
       get "/stimulus", to: "public_pages#stimulus"
       get "/500", to: "public_pages#internal_server_error"

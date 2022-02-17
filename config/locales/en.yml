@@ -2791,9 +2791,326 @@ en:
           non_filer:
             a: We can file your taxes for %{years}. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on.
             q: What should I do if I haven’t filed in several years?
-        header: Frequently asked questions
+        header: How can we help you?
         subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
+        frequently_asked_questions: Frequently asked questions
         title: FAQ
+        stimulus:
+          title: "Stimulus questions"
+          how_many_stimulus_payments_were_there:
+            question: "How many stimulus payments were there?"
+            answer_html: ""
+          will_there_be_another_stimulus_payment:
+            question: ""
+            answer_html: ""
+          how_do_i_get_the_stimulus_payments:
+            question: ""
+            answer_html: ""
+          what_is_the_recovery_rebate_credit:
+            question: ""
+            answer_html: ""
+          what_is_the_economic_impact_payment:
+            question: ""
+            answer_html: ""
+        child_tax_credit:
+          title: ""
+          what_is_the_child_tax_credit_ctc:
+            question: ""
+            answer_html: ""
+          is_the_child_tax_credit_ctc_going_away:
+            question: ""
+            answer_html: ""
+          how_do_i_get_my_child_tax_credit_ctc_payments:
+            question: ""
+            answer_html: ""
+          do_i_have_to_report_my_advanced_child_tax_credit:
+            question: ""
+            answer_html: ""
+          what_do_i_do_if_someone_else_has_claimed_my:
+            question: ""
+            answer_html: ""
+          what_if_i_dont_have_any_income_or_only_income:
+            question: ""
+            answer_html: ""
+          i_got_letter_6419_from_the_irs_what_is_it:
+            question: ""
+            answer_html: ""
+          how_much_is_the_child_tax_credit_in_2022:
+            question: ""
+            answer_html: ""
+          do_i_qualify_for_the_child_tax_credit_ctc:
+            question: ""
+            answer_html: ""
+          i_was_getting_child_tax_credit_monthly_payments_in_2021:
+            question: ""
+            answer_html: ""
+          how_do_i_get_the_child_tax_credit_if_i:
+            question: ""
+            answer_html: ""
+          how_do_i_claim_child_tax_credit_for_a_baby:
+            question: ""
+            answer_html: ""
+          how_do_i_claim_child_tax_credit_for_a_baby:
+            question: ""
+            answer_html: ""
+          am_i_eligible_for_child_tax_credit_if_i_dont:
+            question: ""
+            answer_html: ""
+          i_owe_back_child_support_can_i_still_get_all:
+            question: ""
+            answer_html: ""
+          i_have_student_debt_can_i_still_get_all_of:
+            question: ""
+            answer_html: ""
+          will_i_ever_have_to_pay_back_my_child_tax:
+            question: ""
+            answer_html: ""
+          what_is_the_child_tax_credit_update_portal_ctc_up:
+            question: ""
+            answer_html: ""
+          why_did_my_spouse_and_i_get_two_different_letters:
+            question: ""
+            answer_html: ""
+        who_should_i_include_on_my_tax_return:
+          title: ""
+          who_can_i_claim_on_my_return:
+            question: ""
+            answer_html: ""
+          what_are_the_benefits_of_claiming_a_child_on_my:
+            question: ""
+            answer_html: ""
+          can_i_claim_my_parent:
+            question: ""
+            answer_html: ""
+          what_should_i_do_if_i_was_claimed_as_a:
+            question: ""
+            answer_html: ""
+          what_do_i_do_if_someone_else_has_claimed_my:
+            question: ""
+            answer_html: ""
+        income:
+          title: ""
+          what_do_you_mean_by_selfemployed:
+            question: ""
+            answer_html: ""
+          how_do_i_report_my_income_if_im_selfemployed:
+            question: ""
+            answer_html: ""
+          what_expenses_can_i_claim_if_im_selfemployed:
+            question: ""
+            answer_html: ""
+          are_my_disability_benefits_income:
+            question: ""
+            answer_html: ""
+          are_my_snap_benefits_income:
+            question: ""
+            answer_html: ""
+          are_my_unemployment_benefits_income:
+            question: ""
+            answer_html: ""
+        i_got_a_letter_from_the_irs:
+          title: ""
+          i_got_letter_6419_from_the_irs_what_is_it:
+            question: ""
+            answer_html: ""
+          why_did_my_spouse_and_i_get_two_different_letters:
+            question: ""
+            answer_html: ""
+          i_got_letter_6475_or_1444c_from_the_irs_what:
+            question: ""
+            answer_html: ""
+          i_got_notice_cp09_or_cp27_from_the_irs_what:
+            question: ""
+            answer_html: ""
+          i_got_notice_4883c_or_5071c_from_the_irs_what:
+            question: ""
+            answer_html: ""
+        nonfiler_portal:
+          title: ""
+          where_is_the_nonfiler_portal_where_is_getctc:
+            question: ""
+            answer_html: ""
+          should_i_submit_my_information_to_the_nonfiler_portal:
+            question: ""
+            answer_html: ""
+        im_nervous_about_filing_and_claiming_tax_benefits:
+          title: ""
+          what_do_i_do_if_im_audited_by_the_irs:
+            question: ""
+            answer_html: ""
+          will_i_need_to_repay_any_of_my_refund:
+            question: ""
+            answer_html: ""
+          will_claiming_these_credits_make_me_ineligible_for_other_government:
+            question: ""
+            answer_html: ""
+          are_tax_credits_considered_in_public_charge_determinations:
+            question: ""
+            answer_html: ""
+          what_if_i_havent_filed_for_years:
+            question: ""
+            answer_html: ""
+        documents:
+          title: ""
+          why_do_you_need_my_social_security_card:
+            question: ""
+            answer_html: ""
+          how_do_i_replace_my_social_security_card:
+            question: ""
+            answer_html: ""
+          how_do_i_get_my_w2_employment_document:
+            question: ""
+            answer_html: ""
+          how_do_i_get_my_1099_employment_document:
+            question: ""
+            answer_html: ""
+        return_rejection_next_steps:
+          title: ""
+          what_is_an_ip_pin_and_how_do_i_find:
+            question: ""
+            answer_html: ""
+          what_is_agi_and_how_do_i_find_it:
+            question: ""
+            answer_html: ""
+          the_irs_says_i_already_filed_what_do_i_do:
+            question: ""
+            answer_html: ""
+        security_and_confidentiality:
+          title: ""
+          how_do_you_keep_my_data_safe:
+            question: ""
+            answer_html: ""
+          can_ice_get_my_data:
+            question: ""
+            answer_html: ""
+          can_creditors_get_my_data:
+            question: ""
+            answer_html: ""
+        getyourrefund_account_access:
+          title: ""
+          what_is_my_client_id_number:
+            question: ""
+            answer_html: ""
+          i_cant_sign_in:
+            question: ""
+            answer_html: ""
+        how_does_getyourrefund_work:
+          title: ""
+          what_is_getyourrefund_deluxe_and_how_does_it_work:
+            question: ""
+            answer_html: ""
+          what_is_file_myself_and_how_does_it_work:
+            question: ""
+            answer_html: ""
+          what_is_getyourrefund_express_and_how_does_it_work:
+            question: ""
+            answer_html: ""
+        should_i_file_a_tax_return:
+          title: ""
+          what_are_the_potential_benefits_of_filing_a_tax_return:
+            question: ""
+            answer_html: ""
+          am_i_a_nonfiler:
+            question: ""
+            answer_html: ""
+          who_should_file:
+            question: ""
+            answer_html: ""
+          im_under_19_should_i_file_a_tax_return:
+            question: ""
+            answer_html: ""
+          im_1924_should_i_file_a_tax_return:
+            question: ""
+            answer_html: ""
+        earned_income_tax_credit:
+          title: ""
+          what_is_the_earned_income_tax_credit_eitc:
+            question: ""
+            answer_html: ""
+          how_has_the_earned_income_tax_credit_eitc_changed_this:
+            question: ""
+            answer_html: ""
+        itin_filing_for_people_without_a_social_security_number:
+          title: ""
+          what_is_an_itin_itin_number:
+            question: ""
+            answer_html: ""
+          why_should_i_use_an_itin:
+            question: ""
+            answer_html: ""
+          how_do_i_get_an_itin:
+            question: ""
+            answer_html: ""
+          if_i_file_my_taxes_can_ice_get_my_data:
+            question: ""
+            answer_html: ""
+          can_you_connect_me_to_a_trusted_organization_for_immigration:
+            question: ""
+            answer_html: ""
+        paper_filing:
+          title: ""
+          why_would_i_paper_file_my_tax_return:
+            question: ""
+            answer_html: ""
+          how_do_i_paper_file:
+            question: ""
+            answer_html: ""
+          where_should_i_mail_my_tax_return:
+            question: ""
+            answer_html: ""
+          how_long_will_it_take_for_the_irs_to_process:
+            question: ""
+            answer_html: ""
+        where_are_my_payments:
+          title: ""
+          how_long_does_it_take_to_get_my_refund_after:
+            question: ""
+            answer_html: ""
+          how_do_i_check_the_status_of_my_payments:
+            question: ""
+            answer_html: ""
+          i_cant_log_into_the_irs_websites_alternative_question_how:
+            question: ""
+            answer_html: ""
+        child_and_dependent_care_credit:
+          title: ""
+          what_is_the_child_and_dependent_care_credit:
+            question: ""
+            answer_html: ""
+          how_has_the_child_and_dependent_care_credit_changed:
+            question: ""
+            answer_html: ""
+          how_do_i_get_the_child_and_dependent_care_credit:
+            question: ""
+            answer_html: ""
+        state_returns:
+          title: ""
+          do_i_have_to_file_a_state_return_if_i:
+            question: ""
+            answer_html: ""
+          can_i_get_tax_credits_from_my_state:
+            question: ""
+            answer_html: ""
+          can_i_get_tax_credits_from_california_can_i_still:
+            question: ""
+            answer_html: ""
+        puerto_rico:
+          title: ""
+          do_i_have_to_file_a_tax_return:
+            question: ""
+            answer_html: ""
+          what_payments_am_i_eligible_for:
+            question: ""
+            answer_html: ""
+          how_do_i_get_the_ctc_in_puerto_rico:
+            question: ""
+            answer_html: ""
+          can_i_use_getctc_if_i_live_in_puerto_rico:
+            question: ""
+            answer_html: ""
+          how_do_i_get_the_eitc_in_puerto_rico:
+            question: ""
+            answer_html: ""
       home:
         accuracy:
           body1: Yes, our service is truly free. We provide this free service by partnering with IRS-certified Volunteer Income Tax Assistance (VITA) sites to provide tax filing assistance to families earning less than $66,000 a year.

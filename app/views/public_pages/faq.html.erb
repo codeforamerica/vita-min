@@ -7,91 +7,14 @@
   <section class="slab slab--white slab--half-padded">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <h1 class="h2"><%=t("views.public_pages.faq.header") %></h1>
-        <p><%=t("views.public_pages.faq.subheader") %></p>
+        <h1><%= t("views.public_pages.faq.header") %></h1>
+        <p><%= t("views.public_pages.faq.subheader") %></p>
 
-        <h2 class="h3 spacing-above-35">
-          <%=t("views.public_pages.faq.getting_started.header") %>
-        </h2>
+        <h2><%= t("views.public_pages.faq.frequently_asked_questions") %></h2>
 
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1">
-            <h3><%=t("views.public_pages.faq.getting_started.non_filer.q") %></h3>
-          </a>
-          <div class="accordion__content" id="a1">
-            <p>
-              <%= t(
-                "views.public_pages.faq.getting_started.non_filer.a",
-                years: TaxReturn.backtax_years.reverse.to_sentence(locale: locale)
-              ) %>
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
-            <h3><%=t("views.public_pages.faq.getting_started.how_to_start.q") %></h3>
-          </a>
-          <div class="accordion__content" id="a2">
-            <p><%=t("views.public_pages.faq.getting_started.how_to_start.a") %></p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a3">
-            <h3><%=t("views.public_pages.faq.getting_started.missing_docs.q") %></h3>
-          </a>
-          <div class="accordion__content" id="a3">
-            <p><%=t("views.public_pages.faq.getting_started.missing_docs.a_html", :transcript_link => link_to("https://www.irs.gov/individuals/get-transcript", "https://www.irs.gov/individuals/get-transcript", target: "_blank", rel: "noopener", "data-track-click": "faq-irs-transcript", "data-track-attribute-position": "faq3")) %></p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a4">
-            <h3><%=t("views.public_pages.faq.getting_started.is_it_free.q") %></h3>
-          </a>
-          <div class="accordion__content" id="a4">
-            <p><%=t("views.public_pages.faq.getting_started.is_it_free.a") %></p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a5">
-            <h3><%=t("views.public_pages.faq.getting_started.am_i_eligible.q") %></h3>
-          </a>
-          <div class="accordion__content" id="a5">
-            <p><%=t("views.public_pages.faq.getting_started.am_i_eligible.a") %></p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a6">
-            <h3><%=t("views.public_pages.faq.getting_started.how_long.q") %></h3>
-          </a>
-          <div class="accordion__content" id="a6">
-            <p><%=t("views.public_pages.faq.getting_started.how_long.a1") %></p>
-            <p><%=t("views.public_pages.faq.getting_started.how_long.a2") %></p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a7">
-            <h3><%=t("views.public_pages.faq.getting_started.changes.q") %></h3>
-          </a>
-          <div class="accordion__content" id="a7">
-            <p><%=t("views.public_pages.faq.getting_started.changes.a") %></p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a8">
-            <h3><%=t("views.public_pages.faq.getting_started.extension.q") %></h3>
-          </a>
-          <div class="accordion__content" id="a8">
-            <p><%=t("views.public_pages.faq.getting_started.extension.a") %></p>
-          </div>
-        </div>
-
+        <h3><%= t("views.public_pages.faq.stimulus.title") %></h3>
+        <%= link_to t("views.public_pages.faq.stimulus.how_many_stimulus_payments_were_there.question"),
+            url_for(action: "how_many_stimulus_payments_were_there") %>
       </div>
     </div>
   </section>
