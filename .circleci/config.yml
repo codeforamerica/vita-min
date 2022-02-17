@@ -141,14 +141,6 @@ jobs:
       - setup_test_db
       - run: bundle exec rake assets:precompile
       - run: bundle exec rake flow_explorer:capture_screenshots flow_explorer:upload_screenshots
-  warm_aptible_build_cache--demo:
-    executor: ruby_executor
-    steps:
-      - checkout
-      - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
-      - run: git fetch --depth=1000000
-      - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:refs/heads/warm_aptible_build_cache-$CIRCLE_SHA1
-    parallelism: 1
   deploy_to_aptible--demo:
     executor: ruby_executor
     steps:
@@ -183,12 +175,8 @@ workflows:
               only: translations_config-locales-en-yml--main_es
       - run_js_tests
       - run_ruby_tests
-      - warm_aptible_build_cache--demo:
-          filters:
-            branches:
-              only: main
       - deploy_to_aptible--demo:
-          requires: [run_js_tests, run_ruby_tests, warm_aptible_build_cache--demo]
+          requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: main
