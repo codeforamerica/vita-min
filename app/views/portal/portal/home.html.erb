@@ -92,12 +92,6 @@
         <% end %>
 
         <%= render "document_links", label: t("portal.portal.home.document_link.view_final_tax_document", year: tax_return.year), documents: tax_return.final_tax_documents %>
-        <!--
-          The .completed_1040s are included here only because some Hub users have attached final documents with a type of Form1040 instead of FinalTaxDocument.
-          If we someday successfully change these all to Form1040 we should stop trying to show the completed_1040s; this doc type was intended to be used
-          in GetCTC for letting clients download their e-filed 1040, not to be attached to GYR clients.
-        -->
-        <%= render "document_links", label: t("portal.portal.home.document_link.view_1040", year: tax_return.year), documents: tax_return.completed_1040s %>
         <% if index.zero? %>
           <%= render "document_links", label: t("portal.portal.home.document_link.view_w7", year: tax_return.year), documents: current_client.documents.active.where(document_type: DocumentTypes::FormW7.key) %>
           <%= render "document_links", label: t("portal.portal.home.document_link.view_w7_coa", year: tax_return.year), documents: current_client.documents.active.where(document_type: DocumentTypes::FormW7Coa.key) %>

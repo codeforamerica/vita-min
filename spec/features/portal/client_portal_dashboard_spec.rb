@@ -368,26 +368,26 @@ RSpec.feature "a client on their portal" do
     let(:tax_return) { create :tax_return, :file_mailed, year: TaxReturn.current_tax_year, client: client }
 
     before do
-      create(:document, document_type: DocumentTypes::Form1040, tax_return: tax_return, client: client)
-      create(:document, document_type: DocumentTypes::FormW7, tax_return: tax_return, client: client)
+      create(:document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: client)
+      create(:document, document_type: DocumentTypes::FormW7, client: client)
 
       login_as client, scope: :client
     end
 
-    it "shows where to mail the Form 1040 and W7" do
+    it "shows where to mail the final tax documents and W7" do
       visit portal_root_path
       expect(page).to have_text("Welcome back Martha!")
       expect(page).to have_text("2021 Tax Return")
       expect(page).to have_text("Austin Service Center") # Part of the IRS's ITINs by mail address
       within "#tax-year-2021" do
-        expect(page).to have_link I18n.t('portal.portal.home.document_link.view_1040')
+        expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: 2021)
         expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7')
       end
     end
 
     context "when the client was helped by a certifying acceptance agent", js: true do
       before do
-        create(:document, document_type: DocumentTypes::FormW7Coa, tax_return: tax_return, client: client)
+        create(:document, document_type: DocumentTypes::FormW7Coa, client: client)
 
         login_as create :admin_user
         visit hub_client_path(id: client.id)
@@ -408,7 +408,7 @@ RSpec.feature "a client on their portal" do
         expect(page).to have_text("Austin Service Center") # Part of the IRS's ITINs by mail address
         expect(page).to have_text(I18n.t('portal.portal.itin_instructions.caa.in_person'))
         within "#tax-year-2021" do
-          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_1040')
+          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: 2021)
           expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7')
           expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7_coa')
         end
