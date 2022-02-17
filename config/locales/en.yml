@@ -3676,7 +3676,7 @@ en:
         remove: Remove
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
-        off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February. For stimulus questions, visit our %{faq_link}.
+        off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February.
       footer:
         ctc_service_description_html: GetCTC.org is a non-profit service built by %{link}.
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
