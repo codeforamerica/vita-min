@@ -362,6 +362,38 @@ RSpec.feature "a client on their portal" do
     end
   end
 
+  context "a client has an archived intake" do
+    let(:client) do
+      create :client,
+             intake: nil,
+             tax_returns: [(create :tax_return, :file_efiled, :primary_has_signed, year: 2021)]
+    end
+    let!(:archived_intake) { create :archived_2021_gyr_intake, client: client }
+
+    before do
+      create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: client.tax_returns.first, client: client
+      login_as client, scope: :client
+      create :document, client: client, uploaded_by: client
+    end
+
+    scenario "viewing their tax return dashboard" do
+      visit portal_root_path
+
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+      expect(page).to have_text "Completed review"
+
+
+      expect(page).to have_text "#{TaxReturn.current_tax_year} Tax Return"
+      within "#tax-year-#{TaxReturn.current_tax_year}" do
+        expect(page).to have_text "Return prepared"
+        expect(page).to have_text "Completed quality review for #{TaxReturn.current_tax_year}"
+        expect(page).to have_text "Final signature added for #{TaxReturn.current_tax_year}"
+        expect(page).to have_link("Download final tax papers #{TaxReturn.current_tax_year}")
+      end
+    end
+  end
+
   context "a CTC client" do
     let(:client) do
       create :client,

@@ -1,7 +1,7 @@
-<% content_for :title, t(".title", name: current_client.intake.preferred_name) %>
+<% content_for :title, t(".title", name: @client.preferred_name ) %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h1>
+  <h1 class="h2"><%= t(".title", name: @client.preferred_name) %></h1>
 
   <div class="tax-return-status">
     <% unless @ask_for_answers %>
