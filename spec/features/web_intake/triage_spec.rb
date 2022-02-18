@@ -184,8 +184,8 @@ RSpec.feature "triage flow" do
 
       expect(page).to have_selector("h1", text: I18n.t("questions.triage_gyr_express.edit.title"))
 
-      expect(page).to have_selector("a.button[data-track-click=\"click_triage-gyr-express-choose-gyr\"]", text: I18n.t("questions.triage_gyr_express.edit.file_with_gyr"))
-      expect(page).to have_selector("a.button[data-track-click=\"click_triage-gyr-express-choose-express-signup\"]", text: I18n.t("questions.triage_gyr_express.edit.sign_up_for_express"))
+      expect(page).to have_selector("a.button[data-track-click=\"triage-gyr-express-choose-gyr\"]", text: I18n.t("questions.triage_gyr_express.edit.file_with_gyr"))
+      expect(page).to have_selector("a.button[data-track-click=\"triage-gyr-express-choose-express-signup\"]", text: I18n.t("questions.triage_gyr_express.edit.sign_up_for_express"))
     end
 
     scenario "client ends up on Express page after filling out triage" do
@@ -199,7 +199,7 @@ RSpec.feature "triage flow" do
 
       expect(page).to have_selector("h1", text: I18n.t("questions.triage_express.edit.title"))
 
-      expect(page).to have_selector("a.button[data-track-click=\"click_triage-express-only-choose-express-signup\"]", text: I18n.t("questions.triage_gyr_express.edit.sign_up_for_express"))
+      expect(page).to have_selector("a.button[data-track-click=\"triage-express-only-choose-express-signup\"]", text: I18n.t("questions.triage_gyr_express.edit.sign_up_for_express"))
     end
 
     scenario "client ends up on GYR page after filling out triage" do
@@ -211,9 +211,9 @@ RSpec.feature "triage flow" do
 
       expect(page).to have_selector("h1", text: I18n.t("questions.triage_gyr.edit.title"))
 
-      expect(page).to have_selector("a.button[data-track-click=\"click_triage-gyr-file-online\"]", text: I18n.t("questions.triage_gyr.edit.file_online"))
-      expect(page).to have_selector("a.button[data-track-click=\"click_triage-gyr-file-in-person\"]", text: I18n.t("questions.triage_gyr.edit.file_in_person"))
-      expect(page).to have_selector("a[data-track-click=\"click_triage-gyr-actually-diy\"]", text: I18n.t("questions.triage_gyr.edit.file_on_my_own"))
+      expect(page).to have_selector("a.button[data-track-click=\"triage-gyr-file-online\"]", text: I18n.t("questions.triage_gyr.edit.file_online"))
+      expect(page).to have_selector("a.button[data-track-click=\"triage-gyr-file-in-person\"]", text: I18n.t("questions.triage_gyr.edit.file_in_person"))
+      expect(page).to have_selector("a[data-track-click=\"triage-gyr-actually-diy\"]", text: I18n.t("questions.triage_gyr.edit.file_on_my_own"))
     end
   end
 end

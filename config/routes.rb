@@ -410,6 +410,9 @@ Rails.application.routes.draw do
         get "/:source" => "ctc_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
       end
     end
+
+    resources :ajax_mixpanel_events, only: [:create]
+
     get '/.well-known/pki-validation/:id', to: 'public_pages#pki_validation'
   end
 
