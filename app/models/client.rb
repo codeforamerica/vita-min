@@ -74,7 +74,7 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :intake
   accepts_nested_attributes_for :efile_security_informations
   attr_accessor :change_initiated_by
-  enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3, state: 4, at_capacity: 5, returning_client: 6 }, _prefix: :routing_method
+  enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3, state: 4, at_capacity: 5, returning_client: 6, itin_enabled: 7 }, _prefix: :routing_method
   enum still_needs_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :still_needs_help
   enum experience_survey: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :experience_survey
 
