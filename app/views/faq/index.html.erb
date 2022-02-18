@@ -1,0 +1,7 @@
+<% FaqController::QUESTIONS.each do |section, section_questions| %>
+  <%= t("views.public_pages.faq.question_groups.#{section}.title") %>
+  <% section_questions.each do |question| %>
+    <%= link_to t("views.public_pages.faq.question_groups.#{section}.#{question}.question"),
+        faq_path(section_key: section, question_key: question) %>
+  <% end %>
+<% end %>

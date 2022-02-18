@@ -118,7 +118,9 @@ Rails.application.routes.draw do
       get "/privacy", to: "public_pages#privacy_policy"
       get "/about-us", to: "public_pages#about_us"
       get "/tax-questions", to: "public_pages#tax_questions"
-      get "/faq", to: "public_pages#faq"
+      get "/faq", to: "faq#index"
+      get "/faq/:section_key", to: "faq#section_index"
+      get "/faq/:section_key/:question_key", to: "faq#show"
 
       # TODO: generate routes + views (from translation keys?)
       get "/how_many_stimulus_payments_were_there", to: "public_pages#how_many_stimulus_payments_were_there"

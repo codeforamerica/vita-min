@@ -1,0 +1,4 @@
+<%= t("views.public_pages.faq.question_groups.#{@section_key}.title") %>
+<% FaqController::QUESTIONS[@section_key.to_sym].each do |question| %>
+  <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{question}.question") %>
+<% end %>
