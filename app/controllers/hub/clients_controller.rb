@@ -82,6 +82,12 @@ module Hub
       redirect_back(fallback_location: hub_client_path(id: @client.id))
     end
 
+    def toggle_field
+      original_intake = @client.intake.dup
+      @client.intake.update(toggle_field_params)
+      SystemNote::ClientChange.generate!(initiated_by: current_user, original_intake: original_intake, intake: @client.intake)
+    end
+
     def edit_take_action
       @take_action_form = Hub::TakeActionForm.new(
         @client,
@@ -124,6 +130,10 @@ module Hub
       params.require(:client).permit(:action)
     end
 
+    def toggle_field_params
+      params.require(:client).permit(:used_itin_certifying_acceptance_agent)
+    end
+
     def update_client_form_params
       params.require(UpdateClientForm.form_param).permit(UpdateClientForm.permitted_params)
     end
@@ -146,7 +156,15 @@ module Hub
       alias_method :archived?, :archived
 
       def self.delegated_intake_attributes
-        [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
+        [
+          :preferred_name,
+          :email_address,
+          :phone_number,
+          :sms_phone_number,
+          :locale,
+          :used_itin_certifying_acceptance_agent,
+          :used_itin_certifying_acceptance_agent?,
+        ]
       end
 
       delegate *delegated_intake_attributes, to: :intake

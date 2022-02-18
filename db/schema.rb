@@ -1057,6 +1057,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_232201) do
     t.string "type"
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "use_primary_name_for_name_control", default: false
+    t.boolean "used_itin_certifying_acceptance_agent", default: false, null: false
     t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
     t.bigint "vita_partner_id"

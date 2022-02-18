@@ -1,0 +1,33 @@
+<p><%= t(".how_you_can_complete") %></p>
+
+<% if current_intake.used_itin_certifying_acceptance_agent? %>
+  <p><%= t('.caa.download_your_documents') %></p>
+
+  <p><strong><%= t('.caa.submit_either') %></strong></p>
+
+  <div>
+    <div class="portal-mailing-address text--line-breaks"><strong><%= t('.caa.by_mail') %></strong>
+      Internal Revenue Service
+      Austin Service Center
+      ITIN Operation
+      P.O. Box 149342
+      Austin, TX 78714-9342
+
+      <strong><%= t('.caa.in_person') %></strong>
+      <%= link_to t('.caa.find_irs_provider_location'), "https://www.irs.gov/w7documentverification", target: "_blank", rel: "noopener" %>
+    </div>
+  </div>
+<% else %>
+  <p><%= t('.download_your_documents') %></p>
+
+  <p><strong><%= t('.submit_by_mail') %></strong></p>
+
+  <div>
+    <div class="portal-mailing-address text--line-breaks">Internal Revenue Service
+      Austin Service Center
+      ITIN Operation
+      P.O. Box 149342
+      Austin, TX 78714-9342
+    </div>
+  </div>
+<% end %>

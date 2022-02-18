@@ -59,7 +59,7 @@ RSpec.describe Hub::UpdateClientForm do
                   birth_date_day: "9",
                   birth_date_year: "2013",
               }
-          }
+          },
       }
     end
 

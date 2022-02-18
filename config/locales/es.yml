@@ -1387,6 +1387,8 @@ es:
           view_final_tax_document: Descargar los documentos de impuestos finales %{year}
           view_signed_8879: Ver o descargar formulario 8879 firmado
           view_unsigned_8879: Ver o descargar formulario 8879
+          view_w7: Ver o descargar formulario W-7
+          view_w7_coa: Ver o descargar formulario W-7 (COA)
         progress_state:
           answered_questions: Ha respondido a las preguntas sobre impuestos
           shared_documents: Ha compartido documentos iniciales
@@ -1407,6 +1409,16 @@ es:
             preparing_return: Su equipo de impuestos está preparando la declaración
             waiting_for_qr: Nuestro equipo de impuestos está esperando para hablar sobre su declaración final de %{year} con usted
             waiting_for_review: Su equipo de impuestos espera una primera revisión con usted
+      itin_instructions:
+        caa:
+          by_mail: Por correo
+          download_your_documents: Descargue su W-7 (COA), W-7 y declaración de impuestos (1040).
+          find_irs_provider_location: Encuentre su oficina del IRS más cercana aquí
+          in_person: Entrega en persona
+          submit_either: 'Envíe al IRS ya sea:'
+        download_your_documents: Descargue su W-7, declaración de impuestos, prueba de identidad original y documentos originales de estado extranjero.
+        how_you_can_complete: 'Así es como puede completar su devolución:'
+        submit_by_mail: 'Enviar al IRS por correo:'
     still_needs_helps:
       chat_later:
         help_text: Si tiene algún documento adicional que necesita subir, por favor use el botón abajo.
@@ -1590,6 +1602,7 @@ es:
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
+    must_not_be_associated_with_tax_return: "%{document_type} no se puede asociar con un año fiscal"
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     routing_number: Este número de ruta bancaria no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.
     signature_pin: El PIN debe ser un número de 5 dígitos.

@@ -362,6 +362,60 @@ RSpec.feature "a client on their portal" do
     end
   end
 
+  context "with an ITIN client ready to mail their forms" do
+    let(:intake) { create :intake, state_of_residence: 'CA', primary_ssn: '555-11-2222', preferred_interview_language: 'en', preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "no", triage: build(:triage, id_type: "need_itin_help") }
+    let(:client) { create :client, intake: intake }
+    let(:tax_return) { create :tax_return, :file_mailed, year: TaxReturn.current_tax_year, client: client }
+
+    before do
+      create(:document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: client)
+      create(:document, document_type: DocumentTypes::FormW7, client: client)
+
+      login_as client, scope: :client
+    end
+
+    it "shows where to mail the final tax documents and W7" do
+      visit portal_root_path
+      expect(page).to have_text("Welcome back Martha!")
+      expect(page).to have_text("2021 Tax Return")
+      expect(page).to have_text("Austin Service Center") # Part of the IRS's ITINs by mail address
+      within "#tax-year-2021" do
+        expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: 2021)
+        expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7')
+      end
+    end
+
+    context "when the client was helped by a certifying acceptance agent", js: true do
+      before do
+        create(:document, document_type: DocumentTypes::FormW7Coa, client: client)
+
+        login_as create :admin_user
+        visit hub_client_path(id: client.id)
+        within ".client-header" do
+          # 'check' doesn't work because of the way the checkboxes are set up, we need to click on the 'span' inside
+          # the checkboxes' containing label
+          page.find(:checkbox, 'client_used_itin_certifying_acceptance_agent', visible: :all).ancestor('label').find('.slider').click
+        end
+
+        expect(client.reload.intake.used_itin_certifying_acceptance_agent?).to be_truthy
+      end
+
+      it "includes additional instructions" do
+        login_as client, scope: :client
+        visit portal_root_path
+        expect(page).to have_text("Welcome back Martha!")
+        expect(page).to have_text("2021 Tax Return")
+        expect(page).to have_text("Austin Service Center") # Part of the IRS's ITINs by mail address
+        expect(page).to have_text(I18n.t('portal.portal.itin_instructions.caa.in_person'))
+        within "#tax-year-2021" do
+          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_final_tax_document', year: 2021)
+          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7')
+          expect(page).to have_link I18n.t('portal.portal.home.document_link.view_w7_coa')
+        end
+      end
+    end
+  end
+
   context "a CTC client" do
     let(:client) do
       create :client,

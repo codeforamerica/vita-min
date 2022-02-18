@@ -45,7 +45,8 @@ class Document < ApplicationRecord
   validates_presence_of :client
   validates_presence_of :upload
   validate :tax_return_belongs_to_client
-  validate :tax_return_required_sometimes
+  validate :tax_return_present_sometimes
+  validate :tax_return_absent_sometimes
   validate :upload_must_have_data
   validate :file_type
   # Permit all existing document types plus two historical ones
@@ -119,9 +120,15 @@ class Document < ApplicationRecord
     errors.add(:tax_return_id, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
   end
 
-  def tax_return_required_sometimes
+  def tax_return_present_sometimes
     if document_type_class&.must_be_associated_with_tax_return && tax_return.blank?
       errors.add(:tax_return_id, I18n.t("validators.must_be_associated_with_tax_return", document_type: document_type))
+    end
+  end
+
+  def tax_return_absent_sometimes
+    if document_type_class&.must_not_be_associated_with_tax_return && tax_return.present?
+      errors.add(:tax_return_id, I18n.t("validators.must_not_be_associated_with_tax_return", document_type: document_type))
     end
   end
 

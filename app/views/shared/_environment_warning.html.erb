@@ -21,9 +21,10 @@
     <div class="slab slab--flash flash--warning">
       <div class="grid">
         <div class="grid__item">
+          <% heroku_gyr_url = root_url(host: MultiTenantService.new(:gyr).host) %>
+          <% heroku_ctc_url = root_url(host: MultiTenantService.new(:ctc).host) %>
           You're on a Heroku review app, you can also visit this via the url
-            <%= link_to url_for(action: :home, host: MultiTenantService.new(:gyr).host), url_for(action: :home, host: MultiTenantService.new(:gyr).host) %> (GYR) or
-            <%= link_to url_for(action: :home, host: MultiTenantService.new(:ctc).host), url_for(action: :home, host: MultiTenantService.new(:ctc).host) %> (CTC)
+            <%= link_to heroku_gyr_url, heroku_gyr_url %> (GYR) or <%= link_to heroku_ctc_url, heroku_ctc_url %>
         </div>
       </div>
     </div>

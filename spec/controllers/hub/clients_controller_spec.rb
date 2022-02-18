@@ -901,7 +901,8 @@ RSpec.describe Hub::ClientsController do
                          "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
                          "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
                          "2" => { id: intake.dependents.last.id, _destroy: "1" }
-                       }
+                       },
+                       used_itin_certifying_acceptance_agent: "false",
                      }
                    }
                  }

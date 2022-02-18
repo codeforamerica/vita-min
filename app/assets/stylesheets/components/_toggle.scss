@@ -38,6 +38,10 @@
     background-color: $color-red;
   }
 
+  input:checked + .slider-green {
+    background-color: $color-green;
+  }
+
   input:focus + .slider {
     box-shadow: 0 0 1px $color-red-medium;
   }

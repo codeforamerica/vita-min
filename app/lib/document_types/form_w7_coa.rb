@@ -9,6 +9,10 @@ module DocumentTypes
         "Form W-7 (COA)"
       end
 
+      def must_not_be_associated_with_tax_return
+        true
+      end
+
       def blocks_progress?
         false
       end

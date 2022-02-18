@@ -1,8 +1,7 @@
 require Rails.root.join('config/environments/demo')
 
 Rails.application.configure do
-  # TODO: have an S3 bucket
-  config.active_storage.service = :local
+  config.active_storage.service = :s3_heroku
 
   # HEROKU_PR_NUMBER variable is documented at https://devcenter.heroku.com/articles/github-integration-review-apps#injected-environment-variables
   gyr_hostname = "pr-#{ENV['HEROKU_PR_NUMBER']}.getyourrefund-testing.org"
