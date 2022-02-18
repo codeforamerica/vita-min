@@ -7,8 +7,8 @@ class VerificationAttemptStateMachine
   state :escalated
   state :requested_replacements
 
-  transition from: :pending, to: [:approved, :denied, :escalated]
-  transition from: :escalated, to: [:approved, :denied]
+  transition from: :pending, to: [:approved, :denied, :escalated, :requested_replacements]
+  transition from: :escalated, to: [:approved, :denied, :requested_replacements]
 
   after_transition(to: :approved, after_commit: true) do |verification_attempt, transition|
     verification_attempt.client.update(identity_verified_at: transition.created_at)
@@ -23,6 +23,14 @@ class VerificationAttemptStateMachine
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: verification_attempt.client,
       message: AutomatedMessage::VerificationAttemptDenied,
+      locale: verification_attempt.client.intake.locale,
+    )
+  end
+
+  after_transition(to: :requested_replacements, after_commit: true) do |verification_attempt, transition|
+    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+      client: verification_attempt.client,
+      message: AutomatedMessage::NewPhotosRequested,
       locale: verification_attempt.client.intake.locale,
     )
   end
