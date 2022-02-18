@@ -109,7 +109,8 @@ It may be necessary in some circumstances to trigger a deploy of code that isn't
 1. Make whatever commits you need to make. Consider `git cherry-pick` to grab individual commits from main. For example `git cherry-pick commitId` will grab a commit whose ID is `commitId`.
 1. `git tag version-N.N.N` with the next version. You can find the previous versions listed on the GitHub releases page, or in the output of `git tag`.
 1. `git push --tags` to push the tag to GitHub
-1. `git push origin release` to push the release branch to GitHub. This will trigger the hotfix deploy.
+1. Visit https://github.com/codeforamerica/vita-min/releases and create a new Release based the tag; this automatically informs #tax-team about the release.
+3. `git push origin release` to push the release branch to GitHub. This will trigger the hotfix deploy.
 
 Check CircleCI and see that it's going out.
 
