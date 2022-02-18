@@ -175,7 +175,7 @@ RSpec.feature "triage flow" do
   end
 
   context "Mixpanel events" do
-    scenario "client ends up on GYR/Express choice page after filling out triage", js: true do
+    scenario "client ends up on GYR/Express choice page after filling out triage" do
       answer_gyr_triage_questions(
         income_level: "zero",
         filing_status: "single",
