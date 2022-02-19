@@ -3569,6 +3569,64 @@ en:
           one: Tell us about your work in %{year}
           other: Tell us about you and your spouse's work in %{year}
     shared:
+      service_comparison:
+        title_html: The highest accuracy rates on your return. Completely free. <br/>Find the tax service that's right for you.
+        always_free: All services are free to households that qualify.
+        in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
+        in_person_link_text: VITA location finder
+        still_need_help: Still need help selecting the best service?
+        triage_link_text: Answer a few simple questions and we'll recommend the right service for you!
+        services:
+          full_service:
+            colloquial: ''
+            service_name: GetYourRefund
+            service_description: File for multiple years with an IRS-certified tax preparer.
+            cta: Choose GetYourRefund
+          express:
+            colloquial: GetCTC
+            service_name: Express
+            service_description: File quickly on your own to collect your stimulus payments and Child Tax Credit.
+            coming_soon: Coming May 2022
+            cta: Sign up for Express
+          diy:
+            colloquial: DIY
+            service_name: File Myself
+            service_description: File quickly on your own for 2021.
+            cta: Choose File Myself
+        income_limit:
+          title: 'Income limit:'
+          full_service: under $66,000
+          diy: under $73,000
+          express_html: |
+            under $12,550
+            <div class="service-set__subtitle">(under $25,100 filing jointly)</div>
+        required_information: Required information
+        filing_years:
+          title: 'Filing years:'
+        time_to_file:
+          title: 'Length of time to file:'
+          subtitle: IRS payment processing times vary 3-6 weeks
+          full_service: 2-3 weeks
+          diy: 45 minutes
+          express: 15 minutes
+        id_documents:
+          title: Social Security Card or ITIN paperwork
+          full_service: Photo
+          diy: ID numbers
+          express: ID numbers
+        tax_documents:
+          title: Official tax documents
+          subtitle: (w2s, 1099s, etc)
+        credits_and_payments: Credits and payments
+        child_tax_credit: Child Tax Credit
+        stimulus_payments: Stimulus Payments
+        earned_income_tax_credit: Earned Income Tax Credit
+        state_credits: Additional State Tax Credits
+        additional_benefits: Additional benefits
+        chat_support: Chat support
+        itin_assistance: ITIN application assistance
+        vita: IRS-certified VITA tax team
+        support_via_gyr: available through GetYourRefund
       consent_agreement:
         details:
           header: The Details
