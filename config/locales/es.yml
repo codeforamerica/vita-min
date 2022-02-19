@@ -3606,6 +3606,64 @@ es:
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
+      service_comparison:
+        additional_benefits: Additional benefits
+        always_free: All services are free to households that qualify.
+        chat_support: Chat support
+        child_tax_credit: Child Tax Credit
+        credits_and_payments: Credits and payments
+        earned_income_tax_credit: Earned Income Tax Credit
+        filing_years:
+          title: 'Filing years:'
+        id_documents:
+          diy: ID numbers
+          express: ID numbers
+          full_service: Photo
+          title: Social Security Card or ITIN paperwork
+        in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
+        in_person_link_text: VITA location finder
+        income_limit:
+          diy: under $73,000
+          express_html: |
+            under $12,550
+            <div class="service-set__subtitle">(under $25,100 filing jointly)</div>
+          full_service: under $66,000
+          title: 'Income limit:'
+        itin_assistance: ITIN application assistance
+        required_information: Required information
+        services:
+          diy:
+            colloquial: DIY
+            cta: Choose File Myself
+            service_description: File quickly on your own for 2021.
+            service_name: File Myself
+          express:
+            colloquial: GetCTC
+            coming_soon: Coming May 2022
+            cta: Sign up for Express
+            service_description: File quickly on your own to collect your stimulus payments and Child Tax Credit.
+            service_name: Express
+          full_service:
+            colloquial: ''
+            cta: Choose GetYourRefund
+            service_description: File for multiple years with an IRS-certified tax preparer.
+            service_name: GetYourRefund
+        state_credits: Additional State Tax Credits
+        still_need_help: Still need help selecting the best service?
+        stimulus_payments: Stimulus Payments
+        support_via_gyr: available through GetYourRefund
+        tax_documents:
+          subtitle: "(w2s, 1099s, etc)"
+          title: Official tax documents
+        time_to_file:
+          diy: 45 minutes
+          express: 15 minutes
+          full_service: 2-3 weeks
+          subtitle: IRS payment processing times vary 3-6 weeks
+          title: 'Length of time to file:'
+        title_html: The highest accuracy rates on your return. Completely free. <br/>Find the tax service that's right for you.
+        triage_link_text: Answer a few simple questions and we'll recommend the right service for you!
+        vita: IRS-certified VITA tax team
       tax_return_list:
         add_tax_year: Agregar año fiscal
         select_tax_return: Seleccione %{tax_year}
