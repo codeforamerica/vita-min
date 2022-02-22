@@ -1,0 +1,357 @@
+<div class="slab">
+  <div class="grid">
+    <div class="service-comparison">
+      <h2 class="title">
+        <%= t("views.shared.service_comparison.title_html") %>
+      </h2>
+      <p><%= t("views.shared.service_comparison.always_free") %></p>
+      <p><%= t("views.shared.service_comparison.in_person") %> <%= link_to t("views.shared.service_comparison.in_person_link_text"), vita_providers_path%>.</p>
+      <div class="comparison-component">
+        <div class="service-set service-set--service-description">
+          <div class="service-set__header"></div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <div>
+                <div class="service__colloquial-name">
+                  <%= t("views.shared.service_comparison.services.full_service.colloquial") %>
+                </div>
+                <h2 class="service__service-name">
+                  <%= t("views.shared.service_comparison.services.full_service.service_name") %>
+                </h2>
+              </div>
+              <div class="service__description">
+                <%= t("views.shared.service_comparison.services.full_service.service_description") %>
+              </div>
+              <div class="service__cta">
+                <%= link_to t("views.shared.service_comparison.services.full_service.cta"), backtaxes_questions_path, class: "button" %>
+              </div>
+            </div>
+            <div class="service diy">
+              <div>
+                <div class="service__colloquial-name">
+                  <%= t("views.shared.service_comparison.services.diy.colloquial") %>
+                </div>
+                <h2 class="service__service-name">
+                  <%= t("views.shared.service_comparison.services.diy.service_name") %>
+                </h2>
+              </div>
+              <div class="service__description">
+                <%= t("views.shared.service_comparison.services.diy.service_description") %>
+              </div>
+              <div class="service__cta">
+                <%= link_to t("views.shared.service_comparison.services.diy.cta"), diy_path, class: "button" %>
+              </div>
+            </div>
+            <div class="service express">
+              <div>
+                <div class="service__colloquial-name">
+                  <%= t("views.shared.service_comparison.services.express.colloquial") %>
+                </div>
+                <h2 class="service__service-name">
+                  <%= t("views.shared.service_comparison.services.express.service_name") %>
+                </h2>
+              </div>
+
+              <div class="service__description">
+                <%= t("views.shared.service_comparison.services.express.service_description") %>
+              </div>
+
+              <div class="service__coming-soon">
+                <%= t("views.shared.service_comparison.services.express.coming_soon") %>
+              </div>
+              <div class="service__cta">
+                <%= link_to t("views.shared.service_comparison.services.express.cta"), diy_path, class: "button" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="service-set service-set--mobile-only">
+          <div class="service-set__header">
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <strong><%= t("views.shared.service_comparison.services.full_service.service_name_short") %></strong>
+            </div>
+            <div class="service diy">
+              <strong><%= t("views.shared.service_comparison.services.diy.service_name") %></strong>
+            </div>
+            <div class="service express">
+              <strong><%= t("views.shared.service_comparison.services.express.service_name") %></strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-set service-set--hr">
+          <div class="service-set__header">
+            <div class="service-set__title">
+              <%= t("views.shared.service_comparison.income_limit.title") %>
+            </div>
+          </div>
+
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= t("views.shared.service_comparison.income_limit.full_service") %>
+            </div>
+            <div class="service diy">
+              <%= t("views.shared.service_comparison.income_limit.diy") %>
+            </div>
+            <div class="service express">
+              <%= t("views.shared.service_comparison.income_limit.express_html") %>
+            </div>
+          </div>
+        </div>
+        <div class="service-set service-set--hr">
+          <div class="service-set__header">
+            <div class="service-set__title">
+              <%= t("views.shared.service_comparison.filing_years.title") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= TaxReturn.filing_years.first %>-<%= TaxReturn.filing_years.last %>
+            </div>
+            <div class="service diy">
+              <%= TaxReturn.current_tax_year %>
+            </div>
+            <div class="service express">
+              <%= TaxReturn.current_tax_year %>
+            </div>
+          </div>
+        </div>
+        <div class="service-set service-set--hr">
+          <div class="service-set__header">
+            <div class="service-set__title">
+              <%= t("views.shared.service_comparison.time_to_file.title") %>
+            </div>
+            <div class="service-set__subtitle service-set__header--limited">
+              <%= t("views.shared.service_comparison.time_to_file.subtitle") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= t("views.shared.service_comparison.time_to_file.full_service") %>
+            </div>
+            <div class="service diy">
+              <%= t("views.shared.service_comparison.time_to_file.diy") %>
+            </div>
+            <div class="service express">
+              <%= t("views.shared.service_comparison.time_to_file.express") %>
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title">
+              <%= t("views.shared.service_comparison.required_information") %>
+            </div>
+          </div>
+          <div class="service-set__services service-set--mobile-excluded">
+            <div class="service full-service"></div>
+            <div class="service diy"></div>
+            <div class="service express"></div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header service-set__header--limited">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.id_documents.title") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= t("views.shared.service_comparison.id_documents.full_service") %>
+            </div>
+            <div class="service diy">
+              <%= t("views.shared.service_comparison.id_documents.diy") %>
+            </div>
+            <div class="service express">
+              <%= t("views.shared.service_comparison.id_documents.express") %>
+            </div>
+          </div>
+        </div>
+        <div class="service-set service-set--hr">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.tax_documents.title") %>
+            </div>
+            <div class="service-set__subtitle">
+              <%= t("views.shared.service_comparison.tax_documents.subtitle") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service diy">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service express">
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title">
+              <%= t("views.shared.service_comparison.credits_and_payments") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits") %>
+            </div>
+            <div class="service diy">
+              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits") %>
+            </div>
+            <div class="service express">
+              <%= image_tag "icons/cash.svg", alt:  t("views.shared.service_comparison.most_tax_credits") %>
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.child_tax_credit") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service diy">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service express">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.stimulus_payments") %>
+            </div>
+          </div>
+          <div class="service-set__services service-set--mobile-excluded">
+            <div class="service full-service">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service diy">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service express">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.earned_income_tax_credit") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service diy">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service express">
+            </div>
+          </div>
+        </div>
+        <div class="service-set service-set--hr">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.state_credits") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service diy">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service express">
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title">
+              <%= t("views.shared.service_comparison.additional_benefits") %>
+            </div>
+          </div>
+          <div class="service-set__services service-set--mobile-excluded">
+            <div class="service full-service">
+            </div>
+            <div class="service diy">
+
+            </div>
+            <div class="service express">
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.chat_support") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service service--mobile-flex-start">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service diy service--mobile-flex-start service--fixie-parent">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <div class="service-set__subtitle service-set__subtitle--fixie">
+                <%= t("views.shared.service_comparison.support_via_gyr") %>
+              </div>
+            </div>
+            <div class="service express service--mobile-flex-start">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.itin_assistance") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service diy">
+            </div>
+            <div class="service express">
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.vita") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+            </div>
+            <div class="service diy">
+            </div>
+            <div class="service express">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <h2 class="title">
+        <%= t("views.shared.service_comparison.still_need_help") %>
+      </h2>
+      <p class="text--semibold"><%= link_to  t("views.shared.service_comparison.triage_link_text"), backtaxes_questions_path %></p>
+    </div>
+  </div>
+</div>

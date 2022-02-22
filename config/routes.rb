@@ -111,6 +111,9 @@ Rails.application.routes.draw do
         post "/email", to: "diy_intakes#create"
         get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
       end
+      unless Rails.env.production?
+        get "/pending", to: "public_pages#pending"
+      end
       get "/diy", to: "public_pages#diy"
       get "/other-options", to: "public_pages#other_options"
       get "/maybe-ineligible", to: "public_pages#maybe_ineligible"

@@ -1,0 +1,204 @@
+.service-comparison {
+  box-sizing: border-box;
+  h2.title {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .comparison-component {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border: 1px solid $color-grey-medium;
+    border-radius: 10px;
+    padding: 15px;
+  }
+
+  .service-set {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    font-size: 1.6rem;
+
+    @media screen and (min-width: $site-max-up) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &--hr {
+      @media screen and (min-width: $site-max-up) {
+        border-bottom: 1px solid $color-grey-medium;
+      }
+    }
+
+    &--mobile-only {
+      @media screen and (min-width: $site-max-up) {
+        display: none;
+      }
+    }
+
+    &--mobile-excluded {
+      @media screen and (max-width: $site-max-up) {
+        display: none !important;
+      }
+    }
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      margin-left: 1rem;
+
+      @media screen and (min-width: $site-max-up) {
+        width: 222px;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+
+      &--limited {
+        @media screen and (min-width: $site-max-up) {
+          padding-left: 3.5rem;
+        }
+      }
+    }
+
+    &__title {
+      font-weight: 700;
+      padding: .5rem 0;
+      &--normal {
+        font-weight: normal;
+        @media screen and (min-width: $site-max-up) {
+          text-align: right;
+        }
+      }
+    }
+
+    &__subtitle {
+      font-style: italic;
+      display: flex;
+      font-size: 1.4rem;
+      line-height: 1.9rem;
+      padding-bottom: .5rem;
+      @media screen and (min-width: $site-max-up) {
+        text-align: right;
+      }
+      &--fixie {
+        position: absolute;
+        top: 30px;
+      }
+    }
+
+    &__services {
+      display: flex;
+      flex-direction: row;
+      align-self: stretch;
+    }
+
+    &__services > .service {
+      display: flex;
+      flex-basis: auto;
+      width: 33%;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 .5rem;
+      padding: .5rem 1.25rem;
+      align-items: center;
+      text-align: center;
+
+      @media screen and (min-width: $site-max-up) {
+        width: 222px;
+      }
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      &--mobile-flex-start {
+        @media screen and (max-width: $site-max-up) {
+          justify-content: flex-start;
+        }
+      }
+
+      &--fixie-parent {
+        position: relative;
+        @media screen and (max-width: $site-max-up) {
+          min-height: 100px;
+        }
+      }
+
+      .service {
+        &__colloquial-name {
+          font-weight: 500;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        &__service-name {
+          margin: unset;
+        }
+        &__description {
+          margin-top: 1rem;
+          text-align: center;
+        }
+        &__coming-soon {
+          background: #FFD29C;
+          font-weight: 700;
+          font-size: 1.6rem;
+          padding: 0 1rem;
+          margin: 2.5rem 0 1rem;
+        }
+        &__cta {
+          width: 100%;
+          margin-top: 1rem;
+          .button {
+            padding: unset;
+            width: 100%;
+            height: 65px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+
+  // top service description boxes
+  .service-set--service-description {
+    border-bottom: 0;
+    font-size: 1.9rem;
+
+    .service-set__services {
+      flex-direction: column;
+      @media screen and (min-width: $site-max-up) {
+        flex-direction: row;
+      }
+    }
+
+    .service-set__services > div {
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      @media screen and (min-width: $site-max-up) {
+        width: 222px;
+      }
+    }
+  }
+
+  .full-service {
+    background: #E8FDF7;
+  }
+
+  .diy {
+    background: #F5F5FF;
+  }
+
+  .express {
+    background: #E4F7FB;
+  }
+}

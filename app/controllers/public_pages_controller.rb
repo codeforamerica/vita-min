@@ -21,6 +21,8 @@ class PublicPagesController < ApplicationController
 
   def home; end
 
+  def pending; end
+
   def healthcheck
     render :home
   end
