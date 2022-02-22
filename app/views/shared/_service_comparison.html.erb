@@ -68,16 +68,15 @@
         <div class="service-set service-set--mobile-only">
           <div class="service-set__header">
           </div>
-
           <div class="service-set__services">
             <div class="service full-service">
-              <strong><%= "GYR" %></strong>
+              <strong><%= t("views.shared.service_comparison.services.full_service.service_name_short") %></strong>
             </div>
             <div class="service diy">
-              <strong><%= "File Myself" %></strong>
+              <strong><%= t("views.shared.service_comparison.services.diy.service_name") %></strong>
             </div>
             <div class="service express">
-              <strong><%= "Express" %></strong>
+              <strong><%= t("views.shared.service_comparison.services.express.service_name") %></strong>
             </div>
           </div>
         </div>
@@ -161,7 +160,6 @@
           <div class="service-set__services">
             <div class="service full-service">
               <%= t("views.shared.service_comparison.id_documents.full_service") %>
-
             </div>
             <div class="service diy">
               <%= t("views.shared.service_comparison.id_documents.diy") %>
@@ -182,10 +180,10 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service express">
             </div>
@@ -199,13 +197,13 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/lots-of-cash.svg", alt: "all tax credits" %>
+              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits") %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/lots-of-cash.svg", alt: "all tax credits" %>
+              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits") %>
             </div>
             <div class="service express">
-              <%= image_tag "icons/cash.svg", alt: "most tax credits" %>
+              <%= image_tag "icons/cash.svg", alt:  t("views.shared.service_comparison.most_tax_credits") %>
             </div>
           </div>
         </div>
@@ -217,13 +215,13 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service express">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
           </div>
         </div>
@@ -235,13 +233,13 @@
           </div>
           <div class="service-set__services service-set--mobile-excluded">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service express">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
           </div>
         </div>
@@ -253,10 +251,10 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service express">
             </div>
@@ -270,10 +268,10 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service express">
             </div>
@@ -303,16 +301,16 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service service--mobile-flex-start">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service diy service--mobile-flex-start service--fixie-parent">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
               <div class="service-set__subtitle service-set__subtitle--fixie">
                 <%= t("views.shared.service_comparison.support_via_gyr") %>
               </div>
             </div>
             <div class="service express service--mobile-flex-start">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
           </div>
         </div>
@@ -324,7 +322,7 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service diy">
             </div>
@@ -340,10 +338,9 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: "yes" %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
             </div>
             <div class="service diy">
-
             </div>
             <div class="service express">
             </div>

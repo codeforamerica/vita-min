@@ -3608,6 +3608,7 @@ es:
         provider_homepage: Portada de %{provider_name}
       service_comparison:
         additional_benefits: Additional benefits
+        all_tax_credits: All tax credits
         always_free: All services are free to households that qualify.
         chat_support: Chat support
         child_tax_credit: Child Tax Credit
@@ -3630,6 +3631,7 @@ es:
           full_service: under $66,000
           title: 'Income limit:'
         itin_assistance: ITIN application assistance
+        most_tax_credits: Most tax credits
         required_information: Required information
         services:
           diy:
@@ -3648,6 +3650,7 @@ es:
             cta: Choose GetYourRefund
             service_description: File for multiple years with an IRS-certified tax preparer.
             service_name: GetYourRefund
+            service_name_short: GYR
         state_credits: Additional State Tax Credits
         still_need_help: Still need help selecting the best service?
         stimulus_payments: Stimulus Payments
