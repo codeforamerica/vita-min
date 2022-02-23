@@ -17,7 +17,47 @@
   }
 }
 
-.filter-form, .state-select, .state-routing-grid {
+.filter-form {
+  .tagify {
+    border: 0 !important;
+
+    .tagify__input {
+      order: -1;
+      flex: 100%;
+      transition: .1s;
+
+      // trying to make this tagify input look like our normal .text-input
+      margin: 0 0 1rem 0;
+      background-color: $color-grey-light;
+      padding: 0 1.5rem;
+      height: 4rem;
+      line-height: 4rem;
+      border: 1px solid $color-grey-darkest;
+      font-size: 1.5rem;
+      font-weight: normal;
+    }
+
+    &.tagify--focus .tagify__input {
+      @include outline;
+    }
+
+    tag {
+      margin: 0 0 1rem 0;
+    }
+
+    .tagify__tag>div::before, .tagify__tag:hover>div::before {
+      box-shadow: none;
+      background: #dfe1e2;
+    }
+
+    .tagify__tag__removeBtn:hover+div::before {
+      box-shadow: none;
+      background: #c77777;
+    }
+  }
+}
+
+.state-select, .state-routing-grid {
   .tagify {
     border: 1px solid $color-grey-darkest !important;
     min-height: 4rem;

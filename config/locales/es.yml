@@ -506,7 +506,7 @@ es:
     archived_client_warning: Este es un boleto de un año anterior. Esta información está archivada y solo debe usarse como referencia.
     assigned_clients:
       index:
-        title: Clientes asignados
+        title: Clientes Asignados
     automated_messages:
       index:
         title: Mensajes Automatizados
@@ -665,9 +665,9 @@ es:
         no_name_given: Nombre dejado en blanco
         organization: Organización/Sitio
         select: Seleccione
-        stage_status: Estado/etapa de declaración de impuestos
+        stage_status: Estado/Etapa
         take_action_on_all_html: Actúe en las <span id="take-action-all-count">%{count}</span> devoluciones
-        title: Todos clientes
+        title: Todos Clientes
         unassigned: No asignado
       navigation:
         client_documents: Documentos
