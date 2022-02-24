@@ -106,9 +106,15 @@ jobs:
       - run: |
           EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec rspec \
               --format RspecJunitFormatter \
-              --out ~/test-results/rspec/rspec.xml \
+              --out ~/test-results/rspec/rspec-first.xml \
               --format progress \
-              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings) || true
+      - run: |
+          EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec rspec \
+              --format RspecJunitFormatter \
+              --out ~/test-results/rspec/rspec-second.xml \
+              --format progress \
+              --only-failures
       - store_test_results:
           path: ~/test-results
   walkthroughs:
