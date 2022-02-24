@@ -17,6 +17,13 @@
     padding: 15px;
   }
 
+  .service-comparison--icon {
+    padding: 1rem 0;
+    @media screen and (min-width: $site-max-up) {
+      padding: .5rem 0;
+    }
+  }
+
   .service-set {
     display: flex;
     flex-direction: column;

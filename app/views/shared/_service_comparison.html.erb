@@ -4,8 +4,8 @@
       <h2 class="title">
         <%= t("views.shared.service_comparison.title_html") %>
       </h2>
-      <p><%= t("views.shared.service_comparison.always_free") %></p>
-      <p><%= t("views.shared.service_comparison.in_person") %> <%= link_to t("views.shared.service_comparison.in_person_link_text"), vita_providers_path%>.</p>
+      <p class="text--centered spacing-above-15"><%= t("views.shared.service_comparison.always_free") %></p>
+      <p class="text--centered spacing-below-35"><%= t("views.shared.service_comparison.in_person") %> <%= link_to t("views.shared.service_comparison.in_person_link_text"), vita_providers_path%>.</p>
       <div class="comparison-component">
         <div class="service-set service-set--service-description">
           <div class="service-set__header"></div>
@@ -180,10 +180,10 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service express">
             </div>
@@ -197,13 +197,13 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits") %>
+              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits") %>
+              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits"), class: "service-comparison--icon" %>
             </div>
             <div class="service express">
-              <%= image_tag "icons/cash.svg", alt:  t("views.shared.service_comparison.most_tax_credits") %>
+              <%= image_tag "icons/cash.svg", alt:  t("views.shared.service_comparison.most_tax_credits"), class: "service-comparison--icon" %>
             </div>
           </div>
         </div>
@@ -215,13 +215,13 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service express">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon"  %>
             </div>
           </div>
         </div>
@@ -233,13 +233,13 @@
           </div>
           <div class="service-set__services service-set--mobile-excluded">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service express">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
           </div>
         </div>
@@ -251,10 +251,10 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service express">
             </div>
@@ -268,10 +268,10 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service express">
             </div>
@@ -301,16 +301,16 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service service--mobile-flex-start">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy service--mobile-flex-start service--fixie-parent">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
               <div class="service-set__subtitle service-set__subtitle--fixie">
                 <%= t("views.shared.service_comparison.support_via_gyr") %>
               </div>
             </div>
             <div class="service express service--mobile-flex-start">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
           </div>
         </div>
@@ -322,7 +322,7 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
             </div>
@@ -338,7 +338,7 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative") %>
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
             </div>
@@ -348,10 +348,10 @@
         </div>
 
       </div>
-      <h2 class="title">
+      <h2 class="title spacing-above-35">
         <%= t("views.shared.service_comparison.still_need_help") %>
       </h2>
-      <p class="text--semibold"><%= link_to  t("views.shared.service_comparison.triage_link_text"), backtaxes_questions_path %></p>
+      <p class="spacing-above-15 text--centered text--semibold"><%= link_to  t("views.shared.service_comparison.triage_link_text"), backtaxes_questions_path %></p>
     </div>
   </div>
 </div>
