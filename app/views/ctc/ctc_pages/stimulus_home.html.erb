@@ -156,7 +156,7 @@
 
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a3">
-            <h3><%= t("views.ctc_pages.home.obtain.already_filed.subheading") %></h3>
+            <h3><%= t("views.ctc_pages.stimulus_home.obtain.already_filed.subheading") %></h3>
           </a>
           <div class="accordion__content" id="a3">
             <p><%= t("views.ctc_pages.stimulus_home.obtain.already_filed.body1") %></p>
@@ -175,26 +175,6 @@
               <%= t("views.ctc_pages.stimulus_home.obtain.not_filed.body1") %>
             </p>
             <p><%= t("views.ctc_pages.stimulus_home.obtain.not_filed.body2") %></p>
-            <p>
-              <strong><%= t("views.ctc_pages.home.obtain.not_filed.chat_with_tax_experts_html") %></strong>
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a5">
-            <h3><%= t("views.ctc_pages.home.obtain.full_return.subheading") %></h3>
-          </a>
-          <div class="accordion__content" id="a5">
-            <p><%= t("views.ctc_pages.home.obtain.full_return.body1_html") %></p>
-            <p><%= t("views.ctc_pages.home.obtain.full_return.gyr_diy_explanation_html", url: url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy', params: { source: session[:source] })) %></p>
-            <% unless ENV['CTC_HIDE_DIY_LINK'] == 'true' %>
-              <p>
-                <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy', params: { source: session[:source] }), class: "button button--primary" do %>
-                  <% t("views.ctc_pages.stimulus_home.obtain.full_return.file_with_gyr") %>
-                <% end %>
-              </p>
-            <% end %>
           </div>
         </div>
       </div>

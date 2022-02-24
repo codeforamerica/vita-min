@@ -62,7 +62,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         visit "/en/portal/login"
 
         expect(page).not_to have_selector("h1", text: I18n.t('portal.client_logins.new.title'))
-        expect(page).to have_text(I18n.t('views.ctc_pages.home.closing_date_not_open'))
       end
     end
 

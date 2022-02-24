@@ -2396,46 +2396,26 @@ en:
             answer_html: No, receiving the Child Tax Credit or other tax credits that you are eligible for, will not affect your immigration status, your ability to get a green card, or your future immigration plans. Use of tax credits is not considered in a “public charge” determination by U.S. Citizenship and Immigration Services.
             question: Will receiving the Child Tax Credit affect my immigration status or my ability to get a green card?
         file_your_return: File your simplified return now
-        header: Simplified Tax Filing to Claim Your Child Tax Credit
+        get_your_refund_link: File taxes for free today with GetYourRefund
+        header: Claim Your Child Tax Credit
+        link_to_sign_up: Sign up here
         navigator_resources_html: <strong>Are you a community partner helping someone else access the CTC?</strong> <br>See our resource page for navigators <a href="%{navigators_link}">here.</a>
         need_help_html: Need help? Call 877-907-0937 or <button type="button" class="open-intercom button--link">chat with us</button> and get help claiming your stimulus payments.
         obtain:
-          already_filed:
-            body1: If you have already filed a 2019 or 2020 tax return and you have not had major changes to your household, no additional action is needed. We do know that family situations can change quickly. To receive the correct amount of money from the Child Tax Credit, you can make sure that the IRS has the correct information on your current household.
-            body2_html: 'If your family situation has changed you will soon be able to use the <strong><a rel=''noopener'' target=''_blank'' href=''https://www.irs.gov/credits-deductions/child-tax-credit-update-portal''>IRS CTC Update Portal</a></strong> to:'
-            body3_html: 'You can <i>currently</i> use the Update Portal to:'
-            body4: 'You might choose to opt out of receiving monthly Child Tax Credit payments if:'
-            current_items:
-            - Check to see if you're enrolled to receive advance payments
-            - Opt out of receiving monthly payments, and choose to receive the payment next year when you submit your 2021 tax return
-            - Provide or update your bank account information for monthly payments, or update information submitted previously.
-            irs_link_html: Check Enrollment, Update Your Information, or Opt Out in the <strong><a rel='noopener' target='_blank' href='https://www.irs.gov/credits-deductions/child-tax-credit-update-portal'>IRS Child Credit Update Portal</a></strong>!
-            opt_out_items:
-            - You would prefer to receive your credit in one payment in 2022
-            - Your bank information or address has changed in the last year
-            - You do not plan on claiming dependents on your 2021 tax return (2022 tax season), for example if you share custody with someone else and alternate who claims the child as a dependent
-            subheading: If you already filed a 2019, or a 2020 tax return, you don’t have to do anything.
-            update_items:
-            - Update the number of eligible dependents in your household (for example if a child has moved out, or a new baby was born)
-            - Report significant changes in household income
-          body1: To provide the Advance Child Tax Credit payments, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your Advance Child Tax Credit payments automatically.
-          body2_html: If you have not submitted any information to the IRS in the last year, you can submit your information through GetCTC, a simplified tax filing portal, and get your payments.
+          body_html:
+          - If you want to receive your remaining or missing Child Tax Credit today, you need to file a tax return.
+          - You can file a tax return for free with %{link_to_get_your_refund}. You will need access to all of your tax documents, including yours and your children's social security cards. Filing a full tax return will usually get you even more money than just the Child Tax Credit, but it can take a little more work and time to complete.
+          - If you can wait until May 2022 to receive <i>just</i> your Child Tax Credit payments, you will be able to file a simplifed tax return without needing any tax documents. %{link_to_sign_up} to be notified when simplifed filing opens.
           deadline:
-            body_html: You can sign up to receive monthly Child Tax Credit payments using the <a rel='noopener' target='_blank' href='%{url}'>simple tool</a> for non-filers developed by the non-profit Code for America, in collaboration with the Administration, through November 15, 2021. However, eligible families are encouraged to sign up as soon as possible. Signing up early will give the IRS more time to process your information and begin making monthly payments.
+            body_html: You can file a tax return to receive the Child Tax Credit payments until Fall 2022. Eligible families are encouraged to file as soon as possible to get the money they need.
             subheading: When is the deadline to sign up for Child Tax Credit payments?
-          full_return:
-            body1_html: |
-              <p>If you have at least one qualifying child and have any earned income, but haven’t filed a tax return, we recommend that you file a 2020 tax return. </p>
-
-              <p>Filing a full 2020 tax return will allow your family to claim the Child Tax Credit, receive all three stimulus payments, and the Earned Income Credit to get even more cash now. </p>
-            gyr_diy_explanation_html: File your 2020 taxes for free using <a rel='noopener' target='_blank' href='%{url}'>GetYourRefund’s DIY service.</a> We provide free access to tax prep software, and have certified tax experts ready to provide chat support if you need help.
-            subheading: If you haven’t already submitted information to the IRS (in a tax return or a non-filer portal), you can file a full return instead to get even more credits you are owed.
           heading: How do I get the Child Tax Credit?
           not_filed:
-            body1_html: If you earned less than %{single_deduction} (or less than %{joint_deduction} if you are married), you can use GetCTC, a simplified tax filing portal to get the Child Tax Credit, receive a missing stimulus payment, and get cash now.
-            body2: To get the Child Tax Credit you will need to provide the Social Security Numbers of your children. You can sign up for the Child Tax Credit even if you have little to no income or receive other federal benefits like SSI or SSDI.
-            chat_with_tax_experts_html: <button type="button" class="open-intercom button--link">Chat with our tax experts</button> if you need help.
-            subheading: If you have not filed a tax return, you can sign up to get the Child Tax Credit.
+            body_html:
+            - You can file a tax return to get the Child Tax Credit, missing stimulus payments, and any other tax benefits you are owed. File a tax return with %{link_to_get_your_refund} to get your benefits today.
+            - If you earned less than %{single_deduction} (or less than %{joint_deduction} with your spouse if you are married) and you can wait until May 2022 to receive your Child Tax Credit payments, you will be able to file a simplified tax return without needing any tax documents. %{link_to_sign_up} to be notified when simplified filing opens.
+            - <strong><button type="button" class="open-intercom button--link">Chat with our tax experts</button></strong> if you need help.
+            subheading: If you have not filed a tax return this year, you can still get the Child Tax Credit
         portal_sign_in_link: Already started? Sign in to check your progress
         qualify:
           body1: You can receive the Child Tax Credit if you have children, even if you make little or no money.
@@ -2444,28 +2424,27 @@ en:
             body: 'Your child qualifies your family for the Child Tax Credit if:'
             qualifiers:
             - The child is your son, daughter, grandchild, stepchild or adopted child; younger sibling, step-sibling, half-sibling, or their descendent; or a foster child placed with you by a government agency.
-            - The child was under 17 at the end of 2020.
+            - The child was under 18 at the end of 2021.
             - The child has a valid Social Security Number.
             - The child lived with you for more than half of 2021.
             - The child did not provide over half of their own support for 2021.
             subheading: Does my child or dependent qualify for the Child Tax Credit?
           eligible:
-            body_html: Joint filers making up to $150,000, single head of households making up to $112,500, and other single filers making up to $75,000 qualify for the full advanced monthly payment of the Child Tax Credit.
+            body_html: Joint filers making up to $150,000, single heads of household making up to $112,500, and other single filers making up to $75,000 qualify for the full Child Tax Credit.
             subheading: Who is eligible to claim the Child Tax Credit?
           heading: Do I qualify for the Child Tax Credit?
-        sign_up_for_updates: Sign up for updates
+        service_name: GetYourRefund
+        sign_up_for_updates: Sign up for GetCTC updates
         subheader:
           claim: Claim your Child Tax Credit and missing stimulus payments, even if you don’t have your tax documents.
-          claim_next_year_html: "<strong>Missed out on the CTC payments this year?</strong> Don't worry—you can still claim your complete CTC when you file taxes in early 2022."
-          launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive an email as soon as the simplified filing portal is ready."
+          claim_next_year_html: You can claim your CTC when you file taxes in 2022. Simplifed tax filing with GetCTC will be available in May, or you can file a full return today using GetYourRefund.
+          launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive a message as soon as the simplified filing portal is ready."
         title: Get Your Child Tax Credit
         what_is:
-          body_html: |
-            Putting cash in your family’s pocket every month for the things you need, even if you make little or no money.<br/>
-            <br/>
-            The American Rescue Plan, signed into law by President Biden on March 11, 2021, increases the Child Tax Credit (CTC) to provide up to $300 per month per child under age 6, and up to $250 per month per child ages 6 to 17.<br/>
-            <br/>
-            You can receive  payments of up to $300 per child every month starting in July 2021 through December 2021. You will need to file a tax return in 2022 to receive the rest of the payment.
+          body:
+          - Putting cash in your family’s pocket every month for the things you need, even if you make little or no money.
+          - The American Rescue Plan, signed into law by President Biden on March 11, 2021, increased the Child Tax Credit (CTC). You can now receive up to $3,600 per child under six and $3,000 per child aged 6-17.
+          - If you already received monthly CTC payments in 2021, you need to file a tax return in 2022 to receive the rest of the payment. If you didn't receive payments last year, you can receive the full credit when you file in 2022.
           heading: Child Tax Credit
       navigators:
         help_text: Guidance for community-based navigators seeking to help hard-to-reach clients access their tax benefits.
@@ -2588,10 +2567,9 @@ en:
           already_filed:
             body1: The IRS issued the first two stimulus payments automatically using data from 2019 tax returns, and is issuing the third payment using data from 2019 or 2020 tax returns. If you filed one of these returns, the IRS should have the correct information it needs for you.
             body2: If your family situation changed since 2019 and you didn’t file in 2020, or you think the IRS underpaid your stimulus payments last year, you can use the sign-up tools below to update the IRS and request missing funds.
+            subheading: If you already filed a 2019, or a 2020 tax return you don't have to do anything.
           body1: To issue the third stimulus payment, the IRS needs to know current information about you and your children. If you have submitted a 2019 or a 2020 tax return, or if you used the IRS Non-filer Portal in 2020 to claim your stimulus payments, then the IRS has enough information to send your family your third stimulus automatically.
           body2: If you have not submitted any information to the IRS in the last year — or if you need to claim any of the first two stimulus payments — you can submit your information through our simplified filing portal and get your payments.
-          full_return:
-            file_with_gyr: File a Tax Return with GetYourRefund
           heading: How do I get the stimulus payments?
           not_filed:
             body1: If you earned less than $12,400 (or less than $22,800 if you are married), you can use GetCTC, a simplified tax filing portal to get the stimulus payments, and, if you have kids, the Child Tax Credit as well. (Note, despite the name, you do not need to have children or be claiming the CTC to use GetCTC.)
