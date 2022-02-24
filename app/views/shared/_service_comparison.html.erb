@@ -60,7 +60,7 @@
                 <%= t("views.shared.service_comparison.services.express.coming_soon") %>
               </div>
               <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.express.cta"), diy_path, class: "button" %>
+                <%= link_to t("views.shared.service_comparison.services.express.cta"), url_for(host: MultiTenantService.new(:ctc).host, controller: "/signups", action: "new"), class: "button" %>
               </div>
             </div>
           </div>
@@ -287,7 +287,6 @@
             <div class="service full-service">
             </div>
             <div class="service diy">
-
             </div>
             <div class="service express">
             </div>
