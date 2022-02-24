@@ -2,8 +2,18 @@ require "rails_helper"
 
 RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot_i18n_friendly do
   let(:primary_ssn) { "123-45-6789" }
-  let!(:original_intake) { create :intake, email_address: "original@client.com", phone_number: "+14155537865", primary_consented_to_service: "yes", primary_ssn: primary_ssn, client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")]) }
-  let!(:ctc_intake_matching_ssn) { create :ctc_intake, primary_consented_to_service: "yes", primary_ssn: primary_ssn }
+  let!(:original_intake) do
+    create(
+      :intake,
+      email_address: "original@client.com",
+      phone_number: "+14155537865",
+      primary_consented_to_service: "yes",
+      primary_consented_to_service_at: 15.minutes.ago,
+      primary_ssn: primary_ssn,
+      client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
+    )
+  end
+  let!(:ctc_intake_matching_ssn) { create :ctc_intake, primary_consented_to_service: "yes", primary_consented_to_service_at: 15.minutes.ago, primary_ssn: primary_ssn }
   let(:returning_client_title) { I18n.t('views.questions.returning_client.title') }
 
   before do
