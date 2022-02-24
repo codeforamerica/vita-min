@@ -28,6 +28,37 @@
         <% end %>
       </div>
 
+      <div>
+        <div class="index-table__row">
+          <% if @previous_verification_attempts.present? %>
+          <div>
+            <div class="form-question"><%= "Previous Attempts: "%> </div>
+            <%@previous_verification_attempts.each do |attempt|%>
+              <div class="grid-flex space-between background--grey spacing-above-5 ">
+                <div>
+                  <% if attempt.selfie.representable? %>
+                    <%= image_tag attempt.selfie.representation(resize: "140x140"), alt: "" %>
+                  <% else %>
+                    <%= image_tag "document.svg", alt: "" %>
+                  <% end %>
+                  <% if attempt.photo_identification.representable? %>
+                    <%= image_tag attempt.photo_identification.representation(resize: "140x140"), alt: "" %>
+                  <% else %>
+                    <%= image_tag "document.svg", alt: "" %>
+                  <% end %>
+                </div>
+                <div>
+                  <p class="spacing-below-0"><%= link_to "#{timestamp(attempt.created_at)}", hub_verification_attempt_path(id:attempt.id) %></p>
+                  <div class="grid-flex justify-flex-end spacing-above-10">
+                    <div class="label"><%= attempt.current_state %></div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <%end %>
+        </div>
+      </div>
       <ul class="no-bullets" id="verification-attempt-notes">
         <% @verification_attempt.transitions.each do |transition| %>
           <li>

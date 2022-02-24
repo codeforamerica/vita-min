@@ -13,6 +13,7 @@ module Hub
 
     def show
       @verification_attempt = VerificationAttempt.includes(:client, :transitions).find(params[:id])
+      @previous_verification_attempts = @verification_attempt.client.verification_attempts.where('id < ?', params[:id])
       @form = form_class.new(@verification_attempt, current_user, {})
     end
 
