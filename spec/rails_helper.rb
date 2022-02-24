@@ -152,7 +152,6 @@ end
 
 RSpec.configure do |config|
   config.before(type: :feature) do |example|
-    Capybara.page.current_window.resize_to(1280, 800)
 
     if config.filter.rules[:flow_explorer_screenshot] || config.filter.rules[:flow_explorer_screenshot_i18n_friendly]
       example.metadata[:js] = true
