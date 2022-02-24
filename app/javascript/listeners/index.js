@@ -13,7 +13,7 @@ import { getEfileSecurityInformation } from "../lib/efile_security_information";
 import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 import { limitTextMessageLength } from "../lib/text_message_length_limiter";
-
+import { initServiceComparisonComponent } from "../lib/service_comparison_component"
 const Listeners =  (function(){
     return {
         init: function () {
@@ -81,6 +81,10 @@ const Listeners =  (function(){
                 initNestedAttributesListeners();
 
                 tooltip.init();
+
+                if (document.querySelector('div.comparison-component')) {
+                    initServiceComparisonComponent();
+                }
 
                 if (
                     document.querySelector('#take-action-footer') &&
