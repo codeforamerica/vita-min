@@ -41,7 +41,7 @@ class BankAccount < ApplicationRecord
   end
 
   def duplicates
-    DeduplificationService.duplicates(self, :hashed_routing_number, :hashed_account_number)
+    DeduplificationService.duplicates(self, :hashed_routing_number, :hashed_account_number, from_scope: self.class)
   end
 
   def hash_data

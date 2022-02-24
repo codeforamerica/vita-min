@@ -33,7 +33,7 @@ describe DeduplificationService do
 
     context "when passed with one attr" do
       it "uses the single argument to create the where clause" do
-        described_class.duplicates(instance, :hashed_routing_number)
+        described_class.duplicates(instance, :hashed_routing_number, from_scope: instance.class)
         expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number })
       end
 
@@ -48,7 +48,7 @@ describe DeduplificationService do
         end
 
         it "looks for the old and new hash in the db for matches on either" do
-          described_class.duplicates(instance, :hashed_routing_number)
+          described_class.duplicates(instance, :hashed_routing_number, from_scope: instance.class)
           expect(query_double).to have_received(:where).with({ hashed_routing_number: ["new_hash", "old_hash"] })
         end
       end
@@ -63,7 +63,7 @@ describe DeduplificationService do
         end
 
         it "uses the raw attr value to build the query" do
-          described_class.duplicates(instance, :phone_number)
+          described_class.duplicates(instance, :phone_number, from_scope: instance.class)
           expect(query_double).to have_received(:where).with({ phone_number: "+18324658840" })
         end
       end
@@ -71,19 +71,7 @@ describe DeduplificationService do
 
     context "when passed with an array of attributes" do
       it "uses the attributes to create the where clause" do
-        described_class.duplicates(instance, :hashed_routing_number, :hashed_account_number)
-        expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number, hashed_account_number: instance.hashed_account_number })
-      end
-    end
-
-    context "when from_scope argument is present" do
-      before do
-        allow(BankAccount).to receive_message_chain(:order, :where, :not).and_return query_double
-        allow(query_double).to receive(:where).and_return query_double
-      end
-
-      it "calls the query off of the scoped query passed in" do
-        described_class.duplicates(instance, :hashed_routing_number, :hashed_account_number, from_scope: BankAccount.order(:created_at))
+        described_class.duplicates(instance, :hashed_routing_number, :hashed_account_number, from_scope: instance.class)
         expect(query_double).to have_received(:where).with({ hashed_routing_number: instance.hashed_routing_number, hashed_account_number: instance.hashed_account_number })
       end
     end

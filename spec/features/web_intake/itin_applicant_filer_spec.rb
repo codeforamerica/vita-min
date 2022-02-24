@@ -96,9 +96,15 @@ RSpec.feature "A client who wants help getting an ITIN" do
   end
 
   context "when the itin applicant has a duplicate" do
-    before do
-      # duplicated itin app
-      create(:intake, primary_birth_date: Date.new(1971, 3, 5), email_address: "gary.gardengnome@example.green", triage: (create :triage, id_type: "need_itin_help"))
+    let!(:duplicated_itin_app) do
+      create(
+        :intake,
+        primary_birth_date: Date.new(1971, 3, 5),
+        email_address: "gary.gardengnome@example.green",
+        primary_consented_to_service: "yes",
+        primary_consented_to_service_at: 15.minutes.ago,
+        triage: (create :triage, id_type: "need_itin_help")
+      )
     end
 
     scenario "the client fills out triage and beginning of intake, but after consent gets sent to returning client page" do
