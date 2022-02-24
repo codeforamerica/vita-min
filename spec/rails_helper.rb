@@ -152,6 +152,7 @@ end
 
 RSpec.configure do |config|
   config.before(type: :feature) do |example|
+
     if config.filter.rules[:flow_explorer_screenshot] || config.filter.rules[:flow_explorer_screenshot_i18n_friendly]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver

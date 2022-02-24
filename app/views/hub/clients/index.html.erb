@@ -1,8 +1,14 @@
 <% content_for :page_title, @page_title %>
-
+<% content_for :filters do %>
+  <%= render "shared/client_filters" %>
+<% end %>
 <% content_for :card do %>
-  <section class="slab slab--padded">
-    <%= render "shared/client_filters_and_add_client" %> <!-- also includes Add Client button to layout !-->
+  <section class="slab clients-header">
+    <h1> <%= @page_title %> </h1>
+    <div>
+      <%= link_to t("general.add_client"), new_hub_client_path, class: "button" %>
+      <%= link_to t("general.add_ctc_client"), new_hub_ctc_client_path, class: "button" %>
+    </div>
   </section>
   <section class="slab slab--padded">
     <div class="pagination-wrapper">

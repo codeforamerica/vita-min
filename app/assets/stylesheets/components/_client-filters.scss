@@ -1,40 +1,11 @@
 .filter-form {
   .form-group {
-    margin-bottom: $s5;
+    margin-bottom: 1.5rem;
     margin-right: 1rem;
-  }
-
-  h3 {
-    margin: 0;
-    margin-bottom: $s5;
   }
 
   .select {
     display: block;
-  }
-
-  select#status-filter {
-    width: 21.5rem;
-  }
-
-  select#year {
-    width: 8rem;
-  }
-
-  select#language {
-    width: 11rem;
-  }
-
-  select#service_type {
-    width: 11rem;
-  }
-
-  select#assignee-filter {
-    width: 15rem;
-  }
-
-  input#search {
-    width: 27.5rem;
   }
 
   .select__element {
@@ -43,34 +14,43 @@
     padding-left: 1rem !important;
   }
 
-  .filters-wrapper {
-    display: flex;
-    flex-direction: column;
-    max-width: min-content;
-  }
+  h2 {
+    color: $color-grey-medium;
+    margin: 0 0 2rem 0;
 
-  .inline-filters-wrapper {
-    display: inline-flex;
-    align-items: flex-end;
-  }
-
-  .checkboxes-wrapper {
-    display: flex;
-    margin-top: .5rem;
-    margin-bottom: 2rem;
-    align-items: flex-start;
-
-    > * {
-      margin-right: 2rem;
-      align-items: flex-start;
-    }
-
-    h4 {
-      font-weight: normal;
-      font-size: $font-size-25-small;
-      margin-bottom: 0;
+    &.with-top-margin {
+      margin-top: 4rem;
     }
   }
+
+  hr {
+    margin: 2rem 0;
+  }
+
+  .checkbox--gyr {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #757575;
+
+    margin: 1rem 0;
+  }
+}
+
+.filters-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+  padding: 0 2.5rem;
+  background-color: #F5F6F7;
+  overflow: auto;
+  min-height: 100vh;
+}
+
+.clients-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .empty-clients {

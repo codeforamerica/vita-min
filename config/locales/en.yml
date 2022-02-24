@@ -417,7 +417,7 @@ en:
       black_african_american: Black or African American
       native_hawaiian_pacific_islander: Native Hawaiian or other Pacific Islander
       white: White
-    received_unemployment_income: Received Unemployment Income
+    received_unemployment_income: Received unemployment income
     register: Sign Up
     remove: Remove
     resend_invitation: Resend invitation email
@@ -506,7 +506,7 @@ en:
     archived_client_warning: This is a previous year’s ticket. This information is archived and should only be used for reference.
     assigned_clients:
       index:
-        title: Assigned clients
+        title: Assigned Clients
     automated_messages:
       index:
         title: Automated Messages
@@ -654,20 +654,23 @@ en:
         apply_filters: Apply search / filter to find matching clients.
         assigned_to_me: Assigned to me
         assigned_user: Assigned to
+        assignment: Assignment
         clear_filters: Clear
         client_id_heading: Client ID
+        client_info: Client Info
         created_at: Created at
         filing_year: Filing Year
         filter: Filter results
+        filters: Filters
         no_clients: No clients assigned.
         no_filtered_clients: No clients match selected filters.
         no_message: No message available
         no_name_given: Name left blank
         organization: Organization/site
         select: Select
-        stage_status: Tax return stage/status
+        stage_status: Stage/Status
         take_action_on_all_html: Take action on all <span id="take-action-all-count">%{count}</span> returns
-        title: All clients
+        title: All Clients
         unassigned: Unassigned
       navigation:
         client_documents: Documents

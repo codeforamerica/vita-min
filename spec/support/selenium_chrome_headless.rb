@@ -13,6 +13,8 @@ Capybara.register_driver :selenium_chrome_headless do |app|
     # (this causes an issue with the Flow Explorer screenshots, which try to crop
     # the full page screenshot based on coordinate values from JavaScript land)
     opts.add_argument('--force-device-scale-factor=1')
+
+    opts.add_argument('--window-size=1280x1280')
   end
 
   Capybara::Selenium::Driver.new(app, **Hash[:browser => :chrome, :capabilities => browser_options])

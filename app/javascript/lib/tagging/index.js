@@ -45,7 +45,7 @@ export function initMultiSelectVitaPartner() {
             highlightFirst: true,  // <-- automatically highlights first suggestion item in the dropdown
             closeOnSelect: false, // <-- keep dropdown open after selection
             maxItems: window.taggableItems.length, // <-- render all available items for the dropdown
-            position: 'text', // <-- render the suggestions list next to the text carat
+            position: 'input', // <-- render the suggestions list under the input element
         },
         templates: {
             dropdownItem: function(item){
