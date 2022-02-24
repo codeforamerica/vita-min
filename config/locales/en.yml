@@ -2438,7 +2438,7 @@ en:
         subheader:
           claim: Claim your Child Tax Credit and missing stimulus payments, even if you don’t have your tax documents.
           claim_next_year_html: You can claim your CTC when you file taxes in 2022. Simplifed tax filing with GetCTC will be available in May, or you can file a full return today using GetYourRefund.
-          launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive an email as soon as the simplified filing portal is ready."
+          launching_soon_html: "<strong>GetCTC is launching soon!</strong> Sign up to receive a message as soon as the simplified filing portal is ready."
         title: Get Your Child Tax Credit
         what_is:
           body:

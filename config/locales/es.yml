@@ -2390,7 +2390,7 @@ es:
         subheader:
           claim: Reclame su Crédito Tributario por Hijo y su pago de estímulo faltante, aunque no tenga sus formularios tributarios.
           claim_next_year_html: "<strong>¿No ha recibido los pagos del CTC este año?</strong> No se preocupe. Todavía puede solicitar el CTC en su totalidad cuando presente su declaración de impuestos a principios de 2022."
-          launching_soon_html: "<strong>¡GetCTC se lanzará próximamente!</strong> Registrese para recibir emails en cuanto el portal para declarar sus impuestos de forma simplificada."
+          launching_soon_html: "<strong>¡GetCTC se lanzará próximamente!</strong> Registrese para recibir un mensaje en cuanto el portal para declarar sus impuestos de forma simplificada."
         title: Crédito Tributario por Hijos
         what_is:
           body:
