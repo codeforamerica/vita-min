@@ -654,11 +654,14 @@ es:
         apply_filters: Aplicar búsqueda / filtro para encontrar clientes coincidentes.
         assigned_to_me: Asignado a mí
         assigned_user: Asignado a
+        assignment: Asignación
         clear_filters: Claros
         client_id_heading: Cliente ID
+        client_info: Información del Cliente
         created_at: Creado en
         filing_year: Año para declarar
         filter: Filtrar resultados
+        filters: Filtros
         no_clients: No hay clientes asignadas.
         no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.
         no_message: No hay mensajes disponibles

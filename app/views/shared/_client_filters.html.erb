@@ -3,7 +3,7 @@
     <%= f.hidden_field :order, value: @sort_order %>
     <%= f.hidden_field :column, value: @sort_column %>
 
-    <h2 class="with-top-margin"> Filters </h2>
+    <h2 class="with-top-margin"><%= t("hub.clients.index.filters") %></h2>
 
     <div class="form-group">
       <label for="status-filter" class="form-question"><%= t("hub.clients.index.stage_status") %></label>
@@ -46,7 +46,7 @@
 
     <hr>
 
-    <h2> Assignment </h2>
+    <h2> <%= t("hub.clients.index.assignment") %> </h2>
 
     <% unless @always_current_user_assigned %>
       <div class="form-group">
@@ -74,7 +74,7 @@
 
     <hr>
 
-    <h2> Client Info </h2>
+    <h2> <%= t("hub.clients.index.client_info") %> </h2>
 
     <div class="form-group">
       <label for="service_type" class="form-question"><%= t("hub.clients.fields.service_type") %></label>
