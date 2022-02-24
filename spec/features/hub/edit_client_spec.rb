@@ -229,7 +229,7 @@ RSpec.describe "a user editing a clients intake fields" do
         click_on "Delete client"
       end
 
-      expect(page).to have_text "All clients"
+      expect(page).to have_text "All Clients"
       expect(page).to have_text "The client has been successfully deleted"
     end
 
