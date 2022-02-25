@@ -41,6 +41,14 @@ describe Hub::SourceParamsForm do
         expect(subject.valid?).to eq true
       end
     end
+
+    context "when no parameter is provided" do
+      let(:code) { nil }
+
+      it "is not valid" do
+        expect(subject).not_to be_valid
+      end
+    end
   end
 
   describe "#save!" do
