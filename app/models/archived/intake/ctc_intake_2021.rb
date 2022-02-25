@@ -243,6 +243,7 @@
 #  index_arcint_2021_on_email_domain                           (email_domain)
 #  index_arcint_2021_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_arcint_2021_on_phone_number                           (phone_number)
+#  index_arcint_2021_on_probable_previous_year_intake_fields   (primary_birth_date,primary_first_name,primary_last_name)
 #  index_arcint_2021_on_searchable_data                        (searchable_data) USING gin
 #  index_arcint_2021_on_sms_phone_number                       (sms_phone_number)
 #  index_arcint_2021_on_spouse_email_address                   (spouse_email_address)

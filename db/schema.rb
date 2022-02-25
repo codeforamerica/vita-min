@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_232201) do
+ActiveRecord::Schema.define(version: 2022_02_25_002148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -417,6 +417,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_232201) do
     t.index ["email_domain"], name: "index_arcint_2021_on_email_domain"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_arcint_2021_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_arcint_2021_on_phone_number"
+    t.index ["primary_birth_date", "primary_first_name", "primary_last_name"], name: "index_arcint_2021_on_probable_previous_year_intake_fields"
     t.index ["searchable_data"], name: "index_arcint_2021_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_arcint_2021_on_sms_phone_number"
     t.index ["spouse_email_address"], name: "index_arcint_2021_on_spouse_email_address"
