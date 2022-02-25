@@ -245,6 +245,21 @@ RSpec.describe MailgunWebhooksController do
             expect(IntercomService).not_to have_received(:create_intercom_message_from_email).with(IncomingEmail.last, inform_of_handoff: true)
           end
         end
+
+        context "without a body but with a subject" do
+          it "stores the email" do
+            expect do
+              post :create_incoming_email, params: params.except!("body-plain", "body-html", "stripped-text", "stripped-html")
+            end.to change(IncomingEmail, :count).by(1)
+
+            email = IncomingEmail.last
+            expect(email.client).to eq client
+            expect(email.body_plain).to be_nil
+            expect(email.body_html).to be_nil
+            expect(email.stripped_text).to be_nil
+            expect(email.stripped_html).to be_nil
+          end
+        end
       end
 
       context "with multiple matching clients" do

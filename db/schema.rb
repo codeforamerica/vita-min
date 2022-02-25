@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_25_002148) do
+ActiveRecord::Schema.define(version: 2022_02_25_230327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -803,7 +803,7 @@ ActiveRecord::Schema.define(version: 2022_02_25_002148) do
   create_table "incoming_emails", force: :cascade do |t|
     t.integer "attachment_count"
     t.string "body_html"
-    t.string "body_plain", null: false
+    t.string "body_plain"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.citext "from", null: false
