@@ -2842,13 +2842,6 @@ en:
         subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
         title: FAQ
       home:
-        accuracy:
-          body1: Yes, our service is truly free. We provide this free service by partnering with IRS-certified Volunteer Income Tax Assistance (VITA) sites to provide tax filing assistance to families earning less than $66,000 a year.
-          body2: Trained, IRS-certified volunteers will prepare and double-check your tax return to make sure it is correct before filing.
-          header: We deliver the highest accuracy rates. For free.
-        backtaxes:
-          body: We can file your state and federal taxes for tax years %{years}. Our trained volunteers will also make sure you receive tax credits you qualify for.
-          header: File for previous years and maximize your refund.
         clients:
           across_us: from clients across the US
           header: What our clients are saying
@@ -2870,19 +2863,10 @@ en:
           questions: Still have questions? Visit our FAQ page or chat with us.
         file:
           header: Get more of your refund dollars back by filing for free today!
-        get_ctc:
-          body: Do you not have all of your tax documents? File a simplified return to get cash now.
-          button: Visit GetCTC
-          title: Looking for just your Child Tax Credit or missing stimulus payments?
         header: Free tax filing, made simple.
-        partners:
-          header: We partner with trusted organizations
-          learn_more_html: Learn more about us &rsaquo;
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
           header: We're committed to keeping your information secure.
-        stimulus_faq:
-          info: Already filed your taxes and have questions about your stimulus check?
         subheader: If you earned income and are ready to file with all of your tax documents, we can help you maximize your tax benefits!
         subheader_offseason: Sign up for the 2022 tax season now! We'll notify you as soon as our service reopens on January 31 at 1pm EST.
         title: Free tax help from IRS-certified volunteers.
