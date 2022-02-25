@@ -1,5 +1,7 @@
 module Questions
   class OptionalConsentController < QuestionsController
+    include AuthenticatedClientConcern
+
     layout "intake"
 
     def illustration_path; end

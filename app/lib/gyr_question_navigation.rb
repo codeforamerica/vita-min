@@ -47,8 +47,8 @@ class GyrQuestionNavigation
                                     # generate a "Preliminary" 13614-C signed by the primary
                                     # Routes client to a vita partner, if route-able
                                     # creates TaxReturn records for backtaxes years
-      Questions::OptionalConsentController,
       Questions::AtCapacityController,
+      Questions::OptionalConsentController,
       Questions::ChatWithUsController, # This and all later controllers require a client to be signed in.,
       # Primary filer personal information
       Questions::LifeSituationsController,

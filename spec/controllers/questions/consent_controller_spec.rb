@@ -155,7 +155,7 @@ RSpec.describe Questions::ConsentController do
               )
               expect(organization_router).to have_received(:determine_partner)
               expect(intake.tax_returns.count).to eq 0
-              expect(response).to redirect_to optional_consent_questions_path
+              expect(response).to redirect_to Questions::AtCapacityController.to_path_helper
             end
           end
         end
