@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_job do
   include MockTwilio
 
-  def fill_out_notification_preferences
+  def fill_out_notification_preferences(fill_out_optional_consent: true)
     # Notification Preference
     check I18n.t('views.questions.notification_preference.options.email_notification_opt_in')
     check I18n.t('views.questions.notification_preference.options.sms_notification_opt_in')
@@ -46,20 +46,22 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     select "1971", from: "consent_form_birth_date_year"
     click_on I18n.t("views.questions.consent.cta")
 
-    # Optional consent form
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.optional_consent.title'))
-    toggles = {
-      strip_html_tags(I18n.t('views.questions.optional_consent.consent_to_use_html')).split(':').first => consent_to_use_path,
-      strip_html_tags(I18n.t('views.questions.optional_consent.consent_to_disclose_html')).split(':').first => consent_to_disclose_path,
-      strip_html_tags(I18n.t('views.questions.optional_consent.relational_efin_html')).split(':').first => relational_efin_path,
-      strip_html_tags(I18n.t('views.questions.optional_consent.global_carryforward_html')).split(':').first => global_carryforward_path,
-    }
-    toggles.each do |toggle_text, link_path|
-      expect(page).to have_checked_field(toggle_text)
-      expect(page).to have_link(toggle_text, href: link_path)
+    if fill_out_optional_consent
+      # Optional consent form
+      expect(page).to have_selector("h1", text: I18n.t('views.questions.optional_consent.title'))
+      toggles = {
+        strip_html_tags(I18n.t('views.questions.optional_consent.consent_to_use_html')).split(':').first => consent_to_use_path,
+        strip_html_tags(I18n.t('views.questions.optional_consent.consent_to_disclose_html')).split(':').first => consent_to_disclose_path,
+        strip_html_tags(I18n.t('views.questions.optional_consent.relational_efin_html')).split(':').first => relational_efin_path,
+        strip_html_tags(I18n.t('views.questions.optional_consent.global_carryforward_html')).split(':').first => global_carryforward_path,
+      }
+      toggles.each do |toggle_text, link_path|
+        expect(page).to have_checked_field(toggle_text)
+        expect(page).to have_link(toggle_text, href: link_path)
+      end
+      uncheck toggles.keys.last
+      click_on I18n.t('general.continue')
     end
-    uncheck toggles.keys.last
-    click_on I18n.t('general.continue')
   end
 
   let!(:expected_source_param_vita_partner) { create :organization, name: "Cobra Academy" }
@@ -243,7 +245,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
       fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
       click_on I18n.t('general.continue')
 
-      fill_out_notification_preferences
+      fill_out_notification_preferences(fill_out_optional_consent: false)
 
       expect(page.html).to have_text I18n.t('views.questions.at_capacity.title')
     end

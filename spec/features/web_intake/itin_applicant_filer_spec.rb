@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.feature "A client who wants help getting an ITIN" do
   include MockTwilio
 
+  let!(:default_vita_partner) { create :organization, name: "Default Organization", national_overflow_location: true }
+
   context "when an itin applicant is unique" do
     scenario "the client does not get blocked by returning client page and is sent to optional consent" do
       answer_gyr_triage_questions({
