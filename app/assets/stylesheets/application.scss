@@ -110,6 +110,13 @@ body {
   font-family: $font-gyr;
 }
 
+// Setting overflow to anything but visible or no-height breaks/prevents use of a couple features of CSS (including position: sticky).
+// This gets set in honeycrisp to overflow: hidden, likely to fix/prevent an obscure one-off issue that we solve
+// differently in GYR.
+.page-wrapper {
+  overflow: unset !important;
+}
+
 @mixin visually-hidden {
   position: absolute;
   width: 1px;

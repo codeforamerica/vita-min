@@ -1,5 +1,5 @@
-import Sticky from 'sticky-js';
+import stickybits from 'stickybits';
 
 export function initServiceComparisonComponent() {
-   new Sticky(".mobile-sticky-header");
+   stickybits(".mobile-sticky-header", { useStickyClasses: true });
 }
