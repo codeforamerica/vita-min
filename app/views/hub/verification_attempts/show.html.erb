@@ -31,7 +31,7 @@
       <% if @previous_verification_attempts.present? %>
           <div class="form-question"><%= "Previous Attempts: "%> </div>
             <%@previous_verification_attempts.each do |attempt|%>
-              <div class="grid-flex space-between verification-attempts-show__previous-attempt">
+              <div class="grid-flex space-between verification-attempts-show__previous-attempt" id="previous-verification-attempt-<%= attempt.id %>">
                 <div class="grid-flex">
                   <div class="item-15r">
                     <% if attempt.selfie.representable? %>
@@ -40,7 +40,7 @@
                       <%= image_tag "document.svg", alt: "" %>
                     <% end %>
                   </div>
-                  <div class="item-15r">
+                  <div class="item">
                     <% if attempt.photo_identification.representable? %>
                       <%= image_tag attempt.photo_identification.representation(resize: "90x90"), alt: "" %>
                     <% else %>
@@ -49,7 +49,7 @@
                   </div>
                 </div>
                 <div>
-                  <p class="spacing-below-0"><%= link_to "#{timestamp(attempt.created_at)}", hub_verification_attempt_path(id:attempt.id) %></p>
+                  <div class="spacing-below-0"><%= link_to "#{timestamp(attempt.created_at)}", hub_verification_attempt_path(id:attempt.id), id: "time" %></div>
                   <div class="grid-flex justify-flex-end spacing-above-10">
                     <div class="label"><%= attempt.current_state %></div>
                   </div>
