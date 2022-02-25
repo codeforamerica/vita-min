@@ -9,7 +9,7 @@
           <tr class="index-table__row">
             <th scope="col" class="index-table__header">Name</th>
             <th scope="col" class="index-table__header">Submitted at</th>
-            <th scope="col" class="index-table__header">Held since (?)</th>
+            <th scope="col" class="index-table__header">Status</th>
           </tr>
           </thead>
           <tbody>
@@ -17,7 +17,8 @@
               <tr class="index-table__row" id="verification-attempt-<%= attempt.id %>">
                 <td class="index-table__cell"><%= link_to "#{attempt.client.legal_name}", hub_verification_attempt_path(id: attempt.id) %></td>
                 <td class="index-table__cell"><%= link_to timestamp(attempt.created_at), hub_verification_attempt_path(id: attempt.id) %></td> <%# The link is only working for the first 6 entries in this table %>
-                <th scope="col" class="index-table__header">TBD</th>
+                <th scope="col" class="index-table__header"><div class="label"><%= attempt.current_state.humanize %></div>
+                </th>
               </tr>
             <% end %>
           </tbody>
