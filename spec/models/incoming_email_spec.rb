@@ -5,7 +5,7 @@
 #  id                 :bigint           not null, primary key
 #  attachment_count   :integer
 #  body_html          :string
-#  body_plain         :string           not null
+#  body_plain         :string
 #  from               :citext           not null
 #  received           :string
 #  received_at        :datetime         not null
