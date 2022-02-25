@@ -3,15 +3,15 @@
 <% end %>
 
 <% content_for :notice do %>
-<% unless open_for_intake? %>
-  <div class="slab slab--banner">
-    <div class="grid">
-      <div class="grid__item">
-          <%= t('views.public_pages.home.closing_banner_html', url: vita_providers_path) %>
+  <% unless open_for_intake? %>
+    <div class="slab slab--banner">
+      <div class="grid">
+        <div class="grid__item">
+            <%= t('views.public_pages.home.closing_banner_html', url: vita_providers_path) %>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 <% end %>
 
 <% content_for :body_class, "body--home" %>
@@ -19,7 +19,7 @@
 <%= render 'shared/facebook_pixel' %>
 <main role="main">
 
-  <div class="slab slab--hero">
+  <div class="slab slab--hero slab--grey">
     <div class="grid">
       <div class="grid__item width-one-half">
         <h1>
@@ -50,119 +50,10 @@
       </div>
     </div>
   </div>
-  <div class="slab slab--secondary-cta slab--stimulus-blue">
-    <div class="grid">
-      <div class="grid__item width-two-thirds">
-        <p class="spacing-below-25">
-          <strong><%= t("views.public_pages.home.get_ctc.title") %></strong>
-        </p>
-        <p class="spacing-below-0"><%= t("views.public_pages.home.get_ctc.body") %></p>
-      </div>
-      <div class="grid__item width-one-third button-container">
-        <%= link_to url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"), class: "button" do %>
-          <%= t("views.public_pages.home.get_ctc.button") %>
-        <% end %>
-      </div>
-    </div>
-  </div>
 
-  <div class="slab slab--secondary-cta slab--grey">
-    <div class="grid">
-      <div class="grid__item width-two-thirds">
-        <p>
-          <strong><%= t("views.public_pages.home.stimulus_faq.info") %></strong>
-        </p>
-      </div>
-      <div class="grid__item width-one-third button-container">
-        <%= link_to stimulus_path, class: "button" do %>
-          <%= t("general.visit_stimulus_faq") %>
-        <% end %>
-      </div>
-    </div>
-  </div>
+  <%= render "shared/service_comparison" %>
 
-  <div class="slab slab--intro">
-    <div class="grid spacing-below-60">
-      <div class="grid__item width-one-fourth irs-logo irs-logo-<%= locale %>">
-        <% if locale == :es %>
-          <%= image_tag("irs-certified-spanish.png") %>
-        <% else %>
-          <%= image_tag("irs-certified.svg", alt: "") %>
-        <% end %>
-      </div>
-      <div class="grid__item width-two-thirds">
-        <h2><%= t("views.public_pages.home.accuracy.header") %></h2>
-        <p><%= t("views.public_pages.home.accuracy.body1") %></p>
-        <p><%= t("views.public_pages.home.accuracy.body2") %></p>
-      </div>
-    </div>
-    <div class="grid__divider"></div>
-    <div class="grid spacing-above-60">
-      <div class="grid__item width-two-thirds">
-        <h2><%= t("views.public_pages.home.backtaxes.header") %></h2>
-        <p class="spacing-below-0">
-          <%= t(
-            "views.public_pages.home.backtaxes.body",
-            years: TaxReturn.backtax_years.reverse.to_sentence(locale: locale)
-          ) %>
-        </p>
-      </div>
-      <div id="money-fan" class="grid__item width-one-fourth">
-        <%= image_tag("money-fan.svg", alt: "") %>
-      </div>
-    </div>
-  </div>
-
-  <div class="slab slab--partners">
-    <div class="grid">
-      <h2 class="h3 text--centered"><%= t("views.public_pages.home.partners.header") %></h2>
-      <ul class="partner-logos">
-        <%= render(
-                "shared/grayscale_partner_logo",
-                name: "United Way Bay Area",
-                image_name: "uwba",
-                website: "https://uwba.org/"
-            ) %>
-
-        <%= render(
-                "shared/grayscale_partner_logo",
-                name: "Tax Help Colorado",
-                image_name: "thc",
-                image_class: "multiply",
-                website: "https://taxhelpco.org/"
-            ) %>
-
-        <%= render(
-                "shared/grayscale_partner_logo",
-                name: "Prosperity Now",
-                image_name: "prosperity-now",
-                website: "https://prosperitynow.org/"
-            ) %>
-
-        <%= render(
-                "shared/grayscale_partner_logo",
-                name: "Goodwill Industries of the Southern Rivers",
-                image_name: "gwisr",
-                image_class: "multiply",
-                website: "https://www.goodwillsr.org/"
-            ) %>
-
-        <%= render(
-                "shared/grayscale_partner_logo",
-                name: "United Way of Tucson and Southern Arizona",
-                image_name: "uwtsa",
-                website: "https://www.unitedwaytucson.org/"
-            ) %>
-      </ul>
-      <p class="text--centered text--small spacing-below-0 spacing-above-10">
-        <%= link_to about_us_path, id: "about-us-link" do %>
-          <%= t("views.public_pages.home.partners.learn_more_html") %>
-        <% end %>
-      </p>
-    </div>
-  </div>
-
-  <div class="slab slab--testimonials">
+  <div class="slab slab--testimonials slab--half-padded">
     <div class="grid">
       <h2 class="text--centered"><%= t("views.public_pages.home.clients.header") %></h2>
       <div id="star-rating" class="text--centered">
@@ -185,7 +76,7 @@
     </div>
   </div>
 
-  <div class="slab slab--secondary-cta">
+  <div class="slab slab--secondary-cta slab--grey slab--half-padded">
     <div class="grid">
       <div class="grid__item width-three-fourths">
         <h2 class="h3 spacing-below-0"><%= t("views.public_pages.home.features.header") %></h2>

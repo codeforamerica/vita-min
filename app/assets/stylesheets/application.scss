@@ -255,3 +255,9 @@ pre {
 .hidden {
   display: none;
 }
+
+// GYR override to reflect design requested defaults
+.slab--half-padded {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
