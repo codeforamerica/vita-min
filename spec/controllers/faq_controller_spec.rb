@@ -41,4 +41,14 @@ RSpec.describe FaqController do
       end.to raise_error(ActionController::RoutingError)
     end
   end
+
+  describe "QUESTIONS" do
+    it "has everything that is in the yml, but in the right order" do
+      I18n.backend.send(:lookup, :en, "views.public_pages.faq.question_groups").keys.each do |question_group_title|
+        question_keys = I18n.backend.send(:lookup, :en, "views.public_pages.faq.question_groups.#{question_group_title}").keys.excluding(:title)
+        expect(FaqController::QUESTIONS[question_group_title]).to match_array(question_keys)
+      end
+    end
+  end
 end
+bulk_actions_spec
