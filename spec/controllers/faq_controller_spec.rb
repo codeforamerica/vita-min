@@ -51,4 +51,3 @@ RSpec.describe FaqController do
     end
   end
 end
-bulk_actions_spec
