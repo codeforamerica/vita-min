@@ -2794,13 +2794,6 @@ es:
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
         title: Preguntas Frecuentes
       home:
-        accuracy:
-          body1: Sí, nuestro servicio es realmente gratuito y lo ofrecemos en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) certificados por el IRS para ayudar a las familias que ganan menos de $66,000 al año a que presenten sus declaraciones de impuestos.
-          body2: Voluntarios capacitados y certificados por el IRS prepararán y revisarán su declaración de impuestos para asegurarse de que todo esté correcto antes de presentarla.
-          header: Ofrecemos la máxima precisión. Gratis.
-        backtaxes:
-          body: Podemos presentar sus declaraciones de impuestos estatales y federales de los años fiscales %{years}. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos tributarios que le correspondan.
-          header: Presente las declaraciones de impuestos de años anteriores y obtenga un reembolso mayor.
         clients:
           across_us: de clientes en todo Estados Unidos.
           header: Lo qué opinan nuestros clientes
@@ -2822,19 +2815,10 @@ es:
           questions: "¿Tiene más preguntas? Visite nuestra página de preguntas frecuentes o hable con nosotros por el chat."
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
-        get_ctc:
-          body: "¿No tiene todos sus formularios tributarios? Presente una declaración de impuestos simplificada para recibir dinero ahora."
-          button: Visite GetCTC
-          title: "¿Busca sólo el Crédito Tributario por Hijo o le faltan los pagos por los estímulos?"
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
-        partners:
-          header: Colaboramos con organizaciones de confianza
-          learn_more_html: Obtenga más información sobre nosotros &rsaquo;
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Estamos comprometidos a proteger su información.
-        stimulus_faq:
-          info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
         subheader: "¡Si tiene ingresos del trabajo y está listo para declarar su declaración con todos sus formularios de impuestos, le podemos ayudar a maximizar sus beneficios tributarios!"
         subheader_offseason: "¡Regístrese para la temporada de impuestos de 2022 ahora! Le notificaremos en cuanto nuestros servicios vuelvan a abrir el 31 de enero a la 1pm EST-- Hora estándar del Este. "
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.

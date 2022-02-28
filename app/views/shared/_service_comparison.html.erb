@@ -1,11 +1,11 @@
-<div class="slab">
+<div class="slab slab--half-padded spacing-above-25">
   <div class="grid">
     <div class="service-comparison">
-      <h2 class="title">
+      <h2 class="title spacing-above-0">
         <%= t("views.shared.service_comparison.title_html") %>
       </h2>
       <p class="text--centered spacing-above-15"><%= t("views.shared.service_comparison.always_free") %></p>
-      <p class="text--centered spacing-below-35"><%= t("views.shared.service_comparison.in_person") %> <%= link_to t("views.shared.service_comparison.in_person_link_text"), vita_providers_path%>.</p>
+      <p class="text--centered spacing-below-35"><%= t("views.shared.service_comparison.in_person") %> <%= link_to t("views.shared.service_comparison.in_person_link_text"), vita_providers_path, "data-track-click": "service-comparison-in-person-vita-providers"%>.</p>
       <div class="comparison-component">
         <div class="service-set service-set--service-description">
           <div class="service-set__header"></div>
@@ -23,7 +23,7 @@
                 <%= t("views.shared.service_comparison.services.full_service.service_description") %>
               </div>
               <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.full_service.cta"), backtaxes_questions_path, class: "button" %>
+                <%= link_to t("views.shared.service_comparison.services.full_service.cta"), backtaxes_questions_path, class: "button", "data-track-click": "service-comparison-full-service" %>
               </div>
             </div>
             <div class="service diy">
@@ -39,7 +39,7 @@
                 <%= t("views.shared.service_comparison.services.diy.service_description") %>
               </div>
               <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.diy.cta"), diy_path, class: "button" %>
+                <%= link_to t("views.shared.service_comparison.services.diy.cta"), diy_path, class: "button", "data-track-click": "service-comparison-diy" %>
               </div>
             </div>
             <div class="service express">
@@ -60,7 +60,7 @@
                 <%= t("views.shared.service_comparison.services.express.coming_soon") %>
               </div>
               <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.express.cta"), url_for(host: MultiTenantService.new(:ctc).host, controller: "/signups", action: "new"), class: "button" %>
+                <%= link_to t("views.shared.service_comparison.services.express.cta"), url_for(host: MultiTenantService.new(:ctc).host, controller: "/signups", action: "new"), class: "button", "data-track-click": "service-comparison-ctc" %>
               </div>
             </div>
           </div>
@@ -231,7 +231,7 @@
               <%= t("views.shared.service_comparison.stimulus_payments") %>
             </div>
           </div>
-          <div class="service-set__services service-set--mobile-excluded">
+          <div class="service-set__services">
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
@@ -350,7 +350,7 @@
       <h2 class="title spacing-above-35">
         <%= t("views.shared.service_comparison.still_need_help") %>
       </h2>
-      <p class="spacing-above-15 text--centered text--semibold"><%= link_to  t("views.shared.service_comparison.triage_link_text"), triage_gyr_questions_path %></p>
+      <p class="spacing-above-15 spacing-below-0 text--centered text--semibold"><%= link_to  t("views.shared.service_comparison.triage_link_text"), triage_gyr_questions_path, "data-track-click": "service-comparison-triage" %></p>
     </div>
   </div>
 </div>
