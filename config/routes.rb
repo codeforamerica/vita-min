@@ -126,8 +126,6 @@ Rails.application.routes.draw do
         get "/new-faq", to: "faq#index"
         get "/new-faq/:section_key", to: "faq#section_index", as: :faq_section
         get "/new-faq/:section_key/:question_key", to: "faq#show", as: :faq_question
-        # TODO: generate routes + views (from translation keys?)
-        # get "/how_many_stimulus_payments_were_there", to: "public_pages#how_many_stimulus_payments_were_there"
       end
       get "/sms-terms", to: "public_pages#sms_terms"
       get "/stimulus", to: "public_pages#stimulus"
