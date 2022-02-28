@@ -5,12 +5,13 @@ module Hub
     delegate :edit_hub_organization_path, :edit_hub_site_path, to: 'Rails.application.routes.url_helpers'
 
     validate :unused_code
+    validates_presence_of :code
 
     def initialize(vita_partner, form_params = nil)
       @vita_partner = vita_partner
       @params = form_params
       @source_param = vita_partner.source_parameters.new(@params)
-
+      super(form_params)
     end
 
     def save!
@@ -22,7 +23,7 @@ module Hub
     end
 
     def unused_code
-      existing = SourceParameter.includes(:vita_partner).find_by(code: @params[:code])
+      existing = SourceParameter.includes(:vita_partner).find_by(code: code)
       if existing.present?
         if existing.vita_partner == vita_partner
           errors.add(:code, I18n.t("hub.source_params.already_applied", code: existing.code))

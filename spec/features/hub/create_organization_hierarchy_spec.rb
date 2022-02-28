@@ -64,14 +64,18 @@ RSpec.describe "create VITA organization hierarchy", :js do
       within "#source-params-form" do
         fill_in "Unique link", with: "oregano"
         click_on "Save"
-        expect(page).to have_text "oregano"
+        within '.organization-list' do
+          expect(page).to have_text "oregano"
+        end
         sp = SourceParameter.find_by(code: "oregano")
         within "#source-param-#{sp.id}" do
           page.accept_alert "Are you sure you want to delete oregano from Oregano Org?" do
             click_on "Delete"
           end
         end
-        expect(page).not_to have_text "oregano"
+        within '.organization-list' do
+          expect(page).not_to have_text "oregano"
+        end
       end
 
       # Add a site to an organization
