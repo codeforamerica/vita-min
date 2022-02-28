@@ -33,7 +33,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
-    click_on I18n.t('general.continue')
+    click_on I18n.t('views.ctc.questions.legal_consent.agree')
     click_on I18n.t('views.ctc.questions.contact_preference.email')
     fill_in I18n.t('views.questions.email_address.email_address'), with: "mango@example.com"
     fill_in I18n.t('views.questions.email_address.email_address_confirmation'), with: "mango@example.com"

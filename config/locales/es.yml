@@ -2032,7 +2032,8 @@ es:
           title: Por favor, indique el PIN de la IP a continuación.
         ip_pin_explanation_html: Si se confirma que ha sido víctima de un robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará por correo un Aviso CP01A con su PIN de IP, un número de 6 dígitos asignado a ciertos declarantes de impuestos elegibles. <a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Puede recuperar su IP PIN a través de esta página del IRS.</a>
         legal_consent:
-          agree_to_share: Al continuar, acepto compartir mi información personal para preparar mi declaración de impuestos simplificada.
+          agree: Estoy de acuerdo
+          agree_to_share: Al hacer clic en "Acepto", acepto la política de privacidad de GetCTC y acepto compartir mi información personal para preparar mi declaración de impuestos simplificada.
           body:
             p1: Para presentar su declaración de impuestos y recibir su Crédito Tributario por Hijos y/o sus pagos de estímulo, necesitaremos algunos de sus datos personales.
             p2: Asegúrese de introducir su nombre tal y como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
