@@ -2788,6 +2788,517 @@ es:
           non_filer:
             a: Podemos presentar sus declaraciones de impuestos de los años %{years}. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
             q: "¿Qué debo hacer si no he declarado impuestos desde hace varios años?"
+        header: How can we help you?
+        question_groups:
+          child_and_dependent_care_credit:
+            how_do_i_get_the_child_and_dependent_care_credit:
+              answer_html: |
+                <p>In order to claim the Child and Dependent Care credit, you must have:</p>
+                <ul class="list--bulleted">
+                <li>Paid for care in 2021 for a qualifying child under the age of 13, or a spouse or dependent unable to care for themselves.</li>
+                <li>Needed this care in order to work or look for work yourself. In a two-parent household, both spouses must have been working or looking for work (or a full-time student).</li>
+                </ul>
+                <p>When filing a tax return, you will need to report the amount you paid, as well as the care provider&rsquo;s name, Employer Identification Number (EIN), and address. If your child care was provided by an individual, you&rsquo;ll need their name, Social Security Number, and address.</p>
+              question: How do I get the Child and Dependent Care Credit?
+            how_has_the_child_and_dependent_care_credit_changed:
+              answer_html: |
+                <p>The Child and Dependent Care Credit significantly expanded in 2021 and more families than ever qualify for this tax benefit. The maximum amount of credit increased from $1,050 to $4,000 if you have one qualifying dependent and increased from $2,100 to $8,000 for two or more qualifying dependents.&nbsp;</p>
+                <p>The credit is now &ldquo;refundable,&rdquo; which means that you can get it even if you have very little income and don&rsquo;t owe any taxes.</p>
+              question: How has the Child and Dependent Care Credit Changed?
+            title: Child and Dependent Care Credit
+            what_is_the_child_and_dependent_care_credit:
+              answer_html: The Child and Dependent Care Credit is a tax credit that helps families cover expenses for child care needed to work, or to look for work. The credit is also available to families that must pay for the care of a spouse or other adult relative who isn't mentally or physically able to care for themselves. Families can claim up to $4,000 for one child/dependent or $8,000 for two or more children/dependents. For most families, the credit covers half the cost of child care. For example, if you paid $3,000 in child care costs for one child, you could claim $1,500. If you paid $20,000 in care costs for two children, you could claim $8,000. You must report earned income during 2021 to claim the credit.
+              question: What is the Child and Dependent Care Credit?
+          child_tax_credit:
+            am_i_eligible_for_child_tax_credit_if_i_dont:
+              answer_html: |
+                <p>To be eligible for the Child Tax Credit (CTC), each child claimed must have a Social Security Number (SSN) and each parent must have either a Social Security Number (SSN) or an Individual Taxpayer Identity Number (ITIN).</p>
+                <p>If you do not currently have an Individual Taxpayer Identity Number (ITIN), but want to claim the Child Tax Credit for your children, you can apply for an ITIN with the support of a certified tax preparer using <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>.</p>
+              question: Am I eligible for Child Tax Credit if I don’t have a Social Security Number?
+            do_i_have_to_report_my_advanced_child_tax_credit:
+              answer_html: |
+                <p>When you file your 2021 tax return, you will need to report to the IRS how much you received in Child Tax Credit (CTC) payments.&nbsp;</p>
+                <p>For most families who received advance payments, this amount will be $1,800 for younger children, or $1,500 for older children. For example, if you have one toddler, you&rsquo;re owed $3,600 in total CTC; if you received $1,800 in advance payments last year, you&rsquo;ll get another $1,800 this year.&nbsp;</p>
+                <p>The IRS requires you to report how much you received in monthly payments last year when you file your tax return. The IRS will use this number to calculate how much more CTC money you are owed.&nbsp;&nbsp;</p>
+                <p>If you do not remember how much you received in CTC payments you can look at your bank account records, refer to the letter IRS sent you in January with this information, or log into <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">your online IRS account</a>.&nbsp;&nbsp;</p>
+                <p>If you can not find the exact numbers for the amount of CTC payments you received in 2021, you should report your best guess of how much you received. There is no penalty for reporting the wrong number, but the wrong number may delay the processing of your refund by several months.</p>
+              question: Do I have to report my Advance Child Tax Credit payments from 2021 on my tax return?
+            do_i_qualify_for_the_child_tax_credit_ctc:
+              answer_html: |
+                <p>Most families with children under 18 qualify for the Child Tax Credit (CTC). To qualify for CTC:</p>
+                <ul class="list--bulleted">
+                <li>To receive the full amount of money, you must earn less than $75,000 as a single parent, or $150,000 as a married couple. If you earn less than $240,000 as a parent, or $440,000 as a married couple, you can still receive some CTC.&nbsp;</li>
+                <li>You must have lived in the United States for more than six months in 2021. (If not, you might be eligible for a smaller CTC.)</li>
+                <li>The child you are claiming must be your child, your grandchild, your sibling, your niece/nephew or your great-niece/nephew. Foster relatives, step relatives, and half-relatives also qualify.</li>
+                <li>Your child needs a Social Security Number (SSN). You, the parent, need an SSN or an Individual TaxPayer Identification Number (ITIN).</li>
+                <li>Your child must have been less than 18 at the end of 2021. (Born on or after January 1, 2004.)</li>
+                <li>Your child needs to have lived with you for at least six months in 2021.</li>
+                <li>Your child must not be financially independent, meaning they can not pay for more than half of their own living expenses.</li>
+                <li>You must be the person best situated to claim the child. Generally, parents can claim children before non-parents; parents who spend more time with the child can claim before parents who spend less; and non-parents who spend more time with the child can claim before non-parents who spend less.</li>
+                </ul>
+              question: Do I qualify for the Child Tax Credit (CTC)?
+            how_do_i_claim_child_tax_credit_for_a_baby_in_2021:
+              answer_html: You can now claim a baby who was born in 2021 on your tax return. When you add a baby born in 2021 to your tax return, you will get the full Child Tax Credit for them, including what you missed in last year’s advance payments.
+              question: How do I claim Child Tax Credit for a baby born in 2021?
+            how_do_i_claim_child_tax_credit_for_a_baby_in_2022:
+              answer_html: |
+                <p>You can not claim a baby born in 2022 yet; you&rsquo;ll have to wait until 2023. Every year we file taxes for life events that occurred the year before. Now that it is 2022 we file a tax return for 2021 and can only include income, children, marriages, etc. that occurred in 2021.&nbsp;</p>
+                <p>When you file taxes next year, you can claim children who were born in 2022.</p>
+              question: How do I claim Child Tax Credit for a baby born in 2022?
+            how_do_i_get_my_child_tax_credit_ctc_payments:
+              answer_html: |
+                <p>To get the Child Tax Credit (CTC) you have to file a tax return. Whether or not you received monthly CTC payments last year, and whether or not you filed taxes in the last few years or at all, filing a tax return this year is the right next step to get your CTC payments.&nbsp;</p>
+                <p>If you received advance monthly payments in 2021 then you can file a tax return to get the rest of your payments (generally, $1,800 per younger child and $1,500 per older child). If you did not receive monthly payments in 2021 then you can file a tax return to get your total CTC payments (generally, $3,600 per younger child and $3,000 per older child).</p>
+                <p>You can file a tax return for free with GetYourRefund.</p>
+              question: How do I get my Child Tax Credit (CTC) payments?
+            how_do_i_get_the_child_tax_credit_if_i:
+              answer_html: |
+                <p>Families who do not usually file taxes are sometimes called &ldquo;non-filers.&rdquo; Often, this refers to families who make little enough money that they aren&rsquo;t required to file taxes &mdash; sometimes because they get their income from disability or other benefits, instead.</p>
+                <p>Everyone who is eligible for tax benefits should file a tax return, even if you think of yourself as a &ldquo;non-filer.&rdquo; Filing a tax return could get you cash benefits like the Child Tax Credit even if you do not normally file a tax return or have not filed a tax return in a long time.</p>
+                <p>Families who are not required to file tax returns do have an extra option: they can file a &ldquo;simplified&rdquo; tax return. This has sometimes been called the &ldquo;non-filer form&rdquo; or &ldquo;non-filer tool.&rdquo; The simplified return is technically a tax return, but is much easier to finish, and requires much less information. Simplified filing will be available in May 2022. If you are not required to file taxes, you have the option to file a full tax return now or to wait until May to use a simpler filing tool.</p>
+                <p>File a tax return today with <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a> or <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">sign up to receive updates</a> about simplified filing.</p>
+              question: How do I get the Child Tax Credit if I am a non-filer?
+            how_much_is_the_child_tax_credit_in_2022:
+              answer_html: |
+                <p>You can file a tax return now to claim the Child Tax Credit (CTC). The CTC for tax year 2021 is up to $3,600 per child under 6, and $3,000 per child age 6-17.</p>
+                <p>If you received monthly CTC payments last year you will only get your remaining CTC amount when you file a tax return this year. So, if you have a 2 year old, and you got six months of $300 payments last year, you already received $1,800 of your CTC. When you file in 2022, you will receive the other half &mdash; another $1,800.</p>
+                <p>There are currently no more monthly payments of the CTC during 2022. When you file, you will receive the remaining amount in one payment.</p>
+              question: How much is the Child Tax Credit in 2022?
+            i_got_letter_6419_from_the_irs_what_is_it:
+              answer_html: Letter 6419 is a letter that the IRS sent to everyone who received monthly Child Tax Credit (CTC) payments in 2021. The letters contain information about how much the IRS issued you in these monthly payments. To claim the rest of the Child Tax Credit this year, you’ll need to report the amount the IRS paid you — so this letter can be very helpful. Letter 6419 was sent in December 2021 or January 2022.
+              question: I got Letter 6419 from the IRS. What is it?
+            i_have_student_debt_can_i_still_get_all_of:
+              answer_html: <p>As of now, yes. Due to the COVID-19 pandemic, the Department of Education has stopped taking any payments from other federal agencies to cover outstanding student debt. The Department has said that this policy will be <a href="https://www.cnbc.com/2022/02/08/student-loan-borrowers-who-default-may-see-child-tax-credit-garnished.html" target="_blank" rel="noopener">in place through 2022</a>. That said, this policy is <a href="https://www.ed.gov/news/press-releases/biden-harris-administration-extends-student-loan-pause-through-may-1-2022" target="_blank" rel="noopener">not permanent</a>, and it&rsquo;s possible it could expire. You should file soon to ensure that your refund is issued before student debt payments resume.</p>
+              question: I have student debt, can I still get all of the Child Tax Credit?
+            i_owe_back_child_support_can_i_still_get_all:
+              answer_html: |
+                <p>Probably not.&nbsp;</p>
+                <p>If you owe back child support, some payments you get from the government can be taken (or &ldquo;garnished&rdquo;) to pay your child support debt. IRS payments like tax refunds are subject to this process.&nbsp;</p>
+                <p>Notably, the CTC monthly payments issued in 2021 were <em>not</em> taken to cover child support debts. Any amount you claim this year, though &mdash; whether it is the second half of the credit, or the whole credit &mdash; can be taken.</p>
+              question: I owe back child support, can I still get all of the Child Tax Credit?
+            i_was_getting_child_tax_credit_monthly_payments_in_2021:
+              answer_html: |
+                <p>Monthly payments of the Child Tax Credit (CTC) started in July 2021 based on a law Congress passed earlier in the year, which made significant expansions to the CTC. Unfortunately, this law only made the changes for 2021. Because Congress has not renewed the CTC expansion for 2022, there are currently no monthly payments. But, if eligible, you can still receive the second half of your payment in one lump sum by filing a 2021 tax return.</p>
+                <p>You can file a tax return for free with <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>.</p>
+              question: I was getting Child Tax Credit monthly payments in 2021. Why didn’t I get my CTC monthly payment in 2022?
+            is_the_child_tax_credit_ctc_going_away:
+              answer_html: |
+                <p>Most of it isn&rsquo;t &mdash; at least not yet. But some parts are.</p>
+                <p>In 2021, Congress significantly expanded the Child Tax Credit (CTC). The CTC is now worth up to $3,600 per child under six and $3,000 per child ages 6-17.&nbsp;</p>
+                <p>If you received monthly payments last year, you have only received half of your payments and need to file a 2021 tax return to get the rest of your money.&nbsp;</p>
+                <p>If you didn&rsquo;t receive monthly payments last year, you can get the whole CTC, even if you earn little or no money.</p>
+                <p>The changes Congress made were only for one year. That means that, unless Congress acts again, there will not be new monthly payments available this year. It also means that, when you file next year, the CTC will be reduced to $2,000 per child, and you might not receive as much if you have low income.</p>
+              question: Is the Child Tax Credit (CTC) going away?
+            title: Child Tax Credit
+            what_do_i_do_if_someone_else_has_claimed_my:
+              answer_html: |
+                <p>Only one tax return can claim a child in any given tax year. Sometimes two different households try to claim the same child because they are trying to share payments, claiming rights are unclear, or there is foul play.&nbsp;</p>
+                <p>What you do next depends on when someone else claimed your child.</p>
+                <p>If someone claimed your child last year (in 2021 on their 2020 tax return) and prevented you from getting Child Tax Credit (CTC) monthly payments, the most important thing is to file quickly this year. If you file a tax return before the other person claiming your child, you will receive the full CTC amount (including all of the monthly payments you missed out on last year).&nbsp;</p>
+                <p>If you try to file a tax return this year and find that someone has already claimed your child and you wish to contest the claim to the IRS in order to receive your payments, the process is more complicated. First, you have to mail a paper copy of your return to the IRS. Next, the IRS will begin a process to determine who is allowed to claim this dependent. This process can be difficult for you and for whoever else claimed your dependent. If you want to pursue this process, see here for more info: https://www.irs.gov/identity-theft-fraud-scams/identity-theft-dependents. A <a href="https://www.getyourrefund.org/en/vita_providers" target="_blank" rel="noopener">Volunteer Income Tax site</a> or the <a href="https://www.irs.gov/taxpayer-advocate" target="_blank" rel="noopener">Taxpayer Advocate Service</a> can assist you with the process.</p>
+              question: What do I do if someone else claimed my child for Child Tax Credit?
+            what_if_i_dont_have_any_income_or_only_income:
+              answer_html: You don’t need any income to qualify for the Child Tax Credit (CTC) and receiving payments from other benefits programs does not impact your eligibility.
+              question: What if I don’t have any income, or only income from benefits programs (like SSI, SNAP, TANF, or WIC)?
+            what_is_the_child_tax_credit_ctc:
+              answer_html: |
+                <p>The Child Tax Credit (CTC) is a tax benefit that helps families with the costs of raising children. While the CTC has existed for over two decades, it was significantly expanded in 2021. This year, you can get <strong>up to $3,600 per child under six and $3,000 per child ages 6-17</strong>.&nbsp;</p>
+                <p>The credit is smaller for single parents earning over $75,000 and married couples earning over $150,000. Nearly every family under those income levels receives the full amount. You are eligible for the full CTC payments even if you earn very little or no money, and even if you don&rsquo;t usually file taxes.</p>
+              question: What is the Child Tax Credit (CTC)?
+            what_is_the_child_tax_credit_update_portal_ctc_up:
+              answer_html: |
+                <p>The <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener">CTC Update Portal (CTC UP)</a> allowed families to update relevant information about their Child Tax Credit (CTC) payments. Last year, CTC UP allowed users to opt out of advance CTC payments, change payment information, and check overall eligibility status. Because monthly payments have stopped this year, you shouldn&rsquo;t have to use the CTC Update Portal. You should file a tax return to claim the rest of this year&rsquo;s CTC.&nbsp;</p>
+                <p>If you need to see the amount of advance payments you received last year, you can go to <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">your online IRS account</a>.</p>
+              question: What is the Child Tax Credit Update Portal (CTC UP)?
+            why_did_my_spouse_and_i_get_two_different_letters:
+              answer_html: |
+                <p>If you filed taxes together with your spouse last year and claimed a child for the Child Tax Credit (CTC), the IRS should have issued you monthly CTC payments for your child. Even if you and your spouse filed your taxes together, the IRS treated those payments as if they were going half to you and half to your spouse. The IRS applied this logic in the letters they sent about advance payments. For example if your family got $1,500 in CTC payments, the IRS would send two letters, one to each spouse, reporting $750 of payments each. If you are filing jointly again for 2021, hold on to both letters and report the total payments from the letters added together.</p>
+                <p>If you and your spouse have divorced or have chosen to file taxes separately, you should each report only the payment amount from your individual letters.</p>
+              question: Why did my spouse and I get two different letters about our advance CTC payments?
+          documents:
+            how_do_i_get_my_1099_employment_document:
+              answer_html: <p>If you received over $600 in nonemployee compensation from a business or individual as part of contract/freelance work, the business or individual must issue 1099-NEC by January 31, 2022. If you did not receive this form, you should try contacting the organization or individual you worked for to get a copy. Many self-employment apps like Lyft, Uber, or DoorDash have forms and additional information on their contractor dashboards on the app. If you are unable to retrieve the correct forms, you can wait until late May to request a <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">&ldquo;Wage and Income Transcript&rdquo; from the IRS</a>.</p>
+              question: How do I get my 1099 employment document?
+            how_do_i_get_my_w2_employment_document:
+              answer_html: <p>Employers are required to send a current W2 in the mail or electronically to all W2 employees by January 31, 2022. If you did not receive a W2 from your employer, you should contact your employer directly to request a copy. If you are unable to contact your employer, you can wait until late May to request a <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">&ldquo;Wage and Income Transcript&rdquo; from the IRS</a>.</p>
+              question: How do I get my W2 employment document?
+            how_do_i_replace_my_social_security_card:
+              answer_html: |
+                <p>You can request a replacement Social Security card <a href="https://www.ssa.gov/myaccount/replacement-card.html" target="_blank" rel="noopener">here</a>. You can you use this service if you:</p>
+                <ul class="list--bulleted">
+                <li>Are a US Citizen age 18 or older with a US mailing address, and</li>
+                <li>Are not requesting a name change, and</li>
+                <li>Have a driver&rsquo;s license or state issued identification card from one of the participating states or the District of Columbia</li>
+                </ul>
+              question: How do I replace my Social Security card?
+            title: Documents
+            why_do_you_need_my_social_security_card:
+              answer_html: |
+                <p>To prevent identity theft, the IRS requires that all Volunteer Income Tax Assistance (VITA) programs verify the identity of the people they&rsquo;re helping by checking a photo ID and viewing a paper copy of a Social Security Card or Individual Taxpayer Identification Number (ITIN). Alternatively, you can provide an SSA letter or Form SSA-1099 from the Social Security Administration.&nbsp;</p>
+                <p>If you are filing with GetYourRefund&rsquo;s DIY service, GetCTC, or another online tax filing service you will only need Social Security Numbers but not the Social Security card.</p>
+              question: Why do you need my Social Security card?
+          earned_income_tax_credit:
+            how_has_the_earned_income_tax_credit_eitc_changed_this:
+              answer_html: |
+                <p>In 2021, Congress made significant improvements to the Earned Income Tax Credit (EITC) for people without children. These changes apply to the 2021 tax year, meaning they apply to the tax return you file in 2022. First, the credit is now bigger (it used to be worth only up to about $500, it is now worth up to about $1,500). Second, the eligibility rules were loosened. Now, anyone older than 19, if they are not a full time student, can be eligible for the EITC. Former foster youth or youth experiencing homelessness are eligible at age 18.</p>
+                <p>There is no change to the EITC for people with children, which is still worth up to about $3,600 with one child, $6,000 with two children, or $6,700 with three children, depending on income.</p>
+              question: How has the Earned Income Tax Credit (EITC) changed this year?
+            title: Earned Income Tax Credit
+            what_is_the_earned_income_tax_credit_eitc:
+              answer_html: The Earned Income Tax Credit (EITC) is a benefit available to people who earn income from work. EITC eligibility is complicated, but it is available to most families with children who make less than $42,000, and it is available to most families without children who make less than $21,000. Like other tax credits, you have to claim the EITC by filing a tax return.
+              question: What is the Earned Income Tax Credit (EITC)?
+          getyourrefund_account_access:
+            i_cant_sign_in:
+              answer_html: |
+                <p>You can sign into GetYourRefund in order to answer tax questions, upload tax documents, sign your final tax return, and message your tax team.</p>
+                <p>Click <a href="https://www.getyourrefund.org/en/portal/login" target="_blank" rel="noopener">sign in</a>. You will be asked to enter the last 4 digits of your Social Security Number or ITIN, or enter your Client ID. Then we will text message or email a one time use, 6-digit password. Once you enter that password you will be signed into your account.</p>
+              question: I can’t sign in
+            title: GetYourRefund Account Access
+            what_is_my_client_id_number:
+              answer_html: |
+                <p>Your Client ID was sent to you in a text message or email when you first started with GetYourRefund. Your Client ID is a 7 digit number that helps you sign in and keeps your data secure.</p>
+                <p>To search your email inbox for your Client ID, look for an email from <a href="mailto:hello@getyourrefund.org" target="_blank" rel="noopener">hello@getyourrefund.org</a>. To search your text messages for your Client ID, look for a message from 58750.</p>
+              question: What is my Client ID number?
+          how_does_getyourrefund_work:
+            title: How does GetYourRefund Work?
+            what_is_file_myself_and_how_does_it_work:
+              answer_html: |
+                <p>File Myself connects you with free online tax filing software. You can continue to chat with GetYourRefund tax experts as you use the website.&nbsp;</p>
+                <p>File Myself is a great option if you have only 2021 taxes to file, do not have a lot of questions, and feel confident using websites on your own. It is also a great option for anyone who does not have a paper copy of their Social Security card (which is required to use GetYourRefund Full Service). You will need access to your other tax documents, like W2s or 1099s. Most filers can complete the File Myself process in 45 minutes or less, and you can claim all of your state and federal tax benefits.</p>
+              question: What is File Myself and how does it work?
+            what_is_getyourrefund_deluxe_and_how_does_it_work:
+              answer_html: |
+                GetYourRefund Full Service/Virtual VITA service connects you with an IRS certified tax preparer from the VITA program for free. You should consider GetYourRefund if you have several years of taxes to file, have not filed taxes before, or have a lot of questions about your tax return and want personal support. This process typically takes 2-3 weeks, and you can claim all of your state and federal tax benefits.
+                If you choose GetYourRefund Full Service/Virtual VITA:
+                1. Fill out your tax information online and upload all of your tax documents
+                2. An IRS certified tax preparer will review your information and schedule a phone call with you
+                3. Your tax preparer will prepare your taxes
+                4. A second tax preparer will complete a quality review of your taxes and call you to review any final information and tell you your refund amount
+                5. You will sign your tax forms online
+                6. We will submit your taxes to the IRS
+              question: What is GetYourRefund and how does it work?
+            what_is_getyourrefund_express_and_how_does_it_work:
+              answer_html: |
+                <p>GetYourRefund Express, also known as GetCTC or the nonfiler tool,&nbsp; is our simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.&nbsp;</p>
+                <p>You can use GetYourRefund Express to claim stimulus payments (Economic Impact Payments) and the Child Tax Credit (CTC), but not the Earned Income Tax Credit or state tax credits. Generally, you can only use GetYourRefund Express if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021.</p>
+                <p>GetYourRefund Express is a great choice for you if you are <em>only</em> looking to get the stimulus payments and the Child Tax Credit,&nbsp; if you are missing your tax documents, or missing a paper copy of your Social Security card.</p>
+              question: What is GetYourRefund Express and how does it work?
+          i_got_a_letter_from_the_irs:
+            i_got_letter_6419_from_the_irs_what_is_it:
+              answer_html: Letter 6419 is a letter that the IRS sent to everyone who received monthly Child Tax Credit (CTC) payments in 2021. The letters contain information about how much the IRS issued you in these monthly payments. In order to claim the rest of the Child Tax Credit on your 2021 tax return, you will need to report the amount the IRS paid you in advances — so this letter can be very helpful. Letter 6419 was sent in December 2021 or January 2022.
+              question: I got Letter 6419 from the IRS. What is it?
+            i_got_letter_6475_or_1444c_from_the_irs_what:
+              answer_html: |
+                <p>Letter 6475 and 1444-C are letters the IRS sent to everyone who received the third stimulus check (Economic Impact Payment), which was issued starting in March 2021. The letters contain information about how much the IRS issued you in the third stimulus check.</p>
+                <p>Accurately reporting how much you received in stimulus checks can help you and your tax preparer correctly claim any missing money &mdash; so these letters can be very helpful. Letter 1444-C would have been sent around the time your payment was issued in March 2021. Letter 6475 was sent in January 2022.</p>
+              question: I got Letter 6475 or 1444-C from the IRS. What is it?
+            i_got_notice_4883c_or_5071c_from_the_irs_what:
+              answer_html: Notice 4883C and 5071C are letters the IRS sends if they have received a tax return for you and they are concerned it might be fraudulent. If you did submit a return, you will need to verify your identity, either online or on the phone, according to the instructions on the letter. If you did not submit a tax return, then this letter indicates that a fraudster tried to submit a return using your information. You should follow the instructions to report this fraud to the IRS, to make sure your future payments are not negatively affected.
+              question: I got Notice 4883C or 5071C from the IRS. What is it?
+            i_got_notice_cp09_or_cp27_from_the_irs_what:
+              answer_html: Notice CP09 or CP27 is a letter the IRS sends you if you might be eligible for the Earned Income Tax Credit (EITC) but you didn’t claim it when you filed your taxes. The notices ask you to confirm a few facts about your and your household in order to claim the credit, which could be worth over $6,000. You should fill out the notice truthfully and mail it back to the IRS.
+              question: I got Notice CP09 or CP27 from the IRS. What is it?
+            title: I got a letter from the IRS. What does it mean?
+            why_did_my_spouse_and_i_get_two_different_letters:
+              answer_html: Letter 6419 is a letter that the IRS sent to everyone who received monthly Child Tax Credit (CTC) payments in 2021. The letters contain information about how much the IRS issued you in these monthly payments. In order to claim the rest of the Child Tax Credit on your 2021 tax return, you will need to report the amount the IRS paid you in advances — so this letter can be very helpful. Letter 6419 was sent in December 2021 or January 2022.
+              question: Why did my spouse and I get two different letters (Letter 6419) about our advance CTC payments?
+          im_nervous_about_filing_and_claiming_tax_benefits:
+            are_tax_credits_considered_in_public_charge_determinations:
+              answer_html: No. Tax credits, including the EITC, CTC, and stimulus payments are not considered in the public charge assessment.
+              question: Are tax credits considered in public charge determinations?
+            title: I’m nervous about filing and claiming tax benefits
+            what_do_i_do_if_im_audited_by_the_irs:
+              answer_html: |
+                <p>If you receive a refund that includes tax credits like the Earned Income Tax Credit and Child Tax Credit and the IRS has a reason to believe you incorrectly claimed these credits, they may ask for additional information as part of an audit. Audits can also occur if someone else tries to claim your dependent.&nbsp;</p>
+                <p>If you are audited, you will receive a letter or notice that asks you to provide additional information like proof of relationship and proof of residency of the dependent in question. The letter will include detailed instructions on what documents the IRS needs. If you need additional assistance in responding to the IRS, low-income taxpayers can seek help from the <a href="https://www.taxpayeradvocate.irs.gov/about-us/low-income-taxpayer-clinics-litc/" target="_blank" rel="noopener">Low Income Taxpayer Clinics</a> (LITC)</p>
+              question: What do I do if I’m audited by the IRS?
+            what_if_i_havent_filed_for_years:
+              answer_html: <p>There are no consequences for not filing a tax return during the years you were not required to file. Your filing requirement is typically determined by income, filing status, and age. If you were required to file a return in a previous year and now file a current tax return, the IRS may contact you with information about a skipped filing&nbsp; year. You can use <a href="https://www.irs.gov/help/ita/do-i-need-to-file-a-tax-return" target="_blank" rel="noopener">this IRS tool </a>to determine if you needed to file or could benefit from filing a current or previous tax return.</p>
+              question: What if I have not filed taxes in a long time?
+            will_claiming_these_credits_make_me_ineligible_for_other_government:
+              answer_html: In most cases, tax credits like the Earned Income Tax Credit, Child Tax Credits, and stimulus payments do not count as income in determining benefits eligibility. Any refunds you save do not count against any federally-funded public benefit program for 12 months after the refund is received.
+              question: Will claiming these credits make me ineligible for other government benefits like SNAP, WIC, TANF, and housing assistance?
+            will_i_need_to_repay_any_of_my_refund:
+              answer_html: |
+                <p>If the IRS determines your tax refund was incorrectly calculated, they may require you to repay the ineligible amount, plus interest. There may be additional penalties and consequences if the IRS determines that you were reckless or intentionally disregarded the rules of claiming these credits. Aren&rsquo;t sure if you qualify for tax credits? Chat with our tax experts.</p>
+                <p>If you received CTC monthly payments incorrectly you will not need to repay any of them, even if they are wrong. This is the case, as long as you do not earn more than $55,000 single or $66,000 married.</p>
+              question: Will I need to repay any of my refund?
+          income:
+            are_my_disability_benefits_income:
+              answer_html: |
+                <p>There are two primary sources of disability income and they are treated differently for tax purposes:</p>
+                <ul class="list--bulleted">
+                <li>Supplemental Security Income (SSI) payments are not reported as income on a tax return.&nbsp;</li>
+                <li>Social Security Disability Insurance (SSDI) is reported on form SSA-1099. The income may be partially taxable. Generally if SSDI is your only source of income, it is not taxable.</li>
+                </ul>
+              question: Are my disability benefits income?
+            are_my_snap_benefits_income:
+              answer_html: No, your SNAP benefits are not considered income for purposes of filing a tax return.
+              question: Are my SNAP benefits income?
+            are_my_unemployment_benefits_income:
+              answer_html: Yes, your unemployment benefits are taxable income and should be reported on your tax return. Last year, Congress made an exception and exempted unemployment benefits from taxation, but that no longer applies. Please note that unemployment income is not considered earned income for purposes of the Earned Income Tax Credit.
+              question: Are my unemployment benefits income?
+            how_do_i_report_my_income_if_im_selfemployed:
+              answer_html: |
+                <p>You are required to file taxes if you make more than $400 in <a href="http://getyourrefund.org/faq/income/what_do_you_mean_by_selfemployed" target="_blank" rel="noopener">self-employment income</a>. You will report self-employment income when filing your tax return. Self-employment income is reported on Schedule C. This type of income may be recorded in a number of ways:</p>
+                <ul class="list--bulleted">
+                <li>Form 1099-NEC (Nonemployee Compensation)</li>
+                <li>Form 1099-K (Payment Card and Third-Party Network Transaction)</li>
+                <li>App dashboards and personal records (you are required to report all income that you earned, even if some of it is not listed on a tax form)</li>
+                </ul>
+                <p>It is important to closely track all of your income and expenses if you are self-employed because they may not be tracked by companies or individuals you work with but you are still required to report income and expenses on your tax return.</p>
+              question: How do I report my income if I’m self-employed?
+            title: Income
+            what_do_you_mean_by_selfemployed:
+              answer_html: |
+                <p>Self-employed is a broad description that many people who work now fall into. Generally, when the IRS talks about self-employment they could mean that you are an independent contractor or freelancer, you work on short-term contracts, or own your own business.&nbsp;</p>
+                <p>You can be considered self-employed even if you haven&rsquo;t formally&nbsp; launched your own business. Common examples of self-employment work includes driving using a rideshare app like Uber and Lyft, delivering items using an app like Instacart and Doordash, pet sitting or dog walking, and childcare services.&nbsp;</p>
+                <p>If you are a rideshare driver, you can find additional information at <a href="https://www.taxoutreach.org/rideshare/" target="_blank" rel="noopener">Taxoutreach.org/rideshare</a>.</p>
+              question: What do you mean by self-employed?
+            what_expenses_can_i_claim_if_im_selfemployed:
+              answer_html: |
+                <p>You can claim any business expense that is considered &ldquo;ordinary and necessary&rdquo; to carry on the business. An ordinary expense is one that is common and accepted within a specific business. A necessary expense is one that is helpful and appropriate for the taxpayer&rsquo;s trade or business.</p>
+                <p>Examples of some of the most common expenses include:</p>
+                <ul class="list--bulleted">
+                <li><span style="text-decoration: underline;">Car and Truck Expenses</span>: Vehicle expenses can be calculated using actual expenses or the standard mileage rate. Read more about these deductions <a href="https://www.taxoutreach.org/rideshare/how-to-claim-the-standard-mileage-deduction/" target="_blank" rel="noopener">here</a>.&nbsp;</li>
+                <li><span style="text-decoration: underline;">Supplies</span>: Includes costs for general operating supplies not associated with the cost of goods sold.</li>
+                <li><span style="text-decoration: underline;">Office Expense</span>: Includes supplies such as pens, paper, and postage.</li>
+                <li><span style="text-decoration: underline;">Advertising</span>: Costs associated with promoting the business.</li>
+                </ul>
+                <p><span style="text-decoration: underline;">Taxes and Licenses</span>: Including business licenses and regulatory fees paid to operate their business.</p>
+              question: What expenses can I claim if I’m self-employed?
+          itin_filing_for_people_without_a_social_security_number:
+            how_do_i_get_an_itin:
+              answer_html: |
+                <p>To get an ITIN, you need to file Form W-7 along with your federal tax return. As part of the application, you will have to provide proof of identity, using original copies of your documents (most often a passport). You can either mail these documents to the IRS, or apply in person through the IRS or through a &ldquo;Certified Acceptance Agent,&rdquo; who can examine your documents on behalf of the IRS. It is often beneficial to apply in person so that you do not need to mail in your original documents.&nbsp;</p>
+                <p>If you use <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>, your tax team can help you complete both your W-7 and your tax return, and support you through the identity verification process.</p>
+              question: How do I get an ITIN?
+            if_i_file_my_taxes_can_ice_get_my_data:
+              answer_html: |
+                <p>Many people who are not authorized to live in the United States worry that filing taxes increases their exposure to the government, fearing this could ultimately result in deportation. If you already have an ITIN, then the IRS has your information, unless you moved recently. You are not increasing your exposure by renewing an ITIN or filing taxes with an ITIN.</p>
+                <p>Current law generally prohibits the IRS from sharing tax return information with other agencies, with a few important exceptions. For instance, tax return information may in certain cases be shared with state agencies responsible for tax administration or with law enforcement agencies for investigation and prosecution of non-tax criminal laws. The protections against the disclosure of information are set in law so they cannot be rescinded by a presidential executive order or other administrative action unless Congress changes the law.</p>
+                <p>Knowing the potential risks and benefits involved, only proceed with an ITIN application or tax filing if you feel comfortable. This information does not constitute legal advice. Consult with an immigration attorney if you have any concerns.</p>
+              question: If I file my taxes, can ICE get my data?
+            title: ITIN Filing for People without a Social Security Number
+            what_is_an_itin_itin_number:
+              answer_html: An Individual Tax Identification Number or ITIN is for people who can not get a Social Security Number — usually because of their immigration status. The ITIN will allow you to appear on a tax return and receive tax benefits for you and your family.
+              question: What is an ITIN [“ITIN number”] and why should I get one?
+          nonfiler_portal:
+            title: Nonfiler Portal
+            where_is_the_nonfiler_portal_where_is_getctc:
+              answer_html: |
+                <p>In 2020 and 2021, the IRS &ldquo;nonfiler portal&rdquo; or &ldquo;non-filer tool&rdquo; allowed people who don&rsquo;t typically file returns to file a simple tax return to claim benefits such as the stimulus checks (Economic Impact Payments) and Child Tax Credit (CTC). Code for America launched a simplified filing portal, called GetCTC, in Fall 2021.&nbsp;</p>
+                <p>Per IRS rules, these nonfiler portals are currently closed. If you previously filed a simple return to claim your tax benefits, you can try to claim even more money by filing a full return for free with <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>. Our IRS-certified volunteers can help you file. If you are unable to file a full return, you can <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">sign up</a> to be notified when our new simplified filing service (sometimes referred to as a nonfiler portal) opens in May 2022.</p>
+              question: Where is the nonfiler portal? Where is GetCTC?
+          paper_filing:
+            how_do_i_paper_file:
+              answer_html: |
+                <p>To paper file your tax return, you need to:</p>
+                <ul class="list--numbered">
+                <li>Print your tax return. Most tax software will allow you to print a return you prepared online. If relevant, separate your federal from your state return.</li>
+                <li>Attach a copy of any income tax documents (like W-2s or 1099s) to both your federal return and your state return (if you are filing both).</li>
+                <li>Sign form 1040 at the bottom of page 2. (If married filing jointly, both spouses must sign.)</li>
+                <li>Sign your state tax return. (This signature line differs by state.)</li>
+                <li>Mail your federal tax return. You can find the correct mailing address for your federal tax return <a href="https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment" target="_blank" rel="noopener">here</a>.&nbsp; Select your state, look for the row for Form 1040, and select the mailing address based on whether you or not you are including a payment to the IRS. (If you&rsquo;re expecting a refund, then you are not including a payment to the IRS.)</li>
+                <li>Mail your state tax return (if applicable). You can locate your state mailing address <a href="https://support.taxslayer.com/hc/en-us/articles/360015704372-Where-Do-I-Mail-My-State-Return-" target="_blank" rel="noopener">here.</a></li>
+                </ul>
+                <p>After mailing your tax return, you may receive a letter or notice from the IRS in 2-6 months, asking for additional information to confirm the information on the tax return.</p>
+              question: How do I paper file?
+            title: Paper Filing
+            where_should_i_mail_my_tax_return:
+              answer_html: |
+                <p><strong>Federal tax return</strong>: You can find the correct mailing address for your federal tax return <a href="https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment" target="_blank" rel="noopener">here</a>.&nbsp; Select your state, look for the row for Form 1040, and select the mailing address based on whether you are including a payment to the IRS. (If you&rsquo;re expecting a refund, then you are not including a payment to the IRS.)</p>
+                <p><strong>State tax return</strong>: You can locate your state mailing address <a href="https://support.taxslayer.com/hc/en-us/articles/360015704372-Where-Do-I-Mail-My-State-Return-" target="_blank" rel="noopener">here.</a></p>
+              question: Where should I mail my tax return?
+            why_would_i_paper_file_my_tax_return:
+              answer_html: |
+                <p>We strongly recommend filing your tax return electronically whenever possible. E-filing is more reliable, and you will get your tax benefits faster. However, there are situations where the only option is to mail a paper copy of your tax return to the IRS.&nbsp;</p>
+                <p>You must paper file if your tax return was rejected for reasons that cannot be resolved by efiling. For example, if your return was rejected because someone else claimed your child, you would have to paper file to claim that child. Similarly, if you were claimed as a dependent on someone else&rsquo;s tax return, or if you can&rsquo;t find an IP PIN you need, you would have to paper file. By paper filing a tax return in these instances, you are letting the IRS know that they need to investigate the issue further and you should expect to receive a follow-up letter from the IRS with next steps. For example, if you paper filed in order to claim a child that someone else had claimed, you might hear from the IRS about a process to submit evidence to support your case.</p>
+                <p>Another common reason to paper file is if you are applying for an Individual Taxpayer Identification Number (ITIN) for the first time, or renewing an existing ITIN.</p>
+              question: Why would I paper file my tax return?
+          puerto_rico:
+            do_i_have_to_file_a_tax_return:
+              answer_html: |
+                <p>If you live primarily in Puerto Rico and do not have income from outside the island, you generally have to file taxes with the Puerto Rico tax agency (Departamento de Hacienda de Puerto Rico) and <em>not</em> with the IRS. Some Puerto Rico residents are required to file returns with the IRS, and you should consult the rules carefully to make sure whether this applies to you.</p>
+                <p>Like for tax benefits in the 50 states, if you want to claim a tax credit like the Earned Income Tax Credit (EITC) or Child Tax Credit (CTC), you will need to file a tax return to claim it, though different credits require different returns.</p>
+              question: Do I have to file a tax return?
+            how_do_i_get_the_ctc_in_puerto_rico:
+              answer_html: |
+                <p>If you want to claim the Child Tax Credit (CTC) you need to provide your information to the IRS, even if you don&rsquo;t usually have to file U.S. taxes with the IRS. Instructions on how to file Form 1040-PR to claim the credit are <a href="https://www.juventudpr.org/idj/childtaxcredit#Sol" target="_blank" rel="noopener">available from the Instituto del Desarrollo de la Juventud</a>.&nbsp;</p>
+                <p>If you earn less than $75,000 single or $150,000 married, it is also likely that GetYourRefund will provide a simplified online form to claim the CTC, but this option will not be available until May.</p>
+              question: How do I get the Child Tax Credit (CTC) in Puerto Rico?
+            how_do_i_get_the_eitc_in_puerto_rico:
+              answer_html: Unlike the Child Tax Credit (CTC), the Earned Income Tax Credit (EITC) in Puerto Rico is administered by the Departamento de Hacienda de Puerto Rico, not by the IRS. To claim the EITC, you will have to file a Puerto Rico tax return with the department.
+              question: How do I get the EITC in Puerto Rico?
+            title: Puerto Rico
+            what_payments_am_i_eligible_for:
+              answer_html: |
+                <p>If you live in Puerto Rico, you are likely eligible for the Child Tax Credit (CTC) this year for the first time. That means, like families in the fifty states, you can get up to $3,600 per child under 6, and $3,000 per child age 6-17.</p>
+                <p>If you work and earn income, you may also qualify for the Puerto Rico EITC, of up to $2,000. The Puerto Rico Earned Income Tax Credit (EITC) is administered by the Departamento de Hacienda de Puerto Rico, and not by the IRS.</p>
+              question: What payments am I eligible for?
+          return_rejection_next_steps:
+            the_irs_says_i_already_filed_what_do_i_do:
+              answer_html: |
+                <p>If you already filed a tax return and are waiting for your refund you can log into your <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">IRS Online Account</a> for status updates.&nbsp;</p>
+                <p>If you already filed a tax return and need to update your information then you need to file an amended tax return (<a href="https://www.irs.gov/forms-pubs/about-form-1040x" target="_blank" rel="noopener">Form 1040X</a>). To file an amended tax return, it is usually easiest to use the same software or preparer that filed your original tax return.&nbsp;</p>
+                <ul class="list--bulleted">
+                <li>If you used the File Myself option on GetYourRefund, use <a href="https://www.taxslayer.com/tax-tools/tax-amendments" target="_blank" rel="noopener">this help article</a> to file an amended tax return through TaxSlayer.&nbsp;</li>
+                <li>If you use GetYourRefund and you need to file an amended tax return you should get back in touch with your tax team. You can chat with our Tax Experts or email <a href="mailto:support@getyourrefund.org" target="_blank" rel="noopener">support@getyourrefund.org</a> to request help with an amended tax return. You will be asked to provide tax documents or information related to the change you would like to make. For example, if you received a new Form W-2 after you completed your tax return, you will need to provide that form to the tax team. The tax team will prepare Form 1040X and, if applicable, an amended state return. In most cases, the amended returns can be e-filed once you provide an electronic signature.</li>
+                </ul>
+                <p>If you are unable to utilize that same software/service again, you can file an amendment with <a href="http://getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>. Your tax preparer will help you to submit your amendment. Most amendments can be e-filed but some (like change of filing status and change in dependents claimed) must be mailed to the IRS. Find the correct mailing address <a href="https://www.irs.gov/filing/where-to-file-addresses-for-taxpayers-and-tax-professionals-filing-form-1040x" target="_blank" rel="noopener">here</a>.&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>If you are certain you did not file a tax return this year, and you did not give someone else permission to file on your behalf, then it is possible that a bad actor filed a tax return in your name. You will need to paper file a tax return and attach <a href="https://www.irs.gov/pub/irs-pdf/f14039.pdf" target="_blank" rel="noopener">Form 14039, Identity Theft Affidavit</a>. The IRS will contact you through the mail with follow-up steps to confirm your identity.</p>
+              question: The IRS says I already filed. What do I do next?
+            the_irs_says_somebody_claimed_my_child:
+              answer_html: See <a href="http://getyourrefund.org/faq/child_tax_credit/what_do_i_do_if_someone_else_has_claimed_my" target="_blank" rel="noopener">"What do I do if someone else claimed my child for Child Tax Credit?"</a>
+              question: The IRS says somebody claimed my child. What do I do next?
+            title: Return Rejection Next Steps
+            what_is_agi_and_how_do_i_find_it:
+              answer_html: |
+                <p>AGI stands for Adjusted Gross Income. If you e-file your own return, you will need to provide the AGI you reported on last year&rsquo;s tax return as a security measure, to prove that you are who you say you are. If you filed a tax return last year, you should be able to find your AGI on Line 11 of your tax return.</p>
+                <p>If you can not find a copy of your tax return from last year, you should try to request a copy from the person, organization, or software that helped you file the tax return. If you are still unable to get a copy of your tax return, you can request a Tax Return Transcript from the IRS at their <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">Get Transcript page</a>.</p>
+                <p>If you did not file a tax return last year, you should enter $0 as your AGI for 2020. If you used the IRS non-filer tool or GetCTC in 2021, enter $1 as your AGI for 2020.</p>
+              question: What is AGI and how do I find it?
+            what_is_an_ip_pin_and_how_do_i_find:
+              answer_html: |
+                <p>An Identity Protection PIN (IP PIN) is a six-digit number the IRS provides to people who have been victims of identity theft, or who opted into the IP PIN program. If the IRS has assigned you an IP PIN you are required to provide it when you e-file your tax return. The IP PIN is meant to provide an extra measure of protection against identity theft.</p>
+                <p>If you have been the victim of identity theft and the IRS issued you an IP PIN &mdash; or if you signed up for the IP PIN program &mdash; a new IP PIN would arrive in the mail each year, in what the IRS calls Notice CP01A. The IRS issues a new IP PIN every year &mdash; last year&rsquo;s number will not work this year. If you cannot find this year&rsquo;s IP PIN, you can retrieve it online at <a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" target="_blank" rel="noopener">Retrieve Your IP PIN</a>, by calling 800-908-4490, or by making an in-person appointment at your <a href="https://www.irs.gov/help/contact-your-local-irs-office" target="_blank" rel="noopener">local IRS Taxpayer Assistance Center</a>.&nbsp;</p>
+                <p>If you are unable to retrieve the IP PIN, you will need to paper file your tax return.</p>
+              question: What is an IP PIN and how do I find it?
+          security_and_confidentiality:
+            can_ice_get_my_data:
+              answer_html: |
+                <p>Many people who are not authorized to live in the United States worry that filing taxes increases their exposure to the government, fearing this could ultimately result in deportation. If you already have an ITIN, then the IRS has your information, unless you moved recently. You are not increasing your exposure by renewing an ITIN or filing taxes with an ITIN.</p>
+                <p>Current law generally prohibits the IRS from sharing tax return information with other agencies, with a few important exceptions. For instance, tax return information may in certain cases be shared with state agencies responsible for tax administration or with law enforcement agencies for investigation and prosecution of non-tax criminal laws. The protections against the disclosure of information are set in law so they cannot be rescinded by a presidential executive order or other administrative action unless Congress changes the law.</p>
+                <p>Knowing the potential risks and benefits involved, only proceed with an ITIN application or tax filing if you feel comfortable. This information does not constitute legal advice. Consult with an immigration attorney if you have any concerns.</p>
+              question: Can ICE get my data?
+            how_do_you_keep_my_data_safe:
+              answer_html: All GetYourRefund and VITA partner volunteers are required to complete the IRS Volunteer Standards of Conduct exam. GetYourRefund uses industry best practices to ensure that client data is kept safe and follows IRS guidelines up to the SOC 2 security standard. All tax information and messages through GetYourRefund are implemented with end-to-end-encryption.
+              question: How do you keep my data safe?
+            title: Security and confidentiality
+          should_i_file_a_tax_return:
+            am_i_a_nonfiler:
+              answer_html: |
+                <p>The term &ldquo;nonfiler&rdquo; is sometimes used to refer to people who are not required to file a tax return and have not filed a tax return in the past few years. Most &ldquo;nonfilers&rdquo; are eligible for thousands of dollars in tax benefits from the Child Tax Credit, stimulus payments, and the Earned Income Tax Credit.&nbsp;</p>
+                <p>&ldquo;Non-filer&rdquo; is not a legal category &mdash; anyone can and should file a return, to claim the tax benefits available. By filing a tax return you are able to access thousands of dollars in tax benefits even if you make little to no money or do not usually file taxes.</p>
+              question: Am I a nonfiler?
+            im_1924_should_i_file_a_tax_return:
+              answer_html: |
+                <p>Most tax benefits &mdash; including the Earned Income Tax Credit, Child Tax Credit, and stimulus payments &mdash; are only available to individuals who cannot be claimed as a dependent on another person&rsquo;s tax return. Most individuals who are full-time students between the ages of 19-24 are someone else&rsquo;s dependent (typically their parent or guardian) &mdash; unless they can prove that they pay for over half of their living expenses including housing, food, medical/dental, and personal expenses.&nbsp;</p>
+                <p>Generally, if you are between the ages of 19 and 24 you should file your own tax return if you are not a full-time student and you made over $4,300 in the tax year.&nbsp;</p>
+                <p>Even if you can be claimed on another person&rsquo;s tax return, you may still benefit from filing a tax return if you had a job and taxes were withheld from your paycheck. When filing a return to claim any unused withholdings, make sure to indicate you can be claimed on someone else&rsquo;s tax return.</p>
+              question: I’m 19-24, should I file a tax return?
+            im_under_19_should_i_file_a_tax_return:
+              answer_html: |
+                <p>Most tax benefits &mdash; including the Earned Income Tax Credit, Child Tax Credit, and stimulus payments &mdash; are only available to individuals who cannot be claimed as a dependent on another person&rsquo;s tax return. Most individuals under the age of 19 are someone else&rsquo;s dependent (typically their parent or guardian) &mdash; unless they can prove that they pay for over half of their living expenses (including housing, food, medical/dental, and personal expenses).&nbsp;</p>
+                <p>Even if you can be claimed on another person&rsquo;s tax return, you may still benefit from filing a tax return if you had a job and taxes were withheld from your paycheck. When filing a return to claim any unused withholdings, make sure to indicate you can be claimed on someone else&rsquo;s tax return.</p>
+              question: I’m under 19, should I file a tax return?
+            title: Should I file a tax return?
+            what_are_the_potential_benefits_of_filing_a_tax_return:
+              answer_html: |
+                <p>Even if you make little to no income and are not required to file a tax return, you likely qualify for payments from the IRS &mdash; perhaps totaling thousands of dollars. You are especially likely to qualify for payments if you have children. In order to claim this money, you need to file a tax return.&nbsp;</p>
+                <p>Filing a tax return may also serve as useful documentation when applying for other benefits, like financial aid for college, or a home loan.&nbsp;</p>
+                <p>You can file a full tax return and claim all relevant tax benefits with GetYourRefund. For the fastest service, try our <a href="https://www.getyourrefund.org/diy/email" target="_blank" rel="noopener">File Myself</a> option.&nbsp;</p>
+                <p>If you make less than $12,500 (or less than $25,000 as a married couple) then you can choose to wait and file a simplified return to claim just the Child Tax Credit and third stimulus payment by using our free GetYourRefund Express option in May 2022. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Sign up here</a> to receive a message when Express filing is available.</p>
+              question: What are the potential benefits of filing a tax return?
+          state_returns:
+            can_i_get_tax_credits_from_california:
+              answer_html: |
+                <p>California has a number of beneficial state tax credits like CalEITC, Child and Dependent Care Expenses Credit, and College access tax credit. These credits add up quickly to mean even more money in your pockets. In order to claim these credits you need to file a California state tax return. We recommend filing this return at the same time that you file your federal tax return. Learn more about the CalEITC <a href="https://www.ftb.ca.gov/file/personal/credits/california-earned-income-tax-credit.html" target="_blank" rel="noopener">here</a>.</p>
+                <p>CalEITC eligibility rules are slightly different from the federal Earned Income Tax Credit (EITC). To qualify you must:</p>
+                <ul class="list--bulleted">
+                <li>Be at least 18 years old or have a qualifying child</li>
+                <li>Have taxable earned income</li>
+                <li>Have a SSN <strong>or</strong> ITIN for you, your spouse, and any qualifying children</li>
+                <li>Must not file married filing separately</li>
+                <li>Live in California for more than half the year</li>
+                <li>Be within certain income limits.</li>
+                </ul>
+                <p>Unfortunately, the time to claim the Golden State Stimulus I &amp; II has passed. The deadline to claim these payments was October 15, 2021.</p>
+              question: Can I get tax credits from California? Can I still get the Golden State Stimulus? How do I get the CalEITC? Am I eligible for the CalEITC? Am I eligible for the CalEITC if I don’t have a social security number?
+            can_i_get_tax_credits_from_my_state:
+              answer_html: Many states have their own tax credits similar to the Earned Income Tax Credit (EITC), Child Tax Credit (CTC), and heat and rent rebates. As of this year 30 states, the District of Columbia, Guam, Puerto Rico, and some municipalities have their own EITC. In order to claim these credits, you need to file a state or local return.
+              question: Can I get tax credits from my state?
+            do_i_have_to_file_a_state_return_if_i:
+              answer_html: |
+                <p>Generally, many states require that you file a state tax return in addition to a federal tax return. If you complete a nonfiler form (like GetCTC or a nonfiler portal with the IRS)then you might not have to file a state return, but state laws vary so you should double check your state rules.&nbsp;&nbsp;</p>
+                <p>Many states have their own tax credits similar to the Earned Income Tax Credit (EITC), Child Tax Credit (CTC), and heat and rent rebates. It is easiest to file your state tax return at the same time as your federal tax return if you can. You can find state specific instructions and resources at your state&rsquo;s Department of Revenue website.</p>
+              question: Do I have to file a state return if I filed a nonfiler form?
+            title: State Returns
+          stimulus:
+            how_do_i_get_the_stimulus_payments:
+              answer_html: |
+                <p>Stimulus payments were issued automatically to families who had recently filed tax returns, or who were enrolled in certain federal programs. If you missed any of the three stimulus payments, you will need to file a tax return to claim the amount you missed. Your missing stimulus payments are called the Recovery Rebate Credit.&nbsp;</p>
+                <p>To claim all or part of your third stimulus payment, you need to file a tax return for 2021. You can file for free using any of our services on <a href="http://getyourrefund.org" target="_blank" rel="noopener">GetYourRefund</a>.&nbsp;</p>
+                <p>To claim all or part of your first or second stimulus payments, you need to file a tax return for 2020. You can check your eligibility for filing back taxes for free using <a href="https://www.getyourrefund.org/questions/backtaxes" target="_blank" rel="noopener">GetYourRefund</a>.</p>
+              question: How do I get the stimulus payments?
+            how_many_stimulus_payments_were_there:
+              answer_html: |
+                <p>A total of three stimulus payments&nbsp; (also known as Economic Impact Payments) were issued between 2020 and 2021, to help families cope with the effects of the COVID-19 pandemic.&nbsp;</p>
+                <p>The <strong>first stimulus payment </strong>was issued in March/April 2020 and provided up to $1,200 per eligible adult and up to $500 for each qualifying dependent.&nbsp;</p>
+                <p>The <strong>second stimulus payment</strong> was issued in December 2020 and provided up to $600 per eligible person (adult, child, or dependent).</p>
+                <p>The <strong>third stimulus payment</strong> was issued in March/April 2021 and provided up to $1,400 per eligible person (adult, child, or dependent).</p>
+                <p>If you are trying to look up the stimulus payments you received so you can claim any missing payments, you can check your bank account statements for the dates listed above, log into your <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">IRS Online Account</a>, or look for IRS Letter 6475.</p>
+              question: How many stimulus payments were there?
+            title: Stimulus questions
+            what_is_the_economic_impact_payment:
+              answer_html: Economic Impact Payment (EIP) is the official name for the stimulus payments. The first payment is sometimes referred to as EIP1, the second as EIP2, and the third as EIP3.
+              question: What is the Economic Impact Payment?
+            what_is_the_recovery_rebate_credit:
+              answer_html: |
+                <p>The Recovery Rebate Credit is any part of the stimulus payments that you claim on a tax return.&nbsp;</p>
+                <p>For example, if you should have gotten $2800 from the third payment but only got $1400 in automatic payments last year, you could claim an additional $1400 on your tax return this year as a Recovery Rebate Credit.</p>
+              question: What is the Recovery Rebate Credit?
+            will_there_be_another_stimulus_payment:
+              answer_html: At this time, there are no additional stimulus payments scheduled.
+              question: Will there be another stimulus payment?
+          where_are_my_payments:
+            how_do_i_check_the_status_of_my_payments:
+              answer_html: |
+                <p>You can check the status of your refund at <a href="https://www.irs.gov/refunds" target="_blank" rel="noopener">Where&rsquo;s My Refund</a>, 24 hours after it&rsquo;s accepted by the IRS electronically. To verify your information, you will be asked to provide your Social Security Number (SSN) or Individual Taxpayer Identification Number (ITIN), filing status, and exact federal refund amount located on Line 35a of your federal tax return.&nbsp;</p>
+                <p>Please note that this IRS site only allows you to track the status of your 2021 federal refund.</p>
+              question: How do I check the status of my payments?
+            how_do_i_log_into_my_account_on_the_irs_website:
+              answer_html: |
+                <p>Creating and signing in to your IRS account can help you access important information needed to file an accurate tax return this year, including the amount of Child Tax Credit (CTC) or stimulus payments received. Verifying your identity to create an IRS account can be challenging. In order to verify your identity you will need an email address, your Social Security Number (SSN) or Individual Taxpayer Identification Number (ITIN), photo ID (driver&rsquo;s license, state ID, passport, or passport card), and mobile phone with camera or laptop/computer with webcam.&nbsp;</p>
+                <p>Learn about the steps to creating an ID.me account <a href="https://help.id.me/hc/en-us/articles/4402761436823" target="_blank" rel="noopener">here</a>.</p>
+              question: How do I log into my account on the IRS website?
+            how_long_does_it_take_to_get_my_refund_after:
+              answer_html: |
+                <p>After your return is accepted by the IRS electronically it typically takes 2-3 weeks to receive a direct deposit or 4-6 weeks to receive a check in the mail. However, there are a few common reasons your refund may be delayed, which include:</p>
+                <ul class="list--bulleted">
+                <li>Your return needs a correction for the amount of the Advanced Child Tax Credit payments you reported receiving</li>
+                <li>Your return needs a correction for the amount of the third stimulus payment you reported receiving</li>
+                <li>This is the first time you have filed taxes in several years</li>
+                <li>Your return Is affected by identity theft&nbsp;</li>
+                <li>Includes 2019 earned income to calculate the Earned Income Tax Credit</li>
+                <li>Information is incomplete or doesn&rsquo;t match the IRS&rsquo;s records</li>
+                </ul>
+                <p>If your return meets any of those circumstances, the IRS may contact you and request additional information. These delays can take months to resolve. It is important to keep an eye out for any letters or notices from the IRS and to follow any next steps to ensure you get your refund as quickly as possible.</p>
+                <p>To avoid delays, make sure you double check all the information you provide when filing a tax return. When in doubt, wait to file until you have all the information you need!</p>
+              question: How long does it take to get my refund after filing?
+            title: Where are my payments?
+          who_should_i_include_on_my_tax_return:
+            can_i_claim_my_parent:
+              answer_html: |
+                <p>In some cases, you can claim your parent as a dependent on your tax return. Generally, in order to claim your parent, they must have earned less than $4,300 in 2021 and you must pay for at least half of their living expenses.</p>
+                <p>Claiming your parent will not qualify you for the Child Tax Credit (CTC), or for an expanded Earned Income Tax Credit (EITC). Claiming your parent could increase your Recovery Rebate Credit (RRC) for missing stimulus payments.</p>
+              question: Can I claim my parent?
+            title: Who should I include on my tax return?
+            what_are_the_benefits_of_claiming_a_child_on_my:
+              answer_html: Depending on your situation, you could get up to about $10,000 for every child you can claim on your tax return. When you claim children on your taxes, you might establish eligibility for the Child Tax Credit (CTC), and increase the size of your Earned Income Tax Credit (EITC) and your Recovery Rebate Credit (RRC — also known as the third stimulus check, from 2021).
+              question: What are the benefits of claiming a child on my tax return?
+            what_should_i_do_if_i_was_claimed_as_a:
+              answer_html: |
+                <p>If someone claimed you as their dependent, first, you should determine whether they were in fact allowed to do so. Generally, if someone else (like a parent, grandparent, or guardian) pays for more than half of your living expenses and you live with them for most of the year, then you are their dependent. That means you do not qualify for most tax benefits (like the Child Tax Credit, Earned Income Tax Credit, or stimulus payments), and you generally can not file your own tax return.</p>
+                <p>If you think someone claimed you incorrectly,&nbsp; you can appeal &mdash; but unfortunately this process isn&rsquo;t easy. First, you&rsquo;ll have to mail a paper copy of your return to the IRS. (See &lsquo;How Do I Paper File&rsquo;.) Next, the IRS will begin a process to determine whether the other person&rsquo;s claim was valid. This process can be difficult for you and for whoever else claimed you, as you may both have to provide documentation supporting your case.</p>
+              question: What should I do if I was claimed as a dependent but I want to file my own taxes?
+            who_can_i_claim_on_my_return:
+              answer_html: |
+                <p>You can claim many relatives that financially rely on you for support as &ldquo;dependents&rdquo; on your tax return, though the rules for different relatives can be a little complicated.&nbsp;</p>
+                <p>The most common dependent is your children. Generally speaking, the IRS allows you to claim your child if they live with you most of the year, they are not financially independent, they were under 19 on the last day of the year, and you are the family member best positioned to claim them. You can also treat your stepchildren and nephews/nieces as your children under this definition.</p>
+                <p>You can in some cases claim other relatives, including aging parents, if you provide for most of their needs financially, and they earn very little themselves.</p>
+                <p>Various exceptions apply to both of these definitions. Most tax preparation services (including GetYourRefund) will walk you through the definitions and make sure it is appropriate for you to claim your relatives.</p>
+              question: Who can I claim on my return?
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
         title: Preguntas Frecuentes
       home:

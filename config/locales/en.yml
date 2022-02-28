@@ -2916,9 +2916,7 @@ en:
               answer_html: Letter 6419 is a letter that the IRS sent to everyone who received monthly Child Tax Credit (CTC) payments in 2021. The letters contain information about how much the IRS issued you in these monthly payments. To claim the rest of the Child Tax Credit this year, you’ll need to report the amount the IRS paid you — so this letter can be very helpful. Letter 6419 was sent in December 2021 or January 2022.
               question: I got Letter 6419 from the IRS. What is it?
             i_have_student_debt_can_i_still_get_all_of:
-              answer_html: '<p>As of now, yes. Due to the COVID-19 pandemic, the Department of Education has stopped taking any payments from other federal agencies to cover outstanding student debt. The Department has said that this policy will be <a href="https://www.cnbc.com/2022/02/08/student-loan-borrowers-who-default-may-see-child-tax-credit-garnished.html" target="_blank" rel="noopener">in place through 2022</a>. That said, this policy is <a href="https://www.ed.gov/news/press-releases/biden-harris-administration-extends-student-loan-pause-through-may-1-2022" target="_blank" rel="noopener">not permanent</a>, and it&rsquo;s possible it could expire. You should file soon to ensure that your refund is issued before student debt payments resume.</p>
-
-'
+              answer_html: <p>As of now, yes. Due to the COVID-19 pandemic, the Department of Education has stopped taking any payments from other federal agencies to cover outstanding student debt. The Department has said that this policy will be <a href="https://www.cnbc.com/2022/02/08/student-loan-borrowers-who-default-may-see-child-tax-credit-garnished.html" target="_blank" rel="noopener">in place through 2022</a>. That said, this policy is <a href="https://www.ed.gov/news/press-releases/biden-harris-administration-extends-student-loan-pause-through-may-1-2022" target="_blank" rel="noopener">not permanent</a>, and it&rsquo;s possible it could expire. You should file soon to ensure that your refund is issued before student debt payments resume.</p>
               question: I have student debt, can I still get all of the Child Tax Credit?
             i_owe_back_child_support_can_i_still_get_all:
               answer_html: |
@@ -2967,14 +2965,10 @@ en:
               question: Why did my spouse and I get two different letters about our advance CTC payments?
           documents:
             how_do_i_get_my_1099_employment_document:
-              answer_html: '<p>If you received over $600 in nonemployee compensation from a business or individual as part of contract/freelance work, the business or individual must issue 1099-NEC by January 31, 2022. If you did not receive this form, you should try contacting the organization or individual you worked for to get a copy. Many self-employment apps like Lyft, Uber, or DoorDash have forms and additional information on their contractor dashboards on the app. If you are unable to retrieve the correct forms, you can wait until late May to request a <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">&ldquo;Wage and Income Transcript&rdquo; from the IRS</a>.</p>
-
-'
+              answer_html: <p>If you received over $600 in nonemployee compensation from a business or individual as part of contract/freelance work, the business or individual must issue 1099-NEC by January 31, 2022. If you did not receive this form, you should try contacting the organization or individual you worked for to get a copy. Many self-employment apps like Lyft, Uber, or DoorDash have forms and additional information on their contractor dashboards on the app. If you are unable to retrieve the correct forms, you can wait until late May to request a <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">&ldquo;Wage and Income Transcript&rdquo; from the IRS</a>.</p>
               question: How do I get my 1099 employment document?
             how_do_i_get_my_w2_employment_document:
-              answer_html: '<p>Employers are required to send a current W2 in the mail or electronically to all W2 employees by January 31, 2022. If you did not receive a W2 from your employer, you should contact your employer directly to request a copy. If you are unable to contact your employer, you can wait until late May to request a <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">&ldquo;Wage and Income Transcript&rdquo; from the IRS</a>.</p>
-
-'
+              answer_html: <p>Employers are required to send a current W2 in the mail or electronically to all W2 employees by January 31, 2022. If you did not receive a W2 from your employer, you should contact your employer directly to request a copy. If you are unable to contact your employer, you can wait until late May to request a <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">&ldquo;Wage and Income Transcript&rdquo; from the IRS</a>.</p>
               question: How do I get my W2 employment document?
             how_do_i_replace_my_social_security_card:
               answer_html: |
@@ -3067,9 +3061,7 @@ en:
                 <p>If you are audited, you will receive a letter or notice that asks you to provide additional information like proof of relationship and proof of residency of the dependent in question. The letter will include detailed instructions on what documents the IRS needs. If you need additional assistance in responding to the IRS, low-income taxpayers can seek help from the <a href="https://www.taxpayeradvocate.irs.gov/about-us/low-income-taxpayer-clinics-litc/" target="_blank" rel="noopener">Low Income Taxpayer Clinics</a> (LITC)</p>
               question: What do I do if I’m audited by the IRS?
             what_if_i_havent_filed_for_years:
-              answer_html: '<p>There are no consequences for not filing a tax return during the years you were not required to file. Your filing requirement is typically determined by income, filing status, and age. If you were required to file a return in a previous year and now file a current tax return, the IRS may contact you with information about a skipped filing&nbsp; year. You can use <a href="https://www.irs.gov/help/ita/do-i-need-to-file-a-tax-return" target="_blank" rel="noopener">this IRS tool </a>to determine if you needed to file or could benefit from filing a current or previous tax return.</p>
-
-'
+              answer_html: <p>There are no consequences for not filing a tax return during the years you were not required to file. Your filing requirement is typically determined by income, filing status, and age. If you were required to file a return in a previous year and now file a current tax return, the IRS may contact you with information about a skipped filing&nbsp; year. You can use <a href="https://www.irs.gov/help/ita/do-i-need-to-file-a-tax-return" target="_blank" rel="noopener">this IRS tool </a>to determine if you needed to file or could benefit from filing a current or previous tax return.</p>
               question: What if I have not filed taxes in a long time?
             will_claiming_these_credits_make_me_ineligible_for_other_government:
               answer_html: In most cases, tax credits like the Earned Income Tax Credit, Child Tax Credits, and stimulus payments do not count as income in determining benefits eligibility. Any refunds you save do not count against any federally-funded public benefit program for 12 months after the refund is received.
@@ -3205,9 +3197,7 @@ en:
                 <p>If you are certain you did not file a tax return this year, and you did not give someone else permission to file on your behalf, then it is possible that a bad actor filed a tax return in your name. You will need to paper file a tax return and attach <a href="https://www.irs.gov/pub/irs-pdf/f14039.pdf" target="_blank" rel="noopener">Form 14039, Identity Theft Affidavit</a>. The IRS will contact you through the mail with follow-up steps to confirm your identity.</p>
               question: The IRS says I already filed. What do I do next?
             the_irs_says_somebody_claimed_my_child:
-              answer_html: 'See <a href="http://getyourrefund.org/faq/child_tax_credit/what_do_i_do_if_someone_else_has_claimed_my" target="_blank" rel="noopener">"What do I do if someone else claimed my child for Child Tax Credit?"</a>
-
-'
+              answer_html: See <a href="http://getyourrefund.org/faq/child_tax_credit/what_do_i_do_if_someone_else_has_claimed_my" target="_blank" rel="noopener">"What do I do if someone else claimed my child for Child Tax Credit?"</a>
               question: The IRS says somebody claimed my child. What do I do next?
             title: Return Rejection Next Steps
             what_is_agi_and_how_do_i_find_it:
