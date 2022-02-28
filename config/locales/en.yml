@@ -2089,7 +2089,8 @@ en:
           title: Please enter the IP PIN below.
         ip_pin_explanation_html: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers. <a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">You can retrieve your IP PIN through this IRS page.</a>
         legal_consent:
-          agree_to_share: By continuing, I agree to share my personal information in order to prepare my simplified tax return.
+          agree: I agree
+          agree_to_share: By clicking “I agree”, I agree to GetCTC's privacy policy and to share my personal information in order to prepare my simplified tax return.
           body:
             p1: To submit your tax return and receive your child tax credit and/or your stimulus payments, we’ll need some of your personal information.
             p2: Please make sure you enter your name as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
