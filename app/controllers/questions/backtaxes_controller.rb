@@ -9,21 +9,6 @@ module Questions
       Intake::GyrIntake.new
     end
 
-    def edit
-      # skip this question if they answered that they only haven't filed for the current year
-      # and save on the intake that they need help for the current year
-      if current_triage.present? && only_current_tax_year_not_filed(current_triage)
-        @form = BacktaxesForm.new(current_intake, form_params)
-        @form.save
-        @form.intake.update(needs_help_2021: "yes")
-
-        after_update_success
-        redirect_to(next_path)
-      else
-        super
-      end
-    end
-
     private
 
     ##
@@ -49,17 +34,7 @@ module Questions
     end
 
     def load_possible_filing_years
-      @possible_filing_years =
-        if current_triage.present?
-          TaxReturn.filing_years.reject { |year| current_triage.send("filed_#{year}") == "yes" }
-        else
-          TaxReturn.filing_years
-        end.sort
-    end
-
-    def only_current_tax_year_not_filed(triage)
-      triage.send("filed_#{current_tax_year}") == "no" &&
-        Array((current_tax_year - 3)...current_tax_year).all? { |year| triage.send("filed_#{year}") == "yes" }
+      @possible_filing_years = TaxReturn.filing_years
     end
   end
 end
