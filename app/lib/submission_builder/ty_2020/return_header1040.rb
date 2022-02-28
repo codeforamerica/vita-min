@@ -2,7 +2,8 @@
 # Attachment to MeF IMF Schemas for Tax Year 2020
 # https://drive.google.com/file/d/1WlDJ8jtVxTlTPbxNuaFfUhAaG8nDcJE-/view?usp=sharing
 module SubmissionBuilder
-  class ReturnHeader1040 < SubmissionBuilder::Base
+  module TY2020
+    class ReturnHeader1040 < SubmissionBuilder::Base
     include SubmissionBuilder::FormattingMethods
 
     @schema_file = File.join(Rails.root, "vendor", "irs", "unpacked", "2020v5.1", "IndividualIncomeTax", "Common", "ReturnHeader1040x.xsd")
@@ -221,6 +222,7 @@ module SubmissionBuilder
       else
         0
       end
+    end
     end
   end
 end

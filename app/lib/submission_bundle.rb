@@ -49,7 +49,7 @@ class SubmissionBundle
   end
 
   def return_1040
-    response = SubmissionBuilder::Return1040.build(@submission, documents: @documents)
+    response = SubmissionBuilder::TY2020::Return1040.build(@submission, documents: @documents)
     if response.valid?
       response.document
     else

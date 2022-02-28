@@ -1,5 +1,5 @@
 module SubmissionBuilder
-  module Documents
+  module TY2020
     class AdvCtcIrs1040 < SubmissionBuilder::Base
       include SubmissionBuilder::FormattingMethods
 

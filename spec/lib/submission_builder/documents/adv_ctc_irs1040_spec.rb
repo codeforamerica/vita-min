@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
+describe SubmissionBuilder::TY2020::AdvCtcIrs1040 do
   describe ".build" do
     before do
       submission.intake.update(primary_last_name: "Kòala")

@@ -1,5 +1,6 @@
 module SubmissionBuilder
-  class Return1040 < SubmissionBuilder::Base
+  module TY2020
+    class Return1040 < SubmissionBuilder::Base
     @schema_file = File.join(Rails.root, "vendor", "irs", "unpacked", "2020v5.1", "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
     @root_node = "Return"
 
@@ -8,11 +9,11 @@ module SubmissionBuilder
     end
 
     def adv_ctc_irs1040
-      SubmissionBuilder::Documents::AdvCtcIrs1040.build(@submission, validate: false).as_fragment
+      SubmissionBuilder::TY2020::AdvCtcIrs1040.build(@submission, validate: false).as_fragment
     end
 
     def return_header
-      SubmissionBuilder::ReturnHeader1040.build(@submission, validate: false).as_fragment
+      SubmissionBuilder::TY2020::ReturnHeader1040.build(@submission, validate: false).as_fragment
     end
 
     def document
@@ -25,6 +26,7 @@ module SubmissionBuilder
         document.at("ReturnData").add_child(send(attached))
       end
       document
+    end
     end
   end
 end
