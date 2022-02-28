@@ -49,13 +49,18 @@ class SubmissionBundle
   end
 
   def return_1040
-    response = SubmissionBuilder::TY2020::Return1040.build(@submission, documents: @documents)
+    response = submission_class.build(@submission, documents: @documents)
     if response.valid?
       response.document
     else
       @errors = response.errors
       raise SubmissionBundleError
     end
+  end
+
+  def submission_class
+    year = @submission.tax_return.year
+    "SubmissionBuilder::TY#{year}::Return1040".constantize
   end
 
   def self.build(*args)

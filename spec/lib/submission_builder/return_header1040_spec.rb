@@ -454,10 +454,11 @@ describe SubmissionBuilder::ReturnHeader1040 do
       end
 
       context "when testing for schema validity" do
-        before do
-          ENV["TEST_SCHEMA_VALIDITY_ONLY"] = true
+        around do |example|
+          ENV["TEST_SCHEMA_VALIDITY_ONLY"] = 'true'
+          example.run
+          ENV.delete("TEST_SCHEMA_VALIDITY_ONLY")
         end
-
 
         it "conforms to the eFileAttachments schema 2020v5.1" do
           instance = described_class.new(submission)

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe SubmissionBuilder::TY2020::Return1040 do
-  let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2021 }
+  let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2020 }
 
   before do
     submission.intake.update(
@@ -14,6 +14,12 @@ describe SubmissionBuilder::TY2020::Return1040 do
       primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
       spouse_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20)
     )
+  end
+
+  around do |example|
+    ENV["TEST_SCHEMA_VALIDITY_ONLY"] = 'true'
+    example.run
+    ENV.delete("TEST_SCHEMA_VALIDITY_ONLY")
   end
 
   context ".build" do
