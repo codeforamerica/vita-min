@@ -122,6 +122,13 @@ Rails.application.routes.draw do
       get "/about-us", to: "public_pages#about_us"
       get "/tax-questions", to: "public_pages#tax_questions"
       get "/faq", to: "public_pages#faq"
+      unless Rails.env.production?
+        get "/new-faq", to: "faq#index"
+        get "/new-faq/:section_key", to: "faq#section_index", as: :faq_section
+        get "/new-faq/:section_key/:question_key", to: "faq#show", as: :faq_question
+        # TODO: generate routes + views (from translation keys?)
+        # get "/how_many_stimulus_payments_were_there", to: "public_pages#how_many_stimulus_payments_were_there"
+      end
       get "/sms-terms", to: "public_pages#sms_terms"
       get "/stimulus", to: "public_pages#stimulus"
       get "/full-service", to: "public_pages#full_service"

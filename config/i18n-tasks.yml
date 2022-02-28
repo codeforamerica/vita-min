@@ -94,13 +94,12 @@ translation:
 
 ## Do not consider these keys missing:
 ignore_missing:
+  - 'views.public_pages.faq.*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
 ## Consider these keys used:
 ignore_unused:
-  - 'test_new_translations_process'
-  - 'test_new_translations_process_2'
   - 'date.formats.*'
   - 'general.*'
   - 'errors.*'
