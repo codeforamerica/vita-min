@@ -486,7 +486,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in "ctc_legal_consent_form_primary_birth_date_month", with: new_birth_date.month
     fill_in "ctc_legal_consent_form_primary_birth_date_day", with: new_birth_date.day
     fill_in "ctc_legal_consent_form_primary_birth_date_year", with: new_birth_date.year
-    click_on I18n.t('general.continue')
+    click_on I18n.t('views.ctc.questions.legal_consent.agree')
 
     expect(Intake.count).to eq(1)
     expect(Intake.last.primary_birth_date).to eq(new_birth_date)
