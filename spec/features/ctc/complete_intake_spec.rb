@@ -54,7 +54,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
-    click_on I18n.t('general.continue')
+    click_on I18n.t('views.ctc.questions.legal_consent.agree')
 
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
@@ -420,7 +420,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
-    click_on I18n.t('general.continue')
+    click_on I18n.t('views.ctc.questions.legal_consent.agree')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.prior_tax_year_agi.title'))
     fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label'), with: '$12,340'

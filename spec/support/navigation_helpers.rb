@@ -44,7 +44,7 @@ module NavigationHelpers
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: primary_ssn
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: primary_ssn
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: sms_phone_number
-    click_on I18n.t('general.continue')
+    click_on I18n.t('views.ctc.questions.legal_consent.agree')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
     click_on I18n.t('views.ctc.questions.contact_preference.email')
