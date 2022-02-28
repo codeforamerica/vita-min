@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::TY2020::ReturnHeader1040 do
+describe SubmissionBuilder::ReturnHeader1040 do
   describe ".build" do
     let(:fake_time) { DateTime.new(2021, 4, 21) }
     before do
@@ -448,8 +448,43 @@ describe SubmissionBuilder::TY2020::ReturnHeader1040 do
       end
     end
 
-    it "conforms to the eFileAttachments schema" do
-      expect(described_class.build(submission)).to be_valid
+    context "when submission is for a 2020 tax return" do
+      before do
+        submission.tax_return.update(year: 2020)
+      end
+
+      context "when testing for schema validity" do
+        before do
+          ENV["TEST_SCHEMA_VALIDITY_ONLY"] = true
+        end
+
+
+        it "conforms to the eFileAttachments schema 2020v5.1" do
+          instance = described_class.new(submission)
+          expect(instance.schema_version).to eq "2020v5.1"
+
+          expect(described_class.build(submission)).to be_valid
+        end
+      end
+
+      context "when actually trying to build the data" do
+        it "raises an error because we dont have proper data to create an accurate return" do
+          expect { described_class.build(submission) }.to raise_error(RuntimeError, "primary_prior_year_agi only works for current tax year")
+        end
+      end
+    end
+
+    context "when submission is for a 2021 tax return" do
+      before do
+        submission.tax_return.update(year: 2021)
+      end
+
+      it "conforms to the eFileAttachments schema 2021v5.2" do
+        instance = described_class.new(submission)
+        expect(instance.schema_version).to eq "2021v5.2"
+
+        expect(described_class.build(submission)).to be_valid
+      end
     end
   end
 end

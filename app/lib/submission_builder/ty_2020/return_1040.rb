@@ -1,8 +1,11 @@
 module SubmissionBuilder
   module TY2020
     class Return1040 < SubmissionBuilder::Base
-      @schema_file = File.join(Rails.root, "vendor", "irs", "unpacked", "2020v5.1", "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
       @root_node = "Return"
+
+      def schema_file
+        File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
+      end
 
       def root_node_attrs
         super.merge(returnVersion: "2020v5.1")
@@ -13,7 +16,7 @@ module SubmissionBuilder
       end
 
       def return_header
-        SubmissionBuilder::TY2020::ReturnHeader1040.build(@submission, validate: false).as_fragment
+        SubmissionBuilder::ReturnHeader1040.build(@submission, validate: false).as_fragment
       end
 
       def document

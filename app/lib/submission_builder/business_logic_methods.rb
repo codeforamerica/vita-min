@@ -48,7 +48,12 @@ module SubmissionBuilder
 
     # This is likely only applicable to the latest tax year, and will need revision if we want to submit previous
     # tax years accurately.
-    def spouse_prior_year_agi(intake)
+    def spouse_prior_year_agi(intake, tax_year)
+
+      if tax_year != TaxReturn.current_tax_year && !ENV['TEST_SCHEMA_VALIDITY_ONLY']
+        raise "spouse_prior_year_agi only works for current tax year"
+      end
+
       if intake.spouse_filed_prior_tax_year_filed_non_filer_separate? || intake.spouse_filed_prior_tax_year_filed_non_filer_joint?
         1
       elsif intake.spouse_filed_prior_tax_year_filed_full_joint? && intake.primary_prior_year_agi_amount.present?
@@ -58,6 +63,14 @@ module SubmissionBuilder
       else
         0
       end
+    end
+
+    def primary_prior_year_agi(intake, tax_year)
+      if tax_year != TaxReturn.current_tax_year && !ENV['TEST_SCHEMA_VALIDITY_ONLY']
+        raise "primary_prior_year_agi only works for current tax year"
+      end
+
+      intake.primary_prior_year_agi_amount || 0
     end
   end
 end

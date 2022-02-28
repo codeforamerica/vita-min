@@ -2,9 +2,11 @@ module SubmissionBuilder
   module TY2020
     class AdvCtcIrs1040 < SubmissionBuilder::Base
       include SubmissionBuilder::FormattingMethods
-
-      @schema_file = File.join(Rails.root, "vendor", "irs", "unpacked", "2020v5.1", "IndividualIncomeTax", "Ind1040", "IRS1040", "IRS1040.xsd")
       @root_node = "IRS1040"
+
+      def schema_file
+        File.join(Rails.root, "vendor", "irs", "unpacked", "2020v5.1", "IndividualIncomeTax", "Ind1040", "IRS1040", "IRS1040.xsd")
+      end
 
       def root_node_attrs
         super.merge(documentId: "IRS1040", documentName: "IRS1040")

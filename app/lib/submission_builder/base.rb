@@ -1,17 +1,17 @@
 module SubmissionBuilder
   class Base
     include SubmissionBuilder::FormattingMethods
-    attr_accessor :submission
+    attr_accessor :submission, :schema_file, :schema_version
     class << self
-      attr_reader :schema_file, :root_node
+      attr_reader :root_node
     end
 
-    @schema_file = nil # class instance variable
 
     def initialize(submission, validate: true, documents: [])
       @submission = submission
       @validate = validate
       @documents = documents
+      @schema_version = determine_default_schema_version_by_tax_year
     end
 
     def root_node_attrs
@@ -22,10 +22,23 @@ module SubmissionBuilder
       raise "SubmissionBuilder classes must implement their own document method that returns a Nokogiri::XML::Document object"
     end
 
+    def determine_default_schema_version_by_tax_year
+      case @submission.tax_return.year
+      when 2021
+        "2021v5.2"
+      when 2020
+        "2020v5.1"
+      end
+    end
+
+    def schema_file
+      raise "Child classes of SubmissionBuilder::Base must define a schema_file method."
+    end
+
     def build
       errors = []
       if @validate
-        xsd = Nokogiri::XML::Schema(File.open(self.class.schema_file))
+        xsd = Nokogiri::XML::Schema(File.open(schema_file))
         xml = Nokogiri::XML(document.to_xml)
         errors = xsd.validate(xml)
       end
