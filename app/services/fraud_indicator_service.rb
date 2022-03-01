@@ -4,7 +4,7 @@ class FraudIndicatorService
     @efile_security_informations = client.efile_security_informations
   end
 
-  HOLD_INDICATORS = ["recaptcha_score", "international_timezone", "empty_timezone", "duplicate_bank_account", "duplicate_phone_number"].freeze
+  HOLD_INDICATORS = ["recaptcha_score", "international_timezone", "empty_timezone", "duplicate_bank_account", "duplicate_phone_number", "no_dependents"].freeze
 
   def hold_indicators
     HOLD_INDICATORS.map do |indicator|
@@ -49,5 +49,13 @@ class FraudIndicatorService
 
   def duplicate_phone_number
     DeduplificationService.duplicates(@client.intake, :phone_number, from_scope: @client.intake.class).where.not(completed_at: nil).where(type: "Intake::CtcIntake").count > 2
+  end
+
+  def no_dependents
+    ActiveModel::Type::Boolean.new.cast(ENV["FRAUD_HOLD_NO_DEPENDENTS"]) && @client.qualifying_dependents(TaxReturn.current_tax_year).count.zero?
+  end
+
+  def self.hold_indicators(args)
+    self.new(*args).hold_indicators
   end
 end

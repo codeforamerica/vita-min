@@ -216,6 +216,12 @@ class Client < ApplicationRecord
     Rails.application.routes.url_helpers.portal_client_login_url(id: raw_token)
   end
 
+  def qualifying_dependents(year)
+    raise StandardError, "Qualifying dependent logic does not exist for #{year}  Define new rules for #{year}." unless [2020, 2021].include?(year)
+
+    intake.dependents.filter { |d| d.send("yr_#{year}_qualifying_child?") || d.send("yr_#{year}_qualifying_relative?") }
+  end
+
   def clients_with_dupe_contact_info(is_ctc)
     return [] unless intake
 

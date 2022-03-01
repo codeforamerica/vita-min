@@ -27,53 +27,20 @@ describe EfileSubmissionStateMachine do
         end
       end
 
-      context "when FRAUD_HOLD_NO_DEPENDENTS is set" do
-        around do |example|
-          ENV['FRAUD_HOLD_NO_DEPENDENTS'] = '1'
-          example.run
-          ENV.delete('FRAUD_HOLD_NO_DEPENDENTS')
+      context "when the client has had their identity verified" do
+        before do
+          submission.client.touch(:identity_verified_at)
+          allow(FraudIndicatorService).to receive(:hold_indicators)
         end
 
-        context "when there are dependents on the submission" do
-          before do
-            create :qualifying_child, intake: submission.intake
-          end
-
-          it "enqueues a BuildSubmissionBundleJob" do
-            expect {
-              submission.transition_to!(:preparing)
-            }.to have_enqueued_job(BuildSubmissionBundleJob)
-          end
-
-          it "updates the tax return status" do
-            submission.transition_to!(:preparing)
-            expect(submission.tax_return.status).to eq("file_ready_to_file")
-            expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-              client: submission.client.reload,
-              message: AutomatedMessage::EfilePreparing,
-            )
-          end
+        it "does not check for fraud indicators" do
+          submission.transition_to!(:preparing)
+          expect(FraudIndicatorService).not_to have_received(:hold_indicators)
         end
 
-        context "when there are no dependents" do
-          before do
-            submission.tax_return.qualifying_dependents.map(&:destroy)
-          end
-
-          it "does not enqueue a BuildSubmissionBundleJob" do
-            expect {
-              submission.transition_to!(:preparing)
-            }.not_to have_enqueued_job(BuildSubmissionBundleJob)
-            expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-              client: submission.client.reload,
-              message: AutomatedMessage::EfilePreparing,
-            )
-          end
-
-          it "updates the tax return status" do
-            submission.transition_to!(:preparing)
-            expect(submission.tax_return.current_state).to eq("file_fraud_hold")
-          end
+        it "allows transition" do
+          submission.transition_to!(:preparing)
+          expect(submission.tax_return.status).to eq("file_ready_to_file")
         end
       end
 
