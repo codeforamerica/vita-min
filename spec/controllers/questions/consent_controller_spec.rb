@@ -221,6 +221,7 @@ RSpec.describe Questions::ConsentController do
             }
         }
       end
+
       it "redirects to returning_clients page without saving as consented" do
         post :update, params: params
 

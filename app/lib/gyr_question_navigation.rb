@@ -26,6 +26,7 @@ class GyrQuestionNavigation
 
       # Contact information and preferences
       Questions::PersonalInfoController,
+      Questions::SsnItinController,
       Questions::ReturningClientController, # possible off-boarding from flow
       Questions::InterviewSchedulingController,
       Questions::NotificationPreferenceController,

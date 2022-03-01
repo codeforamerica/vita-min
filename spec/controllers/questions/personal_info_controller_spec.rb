@@ -1,32 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Questions::PersonalInfoController do
-  let(:vita_partner) { create :organization }
-  let(:organization_router) { double }
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
-  end
-
-  describe "#edit" do
-    context "when a client said they need help getting an ITIN during triage" do
-      let(:intake) { create :intake, triage: create(:triage, id_type: "need_itin_help") }
-
-      it "sets hide_ssn_field to be truthy" do
-        get :edit
-
-        expect(assigns(:hide_ssn_field)).to be_truthy
-      end
-    end
-
-    context "when a client did not say they need help getting an ITIN during triage" do
-      let(:intake) { create :intake, triage: create(:triage, id_type: "have_id") }
-
-      it "sets hide_ssn_field to falsey" do
-        get :edit
-
-        expect(assigns(:hide_ssn_field)).to be_falsey
-      end
-    end
   end
 
   describe "#update" do
@@ -40,17 +16,11 @@ RSpec.describe Questions::PersonalInfoController do
           preferred_name: "Shep",
           phone_number: "+14156778899",
           phone_number_confirmation: "+14156778899",
-          primary_ssn: "123455678",
-          primary_ssn_confirmation: "123455678",
-          primary_tin_type: "ssn_no_employment"
         }
       }
     end
 
     before do
-      allow(PartnerRoutingService).to receive(:new).and_return organization_router
-      allow(organization_router).to receive(:determine_partner).and_return vita_partner
-      allow(organization_router).to receive(:routing_method).and_return :source_param
       allow(MixpanelService).to receive(:send_event)
     end
 
@@ -85,9 +55,8 @@ RSpec.describe Questions::PersonalInfoController do
             zip_code: "80309",
             phone_number: "+14156778899",
             phone_number_confirmation: "+14156778899",
-            preferred_name: "Grindelwald",
+            preferred_name: nil,
             primary_last_name: nil,
-            primary_ssn: nil
           }
         }
       end
@@ -97,8 +66,7 @@ RSpec.describe Questions::PersonalInfoController do
 
         expect(response).to render_template :edit
         error_messages = assigns(:form).errors.messages
-        expect(error_messages[:primary_ssn].first).to eq "An SSN or ITIN is required."
-        expect(error_messages[:primary_tin_type].first).to eq "Identification type is required."
+        expect(error_messages[:preferred_name].first).to eq "Please enter your preferred name."
       end
     end
   end

@@ -1,6 +1,10 @@
 module Questions
-  class PersonalInfoController < QuestionsController
+  class SsnItinController < QuestionsController
     include AnonymousIntakeConcern
+
+    def self.show?(intake)
+      intake.itin_applicant? ? false : true
+    end
 
     def illustration_path; end
 
