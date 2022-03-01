@@ -37,9 +37,11 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot_i18n_friendly
     fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Dupe"
     fill_in I18n.t('views.questions.personal_info.phone_number'), with: "8286345533"
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
+    fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
+    click_on I18n.t('general.continue')
+
     fill_in I18n.t("attributes.primary_ssn"), with: primary_ssn
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: primary_ssn
-    fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
     click_on I18n.t('general.continue')
 
     expect(page).to have_text returning_client_title
@@ -63,9 +65,11 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot_i18n_friendly
     fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Dupe"
     fill_in I18n.t('views.questions.personal_info.phone_number'), with: "828-634-5533"
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
+    fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
+    click_on I18n.t('general.continue')
+
     fill_in I18n.t("attributes.primary_ssn"), with: "987-65-4321"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "987-65-4321"
-    fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
     click_on I18n.t('general.continue')
 
     expect(page).not_to have_text returning_client_title

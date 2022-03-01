@@ -3951,8 +3951,6 @@ en:
         title:
           one: In %{year}, did you make any alimony payments?
           other: In %{year}, did you or your spouse make any alimony payments?
-      ssn_itin:
-        title: Please provide your taxpayer identification information.
       personal_info:
         info: Welcome, we're excited to help you. We need some basic information to get started.
         phone_number: Phone number
@@ -4042,6 +4040,8 @@ en:
           was_full_time_student: They were a full-time student in a college or a trade school
           was_on_visa: They were in the US on a Visa
         title: Select any situations that were true for your spouse in %{year}
+      ssn_itin:
+        title: Please provide your taxpayer identification information.
       start_with_current_year:
         info: We’ll start by asking about your situation in %{year}.
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
