@@ -3951,6 +3951,8 @@ en:
         title:
           one: In %{year}, did you make any alimony payments?
           other: In %{year}, did you or your spouse make any alimony payments?
+      ssn_itin:
+        title: Please provide your taxpayer identification information.
       personal_info:
         info: Welcome, we're excited to help you. We need some basic information to get started.
         phone_number: Phone number

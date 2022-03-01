@@ -3910,6 +3910,8 @@ es:
         title:
           one: En %{year}, ¿realizó algún pago de pensión alimenticia?
           other: En %{year}, ¿Hizo usted o su pareja algún pago de pensión alimenticia?
+      ssn_itin:
+        title: Por favor proporcione su información de identificación de contribuyente.
       personal_info:
         info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
         phone_number: Número de teléfono
