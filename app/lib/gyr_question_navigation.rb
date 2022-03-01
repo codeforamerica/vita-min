@@ -19,16 +19,16 @@ class GyrQuestionNavigation
       Questions::TriageGyrIdsController,
 
       ## Main flow
-      Questions::BacktaxesController, # creates Intake record and Client record
       Questions::EnvironmentWarningController,
-      Questions::StartWithCurrentYearController,
 
       # Overview
       Questions::OverviewController,
 
       # Contact information and preferences
-      Questions::PersonalInfoController,
+      Questions::PersonalInfoController, # creates Intake record and Client record
       Questions::SsnItinController,
+      Questions::BacktaxesController,
+      Questions::StartWithCurrentYearController,
       Questions::ReturningClientController, # possible off-boarding from flow
       Questions::InterviewSchedulingController,
       Questions::NotificationPreferenceController,

@@ -4,33 +4,42 @@ RSpec.describe PersonalInfoForm do
   let(:intake) { create :intake }
   let(:valid_params) do
     {
-        preferred_name: "Greta",
-        phone_number: "8286065544",
-        phone_number_confirmation: "828-606-5544",
-        zip_code: "94107",
-      }
+      preferred_name: "Greta",
+      phone_number: "8286065544",
+      phone_number_confirmation: "828-606-5544",
+      zip_code: "94107",
+    }
+  end
+  let(:additional_params) do
+    {
+      visitor_id: "visitor_1",
+      source: "source",
+      referrer: "referrer",
+      locale: "es"
+    }
   end
 
   describe "validations" do
     context "when all params are valid" do
       it "is valid" do
-        form = described_class.new(intake, valid_params)
+        form = described_class.new(intake, valid_params.merge(additional_params))
 
         expect(form).to be_valid
       end
     end
 
     context "required params are missing" do
+      let(:invalid_params) do
+        {
+          preferred_name: nil,
+          phone_number: "8286065544",
+          phone_number_confirmation: nil,
+          zip_code: nil,
+        }
+      end
+
       it "adds errors for each" do
-        form = described_class.new(
-          intake,
-          {
-            preferred_name: nil,
-            phone_number: "8286065544",
-            phone_number_confirmation: nil,
-            zip_code: nil,
-          }
-        )
+        form = described_class.new(intake, invalid_params.merge(additional_params))
 
         expect(form).not_to be_valid
         expect(form.errors[:preferred_name]).to be_present
@@ -41,14 +50,57 @@ RSpec.describe PersonalInfoForm do
   end
 
   describe "#save" do
-    it "parses & saves the correct data to the model record" do
-      form = described_class.new(intake, valid_params)
+    it "makes a new client" do
+      intake = Intake::GyrIntake.new
+      form = described_class.new(intake, valid_params.merge(additional_params))
       expect(form).to be_valid
-      form.save
+      expect {
+        form.save
+      }.to change(Client, :count).by(1)
       intake.reload
 
-      expect(intake.state_of_residence).to eq "CA"
+      client = Client.last
+      expect(client.intake).to eq(intake)
+    end
+
+    it "saves the right attributes" do
+      intake = Intake::GyrIntake.new
+      form = described_class.new(intake, valid_params.merge(additional_params))
+      form.valid?
+      form.save
+
+      intake.reload
+      expect(intake.preferred_name).to eq "Greta"
       expect(intake.phone_number).to eq "+18286065544"
+      expect(intake.zip_code).to eq "94107"
+      expect(intake.visitor_id).to eq "visitor_1"
+      expect(intake.source).to eq "source"
+      expect(intake.referrer).to eq "referrer"
+      expect(intake.locale).to eq "es"
+    end
+
+    context "Mixpanel tracking" do
+      let(:fake_tracker) { double('mixpanel tracker') }
+      let(:fake_mixpanel_data) { {} }
+
+      before do
+        allow(MixpanelService).to receive(:data_from).and_return(fake_mixpanel_data)
+        allow(MixpanelService).to receive(:send_event)
+      end
+
+      it "sends intake_started to Mixpanel" do
+        intake = Intake::GyrIntake.new
+        form = PersonalInfoForm.new(intake, valid_params.merge(additional_params))
+        form.save
+
+        expect(MixpanelService).to have_received(:send_event).with(
+          distinct_id: intake.visitor_id,
+          event_name: "intake_started",
+          data: fake_mixpanel_data
+        )
+
+        expect(MixpanelService).to have_received(:data_from).with([intake.client, intake])
+      end
     end
   end
 

@@ -1,21 +1,28 @@
 require "rails_helper"
 
 RSpec.describe BacktaxesForm do
+  let(:intake) { create :intake }
+
   describe "#save" do
-    it "makes a new client" do
-      intake = Intake::GyrIntake.new
-      form = BacktaxesForm.new(intake, {
-        visitor_id: "some_visitor_id",
+    let(:valid_params) do
+      {
         needs_help_2021: "yes",
         needs_help_2018: "no",
         needs_help_2019: "yes",
         needs_help_2020: "yes",
-      })
-      expect {
-        form.save
-      }.to change(Client, :count).by(1)
-      client = Client.last
-      expect(client.intake).to eq(intake.reload)
+      }
+    end
+
+    it "parses & saves the correct data to the model record" do
+      form = described_class.new(intake, valid_params)
+      expect(form).to be_valid
+      form.save
+      intake.reload
+
+      expect(intake.needs_help_2021).to eq "yes"
+      expect(intake.needs_help_2020).to eq "yes"
+      expect(intake.needs_help_2019).to eq "yes"
+      expect(intake.needs_help_2018).to eq "no"
     end
 
     context "Mixpanel tracking" do
@@ -27,42 +34,14 @@ RSpec.describe BacktaxesForm do
         allow(MixpanelService).to receive(:send_event)
       end
 
-      it "saves the right attributes" do
-        intake = Intake::GyrIntake.new
-
-        form = BacktaxesForm.new(intake, {
-          needs_help_2018: "no",
-          needs_help_2019: "yes",
-          needs_help_2020: "yes",
-          needs_help_2021: "yes",
-          visitor_id: "visitor_1",
-          source: "source",
-          referrer: "referrer",
-          locale: "es"
-        })
-        form.save
-
-        intake.reload
-        expect(intake.needs_help_2018).to eq "no"
-        expect(intake.needs_help_2019).to eq "yes"
-        expect(intake.needs_help_2020).to eq "yes"
-        expect(intake.needs_help_2021).to eq "yes"
-        expect(intake.visitor_id).to eq "visitor_1"
-        expect(intake.source).to eq "source"
-        expect(intake.referrer).to eq "referrer"
-        expect(intake.locale).to eq "es"
-      end
-
       it "sends intake_started to Mixpanel" do
-        intake = Intake::GyrIntake.new
-
         form = BacktaxesForm.new(intake, {
           needs_help_2018: "no",
           needs_help_2019: "yes",
           needs_help_2020: "yes",
           needs_help_2021: "yes",
-          visitor_id: "visitor_1"
         })
+        expect(form).to be_valid
         form.save
 
         expect(MixpanelService).to have_received(:send_event).with(

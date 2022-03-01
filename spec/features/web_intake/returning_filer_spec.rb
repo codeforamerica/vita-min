@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot_i18n_friendly do
+RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_friendly do
   let(:primary_ssn) { "123-45-6789" }
   let!(:original_intake) do
     create(
@@ -28,10 +28,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot_i18n_friendly
   end
 
   scenario "returning client tries filing again is taken to returning client signpost page when a GYR intake with matching ssn exists" do
-    visit backtaxes_questions_path
-    check "2019"
-    click_on I18n.t('general.continue')
-
     visit personal_info_questions_path
     expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
     fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Dupe"
@@ -42,6 +38,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot_i18n_friendly
 
     fill_in I18n.t("attributes.primary_ssn"), with: primary_ssn
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: primary_ssn
+    click_on I18n.t('general.continue')
+
+    # backtaxes
+    check "2019"
+    click_on I18n.t('general.continue')
+
+    # start with current year
     click_on I18n.t('general.continue')
 
     expect(page).to have_text returning_client_title
@@ -56,10 +59,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot_i18n_friendly
   #scenario for a matching ITIN
 
   scenario "client with matching CTC intake & no matching GYR intake doesn't see GYR duplicate guard" do
-    visit backtaxes_questions_path
-    check "2019"
-    click_on I18n.t('general.continue')
-
     visit personal_info_questions_path
     expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
     fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Dupe"
@@ -68,8 +67,18 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot_i18n_friendly
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
     click_on I18n.t('general.continue')
 
-    fill_in I18n.t("attributes.primary_ssn"), with: "987-65-4321"
-    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "987-65-4321"
+    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6788"
+    # how the heck was this passing before??
+    # fill_in I18n.t("attributes.primary_ssn"), with: "987-65-4321"
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6788"
+    # fill_in I18n.t("attributes.confirm_primary_ssn"), with: "987-65-4321"
+    click_on I18n.t('general.continue')
+
+    # backtaxes
+    check "2019"
+    click_on I18n.t('general.continue')
+
+    # start with current year
     click_on I18n.t('general.continue')
 
     expect(page).not_to have_text returning_client_title
