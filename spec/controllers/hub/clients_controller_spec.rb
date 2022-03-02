@@ -614,11 +614,25 @@ RSpec.describe Hub::ClientsController do
           }
         end
 
-        it "shows the full amount of tax returns" do
-          get :index, params: params
+        context "when there are less than 1000 tax returns" do
+          it "shows the full amount of tax returns" do
+            get :index, params: params
 
-          expect(assigns(:tax_return_count)).to eq 50
+            expect(assigns(:tax_return_count)).to eq 50
+          end
         end
+
+        context "when there 1000 or more tax returns" do
+          before do
+            stub_const("Hub::ClientsController::MAX_COUNT", 10)
+          end
+          it "returns an empty string" do
+            get :index, params: params
+
+            expect(assigns(:tax_return_count)).to eq ""
+          end
+        end
+
       end
 
       context "ordering tax returns" do
