@@ -1524,26 +1524,26 @@ es:
         title: "¡Le recomendamos que presente su declaración con nuestra opción gratuita de GetYourRefund!"
     triage_gyr_diy:
       edit:
-        choose_diy: Elegir archivo yo mismo
-        choose_gyr: Eligir GetYourRefund
-        collect_your: 'Recoge tu:'
-        collectables:
-          additional_credits: Créditos Estatales Adicionales
-          ctc: Crédito fiscal por hijos
-          eitc: Crédito Tributario por Ingreso del Trabajo
-          missing_stimulus: Pagos de Estímulo Faltantes
-        comparison:
-          diy:
-            description: "¡Recoge el reembolso más grande! Presente rápidamente por su cuenta."
-            timeframe: 45 minutos para presentar
-            title: Archivarme a mí mismo
-          gyr:
-            description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
-            id_warning: debe mostrar copias de su tarjeta de Seguro Social o papeleo de ITIN
-            timeframe: 2-3 semanas para presentar
-            title: Obtenga su reembolso
-        refund: Reembolso
         title: "¡Tenemos dos opciones gratuitas que pueden funcionar para usted!"
+    triage:
+      diy_title:
+        description: "¡Recoge el reembolso más grande! Presente rápidamente por su cuenta."
+        timeframe: 45 minutos para presentar
+        title: Archivarme a mí mismo
+        choose_diy: Elegir archivo yo mismo
+      gyr_title:
+        description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
+        id_warning: debe mostrar copias de su tarjeta de Seguro Social o papeleo de ITIN
+        timeframe: 2-3 semanas para presentar
+        title: Obtenga su reembolso
+        choose_gyr: Eligir GetYourRefund
+      refund: Reembolso
+      collect_your: 'Recoge tu:'
+      collectables:
+        additional_credits: Créditos Estatales Adicionales
+        ctc: Crédito fiscal por hijos
+        eitc: Crédito Tributario por Ingreso del Trabajo
+        missing_stimulus: Pagos de Estímulo Faltantes
     triage_gyr_express:
       edit:
         collect_your: 'Cobre su:'

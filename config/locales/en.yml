@@ -1570,29 +1570,29 @@ en:
           Available online or in person!
 
           Our IRS-certified tax team will provide hands on support with your taxes!
-        title: We recommend filing with our free GetYourRefund option!
+        title: We recommend filing for free with GetYourRefund!
     triage_gyr_diy:
       edit:
+          title: We have two free options that may work for you!
+    triage:
+      diy_tile:
+        description: Collect the largest refund! File quickly on your own.
+        timeframe: 45 minutes to file
+        title: File Myself
         choose_diy: Choose File Myself
+      gyr_tile:
+        description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
+        id_warning: You are required to show copies of your Social Security card or ITIN paperwork
+        timeframe: 2-3 weeks to file
+        title: GetYourRefund
         choose_gyr: Choose GetYourRefund
-        collect_your: 'Collect your:'
-        collectables:
-          additional_credits: Additional State Credits
-          ctc: Child Tax Credit
-          eitc: Earned Income Tax Credit
-          missing_stimulus: Missing Stimulus Payments
-        comparison:
-          diy:
-            description: Collect the largest refund! File quickly on your own.
-            timeframe: 45 minutes to file
-            title: File Myself
-          gyr:
-            description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
-            id_warning: You are required to show copies of your Social Security card or ITIN paperwork
-            timeframe: 2-3 weeks to file
-            title: GetYourRefund
-        refund: Refund
-        title: We have two free options that may work for you!
+      refund: Refund
+      collect_your: 'Collect your:'
+      collectables:
+        additional_credits: Additional State Credits
+        ctc: Child Tax Credit
+        eitc: Earned Income Tax Credit
+        missing_stimulus: Missing Stimulus Payments
     triage_gyr_express:
       edit:
         collect_your: 'Collect your:'
