@@ -78,7 +78,7 @@ RSpec.feature "triage flow" do
       when 'We have two free options that may work for you!'
         Questions::TriageGyrExpressController
       when 'We recommend filing with our free File Myself option!'
-        Questions::TriageReferralController
+        Questions::TriageDiyController
       when 'We recommend filing for free with GetYourRefund!'
         Questions::TriageGyrController
       when 'We recommend filing with our Express option!'

@@ -1607,12 +1607,8 @@ es:
           rental: Gané dinero de una propiedad alquilada
         income_types_label: "¿Alguna situación a continuación le aplica a usted?"
         title: "¡Una última pregunta antes de seleccionar un servicio para usted!"
-    triage_referral:
+    triage_diy:
       edit:
-        help_text: |
-          Presente su declaración en línea por su cuenta utilizando el sitio web de un asociado. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos tributarios que se le deben!
-
-          Al hacer clic en continuar, será dirigido al sitio web de nuestro asociado para que continúe presentando sus impuestos por su cuenta. El proceso es sencillo, rápido y fácil.
         title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
     triage_start_ids:
       edit:

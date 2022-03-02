@@ -175,7 +175,7 @@ class TriageResultService
   end
 
   def route_to_diy
-    Questions::TriageReferralController.to_path_helper
+    Questions::TriageDiyController.to_path_helper
   end
 
   def route_to_gyr

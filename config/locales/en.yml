@@ -1656,12 +1656,8 @@ en:
           rental: I earned money from a rental property
         income_types_label: Did any of the situations below apply to you?
         title: One final question before we select the service for you!
-    triage_referral:
+    triage_diy:
       edit:
-        help_text: |
-          File online on your own using a partner website. This is our quickest option to file your taxes and collect the tax credits you are owed!
-
-          By clicking continue, you will be taken to our partner’s site to continue filing on your own. The process is simple, quick, and easy.
         title: We recommend filing with our free File Myself option!
     triage_start_ids:
       edit:
