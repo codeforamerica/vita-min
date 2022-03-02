@@ -3,7 +3,7 @@ module Questions
     include AnonymousIntakeConcern
 
     def self.show?(intake)
-      intake.itin_applicant? ? false : true
+      !intake.itin_applicant?
     end
 
     def illustration_path; end
