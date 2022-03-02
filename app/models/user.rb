@@ -199,6 +199,10 @@ class User < ApplicationRecord
     end
   end
 
+  def client_success?
+    role_type == ClientSuccessRole::TYPE
+  end
+
   def admin?
     role_type == AdminRole::TYPE
   end

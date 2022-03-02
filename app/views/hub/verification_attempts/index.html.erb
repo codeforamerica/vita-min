@@ -2,8 +2,25 @@
   <div class="slab">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <h1><%=  "#{pluralize(@attempt_count, "client")} to be verified" %></h1>
-
+        <div class="slab slab--not-padded spacing-above-25">
+          <div class="pagination-wrapper">
+            <div class="count-wrapper">
+              <div>
+                <%= page_entries_info @efile_submissions, model: "submission" %>
+              </div>
+            </div>
+            <div>
+              <%= will_paginate(
+                      @clients,
+                      previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
+                      next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+                      inner_window: 1,
+                      outer_window: 1,
+                      param_name: "page",
+                      ) %>
+            </div>
+          </div>
+        </div>
         <table class="index-table">
           <thead class="index-table__head">
           <tr class="index-table__row">
@@ -13,7 +30,7 @@
           </tr>
           </thead>
           <tbody>
-            <% VerificationAttempt.find_each do|attempt| %>
+            <% @verification_attempts.each do|attempt| %>
               <tr class="index-table__row" id="verification-attempt-<%= attempt.id %>">
                 <td class="index-table__cell"><%= link_to "#{attempt.client.legal_name}", hub_verification_attempt_path(id: attempt.id) %></td>
                 <td class="index-table__cell"><%= link_to timestamp(attempt.created_at), hub_verification_attempt_path(id: attempt.id) %></td> <%# The link is only working for the first 6 entries in this table %>

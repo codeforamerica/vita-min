@@ -8,7 +8,10 @@ module Hub
     layout "hub"
 
     def index
-      @attempt_count = VerificationAttempt.count
+      states = [:pending]
+      states.push(:escalated) if current_user.admin? || current_user.client_success?
+      @verification_attempts = VerificationAttempt.in_state(states)
+      @attempt_count = @verification_attempts.count
     end
 
     def show

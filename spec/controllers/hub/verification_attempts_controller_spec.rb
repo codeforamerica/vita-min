@@ -12,6 +12,9 @@ describe Hub::VerificationAttemptsController, type: :controller do
         3.times do
           create :verification_attempt
         end
+        2.times do
+          create :verification_attempt, :escalated
+        end
       end
 
       it "renders okay" do
@@ -20,10 +23,20 @@ describe Hub::VerificationAttemptsController, type: :controller do
         expect(response.status).to eq 200
       end
 
-      it "defines @attempt_count as the number of VerificationAttempts in the database" do
+      it "defines @attempt_count as the number of pending VerificationAttempts in the database" do
         get :index
 
         expect(assigns(:attempt_count)).to eq 3 # VerificationAttempt.count
+      end
+
+      context "when a user is an admin" do
+        let(:user) { create :admin_user }
+
+        it "defines @attempt_count as the number of pending + escalated VerificationAttempts in the database" do
+          get :index
+
+          expect(assigns(:attempt_count)).to eq 5 # VerificationAttempt.count
+        end
       end
     end
   end
