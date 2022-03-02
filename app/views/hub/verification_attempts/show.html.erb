@@ -1,11 +1,11 @@
 <div class="slab">
-  <div class="grid-flex contained">
-    <div>
+  <div class="grid-flex contained verification-attempts-show">
+    <div class="verification-attempts-show__container">
       <%= link_to "##{@verification_attempt.client.id}", hub_client_path(id: @verification_attempt.client.id) , target: :_blank %>
       <div class="grid-flex space-between">
         <h1 class="spacing-above-5"><%= @verification_attempt.client.legal_name %></h1>
         <div>
-          <div class="label"><%= @verification_attempt.current_state %></div>
+          <div class="label"><%= @verification_attempt.current_state.humanize %></div>
         </div>
       </div>
 
@@ -15,18 +15,48 @@
         <%end %>
       </ul>
 
-      <div class="grid-flex contained">
+      <div class="grid-flex">
         <% if @verification_attempt.selfie.present? %>
           <div class="item-15r">
             <%= image_tag transient_storage_url(@verification_attempt.selfie.blob), id: "selfie" %>
           </div>
         <% end %>
         <% if @verification_attempt.photo_identification.present? %>
-          <div>
+          <div class="item-15r">
             <%= image_tag transient_storage_url(@verification_attempt.photo_identification.blob), id: "photo_id" %>
           </div>
         <% end %>
       </div>
+
+      <% if @previous_verification_attempts.present? %>
+          <div class="form-question"><%= "Previous Attempts: "%> </div>
+            <%@previous_verification_attempts.each do |attempt|%>
+              <div class="grid-flex space-between verification-attempts-show__previous-attempt" id="previous-verification-attempt-<%= attempt.id %>">
+                <div class="grid-flex">
+                  <div class="item-15r">
+                    <% if attempt.selfie.representable? %>
+                      <%= image_tag attempt.selfie.representation(resize: "90x90"), alt: "" %>
+                    <% else %>
+                      <%= image_tag "document.svg", alt: "" %>
+                    <% end %>
+                  </div>
+                  <div class="item">
+                    <% if attempt.photo_identification.representable? %>
+                      <%= image_tag attempt.photo_identification.representation(resize: "90x90"), alt: "" %>
+                    <% else %>
+                      <%= image_tag "document.svg", alt: "" %>
+                    <% end %>
+                  </div>
+                </div>
+                <div>
+                  <div class="spacing-below-0"><%= link_to "#{timestamp(attempt.created_at)}", hub_verification_attempt_path(id:attempt.id), id: "time" %></div>
+                  <div class="grid-flex justify-flex-end spacing-above-10">
+                    <div class="label"><%= attempt.current_state %></div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <%end %>
 
       <ul class="no-bullets" id="verification-attempt-notes">
         <% @verification_attempt.transitions.each do |transition| %>
@@ -53,30 +83,33 @@
           </li>
         <% end %>
       </ul>
-
-      <div>
-        <%= form_for @form, url: hub_verification_attempt_path(id: @verification_attempt.id), method: :patch, builder: VitaMinFormBuilder, html: { class: "note-form" } do |f| %>
-          <% if @form.can_write_note? %>
-            <div>
-              <%= f.cfa_textarea :note, "Add a new note", classes: ["textarea--short"] %>
-            </div>
-          <% end %>
-          <div>
-            <% if @verification_attempt.can_transition_to? :approved %>
-              <%= f.submit "Approve", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "approved"), class: "button button--primary", id: "approve" %>
+      <% content_for :sticky_action_footer do %>
+        <div class="grid-flex contained">
+          <div class="verification-attempts-show__container spacing-above-15">
+            <%= form_for @form, url: hub_verification_attempt_path(id: @verification_attempt.id), method: :patch, builder: VitaMinFormBuilder, html: { class: "note-form" } do |f| %>
+              <% if @form.can_write_note? %>
+                <div>
+                  <%= f.cfa_textarea :note, "Add a new note", classes: ["textarea--short"] %>
+                </div>
+              <% end %>
+              <div>
+                <% if @verification_attempt.can_transition_to? :approved %>
+                  <%= f.submit "Approve", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "approved"), class: "button button--primary", id: "approve" %>
+                <% end %>
+                <% if @verification_attempt.can_transition_to? :denied %>
+                  <%= f.submit "Deny and Close", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "denied"), class: "button button--primary", id: "deny" %>
+                <% end %>
+                <% if @verification_attempt.can_transition_to? :escalated %>
+                  <%= f.submit "Escalate", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "escalated"), class: "button button--primary", id: "escalate" %>
+                <% end %>
+                <% if @verification_attempt.can_transition_to? :requested_replacements %>
+                  <%= f.submit "Request replacement photos", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "requested_replacements"), class: "button button--primary", id: "request_replacement"%>
+                <% end %>
+              </div>
             <% end %>
-            <% if @verification_attempt.can_transition_to? :denied %>
-              <%= f.submit "Deny and Close", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "denied"), class: "button button--primary", id: "deny" %>
-            <% end %>
-            <% if @verification_attempt.can_transition_to? :escalated %>
-              <%= f.submit "Escalate", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "escalated"), class: "button button--primary", id: "escalate" %>
-            <% end %>
-            <% if @verification_attempt.can_transition_to? :requested_replacements %>
-              <%= f.submit "Request replacement photos", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "requested_replacements"), class: "button button--primary", id: "request_replacement"%>
-          <% end %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

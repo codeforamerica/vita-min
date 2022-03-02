@@ -1,0 +1,10 @@
+.verification-attempts-show {
+  &__container {
+    max-width: 768px;
+  }
+  &__previous-attempt {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: $color-grey-light;
+  }
+}
