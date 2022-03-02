@@ -1,15 +1,14 @@
 .marketing-comparison {
   border: 1px solid $color-grey-medium;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px 10px 20px 10px;
+  background-color: #F7F5F4;
   clear: both;
-
-  h2 {
-    margin-bottom: 0;
-  }
 
   .bottom-section {
     display: flex;
+    padding-bottom: 20px;
+    font-size: 1.6rem;
   }
 
   .spacer {
@@ -21,6 +20,16 @@
     padding-left: 1.5em;
     li {
       margin-bottom: 0;
+    }
+  }
+
+  .timeframe {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    img {
+      padding-right: 1rem;
     }
   }
 

@@ -1,0 +1,64 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
+
+  <div class="marketing-comparison spacing-below-25">
+    <h2><%= t('.comparison.gyr.title') %></h2>
+    <p><%= t('.comparison.gyr.description') %></p>
+    <div class="timeframe">
+      <%= image_tag("clock.svg") %><p><b><%= t('.comparison.gyr.timeframe') %></b></p>
+    </div>
+    <div class="bottom-section">
+      <div>
+        <div><%= t('.collect_your') %></div>
+        <ul class="list--bulleted">
+          <li><%= t('.collectables.missing_stimulus') %></li>
+          <li><%= t('.collectables.ctc') %></li>
+          <li><%= t('.collectables.eitc') %></li>
+          <li><%= t('.collectables.additional_credits') %></li>
+        </ul>
+      </div>
+      <div class="spacer"></div>
+      <div class="refund-indicator">
+        <div class="spacing-below-10"><%= t('.refund') %></div>
+        <div class="symbols"><%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %></div>
+      </div>
+    </div>
+    <p class="text--red-bold">
+      <%= t('.comparison.gyr.id_warning') %>
+    </p>
+    <div class="spacing-above-35">
+      <%= link_to t('.choose_gyr'), next_path, class: "button button--wide text--centered", "data-track-click": "triage-gyr-express-choose-gyr" %>
+    </div>
+  </div>
+
+  <div class="marketing-comparison">
+    <h2><%= t('.comparison.diy.title') %></h2>
+    <p><%= t('.comparison.diy.description') %></p>
+    <div class="timeframe">
+      <%= image_tag("clock.svg") %><p><b><%= t('.comparison.diy.timeframe') %></b></p>
+    </div>
+    <div class="bottom-section">
+      <div>
+        <div><%= t('.collect_your') %></div>
+        <ul class="list--bulleted">
+          <li><%= t('.collectables.missing_stimulus') %></li>
+          <li><%= t('.collectables.ctc') %></li>
+          <li><%= t('.collectables.eitc') %></li>
+          <li><%= t('.collectables.additional_credits') %></li>
+        </ul>
+      </div>
+      <div class="spacer"></div>
+      <div class="refund-indicator">
+        <div class="spacing-below-10"><%= t('.refund') %></div>
+        <div class="symbols"><%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %></div>
+      </div>
+    </div>
+    <div class="spacing-above-35">
+      <%= link_to t('.choose_diy'), diy_path, class: "button button--wide text--centered", "data-track-click": "triage-gyr-express-choose-express-signup" %>
+    </div>
+  </div>
+<% end %>

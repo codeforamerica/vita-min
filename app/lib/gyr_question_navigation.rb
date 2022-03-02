@@ -15,6 +15,8 @@ class GyrQuestionNavigation
       Questions::TriageExpressController,
       Questions::TriageGyrExpressController,
       Questions::TriageDoNotQualifyController,
+      Questions::TriageGyrDiyController, # not currently not shown to any clients
+      Questions::TriageGyrIdsController,
 
       ## Main flow
       Questions::BacktaxesController, # creates Intake record and Client record
