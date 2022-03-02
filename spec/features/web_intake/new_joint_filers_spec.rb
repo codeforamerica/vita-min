@@ -15,6 +15,11 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
 
     screenshot_after do
+      expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
+      click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
+    end
+
+    screenshot_after do
       # Ask about backtaxes
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
       check "#{TaxReturn.current_tax_year - 3}"
