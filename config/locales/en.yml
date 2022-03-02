@@ -1571,6 +1571,28 @@ en:
 
           Our IRS-certified tax team will provide hands on support with your taxes!
         title: We recommend filing with our free GetYourRefund option!
+    triage_gyr_diy:
+      edit:
+        choose_diy: Choose File Myself
+        choose_gyr: Choose GetYourRefund
+        collect_your: 'Collect your:'
+        collectables:
+          additional_credits: Additional State Credits
+          ctc: Child Tax Credit
+          eitc: Earned Income Tax Credit
+          missing_stimulus: Missing Stimulus Payments
+        comparison:
+          diy:
+            description: Collect the largest refund! File quickly on your own.
+            timeframe: 45 minutes to file
+            title: File Myself
+          gyr:
+            description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
+            id_warning: You are required to show copies of your Social Security card or ITIN paperwork
+            timeframe: 2-3 weeks to file
+            title: GetYourRefund
+        refund: Refund
+        title: We have two free options that may work for you!
     triage_gyr_express:
       edit:
         collect_your: 'Collect your:'
@@ -1592,6 +1614,13 @@ en:
         refund: Refund
         sign_up_for_express: Sign up for Express
         title: We have two free options that may work for you!
+    triage_gyr_ids:
+      edit:
+        help_text_1: We will ask you to upload a copy of your ID card (driver's license or state issued ID) and social security card or ITIN paperwork.
+        help_text_2: If you cannot get these documents but know your SSN or ITIN number, we recommend filing with our File Myself option.
+        no_diy: No, I will proceed with File Myself
+        title: Before we proceed, do you have a physical copy of your photo ID and Social Security card or ITIN paperwork?
+        yes_i_have_id: Yes, I have my ID card
     triage_id_type:
       edit:
         ssn_itin_type:

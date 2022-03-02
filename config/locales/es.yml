@@ -1522,6 +1522,28 @@ es:
 
           ¡Nuestro equipo certificado por el IRS le brindará apoyo práctico con sus impuestos!
         title: "¡Le recomendamos que presente su declaración con nuestra opción gratuita de GetYourRefund!"
+    triage_gyr_diy:
+      edit:
+        choose_diy: Elegir archivo yo mismo
+        choose_gyr: Eligir GetYourRefund
+        collect_your: 'Recoge tu:'
+        collectables:
+          additional_credits: Créditos Estatales Adicionales
+          ctc: Crédito fiscal por hijos
+          eitc: Crédito Tributario por Ingreso del Trabajo
+          missing_stimulus: Pagos de Estímulo Faltantes
+        comparison:
+          diy:
+            description: "¡Recoge el reembolso más grande! Presente rápidamente por su cuenta."
+            timeframe: 45 minutos para presentar
+            title: Archivarme a mí mismo
+          gyr:
+            description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
+            id_warning: debe mostrar copias de su tarjeta de Seguro Social o papeleo de ITIN
+            timeframe: 2-3 semanas para presentar
+            title: Obtenga su reembolso
+        refund: Reembolso
+        title: "¡Tenemos dos opciones gratuitas que pueden funcionar para usted!"
     triage_gyr_express:
       edit:
         collect_your: 'Cobre su:'
@@ -1543,6 +1565,13 @@ es:
         refund: Reembolso
         sign_up_for_express: Subscríbase para Express
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
+    triage_gyr_ids:
+      edit:
+        help_text_1: Le pediremos que cargue una copia de su tarjeta de identificación (licencia de conducir o identificación emitida por el estado) y la tarjeta de seguro social o papeleo ITIN.
+        help_text_2: Si no puede obtener estos documentos pero conoce su número de SSN o ITIN, le recomendamos presentarlos con nuestra opción File Myself.
+        no_diy: No, continuaré con File Myself
+        title: Antes de continuar, ¿tiene una copia física de su identificación con foto y tarjeta de Seguro Social o papeleo de ITIN?
+        yes_i_have_id: Sí, tengo mi tarjeta de identificación
     triage_id_type:
       edit:
         ssn_itin_type:
