@@ -618,7 +618,7 @@ RSpec.describe Hub::ClientsController do
           it "shows the full amount of tax returns" do
             get :index, params: params
 
-            expect(assigns(:tax_return_count)).to eq 50
+            expect(assigns(:tax_return_count)).to eq "50"
           end
         end
 
