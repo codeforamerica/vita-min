@@ -15,7 +15,7 @@ RSpec.feature "A client who wants help getting an ITIN" do
                                   })
 
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr.edit.title'))
-      click_on I18n.t('questions.triage_gyr.edit.file_online')
+      click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
 
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
       click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
@@ -121,7 +121,7 @@ RSpec.feature "A client who wants help getting an ITIN" do
                                   })
 
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr.edit.title'))
-      click_on I18n.t('questions.triage_gyr.edit.file_online')
+      click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
 
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
       click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
