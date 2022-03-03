@@ -6,7 +6,7 @@ class SLABreachService
   end
 
   def breach_threshold_date
-    5.business_days.before(@report_generated_at)
+    6.business_days.before(@report_generated_at)
   end
 
   def active_sla_clients_count

@@ -48,6 +48,27 @@
 require "rails_helper"
 
 describe Client do
+
+  describe ".first_unanswered_incoming_interaction_communication_breaches" do
+    let(:sla_scoped_double) { double }
+    let!(:less)
+    before do
+      allow(described_class).to receive(:sla_tracked).and_return { sla_scoped_double }
+    end
+
+    context 'when only upper threshold is specified' do
+      it "builds a query using only the upper threshold" do
+
+      end
+    end
+
+    context 'when upper and lower threshold are specified' do
+      it "builds a query using the upper and lower threshold" do
+
+      end
+    end
+  end
+
   describe ".sla_tracked scope" do
     let(:client_before_consent) { create(:client) }
     let(:client_in_progress) { create(:client) }
