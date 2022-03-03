@@ -55,7 +55,7 @@ class FraudIndicatorService
     ActiveModel::Type::Boolean.new.cast(ENV["FRAUD_HOLD_NO_DEPENDENTS"]) && @client.qualifying_dependents(TaxReturn.current_tax_year).count.zero?
   end
 
-  def self.hold_indicators(args)
+  def self.hold_indicators(*args)
     self.new(*args).hold_indicators
   end
 end
