@@ -24,6 +24,6 @@
     <%= t('.warning') %>
   </p>
   <div class="spacing-above-35">
-    <%= link_to t('.choose_gyr'), next_path, class: "button button--wide text--centered", "data-track-click": click_tracking_event_name %>
+    <%= link_to t('.choose_gyr'), Questions::TriageGyrIdsController.to_path_helper, class: "button button--wide text--centered", "data-track-click": click_tracking_event_name %>
   </div>
 </div>
