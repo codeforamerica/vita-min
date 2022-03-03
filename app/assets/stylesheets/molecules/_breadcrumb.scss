@@ -1,8 +1,28 @@
 .breadcrumb {
   background-color: $color-grey-light;
-  height: 3.5rem;
   font-size: 1.6rem;
+  min-height: 3.5rem;
   line-height: 2.5rem;
   color: black;
   padding: .5rem;
+
+}
+
+.hub {
+  .breadcrumb-item:first-of-type {
+    margin-left: 20px;
+  }
+  .breadcrumb-item {
+    font-weight: 500;
+    text-decoration: none;
+    color: $color-grey-dark;
+    &:before {
+      content: "< ";
+      flex-direction: column;
+      font-size: larger;
+    }
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
 }

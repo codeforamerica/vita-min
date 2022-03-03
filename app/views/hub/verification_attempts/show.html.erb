@@ -1,4 +1,8 @@
-<div class="slab">
+<div class="breadcrumb">
+  <%= link_to "All verifications", hub_verification_attempts_path, class: "breadcrumb-item" %>
+</div>
+
+<div class="slab slab--half-padded">
   <div class="grid-flex contained verification-attempts-show">
     <div class="verification-attempts-show__container">
       <%= link_to "##{@verification_attempt.client.id}", hub_client_path(id: @verification_attempt.client.id) , target: :_blank %>
