@@ -5,9 +5,9 @@
     <%= content_for(:page_title) %>
   </h1>
 
-  <%= render "questions/triage/gyr_tile" %>
+  <%= render "questions/triage/gyr_tile", click_tracking_event_name: "triage-gyr-diy-choose-gyr" %>
 
   <div class="spacing-below-25"></div>
 
-  <%= render "questions/triage/diy_tile" %>
+  <%= render "questions/triage/diy_tile", click_tracking_event_name: "triage-gyr-diy-choose-file-myself" %>
 <% end %>

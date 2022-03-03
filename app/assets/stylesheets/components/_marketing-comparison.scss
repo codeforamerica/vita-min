@@ -28,6 +28,20 @@
     flex-direction: row;
     align-items: flex-start;
 
+    &.express {
+      padding-bottom: 2.5rem;
+      align-items: center;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        p {
+          margin-bottom: 0;
+          font-weight: bold;
+        }
+      }
+    }
+
     img {
       padding-right: 1rem;
     }

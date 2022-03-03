@@ -1,8 +1,12 @@
 <div class="marketing-comparison">
   <h2><%= t('.title') %></h2>
   <p><%= t('.description') %></p>
-  <div class="timeframe">
-    <%= image_tag("clock.svg") %><p><b><%= t('.timeframe') %></b></p>
+  <div class="timeframe express">
+    <%= image_tag("clock.svg") %>
+    <div>
+      <p><%= t('.timeframe') %></p>
+      <p><i><%= t('.available') %></i></p>
+    </div>
   </div>
   <div class="bottom-section">
     <div>
@@ -10,17 +14,22 @@
       <ul class="list--bulleted">
         <li><%= t('questions.triage.collectables.missing_stimulus') %></li>
         <li><%= t('questions.triage.collectables.ctc') %></li>
-        <li><%= t('questions.triage.collectables.eitc') %></li>
-        <li><%= t('questions.triage.collectables.additional_credits') %></li>
       </ul>
     </div>
     <div class="spacer"></div>
     <div class="refund-indicator">
       <div class="spacing-below-10"><%= t('questions.triage.refund') %></div>
-      <div class="symbols"><%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %></div>
+      <div class="symbols"><%= image_tag("icons/money.svg") %></div>
     </div>
   </div>
+  <p class="text--red-bold">
+    <%= t('.warning') %>
+  </p>
   <div class="spacing-above-35">
-    <%= link_to t('.choose_diy'), diy_path, class: "button button--wide text--centered", "data-track-click": click_tracking_event_name %>
+    <%= link_to t('.sign_up_for_express'),
+                url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"),
+                class: "button button--wide text--centered",
+                "data-track-click": click_tracking_event_name
+    %>
   </div>
 </div>

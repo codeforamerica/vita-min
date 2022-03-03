@@ -5,5 +5,5 @@
     <%= content_for(:page_title) %>
   </h1>
 
-  <%= render "questions/triage/diy_tile" %>
+  <%= render "questions/triage/diy_tile", click_tracking_event_name: "triage-diy-choose-file-myself" %>
 <% end %>

@@ -1582,10 +1582,17 @@ en:
         choose_diy: Choose File Myself
       gyr_tile:
         description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
-        id_warning: You are required to show copies of your Social Security card or ITIN paperwork
+        warning: You are required to show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file
         title: GetYourRefund
         choose_gyr: Choose GetYourRefund
+      express_tile:
+        description: File quickly on your own.
+        timeframe: 15 minutes to file
+        available: Available May 2022
+        title: GetCTC Express
+        warning: You cannot file with GetCTC if you earned more than $400 in self-employment income or if you are required to file a full tax return.
+        sign_up_for_express: Sign up for Express
       refund: Refund
       collect_your: 'Collect your:'
       collectables:

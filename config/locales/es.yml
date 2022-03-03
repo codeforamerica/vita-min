@@ -1533,10 +1533,17 @@ es:
         choose_diy: Elegir archivo yo mismo
       gyr_title:
         description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
-        id_warning: debe mostrar copias de su tarjeta de Seguro Social o papeleo de ITIN
+        warning: debe mostrar copias de su tarjeta de Seguro Social o papeleo de ITIN
         timeframe: 2-3 semanas para presentar
         title: Obtenga su reembolso
         choose_gyr: Eligir GetYourRefund
+      express_tile:
+        description: Presente rápidamente por su cuenta.
+        timeframe: 15 minutos para presentar
+        available: Disponible Mayo 2022
+        title: GetCTC Express
+        warning: No puede presentar una declaración ante GetCTC si ganó más de $400 en ingresos de trabajo por cuenta propia o si debe presentar una declaración de impuestos completa.
+        sign_up_for_express: Suscríbete a Express
       refund: Reembolso
       collect_your: 'Recoge tu:'
       collectables:
