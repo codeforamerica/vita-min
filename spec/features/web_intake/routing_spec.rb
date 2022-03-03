@@ -83,16 +83,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     expect(page).to have_text I18n.t("views.questions.welcome.title")
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-    check "2020"
-    click_on I18n.t('general.continue')
-
-    expect(Intake.last.source).to eq "cobra"
     expect(page).to have_text I18n.t('views.questions.environment_warning.title')
     click_on I18n.t('general.continue_example')
-
-    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
-    click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.overview.title')
     click_on I18n.t('general.continue')
@@ -104,8 +96,17 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
     click_on I18n.t('general.continue')
 
+    expect(Intake.last.source).to eq "cobra"
+
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text I18n.t('views.questions.backtaxes.title')
+    check "2020"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -117,18 +118,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
   end
 
   scenario "routing by zip code" do
-    visit "/questions/backtaxes"
-
-    expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-    check "2020"
-    click_on I18n.t('general.continue')
-
-    expect(Intake.last.source).to eq nil
-    expect(page).to have_text I18n.t('views.questions.environment_warning.title')
-    click_on I18n.t('general.continue_example')
-
-    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
-    click_on I18n.t('general.continue')
+    visit "/questions/overview"
 
     expect(page).to have_text I18n.t('views.questions.overview.title')
     click_on I18n.t('general.continue')
@@ -140,8 +130,17 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
     click_on I18n.t('general.continue')
 
+    expect(Intake.last.source).to eq nil
+
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text I18n.t('views.questions.backtaxes.title')
+    check "2020"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -153,18 +152,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
   end
 
   scenario "routing by state" do
-    visit "/questions/backtaxes"
-
-    expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-    check "2020"
-    click_on I18n.t('general.continue')
-
-    expect(Intake.last.source).to eq nil
-    expect(page).to have_text I18n.t('views.questions.environment_warning.title')
-    click_on I18n.t('general.continue_example')
-
-    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
-    click_on I18n.t('general.continue')
+    visit "/questions/overview"
 
     expect(page).to have_text I18n.t('views.questions.overview.title')
     click_on I18n.t('general.continue')
@@ -176,8 +164,17 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
     click_on I18n.t('general.continue')
 
+    expect(Intake.last.source).to eq nil
+
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text I18n.t('views.questions.backtaxes.title')
+    check "2020"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -196,18 +193,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     end
 
     scenario "routes to national partner" do
-      visit "/questions/backtaxes"
-
-      expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-      check "2020"
-      click_on I18n.t('general.continue')
-
-      expect(Intake.last.source).to eq nil
-      expect(page).to have_text I18n.t('views.questions.environment_warning.title')
-      click_on I18n.t('general.continue_example')
-
-      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
-      click_on I18n.t('general.continue')
+      visit "/questions/overview"
 
       expect(page).to have_text I18n.t('views.questions.overview.title')
       click_on I18n.t('general.continue')
@@ -219,8 +205,17 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
       fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
       click_on I18n.t('general.continue')
 
+      expect(Intake.last.source).to eq nil
+
       fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
       fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_text I18n.t('views.questions.backtaxes.title')
+      check "2020"
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
       click_on I18n.t('general.continue')
 
       fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -240,18 +235,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     end
 
     scenario "would have been routed by state, redirects to at capacity page" do
-      visit "/questions/backtaxes"
-
-      expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-      check "2020"
-      click_on I18n.t('general.continue')
-
-      expect(Intake.last.source).to eq nil
-      expect(page).to have_text I18n.t('views.questions.environment_warning.title')
-      click_on I18n.t('general.continue_example')
-
-      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
-      click_on I18n.t('general.continue')
+      visit "/questions/overview"
 
       expect(page).to have_text I18n.t('views.questions.overview.title')
       click_on I18n.t('general.continue')
@@ -263,8 +247,18 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
       fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
       click_on I18n.t('general.continue')
 
+      expect(Intake.last.source).to eq nil
+
+
       fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
       fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_text I18n.t('views.questions.backtaxes.title')
+      check "2020"
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title')
       click_on I18n.t('general.continue')
 
       fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
