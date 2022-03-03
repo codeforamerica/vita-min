@@ -133,6 +133,7 @@ RSpec.feature "A client who wants help getting an ITIN" do
       fill_in "Phone number", with: "8286345533"
       fill_in "Confirm phone number", with: "828-634-5533"
       fill_in "ZIP code", with: "20121"
+      click_on "Continue"
 
       # don't show SSN/ITIN page
 

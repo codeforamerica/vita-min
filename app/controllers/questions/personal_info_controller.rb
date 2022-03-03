@@ -11,6 +11,10 @@ module Questions
       {}
     end
 
+    def visitor_record
+      Intake.find_by(id: session[:intake_id]) || current_intake
+    end
+
     private
 
     def illustration_path; end
