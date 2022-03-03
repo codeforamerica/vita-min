@@ -4028,6 +4028,8 @@ es:
           was_full_time_student: Mi cónyuge era un estudiante a tiempo completo en una universidad o una escuela de oficios
           was_on_visa: Mi cónyuge era en los Estados Unidos con una visa
         title: Seleccione las situaciones que fueron verdaderas para su cónyuge en %{year}
+      ssn_itin:
+        title: Por favor proporcione su información de identificación de contribuyente.
       start_with_current_year:
         info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.

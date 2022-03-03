@@ -102,6 +102,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
     fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    click_on I18n.t('general.continue')
+
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     click_on I18n.t('general.continue')
@@ -136,6 +138,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
     fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    click_on I18n.t('general.continue')
+
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     click_on I18n.t('general.continue')
@@ -170,6 +174,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
     fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
     fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    click_on I18n.t('general.continue')
+
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     click_on I18n.t('general.continue')
@@ -211,6 +217,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
       fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
       fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
       fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+      click_on I18n.t('general.continue')
+
       fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
       fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
       click_on I18n.t('general.continue')
@@ -253,6 +261,8 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
       fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
       fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
       fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+      click_on I18n.t('general.continue')
+
       fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
       fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
       click_on I18n.t('general.continue')
