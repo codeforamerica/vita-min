@@ -1,0 +1,26 @@
+<div class="marketing-comparison">
+  <h2><%= t('.title') %></h2>
+  <p><%= t('.description') %></p>
+  <div class="timeframe">
+    <%= image_tag("clock.svg") %><p><b><%= t('.timeframe') %></b></p>
+  </div>
+  <div class="bottom-section">
+    <div>
+      <div><%= t('questions.triage.collect_your') %></div>
+      <ul class="list--bulleted">
+        <li><%= t('questions.triage.collectables.missing_stimulus') %></li>
+        <li><%= t('questions.triage.collectables.ctc') %></li>
+        <li><%= t('questions.triage.collectables.eitc') %></li>
+        <li><%= t('questions.triage.collectables.additional_credits') %></li>
+      </ul>
+    </div>
+    <div class="spacer"></div>
+    <div class="refund-indicator">
+      <div class="spacing-below-10"><%= t('questions.triage.refund') %></div>
+      <div class="symbols"><%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %> <%= image_tag("icons/money.svg") %></div>
+    </div>
+  </div>
+  <div class="spacing-above-35">
+    <%= link_to t('.choose_diy'), diy_path, class: "button button--wide text--centered", "data-track-click": click_tracking_event_name %>
+  </div>
+</div>

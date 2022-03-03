@@ -11,7 +11,7 @@ class GyrQuestionNavigation
       Questions::TriageAssistanceController,
       Questions::TriageIncomeTypesController,
       Questions::TriageGyrController,
-      Questions::TriageReferralController,
+      Questions::TriageDiyController,
       Questions::TriageExpressController,
       Questions::TriageGyrExpressController,
       Questions::TriageDoNotQualifyController,

@@ -1478,6 +1478,32 @@ es:
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
   questions:
+    triage:
+      collect_your: 'Recoge tu:'
+      collectables:
+        additional_credits: Créditos Estatales Adicionales
+        ctc: Crédito fiscal por hijos
+        eitc: Crédito Tributario por Ingreso del Trabajo
+        missing_stimulus: Pagos de Estímulo Faltantes
+      diy_tile:
+        choose_diy: Elegir archivo yo mismo
+        description: "¡Recoge el reembolso más grande! Presente rápidamente por su cuenta."
+        timeframe: 45 minutos para presentar
+        title: Archivarme a mí mismo
+      express_tile:
+        available: Disponible Mayo 2022
+        description: Presente rápidamente por su cuenta.
+        sign_up_for_express: Suscríbete a Express
+        timeframe: 15 minutos para presentar
+        title: GetCTC Express
+        warning: No puede presentar una declaración ante GetCTC si ganó más de $400 en ingresos de trabajo por cuenta propia o si debe presentar una declaración de impuestos completa.
+      gyr_tile:
+        choose_gyr: Eligir GetYourRefund
+        description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
+        timeframe: 2-3 semanas para presentar
+        title: Obtenga su reembolso
+        warning: debe mostrar copias de su tarjeta de Seguro Social o papeleo de ITIN
+      refund: Reembolso
     triage_assistance:
       edit:
         assistance:
@@ -1493,6 +1519,9 @@ es:
 
           No se preocupe si no ha presentado una declaración de impuestos para ninguno de estos años, ¡estamos aquí para ayudarle!
         title: "¿Ha presentado declaraciones de impuestos en el pasado? Favor de decirnos en qué años los presentó."
+    triage_diy:
+      edit:
+        title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
@@ -1512,57 +1541,20 @@ es:
         title: "¡Le recomendamos que presente su declaración con nuestra opción Express!"
     triage_gyr:
       edit:
-        file_in_person: Presente su declaración en persona
-        file_on_my_own: 'En realidad, quiero intentar presentar mi declaración rápidamente por mi cuenta utilizando software gratuito. '
-        file_online: Presente su declaración en línea
-        help_text: |
-          Cobre todos los créditos tributarios que se le deben con asistencia.
-
-          ¡Disponible en línea o en persona!
-
-          ¡Nuestro equipo certificado por el IRS le brindará apoyo práctico con sus impuestos!
         title: "¡Le recomendamos que presente su declaración con nuestra opción gratuita de GetYourRefund!"
     triage_gyr_diy:
       edit:
-        choose_diy: Elegir archivo yo mismo
-        choose_gyr: Eligir GetYourRefund
-        collect_your: 'Recoge tu:'
-        collectables:
-          additional_credits: Créditos Estatales Adicionales
-          ctc: Crédito fiscal por hijos
-          eitc: Crédito Tributario por Ingreso del Trabajo
-          missing_stimulus: Pagos de Estímulo Faltantes
-        comparison:
-          diy:
-            description: "¡Recoge el reembolso más grande! Presente rápidamente por su cuenta."
-            timeframe: 45 minutos para presentar
-            title: Archivarme a mí mismo
-          gyr:
-            description: "¡Recoge el reembolso más grande! Presente con la ayuda de nuestros voluntarios certificados por el IRS."
-            id_warning: debe mostrar copias de su tarjeta de Seguro Social o papeleo de ITIN
-            timeframe: 2-3 semanas para presentar
-            title: Obtenga su reembolso
-        refund: Reembolso
         title: "¡Tenemos dos opciones gratuitas que pueden funcionar para usted!"
     triage_gyr_express:
       edit:
         collect_your: 'Cobre su:'
         collectables:
-          additional_credits: Créditos estatales adicionales
           ctc: Crédito Tributario por Hijos
-          eitc: Crédito tributario por ingresos del trabajo
           missing_stimulus: Pagos de estímulos faltantes
         comparison:
           express:
             description: "¡Declare rápido por cuenta propia!"
             timeframe: 15 minutos para declarar sus impuestos, disponible abril 2022
-            title: Express/Rápido
-          gyr:
-            description: "¡Cobre el reembolso más grande! Presente su declaración con asistencia de nuestros voluntarios certificados por IRS."
-            timeframe: De 2-3 semanas para declarar sus impuestos
-            title: GetYourRefund
-        file_with_gyr: Solicite por medio de GetYourRefund
-        refund: Reembolso
         sign_up_for_express: Subscríbase para Express
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_gyr_ids:
@@ -1607,13 +1599,6 @@ es:
           rental: Gané dinero de una propiedad alquilada
         income_types_label: "¿Alguna situación a continuación le aplica a usted?"
         title: "¡Una última pregunta antes de seleccionar un servicio para usted!"
-    triage_referral:
-      edit:
-        help_text: |
-          Presente su declaración en línea por su cuenta utilizando el sitio web de un asociado. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos tributarios que se le deben!
-
-          Al hacer clic en continuar, será dirigido al sitio web de nuestro asociado para que continúe presentando sus impuestos por su cuenta. El proceso es sencillo, rápido y fácil.
-        title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
     triage_start_ids:
       edit:
         help_text: 'Le puede ser útil juntar todos sus documentos fiscales y su tarjeta de Número de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN en inglés), en este momento. Confirmaremos la información nuevamente, más adelante en el proceso.  '

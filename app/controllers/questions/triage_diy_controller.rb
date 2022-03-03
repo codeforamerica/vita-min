@@ -1,5 +1,5 @@
 module Questions
-  class TriageReferralController < TriageController
+  class TriageDiyController < TriageController
     layout "intake"
 
     def self.show?(triage)
@@ -8,9 +8,7 @@ module Questions
 
     private
 
-    def illustration_path
-      "document-success.svg"
-    end
+    def illustration_path; end
 
     def form_class; NullForm; end
   end
