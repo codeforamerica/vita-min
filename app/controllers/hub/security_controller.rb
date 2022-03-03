@@ -11,6 +11,15 @@ module Hub
       @security_events = (
         @client.efile_security_informations + @client.recaptcha_scores
       ).sort_by(&:created_at)
+
+      @verification_attempt = VerificationAttempt.includes(:client, :transitions).find(params[:id])
+      @previous_verification_attempts = @verification_attempt.client.verification_attempts.where('id < ?', params[:id])
+
+      @previous_verification_attempts.each_with_index do |attempt,index|
+        if index == @previous_verification_attempts.length-1
+          @most_recent_attempt = attempt.id
+        end
+      end
     end
 
     private

@@ -4,6 +4,7 @@
 
   <div class="slab slab--not-padded spacing-above-25" id="body">
     <div class="spacing-below-25">
+      <div class="spacing-below-25"><%= "Most recent verification attempt:" %><%= link_to "verification attempt", hub_verification_attempt_path(id:@most_recent_attempt)%></div>
       Current recaptcha score average: <%= @client.recaptcha_scores_average || "N/A" %>
     </div>
     <% if @duplicate_bank_client_ids.present? %>
