@@ -68,7 +68,6 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
     # start with current year
     click_on I18n.t('general.continue')
 
-    expect(page).not_to have_text I18n.t('views.questions.returning_client.title')
-    expect(current_path).not_to eq(returning_client_questions_path)
+    expect(page).to have_text I18n.t("views.questions.interview_scheduling.title")
   end
 end
