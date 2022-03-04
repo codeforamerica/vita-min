@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_friendly do
-  let(:primary_ssn) { "123-45-6789" }
+  let(:gyr_ssn) { "123-45-6789" }
   let!(:original_gyr_intake) do
     create(
       :intake,
@@ -9,12 +9,13 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
       phone_number: "+14155537865",
       primary_consented_to_service: "yes",
       primary_consented_to_service_at: 15.minutes.ago,
-      primary_ssn: primary_ssn,
+      primary_ssn: gyr_ssn,
       client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
     )
   end
+  let(:ctc_ssn) { "123-45-6788" }
   let!(:original_ctc_intake) do
-    create :ctc_intake, primary_consented_to_service: "yes", primary_consented_to_service_at: 15.minutes.ago, primary_ssn: primary_ssn
+    create :ctc_intake, primary_consented_to_service: "yes", primary_consented_to_service_at: 15.minutes.ago, primary_ssn: ctc_ssn
   end
 
   scenario "returning client with GYR intake with matching ssn sees duplicate guard page" do
@@ -26,8 +27,8 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
     click_on I18n.t('general.continue')
 
-    fill_in I18n.t("attributes.primary_ssn"), with: primary_ssn
-    fill_in I18n.t("attributes.confirm_primary_ssn"), with: primary_ssn
+    fill_in I18n.t("attributes.primary_ssn"), with: gyr_ssn
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: gyr_ssn
     click_on I18n.t('general.continue')
 
     # backtaxes
@@ -57,8 +58,8 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
     click_on I18n.t('general.continue')
 
-    fill_in I18n.t("attributes.primary_ssn"), with: primary_ssn
-    fill_in I18n.t("attributes.confirm_primary_ssn"), with: primary_ssn
+    fill_in I18n.t("attributes.primary_ssn"), with: ctc_ssn
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: ctc_ssn
     click_on I18n.t('general.continue')
 
     # backtaxes
