@@ -5,11 +5,12 @@ class PersonalInfoForm < QuestionsForm
     :phone_number,
     :phone_number_confirmation,
     :zip_code,
+    :need_itin_help,
     :timezone,
     :source,
     :referrer,
     :locale,
-    :visitor_id
+    :visitor_id,
   )
 
   before_validation :normalize_phone_numbers
@@ -18,6 +19,7 @@ class PersonalInfoForm < QuestionsForm
   validates :preferred_name, presence: true
   validates :phone_number, presence: true, confirmation: true
   validates :phone_number_confirmation, presence: true
+  validates :need_itin_help, inclusion: { in: ['yes', 'no'], message: -> (_object, _data) { I18n.t('errors.messages.blank') } }
 
   def normalize_phone_numbers
     self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?

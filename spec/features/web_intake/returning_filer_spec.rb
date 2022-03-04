@@ -20,12 +20,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
 
   scenario "returning client with GYR intake with matching ssn sees duplicate guard page" do
     visit personal_info_questions_path
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
-    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Dupe"
-    fill_in I18n.t('views.questions.personal_info.phone_number'), with: "8286345533"
-    fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
-    fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
-    click_on I18n.t('general.continue')
+    fill_out_personal_information(name: "Dupe", zip_code: "20121")
 
     fill_in I18n.t("attributes.primary_ssn"), with: gyr_ssn
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: gyr_ssn
@@ -51,12 +46,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
 
   scenario "returning client with CTC intake with matching SSN does not see duplicate guard" do
     visit personal_info_questions_path
-    expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
-    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Dupe"
-    fill_in I18n.t('views.questions.personal_info.phone_number'), with: "828-634-5533"
-    fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
-    fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
-    click_on I18n.t('general.continue')
+    fill_out_personal_information(name: "Dupe", zip_code: "20121")
 
     fill_in I18n.t("attributes.primary_ssn"), with: ctc_ssn
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: ctc_ssn

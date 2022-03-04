@@ -121,6 +121,7 @@
 #  multiple_states                                      :integer          default(0), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
+#  need_itin_help                                       :integer          default(0), not null
 #  needs_help_2016                                      :integer          default(0), not null
 #  needs_help_2017                                      :integer          default(0), not null
 #  needs_help_2018                                      :integer          default(0), not null
@@ -510,7 +511,7 @@ class Intake < ApplicationRecord
   end
 
   def itin_applicant?
-    self&.triage&.id_type_need_itin_help?
+    need_itin_help_yes? || self&.triage&.id_type_need_itin_help?
   end
 
   def compute_canonical_email_address

@@ -3967,6 +3967,7 @@ en:
           other: In %{year}, did you or your spouse make any alimony payments?
       personal_info:
         info: Welcome, we're excited to help you. We need some basic information to get started.
+        need_itin_help: Do you need assistance applying for an ITIN?
         phone_number: Phone number
         phone_number_confirmation: Confirm phone number
         preferred_name: What is your preferred first name?

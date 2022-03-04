@@ -8,6 +8,7 @@ RSpec.describe PersonalInfoForm do
       phone_number: "8286065544",
       phone_number_confirmation: "828-606-5544",
       zip_code: "94107",
+      need_itin_help: "no",
     }
   end
   let(:additional_params) do
@@ -47,6 +48,15 @@ RSpec.describe PersonalInfoForm do
         expect(form.errors[:zip_code]).to be_present
       end
     end
+
+    context "need_itin_help" do
+      it "cannot be unfilled" do
+        form = described_class.new(intake, valid_params.except!(:need_itin_help).merge(additional_params))
+
+        expect(form).not_to be_valid
+        expect(form.errors[:need_itin_help]).to be_present
+      end
+    end
   end
 
   describe "#save" do
@@ -73,6 +83,7 @@ RSpec.describe PersonalInfoForm do
       expect(intake.preferred_name).to eq "Greta"
       expect(intake.phone_number).to eq "+18286065544"
       expect(intake.zip_code).to eq "94107"
+      expect(intake.need_itin_help).to eq "no"
       expect(intake.visitor_id).to eq "visitor_1"
       expect(intake.source).to eq "source"
       expect(intake.referrer).to eq "referrer"
