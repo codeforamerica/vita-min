@@ -29,6 +29,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     fill_in "Phone number", with: "8286345533"
     fill_in "Confirm phone number", with: "828-634-5533"
     fill_in "ZIP code", with: "20121"
+    select I18n.t('general.negative'), from: I18n.t('views.questions.personal_info.need_itin_help')
     click_on "Continue"
     # creates intake
     intake = Intake.last

@@ -38,6 +38,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       fill_in "Phone number", with: "415-888-0088"
       fill_in "Confirm phone number", with: "415-888-0088"
       fill_in "ZIP code", with: "20121"
+      select "No", from: "Do you need assistance applying for an ITIN?"
     end
     click_on "Continue"
     # creates intake

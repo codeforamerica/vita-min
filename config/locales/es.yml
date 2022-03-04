@@ -3934,6 +3934,7 @@ es:
           other: En %{year}, ¿Hizo usted o su pareja algún pago de pensión alimenticia?
       personal_info:
         info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
+        need_itin_help: "¿Necesita ayuda para solicitar un número de identificación personal del contribuyente (ITIN)?"
         phone_number: Número de teléfono
         phone_number_confirmation: Confirmar número de teléfono
         preferred_name: "¿Cuál primer nombre prefieres usar?"

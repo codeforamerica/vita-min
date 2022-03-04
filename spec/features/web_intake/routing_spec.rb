@@ -89,12 +89,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     expect(page).to have_text I18n.t('views.questions.overview.title')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t('views.questions.personal_info.title')
-    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Betty Banana"
-    fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
-    fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
-    fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
-    click_on I18n.t('general.continue')
+    fill_out_personal_information(zip_code: zip_code)
 
     expect(Intake.last.source).to eq "cobra"
 
@@ -123,12 +118,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     expect(page).to have_text I18n.t('views.questions.overview.title')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t('views.questions.personal_info.title')
-    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Minerva Mcgonagall"
-    fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
-    fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
-    fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
-    click_on I18n.t('general.continue')
+    fill_out_personal_information(zip_code: zip_code)
 
     expect(Intake.last.source).to eq nil
 
@@ -158,10 +148,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.personal_info.title')
-    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Luna Lovegood"
-    fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
-    fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
-    fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    fill_out_personal_information(zip_code: "28806")
     click_on I18n.t('general.continue')
 
     expect(Intake.last.source).to eq nil
@@ -199,11 +186,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
       click_on I18n.t('general.continue')
 
       expect(page).to have_text I18n.t('views.questions.personal_info.title')
-      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Luna Lovegood"
-      fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
-      fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
-      fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
-      click_on I18n.t('general.continue')
+      fill_out_personal_information(zip_code: "28806")
 
       expect(Intake.last.source).to eq nil
 
@@ -241,11 +224,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot_i18n_friendly, :active_
       click_on I18n.t('general.continue')
 
       expect(page).to have_text I18n.t('views.questions.personal_info.title')
-      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Luna Lovegood"
-      fill_in I18n.t('views.questions.personal_info.zip_code'), with: "28806"
-      fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
-      fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
-      click_on I18n.t('general.continue')
+      fill_out_personal_information(zip_code: "28806")
 
       expect(Intake.last.source).to eq nil
 

@@ -31,6 +31,7 @@ RSpec.feature "A client who wants help getting an ITIN" do
       fill_in "Phone number", with: "8286345533"
       fill_in "Confirm phone number", with: "828-634-5533"
       fill_in "ZIP code", with: "20121"
+      select I18n.t('general.affirmative'), from: I18n.t('views.questions.personal_info.need_itin_help')
       click_on "Continue"
 
       # don't show SSN/ITIN page
@@ -91,7 +92,6 @@ RSpec.feature "A client who wants help getting an ITIN" do
       click_on I18n.t("views.questions.consent.cta")
       expect(page).to have_text("You have the option to consent to the following:")
     end
-
   end
 
   context "when the itin applicant has a duplicate" do
@@ -133,6 +133,7 @@ RSpec.feature "A client who wants help getting an ITIN" do
       fill_in "Phone number", with: "8286345533"
       fill_in "Confirm phone number", with: "828-634-5533"
       fill_in "ZIP code", with: "20121"
+      select I18n.t('general.affirmative'), from: I18n.t('views.questions.personal_info.need_itin_help')
       click_on "Continue"
 
       # don't show SSN/ITIN page

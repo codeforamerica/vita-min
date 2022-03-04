@@ -15,6 +15,7 @@ RSpec.describe Questions::PersonalInfoController do
             preferred_name: "Shep",
             phone_number: "+14156778899",
             phone_number_confirmation: "+14156778899",
+            need_itin_help: "no",
           }
         }
       end
@@ -42,6 +43,7 @@ RSpec.describe Questions::PersonalInfoController do
           expect(intake.preferred_name).to eq "Shep"
           expect(intake.zip_code).to eq "80309"
           expect(intake.phone_number).to eq "+14156778899"
+          expect(intake.need_itin_help).to eq "no"
         end
       end
 

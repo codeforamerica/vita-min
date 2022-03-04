@@ -3,6 +3,16 @@ module NavigationHelpers
     page.evaluate_script('window.history.back()')
   end
 
+  def fill_out_personal_information(name: "Betty Banana", zip_code:)
+    expect(page).to have_text I18n.t('views.questions.personal_info.title')
+    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: name
+    fill_in I18n.t('views.questions.personal_info.zip_code'), with: zip_code
+    fill_in I18n.t('views.questions.personal_info.phone_number'), with: "415-888-0088"
+    fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "415-888-0088"
+    select I18n.t('general.negative'), from: I18n.t('views.questions.personal_info.need_itin_help')
+    click_on I18n.t('general.continue')
+  end
+
   def complete_intake_through_code_verification(
     primary_first_name: "Gary",
     primary_middle_initial: "H",

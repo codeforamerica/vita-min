@@ -121,6 +121,7 @@
 #  multiple_states                                      :integer          default("unfilled"), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
+#  need_itin_help                                       :integer          default("unfilled"), not null
 #  needs_help_2016                                      :integer          default("unfilled"), not null
 #  needs_help_2017                                      :integer          default("unfilled"), not null
 #  needs_help_2018                                      :integer          default("unfilled"), not null
@@ -352,6 +353,7 @@ class Intake::GyrIntake < Intake
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
   enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
   enum received_advance_ctc_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_advance_ctc_payment
+  enum need_itin_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :need_itin_help
   scope :accessible_intakes, -> { where.not(primary_consented_to_service_at: nil) }
   after_save do
     if saved_change_to_completed_at?(from: nil)
