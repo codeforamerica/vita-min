@@ -1,5 +1,5 @@
 class BacktaxesForm < QuestionsForm
-  set_attributes_for :intake, :needs_help_2018, :needs_help_2019, :needs_help_2020, :needs_help_2021, :source, :referrer, :locale, :visitor_id
+  set_attributes_for :intake, :needs_help_2018, :needs_help_2019, :needs_help_2020, :needs_help_2021
   validate :at_least_one_year
 
   def save

@@ -96,11 +96,11 @@ RSpec.describe PublicPagesController do
   end
 
   describe "#full-service" do
-    it "redirects to backtaxes and sets session source" do
+    it "redirects to the first intake page after triage and sets session source" do
       get :full_service
 
       expect(session[:source]).to eq "full-service"
-      expect(response).to redirect_to Questions::BacktaxesController.to_path_helper
+      expect(response).to redirect_to Questions::EnvironmentWarningController.to_path_helper
     end
   end
 

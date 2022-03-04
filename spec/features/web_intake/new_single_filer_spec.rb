@@ -15,38 +15,39 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
     click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
 
-    # Ask about backtaxes
-    expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-    check "#{TaxReturn.current_tax_year}"
-    check "#{TaxReturn.current_tax_year - 3}"
-    click_on "Continue"
-    # creates intake
-    intake = Intake.last
-
     # Non-production environment warning
     expect(page).to have_text I18n.t('views.questions.environment_warning.title')
     click_on I18n.t('general.continue_example')
-
-    expect(page).to have_selector("h1", text: "Let's get started")
-    expect(page).to have_text("We’ll start by asking about your situation in #{TaxReturn.current_tax_year}.")
-    click_on "Continue"
 
     # Overview
     expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
     click_on "Continue"
 
     # Personal Info
-    expect(intake.reload.current_step).to eq("/en/questions/personal-info")
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
     fill_in "Phone number", with: "8286345533"
     fill_in "Confirm phone number", with: "828-634-5533"
     fill_in "ZIP code", with: "20121"
     click_on "Continue"
+    # creates intake
+    intake = Intake.last
 
     select "Social Security Number (SSN)", from: "Identification Type"
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+    click_on "Continue"
+
+    # Ask about backtaxes
+    expect(intake.reload.current_step).to eq("/en/questions/backtaxes")
+    expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
+    check "#{TaxReturn.current_tax_year}"
+    check "#{TaxReturn.current_tax_year - 3}"
+    click_on "Continue"
+
+    # Start with current year
+    expect(page).to have_selector("h1", text: "Let's get started")
+    expect(page).to have_text("We’ll start by asking about your situation in #{TaxReturn.current_tax_year}.")
     click_on "Continue"
 
     # Interview time preferences

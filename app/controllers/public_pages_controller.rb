@@ -60,7 +60,7 @@ class PublicPagesController < ApplicationController
 
   def full_service
     session[:source] = "full-service"
-    redirect_to Questions::BacktaxesController.to_path_helper
+    redirect_to_intake_after_triage
   end
 
   def stimulus_recommendation; end

@@ -308,6 +308,10 @@ class ApplicationController < ActionController::Base
     redirect_to(question_path(id: question_navigator.first))
   end
 
+  def redirect_to_intake_after_triage
+    redirect_to Questions::EnvironmentWarningController.to_path_helper
+  end
+
   def redirect_or_add_flash
     if Rails.env.production? || Rails.env.test?
       redirect_to_beginning_of_intake

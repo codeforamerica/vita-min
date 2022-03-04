@@ -19,26 +19,11 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
     end
 
-    screenshot_after do
-      # Ask about backtaxes
-      expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "#{TaxReturn.current_tax_year - 3}"
-      check "#{TaxReturn.current_tax_year}"
-    end
-    click_on "Continue"
-    # creates intake
-    intake = Intake.last
-
     # Non-production environment warning
     screenshot_after do
       expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
     end
     click_on "Continue to example"
-
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Let's get started")
-    end
-    click_on "Continue"
 
     screenshot_after do
       # Overview
@@ -55,12 +40,27 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       fill_in "ZIP code", with: "20121"
     end
     click_on "Continue"
+    # creates intake
+    intake = Intake.last
 
     screenshot_after do
       # SSN or ITIN
       select "Social Security Number (SSN)", from: "Identification Type"
       fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
       fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+    end
+    click_on "Continue"
+
+    screenshot_after do
+      # Ask about backtaxes
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
+      check "#{TaxReturn.current_tax_year - 3}"
+      check "#{TaxReturn.current_tax_year}"
+    end
+    click_on "Continue"
+
+    screenshot_after do
+      expect(page).to have_selector("h1", text: "Let's get started")
     end
     click_on "Continue"
 

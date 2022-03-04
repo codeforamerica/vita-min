@@ -20,16 +20,8 @@ RSpec.feature "A client who wants help getting an ITIN" do
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
       click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
 
-      expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "#{TaxReturn.current_tax_year}"
-      click_on "Continue"
-
       expect(page).to have_text I18n.t('views.questions.environment_warning.title')
       click_on I18n.t('general.continue_example')
-
-      expect(page).to have_selector("h1", text: "Let's get started")
-      expect(page).to have_text("We’ll start by asking about your situation in #{TaxReturn.current_tax_year}.")
-      click_on "Continue"
 
       expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
       click_on "Continue"
@@ -39,12 +31,16 @@ RSpec.feature "A client who wants help getting an ITIN" do
       fill_in "Phone number", with: "8286345533"
       fill_in "Confirm phone number", with: "828-634-5533"
       fill_in "ZIP code", with: "20121"
+      click_on "Continue"
 
-      # don't show SSN/ITIN fields
-      expect(page).not_to have_select(I18n.t("general.tin_type"))
-      expect(page).not_to have_field(I18n.t("attributes.primary_ssn"))
-      expect(page).not_to have_field(I18n.t("attributes.confirm_primary_ssn"))
+      # don't show SSN/ITIN page
 
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
+      check "#{TaxReturn.current_tax_year}"
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Let's get started")
+      expect(page).to have_text("We’ll start by asking about your situation in #{TaxReturn.current_tax_year}.")
       click_on "Continue"
 
       # next page is interview time preferences
@@ -126,16 +122,8 @@ RSpec.feature "A client who wants help getting an ITIN" do
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
       click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
 
-      expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "#{TaxReturn.current_tax_year}"
-      click_on "Continue"
-
       expect(page).to have_text I18n.t('views.questions.environment_warning.title')
       click_on I18n.t('general.continue_example')
-
-      expect(page).to have_selector("h1", text: "Let's get started")
-      expect(page).to have_text("We’ll start by asking about your situation in #{TaxReturn.current_tax_year}.")
-      click_on "Continue"
 
       expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
       click_on "Continue"
@@ -145,12 +133,16 @@ RSpec.feature "A client who wants help getting an ITIN" do
       fill_in "Phone number", with: "8286345533"
       fill_in "Confirm phone number", with: "828-634-5533"
       fill_in "ZIP code", with: "20121"
+      click_on "Continue"
 
-      # don't show SSN/ITIN fields
-      expect(page).not_to have_select(I18n.t("general.tin_type"))
-      expect(page).not_to have_field(I18n.t("attributes.primary_ssn"))
-      expect(page).not_to have_field(I18n.t("attributes.confirm_primary_ssn"))
+      # don't show SSN/ITIN page
 
+      expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
+      check "#{TaxReturn.current_tax_year}"
+      click_on "Continue"
+
+      expect(page).to have_selector("h1", text: "Let's get started")
+      expect(page).to have_text("We’ll start by asking about your situation in #{TaxReturn.current_tax_year}.")
       click_on "Continue"
 
       # next page is interview time preferences
