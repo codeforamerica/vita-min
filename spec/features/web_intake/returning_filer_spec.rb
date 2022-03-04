@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_friendly do
   let(:primary_ssn) { "123-45-6789" }
-  let!(:original_intake) do
+  let!(:original_gyr_intake) do
     create(
       :intake,
       email_address: "original@client.com",
@@ -13,21 +13,11 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
       client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
     )
   end
-  let!(:ctc_intake_matching_ssn) { create :ctc_intake, primary_consented_to_service: "yes", primary_consented_to_service_at: 15.minutes.ago, primary_ssn: primary_ssn }
-  let(:returning_client_title) { I18n.t('views.questions.returning_client.title') }
-
-  before do
-    create(
-      :intake,
-      email_address: "dupe@client.com",
-      phone_number: "+18285537865",
-      primary_consented_to_service: "yes",
-      primary_ssn: primary_ssn,
-      client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
-    )
+  let!(:original_ctc_intake) do
+    create :ctc_intake, primary_consented_to_service: "yes", primary_consented_to_service_at: 15.minutes.ago, primary_ssn: primary_ssn
   end
 
-  scenario "returning client tries filing again is taken to returning client signpost page when a GYR intake with matching ssn exists" do
+  scenario "returning client with GYR intake with matching ssn sees duplicate guard page" do
     visit personal_info_questions_path
     expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
     fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Dupe"
@@ -47,7 +37,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
     # start with current year
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text returning_client_title
+    expect(page).to have_text I18n.t('views.questions.returning_client.title')
     expect(current_path).to eq(returning_client_questions_path)
 
     within "main" do
@@ -58,7 +48,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
 
   #scenario for a matching ITIN
 
-  scenario "client with matching CTC intake & no matching GYR intake doesn't see GYR duplicate guard" do
+  scenario "returning client with CTC intake with matching SSN does not see duplicate guard" do
     visit personal_info_questions_path
     expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
     fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Dupe"
@@ -67,11 +57,8 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
     fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
     click_on I18n.t('general.continue')
 
-    fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6788"
-    # how the heck was this passing before??
-    # fill_in I18n.t("attributes.primary_ssn"), with: "987-65-4321"
-    fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6788"
-    # fill_in I18n.t("attributes.confirm_primary_ssn"), with: "987-65-4321"
+    fill_in I18n.t("attributes.primary_ssn"), with: primary_ssn
+    fill_in I18n.t("attributes.confirm_primary_ssn"), with: primary_ssn
     click_on I18n.t('general.continue')
 
     # backtaxes
@@ -81,7 +68,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
     # start with current year
     click_on I18n.t('general.continue')
 
-    expect(page).not_to have_text returning_client_title
+    expect(page).not_to have_text I18n.t('views.questions.returning_client.title')
     expect(current_path).not_to eq(returning_client_questions_path)
   end
 end
