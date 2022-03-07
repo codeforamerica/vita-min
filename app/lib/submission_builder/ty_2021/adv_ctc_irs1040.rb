@@ -1,10 +1,12 @@
 module SubmissionBuilder
-  module Documents
+  module TY2021
     class AdvCtcIrs1040 < SubmissionBuilder::Base
       include SubmissionBuilder::FormattingMethods
-
-      @schema_file = File.join(Rails.root, "vendor", "irs", "unpacked", "2020v5.1", "IndividualIncomeTax", "Ind1040", "IRS1040", "IRS1040.xsd")
       @root_node = "IRS1040"
+
+      def schema_file
+        File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Ind1040", "IRS1040", "IRS1040.xsd")
+      end
 
       def root_node_attrs
         super.merge(documentId: "IRS1040", documentName: "IRS1040")
@@ -17,7 +19,7 @@ module SubmissionBuilder
           xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
           xml.DependentSSN dependent.ssn
           xml.DependentRelationshipCd dependent.irs_relationship_enum
-          xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit_2020?
+          xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit_2021?
         end
       end
 
@@ -39,8 +41,8 @@ module SubmissionBuilder
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
             end
-            xml.ChldWhoLivedWithYouCnt qualifying_dependents.count(&:yr_2020_qualifying_child?)
-            xml.OtherDependentsListedCnt qualifying_dependents.count(&:yr_2020_qualifying_relative?)
+            xml.ChldWhoLivedWithYouCnt qualifying_dependents.count(&:yr_2021_qualifying_child?)
+            xml.OtherDependentsListedCnt qualifying_dependents.count(&:yr_2021_qualifying_relative?)
             xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
             xml.TaxableInterestAmt 1 # 2b
             xml.TotalIncomeAmt 1 # 9
@@ -60,6 +62,14 @@ module SubmissionBuilder
             xml.RefundProductCd "NO FINANCIAL PRODUCT"
           }
         end.doc
+      end
+
+      def build
+        unless ENV['TEST_SCHEMA_VALIDITY_ONLY'] == 'true'
+          raise NotImplementedError, "SubmissionBuilder::TY2021::AdvCtcIrs1040 is for testing purposes only and does not currently conform to the 2021 revenue procedure."
+        end
+
+        super
       end
     end
   end

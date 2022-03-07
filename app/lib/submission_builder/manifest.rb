@@ -2,8 +2,11 @@ module SubmissionBuilder
   class Manifest < SubmissionBuilder::Base
     include SubmissionBuilder::FormattingMethods
 
-    @schema_file = File.join(Rails.root, "vendor", "irs", "unpacked", "2020v5.1", "Common", "efileAttachments.xsd")
     @root_node = "IRSSubmissionManifest"
+
+    def schema_file
+      File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "Common", "efileAttachments.xsd")
+    end
 
     def document
       intake = @submission.intake

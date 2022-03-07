@@ -51,8 +51,31 @@ describe SubmissionBuilder::Manifest do
         expect(xml.at("SubmissionId").text).to eq submission.irs_submission_id
       end
 
-      it "conforms to the eFileAttachments schema" do
-        expect(described_class.build(submission)).to be_valid
+
+      context "a 2021 submission" do
+        before do
+          submission.tax_return.update(year: 2021)
+        end
+
+        it "conforms to the eFileAttachments schema" do
+          instance = described_class.new(submission)
+          expect(instance.schema_version).to eq "2021v5.2"
+
+          expect(described_class.build(submission)).to be_valid
+        end
+      end
+
+      context "a 2020 submission" do
+        before do
+          submission.tax_return.update(year: 2020)
+        end
+
+        it "conforms to the eFileAttachments schema" do
+          instance = described_class.new(submission)
+          expect(instance.schema_version).to eq "2020v5.1"
+
+          expect(described_class.build(submission)).to be_valid
+        end
       end
     end
   end

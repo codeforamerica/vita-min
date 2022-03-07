@@ -1,12 +1,15 @@
-# References:
-# Attachment to MeF IMF Schemas for Tax Year 2020
-# https://drive.google.com/file/d/1WlDJ8jtVxTlTPbxNuaFfUhAaG8nDcJE-/view?usp=sharing
+# There do not seem to be significant, applicable differences between the return header schema for 2021 to 2020,
+# so it seems like we can use the same logic.
+#
 module SubmissionBuilder
   class ReturnHeader1040 < SubmissionBuilder::Base
     include SubmissionBuilder::FormattingMethods
-
-    @schema_file = File.join(Rails.root, "vendor", "irs", "unpacked", "2020v5.1", "IndividualIncomeTax", "Common", "ReturnHeader1040x.xsd")
+    include SubmissionBuilder::BusinessLogicMethods
     @root_node = "ReturnHeader"
+
+    def schema_file
+      File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "ReturnHeader1040x.xsd")
+    end
 
     def root_node_attrs
       super.merge("binaryAttachmentCnt": 0)
@@ -42,13 +45,13 @@ module SubmissionBuilder
             if intake.primary_prior_year_signature_pin.present?
               xml.PrimaryPriorYearPIN intake.primary_prior_year_signature_pin
             else
-              xml.PrimaryPriorYearAGIAmt intake.primary_prior_year_agi_amount || 0
+              xml.PrimaryPriorYearAGIAmt primary_prior_year_agi(intake, tax_return.year)
             end
             if tax_return.filing_jointly?
               if intake.spouse_prior_year_signature_pin.present?
                 xml.SpousePriorYearPIN intake.spouse_prior_year_signature_pin
               else
-                xml.SpousePriorYearAGIAmt spouse_prior_year_agi(intake)
+                xml.SpousePriorYearAGIAmt spouse_prior_year_agi(intake, tax_return.year)
               end
             end
           }
@@ -163,64 +166,6 @@ module SubmissionBuilder
           }
         }
       end.doc
-    end
-
-    def name_line_1(tax_return, intake)
-      if tax_return.filing_jointly?
-        name_line_1_type(intake.primary_first_name, intake.primary_middle_initial, intake.primary_last_name, intake.primary_suffix, intake.spouse_first_name, intake.spouse_middle_initial, intake.spouse_last_name)
-      else
-        name_line_1_type(intake.primary_first_name, intake.primary_middle_initial, intake.primary_last_name, intake.primary_suffix)
-      end
-    end
-    
-    # 0 - zero balance
-    # 2 - bank account
-    # 3 - check
-    def refund_disbursement_code
-      return 0 if submission.tax_return.claimed_recovery_rebate_credit.zero?
-
-      submission.intake.refund_payment_method_direct_deposit? ? 2 : 3
-    end
-
-    def oob_security_verification_code
-      return "03" if submission.intake.email_address_verified_at.present?
-      return "07" if submission.intake.sms_phone_number_verified_at.present?
-    end
-
-    # 0 - initiating IP == submission IP
-    # 1 - initiating IP != submission IP
-    def last_submission_rqr_oob_code
-      submission.client.first_sign_in_ip == submission.client.last_sign_in_ip ? 0 : 1
-    end
-
-    # Converting DateTime to epoch time then subtracting provides distance of time in seconds
-    # Divide by 60 to get distance of time in minutes
-    def total_preparation_submission_minutes
-      (DateTime.now.to_i - submission.client.created_at.to_datetime.to_i) / 60
-    end
-
-    def total_active_preparation_minutes
-      current_session_duration = submission.client.last_seen_at.to_i - submission.client.current_sign_in_at.to_i
-      ((submission.client.previous_sessions_active_seconds || 0) + current_session_duration) / 60
-    end
-
-    def spouse_name_control(intake)
-      name = intake.use_primary_name_for_name_control ? intake.primary_last_name : intake.spouse_last_name
-      person_name_control_type(name)
-    end
-
-    private
-
-    def spouse_prior_year_agi(intake)
-      if intake.spouse_filed_prior_tax_year_filed_non_filer_separate? || intake.spouse_filed_prior_tax_year_filed_non_filer_joint?
-        1
-      elsif intake.spouse_filed_prior_tax_year_filed_full_joint? && intake.primary_prior_year_agi_amount.present?
-        intake.primary_prior_year_agi_amount
-      elsif intake.spouse_filed_prior_tax_year_filed_full_separate? && intake.spouse_prior_year_agi_amount.present?
-        intake.spouse_prior_year_agi_amount
-      else
-        0
-      end
     end
   end
 end

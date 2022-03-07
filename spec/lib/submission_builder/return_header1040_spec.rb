@@ -44,7 +44,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
       end
 
       it "returns an Efile::Response object that responds to #valid? and contains no errors and provides the created Nokogiri object" do
-        response = SubmissionBuilder::ReturnHeader1040.build(submission)
+        response = described_class.build(submission)
         expect(response).to be_an_instance_of SubmissionBuilder::Response
         expect(response).to be_valid
         expect(response.errors).to eq []
@@ -63,7 +63,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
       end
 
       it "returns an Efile::Response object that responds to #valid? and includes the Schema errors" do
-        response = SubmissionBuilder::ReturnHeader1040.build(submission)
+        response = described_class.build(submission)
         expect(response).to be_an_instance_of SubmissionBuilder::Response
         expect(response).not_to be_valid
         expect(response.errors).to eq ['error', 'error']
@@ -74,7 +74,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
     context "the XML document contents" do
       it "includes required nodes on the ReturnHeader (filing with Check)" do
         xml = Nokogiri::XML::Document.parse(
-          Timecop.freeze(fake_time) { SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml }
+          Timecop.freeze(fake_time) { described_class.build(submission).document.to_xml }
         )
         expect(xml.at("ReturnTs").text).to eq submission.created_at.strftime("%FT%T%:z")
         expect(xml.at("TaxYr").text).to eq "2021"
@@ -136,7 +136,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         let(:filing_status) { "single" }
 
         it "does not include spouse nodes" do
-          xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           expect(xml.at("SpouseNameControlTxt")).to be_nil
           expect(xml.at("SpouseSSN")).to be_nil
           expect(xml.at("SpouseSignatureDt")).to be_nil
@@ -150,23 +150,23 @@ describe SubmissionBuilder::ReturnHeader1040 do
 
         it "returns $0 for the prior year AGI if the spouse did not file" do
           submission.intake.update(spouse_filed_prior_tax_year: "did_not_file")
-          xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           expect(xml.at("SpousePriorYearAGIAmt").text).to eq("0")
         end
 
         it "returns $1 for the prior year AGI if the non-filer tool was used in 2019" do
           submission.intake.update(spouse_filed_prior_tax_year: "filed_non_filer_joint")
-          xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           expect(xml.at("SpousePriorYearAGIAmt").text).to eq("1")
 
           submission.intake.update(spouse_filed_prior_tax_year: "filed_non_filer_separate")
-          xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           expect(xml.at("SpousePriorYearAGIAmt").text).to eq("1")
         end
 
         it "returns the user-entered value for prior year AGI if the spouse filed separately" do
           submission.intake.update(spouse_filed_prior_tax_year: "filed_full_separate", spouse_prior_year_agi_amount: 123)
-          xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           expect(xml.at("SpousePriorYearAGIAmt").text).to eq("123")
         end
       end
@@ -178,7 +178,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           end
 
           it "uses intake sms_phone_number" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("PhoneNum").text).to eq "5125551234"
           end
         end
@@ -189,7 +189,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           end
 
           it "uses intake phone_number" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("PhoneNum").text).to eq "6125551236"
           end
         end
@@ -202,7 +202,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           end
 
           it "excludes the cell phone number from the return" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("CellPhoneNum")).to be_nil
           end
         end
@@ -213,7 +213,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           end
 
           it "excludes the cell phone number from the return" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("CellPhoneNum").text).to eq "8324651680"
             expect(xml.at("TrustedCustomerGrp OOBSecurityVerificationCd").text).to eq "07"
           end
@@ -227,7 +227,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           end
 
           it "excludes the email address from the return" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("EmailAddress")).to be_nil
           end
         end
@@ -238,7 +238,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           end
 
           it "excludes the cell phone number from the return" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("EmailAddressTxt").text).to eq "marla@mango.com"
             expect(xml.at("TrustedCustomerGrp OOBSecurityVerificationCd").text).to eq "03"
           end
@@ -255,7 +255,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           let(:refund_amount) { 1 }
 
           it "includes direct deposit nodes and excludes CheckCd" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("RoutingTransitNum").text).to eq "123456789"
             expect(xml.at("DepositorAccountNum").text).to eq "87654321"
             expect(xml.at("CheckCd")).to eq nil
@@ -270,7 +270,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           let(:refund_amount) { 0 }
 
           it "includes direct deposit info and sets RefundDisbursementCd to 0" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("RoutingTransitNum").text).to eq "123456789"
             expect(xml.at("DepositorAccountNum").text).to eq "87654321"
             expect(xml.at("CheckCd")).to eq nil
@@ -293,7 +293,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         let(:refund_amount) { 1 }
 
         it "includes CheckCd and exclude direct deposit nodes" do
-          xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           expect(xml.at("RoutingTransitNum")).to be_nil
           expect(xml.at("DepositorAccountNum")).to be_nil
           expect(xml.at("CheckCd").text).to eq "Check"
@@ -305,7 +305,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         let(:refund_amount) { 0 }
 
         it "includes CheckCd and exclude direct deposit nodes and sets RefundDisbursementCd to 0" do
-          xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
 
           expect(xml.at("RoutingTransitNum")).to be_nil
           expect(xml.at("DepositorAccountNum")).to be_nil
@@ -323,7 +323,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           end
 
           it "in SelfSelectPINGrp, sends PINs and does not send AGIs" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("SelfSelectPINGrp PrimaryPriorYearAGIAmt")).to be_nil
             expect(xml.at("SelfSelectPINGrp SpousePriorYearAGIAmt")).to be_nil
             expect(xml.at("SelfSelectPINGrp PrimaryPriorYearPIN").text).to eq "12345"
@@ -333,7 +333,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
 
         context "without signature PINs provided" do
           it "in SelfSelectPINGrp, does not send AGI and sends PINs" do
-            xml = Nokogiri::XML::Document.parse(SubmissionBuilder::ReturnHeader1040.build(submission).document.to_xml)
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("SelfSelectPINGrp PrimaryPriorYearAGIAmt").text).to eq "10000"
             expect(xml.at("SelfSelectPINGrp SpousePriorYearAGIAmt").text).to eq "0"
             expect(xml.at("SelfSelectPINGrp PrimaryPriorYearPIN")).to be_nil
@@ -352,7 +352,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
 
       it "adds original submission metadata to the header" do
         expect(submission.previously_transmitted_submission).to eq(previous_submission)
-        response = SubmissionBuilder::ReturnHeader1040.build(submission)
+        response = described_class.build(submission)
         xml = Nokogiri::XML::Document.parse(response.document.to_xml)
         expect(xml.at("FederalOriginalSubmissionId").text).to eq previous_submission.irs_submission_id
         expect(xml.at("FederalOriginalSubmissionIdDt").text).to eq "2021-08-01"
@@ -383,7 +383,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
             expect(submission.client.efile_security_informations.last.platform.length).to eq 17
             expect(submission.client.efile_security_informations.last.platform.length).to eq 17
 
-            response = SubmissionBuilder::ReturnHeader1040.build(submission)
+            response = described_class.build(submission)
             xml = Nokogiri::XML::Document.parse(response.document.to_xml)
             expect(xml.at("FilingSecurityInformation AtSubmissionFilingGrp UserAgentTxt").text.length).to eq 150
             expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp UserAgentTxt").text.length).to eq 150
@@ -402,7 +402,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           end
 
           it "squishes multiple spaces into a single space so the schema will accept it" do
-            response = SubmissionBuilder::ReturnHeader1040.build(submission)
+            response = described_class.build(submission)
             expect(response).to be_valid
 
             xml = Nokogiri::XML::Document.parse(response.document.to_xml)
@@ -424,7 +424,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
           end
 
           it "pads the offset to contain 3 digits" do
-            response = SubmissionBuilder::ReturnHeader1040.build(submission)
+            response = described_class.build(submission)
             xml = Nokogiri::XML::Document.parse(response.document.to_xml)
 
             expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp TimeZoneOffsetNum").text).to eq "-060"
@@ -439,15 +439,53 @@ describe SubmissionBuilder::ReturnHeader1040 do
         before do
           submission.intake.update(use_primary_name_for_name_control: true)
         end
+
         it "uses the primary last name to create the name control" do
-          response = SubmissionBuilder::ReturnHeader1040.build(submission)
+          response = described_class.build(submission)
           xml = Nokogiri::XML::Document.parse(response.document.to_xml)
           expect(xml.at("SpouseNameControlTxt").text).to eq "DIWO"
         end
       end
     end
-    it "conforms to the eFileAttachments schema" do
-      expect(SubmissionBuilder::ReturnHeader1040.build(submission)).to be_valid
+
+    context "when submission is for a 2020 tax return" do
+      before do
+        submission.tax_return.update(year: 2020)
+      end
+
+      context "when testing for schema validity" do
+        around do |example|
+          ENV["TEST_SCHEMA_VALIDITY_ONLY"] = 'true'
+          example.run
+          ENV.delete("TEST_SCHEMA_VALIDITY_ONLY")
+        end
+
+        it "conforms to the eFileAttachments schema 2020v5.1" do
+          instance = described_class.new(submission)
+          expect(instance.schema_version).to eq "2020v5.1"
+
+          expect(described_class.build(submission)).to be_valid
+        end
+      end
+
+      context "when actually trying to build the data" do
+        it "raises an error because we dont have proper data to create an accurate return" do
+          expect { described_class.build(submission) }.to raise_error(RuntimeError, "primary_prior_year_agi only works for current tax year")
+        end
+      end
+    end
+
+    context "when submission is for a 2021 tax return" do
+      before do
+        submission.tax_return.update(year: 2021)
+      end
+
+      it "conforms to the eFileAttachments schema 2021v5.2" do
+        instance = described_class.new(submission)
+        expect(instance.schema_version).to eq "2021v5.2"
+
+        expect(described_class.build(submission)).to be_valid
+      end
     end
   end
 end

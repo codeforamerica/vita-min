@@ -134,6 +134,13 @@ class Dependent < ApplicationRecord
     yr_2020_age < 17 && yr_2020_qualifying_child? && tin_type_ssn?
   end
 
+  # WIP
+  def eligible_for_child_tax_credit_2021?
+    raise NotImplementedError, "Dependent eligibility rules not finalized for 2021 yet." unless ENV["TEST_SCHEMA_VALIDITY_ONLY"] == 'true'
+
+    true
+  end
+
   def eligible_for_eip1?
     yr_2020_age < 17 && yr_2020_qualifying_child? && [:ssn, :atin].include?(tin_type&.to_sym)
   end

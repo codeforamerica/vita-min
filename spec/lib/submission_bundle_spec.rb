@@ -1,12 +1,19 @@
 require "rails_helper"
 
 describe SubmissionBundle do
-  let(:submission) { create :efile_submission, :ctc }
+  let(:submission) { create :efile_submission, :ctc, tax_year: 2021 }
+
   before do
     submission.intake.update(
       primary_signature_pin: "12345",
       primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
     )
+  end
+
+  around do |example|
+    ENV["TEST_SCHEMA_VALIDITY_ONLY"] = 'true'
+    example.run
+    ENV.delete("TEST_SCHEMA_VALIDITY_ONLY")
   end
 
   describe "#build" do
