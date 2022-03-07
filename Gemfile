@@ -55,7 +55,7 @@ gem 'thor'
 gem 'websocket-extensions', '>= 0.1.5'
 gem 'twilio-ruby'
 gem 'mailgun-ruby'
-gem 'devise_invitable', '~> 2.0.0'
+gem 'devise_invitable', '2.0.5' # 2.0.6 causes a test failure in ./spec/controllers/users/invitations_controller_spec.rb:395 thanks to https://github.com/scambra/devise_invitable/commit/986f49b1625592c4622a99b6cfb6073b1a234b7c; bump devise_invitable and fix the test someday
 gem 'cancancan'
 gem 'webpacker', '~> 5.4.0'
 gem 'combine_pdf'
