@@ -12,8 +12,8 @@ describe SLABreachService do
         Timecop.freeze(t)
       end
 
-      it "time is 2/4/21, previous Thursday at 10:05am UTC (2:05am PST)" do
-        expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 4, 10, 5, 0)
+      it "time is 2/4/21, previous Wednesday at 10:05am UTC (2:05am PST)" do
+        expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 3, 10, 5, 0)
       end
     end
 
@@ -23,8 +23,8 @@ describe SLABreachService do
         Timecop.freeze(t)
       end
 
-      it "time is previous Thursday at 6:05pm  UTC" do
-        expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 4, 18, 5, 0)
+      it "time is previous Wednesday at 6:05pm  UTC" do
+        expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 3, 18, 5, 0)
       end
     end
 
@@ -34,8 +34,8 @@ describe SLABreachService do
         Timecop.freeze(t)
       end
 
-      it "time is previous Wednesday at 10:05 am UTC" do
-        expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 3, 10, 5)
+      it "time is previous Tuesday at 10:05 am UTC" do
+        expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 2, 10, 5)
       end
     end
 
@@ -45,8 +45,8 @@ describe SLABreachService do
         Timecop.freeze(t)
       end
 
-      it "time is previous Wednesday at 6:05pm UTC" do
-        expect(described_class.new.breach_threshold_date).to eq Time.utc(2021, 2, 3, 18, 5)
+      it "time is previous Tuesday at 6:05pm UTC" do
+        expect(described_class.new.breach_threshold_date).to eq Time.utc(2021, 2, 2, 18, 5)
 
       end
     end
@@ -83,7 +83,7 @@ describe SLABreachService do
     context "without any breaches" do
       it "returns a hash of attributes for the report" do
         report_hash = {
-            breached_at: 5.business_days.before(t),
+            breached_at: 6.business_days.before(t),
             generated_at: t,
             active_sla_clients_by_vita_partner_id: {},
             active_sla_clients_count: 0,
@@ -120,7 +120,7 @@ describe SLABreachService do
 
       it "returns an accurate hash of attributes for the report" do
         report_hash = {
-            breached_at: 5.business_days.before(t),
+            breached_at: 6.business_days.before(t),
             generated_at: t,
             active_sla_clients_by_vita_partner_id: { vita_partner_1.id => 1, vita_partner_2.id => 3 },
             active_sla_clients_count: 4,

@@ -34,7 +34,7 @@ RSpec.describe ClientSortable, type: :controller do
     allow(clients_query_double).to receive(:delegated_order).and_return clients_query_double
     allow(clients_query_double).to receive(:where).and_return clients_query_double
     allow(clients_query_double).to receive(:not).and_return clients_query_double
-    allow(clients_query_double).to receive(:first_unanswered_incoming_interaction_communication_breaches).and_return clients_query_double
+    allow(clients_query_double).to receive(:first_unanswered_incoming_interaction_between).and_return clients_query_double
     allow(Intake).to receive(:search).and_return intakes_query_double
   end
 
@@ -235,7 +235,7 @@ RSpec.describe ClientSortable, type: :controller do
 
       it "creates a query that includes clients that are in breach of the sla date" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:first_unanswered_incoming_interaction_communication_breaches).with(params[:sla_breach_date])
+        expect(clients_query_double).to have_received(:first_unanswered_incoming_interaction_between).with(...params[:sla_breach_date])
       end
     end
 
