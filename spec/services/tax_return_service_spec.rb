@@ -16,7 +16,7 @@ describe TaxReturnService do
     let(:user) { create :user }
     let(:tax_return) { create :tax_return, :intake_in_progress, client: client, year: 2019 }
     let(:form_params) {
-      { tax_return_id: tax_return.id, current_state: "intake_info_requested" }
+      { tax_return_id: tax_return.id, status: "intake_info_requested" }
     }
     let(:form) { Hub::TakeActionForm.new(client, user, form_params) }
 
@@ -52,7 +52,7 @@ describe TaxReturnService do
     end
 
     context "with an invalid status" do
-      let(:form_params) { { tax_return_id: tax_return.id, current_state: "bad-status" } }
+      let(:form_params) { { tax_return_id: tax_return.id, status: "bad-status" } }
 
       it "raises an error" do
         expect do
@@ -63,7 +63,7 @@ describe TaxReturnService do
 
     context "when the form has an outgoing message body" do
       let(:form_params) {
-        { tax_return_id: tax_return.id, message_body: "message body", contact_method: contact_method, current_state: "intake_info_requested" }
+        { tax_return_id: tax_return.id, message_body: "message body", contact_method: contact_method, status: "intake_info_requested" }
       }
       context "there is a email contact method" do
         let(:contact_method) { "email" }
@@ -88,7 +88,7 @@ describe TaxReturnService do
 
         context "when the status is signature requested" do
           let(:form_params) {
-            { tax_return_id: tax_return.id, message_body: "message body", contact_method: contact_method, current_state: "review_signature_requested" }
+            { tax_return_id: tax_return.id, message_body: "message body", contact_method: contact_method, status: "review_signature_requested" }
           }
 
           it "sends an email addressed to all statusfilers" do
@@ -125,7 +125,7 @@ describe TaxReturnService do
 
     context "when the form has a blank message body" do
       let(:form_params) {
-        { tax_return_id: tax_return.id, message_body: " \n", current_state: "intake_info_requested" }
+        { tax_return_id: tax_return.id, message_body: " \n", status: "intake_info_requested" }
       }
 
       it "does not send an email or a text message" do
@@ -138,7 +138,7 @@ describe TaxReturnService do
 
     context "when the form has an internal note body" do
       let(:form_params) {
-        { tax_return_id: tax_return.id, internal_note_body: "note body", current_state: "intake_info_requested" }
+        { tax_return_id: tax_return.id, internal_note_body: "note body", status: "intake_info_requested" }
       }
 
       it "creates an internal note from the user" do
@@ -161,7 +161,7 @@ describe TaxReturnService do
 
     context "when the form has a blank internal note body" do
       let(:form_params) {
-        { tax_return_id: tax_return.id, internal_note_body: " \n", current_state: "intake_info_requested" }
+        { tax_return_id: tax_return.id, internal_note_body: " \n", status: "intake_info_requested" }
       }
 
       it "does not create an internal note" do

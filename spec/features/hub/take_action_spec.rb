@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Change tax return status on a client" do
+RSpec.feature "Change tax return status on a client", :js do
   context "As an authenticated user" do
     let(:organization) { create :organization }
     let(:user) { create :user, name: "Example Preparer", role: create(:organization_lead_role, organization: organization) }
@@ -19,16 +19,17 @@ RSpec.feature "Change tax return status on a client" do
       click_on "Take action"
 
       expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
-      expect(page).to have_select("hub_take_action_form_current_state")
+      expect(page).to have_select("hub_take_action_form_status")
       select "Preparing", from: "Updated status"
       select "2019", from: "Filing year"
 
       expect(page).to have_select("hub_take_action_form_locale", selected: "English")
+      expect(page).to have_text "Preparing"
+
       choose "Text Message"
       fill_in "Send message", with: "Heads up! I am still working on it."
       fill_in "Add an internal note", with: "Leaving a note to the client"
       click_on "Send"
-      expect(page).to have_text "Preparing"
 
       expect(current_path).to eq hub_client_path(id: client.id)
       click_on "Notes"
@@ -43,17 +44,21 @@ RSpec.feature "Change tax return status on a client" do
       expect(page).to have_select("tax_return[current_state]", selected: "Not ready")
 
       within "#tax-return-#{tax_return.id}" do
-        select "Accepted"
+        select "Greeter - info requested"
         click_on "Update"
       end
 
       expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
-      expect(page).to have_select("hub_take_action_form_tax_return_id", selected: "2019")
-      expect(page).to have_select("hub_take_action_form_current_state", selected: "Accepted")
-      expect(page).to have_select("hub_take_action_form_locale", selected: "English")
 
-      expect(page).to have_text("Send message")
+      expect(page).to have_text("In order to continue filing your taxes, sign in here")
+      select "Accepted", from: "Updated status"
       expect(page).to have_text("Your #{tax_return.year} tax return has been accepted!")
+
+      expect(page).to have_select("hub_take_action_form_tax_return_id", selected: "2019")
+      expect(page).to have_select("hub_take_action_form_status", selected: "Accepted")
+      expect(page).to have_select("hub_take_action_form_locale", selected: "English")
+      expect(page).to have_field("hub_take_action_form_message_body")
+      expect(page).to have_text("Send message")
       expect(page).to have_text("By clicking send, you will also update status, send a team note, and update followers.")
 
       click_on "Send"
