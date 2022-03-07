@@ -1,24 +1,49 @@
 <% content_for :card do %>
-  <div class="slab">
+  <div class="slab--not-padded spacing-above-25">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <h1><%=  "#{pluralize(@attempt_count, "client")} to be verified" %></h1>
+        <div class="submissions-index" style="display: flex;">
+          <% @state_counts.each do |state, count| %>
+            <div class="metric-box">
+              <div class="status <%= state %>"><%= count %></div>
+              <div class="status <%= state %>"><%= link_to state, hub_verification_attempts_path(status: state), class: 'link--subtle', style: "color: inherit;" %></div>
+            </div>
+          <% end %>
+        </div>
 
-        <table class="index-table">
+        <div class="slab slab--not-padded spacing-above-25">
+          <div class="pagination-wrapper">
+            <div class="count-wrapper">
+              <div>
+                <%= page_entries_info @verification_attempts, model: "verification_attempts" %>
+              </div>
+            </div>
+            <div>
+              <%= will_paginate(
+                @verification_attempts,
+                previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
+                next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+                inner_window: 1,
+                outer_window: 1,
+                param_name: "page",
+              ) %>
+            </div>
+          </div>
+        </div>
+        <table class="index-table spacing-above-25 verifications-table">
           <thead class="index-table__head">
           <tr class="index-table__row">
+            <th scope="col" class="index-table__header">Status</th>
             <th scope="col" class="index-table__header">Name</th>
             <th scope="col" class="index-table__header">Submitted at</th>
-            <th scope="col" class="index-table__header">Status</th>
           </tr>
           </thead>
           <tbody>
-            <% VerificationAttempt.find_each do|attempt| %>
+            <% @verification_attempts.each do|attempt| %>
               <tr class="index-table__row" id="verification-attempt-<%= attempt.id %>">
-                <td class="index-table__cell"><%= link_to "#{attempt.client.legal_name}", hub_verification_attempt_path(id: attempt.id) %></td>
-                <td class="index-table__cell"><%= link_to timestamp(attempt.created_at), hub_verification_attempt_path(id: attempt.id) %></td> <%# The link is only working for the first 6 entries in this table %>
-                <th scope="col" class="index-table__header"><div class="label"><%= attempt.current_state.humanize %></div>
-                </th>
+                <td class="index-table__cell status"><%= link_to attempt.current_state.humanize(capitalize: false), hub_verification_attempt_path(id: attempt.id), class: "underline" %></td>
+                <td class="index-table__cell"><%= link_to "#{attempt.client.legal_name}", hub_verification_attempt_path(id: attempt.id), class: "underline" %></td>
+                <td class="index-table__cell"><%= timestamp(attempt.created_at) %></td>
               </tr>
             <% end %>
           </tbody>

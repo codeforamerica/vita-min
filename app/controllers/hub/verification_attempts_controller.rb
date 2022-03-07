@@ -8,7 +8,17 @@ module Hub
     layout "hub"
 
     def index
-      @attempt_count = VerificationAttempt.count
+      if params[:status]
+        states = [params[:status]]
+      else
+        states = [:pending]
+        states.push(:escalated) if current_user.admin? || current_user.client_success?
+      end
+      @state_counts = VerificationAttemptStateMachine.states.map do|state|
+        state.in?(["pending", "escalated"]) ? [state, VerificationAttempt.in_state(state).count] : nil
+      end.compact.to_h
+      @verification_attempts = VerificationAttempt.includes(:client, :transitions).in_state(states).page(params[:page])
+      @attempt_count = @verification_attempts.count
     end
 
     def show

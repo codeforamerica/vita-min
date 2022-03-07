@@ -26,7 +26,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
     visit hub_verification_attempts_path
 
     # check number of records
-    expect(page).to have_text "4 clients to be verified"
+    expect(page).to have_text "all 4 verification attempts"
 
     # check info in table
     within "#verification-attempt-#{verification_attempt_1.id}" do
