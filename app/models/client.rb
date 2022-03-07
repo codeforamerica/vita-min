@@ -96,8 +96,8 @@ class Client < ApplicationRecord
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
   scope :sla_tracked, -> { distinct.joins(:tax_returns).where.not(tax_returns: { status: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
 
-  scope :first_unanswered_incoming_interaction_communication_breaches, ->(breach_threshold_datetime) do
-    sla_tracked.where(arel_table[:first_unanswered_incoming_interaction_at].lteq(breach_threshold_datetime))
+  scope :first_unanswered_incoming_interaction_between, ->(range) do
+    sla_tracked.where(first_unanswered_incoming_interaction_at: range)
   end
 
   scope :by_raw_login_token, ->(raw_token) do

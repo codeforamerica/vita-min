@@ -16,7 +16,7 @@ module Hub
       @breach_date = day_param.business_days.ago
       # @tax_return_count HAS to be defined before @clients, otherwise it will cause SQL errors
       @tax_return_count = TaxReturn.where(client: filtered_clients.with_eager_loaded_associations.without_pagination).size
-      @clients = filtered_and_sorted_clients.first_unanswered_incoming_interaction_communication_breaches(@breach_date)
+      @clients = filtered_and_sorted_clients.first_unanswered_incoming_interaction_between(...@breach_date)
       @filters[:sla_breach_date] = @breach_date
       @clients = @clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))

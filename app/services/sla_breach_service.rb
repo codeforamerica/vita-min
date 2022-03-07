@@ -6,7 +6,7 @@ class SLABreachService
   end
 
   def breach_threshold_date
-    5.business_days.before(@report_generated_at)
+    6.business_days.before(@report_generated_at)
   end
 
   def active_sla_clients_count
@@ -15,7 +15,7 @@ class SLABreachService
 
   # clients who messaged us and have not been responded to _with a message, call or email_ within the breach threshold
   def first_unanswered_incoming_interaction_communication_breaches
-    count_by_vita_partner(Client.first_unanswered_incoming_interaction_communication_breaches(breach_threshold_date))
+    count_by_vita_partner(Client.first_unanswered_incoming_interaction_between(...breach_threshold_date))
   end
 
   def self.generate_report
