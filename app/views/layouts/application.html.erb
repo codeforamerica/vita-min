@@ -42,8 +42,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
-    <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type=>'image/png', :sizes => '57x57' %>
-
+    <%= render 'shared/favicon' %>
     <%= render 'shared/app_data_mixpanel_data_script' %>
 
     <%= stylesheet_pack_tag 'application', media: 'all' %>
