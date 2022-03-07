@@ -9,9 +9,9 @@ module Hub
                   :internal_note_body,
                   :action_list,
                   :current_user,
-                  :client,
-                  :current_state
-    validates_presence_of :current_state
+                  :client
+    attr_accessor :state_transition, :status
+    validates_presence_of :status
     validate :belongs_to_client
     validate :state_has_changed
     validate :message_body_excludes_replace_me
@@ -58,7 +58,7 @@ module Hub
     end
 
     def self.permitted_params
-      [:tax_return_id, :current_state, :locale, :message_body, :contact_method, :internal_note_body]
+      [:tax_return_id, :status, :locale, :message_body, :contact_method, :internal_note_body]
     end
 
     def tax_return
@@ -72,9 +72,9 @@ module Hub
     end
 
     def set_default_message_body
-      @message_body = "" and return unless current_state.present? && contact_method_options.present?
+      @message_body = "" and return unless status.present? && contact_method_options.present?
 
-      template = TaxReturnStatus.message_template_for(current_state, locale)
+      template = TaxReturnStatus.message_template_for(status, locale)
       @message_body = ReplacementParametersService.new(body: template, client: client, tax_return: tax_return, preparer: current_user, locale: locale).process
     end
 
@@ -89,7 +89,7 @@ module Hub
     end
 
     def state_has_changed
-      errors.add(:current_state, I18n.t("forms.errors.status_must_change")) if current_state == tax_return&.current_state
+      errors.add(:status, I18n.t("forms.errors.status_must_change")) if status == tax_return&.status
     end
 
     def belongs_to_client

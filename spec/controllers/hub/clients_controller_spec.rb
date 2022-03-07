@@ -1058,7 +1058,7 @@ RSpec.describe Hub::ClientsController do
           get :edit_take_action, params: params
 
           expect(assigns(:take_action_form)).to be_present
-          expect(assigns(:take_action_form).current_state).to be_nil
+          expect(assigns(:take_action_form).status).to be_nil
           expect(assigns(:take_action_form).tax_return_id).to be_nil
         end
       end
@@ -1081,7 +1081,7 @@ RSpec.describe Hub::ClientsController do
           get :edit_take_action, params: params
 
           expect(assigns(:take_action_form).tax_return_id).to eq tax_return_2019.id
-          expect(assigns(:take_action_form).current_state).to eq "intake_info_requested"
+          expect(assigns(:take_action_form).status).to eq "intake_info_requested"
           expect(assigns(:take_action_form).locale).to eq "es"
           expect(assigns(:take_action_form).message_body).not_to be_blank
           expect(assigns(:take_action_form).contact_method).to eq "email"
