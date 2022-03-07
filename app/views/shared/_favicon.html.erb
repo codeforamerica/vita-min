@@ -1,0 +1,5 @@
+<% if Rails.env.development? %>
+  <%= favicon_link_tag image_path('checkbox-logo--purple.png'), :type=>'image/png', :sizes => '57x57' %>
+<% else %>
+  <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type=>'image/png', :sizes => '57x57' %>
+<% end %>
