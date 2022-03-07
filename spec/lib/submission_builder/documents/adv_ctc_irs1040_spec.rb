@@ -13,6 +13,7 @@ describe SubmissionBuilder::Documents::AdvCtcIrs1040 do
       dependent3 = submission.intake.dependents.third
       dependent3_attrs = attributes_for(:qualifying_relative, first_name: "Kelly", birth_date: Date.new(1960, 1, 1), relationship: "parent", ssn: "123001236")
       dependent3.update(dependent3_attrs)
+      submission.reload
     end
 
     let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2021 }

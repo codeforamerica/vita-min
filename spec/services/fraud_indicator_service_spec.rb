@@ -196,5 +196,38 @@ describe FraudIndicatorService do
         end
       end
     end
+
+    context "no_dependents" do
+      context "when FRAUD_HOLD_NO_DEPENDENTS ENV variable is set" do
+        around do |example|
+          ENV['FRAUD_HOLD_NO_DEPENDENTS'] = '1'
+          example.run
+          ENV.delete('FRAUD_HOLD_NO_DEPENDENTS')
+        end
+
+        context "when a client has no eligible dependents" do
+          let(:intake) { create :ctc_intake, phone_number: "+18324658840" }
+          before do
+            intake.dependents.destroy_all
+          end
+          it "marks them with a fraud hold indicator" do
+            expect(FraudIndicatorService.new(intake.client).hold_indicators).to eq ["no_dependents"]
+          end
+        end
+      end
+
+      context "when FRAUD_HOLD_NO_DEPENDENTS is not set" do
+        context "when a client has no eligible dependents" do
+          let(:intake) { create :ctc_intake, phone_number: "+18324658840" }
+          before do
+            intake.dependents.destroy_all
+          end
+
+          it "does not mark them with a fraud hold indicator" do
+            expect(FraudIndicatorService.new(intake.client).hold_indicators).to eq []
+          end
+        end
+      end
+    end
   end
 end

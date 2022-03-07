@@ -37,10 +37,10 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :preparing) do |submission|
-    fraud_indicator_service = FraudIndicatorService.new(submission.client)
-    hold_indicators = fraud_indicator_service.hold_indicators
-    hold_no_dependents = ActiveModel::Type::Boolean.new.cast(ENV["FRAUD_HOLD_NO_DEPENDENTS"]) && submission.tax_return.qualifying_dependents.count.zero?
-    if (hold_no_dependents || hold_indicators.present?) && !submission.admin_resubmission?
+    bypass_fraud_check = submission.admin_resubmission? || submission.client.identity_verified_at
+    hold_indicators = bypass_fraud_check ? [] : FraudIndicatorService.hold_indicators(submission.client)
+
+    if hold_indicators.present?
       submission.transition_to!(:fraud_hold, indicators: hold_indicators)
     else
       # Only sends if efile preparing message has never been sent bc

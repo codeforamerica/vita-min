@@ -74,6 +74,19 @@ describe Client do
     end
   end
 
+  describe "#qualifying_dependents" do
+    let(:client) { create :client }
+
+    context "when the tax year does not have rules defined" do
+      it "raises an error" do
+        expect {
+          client.qualifying_dependents(2019)
+        }.to raise_error StandardError
+      end
+    end
+  end
+
+
   describe ".needs_in_progress_survey scope" do
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
 
