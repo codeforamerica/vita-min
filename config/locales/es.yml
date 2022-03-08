@@ -1476,12 +1476,12 @@ es:
         timeframe: 45 minutos para declarar
         title: Declarar por mi cuenta o "File Myself" en inglés
       express_tile:
-        available: ''
-        description: ''
+        available: Disponible Mayo 2022
+        description: Presente rápidamente por su cuenta.
         sign_up_for_express: Subscríbase para Express
-        timeframe: ''
-        title: ''
-        warning: ''
+        timeframe: 15 minutos para presentar
+        title: GetCTC Express
+        warning: No puede presentar una declaración ante GetCTC si ganó más de $400 en ingresos de trabajo por cuenta propia o si debe presentar una declaración de impuestos completa.
       gyr_tile:
         choose_gyr: Elija GetYourRefund
         description: "¡Cobre el reembolso más grande! Presente su declaración con asistencia de nuestros voluntarios certificados por IRS."
@@ -1526,7 +1526,7 @@ es:
         title: Le recomendamos que use la opcion rápida
     triage_gyr:
       edit:
-        title: ''
+        title: "¡Le recomendamos que presente su declaración con nuestra opción gratuita de GetYourRefund!"
     triage_gyr_diy:
       edit:
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
@@ -1544,11 +1544,11 @@ es:
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_gyr_ids:
       edit:
-        help_text_1: ''
-        help_text_2: ''
-        no_diy: ''
-        title: ''
-        yes_i_have_id: ''
+        help_text_1: Le pediremos que cargue una copia de su tarjeta de identificación (licencia de conducir o identificación emitida por el estado) y la tarjeta de seguro social o papeleo ITIN.
+        help_text_2: Si no puede obtener estos documentos pero conoce su número de SSN o ITIN, le recomendamos presentarlos con nuestra opción File Myself.
+        no_diy: No, continuaré con File Myself
+        title: Antes de continuar, ¿tiene una copia física de su identificación con foto y tarjeta de Seguro Social o papeleo de ITIN?
+        yes_i_have_id: Sí, tengo mi tarjeta de identificación
     triage_id_type:
       edit:
         ssn_itin_type:
@@ -2921,7 +2921,7 @@ es:
               answer_html: <p>Si Ud. recibió más de $600 en pagos por trabajar por cuenta propia de una empresa o individuo como parte de un contrato/trabajo independiente, la empresa o individuo debe emitir el 1099-NEC antes del 31 de enero de 2022. Si no ha recibido este formulario, debe intentar comunicarse con la organización o individuo para el que trabajó para obtener una copia. Muchas aplicaciones de trabajo por cuenta propia como Lyft, Uber o DoorDash tienen formularios e información adicional en sus tableros de contratistas en la aplicación. Si no puede obtener los formularios correctos, puede esperar hasta finales de mayo para solicitar una "Transcripción de salarios e ingresos", en inglés, <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Wage and Income Transcript" al IRS</a>.</p>
               question: "¿Cómo puedo obtener mi documento de empleo 1099?"
             how_do_i_get_my_w2_employment_document:
-              answer_html: ''
+              answer_html: <p>Employers are required to send a current W2 in the mail or electronically to all W2 employees by January 31, 2022. If you did not receive a W2 from your employer, you should contact your employer directly to request a copy. If you are unable to contact your employer, you can wait until late May to request a <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">&ldquo;Wage and Income Transcript&rdquo; from the IRS</a>.</p>
               question: "¿Cómo puedo obtener mi documento de trabajo W2?"
             how_do_i_replace_my_social_security_card:
               answer_html: |
@@ -4000,7 +4000,7 @@ es:
           was_on_visa: Mi cónyuge era en los Estados Unidos con una visa
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
-        title: ''
+        title: Por favor proporcione su información de identificación de contribuyente.
       start_with_current_year:
         info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
