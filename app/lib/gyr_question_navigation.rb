@@ -3,6 +3,7 @@ class GyrQuestionNavigation
 
   FLOW = [
       Questions::WelcomeController,
+      Questions::TriagePersonalInfoController, # creates Intake record and Client record
       Questions::TriageIncomeLevelController,
       Questions::TriageStartIdsController,
       Questions::TriageIdTypeController,
@@ -25,7 +26,7 @@ class GyrQuestionNavigation
       Questions::OverviewController,
 
       # Contact information and preferences
-      Questions::PersonalInfoController, # creates Intake record and Client record
+      Questions::PersonalInfoController, # creates Intake record and Client record, if triage was skipped
       Questions::SsnItinController,
       Questions::BacktaxesController,
       Questions::StartWithCurrentYearController,

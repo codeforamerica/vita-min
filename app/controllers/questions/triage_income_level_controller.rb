@@ -19,6 +19,7 @@ module Questions
         referrer: session[:referrer],
         locale: I18n.locale,
         visitor_id: cookies[:visitor_id],
+        intake_id: current_intake&.id,
       )
     end
 

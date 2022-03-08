@@ -10,7 +10,7 @@ module FeatureHelpers
       @screenshot_method = screenshot_method
     end
 
-    def assert_page(title_key)
+    def assert_page(title_key, &blk)
       first_line = I18n.t(title_key).split(/\n+/).first
 
       return unless @page.all('h1', text: first_line, wait: 0).length > 0
@@ -18,6 +18,10 @@ module FeatureHelpers
       @seen_pages << @page.current_path
 
       @page.assert_selector("h1", text: first_line)
+      maybe_screenshot(&blk)
+    end
+
+    def maybe_screenshot
       if @screenshot_method
         @screenshot_method.call { yield if block_given? }
       else
@@ -53,6 +57,7 @@ module FeatureHelpers
   def answer_gyr_triage_questions(screenshot_method: nil, **options)
     if options[:choices] == :defaults
       options = {
+        need_itin: false,
         filing_status: "single",
         income_level: "25000_to_40000",
         id_type: "have_id",
@@ -73,6 +78,17 @@ module FeatureHelpers
     click_on I18n.t('general.continue')
 
     triage_feature_helper = TriageFeatureHelper.new(page, screenshot_method)
+    triage_feature_helper.maybe_screenshot do
+      # Personal Info
+      expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
+      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
+      fill_in I18n.t('views.questions.personal_info.phone_number'), with: "8286345533"
+      fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
+      fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
+      select options[:need_itin] ? I18n.t('general.affirmative') : I18n.t('general.negative'), from: I18n.t('views.questions.personal_info.need_itin_help')
+      click_on I18n.t('general.continue')
+    end
+
     triage_feature_helper.assert_page('questions.triage_income_level.edit.title') do
       select strip_html_tags(I18n.t("questions.triage_income_level.edit.filing_status.options.#{choices.filing_status}").split("\n").first)
       select strip_html_tags(I18n.t("questions.triage_income_level.edit.income_level.options.#{choices.income_level}").split("\n").first)

@@ -9,6 +9,10 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
   scenario "new client filing single without dependents" do
     answer_gyr_triage_questions(choices: :defaults)
 
+    # creates intake and triage
+    intake = Intake.last
+    expect(intake.triage).to eq(Triage.last)
+
     expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr.edit.title'))
     click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
 
@@ -22,17 +26,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Overview
     expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
     click_on "Continue"
-
-    # Personal Info
-    expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-    fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
-    fill_in "Phone number", with: "8286345533"
-    fill_in "Confirm phone number", with: "828-634-5533"
-    fill_in "ZIP code", with: "20121"
-    select I18n.t('general.negative'), from: I18n.t('views.questions.personal_info.need_itin_help')
-    click_on "Continue"
-    # creates intake
-    intake = Intake.last
 
     select "Social Security Number (SSN)", from: "Identification Type"
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"

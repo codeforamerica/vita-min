@@ -9,6 +9,10 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   scenario "new client filing joint taxes with spouse and dependents", js: true, screenshot: true do
     answer_gyr_triage_questions(screenshot_method: self.method(:screenshot_after), choices: :defaults)
 
+    # creates intake and triage
+    intake = Intake.last
+    expect(intake.triage).to eq(Triage.last)
+
     screenshot_after do
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr.edit.title'))
       click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
@@ -31,18 +35,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Continue"
 
-    screenshot_after do
-      # Personal Info
-      expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
-      fill_in "Phone number", with: "415-888-0088"
-      fill_in "Confirm phone number", with: "415-888-0088"
-      fill_in "ZIP code", with: "20121"
-      select "No", from: "Do you need assistance applying for an ITIN?"
-    end
-    click_on "Continue"
-    # creates intake
-    intake = Intake.last
 
     screenshot_after do
       # SSN or ITIN

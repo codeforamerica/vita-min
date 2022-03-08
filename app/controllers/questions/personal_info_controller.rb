@@ -3,6 +3,10 @@ module Questions
     include AnonymousIntakeConcern
     skip_before_action :require_intake
 
+    def self.show?(intake)
+      intake.blank? || intake.triage.blank?
+    end
+
     def current_intake
       Intake::GyrIntake.new
     end
