@@ -6,6 +6,7 @@ RSpec.feature "A client who wants help getting an ITIN" do
   context "when an itin applicant is unique" do
     scenario "the client does not get blocked by returning client page and is sent to optional consent" do
       answer_gyr_triage_questions({
+                                      need_itin: true,
                                       filing_status: "single",
                                       income_level: "1_to_12500",
                                       id_type: "need_itin_help",
@@ -24,14 +25,6 @@ RSpec.feature "A client who wants help getting an ITIN" do
       click_on I18n.t('general.continue_example')
 
       expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
-      click_on "Continue"
-
-      expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-      fill_in "What is your preferred first name?", with: "Gary"
-      fill_in "Phone number", with: "8286345533"
-      fill_in "Confirm phone number", with: "828-634-5533"
-      fill_in "ZIP code", with: "20121"
-      select I18n.t('general.affirmative'), from: I18n.t('views.questions.personal_info.need_itin_help')
       click_on "Continue"
 
       # don't show SSN/ITIN page
@@ -108,6 +101,7 @@ RSpec.feature "A client who wants help getting an ITIN" do
 
     scenario "the client fills out triage and beginning of intake, but after consent gets sent to returning client page" do
       answer_gyr_triage_questions({
+                                      need_itin: true,
                                       filing_status: "single",
                                       income_level: "1_to_12500",
                                       id_type: "need_itin_help",
@@ -126,14 +120,6 @@ RSpec.feature "A client who wants help getting an ITIN" do
       click_on I18n.t('general.continue_example')
 
       expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
-      click_on "Continue"
-
-      expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-      fill_in "What is your preferred first name?", with: "Gary"
-      fill_in "Phone number", with: "8286345533"
-      fill_in "Confirm phone number", with: "828-634-5533"
-      fill_in "ZIP code", with: "20121"
-      select I18n.t('general.affirmative'), from: I18n.t('views.questions.personal_info.need_itin_help')
       click_on "Continue"
 
       # don't show SSN/ITIN page
