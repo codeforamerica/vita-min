@@ -3334,6 +3334,8 @@ en:
                 <p>You can in some cases claim other relatives, including aging parents, if you provide for most of their needs financially, and they earn very little themselves.</p>
                 <p>Various exceptions apply to both of these definitions. Most tax preparation services (including GetYourRefund) will walk you through the definitions and make sure it is appropriate for you to claim your relatives.</p>
               question: Who can I claim on my return?
+        survey:
+          title: How helpful was this answer?
         title: Frequently asked questions
       home:
         clients:

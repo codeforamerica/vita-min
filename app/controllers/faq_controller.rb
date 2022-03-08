@@ -146,7 +146,16 @@ class FaqController < ApplicationController
   def show
     @section_key = params[:section_key]
     @question_key = params[:question_key].underscore
+    @survey = FaqSurvey.find_or_initialize_by(visitor_id: visitor_id, question_key: @question_key)
 
     raise ActionController::RoutingError.new('Not found') unless I18n.exists?("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}")
+  end
+
+  def answer_survey
+    @question_key = params[:question_key].underscore
+    @survey = FaqSurvey.find_or_initialize_by(visitor_id: visitor_id, question_key: @question_key)
+
+    @survey.update(params.require(:faq_survey).permit(:answer))
+    redirect_to faq_question_path(section_key: params[:section_key], question_key: @question_key)
   end
 end

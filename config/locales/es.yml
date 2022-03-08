@@ -3294,6 +3294,8 @@ es:
                 <p>En algunos casos puede declarar a otros familiares, incluidos los padres mayores, si usted cubre la mayor parte de sus necesidades económicas y ellos mismos ganan muy poco.</p>
                 <p>Se aplican varias excepciones a estas dos definiciones. La mayoría de los servicios de preparación de impuestos (incluido GetYourRefund) lo guiarán a través de las definiciones y se asegurarán de que es el caso para que usted declare a sus familiares.</p>
               question: "¿A quién puedo declarar en mi declaración de impuestos?"
+        survey:
+          title: "¿Qué tan útil fue esta respuesta?"
         title: Preguntas frecuentes
       home:
         clients:

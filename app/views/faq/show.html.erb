@@ -16,6 +16,25 @@
         <h2><%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %></h2>
 
         <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html") %>
+
+        <%= form_with model: @survey, url: { action: :answer_survey }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "satisfaction_face_form spacing-below-35" } do |f| %>
+          <h2 class="h3" id="survey-question"><%= t("views.public_pages.faq.survey.title") %></h2>
+
+          <div class="face-container">
+            <%= f.button :submit, name: "#{f.object_name}[answer]", value: "positive", class: "button positive #{"selected" if @survey.answer_positive?}", "aria-describedby": "survey-question" do %>
+              <%= image_tag("questions/csat/positive.svg", alt: "") %>
+              <span><%= t("portal.still_needs_helps.no_longer_needs_help.experience_survey.positive") %></span>
+            <% end %>
+            <%= f.button :submit, name: "#{f.object_name}[answer]", value: "neutral", class: "button neutral #{"selected" if @survey.answer_neutral?}", "aria-describedby": "survey-question" do %>
+              <%= image_tag("questions/csat/neutral.svg", alt: "") %>
+              <span><%= t("portal.still_needs_helps.no_longer_needs_help.experience_survey.neutral") %></span>
+            <% end %>
+            <%= f.button :submit, name: "#{f.object_name}[answer]", value: "negative", class: "button negative #{"selected" if @survey.answer_negative?}", "aria-describedby": "survey-question" do %>
+              <%= image_tag("questions/csat/negative.svg", alt: "") %>
+              <span><%= t("portal.still_needs_helps.no_longer_needs_help.experience_survey.negative") %></span>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </section>
