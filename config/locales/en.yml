@@ -2824,34 +2824,6 @@ en:
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
         cta: Return to home
       faq:
-        getting_started:
-          am_i_eligible:
-            a: We provide free tax filing assistance to families earning less than about $66,000 a year.
-            q: Am I eligible?
-          changes:
-            a: Don’t worry, you’ll get a chance to talk with one of our tax specialists about your situation, and you can let them know about any changes or answers you were unsure about before they prepare your taxes.
-            q: What if I need to change one of my answers or am unsure how to answer?
-          extension:
-            a: The 2019 income tax filing and payment deadlines on April 15, 2020, are automatically extended until July 15, 2020. This applies to all individual returns, trusts, and corporations. This is automatic, tax filers do not need to file any additional forms or call the IRS to qualify. This also includes estimated tax payments for tax year 2020 that are due on April 15, 2020.
-            q: What does it mean that the deadline has been extended?
-          header: Help getting started
-          how_long:
-            a1: All in all GetYourRefund takes 5-10 business days to complete because you work one on one with a tax preparer.
-            a2: The first step is to answer questions about your tax situation in our online form and upload your tax documents, which can take 10-30 minutes. Next, you will receive a call from your tax specialist in 2-3 business days to discuss your tax situation. Your tax return will then be prepared and quality reviewed by an IRS-certified tax preparer who will call you to discuss your refund and the process for electronic signature and filing. After taxes are filed we have heard from clients that they receive a direct deposit from the IRS within a week.
-            q: How long will this take?
-          how_to_start:
-            a: To get started, go to GetYourRefund.org, click “Get Started,” and let us know that you want to “Start my taxes online.” You will have to upload photos of your ID, answer some questions about your tax situation, and upload your tax documents. Then one of our tax specialists will call you on the phone to discuss your taxes, answer any questions, and complete your filing.
-            q: How do I get started?
-          is_it_free:
-            a: Yes! We partner with VITA, an IRS program that certifies tax experts at local community nonprofits like United Way, to complete your state and federal taxes for free.
-            q: Is this service really free?
-          missing_docs:
-            a_html: If you have lost or never received a tax document, the first place to try is your employer. Often your employer can quickly re-issue your tax forms to you. If that doesn’t work, you can request your tax documents from the IRS at %{transcript_link}.
-            q: What should I do if I can’t find a tax document?
-          non_filer:
-            a: We can file your taxes for %{years}. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on.
-            q: What should I do if I haven’t filed in several years?
-        header: How can we help you?
         question_groups:
           child_and_dependent_care_credit:
             how_do_i_get_the_child_and_dependent_care_credit:
@@ -3362,8 +3334,7 @@ en:
                 <p>You can in some cases claim other relatives, including aging parents, if you provide for most of their needs financially, and they earn very little themselves.</p>
                 <p>Various exceptions apply to both of these definitions. Most tax preparation services (including GetYourRefund) will walk you through the definitions and make sure it is appropriate for you to claim your relatives.</p>
               question: Who can I claim on my return?
-        subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
-        title: FAQ
+        title: Frequently asked questions
       home:
         clients:
           across_us: from clients across the US

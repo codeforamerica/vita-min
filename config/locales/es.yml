@@ -2784,34 +2784,6 @@ es:
         contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic al botón de "Ayuda"/"Chat" en la parte inferior a la derecha, o enviándonos un correo electrónico a %{email_link}.
         cta: Volver al inicio
       faq:
-        getting_started:
-          am_i_eligible:
-            a: Proporcionamos asistencia gratuita para llenar la declaración de impuestos a familias que ganan menos de $66,000 al año.
-            q: "¿Soy elegible?"
-          changes:
-            a: No se preocupe, tendrá la oportunidad de hablar con uno de nuestros especialistas de impuestos sobre su situación y podrá informar sobre cualquier cambio o respuesta que no esté seguro antes de que preparen sus impuestos.
-            q: "¿Qué pasa si necesito cambiar una de mis respuestas o no sé cómo responder?"
-          extension:
-            a: El plazo para presentar y pagar las declaraciones de impuestos sobre los ingresos de 2019 se amplió automáticamente del 15 de Abril de 2020 al 15 de Julio de 2020. Esto se aplica a todas las declaraciones individuales, de fideicomisos y de corporaciones. Esto es automático, de modo que no es necesario presentar formas adicionales o llamar al IRS para calificar. Esto también incluye los pagos de impuestos estimados para el año fiscal 2020 que se deben pagar el 15 de abril de 2020.
-            q: "¿Qué significa que se haya extendido el plazo? "
-          header: Ayuda para comenzar
-          how_long:
-            a1: En general, GetYourRefund tarda de 5 a 10 días para completarlo porque un preparador de declaraciones de impuestos trabajará de forma personalizada con usted.
-            a2: El primer paso es responder a las preguntas sobre su situación fiscal en nuestro formulario en línea y subir sus documentos de impuestos, lo que puede tomar entre 10 a 30 minutos. Después, recibirá una llamada de un especialista de impuestos entre 2 a 3 días para hablar de su situación fiscal. Luego, el especialista de impuestos certificado por el IRS preparará y revisará su declaración de impuestos, le llamará para hablar sobre su reembolso, y el proceso para la firma electrónica y la declaración. Después de presentar su declaración, nuestros clientes suelen recibir un depósito directo del IRS en una semana.
-            q: "¿Cuánto tiempo tardará esto?"
-          how_to_start:
-            a: Para empezar, vaya a GetYourRefund.org, haga clic en "Get Started" ("Empezar") e indique que quiere "Start my taxes online" ("Empezar mi declaración de impuestos en línea"). Tendrá que subir fotos de su identificación, responder a algunas preguntas sobre su situación fiscal y subir sus documentos de impuestos. Después, uno de nuestros especialistas de impuestos le llamará por teléfono para hablar sobre sus impuestos, responder a cualquier pregunta y completar su declaración.
-            q: "¿Por dónde empiezo?"
-          is_it_free:
-            a: "¡Sí! Colaboramos con VITA, un programa del IRS que certifica a expertos en impuestos de organizaciones sin fines de lucro locales, como United Way, para completar sus impuestos estatales y federales de forma gratuita."
-            q: "¿Este servicio es realmente gratuito?"
-          missing_docs:
-            a_html: Si ha perdido un documento fiscal o nunca lo recibió, lo primero que debe hacer es consultarlo con su empleador. Normalmente, su empleador puede volver a emitir rápidamente la documentación fiscal a sus empleados. Si eso no funciona, puede solicitar sus documentos de impuestos al IRS en %{transcript_link}.
-            q: "¿Qué debo hacer si no encuentro un documento de impuestos?"
-          non_filer:
-            a: Podemos presentar sus impuestos para %{years}. Le animamos a que se comunique con nosotros si aún no ha presentado la declaración de estos años, ya que esto puede ayudarle a reclamar reembolsos de años anteriores que puede haber dejado de percibir.
-            q: "¿Qué debo hacer si no he declarado impuestos desde hace varios años?"
-        header: "¿En qué podemos ayudarle?"
         question_groups:
           child_and_dependent_care_credit:
             how_do_i_get_the_child_and_dependent_care_credit:
@@ -3322,8 +3294,7 @@ es:
                 <p>En algunos casos puede declarar a otros familiares, incluidos los padres mayores, si usted cubre la mayor parte de sus necesidades económicas y ellos mismos ganan muy poco.</p>
                 <p>Se aplican varias excepciones a estas dos definiciones. La mayoría de los servicios de preparación de impuestos (incluido GetYourRefund) lo guiarán a través de las definiciones y se asegurarán de que es el caso para que usted declare a sus familiares.</p>
               question: "¿A quién puedo declarar en mi declaración de impuestos?"
-        subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
-        title: Preguntas Frecuentes
+        title: Preguntas frecuentes
       home:
         clients:
           across_us: de clientes en todo Estados Unidos.

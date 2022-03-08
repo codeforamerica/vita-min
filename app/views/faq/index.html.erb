@@ -1,10 +1,33 @@
-<% FaqController::QUESTIONS.each do |section, section_questions| %>
-  <div class="faq-section-<%= section.to_s.dasherize %>">
-    <%= t("views.public_pages.faq.question_groups.#{section}.title") %>
-    <% section_questions.each do |question| %>
-      <%= link_to t("views.public_pages.faq.question_groups.#{section}.#{question}.question"),
-          faq_question_path(section_key: section, question_key: question) %>
-    <% end %>
-    <%= link_to "View all questions", faq_section_path(section_key: section) %>
-  </div>
-<% end %>
+<% content_for :page_title, t("views.public_pages.faq.title") %>
+<% content_for :body_class, "faq" %>
+
+<%= render 'shared/breadcrumb_array', items: [
+  [t('general.home'), root_path],
+  "FAQ",
+] %>
+
+<main role="main">
+  <section class="slab slab--white slab--half-padded">
+
+    <div class="grid">
+      <h1><%= t('views.public_pages.faq.title') %></h1>
+
+      <% FaqController::QUESTIONS.each_slice((FaqController::QUESTIONS.size / 2.0).round).to_a.each do |column| %>
+        <div class="grid__item width-one-half">
+          <% column.each do |section, section_questions| %>
+            <div class="faq-section faq-section-<%= section.to_s.dasherize %> spacing-below-35">
+              <h2><%= t("views.public_pages.faq.question_groups.#{section}.title") %></h2>
+              <% section_questions.first(3).each do |question| %>
+                <p>
+                  <%= link_to t("views.public_pages.faq.question_groups.#{section}.#{question}.question"),
+                  faq_question_path(section_key: section, question_key: question) %>
+                </p>
+              <% end %>
+              <%= link_to "View all questions", faq_section_path(section_key: section), class: 'link--subtle' %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</main>

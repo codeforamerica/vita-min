@@ -1,5 +1,26 @@
-<h1><%= t("views.public_pages.faq.question_groups.#{@section_key}.title") %></h1>
-<% FaqController::QUESTIONS[@section_key.to_sym].each do |question| %>
-  <%= link_to t("views.public_pages.faq.question_groups.#{@section_key}.#{question}.question"),
-              faq_question_path(section_key: @section_key, question_key: question) %>
-<% end %>
+<% content_for :page_title, t("views.public_pages.faq.title") %>
+<% content_for :body_class, "faq" %>
+
+<%= render 'shared/breadcrumb_array', items: [
+  [t('general.home'), root_path],
+  ["FAQ", faq_path],
+  t("views.public_pages.faq.question_groups.#{@section_key}.title"),
+] %>
+
+<main role="main">
+  <section class="slab slab--white slab--half-padded">
+
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <h1><%= t("views.public_pages.faq.question_groups.#{@section_key}.title") %></h1>
+
+        <% FaqController::QUESTIONS[@section_key.to_sym].each do |question| %>
+          <p>
+            <%= link_to t("views.public_pages.faq.question_groups.#{@section_key}.#{question}.question"),
+            faq_question_path(section_key: @section_key, question_key: question) %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</main>
