@@ -933,7 +933,29 @@ es:
 
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund.org
-      review_signature_requested: "¡Hola!\n\nSu declaración de impuestos de <TaxReturn.TaxYear>  está lista para que la firme. \n\nPor favor Verifique: \n\n* su dirección postal y números de cuenta bancaria (si esto no es correcto puede afectar sus números finales y/o retrasar su reembolso).\n* toda la información de dependientes \n* asegúrese de que todos los ingresos estén incluidos (incluido el desempleo). \n\nSi necesita cambiar algo en su declaración o si tiene alguna pregunta, porfavor responda a este mensaje y no firme su declaración. \n\nPara aprobar su devolución, haga clic en el enlace a continuación, ingrese los últimos cuatro dígitos de su número de seguro social o su número de cliente, revise su declaración y haga clic en el cuadro que dice que aprueba su declaración.\n\nPara declaraciones presentadas con su cónyuge: su cónyuge también debe revisar y firmar.\n\n Una vez que firme, podemos presentar su declaración electrónicamente. \n\nInicie sesión para acceder a su declaración y aprovar su declaración : <Client.LoginLink>\n\n¡Gracias! \n<Preparer.FirstName>; en Get Your Refund\n"
+      review_signature_requested: |
+        ¡Hola!
+
+        Su declaración de impuestos de <<TaxReturn.TaxYear>> está lista para que la firme.
+
+        Por favor Verifique:
+
+        * su dirección postal y números de cuenta bancaria (si esto no es correcto puede afectar sus números finales y/o retrasar su reembolso).
+        * toda la información de dependientes
+        * asegúrese de que todos los ingresos estén incluidos (incluido el desempleo).
+
+        Si necesita cambiar algo en su declaración o si tiene alguna pregunta, porfavor responda a este mensaje y no firme su declaración.
+
+        Para aprobar su devolución, haga clic en el enlace a continuación, ingrese los últimos cuatro dígitos de su número de seguro social o su número de cliente, revise su declaración y haga clic en el cuadro que dice que aprueba su declaración.
+
+        Para declaraciones presentadas con su cónyuge: su cónyuge también debe revisar y firmar.
+
+        Una vez que firme, podemos presentar su declaración electrónicamente.
+
+        Inicie sesión para acceder a su declaración y aprovar su declaración : <<Client.LoginLink>>
+
+        ¡Gracias!
+        <<Preparer.FirstName>> en Get Your Refund
     suspend_account: Suspender usuario
     suspend_confirmation: "¿Suspender la cuenta de %{name}? Esto los eliminará de todas las declaraciones de impuestos asignadas actualmente y evitará que inicien sesión."
     suspended_user_name: "%{name} (Suspendido)"

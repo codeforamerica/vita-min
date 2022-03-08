@@ -327,7 +327,7 @@ describe ReplacementParametersService do
 
         it "replaces the replacement strings in the template" do
           result = subject.process
-          expect(result).to include "para #{client.tax_returns.first.year}"
+          expect(result).to include "de #{client.tax_returns.first.year}"
           expect(result).to include "http://test.host/es/portal/login"
         end
       end
