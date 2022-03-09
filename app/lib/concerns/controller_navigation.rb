@@ -39,9 +39,16 @@ module ControllerNavigation
 
   def seek(list)
     list.detect do |controller_class|
-      controller_class.show?(
-        controller_class.model_for_show_check(current_controller)
-      )
+      if controller_class.method(:show?).arity > 1
+        controller_class.show?(
+          controller_class.model_for_show_check(current_controller),
+          @current_controller.session
+        )
+      else
+        controller_class.show?(
+          controller_class.model_for_show_check(current_controller)
+        )
+      end
     end
   end
 end
