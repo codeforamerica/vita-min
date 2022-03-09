@@ -13,7 +13,6 @@ class Dependent::Rules
   # For tax year e.g. 1999, someone is 1 year old if born on any day in 1998.
   def age
     @age ||= tax_year - birth_date.year
-
   end
 
   def qualifying_child_relationship?
@@ -26,6 +25,7 @@ class Dependent::Rules
 
   def meets_qc_age_condition?
     return false if age.negative?
+    
     dependent.permanently_totally_disabled_yes? || age < 19 || (dependent.full_time_student_yes? && age < 24)
   end
 
