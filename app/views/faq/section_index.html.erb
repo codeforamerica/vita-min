@@ -11,7 +11,7 @@
   <section class="slab slab--white">
 
     <div class="grid">
-      <div class="grid__item width-one-whole">
+      <div class="grid__item width-one-whole faq-wrapper">
         <h1 class="h2"><%= t("views.public_pages.faq.question_groups.#{@section_key}.title") %></h1>
 
         <% FaqController::QUESTIONS[@section_key.to_sym].each do |question| %>
