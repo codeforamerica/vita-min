@@ -33,7 +33,7 @@ module Hub
     end
 
     def can_handle_escalations?
-      current_user.admin? || current_user.customer_support?
+      current_user.admin? || current_user.client_success?
     end
   end
 end
