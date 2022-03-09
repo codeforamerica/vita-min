@@ -1,10 +1,28 @@
 .verification-attempts-show {
   &__container {
     max-width: 768px;
+    width: 100%;
   }
   &__previous-attempt {
     padding: 1rem;
     margin-bottom: 1rem;
     background: $color-grey-light;
   }
+
+  &__form {
+    flex-grow: 1;
+  }
+
+  &__actions {
+    width: 100%;
+  }
+
+  &__footer-border {
+    border-top: 1px solid $color-grey-dark;
+  }
+}
+
+.verification-icon {
+  height: 16px;
+  width: 16px;
 }

@@ -7,6 +7,8 @@ module Hub
     set_attributes_for :transition, :state
 
     validates :note, presence: { message: "A note is required when escalating a verification attempt.", if: -> { state == "escalated"} }
+    validates :note, presence: { message: "A note is required when approving a client with a bypass request.", if: -> { state == "approved" && verification_attempt.client_bypass_request.present? } }
+
     validates :state, presence: true
 
     def initialize(verification_attempt, current_user, params)
@@ -30,6 +32,10 @@ module Hub
 
     def can_write_note?
       verification_attempt.can_transition_to?(:approved) || verification_attempt.can_transition_to?(:denied)
+    end
+
+    def can_handle_escalations?
+      current_user.admin? || current_user.client_success?
     end
   end
 end

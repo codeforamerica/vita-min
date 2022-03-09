@@ -159,4 +159,5 @@ t.transition_to! :prep_preparing
 
 if defined?(FactoryBot)
   FactoryBot.create :verification_attempt, :with_fraud_hold_efile_submission
+  FactoryBot.create :verification_attempt, :with_fraud_hold_efile_submission, client_bypass_request: "I don't have an ID but I'd like to submit my taxes."
 end

@@ -3,15 +3,42 @@
   <%= render "hub/clients/navigation" %>
 
   <div class="slab slab--not-padded spacing-above-25" id="body">
-    <div class="spacing-below-25">
-      Current recaptcha score average: <%= @client.recaptcha_scores_average || "N/A" %>
+    <div class="grid-flex spacing-below-10 center-aligned">
+      <div class="item-15r">Identity verification: </div>
+      <div class="item-15r">
+        <% if @most_recent_verification_attempt.present? %>
+          <%= link_to @most_recent_verification_attempt.current_state.humanize(capitalize: false), hub_verification_attempt_path(id: @most_recent_verification_attempt.id) %>
+        <% else %>
+          N/A
+        <% end %>
+      </div>
+      <div class="item-15r grid-flex">
+        <% if @client.identity_verified_at? %>
+          <%= image_tag("icons/check.svg", class: "verification-icon", alt: "identity verified", title: timestamp(@client.identity_verified_at)) %>
+        <% end %>
+        <% if @client.identity_verification_denied_at? %>
+          <%= image_tag("icons/rejected.svg", class: "verification-icon", alt: "verification denied", title: timestamp(@client.identity_verification_denied_at)) %>
+        <% end %>
+      </div>
+    </div>
+    <div class="spacing-below-10 grid-flex">
+      <div class="item-15r">
+        Recaptcha score average:
+      </div>
+      <div>
+        <%= @client.recaptcha_scores_average || "N/A" %>
+      </div>
     </div>
     <% if @duplicate_bank_client_ids.present? %>
-      <div class="spacing-below-25">
-        With duplicated bank data:
-        <% @duplicate_bank_client_ids.each do |id| %>
-          <%= link_to "##{id}", hub_client_path(id: id) %>
-        <% end %>
+      <div class="spacing-below-25 grid-flex">
+        <div class="item-15r" style="flex-shrink: 0;">
+          With duplicated bank data:
+        </div>
+        <div class="item-15r">
+          <% @duplicate_bank_client_ids.each do |id| %>
+            <%= link_to "##{id}", hub_client_path(id: id) %>
+          <% end %>
+        </div>
       </div>
     <% end %>
 
