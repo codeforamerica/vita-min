@@ -31,5 +31,9 @@ module Hub
     def can_write_note?
       verification_attempt.can_transition_to?(:approved) || verification_attempt.can_transition_to?(:denied)
     end
+
+    def can_handle_escalations?
+      current_user.admin? || current_user.customer_support?
+    end
   end
 end

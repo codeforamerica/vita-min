@@ -7,6 +7,18 @@
     margin-bottom: 1rem;
     background: $color-grey-light;
   }
+
+  &__form {
+    flex-grow: 1;
+  }
+
+  &__actions {
+    width: 100%;
+  }
+
+  &__footer-border {
+    border-top: 1px solid $color-grey-dark;
+  }
 }
 
 .verification-icon {

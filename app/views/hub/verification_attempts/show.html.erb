@@ -88,31 +88,39 @@
         <% end %>
       </ul>
       <% content_for :sticky_action_footer do %>
-        <div class="grid-flex contained">
-          <div class="verification-attempts-show__container spacing-above-15">
-            <%= form_for @form, url: hub_verification_attempt_path(id: @verification_attempt.id), method: :patch, builder: VitaMinFormBuilder, html: { class: "note-form" } do |f| %>
-              <% if @form.can_write_note? %>
-                <div>
-                  <%= f.cfa_textarea :note, "Add a new note", classes: ["textarea--short"] %>
-                </div>
-              <% end %>
-              <div>
-                <% if @verification_attempt.can_transition_to? :approved %>
-                  <%= f.submit "Approve", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "approved"), class: "button button--primary", id: "approve" %>
-                <% end %>
-                <% if @verification_attempt.can_transition_to? :denied %>
-                  <%= f.submit "Deny and Close", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "denied"), class: "button button--primary", id: "deny" %>
-                <% end %>
-                <% if @verification_attempt.can_transition_to? :escalated %>
-                  <%= f.submit "Escalate", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "escalated"), class: "button button--primary", id: "escalate" %>
-                <% end %>
-                <% if @verification_attempt.can_transition_to? :requested_replacements %>
-                  <%= f.submit "Request replacement photos", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "requested_replacements"), class: "button button--primary", id: "request_replacement"%>
+        <% if @verification_attempt.current_state == "escalated" && !@form.can_handle_escalations? %>
+          <div class="flash--warning slab slab--half-padded verification-attempts-show__actions">
+            Your role does not have permissions to take action on this escalated verification attempt.
+          </div>
+        <% else %>
+          <div class="slab slab--half-padded verification-attempts-show__footer-border">
+            <div class="grid-flex contained">
+              <div class="verification-attempts-show__container spacing-above-15 verification-attempts-show__actions">
+                <%= form_for @form, url: hub_verification_attempt_path(id: @verification_attempt.id), method: :patch, builder: VitaMinFormBuilder, html: { class: "note-form verification-attempts-show__form" } do |f| %>
+                  <% if @form.can_write_note? %>
+                    <div>
+                      <%= f.cfa_textarea :note, "Add a new note", classes: ["textarea--short"] %>
+                    </div>
+                  <% end %>
+                  <div>
+                    <% if @verification_attempt.can_transition_to? :approved %>
+                      <%= f.submit "Approve", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "approved"), class: "button button--primary", id: "approve" %>
+                    <% end %>
+                    <% if @verification_attempt.can_transition_to? :denied %>
+                      <%= f.submit "Deny and Close", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "denied"), class: "button button--primary", id: "deny" %>
+                    <% end %>
+                    <% if @verification_attempt.can_transition_to? :escalated %>
+                      <%= f.submit "Escalate", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "escalated"), class: "button button--primary", id: "escalate" %>
+                    <% end %>
+                    <% if @verification_attempt.can_transition_to? :requested_replacements %>
+                      <%= f.submit "Request replacement photos", formaction: hub_verification_attempt_path(id: @verification_attempt.id, state: "requested_replacements"), class: "button button--primary", id: "request_replacement"%>
+                    <% end %>
+                  </div>
                 <% end %>
               </div>
-            <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
   </div>
