@@ -309,7 +309,11 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_intake_after_triage
-    redirect_to Questions::EnvironmentWarningController.to_path_helper
+    if Rails.env.production?
+      redirect_to Questions::OverviewController.to_path_helper
+    else
+      redirect_to Questions::EnvironmentWarningController.to_path_helper
+    end
   end
 
   def redirect_or_add_flash
