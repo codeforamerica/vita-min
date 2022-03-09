@@ -3,7 +3,17 @@
   <%= render "hub/clients/navigation" %>
 
   <div class="slab slab--not-padded spacing-above-25" id="body">
-    <div class="spacing-below-25">
+    <div class="spacing-below-10">
+      <span>Identity verification: </span>
+      <span>
+        <% if @most_recent_verification_attempt.present? %>
+          <%= link_to @most_recent_verification_attempt.current_state.humanize(capitalize: false), hub_verification_attempt_path(id: @most_recent_verification_attempt.id) %>
+        <% else %>
+          N/A
+        <% end %>
+      </span>
+    </div>
+    <div class="spacing-below-10">
       Current recaptcha score average: <%= @client.recaptcha_scores_average || "N/A" %>
     </div>
     <% if @duplicate_bank_client_ids.present? %>
