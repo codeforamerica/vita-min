@@ -2,10 +2,11 @@
 #
 # Table name: verification_attempts
 #
-#  id         :bigint           not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  client_id  :bigint
+#  id                    :bigint           not null, primary key
+#  client_bypass_request :text
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  client_id             :bigint
 #
 # Indexes
 #

@@ -19,18 +19,26 @@
         <%end %>
       </ul>
 
-      <div class="grid-flex">
-        <% if @verification_attempt.selfie.present? %>
-          <div class="item-15r">
-            <%= image_tag transient_storage_url(@verification_attempt.selfie.blob), id: "selfie" %>
+      <% if @verification_attempt.client_bypass_request.present? %>
+        <div class="note">
+          <div class="note__body">
+            <%= simple_format(@verification_attempt.client_bypass_request) %>
           </div>
-        <% end %>
-        <% if @verification_attempt.photo_identification.present? %>
-          <div class="item-15r">
-            <%= image_tag transient_storage_url(@verification_attempt.photo_identification.blob), id: "photo_id" %>
-          </div>
-        <% end %>
-      </div>
+        </div>
+      <% else %>
+        <div class="grid-flex">
+          <% if @verification_attempt.selfie.present? %>
+            <div class="item-15r">
+              <%= image_tag transient_storage_url(@verification_attempt.selfie.blob), id: "selfie" %>
+            </div>
+          <% end %>
+          <% if @verification_attempt.photo_identification.present? %>
+            <div class="item-15r">
+              <%= image_tag transient_storage_url(@verification_attempt.photo_identification.blob), id: "photo_id" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
 
       <% if @previous_verification_attempts.present? %>
           <div class="form-question"><%= "Previous Attempts: "%> </div>
