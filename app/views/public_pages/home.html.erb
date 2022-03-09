@@ -19,7 +19,7 @@
 <%= render 'shared/facebook_pixel' %>
 <main role="main">
 
-  <div class="slab slab--hero slab--grey">
+  <div class="slab slab--hero slab--green">
     <div class="grid">
       <div class="grid__item width-one-half">
         <h1>
@@ -51,27 +51,55 @@
     </div>
   </div>
 
+  <div class="slab slab--rating">
+    <div class="grid">
+      <div id="star-rating" class="grid__item width-one-third text--centered">
+        <%= image_tag("star_rating.svg", alt: "") %>
+        <p class="title text--bold text--centered spacing-above-5 spacing-below-0">
+          <%= t("views.public_pages.home.clients.rating") %>
+        </p>
+        <p class="text--small text--centered spacing-above-0">
+          <%= t("views.public_pages.home.clients.across_us") %>
+        </p>
+      </div>
+      <div id="trusted-support" class="grid__item width-two-thirds">
+        <p class="title text--bold"><%= t("views.public_pages.home.clients.trusted_support.title") %></p>
+        <p><%= t("views.public_pages.home.clients.trusted_support.body") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab-habla-espanol">
+    <div class="grid">
+      <div class="rounded-box">
+        <h2 class="title">¿habla español?</h2>
+        <p>Tenemos opciones para ti! Declarar en español, obtener tu máximo reembolso.</p>
+        <% unless locale == :es %>
+          <span><%= link_to_locale('es', 'Traducir esta página al español', {"data-track-click": "intake-language-changed-habla-espanol-section"}) %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
   <%= render "shared/service_comparison" %>
 
   <div class="slab slab--testimonials slab--half-padded">
     <div class="grid">
-      <h2 class="text--centered"><%= t("views.public_pages.home.clients.header") %></h2>
-      <div id="star-rating" class="text--centered">
-        <%= image_tag("star_rating.svg", alt: "") %>
-        <p class="text--small text--bold text--centered spacing-above-5 spacing-below-0">
-          <%= t("views.public_pages.home.clients.rating") %>
-        </p>
-        <p class="text--small text--centered spacing-below-0">
-          <%= t("views.public_pages.home.clients.across_us") %>
-        </p>
+      <div id="testimonial-title" class="grid__item width-one-whole">
+        <div><%= image_tag("chat-square-text.svg", alt: "square chat box") %></div>
+        <div><h2 class="text--centered"><%= t("views.public_pages.home.clients.header") %></h2></div>
       </div>
       <div id="testimonial-left" class="grid__item width-one-half">
-        <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote1.header") %></p>
-        <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote1.body") %></p>
+        <div class="rounded-box">
+          <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote1.header") %></p>
+          <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote1.body") %></p>
+        </div>
       </div>
       <div id="testimonial-right" class="grid__item width-one-half">
-        <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote2.header") %></p>
-        <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote2.body") %></p>
+        <div class="rounded-box">
+          <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote2.header") %></p>
+          <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote2.body") %></p>
+        </div>
       </div>
     </div>
   </div>
@@ -95,6 +123,10 @@
     </div>
   </div>
 
+  <% unless Rails.env.production? %>
+    <%= render "shared/get_started_slab", link_attributes: {} %>
+  <% end %>
+
   <div class="slab slab--security">
     <div class="grid">
       <div class="grid__item width-one-whole">
@@ -106,8 +138,4 @@
       </div>
     </div>
   </div>
-
-  <% unless Rails.env.production? %>
-    <%= render "shared/get_started_slab", link_attributes: {} %>
-  <% end %>
 </main>

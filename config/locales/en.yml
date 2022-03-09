@@ -3382,7 +3382,7 @@ en:
       home:
         clients:
           across_us: from clients across the US
-          header: What our clients are saying
+          header: What our clients say
           quote1:
             body: "“I just want to say I can’t tell you how much stress you guys relieved by offering it online, I had looked at other services credit karma, turbo tax and going through the initial steps I just wasn’t feeling confident until I stopped and found GetYourRefund I was like oh my god this is amazing”"
             header: Oh my god this is amazing
@@ -3390,6 +3390,9 @@ en:
             body: "“I thought the tax preparers were very professional, very friendly, very open to questions so I really appreciated that, and they were also patient with my questions. I like this process a lot better where there’s a person that can explain in detail questions that you have and they respond pretty fast”"
             header: Very professional, very friendly
           rating: Rated 4.8 / 5 stars
+          trusted_support:
+            body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
+            title: Claim your credits easily with our trusted support.
         closing_banner_html: <strong>GetYourRefund services will reopen on January 31 for the 2022 tax season.</strong> For free tax prep now, you can <a href="%{url}">search for a VITA location in your area.</a>
         features:
           amendments: File amendments for past years
@@ -3404,8 +3407,8 @@ en:
         header: Free tax filing, made simple.
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
-          header: We're committed to keeping your information secure.
-        subheader: If you earned income and are ready to file with all of your tax documents, we can help you maximize your tax benefits!
+          header: Committed to keeping your information secure.
+        subheader: Claim thousands of dollars through tax credits you’re owed! We work with you to get your highest refund.
         subheader_offseason: Sign up for the 2022 tax season now! We'll notify you as soon as our service reopens on January 31 at 1pm EST.
         title: Free tax help from IRS-certified volunteers.
       maybe_ineligible:
