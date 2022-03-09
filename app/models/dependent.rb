@@ -183,6 +183,7 @@ class Dependent < ApplicationRecord
   delegate :age, :born_in_final_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2020, prefix: :yr_2020
   delegate :age, :born_in_final_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2021, prefix: :yr_2021
   delegate :qualifying_child_relationship?, :qualifying_relative_relationship?, to: :relationship_info
+
   def relationship_info
     return unless relationship.present?
 
