@@ -55,9 +55,40 @@ describe Hub::UpdateVerificationAttemptForm do
               state: "escalated"
           }
         end
+        
         it "requires a note" do
           expect(subject).not_to be_valid
           expect(subject.errors[:note]).to include "A note is required when escalating a verification attempt."
+        end
+      end
+
+      context "when state is approved" do
+        context "when there is a client bypass request" do
+          before do
+            verification_attempt.update(client_bypass_request: "I do not have ID.")
+          end
+          let(:params) do
+            {
+                note: "",
+                state: "approved",
+            }
+          end
+          it "requires a note" do
+            expect(subject).not_to be_valid
+            expect(subject.errors[:note]).to include "A note is required when approving a client with a bypass request."
+          end
+        end
+
+        context "when there is no client bypass request" do
+          let(:params) do
+            {
+                note: "",
+                state: "approved",
+            }
+          end
+          it "is valid without the presence of a note" do
+            expect(subject).to be_valid
+          end
         end
       end
     end
