@@ -264,24 +264,29 @@ en:
       other: "%{count} days"
     delete: Delete
     dependent_relationships:
-      00_daughter: Daughter
-      01_son: Son
-      02_parent: Parent
-      03_grandchild: Grandchild
-      04_niece: Niece
-      05_nephew: Nephew
-      06_foster_child: Foster Child
-      07_aunt: Aunt
-      '08_uncle': Uncle
-      '09_sister': Sister
-      10_brother: Brother
-      11_other: Other
-      12_stepchild: Stepchild
-      13_stepbrother: Stepbrother
-      14_stepsister: Stepsister
-      15_half_brother: Half brother
-      16_half_sister: Half sister
-      17_grandparent: Grandparent
+      aunt: Aunt
+      brother: Brother
+      daughter: Daughter
+      foster_child: Foster Child
+      grandchild: Grandchild
+      grandparent: Grandparent
+      great_grandchild: Great-grandchild
+      half_brother: Half brother
+      half_sister: Half sister
+      in_law: In law
+      nephew: Nephew
+      niece: Niece
+      other: Other relationship not listed
+      other_freefill: Other
+      parent: Parent
+      siblings_descendant: Other descendants of my siblings
+      sister: Sister
+      son: Son
+      step_parent: Step parent
+      stepbrother: Stepbrother
+      stepchild: Stepchild
+      stepsister: Stepsister
+      uncle: Uncle
     dependents: Dependents
     divorced: Divorced
     document_deadline: In order to file by the deadline, we need all required documents by October 8th.

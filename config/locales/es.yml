@@ -264,24 +264,29 @@ es:
       other: "%{count} días"
     delete: Eliminar
     dependent_relationships:
-      00_daughter: Hija
-      01_son: Hijo
-      02_parent: Madre/Padre
-      03_grandchild: Nieta/Nieto
-      04_niece: Sobrina
-      05_nephew: Sobrino
-      06_foster_child: Niño de Crianza Temporal
-      07_aunt: Tía
-      '08_uncle': Tío
-      '09_sister': Hermana
-      10_brother: Hermano
-      11_other: Otro
-      12_stepchild: Hijastro/Hijastra
-      13_stepbrother: Stepbrother
-      14_stepsister: Stepsister
-      15_half_brother: Medio hermano
-      16_half_sister: Medio hermana
-      17_grandparent: Abuela/Abuelo
+      aunt: Tía
+      brother: Hermano
+      daughter: Hija
+      foster_child: Niño de Crianza Temporal
+      grandchild: Nieta/Nieto
+      grandparent: Abuela/Abuelo
+      great_grandchild: Bisnieta/Bisnieto
+      half_brother: Medio hermano
+      half_sister: Medio hermana
+      in_law: Consuegro
+      nephew: Sobrino
+      niece: Sobrina
+      other: Otra relación no listada
+      other_freefill: Otro
+      parent: Madre/Padre
+      siblings_descendant: Otras descendientes de mis hermanas
+      sister: Hermana
+      son: Hijo
+      step_parent: Padrastro/Madrastra
+      stepbrother: Stepbrother
+      stepchild: Hijastro/Hijastra
+      stepsister: Stepsister
+      uncle: Tío
     dependents: Dependientes
     divorced: Divorciado
     document_deadline: Para presentar su declaración de impuestos antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.

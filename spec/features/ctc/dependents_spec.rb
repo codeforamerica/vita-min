@@ -29,7 +29,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       dependent_birth_year = 15.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
 
-      select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
@@ -53,7 +53,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     scenario "a child over 18 who qualifies as a dependent by being a student" do
       dependent_birth_year = 20.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
-      select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       check I18n.t('views.ctc.questions.dependents.info.full_time_student')
       click_on I18n.t('general.continue')
 
@@ -78,7 +78,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     scenario "a disabled adult" do
       dependent_birth_year = 40.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
-      select I18n.t('general.dependent_relationships.08_uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       check I18n.t('views.ctc.questions.dependents.info.permanently_totally_disabled')
       click_on I18n.t('general.continue')
 
@@ -95,7 +95,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     scenario "a middle-aged uncle who earns little money, lives with the client, and has a SSN" do
       dependent_birth_year = 40.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
-      select I18n.t('general.dependent_relationships.08_uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title', current_tax_year: current_tax_year))
@@ -111,7 +111,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     scenario "a middle-aged son who earns little money, lives with the client, and has a SSN" do
       dependent_birth_year = 40.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
-      select I18n.t('general.dependent_relationships.01_son'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.son'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title', current_tax_year: current_tax_year))
@@ -126,7 +126,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
     scenario "an infant born in late 2020" do
       fill_in_dependent_info(2020)
-      select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
@@ -145,7 +145,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
     scenario "a child who could be claimed by another but we are claiming them" do
       fill_in_dependent_info(2019)
-      select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
@@ -173,7 +173,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     scenario "a middle-aged adult who earns a bunch of money and isn't disabled" do
       dependent_birth_year = 40.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
-      select I18n.t('general.dependent_relationships.08_uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.qualifying_relative.title', current_tax_year: current_tax_year))
@@ -188,7 +188,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
     scenario "a child who paid for over half their support" do
       fill_in_dependent_info(2008)
-      select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
@@ -200,7 +200,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
     scenario "a child who is married and filed with their spouse" do
       fill_in_dependent_info(2005)
-      select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
@@ -212,7 +212,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
 
     scenario "a child that was born in 2021" do
       fill_in_dependent_info(2021)
-      select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.does_not_qualify_ctc.title', name: 'Jessie'))

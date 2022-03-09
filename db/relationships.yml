@@ -1,0 +1,68 @@
+relationships:
+  - value: daughter
+    relationship: qualifying_child
+    irs_enum: DAUGHTER
+  - value: son
+    relationship: qualifying_child
+    irs_enum: SON
+  - value: parent
+    relationship: qualifying_relative
+    irs_enum: PARENT
+  - value: grandchild
+    relationship: qualifying_child
+    irs_enum: GRANDCHILD
+  - value: niece
+    relationship: qualifying_child
+    irs_enum: NIECE
+  - value: nephew
+    relationship: qualifying_child
+    irs_enum: NEPHEW
+  - value: foster_child
+    relationship: qualifying_child
+    irs_enum: FOSTER CHILD
+  - value: aunt
+    relationship: qualifying_relative
+    irs_enum: AUNT
+  - value: uncle
+    relationship: qualifying_relative
+    irs_enum: UNCLE
+  - value: sister
+    relationship: qualifying_child
+    irs_enum: SISTER
+  - value: brother
+    relationship: qualifying_child
+    irs_enum: BROTHER
+  - value: stepchild
+    relationship: qualifying_child
+    irs_enum: STEPCHILD
+  - value: stepbrother
+    relationship: qualifying_child
+    irs_enum: STEPBROTHER
+  - value: stepsister
+    relationship: qualifying_child
+    irs_enum: STEPSISTER
+  - value: half_brother
+    relationship: qualifying_child
+    irs_enum: HALF BROTHER
+  - value: half_sister
+    relationship: qualifying_child
+    irs_enum: HALF SISTER
+  - value: grandparent
+    relationship: qualifying_relative
+    irs_enum: GRANDPARENT
+  - value: great_grandchild
+    relationship: qualifying_child
+    irs_enum: OTHER
+  - value: step_parent
+    relationship: qualifying_relative
+    irs_enum: OTHER
+  - value: in_law
+    relationship: qualifying_relative
+    irs_enum: OTHER
+  - value: siblings_descendant
+    relationship: qualifying_child
+    irs_enum: OTHER
+  - value: other
+    relationship: other
+    irs_enum: OTHER
+

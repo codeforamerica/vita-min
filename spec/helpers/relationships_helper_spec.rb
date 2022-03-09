@@ -16,13 +16,17 @@ describe RelationshipsHelper do
           ["Uncle", :uncle],
           ["Sister", :sister],
           ["Brother", :brother],
-          ["Other", :other],
           ["Stepchild", :stepchild],
           ["Stepbrother", :stepbrother],
           ["Stepsister", :stepsister],
           ["Half brother", :half_brother],
           ["Half sister", :half_sister],
           ["Grandparent", :grandparent],
+          ["Great-grandchild", :great_grandchild],
+          ["Step parent", :step_parent],
+          ["In law", :in_law],
+          ["Other descendants of my siblings", :siblings_descendant],
+          ["Other relationship not listed", :other]
         ]
       )
     end
@@ -42,13 +46,17 @@ describe RelationshipsHelper do
             ["Uncle", :uncle],
             ["Sister", :sister],
             ["Brother", :brother],
-            ["Other", :other],
             ["Stepchild", :stepchild],
             ["Stepbrother", :stepbrother],
             ["Stepsister", :stepsister],
             ["Half brother", :half_brother],
             ["Half sister", :half_sister],
             ["Grandparent", :grandparent],
+            ["Great-grandchild", :great_grandchild],
+            ["Step parent", :step_parent],
+            ["In law", :in_law],
+            ["Other descendants of my siblings", :siblings_descendant],
+            ["Other relationship not listed", :other],
             ["Other: My adopted son", "My adopted son"]
           ]
         )

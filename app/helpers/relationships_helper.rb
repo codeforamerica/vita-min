@@ -6,7 +6,7 @@ module RelationshipsHelper
     options = relationships_hash.map { |k, v| [v, k] }
     if current_relationship.present?
       key = relationships_hash[current_relationship.to_sym]
-      options.push(["#{I18n.t("general.dependent_relationships.11_other")}: #{current_relationship}", current_relationship]) unless key.present?
+      options.push(["#{I18n.t("general.dependent_relationships.other_freefill")}: #{current_relationship}", current_relationship]) unless key.present?
     end
     options
   end
@@ -18,6 +18,6 @@ module RelationshipsHelper
   private
 
   def sorted_relationships
-    I18n.t("general.dependent_relationships").map { |k, v| [k.to_s.sub(/^\d+_/, '').to_sym, v] }
+    Efile::Relationships.relationships.keys.map { |relationship| [relationship, I18n.t("general.dependent_relationships.#{relationship}")] }
   end
 end
