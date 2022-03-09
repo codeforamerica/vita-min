@@ -9,16 +9,18 @@
 ] %>
 
 <main role="main">
-  <section class="slab slab--white slab--half-padded">
+  <section class="slab slab--white">
 
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <h2><%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %></h2>
+        <h1 class="h2"><%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %></h1>
 
-        <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html") %>
+        <div class="spacing-below-35">
+          <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html") %>
+        </div>
 
         <%= form_with model: @survey, url: { action: :answer_survey }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "satisfaction_face_form spacing-below-35" } do |f| %>
-          <h2 class="h3" id="survey-question"><%= t("views.public_pages.faq.survey.title") %></h2>
+          <h2 class="h3 spacing-below-15" id="survey-question"><%= t("views.public_pages.faq.survey.title") %></h2>
 
           <div class="face-container">
             <%= f.button :submit, name: "#{f.object_name}[answer]", value: "positive", class: "button positive #{"selected" if @survey.answer_positive?}", "aria-describedby": "survey-question" do %>

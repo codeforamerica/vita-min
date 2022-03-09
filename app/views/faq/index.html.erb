@@ -7,16 +7,16 @@
 ] %>
 
 <main role="main">
-  <section class="slab slab--white slab--half-padded">
+  <section class="slab slab--white">
 
     <div class="grid">
-      <h1><%= t('views.public_pages.faq.title') %></h1>
+      <h1 class="h2"><%= t('views.public_pages.faq.title') %></h1>
 
       <% FaqController::QUESTIONS.each_slice((FaqController::QUESTIONS.size / 2.0).round).to_a.each do |column| %>
         <div class="grid__item width-one-half">
           <% column.each do |section, section_questions| %>
-            <div class="faq-section faq-section-<%= section.to_s.dasherize %> spacing-below-35">
-              <h2><%= t("views.public_pages.faq.question_groups.#{section}.title") %></h2>
+            <div class="faq-section faq-section-<%= section.to_s.dasherize %> spacing-below-60">
+              <h2 class="h3 spacing-below-15"><%= t("views.public_pages.faq.question_groups.#{section}.title") %></h2>
               <% section_questions.first(3).each do |question| %>
                 <p>
                   <%= link_to t("views.public_pages.faq.question_groups.#{section}.#{question}.question"),
