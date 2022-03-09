@@ -14,4 +14,8 @@ module RelationshipsHelper
 
     I18n.t("general.dependent_relationships.#{relationship}", default: relationship)
   end
+
+  def sorted_relationships
+    Efile::Relationships.relationships.keys.map { |relationship| [relationship, I18n.t("general.dependent_relationships.#{relationship}")] }
+  end
 end

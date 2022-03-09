@@ -1,0 +1,38 @@
+module Efile
+  class Relationships
+    @@relationships ||= IceNine.deep_freeze!(
+      (YAML.load_file(Rails.root.join("db/relationships.yml"))['relationships']).to_h do |relationship|
+        [relationship["value"].to_sym, {
+            relationship: relationship["relationship"].to_sym,
+            irs_enum: relationship["irs_enum"]
+        }]
+      end
+    )
+
+    def self.relationships
+      @@relationships
+    end
+
+    def initialize(relationship)
+      @relationship = relationship.to_sym
+      @relationship_data = @@relationships[@relationship]
+      raise "Relationship not defined" unless @relationship_data.present?
+    end
+
+    def value
+      @relationship
+    end
+
+    def qualifying_child_relationship?
+      @relationship_data[:relationship] == :qualifying_child
+    end
+
+    def qualifying_relative_relationship?
+      @relationship_data[:relationship] == :qualifying_relative
+    end
+
+    def irs_enum
+      @relationship_data[:irs_enum]
+    end
+  end
+end
