@@ -63,7 +63,7 @@
                 <div class="grid-flex justify-flex-end">
                   <div class="spacing-below-0"><%= link_to "#{timestamp(attempt.created_at)}", hub_verification_attempt_path(id:attempt.id), id: "time" %></div>
                   <div class="spacing-above-10">
-                    <div class="label"><%= attempt.current_state.humanize %></div>
+                    <div class="label"><%= attempt.current_state.humanize(capitalize: false) %></div>
                   </div>
                 </div>
               </div>
