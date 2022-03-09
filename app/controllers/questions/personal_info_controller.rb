@@ -3,8 +3,8 @@ module Questions
     include AnonymousIntakeConcern
     skip_before_action :require_intake
 
-    def self.show?(intake)
-      intake.blank? || intake.triage.blank?
+    def self.show?(intake, session)
+      intake.blank? || intake.triage.blank? || SourceParameter.source_skips_triage(session[:source])
     end
 
     def current_intake

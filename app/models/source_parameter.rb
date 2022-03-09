@@ -30,6 +30,10 @@ class SourceParameter < ApplicationRecord
     SourceParameter.includes(:vita_partner).find_by(code: code&.downcase)&.vita_partner
   end
 
+  def self.source_skips_triage(source)
+    source == 'full-service' || find_vita_partner_by_code(source).present?
+  end
+
   private
 
   def downcase_code
