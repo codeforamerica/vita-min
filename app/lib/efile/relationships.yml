@@ -1,68 +1,68 @@
+# The order of relationships affects their display in the app.
 relationships:
-  - value: daughter
+  - id: daughter
     relationship: qualifying_child
     irs_enum: DAUGHTER
-  - value: son
+  - id: son
     relationship: qualifying_child
     irs_enum: SON
-  - value: parent
+  - id: parent
     relationship: qualifying_relative
     irs_enum: PARENT
-  - value: grandchild
+  - id: grandchild
     relationship: qualifying_child
     irs_enum: GRANDCHILD
-  - value: niece
+  - id: niece
     relationship: qualifying_child
     irs_enum: NIECE
-  - value: nephew
+  - id: nephew
     relationship: qualifying_child
     irs_enum: NEPHEW
-  - value: foster_child
+  - id: foster_child
     relationship: qualifying_child
     irs_enum: FOSTER CHILD
-  - value: aunt
+  - id: aunt
     relationship: qualifying_relative
     irs_enum: AUNT
-  - value: uncle
+  - id: uncle
     relationship: qualifying_relative
     irs_enum: UNCLE
-  - value: sister
+  - id: sister
     relationship: qualifying_child
     irs_enum: SISTER
-  - value: brother
+  - id: brother
     relationship: qualifying_child
     irs_enum: BROTHER
-  - value: stepchild
+  - id: stepchild
     relationship: qualifying_child
     irs_enum: STEPCHILD
-  - value: stepbrother
+  - id: stepbrother
     relationship: qualifying_child
     irs_enum: STEPBROTHER
-  - value: stepsister
+  - id: stepsister
     relationship: qualifying_child
     irs_enum: STEPSISTER
-  - value: half_brother
+  - id: half_brother
     relationship: qualifying_child
     irs_enum: HALF BROTHER
-  - value: half_sister
+  - id: half_sister
     relationship: qualifying_child
     irs_enum: HALF SISTER
-  - value: grandparent
+  - id: grandparent
     relationship: qualifying_relative
     irs_enum: GRANDPARENT
-  - value: great_grandchild
+  - id: great_grandchild
     relationship: qualifying_child
     irs_enum: OTHER
-  - value: step_parent
+  - id: step_parent
     relationship: qualifying_relative
     irs_enum: OTHER
-  - value: in_law
+  - id: in_law
     relationship: qualifying_relative
     irs_enum: OTHER
-  - value: siblings_descendant
+  - id: siblings_descendant
     relationship: qualifying_child
     irs_enum: OTHER
-  - value: other
+  - id: other
     relationship: ineligible
     irs_enum: OTHER
-
