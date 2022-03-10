@@ -216,45 +216,110 @@
     }
   }
 
-  .slab--testimonials {
-    background-color: white;
-
+  .slab--rating {
+    padding-bottom: 3.5rem;
+    .title {
+      font-size: 2.7rem;
+    }
+    .text--small {
+      font-size: 1.4rem;
+    }
     #star-rating {
-      margin-bottom: 4rem;
+      img {
+        height: 4rem;
+        width: 100%;
+      }
+      @media screen and (max-width: $tablet-up) {
+        padding: 0;
+      }
     }
-
-    #testimonial-left {
-      padding-right: 6rem;
+    #trusted-support {
+      padding-left: 3rem;
+      @media screen and (max-width: $tablet-up) {
+        text-align: center;
+        padding: 0 1.5rem 0 1.5rem;
+      }
     }
+  }
 
-    #testimonial-right {
-      padding-left: 6rem;
+  .slab-habla-espanol {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .rounded-box {
+      background-color: #FFD29C;
+
+      a {
+        color: black;
+      }
     }
 
     @media screen and (max-width: $tablet-up) {
-      h2 {
-        padding-left: 2.5rem;
-        padding-right: 2.5rem;
+      .rounded-box {
+        padding: 20px;
       }
+    }
+  }
 
-      #star-rating {
-        margin-top: 2.5rem;
+  .rounded-box {
+    border-radius: 1rem;
+    padding: 3rem 6rem 3rem 6rem;
+  }
+
+  .slab--testimonials {
+    background-color: white;
+    #testimonial-title {
+      display: flex;
+      flex-direction: column;
+      img {
+        height: 5rem;
+        min-height: 5rem;
+        padding-right: 0;
+        width: 100%;
       }
-
+    }
+    #testimonial-left {
+      padding-right: 3rem;
+      .rounded-box {
+        background-color: #FFD29C;
+      }
+    }
+    #testimonial-right {
+      padding-left: 3rem;
+      .rounded-box {
+        background-color: #C2C2FF;
+      }
+    }
+    @media screen and (max-width: $tablet-up) {
+      #testimonial-title {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        img {
+          height: 4rem;
+          margin-bottom: 10px;
+        }
+        h2 {
+          margin-top: 0;
+          padding-left: 2.5rem;
+          padding-right: 2.5rem;
+        }
+      }
       #testimonial-left {
         padding: 0;
+        margin-bottom: 2rem;
       }
-
       #testimonial-right {
         padding: 0;
-        margin-top: 4rem;
+        margin-top: 0;
+      }
+      .rounded-box {
+        padding: 1.5rem;
       }
     }
   }
 
   .slab--security {
     background-color: white;
-
     p {
       font-weight: 500;
     }
@@ -271,15 +336,14 @@
     }
 
     @media screen and (max-width: $tablet-up) {
+      padding-top: 1.5rem;
       div.grid__item {
-        margin-top: 60px;
-        margin-bottom: 60px;
         flex-direction: column;
         img {
           padding-right: 0;
           width: 100%;
-          height: 8rem;
-          margin-bottom: 2.5rem;
+          height: 4rem;
+          margin-bottom: 1.5rem;
         }
       }
     }
