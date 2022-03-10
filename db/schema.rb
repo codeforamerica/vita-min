@@ -777,6 +777,15 @@ ActiveRecord::Schema.define(version: 2022_03_09_052057) do
     t.index ["visitor_id"], name: "index_email_login_requests_on_visitor_id"
   end
 
+  create_table "faq_surveys", force: :cascade do |t|
+    t.integer "answer"
+    t.datetime "created_at", precision: 6, null: false
+    t.string "question_key"
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "visitor_id"
+    t.index ["visitor_id", "question_key"], name: "index_faq_surveys_on_visitor_id_and_question_key"
+  end
+
   create_table "greeter_coalition_join_records", force: :cascade do |t|
     t.bigint "coalition_id", null: false
     t.datetime "created_at", precision: 6, null: false

@@ -1,9 +1,43 @@
-<div class="breadcrumb">
-  <%= link_to "FAQ", faq_path %> &gt;
-  <%= link_to t("views.public_pages.faq.question_groups.#{@section_key}.title"), faq_section_path(section_key: @section_key) %> &gt;
-  <span><%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %></span>
-</div>
+<% content_for :page_title, t("views.public_pages.faq.title") %>
+<% content_for :body_class, "faq" %>
 
-<%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %>
+<%= render 'shared/breadcrumb_array', items: [
+  [t('general.home'), root_path],
+  ["FAQ", faq_path],
+  [t("views.public_pages.faq.question_groups.#{@section_key}.title"), faq_section_path(section_key: @section_key)],
+  t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question"),
+] %>
 
-<%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html") %>
+<main role="main">
+  <section class="slab slab--white">
+
+    <div class="grid">
+      <div class="grid__item width-one-whole faq-wrapper">
+        <h1 class="h2"><%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.question") %></h1>
+
+        <div class="spacing-below-35">
+          <%= t("views.public_pages.faq.question_groups.#{@section_key}.#{@question_key}.answer_html") %>
+        </div>
+
+        <%= form_with model: @survey, url: { action: :answer_survey }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "satisfaction_face_form spacing-below-35" } do |f| %>
+          <h2 class="h3 spacing-below-15" id="survey-question"><%= t("views.public_pages.faq.survey.title") %></h2>
+
+          <div class="face-container">
+            <%= f.button :submit, name: "#{f.object_name}[answer]", value: "positive", class: "button positive #{"selected" if @survey.answer_positive?}", "aria-describedby": "survey-question" do %>
+              <%= image_tag("questions/csat/positive.svg", alt: "") %>
+              <span><%= t("portal.still_needs_helps.no_longer_needs_help.experience_survey.positive") %></span>
+            <% end %>
+            <%= f.button :submit, name: "#{f.object_name}[answer]", value: "neutral", class: "button neutral #{"selected" if @survey.answer_neutral?}", "aria-describedby": "survey-question" do %>
+              <%= image_tag("questions/csat/neutral.svg", alt: "") %>
+              <span><%= t("portal.still_needs_helps.no_longer_needs_help.experience_survey.neutral") %></span>
+            <% end %>
+            <%= f.button :submit, name: "#{f.object_name}[answer]", value: "negative", class: "button negative #{"selected" if @survey.answer_negative?}", "aria-describedby": "survey-question" do %>
+              <%= image_tag("questions/csat/negative.svg", alt: "") %>
+              <span><%= t("portal.still_needs_helps.no_longer_needs_help.experience_survey.negative") %></span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</main>

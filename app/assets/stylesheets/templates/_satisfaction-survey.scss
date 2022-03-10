@@ -50,7 +50,7 @@
   }
 
   .negative {
-    :hover {
+    &:hover {
       background-color: $color-red-medium;
     }
     &.selected {

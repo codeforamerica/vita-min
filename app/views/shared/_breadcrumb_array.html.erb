@@ -1,0 +1,13 @@
+<div class="breadcrumb">
+  <div class="grid">
+    <div class="grid__item width-one-whole">
+      <% items.each do |item| %>
+        <% if item.is_a?(Array) %>
+          <%= link_to item.first, item.last %> &gt;
+        <% else %>
+          <span><%= item %></span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
