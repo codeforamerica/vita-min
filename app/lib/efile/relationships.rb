@@ -2,7 +2,7 @@ module Efile
   class Relationships
     RELATIONSHIPS = %w[qualifying_relative qualifying_child ineligible].freeze
     @@relationships ||= IceNine.deep_freeze!(
-      (YAML.load_file(Rails.root.join("db/relationships.yml"))['relationships']).to_h do |relationship|
+      (YAML.load_file(Rails.root.join("app/lib/efile/relationships.yml"))['relationships']).to_h do |relationship|
         raise "Invalid relationship. Must be in: #{RELATIONSHIPS}" unless relationship["relationship"].in? RELATIONSHIPS
 
         [relationship["value"].to_sym, {
