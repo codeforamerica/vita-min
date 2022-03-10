@@ -6,10 +6,6 @@ class Dependent::Rules
     @birth_date = @dependent.birth_date
   end
 
-  def born_in_final_6_months?
-    birth_date >= Date.new(tax_year, 6, 30) && birth_date <= Date.new(tax_year, 12, 31)
-  end
-
   # For tax year e.g. 1999, someone is 1 year old if born on any day in 1998.
   def age
     @age ||= tax_year - birth_date.year
@@ -25,8 +21,8 @@ class Dependent::Rules
 
   def meets_qc_age_condition?
     return false if age.negative?
-    
-    dependent.permanently_totally_disabled_yes? || age < 19 || (dependent.full_time_student_yes? && age < 24)
+
+    age < 19 || dependent.permanently_totally_disabled_yes? || (dependent.full_time_student_yes? && age < 24)
   end
 
   def disqualified_child_qualified_relative?
@@ -42,7 +38,7 @@ class Dependent::Rules
   end
 
   def meets_qc_residence_condition?
-    dependent.meets_qc_residence_condition_generic? || born_in_final_6_months?
+    dependent.meets_qc_residence_condition_generic? || dependent.born_in_final_6_months_of_tax_year?(tax_year)
   end
 
   def qualifying_child?

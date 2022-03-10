@@ -1972,15 +1972,12 @@ es:
               <p>¿No está seguro de si su familiar reúne los requisitos? Responda que Sí y lo orientaremos en el proceso.</p>
             title: "¿Desea agregar a un niño o a un miembro de la familia para reclamar el Crédito Tributario por Hijos y otros beneficios?"
           info:
+            filed_joint_return: "%{name} estaba casado/a y declaró impuestos con su cónyuge"
             first_name: El primer nombre legal de su dependiente
-            full_time_student: La persona dependiente es estudiante de tiempo completo
             help_text: Para evitar retrasos, favor de facilitar los datos legales de su dependiente tal y como figuran en su tarjeta de identificación.
             last_name: El apellido legal de su dependiente
             middle_initial: El segundo nombre de su dependiente (Opcional)
-            permanently_totally_disabled: La persona dependiente tiene una discapacidad permanente y total
             relationship_to_you: "¿Qué relación tiene con usted?"
-            reveal_info: Un médico determina si tiene una incapacidad permanente cuando no puede realizar la mayor parte de su trabajo debido a una enfermedad física o mental.
-            reveal_title: "¿Qué es una incapacidad permanente?"
             situations: 'Seleccione cualquier situación que sea válida:'
             suffix: Forma de tratamiento del dependiente, por ejemplo, Sr., Sra., Srta.
             title: Veamos algunos datos básicos sobre su dependiente.

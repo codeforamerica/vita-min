@@ -25,7 +25,6 @@ describe Ctc::Questions::Dependents::InfoController do
     context "with a signed creation token for id" do
       let(:unsigned_token) { SecureRandom.base36(24) }
       let(:signed_token) { message_verifier.generate(unsigned_token) }
-
       let(:params) do
         {
           id: signed_token,
@@ -37,11 +36,10 @@ describe Ctc::Questions::Dependents::InfoController do
             birth_date_month: 1,
             birth_date_year: 1.year.ago.year,
             relationship: "daughter",
-            full_time_student: "no",
             ssn: "222-33-4445",
+            filed_joint_return: "no",
             ssn_confirmation: "222-33-4445",
             tin_type: "ssn",
-            permanently_totally_disabled: "no"
           }
         }
       end
@@ -60,7 +58,8 @@ describe Ctc::Questions::Dependents::InfoController do
 
     context "for an existing record" do
       let(:dependent) { create :dependent, intake: intake, birth_date: 2.years.ago, relationship: 'daughter' }
-
+      let(:birth_year) { 2.years.ago.year }
+      let(:filed_joint_return) { "no" }
       context "with valid params" do
         let(:params) do
           {
@@ -70,13 +69,12 @@ describe Ctc::Questions::Dependents::InfoController do
               last_name: 'Taxseason',
               birth_date_day: 1,
               birth_date_month: 1,
-              birth_date_year: 2.years.ago.year,
+              birth_date_year: birth_year,
               relationship: "daughter",
-              full_time_student: "no",
-              permanently_totally_disabled: "no",
               ssn: "222-33-4445",
               ssn_confirmation: "222-33-4445",
               tin_type: "ssn",
+              filed_joint_return: filed_joint_return
             }
           }
         end
@@ -88,6 +86,23 @@ describe Ctc::Questions::Dependents::InfoController do
           recaptcha_score = intake.client.recaptcha_scores.last # do we want to capture the recaptcha score again for editing a dependent?
           expect(recaptcha_score.score).to eq 0.9
           expect(recaptcha_score.action).to eq 'dependents_info'
+          expect(response).to redirect_to child_disqualifiers_questions_dependent_path(id: params[:id])
+        end
+
+        context "when dependent was born after the tax year" do
+          let(:birth_year) { TaxReturn.current_tax_year + 1 } # Filing year is 2021, children born in 2022 don't qualify
+          it "sends the client to the offboarding page" do
+            post :update, params: params
+            expect(response).to redirect_to does_not_qualify_ctc_questions_dependent_path(id: params[:id])
+          end
+        end
+
+        context "when dependent filed jointly with spouse" do
+          let(:filed_joint_return) { "yes" }
+          it "sends the client to the offboarding page" do
+            post :update, params: params
+            expect(response).to redirect_to does_not_qualify_ctc_questions_dependent_path(id: params[:id])
+          end
         end
       end
     end

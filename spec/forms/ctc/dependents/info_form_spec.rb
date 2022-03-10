@@ -111,6 +111,7 @@ describe Ctc::Dependents::InfoForm do
 
   describe '#save' do
     let(:intake) { build(:ctc_intake) }
+    let(:tin) { "123456789" }
     let(:params) do
       {
         first_name: 'Fae',
@@ -120,12 +121,11 @@ describe Ctc::Dependents::InfoForm do
         birth_date_month: 1,
         birth_date_year: 1.year.ago.year,
         relationship: "daughter",
-        full_time_student: "no",
-        permanently_totally_disabled: "no",
         tin_type: tin_type,
+        filed_joint_return: "yes",
         ssn_no_employment: ssn_no_employment,
-        ssn: "123456789",
-        ssn_confirmation: "123456789"
+        ssn: tin,
+        ssn_confirmation: tin
       }
     end
     let(:tin_type) { "ssn" }
@@ -151,7 +151,7 @@ describe Ctc::Dependents::InfoForm do
           form = described_class.new(dependent, params)
           form.valid?
           form.save
-          Dependent.last.tin_type = "ssn_no_employment"
+          expect(Dependent.last.tin_type).to eq "ssn_no_employment"
         end
       end
 
@@ -162,7 +162,7 @@ describe Ctc::Dependents::InfoForm do
           form = described_class.new(dependent, params)
           form.valid?
           form.save
-          Dependent.last.tin_type = "ssn"
+          expect(Dependent.last.tin_type).to eq "ssn"
         end
       end
     end
@@ -170,12 +170,27 @@ describe Ctc::Dependents::InfoForm do
     context "when tin type is not ssn" do
       let(:ssn_no_employment) { "no" }
       let(:tin_type) { "itin" }
+      let(:tin) { "912745678" }
 
       it "sets the tin type to itin" do
         form = described_class.new(dependent, params)
         form.valid?
         form.save
-        Dependent.last.tin_type = "itin"
+        expect(Dependent.last.tin_type).to eq "itin"
+      end
+    end
+
+    context "when the client is born in the final 6 months of the current tax year" do
+      before do
+        params[:birth_date_day] = 7
+        params[:birth_date_month] = 7
+        params[:birth_date_year] = TaxReturn.current_tax_year
+      end
+
+      it "sets lived_with_for_more_than_6_months to true" do
+        form = described_class.new(dependent, params)
+        form.save
+        expect(Dependent.last.lived_with_more_than_six_months).to eq "yes"
       end
     end
   end

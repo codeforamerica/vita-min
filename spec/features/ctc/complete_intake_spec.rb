@@ -138,7 +138,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
-    check I18n.t('views.ctc.questions.dependents.info.full_time_student')
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
     check I18n.t('general.none')
@@ -156,7 +155,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     click_on "Add another person"
 
-    dependent_birth_year = 22.years.ago.year
+    dependent_birth_year = 18.years.ago.year
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
     fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Red"
@@ -168,7 +167,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
-    check I18n.t('views.ctc.questions.dependents.info.full_time_student')
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Red'))
     check I18n.t('general.none')
