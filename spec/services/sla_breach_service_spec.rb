@@ -99,18 +99,18 @@ describe SLABreachService do
       let(:vita_partner_2) { create :organization }
       before do
         # breaches at vita_partner_1
-        client1 = create(:client, vita_partner_id: vita_partner_1.id, tax_returns:  [create(:tax_return, :prep_ready_for_prep)]) # breach
+        client1 = create(:client, intake: (create :intake) ,vita_partner_id: vita_partner_1.id, tax_returns:  [create(:tax_return, :prep_ready_for_prep)]) # breach
         Timecop.freeze(8.days.ago) { client1.flag! }
         Timecop.freeze(7.days.ago) { InteractionTrackingService.update_last_outgoing_communication_at(client1) }
 
         # breaches at vita_partner_2
-        client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, :prep_ready_for_prep)]) # breach
+        client2 = create(:client, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, :prep_ready_for_prep)]) # breach
         Timecop.freeze(9.days.ago) { client2.flag! }
 
-        client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, :prep_ready_for_prep)]) # breach
+        client3 = create(:client, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, :prep_ready_for_prep)]) # breach
         Timecop.freeze(10.days.ago) { client3.flag! }
 
-        client4 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, :prep_ready_for_prep)]) # not in breach t1, in breach t2
+        client4 = create(:client, intake: (create :intake), vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, :prep_ready_for_prep)]) # not in breach t1, in breach t2
         Timecop.freeze(10.days.ago) {
           InteractionTrackingService.record_incoming_interaction(client4)
           client4.flag!
