@@ -202,8 +202,8 @@ module Archived
       rules(2021)
     end
 
-    def rules(year)
-      Dependent::Rules.new(birth_date, year, full_time_student_yes?, permanently_totally_disabled_yes?, ssn.present?, qualifying_child_relationship?, qualifying_relative_relationship?, meets_misc_qualifying_relative_requirements_yes?, meets_qc_residence_condition_generic?, meets_qc_claimant_condition?, meets_qc_misc_conditions?)
+    def rules(tax_year)
+      Dependent::Rules.new(self, tax_year)
     end
 
     def remove_error_associations

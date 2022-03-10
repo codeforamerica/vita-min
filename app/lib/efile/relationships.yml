@@ -1,0 +1,68 @@
+# The order of relationships affects their display in the app.
+relationships:
+  - id: daughter
+    relationship: qualifying_child
+    irs_enum: DAUGHTER
+  - id: son
+    relationship: qualifying_child
+    irs_enum: SON
+  - id: parent
+    relationship: qualifying_relative
+    irs_enum: PARENT
+  - id: grandchild
+    relationship: qualifying_child
+    irs_enum: GRANDCHILD
+  - id: niece
+    relationship: qualifying_child
+    irs_enum: NIECE
+  - id: nephew
+    relationship: qualifying_child
+    irs_enum: NEPHEW
+  - id: foster_child
+    relationship: qualifying_child
+    irs_enum: FOSTER CHILD
+  - id: aunt
+    relationship: qualifying_relative
+    irs_enum: AUNT
+  - id: uncle
+    relationship: qualifying_relative
+    irs_enum: UNCLE
+  - id: sister
+    relationship: qualifying_child
+    irs_enum: SISTER
+  - id: brother
+    relationship: qualifying_child
+    irs_enum: BROTHER
+  - id: stepchild
+    relationship: qualifying_child
+    irs_enum: STEPCHILD
+  - id: stepbrother
+    relationship: qualifying_child
+    irs_enum: STEPBROTHER
+  - id: stepsister
+    relationship: qualifying_child
+    irs_enum: STEPSISTER
+  - id: half_brother
+    relationship: qualifying_child
+    irs_enum: HALF BROTHER
+  - id: half_sister
+    relationship: qualifying_child
+    irs_enum: HALF SISTER
+  - id: grandparent
+    relationship: qualifying_relative
+    irs_enum: GRANDPARENT
+  - id: great_grandchild
+    relationship: qualifying_child
+    irs_enum: OTHER
+  - id: step_parent
+    relationship: qualifying_relative
+    irs_enum: OTHER
+  - id: in_law
+    relationship: qualifying_relative
+    irs_enum: OTHER
+  - id: siblings_descendant
+    relationship: qualifying_child
+    irs_enum: OTHER
+  - id: other
+    relationship: ineligible
+    irs_enum: OTHER

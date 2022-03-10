@@ -135,7 +135,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in "ctc_dependents_info_form[birth_date_month]", with: "01"
     fill_in "ctc_dependents_info_form[birth_date_day]", with: "11"
     fill_in "ctc_dependents_info_form[birth_date_year]", with: dependent_birth_year
-    select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+    select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
     check I18n.t('views.ctc.questions.dependents.info.full_time_student')
@@ -165,7 +165,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in "ctc_dependents_info_form[birth_date_month]", with: "01"
     fill_in "ctc_dependents_info_form[birth_date_day]", with: "11"
     fill_in "ctc_dependents_info_form[birth_date_year]", with: dependent_birth_year
-    select I18n.t('general.dependent_relationships.00_daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+    select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
     check I18n.t('views.ctc.questions.dependents.info.full_time_student')

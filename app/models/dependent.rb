@@ -107,10 +107,6 @@ class Dependent < ApplicationRecord
     self.ssn = self.ssn.remove(/\D/) if ssn_changed? && self.ssn
   end
 
-  QUALIFYING_CHILD_RELATIONSHIPS = %w[daughter son stepchild stepbrother stepsister foster_child grandchild niece nephew half_brother half_sister brother sister]
-
-  QUALIFYING_RELATIVE_RELATIONSHIPS = %w[parent grandparent aunt uncle]
-
   def full_name
     parts = [first_name, middle_initial, last_name]
     parts << suffix if suffix.present?
@@ -124,10 +120,8 @@ class Dependent < ApplicationRecord
     end
   end
 
-  # Transforms relationship to the format expected by the IRS submission
-  # (upcased with spaces instead of underscores)
   def irs_relationship_enum
-    relationship&.upcase.gsub("_", " ")
+    relationship_info.irs_enum
   end
 
   def eligible_for_child_tax_credit_2020?
@@ -151,14 +145,6 @@ class Dependent < ApplicationRecord
 
   def eligible_for_eip3?
     yr_2020_qualifying_child? || yr_2020_qualifying_relative?
-  end
-
-  def qualifying_child_relationship?
-    QUALIFYING_CHILD_RELATIONSHIPS.include? relationship.downcase
-  end
-
-  def qualifying_relative_relationship?
-    QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship.downcase
   end
 
   def meets_qc_misc_conditions?
@@ -196,6 +182,13 @@ class Dependent < ApplicationRecord
   # add a default year with no prefix.
   delegate :age, :born_in_final_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2020, prefix: :yr_2020
   delegate :age, :born_in_final_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2021, prefix: :yr_2021
+  delegate :qualifying_child_relationship?, :qualifying_relative_relationship?, to: :relationship_info
+
+  def relationship_info
+    return unless relationship.present?
+
+    Efile::Relationship.find(relationship)
+  end
 
   private
 
@@ -207,8 +200,8 @@ class Dependent < ApplicationRecord
     rules(2021)
   end
 
-  def rules(year)
-    Dependent::Rules.new(birth_date, year, full_time_student_yes?, permanently_totally_disabled_yes?, ssn.present?, qualifying_child_relationship?, qualifying_relative_relationship?, meets_misc_qualifying_relative_requirements_yes?, meets_qc_residence_condition_generic?, meets_qc_claimant_condition?, meets_qc_misc_conditions?)
+  def rules(tax_year)
+    Dependent::Rules.new(self, tax_year)
   end
 
   def remove_error_associations
