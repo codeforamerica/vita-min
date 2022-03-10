@@ -187,7 +187,7 @@ class Dependent < ApplicationRecord
   def relationship_info
     return unless relationship.present?
 
-    @_relationship_info ||= Efile::Relationships.new(relationship)
+    Efile::Relationships.new(relationship)
   end
 
   private
