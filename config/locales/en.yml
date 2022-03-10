@@ -2004,11 +2004,8 @@ en:
             help_text: 'For a child or family member to qualify for CTC or stimulus payments they would need to meet the following conditions:'
             title: "%{name} can’t be claimed as a dependent."
           had_dependents:
-            help_text_html: |
-              <p>Someone who lived with you for a majority of the year in %{current_tax_year} or who you supported financially could qualify.</p>
-              <p>Answer Yes if you are trying to get the Child Tax Credit.</p>
-              <p>Not sure if your family member qualifies? Answer Yes and we’ll walk you through it.</p>
-            title: Would you like to add a child or family member in order to claim the child tax credit and other benefits?
+            help_text: Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent.
+            title: Would you like to add a child or another person whom you supported in 2021?
           info:
             first_name: Family member’s legal first name
             full_time_student: This family member is a full-time student

@@ -1961,11 +1961,8 @@ es:
             help_text: 'Para que una persona dependiente tenga derecho a recibir el CTC o las ayudas de estímulo, deberá cumplir las siguientes condiciones:'
             title: "%{name} no puede ser declarado como dependiente."
           had_dependents:
-            help_text_html: |
-              <p>Una persona que haya vivido con usted durante la mayor parte del año en el %{current_tax_year} o a la que haya apoyado económicamente podría reunir los requisitos.</p>
-              <p>Responda Sí si está tratando de obtener el Crédito Tributario por Hijos.</p>
-              <p>¿No está seguro de si su familiar reúne los requisitos? Responda que Sí y lo orientaremos en el proceso.</p>
-            title: "¿Desea agregar a un niño o a un miembro de la familia para reclamar el Crédito Tributario por Hijos y otros beneficios?"
+            help_text: Alguien que vivió con usted la mayor parte del año o a quien usted apoyó financieramente podría calificar como dependiente.
+            title: "¿Le gustaría agregar un niño u otra persona a la que apoyó en 2021?"
           info:
             first_name: El primer nombre legal de su dependiente
             full_time_student: La persona dependiente es estudiante de tiempo completo
