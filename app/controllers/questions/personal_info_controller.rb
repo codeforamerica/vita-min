@@ -4,7 +4,7 @@ module Questions
     skip_before_action :require_intake
 
     def self.show?(intake, session)
-      intake.blank? || intake.triage.blank? || SourceParameter.source_skips_triage(session[:source])
+      intake.blank? || SourceParameter.source_skips_triage(session[:source])
     end
 
     def current_intake
@@ -29,7 +29,6 @@ module Questions
       new_intake = @form.intake
       session[:intake_id] = new_intake.id
       new_intake.set_navigator(session[:navigator])
-      current_triage&.update(intake_id: new_intake.id)
     end
 
     def form_params

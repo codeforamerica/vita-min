@@ -7,7 +7,7 @@ RSpec.describe Questions::SsnItinController do
 
   describe ".show?" do
     context "when a client said they need help getting an ITIN during triage" do
-      let(:intake) { create :intake, triage: create(:triage, id_type: "need_itin_help") }
+      let(:intake) { create :intake, need_itin_help: "yes" }
 
       it "returns false" do
         expect(described_class.show?(intake)).to eq false
@@ -15,15 +15,7 @@ RSpec.describe Questions::SsnItinController do
     end
 
     context "when a client did not say they need help getting an ITIN during triage" do
-      let(:intake) { create :intake, triage: create(:triage, id_type: "have_id") }
-
-      it "returns true" do
-        expect(described_class.show?(intake)).to eq true
-      end
-    end
-
-    context "when there is no triage associated with current_intake" do
-      let(:intake) { create :intake, triage: nil }
+      let(:intake) { create :intake, need_itin_help: "no" }
 
       it "returns true" do
         expect(described_class.show?(intake)).to eq true

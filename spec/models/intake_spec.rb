@@ -213,6 +213,10 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
+#  triage_filing_frequency                              :integer          default(0), not null
+#  triage_filing_status                                 :integer          default(0), not null
+#  triage_income_level                                  :integer          default(0), not null
+#  triage_vita_income_ineligible                        :integer          default(0), not null
 #  type                                                 :string
 #  use_primary_name_for_name_control                    :boolean          default(FALSE)
 #  used_itin_certifying_acceptance_agent                :boolean          default(FALSE), not null
@@ -1046,14 +1050,28 @@ describe Intake do
 
   describe "#itin_applicant?" do
     context "when there is no triage associated" do
-      let(:intake) { create(:intake) }
-      it "is falsey" do
-        expect(intake.itin_applicant?).to be_falsey
+      let(:intake) { create(:intake, need_itin_help: need_itin_help) }
+
+      context "if need_itin_help is true" do
+        let(:need_itin_help) { 'yes' }
+
+        it "is truthy" do
+          expect(intake.itin_applicant?).to be_truthy
+        end
+      end
+
+      context "if need_itin_help is not true" do
+        let(:need_itin_help) { 'no' }
+
+        it "is falsey" do
+          expect(intake.itin_applicant?).to be_falsey
+        end
       end
     end
 
     context "when there is a triage but the id_type is not need_itin_help" do
       let(:intake) { create(:intake, triage: (create :triage, id_type: "have_id"))}
+
       it "is falsey" do
         expect(intake.itin_applicant?).to be_falsey
       end

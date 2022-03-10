@@ -213,6 +213,10 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
+#  triage_filing_frequency                              :integer          default("unfilled"), not null
+#  triage_filing_status                                 :integer          default("unfilled"), not null
+#  triage_income_level                                  :integer          default("unfilled"), not null
+#  triage_vita_income_ineligible                        :integer          default("unfilled"), not null
 #  type                                                 :string
 #  use_primary_name_for_name_control                    :boolean          default(FALSE)
 #  used_itin_certifying_acceptance_agent                :boolean          default(FALSE), not null
@@ -354,6 +358,19 @@ class Intake::GyrIntake < Intake
   enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
   enum received_advance_ctc_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_advance_ctc_payment
   enum need_itin_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :need_itin_help
+  enum triage_income_level: {
+    "unfilled" => 0,
+    "zero" => 1,
+    "1_to_12500" => 2,
+    "12500_to_25000" => 3,
+    "25000_to_40000" => 4,
+    "40000_to_65000" => 5,
+    "65000_to_73000" => 6,
+    "over_73000" => 7,
+  }, _prefix: :triage_income_level
+  enum triage_filing_status: { unfilled: 0, single: 1, jointly: 2 }, _prefix: :triage_filing_status
+  enum triage_filing_frequency: { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, _prefix: :triage_filing_frequency
+  enum triage_vita_income_ineligible: { unfilled: 0, yes: 1, no: 2 }, _prefix: :triage_vita_income_ineligible
   scope :accessible_intakes, -> { where.not(primary_consented_to_service_at: nil) }
   after_save do
     if saved_change_to_completed_at?(from: nil)

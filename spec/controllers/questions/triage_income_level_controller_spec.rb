@@ -9,37 +9,30 @@ RSpec.describe Questions::TriageIncomeLevelController do
     end
 
     context "with valid params" do
-      let(:income_level) { "zero" }
+      let(:intake) { create :intake, need_itin_help: "no" }
       let(:params) do
         {
           triage_income_level_form: {
-            filing_status: "single",
-            income_level: income_level
+            triage_filing_status: "single",
+            triage_income_level: "zero",
+            triage_filing_frequency: "some_years",
+            triage_vita_income_ineligible: "yes",
           }
         }
       end
 
-      it "persists their answer on a triage model" do
-        expect {
-          post :update, params: params
-        }.to change(Triage, :count).by(1)
-
-        triage = Triage.last
-        expect(triage.filing_status).to eq("single")
-        expect(triage.income_level).to eq("zero")
+      before do
+        session[:intake_id] = intake.id
       end
 
-      it "saves the source param, referrer, & visitor_id and puts the triage in the session" do
-        expect {
-          post :update, params: params
-        }.to change(Triage, :count).by(1)
+      it "persists their answer on a intake model" do
+        post :update, params: params
 
-        triage = Triage.last
-        expect(triage.source).to eq("source_from_session")
-        expect(triage.referrer).to eq("referrer_from_session")
-        expect(triage.visitor_id).to eq("some_visitor_id")
-        expect(triage.locale).to eq("en")
-        expect(session[:triage_id]).to eq(triage.id)
+        intake.reload
+        expect(intake.triage_filing_status).to eq("single")
+        expect(intake.triage_income_level).to eq("zero")
+        expect(intake.triage_filing_frequency).to eq("some_years")
+        expect(intake.triage_vita_income_ineligible).to eq("yes")
       end
 
       context "when the TriageResultService has an opinion on where to go" do

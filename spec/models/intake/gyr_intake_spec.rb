@@ -213,6 +213,10 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
+#  triage_filing_frequency                              :integer          default("unfilled"), not null
+#  triage_filing_status                                 :integer          default("unfilled"), not null
+#  triage_income_level                                  :integer          default("unfilled"), not null
+#  triage_vita_income_ineligible                        :integer          default("unfilled"), not null
 #  type                                                 :string
 #  use_primary_name_for_name_control                    :boolean          default(FALSE)
 #  used_itin_certifying_acceptance_agent                :boolean          default(FALSE), not null
@@ -285,13 +289,12 @@ describe Intake::GyrIntake do
   describe "#duplicates" do
     context "when an itin applicant" do
       let(:dupe_double) { double }
-      let(:triage) { create(:triage, id_type: "need_itin_help" )}
       before do
         allow(DeduplificationService).to receive(:duplicates).and_return dupe_double
         allow(dupe_double).to receive(:or)
       end
       context "when only email is present" do
-        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: "mango@example.com", sms_phone_number: nil, triage: triage }
+        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: "mango@example.com", sms_phone_number: nil, need_itin_help: "yes" }
         it "responds with duplicates from birth date and email" do
           intake.duplicates
           expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :email_address, :primary_birth_date, from_scope: described_class.accessible_intakes)
@@ -299,7 +302,7 @@ describe Intake::GyrIntake do
       end
 
       context "when only sms is present" do
-        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: nil, sms_phone_number: "+18324658840", triage: triage }
+        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: nil, sms_phone_number: "+18324658840", need_itin_help: "yes" }
         it "responds with duplicates from sms" do
           intake.duplicates
           expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :sms_phone_number, :primary_birth_date, from_scope: described_class.accessible_intakes)
@@ -307,7 +310,7 @@ describe Intake::GyrIntake do
       end
 
       context "when both email and sms are present" do
-        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: "mango@example.com", sms_phone_number: "+18324658840", triage: triage }
+        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: "mango@example.com", sms_phone_number: "+18324658840", need_itin_help: "yes" }
         it "responds with duplicates from both email and sms" do
           intake.duplicates
           expect(DeduplificationService).to have_received(:duplicates).exactly(2).times
@@ -315,7 +318,7 @@ describe Intake::GyrIntake do
       end
 
       context "when neither phone number nor email are present" do
-        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: nil, sms_phone_number: nil, triage: triage }
+        let(:intake) { create :intake, primary_birth_date: Date.tomorrow, email_address: nil, sms_phone_number: nil, need_itin_help: "yes" }
         it "responds with an empty ActiveRecord relation" do
           expect(intake.duplicates).to eq described_class.none
         end

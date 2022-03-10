@@ -1516,21 +1516,6 @@ es:
         title: GetYourRefund
         warning: Es necesario que muestre copias de su tarjeta de Seguro Social o de los papeles del Número de Identificación Personal del Contribuyente (ITIN en inglés)
       refund: Reembolso
-    triage_assistance:
-      edit:
-        assistance:
-          in_person: asistencia en persona
-          phone_review_english: Repaso por teléfono (inglés)
-          phone_review_non_english: Repaso por teléfono (idioma no inglés)
-        help_text: 'Seleccione la opción(es) que mejor apliquen a usted:'
-        title: "¿Necesita alguna ayuda adicional?"
-    triage_backtaxes_years:
-      edit:
-        help_text_html: |
-          Incluso, aunque haya usado un servicio diferente para presentar su declaración de impuestos de años anteriores, <strong>seleccione cualquier/ todos los años que correspondan.</strong>
-
-          No se preocupe si no ha presentado una declaración de impuestos para ninguno de estos años, ¡estamos aquí para ayudarle!
-        title: "¿Ha presentado declaraciones de impuestos en el pasado? Favor de decirnos en qué años los presentó."
     triage_diy:
       edit:
         title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
@@ -1539,15 +1524,6 @@ es:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
         help_text: Parece que está sobre el límite para presentar su declaración. Nuestros servicios gratuitos están disponibles para hogares que ganan menos de $73,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
-    triage_doc_type:
-      edit:
-        doc_type:
-          all_copies_html: Tengo <u>todas</u> las copias de mis documentos fiscales oficiales
-          does_not_apply_html: "<u>No tengo</u> copias de ningún documento fiscal oficial porque <u>no me aplican</u>"
-          need_help_html: "<u>No tengo</u> ninguna copia de mis documentos fiscales oficiales y <u>me gustaría recibir ayuda</u> para obtenerlas."
-          some_copies_html: Tengo <u>algunas</u> copias de mis documentos fiscales oficiales.
-        help_text: Los documentos fiscales se refieren a cualquier documento oficial del IRS o documentos que confirmen su empleo como una W2, 1099, registro de trabajo personal, etc.
-        title: "¿Qué tipo de documentos fiscales tiene?"
     triage_express:
       edit:
         title: Le recomendamos que use la opcion rápida
@@ -1576,15 +1552,17 @@ es:
         no_diy: No. Voy a continuar con File Myself.
         title: Antes de continuar, ¿tiene una copia física de su documento de identificación con fotografía y de su tarjeta de Seguro Social o de los documentos de Número de Identificación Personal del Contribuyente (ITIN en inglés)?
         yes_i_have_id: Sí, tengo mi tarjeta de identificación
-    triage_id_type:
-      edit:
-        ssn_itin_type:
-          have_id: Tengo mi tarjeta de Número de Seguro Social o la documentación de mi Número de Identificación Personal del Contribuyente o ITIN en inglés
-          know_number: 'Me sé mi Número de Seguro Social o Número de Identificación Personal del Contribuyente o ITIN en inglés, pero no tengo una copia '
-          need_itin_help: Necesito solicitar un número de identificación personal del contribuyente (ITIN)
-        title: "¿Qué tipo de identificación tiene?"
     triage_income_level:
       edit:
+        filing_frequency:
+          label_html: |-
+            En los últimos 4 años, ¿con qué frecuencia ha presentado?
+
+            <p class="text--small spacing-above-15">Es bastante común omitir la presentación de ciertos años debido a circunstancias de la vida y cambios de empleo.</p>
+          options:
+            every_year: Presenté todos los años
+            not_filed: No he presentado
+            some_years: Presenté algunos años
         filing_status:
           label: "¿Cómo desea presentar su declaración de impuestos?"
           options:
@@ -1603,18 +1581,9 @@ es:
             65000_to_73000: De $65,000 a 73,000 dólares
             over_73000: más de $73,000
             zero: "$0"
-        title: "¡Vamos a empezar!"
-    triage_income_types:
-      edit:
-        income_types:
-          farm: Gané dinero por tener una granja
-          rental: Gané dinero de una propiedad alquilada
-        income_types_label: "¿Alguna situación a continuación le aplica a usted?"
-        title: "¡Una última pregunta antes de seleccionar un servicio para usted!"
-    triage_start_ids:
-      edit:
-        help_text: 'Le puede ser útil juntar todos sus documentos fiscales y su tarjeta de Número de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN en inglés), en este momento. Confirmaremos la información nuevamente, más adelante en el proceso.  '
-        title: Comenzaremos preguntándole acerca de sus documentos y sus identificaciones.
+        title: "Infórmenos sobre su estado civil e ingresos."
+        vita_income_ineligible:
+          label: "¿Obtuvo ingresos de una propiedad de alquiler, una granja o una criptomoneda?"
   signups:
     flash_notice: Gracias, recibirá una notificación cuando iniciemos en enero del 2022.
     new:

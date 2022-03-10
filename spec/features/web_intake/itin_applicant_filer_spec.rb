@@ -6,14 +6,12 @@ RSpec.feature "A client who wants help getting an ITIN" do
   context "when an itin applicant is unique" do
     scenario "the client does not get blocked by returning client page and is sent to optional consent" do
       answer_gyr_triage_questions({
-                                      need_itin: true,
-                                      filing_status: "single",
-                                      income_level: "1_to_12500",
-                                      id_type: "need_itin_help",
-                                      doc_type: "need_help",
-                                      filed_past_years: [],
-                                      income_type_options: ['none_of_the_above']
-                                  })
+        need_itin: true,
+        triage_filing_status: "single",
+        triage_income_level: "1_to_12500",
+        triage_filing_frequency: 'not_filed',
+        triage_vita_income_ineligible: false,
+      })
 
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr.edit.title'))
       click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
@@ -95,20 +93,18 @@ RSpec.feature "A client who wants help getting an ITIN" do
         email_address: "gary.gardengnome@example.green",
         primary_consented_to_service: "yes",
         primary_consented_to_service_at: 15.minutes.ago,
-        triage: (create :triage, id_type: "need_itin_help")
+        need_itin_help: "yes"
       )
     end
 
     scenario "the client fills out triage and beginning of intake, but after consent gets sent to returning client page" do
       answer_gyr_triage_questions({
-                                      need_itin: true,
-                                      filing_status: "single",
-                                      income_level: "1_to_12500",
-                                      id_type: "need_itin_help",
-                                      doc_type: "need_help",
-                                      filed_past_years: [],
-                                      income_type_options: ['none_of_the_above']
-                                  })
+        need_itin: true,
+        triage_filing_status: "single",
+        triage_income_level: "1_to_12500",
+        triage_filing_frequency: 'not_filed',
+        triage_vita_income_ineligible: false,
+      })
 
       expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr.edit.title'))
       click_on I18n.t('questions.triage.gyr_tile.choose_gyr')

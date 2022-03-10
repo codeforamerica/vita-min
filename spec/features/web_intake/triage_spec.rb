@@ -62,7 +62,7 @@ RSpec.feature "triage flow" do
     end
 
     def context_name
-      Hash[row.reject { |k, v| k == 'service' || v == 'skip' }].values.compact.join(' - ')
+      Hash[row.reject { |k, v| k == 'service' || k == 'notes' || v == 'skip' }].values.compact.join(' - ')
     end
 
     def test_name
@@ -74,16 +74,16 @@ RSpec.feature "triage flow" do
     end
 
     def final_page
-      case row['service']
-      when 'We have two free options that may work for you!'
+      case row['service'].strip
+      when 'Express-GYR'
         Questions::TriageGyrExpressController
-      when 'We recommend filing with our free File Myself option!'
+      when 'DIY'
         Questions::TriageDiyController
-      when 'We recommend filing for free with GetYourRefund!'
+      when 'GYR'
         Questions::TriageGyrController
-      when 'We recommend filing with our Express option!'
-        Questions::TriageExpressController
-      when 'Unfortunately, it looks like you do not qualify for our free service.'
+      when 'GYR-DIY'
+        Questions::TriageGyrDiyController
+      when 'Does not qualify'
         Questions::TriageDoNotQualifyController
       end
     end
@@ -91,12 +91,6 @@ RSpec.feature "triage flow" do
     def expected_controllers
       [
         Questions::TriageIncomeLevelController,
-        (Questions::TriageStartIdsController unless row['id_type'] == 'skip'),
-        (Questions::TriageIdTypeController unless row['id_type'] == 'skip'),
-        (Questions::TriageDocTypeController unless row['doc_type'] == 'skip'),
-        (Questions::TriageBacktaxesYearsController unless row['filed_past_years'] == 'skip'),
-        (Questions::TriageAssistanceController unless row['assistance_options'] == 'skip'),
-        (Questions::TriageIncomeTypesController unless row['income_type_options'] == 'skip'),
         final_page
       ].compact
     end
@@ -105,54 +99,22 @@ RSpec.feature "triage flow" do
       expected_controllers.map(&:to_path_helper)
     end
 
-    def income
-      row['income']
+    def need_itin_help
+      answer = row['need_itin_help'].strip
+      answer == 'Yes' ? true : false
+    end
+
+    def income_level
+      row['triage_income_level'].strip
     end
 
     def filing_status
-      answer = row['filing_status']
-      if answer == 'any answer'
-        'single'
-      else
-        answer
-      end
+      row['triage_filing_status'].strip
     end
 
-    def id_type
-      row['id_type']
-    end
-
-    def doc_type
-      answer = row['doc_type']
-      if answer == 'any answer'
-        'all_copies'
-      else
-        answer
-      end
-    end
-
-    def filed_past_years
-      answer = row['filed_past_years']
-      return if answer == 'skip'
-
-      case answer
-      when '2021 yes/no, any prior no'
-        [2021]
-      when '2021 no, all prior yes'
-        [2020, 2019, 2018]
-      when '2021 yes, all prior yes'
-        [2021, 2020, 2019, 2018]
-      end
-    end
-
-    def assistance_options
-      answer = row['assistance_options']
-      answer == 'yes' ? ['in_person'] : ['none_of_the_above']
-    end
-
-    def income_type_options
-      answer = row['income_type_options']
-      answer == 'yes' ? ['farm'] : ['none_of_the_above']
+    def vita_income_ineligible
+      answer = row['triage_vita_income_ineligible'].strip
+      answer == 'Yes' ? true : false
     end
   end
 
@@ -160,58 +122,15 @@ RSpec.feature "triage flow" do
     context test_case.context_name do
       it test_case.test_name, test_case.rspec_metadata do
         pages = answer_gyr_triage_questions(
-          income_level: test_case.income,
-          filing_status: test_case.filing_status,
-          id_type: test_case.id_type,
-          doc_type: test_case.doc_type,
-          filed_past_years: test_case.filed_past_years,
-          income_type_options: test_case.income_type_options,
-          assistance_options: test_case.assistance_options
+          need_itin: test_case.need_itin_help,
+          triage_income_level: test_case.income_level,
+          triage_filing_status: test_case.filing_status,
+          triage_filing_frequency: "some_years",
+          triage_vita_income_ineligible: test_case.vita_income_ineligible,
         )
 
         expect(pages).to eq(test_case.expected_paths)
       end
-    end
-  end
-
-  context "Mixpanel events" do
-    scenario "client ends up on GYR/Express choice page after filling out triage" do
-      answer_gyr_triage_questions(
-        income_level: "zero",
-        filing_status: "single",
-        id_type: "have_id",
-      )
-
-      expect(page).to have_selector("h1", text: I18n.t("questions.triage_gyr_express.edit.title"))
-
-      expect(page).to have_selector("a.button[data-track-click=\"triage-gyr-express-choose-gyr\"]", text: I18n.t("questions.triage.gyr_tile.choose_gyr"))
-      expect(page).to have_selector("a.button[data-track-click=\"triage-gyr-express-choose-express-signup\"]", text: I18n.t("questions.triage_gyr_express.edit.sign_up_for_express"))
-    end
-
-    scenario "client ends up on Express page after filling out triage" do
-      answer_gyr_triage_questions(
-        income_level: "1_to_12500",
-        filing_status: "single",
-        id_type: "have_id",
-        doc_type: "need_help",
-        income_type_options: ["farm"],
-      )
-
-      expect(page).to have_selector("h1", text: I18n.t("questions.triage_express.edit.title"))
-
-      expect(page).to have_selector("a.button[data-track-click=\"triage-express-only-choose-express-signup\"]", text: I18n.t("questions.triage_gyr_express.edit.sign_up_for_express"))
-    end
-
-    scenario "client ends up on GYR page after filling out triage" do
-      answer_gyr_triage_questions(
-        income_level: "zero",
-        filing_status: "single",
-        id_type: "need_itin_help",
-      )
-
-      expect(page).to have_selector("h1", text: I18n.t("questions.triage_gyr.edit.title"))
-
-      expect(page).to have_selector("a.button[data-track-click=\"triage-gyr-file-online\"]", text: I18n.t("questions.triage.gyr_tile.choose_gyr"))
     end
   end
 end

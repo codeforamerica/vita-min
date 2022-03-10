@@ -76,21 +76,6 @@ RSpec.describe Questions::PersonalInfoController do
         end
       end
 
-      context "with a triage in the session" do
-        let(:triage) { create :triage }
-
-        before do
-          session[:triage_id] = triage.id
-        end
-
-        it "associates the triage with the intake" do
-          post :update, params: params
-
-          intake = Intake.last
-          expect(intake.triage).to eq triage
-        end
-      end
-
       it "sends an event to mixpanel without PII" do
         post :update, params: params
 
