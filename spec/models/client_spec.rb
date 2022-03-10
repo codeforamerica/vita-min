@@ -49,11 +49,12 @@ require "rails_helper"
 
 describe Client do
   describe ".sla_tracked scope" do
-    let(:client_before_consent) { create(:client) }
-    let(:client_in_progress) { create(:client) }
-    let(:client_file_accepted) { create(:client) }
-    let(:client_file_not_filing) { create(:client) }
-    let(:client_multiple) { create(:client) }
+    let(:client_before_consent) { create(:client, intake: (create :intake)) }
+    let(:client_in_progress) { create(:client, intake: (create :intake)) }
+    let(:client_file_accepted) { create(:client, intake: (create :intake)) }
+    let(:client_file_not_filing) { create(:client, intake: (create :intake)) }
+    let(:client_multiple) { create(:client, intake: (create :intake)) }
+    let(:client_archived_intake) { create :client, intake: nil }
 
     before do
       create :tax_return, :intake_before_consent, client: client_before_consent
@@ -62,6 +63,7 @@ describe Client do
       create :tax_return, :file_not_filing, client: client_file_not_filing
       create :tax_return, :intake_before_consent, year: 2019, client: client_multiple
       create :tax_return, :prep_ready_for_prep, year: 2018, client: client_multiple
+      create :tax_return, :prep_ready_for_prep, year: 2020, client: client_archived_intake
     end
 
     it "excludes those with tax returns in :intake_before_consent, :intake_in_progress, :file_accepted, :file_completed" do
@@ -71,6 +73,7 @@ describe Client do
       expect(sla_tracked_clients).not_to include client_file_not_filing
       expect(sla_tracked_clients).not_to include client_file_accepted
       expect(sla_tracked_clients).not_to include client_before_consent
+      expect(sla_tracked_clients).not_to include client_archived_intake
     end
   end
 

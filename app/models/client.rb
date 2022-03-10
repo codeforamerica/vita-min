@@ -94,7 +94,7 @@ class Client < ApplicationRecord
   end
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
-  scope :sla_tracked, -> { distinct.joins(:tax_returns).where.not(tax_returns: { status: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
+  scope :sla_tracked, -> { distinct.joins(:tax_returns, :intake).where.not(tax_returns: { status: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) }
 
   scope :first_unanswered_incoming_interaction_between, ->(range) do
     sla_tracked.where(first_unanswered_incoming_interaction_at: range)
