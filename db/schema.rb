@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_052057) do
+ActiveRecord::Schema.define(version: 2022_03_11_214355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -606,7 +606,6 @@ ActiveRecord::Schema.define(version: 2022_03_09_052057) do
 
   create_table "dependents", force: :cascade do |t|
     t.date "birth_date", null: false
-    t.integer "born_in_2020", default: 0, null: false
     t.integer "cant_be_claimed_by_other", default: 0, null: false
     t.integer "claim_anyway", default: 0, null: false
     t.datetime "created_at", null: false
@@ -629,12 +628,13 @@ ActiveRecord::Schema.define(version: 2022_03_09_052057) do
     t.integer "no_ssn_atin", default: 0, null: false
     t.integer "north_american_resident", default: 0, null: false
     t.integer "on_visa", default: 0, null: false
-    t.integer "passed_away_2020", default: 0, null: false
     t.integer "permanent_residence_with_client", default: 0, null: false
     t.integer "permanently_totally_disabled", default: 0, null: false
-    t.integer "placed_for_adoption", default: 0, null: false
     t.integer "provided_over_half_own_support", default: 0, null: false
     t.string "relationship"
+    t.integer "residence_exception_adoption", default: 0, null: false
+    t.integer "residence_exception_born", default: 0, null: false
+    t.integer "residence_exception_passed_away", default: 0, null: false
     t.datetime "soft_deleted_at"
     t.string "suffix"
     t.integer "tin_type"
@@ -778,11 +778,11 @@ ActiveRecord::Schema.define(version: 2022_03_09_052057) do
   end
 
   create_table "faq_surveys", force: :cascade do |t|
-    t.integer "answer"
+    t.integer "answer", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
-    t.string "question_key"
+    t.string "question_key", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "visitor_id"
+    t.string "visitor_id", null: false
     t.index ["visitor_id", "question_key"], name: "index_faq_surveys_on_visitor_id_and_question_key"
   end
 

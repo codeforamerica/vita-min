@@ -3,11 +3,11 @@
 # Table name: faq_surveys
 #
 #  id           :bigint           not null, primary key
-#  answer       :integer
-#  question_key :string
+#  answer       :integer          default("unfilled"), not null
+#  question_key :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  visitor_id   :string
+#  visitor_id   :string           not null
 #
 # Indexes
 #

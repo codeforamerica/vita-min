@@ -4,7 +4,6 @@
 #
 #  id                                          :bigint           not null, primary key
 #  birth_date                                  :date             not null
-#  born_in_2020                                :integer          default("unfilled"), not null
 #  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
 #  claim_anyway                                :integer          default("unfilled"), not null
 #  creation_token                              :string
@@ -25,12 +24,13 @@
 #  no_ssn_atin                                 :integer          default("unfilled"), not null
 #  north_american_resident                     :integer          default("unfilled"), not null
 #  on_visa                                     :integer          default("unfilled"), not null
-#  passed_away_2020                            :integer          default("unfilled"), not null
 #  permanent_residence_with_client             :integer          default("unfilled"), not null
 #  permanently_totally_disabled                :integer          default("unfilled"), not null
-#  placed_for_adoption                         :integer          default("unfilled"), not null
 #  provided_over_half_own_support              :integer          default("unfilled"), not null
 #  relationship                                :string
+#  residence_exception_adoption                :integer          default(0), not null
+#  residence_exception_born                    :integer          default(0), not null
+#  residence_exception_passed_away             :integer          default(0), not null
 #  soft_deleted_at                             :datetime
 #  suffix                                      :string
 #  tin_type                                    :integer
@@ -74,9 +74,9 @@ class Dependent < ApplicationRecord
   enum filed_joint_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_joint_return
   enum lived_with_more_than_six_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_more_than_six_months
   enum cant_be_claimed_by_other: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cant_be_claimed_by_other
-  enum born_in_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :born_in_2020
-  enum passed_away_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away_2020
-  enum placed_for_adoption: { unfilled: 0, yes: 1, no: 2 }, _prefix: :placed_for_adoption
+  enum residence_exception_born: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_exception_born
+  enum residence_exception_passed_away: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_exception_passed_away
+  enum residence_exception_adoption: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_exception_adoption
   enum permanent_residence_with_client: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_residence_with_client
   enum claim_anyway: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_anyway
   enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
@@ -162,7 +162,7 @@ class Dependent < ApplicationRecord
     # The age check is handled in the year-specific rules; the rest is handled here.
     lived_with_more_than_six_months_yes? ||
       (lived_with_more_than_six_months_no? &&
-        (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
+        (residence_exception_born_yes? || residence_exception_passed_away_yes? || residence_exception_adoption_yes? || permanent_residence_with_client_yes?))
   end
 
   def mixpanel_data
