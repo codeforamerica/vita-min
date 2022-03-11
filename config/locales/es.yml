@@ -1962,7 +1962,7 @@ es:
             title: "%{name} no puede ser declarado como dependiente."
           had_dependents:
             help_text: Alguien que vivió con usted la mayor parte del año o a quien usted apoyó financieramente podría calificar como dependiente.
-            title: ¿Le gustaría agregar un niño u otra persona a la que apoyó en %{current_tax_year}
+            title: "¿Le gustaría agregar un niño u otra persona a la que apoyó en %{current_tax_year}"
           info:
             first_name: El primer nombre legal de su dependiente
             full_time_student: La persona dependiente es estudiante de tiempo completo
