@@ -119,7 +119,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     # =========== DEPENDENTS ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.had_dependents.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.had_dependents.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))

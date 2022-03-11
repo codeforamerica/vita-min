@@ -42,7 +42,7 @@ RSpec.feature "Session duration", requires_default_vita_partners: true do
         Timecop.freeze(fake_time) do
           visit Ctc::Questions::Dependents::HadDependentsController.to_path_helper
           authenticate_client(client)
-          expect(page).to have_text(I18n.t('views.ctc.questions.dependents.had_dependents.title'))
+          expect(page).to have_text(I18n.t('views.ctc.questions.dependents.had_dependents.title', current_tax_year: current_tax_year))
         end
         expect(client.reload.previous_sessions_active_seconds).to eq(0) # last session occurred in one instant
         expect(client.reload.last_seen_at).to eq(fake_time)
@@ -57,7 +57,7 @@ RSpec.feature "Session duration", requires_default_vita_partners: true do
         Timecop.freeze(fake_time + 2.minutes) do
           visit Ctc::Questions::Dependents::HadDependentsController.to_path_helper
           authenticate_client(client)
-          expect(page).to have_text(I18n.t('views.ctc.questions.dependents.had_dependents.title'))
+          expect(page).to have_text(I18n.t('views.ctc.questions.dependents.had_dependents.title', current_tax_year: current_tax_year))
         end
         expect(client.reload.last_seen_at).to eq(fake_time + 2.minutes)
         expect(client.reload.previous_sessions_active_seconds).to eq(1.minutes)
