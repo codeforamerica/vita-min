@@ -7,10 +7,9 @@ describe Dependent::Rules do
   let(:birth_date) { Date.new(tax_year - 50, 11, 2) }
   let(:permanently_totally_disabled) { "no" }
   let(:full_time_student) { "no" }
-  let(:relationship) { "other" }
+  let(:relationship) { "daughter" }
   let(:meets_misc_qualifying_relative_requirements) { "no" }
   let(:ssn) { nil }
-  let(:relationship) { "daughter" }
   let(:dependent) do
     create :dependent,
            relationship: relationship,
@@ -25,34 +24,6 @@ describe Dependent::Rules do
     allow(dependent).to receive(:meets_qc_residence_condition_generic?).and_return false
     allow(dependent).to receive(:meets_qc_claimant_condition?).and_return false
     allow(dependent).to receive(:meets_qc_misc_conditions?).and_return false
-  end
-
-
-  describe ".born_in_final_6_months?" do
-    context "when born on Jan 1" do
-      let(:birth_date) { Date.new(tax_year, 1, 1) }
-
-      it "is false" do
-        expect(described_class.new(dependent, tax_year).born_in_final_6_months?).to be_falsey
-      end
-    end
-
-    # TODO: find out whether June 30 is 1st or 2nd half of the year
-    context "when born on June 30" do
-      let(:birth_date) { Date.new(tax_year, 6, 30) }
-
-      it "is true" do
-        expect(subject.born_in_final_6_months?).to be_truthy
-      end
-    end
-
-    context "when born on December 31" do
-      let(:birth_date) { Date.new(tax_year, 12, 31) }
-
-      it "is true" do
-        expect(subject.born_in_final_6_months?).to be_truthy
-      end
-    end
   end
 
   describe ".age" do
@@ -168,6 +139,23 @@ describe Dependent::Rules do
         it "is not a disqualified-child child relative" do
           expect(subject.disqualified_child_qualified_relative?).to eq(false)
         end
+      end
+    end
+  end
+
+  describe "born_after_tax_year?" do
+    context "when birth year is after the provided tax year" do
+      let(:dependent) { create :dependent, birth_date: Date.today }
+      it "returns true" do
+        expect(dependent.born_after_tax_year?(TaxReturn.current_tax_year)).to eq true
+      end
+    end
+
+    context "when birth year is before the provided tax year" do
+      let(:dependent) { create :dependent, birth_date: 1.year.ago }
+      it "returns false" do
+        expect(dependent.born_after_tax_year?(TaxReturn.current_tax_year)).to eq false
+
       end
     end
   end

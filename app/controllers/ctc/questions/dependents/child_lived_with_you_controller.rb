@@ -6,9 +6,9 @@ module Ctc
         layout "yes_no_question"
 
         def self.show?(dependent)
-          return false unless dependent&.relationship
+          return false unless dependent.present? && dependent.relationship.present?
 
-          dependent.qualifying_child_relationship? && dependent.yr_2020_meets_qc_age_condition? && dependent.meets_qc_misc_conditions? && !dependent.yr_2020_born_in_final_6_months?
+          return true unless dependent.born_in_final_6_months_of_tax_year?(TaxReturn.current_tax_year)
         end
 
         def method_name

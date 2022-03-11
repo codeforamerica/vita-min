@@ -2012,17 +2012,14 @@ en:
             help_text: Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent.
             title: Would you like to add a child or another person whom you supported in %{current_tax_year}?
           info:
-            first_name: Family member’s legal first name
-            full_time_student: This family member is a full-time student
+            filed_joint_return: "%{name} was married and filed taxes with their spouse"
+            first_name: Legal first name
             help_text: To avoid delays, please provide your child or family member’s legal information as it is written on their identification card.
-            last_name: Family member’s legal last name
-            middle_initial: Family member’s middle name(s) (optional)
-            permanently_totally_disabled: This family member is permanently and totally disabled
+            last_name: Legal last name
+            middle_initial: Legal middle name(s) (optional)
             relationship_to_you: What is their relationship to you?
-            reveal_info: A doctor determines if you have a permanent disability when you are unable to do a majority of your work because of a physical or mental condition.
-            reveal_title: What is a permanent disability?
-            situations: 'Select any situation that was true:'
-            suffix: Family member’s suffix
+            situations: 'Select if the following is true:'
+            suffix: Suffix
             title: Let’s get some basic information about your family member!
           qualifying_relative:
             help_text:
@@ -2041,12 +2038,12 @@ en:
             subtitle: Is that okay?
             title: You’re about to remove %{dependent_name}.
           tin:
-            form_of_identity: Family member's form of identity
+            form_of_identity: Form of identity
             help_text: To avoid delays, please provide your family member’s legal information as it is written on their identification card.
             remove_person: Remove this person
             save_person: Save this person
-            ssn_or_atin: Family member's SSN or ATIN
-            ssn_or_atin_confirmation: Confirm family member’s SSN or ATIN
+            ssn_or_atin: Enter their SSN or ATIN
+            ssn_or_atin_confirmation: Re-enter their SSN or ATIN
             title: We need some additional information about %{name}.
         direct_deposit:
           my_bank_account:
@@ -2118,7 +2115,7 @@ en:
           sms_phone_number: Phone number
           ssn: SSN or ITIN
           ssn_confirmation: Confirm SSN or ITIN
-          ssn_not_valid_for_employment: This SSN is not valid for employment
+          ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it.
           suffix: Suffix
           title: In order to file, we’ll need some basic information.
         life_situations:

@@ -9,10 +9,9 @@ module Ctc
                          :last_name,
                          :suffix,
                          :relationship,
-                         :full_time_student,
+                         :filed_joint_return,
                          :tin_type,
-                         :ssn,
-                         :permanently_totally_disabled
+                         :ssn
       set_attributes_for :birthday, :birth_date_month, :birth_date_day, :birth_date_year
       set_attributes_for :misc, :ssn_no_employment
       set_attributes_for :confirmation, :ssn_confirmation
@@ -49,12 +48,9 @@ module Ctc
       end
 
       def save
-        @dependent.assign_attributes(attributes_for(:dependent).merge(
-          birth_date: birth_date
-        ))
-        @dependent.save
-
-        @dependent.update!(lived_with_more_than_six_months: "yes") if @dependent.yr_2020_born_in_final_6_months?
+        @dependent.assign_attributes(attributes_for(:dependent).merge(birth_date: birth_date))
+        @dependent.lived_with_more_than_six_months = "yes" if @dependent.born_in_final_6_months_of_tax_year?(TaxReturn.current_tax_year)
+        @dependent.save!
 
         if attributes_for(:recaptcha)[:recaptcha_score].present?
           @dependent.intake.client.recaptcha_scores.create(
