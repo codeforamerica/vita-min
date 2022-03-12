@@ -14,5 +14,4 @@ module RelationshipsHelper
 
     I18n.t("general.dependent_relationships.#{relationship}", default: relationship)
   end
-  
 end

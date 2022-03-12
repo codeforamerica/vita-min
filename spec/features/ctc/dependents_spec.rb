@@ -32,9 +32,8 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
-      check I18n.t('general.none')
-      click_on I18n.t('general.continue')
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      click_on I18n.t('general.negative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
@@ -56,7 +55,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      # expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
+      # expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie'))
       # check I18n.t('general.none')
       # click_on I18n.t('general.continue')
       #
@@ -80,7 +79,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: "Jessie"))
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: "Jessie"))
       check "None of the above"
       click_on "Continue"
 
@@ -140,9 +139,8 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
-      check I18n.t('general.none')
-      click_on I18n.t('general.continue')
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      click_on I18n.t('general.negative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', current_tax_year: current_tax_year))
       click_on I18n.t('general.affirmative')
@@ -189,8 +187,8 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
       click_on I18n.t('general.continue')
 
-      # expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
-      # check I18n.t('views.ctc.questions.dependents.child_disqualifiers.filed_joint_return', name: 'Jessie')
+      # expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie'))
+      # check I18n.t('views.ctc.questions.dependents.child_expenses.filed_joint_return', name: 'Jessie')
       # click_on I18n.t('general.continue')
       #
       # expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.does_not_qualify_ctc.title', name: 'Jessie'))
