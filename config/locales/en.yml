@@ -1960,6 +1960,25 @@ en:
             title: Are you the only person who can claim %{name}?
           child_expenses:
             title: Did %{name} pay more than half their own living expenses in %{current_tax_year}?
+          child_disqualifiers:
+            filed_joint_return: "%{name} was married and filed taxes with their spouse"
+            help_text: 'Select any situations that were true in %{current_tax_year}:'
+            provided_over_half_own_support: "%{name} paid for more than half their own living expenses"
+            title: Great, let's make sure %{name} qualifies!
+          child_qualifies:
+            title: Great, let’s make sure %{name} qualifies!
+            help_text: 'Select any situations that were true in %{current_tax_year}:'
+            full_time_student: '%{name} was a full-time student'
+            permanently_totally_disabled: '%{name} was permanently and totally disabled'
+            student_reveal:
+              title: Who is considered a full-time student?
+              info_html: |
+                <p>A person is a full-time student if they are enrolled at a school for the number of hours or classes that the school considers full time.</p>
+                <p>They must be full-time for some part of 5 calendar months during the year. The months don’t have to be consecutive.</p>
+            disabled_reveal:
+              title: What is permanently and totally disabled?
+              info: A doctor determines if you have a permanent disability when you are unable to do a majority of your work because of a physical or mental condition.
+>>>>>>> CTC Dependents: Add child qualifies page
           child_lived_with_you:
             title: Did %{name} live with you for more than 6 months in %{current_tax_year}?
           child_residence_exceptions:

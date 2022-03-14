@@ -33,6 +33,7 @@ class CtcQuestionNavigation
     # Dependents
     Ctc::Questions::Dependents::HadDependentsController,
     Ctc::Questions::Dependents::InfoController,
+    Ctc::Questions::Dependents::ChildQualifiesController,
     Ctc::Questions::Dependents::ChildExpensesController,
     Ctc::Questions::Dependents::ChildLivedWithYouController,
     Ctc::Questions::Dependents::ChildResidenceExceptionsController,

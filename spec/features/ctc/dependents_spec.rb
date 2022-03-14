@@ -53,7 +53,13 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       dependent_birth_year = 20.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
       select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+
       click_on I18n.t('general.continue')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_qualifies.title', name: 'Jessie'))
+      check I18n.t('views.ctc.questions.dependents.child_qualifies.full_time_student')
+      click_on I18n.t('general.continue')
+
 
       # expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie'))
       # check I18n.t('general.none')
@@ -77,6 +83,11 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       dependent_birth_year = 40.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
       select I18n.t('general.dependent_relationships.uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_qualifies.title', name: 'Jessie'))
+      check I18n.t('views.ctc.questions.dependents.child_qualifies.permanently_totally_disabled')
+
       click_on I18n.t('general.continue')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: "Jessie"))
