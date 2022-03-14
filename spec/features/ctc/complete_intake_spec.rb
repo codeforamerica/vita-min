@@ -139,9 +139,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
-    check I18n.t('general.none')
-    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+    click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Jessie', current_tax_year: current_tax_year))
     click_on I18n.t('general.affirmative')
@@ -168,9 +167,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Red'))
-    check I18n.t('general.none')
-    click_on I18n.t('general.continue')
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Red', current_tax_year: TaxReturn.current_tax_year))
+    click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_lived_with_you.title', name: 'Red', current_tax_year: current_tax_year))
     click_on I18n.t('general.affirmative')

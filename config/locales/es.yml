@@ -1915,11 +1915,8 @@ es:
               <p>Tenga en cuenta que si otra persona ha reclamado %{name} y usted también los reclama, su devolución será rechazada.</p>
               <p>Piense detenidamente si hay alguien más que pueda haberlos reclamado. Si pudiera haber otra persona, seleccione "No" y lo ayudaremos a decidir si puede reclamar %{name} o no.</p>
             title: "¿Es usted la única persona que puede declarar a %{name}?"
-          child_disqualifiers:
-            filed_joint_return: "%{name} estaba casado/a y declaró impuestos con su cónyuge"
-            help_text: 'Seleccione cualquier situación que haya sido cierta en %{current_tax_year}:'
-            provided_over_half_own_support: "%{name} pagó más de la mitad de sus gastos de manutención"
-            title: Perfecto, ¡asegurémonos de que %{name} cumple los requisitos!
+          child_expenses:
+            title: "¿%{name} pagó más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
           child_lived_with_you:
             title: "¿Vivió %{name} con usted durante más de 6 meses en %{current_tax_year}?"
           child_residence_exceptions:

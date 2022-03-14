@@ -86,7 +86,7 @@ describe Ctc::Questions::Dependents::InfoController do
           recaptcha_score = intake.client.recaptcha_scores.last # do we want to capture the recaptcha score again for editing a dependent?
           expect(recaptcha_score.score).to eq 0.9
           expect(recaptcha_score.action).to eq 'dependents_info'
-          expect(response).to redirect_to child_disqualifiers_questions_dependent_path(id: params[:id])
+          expect(response).to redirect_to child_expenses_questions_dependent_path(id: params[:id])
         end
 
         context "when dependent was born after the tax year" do
