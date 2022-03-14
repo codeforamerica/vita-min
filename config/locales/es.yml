@@ -1910,10 +1910,7 @@ es:
           title: "¿Cuál es la mejor manera de comunicarnos con usted?"
         dependents:
           child_can_be_claimed_by_other:
-            help_text_html: |
-              <p>Puede decir que no si comparte las responsabilidades de cuidado con otra persona.</p>
-              <p>Tenga en cuenta que si otra persona ha reclamado %{name} y usted también los reclama, su devolución será rechazada.</p>
-              <p>Piense detenidamente si hay alguien más que pueda haberlos reclamado. Si pudiera haber otra persona, seleccione "No" y lo ayudaremos a decidir si puede reclamar %{name} o no.</p>
+            help_text: Si su hijo también es el hijo calificado de otra persona, solo uno de ustedes puede reclamar al hijo para los beneficios tributarios por hijos relacionados.
             title: "¿Es usted la única persona que puede declarar a %{name}?"
           child_expenses:
             title: "¿%{name} pagó más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"

@@ -1953,10 +1953,7 @@ en:
           title: What is the best way to reach you?
         dependents:
           child_can_be_claimed_by_other:
-            help_text_html: |
-              <p>You might say no if you share caregiving responsibilities with someone else.</p>
-              <p>Keep in mind, if someone else has claimed %{name} and you claim them too, your return will be rejected.</p>
-              <p>Think carefully about whether there is someone else who might have claimed them. If there could be someone else, select "No" and we'll help you decide whether you can claim %{name} or not.</p>
+            help_text: If your child is also the qualifying child of another person, only one of you may claim the child for related child tax benefits.
             title: Are you the only person who can claim %{name}?
           child_expenses:
             title: Did %{name} pay more than half their own living expenses in %{current_tax_year}?
@@ -1999,10 +1996,10 @@ en:
             add_a_dependent: Add another person
             atin: ATIN
             birthday: Date of birth
-            done_adding: I’m done adding family members
-            no_qualifying_dependents: No qualifying family members
-            qualifying_for_ctc: Children qualifying for CTC and stimulus
-            qualifying_for_other_credits: Family members qualifying for only stimulus
+            done_adding: Done adding dependents
+            no_qualifying_dependents: No qualifying dependents
+            qualifying_for_ctc: Dependents for CTC and stimulus
+            qualifying_for_other_credits: Dependents qualifying for only stimulus
             ssn: SSN
             ssn_no_employment: SSN (not valid for employment)
             title: Let’s confirm!

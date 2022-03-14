@@ -94,7 +94,7 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
           it "shows that there are no qualifying dependents" do
             get :edit
 
-            expect(response_html).to have_text "No qualifying family members"
+            expect(response_html).to have_text "No qualifying dependents"
           end
         end
 
