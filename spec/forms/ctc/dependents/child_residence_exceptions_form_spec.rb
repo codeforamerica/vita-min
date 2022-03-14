@@ -8,16 +8,10 @@ describe Ctc::Dependents::ChildResidenceExceptionsForm do
     it "saves fields on the dependent" do
       expect {
         form = described_class.new(dependent, {
-          residence_exception_born: "yes",
-          residence_exception_passed_away: "no",
-          residence_exception_adoption: "yes",
           permanent_residence_with_client: "no"
         })
         form.save
-      }.to change(dependent, :residence_exception_born).to("yes")
-                                           .and change(dependent, :residence_exception_passed_away).to("no")
-                                                                                          .and change(dependent, :residence_exception_adoption).to("yes")
-                                                                                                                                            .and change(dependent, :permanent_residence_with_client).to("no")
+      }.to change(dependent, :permanent_residence_with_client).to("no")
     end
   end
 end
