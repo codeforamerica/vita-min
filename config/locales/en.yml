@@ -1961,6 +1961,7 @@ en:
           child_expenses:
             title: Did %{name} pay more than half their own living expenses in %{current_tax_year}?
           child_lived_with_you:
+            help_text: Select yes if they were born, adopted, or passed away in %{current_tax_year} and they lived with you for at least half their time.
             title: Did %{name} live with you for more than 6 months in %{current_tax_year}?
           child_qualifies:
             disabled_reveal:
