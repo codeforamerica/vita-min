@@ -33,7 +33,8 @@ class PersonalInfoForm < QuestionsForm
       @intake.update(attributes)
     else
       @intake.assign_attributes(attributes)
-      @intake.build_client.save
+      @intake.build_client
+      @intake.save
     end
 
     data = MixpanelService.data_from([@intake.client, @intake])
