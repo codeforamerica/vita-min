@@ -1918,6 +1918,7 @@ es:
           child_expenses:
             title: "¿%{name} pagó más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
           child_lived_with_you:
+            help_text: Seleccione sí si nació, adoptó o falleció en %{current_tax_year} y vivió con usted durante al menos la mitad de su tiempo
             title: "¿Vivió %{name} con usted durante más de 6 meses en %{current_tax_year}?"
           child_residence_exceptions:
             born_tax_year: "%{name}nació en %{current_tax_year}"
