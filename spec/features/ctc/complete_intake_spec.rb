@@ -141,14 +141,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_qualifies.title', name: 'Jessie'))
-    check I18n.t('views.ctc.questions.dependents.child_qualifies.full_time_student')
-    click_on I18n.t('general.continue')
+    # Skips qualifiers page because the dependent is only 5
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_disqualifiers.title', name: 'Jessie'))
-    check I18n.t('general.none')
-
-    click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
     click_on I18n.t('general.negative')
 
@@ -179,9 +173,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_qualifies.title', name: 'Red'))
-    check I18n.t('views.ctc.questions.dependents.child_qualifies.full_time_student')
-    click_on I18n.t('general.continue')
+    # Skips qualifies page because the dependent is younger than 19
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Red', current_tax_year: TaxReturn.current_tax_year))
     click_on I18n.t('general.negative')
