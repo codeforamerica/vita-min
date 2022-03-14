@@ -1,5 +1,6 @@
 <% if flash.any? %>
   <% flash.each do |type, message| %>
+    <% next if type == "timedout" %>
     <div class="slab slab--flash flash--<%= type %>">
       <div class="grid">
         <div class="grid__item" role="alert">
