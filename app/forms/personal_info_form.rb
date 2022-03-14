@@ -3,7 +3,6 @@ class PersonalInfoForm < QuestionsForm
     :intake,
     :preferred_name,
     :phone_number,
-    :phone_number_confirmation,
     :zip_code,
     :need_itin_help,
     :timezone,
@@ -12,6 +11,7 @@ class PersonalInfoForm < QuestionsForm
     :locale,
     :visitor_id,
   )
+  set_attributes_for :confirmation, :phone_number_confirmation
 
   before_validation :normalize_phone_numbers
 
@@ -28,12 +28,14 @@ class PersonalInfoForm < QuestionsForm
 
   def save
     state = ZipCodes.details(zip_code)[:state]
-    @intake.update(
-      attributes_for(:intake)
-        .except(:phone_number_confirmation)
-        .merge(client: Client.create!)
-        .merge(state_of_residence: state)
-    )
+    attributes = attributes_for(:intake).merge(state_of_residence: state)
+    if @intake.client.present?
+      @intake.update(attributes)
+    else
+      @intake.assign_attributes(attributes)
+      @intake.build_client
+      @intake.save
+    end
 
     data = MixpanelService.data_from([@intake.client, @intake])
     MixpanelService.send_event(
