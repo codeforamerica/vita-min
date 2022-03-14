@@ -64,5 +64,5 @@ relationships:
     relationship: qualifying_child
     irs_enum: OTHER
   - id: other
-    relationship: ineligible
+    relationship: qualifying_relative
     irs_enum: OTHER
