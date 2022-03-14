@@ -14,9 +14,9 @@ describe Ctc::Questions::Dependents::ChildResidenceExceptionsController do
         {
           id: dependent.id,
           ctc_dependents_child_residence_exceptions_form: {
-            born_in_2020: "yes",
-            passed_away_2020: "no",
-            placed_for_adoption: "yes",
+            residence_exception_born: "yes",
+            residence_exception_passed_away: "no",
+            residence_exception_adoption: "yes",
             permanent_residence_with_client: "no"
           }
         }
@@ -25,9 +25,9 @@ describe Ctc::Questions::Dependents::ChildResidenceExceptionsController do
       it "updates the dependent and moves to the next page" do
         post :update, params: params
 
-        expect(dependent.reload.born_in_2020).to eq 'yes'
-        expect(dependent.reload.passed_away_2020).to eq 'no'
-        expect(dependent.reload.placed_for_adoption).to eq 'yes'
+        expect(dependent.reload.residence_exception_born).to eq 'yes'
+        expect(dependent.reload.residence_exception_passed_away).to eq 'no'
+        expect(dependent.reload.residence_exception_adoption).to eq 'yes'
         expect(dependent.reload.permanent_residence_with_client).to eq 'no'
       end
     end
@@ -37,9 +37,9 @@ describe Ctc::Questions::Dependents::ChildResidenceExceptionsController do
         {
           id: 'jeff',
           ctc_dependents_child_residence_exceptions_form: {
-            born_in_2020: "yes",
-            passed_away_2020: "no",
-            placed_for_adoption: "yes",
+            residence_exception_born: "yes",
+            residence_exception_passed_away: "no",
+            residence_exception_adoption: "yes",
             permanent_residence_with_client: "no"
           }
         }

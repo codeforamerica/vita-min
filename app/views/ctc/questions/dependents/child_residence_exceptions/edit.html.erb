@@ -10,9 +10,9 @@
       <%=t('views.ctc.questions.dependents.child_residence_exceptions.help_text') %>
     </p>
     <div class="form-card__stacked-checkboxes spacing-above-0">
-      <%= f.cfa_checkbox(:born_in_2020, t('views.ctc.questions.dependents.child_residence_exceptions.born_tax_year', name: name, current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:passed_away_2020, t('views.ctc.questions.dependents.child_residence_exceptions.passed_away_tax_year', name: name, current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:placed_for_adoption, t('views.ctc.questions.dependents.child_residence_exceptions.placed_for_adoption', name: name, current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:residence_exception_born, t('views.ctc.questions.dependents.child_residence_exceptions.born_tax_year', name: name, current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:residence_exception_passed_away, t('views.ctc.questions.dependents.child_residence_exceptions.passed_away_tax_year', name: name, current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:residence_exception_adoption, t('views.ctc.questions.dependents.child_residence_exceptions.residence_exception_adoption', name: name, current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:permanent_residence_with_client, t('views.ctc.questions.dependents.child_residence_exceptions.permanent_residence_with_client', name: name, current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:none, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>

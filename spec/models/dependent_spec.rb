@@ -4,7 +4,6 @@
 #
 #  id                                          :bigint           not null, primary key
 #  birth_date                                  :date             not null
-#  born_in_2020                                :integer          default("unfilled"), not null
 #  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
 #  claim_anyway                                :integer          default("unfilled"), not null
 #  creation_token                              :string
@@ -25,12 +24,13 @@
 #  no_ssn_atin                                 :integer          default("unfilled"), not null
 #  north_american_resident                     :integer          default("unfilled"), not null
 #  on_visa                                     :integer          default("unfilled"), not null
-#  passed_away_2020                            :integer          default("unfilled"), not null
 #  permanent_residence_with_client             :integer          default("unfilled"), not null
 #  permanently_totally_disabled                :integer          default("unfilled"), not null
-#  placed_for_adoption                         :integer          default("unfilled"), not null
 #  provided_over_half_own_support              :integer          default("unfilled"), not null
 #  relationship                                :string
+#  residence_exception_adoption                :integer          default(0), not null
+#  residence_exception_born                    :integer          default(0), not null
+#  residence_exception_passed_away             :integer          default(0), not null
 #  soft_deleted_at                             :datetime
 #  suffix                                      :string
 #  tin_type                                    :integer
@@ -164,7 +164,7 @@ describe Dependent do
 
       context "meets an exception" do
         it "returns true" do
-          [:born_in_2020, :passed_away_2020, :placed_for_adoption, :permanent_residence_with_client].each do |field|
+          [:residence_exception_born, :residence_exception_passed_away, :residence_exception_adoption, :permanent_residence_with_client].each do |field|
             dependent[field] = "yes"
             expect(dependent.meets_qc_residence_condition_generic?).to eq true
             dependent[field] = "no"

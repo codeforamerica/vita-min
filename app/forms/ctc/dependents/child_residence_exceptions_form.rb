@@ -2,9 +2,9 @@ module Ctc
   module Dependents
     class ChildResidenceExceptionsForm < DependentForm
       set_attributes_for :dependent,
-                         :born_in_2020,
-                         :passed_away_2020,
-                         :placed_for_adoption,
+                         :residence_exception_born,
+                         :residence_exception_passed_away,
+                         :residence_exception_adoption,
                          :permanent_residence_with_client
 
       def save

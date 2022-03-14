@@ -1970,7 +1970,7 @@ en:
             help_text: They could still qualify for payments if they lived with you for less than 6 months and any of the following were true.
             passed_away_tax_year: "%{name} was lawfully placed with you for adoption in %{current_tax_year}"
             permanent_residence_with_client: "%{name}’s permanent residence was with you for at least six months, even if they were away for part of that time"
-            placed_for_adoption: "%{name} passed away in %{current_tax_year}"
+            residence_exception_adoption: "%{name} passed away in %{current_tax_year}"
             title: Were any of the following true for %{name}?
           claim_child_anyway:
             help_text_html: |

@@ -1927,7 +1927,7 @@ es:
             help_text: Podrían aún calificar para los pagos si vivieron con usted por menos de 6 meses y se diera cualquiera de los siguientes casos.
             passed_away_tax_year: "%{name} le fue dado/a legalmente en adopción en el %{current_tax_year}"
             permanent_residence_with_client: La residencia permanente de %{name} fue con usted durante al menos seis meses, incluso si estuvo fuera durante parte de ese tiempo
-            placed_for_adoption: "%{name} falleció en %{current_tax_year}"
+            residence_exception_adoption: "%{name} falleció en %{current_tax_year}"
             title: "¿Son algunas de las siguientes situaciones válidas para %{name}?"
           claim_child_anyway:
             help_text_html: |
