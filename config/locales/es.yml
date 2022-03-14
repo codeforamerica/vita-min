@@ -1931,12 +1931,8 @@ es:
               title: "¿Quién se considera un estudiante de tiempo completo?"
             title: Perfecto, ¡asegurémonos de que %{name} cumple los requisitos!
           child_residence_exceptions:
-            born_tax_year: "%{name}nació en %{current_tax_year}"
-            help_text: Podrían aún calificar para los pagos si vivieron con usted por menos de 6 meses y se diera cualquiera de los siguientes casos.
-            passed_away_tax_year: "%{name} le fue dado/a legalmente en adopción en el %{current_tax_year}"
-            permanent_residence_with_client: La residencia permanente de %{name} fue con usted durante al menos seis meses, incluso si estuvo fuera durante parte de ese tiempo
-            residence_exception_adoption: "%{name} falleció en %{current_tax_year}"
-            title: "¿Son algunas de las siguientes situaciones válidas para %{name}?"
+            help_text: Seleccione sí si pasaron tiempo viviendo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial era la suya.
+            title: "¿Estuvo la residencia permanente de %{name} con usted durante más de 6 meses, incluso si estuvieron fuera durante parte de ese tiempo?"
           claim_child_anyway:
             help_text_html: |
               <p>Si usted y otra persona tienen derecho a declarar a %{name}, debe seguir el acuerdo que tiene con la otra persona sobre quién lo declara.</p>

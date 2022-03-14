@@ -4,7 +4,7 @@ module Ctc
       class ChildResidenceExceptionsController < BaseDependentController
         include AuthenticatedCtcClientConcern
 
-        layout "intake"
+        layout "yes_no_question"
 
         def self.show?(dependent)
           return false unless dependent&.relationship
