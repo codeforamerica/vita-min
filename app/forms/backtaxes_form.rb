@@ -11,7 +11,7 @@ class BacktaxesForm < QuestionsForm
       needs_help_2020: needs_help_2020.nil? ? "unfilled" : needs_help_2020,
       needs_help_2021: needs_help_2021.nil? ? "unfilled" : needs_help_2021
     }
-    @intake.update(attributes_for(:intake).merge(client: Client.create!).merge(needs_help_params))
+    @intake.update(attributes_for(:intake).merge(needs_help_params))
 
     data = MixpanelService.data_from([@intake.client, @intake])
     MixpanelService.send_event(
