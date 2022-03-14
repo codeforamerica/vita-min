@@ -1962,6 +1962,19 @@ en:
             title: Did %{name} pay more than half their own living expenses in %{current_tax_year}?
           child_lived_with_you:
             title: Did %{name} live with you for more than 6 months in %{current_tax_year}?
+          child_qualifies:
+            disabled_reveal:
+              info: A doctor determines if you have a permanent disability when you are unable to do a majority of your work because of a physical or mental condition.
+              title: What is permanently and totally disabled?
+            full_time_student: "%{name} was a full-time student"
+            help_text: 'Select any situations that were true in %{current_tax_year}:'
+            permanently_totally_disabled: "%{name} was permanently and totally disabled"
+            student_reveal:
+              info_html: |
+                <p>A person is a full-time student if they are enrolled at a school for the number of hours or classes that the school considers full time.</p>
+                <p>They must be full-time for some part of 5 calendar months during the year. The months don’t have to be consecutive.</p>
+              title: Who is considered a full-time student?
+            title: Great, let’s make sure %{name} qualifies!
           child_residence_exceptions:
             born_tax_year: "%{name} was born in %{current_tax_year}"
             help_text: They could still qualify for payments if they lived with you for less than 6 months and any of the following were true.

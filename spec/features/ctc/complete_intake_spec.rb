@@ -138,7 +138,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
+
     click_on I18n.t('general.continue')
+
+    # Skips qualifiers page because the dependent is only 5
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
     click_on I18n.t('general.negative')
 
@@ -166,7 +170,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     select I18n.t('general.dependent_relationships.daughter'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4445"
     fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4445"
+
     click_on I18n.t('general.continue')
+
+    # Skips qualifies page because the dependent is younger than 19
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_expenses.title', name: 'Red', current_tax_year: TaxReturn.current_tax_year))
     click_on I18n.t('general.negative')
 

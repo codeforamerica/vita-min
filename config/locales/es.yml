@@ -1919,6 +1919,19 @@ es:
             title: "¿%{name} pagó más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
           child_lived_with_you:
             title: "¿Vivió %{name} con usted durante más de 6 meses en %{current_tax_year}?"
+          child_qualifies:
+            disabled_reveal:
+              info: Un médico determina si tiene una discapacidad permanente cuando no puede realizar la mayor parte de su trabajo debido a una condición física o mental.
+              title: "¿Qué es permanente y totalmente discapacitado?"
+            full_time_student: "%{name} es estudiante de tiempo completo"
+            help_text: 'Seleccione cualquier situación que fuera cierta en %{current_tax_year}:'
+            permanently_totally_disabled: "%{name} tiene una discapacidad permanente y total"
+            student_reveal:
+              info_html: |
+                <p>Una persona es estudiante de tiempo completo si está inscrita en una escuela por la cantidad de horas o clases que la escuela considera de tiempo completo.</p>
+                <p>Deben ser a tiempo completo durante una parte de 5 meses calendario durante el año. Los meses no tienen que ser consecutivos.</p>
+              title: "¿Quién se considera un estudiante de tiempo completo?"
+            title: Perfecto, ¡asegurémonos de que %{name} cumple los requisitos!
           child_residence_exceptions:
             born_tax_year: "%{name}nació en %{current_tax_year}"
             help_text: Podrían aún calificar para los pagos si vivieron con usted por menos de 6 meses y se diera cualquiera de los siguientes casos.
