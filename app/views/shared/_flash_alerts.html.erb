@@ -1,5 +1,6 @@
 <% if flash.any? %>
   <% flash.each do |type, message| %>
+    <!-- Remove timedout, which devise also pushes into flash: https://github.com/heartcombo/devise/issues/1777 -->
     <% next if type == "timedout" %>
     <div class="slab slab--flash flash--<%= type %>">
       <div class="grid">
