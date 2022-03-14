@@ -60,29 +60,17 @@ RSpec.describe PersonalInfoForm do
   end
 
   describe "#save" do
-    context "if a client does not exist" do
-      it "makes a new client" do
-        intake = Intake::GyrIntake.new
-        form = described_class.new(intake, valid_params.merge(additional_params))
-        expect(form).to be_valid
-        expect {
-          form.save
-        }.to change(Client, :count).by(1)
-        intake.reload
+    it "makes a new client" do
+      intake = Intake::GyrIntake.new
+      form = described_class.new(intake, valid_params.merge(additional_params))
+      expect(form).to be_valid
+      expect {
+        form.save
+      }.to change(Client, :count).by(1)
+      intake.reload
 
-        client = Client.last
-        expect(client.intake).to eq(intake)
-      end
-    end
-
-    context "if a client already is associated with the intake" do
-      let(:intake) { create :intake, client: (create :client) }
-      it "does not replace the client object or create a new client" do
-        form = described_class.new(intake, valid_params.merge(additional_params))
-        expect {
-          form.save
-        }.to change(Client, :count).by(0)
-      end
+      client = Client.last
+      expect(client.intake).to eq(intake)
     end
 
     it "saves the right attributes" do
