@@ -13,6 +13,7 @@
           [t(".filing_status.options.single"), :single],
           [t(".filing_status.options.jointly"), :jointly],
         ],
+        include_blank: true
       ) %>
     <%= f.cfa_select(
         :triage_income_level,
@@ -26,6 +27,7 @@
           [t(".income_level.options.65000_to_73000"), "65000_to_73000"],
           [t(".income_level.options.over_73000"), :over_73000],
         ],
+        include_blank: true
       ) %>
     <%= f.cfa_select(
         :triage_filing_frequency,
@@ -35,6 +37,7 @@
           [t(".filing_frequency.options.some_years"), :some_years],
           [t(".filing_frequency.options.not_filed"), :not_filed],
         ],
+        include_blank: true
       ) %>
     <%= f.cfa_select(
         :triage_vita_income_ineligible,

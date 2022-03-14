@@ -1,6 +1,5 @@
 module TriageConcern
   extend ActiveSupport::Concern
-  include PreviousPathIsBackConcern
 
   included do
     before_action :set_show_client_sign_in_link

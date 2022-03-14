@@ -1581,7 +1581,7 @@ es:
             65000_to_73000: De $65,000 a 73,000 dólares
             over_73000: más de $73,000
             zero: "$0"
-        title: "Infórmenos sobre su estado civil e ingresos."
+        title: Infórmenos sobre su estado civil e ingresos.
         vita_income_ineligible:
           label: "¿Obtuvo ingresos de una propiedad de alquiler, una granja o una criptomoneda?"
   signups:

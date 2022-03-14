@@ -1,6 +1,7 @@
 module Questions
   class TriageGyrIdsController < QuestionsController
     include TriageConcern
+    include PreviousPathIsBackConcern
 
     layout "intake"
 
