@@ -29,8 +29,12 @@ class PersonalInfoForm < QuestionsForm
   def save
     state = ZipCodes.details(zip_code)[:state]
     attributes = attributes_for(:intake).merge(state_of_residence: state)
-    attributes[:client] = Client.create! unless @intake.client.present?
-    @intake.update(attributes)
+    if @intake.client.present?
+      @intake.update(attributes)
+    else
+      @intake.assign_attributes(attributes)
+      @intake.build_client.save
+    end
 
     data = MixpanelService.data_from([@intake.client, @intake])
     MixpanelService.send_event(
