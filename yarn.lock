@@ -1554,22 +1554,22 @@
   resolved "https://registry.yarnpkg.com/@percy/logger/-/logger-1.0.0-beta.61.tgz#7410a0d0d8b2d8fc6e3cf4133f3338d9b5c4d8e5"
   integrity sha512-3CRqpmpWr1kG815TKsmADr2k+SBRw+I7Rk2/jY3WwbN/4oP3Mij9gNkWSmIU85TRtm5Ju1SbI3LcFjEfOg7eLw==
 
-"@rails/actioncable@6.1.4-6":
-  version "6.1.4-6"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.1.4-6.tgz#22dd0f60e634f237f2a19d031f4e7afa26a924b4"
-  integrity sha512-cGwo5AWlEg6Q5JeUl2r8cmgaSlJtgR9BOOGF7Yb1PyKOinuWod6PW6UeQLgXf+n2MNiWz+yqldb1m3+Aun/2lg==
+"@rails/actioncable@6.1.4-7":
+  version "6.1.4-7"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.1.4-7.tgz#da60f6c8b3ec8ec5118db877dd2e416d40e0bce6"
+  integrity sha512-ml1ykETFb716oDb/vivA9FNO/+nQe9s46H5Gb+24dIxhLjhYEfMAjFlTG0ASRNpZzGbIi5XMPfNZkdxM3ftK8w==
 
-"@rails/actiontext@6.1.4-6":
-  version "6.1.4-6"
-  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-6.1.4-6.tgz#8430c63a100662f1fed758a891e0ccdd09ffa41a"
-  integrity sha512-HM/evH7940rzkKZVIVItjzJgVn00cWUr4BlLMx1RCPLfp8vi6SZjCZ7zbo2+xdtSho/sBiuxWwRMJ7o/pbexpw==
+"@rails/actiontext@6.1.4-7":
+  version "6.1.4-7"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-6.1.4-7.tgz#b7ed0971436324262396384ea1dc4a56a124b71a"
+  integrity sha512-nmLEJhtl1mFd5EvcSXzczdp4kBSUX/4PrkmzbNDkaq5wREjLXj03bYf2HdittjlOtNLVjoG2ABsIyNSIP2LQ9g==
   dependencies:
     "@rails/activestorage" "^6.0.0"
 
-"@rails/activestorage@6.1.4-6":
-  version "6.1.4-6"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.1.4-6.tgz#efeb10cac688cfc40b59278916282afc2883567b"
-  integrity sha512-ZSU3kSRfWc/XOoiwrFbbomSaxiCJ0Ta9zNhh6rXQFkYhV0EI4S4O0Xw6u4YmNCqvpB0T2IS1rgkojJqmD3EqfA==
+"@rails/activestorage@6.1.4-7":
+  version "6.1.4-7"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.1.4-7.tgz#b8a68eb4e3695dc647d4ad50e306ca1c93f23d71"
+  integrity sha512-KbXl33tC0w5VhLi7mX7R1GgWe2Z6AIXyqddEvVwvXSr2jSCK9qGz6rHHJtyQlHvIQebLoP6R9PwE5AVBgHjNpA==
   dependencies:
     spark-md5 "^3.0.0"
 
@@ -1580,10 +1580,10 @@
   dependencies:
     spark-md5 "^3.0.0"
 
-"@rails/ujs@6.1.4-6":
-  version "6.1.4-6"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.4-6.tgz#244520a1580b5791cebc81471978bc6b3c8966c0"
-  integrity sha512-j2ejw0ShVHiDWtq1Yv1PGX/GFCDiXX+5YiUY2Z17eeMJhQkxXeg3maQZkkT5OT/YBOI+jiWqtp03GM1Hdp/arA==
+"@rails/ujs@6.1.4-7":
+  version "6.1.4-7"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.4-7.tgz#ef0b83ef40f64bc6704e13ae6624236a4a91fa6f"
+  integrity sha512-842WcLh0BErNgGE8rdqNh31VnqGQcklPQ7RXzQfA0ilQNZcU7AO+t576g1m//18Lk8m7cXZ8fIKA1YB41LKWAQ==
 
 "@rails/webpacker@5.4.0":
   version "5.4.0"

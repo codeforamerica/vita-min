@@ -4,7 +4,7 @@ ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).str
 ruby ruby_version
 
 gem 'rack', '>= 2.0.8'
-gem 'rails', '~> 6.1.4.6'
+gem 'rails', '~> 6.1.4.7'
 gem 'puma', '>= 5.3.2'
 gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
