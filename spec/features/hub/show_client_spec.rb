@@ -2,9 +2,10 @@ require "rails_helper"
 
 RSpec.describe "a user viewing a client" do
   context "as an admin user" do
+    let(:created_at) { Time.now }
     let(:user) { create :admin_user }
     let(:intake) { build(:intake, :with_contact_info) }
-    let(:client) { create :client, vita_partner: (create :organization), intake: intake, tax_returns: [build(:tax_return, certification_level: "advanced")] }
+    let(:client) { create :client, vita_partner: (create :organization), intake: intake, tax_returns: [build(:tax_return, certification_level: "advanced")], created_at: created_at }
     let(:tax_return) { client.tax_returns.first }
     let!(:other_vita_partner) { create :site, name: "Tax Help Test" }
     before do
@@ -73,6 +74,17 @@ RSpec.describe "a user viewing a client" do
         expect(page).to have_content(archived_intake.preferred_name)
         expect(page).to have_content(archived_dependent.full_name)
         expect(page).to have_content(archived_bank_account.bank_name)
+      end
+    end
+
+    context "for a client that was accidentally disassociated from its intake due to a bug in march 2022" do
+      let(:intake) { nil }
+      let(:created_at) { Date.parse('2022-03-11') }
+
+      it "shows a warning" do
+        visit hub_client_path(id: client.id)
+        expect(page).to have_content("the client's information could not be found due to an error")
+        expect(page).not_to have_content(I18n.t("views.shared.tax_return_list.add_tax_year"))
       end
     end
   end
