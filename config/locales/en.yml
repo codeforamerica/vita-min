@@ -2016,7 +2016,7 @@ en:
             help_text: Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent.
             title: Would you like to add a child or another person whom you supported in %{current_tax_year}?
           info:
-            filed_joint_return: "This person was married and filed taxes with their spouse"
+            filed_joint_return: This person was married and filed taxes with their spouse
             first_name: Legal first name
             help_text: To avoid delays, please provide your child or family member’s legal information as it is written on their identification card.
             last_name: Legal last name

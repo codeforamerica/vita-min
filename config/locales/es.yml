@@ -1973,7 +1973,7 @@ es:
             help_text: Alguien que vivió con usted la mayor parte del año o a quien usted apoyó financieramente podría calificar como dependiente.
             title: "¿Le gustaría agregar un niño u otra persona a la que apoyó en %{current_tax_year}"
           info:
-            filed_joint_return: "Su dependiente estaba casado/a y declaró impuestos con su cónyuge"
+            filed_joint_return: Su dependiente estaba casado/a y declaró impuestos con su cónyuge
             first_name: El primer nombre legal de su dependiente
             help_text: Para evitar retrasos, favor de facilitar los datos legales de su dependiente tal y como figuran en su tarjeta de identificación.
             last_name: El apellido legal de su dependiente
