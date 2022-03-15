@@ -134,10 +134,6 @@ RSpec.configure do |config|
     allow(Resolv::DNS).to receive(:new).and_return(fake_dns)
   end
 
-  if ENV['CAPYBARA_WALKTHROUGH_SCREENSHOTS']
-    CapybaraWalkthroughScreenshots.hook!(config)
-  end
-
   if config.filter.rules[:flow_explorer_screenshot] || config.filter.rules[:flow_explorer_screenshot_i18n_friendly]
     FlowExplorerScreenshots.hook!(config)
   end
