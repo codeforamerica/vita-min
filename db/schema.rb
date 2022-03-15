@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_11_214355) do
+ActiveRecord::Schema.define(version: 2022_03_11_231919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -605,6 +605,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_214355) do
   end
 
   create_table "dependents", force: :cascade do |t|
+    t.integer "below_qualifying_relative_income_requirement", default: 0
     t.date "birth_date", null: false
     t.integer "cant_be_claimed_by_other", default: 0, null: false
     t.integer "claim_anyway", default: 0, null: false
@@ -616,6 +617,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_214355) do
     t.string "encrypted_ssn"
     t.string "encrypted_ssn_iv"
     t.integer "filed_joint_return", default: 0, null: false
+    t.integer "filer_provided_over_half_support", default: 0
     t.string "first_name"
     t.integer "full_time_student", default: 0, null: false
     t.integer "has_ip_pin", default: 0, null: false
@@ -635,6 +637,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_214355) do
     t.integer "residence_exception_adoption", default: 0, null: false
     t.integer "residence_exception_born", default: 0, null: false
     t.integer "residence_exception_passed_away", default: 0, null: false
+    t.integer "residence_lived_with_all_year", default: 0
     t.datetime "soft_deleted_at"
     t.string "suffix"
     t.integer "tin_type"
@@ -1564,7 +1567,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_214355) do
            SELECT DISTINCT tax_returns.client_id
              FROM (tax_returns
                JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
-            WHERE ((tax_returns.current_state)::text <> ALL (ARRAY[('intake_before_consent'::character varying)::text, ('intake_in_progress'::character varying)::text, ('intake_greeter_info_requested'::character varying)::text, ('intake_needs_doc_help'::character varying)::text, ('file_mailed'::character varying)::text, ('file_accepted'::character varying)::text, ('file_not_filing'::character varying)::text, ('file_hold'::character varying)::text, ('file_fraud_hold'::character varying)::text]))
+            WHERE ((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count

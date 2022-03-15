@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Ctc::Questions::Dependents::HadDependentsController do
+RSpec.describe Ctc::Questions::HadDependentsController do
   let(:had_dependents) { "unfilled" }
   let(:intake) { create :ctc_intake, had_dependents: had_dependents }
   before { sign_in intake.client }

@@ -1864,6 +1864,17 @@ es:
         confirm_bank_account:
           bank_information: La información de su banco
           title: "¡Excelente! Revise que sus datos bancarios sean correctos."
+        confirm_dependents:
+          add_a_dependent: Agregar una persona dependiente
+          atin: Número de Adopción
+          birthday: Fecha de nacimiento
+          done_adding: Ya no hay más dependientes por agregar
+          no_qualifying_dependents: No dependientes que califican
+          qualifying_for_ctc: Dependientes que califican para CTC y los pagos de estímulo
+          qualifying_for_other_credits: Dependientes que califican para los pagos de estímulo solor
+          ssn: Número de Seguro Social
+          ssn_no_employment: Número de seguro social (no válido para empleo)
+          title: Confirmemos sus dependientes
         confirm_information:
           help_text: No podrá cambiar su información una vez que el IRS acepte la devolución.
           labels:
@@ -1945,17 +1956,6 @@ es:
               p: 'Debe declarar al dependiente si una de estas situaciones es cierta:'
               title: No estoy seguro/a. ¿Debería declararlo/a?
             title: "¿Le gustaría declarar a %{name} de todas maneras?"
-          confirm_dependents:
-            add_a_dependent: Agregar una persona dependiente
-            atin: Número de Adopción
-            birthday: Fecha de nacimiento
-            done_adding: Ya no hay más dependientes por agregar
-            no_qualifying_dependents: No dependientes que califican
-            qualifying_for_ctc: Dependientes que califican para CTC y los pagos de estímulo
-            qualifying_for_other_credits: Dependientes que califican para los pagos de estímulo solor
-            ssn: Número de Seguro Social
-            ssn_no_employment: Número de seguro social (no válido para empleo)
-            title: Confirmemos sus dependientes
           does_not_qualify_ctc:
             add_button: Agregar a otro dependiente
             conditions:
@@ -1969,9 +1969,6 @@ es:
             done_button: Ya no hay más dependientes por agregar
             help_text: 'Para que una persona dependiente tenga derecho a recibir el CTC o las ayudas de estímulo, deberá cumplir las siguientes condiciones:'
             title: "%{name} no puede ser declarado como dependiente."
-          had_dependents:
-            help_text: Alguien que vivió con usted la mayor parte del año o a quien usted apoyó financieramente podría calificar como dependiente.
-            title: "¿Le gustaría agregar un niño u otra persona a la que apoyó en %{current_tax_year}"
           info:
             filed_joint_return: Su dependiente estaba casado/a y declaró impuestos con su cónyuge
             first_name: El primer nombre legal de su dependiente
@@ -2000,12 +1997,9 @@ es:
             title: Está a punto de borrar a %{dependent_name}.
           tin:
             form_of_identity: Tipo de identificación de su dependiente
-            help_text: Para evitar retrasos, favor de facilitarnos los datos legales de su dependiente tal y como aparecen en su documento de identificación.
             remove_person: Quite a esta persona
-            save_person: Guarde a esta persona
             ssn_or_atin: 'El SSN o ATIN: Número de Identificación Fiscal de Adopción de su dependiente'
             ssn_or_atin_confirmation: Confirme el SSN o ATIN de su dependiente
-            title: Necesitamos información adicional sobre %{name}.
         direct_deposit:
           my_bank_account:
             error_message: Introduzca la información de una cuenta bancaria con su nombre, o seleccione otro método de pago.
@@ -2033,6 +2027,9 @@ es:
           reveal_title: No estoy seguro de cómo solicitar
           single: Soltero
           title: "¿Cómo desea presentar su declaración de impuestos?"
+        had_dependents:
+          help_text: Alguien que vivió con usted la mayor parte del año o a quien usted apoyó financieramente podría calificar como dependiente.
+          title: "¿Le gustaría agregar un niño u otra persona a la que apoyó en %{current_tax_year}"
         home:
           help_text: Su domicilio debe haber estado en Estados Unidos durante más de la mitad del año fiscal.
           options:

@@ -41,7 +41,7 @@
             </div>
             <%=
               render(
-                partial: 'ctc/questions/dependents/confirm_dependents/dependent',
+                partial: 'ctc/questions/confirm_dependents/dependent',
                 locals: { edit_controller: Ctc::Portal::DependentsController },
                 collection: @intake.default_tax_return.qualifying_dependents
               )

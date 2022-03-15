@@ -5,10 +5,6 @@ module Ctc
         include AuthenticatedCtcClientConcern
         layout "yes_no_question"
 
-        def self.show?(dependent)
-          dependent.present? && dependent.relationship.present?
-        end
-
         def method_name
           'provided_over_half_own_support'
         end

@@ -13,6 +13,8 @@ RSpec.describe DependentsController do
   end
 
   describe "#index" do
+    let(:birth_year) { TaxReturn.current_tax_year - 9 }
+
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :index
     it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :index
 
@@ -21,20 +23,22 @@ RSpec.describe DependentsController do
 
       context "with existing dependents" do
         render_views
-        let!(:dependent_one) { create :dependent, first_name: "Kylie", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
+        let!(:dependent_one) { create :dependent, first_name: "Kylie", last_name: "Kiwi", birth_date: Date.new(birth_year, 4, 21), intake: intake}
         let!(:dependent_two) { create :dependent, first_name: "Kelly", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
 
         it "renders information about each dependent" do
           get :index
 
-          expect(response.body).to include "Kylie Kiwi 4/21/2012"
-          expect(response.body).to include "Kelly Kiwi 4/21/2012"
+          expect(response.body).to include "Kylie Kiwi 4/21/#{birth_year}"
+          expect(response.body).to include "Kelly Kiwi 4/21/#{birth_year}"
         end
       end
     end
   end
 
   describe "#create" do
+    let(:birth_year) { TaxReturn.current_tax_year - 5 }
+
     let(:params) do
       {
         dependent: {
@@ -42,7 +46,7 @@ RSpec.describe DependentsController do
           last_name: "Kiwi",
           birth_date_month: "6",
           birth_date_day: "15",
-          birth_date_year: "2015",
+          birth_date_year: birth_year,
           relationship: "Nibling",
           months_in_home: "12",
           was_student: "no",
@@ -70,7 +74,7 @@ RSpec.describe DependentsController do
         expect(dependent.intake).to eq intake
         expect(dependent.first_name).to eq "Kylie"
         expect(dependent.last_name).to eq "Kiwi"
-        expect(dependent.birth_date).to eq Date.new(2015, 6, 15)
+        expect(dependent.birth_date).to eq Date.new(birth_year, 6, 15)
         expect(dependent.relationship).to eq "Nibling"
         expect(dependent.months_in_home).to eq 12
         expect(dependent.was_student).to eq "no"
@@ -177,6 +181,7 @@ RSpec.describe DependentsController do
   end
 
   describe "#update" do
+    let(:birth_year) { TaxReturn.current_tax_year - 5 }
     let!(:dependent) do
       create :dependent,
              first_name: "Mary",
@@ -193,7 +198,7 @@ RSpec.describe DependentsController do
           last_name: "Kiwi",
           birth_date_month: "6",
           birth_date_day: "15",
-          birth_date_year: "2015",
+          birth_date_year: birth_year,
           relationship: "Nibling",
           months_in_home: "12",
           was_student: "no",
@@ -219,7 +224,7 @@ RSpec.describe DependentsController do
         dependent.reload
         expect(dependent.first_name).to eq "Kylie"
         expect(dependent.last_name).to eq "Kiwi"
-        expect(dependent.birth_date).to eq Date.new(2015, 6, 15)
+        expect(dependent.birth_date).to eq Date.new(birth_year, 6, 15)
         expect(dependent.relationship).to eq "Nibling"
         expect(dependent.months_in_home).to eq 12
         expect(dependent.was_student).to eq "no"
