@@ -159,6 +159,8 @@ module Hub
       attr_reader :intake
       attr_reader :archived
       alias_method :archived?, :archived
+      attr_reader :missing_intake
+      alias_method :missing_intake?, :missing_intake
 
       def self.delegated_intake_attributes
         [
@@ -181,6 +183,12 @@ module Hub
         unless @intake
           @intake = Archived::Intake2021.find_by(client_id: @client.id)
           @archived = true if @intake
+        end
+        # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
+        if !@intake && @client.created_at < Date.parse('2022-03-15') && @client.created_at > Date.parse('2022-03-09')
+          @missing_intake = true
+          @intake = Intake::GyrIntake.new(client_id: @client.id)
+          @intake.readonly!
         end
       end
 

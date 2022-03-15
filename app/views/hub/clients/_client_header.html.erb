@@ -7,6 +7,17 @@
   </div>
 <% end %>
 
+<% if @client.missing_intake? %>
+  <div class="slab slab--flash flash--warning">
+    <div class="grid-flex center-aligned">
+      <%= image_tag("icons/warning-triangle.svg", class: "item-15r") %>
+      <span>
+        This Client ID exists, but the client's information could not be found due to an error. Try searching for the client's contact information to see if their information is associated with another Client ID or reach out to Support with questions.
+      </span>
+    </div>
+  </div>
+<% end %>
+
 <section class="slab slab--padded">
   <div class="client-header">
     <div class="client-header__left">
