@@ -2040,12 +2040,9 @@ en:
             title: You’re about to remove %{dependent_name}.
           tin:
             form_of_identity: Form of identity
-            help_text: To avoid delays, please provide your family member’s legal information as it is written on their identification card.
             remove_person: Remove this person
-            save_person: Save this person
             ssn_or_atin: Enter their SSN or ATIN
             ssn_or_atin_confirmation: Re-enter their SSN or ATIN
-            title: We need some additional information about %{name}.
         direct_deposit:
           my_bank_account:
             error_message: Enter info for a bank account with your name on it, or switch to check as your payment type.

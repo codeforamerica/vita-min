@@ -1997,12 +1997,9 @@ es:
             title: Está a punto de borrar a %{dependent_name}.
           tin:
             form_of_identity: Tipo de identificación de su dependiente
-            help_text: Para evitar retrasos, favor de facilitarnos los datos legales de su dependiente tal y como aparecen en su documento de identificación.
             remove_person: Quite a esta persona
-            save_person: Guarde a esta persona
             ssn_or_atin: 'El SSN o ATIN: Número de Identificación Fiscal de Adopción de su dependiente'
             ssn_or_atin_confirmation: Confirme el SSN o ATIN de su dependiente
-            title: Necesitamos información adicional sobre %{name}.
         direct_deposit:
           my_bank_account:
             error_message: Introduzca la información de una cuenta bancaria con su nombre, o seleccione otro método de pago.
