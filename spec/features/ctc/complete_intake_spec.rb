@@ -119,7 +119,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     # =========== DEPENDENTS ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.had_dependents.title', current_tax_year: current_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
@@ -152,7 +152,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Jessie'))
     click_on I18n.t('general.affirmative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
     expect(page).to have_content("Jessie M Pepper")
     expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
 
@@ -184,7 +184,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_can_be_claimed_by_other.title', name: 'Red'))
     click_on I18n.t('general.affirmative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.confirm_dependents.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
     expect(page).to have_content("Red Hot Pepper")
     expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
 
@@ -199,7 +199,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     expect(page).to have_selector("h1", text: "Let’s confirm!")
     expect(page).not_to have_text "Red Hot Pepper"
-    click_on I18n.t('views.ctc.questions.dependents.confirm_dependents.done_adding')
+    click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
 
 
     # =========== RECOVERY REBATE CREDIT ===========

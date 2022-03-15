@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.dependents.confirm_dependents.title") %>
+<% @main_question = t("views.ctc.questions.confirm_dependents.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -10,7 +10,7 @@
     <div class="review-box spacing-below-35">
       <div data-automation="ctc-dependents">
         <div class="review-box__title review-box__title-tighter">
-          <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_ctc") %></h2>
+          <h2><%= t("views.ctc.questions.confirm_dependents.qualifying_for_ctc") %></h2>
         </div>
         <div class="spacing-below-15">
           <%=
@@ -18,13 +18,13 @@
               partial: 'dependent',
               locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
               collection: current_intake.dependents.select { |dep| dep.eligible_for_child_tax_credit_2020? }
-            ) || t('views.ctc.questions.dependents.confirm_dependents.no_qualifying_dependents')
+            ) || t('views.ctc.questions.confirm_dependents.no_qualifying_dependents')
           %>
         </div>
       </div>
       <div data-automation="other-credits-dependents">
         <div class="review-box__title review-box__title-tighter">
-          <h2><%= t("views.ctc.questions.dependents.confirm_dependents.qualifying_for_other_credits") %></h2>
+          <h2><%= t("views.ctc.questions.confirm_dependents.qualifying_for_other_credits") %></h2>
         </div>
         <div class="spacing-below-35">
           <%=
@@ -32,7 +32,7 @@
               partial: 'dependent',
               locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
               collection: current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit_2020? && (dep.yr_2020_qualifying_child? || dep.yr_2020_qualifying_relative?) }
-            ) || t('views.ctc.questions.dependents.confirm_dependents.no_qualifying_dependents')
+            ) || t('views.ctc.questions.confirm_dependents.no_qualifying_dependents')
           %>
         </div>
       </div>
@@ -40,12 +40,12 @@
       <div class="review-box__cta-button-container">
         <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide text--centered" do %>
           <%= image_tag("add-person.svg", alt: "") %>
-          <%= t('views.ctc.questions.dependents.confirm_dependents.add_a_dependent') %>
+          <%= t('views.ctc.questions.confirm_dependents.add_a_dependent') %>
         <% end %>
       </div>
     </div>
     <button class="button button--primary button--wide" type="submit">
-      <%= t("views.ctc.questions.dependents.confirm_dependents.done_adding") %>
+      <%= t("views.ctc.questions.confirm_dependents.done_adding") %>
     </button>
   <% end %>
 <% end %>

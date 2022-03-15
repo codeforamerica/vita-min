@@ -28,7 +28,7 @@
         <ul>
           <%=
             render(
-                partial: 'ctc/questions/dependents/confirm_dependents/dependent',
+                partial: 'ctc/questions/confirm_dependents/dependent',
                 locals: { edit_controller: Ctc::Update::DependentsController },
                 collection: qualifying_dependents
             )
@@ -37,7 +37,7 @@
       </div>
     <% else %>
       <div class="review-box__space-between">
-        <div><%= I18n.t("views.ctc.questions.dependents.confirm_dependents.no_qualifying_dependents") %></div>
+        <div><%= I18n.t("views.ctc.questions.confirm_dependents.no_qualifying_dependents") %></div>
       </div>
     <% end %>
 

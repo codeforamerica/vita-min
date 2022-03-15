@@ -30,8 +30,10 @@ class CtcQuestionNavigation
     Ctc::Questions::SpousePriorTaxYearAgiController,
     Ctc::Questions::SpouseReviewController,
 
-    # Dependents
-    Ctc::Questions::Dependents::HadDependentsController,
+    # Dependents Intro
+    Ctc::Questions::HadDependentsController,
+
+    # Looping Dependents Questions
     Ctc::Questions::Dependents::InfoController,
     Ctc::Questions::Dependents::ChildQualifiesController,
     Ctc::Questions::Dependents::ChildExpensesController,
@@ -41,7 +43,9 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::ClaimChildAnywayController,
     Ctc::Questions::Dependents::QualifyingRelativeController,
     Ctc::Questions::Dependents::DoesNotQualifyCtcController,
-    Ctc::Questions::Dependents::ConfirmDependentsController,
+
+    # Dependents Summary
+    Ctc::Questions::ConfirmDependentsController,
 
     # RRC
     Ctc::Questions::StimulusPaymentsController,

@@ -2,43 +2,46 @@
 #
 # Table name: dependents
 #
-#  id                                          :bigint           not null, primary key
-#  birth_date                                  :date             not null
-#  cant_be_claimed_by_other                    :integer          default("unfilled"), not null
-#  claim_anyway                                :integer          default("unfilled"), not null
-#  creation_token                              :string
-#  disabled                                    :integer          default("unfilled"), not null
-#  encrypted_ip_pin                            :string
-#  encrypted_ip_pin_iv                         :string
-#  encrypted_ssn                               :string
-#  encrypted_ssn_iv                            :string
-#  filed_joint_return                          :integer          default("unfilled"), not null
-#  first_name                                  :string
-#  full_time_student                           :integer          default("unfilled"), not null
-#  has_ip_pin                                  :integer          default("unfilled"), not null
-#  last_name                                   :string
-#  lived_with_more_than_six_months             :integer          default("unfilled"), not null
-#  meets_misc_qualifying_relative_requirements :integer          default("unfilled"), not null
-#  middle_initial                              :string
-#  months_in_home                              :integer
-#  no_ssn_atin                                 :integer          default("unfilled"), not null
-#  north_american_resident                     :integer          default("unfilled"), not null
-#  on_visa                                     :integer          default("unfilled"), not null
-#  permanent_residence_with_client             :integer          default("unfilled"), not null
-#  permanently_totally_disabled                :integer          default("unfilled"), not null
-#  provided_over_half_own_support              :integer          default("unfilled"), not null
-#  relationship                                :string
-#  residence_exception_adoption                :integer          default(0), not null
-#  residence_exception_born                    :integer          default(0), not null
-#  residence_exception_passed_away             :integer          default(0), not null
-#  soft_deleted_at                             :datetime
-#  suffix                                      :string
-#  tin_type                                    :integer
-#  was_married                                 :integer          default("unfilled"), not null
-#  was_student                                 :integer          default("unfilled"), not null
-#  created_at                                  :datetime         not null
-#  updated_at                                  :datetime         not null
-#  intake_id                                   :bigint           not null
+#  id                                           :bigint           not null, primary key
+#  below_qualifying_relative_income_requirement :integer          default(0)
+#  birth_date                                   :date             not null
+#  cant_be_claimed_by_other                     :integer          default("unfilled"), not null
+#  claim_anyway                                 :integer          default("unfilled"), not null
+#  creation_token                               :string
+#  disabled                                     :integer          default("unfilled"), not null
+#  encrypted_ip_pin                             :string
+#  encrypted_ip_pin_iv                          :string
+#  encrypted_ssn                                :string
+#  encrypted_ssn_iv                             :string
+#  filed_joint_return                           :integer          default("unfilled"), not null
+#  filer_provided_over_half_support             :integer          default(0)
+#  first_name                                   :string
+#  full_time_student                            :integer          default("unfilled"), not null
+#  has_ip_pin                                   :integer          default("unfilled"), not null
+#  last_name                                    :string
+#  lived_with_more_than_six_months              :integer          default("unfilled"), not null
+#  meets_misc_qualifying_relative_requirements  :integer          default("unfilled"), not null
+#  middle_initial                               :string
+#  months_in_home                               :integer
+#  no_ssn_atin                                  :integer          default("unfilled"), not null
+#  north_american_resident                      :integer          default("unfilled"), not null
+#  on_visa                                      :integer          default("unfilled"), not null
+#  permanent_residence_with_client              :integer          default("unfilled"), not null
+#  permanently_totally_disabled                 :integer          default("unfilled"), not null
+#  provided_over_half_own_support               :integer          default("unfilled"), not null
+#  relationship                                 :string
+#  residence_exception_adoption                 :integer          default("unfilled"), not null
+#  residence_exception_born                     :integer          default("unfilled"), not null
+#  residence_exception_passed_away              :integer          default("unfilled"), not null
+#  residence_lived_with_all_year                :integer          default(0)
+#  soft_deleted_at                              :datetime
+#  suffix                                       :string
+#  tin_type                                     :integer
+#  was_married                                  :integer          default("unfilled"), not null
+#  was_student                                  :integer          default("unfilled"), not null
+#  created_at                                   :datetime         not null
+#  updated_at                                   :datetime         not null
+#  intake_id                                    :bigint           not null
 #
 # Indexes
 #
@@ -80,6 +83,9 @@ class Dependent < ApplicationRecord
   enum permanent_residence_with_client: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_residence_with_client
   enum claim_anyway: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_anyway
   enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
+  enum below_qualifying_relative_income_requirement: { unfilled: 0, yes: 1, no: 2 }, _prefix: :below_qualifying_relative_income_requirement
+  enum filer_provided_over_half_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filer_provided_over_half_support
+  enum residence_lived_with_all_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_lived_with_all_year
 
   before_destroy :remove_error_associations
 
@@ -167,8 +173,8 @@ class Dependent < ApplicationRecord
 
   def mixpanel_data
     {
-      dependent_age_at_end_of_tax_year: yr_2020_age.to_s,
-      dependent_under_6: yr_2020_age < 6 ? "yes" : "no",
+      dependent_age_at_end_of_tax_year: age_during(TaxReturn.current_tax_year).to_s,
+      dependent_under_6: age_during(TaxReturn.current_tax_year) < 6 ? "yes" : "no",
       dependent_months_in_home: months_in_home.to_s,
       dependent_was_student: was_student,
       dependent_on_visa: on_visa,
@@ -196,6 +202,10 @@ class Dependent < ApplicationRecord
 
   def born_after_tax_year?(tax_year)
     birth_date.year > tax_year
+  end
+
+  def age_during(tax_year)
+    tax_year - birth_date.year
   end
 
   private

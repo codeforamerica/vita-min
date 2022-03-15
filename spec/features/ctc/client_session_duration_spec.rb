@@ -40,24 +40,24 @@ RSpec.feature "Session duration", requires_default_vita_partners: true do
         Capybara.current_session.reset!
 
         Timecop.freeze(fake_time) do
-          visit Ctc::Questions::Dependents::HadDependentsController.to_path_helper
+          visit Ctc::Questions::HadDependentsController.to_path_helper
           authenticate_client(client)
-          expect(page).to have_text(I18n.t('views.ctc.questions.dependents.had_dependents.title', current_tax_year: current_tax_year))
+          expect(page).to have_text(I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
         end
         expect(client.reload.previous_sessions_active_seconds).to eq(0) # last session occurred in one instant
         expect(client.reload.last_seen_at).to eq(fake_time)
 
         Timecop.freeze(fake_time + 1.minutes) do
-          visit Ctc::Questions::Dependents::HadDependentsController.to_path_helper
+          visit Ctc::Questions::HadDependentsController.to_path_helper
         end
         expect(client.reload.last_seen_at).to eq(fake_time + 1.minutes)
         expect(client.reload.previous_sessions_active_seconds).to eq(0) # still w/r/t the previous login
         Capybara.current_session.reset!
 
         Timecop.freeze(fake_time + 2.minutes) do
-          visit Ctc::Questions::Dependents::HadDependentsController.to_path_helper
+          visit Ctc::Questions::HadDependentsController.to_path_helper
           authenticate_client(client)
-          expect(page).to have_text(I18n.t('views.ctc.questions.dependents.had_dependents.title', current_tax_year: current_tax_year))
+          expect(page).to have_text(I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
         end
         expect(client.reload.last_seen_at).to eq(fake_time + 2.minutes)
         expect(client.reload.previous_sessions_active_seconds).to eq(1.minutes)
