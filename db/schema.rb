@@ -1412,7 +1412,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_214355) do
     t.datetime "suspended_at"
     t.string "timezone", default: "America/New_York", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
