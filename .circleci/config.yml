@@ -117,26 +117,6 @@ jobs:
               --only-failures
       - store_test_results:
           path: ~/test-results
-  walkthroughs:
-    executor: rails_executor
-    steps:
-      # Set up for running tests and run the walkthrough generator
-      - checkout
-      - install_js_dependencies
-      - install_system_dependencies
-      - install_ruby_dependencies
-      - setup_test_db
-      - run: bundle exec rake assets:precompile
-      - run: bundle exec rake auto_screenshots:generate_screenshots auto_screenshots:generate_website
-      # Add SSH key with access to walkthroughs-getyourrefund.github.io, then update the website
-      - add_ssh_keys:
-          fingerprints:
-            - "50:ba:0d:e1:5c:50:68:32:a6:0d:53:92:ae:82:25:71"
-      - run: ssh-keyscan -p 22 github.com >> ~/.ssh/known_hosts
-      - run: git clone git@github.com:walkthroughs-getyourrefund/walkthroughs-getyourrefund.github.io /tmp/walkthroughs
-      - run: git config --global user.name CircleCI && git config --global user.email circleci@example.com
-      - run: cd /tmp/walkthroughs && git rm -r * && cp -a $OLDPWD/public/* . && mv walkthroughs/* . && git add . && git commit -m Automatic && git push
-    parallelism: 1
   flow_explorer_screenshots:
     executor: rails_executor
     steps:
@@ -191,11 +171,6 @@ workflows:
           filters:
             branches:
               only: staging
-      - walkthroughs:
-          requires: [run_js_tests, run_ruby_tests]
-          filters:
-            branches:
-              only: [circleci-update-walkthroughs]
       - flow_explorer_screenshots:
           filters:
             branches:
