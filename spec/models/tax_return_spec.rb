@@ -125,7 +125,7 @@ describe TaxReturn do
     let(:intake) { tax_return.intake }
     before do
       allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
-      allow_any_instance_of(Dependent).to receive("yr_#{TaxReturn.current_tax_year}_qualifying_child?").and_return true
+      allow_any_instance_of(Dependent).to receive(:qualifying_child?).and_return true
       allow_any_instance_of(Dependent).to receive(:eligible_for_eip1?).and_return true
       allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due)
     end
@@ -142,7 +142,7 @@ describe TaxReturn do
     let(:intake) { tax_return.intake }
     before do
       allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
-      allow_any_instance_of(Dependent).to receive("yr_#{TaxReturn.current_tax_year}_qualifying_child?").and_return true
+      allow_any_instance_of(Dependent).to receive(:qualifying_child?).and_return true
       allow_any_instance_of(Dependent).to receive(:eligible_for_eip2?).and_return true
       allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due)
     end
