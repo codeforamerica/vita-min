@@ -41,6 +41,7 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::ChildResidenceExceptionsController,
     Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController,
     Ctc::Questions::Dependents::ClaimChildAnywayController,
+    Ctc::Questions::Dependents::QualifyingRelativeController,
     # Ctc::Questions::Dependents::RelativeMemberOfHouseholdController,
     # Ctc::Questions::Dependents::RelativeFinancialSupportController,
     # Ctc::Questions::Dependents::RelativeQualifiersController,

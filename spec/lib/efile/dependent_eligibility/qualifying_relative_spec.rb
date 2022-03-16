@@ -12,7 +12,6 @@ describe Efile::DependentEligibility::QualifyingRelative do
           tin_test: true,
           residence_test: true,
           financial_support_test: true,
-          residence_test: true,
           claimable_test: true
       }
     end
