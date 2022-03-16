@@ -1,5 +1,5 @@
 module Questions
-  class TriageGyrExpressController < QuestionsController
+  class TriageCtcController < QuestionsController
     include TriageConcern
 
     layout "intake"

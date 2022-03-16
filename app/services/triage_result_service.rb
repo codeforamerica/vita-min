@@ -10,11 +10,11 @@ class TriageResultService
       if intake.need_itin_help_yes?
         return route_to_gyr
       elsif intake.need_itin_help_no?
-        return route_to_express_gyr_choice
+        return route_to_gyr_ctc_choice
       end
     end
 
-    if inside_express_income_limit?
+    if inside_ctc_income_limit?
       if intake.need_itin_help_yes?
         if intake.triage_vita_income_ineligible_no?
           return route_to_gyr
@@ -23,7 +23,7 @@ class TriageResultService
         end
       elsif intake.need_itin_help_no?
         if intake.triage_vita_income_ineligible_no?
-          return route_to_express_gyr_choice
+          return route_to_gyr_ctc_choice
         elsif intake.triage_vita_income_ineligible_yes?
           return route_to_diy
         end
@@ -69,7 +69,7 @@ class TriageResultService
 
   private
 
-  def inside_express_income_limit?
+  def inside_ctc_income_limit?
     intake.triage_income_level_1_to_12500? ||
       (intake.triage_filing_status_jointly? && intake.triage_income_level_12500_to_25000?)
   end
@@ -86,15 +86,15 @@ class TriageResultService
     Questions::TriageGyrController.to_path_helper
   end
 
-  def route_to_express_gyr_choice
-    Questions::TriageGyrExpressController.to_path_helper
+  def route_to_gyr_ctc_choice
+    Questions::TriageGyrCtcController.to_path_helper
   end
 
   def route_to_gyr_diy_choice
     Questions::TriageGyrDiyController.to_path_helper
   end
 
-  def route_to_express
-    Questions::TriageExpressController.to_path_helper
+  def route_to_ctc
+    Questions::TriageCtcController.to_path_helper
   end
 end

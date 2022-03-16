@@ -14,7 +14,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     expect(intake.triage).to eq(Triage.last)
 
     screenshot_after do
-      expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_express.edit.title'))
+      expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ctc.edit.title'))
       click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
     end
 

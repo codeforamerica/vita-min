@@ -1503,18 +1503,18 @@ es:
         ctc: Crédito Tributario por Hijos
         eitc: Crédito tributario por ingresos del trabajo
         missing_stimulus: Pagos de estímulos faltantes
+      ctc_tile:
+        available: Disponible a partir de mayo 2022.
+        description: Declare rápidamente por su cuenta.
+        sign_up_for_ctc: Subscríbase para GetCTC
+        timeframe: 15 minutos para declarar
+        title: GetCTC
+        warning: No puede presentar la declaración con GetCTC si ha ganado más de $400 en ingresos por cuenta propia o si está obligado a presentar una declaración de impuestos completa.
       diy_tile:
         choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés
         description: "¡Cobre el mayor reembolso! Presente la solicitud rápidamente por su cuenta."
         timeframe: 45 minutos para declarar
         title: Declarar por mi cuenta o "File Myself" en inglés
-      express_tile:
-        available: Disponible a partir de mayo 2022.
-        description: Declare rápidamente por su cuenta.
-        sign_up_for_express: Subscríbase para Express
-        timeframe: 15 minutos para declarar
-        title: GetCTC Express
-        warning: No puede presentar la declaración con GetCTC si ha ganado más de $400 en ingresos por cuenta propia o si está obligado a presentar una declaración de impuestos completa.
       gyr_tile:
         choose_gyr: Elija GetYourRefund
         description: "¡Cobre el reembolso más grande! Presente su declaración con asistencia de nuestros voluntarios certificados por IRS."
@@ -1522,6 +1522,9 @@ es:
         title: GetYourRefund
         warning: Es necesario que muestre copias de su tarjeta de Seguro Social o de los papeles del Número de Identificación Personal del Contribuyente (ITIN en inglés)
       refund: Reembolso
+    triage_ctc:
+      edit:
+        title: Le recomendamos que use la opcion GetCTC
     triage_diy:
       edit:
         title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
@@ -1530,26 +1533,23 @@ es:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
         help_text: Parece que está sobre el límite para presentar su declaración. Nuestros servicios gratuitos están disponibles para hogares que ganan menos de $73,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
-    triage_express:
-      edit:
-        title: Le recomendamos que use la opcion rápida
     triage_gyr:
       edit:
         title: Le recomendamos presentar la solicitud de forma gratuita con GetYourRefund.
-    triage_gyr_diy:
-      edit:
-        title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
-    triage_gyr_express:
+    triage_gyr_ctc:
       edit:
         collect_your: 'Cobre su:'
         collectables:
           ctc: Crédito Tributario por Hijos
           missing_stimulus: Pagos de estímulos faltantes
         comparison:
-          express:
+          ctc:
             description: "¡Declare rápido por cuenta propia!"
             timeframe: 15 minutos para declarar sus impuestos, disponible abril 2022
-        sign_up_for_express: Subscríbase para Express
+        sign_up_for_ctc: Subscríbase para GetCTC
+        title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
+    triage_gyr_diy:
+      edit:
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_gyr_ids:
       edit:
@@ -2908,6 +2908,12 @@ es:
               question: "¿Cuál es mi número de identificación de cliente?"
           how_does_getyourrefund_work:
             title: "¿Cómo funciona GetYourRefund?"
+            what_is_ctc_and_how_does_it_work:
+              answer_html: |
+                <p>GetCTC, también conocido como la herramienta para no declarantes, es nuestra opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y, a continuación, presentamos su declaración de impuestos directamente al IRS.</p>
+                <p>Puede utilizar GetCTC para solicitar los pagos de estímulo (Economic Impact Payments) y el Crédito Tributario por Hijos (CTC), pero no el Crédito tributario por ingresos del trabajo ni los créditos tributarios estatales. Por lo general, sólo puede usar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
+                <p>GetCTC es una gran opción para usted si <em>solamente</em>desea obtener los pagos de estímulo y el Crédito Tributario por Hijos, si le faltan sus documentos de impuestos, o le falta una copia en papel de su tarjeta de Seguro Social.</p>
+              question: "¿Qué es GetCTC y cómo funciona?"
             what_is_file_myself_and_how_does_it_work:
               answer_html: |
                 <p>File Myself, en el cual usted mismo declara sus impuestos, lo conecta con un software gratuito de presentación de impuestos en línea. Puede seguir chateando con los expertos en impuestos de GetYourRefund mientras utiliza el sitio web.</p>
@@ -2924,12 +2930,6 @@ es:
                 5. Usted firmará sus formularios de impuestos en línea.
                 6. Enviaremos sus impuestos al IRS.
               question: "¿Qué es GetYourRefund y cómo funciona?"
-            what_is_getyourrefund_express_and_how_does_it_work:
-              answer_html: |
-                <p>GetYourRefund Express, también conocido como GetCTC o la herramienta para no declarantes, es nuestra opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y, a continuación, presentamos su declaración de impuestos directamente al IRS.</p>
-                <p>Puede utilizar GetYourRefund Express para solicitar los pagos de estímulo (Economic Impact Payments) y el Crédito Tributario por Hijos (CTC), pero no el Crédito tributario por ingresos del trabajo ni los créditos tributarios estatales. Por lo general, sólo puede usar GetYourRefund Express si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
-                <p>GetYourRefund Express es una gran opción para usted si <em>solamente</em>desea obtener los pagos de estímulo y el Crédito Tributario por Hijos, si le faltan sus documentos de impuestos, o le falta una copia en papel de su tarjeta de Seguro Social.</p>
-              question: "¿Qué es GetYourRefund Express y cómo funciona?"
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
               answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales de Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Para poder solicitar el resto del Crédito Tributario por Hijos en su declaración de impuestos de 2021, tendrá que reportar la cantidad que el IRS le pagó en anticipos - por lo que esta carta puede ser muy útil. La carta 6419 se envió en diciembre de 2021 o en enero de 2022.
@@ -3145,7 +3145,7 @@ es:
                 <p>Aunque tenga pocos ingresos o ninguno y no esté obligado a presentar una declaración de impuestos, es probable que tenga derecho a recibir pagos del IRS, que pueden ascender a miles de dólares. Es especialmente probable que tenga derecho a pagos si tiene hijos. Para poder declarar este dinero, tiene que presentar una declaración de impuestos.</p>
                 <p>La presentación de la declaración impuestos también puede servir como documentación útil a la hora de solicitar otras prestaciones, como ayudas económicas para la universidad, o un préstamo hipotecario.</p>
                 <p>Puede presentar una declaración de impuestos completa y declarar todos los beneficios fiscales pertinentes con GetYourRefund. Para obtener el servicio más rápido, pruebe nuestra opción<a href="https://www.getyourrefund.org/diy/email" target="_blank" rel="noopener">File Myself</a>.</p>
-                <p>Si gana menos de $12,500 (o menos de $25,000 como pareja casada) entonces puede optar por esperar y presentar una declaración simplificada para declarar sólo el Crédito Tributario por Hijos y el tercer pago de estímulo utilizando nuestra opción gratuita GetYourRefund Express en mayo de 2022. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Suscríbase aquí</a> para recibir un mensaje cuando la declaración Express esté disponible.</p>
+                <p>Si gana menos de $12,500 (o menos de $25,000 como pareja casada) entonces puede optar por esperar y presentar una declaración simplificada para declarar sólo el Crédito Tributario por Hijos y el tercer pago de estímulo utilizando nuestra opción gratuita GetCTC en mayo de 2022. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Suscríbase aquí</a> para recibir un mensaje cuando la declaración GetCTC esté disponible.</p>
               question: "¿Cuáles son las posibles ventajas de presentar una declaración de impuestos?"
           state_returns:
             can_i_get_tax_credits_from_california:
@@ -3999,7 +3999,7 @@ es:
         list:
         - "<strong>GetYourRefund</strong> Nuestros especialistas certificados de impuestos le ayudarán a presentar su declaración y a cobrar todos los créditos tributarios que se le deben."
         - "<strong>File Myself</strong> Una opción rápida en línea le permite presentar su declaración y cobrar los créditos tributarios por su cuenta."
-        - "<strong>Express</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago de estímulo federal y el Crédito Tributario por Hijos por su cuenta."
+        - "<strong>GetCTC</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago de estímulo federal y el Crédito Tributario por Hijos por su cuenta."
         title: "¡Bienvenidos a nuestro servicio gratuito!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
@@ -4106,34 +4106,34 @@ es:
         filing_years:
           title: 'Años en que se hicieron declaraciones:'
         id_documents:
+          ctc: Números de identificación o ID en inglés
           diy: Números de identificación o ID en inglés
-          express: Números de identificación o ID en inglés
           full_service: Foto
           title: Tarjeta de Seguro Social o documentos de Número de Identificación Personal del Contribuyente (ITIN en inglés)
         in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
         in_person_link_text: Localizador de VITA
         income_limit:
-          diy: menos de $73,000
-          express_html: |
+          ctc_html: |
             menos de $12,550
             <div class="service-set__subtitle">(menos de $25,100 al declarar conjuntamente)</div>
+          diy: menos de $73,000
           full_service: menos de $66,000
           title: 'Límite de ingresos:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal del Contribuyente (ITIN en inglés)
         most_tax_credits: La mayoría de los créditos tributarios
         required_information: Información obligatoria
         services:
+          ctc:
+            colloquial: ''
+            coming_soon: A partir de mayo de 2022
+            cta: Subscríbase para GetCTC
+            service_description: Presente la solicitud rápidamente por su cuenta para cobrar los pagos por estímulo y el Crédito Tributario por Hijos.
+            service_name: GetCTC
           diy:
             colloquial: ''
             cta: Elegir declarar por mi cuenta
             service_description: Declare rápidamente por su cuenta para 2021.
             service_name: Declarar por mi cuenta o "File Myself" en inglés
-          express:
-            colloquial: GetCTC
-            coming_soon: A partir de mayo de 2022
-            cta: Subscríbase para Express
-            service_description: Presente la solicitud rápidamente por su cuenta para cobrar los pagos por estímulo y el Crédito Tributario por Hijos.
-            service_name: Express/Rápido
           full_service:
             colloquial: ''
             cta: Elija GetYourRefund
@@ -4148,8 +4148,8 @@ es:
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales
         time_to_file:
+          ctc: 15 minutos
           diy: 45 minutos
-          express: 15 minutos
           full_service: De 2 a 3 semanas
           subtitle: Los plazos de tramitación de los pagos del IRS varían de 3-6 semanas
           title: 'Plazo de tiempo para presentar la declaración:'

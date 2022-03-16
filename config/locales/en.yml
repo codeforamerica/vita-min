@@ -1545,18 +1545,18 @@ en:
         ctc: Child Tax Credit
         eitc: Earned Income Tax Credit
         missing_stimulus: Missing Stimulus Payments
+      ctc_tile:
+        available: Available May 2022
+        description: File quickly on your own.
+        sign_up_for_ctc: Sign up for GetCTC
+        timeframe: 15 minutes to file
+        title: GetCTC
+        warning: You cannot file with GetCTC if you earned more than $400 in self-employment income or if you are required to file a full tax return.
       diy_tile:
         choose_diy: Choose File Myself
         description: Collect the largest refund! File quickly on your own.
         timeframe: 45 minutes to file
         title: File Myself
-      express_tile:
-        available: Available May 2022
-        description: File quickly on your own.
-        sign_up_for_express: Sign up for Express
-        timeframe: 15 minutes to file
-        title: GetCTC Express
-        warning: You cannot file with GetCTC if you earned more than $400 in self-employment income or if you are required to file a full tax return.
       gyr_tile:
         choose_gyr: Choose GetYourRefund
         description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
@@ -1564,6 +1564,9 @@ en:
         title: GetYourRefund
         warning: You are required to show copies of your Social Security card or ITIN paperwork.
       refund: Refund
+    triage_ctc:
+      edit:
+        title: We recommend filing with our GetCTC option!
     triage_diy:
       edit:
         title: We recommend filing with our free File Myself option!
@@ -1572,26 +1575,23 @@ en:
         faq_link_text: If you have additional questions, visit our FAQ page.
         help_text: It looks like you are above our filing limit. Our free service is available to households earning less than $73,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
-    triage_express:
-      edit:
-        title: We recommend filing with our Express option!
     triage_gyr:
       edit:
         title: We recommend filing for free with GetYourRefund!
-    triage_gyr_diy:
-      edit:
-        title: We have two free options that may work for you!
-    triage_gyr_express:
+    triage_gyr_ctc:
       edit:
         collect_your: 'Collect your:'
         collectables:
           ctc: Child Tax Credit
           missing_stimulus: Missing Stimulus Payments
         comparison:
-          express:
+          ctc:
             description: File quickly on your own!
             timeframe: 15 minutes to file, available April 2022
-        sign_up_for_express: Sign up for Express
+        sign_up_for_ctc: Sign up for GetCTC
+        title: We have two free options that may work for you!
+    triage_gyr_diy:
+      edit:
         title: We have two free options that may work for you!
     triage_gyr_ids:
       edit:
@@ -2948,6 +2948,12 @@ en:
               question: What is my Client ID number?
           how_does_getyourrefund_work:
             title: How does GetYourRefund Work?
+            what_is_ctc_and_how_does_it_work:
+              answer_html: |
+                <p>GetCTC, also known as the nonfiler tool, is our simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.</p>
+                <p>You can use GetCTC to claim stimulus payments (Economic Impact Payments) and the Child Tax Credit (CTC), but not the Earned Income Tax Credit or state tax credits. Generally, you can only use GetCTC if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021.</p>
+                <p>GetCTC is a great choice for you if you are <em>only</em> looking to get the stimulus payments and the Child Tax Credit, if you are missing your tax documents, or missing a paper copy of your Social Security card.</p>
+              question: What is GetCTC and how does it work?
             what_is_file_myself_and_how_does_it_work:
               answer_html: |
                 <p>File Myself connects you with free online tax filing software. You can continue to chat with GetYourRefund tax experts as you use the website.</p>
@@ -2964,12 +2970,6 @@ en:
                 5. You will sign your tax forms online
                 6. We will submit your taxes to the IRS
               question: What is GetYourRefund and how does it work?
-            what_is_getyourrefund_express_and_how_does_it_work:
-              answer_html: |
-                <p>GetYourRefund Express, also known as GetCTC or the nonfiler tool, is our simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.</p>
-                <p>You can use GetYourRefund Express to claim stimulus payments (Economic Impact Payments) and the Child Tax Credit (CTC), but not the Earned Income Tax Credit or state tax credits. Generally, you can only use GetYourRefund Express if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021.</p>
-                <p>GetYourRefund Express is a great choice for you if you are <em>only</em> looking to get the stimulus payments and the Child Tax Credit, if you are missing your tax documents, or missing a paper copy of your Social Security card.</p>
-              question: What is GetYourRefund Express and how does it work?
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
               answer_html: Letter 6419 is a letter that the IRS sent to everyone who received monthly Child Tax Credit (CTC) payments in 2021. The letters contain information about how much the IRS issued you in these monthly payments. In order to claim the rest of the Child Tax Credit on your 2021 tax return, you will need to report the amount the IRS paid you in advances — so this letter can be very helpful. Letter 6419 was sent in December 2021 or January 2022.
@@ -3185,7 +3185,7 @@ en:
                 <p>Even if you make little to no income and are not required to file a tax return, you likely qualify for payments from the IRS—perhaps totaling thousands of dollars. You are especially likely to qualify for payments if you have children. In order to claim this money, you need to file a tax return.</p>
                 <p>Filing a tax return may also serve as useful documentation when applying for other benefits, like financial aid for college, or a home loan.</p>
                 <p>You can file a full tax return and claim all relevant tax benefits with GetYourRefund. For the fastest service, try our <a href="https://www.getyourrefund.org/diy/email" target="_blank" rel="noopener">File Myself</a> option.</p>
-                <p>If you make less than $12,500 (or less than $25,000 as a married couple) then you can choose to wait and file a simplified return to claim just the Child Tax Credit and third stimulus payment by using our free GetYourRefund Express option in May 2022. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Sign up here</a> to receive a message when Express filing is available.</p>
+                <p>If you make less than $12,500 (or less than $25,000 as a married couple) then you can choose to wait and file a simplified return to claim just the Child Tax Credit and third stimulus payment by using our free GetCTC option in May 2022. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Sign up here</a> to receive a message when GetCTC filing is available.</p>
               question: What are the potential benefits of filing a tax return?
           state_returns:
             can_i_get_tax_credits_from_california:
@@ -4032,7 +4032,7 @@ en:
         list:
         - "<strong>GetYourRefund</strong> Our certified tax specialists will help you file and collect all tax credits you are owed."
         - "<strong>File Myself</strong> A quick online option lets you to file and collect tax credits on your own."
-        - "<strong>Express</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
+        - "<strong>GetCTC</strong> Our quick online option lets you collect any federal stimulus payments and the Child Tax Credit on your own."
         title: Welcome to our free service!
       widowed:
         title: As of December 31, %{year}, were you widowed?
@@ -4139,34 +4139,34 @@ en:
         filing_years:
           title: 'Filing years:'
         id_documents:
+          ctc: ID numbers
           diy: ID numbers
-          express: ID numbers
           full_service: Photo
           title: Social Security Card or ITIN paperwork
         in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
         in_person_link_text: VITA location finder
         income_limit:
-          diy: under $73,000
-          express_html: |
+          ctc_html: |
             under $12,550
             <div class="service-set__subtitle">(under $25,100 filing jointly)</div>
+          diy: under $73,000
           full_service: under $66,000
           title: 'Income limit:'
         itin_assistance: ITIN application assistance
         most_tax_credits: Most tax credits
         required_information: Required information
         services:
+          ctc:
+            colloquial: ''
+            coming_soon: Coming May 2022
+            cta: Sign up for GetCTC
+            service_description: File quickly on your own to collect your stimulus payments and Child Tax Credit.
+            service_name: GetCTC
           diy:
             colloquial: DIY
             cta: Choose File Myself
             service_description: File quickly on your own for 2021.
             service_name: File Myself
-          express:
-            colloquial: GetCTC
-            coming_soon: Coming May 2022
-            cta: Sign up for Express
-            service_description: File quickly on your own to collect your stimulus payments and Child Tax Credit.
-            service_name: Express
           full_service:
             colloquial: ''
             cta: Choose GetYourRefund
@@ -4181,8 +4181,8 @@ en:
           subtitle: "(w2s, 1099s, etc)"
           title: Official tax documents
         time_to_file:
+          ctc: 15 minutes
           diy: 45 minutes
-          express: 15 minutes
           full_service: 2-3 weeks
           subtitle: IRS payment processing times vary 3-6 weeks
           title: 'Length of time to file:'
