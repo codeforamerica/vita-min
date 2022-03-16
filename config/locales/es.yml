@@ -1957,18 +1957,17 @@ es:
               title: No estoy seguro/a. ¿Debería declararlo/a?
             title: "¿Le gustaría declarar a %{name} de todas maneras?"
           does_not_qualify_ctc:
-            add_button: Agregar a otro dependiente
             conditions:
-            - El dependiente tiene un número de Seguro Social o un Número de Identificación de Adopción válido
-            - El dependiente era ciudadano estadounidense, nacional de Estados Unidos o extranjero residente en Estados Unidos
-            - El familiar vivió con usted más de la mitad de %{current_tax_year}
-            - El miembro de la familia no aportó más de la mitad de su propia manutención para %{current_tax_year}
-            - El miembro de la familia no presentó una declaración conjunta con su cónyuge en %{current_tax_year}
-            - El dependiente no fue declarado como dependiente en otra declaración
-            - El miembro de la familia no nació en %{filing_year}
-            done_button: Ya no hay más dependientes por agregar
-            help_text: 'Para que una persona dependiente tenga derecho a recibir el CTC o las ayudas de estímulo, deberá cumplir las siguientes condiciones:'
-            title: "%{name} no puede ser declarado como dependiente."
+              - The person you are trying to claim might be born in %{filing_year}. You can only claim dependents who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
+              - The person you are trying to claim might be too old to be your dependent. Except in a few specific cases, your dependent has to be under 19, or under 24 if a student.
+              - The person you are trying to claim might not have the right relationship to you to be your dependent. In most cases, your dependent has to be your child, grandchild, niece, or nephew. In limited other cases you can claim other close family members.
+              - The person you are trying to claim might not live with you for enough of the year. In most cases, your dependent must live with you for most of the year.
+              - The person you are trying to claim might be financially independent. In most cases, your dependent cannot pay for their own living expenses.
+              - The person you are trying to claim might be someone else’s dependent rather than yours. Only one household can claim a given dependent.
+            help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments or stimulus payments.
+            reveal: Why doesn’t this person qualify?
+            title: You can not claim benefits for %{name}.
+            add_anyone_else: Would you like to add anyone else?
           info:
             filed_joint_return: Su dependiente estaba casado/a y declaró impuestos con su cónyuge
             first_name: El primer nombre legal de su dependiente
