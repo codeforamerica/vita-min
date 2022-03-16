@@ -1,7 +1,7 @@
 module Efile
   module DependentEligibility
     class QualifyingRelative < Efile::DependentEligibility::Base
-      def rules
+      def self.rules
         {
             is_supported_test: :provided_over_half_own_support_no?,
             relationship_test: [

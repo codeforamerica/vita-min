@@ -3,6 +3,15 @@ require "rails_helper"
 describe Efile::DependentEligibility::Base do
   let(:dependent) { create :dependent }
   subject { described_class.new(dependent, TaxReturn.current_tax_year) }
+
+  context "without rules defined" do
+    it "raises an error that you need rules" do
+      expect {
+        subject.qualifies?
+      }.to raise_error RuntimeError, "Child classes must implement rules"
+    end
+  end
+
   context "with rules defined" do
     before do
       allow(described_class).to receive(:rules).and_return (
@@ -13,6 +22,26 @@ describe Efile::DependentEligibility::Base do
                                                                                           second_false_rule: [:nil?]
                                                                                       }
                                                                                   )
+    end
+
+    describe ".age" do
+      let(:dependent) { create :qualifying_child, birth_date: birth_date }
+
+      context "when born on Jan 1 of the tax year" do
+        let(:birth_date) { Date.new(TaxReturn.current_tax_year, 1, 1) }
+
+        it "is 0" do
+          expect(subject.age).to eq(0)
+        end
+      end
+
+      context "when born on Dec 31 of the previous year" do
+        let(:birth_date) { Date.new(TaxReturn.current_tax_year - 1, 12, 31) }
+
+        it "is 1" do
+          expect(subject.age).to eq(1)
+        end
+      end
     end
 
     describe ".disqualifiers" do
@@ -42,5 +71,6 @@ describe Efile::DependentEligibility::Base do
         end
       end
     end
+
   end
 end
