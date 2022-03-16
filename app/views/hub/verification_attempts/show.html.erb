@@ -26,7 +26,7 @@
           </div>
         </div>
       <% else %>
-        <div class="grid-flex container">
+        <div class="grid-flex verification-attempts-photo-container">
           <% if @verification_attempt.selfie.present? %>
             <div class="item-15r">
               <%= image_tag transient_storage_url(@verification_attempt.selfie.blob), id: "selfie" %>
