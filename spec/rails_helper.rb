@@ -173,4 +173,19 @@ RSpec.configure do |config|
   config.before(type: :feature, js: true) do |example|
     @metadata_screenshot = example.metadata[:screenshot]
   end
+
+  config.after(type: :feature, js: true) do |example|
+    if example.exception
+      begin
+        browser_console_logs = page.driver.browser.logs.get(:browser)
+        if browser_console_logs.length > 0
+          STDERR.puts "\n\nvv During this test failure, there was some output in the browser's console vv"
+          STDERR.puts browser_console_logs.map(&:message).join("\n")
+          STDERR.puts "^^ ^^"
+        end
+      rescue
+        # Don't let any errors from printing the errors cause more errors
+      end
+    end
+  end
 end
