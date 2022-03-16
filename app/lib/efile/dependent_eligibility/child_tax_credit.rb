@@ -6,11 +6,10 @@ module Efile
         {
             qc_test: :qualifying_child?,
             tin_test: :ssn?,
-            age_test: [
-              :under_ctc_qualifying_age_limit?,
-            ],
+            age_test: :under_ctc_age_limit?,
         }
       end
+
 
       private
 
