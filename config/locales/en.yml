@@ -1967,6 +1967,18 @@ en:
           child_can_be_claimed_by_other:
             help_text: If your child is also the qualifying child of another person, only one of you may claim the child for related child tax benefits.
             title: Are you the only person who can claim %{name}?
+          child_claim_anyway:
+            help_text_html: |
+              <p>If you and someone else are eligible to claim %{name}, you should follow any existing agreement with the other person about who claims them.</p>
+              <p>Remember, if someone else has already claimed %{name} your return will be rejected. If that happens, we can guide you through the process of appealing the other claim, but it's not easy. You may choose to check first with the other caregivers.</p>
+            not_sure_reveal:
+              items:
+              - You are the parent who spent more time living with them.
+              - If you and the other parent spent the same amount of time with the dependent, whoever earned more money in %{current_tax_year} can claim them.
+              - If neither of you are the dependent’s parent, whoever earned more money in %{current_tax_year} can claim them.
+              p: 'You should claim the dependent if one of these situations is true:'
+              title: I’m unsure. Should I claim them?
+            title: Would you like to claim %{name} anyway?
           child_expenses:
             title: Did %{name} pay more than half their own living expenses in %{current_tax_year}?
           child_lived_with_you:
@@ -1988,18 +2000,6 @@ en:
           child_residence_exceptions:
             help_text: Select yes if they spent time living at school, in a medical facility, or somewhere else but their official address was with you.
             title: Was %{name}'s permanent residence with you for more than 6 months, even if they were away for part of that time?
-          claim_child_anyway:
-            help_text_html: |
-              <p>If you and someone else are eligible to claim %{name}, you should follow any existing agreement with the other person about who claims them.</p>
-              <p>Remember, if someone else has already claimed %{name} your return will be rejected. If that happens, we can guide you through the process of appealing the other claim, but it's not easy. You may choose to check first with the other caregivers.</p>
-            not_sure_reveal:
-              items:
-              - You are the parent who spent more time living with them.
-              - If you and the other parent spent the same amount of time with the dependent, whoever earned more money in %{current_tax_year} can claim them.
-              - If neither of you are the dependent’s parent, whoever earned more money in %{current_tax_year} can claim them.
-              p: 'You should claim the dependent if one of these situations is true:'
-              title: I’m unsure. Should I claim them?
-            title: Would you like to claim %{name} anyway?
           does_not_qualify_ctc:
             add_anyone_else: Would you like to add anyone else?
             conditions:

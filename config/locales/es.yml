@@ -1924,6 +1924,18 @@ es:
           child_can_be_claimed_by_other:
             help_text: Si su hijo es también el hijo calificado de otra persona, sólo uno de ustedes puede declarar al hijo para los beneficios tributarios por hijos relacionados.
             title: "¿Es usted la única persona que puede declarar a %{name}?"
+          child_claim_anyway:
+            help_text_html: |
+              <p>Si usted y otra persona tienen derecho a declarar a %{name}, debe seguir el acuerdo que tiene con la otra persona sobre quién lo declara.</p>
+              <p>Recuerde, si alguien más ya reclamó %{name}, su devolución será rechazada. Si eso sucede, podemos guiarlo a través del proceso de apelar el otro reclamo, pero no es fácil. Puede optar por consultar primero con los demás cuidadores.</p>
+            not_sure_reveal:
+              items:
+              - Usted es el padre de familia que haya vivido más tiempo con él/ella.
+              - Si usted y el otro progenitor han pasado el mismo tiempo con el dependiente, quien haya ganado más dinero en el %{current_tax_year}puede declararlo.
+              - Si ninguno de los dos es el progenitor del dependiente, quien haya ganado más dinero en el %{current_tax_year} puede declararlo.
+              p: 'Debe declarar al dependiente si una de estas situaciones es cierta:'
+              title: No estoy seguro/a. ¿Debería declararlo/a?
+            title: "¿Le gustaría declarar a %{name} de todas maneras?"
           child_expenses:
             title: "¿Pagó %{name} más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
           child_lived_with_you:
@@ -1945,18 +1957,6 @@ es:
           child_residence_exceptions:
             help_text: Seleccione "sí" si vivieron por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.
             title: "¿%{name} residió permanentemente con usted durante más de 6 meses, aunque haya estado fuera durante parte de ese tiempo?"
-          claim_child_anyway:
-            help_text_html: |
-              <p>Si usted y otra persona tienen derecho a declarar a %{name}, debe seguir el acuerdo que tiene con la otra persona sobre quién lo declara.</p>
-              <p>Recuerde, si alguien más ya reclamó %{name}, su devolución será rechazada. Si eso sucede, podemos guiarlo a través del proceso de apelar el otro reclamo, pero no es fácil. Puede optar por consultar primero con los demás cuidadores.</p>
-            not_sure_reveal:
-              items:
-              - Usted es el padre de familia que haya vivido más tiempo con él/ella.
-              - Si usted y el otro progenitor han pasado el mismo tiempo con el dependiente, quien haya ganado más dinero en el %{current_tax_year}puede declararlo.
-              - Si ninguno de los dos es el progenitor del dependiente, quien haya ganado más dinero en el %{current_tax_year} puede declararlo.
-              p: 'Debe declarar al dependiente si una de estas situaciones es cierta:'
-              title: No estoy seguro/a. ¿Debería declararlo/a?
-            title: "¿Le gustaría declarar a %{name} de todas maneras?"
           does_not_qualify_ctc:
             add_anyone_else: Would you like to add anyone else?
             conditions:

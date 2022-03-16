@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Ctc::Dependents::ClaimChildAnywayForm do
+describe Ctc::Dependents::ChildClaimAnywayForm do
   describe "#save" do
     let(:intake) { create :ctc_intake }
     let(:dependent) { create :dependent, intake: intake }

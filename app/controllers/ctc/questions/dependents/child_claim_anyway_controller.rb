@@ -1,7 +1,7 @@
 module Ctc
   module Questions
     module Dependents
-      class ClaimChildAnywayController < BaseDependentController
+      class ChildClaimAnywayController < BaseDependentController
         include AuthenticatedCtcClientConcern
         layout "yes_no_question"
 

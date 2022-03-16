@@ -1,6 +1,6 @@
 module Ctc
   module Dependents
-    class ClaimChildAnywayForm < DependentForm
+    class ChildClaimAnywayForm < DependentForm
       set_attributes_for :dependent, :claim_anyway
 
       validates_presence_of :claim_anyway

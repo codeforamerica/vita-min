@@ -44,14 +44,14 @@ module Efile
         age > 18
       end
 
+      def born_in_final_six_months?
+        dependent.born_in_final_6_months_of_tax_year?(tax_year)
+      end
+
       private
 
       def under_qualifying_age_limit?
         !over_qualifying_age_limit?
-      end
-
-      def born_in_final_six_months?
-        dependent.born_in_final_6_months_of_tax_year?(tax_year)
       end
 
       def qualified_student?

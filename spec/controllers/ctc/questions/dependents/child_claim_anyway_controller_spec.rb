@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Ctc::Questions::Dependents::ClaimChildAnywayController do
+describe Ctc::Questions::Dependents::ChildClaimAnywayController do
   let(:intake) { create :ctc_intake }
   let(:dependent) { create :dependent, intake: intake }
 
@@ -13,7 +13,7 @@ describe Ctc::Questions::Dependents::ClaimChildAnywayController do
       let(:params) do
         {
           id: dependent.id,
-          ctc_dependents_claim_child_anyway_form: {
+          ctc_dependents_child_claim_anyway_form: {
             claim_anyway: "yes"
           }
         }
@@ -30,7 +30,7 @@ describe Ctc::Questions::Dependents::ClaimChildAnywayController do
       let(:params) do
         {
           id: 'jeff',
-          ctc_dependents_claim_child_anyway_form: {
+          ctc_dependents_child_claim_anyway_form: {
             claim_anyway: "yes"
           }
         }
