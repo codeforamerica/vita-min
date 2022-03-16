@@ -121,90 +121,6 @@ describe Dependent do
     end
   end
 
-  describe "#meets_qc_misc_conditions?" do
-    context "with a dependent that paid for more than half their expenses" do
-      let(:dependent) { build :dependent, provided_over_half_own_support: "yes" }
-
-      it "returns true" do
-        expect(dependent.meets_qc_misc_conditions?).to eq false
-      end
-    end
-
-    context "with a dependent that is married and filing jointly" do
-      let(:dependent) { build :dependent, filed_joint_return: "yes" }
-
-      it "returns true" do
-        expect(dependent.meets_qc_misc_conditions?).to eq false
-      end
-    end
-
-    context "with a dependent that is none of the above" do
-      let(:dependent) { build :dependent, provided_over_half_own_support: "no", filed_joint_return: "no" }
-
-      it "returns false" do
-        expect(dependent.meets_qc_misc_conditions?).to eq true
-      end
-    end
-  end
-
-  describe "#meets_qc_residence_condition_generic?" do
-    context "with a dependent that lived with the client for 6 months or more" do
-      let(:dependent) { build :dependent, lived_with_more_than_six_months: "yes" }
-
-      it "returns true" do
-        expect(dependent.meets_qc_residence_condition_generic?).to eq true
-      end
-    end
-
-    context "with a dependent that lived with the client for less than 6 months" do
-      let(:dependent) { build :dependent, lived_with_more_than_six_months: "no" }
-
-      context "doesn't meet an exception" do
-        it "returns false" do
-          expect(dependent.meets_qc_residence_condition_generic?).to eq false
-        end
-      end
-
-      context "meets an exception" do
-        it "returns true" do
-          [:residence_exception_born, :residence_exception_passed_away, :residence_exception_adoption, :permanent_residence_with_client].each do |field|
-            dependent[field] = "yes"
-            expect(dependent.meets_qc_residence_condition_generic?).to eq true
-            dependent[field] = "no"
-          end
-        end
-      end
-    end
-  end
-
-  describe "#meets_qc_claimant_condition?" do
-    context "with a dependent that cannot be claimed by another" do
-      let(:dependent) { build :dependent, cant_be_claimed_by_other: "yes" }
-
-      it "returns true" do
-        expect(dependent.meets_qc_claimant_condition?).to eq true
-      end
-    end
-
-    context "with a dependent that can be claimed by another" do
-      context "and is claimed anyways" do
-        let(:dependent) { build :dependent, cant_be_claimed_by_other: "no", claim_anyway: "yes" }
-
-        it "returns true" do
-          expect(dependent.meets_qc_claimant_condition?).to eq true
-        end
-      end
-
-      context "and is not claimed anyways" do
-        let(:dependent) { build :dependent, cant_be_claimed_by_other: "no", claim_anyway: "no" }
-
-        it "returns false" do
-          expect(dependent.meets_qc_claimant_condition?).to eq false
-        end
-      end
-    end
-  end
-
   describe "#mixpanel_data" do
     let(:dependent) do
       build(
@@ -241,17 +157,18 @@ describe Dependent do
         context "with an itin" do
           let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :itin, ssn: "999793121" }
           it "is not qualified for any special credits" do
-            expect(dependent.eligible_for_eip2?).to eq false
-            expect(dependent.eligible_for_eip1?).to eq false
-            expect(dependent.eligible_for_child_tax_credit_2020?).to eq false
+            expect(dependent.eligible_for_eip2?(2020)).to eq false
+            expect(dependent.eligible_for_eip1?(2020)).to eq false
+            expect(dependent.eligible_for_child_tax_credit?(2020)).to eq false
           end
         end
+
         context "with an atin" do
           let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :atin }
           it "is qualified for eip but not ctc" do
-            expect(dependent.eligible_for_eip2?).to eq true
-            expect(dependent.eligible_for_eip1?).to eq true
-            expect(dependent.eligible_for_child_tax_credit_2020?).to eq false
+            expect(dependent.eligible_for_eip2?(2020)).to eq true
+            expect(dependent.eligible_for_eip1?(2020)).to eq true
+            expect(dependent.eligible_for_child_tax_credit?(2020)).to eq false
           end
         end
 
@@ -259,9 +176,9 @@ describe Dependent do
           let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :ssn }
 
           it "is qualified for all special credits" do
-            expect(dependent.eligible_for_eip2?).to eq true
-            expect(dependent.eligible_for_eip1?).to eq true
-            expect(dependent.eligible_for_child_tax_credit_2020?).to eq true
+            expect(dependent.eligible_for_eip2?(2020)).to eq true
+            expect(dependent.eligible_for_eip1?(2020)).to eq true
+            expect(dependent.eligible_for_child_tax_credit?(2020)).to eq true
           end
         end
       end
@@ -270,9 +187,9 @@ describe Dependent do
         let(:dependent) { create :qualifying_child, birth_date: Date.new(2003, 12, 31) }
 
         it "is false for all special credits" do
-          expect(dependent.eligible_for_eip2?).to eq false
-          expect(dependent.eligible_for_eip1?).to eq false
-          expect(dependent.eligible_for_child_tax_credit_2020?).to eq false
+          expect(dependent.eligible_for_eip2?(2020)).to eq false
+          expect(dependent.eligible_for_eip1?(2020)).to eq false
+          expect(dependent.eligible_for_child_tax_credit?(2020)).to eq false
         end
       end
     end
@@ -280,9 +197,9 @@ describe Dependent do
     context "when not a qualifying child" do
       let(:dependent) { create :qualifying_relative }
       it "is false for all special credits" do
-        expect(dependent.eligible_for_eip2?).to eq false
-        expect(dependent.eligible_for_eip1?).to eq false
-        expect(dependent.eligible_for_child_tax_credit_2020?).to eq false
+        expect(dependent.eligible_for_eip2?(2020)).to eq false
+        expect(dependent.eligible_for_eip1?(2020)).to eq false
+        expect(dependent.eligible_for_child_tax_credit?(2020)).to eq false
       end
     end
   end

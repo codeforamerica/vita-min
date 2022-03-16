@@ -41,9 +41,9 @@ module Efile
       end
 
       def over_qualifying_age_limit?
-        return age > 17 if tax_year == 2020
+        return age >= 17 if tax_year == 2020
 
-        age > 18
+        age >= 18
       end
 
       def under_qualifying_age_limit?
