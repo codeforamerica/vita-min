@@ -139,18 +139,21 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit?(tax_year = TaxReturn.current_tax_year)
-    child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
-    child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && tin_type_ssn?
+    Efile::DependentEligibility::ChildTaxCredit.new(self, tax_year).qualifies?
   end
 
   def eligible_for_eip1?(tax_year = TaxReturn.current_tax_year)
+    return false unless tax_year == 2020
+
     child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
-    child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
+    child_qualifiers.qualifies? && child_qualifiers.age < 17 && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def eligible_for_eip2?(tax_year = TaxReturn.current_tax_year)
+    return false unless tax_year == 2020
+
     child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
-    child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
+    child_qualifiers.qualifies? && child_qualifiers.age < 17 && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
   def eligible_for_eip3?(tax_year = TaxReturn.current_tax_year)
