@@ -47,19 +47,6 @@ describe Efile::Relationship do
   end
 
   describe "qualifying_relative_requires_member_of_household_test?" do
-    context "when skip_relative_household_test is false" do
-      context "from a yml relationship" do
-        it "requires the household test" do
-          expect(described_class.find("siblings_descendant").qualifying_relative_requires_member_of_household_test?).to eq true
-        end
-      end
 
-      context "from instantiation" do
-        it "is true" do
-          instance = described_class.new("siblings_descendant", :qualifying_relative, "OTHER", false)
-          expect(instance.qualifying_relative_requires_member_of_household_test?).to eq true
-        end
-      end
-    end
   end
 end
