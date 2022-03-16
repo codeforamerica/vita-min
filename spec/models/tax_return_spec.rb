@@ -312,17 +312,6 @@ describe TaxReturn do
     end
   end
 
-  describe "#qualifying_dependents" do
-    let(:tax_return) { create :tax_return, year: 2019 }
-    context "when the tax year is not 2020" do
-      it "raises an error" do
-        expect {
-          tax_return.qualifying_dependents
-        }.to raise_error StandardError
-      end
-    end
-  end
-
   describe "#advance_to" do
     let(:tax_return) { create :tax_return, status.to_sym }
 
