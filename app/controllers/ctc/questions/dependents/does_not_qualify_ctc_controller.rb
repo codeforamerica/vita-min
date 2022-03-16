@@ -5,12 +5,6 @@ module Ctc
         include AuthenticatedCtcClientConcern
         layout "intake"
 
-        def self.show?(dependent)
-          return false unless dependent&.relationship
-
-          !dependent.yr_2020_qualifying_child? && !dependent.yr_2020_qualifying_relative?
-        end
-
         def edit
           @dependent = current_resource
           super

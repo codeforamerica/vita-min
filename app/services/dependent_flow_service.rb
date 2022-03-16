@@ -46,6 +46,11 @@ class DependentFlowService
 
       eligibility = relative_qualification(except: :claimable_test)
       eligibility.qualifies?
+    when "Ctc::Questions::Dependents::DoesNotQualifyCtcController"
+      return false if child_qualification.qualifies?
+      return false if relative_qualification.qualifies?
+
+      true
     else
       raise "must define show? rule for controller in DependentLogicService for #{controller_name}"
     end

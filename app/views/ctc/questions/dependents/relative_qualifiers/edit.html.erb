@@ -1,0 +1,22 @@
+<% name = @dependent.first_name&.titleize %>
+<% @main_question = t("views.ctc.questions.dependents.relative_qualifiers.title", name: name) %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= @main_question %></h1>
+
+    <div class="form-card__stacked-checkboxes spacing-above-0">
+      <p><strong><%= t("views.ctc.questions.dependents.relative_qualifiers.help_text", current_tax_year: current_tax_year) %></strong></p>
+      <%= f.cfa_checkbox(:below_qualifying_relative_income_requirement, t("views.ctc.questions.dependents.relative_qualifiers.income_requirement", name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:cant_be_claimed_by_other, t("views.ctc.questions.dependents.relative_qualifiers.claimable", name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <hr/>
+      <%= f.cfa_checkbox(:none_of_the_above, t("general.none_of_these"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
+    </div>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%= t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>
