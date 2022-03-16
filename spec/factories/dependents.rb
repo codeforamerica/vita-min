@@ -87,6 +87,8 @@ FactoryBot.define do
       relationship { "parent" }
       meets_misc_qualifying_relative_requirements { "yes" }
       ssn { "123121234" }
+      filer_provided_over_half_support { "yes" }
+      provided_over_half_own_support { "no" }
     end
 
     factory :nonqualifying_dependent do

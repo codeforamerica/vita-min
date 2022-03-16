@@ -31,26 +31,6 @@ describe Efile::DependentEligibility::QualifyingChild do
     end
   end
 
-  describe ".age" do
-    let(:dependent) { create :qualifying_child, birth_date: birth_date }
-
-    context "when born on Jan 1 of the tax year" do
-      let(:birth_date) { Date.new(TaxReturn.current_tax_year, 1, 1) }
-
-      it "is 0" do
-        expect(subject.age).to eq(0)
-      end
-    end
-
-    context "when born on Dec 31 of the previous year" do
-      let(:birth_date) { Date.new(TaxReturn.current_tax_year - 1, 12, 31) }
-
-      it "is 1" do
-        expect(subject.age).to eq(1)
-      end
-    end
-  end
-
   describe "relationship_test" do
     let(:relationship) { "daughter" }
     let(:dependent) { create :qualifying_child, relationship: relationship }

@@ -35,13 +35,16 @@ class CtcQuestionNavigation
 
     # Looping Dependents Questions
     Ctc::Questions::Dependents::InfoController,
-    Ctc::Questions::Dependents::ChildQualifiesController,
+    Ctc::Questions::Dependents::ChildQualifiersController,
     Ctc::Questions::Dependents::ChildExpensesController,
     Ctc::Questions::Dependents::ChildLivedWithYouController,
     Ctc::Questions::Dependents::ChildResidenceExceptionsController,
     Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController,
     Ctc::Questions::Dependents::ClaimChildAnywayController,
     Ctc::Questions::Dependents::QualifyingRelativeController,
+    # Ctc::Questions::Dependents::RelativeMemberOfHouseholdController,
+    # Ctc::Questions::Dependents::RelativeFinancialSupportController,
+    # Ctc::Questions::Dependents::RelativeQualifiersController,
     Ctc::Questions::Dependents::DoesNotQualifyCtcController,
 
     # Dependents Summary

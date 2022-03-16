@@ -1,24 +1,44 @@
 module Efile
   module DependentEligibility
     class QualifyingRelative < Efile::DependentEligibility::Base
-      def rules
+      def self.rules
         {
+            is_supported_test: :provided_over_half_own_support_no?,
             relationship_test: [
-                :qualifying_relative_relationship?,
-                :qualifying_child_relationship? # only run relative requirements after child requirements - can only be one.
+              :qualifying_relative_relationship?,
+              :qualifying_child_relationship?
             ],
             tin_test: :ssn?,
-            # Questions::Ctc::Dependents::RelativeResidencyController
-            residence_test: :residence_lived_with_all_year_yes?,
+            # Questions::Ctc::Dependents::RelativeMemberOfHouseholdController
+            residence_test: :is_member_of_household_if_required?,
             # Questions::Dependents::RelativeExpensesController
             financial_support_test: :filer_provided_over_half_support_yes?,
             # Questions::Dependents::RelativeQualifiersController
-            miscellaneous_requirements: [
-                :meets_misc_qualifying_relative_requirements_yes?, # 2020 tax year question
-                :below_qualifying_relative_income_requirement_yes?, # 2021, more specific
-                :cant_be_claimed_by_other_yes? # 2021, more specific
+            claimable_test: [
+              :meets_misc_qualifying_relative_requirements_yes?, # 2020 tax year question
+              :cant_be_claimed_by_other_and_below_income_requirement? # 2021
             ]
         }
+      end
+
+      def requires_member_of_household_test?
+        dependent.relationship_info.qualifying_relative_requires_member_of_household_test?
+      end
+
+      private
+
+      # These questions are grouped into one rule so that we can be backwards compatible with 2020 eligibility,
+      # which stored the answers to both questions in one attribute called meets_misc_qualifying_relative_requirements
+      def cant_be_claimed_by_other_and_below_income_requirement?
+        dependent.cant_be_claimed_by_other_yes? && dependent.below_qualifying_relative_income_requirement_yes?
+      end
+
+      # Most relationships are considered a "member of the household" without needing to live in the household all year
+      # For other relationships, 12 months living in household is required to be a member of the household
+      def is_member_of_household_if_required?
+        return true unless requires_member_of_household_test?
+
+        requires_member_of_household_test? && dependent.residence_lived_with_all_year_yes?
       end
     end
   end

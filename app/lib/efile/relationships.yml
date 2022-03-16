@@ -3,66 +3,88 @@ relationships:
   - id: daughter
     relationship: qualifying_child
     irs_enum: DAUGHTER
+    skip_relative_household_test: true
   - id: son
     relationship: qualifying_child
     irs_enum: SON
+    skip_relative_household_test: true
   - id: parent
     relationship: qualifying_relative
     irs_enum: PARENT
+    skip_relative_household_test: true
   - id: grandchild
     relationship: qualifying_child
     irs_enum: GRANDCHILD
+    skip_relative_household_test: true
   - id: niece
     relationship: qualifying_child
     irs_enum: NIECE
+    skip_relative_household_test: true
   - id: nephew
     relationship: qualifying_child
     irs_enum: NEPHEW
+    skip_relative_household_test: true
   - id: foster_child
     relationship: qualifying_child
     irs_enum: FOSTER CHILD
+    skip_relative_household_test: true
   - id: aunt
     relationship: qualifying_relative
     irs_enum: AUNT
+    skip_relative_household_test: true
   - id: uncle
     relationship: qualifying_relative
     irs_enum: UNCLE
+    skip_relative_household_test: true
   - id: sister
     relationship: qualifying_child
     irs_enum: SISTER
+    skip_relative_household_test: true
   - id: brother
     relationship: qualifying_child
     irs_enum: BROTHER
+    skip_relative_household_test: true
   - id: stepchild
     relationship: qualifying_child
     irs_enum: STEPCHILD
+    skip_relative_household_test: true
   - id: stepbrother
     relationship: qualifying_child
     irs_enum: STEPBROTHER
+    skip_relative_household_test: true
   - id: stepsister
     relationship: qualifying_child
     irs_enum: STEPSISTER
+    skip_relative_household_test: true
   - id: half_brother
     relationship: qualifying_child
     irs_enum: HALF BROTHER
+    skip_relative_household_test: true
   - id: half_sister
     relationship: qualifying_child
     irs_enum: HALF SISTER
+    skip_relative_household_test: true
   - id: grandparent
     relationship: qualifying_relative
     irs_enum: GRANDPARENT
+    skip_relative_household_test: true
   - id: great_grandchild
     relationship: qualifying_child
     irs_enum: OTHER
+    skip_relative_household_test: true
   - id: step_parent
     relationship: qualifying_relative
     irs_enum: OTHER
+    skip_relative_household_test: true
   - id: in_law
     relationship: qualifying_relative
     irs_enum: OTHER
+    skip_relative_household_test: true
   - id: siblings_descendant
     relationship: qualifying_child
     irs_enum: OTHER
+    skip_relative_household_test: false
   - id: other
     relationship: qualifying_relative
     irs_enum: OTHER
+    skip_relative_household_test: false

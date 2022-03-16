@@ -1928,7 +1928,7 @@ es:
           child_lived_with_you:
             help_text: Seleccione sí si nació, adoptó o falleció en %{current_tax_year} y vivió con usted durante al menos la mitad de su tiempo
             title: "¿Vivió %{name} con usted durante más de 6 meses en %{current_tax_year}?"
-          child_qualifies:
+          child_qualifiers:
             disabled_reveal:
               info: Un médico determina si tiene una discapacidad permanente cuando no puede realizar la mayor parte de su trabajo debido a una condición física o mental.
               title: "¿Qué es permanente y totalmente discapacitado?"

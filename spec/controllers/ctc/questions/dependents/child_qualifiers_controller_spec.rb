@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Ctc::Questions::Dependents::ChildQualifiesController do
+describe Ctc::Questions::Dependents::ChildQualifiersController do
   let(:intake) { create :ctc_intake }
   let(:dependent) { create :dependent, intake: intake }
 
@@ -13,7 +13,7 @@ describe Ctc::Questions::Dependents::ChildQualifiesController do
       let(:params) do
         {
           id: dependent.id,
-          ctc_dependents_child_qualifies_form: {
+          ctc_dependents_child_qualifiers_form: {
             full_time_student: "yes",
             permanently_totally_disabled: "yes"
           }
@@ -32,7 +32,7 @@ describe Ctc::Questions::Dependents::ChildQualifiesController do
       let(:params) do
         {
           id: 'invalid_id',
-          ctc_dependents_child_disqualifiers_form: {
+          ctc_dependents_child_qualifiers_form: {
             full_time_student: "yes",
             permanently_totally_disabled: "yes"
           }

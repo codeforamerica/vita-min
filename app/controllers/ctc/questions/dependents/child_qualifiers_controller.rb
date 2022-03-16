@@ -1,7 +1,7 @@
 module Ctc
   module Questions
     module Dependents
-      class ChildQualifiesController < BaseDependentController
+      class ChildQualifiersController < BaseDependentController
         include AuthenticatedCtcClientConcern
         include RecaptchaScoreConcern
 
