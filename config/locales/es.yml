@@ -270,19 +270,19 @@ es:
       foster_child: Niño de Crianza Temporal
       grandchild: Nieta/Nieto
       grandparent: Abuela/Abuelo
-      great_grandchild: Bisnieta/Bisnieto
+      great_grandchild: Bisnieto
       half_brother: Medio hermano
       half_sister: Medio hermana
-      in_law: Consuegro
+      in_law: Familiar político
       nephew: Sobrino
       niece: Sobrina
-      other: Otra relación no listada
+      other: Otra relación que no aparece en la lista
       other_freefill: Otro
       parent: Madre/Padre
-      siblings_descendant: Otras descendientes de mis hermanas
+      siblings_descendant: Otros descendientes de mis hermanos
       sister: Hermana
       son: Hijo
-      step_parent: Padrastro/Madrastra
+      step_parent: Padrastro o madrastra
       stepbrother: Stepbrother
       stepchild: Hijastro/Hijastra
       stepsister: Stepsister
@@ -955,7 +955,7 @@ es:
 
         Para declaraciones presentadas con su cónyuge: su cónyuge también debe revisar y firmar.
 
-         Una vez que firme, podemos presentar su declaración electrónicamente.
+        Una vez que firme, podemos presentar su declaración electrónicamente.
 
         Inicie sesión para acceder a su declaración y aprovar su declaración: <<Client.LoginLink>>
 
@@ -1869,9 +1869,9 @@ es:
           atin: Número de Adopción
           birthday: Fecha de nacimiento
           done_adding: Ya no hay más dependientes por agregar
-          no_qualifying_dependents: No dependientes que califican
-          qualifying_for_ctc: Dependientes que califican para CTC y los pagos de estímulo
-          qualifying_for_other_credits: Dependientes que califican para los pagos de estímulo solor
+          no_qualifying_dependents: No hay dependientes que cumplan los requisitos
+          qualifying_for_ctc: Dependientes para el CTC y por estímulo
+          qualifying_for_other_credits: Dependientes con sólo derecho a recibir por estímulo
           ssn: Número de Seguro Social
           ssn_no_employment: Número de seguro social (no válido para empleo)
           title: Confirmemos sus dependientes
@@ -1921,29 +1921,29 @@ es:
           title: "¿Cuál es la mejor manera de comunicarnos con usted?"
         dependents:
           child_can_be_claimed_by_other:
-            help_text: Si su hijo también es el hijo calificado de otra persona, solo uno de ustedes puede reclamar al hijo para los beneficios tributarios por hijos relacionados.
+            help_text: Si su hijo es también el hijo calificado de otra persona, sólo uno de ustedes puede declarar al hijo para los beneficios tributarios por hijos relacionados.
             title: "¿Es usted la única persona que puede declarar a %{name}?"
           child_expenses:
-            title: "¿%{name} pagó más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
+            title: "¿Pagó %{name} más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
           child_lived_with_you:
-            help_text: Seleccione sí si nació, adoptó o falleció en %{current_tax_year} y vivió con usted durante al menos la mitad de su tiempo
+            help_text: Seleccione "sí" si nacieron, fueron adoptados o fallecieron en el %{current_tax_year} y vivieron con usted al menos la mitad del tiempo.
             title: "¿Vivió %{name} con usted durante más de 6 meses en %{current_tax_year}?"
           child_qualifiers:
             disabled_reveal:
-              info: Un médico determina si tiene una discapacidad permanente cuando no puede realizar la mayor parte de su trabajo debido a una condición física o mental.
-              title: "¿Qué es permanente y totalmente discapacitado?"
-            full_time_student: "%{name} es estudiante de tiempo completo"
-            help_text: 'Seleccione cualquier situación que fuera cierta en %{current_tax_year}:'
-            permanently_totally_disabled: "%{name} tiene una discapacidad permanente y total"
+              info: Un médico determina si tiene una incapacidad permanente cuando no puede realizar la mayor parte de su trabajo debido a una enfermedad física o mental.
+              title: "¿Qué es la incapacidad permanente y total?"
+            full_time_student: " %{name} fue estudiante a tiempo completo"
+            help_text: 'Seleccione cualquier situación que haya sido cierta en %{current_tax_year}:'
+            permanently_totally_disabled: "%{name}estuvo permanente y totalmente incapacitado"
             student_reveal:
               info_html: |
-                <p>Una persona es estudiante de tiempo completo si está inscrita en una escuela por la cantidad de horas o clases que la escuela considera de tiempo completo.</p>
-                <p>Deben ser a tiempo completo durante una parte de 5 meses calendario durante el año. Los meses no tienen que ser consecutivos.</p>
-              title: "¿Quién se considera un estudiante de tiempo completo?"
-            title: Perfecto, ¡asegurémonos de que %{name} cumple los requisitos!
+                <p>Una persona es estudiante a tiempo completo si está matriculada en un centro de estudios durante el número de horas o clases que el centro considera a tiempo completo.</p>
+                <p>Deben estar a tiempo completo durante alguna parte de 5 meses del año natural. Los meses no tienen que ser consecutivos.</p>
+              title: "¿A quién se le considera estudiante a tiempo completo?"
+            title: "¡Excelente, asegurémonos de que %{name} califique!"
           child_residence_exceptions:
-            help_text: Seleccione sí si pasaron tiempo viviendo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial era la suya.
-            title: "¿Estuvo la residencia permanente de %{name} con usted durante más de 6 meses, incluso si estuvieron fuera durante parte de ese tiempo?"
+            help_text: Seleccione "sí" si vivieron por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.
+            title: "¿%{name} residió permanentemente con usted durante más de 6 meses, aunque haya estado fuera durante parte de ese tiempo?"
           claim_child_anyway:
             help_text_html: |
               <p>Si usted y otra persona tienen derecho a declarar a %{name}, debe seguir el acuerdo que tiene con la otra persona sobre quién lo declara.</p>
@@ -1969,14 +1969,14 @@ es:
             reveal: Why doesn’t this person qualify?
             title: You can not claim benefits for %{name}.
           info:
-            filed_joint_return: Su dependiente estaba casado/a y declaró impuestos con su cónyuge
-            first_name: El primer nombre legal de su dependiente
+            filed_joint_return: Esta persona estaba casada y declaró impuestos con su cónyuge
+            first_name: Primer nombre legal
             help_text: Para evitar retrasos, favor de facilitar los datos legales de su dependiente tal y como figuran en su tarjeta de identificación.
-            last_name: El apellido legal de su dependiente
-            middle_initial: El segundo nombre de su dependiente (Opcional)
+            last_name: Apellido legal
+            middle_initial: Segundo nombre(s) legal (opcional)
             relationship_to_you: "¿Qué relación tiene con usted?"
-            situations: 'Seleccione cualquier situación que sea válida:'
-            suffix: Forma de tratamiento del dependiente, por ejemplo, Sr., Sra., Srta.
+            situations: 'Seleccione si lo siguiente es cierto:'
+            suffix: Suffix
             title: Veamos algunos datos básicos sobre su dependiente.
           qualifying_relative:
             help_text:
@@ -1995,10 +1995,10 @@ es:
             subtitle: "¿Está bien?"
             title: Está a punto de borrar a %{dependent_name}.
           tin:
-            form_of_identity: Tipo de identificación de su dependiente
+            form_of_identity: Forma de identidad
             remove_person: Quite a esta persona
-            ssn_or_atin: 'El SSN o ATIN: Número de Identificación Fiscal de Adopción de su dependiente'
-            ssn_or_atin_confirmation: Confirme el SSN o ATIN de su dependiente
+            ssn_or_atin: Introduzca su Número de Seguro Social, SSN en inglés o el Número de Identificación del Contribuyente para Adopciones, ATIN e inglés.
+            ssn_or_atin_confirmation: Introduzca de nuevo su SSN o ATIN
         direct_deposit:
           my_bank_account:
             error_message: Introduzca la información de una cuenta bancaria con su nombre, o seleccione otro método de pago.
@@ -2027,8 +2027,8 @@ es:
           single: Soltero
           title: "¿Cómo desea presentar su declaración de impuestos?"
         had_dependents:
-          help_text: Alguien que vivió con usted la mayor parte del año o a quien usted apoyó financieramente podría calificar como dependiente.
-          title: "¿Le gustaría agregar un niño u otra persona a la que apoyó en %{current_tax_year}"
+          help_text: Una persona que haya vivido con usted la mayor parte del año o a la que Ud. haya mantenido económicamente puede ser considerada como dependiente.
+          title: "¿Desea añadir un hijo u otra persona a la que haya mantenido en el %{current_tax_year}?"
         home:
           help_text: Su domicilio debe haber estado en Estados Unidos durante más de la mitad del año fiscal.
           options:
@@ -2072,7 +2072,7 @@ es:
           sms_phone_number: Número de teléfono
           ssn: SSN o ITIN
           ssn_confirmation: Confirme el SSN o ITIN
-          ssn_not_valid_for_employment: Este SSN no es válido para empleo
+          ssn_not_valid_for_employment: La tarjeta del SSN de esta persona tiene impreso "No válido para el empleo".
           suffix: Forma de tratamiento, por ejemplo, Sr., Sra., Srta.
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
         life_situations:
@@ -3069,9 +3069,9 @@ es:
               question: "¿Cómo puedo conseguir un Número de Identificación Personal del Contribuyente (ITIN en inglés)?"
             if_i_file_my_taxes_can_ice_get_my_data:
               answer_html: |
-                <p>A muchas personas que no están autorizadas a vivir en Estados Unidos les preocupa que la declaración de impuestos aumente su exposición al gobierno, temiendo que esto pueda resultar en última instancia en la deportación. Si usted ya tiene un Número de Identificación Personal del Contribuyente (ITIN en inglés), el IRS tiene su información, a menos que se haya mudado recientemente. Usted no está aumentando su exposición al renovar un Número de Identificación Personal del Contribuyente (ITIN en inglés) o declarar impuestos con un Número de Identificación Personal del Contribuyente (ITIN en inglés).</p>
+                <p>A muchas personas que no están autorizadas a vivir en Estados Unidos les preocupa que la declaración de impuestos aumente su exposición al gobierno, temiendo que esto pueda resultar en última instancia en la deportación. Si usted ya tiene un Número de Identificación Personal del Contribuyente (ITIN en inglés), el IRS tiene su información, a menos que se haya mudado recientemente. Usted no está aumentando su exposición al renovar un ITIN o declarar impuestos con un ITIN.</p>
                 <p>La ley actual generalmente prohíbe al IRS compartir la información de la declaración de  con otras agencias, con algunas excepciones importantes. Por ejemplo, la información de la declaración de impuestos puede ser compartida en ciertos casos con las agencias estatales responsables de la administración de impuestos o con las agencias de aplicación de la ley para la investigación y el enjuiciamiento de las leyes penales no fiscales. Las protecciones contra la divulgación de información están establecidas en la ley, por lo que no pueden ser anuladas por una orden ejecutiva presidencial u otra acción administrativa, a menos que el Congreso cambie la ley.</p>
-                <p>Después de informarse sobre los riesgos y beneficios potenciales, sólo proceda a solicitar un Número de Identificación Personal del Contribuyente (ITIN en inglés) o a declarar impuestos si se siente cómodo. Esta información no constituye asesoramiento legal. Consulte con un abogado de inmigración si tiene alguna duda.</p>
+                <p>Después de informarse sobre los riesgos y beneficios potenciales, sólo proceda a solicitar un ITIN o a declarar impuestos si se siente cómodo. Esta información no constituye asesoramiento legal. Consulte con un abogado de inmigración si tiene alguna duda.</p>
               question: Si declaro mis impuestos, ¿puede el ICE obtener mis datos?
             title: Solicitud de Número de Identificación Personal del Contribuyente (ITIN en inglés) para personas sin número de Seguro Social
             what_is_an_itin_itin_number:
@@ -3299,7 +3299,7 @@ es:
       home:
         clients:
           across_us: de clientes en todo Estados Unidos.
-          header: Lo qué opinan nuestros clientes
+          header: Lo que dicen nuestros clientes
           quote1:
             body: '"Sólo quería decirles que no puedo expresar cuánto estrés me aliviaron al ofrecer sus servicios en línea. Había visto otros servicios como Credit Karma o Turbo Tax, pero no tenia confianza a los pasos iniciales, así que no seguí adelante. Hasta que encontré GetYourRefund y ¡Dios mío, es increíble!"'
             header: "¡Dios mío esto es increíble!"
@@ -3308,8 +3308,8 @@ es:
             header: Son muy profesionales y amables
           rating: Hemos recibido una valoración de 4.8/5 estrellas
           trusted_support:
-            body: Somos un servicio virtual gratuito respaldado por el IRS, el Departamento del Tesoro de los EE. UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos en todo Estados Unidos a recibir servicios de impuestos de alta calidad desde la comodidad de su hogar.
-            title: Reclame sus créditos fácilmente con nuestro soporte de confianza.
+            body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
+            title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
         closing_banner_html: <strong>Los servicios de GetYourRefund volverán abrir el 31 de enero de 2022 esta temporada de impuestos.</strong>Para recibir asistencia para la preparación de sus impuestos gratis ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
         features:
           amendments: Presenta enmiendas para años anteriores
@@ -3324,8 +3324,8 @@ es:
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
-          header: Estamos comprometidos a proteger su información.
-        subheader: "¡Si tiene ingresos del trabajo y está listo para declarar su declaración con todos sus formularios de impuestos, le podemos ayudar a maximizar sus beneficios tributarios!"
+          header: Nos comprometemos a mantener la seguridad de su información.
+        subheader: "¡Solicite miles de dólares a través de los créditos fiscales que le corresponden! Trabajamos con usted para obtener su mayor reembolso."
         subheader_offseason: "¡Regístrese para la temporada de impuestos de 2022 ahora! Le notificaremos en cuanto nuestros servicios vuelvan a abrir el 31 de enero a la 1pm EST-- Hora estándar del Este. "
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
@@ -3909,7 +3909,7 @@ es:
           other: En %{year}, ¿Hizo usted o su pareja algún pago de pensión alimenticia?
       personal_info:
         info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
-        need_itin_help: "¿Necesita ayuda para solicitar un número de identificación personal del contribuyente (ITIN)?"
+        need_itin_help: "¿Necesita ayuda para solicitar un ITIN?"
         phone_number: Número de teléfono
         phone_number_confirmation: Confirmar número de teléfono
         preferred_name: "¿Cuál primer nombre prefieres usar?"
