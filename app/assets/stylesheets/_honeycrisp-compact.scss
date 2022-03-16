@@ -1,17 +1,6 @@
 
 // likely needed in main repo
 .honeycrisp-compact {
-  .container{
-    display:flex;
-    height: 100%;
-    width: 100%;
-
-    .item{
-      max-width:50%;
-      object-fit: contain;
-      height: 100%;
-    }
-  }
   .tab-bar__tab {
     background-color: $color-grey-light;
   }
