@@ -130,15 +130,8 @@ class Dependent < ApplicationRecord
     relationship_info.irs_enum
   end
 
-  def eligible_for_child_tax_credit_2020?
+  def eligible_for_child_tax_credit?(tax_year)
     yr_2020_age < 17 && yr_2020_qualifying_child? && tin_type_ssn?
-  end
-
-  # WIP
-  def eligible_for_child_tax_credit_2021?
-    raise NotImplementedError, "Dependent eligibility rules not finalized for 2021 yet." unless ENV["TEST_SCHEMA_VALIDITY_ONLY"] == 'true'
-
-    true
   end
 
   def eligible_for_eip1?
