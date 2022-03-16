@@ -85,10 +85,11 @@ FactoryBot.define do
 
     factory :qualifying_relative do
       relationship { "parent" }
-      meets_misc_qualifying_relative_requirements { "unfilled" } # this was used for 2020 tax season, but not 2021
       ssn { "123121234" }
       filer_provided_over_half_support { "yes" }
       provided_over_half_own_support { "no" }
+      # this was used for 2020 tax season, but not 2021. Change to "unfilled" after migrating to QualifyingRelative class
+      meets_misc_qualifying_relative_requirements { "yes" }
     end
 
     factory :nonqualifying_dependent do

@@ -57,10 +57,6 @@ module Efile
       def qualified_student?
         age < 24 && dependent.full_time_student_yes?
       end
-
-      def alive_during_tax_year?
-        !dependent.born_after_tax_year?(tax_year)
-      end
     end
   end
 end
