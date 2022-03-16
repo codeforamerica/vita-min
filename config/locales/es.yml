@@ -4167,8 +4167,8 @@ es:
         required_information: Información obligatoria
         services:
           diy:
-            colloquial: Declarar por mi cuenta, "DIY" en inglés
-            cta: Elegir declarar por mi cuenta o "File Myself" en inglés
+            colloquial: ''
+            cta: Elegir declarar por mi cuenta
             service_description: Declare rápidamente por su cuenta para 2021.
             service_name: Declarar por mi cuenta o "File Myself" en inglés
           express:
