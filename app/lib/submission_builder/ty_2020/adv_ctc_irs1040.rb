@@ -19,7 +19,7 @@ module SubmissionBuilder
           xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
           xml.DependentSSN dependent.ssn
           xml.DependentRelationshipCd dependent.irs_relationship_enum
-          xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit_2020?
+          xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit?(2020)
         end
       end
 

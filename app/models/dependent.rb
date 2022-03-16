@@ -130,22 +130,22 @@ class Dependent < ApplicationRecord
     relationship_info.irs_enum
   end
 
-  def eligible_for_child_tax_credit?(tax_year)
+  def eligible_for_child_tax_credit?(tax_year = TaxReturn.current_tax_year)
     child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
     child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && tin_type_ssn?
   end
 
-  def eligible_for_eip1?(tax_year)
+  def eligible_for_eip1?(tax_year = TaxReturn.current_tax_year)
     child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
     child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
-  def eligible_for_eip2?(tax_year)
+  def eligible_for_eip2?(tax_year = TaxReturn.current_tax_year)
     child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
     child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
-  def eligible_for_eip3?(tax_year)
+  def eligible_for_eip3?(tax_year = TaxReturn.current_tax_year)
     Efile::DependentEligibility::QualifyingChild.new(self, tax_year).qualifies? || Efile::DependentEligibility::QualifyingRelative.new(self, tax_year).qualifies?
   end
 
