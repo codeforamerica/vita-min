@@ -21,14 +21,14 @@ class DependentFlowService
       eligibility.qualifies?
     when "Ctc::Questions::Dependents::ChildLivedWithYouController"
       eligibility = child_qualification(except: [:residence_test, :claimable_test])
-      eligibility.qualifies?
+      eligibility.qualifies? && !eligibility.born_in_final_six_months?
     when "Ctc::Questions::Dependents::ChildResidenceExceptionsController"
       eligibility = child_qualification(except: [:residence_test, :claimable_test])
       dependent.lived_with_more_than_six_months_no? && eligibility.qualifies?
     when "Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController"
       eligibility = child_qualification(except: :claimable_test)
       eligibility.qualifies?
-    when "Ctc::Questions::Dependents::ClaimChildAnywayController"
+    when "Ctc::Questions::Dependents::ChildClaimAnywayController"
       eligibility = child_qualification(except: :claimable_test)
       dependent.cant_be_claimed_by_other_no? && eligibility.qualifies?
     when "Ctc::Questions::Dependents::RelativeMemberOfHouseholdController"
