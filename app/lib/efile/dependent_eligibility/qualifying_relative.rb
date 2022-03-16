@@ -3,12 +3,22 @@ module Efile
     class QualifyingRelative < Efile::DependentEligibility::Base
       def self.rules
         {
-            is_supported_test: :provided_over_half_own_support_no?,
+            # Ctc::Questions::Dependents::Info
+            birth_test: :alive_during_tax_year?,
+            married_filing_joint_test: [
+                :filed_joint_return_no?,
+                :filed_joint_return_unfilled?
+            ],
             relationship_test: [
-              :qualifying_relative_relationship?,
-              :qualifying_child_relationship?
+                :qualifying_relative_relationship?,
+                :qualifying_child_relationship?
             ],
             tin_test: :ssn?,
+            # Ctc::Questions::Dependents::ChildExpensesController
+            is_supported_test: [
+                :provided_over_half_own_support_no?,
+                :provided_over_half_own_support_unfilled? # allows for fall-through of failing QC age to QR flow
+            ],
             # Questions::Ctc::Dependents::RelativeMemberOfHouseholdController
             residence_test: :is_member_of_household_if_required?,
             # Questions::Dependents::RelativeExpensesController

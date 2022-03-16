@@ -129,3 +129,14 @@
   margin-left: 2rem;
   line-height: .5rem;
 }
+
+.form-card__stacked-checkboxes {
+  max-width: $width-form-long;
+  .form-group {
+    margin-bottom: .5rem;
+  }
+  hr {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+}

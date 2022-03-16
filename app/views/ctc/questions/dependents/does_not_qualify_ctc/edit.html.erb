@@ -3,7 +3,6 @@
 <% content_for :page_title, @main_question %>
 
 <% content_for :form_card do %>
-
   <h1 class="h2"><%= @main_question %></h1>
   <p><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.help_text", name:  @dependent.first_name.capitalize) %></p>
   <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.does_not_qualify_ctc.reveal")) do %>
@@ -14,15 +13,20 @@
     </ul>
   <% end %>
 
-  <h2><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.add_anyone_else") %></h2>
-  <div class="grid-flex spacing-above-25">
-      <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--icon button--icon--centered button--med-wide" do %>
-        <%= image_tag("checkmark.svg", alt: "") %>
-        <%= t("general.affirmative") %>
-      <% end %>
-      <%= link_to next_path, class: "button button--icon button--icon--centered button--med-wide" do %>
-        <%= image_tag("crossmark.svg", alt: "") %>
-        <%= t("general.negative") %>
-      <% end %>
+  <div class="form-card--yes-no spacing-above-25">
+    <h2 class="spacing-below-0"><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.add_anyone_else") %></h2>
+
+    <div class="options-wrapper">
+      <div class="yes-no-buttons">
+        <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--icon button--icon--centered button--med-wide" do %>
+          <%= image_tag("checkmark.svg", alt: "") %>
+          <%= t("general.affirmative") %>
+        <% end %>
+        <%= link_to next_path, class: "button button--icon button--icon--centered button--med-wide" do %>
+          <%= image_tag("crossmark.svg", alt: "") %>
+          <%= t("general.negative") %>
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>

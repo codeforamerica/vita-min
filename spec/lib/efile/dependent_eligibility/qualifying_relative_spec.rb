@@ -6,7 +6,8 @@ describe Efile::DependentEligibility::QualifyingRelative do
   context 'with a totally qualifying relative' do
     let(:dependent) { create :qualifying_relative }
     let(:test_result) do
-      {
+      {   birth_test: true,
+          married_filing_joint_test: true,
           is_supported_test: true,
           relationship_test: true,
           tin_test: true,

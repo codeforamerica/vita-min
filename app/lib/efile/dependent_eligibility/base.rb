@@ -23,6 +23,10 @@ module Efile
         test_results.reject { |_, value| value == true }.keys
       end
 
+      def alive_during_tax_year?
+        !dependent.born_after_tax_year?(tax_year)
+      end
+
       private
 
       def run_tests
