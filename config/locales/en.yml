@@ -2028,7 +2028,7 @@ en:
             title: Did %{name} live with you for the entire year in %{current_tax_year}?
           relative_qualifiers:
             claimable: "%{name} did not live with someone else who could claim them."
-            help_text: Please click and confirm the following are true.
+            help_text: "Select any situations that were true in %{current_tax_year}:"
             income_requirement: "%{name} earned less than $4,300 in gross income."
             title: We just need to verify a few more things.
           remove_dependent:
