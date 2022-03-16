@@ -131,37 +131,22 @@ class Dependent < ApplicationRecord
   end
 
   def eligible_for_child_tax_credit?(tax_year)
-    yr_2020_age < 17 && yr_2020_qualifying_child? && tin_type_ssn?
+    child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
+    child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && tin_type_ssn?
   end
 
-  def eligible_for_eip1?
-    yr_2020_age < 17 && yr_2020_qualifying_child? && [:ssn, :atin].include?(tin_type&.to_sym)
+  def eligible_for_eip1?(tax_year)
+    child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
+    child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
-  def eligible_for_eip2?
-    yr_2020_age < 17 && yr_2020_qualifying_child? && [:ssn, :atin].include?(tin_type&.to_sym)
+  def eligible_for_eip2?(tax_year)
+    child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
+    child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
   end
 
-  def eligible_for_eip3?
-    yr_2020_qualifying_child? || yr_2020_qualifying_relative?
-  end
-
-  def meets_qc_misc_conditions?
-    provided_over_half_own_support_no? && filed_joint_return_no?
-  end
-
-  def meets_qc_claimant_condition?
-    cant_be_claimed_by_other_yes? ||
-      (cant_be_claimed_by_other_no? && claim_anyway_yes?)
-  end
-
-  def meets_qc_residence_condition_generic?
-    # This method should only be called when creating the `Rules` instance.
-    #
-    # The age check is handled in the year-specific rules; the rest is handled here.
-    lived_with_more_than_six_months_yes? ||
-      (lived_with_more_than_six_months_no? &&
-        (residence_exception_born_yes? || residence_exception_passed_away_yes? || residence_exception_adoption_yes? || permanent_residence_with_client_yes?))
+  def eligible_for_eip3?(tax_year)
+    Efile::DependentEligibility::QualifyingChild.new(self, tax_year).qualifies? || Efile::DependentEligibility::QualifyingRelative.new(self, tax_year).qualifies?
   end
 
   def mixpanel_data
@@ -177,10 +162,6 @@ class Dependent < ApplicationRecord
     }
   end
 
-  # Methods on Dependent::Rules can be accessed (and mocked-out) as yr_2020_* and yr_2021_*. In the future, we might
-  # add a default year with no prefix.
-  delegate :age, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2020, prefix: :yr_2020
-  delegate :age, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2021, prefix: :yr_2021
   delegate :qualifying_child_relationship?, :qualifying_relative_relationship?, to: :relationship_info
 
   def relationship_info
@@ -202,18 +183,6 @@ class Dependent < ApplicationRecord
   end
 
   private
-
-  def rules_2020
-    rules(2020)
-  end
-
-  def rules_2021
-    rules(2021)
-  end
-
-  def rules(tax_year)
-    Dependent::Rules.new(self, tax_year)
-  end
 
   def remove_error_associations
     EfileSubmissionTransitionError.where(dependent_id: self.id).update_all(dependent_id: nil)

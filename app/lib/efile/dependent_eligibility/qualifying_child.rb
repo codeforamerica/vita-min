@@ -41,14 +41,16 @@ module Efile
       end
 
       def over_qualifying_age_limit?
+        return age > 17 if tax_year == 2020
+
         age > 18
       end
-
-      private
 
       def under_qualifying_age_limit?
         !over_qualifying_age_limit?
       end
+
+      private
 
       def born_in_final_six_months?
         dependent.born_in_final_6_months_of_tax_year?(tax_year)
