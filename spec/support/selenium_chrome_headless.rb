@@ -15,6 +15,7 @@ Capybara.register_driver :selenium_chrome_headless do |app|
     opts.add_argument('--force-device-scale-factor=1')
 
     opts.add_argument('--window-size=1280x1280')
+    opts.add_option('goog:loggingPrefs', {browser: 'ALL'})
   end
 
   Capybara::Selenium::Driver.new(app, **Hash[:browser => :chrome, :capabilities => browser_options])
