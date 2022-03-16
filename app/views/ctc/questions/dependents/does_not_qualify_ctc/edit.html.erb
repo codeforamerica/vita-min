@@ -5,20 +5,24 @@
 <% content_for :form_card do %>
 
   <h1 class="h2"><%= @main_question %></h1>
-  <p><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.help_text") %></p>
-  <ul class="checkmark-list teal">
-    <% t("views.ctc.questions.dependents.does_not_qualify_ctc.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1).each do |condition| %>
-      <li><%= condition %></li>
-    <% end %>
-  </ul>
+  <p><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.help_text", name:  @dependent.first_name.capitalize) %></p>
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.does_not_qualify_ctc.reveal")) do %>
+    <ul class="list--bulleted">
+      <% t("views.ctc.questions.dependents.does_not_qualify_ctc.conditions", current_tax_year: current_tax_year, filing_year: current_tax_year + 1).each do |condition| %>
+        <li><%= condition %></li>
+      <% end %>
+    </ul>
+  <% end %>
 
-  <div class="spacing-above-60">
-    <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--wide button--primary text--centered button--wide" do %>
-      <%= image_tag("add-person--white.svg", alt: "") %>
-      <%= t("views.ctc.questions.dependents.does_not_qualify_ctc.add_button") %>
-    <% end %>
-  </div>
-  <div class="spacing-above-15">
-    <%= link_to t("views.ctc.questions.dependents.does_not_qualify_ctc.done_button"), next_path, class: "button text--centered button--wide" %>
+  <h2><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.add_anyone_else") %></h2>
+  <div class="grid-flex spacing-above-25">
+      <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--icon button--icon--centered button--med-wide" do %>
+        <%= image_tag("checkmark.svg", alt: "") %>
+        <%= t("general.affirmative") %>
+      <% end %>
+      <%= link_to next_path, class: "button button--icon button--icon--centered button--med-wide" do %>
+        <%= image_tag("crossmark.svg", alt: "") %>
+        <%= t("general.negative") %>
+      <% end %>
   </div>
 <% end %>
