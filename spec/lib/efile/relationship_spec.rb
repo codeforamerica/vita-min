@@ -45,4 +45,8 @@ describe Efile::Relationship do
       end
     end
   end
+
+  describe "qualifying_relative_requires_member_of_household_test?" do
+
+  end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Ctc::Questions::Dependents::ChildQualifiesController do
+describe Ctc::Questions::Dependents::ChildQualifiersController do
   let(:intake) { create :ctc_intake }
   let(:dependent) { create :dependent, intake: intake }
 
