@@ -22,7 +22,7 @@ module Efile
             # Questions::Ctc::Dependents::RelativeMemberOfHouseholdController
             residence_test: :is_member_of_household_if_required?,
             # Questions::Dependents::RelativeExpensesController
-            financial_support_test: :filer_provided_over_half_support_yes?,
+            financial_support_test: :filer_provided_over_half_support?,
             # Questions::Dependents::RelativeQualifiersController
             claimable_test: [
               :meets_misc_qualifying_relative_requirements_yes?, # 2020 tax year question
@@ -36,6 +36,14 @@ module Efile
       end
 
       private
+
+
+      def filer_provided_over_half_support?
+        # this is not defined or required on archived dependents
+        return true if tax_year == 2020
+
+        dependent.filer_provided_over_half_support_yes?
+      end
 
       # These questions are grouped into one rule so that we can be backwards compatible with 2020 eligibility,
       # which stored the answers to both questions in one attribute called meets_misc_qualifying_relative_requirements

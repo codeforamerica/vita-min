@@ -76,9 +76,9 @@ module Archived
     enum filed_joint_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_joint_return
     enum lived_with_more_than_six_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_more_than_six_months
     enum cant_be_claimed_by_other: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cant_be_claimed_by_other
-    enum born_in_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :born_in_2020
-    enum passed_away_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away_2020
-    enum placed_for_adoption: { unfilled: 0, yes: 1, no: 2 }, _prefix: :placed_for_adoption
+    enum born_in_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_exception_born
+    enum passed_away_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_exception_passed_away
+    enum placed_for_adoption: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_exception_adoption
     enum permanent_residence_with_client: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_residence_with_client
     enum claim_anyway: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_anyway
     enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
@@ -130,30 +130,30 @@ module Archived
       relationship_info.irs_enum
     end
 
-    def qualifying_child?(tax_year = TaxReturn.current_tax_year)
+    def qualifying_child?(tax_year = 2020)
       Efile::DependentEligibility::QualifyingChild.new(self, tax_year).qualifies?
     end
 
-    def qualifying_relative?(tax_year = TaxReturn.current_tax_year)
+    def qualifying_relative?(tax_year = 2020)
       Efile::DependentEligibility::QualifyingRelative.new(self, tax_year).qualifies?
     end
 
-    def eligible_for_child_tax_credit?(tax_year = TaxReturn.current_tax_year)
+    def eligible_for_child_tax_credit?(tax_year = 2020)
       child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
       child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && tin_type_ssn?
     end
 
-    def eligible_for_eip1?(tax_year = TaxReturn.current_tax_year)
+    def eligible_for_eip1?(tax_year = 2020)
       child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
       child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
     end
 
-    def eligible_for_eip2?(tax_year = TaxReturn.current_tax_year)
+    def eligible_for_eip2?(tax_year = 2020)
       child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
       child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
     end
 
-    def eligible_for_eip3?(tax_year = TaxReturn.current_tax_year)
+    def eligible_for_eip3?(tax_year = 2020)
       qualifying_child?(tax_year) || qualifying_relative?(tax_year)
     end
 
