@@ -13,7 +13,7 @@
       <%= f.cfa_checkbox(:permanently_totally_disabled, t("views.ctc.questions.dependents.child_qualifiers.permanently_totally_disabled", name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <hr/>
       <%= f.cfa_checkbox(:none_of_the_above, t("general.none_of_these"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
-      <div class="reveal-shrink-wrapper">
+      <div class="reveal-shrink-wrapper spacing-above-10">
         <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.child_qualifiers.student_reveal.title")) do %>
           <%= t("views.ctc.questions.dependents.child_qualifiers.student_reveal.info_html") %>
         <% end %>

@@ -3,7 +3,10 @@ module Efile
     class QualifyingRelative < Efile::DependentEligibility::Base
       def self.rules
         {
-            is_supported_test: :provided_over_half_own_support_no?,
+            is_supported_test: [
+                :provided_over_half_own_support_no?,
+                :provided_over_half_own_support_unfilled? # allows for fall-through of failing QC age to QR flow
+            ],
             relationship_test: [
               :qualifying_relative_relationship?,
               :qualifying_child_relationship?
