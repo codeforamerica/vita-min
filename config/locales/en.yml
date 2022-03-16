@@ -2000,6 +2000,7 @@ en:
               title: I’m unsure. Should I claim them?
             title: Would you like to claim %{name} anyway?
           does_not_qualify_ctc:
+            add_anyone_else: Would you like to add anyone else?
             conditions:
             - The person you are trying to claim might be born in %{filing_year}. You can only claim dependents who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
             - The person you are trying to claim might be too old to be your dependent. Except in a few specific cases, your dependent has to be under 19, or under 24 if a student.
@@ -2010,7 +2011,6 @@ en:
             help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments or stimulus payments.
             reveal: Why doesn’t this person qualify?
             title: You can not claim benefits for %{name}.
-            add_anyone_else: Would you like to add anyone else?
           info:
             filed_joint_return: This person was married and filed taxes with their spouse
             first_name: Legal first name
