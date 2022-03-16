@@ -126,58 +126,41 @@ module Archived
       end
     end
 
-    # Transforms relationship to the format expected by the IRS submission
-    # (upcased with spaces instead of underscores)
     def irs_relationship_enum
-      relationship&.upcase.gsub("_", " ")
+      relationship_info.irs_enum
     end
 
-    def eligible_for_child_tax_credit_2020?
-      yr_2020_age < 17 && yr_2020_qualifying_child? && tin_type_ssn?
+    def qualifying_child?(tax_year = TaxReturn.current_tax_year)
+      Efile::DependentEligibility::QualifyingChild.new(self, tax_year).qualifies?
     end
 
-    def eligible_for_eip1?
-      yr_2020_age < 17 && yr_2020_qualifying_child? && [:ssn, :atin].include?(tin_type&.to_sym)
+    def qualifying_relative?(tax_year = TaxReturn.current_tax_year)
+      Efile::DependentEligibility::QualifyingRelative.new(self, tax_year).qualifies?
     end
 
-    def eligible_for_eip2?
-      yr_2020_age < 17 && yr_2020_qualifying_child? && [:ssn, :atin].include?(tin_type&.to_sym)
+    def eligible_for_child_tax_credit?(tax_year = TaxReturn.current_tax_year)
+      child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
+      child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && tin_type_ssn?
     end
 
-    def eligible_for_eip3?
-      yr_2020_qualifying_child? || yr_2020_qualifying_relative?
+    def eligible_for_eip1?(tax_year = TaxReturn.current_tax_year)
+      child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
+      child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
     end
 
-    def qualifying_child_relationship?
-      QUALIFYING_CHILD_RELATIONSHIPS.include? relationship.downcase
+    def eligible_for_eip2?(tax_year = TaxReturn.current_tax_year)
+      child_qualifiers = Efile::DependentEligibility::QualifyingChild.new(self, tax_year)
+      child_qualifiers.qualifies? && child_qualifiers.under_qualifying_age_limit? && [:ssn, :atin].include?(tin_type&.to_sym)
     end
 
-    def qualifying_relative_relationship?
-      QUALIFYING_RELATIVE_RELATIONSHIPS.include? relationship.downcase
-    end
-
-    def meets_qc_misc_conditions?
-      provided_over_half_own_support_no? && filed_joint_return_no?
-    end
-
-    def meets_qc_claimant_condition?
-      cant_be_claimed_by_other_yes? ||
-        (cant_be_claimed_by_other_no? && claim_anyway_yes?)
-    end
-
-    def meets_qc_residence_condition_generic?
-      # This method should only be called when creating the `Rules` instance.
-      #
-      # The age check is handled in the year-specific rules; the rest is handled here.
-      lived_with_more_than_six_months_yes? ||
-        (lived_with_more_than_six_months_no? &&
-          (born_in_2020_yes? || passed_away_2020_yes? || placed_for_adoption_yes? || permanent_residence_with_client_yes?))
+    def eligible_for_eip3?(tax_year = TaxReturn.current_tax_year)
+      qualifying_child?(tax_year) || qualifying_relative?(tax_year)
     end
 
     def mixpanel_data
       {
-        dependent_age_at_end_of_tax_year: yr_2020_age.to_s,
-        dependent_under_6: yr_2020_age < 6 ? "yes" : "no",
+        dependent_age_at_end_of_tax_year: age_during(TaxReturn.current_tax_year).to_s,
+        dependent_under_6: age_during(TaxReturn.current_tax_year) < 6 ? "yes" : "no",
         dependent_months_in_home: months_in_home.to_s,
         dependent_was_student: was_student,
         dependent_on_visa: on_visa,
@@ -187,24 +170,27 @@ module Archived
       }
     end
 
-    # Methods on Dependent::Rules can be accessed (and mocked-out) as yr_2020_* and yr_2021_*. In the future, we might
-    # add a default year with no prefix.
-    delegate :age, :born_in_final_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2020, prefix: :yr_2020
-    delegate :age, :born_in_final_6_months?, :disqualified_child_qualified_relative?, :meets_qc_age_condition?, :meets_qc_residence_condition?, :qualifying_child?, :qualifying_relative?, to: :rules_2021, prefix: :yr_2021
+    delegate :qualifying_child_relationship?, :qualifying_relative_relationship?, to: :relationship_info
+
+    def relationship_info
+      return unless relationship.present?
+
+      Efile::Relationship.find(relationship)
+    end
+
+    def born_in_final_6_months_of_tax_year?(tax_year)
+      birth_date >= Date.new(tax_year, 6, 30) && birth_date <= Date.new(tax_year, 12, 31)
+    end
+
+    def born_after_tax_year?(tax_year)
+      birth_date.year > tax_year
+    end
+
+    def age_during(tax_year)
+      tax_year - birth_date.year
+    end
 
     private
-
-    def rules_2020
-      rules(2020)
-    end
-
-    def rules_2021
-      rules(2021)
-    end
-
-    def rules(tax_year)
-      Dependent::Rules.new(self, tax_year)
-    end
 
     def remove_error_associations
       EfileSubmissionTransitionError.where(dependent_id: self.id).update_all(dependent_id: nil)
