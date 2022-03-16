@@ -4,7 +4,7 @@ module Ctc
       class DoesNotQualifyCtcController < BaseDependentController
         include AuthenticatedCtcClientConcern
         layout "intake"
-        
+
         def edit
           @dependent = current_resource
           super
