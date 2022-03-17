@@ -6,6 +6,10 @@ module Ctc
 
         layout "yes_no_question"
 
+        def method_name
+          "permanent_residence_with_client"
+        end
+
         private
 
         def illustration_path; end

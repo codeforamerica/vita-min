@@ -19,7 +19,7 @@ class DependentFlowService
     when "Ctc::Questions::Dependents::ChildExpensesController"
       eligibility = child_qualification(except: [:financial_support_test, :residence_test, :claimable_test])
       eligibility.qualifies?
-    when "Ctc::Questions::Dependents::ChildLivedWithYouController"
+    when "Ctc::Questions::Dependents::ChildResidenceController"
       eligibility = child_qualification(except: [:residence_test, :claimable_test])
       eligibility.qualifies? && !eligibility.born_in_final_six_months?
     when "Ctc::Questions::Dependents::ChildResidenceExceptionsController"

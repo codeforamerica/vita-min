@@ -185,6 +185,8 @@ en:
         blank: Spouse SSN or ITIN is required.
       spouse_tin_type:
         blank: Identification type is required.
+      ssn_confirmation:
+        confirmation: Please double check that the provided numbers match.
       state:
         inclusion: Please select a state.
       state_of_residence:
@@ -1641,6 +1643,7 @@ en:
       subheader: Please sign up here to receive a notification when we open in January 2022.
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
+    atin: Please enter a valid adoption taxpayer identification number.
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
     ip_pin: IP PINs must be a 6 digit number.
@@ -1950,9 +1953,6 @@ en:
             title: Would you like to claim %{name} anyway?
           child_expenses:
             title: Did %{name} pay more than half their own living expenses in %{current_tax_year}?
-          child_lived_with_you:
-            help_text: Select yes if they were born, adopted, or passed away in %{current_tax_year} and they lived with you for at least half their time.
-            title: Did %{name} live with you for more than 6 months in %{current_tax_year}?
           child_qualifiers:
             disabled_reveal:
               info: A doctor determines if you have a permanent disability when you are unable to do a majority of your work because of a physical or mental condition.
@@ -1966,6 +1966,9 @@ en:
                 <p>They must be full-time for some part of 5 calendar months during the year. The months don’t have to be consecutive.</p>
               title: Who is considered a full-time student?
             title: Great, let’s make sure %{name} qualifies!
+          child_residence:
+            help_text: Select yes if they were born, adopted, or passed away in %{current_tax_year} and they lived with you for at least half their time.
+            title: Did %{name} live with you for more than 6 months in %{current_tax_year}?
           child_residence_exceptions:
             help_text: Select yes if they spent time living at school, in a medical facility, or somewhere else but their official address was with you.
             title: Was %{name}'s permanent residence with you for more than 6 months, even if they were away for part of that time?

@@ -1,7 +1,7 @@
 module Ctc
   module Questions
     module Dependents
-      class ChildLivedWithYouController < BaseDependentController
+      class ChildResidenceController < BaseDependentController
         include AuthenticatedCtcClientConcern
         layout "yes_no_question"
 

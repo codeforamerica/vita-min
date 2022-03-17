@@ -185,6 +185,8 @@ es:
         blank: Se requiere el Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés) del cónyuge
       spouse_tin_type:
         blank: Se requiere seleccionar el tipo de identificación.
+      ssn_confirmation:
+        confirmation: Vuelva a verificar que los números provistos coincidan.
       state:
         inclusion: Por favor, seleccione un estado.
       state_of_residence:
@@ -1599,6 +1601,7 @@ es:
       subheader: Favor de registrarse aquí para recibir una notificación cuando iniciemos en enero del 2022.
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
+    atin: Por favor ingrese un Número de Identificación Fiscal por Adopción (ATIN) válido.
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
     ip_pin: IP PINs debe ser un número de 6 dígitos.
@@ -1907,9 +1910,6 @@ es:
             title: "¿Le gustaría declarar a %{name} de todas maneras?"
           child_expenses:
             title: "¿Pagó %{name} más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
-          child_lived_with_you:
-            help_text: Seleccione "sí" si nacieron, fueron adoptados o fallecieron en el %{current_tax_year} y vivieron con usted al menos la mitad del tiempo.
-            title: "¿Vivió %{name} con usted durante más de 6 meses en %{current_tax_year}?"
           child_qualifiers:
             disabled_reveal:
               info: Un médico determina si tiene una incapacidad permanente cuando no puede realizar la mayor parte de su trabajo debido a una enfermedad física o mental.
@@ -1923,6 +1923,9 @@ es:
                 <p>Deben estar a tiempo completo durante alguna parte de 5 meses del año natural. Los meses no tienen que ser consecutivos.</p>
               title: "¿A quién se le considera estudiante a tiempo completo?"
             title: "¡Excelente, asegurémonos de que %{name} califique!"
+          child_residence:
+            help_text: Seleccione "sí" si nacieron, fueron adoptados o fallecieron en el %{current_tax_year} y vivieron con usted al menos la mitad del tiempo.
+            title: "¿Vivió %{name} con usted durante más de 6 meses en %{current_tax_year}?"
           child_residence_exceptions:
             help_text: Seleccione "sí" si vivieron por un tiempo en la escuela, en un centro médico o en otro lugar, pero su dirección oficial fue la de usted.
             title: "¿%{name} residió permanentemente con usted durante más de 6 meses, aunque haya estado fuera durante parte de ese tiempo?"

@@ -80,8 +80,10 @@ describe Ctc::Dependents::InfoForm do
         it "is required" do
           form = described_class.from_dependent(dependent)
           form.assign_attributes(ssn: '555112222')
+          form.assign_attributes(ssn_confirmation: "1")
           expect(form).not_to be_valid
           expect(form.errors.attribute_names).to include(:ssn_confirmation)
+          expect(form.errors[:ssn_confirmation]).to include "Please double check that the provided numbers match."
         end
       end
 
@@ -167,16 +169,34 @@ describe Ctc::Dependents::InfoForm do
       end
     end
 
-    context "when tin type is not ssn" do
+    context "when tin type is atin" do
       let(:ssn_no_employment) { "no" }
-      let(:tin_type) { "itin" }
-      let(:tin) { "912745678" }
+      let(:tin_type) { "atin" }
+      let(:tin) { "912931234" }
 
-      it "sets the tin type to itin" do
+      context "when the number is a valid atin" do
+        it "sets the tin type to atin and persists the number" do
+          form = described_class.new(dependent, params)
+          expect(form.valid?).to eq true
+          form.save
+          expect(dependent.reload.tin_type).to eq "atin"
+        end
+      end
+
+      context "when the number is not a valid atin" do
+        let(:tin) { "123456789" }
+        it "is not valid and adds an error to the form" do
+          form = described_class.new(dependent, params)
+          expect(form.valid?).to eq false
+          expect(form.errors[:ssn]).to include "Please enter a valid adoption taxpayer identification number."
+        end
+      end
+
+      it "sets the tin type to atin" do
         form = described_class.new(dependent, params)
         form.valid?
         form.save
-        expect(Dependent.last.tin_type).to eq "itin"
+        expect(Dependent.last.tin_type).to eq "atin"
       end
     end
 

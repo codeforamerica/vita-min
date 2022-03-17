@@ -20,7 +20,7 @@ module Efile
             ],
             # Ctc::Questions::Dependents::ChildExpensesController
             financial_support_test: :provided_over_half_own_support_no?,
-            # Ctc::Questions::Dependents::ChildLivedWithYouController, Ctc::Questions::Dependents::ChildResidenceExceptionsController
+            # Ctc::Questions::Dependents::ChildResidenceController, Ctc::Questions::Dependents::ChildResidenceExceptionsController
             residence_test: [
               :born_in_final_six_months?,
               :lived_with_more_than_six_months_yes?,

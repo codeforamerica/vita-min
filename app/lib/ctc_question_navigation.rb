@@ -37,7 +37,7 @@ class CtcQuestionNavigation
     Ctc::Questions::Dependents::InfoController,
     Ctc::Questions::Dependents::ChildQualifiersController,
     Ctc::Questions::Dependents::ChildExpensesController,
-    Ctc::Questions::Dependents::ChildLivedWithYouController,
+    Ctc::Questions::Dependents::ChildResidenceController,
     Ctc::Questions::Dependents::ChildResidenceExceptionsController,
     Ctc::Questions::Dependents::ChildCanBeClaimedByOtherController,
     Ctc::Questions::Dependents::ChildClaimAnywayController,

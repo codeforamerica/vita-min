@@ -38,7 +38,7 @@ describe Ctc::Questions::Dependents::ChildExpensesController do
           post :update, params: params
 
           expect(dependent.reload.provided_over_half_own_support).to eq "no"
-          expect(response).to redirect_to child_lived_with_you_questions_dependent_path(id: dependent.id)
+          expect(response).to redirect_to child_residence_questions_dependent_path(id: dependent.id)
         end
       end
     end
