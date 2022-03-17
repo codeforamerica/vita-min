@@ -26,3 +26,15 @@
   height: 16px;
   width: 16px;
 }
+
+.verification-attempts-photo-container {
+  display:flex;
+  height: 100%;
+  width: 100%;
+
+  .item-15r {
+    max-width: 50%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
