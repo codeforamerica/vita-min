@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Ctc::Questions::Dependents::ChildLivedWithYouController do
+describe Ctc::Questions::Dependents::ChildResidenceController do
   let(:intake) { create :ctc_intake }
   let(:dependent) { create :dependent, intake: intake }
 
@@ -13,7 +13,7 @@ describe Ctc::Questions::Dependents::ChildLivedWithYouController do
       let(:params) do
         {
           id: dependent.id,
-          ctc_dependents_child_lived_with_you_form: {
+          ctc_dependents_child_residence_form: {
             lived_with_more_than_six_months: "yes"
           }
         }
@@ -30,7 +30,7 @@ describe Ctc::Questions::Dependents::ChildLivedWithYouController do
       let(:params) do
         {
           id: 'jeff',
-          ctc_dependents_child_lived_with_you_form: {
+          ctc_dependents_child_residence_form_form: {
             lived_with_more_than_six_months: "yes"
           }
         }
