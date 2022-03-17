@@ -4,8 +4,20 @@
 <% end %>
 <% content_for :card do %>
   <section class="slab clients-header">
-    <h1> <%= @page_title %> </h1>
     <div>
+      <h1> <%= @page_title %> </h1>
+      <div class="text--no-wrap quick-filters">
+        <label>Quick Filters:</label>
+        <% ClientSortable::QUICK_FILTERS.each do |(filter_value, filter_label)| %>
+          <% selected = filtering_only_by?(:last_contact, filter_value) %>
+          <%= link_to selected ? hub_clients_path(clear: true) : hub_clients_path(last_contact: filter_value), class: "button button--quick-filter  #{selected ? "selected" : ""}" do %>
+            <%= filter_label %>
+            <i class="clear-filter icon-close"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="text--no-wrap">
       <%= link_to t("general.add_client"), new_hub_client_path, class: "button" %>
       <%= link_to t("general.add_ctc_client"), new_hub_ctc_client_path, class: "button" %>
     </div>
@@ -115,7 +127,7 @@
             <% if client.last_outgoing_communication_at.present? %>
               <% business_days_count = business_days_ago(client.last_outgoing_communication_at) %>
               <% business_days_urgent = business_days_count > 3 ? "text--red-bold" : "" %>
-              <td class="index-table__cell <%= business_days_urgent %>">
+              <td class="index-table__cell <%= business_days_urgent %>" title="<%= formatted_datetime(client.last_outgoing_communication_at) %>">
                 <% if business_days_count > 0 %>
                   <%= t("general.days", count: business_days_count) %>
                 <% else %>

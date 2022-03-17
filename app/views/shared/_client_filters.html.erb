@@ -77,6 +77,13 @@
     <h2> <%= t("hub.clients.index.client_info") %> </h2>
 
     <div class="form-group">
+      <label for="last_contact" class="form-question">Last contact</label>
+      <div class="select">
+        <%= select_tag :last_contact, options_for_select([["Less than 1 day", "recently_contacted"], ["4-5 days", "approaching_sla"], ["6+ days", "breached_sla"]], @filters[:last_contact]), include_blank: true, class: "select__element" %>
+      </div>
+    </div>
+
+    <div class="form-group">
       <label for="service_type" class="form-question"><%= t("hub.clients.fields.service_type") %></label>
       <div class="select">
         <%= select_tag :service_type, options_for_select(TaxReturn.service_type_options, @filters[:service_type]), include_blank: true, class: "select__element" %>

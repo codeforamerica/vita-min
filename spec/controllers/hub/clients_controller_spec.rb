@@ -749,6 +749,27 @@ RSpec.describe Hub::ClientsController do
             end
           end
         end
+
+        context "last contact filter" do
+          let!(:approaching_sla_client) { create :client_with_intake_and_return, preferred_name: "Approachy", vita_partner: organization, last_outgoing_communication_at: 4.business_days.ago - 2.hours }
+          let!(:breached_sla_client) { create :client_with_intake_and_return, preferred_name: "Breachy", vita_partner: organization, last_outgoing_communication_at: 6.business_days.ago }
+          let!(:recently_contacted_client) { create :client_with_intake_and_return, preferred_name: "Recenty", vita_partner: organization, last_outgoing_communication_at: 2.hours.ago }
+
+          it "can filter to only clients who are approaching SLA" do
+            get :index, params: { last_contact: "approaching_sla" }
+            expect(assigns(:clients).map(&:preferred_name)).to eq [approaching_sla_client].map(&:preferred_name)
+          end
+
+          it "can filter to only clients who have breached SLA" do
+            get :index, params: { last_contact: "breached_sla" }
+            expect(assigns(:clients).map(&:preferred_name)).to eq [breached_sla_client].map(&:preferred_name)
+          end
+
+          it "can filter to only clients who have been recently contacted" do
+            get :index, params: { last_contact: "recently_contacted" }
+            expect(assigns(:clients).map(&:preferred_name)).to eq [recently_contacted_client].map(&:preferred_name)
+          end
+        end
       end
 
       context "SLA columns" do

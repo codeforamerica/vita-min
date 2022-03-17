@@ -316,5 +316,55 @@ RSpec.describe "searching, sorting, and filtering clients" do
         end
       end
     end
+
+    context "SLA quick filters" do
+      let(:user) { create :admin_user }
+
+      before do
+        create(:client_with_intake_and_return, last_outgoing_communication_at: 0.days.ago, )
+        5.times do
+          create(:client_with_intake_and_return, last_outgoing_communication_at: 2.business_days.ago)
+        end
+        3.times do
+          create(:client_with_intake_and_return, last_outgoing_communication_at: 4.business_days.ago - 2.hours)
+        end
+        2.times do
+          create(:client_with_intake_and_return, last_outgoing_communication_at: 8.business_days.ago)
+        end
+      end
+
+      scenario "using the quick filters to identify clients approaching and in breach of SLA", js: true do
+        visit hub_clients_path
+
+        expect(page).to have_text "All Clients"
+        expect(page.all('.client-row').length).to eq 11
+
+        # last contact dropdown
+        select "Less than 1 day", from: "Last contact"
+        click_on "Filter results"
+        expect(page.all('.client-row').length).to eq 1
+        click_link "Clear"
+
+        select "4-5 day", from: "Last contact"
+        click_on "Filter results"
+        expect(page.all('.client-row').length).to eq 3
+        click_link "Clear"
+
+        select "6+ day", from: "Last contact"
+        click_on "Filter results"
+        expect(page.all('.client-row').length).to eq 2
+        click_link "Clear"
+
+        # quick filter buttons
+        click_on "Approaching SLA"
+        expect(page.all('.client-row').length).to eq 3
+        click_link "Clear"
+
+        click_on "Breached SLA"
+        expect(page.all('.client-row').length).to eq 2
+        page.find('a', text: "Breached SLA").find('.clear-filter').click
+        expect(page.all('.client-row').length).to eq 11
+      end
+    end
   end
 end
