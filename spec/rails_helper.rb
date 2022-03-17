@@ -177,12 +177,21 @@ RSpec.configure do |config|
   config.after(type: :feature, js: true) do |example|
     if example.exception
       begin
+        timestamp = Time.zone.now.strftime("%Y_%m_%d-%H_%M_%S")
+        filename = "failure_#{example.location.gsub(/[^a-z0-9]/i, '_')}-#{timestamp}.png"
+        screenshot_path = if ENV['CIRCLECI']
+          File.join("/tmp", "failure_screenshots", filename)
+        else
+          Rails.root.join("tmp", "failure_screenshots", filename)
+        end
+
         browser_console_logs = page.driver.browser.logs.get(:browser)
         if browser_console_logs.length > 0
           STDERR.puts "\n\nvv During this test failure, there was some output in the browser's console vv"
           STDERR.puts browser_console_logs.map(&:message).join("\n")
           STDERR.puts "^^ ^^"
         end
+        STDERR.puts "Saved failed test screenshot to #{page.save_screenshot(screenshot_path)}"
       rescue
         # Don't let any errors from printing the errors cause more errors
       end
