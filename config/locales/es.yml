@@ -1960,7 +1960,8 @@ es:
           remove_dependent:
             nevermind_button: Mejor no lo/la borremos
             remove_button: Sí, borrémoslo/la
-            subtitle: "¿Está bien?"
+            subtitle: Their information will not be submitted on your tax return.
+            subtitle_2: Is that ok?
             title: Está a punto de borrar a %{dependent_name}.
           tin:
             form_of_identity: Forma de identidad
