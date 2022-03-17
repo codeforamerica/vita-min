@@ -9,8 +9,7 @@ module Efile
             age_test: :under_ctc_age_limit?,
         }
       end
-
-
+      
       private
 
       def qualifying_child?
