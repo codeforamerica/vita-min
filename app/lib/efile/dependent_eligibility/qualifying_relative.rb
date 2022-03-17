@@ -38,7 +38,7 @@ module Efile
       private
 
       def filer_financially_supported?
-        # this is not defined or required on archived dependents
+        # filer_provided_over_half_support? is not defined or required on archived dependents
         return true if tax_year == 2020
 
         dependent.filer_provided_over_half_support_yes?
