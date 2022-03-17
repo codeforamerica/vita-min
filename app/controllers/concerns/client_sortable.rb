@@ -1,4 +1,14 @@
 module ClientSortable
+  QUICK_FILTERS = [
+    ["approaching_sla", "Approaching SLA"], ["breached_sla", "Breached SLA"]
+  ]
+
+  extend ActiveSupport::Concern
+
+  included do
+    helper_method :filtering_only_by?
+  end
+
   def filtered_and_sorted_clients(default_order: nil)
     @default_order = default_order
     setup_sortable_client unless @filters.present?
@@ -27,6 +37,14 @@ module ClientSortable
     clients = clients.where(vita_partner: VitaPartner.allows_greeters) if @filters[:greetable].present?
     clients = clients.first_unanswered_incoming_interaction_between(...@filters[:sla_breach_date]) if @filters[:sla_breach_date].present?
     clients = clients.where(intake: Intake.where(with_general_navigator: true).or(Intake.where(with_incarcerated_navigator: true)).or(Intake.where(with_limited_english_navigator: true)).or(Intake.where(with_unhoused_navigator: true))) if @filters[:used_navigator].present?
+    case @filters[:last_contact]
+    when "recently_contacted"
+      clients = clients.where("last_outgoing_communication_at > ?", 1.business_days.ago)
+    when "approaching_sla"
+      clients = clients.where(last_outgoing_communication_at: 6.business_days.ago..4.business_days.ago)
+    when "breached_sla"
+      clients = clients.where("last_outgoing_communication_at < ?", 6.business_days.ago)
+    end
 
     if @filters[:vita_partners].present?
       ids = JSON.parse(@filters[:vita_partners]).map { |vita_partner| vita_partner["id"] }
@@ -81,11 +99,18 @@ module ClientSortable
       sla_breach_date: source[:sla_breach_date],
       used_navigator: source[:used_navigator],
       ctc_client: source[:ctc_client],
+      last_contact: source[:last_contact]
     }
   end
 
+  def filtering_only_by?(key, value)
+    return if @filters.select { |_k, v| v.present? }.length > 1
+
+    @filters[key] == value
+  end
+
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date, :used_navigator, :ctc_client]
+    [:search, :status, :unassigned, :assigned_to_me, :flagged, :unemployment_income, :year, :vita_partners, :assigned_user_id, :language, :service_type, :greetable, :sla_breach_date, :used_navigator, :ctc_client, :last_contact]
   end
 
   def cookie_filters

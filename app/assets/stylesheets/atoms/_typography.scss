@@ -45,6 +45,10 @@ a {
   color: rgb(0, 0, 0);
 }
 
+.text--no-wrap {
+  white-space: nowrap;
+}
+
 .text--line-breaks {
   white-space: pre-line;
 }
