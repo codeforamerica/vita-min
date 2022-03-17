@@ -117,6 +117,8 @@ jobs:
               --only-failures
       - store_test_results:
           path: ~/test-results
+      - store_artifacts:
+          path: /tmp/failure_screenshots
   flow_explorer_screenshots:
     executor: rails_executor
     steps:
