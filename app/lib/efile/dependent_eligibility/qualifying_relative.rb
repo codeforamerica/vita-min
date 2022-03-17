@@ -22,7 +22,7 @@ module Efile
             # Questions::Ctc::Dependents::RelativeMemberOfHouseholdController
             residence_test: :is_member_of_household_if_required?,
             # Questions::Dependents::RelativeExpensesController
-            financial_support_test: :filer_provided_over_half_support?,
+            financial_support_test: :filer_financially_supported?,
             # Questions::Dependents::RelativeQualifiersController
             claimable_test: [
               :meets_misc_qualifying_relative_requirements_yes?, # 2020 tax year question
@@ -37,8 +37,7 @@ module Efile
 
       private
 
-
-      def filer_provided_over_half_support?
+      def filer_financially_supported?
         # this is not defined or required on archived dependents
         return true if tax_year == 2020
 

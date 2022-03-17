@@ -42,6 +42,7 @@ class DependentFlowService
       eligibility = relative_qualification(except: [:financial_support_test, :claimable_test])
       eligibility.qualifies?
     when "Ctc::Questions::Dependents::RelativeQualifiersController"
+      puts "hello"
       return false if child_qualification.qualifies?
 
       eligibility = relative_qualification(except: :claimable_test)
