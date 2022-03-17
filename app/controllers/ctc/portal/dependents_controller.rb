@@ -18,7 +18,7 @@ class Ctc::Portal::DependentsController < Ctc::Portal::BaseIntakeRevisionControl
       action: 'removed',
       client: current_client
     )
-    if current_intake.dependents.filter(&:eligible_for_child_tax_credit_2020?).length.zero?
+    if current_intake.dependents.filter(&:eligible_for_child_tax_credit?).length.zero?
       redirect_to not_eligible_ctc_portal_dependents_path
     else
       redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)

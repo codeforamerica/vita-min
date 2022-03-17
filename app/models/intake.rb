@@ -443,7 +443,7 @@ class Intake < ApplicationRecord
   end
 
   def had_dependents_under?(yrs)
-    dependents.any? { |dependent| dependent.yr_2020_age < yrs }
+    dependents.any? { |dependent| dependent.age_during(2020) < yrs }
   end
 
   def needs_help_with_backtaxes?

@@ -33,6 +33,7 @@ describe Ctc::Questions::Dependents::RelativeFinancialSupportController do
 
       context "when no" do
         let(:answer) { "no" }
+
         it "updates the dependent, disqualifies them, and offboards them" do
           post :update, params: params
 

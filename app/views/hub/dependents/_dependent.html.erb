@@ -44,9 +44,9 @@
           Dependent Type:
         </span>
         <span class="label-value">
-          <% if dependent.yr_2020_qualifying_child? %>
+          <% if dependent.qualifying_child? %>
             Qualifying Child
-          <% elsif dependent.yr_2020_qualifying_relative? %>
+          <% elsif dependent.qualifying_relative? %>
             Qualifying Relative
           <% else %>
             Nonqualifying
@@ -55,13 +55,13 @@
       </span>
     </div>
     <div class="spacing-above-5">
-      <% if dependent.eligible_for_child_tax_credit_2020? %>
+      <% if dependent.eligible_for_child_tax_credit? %>
         <span class="label">CTC</span>
       <% end %>
-      <% if dependent.eligible_for_eip1? %>
+      <% if dependent.eligible_for_eip1?(2020) %>
         <span class="label">EIP1</span>
       <% end %>
-      <% if dependent.eligible_for_eip2? %>
+      <% if dependent.eligible_for_eip2?(2020) %>
         <span class="label">EIP2</span>
       <% end %>
       <% if dependent.eligible_for_eip3? %>

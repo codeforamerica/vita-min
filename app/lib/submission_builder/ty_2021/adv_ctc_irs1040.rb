@@ -19,7 +19,7 @@ module SubmissionBuilder
           xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
           xml.DependentSSN dependent.ssn
           xml.DependentRelationshipCd dependent.irs_relationship_enum
-          xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit_2021?
+          xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit?(2021)
         end
       end
 
@@ -41,8 +41,8 @@ module SubmissionBuilder
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
             end
-            xml.ChldWhoLivedWithYouCnt qualifying_dependents.count(&:yr_2021_qualifying_child?)
-            xml.OtherDependentsListedCnt qualifying_dependents.count(&:yr_2021_qualifying_relative?)
+            xml.ChldWhoLivedWithYouCnt qualifying_dependents.count { |qd| qd.qualifying_child?(2021) }
+            xml.OtherDependentsListedCnt qualifying_dependents.count { |qd| qd.qualifying_relative(2021) }
             xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
             xml.TaxableInterestAmt 1 # 2b
             xml.TotalIncomeAmt 1 # 9

@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe ChildTaxCreditCalculator do
   let(:tax_return) {
-    tr = create :tax_return, year: 2021,  client: create(:client, intake: create(:ctc_intake))
+    tr = create :tax_return, year: 2021, client: create(:client, intake: create(:ctc_intake))
     tr.intake.dependents.update_all(soft_deleted_at: Time.now)
     tr
   }

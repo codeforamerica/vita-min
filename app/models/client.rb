@@ -217,9 +217,7 @@ class Client < ApplicationRecord
   end
 
   def qualifying_dependents(year)
-    raise StandardError, "Qualifying dependent logic does not exist for #{year}  Define new rules for #{year}." unless [2020, 2021].include?(year)
-
-    intake.dependents.filter { |d| d.send("yr_#{year}_qualifying_child?") || d.send("yr_#{year}_qualifying_relative?") }
+    intake.dependents.filter { |d| d.qualifying_child?(year) || d.qualifying_relative?(year) }
   end
 
   def clients_with_dupe_contact_info(is_ctc)

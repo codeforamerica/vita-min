@@ -124,14 +124,14 @@ class TaxReturn < ApplicationRecord
   def expected_recovery_rebate_credit_one
     EconomicImpactPaymentOneCalculator.payment_due(
       filer_count: rrc_eligible_filer_count,
-      dependent_count: qualifying_dependents.count(&:eligible_for_eip1?)
+      dependent_count: qualifying_dependents.count { |qd| qd.eligible_for_eip1?(2020) }
     )
   end
 
   def expected_recovery_rebate_credit_two
     EconomicImpactPaymentTwoCalculator.payment_due(
       filer_count: rrc_eligible_filer_count,
-      dependent_count: qualifying_dependents.count(&:eligible_for_eip2?)
+      dependent_count: qualifying_dependents.count { |qd| qd.eligible_for_eip2?(2020) }
     )
   end
 
