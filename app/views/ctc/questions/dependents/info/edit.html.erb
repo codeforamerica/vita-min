@@ -24,8 +24,8 @@
       <div class="form-card__content">
         <%= f.cfa_select(:tin_type, t("views.ctc.questions.dependents.tin.form_of_identity"), tin_options_for_select(include_atin: true)) %>
         <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-        <%= f.cfa_input_field(:ssn, t("views.ctc.questions.dependents.tin.ssn_or_atin"), classes: ["form-width--long"]) %>
-        <%= f.cfa_input_field(:ssn_confirmation, t("views.ctc.questions.dependents.tin.ssn_or_atin_confirmation"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:ssn, t("views.ctc.questions.dependents.tin.ssn_or_atin"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
+        <%= f.cfa_input_field(:ssn_confirmation, t("views.ctc.questions.dependents.tin.ssn_or_atin_confirmation"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
       </div>
       <div class="form-card__stacked-checkboxes spacing-above-0">
         <label class="form-question"> <%= t('views.ctc.questions.dependents.info.situations') %> </label>
