@@ -1557,7 +1557,7 @@ en:
         description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
         timeframe: 2-3 weeks to file
         title: GetYourRefund
-        warning: You are required to show copies of your Social Security card or ITIN paperwork
+        warning: You are required to show copies of your Social Security card or ITIN paperwork.
       refund: Refund
     triage_diy:
       edit:
