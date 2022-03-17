@@ -5,7 +5,7 @@ module Efile
       def self.rules
         {
             qc_test: :qualifying_child?,
-            tin_test: :ssn?,
+            tin_test: :tin_type_ssn?,
             age_test: :under_ctc_age_limit?,
         }
       end
