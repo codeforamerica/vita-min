@@ -363,7 +363,7 @@ RSpec.feature "a client on their portal" do
   end
 
   context "with an ITIN client ready to mail their forms" do
-    let(:intake) { create :intake, state_of_residence: 'CA', primary_ssn: '555-11-2222', preferred_interview_language: 'en', preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "no", triage: build(:triage, id_type: "need_itin_help") }
+    let(:intake) { create :intake, state_of_residence: 'CA', primary_ssn: '555-11-2222', preferred_interview_language: 'en', preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "no", need_itin_help: "yes" }
     let(:client) { create :client, intake: intake }
     let(:tax_return) { create :tax_return, :file_mailed, year: TaxReturn.current_tax_year, client: client }
 

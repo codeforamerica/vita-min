@@ -46,10 +46,6 @@ class ApplicationController < ActionController::Base
     current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
   end
 
-  def current_triage
-    @_current_triage ||= (Triage.find_by_id(session[:triage_id]) unless session[:triage_id].nil?)
-  end
-
   def current_tax_year
     TaxReturn.current_tax_year.to_i
   end

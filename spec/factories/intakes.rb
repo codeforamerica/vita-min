@@ -213,6 +213,10 @@
 #  street_address                                       :string
 #  street_address2                                      :string
 #  timezone                                             :string
+#  triage_filing_frequency                              :integer          default(0), not null
+#  triage_filing_status                                 :integer          default(0), not null
+#  triage_income_level                                  :integer          default(0), not null
+#  triage_vita_income_ineligible                        :integer          default(0), not null
 #  type                                                 :string
 #  use_primary_name_for_name_control                    :boolean          default(FALSE)
 #  used_itin_certifying_acceptance_agent                :boolean          default(FALSE), not null
@@ -500,6 +504,9 @@ FactoryBot.define do
     bought_energy_efficient_items { "unfilled" } # no default value in db for this enum.
     bank_account_type { "checking" }
     refund_payment_method { "check" }
+    triage_income_level { "zero" }
+    triage_filing_status { "single" }
+    triage_filing_frequency { "some_years" }
 
     after(:build) do |intake|
       # default any unsupplied enum values to 'no' if possible

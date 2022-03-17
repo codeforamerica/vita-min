@@ -38,39 +38,16 @@ module FeatureHelpers
     end
   end
 
-  class TriageChoices
-    def initialize(choices)
-      @choices = choices
-    end
-
-    private
-
-    def method_missing(symbol, *args)
-      if @choices[symbol]
-        @choices[symbol]
-      else
-        raise "Tried to get a value for #{symbol} but this test didn't provide one."
-      end
-    end
-  end
-
   def answer_gyr_triage_questions(screenshot_method: nil, **options)
     if options[:choices] == :defaults
       options = {
         need_itin: false,
-        filing_status: "single",
-        income_level: "25000_to_40000",
-        id_type: "have_id",
-        doc_type: "all_copies",
-        filed_past_years: [
-          TaxReturn.current_tax_year - 2,
-          TaxReturn.current_tax_year - 1,
-        ],
-        assistance_options: ['in_person', 'phone_review_english', 'phone_review_non_english'],
-        income_type_options: ['none_of_the_above']
+        triage_income_level: "1_to_12500",
+        triage_filing_status: "single",
+        triage_filing_frequency: "not_filed",
+        triage_vita_income_ineligible: false,
       }
     end
-    choices = TriageChoices.new(options)
 
     visit "/en/questions/welcome"
 
@@ -90,43 +67,10 @@ module FeatureHelpers
     end
 
     triage_feature_helper.assert_page('questions.triage_income_level.edit.title') do
-      select strip_html_tags(I18n.t("questions.triage_income_level.edit.filing_status.options.#{choices.filing_status}").split("\n").first)
-      select strip_html_tags(I18n.t("questions.triage_income_level.edit.income_level.options.#{choices.income_level}").split("\n").first)
-      click_on I18n.t('general.continue')
-    end
-
-    triage_feature_helper.assert_page('questions.triage_start_ids.edit.title') do
-      click_on I18n.t('general.continue')
-    end
-
-    triage_feature_helper.assert_page('questions.triage_id_type.edit.title') do
-      choose option: choices.id_type
-      click_on I18n.t('general.continue')
-    end
-
-    triage_feature_helper.assert_page('questions.triage_doc_type.edit.title') do
-      choose option: choices.doc_type
-      click_on I18n.t('general.continue')
-    end
-
-    triage_feature_helper.assert_page('questions.triage_backtaxes_years.edit.title') do
-      choices.filed_past_years.each do |year|
-        check year.to_s
-      end
-      click_on I18n.t('general.continue')
-    end
-
-    triage_feature_helper.assert_page('questions.triage_assistance.edit.title') do
-      choices.assistance_options.each do |option|
-        check option == 'none_of_the_above' ? I18n.t("general.none_of_the_above") : I18n.t("questions.triage_assistance.edit.assistance.#{option}")
-      end
-      click_on I18n.t('general.continue')
-    end
-
-    triage_feature_helper.assert_page('questions.triage_income_types.edit.title') do
-      choices.income_type_options.each do |option|
-        check option == 'none_of_the_above' ? I18n.t("general.none_of_the_above") : I18n.t("questions.triage_income_types.edit.income_types.#{option}")
-      end
+      select I18n.t("questions.triage_income_level.edit.filing_status.options.#{options[:triage_filing_status]}")
+      select I18n.t("questions.triage_income_level.edit.income_level.options.#{options[:triage_income_level]}")
+      select I18n.t("questions.triage_income_level.edit.filing_frequency.options.#{options[:triage_filing_frequency]}")
+      select options[:triage_vita_income_ineligible] ? I18n.t('general.affirmative') : I18n.t('general.negative'), from: I18n.t('questions.triage_income_level.edit.vita_income_ineligible.label')
       click_on I18n.t('general.continue')
     end
 

@@ -1,30 +1,17 @@
 module Questions
-  class TriageIncomeLevelController < TriageController
+  class TriageIncomeLevelController < QuestionsController
+    include AnonymousIntakeConcern
+
     layout "intake"
-    skip_before_action :require_triage
 
     def next_path
-      TriageResultService.new(current_triage).after_income_levels || super
+      TriageResultService.new(current_intake).after_income_levels || super
     end
 
     private
 
     def illustration_path
       "balance-payment.svg"
-    end
-
-    def form_params
-      super.merge(
-        source: session[:source],
-        referrer: session[:referrer],
-        locale: I18n.locale,
-        visitor_id: cookies[:visitor_id],
-        intake_id: current_intake&.id,
-      )
-    end
-
-    def after_update_success
-      session[:triage_id] = @form.triage.id
     end
   end
 end

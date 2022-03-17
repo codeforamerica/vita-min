@@ -7,15 +7,16 @@
 
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.cfa_select(
-        :filing_status,
+        :triage_filing_status,
         t(".filing_status.label"),
         [
           [t(".filing_status.options.single"), :single],
           [t(".filing_status.options.jointly"), :jointly],
         ],
+        include_blank: true
       ) %>
     <%= f.cfa_select(
-        :income_level,
+        :triage_income_level,
         t(".income_level.label_html"),
         [
           [t(".income_level.options.zero"), :zero],
@@ -26,6 +27,26 @@
           [t(".income_level.options.65000_to_73000"), "65000_to_73000"],
           [t(".income_level.options.over_73000"), :over_73000],
         ],
+        include_blank: true
+      ) %>
+    <%= f.cfa_select(
+        :triage_filing_frequency,
+        t(".filing_frequency.label_html"),
+        [
+          [t(".filing_frequency.options.every_year"), :every_year],
+          [t(".filing_frequency.options.some_years"), :some_years],
+          [t(".filing_frequency.options.not_filed"), :not_filed],
+        ],
+        include_blank: true
+      ) %>
+    <%= f.cfa_select(
+        :triage_vita_income_ineligible,
+        t(".vita_income_ineligible.label"),
+        [
+          [t("general.affirmative"), :yes],
+          [t("general.negative"), :no],
+        ],
+        include_blank: true
       ) %>
 
     <div class="spacing-above-60">

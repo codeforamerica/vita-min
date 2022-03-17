@@ -1068,6 +1068,10 @@ ActiveRecord::Schema.define(version: 2022_03_11_231919) do
     t.string "street_address"
     t.string "street_address2"
     t.string "timezone"
+    t.integer "triage_filing_frequency", default: 0, null: false
+    t.integer "triage_filing_status", default: 0, null: false
+    t.integer "triage_income_level", default: 0, null: false
+    t.integer "triage_vita_income_ineligible", default: 0, null: false
     t.string "type"
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "use_primary_name_for_name_control", default: false

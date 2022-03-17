@@ -1559,21 +1559,6 @@ en:
         title: GetYourRefund
         warning: You are required to show copies of your Social Security card or ITIN paperwork
       refund: Refund
-    triage_assistance:
-      edit:
-        assistance:
-          in_person: in-person assistance
-          phone_review_english: phone review (english)
-          phone_review_non_english: phone review (non english language)
-        help_text: 'Select the option(s) that apply to you:'
-        title: Do you require any additional assistance?
-    triage_backtaxes_years:
-      edit:
-        help_text_html: |
-          Even if you used a different service to file for previous years, <strong>select any/all the years that apply.</strong>
-
-          Don’t worry if you haven’t filed for any of these years, we’re here to help!
-        title: Have you filed taxes in the past? Let us know years that you filed.
     triage_diy:
       edit:
         title: We recommend filing with our free File Myself option!
@@ -1582,15 +1567,6 @@ en:
         faq_link_text: If you have additional questions, visit our FAQ page.
         help_text: It looks like you are above our filing limit. Our free service is available to households earning less than $73,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
-    triage_doc_type:
-      edit:
-        doc_type:
-          all_copies_html: I have <u>all</u> copies of my official tax documents
-          does_not_apply_html: I <u>do not</u> have copies any official tax documents because they <u>do not apply to me</u>
-          need_help_html: I <u>do not</u> have copies any official tax documents and <u>would like help</u> getting them
-          some_copies_html: I have <u>some</u> copies of my official tax documents
-        help_text: Tax documents refers to any official IRS documents or documents that confirm your employment like a W2, 1099, personal work log, etc.
-        title: What type of tax documents do you have?
     triage_express:
       edit:
         title: We recommend filing with our Express option!
@@ -1619,15 +1595,17 @@ en:
         no_diy: No, I will proceed with File Myself
         title: Before we proceed, do you have a physical copy of your photo ID and Social Security card or ITIN paperwork?
         yes_i_have_id: Yes, I have my ID card
-    triage_id_type:
-      edit:
-        ssn_itin_type:
-          have_id: I have my Social Security card or ITIN paperwork
-          know_number: I know my Social Security or ITIN number, but I do not have a copy of it
-          need_itin_help: I need help applying for my ITIN
-        title: What type of identification do you have?
     triage_income_level:
       edit:
+        filing_frequency:
+          label_html: |-
+            In the last 4 years, how often have you filed?
+
+            <p class="text--small spacing-above-15">It’s fairly common to skip filing for certain years due to life circumstances and employment changes.</p>
+          options:
+            every_year: I filed every year
+            not_filed: I have not filed
+            some_years: I filed some years
         filing_status:
           label: How will you be filing this year?
           options:
@@ -1646,18 +1624,9 @@ en:
             65000_to_73000: "$65,000 - 73,000"
             over_73000: over $73,000
             zero: "$0"
-        title: Let's get started!
-    triage_income_types:
-      edit:
-        income_types:
-          farm: I earned money from owning a farm
-          rental: I earned money from a rental property
-        income_types_label: Did any of the situations below apply to you?
-        title: One final question before we select the service for you!
-    triage_start_ids:
-      edit:
-        help_text: It might be helpful to gather all of your tax documents and Social Security Card or ITIN paperwork at this point. We’ll confirm the information again later in the process.
-        title: We’ll start by asking about your documents and IDs.
+        title: Tell us about your filing status and income.
+        vita_income_ineligible:
+          label: Did you earn income from a rental property, a farm, or cryptocurrency?
   signups:
     flash_notice: Thank you! You will receive a notification when we open in January 2022.
     new:

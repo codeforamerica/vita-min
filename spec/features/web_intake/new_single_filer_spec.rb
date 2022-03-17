@@ -13,7 +13,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     intake = Intake.last
     expect(intake.triage).to eq(Triage.last)
 
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr.edit.title'))
+    expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_express.edit.title'))
     click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
 
     expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))

@@ -1,58 +1,20 @@
-income,filing_status,id_type,doc_type,filed_past_years,assistance_options,income_type_options,service
-zero,single or jointly,have_id,skip,skip,skip,skip,We have two free options that may work for you!
-,,know_number,skip,skip,skip,skip,We recommend filing with our free File Myself option!
-,,need_itin_help,skip,skip,skip,skip,We recommend filing for free with GetYourRefund!
-,,,,,,,
-1_to_12500,single or jointly,have_id,all_copies or some_copies,"2021 yes/no, any prior no",skip,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,"2021 no, all prior yes",yes,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,,no,skip,We recommend filing with our free File Myself option!
-,,,,"2021 yes, all prior yes",skip,skip,"Unfortunately, it looks like you do not qualify for our free service."
-,,,need_help,skip,skip,yes,We recommend filing with our Express option!
-,,,,,,no,We have two free options that may work for you!
-,,know_number,all_copies or some_copies,skip,skip,skip,We recommend filing with our free File Myself option!
-,,,need_help,skip,skip,yes,We recommend filing with our Express option!
-,,,,,,no,We have two free options that may work for you!
-,,need_itin_help,any answer,skip,skip,yes,We recommend filing with our Express option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,,,,
-12500_to_25000,single,have_id,all_copies or some_copies,"2021 yes/no, any prior no",skip,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,"2021 no, all prior yes",yes,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,,no,skip,We recommend filing with our free File Myself option!
-,,,,"2021 yes, all prior yes",skip,skip,"Unfortunately, it looks like you do not qualify for our free service."
-,,,need_help,skip,skip,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,know_number,any answer,skip,skip,skip,We recommend filing with our free File Myself option!
-,,need_itin_help,any answer,skip,skip,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-12500_to_25000,jointly,have_id,all_copies or some_copies,"2021 yes/no, any prior no",skip,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,"2021 no, all prior yes",yes,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,,no,skip,We recommend filing with our free File Myself option!
-,,,,"2021 yes, all prior yes",skip,skip,"Unfortunately, it looks like you do not qualify for our free service."
-,,,need_help,skip,skip,yes,We recommend filing with our Express option!
-,,,,,,no,We have two free options that may work for you!
-,,know_number,all_copies or some_copies,skip,skip,skip,We recommend filing with our free File Myself option!
-,,,need_help,skip,skip,yes,We recommend filing with our Express option!
-,,,,,,no,We have two free options that may work for you!
-,,need_itin_help,any answer,skip,skip,yes,We recommend filing with our Express option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,,,,
-25000_to_40000 or 40000_to_65000,single or jointly,have_id,all_copies or some_copies,"2021 yes/no, any prior no",skip,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,"2021 no, all prior yes",yes,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,,no,skip,We recommend filing with our free File Myself option!
-,,,,"2021 yes, all prior yes",skip,skip,"Unfortunately, it looks like you do not qualify for our free service."
-,,,need_help,skip,skip,yes,We recommend filing with our free File Myself option!
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,know_number,any answer,skip,skip,skip,We recommend filing with our free File Myself option!
-,,need_itin_help,any answer,skip,skip,yes,"Unfortunately, it looks like you do not qualify for our free service."
-,,,,,,no,We recommend filing for free with GetYourRefund!
-,,,,,,,
-65000_to_73000,single or jointly,skip,skip,skip,skip,skip,We recommend filing with our free File Myself option!
-over_73000,single or jointly,skip,skip,skip,skip,skip,"Unfortunately, it looks like you do not qualify for our free service."
+triage_income_level,triage_filing_status,need_itin_help,triage_filing_frequency,triage_vita_income_ineligible,service,notes
+zero,single or jointly,No,Any,Any,Express-GYR,taking out DIY for easier engineering lift
+,,Yes,Any,Any,GYR,
+1_to_12500,single or jointly,Yes,Any,No,GYR,
+,,Yes,Any,Yes,Does not qualify," Could use DIY, but would need other help with ITIN"
+,,No,Any,Yes,DIY ,taking out express so one fewer page
+,,No,Any,No,Express-GYR,taking out DIY for easier engineering lift
+12500_to_25000,single,Yes,Any,No,GYR,
+,,Yes,Any,Yes,Does not qualify," Could use DIY, but would need other help with ITIN"
+,,No,Any,Yes,DIY,
+,,No,Any,No,GYR-DIY,
+12500_to_25000,jointly,Yes,Any,No,GYR,
+,,Yes,Any,Yes,Does not qualify," Could use DIY, but would need other help with ITIN"
+,,No,Any,Yes,DIY ,taking out express so one fewer page
+,,No,Any,No,Express-GYR,taking out DIY for easier engineering lift
+25000_to_40000 or 40000_to_65000 ,single or jointly,Yes,Any,No,GYR,
+,,Yes,Any,Yes,Does not qualify," Could use DIY, but would need other help with ITIN"
+,,No,Any,Any ,DIY," (not offering GYR, though they could select it via active choice)"
+65000_to_73000,single or jointly,Any,Any,Any ,DIY ,
+over_73000,single or jointly,Any,Any,Any,Does not qualify,

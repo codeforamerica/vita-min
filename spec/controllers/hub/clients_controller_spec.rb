@@ -1375,6 +1375,42 @@ RSpec.describe Hub::ClientsController do
     end
 
     describe "#needs_itin_help_text and #needs_itin_help_yes?" do
+      context "when intake is need_itin_help_yes?" do
+        let(:intake) { create :intake, need_itin_help: "yes" }
+
+        it "returns Yes" do
+          expect(presenter.needs_itin_help_text).to eq(I18n.t("general.affirmative"))
+        end
+
+        it "returns true" do
+          expect(presenter.needs_itin_help_yes?).to be_truthy
+        end
+      end
+
+      context "when intake is need_itin_help_no?" do
+        let(:intake) { create :intake, need_itin_help: "no" }
+
+        it "returns No" do
+          expect(presenter.needs_itin_help_text).to eq(I18n.t("general.negative"))
+        end
+
+        it "returns false" do
+          expect(presenter.needs_itin_help_yes?).to be_falsey
+        end
+      end
+
+      context "when intake is need_itin_help_unfilled?" do
+        let(:intake) { create :intake, need_itin_help: "unfilled" }
+
+        it "returns N/A" do
+          expect(presenter.needs_itin_help_text).to eq(I18n.t("general.negative"))
+        end
+
+        it "returns false" do
+          expect(presenter.needs_itin_help_yes?).to be_falsey
+        end
+      end
+
       context "when there is a triage associated with the intake" do
         let!(:triage) { create(:triage, intake: intake, id_type: id_type) }
 
@@ -1412,7 +1448,10 @@ RSpec.describe Hub::ClientsController do
         end
       end
 
-      context "when there is no triage associated with the intake" do
+      context "when intake has been archived" do
+        let(:intake) { nil }
+        let!(:archived_intake) { create(:archived_2021_gyr_intake, client: client) }
+
         it "returns N/A" do
           expect(presenter.needs_itin_help_text).to eq(I18n.t("general.NA"))
         end

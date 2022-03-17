@@ -1,8 +1,10 @@
 module Questions
-  class TriageGyrDiyController < TriageController
+  class TriageGyrDiyController < QuestionsController
+    include TriageConcern
+
     layout "intake"
 
-    def self.show?(triage)
+    def self.show?(intake)
       false
     end
 
