@@ -2003,8 +2003,9 @@ en:
           remove_dependent:
             nevermind_button: Nevermind, let's save them
             remove_button: Yes, remove them
-            subtitle: Is that okay?
-            title: You’re about to remove %{dependent_name}.
+            subtitle: Their information will not be submitted on your tax return.
+            subtitle_2: Is that ok?
+            title: You’re about to remove %{dependent_name} from your dependents.
           tin:
             form_of_identity: Form of identity
             remove_person: Remove this person

@@ -5,6 +5,7 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="form-question"><%= @main_heading %></h1>
     <h3 class="form-question"><%= I18n.t("views.ctc.questions.dependents.remove_dependent.subtitle") %></h3>
+    <h3 class="form-question"><%= I18n.t("views.ctc.questions.dependents.remove_dependent.subtitle_2") %></h3>
     <button class="button button--primary spacing-below-15 button--wide" type="submit">
       <%= image_tag("file-person.svg", alt: "") %>
       <%=t("views.ctc.questions.dependents.remove_dependent.remove_button") %>
