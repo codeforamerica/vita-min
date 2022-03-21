@@ -3915,7 +3915,7 @@ en:
       personal_info:
         info: Welcome, we're excited to help you. We need some basic information to get started.
         itin_reveal:
-          info: An Individual Taxpayer Identification Number (ITIN) is a number that the IRS can issue to you if you do not have a social security number so you can file taxes to report income and get tax benefits. If you already have a Social Security Number you do not need to apply for an ITIN.
+          info: An Individual Taxpayer Identification Number (ITIN) is a number that the IRS can issue to you if you do not have a social security number so you can file taxes to report income and get tax benefits. If you already have a Social Security Number, you do not need to apply for an ITIN.
           title: What is an ITIN?
         need_itin_help: Do you need assistance applying for an ITIN?
         phone_number: Phone number
