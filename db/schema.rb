@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_11_231919) do
+ActiveRecord::Schema.define(version: 2022_03_17_022358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -718,6 +718,19 @@ ActiveRecord::Schema.define(version: 2022_03_11_231919) do
     t.string "user_agent"
     t.index ["client_id"], name: "index_efile_security_informations_on_client_id"
     t.index ["efile_submission_id"], name: "index_client_efile_security_informations_efile_submissions_id"
+  end
+
+  create_table "efile_submission_dependents", force: :cascade do |t|
+    t.integer "age_during_tax_year"
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "dependent_id"
+    t.bigint "efile_submission_id"
+    t.boolean "qualifying_child"
+    t.boolean "qualifying_ctc"
+    t.boolean "qualifying_relative"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dependent_id"], name: "index_efile_submission_dependents_on_dependent_id"
+    t.index ["efile_submission_id"], name: "index_efile_submission_dependents_on_efile_submission_id"
   end
 
   create_table "efile_submission_transition_errors", force: :cascade do |t|

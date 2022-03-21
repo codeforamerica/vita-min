@@ -12,9 +12,9 @@ module Ctc
       end
 
       def edit
-        tax_return = current_intake.default_tax_return
-        @first_stimulus_amount = tax_return.expected_recovery_rebate_credit_one
-        @second_stimulus_amount = tax_return.expected_recovery_rebate_credit_two
+        @benefits = Efile::BenefitsEligibility.new(tax_return: current_intake.default_tax_return, dependents: current_intake.dependents)
+        @first_stimulus_amount = @benefits.eip1_amount
+        @second_stimulus_amount = @benefits.eip2_amount
         super
       end
 

@@ -22,5 +22,4 @@ describe ChildTaxCreditCalculator do
       expect(total_payment_amount).to eq(expected_payment)
     end
   end
-
 end

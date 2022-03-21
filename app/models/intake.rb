@@ -353,6 +353,10 @@ class Intake < ApplicationRecord
     false
   end
 
+  def default_tax_year
+    TaxReturn.current_tax_year
+  end
+
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     PhoneParser.formatted_phone_number(phone_number)

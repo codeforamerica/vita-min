@@ -9,6 +9,11 @@ describe Ctc::Questions::StimulusTwoController do
   end
 
   describe "#update" do
+    before do
+      # now that we aren't calculating EIP for 2021, this breaks unless we change the tax year to 2020
+      # Will be removed when we update the stimulus flow
+      allow_any_instance_of(TaxReturn).to receive(:year).and_return 2020
+    end
     it "saves 0 as the amount for stimulus 2 and redirects to stimulus-owed" do
       post :update, params: {
         ctc_stimulus_two_form: {

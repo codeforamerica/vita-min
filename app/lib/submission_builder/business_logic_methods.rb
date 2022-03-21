@@ -14,7 +14,9 @@ module SubmissionBuilder
     # 2 - bank account
     # 3 - check
     def refund_disbursement_code
-      return 0 if submission.tax_return.claimed_recovery_rebate_credit.zero?
+      # Commenting this out because its not going to be correct for 2021 tax year. We might be able to just
+      # always fill it out, even for 0 balance returns without issue. Or can replace with updated logic
+      # return 0 if submission.tax_return.claimed_recovery_rebate_credit.zero?
 
       submission.intake.refund_payment_method_direct_deposit? ? 2 : 3
     end

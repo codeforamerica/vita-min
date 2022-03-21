@@ -269,12 +269,12 @@ describe SubmissionBuilder::ReturnHeader1040 do
         context "without a refund due" do
           let(:refund_amount) { 0 }
 
-          it "includes direct deposit info and sets RefundDisbursementCd to 0" do
+          it "includes direct deposit info and sets RefundDisbursementCd to 2" do
             xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.at("RoutingTransitNum").text).to eq "123456789"
             expect(xml.at("DepositorAccountNum").text).to eq "87654321"
             expect(xml.at("CheckCd")).to eq nil
-            expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "0"
+            expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "2"
             expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp RoutingTransitNum").text).to eq "123456789"
             expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp DepositorAccountNum").text).to eq "87654321"
             expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp BankAccountDataCapturedTs").text).not_to be_nil
@@ -304,13 +304,13 @@ describe SubmissionBuilder::ReturnHeader1040 do
       context "with no refund due" do
         let(:refund_amount) { 0 }
 
-        it "includes CheckCd and exclude direct deposit nodes and sets RefundDisbursementCd to 0" do
+        it "includes CheckCd and exclude direct deposit nodes and sets RefundDisbursementCd to 3" do
           xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
 
           expect(xml.at("RoutingTransitNum")).to be_nil
           expect(xml.at("DepositorAccountNum")).to be_nil
           expect(xml.at("CheckCd").text).to eq "Check"
-          expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "0"
+          expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "3"
         end
       end
 

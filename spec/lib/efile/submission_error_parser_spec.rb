@@ -33,10 +33,10 @@ describe Efile::SubmissionErrorParser do
 
     context "when a code and message and a source are provided" do
       context "when it matches an existing code/message/source" do
+        let(:transition) { create :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a problem.", error_source: "irs" } }
         before do
           EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.", source: "irs")
         end
-        let(:transition) { create :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a problem.", error_source: "irs" } }
 
         it "does not create a new EfileError object" do
           Efile::SubmissionErrorParser.new(transition).persist_errors
@@ -46,11 +46,11 @@ describe Efile::SubmissionErrorParser do
       end
 
       context "when it does not match an existing code/message/source pair" do
+        let(:transition) { create :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a problem", error_source: "internal" } }
+
         before do
           EfileError.create(code: "IRS-1040-PROBS", message: "You have a problem.", source: "irs")
         end
-
-        let(:transition) { create :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a problem", error_source: "internal" } }
 
         it "creates a new EfileError object" do
           expect {
@@ -59,7 +59,6 @@ describe Efile::SubmissionErrorParser do
           expect(transition.efile_errors.count).to eq 1
           expect(transition.efile_errors.first.message).to eq "You have a problem"
           expect(transition.efile_errors.first.source).to eq "internal"
-
         end
       end
     end
@@ -102,13 +101,14 @@ describe Efile::SubmissionErrorParser do
 
         context "with dependent association" do
           before do
-            d = transition.efile_submission.dependents.last
+            d = transition.efile_submission.intake.dependents.last
             d.update(ssn: "142111111")
+            EfileSubmissionDependent.create(efile_submission: transition.efile_submission, dependent: d)
           end
 
           it "associates the efile error with the dependent specified in the FieldValueTxt if there is a match" do
             Efile::SubmissionErrorParser.new(transition).persist_errors
-            expect(transition.efile_submission_transition_errors.last.dependent).to eq transition.efile_submission.dependents.last
+            expect(transition.efile_submission_transition_errors.last.dependent).to eq transition.efile_submission.qualifying_dependents.last.dependent
           end
         end
       end

@@ -238,9 +238,9 @@ describe EfileSubmission do
       context "after transition to" do
         before do
           allow(MixpanelService).to receive(:send_event)
-          allow(ChildTaxCreditCalculator).to receive(:total_advance_payment).with(submission.tax_return).and_return(1000)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(3600)
           allow(submission.tax_return).to receive(:claimed_recovery_rebate_credit).and_return(1200)
-          allow(submission.tax_return).to receive(:expected_recovery_rebate_credit_three).and_return(3000)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(3000)
         end
 
         let!(:submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
@@ -253,8 +253,8 @@ describe EfileSubmission do
             event_name: "ctc_efile_return_accepted",
             subject: submission.intake,
             data: {
-              child_tax_credit_advance: 1000,
-              recovery_rebate_credit: 1200,
+              child_tax_credit_advance: 1800,
+              recovery_rebate_credit: 0,
               third_stimulus_amount: 3000
             }
           )

@@ -20,7 +20,7 @@ class EfileSubmission < ApplicationRecord
   belongs_to :tax_return
   has_one :intake, through: :tax_return
   has_one :client, through: :tax_return
-  has_many :dependents, through: :intake
+  has_many :qualifying_dependents, foreign_key: :efile_submission_id, class_name: "EfileSubmissionDependent"
   has_one :address, as: :record, dependent: :destroy
   has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
   has_one_attached :submission_bundle
@@ -40,6 +40,8 @@ class EfileSubmission < ApplicationRecord
   }
 
   default_scope { order(id: :asc) }
+
+  delegate :year, to: :tax_return, prefix: :tax
 
   def state_machine
     @state_machine ||= EfileSubmissionStateMachine.new(self, transition_class: EfileSubmissionTransition)

@@ -13,10 +13,13 @@ describe SubmissionBuilder::TY2020::AdvCtcIrs1040 do
       dependent3 = submission.intake.dependents.third
       dependent3_attrs = attributes_for(:qualifying_relative, first_name: "Kelly", birth_date: Date.new(1960, 1, 1), relationship: "parent", ssn: "123001236")
       dependent3.update(dependent3_attrs)
+      EfileSubmissionDependent.create_from_eligibility(submission, dependent)
+      EfileSubmissionDependent.create_from_eligibility(submission, dependent2)
+      EfileSubmissionDependent.create_from_eligibility(submission, dependent3)
       submission.reload
     end
 
-    let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2021 }
+    let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2020 }
 
     context "when the XML is valid" do
       let(:file_double) { double }
@@ -89,7 +92,7 @@ describe SubmissionBuilder::TY2020::AdvCtcIrs1040 do
         expect(xml.at("TaxableInterestAmt").text).to eq "1"
         expect(xml.at("TotalIncomeAmt").text).to eq "1"
         expect(xml.at("AdjustedGrossIncomeAmt").text).to eq "1"
-        expect(xml.at("TotalItemizedOrStandardDedAmt").text).to eq "25100"
+        expect(xml.at("TotalItemizedOrStandardDedAmt").text).to eq "24800"
         expect(xml.at("TaxableIncomeAmt").text).to eq "0"
         expect(xml.at("RecoveryRebateCreditAmt").text).to eq "900"
         expect(xml.at("RefundableCreditsAmt").text).to eq "900"

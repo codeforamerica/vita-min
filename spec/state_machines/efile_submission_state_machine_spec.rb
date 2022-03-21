@@ -21,8 +21,8 @@ describe EfileSubmissionStateMachine do
           submission.transition_to!(:preparing)
           expect(submission.tax_return.status).to eq("file_ready_to_file")
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-              client: submission.client.reload,
-              message: AutomatedMessage::EfilePreparing,
+            client: submission.client.reload,
+            message: AutomatedMessage::EfilePreparing,
           )
         end
       end
@@ -141,6 +141,11 @@ describe EfileSubmissionStateMachine do
 
       before do
         allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(1000)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1300)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(2400)
+
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(2400)
       end
 
       it "sends a message to the client" do
@@ -155,6 +160,17 @@ describe EfileSubmissionStateMachine do
       it "updates the tax return status" do
         submission.transition_to!(:accepted)
         expect(submission.tax_return.status).to eq("file_accepted")
+      end
+
+
+
+      it "creates a record to store the tax return data" do
+        expect {
+          submission.transition_to(:accepted)
+        }.to change(AcceptedTaxReturnAnalytics, :count).by 1
+        expect(submission.tax_return.accepted_tax_return_analytics.advance_ctc_amount_cents).to eq 120000
+        expect(submission.tax_return.accepted_tax_return_analytics.refund_amount_cents).to eq 230000
+        expect(submission.tax_return.accepted_tax_return_analytics.eip3_amount_cents).to eq 240000
       end
     end
 

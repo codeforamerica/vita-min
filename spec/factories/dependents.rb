@@ -3,7 +3,7 @@
 # Table name: dependents
 #
 #  id                                           :bigint           not null, primary key
-#  below_qualifying_relative_income_requirement :integer          default(0)
+#  below_qualifying_relative_income_requirement :integer          default("unfilled")
 #  birth_date                                   :date             not null
 #  cant_be_claimed_by_other                     :integer          default("unfilled"), not null
 #  claim_anyway                                 :integer          default("unfilled"), not null
@@ -14,7 +14,7 @@
 #  encrypted_ssn                                :string
 #  encrypted_ssn_iv                             :string
 #  filed_joint_return                           :integer          default("unfilled"), not null
-#  filer_provided_over_half_support             :integer          default(0)
+#  filer_provided_over_half_support             :integer          default("unfilled")
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
 #  has_ip_pin                                   :integer          default("unfilled"), not null
@@ -33,7 +33,7 @@
 #  residence_exception_adoption                 :integer          default("unfilled"), not null
 #  residence_exception_born                     :integer          default("unfilled"), not null
 #  residence_exception_passed_away              :integer          default("unfilled"), not null
-#  residence_lived_with_all_year                :integer          default(0)
+#  residence_lived_with_all_year                :integer          default("unfilled")
 #  soft_deleted_at                              :datetime
 #  suffix                                       :string
 #  tin_type                                     :integer

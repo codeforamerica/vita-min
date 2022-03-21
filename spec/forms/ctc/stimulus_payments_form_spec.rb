@@ -12,8 +12,8 @@ describe Ctc::StimulusPaymentsForm do
 
   describe '#save' do
     before do
-      allow_any_instance_of(TaxReturn).to receive(:expected_recovery_rebate_credit_one).and_return(2400)
-      allow_any_instance_of(TaxReturn).to receive(:expected_recovery_rebate_credit_two).and_return(1200)
+      allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(2400)
+      allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1200)
     end
 
     context "when the client received the full amount" do

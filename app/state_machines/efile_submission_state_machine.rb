@@ -105,11 +105,23 @@ class EfileSubmissionStateMachine
       locale: client.intake.locale
     )
     tax_return.transition_to(:file_accepted)
-    tax_return.record_expected_payments!
+
+    benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
+    ctc_amount = benefits.ctc_amount / 2
+    refund_amount = client.intake.claim_owed_stimulus_money_no? ? 0 : (benefits.eip1_amount + benefits.eip2_amount)
+    eip3_amount = benefits.eip3_amount
+
+    # TODO: Update analytics table to report relevant information for tax year
+    submission.tax_return.create_accepted_tax_return_analytics!(
+      advance_ctc_amount_cents: ctc_amount * 100,
+      refund_amount_cents: refund_amount * 100,
+      eip3_amount_cents: eip3_amount * 100
+    )
+
     send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
-      child_tax_credit_advance: tax_return.expected_advance_ctc_payments,
-      recovery_rebate_credit: tax_return.claimed_recovery_rebate_credit,
-      third_stimulus_amount: tax_return.expected_recovery_rebate_credit_three,
+      child_tax_credit_advance: ctc_amount,
+      recovery_rebate_credit: refund_amount,
+      third_stimulus_amount: eip3_amount,
     })
   end
 
