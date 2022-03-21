@@ -41,6 +41,37 @@ describe BuildSubmissionBundleJob do
       end
     end
 
+    context "EfileSubmissionDependent creation" do
+      before do
+        allow(SubmissionBundle).to receive(:build).and_return SubmissionBundleResponse.new
+        allow_any_instance_of(EfileSubmission).to receive(:submission_bundle).and_return "yes"
+        submission.intake.dependents.delete_all
+        create :qualifying_child, intake: submission.intake # creates object
+        create :qualifying_relative, intake: submission.intake # creates object
+        create :dependent, intake: submission.intake # does not qualify, does not create object
+      end
+
+      it "creates EfileSubmissionDependent objects for each qualifying dependent" do
+        expect(submission.intake.dependents.length).to eq 3
+        expect {
+          described_class.perform_now(submission.id)
+        }.to change(EfileSubmissionDependent, :count).by 2
+      end
+
+      context "when objects already exist for some dependents" do
+        before do
+          EfileSubmissionDependent.create(dependent: submission.intake.dependents.first, efile_submission: submission)
+        end
+
+        it "does not create duplicated objects" do
+          expect(submission.intake.dependents.length).to eq 3
+          expect(EfileSubmissionDependent.where(efile_submission: submission).count).to eq 1
+          described_class.perform_now(submission.id)
+          expect(EfileSubmissionDependent.count).to eq 2 # there is still only one entry for each qualifying dependent
+        end
+      end
+    end
+
     context "when the build is successful" do
       before do
         allow(SubmissionBundle).to receive(:build).and_return SubmissionBundleResponse.new

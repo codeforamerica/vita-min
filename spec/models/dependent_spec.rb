@@ -3,7 +3,7 @@
 # Table name: dependents
 #
 #  id                                           :bigint           not null, primary key
-#  below_qualifying_relative_income_requirement :integer          default(0)
+#  below_qualifying_relative_income_requirement :integer          default("unfilled")
 #  birth_date                                   :date             not null
 #  cant_be_claimed_by_other                     :integer          default("unfilled"), not null
 #  claim_anyway                                 :integer          default("unfilled"), not null
@@ -14,7 +14,7 @@
 #  encrypted_ssn                                :string
 #  encrypted_ssn_iv                             :string
 #  filed_joint_return                           :integer          default("unfilled"), not null
-#  filer_provided_over_half_support             :integer          default(0)
+#  filer_provided_over_half_support             :integer          default("unfilled")
 #  first_name                                   :string
 #  full_time_student                            :integer          default("unfilled"), not null
 #  has_ip_pin                                   :integer          default("unfilled"), not null
@@ -33,7 +33,7 @@
 #  residence_exception_adoption                 :integer          default("unfilled"), not null
 #  residence_exception_born                     :integer          default("unfilled"), not null
 #  residence_exception_passed_away              :integer          default("unfilled"), not null
-#  residence_lived_with_all_year                :integer          default(0)
+#  residence_lived_with_all_year                :integer          default("unfilled")
 #  soft_deleted_at                              :datetime
 #  suffix                                       :string
 #  tin_type                                     :integer
@@ -148,59 +148,6 @@ describe Dependent do
         dependent_disabled: "no",
         dependent_was_married: "no"
       })
-    end
-  end
-
-  context "eligibility for special credits" do
-    context "when a qualifying child" do
-      context "when under 17 " do
-        context "with an itin" do
-          let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :itin, ssn: "999793121" }
-          it "is not qualified for any special credits" do
-            expect(dependent.eligible_for_eip2?(2020)).to eq false
-            expect(dependent.eligible_for_eip1?(2020)).to eq false
-            expect(dependent.eligible_for_child_tax_credit?(2020)).to eq false
-          end
-        end
-
-        context "with an atin" do
-          let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :atin }
-          it "is qualified for eip but not ctc" do
-            expect(dependent.eligible_for_eip2?(2020)).to eq true
-            expect(dependent.eligible_for_eip1?(2020)).to eq true
-            expect(dependent.eligible_for_child_tax_credit?(2020)).to eq false
-          end
-        end
-
-        context "with an ssn" do
-          let(:dependent) { create :qualifying_child, birth_date: Date.new(2004, 1, 1), tin_type: :ssn }
-
-          it "is qualified for all special credits" do
-            expect(dependent.eligible_for_eip2?(2020)).to eq true
-            expect(dependent.eligible_for_eip1?(2020)).to eq true
-            expect(dependent.eligible_for_child_tax_credit?(2020)).to eq true
-          end
-        end
-      end
-
-      context "when over 17" do
-        let(:dependent) { create :qualifying_child, birth_date: Date.new(2003, 12, 31) }
-
-        it "is false for all special credits" do
-          expect(dependent.eligible_for_eip2?(2020)).to eq false
-          expect(dependent.eligible_for_eip1?(2020)).to eq false
-          expect(dependent.eligible_for_child_tax_credit?(2020)).to eq false
-        end
-      end
-    end
-
-    context "when not a qualifying child" do
-      let(:dependent) { create :qualifying_relative }
-      it "is false for all special credits" do
-        expect(dependent.eligible_for_eip2?(2020)).to eq false
-        expect(dependent.eligible_for_eip1?(2020)).to eq false
-        expect(dependent.eligible_for_child_tax_credit?(2020)).to eq false
-      end
     end
   end
 end

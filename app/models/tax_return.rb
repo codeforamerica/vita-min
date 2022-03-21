@@ -102,7 +102,8 @@ class TaxReturn < ApplicationRecord
   def outstanding_recovery_rebate_credit
     return nil unless intake.eip1_amount_received && intake.eip2_amount_received
 
-    [expected_recovery_rebate_credit_one - intake.eip1_amount_received, 0].max + [expected_recovery_rebate_credit_two - intake.eip2_amount_received, 0].max
+    benefits = Efile::BenefitsEligibility.new(tax_return: self, dependents: intake.dependents)
+    [benefits.eip1_amount - intake.eip1_amount_received, 0].max + [benefits.eip2_amount - intake.eip2_amount_received, 0].max
   end
 
   def claimed_recovery_rebate_credit
@@ -121,43 +122,8 @@ class TaxReturn < ApplicationRecord
     [intake.primary_tin_type, intake.spouse_tin_type].count { |tin_type| tin_type == "ssn" }
   end
 
-  def expected_recovery_rebate_credit_one
-    EconomicImpactPaymentOneCalculator.payment_due(
-      filer_count: rrc_eligible_filer_count,
-      dependent_count: qualifying_dependents.count { |qd| qd.eligible_for_eip1?(2020) }
-    )
-  end
-
-  def expected_recovery_rebate_credit_two
-    EconomicImpactPaymentTwoCalculator.payment_due(
-      filer_count: rrc_eligible_filer_count,
-      dependent_count: qualifying_dependents.count { |qd| qd.eligible_for_eip2?(2020) }
-    )
-  end
-
-  def expected_recovery_rebate_credit_three
-    EconomicImpactPaymentThreeCalculator.payment_due(
-      filer_count: rrc_eligible_filer_count,
-      dependent_count: intake.dependents.count(&:eligible_for_eip3?)
-    )
-  end
-
-  def expected_advance_ctc_payments
-    ChildTaxCreditCalculator.total_advance_payment(self)
-  end
-
   def has_submissions?
     efile_submissions.count.nonzero?
-  end
-
-  def record_expected_payments!
-    raise StandardError, "Cannot record payments on tax return that is not accepted" unless current_state == "file_accepted"
-
-    create_accepted_tax_return_analytics!(
-      advance_ctc_amount_cents: expected_advance_ctc_payments ? expected_advance_ctc_payments * 100 : 0,
-      refund_amount_cents: claimed_recovery_rebate_credit ? claimed_recovery_rebate_credit * 100 : 0,
-      eip3_amount_cents: expected_recovery_rebate_credit_three ? expected_recovery_rebate_credit_three * 100 : 0
-    )
   end
 
   def self.current_tax_year

@@ -19,7 +19,7 @@ module SubmissionBuilder
           xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
           xml.DependentSSN dependent.ssn
           xml.DependentRelationshipCd dependent.irs_relationship_enum
-          xml.EligibleForChildTaxCreditInd "X" if dependent.eligible_for_child_tax_credit?(2020)
+          xml.EligibleForChildTaxCreditInd "X" if dependent.qualifying_ctc?
         end
       end
 
@@ -31,7 +31,7 @@ module SubmissionBuilder
         intake = submission.intake
         tax_return = submission.tax_return
         bank_account = intake.bank_account
-        qualifying_dependents = tax_return.qualifying_dependents
+        qualifying_dependents = submission.qualifying_dependents
 
         Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.IRS1040(root_node_attrs) {
@@ -41,8 +41,8 @@ module SubmissionBuilder
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
             end
-            xml.ChldWhoLivedWithYouCnt qualifying_dependents.count { |qd| qd.qualifying_child?(2020) }
-            xml.OtherDependentsListedCnt qualifying_dependents.count { |qd| qd.qualifying_relative?(2020) }
+            xml.ChldWhoLivedWithYouCnt qualifying_dependents.count(&:qualifying_child?)
+            xml.OtherDependentsListedCnt qualifying_dependents.count(&:qualifying_relative?)
             xml.TotalExemptionsCnt filer_exemption_count + qualifying_dependents.length
             xml.TaxableInterestAmt 1 # 2b
             xml.TotalIncomeAmt 1 # 9

@@ -54,8 +54,8 @@ module Efile
         dependent_id = nil
 
         if identifier.present?
-          @transition.efile_submission.dependents.each do |dependent|
-            dependent_id = dependent.id if dependent.ssn == identifier
+          @transition.efile_submission.qualifying_dependents.each do |dependent|
+            dependent_id = dependent.dependent_id if dependent.ssn == identifier
           end
         end
         @transition.efile_submission_transition_errors.create(efile_submission_id: @transition.efile_submission.id, efile_error_id: error.id, dependent_id: dependent_id)

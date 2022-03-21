@@ -38,7 +38,7 @@ module Efile
 
       # Looks for the qualifying method on dependent directly. If it can't find it, looks for rule inside this class.
       def test(qualifier)
-        dependent.respond_to?(qualifier) ? dependent.send(qualifier) : send(qualifier)
+        respond_to?(qualifier, true) ? send(qualifier) : dependent.send(qualifier)
       end
 
       def applied_rules

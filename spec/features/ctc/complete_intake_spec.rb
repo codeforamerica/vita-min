@@ -204,8 +204,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     # =========== RECOVERY REBATE CREDIT ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
-    expect(page).to have_selector(".first-stimulus", text: "$2,900")
-    expect(page).to have_selector(".second-stimulus", text: "$1,800")
+    expect(page).to have_selector(".first-stimulus", text: "$0")
+    expect(page).to have_selector(".second-stimulus", text: "$0")
 
     click_on I18n.t('views.ctc.questions.stimulus_payments.no_did_not_receive')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_one.title'))

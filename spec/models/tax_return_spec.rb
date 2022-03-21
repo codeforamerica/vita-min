@@ -61,7 +61,7 @@ describe TaxReturn do
   end
 
   describe "#outstanding_recovery_rebate_credit" do
-    let(:tax_return) { create :tax_return, client: client, year: TaxReturn.current_tax_year }
+    let(:tax_return) { create :tax_return, client: client, year: 2020 }
     let(:client) { create :client, intake: create(:ctc_intake, eip1_amount_received: eip1_amount_received, eip2_amount_received: eip2_amount_received) }
     let(:intake) { tax_return.intake }
 
@@ -69,8 +69,8 @@ describe TaxReturn do
       let(:eip1_amount_received) { 4000 }
       let(:eip2_amount_received) { 1000 }
       before do
-        allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due).and_return(2400)
-        allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due).and_return(1200)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(2400)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1200)
       end
 
       it "qualifies for outstanding eip2 amount" do
@@ -82,8 +82,8 @@ describe TaxReturn do
       let(:eip1_amount_received) { 1200 }
       let(:eip2_amount_received) { 1300 }
       before do
-        allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due).and_return(2400)
-        allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due).and_return(1200)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(2400)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1200)
       end
 
       it "qualifies for outstanding eip1 amount" do
@@ -95,8 +95,8 @@ describe TaxReturn do
       let(:eip1_amount_received) { 2300 }
       let(:eip2_amount_received) { 1100 }
       before do
-        allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due).and_return(2400)
-        allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due).and_return(1200)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(2400)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1200)
       end
 
       it "qualifies for outstanding eip1+eip2 amount" do
@@ -119,90 +119,26 @@ describe TaxReturn do
     end
   end
 
-  describe "#expected_recovery_rebate_credit_one" do
-    let(:tax_return) { create :tax_return, client: client, year: TaxReturn.current_tax_year }
-    let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
-    let(:intake) { tax_return.intake }
-    before do
-      allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
-      allow_any_instance_of(Dependent).to receive(:qualifying_child?).and_return true
-      allow_any_instance_of(Dependent).to receive(:eligible_for_eip1?).and_return true
-      allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due)
-    end
-
-    it "calls the EconomicImpactPaymentOneCalculator with appropriate values for the tax return" do
-      tax_return.expected_recovery_rebate_credit_one
-      expect(EconomicImpactPaymentOneCalculator).to have_received(:payment_due).with(filer_count: 1, dependent_count: 2)
-    end
-  end
-
-  describe "#expected_recovery_rebate_credit_two" do
-    let(:tax_return) { create :tax_return, client: client, year: TaxReturn.current_tax_year }
-    let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
-    let(:intake) { tax_return.intake }
-    before do
-      allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
-      allow_any_instance_of(Dependent).to receive(:qualifying_child?).and_return true
-      allow_any_instance_of(Dependent).to receive(:eligible_for_eip2?).and_return true
-      allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due)
-    end
-
-    it "calls the EconomicImpactPaymentTwoCalculator with appropriate values for the tax return" do
-      tax_return.expected_recovery_rebate_credit_two
-      expect(EconomicImpactPaymentTwoCalculator).to have_received(:payment_due).with(filer_count: 1, dependent_count: 2)
-    end
-  end
-
-  describe "#expected_recovery_rebate_credit_three" do
-    let(:tax_return) { create :tax_return, client: client, year: 2021 }
-    let(:client) { create :client, intake: create(:ctc_intake, :with_dependents, dependent_count: 2) }
-    let(:intake) { tax_return.intake }
-    before do
-      allow(tax_return).to receive(:rrc_eligible_filer_count).and_return(1)
-      allow_any_instance_of(Dependent).to receive(:eligible_for_eip3?).and_return true
-      allow(EconomicImpactPaymentThreeCalculator).to receive(:payment_due)
-    end
-
-    it "calls the EconomicImpactPaymentThreeCalculator with appropriate values for the tax return" do
-      tax_return.expected_recovery_rebate_credit_three
-      expect(EconomicImpactPaymentThreeCalculator).to have_received(:payment_due).with(filer_count: 1, dependent_count: 2)
-    end
-  end
-
   describe "#record_expected_payments!" do
     context "when the return is accepted" do
-      let(:tax_return) { create :tax_return, :file_accepted }
+      let(:tax_return) { create :tax_return }
+      let(:efile_submission) { create :efile_submission, :transmitted, tax_return: tax_return }
 
       before do
-        allow(tax_return).to receive(:expected_advance_ctc_payments).and_return(1000)
-        allow(tax_return).to receive(:claimed_recovery_rebate_credit).and_return(1300)
-        allow(tax_return).to receive(:expected_recovery_rebate_credit_three).and_return(2400)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(1000)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1300)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(2400)
+
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(2400)
       end
 
       it "creates an accepted_tax_return_analytics association" do
         expect {
-          tax_return.record_expected_payments!
+          efile_submission.transition_to(:accepted)
         }.to change(AcceptedTaxReturnAnalytics, :count).by 1
-        expect(tax_return.accepted_tax_return_analytics.advance_ctc_amount_cents).to eq 100000
-        expect(tax_return.accepted_tax_return_analytics.refund_amount_cents).to eq 130000
+        expect(tax_return.accepted_tax_return_analytics.advance_ctc_amount_cents).to eq 120000
+        expect(tax_return.accepted_tax_return_analytics.refund_amount_cents).to eq 230000
         expect(tax_return.accepted_tax_return_analytics.eip3_amount_cents).to eq 240000
-      end
-
-      context "when some of the values are nil" do
-        before do
-          allow(tax_return).to receive(:expected_advance_ctc_payments).and_return(nil)
-          allow(tax_return).to receive(:claimed_recovery_rebate_credit).and_return(nil)
-          allow(tax_return).to receive(:expected_recovery_rebate_credit_three).and_return(nil)
-        end
-
-        it "applies the values as 0" do
-          expect {
-            tax_return.record_expected_payments!
-          }.to change(AcceptedTaxReturnAnalytics, :count).by 1
-          expect(tax_return.accepted_tax_return_analytics.advance_ctc_amount_cents).to eq 0
-          expect(tax_return.accepted_tax_return_analytics.refund_amount_cents).to eq 0
-          expect(tax_return.accepted_tax_return_analytics.eip3_amount_cents).to eq 0
-        end
       end
     end
 
