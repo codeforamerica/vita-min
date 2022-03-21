@@ -77,9 +77,10 @@ module SubmissionBuilder
       end
 
       def build
-        # unless ENV['TEST_SCHEMA_VALIDITY_ONLY'] == 'true'
-        #   raise NotImplementedError, "SubmissionBuilder::TY2021::LapsedFilerIrs1040 is for testing purposes only and does not currently conform to the 2021 revenue procedure."
-        # end
+        unless ENV['TEST_SCHEMA_VALIDITY_ONLY'] == 'true'
+          raise NotImplementedError, "SubmissionBuilder::TY2021::LapsedFilerIrs1040 is for testing purposes only and does not currently conform to the 2021 revenue procedure."
+        end
+        
         super
       end
     end
