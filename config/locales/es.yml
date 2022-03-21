@@ -668,6 +668,7 @@ es:
         client_id_heading: Cliente ID
         client_info: Información del cliente
         created_at: Creado en
+        excludes_statuses: 'Excluye estados: %{statuses}'
         filing_year: Año para declarar
         filter: Filtrar resultados
         filters: Filtros

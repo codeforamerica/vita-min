@@ -770,6 +770,17 @@ RSpec.describe Hub::ClientsController do
             expect(assigns(:clients).map(&:preferred_name)).to eq [recently_contacted_client].map(&:preferred_name)
           end
         end
+
+        context "active_returns filter" do
+          let!(:in_progress_client) { create :client_with_intake_and_return, vita_partner: organization, tax_return_state: 'intake_in_progress' }
+          let!(:reviewing_client) { create :client_with_intake_and_return, vita_partner: organization, tax_return_state: 'review_reviewing' }
+          let!(:accepted_client) { create :client_with_intake_and_return, vita_partner: organization, tax_return_state: 'file_accepted' }
+
+          it "returns only the clients that are active" do
+            get :index, params: { active_returns: "true" }
+            expect(assigns(:clients)).to eq [in_progress_client, reviewing_client]
+          end
+        end
       end
 
       context "SLA columns" do
