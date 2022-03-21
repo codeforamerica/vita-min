@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::TY2021::LapsedFilerIRS1040 do
+describe SubmissionBuilder::TY2021::LapsedFilerIrs1040 do
   describe ".build" do
     before do
       submission.intake.update(primary_last_name: "Kòala")

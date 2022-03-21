@@ -1,6 +1,6 @@
 module SubmissionBuilder
   module TY2021
-    class LapsedFilerIRS1040 < SubmissionBuilder::Base
+    class LapsedFilerIrs1040 < SubmissionBuilder::Base
       include SubmissionBuilder::FormattingMethods
       @root_node = "IRS1040"
 
@@ -78,7 +78,7 @@ module SubmissionBuilder
 
       def build
         # unless ENV['TEST_SCHEMA_VALIDITY_ONLY'] == 'true'
-        #   raise NotImplementedError, "SubmissionBuilder::TY2021::LapsedFilerIRS1040 is for testing purposes only and does not currently conform to the 2021 revenue procedure."
+        #   raise NotImplementedError, "SubmissionBuilder::TY2021::LapsedFilerIrs1040 is for testing purposes only and does not currently conform to the 2021 revenue procedure."
         # end
         super
       end
