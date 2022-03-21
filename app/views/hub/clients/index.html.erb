@@ -8,9 +8,9 @@
       <h1> <%= @page_title %> </h1>
       <div class="text--no-wrap quick-filters">
         <label>Quick Filters:</label>
-        <% ClientSortable::QUICK_FILTERS.each do |(filter_value, filter_label)| %>
-          <% selected = filtering_only_by?(:last_contact, filter_value) %>
-          <%= link_to selected ? hub_clients_path(clear: true) : hub_clients_path(last_contact: filter_value), class: "button button--quick-filter  #{selected ? "selected" : ""}" do %>
+        <% ClientSortable::QUICK_FILTERS.each do |(filter_values, filter_label)| %>
+          <% selected = filtering_only_by?(filter_values) %>
+          <%= link_to selected ? hub_clients_path(clear: true) : hub_clients_path(filter_values), class: "button button--quick-filter #{selected ? "selected" : ""}" do %>
             <%= filter_label %>
             <i class="clear-filter icon-close"></i>
           <% end %>

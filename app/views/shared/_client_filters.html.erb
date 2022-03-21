@@ -5,6 +5,14 @@
 
     <h2 class="with-top-margin"><%= t("hub.clients.index.filters") %></h2>
 
+    <label class="checkbox--gyr">
+      <%= check_box_tag :active_returns, true, @filters[:active_returns] %>
+      <div class="tooltip" data-position="bottom" title="<%= t('hub.clients.index.excludes_statuses', statuses: TaxReturnStateMachine::EXCLUDED_FROM_SLA.without(
+          :intake_before_consent).map { |status| TaxReturnStatusHelper.status_translation(status) } .join(', ')) %>">
+        Display active returns only
+      </div>
+    </label>
+
     <div class="form-group">
       <label for="status-filter" class="form-question"><%= t("hub.clients.index.stage_status") %></label>
       <div class="select">

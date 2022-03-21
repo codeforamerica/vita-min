@@ -331,13 +331,14 @@ RSpec.describe "searching, sorting, and filtering clients" do
         2.times do
           create(:client_with_intake_and_return, last_outgoing_communication_at: 8.business_days.ago)
         end
+        create(:client_with_intake_and_return, last_outgoing_communication_at: 8.business_days.ago, tax_return_state: 'file_mailed')
       end
 
       scenario "using the quick filters to identify clients approaching and in breach of SLA", js: true do
         visit hub_clients_path
 
         expect(page).to have_text "All Clients"
-        expect(page.all('.client-row').length).to eq 11
+        expect(page.all('.client-row').length).to eq 12
 
         # last contact dropdown
         select "Less than 1 day", from: "Last contact"
@@ -352,7 +353,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         select "6+ day", from: "Last contact"
         click_on "Filter results"
-        expect(page.all('.client-row').length).to eq 2
+        expect(page.all('.client-row').length).to eq 3
         click_link "Clear"
 
         # quick filter buttons
@@ -363,7 +364,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         click_on "Breached SLA"
         expect(page.all('.client-row').length).to eq 2
         page.find('a', text: "Breached SLA").find('.clear-filter').click
-        expect(page.all('.client-row').length).to eq 11
+        expect(page.all('.client-row').length).to eq 12
       end
     end
   end
