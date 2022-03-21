@@ -12,7 +12,7 @@ module SubmissionBuilder
       end
 
       def adv_ctc_irs1040
-        SubmissionBuilder::TY2021::AdvCtcIrs1040.build(@submission, validate: false).as_fragment
+        SubmissionBuilder::TY2021::LapsedFilerIrs1040.build(@submission, validate: false).as_fragment
       end
 
       def return_header
