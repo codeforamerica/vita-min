@@ -3881,6 +3881,9 @@ es:
           other: En %{year}, ¿Hizo usted o su pareja algún pago de pensión alimenticia?
       personal_info:
         info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
+        itin_reveal:
+          info: Un Número de Identificación Personal del Contribuyente (ITIN) es un número que el IRS puede emitirle si no tiene un número de seguro social para que pueda declarar impuestos para declarar ingresos y obtener beneficios fiscales. Si ya tiene un Número de Seguro Social, no necesita solicitar un ITIN.
+          title: "¿Qué es un ITIN?"
         need_itin_help: "¿Necesita ayuda para solicitar un ITIN?"
         phone_number: Número de teléfono
         phone_number_confirmation: Confirmar número de teléfono
