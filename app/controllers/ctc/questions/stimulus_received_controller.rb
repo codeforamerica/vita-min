@@ -6,15 +6,14 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
-        return false if intake.eip1_amount_received.nil? || intake.eip2_amount_received.nil?
+        return false if intake.eip3_amount_received.nil?
 
         intake.default_tax_return&.outstanding_recovery_rebate_credit&.zero?
       end
 
       def edit
         @benefits = Efile::BenefitsEligibility.new(tax_return: current_intake.default_tax_return, dependents: current_intake.dependents)
-        @first_stimulus_amount = @benefits.eip1_amount
-        @second_stimulus_amount = @benefits.eip2_amount
+        @third_stimulus_amount = @benefits.eip3_amount
         super
       end
 
