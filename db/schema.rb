@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_022358) do
+ActiveRecord::Schema.define(version: 2022_03_22_185949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -1112,7 +1112,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_022358) do
     t.boolean "with_vita_approved_taxpayer_id", default: false
     t.string "zip_code"
     t.index ["canonical_email_address"], name: "index_intakes_on_canonical_email_address"
-    t.index ["client_id"], name: "index_intakes_on_client_id"
+    t.index ["client_id"], name: "index_intakes_on_client_id", unique: true
     t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"

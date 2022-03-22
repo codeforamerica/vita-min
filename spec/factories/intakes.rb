@@ -249,7 +249,7 @@
 # Indexes
 #
 #  index_intakes_on_canonical_email_address                (canonical_email_address)
-#  index_intakes_on_client_id                              (client_id)
+#  index_intakes_on_client_id                              (client_id) UNIQUE
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
