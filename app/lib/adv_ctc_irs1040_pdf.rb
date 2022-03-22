@@ -11,6 +11,7 @@ class AdvCtcIrs1040Pdf
     @intake = submission.intake
     @qualifying_dependents = submission.tax_return.qualifying_dependents
     @address = @submission.address
+    @benefits = Efile::BenefitsEligibility.new(tax_return: @tax_return, dependents: @qualifying_dependents)
   end
 
   def hash_for_pdf
@@ -29,11 +30,11 @@ class AdvCtcIrs1040Pdf
         AdjustedGrossIncomeAmt11: 1,
         TotalItemizedOrStandardDedAmt12: @tax_return.standard_deduction,
         TaxableIncomeAmt15: 0,
-        RecoveryRebateCreditAmt30: @tax_return.claimed_recovery_rebate_credit,
-        RefundableCreditsAmt32: @tax_return.claimed_recovery_rebate_credit,
-        TotalPaymentsAmt33: @tax_return.claimed_recovery_rebate_credit,
-        OverpaidAmt34: @tax_return.claimed_recovery_rebate_credit,
-        RefundAmt35: @tax_return.claimed_recovery_rebate_credit,
+        RecoveryRebateCreditAmt30: @benefits.claimed_recovery_rebate_credit,
+        RefundableCreditsAmt32: @benefits.claimed_recovery_rebate_credit,
+        TotalPaymentsAmt33: @benefits.claimed_recovery_rebate_credit,
+        OverpaidAmt34: @benefits.claimed_recovery_rebate_credit,
+        RefundAmt35: @benefits.claimed_recovery_rebate_credit,
         PrimarySignature: @intake.primary_full_name,
         PrimarySignatureDate: @intake.primary_signature_pin_at&.strftime("%m/%d/%y"),
         PrimaryIPPIN: @intake.primary_ip_pin,

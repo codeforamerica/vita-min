@@ -8,7 +8,7 @@ module Ctc
       def self.show?(intake)
         return false if intake.eip3_amount_received.nil?
 
-        intake.default_tax_return&.outstanding_recovery_rebate_credit&.zero?
+        Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents).outstanding_recovery_rebate_credit&.zero?
       end
 
       def edit

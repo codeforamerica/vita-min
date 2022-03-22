@@ -138,6 +138,9 @@ RSpec.describe AdvCtcIrs1040Pdf do
       before do
         submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1))
         submission.reload
+
+        @claimed_rrc = "1000"
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return @claimed_rrc
       end
 
       it "returns a filled out pdf" do
@@ -158,11 +161,11 @@ RSpec.describe AdvCtcIrs1040Pdf do
           "AdjustedGrossIncomeAmt11" => "1",
           "TotalItemizedOrStandardDedAmt12" => "12400",
           "TaxableIncomeAmt15" => "0",
-          "RecoveryRebateCreditAmt30" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
-          "RefundableCreditsAmt32" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
-          "TotalPaymentsAmt33" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
-          "OverpaidAmt34" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
-          "RefundAmt35" => submission.tax_return.claimed_recovery_rebate_credit.to_s,
+          "RecoveryRebateCreditAmt30" => @claimed_rrc.to_s,
+          "RefundableCreditsAmt32" => @claimed_rrc.to_s,
+          "TotalPaymentsAmt33" => @claimed_rrc.to_s,
+          "OverpaidAmt34" => @claimed_rrc.to_s,
+          "RefundAmt35" => @claimed_rrc.to_s,
           "PrimarySignature" => "#{submission.intake.primary_first_name} #{submission.intake.primary_last_name}",
           "PrimarySignatureDate" => "01/01/20",
           "PrimaryIPPIN" => "12345",
