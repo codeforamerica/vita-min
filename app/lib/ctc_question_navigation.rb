@@ -50,16 +50,11 @@ class CtcQuestionNavigation
     Ctc::Questions::ConfirmDependentsController,
 
     # RRC
-    # Removing this from the flow temporarily
-    # Ctc::Questions::StimulusPaymentsController,
-
-    # Clients cannot claim EIP1 and EIP2 on their 2021 tax return
-    # These pages may be added back into the flow later in 2022
-    # Ctc::Questions::StimulusOneController,
-    # Ctc::Questions::StimulusOneReceivedController,
-    # Ctc::Questions::StimulusTwoController,
-    # Ctc::Questions::StimulusTwoReceivedController,
-
+    Ctc::Questions::StimulusPaymentsController,
+    Ctc::Questions::StimulusOneController,
+    Ctc::Questions::StimulusOneReceivedController,
+    Ctc::Questions::StimulusTwoController,
+    Ctc::Questions::StimulusTwoReceivedController,
     Ctc::Questions::StimulusReceivedController,
     Ctc::Questions::StimulusOwedController,
 
