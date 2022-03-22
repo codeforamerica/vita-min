@@ -109,8 +109,8 @@ describe TaxReturn do
       let(:eip2_amount_received) { 1200 }
 
       before do
-        allow(EconomicImpactPaymentOneCalculator).to receive(:payment_due).and_return(2400)
-        allow(EconomicImpactPaymentTwoCalculator).to receive(:payment_due).and_return(1200)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return 2400
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return 1200
       end
 
       it "has a 0 amount" do

@@ -75,7 +75,7 @@ class AdvCtcIrs1040Pdf
       answers["DependentLegalNm[#{index}]"] = dependent.full_name
       answers["DependentRelationship[#{index}]"] = dependent.relationship
       answers["DependentSSN[#{index}]"] = pdf_mask(dependent.ssn, 4)
-      answers["DependentCTCInd[#{index}]"] = dependent.eligible_for_child_tax_credit?(@tax_return.year) ? 1 : 0
+      answers["DependentCTCInd[#{index}]"] = dependent.qualifying_ctc?(@tax_return.year) ? 1 : 0
     end
     answers
   end
