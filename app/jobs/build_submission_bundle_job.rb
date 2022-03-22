@@ -17,6 +17,7 @@ class BuildSubmissionBundleJob < ApplicationJob
     end
 
     begin
+      # TODO: This needs to be updated for the 2021 tax season
       response = SubmissionBundle.build(submission, documents: ["adv_ctc_irs1040"])
     rescue StandardError => e
       submission.transition_to!(:failed, error_code: 'BUNDLE-FAIL', raw_response: e.inspect)
