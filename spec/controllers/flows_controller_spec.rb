@@ -28,8 +28,8 @@ RSpec.describe FlowsController do
         post :generate, params: default_params.merge({ submit_married_filing_jointly_with_dependents: 'Married Filing Jointly With Dependents ✨' })
         expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
         expect(controller.current_intake.dependents.count).to eq(2)
-        expect(controller.current_intake.dependents.select { |d| d.eligible_for_child_tax_credit?(2020) }.length).to eq(1)
-        expect(controller.current_intake.dependents.select { |d| !d.eligible_for_child_tax_credit?(2020) && d.qualifying_relative?(2020) }.length).to eq(1)
+        expect(controller.current_intake.dependents.select { |d| d.qualifying_ctc? }.length).to eq(1)
+        expect(controller.current_intake.dependents.select { |d| !d.qualifying_ctc? && d.qualifying_relative? }.length).to eq(1)
       end
     end
 

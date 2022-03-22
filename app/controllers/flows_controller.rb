@@ -286,7 +286,9 @@ class FlowsController < ApplicationController
           last_name: last_name,
           relationship: %w[aunt uncle].sample,
           permanently_totally_disabled: 'yes',
-          meets_misc_qualifying_relative_requirements: 'yes',
+          cant_be_claimed_by_other: 'yes',
+          below_qualifying_relative_income_requirement: "yes",
+          filer_provided_over_half_support: "yes",
           birth_date: 52.years.ago,
           tin_type: 'ssn',
           ssn: '555115555'

@@ -17,7 +17,7 @@
             render(
               partial: 'dependent',
               locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
-              collection: current_intake.dependents.select { |dep| dep.eligible_for_child_tax_credit? }
+              collection: current_intake.dependents.select { |dep| dep.qualifying_ctc? }
             ) || t('views.ctc.questions.confirm_dependents.no_qualifying_dependents')
           %>
         </div>
@@ -31,7 +31,7 @@
             render(
               partial: 'dependent',
               locals: { edit_controller: Ctc::Questions::Dependents::InfoController },
-              collection: current_intake.dependents.select { |dep| !dep.eligible_for_child_tax_credit? && dep.eligible_for_eip3? }
+              collection: current_intake.dependents.select { |dep| !dep.qualifying_ctc? && (dep.qualifying_child? || dep.qualifying_relative?) }
             ) || t('views.ctc.questions.confirm_dependents.no_qualifying_dependents')
           %>
         </div>
