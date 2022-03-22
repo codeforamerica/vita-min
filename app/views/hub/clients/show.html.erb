@@ -152,9 +152,9 @@
                 <% benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: @client.intake.dependents) %>
                 <div class="field-display">
                   <span class="form-question"> Outstanding RRC / Claimed RRC: </span>
-                  <span class="label-value"><%= "$#{benefits.outstanding_recovery_rebate_credit}" if benefits.outstanding_recovery_rebate_credit %></span>
+                  <span class="label-value"><%= "$#{benefits.outstanding_recovery_rebate_credit}" if tax_return && benefits.outstanding_recovery_rebate_credit %></span>
                   /
-                  <span class="label-value"><%= "$#{benefits.claimed_recovery_rebate_credit}" if benefits.claimed_recovery_rebate_credit %></span>
+                  <span class="label-value"><%= "$#{benefits.claimed_recovery_rebate_credit}" if tax_return &&  benefits.claimed_recovery_rebate_credit %></span>
                 </div>
                 <div class="field-display">
                   <span class="form-question">Claim credit:</span>

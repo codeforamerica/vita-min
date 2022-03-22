@@ -71,7 +71,7 @@ describe Ctc::Questions::StimulusTwoReceivedController do
 
       context "when the client has unclaimed stimulus money" do
         before do
-          allow_any_instance_of(TaxReturn).to receive(:outstanding_recovery_rebate_credit).and_return 1000
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_recovery_rebate_credit).and_return 1000
         end
 
         it "redirects to the stimulus received path" do
