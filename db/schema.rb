@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_022358) do
+ActiveRecord::Schema.define(version: 2022_03_21_205520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -800,6 +800,21 @@ ActiveRecord::Schema.define(version: 2022_03_17_022358) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "visitor_id", null: false
     t.index ["visitor_id", "question_key"], name: "index_faq_surveys_on_visitor_id_and_question_key"
+  end
+
+  create_table "fraud_indicators", force: :cascade do |t|
+    t.datetime "active_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.string "indicator_attributes", default: [], array: true
+    t.string "indicator_type"
+    t.string "list_table_name"
+    t.decimal "multiplier"
+    t.string "name"
+    t.integer "points"
+    t.string "reference"
+    t.string "source_table_name"
+    t.decimal "threshold"
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "greeter_coalition_join_records", force: :cascade do |t|
