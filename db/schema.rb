@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_022358) do
+ActiveRecord::Schema.define(version: 2022_03_23_172643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -534,6 +534,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_022358) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id"
     t.index ["in_progress_survey_sent_at"], name: "index_clients_on_in_progress_survey_sent_at"
+    t.index ["last_outgoing_communication_at"], name: "index_clients_on_last_outgoing_communication_at"
     t.index ["login_token"], name: "index_clients_on_login_token"
     t.index ["vita_partner_id"], name: "index_clients_on_vita_partner_id"
   end
