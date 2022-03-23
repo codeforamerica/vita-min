@@ -57,6 +57,10 @@ module Efile
 
         requires_member_of_household_test? && dependent.residence_lived_with_all_year_yes?
       end
+
+      def prequalifying_attribute
+        "qualifying_relative"
+      end
     end
   end
 end

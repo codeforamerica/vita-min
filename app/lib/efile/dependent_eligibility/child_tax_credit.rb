@@ -30,7 +30,13 @@ module Efile
       private
 
       def is_qualifying_child?
+        return dependent.qualifying_child if dependent.is_a? EfileSubmissionDependent
+
         (@child_eligibility || Efile::DependentEligibility::QualifyingChild.new(dependent, tax_year)).qualifies?
+      end
+
+      def prequalifying_attribute
+        "qualifying_child"
       end
     end
   end

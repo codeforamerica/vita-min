@@ -1,13 +1,14 @@
 module Efile
   module DependentEligibility
     class Base
-      attr_accessor :age, :dependent, :tax_year, :test_results, :except
+      attr_accessor :age, :dependent, :tax_year, :test_results, :except, :prequalified
+
       def initialize(dependent, tax_year, except: nil)
         @age = tax_year - dependent.birth_date.year
         @tax_year = tax_year
         @dependent = dependent
         @except = *except
-        run_tests
+        run_tests unless is_submission_dependent?
       end
 
       # Keys with multiple conditions must be OR conditions, as only one must pass to remain eligible
@@ -15,7 +16,13 @@ module Efile
         raise "Child classes must implement rules"
       end
 
+      def is_submission_dependent?
+        dependent.is_a?(EfileSubmissionDependent)
+      end
+
       def qualifies?
+        return dependent.send(prequalifying_attribute) if is_submission_dependent?
+
         disqualifiers.empty?
       end
 
@@ -44,6 +51,8 @@ module Efile
       def applied_rules
         except.present? ? self.class.rules.reject { |k, _| except.include?(k) } : self.class.rules
       end
+
+      def prequalifying_attribute;end
     end
   end
 end

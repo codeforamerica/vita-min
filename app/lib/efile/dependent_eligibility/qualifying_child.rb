@@ -48,15 +48,16 @@ module Efile
         dependent.born_in_final_6_months_of_tax_year?(tax_year)
       end
 
-      private
-
       def under_qualifying_age_limit?
         !over_qualifying_age_limit?
       end
 
-      def qualified_student?
-        age < 24 && dependent.full_time_student_yes?
+      private
+
+      def prequalifying_attribute
+        "qualifying_child"
       end
+
     end
   end
 end

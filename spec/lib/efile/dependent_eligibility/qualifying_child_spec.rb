@@ -3,6 +3,14 @@ require "rails_helper"
 describe Efile::DependentEligibility::QualifyingChild do
   subject { described_class.new(dependent, TaxReturn.current_tax_year) }
 
+  context "when passing an EfileSubmissionDependent who already has their qualification persisted on the record" do
+    let(:dependent) { EfileSubmissionDependent.create(efile_submission: (create :efile_submission), dependent: (create :dependent), qualifying_child: true) }
+    it "does not run the qualifying logic again because they are 'prequalified'" do
+      expect(Efile::DependentEligibility::QualifyingChild.new(dependent, TaxReturn.current_tax_year).qualifies?).to eq true
+      expect(Efile::DependentEligibility::QualifyingChild.new(dependent, TaxReturn.current_tax_year).is_submission_dependent?).to eq true
+    end
+  end
+
   context 'with a totally qualifying child' do
     let(:dependent) { create :qualifying_child }
     let(:test_result) do
