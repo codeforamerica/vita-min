@@ -37,9 +37,10 @@
 #
 # Indexes
 #
-#  index_clients_on_in_progress_survey_sent_at  (in_progress_survey_sent_at)
-#  index_clients_on_login_token                 (login_token)
-#  index_clients_on_vita_partner_id             (vita_partner_id)
+#  index_clients_on_in_progress_survey_sent_at      (in_progress_survey_sent_at)
+#  index_clients_on_last_outgoing_communication_at  (last_outgoing_communication_at)
+#  index_clients_on_login_token                     (login_token)
+#  index_clients_on_vita_partner_id                 (vita_partner_id)
 #
 # Foreign Keys
 #
