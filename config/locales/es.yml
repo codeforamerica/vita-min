@@ -2506,8 +2506,13 @@ es:
           header: Gracias por registrarte!
           title: Regístrate
         new:
-          header: 'Manténgase en contacto. Podemos enviarle un mensaje con actualizaciones. '
-          sub_header: Lo único que tiene que hacer es proporcionarnos su nombre y su correo electrónico o su numero de teléfono, y le enviaremos un correo electrónico o mensaje de texto cuando haya actualizaciones.
+          header: |
+            GetCTC abrirá en mayo.
+            Regístrese y le enviaremos un mensaje con actualizaciones.
+          sub_header_html: |
+            Lo único que tiene que hacer es proporcionarnos su nombre y su correo electrónico o su numero de teléfono, y le enviaremos un correo electrónico o un mensaje de texto con actualizaciones sobre GetCTC. Puede esperar recibir notificaciones alrededor de mayo de 2022.
+
+            Si no puede esperar hasta entonces, vaya a <a href="%{homepage_link}" target="_blank" rel="nofollow noopener">GetYourRefund.org</a> para conectarse a otros recursos de presentación gratuitos.
           submit: Manténganme actualizado
           title: Regístrate
       stimulus_home:
