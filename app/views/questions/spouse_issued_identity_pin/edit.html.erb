@@ -1,1 +1,8 @@
 <% content_for :form_question, t("views.questions.spouse_issued_identity_pin.title") %>
+<% content_for :form_help_text, t("views.questions.issued_identity_pin.help_text",
+                                  :ip_pin_link => link_to(t('views.questions.issued_identity_pin.link_text'),
+                                                          'https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin',
+                                                          target: '_blank',
+                                                          rel: 'noopener',
+                                                          'data-track-click': 'irs-identity-pin-link',
+                                                          'data-track-attribute-position': 'help-text') ).html_safe %>
