@@ -106,10 +106,10 @@ describe SubmissionBuilder::TY2021::LapsedFilerIrs1040 do
         expect(xml.at("RecoveryRebateCreditAmt").text).to eq "3200" # Line 30
 
         # Line 32, 33, 34, 35a: Line 28 + Line 30
-        expect(xml.at("RefundableCreditsAmt").text).to eq "0"
-        expect(xml.at("TotalPaymentsAmt").text).to eq "0"
-        expect(xml.at("OverpaidAmt").text).to eq "0"
-        expect(xml.at("RefundAmt").text).to eq "0"
+        expect(xml.at("RefundableCreditsAmt").text).to eq "3200"
+        expect(xml.at("TotalPaymentsAmt").text).to eq "3200"
+        expect(xml.at("OverpaidAmt").text).to eq "3200"
+        expect(xml.at("RefundAmt").text).to eq "3200"
 
         expect(xml.at("RoutingTransitNum").text).to eq "123456789"
         expect(xml.at("BankAccountTypeCd").text).to eq "1"
