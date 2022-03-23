@@ -103,7 +103,7 @@ describe SubmissionBuilder::TY2021::LapsedFilerIrs1040 do
         # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i
         expect(xml.at("RefundableCTCOrACTCAmt").text).to eq "0" # TODO: replace this when we calculate this number
 
-        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "0" # Line 30 # TODO: replace this when we calculate this number
+        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "3200" # Line 30
 
         # Line 32, 33, 34, 35a: Line 28 + Line 30
         expect(xml.at("RefundableCreditsAmt").text).to eq "0"
