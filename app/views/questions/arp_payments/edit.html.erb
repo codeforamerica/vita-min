@@ -9,7 +9,7 @@
     <p><%= text %></p>
   <% end %>
 
-  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <div class="spacing-above-0">
       <%= f.cfa_input_field :eip1_amount_received, t("views.questions.arp_payments.labels.stimulus_1"), type: "number", prefix: "$" %>
       <%= f.cfa_input_field :eip2_amount_received, t("views.questions.arp_payments.labels.stimulus_2"), type: "number", prefix: "$" %>

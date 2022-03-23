@@ -9,7 +9,7 @@ module Questions
     end
 
     def illustration_path
-      "marital-status.svg"
+      "ever-married.svg"
     end
   end
 end
