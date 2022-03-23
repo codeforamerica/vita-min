@@ -13,13 +13,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     visit "/questions/stimulus-payments"
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
     click_on I18n.t('views.ctc.questions.stimulus_payments.yes_received')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_received.title'))
-    expect(page).to have_text("EIP 1: $0")
-    expect(page).to have_text("EIP 2: $0")
-
-    # Ensure that backing up from /stimulus-received skips all the way back to /stimulus-payments in this case
-    click_on I18n.t('general.back')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
   end
 
   context "when the client says they did not receive the amounts calculated on /stimulus-payments" do
@@ -37,9 +30,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two_received.title'))
       fill_in I18n.t('views.ctc.questions.stimulus_two_received.eip2_amount_received_label'), with: "600"
       click_on I18n.t('general.continue')
-      expect(page).to have_selector("h1", text: "It looks like you’ve received the full amount of your first two stimulus payments.")
-      expect(page).to have_text("EIP 1: $1,200")
-      expect(page).to have_text("EIP 2: $600")
     end
 
     xscenario "when the client's provided amounts (sum) is greater than the calculated amounts (sum), we will do something as yet unknown" do; end
@@ -52,36 +42,15 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       click_on I18n.t('general.negative')
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two.title'))
       click_on I18n.t('general.negative')
-
-      expect(page).to have_text("EIP 1: $0")
-      expect(page).to have_text("EIP 2: $0")
     end
   end
 
-  # Calculating EIP based on 2021 eligibility, which is $0.
   context "when a client clicks that they received less than the stimulus amount after previously saying that was the amount they received, it should reset the amounts" do
     scenario do
       visit "en/questions/stimulus-payments"
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
       click_on I18n.t('views.ctc.questions.stimulus_payments.yes_received')
-
-      expect(page).to have_text("EIP 1: $0")
-      expect(page).to have_text("EIP 2: $0")
-      click_on I18n.t("general.back")
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
-      click_on I18n.t('views.ctc.questions.stimulus_payments.no_did_not_receive')
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_one.title'))
-      click_on I18n.t('general.affirmative')
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_one_received.title'))
-      fill_in I18n.t('views.ctc.questions.stimulus_one_received.eip1_amount_received_label'), with: "800"
-      click_on I18n.t('general.continue')
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two.title'))
-      click_on I18n.t('general.affirmative')
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two_received.title'))
-      fill_in I18n.t('views.ctc.questions.stimulus_two_received.eip2_amount_received_label'), with: "400"
-      click_on I18n.t('general.continue')
-      expect(page).to have_text("EIP 1: $800")
-      expect(page).to have_text("EIP 2: $400")
+      ## TODO: update this test for the new RRC flow
     end
   end
 

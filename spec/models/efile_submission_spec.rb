@@ -239,7 +239,7 @@ describe EfileSubmission do
         before do
           allow(MixpanelService).to receive(:send_event)
           allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(3600)
-          allow(submission.tax_return).to receive(:claimed_recovery_rebate_credit).and_return(1200)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return(1200)
           allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(3000)
         end
 

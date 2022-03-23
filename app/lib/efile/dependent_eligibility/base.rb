@@ -8,7 +8,7 @@ module Efile
         @tax_year = tax_year
         @dependent = dependent
         @except = *except
-        run_tests unless is_submission_dependent?
+        run_tests unless is_prequalified_submission_dependent?
       end
 
       # Keys with multiple conditions must be OR conditions, as only one must pass to remain eligible
@@ -16,12 +16,12 @@ module Efile
         raise "Child classes must implement rules"
       end
 
-      def is_submission_dependent?
-        dependent.is_a?(EfileSubmissionDependent)
+      def is_prequalified_submission_dependent?
+        dependent.is_a?(EfileSubmissionDependent) && prequalifying_attribute.present?
       end
 
       def qualifies?
-        return dependent.send(prequalifying_attribute) if is_submission_dependent?
+        return dependent.send(prequalifying_attribute) if is_prequalified_submission_dependent?
 
         disqualifiers.empty?
       end
@@ -52,7 +52,7 @@ module Efile
         except.present? ? self.class.rules.reject { |k, _| except.include?(k) } : self.class.rules
       end
 
-      def prequalifying_attribute;end
+      def prequalifying_attribute; end
     end
   end
 end

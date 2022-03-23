@@ -9,11 +9,11 @@ module Ctc
         return false if intake.eip1_amount_received.nil? || intake.eip2_amount_received.nil?
         return false if intake.eip1_entry_method_calculated_amount?
 
-        (intake.default_tax_return&.outstanding_recovery_rebate_credit || 0) > 0
+        (Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents).outstanding_recovery_rebate_credit || 0) > 0
       end
 
       def edit
-        @outstanding_credit = current_intake.default_tax_return.outstanding_recovery_rebate_credit
+        @outstanding_credit = Efile::BenefitsEligibility.new(tax_return: current_intake.default_tax_return, dependents: current_intake.dependents).outstanding_recovery_rebate_credit
         super
       end
 

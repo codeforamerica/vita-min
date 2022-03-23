@@ -57,7 +57,6 @@ module Efile
       def prequalifying_attribute
         "qualifying_child"
       end
-
     end
   end
 end

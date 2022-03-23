@@ -7,7 +7,7 @@ describe Efile::DependentEligibility::QualifyingChild do
     let(:dependent) { EfileSubmissionDependent.create(efile_submission: (create :efile_submission), dependent: (create :dependent), qualifying_child: true) }
     it "does not run the qualifying logic again because they are 'prequalified'" do
       expect(Efile::DependentEligibility::QualifyingChild.new(dependent, TaxReturn.current_tax_year).qualifies?).to eq true
-      expect(Efile::DependentEligibility::QualifyingChild.new(dependent, TaxReturn.current_tax_year).is_submission_dependent?).to eq true
+      expect(Efile::DependentEligibility::QualifyingChild.new(dependent, TaxReturn.current_tax_year).is_prequalified_submission_dependent?).to eq true
     end
   end
 

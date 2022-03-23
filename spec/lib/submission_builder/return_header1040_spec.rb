@@ -59,7 +59,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
         allow(File).to receive(:open).and_return(file_double)
         allow(Nokogiri::XML).to receive(:Schema).with(file_double).and_return(schema_double)
         allow(schema_double).to receive(:validate).and_return(['error', 'error'])
-        allow_any_instance_of(TaxReturn).to receive(:claimed_recovery_rebate_credit).and_return 100
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return 100
       end
 
       it "returns an Efile::Response object that responds to #valid? and includes the Schema errors" do
@@ -248,7 +248,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
       context "filing with direct deposit" do
         before do
           submission.intake.update(refund_payment_method: "direct_deposit")
-          allow_any_instance_of(TaxReturn).to receive(:claimed_recovery_rebate_credit).and_return(refund_amount)
+          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return(refund_amount)
         end
 
         context "with a refund due" do
@@ -286,7 +286,7 @@ describe SubmissionBuilder::ReturnHeader1040 do
     context "filing requesting a check payment" do
       before do
         submission.intake.update(refund_payment_method: "check")
-        allow_any_instance_of(TaxReturn).to receive(:claimed_recovery_rebate_credit).and_return refund_amount
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return refund_amount
       end
 
       context "with a refund due" do

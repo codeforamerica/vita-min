@@ -32,6 +32,7 @@ module SubmissionBuilder
         tax_return = submission.tax_return
         bank_account = intake.bank_account
         qualifying_dependents = submission.qualifying_dependents
+        benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents)
 
         Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.IRS1040(root_node_attrs) {
@@ -56,11 +57,10 @@ module SubmissionBuilder
             # maybe add this to be part of the stories for RRC
 
             # Line 30: remaining amount of RRC they are claiming for EIP-3
-            # TODO: claimed_recovery_rebate_credit is getting updated in a future story to only use EIP-3
-            xml.RecoveryRebateCreditAmt tax_return.claimed_recovery_rebate_credit # 30
+            xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit # 30
 
             # Line 32, 33, 34, 35a: Line 28 + Line 30
-            total_payments = (claimed_child_tax_credit.to_i + tax_return.claimed_recovery_rebate_credit.to_i).to_s
+            total_payments = (claimed_child_tax_credit.to_i + benefits.claimed_recovery_rebate_credit.to_i).to_s
             xml.RefundableCreditsAmt total_payments # 32
             xml.TotalPaymentsAmt total_payments # 33
             xml.OverpaidAmt total_payments # 34

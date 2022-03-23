@@ -32,6 +32,7 @@ module SubmissionBuilder
         tax_return = submission.tax_return
         bank_account = intake.bank_account
         qualifying_dependents = submission.qualifying_dependents
+        benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents)
 
         Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.IRS1040(root_node_attrs) {
@@ -49,11 +50,11 @@ module SubmissionBuilder
             xml.AdjustedGrossIncomeAmt 1 # 11
             xml.TotalItemizedOrStandardDedAmt tax_return.standard_deduction # 12
             xml.TaxableIncomeAmt 0 # 15
-            xml.RecoveryRebateCreditAmt tax_return.claimed_recovery_rebate_credit # 30
-            xml.RefundableCreditsAmt tax_return.claimed_recovery_rebate_credit # 32
-            xml.TotalPaymentsAmt tax_return.claimed_recovery_rebate_credit # 33
-            xml.OverpaidAmt tax_return.claimed_recovery_rebate_credit # 34
-            xml.RefundAmt tax_return.claimed_recovery_rebate_credit # 35a
+            xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit # 30
+            xml.RefundableCreditsAmt benefits.claimed_recovery_rebate_credit # 32
+            xml.TotalPaymentsAmt benefits.claimed_recovery_rebate_credit # 33
+            xml.OverpaidAmt benefits.claimed_recovery_rebate_credit # 34
+            xml.RefundAmt benefits.claimed_recovery_rebate_credit # 35a
             if bank_account.present? && intake.refund_payment_method_direct_deposit?
               xml.RoutingTransitNum account_number_type(bank_account.routing_number)
               xml.BankAccountTypeCd bank_account.account_type_code
