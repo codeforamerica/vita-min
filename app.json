@@ -48,5 +48,10 @@
   },
   "addons": [
     "heroku-postgresql"
-  ]
+  ],
+  "environments": {
+    "review": {
+      "addons": ["heroku-postgresql:hobby-basic"]
+    }
+  }
 }
