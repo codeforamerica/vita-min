@@ -44,5 +44,7 @@ module VitaMin
     config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2022-01-24 09:59:59')
     config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2022-01-31 09:59:59')
     config.end_of_intake = Time.find_zone('America/Los_Angeles').parse('2022-08-31 23:59:59')
+
+    config.include_optimizely = false
   end
 end

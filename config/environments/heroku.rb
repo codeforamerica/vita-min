@@ -22,4 +22,6 @@ Rails.application.configure do
 
   Rails.application.default_url_options = config.action_mailer.default_url_options
   config.efile_environment = "test"
+
+  config.include_optimizely = true
 end
