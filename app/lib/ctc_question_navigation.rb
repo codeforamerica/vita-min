@@ -50,11 +50,9 @@ class CtcQuestionNavigation
     Ctc::Questions::ConfirmDependentsController,
 
     # RRC
-    Ctc::Questions::StimulusPaymentsController,
-    Ctc::Questions::StimulusOneController,
-    Ctc::Questions::StimulusOneReceivedController,
-    Ctc::Questions::StimulusTwoController,
-    Ctc::Questions::StimulusTwoReceivedController,
+    # Hiding this page for now, will return to flow in later story
+    # Ctc::Questions::StimulusPaymentsController,
+    Ctc::Questions::StimulusThreeController,
     Ctc::Questions::StimulusReceivedController,
     Ctc::Questions::StimulusOwedController,
 
