@@ -12,8 +12,8 @@
     <%= t("views.ctc.questions.stimulus_three.reveal_content") %>
   <% end %>
 
-  <%= form_with model: @form, url: questions_stimulus_three_received_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "stimulus-received-form" do |f| %>
-    <%= f.cfa_input_field(:eip2_amount_received, t("views.ctc.questions.stimulus_three.eip2_amount_received_label"), prefix: "$") %>
+  <%= form_with model: @form, url: questions_stimulus_three_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "stimulus-received-form" do |f| %>
+    <%= f.cfa_input_field(:eip3_amount_received, t("views.ctc.questions.stimulus_three.how_much"), prefix: "$") %>
 
     <%= f.button :submit, class: "button button--wide button--primary" do %>
       <%= t("general.continue") %>
