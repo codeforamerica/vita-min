@@ -2207,9 +2207,8 @@ en:
           yes_received: I received this amount
         stimulus_received:
           amount_received: Amount you’ve received
-          eip_one: EIP 1
-          eip_two: EIP 2
-          title: It looks like you’ve received the full amount of your first two stimulus payments.
+          eip_three: Third stimulus
+          title: It looks like you’ve received the full amount for your third stimulus payment.
         stimulus_three:
           help_html: |
             <p>The final stimulus payment was sent in April 2021, based on when you filed your tax return.</p>
