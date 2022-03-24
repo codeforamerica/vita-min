@@ -265,7 +265,8 @@ class ApplicationController < ActionController::Base
   end
 
   def open_for_ctc_intake?
-    app_time <= CTC_INTAKE_CLOSING_TIME
+    # app_time <= CTC_INTAKE_CLOSING_TIME
+    true
   end
 
   def open_for_ctc_login?

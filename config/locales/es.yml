@@ -2151,6 +2151,23 @@ es:
           eip_three: Tercer estímulo
           eligible_for: 'Podría ser elegible para un adicional:'
           title: Parece que todavía le deben algunos pagos de estímulo. ¿Te gustaría reclamarlo?
+        advance_ctc:
+          edit:
+            title: Did you receive a total of $%{adv_ctc_estimate} in Advance Child Tax Credits in 2021?
+            total_adv_ctc: "Total Advance Child Tax Credits"
+            total_adv_ctc_details_html: We estimate that you should have received this <strong>total amount</strong> based on your filing status and for the following dependents
+            adv_ctc_time_frame: "These payments would have arrived monthly in the second half of the year, between July and December 2021."
+            question: "Did you receive this amount?"
+            yes_received: "I received this amount"
+            no_received_different: "I received a different amount"
+            no_did_not_receive: "I didn’t receive any payments"
+        advance_ctc_received:
+          edit:
+            title: "Ok. We’ve calculated your Child Tax Credit."
+            total_adv_ctc: "Total Advanced CTC: $%{amount}"
+            ctc_owed_title: "You are eligible for an additional:"
+            ctc_owed_details: "If the amount you entered above is incorrect, your tax refund could be delayed while the IRS makes corrections to your return."
+>>>>>>> Add advanced CTC pages
         stimulus_payments:
           first_stimulus: Primer pago de estímulo
           first_stimulus_details: Este pago debería haber llegado entre abril de 2020 y octubre de 2020.

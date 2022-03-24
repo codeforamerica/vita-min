@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_172643) do
+ActiveRecord::Schema.define(version: 2022_03_24_174507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -873,6 +873,7 @@ ActiveRecord::Schema.define(version: 2022_03_23_172643) do
     t.string "additional_info"
     t.integer "adopted_child", default: 0, null: false
     t.integer "advance_ctc_amount_received"
+    t.integer "advance_ctc_entry_method", default: 0, null: false
     t.integer "already_applied_for_stimulus", default: 0, null: false
     t.integer "already_filed", default: 0, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
@@ -1433,7 +1434,7 @@ ActiveRecord::Schema.define(version: 2022_03_23_172643) do
     t.datetime "suspended_at"
     t.string "timezone", default: "America/New_York", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email"
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
