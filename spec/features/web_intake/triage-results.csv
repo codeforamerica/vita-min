@@ -1,18 +1,18 @@
 triage_income_level,triage_filing_status,need_itin_help,triage_filing_frequency,triage_vita_income_ineligible,service,notes
-zero,single or jointly,No,Any,Any,Express-GYR,taking out DIY for easier engineering lift
+zero,single or jointly,No,Any,Any,CTC-GYR,taking out DIY for easier engineering lift
 ,,Yes,Any,Any,GYR,
 1_to_12500,single or jointly,Yes,Any,No,GYR,
 ,,Yes,Any,Yes,Does not qualify," Could use DIY, but would need other help with ITIN"
-,,No,Any,Yes,DIY ,taking out express so one fewer page
-,,No,Any,No,Express-GYR,taking out DIY for easier engineering lift
+,,No,Any,Yes,DIY ,taking out CTC so one fewer page
+,,No,Any,No,CTC-GYR,taking out DIY for easier engineering lift
 12500_to_25000,single,Yes,Any,No,GYR,
 ,,Yes,Any,Yes,Does not qualify," Could use DIY, but would need other help with ITIN"
 ,,No,Any,Yes,DIY,
 ,,No,Any,No,GYR-DIY,
 12500_to_25000,jointly,Yes,Any,No,GYR,
 ,,Yes,Any,Yes,Does not qualify," Could use DIY, but would need other help with ITIN"
-,,No,Any,Yes,DIY ,taking out express so one fewer page
-,,No,Any,No,Express-GYR,taking out DIY for easier engineering lift
+,,No,Any,Yes,DIY ,taking out CTC so one fewer page
+,,No,Any,No,CTC-GYR,taking out DIY for easier engineering lift
 25000_to_40000 or 40000_to_65000 ,single or jointly,Yes,Any,No,GYR,
 ,,Yes,Any,Yes,Does not qualify," Could use DIY, but would need other help with ITIN"
 ,,No,Any,Any ,DIY," (not offering GYR, though they could select it via active choice)"
