@@ -217,6 +217,42 @@ describe Client do
         expect(client.flagged?).to eq false
       end
     end
+
+    context "when client has a new document" do
+      let!(:client) { create :client }
+      before { create :document, client: client, uploaded_by: client }
+
+      it "is flagged" do
+        expect(client.flagged?).to eq true
+      end
+    end
+
+    context "when clients intake was completed" do
+      let!(:client) { create :client, intake: create(:intake) }
+
+      it "is not flagged" do
+        client.intake.update(completed_at: Time.now)
+        expect(client.flagged?).to eq false
+      end
+    end
+
+    context "when client has a new incoming text message" do
+      let!(:client) { create :client }
+      before { create :incoming_text_message, client: client }
+
+      it "is flagged" do
+        expect(client.flagged?).to eq true
+      end
+    end
+
+    context "when client has a new incoming email" do
+      let!(:client) { create :client }
+      before { create :incoming_email, client: client }
+
+      it "is flagged" do
+        expect(client.flagged?).to eq true
+      end
+    end
   end
 
   describe "#flag!" do
