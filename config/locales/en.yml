@@ -837,6 +837,7 @@ en:
     recovery_rebate_credit_amount:
       amount_1: Economic Impact Payment 1 received
       amount_2: Economic Impact Payment 2 received
+      amount_3: Economic Impact Payment 3 received
       confidence: How confident in this amount?
       confidence_values:
         sure: Sure
