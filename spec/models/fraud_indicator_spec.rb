@@ -6,32 +6,35 @@
 #  active_at            :datetime
 #  indicator_attributes :string           default([]), is an Array
 #  indicator_type       :string
-#  list_table_name      :string
-#  multiplier           :decimal(, )
+#  list_model_name      :string
+#  multiplier           :float
 #  name                 :string
 #  points               :integer
+#  query_model_name     :string
 #  reference            :string
-#  source_table_name    :string
-#  threshold            :decimal(, )
+#  threshold            :float
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
 require "rails_helper"
 
 describe FraudIndicator do
-  class FraudIndicator::Bunny
-    def self.list
-      ["Bunny", "Peter", "Rabbit"]
-    end
+  before do
+    stub_const("FraudIndicator::Bunny", Class.new do
+      def self.list
+        ["Bunny", "Peter", "Rabbit"]
+      end
+    end)
   end
+  
   describe '#execute' do
     let(:indicator) { FraudIndicator.new(indicator_type: "average_threshold", indicator_attributes: ["something"], threshold: "5") }
-    context "when the reference is the same type as the source_table_name" do
+    context "when the reference is the same type as the query_model_name" do
       let(:client) { create :client }
       let(:query_double) { double }
       before do
         indicator.reference = "client"
-        indicator.source_table_name = "Client"
+        indicator.query_model_name = "Client"
         allow(Client).to receive(:where).and_return query_double
         allow(query_double).to receive(:average)
       end
@@ -42,12 +45,12 @@ describe FraudIndicator do
       end
     end
 
-    context "when the reference is a different type than the source_table_name" do
+    context "when the reference is a different type than the query_model_name" do
       let(:client) { create :client }
       let(:query_double) { double }
       before do
         indicator.reference = "client"
-        indicator.source_table_name = "Intake"
+        indicator.query_model_name = "Intake"
         allow(Intake).to receive(:where).and_return query_double
         allow(query_double).to receive(:average)
       end
@@ -79,7 +82,7 @@ describe FraudIndicator do
   end
 
   describe "#average" do
-    let(:fraud_indicator) { FraudIndicator.new(name: "too_short", indicator_type: "average_threshold", reference: "client", indicator_attributes: ["height"], threshold: "60", source_table_name: "Intake") }
+    let(:fraud_indicator) { FraudIndicator.new(name: "too_short", indicator_type: "average_threshold", reference: "client", indicator_attributes: ["height"], threshold: "60", query_model_name: "Intake") }
     let(:query_double) { double }
     let(:client) { create :client }
 
@@ -104,8 +107,8 @@ describe FraudIndicator do
     end
   end
 
-  describe "#safelist" do
-    let(:fraud_indicator) { FraudIndicator.new(name: "fraudy_if_not_a_bunny_name", indicator_type: "safelist", reference: "intake", indicator_attributes: ["primary_first_name"], source_table_name: "Intake", list_table_name: "FraudIndicator::Bunny") }
+  describe "#not_in_safelist" do
+    let(:fraud_indicator) { FraudIndicator.new(name: "fraudy_if_not_a_bunny_name", indicator_type: "not_in_safelist", reference: "intake", indicator_attributes: ["primary_first_name"], query_model_name: "Intake", list_model_name: "FraudIndicator::Bunny") }
     let(:query_double) { double }
     let(:intake) { create :intake, primary_first_name: "Tiger" }
 
@@ -130,8 +133,8 @@ describe FraudIndicator do
     end
   end
 
-  describe "#denylist" do
-    let(:fraud_indicator) { FraudIndicator.new(name: "fraud_if_is_a_bunny_name", indicator_type: "denylist", reference: "intake", indicator_attributes: ["primary_first_name"], source_table_name: "Intake", list_table_name: "FraudIndicator::Bunny") }
+  describe "#in_denylist" do
+    let(:fraud_indicator) { FraudIndicator.new(name: "fraud_if_is_a_bunny_name", indicator_type: "in_denylist", reference: "intake", indicator_attributes: ["primary_first_name"], query_model_name: "Intake", list_model_name: "FraudIndicator::Bunny") }
     let(:query_double) { double }
     let(:intake) { create :intake, primary_first_name: "Peter" }
 
@@ -148,7 +151,7 @@ describe FraudIndicator do
       end
     end
 
-    context "when a name that is on the denylist is included in the set" do
+    context "when a name that is on the in_denylist is included in the set" do
       it "returns true to indicate that there is something potential fraudulent occurring" do
         expect(fraud_indicator.execute(intake: intake)).to eq true
       end
@@ -159,7 +162,7 @@ describe FraudIndicator do
     let(:query_double) { double }
     let(:intake) { create :ctc_intake }
     let(:client) { create :client }
-    let(:fraud_indicator) { FraudIndicator.new(name: "duplicated_stuff", indicator_type: "duplicates", reference: "client", source_table_name: "Intake::CtcIntake", indicator_attributes: [:primary_first_name, :primary_last_name]) }
+    let(:fraud_indicator) { FraudIndicator.new(name: "duplicated_stuff", indicator_type: "duplicates", reference: "client", query_model_name: "Intake::CtcIntake", indicator_attributes: [:primary_first_name, :primary_last_name]) }
 
     before do
       allow(DeduplificationService).to receive(:duplicates).and_return query_double
@@ -190,7 +193,7 @@ describe FraudIndicator do
   describe "#missing" do
     let(:tax_return) { create :tax_return }
     let(:query_double) { double }
-    let(:fraud_indicator) { FraudIndicator.create(name: "no_transitions", indicator_type: "missing", source_table_name: "EfileSubmission", reference: "tax_return", indicator_attributes: ["efile_submission_transitions"]) }
+    let(:fraud_indicator) { FraudIndicator.create(name: "no_transitions", indicator_type: "missing", query_model_name: "EfileSubmission", reference: "tax_return", indicator_attributes: ["efile_submission_transitions"]) }
     before do
       allow(EfileSubmission).to receive(:where).and_return query_double
       allow(query_double).to receive_message_chain(:where, :missing).and_return query_double # ensure a ActiveRecord query object
@@ -207,6 +210,23 @@ describe FraudIndicator do
       it "returns true" do
         expect(fraud_indicator.execute(tax_return: tax_return)).to eq true
       end
+    end
+  end
+
+  describe "#equals" do
+    let(:fraud_indicator) { FraudIndicator.create(name: "no_accepted", indicator_type: "equals", query_model_name: "Intake", reference: "client", indicator_attributes: ["primary_first_name", "Martin"]) }
+    let(:query_double) { double }
+    let(:client) { create :client }
+    before do
+      allow(Intake).to receive(:where).and_return query_double
+      allow(query_double).to receive(:where).and_return query_double # ensure a ActiveRecord query object
+      allow(query_double).to receive(:exists?).and_return true
+    end
+
+    it "builds the appropriate query" do
+      fraud_indicator.execute(client: client)
+      expect(Intake).to have_received(:where).with({ "client" => client })
+      expect(query_double).to have_received(:where).with({ "primary_first_name" => "Martin" })
     end
   end
 end

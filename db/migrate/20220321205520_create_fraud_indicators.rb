@@ -3,13 +3,14 @@ class CreateFraudIndicators < ActiveRecord::Migration[6.1]
     create_table :fraud_indicators do |t|
       t.string :name
       t.string :indicator_type
-      t.string :source_table_name
-      t.decimal :threshold
+      t.string :query_model_name
+      t.float :threshold
       t.string :reference
-      t.string :list_table_name
+      t.string :list_model_name
       t.string :indicator_attributes, array: true, default: []
       t.integer :points
-      t.decimal :multiplier
+      t.float :multiplier
+      t.text :description
       t.timestamp :active_at
       t.timestamps
     end
