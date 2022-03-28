@@ -22,8 +22,12 @@ require "rails_helper"
 describe FraudIndicator do
   before do
     stub_const("FraudIndicator::Bunny", Class.new do
-      def self.list
-        ["Bunny", "Peter", "Rabbit"]
+      def self.safelist
+        ["Bunny", "Peter", "Rabbit", "Bugs"]
+      end
+
+      def self.riskylist
+        ["Dog", "Pluto", "Mickey", "Cat"]
       end
     end)
   end
@@ -146,7 +150,7 @@ describe FraudIndicator do
 
       it "builds the appropriate query" do
         fraud_indicator.execute(intake: intake)
-        expect(query_double.where).to have_received(:not).with("primary_first_name" => ["Bunny", "Peter", "Rabbit"])
+        expect(query_double.where).to have_received(:not).with("primary_first_name" => FraudIndicator::Bunny.safelist)
       end
     end
 
@@ -157,14 +161,14 @@ describe FraudIndicator do
     end
   end
 
-  describe "#in_denylist" do
-    let(:fraud_indicator) { FraudIndicator.new(name: "fraud_if_is_a_bunny_name", indicator_type: "in_denylist", reference: "intake", indicator_attributes: ["primary_first_name"], query_model_name: "Intake", list_model_name: "FraudIndicator::Bunny") }
+  describe "#in_riskylist" do
+    let(:fraud_indicator) { FraudIndicator.new(name: "not_a_bunny", indicator_type: "in_riskylist", reference: "intake", indicator_attributes: ["primary_first_name"], query_model_name: "Intake", list_model_name: "FraudIndicator::Bunny") }
     let(:query_double) { double }
-    let(:intake) { create :intake, primary_first_name: "Peter" }
+    let(:intake) { create :intake, primary_first_name: "Mickey" }
 
     context "validations" do
       it "is not valid without the appropriate data" do
-        indicator = FraudIndicator.new(indicator_type: "in_denylist")
+        indicator = FraudIndicator.new(indicator_type: "in_riskylist")
         expect(indicator.valid?).to eq false
         expect(indicator.errors[:name]).to include "Can't be blank."
         expect(indicator.errors[:indicator_attributes]).to include "must have length of 1"
@@ -183,11 +187,11 @@ describe FraudIndicator do
 
       it "builds the appropriate query" do
         fraud_indicator.execute(intake: intake)
-        expect(query_double).to have_received(:where).with("primary_first_name" => ["Bunny", "Peter", "Rabbit"])
+        expect(query_double).to have_received(:where).with("primary_first_name" => FraudIndicator::Bunny.riskylist)
       end
     end
 
-    context "when a name that is on the in_denylist is included in the set" do
+    context "when a name that is on the in_riskylist is included in the set" do
       it "returns true to indicate that there is something potential fraudulent occurring" do
         expect(fraud_indicator.execute(intake: intake)).to eq true
       end

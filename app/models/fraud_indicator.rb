@@ -23,12 +23,12 @@ class FraudIndicator < ApplicationRecord
   validates :indicator_type, presence: true, inclusion: { in: FraudIndicator.instance_methods - ApplicationRecord.instance_methods }
   validates :points, presence: true
   validates :query_model_name, presence: true
-  validates :list_model_name, presence: true, if: -> { indicator_type.in? ["not_in_safelist", "in_denylist"] }
+  validates :list_model_name, presence: true, if: -> { indicator_type.in? ["not_in_safelist", "in_riskylist"] }
   validates :reference, presence: true, inclusion: { in: ["client", "intake", "efile_submission", "bank_account"] }
   validates :name, presence: true
   validates :query_model_name, :list_model_name, class_name: true
   validates :threshold, numericality: true, if: -> { indicator_type.in? ["average_threshold", "duplicates"] }
-  validates :indicator_attributes, length: { is: 1, wrong_length: WRONG_LENGTH_MESSAGE }, if: -> { indicator_type.in? ["average_threshold", "not_in_safelist", "in_denylist", "missing"] }
+  validates :indicator_attributes, length: { is: 1, wrong_length: WRONG_LENGTH_MESSAGE }, if: -> { indicator_type.in? ["average_threshold", "not_in_safelist", "in_riskylist", "missing"] }
   validates :indicator_attributes, length: { is: 2, wrong_length: WRONG_LENGTH_MESSAGE }, if: -> { indicator_type.in? ["equals"] }
   validates :indicator_attributes, length: { minimum: 1, too_short: TOO_SHORT_MESSAGE }, if: -> { indicator_type.in? ["duplicates"] }
   validates :multiplier, presence: true, if: -> { indicator_type.in? ["duplicates"] }
@@ -57,13 +57,13 @@ class FraudIndicator < ApplicationRecord
   # returns true (potentially fraudy) when an object exists that is NOT included in the safelist
   def not_in_safelist(references)
     attribute = indicator_attributes[0]
-    scoped_query(references).where.not(attribute => comparison_list).exists?
+    scoped_query(references).where.not(attribute => safelist).exists?
   end
 
-  # returns true (potentially fraudy) when an object exists that is included on the denylist
-  def in_denylist(references)
+  # returns true (potentially fraudy) when an object exists that is included on the riskylist
+  def in_riskylist(references)
     attribute = indicator_attributes[0]
-    scoped_query(references).where(attribute => comparison_list).exists?
+    scoped_query(references).where(attribute => riskylist).exists?
   end
 
   # Returns truthy count when duplicates exist
@@ -100,7 +100,11 @@ class FraudIndicator < ApplicationRecord
     query_model_name.constantize.where(scope)
   end
 
-  def comparison_list
-    list_model_name.constantize.list
+  def safelist
+    list_model_name.constantize.safelist
+  end
+
+  def riskylist
+    list_model_name.constantize.riskylist
   end
 end
