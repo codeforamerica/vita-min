@@ -18,16 +18,19 @@
 #  updated_at           :datetime         not null
 #
 class FraudIndicator < ApplicationRecord
+  TOO_SHORT_MESSAGE = "must have minimum length of %{count}"
+  WRONG_LENGTH_MESSAGE = "must have length of %{count}"
   validates :indicator_type, presence: true, inclusion: { in: FraudIndicator.instance_methods - ApplicationRecord.instance_methods }
   validates :points, presence: true
+  validates :query_model_name, presence: true
   validates :list_model_name, presence: true, if: -> { indicator_type.in? ["not_in_safelist", "in_denylist"] }
   validates :reference, presence: true, inclusion: { in: ["client", "intake", "efile_submission", "bank_account"] }
   validates :name, presence: true
   validates :query_model_name, :list_model_name, class_name: true
   validates :threshold, numericality: true, if: -> { indicator_type.in? ["average_threshold", "duplicates"] }
-  validates :indicator_attributes, length: { is: 1 }, if: -> { indicator_type.in? ["average_threshold", "not_in_safelist", "in_denylist", "missing"] }
-  validates :indicator_attributes, length: { is: 2 }, if: -> { indicator_type.in? ["equals"] }
-  validates :indicator_attributes, length: { minimum: 1 }, if: -> { indicator_type.in? ["duplicates"] }
+  validates :indicator_attributes, length: { is: 1, wrong_length: WRONG_LENGTH_MESSAGE }, if: -> { indicator_type.in? ["average_threshold", "not_in_safelist", "in_denylist", "missing"] }
+  validates :indicator_attributes, length: { is: 2, wrong_length: WRONG_LENGTH_MESSAGE }, if: -> { indicator_type.in? ["equals"] }
+  validates :indicator_attributes, length: { minimum: 1, too_short: TOO_SHORT_MESSAGE }, if: -> { indicator_type.in? ["duplicates"] }
   validates :multiplier, presence: true, if: -> { indicator_type.in? ["duplicates"] }
 
   default_scope { where.not(activated_at: nil) }

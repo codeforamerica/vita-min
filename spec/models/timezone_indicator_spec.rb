@@ -17,6 +17,7 @@ describe TimezoneIndicator do
       create :timezone_indicator, name: "America/Chicago", activated_at: DateTime.now
       create :timezone_indicator, name: "Mexico/Tijuana", activated_at: nil
     end
+
     it "includes the names of all of the activated objects and nil" do
       expect(TimezoneIndicator.safelist).to eq ["America/Chicago", nil]
     end

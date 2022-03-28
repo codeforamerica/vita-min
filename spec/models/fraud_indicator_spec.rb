@@ -82,7 +82,7 @@ describe FraudIndicator do
     end
   end
 
-  describe "#average" do
+  describe "#average_threshold" do
     let(:fraud_indicator) { FraudIndicator.new(name: "too_short", indicator_type: "average_threshold", reference: "client", indicator_attributes: ["height"], threshold: "60", query_model_name: "Intake") }
     let(:query_double) { double }
     let(:client) { create :client }
@@ -90,6 +90,18 @@ describe FraudIndicator do
     before do
       allow(Intake).to receive(:where).and_return query_double
       allow(query_double).to receive(:average).and_return 40
+    end
+
+    context "validations" do
+      it "is not valid without the appropriate data" do
+        indicator = FraudIndicator.new(indicator_type: "average_threshold")
+        expect(indicator.valid?).to eq false
+        expect(indicator.errors[:name]).to include "Can't be blank."
+        expect(indicator.errors[:indicator_attributes]).to include "must have length of 1"
+        expect(indicator.errors[:threshold]).to include "is not a number"
+        expect(indicator.errors[:query_model_name]).to include "Can't be blank."
+        expect(indicator.errors[:reference]).to include "Can't be blank."
+      end
     end
 
     it "builds a proper query" do
@@ -113,6 +125,17 @@ describe FraudIndicator do
     let(:query_double) { double }
     let(:intake) { create :intake, primary_first_name: "Tiger" }
 
+    context "validations" do
+      it "is not valid without the appropriate data" do
+        indicator = FraudIndicator.new(indicator_type: "not_in_safelist")
+        expect(indicator.valid?).to eq false
+        expect(indicator.errors[:name]).to include "Can't be blank."
+        expect(indicator.errors[:indicator_attributes]).to include "must have length of 1"
+        expect(indicator.errors[:query_model_name]).to include "Can't be blank."
+        expect(indicator.errors[:list_model_name]).to include "Can't be blank."
+        expect(indicator.errors[:reference]).to include "Can't be blank."
+      end
+    end
 
     context "stubbing everything" do
       before do
@@ -138,6 +161,18 @@ describe FraudIndicator do
     let(:fraud_indicator) { FraudIndicator.new(name: "fraud_if_is_a_bunny_name", indicator_type: "in_denylist", reference: "intake", indicator_attributes: ["primary_first_name"], query_model_name: "Intake", list_model_name: "FraudIndicator::Bunny") }
     let(:query_double) { double }
     let(:intake) { create :intake, primary_first_name: "Peter" }
+
+    context "validations" do
+      it "is not valid without the appropriate data" do
+        indicator = FraudIndicator.new(indicator_type: "in_denylist")
+        expect(indicator.valid?).to eq false
+        expect(indicator.errors[:name]).to include "Can't be blank."
+        expect(indicator.errors[:indicator_attributes]).to include "must have length of 1"
+        expect(indicator.errors[:query_model_name]).to include "Can't be blank."
+        expect(indicator.errors[:list_model_name]).to include "Can't be blank."
+        expect(indicator.errors[:reference]).to include "Can't be blank."
+      end
+    end
 
     context "stubbing everything" do
       before do
@@ -165,6 +200,17 @@ describe FraudIndicator do
     let(:client) { create :client }
     let(:fraud_indicator) { FraudIndicator.new(name: "duplicated_stuff", indicator_type: "duplicates", reference: "client", query_model_name: "Intake::CtcIntake", indicator_attributes: [:primary_first_name, :primary_last_name]) }
 
+    context "validations" do
+      it "is not valid without the appropriate data" do
+        indicator = FraudIndicator.new(indicator_type: "duplicates")
+        expect(indicator.valid?).to eq false
+        expect(indicator.errors[:name]).to include "Can't be blank."
+        expect(indicator.errors[:indicator_attributes]).to include "must have minimum length of 1"
+        expect(indicator.errors[:query_model_name]).to include "Can't be blank."
+        expect(indicator.errors[:reference]).to include "Can't be blank."
+      end
+    end
+
     before do
       allow(DeduplificationService).to receive(:duplicates).and_return query_double
       allow(query_double).to receive(:count).and_return 2
@@ -185,6 +231,7 @@ describe FraudIndicator do
       before do
         allow(query_double).to receive(:count).and_return 0
       end
+
       it "returns the count of duplicates" do
         expect(fraud_indicator.execute(intake: intake, client: client)).to eq false
       end
@@ -199,6 +246,17 @@ describe FraudIndicator do
       allow(EfileSubmission).to receive(:where).and_return query_double
       allow(query_double).to receive_message_chain(:where, :missing).and_return query_double # ensure a ActiveRecord query object
       allow(query_double).to receive(:exists?).and_return true
+    end
+
+    context "validations" do
+      it "is not valid without the appropriate data" do
+        indicator = FraudIndicator.new(indicator_type: "missing")
+        expect(indicator.valid?).to eq false
+        expect(indicator.errors[:name]).to include "Can't be blank."
+        expect(indicator.errors[:indicator_attributes]).to include "must have length of 1"
+        expect(indicator.errors[:query_model_name]).to include "Can't be blank."
+        expect(indicator.errors[:reference]).to include "Can't be blank."
+      end
     end
 
     it "builds the appropriate query" do
@@ -222,6 +280,17 @@ describe FraudIndicator do
       allow(Intake).to receive(:where).and_return query_double
       allow(query_double).to receive(:where).and_return query_double # ensure a ActiveRecord query object
       allow(query_double).to receive(:exists?).and_return true
+    end
+
+    context "validations" do
+      it "is not valid without the appropriate data" do
+        indicator = FraudIndicator.new(indicator_type: "equals")
+        expect(indicator.valid?).to eq false
+        expect(indicator.errors[:name]).to include "Can't be blank."
+        expect(indicator.errors[:indicator_attributes]).to include "must have length of 2"
+        expect(indicator.errors[:query_model_name]).to include "Can't be blank."
+        expect(indicator.errors[:reference]).to include "Can't be blank."
+      end
     end
 
     it "builds the appropriate query" do
