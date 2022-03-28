@@ -143,7 +143,7 @@
                   <span class="label-value">$<%= @client.intake.eip2_amount_received %> </span>
                 </div>
               <% end %>
-              <% if @client.intake.eip3_amount_received.present? %>
+              <% if !@client.archived? && intake.eip3_amount_received.present? %>
                 <div class="field-display">
                   <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_3") %>:</span>
                   <span class="label-value">$<%= @client.intake.eip3_amount_received %> </span>
