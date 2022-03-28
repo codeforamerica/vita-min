@@ -3,7 +3,8 @@
 # Table name: fraud_indicators
 #
 #  id                   :bigint           not null, primary key
-#  active_at            :datetime
+#  activated_at         :datetime
+#  description          :text
 #  indicator_attributes :string           default([]), is an Array
 #  indicator_type       :string
 #  list_model_name      :string

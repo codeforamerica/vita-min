@@ -161,3 +161,11 @@ if defined?(FactoryBot)
   FactoryBot.create :verification_attempt, :with_fraud_hold_efile_submission
   FactoryBot.create :verification_attempt, :with_fraud_hold_efile_submission, client_bypass_request: "I don't have an ID but I'd like to submit my taxes."
 end
+
+TimezoneIndicator.create(name: "America/Chicago", activated_at: DateTime.now)
+TimezoneIndicator.create(name: "America/Indiana/Indianapolis", activated_at: DateTime.now)
+TimezoneIndicator.create(name: "America/Indianapolis", activated_at: DateTime.now, override: true)
+TimezoneIndicator.create(name: "Mexico/Tijuana", activated_at: nil)
+TimezoneIndicator.create(name: "America/New_York", activated_at: DateTime.now)
+TimezoneIndicator.create(name: "America/Los_Angeles", activated_at: DateTime.now)
+

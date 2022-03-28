@@ -3,7 +3,8 @@
 # Table name: fraud_indicators
 #
 #  id                   :bigint           not null, primary key
-#  active_at            :datetime
+#  activated_at         :datetime
+#  description          :text
 #  indicator_attributes :string           default([]), is an Array
 #  indicator_type       :string
 #  list_model_name      :string
@@ -29,7 +30,7 @@ class FraudIndicator < ApplicationRecord
   validates :indicator_attributes, length: { minimum: 1 }, if: -> { indicator_type.in? ["duplicates"] }
   validates :multiplier, presence: true, if: -> { indicator_type.in? ["duplicates"] }
 
-  default_scope { where.not(active_at: nil) }
+  default_scope { where.not(activated_at: nil) }
 
   def execute(intake: nil, client: nil, efile_submission: nil, bank_account: nil, tax_return: nil)
     references = {

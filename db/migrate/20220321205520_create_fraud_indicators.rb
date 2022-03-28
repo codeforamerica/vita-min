@@ -11,7 +11,7 @@ class CreateFraudIndicators < ActiveRecord::Migration[6.1]
       t.integer :points
       t.float :multiplier
       t.text :description
-      t.timestamp :active_at
+      t.timestamp :activated_at
       t.timestamps
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_022358) do
+ActiveRecord::Schema.define(version: 2022_03_28_173259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -802,6 +802,22 @@ ActiveRecord::Schema.define(version: 2022_03_17_022358) do
     t.index ["visitor_id", "question_key"], name: "index_faq_surveys_on_visitor_id_and_question_key"
   end
 
+  create_table "fraud_indicators", force: :cascade do |t|
+    t.datetime "activated_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.text "description"
+    t.string "indicator_attributes", default: [], array: true
+    t.string "indicator_type"
+    t.string "list_model_name"
+    t.float "multiplier"
+    t.string "name"
+    t.integer "points"
+    t.string "query_model_name"
+    t.string "reference"
+    t.float "threshold"
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "greeter_coalition_join_records", force: :cascade do |t|
     t.bigint "coalition_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -1366,6 +1382,14 @@ ActiveRecord::Schema.define(version: 2022_03_17_022358) do
     t.index ["text_message_access_token_id"], name: "text_message_login_request_access_token_id"
     t.index ["twilio_sid"], name: "index_text_message_login_requests_on_twilio_sid"
     t.index ["visitor_id"], name: "index_text_message_login_requests_on_visitor_id"
+  end
+
+  create_table "timezone_indicators", force: :cascade do |t|
+    t.datetime "activated_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.string "name"
+    t.boolean "override", default: true
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "triages", force: :cascade do |t|
