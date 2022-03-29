@@ -10,7 +10,7 @@
       <h2><%= t("views.ctc.questions.stimulus_owed.amount_received") %></h2>
       <%= link_to t("general.edit").downcase, questions_stimulus_three_path, class: "review-box__edit" %>
     </div>
-    <p class="spacing-below-0"><%= t("views.ctc.questions.stimulus_owed.eip_three") %>: <%= number_to_currency(current_intake.eip3_amount_received) %></p>
+    <p class="spacing-below-0"><%= t("views.ctc.questions.stimulus_owed.eip_three") %>: <%= calculated_or_provided_dollar_amount(current_intake.eip3_amount_received) %></p>
   </div>
 
   <p class="text--bold">
