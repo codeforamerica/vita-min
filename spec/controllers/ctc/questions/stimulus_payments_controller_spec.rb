@@ -1,7 +1,6 @@
 require "rails_helper"
 
-# TODO: fix this when StimulusPayments is reachable again
-xdescribe Ctc::Questions::StimulusPaymentsController do
+describe Ctc::Questions::StimulusPaymentsController do
   let(:intake) { create :ctc_intake, client: client }
   let(:client) { create :client, tax_returns: [build(:tax_return, year: 2021)] }
 
@@ -10,17 +9,16 @@ xdescribe Ctc::Questions::StimulusPaymentsController do
   end
 
   describe "#update" do
-    it "persists eip1_entry_method and eip2_entry_method and redirects to the next path" do
+    it "persists eip3_entry_method and redirects to the next path" do
       post :update, params: {
         ctc_stimulus_payments_form: {
-          eip_received_choice: "yes_received",
+          eip_received_choice: "this_amount",
         }
       }
 
       intake.reload
-      expect(intake).to be_eip1_entry_method_calculated_amount
-      expect(intake).to be_eip2_entry_method_calculated_amount
-      # TODO: correct redirect to next path for new RRC flow
+      expect(intake).to be_eip3_entry_method_calculated_amount
+      expect(response).to redirect_to questions_stimulus_received_path
     end
   end
 end
