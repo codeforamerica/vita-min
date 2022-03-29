@@ -2147,13 +2147,10 @@ es:
           your_spouse: Su cónyuge
         stimulus_owed:
           amount_received: Cantidad que recibió
-          claim: Sí, tramiten el pago de estímulo que me falta
-          correction: Si la cantidad que introdujo para su EIP 1 o 2 es incorrecta, sus pagos por estímulo y cualquier Crédito Fiscal por Hijo podrían retrasarse mientras el IRS hace correcciones en su declaración.
-          dont_claim: No, sólo deseo tramitar mi Crédito Fiscal por Hijos
-          eip_one: EIP 1
-          eip_two: EIP 2
+          correction: Si la cantidad que ingresó arriba es incorrecta, sus pagos por estímulo y cualquier Crédito Fiscal por Hijo podrían retrasarse mientras el IRS hace correcciones en su declaración.
+          eip_three: Tercer estímulo
           eligible_for: 'Podría ser elegible para un adicional:'
-          title: Parece que todavía se le deben algunos pagos por estímulo. ¿Desea cobrarlos?
+          title: Parece que todavía le deben algunos pagos de estímulo. ¿Te gustaría reclamarlo?
         stimulus_payments:
           first_stimulus: Primer pago de estímulo
           first_stimulus_details: Este pago debería haber llegado entre abril de 2020 y octubre de 2020.

@@ -2190,13 +2190,10 @@ en:
           your_spouse: Your spouse
         stimulus_owed:
           amount_received: Amount you’ve received
-          claim: Yes, claim my missing stimulus
-          correction: If the amount you entered for your EIP 1 or 2 is incorrect your stimulus payments and any Child Tax Credit could be delayed while the IRS makes corrections to your return.
-          dont_claim: No, just claim my Child Tax Credit
-          eip_one: EIP 1
-          eip_two: EIP 2
+          correction: If the amount you entered above is incorrect, your stimulus payments and any Child Tax Credit could be delayed while the IRS makes corrections to your return.
+          eip_three: Third stimulus
           eligible_for: 'You could be eligible for an additional:'
-          title: It looks like you are still owed some stimulus payments. Would you like to claim them?
+          title: It looks like you are still owed some stimulus payments. Would you like to claim it?
         stimulus_payments:
           first_stimulus: First stimulus payment
           first_stimulus_details: This payment should have arrived between April 2020 and October 2020.

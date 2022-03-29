@@ -207,6 +207,9 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.stimulus_three.how_much'), with: "1800"
     click_on I18n.t('general.continue')
 
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_owed.title'))
+    click_on I18n.t('general.continue')
+
     # =========== BANK AND MAILING INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.refund_payment.title'))
     choose I18n.t('views.questions.refund_payment.direct_deposit')
