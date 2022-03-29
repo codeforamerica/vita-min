@@ -6,10 +6,9 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
-        return false if intake.eip1_amount_received.nil? || intake.eip2_amount_received.nil?
-        return false if intake.eip1_entry_method_calculated_amount?
+        return false if intake.eip3_amount_received.nil?
 
-        (Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents).outstanding_recovery_rebate_credit || 0) > 0
+        (Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents).outstanding_recovery_rebate_credit || 0).positive?
       end
 
       def edit
@@ -18,6 +17,10 @@ module Ctc
       end
 
       private
+
+      def form_class
+        NullForm
+      end
 
       def illustration_path; end
     end
