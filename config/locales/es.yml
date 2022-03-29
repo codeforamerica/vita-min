@@ -2167,14 +2167,22 @@ es:
           eligible_for: 'Podría ser elegible para un adicional:'
           title: Parece que todavía le deben algunos pagos de estímulo. ¿Te gustaría reclamarlo?
         stimulus_payments:
-          first_stimulus: Primer pago de estímulo
-          first_stimulus_details: Este pago debería haber llegado entre abril de 2020 y octubre de 2020.
-          no_did_not_receive: Recibí menos de esta cantidad
+          different_amount: Recibí una cantidad diferente
+          no_amount: No recibi ningun pago
           question: "¿Recibió esta cantidad?"
-          second_stimulus: Segundo pago de estímulo
-          second_stimulus_details: Este pago debería haber llegado entre diciembre de 2020 y enero de 2021.
-          title: Creemos que tiene derecho a esta cantidad para los dos primeros pagos del estímulo.
-          yes_received: Recibí esta cantidad
+          reveal:
+            content_html:
+            - Los pagos de estímulo se emitieron automáticamente a las familias que habían presentado declaraciones de impuestos recientemente o que estaban inscritas en ciertos programas federales.
+            - El primer pago de estímulo se envió entre abril de 2020 y octubre de 2020. El segundo pago de estímulo se envió en diciembre de 2020 o enero de 2021.
+            - Para reclamar todo o parte de su primer o segundo pago de estímulo, debe presentar una declaración de impuestos para 2020. Puede verificar su elegibilidad para presentar impuestos atrasados de forma gratuita utilizando %{link_to_get_your_refund}.
+            title: "¿Cómo puedo obtener más información sobre los dos primeros pagos de estímulo?"
+          third_stimulus: Estimar tercer pago de estímulo
+          third_stimulus_details:
+          - Estimamos que debería haber recibido esta cantidad en función de su estado civil y dependientes.
+          - El tercer pago de estímulo se envió en abril de 2021 y fue de $1,400 por contribuyente adulto más $1,400 por dependiente de cualquier edad.
+          - Por ejemplo, un padre que cuida a dos niños habría recibido $4,200.
+          this_amount: Recibí esta cantidad
+          title: "¿Recibió un total de %{third_stimulus_amount} por su tercer pago de estímulo?"
         stimulus_received:
           amount_received: Cantidad que ha recibido
           eip_three: Tercer estímulo

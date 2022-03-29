@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_24_174507) do
+ActiveRecord::Schema.define(version: 2022_03_29_172454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -919,6 +919,7 @@ ActiveRecord::Schema.define(version: 2022_03_24_174507) do
     t.integer "eip2_amount_received"
     t.integer "eip2_entry_method", default: 0, null: false
     t.integer "eip3_amount_received"
+    t.integer "eip3_entry_method", default: 0, null: false
     t.boolean "eip_only"
     t.citext "email_address"
     t.datetime "email_address_verified_at"

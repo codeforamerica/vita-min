@@ -50,6 +50,7 @@
 #  eip2_amount_received                                 :integer
 #  eip2_entry_method                                    :integer          default(0), not null
 #  eip3_amount_received                                 :integer
+#  eip3_entry_method                                    :integer          default(0), not null
 #  eip_only                                             :boolean
 #  email_address                                        :citext
 #  email_address_verified_at                            :datetime

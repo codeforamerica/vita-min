@@ -7,20 +7,22 @@ module Ctc
 
     def save
       tax_return = intake.default_tax_return
-      if eip_received_choice == 'yes_received'
+      case eip_received_choice
+      when 'this_amount'
         benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: intake.dependents)
         @intake.update(
-          eip1_entry_method: 'calculated_amount',
-          eip2_entry_method: 'calculated_amount',
-          eip1_amount_received: benefits.eip1_amount,
-          eip2_amount_received: benefits.eip2_amount
+          eip3_entry_method: 'calculated_amount',
+          eip3_amount_received: benefits.eip3_amount,
         )
-      else
+      when 'different_amount'
         @intake.update(
-          eip1_entry_method: 'unfilled',
-          eip2_entry_method: 'unfilled',
-          eip1_amount_received: nil,
-          eip2_amount_received: nil
+          eip3_entry_method: 'unfilled',
+          eip3_amount_received: nil,
+        )
+      when 'no_amount'
+        @intake.update(
+          eip3_entry_method: 'did_not_receive',
+          eip3_amount_received: 0,
         )
       end
     end
