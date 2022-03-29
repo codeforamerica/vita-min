@@ -1,15 +1,9 @@
 module Ctc
   module Questions
-    class StimulusOneController < QuestionsController
+    class StimulusThreeController < QuestionsController
       include AuthenticatedCtcClientConcern
 
       layout "intake"
-
-      def self.show?(intake)
-        return false if intake.eip1_entry_method_calculated_amount?
-
-        true
-      end
 
       private
 

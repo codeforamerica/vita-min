@@ -837,6 +837,7 @@ es:
     recovery_rebate_credit_amount:
       amount_1: Pago de impacto económico 1 recibió
       amount_2: Pago de impacto económico 2 recibió
+      amount_3: Pago de impacto económico 3 recibió
       confidence: "¿Qué tan confiado en esta cantidad?"
       confidence_values:
         sure: Seguro
@@ -2144,19 +2145,6 @@ es:
           spouse_ssn: 'Número de Seguro Social: XXX-XX-%{ssn}'
           title: Confirmemos la información de su conyuge
           your_spouse: Su cónyuge
-        stimulus_one:
-          help_html: |
-            <p>Los primero de los tres pagos por estímulo fueron enviados entre abril 2020 y octubre 2020.</p>
-            <p>Este pago fue de $1,200 por cada adulto declarante más $500 por cada dependiente (por ejemplo, un padre de familia al cuidado de dos niños habría recibido $2,200).</p>
-          title: "¿Recibió algo del primer pago de estímulo?"
-        stimulus_one_received:
-          eip1_amount_received_label: Pago Impacto Económico 1
-          help_html: |
-            <p>El primer pago de estímulo, conocido formalmente como Pago de Impacto Económico 1, se envió entre abril de 2020 y octubre de 2020.</p>
-            <p>Ingrese la cantidad que recibió, si recibió alguno, por ese pago.</p>
-          reveal_content: Si no está seguro, revise la notificación oficial que ha recibido O sus registros bancarios.
-          reveal_label: "¿Dónde puedo encontrar esta cantidad?"
-          title: Introduzca la cantidad total que recibió por su primer pago de estímulo.
         stimulus_owed:
           amount_received: Cantidad que recibió
           claim: Sí, tramiten el pago de estímulo que me falta
@@ -2176,23 +2164,17 @@ es:
           title: Creemos que tiene derecho a esta cantidad para los dos primeros pagos del estímulo.
           yes_received: Recibí esta cantidad
         stimulus_received:
-          amount_received: Cantidad que recibió
-          eip_one: EIP 1
-          eip_two: EIP 2
-          title: Parece ser que ha recibido la cantidad completa de sus dos primeros pagos por estímulo.
-        stimulus_two:
+          amount_received: Cantidad que ha recibido
+          eip_three: Tercer estímulo
+          title: Parece que ha recibido el monto total de su tercer pago de estímulo.
+        stimulus_three:
           help_html: |
-            <p>El segundo de los tres pagos de estímulo, se envió entre diciembre de 2020 y enero de 2021.</p>
-            <p>Este pago fue de $600 por adulto declarante más $600 por dependiente (por ejemplo, un padre de familia al cuidado de dos niños habría recibido $1,800)</p>
-          title: "¿Recibió algo del segundo pago de estímulo?"
-        stimulus_two_received:
-          eip2_amount_received_label: Pago Impacto Económico 2
-          help_html: |
-            <p>El primer pago de estímulo, conocido formalmente como Pago de Impacto Económico 2, se envió entre diciembre de 2020 y enero de 2021.</p>
-            <p>Ingrese la cantidad que recibió, si recibió uno, por ese pago.</p>
-          reveal_content: Si no está seguro, revise la notificación oficial que ha recibido O sus registros bancarios.
+            <p>El pago de estímulo final se envió en abril de 2021, según cuándo presentó su declaración de impuestos.</p>
+            <p>Ingrese el monto que recibió, si lo recibió, por ese pago.</p>
+          how_much: "¿Cuánto recibiste?"
+          reveal_content: Si no está seguro, verifique el aviso oficial que recibió O sus registros bancarios.
           reveal_label: "¿Dónde puedo encontrar esta cantidad?"
-          title: Introduzca la cantidad total que recibió por su segundo pago de estímulo.
+          title: Ingrese el monto total que recibió por su tercer pago de estímulo.
         use_gyr:
           collect_money: Reciba todo el dinero que se le debe presentando una solicitud con los servicios de GetYourRefund.
           ctc_conditions:

@@ -122,7 +122,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_three.title'))
     click_on I18n.t('general.back')
     click_on I18n.t('general.affirmative')
 
@@ -203,20 +203,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
 
     # =========== RECOVERY REBATE CREDIT ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title'))
-    expect(page).to have_selector(".first-stimulus", text: "$0")
-    expect(page).to have_selector(".second-stimulus", text: "$0")
-
-    click_on I18n.t('views.ctc.questions.stimulus_payments.no_did_not_receive')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_one.title'))
-    click_on I18n.t('general.affirmative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_one_received.title'))
-    fill_in I18n.t('views.ctc.questions.stimulus_one_received.eip1_amount_received_label'), with: "2900"
-    click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two.title'))
-    click_on I18n.t('general.affirmative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_two_received.title'))
-    fill_in I18n.t('views.ctc.questions.stimulus_two_received.eip2_amount_received_label'), with: "1800"
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_three.title'))
+    fill_in I18n.t('views.ctc.questions.stimulus_three.how_much'), with: "1800"
     click_on I18n.t('general.continue')
 
     # =========== BANK AND MAILING INFO ===========
