@@ -13,8 +13,7 @@ module Ctc
       end
 
       def edit
-        tax_return = current_intake.default_tax_return
-        benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: current_intake.dependents)
+        benefits = Efile::BenefitsEligibility.new(tax_return: current_intake.default_tax_return, dependents: current_intake.dependents)
         @ctc_owed = benefits.outstanding_ctc_amount
         super
       end

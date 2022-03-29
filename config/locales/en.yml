@@ -1858,6 +1858,21 @@ en:
         account_number:
           account_number: Account number
           account_number_confirmation: Confirm account number
+        advance_ctc:
+          adv_ctc_time_frame: These payments would have arrived monthly in the second half of the year, between July and December 2021.
+          no_did_not_receive: I didn’t receive any payments
+          no_received_different: I received a different amount
+          question: Did you receive this amount?
+          title: Did you receive a total of $%{adv_ctc_estimate} in Advance Child Tax Credits in 2021?
+          total_adv_ctc: Total Advance Child Tax Credits
+          total_adv_ctc_details_html: We estimate that you should have received this <strong>total amount</strong> based on your filing status and for the following dependents
+          yes_received: I received this amount
+        advance_ctc_received:
+          already_received: Amount you’ve received
+          ctc_owed_details: If the amount you entered above is incorrect, your tax refund could be delayed while the IRS makes corrections to your return.
+          ctc_owed_title: 'You are eligible for an additional:'
+          title: Ok. We’ve calculated your Child Tax Credit.
+          total_adv_ctc: 'Total Advanced CTC: $%{amount}'
         already_completed:
           content_html: |
             <p> You've completed all of our intake questions and we're reviewing and submitting your tax return. </p>
@@ -2194,22 +2209,6 @@ en:
           eip_three: Third stimulus
           eligible_for: 'You could be eligible for an additional:'
           title: It looks like you are still owed some stimulus payments. Would you like to claim it?
-        advance_ctc:
-          edit:
-            title: Did you receive a total of $%{adv_ctc_estimate} in Advance Child Tax Credits in 2021?
-            total_adv_ctc: Total Advance Child Tax Credits
-            total_adv_ctc_details_html: We estimate that you should have received this <strong>total amount</strong> based on your filing status and for the following dependents
-            adv_ctc_time_frame: These payments would have arrived monthly in the second half of the year, between July and December 2021.
-            question: Did you receive this amount?
-            yes_received: I received this amount
-            no_received_different: I received a different amount
-            no_did_not_receive: I didn’t receive any payments
-        advance_ctc_received:
-          edit:
-            title: Ok. We’ve calculated your Child Tax Credit.
-            total_adv_ctc: "Total Advanced CTC: $%{amount}"
-            ctc_owed_title: "You are eligible for an additional:"
-            ctc_owed_details: "If the amount you entered above is incorrect, your tax refund could be delayed while the IRS makes corrections to your return."
         stimulus_payments:
           first_stimulus: First stimulus payment
           first_stimulus_details: This payment should have arrived between April 2020 and October 2020.

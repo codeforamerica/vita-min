@@ -10,20 +10,9 @@ describe Ctc::Questions::AdvanceCtcReceivedController do
   end
 
   describe "#edit" do
-    context "advance_ctc_amount_received is not nil" do
-      it "renders the corresponding template" do
-        get :edit
-        expect(response).to render_template :edit
-      end
-    end
-
-    context "advance_ctc_amount_received is nil" do
-      let(:advance_ctc_amount_received) { nil }
-
-      it "renders the corresponding template" do
-        get :edit
-        expect(response).not_to render_template :edit
-      end
+    it "renders the corresponding template" do
+      get :edit
+      expect(response).to render_template :edit
     end
   end
 end

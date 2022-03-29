@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.advance_ctc.edit.title", adv_ctc_estimate: @adv_ctc_estimate) %>
+<% @main_question = t("views.ctc.questions.advance_ctc.title", adv_ctc_estimate: @adv_ctc_estimate) %>
 
 <% content_for :page_title, @main_question %>
 
@@ -7,35 +7,35 @@
 
   <div class="review-box spacing-below-35">
     <div class="review-box__title spacing-below-15">
-      <h2 class="text--normal"><%= t("views.ctc.questions.advance_ctc.edit.total_adv_ctc") %></h2>
+      <h2 class="text--normal"><%= t("views.ctc.questions.advance_ctc.total_adv_ctc") %></h2>
     </div>
     <div class="h2 spacing-below-15 spacing-above-0">
       <%= calculated_or_provided_dollar_amount(@adv_ctc_estimate) %>
     </div>
-    <p><%= t("views.ctc.questions.advance_ctc.edit.total_adv_ctc_details_html") %>:</p>
+    <p><%= t("views.ctc.questions.advance_ctc.total_adv_ctc_details_html") %>:</p>
     <ul class="with-bullets">
       <% current_intake.dependents.each do |dependent| %>
         <li><%= dependent.full_name %></li>
       <% end %>
     </ul>
-    <p><%= t("views.ctc.questions.advance_ctc.edit.adv_ctc_time_frame") %></p>
+    <p><%= t("views.ctc.questions.advance_ctc.adv_ctc_time_frame") %></p>
   </div>
 
-  <p class="text--bold"><%= t("views.ctc.questions.advance_ctc.edit.question") %></p>
+  <p class="text--bold"><%= t("views.ctc.questions.advance_ctc.question") %></p>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.hidden_field :adv_ctc_entry_method, value: :calculated_amount %>
 
     <div class="button-group button-group--center button--wide">
       <%= f.button :submit, name: "#{f.object_name}[advance_ctc_received_choice]", value: "yes_received", class: "button button--wide text--centered" do %>
-        <%= t("views.ctc.questions.advance_ctc.edit.yes_received") %>
+        <%= t("views.ctc.questions.advance_ctc.yes_received") %>
       <% end %>
 
       <%= f.button :submit, name: "#{f.object_name}[advance_ctc_received_choice]", value: "no_received_different_amount", class: "button button--wide text--centered" do %>
-        <%= t("views.ctc.questions.advance_ctc.edit.no_received_different") %>
+        <%= t("views.ctc.questions.advance_ctc.no_received_different") %>
       <% end %>
 
       <%= f.button :submit, name: "#{f.object_name}[advance_ctc_received_choice]", value: "no_did_not_receive", class: "button button--wide text--centered" do %>
-        <%= t("views.ctc.questions.advance_ctc.edit.no_did_not_receive") %>
+        <%= t("views.ctc.questions.advance_ctc.no_did_not_receive") %>
       <% end %>
     </div>
   <% end %>
