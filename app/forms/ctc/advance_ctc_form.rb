@@ -17,7 +17,7 @@ module Ctc
           advance_ctc_entry_method: 'did_not_receive',
           advance_ctc_amount_received: 0,
           )
-      else
+      else #advance_ctc_received_choice == 'no_received_different_amount'
         @intake.update(
           advance_ctc_entry_method: 'unfilled',
           advance_ctc_amount_received: nil,

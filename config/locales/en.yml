@@ -2210,7 +2210,6 @@ en:
             total_adv_ctc: "Total Advanced CTC: $%{amount}"
             ctc_owed_title: "You are eligible for an additional:"
             ctc_owed_details: "If the amount you entered above is incorrect, your tax refund could be delayed while the IRS makes corrections to your return."
->>>>>>> Add advanced CTC pages
         stimulus_payments:
           first_stimulus: First stimulus payment
           first_stimulus_details: This payment should have arrived between April 2020 and October 2020.

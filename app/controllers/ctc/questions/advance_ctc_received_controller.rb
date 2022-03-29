@@ -6,8 +6,10 @@ module Ctc
       layout "intake"
 
       def self.show?(intake)
-        benefits = Efile::BenefitsEligibility.new(tax_return: current_intake.default_tax_return, dependents: current_intake.dependents)
-        intake.advance_ctc_amount_received < benefits.outstanding_ctc_amount
+        return false if intake.advance_ctc_amount_received.nil?
+
+        benefits = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
+        benefits.advance_ctc_amount_received < benefits.outstanding_ctc_amount
       end
 
       def edit

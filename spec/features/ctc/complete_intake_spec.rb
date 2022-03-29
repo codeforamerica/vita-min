@@ -122,7 +122,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_three.title'))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.advance_ctc.edit.title', adv_ctc_estimate: 0))
     click_on I18n.t('general.back')
     click_on I18n.t('general.affirmative')
 
@@ -201,6 +201,16 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).not_to have_text "Red Hot Pepper"
     click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
 
+    # =========== ADVANCE CHILD TAX CREDIT ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.advance_ctc.edit.title', adv_ctc_estimate: 1800))
+    expect(page).to have_text("$1800")
+    expect(page).to have_text("Jessie M Pepper")
+    click_on I18n.t('views.ctc.questions.advance_ctc.edit.no_did_not_receive')
+
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.advance_ctc_received.edit.title"))
+    expect(page).to have_text "Total Advanced CTC: $0"
+    expect(page).to have_text "$3,600"
+    click_on I18n.t('general.continue')
 
     # =========== RECOVERY REBATE CREDIT ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_three.title'))
