@@ -1,7 +1,7 @@
 require 'zip'
 module Efile
   class GyrEfilerService
-    CURRENT_VERSION = 'f5eeb816f6c919fff8d5c742062e664b1f4cd13a'
+    CURRENT_VERSION = '70ce1c0034e5b87e7326a925acd81f39ccd92b4b'
     POSTGRES_LOCK_PREFIX = 1640661264
     RETRYABLE_LOG_CONTENTS = [
       /Transaction Result: The server sent HTTP status code 302: Moved Temporarily/,
