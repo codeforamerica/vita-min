@@ -10,6 +10,16 @@ describe RecentMessageSummaryService do
       end
     end
 
+    context "with a message without a body" do
+      let(:client) { create(:client, intake: create(:intake, preferred_name: "Client Name")) }
+      let(:user) { create(:user, name: "User Name") }
+      let!(:message) { create :incoming_email, created_at: DateTime.new(2021, 3, 19, 0, 0, 0), client: client, body_plain: nil }
+
+      it "sets the body on the message summary to be an empty string" do
+        expect(RecentMessageSummaryService.messages([client.id])[client.id][:body]).to eq ""
+      end
+    end
+
     context "with some messages" do
       let(:client) { create(:client, intake: create(:intake, preferred_name: "Client Name")) }
       let(:user) { create(:user, name: "User Name") }

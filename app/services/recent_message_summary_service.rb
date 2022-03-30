@@ -9,7 +9,7 @@ class RecentMessageSummaryService
     client_ids.each do |client_id|
       message = ([outgoing_emails[client_id]] + [outgoing_text_messages[client_id]] + [incoming_emails[client_id]] + [incoming_text_messages[client_id]] + [incoming_portal_messages[client_id]]).compact.sort_by(&:created_at).last
 
-      summaries[client_id] = { author: message.author, body: message.body, date: message.created_at } unless message.nil?
+      summaries[client_id] = { author: message.author, body: message.body || "", date: message.created_at } unless message.nil?
     end
 
     summaries
