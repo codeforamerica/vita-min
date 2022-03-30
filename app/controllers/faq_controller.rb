@@ -81,7 +81,7 @@ class FaqController < ApplicationController
     how_does_getyourrefund_work: [
       :what_is_getyourrefund_deluxe_and_how_does_it_work,
       :what_is_file_myself_and_how_does_it_work,
-      :what_is_getyourrefund_express_and_how_does_it_work,
+      :what_is_getyourrefund_express_and_how_does_it_work, # Retaining Feb 2022 'express' name for now; see TriageGyrExpressController for history.
     ],
     should_i_file_a_tax_return: [
       :what_are_the_potential_benefits_of_filing_a_tax_return,

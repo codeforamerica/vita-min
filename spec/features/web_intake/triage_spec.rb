@@ -75,7 +75,7 @@ RSpec.feature "triage flow" do
 
     def final_page
       case row['service'].strip
-      when 'Express-GYR'
+      when 'CTC-GYR'
         Questions::TriageGyrExpressController
       when 'DIY'
         Questions::TriageDiyController

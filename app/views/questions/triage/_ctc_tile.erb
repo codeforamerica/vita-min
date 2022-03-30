@@ -1,7 +1,7 @@
 <div class="marketing-comparison">
   <h2><%= t('.title') %></h2>
   <p><%= t('.description') %></p>
-  <div class="timeframe express">
+  <div class="timeframe ctc">
     <%= image_tag("clock.svg") %>
     <div>
       <p><%= t('.timeframe') %></p>
@@ -26,7 +26,7 @@
     <%= t('.warning') %>
   </p>
   <div class="spacing-above-35">
-    <%= link_to t('.sign_up_for_express'),
+    <%= link_to t('.sign_up_for_ctc'),
                 url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'source_routing', source: "gyr"),
                 class: "button button--wide text--centered",
                 "data-track-click": click_tracking_event_name
