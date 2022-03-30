@@ -8,11 +8,25 @@ class Ability
     end
 
     accessible_groups = user.accessible_vita_partners
-
     # Admins can do everything
-    if user.role_type == AdminRole::TYPE
+    if user.admin?
       can :manage, :all
       return
+    end
+
+    if user.client_success?
+      # Allow client success to manage basically everything in regards to clients
+      can :manage, :all
+      # Remove some user and organization management capabilities
+      cannot :manage, Organization
+      cannot :manage, CoalitionLeadRole
+      cannot :manage, OrganizationLeadRole
+      cannot :manage, TeamMemberRole
+      cannot :manage, AdminRole
+      cannot :manage, ClientSuccessRole
+      cannot :manage, SiteCoordinatorRole
+      cannot :manage, GreeterRole
+      # Does not return, so other rules may be further scoped to accessible_groups
     end
 
     # Anyone can manage their name & email address (roles are handled separately)
@@ -28,7 +42,7 @@ class Ability
     # Anyone can manage clients and client data in the groups they can access
     can :manage, Client, vita_partner: accessible_groups
     # Only admins can destroy clients
-    cannot :destroy, Client unless user.role_type == AdminRole::TYPE
+    cannot :destroy, Client unless user.admin?
     can :manage, [
       Document,
       IncomingEmail,
@@ -42,7 +56,7 @@ class Ability
 
     can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
 
-    cannot :index, EfileSubmission unless user.role_type == AdminRole::TYPE
+    cannot :index, EfileSubmission unless user.admin? || user.client_success?
 
     if user.role_type == CoalitionLeadRole::TYPE
       can :read, Coalition, id: user.role.coalition_id

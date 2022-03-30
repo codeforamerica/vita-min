@@ -34,6 +34,24 @@ describe Ability do
     end
   end
 
+  context "as a client_support role" do
+    let(:client) { create :client, vita_partner: nil }
+    let(:user) { create :client_success_user }
+    it "can access a client when the vita_partner is nil" do
+      expect(subject.can?(:manage, client)).to eq true
+    end
+
+    it "cannot do certain things to organizations or create some roles" do
+      expect(subject.can?(:manage, Organization)).to eq false
+      expect(subject.can?(:manage, SiteCoordinatorRole)).to eq false
+      expect(subject.can?(:manage, AdminRole)).to eq false
+      expect(subject.can?(:manage, ClientSuccessRole)).to eq false
+      expect(subject.can?(:manage, GreeterRole)).to eq false
+      expect(subject.can?(:manage, CoalitionLeadRole)).to eq false
+      expect(subject.can?(:manage, OrganizationLeadRole)).to eq false
+    end
+  end
+
   context "as a non-admin" do
     context "Permissions regarding Clients and their data" do
       shared_examples :cannot_manage_any_sites_or_orgs do
