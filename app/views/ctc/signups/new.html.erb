@@ -5,23 +5,27 @@
   <div class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <h2>
-          <%= t("views.ctc_pages.signups.new.header") %>
-        </h2>
-        <p class="spacing-below-60">
-          <%= t("views.ctc_pages.signups.new.sub_header") %>
-        </p>
+        <h2 class="text--line-breaks"><%= t("views.ctc_pages.signups.new.header") %></h2>
+        <p class="text--line-breaks spacing-below-60"><%= t("views.ctc_pages.signups.new.sub_header_html", homepage_link: root_url(host: MultiTenantService.new(:gyr).host)) %></p>
 
+        <div class="grid-flex display-block-on-small-screens contained space-between align-flex-start">
+          <div style="flex-grow: 1">
 
-        <%= form_with model: @signup, url: { action: :create }, local: true, builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-          <%= f.cfa_input_field(:name, t("general.name"), classes: ["form-width--long"]) %>
-          <%= f.cfa_input_field(:email_address, t("general.email_address"), classes: ["form-width--long"]) %>
-          <%= f.cfa_input_field(:phone_number, t("general.phone_number"), classes: ["form-width--long"]) %>
+            <%= form_with model: @signup, url: { action: :create }, local: true, builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+              <%= f.cfa_input_field(:name, t("general.name"), classes: ["form-width--long"]) %>
+              <%= f.cfa_input_field(:email_address, t("general.email_address"), classes: ["form-width--long"]) %>
+              <%= f.cfa_input_field(:phone_number, t("general.phone_number"), classes: ["form-width--long"]) %>
 
-          <button class="button button--primary" type="submit">
-            <%= t("views.ctc_pages.signups.new.submit") %>
-          </button>
-        <% end %>
+              <button class="button button--primary spacing-below-60" type="submit">
+                <%= t("views.ctc_pages.signups.new.submit") %>
+              </button>
+            <% end %>
+          </div>
+
+          <div class="grid-flex align-flex-end justify-flex-end">
+            <%= image_tag "hero-family.png", alt: "", class: "hero-image hero-image--family" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

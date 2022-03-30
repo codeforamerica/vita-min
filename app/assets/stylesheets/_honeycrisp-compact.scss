@@ -343,6 +343,12 @@
 .grid-flex {
   display: flex;
 
+  &.display-block-on-small-screens {
+    @media screen and (max-width: $site-max-up) {
+      display: block;
+    }
+  }
+
   &.contained {
     max-width: 960px;
     margin: 0 auto;
@@ -354,6 +360,10 @@
 
   &.justify-flex-end {
     justify-content: flex-end;
+  }
+
+  &.align-flex-start {
+    align-items: flex-start;
   }
 
   &.align-flex-end {

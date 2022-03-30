@@ -60,7 +60,7 @@ RSpec.feature "Visit CTC home page" do
       expect(page).to have_text I18n.t("views.ctc_pages.home.header")
       click_on I18n.t("views.ctc_pages.home.sign_up_for_updates")
 
-      expect(page).to have_text I18n.t("views.ctc_pages.signups.new.header")
+      expect(page).to have_text I18n.t("views.ctc_pages.signups.new.header").split("\n").first
       fill_in I18n.t("general.name"), with: "Interested Person"
       fill_in I18n.t("general.email_address"), with: "remindme@example.com"
       fill_in I18n.t("general.phone_number"), with: "4153334444"
