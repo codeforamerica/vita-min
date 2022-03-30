@@ -1,0 +1,16 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
+
+  <% # Click tracking uses Feb 2022 'express' name; see TriageGyrExpressController for history. %>
+  <%= render "questions/triage/gyr_tile", click_tracking_event_name: "triage-gyr-express-choose-gyr" %>
+
+  <div class="spacing-below-25"></div>
+
+  <% # Click tracking uses Feb 2022 'express' name; see TriageGyrExpressController for history. %>
+  <%= render "questions/triage/ctc_tile", click_tracking_event_name: "triage-gyr-express-choose-express-signup" %>
+
+<% end %>

@@ -13,8 +13,8 @@ class GyrQuestionNavigation
       Questions::TriageIncomeTypesController, # deprecated
       Questions::TriageGyrController,
       Questions::TriageDiyController,
-      Questions::TriageCtcController,
-      Questions::TriageGyrCtcController,
+      Questions::TriageExpressController,
+      Questions::TriageGyrExpressController,
       Questions::TriageDoNotQualifyController,
       Questions::TriageGyrDiyController,
       Questions::TriageGyrIdsController,

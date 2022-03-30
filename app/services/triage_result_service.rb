@@ -87,7 +87,7 @@ class TriageResultService
   end
 
   def route_to_gyr_ctc_choice
-    Questions::TriageGyrCtcController.to_path_helper
+    Questions::TriageGyrExpressController.to_path_helper
   end
 
   def route_to_gyr_diy_choice
@@ -95,6 +95,6 @@ class TriageResultService
   end
 
   def route_to_ctc
-    Questions::TriageCtcController.to_path_helper
+    Questions::TriageExpressController.to_path_helper
   end
 end
