@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.stimulus_payments.title") %>
+<% @main_question = t("views.ctc.questions.stimulus_payments.title", third_stimulus_amount: calculated_or_provided_dollar_amount(@third_stimulus_amount)) %>
 
 <% content_for :page_title, @main_question %>
 
@@ -6,31 +6,37 @@
   <h1 class="h2"><%= @main_question %></h1>
 
   <div class="review-box spacing-below-35">
-    <div class="review-box__title spacing-below-15">
-      <h2><%= t("views.ctc.questions.stimulus_payments.first_stimulus") %></h2>
-    </div>
-    <div class="h2 spacing-below-15 spacing-above-0 first-stimulus"><%= calculated_or_provided_dollar_amount(@first_stimulus_amount) %></div>
-    <p><%= t("views.ctc.questions.stimulus_payments.first_stimulus_details") %></p>
-
     <div class="review-box__title">
-      <h2><%= t("views.ctc.questions.stimulus_payments.second_stimulus") %></h2>
+      <h2><%= t("views.ctc.questions.stimulus_payments.third_stimulus") %></h2>
     </div>
-    <div class="h2 spacing-below-15 spacing-above-0 second-stimulus"><%= calculated_or_provided_dollar_amount(@second_stimulus_amount) %></div>
-    <p><%= t("views.ctc.questions.stimulus_payments.second_stimulus_details") %></p>
+    <div class="h2 spacing-below-15 spacing-above-0"><%= calculated_or_provided_dollar_amount(@third_stimulus_amount) %></div>
+    <% t('views.ctc.questions.stimulus_payments.third_stimulus_details').each do |body| %>
+      <p><%= body %></p>
+    <% end %>
   </div>
 
-  <p class="text--bold"><%= t("views.ctc.questions.stimulus_payments.question") %></p>
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.stimulus_payments.reveal.title")) do %>
+    <% t('views.ctc.questions.stimulus_payments.reveal.content_html',
+         link_to_get_your_refund: link_to(t("views.ctc_pages.home.service_name"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home'))).each do |body| %>
+      <p><%= body %></p>
+    <% end %>
+  <% end %>
+
+  <p class="text--bold spacing-above-35"><%= t("views.ctc.questions.stimulus_payments.question") %></p>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.hidden_field :eip1_entry_method, value: :calculated_amount %>
-    <%= f.hidden_field :eip2_entry_method, value: :calculated_amount %>
+    <%= f.hidden_field :eip3_entry_method, value: :calculated_amount %>
 
     <div class="button-group button-group--center button--wide">
-      <%= f.button :submit, name: "#{f.object_name}[eip_received_choice]", value: "yes_received", class: "button button--wide text--centered" do %>
-        <%= t("views.ctc.questions.stimulus_payments.yes_received") %>
+      <%= f.button :submit, name: "#{f.object_name}[eip_received_choice]", value: "this_amount", class: "button button--wide text--centered" do %>
+        <%= t("views.ctc.questions.stimulus_payments.this_amount") %>
       <% end %>
 
-      <%= f.button :submit, name: "#{f.object_name}[eip_received_choice]", value: "no_did_not_receive", class: "button button--wide text--centered" do %>
-        <%= t("views.ctc.questions.stimulus_payments.no_did_not_receive") %>
+      <%= f.button :submit, name: "#{f.object_name}[eip_received_choice]", value: "different_amount", class: "button button--wide text--centered" do %>
+        <%= t("views.ctc.questions.stimulus_payments.different_amount") %>
+      <% end %>
+
+      <%= f.button :submit, name: "#{f.object_name}[eip_received_choice]", value: "no_amount", class: "button button--wide text--centered" do %>
+        <%= t("views.ctc.questions.stimulus_payments.no_amount") %>
       <% end %>
     </div>
   <% end %>

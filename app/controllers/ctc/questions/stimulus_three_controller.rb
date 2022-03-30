@@ -5,6 +5,10 @@ module Ctc
 
       layout "intake"
 
+      def self.show?(intake)
+        intake.eip3_amount_received.nil?
+      end
+
       private
 
       def illustration_path

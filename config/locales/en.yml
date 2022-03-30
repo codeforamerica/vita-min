@@ -2210,14 +2210,22 @@ en:
           eligible_for: 'You could be eligible for an additional:'
           title: It looks like you are still owed some stimulus payments. Would you like to claim it?
         stimulus_payments:
-          first_stimulus: First stimulus payment
-          first_stimulus_details: This payment should have arrived between April 2020 and October 2020.
-          no_did_not_receive: I received less than this amount
+          different_amount: I received a different amount
+          no_amount: I didn't received any payments
           question: Did you receive this amount?
-          second_stimulus: Second stimulus payment
-          second_stimulus_details: This payment should have arrived between December 2020 and January 2021.
-          title: We believe you are eligible for this much in the first two stimulus payments.
-          yes_received: I received this amount
+          reveal:
+            content_html:
+            - Stimulus payments were issued automatically to families who had recently filed tax returns, or who were enrolled in certain federal programs.
+            - The first stimulus payment was sent between April 2020 and October 2020. The second stimulus payment was sent in December 2020 or January 2021.
+            - To claim all or part of your first or second stimulus payments, you need to file a tax return for 2020. You can check your eligibility for filing back taxes for free using %{link_to_get_your_refund}.
+            title: How can I learn more about the first two stimulus payments?
+          third_stimulus: Estimate third stimulus payment
+          third_stimulus_details:
+          - We estimate that you should have received this amount based on your filing status and dependents.
+          - The third stimulus payment was sent in April 2021 and was $1,400 per adult tax filer plus $1,400 per dependent of any age.
+          - For example, a parent caring for two children would have received $4,200.
+          this_amount: I received this amount
+          title: Did you receive a total of %{third_stimulus_amount} for your third stimulus payment?
         stimulus_received:
           amount_received: Amount you’ve received
           eip_three: Third stimulus

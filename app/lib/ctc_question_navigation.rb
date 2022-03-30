@@ -55,8 +55,7 @@ class CtcQuestionNavigation
     Ctc::Questions::AdvanceCtcReceivedController,
 
     # => EIP
-    # Hiding this page for now, will return to flow in later story
-    # Ctc::Questions::StimulusPaymentsController,
+    Ctc::Questions::StimulusPaymentsController,
     Ctc::Questions::StimulusThreeController,
     Ctc::Questions::StimulusReceivedController,
     Ctc::Questions::StimulusOwedController,

@@ -6,7 +6,7 @@ module Ctc
     validates :eip3_amount_received, gyr_numericality: { only_integer: true }, if: :not_blank?
 
     def save
-      @intake.update(attributes_for(:intake))
+      @intake.update(attributes_for(:intake).merge(eip3_entry_method: 'manual_entry'))
     end
 
     def not_blank?
