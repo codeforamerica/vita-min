@@ -1,0 +1,24 @@
+<% @main_question = t("views.ctc.questions.advance_ctc_received.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <div class="review-box spacing-below-35">
+    <div class="review-box__title spacing-below-15">
+      <h2><%= t("views.ctc.questions.advance_ctc_received.already_received") %></h2>
+      <%= link_to t("general.edit").downcase, questions_advance_ctc_path, class: "review-box__edit review-box__edit-button" %>
+    </div>
+    <p class="spacing-below-15"><%= t("views.ctc.questions.advance_ctc_received.total_adv_ctc", amount: current_intake.advance_ctc_amount_received) %></p>
+  </div>
+
+  <div class="spacing-below-35">
+    <p class="text--bold"><%= t("views.ctc.questions.advance_ctc_received.ctc_owed_title") %></p>
+    <p class="h2"><%= calculated_or_provided_dollar_amount(@ctc_owed) %></p>
+    <p><%= t("views.ctc.questions.advance_ctc_received.ctc_owed_details") %></p>
+  </div>
+
+  <%= link_to t("general.continue"), next_path, class: "button button--primary button--wide text--centered" %>
+
+<% end %>

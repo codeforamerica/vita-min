@@ -6,6 +6,7 @@
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default(0), not null
 #  advance_ctc_amount_received                          :integer
+#  advance_ctc_entry_method                             :integer          default(0), not null
 #  already_applied_for_stimulus                         :integer          default(0), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default(0), not null

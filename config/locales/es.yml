@@ -1815,6 +1815,21 @@ es:
         account_number:
           account_number: Número de cuenta
           account_number_confirmation: Confirme su número de cuenta
+        advance_ctc:
+          adv_ctc_time_frame: Estos pagos habrían llegado mensualmente en la segunda mitad del año, entre julio y diciembre de 2021.
+          no_did_not_receive: No recibi ningun pago
+          no_received_different: Recibí una cantidad diferente
+          question: "¿Recibiste esta cantidad?"
+          title: "¿Recibió un total de $%{adv_ctc_estimate} en créditos fiscales anticipados por hijos en 2021?"
+          total_adv_ctc: Total de Créditos Fiscales Anticipados por Hijos
+          total_adv_ctc_details_html: Estimamos que debería haber recibido esta <strong>cantidad total</strong> según su estado civil y para los siguientes dependientes
+          yes_received: Recibí esta cantidad
+        advance_ctc_received:
+          already_received: Cantidad que ha recibido
+          ctc_owed_details: Si el monto que ingresó anteriormente es incorrecto, su reembolso de impuestos podría retrasarse mientras el IRS realiza las correcciones a su declaración.
+          ctc_owed_title: 'Usted es elegible para una adicional:'
+          title: Está bien. Hemos calculado su Crédito Tributario por Hijos.
+          total_adv_ctc: 'CTC avanzado total: $%{amount}'
         already_completed:
           content_html: |
             <p>Ha completado todas las preguntas de admisión y estamos revisando y presentando su declaración de impuestos.</p>

@@ -50,6 +50,11 @@ class CtcQuestionNavigation
     Ctc::Questions::ConfirmDependentsController,
 
     # RRC
+    # => Adv. CTC
+    Ctc::Questions::AdvanceCtcController,
+    Ctc::Questions::AdvanceCtcReceivedController,
+
+    # => EIP
     # Hiding this page for now, will return to flow in later story
     # Ctc::Questions::StimulusPaymentsController,
     Ctc::Questions::StimulusThreeController,
