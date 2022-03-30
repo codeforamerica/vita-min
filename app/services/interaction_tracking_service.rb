@@ -5,9 +5,10 @@ class InteractionTrackingService
   end
 
   # When a client contacts us, update last incoming interaction and last interaction
-  def self.record_incoming_interaction(client)
+  def self.record_incoming_interaction(client, set_flag: true)
     touches = [:last_incoming_interaction_at]
     touches.push(:first_unanswered_incoming_interaction_at) unless client.first_unanswered_incoming_interaction_at.present?
+    touches.push(:flagged_at) if set_flag && !client.flagged?
     client&.touch(*touches)
   end
 

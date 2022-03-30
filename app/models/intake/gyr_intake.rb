@@ -374,7 +374,7 @@ class Intake::GyrIntake < Intake
   scope :accessible_intakes, -> { where.not(primary_consented_to_service_at: nil) }
   after_save do
     if saved_change_to_completed_at?(from: nil)
-      InteractionTrackingService.record_incoming_interaction(client) # client completed intake
+      InteractionTrackingService.record_incoming_interaction(client, set_flag: false) # client completed intake
     elsif completed_at.present?
       InteractionTrackingService.record_internal_interaction(client) # user updated completed intake
     end
