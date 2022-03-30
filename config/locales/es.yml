@@ -2908,12 +2908,6 @@ es:
               question: "¿Cuál es mi número de identificación de cliente?"
           how_does_getyourrefund_work:
             title: "¿Cómo funciona GetYourRefund?"
-            what_is_getyourrefund_express_and_how_does_it_work:
-              answer_html: |
-                <p>GetCTC, también conocido como la herramienta para no declarantes, es nuestra opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y, a continuación, presentamos su declaración de impuestos directamente al IRS.</p>
-                <p>Puede utilizar GetCTC para solicitar los pagos de estímulo (Economic Impact Payments) y el Crédito Tributario por Hijos (CTC), pero no el Crédito tributario por ingresos del trabajo ni los créditos tributarios estatales. Por lo general, sólo puede usar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
-                <p>GetCTC es una gran opción para usted si <em>solamente</em>desea obtener los pagos de estímulo y el Crédito Tributario por Hijos, si le faltan sus documentos de impuestos, o le falta una copia en papel de su tarjeta de Seguro Social.</p>
-              question: "¿Qué es GetCTC y cómo funciona?"
             what_is_file_myself_and_how_does_it_work:
               answer_html: |
                 <p>File Myself, en el cual usted mismo declara sus impuestos, lo conecta con un software gratuito de presentación de impuestos en línea. Puede seguir chateando con los expertos en impuestos de GetYourRefund mientras utiliza el sitio web.</p>
@@ -2930,6 +2924,12 @@ es:
                 5. Usted firmará sus formularios de impuestos en línea.
                 6. Enviaremos sus impuestos al IRS.
               question: "¿Qué es GetYourRefund y cómo funciona?"
+            what_is_getyourrefund_express_and_how_does_it_work:
+              answer_html: |
+                <p>GetCTC, también conocido como la herramienta para no declarantes, es nuestra opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y, a continuación, presentamos su declaración de impuestos directamente al IRS.</p>
+                <p>Puede utilizar GetCTC para solicitar los pagos de estímulo (Economic Impact Payments) y el Crédito Tributario por Hijos (CTC), pero no el Crédito tributario por ingresos del trabajo ni los créditos tributarios estatales. Por lo general, sólo puede usar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
+                <p>GetCTC es una gran opción para usted si <em>solamente</em>desea obtener los pagos de estímulo y el Crédito Tributario por Hijos, si le faltan sus documentos de impuestos, o le falta una copia en papel de su tarjeta de Seguro Social.</p>
+              question: "¿Qué es GetCTC y cómo funciona?"
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
               answer_html: La carta 6419 es una carta que el IRS envió a todos los que recibieron pagos mensuales de Crédito Tributario por Hijos (CTC) en 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en estos pagos mensuales. Para poder solicitar el resto del Crédito Tributario por Hijos en su declaración de impuestos de 2021, tendrá que reportar la cantidad que el IRS le pagó en anticipos - por lo que esta carta puede ser muy útil. La carta 6419 se envió en diciembre de 2021 o en enero de 2022.

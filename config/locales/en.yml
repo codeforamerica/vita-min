@@ -2948,12 +2948,6 @@ en:
               question: What is my Client ID number?
           how_does_getyourrefund_work:
             title: How does GetYourRefund Work?
-            what_is_getyourrefund_express_and_how_does_it_work:
-              answer_html: |
-                <p>GetCTC, also known as the nonfiler tool, is our simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.</p>
-                <p>You can use GetCTC to claim stimulus payments (Economic Impact Payments) and the Child Tax Credit (CTC), but not the Earned Income Tax Credit or state tax credits. Generally, you can only use GetCTC if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021.</p>
-                <p>GetCTC is a great choice for you if you are <em>only</em> looking to get the stimulus payments and the Child Tax Credit, if you are missing your tax documents, or missing a paper copy of your Social Security card.</p>
-              question: What is GetCTC and how does it work?
             what_is_file_myself_and_how_does_it_work:
               answer_html: |
                 <p>File Myself connects you with free online tax filing software. You can continue to chat with GetYourRefund tax experts as you use the website.</p>
@@ -2970,6 +2964,12 @@ en:
                 5. You will sign your tax forms online
                 6. We will submit your taxes to the IRS
               question: What is GetYourRefund and how does it work?
+            what_is_getyourrefund_express_and_how_does_it_work:
+              answer_html: |
+                <p>GetCTC, also known as the nonfiler tool, is our simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.</p>
+                <p>You can use GetCTC to claim stimulus payments (Economic Impact Payments) and the Child Tax Credit (CTC), but not the Earned Income Tax Credit or state tax credits. Generally, you can only use GetCTC if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021.</p>
+                <p>GetCTC is a great choice for you if you are <em>only</em> looking to get the stimulus payments and the Child Tax Credit, if you are missing your tax documents, or missing a paper copy of your Social Security card.</p>
+              question: What is GetCTC and how does it work?
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
               answer_html: Letter 6419 is a letter that the IRS sent to everyone who received monthly Child Tax Credit (CTC) payments in 2021. The letters contain information about how much the IRS issued you in these monthly payments. In order to claim the rest of the Child Tax Credit on your 2021 tax return, you will need to report the amount the IRS paid you in advances — so this letter can be very helpful. Letter 6419 was sent in December 2021 or January 2022.
