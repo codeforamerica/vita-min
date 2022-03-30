@@ -22,8 +22,8 @@ module Ctc
 
       def illustration_path; end
 
-      def initialized_edit_form
-        nil
+      def form_class
+        NullForm
       end
     end
   end
