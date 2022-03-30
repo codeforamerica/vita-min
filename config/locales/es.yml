@@ -1524,7 +1524,16 @@ es:
       refund: Reembolso
     triage_ctc:
       edit:
-        title: Le recomendamos que use la opcion GetCTC
+        collect_your: 'Cobre su:'
+        collectables:
+          ctc: Crédito Tributario por Hijos
+          missing_stimulus: Pagos de estímulos faltantes
+        comparison:
+          ctc:
+            description: "¡Declare rápido por cuenta propia!"
+            timeframe: 15 minutos para declarar sus impuestos, disponible abril 2022
+        sign_up_for_ctc: Subscríbase para GetCTC
+        title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_diy:
       edit:
         title: "¡Le recomendamos presentar su declaración con nuestra opción gratuita File Myself!"
@@ -1538,16 +1547,7 @@ es:
         title: Le recomendamos presentar la solicitud de forma gratuita con GetYourRefund.
     triage_gyr_ctc:
       edit:
-        collect_your: 'Cobre su:'
-        collectables:
-          ctc: Crédito Tributario por Hijos
-          missing_stimulus: Pagos de estímulos faltantes
-        comparison:
-          ctc:
-            description: "¡Declare rápido por cuenta propia!"
-            timeframe: 15 minutos para declarar sus impuestos, disponible abril 2022
-        sign_up_for_ctc: Subscríbase para GetCTC
-        title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
+        title: Le recomendamos que use la opcion GetCTC
     triage_gyr_diy:
       edit:
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"

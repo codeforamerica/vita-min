@@ -1566,7 +1566,16 @@ en:
       refund: Refund
     triage_ctc:
       edit:
-        title: We recommend filing with our GetCTC option!
+        collect_your: 'Collect your:'
+        collectables:
+          ctc: Child Tax Credit
+          missing_stimulus: Missing Stimulus Payments
+        comparison:
+          ctc:
+            description: File quickly on your own!
+            timeframe: 15 minutes to file, available April 2022
+        sign_up_for_ctc: Sign up for GetCTC
+        title: We have two free options that may work for you!
     triage_diy:
       edit:
         title: We recommend filing with our free File Myself option!
@@ -1580,16 +1589,7 @@ en:
         title: We recommend filing for free with GetYourRefund!
     triage_gyr_ctc:
       edit:
-        collect_your: 'Collect your:'
-        collectables:
-          ctc: Child Tax Credit
-          missing_stimulus: Missing Stimulus Payments
-        comparison:
-          ctc:
-            description: File quickly on your own!
-            timeframe: 15 minutes to file, available April 2022
-        sign_up_for_ctc: Sign up for GetCTC
-        title: We have two free options that may work for you!
+        title: We recommend filing with our GetCTC option!
     triage_gyr_diy:
       edit:
         title: We have two free options that may work for you!

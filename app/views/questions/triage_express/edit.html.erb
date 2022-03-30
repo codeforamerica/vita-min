@@ -1,19 +1,19 @@
-<% content_for :page_title, t('questions.triage_gyr_ctc.edit.title') %>
+<% content_for :page_title, t('questions.triage_ctc.edit.title') %>
 <% content_for :form_card do %>
   <h1 class="form-question">
     <%= content_for(:page_title) %>
   </h1>
 
-  <p><i><%= t('questions.triage_gyr_ctc.edit.comparison.ctc.timeframe') %></i></p>
-  <p><%= t('questions.triage_gyr_ctc.edit.comparison.ctc.description') %></p>
-  <div><%= t('questions.triage_gyr_ctc.edit.collect_your') %></div>
+  <p><i><%= t('questions.triage_ctc.edit.comparison.ctc.timeframe') %></i></p>
+  <p><%= t('questions.triage_ctc.edit.comparison.ctc.description') %></p>
+  <div><%= t('questions.triage_ctc.edit.collect_your') %></div>
   <ul class="list--bulleted">
-    <li><%= t('questions.triage_gyr_ctc.edit.collectables.missing_stimulus') %></li>
-    <li><%= t('questions.triage_gyr_ctc.edit.collectables.ctc') %></li>
+    <li><%= t('questions.triage_ctc.edit.collectables.missing_stimulus') %></li>
+    <li><%= t('questions.triage_ctc.edit.collectables.ctc') %></li>
   </ul>
 
   <div>
-    <%= link_to t("questions.triage_gyr_ctc.edit.sign_up_for_ctc"),
+    <%= link_to t("questions.triage_ctc.edit.sign_up_for_ctc"),
                 url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: "source_routing", source: "gyr"),
                 class: "button button--primary button--wide spacing-above-60 text--centered",
                 "data-track-click": "triage-express-only-choose-express-signup"
