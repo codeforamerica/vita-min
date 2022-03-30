@@ -2908,7 +2908,7 @@ es:
               question: "¿Cuál es mi número de identificación de cliente?"
           how_does_getyourrefund_work:
             title: "¿Cómo funciona GetYourRefund?"
-            what_is_ctc_and_how_does_it_work:
+            what_is_getyourrefund_express_and_how_does_it_work:
               answer_html: |
                 <p>GetCTC, también conocido como la herramienta para no declarantes, es nuestra opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y, a continuación, presentamos su declaración de impuestos directamente al IRS.</p>
                 <p>Puede utilizar GetCTC para solicitar los pagos de estímulo (Economic Impact Payments) y el Crédito Tributario por Hijos (CTC), pero no el Crédito tributario por ingresos del trabajo ni los créditos tributarios estatales. Por lo general, sólo puede usar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>

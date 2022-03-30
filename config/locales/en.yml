@@ -2948,7 +2948,7 @@ en:
               question: What is my Client ID number?
           how_does_getyourrefund_work:
             title: How does GetYourRefund Work?
-            what_is_ctc_and_how_does_it_work:
+            what_is_getyourrefund_express_and_how_does_it_work:
               answer_html: |
                 <p>GetCTC, also known as the nonfiler tool, is our simplest and quickest filing option. All you have to do is answer some questions and then we file your tax return directly with the IRS.</p>
                 <p>You can use GetCTC to claim stimulus payments (Economic Impact Payments) and the Child Tax Credit (CTC), but not the Earned Income Tax Credit or state tax credits. Generally, you can only use GetCTC if you are single and made less than $12,500 in 2021, or if you are married and made less than $25,000 in 2021.</p>
