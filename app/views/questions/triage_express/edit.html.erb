@@ -16,7 +16,8 @@
     <%= link_to t("questions.triage_gyr_ctc.edit.sign_up_for_ctc"),
                 url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: "source_routing", source: "gyr"),
                 class: "button button--primary button--wide spacing-above-60 text--centered",
-                "data-track-click": "triage-ctc-only-choose-ctc-signup"
+                "data-track-click": "triage-express-only-choose-express-signup"
+        # Click tracking uses Feb 2022 'express' name; see TriageGyrExpressController for history.
     %>
   </div>
 <% end %>
