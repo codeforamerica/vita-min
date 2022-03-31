@@ -1,0 +1,22 @@
+<% @main_question = t('views.ctc.questions.advance_ctc_amount.title') %>
+
+<% content_for :page_title, @main_question %>
+<% content_for :body_class, "rrc-amount" %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <%= t('views.ctc.questions.advance_ctc_amount.details_html') %>
+
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.advance_ctc_amount.find_reveal.title")) do %>
+    <p><%= t("views.ctc.questions.advance_ctc_amount.find_reveal.contents") %></p>
+  <% end %>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, class: "rrc-amount-form"  do |f| %>
+    <%= f.cfa_input_field(:advance_ctc_amount_received, t("views.ctc.questions.advance_ctc_amount.form_title"), prefix: "$") %>
+
+    <%= f.button :submit, class: "button button--wide button--primary" do %>
+      <%= t("general.continue") %>
+    <% end %>
+  <% end %>
+<% end %>

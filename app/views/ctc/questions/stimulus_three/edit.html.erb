@@ -1,7 +1,7 @@
 <% @main_question = t("views.ctc.questions.stimulus_three.title") %>
 
 <% content_for :page_title, @main_question %>
-<% content_for :body_class, "stimulus-received" %>
+<% content_for :body_class, "rrc-amount" %>
 
 <% content_for :form_card do %>
   <h1 class="h2"><%= @main_question %></h1>
@@ -12,7 +12,7 @@
     <%= t("views.ctc.questions.stimulus_three.reveal_content") %>
   <% end %>
 
-  <%= form_with model: @form, url: questions_stimulus_three_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "stimulus-received-form" do |f| %>
+  <%= form_with model: @form, url: questions_stimulus_three_path, local: true, method: "put", builder: VitaMinFormBuilder, class: "rrc-amount-form" do |f| %>
     <%= f.cfa_input_field(:eip3_amount_received, t("views.ctc.questions.stimulus_three.how_much"), prefix: "$") %>
 
     <%= f.button :submit, class: "button button--wide button--primary" do %>
