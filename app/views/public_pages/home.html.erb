@@ -3,11 +3,19 @@
 <% end %>
 
 <% content_for :notice do %>
-  <% unless open_for_intake? %>
+  <% if open_for_intake? %>
     <div class="slab slab--banner">
       <div class="grid">
         <div class="grid__item">
-            <%= t('views.public_pages.home.closing_banner_html', url: vita_providers_path) %>
+          <%= t('views.public_pages.home.documents_warning_html') %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="slab slab--banner">
+      <div class="grid">
+        <div class="grid__item">
+          <%= t('views.public_pages.home.closing_banner_html', url: vita_providers_path) %>
         </div>
       </div>
     </div>

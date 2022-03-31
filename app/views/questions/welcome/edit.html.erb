@@ -1,5 +1,17 @@
 <% content_for :page_title, t("views.questions.welcome.title") %>
 
+<% content_for :notice do %>
+  <% if open_for_intake? %>
+    <div class="slab slab--banner">
+      <div class="grid">
+        <div class="grid__item">
+          <%= t('views.public_pages.home.documents_warning_html') %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
 <% content_for :main do %>
   <section class="slab slab--white welcome">
     <div class="grid">
