@@ -1868,20 +1868,20 @@ en:
           total_adv_ctc_details_html: We estimate that you should have received this <strong>total amount</strong> based on your filing status and for the following dependents
           yes_received: I received this amount
         advance_ctc_amount:
-          title: Enter the total amount you received for the Advanced Child Tax Credit.
+          title: Enter the total amount you received for the Advance Child Tax Credit.
           details_html: |
             <p>You would have received this amount once a month between July and December of 2021.</p>
             <p>Enter the <strong>total amount</strong> you received, if any, for that payment.</p>
           find_reveal:
             title: Where can I find this amount?
             contents: If you are unsure, check the official notice you received OR your bank records.
-          form_title: Advanced Child Tax Credit received
+          form_title: Advance Child Tax Credit received
         advance_ctc_received:
           already_received: Amount you’ve received
           ctc_owed_details: If the amount you entered above is incorrect, your tax refund could be delayed while the IRS makes corrections to your return.
           ctc_owed_title: 'You are eligible for an additional:'
           title: Ok. We’ve calculated your Child Tax Credit.
-          total_adv_ctc: 'Total Advanced CTC: $%{amount}'
+          total_adv_ctc: 'Total Advance CTC: $%{amount}'
         already_completed:
           content_html: |
             <p> You've completed all of our intake questions and we're reviewing and submitting your tax return. </p>
@@ -3277,7 +3277,7 @@ en:
               answer_html: |
                 <p>After your return is accepted by the IRS electronically it typically takes 2-3 weeks to receive a direct deposit or 4-6 weeks to receive a check in the mail. However, there are a few common reasons your refund may be delayed, which include:</p>
                 <ul class="list--bulleted">
-                <li>Your return needs a correction for the amount of the Advanced Child Tax Credit payments you reported receiving</li>
+                <li>Your return needs a correction for the amount of the Advance Child Tax Credit payments you reported receiving</li>
                 <li>Your return needs a correction for the amount of the third stimulus payment you reported receiving</li>
                 <li>This is the first time you have filed taxes in several years</li>
                 <li>Your return Is affected by identity theft</li>
@@ -3618,8 +3618,8 @@ en:
         - Additionally, families with children under 17 years old have been issued CTC payments.
         - "<strong>Please share your payment info below!</strong> If you did not receive a payment, enter 0."
         labels:
-          child_tax_credit: Advanced Child Tax Credit
-          ctc_unsure: I am unsure of my Advanced Child Tax Credit amount
+          child_tax_credit: Advance Child Tax Credit
+          ctc_unsure: I am unsure of my Advance Child Tax Credit amount
           stimulus_1: Stimulus 1
           stimulus_2: Stimulus 2
           stimulus_3: Stimulus 3

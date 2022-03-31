@@ -1825,14 +1825,14 @@ es:
           total_adv_ctc_details_html: Estimamos que debería haber recibido esta <strong>cantidad total</strong> según su estado civil y para los siguientes dependientes
           yes_received: Recibí esta cantidad
         advance_ctc_amount:
-          title: Enter the total amount you received for the Advanced Child Tax Credit.
+          title: Ingrese el monto total que recibió por el Crédito Tributario Anticipado por Hijos.
           details_html: |
-            <p>You would have received this amount once a month between July and December of 2021.</p>
-            <p>Enter the <strong>total amount</strong> you received, if any, for that payment.</p>
+            <p>Habría recibido esta cantidad una vez al mes entre julio y diciembre de 2021.</p>
+            <p>Ingrese la <strong>cantidad total</strong> que recibió, si la recibió, por ese pago.</p>
           find_reveal:
-            title: Where can I find this amount?
-            contents: If you are unsure, check the official notice you received OR your bank records.
-          form_title: Advanced Child Tax Credit received
+            title: ¿Dónde puedo encontrar esta cantidad?
+            contents: Si no está seguro, verifique el aviso oficial que recibió O sus registros bancarios.
+          form_title: Crédito Fiscal Adelantado por Hijos recibido
         advance_ctc_received:
           already_received: Cantidad que ha recibido
           ctc_owed_details: Si el monto que ingresó anteriormente es incorrecto, su reembolso de impuestos podría retrasarse mientras el IRS realiza las correcciones a su declaración.
