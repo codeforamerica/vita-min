@@ -77,7 +77,7 @@ module Fraud
     def missing_relationship(references)
       # skip this rule if we can't check against the reference object
       return false if references[reference].blank?
-      
+
       relationship = indicator_attributes[0]
 
       scoped_records(references).where.missing(relationship).exists? ? [points, []] : [0, []]
