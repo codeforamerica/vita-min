@@ -62,4 +62,3 @@ Brewfile.lock.json
 vendor/irs/*.zip
 vendor/irs/unpacked
 vendor/gyr_efiler/*.zip
-

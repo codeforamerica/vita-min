@@ -24,7 +24,7 @@ class FraudIndicatorService
   def acceptable_timezone_strings
     @acceptable_timezone_strings ||= begin
       us_timezones = ActiveSupport::TimeZone.us_zones.map { |tz| [tz.name, tz.tzinfo.name].uniq }.flatten.freeze
-      overrides = IceNine.deep_freeze!(YAML.load_file("lib/timezone_overrides.yml"))
+      overrides = IceNine.deep_freeze!(["America/Indianapolis"])
       overrides + us_timezones
     end
   end
