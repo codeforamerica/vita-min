@@ -2,8 +2,53 @@ require "rails_helper"
 
 describe VerificationAttemptStateMachine do
   context "after transitions" do
-    let(:verification_attempt) { create :verification_attempt }
+    let(:verification_attempt) { create :verification_attempt, :pending }
     let(:user) { create :admin_user }
+
+    context "to pending" do
+      let(:verification_attempt) { create :verification_attempt, :new }
+
+      it "can transition from new to pending" do
+        verification_attempt.transition_to!(:pending)
+        expect(verification_attempt.current_state).to eq "pending"
+      end
+
+      context "when a client has a value for restricted_at set" do
+        before do
+          verification_attempt.client.touch(:restricted_at)
+        end
+        it "transitions the object to state restricted" do
+          verification_attempt.transition_to!(:pending)
+          expect(verification_attempt.current_state).to eq "restricted"
+        end
+      end
+    end
+
+    context "to restricted" do
+      let!(:verification_attempt) { create :verification_attempt, :pending }
+      let(:job_double) { double }
+
+      around do |example|
+        Timecop.freeze(Date.new(2021, 1, 1))
+        example.run
+        Timecop.return
+      end
+
+      before do
+        allow(DenyRestrictedVerificationAttemptJob).to receive(:set).with({ wait_until: 72.hours.from_now }).and_return(job_double)
+        allow(job_double).to receive(:perform_later)
+      end
+
+      it "can transition from pending to restricted" do
+        verification_attempt.transition_to!(:restricted)
+        expect(verification_attempt.current_state).to eq "restricted"
+      end
+
+      it "enqueues a job to transition it to denied later" do
+        verification_attempt.transition_to!(:restricted)
+        expect(job_double).to have_received(:perform_later).with(verification_attempt.reload)
+      end
+    end
 
     context "to approved" do
       before do

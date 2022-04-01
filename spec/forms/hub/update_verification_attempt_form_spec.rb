@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Hub::UpdateVerificationAttemptForm do
   subject { described_class.new(verification_attempt, user, { note: "this is a note body.", state: "approved" })}
 
-  let!(:verification_attempt) { create :verification_attempt }
+  let!(:verification_attempt) { create :verification_attempt, :pending }
 
   describe "#initialize" do
 
@@ -18,7 +18,7 @@ describe Hub::UpdateVerificationAttemptForm do
   describe "validations" do
     subject { described_class.new(verification_attempt, user, params) }
 
-    let!(:verification_attempt) { create :verification_attempt }
+    let!(:verification_attempt) { create :verification_attempt, :pending }
     let!(:user) { create :admin_user }
     let(:params) do
       {
@@ -119,7 +119,7 @@ describe Hub::UpdateVerificationAttemptForm do
 
   describe "#save" do
     context "when required params are provided" do
-      let!(:verification_attempt) { create :verification_attempt }
+      let!(:verification_attempt) { create :verification_attempt, :pending }
       let!(:user) { create :admin_user }
 
       it "increases the verification transitions count by 1" do

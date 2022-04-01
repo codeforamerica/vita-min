@@ -18,6 +18,7 @@
 #  updated_at           :datetime         not null
 #
 module Fraud
+  # See Notion for rule descriptions: https://www.notion.so/cfa/Fraud-Rules-2022-b89c29aa9776457aa70f51bc796a58ea
   class Indicator < ApplicationRecord
     self.table_name = "fraud_indicators"
 

@@ -227,10 +227,11 @@ class Seeder
       primary_consented_to_service_at: DateTime.current,
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
     )
-    VerificationAttempt.find_or_initialize_by(client: verifying_no_bypass_yet_intake.client) do |attempt|
+    attempt = VerificationAttempt.find_or_initialize_by(client: verifying_no_bypass_yet_intake.client) do |attempt|
       add_images_to_verification_attempt(attempt)
       attempt.save
     end
+    attempt.transition_to(:pending)
 
     verifying_with_bypass_intake = find_or_create_intake_and_client(
       Intake::CtcIntake,
@@ -239,11 +240,36 @@ class Seeder
       primary_consented_to_service_at: DateTime.current,
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
     )
-    VerificationAttempt.find_or_initialize_by(client: verifying_with_bypass_intake.client) do |attempt|
+    bypass_attempt = VerificationAttempt.find_or_initialize_by(client: verifying_with_bypass_intake.client) do |attempt|
       attempt.client_bypass_request = "I don't have an ID but I'd like to submit my taxes."
       add_images_to_verification_attempt(attempt)
       attempt.save
     end
+    bypass_attempt.transition_to(:pending)
+
+
+    verifying_with_restricted_intake = find_or_create_intake_and_client(
+        Intake::CtcIntake,
+        primary_first_name: "RestrictedVerifier",
+        primary_last_name: "Smith",
+        primary_consented_to_service_at: DateTime.current,
+        tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
+    )
+
+    verifying_with_restricted_intake.client.touch(:restricted_at)
+    restricted_attempt = VerificationAttempt.find_or_initialize_by(client: verifying_with_restricted_intake.client) do |attempt|
+      attempt.client_bypass_request = "I don't have an ID but I'd like to submit my taxes."
+      add_images_to_verification_attempt(attempt)
+      attempt.save
+    end
+    restricted_attempt.transition_to(:pending)
+
+    Fraud::Indicators::Timezone.create(name: "America/Chicago", activated_at: DateTime.now)
+    Fraud::Indicators::Timezone.create(name: "America/Indiana/Indianapolis", activated_at: DateTime.now)
+    Fraud::Indicators::Timezone.create(name: "America/Indianapolis", activated_at: DateTime.now)
+    Fraud::Indicators::Timezone.create(name: "Mexico/Tijuana", activated_at: nil)
+    Fraud::Indicators::Timezone.create(name: "America/New_York", activated_at: DateTime.now)
+    Fraud::Indicators::Timezone.create(name: "America/Los_Angeles", activated_at: DateTime.now)
   end
 
   def find_or_create_intake_and_client(intake_type, attributes)
@@ -289,4 +315,6 @@ class Seeder
       content_type: 'image/jpeg'
     ) unless verification_attempt.photo_identification.present?
   end
+
+
 end

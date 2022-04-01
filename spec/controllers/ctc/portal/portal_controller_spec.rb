@@ -67,7 +67,8 @@ describe Ctc::Portal::PortalController do
       it "updates status, makes a note, and redirects to the portal home" do
         expect {
           put :resubmit, params: params
-        }.to change(client.efile_security_informations, :count).by 1
+        }.to change(client.efile_security_informations, :count).by(1)
+         .and change(client.efile_submissions, :count).by(1)
 
         client.reload
         expect(client.efile_security_informations.last.ip_address).to be_present
@@ -84,7 +85,7 @@ describe Ctc::Portal::PortalController do
           'action' => 'resubmitted'
         })
         expect(submission.last_transition_to(:resubmitted)).to be_present
-        expect(submission.current_state).to eq("preparing") # transitions to resubmitted and then to preparing
+        expect(submission.current_state).to eq("resubmitted") # transitions to resubmitted and then to bundling
         expect(response).to redirect_to Ctc::Portal::PortalController.to_path_helper(action: :home)
       end
 

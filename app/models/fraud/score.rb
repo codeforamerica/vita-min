@@ -3,8 +3,8 @@
 # Table name: fraud_scores
 #
 #  id                  :bigint           not null, primary key
-#  indicators          :jsonb
 #  score               :integer
+#  snapshot            :jsonb
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  efile_submission_id :bigint
@@ -16,11 +16,13 @@
 module Fraud
   class Score < ApplicationRecord
     self.table_name = "fraud_scores"
+    HOLD_THRESHOLD = 50
+    RESTRICT_THRESHOLD = 100
 
     belongs_to :efile_submission
 
     def self.create_from(submission)
-      indicators = Fraud::Indicator.all.map do |indicator|
+      snapshot = Fraud::Indicator.all.map do |indicator|
         points, data = indicator.execute(
           client: submission.client,
           efile_submission: submission,
@@ -31,8 +33,8 @@ module Fraud
         [indicator.name, { points: points, data: data }]
       end.to_h
 
-      score = indicators.values.map { |v| v[:points] }.sum
-      create(efile_submission: submission, indicators: indicators, score: score)
+      score = snapshot.values.map { |v| v[:points] }.sum
+      create(efile_submission: submission, snapshot: snapshot, score: score)
     end
   end
 end

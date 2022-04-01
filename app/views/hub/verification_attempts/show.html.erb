@@ -96,7 +96,11 @@
         <% end %>
       </ul>
       <% content_for :sticky_action_footer do %>
-        <% if @verification_attempt.current_state == "escalated" && !@form.can_handle_escalations? %>
+        <% if @verification_attempt.current_state == "restricted" %>
+          <div class="flash--notice slab slab--half-padded verification-attempts-show__actions">
+            No action can be taken on this verification attempt because of its high fraud score.
+          </div>
+        <% elsif @verification_attempt.current_state == "escalated" && !@form.can_handle_escalations? %>
           <div class="flash--warning slab slab--half-padded verification-attempts-show__actions">
             Your role does not have permissions to take action on this escalated verification attempt.
           </div>

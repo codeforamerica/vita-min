@@ -2,10 +2,11 @@ require "rails_helper"
 
 RSpec.feature "Clients who have been flagged for fraud" do
   let(:user) { create :admin_user, name: "Judith Juice" }
-  let(:verification_attempt_1) { create :verification_attempt }
-  let(:verification_attempt_2) { create :verification_attempt }
-  let(:verification_attempt_3) { create :verification_attempt }
-  let(:verification_attempt_4) { create :verification_attempt, client_id: verification_attempt_2.client_id }
+  let(:verification_attempt_1) { create :verification_attempt, :pending }
+  let(:verification_attempt_2) { create :verification_attempt, :pending }
+  let(:verification_attempt_3) { create :verification_attempt, :pending }
+  let(:verification_attempt_4) { create :verification_attempt, :pending, client_id: verification_attempt_2.client_id }
+  let(:restricted_verification_attempt) { create :verification_attempt, :restricted }
 
   before do
     login_as user
@@ -73,6 +74,11 @@ RSpec.feature "Clients who have been flagged for fraud" do
     visit hub_client_notes_path(client_id: verification_attempt_1.client_id)
 
     expect(page).to have_content "#{user.name_with_role} approved verification attempt."
+  end
+
+  scenario "I can view, but not change status, on a restricted verification attempt" do
+    visit hub_verification_attempt_path(id: restricted_verification_attempt.id)
+    expect(page).to have_text "No action can be taken on this verification attempt because of its high fraud score."
   end
 
   scenario "I can escalate a verification attempt" do

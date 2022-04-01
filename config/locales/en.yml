@@ -1814,6 +1814,9 @@ en:
             accepted:
               label: Accepted
               message: Your return has been accepted by the IRS. You should receive a payment in 4 or more weeks.
+            bundling:
+              label: Electronically filing
+              message: We are preparing your return. We'll continue to update you on the status of your submission.
             cancelled:
               message: We will no longer attempt to submit this return to the IRS. This may be because you requested that we do not submit the return, or because a rejection from the IRS indicated that we can not resubmit on your behalf.
             failed:
@@ -1826,10 +1829,10 @@ en:
               label: More information needed
               message: We need more information from you before we can file your return.
             new:
-              label: Electronically filed
+              label: Electronically filing
               message: We are preparing your return. We'll continue to update you on the status of your submission.
             preparing:
-              label: Electronically filed
+              label: Electronically filing
               message: We are preparing your return. We'll continue to update you on the status of your submission.
             rejected:
               label: Rejected

@@ -31,6 +31,11 @@ FactoryBot.define do
       end
     end
 
+    trait :with_fraud_score do
+      after :create do |submission|
+        create :fraud_score, efile_submission: submission
+      end
+    end
 
     EfileSubmissionStateMachine.states.each do |state|
       trait state.to_sym do

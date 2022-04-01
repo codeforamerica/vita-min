@@ -10,7 +10,7 @@ describe Hub::VerificationAttemptsController, type: :controller do
       before do
         sign_in user
         3.times do
-          create :verification_attempt
+          create :verification_attempt, :pending
         end
         2.times do
           create :verification_attempt, :escalated
@@ -87,7 +87,7 @@ describe Hub::VerificationAttemptsController, type: :controller do
   end
 
   describe "#update" do
-    let!(:verification_attempt) { create :verification_attempt }
+    let!(:verification_attempt) { create :verification_attempt, :pending }
 
     context "when a user is logged in" do
       before do
