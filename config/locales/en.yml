@@ -2056,15 +2056,6 @@ en:
           - A paper copy of a Social Security Card or ITIN paperwork for everyone in your family
           simplified_btn: Continue filing a simplified return
           title: You are currently filing a simplified tax return to claim your Child Tax Credit and Stimulus Payments.
-        restrictions:
-          cannot_use_ctc: I cannot use GetCTC
-          help_text: There are some cases in which you may not be able to use GetCTC, but they are rare.
-          list_title: 'You can not use GetCTC if:'
-          list:
-            - in the past 10 years you have been banned from claiming the Child Tax Credit, meaning you received an explicit letter from the IRS with a warning and a ban from claiming the Child Tax Credit
-            - you want to file Form 8332 in order to claim a child who does not live with you
-            - you are claiming a qualifying relative under a multiple support agreement
-          title: Please make sure these do not apply to you.
         filed_prior_tax_year:
           did_not_file: No, I didn't file a %{prior_tax_year} tax return
           filed_full: Yes, I filed a full return
@@ -2175,6 +2166,15 @@ en:
           nevermind_button: Nevermind, let's save them
           remove_button: Yes, remove them
           title_html: You're about to remove %{spouse_name}.<br><br>Is that okay?
+        restrictions:
+          cannot_use_ctc: I cannot use GetCTC
+          help_text: There are some cases in which you may not be able to use GetCTC, but they are rare.
+          list:
+          - in the past 10 years you have been banned from claiming the Child Tax Credit, meaning you received an explicit letter from the IRS with a warning and a ban from claiming the Child Tax Credit
+          - you want to file Form 8332 in order to claim a child who does not live with you
+          - you are claiming a qualifying relative under a multiple support agreement
+          list_title: 'You can not use GetCTC if:'
+          title: Please make sure these do not apply to you.
         returning_client:
           next_steps: Sign in to your account to complete the questions. If you have any questions, start a chat with us.
         routing_number:
