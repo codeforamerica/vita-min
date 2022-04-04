@@ -113,5 +113,9 @@ namespace :heroku do
   task postdeploy: :environment do
     Rake::Task['db:schema:load'].invoke
     Rake::Task['db:seed'].invoke
+
+    # Remove all rows from PostGIS' `spatial_ref_sys` table except the one we actually use.
+    # Heroku has a 10,000 row limit for Hobby postgres DBs, and this table has 8500 rows in it.
+    ActiveRecord::Base.connection.execute('DELETE FROM spatial_ref_sys WHERE srid != 4326')
   end
 end
