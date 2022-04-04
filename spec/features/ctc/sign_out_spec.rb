@@ -21,7 +21,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on I18n.t('general.negative')
     choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on "Continue"
-    check I18n.t('views.ctc.questions.home.options.fifty_states')
+    choose I18n.t('views.ctc.questions.home.options.fifty_states')
     click_on I18n.t('general.continue')
     click_on I18n.t('general.negative')
     fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"

@@ -38,7 +38,7 @@ module NavigationHelpers
     choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
-    check I18n.t('views.ctc.questions.home.options.fifty_states')
+    choose I18n.t('views.ctc.questions.home.options.fifty_states')
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
