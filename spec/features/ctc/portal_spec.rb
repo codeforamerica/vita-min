@@ -274,15 +274,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         expect(page).to have_text "Papaya"
 
-        within "#dependent_#{dependent_to_delete.id}" do
-          click_on I18n.t('general.edit').downcase
-        end
-        click_on I18n.t('views.ctc.questions.dependents.tin.remove_person')
-        click_on I18n.t('views.ctc.questions.dependents.remove_dependent.remove_button')
-
-        expect(dependent_to_delete.reload.soft_deleted_at).to be_truthy
-        expect(page).not_to have_text dependent_to_delete.first_name
-
         expect(page).to have_text "Your bank information"
 
         within ".bank-account-info" do
@@ -366,7 +357,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           "account_number" => ["[REDACTED]", "[REDACTED]"],
         })
 
-        expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
         expect(page).to have_content("Client initiated resubmission of their tax return.")
       end
 
