@@ -180,7 +180,16 @@ class FlowsController < ApplicationController
       end
 
       def unreachable?(current_controller)
-        !show?(model_for_show_check(current_controller))
+        if @controller_class.method(:show?).arity > 1
+          !show?(
+            model_for_show_check(current_controller),
+            current_controller.session
+          )
+        else
+          !show?(
+            model_for_show_check(current_controller)
+          )
+        end
       end
     end
   end
