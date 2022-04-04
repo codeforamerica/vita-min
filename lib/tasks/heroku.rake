@@ -114,8 +114,14 @@ namespace :heroku do
     Rake::Task['db:schema:load'].invoke
     Rake::Task['db:seed'].invoke
 
+    def count_spatial_ref_sys_rows
+      ActiveRecord::Base.connection.execute('SELECT count(*) FROM spatial_ref_sys').to_a.first['count']
+    end
+
     # Remove all rows from PostGIS' `spatial_ref_sys` table except the one we actually use.
     # Heroku has a 10,000 row limit for Hobby postgres DBs, and this table has 8500 rows in it.
+    Rails.logger.info("Deleting unused spatial_ref_sys rows: currently #{count_spatial_ref_sys_rows} rows")
     ActiveRecord::Base.connection.execute('DELETE FROM spatial_ref_sys WHERE srid != 4326')
+    Rails.logger.info("Finished deleting unused spatial_ref_sys rows: currently #{count_spatial_ref_sys_rows} rows")
   end
 end
