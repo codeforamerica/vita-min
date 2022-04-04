@@ -20,10 +20,7 @@ describe Ctc::Questions::HomeController do
     let(:params) do
       {
         ctc_home_form: {
-          lived_in_fifty_states: "yes",
-          lived_at_military_facility: "yes",
-          lived_in_us_territory: "yes",
-          lived_at_foreign_address: "no"
+          home_location: "lived_in_us_territory",
         }
       }
     end
@@ -40,10 +37,7 @@ describe Ctc::Questions::HomeController do
       expect(MixpanelService).to have_received(:send_event).with(hash_including(
                                                                    event_name: "question_answered",
                                                                    data: {
-                                                                     lived_in_fifty_states: "yes",
-                                                                     lived_at_military_facility: "yes",
-                                                                     lived_in_us_territory: "yes",
-                                                                     lived_at_foreign_address: "no"
+                                                                     home_location: "lived_in_us_territory",
                                                                    }
                                                                  ))
     end
