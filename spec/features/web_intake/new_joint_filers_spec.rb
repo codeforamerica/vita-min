@@ -154,7 +154,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     fill_in "Stimulus 1", with: 800
     fill_in 'Stimulus 2', with: 1000
     fill_in 'Stimulus 3', with: 1000
-    check "I am unsure of my Advanced Child Tax Credit amount"
+    check "I am unsure of my Advance Child Tax Credit amount"
     click_on "Continue"
 
     screenshot_after do

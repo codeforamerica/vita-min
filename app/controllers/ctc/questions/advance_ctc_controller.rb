@@ -5,6 +5,10 @@ module Ctc
 
       layout "intake"
 
+      def self.show?(intake)
+        intake.dependents.count(&:qualifying_ctc?).positive?
+      end
+
       def edit
         tax_return = current_intake.default_tax_return
         benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: current_intake.dependents)

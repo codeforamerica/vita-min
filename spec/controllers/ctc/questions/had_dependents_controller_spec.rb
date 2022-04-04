@@ -48,7 +48,7 @@ RSpec.describe Ctc::Questions::HadDependentsController do
         it "returns the default next navigation path" do
           put :update, params: { ctc_had_dependents_form: { had_dependents: "no" } }
 
-          expect(response).to redirect_to questions_advance_ctc_path
+          expect(response).to redirect_to questions_stimulus_three_path
         end
       end
     end

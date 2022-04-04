@@ -1824,6 +1824,15 @@ es:
           total_adv_ctc: Total de Créditos Fiscales Anticipados por Hijos
           total_adv_ctc_details_html: Estimamos que debería haber recibido esta <strong>cantidad total</strong> según su estado civil y para los siguientes dependientes
           yes_received: Recibí esta cantidad
+        advance_ctc_amount:
+          details_html: |
+            <p>Habría recibido esta cantidad una vez al mes entre julio y diciembre de 2021.</p>
+            <p>Ingrese la <strong>cantidad total</strong> que recibió, si la recibió, por ese pago.</p>
+          find_reveal:
+            contents: Si no está seguro, verifique el aviso oficial que recibió O sus registros bancarios.
+            title: "¿Dónde puedo encontrar esta cantidad?"
+          form_title: Crédito Fiscal Adelantado por Hijos recibido
+          title: Ingrese el monto total que recibió por el Crédito Tributario Anticipado por Hijos.
         advance_ctc_received:
           already_received: Cantidad que ha recibido
           ctc_owed_details: Si el monto que ingresó anteriormente es incorrecto, su reembolso de impuestos podría retrasarse mientras el IRS realiza las correcciones a su declaración.
