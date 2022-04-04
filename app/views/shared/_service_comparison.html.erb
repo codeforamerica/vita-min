@@ -23,7 +23,7 @@
                 <%= t("views.shared.service_comparison.services.full_service.service_description") %>
               </div>
               <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.full_service.cta"), backtaxes_questions_path, class: "button", "data-track-click": "service-comparison-full-service" %>
+                <%= link_to t("views.shared.service_comparison.services.full_service.cta"), Questions::OverviewController.to_path_helper, class: "button", "data-track-click": "service-comparison-full-service" %>
               </div>
             </div>
             <div class="service diy">
