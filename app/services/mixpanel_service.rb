@@ -213,8 +213,8 @@ class MixpanelService
       {
         primary_filer_disabled: intake.had_disability_yes? ? "yes" : "no",
         spouse_disabled: intake.spouse_had_disability_yes? ? "yes" : "no",
-        had_dependents: intake.dependents.empty? ? "no" : "yes",
-        number_of_dependents: intake.dependents.size.to_s,
+        had_dependents: intake.persisted_dependents.empty? ? "no" : "yes",
+        number_of_dependents: intake.persisted_dependents.size.to_s,
         had_dependents_under_6: intake.had_dependents_under?(6) ? "yes" : "no",
         filing_joint: intake.filing_joint,
         had_earned_income: intake.had_earned_income? ? "yes" : "no",
