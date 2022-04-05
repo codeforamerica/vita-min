@@ -452,8 +452,12 @@ class Intake < ApplicationRecord
     (job_count&.> 0) || had_wages_yes? || had_self_employment_income_yes?
   end
 
+  def persisted_dependents
+    dependents.select(&:persisted?)
+  end
+
   def had_dependents_under?(yrs)
-    dependents.any? { |dependent| dependent.age_during(2020) < yrs }
+    persisted_dependents.any? { |dependent| dependent.age_during(2020) < yrs }
   end
 
   def needs_help_with_backtaxes?

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe DependentsController do
   let(:intake) { create :intake }
-  before { allow(MixpanelService).to receive(:send_event) }
+  before { allow(MixpanelService).to receive(:send_event).and_call_original }
 
   describe "#next_path" do
     before { sign_in intake.client }
