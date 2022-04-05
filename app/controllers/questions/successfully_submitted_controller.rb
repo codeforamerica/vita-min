@@ -1,5 +1,5 @@
 module Questions
-  class SuccessfullySubmittedController < QuestionsController
+  class SuccessfullySubmittedController < PostCompletionQuestionsController
     include AuthenticatedClientConcern
 
     def include_analytics?

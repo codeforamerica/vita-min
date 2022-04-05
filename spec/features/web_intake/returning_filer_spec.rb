@@ -5,11 +5,13 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
   let!(:original_gyr_intake) do
     create(
       :intake,
+      :filled_out,
       email_address: "original@client.com",
       phone_number: "+14155537865",
       primary_consented_to_service: "yes",
       primary_consented_to_service_at: 15.minutes.ago,
       primary_ssn: gyr_ssn,
+      preferred_name: 'Maeby',
       client: build(:client, tax_returns: [build(:tax_return, service_type: "online_intake")])
     )
   end
@@ -40,6 +42,15 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot_i18n_frien
       click_on(I18n.t('general.sign_in'))
     end
     expect(current_path).to eq(new_portal_client_login_path)
+  end
+
+  scenario "client with completed intake in session who tries to start a new intake is returned to portal" do
+    login_as original_gyr_intake.client, scope: :client
+
+    visit root_path
+    click_on I18n.t("general.get_started"), id: "firstCta"
+
+    expect(page).to have_text(I18n.t('portal.portal.home.title', name: "Maeby"))
   end
 
   #scenario for a matching ITIN
