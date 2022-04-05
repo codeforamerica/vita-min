@@ -30,6 +30,8 @@ module NavigationHelpers
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     click_on I18n.t('general.negative')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
+    click_on I18n.t('general.continue')
 
     # =========== ELIGIBILITY ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))

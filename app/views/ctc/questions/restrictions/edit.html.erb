@@ -1,0 +1,23 @@
+<% @main_heading = t("views.ctc.questions.restrictions.title") %>
+<% content_for :form_question, @main_heading %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question"><%= @main_heading %></h1>
+
+  <p><%= t("views.ctc.questions.restrictions.help_text", current_tax_year: current_tax_year)%></p>
+
+  <p class="text--bold"><%= t("views.ctc.questions.restrictions.list_title", current_tax_year: current_tax_year)%></p>
+  <ul class="list--bulleted">
+    <% t("views.ctc.questions.restrictions.list").each do |list| %>
+      <li><%= list %></li>
+    <% end %>
+  </ul>
+
+  <%= link_to next_path, class: "button button--full-width text--centered spacing-above-60 button--primary" do %>
+    <%= t("general.continue") %>
+  <% end %>
+
+  <%= link_to Ctc::Questions::UseGyrController.to_path_helper, class: "button button--full-width text--centered " do %>
+    <%= t("views.ctc.questions.restrictions.cannot_use_ctc") %>
+  <% end %>
+<% end %>

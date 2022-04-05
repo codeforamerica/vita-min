@@ -1,13 +1,9 @@
 module Ctc
   module Questions
-    class UseGyrController < QuestionsController
-      include PreviousPathIsBackConcern
+    class RestrictionsController < QuestionsController
+      include Ctc::ResetToStartIfIntakeNotPersistedConcern
 
       layout "intake"
-
-      def next_path
-        nil
-      end
 
       private
 
@@ -16,7 +12,7 @@ module Ctc
       end
 
       def illustration_path
-        "hand-holding-check.svg"
+        "ineligible.svg"
       end
     end
   end

@@ -2123,6 +2123,15 @@ es:
           nevermind_button: Mejor no lo/la borremos
           remove_button: Sí, borrémoslo/la
           title_html: Está a punto de borrar a %{spouse_name}.<br><br>¿Está bien?
+        restrictions:
+          cannot_use_ctc: No puedo usar GetCTC
+          help_text: hay algunos casos en los que es posible que no pueda usar GetCTC, pero son raros.
+          list:
+          - en los últimos 10 años se le ha prohibido reclamar el Crédito Tributario por Hijos, lo que significa que recibió una carta explícita del IRS con una advertencia y la prohibición de reclamar el Crédito Fiscal por Hijos
+          - desea presentar el Formulario 8332 para reclamar a un hijo que no vive con usted
+          - está reclamando a un pariente calificado bajo un acuerdo de manutención múltiple
+          list_title: 'No puedes usar GetCTC si:'
+          title: Por favor, asegúrese de que estos no se apliquen a usted.
         returning_client:
           next_steps: Acceda a su cuenta para completar las preguntas. Si tiene alguna pregunta, inicie una sesión de chat con nosotros.
         routing_number:

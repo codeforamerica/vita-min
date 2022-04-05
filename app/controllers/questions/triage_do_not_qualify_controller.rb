@@ -11,7 +11,7 @@ module Questions
     private
 
     def illustration_path
-      'question-mark.svg'
+      'ineligible.svg'
     end
 
     def form_class; NullForm; end
