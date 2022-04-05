@@ -2090,7 +2090,6 @@ es:
           help_text: Utilice nuestra sencilla herramienta de presentación de impuestos electrónica para recibir su Crédito Tributario por Hijos (CTC) y cualquier pago de estímulo o corrección que se le deba.
           items:
           - Tiene un número válido de Seguro Social o de ITIN
-          - Ganó menos de %{single_deduction} si es soltero, %{joint_deduction} si está casado y presenta una declaración conjunta
           - Usted no ha declarado impuestos este año
           - No recibió la totalidad del estímulo que le correspondía
           right_for_you: 'Esta es la herramienta adecuada para usted si:'

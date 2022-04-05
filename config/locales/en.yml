@@ -2130,12 +2130,11 @@ en:
           reveal_label: What if I don’t have a mailing address?
           title: Great, please provide your mailing address below.
         overview:
-          help_text: Use our simple e-filing tool to receive your Child Tax Credit and any stimulus payments or corrections you are owed.
+          help_text: Use our simple e-filing tool to receive your Child Tax Credit and your stimulus payment or corrections you are owed.
           items:
           - You have a valid SSN or ITIN
-          - You earned less than %{single_deduction} if single, %{joint_deduction} if married filing jointly
           - You have not filed a return this year
-          - You didn't receive the full amount of stimulus you were owed
+          - You want to claim the Child Tax Credit and/or the third stimulus payment
           right_for_you: 'This is the right tool for you if:'
           title: Welcome!
         prior_tax_year_agi:
