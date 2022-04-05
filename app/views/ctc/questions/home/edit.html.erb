@@ -8,13 +8,16 @@
     <p>
       <%=t('views.ctc.questions.home.help_text') %>
     </p>
-    <div class="form-card__stacked-checkboxes spacing-above-0">
-      <%= f.cfa_checkbox(:lived_in_fifty_states, t('views.ctc.questions.home.options.fifty_states'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:lived_at_military_facility, t('views.ctc.questions.home.options.military_facility'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:lived_in_us_territory, t('views.ctc.questions.home.options.us_territory'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:lived_at_foreign_address, t('views.ctc.questions.home.options.foreign_address'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-    </div>
-
+    <%= f.cfa_radio_set(
+          :home_location,
+          collection: [
+            { value: :lived_in_fifty_states, label: t('views.ctc.questions.home.options.fifty_states') },
+            { value: :lived_at_military_facility, label: t('views.ctc.questions.home.options.military_facility') },
+            { value: :lived_in_us_territory, label:  t('views.ctc.questions.home.options.us_territory') },
+            { value: :lived_at_foreign_address, label: t('views.ctc.questions.home.options.foreign_address') },
+          ]
+        )
+    %>
     <button class="button button--primary button--wide" type="submit">
       <%=t("general.continue") %>
     </button>
