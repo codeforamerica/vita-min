@@ -1,5 +1,5 @@
 module Questions
-  class DemographicDisabilityController < QuestionsController
+  class DemographicDisabilityController < PostCompletionQuestionsController
     include AuthenticatedClientConcern
 
     layout "intake"

@@ -1,6 +1,7 @@
 module Questions
   class QuestionsController < ApplicationController
     before_action :redirect_in_offseason
+    before_action :redirect_if_completed_intake_present
     before_action :set_current_step
     delegate :form_name, to: :class
     delegate :form_class, to: :class
@@ -89,6 +90,12 @@ module Questions
 
     def redirect_in_offseason
       redirect_to root_path unless open_for_intake?
+    end
+
+    def redirect_if_completed_intake_present
+      if current_intake && current_intake.completed_at.present?
+        redirect_to portal_root_path
+      end
     end
 
     def after_update_success; end

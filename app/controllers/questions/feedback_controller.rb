@@ -1,6 +1,7 @@
 module Questions
-  class FeedbackController < QuestionsController
+  class FeedbackController < PostCompletionQuestionsController
     include AuthenticatedClientConcern
+
     layout "intake"
 
     def illustration_path; end
