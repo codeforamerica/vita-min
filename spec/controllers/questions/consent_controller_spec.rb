@@ -26,6 +26,7 @@ RSpec.describe Questions::ConsentController do
       let(:ip_address) { "127.0.0.1" }
 
       before do
+        session[:intake_id] = intake.id
         request.remote_ip = ip_address
         allow(MixpanelService).to receive(:send_event)
       end
@@ -40,12 +41,11 @@ RSpec.describe Questions::ConsentController do
       end
 
       it "authenticates the client and clears the intake_id from the session" do
-        expect(subject.current_client).to be_nil
-
-        post :update, params: params
-
-        expect(subject.current_client).to eq intake.client
-        expect(session[:intake_id]).to be_nil
+        expect do
+          expect do
+            post :update, params: params
+          end.to change { session[:intake_id] }.to(nil)
+        end.to change { subject.current_client }.from(nil).to(intake.client)
       end
 
       context "creating tax returns" do
