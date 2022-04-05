@@ -63,6 +63,11 @@ class ApplicationController < ActionController::Base
     session.delete("intake_id")
   end
 
+  def sign_in(*args)
+    super
+    session.delete("intake_id")
+  end
+
   def include_analytics?
     false
   end
