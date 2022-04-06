@@ -19,7 +19,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
     choose I18n.t('views.ctc.questions.filing_status.single')
     click_on I18n.t('general.continue')
-    click_on I18n.t('general.negative')
+    click_on I18n.t('general.affirmative')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
     click_on I18n.t('general.negative')
     choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)

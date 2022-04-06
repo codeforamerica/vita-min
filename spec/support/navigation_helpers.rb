@@ -32,7 +32,7 @@ module NavigationHelpers
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
-    click_on I18n.t('general.negative')
+    click_on I18n.t('general.affirmative')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
 
     # =========== ELIGIBILITY ===========
