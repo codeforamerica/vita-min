@@ -1,11 +1,11 @@
 module Ctc
   class IncomeForm < QuestionsForm
-    set_attributes_for :misc, :had_reportable_income
+    set_attributes_for :misc, :income_qualifies
 
     def save; end
 
-    def had_reportable_income?
-      had_reportable_income == "yes"
+    def income_qualifies?
+      income_qualifies == "yes"
     end
   end
 end

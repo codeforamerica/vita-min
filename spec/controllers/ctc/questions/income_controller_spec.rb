@@ -18,11 +18,11 @@ describe Ctc::Questions::IncomeController do
 
   describe '#update' do
     context "with a valid form" do
-      let(:had_reportable_income) { "no" }
+      let(:income_qualifies) { "no" }
       let(:params) do
         {
           ctc_income_form: {
-            had_reportable_income: had_reportable_income,
+            income_qualifies: income_qualifies,
           }
         }
       end
@@ -32,12 +32,12 @@ describe Ctc::Questions::IncomeController do
 
         expect(MixpanelService).to have_received(:send_event).with(hash_including(
                                                                      event_name: "question_answered",
-                                                                     data: { had_reportable_income: "no" }
+                                                                     data: { income_qualifies: "no" }
                                                                    ))
       end
 
-      context "when answer is yes" do
-        let(:had_reportable_income) { "yes" }
+      context "when answer is no" do
+        let(:income_qualifies) { "no" }
 
         it "redirects out of the flow" do
           post :update, params: params
@@ -45,8 +45,8 @@ describe Ctc::Questions::IncomeController do
         end
       end
 
-      context "when the answer is no" do
-        let(:had_reportable_income) { "no" }
+      context "when the answer is yes" do
+        let(:income_qualifies) { "yes" }
 
         it "redirects to the next page in the flow" do
           post :update, params: params

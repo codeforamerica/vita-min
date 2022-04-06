@@ -5,6 +5,10 @@ module Ctc
 
       layout "yes_no_question"
 
+      def method_name
+        "income_qualifies"
+      end
+
       private
 
       def illustration_path
@@ -12,7 +16,7 @@ module Ctc
       end
 
       def next_path
-        @form.had_reportable_income? ? questions_use_gyr_path : super
+        @form.income_qualifies? ? super : questions_use_gyr_path
       end
 
       def tracking_data
