@@ -3,6 +3,10 @@ require 'rails_helper'
 describe "backfill_triage_data:intake_triage_fields" do
   include_context "rake"
 
+  around do |example|
+    capture_output { example.run }
+  end
+
   context "triage with no intake" do
     let!(:triage_without_intake) { create :triage }
 
@@ -14,7 +18,7 @@ describe "backfill_triage_data:intake_triage_fields" do
   end
 
   context "triage needs itin help" do
-    let!(:triage) { create :triage, intake: create(:intake), id_type: "need_itin_help" }
+    let!(:triage) { create :triage, intake: create(:intake, triage_filing_status: 'unfilled'), id_type: "need_itin_help" }
 
     it "copies answer to Intake#need_itin_help" do
       task.invoke
@@ -25,7 +29,7 @@ describe "backfill_triage_data:intake_triage_fields" do
   end
 
   context "income level" do
-    let!(:triage) { create :triage, intake: create(:intake), income_level: "12500_to_25000" }
+    let!(:triage) { create :triage, intake: create(:intake, triage_filing_status: 'unfilled'), income_level: "12500_to_25000" }
 
     it "copies answer to Intake#triage_income_level" do
       task.invoke
@@ -39,7 +43,7 @@ describe "backfill_triage_data:intake_triage_fields" do
     context "every_year" do
       let!(:triage) {
         create(
-          :triage, intake: create(:intake),
+          :triage, intake: create(:intake, triage_filing_status: 'unfilled'),
           filed_2018: "yes",
           filed_2019: "yes",
           filed_2020: "yes",
@@ -58,7 +62,7 @@ describe "backfill_triage_data:intake_triage_fields" do
     context "some_years" do
       let!(:triage) {
         create(
-          :triage, intake: create(:intake),
+          :triage, intake: create(:intake, triage_filing_status: 'unfilled'),
           filed_2018: "yes",
           filed_2019: "yes",
           filed_2020: "no",
@@ -77,7 +81,7 @@ describe "backfill_triage_data:intake_triage_fields" do
     context "not_filed" do
       let!(:triage) {
         create(
-          :triage, intake: create(:intake),
+          :triage, intake: create(:intake, triage_filing_status: 'unfilled'),
           filed_2018: "no",
           filed_2019: "no",
           filed_2020: "no",
@@ -96,7 +100,7 @@ describe "backfill_triage_data:intake_triage_fields" do
     context "unfilled" do
       let!(:triage) {
         create(
-          :triage, intake: create(:intake),
+          :triage, intake: create(:intake, triage_filing_status: 'unfilled'),
           filed_2018: "unfilled",
           filed_2019: "unfilled",
           filed_2020: "unfilled",
@@ -114,7 +118,7 @@ describe "backfill_triage_data:intake_triage_fields" do
   end
 
   context "filing status" do
-    let!(:triage) { create :triage, intake: create(:intake), filing_status: "single" }
+    let!(:triage) { create :triage, intake: create(:intake, triage_filing_status: 'unfilled'), filing_status: "single" }
 
     it "copies answer to Intake#triage_filing_status" do
       task.invoke
@@ -126,7 +130,7 @@ describe "backfill_triage_data:intake_triage_fields" do
 
   context "income ineligible" do
     context "at least one of income_type_rent or income_type_farm is yes" do
-      let!(:triage) { create :triage, intake: create(:intake), income_type_rent: "yes" }
+      let!(:triage) { create :triage, intake: create(:intake, triage_filing_status: 'unfilled'), income_type_rent: "yes" }
 
       it "sets Intake#triage_vita_income_ineligible to yes" do
         task.invoke
@@ -137,7 +141,7 @@ describe "backfill_triage_data:intake_triage_fields" do
     end
 
     context "both income_type_rent and income_type_farm are no" do
-      let!(:triage) { create :triage, intake: create(:intake), income_type_rent: "no", income_type_farm: "no" }
+      let!(:triage) { create :triage, intake: create(:intake, triage_filing_status: 'unfilled'), income_type_rent: "no", income_type_farm: "no" }
 
       it "sets Intake#triage_vita_income_ineligible to unfilled" do
         task.invoke
@@ -148,7 +152,7 @@ describe "backfill_triage_data:intake_triage_fields" do
     end
 
     context "either is unfilled" do
-      let!(:triage) { create :triage, intake: create(:intake), income_type_rent: "unfilled" }
+      let!(:triage) { create :triage, intake: create(:intake, triage_filing_status: 'unfilled'), income_type_rent: "unfilled" }
 
       it "sets Intake#triage_vita_income_ineligible to unfilled" do
         task.invoke
