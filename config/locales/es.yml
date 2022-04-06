@@ -2037,16 +2037,32 @@ es:
             us_territory: Territorio de Estados Unidos, como Puerto Rico o Guam
           title: "¿Cuál fue su domicilio principal durante %{current_tax_year}?"
         income:
-          filing_married: "%{joint_deduction} si declara como persona casada"
-          filing_single: "%{single_deduction} si declara como persona soltera"
-          help_text: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
-          income_sources:
-          - salario
-          - pago por hora
-          - propinas
-          - comisiones
-          - pagos de trabajo por cuenta propia o por contrato
-          title: En el %{current_tax_year}, ¿ganó más de la siguiente cantidad?
+          have_questions_reveal:
+            title: Have questions about income?
+            content:
+              p1: 'Income could come from any of the following sources:'
+              list_1:
+                - salary
+                - hourly wages
+                - tips
+                - commissions
+                - self-employment or contract payments
+              p2: 'Self employment income is is generally any money that you made from your own business or working part time for an employer. This could include:'
+              list_2:
+                - selling homemade goods
+                - driving for Uber, Lyft or similar
+                - renting out your home
+          what_is_aptc_reveal:
+            title: What is the Advanced Premium Tax Credit?
+            content:
+              p1: You would not have received the Advanced Premium Tax Credit if you are on Medicaid, Medicare,  get healthcare coverage through an employer, or you don’t have healthcare coverage.
+              p2: You probably would have received the Advanced Premium Tax Credit if you purchased market-rate insurance in a health insurance marketplace under the Affordable Care Act.
+          help_text: 'You can only use GetCTC if you don’t have a filing obligation. This generally means:'
+          income_qualifications:
+            - you earned less that %{standard_deduction} in income from any source
+            - you earned less that $400 in self employment income
+            - you did not recieve the Advanced Premium Tax Credit
+          title: 'In %{current_tax_year}, are the following statements correct:'
         ip_pin:
           help_text: Tener un PIN de IP es muy poco frecuente. Si no está familiarizado con lo que es, es probable que no se le haya emitido un PIN de IP. Seleccione "Ninguna de las anteriores" para continuar.
           reveal_label: "¿Qué es un IP PIN?"
