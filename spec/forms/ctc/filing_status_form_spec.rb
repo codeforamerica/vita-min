@@ -1,9 +1,11 @@
 require 'rails_helper'
 
-describe Ctc::FilingStatusForm do
-  let(:client) { create :client, tax_returns: [(create :tax_return, filing_status: nil )]}
+describe Ctc::FilingStatusForm, requires_default_vita_partners: true do
+  let(:client) { create :client, tax_returns: [(create :tax_return, filing_status: nil)] }
   let!(:intake) { create :ctc_intake, client: client }
-  let(:params) { { filing_status: "single" } }
+
+  include_context :initial_ctc_form_context, additional_params: { filing_status: "single" }
+  it_behaves_like :initial_ctc_form
 
   context "validations" do
     context "when filing status is selected" do
@@ -25,9 +27,9 @@ describe Ctc::FilingStatusForm do
 
   context "save" do
     it "persists the filing status to the client's tax return" do
-      expect {
-        described_class.new(intake, params).save
-      }.to change(intake.client.tax_returns.first, :filing_status).from(nil).to("single")
+      expect(intake.client.tax_returns.first.filing_status).to eq nil
+      described_class.new(intake, params).save
+      expect(intake.client.tax_returns.first.filing_status).to eq "single"
     end
   end
 end

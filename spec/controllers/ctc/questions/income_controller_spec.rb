@@ -1,9 +1,22 @@
 require "rails_helper"
 
-describe Ctc::Questions::IncomeController, requires_default_vita_partners: true do
-  describe '#update' do
-    it_behaves_like :first_page_of_ctc_intake_update, form_name: :ctc_income_form
+describe Ctc::Questions::IncomeController do
+  let(:intake) { create :ctc_intake }
 
+  before do
+    session[:intake_id] = intake.id
+    allow(MixpanelService).to receive(:send_event)
+  end
+
+  describe "#edit" do
+    it "renders edit template and initializes form" do
+      get :edit, params: {}
+      expect(response).to render_template :edit
+      expect(assigns(:form)).to be_an_instance_of Ctc::IncomeForm
+    end
+  end
+
+  describe '#update' do
     context "with a valid form" do
       let(:had_reportable_income) { "no" }
       let(:params) do
@@ -12,12 +25,6 @@ describe Ctc::Questions::IncomeController, requires_default_vita_partners: true 
             had_reportable_income: had_reportable_income,
           }
         }
-      end
-
-      before do
-        allow(MixpanelService).to receive(:send_event)
-        allow_any_instance_of(Ctc::IncomeForm).to receive(:valid?).and_return true
-        allow_any_instance_of(Ctc::IncomeForm).to receive(:save).and_return true
       end
 
       it "sends an event to mixpanel" do

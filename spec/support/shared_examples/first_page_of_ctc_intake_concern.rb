@@ -1,8 +1,8 @@
 require "rails_helper"
 
-shared_examples :first_page_of_ctc_intake_update do |form_name:|
+shared_context :first_page_of_ctc_intake_update_context do |form_name:, additional_params:|
+  let(:form_name) { form_name }
   let(:ip_address) { "127.0.0.1" }
-  let(:had_reportable_income) { "no" }
   let(:params) do
     {
       form_name => {
@@ -13,7 +13,7 @@ shared_examples :first_page_of_ctc_intake_update do |form_name:|
         platform: "iPad",
         timezone_offset: "+240",
         client_system_time: "2021-07-28T21:21:32.306Z",
-      }
+      }.merge(additional_params)
     }
   end
 
@@ -23,7 +23,9 @@ shared_examples :first_page_of_ctc_intake_update do |form_name:|
     session[:source] = "some-source"
     session[:referrer] = "https://www.goggles.com/get-tax-refund"
   end
+end
 
+shared_examples :first_page_of_ctc_intake_update do
   it "stores referrer, visitor_id, and referrer onto the intake" do
     post :update, params: params
 
