@@ -3,6 +3,9 @@ require "rails_helper"
 def begin_intake
   expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
   click_on I18n.t('general.continue')
+  expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
+  choose I18n.t('views.ctc.questions.filing_status.married_filing_jointly')
+  click_on I18n.t('general.continue')
   within "h1" do
     expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
   end
