@@ -1833,12 +1833,22 @@ es:
             title: "¿Dónde puedo encontrar esta cantidad?"
           form_title: Crédito Fiscal Adelantado por Hijos recibido
           title: Ingrese el monto total que recibió por el Crédito Tributario Anticipado por Hijos.
+        advance_ctc_claimed:
+          buttons:
+            add: Agregar más dependientes
+            correct: Corregir la cantidad que recibí
+            no_file: No necesito presentar una declaración
+          content:
+          - Ingresó %{amount_received} para el monto total del crédito fiscal adelantado por hijos que recibió en 2021.
+          - Si esto es correcto, no recibirá ningún Crédito Tributario por Hijos y es posible que no necesite terminar de enviar este formulario para presentar una declaración.
+          - Si cree que esto es incorrecto, debe regresar y corregir la cantidad que recibió o agregar más dependientes.
+          title: No tiene más crédito fiscal por hijos para reclamar.
         advance_ctc_received:
           already_received: Cantidad que ha recibido
           ctc_owed_details: Si el monto que ingresó anteriormente es incorrecto, su reembolso de impuestos podría retrasarse mientras el IRS realiza las correcciones a su declaración.
           ctc_owed_title: 'Usted es elegible para una adicional:'
           title: Está bien. Hemos calculado su Crédito Tributario por Hijos.
-          total_adv_ctc: 'CTC avanzado total: $%{amount}'
+          total_adv_ctc: 'CTC avanzado total: %{amount}'
         already_completed:
           content_html: |
             <p>Ha completado todas las preguntas de admisión y estamos revisando y presentando su declaración de impuestos.</p>
@@ -2086,6 +2096,14 @@ es:
             Asegúrese de proporcionar una dirección donde pueda recibir correo postal. Si seleccionó deposito directo para sus pagos, existe una posibilidad que el IRS le envíe notificaciones importantes y hasta pagos a este dirección.
           reveal_label: "¿Qué tal si no tengo una dirección postal?"
           title: Magnífico, denos por favor su dirección postal.
+        not_filing:
+          buttons:
+            faq: Visite nuestras preguntas frecuentes
+            home: Ir a la pagina principal
+          content:
+          - Gracias por usar nuestra aplicación. No hay nada más que necesites hacer.
+          - No enviaremos ninguna información que haya compartido con nosotros al IRS.
+          title: Ha decidido no presentar una declaración de impuestos.
         overview:
           help_text: Utilice nuestra sencilla herramienta de presentación de impuestos electrónica para recibir su Crédito Tributario por Hijos (CTC) y cualquier pago de estímulo o corrección que se le deba.
           items:

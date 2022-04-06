@@ -312,6 +312,7 @@ Rails.application.routes.draw do
       get "/questions/returning-client", to: "ctc/questions/returning_client#edit", as: :questions_returning_client
       get "/already-filed", to: "ctc/offboarding/already_filed#show", as: :offboarding_already_filed
       get "/questions/at-capacity", to: "ctc/questions/at_capacity#edit", as: :questions_at_capacity
+      get "/questions/not-filing", to: "ctc/questions/not_filing#edit", as: :questions_not_filing
 
       # remove-spouse should not be included in default navigation flow
       get "/questions/remove-spouse", to: "ctc/questions/remove_spouse#edit", as: :questions_remove_spouse

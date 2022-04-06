@@ -1876,12 +1876,22 @@ en:
             title: Where can I find this amount?
           form_title: Advance Child Tax Credit received
           title: Enter the total amount you received for the Advance Child Tax Credit.
+        advance_ctc_claimed:
+          buttons:
+            add: Add more dependents
+            correct: Correct the amount I received
+            no_file: I don’t need to file a return
+          content:
+          - You entered %{amount_received} for the total amount of Advance Child Tax Credit you received in 2021.
+          - If this is correct, you will not receive any Child Tax Credit and might not need to finish submitting this form to file a return.
+          - If you think this is wrong, you should go back and either correct the amount you received or add more dependents.
+          title: You have no more Child Tax Credit to claim.
         advance_ctc_received:
           already_received: Amount you’ve received
           ctc_owed_details: If the amount you entered above is incorrect, your tax refund could be delayed while the IRS makes corrections to your return.
           ctc_owed_title: 'You are eligible for an additional:'
           title: Ok. We’ve calculated your Child Tax Credit.
-          total_adv_ctc: 'Total Advance CTC: $%{amount}'
+          total_adv_ctc: 'Total Advance CTC: %{amount}'
         already_completed:
           content_html: |
             <p> You've completed all of our intake questions and we're reviewing and submitting your tax return. </p>
@@ -2129,6 +2139,14 @@ en:
             Make sure you provide an address where you are able to receive mail. Even if you selected direct deposit for your payments, there is a chance the IRS will send important notices and maybe even payments to this address.
           reveal_label: What if I don’t have a mailing address?
           title: Great, please provide your mailing address below.
+        not_filing:
+          buttons:
+            faq: Visit our FAQ
+            home: Go to the homepage
+          content:
+          - Thank you for using our application. There is nothing else you need to do.
+          - We will not send any information that you shared with us to the IRS.
+          title: You’ve decided to not file a tax return.
         overview:
           help_text: Use our simple e-filing tool to receive your Child Tax Credit and any stimulus payments or corrections you are owed.
           items:

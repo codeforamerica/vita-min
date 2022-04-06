@@ -1,0 +1,27 @@
+<% @main_question = t("views.ctc.questions.advance_ctc_claimed.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <% t("views.ctc.questions.advance_ctc_claimed.content", amount_received: calculated_or_provided_dollar_amount(current_intake.advance_ctc_amount_received)).each do |paragraph| %>
+    <p><%= paragraph %></p>
+  <% end %>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="button-group button-group--center button--wide spacing-above-60">
+      <%= f.button :submit, name: "#{f.object_name}[advance_ctc_claimed_choice]", value: "change_amount", class: "button button--primary button--wide text--centered" do %>
+        <%= t("views.ctc.questions.advance_ctc_claimed.buttons.correct") %>
+      <% end %>
+
+      <%= f.button :submit, name: "#{f.object_name}[advance_ctc_claimed_choice]", value: "dont_file", class: "button button--wide text--centered" do %>
+        <%= t("views.ctc.questions.advance_ctc_claimed.buttons.no_file") %>
+      <% end %>
+
+      <%= f.button :submit, name: "#{f.object_name}[advance_ctc_claimed_choice]", value: "add_dependents", class: "button button--wide text--centered" do %>
+        <%= t("views.ctc.questions.advance_ctc_claimed.buttons.add") %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

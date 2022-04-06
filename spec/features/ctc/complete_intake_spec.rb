@@ -215,7 +215,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.advance_ctc_received.title"))
-    expect(page).to have_text I18n.t('views.ctc.questions.advance_ctc_received.total_adv_ctc', amount: 1000)
+    expect(page).to have_text I18n.t('views.ctc.questions.advance_ctc_received.total_adv_ctc', amount: "$1,000")
     expect(page).to have_text "$2,600"
     click_on I18n.t('general.continue')
 

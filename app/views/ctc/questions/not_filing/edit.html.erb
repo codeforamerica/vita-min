@@ -1,0 +1,15 @@
+<% @main_question = t("views.ctc.questions.not_filing.title") %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= @main_question %></h1>
+
+  <% t("views.ctc.questions.not_filing.content").each do |paragraph| %>
+    <p><%= paragraph %></p>
+  <% end %>
+
+  <%= link_to t("views.ctc.questions.not_filing.buttons.home"), root_path, class: "button button--wide button--primary text--centered" %>
+  <%= link_to t("views.ctc.questions.not_filing.buttons.faq"), root_path(anchor: 'ctc_faq'), class: "button button--wide text--centered" %>
+
+<% end %>

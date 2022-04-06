@@ -54,6 +54,7 @@ class CtcQuestionNavigation
     # => Adv. CTC
     Ctc::Questions::AdvanceCtcController,
     Ctc::Questions::AdvanceCtcAmountController,
+    Ctc::Questions::AdvanceCtcClaimedController,
     Ctc::Questions::AdvanceCtcReceivedController,
 
     # => EIP
