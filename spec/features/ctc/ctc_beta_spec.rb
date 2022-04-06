@@ -9,7 +9,7 @@ def begin_intake
   within "h1" do
     expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
   end
-  click_on I18n.t('general.negative')
+  click_on I18n.t('general.affirmative')
 
   expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title"))
   click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
