@@ -38,40 +38,10 @@
     </div>
   <% end %>
   <% if @client.intake.is_ctc? %>
-    <div>
-      <span>
-        <span class="form-question">
-          Dependent Type:
-        </span>
-        <%= dependent_eligibility = Efile::DependentEligibility::Eligibility.new(dependent, @client.intake.default_tax_year) %>
-
-        <span class="label-value">
-          <% if dependent_eligibility.qualifying_child? %>
-            Qualifying Child
-          <% elsif dependent_eligibility.qualifying_relative? %>
-            Qualifying Relative
-          <% else %>
-            Nonqualifying
-          <% end %>
-        </span>
-      </span>
-    </div>
-    <div class="spacing-above-5">
-      <% if dependent_eligibility.qualifying_ctc? %>
-        <span class="label">CTC</span>
-      <% end %>
-      <% if dependent_eligibility.qualifying_eip1? %>
-        <span class="label">EIP1</span>
-      <% end %>
-      <% if dependent_eligibility.qualifying_eip2? %>
-        <span class="label">EIP2</span>
-      <% end %>
-      <% if dependent_eligibility.qualifying_eip3? %>
-        <span class="label">EIP3</span>
-      <% end %>
-      <% if dependent.soft_deleted_at.present? %>
-        <span class="label label--red">REMOVED</span>
-      <% end %>
-    </div>
+    <% if @client.archived? %>
+      <%= render 'hub/dependents/archived_2021_ctc_dependent_detail', dependent: dependent %>
+    <% else %>
+      <%= render 'hub/dependents/dependent_detail', dependent: dependent %>
+    <% end %>
   <% end %>
 </li>
