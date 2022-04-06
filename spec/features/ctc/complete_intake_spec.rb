@@ -82,7 +82,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
     click_on I18n.t("views.ctc.questions.verification.verify")
 
-    # =========== FILING STATUS ===========
+    # =========== SPOUSE INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_info.title'))
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_first_name'), with: "Peter"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_middle_initial'), with: "P"
@@ -458,7 +458,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
     click_on I18n.t("views.ctc.questions.verification.verify")
 
-    # =========== FILING STATUS ===========
+    # =========== SPOUSE INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_info.title'))
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_first_name'), with: "Peter"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_middle_initial'), with: "P"

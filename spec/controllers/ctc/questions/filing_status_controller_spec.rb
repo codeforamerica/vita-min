@@ -13,7 +13,7 @@ describe Ctc::Questions::FilingStatusController, requires_default_vita_partners:
       it "re-renders the form with errors" do
         put :update, params: params
         expect(response).to render_template :edit
-        expect(assigns(:form).errors).not_to be_blank
+        expect(assigns(:form).errors).to include(:filing_status)
       end
     end
 
