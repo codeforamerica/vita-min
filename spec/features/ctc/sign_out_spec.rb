@@ -23,8 +23,6 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
     click_on "Continue"
     click_on I18n.t('general.negative')
-    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
-    click_on "Continue"
     choose I18n.t('views.ctc.questions.home.options.fifty_states')
     click_on I18n.t('general.continue')
     click_on I18n.t('general.negative')
@@ -38,6 +36,8 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     click_on I18n.t('views.ctc.questions.legal_consent.agree')
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
+    click_on I18n.t('general.continue')
     click_on I18n.t('views.ctc.questions.contact_preference.email')
     fill_in I18n.t('views.questions.email_address.email_address'), with: "mango@example.com"
     fill_in I18n.t('views.questions.email_address.email_address_confirmation'), with: "mango@example.com"

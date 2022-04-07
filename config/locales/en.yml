@@ -1774,9 +1774,8 @@ en:
           contact_ta: Contact a Taxpayer Advocate
           contact_vita: Contact a VITA Site
           content_html:
-          - Like the IRS non-filer sign up tool, GetCTC helps you e-file a simplified %{current_tax_year} tax return. If you've already filed a %{current_tax_year} return, the IRS will reject this return without reviewing it, even if your first return was wrong or processed incorrectly.
-          - If the information on your %{current_tax_year} return has changed and you want to update your CTC payments, you can use the IRS's <a href="https://www.irs.gov/credits-deductions/child-tax-credit-update-portal" target="_blank" rel="noopener noreferrer">CTC Update Portal</a>.
-          - If you think your %{current_tax_year} return was never processed and you don't know what happened, you'll need direct assistance to help resolve your case. You can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
+          - GetCTC helps you e-file a simplified %{current_tax_year} tax return. If you’ve already filed a %{current_tax_year} return, the IRS will reject this return without reviewing it, even if your first return was wrong or processed incorrectly.
+          - If you think your %{current_tax_year} return was never processed and you don’t know what happened, you may need direct assistance to help resolve your case. You can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
           title: Unfortunately, you can't use GetCTC.
       portal:
         bank_account:
@@ -1901,13 +1900,15 @@ en:
         already_filed:
           help_text_html: |
             <p>Did you file a tax return this year, after January 1, %{calendar_year}, for the %{current_tax_year} tax year?</p>
-            <p>Answer yes even if you are still waiting for your stimulus payments, or if you used the Non-filers Sign-Up Tool. If you did, we'll give you more guidance about your options on the next page.</p>
+            <p>Answer yes even if you are still waiting for your credits. If you did, we'll give you more guidance about your options on the next page.</p>
             <p class="text--bold">If you already filed a %{current_tax_year} tax return, the return you file with this tool will be rejected by the IRS.</p>
           title: Did you file a %{current_tax_year} tax return this year?
         at_capacity:
           p1: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service! Please check back next week.
           p2: If you have questions, visit our FAQs.
           title: Wow, it looks like we are at capacity right now. Check back next week!
+          visit_ctc_faq: Visit the Child Tax Credit FAQ
+          visit_stimulus_faq: Visit the Stimulus FAQ
         bank_account:
           title: Please provide your bank details below
         cell_phone_number:
@@ -2060,17 +2061,20 @@ en:
           title: Please share your email address.
         file_full_return:
           full_btn: File a full tax return
-          help_text: 'You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need:'
-          list:
-          - All of your employment documents (W2’s, 1099’s, etc)
-          - A paper copy of a Social Security Card or ITIN paperwork for everyone in your family
+          help_text: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2’s, 1099’s, etc).
+          reveal:
+            body_html:
+            - Stimulus payments were issued automatically to families who had recently filed tax returns, or who were enrolled in certain federal programs.
+            - The first stimulus payment was sent between April 2020 and October 2020. The second stimulus payment was sent in December 2020 or January 2021.
+            - To claim all or part of your first or second stimulus payments, you need to file a tax return for 2020. You can check your eligibility for filing back taxes for free using %{link_to_get_your_refund}.
+            title: How can I learn more about the first two stimulus payments?
           simplified_btn: Continue filing a simplified return
-          title: You are currently filing a simplified tax return to claim your Child Tax Credit and Stimulus Payments.
+          title: You are currently filing a simplified tax return to claim your Child Tax Credit and third stimulus payment.
         filed_prior_tax_year:
           did_not_file: No, I didn't file a %{prior_tax_year} tax return
           filed_full: Yes, I filed a full return
           filed_non_filer: Yes, I filed using the IRS non-filer portal
-          help_text: Did you file a tax return for the %{prior_tax_year} tax year? This tax return would have originally been due on April 15, %{current_tax_year}.
+          help_text: Did you file a tax return for the %{prior_tax_year} tax year? This tax return would have originally been due on April 15, %{current_tax_year} and would have typically been completed last year.
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
           married_filing_jointly: Married Filing Jointly
@@ -2173,23 +2177,13 @@ en:
           title: Welcome!
         prior_tax_year_agi:
           help_text_html: |
-            Because you stated that you filed a full tax return in 2019, we’ll need to verify what your Adjusted Gross Income (AGI) was in 2019.</br>
+            Because you stated that you filed a full tax return in %{prior_tax_year}, we’ll need to verify what your Adjusted Gross Income (AGI) was in %{prior_tax_year}.</br>
             </br>
-            You can find this information on Line 8B of your 2019 tax return. Please enter the correct amount from your 2019 return or your return will be rejected.
-          label: 2019 Adjusted Gross Income
+            You can find this information on Line 8B of your %{prior_tax_year} tax return. Please enter the correct amount from your %{prior_tax_year} return or your return will be rejected.
+          label: "%{prior_tax_year} Adjusted Gross Income"
           reveal_content: 'The IRS requires us to ask this to verify your identity prior to submitting your tax return. '
           reveal_label: Why are you asking this?
-          title: What was your 2019 Adjusted Gross Income?
-        prior_tax_year_life_situations:
-          items:
-          - The number of people in your household changed from your %{prior_tax_year} tax return
-          - You have a different bank account from the one you listed in your %{prior_tax_year} return
-          - You didn't receive the full amount of stimulus you were owed
-          p1: 'If any of the following are true, you should continue with our simplified tool:'
-          p2: If none of those statements are true,  you should receive your payments automatically. You can visit the CTC FAQ for more information.
-          title: Let’s make sure this tool is right for you!
-          visit_ctc_faq: Visit the Child Tax Credit FAQ
-          visit_stimulus_faq: Visit Stimulus FAQ
+          title: What was your %{prior_tax_year} Adjusted Gross Income?
         refund_payment:
           check: Mail my payment (slower)
           direct_deposit: Direct deposit (fastest)
@@ -2295,13 +2289,12 @@ en:
           - You earned less than %{single_deduction} if filing single, %{joint_deduction} if married filing jointly in %{current_tax_year}
           - You are a U.S. citizen, U.S. national, or U.S. resident alien
           - You cannot be claimed as a dependent
-          - You and your spouse have a valid SSN or ITIN
+          - You (and your spouse if applicable) have a valid SSN or ITIN
           file_gyr: File with GetYourRefund
           help_text: 'In order to file a simplified return through GetCTC you would need to meet the following conditions:'
           still_benefit: You could still benefit by filing a full tax return for free using GetYourRefund.
           title: Unfortunately, you are not eligible to use our simplified filing tool. But we can still help!
-          visit_ctc_faq: Visit the Child Tax Credit FAQ
-          visit_stimulus_faq: Visit the Stimulus FAQ
+          visit_our_faq: Visit our FAQ
         verification:
           body: 'A message with your code has been sent to:'
           error_message: Incorrect verification code.

@@ -11,13 +11,12 @@ class CtcQuestionNavigation
 
     # Eligibility
     Ctc::Questions::AlreadyFiledController,
-    Ctc::Questions::FiledPriorTaxYearController,
-    Ctc::Questions::PriorTaxYearLifeSituationsController,
     Ctc::Questions::HomeController,
     Ctc::Questions::LifeSituationsController,
 
     # Consent/Contact
     Ctc::Questions::LegalConsentController,
+    Ctc::Questions::FiledPriorTaxYearController,
     Ctc::Questions::PriorTaxYearAgiController,
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,

@@ -1865,6 +1865,8 @@ es:
           p1: Estamos experimentando un gran volumen de clientes en este momento. ¡Nuestro objetivo es servir a todos con la mejor calidad de servicio! Por favor, vuelva a consultar con nosotros la próxima semana.
           p2: Para cualquier pregunta, visite nuestra sección de Preguntas Frecuentes/FAQ.
           title: Vaya, parece que ahora mismo nos encontramos a la máxima capacidad. ¡Por favor vuelva la semana entrante!
+          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
+          visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el Estímulo
         bank_account:
           title: Proporcione sus datos bancarios a continuación
         cell_phone_number:
@@ -2017,18 +2019,21 @@ es:
           title: Favor de compartir la dirección de su correo electrónico
         file_full_return:
           full_btn: Presente su declaración de impuestos completa
-          help_text: 'Podría beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentar una declaración de impuestos completa puede llevar más tiempo y necesitaría:'
-          list:
-          - Tiene todos sus documentos de trabajo (W2, 1099, etc.)
-          - Tiene una copia en papel de la tarjeta de Seguro Social o de los documentos ITIN de todos los miembros de su familia
+          help_text: Puede beneficiarse de presentar una declaración de impuestos completa si obtuvo algún ingreso en %{current_tax_year}. Presentar una declaración de impuestos completa puede llevar más tiempo y necesitará todos sus documentos de empleo (W2, 1099, etc.).
+          reveal:
+            body_html:
+            - Los pagos de estímulo se emitieron automáticamente a las familias que habían presentado declaraciones de impuestos recientemente o que estaban inscritas en ciertos programas federales.
+            - El primer pago de estímulo se envió entre abril de 2020 y octubre de 2020. El segundo pago de estímulo se envió en diciembre de 2020 o enero de 2021.
+            - Para reclamar todo o parte de su primer o segundo pago de estímulo, debe presentar una declaración de impuestos para 2020. Puede verificar su elegibilidad para presentar impuestos atrasados de forma gratuita utilizando %{link_to_get_your_refund}.
+            title: "¿Cómo puedo obtener más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: "¡Si obtuvo ingresos, puede obtener beneficios adicionales presentando una declaración completa!"
         filed_prior_tax_year:
           did_not_file: No, no presenté la declaración de impuestos del %{prior_tax_year}
           filed_full: Sí, presenté una declaración completa
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
-          help_text: "¿Presentó la declaración de impuestos correspondiente del %{prior_tax_year}? Esta declaración de impuestos debió haber sido presentada el 15 de abril del %{current_tax_year}."
-          title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
+          help_text: "¿Presentó una declaración de impuestos para el año fiscal %{prior_tax_year}? Esta declaración de impuestos originalmente vencía el 15 de abril de %{current_tax_year} y, por lo general, se habría completado el año pasado."
+          title: "¿Presentaste una declaración de impuestos de %{prior_tax_year}?"
         filing_status:
           married_filing_jointly: Casado con declaración conjunta
           reveal_body: Si normalmente declara como jefe de familia o casado que presenta la declaración por separado, seleccione "soltero" a efectos de esta declaración.
@@ -2130,23 +2135,13 @@ es:
           title: "¡Bienvenido!"
         prior_tax_year_agi:
           help_text_html: |
-            Debido a que declaró que presentó una declaración de impuestos completa en 2019, necesitaremos verificar cuál fue su ingreso bruto ajustado (AGI) en 2019.</br>
+            Debido a que declaró que presentó una declaración de impuestos completa en %{prior_tax_year}, necesitaremos verificar cuál fue su ingreso bruto ajustado (AGI) en %{prior_tax_year}.</br>
             </br>
-            Puede encontrar esta información en la línea 8B de su declaración de impuestos de 2019. Por favor, introduzca la cantidad correcta de su declaración de 2019 o su declaración será rechazada.
-          label: Ingreso Bruto Ajustado de 2019
+            Puede encontrar esta información en la línea 8B de su declaración de impuestos de %{prior_tax_year}. Por favor, introduzca la cantidad correcta de su declaración de %{prior_tax_year} o su declaración será rechazada.
+          label: Ingreso Bruto Ajustado de %{prior_tax_year}
           reveal_content: El IRS nos obliga a hacer esta pregunta para verificar su identidad antes de presentar su declaración de impuestos.
           reveal_label: "¿Por qué me hacen estas preguntas?"
-          title: "¿Cuál fue su Ingreso Bruto Ajustado de 2019?"
-        prior_tax_year_life_situations:
-          items:
-          - El número de personas que componen su hogar ha cambiado con respecto a su declaración de impuestos de %{prior_tax_year}.
-          - Tiene una cuenta bancaria distinta a la que ha indicado en su declaración de impuestos de %{prior_tax_year}
-          - No recibió la cantidad total del estímulo que le correspondía
-          p1: 'Si cualesquiera de los siguientes puntos es válido, debe continuar con nuestra herramienta simplificada:'
-          p2: Si ninguna de estas afirmaciones es cierta, deberá recibir sus pagos automáticamente. Puede visitar las Preguntas Frecuentes sobre el CTC para obtener más información.
-          title: "¡Asegurémonos de que esta herramienta es adecuada para usted!"
-          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
-          visit_stimulus_faq: Visitar la sección de Preguntas Frecuentes sobre el estímulo económico
+          title: "¿Cuál fue su Ingreso Bruto Ajustado de %{prior_tax_year}?"
         refund_payment:
           check: Envíeme mi pago (más lento)
           direct_deposit: Depósito directo (el más rápido)
@@ -2257,8 +2252,7 @@ es:
           help_text: 'Para presentar una declaración simplificada a través de GetCTC deberá cumplir las siguientes condiciones:'
           still_benefit: Todavía puede beneficiarse presentando una declaración de impuestos completa de forma gratuita a través de GetYourRefund.
           title: Desgraciadamente, no es elegible para utilizar nuestra herramienta de presentación simplificada. ¡Pero aún así podemos ayudarle!
-          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
-          visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el Estímulo
+          visit_our_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
         verification:
           body: 'Se le ha enviado un mensaje con su código a:'
           error_message: El código de verificación está equivocado
