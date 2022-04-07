@@ -15,7 +15,9 @@
     <p><%= t("views.ctc.questions.advance_ctc.total_adv_ctc_details_html") %>:</p>
     <ul class="with-bullets">
       <% current_intake.dependents.each do |dependent| %>
-        <li><%= dependent.full_name %></li>
+        <% if dependent.qualifying_ctc? %>
+          <li><%= dependent.full_name %></li>
+        <% end %>
       <% end %>
     </ul>
     <p><%= t("views.ctc.questions.advance_ctc.adv_ctc_time_frame") %></p>

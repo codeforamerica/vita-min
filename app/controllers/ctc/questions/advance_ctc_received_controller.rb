@@ -9,7 +9,7 @@ module Ctc
         return false if intake.advance_ctc_amount_received.nil? || intake.dependents.count(&:qualifying_ctc?).zero?
 
         benefits = Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents)
-        benefits.advance_ctc_amount_received < benefits.outstanding_ctc_amount
+        benefits.advance_ctc_amount_received < benefits.ctc_amount
       end
 
       def edit
