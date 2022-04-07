@@ -2262,7 +2262,7 @@ en:
           title: It looks like you are still owed some stimulus payments. Would you like to claim it?
         stimulus_payments:
           different_amount: I received a different amount
-          no_amount: I didn't received any payments
+          no_amount: I didn't receive any payments
           question: Did you receive this amount?
           reveal:
             content_html:
