@@ -2047,16 +2047,32 @@ es:
             us_territory: Territorio de Estados Unidos, como Puerto Rico o Guam
           title: "¿Cuál fue su domicilio principal durante %{current_tax_year}?"
         income:
-          filing_married: "%{joint_deduction} si declara como persona casada"
-          filing_single: "%{single_deduction} si declara como persona soltera"
-          help_text: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
-          income_sources:
-          - salario
-          - pago por hora
-          - propinas
-          - comisiones
-          - pagos de trabajo por cuenta propia o por contrato
-          title: En el %{current_tax_year}, ¿ganó más de la siguiente cantidad?
+          have_questions_reveal:
+            content:
+              list_1:
+              - salario
+              - salarios por hora
+              - consejos
+              - comisiones
+              - pagos por cuenta propia o por contrato
+              list_2:
+              - venta de productos caseros
+              - conducir para Uber, Lyft o similar
+              - alquilar su casa
+              p1: 'Los ingresos pueden provenir de cualquiera de las siguientes fuentes:'
+              p2: 'Ingreso de trabajo por cuenta propia es generalmente cualquier dinero que ganó de su propio negocio o trabajando a tiempo parcial para un empleador. Esto podría incluir:'
+            title: "¿Tiene preguntas sobre los ingresos?"
+          help_text: 'Solo puede usar GetCTC si no tiene una obligación de presentación. Esto generalmente significa: '
+          income_qualifications:
+          - ganó menos del %{standard_deduction} en ingresos de cualquier fuente
+          - ganó menos de $ 400 en ingresos de trabajo por cuenta propia
+          - usted no recibió el crédito fiscal de prima anticipada
+          title: 'En %{current_tax_year}, las siguientes afirmaciones son correctas:'
+          what_is_aptc_reveal:
+            content:
+              p1: No habría recibido el crédito fiscal avanzado para primas si tiene Medicaid, Medicare, si obtiene cobertura de atención médica a través de un empleador o si no tiene cobertura de atención médica.
+              p2: Probablemente hubiera recibido el Crédito fiscal anticipado para primas si hubiera comprado un seguro a precio de mercado en un mercado de seguros de salud en virtud de la Ley del Cuidado de Salud a Bajo Precio.
+            title: "¿Qué es el Crédito Fiscal de Prima Anticipado?"
         ip_pin:
           help_text: Tener un PIN de IP es muy poco frecuente. Si no está familiarizado con lo que es, es probable que no se le haya emitido un PIN de IP. Seleccione "Ninguna de las anteriores" para continuar.
           reveal_label: "¿Qué es un IP PIN?"
@@ -2108,7 +2124,6 @@ es:
           help_text: Utilice nuestra sencilla herramienta de presentación de impuestos electrónica para recibir su Crédito Tributario por Hijos (CTC) y cualquier pago de estímulo o corrección que se le deba.
           items:
           - Tiene un número válido de Seguro Social o de ITIN
-          - Ganó menos de %{single_deduction} si es soltero, %{joint_deduction} si está casado y presenta una declaración conjunta
           - Usted no ha declarado impuestos este año
           - No recibió la totalidad del estímulo que le correspondía
           right_for_you: 'Esta es la herramienta adecuada para usted si:'

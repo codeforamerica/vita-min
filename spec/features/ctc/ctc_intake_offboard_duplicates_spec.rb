@@ -14,11 +14,15 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
     click_on I18n.t('general.continue')
 
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
+    choose I18n.t('general.filing_status.single')
+    click_on I18n.t('general.continue')
+
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
       expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
     end
-    click_on I18n.t('general.negative')
+    click_on I18n.t('general.affirmative')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.restrictions.title'))
     click_on I18n.t('general.continue')

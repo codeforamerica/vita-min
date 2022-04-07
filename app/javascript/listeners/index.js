@@ -44,8 +44,8 @@ const Listeners =  (function(){
                     initStateRoutingsListeners();
                 }
 
-                if(window.appData.controller_action == "Ctc::Questions::IncomeController#edit" || window.appData.controller_action == "Ctc::Questions::IncomeController#update") {
-                    getEfileSecurityInformation('ctc_income_form');
+                if(window.appData.controller_action == "Ctc::Questions::FilingStatusController#edit" || window.appData.controller_action == "Ctc::Questions::FilingStatusController#update") {
+                    getEfileSecurityInformation('ctc_filing_status_form');
                 }
 
                 if(window.appData.controller_action == "Ctc::Questions::ConfirmLegalController#edit" || window.appData.controller_action == "Ctc::Questions::LegalConsentController#update") {

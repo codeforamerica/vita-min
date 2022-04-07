@@ -2090,16 +2090,32 @@ en:
             us_territory: U.S. territory, such as Puerto Rico or Guam
           title: Where was your main home for %{current_tax_year}?
         income:
-          filing_married: "%{joint_deduction} if filing married"
-          filing_single: "%{single_deduction} if filing single"
-          help_text: 'Income could come from any of the following sources:'
-          income_sources:
-          - salary
-          - hourly wages
-          - tips
-          - commissions
-          - self-employment or contract payments
-          title: 'In %{current_tax_year}, did you earn over:'
+          have_questions_reveal:
+            content:
+              list_1:
+              - salary
+              - hourly wages
+              - tips
+              - commissions
+              - self-employment or contract payments
+              list_2:
+              - selling homemade goods
+              - driving for Uber, Lyft or similar
+              - renting out your home
+              p1: 'Income could come from any of the following sources:'
+              p2: 'Self employment income is is generally any money that you made from your own business or working part time for an employer. This could include:'
+            title: Have questions about income?
+          help_text: 'You can only use GetCTC if you don’t have a filing obligation. This generally means:'
+          income_qualifications:
+          - you earned less that %{standard_deduction} in income from any source
+          - you earned less that $400 in self employment income
+          - you did not recieve the Advanced Premium Tax Credit
+          title: 'In %{current_tax_year}, are the following statements correct:'
+          what_is_aptc_reveal:
+            content:
+              p1: You would not have received the Advanced Premium Tax Credit if you are on Medicaid, Medicare,  get healthcare coverage through an employer, or you don’t have healthcare coverage.
+              p2: You probably would have received the Advanced Premium Tax Credit if you purchased market-rate insurance in a health insurance marketplace under the Affordable Care Act.
+            title: What is the Advanced Premium Tax Credit?
         ip_pin:
           help_text: Having an IP PIN is rare. If you are unfamiliar with what this is, it’s likely that you have not been issued an IP PIN. Select ‘None of the above’ to continue.
           reveal_label: What is an IP PIN?
@@ -2148,12 +2164,11 @@ en:
           - We will not send any information that you shared with us to the IRS.
           title: You’ve decided to not file a tax return.
         overview:
-          help_text: Use our simple e-filing tool to receive your Child Tax Credit and any stimulus payments or corrections you are owed.
+          help_text: Use our simple e-filing tool to receive your Child Tax Credit and your stimulus payment or corrections you are owed.
           items:
           - You have a valid SSN or ITIN
-          - You earned less than %{single_deduction} if single, %{joint_deduction} if married filing jointly
           - You have not filed a return this year
-          - You didn't receive the full amount of stimulus you were owed
+          - You want to claim the Child Tax Credit and/or the third stimulus payment
           right_for_you: 'This is the right tool for you if:'
           title: Welcome!
         prior_tax_year_agi:

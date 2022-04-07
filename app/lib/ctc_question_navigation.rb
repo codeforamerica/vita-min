@@ -4,7 +4,8 @@ class CtcQuestionNavigation
   FLOW = [
     # Basic info
     Ctc::Questions::OverviewController,
-    Ctc::Questions::IncomeController, # At this point we create the intake, client, and tax return
+    Ctc::Questions::FilingStatusController, # At this point we create the intake, client, and tax return
+    Ctc::Questions::IncomeController,
     Ctc::Questions::FileFullReturnController,
     Ctc::Questions::RestrictionsController,
 
@@ -24,9 +25,8 @@ class CtcQuestionNavigation
     Ctc::Questions::EmailVerificationController,  # At this verification point we sign in the client
     Ctc::Questions::PhoneVerificationController,  # Same sign in behavior as previous controller, but verified through SMS instead of email
 
-    # Filing Status
-    Ctc::Questions::FilingStatusController, # This and all later controllers require the client to be signed in
-    Ctc::Questions::SpouseInfoController,
+    # Spouse Info
+    Ctc::Questions::SpouseInfoController, # This and all later controllers require the client to be signed in
     Ctc::Questions::SpouseFiledPriorTaxYearController,
     Ctc::Questions::SpousePriorTaxYearAgiController,
     Ctc::Questions::SpouseReviewController,
