@@ -11,8 +11,6 @@ class CtcQuestionNavigation
 
     # Eligibility
     Ctc::Questions::AlreadyFiledController,
-    Ctc::Questions::FiledPriorTaxYearController,
-    Ctc::Questions::PriorTaxYearLifeSituationsController,
     Ctc::Questions::HomeController,
     Ctc::Questions::LifeSituationsController,
 

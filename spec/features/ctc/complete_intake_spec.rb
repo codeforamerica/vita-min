@@ -34,9 +34,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # =========== ELIGIBILITY ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
-    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
-    click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
     choose I18n.t('views.ctc.questions.home.options.foreign_address')
     click_on I18n.t('general.continue')
@@ -410,15 +407,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # =========== ELIGIBILITY ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
-    choose I18n.t('views.ctc.questions.filed_prior_tax_year.filed_full', prior_tax_year: prior_tax_year)
-    click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.prior_tax_year_life_situations.title', current_tax_year: current_tax_year))
-    click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.home.title', current_tax_year: current_tax_year))
     choose I18n.t('views.ctc.questions.home.options.fifty_states')
     click_on I18n.t('general.continue')
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 

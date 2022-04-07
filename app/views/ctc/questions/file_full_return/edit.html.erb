@@ -6,11 +6,14 @@
 
   <p><%= t("views.ctc.questions.file_full_return.help_text", current_tax_year: current_tax_year)%></p>
 
-  <ul class="list--bulleted">
-    <% t("views.ctc.questions.file_full_return.list").each do |list| %>
-      <li><%= list %></li>
+  <div class="reveal-shrink-wrapper">
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.file_full_return.reveal.title")) do %>
+      <% t('views.ctc.questions.file_full_return.reveal.body_html',
+           link_to_get_your_refund: link_to(t("views.ctc_pages.home.service_name"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home'))).each do |body| %>
+        <p><%= body %></p>
+        <% end %>
     <% end %>
-  </ul>
+  </div>
 
   <%= link_to next_path, class: "button button--full-width text--centered spacing-above-60 button--primary" do %>
     <%= t("views.ctc.questions.file_full_return.simplified_btn") %>

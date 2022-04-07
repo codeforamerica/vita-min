@@ -8,7 +8,7 @@ module Ctc
       def show; end
 
       def illustration_path
-        "hand-holding-check.svg"
+        "warning-triangle-yellow.svg"
       end
 
       def illustration_folder
