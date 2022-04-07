@@ -1,8 +1,8 @@
-class AdvCtcIrs1040Pdf
+class Irs1040Pdf
   include PdfHelper
 
   def source_pdf_name
-    "TY2020Form1040"
+    "f1040-TY2021"
   end
 
   def initialize(submission)

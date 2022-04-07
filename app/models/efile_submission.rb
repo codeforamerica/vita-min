@@ -130,7 +130,7 @@ class EfileSubmission < ApplicationRecord
     filename = "IRS 1040 - TY #{tax_return.year} - #{irs_submission_id}.pdf"
 
     ClientPdfDocument.create_or_update(
-      output_file: AdvCtcIrs1040Pdf.new(self).output_file,
+      output_file: Irs1040Pdf.new(self).output_file,
       document_type: DocumentTypes::Form1040,
       client: self.client,
       filename: filename,

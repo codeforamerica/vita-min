@@ -358,7 +358,7 @@ describe EfileSubmission do
     let(:example_pdf) { File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "rb") }
 
     before do
-      allow(AdvCtcIrs1040Pdf).to receive(:new).and_return(instance_double(AdvCtcIrs1040Pdf, output_file: example_pdf))
+      allow(Irs1040Pdf).to receive(:new).and_return(instance_double(Irs1040Pdf, output_file: example_pdf))
     end
 
     it "generates and stores the 1040 PDF" do
