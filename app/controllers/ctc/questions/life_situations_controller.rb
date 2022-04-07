@@ -7,7 +7,9 @@ module Ctc
 
       private
 
-      def illustration_path; end
+      def illustration_path
+        "dependents.svg"
+      end
 
       def method_name
         "can_be_claimed_as_dependent"

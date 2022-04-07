@@ -10,7 +10,7 @@
     <% t("views.ctc.questions.use_gyr.ctc_conditions",
          current_tax_year: current_tax_year,
          single_deduction: number_to_currency(standard_deduction.standard_deduction(:single)),
-         joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_joint))
+         joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_jointly))
        ).each do |condition| %>
       <li><%= condition %></li>
     <% end %>
