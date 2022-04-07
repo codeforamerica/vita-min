@@ -165,6 +165,14 @@
                     /
                     <span class="label-value"><%= "$#{benefits.claimed_recovery_rebate_credit}" if benefits.claimed_recovery_rebate_credit %></span>
                   </div>
+                  <% unless @client.intake.advance_ctc_amount_received.nil? %>
+                    <div class="field-display">
+                      <span class="form-question">Outstanding CTC / Advance CTC Received:</span>
+                      <span class="label-value"><%= "$#{benefits.outstanding_ctc_amount}" if benefits.outstanding_ctc_amount %></span>
+                      /
+                      <span class="label-value"><%= "$#{benefits.advance_ctc_amount_received}" if benefits.advance_ctc_amount_received %></span>
+                    </div>
+                  <% end %>
                 <% end %>
                 <div class="field-display">
                   <span class="form-question">Claim credit:</span>

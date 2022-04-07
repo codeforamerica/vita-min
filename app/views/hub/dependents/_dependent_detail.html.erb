@@ -3,7 +3,7 @@
         <span class="form-question">
           Dependent Type:
         </span>
-        <%= dependent_eligibility = Efile::DependentEligibility::Eligibility.new(dependent, @client.intake.default_tax_year) %>
+        <% dependent_eligibility = Efile::DependentEligibility::Eligibility.new(dependent, @client.intake.default_tax_year) %>
 
         <span class="label-value">
           <% if dependent_eligibility.qualifying_child? %>
