@@ -2286,7 +2286,7 @@ en:
         use_gyr:
           collect_money: Collect all the money you are owed by filing with GetYourRefund.
           ctc_conditions:
-          - You earned less than %{single_deduction} if filing single, %{joint_deduction} if married filing jointly in %{current_tax_year}
+          - You earned less than %{single_deduction} if filing single or %{joint_deduction} if married filing jointly in %{current_tax_year}
           - You are a U.S. citizen, U.S. national, or U.S. resident alien
           - You cannot be claimed as a dependent
           - You (and your spouse if applicable) have a valid SSN or ITIN
