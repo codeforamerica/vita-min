@@ -2256,9 +2256,7 @@ es:
           file_gyr: Solicite por medio de GetYourRefund
           help_text: 'Para presentar una declaración simplificada a través de GetCTC deberá cumplir las siguientes condiciones:'
           still_benefit: Todavía puede beneficiarse presentando una declaración de impuestos completa de forma gratuita a través de GetYourRefund.
-          title: Desgraciadamente, no es elegible para utilizar nuestra herramienta de presentación simplificada. ¡Pero aún así podemos ayudarle!
-          visit_ctc_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
-          visit_stimulus_faq: Visite las Preguntas Frecuentes sobre el Estímulo
+          visit_our_faq: Visite las Preguntas Frecuentes sobre el Crédito Tributario por Hijos
         verification:
           body: 'Se le ha enviado un mensaje con su código a:'
           error_message: El código de verificación está equivocado

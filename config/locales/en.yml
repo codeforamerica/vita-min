@@ -2295,13 +2295,12 @@ en:
           - You earned less than %{single_deduction} if filing single, %{joint_deduction} if married filing jointly in %{current_tax_year}
           - You are a U.S. citizen, U.S. national, or U.S. resident alien
           - You cannot be claimed as a dependent
-          - You and your spouse have a valid SSN or ITIN
+          - You (and your spouse if applicable) have a valid SSN or ITIN
           file_gyr: File with GetYourRefund
           help_text: 'In order to file a simplified return through GetCTC you would need to meet the following conditions:'
           still_benefit: You could still benefit by filing a full tax return for free using GetYourRefund.
           title: Unfortunately, you are not eligible to use our simplified filing tool. But we can still help!
-          visit_ctc_faq: Visit the Child Tax Credit FAQ
-          visit_stimulus_faq: Visit the Stimulus FAQ
+          visit_our_faq: Visit our FAQ
         verification:
           body: 'A message with your code has been sent to:'
           error_message: Incorrect verification code.
