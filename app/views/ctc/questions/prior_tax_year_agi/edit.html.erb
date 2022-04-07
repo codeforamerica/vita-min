@@ -12,10 +12,6 @@
     <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, class: 'amount-collection-form' do |f| %>
       <%= f.cfa_input_field(:primary_prior_year_agi_amount, t("views.ctc.questions.prior_tax_year_agi.label", prior_tax_year: prior_tax_year), prefix: "$") %>
 
-      <%= render('components/molecules/reveal', title: t("views.ctc.questions.prior_tax_year_agi.reveal_label")) do %>
-        <%= t("views.ctc.questions.prior_tax_year_agi.reveal_content") %>
-      <% end %>
-
       <%= f.button :submit, class: "button button--wide button--primary spacing-above-60" do %>
         <%= t("general.continue") %>
       <% end %>
