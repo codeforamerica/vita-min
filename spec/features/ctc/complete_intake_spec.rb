@@ -436,8 +436,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
     choose I18n.t('views.ctc.questions.filed_prior_tax_year.filed_full', prior_tax_year: prior_tax_year)
     click_on I18n.t('general.continue')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.prior_tax_year_agi.title'))
-    fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label'), with: '$12,340'
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.prior_tax_year_agi.title', prior_tax_year: prior_tax_year))
+    fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label', prior_tax_year: prior_tax_year), with: '$12,340'
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
