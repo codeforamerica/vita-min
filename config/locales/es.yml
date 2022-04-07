@@ -2135,13 +2135,13 @@ es:
           title: "¡Bienvenido!"
         prior_tax_year_agi:
           help_text_html: |
-            Debido a que declaró que presentó una declaración de impuestos completa en 2019, necesitaremos verificar cuál fue su ingreso bruto ajustado (AGI) en 2019.</br>
+            Debido a que declaró que presentó una declaración de impuestos completa en %{prior_tax_year}, necesitaremos verificar cuál fue su ingreso bruto ajustado (AGI) en %{prior_tax_year}.</br>
             </br>
-            Puede encontrar esta información en la línea 8B de su declaración de impuestos de 2019. Por favor, introduzca la cantidad correcta de su declaración de 2019 o su declaración será rechazada.
-          label: Ingreso Bruto Ajustado de 2019
+            Puede encontrar esta información en la línea 8B de su declaración de impuestos de %{prior_tax_year}. Por favor, introduzca la cantidad correcta de su declaración de %{prior_tax_year} o su declaración será rechazada.
+          label: Ingreso Bruto Ajustado de %{prior_tax_year}
           reveal_content: El IRS nos obliga a hacer esta pregunta para verificar su identidad antes de presentar su declaración de impuestos.
           reveal_label: "¿Por qué me hacen estas preguntas?"
-          title: "¿Cuál fue su Ingreso Bruto Ajustado de 2019?"
+          title: "¿Cuál fue su Ingreso Bruto Ajustado de %{prior_tax_year}?"
         refund_payment:
           check: Envíeme mi pago (más lento)
           direct_deposit: Depósito directo (el más rápido)

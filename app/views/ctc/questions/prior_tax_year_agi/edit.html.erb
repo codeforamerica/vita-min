@@ -1,4 +1,4 @@
-<% @main_question = t("views.ctc.questions.prior_tax_year_agi.title") %>
+<% @main_question = t("views.ctc.questions.prior_tax_year_agi.title", prior_tax_year: prior_tax_year) %>
 
 <% content_for :page_title, @main_question %>
 
@@ -6,11 +6,11 @@
   <h1 class="h2"><%= @main_question %></h1>
 
   <p>
-    <%= t("views.ctc.questions.prior_tax_year_agi.help_text_html") %>
+    <%= t("views.ctc.questions.prior_tax_year_agi.help_text_html", prior_tax_year: prior_tax_year) %>
   </p>
   <div class="amount-collection">
     <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, class: 'amount-collection-form' do |f| %>
-      <%= f.cfa_input_field(:primary_prior_year_agi_amount, t("views.ctc.questions.prior_tax_year_agi.label"), prefix: "$") %>
+      <%= f.cfa_input_field(:primary_prior_year_agi_amount, t("views.ctc.questions.prior_tax_year_agi.label", prior_tax_year: prior_tax_year), prefix: "$") %>
 
       <%= render('components/molecules/reveal', title: t("views.ctc.questions.prior_tax_year_agi.reveal_label")) do %>
         <%= t("views.ctc.questions.prior_tax_year_agi.reveal_content") %>

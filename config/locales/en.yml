@@ -2177,13 +2177,13 @@ en:
           title: Welcome!
         prior_tax_year_agi:
           help_text_html: |
-            Because you stated that you filed a full tax return in 2019, we’ll need to verify what your Adjusted Gross Income (AGI) was in 2019.</br>
+            Because you stated that you filed a full tax return in %{prior_tax_year}, we’ll need to verify what your Adjusted Gross Income (AGI) was in %{prior_tax_year}.</br>
             </br>
-            You can find this information on Line 8B of your 2019 tax return. Please enter the correct amount from your 2019 return or your return will be rejected.
-          label: 2019 Adjusted Gross Income
+            You can find this information on Line 8B of your %{prior_tax_year} tax return. Please enter the correct amount from your %{prior_tax_year} return or your return will be rejected.
+          label: %{prior_tax_year} Adjusted Gross Income
           reveal_content: 'The IRS requires us to ask this to verify your identity prior to submitting your tax return. '
           reveal_label: Why are you asking this?
-          title: What was your 2019 Adjusted Gross Income?
+          title: What was your %{prior_tax_year} Adjusted Gross Income?
         refund_payment:
           check: Mail my payment (slower)
           direct_deposit: Direct deposit (fastest)
