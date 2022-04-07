@@ -16,6 +16,7 @@ class CtcQuestionNavigation
 
     # Consent/Contact
     Ctc::Questions::LegalConsentController,
+    Ctc::Questions::FiledPriorTaxYearController,
     Ctc::Questions::PriorTaxYearAgiController,
     Ctc::Questions::ContactPreferenceController,
     Ctc::Questions::CellPhoneNumberController,

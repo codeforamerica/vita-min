@@ -2070,6 +2070,12 @@ en:
             title: How can I learn more about the first two stimulus payments?
           simplified_btn: Continue filing a simplified return
           title: You are currently filing a simplified tax return to claim your Child Tax Credit and third stimulus payment.
+        filed_prior_tax_year:
+          did_not_file: No, I didn't file a %{prior_tax_year} tax return
+          filed_full: Yes, I filed a full return
+          filed_non_filer: Yes, I filed using the IRS non-filer portal
+          help_text: Did you file a tax return for the %{prior_tax_year} tax year? This tax return would have originally been due on April 15, %{current_tax_year} and would have typically been completed last year.
+          title: Did you file a %{prior_tax_year} tax return?
         filing_status:
           married_filing_jointly: Married Filing Jointly
           reveal_body: If you normally file as head of household or married filing separately, select ‘single’ for the purpose of this return.
@@ -2178,9 +2184,6 @@ en:
           reveal_content: 'The IRS requires us to ask this to verify your identity prior to submitting your tax return. '
           reveal_label: Why are you asking this?
           title: What was your 2019 Adjusted Gross Income?
-        filed_prior_tax_year:
-          help_text: Did you file a tax return for the %{prior_tax_year} tax year? This tax return would have originally been due on April 15, %{current_tax_year} and would have typically been completed last year.
-          title: Did you file a %{prior_tax_year} tax return?
         refund_payment:
           check: Mail my payment (slower)
           direct_deposit: Direct deposit (fastest)

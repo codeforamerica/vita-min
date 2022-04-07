@@ -59,6 +59,10 @@ module NavigationHelpers
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: sms_phone_number
     click_on I18n.t('views.ctc.questions.legal_consent.agree')
 
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
+    click_on I18n.t('general.continue')
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
     click_on I18n.t('views.ctc.questions.contact_preference.email')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.email_address.title'))

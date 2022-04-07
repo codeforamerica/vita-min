@@ -2029,8 +2029,11 @@ es:
           simplified_btn: Continuar con la declaración simplificada
           title: "¡Si obtuvo ingresos, puede obtener beneficios adicionales presentando una declaración completa!"
         filed_prior_tax_year:
-          help_text: ¿Presentó una declaración de impuestos para el año fiscal %{prior_tax_year}? Esta declaración de impuestos originalmente vencía el 15 de abril de %{current_tax_year} y, por lo general, se habría completado el año pasado.
-          title: ¿Presentaste una declaración de impuestos de %{prior_tax_year}?
+          did_not_file: No, no presenté la declaración de impuestos del %{prior_tax_year}
+          filed_full: Sí, presenté una declaración completa
+          filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
+          help_text: "¿Presentó una declaración de impuestos para el año fiscal %{prior_tax_year}? Esta declaración de impuestos originalmente vencía el 15 de abril de %{current_tax_year} y, por lo general, se habría completado el año pasado."
+          title: "¿Presentaste una declaración de impuestos de %{prior_tax_year}?"
         filing_status:
           married_filing_jointly: Casado con declaración conjunta
           reveal_body: Si normalmente declara como jefe de familia o casado que presenta la declaración por separado, seleccione "soltero" a efectos de esta declaración.
