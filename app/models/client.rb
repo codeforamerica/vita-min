@@ -150,6 +150,10 @@ class Client < ApplicationRecord
     except(:limit, :offset)
   end
 
+  after_create_commit do
+    Rails.logger.info("Created a client with id #{id}")
+  end
+
   def self.locale_counts
     counts = joins(:intake).group(:locale).count
     counts["en"] = 0 unless counts.key?("en")

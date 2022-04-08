@@ -49,6 +49,16 @@
 require "rails_helper"
 
 describe Client do
+  describe '#create' do
+    it 'logs the id of the created client' do
+      allow(Rails.logger).to receive(:info)
+
+      created_client = create :client
+
+      expect(Rails.logger).to have_received(:info).with("Created a client with id #{created_client.id}")
+    end
+  end
+
   describe ".sla_tracked scope" do
     let(:client_before_consent) { create(:client, intake: (create :intake)) }
     let(:client_in_progress) { create(:client, intake: (create :intake)) }
