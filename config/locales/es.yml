@@ -2172,8 +2172,8 @@ es:
           did_not_file: Mi cónyuge no presentó la declaración de impuestos del %{prior_tax_year}
           filed_full_joint: Mi cónyuge presentó la declaración de impuestos completa conjuntamente conmigo
           filed_full_separate: Mi cónyuge presentó la declaración de impuestos completa por separado de la mía
-          filed_non_filer_joint: Mi cónyuge presentó la declaración de impuestos conmigo utilizando la herramienta de no declarantes del IRS
-          filed_non_filer_separate: Mi cónyuge presentó la declaración de impuestos completa por separado de la mía utilizando la herramienta de no declarantes
+          filed_non_filer_joint: Mi cónyuge presentó la declaración de impuestos conmigo utilizando GetCTC o la herramienta de no declarantes del IRS
+          filed_non_filer_separate: Mi cónyuge presentó la declaración de impuestos completa por separado de la mía utilizando GetCTC o la herramienta de no declarantes
           help_text: "¿Presentó su cónyuge una declaración de impuestos, después del 1 de enero de %{current_tax_year}, para el año fiscal %{prior_tax_year}? "
           title: "¿Presentó su cónyuge una declaración de impuestos para %{prior_tax_year}? "
         spouse_info:
@@ -2199,7 +2199,7 @@ es:
           help_text_html: |
             Debido a que ha indicado que su cónyuge presentó una declaración de impuestos en el %{prior_tax_year}, tendremos que verificar cuál fue el ingreso bruto ajustado (AGI) de su cónyuge en el %{prior_tax_year}.<br/>
             <br/>
-            Puede encontrar esta información en la línea 8B de la declaración de impuestos del %{prior_tax_year} de su cónyuge. Introduzca la cantidad correcta o su declaración será rechazada.
+            Puede encontrar esta información en la línea 11 de la declaración de impuestos del %{prior_tax_year} de su cónyuge. Introduzca la cantidad correcta o su declaración será rechazada.
           reveal_content: El IRS nos obliga a hacerle esta pregunta para verificar la identidad de su cónyuge antes de presentar su declaración de impuestos.
           reveal_label: "¿Por qué me hacen estas preguntas?"
           title: "¿Cuáles fue el ingreso bruto ajustado de su cónyuge en %{prior_tax_year}?"
