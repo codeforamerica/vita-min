@@ -2212,8 +2212,8 @@ en:
           did_not_file: My spouse did not file a %{prior_tax_year} tax return
           filed_full_joint: My spouse filed a full tax return jointly with me
           filed_full_separate: My spouse filed a full tax return separately from me
-          filed_non_filer_joint: My spouse filed a tax return with me using the IRS non-filer tool
-          filed_non_filer_separate: My spouse filed a tax return separately from me using the IRS non-filer tool
+          filed_non_filer_joint: My spouse filed a tax return with me, using GetCTC or the IRS non-filer tool
+          filed_non_filer_separate: My spouse filed a tax return separately from me, using GetCTC or the IRS non-filer tool
           help_text: 'Did your spouse file a tax return, after January 1, %{current_tax_year}, for the %{prior_tax_year} tax year? '
           title: Did your spouse file a %{prior_tax_year} tax return?
         spouse_info:
@@ -2239,7 +2239,7 @@ en:
           help_text_html: |
             Because you stated that your spouse filed a tax return in %{prior_tax_year}, we’ll need to verify what your spouse’s Adjusted Gross Income (AGI) was in %{prior_tax_year}.<br/>
             <br/>
-            You can find this information on Line 8B of your spouse’s %{prior_tax_year} tax return. Please enter the correct amount or your return will be rejected."
+            You can find this information on Line 11 of your spouse’s %{prior_tax_year} tax return. Please enter the correct amount or your return will be rejected."
           reveal_content: 'The IRS requires us to ask this to verify your spouse’s identity prior to submitting your tax return. '
           reveal_label: Why are you asking this?
           title: What was your spouse’s %{prior_tax_year} Adjusted Gross Income?

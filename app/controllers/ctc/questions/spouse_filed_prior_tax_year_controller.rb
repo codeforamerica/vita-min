@@ -11,8 +11,9 @@ module Ctc
 
       private
 
-      def illustration_path; end
-
+      def illustration_path
+        "hand-holding-check.svg"
+      end
     end
   end
 end

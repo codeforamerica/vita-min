@@ -478,7 +478,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_prior_tax_year_agi.title', prior_tax_year: prior_tax_year))
-    fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label'), with: '4,567'
+    fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label', prior_tax_year: prior_tax_year), with: '4,567'
     click_on I18n.t('general.continue')
 
     intake = Intake.last
