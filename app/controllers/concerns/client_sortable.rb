@@ -18,9 +18,9 @@ module ClientSortable
 
   # TEMPORARILY reverting to use status in filtering so that we don't experience downtime when renaming column.
   def filtered_clients
-    clients = @clients.after_consent # inner joins on intake to get consented clients, also excludes clients without intakes
+    clients = @clients.with_consented_intake # inner joins on intake to get consented clients, also excludes clients without intakes
     if current_user&.greeter?
-      clients = clients.greetable.or(Client.after_consent.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct)
+      clients = clients.greetable.or(Client.with_consented_intake.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct)
     end
     clients = clients.joins(:intake) # exclude clients without an intake
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?

@@ -90,16 +90,15 @@ describe Client do
     end
   end
 
-  describe ".after_consent scope" do
+  describe ".with_consented_intake scope" do
     let!(:client_not_consented) { create :client, intake: (create :intake, primary_consented_to_service_at: nil)}
     let!(:client_consented) { create :client, intake: (create :intake, primary_consented_to_service_at: DateTime.now) }
     let!(:client_no_intake) { create :client, intake: nil }
     it "includes consented clients and excludes non consented clients" do
-      consented_clients = Client.after_consent
+      consented_clients = Client.with_consented_intake
       expect(consented_clients).to include client_consented
       expect(consented_clients).not_to include client_not_consented
       expect(consented_clients).not_to include client_no_intake
-
     end
   end
 

@@ -26,7 +26,7 @@ RSpec.describe ClientSortable, type: :controller do
 
     allow(subject).to receive(:params).and_return params
     subject.instance_variable_set(:@clients, clients_query_double)
-    allow(clients_query_double).to receive(:after_consent).and_return clients_query_double
+    allow(clients_query_double).to receive(:with_consented_intake).and_return clients_query_double
     allow(Client).to receive(:joins).and_return Client
     allow(clients_query_double).to receive(:joins).and_return clients_query_double
     allow(clients_query_double).to receive(:greetable).and_return clients_query_double
