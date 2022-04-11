@@ -4,6 +4,7 @@ class EfileSubmissionStateMachine
 
   state :new, initial: true
   state :preparing
+  state :bundling
   state :queued
 
   # submission-related response statuses
@@ -21,37 +22,48 @@ class EfileSubmissionStateMachine
   state :resubmitted
   state :cancelled
 
-  transition from: :new,               to: [:preparing, :fraud_hold]
-  transition from: :preparing,         to: [:queued, :failed, :fraud_hold]
-  transition from: :queued,            to: [:transmitted, :failed, :fraud_hold]
+  transition from: :new,               to: [:preparing]
+  transition from: :preparing,         to: [:bundling, :fraud_hold]
+  transition from: :bundling,          to: [:queued, :failed]
+  transition from: :queued,            to: [:transmitted, :failed]
   transition from: :transmitted,       to: [:accepted, :rejected, :failed]
   transition from: :failed,            to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
   transition from: :rejected,          to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
   transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
-  transition from: :resubmitted,       to: [:preparing]
   transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
-  transition from: :fraud_hold,        to: [:preparing, :queued, :failed, :rejected, :investigating, :resubmitted, :waiting]
+  transition from: :fraud_hold,        to: [:investigating, :resubmitted, :waiting, :cancelled]
 
-  guard_transition(to: :preparing) do |_submission|
+  guard_transition(to: :bundling) do |_submission|
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
   end
 
-  after_transition(to: :preparing) do |submission|
-    bypass_fraud_check = submission.admin_resubmission? || submission.client.identity_verified_at
-    hold_indicators = bypass_fraud_check ? [] : FraudIndicatorService.hold_indicators(submission.client)
+  guard_transition(to: :bundling) do |submission|
+    submission.fraud_score.present?
+  end
 
-    if hold_indicators.present?
-      submission.transition_to!(:fraud_hold, indicators: hold_indicators)
+  after_transition(to: :preparing) do |submission|
+    submission.create_qualifying_dependents
+
+    fraud_score = Fraud::Score.create_from(submission)
+    bypass_fraud_check = submission.admin_resubmission? || submission.client.identity_verified_at
+    if bypass_fraud_check || fraud_score.score < Fraud::Score::HOLD_THRESHOLD
+      submission.transition_to(:bundling)
     else
-      # Only sends if efile preparing message has never been sent bc
-      # AutomatedMessage::EfilePreparing has send_only_once set to true
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: submission.client,
-        message: AutomatedMessage::EfilePreparing
-      )
-      BuildSubmissionBundleJob.perform_later(submission.id)
-      submission.tax_return.transition_to(:file_ready_to_file)
+      submission.client.touch(:restricted_at) if fraud_score.score > Fraud::Score::RESTRICT_THRESHOLD
+      submission.transition_to(:fraud_hold)
     end
+  end
+
+  after_transition(to: :bundling) do |submission|
+    # Only sends if efile preparing message has never been sent bc
+    # AutomatedMessage::EfilePreparing has send_only_once set to true
+    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+      client: submission.client,
+      message: AutomatedMessage::EfilePreparing
+    )
+    submission.tax_return.transition_to!(:file_ready_to_file)
+
+    BuildSubmissionBundleJob.perform_later(submission.id)
   end
 
   after_transition(to: :queued) do |submission|
@@ -132,15 +144,10 @@ class EfileSubmissionStateMachine
   after_transition(to: :waiting) do |submission|
     submission.tax_return.transition_to(:file_hold)
   end
-
-  after_transition(to: :resubmitted) do |submission|
-    if submission.efile_submission_transitions.where(to_state: :transmitted).count.zero?
-      submission.transition_to!(:preparing)
-    else
-      # Re-submission doesn't involve client interaction so we use e-file security information from the last interaction
-      @new_submission = submission.tax_return.efile_submissions.create
-      @new_submission.transition_to!(:preparing, previous_submission_id: submission.id)
-    end
+  
+  after_transition(to: :resubmitted) do |submission, transition|
+    @new_submission = submission.tax_return.efile_submissions.create
+    @new_submission.transition_to!(:preparing, previous_submission_id: submission.id, initiated_by_id: transition.metadata["initiated_by_id"])
   end
 
   after_transition(to: :cancelled) do |submission|

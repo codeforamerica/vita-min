@@ -23,7 +23,7 @@ describe EfileSubmissionDependent do
   let(:submission) { create :efile_submission }
   let(:dependent) { create :dependent }
 
-  describe '.create_from_eligibility' do
+  describe '.create_qualifying_dependent' do
     let(:results) do
       {
           qualifying_child: true,
@@ -39,7 +39,7 @@ describe EfileSubmissionDependent do
     context "when the submission and dependent are not already associated through the intake" do
       it "raises an error" do
         expect {
-          EfileSubmissionDependent.create_from_eligibility(submission, dependent)
+          EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
         }.to raise_error RuntimeError
       end
     end
@@ -59,7 +59,7 @@ describe EfileSubmissionDependent do
       end
 
       it "calculates eligibility" do
-        EfileSubmissionDependent.create_from_eligibility(submission, dependent)
+        EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
         expect(eligibility_double).to have_received(:qualifying_ctc?).exactly(2).times
         expect(eligibility_double).to have_received(:qualifying_child?).exactly(2).times
         expect(eligibility_double).to have_received(:qualifying_relative?).exactly(2).times
@@ -68,7 +68,7 @@ describe EfileSubmissionDependent do
       context "when the tested dependent is eligible for something" do
         it "creates an EfileSubmissionDependent object" do
           expect {
-            EfileSubmissionDependent.create_from_eligibility(submission, dependent)
+            EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
           }.to change(EfileSubmissionDependent, :count).by(1)
           object = EfileSubmissionDependent.last
 
@@ -88,7 +88,7 @@ describe EfileSubmissionDependent do
         end
         it "does not create an EfileSubmissionDependent object" do
           expect {
-            EfileSubmissionDependent.create_from_eligibility(submission, dependent)
+            EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
           }.not_to change(EfileSubmissionDependent, :count)
         end
       end

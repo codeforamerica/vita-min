@@ -20,6 +20,7 @@ class EfileSubmission < ApplicationRecord
   belongs_to :tax_return
   has_one :intake, through: :tax_return
   has_one :client, through: :tax_return
+  has_one :fraud_score, class_name: "Fraud::Score"
   has_many :qualifying_dependents, foreign_key: :efile_submission_id, class_name: "EfileSubmissionDependent"
   has_one :address, as: :record, dependent: :destroy
   has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
@@ -89,11 +90,8 @@ class EfileSubmission < ApplicationRecord
   end
 
   def admin_resubmission?
-    reference_submission = first_submission? ? self : previously_transmitted_submission
-    if reference_submission.present?
-      resubmission_transition = reference_submission.last_transition_to(:resubmitted)
-      resubmission_transition && resubmission_transition.initiated_by.present?
-    end
+    reference_transition = last_transition_to("preparing")
+    reference_transition.present? && reference_transition.initiated_by.present? && reference_transition.initiated_by.admin?
   end
 
   def first_submission?
@@ -108,7 +106,10 @@ class EfileSubmission < ApplicationRecord
   end
 
   def previously_transmitted_submission
-    EfileSubmission.find(previous_submission_id) if previous_submission_id.present?
+    previous_submission = EfileSubmission.find(previous_submission_id) if previous_submission_id.present?
+    return nil unless previous_submission.present?
+
+    previous_submission if previous_submission.last_transition_to("transmitted").present?
   end
 
   def generate_irs_address
@@ -172,6 +173,14 @@ class EfileSubmission < ApplicationRecord
       end
     retry_wait = backoff + SecureRandom.rand(30)
     GyrEfiler::SendSubmissionJob.set(wait_until: now + retry_wait).perform_later(self)
+  end
+
+  def create_qualifying_dependents
+    qualifying_dependents.delete_all
+
+    intake.dependents.each do |dependent|
+      EfileSubmissionDependent.create_qualifying_dependent(self, dependent)
+    end
   end
 
   private

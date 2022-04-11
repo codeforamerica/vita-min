@@ -43,7 +43,7 @@ describe Ctc::Questions::ConfirmLegalController do
 
     context "when submitting the form" do
       context "when checking 'I agree'" do
-        it "create a submission with the status of 'preparing' and send client a message and redirect to portal home" do
+        it "create a submission with the status of 'bundling' and send client a message and redirect to portal home" do
           expect {
             post :update, params: params
           }.to change(client.efile_security_informations, :count).by 1
@@ -51,7 +51,7 @@ describe Ctc::Questions::ConfirmLegalController do
 
           expect(response).to redirect_to ctc_portal_root_path
           efile_submission = client.reload.tax_returns.last.efile_submissions.last
-          expect(efile_submission.current_state).to eq "preparing"
+          expect(efile_submission.current_state).to eq "bundling"
           expect(client.efile_security_informations.last.ip_address).to eq ip_address
           expect(client.efile_security_informations.last.recaptcha_score).to eq 0.9
           recaptcha_score = client.recaptcha_scores.last
@@ -72,32 +72,16 @@ describe Ctc::Questions::ConfirmLegalController do
           before do
             allow_any_instance_of(RecaptchaScoreConcern).to receive(:recaptcha_score_param).and_return({})
           end
-          it "create a submission with the status of 'preparing' and send client a message and redirect to portal home" do
+          it "create a submission with the status of 'bundling' and send client a message and redirect to portal home" do
             expect {
               post :update, params: params
             }.to change(client.efile_security_informations, :count).by 1
 
             expect(response).to redirect_to ctc_portal_root_path
             efile_submission = client.reload.tax_returns.last.efile_submissions.last
-            expect(efile_submission.current_state).to eq "preparing"
+            expect(efile_submission.current_state).to eq "bundling"
             expect(client.efile_security_informations.last.ip_address).to eq ip_address
             expect(client.efile_security_informations.last.recaptcha_score).to eq nil
-          end
-        end
-
-        context "when HOLD_OFF_NEW_EFILE_SUBMISSIONS is set" do
-          around do |example|
-            ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'] = '1'
-            example.run
-            ENV.delete('HOLD_OFF_NEW_EFILE_SUBMISSIONS')
-          end
-
-          it "create a submission that is still in status 'new'" do
-            post :update, params: params
-
-            expect(response).to redirect_to ctc_portal_root_path
-            efile_submission = client.reload.tax_returns.last.efile_submissions.last
-            expect(efile_submission.current_state).to eq "new"
           end
         end
       end

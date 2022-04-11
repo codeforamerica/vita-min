@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_29_172454) do
+ActiveRecord::Schema.define(version: 2022_04_01_183023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -527,6 +527,7 @@ ActiveRecord::Schema.define(version: 2022_03_29_172454) do
     t.string "login_token"
     t.jsonb "message_tracker", default: {}
     t.integer "previous_sessions_active_seconds"
+    t.datetime "restricted_at"
     t.integer "routing_method"
     t.integer "sign_in_count", default: 0, null: false
     t.integer "still_needs_help", default: 0, null: false
@@ -829,8 +830,8 @@ ActiveRecord::Schema.define(version: 2022_03_29_172454) do
   create_table "fraud_scores", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.bigint "efile_submission_id"
-    t.jsonb "indicators"
     t.integer "score"
+    t.jsonb "snapshot"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["efile_submission_id"], name: "index_fraud_scores_on_efile_submission_id"
   end

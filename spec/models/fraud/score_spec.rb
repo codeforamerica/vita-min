@@ -3,8 +3,8 @@
 # Table name: fraud_scores
 #
 #  id                  :bigint           not null, primary key
-#  indicators          :jsonb
 #  score               :integer
+#  snapshot            :jsonb
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  efile_submission_id :bigint
@@ -45,7 +45,7 @@ describe Fraud::Score do
                                                                   })
           object = Fraud::Score.last
           expect(object.score).to eq 120
-          expect(object.indicators).to eq ({ "first_indicator" => { "points" => 60, "data" => [1,2,3] }, "second_indicator" => { "points" => 60, "data" => [1,2,3] } })
+          expect(object.snapshot).to eq ({ "first_indicator" => { "points" => 60, "data" => [1,2,3] }, "second_indicator" => { "points" => 60, "data" => [1,2,3] } })
         end
       end
     end

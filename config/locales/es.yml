@@ -1774,6 +1774,9 @@ es:
             accepted:
               label: Aceptada
               message: El IRS aceptó su declaración de impuestos. Recibirá un pago en 4 o más semanas.
+            bundling:
+              label: Tramitados electrónicamente
+              message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
             cancelled:
               message: Ya no intentaremos enviar esta declaración al IRS. Esto puede deberse a que solicitó que no enviemos la declaración o porque un rechazo del IRS indicó que no podemos volver a enviarla en su nombre.
             failed:

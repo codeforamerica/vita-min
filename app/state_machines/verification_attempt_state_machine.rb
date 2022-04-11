@@ -1,14 +1,25 @@
 class VerificationAttemptStateMachine
   include Statesman::Machine
-
-  state :pending, initial: true
+  state :new, initial: true
+  state :pending
+  state :restricted
   state :approved
   state :denied
   state :escalated
   state :requested_replacements
 
-  transition from: :pending, to: [:approved, :denied, :escalated, :requested_replacements]
+  transition from: :new, to: [:pending]
+  transition from: :pending, to: [:approved, :denied, :escalated, :restricted, :requested_replacements]
   transition from: :escalated, to: [:approved, :denied, :requested_replacements]
+  transition from: :restricted, to: [:denied]
+
+  after_transition(to: :pending) do |verification_attempt|
+    verification_attempt.transition_to(:restricted) if verification_attempt.client.restricted_at?
+  end
+
+  after_transition(to: :restricted) do |verification_attempt|
+    DenyRestrictedVerificationAttemptJob.set(wait_until: 72.hours.from_now).perform_later(verification_attempt)
+  end
 
   after_transition(to: :approved, after_commit: true) do |verification_attempt, transition|
     verification_attempt.client.update(identity_verified_at: transition.created_at, identity_verification_denied_at: nil)

@@ -4,11 +4,41 @@ describe EfileSubmissionStateMachine do
   before do
     allow(ClientPdfDocument).to receive(:create_or_update)
     allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
+    create :duplicate_fraud_indicator
   end
 
   describe "after_transition" do
     context "to preparing" do
       let(:submission) { create(:efile_submission, :new) }
+
+      context "EfileSubmissionDependent creation" do
+        before do
+          submission.intake.dependents.delete_all
+          create :qualifying_child, intake: submission.intake # creates object
+          create :qualifying_relative, intake: submission.intake # creates object
+          create :dependent, intake: submission.intake # does not qualify, does not create object
+        end
+
+        it "creates EfileSubmissionDependent objects for each qualifying dependent" do
+          expect(submission.intake.dependents.length).to eq 3
+          expect {
+            submission.transition_to(:preparing)
+          }.to change(EfileSubmissionDependent, :count).by 2
+        end
+
+        context "when objects already exist for some dependents" do
+          before do
+            EfileSubmissionDependent.create(dependent: submission.intake.dependents.first, efile_submission: submission)
+          end
+
+          it "does not create duplicated objects" do
+            expect(submission.intake.dependents.length).to eq 3
+            expect(EfileSubmissionDependent.where(efile_submission: submission).count).to eq 1
+            submission.transition_to(:preparing)
+            expect(submission.qualifying_dependents.count).to eq 2 # there is still only one entry for each qualifying dependent
+          end
+        end
+      end
 
       context "without blocking fraud characteristics" do
         it "enqueues a BuildSubmissionBundleJob" do
@@ -19,7 +49,6 @@ describe EfileSubmissionStateMachine do
 
         it "updates the tax return status" do
           submission.transition_to!(:preparing)
-          expect(submission.tax_return.status).to eq("file_ready_to_file")
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: submission.client.reload,
             message: AutomatedMessage::EfilePreparing,
@@ -38,29 +67,36 @@ describe EfileSubmissionStateMachine do
           expect(FraudIndicatorService).not_to have_received(:hold_indicators)
         end
 
-        it "allows transition" do
+        it "transitions to the next status to build the bundle" do
           submission.transition_to!(:preparing)
-          expect(submission.tax_return.status).to eq("file_ready_to_file")
+          expect(submission.current_state).to eq("bundling")
         end
       end
 
       context "with blocking fraud characteristics" do
         before do
-          submission.client.efile_security_informations.last.update(timezone: "Western Europe")
-        end
-
-        it "does not enqueue a job" do
-          expect {
-            submission.transition_to!(:preparing)
-          }.not_to have_enqueued_job(BuildSubmissionBundleJob)
+          allow_any_instance_of(Fraud::Score).to receive(:score).and_return 110
         end
 
         it "transitions the tax return status and submission status to hold" do
           submission.transition_to!(:preparing)
           expect(submission.current_state).to eq "fraud_hold"
-          expect(submission.last_transition.metadata["indicators"]).to eq ["international_timezone"]
           expect(submission.tax_return.status).to eq("file_fraud_hold")
         end
+      end
+    end
+
+    context "to bundling" do
+      let!(:submission) { create(:efile_submission, :preparing, :with_fraud_score) }
+
+      it "messages the client and changes their tax return status" do
+        submission.transition_to!(:bundling)
+        expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+          client: submission.client.reload,
+          message: AutomatedMessage::EfilePreparing,
+        )
+        expect(submission.tax_return.status).to eq("file_ready_to_file")
+
       end
     end
 
@@ -175,33 +211,25 @@ describe EfileSubmissionStateMachine do
     end
 
     context "to resubmitted" do
-      context "when the submission has been transmitted to the IRS" do
-        let!(:efile_submission) { create :efile_submission, :transmitted }
+      let!(:efile_submission) { create :efile_submission, :transmitted }
 
-        before do
-          efile_submission.transition_to!(:rejected)
-        end
 
-        it "creates a new efile submission" do
-          expect {
-            efile_submission.transition_to!(:resubmitted)
-          }.to change(EfileSubmission, :count).by 1
-          expect(efile_submission.current_state).to eq "resubmitted"
-          new_submission = EfileSubmission.last
-          expect(new_submission.current_state).to eq "preparing"
-          expect(new_submission.last_transition.metadata["previous_submission_id"]).to eq efile_submission.id
-        end
+      before do
+        efile_submission.transition_to!(:rejected)
+        create :qualifying_child, intake: efile_submission.intake
       end
 
-      context "when the submission has never been transmitted to the IRS" do
-        let!(:efile_submission) { create :efile_submission, :rejected }
-        it "transitions the same submission back to preparing" do
-          expect {
-            efile_submission.transition_to!(:resubmitted)
-          }.to change(EfileSubmission, :count).by 0
-          expect(efile_submission.current_state).to eq "preparing"
-        end
+      it "creates a new efile submission" do
+        expect {
+          efile_submission.transition_to!(:resubmitted)
+        }.to change(EfileSubmission, :count).by 1
+        expect(efile_submission.current_state).to eq "resubmitted"
+        new_submission = EfileSubmission.last
+        expect(new_submission.current_state).to eq "bundling"
+        expect(new_submission.qualifying_dependents).to be_present
+        expect(new_submission.last_transition_to("preparing").metadata["previous_submission_id"]).to eq efile_submission.id
       end
+
     end
   end
 end

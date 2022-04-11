@@ -13,9 +13,9 @@ describe SubmissionBuilder::TY2020::AdvCtcIrs1040 do
       dependent3 = submission.intake.dependents.third
       dependent3_attrs = attributes_for(:qualifying_relative, first_name: "Kelly", birth_date: Date.new(1960, 1, 1), relationship: "parent", ssn: "123001236")
       dependent3.update(dependent3_attrs)
-      EfileSubmissionDependent.create_from_eligibility(submission, dependent)
-      EfileSubmissionDependent.create_from_eligibility(submission, dependent2)
-      EfileSubmissionDependent.create_from_eligibility(submission, dependent3)
+      EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
+      EfileSubmissionDependent.create_qualifying_dependent(submission, dependent2)
+      EfileSubmissionDependent.create_qualifying_dependent(submission, dependent3)
       submission.reload
     end
 

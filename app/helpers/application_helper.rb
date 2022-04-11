@@ -91,7 +91,7 @@ module ApplicationHelper
       "icons/accepted.svg"
     when "cancelled"
       "icons/cancelled.svg"
-    when "new", "preparing", "transmitted"
+    when "new", "preparing", "transmitted", "bundling"
       "icons/sending.svg"
     end
   end

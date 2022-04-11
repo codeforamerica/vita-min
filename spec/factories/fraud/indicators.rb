@@ -26,6 +26,7 @@ FactoryBot.define do
     points { 60 }
     query_model_name { Intake }
     reference { "intake" }
+    activated_at { DateTime.current }
     indicator_attributes { ["primary_first_name"] }
   end
 end

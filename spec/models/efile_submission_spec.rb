@@ -80,38 +80,49 @@ describe EfileSubmission do
     before do
       allow(ClientPdfDocument).to receive(:create_or_update)
     end
-    context "new" do
-      let(:submission) { create :efile_submission, :new }
 
-      context "can transition to" do
-        it "preparing" do
-          expect { submission.transition_to!(:preparing) }.not_to raise_error
-        end
-      end
+    context "preparing" do
+      let(:submission) { create :efile_submission, :preparing }
 
-      context "when HOLD_OFF_NEW_EFILE_SUBMISSIONS is set" do
-        around do |example|
-          ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'] = '1'
-          example.run
-          ENV.delete('HOLD_OFF_NEW_EFILE_SUBMISSIONS')
+      context "with a fraud score relation" do
+        before do
+          Fraud::Score.create_from(submission)
         end
 
-        it "does not allow transitions from :new to :preparing" do
-          expect { submission.transition_to!(:preparing) }.to raise_error(Statesman::GuardFailedError)
+        it "can transition to bundling" do
+          expect { submission.transition_to!(:bundling) }.not_to raise_error
         end
-      end
 
-      context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("new", "preparing", "fraud_hold").each do |state|
-          it state.to_s do
-            expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
+        context "when HOLD_OFF_NEW_EFILE_SUBMISSIONS is set" do
+          around do |example|
+            ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'] = '1'
+            example.run
+            ENV.delete('HOLD_OFF_NEW_EFILE_SUBMISSIONS')
           end
+
+          it "does not allow transitions from :preparing to :bundling" do
+            expect { submission.transition_to!(:bundling) }.to raise_error(Statesman::GuardFailedError)
+          end
+        end
+
+        context "cannot transition to" do
+          EfileSubmissionStateMachine.states.excluding("new", "bundling", "fraud_hold").each do |state|
+            it state.to_s do
+              expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
+            end
+          end
+        end
+      end
+
+      context "without a fraud score relationship" do
+        it "cannot transition" do
+          expect { submission.transition_to!(:bundling) }.to raise_error(Statesman::GuardFailedError)
         end
       end
     end
 
-    context "preparing" do
-      let(:submission) { create :efile_submission, :preparing }
+    context "bundling" do
+      let(:submission) { create :efile_submission, :bundling }
       before do
         address_service_double = double
         allow(ClientPdfDocument).to receive(:create_or_update)
@@ -124,10 +135,14 @@ describe EfileSubmission do
         it "queued" do
           expect { submission.transition_to!(:queued) }.not_to raise_error
         end
+
+        it "failed" do
+          expect { submission.transition_to!(:failed) }.not_to raise_error
+        end
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("queued", "preparing", "failed", "fraud_hold").each do |state|
+        EfileSubmissionStateMachine.states.excluding("queued", "bundling", "fraud_hold", "failed").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
@@ -167,7 +182,7 @@ describe EfileSubmission do
       end
 
       context "after transition to" do
-        let!(:submission) { create(:efile_submission, :preparing, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
+        let!(:submission) { create(:efile_submission, :bundling, :with_fraud_score, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
 
         it "queues a GyrEfilerSendSubmissionJob" do
           expect do
@@ -179,7 +194,7 @@ describe EfileSubmission do
 
     context "fraud_hold" do
       let(:submission) { create :efile_submission, :fraud_hold }
-      transitionable_states = [:preparing, :queued, :failed, :rejected, :resubmitted, :investigating, :waiting]
+      transitionable_states = [:investigating, :resubmitted, :waiting, :cancelled]
       context "can transition to " do
         transitionable_states.each do |state|
           it state.to_s do
@@ -289,72 +304,46 @@ describe EfileSubmission do
   end
 
   describe "#admin_resubmission?" do
-    let(:submission) { create :efile_submission, :preparing }
+    let(:submission) { create :efile_submission, :bundling }
     let(:user) { create :admin_user }
 
     context "when it is the only submission for the client" do
-      context "when there has been a previous transition to resubmitted" do
-        before do
-          submission.transition_to(:queued)
-          submission.transition_to(:failed)
-        end
-
-        context "and it was resubmitted by a user" do
-          before do
-            submission.transition_to!(:resubmitted, initiated_by_id: user.id)
-          end
-
-          it "is true" do
-            expect(submission.admin_resubmission?).to eq true
-          end
-        end
-
-        context "and it was not resubmitted by a user" do
-          before do
-            submission.transition_to!(:resubmitted)
-          end
-
-          it "is false" do
-            expect(submission.admin_resubmission?).to eq false
-          end
-        end
-      end
-
-      context "when there has not been a previous transition to resubmitted" do
-        it "is falsey" do
-          expect(submission.admin_resubmission?).to eq nil
-        end
+      it "is falsey" do
+        expect(submission.admin_resubmission?).to eq false
       end
     end
 
     context "when the client has more than one submission" do
       context "when the previous submission was resubmitted" do
-        let(:submission) { create :efile_submission, :preparing }
+        let!(:previous_submission) { create :efile_submission, :failed }
 
-        context "when the resubmission was by a user" do
-          before do
-            og_submission = EfileSubmission.create(client: submission.client, tax_return: submission.tax_return)
-            submission.last_transition_to(:preparing).update(metadata: { previous_submission_id: og_submission.id })
-            og_submission.transition_to(:preparing)
-            og_submission.transition_to(:failed)
-            og_submission.transition_to(:resubmitted, initiated_by_id: user.id)
-          end
-
+        context "when the resubmission was by an admin user" do
           it "is true" do
-            expect(submission.admin_resubmission?).to eq true
+            expect {
+              previous_submission.transition_to!(:resubmitted, initiated_by_id: user.id)
+            }.to change(EfileSubmission, :count).by 1
+            latest_submission = previous_submission.client.efile_submissions.last
+            expect(latest_submission.id).not_to eq previous_submission.id
+            expect(latest_submission.admin_resubmission?).to eq true
           end
         end
 
         context "when the resubmission was not by a user" do
-          before do
-            og_submission = EfileSubmission.create(client: submission.client, tax_return: submission.tax_return)
-            submission.last_transition_to(:preparing).update(metadata: { previous_submission_id: og_submission.id })
-            og_submission.transition_to(:preparing)
-            og_submission.transition_to(:failed)
-            og_submission.transition_to(:resubmitted, initiated_by_id: nil)
-          end
+          let(:previous_submission) { create :efile_submission, :resubmitted, metadata: { initiated_by_id: nil } }
+
 
           it "is false" do
+            submission = previous_submission.tax_return.efile_submissions.last
+            expect(submission.admin_resubmission?).to eq false
+          end
+        end
+
+        context "when the resubmission was not by an admin user" do
+          let(:user) { create :team_member_user }
+          let(:previous_submission) { create :efile_submission, :resubmitted, metadata: { initiated_by_id: user.id } }
+
+          it "is false" do
+            submission = previous_submission.tax_return.efile_submissions.last
             expect(submission.admin_resubmission?).to eq false
           end
         end
@@ -382,7 +371,7 @@ describe EfileSubmission do
 
   describe "#previously_transmitted_submission" do
     context "when the submission's preparing transition has a previous submission id stored" do
-      let(:previous_submission) { create :efile_submission }
+      let(:previous_submission) { create :efile_submission, :transmitted }
       let(:submission) { create :efile_submission }
       before do
         submission.transition_to!(:preparing, previous_submission_id: previous_submission.id)
@@ -430,12 +419,12 @@ describe EfileSubmission do
 
   describe "#imperfect_return_resubmission?" do
     context "when the submission's preparing transition has a previous submission id stored" do
-      let(:previous_submission) { create(:efile_submission) }
+      let(:previous_submission) { create(:efile_submission, :transmitted) }
       let(:efile_error) { create(:efile_error, code: "SOMETHING-WRONG") }
       let(:submission) { create :efile_submission }
 
       before do
-        create(:efile_submission_transition, :rejected, efile_submission: previous_submission, efile_error_ids: [efile_error.id])
+        create(:efile_submission_transition, :rejected, efile_submission: previous_submission, efile_error_ids: [efile_error.id], most_recent: false, sort_key: 1000)
         submission.transition_to!(:preparing, previous_submission_id: previous_submission.id)
       end
 
@@ -561,10 +550,6 @@ describe EfileSubmission do
         it "enqueues the SendSubmission job with exponential backoff plus jitter", active_job: true do
           freeze_time do
             submission = create(:efile_submission, :queued)
-            submission.efile_submission_transitions.where(to_state: "queued").update(created_at: (1.01).days.ago)
-            submission.transition_to!(:failed)
-            submission.transition_to!(:resubmitted)
-            submission.transition_to!(:queued)
             submission.efile_submission_transitions.where(to_state: "queued").last.update(created_at: 1.minute.ago)
             clear_enqueued_jobs
             expected_delay = (1.minute ** 1.25) + 4
