@@ -25,7 +25,7 @@ describe ClientLoginService do
       context "with a client matching a TextMessageAccessToken" do
         before do
           create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212")
-          create(:intake, client: client, sms_phone_number: "+16505551212")
+          create(:intake, :primary_consented, client: client, sms_phone_number: "+16505551212")
         end
 
         it "returns the client" do
@@ -36,7 +36,7 @@ describe ClientLoginService do
       context "with a client whose email matches an EmailAccessToken" do
         before do
           create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
-          create(:intake, client: client, email_address: "someone@example.com")
+          create(:intake, :primary_consented, client: client, email_address: "someone@example.com")
         end
 
         it "returns the client" do
@@ -47,7 +47,7 @@ describe ClientLoginService do
       context "with a client whose spouse email matches an EmailAccessToken" do
         before do
           create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
-          create(:intake, client: client, spouse_email_address: "someone@example.com")
+          create(:intake, :primary_consented, client: client, spouse_email_address: "someone@example.com")
         end
 
         it "returns the client" do
@@ -58,7 +58,7 @@ describe ClientLoginService do
       context "with a client whose email is contained in a comma-separated EmailAccessToken" do
         before do
           create(:email_access_token, token: "hashed_token", email_address: "someone@example.com,other@example.com")
-          create(:intake, client: client, email_address: "someone@example.com")
+          create(:intake, :primary_consented, client: client, email_address: "someone@example.com")
         end
 
         it "returns the client" do
@@ -71,7 +71,7 @@ describe ClientLoginService do
         before do
           create(:email_access_token, token: "hashed_token", email_address: "someone@example.com", created_at: Time.current - (2.1).days)
           create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212", created_at: Time.current - (2.1).days)
-          create(:intake, client: client, spouse_email_address: "someone@example.com", sms_phone_number: "+16505551212")
+          create(:intake, :primary_consented, client: client, spouse_email_address: "someone@example.com", sms_phone_number: "+16505551212")
         end
 
         it "returns a blank set" do
@@ -85,13 +85,13 @@ describe ClientLoginService do
         end
       end
 
-      context "with a client who has not consented" do
+      context "with a client with no consent to service" do
         subject { described_class.new(:gyr) }
         context "with a gyr service_type" do
           before do
             create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
             create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212")
-            create(:intake, :unconsented, client: client, spouse_email_address: "someone@example.com", sms_phone_number: "+16505551212")
+            create(:intake, client: client, spouse_email_address: "someone@example.com", sms_phone_number: "+16505551212")
           end
 
           it "returns a blank set" do
@@ -226,7 +226,7 @@ describe ClientLoginService do
       context "when there is a drop off intake with a matching email" do
         let(:email_address) { "persimmion@example.com" }
         before do
-          create :client, intake: (create :intake, email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
+          create :client, intake: (create :intake, :primary_consented, email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
         end
 
         it "is true" do
@@ -237,7 +237,7 @@ describe ClientLoginService do
       context "when there is a drop off intake with a matching spouse email" do
         let(:email_address) { "persimmion@example.com" }
         before do
-          create :client, intake: (create :intake, spouse_email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
+          create :client, intake: (create :intake, :primary_consented, spouse_email_address: email_address), tax_returns: [create(:tax_return, :prep_ready_for_prep, service_type: "drop_off")]
         end
 
         it "is true" do

@@ -167,9 +167,6 @@ module Hub
     def default_attributes
       {
           type: "Intake::CtcIntake",
-          primary_consented_to_service: "yes",
-          primary_consented_to_service_at: DateTime.now,
-          completed_at: DateTime.now
       }
     end
 

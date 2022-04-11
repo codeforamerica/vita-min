@@ -310,8 +310,9 @@ RSpec.describe Hub::ClientsController do
         let!(:tobias) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", preferred_interview_language: "es", state_of_residence: "TX") }
         let!(:tobias_2019_return) { create :tax_return, :intake_in_progress, client: tobias, year: 2019, assigned_user: assigned_user }
         let!(:tobias_2018_return) { create :tax_return, :intake_in_progress, client: tobias, year: 2018, assigned_user: assigned_user }
-        let!(:lucille) { create :client, vita_partner: organization, intake: create(:intake, :unconsented, preferred_name: "Lucille") }
-        let!(:bob_loblaw) { create :client, vita_partner: organization, intake: create(:ctc_intake, :unconsented, preferred_name: "Bob Loblaw") }
+        let!(:lucille) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Lucille") }
+        let!(:lucille_2018_return) { create(:tax_return, :intake_before_consent, client: lucille, year: 2018, assigned_user: assigned_user) }
+        let!(:bob_loblaw) { create :client, vita_partner: organization, intake: create(:ctc_intake, preferred_name: "Bob Loblaw") }
         let!(:bob_loblaw_online_intake_return) { create :tax_return, :intake_before_consent, service_type: :online_intake, client: bob_loblaw }
 
         it "does not show a client whose tax returns are all before_consent" do
@@ -410,12 +411,17 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "when there are clients with no current intakes (clients from previous tax years)" do
-          let!(:former_year_client) { create :client, vita_partner: organization, intake: nil }
+          let!(:former_year_client) { create :client, vita_partner: organization, intake: build(:intake, :filled_out) }
           let!(:former_year_tax_return) { create :tax_return, :intake_in_progress, client: former_year_client, year: 2021, assigned_user: assigned_user }
+
+          before do
+            # In reality this intake would be moved to the `archived_intakes_2021` table, but removing it from the DB is good enough for our purposes
+            former_year_client.intake.destroy
+          end
 
           it "does not show those clients in the list" do
             get :index
-            expect(assigns(:clients)).not_to include former_year_client
+
             expect(assigns(:clients)).to match_array([george_sr, michael, tobias])
           end
         end

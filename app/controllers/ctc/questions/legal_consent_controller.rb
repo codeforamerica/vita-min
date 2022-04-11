@@ -16,13 +16,6 @@ module Ctc
 
       def after_update_success
         send_mixpanel_event(event_name: "ctc_provided_personal_info")
-        if current_intake.primary_consented_to_service_at.blank?
-          current_intake.update(
-            primary_consented_to_service_ip: request.remote_ip,
-            primary_consented_to_service_at: DateTime.current,
-            primary_consented_to_service: "yes"
-          )
-        end
       end
 
       def illustration_path; end

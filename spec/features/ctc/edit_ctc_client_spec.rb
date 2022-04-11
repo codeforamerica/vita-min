@@ -184,7 +184,6 @@ RSpec.describe "a user editing a clients intake fields", requires_default_vita_p
 
       it "can see clients created through CTC intake with their current status" do
         new_client = Client.last
-        expect(Client.last.intake.primary_consented_to_service_at).to be_present
 
         login_as user
 
