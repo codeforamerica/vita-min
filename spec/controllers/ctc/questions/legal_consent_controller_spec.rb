@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::LegalConsentController do
-  let(:intake) { create :ctc_intake, visitor_id: "visitor-id" }
+  let(:intake) { create :ctc_intake, :unconsented, visitor_id: "visitor-id" }
 
   before do
     allow(MixpanelService).to receive(:send_event)
@@ -55,6 +55,13 @@ describe Ctc::Questions::LegalConsentController do
           distinct_id: "visitor-id",
           event_name: "ctc_provided_personal_info"
         )
+      end
+
+      it "sets the consented to service properties as well" do
+        post :update, params: params
+        expect(intake.reload.primary_consented_to_service_at).not_to be_nil
+        expect(intake.primary_consented_to_service).to eq "yes"
+        expect(intake.primary_consented_to_service_ip).not_to be_nil
       end
     end
   end
