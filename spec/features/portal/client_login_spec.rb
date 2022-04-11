@@ -4,7 +4,7 @@ RSpec.feature "Logging in" do
   context "With a client who consented", active_job: true do
     let(:tax_return) { create(:tax_return, :ready_to_sign) }
     let(:client) { create :client, tax_returns: [tax_return] }
-    let!(:intake) { create :intake, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006", sms_notification_opt_in: "yes", client: client }
+    let!(:intake) { create :intake, :primary_consented, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006", sms_notification_opt_in: "yes", client: client }
 
     context "As a client logging in from the login page" do
       context "signing in with verification code" do

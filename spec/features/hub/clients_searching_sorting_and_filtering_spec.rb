@@ -19,31 +19,12 @@ RSpec.describe "searching, sorting, and filtering clients" do
       let(:site) { create :site, name: "Some child site", parent_organization_id: vita_partner_other.id }
       let!(:vita_partner_other) { create :organization, name: "Some Other Org", allows_greeters: true }
       let!(:vita_partner_ctc) { create :organization, name: "CTC Org", processes_ctc: true }
-      let!(:alan_intake_in_progress) do
-        intake = create :intake, client: (build :client, vita_partner_id: vita_partner.id, last_outgoing_communication_at: Time.new(2021, 4, 23), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 23)), preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"
-        create :tax_return, :intake_in_progress, year: 2019, assigned_user: user, client: intake.client
-        intake.client
-      end
-      let!(:zach_prep_ready_for_call) do
-        intake = create :intake, client: (build :client, vita_partner: vita_partner_other, last_outgoing_communication_at: Time.new(2021, 4, 28), first_unanswered_incoming_interaction_at: nil), preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"
-        create :tax_return, :prep_ready_for_prep, year: 2018, client: intake.client
-        intake.client
-      end
-      let!(:patty_prep_ready_for_call) do
-        intake = create :intake, client: (build :client, vita_partner: vita_partner_other,  last_outgoing_communication_at: Time.new(2021, 5, 1), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 1)), preferred_name: "Patty Banana", created_at: 1.day.ago, state_of_residence: "AL", with_incarcerated_navigator: true
-        create :tax_return, :prep_ready_for_prep, year: 2019, assigned_user: user, client: intake.client
-        intake.client
-      end
-      let!(:marty_ctc) do
-        intake = create :ctc_intake, client: (build :client, vita_partner: vita_partner_ctc, last_outgoing_communication_at: Time.new(2021, 5, 2), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 5)), preferred_name: "Marty Mango", created_at: 5.days.ago, state_of_residence: "ME"
-        create :tax_return, :prep_ready_for_prep, year: 2021, client: intake.client
-        intake.client
-      end
-      let!(:betty_intake_in_progress) do
-        intake = create :intake, client: (build :client, vita_partner: site, last_outgoing_communication_at: Time.new(2021, 5, 3), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 28)), preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX", with_general_navigator: true
-        create :tax_return, :intake_in_progress, year: 2018, assigned_user: mona_user, client: intake.client
-        intake.client
-      end
+      let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (create :intake, preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"), last_outgoing_communication_at: Time.new(2021, 4, 23), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 23), tax_returns: [(create :tax_return, :intake_in_progress, year: 2019, assigned_user: user)] }
+      let!(:zach_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (create :intake, preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"), last_outgoing_communication_at: Time.new(2021, 4, 28), first_unanswered_incoming_interaction_at: nil, tax_returns: [(create :tax_return, :prep_ready_for_prep, year: 2018)] }
+      let!(:patty_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (create :intake, preferred_name: "Patty Banana", created_at: 1.day.ago, state_of_residence: "AL", with_incarcerated_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 1), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 1), tax_returns: [(create :tax_return, :prep_ready_for_prep, year: 2019, assigned_user: user)] }
+      let!(:marty_ctc) { create :client, vita_partner: vita_partner_ctc, intake: (create :ctc_intake, preferred_name: "Marty Mango", created_at: 5.days.ago, state_of_residence: "ME"), last_outgoing_communication_at: Time.new(2021, 5, 2), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 5), tax_returns: [(create :tax_return, :prep_ready_for_prep, year: 2021)] }
+      let!(:betty_intake_in_progress) { create :client, vita_partner: site, intake: (create :intake, preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX", with_general_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 3), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 28), tax_returns: [(create :tax_return, :intake_in_progress, year: 2018, assigned_user: mona_user)] }
+
       before do
         allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 4)
         Intake.refresh_search_index
@@ -384,32 +365,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row').length).to eq 2
         page.find('a', text: "Breached SLA").find('.clear-filter').click
         expect(page.all('.client-row').length).to eq 12
-      end
-    end
-
-    context "as a greeter" do
-      let(:user) { create :greeter_user }
-      context "with greetable clients" do
-        let!(:vita_partner) { create :organization, name: "Some Other Org", allows_greeters: true }
-        let!(:non_greetable_vita_partner) { create :organization, name: "Cant Greet Here", allows_greeters: false }
-        let!(:greetable_client) { create :client_with_tax_return_state, tax_return_state: :intake_greeter_info_requested, intake: (create :intake, preferred_name: "Leslie Wilson"), vita_partner: vita_partner }
-        let!(:assigned_client) { create :client, intake: (create :intake, preferred_name: "Owen Wilson"), tax_returns: [create(:tax_return, assigned_user: user)]}
-        let!(:inaccessible_client) { create :client, intake: (create :intake, preferred_name: "Volleyball Wilson"), tax_returns: [create(:tax_return, assigned_user: nil)]}
-        let!(:non_greetable_client) { create :client_with_tax_return_state, tax_return_state: :intake_greeter_info_requested, intake: (create :intake, preferred_name: "Kaitlyn Wilson", vita_partner: non_greetable_vita_partner)}
-
-        scenario "I can view clients" do
-          visit hub_clients_path
-
-          expect(Client.greetable).to include greetable_client
-
-          expect(page).to have_text "All Clients"
-          within ".client-table" do
-            expect(page.all('.client-row')[0]).to have_text(greetable_client.preferred_name)
-            expect(page.all('.client-row')[1]).to have_text(assigned_client.preferred_name)
-            expect(page).not_to have_text(inaccessible_client.preferred_name)
-            expect(page).not_to have_text(non_greetable_client.preferred_name)
-          end
-        end
       end
     end
   end
