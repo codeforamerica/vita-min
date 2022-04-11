@@ -4,7 +4,6 @@ describe DatadogApi do
   include MockDogapi
 
   before do
-    DatadogApi.instance_variable_set("@synchronous", false)
     DatadogApi.configure do |c|
       allow(c).to receive(:namespace).and_return("test.dogapi")
     end
@@ -17,14 +16,9 @@ describe DatadogApi do
       end
     end
 
-    it 'initializes and calls Dogapi::Client inside of a Promise' do
-      gauge = DatadogApi.gauge('volume', 11)
-      expect(gauge).to be_a Concurrent::Future
-      gauge.value! # wait for async operation to complete
-
-      increment =  DatadogApi.increment('counter')
-      expect(increment).to be_a Concurrent::Future
-      increment.value! # wait for async operation to complete
+    it 'initializes and calls Dogapi::Client' do
+      DatadogApi.gauge('volume', 11)
+      DatadogApi.increment('counter')
 
       expect(Dogapi::Client).to have_received(:new).once
       expect(@mock_dogapi).to have_received(:emit_point).once.with('test.dogapi.volume', 11, {:tags => ["env:"+Rails.env], :type => "gauge"})
@@ -40,11 +34,8 @@ describe DatadogApi do
     end
 
     it 'does not initialize and call Dogapi::Client' do
-      gauge = DatadogApi.gauge('volume', 11)
-      expect(gauge).to be nil
-
-      increment = DatadogApi.increment('counter')
-      expect(increment).to be nil
+      DatadogApi.gauge('volume', 11)
+      DatadogApi.increment('counter')
 
       expect(Dogapi::Client).not_to have_received(:new)
       expect(@mock_dogapi).not_to have_received(:emit_point)

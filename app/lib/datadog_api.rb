@@ -1,8 +1,9 @@
 module DatadogApi
+
   METRIC_TYPES = {
-    count: "count".freeze,
-    gauge: "gauge".freeze,
-    rate: "rate".freeze,
+      count: "count".freeze,
+      gauge: "gauge".freeze,
+      rate: "rate".freeze,
   }.freeze
 
   class Configuration
@@ -48,22 +49,14 @@ module DatadogApi
   def self.increment(label, tags: [])
     return unless configuration.enabled
 
-    future = emit_point(label: label, tags: tags, value: 1, type: METRIC_TYPES[:count])
-    @synchronous ? future.value! : future
+    tags << "env:#{configuration.env}"
+    self.client.emit_point(self.apply_namespace(label), 1, {:tags => tags, :type => METRIC_TYPES[:count]})
   end
 
   def self.gauge(label, value, tags: [])
     return unless configuration.enabled
 
-    future = emit_point(label: label, tags: tags, value: value, type: METRIC_TYPES[:gauge])
-    @synchronous ? future.value! : future
-  end
-
-  def self.emit_point(label:, tags:, value:, type:)
     tags << "env:#{configuration.env}"
-    Concurrent::Future.execute do
-      self.client.emit_point(self.apply_namespace(label), value, { tags: tags, type: type })
-    end
+    self.client.emit_point(self.apply_namespace(label), value, {:tags => tags, :type => METRIC_TYPES[:gauge]})
   end
-  private_class_method :emit_point
 end
