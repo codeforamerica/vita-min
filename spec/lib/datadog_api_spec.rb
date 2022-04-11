@@ -30,6 +30,30 @@ describe DatadogApi do
       expect(@mock_dogapi).to have_received(:emit_point).once.with('test.dogapi.volume', 11, {:tags => ["env:"+Rails.env], :type => "gauge"})
       expect(@mock_dogapi).to have_received(:emit_point).once.with('test.dogapi.counter', 1, {:tags => ["env:"+Rails.env], :type => "count"})
     end
+
+    context "if the emit_point call fails for a network error" do
+      before do
+        allow(@mock_dogapi).to receive(:emit_point).and_raise(Net::OpenTimeout)
+      end
+
+      it "does not raise any exceptions" do
+        increment =  DatadogApi.increment('counter')
+        expect(increment).to be_a Concurrent::Future
+        increment.value! # wait for async operation to complete
+      end
+    end
+
+    context "if the emit_point call fails for an unknown error" do
+      before do
+        allow(@mock_dogapi).to receive(:emit_point).and_raise(StandardError)
+      end
+
+      it "still raises the exception" do
+        increment =  DatadogApi.increment('counter')
+        expect(increment).to be_a Concurrent::Future
+        expect { increment.value! }.to raise_error(StandardError)
+      end
+    end
   end
 
   context "when disabled" do
