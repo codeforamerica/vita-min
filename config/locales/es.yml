@@ -94,7 +94,7 @@ es:
         continue_to_tax_slayer: Continuar con TaxSlayer
         guide_html: 'Consulte nuestra <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">guía para declarar por cuenta propia</a> (en inglés: File Myself Guide) para obtener instrucciones paso a paso, consejos y recomendaciones. Por el momento, nuestra guía está disponible solamente en inglés. Si se queda atorado o tiene una pregunta, utilice la opción de chat en GetYourRefund.org o envíenos un correo a FileMyself@getyourrefund.org.
 
-          '
+'
         steps:
           description:
           - Para comenzar a declarar, cree un inicio de sesión en TaxSlayer.
