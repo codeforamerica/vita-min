@@ -90,7 +90,6 @@ describe Client do
     end
   end
 
-
   describe ".needs_in_progress_survey scope" do
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
 
@@ -206,6 +205,15 @@ describe Client do
 
     it "returns just the greetable clients" do
       expect(Client.greetable).to match_array [greetable_client]
+    end
+  end
+
+  describe ".after_consent scope" do
+    let!(:client_before_consent) { create(:client, intake: create(:intake, primary_consented_to_service_ip: nil, primary_consented_to_service_at: nil, primary_consented_to_service: "unfilled")) }
+    let!(:client_after_consent) { create(:client, intake: create(:intake, primary_consented_to_service_ip: "127.0.0.1", primary_consented_to_service_at: DateTime.current, primary_consented_to_service: "yes")) }
+
+    it "returns clients with primary_consented_to_service_at present" do
+      expect(Client.after_consent).to match_array [client_after_consent]
     end
   end
 
