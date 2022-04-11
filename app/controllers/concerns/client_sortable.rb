@@ -22,7 +22,6 @@ module ClientSortable
     if current_user&.greeter?
       clients = clients.greetable.or(Client.with_consented_intake.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct)
     end
-    clients = clients.joins(:intake) # exclude clients without an intake
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
     clients = clients.where(tax_returns: { status: TaxReturnStateMachine::STATES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
