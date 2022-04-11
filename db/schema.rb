@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_01_183023) do
+ActiveRecord::Schema.define(version: 2022_04_11_225313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -1155,6 +1155,7 @@ ActiveRecord::Schema.define(version: 2022_04_01_183023) do
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
+    t.index ["primary_consented_to_service_at"], name: "index_intakes_on_primary_consented_to_service_at"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
     t.index ["spouse_email_address"], name: "index_intakes_on_spouse_email_address"
