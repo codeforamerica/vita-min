@@ -62,9 +62,7 @@ module DatadogApi
   def self.emit_point(label:, tags:, value:, type:)
     tags << "env:#{configuration.env}"
     Concurrent::Future.execute do
-      client.emit_point(self.apply_namespace(label), value, { tags: tags, type: type })
-    rescue Net::OpenTimeout
-      nil
+      self.client.emit_point(self.apply_namespace(label), value, { tags: tags, type: type })
     end
   end
   private_class_method :emit_point
