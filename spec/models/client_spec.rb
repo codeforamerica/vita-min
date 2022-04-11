@@ -90,6 +90,18 @@ describe Client do
     end
   end
 
+  describe ".with_consented_intake scope" do
+    let!(:client_not_consented) { create :client, intake: (create :intake, primary_consented_to_service_at: nil)}
+    let!(:client_consented) { create :client, intake: (create :intake, primary_consented_to_service_at: DateTime.now) }
+    let!(:client_no_intake) { create :client, intake: nil }
+    it "includes consented clients and excludes non consented clients" do
+      consented_clients = Client.with_consented_intake
+      expect(consented_clients).to include client_consented
+      expect(consented_clients).not_to include client_not_consented
+      expect(consented_clients).not_to include client_no_intake
+    end
+  end
+
 
   describe ".needs_in_progress_survey scope" do
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
@@ -517,12 +529,12 @@ describe Client do
     let!(:client) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com", phone_number: "+15855551212", sms_phone_number: "+18285551212") }
 
     context "when there are other GYR clients with the same contact info" do
-      let!(:client_dupe_email) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:ctc_client_dupe_email) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_ready" }
-      let!(:client_phone) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+15855551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_phone_match_sms) { create :client_with_tax_return_state, intake: create(:intake, phone_number: "+18285551212"), tax_return_state: "intake_ready" }
-      let!(:client_sms_match_phone) { create :client_with_tax_return_state, intake: create(:intake, sms_phone_number: "+15855551212"), tax_return_state: "intake_ready" }
+      let!(:client_dupe_email) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com") }
+      let!(:ctc_client_dupe_email) { create :client, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com") }
+      let!(:client_phone) { create :client, intake: create(:intake, phone_number: "+15855551212") }
+      let!(:client_sms) { create :client, intake: create(:intake, sms_phone_number: "+18285551212") }
+      let!(:client_phone_match_sms) { create :client, intake: create(:intake, phone_number: "+18285551212")}
+      let!(:client_sms_match_phone) { create :client, intake: create(:intake, sms_phone_number: "+15855551212") }
 
       context "when searching for matching GYR clients" do
         it "returns the GYR clients ids" do
@@ -530,7 +542,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_before_consent" }
+          let!(:client_before_consent) { create :client, intake: create(:intake, :unconsented, email_address: "fizzy_pop@example.com") }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(false)).not_to include(client_before_consent.id)
@@ -553,7 +565,7 @@ describe Client do
         end
 
         context "with a client who hasn't reached consent" do
-          let!(:client_before_consent) { create :client_with_tax_return_state, intake: create(:ctc_intake, email_address: "fizzy_pop@example.com"), tax_return_state: "intake_before_consent" }
+          let!(:client_before_consent) { create :client, intake: create(:ctc_intake, :unconsented, email_address: "fizzy_pop@example.com") }
 
           it "does not return the client who hasn't consented" do
             expect(client.clients_with_dupe_contact_info(true)).not_to include(client_before_consent.id)

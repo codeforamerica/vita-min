@@ -18,14 +18,10 @@ module ClientSortable
 
   # TEMPORARILY reverting to use status in filtering so that we don't experience downtime when renaming column.
   def filtered_clients
-    clients = if current_user&.greeter?
-                # Greeters should only have "search" access to clients in intake stage AND clients assigned to them.
-                @clients.greetable || Client.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct
-              else
-                @clients.after_consent
-              end
-    # Force an inner join to `intakes` to exclude clients from previous years
-    clients = clients.joins(:intake)
+    clients = @clients.with_consented_intake # inner joins on intake to get consented clients, also excludes clients without intakes
+    if current_user&.greeter?
+      clients = clients.greetable.or(Client.with_consented_intake.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct)
+    end
     clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
     clients = clients.where(tax_returns: { status: TaxReturnStateMachine::STATES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?

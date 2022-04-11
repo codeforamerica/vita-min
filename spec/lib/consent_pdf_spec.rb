@@ -5,7 +5,7 @@ RSpec.describe ConsentPdf do
 
   describe "#output_file" do
     context "with an empty intake record" do
-      let(:intake) { create :intake }
+      let(:intake) { create :intake, :unconsented }
 
       it "returns a pdf with default fields and values" do
         consent_pdf = ConsentPdf.new(intake)

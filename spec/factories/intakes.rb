@@ -297,10 +297,10 @@ module IntakeFactoryHelpers
 end
 
 FactoryBot.define do
-  trait :primary_consented do
-    primary_consented_to_service_at { 2.weeks.ago }
-    primary_consented_to_service { "yes" }
-    primary_consented_to_service_ip { "1.1.1.1" } # IRS approved IP address
+  trait :unconsented do
+    primary_consented_to_service_at { nil }
+    primary_consented_to_service { "no" }
+    primary_consented_to_service_ip { nil }
   end
 
   trait :with_banking_details do
@@ -540,6 +540,9 @@ FactoryBot.define do
     eip3_amount_received { 1000 }
     primary_tin_type { "ssn" }
     current_step { "/en/questions/overview" }
+    primary_consented_to_service_at { 2.weeks.ago }
+    primary_consented_to_service { "yes" }
+    primary_consented_to_service_ip { "1.1.1.1" } # IRS approved IP address
   end
 
   factory :intake, class: Intake::GyrIntake do
@@ -548,5 +551,8 @@ FactoryBot.define do
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
     needs_to_flush_searchable_data_set_at { 1.minute.ago }
     current_step { "/en/questions/overview" }
+    primary_consented_to_service_at { 2.weeks.ago }
+    primary_consented_to_service { "yes" }
+    primary_consented_to_service_ip { "1.1.1.1" } # IRS approved IP address
   end
 end

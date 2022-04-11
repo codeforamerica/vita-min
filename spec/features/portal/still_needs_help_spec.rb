@@ -4,7 +4,7 @@ RSpec.feature "Still Needs Help" do
   context "When a client has triggered the Still Needs Help flow", active_job: true do
     let(:tax_return) { create(:tax_return, :intake_in_progress) }
     let(:client) { create :client, tax_returns: [tax_return], triggered_still_needs_help_at: Time.now }
-    let!(:intake) { create :intake, :primary_consented, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006", client: client }
+    let!(:intake) { create :intake, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006", client: client }
 
     context "As a client visiting the portal" do
       before do

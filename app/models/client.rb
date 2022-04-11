@@ -88,7 +88,7 @@ class Client < ApplicationRecord
   end
 
   delegate *delegated_intake_attributes, to: :intake
-  scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where.not(status: "intake_before_consent")) }
+  scope :with_consented_intake, -> { joins(:intake).where("intakes.primary_consented_to_service_at IS NOT NULL") }
   scope :greetable, -> do
     greeter_statuses = TaxReturnStateMachine.available_states_for(role_type: GreeterRole::TYPE).values.flatten
     distinct.joins(:tax_returns).where(tax_returns: { status: greeter_statuses })
@@ -237,7 +237,7 @@ class Client < ApplicationRecord
     else
       matching_intakes = matching_intakes.where.not(type: "Intake::CtcIntake")
     end
-    Client.where.not(id: id).after_consent.where(intake: matching_intakes).pluck(:id)
+    Client.where.not(id: id).with_consented_intake.where(intake: matching_intakes).pluck(:id)
   end
 
   def clients_with_dupe_ssn(service_class)
