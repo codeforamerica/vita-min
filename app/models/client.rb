@@ -177,11 +177,11 @@ class Client < ApplicationRecord
   end
 
   def legal_name
-    [intake.primary_first_name&.strip, intake.primary_middle_initial&.strip, intake.primary_last_name&.strip].compact.join(' ')
+    [intake&.primary_first_name&.strip, intake&.primary_middle_initial&.strip, intake&.primary_last_name&.strip].compact.join(' ')
   end
 
   def spouse_legal_name
-    [intake.spouse_first_name&.strip, intake.spouse_middle_initial&.strip, intake.spouse_last_name&.strip].compact.join(' ')
+    [intake&.spouse_first_name&.strip, intake&.spouse_middle_initial&.strip, intake&.spouse_last_name&.strip].compact.join(' ')
   end
 
   def flag!
