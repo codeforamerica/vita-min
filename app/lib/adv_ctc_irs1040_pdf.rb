@@ -17,7 +17,7 @@ class AdvCtcIrs1040Pdf
   def hash_for_pdf
     answers = {
         FilingStatus: @tax_return.filing_status_code,
-        PrimaryFirstNm: @intake.primary_first_name,
+        PrimaryFirstNm: @intake.primary_middle_initial.present? ? "#{@intake.primary_first_name} #{@intake.primary_middle_initial}" : @intake.primary_first_name,
         PrimaryLastNm: @intake.primary_last_name,
         PrimarySSN: pdf_mask(@intake.primary_ssn, 4),
         AddressLine1Txt: @address&.street_address,

@@ -136,7 +136,7 @@ RSpec.describe AdvCtcIrs1040Pdf do
 
     context "with a filled out submission record" do
       before do
-        submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1))
+        submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1), primary_middle_initial: "q")
         submission.reload
 
         @claimed_rrc = "1000"
@@ -148,7 +148,7 @@ RSpec.describe AdvCtcIrs1040Pdf do
         result = non_preparer_fields(output_file.path)
         expect(result).to match(hash_including(
           "FilingStatus" => "1",
-          "PrimaryFirstNm" => submission.intake.primary_first_name,
+          "PrimaryFirstNm" => "#{submission.intake.primary_first_name} q",
           "PrimaryLastNm" => submission.intake.primary_last_name,
           "PrimarySSN" => "XXXXX#{submission.intake.primary_ssn.last(4)}",
           "AddressLine1Txt" => "23627 HAWKINS CREEK CT",
