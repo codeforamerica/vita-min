@@ -1,7 +1,7 @@
 module SubmissionBuilder
   module TY2021
     class Form8812 < SubmissionBuilder::Base
-      @root_node = "Return"
+      @root_node = "IRS1040Schedule8812"
 
       def schema_file
         File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRS1040Schedule8812", "IRS1040Schedule8812.xsd")

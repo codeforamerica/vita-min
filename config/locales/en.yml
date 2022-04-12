@@ -94,7 +94,7 @@ en:
         continue_to_tax_slayer: Continue to TaxSlayer
         guide_html: 'See our <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself Guide</a> for step-by-step instructions, tips, and best practices. If you get stuck or have a question, use the chat option at GetYourRefund.org or email us at FileMyself@getyourrefund.org
 
-          '
+'
         steps:
           description:
           - To start filing, create a login in TaxSlayer.

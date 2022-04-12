@@ -25,8 +25,8 @@ describe SubmissionBundle do
     it "stores the submission bundle on the submission" do
       response = described_class.new(submission_2020).build
 
-      expect(submission.reload.submission_bundle).to be_present
-      expect(submission.submission_bundle.content_type).to eq "application/zip"
+      expect(submission_2020.reload.submission_bundle).to be_present
+      expect(submission_2020.submission_bundle.content_type).to eq "application/zip"
       file_name = ActiveStorage::Blob.service.path_for(submission_2020.submission_bundle.key)
       Zip::File.open_buffer(File.open(file_name, "rb")) do |zip_file|
         expect(zip_file.entries.first.name).to eq "manifest/manifest.xml"

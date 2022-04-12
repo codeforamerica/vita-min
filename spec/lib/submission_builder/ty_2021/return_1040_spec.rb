@@ -12,7 +12,8 @@ describe SubmissionBuilder::TY2021::Return1040 do
         primary_signature_pin: "12345",
         spouse_signature_pin: "54321",
         primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
-        spouse_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20)
+        spouse_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
+        advance_ctc_amount_received: 3600
     )
   end
 
