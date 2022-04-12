@@ -39,9 +39,12 @@ module Ctc
     end
 
     def navigators
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
       file_name = params[:locale] == "es" ? "navigators_es.md" : "navigators.md"
-      @markdown_content = markdown.render(File.read(Rails.root.join("app", "views", "ctc", "ctc_pages", file_name))).html_safe
+      @markdown_content = markdown_content_from_file(file_name)
+    end
+
+    def volunteers
+      @markdown_content = markdown_content_from_file("volunteers.md")
     end
 
     def privacy_policy
@@ -81,5 +84,12 @@ module Ctc
     end
 
     def completed; end
+
+    private
+
+    def markdown_content_from_file(file_name)
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, tables: true)
+      markdown.render(File.read(Rails.root.join("app", "views", "ctc", "ctc_pages", file_name))).html_safe
+    end
   end
 end
