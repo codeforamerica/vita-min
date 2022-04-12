@@ -4207,7 +4207,7 @@ es:
             service_description: Presente la solicitud rápidamente por su cuenta para cobrar los pagos por estímulo y el Crédito Tributario por Hijos.
             service_name: GetCTC
           diy:
-            colloquial: Declarar por mi cuenta, "DIY" en inglés
+            colloquial: ''
             cta: Elegir declarar por cuenta propia
             service_description: Declare rápidamente por su cuenta para 2021.
             service_name: Declarar por mi cuenta o "File Myself" en inglés
