@@ -24,7 +24,7 @@ describe SubmissionBuilder::TY2020::Return1040 do
 
   context ".build" do
     it "conforms to the Return1040 schema" do
-      expect(described_class.build(submission, documents: ["adv_ctc_irs1040"])).to be_valid
+      expect(described_class.build(submission)).to be_valid
     end
   end
 end

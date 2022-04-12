@@ -1,7 +1,6 @@
 class SubmissionBundle
-  def initialize(submission, documents: [])
+  def initialize(submission)
     @submission = submission
-    @documents = documents
   end
 
   def build
@@ -49,18 +48,15 @@ class SubmissionBundle
   end
 
   def return_1040
-    response = submission_class.build(@submission, documents: @documents)
+    year = @submission.tax_return.year
+    submission_class = "SubmissionBuilder::TY#{year}::Return1040".constantize
+    response = submission_class.build(@submission)
     if response.valid?
       response.document
     else
       @errors = response.errors
       raise SubmissionBundleError
     end
-  end
-
-  def submission_class
-    year = @submission.tax_return.year
-    "SubmissionBuilder::TY#{year}::Return1040".constantize
   end
 
   def self.build(*args)
