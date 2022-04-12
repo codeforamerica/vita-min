@@ -2,15 +2,15 @@
 module SubmissionBuilder
   module Shared
     class Return1040 < SubmissionBuilder::Document
-      def attached_documents
-        raise "Child classes must implement a list of executable document classes"
+      def self.attached_documents
+        raise "Child classes must define a list of documents to include in XML ReturnData node"
       end
 
       def document
         document = build_xml_doc('efile:Return', returnVersion: @schema_version)
         document.at("Return").add_child(return_header)
-        document.at("Return").add_child("<ReturnData documentCnt='#{attached_documents.length}'></ReturnData>")
-        attached_documents.each do |attached|
+        document.at("Return").add_child("<ReturnData documentCnt='#{self.class.attached_documents.length}'></ReturnData>")
+        self.class.attached_documents.each do |attached|
           document.at("ReturnData").add_child(document_fragment(attached))
         end
         document
@@ -18,8 +18,8 @@ module SubmissionBuilder
 
       private
 
-      def document_fragment(class_name)
-        class_name.constantize.build(@submission, validate: false).document.at("*")
+      def document_fragment(class_obj)
+        class_obj.build(@submission, validate: false).document.at("*")
       end
 
       def return_header
