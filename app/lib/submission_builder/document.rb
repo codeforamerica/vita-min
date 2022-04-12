@@ -1,21 +1,13 @@
 module SubmissionBuilder
-  class Base
+  class Document
     include SubmissionBuilder::FormattingMethods
     attr_accessor :submission, :schema_file, :schema_version
-    class << self
-      attr_reader :root_node
-    end
-
 
     def initialize(submission, validate: true, documents: [])
       @submission = submission
       @validate = validate
       @documents = documents
       @schema_version = determine_default_schema_version_by_tax_year
-    end
-
-    def root_node_attrs
-      { "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" }
     end
 
     def document
@@ -42,11 +34,23 @@ module SubmissionBuilder
         xml = Nokogiri::XML(document.to_xml)
         errors = xsd.validate(xml)
       end
-      SubmissionBuilder::Response.new(errors: errors, document: document, root_node: self.class.root_node)
+      SubmissionBuilder::Response.new(errors: errors, document: document)
     end
 
     def self.build(*args)
       new(*args).build
+    end
+
+    private
+
+    def build_xml_doc(tag_name, **root_node_attributes)
+      default_attributes = { "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" }
+      xml_builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
+        xml.send(tag_name, default_attributes.merge(root_node_attributes)) do |contents_builder|
+          yield contents_builder if block_given?
+        end
+      end
+      xml_builder.doc
     end
   end
 end

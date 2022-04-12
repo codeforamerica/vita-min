@@ -142,6 +142,15 @@ class EfileSubmission < ApplicationRecord
     )
   end
 
+  def bundle_class
+    case tax_year
+    when 2020
+      SubmissionBuilder::Ty2020::Return1040
+    when 2021
+      SubmissionBuilder::Ty2021::Return1040
+    end
+  end
+
   ##
   # Re-enqueue the submission to handle a temporary error.
   #

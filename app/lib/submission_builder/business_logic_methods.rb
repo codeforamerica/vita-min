@@ -68,6 +68,8 @@ module SubmissionBuilder
     end
 
     def primary_prior_year_agi(intake, tax_year)
+      # When submitting e.g. a 2020 return in tax year 2021, we'd need to ask another question;
+      # intake.primary_prior_year_agi_amount is only usable for the current tax year.
       if tax_year != TaxReturn.current_tax_year && !ENV['TEST_SCHEMA_VALIDITY_ONLY']
         raise "primary_prior_year_agi only works for current tax year"
       end

@@ -1,28 +1,22 @@
 module SubmissionBuilder
-  module TY2021
-    class Form8812 < SubmissionBuilder::Base
-      @root_node = "Return"
+  module Ty2021
+    module Documents
+      class Schedule8812 < SubmissionBuilder::Document
+        def schema_file
+          File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRS1040Schedule8812", "IRS1040Schedule8812.xsd")
+        end
 
-      def schema_file
-        File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRS1040Schedule8812", "IRS1040Schedule8812.xsd")
-      end
-
-      def root_node_attrs
-        super.merge(documentId: "IRS1040Schedule8812", documentName: "IRS1040Schedule8812")
-      end
-
-      def document
-        tax_return = submission.tax_return
-        dependents = submission.qualifying_dependents
-        benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
-        Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
-          xml.IRS1040Schedule8812(root_node_attrs) {
+        def document
+          tax_return = submission.tax_return
+          dependents = submission.qualifying_dependents
+          benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
+          build_xml_doc("IRS1040Schedule8812", documentId: "IRS1040Schedule8812", documentName: "IRS1040Schedule8812") do |xml|
             xml.AdjustedGrossIncomeAmt 0 # 1
             xml.ExcldSect933PuertoRicoIncmAmt 0 # 2a
             xml.GrossIncomeExclusionAmt 0 # 2c
             xml.AdditionalIncomeAdjAmt 0 #2d
             xml.ModifiedAGIAmt 0 #3
-            xml.QlfyChildUnderAgeSSNCnt dependents.select {|d| d.qualifying_ctc? }.length #4a
+            xml.QlfyChildUnderAgeSSNCnt dependents.select { |d| d.qualifying_ctc? }.length #4a
             xml.QlfyChildIncldUnderAgeSSNCnt dependents.select { |d| d.qualifying_ctc? && d.age < 6 }.length #4b
             xml.QlfyChildOverAgeSSNCnt dependents.select { |d| d.qualifying_ctc? && d.age >= 6 }.length #4c
             xml.MaxCTCAfterLimitAmt benefits_eligibility.ctc_amount #5
@@ -45,8 +39,8 @@ module SubmissionBuilder
               xml.NonrefundableODCAmt 0 #14h
               xml.RefundableCTCAmt benefits_eligibility.outstanding_ctc_amount #14i
             }
-          }
-        end.doc
+          end
+        end
       end
     end
   end

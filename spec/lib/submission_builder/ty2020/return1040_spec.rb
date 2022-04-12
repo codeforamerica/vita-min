@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::TY2020::Return1040 do
+describe SubmissionBuilder::Ty2020::Return1040 do
   let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2020 }
 
   before do
@@ -22,9 +22,9 @@ describe SubmissionBuilder::TY2020::Return1040 do
     ENV.delete("TEST_SCHEMA_VALIDITY_ONLY")
   end
 
-  context ".build" do
+  describe ".build" do
     it "conforms to the Return1040 schema" do
-      expect(described_class.build(submission, documents: ["adv_ctc_irs1040"])).to be_valid
+      expect(described_class.build(submission)).to be_valid
     end
   end
 end

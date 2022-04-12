@@ -17,8 +17,7 @@ class BuildSubmissionBundleJob < ApplicationJob
     end
 
     begin
-      # TODO: This needs to be updated for the 2021 tax season to include the 8812.
-      response = SubmissionBundle.build(submission, documents: ["adv_ctc_irs1040"])
+      response = SubmissionBundle.build(submission)
     rescue StandardError => e
       submission.transition_to!(:failed, error_code: 'BUNDLE-FAIL', raw_response: e.inspect)
       raise
