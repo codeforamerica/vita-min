@@ -1,5 +1,5 @@
 module SubmissionBuilder
-  module TY2021
+  module Ty2021
     class LapsedFilerIrs1040 < SubmissionBuilder::Base
       include SubmissionBuilder::FormattingMethods
       @root_node = "IRS1040"
@@ -74,14 +74,6 @@ module SubmissionBuilder
             xml.RefundProductCd "NO FINANCIAL PRODUCT"
           }
         end.doc
-      end
-
-      def build
-        unless ENV['TEST_SCHEMA_VALIDITY_ONLY'] == 'true'
-          raise NotImplementedError, "SubmissionBuilder::TY2021::LapsedFilerIrs1040 is for testing purposes only and does not currently conform to the 2021 revenue procedure."
-        end
-        
-        super
       end
     end
   end

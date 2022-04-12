@@ -1,5 +1,5 @@
 module SubmissionBuilder
-  module TY2021
+  module Ty2021
     class Form8812 < SubmissionBuilder::Base
       @root_node = "IRS1040Schedule8812"
 

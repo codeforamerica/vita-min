@@ -1,5 +1,5 @@
 module SubmissionBuilder
-  module TY2020
+  module Ty2020
     class AdvCtcIrs1040 < SubmissionBuilder::Base
       include SubmissionBuilder::FormattingMethods
       @root_node = "IRS1040"

@@ -10,10 +10,10 @@ class SubmissionBundle
       Dir.mkdir("#{dir}/manifest")
       Dir.mkdir("#{dir}/xml")
       File.open("#{dir}/manifest/manifest.xml", "w+") do |f|
-        f.write(manifest)
+        f.write(manifest_content)
       end
       File.open("#{dir}/xml/submission.xml", "w+") do |f|
-        f.write(return_1040)
+        f.write(submission_content)
       end
       input_filenames = ['manifest/manifest.xml', 'xml/submission.xml']
 
@@ -37,7 +37,7 @@ class SubmissionBundle
 
   private
 
-  def manifest
+  def manifest_content
     response = SubmissionBuilder::Manifest.build(@submission)
     if response.valid?
       response.document
@@ -47,10 +47,8 @@ class SubmissionBundle
     end
   end
 
-  def return_1040
-    year = @submission.tax_return.year
-    submission_class = "SubmissionBuilder::TY#{year}::Return1040".constantize
-    response = submission_class.build(@submission)
+  def submission_content
+    response = @submission.bundle_class.build(@submission)
     if response.valid?
       response.document
     else

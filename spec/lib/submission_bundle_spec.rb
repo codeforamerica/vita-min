@@ -49,21 +49,21 @@ describe SubmissionBundle do
 
     context "using appropriate documents per tax year" do
       before do
-        allow(SubmissionBuilder::TY2020::Return1040).to receive(:build).and_return SubmissionBuilder::Response.new(errors: [], document: nil, root_node: nil )
-        allow(SubmissionBuilder::TY2021::Return1040).to receive(:build).and_return SubmissionBuilder::Response.new(errors: [], document: nil, root_node: nil )
+        allow(SubmissionBuilder::Ty2020::Return1040).to receive(:build).and_return SubmissionBuilder::Response.new(errors: [], document: nil, root_node: nil )
+        allow(SubmissionBuilder::Ty2021::Return1040).to receive(:build).and_return SubmissionBuilder::Response.new(errors: [], document: nil, root_node: nil )
       end
 
       context "when the tax year is 2020" do
         it "calls the TY2020 submission builder class" do
           described_class.new(submission_2020).build
-          expect(SubmissionBuilder::TY2020::Return1040).to have_received(:build).with(submission_2020)
+          expect(SubmissionBuilder::Ty2020::Return1040).to have_received(:build).with(submission_2020)
         end
       end
 
       context "when the tax year is 2021" do
         it "calls the TY2021 submission builder class" do
           described_class.new(submission_2021).build
-          expect(SubmissionBuilder::TY2021::Return1040).to have_received(:build).with(submission_2021)
+          expect(SubmissionBuilder::Ty2021::Return1040).to have_received(:build).with(submission_2021)
         end
       end
     end

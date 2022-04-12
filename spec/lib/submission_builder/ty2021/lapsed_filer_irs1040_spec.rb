@@ -1,14 +1,7 @@
 require "rails_helper"
 
-describe SubmissionBuilder::TY2021::LapsedFilerIrs1040 do
+describe SubmissionBuilder::Ty2021::LapsedFilerIrs1040 do
   describe ".build" do
-
-    around do |example|
-      ENV["TEST_SCHEMA_VALIDITY_ONLY"] = 'true'
-      example.run
-      ENV.delete("TEST_SCHEMA_VALIDITY_ONLY")
-    end
-
     before do
       submission.intake.update(primary_last_name: "Kòala")
       dependent = submission.intake.dependents.first
