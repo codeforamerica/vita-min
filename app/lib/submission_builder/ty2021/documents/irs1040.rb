@@ -1,41 +1,35 @@
 module SubmissionBuilder
   module Ty2021
-    class LapsedFilerIrs1040 < SubmissionBuilder::Base
-      include SubmissionBuilder::FormattingMethods
-      @root_node = "IRS1040"
+    module Documents
+      class Irs1040 < SubmissionBuilder::Document
+        include SubmissionBuilder::FormattingMethods
 
-      def schema_file
-        File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Ind1040", "IRS1040", "IRS1040.xsd")
-      end
-
-      def root_node_attrs
-        super.merge(documentId: "IRS1040", documentName: "IRS1040")
-      end
-
-      def dependent_xml(xml, dependent)
-        xml.DependentDetail do
-          xml.DependentFirstNm person_name_type(dependent.first_name)
-          xml.DependentLastNm person_name_type(dependent.last_name)
-          xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
-          xml.DependentSSN dependent.ssn
-          xml.DependentRelationshipCd dependent.irs_relationship_enum
-          xml.EligibleForChildTaxCreditInd "X" if dependent.qualifying_ctc?
+        def schema_file
+          File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Ind1040", "IRS1040", "IRS1040.xsd")
         end
-      end
 
-      def filer_exemption_count
-        submission.tax_return.filing_jointly? ? 2 : 1
-      end
+        def dependent_xml(xml, dependent)
+          xml.DependentDetail do
+            xml.DependentFirstNm person_name_type(dependent.first_name)
+            xml.DependentLastNm person_name_type(dependent.last_name)
+            xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
+            xml.DependentSSN dependent.ssn
+            xml.DependentRelationshipCd dependent.irs_relationship_enum
+            xml.EligibleForChildTaxCreditInd "X" if dependent.qualifying_ctc?
+          end
+        end
 
-      def document
-        intake = submission.intake
-        tax_return = submission.tax_return
-        bank_account = intake.bank_account
-        qualifying_dependents = submission.qualifying_dependents
-        benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents)
+        def filer_exemption_count
+          submission.tax_return.filing_jointly? ? 2 : 1
+        end
 
-        Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
-          xml.IRS1040(root_node_attrs) {
+        def document
+          intake = submission.intake
+          tax_return = submission.tax_return
+          bank_account = intake.bank_account
+          qualifying_dependents = submission.qualifying_dependents
+          benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents)
+          build_xml_doc("IRS1040", documentId: "IRS1040", documentName: "IRS1040") do |xml|
             xml.IndividualReturnFilingStatusCd tax_return.filing_status_code
             xml.VirtualCurAcquiredDurTYInd false
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
@@ -72,8 +66,8 @@ module SubmissionBuilder
               xml.DepositorAccountNum account_number_type(bank_account.account_number) # 35d
             end
             xml.RefundProductCd "NO FINANCIAL PRODUCT"
-          }
-        end.doc
+          end
+        end
       end
     end
   end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Ty2020::AdvCtcIrs1040 do
+describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
   describe ".build" do
     before do
       submission.intake.update(primary_last_name: "Kòala")
@@ -19,7 +19,7 @@ describe SubmissionBuilder::Ty2020::AdvCtcIrs1040 do
       submission.reload
     end
 
-    let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2020 }
+    let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2021 }
 
     context "when the XML is valid" do
       let(:file_double) { double }
@@ -88,17 +88,22 @@ describe SubmissionBuilder::Ty2020::AdvCtcIrs1040 do
         expect(dependent_nodes[1].at("EligibleForChildTaxCreditInd")).to be_nil
         expect(xml.at("ChldWhoLivedWithYouCnt").text).to eq "1"
         expect(xml.at("OtherDependentsListedCnt").text).to eq "1"
-        expect(xml.at("TotalExemptionsCnt").text).to eq "4"
-        expect(xml.at("TaxableInterestAmt").text).to eq "1"
-        expect(xml.at("TotalIncomeAmt").text).to eq "1"
-        expect(xml.at("AdjustedGrossIncomeAmt").text).to eq "1"
-        expect(xml.at("TotalItemizedOrStandardDedAmt").text).to eq "24800"
+        expect(xml.at("TotalItemizedOrStandardDedAmt").text).to eq "25100"
+        expect(xml.at("TotDedCharitableContriAmt").text).to eq "25100"
+        expect(xml.at("TotalDeductionsAmt").text).to eq "25100"
         expect(xml.at("TaxableIncomeAmt").text).to eq "0"
-        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "900"
-        expect(xml.at("RefundableCreditsAmt").text).to eq "900"
-        expect(xml.at("TotalPaymentsAmt").text).to eq "900"
-        expect(xml.at("OverpaidAmt").text).to eq "900"
-        expect(xml.at("RefundAmt").text).to eq "900"
+
+        # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i
+        expect(xml.at("RefundableCTCOrACTCAmt").text).to eq "0" # TODO: replace this when we calculate this number
+
+        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "3200" # Line 30
+
+        # Line 32, 33, 34, 35a: Line 28 + Line 30
+        expect(xml.at("RefundableCreditsAmt").text).to eq "3200"
+        expect(xml.at("TotalPaymentsAmt").text).to eq "3200"
+        expect(xml.at("OverpaidAmt").text).to eq "3200"
+        expect(xml.at("RefundAmt").text).to eq "3200"
+
         expect(xml.at("RoutingTransitNum").text).to eq "123456789"
         expect(xml.at("BankAccountTypeCd").text).to eq "1"
         expect(xml.at("DepositorAccountNum").text).to eq "87654321"

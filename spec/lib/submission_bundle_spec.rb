@@ -39,7 +39,7 @@ describe SubmissionBundle do
       let(:submission_builder_double) { double(SubmissionBuilder::Response) }
       let(:errors) { ['error', 'error'] }
       before do
-        allow(SubmissionBuilder::Manifest).to receive(:build).and_return SubmissionBuilder::Response.new(errors: errors, document: nil, root_node: nil )
+        allow(SubmissionBuilder::Manifest).to receive(:build).and_return SubmissionBuilder::Response.new(errors: errors, document: nil)
       end
 
       it "returns errors from the SubmissionBuilder::Response" do
@@ -49,8 +49,8 @@ describe SubmissionBundle do
 
     context "using appropriate documents per tax year" do
       before do
-        allow(SubmissionBuilder::Ty2020::Return1040).to receive(:build).and_return SubmissionBuilder::Response.new(errors: [], document: nil, root_node: nil )
-        allow(SubmissionBuilder::Ty2021::Return1040).to receive(:build).and_return SubmissionBuilder::Response.new(errors: [], document: nil, root_node: nil )
+        allow(SubmissionBuilder::Ty2020::Return1040).to receive(:build).and_return SubmissionBuilder::Response.new(errors: [], document: nil)
+        allow(SubmissionBuilder::Ty2021::Return1040).to receive(:build).and_return SubmissionBuilder::Response.new(errors: [], document: nil)
       end
 
       context "when the tax year is 2020" do

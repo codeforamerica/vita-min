@@ -2,29 +2,24 @@
 # so it seems like we can use the same logic.
 #
 module SubmissionBuilder
-  class ReturnHeader1040 < SubmissionBuilder::Base
-    include SubmissionBuilder::FormattingMethods
-    include SubmissionBuilder::BusinessLogicMethods
-    @root_node = "ReturnHeader"
+  module Shared
+    class ReturnHeader1040 < SubmissionBuilder::Document
+      include SubmissionBuilder::FormattingMethods
+      include SubmissionBuilder::BusinessLogicMethods
 
-    def schema_file
-      File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "ReturnHeader1040x.xsd")
-    end
+      def schema_file
+        File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "ReturnHeader1040x.xsd")
+      end
 
-    def root_node_attrs
-      super.merge("binaryAttachmentCnt": 0)
-    end
+      def document
+        tax_return = submission.tax_return
+        intake = submission.intake
+        client = submission.client
+        creation_security_information = client.efile_security_informations.first
+        filing_security_information = client.efile_security_informations.last
+        address = submission.address
 
-    def document
-      tax_return = submission.tax_return
-      intake = submission.intake
-      client = submission.client
-      creation_security_information = client.efile_security_informations.first
-      filing_security_information = client.efile_security_informations.last
-      address = submission.address
-
-      Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
-        xml['efile'].ReturnHeader(root_node_attrs) {
+        build_xml_doc("efile:ReturnHeader", "binaryAttachmentCnt": 0) do |xml|
           xml.ReturnTs datetime_type(submission.created_at)
           xml.TaxYr tax_return.year
           xml.TaxPeriodBeginDt date_type(Date.new(tax_return.year, 1, 1))
@@ -164,8 +159,8 @@ module SubmissionBuilder
             xml.TotActiveTimePrepSubmissionTs total_active_preparation_minutes
             xml.VendorControlNum "2P00000000000001"
           }
-        }
-      end.doc
+        end
+      end
     end
   end
 end

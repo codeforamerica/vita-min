@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::ReturnHeader1040 do
+describe SubmissionBuilder::Shared::ReturnHeader1040 do
   describe ".build" do
     let(:fake_time) { DateTime.new(2021, 4, 21) }
     before do

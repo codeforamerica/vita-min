@@ -22,7 +22,7 @@ describe SubmissionBuilder::Ty2020::Return1040 do
     ENV.delete("TEST_SCHEMA_VALIDITY_ONLY")
   end
 
-  context ".build" do
+  describe ".build" do
     it "conforms to the Return1040 schema" do
       expect(described_class.build(submission)).to be_valid
     end
