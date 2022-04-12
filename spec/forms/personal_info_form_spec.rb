@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe PersonalInfoForm do
-  let(:intake) { create :intake }
+  let(:intake) { Intake::GyrIntake.new }
+
   let(:valid_params) do
     {
       preferred_name: "Greta",
@@ -26,6 +27,21 @@ RSpec.describe PersonalInfoForm do
         form = described_class.new(intake, valid_params.merge(additional_params))
 
         expect(form).to be_valid
+      end
+    end
+
+    context "if we're trying to .save data that cannot make it into the db (mismatch between model and form validation)" do
+      it "creates neither a client nor an intake" do
+        weird_params = valid_params.merge(additional_params).merge(phone_number: '0000000000', phone_number_confirmation: '0000000000')
+        form = described_class.new(intake, weird_params)
+
+        expect do
+          expect do
+            expect do
+              form.save
+            end.to raise_error(ActiveRecord::RecordInvalid)
+          end.not_to change { Client.count }
+        end.not_to change { Intake.count }
       end
     end
 
@@ -60,26 +76,27 @@ RSpec.describe PersonalInfoForm do
   end
 
   describe "#save" do
-    it "makes a new client" do
-      intake = Intake::GyrIntake.new
+    it "makes a new client and intake" do
       form = described_class.new(intake, valid_params.merge(additional_params))
       expect(form).to be_valid
-      expect {
-        form.save
-      }.to change(Client, :count).by(1)
-      intake.reload
+      expect do
+        expect do
+          form.save
+        end.to change(Client, :count).by(1)
+      end.to change(Intake, :count).by(1)
 
+      intake = Intake.last
       client = Client.last
       expect(client.intake).to eq(intake)
     end
 
     it "saves the right attributes" do
-      intake = Intake::GyrIntake.new
       form = described_class.new(intake, valid_params.merge(additional_params))
       form.valid?
       form.save
 
-      intake.reload
+      intake = Intake.last
+      expect(intake.type).to eq "Intake::GyrIntake"
       expect(intake.preferred_name).to eq "Greta"
       expect(intake.phone_number).to eq "+18286065544"
       expect(intake.zip_code).to eq "94107"
@@ -100,10 +117,11 @@ RSpec.describe PersonalInfoForm do
       end
 
       it "sends intake_started to Mixpanel" do
-        intake = Intake::GyrIntake.new
         form = PersonalInfoForm.new(intake, valid_params.merge(additional_params))
+        form.valid?
         form.save
 
+        intake = Intake.last
         expect(MixpanelService).to have_received(:send_event).with(
           distinct_id: intake.visitor_id,
           event_name: "intake_started",
