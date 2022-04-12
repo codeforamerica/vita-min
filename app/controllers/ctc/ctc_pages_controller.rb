@@ -88,7 +88,8 @@ module Ctc
     private
 
     def markdown_content_from_file(file_name)
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, tables: true)
+      renderer = Redcarpet::Render::HTML.new(link_attributes: { target: '_blank', rel: 'noopener' })
+      markdown = Redcarpet::Markdown.new(renderer, tables: true)
       markdown.render(File.read(Rails.root.join("app", "views", "ctc", "ctc_pages", file_name))).html_safe
     end
   end
