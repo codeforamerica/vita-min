@@ -3,7 +3,6 @@ class PersonalInfoForm < QuestionsForm
     :intake,
     :preferred_name,
     :phone_number,
-    :phone_number_confirmation,
     :zip_code,
     :need_itin_help,
     :timezone,
@@ -13,11 +12,16 @@ class PersonalInfoForm < QuestionsForm
     :visitor_id,
   )
 
+  set_attributes_for(
+    :confirmation,
+    :phone_number_confirmation,
+  )
+
   before_validation :normalize_phone_numbers
 
   validates :zip_code, zip_code: true
   validates :preferred_name, presence: true
-  validates :phone_number, presence: true, confirmation: true
+  validates :phone_number, presence: true, confirmation: true, e164_phone: true
   validates :phone_number_confirmation, presence: true
   validates :need_itin_help, inclusion: { in: ['yes', 'no'], message: -> (_object, _data) { I18n.t('errors.messages.blank') } }
 
@@ -28,12 +32,10 @@ class PersonalInfoForm < QuestionsForm
 
   def save
     state = ZipCodes.details(zip_code)[:state]
-    @intake.update(
-      attributes_for(:intake)
-        .except(:phone_number_confirmation)
-        .merge(client: Client.create!)
-        .merge(state_of_residence: state)
+    client = Client.create!(
+      intake_attributes: attributes_for(:intake).merge(type: @intake.type, state_of_residence: state)
     )
+    @intake = client.intake
 
     data = MixpanelService.data_from([@intake.client, @intake])
     MixpanelService.send_event(
