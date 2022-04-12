@@ -111,4 +111,14 @@ describe Ctc::CtcPagesController do
       expect(response.body).to include "Need help claiming your tax benefits?"
     end
   end
+
+  describe "#volunteers" do
+    render_views
+
+    it "renders the content" do
+      get :volunteers
+
+      expect(response.body).to include "GetYourRefund - Volunteer Signup"
+    end
+  end
 end
