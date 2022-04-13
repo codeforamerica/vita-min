@@ -10,6 +10,8 @@ module Efile
       /SSLException:Unsupported or unrecognized SSL message/,
       /Transaction Result: Fault String: Session limit reached/,
       /The server sent HTTP status code 503: Service Unavailable/,
+      /Failed to parse XML document/,
+      /Cookie validation for session/,
     ]
 
     def self.run_efiler_command(*args)
