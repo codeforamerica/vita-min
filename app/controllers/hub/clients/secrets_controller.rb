@@ -7,6 +7,7 @@ module Hub
       respond_to :js
 
       def show
+        @client = Hub::ClientsController::HubClientPresenter.new(@client)
         @partial_params = {}
         if params[:secret_name] == 'primary_ssn'
           @partial_path = 'hub/clients/displayed_ssn_itin'
@@ -44,7 +45,7 @@ module Hub
       def create_access_log
         AccessLog.create!(
           user: current_user,
-          record: @client,
+          record: @client.__getobj__,
           event_type: params[:secret_name].end_with?('ssn') ? "read_ssn_itin" : "read_ip_pin",
           created_at: DateTime.now,
           ip_address: request.remote_ip,

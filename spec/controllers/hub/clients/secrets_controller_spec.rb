@@ -66,6 +66,20 @@ describe Hub::Clients::SecretsController, type: :controller do
           end
         end
       end
+
+      context "for an archived intake" do
+        render_views
+
+        let(:intake) { nil }
+        let(:client) { build(:client) }
+
+        let!(:archived_intake) { create :archived_2021_ctc_intake, client: client, primary_ssn: '555-11-2222', preferred_name: "Andy Archive" }
+
+        it "shows the secret from the archived intake" do
+          get :show, params: params, format: :js, xhr: true
+          expect(response.body).to include(archived_intake.primary_ssn)
+        end
+      end
     end
   end
 
