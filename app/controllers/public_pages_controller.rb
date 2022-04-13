@@ -37,6 +37,10 @@ class PublicPagesController < ApplicationController
 
   def maintenance; end
 
+  def volunteers
+    @markdown_content = markdown_content_from_file("volunteers.md")
+  end
+
   def internal_server_error
     respond_to do |format|
       format.html { render 'public_pages/internal_server_error', status: 500  }
@@ -77,5 +81,13 @@ class PublicPagesController < ApplicationController
       format.text { render 'public_pages/pki_validation'  }
       format.any { head 404 }
     end
+  end
+
+  private
+
+  def markdown_content_from_file(file_name)
+    renderer = Redcarpet::Render::HTML.new(link_attributes: { target: '_blank', rel: 'noopener' })
+    markdown = Redcarpet::Markdown.new(renderer, tables: true)
+    markdown.render(File.read(Rails.root.join("app", "views", "public_pages", file_name))).html_safe
   end
 end

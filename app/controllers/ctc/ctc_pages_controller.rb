@@ -43,10 +43,6 @@ module Ctc
       @markdown_content = markdown_content_from_file(file_name)
     end
 
-    def volunteers
-      @markdown_content = markdown_content_from_file("volunteers.md")
-    end
-
     def privacy_policy
     end
 

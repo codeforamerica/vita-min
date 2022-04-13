@@ -160,4 +160,14 @@ RSpec.describe PublicPagesController do
       expect(response).to be_ok
     end
   end
+
+  describe "#volunteers" do
+    render_views
+
+    it "renders the content" do
+      get :volunteers
+
+      expect(response.body).to include "GetYourRefund - Volunteer Signup"
+    end
+  end
 end
