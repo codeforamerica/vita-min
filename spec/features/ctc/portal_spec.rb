@@ -498,7 +498,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           end
 
           expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
-          expect(page).to have_text I18n.t("views.ctc.portal.edit_info.help_text_resubmission_limit_html", email_link: "<a href='mailto:support@getctc.org'>support@getctc.org</a>")
+          expect(page).to have_text I18n.t("views.ctc.portal.edit_info.help_text_resubmission_limit_html", email_link: "support@getctc.org")
           expect(page).not_to have_text I18n.t("views.ctc.portal.edit_info.help_text_cant_submit")
         end
       end
