@@ -185,7 +185,7 @@ module Hub
           @archived = true if @intake
         end
         # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
-        if !@intake && @client.created_at < Date.parse('2022-03-15') && @client.created_at > Date.parse('2022-03-09')
+        if !@intake && @client.created_at < Date.parse('2022-04-15')
           @missing_intake = true
           @intake = Intake::GyrIntake.new(client_id: @client.id)
           @intake.readonly!
