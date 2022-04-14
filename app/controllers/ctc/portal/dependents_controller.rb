@@ -1,5 +1,4 @@
 class Ctc::Portal::DependentsController < Ctc::Portal::BaseIntakeRevisionController
-
   def edit
     @form = form_class.from_dependent(current_model)
     render edit_template

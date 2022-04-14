@@ -1781,6 +1781,15 @@ en:
           - If you think your %{current_tax_year} return was never processed and you don’t know what happened, you may need direct assistance to help resolve your case. You can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
           title: Unfortunately, you can't use GetCTC.
       portal:
+        prior_tax_year_agi:
+          edit:
+            title: "Edit your %{prior_tax_year} Adjusted Gross Income"
+            help_text: "You can find this information on Line 11 of your %{prior_tax_year} tax return. Please enter the correct amount from your %{prior_tax_year} return or your return will be rejected."
+            label: "%{prior_tax_year} AGI"
+        spouse_prior_tax_year_agi:
+          edit:
+            title: "Edit your spouse's %{prior_tax_year} Adjusted Gross Income"
+            label: "Spouse's %{prior_tax_year} AGI"
         bank_account:
           title: Please provide your bank details below
         dependent_info:
@@ -1957,6 +1966,10 @@ en:
         confirm_mailing_address:
           mailing_address: Your mailing address
           title: Great! Please confirm your mailing address.
+        confirm_primary_prior_year_agi:
+          primary_prior_year_agi: Your %{prior_tax_year} AGI
+        confirm_spouse_prior_year_agi:
+          spouse_prior_year_agi: Your spouse's %{prior_tax_year} AGI
         confirm_payment:
           client_not_collecting: You are not collecting any payments, please edit your tax return.
           ctc_0_due_link: Claim children for CTC
