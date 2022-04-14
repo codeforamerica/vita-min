@@ -1,0 +1,9 @@
+<h2 class="review-box__title"><%= t("views.ctc.questions.confirm_spouse_prior_year_agi.spouse_prior_year_agi") %></h2>
+<div class="review-box__space-between spouse-prior-year-agi">
+  <div>
+    <%= intake.spouse_prior_year_agi_amount || "0" %>
+  </div>
+  <% if defined?(edit_controller) %>
+    <%= link_to t("general.edit").downcase, edit_controller.to_path_helper, class: "review-box__edit review-box__edit-button" %>
+  <% end %>
+</div>

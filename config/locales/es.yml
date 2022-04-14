@@ -1813,9 +1813,19 @@ es:
           form_of_identity_note: Si utiliza una tarjeta de Seguro Social, debe ser válida para el empleo.
           help_text: Confirma / edita tu información básica
           title: Edita tu información básica
+        prior_tax_year_agi:
+          edit:
+            help_text: Puede encontrar esta información en la línea 11 de su declaración de impuestos del %{prior_tax_year}. Introduzca el monto correcto de su declaración de %{prior_tax_year} o su declaración será rechazada.
+            label: "%{prior_tax_year} AGI"
+            title: Edite el ingreso bruto ajustado de %{prior_tax_year}
         spouse:
           help_text: Confirmar / editar la información básica de su cónyuge
           title: Editar la información básica de su cónyuge
+        spouse_prior_tax_year_agi:
+          edit:
+            help_text: Puede encontrar esta información en la línea 11 de la declaración de impuestos del %{prior_tax_year} de su cónyuge. Introduzca la cantidad correcta o su declaración será rechazada.
+            label: AGI de %{prior_tax_year} del cónyuge
+            title: Edite el ingreso bruto ajustado de %{prior_tax_year} de su cónyuge
       questions:
         account_number:
           account_number: Número de cuenta
@@ -1930,6 +1940,10 @@ es:
           third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Click here for more information on the third stimulus payment.</a>
           title: 'Here’s a list of the estimated payments you are owed:'
           total: total
+        confirm_primary_prior_year_agi:
+          primary_prior_year_agi: Su %{prior_tax_year} AGI
+        confirm_spouse_prior_year_agi:
+          spouse_prior_year_agi: "%{prior_tax_year} AGI de su cónyuge"
         contact_preference:
           body: Le enviaremos un código para verificar su información de contacto y así poder enviarle información actualizada sobre su declaración de impuestos. ¡Por favor, seleccione la opción que mejor prefiera!
           email: Envíenme correos electrónicos
