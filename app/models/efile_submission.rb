@@ -128,9 +128,10 @@ class EfileSubmission < ApplicationRecord
 
   def generate_form_1040_pdf
     filename = "IRS 1040 - TY #{tax_return.year} - #{irs_submission_id}.pdf"
-
+    temp_1040_pdf = Irs1040Pdf.new(self).output_file
+    temp_8812_pdf = Irs8812Pdf.new(self).output_file
     ClientPdfDocument.create_or_update(
-      output_file: Irs1040Pdf.new(self).output_file,
+      output_file: (CombinePDF.load(temp_1040_pdf) << CombinePDF.load(temp_8812_pdf)),
       document_type: DocumentTypes::Form1040,
       client: self.client,
       filename: filename,
