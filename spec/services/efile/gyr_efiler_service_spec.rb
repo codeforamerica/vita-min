@@ -101,31 +101,6 @@ RSpec.describe Efile::GyrEfilerService do
         end
       end
 
-      context "when it crashes during login" do
-        let(:log_output) {
-          <<~AUDIT_LOG
-            Name of Service Call: Login
-            Message ID of Service Call: 534242021316s5jad05q
-            Transaction Submission Date/Time: 2021-11-12T10:48:58Z
-            ETIN of Service Call: 53424
-            ASID: 44146601
-            Login Certificate: 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
-            Toolkit Version: 2020v11.1
-            Request data: N/A
-            Name of Service Call: Login
-            Message ID of Service Call: 534242021316s5jad05q
-            Transaction Result: HTTP transport error: javax.net.ssl.SSLException: Received fatal alert: internal_error>
-          AUDIT_LOG
-        }
-
-        it "raises a RetryableError" do
-          expect {
-            described_class.run_efiler_command
-          }.to raise_error(Efile::GyrEfilerService::RetryableError)
-        end
-      end
-
       context "when there was a SOAP connect time out" do
         let(:log_output) do
           <<~AUDIT_LOG
