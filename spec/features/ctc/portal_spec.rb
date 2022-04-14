@@ -308,20 +308,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           expect(page).to have_text "Account number: ●●●●●6789"
         end
 
-        within ".primary-prior-year-agi" do
-          click_on I18n.t("general.edit").downcase
-        end
-
-        fill_in I18n.t('views.ctc.portal.prior_tax_year_agi.edit.label', prior_tax_year: prior_tax_year), with: "1234"
-        click_on I18n.t("general.save")
-
-        within ".spouse-prior-year-agi" do
-          click_on I18n.t("general.edit").downcase
-        end
-
-        fill_in I18n.t('views.ctc.portal.spouse_prior_tax_year_agi.edit.label', prior_tax_year: prior_tax_year), with: "4567"
-        click_on I18n.t("general.save")
-
         expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.edit_info.help_text"))
         click_on I18n.t("views.ctc.portal.home.contact_us")
         click_on I18n.t("general.back")
@@ -369,14 +355,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(changes_table_contents(".changes-note-#{notes[4].id}")).to match({
           "bank_name" => ["[REDACTED]", "[REDACTED]"],
           "account_number" => ["[REDACTED]", "[REDACTED]"],
-        })
-
-        expect(changes_table_contents(".changes-note-#{notes[5].id}")).to match({
-          "primary_prior_year_agi_amount" => ["nil", "1234"],
-        })
-
-        expect(changes_table_contents(".changes-note-#{notes[6].id}")).to match({
-          "spouse_prior_year_agi_amount" => ["nil", "4567"],
         })
 
         expect(page).to have_content("Client initiated resubmission of their tax return.")

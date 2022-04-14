@@ -49,12 +49,6 @@
           <% end %>
 
           <%= render 'ctc/questions/confirm_information/bank_info', edit_controller: Ctc::Portal::RefundPaymentController, intake: @intake %>
-
-          <%= render 'ctc/questions/confirm_information/primary_prior_year_agi', edit_controller: Ctc::Portal::PriorTaxYearAgiController, intake: @intake %>
-
-          <% if @intake.filing_jointly? %>
-            <%= render 'ctc/questions/confirm_information/spouse_prior_year_agi', edit_controller: Ctc::Portal::SpousePriorTaxYearAgiController, intake: @intake %>
-          <% end %>
         </div>
 
         <% if @submission.can_transition_to?(:resubmitted) %>

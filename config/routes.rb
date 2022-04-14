@@ -401,12 +401,6 @@ Rails.application.routes.draw do
           get 'bank-account', to: "bank_account#edit"
           put 'bank-account', to: "bank_account#update"
 
-          get 'prior-tax-year-agi', to: "prior_tax_year_agi#edit"
-          put 'prior-tax-year-agi', to: "prior_tax_year_agi#update"
-
-          get 'spouse-prior-tax-year-agi', to: "spouse_prior_tax_year_agi#edit"
-          put 'spouse-prior-tax-year-agi', to: "spouse_prior_tax_year_agi#update"
-
           resources :dependents, only: [:edit, :update, :destroy] do
             get :confirm_remove, on: :member
             get 'not-eligible', to: "pages#no_eligible_dependents", on: :collection
