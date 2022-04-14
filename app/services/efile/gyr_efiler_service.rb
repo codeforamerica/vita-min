@@ -12,6 +12,9 @@ module Efile
       /The server sent HTTP status code 503: Service Unavailable/,
       /Failed to parse XML document/,
       /Cookie validation for session/,
+      /The server sent HTTP status code 500: Internal Server Error/,
+      /HTTP transport error: java.net.ConnectException/,
+      /HTTP transport error: javax.net.ssl.SSLException/,
     ]
 
     def self.run_efiler_command(*args)
