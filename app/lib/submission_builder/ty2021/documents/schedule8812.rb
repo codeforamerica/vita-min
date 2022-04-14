@@ -17,8 +17,8 @@ module SubmissionBuilder
             xml.AdditionalIncomeAdjAmt 0 #2d
             xml.ModifiedAGIAmt 0 #3
             xml.QlfyChildUnderAgeSSNCnt dependents.select { |d| d.qualifying_ctc? }.length #4a
-            xml.QlfyChildIncldUnderAgeSSNCnt dependents.select { |d| d.qualifying_ctc? && d.age < 6 }.length #4b
-            xml.QlfyChildOverAgeSSNCnt dependents.select { |d| d.qualifying_ctc? && d.age >= 6 }.length #4c
+            xml.QlfyChildIncldUnderAgeSSNCnt dependents.select { |d| d.qualifying_ctc? && d.age_during_tax_year < 6 }.length #4b
+            xml.QlfyChildOverAgeSSNCnt dependents.select { |d| d.qualifying_ctc? && d.age_during_tax_year >= 6 }.length #4c
             xml.MaxCTCAfterLimitAmt benefits_eligibility.ctc_amount #5
             xml.OtherDependentCnt benefits_eligibility.odc_amount / 500 #6
             xml.OtherDependentCreditAmt benefits_eligibility.odc_amount #7
