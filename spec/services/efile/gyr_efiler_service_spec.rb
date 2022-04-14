@@ -44,7 +44,6 @@ RSpec.describe Efile::GyrEfilerService do
     end
 
     context "command failure" do
-
       before do
         allow(Process).to receive(:spawn) do |_argv, chdir:, unsetenv_others:, in:|
           File.open("#{chdir}/output/log/audit_log.txt", 'wb') do |f|
@@ -129,6 +128,74 @@ RSpec.describe Efile::GyrEfilerService do
 
       context "when 'unauthorized' for efile" do
         let(:log_output) { "Earlier line\nLogin Certificate: blahBlahBlah\nTransaction Result: The server sent HTTP status code 401: Unauthorized\nLog output" }
+
+        it "raises a RetryableError" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(Efile::GyrEfilerService::RetryableError)
+        end
+      end
+
+      context "when failed to parse XML" do
+        let(:log_output) { "Transaction Result: Fault String: IDP Rule 'MeF Process Error IDP Rule' aborted processing.__Failed to parse XML document: Characters larger than 4 bytes are not supported: byte 0x8b implies a length of more than 4 bytes - Fault Code: soap:Client - Detail: <?xml version=\"1.0\" encoding=\"UTF-8\"?>" }
+
+        it "raises a RetryableError" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(Efile::GyrEfilerService::RetryableError)
+        end
+      end
+
+      context "when session token invalid" do
+        let(:log_output) { "Transaction Result: Fault String: IDP Rule 'MeF Process Error IDP Rule' aborted processing.__Cookie validation for session 'IkH...g==' failed because 'Invalid session token' - Fault Code: soap:Client - Detail: <?xml version=\"1.0\" encoding=\"UTF-8\"?>__" }
+
+        it "raises a RetryableError" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(Efile::GyrEfilerService::RetryableError)
+        end
+      end
+
+      context "when there was an Internal Server Error" do
+        let(:log_output) do
+          <<~LOG
+            Name of Service Call: Login
+            Message ID of Service Call: REDACTED
+            Transaction Result: The server sent HTTP status code 500: Internal Server Error
+          LOG
+        end
+
+        it "raises a RetryableError" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(Efile::GyrEfilerService::RetryableError)
+        end
+      end
+
+      context "when javax.net.ssl.SSLException" do
+        let(:log_output) do
+          <<~LOG
+            Name of Service Call: Login
+            Message ID of Service Call: REDACTED
+            Transaction Result: HTTP transport error: javax.net.ssl.SSLException: Received fatal alert: internal_error>
+          LOG
+        end
+
+        it "raises a RetryableError" do
+          expect {
+            described_class.run_efiler_command
+          }.to raise_error(Efile::GyrEfilerService::RetryableError)
+        end
+      end
+
+      context "when java.net.ConnectException" do
+        let(:log_output) do
+          <<~LOG
+            Name of Service Call: Login
+            Message ID of Service Call: REDACTED
+            Transaction Result: HTTP transport error: java.net.ConnectException: Connection refused (Connection refused)>
+          LOG
+        end
 
         it "raises a RetryableError" do
           expect {
