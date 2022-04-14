@@ -241,6 +241,10 @@ class TaxReturn < ApplicationRecord
     end
   end
 
+  def under_submission_limit?
+    efile_submissions.count < 20
+  end
+
   private
 
   def system_change_status(new_status)

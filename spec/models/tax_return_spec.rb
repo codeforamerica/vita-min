@@ -974,4 +974,24 @@ describe TaxReturn do
       expect(TaxReturn.backtax_years).to eq [2020, 2019, 2018]
     end
   end
+
+  describe "under_submission_limit?" do
+    let(:tax_return) { create :tax_return }
+
+    context "when the tax return has been resubmitted 19 times" do
+      let!(:efile_submissions) { create_list :efile_submission, 19, tax_return: tax_return }
+
+      it "returns true" do
+        expect(tax_return.under_submission_limit?).to eq true
+      end
+    end
+
+    context "when the tax return has been resubmitted 20 times" do
+      let!(:efile_submissions) { create_list :efile_submission, 19, tax_return: tax_return }
+
+      it "returns false" do
+        expect(tax_return.under_submission_limit?).to eq true
+      end
+    end
+  end
 end

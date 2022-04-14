@@ -37,6 +37,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
         flash[:alert] = I18n.t("general.enable_javascript")
         return redirect_back(fallback_location: ctc_portal_edit_info_path)
       end
+      return redirect_back(fallback_location: ctc_portal_edit_info_path) unless @submission.tax_return.under_submission_limit?
       @submission.transition_to(:resubmitted)
       if recaptcha_score_param('resubmit').present?
         current_client.recaptcha_scores.create(
