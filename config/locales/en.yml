@@ -1856,9 +1856,19 @@ en:
           form_of_identity_note: If using a social security card, it must be valid for employment.
           help_text: Confirm/edit your basic information
           title: Edit your basic information
+        prior_tax_year_agi:
+          edit:
+            help_text: You can find this information on Line 11 of your %{prior_tax_year} tax return. Please enter the correct amount from your %{prior_tax_year} return or your return will be rejected.
+            label: "%{prior_tax_year} AGI"
+            title: Edit your %{prior_tax_year} Adjusted Gross Income
         spouse:
           help_text: Confirm/edit your spouse's basic information
           title: Edit spouse basic information
+        spouse_prior_tax_year_agi:
+          edit:
+            help_text: You can find this information on Line 11 of your spouse’s %{prior_tax_year} tax return. Please enter the correct amount or your return will be rejected.
+            label: Spouse's %{prior_tax_year} AGI
+            title: Edit your spouse's %{prior_tax_year} Adjusted Gross Income
       questions:
         account_number:
           account_number: Account number
@@ -1973,6 +1983,10 @@ en:
           third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Click here for more information on the third stimulus payment.</a>
           title: 'Here’s a list of the estimated payments you are owed:'
           total: total
+        confirm_primary_prior_year_agi:
+          primary_prior_year_agi: Your %{prior_tax_year} AGI
+        confirm_spouse_prior_year_agi:
+          spouse_prior_year_agi: Your spouse's %{prior_tax_year} AGI
         contact_preference:
           body: We’ll send a code to verify your contact information so that we can send updates on your return. Please select the option that works best!
           email: Email me
