@@ -19,8 +19,8 @@ class Irs8812Pdf
       AdditionalIncomeAdjAmt: 0, #2d
       ModifiedAGIAmt: 0, #3
       QlfyChildUnderAgeSSNCnt: @qualifying_dependents.select {|d| d.qualifying_ctc? }.length, #4a
-      QlfyChildIncldUnderAgeSSNCnt: @qualifying_dependents.select { |d| d.qualifying_ctc? && d.age < 6 }.length, #4b
-      QlfyChildOverAgeSSNCnt: @qualifying_dependents.select { |d| d.qualifying_ctc? && d.age >= 6 }.length, #4c
+      QlfyChildIncldUnderAgeSSNCnt: @qualifying_dependents.select { |d| d.qualifying_ctc? && d.age_during_tax_year < 6 }.length, #4b
+      QlfyChildOverAgeSSNCnt: @qualifying_dependents.select { |d| d.qualifying_ctc? && d.age_during_tax_year >= 6 }.length, #4c
       MaxCTCAfterLimitAmt: @benefits.ctc_amount, #5
       OtherDependentCnt: @benefits.odc_amount / 500, #6
       OtherDependentCreditAmt: @benefits.odc_amount, #7
