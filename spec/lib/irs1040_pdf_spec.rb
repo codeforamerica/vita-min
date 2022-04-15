@@ -39,7 +39,7 @@ RSpec.describe Irs1040Pdf do
                                   "DependentCTCInd[2]" => "Off",
                                   "DependentCTCInd[3]" => "Off",
                                   "DependentOTCInd[0]" => "Off",
-                                  "DependentOTCInd[1}" => "Off",
+                                  "DependentOTCInd[1]" => "Off",
                                   "DependentOTCInd[2]" => "Off",
                                   "DependentOTCInd[3]" => "Off",
                                   "DependentLegalNm[0]" => nil,
@@ -132,7 +132,7 @@ RSpec.describe Irs1040Pdf do
                                   "TotalTaxablePensionsAmt5b" => nil,
                                   "WagesSalariesAndTipsAmt1" => nil,
                                   "WithholdingTaxAmt25d" => nil,
-                                  "ZipCd" => nil,
+                                  "ZipCd" => "",
                                 })
       end
     end
