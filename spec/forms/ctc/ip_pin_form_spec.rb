@@ -119,9 +119,11 @@ describe Ctc::IpPinForm do
         let(:intake) { create :ctc_intake, has_primary_ip_pin: "yes", primary_ip_pin: "123456", has_spouse_ip_pin: "yes", spouse_ip_pin: "123457" }
         let(:dependent) { create :dependent, intake: intake, has_ip_pin: "yes", ip_pin: "123458" }
 
-        it "removes their IP PINs" do
-          described_class.new(intake, params).save
+        it "is valid and removes their IP PINs" do
+          form = described_class.new(intake, params)
+          expect(form).to be_valid
 
+          form.save
           intake.reload
           dependent.reload
 
