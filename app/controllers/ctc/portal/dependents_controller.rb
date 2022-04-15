@@ -1,6 +1,7 @@
 class Ctc::Portal::DependentsController < Ctc::Portal::BaseIntakeRevisionController
   def edit
     @form = form_class.from_dependent(current_model)
+    @eligibility_without_dependent = Efile::BenefitsEligibility.new(tax_return: current_intake.default_tax_return, dependents: current_intake.dependents - [current_model])
     render edit_template
   end
 
