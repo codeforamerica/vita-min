@@ -500,6 +500,30 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         click_on "Send message"
         expect(page).to have_text "Message sent! Responses will be sent by email to mango@example.com."
       end
+
+      context "a client has resubmitted 20 times" do
+        let!(:efile_submissions) { create_list(:efile_submission, 19, :rejected, :ctc, :with_errors, tax_return: efile_submission.tax_return) }
+
+        scenario "client can not resubmit their tax return" do
+          log_in_to_ctc_portal
+          click_on I18n.t("views.ctc.portal.home.correct_info")
+          within ".bank-account-info" do
+            click_on I18n.t("general.change")
+          end
+          choose I18n.t("views.ctc.questions.refund_payment.check")
+          click_on I18n.t('general.continue')
+          fill_in I18n.t("views.questions.mailing_address.zip_code"), with: "94117"
+          click_on "Save"
+
+          within ".address-info" do
+            expect(page).to have_text "94117"
+          end
+
+          expect(page).to have_selector("button:disabled", text: I18n.t('views.ctc.portal.edit_info.resubmit'))
+          expect(page).to have_text I18n.t("views.ctc.portal.edit_info.help_text_resubmission_limit_html", email_link: "support@getctc.org")
+          expect(page).not_to have_text I18n.t("views.ctc.portal.edit_info.help_text_cant_submit")
+        end
+      end
     end
 
     context "efile submission is status cancelled" do

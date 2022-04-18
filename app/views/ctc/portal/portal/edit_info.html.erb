@@ -57,7 +57,7 @@
           <% end %>
         </div>
 
-        <% if @submission.can_transition_to?(:resubmitted) %>
+        <% if @submission.can_transition_to?(:resubmitted) && @intake.default_tax_return.under_submission_limit? %>
           <p>
             <%= t("views.ctc.portal.edit_info.help_text") %>
           </p>
@@ -72,12 +72,15 @@
           <% end %>
         <% else %>
           <p>
-            <%= t("views.ctc.portal.edit_info.help_text_cant_submit") %>
+            <%= @intake.default_tax_return.under_submission_limit? ? t("views.ctc.portal.edit_info.help_text_cant_submit") : t("views.ctc.portal.edit_info.help_text_resubmission_limit_html", email_link: mail_to("support@getctc.org")) %>
           </p>
           <button disabled class="button button--primary button--full-width button--disabled" type="submit">
             <%= t("views.ctc.portal.edit_info.resubmit") %>
           </button>
         <% end %>
+        <p>
+          <%= t("views.ctc.portal.edit_info.help_text_resubmission_limit_html", email_link: mail_to("support@getctc.org")) %>
+        </p>
         <%= link_to t("views.ctc.portal.home.contact_us"), new_portal_message_path, class: "button button--full-width" %>
       <% end %>
     </div>

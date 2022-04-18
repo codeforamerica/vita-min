@@ -104,6 +104,21 @@ describe Ctc::Portal::PortalController do
           expect(response).to redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
         end
       end
+
+      context "when the client has resubmitted 20 times" do
+        let!(:submissions) { create_list :efile_submission, 20, :rejected, tax_return: client.tax_returns.first }
+
+        before do
+          client.tax_returns.first.update(efile_submissions: submissions)
+        end
+
+        it "does not allow resubmission" do
+          put :resubmit, params: params
+
+          expect(submissions.last.current_state).to eq("rejected")
+          expect(response).to redirect_to Ctc::Portal::PortalController.to_path_helper(action: :edit_info)
+        end
+      end
     end
   end
 
