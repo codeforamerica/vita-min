@@ -57,6 +57,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
+    check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
@@ -442,6 +443,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
+    check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
@@ -581,6 +583,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in "ctc_legal_consent_form_primary_birth_date_month", with: new_birth_date.month
     fill_in "ctc_legal_consent_form_primary_birth_date_day", with: new_birth_date.day
     fill_in "ctc_legal_consent_form_primary_birth_date_year", with: new_birth_date.year
+    check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
     expect(Intake.count).to eq(1)

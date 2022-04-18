@@ -2184,7 +2184,7 @@ es:
           <p>El IRS le emite un nuevo PIN de IP cada año y debe proporcionar el PIN de este año.</p>
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Haga clic aquí para recuperar su IP PIN del IRS.</a></p>
         legal_consent:
-          agree_to_share_html: Al continuar, acepto compartir mi información personal para preparar mi declaración de impuestos simplificada.
+          agree_to_share_html: Acepto <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">la política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
           body: Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la letra del Número de Identificación Personal del Contribuyente (ITIN).
           first_name: Primer nombre legal
           form_of_identity: forma de identidad
