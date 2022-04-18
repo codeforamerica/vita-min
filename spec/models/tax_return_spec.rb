@@ -987,10 +987,10 @@ describe TaxReturn do
     end
 
     context "when the tax return has been resubmitted 20 times" do
-      let!(:efile_submissions) { create_list :efile_submission, 19, tax_return: tax_return }
+      let!(:efile_submissions) { create_list :efile_submission, 20, tax_return: tax_return }
 
       it "returns false" do
-        expect(tax_return.under_submission_limit?).to eq true
+        expect(tax_return.under_submission_limit?).to eq false
       end
     end
   end
