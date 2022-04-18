@@ -42,6 +42,14 @@
     <% end %>
 
     <%= render 'ctc/questions/confirm_information/bank_info', edit_controller: Ctc::Questions::RefundPaymentController, intake: current_intake %>
+
+    <% if Ctc::Questions::PriorTaxYearAgiController.show?(current_intake) %>
+      <%= render 'ctc/questions/confirm_information/primary_prior_year_agi', edit_controller: Ctc::Update::PriorTaxYearAgiController, intake: current_intake %>
+    <% end %>
+
+    <% if Ctc::Questions::SpousePriorTaxYearAgiController.show?(current_intake) %>
+      <%= render 'ctc/questions/confirm_information/spouse_prior_year_agi', edit_controller: Ctc::Update::SpousePriorTaxYearAgiController, intake: current_intake %>
+    <% end %>
   </div>
 
   <p><strong><%= t("views.ctc.questions.confirm_information.set_pin") %></strong></p>

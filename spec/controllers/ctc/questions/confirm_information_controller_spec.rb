@@ -146,6 +146,78 @@ describe Ctc::Questions::ConfirmInformationController, requires_default_vita_par
             expect(response_html).to have_text "Your bank information"
           end
         end
+
+        describe 'prior tax year agi' do
+          let(:prior_tax_year) { TaxReturn.current_tax_year.to_i - 1 }
+
+          context "when did not file the previous year" do
+            let(:intake) do
+              create(
+                :client,
+                :with_return,
+                intake: create(:ctc_intake, filed_prior_tax_year: :did_not_file)
+              ).intake
+            end
+
+            it "does not display prior year AGI" do
+              get :edit
+
+              expect(response_html).not_to have_text I18n.t("views.ctc.questions.confirm_primary_prior_year_agi.primary_prior_year_agi", prior_tax_year: prior_tax_year)
+            end
+          end
+
+          context "when did file the previous year" do
+            let(:intake) do
+              create(
+                :client,
+                :with_return,
+                intake: create(:ctc_intake, filed_prior_tax_year: :filed_full)
+              ).intake
+            end
+
+            it "shows bank information" do
+              get :edit
+
+              expect(response_html).to have_text I18n.t("views.ctc.questions.confirm_primary_prior_year_agi.primary_prior_year_agi", prior_tax_year: prior_tax_year)
+            end
+          end
+        end
+
+        describe 'spouse prior tax year agi' do
+          let(:prior_tax_year) { TaxReturn.current_tax_year.to_i - 1 }
+
+          context "when did not file the previous year" do
+            let(:intake) do
+              create(
+                :client,
+                :with_return,
+                intake: create(:ctc_intake, spouse_filed_prior_tax_year: :did_not_file)
+              ).intake
+            end
+
+            it "does not display prior year AGI" do
+              get :edit
+
+              expect(response_html).not_to have_text I18n.t("views.ctc.questions.confirm_spouse_prior_year_agi.spouse_prior_year_agi", prior_tax_year: prior_tax_year)
+            end
+          end
+
+          context "when did file the previous year" do
+            let(:intake) do
+              create(
+                :client,
+                :with_return,
+                intake: create(:ctc_intake, spouse_filed_prior_tax_year: :filed_full_separate)
+              ).intake
+            end
+
+            it "shows bank information" do
+              get :edit
+
+              expect(response_html).to have_text I18n.t("views.ctc.questions.confirm_spouse_prior_year_agi.spouse_prior_year_agi", prior_tax_year: prior_tax_year)
+            end
+          end
+        end
       end
     end
   end
