@@ -150,6 +150,33 @@ RSpec.describe VitaProvidersController do
           expect(assigns(:providers)).to eq([])
         end
       end
+
+      context "with page number past the end of results" do
+        let!(:closest_providers) { create_list :vita_provider, 5, :with_coordinates, lat_lon: [37.834519, -122.263273] }
+        let!(:next_closest_providers) { create_list :vita_provider, 5, :with_coordinates, lat_lon: [37.826387, -122.269738] }
+        let(:params) do
+          { zip: "94609", page: "3" }
+        end
+
+        it "shows no search results" do
+          get :index, params: params
+          expect(response).to be_ok
+
+          expect(assigns(:providers)).to eq([])
+        end
+
+        it "sends mixpanel data with distance to closest result of nil" do
+          get :index, params: params
+          expected_data = {
+            zip: "94609",
+            zip_name: "Oakland, California",
+            result_count: "10",
+            distance_to_closest_result: nil,
+            page: "3",
+          }
+          expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_search", data: expected_data)
+        end
+      end
     end
   end
 
