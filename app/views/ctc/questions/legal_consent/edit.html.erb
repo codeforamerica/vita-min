@@ -39,10 +39,10 @@
       </div>
     </div>
 
-    <p><%= t("views.ctc.questions.legal_consent.agree_to_share") %></p>
+    <%= f.cfa_checkbox(:agree_to_privacy_policy, t("views.ctc.questions.legal_consent.agree_to_share_html"), options: { id: "agree_to_privacy_policy" }) %>
 
     <button class="button button--primary button--wide" type="submit">
-      <%=t("views.ctc.questions.legal_consent.agree") %>
+      <%=t("general.continue") %>
     </button>
   <% end %>
 <% end %>

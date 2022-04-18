@@ -31,6 +31,7 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
         phone_number: "831-234-5678",
         primary_active_armed_forces: "yes",
         primary_tin_type: "ssn",
+        agree_to_privacy_policy: "1",
       }
     }
     context "when all required information is provided" do
@@ -205,6 +206,16 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
         expect(described_class.new(intake, params)).not_to be_valid
       end
     end
+
+    context "when they did not agree to the privacy policy" do
+      before do
+        params[:agree_to_privacy_policy] = "0"
+      end
+
+      it "is not valid" do
+        expect(described_class.new(intake, params)).not_to be_valid
+      end
+    end
   end
 
   describe "#save" do
@@ -222,6 +233,7 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
           primary_active_armed_forces: "yes",
           primary_tin_type: tin_type,
           ssn_no_employment: ssn_no_employment,
+          agree_to_privacy_policy: "1",
       }
     }
     let(:ssn_no_employment) { "no" }
