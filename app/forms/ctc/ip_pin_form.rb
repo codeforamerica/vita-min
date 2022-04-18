@@ -40,7 +40,6 @@ module Ctc
     end
 
     def at_least_one_selected
-      no_ip_pins == "yes" ||
         has_primary_ip_pin == "yes" ||
         has_spouse_ip_pin == "yes" ||
         (dependents_attributes&.values || []).any? { |attributes| attributes["has_ip_pin"] == "yes" }
