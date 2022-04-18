@@ -60,7 +60,7 @@ class VitaProvidersController < ApplicationController
       zip: @zip,
       zip_name: @zip_name,
       result_count: @providers.total_entries.to_s,
-      distance_to_closest_result: (@providers.first&.cached_query_distance / METERS_IN_MILE).round,
+      distance_to_closest_result: (@providers.first.nil? ? nil : (@providers.first.cached_query_distance / METERS_IN_MILE).round),
       page: @page,
     }
     send_mixpanel_event(event_name: "provider_search", data: event_data)

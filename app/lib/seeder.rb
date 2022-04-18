@@ -10,6 +10,7 @@ class Seeder
   include ActiveSupport::Testing::TimeHelpers
 
   def run
+    VitaProvider.find_or_initialize_by(name: "Public Library of the Seed Data").update(irs_id: "12345", coordinates: Geometry.coords_to_point(lat: 37.781707, lon: -122.408363), details: "972 Mission St\nSan Francisco, CA 94103\nAsk for help at the front desk\nFull Service\n415-555-1212")
     national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization", type: Organization::TYPE)
     national_org.update(allows_greeters: true, national_overflow_location: true)
 
