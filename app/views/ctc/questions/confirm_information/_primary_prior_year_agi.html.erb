@@ -1,7 +1,7 @@
-<h2 class="review-box__title"><%= t("views.ctc.questions.confirm_primary_prior_year_agi.primary_prior_year_agi") %></h2>
+<h2 class="review-box__title"><%= t("views.ctc.questions.confirm_primary_prior_year_agi.primary_prior_year_agi", prior_tax_year: prior_tax_year) %></h2>
 <div class="review-box__space-between primary-prior-year-agi">
   <div>
-    <%= intake.primary_prior_year_agi_amount || "0" %>
+    <%= number_to_currency(intake.primary_prior_year_agi_amount || 0, precision: 0, locale: :en) %>
   </div>
   <% if defined?(edit_controller) %>
     <%= link_to t("general.edit").downcase, edit_controller.to_path_helper, class: "review-box__edit review-box__edit-button" %>

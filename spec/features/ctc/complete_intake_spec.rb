@@ -481,9 +481,83 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label', prior_tax_year: prior_tax_year), with: '4,567'
     click_on I18n.t('general.continue')
 
-    intake = Intake.last
-    expect(intake.primary_prior_year_agi_amount).to eq(12340)
-    expect(intake.spouse_prior_year_agi_amount).to eq(4567)
+    click_on I18n.t('general.continue')
+
+    # No dependents
+    click_on I18n.t('general.negative')
+
+    # =========== RECOVERY REBATE CREDIT ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$2,800"))
+    click_on I18n.t('views.ctc.questions.stimulus_payments.different_amount')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_three.title'))
+    fill_in I18n.t('views.ctc.questions.stimulus_three.how_much'), with: "1800"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_owed.title'))
+    click_on I18n.t('general.continue')
+
+    # =========== BANK AND MAILING INFO ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.refund_payment.title'))
+    choose I18n.t('views.questions.refund_payment.direct_deposit')
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.portal.bank_account.title'))
+    fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
+    choose I18n.t('views.questions.bank_details.account_type.checking')
+    check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
+    fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "123456789"
+    fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "123456789"
+    fill_in I18n.t('views.ctc.questions.account_number.account_number'), with: "123456789"
+    fill_in I18n.t('views.ctc.questions.account_number.account_number_confirmation'), with: "123456789"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_bank_account.title'))
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.mailing_address.title'))
+    fill_in I18n.t('views.questions.mailing_address.street_address'), with: "26 William Street"
+    fill_in I18n.t('views.questions.mailing_address.street_address2'), with: "Apt 1234"
+    fill_in I18n.t('views.questions.mailing_address.city'), with: "Bel Air"
+    select "California", from: I18n.t('views.questions.mailing_address.state')
+    fill_in I18n.t('views.questions.mailing_address.zip_code'), with: 90001
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_mailing_address.title"))
+    click_on I18n.t('general.continue')
+
+    # =========== IP PINs ===========
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
+    check I18n.t('general.none_of_the_above')
+    click_on I18n.t('general.continue')
+
+    # =========== REVIEW ===========
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
+
+    expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.confirm_information.your_information"))
+    within ".primary-prior-year-agi" do
+      expect(page).to have_selector("div", text: "$12,340")
+      click_on I18n.t('general.edit').downcase
+    end
+
+    fill_in 'ctc_prior_tax_year_agi_form_primary_prior_year_agi_amount', with: '12345'
+    click_on I18n.t('general.save')
+
+    within ".primary-prior-year-agi" do
+      expect(page).to have_selector("div", text: "$12,345")
+    end
+
+    within ".spouse-prior-year-agi" do
+      expect(page).to have_selector("div", text: "$4,567")
+      click_on I18n.t('general.edit').downcase
+    end
+
+    fill_in 'ctc_spouse_prior_tax_year_agi_form_spouse_prior_year_agi_amount', with: '4321'
+    click_on I18n.t('general.save')
+
+    within ".spouse-prior-year-agi" do
+      expect(page).to have_selector("div", text: "$4,321")
+    end
   end
 
   it "allows the basic filer info to be edited after it was created" do
