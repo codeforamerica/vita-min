@@ -233,8 +233,12 @@ RSpec.describe Irs1040Pdf do
                relationship: "parent",
                birth_date: Date.new(1965, 2, 26)
       end
+
       before do
-        allow_any_instance_of(TaxReturn).to receive(:qualifying_dependents).and_return([daughter, son, mother])
+        submission.intake.update(dependents: [daughter, son, mother])
+        submission.intake.dependents.each do |dependent|
+          EfileSubmissionDependent.create_from_eligibility(submission, dependent)
+        end
       end
 
       it "returns correct values for dependents" do
@@ -242,15 +246,15 @@ RSpec.describe Irs1040Pdf do
         result = non_preparer_fields(output_file.path)
         expect(result).to match(hash_including(
                                   "DependentLegalNm[0]" => "Danielle Dob",
-                                  "DependentRelationship[0]" => "daughter",
+                                  "DependentRelationship[0]" => "DAUGHTER",
                                   "DependentSSN[0]" => "XXXXX6789",
                                   "DependentCTCInd[0]" => "1", # checked
                                   "DependentLegalNm[1]" => "Daniel Dob",
-                                  "DependentRelationship[1]" => "son",
+                                  "DependentRelationship[1]" => "SON",
                                   "DependentSSN[1]" => "XXXXX6788",
                                   "DependentCTCInd[1]" => "1", # checked
                                   "DependentLegalNm[2]" => "Mother Dob",
-                                  "DependentRelationship[2]" => "parent",
+                                  "DependentRelationship[2]" => "PARENT",
                                   "DependentSSN[2]" => "XXXXX5788",
                                   "DependentCTCInd[2]" => "0", # unchecked
                                   ))

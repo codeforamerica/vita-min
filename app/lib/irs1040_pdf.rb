@@ -9,7 +9,7 @@ class Irs1040Pdf
     @submission = submission
     @tax_return = submission.tax_return
     @intake = submission.intake
-    @qualifying_dependents = submission.tax_return.qualifying_dependents
+    @qualifying_dependents = submission.qualifying_dependents
     @address = @submission.address
     @benefits = Efile::BenefitsEligibility.new(tax_return: @tax_return, dependents: @qualifying_dependents)
   end
@@ -74,9 +74,9 @@ class Irs1040Pdf
     answers = {}
     @qualifying_dependents.first(4).each_with_index do |dependent, index|
       answers["DependentLegalNm[#{index}]"] = dependent.full_name
-      answers["DependentRelationship[#{index}]"] = dependent.relationship
+      answers["DependentRelationship[#{index}]"] = dependent.irs_relationship_enum
       answers["DependentSSN[#{index}]"] = pdf_mask(dependent.ssn, 4)
-      answers["DependentCTCInd[#{index}]"] = dependent.qualifying_ctc?(@tax_return.year) ? 1 : 0
+      answers["DependentCTCInd[#{index}]"] = dependent.qualifying_ctc ? 1 : 0
     end
     answers
   end

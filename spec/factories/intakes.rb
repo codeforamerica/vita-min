@@ -538,6 +538,7 @@ FactoryBot.define do
     eip1_amount_received { 1000 }
     eip2_amount_received { 1000 }
     eip3_amount_received { 1000 }
+    advance_ctc_amount_received { 0 }
     primary_tin_type { "ssn" }
     current_step { "/en/questions/overview" }
   end

@@ -19,34 +19,34 @@ RSpec.describe Irs8812Pdf do
       it "returns a pdf with default fields and values" do
         output_file = pdf.output_file
         result = non_preparer_fields(output_file.path)
-        expect(result).to match({
-                                  "AdjustedGrossIncomeAmt" => "0", # 1
-                                  "ExcldSect933PuertoRicoIncmAmt" => "0", # 2a
-                                  "GrossIncomeExclusionAmt" => "0", # 2c
-                                  "AdditionalIncomeAdjAmt" => "0", #2d
-                                  "ModifiedAGIAmt" => "0", #3
-                                  "QlfyChildUnderAgeSSNCnt" => "0", #4a
-                                  "QlfyChildIncldUnderAgeSSNCnt" => "0", #4b
-                                  "QlfyChildOverAgeSSNCnt" => "0", #4c
-                                  "MaxCTCAfterLimitAmt" => "0", #5
-                                  "OtherDependentCnt" => "0", #6
-                                  "OtherDependentCreditAmt" => "0", #7
-                                  "InitialCTCODCAmt" => "0", #8
-                                  "FilingStatusThresholdCd" => "200000", #9
-                                  "ExcessAdjGrossIncomeAmt" => "0", #10
-                                  "ModifiedAGIPhaseOutAmt" => "0", #11
-                                  "CTCODCAfterAGILimitAmt" => "0", #12 (=8)
-                                  "MainHomeInUSOverHalfYrInd" => 'X', #13a
-                                  "ODCAfterAGILimitAmt" => "0", #14a (=7)
-                                  "CTCAfterAGILimitAmt" => "0", #14b (=5)
-                                  "RCTCTaxLiabiltyLimitAmt" => "0", #14c
-                                  "ODCAfterTaxLiabilityLimitAmt" => "0", #14d
-                                  "CTCODCAfterTaxLiabilityLmtAmt" => "0", #14e
-                                  "AggregateAdvncCTCAmt" => "0", #14f
-                                  "NetCTCODCAfterLimitAmt" => "0", #14g
-                                  "NonrefundableODCAmt" => "0", #14h
-                                  "RefundableCTCAmt" => "0", #14i
-                                })
+        expect(result).to match(hash_including(
+                                  "AdjustedGrossIncomeAmt1" => "0", # 1
+                                  "PRExcludedIncomeAmt2a" => "0", # 2a
+                                  "GrossIncomeExclusionAmt2c" => "0", # 2c
+                                  "ExclusionsTotalAmt2d" => "0", #2d
+                                  "AGIExclusionsTotalAmt3" => "0", #3
+                                  "NumQCSsn4a" => "0", #4a
+                                  "NumQCOverSix4b" => "0", #4b
+                                  "NumQCUnderSix4c" => "0", #4c
+                                  "TotalCtcAmt5" => "0", #5
+                                  "NumNonCtcDependents6" => "0", #6
+                                  "OtherDependentCreditAmt7" => "0", #7
+                                  "TotalCreditAmt8" => "0", #8
+                                  "FilingStatusIncomeLimit9" => "200000", #9
+                                  "Line10" => "0", #10
+                                  "Line11" => "0", #11
+                                  "TotalCreditAmt12" => "0", #12 (=8)
+                                  "USHomeInd13a" => 'X', #13a
+                                  "OtherDependentCreditAmt14a" => "0", #14a (=7)
+                                  "TotalCtcAmt14b" => "0", #14b (=5)
+                                  "Line14c" => "0", #14c
+                                  "Line14d" => "0", #14d
+                                  "TotalCtcAmt14e" => "0", #14e
+                                  "AdvCtcReceived14f" => "0", #14f
+                                  "CtcOwed14g" => "0", #14g
+                                  "Line14h" => "0", #14h
+                                  "CtcOwed14i" => "0", #14i
+                                  ))
       end
     end
 
@@ -77,39 +77,42 @@ RSpec.describe Irs8812Pdf do
       end
 
       before do
-        allow(submission.tax_return).to receive(:qualifying_dependents).and_return([daughter, son, mother])
+        submission.intake.update(dependents: [daughter, son, mother])
+        submission.intake.dependents.each do |dependent|
+          EfileSubmissionDependent.create_from_eligibility(submission, dependent)
+        end
       end
 
       it "returns a filled out pdf" do
         output_file = pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to match(hash_including(
-                                  "AdjustedGrossIncomeAmt" => "0", # 1
-                                  "ExcldSect933PuertoRicoIncmAmt" => "0", # 2a
-                                  "GrossIncomeExclusionAmt" => "0", # 2c
-                                  "AdditionalIncomeAdjAmt" => "0", #2d
-                                  "ModifiedAGIAmt" => "0", #3
-                                  "QlfyChildUnderAgeSSNCnt" => "1", #4a
-                                  "QlfyChildIncldUnderAgeSSNCnt" => "1", #4b
-                                  "QlfyChildOverAgeSSNCnt" => "1", #4c
-                                  "MaxCTCAfterLimitAmt" => "", #5
-                                  "OtherDependentCnt" => "", #6
-                                  "OtherDependentCreditAmt" => "", #7
-                                  "InitialCTCODCAmt" => "", #8
-                                  "FilingStatusThresholdCd" => "200000", #9
-                                  "ExcessAdjGrossIncomeAmt" => "", #10
-                                  "ModifiedAGIPhaseOutAmt" => "", #11
-                                  "CTCODCAfterAGILimitAmt" => "", #12 (=8)
-                                  "MainHomeInUSOverHalfYrInd" => 'X', #13a
-                                  "ODCAfterAGILimitAmt" => "", #14a (=7)
-                                  "CTCAfterAGILimitAmt" => "", #14b (=5)
-                                  "RCTCTaxLiabiltyLimitAmt" => "", #14c
-                                  "ODCAfterTaxLiabilityLimitAmt" => "", #14d
-                                  "CTCODCAfterTaxLiabilityLmtAmt" => "", #14e
-                                  "AggregateAdvncCTCAmt" => "", #14f
-                                  "NetCTCODCAfterLimitAmt" => "", #14g
-                                  "NonrefundableODCAmt" => "", #14h
-                                  "RefundableCTCAmt" => "", #14i
+                                  "AdjustedGrossIncomeAmt1" => "0", # 1
+                                  "PRExcludedIncomeAmt2a" => "0", # 2a
+                                  "GrossIncomeExclusionAmt2c" => "0", # 2c
+                                  "ExclusionsTotalAmt2d" => "0", #2d
+                                  "AGIExclusionsTotalAmt3" => "0", #3
+                                  "NumQCSsn4a" => "2", #4a
+                                  "NumQCOverSix4b" => "1", #4b
+                                  "NumQCUnderSix4c" => "1", #4c
+                                  "TotalCtcAmt5" => "6600", #5
+                                  "NumNonCtcDependents6" => "1", #6
+                                  "OtherDependentCreditAmt7" => "500", #7
+                                  "TotalCreditAmt8" => "7100", #8
+                                  "FilingStatusIncomeLimit9" => "200000", #9
+                                  "Line10" => "0", #10
+                                  "Line11" => "0", #11
+                                  "TotalCreditAmt12" => "7100", #12 (=8)
+                                  "USHomeInd13a" => 'X', #13a
+                                  "OtherDependentCreditAmt14a" => "500", #14a (=7)
+                                  "TotalCtcAmt14b" => "6600", #14b (=5)
+                                  "Line14c" => "0", #14c
+                                  "Line14d" => "0", #14d
+                                  "TotalCtcAmt14e" => "0", #14e
+                                  "AdvCtcReceived14f" => "0", #14f
+                                  "CtcOwed14g" => "6600", #14g
+                                  "Line14h" => "0", #14h
+                                  "CtcOwed14i" => "6600", #14i
                                 ))
       end
     end
@@ -124,7 +127,7 @@ RSpec.describe Irs8812Pdf do
         output_file = pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to match(hash_including(
-                                  "FilingStatusThresholdCd" => "400000", #9
+                                  "FilingStatusIncomeLimit9" => "400000", #9
                                 ))
       end
     end
