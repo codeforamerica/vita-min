@@ -39,7 +39,13 @@
       </div>
     </div>
 
-    <%= f.cfa_checkbox(:agree_to_privacy_policy, t("views.ctc.questions.legal_consent.agree_to_share_html"), options: { id: "agree_to_privacy_policy" }) %>
+    <div class="spacing-below-60">
+      <%= f.simplified_cfa_checkbox(
+            :agree_to_privacy_policy,
+            t("views.ctc.questions.legal_consent.agree_to_share_html", privacy_policy_link: ctc_privacy_path),
+            options: { id: "agree_to_privacy_policy" }
+          ) %>
+    </div>
 
     <button class="button button--primary button--wide" type="submit">
       <%=t("general.continue") %>
