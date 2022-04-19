@@ -13,11 +13,9 @@
         </div>
       </div>
 
-      <ul class="item-40l">
-        <% @form.fraud_indicators.each do |indicator| %>
-          <li><%= indicator.humanize %></li>
-        <%end %>
-      </ul>
+      <hr class="spacing-above-5 spacing-below-15">
+        <%= partial "shared/fraud_score_snapshot", fraud_score: client.efile_submissions.last.fraud_score, fraud_indicators: Fraud::Indicator.all  %>
+      <hr class="spacing-above-5 spacing-below-5">
 
       <% if @verification_attempt.client_bypass_request.present? %>
         <div class="note">

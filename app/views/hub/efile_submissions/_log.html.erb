@@ -11,8 +11,14 @@
           <%= error.message %>
         </div>
     <% end %>
-    <% if transition.metadata["indicators"].present? %>
-      <div> Fraud indicators: <%= transition.metadata["indicators"].map(&:humanize).join(", ") %></div>
+    <% if transition.to_state.in? ["bundling", "fraud_hold"] %>
+      <div> Fraud Score: <%= transition.efile_submission&.fraud_score&.points %></div>
+      <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
+        <h3>Details</h3>
+      </a>
+      <div class="accordion__content" id="a2">
+        <%= partial "shared/fraud_score_snapshot", fraud_score: transition.efile_submission.fraud_score, fraud_indicators: Fraud::Indicator.all  %>
+      </div>
     <% end %>
     <% if transition.metadata["raw_response"].present? %>
       <div class="accordion spacing-above-10">

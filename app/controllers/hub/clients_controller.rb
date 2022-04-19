@@ -7,7 +7,7 @@ module Hub
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:new, :create, :index]
     before_action :load_users, :setup_sortable_client, only: [:index]
-    load_and_authorize_resource except: [:new, :create]
+    load_and_authorize_resource except: [:new, :create, :resource_to_client_redirect]
     layout "hub"
 
     MAX_COUNT = 1000
@@ -127,6 +127,16 @@ module Hub
       @client.unlock_access! if @client.access_locked?
       flash[:notice] = I18n.t("hub.clients.unlock.account_unlocked", name: @client.preferred_name)
       redirect_to(hub_client_path(id: @client))
+    end
+
+    # Provided an ID of a resource with a relationship to a client, find the client and redirect to their client page
+    # Used to link to client pages when identifying duplicated data
+    def resource_to_client_redirect
+      resource_id = params[:id]
+      resource_name = params[:resource]
+      resource = resource_name.camelize.constantize.find(resource_id)
+      client = resource.is_a?(Client) ? resource : resource.client
+      redirect_to hub_client_path(id: client)
     end
 
     private

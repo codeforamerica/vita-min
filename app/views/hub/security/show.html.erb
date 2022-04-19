@@ -29,19 +29,6 @@
         <%= @client.recaptcha_scores_average || "N/A" %>
       </div>
     </div>
-    <% if @duplicate_bank_client_ids.present? %>
-      <div class="spacing-below-25 grid-flex">
-        <div class="item-15r" style="flex-shrink: 0;">
-          With duplicated bank data:
-        </div>
-        <div class="item-15r">
-          <% @duplicate_bank_client_ids.each do |id| %>
-            <%= link_to "##{id}", hub_client_path(id: id) %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-
     <table class="index-table">
       <thead class="index-table__head">
         <tr class="index-table__row">
@@ -58,6 +45,7 @@
             <%= render(partial: "efile_security_information", locals: { esf: event }) %>
           <% elsif event.is_a?(RecaptchaScore) %>
             <%= render(partial: "recaptcha_score", locals: { recaptcha_score: event }) %>
+          <% elsif event.is_a?(Fraud::Score) %>
           <% end %>
         <% end %>
       </tbody>

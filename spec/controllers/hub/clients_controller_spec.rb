@@ -1318,6 +1318,53 @@ RSpec.describe Hub::ClientsController do
     end
   end
 
+  describe "#resource_to_client_redirect" do
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :resource_to_client_redirect
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      context "when the resource is a tax return" do
+        let(:tax_return) { create :tax_return }
+        let(:client) { tax_return.client }
+
+        it "redirects to the associated client" do
+          get :resource_to_client_redirect, params: { id: tax_return.id, resource: "tax_return" }
+          expect(response).to redirect_to hub_client_path(id: client.id)
+        end
+      end
+
+      context "when the resource is a bank account" do
+        let(:bank_account) { create :bank_account, intake: (create :intake, client: (create :client))}
+        let(:client) { bank_account.client }
+
+        it "redirects to the associated client" do
+          get :resource_to_client_redirect, params: { id: bank_account.id, resource: "bank_account" }
+          expect(response).to redirect_to hub_client_path(id: client.id)
+        end
+      end
+
+      context "when the resource is an intake" do
+        let(:intake) { create :intake, client: (create :client) }
+        let(:client) { intake.client }
+
+        it "redirects to the associated client" do
+          get :resource_to_client_redirect, params: { id: intake.id, resource: "intake" }
+          expect(response).to redirect_to hub_client_path(id: client.id)
+        end
+      end
+
+      context "when the resource is a client" do
+        let(:client) { create :client}
+
+        it "redirects to the client show page" do
+          get :resource_to_client_redirect, params: {id: client.id, resource: "client" }
+          expect(response).to redirect_to hub_client_path(id: client.id)
+        end
+      end
+    end
+  end
+
   describe "presenter" do
     let(:tax_returns) { [] }
     let(:intake) { build(:intake) }
