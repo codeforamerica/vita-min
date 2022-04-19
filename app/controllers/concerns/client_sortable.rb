@@ -35,7 +35,6 @@ module ClientSortable
     clients = clients.where.not(tax_returns: { status: TaxReturnStateMachine::EXCLUDED_FROM_SLA }) if @filters[:active_returns].present?
     clients = clients.where("intakes.locale = :language OR intakes.preferred_interview_language = :language", language: @filters[:language]) if @filters[:language].present?
     clients = clients.where(tax_returns: { service_type: @filters[:service_type] }) if @filters[:service_type].present?
-    clients = clients.where(intake: Intake.where(had_unemployment_income: "yes")) if @filters[:unemployment_income].present?
     clients = clients.where(vita_partner: VitaPartner.allows_greeters) if @filters[:greetable].present?
     clients = clients.first_unanswered_incoming_interaction_between(...@filters[:sla_breach_date]) if @filters[:sla_breach_date].present?
     clients = clients.where(intake: Intake.where(with_general_navigator: true).or(Intake.where(with_incarcerated_navigator: true)).or(Intake.where(with_limited_english_navigator: true)).or(Intake.where(with_unhoused_navigator: true))) if @filters[:used_navigator].present?
@@ -92,7 +91,6 @@ module ClientSortable
       assigned_to_me: source[:assigned_to_me],
       unassigned: source[:unassigned],
       flagged: source[:flagged],
-      unemployment_income: source[:unemployment_income],
       year: source[:year],
       vita_partners: source[:vita_partners]&.to_s,
       assigned_user_id: source[:assigned_user_id]&.to_s,
