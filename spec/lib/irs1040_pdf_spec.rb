@@ -4,8 +4,8 @@ RSpec.describe Irs1040Pdf do
   include PdfSpecHelper
 
   let(:pdf) { described_class.new(submission) }
-  # Locked to 2020 because the resulting PDF matches 2020 revenue procedure needs.
-  let(:submission) { create :efile_submission, :ctc, tax_year: 2020 }
+  # Locked to 2021 because the resulting PDF matches 2021 revenue procedure needs.
+  let(:submission) { create :efile_submission, :ctc, tax_year: 2021 }
 
   describe "#output_file" do
     context "with an empty submission record" do
@@ -162,7 +162,7 @@ RSpec.describe Irs1040Pdf do
                                   "TaxableInterestAmt2b" => "1",
                                   "TotalIncomeAmt9" => "1",
                                   "AdjustedGrossIncomeAmt11" => "1",
-                                  "TotalItemizedOrStandardDedAmt12a" => "12400",
+                                  "TotalItemizedOrStandardDedAmt12a" => "12550",
                                   "TaxableIncomeAmt15" => "0",
                                   "RecoveryRebateCreditAmt30" => @claimed_rrc.to_s,
                                   "RefundableCreditsAmt32" => @claimed_rrc.to_s,
@@ -237,7 +237,7 @@ RSpec.describe Irs1040Pdf do
       before do
         submission.intake.update(dependents: [daughter, son, mother])
         submission.intake.dependents.each do |dependent|
-          EfileSubmissionDependent.create_from_eligibility(submission, dependent)
+          EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
         end
       end
 

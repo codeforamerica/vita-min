@@ -79,7 +79,7 @@ RSpec.describe Irs8812Pdf do
       before do
         submission.intake.update(dependents: [daughter, son, mother])
         submission.intake.dependents.each do |dependent|
-          EfileSubmissionDependent.create_from_eligibility(submission, dependent)
+          EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
         end
       end
 

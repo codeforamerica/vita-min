@@ -359,6 +359,7 @@ describe EfileSubmission do
 
     before do
       allow(Irs1040Pdf).to receive(:new).and_return(instance_double(Irs1040Pdf, output_file: example_pdf))
+      allow(Irs8812Pdf).to receive(:new).and_return(instance_double(Irs8812Pdf, output_file: example_pdf))
     end
 
     it "generates and stores the 1040 PDF" do
@@ -367,7 +368,9 @@ describe EfileSubmission do
       expect(doc.display_name).to eq("IRS 1040 - TY #{TaxReturn.current_tax_year} - #{submission.irs_submission_id}.pdf")
       expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
       expect(doc.tax_return).to eq(submission.tax_return)
-      expect(doc.upload.blob.download).to eq(File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "rb").read)
+      # checking the size as a heuristic for "this is a combined pdf" because the combination timestamp
+      # is always different and so checking for true equality is not valid
+      expect(doc.upload.blob.download.size).to eq(File.open(Rails.root.join("spec", "fixtures", "files", "combined-test-pdf.pdf"), "rb").read.size)
     end
   end
 
