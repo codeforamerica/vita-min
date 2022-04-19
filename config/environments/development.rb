@@ -100,4 +100,7 @@ Rails.application.configure do
   config.ctc_url = "http://ctc.localhost:3000"
   config.gyr_url = "http://localhost:3000"
   config.efile_environment = ""
+
+  config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-03-01 09:00:00")
+  config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-04-01 09:00:00")
 end

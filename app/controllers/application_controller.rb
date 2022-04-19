@@ -1,10 +1,7 @@
 class ApplicationController < ActionController::Base
-  CTC_INTAKE_CLOSING_TIME = Time.find_zone('America/Los_Angeles').parse('2021-11-15 23:59:59')
-  CTC_LOGIN_CLOSING_TIME = Time.find_zone('America/Los_Angeles').parse('2021-11-19 23:59:59')
-
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu
+  before_action :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
@@ -119,6 +116,13 @@ class ApplicationController < ActionController::Base
     if source_from_params.present?
       # Use at most 100 chars in session so we don't overflow it.
       session[:source] = source_from_params.slice(0, 100)
+    end
+  end
+
+  def set_ctc_beta_cookie
+    ctc_beta = params[:ctc_beta]
+    if ctc_beta == "1"
+      cookies.permanent[:ctc_beta] = true
     end
   end
 
@@ -270,12 +274,19 @@ class ApplicationController < ActionController::Base
   end
 
   def open_for_ctc_intake?
-    app_time <= CTC_INTAKE_CLOSING_TIME
+    return false if app_time >= Rails.configuration.ctc_end_of_intake
+
+    return true if app_time >= Rails.configuration.ctc_full_launch
+    app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
   end
 
   def open_for_ctc_login?
-    app_time <= CTC_LOGIN_CLOSING_TIME
+    return false if app_time >= Rails.configuration.ctc_end_of_login
+
+    return true if app_time >= Rails.configuration.ctc_full_launch
+    app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
   end
+
 
   private
 
@@ -322,12 +333,6 @@ class ApplicationController < ActionController::Base
       redirect_to_beginning_of_intake
     else
       flash[:alert] = I18n.t("controllers.application_controller.redirect")
-    end
-  end
-
-  def redirect_to_getyourrefund
-    if request.get? && request.host.include?("vitataxhelp.org")
-      return redirect_to request.original_url.gsub("vitataxhelp.org", "getyourrefund.org")
     end
   end
 

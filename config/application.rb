@@ -45,6 +45,11 @@ module VitaMin
     config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2022-01-31 09:59:59')
     config.end_of_intake = Time.find_zone('America/Los_Angeles').parse('2022-08-31 23:59:59')
 
+    config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-05-04 09:00:00")
+    config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-05-11 09:00:00")
+    config.ctc_end_of_intake = Time.find_zone("America/New_York").parse("2022-10-15 17:00:00")
+    config.ctc_end_of_login = Time.find_zone("America/New_York").parse("2022-10-19 17:00:00")
+
     config.include_optimizely = false
   end
 end
