@@ -207,6 +207,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     context "efile submission is status rejected" do
       let(:qualifying_child) { build(:qualifying_child, ssn: "111-22-3333") }
       let(:dependent_to_delete) { build(:qualifying_child, first_name: "UniqueLookingName", ssn: "111-22-4444") }
+      let(:dependent_that_cannot_be_deleted) { build(:qualifying_child, first_name: "OtherChild", ssn: "111-22-5555") }
       let!(:intake) do
         create(
           :ctc_intake,
@@ -217,10 +218,11 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           email_address: "mango@example.com",
           email_notification_opt_in: "yes",
           refund_payment_method: "direct_deposit",
+          advance_ctc_amount_received: 4000,
           spouse_first_name: "Eva",
           spouse_last_name: "Hesse",
           spouse_birth_date: Date.new(1929, 9, 2),
-          dependents: [qualifying_child, dependent_to_delete]
+          dependents: [qualifying_child, dependent_to_delete, dependent_that_cannot_be_deleted]
         )
       end
       let!(:efile_submission) { create(:efile_submission, :rejected, :ctc, :with_errors, tax_return: build(:tax_return, :intake_in_progress, :ctc, filing_status: "married_filing_jointly", client: intake.client, year: 2021)) }
@@ -266,9 +268,21 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
 
         expect(page).to have_text "Pomelostore"
 
+        within "#dependent_#{dependent_to_delete.id}" do
+          click_on I18n.t('general.edit').downcase
+        end
+        click_on I18n.t('views.ctc.questions.dependents.tin.remove_person')
+        click_on I18n.t('views.ctc.questions.dependents.remove_dependent.remove_button')
+
+        expect(dependent_to_delete.reload.soft_deleted_at).to be_truthy
+        expect(page).not_to have_text dependent_to_delete.first_name
+
         within "#dependent_#{qualifying_child.id}" do
           click_on I18n.t('general.edit').downcase
         end
+
+        expect(page).not_to have_text I18n.t('views.ctc.questions.dependents.tin.remove_person')
+
         fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Papaya"
         click_on I18n.t('general.save')
 
@@ -380,6 +394,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         })
 
         expect(page).to have_content("Client initiated resubmission of their tax return.")
+        expect(page).to have_content("Client removed Dependent ##{dependent_to_delete.id}")
       end
 
       context "when the client's original intake wants a refund by check" do
