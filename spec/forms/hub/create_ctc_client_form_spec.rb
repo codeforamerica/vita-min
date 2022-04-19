@@ -76,6 +76,14 @@ RSpec.describe Hub::CreateCtcClientForm do
         expect(client.vita_partner).to eq vita_partner
       end
 
+      it "stores consent information" do
+        described_class.new(params).save(current_user)
+        intake = Client.last.intake
+        expect(intake.primary_consented_to_service_at).to be_present
+        expect(intake.primary_consented_to_service).to eq "yes"
+        expect(intake.primary_consented_to_service_ip).to eq nil # we do not store ip when a Hub user creates client
+      end
+
       it "stores client bank info on the intake" do
         described_class.new(params).save(current_user)
         client = Client.last
