@@ -206,13 +206,15 @@ RSpec.describe AdvCtcIrs1040Pdf do
     end
 
     context "with filled out qualifying dependents" do
+      let(:intake) { create(:ctc_intake, client: create(:client, :with_return)) }
       let(:daughter) do
         create :qualifying_child,
                first_name: "Danielle",
                last_name: "Dob",
                ssn: "123456789",
                relationship: "daughter",
-               birth_date: Date.new(2015, 2, 25)
+               birth_date: Date.new(2015, 2, 25),
+               intake: intake
       end
       let(:son) do
         create :qualifying_child,
@@ -220,7 +222,8 @@ RSpec.describe AdvCtcIrs1040Pdf do
                last_name: "Dob",
                ssn: "123456788",
                relationship: "son",
-               birth_date: Date.new(2015, 2, 26)
+               birth_date: Date.new(2015, 2, 26),
+               intake: intake
       end
       let(:mother) do
         create :qualifying_relative,
@@ -228,7 +231,8 @@ RSpec.describe AdvCtcIrs1040Pdf do
                last_name: "Dob",
                ssn: "123455788",
                relationship: "parent",
-               birth_date: Date.new(1965, 2, 26)
+               birth_date: Date.new(1965, 2, 26),
+               intake: intake
       end
       before do
         allow_any_instance_of(TaxReturn).to receive(:qualifying_dependents).and_return([daughter, son, mother])

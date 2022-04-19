@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Ctc::Questions::Dependents::InfoController do
-  let(:intake) { create :ctc_intake }
+  let(:intake) { create :ctc_intake, client: create(:client, :with_return) }
   let(:message_verifier) { ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base) }
 
   before do

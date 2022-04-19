@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe Efile::DependentEligibility::QualifyingChild do
   subject { described_class.new(dependent, TaxReturn.current_tax_year) }
+  let(:intake) { create(:ctc_intake, client: create(:client, :with_return)) }
 
   context "when passing an EfileSubmissionDependent who already has their qualification persisted on the record" do
     let(:dependent) { EfileSubmissionDependent.create(efile_submission: (create :efile_submission), dependent: (create :dependent), qualifying_child: true) }
@@ -12,7 +13,7 @@ describe Efile::DependentEligibility::QualifyingChild do
   end
 
   context 'with a totally qualifying child' do
-    let(:dependent) { create :qualifying_child }
+    let(:dependent) { create :qualifying_child, intake: intake }
     let(:test_result) do
       {
           relationship_test: true,
@@ -22,7 +23,8 @@ describe Efile::DependentEligibility::QualifyingChild do
           age_test: true,
           financial_support_test: true,
           residence_test: true,
-          claimable_test: true
+          claimable_test: true,
+          primary_and_spouse_age_test: true,
       }
     end
 
@@ -41,7 +43,7 @@ describe Efile::DependentEligibility::QualifyingChild do
 
   describe "relationship_test" do
     let(:relationship) { "daughter" }
-    let(:dependent) { create :qualifying_child, relationship: relationship }
+    let(:dependent) { create :qualifying_child, relationship: relationship, intake: intake }
     context "when relationship qualifies" do
       it "passes the relationship test" do
         expect(subject.test_results[:relationship_test]).to eq true
@@ -62,7 +64,7 @@ describe Efile::DependentEligibility::QualifyingChild do
   describe "birth_test" do
     # A special age test that disqualifies people when they're born AFTER the tax year
     context "when < 0" do
-      let(:dependent) { create :qualifying_child, birth_date: birth_date }
+      let(:dependent) { create :qualifying_child, birth_date: birth_date, intake: intake }
       let(:birth_date) { Date.new(TaxReturn.current_tax_year + 1, 1, 1) }
 
       context "even when disabled" do
@@ -80,7 +82,7 @@ describe Efile::DependentEligibility::QualifyingChild do
     let(:totally_permanently_disabled) { "no" }
     let(:full_time_student) { "no" }
     let(:birth_date) { Date.today - 25.years }
-    let(:dependent) { create :qualifying_child, permanently_totally_disabled: permanently_totally_disabled, full_time_student: full_time_student, birth_date: birth_date }
+    let(:dependent) { create :qualifying_child, permanently_totally_disabled: permanently_totally_disabled, full_time_student: full_time_student, birth_date: birth_date, intake: intake }
 
     context "when < 19" do
       let(:birth_date) { Date.new(TaxReturn.current_tax_year, 1, 1) - 18.years }
@@ -166,7 +168,7 @@ describe Efile::DependentEligibility::QualifyingChild do
   end
 
   describe "married_filing_joint_test" do
-    let(:dependent) { create :qualifying_child, filed_joint_return: filed_joint_return }
+    let(:dependent) { create :qualifying_child, filed_joint_return: filed_joint_return, intake: intake }
     context "when the dependent is filing with a spouse" do
       let(:filed_joint_return) { "yes" }
       it "fails" do
@@ -194,7 +196,7 @@ describe Efile::DependentEligibility::QualifyingChild do
   end
 
   describe "financial_support_test" do
-    let(:dependent) { create :qualifying_child, provided_over_half_own_support: provided_over_half_own_support }
+    let(:dependent) { create :qualifying_child, provided_over_half_own_support: provided_over_half_own_support, intake: intake }
     context "when providing over half support to dependent" do
       let(:provided_over_half_own_support) { "no" }
       it "passes" do
@@ -214,7 +216,7 @@ describe Efile::DependentEligibility::QualifyingChild do
   end
 
   describe "residence_test" do
-    let(:dependent) { create :qualifying_child, birth_date: birth_date }
+    let(:dependent) { create :qualifying_child, birth_date: birth_date, intake: intake }
     context "when dependent was born in last 6 months of the tax year" do
       let(:birth_date) { Date.new(TaxReturn.current_tax_year, 7, 1) }
       it "returns true" do
@@ -224,7 +226,7 @@ describe Efile::DependentEligibility::QualifyingChild do
     end
 
     context "when lived in the home for more than 6 months?" do
-      let(:dependent) { create :qualifying_child, lived_with_more_than_six_months: "yes" }
+      let(:dependent) { create :qualifying_child, lived_with_more_than_six_months: "yes", intake: intake }
 
       let(:birth_date) { Date.new(TaxReturn.current_tax_year + 10, 7, 1) }
       it "returns true" do
@@ -234,7 +236,7 @@ describe Efile::DependentEligibility::QualifyingChild do
     end
 
     context "when did not live in the home for more than 6 months" do
-      let(:dependent) { create :qualifying_child, lived_with_more_than_six_months: "no" }
+      let(:dependent) { create :qualifying_child, lived_with_more_than_six_months: "no", intake: intake }
 
       context "when doesnt have an exception set" do
         it "returns false" do
@@ -244,7 +246,7 @@ describe Efile::DependentEligibility::QualifyingChild do
       end
 
       context "when there is a residence exception" do
-        let(:dependent) { create :qualifying_child, lived_with_more_than_six_months: "no" }
+        let(:dependent) { create :qualifying_child, lived_with_more_than_six_months: "no", intake: intake }
 
         residence_exceptions = [:residence_exception_born, :residence_exception_passed_away, :residence_exception_adoption, :permanent_residence_with_client]
         residence_exceptions.each do |exception|

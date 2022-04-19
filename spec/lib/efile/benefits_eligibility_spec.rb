@@ -10,7 +10,7 @@ describe Efile::BenefitsEligibility do
     intake.dependents.destroy_all
     create :qualifying_child, intake: intake, birth_date: Date.new(TaxReturn.current_tax_year - 3, 01, 01)
     create :qualifying_child, intake: intake, birth_date: Date.new(TaxReturn.current_tax_year - 12, 01, 01)
-    create :qualifying_child, intake: intake, permanently_totally_disabled: "yes", birth_date: Date.new(TaxReturn.current_tax_year - 40, 01, 01)
+    create :qualifying_child, intake: intake, permanently_totally_disabled: "yes", birth_date: Date.new(TaxReturn.current_tax_year - 30, 01, 01)
     create :qualifying_relative, intake: intake
   end
 

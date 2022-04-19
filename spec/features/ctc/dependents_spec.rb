@@ -14,7 +14,7 @@ def fill_in_dependent_info(dependent_birth_year)
 end
 
 RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job: true do
-  let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, year: 2021)] }
+  let(:client) { create :client, intake: create(:ctc_intake), tax_returns: [create(:tax_return, year: 2021, filing_status: :married_filing_jointly)] }
 
   before do
     login_as client, scope: :client
@@ -130,6 +130,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     end
 
     scenario "an older child who is permanently disabled, does not pay half living expenses" do
+      client.intake.update(primary_birth_date: 60.years.ago.to_date)
       dependent_birth_year = 40.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
       select I18n.t('general.dependent_relationships.son'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
@@ -190,6 +191,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
     end
 
     scenario "a middle-aged son who is a qualified relative" do
+      client.intake.update(primary_birth_date: 60.years.ago.to_date)
       dependent_birth_year = 40.years.ago.year
       fill_in_dependent_info(dependent_birth_year)
       select I18n.t('general.dependent_relationships.son'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
@@ -252,6 +254,50 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       within "[data-automation='ctc-dependents']" do
         expect(page).to have_content("Jessie M Pepper")
         expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/2019")
+      end
+    end
+
+    scenario "a child who is older than primary" do
+      client.intake.update(primary_birth_date: 17.years.ago.to_date)
+      dependent_birth_year = 18.years.ago.year
+      fill_in_dependent_info(dependent_birth_year)
+      select I18n.t('general.dependent_relationships.stepchild'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      click_on I18n.t('general.affirmative')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_qualifiers.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      check I18n.t("views.ctc.questions.dependents.relative_qualifiers.income_requirement", name: "Jessie")
+      check I18n.t("views.ctc.questions.dependents.relative_qualifiers.claimable", name: "Jessie")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
+      within "[data-automation='other-credits-dependents']" do
+        expect(page).to have_content("Jessie M Pepper")
+        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
+      end
+    end
+
+    scenario "a child who is older than spouse" do
+      client.intake.update(spouse_birth_date: 17.years.ago.to_date)
+      dependent_birth_year = 18.years.ago.year
+      fill_in_dependent_info(dependent_birth_year)
+      select I18n.t('general.dependent_relationships.stepchild'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_financial_support.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      click_on I18n.t('general.affirmative')
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.relative_qualifiers.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
+      check I18n.t("views.ctc.questions.dependents.relative_qualifiers.income_requirement", name: "Jessie")
+      check I18n.t("views.ctc.questions.dependents.relative_qualifiers.claimable", name: "Jessie")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
+      within "[data-automation='other-credits-dependents']" do
+        expect(page).to have_content("Jessie M Pepper")
+        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 11/1/#{dependent_birth_year}")
       end
     end
   end
