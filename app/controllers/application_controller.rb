@@ -120,6 +120,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_ctc_beta_cookie
+    return unless Routes::CtcDomain.new.matches?(request)
     ctc_beta = params[:ctc_beta]
     if ctc_beta == "1"
       cookies.permanent[:ctc_beta] = true

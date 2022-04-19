@@ -1218,6 +1218,41 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#set_ctc_beta_param" do
+    context "when the ctc_beta param is present and equal to 1" do
+      context "when not from Ctc domain" do
+        before do
+          allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return false
+        end
+
+        it "does not set a cookie" do
+          get :index, params: { ctc_beta: 1 }
+          expect(cookies[:ctc_beta]).not_to be_present
+        end
+      end
+
+      context "when on ctc domain" do
+        before do
+          allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return true
+        end
+        
+        context "when the param value is 1" do
+          it "sets the cookie value" do
+            get :index, params: { ctc_beta: 1 }
+            expect(cookies[:ctc_beta]).to eq "true"
+          end
+        end
+
+        context "when the param value is not 1" do
+          it "does not set the cookie" do
+            get :index, params: { ctc_beta: 2 }
+            expect(cookies[:ctc_beta]).not_to be_present
+          end
+        end
+      end
+    end
+  end
+
   describe "#set_source" do
     context "when there is already a source in the session" do
       before do
