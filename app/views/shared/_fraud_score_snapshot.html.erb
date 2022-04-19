@@ -1,0 +1,21 @@
+<% fraud_score.snapshot.each do |key, value| %>
+  <% indicator = fraud_indicators.find { |indicator| indicator.name == key } %>
+  <ul class="with-bullets">
+    <li>
+      <div>
+        <strong><%= key.humanize %></strong>
+        <span><%= value["points"] %> points</span>
+        <br />
+        <% if indicator.indicator_type == "duplicates" %>
+          <i>Duplicated <%= indicator.reference&.humanize(capitalize: false) %>s:
+            <% value["data"].each_with_index do |id, i| %>
+              <%= link_to id, client_finder_hub_client_path(id: id, resource: indicator.reference) %><% unless (i+1 == value["data"].length) %>, <% end %>
+            <% end %>
+          </i>
+        <% else %>
+          <i><%= value["data"].join(", ") %></i>
+        <% end %>
+      </div>
+    </li>
+  </ul>
+<% end %>
