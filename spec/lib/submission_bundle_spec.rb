@@ -1,8 +1,9 @@
 require "rails_helper"
 
 describe SubmissionBundle do
-  let(:submission_2020) { create :efile_submission, :ctc, tax_year: 2020 }
-  let(:submission_2021) { create :efile_submission, :ctc, tax_year: 2021 }
+  let(:submission_2020) { create :efile_submission, :ctc, tax_year: 2020, irs_submission_id: "12345202201011234569" }
+  let(:submission_2021) { create :efile_submission, :ctc, tax_year: 2021, irs_submission_id: "12345202201011234568" }
+  let(:submission) { create :efile_submission, :ctc, tax_year: 2021, irs_submission_id: "12345202201011234567" }
 
   before do
     submission_2020.intake.update(

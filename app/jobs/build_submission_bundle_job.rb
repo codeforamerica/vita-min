@@ -8,7 +8,12 @@ class BuildSubmissionBundleJob < ApplicationJob
       return
     end
 
-    # TODO: Add IRS submission id generation here.
+    begin
+      submission.generate_irs_submission_id!
+    rescue StandardError => e
+      submission.transition_to!(:failed, error_code: 'IRS-ID-FAIL', raw_response: e.inspect)
+    end
+
     begin
       submission.generate_form_1040_pdf
     rescue StandardError => e
