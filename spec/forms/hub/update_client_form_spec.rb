@@ -12,11 +12,10 @@ RSpec.describe Hub::UpdateClientForm do
              spouse_ssn: "912345678",
              primary_ssn: "123456789",
              primary_tin_type: "ssn",
-             spouse_tin_type: "itin"
+             spouse_tin_type: "itin",
+             need_itin_help: itin_applicant
     }
-    let!(:client) {
-      create :client, intake: intake
-    }
+    let!(:client) { Hub::ClientsController::HubClientPresenter.new(create :client, intake: intake) }
     let(:form_attributes) do
       { primary_first_name: intake.primary_first_name,
         primary_last_name: intake.primary_last_name,
@@ -62,8 +61,51 @@ RSpec.describe Hub::UpdateClientForm do
           },
       }
     end
+    let(:itin_applicant) { "unfilled" }
 
     context "updating a client" do
+      context "updating primary ssn" do
+        before do
+          form_attributes[:primary_ssn] = "111223333"
+        end
+
+        it "persists valid changes" do
+          expect do
+            form = described_class.new(client, form_attributes)
+            form.save
+            intake.reload
+          end.to change(intake, :primary_ssn).to "111223333"
+        end
+
+        context "with a blank ssn" do
+          before do
+            form_attributes[:primary_ssn] = ""
+          end
+
+          context "with an itin applicant" do
+            let(:itin_applicant) { "yes" }
+
+            it "persists valid changes to ssn" do
+              expect do
+                form = described_class.new(client, form_attributes)
+                form.save
+                intake.reload
+              end.to change(intake, :primary_ssn).to nil
+            end
+          end
+
+          context "with someone who isn't an itin applicant" do
+            let(:itin_applicant) { "no" }
+
+            it "complains about missing ssn" do
+              form = described_class.new(client, form_attributes)
+              form.save
+              expect(form.errors.attribute_names).to include :primary_ssn
+            end
+          end
+        end
+      end
+
       context "updating spouse ssn" do
         before do
           form_attributes[:spouse_ssn] = "922334455"

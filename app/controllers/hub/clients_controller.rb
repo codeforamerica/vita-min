@@ -63,6 +63,7 @@ module Hub
 
     def update
       original_intake = @client.intake.dup
+      @client = HubClientPresenter.new(@client)
       @form = UpdateClientForm.new(@client, update_client_form_params)
 
       if @form.valid? && @form.save
@@ -208,16 +209,6 @@ module Hub
 
       def needs_itin_help_text
         return I18n.t("general.NA") if archived?
-
-        if intake.triage # TODO: remove this when all data from Triage#id_type has been copied to Intake#need_itin_help
-          if intake.triage.id_type_need_itin_help?
-            return I18n.t("general.affirmative")
-          elsif intake.triage.id_type_unfilled?
-            return I18n.t("general.NA")
-          else
-            return I18n.t("general.negative")
-          end
-        end
 
         intake.itin_applicant? ? I18n.t("general.affirmative") : I18n.t("general.negative")
       end
