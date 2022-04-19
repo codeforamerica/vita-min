@@ -3,10 +3,13 @@ require "rails_helper"
 describe SubmissionBuilder::Manifest do
   describe ".build" do
     let(:submission) { create :efile_submission, :ctc }
+    before do
+      submission.generate_irs_submission_id!
+    end
+
     context "when the XML is valid" do
       let(:file_double) { double }
       let(:schema_double) { double }
-      let(:submission) { create :efile_submission, :ctc }
 
       before do
         allow(File).to receive(:open).and_return(file_double)

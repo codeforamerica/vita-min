@@ -6,7 +6,7 @@ RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
   end
 
   describe '#perform' do
-    let!(:submission) { create(:efile_submission, :queued, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+    let!(:submission) { create(:efile_submission, :queued, irs_submission_id: "12345200202011234567", submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
 
     let(:successful_result) do
       <<~RESULT
@@ -14,7 +14,7 @@ RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
         <SubmissionReceiptList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
            <Cnt>1</Cnt>
            <SubmissionReceiptGrp>
-              <SubmissionId>#{submission.irs_submission_id}</SubmissionId>
+              <SubmissionId>12345200202011234567</SubmissionId>
               <SubmissionReceivedTs>2021-07-15T12:32:59-04:00</SubmissionReceivedTs>
            </SubmissionReceiptGrp>
         </SubmissionReceiptList>

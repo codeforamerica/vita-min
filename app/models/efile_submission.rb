@@ -25,11 +25,7 @@ class EfileSubmission < ApplicationRecord
   has_one :address, as: :record, dependent: :destroy
   has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
   has_one_attached :submission_bundle
-
-  before_validation :generate_irs_submission_id
-  validates_format_of :irs_submission_id, with: /\A[0-9]{6}[0-9]{7}[0-9a-z]{7}\z/
-  validates_presence_of :irs_submission_id
-  validates_uniqueness_of :irs_submission_id
+  validates :irs_submission_id, format: { with: /\A[0-9]{6}[0-9]{7}[0-9a-z]{7}\z/ }, presence: true, uniqueness: true, allow_nil: true
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: EfileSubmissionTransition,
@@ -192,9 +188,7 @@ class EfileSubmission < ApplicationRecord
     end
   end
 
-  private
-
-  def generate_irs_submission_id(i = 0)
+  def generate_irs_submission_id!(i = 0)
     return if self.irs_submission_id.present?
 
     raise "Max irs_submission_id attempts exceeded. Too many submissions today?" if i > 5
@@ -203,9 +197,9 @@ class EfileSubmission < ApplicationRecord
     irs_submission_id = "#{efin}#{Date.current.strftime('%C%y%j')}#{SecureRandom.base36(7)}"
     if self.class.find_by(irs_submission_id: irs_submission_id)
       i += 1
-      generate_irs_submission_id(i)
+      generate_irs_submission_id!(i)
     else
-      self.irs_submission_id = irs_submission_id
+      self.update!(irs_submission_id: irs_submission_id)
     end
   end
 end

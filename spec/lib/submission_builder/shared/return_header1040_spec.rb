@@ -344,17 +344,17 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
     end
 
     context "when re-submitting" do
-      let(:previous_submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }, created_at: DateTime.new(2021, 8, 1, 12, 0)) }
+      let(:previous_submission) { create(:efile_submission, :transmitted, irs_submission_id: "12345202201011234567", submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }, created_at: DateTime.new(2021, 8, 1, 12, 0)) }
 
       before do
-        create(:efile_submission_transition, :preparing, efile_submission: submission, metadata: {previous_submission_id: previous_submission.id})
+        create(:efile_submission_transition, :preparing, efile_submission: submission, metadata: { previous_submission_id: previous_submission.id })
       end
 
       it "adds original submission metadata to the header" do
         expect(submission.previously_transmitted_submission).to eq(previous_submission)
         response = described_class.build(submission)
         xml = Nokogiri::XML::Document.parse(response.document.to_xml)
-        expect(xml.at("FederalOriginalSubmissionId").text).to eq previous_submission.irs_submission_id
+        expect(xml.at("FederalOriginalSubmissionId").text).to eq "12345202201011234567"
         expect(xml.at("FederalOriginalSubmissionIdDt").text).to eq "2021-08-01"
       end
     end

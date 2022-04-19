@@ -29,10 +29,10 @@ describe EfileSubmission do
     allow(address_service_double).to receive(:city).and_return "Katy"
   end
 
-  context "generating an irs_submission_id before create" do
+  context "generating an irs_submission_id" do
     context "adhering to IRS format" do
       around do |example|
-        Timecop.freeze(Date.new(2021, 1, 1))
+        Timecop.freeze(Date.new(2022, 1, 1))
         example.run
         Timecop.return
       end
@@ -40,28 +40,30 @@ describe EfileSubmission do
       let(:submission) { create(:efile_submission, :ctc) }
 
       it "conforms to the IRS format [0-9]{13}[a-z0-9]{7}" do
+        submission.generate_irs_submission_id!
         expect(submission.irs_submission_id).to match(/\A[0-9]{13}[a-z0-9]{7}\z/)
       end
 
       it "the first 6 digits are our 6 digit EFIN" do
+        submission.generate_irs_submission_id!
         expect(submission.irs_submission_id[0..5]).to eq EnvironmentCredentials.dig(:irs, :efin)
       end
 
       it "the next 7 digits are a date in format ccyyddd" do
-        expect(submission.irs_submission_id[6..12]).to eq "2021001"
+        submission.generate_irs_submission_id!
+        expect(submission.irs_submission_id[6..12]).to eq "2022001"
       end
 
       context "dealing with duplicates" do
         before do
           allow(SecureRandom).to receive(:base36).with(7).and_return "1234567"
+          create :efile_submission, irs_submission_id: "#{EnvironmentCredentials.dig(:irs, :efin)}20220011234567"
         end
 
         context "after trying 5 times" do
           it "an error is raised" do
             expect {
-              5.times do
-                create :efile_submission
-              end
+              submission.generate_irs_submission_id!
             }.to raise_error StandardError, "Max irs_submission_id attempts exceeded. Too many submissions today?"
           end
         end
