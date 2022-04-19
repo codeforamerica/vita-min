@@ -4,7 +4,7 @@ describe EfileSubmissionStateMachine do
   before do
     allow(ClientPdfDocument).to receive(:create_or_update)
     allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
-    create :duplicate_fraud_indicator
+    create :fraud_indicator
   end
 
   describe "after_transition" do
@@ -59,12 +59,10 @@ describe EfileSubmissionStateMachine do
       context "when the client has had their identity verified" do
         before do
           submission.client.touch(:identity_verified_at)
-          allow(FraudIndicatorService).to receive(:hold_indicators)
         end
 
         it "does not check for fraud indicators" do
           submission.transition_to!(:preparing)
-          expect(FraudIndicatorService).not_to have_received(:hold_indicators)
         end
 
         it "transitions to the next status to build the bundle" do

@@ -1319,6 +1319,8 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#resource_to_client_redirect" do
+    let(:tax_return) { create :tax_return }
+    let(:params) { { id: tax_return.id, resource: "tax_return" } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :resource_to_client_redirect
 
     context "as an authenticated user" do
@@ -1329,7 +1331,7 @@ RSpec.describe Hub::ClientsController do
         let(:client) { tax_return.client }
 
         it "redirects to the associated client" do
-          get :resource_to_client_redirect, params: { id: tax_return.id, resource: "tax_return" }
+          get :resource_to_client_redirect, params: params
           expect(response).to redirect_to hub_client_path(id: client.id)
         end
       end

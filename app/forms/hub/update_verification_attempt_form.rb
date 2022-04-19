@@ -25,9 +25,8 @@ module Hub
       verification_attempt.transition_to!(state, metadata)
     end
 
-    # ensure that fraud_indicators are available if show re-renders after failed update
-    def fraud_indicators
-      FraudIndicatorService.new(verification_attempt.client).hold_indicators
+    def fraud_score
+      verification_attempt.client.fraud_scores.last
     end
 
     def can_write_note?

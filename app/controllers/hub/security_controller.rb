@@ -9,8 +9,9 @@ module Hub
       @client = Hub::ClientsController::HubClientPresenter.new(Client.find(params[:id]))
       @duplicate_bank_client_ids = duplicate_bank_client_ids
       @most_recent_verification_attempt = @client.verification_attempts.last
+      @fraud_indicators = Fraud::Indicator.all
       @security_events = (
-        @client.efile_security_informations + @client.recaptcha_scores
+        @client.efile_security_informations + @client.recaptcha_scores + @client.fraud_scores
       ).sort_by(&:created_at)
     end
 

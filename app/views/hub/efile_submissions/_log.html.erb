@@ -12,13 +12,18 @@
         </div>
     <% end %>
     <% if transition.to_state.in? ["bundling", "fraud_hold"] %>
-      <div> Fraud Score: <%= transition.efile_submission&.fraud_score&.points %></div>
-      <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
-        <h3>Details</h3>
-      </a>
-      <div class="accordion__content" id="a2">
-        <%= partial "shared/fraud_score_snapshot", fraud_score: transition.efile_submission.fraud_score, fraud_indicators: Fraud::Indicator.all  %>
-      </div>
+      <% fraud_score = transition.efile_submission&.fraud_score %>
+      <div> Fraud Score: <%= fraud_score.score %></div>
+      <% if fraud_score.snapshot.present? %>
+        <div class="accordion spacing-above-10">
+          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
+            <h3>Details</h3>
+          </a>
+          <div class="accordion__content" id="a2">
+            <%= render partial: "shared/fraud_score_snapshot", locals: { fraud_score: transition.efile_submission.fraud_score, fraud_indicators: Fraud::Indicator.all } %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
     <% if transition.metadata["raw_response"].present? %>
       <div class="accordion spacing-above-10">

@@ -16,10 +16,15 @@ RSpec.feature "Clients who have been flagged for fraud" do
     verification_attempt_3.client.intake.update(primary_first_name: "Peter", primary_last_name: "Potato")
     verification_attempt_4.client.intake.update(primary_first_name: "Catie", primary_last_name: "Cucumber")
 
-    fake_fraud_service = instance_double(FraudIndicatorService)
-    allow(FraudIndicatorService).to receive(:new).and_return(fake_fraud_service)
-    allow(fake_fraud_service).to receive(:hold_indicators).and_return ["recaptcha_score", "international_timezone"]
-    allow(fake_fraud_service).to receive(:fraud_suspected?)
+    fraud_score_double = instance_double(Fraud::Score)
+    create :fraud_indicator, name: "recaptcha_score", indicator_type: "not_in_safelist"
+    create :fraud_indicator, name: "timezone", indicator_type: "not_in_safelist"
+    allow_any_instance_of(Hub::UpdateVerificationAttemptForm).to receive(:fraud_score).and_return fraud_score_double
+    allow(fraud_score_double).to receive(:score).and_return(80)
+    allow(fraud_score_double).to receive(:snapshot).and_return ({
+        "recaptcha_score" => { "points" => 50, "data" => [0.3] },
+        "timezone" => { "points" => 80, "data" => ["International/Timezone", "International/Timezone"] }
+    })
   end
 
   scenario "As an admin, I can view a list of clients who have attempted to verify their identity" do
@@ -46,7 +51,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
     expect(page).to have_text "Tina Tomato"
     #   - check list of fraud flags
     expect(page).to have_text "Recaptcha score"
-    expect(page).to have_text "International timezone"
+    expect(page).to have_text "International/Timezone, International/Timezone"
     #   - check document uploads
     expect(page).to have_selector("img#selfie")
     expect(page).to have_selector("img#photo_id")

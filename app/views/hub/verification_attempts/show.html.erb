@@ -7,14 +7,13 @@
     <div class="verification-attempts-show__container">
       <%= link_to "##{@verification_attempt.client.id}", hub_client_path(id: @verification_attempt.client.id) , target: :_blank %>
       <div class="grid-flex space-between">
-        <h1 class="spacing-above-5"><%= @verification_attempt.client.legal_name %></h1>
+        <h1 class="spacing-above-10 spacing-below-5"><%= @verification_attempt.client.legal_name %></h1>
         <div>
           <div class="label"><%= @verification_attempt.current_state.humanize %></div>
         </div>
       </div>
-
-      <hr class="spacing-above-5 spacing-below-15">
-        <%= partial "shared/fraud_score_snapshot", fraud_score: client.efile_submissions.last.fraud_score, fraud_indicators: Fraud::Indicator.all  %>
+      <hr class="spacing-above-5 spacing-below-5">
+        <%= render partial: "shared/fraud_score_snapshot", locals: { fraud_score: @form.fraud_score, fraud_indicators: Fraud::Indicator.all }  %>
       <hr class="spacing-above-5 spacing-below-5">
 
       <% if @verification_attempt.client_bypass_request.present? %>

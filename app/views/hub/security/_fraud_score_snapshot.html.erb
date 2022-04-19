@@ -1,0 +1,8 @@
+<tr class="index-table__row index-table__vertical_align">
+    <td class="index-table__cell"><%= timestamp(fraud_score.created_at) %></td>
+    <td class="index-table__cell"><strong>Fraud score</strong></td>
+
+    <td class="index-table__cell">
+        <%= render partial: "shared/fraud_score_snapshot", locals: { fraud_indicators: @fraud_indicators, fraud_score: fraud_score } %>
+    </td>
+</tr>
