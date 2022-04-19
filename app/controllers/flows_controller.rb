@@ -246,6 +246,7 @@ class FlowsController < ApplicationController
         city: 'Los Angeles',
         state: 'CA',
         zip_code: '90210',
+        refund_payment_method: 'check',
       }
       client = Client.create!(
         intake_attributes: intake_attributes,

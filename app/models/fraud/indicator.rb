@@ -70,6 +70,9 @@ module Fraud
     end
 
     def duplicates(references)
+      # skip this rule if we can't check against the reference object
+      return false if references[reference].blank?
+
       duplicate_ids = DeduplificationService.duplicates(references[reference], *indicator_attributes, from_scope: query_model_name.constantize).pluck(:id)
       points = calculate_points_from_count(duplicate_ids.count)
       duplicate_ids.present? ? [points, duplicate_ids.uniq] : [0, []]
