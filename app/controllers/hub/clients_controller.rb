@@ -50,11 +50,6 @@ module Hub
       @client = HubClientPresenter.new(@client)
     end
 
-    def request_bank_account_info
-      @client = Client.find(params[:id])
-      respond_to :js
-    end
-
     def edit
       return render "public_pages/page_not_found", status: 404 if @client.intake.is_ctc?
 
