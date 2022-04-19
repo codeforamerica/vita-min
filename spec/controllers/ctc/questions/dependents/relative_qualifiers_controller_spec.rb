@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Ctc::Questions::Dependents::RelativeQualifiersController do
-  let(:intake) { create :ctc_intake }
+  let(:intake) { create :ctc_intake, client: create(:client, :with_return) }
   let(:dependent) { create :qualifying_relative, intake: intake, meets_misc_qualifying_relative_requirements: "unfilled" }
 
   before do

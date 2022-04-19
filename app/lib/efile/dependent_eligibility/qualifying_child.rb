@@ -18,6 +18,7 @@ module Efile
               :permanently_totally_disabled_yes?,
               :qualified_student?
             ],
+            primary_and_spouse_age_test: :younger_than_primary_and_spouse?,
             # Ctc::Questions::Dependents::ChildExpensesController
             financial_support_test: :provided_over_half_own_support_no?,
             # Ctc::Questions::Dependents::ChildResidenceController, Ctc::Questions::Dependents::ChildResidenceExceptionsController
@@ -50,6 +51,16 @@ module Efile
 
       def under_qualifying_age_limit?
         !over_qualifying_age_limit?
+      end
+
+      def younger_than_primary_and_spouse?
+        younger_than_primary = dependent.birth_date > dependent.intake.primary_birth_date
+
+        if dependent.intake.filing_jointly?
+          younger_than_primary && dependent.birth_date > dependent.intake.spouse_birth_date
+        else
+          younger_than_primary
+        end
       end
 
       private

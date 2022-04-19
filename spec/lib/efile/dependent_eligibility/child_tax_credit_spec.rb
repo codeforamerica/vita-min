@@ -15,7 +15,8 @@ describe Efile::DependentEligibility::ChildTaxCredit do
   end
 
   context "when not passing in an eligibility object" do
-    let(:dependent) { create :dependent }
+    let(:intake) { create :ctc_intake, client: create(:client, :with_return) }
+    let(:dependent) { create :dependent, intake: intake }
     let(:child_eligibility) { double }
     before do
       allow(child_eligibility).to receive(:qualifies?).and_return true
