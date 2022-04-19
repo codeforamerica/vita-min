@@ -1,0 +1,50 @@
+<% @main_heading = "Fraud Indicators" %>
+<% content_for :page_title, @main_heading %>
+<% content_for :back_to, "admin_tools" %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= @main_heading %></h1>
+
+      <% if @fraud_indicators.present? %>
+        <table class="data-table">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Rule type</th>
+            <th>Points</th>
+            <th>Etc</th>
+            <th>Active Since</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <% @fraud_indicators.each do |indicator| %>
+            <tr>
+              <td><%= indicator.name.humanize %></td>
+              <td><%= indicator.indicator_type.humanize %>
+              <td>
+                <span><%= indicator.points %></span>
+              </td>
+              <td>
+                <% if indicator.threshold %>
+                  <span style="font-size: smaller">Threshold: <%= indicator.indicator_type == "duplicates" ? indicator.threshold.to_i : indicator.threshold %></span>
+                <% end %>
+                <% if indicator.multiplier%>
+                  <br>
+                  <span style="font-size: smaller">Multiplier: <%= indicator.multiplier %></span>
+                <% end %>
+
+              </td>
+              <td><%= indicator.activated_at? ? formatted_datetime(indicator.activated_at, year: true) : "Not active" %></td>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+      <% end %>
+    </div>
+  </div>
+<% end %>
