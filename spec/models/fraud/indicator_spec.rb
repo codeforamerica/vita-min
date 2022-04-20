@@ -252,13 +252,7 @@ describe Fraud::Indicator do
 
   describe "#missing_relationship" do
     let(:tax_return) { create :tax_return }
-    let(:query_double) { double }
     let(:fraud_indicator) { described_class.create(name: "no_transitions", points: 5, indicator_type: "missing_relationship", query_model_name: "EfileSubmission", reference: "tax_return", indicator_attributes: ["efile_submission_transitions"]) }
-    before do
-      allow(EfileSubmission).to receive(:where).and_return query_double
-      allow(query_double).to receive_message_chain(:where, :missing).and_return query_double # ensure a ActiveRecord query object
-      allow(query_double).to receive(:exists?).and_return true
-    end
 
     context "validations" do
       it "is not valid without the appropriate data" do
@@ -271,15 +265,19 @@ describe Fraud::Indicator do
       end
     end
 
-    it "builds the appropriate query" do
-      fraud_indicator.execute(tax_return: tax_return)
-      expect(EfileSubmission).to have_received(:where).with({ "tax_return" => tax_return })
-      expect(query_double.where).to have_received(:missing).with("efile_submission_transitions")
+    context "when the reference's query model record is missing the relationship" do
+      let!(:efile_submission) { create :efile_submission, tax_return: tax_return }
+
+      it "returns some points" do
+        expect(fraud_indicator.execute(tax_return: tax_return)).to eq [5, []]
+      end
     end
 
-    context "when elements with missing transitions exist" do
-      it "returns true" do
-        expect(fraud_indicator.execute(tax_return: tax_return)).to eq [5, []]
+    context "when the reference's query model record is not missing the relationship" do
+      let!(:efile_submission) { create :efile_submission, :new, tax_return: tax_return }
+
+      it "returns zero points" do
+        expect(fraud_indicator.execute(tax_return: tax_return)).to eq [0, []]
       end
     end
   end

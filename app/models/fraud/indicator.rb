@@ -84,7 +84,7 @@ module Fraud
 
       relationship = indicator_attributes[0]
 
-      scoped_records(references).where.missing(relationship).exists? ? [points, []] : [0, []]
+      scoped_records(references).where.missing(relationship.to_sym).exists? ? [points, []] : [0, []]
     end
 
     def equals(references)
