@@ -525,8 +525,7 @@ class Intake < ApplicationRecord
   end
 
   def itin_applicant?
-    # TODO: remove the triage part once we have migrated Triage#id_type to Intake#need_itin_help
-    need_itin_help_yes? || self&.triage&.id_type_need_itin_help?
+    need_itin_help_yes?
   end
 
   def compute_canonical_email_address
