@@ -56,6 +56,17 @@ describe Ctc::Questions::LegalConsentController do
           event_name: "ctc_provided_personal_info"
         )
       end
+
+      it "persists information about consenting to service" do
+        expect(intake.primary_consented_to_service_at).to eq nil
+        expect(intake.primary_consented_to_service_ip).to eq nil
+
+        post :update, params: params
+
+        expect(intake.reload.primary_consented_to_service_at).to be_present
+        expect(intake.primary_consented_to_service).to eq "yes"
+        expect(intake.primary_consented_to_service_ip).to be_present
+      end
     end
   end
 end

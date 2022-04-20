@@ -18,6 +18,7 @@ module TimeHelper
   end
 
   def timestamp(datetime)
+    return unless datetime
     "#{default_date_format(datetime)} #{formatted_time(datetime)}"
   end
 
