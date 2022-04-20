@@ -1,11 +1,6 @@
 module Ctc
   class CtcPagesController < CtcController
     def home
-      if params[:ctc_beta] == "1" && ENV['DISABLE_CTC_BETA_PARAM'].blank?
-        cookies.permanent[:ctc_intake_ok] = "yes"
-        redirect_to Ctc::Questions::OverviewController.to_path_helper
-      end
-
       case session[:source]
       when "cactc", "fed", "child"
         redirect_to action: :help

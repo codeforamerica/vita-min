@@ -1,5 +1,3 @@
-<% intake_public_access = ENV['CTC_INTAKE_PUBLIC_ACCESS'] == 'true' %>
-
 <% content_for :page_title do %>
   <%= t("views.ctc_pages.home.title") %>
 <% end %>
@@ -14,7 +12,7 @@
         <h1 class="landing-page-header">
           <%= t("views.ctc_pages.home.header") %>
         </h1>
-        <% unless intake_public_access %>
+        <% unless open_for_ctc_intake? %>
           <p>
             <%= t("views.ctc_pages.home.subheader.launching_soon_html") %>
           </p>
@@ -27,7 +25,7 @@
           <% end %>
         </p>
         <div>
-          <% if intake_public_access && open_for_ctc_intake? %>
+          <% if open_for_ctc_intake? %>
             <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
           <% else %>
             <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>

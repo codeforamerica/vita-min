@@ -9,34 +9,6 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#redirect_to_getyourrefund" do
-    context "with a GET request to a subdomain of VitaTaxHelp.org" do
-      before do
-        allow_any_instance_of(ActionController::TestRequest).to receive(:host).and_return "demo.vitataxhelp.org"
-        allow_any_instance_of(ActionController::TestRequest).to receive(:original_url).and_return "https://demo.vitataxhelp.org/vita_providers?zip=94609&page=2&utf8=✓"
-      end
-
-      it "redirects to the same subdomain on GetYourRefund.org with same path and params" do
-        get :index
-
-        expect(response).to redirect_to "https://demo.getyourrefund.org/vita_providers?zip=94609&page=2&utf8=✓"
-      end
-    end
-
-    context "with a request to GetYourRefund.org" do
-      before do
-        allow_any_instance_of(ActionController::TestRequest).to receive(:host).and_return "demo.getyourrefund.org"
-        allow_any_instance_of(ActionController::TestRequest).to receive(:original_url).and_return "https://demo.getyourrefund.org/vita_providers?zip=94609&page=2&utf8=✓"
-      end
-
-      it "does not redirect" do
-        get :index
-
-        expect(response.status).to eq 200
-      end
-    end
-  end
-
   describe "#include_analytics?" do
     it "returns false" do
       expect(subject.include_analytics?).to eq false
@@ -923,6 +895,125 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#open_for_ctc_intake?" do
+    around do |example|
+      freeze_time do
+        example.run
+      end
+    end
+
+    let(:past) { 1.minute.ago }
+    let(:future) { Time.now + 1.minute }
+    before do
+      allow_any_instance_of(described_class).to receive(:open_for_ctc_intake?).and_call_original
+    end
+    context "when intake is closed" do
+      before do
+        allow(Rails.application.config).to receive(:ctc_end_of_intake).and_return(past)
+
+        allow(Rails.application.config).to receive(:ctc_soft_launch).and_return(future)
+        allow(Rails.application.config).to receive(:ctc_full_launch).and_return(future)
+      end
+
+      it "returns false" do
+        expect(subject.open_for_ctc_intake?).to eq false
+      end
+    end
+
+    context "during full launch" do
+      before do
+        allow(Rails.application.config).to receive(:ctc_end_of_intake).and_return(future)
+        allow(Rails.application.config).to receive(:ctc_soft_launch).and_return(past)
+        allow(Rails.application.config).to receive(:ctc_full_launch).and_return(past)
+      end
+
+      it "returns true" do
+        expect(subject.open_for_ctc_intake?).to eq true
+      end
+    end
+
+    context "during soft launch" do
+      before do
+        allow(Rails.application.config).to receive(:ctc_end_of_intake).and_return(future)
+        allow(Rails.application.config).to receive(:ctc_soft_launch).and_return(past)
+        allow(Rails.application.config).to receive(:ctc_full_launch).and_return(future)
+      end
+
+      [
+          [true, true],
+          [false, false],
+      ].each do |set_cookie, expected|
+        context "when the ctc_beta cookie is #{set_cookie ? "set" : "not set"}" do
+          before {  request.cookies[:ctc_beta] = true if set_cookie }
+
+          it "returns #{expected}" do
+            expect(subject.open_for_ctc_intake?).to eq expected
+          end
+        end
+      end
+    end
+  end
+
+  describe "#open_for_ctc_login?" do
+    around do |example|
+      freeze_time do
+        example.run
+      end
+    end
+
+    let(:past) { 1.minute.ago }
+    let(:future) { Time.now + 1.minute }
+    before do
+      allow_any_instance_of(described_class).to receive(:open_for_ctc_login?).and_call_original
+    end
+
+    context "when login is closed" do
+      before do
+        allow(Rails.application.config).to receive(:ctc_end_of_login).and_return(past)
+
+        allow(Rails.application.config).to receive(:ctc_soft_launch).and_return(future)
+        allow(Rails.application.config).to receive(:ctc_full_launch).and_return(future)
+      end
+
+      it "returns false" do
+        expect(subject.open_for_ctc_login?).to eq false
+      end
+    end
+
+    context "during full launch" do
+      before do
+        allow(Rails.application.config).to receive(:ctc_end_of_login).and_return(future)
+        allow(Rails.application.config).to receive(:ctc_soft_launch).and_return(past)
+        allow(Rails.application.config).to receive(:ctc_full_launch).and_return(past)
+      end
+
+      it "returns true" do
+        expect(subject.open_for_ctc_intake?).to eq true
+      end
+    end
+
+    context "during soft launch" do
+      before do
+        allow(Rails.application.config).to receive(:ctc_end_of_login).and_return(future)
+        allow(Rails.application.config).to receive(:ctc_soft_launch).and_return(past)
+        allow(Rails.application.config).to receive(:ctc_full_launch).and_return(future)
+      end
+
+      [
+          [true, true],
+          [false, false],
+      ].each do |set_cookie, expected|
+        context "when the ctc_beta cookie is #{set_cookie ? "set" : "not set"}" do
+          before {  request.cookies[:ctc_beta] = true if set_cookie }
+
+          it "returns #{expected}" do
+            expect(subject.open_for_ctc_login?).to eq expected
+          end
+        end
+      end
+    end
+  end
+
   describe '#show_offseason_banner?' do
     context "when open for intake" do
       before do
@@ -997,6 +1088,41 @@ RSpec.describe ApplicationController do
         expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(user_id: 3))
         expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(client_id: 4))
         expect(fake_sentry_scope).to have_received(:set_extras).with(hash_including(request_id: 5))
+      end
+    end
+  end
+
+  describe "#set_ctc_beta_param" do
+    context "when the ctc_beta param is present and equal to 1" do
+      context "when not from Ctc domain" do
+        before do
+          allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return false
+        end
+
+        it "does not set a cookie" do
+          get :index, params: { ctc_beta: 1 }
+          expect(cookies[:ctc_beta]).not_to be_present
+        end
+      end
+
+      context "when on ctc domain" do
+        before do
+          allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return true
+        end
+        
+        context "when the param value is 1" do
+          it "sets the cookie value" do
+            get :index, params: { ctc_beta: 1 }
+            expect(cookies[:ctc_beta]).to eq "true"
+          end
+        end
+
+        context "when the param value is not 1" do
+          it "does not set the cookie" do
+            get :index, params: { ctc_beta: 2 }
+            expect(cookies[:ctc_beta]).not_to be_present
+          end
+        end
       end
     end
   end
