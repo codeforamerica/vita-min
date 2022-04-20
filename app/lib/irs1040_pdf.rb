@@ -1,15 +1,15 @@
-class AdvCtcIrs1040Pdf
+class Irs1040Pdf
   include PdfHelper
 
   def source_pdf_name
-    "TY2020Form1040"
+    "f1040-TY2021"
   end
 
   def initialize(submission)
     @submission = submission
     @tax_return = submission.tax_return
     @intake = submission.intake
-    @qualifying_dependents = submission.tax_return.qualifying_dependents
+    @qualifying_dependents = submission.qualifying_dependents
     @address = @submission.address
     @benefits = Efile::BenefitsEligibility.new(tax_return: @tax_return, dependents: @qualifying_dependents)
   end
@@ -23,12 +23,12 @@ class AdvCtcIrs1040Pdf
         AddressLine1Txt: @address&.street_address,
         CityNm: @address&.city,
         StateAbbreviationCd: @address&.state,
-        ZIPCd: @address&.zip_code,
+        ZipCd: @address&.zip_code,
         VirtualCurAcquiredDurTYInd: false,
         TaxableInterestAmt2b: 1,
         TotalIncomeAmt9: 1,
         AdjustedGrossIncomeAmt11: 1,
-        TotalItemizedOrStandardDedAmt12: @tax_return.standard_deduction,
+        TotalItemizedOrStandardDedAmt12a: @tax_return.standard_deduction,
         TaxableIncomeAmt15: 0,
         RecoveryRebateCreditAmt30: @benefits.claimed_recovery_rebate_credit,
         RefundableCreditsAmt32: @benefits.claimed_recovery_rebate_credit,
@@ -74,9 +74,9 @@ class AdvCtcIrs1040Pdf
     answers = {}
     @qualifying_dependents.first(4).each_with_index do |dependent, index|
       answers["DependentLegalNm[#{index}]"] = dependent.full_name
-      answers["DependentRelationship[#{index}]"] = dependent.relationship
+      answers["DependentRelationship[#{index}]"] = dependent.irs_relationship_enum
       answers["DependentSSN[#{index}]"] = pdf_mask(dependent.ssn, 4)
-      answers["DependentCTCInd[#{index}]"] = dependent.qualifying_ctc?(@tax_return.year) ? 1 : 0
+      answers["DependentCTCInd[#{index}]"] = dependent.qualifying_ctc ? 1 : 0
     end
     answers
   end

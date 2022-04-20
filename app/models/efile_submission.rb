@@ -126,11 +126,17 @@ class EfileSubmission < ApplicationRecord
     address_service
   end
 
-  def generate_form_1040_pdf
+  def generate_filing_pdf
     filename = "IRS 1040 - TY #{tax_return.year} - #{irs_submission_id}.pdf"
-
+    temp_1040_pdf = Irs1040Pdf.new(self).output_file
+    temp_8812_pdf = Irs8812Ty2021Pdf.new(self).output_file
+    combined_temp_file = Tempfile.new(
+      [filename, ".pdf"],
+      "tmp/",
+      )
+    PdfForms.new.cat(temp_1040_pdf, temp_8812_pdf, combined_temp_file.path)
     ClientPdfDocument.create_or_update(
-      output_file: AdvCtcIrs1040Pdf.new(self).output_file,
+      output_file: combined_temp_file,
       document_type: DocumentTypes::Form1040,
       client: self.client,
       filename: filename,

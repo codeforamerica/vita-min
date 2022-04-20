@@ -23,9 +23,9 @@ describe BuildSubmissionBundleJob do
       end
     end
 
-    context "when there is an error creating the irs 1040 pdf" do
+    context "when there is an error creating the irs 1040 and 8812 pdf" do
       before do
-        allow_any_instance_of(EfileSubmission).to receive(:generate_form_1040_pdf).and_raise StandardError
+        allow_any_instance_of(EfileSubmission).to receive(:generate_filing_pdf).and_raise StandardError
       end
 
       it "transitions the submission into :failed" do
