@@ -20,7 +20,7 @@
             <h3>Details</h3>
           </a>
           <div class="accordion__content" id="a2">
-            <%= render partial: "shared/fraud_score_snapshot", locals: { fraud_score: transition.efile_submission.fraud_score, fraud_indicators: Fraud::Indicator.all } %>
+            <%= render partial: "shared/fraud_score_snapshot", locals: { fraud_score: transition.efile_submission.fraud_score, fraud_indicators: @fraud_indicators } %>
           </div>
         </div>
       <% end %>
