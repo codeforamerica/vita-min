@@ -163,6 +163,14 @@ class Client < ApplicationRecord
     counts
   end
 
+  def fraud_scores
+    Fraud::Score.where(efile_submission_id: efile_submissions.pluck(:id))
+  end
+
+  def fraud_suspected?
+    fraud_scores.where("score > ?", Fraud::Score::HOLD_THRESHOLD).exists?
+  end
+
   def accumulate_total_session_durations
     return if last_seen_at.nil?
     return if last_sign_in_at.nil?

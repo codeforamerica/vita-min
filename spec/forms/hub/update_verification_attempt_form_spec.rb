@@ -94,6 +94,28 @@ describe Hub::UpdateVerificationAttemptForm do
     end
   end
 
+  describe "#fraud_score" do
+    let(:user) { create :admin_user}
+
+    context "when the client does not have any fraud scores" do
+      it "returns nil" do
+        expect(subject.fraud_score).to eq nil
+      end
+    end
+
+    context "when the client has some associated fraud scores" do
+      before do
+        es = create :efile_submission
+        es.update(tax_return: verification_attempt.client.tax_returns.last)
+        create :fraud_score, efile_submission: es
+      end
+
+      it "returns fraud score object" do
+        expect(subject.fraud_score).to be_an_instance_of Fraud::Score
+      end
+    end
+  end
+
   describe "#can_handle_escalations?" do
     context "when the current user is an admin" do
       let!(:user) { create :admin_user }

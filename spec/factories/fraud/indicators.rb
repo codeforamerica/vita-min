@@ -18,13 +18,14 @@
 #  updated_at           :datetime         not null
 #
 FactoryBot.define do
-  factory :duplicate_fraud_indicator, class: Fraud::Indicator do
+  factory :fraud_indicator, class: Fraud::Indicator do
     name { "primary_name_used_multiple_times" }
     indicator_type { :duplicates }
     multiplier { 0.125 }
     threshold { 1 }
     points { 60 }
     query_model_name { Intake }
+    list_model_name { Fraud::Indicators::Timezone }
     reference { "intake" }
     activated_at { DateTime.current }
     indicator_attributes { ["primary_first_name"] }

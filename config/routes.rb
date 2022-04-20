@@ -199,6 +199,7 @@ Rails.application.routes.draw do
           get "/hide-bai", to: "clients/bank_accounts#hide", on: :member, as: :hide_bank_account
           get "/show_secret", to: "clients/secrets#show", on: :member
           get "/hide_secret", to: "clients/secrets#hide", on: :member
+          get "/finder", to: "clients#resource_to_client_redirect", on: :member, as: :client_finder
           resources :documents do
             get "/archived", to: "documents#archived", on: :collection, as: :archived
             get "/confirm", to: "documents#confirm", on: :member, as: :confirm

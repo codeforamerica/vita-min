@@ -18,15 +18,15 @@ require "rails_helper"
 describe Fraud::Score do
   describe '#create_from' do
     let(:submission) { create :efile_submission }
-    let!(:fraud_indicator) { create :duplicate_fraud_indicator }
+    let!(:fraud_indicator) { create :fraud_indicator }
     context "" do
       before do
         allow_any_instance_of(Fraud::Indicator).to receive(:execute)
       end
 
       context "when there are some FraudIndicators to execute" do
-        let!(:fraud_indicator) { create :duplicate_fraud_indicator, name: "first_indicator" }
-        let!(:second_fraud_indicator) { create :duplicate_fraud_indicator, name: "second_indicator" }
+        let!(:fraud_indicator) { create :fraud_indicator, name: "first_indicator" }
+        let!(:second_fraud_indicator) { create :fraud_indicator, name: "second_indicator" }
         before do
           allow(Fraud::Indicator).to receive(:all).and_return([fraud_indicator, second_fraud_indicator])
           allow_any_instance_of(Fraud::Indicator).to receive(:execute).and_return([60, [1, 2, 3]])

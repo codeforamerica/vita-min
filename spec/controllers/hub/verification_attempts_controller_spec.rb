@@ -44,16 +44,12 @@ describe Hub::VerificationAttemptsController, type: :controller do
   describe "#show" do
     let(:params) { { id: verification_attempt.id } }
     let(:verification_attempt) { create :verification_attempt }
-    let(:fraud_double) { double(FraudIndicatorService) }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
     context "when the user is logged in" do
       before do
         sign_in user
-
-        allow(FraudIndicatorService).to receive(:new).and_return fraud_double
-        allow(fraud_double).to receive(:hold_indicators).and_return ["duplicate_bank_account"]
       end
 
       context "rendering the page" do
@@ -76,12 +72,6 @@ describe Hub::VerificationAttemptsController, type: :controller do
         get :show, params: { id: verification_attempt.id }
 
         expect(assigns(:verification_attempt)).to eq verification_attempt
-      end
-
-      it "defines @fraud_indicators as the result of fraud indicators from FraudIndicatorService" do
-        get :show, params: { id: verification_attempt.id }
-
-        expect(assigns(:form).fraud_indicators).to eq ["duplicate_bank_account"]
       end
     end
   end
