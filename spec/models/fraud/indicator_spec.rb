@@ -274,7 +274,7 @@ describe Fraud::Indicator do
     it "builds the appropriate query" do
       fraud_indicator.execute(tax_return: tax_return)
       expect(EfileSubmission).to have_received(:where).with({ "tax_return" => tax_return })
-      expect(query_double.where).to have_received(:missing).with("efile_submission_transitions")
+      expect(query_double.where).to have_received(:missing).with(:efile_submission_transitions)
     end
 
     context "when elements with missing transitions exist" do
