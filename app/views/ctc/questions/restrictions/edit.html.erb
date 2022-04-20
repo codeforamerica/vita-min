@@ -17,7 +17,7 @@
     <%= t("general.continue") %>
   <% end %>
 
-  <%= link_to Ctc::Questions::UseGyrController.to_path_helper, class: "button button--full-width text--centered " do %>
+  <%= link_to Ctc::Questions::UseGyrController.to_path_helper, class: "button button--full-width text--centered ", "data-track-click": "gctc_to_gyr_restrictions" do %>
     <%= t("views.ctc.questions.restrictions.cannot_use_ctc") %>
   <% end %>
 <% end %>
