@@ -10,7 +10,6 @@ describe Ctc::CanBeginIntakeConcern, type: :controller do
       end
     end
 
-
     context "when open for intake" do
       before do
         allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return true

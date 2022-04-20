@@ -35,13 +35,9 @@ RSpec.feature "Visit CTC home page" do
     end
   end
 
-  context "when public access is allowed" do
+  context "when open for intake" do
     before do
-      ENV['CTC_INTAKE_PUBLIC_ACCESS'] = 'true'
-    end
-
-    after do
-      ENV.delete('CTC_INTAKE_PUBLIC_ACCESS')
+      allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return true
     end
 
     it "shows the button to file a simplified return" do

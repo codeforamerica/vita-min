@@ -1,5 +1,3 @@
-<% intake_public_access = ENV['CTC_INTAKE_PUBLIC_ACCESS'] == 'true' %>
-
 <% content_for :page_title do %>
   <%= t("views.ctc_pages.home.title") %>
 <% end %>
@@ -14,7 +12,7 @@
         <h1 class="landing-page-header">
           <%= t("views.ctc_pages.home.header") %>
         </h1>
-        <% unless intake_public_access %>
+        <% unless open_for_ctc_intake? %>
           <p>
             <%= t("views.ctc_pages.home.subheader.launching_soon_html") %>
           </p>

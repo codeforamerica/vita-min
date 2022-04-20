@@ -952,69 +952,6 @@ RSpec.describe ApplicationController do
         end
       end
     end
-
-    # context "during the time when only unique links allow intake" do
-    #   before do
-    #     allow(Rails.application.config).to receive(:start_of_unique_links_only_intake).and_return(past)
-    #     allow(Rails.application.config).to receive(:start_of_open_intake).and_return(future)
-    #     allow(Rails.application.config).to receive(:end_of_intake).and_return(future)
-    #   end
-    #
-    #   [
-    #       [nil, false],
-    #       ["yes", true],
-    #   ].each do |cookie_value, expected|
-    #     context "when the used_unique_link cookie is #{cookie_value.inspect}" do
-    #       before { request.cookies[:used_unique_link] = cookie_value }
-    #
-    #       it "returns #{expected}" do
-    #         expect(subject.open_for_intake?).to eq expected
-    #       end
-    #     end
-    #   end
-    # end
-
-    # context "during the time when intake is open" do
-    #   before do
-    #     allow(Rails.application.config).to receive(:start_of_unique_links_only_intake).and_return(past)
-    #     allow(Rails.application.config).to receive(:start_of_open_intake).and_return(past)
-    #     allow(Rails.application.config).to receive(:end_of_intake).and_return(future)
-    #   end
-    #
-    #   [
-    #       [nil, true],
-    #       ["yes", true],
-    #   ].each do |cookie_value, expected|
-    #     context "when the used_unique_link cookie is #{cookie_value.inspect}" do
-    #       before { request.cookies[:used_unique_link] = cookie_value }
-    #
-    #       it "returns #{expected}" do
-    #         expect(subject.open_for_intake?).to eq expected
-    #       end
-    #     end
-    #   end
-    # end
-
-    # context "during the time when intake is closed" do
-    #   before do
-    #     allow(Rails.configuration).to receive(:start_of_unique_links_only_intake).and_return(past)
-    #     allow(Rails.configuration).to receive(:start_of_open_intake).and_return(past)
-    #     allow(Rails.configuration).to receive(:end_of_intake).and_return(past)
-    #   end
-    #
-    #   [
-    #       [nil, false],
-    #       ["yes", false],
-    #   ].each do |cookie_value, expected|
-    #     context "when the used_unique_link cookie is #{cookie_value.inspect}" do
-    #       before { request.cookies[:used_unique_link] = cookie_value }
-    #
-    #       it "returns #{expected}" do
-    #         expect(subject.open_for_intake?).to eq expected
-    #       end
-    #     end
-    #   end
-    # end
   end
 
   describe "#open_for_ctc_login?" do
@@ -1030,7 +967,7 @@ RSpec.describe ApplicationController do
       allow_any_instance_of(described_class).to receive(:open_for_ctc_login?).and_call_original
     end
 
-    context "when intake is closed" do
+    context "when login is closed" do
       before do
         allow(Rails.application.config).to receive(:ctc_end_of_login).and_return(past)
 
@@ -1075,69 +1012,6 @@ RSpec.describe ApplicationController do
         end
       end
     end
-
-    # context "during the time when only unique links allow intake" do
-    #   before do
-    #     allow(Rails.application.config).to receive(:start_of_unique_links_only_intake).and_return(past)
-    #     allow(Rails.application.config).to receive(:start_of_open_intake).and_return(future)
-    #     allow(Rails.application.config).to receive(:end_of_intake).and_return(future)
-    #   end
-    #
-    #   [
-    #       [nil, false],
-    #       ["yes", true],
-    #   ].each do |cookie_value, expected|
-    #     context "when the used_unique_link cookie is #{cookie_value.inspect}" do
-    #       before { request.cookies[:used_unique_link] = cookie_value }
-    #
-    #       it "returns #{expected}" do
-    #         expect(subject.open_for_intake?).to eq expected
-    #       end
-    #     end
-    #   end
-    # end
-
-    # context "during the time when intake is open" do
-    #   before do
-    #     allow(Rails.application.config).to receive(:start_of_unique_links_only_intake).and_return(past)
-    #     allow(Rails.application.config).to receive(:start_of_open_intake).and_return(past)
-    #     allow(Rails.application.config).to receive(:end_of_intake).and_return(future)
-    #   end
-    #
-    #   [
-    #       [nil, true],
-    #       ["yes", true],
-    #   ].each do |cookie_value, expected|
-    #     context "when the used_unique_link cookie is #{cookie_value.inspect}" do
-    #       before { request.cookies[:used_unique_link] = cookie_value }
-    #
-    #       it "returns #{expected}" do
-    #         expect(subject.open_for_intake?).to eq expected
-    #       end
-    #     end
-    #   end
-    # end
-
-    # context "during the time when intake is closed" do
-    #   before do
-    #     allow(Rails.configuration).to receive(:start_of_unique_links_only_intake).and_return(past)
-    #     allow(Rails.configuration).to receive(:start_of_open_intake).and_return(past)
-    #     allow(Rails.configuration).to receive(:end_of_intake).and_return(past)
-    #   end
-    #
-    #   [
-    #       [nil, false],
-    #       ["yes", false],
-    #   ].each do |cookie_value, expected|
-    #     context "when the used_unique_link cookie is #{cookie_value.inspect}" do
-    #       before { request.cookies[:used_unique_link] = cookie_value }
-    #
-    #       it "returns #{expected}" do
-    #         expect(subject.open_for_intake?).to eq expected
-    #       end
-    #     end
-    #   end
-    # end
   end
 
   describe '#show_offseason_banner?' do
