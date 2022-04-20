@@ -1,5 +1,6 @@
-<% if params[:id] == "6974731"
-  %>1Ie/6YQM5vK0/48NrcV4TQzFe6+7HBTn2VPr4o601k4F<%
-  else
-%>Unknown PKI validation.<%
-  end %>
+<%
+  case params[:id]
+  when "6974731" %>1Ie/6YQM5vK0/48NrcV4TQzFe6+7HBTn2VPr4o601k4F<%
+  when "9061966" %>qrk3dz2AOgRJ35fWGVMQcdtNKIDLGQH+/2Ft8W+VH81q<%
+  else %>Unknown PKI validation.
+<% end %>
