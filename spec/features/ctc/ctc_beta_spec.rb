@@ -32,9 +32,22 @@ def begin_intake
 end
 
 RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active_job: true, requires_default_vita_partners: true do
+  around do |example|
+    freeze_time do
+      example.run
+    end
+  end
+
+  let(:past) { 1.minute.ago }
+  let(:future) { Time.now + 110.minute }
   before do
+    allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_call_original
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
-    allow(Rails.env).to receive(:production?).and_return(true)
+    allow(Rails.application.config).to receive(:ctc_end_of_login).and_return(future)
+
+    allow(Rails.application.config).to receive(:ctc_soft_launch).and_return(past)
+    allow(Rails.application.config).to receive(:ctc_full_launch).and_return(future)
+    Capybara.current_session.reset!
   end
 
   context "without locale path prefix" do
@@ -43,21 +56,21 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active
         it "shows intake in English and stores the source param" do
           visit "/partner_source?ctc_beta=1"
           # =========== BASIC INFO ===========
-          expect(page.current_path).to eq("/en/questions/overview")
+          expect(page.current_path).to eq("/en")
           expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
-          expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
+          click_on("File your simplified return now")
           begin_intake
           expect(Intake.last.source).to eq("partner_source")
         end
       end
 
       context "without source param" do
-        it "shows intake in English and stores nil source" do
+        it "shows homepage with get started link and stores nil source" do
           visit "/?ctc_beta=1"
           # =========== BASIC INFO ===========
-          expect(page.current_path).to eq("/en/questions/overview")
+          expect(page.current_path).to eq("/en")
           expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
-          expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
+          click_on("File your simplified return now")
           begin_intake
           expect(Intake.last.source).to be_nil
         end
@@ -66,10 +79,10 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active
 
     context "without beta param" do
       context "with source param" do
-        it "doesn't show intake" do
+        it "doesnt show the get started button" do
           visit "/partner_source"
           expect(page.current_path).to eq("/en")
-          expect(page).not_to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
+          expect(page).not_to have_selector("a", text: "File your simplified return now")
         end
       end
 
@@ -77,18 +90,27 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active
         it "doesn't show intake" do
           visit "/"
           expect(page.current_path).to eq("/en")
-          expect(page).not_to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
+          expect(page).not_to have_selector("a", text: "File your simplified return now")
         end
       end
     end
   end
 
   context "with Spanish locale prefix" do
-    it "shows intake in spanish" do
+    it "shows get started button in spanish" do
       visit "/es/partner_source?ctc_beta=1"
       # =========== BASIC INFO ===========
-      expect(page.current_path).to eq("/es/questions/overview")
-      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title', locale: :es))
+      expect(page.current_path).to eq("/es")
+      expect(page).to have_selector("a", text: I18n.t('views.ctc_pages.home.file_your_return', locale: :es))
+    end
+
+    context "ctc beta param with garbage value" do
+      it "does not show the get started button" do
+        visit "/es/partner_source?ctc_beta=something"
+        # =========== BASIC INFO ===========
+        expect(page.current_path).to eq("/es")
+        expect(page).not_to have_selector("a", text: I18n.t('views.ctc_pages.home.file_your_return', locale: :es))
+      end
     end
   end
 end

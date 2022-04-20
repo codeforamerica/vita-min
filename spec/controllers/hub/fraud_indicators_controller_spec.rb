@@ -3,8 +3,8 @@ require "rails_helper"
 describe Hub::FraudIndicatorsController do
   describe "index" do
     before do
-      create(:duplicate_fraud_indicator, activated_at: nil)
-      create(:duplicate_fraud_indicator, activated_at: nil)
+      create(:fraud_indicator, activated_at: nil)
+      create(:fraud_indicator, activated_at: nil)
     end
 
     context "when the client is authenticated" do

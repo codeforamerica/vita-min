@@ -29,6 +29,10 @@ module Hub
       verification_attempt.client.fraud_scores.last
     end
 
+    def fraud_indicators
+      @fraud_indicators ||= Fraud::Indicator.all
+    end
+
     def can_write_note?
       verification_attempt.can_transition_to?(:approved) || verification_attempt.can_transition_to?(:denied)
     end

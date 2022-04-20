@@ -13,7 +13,7 @@
         </div>
       </div>
       <hr class="spacing-above-5 spacing-below-5">
-        <%= render partial: "shared/fraud_score_snapshot", locals: { fraud_score: @form.fraud_score, fraud_indicators: @fraud_indicators }  %>
+        <%= render partial: "shared/fraud_score_snapshot", locals: { fraud_score: @form.fraud_score, fraud_indicators: @form.fraud_indicators }  %>
       <hr class="spacing-above-5 spacing-below-5">
 
       <% if @verification_attempt.client_bypass_request.present? %>

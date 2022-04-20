@@ -51,6 +51,10 @@ RSpec.feature "Visit CTC home page" do
   end
 
   context "when someone signs up for updates for IRS portal opening" do
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return false
+    end
+
     it "saves their contact information" do
       visit "/"
       expect(page).to have_text I18n.t("views.ctc_pages.home.header")
