@@ -239,6 +239,15 @@ describe Fraud::Indicator do
         expect(fraud_indicator.execute(intake: intake, client: client)).to eq [0, []]
       end
     end
+
+    context "if there is no reference object to compare it to" do
+      before do
+        fraud_indicator.update(reference: "something_different")
+      end
+      it "bypasses running the query and returns a 0 point result" do
+        expect(fraud_indicator.execute(intake: intake, client: client)).to eq [0, []]
+      end
+    end
   end
 
   describe "#missing_relationship" do
