@@ -3,31 +3,23 @@ require "rails_helper"
 describe Ctc::CtcPagesController do
   describe "#home" do
     context "with the ?ctc_beta=1 query parameter" do
-      it "sets the ctc_intake_ok cookie and redirects to intake" do
-        get :home, params: {ctc_beta: "1"}
-
-        expect(cookies[:ctc_intake_ok]).to eq('yes')
-        expect(response).to redirect_to Ctc::Questions::OverviewController.to_path_helper
+      before do
+        allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return true
       end
 
-      context "when DISABLE_CTC_BETA_PARAM is set" do
-        around do |example|
-          ENV['DISABLE_CTC_BETA_PARAM'] = '1'
-          example.run
-          ENV.delete('DISABLE_CTC_BETA_PARAM')
-        end
+      it "sets the ctc_beta cookie and renders the homepage" do
+        get :home, params: { ctc_beta: "1" }
 
-        it "renders the home page without any cookies or redirects" do
-          get :home
-          expect(cookies[:ctc_intake_ok]).to be_nil
-          expect(response).to be_ok
-        end
+        expect(cookies[:ctc_beta]).to eq('true')
+        expect(response).to be_okay
       end
     end
 
     context "without the ?ctc_beta=1 query parameter" do
-      it "renders the homepage" do
+      it "renders the homepage without setting the cookie" do
         get :home
+        expect(cookies[:ctc_beta]).to be_nil
+
         expect(response).to be_ok
       end
     end
