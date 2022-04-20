@@ -353,17 +353,17 @@ describe EfileSubmission do
     end
   end
 
-  describe "#generate_form_1040_pdf" do
+  describe "#generate_filing_pdf" do
     let(:submission) { create :efile_submission, :ctc }
     let(:example_pdf) { File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "rb") }
 
     before do
       allow(Irs1040Pdf).to receive(:new).and_return(instance_double(Irs1040Pdf, output_file: example_pdf))
-      allow(Irs8812Pdf).to receive(:new).and_return(instance_double(Irs8812Pdf, output_file: example_pdf))
+      allow(Irs8812Ty2021Pdf).to receive(:new).and_return(instance_double(Irs8812Ty2021Pdf, output_file: example_pdf))
     end
 
-    it "generates and stores the 1040 PDF" do
-      expect { submission.generate_form_1040_pdf }.to change(Document, :count).by(1)
+    it "generates and stores the 1040 and 8812 combined PDF" do
+      expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
       doc = submission.client.documents.last
       expect(doc.display_name).to eq("IRS 1040 - TY #{TaxReturn.current_tax_year} - #{submission.irs_submission_id}.pdf")
       expect(doc.document_type).to eq(DocumentTypes::Form1040.key)

@@ -1,4 +1,4 @@
-class Irs8812Pdf
+class Irs8812Ty2021Pdf
   include PdfHelper
 
   def source_pdf_name

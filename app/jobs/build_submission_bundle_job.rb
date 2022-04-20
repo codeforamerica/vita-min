@@ -15,7 +15,7 @@ class BuildSubmissionBundleJob < ApplicationJob
     end
 
     begin
-      submission.generate_form_1040_pdf
+      submission.generate_filing_pdf
     rescue StandardError => e
       submission.transition_to!(:failed, error_code: 'PDF-1040-FAIL', raw_response: e.inspect)
       raise
