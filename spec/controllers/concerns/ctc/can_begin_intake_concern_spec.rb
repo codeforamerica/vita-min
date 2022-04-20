@@ -10,65 +10,33 @@ describe Ctc::CanBeginIntakeConcern, type: :controller do
       end
     end
 
-    context "on non-production environments" do
+
+    context "when open for intake" do
       before do
-        allow(Rails.env).to receive(:production?).and_return(false)
+        allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return true
       end
 
-      it "lets everyone through" do
+      it "lets you through" do
         get :index
         expect(response).to be_ok
       end
     end
 
-    context "on a production environment" do
+
+    context "when not open for intake but the client is currently logged in so we let them continue" do
+      let(:client) { create :client, intake: (create :ctc_intake) }
+
       before do
-        allow(Rails.env).to receive(:production?).and_return(true)
+        allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return false
       end
 
-      context "when public access is live" do
-        before do
-          ENV['CTC_INTAKE_PUBLIC_ACCESS'] = 'true'
-        end
-
-        after do
-          ENV.delete('CTC_INTAKE_PUBLIC_ACCESS')
-        end
-
-        it "lets you through" do
-          get :index
-          expect(response).to be_ok
-        end
+      before do
+        sign_in client
       end
 
-      context "with the required cookie" do
-        before do
-          cookies[:ctc_intake_ok] = "yes"
-        end
-
-        it "lets you through" do
-          get :index
-          expect(response).to be_ok
-        end
-      end
-
-      context "without the required cookie" do
-        it "shows page not found" do
-          expect {
-            get :index
-          }.to raise_error(ActionController::RoutingError)
-        end
-      end
-
-      context "without the required cookie but when logged in" do
-        before do
-          sign_in create(:ctc_intake).client, scope: :client
-        end
-
-        it "lets you through" do
-          get :index
-          expect(response).to be_ok
-        end
+      it "lets you through" do
+        get :index
+        expect(response).to be_ok
       end
     end
   end
