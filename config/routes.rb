@@ -46,6 +46,12 @@ Rails.application.routes.draw do
   get '/healthcheck' => 'public_pages#healthcheck'
   resources :session_toggles, only: [:index, :create]
 
+  scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+    get "/500", to: "public_pages#internal_server_error"
+    get "/422", to: "public_pages#internal_server_error"
+    get "/404", to: "public_pages#page_not_found"
+  end
+
   constraints(Routes::GyrDomain.new) do
     mount Cfa::Styleguide::Engine => "/cfa"
 
@@ -127,9 +133,6 @@ Rails.application.routes.draw do
       get "/sms-terms", to: "public_pages#sms_terms"
       get "/stimulus", to: "public_pages#stimulus"
       get "/full-service", to: "public_pages#full_service"
-      get "/500", to: "public_pages#internal_server_error"
-      get "/422", to: "public_pages#internal_server_error"
-      get "/404", to: "public_pages#page_not_found"
       get "/consent-to-use", to: "consent_pages#consent_to_use"
       get "/consent-to-disclose", to: "consent_pages#consent_to_disclose"
       get "/relational-efin", to: "consent_pages#relational_efin"
