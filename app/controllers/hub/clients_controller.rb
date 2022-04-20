@@ -63,6 +63,7 @@ module Hub
 
     def update
       original_intake = @client.intake.dup
+      # need to use the presenter bc it has ITIN applicant methods that are used in the form
       @client = HubClientPresenter.new(@client)
       @form = UpdateClientForm.new(@client, update_client_form_params)
 
