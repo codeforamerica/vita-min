@@ -19,7 +19,7 @@
     <%= t("views.ctc.questions.file_full_return.simplified_btn") %>
   <% end %>
 
-  <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy'), class: "button button--full-width text--centered" do %>
+  <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'diy', params: { source: 'gctc_ref' }), class: "button button--full-width text--centered", "data-track-click": "gctc_to_gyr_filefullreturn" do %>
     <%= t("views.ctc.questions.file_full_return.full_btn") %>
   <% end %>
 <% end %>

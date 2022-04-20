@@ -37,7 +37,7 @@
           </div>
         <% else %>
           <div class="spacing-below-60">
-            <%= link_to t("views.ctc_pages.home.get_your_refund_link"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home' ) %>
+            <%= link_to t("views.ctc_pages.home.get_your_refund_link"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), "data-track-click": "gctc_to_gyr" %>
           </div>
         <% end %>
       </div>
@@ -164,7 +164,7 @@
       </div>
       <div class="grid__item width-one-whole">
         <% t('views.ctc_pages.home.obtain.body_html',
-              link_to_get_your_refund: link_to(t("views.ctc_pages.home.service_name"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home')),
+              link_to_get_your_refund: link_to(t("views.ctc_pages.home.service_name"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), "data-track-click": "gctc_to_gyr"),
               link_to_sign_up: link_to(t("views.ctc_pages.home.link_to_sign_up"), new_ctc_signup_path)).each do |body| %>
           <p><%= body %></p>
         <% end %>
@@ -176,7 +176,7 @@
           <div class="accordion__content" id="a4">
             <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year) %>
             <% t('views.ctc_pages.home.obtain.not_filed.body_html',
-                link_to_get_your_refund: link_to(t("views.ctc_pages.home.service_name"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home')),
+                link_to_get_your_refund: link_to(t("views.ctc_pages.home.service_name"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), "data-track-click": "gctc_to_gyr"),
                 link_to_sign_up: link_to(t("views.ctc_pages.home.link_to_sign_up"), new_ctc_signup_path),
                 single_deduction: number_to_currency(standard_deduction.standard_deduction(:single)),
                 joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_jointly))
