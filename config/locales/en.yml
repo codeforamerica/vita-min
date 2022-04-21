@@ -504,8 +504,7 @@ en:
     year: year
     you: you
     you_or_spouse: you or your spouse
-    zendesk:
-      access_denied: You are not authorized to access that page
+    access_denied: You are not authorized to take this action.
     zip_code: ZIP code
   helpers:
     birth_date_helper:

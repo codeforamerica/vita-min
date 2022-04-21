@@ -505,8 +505,7 @@ es:
     you: usted
     you_or_spouse: usted o su cónyuge
     zendesk:
-      access_denied: No tiene autorización para acceder a esa página
-    zip_code: Código postal
+    access_denied: No tiene autorización para acceder a esa página
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
