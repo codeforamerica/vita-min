@@ -29,6 +29,14 @@ module VitaMin
     config.i18n.available_locales = [:en, :es]
 
     config.action_mailer.deliver_later_queue_name = 'mailers'
+    config.ssl_options = { redirect: { exclude:
+                                         ->(request) do
+                                           # Keep the Aptible health check speedy
+                                           request.path == "/healthcheck" ||
+                                             # Identrust EV certificate validation requires HTTP not HTTPS
+                                             request.path.to_s.start_with?("/.well-known/pki-validation/")
+                                         end
+    } }
 
     config.active_job.queue_adapter = :delayed_job
     config.action_view.automatically_disable_submit_tag = false
