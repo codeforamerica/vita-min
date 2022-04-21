@@ -31,9 +31,10 @@ module VitaMin
     config.action_mailer.deliver_later_queue_name = 'mailers'
     config.ssl_options = { redirect: { exclude:
                                          ->(request) do
-                                           # Keep the Aptible health check speedy
+                                           # Aptible's internal health check needs to bypass Rails HTTPS upgrade so it returns 200 OK
                                            request.path == "/healthcheck" ||
-                                             # Identrust EV certificate validation requires HTTP not HTTPS
+                                             # Identrust EV certificate validation requires HTTP not HTTPS;
+                                             # must disable Aptible HTTPS redirect for this, see https://deploy-docs.aptible.com/docs/https-redirect
                                              request.path.to_s.start_with?("/.well-known/pki-validation/")
                                          end
     } }
