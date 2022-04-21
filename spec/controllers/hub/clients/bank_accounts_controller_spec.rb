@@ -43,6 +43,21 @@ describe Hub::Clients::BankAccountsController, type: :controller do
         expect(access_log.ip_address).to eq("1.1.1.1")
         expect(access_log.user_agent).to eq(user_agent_header)
       end
+
+      context "for an archived intake" do
+        render_views
+
+        let(:intake) { nil }
+        let(:client) { build(:client) }
+
+        let!(:archived_intake) { create :archived_2021_ctc_intake, client: client, primary_ssn: '555-11-2222', preferred_name: "Andy Archive" }
+        let!(:archived_bank_account) {  create(:archived_2021_bank_account, intake: archived_intake) }
+
+        it "shows the secret from the archived intake" do
+          get :show, params: params, format: :js, xhr: true
+          expect(response.body).to include(archived_bank_account.routing_number)
+        end
+      end
     end
   end
 
