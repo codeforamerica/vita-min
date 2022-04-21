@@ -1,0 +1,95 @@
+<% content_for :form_question, t("views.ctc.portal.verification.title") %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question" id="main-question">
+    <%= yield :form_question %>
+  </h1>
+
+  <% if @is_resubmission %>
+    <p class="notice--warning">
+      <%= t("views.ctc.portal.verification.resubmission") %>
+    </p>
+  <% end %>
+  <p>
+    <%= t("views.ctc.portal.verification.info") %>
+    <ol class="with-bullets">
+      <li><%= t("views.ctc.portal.verification.id") %></li>
+      <li><%= t("views.ctc.portal.verification.selfie") %></li>
+    </ol>
+  </p>
+
+  <%= form_with model: @verification_attempt, url: ctc_portal_update_verification_attempt_path, method: "patch", local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
+    <div class="document-upload">
+      <div class="file-upload">
+        <% unless @verification_attempt.photo_identification.present? %>
+          <%= f.file_field(:photo_identification, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
+          <%= f.label(:photo_identification, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
+              <div style="display:flex;">
+                <%= image_tag "icons/plus-circle.svg", alt: "" %>
+                <%= t("views.ctc.portal.verification.id_label") %>
+              </div>
+          <% end %>
+        <% end %>
+        <% unless @verification_attempt.selfie.present? %>
+          <%= f.file_field(:selfie, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
+          <%= f.label(:selfie, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
+            <div style="display:flex;">
+              <%= image_tag "icons/plus-circle.svg", alt: "" %>
+              <%= t("views.ctc.portal.verification.selfie_label") %>
+            </div>
+          <% end %>
+        <% end %>
+        <span class="is-tablet-hidden--inline text--small"><%= t("views.layouts.document_upload.accepted_file_types") %></span>
+      </div>
+    </div>
+
+    <% if @verification_attempt.errors.any? %>
+      <div class="form-group form-group--error">
+        <% @verification_attempt.errors.map { |error| error.message }.flatten.each do |error_message| %>
+          <p class="text--error"><i class="icon-warning"></i>
+            <%= error_message %>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
+    <% images = [[:selfie, @verification_attempt.selfie], [:photo_identification, @verification_attempt.photo_identification]] %>
+    <% if images.any? { |image| image[1].persisted? } %>
+      <h4 class="text--grey-dark spacing-below-5">Uploaded images</h4>
+      <hr class="spacing-above-0 spacing-below-5"/>
+    <% end %>
+    <ul class="doc-preview-container">
+      <% images.each do |item| %>
+        <% type = item[0] %>
+        <% image = item[1] %>
+        <% next unless image.present? %>
+        <li class="doc-preview">
+          <div class="doc-preview__thumb">
+            <% if image.representable? %>
+              <%= image_tag image.representation(resize: "140x140"), alt: "" %>
+            <% else %>
+              <%= image_tag "document.svg", alt: "" %>
+            <% end %>
+          </div>
+          <div class="doc-preview__info">
+            <h2 class="h3 doc-preview__filename"><%= image.filename %></h2>
+            <%= link_to(ctc_portal_destroy_verification_attempt_photo_path(id: @verification_attempt.id, photo_type: type), method: :delete, class: "link--delete", data: { confirm: t("views.layouts.document_upload.remove_confirmation", :filename => "#{image.filename}")  }) do %>
+              <%=t("general.remove") %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+      <li class="doc-preview hidden-until-submit">
+        <div class="doc-preview__thumb">
+          <%= image_tag "loading.gif", alt: "" %>
+        </div>
+        <div class="doc-preview__info">
+          <h2 class="h3 doc-preview__filename">Uploading...</h2>
+        </div>
+      </li>
+    </ul>
+
+    <% if images.all? { |image| image[1].persisted? } %>
+      <%= f.submit t("general.continue"), class: "button button--primary button--full-width" %>
+    <% end %>
+  <% end %>
+<% end %>

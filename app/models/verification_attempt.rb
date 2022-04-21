@@ -34,5 +34,14 @@ class VerificationAttempt < ApplicationRecord
   delegate :can_transition_to?,
            :current_state, :history, :last_transition, :last_transition_to,
            :transition_to!, :transition_to, :in_state?, to: :state_machine
+
+  scope :open, -> { in_state(:new, :pending, :escalated, :restricted) }
+  scope :reviewing, -> { in_state(:pending, :escalated, :restricted) }
+
+  validate :only_one_open_attempt_per_client, on: :create
+
+  def only_one_open_attempt_per_client
+    errors.add(:client, "only one open attempt is allowed per client") if client.verification_attempts.open.exists?
+  end
 end
 

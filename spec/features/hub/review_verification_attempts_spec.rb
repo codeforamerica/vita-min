@@ -2,19 +2,17 @@ require "rails_helper"
 
 RSpec.feature "Clients who have been flagged for fraud" do
   let(:user) { create :admin_user, name: "Judith Juice" }
-  let(:verification_attempt_1) { create :verification_attempt, :pending }
-  let(:verification_attempt_2) { create :verification_attempt, :pending }
-  let(:verification_attempt_3) { create :verification_attempt, :pending }
-  let(:verification_attempt_4) { create :verification_attempt, :pending, client_id: verification_attempt_2.client_id }
+  let(:tina_verification_attempt) { create :verification_attempt, :pending }
+  let(:catie_verification_attempt) { create :verification_attempt, :pending }
+  let(:peter_verification_attempt) { create :verification_attempt, :pending }
   let(:restricted_verification_attempt) { create :verification_attempt, :restricted }
 
   before do
     login_as user
 
-    verification_attempt_1.client.intake.update(primary_first_name: "Tina", primary_last_name: "Tomato")
-    verification_attempt_2.client.intake.update(primary_first_name: "Catie", primary_last_name: "Cucumber")
-    verification_attempt_3.client.intake.update(primary_first_name: "Peter", primary_last_name: "Potato")
-    verification_attempt_4.client.intake.update(primary_first_name: "Catie", primary_last_name: "Cucumber")
+    tina_verification_attempt.client.intake.update(primary_first_name: "Tina", primary_last_name: "Tomato")
+    catie_verification_attempt.client.intake.update(primary_first_name: "Catie", primary_last_name: "Cucumber")
+    peter_verification_attempt.client.intake.update(primary_first_name: "Peter", primary_last_name: "Potato")
 
     fraud_score_double = instance_double(Fraud::Score)
     create :fraud_indicator, name: "recaptcha_score", indicator_type: "not_in_safelist"
@@ -31,11 +29,11 @@ RSpec.feature "Clients who have been flagged for fraud" do
     # visit index page
     visit hub_verification_attempts_path
 
-    # check number of records
-    expect(page).to have_text "all 4 verification attempts"
+    # check number of records (does not display the restricted one)
+    expect(page).to have_text "all 3 verification attempts"
 
     # check info in table
-    within "#verification-attempt-#{verification_attempt_1.id}" do
+    within "#verification-attempt-#{tina_verification_attempt.id}" do
       # check name
       click_on "Tina Tomato"
     end
@@ -76,7 +74,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
     expect(page).not_to have_selector("input#request_replacement")
 
     # Go to client notes page and make sure there is a record of the note there as well
-    visit hub_client_notes_path(client_id: verification_attempt_1.client_id)
+    visit hub_client_notes_path(client_id: tina_verification_attempt.client_id)
 
     expect(page).to have_content "#{user.name_with_role} approved verification attempt."
   end
@@ -90,7 +88,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
     visit hub_verification_attempts_path
 
     # check info in table
-    within "#verification-attempt-#{verification_attempt_2.id}" do
+    within "#verification-attempt-#{catie_verification_attempt.id}" do
       # check name
       click_on "Catie Cucumber"
     end
@@ -115,43 +113,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
     expect(page).to have_selector("textarea#hub_update_verification_attempt_form_note")
     expect(page).not_to have_selector("input#escalate")
 
-    visit hub_client_notes_path(client_id: verification_attempt_2.client_id)
-
-    expect(page).to have_content "Judith Juice (Admin) escalated verification attempt for additional review."
-  end
-
-  scenario "I can escalate a verification attempt" do
-    visit hub_verification_attempts_path
-
-    # check info in table
-    within "#verification-attempt-#{verification_attempt_2.id}" do
-      # check name
-      click_on "Catie Cucumber"
-    end
-
-    expect(page).to have_selector("input#deny")
-    expect(page).to have_selector("input#approve")
-    expect(page).to have_selector("input#escalate")
-    expect(page).to have_selector("input#request_replacement")
-
-    click_on "Escalate"
-    expect(page).to have_text "A note is required when escalating a verification attempt."
-
-    fill_in "Add a new note", with: "This is a racoon! Not Catie Cucumber!"
-    click_on "Escalate"
-
-    within "ul#verification-attempt-notes" do
-      expect(page).to have_text "Judith Juice (Admin) escalated verification attempt."
-      expect(page).to have_text "This is a racoon! Not Catie Cucumber!"
-    end
-
-    expect(page).to have_selector("input#deny")
-    expect(page).to have_selector("input#approve")
-    expect(page).to have_selector("textarea#hub_update_verification_attempt_form_note")
-    expect(page).to have_selector("input#request_replacement")
-    expect(page).not_to have_selector("input#escalate")
-
-    visit hub_client_notes_path(client_id: verification_attempt_2.client_id)
+    visit hub_client_notes_path(client_id: catie_verification_attempt.client_id)
 
     expect(page).to have_content "Judith Juice (Admin) escalated verification attempt for additional review."
   end
@@ -160,7 +122,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
     visit hub_verification_attempts_path
 
     # check info in table
-    within "#verification-attempt-#{verification_attempt_2.id}" do
+    within "#verification-attempt-#{catie_verification_attempt.id}" do
       # check name
       click_on "Catie Cucumber"
     end
@@ -183,7 +145,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
     expect(page).not_to have_selector("input#approve")
     expect(page).not_to have_selector("input#request_replacement")
 
-    visit hub_client_notes_path(client_id: verification_attempt_2.client_id)
+    visit hub_client_notes_path(client_id: catie_verification_attempt.client_id)
 
     expect(page).to have_content "Judith Juice (Admin) denied verification attempt."
   end
@@ -192,7 +154,7 @@ RSpec.feature "Clients who have been flagged for fraud" do
     visit hub_verification_attempts_path
 
     # check info in table
-    within "#verification-attempt-#{verification_attempt_2.id}" do
+    within "#verification-attempt-#{catie_verification_attempt.id}" do
       # check name
       click_on "Catie Cucumber"
     end
@@ -215,38 +177,41 @@ RSpec.feature "Clients who have been flagged for fraud" do
     expect(page).not_to have_selector("input#approve")
     expect(page).not_to have_selector("input#request_replacement")
 
-    visit hub_client_notes_path(client_id: verification_attempt_2.client_id)
+    visit hub_client_notes_path(client_id: catie_verification_attempt.client_id)
 
     expect(page).to have_content "Judith Juice (Admin) requested new photos"
   end
 
-  scenario "I can see a client's previous verification attempts" do
-    # visit index page
-    visit hub_verification_attempts_path
-
-    # check info in table
-    within "#verification-attempt-#{verification_attempt_4.id}" do
-      # check name
-      expect(page).to have_text "Catie Cucumber"
-      click_on "Catie Cucumber"
+  context "when a client has previous attempts" do
+    let(:catie_verification_attempt_resubmission) { create :verification_attempt, :pending, client_id: catie_verification_attempt.client_id }
+    before do
+      catie_verification_attempt.transition_to(:requested_replacements)
+      catie_verification_attempt_resubmission.client.intake.update(primary_first_name: "Catie", primary_last_name: "Cucumber")
     end
 
-    expect(page).to have_text "Previous Attempts"
+    scenario "I can see a client's previous verification attempts" do
+      # visit index page
+      visit hub_verification_attempts_path
 
-    within "#previous-verification-attempt-#{verification_attempt_2.id}" do
-      expect(page).to have_text "pending"
-      expect(page).to have_selector("#time")
-      click_on(id: "time")
+      # check info in table
+      within "#verification-attempt-#{catie_verification_attempt_resubmission.id}" do
+        # check name
+        expect(page).to have_text "Catie Cucumber"
+        click_on "Catie Cucumber"
+      end
+
+      expect(page).to have_text "Previous Attempts"
+
+      within "#previous-verification-attempt-#{catie_verification_attempt.id}" do
+        expect(page).to have_text "requested replacements"
+        expect(page).to have_selector("#time")
+        click_on(id: "time")
+      end
+
+      # Original attempt should not include any other attempts
+      expect(page).not_to have_selector("#previous-verification-attempt-#{catie_verification_attempt.id}")
+      expect(page).not_to have_text "Previous Attempts"
     end
-
-    # Original attempt should not include any other attempts
-    expect(page).not_to have_selector("#previous-verification-attempt-#{verification_attempt_2.id}")
-    expect(page).not_to have_text "Previous Attempts"
-
-    expect(page).to have_selector("input#deny")
-    expect(page).to have_selector("input#approve")
-    expect(page).to have_selector("input#escalate")
-    expect(page).to have_selector("input#request_replacement")
   end
 end
 

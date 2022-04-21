@@ -287,4 +287,8 @@ class Client < ApplicationRecord
 
     (recaptcha_scores.map(&:score).sum / recaptcha_scores.size).round(2)
   end
+
+  def identity_decision_made?
+    identity_verification_denied_at? || identity_verified_at?
+  end
 end
