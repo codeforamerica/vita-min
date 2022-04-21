@@ -220,7 +220,6 @@ es:
     activate_all: Activar todo
     active: activos
     add_client: Agregar cliente
-    add_ctc_client: Agregar CTC cliente
     address: Dirección
     admin: Admin
     admin_controls: Controles de administrador
