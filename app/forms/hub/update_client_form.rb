@@ -36,7 +36,9 @@ module Hub
                        :with_general_navigator,
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
-                       :with_unhoused_navigator
+                       :with_unhoused_navigator,
+                       :was_blind,
+                       :spouse_was_blind
 
     validates :state_of_residence, inclusion: { in: States.keys }
     validates :preferred_interview_language, presence: true, allow_blank: false

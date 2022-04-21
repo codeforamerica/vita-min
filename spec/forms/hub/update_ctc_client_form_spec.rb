@@ -53,6 +53,8 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
           primary_ip_pin: intake.primary_ip_pin,
           spouse_ip_pin: intake.spouse_ip_pin,
           has_crypto_income: "true",
+          was_blind: intake.was_blind,
+          spouse_was_blind: intake.spouse_was_blind,
           dependents_attributes: {
             "0" => {
               id: intake.dependents.first.id,
@@ -79,6 +81,9 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
 
     let(:sms_opt_in) { "yes" }
     let(:email_opt_in) { "no" }
+
+    let(:primary_was_blind) { 0 }
+    let(:spouse_was_blind) { 0 }
 
     context "updating a client" do
       context "updating the primary ssn" do
@@ -244,6 +249,21 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
             end.not_to change(intake, :eip1_amount_received)
             expect(intake.eip2_amount_received).to eq(456)
           end
+        end
+      end
+
+      context "updating blind status" do
+        before do
+          form_attributes[:was_blind] = 1
+          form_attributes[:spouse_was_blind] = 1
+        end
+
+        it "persists the change" do
+          expect do
+            form = described_class.new(client, form_attributes)
+            form.save
+            intake.reload
+          end.to change(intake, :was_blind).to(1).and change(intake, :spouse_was_blind).to(1)
         end
       end
     end

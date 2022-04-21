@@ -216,6 +216,7 @@ en:
   general:
     NA: N/A
     access_denied: You are not authorized to take this action.
+    blind: Is legally blind
     activate_all: Activate All
     active: active
     add_client: Add client
@@ -652,6 +653,7 @@ en:
           online: Online
         spouse_contact_info: Spouse Contact Information
         state_of_residence: State of residence
+        blind: Was blind
         suffix: Suffix
         taxpayer_id:
           error: Please select at least one taxpayer ID type

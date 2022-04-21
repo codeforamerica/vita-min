@@ -73,6 +73,10 @@
                 <% end %>
               </div>
             <% end %>
+            <div class="field-display">
+              <span class="form-question"><%= t("hub.clients.fields.blind") %>:</span>
+              <span class="label-value"><%= @client.intake.was_blind.zero? ? t("general.negative") : t("general.affirmative") %></span>
+            </div>
           </div>
 
           <!-- Tax info-->
@@ -252,6 +256,10 @@
                   <% end %>
                 </div>
               <% end %>
+              <div class="field-display">
+                <span class="form-question"><%= t("hub.clients.fields.blind") %>:</span>
+                <span class="label-value"><%= @client.intake.spouse_was_blind.zero? ? t("general.negative") : t("general.affirmative") %></span>
+              </div>
             </div>
           <% end %>
 

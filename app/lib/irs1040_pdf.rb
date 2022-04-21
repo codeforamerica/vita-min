@@ -26,6 +26,7 @@ class Irs1040Pdf
         StateAbbreviationCd: @address&.state,
         ZipCd: @address&.zip_code,
         VirtualCurAcquiredDurTYInd: @intake.has_crypto_income,
+        PrimaryBlindInd: @intake.was_blind ? 1 : 0,
         TotalIncomeAmt9: 0,
         AdjustedGrossIncomeAmt11: 0,
         TotalItemizedOrStandardDedAmt12a: @tax_return.standard_deduction,
@@ -67,6 +68,7 @@ class Irs1040Pdf
         SpouseSignature: @intake.spouse_full_name,
         SpouseSignatureDate: @intake.spouse_signature_pin_at.strftime("%m/%d/%y"),
         SpouseIPPIN: @intake.spouse_ip_pin,
+        SpouseBlindInd: @intake.spouse_was_blind ? 1 : 0,
     }
   end
 

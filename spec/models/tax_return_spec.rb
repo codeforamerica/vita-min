@@ -955,6 +955,55 @@ describe TaxReturn do
     end
   end
 
+  describe "#additional_blind_standard_deduction" do
+    context "the primary filer is blind and filing status is single" do
+      let(:tax_return) { create :tax_return, filing_status: "single", year: 2021, client: create(:client, intake: create(:intake, was_blind: "yes")) }
+
+      it "is 1700" do
+        expect(tax_return.additional_blind_standard_deduction).to eq 1700
+      end
+    end
+
+    context "the primary filer is blind and filing status is head of household" do
+      let(:tax_return) { create :tax_return, filing_status: "head_of_household", year: 2021, client: create(:client, intake: create(:intake, was_blind: "yes")) }
+
+      it "is 1700" do
+        expect(tax_return.additional_blind_standard_deduction).to eq 1700
+      end
+    end
+
+    context "the primary filer and spouse is blind and filing status is married_filing_jointly" do
+      let(:tax_return) { create :tax_return, filing_status: "married_filing_jointly", year: 2021, client: create(:client, intake: create(:ctc_intake, was_blind: "yes", spouse_was_blind: "yes")) }
+
+      it "is 2700" do
+        expect(tax_return.additional_blind_standard_deduction).to eq 2700
+      end
+    end
+
+    context "the primary filer is blind and spouse is not and filing status is married_filing_jointly" do
+      let(:tax_return) { create :tax_return, filing_status: "married_filing_jointly", year: 2021, client: create(:client, intake: create(:ctc_intake, was_blind: "yes", spouse_was_blind: "no")) }
+
+      it "is 1350" do
+        expect(tax_return.additional_blind_standard_deduction).to eq 1350
+      end
+    end
+
+    context "filing status is qualifying_widow and primary is blind" do
+      let(:tax_return) { create :tax_return, filing_status: "qualifying_widow", year: 2021, client: create(:client, intake: create(:intake, was_blind: "yes")) }
+
+      it "is 0" do
+        expect(tax_return.additional_blind_standard_deduction).to eq 0
+      end
+    end
+
+    context "filing status is married_filing_jointly and primary and spouse are not blind" do
+      let(:tax_return) { create :tax_return, filing_status: "married_filing_jointly", year: 2021, client: create(:client, intake: create(:ctc_intake, was_blind: "no", spouse_was_blind: "unfilled")) }
+      it "is 0" do
+        expect(tax_return.additional_blind_standard_deduction).to eq 0
+      end
+    end
+  end
+
   describe ".filing_years" do
     before do
       allow(Rails.application.config).to receive(:current_tax_year).and_return 2021

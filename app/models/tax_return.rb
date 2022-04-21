@@ -96,7 +96,19 @@ class TaxReturn < ApplicationRecord
   end
 
   def standard_deduction
-    StandardDeduction.for(tax_year: year, filing_status: filing_status)
+    standard_deduction = StandardDeduction.for(tax_year: year, filing_status: filing_status)
+    standard_deduction + additional_blind_standard_deduction if standard_deduction.present?
+  end
+
+  def additional_blind_standard_deduction
+    case filing_status
+    when "single", "head_of_household"
+      return 1700
+    when "married_filing_jointly"
+      return 2700 if intake.was_blind_yes? && intake.spouse_was_blind_yes?
+      return 1350 if intake.was_blind_yes? || intake.spouse_was_blind_yes?
+    end
+    0
   end
 
   def has_submissions?
