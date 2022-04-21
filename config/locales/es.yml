@@ -2459,7 +2459,7 @@ es:
           heading: Crédito Tributario por Hijo
       navigators:
         help_text: Orientación para los navegantes comunitarios que deseen ayudar a los clientes de difícil acceso a sus beneficios fiscales.
-        title: Recursos de Alcance y Navegantes de GetYourRefund
+        title: Recursos de Alcance y Navegantes de GetYourRefund y GetCTC
       privacy_policy:
         01_intro:
         - GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como el Crédito Fiscal Anticipado por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.

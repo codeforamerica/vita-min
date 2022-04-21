@@ -2,8 +2,6 @@
 
 Each year millions of families are eligible for thousands of dollars in tax benefits like the Child Tax Credit and Earned Income Tax Credit, but don’t receive them because they haven’t filed a tax return. **This year, more families than ever qualify for these expanded tax benefits.** You can help these families by becoming a community navigator.
 
-**Interested in serving clients virtually?** Consider volunteering as a GetYourRefund and GetCTC screener! You’ll help clients better understand our tools and what they need to successfully complete their returns through our easy-to-use online platform. [Learn more about this exciting opportunity](https://www.getyourrefund.org/volunteers)!
-
 **Navigators don’t have to be tax experts.** Navigators are trusted, community-based guides that help marginalized families access information and resources to claim their eligible benefits.
 
 There are a number of ways you can assist families in accessing their benefits. It’s up to each organization to determine the level of support they’re able to provide and what would be most valuable to their target audience. Assistance could include:
@@ -12,6 +10,8 @@ There are a number of ways you can assist families in accessing their benefits. 
 - Helping clients access online services like [GetYourRefund.org](http://GetYourRefund.org) and [GetCTC.org](http://GetCTC.org)
 - Assisting clients in understanding their next steps
 - Providing interpretation services for non-English and Spanish speaking communities
+
+**Interested in serving clients virtually?** Consider volunteering as a GetYourRefund and GetCTC screener! You’ll help clients better understand our tools and what they need to successfully complete their returns through our easy-to-use online platform. [Learn more about this exciting opportunity](https://www.getyourrefund.org/volunteers)!
 
 # Navigator Resources
 
