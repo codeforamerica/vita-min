@@ -6,11 +6,13 @@ module Hub
       load_and_authorize_resource :client, parent: false
 
       def show
+        @client = Hub::ClientsController::HubClientPresenter.new(@client)
+
         # must load bank account through intake because of unpersisted BankAccount object for GYRIntake
         @bank_account = @client.intake.bank_account
         AccessLog.create!(
           user: current_user,
-          record: @client,
+          record: @client.__getobj__,
           created_at: DateTime.now,
           event_type: "read_bank_account_info",
           ip_address: request.remote_ip,
