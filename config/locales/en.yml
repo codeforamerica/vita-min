@@ -231,6 +231,7 @@ en:
     at_time: at %{time}
     atin: ATIN
     attachment: Attachment
+    authenticity_token_invalid: There was a problem handling your request. Please try again.
     back: Go back
     bank_account:
       account_number: Account number
