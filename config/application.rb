@@ -29,6 +29,15 @@ module VitaMin
     config.i18n.available_locales = [:en, :es]
 
     config.action_mailer.deliver_later_queue_name = 'mailers'
+    config.ssl_options = { redirect: { exclude:
+                                         ->(request) do
+                                           # Aptible's internal health check needs to bypass Rails HTTPS upgrade so it returns 200 OK
+                                           request.path == "/healthcheck" ||
+                                             # Identrust EV certificate validation requires HTTP not HTTPS;
+                                             # must disable Aptible HTTPS redirect for this, see https://deploy-docs.aptible.com/docs/https-redirect
+                                             request.path.to_s.start_with?("/.well-known/pki-validation/")
+                                         end
+    } }
 
     config.active_job.queue_adapter = :delayed_job
     config.action_view.automatically_disable_submit_tag = false
