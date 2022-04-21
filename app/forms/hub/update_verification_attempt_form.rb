@@ -30,7 +30,7 @@ module Hub
     end
 
     def fraud_indicators
-      @fraud_indicators ||= Fraud::Indicator.all
+      @fraud_indicators ||= Fraud::Indicator.unscoped
     end
 
     def can_write_note?
