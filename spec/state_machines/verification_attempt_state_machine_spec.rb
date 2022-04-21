@@ -66,13 +66,13 @@ describe VerificationAttemptStateMachine do
       before do
         allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
         verification_attempt.client.touch(:identity_verified_at)
+        create :efile_submission, :fraud_hold, client: verification_attempt.client, tax_return: verification_attempt.client.tax_returns.last
       end
 
       it "sets identity_verification_denied_at onto the associated client" do
         verification_attempt.transition_to(:denied)
         expect(verification_attempt.client.identity_verification_denied_at).not_to be_nil
         expect(verification_attempt.client.identity_verified_at).to be_nil
-
       end
 
       it "sends a message to the client" do
@@ -83,9 +83,14 @@ describe VerificationAttemptStateMachine do
           message: AutomatedMessage::VerificationAttemptDenied
         )
       end
+
+      it "transitions the clients efile submission to cancelled" do
+        verification_attempt.transition_to(:denied)
+        expect(verification_attempt.client.efile_submissions.last.current_state).to eq "cancelled"
+      end
     end
 
-    context " request new photos" do
+    context "request new photos" do
       before do
         allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
       end
@@ -98,7 +103,6 @@ describe VerificationAttemptStateMachine do
           message: AutomatedMessage::NewPhotosRequested
         )
       end
-
     end
   end
 end

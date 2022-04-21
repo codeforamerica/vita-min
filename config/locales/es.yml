@@ -92,7 +92,7 @@ es:
     tax_slayer:
       show:
         continue_to_tax_slayer: Continuar con TaxSlayer
-        guide_html: 'Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad o alguna pregunta, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org.'
+        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad o alguna pregunta, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org.
         steps:
           description:
           - Para comenzar a declarar, cree un inicio de sesión en TaxSlayer.
@@ -215,6 +215,7 @@ es:
         is_hsa: es HSA
   general:
     NA: N/A
+    access_denied: No tiene autorización para acceder a esa página
     activate_all: Activar todo
     active: activos
     add_client: Agregar cliente
@@ -504,8 +505,7 @@ es:
     year: año
     you: usted
     you_or_spouse: usted o su cónyuge
-    zendesk:
-    access_denied: No tiene autorización para acceder a esa página
+    zip_code: código postal
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -1774,7 +1774,8 @@ es:
               label: Declaración electrónica
               message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
             cancelled:
-              message: Ya no intentaremos enviar esta declaración al IRS. Esto puede deberse a que solicitó que no enviemos la declaración o porque un rechazo del IRS indicó que no podemos volver a enviarla en su nombre.
+              label: Cancelado
+              message: Ya no intentaremos presentar esta declaración electrónicamente ante el IRS. Utilice los siguientes recursos para presentar en papel su declaración ante el IRS.
             failed:
               label: Error de envío
               message: Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
