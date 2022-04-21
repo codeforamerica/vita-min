@@ -252,6 +252,7 @@ describe Fraud::Indicator do
 
   describe "#missing_relationship" do
     let(:tax_return) { create :tax_return }
+    let(:efile_submission) { create :efile_submission }
     let(:fraud_indicator) { described_class.create(name: "no_transitions", points: 5, indicator_type: "missing_relationship", query_model_name: "EfileSubmission", reference: "tax_return", indicator_attributes: ["efile_submission_transitions"]) }
 
     context "validations" do
@@ -278,6 +279,18 @@ describe Fraud::Indicator do
 
       it "returns zero points" do
         expect(fraud_indicator.execute(tax_return: tax_return)).to eq [0, []]
+      end
+    end
+
+    context "when the rule is self-referencing" do
+      before do
+        allow(EfileSubmission).to receive(:where).and_call_original
+      end
+
+      let(:fraud_indicator) { described_class.create(name: "no_transitions", points: 5, indicator_type: "missing_relationship", query_model_name: "EfileSubmission", reference: "efile_submission", indicator_attributes: ["efile_submission_transitions"]) }
+      it "builds a where query on the query_model using id" do
+        fraud_indicator.execute(efile_submission: efile_submission)
+        expect(EfileSubmission).to have_received(:where).with(id: efile_submission.id)
       end
     end
   end
