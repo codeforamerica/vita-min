@@ -77,8 +77,18 @@ class PublicPagesController < ApplicationController
 
   def pki_validation
     # Used for Identrust annual EV certificate validation
+    website_text =
+      if params[:id] == "9061966"
+        if Routes::CtcDomain.new.matches?(request)
+          "/x5oFZbuGU6WSrtiOcZLfE/2H6YeDxv9GkGzv+UavqEB"
+        else
+          "qrk3dz2AOgRJ35fWGVMQcdtNKIDLGQH+/2Ft8W+VH81q"
+        end
+      else
+        "Unknown PKI validation."
+      end
     respond_to do |format|
-      format.text { render 'public_pages/pki_validation'  }
+      format.text { render plain: website_text  }
       format.any { head 404 }
     end
   end
