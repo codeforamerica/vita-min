@@ -97,7 +97,7 @@ module Fraud
     private
 
     def scoped_records(references)
-      self_reference = query_model_name.downcase == reference.underscore
+      self_reference = query_model_name.underscore == reference
       scope = self_reference ? { id: references[reference].id } : { reference => references[reference] }
       query_model_name.constantize.where(scope)
     end
