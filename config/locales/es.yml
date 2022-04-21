@@ -231,6 +231,7 @@ es:
     at_time: a las %{time}
     atin: ATIN
     attachment: Adjunto
+    authenticity_token_invalid: Hubo un problema con la realización de su encargo. Inténtalo de nuevo.
     back: Regresa
     bank_account:
       account_number: Número de cuenta

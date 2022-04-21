@@ -10,14 +10,7 @@ RSpec.describe RecaptchaScoreConcern, type: :controller do
     include MockDogapi
 
     before do
-      DatadogApi.configure do |c|
-        allow(c).to receive(:enabled).and_return(true)
-      end
-
-      @emit_point_params = []
-      allow(@mock_dogapi).to receive(:emit_point) do |*params|
-        @emit_point_params << params
-      end
+      enable_datadog_and_stub_emit_point
     end
 
     context "when able to verify" do

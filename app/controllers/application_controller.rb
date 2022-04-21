@@ -392,4 +392,12 @@ class ApplicationController < ActionController::Base
       format.js { head :forbidden }
     end
   end
+
+  rescue_from 'ActionController::InvalidAuthenticityToken' do
+    DatadogApi.increment("rails.invalid_authenticity_token")
+    flash[:alert] = I18n.t('general.authenticity_token_invalid')
+
+    redirect_path = request.referer.presence || request.fullpath
+    redirect_to redirect_path
+  end
 end
