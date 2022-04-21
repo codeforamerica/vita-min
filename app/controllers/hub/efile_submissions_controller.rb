@@ -21,6 +21,7 @@ module Hub
       @client = Hub::ClientsController::HubClientPresenter.new(client)
       authorize! :read, client
       @tax_returns = client.tax_returns.joins(:efile_submissions).eager_load(efile_submissions: :fraud_score).uniq # get all tax returns with submissions
+      @fraud_indicators = Fraud::Indicator.all
       redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.present?
     end
 
