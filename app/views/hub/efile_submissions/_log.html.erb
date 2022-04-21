@@ -12,7 +12,7 @@
         </div>
     <% end %>
     <% if transition.to_state.in? ["bundling", "fraud_hold"] && transition.efile_submission&.fraud_score.present? %>
-      <% fraud_score = transition.efile_submission&.fraud_score %>
+      <% fraud_score = transition.efile_submission.fraud_score %>
       <div> Fraud Score: <%= fraud_score.score %></div>
       <% if fraud_score.snapshot.present? %>
         <div class="accordion spacing-above-10">
