@@ -54,44 +54,44 @@ module Fraud
       attribute = indicator_attributes[0]
 
       average = scoped_records(references).average(attribute)
-      (average.blank? || average < threshold) ? [points, [average]] : [0, [average]]
+      (average.blank? || average < threshold) ? response(points, [average]) : response(0, [average])
     end
 
     def not_in_safelist(references)
       attribute = indicator_attributes[0]
       values = scoped_records(references).where.not(attribute => safelist).pluck(attribute)
-      values.present? ? [points, values.uniq] : [0, []]
+      values.present? ? response(points, values.uniq) : passing_response
     end
 
     def in_riskylist(references)
       attribute = indicator_attributes[0]
       values = scoped_records(references).where(attribute => riskylist).pluck(attribute)
-      values.present? ? [points, values.uniq] : [0, []]
+      values.present? ? response(points, values.uniq) : passing_response
     end
 
     def duplicates(references)
       # skip this rule if we can't check against the reference object
-      return [0, []] if references[reference].blank?
+      return passing_response if references[reference].blank?
 
       duplicate_ids = DeduplificationService.duplicates(references[reference], *indicator_attributes, from_scope: query_model_name.constantize).pluck(:id)
       points = calculate_points_from_count(duplicate_ids.count)
-      duplicate_ids.present? ? [points, duplicate_ids.uniq] : [0, []]
+      duplicate_ids.present? ? response(points, duplicate_ids.uniq) : passing_response
     end
 
     def missing_relationship(references)
       # skip this rule if we can't check against the reference object
-      return [0, []] if references[reference].blank?
+      return passing_response if references[reference].blank?
 
       relationship = indicator_attributes[0]
 
-      scoped_records(references).where.missing(relationship.to_sym).exists? ? [points, []] : [0, []]
+      scoped_records(references).where.missing(relationship.to_sym).exists? ? response(points, []) : passing_response
     end
 
     def equals(references)
       attribute = indicator_attributes[0]
       value = indicator_attributes[1]
 
-      scoped_records(references).where(attribute => value).exists? ? [points, []] : [0, []]
+      scoped_records(references).where(attribute => value).exists? ? response(points) : passing_response
     end
 
     private
@@ -115,6 +115,14 @@ module Fraud
 
       applied_count = (count - 1)
       points + (points * (applied_count * applied_count * multiplier)).to_i
+    end
+
+    def response(points, data=[])
+      [points, data]
+    end
+
+    def passing_response
+      response(0)
     end
   end
 end
