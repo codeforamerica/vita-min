@@ -216,7 +216,6 @@ en:
   general:
     NA: N/A
     access_denied: You are not authorized to take this action.
-    blind: Is legally blind
     activate_all: Activate All
     active: active
     add_client: Add client
@@ -239,6 +238,7 @@ en:
       routing_number: Routing number
       savings: Savings
     before_2014: before 2014
+    blind: Is legally blind
     call: Call
     cancel: Cancel
     capacity: Capacity
@@ -612,6 +612,7 @@ en:
         prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
       fields:
+        blind: Was blind
         ctc_spouse_contact_info: Spouse information, if married filing jointly
         filing_status: Filing Status
         has_crypto_income: Did receive, sell, exchange, or otherwise dispose of any financial interest in any virtual currency
@@ -653,7 +654,6 @@ en:
           online: Online
         spouse_contact_info: Spouse Contact Information
         state_of_residence: State of residence
-        blind: Was blind
         suffix: Suffix
         taxpayer_id:
           error: Please select at least one taxpayer ID type
