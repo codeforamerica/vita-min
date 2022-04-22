@@ -82,9 +82,6 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
     let(:sms_opt_in) { "yes" }
     let(:email_opt_in) { "no" }
 
-    let(:primary_was_blind) { 0 }
-    let(:spouse_was_blind) { 0 }
-
     context "updating a client" do
       context "updating the primary ssn" do
         it "persists valid changes to ssn" do
@@ -254,8 +251,8 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
 
       context "updating blind status" do
         before do
-          form_attributes[:was_blind] = 1
-          form_attributes[:spouse_was_blind] = 1
+          form_attributes[:was_blind] = "yes"
+          form_attributes[:spouse_was_blind] = "yes"
         end
 
         it "persists the change" do
@@ -263,7 +260,7 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
             form = described_class.new(client, form_attributes)
             form.save
             intake.reload
-          end.to change(intake, :was_blind).to(1).and change(intake, :spouse_was_blind).to(1)
+          end.to change(intake, :was_blind).to("yes").and change(intake, :spouse_was_blind).to("yes")
         end
       end
     end
