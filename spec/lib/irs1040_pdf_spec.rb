@@ -176,7 +176,8 @@ RSpec.describe Irs1040Pdf do
                                   "EmailAddress" => submission.intake.email_address,
                                   "RoutingTransitNum35b" => "XXXXX6789",
                                   "DepositorAccountNum35d" => "XXXX4321",
-                                  "BankAccountTypeCd" => "Checking"
+                                  "BankAccountTypeCd" => "Checking",
+                                  "AdditionalChildTaxCreditAmt28" => "0"
                                 ))
       end
     end
