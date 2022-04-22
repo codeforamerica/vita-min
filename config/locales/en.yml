@@ -2238,7 +2238,6 @@ en:
           spouse_active_armed_forces: My spouse was a member of the United States Armed Forces for any time in %{current_tax_year}
           spouse_active_armed_forces_reveal: Why are you asking this?
           spouse_active_armed_forces_reveal_content: Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
-          spouse_can_be_claimed_as_dependent: My spouse can be claimed as a dependent by someone else
           spouse_dob: Spouse's date of birth
           spouse_first_name: Spouse's legal first name
           spouse_identity: Spouse's form of identity

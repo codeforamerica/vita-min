@@ -2195,7 +2195,6 @@ es:
           spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en %{current_tax_year}
           spouse_active_armed_forces_reveal: "¿Por qué me preguntan esto?"
           spouse_active_armed_forces_reveal_content: El ser miembro de las Fuerzas Armadas nos ayudará a calcular mejor su Crédito de Recuperación de Reembolso
-          spouse_can_be_claimed_as_dependent: Mi cónyuge puede ser reclamado como dependiente por otra persona
           spouse_dob: Fecha de nacimiento de su cónyuge
           spouse_first_name: Nombre legal de su cónyuge
           spouse_identity: Tipo de identificación de su cónyuge
