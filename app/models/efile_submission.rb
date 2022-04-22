@@ -76,7 +76,16 @@ class EfileSubmission < ApplicationRecord
   end
 
   def last_client_accessible_transition
-    history.reverse.find do |transition|
+    # TODO: Simplify logic here so that we can show appropriate next steps for all cancelled returns
+    transitions = history.reverse
+    # Allow showing of cancelled state for clients who transitioned from fraud hold
+    if transitions[0]&.to_state == "cancelled" && transitions[1]&.to_state == "fraud_hold"
+      return transitions[0]
+    end
+
+    # We don't show the cancelled status HERE because it hides the instructions
+    # for how to handle your reject through cpaper filing.
+    transitions.find do |transition|
       !EfileSubmissionStateMachine::CLIENT_INACCESSIBLE_STATUSES.include?(transition.to_state)
     end
   end

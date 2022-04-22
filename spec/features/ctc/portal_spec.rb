@@ -123,40 +123,6 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_text I18n.t("views.ctc.portal.home.status.failed.label")
         expect(page).to have_text "Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return."
       end
-
-      scenario "a client can upload a document" do
-        log_in_to_ctc_portal
-
-        expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
-        expect(page).to have_text I18n.t("views.ctc.portal.home.status.failed.label")
-
-        expect(page).to have_text I18n.t("views.ctc.portal.home.submit_documents")
-        expect(intake.client.documents.where(document_type: "Other").length).to eq 0
-
-        click_link I18n.t("views.ctc.portal.home.submit_documents")
-        expect(page).to have_text I18n.t("views.documents.additional_documents.title")
-
-        upload_file("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
-        expect(page).to have_content("test-pattern.png")
-
-        expect(intake.client.documents.where(document_type: "Other").length).to eq 1
-        page.accept_alert 'Are you sure you want to remove "test-pattern.png"?' do
-          click_on I18n.t("general.remove")
-        end
-
-        expect(page).to have_text I18n.t("views.documents.additional_documents.title")
-        expect(intake.client.documents.where(document_type: "Other").length).to eq 0
-
-        click_on I18n.t("general.continue")
-        expect(page).to have_text I18n.t("views.ctc.portal.home.title")
-        click_on I18n.t("views.ctc.portal.home.submit_documents")
-
-        expect(page).not_to have_content("test-pattern.png")
-
-        expect(page).to have_text I18n.t("views.documents.additional_documents.title")
-        expect(page).not_to have_text I18n.t("views.layouts.document_upload.dont_have")
-        click_on I18n.t("general.back")
-      end
     end
 
     context "efile submission is status investigating" do

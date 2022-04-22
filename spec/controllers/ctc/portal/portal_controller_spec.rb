@@ -12,6 +12,18 @@ describe Ctc::Portal::PortalController do
         sign_in client, scope: :client
       end
 
+      context "when the client has a fraud held submission and has not yet been verified" do
+        before do
+          client.tax_returns.first.update(efile_submissions: [ create(:efile_submission, :fraud_hold)])
+          allow(client).to receive(:identity_verified_at).and_return nil
+        end
+
+        it "redirects to the verification flow" do
+          get :home
+          expect(response).to redirect_to ctc_portal_verification_attempt_path
+        end
+      end
+
       it "renders home layout" do
         get :home
 

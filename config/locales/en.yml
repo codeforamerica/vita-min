@@ -92,9 +92,7 @@ en:
     tax_slayer:
       show:
         continue_to_tax_slayer: Continue to TaxSlayer
-        guide_html: 'See our <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself Guide</a> for step-by-step instructions, tips, and best practices. If you get stuck or have a question, use the chat option at GetYourRefund.org or email us at FileMyself@getyourrefund.org
-
-          '
+        guide_html: See our <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself Guide</a> for step-by-step instructions, tips, and best practices. If you get stuck or have a question, use the chat option at GetYourRefund.org or email us at FileMyself@getyourrefund.org
         steps:
           description:
           - To start filing, create a login in TaxSlayer.
@@ -217,6 +215,7 @@ en:
         is_hsa: is HSA
   general:
     NA: N/A
+    access_denied: You are not authorized to take this action.
     activate_all: Activate All
     active: active
     add_client: Add client
@@ -506,8 +505,6 @@ en:
     year: year
     you: you
     you_or_spouse: you or your spouse
-    zendesk:
-      access_denied: You are not authorized to access that page
     zip_code: ZIP code
   helpers:
     birth_date_helper:
@@ -1820,13 +1817,14 @@ en:
               label: Electronically filing
               message: We are preparing your return. We'll continue to update you on the status of your submission.
             cancelled:
-              message: We will no longer attempt to submit this return to the IRS. This may be because you requested that we do not submit the return, or because a rejection from the IRS indicated that we can not resubmit on your behalf.
+              label: Cancelled
+              message: We will no longer attempt to efile this return with the IRS. To continue, use the resources below to mail your return to the IRS.
             failed:
               label: Submission error
               message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
             fraud_hold:
-              label: Submission on hold
-              message: We need some more information from you before we can submit your return. Click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
+              label: Reviewing ID Submission
+              message: Thank you for submitting your ID. We are currently reviewing your submission. You can expect a response within 5 days.
             intake_in_progress:
               label: More information needed
               message: We need more information from you before we can file your return.
@@ -1842,7 +1840,6 @@ en:
             transmitted:
               label: Electronically filed
               message: Your return has been submitted to the IRS. You will know within one week if your return has been accepted.
-          submit_documents: Submit additional documents
           title: Thank you for filing with GetCTC!
         mailing_address:
           title: Edit your address
@@ -1869,6 +1866,14 @@ en:
             help_text: You can find this information on Line 11 of your spouse’s %{prior_tax_year} tax return. Please enter the correct amount or your return will be rejected.
             label: Spouse's %{prior_tax_year} AGI
             title: Edit your spouse's %{prior_tax_year} Adjusted Gross Income
+        verification:
+          id: Your driver's license or state ID card
+          id_label: Photo of your ID
+          info: 'To protect your identity and verify your information, we''ll need you to submit the following two photos:'
+          resubmission: Your reviewer has requested that you upload photos again. This is normally because the provided photos were blurry, or do not include your photo id. Please check the guidelines below and resubmit.
+          selfie: You holding the card near your face
+          selfie_label: Photo of yourself holding ID
+          title: We need some additional information before we submit your tax return.
       questions:
         account_number:
           account_number: Account number

@@ -416,6 +416,10 @@ Rails.application.routes.draw do
           get 'spouse-prior-tax-year-agi', to: "spouse_prior_tax_year_agi#edit"
           put 'spouse-prior-tax-year-agi', to: "spouse_prior_tax_year_agi#update"
 
+          get "verification", to: "verification_attempts#edit", as: "verification_attempt"
+          patch "verification", to: "verification_attempts#update", as: "update_verification_attempt"
+          delete "verification-photo/:id", to: "verification_attempts#destroy", as: "destroy_verification_attempt_photo"
+
           resources :dependents, only: [:edit, :update, :destroy] do
             get :confirm_remove, on: :member
             get 'not-eligible', to: "pages#no_eligible_dependents", on: :collection

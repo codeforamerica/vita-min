@@ -92,9 +92,7 @@ es:
     tax_slayer:
       show:
         continue_to_tax_slayer: Continuar con TaxSlayer
-        guide_html: 'Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad o alguna pregunta, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org.
-
-          '
+        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad o alguna pregunta, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org.
         steps:
           description:
           - Para comenzar a declarar, cree un inicio de sesión en TaxSlayer.
@@ -217,6 +215,7 @@ es:
         is_hsa: es HSA
   general:
     NA: N/A
+    access_denied: No tiene autorización para acceder a esa página
     activate_all: Activar todo
     active: activos
     add_client: Agregar cliente
@@ -506,9 +505,7 @@ es:
     year: año
     you: usted
     you_or_spouse: usted o su cónyuge
-    zendesk:
-      access_denied: No tiene autorización para acceder a esa página
-    zip_code: Código postal
+    zip_code: código postal
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -1777,13 +1774,14 @@ es:
               label: Declaración electrónica
               message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
             cancelled:
-              message: Ya no intentaremos enviar esta declaración al IRS. Esto puede deberse a que solicitó que no enviemos la declaración o porque un rechazo del IRS indicó que no podemos volver a enviarla en su nombre.
+              label: Cancelado
+              message: Ya no intentaremos presentar esta declaración electrónicamente ante el IRS. Utilice los siguientes recursos para presentar en papel su declaración ante el IRS.
             failed:
               label: Error de envío
               message: Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
             fraud_hold:
-              label: Presentación en espera
-              message: Necesitamos más información de usted antes de poder enviar su declaración. Haga clic en "Cargar documentos adicionales" y envíe una foto suya sosteniendo su identificación con foto emitida por el gobierno.
+              label: Revisión del envío de identificación
+              message: Gracias por enviar su identificación. Actualmente estamos revisando su envío. Puede esperar una respuesta dentro de los 5 días.
             intake_in_progress:
               label: Necesitamos más información
               message: Necesitamos más información para poder presentar su declaración.
@@ -1799,7 +1797,6 @@ es:
             transmitted:
               label: Tramitados electrónicamente
               message: Su declaración ha sido presentada al IRS. En el plazo de una semana sabrá si su declaración ha sido aceptada.
-          submit_documents: Enviar documentos adicionales
           title: "¡Gracias por presentar su declaración con GetCTC!"
         mailing_address:
           title: Edita tu dirección
@@ -1826,6 +1823,14 @@ es:
             help_text: Puede encontrar esta información en la línea 11 de la declaración de impuestos del %{prior_tax_year} de su cónyuge. Introduzca la cantidad correcta o su declaración será rechazada.
             label: AGI de %{prior_tax_year} del cónyuge
             title: Edite el ingreso bruto ajustado de %{prior_tax_year} de su cónyuge
+        verification:
+          id: Su licencia de conducir o tarjeta de identificación estatal
+          id_label: Foto de su identificación
+          info: 'Para proteger su identidad y verificar su información, necesitaremos que envíe las dos fotos siguientes:'
+          resubmission: Tu revisor ha solicitado que subas fotos de nuevo. Esto normalmente se debe a que las fotos proporcionadas estaban borrosas o no incluyen su identificación con foto. Verifique las pautas a continuación y vuelva a enviar.
+          selfie: Tienes la tarjeta cerca de tu cara
+          selfie_label: Foto tuya con identificación
+          title: Necesitamos información adicional antes de enviar su declaración de impuestos.
       questions:
         account_number:
           account_number: Número de cuenta

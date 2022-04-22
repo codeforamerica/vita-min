@@ -81,9 +81,9 @@ module ApplicationHelper
 
   def submission_status_icon(status)
     case status
-    when "intake_in_progress"
+    when "intake_in_progress", "fraud_hold"
       "icons/in-progress.svg"
-    when "failed", "bundle_failure", "fraud_hold"
+    when "failed", "bundle_failure"
       "icons/exclamation.svg"
     when "rejected"
       "icons/rejected.svg"
