@@ -432,7 +432,7 @@ Rails.application.routes.draw do
           match 'upload-documents', to: 'upload_documents#edit', via: :get, as: :edit_upload_documents
           match 'upload-documents', to: 'upload_documents#update', via: :put
           match 'complete-documents-request', to: 'upload_documents#complete_documents_request', via: :get
-        end
+
 
         # Any other top level slash just goes to home as a source parameter
         get "/:source" => "ctc_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
