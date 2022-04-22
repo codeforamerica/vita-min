@@ -28,6 +28,7 @@ module FirstPageOfCtcIntakeConcern
 
   def after_update_success
     session[:intake_id] = current_intake.id
+    sign_out current_client if current_client
   end
 
   def after_update_failure

@@ -47,6 +47,20 @@ shared_examples :first_page_of_ctc_intake_update do
     expect(efile_security.ip_address).to eq ip_address
   end
 
+  context "resetting current intake and client" do
+    before do
+      sign_in create(:client)
+    end
+
+    it "sets the new intake id in session and signs out a signed in client if there is one" do
+      post :update, params: params
+
+      intake = Intake.last
+      expect(session[:intake_id]).to eq intake.id
+      expect(subject.current_client).to be_nil
+    end
+  end
+
   context "efile security information fields are missing" do
     let(:params) do
       {
