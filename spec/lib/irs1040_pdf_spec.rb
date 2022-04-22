@@ -12,8 +12,8 @@ RSpec.describe Irs1040Pdf do
 
       # "clear out" submission so we can see the empty state of the PDF
       before do
-        submission.intake.update(email_address: nil, phone_number: nil, sms_phone_number: nil, primary_first_name: "", primary_last_name: "", primary_ssn: "", claim_owed_stimulus_money: "no" )
-        submission.address.destroy!
+        submission.intake.update(email_address: nil, phone_number: nil, sms_phone_number: nil, primary_first_name: "", primary_last_name: "", primary_ssn: "", claim_owed_stimulus_money: "no", zip_code: "", city: "", state: "", street_address: "", street_address2: "" )
+        submission.verified_address.destroy!
         submission.intake.bank_account.destroy!
         submission.intake.dependents.destroy_all
         submission.tax_return.update(filing_status: nil)
@@ -156,7 +156,7 @@ RSpec.describe Irs1040Pdf do
                                   "FilingStatus" => "1",
                                   "PrimaryFirstNm" => submission.intake.primary_first_name,
                                   "PrimaryLastNm" => submission.intake.primary_last_name,
-                                  "PrimarySSN" => "XXXXX#{submission.intake.primary_ssn.last(4)}",
+                                  "PrimarySSN" => submission.intake.primary_ssn,
                                   "AddressLine1Txt" => "23627 HAWKINS CREEK CT",
                                   "CityNm" => "KATY",
                                   "StateAbbreviationCd" => "TX",
@@ -177,9 +177,9 @@ RSpec.describe Irs1040Pdf do
                                   "PrimaryIPPIN" => "12345",
                                   "PhoneNumber" => "(415) 555-1212",
                                   "EmailAddress" => submission.intake.email_address,
-                                  "RoutingTransitNum35b" => "XXXXX6789",
-                                  "DepositorAccountNum35d" => "XXXX4321",
-                                  "BankAccountTypeCd" => "Checking",
+                                  "RoutingTransitNum35b" => "",
+                                  "DepositorAccountNum35d" => "",
+                                  "BankAccountTypeCd" => "",
                                   "AdditionalChildTaxCreditAmt28" => outstanding_ctc.to_s,
                                 ))
       end
@@ -204,7 +204,7 @@ RSpec.describe Irs1040Pdf do
         expect(result).to match(hash_including(
                                   "SpouseFirstNm" => "Randall",
                                   "SpouseLastNm" => "Rouse",
-                                  "SpouseSSN" => "XXXXX6789",
+                                  "SpouseSSN" => "123456789",
                                   "SpouseSignature" => "Randall Rouse",
                                   "SpouseSignatureDate" => "01/05/20",
                                   "SpouseIPPIN" => "123456",
@@ -251,15 +251,15 @@ RSpec.describe Irs1040Pdf do
         expect(result).to match(hash_including(
                                   "DependentLegalNm[0]" => "Danielle Dob",
                                   "DependentRelationship[0]" => "DAUGHTER",
-                                  "DependentSSN[0]" => "XXXXX6789",
+                                  "DependentSSN[0]" => "123456789",
                                   "DependentCTCInd[0]" => "1", # checked
                                   "DependentLegalNm[1]" => "Daniel Dob",
                                   "DependentRelationship[1]" => "SON",
-                                  "DependentSSN[1]" => "XXXXX6788",
+                                  "DependentSSN[1]" => "123456788",
                                   "DependentCTCInd[1]" => "1", # checked
                                   "DependentLegalNm[2]" => "Mother Dob",
                                   "DependentRelationship[2]" => "PARENT",
-                                  "DependentSSN[2]" => "XXXXX5788",
+                                  "DependentSSN[2]" => "123455788",
                                   "DependentCTCInd[2]" => "0", # unchecked
                                   ))
       end

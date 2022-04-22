@@ -1,0 +1,47 @@
+Exception in NSApplicationAWT:
+ java.lang.NullPointerException
+	at java.desktop/java.awt.Component$BltBufferStrategy.showSubRegion(Component.java:4544)
+	at java.desktop/java.awt.Component$BltSubRegionBufferStrategy.showIfNotLost(Component.java:4669)
+	at java.desktop/javax.swing.BufferStrategyPaintManager.show(BufferStrategyPaintManager.java:208)
+	at java.desktop/javax.swing.RepaintManager.show(RepaintManager.java:1440)
+	at java.desktop/javax.swing.SwingPaintEventDispatcher.createPaintEvent(SwingPaintEventDispatcher.java:61)
+	at java.desktop/sun.lwawt.LWComponentPeer.postPaintEvent(LWComponentPeer.java:1180)
+	at java.desktop/sun.lwawt.LWComponentPeer.repaintPeer(LWComponentPeer.java:1399)
+	at java.desktop/sun.lwawt.LWContainerPeer.repaintPeer(LWContainerPeer.java:201)
+	at java.desktop/sun.lwawt.LWComponentPeer.repaintPeer(LWComponentPeer.java:1390)
+	at java.desktop/sun.lwawt.LWWindowPeer.notifyReshape(LWWindowPeer.java:749)
+	at java.desktop/sun.lwawt.macosx.CPlatformWindow.deliverMoveResizeEvent(CPlatformWindow.java:1178)
+
+0   CoreFoundation                      0x00007fff2fc594d7 __exceptionPreprocess + 250
+1   libobjc.A.dylib                     0x00007fff687d25bf objc_exception_throw + 48
+2   CoreFoundation                      0x00007fff2fc81cbc -[NSException raise] + 9
+3   JavaNativeFoundation                0x00007fff344f89ea JNFCallVoidMethod + 215
+4   libawt_lwawt.dylib                  0x0000000105502c39 -[AWTWindow _deliverMoveResizeEvent] + 375
+5   CoreFoundation                      0x00007fff2fbd314f __CFNOTIFICATIONCENTER_IS_CALLING_OUT_TO_AN_OBSERVER__ + 12
+6   CoreFoundation                      0x00007fff2fbd30e3 ___CFXRegistrationPost1_block_invoke + 63
+7   CoreFoundation                      0x00007fff2fbd3058 _CFXRegistrationPost1 + 372
+8   CoreFoundation                      0x00007fff2fbd2cc4 ___CFXNotificationPost_block_invoke + 80
+9   CoreFoundation                      0x00007fff2fba2e2d -[_CFXNotificationRegistrar find:object:observer:enumerator:] + 1554
+10  CoreFoundation                      0x00007fff2fba22d9 _CFXNotificationPost + 1351
+11  Foundation                          0x00007fff32223086 -[NSNotificationCenter postNotificationName:object:userInfo:] + 59
+12  AppKit                              0x00007fff2ceaa0ad -[NSWindow _setFrameCommon:display:fromServer:] + 1616
+13  AppKit                              0x00007fff2cff7c0a -[NSWindow _windowMovedToRect:] + 139
+14  AppKit                              0x00007fff2cff7a0e -[NSWindow _windowMoved:] + 1107
+15  AppKit                              0x00007fff2cff7599 -[NSWindow _internalHandleAppKitDefinedEvent:] + 239
+16  AppKit                              0x00007fff2cff67d5 -[NSWindow(NSEventRouting) _reallySendEvent:isDelayedEvent:] + 3736
+17  AppKit                              0x00007fff2cff5719 -[NSWindow(NSEventRouting) sendEvent:] + 349
+18  libawt_lwawt.dylib                  0x00000001055011d7 -[AWTWindow_Normal sendEvent:] + 86
+19  AppKit                              0x00007fff2cff440b -[NSApplication(NSEvent) sendEvent:] + 2759
+20  libosxapp.dylib                     0x00000001055cf881 -[NSApplicationAWT sendEvent:] + 450
+21  AppKit                              0x00007fff2ce40bdf -[NSApplication run] + 707
+22  libosxapp.dylib                     0x00000001055cf4f0 +[NSApplicationAWT runAWTLoopWithApp:] + 222
+23  libawt_lwawt.dylib                  0x0000000105531ab2 +[AWTStarter starter:headless:] + 834
+24  JavaNativeFoundation                0x00007fff344fbff9 +[JNFRunLoop _performCopiedBlock:] + 15
+25  Foundation                          0x00007fff322b4b4d __NSThreadPerformPerform + 204
+26  CoreFoundation                      0x00007fff2fbdd682 __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__ + 17
+27  CoreFoundation                      0x00007fff2fbdd621 __CFRunLoopDoSource0 + 103
+28  CoreFoundation                      0x00007fff2fbdd43b __CFRunLoopDoSources0 + 209
+29  CoreFoundation                      0x00007fff2fbdc16a __CFRunLoopRun + 927
+30  CoreFoundation                      0x00007fff2fbdb76e CFRunLoopRunSpecific + 462
+31  rubymine                            0x000000010017dbf5 main + 332
+32  libdyld.dylib                       0x00007fff6997acc9 start + 1

@@ -17,7 +17,7 @@ module SubmissionBuilder
         client = submission.client
         creation_security_information = client.efile_security_informations.first
         filing_security_information = client.efile_security_informations.last
-        address = submission.address
+        address = submission.verified_address
 
         build_xml_doc("efile:ReturnHeader", "binaryAttachmentCnt": 0) do |xml|
           xml.ReturnTs datetime_type(submission.created_at)
