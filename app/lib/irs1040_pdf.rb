@@ -28,6 +28,7 @@ class Irs1040Pdf
         TotalIncomeAmt9: 0,
         AdjustedGrossIncomeAmt11: 0,
         TotalItemizedOrStandardDedAmt12a: @tax_return.standard_deduction,
+        TotalAdjustmentsToIncomeAmt12c: @tax_return.standard_deduction, # 12c = 12a + 12b; 12b is charitable contributions which is 0 for us
         TaxableIncomeAmt15: 0,
         RecoveryRebateCreditAmt30: @benefits.claimed_recovery_rebate_credit,
         RefundableCreditsAmt32: @benefits.claimed_recovery_rebate_credit,
