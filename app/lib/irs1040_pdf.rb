@@ -29,6 +29,7 @@ class Irs1040Pdf
         PrimaryBlindInd: bool_checkbox(@intake.was_blind_yes?),
         TotalItemizedOrStandardDedAmt12a: @tax_return.standard_deduction,
         TotalAdjustmentsToIncomeAmt12c: @tax_return.standard_deduction, # 12c = 12a + 12b; 12b is charitable contributions which is 0 for us
+        TotalDeductionsAmt14: @tax_return.standard_deduction, # 14 = 12c + 13; 13 is business income deduction which we leave blank
         TaxableIncomeAmt15: 0,
         AdditionalChildTaxCreditAmt28: @benefits.outstanding_ctc_amount,
         RecoveryRebateCreditAmt30: @benefits.claimed_recovery_rebate_credit,
