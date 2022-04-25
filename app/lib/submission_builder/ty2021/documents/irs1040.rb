@@ -52,11 +52,11 @@ module SubmissionBuilder
             xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit # 30
 
             # Line 32, 33, 34, 35a: Line 28 + Line 30
-            refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit
-            xml.RefundableCreditsAmt refundable_credits # 32
-            xml.TotalPaymentsAmt refundable_credits # 33
-            xml.OverpaidAmt refundable_credits # 34
-            xml.RefundAmt refundable_credits # 35a
+            total_refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit
+            xml.RefundableCreditsAmt total_refundable_credits # 32
+            xml.TotalPaymentsAmt total_refundable_credits # 33
+            xml.OverpaidAmt total_refundable_credits # 34
+            xml.RefundAmt total_refundable_credits # 35a
 
             if bank_account.present? && intake.refund_payment_method_direct_deposit?
               xml.RoutingTransitNum account_number_type(bank_account.routing_number) # 35b
