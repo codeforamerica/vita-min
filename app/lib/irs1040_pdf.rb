@@ -27,8 +27,6 @@ class Irs1040Pdf
         ZipCd: @address&.zip_code,
         VirtualCurAcquiredDurTYInd: @intake.has_crypto_income,
         PrimaryBlindInd: bool_checkbox(@intake.was_blind_yes?),
-        TotalIncomeAmt9: 0,
-        AdjustedGrossIncomeAmt11: 0,
         TotalItemizedOrStandardDedAmt12a: @tax_return.standard_deduction,
         TotalAdjustmentsToIncomeAmt12c: @tax_return.standard_deduction, # 12c = 12a + 12b; 12b is charitable contributions which is 0 for us
         TaxableIncomeAmt15: 0,
