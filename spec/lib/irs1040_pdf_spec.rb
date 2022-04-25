@@ -142,7 +142,7 @@ RSpec.describe Irs1040Pdf do
         submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1))
         submission.reload
 
-        @claimed_rrc = "1000"
+        @claimed_rrc = 1000
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return @claimed_rrc
       end
 

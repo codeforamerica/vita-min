@@ -46,18 +46,17 @@ module SubmissionBuilder
             xml.TaxableIncomeAmt 0 # 15
 
             # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i
-            outstanding_ctc_amount = benefits.outstanding_ctc_amount
-            xml.RefundableCTCOrACTCAmt outstanding_ctc_amount.to_s # 28
+            xml.RefundableCTCOrACTCAmt benefits.outstanding_ctc_amount # 28
 
             # Line 30: remaining amount of RRC they are claiming for EIP-3
             xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit # 30
 
             # Line 32, 33, 34, 35a: Line 28 + Line 30
-            total_payments = (outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit.to_i).to_s
-            xml.RefundableCreditsAmt total_payments # 32
-            xml.TotalPaymentsAmt total_payments # 33
-            xml.OverpaidAmt total_payments # 34
-            xml.RefundAmt total_payments # 35a
+            refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit
+            xml.RefundableCreditsAmt refundable_credits # 32
+            xml.TotalPaymentsAmt refundable_credits # 33
+            xml.OverpaidAmt refundable_credits # 34
+            xml.RefundAmt refundable_credits # 35a
 
             if bank_account.present? && intake.refund_payment_method_direct_deposit?
               xml.RoutingTransitNum account_number_type(bank_account.routing_number) # 35b
