@@ -997,7 +997,7 @@ describe TaxReturn do
       allow(StandardDeduction).to receive(:for)
     end
 
-    context "passing in tax year, filing status, and older than 65 status" do
+    context "passing in tax year and filing status" do
       it "passes it in" do
         tax_return.standard_deduction
         expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly")
