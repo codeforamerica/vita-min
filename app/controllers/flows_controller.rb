@@ -277,7 +277,8 @@ class FlowsController < ApplicationController
 
       if type == :married_filing_jointly_with_dependents
         client.intake.update(
-          had_dependents: 'yes'
+          had_dependents: 'yes',
+          advance_ctc_amount_received: 600
         )
         client.intake.dependents.create(
           first_name: 'Childy',
