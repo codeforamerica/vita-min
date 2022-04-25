@@ -484,6 +484,16 @@ class Intake < ApplicationRecord
     )
   end
 
+  def address
+    Address.new(
+      zip_code: zip_code,
+      street_address: street_address,
+      street_address2: street_address2,
+      city: city,
+      state: state
+    )
+  end
+
   def set_navigator(param)
     _, navigator_type = NAVIGATOR_TYPES.find { | _, type| type[:param] == param }
     return unless navigator_type

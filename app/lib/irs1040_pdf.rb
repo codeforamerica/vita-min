@@ -1,4 +1,5 @@
 class Irs1040Pdf
+  attr_accessor :address
   include PdfHelper
 
   def source_pdf_name
@@ -10,7 +11,7 @@ class Irs1040Pdf
     @tax_return = submission.tax_return
     @intake = submission.intake
     @qualifying_dependents = submission.qualifying_dependents
-    @address = @submission.address
+    @address = @submission.verified_address || @intake.address
     @benefits = Efile::BenefitsEligibility.new(tax_return: @tax_return, dependents: @qualifying_dependents)
   end
 
@@ -20,7 +21,7 @@ class Irs1040Pdf
         FilingStatus: @tax_return.filing_status_code,
         PrimaryFirstNm: @intake.primary_middle_initial.present? ? "#{@intake.primary_first_name} #{@intake.primary_middle_initial}" : @intake.primary_first_name,
         PrimaryLastNm: @intake.primary_last_name,
-        PrimarySSN: pdf_mask(@intake.primary_ssn, 4),
+        PrimarySSN: @intake.primary_ssn,
         AddressLine1Txt: @address&.street_address,
         CityNm: @address&.city,
         StateAbbreviationCd: @address&.state,
@@ -44,7 +45,6 @@ class Irs1040Pdf
         PhoneNumber:  @intake.formatted_phone_number || @intake.formatted_sms_phone_number,
         EmailAddress: @intake.email_address
     }
-    answers.merge!(bank_account_info) unless @intake.refund_payment_method_check?
     answers.merge!(spouse_info) if @tax_return.filing_jointly?
     answers.merge!(dependents_info) if @qualifying_dependents.count.nonzero?
     answers
@@ -65,7 +65,7 @@ class Irs1040Pdf
         Spouse65OrOlderInd: bool_checkbox(@tax_return.spouse_age_65_or_older?),
         SpouseFirstNm: @intake.spouse_first_name,
         SpouseLastNm: @intake.spouse_last_name,
-        SpouseSSN: pdf_mask(@intake.spouse_ssn, 4),
+        SpouseSSN: @intake.spouse_ssn,
         SpouseSignature: @intake.spouse_full_name,
         SpouseSignatureDate: @intake.spouse_signature_pin_at.strftime("%m/%d/%y"),
         SpouseIPPIN: @intake.spouse_ip_pin,
@@ -80,7 +80,7 @@ class Irs1040Pdf
     @qualifying_dependents.first(4).each_with_index do |dependent, index|
       answers["DependentLegalNm[#{index}]"] = dependent.full_name
       answers["DependentRelationship[#{index}]"] = dependent.irs_relationship_enum
-      answers["DependentSSN[#{index}]"] = pdf_mask(dependent.ssn, 4)
+      answers["DependentSSN[#{index}]"] = dependent.ssn
       answers["DependentCTCInd[#{index}]"] = dependent.qualifying_ctc ? 1 : 0
     end
     answers

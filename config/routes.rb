@@ -427,6 +427,7 @@ Rails.application.routes.draw do
 
           resources :messages, only: [:new, :create]
           resources :documents, only: [:show]
+          resources :submission_pdfs, only: [:show]
           resources :upload_documents, only: [:destroy]
           match 'upload-documents', to: 'upload_documents#edit', via: :get, as: :edit_upload_documents
           match 'upload-documents', to: 'upload_documents#update', via: :put

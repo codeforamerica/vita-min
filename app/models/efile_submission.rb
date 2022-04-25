@@ -22,7 +22,7 @@ class EfileSubmission < ApplicationRecord
   has_one :client, through: :tax_return
   has_one :fraud_score, class_name: "Fraud::Score"
   has_many :qualifying_dependents, foreign_key: :efile_submission_id, class_name: "EfileSubmissionDependent"
-  has_one :address, as: :record, dependent: :destroy
+  has_one :verified_address, as: :record, dependent: :destroy, class_name: "Address"
   has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
   has_one_attached :submission_bundle
   validates :irs_submission_id, format: { with: /\A[0-9]{6}[0-9]{7}[0-9a-z]{7}\z/ }, presence: true, uniqueness: true, allow_nil: true
@@ -117,10 +117,8 @@ class EfileSubmission < ApplicationRecord
     previous_submission if previous_submission.last_transition_to("transmitted").present?
   end
 
-  def generate_irs_address
-    if address.present? && address.skip_usps_validation
-      return OpenStruct.new(valid?: true)
-    end
+  def generate_verified_address
+    return OpenStruct.new(valid?: true) if verified_address.present?
 
     address_service = StandardizeAddressService.new(intake)
     if address_service.valid?
@@ -131,8 +129,8 @@ class EfileSubmission < ApplicationRecord
         city: address_service.city
       }
     end
-    address.present? ? address.update(attrs) : create_address(attrs)
-    address_service
+    create_verified_address(attrs)
+    address_service # return the service object so that we can get errors if there are any
   end
 
   def generate_filing_pdf

@@ -128,7 +128,7 @@ describe EfileSubmission do
       before do
         address_service_double = double
         allow(ClientPdfDocument).to receive(:create_or_update)
-        allow_any_instance_of(EfileSubmission).to receive(:generate_irs_address).and_return(address_service_double)
+        allow_any_instance_of(EfileSubmission).to receive(:generate_verified_address).and_return(address_service_double)
         allow(address_service_double).to receive(:valid?).and_return true
         allow_any_instance_of(EfileSubmission).to receive(:submission_bundle).and_return "fake_zip"
       end
@@ -293,13 +293,13 @@ describe EfileSubmission do
     end
   end
 
-  describe "#generate_irs_address" do
-    context "when there is an existing addresss and skip_usps_validation is set to true" do
+  describe "#generate_verified_address" do
+    context "when there is an existing address" do
       let(:submission) { create :efile_submission, :preparing }
       let!(:address) { create :address, record: submission, skip_usps_validation: true }
 
-      it "returns true and does not connect to USPS service" do
-        expect(submission.generate_irs_address.valid?).to be true
+      it "returns an object that we can call valid on and does not connect to USPS service" do
+        expect(submission.generate_verified_address.valid?).to be true
         expect(StandardizeAddressService).not_to have_received(:new)
       end
     end
