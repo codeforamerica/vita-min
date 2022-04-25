@@ -949,9 +949,33 @@ describe TaxReturn do
       allow(StandardDeduction).to receive(:for)
     end
 
-    it "calls StandardDeduction with appropriate params" do
-      tax_return.standard_deduction
-      expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly")
+    context "filing status" do
+      it "is passed in" do
+        tax_return.standard_deduction
+        expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly", primary_older_than_65: false, spouse_older_than_65: false)
+      end
+    end
+
+    context "primary_older_than_65" do
+      before do
+        tax_return.intake.update(primary_birth_date: Date.new(2021 - 64, 1, 1))
+      end
+
+      it "is passed in" do
+        tax_return.standard_deduction
+        expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly", primary_older_than_65: true, spouse_older_than_65: false)
+      end
+    end
+
+    context "spouse_older_than_65" do
+      before do
+        tax_return.intake.update(spouse_birth_date: Date.new(2021 - 64, 1, 1))
+      end
+
+      it "is passed in" do
+        tax_return.standard_deduction
+        expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly", primary_older_than_65: false, spouse_older_than_65: true)
+      end
     end
 
     context "blindness addition" do

@@ -38,6 +38,7 @@ class Irs1040Pdf
         TotalPaymentsAmt33: total_refundable_credits,
         OverpaidAmt34: total_refundable_credits,
         RefundAmt35: total_refundable_credits,
+        Primary65OrOlderInd: older_than_65(@intake.primary_birth_date) ? "On" : "Off",
         PrimarySignature: @intake.primary_full_name,
         PrimarySignatureDate: @intake.primary_signature_pin_at&.strftime("%m/%d/%y"),
         PrimaryIPPIN: @intake.primary_ip_pin,
@@ -62,6 +63,7 @@ class Irs1040Pdf
 
   def spouse_info
     {
+        Spouse65OrOlderInd: older_than_65(@intake.spouse_birth_date) ? "On" : "Off",
         SpouseFirstNm: @intake.spouse_first_name,
         SpouseLastNm: @intake.spouse_last_name,
         SpouseSSN: pdf_mask(@intake.spouse_ssn, 4),
@@ -87,5 +89,16 @@ class Irs1040Pdf
 
   def bool_checkbox(value)
     value ? "1" : "Off"
+  end
+
+  private
+
+  def tax_year
+    # Locked to 2021 because the resulting PDF matches 2021 revenue procedure needs.
+    2021
+  end
+
+  def older_than_65(birthdate)
+    birthdate < Date.new(tax_year - 64, 1, 2)
   end
 end

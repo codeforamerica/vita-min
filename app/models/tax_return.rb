@@ -97,7 +97,8 @@ class TaxReturn < ApplicationRecord
 
   def standard_deduction
     standard_deduction = StandardDeduction.for(tax_year: year, filing_status: filing_status)
-    standard_deduction + additional_blind_standard_deduction if standard_deduction.present?
+    return if standard_deduction.nil?
+    standard_deduction + additional_blind_standard_deduction + additional_older_than_65_standard_deduction
   end
 
   def has_submissions?
@@ -251,6 +252,12 @@ class TaxReturn < ApplicationRecord
   def system_change_status(new_status)
     SystemNote::StatusChange.generate!(tax_return: self, old_status: current_state, new_status: new_status)
     transition_to(new_status)
+  end
+
+  def additional_over_65_standard_deduction
+    primary_older_than_65 = intake.primary_birth_date.present? && intake.primary_birth_date < Date.new(year - 64, 1, 2)
+    spouse_older_than_65 = intake.spouse_birth_date.present? && intake.spouse_birth_date < Date.new(year - 64, 1, 2)
+    # xyz
   end
 
   def additional_blind_standard_deduction
