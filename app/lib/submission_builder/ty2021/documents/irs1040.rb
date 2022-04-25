@@ -46,19 +46,17 @@ module SubmissionBuilder
             xml.TaxableIncomeAmt 0 # 15
 
             # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i
-            claimed_child_tax_credit = "0" # TODO: eventually replace this amount with the adv_ctc_amount_received when this is set in the RRC stories
-            xml.RefundableCTCOrACTCAmt claimed_child_tax_credit # 28
-            # maybe add this to be part of the stories for RRC
+            xml.RefundableCTCOrACTCAmt benefits.outstanding_ctc_amount # 28
 
             # Line 30: remaining amount of RRC they are claiming for EIP-3
             xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit # 30
 
             # Line 32, 33, 34, 35a: Line 28 + Line 30
-            total_payments = (claimed_child_tax_credit.to_i + benefits.claimed_recovery_rebate_credit.to_i).to_s
-            xml.RefundableCreditsAmt total_payments # 32
-            xml.TotalPaymentsAmt total_payments # 33
-            xml.OverpaidAmt total_payments # 34
-            xml.RefundAmt total_payments # 35a
+            total_refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit
+            xml.RefundableCreditsAmt total_refundable_credits # 32
+            xml.TotalPaymentsAmt total_refundable_credits # 33
+            xml.OverpaidAmt total_refundable_credits # 34
+            xml.RefundAmt total_refundable_credits # 35a
 
             if bank_account.present? && intake.refund_payment_method_direct_deposit?
               xml.RoutingTransitNum account_number_type(bank_account.routing_number) # 35b
