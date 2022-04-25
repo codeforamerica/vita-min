@@ -48,7 +48,7 @@ module Hub
                        :eip1_and_2_amount_received_confidence,
                        :primary_ip_pin,
                        :spouse_ip_pin,
-                       :has_crypto_income
+                       :has_crypto_income,
                        :was_blind,
                        :spouse_was_blind
     set_attributes_for :tax_return,

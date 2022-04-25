@@ -88,5 +88,4 @@ class Irs1040Pdf
   def bool_checkbox(value)
     value ? "1" : "Off"
   end
-
 end

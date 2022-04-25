@@ -147,6 +147,7 @@ RSpec.describe Irs1040Pdf do
 
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return claimed_rrc
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_ctc_amount).and_return(outstanding_ctc)
+        allow(submission.tax_return).to receive(:standard_deduction).and_return(999)
       end
 
       it "returns a filled out pdf" do
@@ -165,8 +166,8 @@ RSpec.describe Irs1040Pdf do
                                   "PrimaryBlindInd" => "1",
                                   "TotalIncomeAmt9" => "0",
                                   "AdjustedGrossIncomeAmt11" => "0",
-                                  "TotalItemizedOrStandardDedAmt12a" => "14250",
-                                  "TotalAdjustmentsToIncomeAmt12c" => "14250",
+                                  "TotalItemizedOrStandardDedAmt12a" => "999",
+                                  "TotalAdjustmentsToIncomeAmt12c" => "999",
                                   "TaxableIncomeAmt15" => "0",
                                   "RecoveryRebateCreditAmt30" => claimed_rrc.to_s,
                                   "RefundableCreditsAmt32" => outstanding_credits,
@@ -200,7 +201,7 @@ RSpec.describe Irs1040Pdf do
         submission.reload
       end
 
-      it "includes spouse information and changes standard deduction and filing status" do
+      it "includes spouse information and filing status" do
         output_file = pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to match(hash_including(
@@ -211,7 +212,6 @@ RSpec.describe Irs1040Pdf do
                                   "SpouseSignatureDate" => "01/05/20",
                                   "SpouseIPPIN" => "123456",
                                   "SpouseBlindInd" => "1",
-                                  "TotalItemizedOrStandardDedAmt12a" => "26450",
                                 ))
       end
     end
