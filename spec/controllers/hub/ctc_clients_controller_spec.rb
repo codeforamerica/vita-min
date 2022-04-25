@@ -68,6 +68,7 @@ RSpec.describe Hub::CtcClientsController do
           use_primary_name_for_name_control: false,
           primary_ip_pin: intake.primary_ip_pin,
           spouse_ip_pin: intake.spouse_ip_pin,
+          has_crypto_income: "false",
           dependents_attributes: {
             "0" => { id: first_dependent.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9", relationship: first_dependent.relationship, ssn: "111227777" },
           }
