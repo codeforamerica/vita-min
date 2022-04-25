@@ -54,9 +54,7 @@ module Efile
     end
 
     def advance_ctc_amount_received
-      raise "advance_ctc_amount_received is not present on intake #{intake.id}" unless intake.advance_ctc_amount_received
-
-      intake.advance_ctc_amount_received
+      intake.advance_ctc_amount_received || 0
     end
 
     # A quick calculation for ODC (Other Dependents Credit) which does not get paid out to our filers,

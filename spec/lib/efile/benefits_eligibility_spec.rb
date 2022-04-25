@@ -114,6 +114,26 @@ describe Efile::BenefitsEligibility do
     end
   end
 
+  describe "#advance_ctc_amount_received" do
+    context "intake has advance_ctc_amount_received" do
+      before do
+        intake.update(advance_ctc_amount_received: 600)
+      end
+      it "returns the amount on intake" do
+        expect(subject.advance_ctc_amount_received).to eq 600
+      end
+    end
+
+    context "intake has a nil advance_ctc_amount_received" do
+      before do
+        intake.update(advance_ctc_amount_received: nil)
+      end
+      it "returns 0" do
+        expect(subject.advance_ctc_amount_received).to eq 0
+      end
+    end
+  end
+
   describe "#outstanding_recovery_rebate_credit" do
     let(:client) { create :client_with_ctc_intake_and_return, intake: create(:intake, eip1_amount_received: eip1_amount_received, eip2_amount_received: eip2_amount_received, eip3_amount_received: eip3_amount_received) }
     let(:eip1_amount_received) { 0 }

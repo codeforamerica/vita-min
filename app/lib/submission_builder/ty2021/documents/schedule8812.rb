@@ -10,15 +10,16 @@ module SubmissionBuilder
           tax_return = submission.tax_return
           dependents = submission.qualifying_dependents
           benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
+          ctc_qualifying_dependents = dependents.select(&:qualifying_ctc?)
           build_xml_doc("IRS1040Schedule8812", documentId: "IRS1040Schedule8812", documentName: "IRS1040Schedule8812") do |xml|
             xml.AdjustedGrossIncomeAmt 0 # 1
             xml.ExcldSect933PuertoRicoIncmAmt 0 # 2a
             xml.GrossIncomeExclusionAmt 0 # 2c
             xml.AdditionalIncomeAdjAmt 0 #2d
             xml.ModifiedAGIAmt 0 #3
-            xml.QlfyChildUnderAgeSSNCnt dependents.select { |d| d.qualifying_ctc? }.length #4a
-            xml.QlfyChildIncldUnderAgeSSNCnt dependents.select { |d| d.qualifying_ctc? && d.age_during_tax_year < 6 }.length #4b
-            xml.QlfyChildOverAgeSSNCnt dependents.select { |d| d.qualifying_ctc? && d.age_during_tax_year >= 6 }.length #4c
+            xml.QlfyChildUnderAgeSSNCnt ctc_qualifying_dependents.length #4a
+            xml.QlfyChildIncldUnderAgeSSNCnt ctc_qualifying_dependents.count { |d| d.age_during_tax_year < 6 } #4b
+            xml.QlfyChildOverAgeSSNCnt ctc_qualifying_dependents.count { |d| d.age_during_tax_year >= 6 } #4c
             xml.MaxCTCAfterLimitAmt benefits_eligibility.ctc_amount #5
             xml.OtherDependentCnt benefits_eligibility.odc_amount / 500 #6
             xml.OtherDependentCreditAmt benefits_eligibility.odc_amount #7
