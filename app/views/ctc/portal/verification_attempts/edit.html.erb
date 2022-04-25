@@ -93,7 +93,7 @@
     <% end %>
 
     <% if images.none? { |image| image[1].persisted? } %>
-      <%= link_to t("views.ctc.portal.verification.i_dont_have_id"), ctc_portal_verification_attempt_paper_file_path, class: "button button--wide text--centered" %>
+      <%= link_to t("views.ctc.portal.verification.i_dont_have_id"), ctc_portal_verification_attempt_paper_file_path, class: "button button--wide text--centered", "data-track-click": "verification-i-dont-have-documents" %>
     <% end %>
   <% end %>
 <% end %>

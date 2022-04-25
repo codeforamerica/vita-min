@@ -5,10 +5,10 @@
     <%= yield :form_question %>
   </h1>
   <p><%= t("views.ctc.portal.verification.paper_file.info") %></p>
-  <p><%= link_to t("views.ctc.portal.verification.paper_file.paper_file_instructions"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: "show", section_key: "paper_filing", question_key: "how_do_i_paper_file")  %></p>
+  <p><%= link_to t("views.ctc.portal.verification.paper_file.paper_file_instructions"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: "show", section_key: "paper_filing", question_key: "how_do_i_paper_file"), "data-track-click": "verification-how-do-i-paper-file"  %></p>
   <p class="spacing-below-60"><%= t("views.ctc.portal.verification.paper_file.warning") %></p>
-  <%= link_to ctc_portal_submission_pdf_path(id: @submission.id), target: "_blank", rel: "no_opener", class: "button button--wide text--centered" do %>
+  <%= link_to ctc_portal_submission_pdf_path(id: @submission.id), target: "_blank", rel: "no_opener", class: "button button--wide text--centered", "data-track-click": "verification-download-1040" do %>
     <%= t("views.ctc.portal.verification.paper_file.download_link_text") %>
   <% end %>
-  <%= link_to t("views.ctc.portal.verification.paper_file.go_back"), ctc_portal_verification_attempt_path, class: "button button--wide text--centered" %>
+  <%= link_to t("views.ctc.portal.verification.paper_file.go_back"), ctc_portal_verification_attempt_path, class: "button button--wide text--centered", "data-track-click": "verification-go-back-to-submit-documents" %>
 <% end %>
