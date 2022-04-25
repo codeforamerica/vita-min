@@ -613,6 +613,7 @@ es:
       fields:
         ctc_spouse_contact_info: Spouse information, if married filing jointly
         filing_status: Estado civil para impuestos
+        has_crypto_income: Recibió, vendió, intercambió o de otro modo dispuso de cualquier interés financiero en cualquier moneda virtual
         identity_verification:
           title: Identity verification
         legal_first_name: Primer nombre legal

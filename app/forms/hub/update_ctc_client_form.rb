@@ -47,7 +47,8 @@ module Hub
                        :eip2_amount_received,
                        :eip1_and_2_amount_received_confidence,
                        :primary_ip_pin,
-                       :spouse_ip_pin
+                       :spouse_ip_pin,
+                       :has_crypto_income
     set_attributes_for :tax_return,
                        :filing_status,
                        :filing_status_note
