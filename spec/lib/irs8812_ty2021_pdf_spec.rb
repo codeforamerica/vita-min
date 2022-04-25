@@ -42,7 +42,7 @@ RSpec.describe Irs8812Ty2021Pdf do
                                   "Line14c" => "0", #14c
                                   "Line14d" => "0", #14d
                                   "TotalCtcAmt14e" => "0", #14e
-                                  "AdvCtcReceived14f" => "0", #14f
+                                  "AdvCtcReceived14f" => "", #14f
                                   "CtcOwed14g" => "0", #14g
                                   "Line14h" => "0", #14h
                                   "CtcOwed14i" => "0", #14i
