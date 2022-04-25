@@ -13,7 +13,6 @@ RSpec.describe Irs1040Pdf do
       # "clear out" submission so we can see the empty state of the PDF
       before do
         submission.intake.update(email_address: nil, phone_number: nil, sms_phone_number: nil, primary_first_name: "", primary_last_name: "", primary_ssn: "", claim_owed_stimulus_money: "no", zip_code: "", city: "", state: "", street_address: "", street_address2: "" )
-        submission.verified_address.destroy!
         submission.intake.bank_account.destroy!
         submission.intake.dependents.destroy_all
         submission.tax_return.update(filing_status: nil)
@@ -143,6 +142,14 @@ RSpec.describe Irs1040Pdf do
       let(:outstanding_credits) { (claimed_rrc + outstanding_ctc).to_s }
       before do
         submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1), has_crypto_income: true)
+        submission.intake.update(
+            primary_ip_pin: "12345",
+            primary_signature_pin_at: Date.new(2020, 1, 1),
+            has_crypto_income: true,
+            street_address: "23627 HAWKINS CREEK CT",
+            city: "KATY",
+            state: "TX",
+            zip_code: "77494")
         submission.reload
 
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return claimed_rrc
