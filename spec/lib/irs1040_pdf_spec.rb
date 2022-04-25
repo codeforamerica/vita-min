@@ -139,7 +139,7 @@ RSpec.describe Irs1040Pdf do
 
     context "with a filled out submission record" do
       before do
-        submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1))
+        submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1), has_crypto_income: true)
         submission.reload
 
         @claimed_rrc = "1000"
@@ -158,7 +158,7 @@ RSpec.describe Irs1040Pdf do
                                   "CityNm" => "KATY",
                                   "StateAbbreviationCd" => "TX",
                                   "ZipCd" => "77494",
-                                  "VirtualCurAcquiredDurTYInd" => "false",
+                                  "VirtualCurAcquiredDurTYInd" => "true",
                                   "TotalIncomeAmt9" => "0",
                                   "AdjustedGrossIncomeAmt11" => "0",
                                   "TotalItemizedOrStandardDedAmt12a" => "12550",
