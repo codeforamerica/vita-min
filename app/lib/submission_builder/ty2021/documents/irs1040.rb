@@ -31,7 +31,7 @@ module SubmissionBuilder
           benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents)
           build_xml_doc("IRS1040", documentId: "IRS1040", documentName: "IRS1040") do |xml|
             xml.IndividualReturnFilingStatusCd tax_return.filing_status_code
-            xml.VirtualCurAcquiredDurTYInd false
+            xml.VirtualCurAcquiredDurTYInd intake.has_crypto_income
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)

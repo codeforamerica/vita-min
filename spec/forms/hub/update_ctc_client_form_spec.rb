@@ -52,6 +52,7 @@ RSpec.describe Hub::UpdateCtcClientForm, requires_default_vita_partners: true do
           with_itin_taxpayer_id: "1",
           primary_ip_pin: intake.primary_ip_pin,
           spouse_ip_pin: intake.spouse_ip_pin,
+          has_crypto_income: "true",
           dependents_attributes: {
             "0" => {
               id: intake.dependents.first.id,

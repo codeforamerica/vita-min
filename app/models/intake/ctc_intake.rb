@@ -109,6 +109,7 @@
 #  had_tips                                             :integer          default(0), not null
 #  had_unemployment_income                              :integer          default(0), not null
 #  had_wages                                            :integer          default(0), not null
+#  has_crypto_income                                    :boolean          default(FALSE)
 #  has_primary_ip_pin                                   :integer          default("unfilled"), not null
 #  has_spouse_ip_pin                                    :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string

@@ -65,7 +65,7 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
 
       before do
         create(:bank_account, intake: submission.intake)
-        submission.intake.update(refund_payment_method: "direct_deposit")
+        submission.intake.update(refund_payment_method: "direct_deposit", has_crypto_income: true)
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_ctc_amount).and_return(outstanding_ctc)
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return(claimed_rrc)
       end
@@ -73,7 +73,7 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
       it "includes required nodes on the IRS1040 for the AdvCTC revenue procedure" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("IndividualReturnFilingStatusCd").text).to eq "2" # code for marrying filing joint
-        expect(xml.at("VirtualCurAcquiredDurTYInd").text).to eq "false"
+        expect(xml.at("VirtualCurAcquiredDurTYInd").text).to eq "true"
         expect(xml.at("TotalExemptPrimaryAndSpouseCnt").text).to eq "2" # married filing joint
         dependent_nodes = xml.search("DependentDetail")
         expect(dependent_nodes.length).to eq 2

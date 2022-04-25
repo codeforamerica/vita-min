@@ -25,7 +25,7 @@ class Irs1040Pdf
         CityNm: @address&.city,
         StateAbbreviationCd: @address&.state,
         ZipCd: @address&.zip_code,
-        VirtualCurAcquiredDurTYInd: false,
+        VirtualCurAcquiredDurTYInd: @intake.has_crypto_income,
         TotalIncomeAmt9: 0,
         AdjustedGrossIncomeAmt11: 0,
         TotalItemizedOrStandardDedAmt12a: @tax_return.standard_deduction,

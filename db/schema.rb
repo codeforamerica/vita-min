@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_21_222721) do
+ActiveRecord::Schema.define(version: 2022_04_25_165848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -1011,6 +1011,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_222721) do
     t.integer "had_tips", default: 0, null: false
     t.integer "had_unemployment_income", default: 0, null: false
     t.integer "had_wages", default: 0, null: false
+    t.boolean "has_crypto_income", default: false
     t.integer "has_primary_ip_pin", default: 0, null: false
     t.integer "has_spouse_ip_pin", default: 0, null: false
     t.string "hashed_primary_ssn"

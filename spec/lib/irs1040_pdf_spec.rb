@@ -142,7 +142,7 @@ RSpec.describe Irs1040Pdf do
       let(:outstanding_ctc) { 500 }
       let(:outstanding_credits) { (claimed_rrc + outstanding_ctc).to_s }
       before do
-        submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1))
+        submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1), has_crypto_income: true)
         submission.reload
 
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return claimed_rrc
@@ -161,7 +161,7 @@ RSpec.describe Irs1040Pdf do
                                   "CityNm" => "KATY",
                                   "StateAbbreviationCd" => "TX",
                                   "ZipCd" => "77494",
-                                  "VirtualCurAcquiredDurTYInd" => "false",
+                                  "VirtualCurAcquiredDurTYInd" => "true",
                                   "TotalIncomeAmt9" => "0",
                                   "AdjustedGrossIncomeAmt11" => "0",
                                   "TotalItemizedOrStandardDedAmt12a" => "12550",

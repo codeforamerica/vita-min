@@ -66,6 +66,7 @@ RSpec.describe "a user editing a clients intake fields", requires_default_vita_p
         fill_in "hub_update_ctc_client_form_primary_birth_date_month", with: "08"
         fill_in "hub_update_ctc_client_form_primary_birth_date_day", with: "24"
         fill_in "hub_update_ctc_client_form_primary_birth_date_year", with: "1996"
+        check I18n.t('hub.clients.fields.has_crypto_income')
       end
 
       within "#dependents-fields" do

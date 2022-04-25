@@ -67,6 +67,7 @@
     <% end %>
     <% if is_ctc %>
       <%= f.cfa_input_field(:primary_ip_pin, t("general.ip_pin")) %>
-    <% end %>
+      <%= f.hub_checkbox(:has_crypto_income, t("hub.clients.fields.has_crypto_income"), options: { checked_value: "true", unchecked_value: "false" }) %>
+  <% end %>
   </div>
 </div>
