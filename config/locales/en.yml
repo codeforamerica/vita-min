@@ -458,7 +458,6 @@ en:
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
     ssn: SSN
     ssn_itin: SSN/ITIN
-    ssn_not_valid_for_employment: This SSN is not valid for employment
     start_filing: Start filing
     state: State
     state_routing: "%{state} Routing"
@@ -2170,10 +2169,10 @@ en:
             reveal_content: Knowing if you are a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
             reveal_label: Why are you asking this?
             title: I was a member of the United States Armed Forces for any time in %{current_tax_year}
+          primary_ssn_not_valid_for_employment: My Social Security card has "not valid for employment" printed on it. (This is rare)
           sms_phone_number: Phone number
           ssn: SSN or ITIN
           ssn_confirmation: Confirm SSN or ITIN
-          ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it.
           suffix: Suffix
           title: In order to file, we’ll need some basic information.
         life_situations:
@@ -2327,6 +2326,8 @@ en:
           title: Let's verify that contact info with a code!
           verification_code_label: Enter 6 digit code
           verify: Verify
+      shared:
+        ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:
       california_benefits:
         compare_benefits:
