@@ -10,7 +10,8 @@ class InterestingChangeArbiter
     interesting_changes = model.saved_changes.reject do |k, v|
       IGNORED_KEYS.include?(k) ||
         k.match?("hashed_") ||
-        encrypted_columns(model).include?(k)
+        encrypted_columns(model).include?(k) ||
+        v == ["unfilled", "no"] && ["was_blind", "spouse_was_blind"].include?(k)
     end
 
     # attr_encrypted fields do not correctly report whether they have changed in

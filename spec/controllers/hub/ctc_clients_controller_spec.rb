@@ -56,6 +56,8 @@ RSpec.describe Hub::CtcClientsController do
           spouse_birth_date_year: 1980,
           spouse_birth_date_month: 1,
           spouse_birth_date_day: 11,
+          spouse_was_blind: 'no',
+          was_blind: 'no',
           primary_ssn: "111227778",
           primary_ssn_confirmation: "111227778",
           filing_status: client.tax_returns.last.filing_status,
