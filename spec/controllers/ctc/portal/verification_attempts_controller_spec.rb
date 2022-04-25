@@ -185,4 +185,29 @@ describe Ctc::Portal::VerificationAttemptsController do
       end
     end
   end
+
+  describe "#paper-file" do
+    let(:client) { create :client_with_ctc_intake_and_return }
+    before do
+      client.tax_returns.last.efile_submissions.create
+    end
+
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :paper_file
+
+    context "with an authenticated client" do
+      before do
+        sign_in client
+      end
+
+      it "assigns submission to latest efile submission" do
+        get :paper_file
+        expect(assigns(:submission)).to eq client.efile_submissions.last
+      end
+
+      it "renders the template" do
+        get :paper_file
+        expect(response).to render_template "paper_file"
+      end
+    end
+  end
 end

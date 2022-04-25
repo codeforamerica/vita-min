@@ -164,6 +164,7 @@ RSpec.describe Irs1040Pdf do
       let(:outstanding_credits) { (claimed_rrc + outstanding_ctc).to_s }
       before do
         submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1), has_crypto_income: true, was_blind: "yes")
+
         submission.reload
 
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return claimed_rrc

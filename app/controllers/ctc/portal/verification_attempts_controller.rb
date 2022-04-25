@@ -22,6 +22,10 @@ class Ctc::Portal::VerificationAttemptsController < Ctc::Portal::BaseAuthenticat
     redirect_to action: :edit
   end
 
+  def paper_file
+    @submission = current_client.efile_submissions.last
+  end
+
   # allows for deletion of photos from an existing attempt
   def destroy
     @verification_attempt = current_client.verification_attempts.find_by(id: params[:id])

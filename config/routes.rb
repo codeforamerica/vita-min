@@ -419,12 +419,13 @@ Rails.application.routes.draw do
           get "verification", to: "verification_attempts#edit", as: "verification_attempt"
           patch "verification", to: "verification_attempts#update", as: "update_verification_attempt"
           delete "verification-photo/:id", to: "verification_attempts#destroy", as: "destroy_verification_attempt_photo"
+          get "paper-file", to: 'verification_attempts#paper_file', as: "verification_attempt_paper_file"
+
 
           resources :dependents, only: [:edit, :update, :destroy] do
             get :confirm_remove, on: :member
             get 'not-eligible', to: "pages#no_eligible_dependents", on: :collection
           end
-
           resources :messages, only: [:new, :create]
           resources :documents, only: [:show]
           resources :submission_pdfs, only: [:show]

@@ -1827,9 +1827,17 @@ es:
             label: AGI de %{prior_tax_year} del cónyuge
             title: Edite el ingreso bruto ajustado de %{prior_tax_year} de su cónyuge
         verification:
+          i_dont_have_id: No tengo identificación
           id: Su licencia de conducir o tarjeta de identificación estatal
           id_label: Foto de su identificación
           info: 'Para proteger su identidad y verificar su información, necesitaremos que envíe las dos fotos siguientes:'
+          paper_file:
+            download_link_text: Descargar 1040
+            go_back: Enviar mi identificación
+            info: Deberá descargar y firmar un formulario 1040 en papel y enviar su declaración de impuestos por correo.
+            paper_file_instructions: Las instrucciones completas sobre la presentación en papel se pueden encontrar aquí.
+            title: Si no tiene una identificación, debe presentar una declaración en papel.
+            warning: La presentación en papel puede ser muy lenta; el IRS puede tardar meses en procesar una declaración en papel. Si puede cargar su ID, le recomendamos encarecidamente que lo haga.
           resubmission: Tu revisor ha solicitado que subas fotos de nuevo. Esto normalmente se debe a que las fotos proporcionadas estaban borrosas o no incluyen su identificación con foto. Verifique las pautas a continuación y vuelva a enviar.
           selfie: Tienes la tarjeta cerca de tu cara
           selfie_label: Foto tuya con identificación

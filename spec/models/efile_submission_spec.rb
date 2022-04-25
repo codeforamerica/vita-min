@@ -299,6 +299,7 @@ describe EfileSubmission do
       let!(:address) { create :address, record: submission, skip_usps_validation: true }
 
       it "returns an object that we can call valid on and does not connect to USPS service" do
+
         expect(submission.generate_verified_address.valid?).to be true
         expect(StandardizeAddressService).not_to have_received(:new)
       end
