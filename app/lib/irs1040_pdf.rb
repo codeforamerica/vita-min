@@ -26,6 +26,7 @@ class Irs1040Pdf
         StateAbbreviationCd: @address&.state,
         ZipCd: @address&.zip_code,
         VirtualCurAcquiredDurTYInd: @intake.has_crypto_income,
+        PrimaryBlindInd: bool_checkbox(@intake.was_blind_yes?),
         TotalIncomeAmt9: 0,
         AdjustedGrossIncomeAmt11: 0,
         TotalItemizedOrStandardDedAmt12a: @tax_return.standard_deduction,
@@ -67,6 +68,7 @@ class Irs1040Pdf
         SpouseSignature: @intake.spouse_full_name,
         SpouseSignatureDate: @intake.spouse_signature_pin_at.strftime("%m/%d/%y"),
         SpouseIPPIN: @intake.spouse_ip_pin,
+        SpouseBlindInd: bool_checkbox(@intake.spouse_was_blind_yes?),
     }
   end
 
@@ -81,5 +83,9 @@ class Irs1040Pdf
       answers["DependentCTCInd[#{index}]"] = dependent.qualifying_ctc ? 1 : 0
     end
     answers
+  end
+
+  def bool_checkbox(value)
+    value ? "1" : "Off"
   end
 end

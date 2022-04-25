@@ -43,6 +43,9 @@
     <% if is_ctc %>
       <%= f.cfa_input_field(:spouse_ip_pin, t("general.ip_pin")) %>
     <% end %>
+
+    <%= f.hub_checkbox(:spouse_was_blind, t("general.blind"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+
     <% if is_ctc && !is_dropoff %>
       <div>
         <%= f.hub_checkbox(:use_primary_name_for_name_control, "Use primary last name for spouse name control", options: { checked_value: "true", unchecked_value: "false" }) %>

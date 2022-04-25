@@ -32,6 +32,8 @@ module SubmissionBuilder
           build_xml_doc("IRS1040", documentId: "IRS1040", documentName: "IRS1040") do |xml|
             xml.IndividualReturnFilingStatusCd tax_return.filing_status_code
             xml.VirtualCurAcquiredDurTYInd intake.has_crypto_income
+            xml.PrimaryBlindInd "X" if intake.was_blind_yes?
+            xml.SpouseBlindInd "X" if intake.spouse_was_blind_yes?
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
