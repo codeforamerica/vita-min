@@ -264,13 +264,20 @@ class TaxReturn < ApplicationRecord
   end
 
   def additional_older_than_65_standard_deduction
+    case filing_status
+    when "single", "head_of_household"
+      return 1700 if primary_age_65_or_older?
+    when "married_filing_jointly"
+      return 2700 if primary_age_65_or_older? && spouse_age_65_or_older?
+      return 1350 if primary_age_65_or_older? || spouse_age_65_or_older?
+    end
     0
   end
 
   def additional_blind_standard_deduction
     case filing_status
     when "single", "head_of_household"
-      return 1700
+      return 1700 if intake.was_blind_yes?
     when "married_filing_jointly"
       return 2700 if intake.was_blind_yes? && intake.spouse_was_blind_yes?
       return 1350 if intake.was_blind_yes? || intake.spouse_was_blind_yes?

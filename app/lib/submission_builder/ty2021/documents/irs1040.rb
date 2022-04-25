@@ -53,10 +53,10 @@ module SubmissionBuilder
             xml.RefundableCTCOrACTCAmt benefits.outstanding_ctc_amount # 28
 
             # Line 30: remaining amount of RRC they are claiming for EIP-3
-            xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit # 30
+            xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit.to_i # 30
 
             # Line 32, 33, 34, 35a: Line 28 + Line 30
-            total_refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit
+            total_refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit.to_i
             xml.RefundableCreditsAmt total_refundable_credits # 32
             xml.TotalPaymentsAmt total_refundable_credits # 33
             xml.OverpaidAmt total_refundable_credits # 34

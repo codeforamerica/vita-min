@@ -15,7 +15,7 @@ class Irs1040Pdf
   end
 
   def hash_for_pdf
-    total_refundable_credits = @benefits.claimed_recovery_rebate_credit + @benefits.outstanding_ctc_amount
+    total_refundable_credits = @benefits.claimed_recovery_rebate_credit.to_i + @benefits.outstanding_ctc_amount
     answers = {
         FilingStatus: @tax_return.filing_status_code,
         PrimaryFirstNm: @intake.primary_middle_initial.present? ? "#{@intake.primary_first_name} #{@intake.primary_middle_initial}" : @intake.primary_first_name,
@@ -33,7 +33,7 @@ class Irs1040Pdf
         TotalAdjustmentsToIncomeAmt12c: @tax_return.standard_deduction, # 12c = 12a + 12b; 12b is charitable contributions which is 0 for us
         TaxableIncomeAmt15: 0,
         AdditionalChildTaxCreditAmt28: @benefits.outstanding_ctc_amount,
-        RecoveryRebateCreditAmt30: @benefits.claimed_recovery_rebate_credit,
+        RecoveryRebateCreditAmt30: @benefits.claimed_recovery_rebate_credit.to_i,
         RefundableCreditsAmt32: total_refundable_credits,
         TotalPaymentsAmt33: total_refundable_credits,
         OverpaidAmt34: total_refundable_credits,

@@ -1,11 +1,11 @@
 require "rails_helper"
 
 describe StandardDeduction do
-  shared_examples "standard_deduction" do |tax_year:, filing_status:, primary_older_than_65: nil, spouse_older_than_65: nil, result:|
-    context "tax_year=#{tax_year} filing_status=#{filing_status} primary_older_than_65=#{primary_older_than_65.inspect} spouse_older_than_65=#{spouse_older_than_65.inspect}" do
+  shared_examples "standard_deduction" do |tax_year:, filing_status:, result:|
+    context "tax_year=#{tax_year} filing_status=#{filing_status}}" do
       it "should eq(#{result})" do
         expect(
-          described_class.for(tax_year: tax_year, filing_status: filing_status, primary_older_than_65: primary_older_than_65, spouse_older_than_65: spouse_older_than_65)
+          described_class.for(tax_year: tax_year, filing_status: filing_status)
         ).to eq(result)
       end
     end
@@ -63,28 +63,22 @@ describe StandardDeduction do
 
       context "filing_status: single" do
         it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "single", result: 12550
-        it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "single", primary_older_than_65: true, result: (12550+1700)
       end
 
       context "filing_status: head_of_household" do
         it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "head_of_household", result: 18800
-        it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "head_of_household", primary_older_than_65: true, result: (18800+1700)
       end
 
       context "filing_status: married_filing_separately" do
         it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "married_filing_separately", result: 12550
-        it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "married_filing_separately", primary_older_than_65: true, result: (12550+1350)
       end
 
       context "filing_status: married_filing_jointly" do
         it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "married_filing_jointly", result: 25100
-        it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "married_filing_jointly", primary_older_than_65: true, result: (25100+1350)
-        it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "married_filing_jointly", primary_older_than_65: true, spouse_older_than_65: true, result: (25100+1350+1350)
       end
 
       context "filing_status: qualifying_widow" do
         it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "qualifying_widow", result: 25100
-        it_should_behave_like "standard_deduction", tax_year: 2021, filing_status: "qualifying_widow", primary_older_than_65: true, result: (25100+1350)
       end
     end
   end
