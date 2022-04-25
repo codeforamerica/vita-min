@@ -278,10 +278,10 @@ RSpec.describe Irs1040Pdf do
         submission.reload
       end
 
-      it "returns a filled out pdf" do
+      it "returns 1" do
         output_file = pdf.output_file
         result = non_preparer_fields(output_file.path)
-        expect(result).to match(hash_including("Primary65OrOlderInd" => "On"))
+        expect(result).to match(hash_including("Primary65OrOlderInd" => "1"))
       end
     end
 
@@ -299,10 +299,10 @@ RSpec.describe Irs1040Pdf do
         submission.reload
       end
 
-      it "returns a filled out pdf" do
+      it "returns 1" do
         output_file = pdf.output_file
         result = non_preparer_fields(output_file.path)
-        expect(result).to match(hash_including("Spouse65OrOlderInd" => "On"))
+        expect(result).to match(hash_including("Spouse65OrOlderInd" => "1"))
       end
     end
   end

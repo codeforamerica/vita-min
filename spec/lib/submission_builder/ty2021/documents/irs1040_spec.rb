@@ -75,8 +75,8 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
 
       it "includes required nodes on the IRS1040" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-        expect(xml.at("Primary65OrOlderInd").text).to eq "true"
-        expect(xml.at("Spouse65OrOlderInd").text).to eq "false"
+        expect(xml.at("Primary65OrOlderInd").text).to eq "X"
+        expect(xml.at("Spouse65OrOlderInd")).to be_nil
         expect(xml.at("IndividualReturnFilingStatusCd").text).to eq "2" # code for marrying filing joint
         expect(xml.at("VirtualCurAcquiredDurTYInd").text).to eq "true"
         expect(xml.at("PrimaryBlindInd").text).to eq "X"

@@ -38,7 +38,7 @@ class Irs1040Pdf
         TotalPaymentsAmt33: total_refundable_credits,
         OverpaidAmt34: total_refundable_credits,
         RefundAmt35: total_refundable_credits,
-        Primary65OrOlderInd: tax_return.primary_age_65_or_older? ? "On" : "Off",
+        Primary65OrOlderInd: bool_checkbox(@tax_return.primary_age_65_or_older?),
         PrimarySignature: @intake.primary_full_name,
         PrimarySignatureDate: @intake.primary_signature_pin_at&.strftime("%m/%d/%y"),
         PrimaryIPPIN: @intake.primary_ip_pin,
@@ -63,7 +63,7 @@ class Irs1040Pdf
 
   def spouse_info
     {
-        Spouse65OrOlderInd: @tax_return.spouse_age_65_or_older? ? "On" : "Off",
+        Spouse65OrOlderInd: bool_checkbox(@tax_return.spouse_age_65_or_older?),
         SpouseFirstNm: @intake.spouse_first_name,
         SpouseLastNm: @intake.spouse_last_name,
         SpouseSSN: pdf_mask(@intake.spouse_ssn, 4),

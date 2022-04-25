@@ -106,6 +106,7 @@ class TaxReturn < ApplicationRecord
   def standard_deduction
     standard_deduction = StandardDeduction.for(tax_year: year, filing_status: filing_status)
     return if standard_deduction.nil?
+
     standard_deduction + additional_blind_standard_deduction + additional_older_than_65_standard_deduction
   end
 
@@ -262,10 +263,8 @@ class TaxReturn < ApplicationRecord
     transition_to(new_status)
   end
 
-  def additional_over_65_standard_deduction
-    primary_older_than_65 = intake.primary_birth_date.present? && intake.primary_birth_date < Date.new(year - 64, 1, 2)
-    spouse_older_than_65 = intake.spouse_birth_date.present? && intake.spouse_birth_date < Date.new(year - 64, 1, 2)
-    # xyz
+  def additional_older_than_65_standard_deduction
+    0
   end
 
   def additional_blind_standard_deduction

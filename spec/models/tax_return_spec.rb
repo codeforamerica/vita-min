@@ -967,7 +967,7 @@ describe TaxReturn do
     end
   end
 
-  describe "#spouse_age_65_or_oldd" do
+  describe "#spouse_age_65_or_old" do
     let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
 
     context "when born before Jan 2, 1957 for tax year 2021" do
