@@ -8,7 +8,7 @@ class Irs8812Ty2021Pdf
   def initialize(submission)
     @submission = submission
     @qualifying_dependents = submission.qualifying_dependents
-    @ctc_qualifying_dependents =  @qualifying_dependents.select {|d| d.qualifying_ctc? }
+    @ctc_qualifying_dependents =  @qualifying_dependents.select(&:qualifying_ctc?)
     @benefits = Efile::BenefitsEligibility.new(tax_return: submission.tax_return, dependents: @qualifying_dependents)
   end
 
@@ -20,8 +20,8 @@ class Irs8812Ty2021Pdf
       ExclusionsTotalAmt2d: 0, #2d
       AGIExclusionsTotalAmt3: 0, #3
       NumQCSsn4a: @ctc_qualifying_dependents.length, #4a
-      NumQCOverSix4b: @ctc_qualifying_dependents.select { |d| d.age_during_tax_year < 6 }.length, #4b
-      NumQCUnderSix4c: @ctc_qualifying_dependents.select { |d| d.age_during_tax_year >= 6 }.length, #4c
+      NumQCOverSix4b: @ctc_qualifying_dependents.count { |d| d.age_during_tax_year < 6 }, #4b
+      NumQCUnderSix4c: @ctc_qualifying_dependents.count { |d| d.age_during_tax_year >= 6 }, #4c
       TotalCtcAmt5: @benefits.ctc_amount, #5
       NumNonCtcDependents6: @benefits.odc_amount / 500, #6
       OtherDependentCreditAmt7: @benefits.odc_amount, #7
@@ -36,7 +36,7 @@ class Irs8812Ty2021Pdf
       Line14c: 0, #14c
       Line14d: 0, #14d
       TotalCtcAmt14e: 0, #14e
-      AdvCtcReceived14f: @ctc_qualifying_dependents.none? ? nil : @benefits.advance_ctc_amount_received, #14f
+      AdvCtcReceived14f: @benefits.advance_ctc_amount_received, #14f
       CtcOwed14g: @benefits.outstanding_ctc_amount, #14g
       Line14h: 0, #14h
       CtcOwed14i: @benefits.outstanding_ctc_amount, #14i
