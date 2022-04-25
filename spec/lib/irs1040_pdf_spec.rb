@@ -24,7 +24,7 @@ RSpec.describe Irs1040Pdf do
         output_file = pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to match({
-                                  "AdditionalChildTaxCreditAmt28" => nil,
+                                  "AdditionalChildTaxCreditAmt28" => "0",
                                   "AdditionalTaxAmt17" => nil,
                                   "AddressLine1Txt" => "",
                                   "AdjustedGrossIncomeAmt11" => "0",
