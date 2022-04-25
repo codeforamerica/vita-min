@@ -238,6 +238,7 @@ es:
       routing_number: Número de ruta bancaria
       savings: Ahorros
     before_2014: antes de 2014
+    blind: Es legalmente ciega
     call: Llamada
     cancel: Cancelar
     capacity: Capacidad
@@ -611,6 +612,7 @@ es:
         prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
         send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
       fields:
+        blind: Estaba ciega
         ctc_spouse_contact_info: Spouse information, if married filing jointly
         filing_status: Estado civil para impuestos
         has_crypto_income: Recibió, vendió, intercambió o de otro modo dispuso de cualquier interés financiero en cualquier moneda virtual

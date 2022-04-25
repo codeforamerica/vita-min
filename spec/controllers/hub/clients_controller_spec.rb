@@ -72,6 +72,8 @@ RSpec.describe Hub::ClientsController do
           spouse_ssn: "123456789",
           spouse_ssn_confirmation: "123456789",
           spouse_email_address: "spouse@example.com",
+          spouse_was_blind: 'no',
+          was_blind: 'no',
           filing_joint: "yes",
           timezone: "America/Chicago",
           needs_help_2021: "yes",
@@ -949,6 +951,8 @@ RSpec.describe Hub::ClientsController do
                          "2" => { id: intake.dependents.last.id, _destroy: "1" }
                        },
                        used_itin_certifying_acceptance_agent: "false",
+                       was_blind: "no",
+                       spouse_was_blind: "no",
                      }
                    }
                  }

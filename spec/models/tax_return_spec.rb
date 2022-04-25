@@ -943,15 +943,179 @@ describe TaxReturn do
     end
   end
 
+  describe "#primary_age_65_or_older?" do
+    let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
+
+    context "when born before Jan 2, 1957 for tax year 2021" do
+      before do
+        tax_return.intake.update(primary_birth_date: Date.new(2021 - 64, 1, 1))
+      end
+
+      it "returns true" do
+        expect(tax_return.primary_age_65_or_older?).to eq(true)
+      end
+    end
+
+    context "when born on/after Jan 2, 1957 for tax year 2021" do
+      before do
+        tax_return.intake.update(primary_birth_date: Date.new(2021 - 64, 1, 2))
+      end
+
+      it "returns false" do
+        expect(tax_return.primary_age_65_or_older?).to eq(false)
+      end
+    end
+  end
+
+  describe "#spouse_age_65_or_old" do
+    let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
+
+    context "when born before Jan 2, 1957 for tax year 2021" do
+      before do
+        tax_return.intake.update(spouse_birth_date: Date.new(2021 - 64, 1, 1))
+      end
+
+      it "returns true" do
+        expect(tax_return.spouse_age_65_or_older?).to eq(true)
+      end
+    end
+
+    context "when born on/after Jan 2, 1957 for tax year 2021" do
+      before do
+        tax_return.intake.update(spouse_birth_date: Date.new(2021 - 64, 1, 2))
+      end
+
+      it "returns false" do
+        expect(tax_return.spouse_age_65_or_older?).to eq(false)
+      end
+    end
+  end
+
   describe "#standard_deduction" do
     let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
     before do
       allow(StandardDeduction).to receive(:for)
     end
 
-    it "calls StandardDeduction with appropriate params" do
-      tax_return.standard_deduction
-      expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly")
+    context "passing in tax year and filing status" do
+      it "passes it in" do
+        tax_return.standard_deduction
+        expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly")
+      end
+    end
+
+    context "blindness addition" do
+      before do
+        allow(StandardDeduction).to receive(:for).and_return(0)
+      end
+
+      context "filing status single" do
+        let(:tax_return) { create :tax_return, filing_status: "single", year: 2021, client: create(:client, intake: create(:intake, was_blind: was_blind)) }
+        let(:was_blind) { "yes" }
+
+        context "the primary filer is blind" do
+          it "is 1700" do
+            expect(tax_return.standard_deduction).to eq 1700
+          end
+        end
+
+        context "the primary filer is not blind" do
+          let(:was_blind) { "no" }
+
+          it "is 0" do
+            expect(tax_return.standard_deduction).to eq 0
+          end
+        end
+      end
+
+
+      context "the primary filer is blind and filing status is head of household" do
+        let(:tax_return) { create :tax_return, filing_status: "head_of_household", year: 2021, client: create(:client, intake: create(:intake, was_blind: "yes")) }
+
+        it "is 1700" do
+          expect(tax_return.standard_deduction).to eq 1700
+        end
+      end
+
+      context "the primary filer and spouse is blind and filing status is married_filing_jointly" do
+        let(:tax_return) { create :tax_return, filing_status: "married_filing_jointly", year: 2021, client: create(:client, intake: create(:ctc_intake, was_blind: "yes", spouse_was_blind: "yes")) }
+
+        it "is 2700" do
+          expect(tax_return.standard_deduction).to eq 2700
+        end
+      end
+
+      context "the primary filer is blind and spouse is not and filing status is married_filing_jointly" do
+        let(:tax_return) { create :tax_return, filing_status: "married_filing_jointly", year: 2021, client: create(:client, intake: create(:ctc_intake, was_blind: "yes", spouse_was_blind: "no")) }
+
+        it "is 1350" do
+          expect(tax_return.standard_deduction).to eq 1350
+        end
+      end
+
+      context "filing status is a generally unsupported status in GetCTC and primary is blind" do
+        let(:tax_return) { create :tax_return, filing_status: "qualifying_widow", year: 2021, client: create(:client, intake: create(:intake, was_blind: "yes")) }
+
+        it "is 0" do
+          expect(tax_return.standard_deduction).to eq 0
+        end
+      end
+
+      context "filing status is married_filing_jointly and primary and spouse are not blind" do
+        let(:tax_return) { create :tax_return, filing_status: "married_filing_jointly", year: 2021, client: create(:client, intake: create(:ctc_intake, was_blind: "no", spouse_was_blind: "unfilled")) }
+        it "is 0" do
+          expect(tax_return.standard_deduction).to eq 0
+        end
+      end
+    end
+
+    context "older than 65 addition" do
+      let(:older_than_65) { Date.new(2021 - 64, 1, 1) }
+      let(:younger_than_65) { Date.new(2021 - 64, 1, 2) }
+
+      before do
+        allow(StandardDeduction).to receive(:for).and_return(0)
+      end
+
+      context "filing status is single and primary is older than 65" do
+        let(:tax_return) { create(:tax_return, filing_status: "single", year: 2021, client: create(:client, intake: create(:ctc_intake, primary_birth_date: older_than_65)))}
+
+        it "is 1700" do
+          expect(tax_return.standard_deduction).to eq 1700
+        end
+      end
+
+      context "filing status is head_of_household and primary is older than 65" do
+        let(:tax_return) { create(:tax_return, filing_status: "head_of_household", year: 2021, client: create(:client, intake: create(:ctc_intake, primary_birth_date: older_than_65)))}
+
+        it "is 1700" do
+          expect(tax_return.standard_deduction).to eq 1700
+        end
+      end
+
+      context "filing status is married_filing_jointly and primary is older than 65 and spouse is younger than 65" do
+        let(:tax_return) { create(:tax_return, filing_status: "married_filing_jointly", year: 2021, client: create(:client, intake: create(:ctc_intake, primary_birth_date: older_than_65, spouse_birth_date: younger_than_65)))}
+
+        it "is 1350" do
+          expect(tax_return.standard_deduction).to eq 1350
+        end
+      end
+
+      context "filing status is married_filing_jointly and primary is younger than 65 and spouse is older than 65" do
+        let(:tax_return) { create(:tax_return, filing_status: "married_filing_jointly", year: 2021, client: create(:client, intake: create(:ctc_intake, primary_birth_date: younger_than_65, spouse_birth_date: older_than_65)))}
+
+        it "is 1350" do
+          expect(tax_return.standard_deduction).to eq 1350
+        end
+      end
+
+      context "filing status is married_filing_jointly and primary is older than 65 and spouse is older than 65" do
+        let(:tax_return) { create(:tax_return, filing_status: "married_filing_jointly", year: 2021, client: create(:client, intake: create(:ctc_intake, primary_birth_date: older_than_65, spouse_birth_date: older_than_65)))}
+
+        it "is 2700" do
+          expect(tax_return.standard_deduction).to eq 2700
+        end
+      end
     end
   end
 

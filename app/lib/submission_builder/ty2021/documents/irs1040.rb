@@ -32,6 +32,10 @@ module SubmissionBuilder
           build_xml_doc("IRS1040", documentId: "IRS1040", documentName: "IRS1040") do |xml|
             xml.IndividualReturnFilingStatusCd tax_return.filing_status_code
             xml.VirtualCurAcquiredDurTYInd intake.has_crypto_income
+            xml.Primary65OrOlderInd "X" if tax_return.primary_age_65_or_older?
+            xml.PrimaryBlindInd "X" if intake.was_blind_yes?
+            xml.Spouse65OrOlderInd "X" if tax_return.spouse_age_65_or_older?
+            xml.SpouseBlindInd "X" if intake.spouse_was_blind_yes?
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
@@ -49,10 +53,10 @@ module SubmissionBuilder
             xml.RefundableCTCOrACTCAmt benefits.outstanding_ctc_amount # 28
 
             # Line 30: remaining amount of RRC they are claiming for EIP-3
-            xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit # 30
+            xml.RecoveryRebateCreditAmt benefits.claimed_recovery_rebate_credit.to_i # 30
 
             # Line 32, 33, 34, 35a: Line 28 + Line 30
-            total_refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit
+            total_refundable_credits = benefits.outstanding_ctc_amount + benefits.claimed_recovery_rebate_credit.to_i
             xml.RefundableCreditsAmt total_refundable_credits # 32
             xml.TotalPaymentsAmt total_refundable_credits # 33
             xml.OverpaidAmt total_refundable_credits # 34

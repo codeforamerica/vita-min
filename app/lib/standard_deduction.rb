@@ -19,7 +19,7 @@ class StandardDeduction
   end
 
   private
-  
+
   def standard_deduction_2020(filing_status)
     case filing_status.to_sym
     when :married_filing_jointly, :qualifying_widow

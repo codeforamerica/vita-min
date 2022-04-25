@@ -31,6 +31,7 @@ RSpec.describe Hub::CreateClientForm do
         city: "San Francisco",
         state: "CA",
         zip_code: "94103",
+        was_blind: "no",
         sms_notification_opt_in: sms_opt_in,
         email_notification_opt_in: email_opt_in,
         spouse_first_name: "Newly",
@@ -39,6 +40,7 @@ RSpec.describe Hub::CreateClientForm do
         spouse_ssn: "934769258",
         spouse_ssn_confirmation: "934769258",
         spouse_tin_type: "itin",
+        spouse_was_blind: "yes",
         filing_joint: "yes",
         timezone: "America/Chicago",
         needs_help_2020: "yes",
@@ -137,6 +139,7 @@ RSpec.describe Hub::CreateClientForm do
         expect(intake.vita_partner).to eq vita_partner
         expect(intake.primary_ssn).to eq "123456789"
         expect(intake.spouse_ssn).to eq "934769258"
+        expect(intake.spouse_was_blind).to eq "yes"
         expect(intake.primary_consented_to_service).to eq "yes"
         expect(intake.primary_consented_to_service_at).not_to be_nil
         expect(intake.completed_at).not_to be_nil

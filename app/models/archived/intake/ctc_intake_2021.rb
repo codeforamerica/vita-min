@@ -286,6 +286,8 @@ class Archived::Intake::CtcIntake2021 < Archived::Intake2021
   enum has_primary_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_primary_ip_pin
   enum has_spouse_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_spouse_ip_pin
   enum consented_to_legal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_legal
+  enum was_blind: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_blind
+  enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
 
   has_one :bank_account, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::BankAccount2021', foreign_key: 'archived_intakes_2021_id'
   accepts_nested_attributes_for :bank_account
