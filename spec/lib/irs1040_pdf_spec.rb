@@ -5,7 +5,8 @@ RSpec.describe Irs1040Pdf do
 
   let(:pdf) { described_class.new(submission) }
   # Locked to 2021 because the resulting PDF matches 2021 revenue procedure needs.
-  let(:submission) { create :efile_submission, :ctc, tax_year: 2021 }
+  let(:tax_year) { 2021 }
+  let(:submission) { create :efile_submission, :ctc, tax_year: tax_year }
 
   describe "#output_file" do
     context "with an empty submission record" do
@@ -168,6 +169,7 @@ RSpec.describe Irs1040Pdf do
                                   "TotalAdjustmentsToIncomeAmt12c" => "999",
                                   "TotalDeductionsAmt14" => "999",
                                   "TaxableIncomeAmt15" => "0",
+                                  "Primary65OrOlderInd" => "Off",
                                   "RecoveryRebateCreditAmt30" => claimed_rrc.to_s,
                                   "RefundableCreditsAmt32" => outstanding_credits,
                                   "TotalPaymentsAmt33" => outstanding_credits,
@@ -204,6 +206,7 @@ RSpec.describe Irs1040Pdf do
         output_file = pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to match(hash_including(
+                                  "Spouse65OrOlderInd" => "Off",
                                   "SpouseFirstNm" => "Randall",
                                   "SpouseLastNm" => "Rouse",
                                   "SpouseSSN" => "XXXXX6789",
@@ -264,7 +267,41 @@ RSpec.describe Irs1040Pdf do
                                   "DependentRelationship[2]" => "PARENT",
                                   "DependentSSN[2]" => "XXXXX5788",
                                   "DependentCTCInd[2]" => "0", # unchecked
-                                  ))
+                                ))
+      end
+    end
+
+    context "when primary filer is older than 65" do
+      before do
+        submission.intake.update(primary_birth_date: Date.new(tax_year - 64, 1, 1))
+        submission.reload
+      end
+
+      it "returns 1" do
+        output_file = pdf.output_file
+        result = non_preparer_fields(output_file.path)
+        expect(result).to match(hash_including("Primary65OrOlderInd" => "1"))
+      end
+    end
+
+    context "when spouse is older than 65" do
+      before do
+        submission.intake.update(
+          spouse_birth_date: Date.new(tax_year - 64, 1, 1),
+          spouse_first_name: "Randall",
+          spouse_last_name: "Rouse",
+          spouse_signature_pin_at: Date.new(2020, 1, 5),
+          spouse_ip_pin: "123456",
+          spouse_ssn: "123456789"
+        )
+        submission.tax_return.update(filing_status: "married_filing_jointly")
+        submission.reload
+      end
+
+      it "returns 1" do
+        output_file = pdf.output_file
+        result = non_preparer_fields(output_file.path)
+        expect(result).to match(hash_including("Spouse65OrOlderInd" => "1"))
       end
     end
   end

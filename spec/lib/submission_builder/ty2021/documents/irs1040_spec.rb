@@ -68,11 +68,15 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         submission.intake.update(refund_payment_method: "direct_deposit", has_crypto_income: true, was_blind: "yes", spouse_was_blind: "yes")
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_ctc_amount).and_return(outstanding_ctc)
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return(claimed_rrc)
+        allow(submission.tax_return).to receive(:primary_age_65_or_older?).and_return(true)
+        allow(submission.tax_return).to receive(:spouse_age_65_or_older?).and_return(false)
         allow(submission.tax_return).to receive(:standard_deduction).and_return(999)
       end
 
       it "includes required nodes on the IRS1040" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("Primary65OrOlderInd").text).to eq "X"
+        expect(xml.at("Spouse65OrOlderInd")).to be_nil
         expect(xml.at("IndividualReturnFilingStatusCd").text).to eq "2" # code for marrying filing joint
         expect(xml.at("VirtualCurAcquiredDurTYInd").text).to eq "true"
         expect(xml.at("PrimaryBlindInd").text).to eq "X"
