@@ -943,36 +943,64 @@ describe TaxReturn do
     end
   end
 
-  describe "#standard_deduction" do
+  describe "#primary_age_65_or_older?" do
     let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
-    before do
-      allow(StandardDeduction).to receive(:for)
-    end
 
-    context "filing status" do
-      it "is passed in" do
-        tax_return.standard_deduction
-        expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly", primary_older_than_65: false, spouse_older_than_65: false)
-      end
-    end
-
-    context "primary_older_than_65" do
+    context "when born before Jan 2, 1957 for tax year 2021" do
       before do
         tax_return.intake.update(primary_birth_date: Date.new(2021 - 64, 1, 1))
       end
 
-      it "is passed in" do
-        tax_return.standard_deduction
-        expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly", primary_older_than_65: true, spouse_older_than_65: false)
+      it "returns true" do
+        expect(tax_return.primary_age_65_or_older?).to eq(true)
       end
     end
 
-    context "spouse_older_than_65" do
+    context "when born on/after Jan 2, 1957 for tax year 2021" do
+      before do
+        tax_return.intake.update(primary_birth_date: Date.new(2021 - 64, 1, 2))
+      end
+
+      it "returns false" do
+        expect(tax_return.primary_age_65_or_older?).to eq(false)
+      end
+    end
+  end
+
+  describe "#spouse_age_65_or_oldd" do
+    let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
+
+    context "when born before Jan 2, 1957 for tax year 2021" do
       before do
         tax_return.intake.update(spouse_birth_date: Date.new(2021 - 64, 1, 1))
       end
 
-      it "is passed in" do
+      it "returns true" do
+        expect(tax_return.spouse_age_65_or_older?).to eq(true)
+      end
+    end
+
+    context "when born on/after Jan 2, 1957 for tax year 2021" do
+      before do
+        tax_return.intake.update(spouse_birth_date: Date.new(2021 - 64, 1, 2))
+      end
+
+      it "returns false" do
+        expect(tax_return.spouse_age_65_or_older?).to eq(false)
+      end
+    end
+  end
+
+  describe "#standard_deduction" do
+    let(:tax_return) { create :tax_return, year: 2021, filing_status: :married_filing_jointly }
+    before do
+      allow(StandardDeduction).to receive(:for)
+      allow(tax_return).to receive(:primary_age_65_or_older?).and_return(false)
+      allow(tax_return).to receive(:spouse_age_65_or_older?).and_return(true)
+    end
+
+    context "passing in tax year, filing status, and older than 65 status" do
+      it "passes it in" do
         tax_return.standard_deduction
         expect(StandardDeduction).to have_received(:for).with(tax_year: 2021, filing_status: "married_filing_jointly", primary_older_than_65: false, spouse_older_than_65: true)
       end

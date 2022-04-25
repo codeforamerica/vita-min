@@ -34,6 +34,8 @@ module SubmissionBuilder
             xml.VirtualCurAcquiredDurTYInd intake.has_crypto_income
             xml.PrimaryBlindInd "X" if intake.was_blind_yes?
             xml.SpouseBlindInd "X" if intake.spouse_was_blind_yes?
+            xml.Primary65OrOlderInd tax_return.primary_age_65_or_older?
+            xml.Spouse65OrOlderInd tax_return.spouse_age_65_or_older?
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
