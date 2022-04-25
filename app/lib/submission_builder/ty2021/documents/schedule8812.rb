@@ -35,7 +35,7 @@ module SubmissionBuilder
               xml.RCTCTaxLiabiltyLimitAmt 0 #14c
               xml.ODCAfterTaxLiabilityLimitAmt 0 #14d
               xml.CTCODCAfterTaxLiabilityLmtAmt 0 #14e
-              xml.AggregateAdvncCTCAmt ctc_qualifying_dependents.none? && benefits_eligibility.advance_ctc_amount_received.zero? ? nil : benefits_eligibility.advance_ctc_amount_received #14f
+              xml.AggregateAdvncCTCAmt ctc_qualifying_dependents.none? ? nil : benefits_eligibility.advance_ctc_amount_received #14f
               xml.NetCTCODCAfterLimitAmt benefits_eligibility.outstanding_ctc_amount #14g
               xml.NonrefundableODCAmt 0 #14h
               xml.RefundableCTCAmt benefits_eligibility.outstanding_ctc_amount #14i

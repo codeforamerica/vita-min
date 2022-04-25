@@ -36,7 +36,7 @@ class Irs8812Ty2021Pdf
       Line14c: 0, #14c
       Line14d: 0, #14d
       TotalCtcAmt14e: 0, #14e
-      AdvCtcReceived14f: @ctc_qualifying_dependents.none? && @benefits.advance_ctc_amount_received.zero? ? nil : @benefits.advance_ctc_amount_received, #14f
+      AdvCtcReceived14f: @ctc_qualifying_dependents.none? ? nil : @benefits.advance_ctc_amount_received, #14f
       CtcOwed14g: @benefits.outstanding_ctc_amount, #14g
       Line14h: 0, #14h
       CtcOwed14i: @benefits.outstanding_ctc_amount, #14i
