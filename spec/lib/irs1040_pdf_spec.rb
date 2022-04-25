@@ -20,7 +20,7 @@ RSpec.describe Irs1040Pdf do
         submission.reload
       end
 
-      xit "returns a pdf with default fields and values" do
+      it "returns a pdf with default fields and values" do
         output_file = pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to match({
@@ -76,7 +76,7 @@ RSpec.describe Irs1040Pdf do
                                   "PensionsAnnuitiesAmt5a" => nil,
                                   "PhoneNumber" => "",
                                   "Primary65OrOlderInd" => "Off",
-                                  "PrimaryBlindInd" => "Off", # TODO: Should this be off?
+                                  "PrimaryBlindInd" => "Off",
                                   "PrimaryClaimAsDependentInd" => "Off",
                                   "PrimaryFirstNm" => "",
                                   "PrimaryIPPIN" => "",
@@ -166,7 +166,7 @@ RSpec.describe Irs1040Pdf do
                                   "TotalIncomeAmt9" => "0",
                                   "AdjustedGrossIncomeAmt11" => "0",
                                   "TotalItemizedOrStandardDedAmt12a" => "14250",
-                                  "TotalAdjustmentsToIncomeAmt12c" => "12550",
+                                  "TotalAdjustmentsToIncomeAmt12c" => "14250",
                                   "TaxableIncomeAmt15" => "0",
                                   "RecoveryRebateCreditAmt30" => claimed_rrc.to_s,
                                   "RefundableCreditsAmt32" => outstanding_credits,
