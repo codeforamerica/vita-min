@@ -6,10 +6,23 @@ describe Hub::TaxReturnForm do
 
     context "with no params" do
       let(:params) { {} }
-      let(:tax_return) { create :tax_return, :intake_in_progress, service_type: "drop_off" }
+      let(:tax_return) { create :tax_return, :intake_in_progress, service_type: service_type }
       let(:client) { tax_return.client }
-      it "initializes with a default drop_off value for service_type if there are tax returns" do
-        expect(subject.service_type).to eq "drop_off"
+
+      context "if existing tax returns were drop off" do
+        let(:service_type) { "drop_off" }
+
+        it "initializes with a drop_off value for service_type" do
+          expect(subject.service_type).to eq "drop_off"
+        end
+      end
+
+      context "if existing tax returns were online intake" do
+        let(:service_type) { "online_intake" }
+
+        it "initializes with a online_intake value for service_type" do
+          expect(subject.service_type).to eq "online_intake"
+        end
       end
     end
 
