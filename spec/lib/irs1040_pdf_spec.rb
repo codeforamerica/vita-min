@@ -138,12 +138,15 @@ RSpec.describe Irs1040Pdf do
     end
 
     context "with a filled out submission record" do
+      let(:claimed_rrc) { 1000 }
+      let(:outstanding_ctc) { 500 }
+      let(:outstanding_credits) { (claimed_rrc + outstanding_ctc).to_s }
       before do
         submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1))
         submission.reload
 
-        @claimed_rrc = 1000
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return @claimed_rrc
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return claimed_rrc
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_ctc_amount).and_return(outstanding_ctc)
       end
 
       it "returns a filled out pdf" do
@@ -164,11 +167,11 @@ RSpec.describe Irs1040Pdf do
                                   "TotalItemizedOrStandardDedAmt12a" => "12550",
                                   "TotalAdjustmentsToIncomeAmt12c" => "12550",
                                   "TaxableIncomeAmt15" => "0",
-                                  "RecoveryRebateCreditAmt30" => @claimed_rrc.to_s,
-                                  "RefundableCreditsAmt32" => @claimed_rrc.to_s,
-                                  "TotalPaymentsAmt33" => @claimed_rrc.to_s,
-                                  "OverpaidAmt34" => @claimed_rrc.to_s,
-                                  "RefundAmt35" => @claimed_rrc.to_s,
+                                  "RecoveryRebateCreditAmt30" => claimed_rrc.to_s,
+                                  "RefundableCreditsAmt32" => outstanding_credits,
+                                  "TotalPaymentsAmt33" => outstanding_credits,
+                                  "OverpaidAmt34" => outstanding_credits,
+                                  "RefundAmt35" => outstanding_credits,
                                   "PrimarySignature" => "#{submission.intake.primary_first_name} #{submission.intake.primary_last_name}",
                                   "PrimarySignatureDate" => "01/01/20",
                                   "PrimaryIPPIN" => "12345",
@@ -177,7 +180,7 @@ RSpec.describe Irs1040Pdf do
                                   "RoutingTransitNum35b" => "XXXXX6789",
                                   "DepositorAccountNum35d" => "XXXX4321",
                                   "BankAccountTypeCd" => "Checking",
-                                  "AdditionalChildTaxCreditAmt28" => "0"
+                                  "AdditionalChildTaxCreditAmt28" => outstanding_ctc.to_s,
                                 ))
       end
     end
