@@ -294,11 +294,11 @@ describe EfileSubmission do
   end
 
   describe "#generate_verified_address" do
-    context "when there is an existing addresss and skip_usps_validation is set to true" do
+    context "when there is an existing address" do
       let(:submission) { create :efile_submission, :preparing }
       let!(:address) { create :address, record: submission, skip_usps_validation: true }
 
-      it "returns true and does not connect to USPS service" do
+      it "returns an object that we can call valid on and does not connect to USPS service" do
         expect(submission.generate_verified_address.valid?).to be true
         expect(StandardizeAddressService).not_to have_received(:new)
       end

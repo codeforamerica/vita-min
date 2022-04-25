@@ -1,4 +1,5 @@
 class Irs1040Pdf
+  attr_accessor :address
   include PdfHelper
 
   def source_pdf_name
@@ -10,7 +11,7 @@ class Irs1040Pdf
     @tax_return = submission.tax_return
     @intake = submission.intake
     @qualifying_dependents = submission.qualifying_dependents
-    @address = @intake.address
+    @address = @submission.verified_address || @intake.address
     @benefits = Efile::BenefitsEligibility.new(tax_return: @tax_return, dependents: @qualifying_dependents)
   end
 

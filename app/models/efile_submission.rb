@@ -118,9 +118,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def generate_verified_address
-    if verified_address.present? && verified_address.skip_usps_validation
-      return OpenStruct.new(valid?: true)
-    end
+    return verified_address if verified_address.present?
 
     address_service = StandardizeAddressService.new(intake)
     if address_service.valid?
@@ -131,8 +129,8 @@ class EfileSubmission < ApplicationRecord
         city: address_service.city
       }
     end
-    verified_address.present? ? verified_address.update(attrs) : create_verified_address(attrs)
-    address_service
+    create_verified_address(attrs)
+    address_service # return the service object so that we can get errors if there are any
   end
 
   def generate_filing_pdf

@@ -7,6 +7,26 @@ RSpec.describe Irs1040Pdf do
   # Locked to 2021 because the resulting PDF matches 2021 revenue procedure needs.
   let(:submission) { create :efile_submission, :ctc, tax_year: 2021 }
 
+  describe "initialization" do
+    context "when there is a verified address for the submission" do
+      it "uses the verified address" do
+        expect(pdf.address).to be_an_instance_of Address
+        expect(pdf.address).to be_persisted
+      end
+    end
+
+    context "when there is no verified address for the submission" do
+      before do
+        submission.verified_address.destroy!
+      end
+
+      it "falls back to using the intake address" do
+        expect(pdf.address).to be_an_instance_of Address
+        expect(pdf.address).not_to be_persisted
+      end
+    end
+  end
+
   describe "#output_file" do
     context "with an empty submission record" do
 
@@ -14,6 +34,7 @@ RSpec.describe Irs1040Pdf do
       before do
         submission.intake.update(email_address: nil, phone_number: nil, sms_phone_number: nil, primary_first_name: "", primary_last_name: "", primary_ssn: "", claim_owed_stimulus_money: "no", zip_code: "", city: "", state: "", street_address: "", street_address2: "" )
         submission.intake.bank_account.destroy!
+        submission.verified_address.destroy!
         submission.intake.dependents.destroy_all
         submission.tax_return.update(filing_status: nil)
         submission.reload
@@ -141,15 +162,11 @@ RSpec.describe Irs1040Pdf do
       let(:outstanding_ctc) { 500 }
       let(:outstanding_credits) { (claimed_rrc + outstanding_ctc).to_s }
       before do
-        submission.intake.update(primary_ip_pin: "12345", primary_signature_pin_at: Date.new(2020, 1, 1), has_crypto_income: true)
         submission.intake.update(
-            primary_ip_pin: "12345",
-            primary_signature_pin_at: Date.new(2020, 1, 1),
-            has_crypto_income: true,
-            street_address: "23627 HAWKINS CREEK CT",
-            city: "KATY",
-            state: "TX",
-            zip_code: "77494")
+          primary_ip_pin: "12345",
+          primary_signature_pin_at: Date.new(2020, 1, 1),
+          has_crypto_income: true,
+        )
         submission.reload
 
         allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return claimed_rrc

@@ -8,12 +8,32 @@ describe CreateSubmissionPdfJob do
     before do
       allow(EfileSubmission).to receive_message_chain(:includes, :find).and_return submission_double
       allow(submission_double).to receive(:generate_filing_pdf)
+      allow(submission_double).to receive(:generate_verified_address)
+
     end
 
+
     context "generating the pdf" do
+      it "verifies the address" do
+        described_class.perform_now(submission.id)
+        expect(submission_double).to have_received(:generate_verified_address)
+      end
+
       it "creates a filing pdf" do
         described_class.perform_now(submission.id)
         expect(submission_double).to have_received(:generate_filing_pdf)
+      end
+
+      context "when the address cannot be verified" do
+        before do
+          allow(submission_double).to receive(:generate_verified_address).and_raise StandardError
+        end
+
+        it "rescues gracefully and continues the operation" do
+          described_class.perform_now(submission.id)
+          expect(submission_double).to have_received(:generate_verified_address)
+          expect(submission_double).to have_received(:generate_filing_pdf)
+        end
       end
     end
 
