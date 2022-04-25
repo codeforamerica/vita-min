@@ -16,7 +16,7 @@ module Hub
     def initialize(client, params={})
       @client = client
       super(params)
-      @service_type ||= "drop_off" if client.tax_returns.pluck(:service_type).include? "drop_off"
+      @service_type ||= client.tax_returns.pluck(:service_type).include?("drop_off") ? "drop_off" : "online_intake"
       @current_state ||= "intake_in_progress"
       @tax_return = @client.tax_returns.new
     end
@@ -28,7 +28,7 @@ module Hub
     end
 
     def self.permitted_params
-      [:service_type, :year, :assigned_user_id, :current_state, :certification_level, :service_type]
+      [:service_type, :year, :assigned_user_id, :current_state, :certification_level]
     end
 
     def tax_return_years
