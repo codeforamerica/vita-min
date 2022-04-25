@@ -345,8 +345,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_payment.title"))
     expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.ctc_due"))
     expect(page).to have_selector("p", text:  "$1,800")
-    expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.rrc"))
-    expect(page).to have_selector("p", text:  "$0")
     expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.third_stimulus"))
     expect(page).to have_selector("p", text:  "$4,200")
     click_on I18n.t('general.continue')
