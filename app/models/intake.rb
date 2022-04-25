@@ -300,7 +300,7 @@ class Intake < ApplicationRecord
     self.needs_to_flush_searchable_data_set_at = Time.current
     if email_address.present?
       self.email_domain = email_address.split('@').last.downcase
-      self.canonical_email_address = compute_canonical_email_address
+      self.canonical_email_address = CanonicalEmail.get(email_address)
     end
     if primary_ssn_changed?
       self.primary_last_four_ssn = primary_ssn&.last(4)
@@ -526,14 +526,5 @@ class Intake < ApplicationRecord
 
   def itin_applicant?
     need_itin_help_yes?
-  end
-
-  def compute_canonical_email_address
-    if email_domain == 'gmail.com'
-      username, domain = email_address.split('@')
-      [username.gsub('.', ''), domain].join('@').downcase
-    else
-      email_address.downcase
-    end
   end
 end

@@ -2,15 +2,15 @@ require "rails_helper"
 
 describe CanonicalEmail do
   describe ".get" do
-    context "google.com domain" do
+    context "gmail.com domain" do
       it "removes everything after the + and removes ." do
-        expect(CanonicalEmail.get("something.something-something+1234@google.com")).to eq "somethingsomething-something@google.com"
+        expect(CanonicalEmail.get("something.something-something+1234@gmail.com")).to eq "somethingsomething-something@gmail.com"
       end
     end
 
     context "yahoo.com domain" do
       it "removes everything following a hyphen" do
-        expect(CanonicalEmail.get("something.something-something-1234@yahoo.com")).to eq "something.somethingsomething@yahoo.com"
+        expect(CanonicalEmail.get("something.something-something+1234@yahoo.com")).to eq "something.something@yahoo.com"
       end
     end
     
@@ -21,6 +21,12 @@ describe CanonicalEmail do
         expect(CanonicalEmail.get("something.something-something+1234@icloud.com")).to eq "something.something-something@icloud.com"
         expect(CanonicalEmail.get("something.something-something+1234@me.com")).to eq "something.something-something@me.com"
         expect(CanonicalEmail.get("something.something-something+1234@mac.com")).to eq "something.something-something@mac.com"
+      end
+    end
+
+    context "any other domain" do
+      it "doesnt do anything to it" do
+        expect(CanonicalEmail.get("something.something-something+1234@other.com")).to eq "something.something-something+1234@other.com"
       end
     end
   end
