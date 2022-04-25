@@ -15,6 +15,7 @@ class Irs1040Pdf
   end
 
   def hash_for_pdf
+    total_refundable_credits = @benefits.claimed_recovery_rebate_credit + @benefits.outstanding_ctc_amount
     answers = {
         FilingStatus: @tax_return.filing_status_code,
         PrimaryFirstNm: @intake.primary_middle_initial.present? ? "#{@intake.primary_first_name} #{@intake.primary_middle_initial}" : @intake.primary_first_name,
@@ -30,11 +31,12 @@ class Irs1040Pdf
         TotalItemizedOrStandardDedAmt12a: @tax_return.standard_deduction,
         TotalAdjustmentsToIncomeAmt12c: @tax_return.standard_deduction, # 12c = 12a + 12b; 12b is charitable contributions which is 0 for us
         TaxableIncomeAmt15: 0,
+        AdditionalChildTaxCreditAmt28: @benefits.outstanding_ctc_amount,
         RecoveryRebateCreditAmt30: @benefits.claimed_recovery_rebate_credit,
-        RefundableCreditsAmt32: @benefits.claimed_recovery_rebate_credit,
-        TotalPaymentsAmt33: @benefits.claimed_recovery_rebate_credit,
-        OverpaidAmt34: @benefits.claimed_recovery_rebate_credit,
-        RefundAmt35: @benefits.claimed_recovery_rebate_credit,
+        RefundableCreditsAmt32: total_refundable_credits,
+        TotalPaymentsAmt33: total_refundable_credits,
+        OverpaidAmt34: total_refundable_credits,
+        RefundAmt35: total_refundable_credits,
         PrimarySignature: @intake.primary_full_name,
         PrimarySignatureDate: @intake.primary_signature_pin_at&.strftime("%m/%d/%y"),
         PrimaryIPPIN: @intake.primary_ip_pin,

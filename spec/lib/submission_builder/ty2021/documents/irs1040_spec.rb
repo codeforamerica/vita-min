@@ -60,9 +60,14 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
     end
 
     context "the XML document contents" do
+      let(:outstanding_ctc) { 3000 }
+      let(:claimed_rrc) { 3800 }
+
       before do
         create(:bank_account, intake: submission.intake)
         submission.intake.update(refund_payment_method: "direct_deposit")
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_ctc_amount).and_return(outstanding_ctc)
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:claimed_recovery_rebate_credit).and_return(claimed_rrc)
       end
 
       it "includes required nodes on the IRS1040 for the AdvCTC revenue procedure" do
@@ -94,15 +99,15 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("TaxableIncomeAmt").text).to eq "0"
 
         # Line 28: remaining amount of CTC they are claiming (as determined in flow and listed on 8812 14i
-        expect(xml.at("RefundableCTCOrACTCAmt").text).to eq "0" # TODO: replace this when we calculate this number
+        expect(xml.at("RefundableCTCOrACTCAmt").text).to eq "3000"
 
-        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "3200" # Line 30
+        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "3800" # Line 30
 
         # Line 32, 33, 34, 35a: Line 28 + Line 30
-        expect(xml.at("RefundableCreditsAmt").text).to eq "3200"
-        expect(xml.at("TotalPaymentsAmt").text).to eq "3200"
-        expect(xml.at("OverpaidAmt").text).to eq "3200"
-        expect(xml.at("RefundAmt").text).to eq "3200"
+        expect(xml.at("RefundableCreditsAmt").text).to eq "6800"
+        expect(xml.at("TotalPaymentsAmt").text).to eq "6800"
+        expect(xml.at("OverpaidAmt").text).to eq "6800"
+        expect(xml.at("RefundAmt").text).to eq "6800"
 
         expect(xml.at("RoutingTransitNum").text).to eq "123456789"
         expect(xml.at("BankAccountTypeCd").text).to eq "1"
@@ -120,12 +125,11 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         submission.intake.update(claim_owed_stimulus_money: "no")
       end
 
-      it "sets the credit amounts to 0, and sets refund amount to 0" do
+      it "sets the credit amounts to 0, and sets refund amount to outstanding CTC amount" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
 
         expect(xml.at("RecoveryRebateCreditAmt").text).to eq "0"
-        expect(xml.at("RecoveryRebateCreditAmt").text).to eq "0"
-        expect(xml.at("RefundAmt").text).to eq "0"
+        expect(xml.at("RefundAmt").text).to eq "3600"
       end
 
       it "conforms to the eFileAttachments schema" do
