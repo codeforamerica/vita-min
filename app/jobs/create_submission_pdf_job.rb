@@ -5,7 +5,7 @@ class CreateSubmissionPdfJob < ApplicationJob
     begin
       submission.generate_verified_address
     rescue
-      # do nothing because we can allow the PDF address fall through to the unverified one if need be
+      # if the connection to USPS service fails here, that's okay because we can fall back to the unverified address to create the PDF
     end
 
     begin
