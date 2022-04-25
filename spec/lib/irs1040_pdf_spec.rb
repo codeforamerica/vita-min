@@ -184,10 +184,6 @@ RSpec.describe Irs1040Pdf do
                                   "PrimaryIPPIN" => "12345",
                                   "PhoneNumber" => "(415) 555-1212",
                                   "EmailAddress" => submission.intake.email_address,
-                                  "RoutingTransitNum35b" => "",
-                                  "DepositorAccountNum35d" => "",
-                                  "BankAccountTypeCd" => "",
-                                  "AdditionalChildTaxCreditAmt28" => outstanding_ctc.to_s,
                                 ))
       end
     end
