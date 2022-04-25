@@ -26,6 +26,20 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
     end
   end
 
+  context "the client is on fraud hold and has the opportunity to paper file" do
+    scenario "they see the info to paper file" do
+      visit "/en/portal"
+      expect(page).to have_content(I18n.t("views.ctc.portal.verification.title"))
+      click_on I18n.t("views.ctc.portal.verification.i_dont_have_id")
+      expect(page).to have_text I18n.t("views.ctc.portal.verification.paper_file.title")
+      expect(page).to have_selector("a", text: I18n.t("views.ctc.portal.verification.paper_file.paper_file_instructions"))
+      expect(page).to have_selector("p", text: I18n.t("views.ctc.portal.verification.paper_file.warning"))
+      expect(page).to have_selector("a", text: I18n.t("views.ctc.portal.verification.paper_file.download_link_text"))
+      click_on I18n.t("views.ctc.portal.verification.paper_file.go_back")
+      expect(page).to have_content(I18n.t("views.ctc.portal.verification.title"))
+    end
+  end
+
   context "when the client is in fraud hold and does not have an existing verification attempt" do
     scenario "they see the verification attempt page" do
       visit "/en/portal"

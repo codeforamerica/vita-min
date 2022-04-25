@@ -1870,9 +1870,17 @@ en:
             label: Spouse's %{prior_tax_year} AGI
             title: Edit your spouse's %{prior_tax_year} Adjusted Gross Income
         verification:
+          i_dont_have_id: I don't have an ID
           id: Your driver's license or state ID card
           id_label: Photo of your ID
           info: 'To protect your identity and verify your information, we''ll need you to submit the following two photos:'
+          paper_file:
+            download_link_text: Download 1040
+            go_back: Submit my ID instead
+            info: You will need to download and sign a paper 1040 form and mail in your tax return.
+            paper_file_instructions: Full instructions on paper filing can be found here.
+            title: If you do not have an ID, you need to file a paper return.
+            warning: Paper filing can be very slow; it may take months for the IRS to process a paper return. If you're able to upload your ID, we strongly recommend you do so.
           resubmission: Your reviewer has requested that you upload photos again. This is normally because the provided photos were blurry, or do not include your photo id. Please check the guidelines below and resubmit.
           selfie: You holding the card near your face
           selfie_label: Photo of yourself holding ID
