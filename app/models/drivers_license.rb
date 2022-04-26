@@ -11,5 +11,6 @@
 #  updated_at      :datetime         not null
 #
 class DriversLicense < ApplicationRecord
-  has_one :intake
+  has_one :intake_as_primary, class_name: "Intake", foreign_key: "primary_drivers_license_id"
+  has_one :intake_as_spouse, class_name: "Intake", foreign_key: "spouse_drivers_license_id"
 end

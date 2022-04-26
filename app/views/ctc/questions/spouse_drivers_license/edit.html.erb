@@ -9,7 +9,7 @@
 
     <div class="form-card__content">
       <%= f.cfa_select(:state, t("views.ctc.questions.spouse_drivers_license.state"), States.name_value_pairs) %>
-      <%= f.cfa_input_field(:license_number, t("views.ctc.questions.spouse_drivers_license.license_number"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:license_number, t("views.ctc.questions.spouse_drivers_license.license_number"), classes: ["form-width--long"], options: { maxlength: 20 }) %>
       <%= f.vita_min_date_text_fields(
             :issue_date,
             t("views.ctc.questions.drivers_license.issue_date"),
@@ -26,7 +26,7 @@
 
     <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-below-15" %>
 
-    <%= link_to next_path, class: "button button--full-width text--centered" do %>
+    <%= link_to next_path, class: "button button--wide text--centered" do %>
       <%= t("general.skip") %>
     <% end %>
   <% end %>
