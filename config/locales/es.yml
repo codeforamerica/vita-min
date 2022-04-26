@@ -3348,6 +3348,7 @@ es:
         survey:
           title: "¿Qué tan útil fue esta respuesta?"
         title: Preguntas frecuentes
+        view_all_questions: Ver todas las preguntas
       home:
         clients:
           across_us: de clientes en todo Estados Unidos.
