@@ -1,6 +1,6 @@
 module Ctc
   class BaseSpouseForm < QuestionsForm
-    include BirthDateHelper
+    include DateHelper
 
     validates :spouse_first_name, presence: true, legal_name: true
     validates :spouse_last_name, presence: true, legal_name: true
@@ -37,7 +37,7 @@ module Ctc
     private
 
     def spouse_birth_date
-      parse_birth_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day)
+      parse_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day)
     end
 
     def spouse_birth_date_is_valid_date

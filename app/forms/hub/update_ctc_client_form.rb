@@ -1,6 +1,6 @@
 module Hub
   class UpdateCtcClientForm < ClientForm
-    include BirthDateHelper
+    include DateHelper
     include CtcClientFormAttributes
     set_attributes_for :intake,
                        :primary_first_name,

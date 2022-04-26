@@ -1,4 +1,4 @@
-module BirthDateHelper
+module DateHelper
   def valid_primary_birth_date
     valid_text_birth_date(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day, :primary_birth_date)
   end
@@ -37,12 +37,22 @@ module BirthDateHelper
     true
   end
 
-  def parse_birth_date_params(year, month, day)
-    birth_date_values = [year, month, day]
-    return nil if birth_date_values.any?(&:blank?)
+  def valid_text_date(date_year, date_month, date_day, key = :date)
+    parsed_date = parse_date_params(date_year, date_month, date_day)
+    unless parsed_date.present?
+      self.errors.add(key, I18n.t('errors.attributes.birth_date.blank'))
+      return false
+    end
+
+    true
+  end
+
+  def parse_date_params(year, month, day)
+    date_values = [year, month, day]
+    return nil if date_values.any?(&:blank?)
 
     begin
-      Date.new(*birth_date_values.map(&:to_i))
+      Date.new(*date_values.map(&:to_i))
     rescue ArgumentError => error
       raise error unless error.to_s == "invalid date"
       nil

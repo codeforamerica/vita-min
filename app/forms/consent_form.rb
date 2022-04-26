@@ -1,5 +1,5 @@
 class ConsentForm < QuestionsForm
-  include BirthDateHelper
+  include DateHelper
   set_attributes_for(
     :intake,
     :birth_date_year,
@@ -17,7 +17,7 @@ class ConsentForm < QuestionsForm
     attributes = attributes_for(:intake)
       .except(:birth_date_year, :birth_date_month, :birth_date_day)
       .merge(
-        primary_birth_date: parse_birth_date_params(birth_date_year, birth_date_month, birth_date_day),
+        primary_birth_date: parse_date_params(birth_date_year, birth_date_month, birth_date_day),
       )
     intake.update(attributes)
   end

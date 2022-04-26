@@ -1,7 +1,7 @@
 module Ctc
   module Portal
     class DependentForm < Ctc::Dependents::DependentForm
-      include BirthDateHelper
+      include DateHelper
 
       set_attributes_for :dependent,
                          :first_name,

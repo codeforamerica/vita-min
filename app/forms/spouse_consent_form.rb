@@ -1,5 +1,5 @@
 class SpouseConsentForm < QuestionsForm
-  include BirthDateHelper
+  include DateHelper
 
   set_attributes_for(
     :intake,

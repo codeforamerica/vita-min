@@ -1609,6 +1609,7 @@ es:
     atin: Por favor, indique un número de identificación fiscal válido de adopción.
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
+    drivers_license: La licencia de conducir debe ser válida.
     ip_pin: IP PINs debe ser un número de 6 dígitos.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.

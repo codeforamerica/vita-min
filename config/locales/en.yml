@@ -1651,6 +1651,7 @@ en:
     atin: Please enter a valid adoption taxpayer identification number.
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
+    drivers_license: Driver's license must be valid. La licencia de conducir debe ser válida.
     ip_pin: IP PINs must be a 6 digit number.
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
