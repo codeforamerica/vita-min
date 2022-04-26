@@ -66,6 +66,22 @@ describe Fraud::Indicator do
       end
     end
 
+    context "when the reference is intake and query_model_name is Intake::CtcIntake" do
+      let(:intake) { create :intake }
+      let(:query_double) { double }
+      before do
+        indicator.reference = "intake"
+        indicator.query_model_name = "Intake::CtcIntake"
+        allow(Intake::CtcIntake).to receive(:where).and_return query_double
+        allow(query_double).to receive(:average)
+      end
+
+      it "builds the scoped query as a self-reference" do
+        indicator.execute(intake: intake)
+        expect(Intake::CtcIntake).to have_received(:where).with(id: intake.id)
+      end
+    end
+
     context "when the indicator type has a defined method" do
       before do
         allow(indicator).to receive(:average_under)
