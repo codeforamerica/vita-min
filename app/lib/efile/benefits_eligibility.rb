@@ -86,7 +86,11 @@ module Efile
     private
 
     def rrc_eligible_filer_count
-      return intake.primary_tin_type == "ssn" ? 1 : 0 if tax_return.filing_status_single?
+      raise "unsupported filing type" unless tax_return.filing_status.in? %w[married_filing_jointly head_of_household single]
+      
+      unless tax_return.filing_status_married_filing_jointly?
+        return intake.primary_tin_type == "ssn" ? 1 : 0
+      end
 
       # if one spouse is a member of the armed forces, both qualify for benefits
       return 2 if [intake.primary_active_armed_forces, intake.spouse_active_armed_forces].any?("yes")
