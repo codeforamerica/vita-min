@@ -81,6 +81,7 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("VirtualCurAcquiredDurTYInd").text).to eq "true"
         expect(xml.at("PrimaryBlindInd").text).to eq "X"
         expect(xml.at("SpouseBlindInd").text).to eq "X"
+        expect(xml.at("TotalBoxesCheckedCnt").text).to eq "3" # 65+ and blind
         expect(xml.at("TotalExemptPrimaryAndSpouseCnt").text).to eq "2" # married filing joint
         dependent_nodes = xml.search("DependentDetail")
         expect(dependent_nodes.length).to eq 2
