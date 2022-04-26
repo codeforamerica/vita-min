@@ -3,7 +3,7 @@ module RelationshipsHelper
   # to the list if necessary.
   def dependent_relationship_options(current_relationship: nil)
     options = Efile::Relationship.all.map { |relationship| [I18n.t("general.dependent_relationships.#{relationship.id}"), relationship.id] }
-    if current_relationship.present? && Efile::Relationship.find(current_relationship.to_sym).nil?
+    if current_relationship.present? && Efile::Relationship.find(current_relationship).nil?
       options.push(["#{I18n.t("general.dependent_relationships.other_freefill")}: #{current_relationship}", current_relationship])
     end
     options
