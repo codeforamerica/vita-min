@@ -451,6 +451,7 @@ en:
     single: Single
     site_coordinator: Site coordinator
     sites: Sites
+    skip: Skip
     skip_question: Skip question
     skip_questions: Skip questions
     sms_phone_number: Cell phone number
@@ -1649,9 +1650,9 @@ en:
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     atin: Please enter a valid adoption taxpayer identification number.
+    drivers_license: Driver's license must be valid. La licencia de conducir debe ser válida.
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
-    drivers_license: Driver's license must be valid. La licencia de conducir debe ser válida.
     ip_pin: IP PINs must be a 6 digit number.
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
@@ -2088,6 +2089,13 @@ en:
             error_message: Enter info for a bank account with your name on it, or switch to check as your payment type.
             error_message_html: Enter info for a bank account with your name on it, or <a href=%{link}> select a different method for your payment</a>.
             label: I confirm that my name is on this bank account.
+        drivers_license:
+          expiration_date: Expiration date
+          help_text: Entering your driver’s license information is a way to fight fraud, and may get your return processed faster.
+          issue_date: Issue date
+          license_number: Driver’s license number
+          state: Driver’s license state
+          title: Do you have a driver’s license?
         email_address:
           title: Please share your email address.
         file_full_return:
@@ -2235,6 +2243,11 @@ en:
         routing_number:
           routing_number: Routing number
           routing_number_confirmation: Confirm routing number
+        spouse_drivers_license:
+          help_text: Because you are filing jointly, providing your spouse’s driver’s license information is a way to fight fraud, and may get your return processed faster.
+          license_number: Spouse driver’s license number
+          state: Spouse driver’s license state
+          title: Does your spouse have a driver’s license?
         spouse_filed_prior_tax_year:
           did_not_file: My spouse did not file a %{prior_tax_year} tax return
           filed_full_joint: My spouse filed a full tax return jointly with me

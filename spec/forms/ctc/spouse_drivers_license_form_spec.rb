@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Ctc::DriversLicenseForm do
+describe Ctc::SpouseDriversLicenseForm do
   let(:form) { described_class.new(intake, params) }
   let(:intake) { build :ctc_intake }
   let(:params) {
@@ -45,10 +45,10 @@ describe Ctc::DriversLicenseForm do
   end
 
   describe "#existing_attributes" do
-    let(:populated_intake) { build :ctc_intake, primary_drivers_license: create(:drivers_license, issue_date: Date.new(2020, 5, 10), expiration_date: Date.new(2022, 5, 10)) }
+    let(:populated_intake) { build :ctc_intake, spouse_drivers_license: create(:drivers_license, issue_date: Date.new(2020, 5, 10), expiration_date: Date.new(2022, 5, 10)) }
 
     it "returns a hash with the date fields populated" do
-      attributes = Ctc::DriversLicenseForm.existing_attributes(populated_intake, Ctc::DriversLicenseForm.scoped_attributes[:intake])
+      attributes = Ctc::SpouseDriversLicenseForm.existing_attributes(populated_intake, Ctc::SpouseDriversLicenseForm.scoped_attributes[:intake])
 
       expect(attributes[:issue_date_year]).to eq 2020
       expect(attributes[:issue_date_month]).to eq 5
@@ -65,7 +65,7 @@ describe Ctc::DriversLicenseForm do
       form.valid?
       expect(form.save).to be_truthy
 
-      drivers_license = Intake.last.primary_drivers_license
+      drivers_license = Intake.last.spouse_drivers_license
       expect(drivers_license.state).to eq "CA"
       expect(drivers_license.license_number).to eq "YT12345"
       expect(drivers_license.issue_date).to eq Date.new(2020, 9, 10)

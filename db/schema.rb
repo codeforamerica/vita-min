@@ -694,12 +694,10 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
   create_table "drivers_licenses", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.date "expiration_date", null: false
-    t.bigint "intake_id"
     t.date "issue_date", null: false
     t.string "license_number", null: false
     t.string "state", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["intake_id"], name: "index_drivers_licenses_on_intake_id"
   end
 
   create_table "efile_errors", force: :cascade do |t|
@@ -957,7 +955,6 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
     t.integer "demographic_veteran", default: 0, null: false
     t.integer "divorced", default: 0, null: false
     t.string "divorced_year"
-    t.bigint "drivers_license_id"
     t.integer "eip1_amount_received"
     t.integer "eip1_and_2_amount_received_confidence"
     t.integer "eip1_entry_method", default: 0, null: false
@@ -1068,6 +1065,7 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
     t.integer "primary_consented_to_service", default: 0, null: false
     t.datetime "primary_consented_to_service_at"
     t.inet "primary_consented_to_service_ip"
+    t.bigint "primary_drivers_license_id"
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
@@ -1109,6 +1107,7 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
     t.integer "spouse_consented_to_service", default: 0, null: false
     t.datetime "spouse_consented_to_service_at"
     t.inet "spouse_consented_to_service_ip"
+    t.bigint "spouse_drivers_license_id"
     t.citext "spouse_email_address"
     t.integer "spouse_filed_prior_tax_year", default: 0, null: false
     t.string "spouse_first_name"
@@ -1162,14 +1161,15 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
     t.index ["canonical_email_address"], name: "index_intakes_on_canonical_email_address"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
-    t.index ["drivers_license_id"], name: "index_intakes_on_drivers_license_id"
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
+    t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
+    t.index ["spouse_drivers_license_id"], name: "index_intakes_on_spouse_drivers_license_id"
     t.index ["spouse_email_address"], name: "index_intakes_on_spouse_email_address"
     t.index ["type"], name: "index_intakes_on_type"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"

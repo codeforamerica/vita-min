@@ -1,0 +1,33 @@
+<% content_for :page_title, t("views.ctc.questions.drivers_license.title") %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= content_for(:page_title) %></h1>
+    <p>
+      <%=t("views.ctc.questions.drivers_license.help_text") %>
+    </p>
+
+    <div class="form-card__content">
+      <%= f.cfa_select(:state, t("views.ctc.questions.drivers_license.state"), States.name_value_pairs) %>
+      <%= f.cfa_input_field(:license_number, t("views.ctc.questions.drivers_license.license_number"), classes: ["form-width--long"]) %>
+      <%= f.vita_min_date_text_fields(
+            :issue_date,
+            t("views.ctc.questions.drivers_license.issue_date"),
+            help_text: t("hub.clients.show.date_of_birth_help"),
+            classes: ["ctc-intake-date-text-input"]
+          ) %>
+      <%= f.vita_min_date_text_fields(
+            :expiration_date,
+            t("views.ctc.questions.drivers_license.expiration_date"),
+            help_text: t("hub.clients.show.date_of_birth_help"),
+            classes: ["ctc-intake-date-text-input"]
+          ) %>
+    </div>
+
+    <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-below-15" %>
+
+    <%= link_to next_path, class: "button button--full-width text--centered" do %>
+      <%= t("general.skip") %>
+    <% end %>
+  <% end %>
+<% end %>

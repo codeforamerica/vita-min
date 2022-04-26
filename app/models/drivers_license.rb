@@ -9,13 +9,7 @@
 #  state           :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  intake_id       :bigint
-#
-# Indexes
-#
-#  index_drivers_licenses_on_intake_id  (intake_id)
 #
 class DriversLicense < ApplicationRecord
-  belongs_to :intake
-  has_one :client, through: :intake
+  has_one :intake
 end

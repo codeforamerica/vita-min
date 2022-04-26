@@ -1,5 +1,5 @@
 module Ctc
-  class DriversLicenseForm < QuestionsForm
+  class SpouseDriversLicenseForm < QuestionsForm
     include DateHelper
 
     set_attributes_for :drivers_license,
@@ -18,7 +18,7 @@ module Ctc
     validate :expiration_date_is_valid_date
 
     def save
-      @intake.update(primary_drivers_license_attributes: attributes_for(:drivers_license).merge(
+      @intake.update(spouse_drivers_license_attributes: attributes_for(:drivers_license).merge(
         issue_date: issue_date,
         expiration_date: expiration_date
         )
@@ -26,8 +26,8 @@ module Ctc
     end
 
     def self.existing_attributes(intake, _attribute_keys)
-      if intake.primary_drivers_license.present?
-        drivers_license = intake.primary_drivers_license
+      if intake.spouse_drivers_license.present?
+        drivers_license = intake.spouse_drivers_license
         super.merge(
           issue_date_day: drivers_license.issue_date.day,
           issue_date_month: drivers_license.issue_date.month,

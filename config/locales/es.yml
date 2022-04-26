@@ -451,6 +451,7 @@ es:
     single: Soltera
     site_coordinator: Coordinadora del sitio
     sites: Sitios
+    skip: Saltar
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sms_phone_number: Número de celular
@@ -1607,9 +1608,9 @@ es:
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     atin: Por favor, indique un número de identificación fiscal válido de adopción.
+    drivers_license: La licencia de conducir debe ser válida.
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
-    drivers_license: La licencia de conducir debe ser válida.
     ip_pin: IP PINs debe ser un número de 6 dígitos.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.
@@ -2045,6 +2046,13 @@ es:
             error_message: Introduzca la información de una cuenta bancaria con su nombre, o seleccione otro método de pago.
             error_message_html: Introduzca la información de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro método de pago</a>.
             label: Confirmo que mi nombre es en esta cuenta bancaria
+        drivers_license:
+          expiration_date: Fecha de caducidad
+          help_text: Ingresar la información de su licencia de conducir es una forma de combatir el fraude y puede hacer que su devolución se procese más rápido.
+          issue_date: Fecha de emisión
+          license_number: Número de licencia de conducir
+          state: Estado de la licencia de conducir
+          title: "¿Tiene licencia de conducir?"
         email_address:
           title: Favor de compartir la dirección de su correo electrónico
         file_full_return:
@@ -2192,6 +2200,13 @@ es:
         routing_number:
           routing_number: Número de ruta bancaria
           routing_number_confirmation: Confirme su número de ruta bancaria bancaria
+        spouse_drivers_license:
+          expiration_date: Fecha de caducidad
+          help_text: Debido a que presenta una declaración conjunta, proporcionar la información de la licencia de conducir de su cónyuge es una forma de combatir el fraude y puede hacer que su declaración se procese más rápido.
+          issue_date: Fecha de emisión
+          license_number: Número de licencia de conducir del cónyuge
+          state: Estado de la licencia de conducir del cónyuge
+          title: "¿Tiene su cónyuge una licencia de conducir?"
         spouse_filed_prior_tax_year:
           did_not_file: Mi cónyuge no presentó la declaración de impuestos del %{prior_tax_year}
           filed_full_joint: Mi cónyuge presentó la declaración de impuestos completa conjuntamente conmigo
