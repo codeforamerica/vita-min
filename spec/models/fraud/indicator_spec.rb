@@ -244,6 +244,16 @@ describe Fraud::Indicator do
         multiplied_score = (80 + (2 * 2 * 0.25 * 80)).to_i
         expect(fraud_indicator.execute(intake: intake, client: client)).to eq [multiplied_score, [1,2,3]]
       end
+
+      context "when there are duplicates, but the threshold is greater than the number of duplicates" do
+        before do
+          fraud_indicator.threshold = 5
+        end
+
+        it "provides the duplicates but the score is 0" do
+          expect(fraud_indicator.execute(intake: intake, client: client)).to eq [0, [1,2,3]]
+        end
+      end
     end
 
     context "when there are no duplicates" do

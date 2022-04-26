@@ -9,8 +9,9 @@
   <div class="field-display spacing-below-5">
     <span class="form-question"><%= key.humanize %>:</span>
     <span class="label-value"><%= value["points"] %> points</span>
-    <br>
-    <span style="font-size: smaller">
+    <% if value["data"].present? %>
+      <br>
+      <span style="font-size: smaller">
       <% if indicator.indicator_type == "duplicates" %>
         <i><%= indicator.reference&.humanize %>s:
           <% value["data"].each_with_index do |id, i| %>
@@ -21,6 +22,7 @@
         <i><%= value["data"].join(", ") %></i>
       <% end %>
     </span>
+    <% end %>
   </div>
 <% end %>
 <% end %>

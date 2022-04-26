@@ -96,7 +96,7 @@ module Fraud
     private
 
     def scoped_records(references)
-      compare_model_name = query_model_name.split("::")[0]
+      compare_model_name = query_model_name.include?("Intake::") ? "Intake" : query_model_name # match from child intake type
       self_reference = compare_model_name.underscore == reference
       scope = self_reference ? { id: references[reference].id } : { reference => references[reference] }
       query_model_name.constantize.where(scope)
@@ -111,6 +111,7 @@ module Fraud
     end
 
     def calculate_points_from_count(count)
+      return 0 unless count >= threshold
       return points unless multiplier.present?
 
       applied_count = (count - 1)
