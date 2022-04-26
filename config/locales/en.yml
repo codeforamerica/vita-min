@@ -1990,7 +1990,7 @@ en:
           ctc_due_link: Claim additional children
           do_not_file: Do not file
           do_not_file_flash_message: Thank you for using GetCTC! We will not file your return.
-          third_stimulus: 'Recovery Rebate Credit (third stimulus payment):'
+          third_stimulus: 'Third Stimulus Payment:'
           third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Click here for more information on the third stimulus payment.</a>
           title: 'Here’s a list of the estimated payments you are owed:'
         confirm_primary_prior_year_agi:

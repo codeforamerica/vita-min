@@ -1947,7 +1947,7 @@ es:
           ctc_due_link: Reclamar niños adicionales
           do_not_file: No presentar
           do_not_file_flash_message: "¡Gracias por usar GetCTC! No presentaremos su declaración."
-          third_stimulus: 'Recovery Rebate Credit (tercer pago de estímulo):'
+          third_stimulus: 'Tercer Pago de Estímulo:'
           third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Haga clic aquí para obtener más información sobre el tercer pago de estímulo.</a>
           title: 'Esta es una lista de los pagos estimados que se le deben:'
         confirm_primary_prior_year_agi:
