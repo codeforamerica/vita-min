@@ -757,6 +757,12 @@ RSpec.describe Hub::ClientsController do
           let!(:breached_sla_client) { create :client_with_intake_and_return, preferred_name: "Breachy", vita_partner: organization, last_outgoing_communication_at: 6.business_days.ago }
           let!(:recently_contacted_client) { create :client_with_intake_and_return, preferred_name: "Recenty", vita_partner: organization, last_outgoing_communication_at: 2.hours.ago }
 
+          around do |example|
+            Timecop.freeze(DateTime.new(2022, 1, 1, 5, 0, 0))
+            example.run
+            Timecop.return
+          end
+
           it "can filter to only clients who are approaching SLA" do
             get :index, params: { last_contact: "approaching_sla" }
             expect(assigns(:clients).map(&:preferred_name)).to eq [approaching_sla_client].map(&:preferred_name)
