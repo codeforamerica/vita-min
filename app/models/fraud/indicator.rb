@@ -111,7 +111,7 @@ module Fraud
     end
 
     def calculate_points_from_count(count)
-      return 0 unless count >= threshold
+      return 0 if threshold.present? && count < threshold
       return points unless multiplier.present?
 
       applied_count = (count - 1)
