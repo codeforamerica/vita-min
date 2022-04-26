@@ -86,13 +86,18 @@ module Efile
     private
 
     def rrc_eligible_filer_count
-      return intake.primary_tin_type == "ssn" ? 1 : 0 if tax_return.filing_status_single?
+      case tax_return.filing_status
+      when "single", "head_of_household"
+        intake.primary_tin_type == "ssn" ? 1 : 0
+      when "married_filing_jointly"
+        # if one spouse is a member of the armed forces, both qualify for benefits
+        return 2 if [intake.primary_active_armed_forces, intake.spouse_active_armed_forces].any?("yes")
 
-      # if one spouse is a member of the armed forces, both qualify for benefits
-      return 2 if [intake.primary_active_armed_forces, intake.spouse_active_armed_forces].any?("yes")
-
-      # only filers with SSNs (valid for employment) are eligible for RRC
-      [intake.primary_tin_type, intake.spouse_tin_type].count { |tin_type| tin_type == "ssn" }
+        # only filers with SSNs (valid for employment) are eligible for RRC
+        [intake.primary_tin_type, intake.spouse_tin_type].count { |tin_type| tin_type == "ssn" }
+      else
+        raise "unsupported filing type"
+      end
     end
   end
 end
