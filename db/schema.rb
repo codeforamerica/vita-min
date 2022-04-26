@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_25_165848) do
+ActiveRecord::Schema.define(version: 2022_04_26_000825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -818,6 +818,17 @@ ActiveRecord::Schema.define(version: 2022_04_25_165848) do
     t.string "reference"
     t.float "threshold"
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "fraud_indicators_domains", force: :cascade do |t|
+    t.datetime "activated_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.boolean "deny"
+    t.string "name"
+    t.boolean "safe"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["deny"], name: "index_fraud_indicators_domains_on_deny"
+    t.index ["safe"], name: "index_fraud_indicators_domains_on_safe"
   end
 
   create_table "fraud_indicators_timezones", force: :cascade do |t|
