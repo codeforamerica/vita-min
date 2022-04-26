@@ -691,7 +691,7 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
     t.index ["client_id"], name: "index_documents_requests_on_client_id"
   end
 
-  create_table "drivers_license", force: :cascade do |t|
+  create_table "drivers_licenses", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.date "expiration_date", null: false
     t.bigint "intakes_id"
@@ -699,7 +699,7 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
     t.string "license_number", null: false
     t.string "state", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["intakes_id"], name: "index_drivers_license_on_intakes_id"
+    t.index ["intakes_id"], name: "index_drivers_licenses_on_intakes_id"
   end
 
   create_table "efile_errors", force: :cascade do |t|
@@ -957,6 +957,7 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
     t.integer "demographic_veteran", default: 0, null: false
     t.integer "divorced", default: 0, null: false
     t.string "divorced_year"
+    t.bigint "drivers_license_id"
     t.integer "eip1_amount_received"
     t.integer "eip1_and_2_amount_received_confidence"
     t.integer "eip1_entry_method", default: 0, null: false
@@ -1161,6 +1162,7 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
     t.index ["canonical_email_address"], name: "index_intakes_on_canonical_email_address"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
+    t.index ["drivers_license_id"], name: "index_intakes_on_drivers_license_id"
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"

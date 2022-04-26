@@ -238,6 +238,7 @@
 #  created_at                                           :datetime         not null
 #  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
+#  drivers_license_id                                   :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
 #  with_drivers_license_photo_id                        :boolean          default(FALSE)
@@ -253,6 +254,7 @@
 #  index_intakes_on_canonical_email_address                (canonical_email_address)
 #  index_intakes_on_client_id                              (client_id)
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
+#  index_intakes_on_drivers_license_id                     (drivers_license_id)
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)

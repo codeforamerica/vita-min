@@ -207,7 +207,7 @@
 #  spouse_signature_pin_at                              :datetime
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
-#  spouse_was_blind                                     :integer          default(0), not null
+#  spouse_was_blind                                     :integer          default("unfilled"), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  spouse_was_on_visa                                   :integer          default(0), not null
 #  state                                                :string
@@ -225,7 +225,7 @@
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  wants_to_itemize                                     :integer          default(0), not null
-#  was_blind                                            :integer          default(0), not null
+#  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default(0), not null
 #  was_on_visa                                          :integer          default(0), not null
 #  widowed                                              :integer          default(0), not null
@@ -238,6 +238,7 @@
 #  created_at                                           :datetime         not null
 #  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
+#  drivers_license_id                                   :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
 #  with_drivers_license_photo_id                        :boolean          default(FALSE)
@@ -253,6 +254,7 @@
 #  index_intakes_on_canonical_email_address                (canonical_email_address)
 #  index_intakes_on_client_id                              (client_id)
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
+#  index_intakes_on_drivers_license_id                     (drivers_license_id)
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)

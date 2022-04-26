@@ -1,6 +1,6 @@
 class CreateDriversLicense < ActiveRecord::Migration[6.1]
   def change
-    create_table :drivers_license do |t|
+    create_table :drivers_licenses do |t|
       t.timestamps
       t.references :intakes
       t.string :license_number, null: false
@@ -8,5 +8,6 @@ class CreateDriversLicense < ActiveRecord::Migration[6.1]
       t.date :issue_date, null: false
       t.date :expiration_date, null: false
     end
+    add_reference :intakes, :drivers_license
   end
 end
