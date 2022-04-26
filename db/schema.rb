@@ -694,12 +694,12 @@ ActiveRecord::Schema.define(version: 2022_04_26_164834) do
   create_table "drivers_licenses", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.date "expiration_date", null: false
-    t.bigint "intakes_id"
+    t.bigint "intake_id"
     t.date "issue_date", null: false
     t.string "license_number", null: false
     t.string "state", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["intakes_id"], name: "index_drivers_licenses_on_intakes_id"
+    t.index ["intake_id"], name: "index_drivers_licenses_on_intake_id"
   end
 
   create_table "efile_errors", force: :cascade do |t|
