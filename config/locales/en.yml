@@ -3387,6 +3387,7 @@ en:
         survey:
           title: How helpful was this answer?
         title: Frequently asked questions
+        view_all_questions: View all questions
       home:
         clients:
           across_us: from clients across the US
