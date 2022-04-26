@@ -8,8 +8,8 @@ module Ctc
       def edit
         tax_return = current_intake.default_tax_return
         benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: current_intake.dependents)
-        @ctc_amount = benefits.ctc_amount / 2 # total was divided by two for advance payment
-        @third_stimulus_amount = benefits.eip3_amount
+        @ctc_amount = benefits.outstanding_ctc_amount
+        @third_stimulus_amount = benefits.outstanding_eip3
         @not_collecting = @ctc_amount.zero? && @third_stimulus_amount.zero?
 
         # This feels like a weird place to fire this event, as it will fire each time this page is reloaded.
