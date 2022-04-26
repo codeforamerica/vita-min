@@ -373,7 +373,6 @@ class Intake::GyrIntake < Intake
   enum triage_filing_status: { unfilled: 0, single: 1, jointly: 2 }, _prefix: :triage_filing_status
   enum triage_filing_frequency: { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, _prefix: :triage_filing_frequency
   enum triage_vita_income_ineligible: { unfilled: 0, yes: 1, no: 2 }, _prefix: :triage_vita_income_ineligible
-  scope :accessible_intakes, -> { where.not(primary_consented_to_service_at: nil) }
   after_save do
     if saved_change_to_completed_at?(from: nil)
       InteractionTrackingService.record_incoming_interaction(client, set_flag: false) # client completed intake
@@ -414,27 +413,6 @@ class Intake::GyrIntake < Intake
 
     type = BankAccount.account_types.keys.include?(bank_account_type) ? bank_account_type : nil
     @bank_account ||= BankAccount.new(account_type: type, bank_name: bank_name, account_number: bank_account_number, routing_number: bank_routing_number)
-  end
-
-  def duplicates
-    return itin_duplicates if itin_applicant?
-    return self.class.none unless hashed_primary_ssn.present?
-
-    DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
-  end
-
-  def itin_duplicates
-    if email_address.present? && sms_phone_number.present?
-      DeduplificationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes).or(
-          DeduplificationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
-      )
-    elsif email_address.present?
-      DeduplificationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
-    elsif sms_phone_number.present?
-      DeduplificationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
-    else
-      self.class.none
-    end
   end
 
   def has_duplicate?

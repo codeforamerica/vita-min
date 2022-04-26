@@ -354,19 +354,6 @@ class Intake::CtcIntake < Intake
     }
   }
 
-  def duplicates
-    if email_address.present? && sms_phone_number.present?
-      DeduplificationService.duplicates(self, :email_address, from_scope: self.class.accessible_intakes)
-          .or(DeduplificationService.duplicates(self, :sms_phone_number, from_scope: self.class.accessible_intakes))
-    elsif email_address.present?
-      DeduplificationService.duplicates(self, :email_address, from_scope: self.class.accessible_intakes)
-    elsif sms_phone_number.present?
-      DeduplificationService.duplicates(self, :sms_phone_number, from_scope: self.class.accessible_intakes)
-    else
-      self.class.none
-    end
-  end
-
   def itin_applicant?
     false
   end

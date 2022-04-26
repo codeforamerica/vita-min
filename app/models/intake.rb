@@ -351,6 +351,29 @@ class Intake < ApplicationRecord
     }
   }
 
+  scope :accessible_intakes, -> { where.not(primary_consented_to_service_at: nil) }
+
+  def duplicates
+    return itin_duplicates if itin_applicant?
+    return self.class.none unless hashed_primary_ssn.present?
+
+    DeduplificationService.duplicates(self, :hashed_primary_ssn, from_scope: self.class.accessible_intakes)
+  end
+
+  def itin_duplicates
+    if email_address.present? && sms_phone_number.present?
+      DeduplificationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes).or(
+          DeduplificationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
+      )
+    elsif email_address.present?
+      DeduplificationService.duplicates(self, :email_address, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
+    elsif sms_phone_number.present?
+      DeduplificationService.duplicates(self, :sms_phone_number, :primary_birth_date, from_scope: Intake::GyrIntake.accessible_intakes)
+    else
+      self.class.none
+    end
+  end
+
   def is_ctc?
     false
   end
