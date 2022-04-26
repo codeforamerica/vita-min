@@ -69,6 +69,7 @@ gem 'intercom', '~> 4.1'
 gem 'statesman', '~> 8.0.3'
 gem 'redcarpet'
 gem 'platform-api'
+gem 'strong_migrations'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data
