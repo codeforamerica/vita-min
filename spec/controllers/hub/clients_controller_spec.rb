@@ -194,7 +194,7 @@ RSpec.describe Hub::ClientsController do
 
   describe "#show" do
     let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
-    let(:client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, year: 2019, service_type: "drop_off"), (create :tax_return, year: 2018, service_type: "online_intake")] }
+    let(:client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, year: 2019, service_type: "drop_off", filing_status: nil), (create :tax_return, year: 2018, service_type: "online_intake", filing_status: nil)] }
 
     let!(:intake) do
       create :intake,
@@ -229,7 +229,9 @@ RSpec.describe Hub::ClientsController do
     context "as an authenticated user" do
       render_views
 
-      before { sign_in(user) }
+      before do
+        sign_in(user)
+      end
 
       it "shows client information" do
         get :show, params: params
