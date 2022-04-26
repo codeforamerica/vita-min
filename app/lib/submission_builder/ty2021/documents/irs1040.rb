@@ -23,6 +23,14 @@ module SubmissionBuilder
           submission.tax_return.filing_jointly? ? 2 : 1
         end
 
+        def boxes_checked(intake, tax_return)
+          [intake.was_blind_yes?,
+           tax_return.primary_age_65_or_older?,
+           tax_return.spouse_age_65_or_older?,
+           intake.spouse_was_blind_yes?
+          ].count(true)
+        end
+
         def document
           intake = submission.intake
           tax_return = submission.tax_return
@@ -36,6 +44,7 @@ module SubmissionBuilder
             xml.PrimaryBlindInd "X" if intake.was_blind_yes?
             xml.Spouse65OrOlderInd "X" if tax_return.spouse_age_65_or_older?
             xml.SpouseBlindInd "X" if intake.spouse_was_blind_yes?
+            xml.TotalBoxesCheckedCnt boxes_checked(intake, tax_return)
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
