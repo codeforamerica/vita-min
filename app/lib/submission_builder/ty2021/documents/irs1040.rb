@@ -37,6 +37,8 @@ module SubmissionBuilder
           bank_account = intake.bank_account
           qualifying_dependents = submission.qualifying_dependents
           benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents)
+          boxes_checked = boxes_checked(intake, tax_return)
+
           build_xml_doc("IRS1040", documentId: "IRS1040", documentName: "IRS1040") do |xml|
             xml.IndividualReturnFilingStatusCd tax_return.filing_status_code
             xml.VirtualCurAcquiredDurTYInd intake.has_crypto_income
@@ -44,7 +46,9 @@ module SubmissionBuilder
             xml.PrimaryBlindInd "X" if intake.was_blind_yes?
             xml.Spouse65OrOlderInd "X" if tax_return.spouse_age_65_or_older?
             xml.SpouseBlindInd "X" if intake.spouse_was_blind_yes?
-            xml.TotalBoxesCheckedCnt boxes_checked(intake, tax_return)
+            if boxes_checked > 0
+              xml.TotalBoxesCheckedCnt boxes_checked
+            end
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
