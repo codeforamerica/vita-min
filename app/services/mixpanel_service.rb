@@ -244,7 +244,11 @@ class MixpanelService
         with_general_navigator: intake.with_general_navigator,
         with_incarcerated_navigator: intake.with_incarcerated_navigator,
         with_limited_english_navigator: intake.with_limited_english_navigator,
-        with_unhoused_navigator: intake.with_unhoused_navigator
+        with_unhoused_navigator: intake.with_unhoused_navigator,
+        triage_filing_status: intake.triage_filing_status,
+        triage_filing_frequency: intake.triage_filing_frequency,
+        triage_income_level: intake.triage_income_level,
+        triage_vita_income_ineligible: intake.triage_vita_income_ineligible,
       }
     end
 
