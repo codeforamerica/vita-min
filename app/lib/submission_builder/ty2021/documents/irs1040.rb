@@ -8,29 +8,6 @@ module SubmissionBuilder
           File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Ind1040", "IRS1040", "IRS1040.xsd")
         end
 
-        def dependent_xml(xml, dependent)
-          xml.DependentDetail do
-            xml.DependentFirstNm person_name_type(dependent.first_name)
-            xml.DependentLastNm person_name_type(dependent.last_name)
-            xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
-            xml.DependentSSN dependent.ssn
-            xml.DependentRelationshipCd dependent.irs_relationship_enum
-            xml.EligibleForChildTaxCreditInd "X" if dependent.qualifying_ctc?
-          end
-        end
-
-        def filer_exemption_count
-          submission.tax_return.filing_jointly? ? 2 : 1
-        end
-
-        def boxes_checked(intake, tax_return)
-          [intake.was_blind_yes?,
-           tax_return.primary_age_65_or_older?,
-           tax_return.spouse_age_65_or_older?,
-           intake.spouse_was_blind_yes?
-          ].count(true)
-        end
-
         def document
           intake = submission.intake
           tax_return = submission.tax_return
@@ -46,9 +23,7 @@ module SubmissionBuilder
             xml.PrimaryBlindInd "X" if intake.was_blind_yes?
             xml.Spouse65OrOlderInd "X" if tax_return.spouse_age_65_or_older?
             xml.SpouseBlindInd "X" if intake.spouse_was_blind_yes?
-            if boxes_checked > 0
-              xml.TotalBoxesCheckedCnt boxes_checked
-            end
+            xml.TotalBoxesCheckedCnt boxes_checked unless boxes_checked.zero?
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
             qualifying_dependents.each do |dependent|
               dependent_xml(xml, dependent)
@@ -82,6 +57,31 @@ module SubmissionBuilder
             end
             xml.RefundProductCd "NO FINANCIAL PRODUCT"
           end
+        end
+
+        private
+
+        def dependent_xml(xml, dependent)
+          xml.DependentDetail do
+            xml.DependentFirstNm person_name_type(dependent.first_name)
+            xml.DependentLastNm person_name_type(dependent.last_name)
+            xml.DependentNameControlTxt person_name_control_type(dependent.last_name)
+            xml.DependentSSN dependent.ssn
+            xml.DependentRelationshipCd dependent.irs_relationship_enum
+            xml.EligibleForChildTaxCreditInd "X" if dependent.qualifying_ctc?
+          end
+        end
+
+        def filer_exemption_count
+          submission.tax_return.filing_jointly? ? 2 : 1
+        end
+
+        def boxes_checked(intake, tax_return)
+          [intake.was_blind_yes?,
+           tax_return.primary_age_65_or_older?,
+           tax_return.spouse_age_65_or_older?,
+           intake.spouse_was_blind_yes?
+          ].count(true)
         end
       end
     end
