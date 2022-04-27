@@ -3,7 +3,13 @@ require "rails_helper"
 RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true do
   before do
     # create duplicated intake
-    create(:ctc_intake, email_address: "mango@example.com", email_notification_opt_in: "yes", email_address_verified_at: DateTime.now)
+    create(:ctc_intake,
+           primary_consented_to_service_at: DateTime.now,
+           primary_ssn: "111-22-8888",
+           email_address: "mango@example.com",
+           email_notification_opt_in: "yes",
+           email_address_verified_at: DateTime.now
+         )
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
 
@@ -53,18 +59,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check "agree_to_privacy_policy"
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
-    choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
-    click_on I18n.t('general.continue')
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
-    click_on I18n.t('views.ctc.questions.contact_preference.email')
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.email_address.title'))
-    fill_in I18n.t('views.questions.email_address.email_address'), with: "mango@example.com"
-    fill_in I18n.t('views.questions.email_address.email_address_confirmation'), with: "mango@example.com"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.questions.returning_client.title"))
