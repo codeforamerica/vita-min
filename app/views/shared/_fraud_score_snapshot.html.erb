@@ -14,7 +14,7 @@
     <% if value["data"].present? %>
       <br>
       <span style="font-size: smaller">
-      <% if indicator.&indicator_type == "duplicates" %>
+      <% if indicator&.indicator_type == "duplicates" %>
         <i><%= indicator.reference&.humanize %>s:
           <% value["data"].each_with_index do |id, i| %>
             <%= link_to id, client_finder_hub_client_path(id: id, resource: indicator.reference) %><% unless (i+1 == value["data"].length) %>, <% end %>
