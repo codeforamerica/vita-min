@@ -305,6 +305,38 @@ describe Efile::BenefitsEligibility do
           expect(subject.rrc_eligible_filer_count).to eq 0
         end
       end
+
+      context "when the filing status is not included in the ones we support" do
+        before do
+          client.tax_returns.last.update(filing_status: "qualifying_widow")
+        end
+
+        it "raises an error" do
+          expect {
+            subject.rrc_eligible_filer_count
+          }.to raise_error StandardError
+        end
+      end
+
+      context "when the filing status is head of household" do
+        context "when tin type is ssn" do
+          before do
+            client.intake.update(primary_tin_type: "ssn")
+          end
+          it "returns 1 for filer count" do
+            expect(subject.rrc_eligible_filer_count).to eq 1
+          end
+        end
+
+        context "when tin type is not ssn" do
+          before do
+            client.intake.update(primary_tin_type: "itin")
+          end
+          it "returns 0 for filer count" do
+            expect(subject.rrc_eligible_filer_count).to eq 0
+          end
+        end
+      end
     end
   end
 end

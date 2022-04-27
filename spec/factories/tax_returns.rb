@@ -1,3 +1,4 @@
+
 # == Schema Information
 #
 # Table name: tax_returns
@@ -42,6 +43,7 @@ FactoryBot.define do
     year { 2019 }
     # when creating a client, also create an intake, since tax returns are made after intake begins
     client { create(:intake).client }
+    filing_status { "single" }
     transient do
       metadata { {} }
     end

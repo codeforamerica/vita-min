@@ -19,6 +19,8 @@ class CanonicalEmail
   end
 
   def self.get(email)
+    return unless email.present?
+    
     new(email).canonical_email
   end
 

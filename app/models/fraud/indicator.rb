@@ -73,7 +73,8 @@ module Fraud
       # skip this rule if we can't check against the reference object
       return passing_response if references[reference].blank?
 
-      duplicate_ids = DeduplificationService.duplicates(references[reference], *indicator_attributes, from_scope: query_model_name.constantize).pluck(:id)
+      from_scope = query_model.respond_to?(:accessible_intakes) ? query_model.accessible_intakes : query_model
+      duplicate_ids = DeduplificationService.duplicates(references[reference], *indicator_attributes, from_scope: from_scope).pluck(:id)
       points = calculate_points_from_count(duplicate_ids.count)
       duplicate_ids.present? ? response(points, duplicate_ids.uniq) : passing_response
     end
@@ -96,10 +97,15 @@ module Fraud
 
     private
 
+    def query_model
+      query_model_name.constantize
+    end
+
     def scoped_records(references)
-      self_reference = query_model_name.underscore == reference
+      compare_model_name = query_model_name.include?("Intake::") ? "Intake" : query_model_name # match from child intake type
+      self_reference = compare_model_name.underscore == reference
       scope = self_reference ? { id: references[reference].id } : { reference => references[reference] }
-      query_model_name.constantize.where(scope)
+      query_model.where(scope)
     end
 
     def safelist
@@ -111,6 +117,7 @@ module Fraud
     end
 
     def calculate_points_from_count(count)
+      return 0 if threshold.present? && count < threshold
       return points unless multiplier.present?
 
       applied_count = (count - 1)

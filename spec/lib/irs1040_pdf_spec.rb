@@ -39,6 +39,7 @@ RSpec.describe Irs1040Pdf do
         submission.intake.dependents.destroy_all
         submission.tax_return.update(filing_status: nil)
         submission.reload
+        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:rrc_eligible_filer_count).and_return 0
       end
 
       it "returns a pdf with default fields and values" do

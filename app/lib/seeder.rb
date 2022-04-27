@@ -221,28 +221,36 @@ class Seeder
       )
     end
 
-    verifying_no_bypass_yet_intake = find_or_create_intake_and_client(
+    intake_for_verification_attempt_1 = find_or_create_intake_and_client(
       Intake::CtcIntake,
       primary_first_name: "VerifierOne",
       primary_last_name: "Smith",
       primary_consented_to_service_at: DateTime.current,
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
     )
-    attempt = VerificationAttempt.find_or_initialize_by(client: verifying_no_bypass_yet_intake.client) do |attempt|
+
+    va1_client = intake_for_verification_attempt_1.client
+    efile_submission = va1_client.efile_submissions.last || va1_client.tax_returns.last.efile_submissions.create
+    Fraud::Score.create_from(efile_submission) unless efile_submission.fraud_score.present?
+
+    attempt = VerificationAttempt.find_or_initialize_by(client: va1_client) do |attempt|
       add_images_to_verification_attempt(attempt)
       attempt.save
     end
     attempt.transition_to(:pending)
 
-    verifying_with_bypass_intake = find_or_create_intake_and_client(
+    intake_for_verification_attempt_2 = find_or_create_intake_and_client(
       Intake::CtcIntake,
       primary_first_name: "VerifierTwo",
       primary_last_name: "Smith",
       primary_consented_to_service_at: DateTime.current,
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready" }],
     )
-    bypass_attempt = VerificationAttempt.find_or_initialize_by(client: verifying_with_bypass_intake.client) do |attempt|
-      attempt.client_bypass_request = "I don't have an ID but I'd like to submit my taxes."
+    va2_client = intake_for_verification_attempt_2.client
+    efile_submission = va2_client.efile_submissions.last || va2_client.tax_returns.last.efile_submissions.create
+    Fraud::Score.create_from(efile_submission) unless efile_submission.fraud_score.present?
+
+    bypass_attempt = VerificationAttempt.find_or_initialize_by(client: va2_client) do |attempt|
       add_images_to_verification_attempt(attempt)
       attempt.save
     end

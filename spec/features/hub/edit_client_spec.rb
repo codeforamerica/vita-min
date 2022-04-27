@@ -7,7 +7,7 @@ RSpec.describe "a user editing a clients intake fields" do
 
     let(:user) { create :admin_user }
     let(:assigned_user) { create :user, role: create(:organization_lead_role, organization: organization) }
-    let(:tax_return) { create :tax_return, year: 2019, assigned_user: assigned_user }
+    let(:tax_return) { create :tax_return, year: 2019, assigned_user: assigned_user, filing_status: nil }
     let(:client) {
       create :client,
              vita_partner: organization,

@@ -29,5 +29,11 @@ describe CanonicalEmail do
         expect(CanonicalEmail.get("something.something-something+1234@other.com")).to eq "something.something-something+1234@other.com"
       end
     end
+
+    context "when passed argument is nil" do
+      it "is nil" do
+        expect(CanonicalEmail.get(nil)).to eq nil
+      end
+    end
   end
 end

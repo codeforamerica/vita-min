@@ -459,7 +459,6 @@ es:
     spouse_last_four_ssn: Últimos 4 de SSN / ITIN (cónyuge)
     ssn: SSN
     ssn_itin: SSN/ITIN
-    ssn_not_valid_for_employment: Este Número de Seguro Social (SSN en inglés) no es válido para empleo
     start_filing: Empiece a declarar
     state: Estado
     state_routing: Enrutamiento de %{state}
@@ -1948,7 +1947,7 @@ es:
           ctc_due_link: Reclamar niños adicionales
           do_not_file: No presentar
           do_not_file_flash_message: "¡Gracias por usar GetCTC! No presentaremos su declaración."
-          third_stimulus: 'Recovery Rebate Credit (tercer pago de estímulo):'
+          third_stimulus: 'Tercer Pago de Estímulo:'
           third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Haga clic aquí para obtener más información sobre el tercer pago de estímulo.</a>
           title: 'Esta es una lista de los pagos estimados que se le deben:'
         confirm_primary_prior_year_agi:
@@ -2135,10 +2134,10 @@ es:
             reveal_content: Saber si es miembro de las Fuerzas Armadas nos ayudará a calcular con mayor precisión su Crédito de Recuperación de Reembolso
             reveal_label: "¿Por qué me preguntan esto?"
             title: Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en %{current_tax_year}
+          primary_ssn_not_valid_for_employment: Mi tarjeta de Seguro Social (SSN en inglés) tiene impreso "no válido para empleo". (Esto es raro)
           sms_phone_number: Número de teléfono
           ssn: SSN o ITIN
           ssn_confirmation: Confirme el SSN o ITIN
-          ssn_not_valid_for_employment: La tarjeta del SSN de esta persona tiene impreso "No válido para el empleo".
           suffix: Forma de tratamiento, por ejemplo, Sr., Sra., Srta.
           title: Para presentar una declaración, necesitaremos algunos datos básicos.
         life_situations:
@@ -2297,6 +2296,8 @@ es:
           title: "¡Verifiquemos esa información de contacto con un código!"
           verification_code_label: 'Introduzca el código de 6 números '
           verify: Verifique
+      shared:
+        ssn_not_valid_for_employment: La tarjeta del SSN de esta persona tiene impreso "No válido para el empleo". (Esto es raro)
     ctc_pages:
       california_benefits:
         compare_benefits:
@@ -3360,6 +3361,7 @@ es:
         survey:
           title: "¿Qué tan útil fue esta respuesta?"
         title: Preguntas frecuentes
+        view_all_questions: Ver todas las preguntas
       home:
         clients:
           across_us: de clientes en todo Estados Unidos.

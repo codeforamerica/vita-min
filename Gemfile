@@ -4,7 +4,7 @@ ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).str
 ruby ruby_version
 
 gem 'rack', '>= 2.0.8'
-gem 'rails', '~> 6.1.4.7'
+gem 'rails', '~> 6.1.5.1'
 gem 'puma', '>= 5.3.2'
 gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
@@ -69,6 +69,7 @@ gem 'intercom', '~> 4.1'
 gem 'statesman', '~> 8.0.3'
 gem 'redcarpet'
 gem 'platform-api'
+gem 'strong_migrations'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data

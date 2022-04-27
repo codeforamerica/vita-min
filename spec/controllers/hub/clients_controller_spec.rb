@@ -194,7 +194,7 @@ RSpec.describe Hub::ClientsController do
 
   describe "#show" do
     let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
-    let(:client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, year: 2019, service_type: "drop_off"), (create :tax_return, year: 2018, service_type: "online_intake")] }
+    let(:client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, year: 2019, service_type: "drop_off", filing_status: nil), (create :tax_return, year: 2018, service_type: "online_intake", filing_status: nil)] }
 
     let!(:intake) do
       create :intake,
@@ -229,7 +229,9 @@ RSpec.describe Hub::ClientsController do
     context "as an authenticated user" do
       render_views
 
-      before { sign_in(user) }
+      before do
+        sign_in(user)
+      end
 
       it "shows client information" do
         get :show, params: params
@@ -756,6 +758,12 @@ RSpec.describe Hub::ClientsController do
           let!(:approaching_sla_client) { create :client_with_intake_and_return, preferred_name: "Approachy", vita_partner: organization, last_outgoing_communication_at: 4.business_days.ago - 2.hours }
           let!(:breached_sla_client) { create :client_with_intake_and_return, preferred_name: "Breachy", vita_partner: organization, last_outgoing_communication_at: 6.business_days.ago }
           let!(:recently_contacted_client) { create :client_with_intake_and_return, preferred_name: "Recenty", vita_partner: organization, last_outgoing_communication_at: 2.hours.ago }
+
+          around do |example|
+            Timecop.freeze(DateTime.new(2022, 1, 1, 5, 0, 0))
+            example.run
+            Timecop.return
+          end
 
           it "can filter to only clients who are approaching SLA" do
             get :index, params: { last_contact: "approaching_sla" }

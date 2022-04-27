@@ -241,7 +241,7 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
         expect(described_class.accessible_intakes).to include intake
       end
     end
-    
+
     context "when navigator verification has occurred" do
       let!(:intake) { create :ctc_intake, navigator_has_verified_client_identity: true }
       it "is accessible" do
@@ -257,33 +257,17 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
       allow(dupe_double).to receive(:or)
     end
 
-    context "when only email is present" do
-      let(:intake) { create :ctc_intake, email_address: "mango@example.com", sms_phone_number: nil }
-      it "responds with duplicates from both email and sms" do
+    context "when hashed primary ssn is present" do
+      let(:intake) { create :ctc_intake, hashed_primary_ssn: "123456789" }
+      it "builds a query looking for duplicates" do
         intake.duplicates
-        expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :email_address, from_scope: described_class.accessible_intakes)
+        expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :hashed_primary_ssn, from_scope: described_class.accessible_intakes)
       end
     end
 
-    context "when only sms is present" do
-      let(:intake) { create :ctc_intake, email_address: nil, sms_phone_number: "+18324658840" }
-      it "responds with duplicates from sms" do
-        intake.duplicates
-        expect(DeduplificationService).to have_received(:duplicates).exactly(1).times.with(intake, :sms_phone_number, from_scope: described_class.accessible_intakes)
-      end
-    end
-
-    context "when both email and sms are present" do
-      let(:intake) { create :ctc_intake, email_address: "mango@example.com", sms_phone_number: "+18324658840" }
-      it "responds with duplicates from both email and sms" do
-        intake.duplicates
-        expect(DeduplificationService).to have_received(:duplicates).exactly(2).times
-      end
-    end
-
-    context "when neither phone number nor email are present" do
-      let(:intake) { create :ctc_intake, email_address: nil, sms_phone_number: nil }
-      it "responds with an empty ActiveRecord relation" do
+    context "when hashed primary ssn is not present" do
+      let(:intake) { create :ctc_intake, hashed_primary_ssn: nil }
+      it "responds with an empty collection" do
         expect(intake.duplicates).to eq described_class.none
       end
     end
