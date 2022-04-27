@@ -34,9 +34,7 @@ module SubmissionBuilder
           }
           xml.SelfSelectPINGrp {
             xml.PrimaryBirthDt date_type(intake.primary_birth_date)
-            if tax_return.filing_jointly?
-              xml.SpouseBirthDt date_type(intake.spouse_birth_date) if tax_return.filing_jointly?
-            end
+            xml.SpouseBirthDt date_type(intake.spouse_birth_date) if tax_return.filing_jointly?
             if intake.primary_prior_year_signature_pin.present?
               xml.PrimaryPriorYearPIN intake.primary_prior_year_signature_pin
             else
