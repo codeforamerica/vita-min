@@ -310,12 +310,9 @@ class Intake::CtcIntake < Intake
     sms_verified.or(email_verified).or(navigator_verified)
   end
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
-  accepts_nested_attributes_for :bank_account
-
   belongs_to :primary_drivers_license, class_name: "DriversLicense", optional: true
   belongs_to :spouse_drivers_license, class_name: "DriversLicense", optional: true
-  accepts_nested_attributes_for :primary_drivers_license
-  accepts_nested_attributes_for :spouse_drivers_license
+  accepts_nested_attributes_for :bank_account, :primary_drivers_license, :spouse_drivers_license
 
   before_validation do
     attributes_to_change = self.changes_to_save.keys
