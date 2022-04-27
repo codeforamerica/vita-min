@@ -5,8 +5,6 @@ module Ctc
 
       layout "intake"
 
-      def show?; end
-
       def illustration_path
         "ids.svg"
       end

@@ -5,7 +5,9 @@ module Ctc
 
       layout "intake"
 
-      def show?; end
+      def self.show?(intake)
+        intake.filing_jointly?
+      end
 
       def illustration_path
         "ids.svg"
