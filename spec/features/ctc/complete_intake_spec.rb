@@ -349,6 +349,20 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("p", text:  "$4,200")
     click_on I18n.t('general.continue')
 
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.drivers_license.title"))
+    select "Ohio", from: I18n.t('views.ctc.questions.drivers_license.state')
+    fill_in I18n.t("views.ctc.questions.drivers_license.license_number"), with: "OH123456"
+    fill_in "ctc_drivers_license_form[issue_date_month]", with: "01"
+    fill_in "ctc_drivers_license_form[issue_date_day]", with: "01"
+    fill_in "ctc_drivers_license_form[issue_date_year]", with: "2020"
+    fill_in "ctc_drivers_license_form[expiration_date_month]", with: "01"
+    fill_in "ctc_drivers_license_form[expiration_date_day]", with: "01"
+    fill_in "ctc_drivers_license_form[expiration_date_year]", with: "2024"
+    click_on I18n.t('general.continue')
+
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.spouse_drivers_license.title"))
+    click_on I18n.t('general.skip')
+
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))
     check I18n.t("views.ctc.questions.confirm_legal.consent")
     click_on I18n.t("views.ctc.questions.confirm_legal.action")

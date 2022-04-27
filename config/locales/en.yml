@@ -1650,7 +1650,6 @@ en:
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     atin: Please enter a valid adoption taxpayer identification number.
-    drivers_license: Driver's license must be valid. La licencia de conducir debe ser válida.
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
     ip_pin: IP PINs must be a 6 digit number.
