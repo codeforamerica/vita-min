@@ -234,10 +234,24 @@ describe Fraud::Indicator do
       allow(query_double).to receive(:pluck).and_return [1,2,3]
     end
 
-    it "sets up the query correctly" do
-      fraud_indicator.execute(intake: intake, client: client)
-      expect(DeduplificationService).to have_received(:duplicates).with(client, "primary_first_name", "primary_last_name", from_scope: Intake::CtcIntake)
+    context "when the query_model_name responds to accessible_intakes" do
+      it "sets up the query to only look at accessible intakes" do
+        fraud_indicator.execute(intake: intake, client: client)
+        expect(DeduplificationService).to have_received(:duplicates).with(client, "primary_first_name", "primary_last_name", from_scope: Intake::CtcIntake.accessible_intakes)
+      end
     end
+
+    context "when the query_model_name does not respond to accessible_intakes" do
+      before do
+        fraud_indicator.query_model_name = "EfileSecurityInformation"
+      end
+
+      it "sets up the query correctly" do
+        fraud_indicator.execute(intake: intake, client: client)
+        expect(DeduplificationService).to have_received(:duplicates).with(client, "primary_first_name", "primary_last_name", from_scope: EfileSecurityInformation)
+      end
+    end
+
 
     context "when there are duplicates" do
       it "returns the count of duplicates" do
