@@ -39,6 +39,12 @@ describe RelationshipsHelper do
           eq(default_relationship_options + [["Other: My adopted son", "My adopted son"]]))
       end
     end
+
+    context "with a relationship from the default list" do
+      it "does not register as free form label" do
+        expect(helper.dependent_relationship_options(current_relationship: "son")).to eq(default_relationship_options)
+      end
+    end
   end
 
   describe "#relationship_label" do
