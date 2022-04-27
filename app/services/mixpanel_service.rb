@@ -230,6 +230,10 @@ class MixpanelService
         csat: intake.satisfaction_face,
         claimed_by_another: intake.claimed_by_another,
         already_applied_for_stimulus: intake.already_applied_for_stimulus,
+        triage_filing_status: intake.triage_filing_status,
+        triage_filing_frequency: intake.triage_filing_frequency,
+        triage_income_level: intake.triage_income_level,
+        triage_vita_income_ineligible: intake.triage_vita_income_ineligible,
       }
     end
 
@@ -244,11 +248,7 @@ class MixpanelService
         with_general_navigator: intake.with_general_navigator,
         with_incarcerated_navigator: intake.with_incarcerated_navigator,
         with_limited_english_navigator: intake.with_limited_english_navigator,
-        with_unhoused_navigator: intake.with_unhoused_navigator,
-        triage_filing_status: intake.triage_filing_status,
-        triage_filing_frequency: intake.triage_filing_frequency,
-        triage_income_level: intake.triage_income_level,
-        triage_vita_income_ineligible: intake.triage_vita_income_ineligible,
+        with_unhoused_navigator: intake.with_unhoused_navigator
       }
     end
 
