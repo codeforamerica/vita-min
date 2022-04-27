@@ -1,5 +1,16 @@
 module Ctc
   class CtcPagesController < CtcController
+    FAQ_QUESTIONS = [
+      :what_is_the_child_tax_credit_ctc,
+      :is_the_child_tax_credit_ctc_going_away,
+      :how_do_i_get_my_child_tax_credit_ctc_payments,
+      :what_do_i_do_if_someone_else_has_claimed_my,
+      :what_if_i_dont_have_any_income_or_only_income,
+      :how_much_is_the_child_tax_credit_in_2022,
+      :do_i_qualify_for_the_child_tax_credit_ctc,
+      :am_i_eligible_for_child_tax_credit_if_i_dont,
+    ].freeze
+
     def home
       case session[:source]
       when "cactc", "fed", "child"
