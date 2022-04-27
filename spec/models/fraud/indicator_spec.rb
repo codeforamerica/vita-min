@@ -66,6 +66,22 @@ describe Fraud::Indicator do
       end
     end
 
+    context "when the reference is intake and query_model_name is Intake::CtcIntake" do
+      let(:intake) { create :intake }
+      let(:query_double) { double }
+      before do
+        indicator.reference = "intake"
+        indicator.query_model_name = "Intake::CtcIntake"
+        allow(Intake::CtcIntake).to receive(:where).and_return query_double
+        allow(query_double).to receive(:average)
+      end
+
+      it "builds the scoped query as a self-reference" do
+        indicator.execute(intake: intake)
+        expect(Intake::CtcIntake).to have_received(:where).with(id: intake.id)
+      end
+    end
+
     context "when the indicator type has a defined method" do
       before do
         allow(indicator).to receive(:average_under)
@@ -218,15 +234,39 @@ describe Fraud::Indicator do
       allow(query_double).to receive(:pluck).and_return [1,2,3]
     end
 
-    it "sets up the query correctly" do
-      fraud_indicator.execute(intake: intake, client: client)
-      expect(DeduplificationService).to have_received(:duplicates).with(client, "primary_first_name", "primary_last_name", from_scope: Intake::CtcIntake)
+    context "when the query_model_name responds to accessible_intakes" do
+      it "sets up the query to only look at accessible intakes" do
+        fraud_indicator.execute(intake: intake, client: client)
+        expect(DeduplificationService).to have_received(:duplicates).with(client, "primary_first_name", "primary_last_name", from_scope: Intake::CtcIntake.accessible_intakes)
+      end
     end
+
+    context "when the query_model_name does not respond to accessible_intakes" do
+      before do
+        fraud_indicator.query_model_name = "EfileSecurityInformation"
+      end
+
+      it "sets up the query correctly" do
+        fraud_indicator.execute(intake: intake, client: client)
+        expect(DeduplificationService).to have_received(:duplicates).with(client, "primary_first_name", "primary_last_name", from_scope: EfileSecurityInformation)
+      end
+    end
+
 
     context "when there are duplicates" do
       it "returns the count of duplicates" do
         multiplied_score = (80 + (2 * 2 * 0.25 * 80)).to_i
         expect(fraud_indicator.execute(intake: intake, client: client)).to eq [multiplied_score, [1,2,3]]
+      end
+
+      context "when there are duplicates, but the threshold is greater than the number of duplicates" do
+        before do
+          fraud_indicator.threshold = 5
+        end
+
+        it "provides the duplicates but the score is 0" do
+          expect(fraud_indicator.execute(intake: intake, client: client)).to eq [0, [1,2,3]]
+        end
       end
     end
 
