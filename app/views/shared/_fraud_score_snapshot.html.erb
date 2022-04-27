@@ -1,3 +1,4 @@
+<% hide_zeros ||= false %>
 <div class="field-display spacing-below-5">
   <span class="form-question"><%= "Score:" %></span>
   <span class="label-value"><%= fraud_score.score %></span>
@@ -5,14 +6,15 @@
 <% if fraud_score.snapshot.present? %>
   <hr class="spacing-above-5 spacing-below-5">
   <% fraud_score.snapshot.each do |key, value| %>
-  <% indicator = fraud_indicators.find { |indicator| indicator.name == key } %>
-  <div class="field-display spacing-below-5">
+  <% if value["points"]&.to_i > 0 || !hide_zeros %>
+    <% indicator = fraud_indicators.find { |indicator| indicator.name == key } %>
+    <div class="field-display spacing-below-5">
     <span class="form-question"><%= key.humanize %>:</span>
     <span class="label-value"><%= value["points"] %> points</span>
     <% if value["data"].present? %>
       <br>
       <span style="font-size: smaller">
-      <% if indicator.indicator_type == "duplicates" %>
+      <% if indicator.&indicator_type == "duplicates" %>
         <i><%= indicator.reference&.humanize %>s:
           <% value["data"].each_with_index do |id, i| %>
             <%= link_to id, client_finder_hub_client_path(id: id, resource: indicator.reference) %><% unless (i+1 == value["data"].length) %>, <% end %>
@@ -24,5 +26,6 @@
     </span>
     <% end %>
   </div>
+  <% end %>
 <% end %>
 <% end %>
