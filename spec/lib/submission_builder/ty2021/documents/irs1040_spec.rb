@@ -144,5 +144,19 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(described_class.build(submission)).to be_valid
       end
     end
+
+    context "when not filing jointly but spouse information exists" do
+      before do
+        submission.tax_return.update(filing_status: "head_of_household")
+        submission.intake.update(spouse_was_blind: "yes", was_blind: "yes", primary_birth_date: Date.today - 85.years, spouse_birth_date: Date.today - 80.years)
+      end
+
+      it "does not check the spouse boxes on the return" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("Spouse65OrOlderInd")).to be_nil
+        expect(xml.at("SpouseBlindInd")).to be_nil
+        expect(xml.at("TotalBoxesCheckedCnt").text).to eq "2"
+      end
+    end
   end
 end

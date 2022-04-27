@@ -21,8 +21,8 @@ module SubmissionBuilder
             xml.VirtualCurAcquiredDurTYInd intake.has_crypto_income
             xml.Primary65OrOlderInd "X" if tax_return.primary_age_65_or_older?
             xml.PrimaryBlindInd "X" if intake.was_blind_yes?
-            xml.Spouse65OrOlderInd "X" if tax_return.spouse_age_65_or_older?
-            xml.SpouseBlindInd "X" if intake.spouse_was_blind_yes?
+            xml.Spouse65OrOlderInd "X" if tax_return.spouse_age_65_or_older? && tax_return.filing_jointly?
+            xml.SpouseBlindInd "X" if intake.spouse_was_blind_yes? && tax_return.filing_jointly?
             xml.TotalBoxesCheckedCnt boxes_checked unless boxes_checked.zero?
             xml.TotalExemptPrimaryAndSpouseCnt filer_exemption_count
             qualifying_dependents.each do |dependent|
@@ -79,8 +79,8 @@ module SubmissionBuilder
         def boxes_checked(intake, tax_return)
           [intake.was_blind_yes?,
            tax_return.primary_age_65_or_older?,
-           tax_return.spouse_age_65_or_older?,
-           intake.spouse_was_blind_yes?
+           tax_return.spouse_age_65_or_older? && tax_return.filing_jointly?,
+           intake.spouse_was_blind_yes? && tax_return.filing_jointly?
           ].count(true)
         end
       end
