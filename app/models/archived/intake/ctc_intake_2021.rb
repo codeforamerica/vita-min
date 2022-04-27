@@ -198,7 +198,7 @@
 #  spouse_signature_pin_at                              :datetime
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
-#  spouse_was_blind                                     :integer          default(0), not null
+#  spouse_was_blind                                     :integer          default("unfilled"), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  spouse_was_on_visa                                   :integer          default(0), not null
 #  state                                                :string
@@ -211,7 +211,7 @@
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  wants_to_itemize                                     :integer          default(0), not null
-#  was_blind                                            :integer          default(0), not null
+#  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default(0), not null
 #  was_on_visa                                          :integer          default(0), not null
 #  widowed                                              :integer          default(0), not null
