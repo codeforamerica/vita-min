@@ -691,6 +691,15 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.index ["client_id"], name: "index_documents_requests_on_client_id"
   end
 
+  create_table "drivers_licenses", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.date "expiration_date", null: false
+    t.date "issue_date", null: false
+    t.string "license_number", null: false
+    t.string "state", null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "efile_errors", force: :cascade do |t|
     t.boolean "auto_cancel", default: false
     t.boolean "auto_wait", default: false
@@ -1067,6 +1076,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "primary_consented_to_service", default: 0, null: false
     t.datetime "primary_consented_to_service_at"
     t.inet "primary_consented_to_service_ip"
+    t.bigint "primary_drivers_license_id"
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
@@ -1108,6 +1118,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "spouse_consented_to_service", default: 0, null: false
     t.datetime "spouse_consented_to_service_at"
     t.inet "spouse_consented_to_service_ip"
+    t.bigint "spouse_drivers_license_id"
     t.citext "spouse_email_address"
     t.integer "spouse_filed_prior_tax_year", default: 0, null: false
     t.string "spouse_first_name"
@@ -1166,8 +1177,10 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
+    t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
+    t.index ["spouse_drivers_license_id"], name: "index_intakes_on_spouse_drivers_license_id"
     t.index ["spouse_email_address"], name: "index_intakes_on_spouse_email_address"
     t.index ["type"], name: "index_intakes_on_type"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
@@ -1631,7 +1644,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
            SELECT DISTINCT tax_returns.client_id
              FROM (tax_returns
                JOIN intakes ON ((intakes.client_id = tax_returns.client_id)))
-            WHERE ((tax_returns.current_state)::text <> ALL ((ARRAY['intake_before_consent'::character varying, 'intake_in_progress'::character varying, 'intake_greeter_info_requested'::character varying, 'intake_needs_doc_help'::character varying, 'file_mailed'::character varying, 'file_accepted'::character varying, 'file_not_filing'::character varying, 'file_hold'::character varying, 'file_fraud_hold'::character varying])::text[]))
+            WHERE ((tax_returns.current_state)::text <> ALL (ARRAY[('intake_before_consent'::character varying)::text, ('intake_in_progress'::character varying)::text, ('intake_greeter_info_requested'::character varying)::text, ('intake_needs_doc_help'::character varying)::text, ('file_mailed'::character varying)::text, ('file_accepted'::character varying)::text, ('file_not_filing'::character varying)::text, ('file_hold'::character varying)::text, ('file_fraud_hold'::character varying)::text]))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count

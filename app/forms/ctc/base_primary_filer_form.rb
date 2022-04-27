@@ -1,6 +1,6 @@
 module Ctc
   class BasePrimaryFilerForm < QuestionsForm
-    include BirthDateHelper
+    include DateHelper
 
     validates :primary_first_name, presence: true, legal_name: true
     validates :primary_last_name, presence: true, legal_name: true
@@ -37,7 +37,7 @@ module Ctc
     private
 
     def primary_birth_date
-      parse_birth_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day)
+      parse_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day)
     end
 
     def primary_birth_date_is_valid_date

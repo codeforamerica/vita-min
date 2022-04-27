@@ -224,7 +224,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     end
 
     <<~HTML.html_safe
-          <fieldset class="form-group#{error_state(object, method)}">
+          <fieldset class="date-text-fields form-group#{error_state(object, method)}">
             #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
             <div>
               #{date_text_fields[0]}

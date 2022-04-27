@@ -451,6 +451,7 @@ es:
     single: Soltera
     site_coordinator: Coordinadora del sitio
     sites: Sitios
+    skip: Saltar
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sms_phone_number: Número de celular
@@ -2043,6 +2044,13 @@ es:
             error_message: Introduzca la información de una cuenta bancaria con su nombre, o seleccione otro método de pago.
             error_message_html: Introduzca la información de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro método de pago</a>.
             label: Confirmo que mi nombre es en esta cuenta bancaria
+        drivers_license:
+          expiration_date: Fecha de caducidad
+          help_text: Ingresar la información de su licencia de conducir es una forma de combatir el fraude y puede hacer que su devolución se procese más rápido.
+          issue_date: Fecha de emisión
+          license_number: Número de licencia de conducir
+          state: Estado de la licencia de conducir
+          title: "¿Tiene licencia de conducir?"
         email_address:
           title: Favor de compartir la dirección de su correo electrónico
         file_full_return:
@@ -2190,6 +2198,11 @@ es:
         routing_number:
           routing_number: Número de ruta bancaria
           routing_number_confirmation: Confirme su número de ruta bancaria bancaria
+        spouse_drivers_license:
+          help_text: Debido a que presenta una declaración conjunta, proporcionar la información de la licencia de conducir de su cónyuge es una forma de combatir el fraude y puede hacer que su declaración se procese más rápido.
+          license_number: Número de licencia de conducir del cónyuge
+          state: Estado de la licencia de conducir del cónyuge
+          title: "¿Tiene su cónyuge una licencia de conducir?"
         spouse_filed_prior_tax_year:
           did_not_file: Mi cónyuge no presentó la declaración de impuestos del %{prior_tax_year}
           filed_full_joint: Mi cónyuge presentó la declaración de impuestos completa conjuntamente conmigo

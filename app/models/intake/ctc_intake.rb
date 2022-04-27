@@ -238,6 +238,8 @@
 #  created_at                                           :datetime         not null
 #  updated_at                                           :datetime         not null
 #  client_id                                            :bigint
+#  primary_drivers_license_id                           :bigint
+#  spouse_drivers_license_id                            :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
 #  with_drivers_license_photo_id                        :boolean          default(FALSE)
@@ -258,8 +260,10 @@
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
+#  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
 #  index_intakes_on_sms_phone_number                       (sms_phone_number)
+#  index_intakes_on_spouse_drivers_license_id              (spouse_drivers_license_id)
 #  index_intakes_on_spouse_email_address                   (spouse_email_address)
 #  index_intakes_on_type                                   (type)
 #  index_intakes_on_vita_partner_id                        (vita_partner_id)
@@ -306,7 +310,9 @@ class Intake::CtcIntake < Intake
     sms_verified.or(email_verified).or(navigator_verified)
   end
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
-  accepts_nested_attributes_for :bank_account
+  belongs_to :primary_drivers_license, class_name: "DriversLicense", optional: true
+  belongs_to :spouse_drivers_license, class_name: "DriversLicense", optional: true
+  accepts_nested_attributes_for :bank_account, :primary_drivers_license, :spouse_drivers_license
 
   before_validation do
     attributes_to_change = self.changes_to_save.keys

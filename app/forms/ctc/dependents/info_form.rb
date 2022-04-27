@@ -1,7 +1,7 @@
 module Ctc
   module Dependents
     class InfoForm < DependentForm
-      include BirthDateHelper
+      include DateHelper
 
       set_attributes_for :dependent,
                          :first_name,
@@ -75,7 +75,7 @@ module Ctc
       private
 
       def birth_date
-        parse_birth_date_params(birth_date_year, birth_date_month, birth_date_day)
+        parse_date_params(birth_date_year, birth_date_month, birth_date_day)
       end
 
       def birth_date_is_valid_date

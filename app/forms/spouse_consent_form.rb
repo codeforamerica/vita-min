@@ -1,5 +1,5 @@
 class SpouseConsentForm < QuestionsForm
-  include BirthDateHelper
+  include DateHelper
 
   set_attributes_for(
     :intake,
@@ -35,7 +35,7 @@ class SpouseConsentForm < QuestionsForm
     attributes = attributes_for(:intake)
       .except(:birth_date_year, :birth_date_month, :birth_date_day)
       .merge(
-        spouse_birth_date: parse_birth_date_params(birth_date_year, birth_date_month, birth_date_day),
+        spouse_birth_date: parse_date_params(birth_date_year, birth_date_month, birth_date_day),
         spouse_consented_to_service: "yes",
         spouse_consented_to_service_at: DateTime.now
       )

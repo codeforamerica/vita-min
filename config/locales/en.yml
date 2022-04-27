@@ -451,6 +451,7 @@ en:
     single: Single
     site_coordinator: Site coordinator
     sites: Sites
+    skip: Skip
     skip_question: Skip question
     skip_questions: Skip questions
     sms_phone_number: Cell phone number
@@ -2086,6 +2087,13 @@ en:
             error_message: Enter info for a bank account with your name on it, or switch to check as your payment type.
             error_message_html: Enter info for a bank account with your name on it, or <a href=%{link}> select a different method for your payment</a>.
             label: I confirm that my name is on this bank account.
+        drivers_license:
+          expiration_date: Expiration date
+          help_text: Entering your driver’s license information is a way to fight fraud, and may get your return processed faster.
+          issue_date: Issue date
+          license_number: Driver’s license number
+          state: Driver’s license state
+          title: Do you have a driver’s license?
         email_address:
           title: Please share your email address.
         file_full_return:
@@ -2233,6 +2241,11 @@ en:
         routing_number:
           routing_number: Routing number
           routing_number_confirmation: Confirm routing number
+        spouse_drivers_license:
+          help_text: Because you are filing jointly, providing your spouse’s driver’s license information is a way to fight fraud, and may get your return processed faster.
+          license_number: Spouse driver’s license number
+          state: Spouse driver’s license state
+          title: Does your spouse have a driver’s license?
         spouse_filed_prior_tax_year:
           did_not_file: My spouse did not file a %{prior_tax_year} tax return
           filed_full_joint: My spouse filed a full tax return jointly with me
