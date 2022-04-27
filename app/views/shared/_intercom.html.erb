@@ -7,6 +7,7 @@
 
 <script>
   const isHub = <%= isHub.to_json %>;
+  const isClient = <%= current_client.present? %>
   // https://developers.intercom.com/installing-intercom/docs/javascript-api-attributes-objects#section-data-attributes
   let intercomSettings = {
       app_id: "<%= @app_id %>",
@@ -14,6 +15,10 @@
       language_override: "<%= I18n.locale %>",
       hide_default_launcher: true
   };
+  // avoid sending an empty string for user_id
+  if (isClient) {
+      intercomSettings.user_id = "<%= current_client&.id %>"
+  }
   const hubStyles = {
       action_color: "#757575",
       background_color: "black",
