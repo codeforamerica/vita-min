@@ -4,16 +4,16 @@
 #
 #  id           :bigint           not null, primary key
 #  activated_at :datetime
-#  deny         :boolean
 #  name         :string
+#  risky        :boolean
 #  safe         :boolean
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
 # Indexes
 #
-#  index_fraud_indicators_domains_on_deny  (deny)
-#  index_fraud_indicators_domains_on_safe  (safe)
+#  index_fraud_indicators_domains_on_risky  (risky)
+#  index_fraud_indicators_domains_on_safe   (safe)
 #
 module Fraud
   module Indicators
@@ -27,10 +27,10 @@ module Fraud
       end
 
       validates :name, format: { with: /(\.)/ }
-      validate :deny_or_safe
+      validate :risky_or_safe
 
-      def self.denylist
-        where(deny: true).pluck(:name)
+      def self.riskylist
+        where(risky: true).pluck(:name)
       end
 
       def self.safelist
@@ -39,15 +39,15 @@ module Fraud
 
       private
 
-      def deny_or_safe
-        if deny.present? && safe.present?
-          cant_be_both = "Only one of deny or safe are allowed"
-          errors.add(:deny, cant_be_both)
+      def risky_or_safe
+        if risky.present? && safe.present?
+          cant_be_both = "Only one of risky or safe are allowed"
+          errors.add(:risky, cant_be_both)
           errors.add(:safe, cant_be_both)
         end
-        unless deny.present? || safe.present?
-          must_be_one = "One of deny or safe are required"
-          errors.add(:deny, must_be_one)
+        unless risky.present? || safe.present?
+          must_be_one = "One of risky or safe are required"
+          errors.add(:risky, must_be_one)
           errors.add(:safe, must_be_one)
         end
       end
