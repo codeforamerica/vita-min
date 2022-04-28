@@ -1,5 +1,6 @@
 require_relative "boot"
 require_relative "../lib/middleware/cleanup_mime_type_headers"
+require_relative "../lib/middleware/reject_invalid_params"
 
 require "rails"
 # Pick the frameworks you want:
@@ -46,7 +47,9 @@ module VitaMin
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     #
+    #
     config.middleware.use Middleware::CleanupMimeTypeHeaders
+    config.middleware.use Middleware::RejectInvalidParams
     config.current_tax_year = 2021
 
     # These defaults can be overridden per-environment if needed
