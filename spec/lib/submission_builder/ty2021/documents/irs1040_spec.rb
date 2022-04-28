@@ -120,6 +120,7 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("RoutingTransitNum").text).to eq "123456789"
         expect(xml.at("BankAccountTypeCd").text).to eq "1"
         expect(xml.at("DepositorAccountNum").text).to eq "87654321"
+
         expect(xml.at("RefundProductCd").text).to eq "NO FINANCIAL PRODUCT"
       end
 

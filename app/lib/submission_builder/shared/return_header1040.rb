@@ -15,6 +15,8 @@ module SubmissionBuilder
         tax_return = submission.tax_return
         intake = submission.intake
         client = submission.client
+        primary_drivers_license = intake.primary_drivers_license
+        spouse_drivers_license = intake.spouse_drivers_license
         creation_security_information = client.efile_security_informations.first
         filing_security_information = client.efile_security_informations.last
         address = submission.verified_address
@@ -96,6 +98,16 @@ module SubmissionBuilder
               xml.CellPhoneNum phone_type(intake.sms_phone_number) if intake.sms_phone_number.present?
               xml.EmailAddressTxt intake.email_address if intake.email_address.present?
             }
+            if primary_drivers_license.present?
+              xml.PrimDrvrLcnsOrStateIssdIdGrp do
+                drivers_license_xml(xml, primary_drivers_license)
+              end
+            end
+            if tax_return.filing_jointly? && spouse_drivers_license.present?
+              xml.SpsDrvrLcnsOrStateIssdIdGrp do
+                drivers_license_xml(xml, spouse_drivers_license)
+              end
+            end
             xml.AtSubmissionFilingGrp {
               xml.RefundProductElectionInd false
 
@@ -158,6 +170,13 @@ module SubmissionBuilder
             xml.VendorControlNum "2P00000000000001"
           }
         end
+      end
+
+      def drivers_license_xml(xml, drivers_license)
+        xml.DrvrLcnsOrStateIssdIdNum drivers_license.license_number
+        xml.DrvrLcnsOrStateIssdIdStCd drivers_license.state
+        xml.DrvrLcnsOrStateIssdIdExprDt date_type(drivers_license.expiration_date)
+        xml.DrvrLcnsOrStateIssdIdIssDt date_type(drivers_license.issue_date)
       end
     end
   end
