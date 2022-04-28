@@ -1511,7 +1511,8 @@ es:
         sign_up_for_ctc: Regístrese para recibir GetCTC
         timeframe: 15 minutos para declarar
         title: GetCTC
-        warning: No puede presentar la declaración con GetCTC si ha ganado más de $400 en ingresos por cuenta propia o si está obligado a presentar una declaración de impuestos completa.
+        warning_html: |
+          * No puede presentar una declaración ante GetCTC si ganó más de $400 en ingresos de trabajo por cuenta propia o si <u>debe</u> presentar una declaración de impuestos completa.
       diy_tile:
         choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés
         description: "¡Cobre el mayor reembolso! Presente la solicitud rápidamente por su cuenta."
@@ -1522,7 +1523,7 @@ es:
         description: "¡Cobre el reembolso más grande! Presente su declaración con asistencia de nuestros voluntarios certificados por IRS."
         timeframe: De 2-3 semanas para declarar sus impuestos
         title: GetYourRefund
-        warning: Es necesario que muestre copias de su tarjeta de la Seguridad Social o de los documentos del Número de Identificación Personal del Contribuyente (ITIN en inglés).
+        warning: "* Es necesario que muestre copias de su tarjeta de la Seguridad Social o de los documentos del Número de Identificación Personal del Contribuyente (ITIN en inglés)."
       refund: Reembolso
     triage_ctc:
       edit:
@@ -1549,7 +1550,7 @@ es:
         title: Le recomendamos presentar la solicitud de forma gratuita con GetYourRefund.
     triage_gyr_ctc:
       edit:
-        title: "¡Le recomendamos presentar la solicitud con nuestra opción GetCTC!"
+        title: "¡Tenemos dos opciones gratuitas que pueden funcionar para usted!"
     triage_gyr_diy:
       edit:
         title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"

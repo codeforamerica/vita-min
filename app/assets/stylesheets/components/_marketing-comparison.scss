@@ -28,7 +28,7 @@
     flex-direction: row;
     align-items: flex-start;
 
-    &.ctc {
+    &.gyr {
       padding-bottom: 2.5rem;
       align-items: center;
 
@@ -58,5 +58,10 @@
       letter-spacing: 2px;
       white-space: nowrap;
     }
+  }
+
+  .text--red-details {
+    font-weight: bold;
+    color: #D70A40;
   }
 }
