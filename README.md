@@ -49,6 +49,12 @@ Add it to your configuration:
 echo "[secret key]" > config/credentials/development.key
 ```
 
+Get the fraud indicators decryption key from lastpass, too
+
+```sh
+echo "[secret key]" > config/fraud_indicators.key
+```
+
 ### Add efile resources locally
 
 In development, we need to download the IRS e-file schemas zip manually from S3.
