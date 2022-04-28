@@ -110,6 +110,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.before(:each) do
+    stub_const('Fraud::Score::HOLD_THRESHOLD', 1000)
+    stub_const('Fraud::Score::RESTRICT_THRESHOLD', 1000)
     stub_request(:post, /.*api\.twilio\.com.*/).to_return(status: 200, body: "", headers: {})
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
@@ -152,9 +154,6 @@ RSpec.configure do |config|
   end
 
   config.before(type: :feature) do |example|
-    stub_const('Fraud::Score::HOLD_THRESHOLD', 1000)
-    stub_const('Fraud::Score::RESTRICT_THRESHOLD', 1000)
-
     if config.filter.rules[:flow_explorer_screenshot] || config.filter.rules[:flow_explorer_screenshot_i18n_friendly]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
