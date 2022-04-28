@@ -1,7 +1,7 @@
-<% content_for :form_question, t("views.ctc.questions.income.title", current_tax_year: current_tax_year) %>
+<% content_for :form_question, t("views.ctc.questions.income.title", current_tax_year: current_tax_year, count: current_intake.default_tax_return.filing_status_single? ? 1 : 2) %>
+
 <% content_for :form_help_text do %>
   <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year).standard_deduction(current_intake.default_tax_return.filing_status) %>
-  <p><%= t('views.ctc.questions.income.help_text') %></p>
   <ul class="checkmark-list teal">
     <% t("views.ctc.questions.income.income_qualifications", standard_deduction: number_to_currency(standard_deduction, precision: 0)).each do |income_qualifications| %>
       <li><%= income_qualifications %></li>
@@ -9,16 +9,22 @@
   </ul>
 
   <div class="reveal-shrink-wrapper spacing-above-60">
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.have_questions_reveal.title")) do %>
-      <p><%= t("views.ctc.questions.income.have_questions_reveal.content.p1") %></p>
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.income_reveal.title")) do %>
+      <p><%= t("views.ctc.questions.income.income_reveal.content.p1") %></p>
       <ul class="list--bulleted">
-        <% t("views.ctc.questions.income.have_questions_reveal.content.list_1").each do |item| %>
+        <% t("views.ctc.questions.income.income_reveal.content.list_1").each do |item| %>
           <li><%= item %></li>
         <% end %>
       </ul>
-      <p><%= t("views.ctc.questions.income.have_questions_reveal.content.p2") %></p>
+    <% end %>
+  </div>
+
+  <div class="reveal-shrink-wrapper">
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.self_employment_income_reveal.title")) do %>
+      <p><%= t("views.ctc.questions.income.self_employment_income_reveal.content.p1") %></p>
+      <p><%= t("views.ctc.questions.income.self_employment_income_reveal.content.p2") %></p>
       <ul class="list--bulleted">
-        <% t("views.ctc.questions.income.have_questions_reveal.content.list_2").each do |item| %>
+        <% t("views.ctc.questions.income.self_employment_income_reveal.content.list_1").each do |item| %>
           <li><%= item %></li>
         <% end %>
       </ul>
@@ -29,6 +35,7 @@
     <%= render('components/molecules/reveal', title: t("views.ctc.questions.income.what_is_aptc_reveal.title")) do %>
       <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p1") %></p>
       <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p2") %></p>
+      <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p3") %></p>
     <% end %>
   </div>
 <% end %>

@@ -9,7 +9,8 @@
     <%= t("views.ctc.questions.ip_pin_explanation_html") %>
   <% end %>
 
-  <p class="spacing-below-15"><%= t("views.ctc.questions.ip_pin.help_text") %></p>
+  <p><%= t("views.ctc.questions.ip_pin.help_text_1") %></p>
+  <p><%= t("views.ctc.questions.ip_pin.help_text_2") %></p>
 
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="form-card__stacked-checkboxes spacing-above-0 spacing-below-15">

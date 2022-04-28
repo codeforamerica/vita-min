@@ -44,6 +44,14 @@
         <% end %>
       </div>
     </div>
+
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.confirm_dependents.other_benefits_reveal.title")) do %>
+      <p><%= t("views.ctc.questions.confirm_dependents.other_benefits_reveal.content.p1_html", current_tax_year: current_tax_year) %></p>
+      <p class="text--bold"><%= t("views.ctc.questions.confirm_dependents.other_benefits_reveal.content.head_of_household.title") %></p>
+      <p><%= t("views.ctc.questions.confirm_dependents.other_benefits_reveal.content.head_of_household.p1") %></p>
+      <p><%= t("views.ctc.questions.confirm_dependents.other_benefits_reveal.content.head_of_household.p2") %></p>
+    <% end %>
+
     <button class="button button--primary button--wide" type="submit">
       <%= t("views.ctc.questions.confirm_dependents.done_adding") %>
     </button>

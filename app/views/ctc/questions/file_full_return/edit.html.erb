@@ -4,7 +4,8 @@
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
 
-  <p><%= t("views.ctc.questions.file_full_return.help_text", current_tax_year: current_tax_year)%></p>
+  <p><%= t("views.ctc.questions.file_full_return.help_text1", current_tax_year: current_tax_year)%></p>
+  <p><%= t("views.ctc.questions.file_full_return.help_text2") %></p>
 
     <%= render('components/molecules/reveal', title: t("views.ctc.questions.file_full_return.reveal.title")) do %>
       <% t('views.ctc.questions.file_full_return.reveal.body_html',

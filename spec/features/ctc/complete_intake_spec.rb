@@ -18,7 +18,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
-      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
+      expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
     end
     click_on I18n.t('general.affirmative')
 
@@ -57,7 +57,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
-    check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
@@ -99,7 +98,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
     expect(page).not_to have_text(I18n.t('views.ctc.questions.spouse_info.remove_button'))
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: prior_tax_year, spouse_first_name: "Peter"))
     choose I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on I18n.t('general.continue')
 
@@ -265,7 +264,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("div", text: "26 William Street")
     expect(page).to have_selector("div", text: "Apt 1234")
     expect(page).to have_selector("div", text: "Bel Air, CA 90001")
-    click_on I18n.t('general.continue')
+    click_on I18n.t('general.confirm')
 
     # =========== IP PINs ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
@@ -340,7 +339,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Garold Mango III"), with: "12345"
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Petra Pepper"), with: "54321"
-    click_on I18n.t('views.ctc.questions.confirm_information.ready_to_file')
+    click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_payment.title"))
     expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.ctc_due"))
@@ -360,7 +359,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in "ctc_drivers_license_form[expiration_date_year]", with: "2024"
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.spouse_drivers_license.title"))
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.spouse_drivers_license.title", spouse_first_name: "Petra"))
     click_on I18n.t('general.skip')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))
@@ -410,7 +409,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     within "h1" do
-      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
+      expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
     end
     click_on I18n.t('general.affirmative')
 
@@ -443,7 +442,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
     check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
-    check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
@@ -486,11 +484,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin'), with: "222-33-4444"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation'), with: "222-33-4444"
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.title', prior_tax_year: prior_tax_year, spouse_first_name: "Peter"))
     choose I18n.t('views.ctc.questions.spouse_filed_prior_tax_year.filed_full_separate')
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_prior_tax_year_agi.title', prior_tax_year: prior_tax_year))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_prior_tax_year_agi.title', prior_tax_year: prior_tax_year, spouse_first_name: "Peter"))
     fill_in I18n.t('views.ctc.questions.prior_tax_year_agi.label', prior_tax_year: prior_tax_year), with: '4,567'
     click_on I18n.t('general.continue')
 
@@ -537,7 +535,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_mailing_address.title"))
-    click_on I18n.t('general.continue')
+    click_on I18n.t('general.confirm')
 
     # =========== IP PINs ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
@@ -583,7 +581,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in "ctc_legal_consent_form_primary_birth_date_month", with: new_birth_date.month
     fill_in "ctc_legal_consent_form_primary_birth_date_day", with: new_birth_date.day
     fill_in "ctc_legal_consent_form_primary_birth_date_year", with: new_birth_date.year
-    check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
     expect(Intake.count).to eq(1)

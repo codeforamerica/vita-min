@@ -5,7 +5,6 @@
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long", autocomplete: "off" } do |f| %>
     <h1 class="h2"><%= @main_question %></h1>
-    <p class="help-text"><%= t("views.questions.bank_details.help_text") %></p>
     <div class="form-card__content">
       <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_radio_set(
@@ -17,6 +16,7 @@
             ]
           )
       %>
+      <p class="text--bold"><%= t("views.questions.bank_details.help_text") %></p>
       <%= f.cfa_checkbox(:my_bank_account, t("views.ctc.questions.direct_deposit.my_bank_account.label"), options: { checked_value: "yes", unchecked_value: "no" }) %>
 
       <%= image_tag "check_routing_and_account.png", class: "spacing-below-35" %>

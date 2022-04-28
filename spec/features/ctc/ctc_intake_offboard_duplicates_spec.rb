@@ -26,7 +26,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
-      expect(page.source).to include(I18n.t('views.ctc.questions.income.title', current_tax_year: current_tax_year))
+      expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
     end
     click_on I18n.t('general.affirmative')
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
@@ -58,7 +58,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
-    check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.questions.returning_client.title"))

@@ -440,7 +440,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       # Payment info
       expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
-      choose "Mail me a check (slower)"
+      choose I18n.t('views.ctc.questions.refund_payment.check')
     end
     click_on "Continue"
 

@@ -57,7 +57,6 @@ module NavigationHelpers
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: primary_ssn
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: primary_ssn
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: sms_phone_number
-    check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))

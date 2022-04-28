@@ -9,7 +9,8 @@
   <%= t('views.ctc.questions.advance_ctc_amount.details_html') %>
 
   <%= render('components/molecules/reveal', title: t("views.ctc.questions.advance_ctc_amount.find_reveal.title")) do %>
-    <p><%= t("views.ctc.questions.advance_ctc_amount.find_reveal.contents") %></p>
+    <p><%= t("views.ctc.questions.advance_ctc_amount.find_reveal.content.p1") %></p>
+    <p><%= t("views.ctc.questions.advance_ctc_amount.find_reveal.content.p2") %></p>
   <% end %>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, class: "amount-collection-form"  do |f| %>

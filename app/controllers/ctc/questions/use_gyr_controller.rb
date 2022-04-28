@@ -16,7 +16,7 @@ module Ctc
       end
 
       def illustration_path
-        "hand-holding-check.svg"
+        "warning-triangle-yellow.svg"
       end
     end
   end

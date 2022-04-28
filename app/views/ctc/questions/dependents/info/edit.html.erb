@@ -21,11 +21,35 @@
             dependent_relationship_options,
             include_blank: true
           ) %>
+
+      <div class="reveal-shrink-wrapper">
+        <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.does_my_child_qualify_reveal.title")) do %>
+          <p><%= t("views.ctc.questions.dependents.does_my_child_qualify_reveal.content.p1") %></p>
+          <ul class="list--bulleted">
+            <% t("views.ctc.questions.dependents.does_my_child_qualify_reveal.content.list_1").each do |item| %>
+              <li><%= item %></li>
+            <% end %>
+          </ul>
+          <p><%= t("views.ctc.questions.dependents.does_my_child_qualify_reveal.content.p2") %></p>
+          <ul class="list--bulleted">
+            <% t("views.ctc.questions.dependents.does_my_child_qualify_reveal.content.list_2").each do |item| %>
+              <li><%= item %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
       <div class="form-card__content">
         <%= f.cfa_select(:tin_type, t("views.ctc.questions.dependents.tin.form_of_identity"), tin_options_for_select(include_atin: true)) %>
-        <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.shared.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
         <%= f.cfa_input_field(:ssn, t("views.ctc.questions.dependents.tin.ssn_or_atin"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
         <%= f.cfa_input_field(:ssn_confirmation, t("views.ctc.questions.dependents.tin.ssn_or_atin_confirmation"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
+        <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.shared.ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+
+        <div class="reveal-shrink-wrapper">
+          <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.dependent_has_itin_reveal.title")) do %>
+            <p><%= t("views.ctc.questions.dependents.dependent_has_itin_reveal.content") %></p>
+          <% end %>
+        </div>
       </div>
       <div class="form-card__stacked-checkboxes spacing-above-0">
         <label class="form-question"> <%= t('views.ctc.questions.dependents.info.situations') %> </label>

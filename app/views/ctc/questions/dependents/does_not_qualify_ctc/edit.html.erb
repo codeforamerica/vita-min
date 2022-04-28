@@ -14,8 +14,6 @@
   <% end %>
 
   <div class="form-card--yes-no spacing-above-25">
-    <h2 class="spacing-below-0"><%= t("views.ctc.questions.dependents.does_not_qualify_ctc.add_anyone_else") %></h2>
-
     <div class="options-wrapper">
       <div class="yes-no-buttons">
         <%= link_to Ctc::Questions::Dependents::InfoController.to_path_helper(id: current_intake.new_dependent_token), class: "button button--icon button--icon--centered button--med-wide" do %>

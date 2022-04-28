@@ -1775,12 +1775,12 @@ en:
           contact_ta: Contact a Taxpayer Advocate
           contact_vita: Contact a VITA Site
           content_html:
-          - GetCTC helps you e-file a simplified %{current_tax_year} tax return. If you’ve already filed a %{current_tax_year} return, the IRS will reject this return without reviewing it, even if your first return was wrong or processed incorrectly.
-          - If you think your %{current_tax_year} return was never processed and you don’t know what happened, you may need direct assistance to help resolve your case. You can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
-          title: Unfortunately, you can't use GetCTC.
+          - To check the status of your %{current_tax_year} tax return you can log into your <a href='https://www.irs.gov/payments/your-online-account'>IRS online account</a>.
+          - If you need additional support, you can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
+          title: Unfortunately, you can’t use GetCTC because you already filed a %{current_tax_year} tax return.
       portal:
         bank_account:
-          title: Please provide your bank details below
+          title: Please provide your bank details.
         dependent_info:
           help_text: Confirm/edit your dependent’s basic information
           title: Edit %{name}’s basic information
@@ -1890,22 +1890,29 @@ en:
           account_number_confirmation: Confirm account number
         advance_ctc:
           adv_ctc_time_frame: These payments would have arrived monthly in the second half of the year, between July and December 2021.
+          find_reveal:
+            content:
+              p1: If you’re not sure how much you received, you can look up the amount in IRS Letter 6419, which you should have received earlier this year. Or, you can check your bank records from last year.
+              p2: If you are married, you and your spouse would each have received a separate Letter 6419. Add the two amounts together from both letters and enter the total.
+            title: Where can I find this amount?
           no_did_not_receive: I didn’t receive any payments
           no_received_different: I received a different amount
           question: Did you receive this amount?
           title: Did you receive a total of $%{adv_ctc_estimate} in Advance Child Tax Credits in 2021?
-          total_adv_ctc: Total Advance Child Tax Credits
-          total_adv_ctc_details_html: We estimate that you should have received this <strong>total amount</strong> based on your filing status and for the following dependents
+          total_adv_ctc: 'We estimate that you should have received:'
+          total_adv_ctc_details_html: 'for the following dependents:'
           yes_received: I received this amount
         advance_ctc_amount:
           details_html: |
-            <p>You would have received this amount once a month between July and December of 2021.</p>
-            <p>Enter the <strong>total amount</strong> you received, if any, for that payment.</p>
+            <p>These payments would have been received monthly between July and December 2021.</p>
+            <p>If you enter an incorrect amount, the IRS will automatically correct it for you, but your payment may be delayed.</p>
           find_reveal:
-            contents: If you are unsure, check the official notice you received OR your bank records.
+            content:
+              p1: If you’re not sure how much you received, you can look up the amount in IRS Letter 6419, which you should have received earlier this year. Or, you can check your bank records from last year.
+              p2: If you are married, you and your spouse would each have received a separate Letter 6419. Add the two amounts together from both letters and enter the total.
             title: Where can I find this amount?
           form_title: Advance Child Tax Credit received
-          title: Enter the total amount you received for the Advance Child Tax Credit.
+          title: Enter the total amount of Advance Child Tax Credit you received.
         advance_ctc_claimed:
           buttons:
             add: Add more dependents
@@ -1913,14 +1920,13 @@ en:
             no_file: I don’t need to file a return
           content:
           - You entered %{amount_received} for the total amount of Advance Child Tax Credit you received in 2021.
-          - If this is correct, you will not receive any Child Tax Credit and might not need to finish submitting this form to file a return.
-          - If you think this is wrong, you should go back and either correct the amount you received or add more dependents.
+          - If this is correct, you are not eligible for any additional Child Tax Credit payment, and you probably do not need to file a tax return.
           title: You have no more Child Tax Credit to claim.
         advance_ctc_received:
-          already_received: Amount you’ve received
-          ctc_owed_details: If the amount you entered above is incorrect, your tax refund could be delayed while the IRS makes corrections to your return.
+          already_received: Amount you received
+          ctc_owed_details: If the amount you entered is incorrect, the IRS will automatically correct it for you, but your payment may be delayed.
           ctc_owed_title: 'You are eligible for an additional:'
-          title: Ok. We’ve calculated your Child Tax Credit.
+          title: Ok, we calculated your Child Tax Credit.
           total_adv_ctc: 'Total Advance CTC: %{amount}'
         already_completed:
           content_html: |
@@ -1930,9 +1936,8 @@ en:
           title: It looks like you’ve already started!
         already_filed:
           help_text_html: |
-            <p>Did you file a tax return this year, after January 1, %{calendar_year}, for the %{current_tax_year} tax year?</p>
-            <p>Answer yes even if you are still waiting for your credits. If you did, we'll give you more guidance about your options on the next page.</p>
-            <p class="text--bold">If you already filed a %{current_tax_year} tax return, the return you file with this tool will be rejected by the IRS.</p>
+            <p class="text--bold">If you already filed a 2021 tax return, the IRS will reject your GetCTC return without looking at it.</p>
+            <p>Answer yes even if you are still waiting for your payment or think you made a mistake.</p>
           title: Did you file a %{current_tax_year} tax return this year?
         at_capacity:
           p1: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service! Please check back next week.
@@ -1955,7 +1960,15 @@ en:
           birthday: Date of birth
           done_adding: Done adding dependents
           no_qualifying_dependents: No qualifying dependents
-          qualifying_for_ctc: Dependents for CTC and stimulus
+          other_benefits_reveal:
+            content:
+              head_of_household:
+                p1: If you are filing single and not married, one or more of your dependents might also qualify you to claim Head of Household status, a tax status that can be used by some single parents. However, for the credits you are able to claim with GetCTC, Head of Household status will not increase your refund, or make you eligible for any additional tax benefits.
+                p2: Claiming Head of Household status also could increase your probability of being audited by the IRS. If you are interested in claiming Head of Household Status regardless, click here.
+                title: Should I file as the Head of Household?
+              p1_html: If you earned income in %{current_tax_year}, one or more of your dependents might qualify you for a larger Earned Income Tax Credit. The EITC is available to some people who earn income, and is larger for those who have children. Unfortunately, you cannot currently claim the EITC on the simplified return you file using GetCTC. To file a full tax return and claim the EITC, visit <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
+            title: What about other benefits my dependents could be eligible for?
+          qualifying_for_ctc: Dependents qualifying for CTC and stimulus
           qualifying_for_other_credits: Dependents qualifying for only stimulus
           ssn: SSN
           ssn_no_employment: SSN (not valid for employment)
@@ -1964,14 +1977,12 @@ en:
           help_text: You will not be able change your information once the return is accepted by the IRS.
           labels:
             signature_pin: "%{name}'s Five Digit PIN"
-          pin_help_text: This is a 5 digit number that you choose as your own password. This PIN can be used to verify your identity when filing next year's tax return.
-          ready_to_file: I'm ready to file
-          set_pin: Finally, let’s set a PIN!
-          title: Please review and confirm your information below.
+          pin_help_text: Select a five-digit signature PIN. This is a number that you choose as your own password. This PIN can be used to verify your identity when filing next year's tax return.
+          title: Please review and confirm your information.
           your_dependents: Your dependents
           your_information: Your information
         confirm_legal:
-          action: File my return
+          action: File my tax return
           consent: I agree
           error: Please agree before continuing.
           legal_info_html: |
@@ -1981,17 +1992,15 @@ en:
           title: Please read through the legal information before submitting your tax return.
         confirm_mailing_address:
           mailing_address: Your mailing address
-          title: Great! Please confirm your mailing address.
+          title: Great! Confirm your mailing address.
         confirm_payment:
           client_not_collecting: You are not collecting any payments, please edit your tax return.
           ctc_0_due_link: Claim children for CTC
-          ctc_due: 'Child Tax Credit:'
-          ctc_due_link: Claim additional children
+          ctc_due: 'Child Tax Credit payments:'
           do_not_file: Do not file
           do_not_file_flash_message: Thank you for using GetCTC! We will not file your return.
           third_stimulus: 'Third Stimulus Payment:'
-          third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Click here for more information on the third stimulus payment.</a>
-          title: 'Here’s a list of the estimated payments you are owed:'
+          title: 'Here’s a list of the payments you are claiming:'
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: Your %{prior_tax_year} AGI
         confirm_spouse_prior_year_agi:
@@ -2004,26 +2013,30 @@ en:
           title: What is the best way to reach you?
         dependents:
           child_can_be_claimed_by_other:
-            help_text: If your child is also the qualifying child of another person, only one of you may claim the child for related child tax benefits.
+            help_text: If someone else also takes care of %{name}, only one of you may claim them for tax benefits. We will guide you through the steps to figure out if you can claim them or not.
             title: Are you the only person who can claim %{name}?
           child_claim_anyway:
-            help_text_html: |
-              <p>If you and someone else are eligible to claim %{name}, you should follow any existing agreement with the other person about who claims them.</p>
-              <p>Remember, if someone else has already claimed %{name} your return will be rejected. If that happens, we can guide you through the process of appealing the other claim, but it's not easy. You may choose to check first with the other caregivers.</p>
-            not_sure_reveal:
-              items:
-              - You are the parent who spent more time living with them.
-              - If you and the other parent spent the same amount of time with the dependent, whoever earned more money in %{current_tax_year} can claim them.
-              - If neither of you are the dependent’s parent, whoever earned more money in %{current_tax_year} can claim them.
-              p: 'You should claim the dependent if one of these situations is true:'
-              title: I’m unsure. Should I claim them?
-            title: Would you like to claim %{name} anyway?
+            help_text:
+              list:
+              - Whoever lived with %{name} for longer in %{current_tax_year} has the right to claim them.
+              - If you both spent the same time living with %{name} in %{current_tax_year}, then whichever parent made more money in %{current_tax_year} can claim %{name}.
+              p1: If you and the other person who could claim the dependent are both their legal parents...
+              p2: If you are %{name}’s legal parent and the other person who could claim them is not then you can claim them.
+            legal_parent_reveal:
+              p1: Only a biological parent, or a foster or adoptive parent who is legally caring for a child is eligible to claim a dependent.
+              p2: Caring for a child based on an informal agreement does not legally qualify you as a “parent”.
+              title: What is a legal parent?
+            not_legal_parent_reveal:
+              p1: If you are not %{name}’s parent and, the other person who might claim %{name} is not their parent either, whichever caregiver made more money in %{current_tax_year} can claim %{name}.
+              p2: If you are not %{name}’s parent, and the other person who might claim %{name} is their parent, you can not claim them.
+              title: What if I am not their legal parent?
+            title: Here’s how to check if you can claim %{name}.
           child_expenses:
             title: Did %{name} pay more than half their own living expenses in %{current_tax_year}?
           child_qualifiers:
             disabled_reveal:
-              info: A doctor determines if you have a permanent disability when you are unable to do a majority of your work because of a physical or mental condition.
-              title: What is permanently and totally disabled?
+              info: A doctor determines that you have a permanent disability when you are unable to do a majority of your work because of a physical or mental condition.
+              title: What is the definition of permanently and totally disabled?
             full_time_student: "%{name} was a full-time student"
             help_text: 'Select any situations that were true in %{current_tax_year}:'
             permanently_totally_disabled: "%{name} was permanently and totally disabled"
@@ -2037,10 +2050,21 @@ en:
             help_text: Select yes if they were born, adopted, or passed away in %{current_tax_year} and they lived with you for at least half their time.
             title: Did %{name} live with you for more than 6 months in %{current_tax_year}?
           child_residence_exceptions:
-            help_text: Select yes if they spent time living at school, in a medical facility, or somewhere else but their official address was with you.
+            help_text: Select yes if they spent time living at school, in a medical facility, in a juvenile facility, or another temporary location while their official address was with you.
             title: Was %{name}'s permanent residence with you for more than 6 months, even if they were away for part of that time?
+          dependent_has_itin_reveal:
+            content: Dependents with ITINs do not qualify you for the Child Tax Credit or the third stimulus payment. You do not get any tax credits by claiming them. Please only include dependents with Social Security Numbers or Adoption Taxpayer Identification Numbers.
+            title: What if my dependent has an ITIN?
+          does_my_child_qualify_reveal:
+            content:
+              list_1:
+              - Your foster child must have been placed with you per a formal arrangement with a foster agency or a court order.
+              list_2:
+              - You should classify your adopted child as your son or daughter, as long as they were adopted per a completed legal adoption or a child placed with you for legal adoption.
+              p1: Who counts as a foster child?
+              p2: What if I have an adopted child?
+            title: Does my child qualify?
           does_not_qualify_ctc:
-            add_anyone_else: Would you like to add anyone else?
             conditions:
             - The person you are trying to claim might be born in %{filing_year}. You can only claim dependents who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
             - The person you are trying to claim might be too old to be your dependent. Except in a few specific cases, your dependent has to be under 19, or under 24 if a student.
@@ -2050,23 +2074,26 @@ en:
             - The person you are trying to claim might be someone else’s dependent rather than yours. Only one household can claim a given dependent.
             help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments or stimulus payments.
             reveal: Why doesn’t this person qualify?
-            title: You can not claim benefits for %{name}.
+            title: You can not claim benefits for %{name}. Would you like to add anyone else?
           info:
-            filed_joint_return: This person was married and filed taxes with their spouse
+            filed_joint_return: This person is married and filing taxes with their spouse
             first_name: Legal first name
-            help_text: To avoid delays, please provide your child or family member’s legal information as it is written on their identification card.
+            help_text: To avoid delays, please provide this person’s legal information as it is written on their identification card.
             last_name: Legal last name
             middle_initial: Legal middle name(s) (optional)
             relationship_to_you: What is their relationship to you?
             situations: 'Select if the following is true:'
-            suffix: Suffix
-            title: Let’s get some basic information about your family member!
+            suffix: Suffix (optional)
+            title: Let’s get their basic information!
           relative_financial_support:
             title: Did you pay more than half of %{name}'s living expenses for %{current_tax_year}?
           relative_member_of_household:
             title: Did %{name} live with you for the entire year in %{current_tax_year}?
           relative_qualifiers:
             claimable: "%{name} did not live with someone else who could claim them."
+            gross_income_reveal:
+              content: "“Gross income” generally includes all income received during the year, including both earned and unearned income. Examples include wages, cash from your own business or side job, unemployment income, or Social Security income."
+              title: What is gross income?
             help_text: 'Select any situations that were true in %{current_tax_year}:'
             income_requirement: "%{name} earned less than $4,300 in gross income."
             title: We just need to verify a few more things.
@@ -2074,13 +2101,12 @@ en:
             nevermind_button: Nevermind, let's save them
             remove_button: Yes, remove them
             subtitle: Their information will not be submitted on your tax return.
-            subtitle_2: Is that ok?
-            title: You’re about to remove %{dependent_name} from your dependents.
+            title: You’re about to remove %{dependent_name} from your dependents. Is that ok?
           tin:
-            form_of_identity: Form of identity
+            form_of_identity: Dependent form of identity
             remove_person: Remove this person
-            ssn_or_atin: Enter their SSN or ATIN
-            ssn_or_atin_confirmation: Re-enter their SSN or ATIN
+            ssn_or_atin: Dependent SSN or ATIN
+            ssn_or_atin_confirmation: Confirm SSN or ATIN
         direct_deposit:
           my_bank_account:
             error_message: Enter info for a bank account with your name on it, or switch to check as your payment type.
@@ -2088,39 +2114,63 @@ en:
             label: I confirm that my name is on this bank account.
         drivers_license:
           expiration_date: Expiration date
-          help_text: Entering your driver’s license information is a way to fight fraud, and may get your return processed faster.
+          help_text: We use driver’s license information to confirm your identity. If you don’t have a driver’s license you can skip this step.
           issue_date: Issue date
           license_number: Driver’s license number
           state: Driver’s license state
-          title: Do you have a driver’s license?
+          title: Enter your driver’s license information.
         email_address:
           title: Please share your email address.
         file_full_return:
           full_btn: File a full tax return
-          help_text: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2’s, 1099’s, etc).
+          help_text1: You might benefit from filing a full tax return if you earned any income in %{current_tax_year}. Filing a full tax return can take longer and you would need all of your employment documents (W2’s, 1099’s, etc).
+          help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
           reveal:
             body_html:
-            - Stimulus payments were issued automatically to families who had recently filed tax returns, or who were enrolled in certain federal programs.
-            - The first stimulus payment was sent between April 2020 and October 2020. The second stimulus payment was sent in December 2020 or January 2021.
-            - To claim all or part of your first or second stimulus payments, you need to file a tax return for 2020. You can check your eligibility for filing back taxes for free using %{link_to_get_your_refund}.
-            title: How can I learn more about the first two stimulus payments?
+            - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
+            - You can only claim all or part of the third stimulus payment using GetCTC.
+            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for free at GetYourRefund.
+            title: How can I get the first two stimulus payments?
           simplified_btn: Continue filing a simplified return
-          title: You are currently filing a simplified tax return to claim your Child Tax Credit and third stimulus payment.
+          title: You are currently filing a simplified tax return to claim only your Child Tax Credit and third stimulus payment.
         filed_prior_tax_year:
           did_not_file: No, I didn't file a %{prior_tax_year} tax return
           filed_full: Yes, I filed a full return
-          filed_non_filer: Yes, I filed using the IRS non-filer portal
-          help_text: Did you file a tax return for the %{prior_tax_year} tax year? This tax return would have originally been due on April 15, %{current_tax_year} and would have typically been completed last year.
+          filed_non_filer: Yes, I filed using the IRS non-filer portal or GetCTC
+          help_text: Your %{prior_tax_year} tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
           married_filing_jointly: Married Filing Jointly
-          reveal_body: If you normally file as head of household or married filing separately, select ‘single’ for the purpose of this return.
-          reveal_title: I'm unsure how to file
+          reveal_body: If you usually file Married Filing Separately or Head of Household, select “Single” for purpose of this return. Selecting “Single” will not affect the amount of tax benefits you can claim.
+          reveal_title: I normally file with a different status
           single: Single
-          title: How will you be filing your tax return?
+          title: How would you like to file your tax return?
         had_dependents:
           help_text: Someone who lived with you for a majority of the year or who you supported financially could qualify as a dependent.
           title: Would you like to add a child or another person whom you supported in %{current_tax_year}?
+          which_relationships_qualify_reveal:
+            content:
+            - Son
+            - Daughter
+            - Stepchild
+            - Foster child
+            - Niece
+            - Nephew
+            - Grandchild
+            - Half Brother
+            - Half Sister
+            - Stepbrother
+            - Stepsister
+            - Great-grandchild
+            - Parent
+            - Step Parent
+            - Grandparent
+            - Aunt
+            - Uncle
+            - In Laws
+            - Other descendants of my siblings
+            - Other relationship not listed
+            title: Which relationships qualify?
         home:
           help_text: Your home must have been in the United States for more than half the tax year.
           options:
@@ -2130,7 +2180,12 @@ en:
             us_territory: U.S. territory, such as Puerto Rico or Guam
           title: Where was your main home for %{current_tax_year}?
         income:
-          have_questions_reveal:
+          income_qualifications:
+          - earned less than %{standard_deduction} in total income
+          - earned less than $400 in self-employment income
+          - did not receive the Advance Premium Tax Credit
+          - are required to file a full tax return for any other reason
+          income_reveal:
             content:
               list_1:
               - salary
@@ -2138,53 +2193,57 @@ en:
               - tips
               - commissions
               - self-employment or contract payments
-              list_2:
-              - selling homemade goods
-              - driving for Uber, Lyft or similar
-              - renting out your home
               p1: 'Income could come from any of the following sources:'
-              p2: 'Self employment income is is generally any money that you made from your own business or working part time for an employer. This could include:'
-            title: Have questions about income?
-          help_text: 'You can only use GetCTC if you don’t have a filing obligation. This generally means:'
-          income_qualifications:
-          - you earned less that %{standard_deduction} in income from any source
-          - you earned less that $400 in self employment income
-          - you did not recieve the Advanced Premium Tax Credit
-          title: 'In %{current_tax_year}, are the following statements correct:'
+            title: What counts as income?
+          self_employment_income_reveal:
+            content:
+              list_1:
+              - 1099 contract work
+              - gig work
+              - driving for Uber, Lyft, or similar
+              - renting out your home
+              p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2.
+              p2: 'If your employer calls you a ''contractor'' rather than an ''employee,'' your income from that job is probably self-employment income. Self-employment income could include:'
+            title: What counts as self-employment income?
+          title:
+            one: 'You can only use GetCTC if, in %{current_tax_year}, you:'
+            other: 'You can only use GetCTC if, in %{current_tax_year}, you and your spouse:'
           what_is_aptc_reveal:
             content:
-              p1: You would not have received the Advanced Premium Tax Credit if you are on Medicaid, Medicare,  get healthcare coverage through an employer, or you don’t have healthcare coverage.
-              p2: You probably would have received the Advanced Premium Tax Credit if you purchased market-rate insurance in a health insurance marketplace under the Affordable Care Act.
-            title: What is the Advanced Premium Tax Credit?
+              p1: The Advance Premium Tax Credit is a subsidy some households get for their health insurance coverage.
+              p2: You would have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn't have healthcare coverage.
+              p3: You probably would have received the Advance Premium Tax Credit if you purchased market-rate insurance on healthcare.gov or a state healthcare exchange website.
+            title: What is the Advance Premium Tax Credit?
         ip_pin:
-          help_text: Having an IP PIN is rare. If you are unfamiliar with what this is, it’s likely that you have not been issued an IP PIN. Select ‘None of the above’ to continue.
+          help_text_1: Having an IP PIN is rare. If you are unfamiliar with an IP PIN, you likely have not been issued one.
+          help_text_2: Select ‘None of the above’ to continue.
           reveal_label: What is an IP PIN?
           title: Has anyone on your return been issued an IP PIN because of identity theft?
         ip_pin_entry:
           label: "%{name}'s IP PIN"
-          title: Please enter the IP PIN below.
-        ip_pin_explanation_html: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers. <a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">You can retrieve your IP PIN through this IRS page.</a>
+          title: Please enter the IP PIN.
+        ip_pin_explanation_html: |
+          <p>If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers.</p>
+          <p>The IRS issues you a new IP PIN every year, and you must provide this year's PIN.</p>
+          <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Click here to retrieve your IP PIN from the IRS.</a></p>
         legal_consent:
-          agree_to_share_html: I agree to GetCTC's <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">privacy policy</a> and to share my personal information in order to prepare my simplified tax return.
-          body:
-            p1: To submit your tax return and receive your child tax credit and/or your stimulus payments, we’ll need some of your personal information.
-            p2: Please make sure you enter your name as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
+          agree_to_share_html: By continuing, I agree to share my personal information in order to prepare my simplified tax return.
+          body: Enter your name exactly as it appears on your Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
           first_name: Legal first name
+          form_of_identity: Form of identity
           last_name: Legal last name
-          middle_initial: Middle initial
+          middle_initial: Legal middle initial (optional)
           primary_active_armed_forces:
-            reveal_content: Knowing if you are a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
-            reveal_label: Why are you asking this?
             title: I was a member of the United States Armed Forces for any time in %{current_tax_year}
           primary_ssn_not_valid_for_employment: My Social Security card has "not valid for employment" printed on it. (This is rare)
           sms_phone_number: Phone number
           ssn: SSN or ITIN
           ssn_confirmation: Confirm SSN or ITIN
-          suffix: Suffix
-          title: In order to file, we’ll need some basic information.
+          suffix: Suffix (optional)
+          title: In order to file, we need some basic information.
         life_situations:
-          help_text: Generally, someone can claim you as a dependent if they are your family member, you live with them for most of the year, and they pay for most of your living expenses.
-          title: Can anyone claim you as a dependent in %{current_tax_year}?
+          help_text: Generally, someone can claim you as a dependent if they are your family member, you lived with them most of the year, and they paid for most of your living expenses.
+          title: Can anyone else claim you on their %{current_tax_year} tax return?
         mailing_address:
           reveal_content_html: |
             The IRS requires an address to be submitted with your return.<br/>
@@ -2193,28 +2252,22 @@ en:
             <br/>
             Make sure you provide an address where you are able to receive mail. Even if you selected direct deposit for your payments, there is a chance the IRS will send important notices and maybe even payments to this address.
           reveal_label: What if I don’t have a mailing address?
-          title: Great, please provide your mailing address below.
+          title: Please provide your mailing address.
         not_filing:
           buttons:
             faq: Visit our FAQ
             home: Go to the homepage
           content:
-          - Thank you for using our application. There is nothing else you need to do.
-          - We will not send any information that you shared with us to the IRS.
+          - We will not send any of your information to the IRS.
           title: You’ve decided to not file a tax return.
         overview:
-          help_text: Use our simple e-filing tool to receive your Child Tax Credit and your stimulus payment or corrections you are owed.
-          items:
-          - You have a valid SSN or ITIN
-          - You have not filed a return this year
-          - You want to claim the Child Tax Credit and/or the third stimulus payment
-          right_for_you: 'This is the right tool for you if:'
+          help_text: Use our simple e-filing tool to receive your Child Tax Credit and your third stimulus payment.
+          legal_warning: You are about to file a tax return. You are responsible for answering  questions truthfully and accurately to the best of your ability.
           title: Welcome!
         prior_tax_year_agi:
           help_text_html: |
-            Because you stated that you filed a tax return in %{prior_tax_year}, we’ll need to verify what your Adjusted Gross Income (AGI) was in %{prior_tax_year}.</br>
-            </br>
-            You can find this information on Line 11 of your %{prior_tax_year} tax return. Please enter the correct amount from your %{prior_tax_year} return or your return will be rejected.
+            <p>Because you filed a tax return for %{prior_tax_year}, the IRS requires you to verify your Adjusted Gross Income (AGI).</p>
+            <p>You can find this number on Line 11 of your %{prior_tax_year} tax return. Please enter the exact number from your %{prior_tax_year} return without estimating or rounding or your return will be rejected.</p>
           label: "%{prior_tax_year} Adjusted Gross Income"
           title: What was your %{prior_tax_year} Adjusted Gross Income?
         refund_payment:
@@ -2228,57 +2281,58 @@ en:
           title_html: You're about to remove %{spouse_name}.<br><br>Is that okay?
         restrictions:
           cannot_use_ctc: I cannot use GetCTC
-          help_text: There are some cases in which you may not be able to use GetCTC, but they are rare.
           list:
-          - in the past 10 years you have been banned from claiming the Child Tax Credit, meaning you received an explicit letter from the IRS with a warning and a ban from claiming the Child Tax Credit
+          - you have previously had the CTC reduced or disallowed by an IRS investigation and you have not  properly filed Form 8862 since then
           - you want to file Form 8332 in order to claim a child who does not live with you
-          - you are claiming a qualifying relative under a multiple support agreement
+          - you are claiming a qualifying relative under a “multiple support agreement” as defined by the IRS
+          - you are not claiming any children for the Child Tax Credit this year, but you received Advance Child Tax Credt payments in 2021
+          - you bought or sold cryptocurrency
           list_title: 'You can not use GetCTC if:'
-          title: Please make sure these do not apply to you.
+          multiple_support_agreement_reveal:
+            content:
+              p1: A multiple support agreement is a formal arrangement you make with family or friends to jointly care for a child or relative.
+              p2: Even if you have a multiple support agreement to claim a qualifying relative as a dependent, you can not use GetCTC to claim that dependent unless you provided more than half of that relative’s total financial support.
+            title: What is a multiple support agreement?
+          title: There are some cases in which you may not be able to use GetCTC, but they are rare.
         returning_client:
           next_steps: Sign in to your account to complete the questions. If you have any questions, start a chat with us.
         routing_number:
           routing_number: Routing number
           routing_number_confirmation: Confirm routing number
         spouse_drivers_license:
-          help_text: Because you are filing jointly, providing your spouse’s driver’s license information is a way to fight fraud, and may get your return processed faster.
-          license_number: Spouse driver’s license number
-          state: Spouse driver’s license state
-          title: Does your spouse have a driver’s license?
+          help_text: We use driver’s license information to confirm your spouse’s identity. If they don’t have a driver’s license you can skip this step.
+          license_number: Spouse's driver’s license number
+          state: Spouse's driver’s license state
+          title: Enter %{spouse_first_name}’s driver’s license information.
         spouse_filed_prior_tax_year:
           did_not_file: My spouse did not file a %{prior_tax_year} tax return
           filed_full_joint: My spouse filed a full tax return jointly with me
           filed_full_separate: My spouse filed a full tax return separately from me
           filed_non_filer_joint: My spouse filed a tax return with me, using GetCTC or the IRS non-filer tool
           filed_non_filer_separate: My spouse filed a tax return separately from me, using GetCTC or the IRS non-filer tool
-          help_text: 'Did your spouse file a tax return, after January 1, %{current_tax_year}, for the %{prior_tax_year} tax year? '
-          title: Did your spouse file a %{prior_tax_year} tax return?
+          help_text: A 2020 tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
+          title: Did %{spouse_first_name} file a %{prior_tax_year} tax return?
         spouse_info:
-          help_text: Please make sure you enter your spouse’s name as it appears on their Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
+          help_text: Enter your spouse’s name exactly as it appears on their Social Security card or Individual Taxpayer Identification Number (ITIN) letter.
           remove_button: Remove this person
           save_button: Save this person
           spouse_active_armed_forces: My spouse was a member of the United States Armed Forces for any time in %{current_tax_year}
-          spouse_active_armed_forces_reveal: Why are you asking this?
-          spouse_active_armed_forces_reveal_content: Being a member of the Armed Forces will help us better calculate your Recovery Rebate Credit
           spouse_dob: Spouse's date of birth
           spouse_first_name: Spouse's legal first name
           spouse_identity: Spouse's form of identity
           spouse_identity_help_text: If using a social security card, it must be valid for employment.
           spouse_last_name: Spouse's legal last name
-          spouse_middle_initial: Middle initial
+          spouse_middle_initial: Spouse’s legal middle initial (optional)
           spouse_ssn_itin: Spouse's SSN or ITIN
           spouse_ssn_itin_confirmation: Confirm spouse's SSN or ITIN
-          spouse_suffix: Spouse's suffix
+          spouse_suffix: Spouse's suffix (optional)
           ssn_required_message: We need a SSN/ITIN to continue. If your spouse does not have one, file for free with <a href="https://www.getyourrefund.org/">GetYourRefund</a>.
-          title: Tell us about your spouse
+          title: Tell us about your spouse.
         spouse_prior_tax_year_agi:
           help_text_html: |
-            Because you stated that your spouse filed a tax return in %{prior_tax_year}, we’ll need to verify what your spouse’s Adjusted Gross Income (AGI) was in %{prior_tax_year}.<br/>
-            <br/>
-            You can find this information on Line 11 of your spouse’s %{prior_tax_year} tax return. Please enter the correct amount or your return will be rejected.
-          reveal_content: 'The IRS requires us to ask this to verify your spouse’s identity prior to submitting your tax return. '
-          reveal_label: Why are you asking this?
-          title: What was your spouse’s %{prior_tax_year} Adjusted Gross Income?
+            <p>Because your spouse filed a tax return for %{prior_tax_year}, the IRS requires them to verify their Adjusted Gross Income (AGI).</p>
+            <p>You can find this number on Line 11 of their %{prior_tax_year} tax return. Please enter the exact number from their %{prior_tax_year} return without estimating or rounding or their return will be rejected.</p>
+          title: What was %{spouse_first_name}’s %{prior_tax_year} Adjusted Gross Income?
         spouse_review:
           help_text: We have added the following person as your spouse on your return.
           spouse_birthday: 'Date of birth: %{dob}'
@@ -2286,52 +2340,56 @@ en:
           title: Let's confirm your spouse's information.
           your_spouse: Your spouse
         stimulus_owed:
-          amount_received: Amount you’ve received
-          correction: If the amount you entered above is incorrect, your stimulus payments and any Child Tax Credit could be delayed while the IRS makes corrections to your return.
+          amount_received: Amount you received
+          correction: If the amount you entered is incorrect, the IRS will automatically correct it for you, but your payment may be delayed.
           eip_three: Third stimulus
-          eligible_for: 'You could be eligible for an additional:'
-          title: It looks like you are still owed some stimulus payments. Would you like to claim it?
+          eligible_for: 'You are claiming an additional:'
+          title: It looks like you are still owed some of the third stimulus payment.
         stimulus_payments:
           different_amount: I received a different amount
           no_amount: I didn't receive any payments
           question: Did you receive this amount?
           reveal:
             content_html:
-            - Stimulus payments were issued automatically to families who had recently filed tax returns, or who were enrolled in certain federal programs.
-            - The first stimulus payment was sent between April 2020 and October 2020. The second stimulus payment was sent in December 2020 or January 2021.
-            - To claim all or part of your first or second stimulus payments, you need to file a tax return for 2020. You can check your eligibility for filing back taxes for free using %{link_to_get_your_refund}.
-            title: How can I learn more about the first two stimulus payments?
-          third_stimulus: Estimate third stimulus payment
+            - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
+            - You can only claim all or part of the third stimulus payment using GetCTC.
+            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for free at %{link_to_get_your_refund}
+            title: How do I get the first two stimulus payments?
+          third_stimulus: We estimate that you should have received
           third_stimulus_details:
-          - We estimate that you should have received this amount based on your filing status and dependents.
-          - The third stimulus payment was sent in April 2021 and was $1,400 per adult tax filer plus $1,400 per dependent of any age.
+          - based on your filing status and dependents.
+          - The third stimulus payment was usually sent in March or April 2021 and was $1,400 per adult tax filer plus $1,400 per eligible dependent of any age.
           - For example, a parent caring for two children would have received $4,200.
           this_amount: I received this amount
           title: Did you receive a total of %{third_stimulus_amount} for your third stimulus payment?
         stimulus_received:
-          amount_received: Amount you’ve received
+          amount_received: Amount you received
           eip_three: Third stimulus
-          title: It looks like you’ve received the full amount for your third stimulus payment.
+          title: It looks like you received all of the third stimulus payment.
         stimulus_three:
           help_html: |
-            <p>The final stimulus payment was sent in April 2021, based on when you filed your tax return.</p>
-            <p>Enter the amount you received, if any, for that payment.</p>
+            <p>The third stimulus payment was usually sent in March or April 2021.</p>
+            <p>If you enter an incorrect amount, the IRS will automatically correct it for you, but your payment may be delayed.</p>
           how_much: How much did you receive?
-          reveal_content: If you are unsure, check the official notice you received OR your bank records.
+          reveal_content: If you’re not sure how much you received, you can look up the amount in IRS Letter 6475, which you should have received earlier this year. Or, you can check your bank records from last year.
           reveal_label: Where can I find this amount?
           title: Enter the total amount you received for your third stimulus payment.
         use_gyr:
-          collect_money: Collect all the money you are owed by filing with GetYourRefund.
-          ctc_conditions:
-          - You earned less than %{single_deduction} if filing single or %{joint_deduction} if married filing jointly in %{current_tax_year}
-          - You are a U.S. citizen, U.S. national, or U.S. resident alien
-          - You cannot be claimed as a dependent
-          - You (and your spouse if applicable) have a valid SSN or ITIN
           file_gyr: File with GetYourRefund
-          help_text: 'In order to file a simplified return through GetCTC you would need to meet the following conditions:'
           still_benefit: You could still benefit by filing a full tax return for free using GetYourRefund.
-          title: Unfortunately, you are not eligible to use our simplified filing tool. But we can still help!
+          title: Unfortunately, you are not eligible to use GetCTC.
           visit_our_faq: Visit our FAQ
+          why_ineligible_reveal:
+            content:
+              list:
+              - You earned more than %{single_deduction} filing individually or %{joint_deduction} filing married
+              - You earned more than $400 in self-employment income
+              - You can be claimed as a dependent
+              - You (and your spouse if applicable) don’t have a valid SSN or ITIN
+              - You didn’t live in any of the 50 states or the District of Columbia for most of %{current_tax_year}
+              - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
+              p: 'Some reasons you might be ineligible to use GetCTC are:'
+            title: Why am I ineligible?
         verification:
           body: 'A message with your code has been sent to:'
           error_message: Incorrect verification code.
@@ -4014,7 +4072,7 @@ en:
           one: In %{year}, did you receive any income from alimony?
           other: In %{year}, did you or your spouse receive any income from alimony?
       refund_payment:
-        check: Mail me a check (slower)
+        check: Mail my payment (slower)
         direct_deposit: Direct deposit (fastest)
         title: If due a refund, how would like to receive it?
       retirement_contributions:

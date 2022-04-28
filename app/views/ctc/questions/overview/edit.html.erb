@@ -1,18 +1,17 @@
 <% @main_heading = t("views.ctc.questions.overview.title") %>
 <% content_for :form_question, @main_heading %>
 
+
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
   <p>
     <%=t("views.ctc.questions.overview.help_text") %>
   </p>
 
-  <h2 class="h3"><%= t("views.ctc.questions.overview.right_for_you") %></h2>
-  <ul class="checkmark-list teal">
-    <% t("views.ctc.questions.overview.items").each do |item| %>
-      <li class="text--semibold"><%= item %></li>
-    <% end %>
-  </ul>
+  <p class="text--bold">
+    <%=t("views.ctc.questions.overview.legal_warning") %>
+  </p>
+
   <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
     <%=t("general.continue") %>
   <% end %>
