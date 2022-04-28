@@ -125,7 +125,7 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("DrvrLcnsOrStateIssdIdNum").text).to eq "12345"
         expect(xml.at("DrvrLcnsOrStateIssdIdStCd").text).to eq "CA"
         expect(xml.at("DrvrLcnsOrStateIssdIdExprDt").text).to eq "2024-12-24"
-        expect(xml.at("DrvrLcnsOrStateIssdIdNum").text).to eq "2024-12-24"
+        expect(xml.at("DrvrLcnsOrStateIssdIdIssDt").text).to eq "2024-12-24"
 
         expect(xml.at("RefundProductCd").text).to eq "NO FINANCIAL PRODUCT"
       end

@@ -59,10 +59,14 @@ module SubmissionBuilder
             end
 
             if primary_drivers_license.present?
-              drivers_license_xml(xml, primary_drivers_license)
+              xml.PrimDrvrLcnsOsrStateIssdIdGrp do
+                drivers_license_xml(xml, primary_drivers_license)
+              end
             end
             if spouse_drivers_license.present?
-              drivers_license_xml(xml, spouse_drivers_license)
+              xml.SpsDrvrLcnsOrStateIssdIdGrp do
+                drivers_license_xml(xml, spouse_drivers_license)
+              end
             end
 
             xml.RefundProductCd "NO FINANCIAL PRODUCT"
@@ -83,12 +87,10 @@ module SubmissionBuilder
         end
 
         def drivers_license_xml(xml, drivers_license)
-          xml.DrvrLcnsOrStateIssdIdGrpType do
-            xml.DrvrLcnsOrStateIssdIdNum drivers_license.license_number
-            xml.DrvrLcnsOrStateIssdIdStCd drivers_license.state
-            xml.DrvrLcnsOrStateIssdIdExprDt date_type(drivers_license.expiration_date)
-            xml.DrvrLcnsOrStateIssdIdIssDt date_type(drivers_license.issue_date)
-          end
+          xml.DrvrLcnsOrStateIssdIdNum drivers_license.license_number
+          xml.DrvrLcnsOrStateIssdIdStCd drivers_license.state
+          xml.DrvrLcnsOrStateIssdIdExprDt date_type(drivers_license.expiration_date)
+          xml.DrvrLcnsOrStateIssdIdIssDt date_type(drivers_license.issue_date)
         end
 
         def filer_exemption_count
