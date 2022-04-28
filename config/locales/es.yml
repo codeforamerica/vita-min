@@ -92,7 +92,7 @@ es:
     tax_slayer:
       show:
         continue_to_tax_slayer: Continuar con TaxSlayer
-        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene cualquier dificultad o alguna pregunta, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org.
+        guide_html: Consulte nuestra guía <a target="_blank" rel="noopener noreferrer" href="https://codeforamerica.org/wp-content/uploads/2022/03/file-myself-with-getyourrefund-client-guide.pdf">File Myself</a> para conocer las instrucciones paso a paso, consejos y mejores prácticas. Si tiene un dificultades, utilice la opción de chat en GetYourRefund.org o envíenos un correo electrónico a FileMyself@getyourrefund.org
         steps:
           description:
           - Para comenzar a declarar, cree un inicio de sesión en TaxSlayer.
@@ -215,7 +215,7 @@ es:
         is_hsa: es HSA
   general:
     NA: N/A
-    access_denied: No tiene autorización para acceder a esa página
+    access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
     active: activos
     add_client: Agregar cliente
@@ -230,7 +230,7 @@ es:
     at_time: a las %{time}
     atin: ATIN
     attachment: Adjunto
-    authenticity_token_invalid: Hubo un problema con la realización de su encargo. Inténtalo de nuevo.
+    authenticity_token_invalid: Ha habido un problema en tramitar su solicitud. Por favor, inténtelo de nuevo.
     back: Regresa
     bank_account:
       account_number: Número de cuenta
@@ -238,7 +238,7 @@ es:
       routing_number: Número de ruta bancaria
       savings: Ahorros
     before_2014: antes de 2014
-    blind: Es legalmente ciega
+    blind: Es legalmente ciego
     call: Llamada
     cancel: Cancelar
     capacity: Capacidad
@@ -506,7 +506,7 @@ es:
     year: año
     you: usted
     you_or_spouse: usted o su cónyuge
-    zip_code: código postal
+    zip_code: Código postal
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -612,10 +612,10 @@ es:
         prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
         send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
       fields:
-        blind: Estaba ciega
+        blind: Estaba ciego
         ctc_spouse_contact_info: Spouse information, if married filing jointly
         filing_status: Estado civil para impuestos
-        has_crypto_income: Recibió, vendió, intercambió o de otro modo dispuso de cualquier interés financiero en cualquier moneda virtual
+        has_crypto_income: Recibió, vendió, intercambió o dispuso de otro modo de cualquier interés financiero en cualquier moneda virtual
         identity_verification:
           title: Identity verification
         legal_first_name: Primer nombre legal
@@ -1750,7 +1750,7 @@ es:
           add_bank_information: Agregue su información bancaria
           help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
           help_text_cant_submit: Espere a enviar cambios adicionales a su envío. Estamos esperando una respuesta a su presentación anterior del IRS.
-          help_text_resubmission_limit_html: Has alcanzado el número máximo de reenvíos. Envíe un correo electrónico a %{email_link} o chatee con el equipo de soporte a continuación.
+          help_text_resubmission_limit_html: Ha alcanzado el número máximo de reenvíos. Envíe un correo electrónico a %{email_link} o chatee con el equipo de asistencia.
           no_ba_error_html: "<strong>Error: </strong>Seleccionó Deposito Directo, pero no agregó su información bancaria. Por favor actualice su información bancaria seleccionando Agregar información bancaria a continuación."
           no_bank_account: 'No ingreso su información bancaria. '
           resubmit: Volver a enviar mi declaración de impuestos
@@ -1778,13 +1778,13 @@ es:
               message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
             cancelled:
               label: Cancelado
-              message: Ya no intentaremos presentar esta declaración electrónicamente ante el IRS. Utilice los siguientes recursos para presentar en papel su declaración ante el IRS.
+              message: Ya no intentaremos presentar electrónicamente esta declaración al IRS. Para continuar, utilice los recursos que aparecen a continuación para enviar por correo su declaración al IRS.
             failed:
               label: Error de envío
               message: Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
             fraud_hold:
-              label: Revisión del envío de identificación
-              message: Gracias por enviar su identificación. Actualmente estamos revisando su envío. Puede esperar una respuesta dentro de los 5 días.
+              label: Se está revisando la presentación de la identificación, o en inglés, ID
+              message: Gracias por enviar su identificación. Estamos revisando su solicitud. Puede esperar una respuesta en un plazo de 5 días.
             intake_in_progress:
               label: Necesitamos más información
               message: Necesitamos más información para poder presentar su declaración.
@@ -1815,33 +1815,33 @@ es:
           title: Edita tu información básica
         prior_tax_year_agi:
           edit:
-            help_text: Puede encontrar esta información en la línea 11 de su declaración de impuestos del %{prior_tax_year}. Introduzca el monto correcto de su declaración de %{prior_tax_year} o su declaración será rechazada.
-            label: "%{prior_tax_year} AGI"
-            title: Edite el ingreso bruto ajustado de %{prior_tax_year}
+            help_text: Puede encontrar esta información en la línea 11 de su declaración de impuestos %{prior_tax_year}. Introduzca la cantidad correcta de su declaración del %{prior_tax_year} o su declaración será rechazada.
+            label: 'El Ingreso Bruto Ajustado para %{prior_tax_year} en inglés: AGI'
+            title: 'Edite su Ingreso Bruto Ajustado, en inglés: "Adjusted Gross Income" para %{prior_tax_year}'
         spouse:
           help_text: Confirmar / editar la información básica de su cónyuge
           title: Editar la información básica de su cónyuge
         spouse_prior_tax_year_agi:
           edit:
-            help_text: Puede encontrar esta información en la línea 11 de la declaración de impuestos del %{prior_tax_year} de su cónyuge. Introduzca la cantidad correcta o su declaración será rechazada.
-            label: AGI de %{prior_tax_year} del cónyuge
-            title: Edite el ingreso bruto ajustado de %{prior_tax_year} de su cónyuge
+            help_text: Puede encontrar esta información en la línea 11 de la declaración de impuestos de su cónyuge del %{prior_tax_year}. Introduzca la cantidad correcta o su declaración será rechazada.
+            label: 'El Ingreso Bruto Ajustado, en inglés: AGI del cónyuge para %{prior_tax_year}'
+            title: Edite los Ingresos Brutos Ajustados de su cónyuge de %{prior_tax_year}
         verification:
-          i_dont_have_id: No tengo identificación
-          id: Su licencia de conducir o tarjeta de identificación estatal
-          id_label: Foto de su identificación
-          info: 'Para proteger su identidad y verificar su información, necesitaremos que envíe las dos fotos siguientes:'
+          i_dont_have_id: No tengo identificación, o ID
+          id: Su licencia de manejar o tarjeta de identificación del estado, o ID
+          id_label: Identificación con foto
+          info: 'Para proteger su identidad y verificar su información, necesitaremos que envíe las dos siguientes fotos:'
           paper_file:
-            download_link_text: Descargar 1040
-            go_back: Enviar mi identificación
-            info: Deberá descargar y firmar un formulario 1040 en papel y enviar su declaración de impuestos por correo.
-            paper_file_instructions: Las instrucciones completas sobre la presentación en papel se pueden encontrar aquí.
-            title: Si no tiene una identificación, debe presentar una declaración en papel.
-            warning: La presentación en papel puede ser muy lenta; el IRS puede tardar meses en procesar una declaración en papel. Si puede cargar su ID, le recomendamos encarecidamente que lo haga.
-          resubmission: Tu revisor ha solicitado que subas fotos de nuevo. Esto normalmente se debe a que las fotos proporcionadas estaban borrosas o no incluyen su identificación con foto. Verifique las pautas a continuación y vuelva a enviar.
-          selfie: Tienes la tarjeta cerca de tu cara
-          selfie_label: Foto tuya con identificación
-          title: Necesitamos información adicional antes de enviar su declaración de impuestos.
+            download_link_text: Descargar el formulario 1040
+            go_back: Entregar en cambio mi identificación, o ID
+            info: Necesitará descargar y firmar el formulario 1040 en papel y enviar por correo su declaración de impuestos.
+            paper_file_instructions: Las instrucciones completas sobre la presentación en papel se encuentran aquí.
+            title: Si no tiene tarjeta de identificación o ID, debe presentar la declaración en papel.
+            warning: La presentación en papel puede ser muy lenta; el IRS puede tardar meses en procesar una declaración en papel. Si puede subir su Tarjeta de Identificación o ID, le recomendamos enormemente que lo haga.
+          resubmission: Su evaluador ha pedido que vuelva a subir las fotos. Esto se debe normalmente a que las fotos proporcionadas estaban borrosas, o no incluyen su identificación con foto. Por favor, revise las siguientes instrucciones y vuelva a enviarlas.
+          selfie: Usted tiene la tarjeta cerca de su cara
+          selfie_label: Foto de usted mismo sosteniendo la tarjeta de identificación o ID
+          title: Necesitamos algunos datos adicionales antes de presentar su declaración de impuestos.
       questions:
         account_number:
           account_number: Número de cuenta
@@ -1941,19 +1941,19 @@ es:
           mailing_address: Su dirección postal
           title: "¡Muy bien! Por favor, confirme su dirección postal."
         confirm_payment:
-          client_not_collecting: no está cobrando ningún pago, edite su declaración de impuestos.
-          ctc_0_due_link: Reclamar niños para CTC
-          ctc_due: 'Crédito fiscal por hijos:'
-          ctc_due_link: Reclamar niños adicionales
-          do_not_file: No presentar
-          do_not_file_flash_message: "¡Gracias por usar GetCTC! No presentaremos su declaración."
-          third_stimulus: 'Tercer Pago de Estímulo:'
-          third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Haga clic aquí para obtener más información sobre el tercer pago de estímulo.</a>
-          title: 'Esta es una lista de los pagos estimados que se le deben:'
+          client_not_collecting: No está cobrando ningún pago, por favor edite su declaración de impuestos.
+          ctc_0_due_link: 'Solicitar a los hijos para el Crédito Tributario por Hijos, en inglés: "CTC"'
+          ctc_due: Crédito Tributario por Hijos
+          ctc_due_link: Solicitar hijos adicionales
+          do_not_file: No declarar
+          do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
+          third_stimulus: 'Tercer Pago por Estímulo, en inglés: "Third Stimulus Payment"'
+          third_stimulus_link_html: <a href="https://www.irs.gov/coronavirus/third-economic-impact-payment" target="_blank" rel="noopener">Haga clic aquí para obtener más información sobre el tercer pago por estímulo.</a>
+          title: 'Aquí tiene una lista de los pagos estimados que le corresponden:'
         confirm_primary_prior_year_agi:
-          primary_prior_year_agi: Su %{prior_tax_year} AGI
+          primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
         confirm_spouse_prior_year_agi:
-          spouse_prior_year_agi: "%{prior_tax_year} AGI de su cónyuge"
+          spouse_prior_year_agi: 'Los Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year} de su cónyuge'
         contact_preference:
           body: Le enviaremos un código para verificar su información de contacto y así poder enviarle información actualizada sobre su declaración de impuestos. ¡Por favor, seleccione la opción que mejor prefiera!
           email: Envíenme correos electrónicos
@@ -2045,12 +2045,12 @@ es:
             error_message_html: Introduzca la información de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro método de pago</a>.
             label: Confirmo que mi nombre es en esta cuenta bancaria
         drivers_license:
-          expiration_date: Fecha de caducidad
-          help_text: Ingresar la información de su licencia de conducir es una forma de combatir el fraude y puede hacer que su devolución se procese más rápido.
-          issue_date: Fecha de emisión
-          license_number: Número de licencia de conducir
-          state: Estado de la licencia de conducir
-          title: "¿Tiene licencia de conducir?"
+          expiration_date: Fecha de vencimiento
+          help_text: Introducir los datos de su tarjeta de manejar es una forma de luchar contra el fraude, y puede hacer que su devolución se procese más rápidamente.
+          issue_date: Fecha de expedición
+          license_number: Número de la licencia de manejar
+          state: El estado en el que se emitió la licencia de manejar
+          title: "¿Tiene una licencia de manejar?"
         email_address:
           title: Favor de compartir la dirección de su correo electrónico
         file_full_return:
@@ -2123,7 +2123,7 @@ es:
           title: Por favor, indique el PIN de la IP a continuación.
         ip_pin_explanation_html: Si se confirma que ha sido víctima de un robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará por correo un Aviso CP01A con su PIN de IP, un número de 6 dígitos asignado a ciertos declarantes de impuestos elegibles. <a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Puede recuperar su IP PIN a través de esta página del IRS.</a>
         legal_consent:
-          agree_to_share_html: Acepto <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">la política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
+          agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
           body:
             p1: Para presentar su declaración de impuestos y recibir su Crédito Tributario por Hijos y/o sus pagos de estímulo, necesitaremos algunos de sus datos personales.
             p2: Asegúrese de introducir su nombre tal y como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
@@ -2134,7 +2134,7 @@ es:
             reveal_content: Saber si es miembro de las Fuerzas Armadas nos ayudará a calcular con mayor precisión su Crédito de Recuperación de Reembolso
             reveal_label: "¿Por qué me preguntan esto?"
             title: Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en %{current_tax_year}
-          primary_ssn_not_valid_for_employment: Mi tarjeta de Seguro Social (SSN en inglés) tiene impreso "no válido para empleo". (Esto es raro)
+          primary_ssn_not_valid_for_employment: Mi tarjeta de la Seguridad Social lleva impreso "no es válida para el empleo". (Esto se ve raramente)
           sms_phone_number: Número de teléfono
           ssn: SSN o ITIN
           ssn_confirmation: Confirme el SSN o ITIN
@@ -2199,16 +2199,16 @@ es:
           routing_number: Número de ruta bancaria
           routing_number_confirmation: Confirme su número de ruta bancaria bancaria
         spouse_drivers_license:
-          help_text: Debido a que presenta una declaración conjunta, proporcionar la información de la licencia de conducir de su cónyuge es una forma de combatir el fraude y puede hacer que su declaración se procese más rápido.
-          license_number: Número de licencia de conducir del cónyuge
-          state: Estado de la licencia de conducir del cónyuge
-          title: "¿Tiene su cónyuge una licencia de conducir?"
+          help_text: Al presentar una declaración conjunta, proporcionar la información de la licencia de conducir de su cónyuge es una forma de luchar contra el fraude, y puede hacer que su declaración se procese más rápidamente.
+          license_number: Número de licencia de manejar de su cónyuge
+          state: El estado donde fue emitida la licencia de manejar de su cónyuge
+          title: "¿Su cónyuge tiene la licencia de manejar?"
         spouse_filed_prior_tax_year:
           did_not_file: Mi cónyuge no presentó la declaración de impuestos del %{prior_tax_year}
           filed_full_joint: Mi cónyuge presentó la declaración de impuestos completa conjuntamente conmigo
           filed_full_separate: Mi cónyuge presentó la declaración de impuestos completa por separado de la mía
-          filed_non_filer_joint: Mi cónyuge presentó la declaración de impuestos conmigo utilizando GetCTC o la herramienta de no declarantes del IRS
-          filed_non_filer_separate: Mi cónyuge presentó la declaración de impuestos completa por separado de la mía utilizando GetCTC o la herramienta de no declarantes
+          filed_non_filer_joint: Mi cónyuge presentó una declaración de impuestos junto conmigo, utilizando GetCTC o la herramienta de no presentación, o "non filer" del IRS
+          filed_non_filer_separate: Mi cónyuge presentó una declaración de impuestos separada de la mía, utilizando GetCTC o la herramienta de no presentación, en inglés "non-filier" del IRS
           help_text: "¿Presentó su cónyuge una declaración de impuestos, después del 1 de enero de %{current_tax_year}, para el año fiscal %{prior_tax_year}? "
           title: "¿Presentó su cónyuge una declaración de impuestos para %{prior_tax_year}? "
         spouse_info:
@@ -2231,8 +2231,8 @@ es:
           title: Denos un poco de información sobre su cónyuge
         spouse_prior_tax_year_agi:
           help_text_html: |
-            Debido a que ha indicado que su cónyuge presentó una declaración de impuestos en el %{prior_tax_year}, tendremos que verificar cuál fue el ingreso bruto ajustado (AGI) de su cónyuge en el %{prior_tax_year}.<br/>
-            <br/>
+            Ya que ha declarado que su cónyuge presentó una declaración de impuestos en el %{prior_tax_year}, necesitaremos verificar cuál fue el Ingreso Bruto Ajustado (AGI) de su cónyuge en el %{prior_tax_year}.<br/>
+             <br/>
             Puede encontrar esta información en la línea 11 de la declaración de impuestos del %{prior_tax_year} de su cónyuge. Introduzca la cantidad correcta o su declaración será rechazada.
           reveal_content: El IRS nos obliga a hacerle esta pregunta para verificar la identidad de su cónyuge antes de presentar su declaración de impuestos.
           reveal_label: "¿Por qué me hacen estas preguntas?"
@@ -2297,7 +2297,7 @@ es:
           verification_code_label: 'Introduzca el código de 6 números '
           verify: Verifique
       shared:
-        ssn_not_valid_for_employment: La tarjeta del SSN de esta persona tiene impreso "No válido para el empleo". (Esto es raro)
+        ssn_not_valid_for_employment: La tarjeta del Número de Seguro Social, o SSN,  de esta persona tiene escrito "No válido para el empleo". (Esto es poco común)
     ctc_pages:
       california_benefits:
         compare_benefits:
@@ -2483,7 +2483,7 @@ es:
           heading: Crédito Tributario por Hijo
       navigators:
         help_text: Orientación para los navegantes comunitarios que deseen ayudar a los clientes de difícil acceso a sus beneficios fiscales.
-        title: Recursos de Alcance y Navegantes de GetYourRefund y GetCTC
+        title: 'GetYourRefund y GetCTC Outreach y Navigator Resources, en inglés: Recursos para navegar el internet'
       privacy_policy:
         01_intro:
         - GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como el Crédito Fiscal Anticipado por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.
@@ -4244,7 +4244,7 @@ es:
             service_description: Presente la solicitud rápidamente por su cuenta para cobrar los pagos por estímulo y el Crédito Tributario por Hijos.
             service_name: GetCTC
           diy:
-            colloquial: ''
+            colloquial: 'Tramitar uno mismo, o en inglés: DIY '
             cta: Elegir declarar por cuenta propia
             service_description: Declare rápidamente por su cuenta para 2021.
             service_name: Declarar por mi cuenta o "File Myself" en inglés
