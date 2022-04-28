@@ -9,7 +9,7 @@
   </thead>
   <tbody>
   <% if @resources.present? %>
-    <% @resources.each do |resource| %>
+    <% @resources.each_with_index do |resource| %>
       <%= render "hub/fraud_indicators/table_row", resource: resource %>
     <% end %>
   <% else %>

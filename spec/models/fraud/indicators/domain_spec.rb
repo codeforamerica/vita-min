@@ -44,5 +44,17 @@ describe Fraud::Indicators::Domain do
         expect(instance.errors[:risky]).to include "One of risky or safe are required"
       end
     end
+
+    context "when the name is not unique" do
+      before do
+        described_class.create(name: "gmail.com", safe: true)
+      end
+
+      it "is not valid" do
+        instance = described_class.new(name: "gmail.com")
+        expect(instance).not_to be_valid
+        expect(instance.errors[:name]).to include "has already been taken"
+      end
+    end
   end
 end

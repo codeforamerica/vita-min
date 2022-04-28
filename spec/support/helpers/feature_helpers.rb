@@ -38,6 +38,10 @@ module FeatureHelpers
     end
   end
 
+  def toggle_slider(selector)
+    page.find(:checkbox, selector, visible: :all).ancestor('label').find('.slider').click
+  end
+
   def answer_gyr_triage_questions(screenshot_method: nil, **options)
     if options[:choices] == :defaults
       options = {

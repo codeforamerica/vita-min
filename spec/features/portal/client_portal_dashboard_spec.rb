@@ -392,9 +392,7 @@ RSpec.feature "a client on their portal" do
         login_as create :admin_user
         visit hub_client_path(id: client.id)
         within ".client-header" do
-          # 'check' doesn't work because of the way the checkboxes are set up, we need to click on the 'span' inside
-          # the checkboxes' containing label
-          page.find(:checkbox, 'client_used_itin_certifying_acceptance_agent', visible: :all).ancestor('label').find('.slider').click
+          toggle_slider('client_used_itin_certifying_acceptance_agent')
         end
 
         expect(client.reload.intake.used_itin_certifying_acceptance_agent?).to be_truthy
