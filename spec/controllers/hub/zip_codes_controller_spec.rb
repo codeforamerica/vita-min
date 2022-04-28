@@ -28,7 +28,8 @@ describe Hub::ZipCodesController do
       end
 
       it "does not respond with html" do
-        expect { post :create, params: params }.to raise_error ActionController::UnknownFormat
+        post :create, params: params
+        expect(response).to be_not_found
       end
 
       context "when the code does not already exist" do
@@ -83,7 +84,8 @@ describe Hub::ZipCodesController do
     end
 
     it "does not respond with html" do
-      expect { delete :destroy, params: params }.to raise_error ActionController::UnknownFormat
+      delete :destroy, params: params
+      expect(response).to be_not_found
     end
 
     context "when the zip code object exists" do
