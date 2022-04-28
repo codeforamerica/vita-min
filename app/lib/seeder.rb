@@ -9,7 +9,20 @@ require 'active_support/testing/time_helpers'
 class Seeder
   include ActiveSupport::Testing::TimeHelpers
 
+  def self.load_fraud_indicators
+    JSON.parse(Rails.application.encrypted('app/models/fraud/indicators.json.enc', key_path: 'config/fraud_indicators.key', env_key: 'FRAUD_INDICATORS_KEY').read).each do |indicator_attributes|
+      Fraud::Indicator.find_or_initialize_by(name: indicator_attributes['name']).update(
+        indicator_attributes.merge(
+          'activated_at' => Time.now,
+          'query_model_name' => indicator_attributes['query_model_name']&.constantize
+        )
+      )
+    end
+  end
+
   def run
+    self.class.load_fraud_indicators
+
     VitaProvider.find_or_initialize_by(name: "Public Library of the Seed Data").update(irs_id: "12345", coordinates: Geometry.coords_to_point(lat: 37.781707, lon: -122.408363), details: "972 Mission St\nSan Francisco, CA 94103\nAsk for help at the front desk\nFull Service\n415-555-1212")
     national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization", type: Organization::TYPE)
     national_org.update(allows_greeters: true, national_overflow_location: true)

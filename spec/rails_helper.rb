@@ -147,7 +147,13 @@ Shoulda::Matchers.configure do |config|
 end
 
 RSpec.configure do |config|
+  config.before(:all, type: :feature) do |_example|
+    Seeder.load_fraud_indicators
+  end
+
   config.before(type: :feature) do |example|
+    stub_const('Fraud::Score::HOLD_THRESHOLD', 1000)
+    stub_const('Fraud::Score::RESTRICT_THRESHOLD', 1000)
 
     if config.filter.rules[:flow_explorer_screenshot] || config.filter.rules[:flow_explorer_screenshot_i18n_friendly]
       example.metadata[:js] = true
