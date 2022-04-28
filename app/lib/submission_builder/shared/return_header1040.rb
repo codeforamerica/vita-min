@@ -123,7 +123,7 @@ module SubmissionBuilder
               # xml.ProfileCellPhoneNumChangeInd ""
             }
             if primary_drivers_license.present?
-              xml.PrimDrvrLcnsOsrStateIssdIdGrp do
+              xml.PrimDrvrLcnsOrStateIssdIdGrp do
                 drivers_license_xml(xml, primary_drivers_license)
               end
             end
