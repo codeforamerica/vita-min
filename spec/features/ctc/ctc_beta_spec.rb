@@ -58,7 +58,7 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active
           # =========== BASIC INFO ===========
           expect(page.current_path).to eq("/en")
           expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
-          click_on("File your simplified return now")
+          click_on(I18n.t("views.ctc_pages.home.get_started"))
           begin_intake
           expect(Intake.last.source).to eq("partner_source")
         end
@@ -70,7 +70,7 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active
           # =========== BASIC INFO ===========
           expect(page.current_path).to eq("/en")
           expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
-          click_on("File your simplified return now")
+          click_on(I18n.t("views.ctc_pages.home.get_started"))
           begin_intake
           expect(Intake.last.source).to be_nil
         end
@@ -82,7 +82,7 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active
         it "doesnt show the get started button" do
           visit "/partner_source"
           expect(page.current_path).to eq("/en")
-          expect(page).not_to have_selector("a", text: "File your simplified return now")
+          expect(page).not_to have_selector("a", text: I18n.t("views.ctc_pages.home.get_started"))
         end
       end
 
@@ -90,7 +90,7 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active
         it "doesn't show intake" do
           visit "/"
           expect(page.current_path).to eq("/en")
-          expect(page).not_to have_selector("a", text: "File your simplified return now")
+          expect(page).not_to have_selector("a", text: I18n.t("views.ctc_pages.home.get_started"))
         end
       end
     end
@@ -101,7 +101,7 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active
       visit "/es/partner_source?ctc_beta=1"
       # =========== BASIC INFO ===========
       expect(page.current_path).to eq("/es")
-      expect(page).to have_selector("a", text: I18n.t('views.ctc_pages.home.file_your_return', locale: :es))
+      expect(page).to have_selector("a", text: I18n.t('views.ctc_pages.home.get_started', locale: :es))
     end
 
     context "ctc beta param with garbage value" do
@@ -109,7 +109,7 @@ RSpec.feature "CTC Beta intake", :flow_explorer_screenshot_i18n_friendly, active
         visit "/es/partner_source?ctc_beta=something"
         # =========== BASIC INFO ===========
         expect(page.current_path).to eq("/es")
-        expect(page).not_to have_selector("a", text: I18n.t('views.ctc_pages.home.file_your_return', locale: :es))
+        expect(page).not_to have_selector("a", text: I18n.t('views.ctc_pages.home.get_started', locale: :es))
       end
     end
   end
