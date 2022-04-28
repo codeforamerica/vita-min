@@ -98,6 +98,16 @@ module SubmissionBuilder
               xml.CellPhoneNum phone_type(intake.sms_phone_number) if intake.sms_phone_number.present?
               xml.EmailAddressTxt intake.email_address if intake.email_address.present?
             }
+            if primary_drivers_license.present?
+              xml.PrimDrvrLcnsOrStateIssdIdGrp do
+                drivers_license_xml(xml, primary_drivers_license)
+              end
+            end
+            if tax_return.filing_jointly? && spouse_drivers_license.present?
+              xml.SpsDrvrLcnsOrStateIssdIdGrp do
+                drivers_license_xml(xml, spouse_drivers_license)
+              end
+            end
             xml.AtSubmissionFilingGrp {
               xml.RefundProductElectionInd false
 
@@ -122,16 +132,6 @@ module SubmissionBuilder
               # xml.ProfileEmailAddressChangeInd ""
               # xml.ProfileCellPhoneNumChangeInd ""
             }
-            if primary_drivers_license.present?
-              xml.PrimDrvrLcnsOrStateIssdIdGrp do
-                drivers_license_xml(xml, primary_drivers_license)
-              end
-            end
-            if tax_return.filing_jointly? && spouse_drivers_license.present?
-              xml.SpsDrvrLcnsOrStateIssdIdGrp do
-                drivers_license_xml(xml, spouse_drivers_license)
-              end
-            end
           }
           xml.FilingSecurityInformation {
             xml.AtSubmissionCreationGrp {
