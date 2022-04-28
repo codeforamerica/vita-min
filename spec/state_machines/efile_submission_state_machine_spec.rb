@@ -73,7 +73,9 @@ describe EfileSubmissionStateMachine do
 
       context "with blocking fraud characteristics" do
         before do
-          allow_any_instance_of(Fraud::Score).to receive(:score).and_return 110
+          stub_const("Fraud::Score::HOLD_THRESHOLD", Fraud::Score::HOLD_THRESHOLD)
+          stub_const("Fraud::Score::RESTRICT_THRESHOLD", Fraud::Score::RESTRICT_THRESHOLD)
+          allow_any_instance_of(Fraud::Score).to receive(:score).and_return (Fraud::Score::HOLD_THRESHOLD + 100)
         end
 
         it "transitions the tax return status and submission status to hold" do

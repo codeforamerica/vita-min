@@ -20,7 +20,7 @@ describe Hub::FraudIndicatorsController do
 
       it "loads all fraud indicators, active and not" do
         get :index
-        expect(assigns(:fraud_indicators).length).to eq 2
+        expect(assigns(:fraud_indicators).length).to eq Fraud::Indicator.unscoped.count
       end
     end
   end
