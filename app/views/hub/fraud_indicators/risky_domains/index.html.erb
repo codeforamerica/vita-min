@@ -1,0 +1,13 @@
+<% content_for :page_title, "Risky Domains List" %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h1><%= content_for :page_title %></h1>
+      <%= render "hub/fraud_indicators/table" %>
+      <div class="resource-form">
+        <%= render "hub/fraud_indicators/form" %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -182,7 +182,12 @@ Rails.application.routes.draw do
           patch '/wait', to: 'efile_submissions#wait', on: :member, as: :wait
           get '/download', to: 'efile_submissions#download', on: :member, as: :download
         end
-        resources :fraud_indicators, only: [:index]
+
+        resources :fraud_indicators, path: "fraud-indicators" do
+          collection do
+            resources :risky_domains, controller: 'fraud_indicators/risky_domains', path: "risky-domains"
+          end
+        end
 
         resources :efile_errors, path: "errors", except: [:create, :new, :destroy]
         resources :assigned_clients, path: "assigned", only: [:index]

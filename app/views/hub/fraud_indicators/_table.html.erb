@@ -1,0 +1,21 @@
+<table class="data-table data-table--tight">
+  <thead>
+  <tr>
+    <% @attributes.each do |_, value| %>
+      <th><%= value %></th>
+    <% end %>
+    <th>Activated</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if @resources.present? %>
+    <% @resources.each_with_index do |resource| %>
+      <%= render "hub/fraud_indicators/table_row", resource: resource %>
+    <% end %>
+  <% else %>
+    <td style="font-weight: normal">
+      No <%= @resource_name %> yet... add one!
+    </td>
+  <% end %>
+  </tbody>
+</table>

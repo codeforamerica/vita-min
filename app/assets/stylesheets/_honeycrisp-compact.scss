@@ -340,6 +340,11 @@
   color: $color-grey-medium;
 }
 
+.data-table--tight td{
+    padding-top: .75rem !important;
+    padding-bottom: .75rem !important;
+}
+
 .grid-flex {
   display: flex;
 
@@ -423,6 +428,5 @@
   .text--error {
     margin: unset;
   }
-
 }
 
