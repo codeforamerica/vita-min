@@ -400,4 +400,10 @@ class ApplicationController < ActionController::Base
     redirect_path = request.referer.presence || request.fullpath
     redirect_to redirect_path
   end
+
+  rescue_from 'ActionController::UnknownFormat' do
+    respond_to do |format|
+      format.any { head 404 }
+    end
+  end
 end
