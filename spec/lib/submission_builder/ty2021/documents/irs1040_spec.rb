@@ -71,7 +71,6 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         allow(submission.tax_return).to receive(:primary_age_65_or_older?).and_return(true)
         allow(submission.tax_return).to receive(:spouse_age_65_or_older?).and_return(false)
         allow(submission.tax_return).to receive(:standard_deduction).and_return(999)
-        submission.intake.update(primary_drivers_license: create(:drivers_license, state: "CA", license_number: "12345", issue_date: Date.new(2020, 12, 24), expiration_date: Date.new(2024, 12, 24)))
       end
 
       it "includes required nodes on the IRS1040" do
@@ -121,11 +120,6 @@ describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
         expect(xml.at("RoutingTransitNum").text).to eq "123456789"
         expect(xml.at("BankAccountTypeCd").text).to eq "1"
         expect(xml.at("DepositorAccountNum").text).to eq "87654321"
-
-        expect(xml.at("DrvrLcnsOrStateIssdIdNum").text).to eq "12345"
-        expect(xml.at("DrvrLcnsOrStateIssdIdStCd").text).to eq "CA"
-        expect(xml.at("DrvrLcnsOrStateIssdIdExprDt").text).to eq "2024-12-24"
-        expect(xml.at("DrvrLcnsOrStateIssdIdIssDt").text).to eq "2024-12-24"
 
         expect(xml.at("RefundProductCd").text).to eq "NO FINANCIAL PRODUCT"
       end

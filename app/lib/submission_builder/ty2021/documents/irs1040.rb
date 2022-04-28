@@ -12,8 +12,6 @@ module SubmissionBuilder
           intake = submission.intake
           tax_return = submission.tax_return
           bank_account = intake.bank_account
-          primary_drivers_license = intake.primary_drivers_license
-          spouse_drivers_license = intake.spouse_drivers_license
           qualifying_dependents = submission.qualifying_dependents
           benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: qualifying_dependents)
           boxes_checked = boxes_checked(intake, tax_return)
@@ -57,18 +55,6 @@ module SubmissionBuilder
               xml.BankAccountTypeCd bank_account.account_type_code # 35c
               xml.DepositorAccountNum account_number_type(bank_account.account_number) # 35d
             end
-
-            if primary_drivers_license.present?
-              xml.PrimDrvrLcnsOsrStateIssdIdGrp do
-                drivers_license_xml(xml, primary_drivers_license)
-              end
-            end
-            if spouse_drivers_license.present?
-              xml.SpsDrvrLcnsOrStateIssdIdGrp do
-                drivers_license_xml(xml, spouse_drivers_license)
-              end
-            end
-
             xml.RefundProductCd "NO FINANCIAL PRODUCT"
           end
         end
@@ -84,13 +70,6 @@ module SubmissionBuilder
             xml.DependentRelationshipCd dependent.irs_relationship_enum
             xml.EligibleForChildTaxCreditInd "X" if dependent.qualifying_ctc?
           end
-        end
-
-        def drivers_license_xml(xml, drivers_license)
-          xml.DrvrLcnsOrStateIssdIdNum drivers_license.license_number
-          xml.DrvrLcnsOrStateIssdIdStCd drivers_license.state
-          xml.DrvrLcnsOrStateIssdIdExprDt date_type(drivers_license.expiration_date)
-          xml.DrvrLcnsOrStateIssdIdIssDt date_type(drivers_license.issue_date)
         end
 
         def filer_exemption_count

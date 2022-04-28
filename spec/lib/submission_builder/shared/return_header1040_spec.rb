@@ -14,7 +14,8 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
         spouse_filed_prior_tax_year: "did_not_file",
         primary_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
         spouse_signature_pin_at: DateTime.new(2021, 4, 20, 16, 20),
-        primary_prior_year_agi_amount: 10000
+        primary_prior_year_agi_amount: 10000,
+        primary_drivers_license: create(:drivers_license, state: "CA", license_number: "12345", issue_date: Date.new(2020, 12, 24), expiration_date: Date.new(2024, 12, 24))
       )
       submission.client.update!(
         created_at: DateTime.new(2021, 4, 20, 12, 0),
@@ -110,6 +111,11 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
         expect(xml.at("TrustedCustomerGrp LastSubmissionRqrOOBCd").text).to eq "0"
         expect(xml.at("AtSubmissionFilingGrp RefundProductElectionInd").text).to eq "false"
         expect(xml.at("AtSubmissionFilingGrp RefundDisbursementGrp RefundProductCIPCd").text).to eq "0"
+
+        expect(xml.at("DrvrLcnsOrStateIssdIdNum").text).to eq "12345"
+        expect(xml.at("DrvrLcnsOrStateIssdIdStCd").text).to eq "CA"
+        expect(xml.at("DrvrLcnsOrStateIssdIdExprDt").text).to eq "2024-12-24"
+        expect(xml.at("DrvrLcnsOrStateIssdIdIssDt").text).to eq "2020-12-24"
 
         expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp IPAddress IPv4AddressTxt").text).to eq "1.1.1.1"
         expect(xml.at("FilingSecurityInformation AtSubmissionCreationGrp DeviceId").text).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
