@@ -53,8 +53,6 @@ Rails.application.routes.draw do
   end
 
   constraints(Routes::GyrDomain.new) do
-    mount Cfa::Styleguide::Engine => "/cfa"
-
     # In order to disambiguate versions of english pages with and without locales, we redirect to URLs including the locale
     # If we redirect here in the route declarations, we can't inspect accept headers to determine the proper default locale,
     # hence the redirect actions in public_pages.
