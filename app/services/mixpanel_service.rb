@@ -82,7 +82,7 @@ class MixpanelService
         path << '?'
         path << querystring.split('&').map do |pair|
           k, v = pair.split('=')
-          [(exclusions.include?(k) ? '***' : k), (exclusions.include?(v) ? '***' : v)].join('=')
+          [(exclusions.include?(k) ? '***' : k), (exclusions.include?(v ) ? '***' : v)].join('=')
         end.join('&')
       end
       path

@@ -8,21 +8,33 @@
   <div class="slab slab--hero">
     <div class="grid-flex contained column-row space-between">
       <div class="grid-flex column-column spacing-below-35">
-        <h1 class="landing-page-header">
-          <%= t("views.ctc_pages.stimulus_home.header") %>
-        </h1>
         <% if open_for_ctc_intake? %>
-          <p>
-            <%= t("views.ctc_pages.stimulus_home.subheader.claim") %>
-          </p>
+          <h1 class="landing-page-header">
+            <%= t("views.ctc_pages.stimulus_home.header_open") %>
+          </h1>
+        <% else %>
+          <h1 class="landing-page-header">
+            <%= t("views.ctc_pages.stimulus_home.header") %>
+          </h1>
         <% end %>
+
+        <% if open_for_ctc_intake? %>
+          <div class="spacing-below-25">
+            <%= t("views.ctc_pages.stimulus_home.subheader.cta") %>
+          </div>
+          <div class="spacing-below-15">
+            <%= t("views.ctc_pages.stimulus_home.subheader.time_to_complete") %>
+          </div>
+        <% end %>
+
         <div>
           <% if open_for_ctc_intake? %>
-            <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
+            <%= link_to t("general.get_started"), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
           <% else %>
             <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
           <% end %>
         </div>
+
         <% if open_for_ctc_login? %>
           <div class="spacing-below-60">
             <strong><%= link_to t('views.ctc_pages.home.portal_sign_in_link'), new_ctc_portal_client_login_path, class: "link link--subtle" %></strong>
@@ -56,10 +68,24 @@
       <div class="grid__item width-one-half spacing-below-25">
         <%= image_tag('stimulus-phones.png', alt: "") %>
       </div>
-      <div class="grid__item width-one-half">
-        <h2><%= t('views.ctc_pages.stimulus_home.what_is.heading') %></h2>
-        <p><%= t('views.ctc_pages.stimulus_home.what_is.body_html') %></p>
-      </div>
+
+      <% if open_for_ctc_login? %>
+        <div class="grid__item width-one-half">
+          <h2><%= t("views.ctc_pages.stimulus_home.what_is.heading_open") %></h2>
+          <p><%= t("views.ctc_pages.stimulus_home.what_is.subheading_open") %></p>
+          <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_title")) do %>
+            <%= t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_body") %>
+          <% end %>
+          <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_title")) do %>
+            <%= t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_body_html") %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="grid__item width-one-half">
+          <h2><%= t('views.ctc_pages.stimulus_home.what_is.heading') %></h2>
+          <p><%= t('views.ctc_pages.stimulus_home.what_is.body_html') %></p>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -109,71 +135,37 @@
 
   <div class="slab">
     <div class="grid">
-      <div class="grid__item">
-        <h2><%= t("views.ctc_pages.stimulus_home.qualify.heading") %></h2>
-        <p><%= t("views.ctc_pages.stimulus_home.qualify.body1") %></p>
-        <p><%= t("views.ctc_pages.stimulus_home.qualify.body2") %></p>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1">
-            <h3><%= t("views.ctc_pages.stimulus_home.qualify.eligible.subheading") %></h3>
-          </a>
-          <div class="accordion__content" id="a1">
-            <p><%= t("views.ctc_pages.stimulus_home.qualify.eligible.body") %></p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
-            <h3><%= t("views.ctc_pages.stimulus_home.qualify.dependents.subheading") %></h3>
-          </a>
-          <div class="accordion__content" id="a2">
-            <%= t("views.ctc_pages.stimulus_home.qualify.dependents.body") %>
-            <ul>
-              <% t("views.ctc_pages.stimulus_home.qualify.dependents.qualifiers").each do |item| %>
-                <li><%= item %></li>
-              <% end %>
-            </ul>
-            <%= t("views.ctc_pages.stimulus_home.qualify.dependents.third_payment") %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slab slab--blue" id="claim-credit">
-    <div class="grid">
-      <div class="grid__item width-one-whole">
-        <h2><%= t('views.ctc_pages.stimulus_home.obtain.heading') %></h2>
+      <div class="grid__item width-one-whole" id="ctc_faq">
+        <h2><%= t('views.ctc_pages.home.common_questions.title') %></h2>
       </div>
       <div class="grid__item width-one-whole">
-        <p><%= t('views.ctc_pages.stimulus_home.obtain.body1') %></p>
-        <p>
-          <%= t('views.ctc_pages.stimulus_home.obtain.body2') %>
-        </p>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a3">
-            <h3><%= t("views.ctc_pages.stimulus_home.obtain.already_filed.subheading") %></h3>
-          </a>
-          <div class="accordion__content" id="a3">
-            <p><%= t("views.ctc_pages.stimulus_home.obtain.already_filed.body1") %></p>
-            <p>
-              <%= t("views.ctc_pages.stimulus_home.obtain.already_filed.body2") %>
-            </p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a4">
-            <h3><%= t("views.ctc_pages.stimulus_home.obtain.not_filed.subheading") %></h3>
-          </a>
-          <div class="accordion__content" id="a4">
-            <p>
-              <%= t("views.ctc_pages.stimulus_home.obtain.not_filed.body1") %>
-            </p>
-            <p><%= t("views.ctc_pages.stimulus_home.obtain.not_filed.body2") %></p>
-          </div>
-        </div>
+        <ul class="list--padded">
+          <li class="spacing-below-25">
+            <%= link_to t("views.public_pages.faq.question_groups.stimulus.how_many_stimulus_payments_were_there.question"),
+                        faq_question_url(host: MultiTenantService.new(:gyr).host, section_key: :stimulus, question_key: "how_many_stimulus_payments_were_there"),
+                        class: "link--subtle" %>
+          </li>
+          <li class="spacing-below-25">
+            <%= link_to t("views.public_pages.faq.question_groups.stimulus.will_there_be_another_stimulus_payment.question"),
+                        faq_question_url(host: MultiTenantService.new(:gyr).host, section_key: :stimulus, question_key: "will_there_be_another_stimulus_payment"),
+                        class: "link--subtle" %>
+          </li>
+          <li class="spacing-below-25">
+            <%= link_to t("views.public_pages.faq.question_groups.stimulus.how_do_i_get_the_stimulus_payments.question"),
+                        faq_question_url(host: MultiTenantService.new(:gyr).host, section_key: :stimulus, question_key: "how_do_i_get_the_stimulus_payments"),
+                        class: "link--subtle" %>
+          </li>
+          <li class="spacing-below-25">
+            <%= link_to t("views.public_pages.faq.question_groups.stimulus.what_is_the_economic_impact_payment.question"),
+                        faq_question_url(host: MultiTenantService.new(:gyr).host, section_key: :stimulus, question_key: "what_is_the_economic_impact_payment"),
+                        class: "link--subtle" %>
+          </li>
+          <li>
+            <%= link_to t("views.public_pages.faq.question_groups.stimulus.what_is_the_recovery_rebate_credit.question"),
+                        faq_question_url(host: MultiTenantService.new(:gyr).host, section_key: :stimulus, question_key: "what_is_the_recovery_rebate_credit"),
+                        class: "link--subtle" %>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
