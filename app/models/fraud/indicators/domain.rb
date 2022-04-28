@@ -26,7 +26,7 @@ module Fraud
         self.name = name.downcase
       end
 
-      validates :name, format: { with: /(\.)/ }
+      validates :name, format: { with: /(\.)/, message: "Must include top level domain" }, uniqueness: true
       validate :risky_or_safe
 
       def self.riskylist
@@ -35,6 +35,10 @@ module Fraud
 
       def self.safelist
         where(safe: true).pluck(:name)
+      end
+
+      def active
+        activated_at?
       end
 
       private

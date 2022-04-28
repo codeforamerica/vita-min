@@ -1,0 +1,15 @@
+<tr>
+  <% @attributes.each do |key, _| %>
+    <td><%= resource.send(key) %></td>
+  <% end %>
+  <td>
+    <%= form_for resource, authenticity_token: true, url: url_for(controller: controller_name, id: resource.id, action: "update"), method: :patch, remote: true do |f|%>
+      <label class="toggle-switch">
+        <span class="sr-only"><%= "Active" %></span>
+        <%= f.check_box(:active, onchange: "$('#remote-submit').click()") %>
+        <span class="slider slider-green round"></span>
+        <%= f.submit "", id: "remote-submit", style: "display:none;" %>
+      </label>
+    <% end %>
+  </td>
+</tr>

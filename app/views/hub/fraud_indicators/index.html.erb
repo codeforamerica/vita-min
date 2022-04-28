@@ -35,10 +35,8 @@
                   <br>
                   <span style="font-size: smaller">Multiplier: <%= indicator.multiplier %></span>
                 <% end %>
-
               </td>
               <td><%= indicator.activated_at? ? formatted_datetime(indicator.activated_at, year: true) : "Not active" %></td>
-              </td>
             </tr>
           <% end %>
           </tbody>

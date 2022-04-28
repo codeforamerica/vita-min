@@ -1,0 +1,7 @@
+$(".flash-alerts").html("<%= j render 'shared/flash_alerts', flash: flash %>");
+<% if @resource.persisted? %>
+  $(".data-table tbody").append("<%= j render 'hub/fraud_indicators/table_row', resource: @resource %>");
+<% else %>
+  $(".resource-form").html("<%= j render 'hub/fraud_indicators/form' %>")
+<% end %>
+
