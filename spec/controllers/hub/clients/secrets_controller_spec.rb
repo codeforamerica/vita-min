@@ -32,7 +32,8 @@ describe Hub::Clients::SecretsController, type: :controller do
       end
 
       it "does not respond with html" do
-        expect { get :show, params: params }.to raise_error ActionController::UnknownFormat
+        get :show, params: params
+        expect(response).to be_not_found
       end
 
       context "AccessLogs" do
@@ -103,7 +104,8 @@ describe Hub::Clients::SecretsController, type: :controller do
       end
 
       it "does not respond with html" do
-        expect { get :hide, params: params }.to raise_error ActionController::UnknownFormat
+        get :hide, params: params
+        expect(response).to be_not_found
       end
     end
   end

@@ -30,7 +30,8 @@ describe Hub::Clients::BankAccountsController, type: :controller do
       end
 
       it "does not respond with html" do
-        expect { get :show, params: params }.to raise_error ActionController::UnknownFormat
+        get :show, params: params
+        expect(response).to be_not_found
       end
 
       it "creates an AccessLog" do
@@ -81,7 +82,8 @@ describe Hub::Clients::BankAccountsController, type: :controller do
       end
 
       it "does not respond with html" do
-        expect { get :show, params: params }.to raise_error ActionController::UnknownFormat
+        get :show, params: params
+        expect(response).to be_not_found
       end
     end
   end
