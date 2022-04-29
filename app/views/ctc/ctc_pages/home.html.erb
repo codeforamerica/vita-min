@@ -17,16 +17,15 @@
             <%= t("views.ctc_pages.home.subheader.launching_soon_html") %>
           </p>
         <% end %>
-        <p>
           <% if open_for_ctc_intake? %>
-            <%= t("views.ctc_pages.home.subheader.claim") %>
+            <p><%= t("views.ctc_pages.home.subheader.claim") %></p>
+            <p><%= t("views.ctc_pages.home.subheader.time_estimate") %></p>
           <% else %>
-            <%= t("views.ctc_pages.home.subheader.claim_next_year_html") %>
+            <p><%= t("views.ctc_pages.home.subheader.claim_next_year_html") %></p>
           <% end %>
-        </p>
         <div>
           <% if open_for_ctc_intake? %>
-            <%= link_to t('views.ctc_pages.home.file_your_return'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
+            <%= link_to t('views.ctc_pages.home.get_started'), questions_overview_path, id: "firstCta", class: "button button--primary button--locale-specific", lang: locale %>
           <% else %>
             <%= link_to t('views.ctc_pages.home.sign_up_for_updates'), new_ctc_signup_path, id: "firstCta", class: "button button--primary" %>
           <% end %>
@@ -70,9 +69,15 @@
       </div>
       <div class="grid__item width-one-half">
         <h2><%= t('views.ctc_pages.home.what_is.heading') %></h2>
-        <% t('views.ctc_pages.home.what_is.body').each do |body| %>
-          <p><%= body %></p>
-        <% end %>
+        <%= t('views.ctc_pages.home.what_is.body') %>
+        <div class="reveal-shrink-wrapper spacing-above-15">
+          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.qualify_reveal.title")) do %>
+            <p><%= t("views.ctc_pages.home.what_is.qualify_reveal.body") %></p>
+          <% end %>
+          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_reveal.title")) do %>
+            <p><%= t("views.ctc_pages.home.what_is.how_much_reveal.body_html") %></p>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -123,99 +128,15 @@
 
   <div class="slab">
     <div class="grid">
-      <div class="grid__item width-one-fourth">
-        <%= image_tag("check.svg", alt: "") %>
-      </div>
-      <div class="grid__item width-two-thirds">
-        <h2><%= t("views.ctc_pages.home.qualify.heading") %></h2>
-        <p><%= t("views.ctc_pages.home.qualify.body1") %></p>
-        <p><%= t("views.ctc_pages.home.qualify.body2") %></p>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1">
-            <h3><%= t("views.ctc_pages.home.qualify.eligible.subheading") %></h3>
-          </a>
-          <div class="accordion__content" id="a1">
-            <p><%= t("views.ctc_pages.home.qualify.eligible.body_html") %></p>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
-            <h3><%= t("views.ctc_pages.home.qualify.dependents.subheading") %></h3>
-          </a>
-          <div class="accordion__content" id="a2">
-            <%= t("views.ctc_pages.home.qualify.dependents.body") %>
-            <ul>
-              <% t("views.ctc_pages.home.qualify.dependents.qualifiers").each do |item| %>
-                <li><%= item %></li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="slab slab--blue" id="claim-credit">
-    <div class="grid">
-      <div class="grid__item width-one-whole">
-        <h2><%= t('views.ctc_pages.home.obtain.heading') %></h2>
-      </div>
-      <div class="grid__item width-one-whole">
-        <% t('views.ctc_pages.home.obtain.body_html',
-              link_to_get_your_refund: link_to(t("views.ctc_pages.home.service_name"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), "data-track-click": "gctc_to_gyr"),
-              link_to_sign_up: link_to(t("views.ctc_pages.home.link_to_sign_up"), new_ctc_signup_path)).each do |body| %>
-          <p><%= body %></p>
-        <% end %>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a4">
-            <h3><%= t("views.ctc_pages.home.obtain.not_filed.subheading") %></h3>
-          </a>
-          <div class="accordion__content" id="a4">
-            <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year) %>
-            <% t('views.ctc_pages.home.obtain.not_filed.body_html',
-                link_to_get_your_refund: link_to(t("views.ctc_pages.home.service_name"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), "data-track-click": "gctc_to_gyr"),
-                link_to_sign_up: link_to(t("views.ctc_pages.home.link_to_sign_up"), new_ctc_signup_path),
-                single_deduction: number_to_currency(standard_deduction.standard_deduction(:single)),
-                joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_jointly))
-               ).each do |body| %>
-              <p><%= body %></p>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a5">
-            <h3><%= t("views.ctc_pages.home.obtain.deadline.subheading") %></h3>
-          </a>
-          <div class="accordion__content" id="a5">
-            <p><%= t("views.ctc_pages.home.obtain.deadline.body_html") %></p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="slab">
-    <div class="grid">
       <div class="grid__item width-one-whole" id="ctc_faq">
         <h2><%= t('views.ctc_pages.home.common_questions.title') %></h2>
       </div>
       <div class="grid__item width-one-whole">
         <ul class="list--padded">
-          <li><%= link_to t('views.ctc_pages.home.common_questions.what_will_i_need_to_submit.question'), url_for(action: 'what_will_i_need_to_submit'), class: "link--subtle" %></li>
-          <li><%= link_to t('views.ctc_pages.home.common_questions.what_will_happen_and_when.question'), url_for(action: 'what_will_happen_and_when'), class: "link--subtle" %></li>
-          <li><%= link_to t('views.ctc_pages.home.common_questions.how_do_i_know_what_i_received_for_the_stimulus.question'), url_for(action: 'how_do_i_know_what_i_received_for_the_stimulus'), class: "link--subtle" %></li>
-          <li><%= link_to t('views.ctc_pages.home.common_questions.will_i_ever_have_to_pay_this_money_back.question'), url_for(action: 'will_i_ever_have_to_pay_this_money_back'), class: "link--subtle" %></li>
-          <li><%= link_to t('views.ctc_pages.home.common_questions.parents_with_shared_custody.question'), url_for(action: 'parents_with_shared_custody'), class: "link--subtle" %></li>
-          <li><%= link_to t('views.ctc_pages.home.common_questions.no_income_or_income_from_benefits_programs.question'), url_for(action: 'no_income_or_income_from_benefits_programs'), class: "link--subtle" %></li>
-          <li><%= link_to t('views.ctc_pages.home.common_questions.are_daca_recipients_eligible.question'), url_for(action: 'are_daca_recipients_eligible'), class: "link--subtle" %></li>
-          <li><%= link_to t('views.ctc_pages.home.common_questions.will_it_affect_my_immigration_status.question'), url_for(action: 'will_it_affect_my_immigration_status'), class: "link--subtle" %></li>
-          <li><%= link_to t('views.ctc_pages.home.common_questions.check_payment_status.question'), url_for(action: 'check_payment_status'), class: "link--subtle" %></li>
-          <li><%= link_to t('views.ctc_pages.home.common_questions.how_do_i_get_an_itin.question'), url_for(action: 'how_do_i_get_an_itin'), class: "link--subtle" %></li>
+          <% Ctc::CtcPagesController::FAQ_QUESTIONS.each do |question| %>
+            <li><%= link_to t("views.ctc_pages.home.common_questions.#{question.to_s}"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: 'show', section_key: :child_tax_credit, question_key: question), class: "link--subtle" %></li>
+          <% end %>
+          <li><%= link_to t("views.ctc_pages.home.common_questions.view_all_questions"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: 'section_index', section_key: :child_tax_credit), class: 'link--subtle' %></li>
         </ul>
       </div>
     </div>

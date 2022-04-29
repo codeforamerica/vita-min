@@ -46,7 +46,7 @@ RSpec.feature "Visit CTC home page" do
       expect(page).not_to have_text I18n.t("views.ctc_pages.home.subheader.launching_soon_html")
       expect(page).to have_text I18n.t("views.ctc_pages.home.subheader.claim")
 
-      expect(page).to have_text I18n.t("views.ctc_pages.home.file_your_return")
+      expect(page).to have_text I18n.t("views.ctc_pages.home.get_started")
     end
   end
 
