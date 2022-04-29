@@ -2276,7 +2276,7 @@ en:
           help_text_html: |
             Because you stated that your spouse filed a tax return in %{prior_tax_year}, we’ll need to verify what your spouse’s Adjusted Gross Income (AGI) was in %{prior_tax_year}.<br/>
             <br/>
-            You can find this information on Line 11 of your spouse’s %{prior_tax_year} tax return. Please enter the correct amount or your return will be rejected."
+            You can find this information on Line 11 of your spouse’s %{prior_tax_year} tax return. Please enter the correct amount or your return will be rejected.
           reveal_content: 'The IRS requires us to ask this to verify your spouse’s identity prior to submitting your tax return. '
           reveal_label: Why are you asking this?
           title: What was your spouse’s %{prior_tax_year} Adjusted Gross Income?
