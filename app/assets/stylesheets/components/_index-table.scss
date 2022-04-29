@@ -119,7 +119,7 @@ It expects to be the primary content of the given page (full width).
 
   &__cell {
     padding: 0.8rem $s25/2;
-    white-space: nowrap;
+    min-width: 15rem;
 
     &:first-child {
       padding-left: 3rem;
@@ -131,6 +131,10 @@ It expects to be the primary content of the given page (full width).
     &--center {
       text-align: center;
     }
+  }
+
+  &__cell.narrow {
+    min-width: unset;
   }
 
   &__vertical_align {
