@@ -3,13 +3,11 @@
 <% content_for :form_help_text do %>
   <p><%= t("views.ctc.questions.had_dependents.help_text") %></p>
 
-  <div class="reveal-shrink-wrapper">
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.had_dependents.which_relationships_qualify_reveal.title")) do %>
-      <ul class="list--bulleted">
-        <% t("views.ctc.questions.had_dependents.which_relationships_qualify_reveal.content").each do |item| %>
-          <li><%= item %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.had_dependents.which_relationships_qualify_reveal.title")) do %>
+    <ul class="list--bulleted">
+      <% t("views.ctc.questions.had_dependents.which_relationships_qualify_reveal.content").each do |item| %>
+        <li><%= item %></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>

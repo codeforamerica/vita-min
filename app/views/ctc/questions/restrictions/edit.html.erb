@@ -11,12 +11,10 @@
     <% end %>
   </ul>
 
-  <div class="reveal-shrink-wrapper">
-    <%= render('components/molecules/reveal', title: t("views.ctc.questions.restrictions.multiple_support_agreement_reveal.title")) do %>
-      <p><%= t("views.ctc.questions.restrictions.multiple_support_agreement_reveal.content.p1") %></p>
-      <p><%= t("views.ctc.questions.restrictions.multiple_support_agreement_reveal.content.p2") %></p>
-    <% end %>
-  </div>
+  <%= render('components/molecules/reveal', title: t("views.ctc.questions.restrictions.multiple_support_agreement_reveal.title")) do %>
+    <p><%= t("views.ctc.questions.restrictions.multiple_support_agreement_reveal.content.p1") %></p>
+    <p><%= t("views.ctc.questions.restrictions.multiple_support_agreement_reveal.content.p2") %></p>
+  <% end %>
 
   <%= link_to next_path, class: "button button--full-width text--centered spacing-above-60 button--primary" do %>
     <%= t("general.continue") %>
