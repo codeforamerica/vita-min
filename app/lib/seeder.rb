@@ -337,6 +337,4 @@ class Seeder
       content_type: 'image/jpeg'
     ) unless verification_attempt.photo_identification.present?
   end
-
-
 end
