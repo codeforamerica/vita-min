@@ -7,10 +7,7 @@
     <h1 class="h2"><%= @main_question %></h1>
 
     <p>
-      <%= t("views.ctc.questions.legal_consent.body.p1") %>
-    </p>
-    <p>
-      <%= t("views.ctc.questions.legal_consent.body.p2") %>
+      <%= t("views.ctc.questions.legal_consent.body") %>
     </p>
 
     <div class="form-card__content">
@@ -24,28 +21,16 @@
             help_text: t("hub.clients.show.date_of_birth_help"),
             classes: ["ctc-intake-date-text-input"]
             ) %>
-      <%= f.cfa_select(:primary_tin_type, t('general.tin_type'), tin_options_for_select(include_itin: true)) %>
-      <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.primary_ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_select(:primary_tin_type, t('views.ctc.questions.legal_consent.form_of_identity'), tin_options_for_select(include_itin: true)) %>
       <%= f.cfa_input_field(:primary_ssn, t("views.ctc.questions.legal_consent.ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
       <%= f.cfa_input_field(:primary_ssn_confirmation, t("views.ctc.questions.legal_consent.ssn_confirmation"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
+      <%= f.cfa_checkbox(:ssn_no_employment, t('views.ctc.questions.legal_consent.primary_ssn_not_valid_for_employment'), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_input_field(:phone_number, t("views.ctc.questions.legal_consent.sms_phone_number"), classes: ["form-width--long"]) %>
       <%= f.cfa_checkbox(:primary_active_armed_forces, t("views.ctc.questions.legal_consent.primary_active_armed_forces.title", current_tax_year: current_tax_year), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= recaptcha_v3(action: 'legal_consent') %>
-
-      <div class="reveal-shrink-wrapper">
-        <%= render('components/molecules/reveal', title: t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_label")) do %>
-          <p> <%= t("views.ctc.questions.legal_consent.primary_active_armed_forces.reveal_content") %> </p>
-        <% end %>
-      </div>
     </div>
 
-    <div class="spacing-below-60">
-      <%= f.simplified_cfa_checkbox(
-            :agree_to_privacy_policy,
-            t("views.ctc.questions.legal_consent.agree_to_share_html", privacy_policy_link: ctc_privacy_path),
-            options: { id: "agree_to_privacy_policy" }
-          ) %>
-    </div>
+    <p><%= t("views.ctc.questions.legal_consent.agree_to_share_html") %></p>
 
     <button class="button button--primary button--wide" type="submit">
       <%=t("general.continue") %>

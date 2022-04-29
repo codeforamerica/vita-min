@@ -3,21 +3,23 @@
 
 <% content_for :form_card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
-  <p class="text--small"><%= t("views.ctc.questions.use_gyr.help_text") %></p>
 
-  <ul class="checkmark-list teal">
-    <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year) %>
-    <% t("views.ctc.questions.use_gyr.ctc_conditions",
-         current_tax_year: current_tax_year,
-         single_deduction: number_to_currency(standard_deduction.standard_deduction(:single)),
-         joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_jointly))
-       ).each do |condition| %>
-      <li><%= condition %></li>
+  <div class="reveal-shrink-wrapper">
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.use_gyr.why_ineligible_reveal.title")) do %>
+      <p><%= t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.p") %></p>
+      <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year) %>
+      <ul class="list--bulleted">
+        <% t("views.ctc.questions.use_gyr.why_ineligible_reveal.content.list",
+          current_tax_year: current_tax_year,
+          single_deduction: number_to_currency(standard_deduction.standard_deduction(:single)),
+          joint_deduction: number_to_currency(standard_deduction.standard_deduction(:married_filing_jointly))).each do |item| %>
+          <li><%= item %></li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
+  </div>
 
   <p><strong><%= t("views.ctc.questions.use_gyr.still_benefit") %></strong></p>
-  <p><strong><%= t("views.ctc.questions.use_gyr.collect_money") %></strong></p>
 
   <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), class: "button button--wide button--primary text--centered spacing-above-60", "data-track-click": "gctc_to_gyr_usegyr" do %>
     <%=t("views.ctc.questions.use_gyr.file_gyr") %>

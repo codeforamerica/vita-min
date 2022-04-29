@@ -4,7 +4,7 @@
 
 <% content_for :form_card do %>
   <h1 class="h2"><%= @main_question %></h1>
-  <p><%= t("views.ctc.questions.filed_prior_tax_year.help_text", current_tax_year: current_tax_year, prior_tax_year: prior_tax_year) %></p>
+  <p><%= t("views.ctc.questions.filed_prior_tax_year.help_text", prior_tax_year: prior_tax_year) %></p>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.cfa_radio_set(
           :filed_prior_tax_year,

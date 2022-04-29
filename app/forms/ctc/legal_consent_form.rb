@@ -10,14 +10,13 @@ module Ctc
                        :primary_tin_type,
                        :primary_active_armed_forces
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
-    set_attributes_for :confirmation, :primary_ssn_confirmation, :agree_to_privacy_policy
+    set_attributes_for :confirmation, :primary_ssn_confirmation
     set_attributes_for :misc, :ssn_no_employment
     set_attributes_for :recaptcha, :recaptcha_score, :recaptcha_action
 
     before_validation :normalize_phone_numbers
 
     validates :phone_number, e164_phone: true
-    validates :agree_to_privacy_policy, acceptance: { accept: "1", message: I18n.t("views.ctc.questions.confirm_legal.error") }
 
     before_validation do
       if ssn_no_employment == "yes" && primary_tin_type == "ssn"

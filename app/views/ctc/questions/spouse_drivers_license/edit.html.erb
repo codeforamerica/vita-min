@@ -1,4 +1,4 @@
-<% content_for :page_title, t("views.ctc.questions.spouse_drivers_license.title") %>
+<% content_for :page_title, t("views.ctc.questions.spouse_drivers_license.title", spouse_first_name: current_intake.spouse_first_name) %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>

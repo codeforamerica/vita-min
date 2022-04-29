@@ -257,14 +257,14 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_text "Your bank information"
 
         within ".bank-account-info" do
-          click_on I18n.t("general.change")
+          click_on I18n.t("general.edit").downcase
         end
 
         expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
         choose I18n.t("views.ctc.questions.refund_payment.direct_deposit")
         click_on I18n.t('general.continue')
 
-        expect(page).to have_text "Please provide your bank details below"
+        expect(page).to have_text I18n.t("views.ctc.portal.bank_account.title")
         fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
         choose I18n.t('views.questions.bank_details.account_type.checking')
         fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "133456789"
@@ -422,7 +422,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         expect(page).to have_text "Your bank information"
 
         within ".bank-account-info" do
-          click_on I18n.t("general.change")
+          click_on I18n.t("general.edit").downcase
         end
 
         expect(page).to have_text I18n.t("views.ctc.questions.refund_payment.title")
@@ -489,7 +489,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           log_in_to_ctc_portal
           click_on I18n.t("views.ctc.portal.home.correct_info")
           within ".bank-account-info" do
-            click_on I18n.t("general.change")
+            click_on I18n.t("general.edit").downcase
           end
           choose I18n.t("views.ctc.questions.refund_payment.check")
           click_on I18n.t('general.continue')

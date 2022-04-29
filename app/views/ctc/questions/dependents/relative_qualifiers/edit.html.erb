@@ -13,6 +13,10 @@
       <%= f.cfa_checkbox(:cant_be_claimed_by_other, t("views.ctc.questions.dependents.relative_qualifiers.claimable", name: name), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <hr/>
       <%= f.cfa_checkbox(:none_of_the_above, t("general.none_of_these"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
+
+      <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.relative_qualifiers.gross_income_reveal.title")) do %>
+        <p> <%= t("views.ctc.questions.dependents.relative_qualifiers.gross_income_reveal.content") %> </p>
+      <% end %>
     </div>
 
     <button class="button button--primary button--wide" type="submit">
