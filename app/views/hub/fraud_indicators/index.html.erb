@@ -22,7 +22,7 @@
           <tbody>
           <% @fraud_indicators.each do |indicator| %>
             <tr>
-              <td><%= indicator.name.humanize %></td>
+              <td><%= indicator.name.humanize %>&nbsp;&nbsp;<%= link_to_indicator_list(indicator) %></td>
               <td><%= indicator.indicator_type.humanize %>
               <td>
                 <span><%= indicator.points %></span>
