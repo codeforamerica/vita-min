@@ -164,6 +164,12 @@ body {
   }
 }
 
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
 .toolbar {
   &__left {
     margin-top: 0;
