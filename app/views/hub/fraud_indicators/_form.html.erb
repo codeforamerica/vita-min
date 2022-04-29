@@ -1,7 +1,7 @@
 <h4 class="spacing-above-35 spacing-below-15">New <%= @resource_name %></h4>
 
 <%= form_for @resource, url: url_for(locale: :en), builder: VitaMinFormBuilder, remote: true do |f| %>
-  <% @attributes.each do |key, value| %>
+  <% form_attributes.each do |key, value| %>
     <%= f.cfa_input_field(key, value.to_s.humanize, classes: ["form-width--long"]) %>
   <% end %>
   <div>

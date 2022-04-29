@@ -1,5 +1,5 @@
 <tr id="<%= resource.name.split(".")[0] %>">
-  <% @attributes.each do |key, _| %>
+  <% form_attributes.each do |key, _| %>
     <td><%= resource.send(key) %></td>
   <% end %>
   <td>

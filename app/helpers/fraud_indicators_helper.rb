@@ -11,7 +11,7 @@ module FraudIndicatorsHelper
              return nil
            end
     table = fraud_indicator.list_model_name.split("::").last.downcase
-    
+
     if respond_to?("hub_#{type}_#{table}s_path")
       link_to send("hub_#{type}_#{table}s_path") do
         content_tag :i, "list_alt", class: "icon-"
