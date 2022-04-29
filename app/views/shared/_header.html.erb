@@ -3,9 +3,16 @@
     <div class="toolbar__left">
       <div class="toolbar__item main-header__title">
         <%= link_to home_link, class: "toolbar__logo-text main-header__logo" do %>
-          <%= title %>
+          <%= t("general.#{variation}") %>
         <% end %>
       </div>
+      <% if variation == "gyr" %>
+        <div class="toolbar__item">
+          <%= link_to faq_path do %>
+            <%= t("general.faq") %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
     <div class="toolbar__right">
       <% if I18n.locale != :en %>
@@ -15,12 +22,15 @@
         <%= link_to_spanish(class: "toolbar__item text--small") %>
       <% end %>
       <% if current_client.present? %>
-        <%= form_with url: destroy_client_session_path, local: true, method: :delete, class: "toolbar__item text--small" do |f| %>
+        <%= form_with url: destroy_client_session_path, local: true, method: :delete, class: "toolbar__item text--small text--bold" do |f| %>
           <%= f.submit value: t("general.sign_out"), class: "button--link" %>
         <% end %>
-      <% elsif @show_client_sign_in_link %>
-        <%= link_to t("general.sign_in"), new_portal_client_login_path, class: "toolbar__item text--small" %>
-      <% end %>
+      <% else %>
+        <%= link_to t("general.sign_in"), new_portal_client_login_path, class: "toolbar__item text--small text--bold" %>
+        <% if !@in_intake_flow && ((variation == "gyr" && open_for_intake?) || (variation == "ctc" && open_for_ctc_intake?)) %>
+          <%= link_to t("general.get_started"), question_path(id: variation == "gyr" ? GyrQuestionNavigation.first : CtcQuestionNavigation.first), class: "toolbar__item button button--toolbar button--small" %>
+        <% end %>
+    <% end %>
     </div>
   </div>
 </header>

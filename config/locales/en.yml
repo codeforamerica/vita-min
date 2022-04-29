@@ -214,6 +214,8 @@ en:
         certification_level: certification level
         is_hsa: is HSA
   general:
+    ctc: GetCTC
+    gyr: GetYourRefund
     NA: N/A
     access_denied: You are not authorized to take this action.
     activate_all: Activate All
@@ -361,7 +363,7 @@ en:
     free_file_lookup_tool: IRS Free File Lookup Tool
     get_help: Get help
     get_my_payment: Get My Payment
-    get_started: Get started
+    get_started: Get Started
     go_home: Go Home
     greetable: Greetable
     greeter: Greeter

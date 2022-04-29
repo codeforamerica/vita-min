@@ -214,6 +214,8 @@ es:
         certification_level: nivel de certificación
         is_hsa: es HSA
   general:
+    ctc: GetCTC
+    gyr: GetYourRefund
     NA: N/A
     access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
@@ -361,7 +363,7 @@ es:
     free_file_lookup_tool: Herramienta de búsqueda de declaración de impuestos gratuita del IRS
     get_help: Pedir ayuda
     get_my_payment: Recibir mi pago
-    get_started: Empiece ahora
+    get_started: Empiece Ahora
     go_home: Ir al inicio
     greetable: Pueden ser saludados
     greeter: Saludador

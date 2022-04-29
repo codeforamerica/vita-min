@@ -189,6 +189,12 @@ body {
   color: white;
 }
 
+.main-header .button--toolbar {
+  background-color: $color-green-money;
+  color: black !important;
+  padding: 0.75rem 1rem;
+}
+
 .grid.wide {
   @media screen and (min-width: $tablet-up) {
     max-width: 1200px;
