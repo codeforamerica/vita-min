@@ -1506,13 +1506,11 @@ es:
         eitc: Crédito tributario por ingresos del trabajo
         missing_stimulus: Pagos de estímulos faltantes
       ctc_tile:
-        available: Disponible a partir de mayo 2022.
         description: También mejor conocido como “File Myself” en inglés. Declare rápidamente por su cuenta para 2021.
         sign_up_for_ctc: Regístrese para recibir GetCTC
         timeframe: 15 minutos para declarar
         title: GetCTC
-        warning_html: |
-          * No puede presentar una declaración ante GetCTC si ganó más de $400 en ingresos de trabajo por cuenta propia o si <u>debe</u> presentar una declaración de impuestos completa.
+        warning_html: "* No puede presentar una declaración ante GetCTC si ganó más de $400 en ingresos de trabajo por cuenta propia o si <u>debe</u> presentar una declaración de impuestos completa.\n"
       diy_tile:
         choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés
         description: "¡Cobre el mayor reembolso! Presente la solicitud rápidamente por su cuenta."

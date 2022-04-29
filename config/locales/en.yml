@@ -1548,13 +1548,11 @@ en:
         eitc: Earned Income Tax Credit
         missing_stimulus: Missing Stimulus Payments
       ctc_tile:
-        available: Available May 2022
         description: File quickly online on your own!
         sign_up_for_ctc: Sign up for GetCTC
         timeframe: 15 minutes to file
         title: GetCTC
-        warning_html: |
-          * You cannot file with GetCTC if you earned more than $400 in self-employment income or if you are <u>required</u> to file a full tax return.
+        warning_html: "* You cannot file with GetCTC if you earned more than $400 in self-employment income or if you are <u>required</u> to file a full tax return.\n"
       diy_tile:
         choose_diy: Choose File Myself
         description: Collect the largest refund! File quickly on your own.
