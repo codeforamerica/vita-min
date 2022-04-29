@@ -1548,12 +1548,11 @@ en:
         eitc: Earned Income Tax Credit
         missing_stimulus: Missing Stimulus Payments
       ctc_tile:
-        available: Available May 2022
-        description: File quickly on your own.
+        description: File quickly online on your own!
         sign_up_for_ctc: Sign up for GetCTC
         timeframe: 15 minutes to file
         title: GetCTC
-        warning: You cannot file with GetCTC if you earned more than $400 in self-employment income or if you are required to file a full tax return.
+        warning_html: "* You cannot file with GetCTC if you earned more than $400 in self-employment income or if you are <u>required</u> to file a full tax return.\n"
       diy_tile:
         choose_diy: Choose File Myself
         description: Collect the largest refund! File quickly on your own.
@@ -1564,7 +1563,7 @@ en:
         description: Collect the largest refund! File with assistance from our IRS-certified volunteers.
         timeframe: 2-3 weeks to file
         title: GetYourRefund
-        warning: You are required to show copies of your Social Security card or ITIN paperwork.
+        warning: "* You are required to show copies of your Social Security card or ITIN paperwork"
       refund: Refund
     triage_ctc:
       edit:
@@ -1591,7 +1590,7 @@ en:
         title: We recommend filing for free with GetYourRefund!
     triage_gyr_ctc:
       edit:
-        title: We recommend filing with our GetCTC option!
+        title: We have two free options that may work for you!
     triage_gyr_diy:
       edit:
         title: We have two free options that may work for you!
