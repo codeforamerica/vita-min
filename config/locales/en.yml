@@ -3427,6 +3427,9 @@ en:
         title: Frequently asked questions
         view_all_questions: View all questions
       home:
+        ctc_banner:
+          claim_ctc: Looking to claim just your Child Tax Credit and third stimulus payment?
+          click_here: Click here to file a simple return in 15 min.
         clients:
           across_us: from clients across the US
           header: What our clients say

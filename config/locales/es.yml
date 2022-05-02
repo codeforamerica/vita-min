@@ -3386,6 +3386,9 @@ es:
         title: Preguntas frecuentes
         view_all_questions: Ver todas las preguntas
       home:
+        ctc_banner:
+          claim_ctc: ¿Desea reclamar solo su Crédito fiscal por hijos y el tercer pago de estímulo?
+          click_here: Haga clic aquí para presentar una declaración simple en 15 min.
         clients:
           across_us: de clientes en todo Estados Unidos.
           header: Lo que dicen nuestros clientes

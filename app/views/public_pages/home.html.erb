@@ -20,6 +20,21 @@
 <%= render 'shared/trade_desk_pixel' %>
 <main role="main">
 
+  <% if open_for_ctc_intake? %>
+    <div class="slab slab--banner get-ctc">
+      <div class="grid">
+        <div class="grid__item">
+          <b>
+            <%= t('views.public_pages.home.ctc_banner.claim_ctc') %>
+            <%= link_to(t('views.public_pages.home.ctc_banner.click_here'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'home'), class: "text--underline") %>
+          </b>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+
+
   <div class="slab slab--hero slab--gyr-green">
     <div class="grid">
       <div class="grid__item width-one-half">
