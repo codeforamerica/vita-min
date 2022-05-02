@@ -8,14 +8,6 @@ describe Ctc::Questions::IncomeController do
     allow(MixpanelService).to receive(:send_event)
   end
 
-  describe "#edit" do
-    it "renders edit template and initializes form" do
-      get :edit, params: {}
-      expect(response).to render_template :edit
-      expect(assigns(:form)).to be_an_instance_of Ctc::IncomeForm
-    end
-  end
-
   describe '#update' do
     context "with a valid form" do
       let(:income_qualifies) { "no" }

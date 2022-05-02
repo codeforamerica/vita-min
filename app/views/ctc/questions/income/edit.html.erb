@@ -1,6 +1,9 @@
-<% content_for :form_question, t("views.ctc.questions.income.title", current_tax_year: current_tax_year, count: current_intake.default_tax_return.filing_status_single? ? 1 : 2) %>
+<% @main_heading = t("views.ctc.questions.income.title", current_tax_year: current_tax_year, count: current_intake.default_tax_return.filing_status_single? ? 1 : 2) %>
+<% content_for :form_question, @main_heading %>
 
-<% content_for :form_help_text do %>
+<% content_for :form_card do %>
+  <h1 class="form-question"><%= @main_heading %></h1>
+
   <% standard_deduction = StandardDeduction.new(tax_year: current_tax_year).standard_deduction(current_intake.default_tax_return.filing_status) %>
   <ul class="checkmark-list teal">
     <% t("views.ctc.questions.income.income_qualifications", standard_deduction: number_to_currency(standard_deduction, precision: 0)).each do |income_qualifications| %>
@@ -38,4 +41,12 @@
       <p><%= t("views.ctc.questions.income.what_is_aptc_reveal.content.p3") %></p>
     <% end %>
   </div>
+
+  <%= link_to next_path, class: "button button--full-width text--centered spacing-above-60 button--primary" do %>
+    <%= t("general.continue") %>
+  <% end %>
+
+  <%= link_to Ctc::Questions::UseGyrController.to_path_helper, class: "button button--full-width text--centered", "data-track-click": "gctc_to_gyr_income" do %>
+    <%= t("views.ctc.questions.restrictions.cannot_use_ctc") %>
+  <% end %>
 <% end %>
