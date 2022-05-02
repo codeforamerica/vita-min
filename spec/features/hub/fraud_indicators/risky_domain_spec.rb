@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.feature "Add and toggle risky domains", js: true do
+  let(:user) { create :admin_user}
+  before do
+    login_as user
+  end
   context "As an authenticated user" do
     before do
       create :safe_domain, name: "gmail.com"

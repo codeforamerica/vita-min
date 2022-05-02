@@ -1,7 +1,7 @@
 <table class="data-table data-table--tight">
   <thead>
   <tr>
-    <% @attributes.each do |_, value| %>
+    <% form_attributes.each do |_, value| %>
       <th><%= value %></th>
     <% end %>
     <th>Activated</th>
@@ -14,7 +14,7 @@
     <% end %>
   <% else %>
     <td style="font-weight: normal">
-      No <%= @resource_name %> yet... add one!
+      No <%= resource_name %> yet... add one!
     </td>
   <% end %>
   </tbody>
