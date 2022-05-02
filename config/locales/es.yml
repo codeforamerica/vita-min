@@ -4231,7 +4231,7 @@ es:
         off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}
       footer:
         ctc_service_description_html: GetCTC.org es un servicio sin ánimo de lucro creado por %{link}.
-        service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
+        service_description_html: GetYourRefund.org es un servicio sin fines de lucro creado por %{cfa_link} en asociación con el IRS con el apoyo de la Casa Blanca y el Departamento del Tesoro de EE. UU
         service_status: Estado del servicio
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
