@@ -41,7 +41,7 @@ RSpec.describe Irs8812Ty2021Pdf do
                                   "TotalCtcAmt14b" => "0", #14b (=5)
                                   "Line14c" => "0", #14c
                                   "Line14d" => "0", #14d
-                                  "TotalCtcAmt14e" => "0", #14e
+                                  "TotalCtcAmt14e" => "0", #14e (=5)
                                   "AdvCtcReceived14f" => "0", #14f
                                   "CtcOwed14g" => "0", #14g
                                   "Line14h" => "0", #14h
@@ -108,7 +108,7 @@ RSpec.describe Irs8812Ty2021Pdf do
                                   "TotalCtcAmt14b" => "6600", #14b (=5)
                                   "Line14c" => "0", #14c
                                   "Line14d" => "0", #14d
-                                  "TotalCtcAmt14e" => "0", #14e
+                                  "TotalCtcAmt14e" => "6600", #14e (=5)
                                   "AdvCtcReceived14f" => "0", #14f
                                   "CtcOwed14g" => "6600", #14g
                                   "Line14h" => "0", #14h
