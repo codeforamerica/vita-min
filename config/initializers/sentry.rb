@@ -2,7 +2,7 @@ Sentry.init do |config|
   config.dsn = Rails.application.credentials.dig(:sentry_dsn)
   config.enabled_environments = %w(production staging demo)
 
-  filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
+  filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters - [:filename])
   config.before_send = lambda do |event, _hint|
     # use Rails' parameter filter to sanitize the event
     filter.filter(event.to_hash)
