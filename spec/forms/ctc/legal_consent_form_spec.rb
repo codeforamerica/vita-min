@@ -32,6 +32,7 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
         primary_active_armed_forces: "yes",
         primary_tin_type: "ssn",
         agree_to_privacy_policy: "1",
+        was_blind: "yes"
       }
     }
     context "when all required information is provided" do
@@ -234,6 +235,7 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
           primary_tin_type: tin_type,
           ssn_no_employment: ssn_no_employment,
           agree_to_privacy_policy: "1",
+          was_blind: "yes"
       }
     }
     let(:ssn_no_employment) { "no" }
@@ -256,6 +258,7 @@ describe Ctc::LegalConsentForm, requires_default_vita_partners: true do
       expect(intake.client).to be_present
       expect(intake.primary_tin_type).to eq "itin"
       expect(intake.type).to eq "Intake::CtcIntake"
+      expect(intake.was_blind).to eq "yes"
     end
 
     context "tin types" do

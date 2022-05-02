@@ -38,7 +38,8 @@ describe Ctc::Questions::SpouseInfoController do
           spouse_ssn: "111-22-8888",
           spouse_ssn_confirmation: "111-22-8888",
           spouse_tin_type: 'ssn',
-          spouse_active_armed_forces: "no"
+          spouse_active_armed_forces: "no",
+          spouse_was_blind: "yes"
         }
       }
 

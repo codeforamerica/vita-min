@@ -8,7 +8,8 @@ module Ctc
                        :primary_ssn,
                        :phone_number,
                        :primary_tin_type,
-                       :primary_active_armed_forces
+                       :primary_active_armed_forces,
+                       :was_blind
     set_attributes_for :birthday, :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year
     set_attributes_for :confirmation, :primary_ssn_confirmation, :agree_to_privacy_policy
     set_attributes_for :misc, :ssn_no_employment

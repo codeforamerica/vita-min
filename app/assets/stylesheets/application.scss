@@ -268,3 +268,9 @@ ol.with-bullets {
   list-style-type: decimal;
   margin-left: 2rem;
 }
+
+.tight-checkboxes {
+  .form-group {
+    margin-bottom: .5rem;
+  }
+}
