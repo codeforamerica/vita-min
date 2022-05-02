@@ -96,7 +96,7 @@
         <tbody class="index-table__body clients-table">
         <% @clients.map { |client| Hub::ClientsController::HubClientPresenter.new(client) }.each do |client| %>
           <tr id="client-<%= client.id %>" class="index-table__row client-row">
-            <td class="index-table__cell narrow client-attribute__needs-response">
+            <td class="index-table__cell client-attribute__needs-response">
               <%= render "shared/urgent_icon", client: client %>
             </td>
             <%= tag.th(
@@ -115,13 +115,13 @@
                 <% end %>
               <% end %>
             <% end %>
-            <td class="index-table__cell narrow"><%= client.id %></td>
+            <td class="index-table__cell"><%= client.id %></td>
             <td class="index-table__cell">
               <%= client.vita_partner&.name || t("general.none") %>
             </td>
             <td class="index-table__cell"><%= client.preferred_language ? t("general.language_options.#{client.preferred_language}") : t('general.NA') %></td>
-            <td class="index-table__cell narrow"><%= "✓" if client.intake.had_unemployment_income == "yes" %></td>
-            <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
+            <td class="index-table__cell"><%= "✓" if client.intake.had_unemployment_income == "yes" %></td>
+            <td class="index-table__cell text--no-wrap"><%= formatted_datetime(client.updated_at) %></td>
 
             <% if client.last_outgoing_communication_at.present? %>
               <% business_days_count = business_days_ago(client.last_outgoing_communication_at) %>
@@ -143,8 +143,8 @@
               <td class="index-table__cell"><%= t("general.update") %></td>
             <% end %>
 
-            <td class="index-table__cell"><%= formatted_datetime(client.intake.created_at) || "-" %> </td>
-            <td class="index-table__cell narrow"><%= client.intake.state_of_residence %></td>
+            <td class="index-table__cell text--no-wrap"><%= formatted_datetime(client.intake.created_at) || "-" %> </td>
+            <td class="index-table__cell"><%= client.intake.state_of_residence %></td>
             <td class="index-table__cell">
               <%= render "shared/tax_return_list", client: client, show_checkboxes: true %>
             </td>
