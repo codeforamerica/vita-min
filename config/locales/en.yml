@@ -1964,7 +1964,7 @@ en:
             content:
               head_of_household:
                 p1: If you are filing single and not married, one or more of your dependents might also qualify you to claim Head of Household status, a tax status that can be used by some single parents. However, for the credits you are able to claim with GetCTC, Head of Household status will not increase your refund, or make you eligible for any additional tax benefits.
-                p2: Claiming Head of Household status also could increase your probability of being audited by the IRS. If you are interested in claiming Head of Household Status regardless, click here.
+                p2_html: Claiming Head of Household status also could increase your probability of being audited by the IRS. If you are interested in claiming Head of Household Status regardless, <a href=%{link}>click here</a>.
                 title: Should I file as the Head of Household?
               p1_html: If you earned income in %{current_tax_year}, one or more of your dependents might qualify you for a larger Earned Income Tax Credit. The EITC is available to some people who earn income, and is larger for those who have children. Unfortunately, you cannot currently claim the EITC on the simplified return you file using GetCTC. To file a full tax return and claim the EITC, visit <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: What about other benefits my dependents could be eligible for?
@@ -2171,6 +2171,20 @@ en:
             - Other descendants of my siblings
             - Other relationship not listed
             title: Which relationships qualify?
+        head_of_household:
+          claim_hoh: Claim HoH status
+          do_not_claim_hoh: Do not claim HoH status
+          eligibility_b_criteria_list:
+          - A dependent who is your child, sibling, or a descendant of one of them; who lives with you more than half the year; who was less than 19 at the end of 2021, or less than 24 and a full-time student, or was permanently disabled; who paid for less than half of their own living expenses in 2021; and who did not file a return jointly with their spouse
+          - A dependent parent who earns less than $4,300, and for whom you cover more than half of their living expenses
+          - Another dependent relative who lives with you more than half of the year; who earns less than $4,300; and for whom you cover more than half of their living expenses
+          eligibility_list_a: a. You are not married
+          eligibility_list_b: 'b. You have one or more of the following:'
+          eligibility_list_c_html: "<strong>c. You pay at least half the cost of keeping up the home where this dependent lives</strong> — costs including property taxes, mortgage interest, rent, utilities, upkeep/repairs, and food consumed."
+          full_list_of_rules_html: The full list of Head of Household rules is available <a href="%{link}" target="_blank" rel="nofollow noopener">here</a>. If you choose to claim Head of Household status, you understand that you are responsible for reviewing these rules and ensuring that you are eligible.
+          subtitle_1: Because you are claiming dependents, you may be eligible to claim Head of Household tax status on your return. Claiming Head of Household status will not increase your refund, and will not make you eligible for any additional tax benefits. We do not recommend you claim Head of Household status.
+          subtitle_2: 'You are likely eligible for Head of Household status if:'
+          title: Claiming Head of Household status will not increase your refund.
         home:
           help_text: Your home must have been in the United States for more than half the tax year.
           options:

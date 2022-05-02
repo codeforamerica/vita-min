@@ -1,11 +1,7 @@
 require "rails_helper"
 
-RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true, requires_default_vita_partners: true do
-  before do
-    allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
-  end
-
-  scenario "new client entering ctc intake flow" do
+module CtcIntakeFeatureHelper
+  def fill_in_can_use_ctc(married_filing_jointly: true)
     # =========== BASIC INFO ===========
     visit "/en/questions/overview"
     expect(page).to have_selector(".toolbar", text: "GetCTC") # Check for appropriate header
@@ -13,12 +9,20 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filing_status.title'))
-    choose I18n.t('views.ctc.questions.filing_status.married_filing_jointly')
+    if married_filing_jointly
+      choose I18n.t('views.ctc.questions.filing_status.married_filing_jointly')
+    else
+      choose I18n.t('views.ctc.questions.filing_status.single')
+    end
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector(".toolbar", text: "GetCTC")
     within "h1" do
-      expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
+      if married_filing_jointly
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
+      else
+        expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
+      end
     end
     click_on I18n.t('general.affirmative')
 
@@ -29,7 +33,9 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.use_gyr.title'))
     click_on I18n.t('general.back')
     click_on I18n.t('general.continue')
+  end
 
+  def fill_in_eligibility
     # =========== ELIGIBILITY ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.already_filed.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
@@ -43,7 +49,9 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     click_on I18n.t('general.continue')
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.life_situations.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
+  end
 
+  def fill_in_basic_info
     # =========== BASIC INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.legal_consent.title'))
     fill_in I18n.t('views.ctc.questions.legal_consent.first_name'), with: "Gary"
@@ -63,7 +71,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.filed_prior_tax_year.title', prior_tax_year: prior_tax_year))
     choose I18n.t('views.ctc.questions.filed_prior_tax_year.did_not_file', prior_tax_year: prior_tax_year)
     click_on I18n.t('general.continue')
-    
+
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.contact_preference.title'))
     click_on I18n.t('views.ctc.questions.contact_preference.email')
 
@@ -84,7 +92,9 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
     click_on I18n.t("views.ctc.questions.verification.verify")
+  end
 
+  def fill_in_spouse_info
     # =========== SPOUSE INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_info.title'))
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_first_name'), with: "Peter"
@@ -121,12 +131,14 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.spouse_review.title'))
     click_on I18n.t('general.continue')
+  end
 
+  def fill_in_dependents(third_stimulus_amount: "$2,800", head_of_household: false)
     # =========== DEPENDENTS ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.had_dependents.title', current_tax_year: current_tax_year))
     click_on I18n.t('general.negative')
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$2,800"))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: third_stimulus_amount))
     click_on I18n.t('general.back')
     click_on I18n.t('general.affirmative')
 
@@ -228,8 +240,17 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
     expect(page).not_to have_content("Sam NotQualified")
     expect(page).not_to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
-    click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
 
+    if head_of_household
+      click_on "click here"
+      expect(page).to have_text I18n.t("views.ctc.questions.head_of_household.title")
+      click_on I18n.t("views.ctc.questions.head_of_household.claim_hoh")
+    end
+
+    click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
+  end
+
+  def fill_in_advance_child_tax_credit
     # =========== ADVANCE CHILD TAX CREDIT ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.advance_ctc.title', adv_ctc_estimate: 1800))
     expect(page).to have_text("$1800")
@@ -244,9 +265,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_text I18n.t('views.ctc.questions.advance_ctc_received.total_adv_ctc', amount: "$1,000")
     expect(page).to have_text "$2,600"
     click_on I18n.t('general.continue')
+  end
 
+  def fill_in_recovery_rebate_credit(third_stimulus_amount: "$4,200")
     # =========== RECOVERY REBATE CREDIT ===========
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: "$4,200"))
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_payments.title', third_stimulus_amount: third_stimulus_amount))
     click_on I18n.t('views.ctc.questions.stimulus_payments.different_amount')
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_three.title'))
@@ -255,6 +278,9 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.stimulus_owed.title'))
     click_on I18n.t('general.continue')
+  end
+
+  def fill_in_bank_info
 
     # =========== BANK AND MAILING INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.refund_payment.title'))
@@ -292,7 +318,9 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("div", text: "Apt 1234")
     expect(page).to have_selector("div", text: "Bel Air, CA 90001")
     click_on I18n.t('general.confirm')
+  end
 
+  def fill_in_ip_pins
     # =========== IP PINs ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
     expect(page).not_to have_text "Sam NotQualified"
@@ -304,7 +332,9 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Gary Mango III"), with: "123456"
     fill_in I18n.t('views.ctc.questions.ip_pin_entry.label', name: "Jessie M Pepper"), with: "123458"
     click_on I18n.t('general.continue')
+  end
 
+  def fill_in_review(married_filing_jointly: true)
     # =========== REVIEW ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_information.title"))
 
@@ -341,20 +371,22 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       expect(page).to have_selector("div", text: "28 William Street")
     end
 
-    expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.spouse_review.your_spouse"))
+    if married_filing_jointly
+      expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.spouse_review.your_spouse"))
 
-    within ".spouse-info" do
-      expect(page).to have_selector("div", text: "Peter Pepper")
-      expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/1995")
-      expect(page).to have_selector("div", text: "#{I18n.t('general.ssn')}: XXX-XX-4444")
-      click_on "edit"
-    end
+      within ".spouse-info" do
+        expect(page).to have_selector("div", text: "Peter Pepper")
+        expect(page).to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/1995")
+        expect(page).to have_selector("div", text: "#{I18n.t('general.ssn')}: XXX-XX-4444")
+        click_on "edit"
+      end
 
-    fill_in "Spouse's legal first name", with: "Petra"
-    click_on "Save"
+      fill_in "Spouse's legal first name", with: "Petra"
+      click_on "Save"
 
-    within ".spouse-info" do
-      expect(page).to have_selector("div", text: "Petra Pepper")
+      within ".spouse-info" do
+        expect(page).to have_selector("div", text: "Petra Pepper")
+      end
     end
 
     # TODO: add tests for displaying dependent info after we allow the creation of qualifying dependents
@@ -366,14 +398,16 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.account_number')}: ●●●●●6789")
 
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Garold Mango III"), with: "12345"
-    fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Petra Pepper"), with: "54321"
+    if married_filing_jointly
+      fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Petra Pepper"), with: "54321"
+    end
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_payment.title"))
     expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.ctc_due"))
     expect(page).to have_selector("p", text:  "$2,600")
     expect(page).to have_selector("p", text:  I18n.t("views.ctc.questions.confirm_payment.third_stimulus"))
-    expect(page).to have_selector("p", text:  "$2,400")
+    expect(page).to have_selector("p", text:  married_filing_jointly ? "$2,400" : "$1,000")
     click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.drivers_license.title"))
@@ -387,12 +421,35 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in "ctc_drivers_license_form[expiration_date_year]", with: "2024"
     click_on I18n.t('general.continue')
 
-    expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.spouse_drivers_license.title", spouse_first_name: "Petra"))
-    click_on I18n.t('general.skip')
+    if married_filing_jointly
+      expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.spouse_drivers_license.title", spouse_first_name: "Petra"))
+      click_on I18n.t('general.skip')
+    end
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.confirm_legal.title"))
     check I18n.t("views.ctc.questions.confirm_legal.consent")
     click_on I18n.t("views.ctc.questions.confirm_legal.action")
+  end
+end
+
+RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job: true, requires_default_vita_partners: true do
+  include CtcIntakeFeatureHelper
+
+  before do
+    allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
+  end
+
+  scenario "new married filing jointly client doing ctc intake" do
+    fill_in_can_use_ctc(married_filing_jointly: true)
+    fill_in_eligibility
+    fill_in_basic_info
+    fill_in_spouse_info
+    fill_in_dependents
+    fill_in_advance_child_tax_credit
+    fill_in_recovery_rebate_credit
+    fill_in_bank_info
+    fill_in_ip_pins
+    fill_in_review
 
     # =========== PORTAL ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
@@ -424,6 +481,22 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
       "preferred_name" => ["nil", "Garnet Mango"],
       "primary_first_name" => ["Garold", "Garnet"],
     })
+  end
+
+  scenario "new head of household client doing ctc intake" do
+    fill_in_can_use_ctc(married_filing_jointly: false)
+    fill_in_eligibility
+    fill_in_basic_info
+    fill_in_dependents(third_stimulus_amount: "$1,400", head_of_household: true)
+    fill_in_advance_child_tax_credit
+    fill_in_recovery_rebate_credit(third_stimulus_amount: "$2,800")
+    fill_in_bank_info
+    fill_in_ip_pins
+    fill_in_review(married_filing_jointly: false)
+
+    # =========== PORTAL ===========
+    expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
+    expect(page).to have_text(I18n.t("views.ctc.portal.home.status.preparing.label"))
   end
 
   scenario "client who has filed in 2019" do
