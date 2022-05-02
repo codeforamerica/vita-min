@@ -214,8 +214,6 @@ es:
         certification_level: nivel de certificación
         is_hsa: es HSA
   general:
-    ctc: GetCTC
-    gyr: GetYourRefund
     NA: N/A
     access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
@@ -265,6 +263,7 @@ es:
     contact_us: Contáctanos
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
+    ctc: GetCTC
     ctc_client: CTC client
     date_of_birth: Fecha de nacimiento
     days:
@@ -368,6 +367,7 @@ es:
     go_home: Ir al inicio
     greetable: Pueden ser saludados
     greeter: Saludador
+    gyr: GetYourRefund
     here: aquí
     hidden: Encubierto
     home: Inicio
@@ -3387,9 +3387,6 @@ es:
         title: Preguntas frecuentes
         view_all_questions: Ver todas las preguntas
       home:
-        ctc_banner:
-          claim_ctc: ¿Desea reclamar solo su Crédito fiscal por hijos y el tercer pago de estímulo?
-          click_here: Haga clic aquí para presentar una declaración simple en 15 min.
         clients:
           across_us: de clientes en todo Estados Unidos.
           header: Lo que dicen nuestros clientes
@@ -3404,13 +3401,16 @@ es:
             body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
         closing_banner_html: <strong>Los servicios de GetYourRefund volverán abrir el 31 de enero de 2022 esta temporada de impuestos.</strong>Para recibir asistencia para la preparación de sus impuestos gratis ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
+        ctc_banner:
+          claim_ctc: "¿Desea reclamar solo su Crédito fiscal por hijos y el tercer pago de estímulo?"
+          click_here: Haga clic aquí para presentar una declaración simple en 15 min.
         documents_warning_html: '<b>Recordatorio: Debe presentar sus documentos antes del 1 de abril para cumplir con la fecha límite de declaración de impuestos federales del 18 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</b> Si no está seguro de si debe o no, puede llenar y enviar este formulario <a rel="noopener nofollow" target="_blank" href="https://www.irs.gov/pub/irs-pdf/f4868.pdf">IRS</a> para solicitar una extensión.'
         faq:
-          eligible: ¿Soy elegible?
-          backtaxes: ¿Qué debo hacer si no he presentado en varios años?
+          backtaxes: "¿Qué debo hacer si no he presentado en varios años?"
+          eligible: "¿Soy elegible?"
           faq_cta: Lea nuestras preguntas frecuentes
-          free: ¿Este servicio es realmente gratuito?
-          header: "Preguntas comunes sobre impuestos:"
+          free: "¿Este servicio es realmente gratuito?"
+          header: 'Preguntas comunes sobre impuestos:'
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
@@ -4266,8 +4266,8 @@ es:
           ctc:
             coming_soon: A partir de mayo de 2022
             cta:
-              open: Elija GetCTC
               closed: Regístrese para recibir GetCTC
+              open: Elija GetCTC
             service_description: Presente la solicitud rápidamente por su cuenta para cobrar los pagos por estímulo y el Crédito Tributario por Hijos.
             service_name: GetCTC
           diy:
@@ -4276,8 +4276,8 @@ es:
             service_name: Declarar por mi cuenta o "File Myself" en inglés
           full_service:
             cta: Elija GetYourRefund
-            service_description: Presente la declaración de varios años con un preparador de impuestos certificado por el IRS.
             limited_availability: Disponibilidad limitada
+            service_description: Presente la declaración de varios años con un preparador de impuestos certificado por el IRS.
             service_name: GetYourRefund
             service_name_short: GYR
         state_credits: Créditos tributarios estatales adicionales

@@ -214,8 +214,6 @@ en:
         certification_level: certification level
         is_hsa: is HSA
   general:
-    ctc: GetCTC
-    gyr: GetYourRefund
     NA: N/A
     access_denied: You are not authorized to take this action.
     activate_all: Activate All
@@ -265,6 +263,7 @@ en:
     contact_us: Contact us
     continue: Continue
     continue_example: Continue to example
+    ctc: GetCTC
     ctc_client: CTC client
     date_of_birth: Date of birth
     days:
@@ -368,6 +367,7 @@ en:
     go_home: Go Home
     greetable: Greetable
     greeter: Greeter
+    gyr: GetYourRefund
     here: here
     hidden: Hidden
     home: Home
@@ -3428,9 +3428,6 @@ en:
         title: Frequently asked questions
         view_all_questions: View all questions
       home:
-        ctc_banner:
-          claim_ctc: Looking to claim just your Child Tax Credit and third stimulus payment?
-          click_here: Click here to file a simple return in 15 min.
         clients:
           across_us: from clients across the US
           header: What our clients say
@@ -3445,13 +3442,16 @@ en:
             body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
         closing_banner_html: <strong>GetYourRefund services will reopen on January 31 for the 2022 tax season.</strong> For free tax prep now, you can <a href="%{url}">search for a VITA location in your area.</a>
+        ctc_banner:
+          claim_ctc: Looking to claim just your Child Tax Credit and third stimulus payment?
+          click_here: Click here to file a simple return in 15 min.
         documents_warning_html: '<b>Reminder: You must submit your documents by April 1 in order to meet the federal income tax filing deadline of April 18. You can submit your taxes after the deadline without penalty if you don’t owe.</b> If you aren’t sure whether or not you will owe, you can complete and mail this <a rel="noopener nofollow" target="_blank" href="https://www.irs.gov/pub/irs-pdf/f4868.pdf">IRS form</a> requesting an extension.'
         faq:
-          eligible: Am I eligible?
           backtaxes: What should I do if I haven’t filed in several years?
+          eligible: Am I eligible?
           faq_cta: Read our FAQ
           free: Is this service really free?
-          header: "Common Tax Questions:"
+          header: 'Common Tax Questions:'
         file:
           header: Get more of your refund dollars back by filing for free today!
         header: Free tax filing, made simple.
@@ -4300,8 +4300,8 @@ en:
           ctc:
             coming_soon: Coming May 2022
             cta:
-              open: Choose GetCTC
               closed: Sign up for GetCTC
+              open: Choose GetCTC
             service_description: File quickly on your own to collect your stimulus payments and Child Tax Credit.
             service_name: GetCTC
           diy:
@@ -4310,8 +4310,8 @@ en:
             service_name: File Myself
           full_service:
             cta: Choose GetYourRefund
-            service_description: File for multiple years with an IRS-certified tax preparer.
             limited_availability: Limited availability
+            service_description: File for multiple years with an IRS-certified tax preparer.
             service_name: GetYourRefund
             service_name_short: GYR
         state_credits: Additional State Tax Credits
