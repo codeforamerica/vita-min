@@ -4299,20 +4299,20 @@ en:
         required_information: Required information
         services:
           ctc:
-            colloquial: ''
             coming_soon: Coming May 2022
-            cta: Sign up for GetCTC
+            cta:
+              open: Choose GetCTC
+              closed: Sign up for GetCTC
             service_description: File quickly on your own to collect your stimulus payments and Child Tax Credit.
             service_name: GetCTC
           diy:
-            colloquial: DIY
             cta: Choose File Myself
             service_description: File quickly on your own for 2021.
             service_name: File Myself
           full_service:
-            colloquial: ''
             cta: Choose GetYourRefund
             service_description: File for multiple years with an IRS-certified tax preparer.
+            limited_availability: Limited availability
             service_name: GetYourRefund
             service_name_short: GYR
         state_credits: Additional State Tax Credits

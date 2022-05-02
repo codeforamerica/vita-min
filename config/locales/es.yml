@@ -4265,20 +4265,20 @@ es:
         required_information: Información obligatoria
         services:
           ctc:
-            colloquial: ''
             coming_soon: A partir de mayo de 2022
-            cta: Regístrese para recibir GetCTC
+            cta:
+              open: Elija GetCTC
+              closed: Regístrese para recibir GetCTC
             service_description: Presente la solicitud rápidamente por su cuenta para cobrar los pagos por estímulo y el Crédito Tributario por Hijos.
             service_name: GetCTC
           diy:
-            colloquial: 'Tramitar uno mismo, o en inglés: DIY '
             cta: Elegir declarar por cuenta propia
             service_description: Declare rápidamente por su cuenta para 2021.
             service_name: Declarar por mi cuenta o "File Myself" en inglés
           full_service:
-            colloquial: ''
             cta: Elija GetYourRefund
             service_description: Presente la declaración de varios años con un preparador de impuestos certificado por el IRS.
+            limited_availability: Disponibilidad limitada
             service_name: GetYourRefund
             service_name_short: GYR
         state_credits: Créditos tributarios estatales adicionales
