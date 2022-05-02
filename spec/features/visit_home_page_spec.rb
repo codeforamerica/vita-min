@@ -9,11 +9,13 @@ RSpec.feature "Visit home page" do
         expect(page).to have_link("GetYourRefund", href: root_path)
       end
       expect(page).to have_text "Free tax filing"
-      expect(page).to have_link "Get started"
+      within ".slab--hero" do
+        expect(page).to have_link I18n.t('general.get_started')
+      end
     end
 
     within ".slab--hero" do
-      click_on "Get started"
+      click_on I18n.t('general.get_started')
     end
     expect(page).to have_text I18n.t('views.questions.welcome.title')
   end
