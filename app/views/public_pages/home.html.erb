@@ -21,12 +21,12 @@
 <main role="main">
 
   <% if open_for_ctc_intake? %>
-    <div class="slab slab--banner get-ctc">
+    <div class="slab slab--banner get-ctc subtle-links">
       <div class="grid">
         <div class="grid__item">
           <b>
             <%= t('views.public_pages.home.ctc_banner.claim_ctc') %>
-            <%= link_to(t('views.public_pages.home.ctc_banner.click_here'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'home'), class: "text--underline") %>
+            <%= link_to(t('views.public_pages.home.ctc_banner.click_here'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'home'), class: "text--underline link--subtle") %>
           </b>
         </div>
       </div>
@@ -125,18 +125,16 @@
   <div class="slab slab--secondary-cta slab--grey slab--half-padded">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <h2 class="h3 spacing-below-0"><%= t("views.public_pages.home.features.header") %></h2>
+        <h2 class="h3 spacing-below-0"><%= t("views.public_pages.home.faq.header") %></h2>
         <ul class="list--bulleted text--small text--semibold">
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.free") %></li>
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.chat") %></li>
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.backtaxes", least_recent_bt_year: TaxReturn.backtax_years.last, most_recent_bt_year: TaxReturn.backtax_years.first) %></li>
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.amendments") %></li>
+          <li class="spacing-below-0"><%= link_to t("views.public_pages.home.faq.free"),"", class: "link--subtle" %></li>
+          <li class="spacing-below-0"><%= link_to t("views.public_pages.home.faq.backtaxes"), "", class: "link--subtle" %></li>
+          <li class="spacing-below-0"><%= link_to t("views.public_pages.home.faq.eligible"), "", class: "link--subtle" %></li>
         </ul>
-        <p class="text--small spacing-below-0"><%= t("views.public_pages.home.features.questions") %></p>
       </div>
       <div class="grid__item width-one-fourth button-container">
-        <%= link_to faq_path, class: "button button--med-wide" do %>
-          <%= t("views.public_pages.home.features.faq_cta") %>
+        <%= link_to faq_path, class: "button text--centered" do %>
+          <%= t("views.public_pages.home.faq.faq_cta") %>
         <% end %>
       </div>
     </div>
