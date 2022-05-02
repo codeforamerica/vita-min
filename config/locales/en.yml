@@ -262,6 +262,7 @@ en:
     contact_methods:
       email: email
       sms_phone_number: text
+    contact_us: Contact us
     continue: Continue
     continue_example: Continue to example
     ctc_client: CTC client

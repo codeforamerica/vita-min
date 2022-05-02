@@ -262,6 +262,7 @@ es:
     contact_methods:
       email: email
       sms_phone_number: mensaje de texto
+    contact_us: Contáctanos
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
     ctc_client: CTC client
@@ -345,7 +346,7 @@ es:
     ethnicity:
       hispanic: Hispano o Latino
       not_hispanic: No soy Hispano o Latino
-    faq: preguntas frecuentes
+    faq: Preguntas frecuentes
     file_my_taxes: Declarar mis impuestos
     filing_joint: Presentación conjunta
     filing_status:
