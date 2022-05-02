@@ -2320,10 +2320,9 @@ en:
           title: Enter %{spouse_first_name}’s driver’s license information.
         spouse_filed_prior_tax_year:
           did_not_file: My spouse did not file a %{prior_tax_year} tax return
-          filed_full_joint: My spouse filed a full tax return jointly with me
           filed_full_separate: My spouse filed a full tax return separately from me
-          filed_non_filer_joint: My spouse filed a tax return with me, using GetCTC or the IRS non-filer tool
-          filed_non_filer_separate: My spouse filed a tax return separately from me, using GetCTC or the IRS non-filer tool
+          filed_non_filer_separate: My spouse used the IRS non-filer tool or GetCTC separately from me
+          filed_together: My spouse filed taxes or used a non-filer tool with me
           help_text: A 2020 tax return would have originally been due on May 17, 2021 and would have typically been completed in 2021.
           title: Did %{spouse_first_name} file a %{prior_tax_year} tax return?
         spouse_info:

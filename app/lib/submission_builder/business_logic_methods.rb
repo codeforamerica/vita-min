@@ -56,9 +56,9 @@ module SubmissionBuilder
         raise "spouse_prior_year_agi only works for current tax year"
       end
 
-      if intake.spouse_filed_prior_tax_year_filed_non_filer_separate? || intake.spouse_filed_prior_tax_year_filed_non_filer_joint?
+      if intake.spouse_filed_prior_tax_year_filed_non_filer_separate?
         1
-      elsif intake.spouse_filed_prior_tax_year_filed_full_joint? && intake.primary_prior_year_agi_amount.present?
+      elsif intake.spouse_filed_prior_tax_year_filed_together? && intake.primary_prior_year_agi_amount.present?
         intake.primary_prior_year_agi_amount
       elsif intake.spouse_filed_prior_tax_year_filed_full_separate? && intake.spouse_prior_year_agi_amount.present?
         intake.spouse_prior_year_agi_amount
