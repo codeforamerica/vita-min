@@ -2233,9 +2233,9 @@ en:
           form_of_identity: Form of identity
           last_name: Legal last name
           middle_initial: Legal middle initial (optional)
-          primary_active_armed_forces:
-            title: I was a member of the United States Armed Forces for any time in %{current_tax_year}
+          primary_active_armed_forces: I was a member of the United States Armed Forces for any time in %{current_tax_year}
           primary_ssn_not_valid_for_employment: My Social Security card has "not valid for employment" printed on it. (This is rare)
+          primary_was_blind: I was legally blind in %{current_tax_year}
           sms_phone_number: Phone number
           ssn: SSN or ITIN
           ssn_confirmation: Confirm SSN or ITIN
@@ -2326,6 +2326,7 @@ en:
           spouse_ssn_itin: Spouse's SSN or ITIN
           spouse_ssn_itin_confirmation: Confirm spouse's SSN or ITIN
           spouse_suffix: Spouse's suffix (optional)
+          spouse_was_blind: My spouse was legally blind in %{current_tax_year}
           ssn_required_message: We need a SSN/ITIN to continue. If your spouse does not have one, file for free with <a href="https://www.getyourrefund.org/">GetYourRefund</a>.
           title: Tell us about your spouse.
         spouse_prior_tax_year_agi:

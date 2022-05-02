@@ -35,6 +35,7 @@ describe Ctc::Questions::LegalConsentController do
             primary_active_armed_forces: "no",
             phone_number: "831-234-5678",
             primary_tin_type: "ssn",
+            was_blind: "yes"
           }
         }
       end
@@ -47,6 +48,7 @@ describe Ctc::Questions::LegalConsentController do
         recaptcha_score = client.recaptcha_scores.last
         expect(recaptcha_score.score).to eq 0.9
         expect(recaptcha_score.action).to eq 'legal_consent'
+        expect(client.intake.was_blind).to eq "yes"
       end
 
       it "sends a Mixpanel event" do

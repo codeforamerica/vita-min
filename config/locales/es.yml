@@ -2190,9 +2190,9 @@ es:
           form_of_identity: forma de identidad
           last_name: Apellido legal
           middle_initial: Inicial del segundo nombre
-          primary_active_armed_forces:
-            title: Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en %{current_tax_year}
+          primary_active_armed_forces: Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en %{current_tax_year}
           primary_ssn_not_valid_for_employment: Mi tarjeta de la Seguridad Social lleva impreso "no es válida para el empleo". (Esto se ve raramente)
+          primary_was_blind: Estaba legalmente ciega en %{current_tax_year}
           sms_phone_number: Número de teléfono
           ssn: SSN o ITIN
           ssn_confirmation: Confirme el SSN o ITIN
@@ -2282,6 +2282,7 @@ es:
           spouse_ssn_itin: SSN o ITIN de su cónyuge
           spouse_ssn_itin_confirmation: Confirme el SSN o ITIN de su cónyuge
           spouse_suffix: Forma de tratamiento de su cónyuge
+          spouse_was_blind: Mi cónyuge estaba ciego en %{current_tax_year}
           ssn_required_message: Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href="https://www.getyourrefund.org/">GetYourRefund</a>.
           title: Denos un poco de información sobre su cónyuge
         spouse_prior_tax_year_agi:

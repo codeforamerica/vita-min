@@ -7,7 +7,8 @@ module Ctc
                        :spouse_suffix,
                        :spouse_tin_type,
                        :spouse_ssn,
-                       :spouse_active_armed_forces
+                       :spouse_active_armed_forces,
+                       :spouse_was_blind
     set_attributes_for :birthday, :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
     set_attributes_for :confirmation, :spouse_ssn_confirmation
     set_attributes_for :misc, :ssn_no_employment

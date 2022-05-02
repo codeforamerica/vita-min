@@ -56,7 +56,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
-    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
+    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces', current_tax_year: current_tax_year)
     check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
@@ -96,6 +96,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     select I18n.t('general.tin.ssn')
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin'), with: "222-33-4444"
     fill_in I18n.t('views.ctc.questions.spouse_info.spouse_ssn_itin_confirmation'), with: "222-33-4444"
+    check I18n.t('views.ctc.questions.spouse_info.spouse_was_blind', current_tax_year: TaxReturn.current_tax_year)
     click_on I18n.t('views.ctc.questions.spouse_info.save_button')
     expect(page).not_to have_text(I18n.t('views.ctc.questions.spouse_info.remove_button'))
 
@@ -442,7 +443,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.ssn_confirmation'), with: "111-22-8888"
     fill_in I18n.t('views.ctc.questions.legal_consent.sms_phone_number'), with: "831-234-5678"
-    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces.title', current_tax_year: current_tax_year)
+    check I18n.t('views.ctc.questions.legal_consent.primary_active_armed_forces', current_tax_year: current_tax_year)
     check "agree_to_privacy_policy"
     click_on I18n.t('general.continue')
 
