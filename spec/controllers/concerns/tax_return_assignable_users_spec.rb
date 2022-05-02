@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe TaxReturnAssignableUsers, type: :controller do
-
   controller(ApplicationController) do
     include TaxReturnAssignableUsers
   end
@@ -16,6 +15,7 @@ RSpec.describe TaxReturnAssignableUsers, type: :controller do
     let!(:assigned_user) { create :user, role: create(:team_member_role, site: site) }
     let!(:team_member) { create :user, role: create(:team_member_role, site: site) }
     let!(:another_team_member) { create :user, role: create(:team_member_role, site: second_site) }
+    let!(:suspended_team_member) { create :user, suspended_at: DateTime.now, role: create(:team_member_role, site: site) }
     let!(:site_coordinator) { create :user, role: create(:site_coordinator_role, site: site) }
     let!(:org_lead) { create :user, role: create(:organization_lead_role, organization: organization) }
     let!(:another_org_lead) { create :user, role: create(:organization_lead_role, organization: organization) }
