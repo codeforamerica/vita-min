@@ -1,5 +1,7 @@
+<% header = open_for_ctc_intake? ? t("views.ctc_pages.stimulus_home.header_open") : t("views.ctc_pages.stimulus_home.header") %>
+
 <% content_for :page_title do %>
-  <%= t("views.ctc_pages.stimulus_home.title") %>
+  <%= header %>
 <% end %>
 <% content_for :body_class, "body--home" %>
 
@@ -8,15 +10,9 @@
   <div class="slab slab--hero">
     <div class="grid-flex contained column-row space-between">
       <div class="grid-flex column-column spacing-below-35">
-        <% if open_for_ctc_intake? %>
-          <h1 class="landing-page-header">
-            <%= t("views.ctc_pages.stimulus_home.header_open") %>
-          </h1>
-        <% else %>
-          <h1 class="landing-page-header">
-            <%= t("views.ctc_pages.stimulus_home.header") %>
-          </h1>
-        <% end %>
+        <h1 class="landing-page-header">
+          <%= header %>
+        </h1>
 
         <% if open_for_ctc_intake? %>
           <div class="spacing-below-25">
@@ -43,7 +39,7 @@
       </div>
 
       <div class="grid-flex align-flex-end justify-flex-end">
-        <%= image_tag "mother-baby-computer.png", alt: "", class: "hero-image hero-image--family" %>
+        <%= image_tag "hero-family.png", alt: "", class: "hero-image hero-image--family" %>
       </div>
     </div>
   </div>
@@ -77,7 +73,9 @@
             <%= t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_body") %>
           <% end %>
           <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_title")) do %>
-            <%= t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_body_html") %>
+            <% t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_body").each do |line| %>
+              <p><%= line %></p>
+            <% end %>
           <% end %>
         </div>
       <% else %>
