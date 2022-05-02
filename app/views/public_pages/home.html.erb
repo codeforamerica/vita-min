@@ -33,8 +33,6 @@
     </div>
   <% end %>
 
-
-
   <div class="slab slab--hero slab--gyr-green">
     <div class="grid">
       <div class="grid__item width-one-half">
@@ -43,7 +41,11 @@
         </h1>
         <p>
           <strong>
-            <%= open_for_intake? ? t("views.public_pages.home.subheader") : t("views.public_pages.home.subheader_offseason") %>
+            <% if open_for_intake? %>
+              <%= open_for_ctc_intake? ? t("views.public_pages.home.subheader_ctc_open") : t("views.public_pages.home.subheader") %>
+            <% else %>
+              <%= t("views.public_pages.home.subheader_offseason") %>
+            <% end %>
           </strong>
         </p>
         <% if open_for_intake? %>

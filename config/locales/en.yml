@@ -3460,6 +3460,7 @@ en:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
           header: Committed to keeping your information secure.
         subheader: Claim thousands of dollars through tax credits you’re owed! We work with you to get your highest refund.
+        subheader_ctc_open: Even though the traditional tax deadline has passed, you can still claim thousands of dollars in tax credits!
         subheader_offseason: Sign up for the 2022 tax season now! We'll notify you as soon as our service reopens on January 31 at 1pm EST.
         title: Free tax help from IRS-certified volunteers.
       maybe_ineligible:
