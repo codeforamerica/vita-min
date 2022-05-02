@@ -202,6 +202,31 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     expect(page).to have_selector("h1", text: "Let’s confirm!")
     expect(page).not_to have_text "Red Hot Pepper"
+
+    click_on I18n.t('views.ctc.questions.confirm_dependents.add_a_dependent')
+
+    dependent_birth_year = 40.years.ago.year
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.info.title'))
+    fill_in I18n.t('views.ctc.questions.dependents.info.first_name'), with: "Sam"
+    fill_in I18n.t('views.ctc.questions.dependents.info.middle_initial'), with: ""
+    fill_in I18n.t('views.ctc.questions.dependents.info.last_name'), with: "NotQualified"
+    fill_in "ctc_dependents_info_form[birth_date_month]", with: "01"
+    fill_in "ctc_dependents_info_form[birth_date_day]", with: "11"
+    fill_in "ctc_dependents_info_form[birth_date_year]", with: dependent_birth_year
+    select I18n.t('general.dependent_relationships.uncle'), from: I18n.t('views.ctc.questions.dependents.info.relationship_to_you')
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin'), with: "222-33-4446"
+    fill_in I18n.t('views.ctc.questions.dependents.tin.ssn_or_atin_confirmation'), with: "222-33-4446"
+    click_on I18n.t("general.continue")
+    expect(page).to have_text "Did you pay more than half of Sam's living expenses for 2021?"
+    click_on "No"
+
+    expect(page).to have_text "You can not claim benefits for Sam. Would you like to add anyone else?"
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
+    expect(page).not_to have_content("Sam NotQualified")
+    expect(page).not_to have_selector("div", text: "#{I18n.t('general.date_of_birth')}: 1/11/#{dependent_birth_year}")
     click_on I18n.t('views.ctc.questions.confirm_dependents.done_adding')
 
     # =========== ADVANCE CHILD TAX CREDIT ===========
@@ -269,6 +294,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
 
     # =========== IP PINs ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.ip_pin.title'))
+    expect(page).not_to have_text "Sam NotQualified"
     check "Gary Mango III"
     check "Jessie M Pepper"
     click_on I18n.t('general.continue')

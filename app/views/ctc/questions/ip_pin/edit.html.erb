@@ -19,7 +19,9 @@
         <%= f.cfa_checkbox(:has_spouse_ip_pin, current_intake.spouse_full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
       <% end %>
       <%= f.fields_for :dependents do |ff| %>
-        <%= ff.cfa_checkbox(:has_ip_pin, ff.object.full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <% if Efile::DependentEligibility::Eligibility.new(ff.object, TaxReturn.current_tax_year).test_results.any? { |_, v| v } %>
+          <%= ff.cfa_checkbox(:has_ip_pin, ff.object.full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <% end %>
       <% end %>
       <%= f.cfa_checkbox(:no_ip_pins, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>
