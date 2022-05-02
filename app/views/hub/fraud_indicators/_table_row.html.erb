@@ -1,4 +1,4 @@
-<tr id="<%= resource.name.split(".")[0] %>">
+<tr id="<%= to_id_name(resource.name) %>">
   <% form_attributes.each do |key, _| %>
     <td><%= resource.send(key) %></td>
   <% end %>

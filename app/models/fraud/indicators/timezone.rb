@@ -18,6 +18,10 @@ module Fraud
       def self.safelist
         all.pluck(:name).push(nil)
       end
+
+      def active
+        activated_at.present?
+      end
     end
   end
 end

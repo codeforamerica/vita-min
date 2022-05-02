@@ -184,6 +184,8 @@ Rails.application.routes.draw do
         resources :fraud_indicators, path: "fraud-indicators" do
           collection do
             resources :risky_domains, controller: 'fraud_indicators/risky_domains', path: "risky-domains"
+            resources :safe_domains, controller: 'fraud_indicators/safe_domains', path: "safe-domains"
+            resources :timezones, controller: 'fraud_indicators/timezones', path: "timezones"
           end
         end
 
