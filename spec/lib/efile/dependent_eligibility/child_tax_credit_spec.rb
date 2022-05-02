@@ -25,7 +25,29 @@ describe Efile::DependentEligibility::ChildTaxCredit do
     it "instantiates a new eligibility object" do
       described_class.new(dependent, TaxReturn.current_tax_year)
       expect(child_eligibility).not_to have_received(:qualifies?)
+    end
+  end
 
+  context "prequalifying attribute" do
+    subject { described_class.new(efile_submission_dependent, TaxReturn.current_tax_year) }
+    before do
+      allow(subject).to receive(:run_tests).and_call_original
+    end
+    context "when the object is a SubmissionDependent and qualifying_ctc is true" do
+      let!(:efile_submission_dependent) { create :efile_submission_dependent, qualifying_ctc: true }
+
+      it "returns true for qualifying, without running all qualifying logic again" do
+        expect(subject).not_to have_received(:run_tests)
+        expect(subject.qualifies?).to eq true
+      end
+    end
+
+    context "when the object is an EfileSubmissionDependent and qualifying_ctc false" do
+      let!(:efile_submission_dependent) { create :efile_submission_dependent, qualifying_ctc: false }
+      it "returns false for qualifying, without running qualifying logic again" do
+        expect(subject).not_to have_received(:run_tests)
+        expect(subject.qualifies?).to eq false
+      end
     end
   end
 end

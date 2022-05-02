@@ -4,7 +4,7 @@ module Efile
       attr_accessor :age, :dependent, :tax_year, :test_results, :except, :prequalified
 
       def initialize(dependent, tax_year, except: nil)
-        @age = tax_year - dependent.birth_date.year
+        @age = dependent.respond_to?(:age_during_tax_year) ? dependent.age_during_tax_year : tax_year - dependent.birth_date.year
         @tax_year = tax_year
         @dependent = dependent
         @except = *except
