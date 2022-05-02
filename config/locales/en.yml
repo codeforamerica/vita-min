@@ -3447,10 +3447,7 @@ en:
           click_here: Click here to file a simple return in 15 min.
         documents_warning_html: '<b>Reminder: You must submit your documents by April 1 in order to meet the federal income tax filing deadline of April 18. You can submit your taxes after the deadline without penalty if you don’t owe.</b> If you aren’t sure whether or not you will owe, you can complete and mail this <a rel="noopener nofollow" target="_blank" href="https://www.irs.gov/pub/irs-pdf/f4868.pdf">IRS form</a> requesting an extension.'
         faq:
-          backtaxes: What should I do if I haven’t filed in several years?
-          eligible: Am I eligible?
           faq_cta: Read our FAQ
-          free: Is this service really free?
           header: 'Common Tax Questions:'
         file:
           header: Get more of your refund dollars back by filing for free today!

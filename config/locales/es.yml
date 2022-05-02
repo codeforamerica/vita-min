@@ -3406,10 +3406,7 @@ es:
           click_here: Haga clic aquí para presentar una declaración simple en 15 min.
         documents_warning_html: '<b>Recordatorio: Debe presentar sus documentos antes del 1 de abril para cumplir con la fecha límite de declaración de impuestos federales del 18 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</b> Si no está seguro de si debe o no, puede llenar y enviar este formulario <a rel="noopener nofollow" target="_blank" href="https://www.irs.gov/pub/irs-pdf/f4868.pdf">IRS</a> para solicitar una extensión.'
         faq:
-          backtaxes: "¿Qué debo hacer si no he presentado en varios años?"
-          eligible: "¿Soy elegible?"
           faq_cta: Lea nuestras preguntas frecuentes
-          free: "¿Este servicio es realmente gratuito?"
           header: 'Preguntas comunes sobre impuestos:'
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
