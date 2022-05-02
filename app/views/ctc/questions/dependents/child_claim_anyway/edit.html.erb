@@ -1,4 +1,4 @@
-<% content_for :form_question, t("views.ctc.questions.dependents.child_claim_anyway.title", name: @form.dependent.first_name&.titleize) %>
+<% content_for :form_question, t("views.ctc.questions.dependents.child_claim_anyway.title", name: @form.dependent.first_name&.upcase_first) %>
 <% content_for :form_help_text do %>
   <p class="text--bold"><%= t("views.ctc.questions.dependents.child_claim_anyway.help_text.p1", name: @form.dependent.first_name&.titleize) %></p>
   <ul class="list--bulleted">

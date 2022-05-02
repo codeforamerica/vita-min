@@ -1,2 +1,2 @@
-<% name = @dependent.first_name&.titleize %>
+<% name = @dependent.first_name&.upcase_first %>
 <% content_for :form_question, t("views.ctc.questions.dependents.child_expenses.title", name: name, current_tax_year: TaxReturn.current_tax_year) %>
