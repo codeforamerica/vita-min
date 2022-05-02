@@ -34,7 +34,7 @@ module SubmissionBuilder
               xml.CTCAfterAGILimitAmt benefits_eligibility.ctc_amount #14b (=5)
               xml.RCTCTaxLiabiltyLimitAmt 0 #14c
               xml.ODCAfterTaxLiabilityLimitAmt 0 #14d
-              xml.CTCODCAfterTaxLiabilityLmtAmt 0 #14e
+              xml.CTCODCAfterTaxLiabilityLmtAmt benefits_eligibility.ctc_amount #14e (=5)
               xml.AggregateAdvncCTCAmt benefits_eligibility.advance_ctc_amount_received #14f
               xml.NetCTCODCAfterLimitAmt benefits_eligibility.outstanding_ctc_amount #14g
               xml.NonrefundableODCAmt 0 #14h

@@ -35,7 +35,7 @@ class Irs8812Ty2021Pdf
       TotalCtcAmt14b: @benefits.ctc_amount, #14b (=5)
       Line14c: 0, #14c
       Line14d: 0, #14d
-      TotalCtcAmt14e: 0, #14e
+      TotalCtcAmt14e: @benefits.ctc_amount, #14e (=5)
       AdvCtcReceived14f: @benefits.advance_ctc_amount_received, #14f
       CtcOwed14g: @benefits.outstanding_ctc_amount, #14g
       Line14h: 0, #14h
