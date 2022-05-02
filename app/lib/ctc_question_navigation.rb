@@ -48,6 +48,7 @@ class CtcQuestionNavigation
 
     # Dependents Summary
     Ctc::Questions::ConfirmDependentsController,
+    Ctc::Questions::HeadOfHouseholdController, # only reached through link on ConfirmDependentsController#edit
 
     # RRC
     # => Adv. CTC

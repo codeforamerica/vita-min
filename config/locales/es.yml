@@ -1922,7 +1922,7 @@ es:
             content:
               head_of_household:
                 p1: Si presenta su declaración como soltero y no está casado, uno o más de sus dependientes también pueden calificarlo para reclamar el estado de cabeza de familia, un estado fiscal que pueden usar algunos padres solteros.Sin embargo, para los créditos que puede reclamar con GetCTC El estado de cabeza de familia no aumentará su reembolso ni lo hará elegible para ningún beneficio fiscal adicional.
-                p2: Reclamar el estado de cabeza de familia también podría aumentar su probabilidad de ser auditado por el IRS.Si está interesado en reclamar el estado de cabeza de familia a pesar de todo, haga clic aquí.
+                p2_html: Reclamar el estado de cabeza de familia también podría aumentar su probabilidad de ser auditado por el IRS.Si está interesado en reclamar el estado de cabeza de familia a pesar de todo, <a href=%{link}>haga clic aquí</a>.
                 title: "¿Debo declarar como cabeza de familia?"
               p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
@@ -2129,6 +2129,20 @@ es:
             - Otros descendientes de mis hermanos
             - Otra relación no listada
             title: "¿Qué relaciones califican?"
+        head_of_household:
+          claim_hoh: Reclamar estado HoH
+          do_not_claim_hoh: No reclamar el estado de HoH
+          eligibility_b_criteria_list:
+          - Un dependiente que sea su hijo, hermano o descendiente de uno de ellos; que vive contigo más de la mitad del año; que tenía menos de 19 años a fines de 2021, o menos de 24 y era estudiante a tiempo completo, o tenía una discapacidad permanente; que pagaron menos de la mitad de sus propios gastos de manutención en 2021; y que no rindieron planilla en conjunto con su cónyuge
+          - Un padre dependiente que gana menos de $4,300 y para quien usted cubre más de la mitad de sus gastos de manutención
+          - Otro familiar dependiente que viva con usted más de la mitad del año; que gana menos de $4,300; y para quienes cubre más de la mitad de sus gastos de manutención
+          eligibility_list_a: a. No estás casado
+          eligibility_list_b: 'b. Tiene uno o más de los siguientes:'
+          eligibility_list_c_html: "<strong>c. Usted paga al menos la mitad del costo de mantenimiento de la casa donde vive este dependiente</strong>: costos que incluyen impuestos a la propiedad, intereses hipotecarios, alquiler, servicios públicos, mantenimiento/reparaciones y alimentos consumidos."
+          full_list_of_rules_html: La lista completa de las reglas para jefes de familia está disponible <a href="%{link}" target="_blank" rel="nofollow noopener">aquí</a>. Si elige reclamar el estado de cabeza de familia, comprende que es responsable de revisar estas reglas y asegurarse de que es elegible.
+          subtitle_1: Debido a que está reclamando dependientes, puede ser elegible para reclamar el estado fiscal de cabeza de familia en su declaración. Reclamar el estado de cabeza de familia no aumentará su reembolso y no lo hará elegible para ningún beneficio fiscal adicional. No recomendamos que reclame el estado de cabeza de familia.
+          subtitle_2: 'Es probable que sea elegible para el estado de cabeza de familia si:'
+          title: Reclamar el estado de cabeza de familia no aumentará su reembolso.
         home:
           help_text: Su domicilio debe haber estado en Estados Unidos durante más de la mitad del año fiscal.
           options:
