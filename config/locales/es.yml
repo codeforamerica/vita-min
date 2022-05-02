@@ -2658,10 +2658,9 @@ es:
           heading: Pagos de estímulo
           heading_open: La mayoría de las familias pueden obtener miles de dólares del tercer pago de estímulo
           reveals:
-            first_two_body_html: |
-              <p>El IRS emitió tres rondas de pagos de estímulo durante la pandemia de COVID. Las familias generalmente los recibieron en abril de 2020, diciembre de 2020 y marzo de 2021. Puede reclamar todo o parte del tercer pago de estímulo utilizando GetCTC.</p>
-
-              Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede presentar impuestos atrasados ​​de forma gratuita en GetYourRefund.
+            first_two_body:
+              - El IRS emitió tres rondas de pagos de estímulo durante la pandemia de COVID. Las familias generalmente los recibieron en abril de 2020, diciembre de 2020 y marzo de 2021. Puede reclamar todo o parte del tercer pago de estímulo utilizando GetCTC.
+              - Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede presentar impuestos atrasados de forma gratuita en GetYourRefund.
             first_two_title: "¿Qué pasa con los dos primeros pagos de estímulo?"
             how_much_body: El tercer pago de estímulo generalmente se emitió en marzo o abril de 2021 y tenía un valor de $1,400 por contribuyente adulto más $1,400 por dependiente elegible. Si recibió menos de lo que merecía en 2021, o no recibió ningún pago, puede reclamar su pago de estímulo faltante presentando una declaración de impuestos simple.
             how_much_title: "¿Cuánto recibiré?"

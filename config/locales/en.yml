@@ -2683,8 +2683,8 @@ en:
           submit: Keep me updated
           title: Sign Up
       stimulus_home:
-        header: Simplified Tax Filing to Claim Your Stimulus Payments
-        header_open: Simplified Tax Filing to Claim your third stimulus payment
+        header: Simplified tax filing to claim your stimulus payments
+        header_open: Simplified tax filing to claim your third stimulus payment
         subheader:
           cta: If you don't usually file taxes, use our simplified tax filing tool to claim any missing amount of your third stimulus payment and the Child Tax Credit.
           time_to_complete: This form usually takes about 15 minutes to complete, and you won't need any tax documents.
@@ -2699,10 +2699,9 @@ en:
           heading: Stimulus Payments
           heading_open: Most families can get thousands of dollars from the third stimulus payment
           reveals:
-            first_two_body_html: |
-              <p>The IRS issued three rounds of stimulus payments during the COVID pandemic. Families usually received them in April 2020, December 2020, and March 2021. You can claim all or part of the third stimulus payment using GetCTC.</p>
-
-              If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file back taxes for free at GetYourRefund.
+            first_two_body:
+              - The IRS issued three rounds of stimulus payments during the COVID pandemic. Families usually received them in April 2020, December 2020, and March 2021. You can claim all or part of the third stimulus payment using GetCTC.
+              - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file back taxes for free at GetYourRefund.
             first_two_title: What about the first two stimulus payments?
             how_much_body: The third stimulus payment was usually issued in March or April 2021, and was worth $1,400 per adult tax filer plus $1,400 per eligible dependent. If you received less than you deserved in 2021, or didn’t receive any payment at all, you can claim your missing stimulus payment by filing a simple tax return.
             how_much_title: How much will I get?
