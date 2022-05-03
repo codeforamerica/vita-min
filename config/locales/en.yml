@@ -1901,7 +1901,7 @@ en:
           no_did_not_receive: I didn’t receive any payments
           no_received_different: I received a different amount
           question: Did you receive this amount?
-          title: Did you receive a total of $%{adv_ctc_estimate} in Advance Child Tax Credits in 2021?
+          title: Did you receive a total of $%{adv_ctc_estimate} in Advance Child Tax Credit payments in 2021?
           total_adv_ctc: 'We estimate that you should have received:'
           total_adv_ctc_details_html: 'for the following dependents:'
           yes_received: I received this amount
@@ -1915,7 +1915,7 @@ en:
               p2: If you are married, you and your spouse would each have received a separate Letter 6419. Add the two amounts together from both letters and enter the total.
             title: Where can I find this amount?
           form_title: Advance Child Tax Credit received
-          title: Enter the total amount of Advance Child Tax Credit you received.
+          title: Enter the total amount of Advance Child Tax Credit payments you received.
         advance_ctc_claimed:
           buttons:
             add: Add more dependents
@@ -2017,7 +2017,7 @@ en:
         dependents:
           child_can_be_claimed_by_other:
             help_text: If someone else also takes care of %{name}, only one of you may claim them for tax benefits. We will guide you through the steps to figure out if you can claim them or not.
-            title: Are you the only person who can claim %{name}?
+            title: Are you the only person who could claim %{name}?
           child_claim_anyway:
             help_text:
               list:
@@ -2026,7 +2026,7 @@ en:
               p1: If you and the other person who could claim the dependent are both their legal parents...
               p2: If you are %{name}’s legal parent and the other person who could claim them is not then you can claim them.
             legal_parent_reveal:
-              p1: Only a biological parent, or a foster or adoptive parent who is legally caring for a child is eligible to claim a dependent.
+              p1: Only a biological parent or a foster or adoptive parent who is legally caring for a child is eligible to claim a dependent.
               p2: Caring for a child based on an informal agreement does not legally qualify you as a “parent”.
               title: What is a legal parent?
             not_legal_parent_reveal:
@@ -2063,7 +2063,7 @@ en:
               list_1:
               - Your foster child must have been placed with you per a formal arrangement with a foster agency or a court order.
               list_2:
-              - You should classify your adopted child as your son or daughter, as long as they were adopted per a completed legal adoption or a child placed with you for legal adoption.
+              - If you have legally adopted or are in the process of legally adopting your child, select 'son' or 'daughter'
               p1: Who counts as a foster child?
               p2: What if I have an adopted child?
             title: Does my child qualify?
@@ -2117,7 +2117,7 @@ en:
             label: I confirm that my name is on this bank account.
         drivers_license:
           expiration_date: Expiration date
-          help_text: We use driver’s license information to confirm your identity. If you don’t have a driver’s license you can skip this step.
+          help_text: If you submit your driver's license information, the IRS may process your payments faster. If you do not have a driver's license or do not want to submit it you can skip this step.
           issue_date: Issue date
           license_number: Driver’s license number
           state: Driver’s license state
@@ -2144,7 +2144,7 @@ en:
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
           married_filing_jointly: Married Filing Jointly
-          reveal_body: If you usually file Married Filing Separately or Head of Household, select “Single” for purpose of this return. Selecting “Single” will not affect the amount of tax benefits you can claim.
+          reveal_body: If you usually file Married Filing Separately or Head of Household, select “Single” for the purpose of this return. Selecting “Single” will not affect the amount of tax benefits you can claim.
           reveal_title: I normally file with a different status
           single: Single
           title: How would you like to file your tax return?
@@ -2201,7 +2201,7 @@ en:
           - earned less than %{standard_deduction} in total income
           - earned less than $400 in self-employment income
           - did not receive the Advance Premium Tax Credit
-          - are required to file a full tax return for any other reason
+          - are not required to file a full tax return for any other reason
           income_reveal:
             content:
               list_1:
@@ -2302,8 +2302,8 @@ en:
           - you have previously had the CTC reduced or disallowed by an IRS investigation and you have not  properly filed Form 8862 since then
           - you want to file Form 8332 in order to claim a child who does not live with you
           - you are claiming a qualifying relative under a “multiple support agreement” as defined by the IRS
-          - you are not claiming any children for the Child Tax Credit this year, but you received Advance Child Tax Credt payments in 2021
-          - you bought or sold cryptocurrency
+          - you are not claiming any children for the Child Tax Credit this year, but you received Advance Child Tax Credit payments in %{current_tax_year}
+          - you bought or sold cryptocurrency in %{current_tax_year}
           list_title: 'You can not use GetCTC if:'
           multiple_support_agreement_reveal:
             content:
