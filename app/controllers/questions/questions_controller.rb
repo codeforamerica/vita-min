@@ -89,7 +89,7 @@ module Questions
     private
 
     def redirect_in_offseason
-      redirect_to root_path unless open_for_intake?
+      redirect_to root_path unless open_for_gyr_intake?
     end
 
     def redirect_if_completed_intake_present

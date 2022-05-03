@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
   before_action :check_maintenance_mode
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :current_tax_year, :prior_tax_year, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?, :open_for_soft_launch?, :open_for_ctc_intake?, :open_for_ctc_login?, :wrapping_layout
+  helper_method :include_analytics?, :current_intake, :current_tax_year, :prior_tax_year, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_gyr_intake?, :open_for_soft_launch?, :open_for_ctc_intake?, :open_for_ctc_login?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -256,10 +256,10 @@ class ApplicationController < ActionController::Base
   # Do not show offseason banner if we are open for intake for the session
   def show_offseason_banner?
     return false if hub?
-    !open_for_intake?
+    !open_for_gyr_intake?
   end
 
-  def open_for_intake?
+  def open_for_gyr_intake?
     return true if cookies[:used_unique_link] == "yes" &&
       app_time >= Rails.configuration.start_of_unique_links_only_intake &&
       app_time <= Rails.configuration.end_of_intake
