@@ -34,7 +34,7 @@ RSpec.describe PublicPagesController do
 
       context "when the app is not open for intake" do
         before do
-          allow(subject).to receive(:open_for_intake?).and_return(false)
+          allow(subject).to receive(:open_for_gyr_intake?).and_return(false)
         end
 
         it "links to the first question path for digital intake" do

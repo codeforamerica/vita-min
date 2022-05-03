@@ -4,7 +4,7 @@
   <% content_for :header do %>
     <%= render 'shared/ctc_header_analytics' if Rails.env.production? %>
 
-    <%= render 'shared/header', title: "GetCTC", home_link: ctc_root_path %>
+    <%= render 'shared/header', variation: "ctc", home_link: ctc_root_path %>
   <% end %>
   <% content_for :footer do %>
     <%= render 'shared/ctc_footer_analytics' if Rails.env.production? %>

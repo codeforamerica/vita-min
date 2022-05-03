@@ -72,7 +72,7 @@ class PublicPagesController < ApplicationController
   def sms_terms; end
 
   def diy
-    redirect_to root_path unless open_for_intake?
+    redirect_to root_path unless open_for_gyr_intake?
   end
 
   def pki_validation

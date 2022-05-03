@@ -164,6 +164,12 @@ body {
   }
 }
 
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
 .toolbar {
   &__left {
     margin-top: 0;
@@ -187,6 +193,12 @@ body {
 
 .main-header .toolbar__item {
   color: white;
+}
+
+.main-header .button--toolbar {
+  background-color: $color-green-money;
+  color: black !important;
+  padding: 0.75rem 1rem;
 }
 
 .grid.wide {

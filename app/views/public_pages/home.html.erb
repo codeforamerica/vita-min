@@ -3,15 +3,7 @@
 <% end %>
 
 <% content_for :notice do %>
-  <% if open_for_intake? %>
-    <div class="slab slab--banner">
-      <div class="grid">
-        <div class="grid__item">
-          <%= t('views.public_pages.home.documents_warning_html') %>
-        </div>
-      </div>
-    </div>
-  <% else %>
+  <% unless open_for_gyr_intake? %>
     <div class="slab slab--banner">
       <div class="grid">
         <div class="grid__item">
@@ -28,6 +20,19 @@
 <%= render 'shared/trade_desk_pixel' %>
 <main role="main">
 
+  <% if open_for_ctc_intake? %>
+    <div class="slab slab--banner get-ctc subtle-links">
+      <div class="grid">
+        <div class="grid__item">
+          <b>
+            <%= t('views.public_pages.home.ctc_banner.claim_ctc') %>
+            <%= link_to(t('views.public_pages.home.ctc_banner.click_here'), url_for(host: MultiTenantService.new(:ctc).host, controller: "/public_pages", action: 'home'), class: "text--underline link--subtle") %>
+          </b>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="slab slab--hero slab--gyr-green">
     <div class="grid">
       <div class="grid__item width-one-half">
@@ -36,10 +41,14 @@
         </h1>
         <p>
           <strong>
-            <%= open_for_intake? ? t("views.public_pages.home.subheader") : t("views.public_pages.home.subheader_offseason") %>
+            <% if open_for_gyr_intake? %>
+              <%= open_for_ctc_intake? ? t("views.public_pages.home.subheader_ctc_open") : t("views.public_pages.home.subheader") %>
+            <% else %>
+              <%= t("views.public_pages.home.subheader_offseason") %>
+            <% end %>
           </strong>
         </p>
-        <% if open_for_intake? %>
+        <% if open_for_gyr_intake? %>
           <%= link_to t("general.get_started"), welcome_questions_path, id: "firstCta", class: "button button--med-wide button--primary" %>
         <% else %>
           <%= link_to t("general.register"), new_signup_path, id: "firstCta", class: "button button--med-wide button--primary" %>
@@ -116,17 +125,16 @@
   <div class="slab slab--secondary-cta slab--grey slab--half-padded">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <h2 class="h3 spacing-below-0"><%= t("views.public_pages.home.features.header") %></h2>
-        <ul class="list--bulleted text--small text--semibold">
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.free") %></li>
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.chat") %></li>
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.backtaxes", least_recent_bt_year: TaxReturn.backtax_years.last, most_recent_bt_year: TaxReturn.backtax_years.first) %></li>
-          <li class="spacing-below-0"><%= t("views.public_pages.home.features.amendments") %></li>
+        <h2 class="h3 spacing-below-0"><%= t("views.public_pages.home.faq.header") %></h2>
+        <ul class="list--bulleted">
+          <li class="spacing-below-15"><%= link_to t("views.public_pages.faq.question_groups.stimulus.how_do_i_get_the_stimulus_payments.question"), faq_question_url(section_key: :stimulus, question_key: "how_do_i_get_the_stimulus_payments"), class: "link--subtle" %></li>
+          <li class="spacing-below-15"><%= link_to t("views.public_pages.faq.question_groups.should_i_file_a_tax_return.what_are_the_potential_benefits_of_filing_a_tax_return.question"), faq_question_url(section_key: :should_i_file_a_tax_return, question_key: "what_are_the_potential_benefits_of_filing_a_tax_return"), class: "link--subtle" %></li>
+          <li class="spacing-below-0"><%= link_to t("views.public_pages.faq.question_groups.should_i_file_a_tax_return.am_i_a_nonfiler.question"), faq_question_url(section_key: :should_i_file_a_tax_return, question_key: "am_i_a_nonfiler"), class: "link--subtle" %></li>
         </ul>
-        <p class="text--small spacing-below-0"><%= t("views.public_pages.home.features.questions") %></p>
       </div>
       <div class="grid__item width-one-fourth button-container">
-        <%= link_to faq_path, class: "button button--med-wide" do %><%= t("views.public_pages.home.features.faq_cta") %>
+        <%= link_to faq_path, class: "button text--centered" do %>
+          <%= t("views.public_pages.home.faq.faq_cta") %>
         <% end %>
       </div>
     </div>

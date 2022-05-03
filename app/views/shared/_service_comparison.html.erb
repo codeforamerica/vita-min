@@ -10,11 +10,28 @@
         <div class="service-set service-set--service-description">
           <div class="service-set__header"></div>
           <div class="service-set__services">
+            <div class="service ctc">
+              <div>
+                <h2 class="service__service-name">
+                  <%= t("views.shared.service_comparison.services.ctc.service_name") %>
+                </h2>
+              </div>
+              <div class="service__description">
+                <%= t("views.shared.service_comparison.services.ctc.service_description") %>
+              </div>
+              <% unless open_for_ctc_intake? %>
+                <div class="service__availability">
+                  <%= t("views.shared.service_comparison.services.ctc.coming_soon") %>
+                </div>
+              <% end %>
+              <div class="service__cta">
+                <%= link_to open_for_ctc_intake? ? t("views.shared.service_comparison.services.ctc.cta.open") : t("views.shared.service_comparison.services.ctc.cta.closed"),
+                            url_for(host: MultiTenantService.new(:ctc).host, controller: "/signups", action: "new"),
+                            class: "button", "data-track-click": "service-comparison-ctc" %>
+              </div>
+            </div>
             <div class="service full-service">
               <div>
-                <div class="service__colloquial-name">
-                  <%= t("views.shared.service_comparison.services.full_service.colloquial") %>
-                </div>
                 <h2 class="service__service-name">
                   <%= t("views.shared.service_comparison.services.full_service.service_name") %>
                 </h2>
@@ -22,15 +39,17 @@
               <div class="service__description">
                 <%= t("views.shared.service_comparison.services.full_service.service_description") %>
               </div>
+              <% if open_for_ctc_intake? %>
+                <div class="service__availability">
+                  <%= t("views.shared.service_comparison.services.full_service.limited_availability") %>
+                </div>
+              <% end %>
               <div class="service__cta">
                 <%= link_to t("views.shared.service_comparison.services.full_service.cta"), Questions::OverviewController.to_path_helper, class: "button", "data-track-click": "service-comparison-full-service" %>
               </div>
             </div>
             <div class="service diy">
               <div>
-                <div class="service__colloquial-name">
-                  <%= t("views.shared.service_comparison.services.diy.colloquial") %>
-                </div>
                 <h2 class="service__service-name">
                   <%= t("views.shared.service_comparison.services.diy.service_name") %>
                 </h2>
@@ -42,41 +61,20 @@
                 <%= link_to t("views.shared.service_comparison.services.diy.cta"), diy_path, class: "button", "data-track-click": "service-comparison-diy" %>
               </div>
             </div>
-            <div class="service ctc">
-              <div>
-                <div class="service__colloquial-name">
-                  <%= t("views.shared.service_comparison.services.ctc.colloquial") %>
-                </div>
-                <h2 class="service__service-name">
-                  <%= t("views.shared.service_comparison.services.ctc.service_name") %>
-                </h2>
-              </div>
-
-              <div class="service__description">
-                <%= t("views.shared.service_comparison.services.ctc.service_description") %>
-              </div>
-
-              <div class="service__coming-soon">
-                <%= t("views.shared.service_comparison.services.ctc.coming_soon") %>
-              </div>
-              <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.ctc.cta"), url_for(host: MultiTenantService.new(:ctc).host, controller: "/signups", action: "new"), class: "button", "data-track-click": "service-comparison-ctc" %>
-              </div>
-            </div>
           </div>
         </div>
         <div class="service-set service-set--mobile-only mobile-sticky-header">
           <div class="service-set__header">
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+              <strong><%= t("views.shared.service_comparison.services.ctc.service_name") %></strong>
+            </div>
             <div class="service full-service">
               <strong><%= t("views.shared.service_comparison.services.full_service.service_name_short") %></strong>
             </div>
             <div class="service diy">
               <strong><%= t("views.shared.service_comparison.services.diy.service_name") %></strong>
-            </div>
-            <div class="service ctc">
-              <strong><%= t("views.shared.service_comparison.services.ctc.service_name") %></strong>
             </div>
           </div>
         </div>
@@ -89,14 +87,14 @@
           </div>
 
           <div class="service-set__services">
+            <div class="service ctc">
+              <%= t("views.shared.service_comparison.income_limit.ctc_html") %>
+            </div>
             <div class="service full-service">
               <%= t("views.shared.service_comparison.income_limit.full_service") %>
             </div>
             <div class="service diy">
               <%= t("views.shared.service_comparison.income_limit.diy") %>
-            </div>
-            <div class="service ctc">
-              <%= t("views.shared.service_comparison.income_limit.ctc_html") %>
             </div>
           </div>
         </div>
@@ -107,13 +105,13 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+              <%= TaxReturn.current_tax_year %>
+            </div>
             <div class="service full-service">
               <%= TaxReturn.filing_years.first %>-<%= TaxReturn.filing_years.last %>
             </div>
             <div class="service diy">
-              <%= TaxReturn.current_tax_year %>
-            </div>
-            <div class="service ctc">
               <%= TaxReturn.current_tax_year %>
             </div>
           </div>
@@ -128,14 +126,14 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+              <%= t("views.shared.service_comparison.time_to_file.ctc") %>
+            </div>
             <div class="service full-service">
               <%= t("views.shared.service_comparison.time_to_file.full_service") %>
             </div>
             <div class="service diy">
               <%= t("views.shared.service_comparison.time_to_file.diy") %>
-            </div>
-            <div class="service ctc">
-              <%= t("views.shared.service_comparison.time_to_file.ctc") %>
             </div>
           </div>
         </div>
@@ -146,9 +144,9 @@
             </div>
           </div>
           <div class="service-set__services service-set--mobile-excluded">
+            <div class="service ctc"></div>
             <div class="service full-service"></div>
             <div class="service diy"></div>
-            <div class="service ctc"></div>
           </div>
         </div>
         <div class="service-set">
@@ -158,14 +156,14 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+              <%= t("views.shared.service_comparison.id_documents.ctc") %>
+            </div>
             <div class="service full-service">
               <%= t("views.shared.service_comparison.id_documents.full_service") %>
             </div>
             <div class="service diy">
               <%= t("views.shared.service_comparison.id_documents.diy") %>
-            </div>
-            <div class="service ctc">
-              <%= t("views.shared.service_comparison.id_documents.ctc") %>
             </div>
           </div>
         </div>
@@ -179,13 +177,13 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+            </div>
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service ctc">
             </div>
           </div>
         </div>
@@ -196,14 +194,14 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+              <%= image_tag "icons/cash.svg", alt:  t("views.shared.service_comparison.most_tax_credits"), class: "service-comparison--icon" %>
+            </div>
             <div class="service full-service">
               <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
               <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service ctc">
-              <%= image_tag "icons/cash.svg", alt:  t("views.shared.service_comparison.most_tax_credits"), class: "service-comparison--icon" %>
             </div>
           </div>
         </div>
@@ -214,14 +212,14 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon"  %>
+            </div>
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service ctc">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon"  %>
             </div>
           </div>
         </div>
@@ -232,13 +230,13 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
+            </div>
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service ctc">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
           </div>
@@ -250,13 +248,13 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+            </div>
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service ctc">
             </div>
           </div>
         </div>
@@ -267,13 +265,13 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+            </div>
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service ctc">
             </div>
           </div>
         </div>
@@ -284,11 +282,11 @@
             </div>
           </div>
           <div class="service-set__services service-set--mobile-excluded">
+            <div class="service ctc">
+            </div>
             <div class="service full-service">
             </div>
             <div class="service diy">
-            </div>
-            <div class="service ctc">
             </div>
           </div>
         </div>
@@ -299,6 +297,9 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc service--mobile-flex-start">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
+            </div>
             <div class="service full-service service--mobile-flex-start">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
@@ -307,9 +308,6 @@
               <div class="service-set__subtitle service-set__subtitle--fixie">
                 <%= t("views.shared.service_comparison.support_via_gyr") %>
               </div>
-            </div>
-            <div class="service ctc service--mobile-flex-start">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
           </div>
         </div>
@@ -320,12 +318,12 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+            </div>
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
-            </div>
-            <div class="service ctc">
             </div>
           </div>
         </div>
@@ -336,12 +334,12 @@
             </div>
           </div>
           <div class="service-set__services">
+            <div class="service ctc">
+            </div>
             <div class="service full-service">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
             <div class="service diy">
-            </div>
-            <div class="service ctc">
             </div>
           </div>
         </div>

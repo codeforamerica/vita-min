@@ -2,7 +2,7 @@ module Questions
   class QuestionsController < ApplicationController
     before_action :redirect_in_offseason
     before_action :redirect_if_completed_intake_present
-    before_action :set_current_step
+    before_action :set_current_step, :set_in_intake_flow
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 
@@ -89,13 +89,17 @@ module Questions
     private
 
     def redirect_in_offseason
-      redirect_to root_path unless open_for_intake?
+      redirect_to root_path unless open_for_gyr_intake?
     end
 
     def redirect_if_completed_intake_present
       if current_intake && current_intake.completed_at.present?
         redirect_to portal_root_path
       end
+    end
+
+    def set_in_intake_flow
+      @in_intake_flow = true
     end
 
     def after_update_success; end

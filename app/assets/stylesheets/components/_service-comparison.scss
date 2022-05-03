@@ -137,21 +137,14 @@
       }
 
       .service {
-        &__colloquial-name {
-          font-weight: 500;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
         &__service-name {
-          margin: unset;
+          margin: 4.5rem 0 0 0;
         }
         &__description {
           margin-top: 1rem;
           text-align: center;
         }
-        &__coming-soon {
+        &__availability {
           background: #FFD29C;
           font-weight: 700;
           font-size: 1.6rem;

@@ -705,7 +705,7 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#open_for_intake?" do
+  describe "#open_for_gyr_intake?" do
     around do |example|
       freeze_time do
         example.run
@@ -730,7 +730,7 @@ RSpec.describe ApplicationController do
           before { cookies.encrypted[:used_unique_link] = cookie_value }
 
           it "returns #{expected}" do
-            expect(subject.open_for_intake?).to eq expected
+            expect(subject.open_for_gyr_intake?).to eq expected
           end
         end
       end
@@ -751,7 +751,7 @@ RSpec.describe ApplicationController do
           before { request.cookies[:used_unique_link] = cookie_value }
 
           it "returns #{expected}" do
-            expect(subject.open_for_intake?).to eq expected
+            expect(subject.open_for_gyr_intake?).to eq expected
           end
         end
       end
@@ -772,7 +772,7 @@ RSpec.describe ApplicationController do
           before { request.cookies[:used_unique_link] = cookie_value }
 
           it "returns #{expected}" do
-            expect(subject.open_for_intake?).to eq expected
+            expect(subject.open_for_gyr_intake?).to eq expected
           end
         end
       end
@@ -793,7 +793,7 @@ RSpec.describe ApplicationController do
           before { request.cookies[:used_unique_link] = cookie_value }
 
           it "returns #{expected}" do
-            expect(subject.open_for_intake?).to eq expected
+            expect(subject.open_for_gyr_intake?).to eq expected
           end
         end
       end
@@ -1017,7 +1017,7 @@ RSpec.describe ApplicationController do
   describe '#show_offseason_banner?' do
     context "when open for intake" do
       before do
-        allow(subject).to receive(:open_for_intake?).and_return true
+        allow(subject).to receive(:open_for_gyr_intake?).and_return true
       end
 
       it "is false" do
@@ -1036,7 +1036,7 @@ RSpec.describe ApplicationController do
 
     context "when not open for intake and not a hub path" do
       before do
-        allow(subject).to receive(:open_for_intake?).and_return false
+        allow(subject).to receive(:open_for_gyr_intake?).and_return false
       end
 
       it "is true" do

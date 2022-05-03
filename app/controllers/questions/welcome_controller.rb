@@ -6,7 +6,7 @@ module Questions
     layout "application"
 
     def edit
-      redirect_to root_path unless open_for_intake?
+      redirect_to root_path unless open_for_gyr_intake?
     end
 
     private

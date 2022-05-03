@@ -27,7 +27,7 @@ module Diy
     end
 
     def redirect_in_offseason
-      redirect_to root_path unless open_for_intake?
+      redirect_to root_path unless open_for_gyr_intake?
     end
   end
 end
