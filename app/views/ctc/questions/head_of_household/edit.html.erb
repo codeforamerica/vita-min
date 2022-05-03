@@ -18,7 +18,7 @@
     <p><%= t("views.ctc.questions.head_of_household.eligibility_list_c_html") %></p>
     <p><%= t("views.ctc.questions.head_of_household.full_list_of_rules_html", link: "https://www.irs.gov/pub/irs-pdf/p501.pdf") %></p>
 
-    <%= f.submit t("views.ctc.questions.head_of_household.do_not_claim_hoh"), name: 'do_not_claim_hoh', class: "button button--primary button--wide" %>
-    <%= f.submit t("views.ctc.questions.head_of_household.claim_hoh"), name: 'claim_hoh', class: "button button--wide" %>
+    <%= f.submit t("views.ctc.questions.head_of_household.do_not_claim_hoh"), name: 'ctc_head_of_household_form[do_not_claim_hoh]', class: "button button--primary button--wide" %>
+    <%= f.submit t("views.ctc.questions.head_of_household.claim_hoh"), name: 'ctc_head_of_household_form[claim_hoh]', class: "button button--wide" %>
   <% end %>
 <% end %>
