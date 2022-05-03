@@ -161,13 +161,15 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
         end
 
         it "returns $1 for the prior year AGI if the non-filer tool was used in 2019" do
-          submission.intake.update(spouse_filed_prior_tax_year: "filed_non_filer_joint")
-          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-          expect(xml.at("SpousePriorYearAGIAmt").text).to eq("1")
-
           submission.intake.update(spouse_filed_prior_tax_year: "filed_non_filer_separate")
           xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           expect(xml.at("SpousePriorYearAGIAmt").text).to eq("1")
+        end
+
+        it "returns the primary's AGI if filed together in the prior year" do
+          submission.intake.update(spouse_filed_prior_tax_year: "filed_together", primary_prior_year_agi_amount: 321)
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+          expect(xml.at("SpousePriorYearAGIAmt").text).to eq("321")
         end
 
         it "returns the user-entered value for prior year AGI if the spouse filed separately" do

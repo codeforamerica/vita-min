@@ -11,10 +11,9 @@
       <%= f.cfa_radio_set(
             :spouse_filed_prior_tax_year,
             collection: [
-              { value: :filed_full_joint, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_full_joint", prior_tax_year: prior_tax_year) },
-              { value: :filed_non_filer_joint, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_non_filer_joint") },
-              { value: :filed_full_separate, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_full_separate") },
+              { value: :filed_together, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_together") },
               { value: :filed_non_filer_separate, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_non_filer_separate") },
+              { value: :filed_full_separate, label: t("views.ctc.questions.spouse_filed_prior_tax_year.filed_full_separate") },
               { value: :did_not_file, label: t("views.ctc.questions.spouse_filed_prior_tax_year.did_not_file", prior_tax_year: prior_tax_year) },
             ]
           )
