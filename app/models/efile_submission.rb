@@ -32,8 +32,9 @@ class EfileSubmission < ApplicationRecord
     initial_state: EfileSubmissionStateMachine.initial_state,
   ]
 
-  scope :most_recent_by_tax_return, lambda {
-    joins(:tax_return).where("efile_submissions.id = (SELECT MAX(efile_submissions.id) FROM efile_submissions WHERE efile_submissions.tax_return_id = tax_returns.id)")
+  scope :most_recent_by_current_year_tax_return, lambda {
+    joins(:tax_return).where("efile_submissions.id = (SELECT MAX(efile_submissions.id) FROM efile_submissions
+                                WHERE efile_submissions.tax_return_id = tax_returns.id) AND year = ?", TaxReturn.current_tax_year)
   }
 
   default_scope { order(id: :asc) }
