@@ -24,7 +24,7 @@ module CtcIntakeFeatureHelper
         expect(page.source).to include(I18n.t('views.ctc.questions.income.title.one', current_tax_year: current_tax_year))
       end
     end
-    click_on I18n.t('general.affirmative')
+    click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title"))
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
@@ -514,7 +514,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     within "h1" do
       expect(page.source).to include(I18n.t('views.ctc.questions.income.title.other', current_tax_year: current_tax_year))
     end
-    click_on I18n.t('general.affirmative')
+    click_on I18n.t('general.continue')
 
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.questions.file_full_return.title"))
     click_on I18n.t("views.ctc.questions.file_full_return.simplified_btn")
