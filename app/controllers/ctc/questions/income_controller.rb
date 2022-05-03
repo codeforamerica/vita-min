@@ -14,13 +14,6 @@ module Ctc
       def illustration_path
         "hand-holding-check.svg"
       end
-
-      def tracking_data
-        # WIP, ask if still need question_answered event
-        {
-          income_qualifies: ""
-        }
-      end
     end
   end
 end
