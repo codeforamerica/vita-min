@@ -497,6 +497,8 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot_i18n_friendly, active_job:
     # =========== PORTAL ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
     expect(page).to have_text(I18n.t("views.ctc.portal.home.status.preparing.label"))
+    expect(Intake::CtcIntake.last.default_tax_return.filing_status).to eq 'head_of_household'
+
   end
 
   scenario "client who has filed in 2019" do
