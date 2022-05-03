@@ -2302,8 +2302,8 @@ en:
           - you have previously had the CTC reduced or disallowed by an IRS investigation and you have not  properly filed Form 8862 since then
           - you want to file Form 8332 in order to claim a child who does not live with you
           - you are claiming a qualifying relative under a “multiple support agreement” as defined by the IRS
-          - you are not claiming any children for the Child Tax Credit this year, but you received Advance Child Tax Credt payments in 2021
-          - you bought or sold cryptocurrency in 2021
+          - you are not claiming any children for the Child Tax Credit this year, but you received Advance Child Tax Credit payments in %{current_tax_year}
+          - you bought or sold cryptocurrency in %{current_tax_year}
           list_title: 'You can not use GetCTC if:'
           multiple_support_agreement_reveal:
             content:
