@@ -32,7 +32,7 @@
         </div>
         <% if open_for_ctc_login? %>
           <div class="spacing-below-60">
-            <strong><%= link_to t('views.ctc_pages.home.portal_sign_in_link'), new_ctc_portal_client_login_path, class: "link link--subtle" %></strong>
+            <strong><%= link_to t('views.ctc_pages.home.portal_sign_in_link'), new_ctc_portal_client_login_path, class: "link" %></strong>
           </div>
         <% else %>
           <div class="spacing-below-60">
@@ -134,9 +134,9 @@
       <div class="grid__item width-one-whole">
         <ul class="list--padded">
           <% Ctc::CtcPagesController::FAQ_QUESTIONS.each do |question| %>
-            <li><%= link_to t("views.ctc_pages.home.common_questions.#{question.to_s}"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: 'show', section_key: :child_tax_credit, question_key: question), class: "link--subtle" %></li>
+            <li><%= link_to t("views.ctc_pages.home.common_questions.#{question.to_s}"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: 'show', section_key: :child_tax_credit, question_key: question), target: "_blank", rel: "noopener" %></li>
           <% end %>
-          <li><%= link_to t("views.ctc_pages.home.common_questions.view_all_questions"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: 'section_index', section_key: :child_tax_credit), class: 'link--subtle' %></li>
+          <li><%= link_to t("views.ctc_pages.home.common_questions.view_all_questions"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: 'section_index', section_key: :child_tax_credit), target: "_blank", rel: "noopener", class: 'link--subtle' %></li>
         </ul>
       </div>
     </div>
