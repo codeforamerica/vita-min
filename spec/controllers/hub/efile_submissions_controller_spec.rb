@@ -21,7 +21,7 @@ describe Hub::EfileSubmissionsController, requires_default_vita_partners: true d
       context "pagination" do
         let(:submissions_double) { double }
         before do
-          allow(EfileSubmission).to receive(:most_recent_by_tax_return).and_return submissions_double
+          allow(EfileSubmission).to receive(:most_recent_and_current_tax_year_by_tax_return).and_return submissions_double
           allow(submissions_double).to receive(:page)
         end
 
