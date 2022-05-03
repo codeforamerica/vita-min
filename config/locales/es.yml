@@ -2158,7 +2158,8 @@ es:
           income_qualifications:
           - ha ganado menos de %{standard_deduction} en ingresos de cualquier tipo
           - ganó menos de $400 en ingresos de trabajo por cuenta propia
-          - 'no recibió la Bonificación Anticipada del crédito tributario, en inglés: Advanced Premium Tax Credit  '
+          - 'no recibió la Bonificación Anticipada del crédito tributario, en inglés: Advanced Premium Tax Credit'
+          - no están obligados a presentar una declaración de impuestos completa por ningún otro motivo
           income_reveal:
             content:
               list_1:
