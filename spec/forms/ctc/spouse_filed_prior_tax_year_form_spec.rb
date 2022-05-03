@@ -42,11 +42,10 @@ describe Ctc::SpouseFiledPriorTaxYearForm do
           intake.update(filed_prior_tax_year: :filed_full)
         end
 
-        it "updates spouse_filed_prior_tax_year, does not set agi" do
+        it "updates spouse_filed_prior_tax_year" do
           expect {
             described_class.new(intake, params).save
           }.to change(intake, :spouse_filed_prior_tax_year).from("unfilled").to("filed_together")
-           .and not_change(intake, :spouse_prior_year_agi_amount)
         end
       end
 
@@ -55,11 +54,10 @@ describe Ctc::SpouseFiledPriorTaxYearForm do
           intake.update(filed_prior_tax_year: :filed_non_filer)
         end
 
-        it "updates spouse filed prior year, sets AGI to 1" do
+        it "updates spouse filed prior year" do
           expect {
             described_class.new(intake, params).save
           }.to change(intake, :spouse_filed_prior_tax_year).from("unfilled").to("filed_together")
-                                                           .and change(intake, :spouse_prior_year_agi_amount).from(nil).to(1)
         end
       end
     end
@@ -70,7 +68,6 @@ describe Ctc::SpouseFiledPriorTaxYearForm do
         expect {
           described_class.new(intake, params).save
         }.to change(intake, :spouse_filed_prior_tax_year).from("unfilled").to("filed_full_separate")
-        .and not_change(intake, :spouse_prior_year_agi_amount)
       end
     end
 
@@ -80,17 +77,15 @@ describe Ctc::SpouseFiledPriorTaxYearForm do
         expect {
           described_class.new(intake, params).save
         }.to change(intake, :spouse_filed_prior_tax_year).from("unfilled").to("did_not_file")
-        .and not_change(intake, :spouse_prior_year_agi_amount)
       end
     end
 
     context "filed_non_filer_separate" do
       let(:filed_prior_year) { "filed_non_filer_separate" }
-      it "updates spouse filed prior year, sets AGI to $1" do
+      it "updates spouse filed prior year" do
         expect {
           described_class.new(intake, params).save
         }.to change(intake, :spouse_filed_prior_tax_year).from("unfilled").to("filed_non_filer_separate")
-         .and change(intake, :spouse_prior_year_agi_amount).from(nil).to(1)
       end
     end
   end

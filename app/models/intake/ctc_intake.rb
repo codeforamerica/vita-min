@@ -412,4 +412,16 @@ class Intake::CtcIntake < Intake
   def filing_jointly?
     client.tax_returns.last.filing_status_married_filing_jointly?
   end
+
+  def spouse_prior_year_agi_amount_computed
+    if spouse_filed_prior_tax_year_filed_non_filer_separate?
+      1
+    elsif spouse_filed_prior_tax_year_filed_together? && primary_prior_year_agi_amount.present?
+      primary_prior_year_agi_amount
+    elsif spouse_filed_prior_tax_year_filed_full_separate? && spouse_prior_year_agi_amount.present?
+      spouse_prior_year_agi_amount
+    else
+      0
+    end
+  end
 end

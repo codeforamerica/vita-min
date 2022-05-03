@@ -291,6 +291,48 @@ describe Intake::CtcIntake, requires_default_vita_partners: true do
     end
   end
 
+  describe "#spouse_prior_year_agi_amount_computed" do
+    let(:spouse_filed_prior_tax_year) { :unfilled }
+    let(:intake) {
+      build :ctc_intake,
+        spouse_filed_prior_tax_year: spouse_filed_prior_tax_year,
+        primary_prior_year_agi_amount: 123,
+        spouse_prior_year_agi_amount: 987
+    }
+
+    context "did not file" do
+      let(:spouse_filed_prior_tax_year) { :did_not_file }
+
+      it 'returns 0' do
+        expect(intake.spouse_prior_year_agi_amount_computed).to eq 0
+      end
+    end
+
+    context "filed separately (full return)" do
+      let(:spouse_filed_prior_tax_year) { :filed_full_separate }
+
+      it 'returns the spouse_prior_year_agi_amount' do
+        expect(intake.spouse_prior_year_agi_amount_computed).to eq 987
+      end
+    end
+
+    context "filed separately (non-filer)" do
+      let(:spouse_filed_prior_tax_year) { :filed_non_filer_separate }
+
+      it 'returns 1' do
+        expect(intake.spouse_prior_year_agi_amount_computed).to eq 1
+      end
+    end
+
+    context "filed together" do
+      let(:spouse_filed_prior_tax_year) { :filed_together }
+
+      it "returns primary_prior_year_agi_amount" do
+        expect(intake.spouse_prior_year_agi_amount_computed).to eq 123
+      end
+    end
+  end
+
   context "before_validation" do
     context "normalize spaces in names" do
       let(:intake) {
