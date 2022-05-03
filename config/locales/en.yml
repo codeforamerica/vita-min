@@ -4322,7 +4322,7 @@ en:
             service_name: File Myself
           full_service:
             cta: Choose GetYourRefund
-            limited_availability: Limited availability
+            limited_availability: Limited availability!
             service_description: File for multiple years with an IRS-certified tax preparer.
             service_name: GetYourRefund
             service_name_short: GYR
@@ -4339,7 +4339,7 @@ en:
           full_service: 2-3 weeks
           subtitle: IRS payment processing times vary 3-6 weeks
           title: 'Length of time to file:'
-        title_html: The highest accuracy rates on your return. Completely free. <br/>Find the tax service that's right for you.
+        title_html: Free tax filing for households that qualify. <br/> Find the tax service that’s right for you!
         triage_link_text: Answer a few simple questions and we'll recommend the right service for you!
         vita: IRS-certified VITA tax team
       tax_return_list:
