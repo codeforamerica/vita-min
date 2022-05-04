@@ -1554,36 +1554,36 @@
   resolved "https://registry.yarnpkg.com/@percy/logger/-/logger-1.0.0-beta.61.tgz#7410a0d0d8b2d8fc6e3cf4133f3338d9b5c4d8e5"
   integrity sha512-3CRqpmpWr1kG815TKsmADr2k+SBRw+I7Rk2/jY3WwbN/4oP3Mij9gNkWSmIU85TRtm5Ju1SbI3LcFjEfOg7eLw==
 
-"@rails/actioncable@6.1.5-1":
-  version "6.1.5-1"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.1.5-1.tgz#d5b0faafdd21f218395387a42e7b4c98d8d3100d"
-  integrity sha512-mb7ehLN3qvWKW3pLc/5QGqi/x0CE9hlUcs6TawBDeoP81k35r1770ArX/legzjw77VLsmrdF5/563Gu4QecqMw==
+"@rails/actioncable@7.0.2-4":
+  version "7.0.2-4"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.2-4.tgz#24a31bde761ee7652b2567d267699c17c7e725a6"
+  integrity sha512-EPTZ0U/KBlaJKPAyLuvPBSZMojyHVgCqwMDkwTfm4TDPyp5f0hTBsOsolQxqeOJmoTafK+7pJi7hO9eCjBEhTA==
 
-"@rails/actiontext@6.1.5-1":
-  version "6.1.5-1"
-  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-6.1.5-1.tgz#aa2db3cb35b2677b784cea6bd567188294678f9a"
-  integrity sha512-f+6GS/95Neqvi9vjTkLPC2orydG7sd75by7fGAp3DDzGUgFrTnj32C4uuXbS2cE/P/xhKmZ8ZcOOGIM5oMF7rg==
+"@rails/actiontext@7.0.2-4":
+  version "7.0.2-4"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-7.0.2-4.tgz#973d1410730813af9c299bb496691c2d89102df5"
+  integrity sha512-nLPhWwYuM/w+8+RhFNW/QF0rnHr5lEXKetkIY0bBJfh+XoiUgHPiLKD0pnQvTOtuY5zc+CpDpApXNRqdwp3O7g==
   dependencies:
-    "@rails/activestorage" "^6.0.0"
+    "@rails/activestorage" ">= 7.0.0-alpha1"
 
-"@rails/activestorage@6.1.5-1":
-  version "6.1.5-1"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.1.5-1.tgz#0979981c0cd4c23fa6397fbcb7abd73613a28791"
-  integrity sha512-avUY6kVZIKJ1pJZdpwaHdVUHtvGpJI9NuW2emATobh3A6AdXWC7w7C0ch5fF+2Z2Di07lnTfcPijocURzYW3nQ==
+"@rails/activestorage@7.0.2-4":
+  version "7.0.2-4"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-7.0.2-4.tgz#f41ec154ef06408d62b8852a7516eacc2b754785"
+  integrity sha512-hlR8SZdNwV2Reu5qrlCYbVNEwFGcTPgfgDiy0i9xd3LuwHa6WIgy9oVDshdcoLn18zdNz1pf/DMrxkONKK/B1A==
   dependencies:
-    spark-md5 "^3.0.0"
+    spark-md5 "^3.0.1"
 
-"@rails/activestorage@^6.0.0":
-  version "6.1.4"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.1.4.tgz#7772f539cc846df5f4364fc57ccb48860f9e966e"
-  integrity sha512-1Tm8uaVBhLTDEG4YaFPvqguhjbUGSPVItm0CfkRpIFZIkybWzFAxatIrk4YVOOxB8ZdXS7GdeYa1qVwjdiDkgQ==
+"@rails/activestorage@>= 7.0.0-alpha1":
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-7.0.2.tgz#81986034e1a38d931c40213073973b5a4c5b86e0"
+  integrity sha512-E/W80bMnlhmLz63GvY4fn82s9nDk8ZnzWBO++G3uQhwKAT/xdHgdL8VNfTOK14VKCQwHxJuBCXYnFXY68FOfFw==
   dependencies:
-    spark-md5 "^3.0.0"
+    spark-md5 "^3.0.1"
 
-"@rails/ujs@6.1.5-1":
-  version "6.1.5-1"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.5-1.tgz#033ddcb7ae480dde59febd67176f30475794914d"
-  integrity sha512-VGbTogc8W+HTZUP8Cc36gNCpqMH5UAchqjS+ncAt3MBFXPN0chbKSHzo2ckxR7V888CfoXK50yZY29bXmzdQXA==
+"@rails/ujs@7.0.2-4":
+  version "7.0.2-4"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.0.2-4.tgz#199b071e9f07c5a341006c368f7adc764dc0a3d9"
+  integrity sha512-P5DGRBx0bP/VDqKCWYHNAQQrRuyQ4QXgFwfMPyboBjKyZiaicotm2CYyTLxYX6vbB4RAd33jUaddeeDq8Q/0CA==
 
 "@rails/webpacker@5.4.0":
   version "5.4.0"
@@ -8653,10 +8653,10 @@ source-map@^0.7.3, source-map@~0.7.2:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
   integrity sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
 
-spark-md5@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.1.tgz#83a0e255734f2ab4e5c466e5a2cfc9ba2aa2124d"
-  integrity sha512-0tF3AGSD1ppQeuffsLDIOWlKUd3lS92tFxcsrh5Pe3ZphhnoK+oXIBTzOAThZCiuINZLvpiLH/1VS1/ANEJVig==
+spark-md5@^3.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.2.tgz#7952c4a30784347abcee73268e473b9c0167e3fc"
+  integrity sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==
 
 spdx-correct@^3.0.0:
   version "3.1.1"
