@@ -1,4 +1,4 @@
-<%= form_with class: tax_return, url: update_certification_hub_tax_return_path(id: tax_return.id), local: true, method: :patch, builder: VitaMinFormBuilder, html: { class: "tax-return-inline-form" } do |f| %>
+<%= form_with url: update_certification_hub_tax_return_path(id: tax_return.id), local: true, method: :patch, builder: VitaMinFormBuilder, html: { class: "tax-return-inline-form" } do |f| %>
   <div class="before">
     <%= link_to "Cancel", url_for(:locale => params[:locale]) %>
   </div>
@@ -8,7 +8,7 @@
   </label>
   <%= hidden_field_tag :next, request.path.split("?")[0] %>
   <div>
-    <%= f.button :submit do %>
+    <%= f.button do %>
       <span class="sr-only"><%= t("general.save") %></span>
       <%= image_tag("checkmark.svg", alt: "") %>
     <% end %>
