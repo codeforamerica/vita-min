@@ -19,4 +19,13 @@ namespace :stats do
       DatadogApi.gauge('efile_submissions.state_counts', count, tags: ["current_state:#{state}"])
     end
   end
+
+  desc "Monitor the longest periods of time that any efile submission has been in preparing, bundling, and queued"
+  task monitor_delayed_efile_submissions: :environment do
+    [:preparing, :bundling, :queued].each do |state|
+      oldest_transition_to = EfileSubmissionTransition.where(to_state: state).sort_by(&:created_at).first
+      min_since_transition = ((Time.now - oldest_transition_to.created_at)/60).to_i
+      DatadogApi.gauge('efile_submissions.transition_latencies_min', min_since_transition, tags: ["current_state:#{state}"])
+    end
+  end
 end

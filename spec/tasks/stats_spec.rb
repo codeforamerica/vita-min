@@ -32,3 +32,42 @@ describe 'stats:track_metrics' do
     ))
   end
 end
+
+describe "stats:monitor_delayed_efile_submissions" do
+  include_context "rake"
+  include MockDogapi
+
+  let(:fake_time) { DateTime.new(2022, 3, 1, 0, 0, 0) }
+  let(:newer_timestamp_preparing) { 18.hours.ago }
+  let(:timestamp_preparing) { 1.day.ago }
+  let(:timestamp_bundling) { 14.hours.ago }
+  let(:timestamp_queued) { 2.hours.ago }
+  let(:newer_preparing_efile_submission) { create :efile_submission, :preparing }
+  let(:preparing_efile_submission) { create :efile_submission, :preparing }
+  let(:bundling_efile_submission) { create :efile_submission, :bundling }
+  let(:queued_efile_submission) { create :efile_submission, :queued }
+
+  before do
+    enable_datadog_and_stub_emit_point
+    Timecop.freeze(fake_time) do
+      newer_preparing_efile_submission.last_transition.update(created_at: newer_timestamp_preparing)
+      preparing_efile_submission.last_transition.update(created_at: timestamp_preparing)
+      bundling_efile_submission.last_transition.update(created_at: timestamp_bundling)
+      queued_efile_submission.last_transition.update(created_at: timestamp_queued)
+    end
+  end
+
+  it "reports the oldest efile submission transitions in the preparing, bundling, and queued states" do
+    Timecop.freeze(fake_time) do
+      task.invoke
+    end
+
+    expect(@emit_point_params).to match_array(
+[
+        ["vita-min.dogapi.efile_submissions.transition_latencies_min", 1440, tags: ["current_state:preparing", "env:test"], type: "gauge"],
+        ["vita-min.dogapi.efile_submissions.transition_latencies_min", 840, tags: ["current_state:bundling", "env:test"], type: "gauge"],
+        ["vita-min.dogapi.efile_submissions.transition_latencies_min", 120, tags: ["current_state:queued", "env:test"], type: "gauge"],
+      ]
+    )
+  end
+end
