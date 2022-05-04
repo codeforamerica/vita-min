@@ -4,6 +4,10 @@ module Efile
       def self.rules
         {
             # Ctc::Questions::Dependents::Info
+            wants_to_claim_test: [
+              :claim_anyway_yes?,
+              :claim_anyway_unfilled?
+            ],
             birth_test: :alive_during_tax_year?,
             married_filing_joint_test: [
                 :filed_joint_return_no?,
