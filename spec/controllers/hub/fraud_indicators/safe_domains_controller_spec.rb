@@ -79,7 +79,7 @@ describe Hub::FraudIndicators::SafeDomainsController do
         sign_in user
       end
 
-      it "toggles from activated to not activated" do
+      it "toggles between activated and not activated" do
         expect(indicator.activated_at).to eq nil
         put :update, params: params, format: :js
         indicator.reload
