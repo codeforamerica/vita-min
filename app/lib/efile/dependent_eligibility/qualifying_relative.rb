@@ -4,7 +4,7 @@ module Efile
       def self.rules
         {
             # Ctc::Questions::Dependents::Info
-            want_to_claim_test: [
+            wants_to_claim_test: [
               :claim_anyway_yes?,
               :claim_anyway_unfilled?
             ],

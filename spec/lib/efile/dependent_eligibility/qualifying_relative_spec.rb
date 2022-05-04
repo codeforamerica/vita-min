@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Efile::DependentEligibility::QualifyingRelative do
-  subject { described_class.new(dependent, TaxReturn.current_tax_year)}
+  subject { described_class.new(dependent, TaxReturn.current_tax_year) }
 
   context 'with a totally qualifying relative' do
     let(:dependent) { create :qualifying_relative }
