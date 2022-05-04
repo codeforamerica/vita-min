@@ -214,9 +214,9 @@ describe Fraud::Indicator do
 
   describe "#duplicates" do
     let(:query_double) { double }
-    let(:intake) { create :ctc_intake }
+    let(:intake) { create :ctc_intake, primary_first_name: "Roger", primary_last_name: "Rabbit" }
     let(:client) { create :client }
-    let(:fraud_indicator) { described_class.new(name: "duplicated_stuff", points: 80, multiplier: 0.25, indicator_type: "duplicates", reference: "client", query_model_name: "Intake::CtcIntake", indicator_attributes: [:primary_first_name, :primary_last_name]) }
+    let(:fraud_indicator) { described_class.new(name: "duplicated_stuff", points: 80, multiplier: 0.25, indicator_type: "duplicates", reference: "intake", query_model_name: "Intake::CtcIntake", indicator_attributes: [:primary_first_name, :primary_last_name]) }
 
     context "validations" do
       it "is not valid without the appropriate data" do
@@ -237,7 +237,7 @@ describe Fraud::Indicator do
     context "when the query_model_name responds to accessible_intakes" do
       it "sets up the query to only look at accessible intakes" do
         fraud_indicator.execute(intake: intake, client: client)
-        expect(DeduplificationService).to have_received(:duplicates).with(client, "primary_first_name", "primary_last_name", from_scope: Intake::CtcIntake.accessible_intakes)
+        expect(DeduplificationService).to have_received(:duplicates).with(intake, "primary_first_name", "primary_last_name", from_scope: Intake::CtcIntake.accessible_intakes)
       end
     end
 
@@ -248,7 +248,19 @@ describe Fraud::Indicator do
 
       it "sets up the query correctly" do
         fraud_indicator.execute(intake: intake, client: client)
-        expect(DeduplificationService).to have_received(:duplicates).with(client, "primary_first_name", "primary_last_name", from_scope: EfileSecurityInformation)
+        expect(DeduplificationService).to have_received(:duplicates).with(intake, "primary_first_name", "primary_last_name", from_scope: EfileSecurityInformation)
+      end
+    end
+
+    context "when the values are nil for the duplicated data" do
+      before do
+        fraud_indicator.indicator_attributes = [:primary_first_name]
+        intake.update(primary_first_name: nil)
+      end
+
+      it "does not execute the duplification query and returns a passing response" do
+        expect(fraud_indicator.execute(intake: intake)).to eq [0, []]
+        expect(DeduplificationService).not_to have_received(:duplicates)
       end
     end
 
