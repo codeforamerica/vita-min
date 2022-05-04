@@ -31,7 +31,9 @@ describe Ctc::Questions::Dependents::ChildClaimAnywayController do
         let(:claim_anyway) { "no" }
 
         it "redirects out of the dependent flow" do
-          expect(dependent.reload.claim_anyway).to eq "yes"
+          post :update, params: params
+
+          expect(dependent.reload.claim_anyway).to eq "no"
           expect(response).to redirect_to Ctc::Questions::Dependents::DoesNotQualifyCtcController.to_path_helper
         end
       end
