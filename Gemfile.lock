@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/PagerTree/attr_encrypted
+  revision: df02ab0b9547220b2859317d1af8a4280b0fae44
+  branch: rails-7-0-support
+  specs:
+    attr_encrypted (3.1.0)
+      encryptor (~> 3.0.0)
+
+GIT
   remote: https://github.com/codeforamerica/honeycrisp-gem
   revision: 4c6f873f55704ec34fd518906f131133b290e56a
   ref: 4c6f873f55704ec34fd518906f131133b290e56a
@@ -89,8 +97,6 @@ GEM
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
-    attr_encrypted (3.1.0)
-      encryptor (~> 3.0.0)
     auto_strip_attributes (2.6.0)
       activerecord (>= 4.0)
     autoprefixer-rails (10.4.2.0)
@@ -635,7 +641,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter
   annotate
-  attr_encrypted
+  attr_encrypted!
   auto_strip_attributes
   awesome_print
   aws-sdk-route53
