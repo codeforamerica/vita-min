@@ -14,15 +14,26 @@ describe Ctc::Questions::Dependents::ChildClaimAnywayController do
         {
           id: dependent.id,
           ctc_dependents_child_claim_anyway_form: {
-            claim_anyway: "yes"
+            claim_anyway: claim_anyway
           }
         }
       end
+
+      let(:claim_anyway) { "yes" }
 
       it "updates the dependent and moves to the next page" do
         post :update, params: params
 
         expect(dependent.reload.claim_anyway).to eq "yes"
+      end
+
+      context "with a no answer" do
+        let(:claim_anyway) { "no" }
+
+        it "redirects out of the dependent flow" do
+          expect(dependent.reload.claim_anyway).to eq "yes"
+          expect(response).to redirect_to Ctc::Questions::Dependents::DoesNotQualifyCtcController.to_path_helper
+        end
       end
     end
 
