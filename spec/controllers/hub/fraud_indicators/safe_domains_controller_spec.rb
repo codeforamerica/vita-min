@@ -15,7 +15,7 @@ describe Hub::FraudIndicators::SafeDomainsController do
         Fraud::Indicators::Domain.create(safe: true, name: "another-thing.com", activated_at: DateTime.now)
       end
 
-      it "assigns a list of all risky Fraud::Indicator::Domain objects" do
+      it "assigns a list of all safe Fraud::Indicator::Domain objects" do
         get :index
 
         expect(assigns(:resources).length).to eq 2
