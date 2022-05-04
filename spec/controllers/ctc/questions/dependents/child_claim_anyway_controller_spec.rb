@@ -34,7 +34,7 @@ describe Ctc::Questions::Dependents::ChildClaimAnywayController do
           post :update, params: params
 
           expect(dependent.reload.claim_anyway).to eq "no"
-          expect(response).to redirect_to Ctc::Questions::Dependents::DoesNotQualifyCtcController.to_path_helper
+          expect(response).to redirect_to does_not_qualify_ctc_questions_dependent_path(id: params[:id])
         end
       end
     end
