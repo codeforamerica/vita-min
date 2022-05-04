@@ -122,20 +122,24 @@
     </div>
   </div>
 
-  <div class="slab slab--secondary-cta slab--grey slab--half-padded">
+  <div class="slab slab--secondary-cta">
     <div class="grid">
-      <div class="grid__item width-three-fourths">
-        <h2 class="h3 spacing-below-0"><%= t("views.public_pages.home.faq.header") %></h2>
-        <ul class="list--bulleted">
-          <li class="spacing-below-15"><%= link_to t("views.public_pages.faq.question_groups.stimulus.how_do_i_get_the_stimulus_payments.question"), faq_question_url(section_key: :stimulus, question_key: "how_do_i_get_the_stimulus_payments"), class: "link--subtle" %></li>
-          <li class="spacing-below-15"><%= link_to t("views.public_pages.faq.question_groups.should_i_file_a_tax_return.what_are_the_potential_benefits_of_filing_a_tax_return.question"), faq_question_url(section_key: :should_i_file_a_tax_return, question_key: "what_are_the_potential_benefits_of_filing_a_tax_return"), class: "link--subtle" %></li>
-          <li class="spacing-below-0"><%= link_to t("views.public_pages.faq.question_groups.should_i_file_a_tax_return.am_i_a_nonfiler.question"), faq_question_url(section_key: :should_i_file_a_tax_return, question_key: "am_i_a_nonfiler"), class: "link--subtle" %></li>
-        </ul>
-      </div>
-      <div class="grid__item width-one-fourth button-container">
-        <%= link_to faq_path, class: "button text--centered" do %>
-          <%= t("views.public_pages.home.faq.faq_cta") %>
-        <% end %>
+      <div class="faq rounded-box grid__item width-one-whole">
+        <div class="grid">
+          <div class="grid__item width-three-fourths">
+            <h2 class="h3 spacing-below-0"><%= t("views.public_pages.home.faq.header") %></h2>
+            <ul class="list--bulleted">
+              <li class="spacing-below-15"><%= link_to t("views.public_pages.faq.question_groups.stimulus.how_do_i_get_the_stimulus_payments.question"), faq_question_url(section_key: :stimulus, question_key: "how_do_i_get_the_stimulus_payments"), target: "_blank", rel: "noopener", class: "link--subtle" %></li>
+              <li class="spacing-below-15"><%= link_to t("views.public_pages.faq.question_groups.should_i_file_a_tax_return.what_are_the_potential_benefits_of_filing_a_tax_return.question"), faq_question_url(section_key: :should_i_file_a_tax_return, question_key: "what_are_the_potential_benefits_of_filing_a_tax_return"), target: "_blank", rel: "noopener", class: "link--subtle" %></li>
+              <li class="spacing-below-0"><%= link_to t("views.public_pages.faq.question_groups.should_i_file_a_tax_return.am_i_a_nonfiler.question"), faq_question_url(section_key: :should_i_file_a_tax_return, question_key: "am_i_a_nonfiler"), target: "_blank", rel: "noopener", class: "link--subtle" %></li>
+            </ul>
+          </div>
+          <div class="grid__item width-one-fourth button-container">
+            <%= link_to faq_path, class: "button text--centered" do %>
+              <%= t("views.public_pages.home.faq.faq_cta") %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

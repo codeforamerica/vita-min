@@ -7,9 +7,6 @@
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
 
-    p a {
-      color: inherit;
-    }
     p {
       margin-bottom: 2.5rem;
       @media screen and (min-width: $site-max-up) {
@@ -365,5 +362,16 @@
 
   .link--subtle {
     color: inherit;
+  }
+
+  .slab--secondary-cta{
+    padding: 2rem;
+
+    .faq.rounded-box {
+      background-color: $color-beige;
+      padding: 3rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }

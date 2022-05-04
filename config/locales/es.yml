@@ -4288,7 +4288,7 @@ es:
             service_name: Declarar por mi cuenta o "File Myself" en inglés
           full_service:
             cta: Elija GetYourRefund
-            limited_availability: Disponibilidad limitada
+            limited_availability: "¡Disponibilidad limitada!"
             service_description: Presente la declaración de varios años con un preparador de impuestos certificado por el IRS.
             service_name: GetYourRefund
             service_name_short: GYR
@@ -4305,7 +4305,7 @@ es:
           full_service: De 2 a 3 semanas
           subtitle: Los plazos de tramitación de los pagos del IRS varían de 3-6 semanas
           title: 'Plazo de tiempo para presentar la declaración:'
-        title_html: El mayor nivel de precisión en su declaración. Completamente gratis. <br/>Busque el servicio de impuestos que más le convenga.
+        title_html: Declaración de impuestos gratuita para los hogares que califican. <br/> ¡Encuentre el servicio de impuestos adecuado para usted!
         triage_link_text: "¡Responda a unas preguntas sencillas y le recomendaremos el servicio más adecuado para usted!"
         vita: Equipo de impuestos VITA certificado por el IRS
       tax_return_list:
