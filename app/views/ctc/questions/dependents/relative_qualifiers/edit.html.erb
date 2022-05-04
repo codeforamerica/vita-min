@@ -1,4 +1,4 @@
-<% name = @dependent.first_name&.titleize %>
+<% name = @dependent.first_name&.upcase_first %>
 <% @main_question = t("views.ctc.questions.dependents.relative_qualifiers.title", name: name) %>
 
 <% content_for :page_title, @main_question %>

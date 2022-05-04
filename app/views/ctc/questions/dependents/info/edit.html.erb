@@ -1,4 +1,4 @@
-<% content_for :page_title, @form.dependent.persisted? ? t("views.ctc.portal.dependent_info.title", name: @form.dependent.first_name.titleize) : t("views.ctc.questions.dependents.info.title") %>
+<% content_for :page_title, @form.dependent.persisted? ? t("views.ctc.portal.dependent_info.title", name: @form.dependent.first_name.upcase_first) : t("views.ctc.questions.dependents.info.title") %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>

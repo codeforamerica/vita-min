@@ -1,4 +1,4 @@
-<% @main_heading = t("views.ctc.questions.dependents.remove_dependent.title", dependent_name: @form.dependent.first_name&.titleize) %>
+<% @main_heading = t("views.ctc.questions.dependents.remove_dependent.title", dependent_name: @form.dependent.first_name&.upcase_first) %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :form_card do %>
