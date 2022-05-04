@@ -3,8 +3,7 @@ module Hub
     class BaseController < ApplicationController
       include AccessControllable
       before_action :require_sign_in
-      helper_method :page_title, :form_attributes, :resource_name
-
+      helper_method :page_title, :form_attributes, :resource_name, :resource_class
       layout "hub"
 
       def index
@@ -15,7 +14,7 @@ module Hub
       def create
         @resource = resource_class.create(permitted_params.merge(default_params))
         if @resource.persisted?
-          flash.now[:notice] = "#{@resource.name} added as a #{@resource_name}."
+          flash.now[:notice] = "#{@resource.name} added as a #{resource_name}."
         else
           flash.now[:alert] = "Could not save form. Try again."
         end

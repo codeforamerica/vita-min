@@ -11,11 +11,21 @@ module FraudIndicatorsHelper
              return nil
            end
     table = fraud_indicator.list_model_name.split("::").last.downcase
+    path_with_type = "hub_#{type}_#{table}s_path"
+    path_without_type = "hub_#{table}s_path"
 
-    if respond_to?("hub_#{type}_#{table}s_path")
-      link_to send("hub_#{type}_#{table}s_path") do
-        content_tag :i, "list_alt", class: "icon-"
-      end
-    end
+    matching_path = nil
+    matching_path = path_with_type if respond_to?(path_with_type)
+    matching_path = path_without_type if respond_to?(path_without_type)
+
+    link_to send(matching_path) do
+      content_tag :i, "list_alt", class: "icon-"
+    end if matching_path
+  end
+
+  def to_id_name(string)
+    return "" unless string.present?
+
+    string.downcase.gsub("/", "-").split(".")[0]
   end
 end

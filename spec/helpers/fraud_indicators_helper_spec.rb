@@ -30,6 +30,27 @@ describe FraudIndicatorsHelper do
           expect(link_to_indicator_list(indicator)).to eq "<a href=\"/en/hub/fraud-indicators/risky-domains\"><i class=\"icon-\">list_alt</i></a>"
         end
       end
+
+      context "hub_timezones" do
+        let(:indicator) { build :fraud_indicator, list_model_name: "Fraud::Indicator::Timezone", indicator_type: "in_riskylist" }
+        it "returns a link to the page" do
+          expect(link_to_indicator_list(indicator)).to eq "<a href=\"/en/hub/fraud-indicators/timezones\"><i class=\"icon-\">list_alt</i></a>"
+        end
+      end
+    end
+  end
+
+  describe "to_id_name" do
+    context "when initialized with nil" do
+      it "returns an empty string" do
+        expect(to_id_name(nil)).to eq ""
+      end
+    end
+
+    context "with slashes and periods" do
+      it "removes everything after the period and changes slashes to dashes + downcases" do
+        expect(to_id_name("America/Chicago.com")).to eq "america-chicago"
+      end
     end
   end
 end

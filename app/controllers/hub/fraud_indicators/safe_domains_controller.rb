@@ -1,6 +1,6 @@
 module Hub
   module FraudIndicators
-    class SafeDomainsController < ApplicationController
+    class SafeDomainsController < Hub::FraudIndicators::BaseController
       layout "hub"
 
       private
