@@ -1160,21 +1160,17 @@ es:
       acceptance:
         email:
           body: |
-            ¡Gracias por declarar sus impuestos con GetCTC! Su información sobre sus impuestos han sido aceptados por el IRS, y significa que ya pueden comenzar a procesar sus pagos.
+            ¡Gracias por declarar sus impuestos con GetCTC! Su información sobre sus impuestos han sido aceptados por el IRS, y significa que ya pueden comenzar a procesar tu reembolso.
 
-            Puede comprobar el estado de sus pagos con el IRS:
+            Puede verificar el estado de su reembolso después de 24 horas en ¿Dónde está mi reembolso? (en inglés: Where’s My Refund): https://www.irs.gov/es/refunds
 
-            - Para sus pagos mensuales del Crédito Fiscal por Hijos revise el Portal de Actualizaciones del Crédito Fiscal por Hijos (en inglés: Child Tax Credit Update Portal): https://www.irs.gov/es/credits-deductions/child-tax-credit-update-portal
-            - Para los pagos de estímulo 1 y 2 revise Dónde está Mi Reembolso (en inglés: Where’s My Refund): https://www.irs.gov/es/refunds
-            - Para el pago de estímulo 3, verifique Obtener mi pago: https://www.irs.gov/es/coronavirus/get-my-payment
 
             ¡Estamos aquí para ayudarle!
             Su Equipo de declaración de impuestos GetCTC.org
           subject: "¡Gracias por declarar sus impuestos con GetCTC!"
         sms: |
           Hola <<Client.PreferredName>>: ¡Gracias por declarar sus impuestos con GetCTC! Su información sobre sus impuestos han sido aceptados por el IRS.
-
-          Puede comprobar el estado de sus pagos aquí: https://www.getctc.org/es/common-questions/check-payment-status
+          Puede verificar el estado de su reembolso después de 24 horas en https://www.irs.gov/es/refunds
       failed:
         email:
           body: |
