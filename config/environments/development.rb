@@ -89,7 +89,7 @@ Rails.application.configure do
   config.exceptions_app = self.routes
 
   # Raises error for missing translations.
-  config.action_view.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = true
   config.i18n.available_locales = [:en, :es]
 
   # Annotate rendered view with file names.
