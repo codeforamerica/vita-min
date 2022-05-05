@@ -567,7 +567,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     stackprof (0.2.19)
-    statesman (8.0.3)
+    statesman (9.0.1)
     strong_migrations (1.0.0)
       activerecord (>= 5.2)
     strscan (3.0.1)
@@ -715,7 +715,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   stackprof
-  statesman (~> 8.0.3)
+  statesman (~> 9.0)
   strong_migrations
   thor
   timecop
