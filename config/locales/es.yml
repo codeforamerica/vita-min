@@ -1983,11 +1983,13 @@ es:
               p1: Solo un padre biológico, o un padre de acogida o adoptivo que esté cuidando legalmente a un niño es elegible para reclamar a un dependiente.
               p2: Cuidar a un niño en base a un acuerdo informal no lo califica legalmente como “padre”.
               title: "¿Qué es un padre legal?"
+            no_claim: No, no reclamaré a %{dependent_name}
             not_legal_parent_reveal:
               p1: Si no es el padre de %{name} y la otra persona que podría reclamar a %{name} tampoco es su padre, el cuidador que ganó más dinero en %{current_tax_year} puede reclamar a %{name}.
               p2: Si no es el padre de %{name} y la otra persona que podría reclamar a %{name} es su padre, no puede reclamarlos.
               title: "¿Qué pasa si no soy su padre legal?"
             title: "¿Le gustaría declarar a %{name} de todas maneras?"
+            yes_claim: Sí, reclamaré a %{dependent_name}
           child_expenses:
             title: "¿Pagó %{name} más de la mitad de sus propios gastos de manutención en %{current_tax_year}?"
           child_qualifiers:
