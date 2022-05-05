@@ -1,20 +1,33 @@
-<% content_for :form_question, t("views.ctc.questions.dependents.child_claim_anyway.title", name: @form.dependent.first_name&.upcase_first) %>
-<% content_for :form_help_text do %>
-  <p class="text--bold"><%= t("views.ctc.questions.dependents.child_claim_anyway.help_text.p1", name: @form.dependent.first_name&.titleize) %></p>
-  <ul class="list--bulleted">
-    <% t("views.ctc.questions.dependents.child_claim_anyway.help_text.list", current_tax_year: current_tax_year, name: @form.dependent.first_name&.titleize).each do |item| %>
-      <li> <%= item %> </li>
+<% @main_heading = t("views.ctc.questions.dependents.child_claim_anyway.title", name: @form.dependent.first_name&.upcase_first) %>
+<% content_for :form_question, @main_heading %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <h1 class="form-question"><%= @main_heading %></h1>
+
+    <p class="text--bold"><%= t("views.ctc.questions.dependents.child_claim_anyway.help_text.p1", name: @form.dependent.first_name&.titleize) %></p>
+    <ul class="list--bulleted">
+      <% t("views.ctc.questions.dependents.child_claim_anyway.help_text.list", current_tax_year: current_tax_year, name: @form.dependent.first_name&.titleize).each do |item| %>
+        <li> <%= item %> </li>
+      <% end %>
+    </ul>
+    <p class="text--bold"><%= t("views.ctc.questions.dependents.child_claim_anyway.help_text.p2", name: @form.dependent.first_name&.titleize) %></p>
+
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.child_claim_anyway.legal_parent_reveal.title")) do %>
+      <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.legal_parent_reveal.p1") %> </p>
+      <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.legal_parent_reveal.p2") %> </p>
     <% end %>
-  </ul>
-  <p class="text--bold"><%= t("views.ctc.questions.dependents.child_claim_anyway.help_text.p2", name: @form.dependent.first_name&.titleize) %></p>
 
-  <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.child_claim_anyway.legal_parent_reveal.title")) do %>
-    <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.legal_parent_reveal.p1") %> </p>
-    <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.legal_parent_reveal.p2") %> </p>
-  <% end %>
+    <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.title")) do %>
+      <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.p1", current_tax_year: current_tax_year, name: @form.dependent.first_name&.titleize) %> </p>
+      <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.p2", name: @form.dependent.first_name&.titleize) %> </p>
+    <% end %>
 
-  <%= render('components/molecules/reveal', title: t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.title")) do %>
-    <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.p1", current_tax_year: current_tax_year, name: @form.dependent.first_name&.titleize) %> </p>
-    <p> <%= t("views.ctc.questions.dependents.child_claim_anyway.not_legal_parent_reveal.p2", name: @form.dependent.first_name&.titleize) %> </p>
+    <%= f.button :submit, name: "ctc_dependents_child_claim_anyway_form[claim_anyway]", value: "yes", class: "button button--full-width text--centered spacing-above-60 button--primary", "aria-describedby": "main-question" do %>
+      <%= t("views.ctc.questions.dependents.child_claim_anyway.yes_claim", dependent_name: @form.dependent.first_name&.titleize) %>
+    <% end %>
+    <%= f.button :submit, name: "ctc_dependents_child_claim_anyway_form[claim_anyway]", value: "no", class: "button button--full-width text--centered", "aria-describedby": "main-question" do %>
+      <%= t("views.ctc.questions.dependents.child_claim_anyway.no_claim", dependent_name: @form.dependent.first_name&.titleize) %>
+    <% end %>
   <% end %>
 <% end %>

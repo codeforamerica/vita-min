@@ -2030,6 +2030,8 @@ en:
               p2: If you are not %{name}’s parent, and the other person who might claim %{name} is their parent, you can not claim them.
               title: What if I am not their legal parent?
             title: Here’s how to check if you can claim %{name}.
+            yes_claim: "Yes, claim %{dependent_name}"
+            no_claim: "No, don't claim %{dependent_name}"
           child_expenses:
             title: Did %{name} pay more than half their own living expenses in %{current_tax_year}?
           child_qualifiers:
