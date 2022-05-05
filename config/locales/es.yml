@@ -1,5 +1,13 @@
 ---
 es:
+  number:
+    currency:
+      format:
+        unit: '$'
+        delimiter: ','
+        separator: '.'
+        precision: 0
+        format: '%u%n'
   activemodel:
     errors:
       models:
