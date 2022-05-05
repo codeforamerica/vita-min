@@ -25,7 +25,7 @@ namespace :stats do
     [:preparing, :bundling, :queued].each do |state|
       oldest_transition_to = EfileSubmissionTransition.where(most_recent: true, to_state: state).sort_by(&:created_at).first
       min_since_transition = ((Time.now - oldest_transition_to.created_at)/60).to_i
-      DatadogApi.gauge('efile_submissions.transition_latencies_min', min_since_transition, tags: ["current_state:#{state}"])
+      DatadogApi.gauge('efile_submissions.transition_latencies_minutes', min_since_transition, tags: ["current_state:#{state}"])
     end
   end
 end

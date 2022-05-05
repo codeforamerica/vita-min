@@ -64,9 +64,9 @@ describe "stats:monitor_delayed_efile_submissions" do
 
     expect(@emit_point_params).to match_array(
 [
-        ["vita-min.dogapi.efile_submissions.transition_latencies_min", 1440, tags: ["current_state:preparing", "env:test"], type: "gauge"],
-        ["vita-min.dogapi.efile_submissions.transition_latencies_min", 840, tags: ["current_state:bundling", "env:test"], type: "gauge"],
-        ["vita-min.dogapi.efile_submissions.transition_latencies_min", 120, tags: ["current_state:queued", "env:test"], type: "gauge"],
+        ["vita-min.dogapi.efile_submissions.transition_latencies_minutes", 1440, tags: ["current_state:preparing", "env:test"], type: "gauge"],
+        ["vita-min.dogapi.efile_submissions.transition_latencies_minutes", 840, tags: ["current_state:bundling", "env:test"], type: "gauge"],
+        ["vita-min.dogapi.efile_submissions.transition_latencies_minutes", 120, tags: ["current_state:queued", "env:test"], type: "gauge"],
       ]
     )
   end
