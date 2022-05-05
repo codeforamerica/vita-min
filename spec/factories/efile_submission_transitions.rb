@@ -30,7 +30,6 @@ FactoryBot.define do
     EfileSubmissionStateMachine.states.each do |state|
       trait state.to_sym do
         to_state { state }
-
       end
     end
   end
