@@ -44,16 +44,16 @@ describe "stats:monitor_delayed_efile_submissions" do
   let(:timestamp_queued) { 2.hours.ago }
   let(:newer_preparing_efile_submission) { create :efile_submission, :preparing }
   let(:preparing_efile_submission) { create :efile_submission, :preparing }
-  let(:bundling_efile_submission) { create :efile_submission, :bundling }
+  let(:bundling_efile_submission) { create :efile_submission, :bundling, efile_submission_transitions: [create(:efile_submission_transition, :preparing, created_at: fake_time - 3.days, most_recent: false)] }
   let(:queued_efile_submission) { create :efile_submission, :queued }
 
   before do
     enable_datadog_and_stub_emit_point
     Timecop.freeze(fake_time) do
-      newer_preparing_efile_submission.last_transition.update(created_at: newer_timestamp_preparing)
-      preparing_efile_submission.last_transition.update(created_at: timestamp_preparing)
-      bundling_efile_submission.last_transition.update(created_at: timestamp_bundling)
-      queued_efile_submission.last_transition.update(created_at: timestamp_queued)
+      newer_preparing_efile_submission.last_transition.update(created_at: newer_timestamp_preparing, most_recent: true)
+      preparing_efile_submission.last_transition.update(created_at: timestamp_preparing, most_recent: true)
+      bundling_efile_submission.last_transition.update(created_at: timestamp_bundling, most_recent: true)
+      queued_efile_submission.last_transition.update(created_at: timestamp_queued, most_recent: true)
     end
   end
 
