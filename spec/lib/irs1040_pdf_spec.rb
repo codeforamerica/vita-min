@@ -8,26 +8,6 @@ RSpec.describe Irs1040Pdf do
   let(:tax_year) { 2021 }
   let(:submission) { create :efile_submission, :ctc, tax_year: tax_year }
 
-  describe "initialization" do
-    context "when there is a verified address for the submission" do
-      it "uses the verified address" do
-        expect(pdf.address).to be_an_instance_of Address
-        expect(pdf.address).to be_persisted
-      end
-    end
-
-    context "when there is no verified address for the submission" do
-      before do
-        submission.verified_address.destroy!
-      end
-
-      it "falls back to using the intake address" do
-        expect(pdf.address).to be_an_instance_of Address
-        expect(pdf.address).not_to be_persisted
-      end
-    end
-  end
-
   describe "#output_file" do
     context "with an empty submission record" do
 
@@ -104,9 +84,9 @@ RSpec.describe Irs1040Pdf do
                                   "PrimaryIPPIN" => "",
                                   "PrimaryLastNm" => "",
                                   "PrimarySSN" => "",
-                                  "PrimarySignature" => "",
+                                  "PrimarySignature" => nil,
                                   "PrimaryOccupation" => nil,
-                                  "PrimarySignatureDate" => "",
+                                  "PrimarySignatureDate" => nil,
                                   "PriorYrIncome27c" => nil,
                                   "RecoveryRebateCreditAmt30" => "0",
                                   "VirtualCurAcquiredDurTYInd" => "false",
@@ -197,8 +177,6 @@ RSpec.describe Irs1040Pdf do
                                   "TotalPaymentsAmt33" => outstanding_credits,
                                   "OverpaidAmt34" => outstanding_credits,
                                   "RefundAmt35" => outstanding_credits,
-                                  "PrimarySignature" => "#{submission.intake.primary_first_name} #{submission.intake.primary_last_name}",
-                                  "PrimarySignatureDate" => "01/01/20",
                                   "PrimaryIPPIN" => "12345",
                                   "PhoneNumber" => "(415) 555-1212",
                                   "EmailAddress" => submission.intake.email_address,
@@ -228,8 +206,6 @@ RSpec.describe Irs1040Pdf do
                                   "SpouseFirstNm" => "Randall",
                                   "SpouseLastNm" => "Rouse",
                                   "SpouseSSN" => "123456789",
-                                  "SpouseSignature" => "Randall Rouse",
-                                  "SpouseSignatureDate" => "01/05/20",
                                   "SpouseIPPIN" => "123456",
                                   "SpouseBlindInd" => "1",
                                 ))
