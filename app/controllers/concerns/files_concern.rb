@@ -12,7 +12,7 @@ module FilesConcern
 
     # In dev & test, we use ActiveStorage's local disk backend. In that case, #service_url requires us to set `host`;
     # see https://stackoverflow.com/questions/51110789/activestorage-service-url-rails-blob-path-cannot-generate-full-url-when-not-u
-    ActiveStorage::Current.set(host: request.base_url) do
+    ActiveStorage::Current.set(url_options: (ActiveStorage::Current.url_options || {}).merge(host: request.base_url)) do
       attachment.url(disposition: disposition || :inline) # :inline is the default for #url
     end
   end

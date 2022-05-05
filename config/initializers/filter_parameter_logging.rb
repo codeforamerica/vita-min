@@ -1,6 +1,8 @@
 # Be sure to restart your server when you modify this file.
 
-# Configure sensitive parameters which will be filtered from the log file.
+# Configure parameters to be filtered from the log file. Use this to limit dissemination of
+# sensitive information. See the ActiveSupport::ParameterFilter documentation for supported
+# notations and behaviors.
 Rails.application.config.filter_parameters += [
   :password,
   :name,
@@ -34,4 +36,5 @@ Rails.application.config.filter_parameters += [
   :primary_ip_pin,
   :spouse_ip_pin,
   :ip_pin,
+  :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp
 ]

@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_27_204338) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_05_04_213020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -19,21 +18,21 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "accepted_tax_return_analytics", force: :cascade do |t|
     t.bigint "advance_ctc_amount_cents"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "eip3_amount_cents"
     t.bigint "refund_amount_cents"
     t.bigint "tax_return_id"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["tax_return_id"], name: "index_accepted_tax_return_analytics_on_tax_return_id"
   end
 
   create_table "access_logs", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "event_type", null: false
     t.inet "ip_address"
     t.bigint "record_id", null: false
     t.string "record_type", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.string "user_agent", null: false
     t.bigint "user_id", null: false
     t.index ["record_type", "record_id"], name: "index_access_logs_on_record_type_and_record_id"
@@ -42,17 +41,17 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "name", null: false
     t.bigint "record_id", null: false
     t.string "record_type", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "name", null: false
     t.bigint "record_id", null: false
     t.string "record_type", null: false
@@ -62,9 +61,9 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "active_storage_blobs", force: :cascade do |t|
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.string "content_type"
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "filename", null: false
     t.string "key", null: false
     t.text "metadata"
@@ -80,50 +79,50 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "city"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "record_id"
     t.string "record_type"
     t.boolean "skip_usps_validation", default: false
     t.string "state"
     t.string "street_address"
     t.string "street_address2"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_addresses_on_record_type_and_record_id"
   end
 
   create_table "admin_roles", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "admin_toggles", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "name"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.json "value"
     t.index ["user_id"], name: "index_admin_toggles_on_user_id"
   end
 
   create_table "anonymized_diy_intake_csv_extracts", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.integer "record_count"
-    t.datetime "run_at"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "run_at", precision: nil
+    t.datetime "updated_at", null: false
   end
 
   create_table "anonymized_intake_csv_extracts", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.integer "record_count"
-    t.datetime "run_at"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "run_at", precision: nil
+    t.datetime "updated_at", null: false
   end
 
   create_table "archived_bank_accounts_2021", force: :cascade do |t|
     t.integer "account_type"
     t.bigint "archived_intakes_2021_id"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "encrypted_account_number"
     t.string "encrypted_account_number_iv"
     t.string "encrypted_bank_name"
@@ -132,7 +131,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "encrypted_routing_number_iv"
     t.string "hashed_account_number"
     t.string "hashed_routing_number"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["archived_intakes_2021_id"], name: "index_archived_bank_accounts_2021_on_archived_intakes_2021_id"
     t.index ["hashed_account_number"], name: "index_archived_bank_accounts_2021_on_hashed_account_number"
     t.index ["hashed_routing_number"], name: "index_archived_bank_accounts_2021_on_hashed_routing_number"
@@ -144,7 +143,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "born_in_2020", default: 0, null: false
     t.integer "cant_be_claimed_by_other", default: 0, null: false
     t.integer "claim_anyway", default: 0, null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "creation_token"
     t.integer "disabled", default: 0, null: false
     t.string "encrypted_ip_pin"
@@ -169,10 +168,10 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "placed_for_adoption", default: 0, null: false
     t.integer "provided_over_half_own_support", default: 0, null: false
     t.string "relationship"
-    t.datetime "soft_deleted_at"
+    t.datetime "soft_deleted_at", precision: nil
     t.string "suffix"
     t.integer "tin_type"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "was_married", default: 0, null: false
     t.integer "was_student", default: 0, null: false
     t.index ["archived_intakes_2021_id"], name: "index_archived_dependents_2021_on_archived_intakes_2021_id"
@@ -194,11 +193,11 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "claim_owed_stimulus_money", default: 0, null: false
     t.integer "claimed_by_another", default: 0, null: false
     t.bigint "client_id"
-    t.datetime "completed_at"
-    t.datetime "completed_yes_no_questions_at"
+    t.datetime "completed_at", precision: nil
+    t.datetime "completed_yes_no_questions_at", precision: nil
     t.integer "consented_to_legal", default: 0, null: false
     t.boolean "continued_at_capacity", default: false
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.string "current_step"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
@@ -228,7 +227,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "eip2_entry_method", default: 0, null: false
     t.boolean "eip_only"
     t.citext "email_address"
-    t.datetime "email_address_verified_at"
+    t.datetime "email_address_verified_at", precision: nil
     t.string "email_domain"
     t.integer "email_notification_opt_in", default: 0, null: false
     t.string "encrypted_bank_account_number"
@@ -302,7 +301,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "needs_help_2018", default: 0, null: false
     t.integer "needs_help_2019", default: 0, null: false
     t.integer "needs_help_2020", default: 0, null: false
-    t.datetime "needs_to_flush_searchable_data_set_at"
+    t.datetime "needs_to_flush_searchable_data_set_at", precision: nil
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
     t.string "other_income_types"
@@ -322,14 +321,14 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "primary_active_armed_forces", default: 0, null: false
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false
-    t.datetime "primary_consented_to_service_at"
+    t.datetime "primary_consented_to_service_at", precision: nil
     t.inet "primary_consented_to_service_ip"
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.integer "primary_prior_year_agi_amount"
     t.string "primary_prior_year_signature_pin"
-    t.datetime "primary_signature_pin_at"
+    t.datetime "primary_signature_pin_at", precision: nil
     t.string "primary_suffix"
     t.integer "primary_tin_type"
     t.integer "received_alimony", default: 0, null: false
@@ -341,8 +340,8 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "reported_asset_sale_loss", default: 0, null: false
     t.integer "reported_self_employment_loss", default: 0, null: false
     t.string "requested_docs_token"
-    t.datetime "requested_docs_token_created_at"
-    t.datetime "routed_at"
+    t.datetime "requested_docs_token_created_at", precision: nil
+    t.datetime "routed_at", precision: nil
     t.string "routing_criteria"
     t.string "routing_value"
     t.integer "satisfaction_face", default: 0, null: false
@@ -354,7 +353,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "signature_method", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "sms_phone_number"
-    t.datetime "sms_phone_number_verified_at"
+    t.datetime "sms_phone_number_verified_at", precision: nil
     t.integer "sold_a_home", default: 0, null: false
     t.integer "sold_assets", default: 0, null: false
     t.string "source"
@@ -363,7 +362,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.date "spouse_birth_date"
     t.integer "spouse_can_be_claimed_as_dependent", default: 0
     t.integer "spouse_consented_to_service", default: 0, null: false
-    t.datetime "spouse_consented_to_service_at"
+    t.datetime "spouse_consented_to_service_at", precision: nil
     t.inet "spouse_consented_to_service_ip"
     t.citext "spouse_email_address"
     t.integer "spouse_filed_prior_tax_year", default: 0, null: false
@@ -374,7 +373,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "spouse_middle_initial"
     t.integer "spouse_prior_year_agi_amount"
     t.string "spouse_prior_year_signature_pin"
-    t.datetime "spouse_signature_pin_at"
+    t.datetime "spouse_signature_pin_at", precision: nil
     t.string "spouse_suffix"
     t.integer "spouse_tin_type"
     t.integer "spouse_was_blind", default: 0, null: false
@@ -386,7 +385,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "street_address2"
     t.string "timezone"
     t.string "type"
-    t.datetime "updated_at"
+    t.datetime "updated_at", precision: nil
     t.boolean "use_primary_name_for_name_control", default: false
     t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
@@ -427,7 +426,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "bank_accounts", force: :cascade do |t|
     t.integer "account_type"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "encrypted_account_number"
     t.string "encrypted_account_number_iv"
     t.string "encrypted_bank_name"
@@ -437,7 +436,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "hashed_account_number"
     t.string "hashed_routing_number"
     t.bigint "intake_id"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["hashed_account_number"], name: "index_bank_accounts_on_hashed_account_number"
     t.index ["hashed_routing_number"], name: "index_bank_accounts_on_hashed_routing_number"
     t.index ["intake_id"], name: "index_bank_accounts_on_intake_id"
@@ -445,40 +444,40 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "bulk_client_message_outgoing_emails", force: :cascade do |t|
     t.bigint "bulk_client_message_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "outgoing_email_id", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["bulk_client_message_id"], name: "index_bcmoe_on_bulk_client_message_id"
     t.index ["outgoing_email_id"], name: "index_bcmoe_on_outgoing_email_id"
   end
 
   create_table "bulk_client_message_outgoing_text_messages", force: :cascade do |t|
     t.bigint "bulk_client_message_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "outgoing_text_message_id", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["bulk_client_message_id"], name: "index_bcmotm_on_bulk_client_message_id"
     t.index ["outgoing_text_message_id"], name: "index_bcmotm_on_outgoing_text_message_id"
   end
 
   create_table "bulk_client_messages", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "tax_return_selection_id"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["tax_return_selection_id"], name: "index_bcm_on_tax_return_selection_id"
   end
 
   create_table "bulk_client_notes", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "tax_return_selection_id"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["tax_return_selection_id"], name: "index_bcn_on_tax_return_selection_id"
   end
 
   create_table "bulk_client_organization_updates", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "tax_return_selection_id"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
     t.index ["tax_return_selection_id"], name: "index_bcou_on_tax_return_selection_id"
     t.index ["vita_partner_id"], name: "index_bulk_client_organization_updates_on_vita_partner_id"
@@ -486,53 +485,53 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "bulk_tax_return_updates", force: :cascade do |t|
     t.bigint "assigned_user_id"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.json "data"
     t.string "state"
     t.integer "status"
     t.bigint "tax_return_selection_id", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
     t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
   end
 
   create_table "client_success_roles", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients", force: :cascade do |t|
-    t.datetime "attention_needed_since"
-    t.datetime "completion_survey_sent_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "ctc_experience_survey_sent_at"
+    t.datetime "attention_needed_since", precision: nil
+    t.datetime "completion_survey_sent_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "ctc_experience_survey_sent_at", precision: nil
     t.integer "ctc_experience_survey_variant"
-    t.datetime "current_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
     t.inet "current_sign_in_ip"
     t.integer "experience_survey", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
-    t.datetime "first_unanswered_incoming_interaction_at"
-    t.datetime "flagged_at"
-    t.datetime "identity_verification_denied_at"
-    t.datetime "identity_verified_at"
-    t.datetime "in_progress_survey_sent_at"
-    t.datetime "last_incoming_interaction_at"
-    t.datetime "last_internal_or_outgoing_interaction_at"
-    t.datetime "last_outgoing_communication_at"
-    t.datetime "last_seen_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "first_unanswered_incoming_interaction_at", precision: nil
+    t.datetime "flagged_at", precision: nil
+    t.datetime "identity_verification_denied_at", precision: nil
+    t.datetime "identity_verified_at", precision: nil
+    t.datetime "in_progress_survey_sent_at", precision: nil
+    t.datetime "last_incoming_interaction_at", precision: nil
+    t.datetime "last_internal_or_outgoing_interaction_at", precision: nil
+    t.datetime "last_outgoing_communication_at", precision: nil
+    t.datetime "last_seen_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.inet "last_sign_in_ip"
-    t.datetime "locked_at"
-    t.datetime "login_requested_at"
+    t.datetime "locked_at", precision: nil
+    t.datetime "login_requested_at", precision: nil
     t.string "login_token"
     t.jsonb "message_tracker", default: {}
     t.integer "previous_sessions_active_seconds"
-    t.datetime "restricted_at"
+    t.datetime "restricted_at", precision: nil
     t.integer "routing_method"
     t.integer "sign_in_count", default: 0, null: false
     t.integer "still_needs_help", default: 0, null: false
-    t.datetime "triggered_still_needs_help_at"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "triggered_still_needs_help_at", precision: nil
+    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id"
     t.index ["in_progress_survey_sent_at"], name: "index_clients_on_in_progress_survey_sent_at"
     t.index ["last_outgoing_communication_at"], name: "index_clients_on_last_outgoing_communication_at"
@@ -542,65 +541,65 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "coalition_lead_roles", force: :cascade do |t|
     t.bigint "coalition_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["coalition_id"], name: "index_coalition_lead_roles_on_coalition_id"
   end
 
   create_table "coalitions", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "name", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_coalitions_on_name", unique: true
   end
 
   create_table "consents", force: :cascade do |t|
     t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "disclose_consented_at"
-    t.datetime "global_carryforward_consented_at"
+    t.datetime "created_at", null: false
+    t.datetime "disclose_consented_at", precision: nil
+    t.datetime "global_carryforward_consented_at", precision: nil
     t.inet "ip"
-    t.datetime "relational_efin_consented_at"
-    t.datetime "updated_at", precision: 6, null: false
-    t.datetime "use_consented_at"
+    t.datetime "relational_efin_consented_at", precision: nil
+    t.datetime "updated_at", null: false
+    t.datetime "use_consented_at", precision: nil
     t.string "user_agent"
     t.index ["client_id"], name: "index_consents_on_client_id"
   end
 
   create_table "ctc_intake_capacities", force: :cascade do |t|
     t.integer "capacity", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["created_at"], name: "index_ctc_intake_capacities_on_created_at"
     t.index ["user_id"], name: "index_ctc_intake_capacities_on_user_id"
   end
 
   create_table "ctc_signups", force: :cascade do |t|
-    t.datetime "beta_email_sent_at"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "beta_email_sent_at", precision: nil
+    t.datetime "created_at", null: false
     t.string "email_address"
-    t.datetime "launch_announcement_sent_at"
+    t.datetime "launch_announcement_sent_at", precision: nil
     t.string "name"
     t.string "phone_number"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.string "active_job_id"
     t.integer "attempts", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "failed_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "failed_at", precision: nil
     t.text "handler", null: false
     t.string "job_class"
     t.bigint "job_object_id"
     t.text "last_error"
-    t.datetime "locked_at"
+    t.datetime "locked_at", precision: nil
     t.string "locked_by"
     t.integer "priority", default: 0, null: false
     t.string "queue"
-    t.datetime "run_at"
-    t.datetime "updated_at"
+    t.datetime "run_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["active_job_id"], name: "index_delayed_jobs_on_active_job_id"
     t.index ["job_class", "job_object_id"], name: "index_delayed_jobs_on_job_class_and_job_object_id"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
@@ -611,7 +610,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.date "birth_date", null: false
     t.integer "cant_be_claimed_by_other", default: 0, null: false
     t.integer "claim_anyway", default: 0, null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "creation_token"
     t.integer "disabled", default: 0, null: false
     t.string "encrypted_ip_pin"
@@ -640,10 +639,10 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "residence_exception_born", default: 0, null: false
     t.integer "residence_exception_passed_away", default: 0, null: false
     t.integer "residence_lived_with_all_year", default: 0
-    t.datetime "soft_deleted_at"
+    t.datetime "soft_deleted_at", precision: nil
     t.string "suffix"
     t.integer "tin_type"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "was_married", default: 0, null: false
     t.integer "was_student", default: 0, null: false
     t.index ["creation_token"], name: "index_dependents_on_creation_token"
@@ -651,12 +650,12 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   end
 
   create_table "diy_intakes", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "email_address"
     t.string "locale"
     t.string "referrer"
     t.string "source"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.string "zip_code"
   end
@@ -666,13 +665,13 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.bigint "client_id"
     t.bigint "contact_record_id"
     t.string "contact_record_type"
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "display_name"
     t.string "document_type", null: false
     t.bigint "documents_request_id"
     t.bigint "intake_id"
     t.bigint "tax_return_id"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "uploaded_by_id"
     t.string "uploaded_by_type"
     t.index ["client_id"], name: "index_documents_on_client_id"
@@ -685,19 +684,19 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "documents_requests", force: :cascade do |t|
     t.bigint "client_id"
-    t.datetime "completed_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "completed_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_documents_requests_on_client_id"
   end
 
   create_table "drivers_licenses", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.date "expiration_date", null: false
     t.date "issue_date", null: false
     t.string "license_number", null: false
     t.string "state", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "efile_errors", force: :cascade do |t|
@@ -705,19 +704,19 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.boolean "auto_wait", default: false
     t.string "category"
     t.string "code"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.boolean "expose", default: true
     t.text "message"
     t.string "severity"
     t.string "source"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "efile_security_informations", force: :cascade do |t|
     t.string "browser_language"
     t.bigint "client_id"
     t.string "client_system_time"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "device_id"
     t.bigint "efile_submission_id"
     t.inet "ip_address"
@@ -725,7 +724,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.decimal "recaptcha_score"
     t.string "timezone"
     t.string "timezone_offset"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.string "user_agent"
     t.index ["client_id"], name: "index_efile_security_informations_on_client_id"
     t.index ["efile_submission_id"], name: "index_client_efile_security_informations_efile_submissions_id"
@@ -733,24 +732,24 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "efile_submission_dependents", force: :cascade do |t|
     t.integer "age_during_tax_year"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "dependent_id"
     t.bigint "efile_submission_id"
     t.boolean "qualifying_child"
     t.boolean "qualifying_ctc"
     t.boolean "qualifying_relative"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["dependent_id"], name: "index_efile_submission_dependents_on_dependent_id"
     t.index ["efile_submission_id"], name: "index_efile_submission_dependents_on_efile_submission_id"
   end
 
   create_table "efile_submission_transition_errors", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "dependent_id"
     t.bigint "efile_error_id"
     t.bigint "efile_submission_id"
     t.bigint "efile_submission_transition_id"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["dependent_id"], name: "index_efile_submission_transition_errors_on_dependent_id"
     t.index ["efile_error_id"], name: "index_efile_submission_transition_errors_on_efile_error_id"
     t.index ["efile_submission_id"], name: "index_efile_submission_transition_errors_on_efile_submission_id"
@@ -758,24 +757,24 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   end
 
   create_table "efile_submission_transitions", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.integer "efile_submission_id", null: false
     t.jsonb "metadata", default: {}
     t.boolean "most_recent", null: false
     t.integer "sort_key", null: false
     t.string "to_state", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_efile_submission_transitions_on_created_at"
     t.index ["efile_submission_id", "most_recent"], name: "index_efile_submission_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["efile_submission_id", "sort_key"], name: "index_efile_submission_transitions_parent_sort", unique: true
   end
 
   create_table "efile_submissions", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "irs_submission_id"
-    t.datetime "last_checked_for_ack_at"
+    t.datetime "last_checked_for_ack_at", precision: nil
     t.bigint "tax_return_id"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_efile_submissions_on_created_at"
     t.index ["irs_submission_id"], name: "index_efile_submissions_on_irs_submission_id"
     t.index ["tax_return_id", "id"], name: "index_efile_submissions_on_tax_return_id_and_id", order: { id: :desc }
@@ -784,11 +783,11 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "email_access_tokens", force: :cascade do |t|
     t.bigint "client_id"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.citext "email_address", null: false
     t.string "token", null: false
     t.string "token_type", default: "link"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_email_access_tokens_on_client_id"
     t.index ["email_address"], name: "index_email_access_tokens_on_email_address"
     t.index ["token"], name: "index_email_access_tokens_on_token"
@@ -806,16 +805,16 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "faq_surveys", force: :cascade do |t|
     t.integer "answer", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "question_key", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.string "visitor_id", null: false
     t.index ["visitor_id", "question_key"], name: "index_faq_surveys_on_visitor_id_and_question_key"
   end
 
   create_table "fraud_indicators", force: :cascade do |t|
-    t.datetime "activated_at"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "activated_at", precision: nil
+    t.datetime "created_at", null: false
     t.text "description"
     t.string "indicator_attributes", default: [], array: true
     t.string "indicator_type"
@@ -826,57 +825,57 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "query_model_name"
     t.string "reference"
     t.float "threshold"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "fraud_indicators_domains", force: :cascade do |t|
-    t.datetime "activated_at"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "activated_at", precision: nil
+    t.datetime "created_at", null: false
     t.string "name"
     t.boolean "risky"
     t.boolean "safe"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["risky"], name: "index_fraud_indicators_domains_on_risky"
     t.index ["safe"], name: "index_fraud_indicators_domains_on_safe"
   end
 
   create_table "fraud_indicators_timezones", force: :cascade do |t|
-    t.datetime "activated_at"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "activated_at", precision: nil
+    t.datetime "created_at", null: false
     t.string "name"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "fraud_scores", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "efile_submission_id"
     t.integer "score"
     t.jsonb "snapshot"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["efile_submission_id"], name: "index_fraud_scores_on_efile_submission_id"
   end
 
   create_table "greeter_coalition_join_records", force: :cascade do |t|
     t.bigint "coalition_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "greeter_role_id", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["coalition_id"], name: "index_greeter_coalition_join_records_on_coalition_id"
     t.index ["greeter_role_id"], name: "index_greeter_coalition_join_records_on_greeter_role_id"
   end
 
   create_table "greeter_organization_join_records", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "greeter_role_id", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
     t.index ["greeter_role_id"], name: "index_greeter_organization_join_records_on_greeter_role_id"
     t.index ["vita_partner_id"], name: "index_greeter_organization_join_records_on_vita_partner_id"
   end
 
   create_table "greeter_roles", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "incoming_emails", force: :cascade do |t|
@@ -884,11 +883,11 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "body_html"
     t.string "body_plain"
     t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.citext "from", null: false
     t.string "message_id"
     t.string "received"
-    t.datetime "received_at", null: false
+    t.datetime "received_at", precision: nil, null: false
     t.string "recipient", null: false
     t.string "sender", null: false
     t.string "stripped_html"
@@ -896,7 +895,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "stripped_text"
     t.string "subject"
     t.citext "to"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.string "user_agent"
     t.index ["client_id"], name: "index_incoming_emails_on_client_id"
     t.index ["created_at"], name: "index_incoming_emails_on_created_at"
@@ -905,8 +904,8 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   create_table "incoming_portal_messages", force: :cascade do |t|
     t.text "body"
     t.bigint "client_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_incoming_portal_messages_on_client_id"
     t.index ["created_at"], name: "index_incoming_portal_messages_on_created_at"
   end
@@ -914,10 +913,10 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   create_table "incoming_text_messages", force: :cascade do |t|
     t.string "body"
     t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "from_phone_number", null: false
-    t.datetime "received_at", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "received_at", precision: nil, null: false
+    t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_incoming_text_messages_on_client_id"
     t.index ["created_at"], name: "index_incoming_text_messages_on_created_at"
   end
@@ -939,11 +938,11 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "claim_owed_stimulus_money", default: 0, null: false
     t.integer "claimed_by_another", default: 0, null: false
     t.bigint "client_id"
-    t.datetime "completed_at"
-    t.datetime "completed_yes_no_questions_at"
+    t.datetime "completed_at", precision: nil
+    t.datetime "completed_yes_no_questions_at", precision: nil
     t.integer "consented_to_legal", default: 0, null: false
     t.boolean "continued_at_capacity", default: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "current_step"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
@@ -975,7 +974,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "eip3_entry_method", default: 0, null: false
     t.boolean "eip_only"
     t.citext "email_address"
-    t.datetime "email_address_verified_at"
+    t.datetime "email_address_verified_at", precision: nil
     t.string "email_domain"
     t.integer "email_notification_opt_in", default: 0, null: false
     t.string "encrypted_bank_account_number"
@@ -1053,7 +1052,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "needs_help_2019", default: 0, null: false
     t.integer "needs_help_2020", default: 0, null: false
     t.integer "needs_help_2021", default: 0, null: false
-    t.datetime "needs_to_flush_searchable_data_set_at"
+    t.datetime "needs_to_flush_searchable_data_set_at", precision: nil
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
     t.string "other_income_types"
@@ -1074,7 +1073,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "primary_active_armed_forces", default: 0, null: false
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false
-    t.datetime "primary_consented_to_service_at"
+    t.datetime "primary_consented_to_service_at", precision: nil
     t.inet "primary_consented_to_service_ip"
     t.bigint "primary_drivers_license_id"
     t.string "primary_first_name"
@@ -1082,7 +1081,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "primary_middle_initial"
     t.integer "primary_prior_year_agi_amount"
     t.string "primary_prior_year_signature_pin"
-    t.datetime "primary_signature_pin_at"
+    t.datetime "primary_signature_pin_at", precision: nil
     t.string "primary_suffix"
     t.integer "primary_tin_type"
     t.integer "received_advance_ctc_payment"
@@ -1095,8 +1094,8 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "reported_asset_sale_loss", default: 0, null: false
     t.integer "reported_self_employment_loss", default: 0, null: false
     t.string "requested_docs_token"
-    t.datetime "requested_docs_token_created_at"
-    t.datetime "routed_at"
+    t.datetime "requested_docs_token_created_at", precision: nil
+    t.datetime "routed_at", precision: nil
     t.string "routing_criteria"
     t.string "routing_value"
     t.integer "satisfaction_face", default: 0, null: false
@@ -1108,7 +1107,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "signature_method", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "sms_phone_number"
-    t.datetime "sms_phone_number_verified_at"
+    t.datetime "sms_phone_number_verified_at", precision: nil
     t.integer "sold_a_home", default: 0, null: false
     t.integer "sold_assets", default: 0, null: false
     t.string "source"
@@ -1116,7 +1115,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "spouse_auth_token"
     t.date "spouse_birth_date"
     t.integer "spouse_consented_to_service", default: 0, null: false
-    t.datetime "spouse_consented_to_service_at"
+    t.datetime "spouse_consented_to_service_at", precision: nil
     t.inet "spouse_consented_to_service_ip"
     t.bigint "spouse_drivers_license_id"
     t.citext "spouse_email_address"
@@ -1128,7 +1127,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "spouse_middle_initial"
     t.integer "spouse_prior_year_agi_amount"
     t.string "spouse_prior_year_signature_pin"
-    t.datetime "spouse_signature_pin_at"
+    t.datetime "spouse_signature_pin_at", precision: nil
     t.string "spouse_suffix"
     t.integer "spouse_tin_type"
     t.integer "spouse_was_blind", default: 0, null: false
@@ -1144,7 +1143,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "triage_income_level", default: 0, null: false
     t.integer "triage_vita_income_ineligible", default: 0, null: false
     t.string "type"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.boolean "use_primary_name_for_name_control", default: false
     t.boolean "used_itin_certifying_acceptance_agent", default: false, null: false
     t.boolean "viewed_at_capacity", default: false
@@ -1189,23 +1188,23 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   create_table "notes", force: :cascade do |t|
     t.text "body"
     t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["client_id"], name: "index_notes_on_client_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
   create_table "organization_lead_roles", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
     t.index ["vita_partner_id"], name: "index_organization_lead_roles_on_vita_partner_id"
   end
 
   create_table "outbound_calls", force: :cascade do |t|
     t.bigint "client_id"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "from_phone_number", null: false
     t.text "note"
     t.integer "queue_time_ms"
@@ -1213,7 +1212,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "twilio_call_duration"
     t.string "twilio_sid"
     t.string "twilio_status"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["client_id"], name: "index_outbound_calls_on_client_id"
     t.index ["created_at"], name: "index_outbound_calls_on_created_at"
@@ -1223,13 +1222,13 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   create_table "outgoing_emails", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "mailgun_status", default: "sending"
     t.string "message_id"
-    t.datetime "sent_at"
+    t.datetime "sent_at", precision: nil
     t.string "subject", null: false
     t.citext "to", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
     t.index ["created_at"], name: "index_outgoing_emails_on_created_at"
@@ -1240,12 +1239,12 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   create_table "outgoing_text_messages", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "sent_at", precision: nil
     t.string "to_phone_number", null: false
     t.string "twilio_sid"
     t.string "twilio_status"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["client_id"], name: "index_outgoing_text_messages_on_client_id"
     t.index ["created_at"], name: "index_outgoing_text_messages_on_created_at"
@@ -1255,82 +1254,82 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   create_table "provider_scrapes", force: :cascade do |t|
     t.integer "archived_count", default: 0, null: false
     t.integer "changed_count", default: 0, null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.integer "created_count", default: 0, null: false
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "recaptcha_scores", force: :cascade do |t|
     t.string "action", null: false
     t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.decimal "score", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_recaptcha_scores_on_client_id"
   end
 
   create_table "reports", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.jsonb "data"
-    t.datetime "generated_at"
+    t.datetime "generated_at", precision: nil
     t.string "type"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["generated_at"], name: "index_reports_on_generated_at"
   end
 
   create_table "signups", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.citext "email_address"
     t.string "name"
     t.string "phone_number"
     t.boolean "sent_followup", default: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.string "zip_code"
   end
 
   create_table "site_coordinator_roles", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
     t.index ["vita_partner_id"], name: "index_site_coordinator_roles_on_vita_partner_id"
   end
 
   create_table "source_parameters", force: :cascade do |t|
     t.string "code"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
     t.index ["code"], name: "index_source_parameters_on_code", unique: true
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
   end
 
   create_table "state_routing_fractions", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.boolean "org_level_routing_enabled"
     t.float "routing_fraction", default: 0.0, null: false
     t.bigint "state_routing_target_id", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
     t.index ["state_routing_target_id"], name: "index_state_routing_fractions_on_state_routing_target_id"
     t.index ["vita_partner_id"], name: "index_state_routing_fractions_on_vita_partner_id"
   end
 
   create_table "state_routing_targets", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "state_abbreviation", null: false
     t.bigint "target_id", null: false
     t.string "target_type", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["target_type", "target_id"], name: "index_state_routing_targets_on_target"
   end
 
   create_table "system_notes", force: :cascade do |t|
     t.text "body"
     t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.jsonb "data"
     t.string "type"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["client_id"], name: "index_system_notes_on_client_id"
     t.index ["user_id"], name: "index_system_notes_on_user_id"
@@ -1338,35 +1337,35 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
 
   create_table "tax_return_assignments", force: :cascade do |t|
     t.bigint "assigner_id"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "tax_return_id", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["assigner_id"], name: "index_tax_return_assignments_on_assigner_id"
     t.index ["tax_return_id"], name: "index_tax_return_assignments_on_tax_return_id"
   end
 
   create_table "tax_return_selection_tax_returns", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "tax_return_id", null: false
     t.bigint "tax_return_selection_id", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["tax_return_id"], name: "index_trstr_on_tax_return_id"
     t.index ["tax_return_selection_id"], name: "index_trstr_on_tax_return_selection_id"
   end
 
   create_table "tax_return_selections", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tax_return_transitions", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.jsonb "metadata", default: {}
     t.boolean "most_recent", null: false
     t.integer "sort_key", null: false
     t.integer "tax_return_id", null: false
     t.string "to_state", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["tax_return_id", "most_recent"], name: "index_tax_return_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["tax_return_id", "sort_key"], name: "index_tax_return_transitions_parent_sort", unique: true
   end
@@ -1375,7 +1374,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.bigint "assigned_user_id"
     t.integer "certification_level"
     t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "current_state"
     t.integer "filing_status"
     t.text "filing_status_note"
@@ -1383,15 +1382,15 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.boolean "is_ctc", default: false
     t.boolean "is_hsa"
     t.string "primary_signature"
-    t.datetime "primary_signed_at"
+    t.datetime "primary_signed_at", precision: nil
     t.inet "primary_signed_ip"
-    t.datetime "ready_for_prep_at"
+    t.datetime "ready_for_prep_at", precision: nil
     t.integer "service_type", default: 0
     t.string "spouse_signature"
-    t.datetime "spouse_signed_at"
+    t.datetime "spouse_signed_at", precision: nil
     t.inet "spouse_signed_ip"
     t.integer "status", default: 100, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.integer "year", null: false
     t.index ["assigned_user_id"], name: "index_tax_returns_on_assigned_user_id"
     t.index ["client_id"], name: "index_tax_returns_on_client_id"
@@ -1400,19 +1399,19 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   end
 
   create_table "team_member_roles", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
     t.index ["vita_partner_id"], name: "index_team_member_roles_on_vita_partner_id"
   end
 
   create_table "text_message_access_tokens", force: :cascade do |t|
     t.bigint "client_id"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "sms_phone_number", null: false
     t.string "token", null: false
     t.string "token_type", default: "link"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_text_message_access_tokens_on_client_id"
     t.index ["sms_phone_number"], name: "index_text_message_access_tokens_on_sms_phone_number"
     t.index ["token"], name: "index_text_message_access_tokens_on_token"
@@ -1432,7 +1431,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.integer "assistance_in_person", default: 0, null: false
     t.integer "assistance_phone_review_english", default: 0, null: false
     t.integer "assistance_phone_review_non_english", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.integer "doc_type", default: 0, null: false
     t.integer "filed_2018", default: 0, null: false
     t.integer "filed_2019", default: 0, null: false
@@ -1447,51 +1446,51 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "locale"
     t.string "referrer"
     t.string "source"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.index ["intake_id"], name: "index_triages_on_intake_id"
   end
 
   create_table "user_notifications", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.bigint "notifiable_id"
     t.string "notifiable_type"
     t.boolean "read", default: false, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["notifiable_type", "notifiable_id"], name: "index_user_notifications_on_notifiable_type_and_notifiable_id"
     t.index ["user_id"], name: "index_user_notifications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "current_sign_in_at"
+    t.datetime "created_at", null: false
+    t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.citext "email", null: false
     t.string "encrypted_access_token"
     t.string "encrypted_access_token_iv"
     t.string "encrypted_password", default: "", null: false
     t.integer "failed_attempts", default: 0, null: false
-    t.datetime "invitation_accepted_at"
-    t.datetime "invitation_created_at"
+    t.datetime "invitation_accepted_at", precision: nil
+    t.datetime "invitation_created_at", precision: nil
     t.integer "invitation_limit"
-    t.datetime "invitation_sent_at"
+    t.datetime "invitation_sent_at", precision: nil
     t.string "invitation_token"
     t.integer "invitations_count", default: 0
     t.bigint "invited_by_id"
-    t.datetime "last_sign_in_at"
+    t.datetime "last_sign_in_at", precision: nil
     t.string "last_sign_in_ip"
-    t.datetime "locked_at"
+    t.datetime "locked_at", precision: nil
     t.string "name"
     t.string "phone_number"
-    t.datetime "reset_password_sent_at"
+    t.datetime "reset_password_sent_at", precision: nil
     t.string "reset_password_token"
     t.bigint "role_id", null: false
     t.string "role_type", null: false
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "suspended_at"
+    t.datetime "suspended_at", precision: nil
     t.string "timezone", default: "America/New_York", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
@@ -1501,12 +1500,12 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   end
 
   create_table "verification_attempt_transitions", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.jsonb "metadata", default: {}
     t.boolean "most_recent", null: false
     t.integer "sort_key", null: false
     t.string "to_state", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.integer "verification_attempt_id", null: false
     t.index ["verification_attempt_id", "most_recent"], name: "index_verification_attempt_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["verification_attempt_id", "sort_key"], name: "index_verification_attempt_transitions_parent_sort", unique: true
@@ -1515,14 +1514,14 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
   create_table "verification_attempts", force: :cascade do |t|
     t.text "client_bypass_request"
     t.bigint "client_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_verification_attempts_on_client_id"
   end
 
   create_table "vita_partner_zip_codes", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "vita_partner_id", null: false
     t.string "zip_code", null: false
     t.index ["vita_partner_id"], name: "index_vita_partner_zip_codes_on_vita_partner_id"
@@ -1535,7 +1534,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.boolean "archived", default: false
     t.integer "capacity_limit"
     t.bigint "coalition_id"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "logo_path"
     t.string "name", null: false
     t.boolean "national_overflow_location", default: false
@@ -1543,7 +1542,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.boolean "processes_ctc", default: false
     t.string "timezone", default: "America/New_York"
     t.string "type", null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
     t.index ["parent_organization_id", "name", "coalition_id"], name: "index_vita_partners_on_parent_name_and_coalition", unique: true
     t.index ["parent_organization_id"], name: "index_vita_partners_on_parent_organization_id"
@@ -1553,7 +1552,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "appointment_info"
     t.boolean "archived", default: false, null: false
     t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.string "dates"
     t.string "details"
     t.string "hours"
@@ -1561,7 +1560,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_204338) do
     t.string "languages"
     t.bigint "last_scrape_id"
     t.string "name"
-    t.datetime "updated_at"
+    t.datetime "updated_at", precision: nil
     t.index ["irs_id"], name: "index_vita_providers_on_irs_id", unique: true
     t.index ["last_scrape_id"], name: "index_vita_providers_on_last_scrape_id"
   end
