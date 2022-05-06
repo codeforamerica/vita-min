@@ -90,11 +90,11 @@ describe BankAccount do
         }.to change(bank_account, :hashed_routing_number)
       end
 
-      it "sets raw_routing_number" do
+      it "sets _routing_number" do
         expect {
           bank_account.update(routing_number: "123456781")
-        }.to change(bank_account, :raw_routing_number)
-        expect(bank_account.raw_routing_number).to eq(bank_account.routing_number)
+        }.to change(bank_account, :_routing_number)
+        expect(bank_account._routing_number).to eq(bank_account.routing_number)
       end
     end
 
