@@ -2121,11 +2121,11 @@ en:
             label: I confirm that my name is on this bank account.
         drivers_license:
           expiration_date: Expiration date
-          help_text: If you submit your driver's license information, the IRS may process your payments faster. If you do not have a driver's license or do not want to submit it you can skip this step.
+          help_text: If you submit this information, the IRS may process your payments faster. If you do not have a driver's license or a state issued ID or do not want to submit it you can skip this step.
           issue_date: Issue date
-          license_number: Driver’s license number
-          state: Driver’s license state
-          title: Enter your driver’s license information.
+          license_number: Driver's license or state issued ID number
+          state: Issuing state
+          title: Enter your driver's license or state issued ID information.
         email_address:
           title: Please share your email address.
         file_full_return:
