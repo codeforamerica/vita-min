@@ -20,7 +20,7 @@ module Fraud
       validates :bank_name, presence: true
 
       def self.riskylist
-        all.map { |instance| DeduplificationService.sensitive_attribute_hashed(instance, :routing_number) }
+        all.pluck(:routing_number)
       end
 
       def active

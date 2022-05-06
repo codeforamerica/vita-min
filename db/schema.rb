@@ -425,6 +425,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_195927) do
   end
 
   create_table "bank_accounts", force: :cascade do |t|
+    t.string "_routing_number"
     t.integer "account_type"
     t.datetime "created_at", null: false
     t.string "encrypted_account_number"
@@ -436,7 +437,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_195927) do
     t.string "hashed_account_number"
     t.string "hashed_routing_number"
     t.bigint "intake_id"
-    t.string "routing_number"
     t.datetime "updated_at", null: false
     t.index ["hashed_account_number"], name: "index_bank_accounts_on_hashed_account_number"
     t.index ["hashed_routing_number"], name: "index_bank_accounts_on_hashed_routing_number"
