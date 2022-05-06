@@ -12,6 +12,7 @@
 #  encrypted_routing_number_iv :string
 #  hashed_account_number       :string
 #  hashed_routing_number       :string
+#  routing_number              :string
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  intake_id                   :bigint

@@ -12,6 +12,7 @@
 #  encrypted_routing_number_iv :string
 #  hashed_account_number       :string
 #  hashed_routing_number       :string
+#  routing_number              :string
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  intake_id                   :bigint
@@ -34,7 +35,7 @@ class BankAccount < ApplicationRecord
   attr_encrypted :account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
   enum account_type: { checking: 1, savings: 2 }
-  before_save :hash_data
+  before_save :hash_account_number
 
   # map string enum value back to the corresponding integer
   def account_type_code
@@ -42,10 +43,13 @@ class BankAccount < ApplicationRecord
   end
 
   def duplicates
-    DeduplificationService.duplicates(self, :hashed_routing_number, :hashed_account_number, from_scope: self.class)
+    DeduplificationService.duplicates(self, :routing_number, :hashed_account_number, from_scope: self.class)
   end
 
   def hash_data
+    # WIP because we need to get everything written onto the raw version before we can proceed.
+    # Then, we will remove the attr_encrypted and change the name of the column from raw_routing_number to routing_number
+    self.raw_routing_number = routing_number if routing_number_changed?
     [:routing_number, :account_number].each do |attr|
       if send("#{attr}_changed?") && send(attr).present?
         assign_attributes("hashed_#{attr}" => DeduplificationService.sensitive_attribute_hashed(self, attr))

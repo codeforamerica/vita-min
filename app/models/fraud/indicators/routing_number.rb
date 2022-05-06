@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: fraud_indicators_routing_numbers
+#
+#  id             :bigint           not null, primary key
+#  activated_at   :datetime
+#  bank_name      :string
+#  routing_number :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 module Fraud
   module Indicators
     class RoutingNumber < ApplicationRecord

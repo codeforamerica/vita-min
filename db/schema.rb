@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_05_171013) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_06_195927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -436,6 +436,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_171013) do
     t.string "hashed_account_number"
     t.string "hashed_routing_number"
     t.bigint "intake_id"
+    t.string "routing_number"
     t.datetime "updated_at", null: false
     t.index ["hashed_account_number"], name: "index_bank_accounts_on_hashed_account_number"
     t.index ["hashed_routing_number"], name: "index_bank_accounts_on_hashed_routing_number"
@@ -840,11 +841,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_171013) do
   end
 
   create_table "fraud_indicators_routing_numbers", force: :cascade do |t|
-    t.datetime "activated_at"
+    t.datetime "activated_at", precision: nil
     t.string "bank_name"
-    t.datetime "created_at", precision: 6, null: false
+    t.datetime "created_at", null: false
     t.string "routing_number"
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "fraud_indicators_timezones", force: :cascade do |t|
