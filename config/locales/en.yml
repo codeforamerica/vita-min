@@ -1413,6 +1413,14 @@ en:
   models:
     intake:
       your_spouse: Your spouse
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 0
+        separator: "."
+        unit: "$"
   portal:
     client_logins:
       account_locked:

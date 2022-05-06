@@ -1371,6 +1371,14 @@ es:
   models:
     intake:
       your_spouse: Su cónyuge
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 0
+        separator: "."
+        unit: "$"
   portal:
     client_logins:
       account_locked:
