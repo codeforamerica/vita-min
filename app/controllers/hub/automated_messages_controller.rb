@@ -23,6 +23,12 @@ module Hub
           [AutomatedMessage::CtcGettingStarted, {}],
           [AutomatedMessage::ClosingSoon, {}],
           [AutomatedMessage::SaveCtcLetter, {}],
+          [AutomatedMessage::ContactInfoChange, {}],
+          [AutomatedMessage::FirstNotReadyReminder, {}],
+          [AutomatedMessage::SecondNotReadyReminder, {}],
+          [AutomatedMessage::InformOfFraudHold, {}],
+          [AutomatedMessage::NewPhotosRequested, {}],
+          [AutomatedMessage::VerificationAttemptDenied, {}]
       ]
 
       @messages = messages.map do |message|
