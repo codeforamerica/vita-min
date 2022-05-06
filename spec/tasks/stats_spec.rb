@@ -61,7 +61,6 @@ describe "stats:monitor_delayed_efile_submissions" do
     Timecop.freeze(fake_time) do
       task.invoke
     end
-
     expect(@emit_point_params).to match_array(
 [
         ["vita-min.dogapi.efile_submissions.transition_latencies_minutes", 1440, tags: ["current_state:preparing", "env:test"], type: "gauge"],
