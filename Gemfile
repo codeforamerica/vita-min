@@ -47,7 +47,7 @@ gem 'lograge'
 gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2'
 gem 'auto_strip_attributes'
-gem 'ddtrace', '~> 0.41.0'
+gem 'ddtrace', '~> 1.0.0'
 gem 'dogapi'
 gem 'http_accept_language'
 gem 'rails-i18n'
