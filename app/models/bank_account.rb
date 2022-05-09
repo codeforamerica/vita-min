@@ -29,7 +29,7 @@
 #  fk_rails_...  (intake_id => intakes.id)
 #
 class BankAccount < ApplicationRecord
-  self.ignored_columns = [:encrypted_routing_number, :encrypted_routing_number_iv]
+  self.ignored_columns = [:encrypted_routing_number, :encrypted_routing_number_iv, :hashed_routing_number, :_routing_number]
   belongs_to :intake
   has_one :client, through: :intake
   attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
@@ -41,10 +41,6 @@ class BankAccount < ApplicationRecord
   # map string enum value back to the corresponding integer
   def account_type_code
     self.class.account_types[account_type]
-  end
-
-  def routing_number
-    read_attribute(:routing_number) || _routing_number
   end
 
   def duplicates
