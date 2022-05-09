@@ -9,10 +9,7 @@
 #  encrypted_account_number_iv :string
 #  encrypted_bank_name         :string
 #  encrypted_bank_name_iv      :string
-#  encrypted_routing_number    :string
-#  encrypted_routing_number_iv :string
 #  hashed_account_number       :string
-#  hashed_routing_number       :string
 #  routing_number              :string
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
@@ -21,7 +18,6 @@
 # Indexes
 #
 #  index_bank_accounts_on_hashed_account_number  (hashed_account_number)
-#  index_bank_accounts_on_hashed_routing_number  (hashed_routing_number)
 #  index_bank_accounts_on_intake_id              (intake_id)
 #
 # Foreign Keys
@@ -29,7 +25,6 @@
 #  fk_rails_...  (intake_id => intakes.id)
 #
 class BankAccount < ApplicationRecord
-  self.ignored_columns = [:encrypted_routing_number, :encrypted_routing_number_iv, :hashed_routing_number, :_routing_number]
   belongs_to :intake
   has_one :client, through: :intake
   attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }

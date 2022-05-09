@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_06_203715) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_09_213802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -432,15 +432,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_203715) do
     t.string "encrypted_account_number_iv"
     t.string "encrypted_bank_name"
     t.string "encrypted_bank_name_iv"
-    t.string "encrypted_routing_number"
-    t.string "encrypted_routing_number_iv"
     t.string "hashed_account_number"
-    t.string "hashed_routing_number"
     t.bigint "intake_id"
     t.string "routing_number"
     t.datetime "updated_at", null: false
     t.index ["hashed_account_number"], name: "index_bank_accounts_on_hashed_account_number"
-    t.index ["hashed_routing_number"], name: "index_bank_accounts_on_hashed_routing_number"
     t.index ["intake_id"], name: "index_bank_accounts_on_intake_id"
   end
 

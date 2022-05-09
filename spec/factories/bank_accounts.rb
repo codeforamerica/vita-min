@@ -9,10 +9,7 @@
 #  encrypted_account_number_iv :string
 #  encrypted_bank_name         :string
 #  encrypted_bank_name_iv      :string
-#  encrypted_routing_number    :string
-#  encrypted_routing_number_iv :string
 #  hashed_account_number       :string
-#  hashed_routing_number       :string
 #  routing_number              :string
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
@@ -21,7 +18,6 @@
 # Indexes
 #
 #  index_bank_accounts_on_hashed_account_number  (hashed_account_number)
-#  index_bank_accounts_on_hashed_routing_number  (hashed_routing_number)
 #  index_bank_accounts_on_intake_id              (intake_id)
 #
 # Foreign Keys
