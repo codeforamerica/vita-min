@@ -44,6 +44,9 @@
         <th scope="col" class="index-table__header sortable">
           Last updated
         </th>
+        <th scope="col" class="index-table__header">
+          Errors
+        </th>
       </tr>
       </thead>
       <tbody class="index-table__body submission-table">
@@ -61,6 +64,11 @@
             </td>
             <td class="index-table__cell">
               <%= timestamp submission.updated_at %>
+            </td>
+            <td class="index-table__cell" style="white-space: nowrap;">
+              <% if submission.in_state?(:rejected) %>
+                <%= submission.last_transition.efile_errors.pluck(:code, :message).map { |i| i.join(": ") }.join(", ") %>
+              <% end %>
             </td>
           </tr>
       <% end %>
