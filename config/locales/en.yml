@@ -2323,10 +2323,10 @@ en:
           routing_number: Routing number
           routing_number_confirmation: Confirm routing number
         spouse_drivers_license:
-          help_text: We use driver’s license information to confirm your spouse’s identity. If they don’t have a driver’s license you can skip this step.
-          license_number: Spouse's driver’s license number
-          state: Spouse's driver’s license state
-          title: Enter %{spouse_first_name}’s driver’s license information.
+          help_text: If you submit this information, the IRS may process your payments faster. If you do not have a driver's license or a state issued ID or do not want to submit it you can skip this step.
+          license_number: Driver's license or state issued ID number
+          state: Issuing State
+          title: Enter %{spouse_first_name}'s driver's license or state issued ID information
         spouse_filed_prior_tax_year:
           did_not_file: My spouse did not file a %{prior_tax_year} tax return
           filed_full_separate: My spouse filed a full tax return separately from me
