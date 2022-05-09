@@ -8,7 +8,7 @@ es:
             ssn:
               blank: Para reclamar a un miembro de la familia como dependiente para los beneficios, se requiere un SSN o ATIN.
   attributes:
-    confirm_primary_ssn: Confirme el Número de Seguro Social--SSN en inglés o Número de Contribuyente--ITIN en inglés
+    confirm_primary_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés)
     confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés) de su cónyuge
     primary_ssn: Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés)
     spouse_ssn: Número de Seguro Social (SSN en inglés) o Número de Contribuyente (ITIN en inglés) de su cónyuge
@@ -234,9 +234,9 @@ es:
     back: Regresa
     bank_account:
       account_number: Número de cuenta
-      checking: Cuenta de Cheques
+      checking: Cuenta Corriente
       routing_number: Número de ruta bancaria
-      savings: Ahorros
+      savings: Cuenta de Ahorros
     before_2014: antes de 2014
     blind: Es legalmente ciego
     call: Llamada
@@ -260,7 +260,7 @@ es:
     contact_methods:
       email: email
       sms_phone_number: mensaje de texto
-    contact_us: Contáctanos
+    contact_us: Contáctenos
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
     ctc: GetCTC
@@ -274,7 +274,7 @@ es:
       aunt: Tía
       brother: Hermano
       daughter: Hija
-      foster_child: Niño de Crianza Temporal
+      foster_child: Hijo/hija de acogida
       grandchild: Nieta/Nieto
       grandparent: Abuela/Abuelo
       great_grandchild: Bisnieto
@@ -290,9 +290,9 @@ es:
       sister: Hermana
       son: Hijo
       step_parent: Padrastro o madrastra
-      stepbrother: Stepbrother
+      stepbrother: Hermanastro
       stepchild: Hijastro/Hijastra
-      stepsister: Stepsister
+      stepsister: Hermanastra
       uncle: Tío
     dependents: Dependientes
     divorced: Divorciado
@@ -345,7 +345,7 @@ es:
     ethnicity:
       hispanic: Hispano o Latino
       not_hispanic: No soy Hispano o Latino
-    faq: Preguntas frecuentes
+    faq: preguntas frecuentes
     file_my_taxes: Declarar mis impuestos
     filing_joint: Presentación conjunta
     filing_status:
@@ -363,7 +363,7 @@ es:
     free_file_lookup_tool: Herramienta de búsqueda de declaración de impuestos gratuita del IRS
     get_help: Pedir ayuda
     get_my_payment: Recibir mi pago
-    get_started: Empiece Ahora
+    get_started: Empezar
     go_home: Ir al inicio
     greetable: Pueden ser saludados
     greeter: Saludador
@@ -532,11 +532,11 @@ es:
       account_number_confirmation: Confirmar número de cuenta
       account_type: Tipo de cuenta
       bank_name: Nombre del banco
-      checking: Cuenta de Cheques
+      checking: Cuenta Corriente
       info_displayed: Visualización de la información de la cuenta bancaria
       routing_number: Número de ruta bancaria
       routing_number_confirmation: Confirmar número de ruta bancaria
-      savings: Ahorros
+      savings: Cuenta de Ahorros
     bulk_actions:
       bulk_action_form:
         errors:
@@ -962,7 +962,7 @@ es:
 
         Si necesita cambiar algo en su declaración o si tiene alguna pregunta, porfavor responda a este mensaje y no firme su declaración.
 
-        Para aprobar su devolución, haga clic en el enlace a continuación, ingrese los últimos cuatro dígitos de su número de seguro social o su número de cliente, revise su declaración y haga clic en el cuadro que dice que aprueba su declaración.
+        Para aprobar su declaración, haga clic en el enlace a continuación, ingrese los últimos cuatro dígitos de su número de seguro social o su número de cliente, revise su declaración y haga clic en el cuadro que dice que aprueba su declaración.
 
         Para declaraciones presentadas con su cónyuge: su cónyuge también debe revisar y firmar.
 
@@ -1160,17 +1160,18 @@ es:
       acceptance:
         email:
           body: |
-            ¡Gracias por declarar sus impuestos con GetCTC! Su información sobre sus impuestos han sido aceptados por el IRS, y significa que ya pueden comenzar a procesar tu reembolso.
+            Hola <<Client.PreferredName>>,
 
-            Puede verificar el estado de su reembolso después de 24 horas en ¿Dónde está mi reembolso? (en inglés: Where’s My Refund): https://www.irs.gov/es/refunds
+            ¡Gracias por presentar su declaración de impuestos con GetCTC! Su declaración ha sido aceptada por el IRS, y pueden empezar a procesar su reembolso.
 
+            Puede verificar el estado de su reembolso después de 24 horas en línea en sitio del IRS ¿Donde Está mi reembolso? https://sa.www4.irs.gov/irfof/lang/sp/irfofgetstatus.jsp
 
             ¡Estamos aquí para ayudarle!
-            Su Equipo de declaración de impuestos GetCTC.org
+            Su Equipo de Declaración de Impuestos GetCTC.org
           subject: "¡Gracias por declarar sus impuestos con GetCTC!"
         sms: |
-          Hola <<Client.PreferredName>>: ¡Gracias por declarar sus impuestos con GetCTC! Su información sobre sus impuestos han sido aceptados por el IRS.
-          Puede verificar el estado de su reembolso después de 24 horas en https://www.irs.gov/es/refunds
+          Hola <<Client.PreferredName>>, ¡Gracias por presentar su declaración de impuestos con GetCTC! Su declaración ha sido aceptada por el IRS.
+          Puede verificar el estado de su reembolso después de 24 horas en https://sa.www4.irs.gov/irfof/lang/sp/irfofgetstatus.jsp
       failed:
         email:
           body: |
@@ -1615,7 +1616,7 @@ es:
     atin: Por favor, indique un número de identificación fiscal válido de adopción.
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
-    ip_pin: IP PINs debe ser un número de 6 dígitos.
+    ip_pin: El IP PIN debe ser un número de 6 dígitos.
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga letras, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
@@ -1771,7 +1772,7 @@ es:
           download_tax_return: Descargar mi declaración de impuestos
           failure_title: 'Motivo de este fracaso:'
           imperfect_return_indicator_text: |
-            El IRS aceptó su devolución, incluida una solicitud para actualizar uno más de los nombres legales de sus dependientes en sus registros.
+            El IRS aceptó su declaración, incluida una solicitud para actualizar uno más de los nombres legales de sus dependientes en sus registros.
             El IRS estima que le tomará de 4 a 8 semanas procesar su declaración. También puede recibir una carta confirmando su solicitud para actualizar el nombre legal del dependiente.
           next_step_title: 'Próximos pasos:'
           rejection_title: 'Motivo de este rechazo:'
@@ -1787,7 +1788,7 @@ es:
               message: Ya no intentaremos presentar electrónicamente esta declaración al IRS. Para continuar, utilice los recursos que aparecen a continuación para enviar por correo su declaración al IRS.
             failed:
               label: Error de envío
-              message: Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
+              message: Nuestro equipo está investigando un error técnico con su declaración. Una vez que resolvamos este error, volveremos a enviar su declaración. Espere una actualización dentro de los 3 días hábiles.
             fraud_hold:
               label: Se está revisando la presentación de la identificación, o en inglés, ID
               message: Gracias por enviar su identificación. Estamos revisando su solicitud. Puede esperar una respuesta en un plazo de 5 días.
@@ -1802,7 +1803,7 @@ es:
               message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
             rejected:
               label: Rechazada
-              message: Nuestro equipo está investigando un error técnico con su devolución. Una vez que resolvamos este error, volveremos a enviar su devolución. Espere una actualización dentro de los 3 días hábiles.
+              message: Nuestro equipo está investigando un error técnico con su declaración. Una vez que resolvamos este error, volveremos a enviar su declaración. Espere una actualización dentro de los 3 días hábiles.
             transmitted:
               label: Tramitados electrónicamente
               message: Su declaración ha sido presentada al IRS. En el plazo de una semana sabrá si su declaración ha sido aceptada.
@@ -1823,7 +1824,7 @@ es:
           edit:
             help_text: Puede encontrar esta información en la línea 11 de su declaración de impuestos %{prior_tax_year}. Introduzca la cantidad correcta de su declaración del %{prior_tax_year} o su declaración será rechazada.
             label: 'El Ingreso Bruto Ajustado para %{prior_tax_year} en inglés: AGI'
-            title: 'Edite su Ingreso Bruto Ajustado, en inglés: "Adjusted Gross Income" para %{prior_tax_year}'
+            title: 'Edite su ingreso bruto ajustado, en inglés: "Adjusted Gross Income" para %{prior_tax_year}'
         spouse:
           help_text: Confirmar / editar la información básica de su cónyuge
           title: Editar la información básica de su cónyuge
@@ -1831,7 +1832,7 @@ es:
           edit:
             help_text: Puede encontrar esta información en la línea 11 de la declaración de impuestos de su cónyuge del %{prior_tax_year}. Introduzca la cantidad correcta o su declaración será rechazada.
             label: 'El Ingreso Bruto Ajustado, en inglés: AGI del cónyuge para %{prior_tax_year}'
-            title: Edite los Ingresos Brutos Ajustados de su cónyuge de %{prior_tax_year}
+            title: Edite el ingreso bruto ajustado de su cónyuge de %{prior_tax_year}
         verification:
           i_dont_have_id: No tengo identificación, o ID
           id: Su licencia de manejar o tarjeta de identificación del estado, o ID
@@ -1862,9 +1863,9 @@ es:
           no_did_not_receive: No recibí ningún pago
           no_received_different: Recibí una cantidad diferente
           question: "¿Recibió esta cantidad?"
-          title: "¿Recibió un total de $%{adv_ctc_estimate} en Crédito Fiscal Anticipado por Hijos en 2021?"
-          total_adv_ctc: Total de Crédito Fiscal Anticipado por Hijos
-          total_adv_ctc_details_html: Calculamos que debería haber recibido este <strong>importe total</strong> en base a su estado civil y por las siguientes personas a su cargo
+          title: "¿Recibió un total de $%{adv_ctc_estimate} en los pagos adelantados del Crédito Tributario por Hijos en 2021?"
+          total_adv_ctc: 'Estimamos que usted habrá recibido:'
+          total_adv_ctc_details_html: 'por estos dependientes:'
           yes_received: Recibí esta cantidad
         advance_ctc_amount:
           details_html: |
@@ -1875,24 +1876,23 @@ es:
               p1: Si no está seguro de cuánto recibió, puede buscar el monto en la carta 6419 del IRS, que debería haber recibido a principios de este año, o puede consultar sus registros bancarios del año pasado.
               p2: Si está casado, usted y su cónyuge habrían recibido cada uno una Carta 6419 por separado. Sume las dos cantidades de ambas cartas e ingrese el total.
             title: "¿Dónde puedo encontrar esta cantidad?"
-          form_title: Crédito Tributario por Hijos Anticipado recibido
-          title: Anote la cantidad total que recibió por el Crédito Tributario por Hijos Anticipado
+          form_title: Pagos adelantados del Crédito Tributario por Hijos recibido
+          title: Ingresa la cantidad total de los pagos adelantados del Crédito Tributario por Hijos que recibió.
         advance_ctc_claimed:
           buttons:
             add: Agregar más dependientes
             correct: Corregir la cantidad que recibí
             no_file: No necesito presentar una declaración de impuestos
           content:
-          - Ud. indicó %{amount_received} para la cantidad total del Crédito Tributario por Hijos Anticipado que recibió en 2021.
+          - Usted indicó %{amount_received} para la cantidad total de los pagos adelantados del Crédito Tributario por Hijos que recibió en 2021.
           - Si está correcta, no recibirá ningún Crédito Tributario por Hijos, y es probable que no tenga que terminar de presentar este formulario para presentar su declaración.
-          - Si cree que hay una equivocación, debe regresarse y corregir la cantidad que ha recibido o añadir más personas a su cargo.
           title: Ya no hay más Crédito Tributario por Hijos por solicitar.
         advance_ctc_received:
           already_received: Cantidad que recibió
           ctc_owed_details: Si la cantidad que ha anotado es incorrecta, su reembolso de impuestos podría retrasarse mientras el IRS hace las correcciones en su declaración.
           ctc_owed_title: 'Tiene derecho a recibir esta cantidad adicional:'
           title: Muy bien. Hemos calculado su Crédito Tributario por Hijos.
-          total_adv_ctc: 'Total del Advance CTC o Crédito Tributario por Hijos Anticipado: %{amount}'
+          total_adv_ctc: 'Total del Advance CTC o Crédito Tributario por Hijos Adelantado: %{amount}'
         already_completed:
           content_html: |
             <p>Ha completado todas las preguntas de admisión y estamos revisando y presentando su declaración de impuestos.</p>
@@ -1918,7 +1918,7 @@ es:
           title: Favor de compartir su número de celular
         confirm_bank_account:
           bank_information: La información de su banco
-          title: "¡Excelente! Revise que sus datos bancarios sean correctos."
+          title: "¡Excelente! Revise que sus datos bancarios estén correctos."
         confirm_dependents:
           add_a_dependent: Agregar una persona dependiente
           atin: Número de Adopción
@@ -1929,7 +1929,7 @@ es:
             content:
               head_of_household:
                 p1: Si presenta su declaración como soltero y no está casado, uno o más de sus dependientes también pueden calificarlo para reclamar el estado de cabeza de familia, un estado fiscal que pueden usar algunos padres solteros.Sin embargo, para los créditos que puede reclamar con GetCTC El estado de cabeza de familia no aumentará su reembolso ni lo hará elegible para ningún beneficio fiscal adicional.
-                p2_html: Reclamar el estado de cabeza de familia también podría aumentar su probabilidad de ser auditado por el IRS.Si está interesado en reclamar el estado de cabeza de familia a pesar de todo, <a href=%{link}>haga clic aquí</a>.
+                p2_html: Si declara como cabeza de familia, "Head of Household" en inglés, también podría aumentar su probabilidad de ser auditado por el IRS. De todos modos, si está interesado en declarar como jefe de familia, <a href=%{link}>haga clic aquí</a>.
                 title: "¿Debo declarar como cabeza de familia?"
               p1_html: Si obtuvo ingresos en %{current_tax_year}, uno o más de sus dependientes podrían calificarlo para un Crédito Tributario por Ingreso del Trabajo más grande. El EITC está disponible para algunas personas que obtienen ingresos, y es mayor para aquellas que tienen hijos. Desafortunadamente, usted actualmente no puede reclamar el EITC en la declaración simplificada que presenta con GetCTC. Para presentar una declaración de impuestos completa y reclamar el EITC, visite <a href="https://getyourrefund.org/gctc_ref">GetYourRefund</a>.
             title: "¿Qué pasa con otros beneficios para los que podrían ser elegibles mis dependientes?"
@@ -1939,16 +1939,16 @@ es:
           ssn_no_employment: Número de seguro social (no válido para empleo)
           title: Confirmemos sus dependientes
         confirm_information:
-          help_text: No podrá cambiar su información una vez que el IRS acepte la devolución.
+          help_text: No podrá cambiar su información una vez que el IRS acepte la declaración.
           labels:
             signature_pin: El PIN de cinco dígitos de %{name}
-          pin_help_text: Se trata de un número de 5 dígitos que usted elige como contraseña propia. Este PIN puede utilizarse para verificar su identidad al presentar la declaración de impuestos del próximo año.
+          pin_help_text: Seleccione un PIN de 5 dígitos. Este es un número que usted elige como contraseña propia. Este PIN puede utilizarse para verificar su identidad al presentar la declaración de impuestos del próximo año.
           title: Revise y confirme su información a continuación.
           your_dependents: Sus dependientes
           your_information: Su información
         confirm_legal:
           action: Presentar mi declaración
-          consent: estoy de acuerdo
+          consent: Estoy de acuerdo
           error: Por favor, acepte antes de continuar.
           legal_info_html: |
             <p>So pena de perjurio, declaro que he examinado esta declaración (o solicitud de reembolso), incluyendo las declaraciones y anexos que la acompañan, y que, a mi leal saber y entender, es verdadera, correcta y completa.</p>
@@ -1964,7 +1964,7 @@ es:
           ctc_due: Crédito Tributario por Hijos
           do_not_file: No declarar
           do_not_file_flash_message: "¡Gracias por haber utilizado GetCTC! No presentaremos su declaración."
-          third_stimulus: 'Tercer Pago por Estímulo, en inglés: "Third Stimulus Payment"'
+          third_stimulus: 'Tercer Pago de Estímulo, en inglés: "Third Stimulus Payment"'
           title: 'Aquí tiene una lista de los pagos estimados que le corresponden:'
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: 'Sus Ingresos Brutos Estimados o en inglés: AGI para %{prior_tax_year}'
@@ -1979,7 +1979,7 @@ es:
         dependents:
           child_can_be_claimed_by_other:
             help_text: Si otra persona también se ocupa de %{name}, solo uno de ustedes puede reclamarlos para obtener beneficios fiscales. Lo guiaremos a través de los pasos para determinar si puede reclamarlos o no.
-            title: "¿Es usted la única persona que puede declarar a %{name}?"
+            title: "¿Es usted la única persona que pudiera reclamar a %{name}?"
           child_claim_anyway:
             help_text:
               list:
@@ -1988,7 +1988,7 @@ es:
               p1: Si usted y la otra persona que podría reclamar al dependiente son ambos sus padres legales...
               p2: Si usted es el padre legal de %{name} y la otra persona que podría reclamarlos no lo es, usted puede reclamarlos.
             legal_parent_reveal:
-              p1: Solo un padre biológico, o un padre de acogida o adoptivo que esté cuidando legalmente a un niño es elegible para reclamar a un dependiente.
+              p1: Solo un padre biológico o un padre de acogida o adoptivo que esté cuidando legalmente a un niño es elegible para reclamar a un dependiente.
               p2: Cuidar a un niño en base a un acuerdo informal no lo califica legalmente como “padre”.
               title: "¿Qué es un padre legal?"
             not_legal_parent_reveal:
@@ -2025,15 +2025,15 @@ es:
               list_1:
               - Su hijo de acogida debe haber sido colocado con usted mediante un acuerdo formal con una agencia de acogida o una orden judicial.
               list_2:
-              - Debe clasificar a su hijo adoptivo como su hijo o hija, siempre que hayan sido adoptados mediante una adopción legal completa o un niño colocado con usted para adopción legal.
-              p1: "¿Quién cuenta como hijo adoptivo?"
+              - Si ha adoptado legalmente o está en proceso de adoptar legalmente a su hijo, seleccione 'hijo' o 'hija'
+              p1: "¿Quién cuenta como hijo de acogida?"
               p2: "¿Qué pasa si tengo un hijo adoptado?"
             title: "¿Mi hijo califica?"
           does_not_qualify_ctc:
             conditions:
             - La persona que intenta declarar podría haber nacido en %{filing_year}. Sólo puede declarar a  dependientes nacidos en %{current_tax_year} en su declaración de impuestos de %{current_tax_year}.
             - La persona que intenta declarar podría ser demasiado mayor para ser su dependiente. Excepto en algunos casos específicos, su dependiente tiene que ser menor de 19 años, o menor de 24 si es estudiante.
-            - Es posible que la persona que intenta declarar no tenga la relación adecuada con usted para ser su dependiente. En la mayoría de los casos, la persona a cargo tiene que ser su hijo, nieto, sobrino o sobrina. En otros casos limitados, puede reclamar a otros familiares cercanos.
+            - Es posible que la persona que intenta declarar no tenga la relación adecuada con usted para ser su dependiente. En la mayoría de los casos, su dependiente tiene que ser su hijo, nieto, sobrino o sobrina. En otros casos limitados, puede reclamar a otros familiares cercanos.
             - Es posible que la persona a la que intenta declarar no viva con usted suficiente tiempo durante el año. En la mayoría de los casos, su dependiente debe vivir con usted la mayor parte del año.
             - Puede ser que la persona a la que intenta declarar sea económicamente independiente. En la mayoría de los casos, su dependiente no puede pagar sus propios gastos de subsistencia.
             - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
@@ -2043,13 +2043,13 @@ es:
           info:
             filed_joint_return: Esta persona estaba casada y declaró impuestos con su cónyuge
             first_name: Primer nombre legal
-            help_text: Para evitar retrasos, favor de facilitar los datos legales de su dependiente tal y como figuran en su tarjeta de identificación.
+            help_text: Para evitar retrasos, favor de ingresar sus datos legales tal y como figuran en su tarjeta de identificación.
             last_name: Apellido legal
             middle_initial: Segundo nombre(s) legal (opcional)
             relationship_to_you: "¿Qué relación tiene con usted?"
             situations: 'Seleccione si lo siguiente es cierto:'
             suffix: Suffix
-            title: Veamos algunos datos básicos sobre su dependiente.
+            title: Veamos algunos datos básicos sobre esta persona.
           relative_financial_support:
             title: "¿Pagó usted más de la mitad de los gastos de manutención de %{name} durante %{current_tax_year}?"
           relative_member_of_household:
@@ -2070,7 +2070,7 @@ es:
           tin:
             form_of_identity: Forma de identidad
             remove_person: Quite a esta persona
-            ssn_or_atin: Introduzca su Número de Seguro Social, SSN en inglés o el Número de Identificación del Contribuyente para Adopciones, ATIN e inglés.
+            ssn_or_atin: Introduzca su Número de Seguro Social (SSN en inglés) o el Número de Identificación del Contribuyente para Adopciones (ATIN en inglés).
             ssn_or_atin_confirmation: Introduzca de nuevo su SSN o ATIN
         direct_deposit:
           my_bank_account:
@@ -2079,11 +2079,11 @@ es:
             label: Confirmo que mi nombre es en esta cuenta bancaria
         drivers_license:
           expiration_date: Fecha de vencimiento
-          help_text: Introducir los datos de su tarjeta de manejar es una forma de luchar contra el fraude, y puede hacer que su devolución se procese más rápidamente.
+          help_text: Si ingresa esta información, el IRS puede procesar más rápido sus pagos. Si no tiene una licencia de conducir o una tarjeta de identificación emitida por el estado, o no desea ingresarla, puede omitir este paso.
           issue_date: Fecha de expedición
-          license_number: Número de la licencia de manejar
-          state: El estado en el que se emitió la licencia de manejar
-          title: "¿Tiene una licencia de manejar?"
+          license_number: Número de licencia de conducir o tarjeta de identificación emitida por el estado
+          state: Estado
+          title: Ingrese su información de su licencia de conducir o su tarjeta de identificación emitida por el estado
         email_address:
           title: Favor de compartir la dirección de su correo electrónico
         file_full_return:
@@ -2092,36 +2092,36 @@ es:
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           reveal:
             body_html:
-            - Los pagos de estímulo se emitieron automáticamente a las familias que habían presentado recientemente la declaración de impuestos o que estaban inscritas en determinados programas federales.
-            - El primer pago por estímulo se envió entre abril de 2020 y octubre de 2020. El segundo pago por estímulo se envió en diciembre de 2020 o enero de 2021.
+            - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
+            - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
             - Para declarar la totalidad o parte de sus primeros o segundos pagos por estímulo, debe presentar una declaración de impuestos para 2020. Puede verificar si cumple con los requisitos para presentar los impuestos atrasados de manera gratuita utilizando %{link_to_get_your_refund}.
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
-          title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago por estímulo.
+          title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
         filed_prior_tax_year:
           did_not_file: No, no presenté la declaración de impuestos del %{prior_tax_year}
           filed_full: Sí, presenté una declaración completa
           filed_non_filer: Sí, presenté a través del portal de no contribuyentes del IRS
-          help_text: Su declaración de impuestos de %{prior_tax_year} habría vencido originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
+          help_text: La fecha de plazo máximo para presentar los impuestos de %{prior_tax_year} fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
           title: "¿Presentó la declaración de impuestos del %{prior_tax_year}?"
         filing_status:
           married_filing_jointly: Casado con declaración conjunta
-          reveal_body: Si normalmente declara como jefe de familia o casado que presenta la declaración por separado, seleccione "soltero" a efectos de esta declaración.
-          reveal_title: No estoy seguro de cómo solicitar
+          reveal_body: Si normalmente declara como Jefe de Familia (Head of Household, en inglés) o casado que presenta una declaración por separado (Married Filing Separately, en inglés), seleccione "soltero" a efectos de esta declaración. Declarando como soltero no afectará el monto de los beneficios que puede reclamar.
+          reveal_title: Usualmente declaro impuestos con otro estado civil
           single: Soltero
           title: "¿Cómo desea presentar su declaración de impuestos?"
         had_dependents:
-          help_text: Una persona que haya vivido con usted la mayor parte del año o a la que Ud. haya mantenido económicamente puede ser considerada como dependiente.
+          help_text: Una persona que haya vivido con usted la mayor parte del año o a la que usted haya mantenido económicamente puede ser considerada como dependiente.
           title: "¿Desea añadir un hijo u otra persona a la que haya mantenido en el %{current_tax_year}?"
           which_relationships_qualify_reveal:
             content:
             - Hijo
             - Hija
             - Hijastro
-            - Hijo adoptivo
+            - Hijo de acogida
             - Sobrina
             - Sobrino
-            - nieto
+            - Nieto
             - Medio hermano
             - Media hermana
             - Hermanastro
@@ -2137,21 +2137,21 @@ es:
             - Otra relación no listada
             title: "¿Qué relaciones califican?"
         head_of_household:
-          claim_hoh: Reclamar estado HoH
-          do_not_claim_hoh: No reclamar el estado de HoH
+          claim_hoh: Declarar estado de Jefe de Familia, "HoH" por sus siglas en inglés.
+          do_not_claim_hoh: No declarar estado de Jefe de Familia, "HoH" por sus siglas en inglés.
           eligibility_b_criteria_list:
-          - Un dependiente que sea su hijo, hermano o descendiente de uno de ellos; que vive contigo más de la mitad del año; que tenía menos de 19 años a fines de 2021, o menos de 24 y era estudiante a tiempo completo, o tenía una discapacidad permanente; que pagaron menos de la mitad de sus propios gastos de manutención en 2021; y que no rindieron planilla en conjunto con su cónyuge
-          - Un padre dependiente que gana menos de $4,300 y para quien usted cubre más de la mitad de sus gastos de manutención
-          - Otro familiar dependiente que viva con usted más de la mitad del año; que gana menos de $4,300; y para quienes cubre más de la mitad de sus gastos de manutención
-          eligibility_list_a: a. No estás casado
-          eligibility_list_b: 'b. Tiene uno o más de los siguientes:'
-          eligibility_list_c_html: "<strong>c. Usted paga al menos la mitad del costo de mantenimiento de la casa donde vive este dependiente</strong>: costos que incluyen impuestos a la propiedad, intereses hipotecarios, alquiler, servicios públicos, mantenimiento/reparaciones y alimentos consumidos."
-          full_list_of_rules_html: La lista completa de las reglas para jefes de familia está disponible <a href="%{link}" target="_blank" rel="nofollow noopener">aquí</a>. Si elige reclamar el estado de cabeza de familia, comprende que es responsable de revisar estas reglas y asegurarse de que es elegible.
-          subtitle_1: Debido a que está reclamando dependientes, puede ser elegible para reclamar el estado fiscal de cabeza de familia en su declaración. Reclamar el estado de cabeza de familia no aumentará su reembolso y no lo hará elegible para ningún beneficio fiscal adicional. No recomendamos que reclame el estado de cabeza de familia.
-          subtitle_2: 'Es probable que sea elegible para el estado de cabeza de familia si:'
-          title: Reclamar el estado de cabeza de familia no aumentará su reembolso.
+          - Un dependiente que sea su hijo, hermano o descendiente de uno de ellos; que viva con usted más de la mitad del año; que tenga menos de 19 años a finales de 2021, o menos de 24 y sea estudiante a tiempo completo, o que tenga una discapacidad permanente; que haya pagado menos de la mitad de sus propios gastos de manutención en 2021; y que no haya presentado la declaración conjuntamente con su cónyuge
+          - Un padre dependiente que gane menos de $4,300 y para el que usted cubra más de la mitad de sus gastos de manutención
+          - Otro familiar dependiente que viva con usted más de la mitad del año, que gane menos de $4,300 y para quien usted cubra más de la mitad de sus gastos de manutención
+          eligibility_list_a: a. No está casado
+          eligibility_list_b: 'b. Tiene una o más de las siguientes características:'
+          eligibility_list_c_html: "<strong>c. Usted paga al menos la mitad de los gastos de mantenimiento de la vivienda en la que vive esta persona dependiente</strong> - gastos que incluyen los impuestos sobre la propiedad, los intereses de la hipoteca, el alquiler/renta, los servicios públicos, el mantenimiento/reparaciones y los alimentos consumidos."
+          full_list_of_rules_html: La lista completa de las condiciones para declarar como la Jefe de familia está disponible <a href="%{link}" target="_blank" rel="nofollow noopener">aquí</a>. Si decide solicitar el estatus de jefe de familia, usted entiende que es responsable de revisar estas condiciones y asegurarse de que cumple los requisitos.
+          subtitle_1: Debido a que está declarando a sus dependientes, puede ser elegible para declarar el estatus de Jefe de Familia en su declaración. La solicitud de la condición de jefe de familia no aumentará su reembolso y no le dará derecho a ningún beneficio fiscal adicional. No le recomendamos que solicite la condición de jefe de familia.
+          subtitle_2: 'Es probable que sea elegible para el estatus de Jefe de Familia si:'
+          title: La declaración con el estatus de jefe de familia no aumentará su reembolso.
         home:
-          help_text: Su domicilio debe haber estado en Estados Unidos durante más de la mitad del año fiscal.
+          help_text: Su domicilio debe haber sido los Estados Unidos durante más de la mitad del año fiscal.
           options:
             fifty_states: Cualquiera de los 50 estados o el Distrito de Columbia
             foreign_address: Dirección en el extranjero
@@ -2162,8 +2162,8 @@ es:
           income_qualifications:
           - ha ganado menos de %{standard_deduction} en ingresos de cualquier tipo
           - ganó menos de $400 en ingresos de trabajo por cuenta propia
-          - 'no recibió la Bonificación Anticipada del crédito tributario, en inglés: Advanced Premium Tax Credit'
-          - no están obligados a presentar una declaración de impuestos completa por ningún otro motivo
+          - 'no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado, en inglés: Advanced Premium Tax Credit  '
+          - no está obligado a presentar una declaración completa por cualquier otro razón
           income_reveal:
             content:
               list_1:
@@ -2189,24 +2189,24 @@ es:
             other: 'Solo puede usar GetCTC si, en %{current_tax_year}, usted y su cónyuge:'
           what_is_aptc_reveal:
             content:
-              p1: No habrá recibido la bonificación anticipada por crédito tributario si tiene Medicaid, Medicare, si recibe cobertura médica a través de un empleador o si no tiene cobertura médica.
-              p2: Es probable que haya recibido la bonificación anticipada por crédito tributario si compró un seguro a precio de mercado en un mercado de seguros de salud por medio de la Ley de Asistencia Asequible, en inglés, Affordable Care Act.
-              p3: Probablemente habría recibido el Crédito fiscal anticipado para la prima si compró un seguro a precio de mercado en healthcare.gov o en un sitio web estatal de intercambio de atención médica.
-            title: "¿Qué es la Bonificación Anticipada del Crédito Tributario, o Advanced Premium Tax Credit?"
+              p1: El Crédito Tributario de Prima de Seguro Médico Adelantado es un subsidio que algunas familias reciben por su seguro médico.
+              p2: No habrá recibido el crédito si tiene Medicaid o Medicare, si recibe cobertura médica a través de un empleador, o si no tiene cobertura médica.
+              p3: Es probable que haya recibido el crédito si compró un seguro a precio de mercado en un mercado de seguros de salud por medio de la Ley de Asistencia Asequible, en inglés, Affordable Care Act.
+            title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         ip_pin:
-          help_text_1: Tener un PIN de IP es raro. Si no está familiarizado con un PIN de IP, es probable que no se le haya emitido uno.
+          help_text_1: Tener un IP PIN es raro. Si no está familiarizado con un IP PIN, es probable que no se le haya emitido uno.
           help_text_2: Seleccione 'Ninguno de los anteriores' para continuar.
           reveal_label: "¿Qué es un IP PIN?"
-          title: "¿Alguien de su declaración ha recibido un PIN de IP a causa de un robo de identidad?"
+          title: "¿Alguien de su declaración ha recibido un IP PIN a causa de un robo de identidad?"
         ip_pin_entry:
           label: El IP PIN de %{name}
-          title: Por favor, indique el PIN de la IP a continuación.
+          title: Por favor, indique el IP PIN a continuación.
         ip_pin_explanation_html: |
           <p>Si es una víctima confirmada de robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará por correo un Aviso CP01A con su IP PIN, un número de 6 dígitos asignado a ciertos contribuyentes elegibles.</p>
-          <p>El IRS le emite un nuevo PIN de IP cada año y debe proporcionar el PIN de este año.</p>
+          <p>El IRS le emite un nuevo IP PIN cada año y debe proporcionar el PIN de este año.</p>
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Haga clic aquí para recuperar su IP PIN del IRS.</a></p>
         legal_consent:
-          agree_to_share_html: Acepto <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">la política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
+          agree_to_share_html: Acepto la <a href="%{privacy_policy_link}" target="_blank" rel="nofollow noopener">política de privacidad</a> de GetCTC y que se compartan mis datos personales para preparar mi declaración de impuestos simplificada.
           body: Ingrese su nombre exactamente como aparece en su tarjeta de Seguro Social o en la letra del Número de Identificación Personal del Contribuyente (ITIN).
           first_name: Primer nombre legal
           form_of_identity: forma de identidad
@@ -2214,7 +2214,7 @@ es:
           middle_initial: Inicial del segundo nombre
           primary_active_armed_forces: Fui miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en %{current_tax_year}
           primary_ssn_not_valid_for_employment: Mi tarjeta de la Seguridad Social lleva impreso "no es válida para el empleo". (Esto se ve raramente)
-          primary_was_blind: Estaba legalmente ciega en %{current_tax_year}
+          primary_was_blind: Estuve legalmente ciego en %{current_tax_year}
           sms_phone_number: Número de teléfono
           ssn: SSN o ITIN
           ssn_confirmation: Confirme el SSN o ITIN
@@ -2238,10 +2238,9 @@ es:
             home: Ir a la página de inicio
           content:
           - Gracias por utilizar nuestra aplicación. No tiene que hacer nada más.
-          - No enviaremos ninguna información que haya compartido con nosotros al IRS.
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
-          help_text: Utilice nuestra herramienta electrónica sencilla para la declaración de impuestos para recibir su Crédito Tributario por Hijos y su pago por estímulo o las correcciones que le correspondan.
+          help_text: Utilice nuestra herramienta electrónica sencilla para la declaración de impuestos para recibir su Crédito Tributario por Hijos y su pago de estímulo o las correcciones que le correspondan.
           legal_warning: Está a punto de presentar una declaración de impuestos. Usted es responsable de responder a las preguntas con la verdad y precisión en la medida de sus posibilidades.
           title: "¡Bienvenido!"
         prior_tax_year_agi:
@@ -2263,15 +2262,17 @@ es:
           cannot_use_ctc: No puedo utilizar GetCTC
           list:
           - en los últimos 10 años se le ha prohibido solicitar el Crédito Tributario por Hijos, lo que significa que recibió una carta explícita del IRS con una advertencia y la prohibición de solicitar el Crédito Tributario por Hijos.
-          - Ud. desea presentar con el formulario 8332 para declarar a un hijo que no vive con Ud.
-          - usted está declarando a un pariente calificado en virtud de un acuerdo de manutención conjunta
+          - Usted desea presentar con el formulario 8332 para declarar a un hijo que no vive con usted
+          - usted está declarando a un pariente calificado en virtud de un acuerdo de manutención múltiple
+          - usted no reclama ningunos hijos por el Crédito Tributario por Hijos este año, pero recibió pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year}
+          - compró o vendió criptomoneda en %{current_tax_year}
           list_title: 'No puede utilizar GetCTC si:'
           multiple_support_agreement_reveal:
             content:
               p1: Un acuerdo de manutención múltiple es un arreglo formal que hace con familiares o amigos para cuidar juntos a un niño o pariente.
               p2: Incluso si tiene un acuerdo de manutención múltiple para reclamar a un pariente calificado como dependiente, no puede usar GetCTC para reclamar a ese dependiente a menos que haya proporcionado más de la mitad de la manutención financiera total de ese pariente.
             title: "¿Qué es un acuerdo de manutención múltiple?"
-          title: Por favor, asegúrese de que no se aplican a usted.
+          title: Hay algunos casos en que es posible que no pueda usar GetCTC, pero son raros
         returning_client:
           next_steps: Acceda a su cuenta para completar las preguntas. Si tiene alguna pregunta, inicie una sesión de chat con nosotros.
         routing_number:
@@ -2285,12 +2286,12 @@ es:
         spouse_filed_prior_tax_year:
           did_not_file: Mi cónyuge no presentó la declaración de impuestos del %{prior_tax_year}
           filed_full_separate: Mi cónyuge presentó la declaración de impuestos completa por separado de la mía
-          filed_non_filer_separate: Mi cónyuge usó la herramienta para no declarantes del IRS o GetCTC por separado de mí
-          filed_together: Mi cónyuge declaró impuestos o usó una herramienta para no declarantes conmigo
-          help_text: Una declaración de impuestos de 2020 habría vencido originalmente el 17 de mayo de 2021 y normalmente se habría completado en 2021.
+          filed_non_filer_separate: Mi cónyuge usó la herramienta de IRS de non-filers o usó GetCTC por separado de mi
+          filed_together: Mi cónyuge declaró impuestos o usó una herramienta de non-filers conmigo
+          help_text: La fecha de plazo máximo para presentar los impuestos de 2020 fue originalmente el 17 de mayo de 2021 y, por lo general, se habría completado en 2021.
           title: "¿%{spouse_first_name} presentó una declaración de impuestos de %{prior_tax_year}?"
         spouse_info:
-          help_text: Favor de asegurarse de introducir el nombre de su cónyuge tal y como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación Personal del Contribuyente (ITIN).
+          help_text: Ingrese el nombre de su cónyuge exactamente como aparece en su tarjeta de Seguro Social o en la letra del Número de Identificación Personal del Contribuyente (ITIN).
           remove_button: Quite a esta persona
           save_button: Guarde a esta persona
           spouse_active_armed_forces: Mi cónyuge fue miembro de las Fuerzas Armadas de los Estados Unidos durante cierto tiempo en %{current_tax_year}
@@ -2303,7 +2304,7 @@ es:
           spouse_ssn_itin: SSN o ITIN de su cónyuge
           spouse_ssn_itin_confirmation: Confirme el SSN o ITIN de su cónyuge
           spouse_suffix: Forma de tratamiento de su cónyuge
-          spouse_was_blind: Mi cónyuge estaba ciego en %{current_tax_year}
+          spouse_was_blind: Mi cónyuge era legalmente ciego en %{current_tax_year}
           ssn_required_message: Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href="https://www.getyourrefund.org/">GetYourRefund</a>.
           title: Denos un poco de información sobre su cónyuge
         spouse_prior_tax_year_agi:
@@ -2319,8 +2320,8 @@ es:
           your_spouse: Su cónyuge
         stimulus_owed:
           amount_received: Cantidad que recibió
-          correction: Si la cantidad que ha indicado es incorrecta, sus pagos de estímulo y cualquier Crédito Tributario por Hijos podrían retrasarse mientras el IRS hace correcciones en su declaración.
-          eip_three: Tercer pago por estímulo
+          correction: Si la cantidad que ha indicado es incorrecta, el IRS lo corregirá, pero su pago podría ser retrasado.
+          eip_three: Tercer pago de estímulo
           eligible_for: 'Podría ser elegible para un adicional:'
           title: Parece que todavía se le deben algunos pagos de estímulo. ¿Desea declararlos?
         stimulus_payments:
@@ -2329,29 +2330,29 @@ es:
           question: "¿Recibió esta cantidad?"
           reveal:
             content_html:
-            - Los pagos de estímulo se emitieron automáticamente a las familias que habían presentado recientemente la declaración de impuestos o que estaban inscritas en determinados programas federales.
-            - El primer pago por estímulo se envió entre abril de 2020 y octubre de 2020. El segundo pago por estímulo se envió en diciembre de 2020 o enero de 2021.
-            - Para declarar la totalidad o parte de sus primeros o segundos pagos por estímulo, debe presentar una declaración de impuestos para 2020. Puede verificar si cumple con los requisitos para presentar los impuestos atrasados de manera gratuita utilizando %{link_to_get_your_refund}.
+            - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
+            - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
+            - Para declarar la totalidad o parte de sus primeros o segundos pagos por estímulo, debe presentar una declaración de impuestos para 2020. Puede presentar los impuestos atrasados de manera gratuita utilizando %{link_to_get_your_refund}.
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
-          third_stimulus: Calcular el tercer pago por estímulo
+          third_stimulus: Estimamos que habrá recibido
           third_stimulus_details:
-          - Calculamos que debería haber recibido esta cantidad en base a su estado civil y a las personas a su cargo.
-          - El tercer pago por estímulo se envió en abril de 2021 y fue de $1,400 por declarante adulto más $1,400 por dependiente de cualquier edad.
+          - en base a su estado civil y a sus dependientes.
+          - El tercer pago por estímulo se envió en marzo o abril de 2021 y fue de $1,400 por declarante adulto más $1,400 por dependiente de cualquier edad.
           - Por ejemplo, un padre que cuida a dos niños habría recibido $4,200.
           this_amount: Recibí esta cantidad
-          title: "¿Recibió un total de %{third_stimulus_amount} por su tercer pago por estímulo?"
+          title: "¿Recibió un total de %{third_stimulus_amount} por su tercer pago de estímulo?"
         stimulus_received:
           amount_received: Cantidad que recibió
-          eip_three: Tercer pago por estímulo
-          title: Parece que ha recibido la cantidad total de su tercer pago por estímulo.
+          eip_three: Tercer pago de estímulo
+          title: Parece que ha recibido la cantidad total de su tercer pago de estímulo.
         stimulus_three:
           help_html: |
-            <p>El último pago por estímulo se envió en abril de 2021, según la fecha en que presentó su declaración de impuestos.</p>
-            <p>Indique la cantidad que recibió, si acaso recibió alguna, por ese pago.</p>
+            <p>El tercer pago de estímulo se envió usualmente en marzo o abril de 2021.</p>
+            <p>Si usted indica una cantidad incorrecta, el IRS lo corregirá, pero su pago podría ser retrasado.</p>
           how_much: "¿Cuánto recibió?"
           reveal_content: Si no está seguro, revise la notificación oficial que ha recibido O sus registros bancarios.
           reveal_label: "¿Dónde puedo encontrar esta cantidad?"
-          title: Indique la cantidad total que ha recibió por su tercer pago por estímulo.
+          title: Indique la cantidad total que recibió por su tercer pago de estímulo.
         use_gyr:
           file_gyr: Solicite por medio de GetYourRefund
           still_benefit: Todavía puede beneficiarse presentando una declaración de impuestos completa de forma gratuita a través de GetYourRefund.
@@ -2365,7 +2366,7 @@ es:
               - Puede ser reclamado como dependiente
               - Usted (y su cónyuge, si corresponde) no tienen un SSN o ITIN válido
               - No vivió en ninguno de los 50 estados o el Distrito de Columbia durante la mayor parte del %{current_tax_year}
-              - Recibió más pagos anticipados de crédito fiscal por hijos en %{current_tax_year} de los que era elegible para recibir.
+              - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de los que era elegible para recibir.
               p: 'Algunas razones por las que podría no ser elegible para usar GetCTC son:'
             title: "¿Por qué no soy elegible?"
         verification:
@@ -2450,7 +2451,7 @@ es:
             answer_html: |
               <p>Puede comprobar el estado de sus pagos con el IRS:</p>
               <ul class="list--bulleted">
-                <li>Para sus pagos mensuales del Crédito Fiscal por Hijos revise <a rel='noopener' target='_blank' href="https://www.irs.gov/es/credits-deductions/child-tax-credit-update-portal">el Portal de Actualizaciones del Crédito Fiscal por Hijos</a> (en inglés: Child Tax Credit Update Portal)</li>
+                <li>Para sus pagos mensuales del Crédito Tributario por Hijos revise <a rel='noopener' target='_blank' href="https://www.irs.gov/es/credits-deductions/child-tax-credit-update-portal">el Portal de Actualizaciones del Crédito Tributario por Hijos</a> (en inglés: Child Tax Credit Update Portal)</li>
                 <li>Para los pagos de estímulo 1 y 2 revise <a rel='noopener' target='_blank' href="https://www.irs.gov/es/refunds">Dónde está Mi Reembolso</a> (en inglés: Where’s My Refund)</li>
                 <li>Para el pago de estímulo 3, verifique <a rel='noopener' target='_blank' href="https://www.irs.gov/es/coronavirus/get-my-payment">Obtener mi pago</a></li>
               </ul>
@@ -2537,7 +2538,7 @@ es:
           how_much_reveal:
             body_html: |
               <p>El Crédito Tributario por Hijos para el año fiscal 2021 es de hasta $3,600 por niño menor de 6 años y $3,000 por niño de 6 a 17 años.</p>
-              <p>Si recibió algún pago mensual del Crédito Tributario por Hijos Anticipado en 2021, debe declarar impuestos este año para obtener la segunda mitad de su dinero. El resto de su Crédito Tributario por Hijos se emitirá en un solo pago.</p>
+              <p>Si recibió algún pago adelantado del Crédito Tributario por Hijos en 2021, debe declarar impuestos este año para obtener la segunda mitad de su dinero. El resto de su Crédito Tributario por Hijos se emitirá en un solo pago.</p>
               <p>Si aún no ha recibido ningún pago del Crédito Tributario por Hijos, puede presentar impuestos simplificados ahora para obtener todo el crédito.</p>
             title: "¿Cuánto recibiré?"
           qualify_reveal:
@@ -2548,12 +2549,12 @@ es:
         title: 'GetYourRefund y GetCTC Outreach y Navigator Resources, en inglés: Recursos para navegar el internet'
       privacy_policy:
         01_intro:
-        - GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como el Crédito Fiscal Anticipado por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.
+        - GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como el Crédito Tributario Anticipado por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.
         - Esta Política de privacidad describe cómo recopilamos, usamos, compartimos y protegemos su información personal. Al utilizar nuestros Servicios, usted acepta los términos de esta Política de privacidad. Este Aviso de privacidad se aplica independientemente del tipo de dispositivo que utilice para acceder a nuestros Servicios.
         02_questions_html: Si tiene preguntas, comentarios, o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a %{email_link}
         03_overview: Resumen
         04_info_we_collect: Información que recopilamos
-        05_info_we_collect_details: 'Seguimos el principio de Minimización de Datos en la recopilación y uso de su información personal. Podemos obtener la siguiente información sobre usted, las personas a su cargo o los miembros de su hogar:'
+        05_info_we_collect_details: 'Seguimos el principio de Minimización de Datos en la recopilación y uso de su información personal. Podemos obtener la siguiente información sobre usted, sus dependientes, o los miembros de su hogar:'
         06_info_we_collect_list:
         - Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
         - Fecha de nacimiento
@@ -2664,7 +2665,7 @@ es:
           submit: Manténganme actualizado
           title: Regístrate
       stimulus_home:
-        header: Presentación de impuestos simplificada para reclamar sus pagos de estímulo
+        header: Declaración de impuestos simplificada para solicitar sus pagos de estímulo
         header_open: Declaración de impuestos simplificada para reclamar su tercer pago de estímulo
         subheader:
           cta: Si por lo general no declara impuestos, use nuestra herramienta de declaración de impuestos simplificada para reclamar cualquier cantidad faltante de su tercer pago de estímulo y el Crédito Tributario por Hijos.
@@ -2673,15 +2674,15 @@ es:
           body_html: |
             <p>Alivio para ayudarlo en estos momentos difíciles, incluso si gana poco o nada de dinero.</p>
 
-            <p>El Congreso aprobó tres rondas de controles de estímulo en respuesta a la pandemia de COVID-19, en abril de 2020, diciembre de 2020 y marzo de 2021. En total, los pagos suman hasta $3,200 por adulto y hasta $ 2,500 por niño en su familia. Los pagos se conocen formalmente como Pagos de Impacto Económico (EIP) o como Crédito de Reembolso de Recuperación (RRC).</p>
+            <p>El Congreso aprobó tres rondas de pagos de estímulo en respuesta a la pandemia de COVID-19, en abril de 2020, diciembre de 2020 y marzo de 2021. En total, los pagos suman hasta $3,200 por adulto y hasta $2,500 por niño en su familia. Los pagos se conocen formalmente como Pagos por Impacto Económico (EIP) o como Crédito de Reembolso de Recuperación (RRC).</p>
 
             <p>Puede actuar ahora para recibir cualquiera de los tres pagos que aún no ha recibido. Si tiene hijos, también podrá inscribirse para recibir pagos del nuevo Crédito Tributario Anticipado por Hijos [enlace a la página principal de GetCTC]. GetCTC es un producto de Code for America. Obtenga más información sobre por qué estamos haciendo este trabajo aquí.</p>
           heading: Pagos de estímulo
           heading_open: La mayoría de las familias pueden obtener miles de dólares del tercer pago de estímulo
           reveals:
             first_two_body:
-            - El IRS emitió tres rondas de pagos de estímulo durante la pandemia de COVID. Las familias generalmente los recibieron en abril de 2020, diciembre de 2020 y marzo de 2021. Puede reclamar todo o parte del tercer pago de estímulo utilizando GetCTC.
-            - Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede presentar impuestos atrasados de forma gratuita en GetYourRefund.
+            - El IRS emitió tres tandas de pagos de estímulo durante la pandemia de COVID. Por lo general, las familias las recibieron en abril de 2020, diciembre de 2020 y marzo de 2021. Puede solicitar todo o parte del tercer pago de estímulo utilizando GetCTC.
+            - Si no recibió algo del primer o segundo pago de estímulo, tiene que presentar una declaración de impuestos de 2020 para solicitarlos. Puede presentar los impuestos atrasados de forma gratuita en GetYourRefund.
             first_two_title: "¿Qué pasa con los dos primeros pagos de estímulo?"
             how_much_body: El tercer pago de estímulo generalmente se emitió en marzo o abril de 2021 y tenía un valor de $1,400 por contribuyente adulto más $1,400 por dependiente elegible. Si recibió menos de lo que merecía en 2021, o no recibió ningún pago, puede reclamar su pago de estímulo faltante presentando una declaración de impuestos simple.
             how_much_title: "¿Cuánto recibiré?"
@@ -2702,7 +2703,7 @@ es:
         on_visa: "¿Tiene esta persona una visa para estar en el país?"
         relationship: Su relación con usted
         save_cta: Guarde a esta persona
-        title: Háblenos de la persona que tiene a su cargo. Por favor, proporcione algunos detalles más.
+        title: Háblenos de su dependiente. Por favor, proporcione algunos detalles más.
         was_married: Casado/a desde 12/31/%{year}
         was_student: Estudiante de educación superior de tiempo completo
       index:
@@ -2924,7 +2925,7 @@ es:
                 <p>El IRS le exige que informe cuánto recibió en pagos mensuales el año pasado cuando presente su declaración de impuestos. El IRS utilizará este número para calcular cuánto dinero más de CTC se le debe.</p>
                 <p>Si no recuerda cuánto recibió en pagos de CTC puede mirar los registros de su cuenta bancaria, consultar la carta que el IRS le envió en enero con esta información, o <a href="https://www.irs.gov/payments/your-online-account" target="_blank" rel="noopener">entrar en su cuenta en línea del IRS5</a>.</p>
                 <p>Si no puede encontrar los números exactos de la cantidad de pagos de CTC que recibió en 2021, debe reportar su mejor estimación de cuánto recibió. No hay penalización por informar de una cifra equivocada, pero la cifra equivocada puede retrasar la tramitación de su reembolso por varios meses.</p>
-              question: "¿Tengo que reportar en mi declaración de impuestos los pagos  Anticipados del Crédito Tributario por Hijos, Advance Child Tax Credit, en inglés, para el 2021?"
+              question: "¿Tengo que reportar en mi declaración de impuestos los pagos adelantados del Crédito Tributario por Hijos, Advance Child Tax Credit en inglés, para el 2021?"
             do_i_qualify_for_the_child_tax_credit_ctc:
               answer_html: |
                 <p>La mayoría de las familias con hijos menores de 18 años tienen derecho al Crédito Tributario por Hijos (CTC en inglés). Para tener derecho al CTC:</p>
@@ -2975,7 +2976,7 @@ es:
             i_owe_back_child_support_can_i_still_get_all:
               answer_html: |
                 <p>Probablemente no.</p>
-                <p>Si Ud. debe manutención atrasada, algunos pagos que reciba del gobierno pueden ser retirados (o "embargados") para pagar su deuda de manutención. Los pagos del IRS, como los reembolsos de impuestos, están sujetos a este proceso.</p>
+                <p>Si usted debe manutención atrasada, algunos pagos que reciba del gobierno pueden ser retirados (o "embargados") para pagar su deuda de manutención. Los pagos del IRS, como los reembolsos de impuestos, están sujetos a este proceso.</p>
                 <p>En particular, los pagos mensuales de la CTC emitidos en 2021 <em>no fueron</em> retirados para cubrir las deudas de manutención de los hijos. Sin embargo, cualquier cantidad que declare este año-ya sea la segunda mitad del crédito, o todo el crédito, se puede le pueden retirar.</p>
               question: Debo pagos de pensión alimenticia atrasada, ¿puedo obtener la totalidad del Crédito Tributario por Hijos?
             i_was_getting_child_tax_credit_monthly_payments_in_2021:
@@ -3019,7 +3020,7 @@ es:
               question: "¿Por qué mi cónyuge y yo recibimos dos cartas diferentes sobre nuestros anticipos del CTC?"
           documents:
             how_do_i_get_my_1099_employment_document:
-              answer_html: <p>Si Ud. recibió más de $600 en pagos por trabajar por cuenta propia de una empresa o individuo como parte de un contrato/trabajo independiente, la empresa o individuo debe emitir el 1099-NEC antes del 31 de enero de 2022. Si no ha recibido este formulario, debe intentar comunicarse con la organización o individuo para el que trabajó para obtener una copia. Muchas aplicaciones de trabajo por cuenta propia como Lyft, Uber o DoorDash tienen formularios e información adicional en sus tableros de contratistas en la aplicación. Si no puede obtener los formularios correctos, puede esperar hasta finales de mayo para solicitar una "Transcripción de salarios e ingresos", en inglés, <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Wage and Income Transcript" al IRS</a>.</p>
+              answer_html: <p>Si usted recibió más de $600 en pagos por trabajar por cuenta propia de una empresa o individuo como parte de un contrato/trabajo independiente, la empresa o individuo debe emitir el 1099-NEC antes del 31 de enero de 2022. Si no ha recibido este formulario, debe intentar comunicarse con la organización o individuo para el que trabajó para obtener una copia. Muchas aplicaciones de trabajo por cuenta propia como Lyft, Uber o DoorDash tienen formularios e información adicional en sus tableros de contratistas en la aplicación. Si no puede obtener los formularios correctos, puede esperar hasta finales de mayo para solicitar una "Transcripción de salarios e ingresos", en inglés, <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Wage and Income Transcript" al IRS</a>.</p>
               question: "¿Cómo puedo obtener mi documento de empleo 1099?"
             how_do_i_get_my_w2_employment_document:
               answer_html: <p>Los empleadores están obligados a enviar un W2 actual por correo o electrónicamente a todos los empleados W2 antes del 31 de enero de 2022. Si no ha recibido un W2 de su empleador, debe comunicarse con él directamente para solicitar una copia. Si no puede ponerse en contacto con su empleador, puede esperar hasta finales de mayo para solicitar una <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">"Transcripción de salarios e ingresos" o "Wage and Income Transcript" en inglés al IRS</a>.</p>
@@ -3082,8 +3083,8 @@ es:
             what_is_getyourrefund_express_and_how_does_it_work:
               answer_html: |
                 <p>GetCTC, también se conoce como la herramienta para las personas que no declaran impuestos. Es nuestra opción de presentación más sencilla y rápida. Lo único que tiene que hacer es responder a algunas preguntas y luego presentamos su declaración de impuestos directamente con el IRS.</p>
-                <p>Puede utilizar GetCTC para declarar pagos por estímulo (Pagos por Impacto Económico) y el Crédito Tributario por Hijos (CTC), pero no el crédito tributario ni los créditos fiscales estatales. Generalmente, sólo puede usar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
-                <p>GetCTC es una gran opción para usted si está <em>solamente</em> buscando obtener los pagos por estímulo y el Crédito Tributario por Hijos, si le faltan sus documentos de impuestos, o si le falta una copia de su tarjeta de Seguro Social.</p>
+                <p>Puede utilizar GetCTC para declarar pagos de estímulo (Pagos por Impacto Económico) y el Crédito Tributario por Hijos (CTC), pero no el crédito tributario ni los créditos fiscales estatales. Generalmente, sólo puede usar GetCTC si es soltero y ganó menos de $12,500 en 2021, o si está casado y ganó menos de $25,000 en 2021.</p>
+                <p>GetCTC es una gran opción para usted si está <em>solamente</em> buscando obtener los pagos de estímulo y el Crédito Tributario por Hijos, si le faltan sus documentos de impuestos, o si le falta una copia de su tarjeta de Seguro Social.</p>
               question: "¿Qué es GetCTC y cómo funciona?"
           i_got_a_letter_from_the_irs:
             i_got_letter_6419_from_the_irs_what_is_it:
@@ -3091,7 +3092,7 @@ es:
               question: He recibido la carta 6419 del IRS. ¿Qué es?
             i_got_letter_6475_or_1444c_from_the_irs_what:
               answer_html: |
-                <p>Las cartas 6475 y 1444-C son cartas que el IRS envió a todos los que recibieron el tercer cheque de estímulo (Pago de Impacto Económico), que se emitió a partir de marzo de 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en el tercer cheque de estímulo.</p>
+                <p>Las cartas 6475 y 1444-C son cartas que el IRS envió a todos los que recibieron el tercer pago de estímulo (Pago de Impacto Económico), que se emitió a partir de marzo de 2021. Las cartas contienen información sobre la cantidad que el IRS le emitió en el tercer cheque de estímulo.</p>
                 <p>Informar con precisión cuánto recibió en cheques de estímulo puede ayudarle a usted y a su preparador de impuestos a reclamar correctamente cualquier dinero que falte, por lo que estas cartas pueden ser muy útiles. La carta 1444-C se habría enviado alrededor del momento en que se emitió su pago en marzo de 2021. La carta 6475 se envió en enero de 2022.</p>
               question: Recibí la carta 6475 o 1444-C del IRS. ¿Qué es?
             i_got_notice_4883c_or_5071c_from_the_irs_what:
@@ -3106,7 +3107,7 @@ es:
               question: "¿Por qué mi cónyuge y yo recibimos dos cartas diferentes (carta 6419) sobre nuestros anticipos del CTC?"
           im_nervous_about_filing_and_claiming_tax_benefits:
             are_tax_credits_considered_in_public_charge_determinations:
-              answer_html: No. Los créditos tributarios, incluidos el EITC, el CTC y los pagos por estímulo no se tienen en cuenta en la evaluación de la carga pública.
+              answer_html: No. Los créditos tributarios, incluidos el EITC, el CTC y los pagos de estímulo no se tienen en cuenta en la evaluación de la carga pública.
               question: "¿Se tienen en cuenta los créditos fiscales a la hora de determinar carga pública?"
             title: Me pone nervioso presentar la declaración y reclamar los beneficios tributarios
             what_do_i_do_if_im_audited_by_the_irs:
@@ -3189,7 +3190,7 @@ es:
             title: Portal para quienes que no declaran impuestos o "No Declarantes"
             where_is_the_nonfiler_portal_where_is_getctc:
               answer_html: |
-                <p>En 2020 y 2021, el "portal para no declarantes"--"nonfiler portal" en inglés, o "herramienta para no declarantes"--"non-filer tool" en inglés del IRS permitió a las personas que no suelen presentar declaraciones presentar una declaración de impuestos sencilla para declarar beneficios como los cheques de estímulo (Pagos de Impacto Económico) y el Crédito Tributario por Hijos (CTC). Code for America lanzó un portal de presentación simplificada, llamado GetCTC, en otoño de 2021.</p>
+                <p>En 2020 y 2021, el "portal para no declarantes" ("nonfiler portal" en inglés), o "herramienta para no declarantes" ("non-filer tool" en inglés) del IRS permitió a las personas que no suelen presentar declaraciones presentar una declaración de impuestos sencilla para declarar beneficios como los pagos de estímulo (Pagos de Impacto Económico) y el Crédito Tributario por Hijos (CTC). Code for America lanzó un portal de presentación simplificada, llamado GetCTC, en otoño de 2021.</p>
                 <p>Actualmente, por normas del IRS, estos portales para no declarantes están cerrados. Si anteriormente presentó una declaración simple para declarar sus beneficios fiscales, puede intentar declarar aún más dinero presentando una declaración completa de forma gratuita con <a href="https://www.getyourrefund.org/en/questions/welcome" target="_blank" rel="noopener">GetYourRefund</a>. Nuestros voluntarios certificados por el IRS pueden ayudarle a presentarla. Si no puede presentar una declaración completa, puede <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">suscribirse</a> para que se le notifique cuando nuestro nuevo servicio de declaración simplificada (a veces llamado portal para no declarantes) abra en mayo de 2022.</p>
               question: "¿Dónde está el portal para no declarantes? ¿Dónde está GetCTC?"
           paper_filing:
@@ -3215,7 +3216,7 @@ es:
             why_would_i_paper_file_my_tax_return:
               answer_html: |
                 <p>Le recomendamos enormemente que presente su declaración de impuestos por vía electrónica siempre que sea posible. La presentación electrónica es más fiable y obtendrá sus beneficios fiscales más rápidamente. Sin embargo, hay situaciones en las que la única opción es enviar una copia en papel de su declaración de impuestos al IRS.</p>
-                <p>Debe presentarla en papel si su declaración de impuestos fue rechazada por razones que no pueden ser resueltas mediante la presentación electrónica. Por ejemplo, si su declaración fue rechazada porque otra persona declaró a su hijo, tendría que presentarla en papel para declarar a ese hijo. Del mismo modo, si usted fue declarado como dependiente en la declaración de impuestos de otra persona, o si no puede encontrar un PIN de IP que necesita, tendría que presentar la declaración en papel. Al presentar una declaración de impuestos en estos casos, usted está dejándole saber al IRS que necesitan investigar el asunto más a fondo y usted puede esperar recibir una carta de seguimiento del IRS con los próximos pasos. Por ejemplo, si presenta la declaración para declarar a un hijo que otra persona ha declarado, es posible que el IRS le informe sobre un proceso para presentar pruebas que respalden su caso.</p>
+                <p>Debe presentarla en papel si su declaración de impuestos fue rechazada por razones que no pueden ser resueltas mediante la presentación electrónica. Por ejemplo, si su declaración fue rechazada porque otra persona declaró a su hijo, tendría que presentarla en papel para declarar a ese hijo. Del mismo modo, si usted fue declarado como dependiente en la declaración de impuestos de otra persona, o si no puede encontrar un IP PIN que necesita, tendría que presentar la declaración en papel. Al presentar una declaración de impuestos en estos casos, usted está dejándole saber al IRS que necesitan investigar el asunto más a fondo y usted puede esperar recibir una carta de seguimiento del IRS con los próximos pasos. Por ejemplo, si presenta la declaración para declarar a un hijo que otra persona ha declarado, es posible que el IRS le informe sobre un proceso para presentar pruebas que respalden su caso.</p>
                 <p>Otra razón común para presentar la declaración en papel es si está Número de Identificación Personal del Contribuyente (ITIN en inglés) por primera vez, o renovando un Número de Identificación Personal del Contribuyente (ITIN en inglés) existente.</p>
               question: "¿Por qué presentar mi declaración de impuestos en papel?"
           puerto_rico:
@@ -3253,19 +3254,19 @@ es:
             the_irs_says_somebody_claimed_my_child:
               answer_html: Ver <a href="http://getyourrefund.org/faq/child_tax_credit/what_do_i_do_if_someone_else_has_claimed_my" target="_blank" rel="noopener">"¿Qué hago si otra persona declaró a mi hijo para el Crédito Tributario por Hijos? "</a>
               question: El IRS dice que alguien declaró a mi hijo. ¿Qué hago ahora?
-            title: Devolución Denegada Próximos Pasos
+            title: Declaración Denegada Próximos Pasos
             what_is_agi_and_how_do_i_find_it:
               answer_html: |
-                <p>AGI son las siglas en inglés de "Adjusted Gross Income" o renta bruta ajustada. Si presenta su propia declaración electrónicamente, tendrá que proporcionar el AGI que declaró en la declaración de impuestos del año pasado como medida de seguridad, para demostrar que usted es quien dice ser. Si presentó una declaración de impuestos el año pasado, debe poder encontrar su AGI en la línea 11 de su declaración de impuestos.</p>
+                <p>AGI son las siglas en inglés de "Adjusted Gross Income" o ingreso bruto ajustado. Si presenta su propia declaración electrónicamente, tendrá que proporcionar el AGI que declaró en la declaración de impuestos del año pasado como medida de seguridad, para demostrar que usted es quien dice ser. Si presentó una declaración de impuestos el año pasado, debe poder encontrar su AGI en la línea 11 de su declaración de impuestos.</p>
                 <p>Si no puede encontrar una copia de su declaración de impuestos del año pasado, debe intentar solicitar una copia a la persona, organización o software que le ayudó a presentar la declaración de impuestos. Si sigue sin poder conseguir una copia de su declaración de impuestos, puede solicitar una transcripción de la declaración de impuestos al IRS en su página <a href="https://www.irs.gov/individuals/get-transcript" target="_blank" rel="noopener">Get Transcript</a>.</p>
                 <p>Si no presentó una declaración de impuestos el año pasado, debe ingresar $0 como su AGI para 2020. Si utilizó la herramienta para no declarantes del IRS o GetCTC en 2021, ingrese $1 como su AGI para 2020.</p>
               question: "¿Qué es el AGI y cómo lo encuentro?"
             what_is_an_ip_pin_and_how_do_i_find:
               answer_html: |
                 <p>Un PIN de protección de identidad (IP PIN) es un número de seis dígitos que el IRS proporciona a las personas que han sido víctimas de robo de identidad, o que optaron por el programa IP PIN. Si el IRS le ha asignado un PIN de protección de la identidad, está obligado a proporcionarlo cuando presente su declaración de impuestos por vía electrónica. El PIN IP está destinado a proporcionar una medida adicional de protección contra el robo de identidad.</p>
-                <p>Si ha sido víctima de un robo de identidad y el IRS le emitió un PIN IP, o si se inscribió en el programa de PIN IP, cada año le llegará por correo un nuevo PIN IP, en lo que el IRS llama Aviso CP01A. El IRS emite un nuevo PIN IP cada año: el número del año pasado no funcionará este año. Si no puede encontrar el PIN de este año, puede recuperarlo en línea en<a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" target="_blank" rel="noopener">Retrieve Your IP PIN</a>, llamando al 800-908-4490, o haciendo una cita en persona en su <a href="https://www.irs.gov/help/contact-your-local-irs-office" target="_blank" rel="noopener">Centro local de Asistencia al Contribuyente del IRS</a>.</p>
-                <p>Si no puede recuperar el PIN de IP, tendrá que presentar su declaración de impuestos en papel.</p>
-              question: "¿Qué es un PIN IP y cómo lo encuentro?"
+                <p>Si ha sido víctima de un robo de identidad y el IRS le emitió un IP PIN, o si se inscribió en el programa de IP PIN, cada año le llegará por correo un nuevo IP PIN, en lo que el IRS llama Aviso CP01A. El IRS emite un nuevo IP PIN cada año: el número del año pasado no funcionará este año. Si no puede encontrar el PIN de este año, puede recuperarlo en línea en<a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" target="_blank" rel="noopener">Retrieve Your IP PIN</a>, llamando al 800-908-4490, o haciendo una cita en persona en su <a href="https://www.irs.gov/help/contact-your-local-irs-office" target="_blank" rel="noopener">Centro local de Asistencia al Contribuyente del IRS</a>.</p>
+                <p>Si no puede recuperar el IP PIN, tendrá que presentar su declaración de impuestos en papel.</p>
+              question: "¿Qué es un IP PIN y cómo lo encuentro?"
           security_and_confidentiality:
             can_ice_get_my_data:
               answer_html: |
@@ -3292,7 +3293,7 @@ es:
             im_under_19_should_i_file_a_tax_return:
               answer_html: |
                 <p>La mayoría de los beneficios fiscales, incluyendo el crédito tributario por ingreso del trabajo, el Crédito Tributario por Hijos y los pagos de estímulo, sólo están disponibles para individuos que no pueden ser declarados como dependientes en la declaración de impuestos de otra persona. La mayoría de las personas menores de 19 años son dependientes de otra persona (normalmente sus padres o tutores), a menos que puedan demostrar que pagan más de la mitad de sus gastos de manutención (incluyendo vivienda, alimentación, gastos médicos/dentales y gastos personales).</p>
-                <p>Incluso si Ud. puede ser declarado en la declaración de impuestos de otra persona, aún así puede beneficiarse de presentar una declaración de impuestos si tuvo un trabajo y los impuestos fueron retenidos de su cheque de pago. Cuando presente una declaración para declarar las retenciones no utilizadas, asegúrese de indicar que pudiera ser declarado en la declaración de impuestos de otra persona.</p>
+                <p>Incluso si usted puede ser declarado en la declaración de impuestos de otra persona, aún así puede beneficiarse de presentar una declaración de impuestos si tuvo un trabajo y los impuestos fueron retenidos de su cheque de pago. Cuando presente una declaración para declarar las retenciones no utilizadas, asegúrese de indicar que pudiera ser declarado en la declaración de impuestos de otra persona.</p>
               question: Soy menor de 19 años. ¿Necesito declarar impuestos?
             title: "¿Necesito declarar impuestos?"
             what_are_the_potential_benefits_of_filing_a_tax_return:
@@ -3300,7 +3301,7 @@ es:
                 <p>Aún si gana poco o nada y no está obligado a presentar una declaración de impuestos, es probable que tenga derecho a recibir pagos del IRS, tal vez por un total de miles de dólares. Es especialmente probable que tenga derecho a pagos si tiene hijos. Para poder declarar este dinero, tiene que presentar una declaración de impuestos.</p>
                 <p>La presentación de la declaración de impuestos también puede servir como documentación útil a la hora de solicitar otras prestaciones, como ayuda económicas para la universidad, o un préstamo hipotecario.</p>
                 <p>Es posible presentar una declaración de impuestos completa y declarar todos los beneficios fiscales pertinentes con GetYourRefund. Para obtener el servicio más rápido, pruebe nuestra opción <a href="https://www.getyourrefund.org/diy/email" target="_blank" rel="noopener">File Myself</a>.</p>
-                <p>Si gana menos de $12,500 (o menos de $25,000 como pareja casada) entonces puede elegir esperar y presentar una declaración simplificada para declarar sólo el Crédito Tributario por Hijos y el tercer pago por estímulo usando nuestra opción gratuita GetCTC en mayo de 2022. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Inscríbase aquí</a> para recibir un mensaje cuando la presentación de GetCTC esté disponible.</p>
+                <p>Si gana menos de $12,500 (o menos de $25,000 como pareja casada) entonces puede elegir esperar y presentar una declaración simplificada para declarar sólo el Crédito Tributario por Hijos y el tercer pago de estímulo usando nuestra opción gratuita GetCTC en mayo de 2022. <a href="https://www.getctc.org/en/sign-up" target="_blank" rel="noopener">Inscríbase aquí</a> para recibir un mensaje cuando la presentación de GetCTC esté disponible.</p>
               question: "¿Cuáles son las posibles ventajas de presentar una declaración de impuestos?"
           state_returns:
             can_i_get_tax_credits_from_california:
@@ -3343,16 +3344,16 @@ es:
               question: "¿Cuántos pagos de estímulo hubo?"
             title: Preguntas sobre los pagos de estímulo
             what_is_the_economic_impact_payment:
-              answer_html: El Pago por Impacto Económico o "Economic Impact Payment" en inglés (PIE) es el nombre oficial de los pagos de estímulo. El primer pago se denomina a veces EIP1, el segundo EIP2 y el tercero EIP3.
+              answer_html: El Pago por Impacto Económico o "Economic Impact Payment" en inglés es el nombre oficial de los pagos de estímulo. El primer pago se denomina a veces EIP1, el segundo EIP2 y el tercero EIP3.
               question: ¿Qué es el Pago por impacto económico o "Economic Impact Payment" en inglés?
             what_is_the_recovery_rebate_credit:
               answer_html: |
-                <p>El Crédito de Reembolso por Recuperación, "Recovery Rebate Credit" en inglés, es cualquier parte de los pagos del estímulo que usted declara en una declaración de impuestos.</p>
+                <p>El Crédito de Reembolso por Recuperación, "Recovery Rebate Credit" en inglés, es cualquier parte de los pagos de estímulo que usted declara en una declaración de impuestos.</p>
                 <p>Por ejemplo, si debería haber recibido $2800 del tercer pago pero sólo recibió $1400 en pagos automáticos el año pasado, podría declarar $1400 adicionales en su declaración de impuestos de este año como Crédito de Reembolso por Recuperación.</p>
               question: ¿Qué es el Crédito de Reembolso por Recuperación o "Recovery Rebate Credit" en inglés?
             will_there_be_another_stimulus_payment:
               answer_html: En este momento, no hay pagos de estímulo adicionales programados.
-              question: "¿Habrá otro pago por estímulo?"
+              question: "¿Habrá otro pago de estímulo?"
           where_are_my_payments:
             how_do_i_check_the_status_of_my_payments:
               answer_html: |
@@ -3368,8 +3369,8 @@ es:
               answer_html: |
                 <p>Después de que su declaración sea aceptada por el IRS electrónicamente, por lo general toma de 2-3 semanas para recibir un depósito directo o de 4-6 semanas para recibir un cheque por correo. Sin embargo, hay unas cuantas razones comunes por las que su reembolso puede retrasarse, por ejemplo:</p>
                 <ul class="list--bulleted">
-                <li>Su declaración necesita una corrección por la cantidad de los pagos Anticipados del Crédito Tributario por Hijos que declaró haber recibido</li>.
-                <li>Su declaración necesita una corrección por el total del tercer pago por estímulo que declaró haber recibido</li>
+                <li>Su declaración necesita una corrección por la cantidad de los pagos adelantados del Crédito Tributario por Hijos que declaró haber recibido</li>.
+                <li>Su declaración necesita una corrección por el total del tercer pago de estímulo que declaró haber recibido</li>
                 <li>Es la primera vez que declara impuestos en varios años</li>
                 <li>Su declaración está afectada por el robo de identidad</li>
                 <li>Incluye los ingresos ganados de 2019 para calcular el crédito tributario que ganó</li>
@@ -3391,8 +3392,8 @@ es:
               question: "¿Qué ventajas tiene declarar a un hijo en mi declaración de impuestos?"
             what_should_i_do_if_i_was_claimed_as_a:
               answer_html: |
-                <p>Si alguien lo declaró como dependiente, en primer lugar, debe determinar si en realidad esa persona estaba autorizado a hacerlo. Por lo general, alguien (como un padre, un abuelo o un tutor) paga más de la mitad de sus gastos y Ud. vive con esa persona la mayor parte del año, entonces Ud. es su dependiente. Eso significa que Ud. no tiene derecho a la mayoría de los beneficios tributarios (como el Crédito Tributario por Hijos, el crédito tributario por ingresos del trabajo o los pagos por estímulo) y, por lo general, no puede presentar su propia declaración de impuestos.</p>
-                <p>Si cree que alguien lo ha declarado incorrectamente, puede apelar, pero desgraciadamente este proceso no es fácil. En primer lugar, tendrá que enviar por correo una copia en papel de su declaración al IRS. (Ver el documento que explica cómo hacer una declaración en papel, en inglés,  'How Do I Paper File'.) Después, el IRS iniciará un proceso para determinar si la declaración de la otra persona era válida. Este proceso puede ser difícil para Ud. y para quien lo haya declarado, ya que ambos tendrán que aportar documentación que apoye su caso.</p>
+                <p>Si alguien lo declaró como dependiente, en primer lugar, debe determinar si en realidad esa persona estaba autorizado a hacerlo. Por lo general, alguien (como un padre, un abuelo o un tutor) paga más de la mitad de sus gastos y usted vive con esa persona la mayor parte del año, entonces usted es su dependiente. Eso significa que usted no tiene derecho a la mayoría de los beneficios tributarios (como el Crédito Tributario por Hijos, el crédito tributario por ingresos del trabajo o los pagos por estímulo) y, por lo general, no puede presentar su propia declaración de impuestos.</p>
+                <p>Si cree que alguien lo ha declarado incorrectamente, puede apelar, pero desgraciadamente este proceso no es fácil. En primer lugar, tendrá que enviar por correo una copia en papel de su declaración al IRS. (Ver el documento que explica cómo hacer una declaración en papel, en inglés,  'How Do I Paper File'.) Después, el IRS iniciará un proceso para determinar si la declaración de la otra persona era válida. Este proceso puede ser difícil para usted y para quien lo haya declarado, ya que ambos tendrán que aportar documentación que apoye su caso.</p>
               question: "¿Qué puedo hacer si me declaran como dependiente pero quiero declarar mis propios impuestos?"
             who_can_i_claim_on_my_return:
               answer_html: |
@@ -3421,12 +3422,12 @@ es:
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
         closing_banner_html: <strong>Los servicios de GetYourRefund volverán abrir el 31 de enero de 2022 esta temporada de impuestos.</strong>Para recibir asistencia para la preparación de sus impuestos gratis ahora, puede <a href="%{url}">buscar una ubicación de VITA en su área.</a>
         ctc_banner:
-          claim_ctc: "¿Desea reclamar solo su Crédito fiscal por hijos y el tercer pago de estímulo?"
-          click_here: Haga clic aquí para presentar una declaración simple en 15 min.
+          claim_ctc: "¿Quiere reclamar solo su Crédito Tributario por Hijos y el tercer pago de estímulo?"
+          click_here: Haga clic aquí para presentar una declaración simplificada en 15 minutos.
         documents_warning_html: '<b>Recordatorio: Debe presentar sus documentos antes del 1 de abril para cumplir con la fecha límite de declaración de impuestos federales del 18 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</b> Si no está seguro de si debe o no, puede llenar y enviar este formulario <a rel="noopener nofollow" target="_blank" href="https://www.irs.gov/pub/irs-pdf/f4868.pdf">IRS</a> para solicitar una extensión.'
         faq:
-          faq_cta: Lea nuestras preguntas frecuentes
-          header: 'Preguntas comunes sobre impuestos:'
+          faq_cta: Lee nuestras preguntas frecuentes
+          header: 'Preguntas frecuentes:'
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
@@ -3434,7 +3435,7 @@ es:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Nos comprometemos a mantener la seguridad de su información.
         subheader: "¡Solicite miles de dólares a través de los créditos fiscales que le corresponden! Trabajamos con usted para obtener su mayor reembolso."
-        subheader_ctc_open: A pesar de que la fecha límite tradicional de impuestos ha pasado, ¡todavía puede reclamar miles de dólares en créditos fiscales!
+        subheader_ctc_open: A pesar de que la fecha límite tradicional de impuestos ha pasado, ¡todavía puede reclamar miles de dólares en créditos tributarios!
         subheader_offseason: "¡Regístrese para la temporada de impuestos de 2022 ahora! Le notificaremos en cuanto nuestros servicios vuelvan a abrir el 31 de enero a la 1pm EST-- Hora estándar del Este. "
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
@@ -3666,7 +3667,7 @@ es:
             - En las dos primeras rondas de pagos, sólo los niños menores de 17 años podían ser reclamados por el pago de dependiente.  Otros dependientes no eran elegibles — y tampoco podían reclamar el EIP ellos mismos.  En la tercera ronda de pagos, todos los dependientes, incluidos los estudiantes universitarios y los dependientes adultos, pueden ser reclamados.  Además, como se describe a continuación, algunos niños en hogares de estatus de inmigración mixta que antes no eran elegibles, pueden recibir el tercer pago.
             - 'El IRS realizó las dos primeras rondas de pagos basándose en la información que tenía de las declaraciones de impuestos de 2018 o 2019.  Si usted es elegible para un pago más grande basado en su información de 2020, puede reclamar este crédito cuando presente su declaración de 2020.  Por ejemplo:'
             info_last_html:
-            - Para reclamar este crédito, deberá informar cuánto recibió de los dos EIP en 2020. Sin embargo, no tendrá que pagar los pagos de estímulo que recibió si sus ingresos aumentaron en 2020 o el número de dependientes que afirmó bajó.  Deberá completar la <a href="https://www.irs.gov/es/node/39996">hoja de trabajo de crédito de reembolso de recuperación</a> para la línea 30 del formulario de impuestos 2020 1040. Podemos ayudarle con estos formularios si presenta su devolución a través de GetYourRefund.
+            - Para reclamar este crédito, deberá informar cuánto recibió de los dos EIP en 2020. Sin embargo, no tendrá que pagar los pagos de estímulo que recibió si sus ingresos aumentaron en 2020 o el número de dependientes que afirmó bajó.  Deberá completar la <a href="https://www.irs.gov/es/node/39996">hoja de trabajo de crédito de reembolso de recuperación</a> para la línea 30 del formulario de impuestos 2020 1040. Podemos ayudarle con estos formularios si presenta su declaración a través de GetYourRefund.
             - Si tiene ingresos del trabajo o dependientes, es posible que pueda acceder a créditos o beneficios fiscales adicionales al presentar o actualizar su información con el IRS. Comuníquese a través del chat para obtener más información.
             list:
             - Solo recibió un pago parcial debido a la eliminación gradual, pero perdió su trabajo debido a COVID-19 y sus ingresos fueron menores en 2020 que en 2019.
@@ -3775,7 +3776,7 @@ es:
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
       consent:
         birth_date: Fecha de nacimiento
-        cta: estoy de acuerdo
+        cta: Estoy de acuerdo
         primary_first_name: Primer nombre legal
         primary_last_name: Apellido legal
         title: "¡Excelente! Aquí están las cosas legales ..."
@@ -3896,9 +3897,9 @@ es:
           one: En %{year}, ¿recibió alguna carta o factura del IRS?
           other: En %{year}, ¿recibió usted o su cónyuge alguna carta o factura del IRS?
       issued_identity_pin:
-        help_text: Si usted es una víctima de robo de identidad confirmada y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará un Aviso CP01A con su PIN de IP, un número de 6 dígitos asignado a ciertos contribuyentes elegibles. %{ip_pin_link}
-        link_text: Puede recuperar su PIN de IP a través de esta página del IRS.
-        title: "¿Alguna vez ha recibido un PIN de IP por causa de robo de identidad?"
+        help_text: Si usted es una víctima de robo de identidad confirmada y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará un Aviso CP01A con su IP PIN, un número de 6 dígitos asignado a ciertos contribuyentes elegibles. %{ip_pin_link}
+        link_text: Puede recuperar su IP PIN a través de esta página del IRS.
+        title: "¿Alguna vez ha recibido un IP PIN por causa de robo de identidad?"
       itemizing:
         help_text:
           one: Responda que sí si usted o su cónyuge han gastado más del %{single_deduction} en obras de caridad, gastos médicos o dentales, material escolar u otros gastos diversos.
@@ -3939,7 +3940,7 @@ es:
       mailing_address:
         city: Ciudad
         state: Estado
-        street_address: Dirección ou apartado postal
+        street_address: Dirección o apartado postal
         street_address2: Número de apartamento (opcional)
         title: "¿Cuál es su dirección postal?"
         zip_code: Código postal
@@ -4155,7 +4156,7 @@ es:
         list:
         - "<strong>GetYourRefund</strong> Nuestros especialistas certificados de impuestos le ayudarán a presentar su declaración y a cobrar todos los créditos tributarios que se le deben."
         - "<strong>File Myself</strong> Una opción rápida en línea le permite presentar su declaración y cobrar los créditos tributarios por su cuenta."
-        - "<strong>GetCTC</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago por estímulo federal y el Crédito Tributario por Hijos por su cuenta."
+        - "<strong>GetCTC</strong> Nuestra opción rápida en línea le permite cobrar cualquier pago de estímulo federal y el Crédito Tributario por Hijos por su cuenta."
         title: "¡Bienvenidos a nuestro servicio gratuito!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
@@ -4246,7 +4247,7 @@ es:
         off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}
       footer:
         ctc_service_description_html: GetCTC.org es un servicio sin ánimo de lucro creado por %{link}.
-        service_description_html: GetYourRefund.org es un servicio sin fines de lucro creado por %{cfa_link} en asociación con el IRS con el apoyo de la Casa Blanca y el Departamento del Tesoro de EE. UU
+        service_description_html: GetYourRefund.org es un servicio sin fines de lucro ofrecido por %{cfa_link}, realizado en colaboración con el IRS, con el apoyo de la Casa Blanca y el Departamento del Tesoro de EE. UU.
         service_status: Estado del servicio
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
@@ -4283,8 +4284,8 @@ es:
             coming_soon: A partir de mayo de 2022
             cta:
               closed: Regístrese para recibir GetCTC
-              open: Elija GetCTC
-            service_description: Presente la solicitud rápidamente por su cuenta para cobrar los pagos por estímulo y el Crédito Tributario por Hijos.
+              open: Elige GetCTC
+            service_description: Presente la solicitud rápidamente por su cuenta para cobrar los pagos de estímulo y el Crédito Tributario por Hijos.
             service_name: GetCTC
           diy:
             cta: Elegir declarar por cuenta propia
@@ -4309,7 +4310,9 @@ es:
           full_service: De 2 a 3 semanas
           subtitle: Los plazos de tramitación de los pagos del IRS varían de 3-6 semanas
           title: 'Plazo de tiempo para presentar la declaración:'
-        title_html: Declaración de impuestos gratuita para los hogares que califican. <br/> ¡Encuentre el servicio de impuestos adecuado para usted!
+        title_html: |-
+          Declaración de impuestos gratuita para las familias que califican.<br/>
+          ¡Encuentre el servicio de impuestos adecuado para usted!
         triage_link_text: "¡Responda a unas preguntas sencillas y le recomendaremos el servicio más adecuado para usted!"
         vita: Equipo de impuestos VITA certificado por el IRS
       tax_return_list:
