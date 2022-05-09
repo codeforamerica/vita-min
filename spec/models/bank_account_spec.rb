@@ -82,7 +82,7 @@ describe BankAccount do
       it "changes the hashed_account_number" do
         expect {
           bank_account.update(account_number: "12300001233")
-        }.to change(bank_account, :hashed_account_number)
+        }.to change(bank_account, :hashed_qaccount_number)
       end
     end
 
