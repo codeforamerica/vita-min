@@ -1153,7 +1153,10 @@ es:
           ¡Estamos aquí para ayudarle!
           Su Equipo de Declaración de Impuestos GetCTC.org
         subject: Inscripción para GetCTC
-      sms: 'Hola <<Client.PreferredName>>: ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS. Inicie sesión aquí: <<Client.LoginLink>> para ver los siguientes pasos y corregir la información de sus impuestos'
+      sms: |
+        Hola <<Client.PreferredName>>,
+        Gracias por comenzar su Crédito Tributario por Hijos ¡Regístrese con GetCTC! Su ID de cliente es <<Client.ClientId>> Verifique su progreso con su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN: <<Client.LoginLink>>
+        ¡Estamos aquí para ayudar!
     ctc_sms_opt_in: Welcome to GetCTC messages. Msg&data rates may apply. Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     default_subject_with_service_name: Actualización de %{service_name}
     efile:
