@@ -2663,6 +2663,11 @@ es:
           header: |
             GetCTC abrirá en mayo.
             Regístrese y le enviaremos un mensaje con las actualizaciones.
+          puerto_rico_post_launch:
+            header_html: |
+              <a href='%{link}'>GetCTC está disponible actualmente</a> para los residentes de los 50 estados y D.C.
+              Los residentes de Puerto Rico pueden registrarse a continuación para recibir actualizaciones.
+            sub_header: Regístrese a continuación para recibir actualizaciones y le informaremos tan pronto como GetCTC esté disponible en Puerto Rico.
           sub_header_html: |
             Lo único que tiene que hacer es indicarnos su nombre y una dirección de correo electrónico o un número de teléfono, y le enviaremos un correo electrónico o un mensaje de texto con actualizaciones sobre GetCTC. Puede esperar recibir notificaciones alrededor de mayo de 2022.
 
