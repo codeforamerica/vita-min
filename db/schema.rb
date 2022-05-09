@@ -425,7 +425,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_09_213802) do
   end
 
   create_table "bank_accounts", force: :cascade do |t|
-    t.string "_routing_number"
     t.integer "account_type"
     t.datetime "created_at", null: false
     t.string "encrypted_account_number"
