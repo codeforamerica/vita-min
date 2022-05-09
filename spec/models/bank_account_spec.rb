@@ -13,6 +13,7 @@
 #  encrypted_routing_number_iv :string
 #  hashed_account_number       :string
 #  hashed_routing_number       :string
+#  routing_number              :string
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  intake_id                   :bigint
@@ -80,6 +81,27 @@ describe BankAccount do
     end
   end
 
+  describe "#routing_number" do
+    context "when routing_number is saved directly" do
+      before do
+        allow_any_instance_of(BankAccount).to receive(:read_attribute).and_call_original
+      end
+
+      it "reads from that attribute" do
+        bank_account = described_class.new(routing_number: "123456789")
+        expect(bank_account.routing_number).to eq "123456789"
+        expect(bank_account).to have_received(:read_attribute).with(:routing_number)
+      end
+    end
+
+    context "when routing_number is saved on _routing_number" do
+      it "reads from that attribute" do
+        bank_account = described_class.new(_routing_number: "123456788")
+        expect(bank_account.routing_number).to eq "123456788"
+      end
+    end
+  end
+
   describe "before_save" do
     context "when routing number changes" do
       let(:bank_account) { create :bank_account, routing_number: "123456789" }
@@ -88,13 +110,6 @@ describe BankAccount do
         expect {
           bank_account.update(routing_number: "123456781")
         }.to change(bank_account, :hashed_routing_number)
-      end
-
-      it "sets _routing_number" do
-        expect {
-          bank_account.update(routing_number: "123456781")
-        }.to change(bank_account, :_routing_number)
-        expect(bank_account._routing_number).to eq(bank_account.routing_number)
       end
     end
 
