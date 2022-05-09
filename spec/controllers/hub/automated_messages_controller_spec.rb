@@ -19,6 +19,15 @@ describe Hub::AutomatedMessagesController do
 
         expect(response.body).to have_text(I18n.t("messages.successful_submission_online_intake.email.body"))
       end
+
+      it "includes every AutomatedMessage class" do
+        get :index
+
+        shown_message_classes = assigns(:messages).map { |m| m.class.name }
+        message_class_names = AutomatedMessage::AutomatedMessage.descendants.map &:name
+
+        expect(shown_message_classes).to match_array(message_class_names)
+      end
     end
   end
 end
