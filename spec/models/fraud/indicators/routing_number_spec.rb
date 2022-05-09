@@ -17,7 +17,6 @@ describe Fraud::Indicators::RoutingNumber do
       described_class.create(routing_number: "123456789", bank_name: "Bank of Taxes", activated_at: DateTime.now)
       described_class.create(routing_number: "111111111", bank_name: "Bank of Money", activated_at: DateTime.now)
       described_class.create(routing_number: "111111112", bank_name: "Bank of Things", activated_at: nil)
-      allow(EnvironmentCredentials).to receive(:dig).with(:duplicate_hashing_key).and_return "1"
     end
 
     it "returns a list of all activated routing_number entries" do
