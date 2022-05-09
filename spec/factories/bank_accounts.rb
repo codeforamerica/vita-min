@@ -18,6 +18,7 @@
 #
 #  index_bank_accounts_on_hashed_account_number  (hashed_account_number)
 #  index_bank_accounts_on_intake_id              (intake_id)
+#  index_bank_accounts_on_routing_number         (routing_number)
 #
 # Foreign Keys
 #

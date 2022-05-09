@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_09_213802) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_09_222202) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -437,6 +437,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_09_213802) do
     t.datetime "updated_at", null: false
     t.index ["hashed_account_number"], name: "index_bank_accounts_on_hashed_account_number"
     t.index ["intake_id"], name: "index_bank_accounts_on_intake_id"
+    t.index ["routing_number"], name: "index_bank_accounts_on_routing_number"
   end
 
   create_table "bulk_client_message_outgoing_emails", force: :cascade do |t|
