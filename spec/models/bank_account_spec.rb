@@ -3,6 +3,7 @@
 # Table name: bank_accounts
 #
 #  id                          :bigint           not null, primary key
+#  _routing_number             :string
 #  account_type                :integer
 #  encrypted_account_number    :string
 #  encrypted_account_number_iv :string
@@ -87,6 +88,13 @@ describe BankAccount do
         expect {
           bank_account.update(routing_number: "123456781")
         }.to change(bank_account, :hashed_routing_number)
+      end
+
+      it "sets _routing_number" do
+        expect {
+          bank_account.update(routing_number: "123456781")
+        }.to change(bank_account, :_routing_number)
+        expect(bank_account._routing_number).to eq(bank_account.routing_number)
       end
     end
 

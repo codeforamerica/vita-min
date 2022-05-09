@@ -3,6 +3,7 @@
 # Table name: bank_accounts
 #
 #  id                          :bigint           not null, primary key
+#  _routing_number             :string
 #  account_type                :integer
 #  encrypted_account_number    :string
 #  encrypted_account_number_iv :string
