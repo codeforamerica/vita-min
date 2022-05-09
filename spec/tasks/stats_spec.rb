@@ -37,7 +37,7 @@ describe "stats:monitor_delayed_efile_submissions" do
   include_context "rake"
   include MockDogapi
 
-  let(:fake_time) { DateTime.new(2022, 3, 1, 0, 0, 0) }
+  let(:fake_time) { DateTime.new(2022, 5, 10, 0, 0, 0) }
   let(:newer_timestamp_preparing) { 18.hours.ago }
   let(:timestamp_preparing) { 1.day.ago }
   let(:timestamp_bundling) { 14.hours.ago }
