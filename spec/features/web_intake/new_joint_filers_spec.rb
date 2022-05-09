@@ -124,7 +124,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "I agree"
     # create tax returns only after client has consented
     expect(intake.client.tax_returns.map(&:year)).to match_array [TaxReturn.current_tax_year - 3, TaxReturn.current_tax_year]
-    expect(intake.reload.client.tax_returns.pluck(:status)).to eq ["intake_in_progress", "intake_in_progress"]
+    expect(intake.reload.client.tax_returns.pluck(:current_state)).to eq ["intake_in_progress", "intake_in_progress"]
 
     screenshot_after do
       # Optional consent form
@@ -535,7 +535,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     expect do
       click_on "Continue"
-    end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress", "intake_in_progress"]).to(["intake_ready", "intake_ready"])
+    end.to change { intake.client.tax_returns.pluck(:current_state) }.from(["intake_in_progress", "intake_in_progress"]).to(["intake_ready", "intake_ready"])
 
     screenshot_after do
       expect(page).to have_selector("h1", text: "Please share any additional documents.")

@@ -98,7 +98,7 @@ describe TaxReturn do
   describe "translation keys" do
     context "english keys" do
       it "has a key for each tax_return status" do
-        described_class.statuses.each_key do |status|
+        TaxReturnStateMachine.states.each do |status|
           expect(I18n.t("hub.tax_returns.status.#{status}")).not_to include("translation missing")
         end
       end
@@ -118,26 +118,26 @@ describe TaxReturn do
   end
 
   describe "#advance_to" do
-    let(:tax_return) { create :tax_return, status.to_sym }
+    let(:tax_return) { create :tax_return, old_state.to_sym }
 
-    context "with a status that comes before the current status" do
-      let(:status) { "intake_in_progress" }
+    context "with a state that comes before the current state" do
+      let(:old_state) { "intake_in_progress" }
 
-      it "does not change the status" do
+      it "does not change the state" do
         expect do
-          tax_return.advance_to(status)
-        end.not_to change(tax_return, :status)
+          tax_return.advance_to(old_state)
+        end.not_to change(tax_return, :current_state)
       end
     end
 
-    context "with a status that comes after the current status" do
-      let(:status) { "intake_in_progress" }
-      let(:new_status) { "file_ready_to_file" }
+    context "with a state that comes after the current state" do
+      let(:old_state) { "intake_in_progress" }
+      let(:new_state) { "file_ready_to_file" }
 
-      it "changes to the new status" do
+      it "changes to the new state" do
         expect do
-          tax_return.advance_to(new_status)
-        end.to change(tax_return, :status).from(status).to new_status
+          tax_return.advance_to(new_state)
+        end.to change(tax_return, :current_state).from(old_state).to new_state
       end
     end
   end
@@ -607,10 +607,10 @@ describe TaxReturn do
           expect { tax_return.sign_primary!(fake_ip) }.to change(tax_return, :primary_signed_at).and change(tax_return, :primary_signed_ip).to(fake_ip).and change(tax_return, :primary_signature).to("Primary Taxpayer")
         end
 
-        it "updates the tax return's status to ready to file" do
+        it "updates the tax return's current_state to ready to file" do
           expect {
             tax_return.sign_primary!(fake_ip)
-          }.to change(tax_return, :status).to("file_ready_to_file")
+          }.to change(tax_return, :current_state).to("file_ready_to_file")
         end
 
         it "creates a system note" do
@@ -679,7 +679,7 @@ describe TaxReturn do
         expect(Sign8879Service).to_not receive(:create)
 
         expect { tax_return.sign_primary!(fake_ip) }
-          .to not_change(tax_return, :status)
+          .to not_change(tax_return, :current_state)
           .and not_change(tax_return.client, :flagged_at)
       end
 
@@ -748,10 +748,10 @@ describe TaxReturn do
           }.to change(tax_return, :spouse_signed_at).and change(tax_return, :spouse_signed_ip).to(fake_ip).and change(tax_return, :spouse_signature).to("Spouse Taxpayer")
         end
 
-        it "updates the tax return's status to ready to file" do
+        it "updates the tax return's current_state to ready to file" do
           expect {
             tax_return.sign_spouse!(fake_ip)
-          }.to change(tax_return, :status).to("file_ready_to_file")
+          }.to change(tax_return, :current_state).to("file_ready_to_file")
         end
 
         it "creates a system note" do
@@ -807,7 +807,7 @@ describe TaxReturn do
       it "does not create a document, change tax return status, or set flagged" do
         expect(Sign8879Service).to_not receive(:create)
 
-        expect { tax_return.sign_spouse!(fake_ip) }.to not_change(tax_return, :status).and not_change(tax_return.client, :flagged?)
+        expect { tax_return.sign_spouse!(fake_ip) }.to not_change(tax_return, :current_state).and not_change(tax_return.client, :flagged?)
       end
 
       it "creates a system note" do

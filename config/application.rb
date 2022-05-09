@@ -25,6 +25,8 @@ module VitaMin
   class Application < Rails::Application
     config.load_defaults 6.1
 
+    config.active_record.enumerate_columns_in_select_statements = true
+
     config.i18n.default_locale = :en
     config.i18n.fallbacks = [I18n.default_locale]
     config.i18n.available_locales = [:en, :es]

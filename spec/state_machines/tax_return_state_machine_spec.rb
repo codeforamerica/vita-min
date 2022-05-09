@@ -85,7 +85,6 @@ describe TaxReturnStateMachine do
       it "sets current_state and status as well" do
         tax_return.transition_to(:file_accepted)
         expect(tax_return.read_attribute(:current_state)).to eq "file_accepted"
-        expect(tax_return.read_attribute(:status)).to eq "file_accepted"
       end
 
       it "enqueues the experience survey" do

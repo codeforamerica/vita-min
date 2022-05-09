@@ -52,7 +52,7 @@ FactoryBot.define do
       trait state.to_sym do
         after :create do |tax_return, evaluator|
           create :tax_return_transition, state, tax_return: tax_return, metadata: evaluator.metadata
-          tax_return.update_columns(current_state: state, status: TaxReturnStatus::STATUSES[state.to_sym])
+          tax_return.update_columns(current_state: state)
         end
       end
     end

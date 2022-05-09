@@ -38,6 +38,8 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
+  self.ignored_columns = [:status]
+
   has_many :tax_return_transitions, dependent: :destroy, autosave: false
   include Statesman::Adapters::ActiveRecordQueries[
               transition_class: TaxReturnTransition,
@@ -54,7 +56,6 @@ class TaxReturn < ApplicationRecord
   has_many :tax_return_selections, through: :tax_return_selection_tax_returns
   has_many :efile_submissions, dependent: :destroy
   has_one :accepted_tax_return_analytics
-  enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
   enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
   # The enum values map to the filing status codes dictated by the IRS
@@ -71,16 +72,12 @@ class TaxReturn < ApplicationRecord
            :transition_to!, :transition_to, :in_state?, :advance_to, :previous_transition, :previous_state, :last_changed_by, to: :state_machine
 
   def current_state
-    ## backwards compatible with current implementation while cutting over column name to current_state
-    read_attribute(:current_state) || read_attribute(:state) || state_machine.current_state || status
+    # Before we've done a state transition, only the state machine holds the default state
+    read_attribute(:current_state) || state_machine.current_state
   end
 
   def current_state=(_)
     raise("Avoid writing to TaxReturn#current_state directly. Instead, use #transition_to or #transition_to!")
-  end
-
-  def status=(_)
-    raise("Avoid writing to TaxReturn#status directly. Instead, use #transition_to or #transition_to!")
   end
 
   def ready_for_prep_at

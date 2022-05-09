@@ -81,7 +81,7 @@ describe EfileSubmissionStateMachine do
         it "transitions the tax return status and submission status to hold" do
           submission.transition_to!(:preparing)
           expect(submission.current_state).to eq "fraud_hold"
-          expect(submission.tax_return.status).to eq("file_fraud_hold")
+          expect(submission.tax_return.current_state).to eq("file_fraud_hold")
         end
       end
     end
@@ -95,7 +95,7 @@ describe EfileSubmissionStateMachine do
           client: submission.client.reload,
           message: AutomatedMessage::EfilePreparing,
         )
-        expect(submission.tax_return.status).to eq("file_ready_to_file")
+        expect(submission.tax_return.current_state).to eq("file_ready_to_file")
 
       end
     end
@@ -105,7 +105,7 @@ describe EfileSubmissionStateMachine do
 
       it "updates the tax return status" do
         submission.transition_to!(:transmitted)
-        expect(submission.tax_return.status).to eq("file_efiled")
+        expect(submission.tax_return.current_state).to eq("file_efiled")
       end
     end
 
@@ -119,7 +119,7 @@ describe EfileSubmissionStateMachine do
 
       it "updates the tax return status" do
         submission.transition_to!(:failed, error_code: efile_error.code)
-        expect(submission.tax_return.status).to eq("file_needs_review")
+        expect(submission.tax_return.current_state).to eq("file_needs_review")
       end
 
       context "with an exposed error" do
@@ -159,7 +159,7 @@ describe EfileSubmissionStateMachine do
       it "transitions the tax return status to on hold" do
         expect {
           submission.transition_to!(:investigating)
-        }.to change(submission.tax_return, :status).to("file_hold")
+        }.to change(submission.tax_return, :current_state).to("file_hold")
       end
     end
 
@@ -168,7 +168,7 @@ describe EfileSubmissionStateMachine do
       it "transitions the tax return status to on hold" do
         expect {
           submission.transition_to!(:waiting)
-        }.to change(submission.tax_return, :status).to("file_hold")
+        }.to change(submission.tax_return, :current_state).to("file_hold")
       end
     end
 
@@ -195,7 +195,7 @@ describe EfileSubmissionStateMachine do
 
       it "updates the tax return status" do
         submission.transition_to!(:accepted)
-        expect(submission.tax_return.status).to eq("file_accepted")
+        expect(submission.tax_return.current_state).to eq("file_accepted")
       end
 
 
