@@ -3,11 +3,7 @@ module Ctc
     module Dependents
       class ChildClaimAnywayController < BaseDependentController
         include AuthenticatedCtcClientConcern
-        layout "yes_no_question"
-
-        def method_name
-          'claim_anyway'
-        end
+        layout "intake"
 
         private
 

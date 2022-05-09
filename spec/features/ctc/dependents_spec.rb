@@ -150,7 +150,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("general.negative")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_claim_anyway.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
-      click_on I18n.t("general.affirmative")
+      click_on I18n.t("views.ctc.questions.dependents.child_claim_anyway.yes_claim", dependent_name: "Jessie")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
       # Too old for CTC, but still qualify for other credits
@@ -180,7 +180,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t("general.negative")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_claim_anyway.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
-      click_on I18n.t("general.affirmative")
+      click_on I18n.t("views.ctc.questions.dependents.child_claim_anyway.yes_claim", dependent_name: "Jessie")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title', name: 'Jessie', current_tax_year: TaxReturn.current_tax_year))
       # Too old for CTC, but still qualify for other credits
@@ -248,7 +248,7 @@ RSpec.feature "Dependents in CTC intake", :flow_explorer_screenshot, active_job:
       click_on I18n.t('general.negative')
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.dependents.child_claim_anyway.title', name: 'Jessie'))
-      click_on I18n.t('general.affirmative')
+      click_on I18n.t("views.ctc.questions.dependents.child_claim_anyway.yes_claim", dependent_name: "Jessie")
 
       expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.confirm_dependents.title'))
       within "[data-automation='ctc-dependents']" do
