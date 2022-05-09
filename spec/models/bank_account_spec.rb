@@ -80,28 +80,7 @@ describe BankAccount do
       end
     end
   end
-
-  describe "#routing_number" do
-    context "when routing_number is saved directly" do
-      before do
-        allow_any_instance_of(BankAccount).to receive(:read_attribute).and_call_original
-      end
-
-      it "reads from that attribute" do
-        bank_account = described_class.new(routing_number: "123456789")
-        expect(bank_account.routing_number).to eq "123456789"
-        expect(bank_account).to have_received(:read_attribute).with(:routing_number)
-      end
-    end
-
-    context "when routing_number is saved on _routing_number" do
-      it "reads from that attribute" do
-        bank_account = described_class.new(_routing_number: "123456788")
-        expect(bank_account.routing_number).to eq "123456788"
-      end
-    end
-  end
-
+  
   describe "before_save" do
     context "when bank account number changes" do
       let(:bank_account) { create :bank_account, account_number: "1230000123" }
