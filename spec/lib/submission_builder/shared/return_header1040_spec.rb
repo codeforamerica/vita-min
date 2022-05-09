@@ -289,6 +289,21 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
           end
         end
       end
+
+      context "when missing a verified address" do
+        before do
+          submission.update(verified_address: nil)
+        end
+
+        it "includes most data, omits the address, and is invalid XML" do
+          response = described_class.build(submission)
+          expect(response).to be_an_instance_of SubmissionBuilder::Response
+          xml = Nokogiri::XML::Document.parse(response.document.to_xml)
+          expect(xml.at("PrimarySSN").text).to eq submission.intake.primary_ssn
+          expect(xml.at("USAddress")).to be_nil
+          expect(response).not_to be_valid
+        end
+      end
     end
 
     context "filing requesting a check payment" do

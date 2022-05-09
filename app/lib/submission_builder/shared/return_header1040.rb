@@ -68,14 +68,17 @@ module SubmissionBuilder
             xml.NameLine1Txt name_line_1(tax_return, intake)
             xml.PrimaryNameControlTxt person_name_control_type(intake.primary_last_name)
             xml.SpouseNameControlTxt spouse_name_control(intake) if tax_return.filing_jointly?
-            xml.USAddress {
-              # IRS provides no information on how to shorten addresses
-              # but requires that they be < 36 characters long
-              xml.AddressLine1Txt trim(address.street_address, 35)
-              xml.CityNm trim(address.city, 22)
-              xml.StateAbbreviationCd address.state
-              xml.ZIPCd address.zip_code
-            }
+            # If the address has not been validated, skip this tag.
+            if address.present?
+              xml.USAddress {
+                # IRS provides no information on how to shorten addresses
+                # but requires that they be < 36 characters long
+                xml.AddressLine1Txt trim(address.street_address, 35)
+                xml.CityNm trim(address.city, 22)
+                xml.StateAbbreviationCd address.state
+                xml.ZIPCd address.zip_code
+              }
+            end
             if intake.sms_phone_number || intake.phone_number
               xml.PhoneNum phone_type(intake.sms_phone_number || intake.phone_number)
             end
