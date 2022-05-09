@@ -29,7 +29,7 @@
 #  fk_rails_...  (intake_id => intakes.id)
 #
 class BankAccount < ApplicationRecord
-  self.ignored_columns = [:encrypted_routing_number, :encrypted_routing_number_iv, :hashed_routing_number]
+  self.ignored_columns = [:encrypted_routing_number, :encrypted_routing_number_iv, :hashed_routing_number, :_routing_number]
   belongs_to :intake
   has_one :client, through: :intake
   attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
