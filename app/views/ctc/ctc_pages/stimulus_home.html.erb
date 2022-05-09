@@ -73,7 +73,8 @@
             <%= t("views.ctc_pages.stimulus_home.what_is.reveals.how_much_body") %>
           <% end %>
           <%= render("components/molecules/reveal", title: t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_title")) do %>
-            <% t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_body").each do |line| %>
+            <% gyr_link = url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_to_gyr' }) %>
+            <% t("views.ctc_pages.stimulus_home.what_is.reveals.first_two_body_html", gyr_link: gyr_link).each do |line| %>
               <p><%= line %></p>
             <% end %>
           <% end %>
