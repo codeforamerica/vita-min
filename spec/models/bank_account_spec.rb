@@ -103,32 +103,24 @@ describe BankAccount do
   end
 
   describe "before_save" do
-    context "when routing number changes" do
-      let(:bank_account) { create :bank_account, routing_number: "123456789" }
-
-      it "sets hashed_routing_number" do
-        expect {
-          bank_account.update(routing_number: "123456781")
-        }.to change(bank_account, :hashed_routing_number)
-      end
-    end
-
-    context "when routing number does not change" do
-      let(:bank_account) { create :bank_account }
-
-      it "does not change the hashed_routing_number" do
-        expect {
-          bank_account.update(bank_name: "New Bank name")
-        }.not_to change(bank_account, :hashed_routing_number)
-      end
-    end
-
     context "when bank account number changes" do
       let(:bank_account) { create :bank_account, account_number: "1230000123" }
       it "changes the hashed_account_number" do
         expect {
           bank_account.update(account_number: "12300001233")
         }.to change(bank_account, :hashed_account_number)
+      end
+    end
+
+    context "when bank account number does not change" do
+      let(:bank_account) { create :bank_account, account_number: "1230000123" }
+      before do
+        allow(DeduplificationService).to receive(:sensitive_attribute_hashed).and_call_original
+      end
+      it "does not change the hashed_account_number" do
+        expect {
+          bank_account.update(account_number: "1230000123")
+        }.not_to change(bank_account, :hashed_account_number)
       end
     end
   end

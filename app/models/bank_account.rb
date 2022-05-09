@@ -29,13 +29,14 @@
 #  fk_rails_...  (intake_id => intakes.id)
 #
 class BankAccount < ApplicationRecord
+  self.ignored_columns = [:encrypted_routing_number, :encrypted_routing_number_iv]
   belongs_to :intake
   has_one :client, through: :intake
   attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
   enum account_type: { checking: 1, savings: 2 }
-  before_save :hash_data
+  before_save :hash_account_number
 
   # map string enum value back to the corresponding integer
   def account_type_code
@@ -47,14 +48,12 @@ class BankAccount < ApplicationRecord
   end
 
   def duplicates
-    DeduplificationService.duplicates(self, :hashed_routing_number, :hashed_account_number, from_scope: self.class)
+    DeduplificationService.duplicates(self, :routing_number, :hashed_account_number, from_scope: self.class)
   end
 
-  def hash_data
-    [:routing_number, :account_number].each do |attr|
-      if send("#{attr}_changed?") && send(attr).present?
-        assign_attributes("hashed_#{attr}" => DeduplificationService.sensitive_attribute_hashed(self, attr))
-      end
+  def hash_account_number
+    if account_number_changed? && account_number.present?
+      self.hashed_account_number = DeduplificationService.sensitive_attribute_hashed(self, :account_number)
     end
   end
 end
