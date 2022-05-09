@@ -2054,7 +2054,7 @@ en:
               title: Who is considered a full-time student?
             title: Great, let’s make sure %{name} qualifies!
           child_residence:
-            help_text: Select yes if they were born, adopted, or passed away in %{current_tax_year} and they lived with you for at least half their time.
+            help_text: Select yes even if they were born, adopted, or passed away in %{current_tax_year} and they lived with you for at least half their time.
             title: Did %{name} live with you for more than 6 months in %{current_tax_year}?
           child_residence_exceptions:
             help_text: Select yes if they spent time living at school, in a medical facility, in a juvenile facility, or another temporary location while their official address was with you.
@@ -2232,7 +2232,7 @@ en:
           what_is_aptc_reveal:
             content:
               p1: The Advance Premium Tax Credit is a subsidy some households get for their health insurance coverage.
-              p2: You would have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn't have healthcare coverage.
+              p2: You would not have received the Advance Premium Tax Credit last year if you were on Medicaid or Medicare, if you got healthcare coverage from your employer, or if you didn't have healthcare coverage.
               p3: You probably would have received the Advance Premium Tax Credit if you purchased market-rate insurance on healthcare.gov or a state healthcare exchange website.
             title: What is the Advance Premium Tax Credit?
         ip_pin:
