@@ -7,16 +7,8 @@ class Irs1040Pdf
 
   def initialize(submission)
     # For some PDF fields, use values from the database b/c the XML values are truncated or missing.
-    intake = submission.intake
-    @primary_first_name = intake.primary_middle_initial.present? ? "#{intake.primary_first_name} #{intake.primary_middle_initial}" : intake.primary_first_name
-    @primary_last_name = intake.primary_last_name
-    @spouse_first_name = intake.spouse_middle_initial.present? ? "#{intake.spouse_first_name} #{intake.spouse_middle_initial}" : intake.spouse_first_name
-    @spouse_last_name = intake.spouse_last_name
-    address = submission.verified_address || intake.address
-    @street_address = address.street_address
-    @city = address.city
-    @state = address.state
-    @zip_code = address.zip_code
+    @intake = submission.intake
+    @address = submission.verified_address || @intake.address
 
     # Most PDF fields are grabbed right off the XML
     @xml_document = SubmissionBuilder::Ty2021::Return1040.new(submission).document
@@ -25,15 +17,15 @@ class Irs1040Pdf
   def hash_for_pdf
     answers = {
       FilingStatus: @xml_document.at("IndividualReturnFilingStatusCd")&.text,
-      PrimaryFirstNm: @primary_first_name,
-      PrimaryLastNm: @primary_last_name,
+      PrimaryFirstNm: @intake.primary_middle_initial.present? ? "#{@intake.primary_first_name} #{@intake.primary_middle_initial}" : @intake.primary_first_name,
+      PrimaryLastNm: @intake.primary_last_name,
       PrimarySSN: @xml_document.at("PrimarySSN")&.text,
-      AddressLine1Txt: @street_address,
-      CityNm: @city,
-      StateAbbreviationCd: @state,
-      ZipCd: @zip_code,
+      AddressLine1Txt: @address.street_address,
+      CityNm: @address.city,
+      StateAbbreviationCd: @address.state,
+      ZipCd: @address.zip_code,
       VirtualCurAcquiredDurTYInd: @xml_document.at("VirtualCurAcquiredDurTYInd")&.text,
-      PrimaryBlindInd: bool_from_xml(@xml_document.at("PrimaryBlindInd")) ? "1" : "Off",
+      PrimaryBlindInd: xml_check_to_bool(@xml_document.at("PrimaryBlindInd")) ? "1" : "Off",
       TotalItemizedOrStandardDedAmt12a: @xml_document.at("TotalItemizedOrStandardDedAmt")&.text,
       TotalAdjustmentsToIncomeAmt12c: @xml_document.at("TotDedCharitableContriAmt")&.text,
       TotalDeductionsAmt14: @xml_document.at("TotalDeductionsAmt")&.text,
@@ -44,7 +36,7 @@ class Irs1040Pdf
       TotalPaymentsAmt33: @xml_document.at("TotalPaymentsAmt")&.text,
       OverpaidAmt34: @xml_document.at("OverpaidAmt")&.text,
       RefundAmt35: @xml_document.at("RefundAmt")&.text,
-      Primary65OrOlderInd: bool_from_xml(@xml_document.at("Primary65OrOlderInd")) ? "1" : "Off",
+      Primary65OrOlderInd: xml_check_to_bool(@xml_document.at("Primary65OrOlderInd")) ? "1" : "Off",
       PrimaryIPPIN: @xml_document.at("IdentityProtectionPIN")&.text,
       PhoneNumber: PhoneParser.formatted_phone_number(@xml_document.at("PhoneNum")&.text),
       EmailAddress: @xml_document.at("EmailAddressTxt")&.text
@@ -59,12 +51,12 @@ class Irs1040Pdf
 
   def spouse_info
     {
-      Spouse65OrOlderInd: bool_from_xml(@xml_document.at("Spouse65OrOlderInd")) ? "1" : "Off",
-      SpouseFirstNm: @spouse_first_name,
-      SpouseLastNm: @spouse_last_name,
+      Spouse65OrOlderInd: xml_check_to_bool(@xml_document.at("Spouse65OrOlderInd")) ? "1" : "Off",
+      SpouseFirstNm: @intake.spouse_middle_initial.present? ? "#{@intake.spouse_first_name} #{@intake.spouse_middle_initial}" : @intake.spouse_first_name,
+      SpouseLastNm: @intake.spouse_last_name,
       SpouseSSN: @xml_document.at("SpouseSSN")&.text,
       SpouseIPPIN: @xml_document.at("SpouseIdentityProtectionPIN")&.text,
-      SpouseBlindInd: bool_from_xml(@xml_document.at("SpouseBlindInd")) ? "1" : "Off",
+      SpouseBlindInd: xml_check_to_bool(@xml_document.at("SpouseBlindInd")) ? "1" : "Off",
     }
   end
 
@@ -76,12 +68,12 @@ class Irs1040Pdf
       answers["DependentLegalNm[#{index}]"] = [dependent.at("DependentFirstNm").text, dependent.at("DependentLastNm").text].join(" ")
       answers["DependentRelationship[#{index}]"] = dependent.at("DependentRelationshipCd").text
       answers["DependentSSN[#{index}]"] = dependent.at("DependentSSN").text
-      answers["DependentCTCInd[#{index}]"] = bool_from_xml(dependent.at("EligibleForChildTaxCreditInd")) ? 1 : 0
+      answers["DependentCTCInd[#{index}]"] = xml_check_to_bool(dependent.at("EligibleForChildTaxCreditInd")) ? 1 : 0
     end
     answers
   end
 
-  def bool_from_xml(elt)
-    elt&.text == "X"
+  def xml_check_to_bool(node)
+    node&.text == "X"
   end
 end
