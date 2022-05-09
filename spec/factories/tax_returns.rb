@@ -5,7 +5,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
-#  current_state       :string
+#  current_state       :string           default("intake_before_consent")
 #  filing_status       :integer
 #  filing_status_note  :text
 #  internal_efile      :boolean          default(FALSE), not null
@@ -19,7 +19,6 @@
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
 #  spouse_signed_ip    :inet
-#  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
