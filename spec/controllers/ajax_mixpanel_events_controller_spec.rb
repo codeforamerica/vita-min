@@ -53,6 +53,27 @@ RSpec.describe AjaxMixpanelEventsController, type: :controller do
         )
       end
     end
+
+    context "when the incoming URL can't be parsed but params are otherwise fine" do
+      before do
+        allow(subject).to receive(:URI) { raise URI::InvalidURIError }
+      end
+
+      it "sends all the values but keeps path empty" do
+        post :create,  params: { event: valid_params }
+
+        expect(subject).to have_received(:send_mixpanel_event).with(
+          event_name: "clicked_link",
+          data: {
+            path: "",
+            full_path: "/page?key=value",
+            controller_action: "Questions::TestQuestionController#edit",
+            controller_action_name: "edit",
+            controller_name: "Questions::TestQuestion",
+          }
+        )
+      end
+    end
   end
 
   context "with invalid params" do
