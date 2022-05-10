@@ -50,7 +50,7 @@ commands:
       - run:
           name: install bundler & ruby dependencies
           command: |
-            gem install bundler:2.2.5 --no-document && \
+            gem install bundler:2.3.5 --no-document && \
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
