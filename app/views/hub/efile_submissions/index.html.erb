@@ -52,7 +52,7 @@
         <% tax_return = submission.tax_return %>
           <tr class="index-table__row">
             <td class="index-table__cell status"><%= link_to submission.current_state.humanize(capitalize: false), efile_hub_client_path(id: tax_return.client.id, anchor: "body"), class: "underline" %></td>
-            <td class="index-table__cell"><%= link_to(submission.irs_submission_id, efile_hub_client_path(id: tax_return.client.id, anchor: "body") if submission.irs_submission_id.present? %></td>
+            <td class="index-table__cell"><%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, efile_hub_client_path(id: tax_return.client.id, anchor: "body") : "" %></td>
             <td class="index-table__cell">
               <%= link_to tax_return.client.legal_name, efile_hub_client_path(id: tax_return.client.id, anchor: "body"), class: "underline" %>
             </td>
