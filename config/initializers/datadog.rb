@@ -6,4 +6,5 @@ Datadog.configure do |c|
   c.tracing.instrument :rails
   c.tracing.instrument :aws
   c.tracing.instrument :delayed_job
+  c.tracing.instrument :http
 end
