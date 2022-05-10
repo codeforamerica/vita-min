@@ -25,6 +25,9 @@ module FraudIndicatorsHelper
 
   def to_id_name(string)
     return "" unless string.present?
+    if string.scan(/\D/).empty?
+      return "id-#{string}"
+    end
 
     string.downcase.gsub("/", "-").split(".")[0]
   end
