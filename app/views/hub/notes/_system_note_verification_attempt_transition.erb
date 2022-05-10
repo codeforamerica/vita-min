@@ -5,9 +5,9 @@
   <% elsif transition.to_state == "requested_replacements" %>
     <%= transition.initiated_by.name_with_role %> <%= I18n.t("messages.new_photos_requested.admin_note") %> for <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>
   <% elsif transition.to_state == "restricted" %>
-    Client <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %> transitioned to restricted state due to fraud score.
+    <%= transition.verification_attempt.client.preferred_name&.titleize %> <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %> transitioned to restricted state due to fraud score.
   <% elsif transition.to_state == "pending" %>
-    Client submitted <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>
+    <%= transition.verification_attempt.client.preferred_name&.titleize %> submitted <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>
   <% else %>
     <%= transition.initiated_by.name_with_role %> <%= transition.to_state %> <%= link_to "verification attempt", hub_verification_attempt_path(id: transition.verification_attempt.id) %>.
   <% end %>

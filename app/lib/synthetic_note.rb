@@ -15,10 +15,6 @@ class SyntheticNote
     notes = []
     verification_attempts = client.verification_attempts.includes(:transitions).order(created_at: :asc)
     verification_attempts.each do |attempt|
-      notes << SyntheticNote.new(
-        created_at: attempt.created_at,
-        contact_record: attempt
-      )
       attempt.transitions.each do |transition|
         notes << SyntheticNote.new(
           created_at: transition.created_at,
